@@ -1,5 +1,5 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2011-2018 German Aerospace Center (DLR) and others.
+# Copyright (C) 2011-2019 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -68,15 +68,15 @@ class Edge:
 
     def getTLS(self):
         return self._tls
-    
+
     def getCrossingEdges(self):
         return self._crossingEdges
-    
+
     def addLane(self, lane):
         self._lanes.append(lane)
         self._speed = lane.getSpeed()
         self._length = lane.getLength()
-    
+
     def addOutgoing(self, conn):
         if conn._to not in self._outgoing:
             self._outgoing[conn._to] = []
@@ -86,11 +86,11 @@ class Edge:
         if conn._from not in self._incoming:
             self._incoming[conn._from] = []
         self._incoming[conn._from].append(conn)
-    
+
     def _addCrossingEdge(self, edge):
         if edge not in self._crossingEdges:
             self._crossingEdges.append(edge)
-    
+
     def setRawShape(self, shape):
         self._rawShape3D = shape
 

@@ -13,3 +13,6 @@ ticket4108
 
 # Copied from speedGain/default, added option --lanechangeDuration=2.5
 ticket4364
+
+# approaching roundabout with an invalid route
+ticket5097

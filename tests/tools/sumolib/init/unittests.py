@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2016-2018 German Aerospace Center (DLR) and others.
+# Copyright (C) 2016-2019 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
 # http://www.eclipse.org/legal/epl-v20.html
 # SPDX-License-Identifier: EPL-2.0
 
-# @file    unittests_shapes_coords_3d.py
+# @file    unittests.py
 # @author  Michael Behrisch
 # @date    2019-01-09
 # @version $Id$
@@ -24,6 +24,7 @@ import unittest
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', 'tools'))
 
 import sumolib  # noqa
+
 
 class Test_Init(unittest.TestCase):
 

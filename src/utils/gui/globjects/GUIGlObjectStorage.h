@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -30,7 +30,6 @@
 #include <set>
 #include <fx.h>
 #include "GUIGlObject.h"
-#include <utils/foxtools/MFXMutex.h>
 
 
 // ===========================================================================
@@ -167,7 +166,7 @@ private:
     GUIGlID myAktID;
 
     /// @brief A lock to avoid parallel access on the storages
-    mutable MFXMutex myLock;
+    mutable FXMutex myLock;
 
     /// @brief The network object
     GUIGlObject* myNetObject;

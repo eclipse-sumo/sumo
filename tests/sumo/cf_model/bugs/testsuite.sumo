@@ -3,3 +3,6 @@ ticket4116
 
 # warn if tau is lower than step size
 ticket3922
+
+# emergency braking after insertion with IDM, subsecond
+ticket5040

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -21,6 +21,8 @@
 #include <config.h>
 
 #include <netedit/netelements/GNELane.h>
+#include <netedit/netelements/GNEEdge.h>
+#include <netedit/additionals/GNEAdditionalHandler.h>
 
 #include "GNEDetector.h"
 
@@ -61,15 +63,20 @@ GNEDetector::getPositionOverLane() const {
 
 Position
 GNEDetector::getPositionInView() const {
-    if (myPositionOverLane < 0) {
-        return getLane()->getShape().front();
-    } else if (myPositionOverLane > getLane()->getShape().length()) {
-        return getLane()->getShape().back();
-    } else {
-        return getLane()->getShape().positionAtOffset(myPositionOverLane);
-    }
+    return getLane()->getShape().positionAtOffset(getGeometryPositionOverLane());
 }
 
+
+double
+GNEDetector::getGeometryPositionOverLane() const {
+    double fixedPos = myPositionOverLane;
+    const double len = getLane()->getParentEdge().getNBEdge()->getFinalLength();
+    if (fixedPos < 0) {
+        fixedPos += len;
+    }
+    GNEAdditionalHandler::checkAndFixDetectorPosition(fixedPos, len, true);
+    return fixedPos * getLane()->getLengthGeometryFactor();
+}
 
 std::string
 GNEDetector::getParentName() const {

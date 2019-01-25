@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -77,7 +77,7 @@ FXIMPLEMENT(GUIDialog_ViewSettings, FXDialogBox, GUIDialog_ViewSettingsMap, ARRA
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIVisualizationSettings* settings, std::vector<GUISUMOAbstractView::Decal>* decals, MFXMutex* decalsLock) :
+GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIVisualizationSettings* settings, std::vector<GUISUMOAbstractView::Decal>* decals, FXMutex* decalsLock) :
     FXDialogBox(parent, "View Settings", GUIDesignViewSettingsMainDialog),
     myParent(parent), mySettings(settings),
     myDecals(decals), myDecalsLock(decalsLock),
@@ -212,7 +212,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         new FXLabel(m22, " ", nullptr, GUIDesignViewSettingsLabel1);
         myShowSublanes = new FXCheckButton(m22, "Show sublanes", this, MID_SIMPLE_VIEW_COLORCHANGE);
         myShowSublanes->setCheck(mySettings->showSublanes);
-        mySpreadSuperposed = new FXCheckButton(m22, "Spread superposed", this, MID_SIMPLE_VIEW_COLORCHANGE);
+        mySpreadSuperposed = new FXCheckButton(m22, "Spread bidirectional railway\t\tMake both directional edges for a bidirectional railway visible", this, MID_SIMPLE_VIEW_COLORCHANGE);
         mySpreadSuperposed->setCheck(mySettings->spreadSuperposed);
         new FXLabel(m22, "Exaggerate width by", nullptr, GUIDesignViewSettingsLabel1);
         myLaneWidthUpscaleDialer = new FXRealSpinner(m22, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial2);
@@ -406,7 +406,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         FXMatrix* m51 = new FXMatrix(frame5, 2, GUIDesignMatrixViewSettings);
         myAddNamePanel = new NamePanel(m51, this, "Show object name", mySettings->addName);
         myAddFullNamePanel = new NamePanel(m51, this, "Show full name", mySettings->addFullName);
-        new FXHorizontalSeparator(frame5 , GUIDesignHorizontalSeparator);
+        new FXHorizontalSeparator(frame5, GUIDesignHorizontalSeparator);
 
         FXMatrix* m52 = new FXMatrix(frame5, 2, GUIDesignMatrixViewSettings);
         myAddSizePanel = new SizePanel(m52, this, mySettings->addSize);
@@ -435,7 +435,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         FXMatrix* m61 = new FXMatrix(frame6, 2, GUIDesignMatrixViewSettings);
         myPOINamePanel = new NamePanel(m61, this, "Show poi names", mySettings->poiName);
         myPOITypePanel = new NamePanel(m61, this, "Show poi types", mySettings->poiType);
-        new FXHorizontalSeparator(frame6 , GUIDesignHorizontalSeparator);
+        new FXHorizontalSeparator(frame6, GUIDesignHorizontalSeparator);
 
         FXMatrix* m62 = new FXMatrix(frame6, 2, GUIDesignMatrixViewSettings);
         myPOISizePanel = new SizePanel(m62, this, mySettings->poiSize);
@@ -460,7 +460,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         FXMatrix* m91 = new FXMatrix(frame9, 2, GUIDesignMatrixViewSettings);
         myPolyNamePanel = new NamePanel(m91, this, "Show polygon names", mySettings->polyName);
         myPolyTypePanel = new NamePanel(m91, this, "Show polygon types", mySettings->polyType);
-        new FXHorizontalSeparator(frame9 , GUIDesignHorizontalSeparator);
+        new FXHorizontalSeparator(frame9, GUIDesignHorizontalSeparator);
 
         myPolySizePanel = new SizePanel(m91, this, mySettings->polySize);
     }
@@ -1040,10 +1040,10 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
         // - the comboBox of all other views (only append) XXX @todo
         index = mySchemeName->appendItem(tmpSettings.name.c_str());
         mySchemeName->setCurrentItem(index);
-        myParent->getColoringSchemesCombo().appendItem(tmpSettings.name.c_str());
+        myParent->getColoringSchemesCombo()->appendItem(tmpSettings.name.c_str());
     }
-    myParent->getColoringSchemesCombo().setCurrentItem(
-        myParent->getColoringSchemesCombo().findItem(tmpSettings.name.c_str()));
+    myParent->getColoringSchemesCombo()->setCurrentItem(
+        myParent->getColoringSchemesCombo()->findItem(tmpSettings.name.c_str()));
     gSchemeStorage.add(tmpSettings); // overwrites existing
     mySettings = &gSchemeStorage.get(tmpSettings.name);
     myParent->setColorScheme(tmpSettings.name);
@@ -1075,6 +1075,9 @@ GUIDialog_ViewSettings::loadSettings(const std::string& file) {
     }
     if (handler.getDelay() >= 0) {
         myParent->setDelay(handler.getDelay());
+    }
+    if (handler.getBreakpoints().size() > 0) {
+        myParent->setBreakpoints(handler.getBreakpoints());
     }
     handler.applyViewport(myParent);
     rebuildColorMatrices(true);
@@ -1152,7 +1155,7 @@ GUIDialog_ViewSettings::onCmdSaveSetting(FXObject*, FXSelector, void* /*data*/) 
     tmpSettings.name = name;
     gSchemeStorage.add(tmpSettings);
     mySchemeName->setItemText(index, tmpSettings.name.c_str());
-    myParent->getColoringSchemesCombo().setItemText(index, tmpSettings.name.c_str());
+    myParent->getColoringSchemesCombo()->setItemText(index, tmpSettings.name.c_str());
     myParent->setColorScheme(tmpSettings.name);
     mySettings = &gSchemeStorage.get(name);
     myBackup = *mySettings;
@@ -1368,7 +1371,7 @@ GUIDialog_ViewSettings::rebuildColorMatrix(FXVerticalFrame* frame,
     std::vector<double>::const_iterator threshIt = scheme.getThresholds().begin();
     std::vector<std::string>::const_iterator nameIt = scheme.getNames().begin();
     while (colIt != scheme.getColors().end()) {
-        colors.push_back(new FXColorWell(m , MFXUtils::getFXColor(*colIt), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell1));
+        colors.push_back(new FXColorWell(m, MFXUtils::getFXColor(*colIt), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell1));
         if (fixed) {
             new FXLabel(m, nameIt->c_str());
             new FXLabel(m, "");
@@ -1763,7 +1766,7 @@ GUIDialog_ViewSettings::SizePanel::SizePanel(
 GUIVisualizationSizeSettings
 GUIDialog_ViewSettings::SizePanel::getSettings() {
     return GUIVisualizationSizeSettings(
-               myMinSizeDial->getValue(), myExaggerateDial->getValue(), 
+               myMinSizeDial->getValue(), myExaggerateDial->getValue(),
                myCheck->getCheck() != FALSE,
                myCheckSelected->getCheck() != FALSE);
 }

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2017-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -28,8 +28,8 @@
 #include <utils/common/SystemFrame.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/options/OptionsIO.h>
-#include <utils/vehicle/IntermodalRouter.h>
-#include <utils/vehicle/PedestrianRouter.h>
+#include <utils/router/IntermodalRouter.h>
+#include <utils/router/PedestrianRouter.h>
 #include <utils/xml/XMLSubSys.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdgeControl.h>
@@ -448,7 +448,7 @@ Simulation::findRoute(const std::string& from, const std::string& to, const std:
     for (const MSEdge* e : edges) {
         result.edges.push_back(e->getID());
     }
-    result.travelTime = result.cost = router.recomputeCosts(edges, vehicle, dep);
+    result.travelTime = result.cost = router.recomputeCosts(edges, vehicle, dep, &result.length);
     if (vehicle != nullptr) {
         MSNet::getInstance()->getVehicleControl().deleteVehicle(vehicle, true);
     }
@@ -514,7 +514,7 @@ Simulation::findIntermodalRoute(const std::string& from, const std::string& to,
     if (walkFactor < 0) {
         walkFactor = OptionsCont::getOptions().getFloat("persontrip.walkfactor");
     }
-    const double externalFactor = StringUtils::toDouble(pedType->getParameter().getParameter("externalEffortFactor", "1.0"));
+    const double externalFactor = StringUtils::toDouble(pedType->getParameter().getParameter("externalEffortFactor", "100"));
     if (departPos < 0) {
         departPos += fromEdge->getLength();
     }

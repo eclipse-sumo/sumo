@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -139,7 +139,7 @@ assert(vehicle->getLane() == (*myCandi).lane);
 #ifdef DEBUG_ACTIONSTEPS
         if DEBUG_COND {
         std::cout << SIMTIME << " veh '" << vehicle->getID() << "' lcm->maneuverDist=" << vehicle->getLaneChangeModel().getManeuverDist()
-            << " lcm->speedLat=" << vehicle->getLaneChangeModel().getSpeedLat() << std::endl;
+                      << " lcm->speedLat=" << vehicle->getLaneChangeModel().getSpeedLat() << std::endl;
         }
 #endif
         return changed;
@@ -148,7 +148,7 @@ assert(vehicle->getLane() == (*myCandi).lane);
 #ifdef DEBUG_ACTIONSTEPS
     if DEBUG_COND {
     std::cout << "\n" << SIMTIME << " veh '" << vehicle->getID() << "' at plans sublane maneuver."
-        << std::endl;
+                  << std::endl;
     }
 #endif
     vehicle->updateBestLanes(); // needed?
@@ -214,7 +214,7 @@ MSLaneChangerSublane::abortLCManeuver(MSVehicle* vehicle) {
 #ifdef DEBUG_MANEUVER
     if DEBUG_COND {
     std::cout << SIMTIME << " veh '" << vehicle->getID() << "' aborts LC-continuation."
-        << std::endl;
+                  << std::endl;
     }
 #endif
     vehicle->getLaneChangeModel().setSpeedLat(0);
@@ -255,8 +255,8 @@ MSLaneChangerSublane::continueChangeSublane(MSVehicle* vehicle, ChangerIt& from)
 #ifdef DEBUG_MANEUVER
     if DEBUG_COND {
     std::cout << SIMTIME << " vehicle '" << vehicle->getID() << "' continueChangeSublane()"
-        << " remLatDist=" << remLatDist << " nextLatDist=" << nextLatDist
-        << std::endl;
+                  << " remLatDist=" << remLatDist << " nextLatDist=" << nextLatDist
+                  << std::endl;
     }
 #endif
 
@@ -300,15 +300,15 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
 #ifdef DEBUG_MANEUVER
     if DEBUG_COND {
     std::cout << SIMTIME << " vehicle '" << vehicle->getID() << "' with maneuverDist=" << vehicle->getLaneChangeModel().getManeuverDist()
-        << " and committedSpeed=" << vehicle->getLaneChangeModel().getCommittedSpeed()
-        << " increments lateral position by latDist=" << latDist << std::endl;
+                  << " and committedSpeed=" << vehicle->getLaneChangeModel().getCommittedSpeed()
+                  << " increments lateral position by latDist=" << latDist << std::endl;
     }
 #endif
 #ifdef DEBUG_SURROUNDING
     if DEBUG_COND {
     std::cout << SIMTIME << " vehicle '" << vehicle->getID() << "'\n    to->ahead=" << to->ahead.toString()
-        << "'\n    to->aheadNext=" << to->aheadNext.toString()
-        << std::endl;
+                  << "'\n    to->aheadNext=" << to->aheadNext.toString()
+                  << std::endl;
     }
 #endif
     const bool completedManeuver = vehicle->getLaneChangeModel().getManeuverDist() - latDist == 0.;
@@ -423,10 +423,10 @@ MSLaneChangerSublane::outputLCStarted(MSVehicle* vehicle, ChangerIt& from, Chang
 #ifdef DEBUG_STATE
         if DEBUG_COND {
         std::cout << SIMTIME << " veh=" << vehicle->getID() << " laneChangeStarted state=" << toString((LaneChangeAction)vehicle->getLaneChangeModel().getOwnState())
-            << " prevState=" << toString((LaneChangeAction)vehicle->getLaneChangeModel().getPrevState())
-            << " filter=" << toString((LaneChangeAction)(LCA_CHANGE_REASONS & ~LCA_SUBLANE))
-            << " filtered=" << toString((LaneChangeAction)(vehicle->getLaneChangeModel().getOwnState() & (LCA_CHANGE_REASONS & ~LCA_SUBLANE)))
-            << "\n";
+                      << " prevState=" << toString((LaneChangeAction)vehicle->getLaneChangeModel().getPrevState())
+                      << " filter=" << toString((LaneChangeAction)(LCA_CHANGE_REASONS & ~LCA_SUBLANE))
+                      << " filtered=" << toString((LaneChangeAction)(vehicle->getLaneChangeModel().getOwnState() & (LCA_CHANGE_REASONS & ~LCA_SUBLANE)))
+                      << "\n";
         }
 #endif
         vehicle->getLaneChangeModel().setLeaderGaps(to->aheadNext);

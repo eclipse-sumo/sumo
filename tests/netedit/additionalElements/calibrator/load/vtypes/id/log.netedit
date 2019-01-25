@@ -1,3 +1,0 @@
-Warning: Essential unique string attribute 'id' of vType is missing; vType cannot be created
-Warning: Format of essential unique string attribute 'id' of vType is invalid; ID contains invalid characters; vType cannot be created
-Warning: There is another vType with the same ID='type01'.

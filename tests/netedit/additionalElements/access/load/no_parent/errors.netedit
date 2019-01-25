@@ -55,7 +55,7 @@ GLDebug: Inserted edge:7 into SUMORTree with boundary -30.00,0.00,80.00,61.60
 GLDebug: Inserted edge:8 into SUMORTree with boundary -30.00,-1.60,80.00,60.00
 GLDebug: Inserted edge:9 into SUMORTree with boundary -30.00,-10.00,80.00,51.60
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals saved, shapes saved
+Debug: Current saving Status: net unsaved, additionals saved, demand elements saved
 GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,8.00,22.00,52.00
 GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,8.00,72.00,52.00
 GLDebug: Removed object junction:gneJ10 from SUMORTree with boundary -22.00,38.00,22.00,82.00
@@ -222,4 +222,4 @@ Debug: Deleting unreferenced junction 'gneJ8' in GNENet destructor
 Debug: Deleting unreferenced junction 'gneJ9' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting net builder in GNENet destructor
-GLDebug: Number of objects in SUMORTree during call destructor: 30
+GLDebug: Number of objects in SUMORTree during call of the destructor: 30

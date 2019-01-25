@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -83,6 +83,8 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     {"vehicle",             GLO_VEHICLE},
     {"person",              GLO_PERSON},
     {"container",           GLO_CONTAINER},
+    {"route",               GLO_ROUTE},
+    {"vType",               GLO_VTYPE},
     {"undefined",           GLO_MAX}
 };
 

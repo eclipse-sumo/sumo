@@ -1,0 +1,4 @@
+--node-files input_plain.nod.xml --edge-files input_plain.edg.xml --connection-files input_plain.con.xml --output net.net.xml --no-turnarounds
+--plain-output-prefix plain
+--offset.x 100
+--offset.y 20

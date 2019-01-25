@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2007-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2007-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -48,7 +48,7 @@ class MSLane;
  * @brief A device that performs vehicle rerouting based on current edge speeds
  *
  * The routing-device system consists of in-vehicle devices that perform the routing
- *  and simulation-wide static methods for collecting edge weights and 
+ *  and simulation-wide static methods for collecting edge weights and
  *  parallelizing in MSRoutingEngine.
  *
  * A device is assigned to a vehicle using the common explicit/probability - procedure.

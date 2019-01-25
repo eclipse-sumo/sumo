@@ -35,6 +35,8 @@ set(netimport_STAT_SRCS
    NIXMLTypesHandler.h
    NIXMLPTHandler.cpp
    NIXMLPTHandler.h
+   NIXMLShapeHandler.cpp
+   NIXMLShapeHandler.h
    NIXMLTrafficLightsHandler.cpp
    NIXMLTrafficLightsHandler.h
    NINavTeqHelper.cpp

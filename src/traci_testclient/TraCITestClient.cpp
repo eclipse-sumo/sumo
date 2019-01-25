@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2008-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2008-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -48,7 +48,7 @@
 // ===========================================================================
 TraCITestClient::TraCITestClient(std::string outputFileName)
     : outputFileName(outputFileName), answerLog("") {
-    answerLog.setf(std::ios::fixed , std::ios::floatfield); // use decimal format
+    answerLog.setf(std::ios::fixed, std::ios::floatfield);  // use decimal format
     answerLog.setf(std::ios::showpoint); // print decimal point
     answerLog << std::setprecision(2);
 }
@@ -224,7 +224,8 @@ void
 TraCITestClient::commandGetVariable(int domID, int varID, const std::string& objID, tcpip::Storage* addData) {
     tcpip::Storage inMsg;
     try {
-        send_commandGetVariable(domID, varID, objID, addData);
+        createCommand(domID, varID, objID, addData);
+        mySocket->sendExact(myOutput);
         answerLog << std::endl << "-> Command sent: <GetVariable>:" << std::endl
                   << "  domID=" << domID << " varID=" << varID
                   << " objID=" << objID << std::endl;
@@ -262,7 +263,8 @@ TraCITestClient::commandSetValue(int domID, int varID, const std::string& objID,
     if (msgS != "") {
         errorMsg(msg);
     }
-    send_commandSetValue(domID, varID, objID, tmp);
+    createCommand(domID, varID, objID, &tmp);
+    mySocket->sendExact(myOutput);
     answerLog << std::endl << "-> Command sent: <SetValue>:" << std::endl
               << "  domID=" << domID << " varID=" << varID
               << " objID=" << objID << std::endl;
@@ -941,8 +943,8 @@ TraCITestClient::testAPI() {
     }
     libsumo::TraCILogic logic("custom", 0, 3);
     logic.phases = std::vector<libsumo::TraCIPhase>({ libsumo::TraCIPhase(5, "rrrrrrr", 5, 5), libsumo::TraCIPhase(10, "ggggggg", 5, 15),
-                                            libsumo::TraCIPhase(3, "GGGGGGG", 3, 3), libsumo::TraCIPhase(3, "yyyyyyy", 3, 3)
-                                            });
+                   libsumo::TraCIPhase(3, "GGGGGGG", 3, 3), libsumo::TraCIPhase(3, "yyyyyyy", 3, 3)
+                                                    });
     trafficlights.setCompleteRedYellowGreenDefinition("n_m4", logic);
 
     std::vector<libsumo::TraCILogic> logics = trafficlights.getCompleteRedYellowGreenDefinition("n_m4");
@@ -982,6 +984,8 @@ TraCITestClient::testAPI() {
         answerLog << "    setScheme: \n";
         gui.setSchema("View #0", "real world");
         answerLog << "    getScheme: " << gui.getSchema("View #0") << "\n";
+        gui.setZoom("View #0", 50);
+        answerLog << "    getZoom: " << gui.getZoom() << "\n";
         answerLog << "    take screenshot: \n";
         gui.screenshot("View #0", "image.png", 500, 500);
     } catch (libsumo::TraCIException&) {

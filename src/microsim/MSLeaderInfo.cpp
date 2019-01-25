@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -162,7 +162,7 @@ MSLeaderInfo::operator[](int sublane) const {
 std::string
 MSLeaderInfo::toString() const {
     std::ostringstream oss;
-    oss.setf(std::ios::fixed , std::ios::floatfield);
+    oss.setf(std::ios::fixed, std::ios::floatfield);
     oss << std::setprecision(2);
     for (int i = 0; i < (int)myVehicles.size(); ++i) {
         oss << Named::getIDSecure(myVehicles[i]);
@@ -268,7 +268,7 @@ MSLeaderDistanceInfo::operator[](int sublane) const {
 std::string
 MSLeaderDistanceInfo::toString() const {
     std::ostringstream oss;
-    oss.setf(std::ios::fixed , std::ios::floatfield);
+    oss.setf(std::ios::fixed, std::ios::floatfield);
     oss << std::setprecision(2);
     for (int i = 0; i < (int)myVehicles.size(); ++i) {
         oss << Named::getIDSecure(myVehicles[i]) << ":";
@@ -386,7 +386,7 @@ MSCriticalFollowerDistanceInfo::clear() {
 std::string
 MSCriticalFollowerDistanceInfo::toString() const {
     std::ostringstream oss;
-    oss.setf(std::ios::fixed , std::ios::floatfield);
+    oss.setf(std::ios::fixed, std::ios::floatfield);
     oss << std::setprecision(2);
     for (int i = 0; i < (int)myVehicles.size(); ++i) {
         oss << Named::getIDSecure(myVehicles[i]) << ":";

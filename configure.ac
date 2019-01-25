@@ -464,6 +464,7 @@ src/netedit/changes/Makefile
 src/netedit/dialogs/Makefile
 src/netedit/frames/Makefile
 src/netedit/netelements/Makefile
+src/netedit/demandelements/Makefile
 src/netedit/Makefile
 src/mesogui/Makefile 
 src/mesosim/Makefile 
@@ -503,6 +504,7 @@ src/utils/gui/windows/Makefile
 src/utils/importio/Makefile
 src/utils/iodevices/Makefile
 src/utils/options/Makefile
+src/utils/router/Makefile
 src/utils/shapes/Makefile
 src/utils/traci/Makefile
 src/utils/vehicle/Makefile

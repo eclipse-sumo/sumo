@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -152,7 +152,7 @@ GNEGenericParameterDialog::GenericParametersValues::clearGenericParameters() {
 
 
 long
-GNEGenericParameterDialog::GenericParametersValues::onPaint(FXObject* o, FXSelector f , void* p) {
+GNEGenericParameterDialog::GenericParametersValues::onPaint(FXObject* o, FXSelector f, void* p) {
     // size of key label has to be updated in every interation
     if (myGenericParameterRows.size() > 0) {
         myKeyLabel->setWidth(myGenericParameterRows.front()->keyField->getWidth());

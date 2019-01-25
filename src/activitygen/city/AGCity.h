@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2010-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2010-2019 German Aerospace Center (DLR) and others.
 // activitygen module
 // Copyright 2010 TUM (Technische Universitaet Muenchen, http://www.tum.de/)
 // This program and the accompanying materials
@@ -32,7 +32,6 @@
 #include <iostream>
 #include <vector>
 #include <list>
-#include <router/RONet.h>
 #include "AGPosition.h"
 #include "AGDataAndStatistics.h"
 #include "AGSchool.h"
@@ -45,6 +44,7 @@
 // class declarations
 // ===========================================================================
 class AGHousehold;
+class RONet;
 
 
 // ===========================================================================

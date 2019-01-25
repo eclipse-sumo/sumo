@@ -11,16 +11,11 @@ GLDebug: Inserted calibrator:laneCalibratorVehicleTypes into SUMORTree with boun
 GLDebug: Removed object calibrator:laneCalibratorVehicleTypes from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted calibrator:laneCalibratorVehicleTypes into SUMORTree with boundary -10.00,-21.60,30.00,18.40
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 GLDebug: Removed object calibrator:laneCalibratorVehicleTypes from SUMORTree with boundary -10.00,-21.60,30.00,18.40
 GLDebug: Inserted calibrator:laneCalibratorVehicleTypes into SUMORTree with boundary -10.00,-21.60,30.00,18.40
-Debug: Adding vType 'type01' in GNEChange_Additional
-Debug: Adding vType 'type02' in GNEChange_Additional
-Debug: Adding vType 'type03' in GNEChange_Additional
-Debug: Adding vType 'type04' in GNEChange_Additional
-Debug: Adding vType 'type05' in GNEChange_Additional
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
 Debug: Additionals saved
 GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
 GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
@@ -48,15 +43,10 @@ GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
 GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,31.60
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
-Debug: Deleting unreferenced vType 'type05'
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, shapes saved
-Debug: Deleting unreferenced vType 'type04'
-Debug: Deleting unreferenced vType 'type03'
-Debug: Deleting unreferenced vType 'type02'
-Debug: Deleting unreferenced vType 'type01'
 Debug: Deleting unreferenced laneCalibrator 'laneCalibratorVehicleTypes'
 GLDebug: Removed object calibrator:laneCalibratorVehicleTypes from SUMORTree with boundary -10.00,-21.60,30.00,18.40
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
@@ -67,4 +57,4 @@ Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting net builder in GNENet destructor
-GLDebug: Number of objects in SUMORTree during call destructor: 6
+GLDebug: Number of objects in SUMORTree during call of the destructor: 6

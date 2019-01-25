@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -205,12 +205,12 @@ GUIOSGView::buildViewToolBars(GUIGlChildWindow& v) {
     {
         const std::vector<std::string>& names = gSchemeStorage.getNames();
         for (std::vector<std::string>::const_iterator i = names.begin(); i != names.end(); ++i) {
-            v.getColoringSchemesCombo().appendItem((*i).c_str());
+            v.getColoringSchemesCombo()->appendItem(i->c_str());
             if ((*i) == myVisualizationSettings->name) {
-                v.getColoringSchemesCombo().setCurrentItem(v.getColoringSchemesCombo().getNumItems() - 1);
+                v.getColoringSchemesCombo()->setCurrentItem(v.getColoringSchemesCombo()->getNumItems() - 1);
             }
         }
-        v.getColoringSchemesCombo().setNumVisible(5);
+        v.getColoringSchemesCombo()->setNumVisible(5);
     }
     // for junctions
     new FXButton(v.getLocatorPopup(),
@@ -430,8 +430,7 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
     for (auto it = myPersons.begin(); it != myPersons.end();) {
         if (!it->second.active) {
             removeTransportable((it++)->first);
-        }
-        else {
+        } else {
             ++it;
         }
     }

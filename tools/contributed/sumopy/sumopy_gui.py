@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2016-2018 German Aerospace Center (DLR) and others.
+# Copyright (C) 2016-2019 German Aerospace Center (DLR) and others.
 # SUMOPy module
 # Copyright (C) 2012-2017 University of Bologna - DICAM
 # This program and the accompanying materials
@@ -23,7 +23,7 @@ bicycle and Personal Rapid Transit (PRT). SUMOPy consists of a GUI interface, ne
 __appname__ = "SUMOPy"
 __version__ = "2.2"
 __licence__ = """SUMOPy as well as SUMO is licensed under the GPL."""
-__copyright__ = "(c) 2012-2018 University of Bologna - DICAM"
+__copyright__ = "(c) 2012-2019 University of Bologna - DICAM"
 __author__ = "Joerg Schweizer"
 __usage__ = """USAGE:
 from command line:

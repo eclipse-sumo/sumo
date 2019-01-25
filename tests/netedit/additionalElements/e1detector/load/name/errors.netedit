@@ -11,7 +11,7 @@ GLDebug: Inserted e1Detector:E1_01 into SUMORTree with boundary -0.10,-0.10,0.10
 GLDebug: Removed object e1Detector:E1_01 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted e1Detector:E1_01 into SUMORTree with boundary 18.00,-18.40,58.00,21.60
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 GLDebug: Removed object e1Detector:E1_01 from SUMORTree with boundary 18.00,-18.40,58.00,21.60
 GLDebug: Inserted e1Detector:E1_01 into SUMORTree with boundary 18.00,-18.40,58.00,21.60
 Debug: Adding e1Detector 'E1_02' in GNEChange_Additional
@@ -23,7 +23,7 @@ GLDebug: Inserted e1Detector:E1_01 into SUMORTree with boundary 18.00,-18.40,58.
 GLDebug: Removed object e1Detector:E1_02 from SUMORTree with boundary 15.00,-18.40,55.00,21.60
 GLDebug: Inserted e1Detector:E1_02 into SUMORTree with boundary 15.00,-18.40,55.00,21.60
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
 Debug: Additionals saved
 GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
 GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
@@ -56,7 +56,7 @@ GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31
 Debug: Deleting unreferenced e1Detector 'E1_02'
 GLDebug: Removed object e1Detector:E1_02 from SUMORTree with boundary 15.00,-18.40,55.00,21.60
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Deleting unreferenced e1Detector 'E1_01'
 GLDebug: Removed object e1Detector:E1_01 from SUMORTree with boundary 18.00,-18.40,58.00,21.60
 Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
@@ -69,4 +69,4 @@ Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting net builder in GNENet destructor
-GLDebug: Number of objects in SUMORTree during call destructor: 6
+GLDebug: Number of objects in SUMORTree during call of the destructor: 6

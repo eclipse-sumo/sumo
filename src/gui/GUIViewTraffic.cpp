@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -102,12 +102,12 @@ GUIViewTraffic::buildViewToolBars(GUIGlChildWindow& v) {
     {
         const std::vector<std::string>& names = gSchemeStorage.getNames();
         for (std::vector<std::string>::const_iterator i = names.begin(); i != names.end(); ++i) {
-            v.getColoringSchemesCombo().appendItem((*i).c_str());
+            v.getColoringSchemesCombo()->appendItem(i->c_str());
             if ((*i) == myVisualizationSettings->name) {
-                v.getColoringSchemesCombo().setCurrentItem(v.getColoringSchemesCombo().getNumItems() - 1);
+                v.getColoringSchemesCombo()->setCurrentItem(v.getColoringSchemesCombo()->getNumItems() - 1);
             }
         }
-        v.getColoringSchemesCombo().setNumVisible(MAX2(5, (int)names.size() + 1));
+        v.getColoringSchemesCombo()->setNumVisible(MAX2(5, (int)names.size() + 1));
     }
     // for junctions
     new FXButton(v.getLocatorPopup(),
@@ -230,7 +230,7 @@ GUIViewTraffic::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorSch
 }
 
 
-std::vector<std::string> 
+std::vector<std::string>
 GUIViewTraffic::getEdgeDataAttrs() const {
     if (GUINet::getGUIInstance() != nullptr) {
         return GUINet::getGUIInstance()->getEdgeDataAttrs();
@@ -239,7 +239,7 @@ GUIViewTraffic::getEdgeDataAttrs() const {
 }
 
 
-std::vector<std::string> 
+std::vector<std::string>
 GUIViewTraffic::getEdgeLaneParamKeys(bool edgeKeys) const {
     std::set<std::string> keys;
     for (const MSEdge* e : MSEdge::getAllEdges()) {

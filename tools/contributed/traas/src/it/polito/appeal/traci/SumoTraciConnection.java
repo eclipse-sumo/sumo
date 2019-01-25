@@ -147,6 +147,10 @@ public class SumoTraciConnection {
 		this.configFile = configFile;
 	}
 
+	public SumoTraciConnection(int remotePort) throws IOException, InterruptedException {
+        this(new InetSocketAddress("127.0.0.1", remotePort));
+    }
+
 	public SumoTraciConnection(SocketAddress sockAddr) throws IOException,
 			InterruptedException {
 		

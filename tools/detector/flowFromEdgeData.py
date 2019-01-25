@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2007-2018 German Aerospace Center (DLR) and others.
+# Copyright (C) 2007-2019 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -124,11 +124,11 @@ def printFlows(options, edgeFlow, detReader):
 
 
 def calcStatistics(options, begin, edgeFlow, detReader):
-    rSum = 0
-    dSum = 0
-    sumAbsDev = 0
-    sumSquaredDev = 0
-    sumSquaredPercent = 0
+    rSum = 0.
+    dSum = 0.
+    sumAbsDev = 0.
+    sumSquaredDev = 0.
+    sumSquaredPercent = 0.
     n = 0
     for edge, detData in detReader._edge2DetData.items():
         rFlow = edgeFlow.get(edge, 0)

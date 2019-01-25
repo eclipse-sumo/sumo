@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -67,7 +67,7 @@ protected:
     /// @brief struct for group all radio buttons related with position
     struct PositionOptions {
         /// @brief build Position Options
-        void buildPositionOptions(GNEDialog_FixAdditionalPositions *fixAdditionalPositions, FXVerticalFrame* mainFrame);
+        void buildPositionOptions(GNEDialog_FixAdditionalPositions* fixAdditionalPositions, FXVerticalFrame* mainFrame);
 
         /// @brief select option
         void selectOption(FXObject* option);
@@ -94,7 +94,7 @@ protected:
     /// @brief struct for group all radio buttons related with position
     struct ConsecutiveLaneOptions {
         /// @brief build consecutive lane Options
-        void buildConsecutiveLaneOptions(GNEDialog_FixAdditionalPositions *fixAdditionalPositions, FXVerticalFrame* mainFrame);
+        void buildConsecutiveLaneOptions(GNEDialog_FixAdditionalPositions* fixAdditionalPositions, FXVerticalFrame* mainFrame);
 
         /// @brief select option
         void selectOption(FXObject* option);

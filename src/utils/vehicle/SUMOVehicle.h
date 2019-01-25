@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -29,7 +29,7 @@
 #include <typeinfo>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/Named.h>
-#include <utils/vehicle/SUMOAbstractRouter.h>
+#include <utils/router/SUMOAbstractRouter.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/iodevices/OutputDevice.h>
 
@@ -385,6 +385,11 @@ public:
 
     /// @brief whether this vehicle is selected in the GUI
     virtual bool isSelected() const = 0;
+
+    /** @brief Returns the associated RNG for this vehicle
+    * @return The vehicle's associated RNG
+    */
+    virtual std::mt19937* getRNG() const = 0;
 
     /// @brief return the numerical ID which is only for internal usage
     //  (especially fast comparison in maps which need vehicles as keys)

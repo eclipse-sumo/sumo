@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2010-2018 German Aerospace Center (DLR) and others.
+# Copyright (C) 2010-2019 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -20,7 +20,6 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 import os
-import sys
 import subprocess
 import xml.sax
 import codecs
@@ -53,7 +52,7 @@ _KEYWORDS = "HeadURL Id LastChangedBy LastChangedDate LastChangedRevision"
 SEPARATOR = "/****************************************************************************/\n"
 EPL_HEADER = """/****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -170,7 +169,7 @@ class PropertyReader(xml.sax.handler.ContentHandler):
     def startElement(self, name, attrs):
         if name == 'target':
             self._file = attrs['path']
-            seen.add(os.path.join(svnRoot, self._file))
+            seen.add(os.path.join(repoRoot, self._file))
         if name == 'property':
             self._property = attrs['name']
 
@@ -232,7 +231,7 @@ class PropertyReader(xml.sax.handler.ContentHandler):
             self._hadEOL = False
             self._hadKeywords = False
 
-    def checkFile(self, fileName=None):
+    def checkFile(self, fileName=None, exclude=None):
         if fileName is not None:
             self._file = fileName
         ext = os.path.splitext(self._file)[1]
@@ -241,16 +240,17 @@ class PropertyReader(xml.sax.handler.ContentHandler):
         except UnicodeDecodeError as e:
             print(self._file, e)
         self.checkFileHeader(ext)
-        if self._pep and ext == ".py" and "/contributed/" not in self._file:
+        if exclude:
+            for x in exclude:
+                if x + "/" in self._file:
+                    return
+        if self._pep and ext == ".py":
             if HAVE_FLAKE and os.path.getsize(self._file) < 1000000:  # flake hangs on very large files
                 subprocess.call(["flake8", "--max-line-length", "120", self._file])
             if HAVE_AUTOPEP and self._fix:
                 subprocess.call(["autopep8", "--max-line-length", "120", "--in-place", self._file])
 
 
-sumoRoot = os.path.dirname(
-    os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-svnRoots = [sumoRoot]
 optParser = OptionParser()
 optParser.add_option("-v", "--verbose", action="store_true",
                      default=False, help="tell me what you are doing")
@@ -258,32 +258,41 @@ optParser.add_option("-f", "--fix", action="store_true",
                      default=False, help="fix invalid svn properties")
 optParser.add_option("-s", "--skip-pep", action="store_true",
                      default=False, help="skip autopep8 and flake8 tests")
+optParser.add_option("-d", "--directory", help="check given subdirectory of sumo tree")
+optParser.add_option("-x", "--exclude", default="contributed",
+                     help="comma-separated list of (sub-)paths to exclude from pep checks")
 (options, args) = optParser.parse_args()
 seen = set()
+sumoRoot = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 if len(args) > 0:
-    svnRoots = [os.path.abspath(a) for a in args]
-for svnRoot in svnRoots:
+    repoRoots = [os.path.abspath(a) for a in args]
+elif options.directory:
+    repoRoots = [os.path.join(sumoRoot, options.directory)]
+else:
+    repoRoots = [sumoRoot]
+for repoRoot in repoRoots:
     if options.verbose:
-        print("checking", svnRoot)
+        print("checking", repoRoot)
     propRead = PropertyReader(options.fix, not options.skip_pep)
     try:
-        output = subprocess.check_output(["svn", "pl", "-v", "-R", "--xml", svnRoot])
-        xml.sax.parseString(output, propRead)
-    except (OSError, subprocess.CalledProcessError) as e:
-        print("This seems to be no valid svn repository", svnRoot, e)
-        if options.verbose:
-            print("trying git at", svnRoot)
         oldDir = os.getcwd()
-        os.chdir(svnRoot)
+        os.chdir(repoRoot)
+        exclude = options.exclude.split(",")
         for name in subprocess.check_output(["git", "ls-files"]).splitlines():
             ext = os.path.splitext(name)[1]
             if ext in _SOURCE_EXT:
-                propRead.checkFile(name)
+                propRead.checkFile(name, exclude)
         os.chdir(oldDir)
-        sys.exit()
+        continue
+    except (OSError, subprocess.CalledProcessError) as e:
+        print("This seems to be no valid git repository", repoRoot, e)
+        if options.verbose:
+            print("trying svn at", repoRoot)
+        output = subprocess.check_output(["svn", "pl", "-v", "-R", "--xml", repoRoot])
+        xml.sax.parseString(output, propRead)
     if options.verbose:
-        print("re-checking tree at", svnRoot)
-    for root, dirs, files in os.walk(svnRoot):
+        print("re-checking tree at", repoRoot)
+    for root, dirs, files in os.walk(repoRoot):
         for name in files:
             ext = os.path.splitext(name)[1]
             if name not in _IGNORE:

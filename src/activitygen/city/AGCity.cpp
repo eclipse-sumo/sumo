@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2010-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2010-2019 German Aerospace Center (DLR) and others.
 // activitygen module
 // Copyright 2010 TUM (Technische Universitaet Muenchen, http://www.tum.de/)
 // This program and the accompanying materials
@@ -37,6 +37,7 @@
 #include <utils/options/OptionsCont.h>
 #include <router/RONet.h>
 #include <router/ROEdge.h>
+#include "AGAdult.h"
 #include "AGStreet.h"
 #include "AGWorkPosition.h"
 #include "AGCity.h"

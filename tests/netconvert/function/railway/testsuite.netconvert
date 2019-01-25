@@ -1,8 +1,13 @@
+# test for option railway.topology.repair
+repair
+signals
 topology.output
 
 # make all tracks usable in both directions
 all-bidi
 
-# test for option railway.topology.repair
-repair
-signals
+# apply endOffset to both directions
+bidi_endOffset
+
+# prevent invalid endOffset
+bidi_endOffset_invalid

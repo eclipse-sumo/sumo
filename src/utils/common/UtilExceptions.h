@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -154,13 +154,13 @@ public:
 
 /// define SOFT_ASSERT raise an assertion in debug mode everywhere except on the windows test server
 #ifdef MSVC_TEST_SERVER
-  #ifdef _DEBUG
-    #define SOFT_ASSERT(expr) if (!(expr)) {throw ProcessError("should not happen");}
-  #else
-    #define SOFT_ASSERT(expr)
-  #endif
+#ifdef _DEBUG
+#define SOFT_ASSERT(expr) if (!(expr)) {throw ProcessError("should not happen");}
 #else
-  #define SOFT_ASSERT(expr) assert(expr);
+#define SOFT_ASSERT(expr)
+#endif
+#else
+#define SOFT_ASSERT(expr) assert(expr);
 #endif
 
 #endif

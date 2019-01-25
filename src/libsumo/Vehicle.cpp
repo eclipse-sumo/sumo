@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -25,7 +25,7 @@
 #include <utils/common/StringUtils.h>
 #include <utils/common/StringUtils.h>
 #include <utils/emissions/PollutantsInterface.h>
-#include <utils/xml/SUMOVehicleParserHelper.h>
+#include <utils/vehicle/SUMOVehicleParserHelper.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <microsim/devices/MSDevice.h>
@@ -585,7 +585,7 @@ Vehicle::getVia(const std::string& vehicleID) {
 std::pair<int, int>
 Vehicle::getLaneChangeState(const std::string& vehicleID, int direction) {
     MSVehicle* veh = getVehicle(vehicleID);
-    if (veh->isOnRoad() && veh->getLaneChangeModel().hasSavedState(direction)) {
+    if (veh->isOnRoad()) {
         return veh->getLaneChangeModel().getSavedState(direction);
     } else {
         return std::make_pair((int)LCA_UNKNOWN, (int)LCA_UNKNOWN);
@@ -1061,6 +1061,7 @@ Vehicle::moveToXY(const std::string& vehicleID, const std::string& edgeID, const
     }
     if ((found && bestDistance <= maxRouteDistance) || mayLeaveNetwork) {
         // optionally compute lateral offset
+        pos.setz(veh->getPosition().z());
         if (found && (MSGlobals::gLateralResolution > 0 || mayLeaveNetwork)) {
             const double perpDist = lane->getShape().distance2D(pos, false);
             if (perpDist != GeomHelper::INVALID_OFFSET) {
@@ -1080,6 +1081,7 @@ Vehicle::moveToXY(const std::string& vehicleID, const std::string& edgeID, const
                     lanePosLat = -lanePosLat;
                 }
             }
+            pos.setz(lane->geometryPositionAtOffset(lanePos).z());
         }
         if (found && !mayLeaveNetwork && MSGlobals::gLateralResolution < 0) {
             // mapped position may differ from pos

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2010-2018 German Aerospace Center (DLR) and others.
+# Copyright (C) 2010-2019 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -447,8 +447,7 @@ def main(options):
         return idx + 1
 
     with open(options.tripfile, 'w') as fouttrips:
-        sumolib.writeXMLHeader(
-            fouttrips, "$Id$", "routes")
+        sumolib.writeXMLHeader(fouttrips, "$Id$", "routes")  # noqa
         if options.vehicle_class:
             fouttrips.write('    <vType id="%s" vClass="%s"%s/>\n' %
                             (options.vtypeID, options.vehicle_class, vtypeattrs))
@@ -478,7 +477,7 @@ def main(options):
 
     # call duarouter for routes or validated trips
     args = [DUAROUTER, '-n', options.netfile, '-r', options.tripfile, '--ignore-errors',
-                '--begin', str(options.begin), '--end', str(options.end), '--no-step-log', '--no-warnings']
+            '--begin', str(options.begin), '--end', str(options.end), '--no-step-log', '--no-warnings']
     if options.additional is not None:
         args += ['--additional-files', options.additional]
     if options.carWalkMode is not None:
@@ -496,6 +495,7 @@ def main(options):
         args2 = args + ['-o', tmpTrips, '--write-trips']
         print("calling ", " ".join(args2))
         subprocess.call(args2)
+        os.remove(options.tripfile)  # on windows, rename does not overwrite
         os.rename(tmpTrips, options.tripfile)
 
     if options.weights_outprefix:

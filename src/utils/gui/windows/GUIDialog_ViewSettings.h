@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -33,7 +33,6 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class MFXMutex;
 class MFXIconComboBox;
 
 
@@ -92,7 +91,7 @@ public:
     GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
                            GUIVisualizationSettings* settings,
                            std::vector<GUISUMOAbstractView::Decal>* decals,
-                           MFXMutex* decalsLock);
+                           FXMutex* decalsLock);
 
 
     /// @brief Destructor
@@ -247,7 +246,7 @@ private:
     std::vector<GUISUMOAbstractView::Decal>* myDecals;
 
     /// @brief Lock used when changing the decals
-    MFXMutex* myDecalsLock;
+    FXMutex* myDecalsLock;
 
     /// @name Dialog elements
     /// @{

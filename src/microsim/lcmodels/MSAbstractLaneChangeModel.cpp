@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -94,6 +94,9 @@ MSAbstractLaneChangeModel::MSAbstractLaneChangeModel(MSVehicle& v, const LaneCha
     myOwnState(0),
     myPreviousState(0),
     myPreviousState2(0),
+    myCanceledStateRight(LCA_NONE),
+    myCanceledStateCenter(LCA_NONE),
+    myCanceledStateLeft(LCA_NONE),
     mySpeedLat(0),
     myCommittedSpeed(0),
     myLaneChangeCompletion(1.0),
@@ -117,6 +120,9 @@ MSAbstractLaneChangeModel::MSAbstractLaneChangeModel(MSVehicle& v, const LaneCha
     myMaxSpeedLatFactor(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_MAXSPEEDLATFACTOR, 1)),
     myLastLaneChangeOffset(0),
     myAmOpposite(false) {
+    saveLCState(-1, LCA_UNKNOWN, LCA_UNKNOWN);
+    saveLCState(0, LCA_UNKNOWN, LCA_UNKNOWN);
+    saveLCState(1, LCA_UNKNOWN, LCA_UNKNOWN);
 }
 
 
@@ -141,9 +147,9 @@ MSAbstractLaneChangeModel::setManeuverDist(const double dist) {
 #ifdef DEBUG_MANEUVER
     if DEBUG_COND {
     std::cout << SIMTIME
-    << " veh=" << myVehicle.getID()
-        << " setManeuverDist() old=" << myManeuverDist << " new=" << dist
-        << std::endl;
+              << " veh=" << myVehicle.getID()
+                  << " setManeuverDist() old=" << myManeuverDist << " new=" << dist
+                  << std::endl;
     }
 #endif
     myManeuverDist = dist;
@@ -391,7 +397,7 @@ MSAbstractLaneChangeModel::cleanupTargetLane() {
 bool
 MSAbstractLaneChangeModel::cancelRequest(int state, int laneOffset) {
     // store request before canceling
-    myCanceledStates[laneOffset] |= state;
+    getCanceledState(laneOffset) |= state;
     int ret = myVehicle.influenceChangeDecision(state);
     return ret != state;
 }
@@ -828,4 +834,24 @@ MSAbstractLaneChangeModel::setOrigLeaderGaps(const MSLeaderDistanceInfo& vehicle
             }
         }
     }
+}
+
+
+bool
+MSAbstractLaneChangeModel::isStrategicBlocked() const {
+    const int stateRight = mySavedStateRight.second;
+    if (
+        (stateRight & LCA_STRATEGIC) != 0
+        && (stateRight & LCA_RIGHT) != 0
+        && (stateRight & LCA_BLOCKED) != 0) {
+        return true;
+    }
+    const int stateLeft = mySavedStateLeft.second;
+    if (
+        (stateLeft & LCA_STRATEGIC) != 0
+        && (stateLeft & LCA_LEFT) != 0
+        && (stateLeft & LCA_BLOCKED) != 0) {
+        return true;
+    }
+    return false;
 }

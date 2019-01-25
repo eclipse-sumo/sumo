@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -68,7 +68,7 @@ GNECreateEdgeFrame::~GNECreateEdgeFrame() {}
 
 
 void
-GNECreateEdgeFrame::processClick(const Position& clickedPosition, GNEViewNet::ObjectsUnderCursor &objectsUnderCursor, bool opossiteEdge, bool chainEdge) {
+GNECreateEdgeFrame::processClick(const Position& clickedPosition, GNEViewNet::ObjectsUnderCursor& objectsUnderCursor, bool opossiteEdge, bool chainEdge) {
     if (!myViewNet->getUndoList()->hasCommandGroup()) {
         myViewNet->getUndoList()->p_begin("create new " + toString(SUMO_TAG_EDGE));
     }
@@ -83,7 +83,7 @@ GNECreateEdgeFrame::processClick(const Position& clickedPosition, GNEViewNet::Ob
         if (myCreateEdgeSource != objectsUnderCursor.getJunctionFront()) {
             // may fail to prevent double edges
             GNEEdge* newEdge = myViewNet->getNet()->createEdge(
-                                    myCreateEdgeSource, objectsUnderCursor.getJunctionFront(), myViewNet->getViewParent()->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate(), myViewNet->getUndoList());
+                                   myCreateEdgeSource, objectsUnderCursor.getJunctionFront(), myViewNet->getViewParent()->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate(), myViewNet->getUndoList());
             if (newEdge) {
                 // create another edge, if create opposite edge is enabled
                 if (opossiteEdge) {

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2018 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2019 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -41,10 +41,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 300, 205)
 
 # Change parameter id with a non valid value (invalid characters)
-netedit.modifyAttribute(8, "///;;")
+netedit.modifyAttribute(9, "///;;")
 
 # Change parameter id with valid value
-netedit.modifyAttribute(8, "customRouteProbeName")
+netedit.modifyAttribute(9, "customRouteProbeName")
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)

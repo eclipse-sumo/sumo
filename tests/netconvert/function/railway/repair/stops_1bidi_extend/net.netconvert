@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:28:00 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Fri Jan 18 13:22:51 2019 by Eclipse SUMO netconvert Version v1_1_0+0258-169157deea
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -57,28 +57,28 @@ SPDX-License-Identifier: EPL-2.0
     <edge id=":1_0" function="internal">
         <lane id=":1_0_0" index="0" allow="rail_urban" speed="0.10" length="0.10" shape="-100.00,-100.00 -100.00,-100.00"/>
     </edge>
-    <edge id=":11_0" function="internal">
+    <edge id=":11_0" function="internal" bidi=":11_1">
         <lane id=":11_0_0" index="0" allow="rail_urban" speed="27.78" length="0.38" shape="-0.43,-176.25 -0.54,-176.23 -0.62,-176.22 -0.70,-176.21 -0.81,-176.21"/>
     </edge>
-    <edge id=":11_1" function="internal">
+    <edge id=":11_1" function="internal" bidi=":11_0">
         <lane id=":11_1_0" index="0" allow="rail_urban" speed="27.78" length="0.38" shape="-0.81,-176.21 -0.70,-176.21 -0.62,-176.22 -0.54,-176.23 -0.43,-176.25"/>
     </edge>
     <edge id=":12_0" function="internal">
         <lane id=":12_0_0" index="0" allow="rail_urban" speed="0.10" length="0.10" shape="-100.95,-176.82 -100.95,-176.82"/>
     </edge>
-    <edge id=":2_0" function="internal">
+    <edge id=":2_0" function="internal" bidi=":2_1">
         <lane id=":2_0_0" index="0" allow="rail_urban" speed="27.78" length="0.10" shape="0.00,-100.00 0.00,-100.00"/>
     </edge>
-    <edge id=":2_1" function="internal">
+    <edge id=":2_1" function="internal" bidi=":2_0">
         <lane id=":2_1_0" index="0" allow="rail_urban" speed="27.78" length="0.10" shape="0.00,-100.00 0.00,-100.00"/>
     </edge>
-    <edge id=":3_0" function="internal">
+    <edge id=":3_0" function="internal" bidi=":3_2">
         <lane id=":3_0_0" index="0" allow="rail_urban" speed="27.78" length="12.17" shape="109.72,-96.38 106.65,-97.68 104.08,-98.84 101.46,-99.68 98.21,-100.00"/>
     </edge>
     <edge id=":3_1" function="internal">
         <lane id=":3_1_0" index="0" allow="rail_urban" speed="27.78" length="12.16" shape="98.21,-100.00 110.37,-100.00"/>
     </edge>
-    <edge id=":3_2" function="internal">
+    <edge id=":3_2" function="internal" bidi=":3_0">
         <lane id=":3_2_0" index="0" allow="rail_urban" speed="27.78" length="12.17" shape="98.21,-100.00 101.46,-99.68 104.08,-98.84 106.65,-97.68 109.72,-96.38"/>
     </edge>
     <edge id=":4_0" function="internal">
@@ -87,19 +87,19 @@ SPDX-License-Identifier: EPL-2.0
     <edge id=":7_0" function="internal">
         <lane id=":7_0_0" index="0" allow="rail_urban" speed="27.78" length="0.10" shape="0.00,-200.00 0.00,-200.00"/>
     </edge>
-    <edge id=":8_0" function="internal">
+    <edge id=":8_0" function="internal" bidi=":8_2">
         <lane id=":8_0_0" index="0" allow="rail_urban" speed="27.78" length="16.90" shape="101.69,-200.00 97.68,-199.61 93.39,-198.68 89.12,-197.53 85.19,-196.50"/>
     </edge>
     <edge id=":8_1" function="internal">
         <lane id=":8_1_0" index="0" allow="rail_urban" speed="27.78" length="16.91" shape="84.78,-200.00 101.69,-200.00"/>
     </edge>
-    <edge id=":8_2" function="internal">
+    <edge id=":8_2" function="internal" bidi=":8_0">
         <lane id=":8_2_0" index="0" allow="rail_urban" speed="27.78" length="16.90" shape="85.19,-196.50 89.12,-197.53 93.39,-198.68 97.68,-199.61 101.69,-200.00"/>
     </edge>
-    <edge id=":9_0" function="internal">
+    <edge id=":9_0" function="internal" bidi=":9_1">
         <lane id=":9_0_0" index="0" allow="rail_urban" speed="27.78" length="0.10" shape="200.00,-200.00 200.00,-200.00"/>
     </edge>
-    <edge id=":9_1" function="internal">
+    <edge id=":9_1" function="internal" bidi=":9_0">
         <lane id=":9_1_0" index="0" allow="rail_urban" speed="27.78" length="0.10" shape="200.00,-200.00 200.00,-200.00"/>
     </edge>
 

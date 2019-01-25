@@ -3,7 +3,9 @@ option(CHECK_OPTIONAL_LIBS "Try to download / enable all optional libraries (use
 option(MULTITHREADED_BUILD "Use all available cores for building (applies to Visual Studio only)" true)
 option(PROFILING "Enable output of profiling data (applies to gcc/clang builds only)" false)
 option(COVERAGE "Enable output of coverage data (applies to gcc/clang builds only)" false)
+option(SUMO_UTILS "Enable generation of a shared library for the utility functions for option handling, XML parsing etc." false)
 set(BINARY_SUFFIX "" CACHE STRING "Append the suffix to every generated binary")
+set(COMPILE_DEFINITIONS "" CACHE STRING "Macros or defines to add when compiling")
 
 # Set a default build type if none was specified
 # you may use -DCMAKE_BUILD_TYPE:STRING=Debug from the command line
@@ -28,10 +30,14 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/build/cmake_modu
 
 set(ENABLED_FEATURES "${CMAKE_SYSTEM} ${CMAKE_SYSTEM_PROCESSOR} ${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION}")
 
+if(COMPILE_DEFINITIONS)
+  add_compile_definitions(${COMPILE_DEFINITIONS})
+endif()
+
 # compiler specific flags
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR
         "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -pedantic -Wextra")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -pthread -Wall -pedantic -Wextra")
     set(ENABLED_FEATURES "${ENABLED_FEATURES} ${CMAKE_BUILD_TYPE}")
     if (PROFILING)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pg")
@@ -57,6 +63,12 @@ endif ()
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D_DEBUG")
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -stdlib=libstdc++ -fsanitize=undefined,address,integer,unsigned-integer-overflow -fno-omit-frame-pointer -fsanitize-blacklist=${CMAKE_SOURCE_DIR}/build/clang_sanitize_blacklist.txt")
+endif ()
+
+# we need to build position independent code when generating a shared library
+if (SUMO_UTILS)
+    set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+    set(ENABLED_FEATURES "${ENABLED_FEATURES} SumoUtilsLibrary")
 endif ()
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
@@ -152,19 +164,17 @@ if (SUMO_LIBRARIES)
                                  "${SUMO_LIBRARIES}/3rdPartyLibs/libpng-?.?.??${LIB_VERSION}/*/*.dll"
                                  "${SUMO_LIBRARIES}/3rdPartyLibs/tiff-?.?.?${LIB_VERSION}/libtiff/*/*.dll"
                                  "${SUMO_LIBRARIES}/3rdPartyLibs/zlib-?.?.??${LIB_VERSION}/*/*.dll")
+    file(GLOB GTEST_ROOT "${SUMO_LIBRARIES}/googletest-?.?.?/googletest")
     # set GoogleTest only if compiler isn't mingw32
-    if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" AND WIN32)
-        if(USE_MINGW_64BITS)
-            # Prevent GoogleTest from overriding our compiler/linker options
-            set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-            add_subdirectory("${SUMO_LIBRARIES}/googletest-1.8.0/googletest"
-                             "${CMAKE_BINARY_DIR}/googletest-build")
-            include_directories("${SUMO_LIBRARIES}/googletest-1.8.0/googletest/include")
-            set(GTEST_BOTH_LIBRARIES "gtest" "gtest_main")
-            set(GTEST_FOUND true)
-        else()
-            message(STATUS "Disabled Google Test in Mingw32")
-        endif()
+    if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" AND WIN32 AND NOT USE_MINGW_64BITS)
+        message(STATUS "Disabled Google Test in Mingw32")
+    else()
+        # Prevent GoogleTest from overriding our compiler/linker options
+        set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+        add_subdirectory("${GTEST_ROOT}" "${CMAKE_BINARY_DIR}/googletest-build")
+        include_directories("${GTEST_ROOT}/include")
+        set(GTEST_BOTH_LIBRARIES "gtest" "gtest_main")
+        set(GTEST_FOUND true)
     endif()
     file(GLOB FFMPEG_PATH "${SUMO_LIBRARIES}/FFMPEG-?.?.?${LIB_VERSION}")
     file(GLOB OSG_PATH "${SUMO_LIBRARIES}/OSG-?.?.?${LIB_VERSION}")
@@ -251,9 +261,7 @@ if (CHECK_OPTIONAL_LIBS)
 
     find_package(SWIG 3.0)
     if (SWIG_FOUND)
-        if (NOT MSVC)
-            set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
-        endif ()
+		set(CMAKE_POSITION_INDEPENDENT_CODE ON)
         set(ENABLED_FEATURES "${ENABLED_FEATURES} SWIG")
     endif ()
 
@@ -380,6 +388,32 @@ if (COVERAGE)
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 endif()
 
+# java targets
+find_program(MVN_EXECUTABLE mvn)
+find_program(ANT_EXECUTABLE ant)
+if (MVN_EXECUTABLE AND ANT_EXECUTABLE)
+    add_custom_target(cadyts
+        COMMAND ${MVN_EXECUTABLE} --batch-mode -f tools/contributed/calibration/pom.xml clean install
+        COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/calibration/utilities/target/floetteroed-utilities-1.0.0.jar bin
+        COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/calibration/cadyts/target/cadyts-1.3.0-SNAPSHOT.jar bin
+        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+    add_custom_target(traas
+        COMMAND ${ANT_EXECUTABLE} -f tools/contributed/traas/build.xml clean release
+        COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/traas/dist/TraaS.jar bin
+        COMMAND ${MVN_EXECUTABLE} install:install-file -Dfile=bin/TraaS.jar -DgroupId=de.tudresden -DartifactId=traas -Dversion=1.0 -Dpackaging=jar
+        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+    add_custom_target(lisum-core DEPENDS traas
+        COMMAND ${MVN_EXECUTABLE} --batch-mode -f tools/contributed/lisum-core/pom.xml clean install
+        COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/lisum-core/target/lisum-core-1.0.1-SNAPSHOT.jar bin
+        COMMAND ${MVN_EXECUTABLE} install:install-file -Dfile=bin/lisum-core-1.0.1-SNAPSHOT.jar -DgroupId=de.dlr.ts -DartifactId=lisum-core -Dversion=1.0.1 -Dpackaging=jar
+        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+    add_custom_target(lisum-gui DEPENDS lisum-core
+        COMMAND ${MVN_EXECUTABLE} --batch-mode -f tools/contributed/lisum-gui/pom.xml clean install
+        COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/lisum-gui/target/lisum-gui-1.0.jar bin
+        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+    set(JAVA_TARGETS cadyts lisum-gui)
+endif()
+
 # example and dist targets
 add_custom_target(examples DEPENDS sumo netconvert dfrouter duarouter jtrrouter
     COMMAND ${PYTHON_EXECUTABLE} tools/extractTest.py -x -f tests/examples.txt -p docs/examples/runAll.py
@@ -389,14 +423,15 @@ set_property(TARGET examples PROPERTY FOLDER "doc")
 add_test(exampletest ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/docs/examples/runAll.py)
 find_package(Git)
 if (GIT_FOUND)
-    add_custom_target(dist DEPENDS examples doc
-        COMMAND rm -rf sumo-${PACKAGE_VERSION} sumo-${PACKAGE_VERSION}.zip sumo-src-${PACKAGE_VERSION}.tar.gz
+    add_custom_target(dist DEPENDS examples doc ${JAVA_TARGETS}
+        COMMAND rm -rf sumo-${PACKAGE_VERSION} sumo-${PACKAGE_VERSION}.zip sumo-src-${PACKAGE_VERSION}.tar.gz sumo-src-${PACKAGE_VERSION}.zip sumo-all-${PACKAGE_VERSION}.tar.gz sumo-all-${PACKAGE_VERSION}.zip
         COMMAND ${GIT_EXECUTABLE} archive --prefix sumo-${PACKAGE_VERSION}/ -o sumo-${PACKAGE_VERSION}.zip HEAD
         COMMAND unzip sumo-${PACKAGE_VERSION}.zip
         COMMAND cp -a docs/tutorial docs/examples docs/userdoc docs/pydoc docs/javadoc docs/man sumo-${PACKAGE_VERSION}/docs
         COMMAND zip -r sumo-src-${PACKAGE_VERSION}.zip sumo-${PACKAGE_VERSION}
         COMMAND tar czf sumo-src-${PACKAGE_VERSION}.tar.gz sumo-${PACKAGE_VERSION}
         COMMAND cp -a docs/doxygen sumo-${PACKAGE_VERSION}/docs
+        COMMAND cp bin/*.jar bin/*.bat sumo-${PACKAGE_VERSION}/bin
         COMMAND cp -a tests sumo-${PACKAGE_VERSION}
         COMMAND zip -r sumo-all-${PACKAGE_VERSION}.zip sumo-${PACKAGE_VERSION}
         COMMAND tar czf sumo-all-${PACKAGE_VERSION}.tar.gz sumo-${PACKAGE_VERSION}
@@ -422,29 +457,4 @@ if (GIT_FOUND)
     set_property(TARGET distcheck PROPERTY FOLDER "CMake")
     set_property(TARGET distcheck PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
 endif ()
-
-# java targets
-find_program(MVN_EXECUTABLE mvn)
-find_program(ANT_EXECUTABLE ant)
-if (MVN_EXECUTABLE AND ANT_EXECUTABLE)
-    add_custom_target(cadyts
-        COMMAND ${MVN_EXECUTABLE} --batch-mode -f tools/contributed/calibration/pom.xml clean install
-        COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/calibration/utilities/target/floetteroed-utilities-1.0.0.jar bin
-        COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/calibration/cadyts/target/cadyts-1.3.0-SNAPSHOT.jar bin
-        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
-    add_custom_target(traas
-        COMMAND ${ANT_EXECUTABLE} -f tools/contributed/traas/build.xml clean release
-        COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/traas/dist/TraaS.jar bin
-        COMMAND ${MVN_EXECUTABLE} install:install-file -Dfile=bin/TraaS.jar -DgroupId=de.tudresden -DartifactId=traas -Dversion=1.0 -Dpackaging=jar
-        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
-    add_custom_target(lisum-core DEPENDS traas
-        COMMAND ${MVN_EXECUTABLE} --batch-mode -f tools/contributed/lisum-core/pom.xml clean install
-        COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/lisum-core/target/lisum-core-1.0.1-SNAPSHOT.jar bin
-        COMMAND ${MVN_EXECUTABLE} install:install-file -Dfile=bin/lisum-core-1.0.1-SNAPSHOT.jar -DgroupId=de.dlr.ts -DartifactId=lisum-core -Dversion=1.0.1 -Dpackaging=jar
-        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
-    add_custom_target(lisum-gui DEPENDS lisum-core
-        COMMAND ${MVN_EXECUTABLE} --batch-mode -f tools/contributed/lisum-gui/pom.xml clean install
-        COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/lisum-gui/target/lisum-gui-1.0.jar bin
-        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
-endif()
 message(STATUS "Enabled features: ${ENABLED_FEATURES}")

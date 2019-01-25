@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -151,7 +151,7 @@ GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
         glScaled(exaggeration, exaggeration, 1);
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-        if (isAttributeCarrierSelected()) {
+        if (drawUsingSelectColor()) {
             GLHelper::setColor(s.selectedAdditionalColor);
         } else {
             GLHelper::setColor(RGBColor(255, 204, 0));
@@ -169,7 +169,7 @@ GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
         // draw text if isn't being drawn for selecting
         if ((s.scale * exaggeration >= 1.) && !s.drawForSelecting) {
             // set color depending of selection status
-            RGBColor textColor = isAttributeCarrierSelected() ? s.selectionColor : RGBColor::BLACK;
+            RGBColor textColor = drawUsingSelectColor() ? s.selectionColor : RGBColor::BLACK;
             // draw "C"
             GLHelper::drawText("C", Position(0, 1.5), 0.1, 3, textColor, 180);
             // draw "edge" or "lane "
@@ -360,7 +360,7 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value) {
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
     // Update Geometry after setting a new attribute (but avoided for certain attributes)
-    if((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
+    if ((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
         updateGeometry(true);
     }
 }

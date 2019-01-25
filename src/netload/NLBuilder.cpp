@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -39,8 +39,8 @@
 #include <utils/common/FileHelpers.h>
 #include <utils/common/SysUtils.h>
 #include <utils/common/ToString.h>
-#include <utils/xml/SUMORouteLoaderControl.h>
-#include <utils/xml/SUMORouteLoader.h>
+#include <utils/vehicle/SUMORouteLoaderControl.h>
+#include <utils/vehicle/SUMORouteLoader.h>
 #include <utils/xml/XMLSubSys.h>
 #include <mesosim/MEVehicleControl.h>
 #include <microsim/MSVehicleControl.h>
@@ -231,9 +231,7 @@ NLBuilder::init() {
         throw ProcessError();
     }
     MsgHandler::initOutputOptions();
-    RandHelper::initRandGlobal();
-    RandHelper::initRandGlobal(MSRouteHandler::getParsingRNG());
-    RandHelper::initRandGlobal(MSDevice::getEquipmentRNG());
+    initRandomness();
     MSFrame::setMSGlobals(oc);
     MSVehicleControl* vc = nullptr;
     if (MSGlobals::gUseMesoSim) {
@@ -264,6 +262,13 @@ NLBuilder::init() {
     throw ProcessError();
 }
 
+void
+NLBuilder::initRandomness() {
+    RandHelper::initRandGlobal();
+    RandHelper::initRandGlobal(MSRouteHandler::getParsingRNG());
+    RandHelper::initRandGlobal(MSDevice::getEquipmentRNG());
+    MSLane::initRNGs(OptionsCont::getOptions());
+}
 
 void
 NLBuilder::buildNet() {

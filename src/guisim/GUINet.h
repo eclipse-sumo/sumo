@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -59,7 +59,6 @@ class OutputDevice;
 class GUIVehicle;
 class GUIVehicleControl;
 class MSVehicleControl;
-class MFXMutex;
 class GUIMEVehicleControl;
 
 
@@ -387,8 +386,8 @@ protected:
 
     /// @brief class for discovering edge attributes
     class DiscoverAttributes : public SUMOSAXHandler {
-    public: 
-        DiscoverAttributes(const std::string& file): 
+    public:
+        DiscoverAttributes(const std::string& file):
             SUMOSAXHandler(file), lastIntervalEnd(0) {};
         ~DiscoverAttributes() {};
         void myStartElement(int element, const SUMOSAXAttributes& attrs);
@@ -424,7 +423,7 @@ protected:
 
 private:
     /// The mutex used to avoid concurrent updates of the vehicle buffer
-    mutable MFXMutex myLock;
+    mutable FXMutex myLock;
 
 };
 

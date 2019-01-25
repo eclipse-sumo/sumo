@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -29,7 +29,7 @@
 #include <utils/geom/Position.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/geom/Boundary.h>
-#include <utils/vehicle/SUMOAbstractRouter.h>
+#include <utils/router/SUMOAbstractRouter.h>
 
 
 // ===========================================================================
@@ -220,7 +220,7 @@ public:
     public:
         /// constructor
         Stage_Trip(const MSEdge* origin, const MSEdge* destination, MSStoppingPlace* toStop, const SUMOTime duration, const SVCPermissions modeSet,
-            const std::string& vTypes, const double speed, const double walkFactor, const double departPosLat, const bool hasArrivalPos, const double arrivalPos);
+                   const std::string& vTypes, const double speed, const double walkFactor, const double departPosLat, const bool hasArrivalPos, const double arrivalPos);
 
         /// destructor
         virtual ~Stage_Trip();
@@ -242,7 +242,7 @@ public:
         /// logs end of the step
         virtual void setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now);
 
-        /// change origin for parking area rerouting 
+        /// change origin for parking area rerouting
         void setOrigin(const MSEdge* origin) {
             myOrigin = origin;
         }
@@ -677,7 +677,7 @@ public:
 
     /// @brief return whether the person has reached the end of its plan
     bool hasArrived() const;
-    
+
     /// @brief return whether the transportable has started it's plan
     bool hasDeparted() const;
 

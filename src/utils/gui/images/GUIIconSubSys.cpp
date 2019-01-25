@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -145,6 +145,8 @@
 #include "modetrafficlight.xpm"
 #include "modepolygon.xpm"
 #include "modeprohibition.xpm"
+
+#include "moderoute.xpm"
 
 #include "computejunctions.xpm"
 #include "cleanjunctions.xpm"
@@ -360,6 +362,8 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[ICON_MODETLS] = new FXXPMIcon(a, modetrafficlight_xpm);
     myIcons[ICON_MODEPOLYGON] = new FXXPMIcon(a, modepolygon_xpm);
     myIcons[ICON_MODEPROHIBITION] = new FXXPMIcon(a, modeprohibition_xpm);
+
+    myIcons[ICON_MODEROUTE] = new FXXPMIcon(a, moderoute_xpm);
 
     myIcons[ICON_CLEANJUNCTIONS] = new FXXPMIcon(a, cleanjunctions_xpm);
     myIcons[ICON_COMPUTEJUNCTIONS] = new FXXPMIcon(a, computejunctions_xpm);

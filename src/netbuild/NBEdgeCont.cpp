@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -136,11 +136,11 @@ NBEdgeCont::applyOptions(OptionsCont& oc) {
 void
 NBEdgeCont::clear() {
     for (EdgeCont::iterator i = myEdges.begin(); i != myEdges.end(); i++) {
-        delete((*i).second);
+        delete ((*i).second);
     }
     myEdges.clear();
     for (EdgeCont::iterator i = myExtractedEdges.begin(); i != myExtractedEdges.end(); i++) {
-        delete((*i).second);
+        delete ((*i).second);
     }
     myExtractedEdges.clear();
 }
@@ -1018,8 +1018,8 @@ NBEdgeCont::getByID(const std::string& edgeID) const {
 void
 NBEdgeCont::addPostProcessConnection(const std::string& from, int fromLane, const std::string& to, int toLane, bool mayDefinitelyPass,
                                      bool keepClear, double contPos, double visibility, double speed,
-                                     const PositionVector& customShape, bool warnOnly) {
-    myConnections.push_back(PostProcessConnection(from, fromLane, to, toLane, mayDefinitelyPass, keepClear, contPos, visibility, speed, customShape, warnOnly));
+                                     const PositionVector& customShape, bool uncontrolled, bool warnOnly) {
+    myConnections.push_back(PostProcessConnection(from, fromLane, to, toLane, mayDefinitelyPass, keepClear, contPos, visibility, speed, customShape, uncontrolled, warnOnly));
 }
 
 
@@ -1031,7 +1031,7 @@ NBEdgeCont::recheckPostProcessConnections() {
         NBEdge* to = retrievePossiblySplit((*i).to, false);
         if (from == nullptr || to == nullptr ||
                 !from->addLane2LaneConnection((*i).fromLane, to, (*i).toLane, NBEdge::L2L_USER, true, (*i).mayDefinitelyPass,
-                                              (*i).keepClear, (*i).contPos, (*i).visibility, (*i).speed, (*i).customShape)) {
+                                              (*i).keepClear, (*i).contPos, (*i).visibility, (*i).speed, (*i).customShape, (*i).uncontrolled)) {
             const std::string msg = "Could not insert connection between '" + (*i).from + "' and '" + (*i).to + "' after build.";
             if (warnOnly || (*i).warnOnly) {
                 WRITE_WARNING(msg);

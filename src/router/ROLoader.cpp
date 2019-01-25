@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -40,11 +40,12 @@
 #include <utils/common/FileHelpers.h>
 #include <utils/xml/XMLSubSys.h>
 #include <utils/xml/SAXWeightsHandler.h>
-#include <utils/xml/SUMORouteLoader.h>
-#include <utils/xml/SUMORouteLoaderControl.h>
+#include <utils/vehicle/SUMORouteLoader.h>
+#include <utils/vehicle/SUMORouteLoaderControl.h>
 #include "RONet.h"
 #include "RONetHandler.h"
 #include "ROLoader.h"
+#include "ROLane.h"
 #include "ROEdge.h"
 #include "RORouteHandler.h"
 
@@ -119,7 +120,8 @@ ROLoader::loadNet(RONet& toFill, ROAbstractEdgeBuilder& eb) {
         throw ProcessError("The network file '" + file + "' is not accessible.");
     }
     PROGRESS_BEGIN_MESSAGE("Loading net");
-    RONetHandler handler(toFill, eb, !myOptions.exists("no-internal-links") || myOptions.getBool("no-internal-links"));
+    RONetHandler handler(toFill, eb, !myOptions.exists("no-internal-links") || myOptions.getBool("no-internal-links"),
+                         myOptions.exists("weights.minor-penalty") ? myOptions.getFloat("weights.minor-penalty") : 0);
     handler.setFileName(file);
     if (!XMLSubSys::runParser(handler, file, true)) {
         PROGRESS_FAILED_MESSAGE();

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -34,6 +34,7 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/additionals/GNERouteProbe.h>
 #include <netedit/additionals/GNEDetectorE2.h>
+#include <netedit/demandelements/GNEDemandElement.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/gui/globjects/GLIncludes.h>
 
@@ -59,7 +60,7 @@ GNEEdge GNEEdge::DummyEdge;
 
 GNEEdge::GNEEdge(NBEdge& nbe, GNENet* net, bool wasSplit, bool loaded):
     GNENetElement(net, nbe.getID(), GLO_EDGE, SUMO_TAG_EDGE),
-    myNBEdge(nbe) ,
+    myNBEdge(nbe),
     myGNEJunctionSource(myNet->retrieveJunction(myNBEdge.getFromNode()->getID())),
     myGNEJunctionDestiny(myNet->retrieveJunction(myNBEdge.getToNode()->getID())),
     myLanes(0),
@@ -81,8 +82,7 @@ GNEEdge::GNEEdge(NBEdge& nbe, GNENet* net, bool wasSplit, bool loaded):
 
 GNEEdge::GNEEdge() :
     GNENetElement(nullptr, "DUMMY", GLO_EDGE, SUMO_TAG_NOTHING),
-    myNBEdge(NBEdge::DummyEdge)
-{
+    myNBEdge(NBEdge::DummyEdge) {
 }
 
 GNEEdge::~GNEEdge() {
@@ -132,7 +132,15 @@ GNEEdge::updateGeometry(bool updateGrid) {
         i->updateGeometry(updateGrid);
     }
     // Update geometry of additional parents that have this edge as parent
-    for (auto i : myFirstAdditionalParents) {
+    for (auto i : myAdditionalParents) {
+        i->updateGeometry(updateGrid);
+    }
+    // Update geometry of demand elements childs vinculated to this edge
+    for (auto i : myDemandElementChilds) {
+        i->updateGeometry(updateGrid);
+    }
+    // Update geometry of demand elements parents that have this edge as parent
+    for (auto i : myDemandElementParents) {
         i->updateGeometry(updateGrid);
     }
     // last step is to check if object has to be added into grid (SUMOTree) again
@@ -233,7 +241,15 @@ GNEEdge::startGeometryMoving() {
         i->startGeometryMoving();
     }
     // Save current centering boundary of additional parents that have this edge as parent
-    for (auto i : myFirstAdditionalParents) {
+    for (auto i : myAdditionalParents) {
+        i->startGeometryMoving();
+    }
+    // Save current centering boundary of demand elements childs vinculated to this edge
+    for (auto i : myDemandElementChilds) {
+        i->startGeometryMoving();
+    }
+    // Save current centering boundary of demand elements parents that have this edge as parent
+    for (auto i : myDemandElementParents) {
         i->startGeometryMoving();
     }
 }
@@ -258,7 +274,15 @@ GNEEdge::endGeometryMoving() {
             i->endGeometryMoving();
         }
         // Restore centering boundary of additional parents that have this edge as parent
-        for (auto i : myFirstAdditionalParents) {
+        for (auto i : myAdditionalParents) {
+            i->endGeometryMoving();
+        }
+        // Restore centering boundary of demand elements childs vinculated to this edge
+        for (auto i : myDemandElementChilds) {
+            i->endGeometryMoving();
+        }
+        // Restore centering boundary of demand elements parents that have this edge as parent
+        for (auto i : myDemandElementParents) {
             i->endGeometryMoving();
         }
         // add object into grid again (using the new centering boundary)
@@ -489,7 +513,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     // draw geometry points if isnt's too small
     if (s.scale > 8.0) {
         GLHelper::setColor(s.junctionColorer.getSchemes()[0].getColor(2));
-        if (isAttributeCarrierSelected() && s.laneColorer.getActive() != 1) {
+        if (drawUsingSelectColor() && s.laneColorer.getActive() != 1) {
             // override with special colors (unless the color scheme is based on selection)
             GLHelper::setColor(s.selectedEdgeColor.changedBrightness(-20));
         }
@@ -509,18 +533,18 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
                     GLHelper::drawFilledCircle(circleWidth, circleResolution);
                     glPopMatrix();
                     // draw elevation or special symbols (Start, End and Block)
-                    if (!s.drawForSelecting && myNet->getViewNet()->editingElevation()) {
+                    if (!s.drawForSelecting && myNet->getViewNet()->getMoveOptions().editingElevation()) {
                         glPushMatrix();
                         // Translate to geometry point
                         glTranslated(pos.x(), pos.y(), GLO_JUNCTION);
                         // draw Z value
                         GLHelper::drawText(toString(pos.z()), Position(), GLO_MAX - 5, s.edgeValue.scaledSize(s.scale) / 2, s.edgeValue.color);
                         glPopMatrix();
-                    } 
+                    }
                 }
             }
             // draw line geometry, start and end points if shapeStart or shape end is edited, and depending of drawForSelecting
-            if (myNet->getViewNet()->getCurrentNetworkEditMode() == GNE_NMODE_MOVE) {
+            if (myNet->getViewNet()->getEditModes().networkEditMode == GNE_NMODE_MOVE) {
                 if ((myNBEdge.getGeometry().front() != myGNEJunctionSource->getPositionInView()) &&
                         (!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(myNBEdge.getGeometry().front()) <= (circleWidthSquared + 2)))) {
                     glPushMatrix();
@@ -575,6 +599,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
 
     // (optionally) draw the name and/or the street name if isn't being drawn for selecting
     const bool drawStreetName = s.streetName.show && (myNBEdge.getStreetName() != "");
+    const bool spreadSuperposed = s.spreadSuperposed && myLanes.back()->drawAsRailway(s) && myNBEdge.isBidiRail();
     if (!s.drawForSelecting && (s.edgeName.show || drawStreetName || s.edgeValue.show)) {
         glPushName(getGlID());
         GNELane* lane1 = myLanes[0];
@@ -582,6 +607,13 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
         Position p = lane1->getShape().positionAtOffset(lane1->getShape().length() / (double) 2.);
         p.add(lane2->getShape().positionAtOffset(lane2->getShape().length() / (double) 2.));
         p.mul(.5);
+        if (spreadSuperposed) {
+            // move name to the right of the edge and towards its beginning
+            const double dist = 0.6 * s.edgeName.scaledSize(s.scale);
+            const double shiftA = lane1->getShape().rotationAtOffset(lane1->getShape().length() / (double) 2.) - DEG2RAD(135);
+            Position shift(dist * cos(shiftA), dist * sin(shiftA));
+            p.add(shift);
+        }
         double angle = lane1->getShape().rotationDegreeAtOffset(lane1->getShape().length() / (double) 2.);
         angle += 90;
         if (angle > 90 && angle < 270) {
@@ -602,7 +634,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     if (!s.drawForSelecting && (myNet->getViewNet()->getDottedAC() == this)) {
         // draw dotted contor around the first and last lane
         const double myHalfLaneWidthFront = myNBEdge.getLaneWidth(myLanes.front()->getIndex()) / 2;
-        const double myHalfLaneWidthBack = myNBEdge.getLaneWidth(myLanes.back()->getIndex()) / 2;
+        const double myHalfLaneWidthBack = spreadSuperposed ? 0 : myNBEdge.getLaneWidth(myLanes.back()->getIndex()) / 2;
         GLHelper::drawShapeDottedContour(GLO_JUNCTION, myLanes.front()->getShape(), myHalfLaneWidthFront, myLanes.back()->getShape(), -1 * myHalfLaneWidthBack);
     }
     glPopMatrix();
@@ -650,7 +682,7 @@ GNEEdge::editEndpoint(Position pos, GNEUndoList* undoList) {
             newPos = myNet->getViewNet()->snapToActiveGrid(newPos);
             undoList->p_begin("set endpoint");
             int index = geom.indexOfClosest(pos);
-             // check if snap to existing geometry
+            // check if snap to existing geometry
             if (geom[index].distanceTo(pos) < SNAP_RADIUS) {
                 pos = geom[index];
             }
@@ -805,13 +837,13 @@ GNEEdge::getGNECrossings() {
 void
 GNEEdge::removeEdgeOfAdditionalParents(GNEUndoList* undoList) {
     // iterate over all additional parents of edge
-    while (myFirstAdditionalParents.size() > 0) {
+    while (myAdditionalParents.size() > 0) {
         // Obtain attribute Edge or Edges of additional
         std::vector<std::string> edgeIDs;
-        if(myFirstAdditionalParents.front()->getTagProperty().hasAttribute(SUMO_ATTR_EDGES)) {
-            edgeIDs = parse<std::vector<std::string> >(myFirstAdditionalParents.front()->getAttribute(SUMO_ATTR_EDGES));
+        if (myAdditionalParents.front()->getTagProperty().hasAttribute(SUMO_ATTR_EDGES)) {
+            edgeIDs = parse<std::vector<std::string> >(myAdditionalParents.front()->getAttribute(SUMO_ATTR_EDGES));
         } else {
-            edgeIDs.push_back(myFirstAdditionalParents.front()->getAttribute(SUMO_ATTR_EDGE));
+            edgeIDs.push_back(myAdditionalParents.front()->getAttribute(SUMO_ATTR_EDGE));
         }
         // check that at least there is an Edge
         if (edgeIDs.empty()) {
@@ -819,7 +851,7 @@ GNEEdge::removeEdgeOfAdditionalParents(GNEUndoList* undoList) {
         } else if (edgeIDs.size() == 1) {
             // remove entire Additional if SUMO_ATTR_EDGES cannot be empty
             if (edgeIDs.front() == getID()) {
-                undoList->add(new GNEChange_Additional(myFirstAdditionalParents.front(), false), true);
+                undoList->add(new GNEChange_Additional(myAdditionalParents.front(), false), true);
             } else {
                 throw ProcessError("Edge ID wasnt' found in Additional");
             }
@@ -828,7 +860,7 @@ GNEEdge::removeEdgeOfAdditionalParents(GNEUndoList* undoList) {
             if (it != edgeIDs.end()) {
                 // set new attribute in Additional
                 edgeIDs.erase(it);
-                myFirstAdditionalParents.front()->setAttribute(SUMO_ATTR_EDGES, toString(edgeIDs), undoList);
+                myAdditionalParents.front()->setAttribute(SUMO_ATTR_EDGES, toString(edgeIDs), undoList);
             } else {
                 throw ProcessError("Edge ID wasnt' found in Additional");
             }
@@ -842,15 +874,15 @@ GNEEdge::copyTemplate(GNEEdge* tpl, GNEUndoList* undoList) {
     undoList->p_begin("copy template");
     setAttribute(SUMO_ATTR_NUMLANES,   tpl->getAttribute(SUMO_ATTR_NUMLANES),  undoList);
     setAttribute(SUMO_ATTR_TYPE,       tpl->getAttribute(SUMO_ATTR_TYPE),     undoList);
-    setAttribute(SUMO_ATTR_SPEED,      tpl->getAttribute(SUMO_ATTR_SPEED),    undoList);
     setAttribute(SUMO_ATTR_PRIORITY,   tpl->getAttribute(SUMO_ATTR_PRIORITY), undoList);
     setAttribute(SUMO_ATTR_SPREADTYPE, tpl->getAttribute(SUMO_ATTR_SPREADTYPE), undoList);
-    setAttribute(SUMO_ATTR_WIDTH,      tpl->getAttribute(SUMO_ATTR_WIDTH), undoList);
-    setAttribute(SUMO_ATTR_ENDOFFSET,     tpl->getAttribute(SUMO_ATTR_ENDOFFSET), undoList);
+    // copy raw values for lane-specific attributes
+    setAttribute(SUMO_ATTR_SPEED,      toString(myNBEdge.getSpeed()), undoList);
+    setAttribute(SUMO_ATTR_WIDTH,      toString(myNBEdge.getLaneWidth()), undoList);
+    setAttribute(SUMO_ATTR_ENDOFFSET,  toString(myNBEdge.getEndOffset()), undoList);
     // copy lane attributes as well
     for (int i = 0; i < (int)myLanes.size(); i++) {
         myLanes[i]->setAttribute(SUMO_ATTR_ALLOW, tpl->myLanes[i]->getAttribute(SUMO_ATTR_ALLOW), undoList);
-        myLanes[i]->setAttribute(SUMO_ATTR_DISALLOW, tpl->myLanes[i]->getAttribute(SUMO_ATTR_DISALLOW), undoList);
         myLanes[i]->setAttribute(SUMO_ATTR_SPEED, tpl->myLanes[i]->getAttribute(SUMO_ATTR_SPEED), undoList);
         myLanes[i]->setAttribute(SUMO_ATTR_WIDTH, tpl->myLanes[i]->getAttribute(SUMO_ATTR_WIDTH), undoList);
         myLanes[i]->setAttribute(SUMO_ATTR_ENDOFFSET, tpl->myLanes[i]->getAttribute(SUMO_ATTR_ENDOFFSET), undoList);
@@ -1123,11 +1155,11 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_WIDTH:
             return canParse<double>(value) && ((parse<double>(value) > 0) || (parse<double>(value) == NBEdge::UNSPECIFIED_WIDTH));
         case SUMO_ATTR_ENDOFFSET:
-            return canParse<double>(value) && (parse<double>(value) >= 0);
+            return canParse<double>(value) && parse<double>(value) >= 0 && parse<double>(value) < myNBEdge.getLoadedLength();
         case GNE_ATTR_SHAPE_START: {
             if (value.empty()) {
                 return true;
-            } else if(canParse<Position>(value)) {
+            } else if (canParse<Position>(value)) {
                 Position shapeStart = parse<Position>(value);
                 return (shapeStart != myNBEdge.getGeometry()[-1]);
             } else {
@@ -1137,7 +1169,7 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_SHAPE_END: {
             if (value.empty()) {
                 return true;
-            } else if(canParse<Position>(value)) {
+            } else if (canParse<Position>(value)) {
                 Position shapeEnd = parse<Position>(value);
                 return (shapeEnd != myNBEdge.getGeometry()[0]);
             } else {
@@ -1325,14 +1357,9 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
     // Update Geometry after setting a new attribute (but avoided for certain attributes)
-    if((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
+    if ((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
         updateGeometry(true);
     }
-}
-
-
-void
-GNEEdge::mouseOverObject(const GUIVisualizationSettings&) const {
 }
 
 

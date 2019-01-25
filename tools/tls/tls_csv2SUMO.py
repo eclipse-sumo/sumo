@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2018 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2019 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -189,9 +189,9 @@ for logic in allLogics:
             laneMap[tl_c[2]] = (li, lo)
 
     nodes = set()
-    for l in laneMap:
-        if l:
-            nodes.add(l[0].getEdge()._to)
+    for lane in laneMap:
+        if lane:
+            nodes.add(lane[0].getEdge()._to)
 
     indices = {}
     for n in nodes:
@@ -199,11 +199,11 @@ for logic in allLogics:
         index = 0
         for i in n._incLanes:
             e = '_'.join(i.split("_")[:-1])
-            l = i.split("_")[-1]
+            laneIndex = i.split("_")[-1]
             if e in net1._crossings_and_walkingAreas:
                 continue
             e = net1._id2edge[e]
-            li = e._lanes[int(l)]
+            li = e._lanes[int(laneIndex)]
             for c in li._outgoing:
                 indices[n][(li, c._toLane)] = index
                 index = index + 1

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -93,7 +93,7 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
                                GUISUMOAbstractView&) {
     const int sublaneParams = MSGlobals::gLateralResolution > 0 ? 4 : 0;
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 37 + sublaneParams + (int)getParameter().getParametersMap().size());
+        new GUIParameterTableWindow(app, *this, 39 + sublaneParams + (int)getParameter().getParametersMap().size());
     // add items
     ret->mkItem("lane [id]", false, Named::getIDSecure(myLane, "n/a"));
     if (MSAbstractLaneChangeModel::haveLateralDynamics()) {
@@ -165,6 +165,9 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
                 new FunctionBinding<GUIVehicle, int>(this, &MSVehicle::getPersonNumber));
     ret->mkItem("containers", true,
                 new FunctionBinding<GUIVehicle, int>(this, &MSVehicle::getContainerNumber));
+
+    ret->mkItem("lcState right", false, toString((LaneChangeAction)getLaneChangeModel().getSavedState(-1).second));
+    ret->mkItem("lcState left", false, toString((LaneChangeAction)getLaneChangeModel().getSavedState(1).second));
     // close building
     if (MSGlobals::gLateralResolution > 0) {
         ret->mkItem("right side on edge [m]", true, new FunctionBinding<GUIVehicle, double>(this, &GUIVehicle::getRightSideOnEdge2));
@@ -182,7 +185,7 @@ GUIParameterTableWindow*
 GUIVehicle::getTypeParameterWindow(GUIMainWindow& app,
                                    GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 25
+        new GUIParameterTableWindow(app, *this, 26
                                     + (int)myType->getParameter().getParametersMap().size()
                                     + (int)myType->getParameter().lcParameter.size()
                                     + (int)myType->getParameter().jmParameter.size());
@@ -197,6 +200,7 @@ GUIVehicle::getTypeParameterWindow(GUIMainWindow& app,
     ret->mkItem("emission class", false, PollutantsInterface::getName(myType->getEmissionClass()));
     ret->mkItem("carFollowModel", false, SUMOXMLDefinitions::CarFollowModels.getString((SumoXMLTag)getCarFollowModel().getModelID()));
     ret->mkItem("LaneChangeModel", false, SUMOXMLDefinitions::LaneChangeModels.getString(getLaneChangeModel().getModelID()));
+    ret->mkItem("guiShape", false, getVehicleShapeName(myType->getGuiShape()));
     ret->mkItem("maximum speed [m/s]", false, getMaxSpeed());
     ret->mkItem("maximum acceleration [m/s^2]", false, getCarFollowModel().getMaxAccel());
     ret->mkItem("maximum deceleration [m/s^2]", false, getCarFollowModel().getMaxDecel());
@@ -491,25 +495,26 @@ GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r)
 
 
 MSLane*
-GUIVehicle::getPreviousLane(MSLane* current, int& furtherIndex) const {
-    if (furtherIndex < (int)myFurtherLanes.size()) {
-        return myFurtherLanes[furtherIndex++];
-    } else {
-        const int routeIndex = (int)(getCurrentRouteEdge() - myRoute->begin());
-        int backIndex = furtherIndex + 1;
-        for (MSLane* l : myFurtherLanes) {
-            if (l->isInternal()) {
-                backIndex--;
+GUIVehicle::getPreviousLane(MSLane* current, int& routeIndex) const {
+    if (current->isInternal()) {
+        return current->getIncomingLanes().front().lane;
+    }
+    if (routeIndex > 0) {
+        routeIndex--;
+        const MSEdge* prevNormal = myRoute->getEdges()[routeIndex];
+        for (MSLane* cand : prevNormal->getLanes()) {
+            for (MSLink* link : cand->getLinkCont()) {
+                if (link->getLane() == current) {
+                    if (link->getViaLane() != nullptr) {
+                        return link->getViaLane();
+                    } else {
+                        return const_cast<MSLane*>(link->getLaneBefore());
+                    }
+                }
             }
         }
-        if (routeIndex >= backIndex) {
-            furtherIndex++;
-            // could also look for the first lane that allows this vehicle class
-            // but this is probably not an issue for trains
-            return (*(getCurrentRouteEdge() - backIndex))->getLanes()[0];
-        }
-        return current;
     }
+    return current;
 }
 
 
@@ -543,10 +548,10 @@ GUIVehicle::drawAction_drawRailCarriages(const GUIVisualizationSettings& s, doub
     const double carriageLength = carriageLengthWithGap - carriageGap;
     // lane on which the carriage front is situated
     MSLane* lane = myLane;
-    int furtherIndex = 0;
+    int routeIndex = getRoutePosition();
     // lane on which the carriage back is situated
     MSLane* backLane = myLane;
-    int backFurtherIndex = furtherIndex;
+    int backRouteIndex = routeIndex;
     // offsets of front and back
     double carriageOffset = myState.pos();
     double carriageBackOffset = myState.pos() - carriageLength;
@@ -560,7 +565,7 @@ GUIVehicle::drawAction_drawRailCarriages(const GUIVisualizationSettings& s, doub
     // draw individual carriages
     for (int i = 0; i < numCarriages; ++i) {
         while (carriageOffset < 0) {
-            MSLane* prev = getPreviousLane(lane, furtherIndex);
+            MSLane* prev = getPreviousLane(lane, routeIndex);
             if (prev != lane) {
                 carriageOffset += prev->getLength();
             } else {
@@ -570,7 +575,7 @@ GUIVehicle::drawAction_drawRailCarriages(const GUIVisualizationSettings& s, doub
             lane = prev;
         }
         while (carriageBackOffset < 0) {
-            MSLane* prev = getPreviousLane(backLane, backFurtherIndex);
+            MSLane* prev = getPreviousLane(backLane, backRouteIndex);
             if (prev != backLane) {
                 carriageBackOffset += prev->getLength();
             } else {

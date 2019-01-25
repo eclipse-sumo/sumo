@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2011-2018 German Aerospace Center (DLR) and others.
+# Copyright (C) 2011-2019 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -22,25 +22,28 @@ from . import constants as tc
 from .domain import Domain
 from .storage import Storage
 
-Stage = collections.namedtuple('Stage', ['stageType', 'line', 'destStop',
-                                         'edges', 'travelTime', 'cost', 'intended', 'depart'])
+Stage = collections.namedtuple('Stage', ['stageType', 'vType', 'line', 'destStop', 'edges', 'travelTime', 'cost',
+                                         'length', 'intended', 'depart', 'departPos', 'arrivalPos', 'description'])
 
 
 def _readStage(result):
     # compound size and type
-    _, _, stageType = result.read("!iBi")
-    result.read("!B")                   # Type
-    line = result.readString()
-    result.read("!B")                   # Type
-    destStop = result.readString()
-    result.read("!B")                   # Type
-    edges = result.readStringList()
-    _, travelTime, _, cost = result.read("!BdBd")
-    result.read("!B")                   # Type
-    intended = result.readString()
-    result.read("!B")                   # Type
-    depart = result.readDouble()
-    return Stage(stageType, line, destStop, edges, travelTime, cost, intended, depart)
+    assert(result.read("!i")[0] == 13)
+    stageType = result.readTypedInt()
+    vType = result.readTypedString()
+    line = result.readTypedString()
+    destStop = result.readTypedString()
+    edges = result.readTypedStringList()
+    travelTime = result.readTypedDouble()
+    cost = result.readTypedDouble()
+    length = result.readTypedDouble()
+    intended = result.readTypedString()
+    depart = result.readTypedDouble()
+    departPos = result.readTypedDouble()
+    arrivalPos = result.readTypedDouble()
+    description = result.readTypedString()
+    return Stage(stageType, vType, line, destStop, edges, travelTime, cost,
+                 length, intended, depart, departPos, arrivalPos, description)
 
 
 _RETURN_VALUE_FUNC = {tc.VAR_TIME: Storage.readDouble,

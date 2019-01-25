@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -430,7 +430,7 @@ GNETLSEditorFrame::onCmdPhaseSwitch(FXObject*, FXSelector, void*) {
     return 1;
 }
 
-bool 
+bool
 GNETLSEditorFrame::fixedDuration() const {
     assert(myEditedDef != nullptr);
     return myEditedDef->getType() == TLTYPE_STATIC;
@@ -544,7 +544,14 @@ GNETLSEditorFrame::onCmdPhaseEdit(FXObject*, FXSelector, void* ptr) {
      * click inside the cell and hit enter to actually update the value */
     FXTablePos* tp = (FXTablePos*)ptr;
     FXString value = myTLSPhases->getPhaseTable()->getItemText(tp->row, tp->col);
-    if (tp->col == 0) {
+    const int colDuration = 0;
+    const int colMinDur = fixedDuration() ? -1 : 1;
+    const int colMaxDur = fixedDuration() ? -1 : 2;
+    const int colState = fixedDuration() ? 1 : 3;
+    const int colNext = fixedDuration() ? 2 : 4;
+    const int colName = fixedDuration() ? 3 : 5;
+
+    if (tp->col == colDuration) {
         // duration edited
         if (GNEAttributeCarrier::canParse<double>(value.text())) {
             SUMOTime duration = getSUMOTime(value);
@@ -556,8 +563,8 @@ GNETLSEditorFrame::onCmdPhaseEdit(FXObject*, FXSelector, void* ptr) {
             }
         }
         // input error, reset value
-        myTLSPhases->getPhaseTable()->setItemText(tp->row, 0, toString(STEPS2TIME(getPhases()[tp->row].duration)).c_str());
-    } else if (!fixedDuration() && tp->col == 1) {
+        myTLSPhases->getPhaseTable()->setItemText(tp->row, colDuration, toString(STEPS2TIME(getPhases()[tp->row].duration)).c_str());
+    } else if (tp->col == colMinDur) {
         // minDur edited
         if (GNEAttributeCarrier::canParse<double>(value.text())) {
             SUMOTime minDur = getSUMOTime(value);
@@ -572,8 +579,8 @@ GNETLSEditorFrame::onCmdPhaseEdit(FXObject*, FXSelector, void* ptr) {
             return 1;
         }
         // input error, reset value
-        myTLSPhases->getPhaseTable()->setItemText(tp->row, 1, varDurString(getPhases()[tp->row].minDur).c_str());
-    } else if (!fixedDuration() && tp->col == 2) {
+        myTLSPhases->getPhaseTable()->setItemText(tp->row, colMinDur, varDurString(getPhases()[tp->row].minDur).c_str());
+    } else if (tp->col == colMaxDur) {
         // maxDur edited
         if (GNEAttributeCarrier::canParse<double>(value.text())) {
             SUMOTime maxDur = getSUMOTime(value);
@@ -588,8 +595,8 @@ GNETLSEditorFrame::onCmdPhaseEdit(FXObject*, FXSelector, void* ptr) {
             return 1;
         }
         // input error, reset value
-        myTLSPhases->getPhaseTable()->setItemText(tp->row, 2, varDurString(getPhases()[tp->row].maxDur).c_str());
-    } else {
+        myTLSPhases->getPhaseTable()->setItemText(tp->row, colMaxDur, varDurString(getPhases()[tp->row].maxDur).c_str());
+    } else if (tp->col == colState) {
         // state edited
         try {
             // insert phase with new step and delete the old phase
@@ -600,8 +607,29 @@ GNETLSEditorFrame::onCmdPhaseEdit(FXObject*, FXSelector, void* ptr) {
             onCmdPhaseSwitch(nullptr, 0, nullptr);
         } catch (ProcessError&) {
             // input error, reset value
-            myTLSPhases->getPhaseTable()->setItemText(tp->row, 1, getPhases()[tp->row].state.c_str());
+            myTLSPhases->getPhaseTable()->setItemText(tp->row, colState, getPhases()[tp->row].state.c_str());
         }
+    } else if (tp->col == colNext) {
+        // next edited
+        if (GNEAttributeCarrier::canParse<int>(value.text())) {
+            int next = GNEAttributeCarrier::parse<int>(value.text());
+            if (next == -1 || next < myTLSPhases->getPhaseTable()->getNumRows()) {
+                myEditedDef->getLogic()->setPhaseNext(tp->row, next);
+            }
+            myTLSModifications->setHaveModifications(true);
+            return 1;
+        } else if (StringUtils::prune(value.text()).empty()) {
+            myEditedDef->getLogic()->setPhaseNext(tp->row, -1);
+            myTLSModifications->setHaveModifications(true);
+            return 1;
+        }
+        // input error, reset value
+        myTLSPhases->getPhaseTable()->setItemText(tp->row, colNext, varDurString(getPhases()[tp->row].maxDur).c_str());
+    } else if (tp->col == colName) {
+        // name edited
+        myEditedDef->getLogic()->setPhaseName(tp->row, value.text());
+        myTLSModifications->setHaveModifications(true);
+        return 1;
     }
     return 1;
 }
@@ -1006,18 +1034,27 @@ GNETLSEditorFrame::TLSPhases::initPhaseTable(int index) {
     myPhaseTable->hide();
     if (myTLSEditorParent->myTLSAttributes->getNumberOfTLSDefinitions() > 0) {
         const bool fixed = myTLSEditorParent->fixedDuration();
-        const int cols = fixed ? 2 : 4;
+        const int cols = fixed ? 4 : 6;
+        const int colDuration = 0;
+        const int colMinDur = fixed ? -1 : 1;
+        const int colMaxDur = fixed ? -1 : 2;
+        const int colState = fixed ? 1 : 3;
+        const int colNext = fixed ? 2 : 4;
+        const int colName = fixed ? 3 : 5;
+
         const std::vector<NBTrafficLightLogic::PhaseDefinition>& phases = myTLSEditorParent->getPhases();
         myPhaseTable->setTableSize((int)phases.size(), cols);
         myPhaseTable->setVisibleRows((int)phases.size());
         myPhaseTable->setVisibleColumns(cols);
         for (int row = 0; row < (int)phases.size(); row++) {
-            myPhaseTable->setItemText(row, 0, toString(STEPS2TIME(phases[row].duration)).c_str());
+            myPhaseTable->setItemText(row, colDuration, toString(STEPS2TIME(phases[row].duration)).c_str());
             if (!fixed) {
-                myPhaseTable->setItemText(row, 1, varDurString(phases[row].minDur).c_str());
-                myPhaseTable->setItemText(row, 2, varDurString(phases[row].maxDur).c_str());
+                myPhaseTable->setItemText(row, colMinDur, varDurString(phases[row].minDur).c_str());
+                myPhaseTable->setItemText(row, colMaxDur, varDurString(phases[row].maxDur).c_str());
             }
-            myPhaseTable->setItemText(row, fixed ? 1 : 3, phases[row].state.c_str());
+            myPhaseTable->setItemText(row, colState, phases[row].state.c_str());
+            myPhaseTable->setItemText(row, colNext, phases[row].next >= 0 ? toString(phases[row].next).c_str() : " ");
+            myPhaseTable->setItemText(row, colName, phases[row].name.c_str());
             myPhaseTable->getItem(row, 1)->setJustify(FXTableItem::LEFT);
         }
         myPhaseTable->fitColumnsToContents(0, cols);

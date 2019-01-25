@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -32,6 +32,8 @@
 #include <utils/common/ToString.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/shapes/SUMOPolygon.h>
+#include <utils/shapes/PointOfInterest.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBEdgeCont.h>
@@ -92,6 +94,8 @@ StringBijection<int>::Entry NIImporter_OpenDrive::openDriveTags[] = {
     { "speed",            NIImporter_OpenDrive::OPENDRIVE_TAG_SPEED },
     { "elevation",        NIImporter_OpenDrive::OPENDRIVE_TAG_ELEVATION },
     { "geoReference",     NIImporter_OpenDrive::OPENDRIVE_TAG_GEOREFERENCE },
+    { "object",           NIImporter_OpenDrive::OPENDRIVE_TAG_OBJECT },
+    { "repeat",           NIImporter_OpenDrive::OPENDRIVE_TAG_REPEAT },
 
     { "",                 NIImporter_OpenDrive::OPENDRIVE_TAG_NOTHING }
 };
@@ -102,11 +106,18 @@ StringBijection<int>::Entry NIImporter_OpenDrive::openDriveAttrs[] = {
     { "revMinor",       NIImporter_OpenDrive::OPENDRIVE_ATTR_REVMINOR },
     { "id",             NIImporter_OpenDrive::OPENDRIVE_ATTR_ID },
     { "length",         NIImporter_OpenDrive::OPENDRIVE_ATTR_LENGTH },
+    { "width",          NIImporter_OpenDrive::OPENDRIVE_ATTR_WIDTH },
+    { "distance",       NIImporter_OpenDrive::OPENDRIVE_ATTR_DISTANCE },
+    { "tStart",         NIImporter_OpenDrive::OPENDRIVE_ATTR_TSTART },
+    { "tEnd",           NIImporter_OpenDrive::OPENDRIVE_ATTR_TEND },
+    { "widthStart",     NIImporter_OpenDrive::OPENDRIVE_ATTR_WIDTHSTART },
+    { "widthEnd",       NIImporter_OpenDrive::OPENDRIVE_ATTR_WIDTHEND },
     { "junction",       NIImporter_OpenDrive::OPENDRIVE_ATTR_JUNCTION },
     { "elementType",    NIImporter_OpenDrive::OPENDRIVE_ATTR_ELEMENTTYPE },
     { "elementId",      NIImporter_OpenDrive::OPENDRIVE_ATTR_ELEMENTID },
     { "contactPoint",   NIImporter_OpenDrive::OPENDRIVE_ATTR_CONTACTPOINT },
     { "s",              NIImporter_OpenDrive::OPENDRIVE_ATTR_S },
+    { "t",              NIImporter_OpenDrive::OPENDRIVE_ATTR_T },
     { "x",              NIImporter_OpenDrive::OPENDRIVE_ATTR_X },
     { "y",              NIImporter_OpenDrive::OPENDRIVE_ATTR_Y },
     { "hdg",            NIImporter_OpenDrive::OPENDRIVE_ATTR_HDG },
@@ -505,6 +516,40 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             sB = sE;
             sFrom = sTo;
         }
+        // optionally write road objects
+        if (oc.isSet("polygon-output")) {
+            const bool writeGeo = oc.getBool("proj.plain-geo");
+            OutputDevice& dev = OutputDevice::getDevice(oc.getString("polygon-output"));
+            dev.writeXMLHeader("additional", "additional_file.xsd");
+            //SUMOPolygon poly("road_" + e->id, "road", RGBColor::BLUE, e->geom, true, false);
+            //poly.writeXML(dev, false);
+            for (auto& o : e->objects) {
+                PositionVector centerLine;
+                centerLine.push_back(Position(-o.length / 2, 0));
+                centerLine.push_back(Position(o.length / 2, 0));
+                double roadHdg = e->geom.rotationAtOffset(o.s);
+                centerLine.rotate2D(roadHdg + o.hdg);
+                Position ref = e->geom.positionAtOffset2D(o.s, -o.t);
+                //PointOfInterest poiRef("ref_" + o.id, "", RGBColor::CYAN, ref, false, "", 0, 0, Shape::DEFAULT_LAYER + 2);
+                //poiRef.writeXML(dev, false);
+                centerLine.add(ref);
+                //SUMOPolygon polyCenter("center_" + o.id, "", RGBColor::MAGENTA, centerLine, true, false, Shape::DEFAULT_LAYER + 1);
+                //polyCenter.writeXML(dev, false);
+                centerLine.move2side(o.width / 2);
+                PositionVector shape = centerLine;
+                centerLine.move2side(-o.width);
+                shape.append(centerLine.reverse(), POSITION_EPS);
+                if (writeGeo) {
+                    // GeoConvHelper::getFinal is not ready yet
+                    for (int i = 0; i < (int) shape.size(); i++) {
+                        GeoConvHelper::getLoaded().cartesian2geo(shape[i]);
+                    }
+                }
+                SUMOPolygon poly(o.id, o.type, RGBColor::YELLOW, shape, true, true, 1);
+                poly.setParameter("name", o.name);
+                poly.writeXML(dev, writeGeo);
+            }
+        }
         if (!lanesBuilt) {
             WRITE_WARNING("Edge '" + e->id + "' has no lanes.");
         }
@@ -709,7 +754,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     // clean up
     // -------------------------
     for (std::map<std::string, OpenDriveEdge*>::iterator i = edges.begin(); i != edges.end(); ++i) {
-        delete(*i).second;
+        delete (*i).second;
     }
 }
 
@@ -801,12 +846,12 @@ NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c, const std::ma
 #endif
                     for (const auto& destLane : dest->laneSections.front().lanesByDir[lanesDir]) {
 #ifdef DEBUG_INTERNALSHAPES
-                        destPred += "  lane=" + toString(destLane.id) 
-                            + " pred=" + toString(destLane.predecessor) 
-                            + " succ=" + toString(destLane.successor) 
-                            + " wStart=" + toString(destLane.widthData.front().computeAt(0)) 
-                            + " wEnd=" + toString(destLane.widthData.front().computeAt(cn.shape.length2D())) 
-                            + " width=" + toString(destLane.width) + "\n";
+                        destPred += "  lane=" + toString(destLane.id)
+                                    + " pred=" + toString(destLane.predecessor)
+                                    + " succ=" + toString(destLane.successor)
+                                    + " wStart=" + toString(destLane.widthData.front().computeAt(0))
+                                    + " wEnd=" + toString(destLane.widthData.front().computeAt(cn.shape.length2D()))
+                                    + " width=" + toString(destLane.width) + "\n";
 #endif
                         if (abs(destLane.id) <= abs(referenceLane)) {
                             const double multiplier = offsetFactor * (destLane.id == referenceLane ? 0.5 : 1);
@@ -830,14 +875,14 @@ NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c, const std::ma
                     }
 #ifdef DEBUG_INTERNALSHAPES
                     std::cout << "internalShape "
-                        << c.getDescription()
-                        << " dest=" << dest->id
-                        << " refLane=" << referenceLane
-                        << " destPred\n" << destPred
-                        << " offsets=" << offsets
-                        << "\n shape=" << dest->geom
-                        << "\n shape2=" << cn.shape
-                        << "\n";
+                              << c.getDescription()
+                              << " dest=" << dest->id
+                              << " refLane=" << referenceLane
+                              << " destPred\n" << destPred
+                              << " offsets=" << offsets
+                              << "\n shape=" << dest->geom
+                              << "\n shape2=" << cn.shape
+                              << "\n";
 #endif
                     if (c.toCP == OPENDRIVE_CP_END) {
                         cn.shape = cn.shape.reverse();
@@ -895,12 +940,14 @@ NIImporter_OpenDrive::setEdgeLinks2(OpenDriveEdge& e, const std::map<std::string
                     OpenDriveEdge* src = edges.find(c.fromEdge)->second;
                     src->connections.insert(c);
 #ifdef DEBUG_CONNECTIONS
-                    if (DEBUG_COND(src)) std::cout << "insertConRight from=" << src->id << "_" << c.fromLane << " to=" << c.toEdge << "_" << c.toLane << "\n";
+                    if (DEBUG_COND(src)) {
+                        std::cout << "insertConRight from=" << src->id << "_" << c.fromLane << " to=" << c.toEdge << "_" << c.toLane << "\n";
+                    }
 #endif
                 }
+            }
         }
-    }
-    if (laneSection.lanesByDir.find(OPENDRIVE_TAG_LEFT) != laneSection.lanesByDir.end()) {
+        if (laneSection.lanesByDir.find(OPENDRIVE_TAG_LEFT) != laneSection.lanesByDir.end()) {
             const std::vector<OpenDriveLane>& lanes = laneSection.lanesByDir.find(OPENDRIVE_TAG_LEFT)->second;
             for (std::vector<OpenDriveLane>::const_iterator j = lanes.begin(); j != lanes.end(); ++j) {
                 if (!myImportAllTypes && laneMap.find((*j).id) == laneMap.end()) {
@@ -1840,6 +1887,46 @@ NIImporter_OpenDrive::myStartElement(int element,
                     // IGNORING unknown units.
                 }
                 myCurrentEdge.laneSections.back().lanesByDir[myCurrentLaneDirection].back().speeds.push_back(std::make_pair(pos, speed));
+            }
+        }
+        break;
+        case OPENDRIVE_TAG_OBJECT: {
+            OpenDriveObject o;
+            o.id = attrs.get<std::string>(OPENDRIVE_ATTR_ID, 0, ok);
+            o.type = attrs.get<std::string>(OPENDRIVE_ATTR_TYPE, o.id.c_str(), ok);
+            o.name = attrs.get<std::string>(OPENDRIVE_ATTR_NAME, o.id.c_str(), ok);
+            o.s = attrs.get<double>(OPENDRIVE_ATTR_S, o.id.c_str(), ok);
+            o.t = attrs.get<double>(OPENDRIVE_ATTR_T, o.id.c_str(), ok);
+            o.width = attrs.get<double>(OPENDRIVE_ATTR_WIDTH, o.id.c_str(), ok);
+            o.length = attrs.get<double>(OPENDRIVE_ATTR_LENGTH, o.id.c_str(), ok);
+            o.hdg = attrs.get<double>(OPENDRIVE_ATTR_HDG, o.id.c_str(), ok);
+            myCurrentEdge.objects.push_back(o);
+        }
+        break;
+        case OPENDRIVE_TAG_REPEAT: {
+            if (myCurrentEdge.objects.empty()) {
+                WRITE_ERROR("Repeat without object");
+                ok = false;
+            } else {
+                OpenDriveObject o = myCurrentEdge.objects.back();
+                const std::string baseID = o.id;
+                myCurrentEdge.objects.pop_back();
+                const double dist = attrs.get<double>(OPENDRIVE_ATTR_DISTANCE, o.id.c_str(), ok);
+                const double length = attrs.get<double>(OPENDRIVE_ATTR_LENGTH, o.id.c_str(), ok);
+                o.s = attrs.getOpt<double>(OPENDRIVE_ATTR_S, o.id.c_str(), ok, o.s);
+                double wStart = attrs.getOpt<double>(OPENDRIVE_ATTR_WIDTHSTART, o.id.c_str(), ok, o.width);
+                double wEnd = attrs.getOpt<double>(OPENDRIVE_ATTR_WIDTHEND, o.id.c_str(), ok, o.width);
+                double tStart = attrs.getOpt<double>(OPENDRIVE_ATTR_TSTART, o.id.c_str(), ok, o.t);
+                double tEnd = attrs.getOpt<double>(OPENDRIVE_ATTR_TEND, o.id.c_str(), ok, o.t);
+                int index = 0;
+                for (double x = 0; x <= length + NUMERICAL_EPS; x += dist) {
+                    o.id = baseID + "#" + toString(index++);
+                    const double a = x / length;
+                    o.width = wStart * (1 - a) + wEnd * a;
+                    o.t = tStart * (1 - a) + tEnd * a;
+                    myCurrentEdge.objects.push_back(o);
+                    o.s += dist;
+                }
             }
         }
         break;

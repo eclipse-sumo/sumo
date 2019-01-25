@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -198,7 +198,7 @@ public:
     ApproachingVehicleInformation getApproaching(const SUMOVehicle* veh) const;
 
     /// @brief return all approaching vehicles
-    const std::map<const SUMOVehicle*, ApproachingVehicleInformation, ComparatorNumericalIdLess>& getApproaching() const {
+    const std::map<const SUMOVehicle*, const ApproachingVehicleInformation, ComparatorNumericalIdLess>& getApproaching() const {
         return myApproachingVehicles;
     }
 
@@ -544,7 +544,7 @@ private:
     /// @brief The lane approaching this link
     MSLane* myLaneBefore;
 
-    std::map<const SUMOVehicle*, ApproachingVehicleInformation, ComparatorNumericalIdLess> myApproachingVehicles;
+    std::map<const SUMOVehicle*, const ApproachingVehicleInformation, ComparatorNumericalIdLess> myApproachingVehicles;
     std::set<MSLink*> myBlockedFoeLinks;
 
     /// @brief The position within this respond

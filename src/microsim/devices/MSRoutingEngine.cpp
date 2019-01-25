@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2007-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2007-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -37,10 +37,10 @@
 #include <utils/common/StaticCommand.h>
 #include <utils/common/StringUtils.h>
 #include <utils/xml/SUMOSAXAttributes.h>
-#include <utils/vehicle/DijkstraRouter.h>
-#include <utils/vehicle/AStarRouter.h>
-#include <utils/vehicle/CHRouter.h>
-#include <utils/vehicle/CHRouterWrapper.h>
+#include <utils/router/DijkstraRouter.h>
+#include <utils/router/AStarRouter.h>
+#include <utils/router/CHRouter.h>
+#include <utils/router/CHRouterWrapper.h>
 
 
 // ===========================================================================
@@ -190,11 +190,10 @@ MSRoutingEngine::adaptEdgeEfforts(SUMOTime currentTime) {
         dev.writeAttr(SUMO_ATTR_ID, "device.rerouting");
         dev.writeAttr(SUMO_ATTR_BEGIN, STEPS2TIME(currentTime));
         dev.writeAttr(SUMO_ATTR_END, STEPS2TIME(currentTime + myAdaptationInterval));
-        for (MSEdgeVector::const_iterator i = edges.begin(); i != edges.end(); ++i) {
-            const int id = (*i)->getNumericalID();
+        for (const MSEdge* e : edges) {
             dev.openTag(SUMO_TAG_EDGE);
-            dev.writeAttr(SUMO_ATTR_ID, (*i)->getID());
-            dev.writeAttr("traveltime", (*i)->getLength() / myEdgeSpeeds[id]);
+            dev.writeAttr(SUMO_ATTR_ID, e->getID());
+            dev.writeAttr("traveltime", getEffort(e, nullptr, STEPS2TIME(currentTime)));
             dev.closeTag();
         }
         dev.closeTag();
@@ -253,7 +252,7 @@ MSRoutingEngine::reroute(SUMOVehicle& vehicle, const SUMOTime currentTime, const
                 typedef AStarRouter<MSEdge, SUMOVehicle, SUMOAbstractRouter<MSEdge, SUMOVehicle> > AStar;
                 std::shared_ptr<const AStar::LookupTable> lookup;
                 if (oc.isSet("astar.all-distances")) {
-                    lookup = std::shared_ptr<const AStar::LookupTable> ( new AStar::FLT(oc.getString("astar.all-distances"), (int)MSEdge::getAllEdges().size()));
+                    lookup = std::shared_ptr<const AStar::LookupTable> (new AStar::FLT(oc.getString("astar.all-distances"), (int)MSEdge::getAllEdges().size()));
                 } else if (oc.isSet("astar.landmark-distances")) {
                     const double speedFactor = vehicle.getChosenSpeedFactor();
                     // we need an exemplary vehicle with speedFactor 1

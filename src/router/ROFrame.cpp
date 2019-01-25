@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -118,6 +118,9 @@ ROFrame::fillOptions(OptionsCont& oc) {
     oc.doRegister("weights.interpolate", new Option_Bool(false));
     oc.addSynonyme("weights.interpolate", "interpolate", true);
     oc.addDescription("weights.interpolate", "Processing", "Interpolate edge weights at interval boundaries");
+
+    oc.doRegister("weights.minor-penalty", new Option_Float(1.5));
+    oc.addDescription("weights.minor-penalty", "Processing", "Apply the given time penalty when computing routing costs for minor-link internal lanes");
 
     oc.doRegister("with-taz", new Option_Bool(false));
     oc.addDescription("with-taz", "Processing", "Use origin and destination zones (districts) for in- and output");

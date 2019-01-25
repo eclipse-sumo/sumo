@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -235,11 +235,11 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
     // first clear vertices
     myPOIVertices.clear();
     // check if POI can be drawn
-    if(checkDraw(s)) {
+    if (checkDraw(s)) {
         // push name (needed for getGUIGlObjectsUnderCursor(...)
         glPushName(getGlID());
         // draw inner polygon
-        drawInnerPOI(s);
+        drawInnerPOI(s, drawUsingSelectColor());
         // draw an orange square mode if there is an image(see #4036)
         if (!getShapeImgFile().empty() && OptionsCont::getOptions().getBool("gui-testing")) {
             // Add a draw matrix for drawing logo
@@ -572,15 +572,9 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             throw InvalidArgument(getTagStr() + " attribute '" + toString(key) + "' not allowed");
     }
     // Update Geometry after setting a new attribute (but avoided for certain attributes)
-    if((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
+    if ((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
         updateGeometry(true);
     }
 }
-
-
-void
-GNEPOI::mouseOverObject(const GUIVisualizationSettings&) const {
-}
-
 
 /****************************************************************************/

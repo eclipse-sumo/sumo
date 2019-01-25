@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -270,8 +270,9 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
     // push name (needed for getGUIGlObjectsUnderCursor(...)
     glPushName(getGlID());
     // first check if inner polygon can be drawn
-    if(checkDraw(s)) {
-        drawInnerPolygon(s);
+    if (checkDraw(s)) {
+        // draw inner polygon
+        drawInnerPolygon(s, drawUsingSelectColor());
     }
     // draw details of Netedit
     double circleWidth = myHintSize * MIN2((double)1, s.polySize.getExaggeration(s, this));
@@ -281,12 +282,12 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
     if (s.scale * circleWidth > 1.) {
         // set values relative to mouse position regarding to shape
         bool mouseOverVertex = false;
-        bool modeMove = myNet->getViewNet()->getCurrentNetworkEditMode() == GNE_NMODE_MOVE;
+        bool modeMove = myNet->getViewNet()->getEditModes().networkEditMode == GNE_NMODE_MOVE;
         Position mousePosition = myNet->getViewNet()->getPositionInformation();
         double distanceToShape = myShape.distance2D(mousePosition);
         // set colors
         RGBColor invertedColor, darkerColor;
-        if (isAttributeCarrierSelected()) {
+        if (drawUsingSelectColor()) {
             invertedColor = s.selectionColor.invertedColor();
             darkerColor = s.selectionColor.changedBrightness(-32);
         } else {
@@ -316,7 +317,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                     GLHelper::drawFilledCircle(circleWidth, circleResolution);
                     glPopMatrix();
                     // draw elevation or special symbols (Start, End and Block)
-                    if (!s.drawForSelecting && myNet->getViewNet()->editingElevation()) {
+                    if (!s.drawForSelecting && myNet->getViewNet()->getMoveOptions().editingElevation()) {
                         // Push matrix
                         glPushMatrix();
                         // Traslate to center of detector
@@ -775,7 +776,7 @@ GNEPoly::setGenericParametersStr(const std::string& value) {
 void
 GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
     // first remove object from grid due almost modificactions affects to boundary (but avoided for certain attributes)
-    if((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
+    if ((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
         myNet->removeGLObjectFromGrid(this);
     }
     switch (key) {
@@ -887,22 +888,9 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
     // add object into grid again (but avoided for certain attributes)
-    if((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
+    if ((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
         myNet->addGLObjectIntoGrid(this);
     }
 }
-
-
-void
-GNEPoly::mouseOverObject(const GUIVisualizationSettings&) const {
-    // only continue if there isn't already a AC under cursor
-    if (myNet->getViewNet()->getDottedAC() == nullptr) {
-        // check if cursor is within the shape
-        if (getShape().around(myNet->getViewNet()->getPositionInformation())) {
-            myNet->getViewNet()->setDottedAC(this);
-        }
-    }
-}
-
 
 /****************************************************************************/

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -205,12 +205,12 @@ GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
 
 }
 
-void 
+void
 GUIParkingArea::addLotEntry(double x, double y, double z,
-        double width, double length, double angle) {
+                            double width, double length, double angle) {
     MSParkingArea::addLotEntry(x, y, z, width, length, angle);
     Boundary b;
-    b.add(Position(x,y));
+    b.add(Position(x, y));
     b.grow(MAX2(width, length) + 5);
     myBoundary.add(b);
 }

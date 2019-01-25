@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -50,7 +50,7 @@ public:
      * @param oppositeEdge automatically create an opposite edge
      * @param chainEdge create edges in chain mode
      */
-    void processClick(const Position& clickedPosition, GNEViewNet::ObjectsUnderCursor &objectsUnderCursor, bool oppositeEdge, bool chainEdge);
+    void processClick(const Position& clickedPosition, GNEViewNet::ObjectsUnderCursor& objectsUnderCursor, bool oppositeEdge, bool chainEdge);
 
     /// @brief abort current edge creation
     void abortEdgeCreation();

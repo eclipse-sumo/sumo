@@ -14,5 +14,8 @@
 	
 	<!-- valid start position -->
     <busStop id="busStop_05" lane="gneE0_0" startPos="10" endPos="25" lines="line1 line2" name="busStop" friendlyPos="false"/>
+	
+	<!-- valid start position (Negative) -->
+    <busStop id="busStop_06" lane="gneE0_0" startPos="-40" endPos="25" lines="line1 line2" name="busStop" friendlyPos="false"/>
     
 </additional>

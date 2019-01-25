@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -509,6 +509,7 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     /// add junction coloring schemes
     scheme = GUIColorScheme("uniform", RGBColor::BLACK, "", true);
     scheme.addColor(RGBColor(150, 200, 200), 1, "waterway");
+    scheme.addColor(RGBColor(0, 0, 0, 0), 2, "railway");
     junctionColorer.addScheme(scheme);
     scheme = GUIColorScheme("by selection", RGBColor(128, 128, 128, 255), "unselected", true, 0, COL_SCHEME_MISC);
     scheme.addColor(RGBColor(0, 80, 180, 255), 1, "selected");
@@ -523,7 +524,7 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::MAGENTA, 7, "unregulated");
     scheme.addColor(RGBColor::BLACK, 8, "dead_end");
     scheme.addColor(RGBColor::ORANGE, 9, "rail_signal");
-    scheme.addColor(RGBColor(192, 128, 64), 10, "zipper"); // light brown
+    scheme.addColor(RGBColor(172, 108, 44), 10, "zipper"); // brown, darker than the zipper link rule
     scheme.addColor(RGBColor(192, 255, 192), 11, "traffic_light_right_on_red"); // light green
     scheme.addColor(RGBColor(128, 0, 128), 12, "rail_crossing"); // dark purple
     junctionColorer.addScheme(scheme);
@@ -853,7 +854,7 @@ GUIVisualizationSettings::initNeteditDefaults() {
     scheme.addColor(RGBColor::MAGENTA, 7, "unregulated");
     scheme.addColor(RGBColor::BLACK, 8, "dead_end");
     scheme.addColor(RGBColor::ORANGE, 9, "rail_signal");
-    scheme.addColor(RGBColor(192, 128, 64), 10, "zipper");
+    scheme.addColor(RGBColor(172, 108, 44), 10, "zipper"); // brown, darker than the zipper link rule
     scheme.addColor(RGBColor(192, 255, 192), 11, "traffic_light_right_on_red");
     scheme.addColor(RGBColor(128, 0, 128), 12, "rail_crossing"); // dark purple
     junctionColorer.addScheme(scheme);
@@ -1311,9 +1312,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
 double
 GUIVisualizationSizeSettings::getExaggeration(const GUIVisualizationSettings& s, const GUIGlObject* o, double factor) const {
     /// @note should look normal-sized at zoom 1000
-    return (constantSize && !s.drawForSelecting && (!constantSizeSelected || o == nullptr || gSelected.isSelected(o))) 
-        ? MAX2((double)exaggeration, exaggeration * factor / s.scale) 
-        : (!constantSizeSelected || o == nullptr || gSelected.isSelected(o) ? exaggeration : 1);
+    return (constantSize && !s.drawForSelecting && (!constantSizeSelected || o == nullptr || gSelected.isSelected(o)))
+           ? MAX2((double)exaggeration, exaggeration * factor / s.scale)
+           : (!constantSizeSelected || o == nullptr || gSelected.isSelected(o) ? exaggeration : 1);
 }
 
 

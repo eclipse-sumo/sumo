@@ -91,6 +91,7 @@ modeprohibition.xpm \
 modeselect.xpm \
 modetaz.xpm \
 modetrafficlight.xpm \
+moderoute.xpm \
 netedit_icon16.xpm \
 netedit_icon64.xpm \
 neteditarrowleft.xpm \

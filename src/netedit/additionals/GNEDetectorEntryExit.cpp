@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -40,7 +40,7 @@ GNEDetectorEntryExit::GNEDetectorEntryExit(SumoXMLTag entryExitTag, GNEViewNet* 
     GNEDetector(parent, viewNet, GLO_DET_ENTRY, entryExitTag, pos, 0, "", "", friendlyPos, blockMovement),
     myLane(lane) {
     //check that this is a TAZ Source OR a TAZ Sink
-    if((entryExitTag != SUMO_TAG_DET_ENTRY) && (entryExitTag != SUMO_TAG_DET_EXIT)) {
+    if ((entryExitTag != SUMO_TAG_DET_ENTRY) && (entryExitTag != SUMO_TAG_DET_EXIT)) {
         throw InvalidArgument("Invalid E3 Child Tag");
     }
 }
@@ -49,33 +49,34 @@ GNEDetectorEntryExit::GNEDetectorEntryExit(SumoXMLTag entryExitTag, GNEViewNet* 
 GNEDetectorEntryExit::~GNEDetectorEntryExit() {}
 
 
-bool 
+bool
 GNEDetectorEntryExit::isAdditionalValid() const {
     // with friendly position enabled position are "always fixed"
     if (myFriendlyPosition) {
         return true;
     } else {
-        return (myPositionOverLane >= 0) && (myPositionOverLane <= myLane->getParentEdge().getNBEdge()->getFinalLength());
+        return fabs(myPositionOverLane) <= myLane->getParentEdge().getNBEdge()->getFinalLength();
     }
 }
 
 
-std::string 
+std::string
 GNEDetectorEntryExit::getAdditionalProblem() const {
-    // declare variable for error position 
+    // declare variable for error position
     std::string errorPosition;
+    const double len = myLane->getParentEdge().getNBEdge()->getFinalLength();
     // check positions over lane
-    if (myPositionOverLane < 0) {
+    if (myPositionOverLane < -len) {
         errorPosition = (toString(SUMO_ATTR_POSITION) + " < 0");
     }
-    if (myPositionOverLane > myLane->getParentEdge().getNBEdge()->getFinalLength()) {
+    if (myPositionOverLane > len) {
         errorPosition = (toString(SUMO_ATTR_POSITION) + " > lanes's length");
     }
     return errorPosition;
 }
 
 
-void 
+void
 GNEDetectorEntryExit::fixAdditionalProblem() {
     // declare new position
     double newPositionOverLane = myPositionOverLane;
@@ -93,7 +94,11 @@ GNEDetectorEntryExit::moveGeometry(const Position& offset) {
     newPosition.add(offset);
     // filtern position using snap to active grid
     newPosition = myViewNet->snapToActiveGrid(newPosition);
+    const bool storeNegative = myPositionOverLane < 0;
     myPositionOverLane = myLane->getShape().nearest_offset_to_point2D(newPosition, false);
+    if (storeNegative) {
+        myPositionOverLane -= myLane->getParentEdge().getNBEdge()->getFinalLength();
+    }
     // Update geometry
     updateGeometry(false);
 }
@@ -119,14 +124,22 @@ GNEDetectorEntryExit::updateGeometry(bool updateGrid) {
     myGeometry.clearGeometry();
 
     // obtain position over lane
-    double fixedPositionOverLane = myPositionOverLane > myLane->getParentEdge().getNBEdge()->getFinalLength() ? myLane->getParentEdge().getNBEdge()->getFinalLength() : myPositionOverLane < 0 ? 0 : myPositionOverLane;
-    myGeometry.shape.push_back(myLane->getShape().positionAtOffset(fixedPositionOverLane * myLane->getLengthGeometryFactor()));
+    myGeometry.shape.push_back(getPositionInView());
+
+    // Obtain first position
+    Position f = myGeometry.shape[0] - Position(1, 0);
+
+    // Obtain next position
+    Position s = myGeometry.shape[0] + Position(1, 0);
 
     // Save rotation (angle) of the vector constructed by points f and s
-    myGeometry.shapeRotations.push_back(myLane->getShape().rotationDegreeAtOffset(fixedPositionOverLane) * -1);
+    myGeometry.shapeRotations.push_back(myLane->getShape().rotationDegreeAtOffset(getGeometryPositionOverLane()) * -1);
 
     // Set block icon position
     myBlockIcon.position = myGeometry.shape.getLineCenter();
+
+    // Set offset of the block icon
+    myBlockIcon.offset = Position(-1, 0);
 
     // Set block icon rotation, and using their rotation for logo
     myBlockIcon.setRotation(myLane);
@@ -157,14 +170,14 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
     glTranslated(0, 0, getType());
 
     // Set color
-    if (isAttributeCarrierSelected()) {
+    if (drawUsingSelectColor()) {
         GLHelper::setColor(s.selectedAdditionalColor);
     } else if (myTagProperty.getTag() == SUMO_TAG_DET_ENTRY) {
         GLHelper::setColor(s.SUMO_color_E3Entry);
     } else if (myTagProperty.getTag() == SUMO_TAG_DET_EXIT) {
         GLHelper::setColor(s.SUMO_color_E3Exit);
     }
-    
+
     // Set initial values
     const double exaggeration = s.addSize.getExaggeration(s, this);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -174,7 +187,7 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
     glScaled(exaggeration, exaggeration, 1);
     glTranslated(myGeometry.shape[0].x(), myGeometry.shape[0].y(), 0);
     glRotated(myGeometry.shapeRotations[0], 0, 0, 1);
-  
+
     // draw details if isn't being drawn for selecting
     if (!s.drawForSelecting) {
         // Draw polygon
@@ -228,7 +241,7 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
         if (s.drawForSelecting) {
             GLHelper::setColor(s.SUMO_color_E3Entry);
             GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
-        } else if (isAttributeCarrierSelected()) {
+        } else if (drawUsingSelectColor()) {
             GLHelper::drawText("E3", Position(), .1, 2.8, s.selectedAdditionalColor);
         } else if (myTagProperty.getTag() == SUMO_TAG_DET_ENTRY) {
             GLHelper::drawText("E3", Position(), .1, 2.8, s.SUMO_color_E3Entry);
@@ -243,7 +256,7 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
         if (s.drawForSelecting) {
             GLHelper::setColor(s.SUMO_color_E3Entry);
             GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
-        } else if (isAttributeCarrierSelected()) {
+        } else if (drawUsingSelectColor()) {
             if (myTagProperty.getTag() == SUMO_TAG_DET_ENTRY) {
                 GLHelper::drawText("Entry", Position(), .1, 1, s.selectedAdditionalColor);
             } else if (myTagProperty.getTag() == SUMO_TAG_DET_EXIT) {
@@ -331,7 +344,7 @@ GNEDetectorEntryExit::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_LANE:
             return (myViewNet->getNet()->retrieveLane(value, false) != nullptr);
         case SUMO_ATTR_POSITION:
-            return canParse<double>(value);
+            return canParse<double>(value) && fabs(parse<double>(value)) < myLane->getParentEdge().getNBEdge()->getFinalLength();
         case SUMO_ATTR_FRIENDLY_POS:
             return canParse<bool>(value);
         case GNE_ATTR_BLOCK_MOVEMENT:
@@ -382,7 +395,7 @@ GNEDetectorEntryExit::setAttribute(SumoXMLAttr key, const std::string& value) {
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
     // Update Geometry after setting a new attribute (but avoided for certain attributes)
-    if((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
+    if ((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
         updateGeometry(true);
     }
 }

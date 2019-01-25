@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2011-2018 German Aerospace Center (DLR) and others.
+# Copyright (C) 2011-2019 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -33,7 +33,7 @@ class Phase:
     def __repr__(self):
         name = "" if self.name == "" else ", name='%s'" % self.name
         return ("Phase(duration=%s, state='%s', minDur=%s, maxDur=%s, next=%s%s)" %
-                (self.duration, self.state, self.minDur, self.maxDur, self.next,name))
+                (self.duration, self.state, self.minDur, self.maxDur, self.next, name))
 
 
 class Logic:

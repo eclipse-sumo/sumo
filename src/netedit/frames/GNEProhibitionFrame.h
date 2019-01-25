@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -56,7 +56,7 @@ public:
     /**@brief handle prohibitions and set the relative colouring
      * @param objectsUnderCursor collection of objects under cursor after click over view
      */
-    void handleProhibitionClick(const GNEViewNet::ObjectsUnderCursor &objectsUnderCursor);
+    void handleProhibitionClick(const GNEViewNet::ObjectsUnderCursor& objectsUnderCursor);
 
     /// @brief show prohibition frame
     void show();

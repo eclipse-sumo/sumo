@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -109,7 +109,7 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
             // must draw on top of junction
             glTranslated(0, 0, GLO_JUNCTION + 0.1);
             // set color depending of selection and priority
-            if (isAttributeCarrierSelected()) {
+            if (drawUsingSelectColor()) {
                 glColor3d(0.118, 0.565, 1.000);
             } else if (!crossing->valid) {
                 glColor3d(1.0, 0.1, 0.1);
@@ -207,7 +207,7 @@ GNECrossing::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     // create menu commands
     FXMenuCommand* mcCustomShape = new FXMenuCommand(ret, "Set custom crossing shape", nullptr, &parent, MID_GNE_CROSSING_EDIT_SHAPE);
     // check if menu commands has to be disabled
-    NetworkEditMode editMode = myNet->getViewNet()->getCurrentNetworkEditMode();
+    NetworkEditMode editMode = myNet->getViewNet()->getEditModes().networkEditMode;
     const bool wrongMode = (editMode == GNE_NMODE_CONNECT || editMode == GNE_NMODE_TLS || editMode == GNE_NMODE_CREATE_EDGE);
     if (wrongMode) {
         mcCustomShape->disable();
@@ -483,15 +483,9 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
     // Crossing are a special case and we need ot update geometry of junction instead of crossing
-    if((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
+    if ((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
         myParentJunction->updateGeometry(true);
     }
 }
-
-
-void
-GNECrossing::mouseOverObject(const GUIVisualizationSettings&) const {
-}
-
 
 /****************************************************************************/

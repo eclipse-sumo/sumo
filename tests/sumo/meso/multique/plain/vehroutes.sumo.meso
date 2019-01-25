@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jan  6 08:52:05 2017 by SUMO Version dev-SVN-r22480
+<!-- generated on Thu Jan 24 15:42:52 2019 by Eclipse SUMO Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,8 +14,14 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <vehroute-output value="vehroutes.xml"/>
     </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+        <pedestrian.model value="nonInteracting"/>
+    </processing>
 
     <report>
         <xml-validation value="never"/>
@@ -48,12 +54,12 @@ SPDX-License-Identifier: EPL-2.0
         <route edges="beg beg2left left left2end end rend"/>
     </vehicle>
 
-    <vehicle id="m.0" depart="5.00" arrival="133.00">
-        <route edges="beg middle end rend"/>
-    </vehicle>
-
     <vehicle id="l.4" depart="4.00" arrival="133.00">
         <route edges="beg beg2left left left2end end rend"/>
+    </vehicle>
+
+    <vehicle id="m.0" depart="5.00" arrival="133.00">
+        <route edges="beg middle end rend"/>
     </vehicle>
 
     <vehicle id="m.1" depart="6.00" arrival="134.00">
@@ -64,12 +70,12 @@ SPDX-License-Identifier: EPL-2.0
         <route edges="beg beg2left left left2end end rend"/>
     </vehicle>
 
-    <vehicle id="m.2" depart="8.00" arrival="137.00">
-        <route edges="beg middle end rend"/>
-    </vehicle>
-
     <vehicle id="l.6" depart="6.00" arrival="137.00">
         <route edges="beg beg2left left left2end end rend"/>
+    </vehicle>
+
+    <vehicle id="m.2" depart="8.00" arrival="137.00">
+        <route edges="beg middle end rend"/>
     </vehicle>
 
     <vehicle id="l.7" depart="7.00" arrival="139.00">

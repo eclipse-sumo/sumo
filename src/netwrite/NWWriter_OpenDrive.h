@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -37,6 +37,7 @@ class OptionsCont;
 class PositionVector;
 class OutputDevice;
 class OutputDevice_String;
+class ShapeContainer;
 
 
 // ===========================================================================
@@ -61,7 +62,8 @@ protected:
     static void writeNormalEdge(OutputDevice& device, const NBEdge* e,
                                 int edgeID, int fromNodeID, int toNodeID,
                                 const bool origNames,
-                                const double straightThresh);
+                                const double straightThresh,
+                                const ShapeContainer& shc);
 
     /// @brief write internal edge to device, return next connectionID
     static int writeInternalEdge(OutputDevice& device, OutputDevice& junctionDevice,
@@ -105,6 +107,9 @@ protected:
 
     /// @brief check if the lane geometries are compatible with OpenDRIVE assumptions (colinear stop line)
     static void checkLaneGeometries(const NBEdge* e);
+
+    /// @brief write road objects referenced as edge parameters
+    static void writeRoadObjects(OutputDevice& device, const NBEdge* e, const ShapeContainer& shc);
 };
 
 

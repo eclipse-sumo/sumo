@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2013-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2013-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -250,7 +250,7 @@ MSLCM_SL2015::setOwnState(const int state) {
     MSAbstractLaneChangeModel::setOwnState(state);
     if (myVehicle.isActive()) {
         if ((state & (LCA_STRATEGIC | LCA_SPEEDGAIN)) != 0 && (state & LCA_BLOCKED) != 0) {
-            myImpatience = MIN2(1.0 , myImpatience + myVehicle.getActionStepLengthSecs() / myTimeToImpatience);
+            myImpatience = MIN2(1.0, myImpatience + myVehicle.getActionStepLengthSecs() / myTimeToImpatience);
         } else {
             // impatience decays only to the driver-specific level
             myImpatience = MAX2(myMinImpatience, myImpatience - myVehicle.getActionStepLengthSecs() / myTimeToImpatience);
@@ -1027,7 +1027,7 @@ MSLCM_SL2015::_wantsChangeSublane(
             break;
         }
     }
-    double driveToNextStop = -std::numeric_limits<double>::max(); 
+    double driveToNextStop = -std::numeric_limits<double>::max();
     UNUSED_PARAMETER(driveToNextStop); // XXX use when computing usableDist
     if (myVehicle.nextStopDist() < std::numeric_limits<double>::max()
             && &myVehicle.getNextStop().lane->getEdge() == &myVehicle.getLane()->getEdge()) {
@@ -1037,15 +1037,15 @@ MSLCM_SL2015::_wantsChangeSublane(
         driveToNextStop = myVehicle.nextStopDist();
         const double stopPos = myVehicle.getPositionOnLane() + myVehicle.nextStopDist() - myVehicle.getLastStepDist();
 #ifdef DEBUG_WANTS_CHANGE
-    if (DEBUG_COND) {
-        std::cout << SIMTIME << std::setprecision(gPrecision) << " veh=" << myVehicle.getID()
-                  << " stopDist=" << myVehicle.nextStopDist()
-                  << " lastDist=" << myVehicle.getLastStepDist()
-                  << " stopPos=" << stopPos
-                  << " currentDist=" << currentDist
-                  << " neighDist=" << neighDist
-                  << "\n";
-    }
+        if (DEBUG_COND) {
+            std::cout << SIMTIME << std::setprecision(gPrecision) << " veh=" << myVehicle.getID()
+                      << " stopDist=" << myVehicle.nextStopDist()
+                      << " lastDist=" << myVehicle.getLastStepDist()
+                      << " stopPos=" << stopPos
+                      << " currentDist=" << currentDist
+                      << " neighDist=" << neighDist
+                      << "\n";
+        }
 #endif
         currentDist = MAX2(currentDist, stopPos);
         neighDist = MAX2(neighDist, stopPos);
@@ -1950,7 +1950,7 @@ MSLCM_SL2015::updateExpectedSublaneSpeeds(const MSLeaderDistanceInfo& ahead, int
                 double foeRight, foeLeft;
                 ahead.getSublaneBorders(sublane, 0, foeRight, foeLeft);
                 // get all leaders ahead or overlapping
-                PersonDist leader = MSPModel::getModel()->nextBlocking(lane, myVehicle.getPositionOnLane() - myVehicle.getVehicleType().getLength() , foeRight, foeLeft);
+                PersonDist leader = MSPModel::getModel()->nextBlocking(lane, myVehicle.getPositionOnLane() - myVehicle.getVehicleType().getLength(), foeRight, foeLeft);
                 if (leader.first != 0) {
                     const double gap = leader.second - myVehicle.getVehicleType().getMinGap() - myVehicle.getVehicleType().getLength();
                     const double vSafePed = myCarFollowModel.stopSpeed(&myVehicle, vMax, gap);
@@ -2071,8 +2071,8 @@ MSLCM_SL2015::checkBlocking(const MSLane& neighLane, double& latDist, double& ma
 #endif
     // if we can move at least a little bit in the desired direction, do so (rather than block)
     const bool forcedTraCIChange = (myVehicle.hasInfluencer()
-            && myVehicle.getInfluencer().getLatDist() != 0
-            && myVehicle.getInfluencer().ignoreOverlap());
+                                    && myVehicle.getInfluencer().getLatDist() != 0
+                                    && myVehicle.getInfluencer().ignoreOverlap());
     if (latDist < 0) {
         if (mySafeLatDistRight <= NUMERICAL_EPS) {
             return LCA_BLOCKED_RIGHT | LCA_OVERLAPPING;
@@ -2612,7 +2612,7 @@ MSLCM_SL2015::checkStrategicChange(int ret,
     }
 #endif
     // store state before canceling
-    myCanceledStates[laneOffset] |= ret;
+    getCanceledState(laneOffset) |= ret;
     int retTraCI = myVehicle.influenceChangeDecision(ret);
     if ((retTraCI & LCA_TRACI) != 0) {
         if ((retTraCI & LCA_STAY) != 0) {

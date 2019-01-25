@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -114,10 +114,10 @@ public:
     /// @brief check if current additional is valid to be writed into XML (by default true, can be reimplemented in childs)
     virtual bool isAdditionalValid() const;
 
-    /// @brief return a string with the current additional problem (by default empty, can be reimplemented in childs) 
+    /// @brief return a string with the current additional problem (by default empty, can be reimplemented in childs)
     virtual std::string getAdditionalProblem() const;
 
-    /// @brief fix additional problem (by default throw an exception, has to be reimplemented in childs) 
+    /// @brief fix additional problem (by default throw an exception, has to be reimplemented in childs)
     virtual void fixAdditionalProblem();
     /// @}
 
@@ -252,6 +252,9 @@ public:
     /// @brief check if attribute carrier is selected
     bool isAttributeCarrierSelected() const;
 
+    /// @brief check if attribute carrier must be drawn using selecting color.
+    bool drawUsingSelectColor() const;
+
     /* @brief method for getting the Attribute of an XML key
      * @param[in] key The attribute key
      * @return string with the value associated to key
@@ -292,12 +295,6 @@ public:
     void setGenericParametersStr(const std::string& value);
 
     /// @}
-
-    /** @brief check if a route is valid
-     * @param[in] edges vector with the route's edges
-     * @param[in] report enable or disable writting warnings if route isn't valid
-     */
-    static bool isRouteValid(const std::vector<GNEEdge*>& edges, bool report);
 
     /// @brief update parent after add or remove a child (can be reimplemented, for example used for stadistics)
     virtual void updateAdditionalParent();
@@ -360,7 +357,7 @@ protected:
     /// @brief struct for pack all variables and functions related with Block Icon
     struct BlockIcon {
         /// @brief constructor
-        BlockIcon(GNEAdditional *additional);
+        BlockIcon(GNEAdditional* additional);
 
         /// @brief set Rotation of block Icon (must be called in updateGeometry(bool updateGrid) function)
         void setRotation(GNELane* additionalLane = nullptr);
@@ -370,7 +367,7 @@ protected:
 
     private:
         /// @brief pointer to additional parent
-        GNEAdditional *myAdditional;
+        GNEAdditional* myAdditional;
 
     public:
         /// @brief position of the block icon
@@ -386,7 +383,7 @@ protected:
     /// @brief struct for pack all variables and functions relative to connections between Additionals and their childs
     struct ChildConnections {
         /// @brief constructor
-        ChildConnections(GNEAdditional *additional);
+        ChildConnections(GNEAdditional* additional);
 
         /// @brief update Connection's geometry
         void update();
@@ -402,7 +399,7 @@ protected:
 
     private:
         /// @brief pointer to additional parent
-        GNEAdditional *myAdditional;
+        GNEAdditional* myAdditional;
     };
 
     /// @brief The GNEViewNet this additional element belongs
@@ -495,9 +492,6 @@ private:
 
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
-
-    /// @brief method for check if mouse is over objects
-    void mouseOverObject(const GUIVisualizationSettings& s) const;
 
     /// @brief Invalidated copy constructor.
     GNEAdditional(const GNEAdditional&) = delete;

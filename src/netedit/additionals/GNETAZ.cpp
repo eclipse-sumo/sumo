@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -92,7 +92,7 @@ GNETAZ::commitGeometryMoving(GNEUndoList* undoList) {
 }
 
 
-int 
+int
 GNETAZ::moveVertexShape(const int index, const Position& oldPos, const Position& offset) {
     // only move shape if block movement block shape are disabled
     if (!myBlockMovement && !myBlockShape && (index != -1)) {
@@ -127,7 +127,7 @@ GNETAZ::moveVertexShape(const int index, const Position& oldPos, const Position&
 }
 
 
-void 
+void
 GNETAZ::moveEntireShape(const PositionVector& oldShape, const Position& offset) {
     // only move shape if block movement is disabled and block shape is enabled
     if (!myBlockMovement && myBlockShape) {
@@ -143,7 +143,7 @@ GNETAZ::moveEntireShape(const PositionVector& oldShape, const Position& offset) 
 }
 
 
-void 
+void
 GNETAZ::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList) {
     if (!myBlockMovement) {
         // disable current moving vertex
@@ -170,7 +170,7 @@ GNETAZ::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList)
 }
 
 
-int 
+int
 GNETAZ::getVertexIndex(Position pos, bool createIfNoExist, bool snapToGrid) {
     // check if position has to be snapped to grid
     if (snapToGrid) {
@@ -191,7 +191,7 @@ GNETAZ::getVertexIndex(Position pos, bool createIfNoExist, bool snapToGrid) {
 }
 
 
-void 
+void
 GNETAZ::deleteGeometryPoint(const Position& pos, bool allowUndo) {
     if (myGeometry.shape.size() > 2) {
         // obtain index
@@ -224,7 +224,7 @@ GNETAZ::deleteGeometryPoint(const Position& pos, bool allowUndo) {
 }
 
 
-bool 
+bool
 GNETAZ::isShapeBlocked() const {
     return myBlockShape;
 }
@@ -250,7 +250,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
     if (myGeometry.shape.size() > 1) {
         glPushMatrix();
         glTranslated(0, 0, 128);
-        if (isAttributeCarrierSelected()) {
+        if (drawUsingSelectColor()) {
             GLHelper::setColor(s.selectionColor);
         } else {
             GLHelper::setColor(myColor);
@@ -265,12 +265,12 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
     if (s.scale * myHintSize > 1.) {
         // set values relative to mouse position regarding to shape
         bool mouseOverVertex = false;
-        bool modeMove = myViewNet->getCurrentNetworkEditMode() == GNE_NMODE_MOVE;
+        bool modeMove = myViewNet->getEditModes().networkEditMode == GNE_NMODE_MOVE;
         Position mousePosition = myViewNet->getPositionInformation();
         double distanceToShape = myGeometry.shape.distance2D(mousePosition);
         // set colors
         RGBColor invertedColor, darkerColor;
-        if (isAttributeCarrierSelected()) {
+        if (drawUsingSelectColor()) {
             invertedColor = s.selectionColor.invertedColor();
             darkerColor = s.selectionColor.changedBrightness(-32);
         } else {
@@ -340,7 +340,7 @@ GNETAZ::getAttribute(SumoXMLAttr key) const {
         }
         case GNE_ATTR_BLOCK_MOVEMENT:
             return toString(myBlockMovement);
-         case GNE_ATTR_BLOCK_SHAPE:
+        case GNE_ATTR_BLOCK_SHAPE:
             return toString(myBlockShape);
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
@@ -427,7 +427,7 @@ GNETAZ::getHierarchyName() const {
 }
 
 
-void 
+void
 GNETAZ::updateAdditionalParent() {
     // reset all stadistic variables
     myMaxWeightSource = 0;

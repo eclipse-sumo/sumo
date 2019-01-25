@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2012-2018 German Aerospace Center (DLR) and others.
+# Copyright (C) 2012-2019 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -35,8 +35,8 @@ def get_options(args=None):
     argParser.add_argument("output", help="the output file")
     argParser.add_argument("--persons", action="store_true",
                            default=False, help="compute personinfo differences")
-    argParser.add_argument("--histogram-scale", type=float, dest="histScale", 
-            help="compute data histogram with the FLOAT granularity")
+    argParser.add_argument("--histogram-scale", type=float, dest="histScale",
+                           help="compute data histogram with the FLOAT granularity")
     options = argParser.parse_args(args=args)
     options.useHist = options.histScale is not None
     return options

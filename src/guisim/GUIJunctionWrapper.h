@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -157,6 +157,8 @@ private:
 
     /// @brief whether this junction has only waterways as incoming and outgoing edges
     bool myAmWaterway;
+    /// @brief whether this junction has only railways as incoming and outgoing edges
+    bool myAmRailway;
 
     /// @brief the associated traffic light or ""
     const std::string myTLLID;

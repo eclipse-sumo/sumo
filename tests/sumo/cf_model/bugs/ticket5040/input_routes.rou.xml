@@ -1,0 +1,7 @@
+<routes>
+    <vType id="t0" carFollowModel="IDM"/>
+    <vType id="t1" carFollowModel="IDM"/>
+    <route id="r" edges="beg"/>
+    <vehicle id="v0" type="t0" route="r" depart="0" departSpeed="max"/>
+    <vehicle id="v1" type="t1" route="r" depart="0" departSpeed="max"/>
+</routes>

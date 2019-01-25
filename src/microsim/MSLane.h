@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -46,6 +46,11 @@
 #include "MSMoveReminder.h"
 #include <libsumo/Helper.h>
 
+#include <utils/foxtools/FXSynchQue.h>
+#ifdef HAVE_FOX
+#include <utils/foxtools/FXWorkerThread.h>
+#endif
+
 
 // ===========================================================================
 // class declarations
@@ -80,8 +85,6 @@ public:
     /// needs access to myTmpVehicles (this maybe should be done via double-buffering!!!)
     friend class MSLaneChanger;
     friend class MSLaneChangerSublane;
-
-    friend class MSXMLRawOut;
 
     friend class MSQueueExport;
     friend class AnyVehicleIterator;
@@ -205,7 +208,25 @@ public:
     /// @brief Destructor
     virtual ~MSLane();
 
+    /// @brief sets the associated RNG index
+    void setRNGIndex(const int rngIndex) {
+        myRNGIndex = rngIndex;
+    }
 
+    /// @brief returns the associated RNG index
+    int getRNGIndex() const {
+        return myRNGIndex;
+    }
+
+    /// @brief return the associated RNG
+    std::mt19937* getRNG() const {
+        return &myRNGs[myRNGIndex];
+    }
+
+    /// @brief return the number of RNGs
+    static int getNumRNGs() {
+        return (int)myRNGs.size();
+    }
 
     /// @name Additional initialisation
     /// @{
@@ -362,10 +383,10 @@ public:
      * @param[in] allowCached Whether the cached value may be used
      * @return Information about the last vehicles
      */
-    const MSLeaderInfo& getLastVehicleInformation(const MSVehicle* ego, double latOffset, double minPos = 0, bool allowCached = true) const;
+    const MSLeaderInfo getLastVehicleInformation(const MSVehicle* ego, double latOffset, double minPos = 0, bool allowCached = true) const;
 
     /// @brief analogue to getLastVehicleInformation but in the upstream direction
-    const MSLeaderInfo& getFirstVehicleInformation(const MSVehicle* ego, double latOffset, bool onlyFrontOnLane, double maxPos = std::numeric_limits<double>::max(), bool allowCached = true) const;
+    const MSLeaderInfo getFirstVehicleInformation(const MSVehicle* ego, double latOffset, bool onlyFrontOnLane, double maxPos = std::numeric_limits<double>::max(), bool allowCached = true) const;
 
     /// @}
 
@@ -556,11 +577,11 @@ public:
     virtual void planMovements(const SUMOTime t);
 
     /** @brief Register junction approaches for all vehicles after velocities
-     * have been planned. 
+     * have been planned.
      *
      * This method goes through all vehicles calling their * "setApproachingForAllLinks" method.
      */
-    virtual void setJunctionApproaches(const SUMOTime t);
+    virtual void setJunctionApproaches(const SUMOTime t) const;
 
     /** @brief This updates the MSLeaderInfo argument with respect to the given MSVehicle.
      *         All leader-vehicles on the same edge, which are relevant for the vehicle
@@ -582,10 +603,13 @@ public:
      *
      * @see MSVehicle::executeMove
      */
-    virtual bool executeMovements(SUMOTime t, std::vector<MSLane*>& lanesWithVehiclesToIntegrate);
+    virtual void executeMovements(const SUMOTime t);
 
     /// Insert buffered vehicle into the real lane.
-    virtual bool integrateNewVehicle(SUMOTime t);
+    virtual void integrateNewVehicles();
+
+    /// @brief updated current vehicle length sum (delayed to avoid lane-order-dependency)
+    void updateLengthSum();
     ///@}
 
 
@@ -705,6 +729,10 @@ public:
      */
     template<class RTREE>
     static void fill(RTREE& into);
+
+
+    /// @brief initialize rngs
+    static void initRNGs(const OptionsCont& oc);
     /// @}
 
 
@@ -1024,6 +1052,8 @@ public:
     /// @brief initialized vClass-specific speed limits
     void initRestrictions();
 
+    void checkBufferType();
+
     double getRightSideOnEdge() const {
         return myRightSideOnEdge;
     }
@@ -1088,6 +1118,25 @@ public:
     virtual bool isSelected() const {
         return false;
     }
+
+#ifdef HAVE_FOX
+    FXWorkerThread::Task* getPlanMoveTask(const SUMOTime time) {
+        mySimulationTask.init(&MSLane::planMovements, time);
+        return &mySimulationTask;
+    }
+
+    FXWorkerThread::Task* getExecuteMoveTask(const SUMOTime time) {
+        mySimulationTask.init(&MSLane::executeMovements, time);
+        return &mySimulationTask;
+    }
+
+    void changeLanes(const SUMOTime time);
+
+    FXWorkerThread::Task* getLaneChangeTask(const SUMOTime time) {
+        mySimulationTask.init(&MSLane::changeLanes, time);
+        return &mySimulationTask;
+    }
+#endif
 
     /// @name State saving/loading
     /// @{
@@ -1237,7 +1286,7 @@ protected:
 
     /** @brief Buffer for vehicles that moved from their previous lane onto this one.
      * Integrated after all vehicles executed their moves*/
-    VehCont myVehBuffer;
+    FXSynchQue<MSVehicle*, std::vector<MSVehicle*> > myVehBuffer;
 
     /** @brief The vehicles which registered maneuvering into the lane within their current action step.
      *         This is currently only relevant for sublane simulation, since continuous lanechanging
@@ -1296,6 +1345,12 @@ protected:
     /// @brief The current length of all vehicles on this lane, excluding their minGaps
     double myNettoVehicleLengthSum;
 
+    /// @brief The length of all vehicles that have left this lane in the current step (this lane, including their minGaps)
+    double myBruttoVehicleLengthSumToRemove;
+
+    /// @brief The length of all vehicles that have left this lane in the current step (this lane, excluding their minGaps)
+    double myNettoVehicleLengthSumToRemove;
+
     /** The lane's Links to it's succeeding lanes and the default
         right-of-way rule, i.e. blocked or not blocked. */
     MSLinkCont myLinks;
@@ -1307,8 +1362,6 @@ protected:
     mutable MSLeaderInfo myLeaderInfo;
     /// @brief followers on all sublanes as seen by vehicles on consecutive lanes (cached)
     mutable MSLeaderInfo myFollowerInfo;
-
-    mutable MSLeaderInfo myLeaderInfoTmp;
 
     /// @brief time step for which myLeaderInfo was last updated
     mutable SUMOTime myLeaderInfoTime;
@@ -1335,11 +1388,16 @@ protected:
     // @brief transient changes in permissions
     std::map<long long, SVCPermissions> myPermissionChanges;
 
+    // @brief index of the associated thread-rng
+    int myRNGIndex;
+
     /// definition of the static dictionary type
     typedef std::map< std::string, MSLane* > DictType;
 
     /// Static dictionary to associate string-ids with objects.
     static DictType myDict;
+
+    static std::vector<std::mt19937> myRNGs;
 
 private:
     /// @brief This lane's move reminder
@@ -1472,6 +1530,44 @@ private:
         const MSEdge* const myEdge;
     };
 
+#ifdef HAVE_FOX
+    /// Type of the function that is called for the simulation stage (e.g. planMovements).
+    typedef void(MSLane::*Operation)(const SUMOTime);
+
+    /**
+     * @class SimulationTask
+     * @brief the routing task which mainly calls reroute of the vehicle
+     */
+    class SimulationTask : public FXWorkerThread::Task {
+    public:
+        SimulationTask(MSLane& l, const SUMOTime time)
+            : myLane(l), myTime(time) {}
+        void init(Operation operation, const SUMOTime time) {
+            myOperation = operation;
+            myTime = time;
+        }
+        void run(FXWorkerThread* /*context*/) {
+            try {
+                (myLane.*(myOperation))(myTime);
+            } catch (ProcessError& e) {
+                WRITE_ERROR(e.what());
+            }
+        }
+    private:
+        Operation myOperation;
+        MSLane& myLane;
+        SUMOTime myTime;
+    private:
+        /// @brief Invalidated assignment operator.
+        SimulationTask& operator=(const SimulationTask&) = delete;
+    };
+
+    SimulationTask mySimulationTask;
+    /// @brief Mutex for access to the cached leader info value
+    mutable FXMutex myLeaderInfoMutex;
+    /// @brief Mutex for access to the cached follower info value
+    mutable FXMutex myFollowerInfoMutex;
+#endif
 private:
     /// @brief invalidated copy constructor
     MSLane(const MSLane&);

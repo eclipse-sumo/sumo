@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -67,15 +67,25 @@ MSCFModel_IDM::followSpeed(const MSVehicle* const veh, double speed, double gap2
 
 
 double
+MSCFModel_IDM::insertionFollowSpeed(const MSVehicle* const v, double speed, double gap2pred, double predSpeed, double predMaxDecel) const {
+    return followSpeed(v, speed, gap2pred, predSpeed, predMaxDecel);
+}
+
+
+double
 MSCFModel_IDM::stopSpeed(const MSVehicle* const veh, const double speed, double gap) const {
     if (gap < 0.01) {
         return 0;
     }
-    double result = _v(veh, gap, speed, 0, veh->getLane()->getVehicleMaxSpeed(veh), false);
-    if (gap > 0 && speed < NUMERICAL_EPS) {
+    double result = _v(veh, gap, speed, 0, veh->getLane()->getVehicleMaxSpeed(veh));
+    if (gap > 0 && speed < NUMERICAL_EPS && result < NUMERICAL_EPS) {
         // ensure that stops can be reached:
+        //std::cout << " switching to krauss: " << veh->getID() << " gap=" << gap << " speed=" << speed << " res1=" << result << " res2=" << maximumSafeStopSpeed(gap, speed, false, veh->getActionStepLengthSecs())<< "\n";
         result = maximumSafeStopSpeed(gap, speed, false, veh->getActionStepLengthSecs());
     }
+    //if (result * TS > gap) {
+    //    std::cout << "Maximum stop speed exceeded for gap=" << gap << " result=" << result << " veh=" << veh->getID() << " speed=" << speed << " t=" << SIMTIME << "\n";
+    //}
     return result;
 }
 

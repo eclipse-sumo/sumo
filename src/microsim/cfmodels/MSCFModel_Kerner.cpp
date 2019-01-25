@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -47,7 +47,7 @@ double
 MSCFModel_Kerner::finalizeSpeed(MSVehicle* const veh, double vPos) const {
     const double vNext = MSCFModel::finalizeSpeed(veh, vPos);
     VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
-    vars->rand = RandHelper::rand();
+    vars->rand = RandHelper::rand(veh->getRNG());
     return vNext;
 }
 
@@ -67,6 +67,7 @@ MSCFModel_Kerner::stopSpeed(const MSVehicle* const veh, const double speed, doub
 MSCFModel::VehicleVariables*
 MSCFModel_Kerner::createVehicleVariables() const {
     VehicleVariables* ret = new VehicleVariables();
+    /// XXX should use egoVehicle->getRNG()
     ret->rand = RandHelper::rand();
     return ret;
 }

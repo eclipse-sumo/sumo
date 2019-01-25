@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -489,8 +489,8 @@ NBNodeCont::generateNodeClusters(double maxDist, NodeClusters& into) const {
                 const double length = e->getLoadedLength();
 #ifdef DEBUG_JOINJUNCTIONS
                 if (DEBUGCOND(s)) {
-                    std::cout << "generateNodeClusters: consider s=" << s->getID() 
-                        << " clusterNode=" << n->getID() << " edge=" << e->getID() << " length=" << length << " with cluster " << joinNamedToString(c, ' ') << "\n";
+                    std::cout << "generateNodeClusters: consider s=" << s->getID()
+                              << " clusterNode=" << n->getID() << " edge=" << e->getID() << " length=" << length << " with cluster " << joinNamedToString(c, ' ') << "\n";
                 }
 #endif
                 if (railAndPeds && n->getType() != NODETYPE_RAIL_CROSSING) {
@@ -1489,11 +1489,11 @@ NBNodeCont::computeLogics2(const NBEdgeCont& ec, OptionsCont& oc) {
 void
 NBNodeCont::clear() {
     for (NodeCont::iterator i = myNodes.begin(); i != myNodes.end(); i++) {
-        delete((*i).second);
+        delete ((*i).second);
     }
     myNodes.clear();
     for (std::set<NBNode*>::iterator i = myExtractedNodes.begin(); i != myExtractedNodes.end(); i++) {
-        delete(*i);
+        delete (*i);
     }
     myExtractedNodes.clear();
 }

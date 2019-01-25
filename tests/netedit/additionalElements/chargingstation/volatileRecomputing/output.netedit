@@ -3,7 +3,7 @@
 +++ using: -Xms64M -Xmx512M -Dfile.encoding=UTF-8 -Dsikuli.FromCommandLine -jar C:\Sikulix\sikulix.jar -run test.sikuli
 TestFunctions: Netedit opened successfully
 Finding reference
-TestFunctions: 'reference.png' found. Position: 304 - 140
+TestFunctions: 'reference.png' found. Position: 304 - 168
 [log] ( Shift )  TYPE "#F5."
 [log] ( Alt )  TYPE "y"
 [log] ( Ctrl+Shift )  TYPE "d"

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:27:49 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Fri Jan 18 11:42:01 2019 by Eclipse SUMO netconvert Version v1_1_0+0258-169157deea
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -64,9 +64,9 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="edge_with_shape_2" index="2" speed="13.90" length="66.17" shape="41.13,1.13 20.00,22.26 -1.13,1.13"/>
     </edge>
     <edge id="reverse_edge" from="node_left" to="node_right" priority="-1">
-        <lane id="reverse_edge_0" index="0" speed="13.90" length="40.00" shape="0.00,-8.00 40.00,-8.00"/>
-        <lane id="reverse_edge_1" index="1" speed="13.90" length="37.00" endOffset="3.00" shape="0.00,-4.80 37.00,-4.80"/>
-        <lane id="reverse_edge_2" index="2" speed="13.90" length="40.00" shape="0.00,-1.60 40.00,-1.60"/>
+        <lane id="reverse_edge_0" index="0" speed="13.90" length="39.00" shape="0.00,-8.00 40.00,-8.00"/>
+        <lane id="reverse_edge_1" index="1" speed="13.90" length="39.00" endOffset="3.00" shape="0.00,-4.80 37.00,-4.80"/>
+        <lane id="reverse_edge_2" index="2" speed="13.90" length="39.00" shape="0.00,-1.60 40.00,-1.60"/>
     </edge>
 
     <junction id="node_left" type="priority" x="0.00" y="0.00" incLanes="edge_with_shape_0 edge_with_shape_1 edge_with_shape_2" intLanes=":node_left_0_0 :node_left_0_1 :node_left_0_2" shape="0.00,0.00 0.00,-9.60 -6.79,6.79">

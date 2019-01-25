@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -40,6 +40,7 @@ class GNECrossingFrame;
 class GNEDeleteFrame;
 class GNEDialogACChooser;
 class GNEInspectorFrame;
+class GNERouteFrame;
 class GNENet;
 class GNEPolygonFrame;
 class GNEProhibitionFrame;
@@ -93,38 +94,41 @@ public:
     /// @brief hide all frames
     void hideAllFrames();
 
-    /// @brief get frame for GNE_MODE_INSPECT
+    /// @brief get frame for GNE_NMODE_INSPECT
     GNEInspectorFrame* getInspectorFrame() const;
 
-    /// @brief get frame for GNE_MODE_SELECT
+    /// @brief get frame for GNE_NMODE_SELECT
     GNESelectorFrame* getSelectorFrame() const;
 
-    /// @brief get frame for GNE_MODE_CONNECT
+    /// @brief get frame for GNE_NMODE_CONNECT
     GNEConnectorFrame* getConnectorFrame() const;
 
-    /// @brief get frame for GNE_MODE_TLS
+    /// @brief get frame for GNE_NMODE_TLS
     GNETLSEditorFrame* getTLSEditorFrame() const;
 
-    /// @brief get frame for GNE_MODE_ADDITIONAL
+    /// @brief get frame for GNE_NMODE_ADDITIONAL
     GNEAdditionalFrame* getAdditionalFrame() const;
 
-    /// @brief get frame for GNE_MODE_CROSSING
+    /// @brief get frame for GNE_NMODE_CROSSING
     GNECrossingFrame* getCrossingFrame() const;
 
-    /// @brief get frame for GNE_MODE_TAZ
+    /// @brief get frame for GNE_NMODE_TAZ
     GNETAZFrame* getTAZFrame() const;
 
-    /// @brief get frame for GNE_MODE_DELETE
+    /// @brief get frame for GNE_NMODE_DELETE
     GNEDeleteFrame* getDeleteFrame() const;
 
-    /// @brief get frame for GNE_MODE_POLYGON
+    /// @brief get frame for GNE_NMODE_POLYGON
     GNEPolygonFrame* getPolygonFrame() const;
 
-    /// @brief get frame for GNE_MODE_PROHIBITION
+    /// @brief get frame for GNE_NMODE_PROHIBITION
     GNEProhibitionFrame* getProhibitionFrame() const;
-    
-    /// @brief get frame for GNE_MODE_PROHIBITION
+
+    /// @brief get frame for GNE_NMODE_CREATEEDGE
     GNECreateEdgeFrame* getCreateEdgeFrame() const;
+
+    /// @brief get frame for GNE_RMODE_ROUTE
+    GNERouteFrame* getRouteFrame() const;
 
     /// @brief show frames area if at least a GNEFrame is showed
     /// @note this function is called in GNEFrame::Show();
@@ -183,38 +187,41 @@ private:
         /// @brief return true if at least there is a frame shown
         bool isFrameShown() const;
 
-        /// @brief frame for GNE_MODE_INSPECT
+        /// @brief frame for GNE_NMODE_INSPECT
         GNEInspectorFrame* inspectorFrame;
 
-        /// @brief frame for GNE_MODE_SELECT
+        /// @brief frame for GNE_NMODE_SELECT
         GNESelectorFrame* selectorFrame;
 
-        /// @brief frame for GNE_MODE_CONNECT
+        /// @brief frame for GNE_NMODE_CONNECT
         GNEConnectorFrame* connectorFrame;
 
-        /// @brief frame for GNE_MODE_TLS
+        /// @brief frame for GNE_NMODE_TLS
         GNETLSEditorFrame* TLSEditorFrame;
 
-        /// @brief frame for GNE_MODE_ADDITIONAL
+        /// @brief frame for GNE_NMODE_ADDITIONAL
         GNEAdditionalFrame* additionalFrame;
 
-        /// @brief frame for GNE_MODE_CROSSING
+        /// @brief frame for GNE_NMODE_CROSSING
         GNECrossingFrame* crossingFrame;
 
-        /// @brief frame for GNE_MODE_TAZ
+        /// @brief frame for GNE_NMODE_TAZ
         GNETAZFrame* TAZFrame;
 
-        /// @brief frame for GNE_MODE_DELETE
+        /// @brief frame for GNE_NMODE_DELETE
         GNEDeleteFrame* deleteFrame;
 
-        /// @brief frame for GNE_MODE_POLYGON
+        /// @brief frame for GNE_NMODE_POLYGON
         GNEPolygonFrame* polygonFrame;
 
-        /// @brief frame for GNE_MODE_PROHIBITION
+        /// @brief frame for GNE_NMODE_PROHIBITION
         GNEProhibitionFrame* prohibitionFrame;
 
-        /// @brief frame for GNE_MODE_PROHIBITION
+        /// @brief frame for GNE_NMODE_CREATEDGE
         GNECreateEdgeFrame* createEdgeFrame;
+
+        /// @brief frame for GNE_RMODE_ROUTE
+        GNERouteFrame* routeFrame;
     };
 
     /// @brief struct for ACChoosers dialog

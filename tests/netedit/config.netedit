@@ -14,7 +14,6 @@ copy_test_path:input_net.tll.xml
 copy_test_path:input_net.net.xml
 copy_test_path:input_net_loadedmanually.net.xml
 copy_test_path:input_additionals.add.xml
-copy_test_path:input_shapes.add.xml
 copy_test_path:gui-settings.xml
 copy_test_path:berlin_icon.ico
 copy_test_path:fileA.txt
@@ -29,7 +28,6 @@ netedg:net.edg.xml
 netnod:net.nod.xml
 nettll:net.tll.xml
 additionals:additionals.xml
-shapes:shapes.xml
 cfg:config.cfg
 log:log.txt
 selection:selection.txt

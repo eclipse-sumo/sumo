@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -23,7 +23,7 @@
 // ===========================================================================
 #include <config.h>
 
-#include <utils/foxtools/MFXMutex.h>
+#include <fx.h>
 #include <microsim/MSRouteHandler.h>
 #include "GUIVehicleControl.h"
 #include "GUIVehicle.h"
@@ -60,35 +60,35 @@ GUIVehicleControl::buildVehicle(SUMOVehicleParameter* defs,
 
 bool
 GUIVehicleControl::addVehicle(const std::string& id, SUMOVehicle* v) {
-    AbstractMutex::ScopedLocker locker(myLock);
+    FXMutexLock locker(myLock);
     return MSVehicleControl::addVehicle(id, v);
 }
 
 
 void
 GUIVehicleControl::deleteVehicle(SUMOVehicle* veh, bool discard) {
-    AbstractMutex::ScopedLocker locker(myLock);
+    FXMutexLock locker(myLock);
     MSVehicleControl::deleteVehicle(veh, discard);
 }
 
 
 int
 GUIVehicleControl::getHaltingVehicleNo() const {
-    AbstractMutex::ScopedLocker locker(myLock);
+    FXMutexLock locker(myLock);
     return MSVehicleControl::getHaltingVehicleNo();
 }
 
 
 std::pair<double, double>
 GUIVehicleControl::getVehicleMeanSpeeds() const {
-    AbstractMutex::ScopedLocker locker(myLock);
+    FXMutexLock locker(myLock);
     return MSVehicleControl::getVehicleMeanSpeeds();
 }
 
 
 void
 GUIVehicleControl::insertVehicleIDs(std::vector<GUIGlID>& into, bool listParking, bool listTeleporting) {
-    AbstractMutex::ScopedLocker locker(myLock);
+    FXMutexLock locker(myLock);
     into.reserve(myVehicleDict.size());
     for (VehicleDictType::iterator i = myVehicleDict.begin(); i != myVehicleDict.end(); ++i) {
         SUMOVehicle* veh = (*i).second;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Dec  6 21:23:27 2018 by Eclipse SUMO netconvert Version eeef47f
+<!-- generated on Tue Jan 15 10:27:06 2019 by Eclipse SUMO netconvert Version v1_0_1+0838-aa85bdd
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -22,6 +22,7 @@
         <type-files value="" synonymes="t types xml-type-files xml-types" type="FILE" help="Read XML-type defs from FILE"/>
         <ptstop-files value="" type="FILE" help="Reads public transport stops from FILE"/>
         <ptline-files value="" type="FILE" help="Reads public transport lines from FILE"/>
+        <polygon-files value="" type="FILE" help="Reads polygons from FILE for embedding in network where applicable"/>
         <shapefile-prefix value="" synonymes="arcview shapefile tiger" type="FILE" help="Read shapefiles (ArcView, Tiger, ...) from files starting with &apos;FILE&apos;"/>
         <dlr-navteq-prefix value="" synonymes="dlr-navteq elmar2" type="FILE" help="Read converted Navteq GDF data (unsplitted Elmar-network) from path &apos;FILE&apos;"/>
         <osm-files value="" synonymes="osm" type="FILE" help="Read OSM-network from path &apos;FILE(s)&apos;"/>
@@ -58,6 +59,7 @@
         <ptline-clean-up value="false" type="BOOL" help="Clean-up pt stops that are not served by any line"/>
         <parking-output value="" type="FILE" help="Writes parking areas to FILE"/>
         <railway.topology.output value="" type="FILE" help="Analyse topology of the railway network"/>
+        <polygon-output value="" type="FILE" help="Write shapes that are embedded in the network input and that are not supported by polyconvert (OpenDRIVE)"/>
         <opendrive-output.straight-threshold value="1e-08" type="FLOAT" help="Builds parameterized curves whenever the angular change  between straight segments exceeds FLOAT degrees"/>
     </output>
 

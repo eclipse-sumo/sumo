@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2015-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2015-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -167,7 +167,7 @@ public:
      * @return Whether the lot entry could be added
      */
     virtual void addLotEntry(double x, double y, double z,
-            double width, double length, double angle);
+                             double width, double length, double angle);
 
 
     /** @brief Returns the lot rectangle width

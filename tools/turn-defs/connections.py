@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2011-2018 German Aerospace Center (DLR) and others.
+# Copyright (C) 2011-2019 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -16,11 +16,8 @@
 from __future__ import absolute_import
 
 import logging
-import unittest
 import os
 import sys
-import collectinghandler
-import xml
 
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
@@ -208,152 +205,3 @@ def from_stream(input_connections):
                         xml_connection.to)
 
     return connections
-
-
-class UniformDestinationWeightCalculatorTestCase(unittest.TestCase):
-    # pylint: disable=C,W,R,E,F
-
-    def setUp(self):
-        self.calculator = UniformDestinationWeightCalculator()
-
-    def tearDown(self):
-        self.calculator = None
-
-    def test_uniform_weight_spread_across_lanes(self):
-        # 1 lane case
-        self.assertAlmostEqual(
-            100.0, self.calculator.calculate_weight(0, 1, 1))
-
-        # 2 lane case
-        self.assertAlmostEqual(50.0, self.calculator.calculate_weight(0, 2, 1))
-        self.assertAlmostEqual(50.0, self.calculator.calculate_weight(1, 2, 1))
-
-        # 2 lane case
-        self.assertAlmostEqual(
-            100.0 / 3, self.calculator.calculate_weight(0, 3, 1))
-        self.assertAlmostEqual(
-            100.0 / 3, self.calculator.calculate_weight(1, 3, 1))
-        self.assertAlmostEqual(
-            100.0 / 3, self.calculator.calculate_weight(2, 3, 1))
-
-    def test_uniform_weight_spread_across_destinations(self):
-        # 1 destination
-        self.assertAlmostEqual(
-            100.0, self.calculator.calculate_weight(0, 1, 1))
-
-        # 2 destinations
-        self.assertAlmostEqual(
-            100.0 / 2, self.calculator.calculate_weight(0, 1, 2))
-
-        # 3 destinations
-        self.assertAlmostEqual(
-            100.0 / 3, self.calculator.calculate_weight(0, 1, 3))
-
-
-class ConnectionsTestCase(unittest.TestCase):
-    # pylint: disable=C,W,R,E,F
-
-    def setUp(self):
-        self.connections = Connections()
-
-    def tearDown(self):
-        self.connections = None
-
-    def assert_contains_source(self, source):
-        self.assertTrue(source in
-                        self.connections.get_sources())
-
-    def assert_contains_lane(self, source, lane):
-        self.assertTrue(lane in
-                        self.connections.get_lanes(source))
-
-    def assert_contains_destination(self, source, lane, destination):
-        self.assertTrue(destination in
-                        self.connections.get_destinations(source, lane))
-
-    def assert_sources_no(self, sources_no):
-        self.assertEqual(sources_no,
-                         len(self.connections.get_sources()))
-
-    def assert_lanes_no(self, source, lanes_no):
-        self.assertEqual(lanes_no,
-                         len(self.connections.get_lanes(source)))
-
-    def assert_destinations_no(self, source, lane, destinations_no):
-        self.assertEqual(destinations_no,
-                         len(self.connections.get_destinations(source, lane)))
-
-    def test_map_empty_on_init(self):
-        self.assert_sources_no(0)
-
-    def test_add(self):
-        self.connections.add("source", "source lane", "destination")
-
-        self.assert_sources_no(1)
-        self.assert_contains_source("source")
-
-        self.assert_lanes_no("source", 1)
-        self.assert_contains_lane("source", "source lane")
-
-        self.assert_destinations_no("source", "source lane", 1)
-        self.assert_contains_destination(
-            "source", "source lane", "destination")
-
-    def test_add_different_lanes(self):
-        self.connections.add("source", "source lane 1", "destination")
-        self.connections.add("source", "source lane 2", "destination")
-
-        self.assert_sources_no(1)
-        self.assert_contains_source("source")
-
-        self.assert_lanes_no("source", 2)
-        self.assert_contains_lane("source", "source lane 1")
-        self.assert_contains_lane("source", "source lane 2")
-
-        self.assert_destinations_no("source", "source lane 1", 1)
-        self.assert_contains_destination(
-            "source", "source lane 1", "destination")
-
-        self.assert_destinations_no("source", "source lane 2", 1)
-        self.assert_contains_destination(
-            "source", "source lane 2", "destination")
-
-    def test_add_different_destinations(self):
-        self.connections.add("source", "source lane", "destination 1")
-        self.connections.add("source", "source lane", "destination 2")
-
-        self.assert_sources_no(1)
-        self.assert_contains_source("source")
-
-        self.assert_lanes_no("source", 1)
-        self.assert_contains_lane("source", "source lane")
-
-        self.assert_destinations_no("source", "source lane", 2)
-        self.assert_contains_destination(
-            "source", "source lane", "destination 1")
-        self.assert_contains_destination(
-            "source", "source lane", "destination 2")
-
-    def test_readd_raises_warning(self):
-        collecting_handler = collectinghandler.CollectingHandler()
-        self.connections.logger.addHandler(collecting_handler)
-
-        self.connections.add("source", "source lane", "destination")
-        self.connections.add("source", "source lane", "destination")
-
-        self.assert_sources_no(1)
-        self.assert_contains_source("source")
-
-        self.assert_lanes_no("source", 1)
-        self.assert_contains_lane("source", "source lane")
-
-        self.assert_destinations_no("source", "source lane", 1)
-        self.assert_contains_destination("source", "source lane", "destination")
-
-        self.assertTrue(
-            "Destination for source (lane source lane) readded: destination"
-            in [record.getMessage() for record in collecting_handler.log_records])
-
-
-if __name__ == "__main__":
-    unittest.main()

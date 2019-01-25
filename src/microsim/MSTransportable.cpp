@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -26,8 +26,8 @@
 #include <utils/common/StringTokenizer.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
-#include <utils/vehicle/PedestrianRouter.h>
-#include <utils/vehicle/IntermodalRouter.h>
+#include <utils/router/PedestrianRouter.h>
+#include <utils/router/IntermodalRouter.h>
 #include "MSEdge.h"
 #include "MSLane.h"
 #include "MSNet.h"
@@ -139,7 +139,7 @@ MSTransportable::Stage::getEdgeAngle(const MSEdge* e, double at) const {
 * MSTransportable::Stage_Trip - methods
 * ----------------------------------------------------------------------- */
 MSTransportable::Stage_Trip::Stage_Trip(const MSEdge* origin, const MSEdge* destination, MSStoppingPlace* toStop, const SUMOTime duration, const SVCPermissions modeSet,
-    const std::string& vTypes, const double speed, const double walkFactor, const double departPosLat, const bool hasArrivalPos, const double arrivalPos) :
+                                        const std::string& vTypes, const double speed, const double walkFactor, const double departPosLat, const bool hasArrivalPos, const double arrivalPos) :
     MSTransportable::Stage(destination, toStop, arrivalPos, TRIP),
     myOrigin(origin),
     myDuration(duration),
@@ -233,7 +233,7 @@ MSTransportable::Stage_Trip::setArrived(MSNet* net, MSTransportable* transportab
         std::vector<MSNet::MSIntermodalRouter::TripItem> result;
         int stageIndex = 1;
         if (net->getIntermodalRouter().compute(myOrigin, myDestination, previous->getArrivalPos(), myArrivalPos, myDestinationStop == nullptr ? "" : myDestinationStop->getID(),
-            transportable->getVehicleType().getMaxSpeed() * myWalkFactor, vehicle, myModeSet, transportable->getParameter().depart, result)) {
+                                               transportable->getVehicleType().getMaxSpeed() * myWalkFactor, vehicle, myModeSet, transportable->getParameter().depart, result)) {
             for (std::vector<MSNet::MSIntermodalRouter::TripItem>::iterator it = result.begin(); it != result.end(); ++it) {
                 if (!it->edges.empty()) {
                     MSStoppingPlace* bs = MSNet::getInstance()->getStoppingPlace(it->destStop, SUMO_TAG_BUS_STOP);
@@ -249,7 +249,7 @@ MSTransportable::Stage_Trip::setArrived(MSNet* net, MSTransportable* transportab
 //                            if (previous->getEdge()->getToJunction() == it->edges.front()->getToJunction()) {
 //                                depPos = it->edges.front()->getLength();
 //                            } else {
-                                depPos = 0.;
+                            depPos = 0.;
 //                            }
                         }
                         previous = new MSPerson::MSPersonStage_Walking(transportable->getID(), it->edges, bs, myDuration, mySpeed, depPos, localArrivalPos, myDepartPosLat);

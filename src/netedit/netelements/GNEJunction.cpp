@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -171,6 +171,12 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     //    new FXMenuCommand(ret, "Join adjacent edges", 0, &parent, MID_GNE_JOIN_EDGES);
     //}
     const int numEndpoints = (int)myNBNode.getEndPoints().size();
+    // check if we're handling a selection
+    bool handlingSelection = isAttributeCarrierSelected() && (myNet->retrieveJunctions(true).size() > 1);
+    // check if menu commands has to be disabled
+    const bool wrongMode = (myNet->getViewNet()->getEditModes().networkEditMode == GNE_NMODE_CONNECT) ||
+                           (myNet->getViewNet()->getEditModes().networkEditMode == GNE_NMODE_TLS) ||
+                           (myNet->getViewNet()->getEditModes().networkEditMode == GNE_NMODE_CREATE_EDGE);
     // create menu commands
     FXMenuCommand* mcCustomShape = new FXMenuCommand(ret, "Set custom junction shape", nullptr, &parent, MID_GNE_JUNCTION_EDIT_SHAPE);
     FXMenuCommand* mcResetCustomShape = new FXMenuCommand(ret, "Reset junction shape", nullptr, &parent, MID_GNE_JUNCTION_RESET_SHAPE);
@@ -178,24 +184,26 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     FXMenuCommand* mcSplit = new FXMenuCommand(ret, ("Split junction (" + toString(numEndpoints) + " end points)").c_str(), nullptr, &parent, MID_GNE_JUNCTION_SPLIT);
     FXMenuCommand* mcClearConnections = new FXMenuCommand(ret, "Clear connections", nullptr, &parent, MID_GNE_JUNCTION_CLEAR_CONNECTIONS);
     FXMenuCommand* mcResetConnections = new FXMenuCommand(ret, "Reset connections", nullptr, &parent, MID_GNE_JUNCTION_RESET_CONNECTIONS);
-    // check if menu commands has to be disabled
-    NetworkEditMode editMode = myNet->getViewNet()->getCurrentNetworkEditMode();
-    const bool wrongMode = (editMode == GNE_NMODE_CONNECT || editMode == GNE_NMODE_TLS || editMode == GNE_NMODE_CREATE_EDGE);
+    // check if current mode  is correct
     if (wrongMode) {
         mcCustomShape->disable();
         mcClearConnections->disable();
         mcResetConnections->disable();
+    }
+    // check if we're handling a selection
+    if (handlingSelection) {
+        mcResetCustomShape->setText("Reset junction shapes");
     }
     // disable mcClearConnections if juction hasn't connections
     if (getGNEConnections().empty()) {
         mcClearConnections->disable();
     }
     // disable mcResetCustomShape if junction doesn't have a custom shape
-    if (!myNBNode.hasCustomShape()) {
+    if (myNBNode.getShape().size() == 0) {
         mcResetCustomShape->disable();
     }
     // checkIsRemovable requiers turnarounds to be computed. This is ugly
-    if (myNBNode.getIncomingEdges().size() == 2 && myNBNode.getOutgoingEdges().size() == 2) {
+    if ((myNBNode.getIncomingEdges().size() == 2) && (myNBNode.getOutgoingEdges().size() == 2)) {
         NBTurningDirectionsComputer::computeTurnDirectionsForNode(&myNBNode, false);
     }
     std::string reason = "wrong edit mode";
@@ -225,11 +233,6 @@ GNEJunction::getCenteringBoundary() const {
 
 void
 GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
-    /*
-        // first call function mouseOverObject  (to check if this object is under cursor)
-        // @note currently disabled. It will be implemented in an different ticket of #2905
-        mouseOverObject(s);
-    */
     // declare variables
     GLfloat color[4];
     double exaggeration = isAttributeCarrierSelected() ? s.selectionScale : 1;
@@ -311,7 +314,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             drawName(myNBNode.getPosition(), s.scale, s.junctionName);
         }
         // draw elevation
-        if (!s.drawForSelecting && myNet->getViewNet()->editingElevation()) {
+        if (!s.drawForSelecting && myNet->getViewNet()->getMoveOptions().editingElevation()) {
             glPushMatrix();
             // Translate to center of junction
             glTranslated(myNBNode.getPosition().x(), myNBNode.getPosition().y(), getType() + 1);
@@ -1248,37 +1251,8 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
     // Update Geometry after setting a new attribute (but avoided for certain attributes)
-    if((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
+    if ((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
         updateGeometry(true);
-    }
-}
-
-
-void
-GNEJunction::mouseOverObject(const GUIVisualizationSettings& s) const {
-    // only continue if there isn't already a AC under cursor
-    if (myNet->getViewNet()->getDottedAC() == nullptr) {
-        // obtain current x-y coordinates
-        Position mousePos = myNet->getViewNet()->getPositionInformation();
-        // check if junction are drawn as buuble or as polygon
-        const bool drawShape = myNBNode.getShape().size() > 0 && s.drawJunctionShape;
-        const bool drawBubble = (((!drawShape || myNBNode.getShape().area() < 4) && s.drawJunctionShape) || myNet->getViewNet()->showJunctionAsBubbles());
-        // declare values for circles
-        double exaggeration = isAttributeCarrierSelected() ? s.selectionScale : 1;
-        exaggeration *= s.junctionSize.getExaggeration(s, this);
-        double circleWidth = BUBBLE_RADIUS * exaggeration;
-        double circleWidthSquared = circleWidth * circleWidth;
-        if (drawBubble) {
-            // check if cursor is whithin the circle
-            if (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(myNBNode.getPosition()) <= circleWidthSquared) {
-                myNet->getViewNet()->setDottedAC(this);
-            }
-        } else if (drawShape) {
-            // check if cursor is within the shape
-            if (myNBNode.getShape().around(mousePos)) {
-                myNet->getViewNet()->setDottedAC(this);
-            }
-        }
     }
 }
 
@@ -1354,7 +1328,7 @@ void
 GNEJunction::setColor(const GUIVisualizationSettings& s, bool bubble) const {
     GLHelper::setColor(s.junctionColorer.getScheme().getColor(getColorValue(s, bubble)));
     // override with special colors (unless the color scheme is based on selection)
-    if (isAttributeCarrierSelected() && s.junctionColorer.getActive() != 1) {
+    if (drawUsingSelectColor() && s.junctionColorer.getActive() != 1) {
         GLHelper::setColor(s.selectionColor);
     }
     if (myAmCreateEdgeSource) {

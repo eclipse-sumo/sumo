@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -64,10 +64,10 @@
 // definition of static variables used for visualisation of objects' values
 // ===========================================================================
 template std::vector< GLObjectValuePassConnector<double>* > GLObjectValuePassConnector<double>::myContainer;
-template MFXMutex GLObjectValuePassConnector<double>::myLock;
+template FXMutex GLObjectValuePassConnector<double>::myLock;
 
 template std::vector< GLObjectValuePassConnector<std::pair<int, class MSPhaseDefinition> >* > GLObjectValuePassConnector<std::pair<int, class MSPhaseDefinition> >::myContainer;
-template MFXMutex GLObjectValuePassConnector<std::pair<int, class MSPhaseDefinition> >::myLock;
+template FXMutex GLObjectValuePassConnector<std::pair<int, class MSPhaseDefinition> >::myLock;
 
 
 // ===========================================================================
@@ -91,13 +91,13 @@ GUINet::~GUINet() {
     // delete allocated wrappers
     //  of junctions
     for (std::vector<GUIJunctionWrapper*>::iterator i1 = myJunctionWrapper.begin(); i1 != myJunctionWrapper.end(); i1++) {
-        delete(*i1);
+        delete (*i1);
     }
     //  of additional structures
     GUIGlObject_AbstractAdd::clearDictionary();
     //  of tl-logics
     for (Logics2WrapperMap::iterator i3 = myLogics2Wrapper.begin(); i3 != myLogics2Wrapper.end(); i3++) {
-        delete(*i3).second;
+        delete (*i3).second;
     }
     //  of detectors
     for (std::vector<GUIDetectorWrapper*>::iterator i = myDetectorWrapper.begin(); i != myDetectorWrapper.end(); ++i) {
@@ -223,7 +223,7 @@ GUINet::guiSimulationStep() {
 
 void
 GUINet::simulationStep() {
-    AbstractMutex::ScopedLocker locker(myLock);
+    FXMutexLock locker(myLock);
     MSNet::simulationStep();
 }
 
@@ -545,7 +545,7 @@ GUINet::getGUIMEVehicleControl() {
 }
 
 
-double 
+double
 GUINet::getEdgeData(const MSEdge* edge, const std::string& attr) {
     auto it = myLoadedEdgeData.find(attr);
     if (it != myLoadedEdgeData.end()) {
@@ -562,7 +562,7 @@ GUINet::getEdgeData(const MSEdge* edge, const std::string& attr) {
 }
 
 
-void 
+void
 GUINet::DiscoverAttributes::myStartElement(int element, const SUMOSAXAttributes& attrs) {
     if (element == SUMO_TAG_EDGE || element == SUMO_TAG_LANE) {
         std::vector<std::string> tmp = attrs.getAttributeNames();
@@ -573,7 +573,7 @@ GUINet::DiscoverAttributes::myStartElement(int element, const SUMOSAXAttributes&
     }
 }
 
-std::vector<std::string> 
+std::vector<std::string>
 GUINet::DiscoverAttributes::getEdgeAttrs() {
     edgeAttrs.erase(toString(SUMO_ATTR_ID));
     return std::vector<std::string>(edgeAttrs.begin(), edgeAttrs.end());
@@ -597,9 +597,9 @@ GUINet::loadEdgeData(const std::string& file) {
     DiscoverAttributes discoveryHandler(file);
     XMLSubSys::runParser(discoveryHandler, file);
     std::vector<std::string> attrs = discoveryHandler.getEdgeAttrs();
-    WRITE_MESSAGE("Loading edgedata from '" + file 
-            + "' Found " + toString(attrs.size())
-            + " attributes: " + toString(attrs));
+    WRITE_MESSAGE("Loading edgedata from '" + file
+                  + "' Found " + toString(attrs.size())
+                  + " attributes: " + toString(attrs));
     myEdgeDataEndTime = MAX2(myEdgeDataEndTime, discoveryHandler.lastIntervalEnd);
     // create a retriever for each attribute
     std::vector<EdgeFloatTimeLineRetriever_GUI> retrieverDefsInternal;
@@ -616,7 +616,7 @@ GUINet::loadEdgeData(const std::string& file) {
 }
 
 
-std::vector<std::string> 
+std::vector<std::string>
 GUINet::getEdgeDataAttrs() const {
     std::vector<std::string> result;
     for (const auto& item : myLoadedEdgeData) {

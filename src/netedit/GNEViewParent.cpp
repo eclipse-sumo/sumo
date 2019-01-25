@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
@@ -35,6 +35,7 @@
 #include <netedit/frames/GNESelectorFrame.h>
 #include <netedit/frames/GNETAZFrame.h>
 #include <netedit/frames/GNETLSEditorFrame.h>
+#include <netedit/frames/GNERouteFrame.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNEJunction.h>
 #include <utils/foxtools/MFXUtils.h>
@@ -74,17 +75,17 @@ FXIMPLEMENT(GNEViewParent, GUIGlChildWindow, GNEViewParentMap, ARRAYNUMBER(GNEVi
 
 GNEViewParent::GNEViewParent(FXMDIClient* p, FXMDIMenu* mdimenu, const FXString& name, GNEApplicationWindow* parentWindow,
                              FXGLCanvas* share, GNENet* net, GNEUndoList* undoList, FXIcon* ic, FXuint opts, FXint x, FXint y, FXint w, FXint h) :
-    GUIGlChildWindow(p, parentWindow, mdimenu, name, ic, opts, x, y, w, h),
+    GUIGlChildWindow(p, parentWindow, mdimenu, name, parentWindow->getToolbarsGrip().navigation, ic, opts, x, y, w, h),
     myGNEAppWindows(parentWindow) {
     // Add child to parent
     myParent->addGLChild(this);
 
-    // add undo/redo buttons
-    new FXButton(myNavigationToolBar, "\tUndo\tUndo the last Change.", GUIIconSubSys::getIcon(ICON_UNDO), parentWindow->getUndoList(), FXUndoList::ID_UNDO, GUIDesignButtonToolbar);
-    new FXButton(myNavigationToolBar, "\tRedo\tRedo the last Change.", GUIIconSubSys::getIcon(ICON_REDO), parentWindow->getUndoList(), FXUndoList::ID_REDO, GUIDesignButtonToolbar);
-
     // Create Vertical separator
-    new FXVerticalSeparator(myNavigationToolBar, GUIDesignVerticalSeparator);
+    new FXVerticalSeparator(myGripNavigationToolbar, GUIDesignVerticalSeparator);
+
+    // add undo /redo buttons
+    new FXButton(myGripNavigationToolbar, "\tUndo\tUndo the last Change.", GUIIconSubSys::getIcon(ICON_UNDO), parentWindow->getUndoList(), FXUndoList::ID_UNDO, GUIDesignButtonToolbar);
+    new FXButton(myGripNavigationToolbar, "\tRedo\tRedo the last Change.", GUIIconSubSys::getIcon(ICON_REDO), parentWindow->getUndoList(), FXUndoList::ID_REDO, GUIDesignButtonToolbar);
 
     // Create Frame Splitter
     myFramesSplitter = new FXSplitter(myContentFrame, this, MID_GNE_VIEWPARENT_FRAMEAREAWIDTH, GUIDesignSplitter | SPLITTER_HORIZONTAL);
@@ -102,12 +103,15 @@ GNEViewParent::GNEViewParent(FXMDIClient* p, FXMDIMenu* mdimenu, const FXString&
     FXComposite* tmp = new FXComposite(this);
 
     // Create view net
-    GNEViewNet* viewNet = new GNEViewNet(tmp, myViewArea, *myParent, this, net, undoList, myParent->getGLVisual(), share, myNavigationToolBar);
+    GNEViewNet* viewNet = new GNEViewNet(tmp, myViewArea, *myParent, this, net, undoList, myParent->getGLVisual(), share);
+
+    // show toolbar grips
+    myGNEAppWindows->getToolbarsGrip().buildMenuToolbarsGrip();
 
     // Set pointer myView with the created view net
     myView = viewNet;
 
-    // Create frames
+    // Create Network frames
     myFrames.inspectorFrame = new GNEInspectorFrame(myFramesArea, viewNet);
     myFrames.selectorFrame = new GNESelectorFrame(myFramesArea, viewNet);
     myFrames.connectorFrame = new GNEConnectorFrame(myFramesArea, viewNet);
@@ -119,6 +123,9 @@ GNEViewParent::GNEViewParent(FXMDIClient* p, FXMDIMenu* mdimenu, const FXString&
     myFrames.deleteFrame = new GNEDeleteFrame(myFramesArea, viewNet);
     myFrames.polygonFrame = new GNEPolygonFrame(myFramesArea, viewNet);
     myFrames.createEdgeFrame = new GNECreateEdgeFrame(myFramesArea, viewNet);
+
+    // Create Demand frames
+    myFrames.routeFrame = new GNERouteFrame(myFramesArea, viewNet);
 
     // Update frame areas after creation
     onCmdUpdateFrameAreaWidth(nullptr, 0, nullptr);
@@ -135,6 +142,8 @@ GNEViewParent::GNEViewParent(FXMDIClient* p, FXMDIMenu* mdimenu, const FXString&
 
 
 GNEViewParent::~GNEViewParent() {
+    // delete toolbar grips
+    myGNEAppWindows->getToolbarsGrip().destroyParentToolbarsGrips();
     // Remove child before remove
     myParent->removeGLChild(this);
 }
@@ -181,7 +190,7 @@ GNEViewParent::getCrossingFrame() const {
 }
 
 
-GNETAZFrame* 
+GNETAZFrame*
 GNEViewParent::getTAZFrame() const {
     return myFrames.TAZFrame;
 }
@@ -205,9 +214,15 @@ GNEViewParent::getProhibitionFrame() const {
 }
 
 
-GNECreateEdgeFrame* 
+GNECreateEdgeFrame*
 GNEViewParent::getCreateEdgeFrame() const {
     return myFrames.createEdgeFrame;
+}
+
+
+GNERouteFrame*
+GNEViewParent::getRouteFrame() const {
+    return myFrames.routeFrame;
 }
 
 
@@ -303,7 +318,7 @@ GNEViewParent::onCmdMakeSnapshot(FXObject*, FXSelector, void*) {
 
 long
 GNEViewParent::onCmdClose(FXObject*, FXSelector /* sel */, void*) {
-    myParent->handle(this, FXSEL(SEL_COMMAND, MID_CLOSE), nullptr);
+    myParent->handle(this, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_W_CLOSESIMULATION), nullptr);
     return 1;
 }
 
@@ -438,7 +453,7 @@ GNEViewParent::onCmdUpdateFrameAreaWidth(FXObject*, FXSelector, void*) {
 // GNEViewParent::Frames - methods
 // ---------------------------------------------------------------------------
 
-GNEViewParent::Frames::Frames() : 
+GNEViewParent::Frames::Frames() :
     inspectorFrame(nullptr),
     selectorFrame(nullptr),
     connectorFrame(nullptr),
@@ -449,7 +464,8 @@ GNEViewParent::Frames::Frames() :
     deleteFrame(nullptr),
     polygonFrame(nullptr),
     prohibitionFrame(nullptr),
-    createEdgeFrame(nullptr) {
+    createEdgeFrame(nullptr),
+    routeFrame(nullptr) {
 }
 
 
@@ -468,10 +484,11 @@ GNEViewParent::Frames::hideFrames() {
     /** currently createEdgeFrame unused
     createEdgeFrame->hide();
     **/
+    routeFrame->hide();
 }
 
 
-void 
+void
 GNEViewParent::Frames::setWidth(int frameWidth) {
     // set width in all frames
     inspectorFrame->setFrameWidth(frameWidth);
@@ -487,10 +504,11 @@ GNEViewParent::Frames::setWidth(int frameWidth) {
     /** currently createEdgeFrame unused
     createEdgeFrame->setFrameWidth(frameWidth);
     **/
+    routeFrame->setFrameWidth(frameWidth);
 }
 
 
-bool 
+bool
 GNEViewParent::Frames::isFrameShown() const {
     // check all frames
     if (inspectorFrame->shown()) {
@@ -513,10 +531,12 @@ GNEViewParent::Frames::isFrameShown() const {
         return true;
     } else if (prohibitionFrame->shown()) {
         return true;
-    /** currently createEdgeFrame unused
-    } else if (createEdgeFrame->shown()) {
+        /** currently createEdgeFrame unused
+        } else if (createEdgeFrame->shown()) {
+            return true;
+        **/
+    } else if (routeFrame->shown()) {
         return true;
-    **/
     } else {
         return false;
     }
@@ -526,7 +546,7 @@ GNEViewParent::Frames::isFrameShown() const {
 // GNEViewParent::ACChoosers - methods
 // ---------------------------------------------------------------------------
 
-GNEViewParent::ACChoosers::ACChoosers() : 
+GNEViewParent::ACChoosers::ACChoosers() :
     ACChooserJunction(nullptr),
     ACChooserEdges(nullptr),
     ACChooserTLS(nullptr),
