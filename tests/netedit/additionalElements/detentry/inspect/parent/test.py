@@ -63,10 +63,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 200, 200)
 
 # Change Netedit parameter 1 with a non valid value (Invalid E3 ID)
-netedit.modifyAttribute(9, "invalidE3")
+netedit.modifyAttribute(6, "invalidE3", True)
 
 # Change Netedit parameter 2 with a non valid value (Invalid E3 ID)
-netedit.modifyAttribute(9, "e3Detector_1")
+netedit.modifyAttribute(6, "e3Detector_1", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 7)

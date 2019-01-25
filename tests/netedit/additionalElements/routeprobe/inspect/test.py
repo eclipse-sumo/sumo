@@ -44,49 +44,49 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 310, 200)
 
 # Change parameter 0 with a non valid value (Duplicated ID)
-netedit.modifyAttribute(0, "routeProbe_3_1")
+netedit.modifyAttribute(0, "routeProbe_3_1", False)
 
 # Change parameter 0 with a non valid value (Invalid ID)
-netedit.modifyAttribute(0, "Id with spaces")
+netedit.modifyAttribute(0, "Id with spaces", False)
 
 # Change parameter 0 with a valid value
-netedit.modifyAttribute(0, "correctID")
+netedit.modifyAttribute(0, "correctID", False)
 
 # Change parameter 1 with a non valid value (dummy edge)
-netedit.modifyAttribute(1, "dummyEdge")
+netedit.modifyAttribute(1, "dummyEdge", False)
 
 # Change parameter 1 with a valid value (different edge)
-netedit.modifyAttribute(1, "gneE0")
+netedit.modifyAttribute(1, "gneE0", False)
 
 # Change parameter 2 with a non valid value (dummy)
-netedit.modifyAttribute(2, "dummy")
+netedit.modifyAttribute(2, "dummy", False)
 
 # Change parameter 2 with a non valid value (negative)
-netedit.modifyAttribute(2, "-50")
+netedit.modifyAttribute(2, "-50", False)
 
 # Change parameter 2 with a valid value
-netedit.modifyAttribute(2, "150")
+netedit.modifyAttribute(2, "150", False)
 
 # Change parameter 3 with an non valid value
-netedit.modifyAttribute(3, "%%%;:..&&%$%$")
+netedit.modifyAttribute(3, "%%%;:..&&%$%$", False)
 
 # Change parameter 3 with a duplicated value
-netedit.modifyAttribute(3, "customName")
+netedit.modifyAttribute(3, "customName", False)
 
 # Change parameter 4 with a non valid value (invalid characters)
-netedit.modifyAttribute(4, "$$$$$$$$")
+netedit.modifyAttribute(4, "$$$$$$$$", False)
 
 # Change parameter 4 with a valid value
-netedit.modifyAttribute(4, "OwnOutput.txt")
+netedit.modifyAttribute(4, "OwnOutput.txt", False)
 
 # Change parameter 5 with a non valid value (dummy)
-netedit.modifyAttribute(5, "dummy")
+netedit.modifyAttribute(5, "dummy", False)
 
 # Change parameter 5 with a non valid value (negative)
-netedit.modifyAttribute(5, "-5")
+netedit.modifyAttribute(5, "-5", False)
 
 # Change parameter 5 with a valid value
-netedit.modifyAttribute(5, "20")
+netedit.modifyAttribute(5, "20", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 12)

@@ -44,19 +44,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 200)
 
 # Change parameter endPos with a non valid value (dummy)
-netedit.modifyAttribute(6, "dummyEndPos")
+netedit.modifyAttribute(3, "dummyEndPos", True)
 
 # Change parameter endPos with a valid value (empty)
-netedit.modifyAttribute(6, "")
+netedit.modifyAttribute(3, "", True)
 
 # Change parameter endPos with a valid value (out of range)
-netedit.modifyAttribute(6, "3000")
+netedit.modifyAttribute(3, "3000", True)
 
 # Change parameter endPos with a non valid value (<startPos)
-netedit.modifyAttribute(6, "10")
+netedit.modifyAttribute(3, "10", True)
 
 # Change parameter endPos with a valid value
-netedit.modifyAttribute(6, "30")
+netedit.modifyAttribute(3, "30", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 5)

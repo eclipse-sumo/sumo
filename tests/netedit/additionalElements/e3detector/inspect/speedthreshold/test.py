@@ -58,13 +58,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 100)
 
 # Change parameter SpeedTreshold with a non valid value (dummy)
-netedit.modifyAttribute(7, "dummySpeedTreshold")
+netedit.modifyAttribute(7, "dummySpeedTreshold", False)
 
 # Change parameter SpeedTreshold with a non valid value (negative)
-netedit.modifyAttribute(7, "-12.1")
+netedit.modifyAttribute(7, "-12.1", False)
 
 # Change parameter SpeedTreshold with a valid value
-netedit.modifyAttribute(7, "6.3")
+netedit.modifyAttribute(7, "6.3", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 4)

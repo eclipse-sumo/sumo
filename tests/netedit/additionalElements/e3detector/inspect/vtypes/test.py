@@ -58,10 +58,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 100)
 
 # Change parameter Vtypes with a non valid value (invalid characters)
-netedit.modifyAttribute(5, "$$$ @**@;@ %%%")
+netedit.modifyAttribute(5, "$$$ @**@;@ %%%", False)
 
 # Change parameter TimeTreshold with a non valid value (negative)
-netedit.modifyAttribute(5, "type1 type2 type3")
+netedit.modifyAttribute(5, "type1 type2 type3", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 4)

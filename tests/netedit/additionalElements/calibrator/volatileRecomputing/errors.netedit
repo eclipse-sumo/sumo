@@ -19,7 +19,7 @@ GLDebug: Inserted calibrator:calibrator_gneE0_3 into SUMORTree with boundary -0.
 GLDebug: Removed object calibrator:calibrator_gneE0_3 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted calibrator:calibrator_gneE0_3 into SUMORTree with boundary -20.00,-21.60,20.00,18.40
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
 GLDebug: Removed object calibrator:calibrator_gneE0_3 from SUMORTree with boundary -20.00,-21.60,20.00,18.40
 GLDebug: Inserted calibrator:calibrator_gneE0_3 into SUMORTree with boundary -20.00,-21.60,20.00,18.40
@@ -49,11 +49,12 @@ GLDebug: Removed object calibrator:calibrator_gneE4_1 from SUMORTree with bounda
 GLDebug: Inserted calibrator:calibrator_gneE4_1 into SUMORTree with boundary -20.00,-1.60,20.00,38.40
 GLDebug: Inserted edge:gneE4 into SUMORTree with boundary -30.00,-11.60,80.00,50.00
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
 Debug: Keys Shift + F5 (Compute with volatile options) pressed
 Debug: Opening FXMessageBox 'Volatile Recomputing'
 Debug: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
 Debug: Additionals saved
+Debug: DemandElements saved
 GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
 GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
 GLDebug: Removed object junction:gneJ2 from SUMORTree with boundary 28.00,-2.00,72.00,42.00
@@ -65,7 +66,7 @@ GLDebug: Removed object edge:gneE4 from SUMORTree with boundary -30.00,-11.60,80
 Debug: Deleting unreferenced calibrator 'calibrator_gneE4_1'
 GLDebug: Removed object calibrator:calibrator_gneE4_1 from SUMORTree with boundary -20.00,-1.60,20.00,38.40
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Deleting unreferenced calibrator 'calibrator_gneE2_0'
 GLDebug: Removed object calibrator:calibrator_gneE2_0 from SUMORTree with boundary 30.00,1.60,70.00,54.40
 Debug: Deleting unreferenced calibrator 'calibrator_gneE1_2'
@@ -202,4 +203,4 @@ Debug: Deleting unreferenced calibrator 'calibrator_gneE2_0' in GNENet destructo
 Debug: Deleting unreferenced calibrator 'calibrator_gneE4_1' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting net builder in GNENet destructor
-GLDebug: Number of objects in SUMORTree during call destructor: 16
+GLDebug: Number of objects in SUMORTree during call of the destructor: 16

@@ -38,13 +38,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 150, 250)
 
 # Try to set invalid efficiency
-netedit.modifyAttribute(7, "dummyEfficiency")
+netedit.modifyAttribute(3, "dummyEfficiency", True)
 
 # Try to set invalid efficiency
-netedit.modifyAttribute(7, "2")
+netedit.modifyAttribute(3, "2", True)
 
 # set efficiency
-netedit.modifyAttribute(7, "0.5")
+netedit.modifyAttribute(3, "0.5", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 4)

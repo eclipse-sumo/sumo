@@ -44,7 +44,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 190)
 
 # Change parameter name with a valid value
-netedit.modifyAttribute(8, "Bus Stop Name")
+netedit.modifyAttribute(4, "Bus Stop Name", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

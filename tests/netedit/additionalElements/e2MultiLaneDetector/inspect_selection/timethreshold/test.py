@@ -41,13 +41,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 320, 240)
 
 # Change parameter TimeTreshold with a non valid value
-netedit.modifyAttribute(7, "dummyTimeTreshold")
+netedit.modifyAttribute(4, "dummyTimeTreshold", True)
 
 # Change parameter TimeTreshold with a non valid value
-netedit.modifyAttribute(7, "-5")
+netedit.modifyAttribute(4, "-5", True)
 
 # Change parameter TimeTreshold with a valid value
-netedit.modifyAttribute(7, "4")
+netedit.modifyAttribute(4, "4", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

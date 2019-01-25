@@ -38,13 +38,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 230, 260)
 
 # Change parameter parent with a non valid value (dummy)
-netedit.modifyAttribute(6, "dummyParent")
+netedit.modifyAttribute(6, "dummyParent", False)
 
 # Change parameter parent with a non valid value (empty)
-netedit.modifyAttribute(6, "")
+netedit.modifyAttribute(6, "", False)
 
 # Change parameter parent with a valid value
-netedit.modifyAttribute(6, "parkingArea_gneE2_0_1")
+netedit.modifyAttribute(6, "parkingArea_gneE2_0_1", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 5)

@@ -41,19 +41,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 260, 150)
 
 # Change parameter lenght with a non valid value(dummy)
-netedit.modifyAttribute(6, "dummyLength")
+netedit.modifyAttribute(3, "dummyLength", True)
 
 # Change parameter lenght with a non valid value (negative)
-netedit.modifyAttribute(6, "-5")
+netedit.modifyAttribute(3, "-5", True)
 
 # Change parameter lenght with a non valid value (0)
-netedit.modifyAttribute(6, "0")
+netedit.modifyAttribute(3, "0", True)
 
 # Change parameter lenght with a valid value (> lane lenght)
-netedit.modifyAttribute(6, "500")
+netedit.modifyAttribute(3, "500", True)
 
 # Change parameter lenght with a valid value
-netedit.modifyAttribute(6, "5")
+netedit.modifyAttribute(3, "5", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

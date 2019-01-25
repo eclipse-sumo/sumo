@@ -38,16 +38,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 150, 290)
 
 # Change parameter RoadSideCapacity with a non valid value (dummy)
-netedit.modifyAttribute(1, "dummyRoadSideCapacity")
+netedit.modifyAttribute(1, "dummyRoadSideCapacity", False)
 
 # Change parameter RoadSideCapacity with a non valid value (double)
-netedit.modifyAttribute(1, "2.3")
+netedit.modifyAttribute(1, "2.3", False)
 
 # Change parameter RoadSideCapacity with a non valid value (negative)
-netedit.modifyAttribute(1, "-5")
+netedit.modifyAttribute(1, "-5", False)
 
 # Change parameter RoadSideCapacity with a non valid value (negative)
-netedit.modifyAttribute(1, "7")
+netedit.modifyAttribute(1, "7", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)

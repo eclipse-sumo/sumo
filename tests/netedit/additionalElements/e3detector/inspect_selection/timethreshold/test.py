@@ -38,13 +38,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 150, 250)
 
 # Set invalid time treshold
-netedit.modifyAttribute(7, "dummySpeedTreshold")
+netedit.modifyAttribute(4, "dummySpeedTreshold", True)
 
 # Set invalid time treshold
-netedit.modifyAttribute(7, "-5")
+netedit.modifyAttribute(4, "-5", True)
 
 # Set valid time treshold
-netedit.modifyAttribute(7, "11.3")
+netedit.modifyAttribute(4, "11.3", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 4)

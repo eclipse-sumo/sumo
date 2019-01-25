@@ -38,13 +38,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 150, 240)
 
 # Change parameter freq with a non valid value (non numeral)
-netedit.modifyAttribute(3, "dummyFrequency")
+netedit.modifyAttribute(0, "dummyFrequency", True)
 
 # Change parameter freq with a non valid value (negative)
-netedit.modifyAttribute(3, "-100")
+netedit.modifyAttribute(0, "-100", True)
 
 # Change parameter freq with a valid value
-netedit.modifyAttribute(3, "120")
+netedit.modifyAttribute(0, "120", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 4)

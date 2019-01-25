@@ -19,7 +19,7 @@ GLDebug: Inserted containerStop:containerStop_gneE0_0_0 into SUMORTree with boun
 GLDebug: Removed object containerStop:containerStop_gneE0_0_0 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted containerStop:containerStop_gneE0_0_0 into SUMORTree with boundary -0.25,-23.20,49.75,16.80
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 GLDebug: Removed object containerStop:containerStop_gneE0_0_0 from SUMORTree with boundary -0.25,-23.20,49.75,16.80
 GLDebug: Inserted containerStop:containerStop_gneE0_0_0 into SUMORTree with boundary -0.25,-23.20,49.75,16.80
 Debug: Adding containerStop 'containerStop_gneE1_0_1' in GNEChange_Additional
@@ -65,11 +65,12 @@ GLDebug: Inserted containerStop:containerStop_gneE4_0_2 into SUMORTree with boun
 GLDebug: Removed object containerStop:containerStop_gneE4_0_2 from SUMORTree with boundary -2.10,-3.20,47.90,36.80
 GLDebug: Inserted containerStop:containerStop_gneE4_0_2 into SUMORTree with boundary -2.10,-3.20,47.90,36.80
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
 Debug: Keys Shift + F5 (Compute with volatile options) pressed
 Debug: Opening FXMessageBox 'Volatile Recomputing'
 Debug: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
 Debug: Additionals saved
+Debug: DemandElements saved
 GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
 GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
 GLDebug: Removed object junction:gneJ2 from SUMORTree with boundary 28.00,-2.00,72.00,42.00
@@ -81,7 +82,7 @@ GLDebug: Removed object edge:gneE4 from SUMORTree with boundary -30.00,-11.60,80
 Debug: Deleting unreferenced containerStop 'containerStop_gneE4_0_2'
 GLDebug: Removed object containerStop:containerStop_gneE4_0_2 from SUMORTree with boundary -2.10,-3.20,47.90,36.80
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Deleting unreferenced containerStop 'containerStop_gneE2_4_3'
 GLDebug: Removed object containerStop:containerStop_gneE2_4_3 from SUMORTree with boundary -11.03,3.20,38.97,43.20
 Debug: Deleting unreferenced containerStop 'containerStop_gneE2_3_4'
@@ -250,4 +251,4 @@ Debug: Deleting unreferenced containerStop 'containerStop_gneE2_4_3' in GNENet d
 Debug: Deleting unreferenced containerStop 'containerStop_gneE4_0_2' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting net builder in GNENet destructor
-GLDebug: Number of objects in SUMORTree during call destructor: 20
+GLDebug: Number of objects in SUMORTree during call of the destructor: 20

@@ -38,19 +38,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 310, 200)
 
 # Set invalid begin
-netedit.modifyAttribute(0, "-30")
+netedit.modifyAttribute(0, "-30", False)
 
 # Set valid begin
-netedit.modifyAttribute(0, "5")
+netedit.modifyAttribute(0, "5", False)
 
 # Set invalid end 1
-netedit.modifyAttribute(1, "-5")
+netedit.modifyAttribute(1, "-5", False)
 
 # Set invalid end 2
-netedit.modifyAttribute(1, "1")
+netedit.modifyAttribute(1, "1", False)
 
 # Set valid begin
-netedit.modifyAttribute(1, "15.8")
+netedit.modifyAttribute(1, "15.8", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

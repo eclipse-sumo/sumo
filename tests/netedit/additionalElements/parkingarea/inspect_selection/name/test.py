@@ -38,10 +38,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 150, 290)
 
 # Change parameter Name with a non valid value (throw warning)
-netedit.modifyAttribute(0, "%%%$$$$%$")
+netedit.modifyAttribute(0, "%%%$$$$%$", False)
 
 # Change parameter Name with a non valid value (throw warning)
-netedit.modifyAttribute(0, "new Parking Area Name")
+netedit.modifyAttribute(0, "new Parking Area Name", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

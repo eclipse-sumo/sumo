@@ -38,28 +38,28 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 310, 200)
 
 # Set invalid freq
-netedit.modifyAttribute(0, "-30")
+netedit.modifyAttribute(0, "-30", False)
 
 # Set valid freq
-netedit.modifyAttribute(0, "50")
+netedit.modifyAttribute(0, "50", False)
 
 # Change parameter 1 with an non valid value
-netedit.modifyAttribute(1, "%%%;:..&&%$%$")
+netedit.modifyAttribute(1, "%%%;:..&&%$%$", False)
 
 # Change parameter 1 with a duplicated value
-netedit.modifyAttribute(1, "customName")
+netedit.modifyAttribute(1, "customName", False)
 
 # Change parameter 2 with a non valid value (invalid characters)
-netedit.modifyAttribute(2, "$$$$$$$$")
+netedit.modifyAttribute(2, "$$$$$$$$", False)
 
 # Change parameter 2 with a valid value
-netedit.modifyAttribute(2, "OwnOutput.txt")
+netedit.modifyAttribute(2, "OwnOutput.txt", False)
 
 # Set invalid begin
-netedit.modifyAttribute(3, "-5")
+netedit.modifyAttribute(3, "-5", False)
 
 # Set valid begin
-netedit.modifyAttribute(3, "11.3")
+netedit.modifyAttribute(3, "11.3", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 5)
