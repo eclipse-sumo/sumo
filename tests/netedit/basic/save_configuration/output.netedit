@@ -1,6 +1,6 @@
 TestFunctions: Netedit opened successfully
 Finding reference
-TestFunctions: 'reference.png' found. Position: 304 - 140
-C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.5_from_17Sep083718.3704/netedit.gui/basic/save_configuration
+TestFunctions: 'reference.png' found. Position: 304 - 168
+C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan133101.2916/netedit.gui/basic/save_configuration
 net
 TestFunctions: Netedit closed successfully
