@@ -35,7 +35,7 @@ GLDebug: Inserted e2Detector:e2MultilaneDetector_0 into SUMORTree with boundary 
 GLDebug: Removed object e2Detector:e2MultilaneDetector_0 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted e2Detector:e2MultilaneDetector_0 into SUMORTree with boundary -21.60,-21.60,71.60,74.40
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 GLDebug: Removed object e2Detector:e2MultilaneDetector_0 from SUMORTree with boundary -21.60,-21.60,71.60,74.40
 GLDebug: Inserted e2Detector:e2MultilaneDetector_0 into SUMORTree with boundary -21.60,-21.60,71.60,74.40
 GLDebug: Removed object e2Detector:e2MultilaneDetector_0 from SUMORTree with boundary -21.60,-21.60,71.60,74.40
@@ -121,7 +121,7 @@ GLDebug: Inserted e2Detector:e2MultilaneDetector_2 into SUMORTree with boundary 
 GLDebug: Removed object e2Detector:e2MultilaneDetector_4 from SUMORTree with boundary -20.00,-20.00,70.00,61.60
 GLDebug: Inserted e2Detector:e2MultilaneDetector_4 into SUMORTree with boundary -20.00,-20.00,70.00,61.60
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
 Debug: Key F5 (Compute) pressed
 GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
 GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
@@ -365,6 +365,7 @@ Debug: Keys Shift + F5 (Compute with volatile options) pressed
 Debug: Opening FXMessageBox 'Volatile Recomputing'
 Debug: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
 Debug: Additionals saved
+Debug: DemandElements saved
 GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -23.20,-23.20,23.20,23.20
 GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 26.80,-23.20,73.20,23.20
 GLDebug: Removed object junction:gneJ2 from SUMORTree with boundary 22.80,12.80,73.20,76.00
@@ -388,7 +389,7 @@ GLDebug: Removed object edge:gneE9 from SUMORTree with boundary 18.40,-30.00,80.
 Debug: Deleting unreferenced e2MultilaneDetector 'e2MultilaneDetector_4'
 GLDebug: Removed object e2Detector:e2MultilaneDetector_4 from SUMORTree with boundary -18.40,-18.40,64.40,61.60
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Deleting unreferenced e2MultilaneDetector 'e2MultilaneDetector_3'
 GLDebug: Removed object e2Detector:e2MultilaneDetector_3 from SUMORTree with boundary -18.40,-18.40,68.40,38.40
 Debug: Deleting unreferenced e2MultilaneDetector 'e2MultilaneDetector_2'
@@ -777,7 +778,7 @@ GLDebug: Removed object e2Detector:e2MultilaneDetector_4 from SUMORTree with bou
 GLDebug: Inserted e2Detector:e2MultilaneDetector_4 into SUMORTree with boundary -18.40,-15.80,62.80,64.80
 GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -30.00,10.00,80.00,87.00
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
 Debug: Adding connection 'gneE14_0->gneE8_0' into edge 'gneE14'
 Debug: Created connection 'fromgneE14_0togneE8_0' in retrieveGNEConnection()
 GLDebug: Inserted connection:fromgneE14_0togneE8_0 into SUMORTree with boundary -20.10,-19.90,20.10,39.90
@@ -1264,4 +1265,4 @@ Debug: Deleting unreferenced e2MultilaneDetector 'e2MultilaneDetector_3' in GNEN
 Debug: Deleting unreferenced e2MultilaneDetector 'e2MultilaneDetector_4' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting net builder in GNENet destructor
-GLDebug: Number of objects in SUMORTree during call destructor: 97
+GLDebug: Number of objects in SUMORTree during call of the destructor: 97

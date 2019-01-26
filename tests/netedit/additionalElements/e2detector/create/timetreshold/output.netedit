@@ -3,11 +3,11 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 e2Detector
 dummyTimeTreshold
-TestFunctions: Clicked over position 554 - 360
+TestFunctions: Clicked over position 554 - 388
 -12
-TestFunctions: Clicked over position 554 - 360
+TestFunctions: Clicked over position 554 - 388
 10.5
-TestFunctions: Clicked over position 554 - 360
-TestFunctions: Clicked over position 304 - 140
-TestFunctions: Clicked over position 304 - 140
+TestFunctions: Clicked over position 554 - 388
+TestFunctions: Clicked over position 304 - 168
+TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully

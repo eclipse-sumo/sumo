@@ -19,7 +19,7 @@ GLDebug: Inserted e1DetectorInstant:instantInductionLoop_gneE0_0_7 into SUMORTre
 GLDebug: Removed object e1DetectorInstant:instantInductionLoop_gneE0_0_7 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted e1DetectorInstant:instantInductionLoop_gneE0_0_7 into SUMORTree with boundary -5.23,-21.60,34.77,18.40
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 GLDebug: Removed object e1DetectorInstant:instantInductionLoop_gneE0_0_7 from SUMORTree with boundary -5.23,-21.60,34.77,18.40
 GLDebug: Inserted e1DetectorInstant:instantInductionLoop_gneE0_0_7 into SUMORTree with boundary -5.23,-21.60,34.77,18.40
 Debug: Adding instantInductionLoop 'instantInductionLoop_gneE1_0_6' in GNEChange_Additional
@@ -65,11 +65,12 @@ GLDebug: Inserted e1DetectorInstant:instantInductionLoop_gneE4_0_5 into SUMORTre
 GLDebug: Removed object e1DetectorInstant:instantInductionLoop_gneE4_0_5 from SUMORTree with boundary -9.69,-1.60,30.31,38.40
 GLDebug: Inserted e1DetectorInstant:instantInductionLoop_gneE4_0_5 into SUMORTree with boundary -9.69,-1.60,30.31,38.40
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
 Debug: Keys Shift + F5 (Compute with volatile options) pressed
 Debug: Opening FXMessageBox 'Volatile Recomputing'
 Debug: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
 Debug: Additionals saved
+Debug: DemandElements saved
 GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
 GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
 GLDebug: Removed object junction:gneJ2 from SUMORTree with boundary 28.00,-2.00,72.00,42.00
@@ -81,7 +82,7 @@ GLDebug: Removed object edge:gneE4 from SUMORTree with boundary -30.00,-11.60,80
 Debug: Deleting unreferenced instantInductionLoop 'instantInductionLoop_gneE4_0_5'
 GLDebug: Removed object e1DetectorInstant:instantInductionLoop_gneE4_0_5 from SUMORTree with boundary -9.69,-1.60,30.31,38.40
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Deleting unreferenced instantInductionLoop 'instantInductionLoop_gneE2_4_4'
 GLDebug: Removed object e1DetectorInstant:instantInductionLoop_gneE2_4_4 from SUMORTree with boundary -6.17,1.60,33.83,41.60
 Debug: Deleting unreferenced instantInductionLoop 'instantInductionLoop_gneE2_3_3'
@@ -250,4 +251,4 @@ Debug: Deleting unreferenced instantInductionLoop 'instantInductionLoop_gneE2_4_
 Debug: Deleting unreferenced instantInductionLoop 'instantInductionLoop_gneE4_0_5' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting net builder in GNENet destructor
-GLDebug: Number of objects in SUMORTree during call destructor: 20
+GLDebug: Number of objects in SUMORTree during call of the destructor: 20

@@ -1,9 +1,6 @@
-java version "1.8.0_181"
-Java(TM) SE Runtime Environment (build 1.8.0_181-b13)
-Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)
 Debug: Adding busStop 'busStop_-gneE3_0_1' in GNEChange_Additional
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Adding busStop 'busStop_-gneE4_0_2' in GNEChange_Additional
 Debug: Adding busStop 'busStop_-gneE5_0_3' in GNEChange_Additional
 Debug: Adding busStop 'busStop_-gneE6_0_4' in GNEChange_Additional
@@ -17,14 +14,15 @@ Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Debug: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Debug: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
 Debug: Keys Shift + F5 (Compute with volatile options) pressed
 Debug: Opening FXMessageBox 'Volatile Recomputing'
 Debug: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
 Debug: Additionals saved
+Debug: DemandElements saved
 Debug: Deleting unreferenced detExit 'e3Detector_0detExit0'
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Deleting unreferenced detEntry 'e3Detector_0detEntry0'
 Debug: Deleting unreferenced e3Detector 'e3Detector_0'
 Debug: Deleting unreferenced busStop 'busStop_gneE7_0_6'

@@ -3,9 +3,9 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 e2Detector
 %%;$$$ %%$$ type.3
-TestFunctions: Clicked over position 604 - 360
+TestFunctions: Clicked over position 604 - 388
 type1 type2 type3
-TestFunctions: Clicked over position 604 - 360
-TestFunctions: Clicked over position 304 - 140
-TestFunctions: Clicked over position 304 - 140
+TestFunctions: Clicked over position 604 - 388
+TestFunctions: Clicked over position 304 - 168
+TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully

@@ -1,5 +1,5 @@
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals saved, shapes saved
+Debug: Current saving Status: net unsaved, additionals saved, demand elements saved
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'from-gneE4_0to-gneE5_0' in retrieveGNEConnection()
 Debug: Created connection 'from-gneE4_0togneE6_0' in retrieveGNEConnection()
@@ -14,10 +14,10 @@ Debug: Created connection 'fromgneE5_0togneE6_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE5_0to-gneE3_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE5_0togneE4_0' in retrieveGNEConnection()
 Debug: Current Viewport values: 0.00, 0.00, 50.00. Zoom = '240.00'
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Key F5 (Compute) pressed
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Deleting unreferenced edge '-gneE3' in GNENet destructor
 Debug: Deleting unreferenced lane '-gneE3_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge '-gneE4' in GNENet destructor
