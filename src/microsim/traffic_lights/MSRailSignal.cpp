@@ -337,8 +337,11 @@ MSRailSignal::collectForwardBlock(MSLane* toLane, double length, std::vector<MSL
         forwardBlock.push_back(toLane);
         length += toLane->getLength();
         if (length > MAX_BLOCK_LENGTH) {
-            WRITE_WARNING("Block after rail signal junction '" + getID() +
-                    "' exceeds maximum length (stopped searching after lane '" + toLane->getID() + "' (length=" + toString(length) + "m).");
+            if (myNumWarnings < MAX_SIGNAL_WARNINGS) {
+                WRITE_WARNING("Block after rail signal junction '" + getID() +
+                        "' exceeds maximum length (stopped searching after lane '" + toLane->getID() + "' (length=" + toString(length) + "m).");
+            }
+            myNumWarnings++;
             return;
         }
         const MSLinkCont& links = toLane->getLinkCont();
@@ -372,8 +375,11 @@ MSRailSignal::collectBidiBlock(MSLane* toLane, double length, bool foundSwitch, 
         bidiBlock.push_back(toLane);
         length += toLane->getLength();
         if (length > MAX_BLOCK_LENGTH) {
-            WRITE_WARNING("Bidirectional block after rail signal junction '" + getID() +
-                    "' exceeds maximum length (stopped searching after lane '" + toLane->getID() + "' (length=" + toString(length) + "m).");
+            if (myNumWarnings < MAX_SIGNAL_WARNINGS) {
+                WRITE_WARNING("Bidirectional block after rail signal junction '" + getID() +
+                        "' exceeds maximum length (stopped searching after lane '" + toLane->getID() + "' (length=" + toString(length) + "m).");
+            }
+            myNumWarnings++;
             return;
         }
         const auto& incomingLaneInfos = toLane->getIncomingLanes();
@@ -460,8 +466,11 @@ MSRailSignal::collectConflictLinks(MSLane* toLane, double length,
             backwardBlock.push_back(orig);
             length += orig->getLength();
             if (length > MAX_BLOCK_LENGTH) {
-                WRITE_WARNING("incoming conflict block after rail signal junction '" + getID() +
-                        "' exceeds maximum length (stopped searching after lane '" + orig->getID() + "' (length=" + toString(length) + "m).");
+                if (myNumWarnings < MAX_SIGNAL_WARNINGS) {
+                    WRITE_WARNING("incoming conflict block after rail signal junction '" + getID() +
+                            "' exceeds maximum length (stopped searching after lane '" + orig->getID() + "' (length=" + toString(length) + "m).");
+                }
+                myNumWarnings++;
                 return;
             }
             if (toLane == nullptr) {
