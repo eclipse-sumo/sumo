@@ -100,13 +100,14 @@ MSRailSignal::init(NLDetectorBuilder&) {
         //   until controlled railSignal link found
         //   -> add all found lanes
         //   -> add final links
-        // 
 
         std::vector<MSLane*> conflictLanes;
         std::vector<MSLink*> conflictLinks;
+        LaneSet visited;
 
         std::vector<MSLane*> forwardBlock;
         std::vector<MSLane*> bidiBlock;
+        std::vector<MSLane*> backwardBlock;
 
         // there should be only one link per index for railSignal
         if (links.size() > 1) {
@@ -116,7 +117,7 @@ MSRailSignal::init(NLDetectorBuilder&) {
         for (MSLink* link : links) {
             MSLane* toLane = link->getViaLaneOrLane();   //the lane this link is leading to
 
-            collectForwardBlock(toLane, 0., forwardBlock);
+            collectForwardBlock(toLane, 0., forwardBlock, visited);
 #ifdef DEBUG_FORWARD_BLOCK
             if (DEBUG_COND)  std::cout << "railSignal=" << getID() << " index=" << link->getTLIndex() << " forwardBlock=" << toString(forwardBlock) << "\n";
 #endif
@@ -129,7 +130,7 @@ MSRailSignal::init(NLDetectorBuilder&) {
                             bidiBlock.push_back(bidiOutLink->getViaLane());
                         }
                     }
-                    collectBidiBlock(bidi, 0., false, bidiBlock);
+                    collectBidiBlock(bidi, 0., false, bidiBlock, visited);
                     // assume bidirectional patches are continuous
                     break;
                 }
@@ -140,14 +141,14 @@ MSRailSignal::init(NLDetectorBuilder&) {
 
             conflictLanes.insert(conflictLanes.end(), forwardBlock.begin(), forwardBlock.end());
             conflictLanes.insert(conflictLanes.end(), bidiBlock.begin(), bidiBlock.end());
-
-            std::set<MSLane*, ComparatorNumericalIdLess> conflictLanesSet(conflictLanes.begin(), conflictLanes.end());
             for (MSLane* cl : conflictLanes) {
-                collectConflictLinks(cl, 0, conflictLanesSet, conflictLinks);
+                collectConflictLinks(cl, 0, backwardBlock, conflictLinks, visited);
             }
             conflictLinks.erase(std::find(conflictLinks.begin(), conflictLinks.end(), link));
+            conflictLanes.insert(conflictLanes.end(), backwardBlock.begin(), backwardBlock.end());
 #ifdef DEBUG_BACKWARD_BLOCK
             if (DEBUG_COND) {
+                std::cout << "railSignal=" << getID() << " index=" << link->getTLIndex() << " backwardBlock=" << toString(backwardBlock);
                 std::cout << "railSignal=" << getID() << " index=" << link->getTLIndex() << " conflictLinks=";
                 for (MSLink* l : conflictLinks) {
                     std::cout << toString(l->getViaLaneOrLane()->getID()) << " ";
@@ -156,7 +157,7 @@ MSRailSignal::init(NLDetectorBuilder&) {
             }
 #endif
 
-            myConflictLanes[link->getTLIndex()] = std::vector<MSLane*>(conflictLanesSet.begin(), conflictLanesSet.end());
+            myConflictLanes[link->getTLIndex()] = conflictLanes;
             myConflictLinks[link->getTLIndex()] = conflictLinks;
         }
     }
@@ -326,8 +327,13 @@ MSRailSignal::getIndexFromOffset(SUMOTime) const {
 
 
 void 
-MSRailSignal::collectForwardBlock(MSLane* toLane, double length, std::vector<MSLane*>& forwardBlock) {
+MSRailSignal::collectForwardBlock(MSLane* toLane, double length, std::vector<MSLane*>& forwardBlock, LaneSet& visited) 
+{
     while (toLane != nullptr) {
+        if (visited.count(toLane) != 0) {
+            return;
+        }
+        visited.insert(toLane);
         forwardBlock.push_back(toLane);
         length += toLane->getLength();
         if (length > MAX_BLOCK_LENGTH) {
@@ -347,7 +353,7 @@ MSRailSignal::collectForwardBlock(MSLane* toLane, double length, std::vector<MSL
             if (toLane == nullptr) {
                 toLane = link->getViaLaneOrLane();
             } else {
-                collectForwardBlock(link->getViaLaneOrLane(), length, forwardBlock);
+                collectForwardBlock(link->getViaLaneOrLane(), length, forwardBlock, visited);
             }
         }
     }
@@ -355,9 +361,14 @@ MSRailSignal::collectForwardBlock(MSLane* toLane, double length, std::vector<MSL
 
 
 void 
-MSRailSignal::collectBidiBlock(MSLane* toLane, double length, bool foundSwitch, std::vector<MSLane*>& bidiBlock) {
+MSRailSignal::collectBidiBlock(MSLane* toLane, double length, bool foundSwitch, std::vector<MSLane*>& bidiBlock, LaneSet& visited) 
+{
     while (toLane != nullptr) {
         //std::cout << " toLane=" << toLane->getID() << " length=" << length << " foundSwitch=" << foundSwitch << "\n";
+        if (visited.count(toLane) != 0) {
+            return;
+        }
+        visited.insert(toLane);
         bidiBlock.push_back(toLane);
         length += toLane->getLength();
         if (length > MAX_BLOCK_LENGTH) {
@@ -399,7 +410,7 @@ MSRailSignal::collectBidiBlock(MSLane* toLane, double length, bool foundSwitch, 
                 toLane = ili.lane;
             } else {
                 foundSwitch = true;
-                collectBidiBlock(ili.lane, length, true, bidiBlock);
+                collectBidiBlock(ili.lane, length, true, bidiBlock, visited);
             }
         }
         if (toLane != nullptr && !foundSwitch && prev->getEdge().getBidiEdge() != nullptr) {
@@ -426,9 +437,11 @@ MSRailSignal::collectBidiBlock(MSLane* toLane, double length, bool foundSwitch, 
 
 
 void
-MSRailSignal::collectConflictLinks(MSLane* toLane, double length, 
-        std::set<MSLane*, ComparatorNumericalIdLess>& conflictLanesSet, 
-        std::vector<MSLink*>& conflictLinks) {
+MSRailSignal::collectConflictLinks(MSLane* toLane, double length,
+            std::vector<MSLane*>& backwardBlock,
+            std::vector<MSLink*>& conflictLinks,
+            LaneSet& visited)
+{
     while (toLane != nullptr) {
         const auto& incomingLaneInfos = toLane->getIncomingLanes();
         MSLane* orig = toLane;
@@ -437,14 +450,14 @@ MSRailSignal::collectConflictLinks(MSLane* toLane, double length,
             if (ili.viaLink->getDirection() == LINKDIR_TURN) {
                 continue;
             }
-            if (conflictLanesSet.count(ili.lane) != 0) {
+            if (visited.count(ili.lane) != 0) {
                 continue;
             }
             if (ili.viaLink->getTLLogic() != nullptr) {
                 conflictLinks.push_back(ili.viaLink);
                 continue;
             }
-            conflictLanesSet.insert(orig);
+            backwardBlock.push_back(orig);
             length += orig->getLength();
             if (length > MAX_BLOCK_LENGTH) {
                 WRITE_WARNING("incoming conflict block after rail signal junction '" + getID() +
@@ -454,7 +467,7 @@ MSRailSignal::collectConflictLinks(MSLane* toLane, double length,
             if (toLane == nullptr) {
                 toLane = ili.lane;
             } else {
-                collectConflictLinks(ili.lane, length, conflictLanesSet, conflictLinks);
+                collectConflictLinks(ili.lane, length, backwardBlock, conflictLinks, visited);
             }
         }
     }

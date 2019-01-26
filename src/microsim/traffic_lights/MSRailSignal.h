@@ -202,16 +202,19 @@ protected:
     /// The conflict links for each link index
     std::vector<std::vector<MSLink*> > myConflictLinks;
 
+    typedef std::set<MSLane*, ComparatorNumericalIdLess> LaneSet;
+
     /// @brief collect conflict lanes in step 1
-    void collectForwardBlock(MSLane* toLane, double length, std::vector<MSLane*>& forwardBlock);
+    void collectForwardBlock(MSLane* toLane, double length, std::vector<MSLane*>& forwardBlock, LaneSet& visited);
 
     /// @brief collect bidirectional conflict lanes in step 2
-    void collectBidiBlock(MSLane* toLane, double length, bool foundSwitch, std::vector<MSLane*>& bidiBlock);
+    void collectBidiBlock(MSLane* toLane, double length, bool foundSwitch, std::vector<MSLane*>& bidiBlock, LaneSet& visited);
 
     /// @brief collect additional conflict lanes and conflict links in step 3
     void collectConflictLinks(MSLane* toLane, double length, 
-            std::set<MSLane*, ComparatorNumericalIdLess>& conflictLanesSet, 
-            std::vector<MSLink*>& conflictLinks);
+            std::vector<MSLane*>& backwardBlock,
+            std::vector<MSLink*>& conflictLinks,
+            LaneSet& visited);
 
 protected:
 
