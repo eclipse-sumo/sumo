@@ -35,3 +35,9 @@ single_incoming_lane
 
 # switches for a bidirectional section guarded by extra rail signal nodes
 indirect_guard
+
+# track layout with a circle in it
+circle
+
+# track layout with a circle in it
+circle_bidi
