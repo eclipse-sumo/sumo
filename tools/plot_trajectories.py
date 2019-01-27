@@ -34,8 +34,9 @@ from sumolib.xml import parse_fast_nested
 def getOptions(args=None):
     optParser = OptionParser()
     optParser.add_option("-t", "--trajectory-type", dest="ttype", default="ds",
-                         help="select one of ('ds','ts', 'td', 'da', 'ta') for plotting distanceVsSpeed (default), " +
-                         "timeVsSpeed, timeVsDistance, distanceVsAcceleration, timeVsAcceleration")
+                         help="select two leters from [t, s, d, a, i] to plot" 
+                         + " Time, Speed, Distance, Acceleration, Angle. Default" 
+                         + " 'ds' plots Distance vs. Speed ")
     optParser.add_option("-s", "--show", action="store_true", default=False, help="show plot directly")
     optParser.add_option("-o", "--output", help="outputfile for saving plots", default="plot.png")
     optParser.add_option("--csv-output", dest="csv_output", help="write plot as csv", metavar="FILE")
@@ -78,29 +79,21 @@ def main(options):
 
     xdata = 2
     ydata = 1
-    if options.ttype == 'ds':
-        plt.xlabel("Distance")
-        plt.ylabel("Speed")
-    elif options.ttype == 'ts':
-        plt.xlabel("Time")
-        plt.ylabel("Speed")
-        xdata = 0
-        ydata = 1
-    elif options.ttype == 'td':
-        plt.xlabel("Time")
-        plt.ylabel("Distance")
-        xdata = 0
-        ydata = 2
-    elif options.ttype == 'ta':
-        plt.xlabel("Time")
-        plt.ylabel("Acceleration")
-        xdata = 0
-        ydata = 3
-    elif options.ttype == 'da':
-        plt.xlabel("Distance")
-        plt.ylabel("Acceleration")
-        xdata = 2
-        ydata = 3
+    typespec = {
+            't' : ('Time', 0),
+            's' : ('Speed', 1),
+            'd' : ('Distance', 2),
+            'a' : ('Acceleration', 3),
+            'i' : ('Angle', 4)
+            }
+
+    if (len(options.ttype) == 2 
+            and options.ttype[0] in typespec
+            and options.ttype[1] in typespec):
+        xLabel, xdata = typespec[options.ttype[0]]
+        yLabel, ydata = typespec[options.ttype[1]]
+        plt.xlabel(xLabel)
+        plt.ylabel(yLabel)
     else:
         sys.exit("unsupported plot type '%s'" % options.ttype)
 
