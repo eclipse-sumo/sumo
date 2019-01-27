@@ -67,6 +67,13 @@ public:
     /// @brief Destructor
     ~MSRailSignal();
 
+    /** @brief Adds a link on building
+     * @param[in] link The controlled link
+     * @param[in] lane The lane this link starts at
+     * @param[in] pos The link's index (signal group) within this program
+     */
+    void addLink(MSLink* link, MSLane* lane, int pos);
+
     /// @name Handling of controlled links
     /// @{
 

@@ -488,5 +488,13 @@ MSRailSignal::collectConflictLinks(MSLane* toLane, double length,
     }
 }
 
+
+void
+MSRailSignal::addLink(MSLink* link, MSLane* lane, int pos) {
+    if (pos >= 0) {
+        MSTrafficLightLogic::addLink(link, lane, pos);
+    } // ignore uncontrolled link
+}
+
 /****************************************************************************/
 
