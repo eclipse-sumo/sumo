@@ -23,7 +23,10 @@ _RETURN_VALUE_FUNC = {tc.TRACI_ID_LIST: Storage.readStringList,
                       tc.ID_COUNT: Storage.readInt,
                       tc.VAR_TYPE: Storage.readString,
                       tc.VAR_POSITION: lambda result: result.read("!dd"),
-                      tc.VAR_COLOR: lambda result: result.read("!BBBB")}
+                      tc.VAR_COLOR: lambda result: result.read("!BBBB"),
+                      tc.VAR_WIDTH: Storage.readDouble,
+                      tc.VAR_HEIGHT: Storage.readDouble,
+                      tc.VAR_ANGLE: Storage.readDouble}
 
 
 class PoiDomain(Domain):
@@ -55,6 +58,27 @@ class PoiDomain(Domain):
         """
         return self._getUniversal(tc.VAR_COLOR, poiID)
 
+    def getWidth(self, poiID):
+        """getWidth(string) -> double
+
+        Returns the width of the given poi.
+        """
+        return self._getUniversal(tc.VAR_WIDTH, poiID)
+        
+    def getHeight(self, poiID):
+        """getHeight(string) -> double
+
+        Returns the height of the given poi.
+        """
+        return self._getUniversal(tc.VAR_HEIGHT, poiID)
+        
+    def getAngle(self, poiID):
+        """getAngle(string) -> double
+
+        Returns the angle of the given poi.
+        """
+        return self._getUniversal(tc.VAR_ANGLE, poiID)
+        
     def setType(self, poiID, poiType):
         """setType(string, string) -> None
 
@@ -87,6 +111,36 @@ class PoiDomain(Domain):
                                                 int(color[3]) if len(color) > 3 else 255)
         self._connection._sendExact()
 
+    def setWidth(self, poiID, width):
+        """setWidth(string, double) -> None
+
+        Sets the width of the poi.
+        """
+        self._connection._beginMessage(
+            tc.CMD_SET_POI_VARIABLE, tc.VAR_WIDTH, poiID, 1 + 8)
+        self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, width)
+        self._connection._sendExact()
+
+    def setHeight(self, poiID, height):
+        """setHeight(string, double) -> None
+
+        Sets the height of the poi.
+        """
+        self._connection._beginMessage(
+            tc.CMD_SET_POI_VARIABLE, tc.VAR_HEIGHT, poiID, 1 + 8)
+        self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, height)
+        self._connection._sendExact()
+        
+    def setAngle(self, poiID, angle):
+        """setAngle(string, double) -> None
+
+        Sets the angle of the poi.
+        """
+        self._connection._beginMessage(
+            tc.CMD_SET_POI_VARIABLE, tc.VAR_ANGLE, poiID, 1 + 8)
+        self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, angle)
+        self._connection._sendExact()
+        
     def add(self, poiID, x, y, color, width=1, height=1, angle=0, poiType="", imgFile="", layer=0):
         self._connection._beginMessage(tc.CMD_SET_POI_VARIABLE, tc.ADD, poiID, 1 +
                                        4 + 1 + 4 + len(poiType) + 1 + 4 + len(imgFile) + 1 + 1 + 1 + 1 + 1 + 1 + 4 + 1 + 8 + 8 + 1 + 8 + 1 + 8 + 1 + 8)

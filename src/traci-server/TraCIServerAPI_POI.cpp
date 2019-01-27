@@ -77,6 +77,9 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
     if (variable != VAR_TYPE &&
             variable != VAR_COLOR &&
             variable != VAR_POSITION &&
+			variable != VAR_WIDTH &&
+			variable != VAR_HEIGHT &&
+			variable != VAR_ANGLE &&
             variable != ADD &&
             variable != REMOVE &&
             variable != VAR_PARAMETER) {
@@ -104,11 +107,35 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
             case VAR_POSITION: {
                 libsumo::TraCIPosition pos;
                 if (!server.readTypeCheckingPosition2D(inputStorage, pos)) {
-                    return server.writeErrorStatusCmd(CMD_SET_POI_VARIABLE, "The position must be given using an accoring type.", outputStorage);
+                    return server.writeErrorStatusCmd(CMD_SET_POI_VARIABLE, "The position must be given using an according type.", outputStorage);
                 }
                 libsumo::POI::setPosition(id, pos.x, pos.y);
             }
             break;
+			case VAR_WIDTH: {
+				double width;
+				if (!server.readTypeCheckingDouble(inputStorage, width)) {
+					return server.writeErrorStatusCmd(CMD_SET_POI_VARIABLE, "The width must be given using an according type.", outputStorage);
+				}
+				libsumo::POI::setWidth(id, width);
+			}
+			break;
+			case VAR_HEIGHT: {
+				double height;
+				if (!server.readTypeCheckingDouble(inputStorage, height)) {
+					return server.writeErrorStatusCmd(CMD_SET_POI_VARIABLE, "The height must be given using an according type.", outputStorage);
+				}
+				libsumo::POI::setHeight(id, height);
+			}
+			break;
+			case VAR_ANGLE: {
+				double angle;
+				if (!server.readTypeCheckingDouble(inputStorage, angle)) {
+					return server.writeErrorStatusCmd(CMD_SET_POI_VARIABLE, "The angle must be given using an according type.", outputStorage);
+				}
+				libsumo::POI::setAngle(id, angle);
+			}
+			break;
             case ADD: {
                 if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
                     return server.writeErrorStatusCmd(CMD_SET_POI_VARIABLE, "A compound object is needed for setting a new PoI.", outputStorage);

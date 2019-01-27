@@ -77,6 +77,24 @@ POI::getPosition(const std::string& poiID, const bool includeZ) {
 }
 
 
+double
+POI::getWidth(const std::string& poiID) {
+	return getPoI(poiID)->getWidth();
+}
+
+
+double
+POI::getHeight(const std::string& poiID) {
+	return getPoI(poiID)->getHeight();
+}
+
+
+double
+POI::getAngle(const std::string& poiID) {
+	return getPoI(poiID)->getShapeNaviDegree();
+}
+
+
 std::string
 POI::getParameter(const std::string& poiID, const std::string& key) {
     return getPoI(poiID)->getParameter(key, "");
@@ -100,6 +118,24 @@ POI::setPosition(const std::string& poiID, double x, double y) {
 void
 POI::setColor(const std::string& poiID, const TraCIColor& c) {
     getPoI(poiID)->setShapeColor(Helper::makeRGBColor(c));
+}
+
+
+void
+POI::setWidth(const std::string& poiID, double width) {
+	getPoI(poiID)->setWidth(width);
+}
+
+
+void
+POI::setHeight(const std::string& poiID, double height) {
+	getPoI(poiID)->setHeight(height);
+}
+
+
+void
+POI::setAngle(const std::string& poiID, double angle) {
+	getPoI(poiID)->setShapeNaviDegree(angle);
 }
 
 
@@ -182,6 +218,12 @@ POI::handleVariable(const std::string& objID, const int variable, VariableWrappe
             return wrapper->wrapPosition(objID, variable, getPosition(objID));
         case VAR_POSITION3D:
             return wrapper->wrapPosition(objID, variable, getPosition(objID, true));
+		case VAR_WIDTH:
+			return wrapper->wrapDouble(objID, variable, getWidth(objID));
+		case VAR_HEIGHT:
+			return wrapper->wrapDouble(objID, variable, getHeight(objID));
+		case VAR_ANGLE:
+			return wrapper->wrapDouble(objID, variable, getAngle(objID));
         default:
             return false;
     }
