@@ -119,20 +119,36 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
                 if (!server.readTypeCheckingString(inputStorage, type)) {
                     return server.writeErrorStatusCmd(CMD_SET_POI_VARIABLE, "The first PoI parameter must be the type encoded as a string.", outputStorage);
                 }
+				std::string imgFile;
+				if (!server.readTypeCheckingString(inputStorage, imgFile)) {
+					return server.writeErrorStatusCmd(CMD_SET_POI_VARIABLE, "The second PoI parameter must be the imgFile encoded as a string.", outputStorage);
+				}
                 libsumo::TraCIColor col;
                 if (!server.readTypeCheckingColor(inputStorage, col)) {
-                    return server.writeErrorStatusCmd(CMD_SET_POI_VARIABLE, "The second PoI parameter must be the color.", outputStorage);
+                    return server.writeErrorStatusCmd(CMD_SET_POI_VARIABLE, "The third PoI parameter must be the color.", outputStorage);
                 }
                 int layer = 0;
                 if (!server.readTypeCheckingInt(inputStorage, layer)) {
-                    return server.writeErrorStatusCmd(CMD_SET_POI_VARIABLE, "The third PoI parameter must be the layer encoded as int.", outputStorage);
+                    return server.writeErrorStatusCmd(CMD_SET_POI_VARIABLE, "The fourth PoI parameter must be the layer encoded as int.", outputStorage);
                 }
                 libsumo::TraCIPosition pos;
                 if (!server.readTypeCheckingPosition2D(inputStorage, pos)) {
-                    return server.writeErrorStatusCmd(CMD_SET_POI_VARIABLE, "The fourth PoI parameter must be the position.", outputStorage);
+                    return server.writeErrorStatusCmd(CMD_SET_POI_VARIABLE, "The fifth PoI parameter must be the position.", outputStorage);
                 }
+				double width;
+				if (!server.readTypeCheckingDouble(inputStorage, width)) {
+					return server.writeErrorStatusCmd(CMD_SET_POI_VARIABLE, "The sixth PoI parameter must be the width.", outputStorage);
+				}
+				double height;
+				if (!server.readTypeCheckingDouble(inputStorage, height)) {
+					return server.writeErrorStatusCmd(CMD_SET_POI_VARIABLE, "The seventh PoI parameter must be the height.", outputStorage);
+				}
+				double angle;
+				if (!server.readTypeCheckingDouble(inputStorage, angle)) {
+					return server.writeErrorStatusCmd(CMD_SET_POI_VARIABLE, "The eighth PoI parameter must be the angle.", outputStorage);
+				}
                 //
-                if (!libsumo::POI::add(id, pos.x, pos.y, col, type, layer)) {
+                if (!libsumo::POI::add(id, pos.x, pos.y, col, width, height, angle, type, imgFile, layer)) {
                     return server.writeErrorStatusCmd(CMD_SET_POI_VARIABLE, "Could not add PoI.", outputStorage);
                 }
             }
