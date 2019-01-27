@@ -26,6 +26,7 @@ import sys
 from collections import defaultdict
 from optparse import OptionParser
 import matplotlib.pyplot as plt
+import math
 
 from sumolib.xml import parse_fast_nested
 
@@ -42,8 +43,10 @@ def getOptions(args=None):
                          help="perform ballistic integration of distance")
     optParser.add_option("--filter-route", dest="filterRoute",
                          help="only export trajectories that pass the given list of edges (regardless of gaps)")
-    optParser.add_option("--pick-distance", dest="pickDist", type="float", default=1,
+    optParser.add_option("-p", "--pick-distance", dest="pickDist", type="float", default=1,
                          help="pick lines within the given distance in interactive plot mode")
+    optParser.add_option("-i", "--invert-distance-angle", dest="invertDistanceAngle", type="float",
+                         help="invert distance for trajectories with a average angle near FLOAT")
     optParser.add_option("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
 
     options, args = optParser.parse_args(args=args)
@@ -102,9 +105,9 @@ def main(options):
         sys.exit("unsupported plot type '%s'" % options.ttype)
 
     routes = defaultdict(list)  # vehID -> recorded edges
-    data = defaultdict(lambda: ([], [], [], []))  # vehID -> (times, speeds, distances, accelerations)
+    data = defaultdict(lambda: ([], [], [], [], []))  # vehID -> (times, speeds, distances, accelerations, angles)
     for timestep, vehicle in parse_fast_nested(options.fcdfile, 'timestep', ['time'],
-                                               'vehicle', ['id', 'speed', 'lane']):
+                                               'vehicle', ['id', 'angle', 'speed', 'lane']):
         time = float(timestep.time)
         speed = float(vehicle.speed)
         prevTime = time
@@ -116,6 +119,7 @@ def main(options):
             prevDist = data[vehicle.id][2][-1]
         data[vehicle.id][0].append(time)
         data[vehicle.id][1].append(speed)
+        data[vehicle.id][4].append(float(vehicle.angle))
         if prevTime == time:
             data[vehicle.id][3].append(0)
         else:
@@ -133,9 +137,19 @@ def main(options):
     def line_picker(line, mouseevent):
         if mouseevent.xdata is None:
             return False, dict()
+        #minxy = None
+        #mindist = 10000
         for x, y in zip(line.get_xdata(), line.get_ydata()):
-            if (x - mouseevent.xdata) ** 2 + (y - mouseevent.ydata) ** 2 < options.pickDist:
+            dist = math.sqrt((x - mouseevent.xdata) ** 2 + (y - mouseevent.ydata) ** 2)
+            if dist < options.pickDist:
                 return True, dict(label=line.get_label())
+            #else:
+            #    if dist < mindist:
+            #        print("   ", x,y, dist, (x - mouseevent.xdata) ** 2, (y - mouseevent.ydata) ** 2)
+            #        mindist = dist
+            #        minxy = (x, y)
+        #print(mouseevent.xdata, mouseevent.ydata, minxy, dist,
+        #        line.get_label())
         return False, dict()
 
     for vehID, d in data.items():
@@ -148,6 +162,12 @@ def main(options):
                     break
             if skip:
                 continue
+        if options.invertDistanceAngle is not None:
+            avgAngle = sum(d[4]) / len(d[4])
+            if abs(avgAngle - options.invertDistanceAngle) < 45:
+                maxDist = d[2][-1]
+                for i,v in enumerate(d[2]):
+                    d[2][i] = maxDist - v
         plt.plot(d[xdata], d[ydata], picker=line_picker, label=vehID)
 
     plt.savefig(options.output)
