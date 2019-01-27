@@ -26,3 +26,6 @@ two_passing_loops
 
 # as above but with intermediate nodes on the tracks
 two_passing_loops2
+
+# railway-specific bugs
+bugs
