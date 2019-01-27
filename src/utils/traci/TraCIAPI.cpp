@@ -1258,6 +1258,21 @@ TraCIAPI::POIScope::getColor(const std::string& poiID) const {
     return myParent.getColor(CMD_GET_POI_VARIABLE, VAR_COLOR, poiID);
 }
 
+double 
+TraCIAPI::POIScope::getWidth(const std::string& poiID) const {
+	return myParent.getDouble(CMD_GET_POI_VARIABLE, VAR_WIDTH, poiID);
+}
+
+double 
+TraCIAPI::POIScope::getHeight(const std::string& poiID) const {
+	return myParent.getDouble(CMD_GET_POI_VARIABLE, VAR_HEIGHT, poiID);
+}
+
+double 
+TraCIAPI::POIScope::getAngle(const std::string& poiID) const {
+	return myParent.getDouble(CMD_GET_POI_VARIABLE, VAR_ANGLE, poiID);
+}
+
 
 void
 TraCIAPI::POIScope::setType(const std::string& poiID, const std::string& setType) const {
@@ -1292,13 +1307,46 @@ TraCIAPI::POIScope::setColor(const std::string& poiID, const libsumo::TraCIColor
     myParent.processSet(CMD_SET_POI_VARIABLE);
 }
 
+
+void 
+TraCIAPI::POIScope::setWidth(const std::string& poiID, double width) const {
+	tcpip::Storage content;
+	content.writeUnsignedByte(TYPE_DOUBLE);
+	content.writeDouble(width);
+	myParent.createCommand(CMD_SET_POI_VARIABLE, VAR_WIDTH, poiID, &content);
+	myParent.processSet(CMD_SET_POI_VARIABLE);
+}
+
+
+void 
+TraCIAPI::POIScope::setHeight(const std::string& poiID, double height) const {
+	tcpip::Storage content;
+	content.writeUnsignedByte(TYPE_DOUBLE);
+	content.writeDouble(height);
+	myParent.createCommand(CMD_SET_POI_VARIABLE, VAR_HEIGHT, poiID, &content);
+	myParent.processSet(CMD_SET_POI_VARIABLE);
+}
+
+
+void 
+TraCIAPI::POIScope::setAngle(const std::string& poiID, double angle) const {
+	tcpip::Storage content;
+	content.writeUnsignedByte(TYPE_DOUBLE);
+	content.writeDouble(angle);
+	myParent.createCommand(CMD_SET_POI_VARIABLE, VAR_ANGLE, poiID, &content);
+	myParent.processSet(CMD_SET_POI_VARIABLE);
+}
+
+
 void
-TraCIAPI::POIScope::add(const std::string& poiID, double x, double y, const libsumo::TraCIColor& c, const std::string& type, int layer) const {
+TraCIAPI::POIScope::add(const std::string& poiID, double x, double y, const libsumo::TraCIColor& c, double width, double height, double angle, const std::string& type, const std::string& imgFile, int layer) const {
     tcpip::Storage content;
     content.writeUnsignedByte(TYPE_COMPOUND);
     content.writeInt(4);
     content.writeUnsignedByte(TYPE_STRING);
     content.writeString(type);
+	content.writeUnsignedByte(TYPE_STRING);
+	content.writeString(imgFile);
     content.writeUnsignedByte(TYPE_COLOR);
     content.writeUnsignedByte(c.r);
     content.writeUnsignedByte(c.g);
@@ -1309,6 +1357,12 @@ TraCIAPI::POIScope::add(const std::string& poiID, double x, double y, const libs
     content.writeUnsignedByte(POSITION_2D);
     content.writeDouble(x);
     content.writeDouble(y);
+	content.writeUnsignedByte(TYPE_DOUBLE);
+	content.writeDouble(width);
+	content.writeUnsignedByte(TYPE_DOUBLE);
+	content.writeDouble(height);
+	content.writeUnsignedByte(TYPE_DOUBLE);
+	content.writeDouble(angle);
     myParent.createCommand(CMD_SET_POI_VARIABLE, ADD, poiID, &content);
     myParent.processSet(CMD_SET_POI_VARIABLE);
 }
