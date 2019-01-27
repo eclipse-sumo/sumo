@@ -144,7 +144,13 @@ MSRailSignal::init(NLDetectorBuilder&) {
             for (MSLane* cl : conflictLanes) {
                 collectConflictLinks(cl, 0, backwardBlock, conflictLinks, visited);
             }
-            conflictLinks.erase(std::find(conflictLinks.begin(), conflictLinks.end(), link));
+            auto thisLinkIt = std::find(conflictLinks.begin(), conflictLinks.end(), link);
+            if (thisLinkIt != conflictLinks.end()) {
+                conflictLinks.erase(thisLinkIt);
+            } else {
+                WRITE_WARNING("At railSignal junction '" + getID() + "' link " + toString(link->getTLIndex() + " with direction " + toString(link->getDirection()) + " should be uncontrolled"));
+            }
+
             conflictLanes.insert(conflictLanes.end(), backwardBlock.begin(), backwardBlock.end());
 #ifdef DEBUG_BACKWARD_BLOCK
             if (DEBUG_COND) {
