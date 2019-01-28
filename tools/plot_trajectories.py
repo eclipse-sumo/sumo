@@ -29,6 +29,7 @@ import matplotlib.pyplot as plt
 import math
 
 from sumolib.xml import parse_fast_nested
+from sumolib.miscutils import uMin, uMax
 
 
 def getOptions(args=None):
@@ -49,6 +50,7 @@ def getOptions(args=None):
     optParser.add_option("-i", "--invert-distance-angle", dest="invertDistanceAngle", type="float",
                          help="invert distance for trajectories with a average angle near FLOAT")
     optParser.add_option("--label", help="plot label (default input file name")
+    optParser.add_option("--invert-yaxis", dest="invertYAxis", action="store_true", default=False, help="Invert the Y-Axis")
     optParser.add_option("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
 
     options, args = optParser.parse_args(args=args)
@@ -151,6 +153,11 @@ def main(options):
         #        line.get_label())
         return False, dict()
 
+    minY = uMax
+    maxY = uMin
+    minX = uMax
+    maxX = uMin
+
     for vehID, d in data.items():
         if options.filterRoute is not None:
             skip = False
@@ -167,7 +174,16 @@ def main(options):
                 maxDist = d[2][-1]
                 for i,v in enumerate(d[2]):
                     d[2][i] = maxDist - v
+
+        minY = min(minY, min(d[ydata]))
+        maxY = max(maxY, max(d[ydata]))
+        minX = min(minX, min(d[xdata]))
+        maxX = max(maxX, max(d[xdata]))
+
         plt.plot(d[xdata], d[ydata], picker=line_picker, label=vehID)
+    if options.invertYAxis:
+        plt.axis([minX, maxX, maxY, minY])
+
 
     plt.savefig(options.output)
     if options.csv_output is not None:
