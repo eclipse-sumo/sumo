@@ -78,6 +78,12 @@ MSRailSignal::init(NLDetectorBuilder&) {
     myConflictLanes.resize(myLinks.size());
     myConflictLinks.resize(myLinks.size());
 
+    if (OptionsCont::getOptions().isSet("railsignal-block-output")) {
+        OutputDevice& od = OutputDevice::getDeviceByOption("railsignal-block-output");
+        od.openTag("railSignal");
+        od.writeAttr(SUMO_ATTR_ID, getID());
+    }
+
     for (LinkVector& links : myLinks) { //for every link index
         // collect lanes and links that are relevant for setting this signal
         // for each index we collect
@@ -162,10 +168,43 @@ MSRailSignal::init(NLDetectorBuilder&) {
                 std::cout << "\n";
             }
 #endif
+            if (OptionsCont::getOptions().isSet("railsignal-block-output")) {
+                OutputDevice& od = OutputDevice::getDeviceByOption("railsignal-block-output");
+                od.openTag("link");
+                od.writeAttr(SUMO_ATTR_TLLINKINDEX, link->getTLIndex());
+                od.writeAttr(SUMO_ATTR_FROM, link->getLaneBefore()->getID());
+                od.writeAttr(SUMO_ATTR_TO, link->getViaLaneOrLane()->getID());
+
+                od.openTag("forwardBlock");
+                od.writeAttr(SUMO_ATTR_LANES, toString(forwardBlock));
+                od.closeTag();
+                od.openTag("bidiBlock");
+                od.writeAttr(SUMO_ATTR_LANES, toString(bidiBlock));
+                od.closeTag();
+                od.openTag("backwardBlock");
+                od.writeAttr(SUMO_ATTR_LANES, toString(backwardBlock));
+                od.closeTag();
+                od.openTag("conflictLanes");
+                od.writeAttr(SUMO_ATTR_LANES, toString(conflictLanes));
+                od.closeTag();
+                od.openTag("conflictLinks");
+                std::vector<std::string> conflictLinkIDs; // railSignalID_tlIndex
+                for (MSLink* l : conflictLinks) {
+                    conflictLinkIDs.push_back(l->getTLLogic()->getID() + "_" + toString(l->getTLIndex()));
+                }
+                od.writeAttr("logicIndex", toString(conflictLinkIDs));
+                od.closeTag();
+
+                od.closeTag();
+            }
 
             myConflictLanes[link->getTLIndex()] = conflictLanes;
             myConflictLinks[link->getTLIndex()] = conflictLinks;
         }
+    }
+    if (OptionsCont::getOptions().isSet("railsignal-block-output")) {
+        OutputDevice& od = OutputDevice::getDeviceByOption("railsignal-block-output");
+        od.closeTag();
     }
 
     updateCurrentPhase();   //check if this is necessary or if will be done already at another stage
