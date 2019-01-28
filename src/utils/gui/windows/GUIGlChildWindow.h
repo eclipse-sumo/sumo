@@ -94,14 +94,17 @@ protected:
     /// @brief fox need this
     GUIGlChildWindow() {}
 
-    /// @brief The view
-    GUISUMOAbstractView* myView;
+    /// @brief The parent window
+    GUIMainWindow* myParent;
+
+    /// @brief The grip navigation tool bar
+    FXMenuBar* myGripNavigationToolbar;
 
     /// @brief The static navigation tool bar
     FXToolBar* myStaticNavigationToolBar;
 
-    // @brief The grip navigation tool bar
-    FXMenuBar* myGripNavigationToolbar;
+    /// @brief The view
+    GUISUMOAbstractView* myView;
 
     /// The locator menu
     FXPopup* myLocatorPopup;
@@ -114,9 +117,6 @@ protected:
 
     /// @brief The coloring schemes
     FXComboBox* myColoringSchemes;
-
-    /// @brief The parent window
-    GUIMainWindow* myParent;
 
     /// @brief build navigation toolbar
     void buildNavigationToolBar();
