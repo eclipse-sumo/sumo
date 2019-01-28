@@ -41,3 +41,6 @@ circle
 
 # track layout with a circle in it
 circle_bidi
+
+# track layout with a circle in the incoming block
+circle_backward
