@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jan 23 11:51:49 2019 by Eclipse SUMO Version v1_1_0+0435-678c69824b
+<!-- generated on Mon Jan 28 09:05:18 2019 by Eclipse SUMO Version v1_0_1+0645-93703db
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -155,6 +155,9 @@
 
         <!-- Save links states into FILE -->
         <link-output value="" type="FILE"/>
+
+        <!-- Save railsignal-blocks into FILE -->
+        <railsignal-block-output value="" type="FILE"/>
 
         <!-- Save bluetooth visibilities into FILE (in conjunction with device.btreceiver and device.btsender) -->
         <bt-output value="" type="FILE"/>
