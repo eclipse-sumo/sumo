@@ -184,9 +184,6 @@ MSRailSignal::init(NLDetectorBuilder&) {
                 od.openTag("backwardBlock");
                 od.writeAttr(SUMO_ATTR_LANES, toString(backwardBlock));
                 od.closeTag();
-                od.openTag("conflictLanes");
-                od.writeAttr(SUMO_ATTR_LANES, toString(conflictLanes));
-                od.closeTag();
                 od.openTag("conflictLinks");
                 std::vector<std::string> conflictLinkIDs; // railSignalID_tlIndex
                 for (MSLink* l : conflictLinks) {

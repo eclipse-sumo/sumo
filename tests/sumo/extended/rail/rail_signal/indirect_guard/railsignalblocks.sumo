@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jan 28 10:36:44 2019 by Eclipse SUMO Version v1_0_1+0645-93703db
+<!-- generated on Mon Jan 28 10:52:40 2019 by Eclipse SUMO Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -43,7 +43,6 @@ SPDX-License-Identifier: EPL-2.0
             <forwardBlock lanes=":A_0_0 T9_0 :W1_1_0 T10_0 :B_1_0 T11_0"/>
             <bidiBlock lanes=":W1_0_0 -T10_0 :B_0_0 -T11_0 :C_0_0 -T12_0 :D_0_0 -T13_0 :W2_1_0 -T4_0 :F_0_0 :W2_0_0 -T14_0 :E_0_0"/>
             <backwardBlock lanes=""/>
-            <conflictLanes lanes=":A_0_0 T9_0 :W1_1_0 T10_0 :B_1_0 T11_0 :W1_0_0 -T10_0 :B_0_0 -T11_0 :C_0_0 -T12_0 :D_0_0 -T13_0 :W2_1_0 -T4_0 :F_0_0 :W2_0_0 -T14_0 :E_0_0"/>
             <conflictLinks logicIndex="F_0 E_0"/>
         </link>
     </railSignal>
@@ -52,7 +51,6 @@ SPDX-License-Identifier: EPL-2.0
             <forwardBlock lanes=":B_0_0 -T10_0 :W1_0_0 T3_0"/>
             <bidiBlock lanes=":B_1_0 T10_0 :W1_1_0 T9_0 :A_0_0"/>
             <backwardBlock lanes=""/>
-            <conflictLanes lanes=":B_0_0 -T10_0 :W1_0_0 T3_0 :B_1_0 T10_0 :W1_1_0 T9_0 :A_0_0"/>
             <conflictLinks logicIndex="A_0"/>
         </link>
     </railSignal>
@@ -61,14 +59,12 @@ SPDX-License-Identifier: EPL-2.0
             <forwardBlock lanes=":C_0_0 -T11_0"/>
             <bidiBlock lanes=":C_1_0 T11_0 :B_1_0 T10_0 :W1_1_0 T9_0 :A_0_0"/>
             <backwardBlock lanes=""/>
-            <conflictLanes lanes=":C_0_0 -T11_0 :C_1_0 T11_0 :B_1_0 T10_0 :W1_1_0 T9_0 :A_0_0"/>
             <conflictLinks logicIndex="A_0"/>
         </link>
         <link linkIndex="1" from="T11_0" to=":C_1_0">
             <forwardBlock lanes=":C_1_0 T12_0"/>
             <bidiBlock lanes=":C_0_0 -T12_0 :D_0_0 -T13_0 :W2_1_0 -T4_0 :F_0_0 :W2_0_0 -T14_0 :E_0_0"/>
             <backwardBlock lanes=""/>
-            <conflictLanes lanes=":C_1_0 T12_0 :C_0_0 -T12_0 :D_0_0 -T13_0 :W2_1_0 -T4_0 :F_0_0 :W2_0_0 -T14_0 :E_0_0"/>
             <conflictLinks logicIndex="F_0 E_0"/>
         </link>
     </railSignal>
@@ -77,7 +73,6 @@ SPDX-License-Identifier: EPL-2.0
             <forwardBlock lanes=":D_1_0 T13_0 :W2_3_0 T14_0 :W2_2_0 T4_0"/>
             <bidiBlock lanes=":D_0_0 -T13_0 :W2_1_0 -T4_0 :F_0_0 :W2_0_0 -T14_0 :E_0_0"/>
             <backwardBlock lanes=""/>
-            <conflictLanes lanes=":D_1_0 T13_0 :W2_3_0 T14_0 :W2_2_0 T4_0 :D_0_0 -T13_0 :W2_1_0 -T4_0 :F_0_0 :W2_0_0 -T14_0 :E_0_0"/>
             <conflictLinks logicIndex="F_0 E_0"/>
         </link>
     </railSignal>
@@ -86,14 +81,12 @@ SPDX-License-Identifier: EPL-2.0
             <forwardBlock lanes=":E_0_0 -T14_0 :W2_0_0 -T13_0 :D_0_0 -T12_0"/>
             <bidiBlock lanes=":E_1_0 T14_0 :W2_3_0 T13_0 :D_1_0 T12_0 :C_1_0 T11_0 :B_1_0 T10_0 :W1_1_0 T9_0 :A_0_0"/>
             <backwardBlock lanes=":W2_1_0 -T4_0 :F_0_0"/>
-            <conflictLanes lanes=":E_0_0 -T14_0 :W2_0_0 -T13_0 :D_0_0 -T12_0 :E_1_0 T14_0 :W2_3_0 T13_0 :D_1_0 T12_0 :C_1_0 T11_0 :B_1_0 T10_0 :W1_1_0 T9_0 :A_0_0 :W2_1_0 -T4_0 :F_0_0"/>
             <conflictLinks logicIndex="F_0 A_0"/>
         </link>
         <link linkIndex="1" from="T14_0" to=":E_1_0">
             <forwardBlock lanes=":E_1_0 T15_0"/>
             <bidiBlock lanes=":E_0_0 -T15_0"/>
             <backwardBlock lanes=""/>
-            <conflictLanes lanes=":E_1_0 T15_0 :E_0_0 -T15_0"/>
             <conflictLinks logicIndex=""/>
         </link>
     </railSignal>
@@ -102,14 +95,12 @@ SPDX-License-Identifier: EPL-2.0
             <forwardBlock lanes=":F_0_0 -T4_0 :W2_1_0 -T13_0 :D_0_0 -T12_0"/>
             <bidiBlock lanes=":F_1_0 T4_0 :W2_2_0 T13_0 :D_1_0 T12_0 :C_1_0 T11_0 :B_1_0 T10_0 :W1_1_0 T9_0 :A_0_0"/>
             <backwardBlock lanes=":W2_0_0 -T14_0 :E_0_0"/>
-            <conflictLanes lanes=":F_0_0 -T4_0 :W2_1_0 -T13_0 :D_0_0 -T12_0 :F_1_0 T4_0 :W2_2_0 T13_0 :D_1_0 T12_0 :C_1_0 T11_0 :B_1_0 T10_0 :W1_1_0 T9_0 :A_0_0 :W2_0_0 -T14_0 :E_0_0"/>
             <conflictLinks logicIndex="E_0 A_0"/>
         </link>
         <link linkIndex="1" from="T4_0" to=":F_1_0">
             <forwardBlock lanes=":F_1_0 T5_0"/>
             <bidiBlock lanes=":F_0_0 -T5_0"/>
             <backwardBlock lanes=""/>
-            <conflictLanes lanes=":F_1_0 T5_0 :F_0_0 -T5_0"/>
             <conflictLinks logicIndex=""/>
         </link>
     </railSignal>

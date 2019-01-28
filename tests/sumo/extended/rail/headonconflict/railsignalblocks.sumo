@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jan 28 08:43:55 2019 by Eclipse SUMO Version v1_0_1+0645-93703db
+<!-- generated on Mon Jan 28 10:52:40 2019 by Eclipse SUMO Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -43,14 +43,12 @@ SPDX-License-Identifier: EPL-2.0
             <forwardBlock lanes=":cluster_gneJ19_gneJ21_0_0 gneE15_0"/>
             <bidiBlock lanes=""/>
             <backwardBlock lanes=""/>
-            <conflictLanes lanes=":cluster_gneJ19_gneJ21_0_0 gneE15_0"/>
             <conflictLinks logicIndex=""/>
         </link>
         <link linkIndex="1" from="gneE14_0" to=":cluster_gneJ19_gneJ21_1_0">
             <forwardBlock lanes=":cluster_gneJ19_gneJ21_1_0 gneE16_0"/>
             <bidiBlock lanes=":cluster_gneJ19_gneJ21_0_0 -gneE16_0 :gneJ22_0_0"/>
             <backwardBlock lanes=""/>
-            <conflictLanes lanes=":cluster_gneJ19_gneJ21_1_0 gneE16_0 :cluster_gneJ19_gneJ21_0_0 -gneE16_0 :gneJ22_0_0"/>
             <conflictLinks logicIndex="gneJ22_0"/>
         </link>
     </railSignal>
@@ -59,7 +57,6 @@ SPDX-License-Identifier: EPL-2.0
             <forwardBlock lanes=":gneJ18_0_0 gneE14_0"/>
             <bidiBlock lanes=""/>
             <backwardBlock lanes=""/>
-            <conflictLanes lanes=":gneJ18_0_0 gneE14_0"/>
             <conflictLinks logicIndex=""/>
         </link>
     </railSignal>
@@ -68,14 +65,12 @@ SPDX-License-Identifier: EPL-2.0
             <forwardBlock lanes=":gneJ22_0_0 -gneE16_0"/>
             <bidiBlock lanes=":gneJ22_1_0 gneE16_0 :cluster_gneJ19_gneJ21_1_0"/>
             <backwardBlock lanes=""/>
-            <conflictLanes lanes=":gneJ22_0_0 -gneE16_0 :gneJ22_1_0 gneE16_0 :cluster_gneJ19_gneJ21_1_0"/>
             <conflictLinks logicIndex="cluster_gneJ19_gneJ21_1"/>
         </link>
         <link linkIndex="1" from="gneE16_0" to=":gneJ22_1_0">
             <forwardBlock lanes=":gneJ22_1_0 gneE17_0"/>
             <bidiBlock lanes=""/>
             <backwardBlock lanes=""/>
-            <conflictLanes lanes=":gneJ22_1_0 gneE17_0"/>
             <conflictLinks logicIndex=""/>
         </link>
     </railSignal>
@@ -84,7 +79,6 @@ SPDX-License-Identifier: EPL-2.0
             <forwardBlock lanes=":gneJ24_0_0 gneE18_0"/>
             <bidiBlock lanes=""/>
             <backwardBlock lanes=""/>
-            <conflictLanes lanes=":gneJ24_0_0 gneE18_0"/>
             <conflictLinks logicIndex=""/>
         </link>
     </railSignal>
