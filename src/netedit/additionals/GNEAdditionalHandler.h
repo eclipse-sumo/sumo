@@ -344,8 +344,30 @@ public:
     */
     static GNEAdditional* buildCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNEEdge* edge, double pos, const std::string& name, const std::string& outfile, double freq, const std::string& routeprobe);
 
-    /**
-    DOCUMENTAR
+    /**@brief builds a calibrator flow
+    * @param[in] viewNet viewNet in which element will be inserted
+    * @param[in] allowUndoRedo enable or disable remove created additional with ctrl + Z / ctrl + Y
+    * @param[in] type The id of the vehicle's flow type to use for this vehicle's flow. 
+    * @param[in] route The id of the route the vehicle's flow shall drive along 
+    * @param[in] vehsPerHour number of vehicles per hour, equally spaced (not together with period or probability) 
+    * @param[in] speed 	The speed with which the vehicles shall enter the network. NOTE: this attribute is exclusive of CalibratorFlows!
+    * @param[in] color This vehicle's flow's color 
+    * @param[in] departLane The lane on which the vehicle's flow shall be inserted; see #departLane. default: "first"
+    * @param[in] departPos The position at which the vehicle's flow shall enter the net; see #departPos. default: "base"
+    * @param[in] departSpeed The speed with which the vehicle's flow shall enter the network; see #departSpeed. default: 0
+    * @param[in] arrivalLane The lane at which the vehicle's flow shall leave the network; see #arrivalLane. default: "current"
+    * @param[in] arrivalPos The position at which the vehicle's flow shall leave the network; see #arrivalPos. default: "max"
+    * @param[in] arrivalSpeed The speed with which the vehicle's flow shall leave the network; see #arrivalSpeed. default: "current"
+    * @param[in] line A string specifying the id of a public transport line which can be used when specifying person rides
+    * @param[in] personNumber The number of occupied seats when the vehicle's flow is inserted. default: 0
+    * @param[in] containerNumber The number of occupied container places when the vehicle's flow is inserted. default: 0
+    * @param[in] reroute List of intermediate edges that shall be passed on rerouting. 
+    * @param[in] via List of intermediate edges that shall be passed on rerouting. 
+    * @param[in] departPosLat The lateral position on the departure lane at which the vehicle's flow shall enter the net; see Simulation/SublaneModel. default: "center"
+    * @param[in] arrivalPosLat The lateral position on the arrival lane at which the vehicle's flow shall arrive; see Simulation/SublaneModel. by default the vehicle's flow does not care about lateral arrival position 
+    * @param[in] begin first vehicle's flow departure time 
+    * @param[in] end end of departure interval (if undefined, defaults to 24 hours) 
+    * @return true if was sucesfully created, false in other case
     */
     static GNEAdditional* buildCalibratorFlow(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional* calibratorParent, GNEDemandElement* route, GNEDemandElement* vType,
             const std::string& vehsPerHour, const std::string& speed, const RGBColor& color, const std::string& departLane, const std::string& departPos,

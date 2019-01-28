@@ -2515,6 +2515,90 @@ GNEAttributeCarrier::fillAttributeCarriers() {
                 "The maximum lateral speed when using the sublane-model",
                 "1.00");
     }
+    currentTag = SUMO_TAG_FLOW;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_DEMANDELEMENT | TAGPROPERTY_PARENT, additional, ICON_FLOW);
+        // set values of attributes
+        myTagProperties[currentTag].addAttribute(SUMO_ATTR_TYPE,
+                ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE,
+                "The id of the vehicle type to use for this vehicle",
+                DEFAULT_VTYPE_ID);
+        myTagProperties[currentTag].addAttribute(SUMO_ATTR_ROUTE,
+                ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
+                "The id of the route the vehicle shall drive along",
+                "");
+        myTagProperties[currentTag].addAttribute(SUMO_ATTR_VEHSPERHOUR,
+                ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+                "Number of vehicles per hour, equally spaced",
+                "");
+        myTagProperties[currentTag].addAttribute(SUMO_ATTR_SPEED,
+                ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+                "Speed of vehicles",
+                "");
+        myTagProperties[currentTag].addAttribute(SUMO_ATTR_COLOR,
+                ATTRPROPERTY_STRING | ATTRPROPERTY_COLOR | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+                "This vehicle's color",
+                "yellow");
+        myTagProperties[currentTag].addAttribute(SUMO_ATTR_BEGIN,
+                ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE,
+                "First vehicle departure time",
+                "0.00");
+        myTagProperties[currentTag].addAttribute(SUMO_ATTR_END,
+                ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUE,
+                "End of departure interval",
+                "3600.00");
+        myTagProperties[currentTag].addAttribute(SUMO_ATTR_DEPARTLANE,
+                ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+                "The lane on which the vehicle shall be inserted",
+                "first");
+        myTagProperties[currentTag].addAttribute(SUMO_ATTR_DEPARTPOS,
+                ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+                "The position at which the vehicle shall enter the net",
+                "base");
+        myTagProperties[currentTag].addAttribute(SUMO_ATTR_DEPARTSPEED,
+                ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+                "The speed with which the vehicle shall enter the network",
+                "0");
+        myTagProperties[currentTag].addAttribute(SUMO_ATTR_ARRIVALLANE,
+                ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+                "The lane at which the vehicle shall leave the network",
+                "current");
+        myTagProperties[currentTag].addAttribute(SUMO_ATTR_ARRIVALPOS,
+                ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+                "The position at which the vehicle shall leave the network",
+                "max");
+        myTagProperties[currentTag].addAttribute(SUMO_ATTR_ARRIVALSPEED,
+                ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+                "The speed with which the vehicle shall leave the network",
+                "current");
+        myTagProperties[currentTag].addAttribute(SUMO_ATTR_LINE,
+                ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+                "A string specifying the id of a public transport line which can be used when specifying person rides",
+                "");
+        myTagProperties[currentTag].addAttribute(SUMO_ATTR_PERSON_NUMBER,
+                ATTRPROPERTY_INT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+                "The number of occupied seats when the vehicle is inserted",
+                "0");
+        myTagProperties[currentTag].addAttribute(SUMO_ATTR_CONTAINER_NUMBER,
+                ATTRPROPERTY_INT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+                "The number of occupied container places when the vehicle is inserted",
+                "0");
+        myTagProperties[currentTag].addAttribute(SUMO_ATTR_REROUTE,
+                ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+                "Whether the vehicle should be equipped with a rerouting device",
+                "0");
+        myTagProperties[currentTag].addAttribute(SUMO_ATTR_DEPARTPOS_LAT,
+                ATTRPROPERTY_STRING | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+                "The lateral position on the departure lane at which the vehicle shall enter the net",
+                "center",
+                SUMOXMLDefinitions::LateralAlignments.getStrings());
+        myTagProperties[currentTag].addAttribute(SUMO_ATTR_ARRIVALPOS_LAT,
+                ATTRPROPERTY_STRING | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+                "The lateral position on the arrival lane at which the vehicle shall arrive",
+                "center",
+                SUMOXMLDefinitions::LateralAlignments.getStrings());
+    }
     // shapes
     currentTag = SUMO_TAG_POLY;
     {
