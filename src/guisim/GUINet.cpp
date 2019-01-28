@@ -138,8 +138,6 @@ void
 GUINet::initTLMap() {
     // get the list of loaded tl-logics
     const std::vector<MSTrafficLightLogic*>& logics = getTLSControl().getAllLogics();
-    // allocate storage for the wrappers
-    myTLLogicWrapper.reserve(logics.size());
     // go through the logics
     for (std::vector<MSTrafficLightLogic*>::const_iterator i = logics.begin(); i != logics.end(); ++i) {
         createTLWrapper(*i);

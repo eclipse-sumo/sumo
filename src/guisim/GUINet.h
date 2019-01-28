@@ -358,9 +358,6 @@ protected:
     /// @brief Wrapped MS-junctions
     std::vector<GUIJunctionWrapper*> myJunctionWrapper;
 
-    /// @brief Wrapped TL-Logics
-    std::vector<MSTrafficLightLogic*> myTLLogicWrapper;
-
     /// @brief A detector dictionary
     std::vector<GUIDetectorWrapper*> myDetectorWrapper;
 
