@@ -372,6 +372,12 @@ GNEAttributeCarrier::AttributeProperties::isNonEditable() const {
     return (myAttributeProperty & ATTRPROPERTY_NONEDITABLE) != 0;
 }
 
+
+bool 
+GNEAttributeCarrier::AttributeProperties::isExtended() const {
+    return (myAttributeProperty & ATTRPROPERTY_EXTENDED) != 0;
+}
+
 // ---------------------------------------------------------------------------
 // GNEAttributeCarrier::TagProperties - methods
 // ---------------------------------------------------------------------------
@@ -2046,7 +2052,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
                 "The output file for writing calibrator information or NULL",
                 "");
     }
-    currentTag = SUMO_TAG_FLOW;
+    currentTag = SUMO_TAG_CALIBRATORFLOW;
     {
         // set values of tag
         myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_ADDITIONAL | TAGPROPERTY_PARENT, additional, ICON_FLOW, SUMO_TAG_CALIBRATOR);
@@ -2662,5 +2668,275 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     }
 }
 
-/****************************************************************************/
 
+bool 
+GNEAttributeCarrier::checkParsedAttribute(const TagProperties& tagProperties, 
+                                          const AttributeProperties& attrProperties, const SumoXMLAttr attribute, bool& parsedOk, 
+                                          std::string &defaultValue, std::string &parsedAttribute, std::string &warningMessage) {
+    // declare a string for details about error formats
+    std::string errorFormat;
+    // set extra check for ID Values
+    if (attribute == SUMO_ATTR_ID) {
+        if (parsedAttribute.empty()) {
+            errorFormat = "ID cannot be empty; ";
+            parsedOk = false;
+        } else if (tagProperties.isDetector()) {
+            // special case for detectors (because in this case empty spaces are allowed)
+            if (SUMOXMLDefinitions::isValidDetectorID(parsedAttribute) == false) {
+                errorFormat = "Detector ID contains invalid characters; ";
+                parsedOk = false;
+            }
+        } else if (SUMOXMLDefinitions::isValidNetID(parsedAttribute) == false) {
+            errorFormat = "ID contains invalid characters; ";
+            parsedOk = false;
+        }
+    }
+    // Set extra checks for int values
+    if (attrProperties.isInt()) {
+        if (canParse<int>(parsedAttribute)) {
+            // obtain int value
+            int parsedIntAttribute = parse<int>(parsedAttribute);
+            // check if attribute can be negative or zero
+            if (attrProperties.isPositive() && (parsedIntAttribute < 0)) {
+                errorFormat = "Cannot be negative; ";
+                parsedOk = false;
+            } else if (attrProperties.cannotBeZero() && (parsedIntAttribute == 0)) {
+                errorFormat = "Cannot be zero; ";
+                parsedOk = false;
+            }
+        } else if (canParse<double>(parsedAttribute)) {
+            errorFormat = "Float cannot be reinterpreted as int; ";
+            parsedOk = false;
+        } else {
+            errorFormat = "Cannot be parsed to int; ";
+            parsedOk = false;
+        }
+    }
+    // Set extra checks for float(double) values
+    if (attrProperties.isFloat()) {
+        if (canParse<double>(parsedAttribute)) {
+            // obtain double value
+            double parsedDoubleAttribute = parse<double>(parsedAttribute);
+            //check if can be negative and Zero
+            if (attrProperties.isPositive() && (parsedDoubleAttribute < 0)) {
+                errorFormat = "Cannot be negative; ";
+                parsedOk = false;
+            } else if (attrProperties.cannotBeZero() && (parsedDoubleAttribute == 0)) {
+                errorFormat = "Cannot be zero; ";
+                parsedOk = false;
+            }
+        } else {
+            errorFormat = "Cannot be parsed to float; ";
+            parsedOk = false;
+        }
+    }
+    // Set extra checks for position values
+    if (attrProperties.isposition()) {
+        // check if we're parsing a single position or an entire shape
+        if (attrProperties.isList()) {
+            // check if parsed attribute can be parsed to Position Vector
+            if (!canParse<PositionVector>(parsedAttribute)) {
+                errorFormat = "List of Positions aren't neither x,y nor x,y,z; ";
+                parsedOk = false;
+            }
+        } else if (!canParse<Position>(parsedAttribute)) {
+            errorFormat = "Position is neither x,y nor x,y,z; ";
+            parsedOk = false;
+        }
+    }
+    // set extra check for time(double) values
+    if (attrProperties.isTime()) {
+        if (canParse<double>(parsedAttribute)) {
+            // parse to SUMO Real and check if is negative
+            if (parse<double>(parsedAttribute) < 0) {
+                errorFormat = "Time cannot be negative; ";
+                parsedOk = false;
+            }
+        } else {
+            errorFormat = "Cannot be parsed to time; ";
+            parsedOk = false;
+        }
+    }
+    // set extra check for probability values
+    if (attrProperties.isProbability()) {
+        if (canParse<double>(parsedAttribute)) {
+            // parse to double and check if is between [0,1]
+            double probability = parse<double>(parsedAttribute);
+            if (probability < 0) {
+                errorFormat = "Probability cannot be smaller than 0; ";
+                parsedOk = false;
+            } else if (probability > 1) {
+                errorFormat = "Probability cannot be greather than 1; ";
+                parsedOk = false;
+            }
+        } else {
+            errorFormat = "Cannot be parsed to probability; ";
+            parsedOk = false;
+        }
+    }
+    // set extra check for range values
+    if (attrProperties.hasAttrRange()) {
+        if (canParse<double>(parsedAttribute)) {
+            // parse to double and check if is in range
+            double range = parse<double>(parsedAttribute);
+            if (range < attrProperties.getMinimumRange()) {
+                errorFormat = "Float cannot be smaller than " + toString(attrProperties.getMinimumRange()) + "; ";
+                parsedOk = false;
+            } else if (range > attrProperties.getMaximumRange()) {
+                errorFormat = "Float cannot be greather than " + toString(attrProperties.getMaximumRange()) + "; ";
+                parsedOk = false;
+            }
+        } else {
+            errorFormat = "Cannot be parsed to float; ";
+            parsedOk = false;
+        }
+    }
+    // set extra check for discrete values
+    if (attrProperties.isDiscrete()) {
+        // search value in the list of discretes values of attribute properties
+        auto finder = std::find(attrProperties.getDiscreteValues().begin(), attrProperties.getDiscreteValues().end(), parsedAttribute);
+        // check if attribute is valid
+        if (finder == attrProperties.getDiscreteValues().end()) {
+            errorFormat = "value is not within the set of allowed values for attribute '" + toString(attribute) + "'";
+            parsedOk = false;
+        }
+    }
+    // set extra check for color values
+    if (attrProperties.isColor() && !canParse<RGBColor>(parsedAttribute)) {
+        errorFormat = "Invalid RGB format or named color; ";
+        parsedOk = false;
+    }
+    // set extra check for filename values
+    if (attrProperties.isFilename()) {
+        if (SUMOXMLDefinitions::isValidFilename(parsedAttribute) == false) {
+            errorFormat = "Filename contains invalid characters; ";
+            parsedOk = false;
+        } else if (parsedAttribute.empty()) {
+            errorFormat = "Filename cannot be empty; ";
+            parsedOk = false;
+        }
+    }
+    // set extra check for name values
+    if ((attribute == SUMO_ATTR_NAME) && !SUMOXMLDefinitions::isValidAttribute(parsedAttribute)) {
+        errorFormat = "name contains invalid characters; ";
+        parsedOk = false;
+    }
+    // set extra check for SVCPermissions values
+    if (attrProperties.isVClass()) {
+        if (!canParseVehicleClasses(parsedAttribute)) {
+            errorFormat = "List of VClasses isn't valid; ";
+            parsedAttribute = defaultValue;
+            parsedOk = false;
+        }
+    }
+    // set extra check for Vehicle Classes
+    if ((!parsedOk) && (attribute == SUMO_ATTR_VCLASS)) {
+        errorFormat = "Is not a part of defined set of Vehicle Classes; ";
+    }
+    // set extra check for Vehicle Classes
+    if ((!parsedOk) && (attribute == SUMO_ATTR_GUISHAPE)) {
+        errorFormat = "Is not a part of defined set of Gui Vehicle Shapes; ";
+    }
+    // set extra check for RouteProbes
+    if ((attribute == SUMO_ATTR_ROUTEPROBE) && !SUMOXMLDefinitions::isValidNetID(parsedAttribute)) {
+        errorFormat = "RouteProbe ID contains invalid characters; ";
+        parsedOk = false;
+    }
+    // set extra check for list of edges
+    if ((attribute == SUMO_ATTR_EDGES) && parsedAttribute.empty()) {
+        errorFormat = "List of edges cannot be empty; ";
+        parsedOk = false;
+    }
+    // set extra check for list of lanes
+    if ((attribute == SUMO_ATTR_LANES) && parsedAttribute.empty()) {
+        errorFormat = "List of lanes cannot be empty; ";
+        parsedOk = false;
+    }
+    // set extra check for list of VTypes
+    if ((attribute == SUMO_ATTR_VTYPES) && !parsedAttribute.empty() && !SUMOXMLDefinitions::isValidListOfTypeID(parsedAttribute)) {
+        errorFormat = "List of vTypes contains invalid characters; ";
+        parsedOk = false;
+    }
+    // set extra check for list of RouteProbe
+    if ((attribute == SUMO_ATTR_ROUTEPROBE) && !parsedAttribute.empty() && !SUMOXMLDefinitions::isValidNetID(parsedAttribute)) {
+        errorFormat = "RouteProbe ID contains invalid characters; ";
+        parsedOk = false;
+    }
+    // If attribute has an invalid format
+    if (!parsedOk) {
+        // if attribute is optional and has a default value, obtain it as string. In other case, abort.
+        if (attrProperties.isOptional() && attrProperties.hasDefaultValue()) {
+            parsedAttribute = attrProperties.getDefaultValue();
+        } else {
+            WRITE_WARNING("Format of essential " + attrProperties.getDescription() + " attribute '" + toString(attribute) + "' of " +
+                            warningMessage +  " is invalid; " + errorFormat + tagProperties.getTagStr() + " cannot be created");
+            // set default value (To avoid errors in parse<T>(parsedAttribute))
+            parsedAttribute = defaultValue;
+            // return false to abort creation of element
+            return false;
+        }
+    }
+    // return true to continue creation of element
+    return true;
+}
+
+
+bool 
+GNEAttributeCarrier::parseMaskedPositionAttribute(const SUMOSAXAttributes& attrs, const std::string& objectID, const TagProperties& tagProperties, 
+                                                  const AttributeProperties& attrProperties, bool& parsedOk, 
+                                                  std::string &parsedAttribute, std::string &warningMessage) {
+    // if element can mask their XYPosition, then must be extracted X Y coordiantes separeted
+    std::string x, y, z;
+    // give a default value to parsedAttribute to avoid problem parsing invalid positions
+    parsedAttribute = "0,0";
+    if (attrs.hasAttribute(SUMO_ATTR_X)) {
+        x = attrs.get<std::string>(SUMO_ATTR_X, objectID.c_str(), parsedOk, false);
+        // check that X attribute is valid
+        if (!canParse<double>(x)) {
+            WRITE_WARNING("Format of essential " + attrProperties.getDescription() + " attribute '" + toString(SUMO_ATTR_X) + "' of " +
+                            warningMessage +  " is invalid; Cannot be parsed to float; " + tagProperties.getTagStr() + " cannot be created");
+            // abort parsing (and creation) of element
+            return false;
+        }
+    } else {
+        WRITE_WARNING("Essential " + attrProperties.getDescription() + " attribute '" + toString(SUMO_ATTR_X) + "' of " +
+                        warningMessage +  " is missing; " + tagProperties.getTagStr() + " cannot be created");
+        // abort parsing (and creation) of element
+        return false;
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_Y)) {
+        y = attrs.get<std::string>(SUMO_ATTR_Y, objectID.c_str(), parsedOk, false);
+        // check that X attribute is valid
+        if (!canParse<double>(y)) {
+            WRITE_WARNING("Format of essential " + attrProperties.getDescription() + " attribute '" + toString(SUMO_ATTR_Y) + "' of " +
+                            warningMessage + " is invalid; Cannot be parsed to float; " + tagProperties.getTagStr() + " cannot be created");
+            // abort parsing (and creation) of element
+            return false;
+        }
+    } else {
+        WRITE_WARNING("Essential " + attrProperties.getDescription() + " attribute '" + toString(SUMO_ATTR_Y) + "' of " +
+                        warningMessage +  " is missing; " + tagProperties.getTagStr() + " cannot be created");
+        // abort parsing (and creation) of element
+        return false;
+    }
+    // Z attribute is optional
+    if (attrs.hasAttribute(SUMO_ATTR_Z)) {
+        z = attrs.get<std::string>(SUMO_ATTR_Z, objectID.c_str(), parsedOk, false);
+        // check that Z attribute is valid
+        if (!canParse<double>(z)) {
+            WRITE_WARNING("Format of optional " + attrProperties.getDescription() + " attribute '" + toString(SUMO_ATTR_Z) + "' of " +
+                            warningMessage + " is invalid; Cannot be parsed to float; " + tagProperties.getTagStr() + " cannot be created");
+            // leave Z attribute empty
+            z.clear();
+        }
+    }
+    // create Position attribute using parsed coordinates X, Y and, optionally, Z
+    if (z.empty()) {
+        parsedAttribute = x + "," + y;
+    } else {
+        parsedAttribute = x + "," + y + "," + z;
+    }
+    // continue creation of element
+    return true;
+}
+/****************************************************************************/

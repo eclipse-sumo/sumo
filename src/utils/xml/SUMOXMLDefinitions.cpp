@@ -88,6 +88,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "phase",                      SUMO_TAG_PHASE },
     { "trip",                       SUMO_TAG_TRIP },
     { "flow",                       SUMO_TAG_FLOW },
+    { "calibratorFlow",             SUMO_TAG_CALIBRATORFLOW },
     { "flowState",                  SUMO_TAG_FLOWSTATE },
     { "step",                       SUMO_TAG_STEP },
     { "interval",                   SUMO_TAG_INTERVAL },

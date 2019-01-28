@@ -526,177 +526,145 @@ protected:
 
     /**@brief Builds a Vaporizer
      * @param[in] attrs SAX-attributes which define the vaporizer
-     * @param[in] tag of the additional
-     * @note recheck throwing the exception
      */
-    void parseAndBuildVaporizer(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
+    void parseAndBuildVaporizer(const SUMOSAXAttributes& attrs);
 
     /**@brief Builds a TAZ
      * @param[in] attrs SAX-attributes which define the vaporizer
-     * @param[in] tag of the additional
-     * @note recheck throwing the exception
      */
-    void parseAndBuildTAZ(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
+    void parseAndBuildTAZ(const SUMOSAXAttributes& attrs);
 
     /**@brief Builds a TAZ Source
      * @param[in] attrs SAX-attributes which define the vaporizer
-     * @param[in] tag of the additional
-     * @note recheck throwing the exception
      */
-    void parseAndBuildTAZSource(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
+    void parseAndBuildTAZSource(const SUMOSAXAttributes& attrs);
 
     /**@brief Builds a TAZ Sink
      * @param[in] attrs SAX-attributes which define the vaporizer
-     * @param[in] tag of the additional
-     * @note recheck throwing the exception
      */
-    void parseAndBuildTAZSink(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
+    void parseAndBuildTAZSink(const SUMOSAXAttributes& attrs);
 
     /**@brief Parses his values and builds a Variable Speed Signal (lane speed additional)
      * @param[in] attrs SAX-attributes which define the additional
-     * @param[in] tag of the additional
-     * @see buildLaneSpeedTrigger
      */
-    void parseAndBuildVariableSpeedSign(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
+    void parseAndBuildVariableSpeedSign(const SUMOSAXAttributes& attrs);
 
     /**@brief Parses his values and builds a Variable Speed Signal Step
     * @param[in] attrs SAX-attributes which define the additional
-    * @param[in] tag of the additional
-    * @see buildLaneSpeedTrigger
     */
-    void parseAndBuildVariableSpeedSignStep(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
+    void parseAndBuildVariableSpeedSignStep(const SUMOSAXAttributes& attrs);
 
     /**@brief Parses his values and builds a rerouter
      * @param[in] attrs SAX-attributes which define the additional
-     * @param[in] tag of the additional
      */
-    void parseAndBuildRerouter(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
+    void parseAndBuildRerouter(const SUMOSAXAttributes& attrs);
 
     /**@brief Parses his values and builds a Rerouter Interval
     * @param[in] attrs SAX-attributes which define the additional
-    * @param[in] tag of the additional
     */
-    void parseAndBuildRerouterInterval(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
+    void parseAndBuildRerouterInterval(const SUMOSAXAttributes& attrs);
 
     /**@brief Parses his values and builds a Closing Lane reroute
     * @param[in] attrs SAX-attributes which define the additional
-    * @param[in] tag of the additional
     */
-    void parseAndBuildRerouterClosingLaneReroute(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
+    void parseAndBuildRerouterClosingLaneReroute(const SUMOSAXAttributes& attrs);
 
     /**@brief Parses his values and builds a Closing Reroute
     * @param[in] attrs SAX-attributes which define the additional
-    * @param[in] tag of the additional
     */
-    void parseAndBuildRerouterClosingReroute(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
+    void parseAndBuildRerouterClosingReroute(const SUMOSAXAttributes& attrs);
 
     /**@brief Parses his values and builds a Destiny Prob Reroute
     * @param[in] attrs SAX-attributes which define the additional
-    * @param[in] tag of the additional
     */
-    void parseAndBuildRerouterDestProbReroute(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
+    void parseAndBuildRerouterDestProbReroute(const SUMOSAXAttributes& attrs);
 
     /**@brief Parses his values and builds a parkingAreaReroute
     * @param[in] attrs SAX-attributes which define the additional
-    * @param[in] tag of the additional
     */
-    void parseAndBuildRerouterParkingAreaReroute(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
+    void parseAndBuildRerouterParkingAreaReroute(const SUMOSAXAttributes& attrs);
 
     /**@brief Parses his values and builds a Route Prob Reroute
     * @param[in] attrs SAX-attributes which define the additional
-    * @param[in] tag of the additional
     */
-    void parseAndBuildRerouterRouteProbReroute(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
+    void parseAndBuildRerouterRouteProbReroute(const SUMOSAXAttributes& attrs);
 
     /**@brief Parses his values and builds a bus stop
      * @param[in] attrs SAX-attributes which define the additional
-     * @param[in] tag of the additional
      */
-    void parseAndBuildBusStop(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
+    void parseAndBuildBusStop(const SUMOSAXAttributes& attrs);
 
     /**@brief Parses values and adds access to the current bus stop
      * @param[in] attrs SAX-attributes which define the additional
-     * @param[in] tag of the additional
      */
-    void parseAndBuildAccess(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
+    void parseAndBuildAccess(const SUMOSAXAttributes& attrs);
 
     /**@brief Parses his values and builds a container stop
      * @param[in] attrs SAX-attributes which define the additional
-     * @param[in] tag of the additional
      */
-    void parseAndBuildContainerStop(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
+    void parseAndBuildContainerStop(const SUMOSAXAttributes& attrs);
 
     /**@brief Parses his values and builds a charging station
      * @param[in] attrs SAXattributes which define the additional
-     * @param[in] tag of the additional
      */
-    void parseAndBuildChargingStation(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
+    void parseAndBuildChargingStation(const SUMOSAXAttributes& attrs);
 
     /**@brief Parses his values and builds a parking area
      * @param[in] attrs SAXattributes which define the additional
-     * @param[in] tag of the additional
      */
-    void parseAndBuildParkingArea(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
+    void parseAndBuildParkingArea(const SUMOSAXAttributes& attrs);
 
     /**@brief Parses his values and builds a parking space
      * @param[in] attrs SAXattributes which define the additional
      * @param[in] tag of the additional
      */
-    void parseAndBuildParkingSpace(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
+    void parseAndBuildParkingSpace(const SUMOSAXAttributes& attrs);
 
     /**@brief Parses his values and builds a mesoscopic or microscopic calibrator
      * @param[in] attrs SAX-attributes which define the additional
      * @param[in] tag of the additional
      */
-    void parseAndBuildCalibrator(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
+    void parseAndBuildCalibrator(const SUMOSAXAttributes& attrs);
 
     /**@brief Parses his values and builds a induction loop detector (E1)
      * @param[in] attrs SAX-attributes which define the additional
-     * @param[in] tag of the additional
      */
-    void parseAndBuildDetectorE1(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
+    void parseAndBuildDetectorE1(const SUMOSAXAttributes& attrs);
 
     /**@brief Parses his values and builds a lane area detector (E2)
      * @param[in] attrs SAX-attributes which define the additional
-     * @param[in] tag of the additional
      */
-    void parseAndBuildDetectorE2(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
+    void parseAndBuildDetectorE2(const SUMOSAXAttributes& attrs);
 
     /**@brief Parses his values and builds a multi entry exit detector (E3)
      * @param[in] attrs SAX-attributes which define the additional
-     * @param[in] tag of the additional
      */
-    void parseAndBuildDetectorE3(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
+    void parseAndBuildDetectorE3(const SUMOSAXAttributes& attrs);
 
     /**@brief Parses his values and builds a Entry detector
      * @param[in] attrs SAX-attributes which define the additional
-     * @param[in] tag of the additional
      */
-    void parseAndBuildDetectorEntry(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
+    void parseAndBuildDetectorEntry(const SUMOSAXAttributes& attrs);
 
     /**@brief Parses his values and builds a Exit detector
      * @param[in] attrs SAX-attributes which define the additional
-     * @param[in] tag of the additional
      */
-    void parseAndBuildDetectorExit(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
+    void parseAndBuildDetectorExit(const SUMOSAXAttributes& attrs);
 
     /**@brief Parses his values and builds a Instant induction loop detector (E1Instant)
      * @param[in] attrs SAX-attributes which define the additional
-     * @param[in] tag of the additional
      */
-    void parseAndBuildDetectorE1Instant(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
+    void parseAndBuildDetectorE1Instant(const SUMOSAXAttributes& attrs);
 
     /**@brief Parses his values and builds routeProbe
      * @param[in] attrs SAX-attributes which define the additional
-     * @param[in] tag of the additional
      */
-    void parseAndBuildRouteProbe(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
+    void parseAndBuildRouteProbe(const SUMOSAXAttributes& attrs);
 
     /**@brief Parses flow values of Calibrators
      * @param[in] attrs SAX-attributes which define the flows
-     * @param[in] tag of the additional
      */
-    void parseAndBuildCalibratorFlow(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
+    void parseAndBuildCalibratorFlow(const SUMOSAXAttributes& attrs);
     
     /**@brief Parses his values and builds a Poly
      * @param[in] attrs SAX-attributes which define the Poly
