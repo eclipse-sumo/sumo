@@ -34,9 +34,9 @@ from sumolib.xml import parse_fast_nested
 def getOptions(args=None):
     optParser = OptionParser()
     optParser.add_option("-t", "--trajectory-type", dest="ttype", default="ds",
-                         help="select two leters from [t, s, d, a, i] to plot" 
-                         + " Time, Speed, Distance, Acceleration, Angle. Default" 
-                         + " 'ds' plots Distance vs. Speed ")
+                         help="select two leters from [t, s, d, a, i, x, y] to plot" 
+                         + " Time, Speed, Distance, Acceleration, Angle, x-Position, y-Position."
+                         + " Default 'ds' plots Distance vs. Speed")
     optParser.add_option("-s", "--show", action="store_true", default=False, help="show plot directly")
     optParser.add_option("-o", "--output", help="outputfile for saving plots", default="plot.png")
     optParser.add_option("--csv-output", dest="csv_output", help="write plot as csv", metavar="FILE")
@@ -84,7 +84,9 @@ def main(options):
             's' : ('Speed', 1),
             'd' : ('Distance', 2),
             'a' : ('Acceleration', 3),
-            'i' : ('Angle', 4)
+            'i' : ('Angle', 4),
+            'x' : ('x-Position', 5),
+            'y' : ('y-Position', 6),
             }
 
     if (len(options.ttype) == 2 
@@ -98,9 +100,9 @@ def main(options):
         sys.exit("unsupported plot type '%s'" % options.ttype)
 
     routes = defaultdict(list)  # vehID -> recorded edges
-    data = defaultdict(lambda: ([], [], [], [], []))  # vehID -> (times, speeds, distances, accelerations, angles)
+    data = defaultdict(lambda: ([], [], [], [], [], [], []))  # vehID -> (times, speeds, distances, accelerations, angles, xPositions, yPositions)
     for timestep, vehicle in parse_fast_nested(options.fcdfile, 'timestep', ['time'],
-                                               'vehicle', ['id', 'angle', 'speed', 'lane']):
+                                               'vehicle', ['id', 'x', 'y', 'angle', 'speed', 'lane']):
         time = float(timestep.time)
         speed = float(vehicle.speed)
         prevTime = time
@@ -113,6 +115,8 @@ def main(options):
         data[vehicle.id][0].append(time)
         data[vehicle.id][1].append(speed)
         data[vehicle.id][4].append(float(vehicle.angle))
+        data[vehicle.id][5].append(float(vehicle.x))
+        data[vehicle.id][6].append(float(vehicle.y))
         if prevTime == time:
             data[vehicle.id][3].append(0)
         else:
