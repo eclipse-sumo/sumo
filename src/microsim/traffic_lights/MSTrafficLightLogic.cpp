@@ -362,7 +362,7 @@ MSTrafficLightLogic::ignoreLinkIndex(int pos) {
 
 bool 
 MSTrafficLightLogic::isSelected() const {
-    MSNet::getInstance()->isSelected(this);
+    return MSNet::getInstance()->isSelected(this);
 }
 
 /****************************************************************************/
