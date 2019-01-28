@@ -48,6 +48,7 @@ def getOptions(args=None):
                          help="pick lines within the given distance in interactive plot mode")
     optParser.add_option("-i", "--invert-distance-angle", dest="invertDistanceAngle", type="float",
                          help="invert distance for trajectories with a average angle near FLOAT")
+    optParser.add_option("--label", help="plot label (default input file name")
     optParser.add_option("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
 
     options, args = optParser.parse_args(args=args)
@@ -96,6 +97,7 @@ def main(options):
         yLabel, ydata = typespec[options.ttype[1]]
         plt.xlabel(xLabel)
         plt.ylabel(yLabel)
+        plt.title(options.fcdfile if options.label is None else options.label)
     else:
         sys.exit("unsupported plot type '%s'" % options.ttype)
 
