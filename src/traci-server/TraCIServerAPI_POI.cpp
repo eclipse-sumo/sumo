@@ -80,6 +80,7 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
 			variable != VAR_WIDTH &&
 			variable != VAR_HEIGHT &&
 			variable != VAR_ANGLE &&
+			variable != VAR_IMAGFILE &&
             variable != ADD &&
             variable != REMOVE &&
             variable != VAR_PARAMETER) {
