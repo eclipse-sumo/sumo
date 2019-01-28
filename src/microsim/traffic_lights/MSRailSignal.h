@@ -96,8 +96,8 @@ public:
      *
      * @return The state actually required for this signal.
      */
-    bool conflictLaneOccupied(int index);
-    bool hasLinkConflict(int index);
+    bool conflictLaneOccupied(int index) const;
+    bool hasLinkConflict(int index) const;
 
     /// @brief updates the current phase of the signal
     void updateCurrentPhase();

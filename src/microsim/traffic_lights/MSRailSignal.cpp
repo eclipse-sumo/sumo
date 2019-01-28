@@ -231,7 +231,7 @@ MSRailSignal::trySwitch() {
 
 
 bool
-MSRailSignal::conflictLaneOccupied(int index) {
+MSRailSignal::conflictLaneOccupied(int index) const {
     for (const MSLane* lane : myConflictLanes[index]) {
         if (!lane->isEmpty()) {
 #ifdef DEBUG_SIGNALSTATE
@@ -245,13 +245,27 @@ MSRailSignal::conflictLaneOccupied(int index) {
 
 
 bool 
-MSRailSignal::hasLinkConflict(int index) {
+MSRailSignal::hasLinkConflict(int index) const {
     MSLink* currentLink = myLinks[index][0];
     double foeMaxSpeed = -1;
     double foeMinDist = std::numeric_limits<double>::max();
     SUMOTime foeMinETA = std::numeric_limits<SUMOTime>::max();
     long long foeMinNumericalID = std::numeric_limits<long long>::max(); // tie braker
     for (const MSLink* link : myConflictLinks[index]) {
+        if (link->getApproaching().size() > 0) {
+            const MSTrafficLightLogic* foeTLL = link->getTLLogic();
+            assert(foeTLL != nullptr);
+            const MSRailSignal* foeRS = dynamic_cast<const MSRailSignal*>(foeTLL);
+            if (foeRS != nullptr) {
+                if (foeRS->conflictLaneOccupied(link->getTLIndex())) {
+                    // foe link can safely be ignored
+                    continue;
+                }
+            } else if (link->getState() == LINKSTATE_TL_RED) {
+                // ignore foe vehicles waiting at a regular traffic light
+               continue;
+            }
+        }
         for (auto apprIt : link->getApproaching()) {
             MSLink::ApproachingVehicleInformation info = apprIt.second;
             if (info.arrivalSpeedBraking > 0) {
