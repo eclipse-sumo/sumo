@@ -396,6 +396,9 @@ MSRailSignal::collectForwardBlock(MSLane* toLane, double length, std::vector<MSL
                 continue;
             }
             if (link->getTLLogic() != nullptr) {
+                if (link->getTLLogic() == this) {
+                    WRITE_WARNING("Found circular block at railSignal junction '" + getID() + "' (" + toString(forwardBlock.size()) + " lanes, length " + toString(length) + ")");
+                }
                 return;
             }
             if (toLane == nullptr) {
