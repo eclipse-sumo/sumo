@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2019-01-15 10:11:11.417125 by $Id$ via randomTrips.py
+  options:
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="rail_rail" vClass="rail" color="red">
+    </vType>
+    <trip id="rail1" depart="0" from="T15_1" to="T7_1" type="rail_rail" departPos="-100"/>
+    <trip id="rail2" depart="0" from="T12_0" to="T5_0" type="rail_rail" departPos="-100"/>
+    <trip id="rail3" depart="0" from="T5_0" to="T5_0" type="rail_rail" departPos="-100"/>
+</routes>
