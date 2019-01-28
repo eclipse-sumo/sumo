@@ -1259,6 +1259,29 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
         if (myPartialVehicles.size() > 0) {
             detectCollisionBetween(timestep, stage, *lastVeh, myPartialVehicles.front(), toRemove, toTeleport);
         }
+        if (myEdge->getBidiEdge() != nullptr) {
+            // bidirectional railway
+            MSLane* bidiLane = myEdge->getBidiEdge()->getLanes()[0];
+            if (bidiLane->getVehicleNumberWithPartials() > 0) {
+                for (AnyVehicleIterator veh = anyVehiclesBegin(); veh != anyVehiclesEnd(); ++veh) {
+                    double high = (*veh)->getPositionOnLane(this);
+                    double low = (*veh)->getBackPositionOnLane(this);
+                    for (AnyVehicleIterator veh2 = bidiLane->anyVehiclesBegin(); veh2 != bidiLane->anyVehiclesEnd(); ++veh2) {
+                        double low2 = myLength - (*veh2)->getPositionOnLane(bidiLane);
+                        double high2 = myLength - (*veh2)->getBackPositionOnLane(bidiLane);
+                        if (!(high < low2 || high2 < low)) {
+                            // the faster vehicle is at fault
+                            MSVehicle* collider = const_cast<MSVehicle*>(*veh);
+                            MSVehicle* victim = const_cast<MSVehicle*>(*veh2);
+                            if (collider->getSpeed() < victim->getSpeed()) {
+                                std::swap(victim, collider);
+                            }
+                            handleCollisionBetween(timestep, stage, collider, victim, -1, 0, toRemove, toTeleport);
+                        }
+                    }
+                }
+            }
+        }
     } else {
         // in the sublane-case it is insufficient to check the vehicles ordered
         // by their front position as there might be more than 2 vehicles next to each
@@ -1498,8 +1521,9 @@ void
 MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVehicle* collider, MSVehicle* victim,
                                double gap, double latGap, std::set<const MSVehicle*, ComparatorNumericalIdLess>& toRemove,
                                std::set<const MSVehicle*>& toTeleport) const {
-    std::string collisionType = (collider->getLaneChangeModel().isOpposite() != victim->getLaneChangeModel().isOpposite() ?
-                                 "frontal collision" : "collision");
+    std::string collisionType = ((collider->getLaneChangeModel().isOpposite() != victim->getLaneChangeModel().isOpposite()
+                || (&collider->getLane()->getEdge() == victim->getLane()->getEdge().getBidiEdge())) 
+            ?  "frontal collision" : "collision");
     // in frontal collisions the opposite vehicle is the collider
     if (victim->getLaneChangeModel().isOpposite() && !collider->getLaneChangeModel().isOpposite()) {
         std::swap(collider, victim);
