@@ -151,16 +151,24 @@ GNEDemandElement*
 GNEDemandHandler::buildVehicle(GNEViewNet* viewNet, bool allowUndoRedo, GNEDemandElement* route, GNEDemandElement* vType, const RGBColor& color, 
                                double depart, const std::string& departLane, const std::string& departPos, const std::string& departSpeed, const std::string& arrivalLane, 
                                const std::string& arrivalPos, const std::string& arrivalSpeed, const std::string& line, int personNumber, int containerNumber, 
-                               bool reroute, const std::string& departPosLat, const std::string& arrivalPosLat) {
+                               bool reroute, const std::vector<GNEEdge*> &via, const std::string& departPosLat, const std::string& arrivalPosLat) {
         return nullptr;
 }
 
 
 GNEDemandElement* 
-GNEDemandHandler::buildFlow(GNEViewNet* viewNet, bool allowUndoRedo, GNEDemandElement* route, GNEDemandElement* vType, const RGBColor& color,
-                            const std::string& departLane, const std::string& departPos, const std::string& departSpeed, const std::string& arrivalLane, const std::string& arrivalPos, 
-                            const std::string& arrivalSpeed, const std::string& line, int personNumber, int containerNumber, bool reroute, const std::string& departPosLat,
+GNEDemandHandler::buildFlow(GNEViewNet* viewNet, bool allowUndoRedo, GNEDemandElement* route, GNEDemandElement* vType, const RGBColor& color, const std::string& departLane, 
+                            const std::string& departPos, const std::string& departSpeed, const std::string& arrivalLane, const std::string& arrivalPos, const std::string& arrivalSpeed, 
+                            const std::string& line, int personNumber, int containerNumber, bool reroute, const std::vector<GNEEdge*> &via, const std::string& departPosLat,
                             const std::string& arrivalPosLat, double begin, double end, const std::string& vehsPerHour, const std::string& period, const std::string& probability, int number) {
+    return nullptr;
+}
+
+
+GNEDemandElement* 
+GNEDemandHandler::buildTrip(GNEViewNet* viewNet, bool allowUndoRedo, const std::string &id, double depart, GNEEdge *from, GNEEdge *to, const std::vector<GNEEdge*> &via, GNETAZ* fromTaz, 
+                            const RGBColor& color, const std::string& departLane, const std::string& departPos, const std::string& departSpeed, const std::string& arrivalLane, 
+                            const std::string& arrivalPos, const std::string& arrivalSpeed) {
     return nullptr;
 }
 
@@ -219,6 +227,13 @@ void
 GNEDemandHandler::parseAndBuildFlow(const SUMOSAXAttributes& attrs) {
 
 }
+
+
+void 
+GNEDemandHandler::parseAndBuildTrip(const SUMOSAXAttributes& attrs) {
+
+}
+
 
 void
 GNEDemandHandler::parseGenericParameter(const SUMOSAXAttributes& attrs) {

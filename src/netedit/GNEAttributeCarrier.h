@@ -705,6 +705,18 @@ private:
     /// @brief fill Attribute Carriers
     static void fillAttributeCarriers();
 
+    /// @brief fill Net Elements
+    static void fillNetElements();
+
+    /// @brief fill Additionals
+    static void fillAdditionals();
+
+    /// @brief fill Shapes
+    static void fillShapes();
+        
+    /// @brief fill DemandElements
+    static void fillDemandElements();
+
     /// @brief parse and check attribute (note: This function is only to improve legilibility)
     static bool checkParsedAttribute(const TagProperties& tagProperties, const AttributeProperties& attrProperties, 
                                      const SumoXMLAttr attribute, bool& parsedOk, std::string &defaultValue, 
