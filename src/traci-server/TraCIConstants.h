@@ -605,7 +605,7 @@
 // position (3D) (get: vehicle, poi, set: poi)
 #define VAR_POSITION3D 0x39
 
-// angle (get: vehicle)
+// angle (get: vehicle, poi; set: poi)
 #define VAR_ANGLE 0x43
 
 // angle (get: vehicle types, lanes, arealdetector, set: lanes)
@@ -647,7 +647,7 @@
 // minimum gap (get: vehicle types)
 #define VAR_MINGAP 0x4c
 
-// width (get: vehicle types, lanes, polygons)
+// width (get: vehicle types, lanes, polygons, poi)
 #define VAR_WIDTH 0x4d
 
 // shape (get: polygons)
@@ -747,7 +747,7 @@
 // get/set minimum lateral gap (vehicle, vtypes)
 #define VAR_MINGAP_LAT 0xbb
 
-// get/set vehicle height (vehicle, vtypes)
+// get/set vehicle height (vehicle, vtypes, poi)
 #define VAR_HEIGHT 0xbc
 
 // get/set vehicle line

@@ -28,6 +28,7 @@
 
 #include <vector>
 #include <libsumo/TraCIDefs.h>
+#include <utils/shapes/Shape.h>
 
 
 // ===========================================================================
@@ -56,12 +57,18 @@ public:
     static std::string getType(const std::string& poiID);
     static TraCIPosition getPosition(const std::string& poiID, const bool includeZ = false);
     static TraCIColor getColor(const std::string& poiID);
+	static double getWidth(const std::string& poiID);
+	static double getHeight(const std::string& poiID);
+	static double getAngle(const std::string& poiID);
     static std::string getParameter(const std::string& poiID, const std::string& key);
 
     static void setType(const std::string& poiID, const std::string& setType);
     static void setColor(const std::string& poiID, const TraCIColor& c);
     static void setPosition(const std::string& poiID, double x, double y);
-    static bool add(const std::string& poiID, double x, double y, const TraCIColor& color, const std::string& poiType = "", int layer = 0);
+	static void setWidth(const std::string& poiID, double width);
+	static void setHeight(const std::string& poiID, double height);
+	static void setAngle(const std::string& poiID, double angle);
+	static bool add(const std::string& poiID, double x, double y, const TraCIColor& color, double width = Shape::DEFAULT_IMG_WIDTH, double height = Shape::DEFAULT_IMG_HEIGHT, double angle = Shape::DEFAULT_ANGLE, const std::string& poiType = "", const std::string& imgFile = Shape::DEFAULT_IMG_FILE, int layer = 0);
     static bool remove(const std::string& poiID, int layer = 0);
 
     static void setParameter(const std::string& poiID, const std::string& key, const std::string& value);
