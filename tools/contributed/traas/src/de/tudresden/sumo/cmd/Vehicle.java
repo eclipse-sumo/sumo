@@ -515,11 +515,27 @@ public class Vehicle {
 	 *  @param vehID a string identifying the vehicle
 	 *  @param param a string identifying the parameter
 	 *  
-	 * @return the specific parameter
+	 * @return SumoCommand (String)
 	 */
 
 	public static SumoCommand getParameter(String vehID, String param){
-		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_PARAMETER, vehID, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_STRING);
+		Object[] array = new Object[]{param};
+		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_PARAMETER, vehID, array, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_STRING);
+	}
+
+	/**
+	 * Sets the chosen parameter
+	 *
+	 *  @param vehID a string identifying the vehicle
+	 *  @param param a string identifying the parameter
+	 *  @param value a string identifying the new value
+	 *  
+	 * @return SumoCommand
+	 */
+
+	public static SumoCommand setParameter(String vehID, String param, String value){
+		Object[] array = new Object[]{param, value};
+		return new SumoCommand(Constants.CMD_SET_VEHICLE_VARIABLE, Constants.VAR_PARAMETER, vehID, array);
 	}
 	
 

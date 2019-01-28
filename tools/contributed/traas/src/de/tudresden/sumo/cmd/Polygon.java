@@ -77,9 +77,26 @@ public class Polygon {
 	 */
 
 	public static SumoCommand getParameter(String polygonID, String param){
-		return new SumoCommand(Constants.CMD_GET_POI_VARIABLE, Constants.VAR_PARAMETER, polygonID, Constants.RESPONSE_GET_POI_VARIABLE, Constants.TYPE_STRING);
+		Object[] array = new Object[]{param};
+		return new SumoCommand(Constants.CMD_GET_POLYGON_VARIABLE, Constants.VAR_PARAMETER, polygonID, array, Constants.RESPONSE_GET_POLYGON_VARIABLE, Constants.TYPE_STRING);
 	}
 	
+
+	/**
+	 * Sets the chosen parameter
+	 *
+	 *  @param vehID a string identifying the vehicle
+	 *  @param param a string identifying the parameter
+	 *  @param value a string identifying the new value
+	 *  
+	 * @return SumoCommand
+	 */
+
+	public static SumoCommand setParameter(String polygonID, String param, String value){
+		Object[] array = new Object[]{param, value};
+		return new SumoCommand(Constants.CMD_SET_POLYGON_VARIABLE, Constants.VAR_PARAMETER, polygonID, array);
+	}
+
 	/**
 	 * Returns the shape of this polygon.
 	 * 

@@ -74,9 +74,26 @@ public class Route {
 	 */
 
 	public static SumoCommand getParameter(String routeID, String param){
-		return new SumoCommand(Constants.CMD_GET_POI_VARIABLE, Constants.VAR_PARAMETER, routeID, Constants.RESPONSE_GET_POI_VARIABLE, Constants.TYPE_STRING);
+		Object[] array = new Object[]{param};
+		return new SumoCommand(Constants.CMD_GET_ROUTE_VARIABLE, Constants.VAR_PARAMETER, routeID, array, Constants.RESPONSE_GET_ROUTE_VARIABLE, Constants.TYPE_STRING);
 	}
 	
+
+	/**
+	 * Sets the chosen parameter
+	 *
+	 *  @param vehID a string identifying the vehicle
+	 *  @param param a string identifying the parameter
+	 *  @param value a string identifying the new value
+	 *  
+	 * @return SumoCommand
+	 */
+
+	public static SumoCommand setParameter(String routeID, String param, String value){
+		Object[] array = new Object[]{param, value};
+		return new SumoCommand(Constants.CMD_SET_ROUTE_VARIABLE, Constants.VAR_PARAMETER, routeID, array);
+	}
+
 	//setter methods
 
 	/**

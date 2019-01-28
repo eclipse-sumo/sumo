@@ -344,7 +344,23 @@ public class Lane {
 	 */
 
 	public static SumoCommand getParameter(String laneID, String param){
-		return new SumoCommand(Constants.CMD_GET_LANE_VARIABLE, Constants.VAR_PARAMETER, laneID, Constants.RESPONSE_GET_LANE_VARIABLE, Constants.TYPE_STRING);
+		Object[] array = new Object[]{param};
+		return new SumoCommand(Constants.CMD_GET_LANE_VARIABLE, Constants.VAR_PARAMETER, laneID, array, Constants.RESPONSE_GET_LANE_VARIABLE, Constants.TYPE_STRING);
+	}
+
+	/**
+	 * Sets the chosen parameter
+	 *
+	 *  @param vehID a string identifying the vehicle
+	 *  @param param a string identifying the parameter
+	 *  @param value a string identifying the new value
+	 *  
+	 * @return SumoCommand
+	 */
+
+	public static SumoCommand setParameter(String laneID, String param, String value){
+		Object[] array = new Object[]{param, value};
+		return new SumoCommand(Constants.CMD_SET_LANE_VARIABLE, Constants.VAR_PARAMETER, laneID, array);
 	}
 
 	/**

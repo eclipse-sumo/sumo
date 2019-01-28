@@ -52,6 +52,20 @@ public class Inductionloop {
 		return new SumoCommand(Constants.CMD_GET_INDUCTIONLOOP_VARIABLE, Constants.ID_COUNT, "", Constants.RESPONSE_GET_INDUCTIONLOOP_VARIABLE, Constants.TYPE_INTEGER);
 	}
 
+	/**
+	 * Returns the chosen parameter
+	 *
+	 * @param personID a string personIDentifying the person
+	 *  @param param a string personIDentifying the parameter
+	 *  
+	 * @return the specific parameter
+	 */
+
+	public static SumoCommand getParameter(String loopID, String param){
+		Object[] array = new Object[]{param};
+		return new SumoCommand(Constants.CMD_GET_INDUCTIONLOOP_VARIABLE, Constants.VAR_PARAMETER, loopID, array, Constants.RESPONSE_GET_INDUCTIONLOOP_VARIABLE, Constants.TYPE_STRING);
+	}
+
 
 	/**
 	 * Returns the ID of the lane the loop is placed at.
