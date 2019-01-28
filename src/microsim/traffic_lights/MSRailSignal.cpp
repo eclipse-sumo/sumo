@@ -494,6 +494,11 @@ MSRailSignal::collectConflictLinks(MSLane* toLane, double length,
             LaneSet& visited)
 {
     while (toLane != nullptr) {
+        //std::cout << "collectConflictLinks " << getID() << " toLane=" << toLane->getID() << " length=" << length 
+        //    << " backward=" << toString(backwardBlock) 
+        //    << " conflictLinks=" << conflictLinks.size()
+        //    << " visited=" << visited.size()
+        //    << "\n";
         const auto& incomingLaneInfos = toLane->getIncomingLanes();
         MSLane* orig = toLane;
         toLane = nullptr;
@@ -508,7 +513,8 @@ MSRailSignal::collectConflictLinks(MSLane* toLane, double length,
                 conflictLinks.push_back(ili.viaLink);
                 continue;
             }
-            backwardBlock.push_back(orig);
+            backwardBlock.push_back(ili.lane);
+            visited.insert(ili.lane);
             length += orig->getLength();
             if (length > MAX_BLOCK_LENGTH) {
                 if (myNumWarnings < MAX_SIGNAL_WARNINGS) {
