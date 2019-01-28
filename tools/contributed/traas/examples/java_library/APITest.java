@@ -20,10 +20,18 @@ import java.util.LinkedList;
 import it.polito.appeal.traci.SumoTraciConnection;
 import de.tudresden.sumo.cmd.Simulation;
 import de.tudresden.sumo.cmd.Vehicle;
+import de.tudresden.sumo.cmd.Vehicletype;
+import de.tudresden.sumo.cmd.Edge;
+import de.tudresden.sumo.cmd.Lane;
+import de.tudresden.sumo.cmd.Route;
+import de.tudresden.sumo.cmd.Poi;
+import de.tudresden.sumo.cmd.Polygon;
+import de.tudresden.sumo.cmd.Person;
 import de.tudresden.sumo.cmd.Inductionloop;
 import de.tudresden.sumo.cmd.Trafficlight;
 import de.tudresden.ws.container.SumoVehicleData;
 import de.tudresden.ws.container.SumoStopFlags;
+import de.tudresden.ws.container.SumoStringList;
 import de.tudresden.ws.container.SumoStage;
 
 public class APITest {
@@ -77,6 +85,33 @@ public class APITest {
                     conn.do_job_set(Vehicle.setStop("v0","gneE0", 200, (byte)0, 10, flags));
                 }
 			}
+            SumoStringList vehIDs = (SumoStringList)conn.do_job_get(Vehicle.getIDList());
+            String vehIDsStr = "";
+            for (String id : vehIDs) {
+                vehIDsStr += (id + " ");
+            }
+            System.out.println("VehicleIDs: " + vehIDsStr);
+
+            conn.do_job_set(Vehicle.setParameter("v0","vehParam", "vehValue"));
+            System.out.println("vehicle.getParameter: " + (String)conn.do_job_get(Vehicle.getParameter("v0", "vehParam")));
+
+            conn.do_job_set(Vehicletype.setParameter("car","vehtypeParam", "vehtypeValue"));
+            System.out.println("Vehicletype.getParameter: " + (String)conn.do_job_get(Vehicletype.getParameter("car", "vehtypeParam")));
+
+            conn.do_job_set(Edge.setParameter("gneE0","edgeParam", "edgeValue"));
+            System.out.println("Edge.getParameter: " + (String)conn.do_job_get(Edge.getParameter("gneE0", "edgeParam")));
+
+            conn.do_job_set(Lane.setParameter("gneE0_1","laneParam", "laneValue"));
+            System.out.println("Lane.getParameter: " + (String)conn.do_job_get(Lane.getParameter("gneE0_1", "laneParam")));
+
+            conn.do_job_set(Route.setParameter("r1","routeParam", "routeValue"));
+            System.out.println("Route.getParameter: " + (String)conn.do_job_get(Route.getParameter("r1", "routeParam")));
+
+            conn.do_job_set(Poi.setParameter("t0","poiParam", "poiValue"));
+            System.out.println("Poi.getParameter: " + (String)conn.do_job_get(Poi.getParameter("t0", "poiParam")));
+
+            conn.do_job_set(Trafficlight.setParameter("gneJ1","tlsParam", "tlsValue"));
+            System.out.println("Trafficlight.getParameter: " + (String)conn.do_job_get(Trafficlight.getParameter("gneJ1", "tlsParam")));
 			
 			conn.close();
 			
