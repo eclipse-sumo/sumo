@@ -254,7 +254,7 @@ NBNodeTypeComputer::validateRailCrossings(NBNodeCont& nc, NBTrafficLightLogicCon
 
 
 bool
-NBNodeTypeComputer::isRailwayNode(NBNode* n) {
+NBNodeTypeComputer::isRailwayNode(const NBNode* n) {
     int numRailway = 0;
     int numNonRailway = 0;
     for (NBEdge* e : n->getIncomingEdges()) {
