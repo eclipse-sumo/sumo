@@ -26,7 +26,8 @@ _RETURN_VALUE_FUNC = {tc.TRACI_ID_LIST: Storage.readStringList,
                       tc.VAR_COLOR: lambda result: result.read("!BBBB"),
                       tc.VAR_WIDTH: Storage.readDouble,
                       tc.VAR_HEIGHT: Storage.readDouble,
-                      tc.VAR_ANGLE: Storage.readDouble}
+                      tc.VAR_ANGLE: Storage.readDouble,
+                      tc.VAR_IMAGFILE: Storage.readString}
 
 
 class PoiDomain(Domain):
@@ -78,7 +79,14 @@ class PoiDomain(Domain):
         Returns the angle of the given poi.
         """
         return self._getUniversal(tc.VAR_ANGLE, poiID)
-        
+    
+    def getImageFile(self, poiID):
+        """getImageFile(string) -> string
+
+        Returns the image file of the given poi.
+        """
+        return self._getUniversal(tc.VAR_IMAGFILE, poiID)    
+    
     def setType(self, poiID, poiType):
         """setType(string, string) -> None
 
@@ -140,17 +148,27 @@ class PoiDomain(Domain):
             tc.CMD_SET_POI_VARIABLE, tc.VAR_ANGLE, poiID, 1 + 8)
         self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, angle)
         self._connection._sendExact()
-        
-    def add(self, poiID, x, y, color, width=1, height=1, angle=0, poiType="", imgFile="", layer=0):
+    
+    def setImageFile(self, poiID, imageFile):
+        """setImageFile(string, string) -> None
+
+        Sets the image file of the poi.
+        """
+        self._connection._beginMessage(
+            tc.CMD_SET_POI_VARIABLE, tc.VAR_IMAGFILE, poiID, 1 + 4 + len(imageFile))
+        self._connection._packString(imageFile)
+        self._connection._sendExact()
+    
+    def add(self, poiID, x, y, color, poiType="", layer=0, imgFile="", width=1, height=1, angle=0):
         self._connection._beginMessage(tc.CMD_SET_POI_VARIABLE, tc.ADD, poiID, 1 +
-                                       4 + 1 + 4 + len(poiType) + 1 + 4 + len(imgFile) + 1 + 1 + 1 + 1 + 1 + 1 + 4 + 1 + 8 + 8 + 1 + 8 + 1 + 8 + 1 + 8)
-        self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 4)
+                                       4 + 1 + 4 + len(poiType) + 1 + 1 + 1 + 1 + 1 + 1 + 4 + 1 + 8 + 8 + 1 + 4 + len(imgFile) + 1 + 8 + 1 + 8 + 1 + 8)
+        self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 8)
         self._connection._packString(poiType)
-        self._connection._packString(imgFile)
         self._connection._string += struct.pack("!BBBBB", tc.TYPE_COLOR, int(color[0]), int(color[1]), int(color[2]),
                                                 int(color[3]) if len(color) > 3 else 255)
         self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, layer)
         self._connection._string += struct.pack("!Bdd", tc.POSITION_2D, x, y)
+        self._connection._packString(imgFile)
         self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, width)
         self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, height)
         self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, angle)
