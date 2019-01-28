@@ -27,5 +27,8 @@ two_passing_loops
 # as above but with intermediate nodes on the tracks
 two_passing_loops2
 
+# frontal train collision
+collision
+
 # railway-specific bugs
 bugs
