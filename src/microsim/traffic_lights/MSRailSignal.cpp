@@ -51,6 +51,7 @@
 
 //#define DEBUG_SIGNALSTATE
 //#define DEBUG_SIGNALSTATE_PRIORITY
+#define DEBUG_COND (isSelected())
 //#define DEBUG_COND (getID() == "disabled")
 //#define DEBUG_COND (true)
 

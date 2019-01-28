@@ -336,6 +336,8 @@ public:
     /// @brief creates a wrapper for the given logic
     void createTLWrapper(MSTrafficLightLogic* tll);
 
+    /// @brief return wheter the given logic (or rather it's wrapper) is selected in the GUI
+    bool isSelected(const MSTrafficLightLogic* tll) const;
 
 private:
     /// @brief Initialises the tl-logic map and wrappers

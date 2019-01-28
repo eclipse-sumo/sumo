@@ -359,5 +359,11 @@ MSTrafficLightLogic::ignoreLinkIndex(int pos) {
     myIgnoredIndices.insert(pos);
 }
 
+
+bool 
+MSTrafficLightLogic::isSelected() const {
+    MSNet::getInstance()->isSelected(this);
+}
+
 /****************************************************************************/
 

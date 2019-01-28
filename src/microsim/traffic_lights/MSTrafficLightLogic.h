@@ -338,6 +338,8 @@ public:
 
     /// @}
 
+    /// @brief whether this logic is selected in the GUI
+    bool isSelected() const;
 
 protected:
     /**

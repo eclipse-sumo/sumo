@@ -487,6 +487,11 @@ public:
     /// @brief creates a wrapper for the given logic (see GUINet)
     virtual void createTLWrapper(MSTrafficLightLogic*) {};
 
+    /// @brief return wheter the given logic (or rather it's wrapper) is selected in the GUI
+    virtual bool isSelected(const MSTrafficLightLogic*) const {
+        return false;
+    }
+
     /// @name Notification about vehicle state changes
     /// @{
 
