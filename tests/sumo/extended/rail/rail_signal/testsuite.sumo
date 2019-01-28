@@ -44,3 +44,6 @@ circle_bidi
 
 # track layout with a circle in the incoming block
 circle_backward
+
+# track layout with a circle and a single railSignal
+circle_1signal

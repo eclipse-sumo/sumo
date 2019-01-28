@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jan 28 08:43:55 2019 by Eclipse SUMO Version v1_0_1+0645-93703db
+<!-- generated on Mon Jan 28 10:36:44 2019 by Eclipse SUMO Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -74,15 +74,15 @@ SPDX-License-Identifier: EPL-2.0
         <link linkIndex="0" from="T14_1_0" to=":w3_0_0">
             <forwardBlock lanes=":w3_0_0 T13_1_0 :B.A_0_0 T12_1_0 :A.F_0_0 T11_1_0"/>
             <bidiBlock lanes=":w3_3_0 T13_0_0 :B.A_1_0 T12_0_0 :A.F_1_0 T11_0_0 :w2_1_0"/>
-            <backwardBlock lanes="T13_1_0"/>
-            <conflictLanes lanes=":w3_0_0 T13_1_0 :B.A_0_0 T12_1_0 :A.F_0_0 T11_1_0 :w3_3_0 T13_0_0 :B.A_1_0 T12_0_0 :A.F_1_0 T11_0_0 :w2_1_0 T13_1_0"/>
+            <backwardBlock lanes=":w3_1_0"/>
+            <conflictLanes lanes=":w3_0_0 T13_1_0 :B.A_0_0 T12_1_0 :A.F_0_0 T11_1_0 :w3_3_0 T13_0_0 :B.A_1_0 T12_0_0 :A.F_1_0 T11_0_0 :w2_1_0 :w3_1_0"/>
             <conflictLinks logicIndex="w3_1 w2_1"/>
         </link>
         <link linkIndex="1" from="T4_1_0" to=":w3_1_0">
             <forwardBlock lanes=":w3_1_0 T13_1_0 :B.A_0_0 T12_1_0 :A.F_0_0 T11_1_0"/>
             <bidiBlock lanes=":w3_2_0 T13_0_0 :B.A_1_0 T12_0_0 :A.F_1_0 T11_0_0 :w2_1_0"/>
-            <backwardBlock lanes="T13_1_0"/>
-            <conflictLanes lanes=":w3_1_0 T13_1_0 :B.A_0_0 T12_1_0 :A.F_0_0 T11_1_0 :w3_2_0 T13_0_0 :B.A_1_0 T12_0_0 :A.F_1_0 T11_0_0 :w2_1_0 T13_1_0"/>
+            <backwardBlock lanes=":w3_0_0"/>
+            <conflictLanes lanes=":w3_1_0 T13_1_0 :B.A_0_0 T12_1_0 :A.F_0_0 T11_1_0 :w3_2_0 T13_0_0 :B.A_1_0 T12_0_0 :A.F_1_0 T11_0_0 :w2_1_0 :w3_0_0"/>
             <conflictLinks logicIndex="w3_0 w2_1"/>
         </link>
         <link linkIndex="2" from="T13_0_0" to=":w3_2_0">
@@ -118,15 +118,15 @@ SPDX-License-Identifier: EPL-2.0
         <link linkIndex="2" from="T6_0_0" to=":w4_2_0">
             <forwardBlock lanes=":w4_2_0 T17_0_0 :B.F_1_0 T18_0_0"/>
             <bidiBlock lanes=":w4_1_0 T17_1_0 :B.F_0_0 T18_1_0"/>
-            <backwardBlock lanes="T17_0_0"/>
-            <conflictLanes lanes=":w4_2_0 T17_0_0 :B.F_1_0 T18_0_0 :w4_1_0 T17_1_0 :B.F_0_0 T18_1_0 T17_0_0"/>
+            <backwardBlock lanes=":w4_3_0"/>
+            <conflictLanes lanes=":w4_2_0 T17_0_0 :B.F_1_0 T18_0_0 :w4_1_0 T17_1_0 :B.F_0_0 T18_1_0 :w4_3_0"/>
             <conflictLinks logicIndex="w4_3"/>
         </link>
         <link linkIndex="3" from="T16_0_0" to=":w4_3_0">
             <forwardBlock lanes=":w4_3_0 T17_0_0 :B.F_1_0 T18_0_0"/>
             <bidiBlock lanes=":w4_0_0 T17_1_0 :B.F_0_0 T18_1_0"/>
-            <backwardBlock lanes="T17_0_0"/>
-            <conflictLanes lanes=":w4_3_0 T17_0_0 :B.F_1_0 T18_0_0 :w4_0_0 T17_1_0 :B.F_0_0 T18_1_0 T17_0_0"/>
+            <backwardBlock lanes=":w4_2_0"/>
+            <conflictLanes lanes=":w4_3_0 T17_0_0 :B.F_1_0 T18_0_0 :w4_0_0 T17_1_0 :B.F_0_0 T18_1_0 :w4_2_0"/>
             <conflictLinks logicIndex="w4_2"/>
         </link>
     </railSignal>

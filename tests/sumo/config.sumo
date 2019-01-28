@@ -119,6 +119,7 @@ emissions:<!--{[->]}-->
 battery:<!--{[->]}-->
 chargingstations:<!--{[->]}-->
 links:<!--{[->]}-->
+railsignalblocks:<!--{[->]}-->
 vtk:<!--{[->]}-->
 vehroutes_ignore_arrival:<!--{[->]}-->
 vehroutes_ignore_arrival:arrival="[^"]*"{REPLACE arrival="<ignored>"}
