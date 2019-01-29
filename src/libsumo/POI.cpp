@@ -77,6 +77,30 @@ POI::getPosition(const std::string& poiID, const bool includeZ) {
 }
 
 
+double
+POI::getWidth(const std::string& poiID) {
+	return getPoI(poiID)->getWidth();
+}
+
+
+double
+POI::getHeight(const std::string& poiID) {
+	return getPoI(poiID)->getHeight();
+}
+
+
+double
+POI::getAngle(const std::string& poiID) {
+	return getPoI(poiID)->getShapeNaviDegree();
+}
+
+
+std::string 
+POI::getImageFile(const std::string& poiID) {
+    return getPoI(poiID)->getShapeImgFile();
+}
+
+
 std::string
 POI::getParameter(const std::string& poiID, const std::string& key) {
     return getPoI(poiID)->getParameter(key, "");
@@ -103,15 +127,39 @@ POI::setColor(const std::string& poiID, const TraCIColor& c) {
 }
 
 
+void
+POI::setWidth(const std::string& poiID, double width) {
+	getPoI(poiID)->setWidth(width);
+}
+
+
+void
+POI::setHeight(const std::string& poiID, double height) {
+	getPoI(poiID)->setHeight(height);
+}
+
+
+void
+POI::setAngle(const std::string& poiID, double angle) {
+	getPoI(poiID)->setShapeNaviDegree(angle);
+}
+
+
+void 
+POI::setImageFile(const std::string& poiID, const std::string& imageFile) {
+    getPoI(poiID)->setShapeImgFile(imageFile);
+}
+
+
 bool
-POI::add(const std::string& poiID, double x, double y, const TraCIColor& color, const std::string& poiType, int layer) {
+POI::add(const std::string& poiID, double x, double y, const TraCIColor& color, const std::string& poiType, int layer, const std::string& imgFile, double width, double height, double angle) {
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
     return shapeCont.addPOI(poiID, poiType, Helper::makeRGBColor(color), Position(x, y), false, "", 0, 0, (double)layer,
-                            Shape::DEFAULT_ANGLE,
-                            Shape::DEFAULT_IMG_FILE,
+                            angle,
+                            imgFile,
                             Shape::DEFAULT_RELATIVEPATH,
-                            Shape::DEFAULT_IMG_WIDTH,
-                            Shape::DEFAULT_IMG_HEIGHT);
+                            width,
+                            height);
 }
 
 
@@ -182,6 +230,14 @@ POI::handleVariable(const std::string& objID, const int variable, VariableWrappe
             return wrapper->wrapPosition(objID, variable, getPosition(objID));
         case VAR_POSITION3D:
             return wrapper->wrapPosition(objID, variable, getPosition(objID, true));
+		case VAR_WIDTH:
+			return wrapper->wrapDouble(objID, variable, getWidth(objID));
+		case VAR_HEIGHT:
+			return wrapper->wrapDouble(objID, variable, getHeight(objID));
+		case VAR_ANGLE:
+			return wrapper->wrapDouble(objID, variable, getAngle(objID));
+        case VAR_IMAGFILE:
+            return wrapper->wrapString(objID, variable, getImageFile(objID));
         default:
             return false;
     }
