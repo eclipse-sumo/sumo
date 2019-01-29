@@ -2989,7 +2989,19 @@ GNEAttributeCarrier::fillDemandElements() {
                 "The deceleration ability of vehicles of this type [m/s^2]");
                 attrProperty.setDefaultValue("4.50");
         myTagProperties[currentTag].addAttribute(attrProperty);
-        
+/*
+        attrProperty = AttributeProperties(SUMO_ATTR_APPARENTDECEL,
+                ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+                "The apparent deceleration of the vehicle as used by the standard model [m/s^2]");
+                attrProperty.setDefaultValue("4.50");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_EMERGENCYDECEL,
+                ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+                "The maximal physically possible deceleration for the vehicle [m/s^2]");
+                attrProperty.setDefaultValue("4.50");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+*/
         attrProperty = AttributeProperties(SUMO_ATTR_SIGMA,
                 ATTRPROPERTY_FLOAT | ATTRPROPERTY_RANGE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
                 "Car-following model parameter");
@@ -3018,7 +3030,7 @@ GNEAttributeCarrier::fillDemandElements() {
         attrProperty = AttributeProperties(SUMO_ATTR_MAXSPEED,
                 ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
                 "The vehicle's maximum velocity [m/s]");
-                attrProperty.setDefaultValue("70.00");
+                attrProperty.setDefaultValue("55.00");
         myTagProperties[currentTag].addAttribute(attrProperty);
         
         attrProperty = AttributeProperties(SUMO_ATTR_SPEEDFACTOR,
@@ -3062,7 +3074,7 @@ GNEAttributeCarrier::fillDemandElements() {
         attrProperty = AttributeProperties(SUMO_ATTR_WIDTH,
                 ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
                 "The vehicle's width [m] (only used for drawing)");
-                attrProperty.setDefaultValue("2.00");
+                attrProperty.setDefaultValue("1.8");
         myTagProperties[currentTag].addAttribute(attrProperty);
         
         attrProperty = AttributeProperties(SUMO_ATTR_IMGFILE,
@@ -3132,6 +3144,13 @@ GNEAttributeCarrier::fillDemandElements() {
                 "The maximum lateral speed when using the sublane-model");
                 attrProperty.setDefaultValue("1.00");
         myTagProperties[currentTag].addAttribute(attrProperty);
+/*
+        attrProperty = AttributeProperties(SUMO_ATTR_ACTIONSTEPLENGTH,
+                ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+                "The interval length for which vehicle performs its decision logic (acceleration and lane-changing)");
+                attrProperty.setDefaultValue(toString(OptionsCont::getOptions().getFloat("default.action-step-length") 0));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+*/
     }
     currentTag = SUMO_TAG_VEHICLE;
     {
@@ -3139,7 +3158,7 @@ GNEAttributeCarrier::fillDemandElements() {
         myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_DEMANDELEMENT, ICON_VEHICLE);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_ID,
-                ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE,
+                ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
                 "The name of the vehicle");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -3155,14 +3174,15 @@ GNEAttributeCarrier::fillDemandElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_COLOR,
-                ATTRPROPERTY_STRING | ATTRPROPERTY_COLOR | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+                ATTRPROPERTY_STRING | ATTRPROPERTY_COLOR | ATTRPROPERTY_DEFAULTVALUE,
                 "This vehicle's color");
                 attrProperty.setDefaultValue("yellow");
         myTagProperties[currentTag].addAttribute(attrProperty);
         
         attrProperty = AttributeProperties(SUMO_ATTR_DEPART,
-                ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE,
+                ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE,
                 "The time step at which the vehicle shall enter the network");
+                attrProperty.setDefaultValue("0");
         myTagProperties[currentTag].addAttribute(attrProperty);
         
         attrProperty = AttributeProperties(SUMO_ATTR_DEPARTLANE,
@@ -3172,31 +3192,31 @@ GNEAttributeCarrier::fillDemandElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
         
         attrProperty = AttributeProperties(SUMO_ATTR_DEPARTPOS,
-                ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+                ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL /* ATTRPROPERTY_MULTIDISCRETE (Currently disabled) */,
                 "The position at which the vehicle shall enter the net");
                 attrProperty.setDefaultValue("base");
         myTagProperties[currentTag].addAttribute(attrProperty);
         
         attrProperty = AttributeProperties(SUMO_ATTR_DEPARTSPEED,
-                ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+                ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL /* ATTRPROPERTY_MULTIDISCRETE (Currently disabled) */,
                 "The speed with which the vehicle shall enter the network");
                 attrProperty.setDefaultValue("0");
         myTagProperties[currentTag].addAttribute(attrProperty);
         
         attrProperty = AttributeProperties(SUMO_ATTR_ARRIVALLANE,
-                ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+                ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL /* ATTRPROPERTY_MULTIDISCRETE (Currently disabled) */,
                 "The lane at which the vehicle shall leave the network");
                 attrProperty.setDefaultValue("current");
         myTagProperties[currentTag].addAttribute(attrProperty);
         
         attrProperty = AttributeProperties(SUMO_ATTR_ARRIVALPOS,
-                ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+                ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL /* ATTRPROPERTY_MULTIDISCRETE (Currently disabled) */,
                 "The position at which the vehicle shall leave the network");
                 attrProperty.setDefaultValue("max");
         myTagProperties[currentTag].addAttribute(attrProperty);
         
         attrProperty = AttributeProperties(SUMO_ATTR_ARRIVALSPEED,
-                ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+                ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL /* ATTRPROPERTY_MULTIDISCRETE (Currently disabled) */,
                 "The speed with which the vehicle shall leave the network");
                 attrProperty.setDefaultValue("current");
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -3230,17 +3250,17 @@ GNEAttributeCarrier::fillDemandElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
         
         attrProperty = AttributeProperties(SUMO_ATTR_DEPARTPOS_LAT,
-                ATTRPROPERTY_STRING | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+                ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL /* ATTRPROPERTY_MULTIDISCRETE (Currently disabled) */,
                 "The lateral position on the departure lane at which the vehicle shall enter the net");
                 attrProperty.setDefaultValue("center");
-                attrProperty.setDiscreteValues(SUMOXMLDefinitions::LateralAlignments.getStrings());
+                /*attrProperty.setDiscreteValues(SUMOXMLDefinitions::LateralAlignments.getStrings());*/
         myTagProperties[currentTag].addAttribute(attrProperty);
         
         attrProperty = AttributeProperties(SUMO_ATTR_ARRIVALPOS_LAT,
-                ATTRPROPERTY_STRING | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+                ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL /* ATTRPROPERTY_MULTIDISCRETE (Currently disabled) */,
                 "The lateral position on the arrival lane at which the vehicle shall arrive");
                 attrProperty.setDefaultValue("center");
-                attrProperty.setDiscreteValues(SUMOXMLDefinitions::LateralAlignments.getStrings());
+                /*attrProperty.setDiscreteValues(SUMOXMLDefinitions::LateralAlignments.getStrings());*/
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = SUMO_TAG_FLOW;
@@ -3330,17 +3350,17 @@ GNEAttributeCarrier::fillDemandElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
         
         attrProperty = AttributeProperties(SUMO_ATTR_DEPARTPOS_LAT,
-                ATTRPROPERTY_STRING | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+                ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL /* ATTRPROPERTY_MULTIDISCRETE (Currently disabled) */,
                 "The lateral position on the departure lane at which the vehicle shall enter the net");
                 attrProperty.setDefaultValue("center");
-                attrProperty.setDiscreteValues(SUMOXMLDefinitions::LateralAlignments.getStrings());
+                /*attrProperty.setDiscreteValues(SUMOXMLDefinitions::LateralAlignments.getStrings());*/
         myTagProperties[currentTag].addAttribute(attrProperty);
         
         attrProperty = AttributeProperties(SUMO_ATTR_ARRIVALPOS_LAT,
-                ATTRPROPERTY_STRING | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+                ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL /* ATTRPROPERTY_MULTIDISCRETE (Currently disabled) */,
                 "The lateral position on the arrival lane at which the vehicle shall arrive");
                 attrProperty.setDefaultValue("center");
-                attrProperty.setDiscreteValues(SUMOXMLDefinitions::LateralAlignments.getStrings());
+                /*attrProperty.setDiscreteValues(SUMOXMLDefinitions::LateralAlignments.getStrings());*/
         myTagProperties[currentTag].addAttribute(attrProperty);
         
         attrProperty = AttributeProperties(SUMO_ATTR_BEGIN,
@@ -3358,21 +3378,25 @@ GNEAttributeCarrier::fillDemandElements() {
         attrProperty = AttributeProperties(SUMO_ATTR_VEHSPERHOUR,
                 ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
                 "Number of vehicles per hour, equally spaced (not together with period or probability)");
+                attrProperty.setDefaultValue("0");
         myTagProperties[currentTag].addAttribute(attrProperty);
         
         attrProperty = AttributeProperties(SUMO_ATTR_PERIOD,
                 ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
                 "Insert equally spaced vehicles at that period (not together with vehsPerHour or probability)");
+                attrProperty.setDefaultValue("0");
         myTagProperties[currentTag].addAttribute(attrProperty);
         
         attrProperty = AttributeProperties(SUMO_ATTR_PROB,
                 ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
                 "probability for emitting a vehicle each second (not together with vehsPerHour or period)");
+                attrProperty.setDefaultValue("0");
         myTagProperties[currentTag].addAttribute(attrProperty);
         
         attrProperty = AttributeProperties(SUMO_ATTR_NUMBER,
                 ATTRPROPERTY_INT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
                 "probability for emitting a vehicle each second (not together with vehsPerHour or period)");
+                attrProperty.setDefaultValue("0");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = SUMO_TAG_TRIP;
@@ -3382,21 +3406,22 @@ GNEAttributeCarrier::fillDemandElements() {
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_ID,
                 ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE,
-                "The name of vehicles that will be generated using this trip definition (a running number if not given)");
+                "The name of vehicles that will be generated using this trip definition");
         myTagProperties[currentTag].addAttribute(attrProperty);
         
         attrProperty = AttributeProperties(SUMO_ATTR_DEPART,
-                ATTRPROPERTY_INT | ATTRPROPERTY_POSITIVE,
+                ATTRPROPERTY_INT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE,
                 "The departure time of the (first) vehicle which is generated using this trip definition");
+                attrProperty.setDefaultValue("0");
         myTagProperties[currentTag].addAttribute(attrProperty);
         
         attrProperty = AttributeProperties(SUMO_ATTR_FROM,
-                ATTRPROPERTY_STRING,
+                ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
                 "The name of the edge the route starts at; the edge must be a part of the used network");
         myTagProperties[currentTag].addAttribute(attrProperty);
         
         attrProperty = AttributeProperties(SUMO_ATTR_TO,
-                ATTRPROPERTY_STRING,
+                ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
                 "The name of the edge the route ends at; the edge must be a part of the used network");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -3418,37 +3443,43 @@ GNEAttributeCarrier::fillDemandElements() {
         attrProperty = AttributeProperties(SUMO_ATTR_COLOR,
                 ATTRPROPERTY_COLOR | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_DEFAULTVALUE,
                 "This generated vehicle's color");
-                attrProperty.setDefaultValue("black");
+                attrProperty.setDefaultValue("yellow");
         myTagProperties[currentTag].addAttribute(attrProperty);
         
         attrProperty = AttributeProperties(SUMO_ATTR_DEPARTLANE,
-                ATTRPROPERTY_STRING,
+                ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
                 "The lane on which the vehicle shall be inserted");
+                attrProperty.setDefaultValue("first");
         myTagProperties[currentTag].addAttribute(attrProperty);
         
         attrProperty = AttributeProperties(SUMO_ATTR_DEPARTPOS,
-                ATTRPROPERTY_STRING,
+                ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
                 "The position at which the vehicle shall enter the net");
+                attrProperty.setDefaultValue("base");
         myTagProperties[currentTag].addAttribute(attrProperty);
         
         attrProperty = AttributeProperties(SUMO_ATTR_DEPARTSPEED,
-                ATTRPROPERTY_STRING,
+                ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
                 "The speed with which the vehicle shall enter the network");
+                attrProperty.setDefaultValue("0");
         myTagProperties[currentTag].addAttribute(attrProperty);
         
         attrProperty = AttributeProperties(SUMO_ATTR_ARRIVALLANE,
-                ATTRPROPERTY_STRING,
+                ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
                 "The lane at which the vehicle shall leave the network");
+                attrProperty.setDefaultValue("current");
         myTagProperties[currentTag].addAttribute(attrProperty);
         
         attrProperty = AttributeProperties(SUMO_ATTR_ARRIVALPOS,
-                ATTRPROPERTY_STRING,
+                ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
                 "The position at which the vehicle shall leave the network");
+                attrProperty.setDefaultValue("max");
         myTagProperties[currentTag].addAttribute(attrProperty);
         
         attrProperty = AttributeProperties(SUMO_ATTR_ARRIVALSPEED,
-                ATTRPROPERTY_STRING,
+                ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
                 "The speed with which the vehicle shall leave the network");
+                attrProperty.setDefaultValue("current");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
 }
