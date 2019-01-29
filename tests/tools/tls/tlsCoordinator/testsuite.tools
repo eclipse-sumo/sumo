@@ -1,6 +1,9 @@
 # two tls with a long edge in between
 2tls
 
+# two tls with a split long edge in between
+2tls_intermediate_node
+
 # coordinate plans loaded from an additional file
 2tls_add
 basic
