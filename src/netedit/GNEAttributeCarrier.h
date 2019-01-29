@@ -91,13 +91,31 @@ public:
         AttributeProperties();
 
         /// @brief parameter constructor
-        AttributeProperties(int attributeProperty, int positionListed, const std::string& definition, const std::string& defaultValue, const std::vector<std::string>& discreteValues, SumoXMLAttr synonym, double minimum = 0, double maximum = 0);
+        AttributeProperties(SumoXMLAttr attribute, int attributeProperty, const std::string& definition);
 
         /// @brief destructor
         ~AttributeProperties();
 
         /// @brief check Attribute integrity (For example, throw an exception if tag has a Float default value, but given default value cannot be parse to float)
         void checkAttributeIntegrity();
+
+        /// @brief set default value
+        void setDefaultValue(const std::string& defaultValue);
+            
+        /// @brief set discrete values
+        void setDiscreteValues(const std::vector<std::string>& discreteValues);
+            
+        /// @brief set synonim
+        void setSynonym(SumoXMLAttr synonym);
+
+        /// @brief set range
+        void setRange(double minimum, double maximum);
+
+        /// @brief set position listed
+        void setPositionListed(int positionListed);
+
+        /// @brief get XML Attribute
+        SumoXMLAttr getAttribute() const;
 
         /// @brief get position in list (used in frames for listing attributes with certain sort)
         int getPositionListed() const;
@@ -199,6 +217,9 @@ public:
         bool isExtended() const;
 
     private:
+        /// @brief XML Attribute 
+        SumoXMLAttr myAttribute;
+
         /// @brief Property of attribute
         int myAttributeProperty;
 
@@ -265,7 +286,7 @@ public:
         TagProperties();
 
         /// @brief parameter constructor
-        TagProperties(SumoXMLTag tag, int tagProperty, int& positionListed, GUIIcon icon, SumoXMLTag parentTag = SUMO_TAG_NOTHING, SumoXMLTag tagSynonym = SUMO_TAG_NOTHING);
+        TagProperties(SumoXMLTag tag, int tagProperty, GUIIcon icon, SumoXMLTag parentTag = SUMO_TAG_NOTHING, SumoXMLTag tagSynonym = SUMO_TAG_NOTHING);
 
         /// @brief destructor
         ~TagProperties();
@@ -280,13 +301,7 @@ public:
         void checkTagIntegrity() const;
 
         /// @brief add attribute (duplicated attributed aren't allowed)
-        void addAttribute(SumoXMLAttr attr, const int attributeProperty, const std::string& definition, const std::string& defaultValue, std::vector<std::string> discreteValues = std::vector<std::string>(), SumoXMLAttr synonym = SUMO_ATTR_NOTHING);
-
-        /// @brief add attribute with synonym (duplicated attributed aren't allowed)
-        void addAttribute(SumoXMLAttr attr, const int attributeProperty, const std::string& definition, const std::string& defaultValue, SumoXMLAttr synonym);
-
-        /// @brief add attribute with a range
-        void addAttribute(SumoXMLAttr attr, const int attributeProperty, const std::string& definition, const std::string& defaultValue, double minimum, double maximum);
+        void addAttribute(const AttributeProperties &attributeProperty);
 
         /// @brief add deprecated Attribute
         void addDeprecatedAttribute(SumoXMLAttr attr);
@@ -308,9 +323,6 @@ public:
 
         /// @brief get GUI icon associated to this Tag
         GUIIcon getGUIIcon() const;
-
-        /// @brief get position in list (used in frames for listing tags with certain sort)
-        int getPositionListed() const;
 
         /// @brief if Tag owns a parent, return parent tag
         SumoXMLTag getParentTag() const;
@@ -429,9 +441,6 @@ public:
 
         /// @brief icon associated to this Tag
         GUIIcon myIcon;
-
-        /// @brief listed position
-        int myPositionListed;
 
         /// @brief parent tag
         SumoXMLTag myParentTag;

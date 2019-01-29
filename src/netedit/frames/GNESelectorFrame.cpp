@@ -720,26 +720,35 @@ GNESelectorFrame::MatchAttribute::onCmdSelMBAttribute(FXObject*, FXSelector, voi
     // obtain tag property (only for improve code legibility)
     const auto& tagValue = GNEAttributeCarrier::getTagProperties(myCurrentTag);
     // add an extra AttributeValues to allow select ACs using as criterium "generic parameters"
-    tagPropertiesCopy.addAttribute(GNE_ATTR_GENERIC, GNEAttributeCarrier::AttrProperty::ATTRPROPERTY_STRING, "", "");
+    GNEAttributeCarrier::AttributeProperties extraAttrProperty;
+    extraAttrProperty = GNEAttributeCarrier::AttributeProperties(GNE_ATTR_GENERIC, GNEAttributeCarrier::AttrProperty::ATTRPROPERTY_STRING, "");
+    tagPropertiesCopy.addAttribute(extraAttrProperty);
     // add extra attribute if item can block movement
     if (tagValue.canBlockMovement()) {
         // add an extra AttributeValues to allow select ACs using as criterium "block movement"
-        tagPropertiesCopy.addAttribute(GNE_ATTR_BLOCK_MOVEMENT, GNEAttributeCarrier::AttrProperty::ATTRPROPERTY_BOOL, "", "false");
+        extraAttrProperty = GNEAttributeCarrier::AttributeProperties(GNE_ATTR_BLOCK_MOVEMENT, GNEAttributeCarrier::AttrProperty::ATTRPROPERTY_BOOL, "");
+        extraAttrProperty.setDefaultValue("false");
+        tagPropertiesCopy.addAttribute(extraAttrProperty);
     }
     // add extra attribute if item can block shape
     if (tagValue.canBlockShape()) {
         // add an extra AttributeValues to allow select ACs using as criterium "block shape"
-        tagPropertiesCopy.addAttribute(GNE_ATTR_BLOCK_SHAPE, GNEAttributeCarrier::AttrProperty::ATTRPROPERTY_BOOL, "", "false");
+        extraAttrProperty = GNEAttributeCarrier::AttributeProperties(GNE_ATTR_BLOCK_SHAPE, GNEAttributeCarrier::AttrProperty::ATTRPROPERTY_BOOL, "");
+        extraAttrProperty.setDefaultValue("false");
+        tagPropertiesCopy.addAttribute(extraAttrProperty);
     }
     // add extra attribute if item can close shape
     if (tagValue.canCloseShape()) {
         // add an extra AttributeValues to allow select ACs using as criterium "close shape"
-        tagPropertiesCopy.addAttribute(GNE_ATTR_CLOSE_SHAPE, GNEAttributeCarrier::AttrProperty::ATTRPROPERTY_BOOL, "", "true");
+        extraAttrProperty = GNEAttributeCarrier::AttributeProperties(GNE_ATTR_CLOSE_SHAPE, GNEAttributeCarrier::AttrProperty::ATTRPROPERTY_BOOL, "");
+        extraAttrProperty.setDefaultValue("true");
+        tagPropertiesCopy.addAttribute(extraAttrProperty);
     }
     // add extra attribute if item can have parent
     if (tagValue.hasParent()) {
         // add an extra AttributeValues to allow select ACs using as criterium "parent"
-        tagPropertiesCopy.addAttribute(GNE_ATTR_PARENT, GNEAttributeCarrier::AttrProperty::ATTRPROPERTY_STRING, "", "");
+        extraAttrProperty = GNEAttributeCarrier::AttributeProperties(GNE_ATTR_PARENT, GNEAttributeCarrier::AttrProperty::ATTRPROPERTY_STRING, "");
+        tagPropertiesCopy.addAttribute(extraAttrProperty);
     }
     // set current selected attribute
     myCurrentAttribute = SUMO_ATTR_NOTHING;
