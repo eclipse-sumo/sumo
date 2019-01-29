@@ -121,6 +121,7 @@ GUIInductLoop::MyWrapper::getParameterWindow(GUIMainWindow& app,
     // parameter
     ret->mkItem("position [m]", false, myPosition);
     ret->mkItem("lane", false, myDetector.getLane()->getID());
+    ret->mkItem("vehicle type-specific", false, myDetector.isTyped());
     // values
     ret->mkItem("passed vehicles [#]", true,
                 new FunctionBinding<GUIInductLoop, int>(&myDetector, &GUIInductLoop::getCurrentPassedNumber));

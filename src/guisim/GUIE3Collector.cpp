@@ -77,6 +77,8 @@ GUIE3Collector::MyWrapper::getParameterWindow(GUIMainWindow& app,
     GUIParameterTableWindow* ret =
         new GUIParameterTableWindow(app, *this, 3);
     // add items
+    // parameters
+    ret->mkItem("vehicle type-specific", false, myDetector.isTyped());
     // values
     ret->mkItem("vehicles within [#]", true,
                 new FunctionBinding<MSE3Collector, int>(&myDetector, &MSE3Collector::getVehiclesWithin));
