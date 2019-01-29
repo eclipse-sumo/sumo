@@ -151,6 +151,10 @@ public:
         mySkipRouting = currentTime;
     }
 
+    SUMOTime getPeriod() const {
+        return myPeriod;
+    }
+
     /// @brief try to retrieve the given parameter from this device. Throw exception for unsupported key
     std::string getParameter(const std::string& key) const;
 

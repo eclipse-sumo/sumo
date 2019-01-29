@@ -80,6 +80,7 @@ MSRailSignal::init(NLDetectorBuilder&) {
 
     myConflictLanes.resize(myLinks.size());
     myConflictLinks.resize(myLinks.size());
+    myLastRerouteAttempt.resize(myLinks.size(), std::make_pair(nullptr, -1));
 
     if (OptionsCont::getOptions().isSet("railsignal-block-output")) {
         OutputDevice& od = OutputDevice::getDeviceByOption("railsignal-block-output");
@@ -348,16 +349,24 @@ MSRailSignal::hasLinkConflict(int index) const {
                             << " closestVeh=" << closest->getID() << " route edge " << e->getID()  << " blocked\n";
 #endif
                         // trigger rerouting
-                        const bool hasReroutingDevice = closest->getDevice(typeid(MSDevice_Routing)) != nullptr;
-                        if (hasReroutingDevice) {
-                            SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = MSRoutingEngine::getRouterTT(routeFoes);
-                            try {
-                                closest->reroute(MSNet::getInstance()->getCurrentTimeStep(), "railSignal", router, false, false, true);
-                            } catch (ProcessError& error) {
+                        MSDevice_Routing* rDev = static_cast<MSDevice_Routing*>(closest->getDevice(typeid(MSDevice_Routing)));
+                        if (rDev != nullptr) {
+                            SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
+                            if (myLastRerouteAttempt[index].first != closest 
+                                    // reroute each vehicle only once if no
+                                    // periodic routing is allowed, otherwise
+                                    // with the specified period
+                                    || (rDev->getPeriod() > 0 &&  myLastRerouteAttempt[index].second + rDev->getPeriod() <= now)) {
+                                SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = MSRoutingEngine::getRouterTT(routeFoes);
+                                myLastRerouteAttempt[index] = std::make_pair(closest, now);
+                                try {
+                                    closest->reroute(now, "railSignal", router, false, false, true); // silent
+                                } catch (ProcessError& error) {
 #ifdef DEBUG_SIGNALSTATE_PRIORITY
-                                if (DEBUG_COND) std::cout << " rerouting failed: " << error.what() << "\n";
+                                    if (DEBUG_COND) std::cout << " rerouting failed: " << error.what() << "\n";
 #endif
-                            } 
+                                } 
+                            }
                         }
                         return true;
                     }

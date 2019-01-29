@@ -209,6 +209,9 @@ protected:
     /// The conflict links for each link index
     std::vector<std::vector<MSLink*> > myConflictLinks;
 
+    /// Storage for rerouting times to avoid superfluous calls
+    mutable std::vector<std::pair<SUMOVehicle*, SUMOTime> > myLastRerouteAttempt;
+
     typedef std::set<MSLane*, ComparatorNumericalIdLess> LaneSet;
 
     /// @brief collect conflict lanes in step 1
