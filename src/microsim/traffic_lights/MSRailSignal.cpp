@@ -50,7 +50,7 @@
 //#define DEBUG_BACKWARD_BLOCK
 
 //#define DEBUG_SIGNALSTATE
-//#define DEBUG_SIGNALSTATE_PRIORITY
+#define DEBUG_SIGNALSTATE_PRIORITY
 #define DEBUG_COND (isSelected())
 //#define DEBUG_COND (getID() == "disabled")
 //#define DEBUG_COND (true)
@@ -246,11 +246,15 @@ MSRailSignal::conflictLaneOccupied(int index) const {
 
 bool 
 MSRailSignal::hasLinkConflict(int index) const {
+#ifdef DEBUG_SIGNALSTATE_PRIORITY
+    //if (DEBUG_COND) std::cout << SIMTIME << " railSignal=" << getID() << " index=" << index << " hasLinkConflict...\n";
+#endif
     MSLink* currentLink = myLinks[index][0];
     double foeMaxSpeed = -1;
     double foeMinDist = std::numeric_limits<double>::max();
     SUMOTime foeMinETA = std::numeric_limits<SUMOTime>::max();
     long long foeMinNumericalID = std::numeric_limits<long long>::max(); // tie braker
+    std::vector<const MSEdge*> routeFoes; // foe vehicles that 
     for (const MSLink* link : myConflictLinks[index]) {
         if (link->getApproaching().size() > 0) {
             const MSTrafficLightLogic* foeTLL = link->getTLLogic();
@@ -258,7 +262,11 @@ MSRailSignal::hasLinkConflict(int index) const {
             const MSRailSignal* foeRS = dynamic_cast<const MSRailSignal*>(foeTLL);
             if (foeRS != nullptr) {
                 if (foeRS->conflictLaneOccupied(link->getTLIndex())) {
-                    // foe link can safely be ignored
+                    // foe cannot drive but might still block the route beyond the switch
+                    MSEdge& before = link->getLaneBefore()->getEdge();
+                    if (before.getBidiEdge() != nullptr) {
+                        routeFoes.push_back(before.getBidiEdge());
+                    }
                     continue;
                 }
             } else if (link->getState() == LINKSTATE_TL_RED) {
@@ -284,7 +292,8 @@ MSRailSignal::hasLinkConflict(int index) const {
             foeMinNumericalID = MIN2(foeMinNumericalID, apprIt.first->getNumericalID());
         }
     }
-    if (foeMaxSpeed >= 0) {
+    const SUMOVehicle* closest = nullptr;
+    if (foeMaxSpeed >= 0 || routeFoes.size() > 0) {
         // check against vehicles approaching this link
         double maxSpeed = -1;
         double minDist = std::numeric_limits<double>::max();
@@ -293,7 +302,10 @@ MSRailSignal::hasLinkConflict(int index) const {
         for (auto apprIt : currentLink->getApproaching()) {
             MSLink::ApproachingVehicleInformation info = apprIt.second;
             maxSpeed = MAX2(apprIt.first->getSpeed(), maxSpeed);
-            minDist = MIN2(info.dist, minDist);
+            if (info.dist < minDist) {
+                minDist = info.dist;
+                closest = apprIt.first;
+            }
             if (info.willPass) {
                 minETA = MIN2(info.arrivalTime, minETA);
             }
@@ -317,6 +329,22 @@ MSRailSignal::hasLinkConflict(int index) const {
                     return true;
                 } else if (foeMinDist == minDist) {
                     if (foeMinNumericalID < minNumericalID) {
+                        return true;
+                    }
+                }
+            }
+        }
+#ifdef DEBUG_SIGNALSTATE_PRIORITY
+        //if (DEBUG_COND) std::cout << SIMTIME << " railSignal=" << getID() << " index=" << index << " closestVeh=" << Named::getIDSecure(closest) << " routeFoes " << toString(routeFoes) << "\n";
+#endif
+        if (closest != nullptr) {
+            for (const MSEdge* bidi : routeFoes) {
+                for (const MSEdge* e : closest->getRoute().getEdges()) {
+                    if (e == bidi) {
+#ifdef DEBUG_SIGNALSTATE_PRIORITY
+                        if (DEBUG_COND) std::cout << SIMTIME << " railSignal=" << getID() << " index=" << index 
+                            << " closestVeh=" << closest->getID() << " route edge " << e->getID()  << " blocked\n";
+#endif
                         return true;
                     }
                 }
