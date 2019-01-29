@@ -268,11 +268,13 @@ enum GUIIcon {
     ICON_TAZEDGE,
     /// @}
 
-    /// @name NETEDIT routeElements icons
+    /// @name NETEDIT DemandElements icons
     /// @{
     ICON_FLOW,
     ICON_ROUTE,
     ICON_VTYPE,
+    ICON_VEHICLE,
+    ICON_TRIP,
     /// @}
 
     /// @name vehicle Class icons

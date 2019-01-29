@@ -3136,7 +3136,7 @@ GNEAttributeCarrier::fillDemandElements() {
     currentTag = SUMO_TAG_VEHICLE;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_DEMANDELEMENT, ICON_FLOW);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_DEMANDELEMENT, ICON_VEHICLE);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_ID,
                 ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE,
@@ -3246,7 +3246,7 @@ GNEAttributeCarrier::fillDemandElements() {
     currentTag = SUMO_TAG_FLOW;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_DEMANDELEMENT, ICON_FLOW, SUMO_TAG_CALIBRATOR);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_DEMANDELEMENT, ICON_FLOW);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_ID,
                 ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
@@ -3378,7 +3378,7 @@ GNEAttributeCarrier::fillDemandElements() {
     currentTag = SUMO_TAG_TRIP;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_DEMANDELEMENT | TAGPROPERTY_PARENT, ICON_FLOW);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_DEMANDELEMENT, ICON_TRIP);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_ID,
                 ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE,
