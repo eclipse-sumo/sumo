@@ -183,7 +183,7 @@ public:
     /** @brief Builds the route between the given edges using the minimum effort at the given time
         The definition of the effort depends on the wished routing scheme */
     bool compute(const E*, const E*, const _IntermodalTrip* const,
-                 SUMOTime, std::vector<const E*>&) {
+                 SUMOTime, std::vector<const E*>&, bool) {
         throw ProcessError("Do not use this method");
     }
 

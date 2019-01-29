@@ -47,7 +47,7 @@ ROJTRRouter::~ROJTRRouter() {}
 bool
 ROJTRRouter::compute(const ROEdge* from, const ROEdge* to,
                      const ROVehicle* const vehicle,
-                     SUMOTime time, ConstROEdgeVector& into) {
+                     SUMOTime time, ConstROEdgeVector& into, bool silent) {
     const ROJTREdge* current = static_cast<const ROJTREdge*>(from);
     double timeS = STEPS2TIME(time);
     std::set<const ROEdge*> avoidEdges;
@@ -68,8 +68,10 @@ ROJTRRouter::compute(const ROEdge* from, const ROEdge* to,
         if (myAcceptAllDestination) {
             return true;
         } else {
-            MsgHandler* mh = myUnbuildIsWarningOnly ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance();
-            mh->inform("The route starting at edge '" + from->getID() + "' could not be closed.");
+            if (!silent) {
+                MsgHandler* mh = myUnbuildIsWarningOnly ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance();
+                mh->inform("The route starting at edge '" + from->getID() + "' could not be closed.");
+            }
             return false;
         }
     }

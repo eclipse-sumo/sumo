@@ -159,7 +159,7 @@ MSBaseVehicle::getEdge() const {
 
 
 void
-MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, const bool onInit, const bool withTaz) {
+MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, const bool onInit, const bool withTaz, const bool silent) {
     // check whether to reroute
     const MSEdge* source = withTaz && onInit ? MSEdge::dictionary(myParameter->fromTaz + "-source") : getRerouteOrigin();
     if (source == nullptr) {
@@ -191,7 +191,7 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
         if (*s != source) {
             // !!! need to adapt t here
             ConstMSEdgeVector into;
-            router.compute(source, *s, this, t, into);
+            router.compute(source, *s, this, t, into, silent);
             if (into.size() > 0) {
                 into.pop_back();
                 edges.insert(edges.end(), into.begin(), into.end());
@@ -213,7 +213,7 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
             }
         }
     }
-    router.compute(source, sink, this, t, edges);
+    router.compute(source, sink, this, t, edges, silent);
     if (!edges.empty() && edges.front()->isTazConnector()) {
         edges.erase(edges.begin());
     }

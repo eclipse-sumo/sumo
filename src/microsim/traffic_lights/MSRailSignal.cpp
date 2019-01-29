@@ -352,7 +352,7 @@ MSRailSignal::hasLinkConflict(int index) const {
                         if (hasReroutingDevice) {
                             SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = MSRoutingEngine::getRouterTT(routeFoes);
                             try {
-                                closest->reroute(MSNet::getInstance()->getCurrentTimeStep(), "railSignal", router);
+                                closest->reroute(MSNet::getInstance()->getCurrentTimeStep(), "railSignal", router, false, false, true);
                             } catch (ProcessError& error) {
 #ifdef DEBUG_SIGNALSTATE_PRIORITY
                                 if (DEBUG_COND) std::cout << " rerouting failed: " << error.what() << "\n";

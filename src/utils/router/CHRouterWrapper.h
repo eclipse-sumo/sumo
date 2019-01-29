@@ -102,7 +102,7 @@ public:
 
 
     bool compute(const E* from, const E* to, const V* const vehicle,
-                 SUMOTime msTime, std::vector<const E*>& into) {
+                 SUMOTime msTime, std::vector<const E*>& into, bool silent = false) {
         const std::pair<const SUMOVehicleClass, const double> svc = std::make_pair(vehicle->getVClass(), vehicle->getMaxSpeed());
         int index = 0;
         int numIntervals = 1;
@@ -138,7 +138,7 @@ public:
             }
 #endif
         }
-        return myRouters[svc][index]->compute(from, to, vehicle, msTime, into);
+        return myRouters[svc][index]->compute(from, to, vehicle, msTime, into, silent);
     }
 
 

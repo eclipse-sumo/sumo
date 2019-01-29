@@ -112,15 +112,19 @@ public:
     /** @brief Builds the route between the given edges using the minimum effort at the given time
         The definition of the effort depends on the wished routing scheme */
     virtual bool compute(const E* from, const E* to, const V* const vehicle,
-                         SUMOTime msTime, std::vector<const E*>& into) {
+                         SUMOTime msTime, std::vector<const E*>& into, bool silent = false) {
         assert(from != 0 && (vehicle == 0 || to != 0));
         // check whether from and to can be used
         if (this->isProhibited(from, vehicle)) {
-            myErrorMsgHandler->inform("Vehicle '" + vehicle->getID() + "' is not allowed on source edge '" + from->getID() + "'.");
+            if (!silent) {
+                myErrorMsgHandler->inform("Vehicle '" + vehicle->getID() + "' is not allowed on source edge '" + from->getID() + "'.");
+            }
             return false;
         }
         if (this->isProhibited(to, vehicle)) {
-            myErrorMsgHandler->inform("Vehicle '" + vehicle->getID() + "' is not allowed on destination edge '" + to->getID() + "'.");
+            if (!silent) {
+                myErrorMsgHandler->inform("Vehicle '" + vehicle->getID() + "' is not allowed on destination edge '" + to->getID() + "'.");
+            }
             return false;
         }
         double length = 0.; // dummy for the via edge cost update
@@ -216,7 +220,7 @@ public:
 #ifdef DijkstraRouter_DEBUG_QUERY_PERF
         std::cout << "visited " + toString(num_visited) + " edges (unsuccessful path length: " + toString(into.size()) + ")\n";
 #endif
-        if (to != 0 && !mySilent) {
+        if (to != 0 && !mySilent && !silent) {
             myErrorMsgHandler->inform("No connection between edge '" + from->getID() + "' and edge '" + to->getID() + "' found.");
         }
         return false;

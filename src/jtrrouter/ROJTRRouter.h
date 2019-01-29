@@ -77,7 +77,7 @@ public:
      * @param[filled] into The list of edges to store the route into
      */
     bool compute(const ROEdge* from, const ROEdge* to, const ROVehicle* const vehicle,
-                 SUMOTime time, ConstROEdgeVector& into);
+                 SUMOTime time, ConstROEdgeVector& into, bool silent = false);
 
 
     /** @brief Recomputes the costs of a route

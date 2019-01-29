@@ -115,7 +115,7 @@ public:
     /** @brief Builds the route between the given edges using the minimum effort at the given time
         The definition of the effort depends on the wished routing scheme */
     virtual bool compute(const E* from, const E* to, const V* const vehicle,
-                         SUMOTime msTime, std::vector<const E*>& into) = 0;
+                         SUMOTime msTime, std::vector<const E*>& into, bool silent = false) = 0;
 
     virtual bool isProhibited(const E* const /* edge */, const V* const /* vehicle */) const  {
         return false;

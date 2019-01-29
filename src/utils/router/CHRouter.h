@@ -278,7 +278,7 @@ public:
      * the computed routes only approximated shortest paths in the real graph
      * */
     virtual bool compute(const E* from, const E* to, const V* const vehicle,
-                         SUMOTime msTime, std::vector<const E*>& into) {
+                         SUMOTime msTime, std::vector<const E*>& into, bool silent = false) {
         assert(from != 0 && to != 0);
         // assert(myHierarchyBuilder.mySPTree->validatePermissions() || vehicle->getVClass() == mySVC || mySVC == SVC_IGNORING);
         // do we need to rebuild the hierarchy?
@@ -312,7 +312,9 @@ public:
         if (minTTSeen < std::numeric_limits<double>::max()) {
             buildPathFromMeeting(meeting, into);
         } else {
-            myErrorMsgHandler->inform("No connection between edge '" + from->getID() + "' and edge '" + to->getID() + "' found.");
+            if (!silent) {
+                myErrorMsgHandler->inform("No connection between edge '" + from->getID() + "' and edge '" + to->getID() + "' found.");
+            }
             result = false;
         }
 #ifdef CHRouter_DEBUG_QUERY_PERF
