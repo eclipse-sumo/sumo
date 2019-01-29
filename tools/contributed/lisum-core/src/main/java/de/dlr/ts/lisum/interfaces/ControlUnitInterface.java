@@ -60,4 +60,12 @@ public interface ControlUnitInterface
     void setCoordinated(int coordinated);
     int getCoordinated();
     
+    String getAPWerteName(int index);
+    String getAPWerteValue(int index);
+    int apWerteCount();
+    
+    public interface APWertZustInterface {
+        String getName();
+        String getValue();
+    }
 }

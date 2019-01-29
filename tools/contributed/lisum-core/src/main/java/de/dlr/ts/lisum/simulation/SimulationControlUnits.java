@@ -43,7 +43,7 @@ public class SimulationControlUnits
     public SimulationControlUnits()
     {
     }
-    
+            
     /**
      * 
      * @param cityName
@@ -148,6 +148,19 @@ public class SimulationControlUnits
             return hh.getColor(signalGroupIndex);
         else
             return LightColor.OFF;
+    }
+    
+    /**
+     * 
+     * @param controlUnitSumoName
+     * @return 
+     */
+    public ControlUnitInterface getControlUnitInterfaceBySumoName(String controlUnitSumoName) 
+    {        
+        if(perSumo.get(controlUnitSumoName) == null)
+            return null;
+        
+        return perSumo.get(controlUnitSumoName).cui;
     }
     
     /**

@@ -28,6 +28,7 @@ class PutMessageResponse {
     private IstVektorType istVektor;
     private String signalsStateVector;
     //AusgangsVektor ;    
+    private String apWertZustType;
 
     /**
      *
@@ -39,7 +40,9 @@ class PutMessageResponse {
 
     @Override
     public String toString() {
-        return "PutMessageResponse: Time=" + zeit + ", tx=" + tx + ", istVektor=" + istVektor + ", " + signalsStateVector;
+        return "PutMessageResponse: Time=" + zeit + ", tx=" + tx + 
+                ", istVektor=" + istVektor + ", signalsStateVector=" + signalsStateVector + 
+                ", apWertZustType=" + apWertZustType;
     }        
     
     /**
@@ -58,8 +61,8 @@ class PutMessageResponse {
         line = line.substring(0, end);
 
         /**
-         * Separates components Result: 9 {9.0} {0;9;1;0;1;0;1;1;1;1} {48/3} {}
-         * {} {}
+         * Separates components Result: 9 {9.0} {0;9;1;0;1;0;1;1;1;1} {48/3} {Ausgangzustandtype}
+         * {PhaZuType} {ApWertZustType}
          */
         line = line.replace(":", "");
         line = line.replaceAll("\\{", " \\{");
@@ -89,6 +92,11 @@ class PutMessageResponse {
          * Extracting signal states
          */
         signalsStateVector = split[3];
+        
+        /**
+         * Extracting signal ApWertZustType
+         */
+        apWertZustType = split[6];
     }
 
     /**
@@ -123,4 +131,8 @@ class PutMessageResponse {
         return signalsStateVector;
     }
 
+    public String getApWertZustType() {
+        return apWertZustType;
+    }
+    
 }
