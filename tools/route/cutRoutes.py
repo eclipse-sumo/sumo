@@ -372,8 +372,8 @@ def main(options):
         f.write('<!-- generated with %s for %s from %s -->\n' %
                 (os.path.basename(__file__), options.network, options.routeFiles))
         f.write(
-            ('<%s xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ' +
-             'xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">\n') % output_type)
+            ('<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ' +
+             'xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">\n'))
         num_routeRefs = 0
         num_vehicles = 0
         for _, v in vehicles:
@@ -382,7 +382,7 @@ def main(options):
             else:
                 num_vehicles += 1
             writer(f, v)
-        f.write('</%s>\n' % output_type)
+        f.write('</routes>\n')
         if num_routeRefs > 0:
             print("Wrote %s standalone-routes and %s vehicles" % (num_routeRefs, num_vehicles))
         else:
