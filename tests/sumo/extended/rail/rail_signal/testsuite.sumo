@@ -40,8 +40,19 @@ stopped_conflict
 indirect_guard
 
 # switches for a bidirectional section guarded by extra rail signal nodes,
-# traffic light state must take the route of the approaching vehicle into account
+# traffic light state must take the route of the approaching vehicle into account.
+# The blocked vehicle has a fixed route
 indirect_guard_route_conflict
+
+# switches for a bidirectional section guarded by extra rail signal nodes,
+# traffic light state must take the route of the approaching vehicle into account.
+# The blocked vehicle cannot reroute due to a scheduled stop
+indirect_guard_route_conflict2
+
+# switches for a bidirectional section guarded by extra rail signal nodes,
+# traffic light state must take the route of the approaching vehicle into account.
+# The blocked vehicle may reroute
+indirect_guard_route_conflict_reroute
 
 # track layout with a circle in it
 circle
