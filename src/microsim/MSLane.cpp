@@ -646,6 +646,11 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
     std::vector<MSLane*>::const_iterator ri = bestLaneConts.begin();
     double seen = getLength() - pos; // == distance from insertion position until the end of the currentLane
     double dist = cfModel.brakeGap(speed) + aVehicle->getVehicleType().getMinGap();
+    // do not insert if the bidirectional edge is occupied
+    if (myEdge->getBidiEdge() != nullptr && myEdge->getBidiEdge()->getLanes()[0]->getVehicleNumberWithPartials() > 0) {
+        return false;
+    }
+    bool hadRailSignal = false;
 
     // before looping through the continuation lanes, check if a stop is scheduled on this lane
     // (the code is duplicated in the loop)
@@ -694,6 +699,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             }
             break;
         }
+        hadRailSignal |= (*link)->getTLLogic() != nullptr;
 
         if (!(*link)->opened(arrivalTime, speed, speed, aVehicle->getVehicleType().getLength(), aVehicle->getImpatience(), cfModel.getMaxDecel(), 0, posLat)
                 || !(*link)->havePriority()) {
@@ -725,6 +731,11 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
         nextLane = (*link)->getViaLaneOrLane();
         // check how next lane affects the journey
         if (nextLane != nullptr) {
+
+            // do not insert if the bidirectional edge is occupied before a railSignal has been encountered
+            if (!hadRailSignal && nextLane->getEdge().getBidiEdge() != nullptr && nextLane->getEdge().getBidiEdge()->getLanes()[0]->getVehicleNumberWithPartials() > 0) {
+                return false;
+            }
 
             // check if there are stops on the next lane that should be regarded
             // (this block is duplicated before the loop to deal with the insertion lane)
