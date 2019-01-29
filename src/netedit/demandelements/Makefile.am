@@ -4,5 +4,6 @@ libneteditdemandelements_a_SOURCES = GNEDemandHandler.cpp GNEDemandHandler.h \
 GNEDemandElement.cpp GNEDemandElement.h \
 GNERoute.cpp GNERoute.h \
 GNEVehicleType.cpp GNEVehicleType.h \
+GNEVehicle.cpp GNEVehicle.h \
 GNEFlow.cpp GNEFlow.h \
 GNETrip.cpp GNETrip.h

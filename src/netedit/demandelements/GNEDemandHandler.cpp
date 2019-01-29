@@ -33,6 +33,7 @@
 #include "GNEVehicleType.h"
 #include "GNEFlow.h"
 #include "GNETrip.h"
+#include "GNEVehicle.h"
 
 // ===========================================================================
 // member method definitions

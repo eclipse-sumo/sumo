@@ -9,6 +9,8 @@ set(netedit_demandelements_SRCS
    GNEVehicleType.cpp
    GNEFlow.h
    GNEFlow.cpp
+   GNEVehicle.h
+   GNEVehicle.cpp
    GNETrip.h
    GNETrip.cpp
    )
