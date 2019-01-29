@@ -417,6 +417,7 @@ public:
 		double getWidth(const std::string& poiID) const;
 		double getHeight(const std::string& poiID) const;
 		double getAngle(const std::string& poiID) const;
+        std::string getImageFile(const std::string& poiID) const;
 
         void setType(const std::string& poiID, const std::string& setType) const;
         void setPosition(const std::string& poiID, double x, double y) const;
@@ -424,6 +425,7 @@ public:
 		void setWidth(const std::string& poiID, double width) const;
 		void setHeight(const std::string& poiID, double height) const;
 		void setAngle(const std::string& poiID, double angle) const;
+        void setImageFile(const std::string& poiID, const std::string& imageFile) const;
         void add(const std::string& poiID, double x, double y, const libsumo::TraCIColor& c, const std::string& type, int layer, const std::string& imgFile, double width, double height, double angle) const;
         void remove(const std::string& poiID, int layer = 0) const;
 

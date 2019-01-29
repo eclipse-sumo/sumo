@@ -1273,6 +1273,11 @@ TraCIAPI::POIScope::getAngle(const std::string& poiID) const {
 	return myParent.getDouble(CMD_GET_POI_VARIABLE, VAR_ANGLE, poiID);
 }
 
+std::string
+TraCIAPI::POIScope::getImageFile(const std::string& poiID) const {
+    return myParent.getString(CMD_GET_POI_VARIABLE, VAR_IMAGFILE, poiID);
+}
+
 
 void
 TraCIAPI::POIScope::setType(const std::string& poiID, const std::string& setType) const {
@@ -1338,6 +1343,16 @@ TraCIAPI::POIScope::setAngle(const std::string& poiID, double angle) const {
 }
 
 
+void 
+TraCIAPI::POIScope::setImageFile(const std::string& poiID, const std::string& imageFile) const {
+    tcpip::Storage content;
+    content.writeUnsignedByte(TYPE_STRING);
+    content.writeString(imageFile);
+    myParent.createCommand(CMD_SET_POI_VARIABLE, VAR_IMAGFILE, poiID, &content);
+    myParent.processSet(CMD_SET_POI_VARIABLE);
+}
+
+
 void
 TraCIAPI::POIScope::add(const std::string& poiID, double x, double y, const libsumo::TraCIColor& c, const std::string& type, int layer, const std::string& imgFile, double width, double height, double angle) const {
     tcpip::Storage content;
@@ -1345,8 +1360,6 @@ TraCIAPI::POIScope::add(const std::string& poiID, double x, double y, const libs
     content.writeInt(4);
     content.writeUnsignedByte(TYPE_STRING);
     content.writeString(type);
-	content.writeUnsignedByte(TYPE_STRING);
-	content.writeString(imgFile);
     content.writeUnsignedByte(TYPE_COLOR);
     content.writeUnsignedByte(c.r);
     content.writeUnsignedByte(c.g);
@@ -1357,12 +1370,14 @@ TraCIAPI::POIScope::add(const std::string& poiID, double x, double y, const libs
     content.writeUnsignedByte(POSITION_2D);
     content.writeDouble(x);
     content.writeDouble(y);
-	content.writeUnsignedByte(TYPE_DOUBLE);
-	content.writeDouble(width);
-	content.writeUnsignedByte(TYPE_DOUBLE);
-	content.writeDouble(height);
-	content.writeUnsignedByte(TYPE_DOUBLE);
-	content.writeDouble(angle);
+    content.writeUnsignedByte(TYPE_STRING);
+    content.writeString(imgFile);
+    content.writeUnsignedByte(TYPE_DOUBLE);
+    content.writeDouble(width);
+    content.writeUnsignedByte(TYPE_DOUBLE);
+    content.writeDouble(height);
+    content.writeUnsignedByte(TYPE_DOUBLE);
+    content.writeDouble(angle);
     myParent.createCommand(CMD_SET_POI_VARIABLE, ADD, poiID, &content);
     myParent.processSet(CMD_SET_POI_VARIABLE);
 }
