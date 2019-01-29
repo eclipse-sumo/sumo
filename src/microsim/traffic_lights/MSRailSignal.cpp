@@ -360,7 +360,7 @@ MSRailSignal::hasLinkConflict(int index) const {
                                 SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = MSRoutingEngine::getRouterTT(routeFoes);
                                 myLastRerouteAttempt[index] = std::make_pair(closest, now);
                                 try {
-                                    closest->reroute(now, "railSignal", router, false, false, true); // silent
+                                    closest->reroute(now, "railSignal:" + getID(), router, false, false, true); // silent
                                 } catch (ProcessError& error) {
 #ifdef DEBUG_SIGNALSTATE_PRIORITY
                                     if (DEBUG_COND) std::cout << " rerouting failed: " << error.what() << "\n";
