@@ -2901,9 +2901,9 @@ GNEAttributeCarrier::fillDemandElements() {
                 "The name of the district the route ends at. TAZ edges are selected so that travel time is minimized",
                 "");
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_COLOR,
-                ATTRPROPERTY_COLOR,
+                ATTRPROPERTY_COLOR | ATTRPROPERTY_OPTIONAL,
                 "This generated vehicle's color",
-                "");
+                "black");
         myTagProperties[currentTag].addAttribute(SUMO_ATTR_DEPARTLANE,
                 ATTRPROPERTY_STRING,
                 "The lane on which the vehicle shall be inserted",
