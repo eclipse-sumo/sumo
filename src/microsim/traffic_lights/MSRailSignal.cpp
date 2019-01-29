@@ -32,6 +32,8 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSLink.h>
 #include <microsim/MSVehicle.h>
+#include <microsim/devices/MSDevice_Routing.h>
+#include <microsim/devices/MSRoutingEngine.h>
 #include "MSTrafficLightLogic.h"
 #include "MSRailSignal.h"
 #include <microsim/MSLane.h>
@@ -254,7 +256,7 @@ MSRailSignal::hasLinkConflict(int index) const {
     double foeMinDist = std::numeric_limits<double>::max();
     SUMOTime foeMinETA = std::numeric_limits<SUMOTime>::max();
     long long foeMinNumericalID = std::numeric_limits<long long>::max(); // tie braker
-    std::vector<const MSEdge*> routeFoes; // foe vehicles that 
+    std::vector<MSEdge*> routeFoes; // foe vehicles that 
     for (const MSLink* link : myConflictLinks[index]) {
         if (link->getApproaching().size() > 0) {
             const MSTrafficLightLogic* foeTLL = link->getTLLogic();
@@ -265,7 +267,7 @@ MSRailSignal::hasLinkConflict(int index) const {
                     // foe cannot drive but might still block the route beyond the switch
                     MSEdge& before = link->getLaneBefore()->getEdge();
                     if (before.getBidiEdge() != nullptr) {
-                        routeFoes.push_back(before.getBidiEdge());
+                        routeFoes.push_back(const_cast<MSEdge*>(before.getBidiEdge()));
                     }
                     continue;
                 }
@@ -292,7 +294,7 @@ MSRailSignal::hasLinkConflict(int index) const {
             foeMinNumericalID = MIN2(foeMinNumericalID, apprIt.first->getNumericalID());
         }
     }
-    const SUMOVehicle* closest = nullptr;
+    SUMOVehicle* closest = nullptr;
     if (foeMaxSpeed >= 0 || routeFoes.size() > 0) {
         // check against vehicles approaching this link
         double maxSpeed = -1;
@@ -304,7 +306,7 @@ MSRailSignal::hasLinkConflict(int index) const {
             maxSpeed = MAX2(apprIt.first->getSpeed(), maxSpeed);
             if (info.dist < minDist) {
                 minDist = info.dist;
-                closest = apprIt.first;
+                closest = const_cast<SUMOVehicle*>(apprIt.first);
             }
             if (info.willPass) {
                 minETA = MIN2(info.arrivalTime, minETA);
@@ -345,6 +347,18 @@ MSRailSignal::hasLinkConflict(int index) const {
                         if (DEBUG_COND) std::cout << SIMTIME << " railSignal=" << getID() << " index=" << index 
                             << " closestVeh=" << closest->getID() << " route edge " << e->getID()  << " blocked\n";
 #endif
+                        // trigger rerouting
+                        const bool hasReroutingDevice = closest->getDevice(typeid(MSDevice_Routing)) != nullptr;
+                        if (hasReroutingDevice) {
+                            SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = MSRoutingEngine::getRouterTT(routeFoes);
+                            try {
+                                closest->reroute(MSNet::getInstance()->getCurrentTimeStep(), "railSignal", router);
+                            } catch (ProcessError& error) {
+#ifdef DEBUG_SIGNALSTATE_PRIORITY
+                                if (DEBUG_COND) std::cout << " rerouting failed: " << error.what() << "\n";
+#endif
+                            } 
+                        }
                         return true;
                     }
                 }
