@@ -39,6 +39,10 @@ stopped_conflict
 # switches for a bidirectional section guarded by extra rail signal nodes
 indirect_guard
 
+# switches for a bidirectional section guarded by extra rail signal nodes,
+# traffic light state must take the route of the approaching vehicle into account
+indirect_guard_route_conflict
+
 # track layout with a circle in it
 circle
 
