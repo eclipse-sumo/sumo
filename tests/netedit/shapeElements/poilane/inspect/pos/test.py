@@ -41,16 +41,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 140, 215)
 
 # Change parameter Position with a non valid value (dummy)
-netedit.modifyAttribute(5, "dummyPosition")
+netedit.modifyAttribute(2, "dummyPosition", True)
 
 # Change parameter Position with a non valid value (< lane length)
-netedit.modifyAttribute(5, "-100")
+netedit.modifyAttribute(2, "-100", True)
 
 # Change parameter Position with a non valid value (> lane length)
-netedit.modifyAttribute(5, "200")
+netedit.modifyAttribute(2, "200", True)
 
 # Change parameter Position with a valid value
-netedit.modifyAttribute(5, "30.5")
+netedit.modifyAttribute(2, "30.5", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

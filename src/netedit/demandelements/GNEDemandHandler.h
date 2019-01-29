@@ -35,6 +35,7 @@
 
 class GNEViewNet;
 class GNEEdge;
+class GNETAZ;
 class GNEDemandElement;
 
 // ===========================================================================
@@ -77,16 +78,28 @@ public:
     /// @{
     /**@brief Parse and build a Route
      * @param[in] attrs SAX-attributes which define the route
-     * @param[in] tag of the demand element
-     * @note recheck throwing the exception
      */
-    void parseAndBuildRoute(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
+    void parseAndBuildRoute(const SUMOSAXAttributes& attrs);
 
     /**@brief Parses and build a vehicle type
      * @param[in] attrs SAX-attributes which define the vehicle types
-     * @param[in] tag of the demand element
      */
-    void parseAndBuildVehicleType(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag);
+    void parseAndBuildVehicleType(const SUMOSAXAttributes& attrs);
+
+    /**@brief Parses and build a vehicle
+     * @param[in] attrs SAX-attributes which define the vehicle types
+     */
+    void parseAndBuildVehicle(const SUMOSAXAttributes& attrs);
+
+    /**@brief Parses and build a flow
+     * @param[in] attrs SAX-attributes which define the vehicle types
+     */
+    void parseAndBuildFlow(const SUMOSAXAttributes& attrs);
+    
+    /**@brief Parses and build a Trip
+     * @param[in] attrs SAX-attributes which define the vehicle types
+     */
+    void parseAndBuildTrip(const SUMOSAXAttributes& attrs);
 
     /**@brief Parse generic parameter and insert it in the last created demand element
      * @param[in] attrs SAX-attributes which define the generic parameter
@@ -109,8 +122,6 @@ public:
      * @return pointer to element if was sucesfully created, nullptr in other case
      * @exception InvalidArgument If the bus stop can not be added to the net (is duplicate)
      */
-
-    /// @}
     static GNEDemandElement* buildRoute(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& routeID, const std::vector<GNEEdge*>& edges, const RGBColor& color);
 
     /**
@@ -123,6 +134,98 @@ public:
             const std::string& carFollowModel, int personCapacity, int containerCapacity, double boardingDuration,
             double loadingDuration, const std::string& latAlignment, double minGapLat, double maxSpeedLat);
 
+    /**@brief builds a calibrator flow
+     * @param[in] viewNet viewNet in which element will be inserted
+     * @param[in] allowUndoRedo enable or disable remove created demand element with ctrl + Z / ctrl + Y
+     * @param[in] id The name of the vehicle 
+     * @param[in] type The id of the vehicle type to use for this vehicle. 
+     * @param[in] route The id of the route the vehicle shall drive along 
+     * @param[in] color This vehicle's color 
+     * @param[in] depart The time step at which the vehicle shall enter the network; see #depart. Alternatively the vehicle departs once a person enters or a container is loaded
+     * @param[in] departLane The lane on which the vehicle shall be inserted; see #departLane. default: "first"
+     * @param[in] departPos The position at which the vehicle shall enter the net; see #departPos. default: "base"
+     * @param[in] departSpeed The speed with which the vehicle shall enter the network; see #departSpeed. default: 0
+     * @param[in] arrivalLane The lane at which the vehicle shall leave the network; see #arrivalLane. default: "current"
+     * @param[in] arrivalPos The position at which the vehicle shall leave the network; see #arrivalPos. default: "max"
+     * @param[in] arrivalSpeed The speed with which the vehicle shall leave the network; see #arrivalSpeed. default: "current"
+     * @param[in] line A string specifying the id of a public transport line which can be used when specifying person rides
+     * @param[in] personNumber The number of occupied seats when the vehicle is inserted. default: 0
+     * @param[in] containerNumber The number of occupied container places when the vehicle is inserted. default: 0
+     * @param[in] reroute List of intermediate edges that shall be passed on rerouting. 
+     * @param[in] via List of intermediate edges that shall be passed on rerouting. 
+     * @param[in] departPosLat The lateral position on the departure lane at which the vehicle shall enter the net; see Simulation/SublaneModel. default: "center"
+     * @param[in] arrivalPosLat The lateral position on the arrival lane at which the vehicle shall arrive; see Simulation/SublaneModel. by default the vehicle does not care about lateral arrival position 
+     * @return true if was sucesfully created, false in other case
+     */
+    static GNEDemandElement* buildVehicle(GNEViewNet* viewNet, bool allowUndoRedo, GNEDemandElement* route, GNEDemandElement* vType, const RGBColor& color, 
+            double depart, const std::string& departLane, const std::string& departPos, const std::string& departSpeed, const std::string& arrivalLane, 
+            const std::string& arrivalPos, const std::string& arrivalSpeed, const std::string& line, int personNumber, int containerNumber, 
+            bool reroute, const std::vector<GNEEdge*> &via, const std::string& departPosLat, const std::string& arrivalPosLat);
+
+    /**@brief builds a flow
+     * @param[in] viewNet viewNet in which element will be inserted
+     * @param[in] allowUndoRedo enable or disable remove created demand element with ctrl + Z / ctrl + Y
+     * @param[in] id The name (unique) of flow 
+     * @param[in] type The id of the vehicle's flow type to use for this vehicle's flow. 
+     * @param[in] route The id of the route the vehicle's flow shall drive along 
+     * @param[in] color This vehicle's flow's color 
+     * @param[in] departLane The lane on which the vehicle's flow shall be inserted; see #departLane. default: "first"
+     * @param[in] departPos The position at which the vehicle's flow shall enter the net; see #departPos. default: "base"
+     * @param[in] departSpeed The speed with which the vehicle's flow shall enter the network; see #departSpeed. default: 0
+     * @param[in] arrivalLane The lane at which the vehicle's flow shall leave the network; see #arrivalLane. default: "current"
+     * @param[in] arrivalPos The position at which the vehicle's flow shall leave the network; see #arrivalPos. default: "max"
+     * @param[in] arrivalSpeed The speed with which the vehicle's flow shall leave the network; see #arrivalSpeed. default: "current"
+     * @param[in] line A string specifying the id of a public transport line which can be used when specifying person rides
+     * @param[in] personNumber The number of occupied seats when the vehicle's flow is inserted. default: 0
+     * @param[in] containerNumber The number of occupied container places when the vehicle's flow is inserted. default: 0
+     * @param[in] reroute List of intermediate edges that shall be passed on rerouting. 
+     * @param[in] via List of intermediate edges that shall be passed on rerouting. 
+     * @param[in] departPosLat The lateral position on the departure lane at which the vehicle's flow shall enter the net; see Simulation/SublaneModel. default: "center"
+     * @param[in] arrivalPosLat The lateral position on the arrival lane at which the vehicle's flow shall arrive; see Simulation/SublaneModel. by default the vehicle's flow does not care about lateral arrival position 
+     * @param[in] begin first vehicle's flow departure time 
+     * @param[in] end end of departure interval (if undefined, defaults to 24 hours) 
+     * @param[in] vehsPerHour number of vehicles per hour, equally spaced (not together with period or probability) 
+     * @param[in] period insert equally spaced vehicles at that period (not together with vehsPerHour or probability) 
+     * @param[in] probability probability for emitting a vehicle's flow each second (not together with vehsPerHour or period)
+     * @param[in] number total number of vehicles, equally spaced 
+     * @return true if was sucesfully created, false in other case
+     * @todo Is the position correct/needed
+     * @return true if was sucesfully created, false in other case
+     * @exception InvalidArgument If the entry detector can not be added to the net (is duplicate)
+     */
+    static GNEDemandElement* buildFlow(GNEViewNet* viewNet, bool allowUndoRedo, GNEDemandElement* route, GNEDemandElement* vType, const RGBColor& color, const std::string& departLane, 
+            const std::string& departPos, const std::string& departSpeed, const std::string& arrivalLane, const std::string& arrivalPos, const std::string& arrivalSpeed, 
+            const std::string& line, int personNumber, int containerNumber, bool reroute, const std::vector<GNEEdge*> &via, const std::string& departPosLat, const std::string& arrivalPosLat, 
+            double begin, double end, const std::string& vehsPerHour, const std::string& period, const std::string& probability, int number);
+
+    /**@brief builds a Trip
+     * @param[in] viewNet viewNet in which element will be inserted
+     * @param[in] allowUndoRedo enable or disable remove created demand element with ctrl + Z / ctrl + Y
+     * @param[in] id The name of vehicles that will be generated using this trip definition (a running number if not given)
+     * @param[in] depart The departure time of the (first) vehicle which is generated using this trip definition
+     * @param[in] from The name of the edge the route starts at; the edge must be a part of the used network
+     * @param[in] to The name of the edge the route ends at; the edge must be a part of the used network
+     * @param[in] via List of intermediate edge ids which shall be part of the route; the edges must be a part of the used network
+     * @param[in] fromTaz The name of the district the route starts at. TAZ edges are selected so that travel time is minimized.
+     * @param[in] toTazThe name of the district the route ends at. TAZ edges are selected so that travel time is minimized.
+     * @param[in] color This generated vehicle's color
+     * @param[in] departLane The lane on which the vehicle shall be inserted
+     * @param[in] departPos The position at which the vehicle shall enter the net
+     * @param[in] departSpeed The speed with which the vehicle shall enter the network.
+     * @param[in] arrivalLane The lane at which the vehicle shall leave the network
+     * @param[in] arrivalPos The position at which the vehicle shall leave the network
+     * @param[in] arrivalSpeed The speed with which the vehicle shall leave the network
+     * @return true if was sucesfully created, false in other case
+     * @todo Is the position correct/needed
+     * @return true if was sucesfully created, false in other case
+     * @exception InvalidArgument If the entry detector can not be added to the net (is duplicate)
+     */
+    static GNEDemandElement* buildTrip(GNEViewNet* viewNet, bool allowUndoRedo, const std::string &id, double depart, GNEEdge *from, GNEEdge *to, 
+        const std::vector<GNEEdge*> &via, GNETAZ* fromTaz, const RGBColor& color, const std::string& departLane, const std::string& departPos, 
+        const std::string& departSpeed, const std::string& arrivalLane, const std::string& arrivalPos, const std::string& arrivalSpeed);
+        
+    /// @}
+    
 private:
     /// @brief Stack used to save the last inserted element
     struct HierarchyInsertedDemandElements {

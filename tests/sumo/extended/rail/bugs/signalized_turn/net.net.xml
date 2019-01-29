@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on So 27 Jan 2019 19:06:48 CET by Eclipse SUMO netedit Version v1_1_0+0435-678c69824b
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/home/kobo/dlr/sumo/tests/sumo/extended/rail/bugs/signalized_turn/net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/home/kobo/dlr/sumo/tests/sumo/extended/rail/bugs/signalized_turn/net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-100.00,-900.00" convBoundary="2600.00,0.00,3400.00,0.00" origBoundary="100.00,900.00,4800.00,1000.00" projParameter="!"/>
+
+    <type id="railway.rail" priority="15" numLanes="1" speed="44.44" allow="rail rail_electric" oneway="1"/>
+
+    <edge id=":B_0" function="internal">
+        <lane id=":B_0_0" index="0" allow="rail rail_electric" speed="44.44" length="0.10" shape="3001.50,0.00 3001.50,0.00"/>
+    </edge>
+    <edge id=":B_1" function="internal">
+        <lane id=":B_1_0" index="0" allow="rail rail_electric" speed="44.44" length="3.00" shape="2998.50,0.00 3001.50,0.00"/>
+    </edge>
+
+    <edge id="T11_0" from="A" to="B" priority="15" type="railway.rail" spreadType="center">
+        <lane id="T11_0_0" index="0" allow="rail rail_electric" speed="44.44" length="398.50" shape="2600.00,0.00 2998.50,0.00"/>
+    </edge>
+    <edge id="T14_0" from="B" to="C" priority="15" type="railway.rail" spreadType="center" bidi="T16_1">
+        <lane id="T14_0_0" index="0" allow="rail rail_electric" speed="44.44" length="398.50" shape="3001.50,0.00 3400.00,0.00"/>
+    </edge>
+    <edge id="T16_1" from="C" to="B" priority="15" type="railway.rail" spreadType="center" bidi="T14_0">
+        <lane id="T16_1_0" index="0" allow="rail rail_electric" speed="44.44" length="398.50" shape="3400.00,0.00 3001.50,0.00"/>
+    </edge>
+
+    <junction id="A" type="dead_end" x="2600.00" y="0.00" incLanes="" intLanes="" shape="2600.00,1.60 2600.00,-1.60"/>
+    <junction id="B" type="rail_signal" x="3000.00" y="0.00" incLanes="T16_1_0 T11_0_0" intLanes=":B_0_0 :B_1_0" shape="3001.50,1.60 3001.50,-1.60 2998.50,-1.60 2998.50,1.60">
+        <request index="0" response="10" foes="10" cont="0"/>
+        <request index="1" response="00" foes="01" cont="0"/>
+    </junction>
+    <junction id="C" type="dead_end" x="3400.00" y="0.00" incLanes="T14_0_0" intLanes="" shape="3400.00,-1.60 3400.00,1.60 3400.00,-1.60 3400.00,1.60"/>
+
+    <connection from="T11_0" to="T14_0" fromLane="0" toLane="0" via=":B_1_0" tl="B" linkIndex="1" dir="s" state="O"/>
+    <connection from="T16_1" to="T14_0" fromLane="0" toLane="0" via=":B_0_0" tl="B" linkIndex="0" dir="t" state="o"/>
+
+    <connection from=":B_0" to="T14_0" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":B_1" to="T14_0" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>

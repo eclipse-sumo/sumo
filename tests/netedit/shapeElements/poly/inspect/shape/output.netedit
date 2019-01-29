@@ -1,17 +1,17 @@
 TestFunctions: Netedit opened successfully
 Finding reference
-TestFunctions: 'reference.png' found. Position: 304 - 140
+TestFunctions: 'reference.png' found. Position: 304 - 168
 poly
-TestFunctions: Clicked over position 504 - 290
-TestFunctions: Clicked over position 504 - 190
-TestFunctions: Clicked over position 404 - 190
-TestFunctions: Clicked over position 404 - 290
-TestFunctions: Clicked over position 504 - 290
-TestFunctions: Clicked over position 404 - 190
+TestFunctions: Clicked over position 504 - 318
+TestFunctions: Clicked over position 504 - 218
+TestFunctions: Clicked over position 404 - 218
+TestFunctions: Clicked over position 404 - 318
+TestFunctions: Clicked over position 504 - 318
+TestFunctions: Clicked over position 404 - 218
 dummyShape
 
 12.00,8.00
 12.00,8.00 9.00,13.00 12.00,18.00 7.00,15.00 2.00,18.00 5.00,13.00 2.00,8.00 7.00,11.00 12.00,8.00
-TestFunctions: Clicked over position 304 - 140
-TestFunctions: Clicked over position 304 - 140
+TestFunctions: Clicked over position 304 - 168
+TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully

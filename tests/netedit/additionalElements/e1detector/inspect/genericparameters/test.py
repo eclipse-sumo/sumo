@@ -41,34 +41,34 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 150)
 
 # Change generic parameters with a dummy value
-netedit.modifyAttribute(12, "dummyGenericParameters")
+netedit.modifyAttribute(9, "dummyGenericParameters", True)
 
 # Change generic parameters with a invalid format
-netedit.modifyAttribute(12, "key1|key2|key3")
+netedit.modifyAttribute(9, "key1|key2|key3", True)
 
 # Change generic parameters with a valid value
-netedit.modifyAttribute(12, "key1=value1|key2=value2|key3=value3")
+netedit.modifyAttribute(9, "key1=value1|key2=value2|key3=value3", True)
 
 # Change generic parameters with a valid value (empty values)
-netedit.modifyAttribute(12, "key1=|key2=|key3=")
+netedit.modifyAttribute(9, "key1=|key2=|key3=", True)
 
 # Change generic parameters with a valid value (all empty)
-netedit.modifyAttribute(12, "")
+netedit.modifyAttribute(9, "", True)
 
 # Change generic parameters with an invalid value (duplicated)
-netedit.modifyAttribute(12, "key1duplicated=value1|key1duplicated=value2|key3=value3")
+netedit.modifyAttribute(9, "key1duplicated=value1|key1duplicated=value2|key3=value3", True)
 
 # Change generic parameters with a valid value
-netedit.modifyAttribute(12, "key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated")
+netedit.modifyAttribute(9, "key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated", True)
 
 # Change generic parameters with an invalid value (invalid key characters)
-netedit.modifyAttribute(12, "keyInvalid.;%>%$$=value1|key2=value2|key3=value3")
+netedit.modifyAttribute(9, "keyInvalid.;%>%$$=value1|key2=value2|key3=value3", True)
 
 # Change generic parameters with a invalid value (invalid value characters)
-netedit.modifyAttribute(12, "key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3")
+netedit.modifyAttribute(9, "key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3", True)
 
 # Change generic parameters with a valid value
-netedit.modifyAttribute(12, "keyFinal1=value1|keyFinal2=value2|keyFinal3=value3")
+netedit.modifyAttribute(9, "keyFinal1=value1|keyFinal2=value2|keyFinal3=value3", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 8)

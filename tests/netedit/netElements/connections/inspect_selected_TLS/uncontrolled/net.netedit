@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 30.11.2018 12:47:01 by Eclipse SUMO netedit Version v1_0_0+1123-7e66fbd65e
+<!-- generated on 26.01.2019 11:27:57 by Eclipse SUMO netedit Version v1_1_0+0076-a16c2aae75
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.2_from_30Nov121520.3948/netedit.gui/netElements/connections/inspect_selected_TLS/uncontrolled\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan165107.1764/netedit.gui/netElements/connections/inspect_selected_TLS/uncontrolled\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.2_from_30Nov121520.3948/netedit.gui/netElements/connections/inspect_selected_TLS/uncontrolled\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan165107.1764/netedit.gui/netElements/connections/inspect_selected_TLS/uncontrolled\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
     </processing>
@@ -29,12 +30,12 @@
     </pedestrian>
 
     <netedit>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.2_from_30Nov121520.3948/netedit.gui/netElements/connections/inspect_selected_TLS/uncontrolled\additionals.xml"/>
-        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.2_from_30Nov121520.3948/netedit.gui/netElements/connections/inspect_selected_TLS/uncontrolled\shapes.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan165107.1764/netedit.gui/netElements/connections/inspect_selected_TLS/uncontrolled\additionals.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan165107.1764/netedit.gui/netElements/connections/inspect_selected_TLS/uncontrolled\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.2_from_30Nov121520.3948/netedit.gui/netElements/connections/inspect_selected_TLS/uncontrolled\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan165107.1764/netedit.gui/netElements/connections/inspect_selected_TLS/uncontrolled\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -43,7 +44,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.2_from_30Nov121520.3948/netedit.gui/netElements/connections/inspect_selected_TLS/uncontrolled\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan165107.1764/netedit.gui/netElements/connections/inspect_selected_TLS/uncontrolled\log.txt"/>
     </report>
 
 </configuration>
@@ -116,21 +117,21 @@
     </junction>
     <junction id="D" type="dead_end" x="100.00" y="50.00" incLanes="4_0 4_1" intLanes="" shape="100.00,50.00 100.00,43.60 100.00,50.00"/>
 
-    <connection from="5" to="4" fromLane="0" toLane="0" tl="Center" linkIndex="8" dir="r" state="O"/>
-    <connection from="5" to="2" fromLane="0" toLane="0" tl="Center" linkIndex="9" dir="s" state="O"/>
-    <connection from="5" to="2" fromLane="1" toLane="1" tl="Center" linkIndex="10" dir="s" state="O"/>
-    <connection from="5" to="3" fromLane="1" toLane="1" tl="Center" linkIndex="11" dir="l" state="o"/>
-    <connection from="6" to="3" fromLane="0" toLane="0" tl="Center" linkIndex="0" dir="r" state="O"/>
-    <connection from="6" to="1" fromLane="0" toLane="0" tl="Center" linkIndex="1" dir="s" state="O"/>
-    <connection from="6" to="1" fromLane="1" toLane="1" tl="Center" linkIndex="2" dir="s" state="O"/>
-    <connection from="6" to="4" fromLane="1" toLane="1" tl="Center" linkIndex="3" dir="l" state="o"/>
-    <connection from="7" to="1" fromLane="0" toLane="0" tl="Center" linkIndex="12" dir="r" state="o"/>
-    <connection from="7" to="4" fromLane="0" toLane="0" uncontrolled="1" tl="Center" linkIndex="13" dir="s" state="o"/>
-    <connection from="7" to="4" fromLane="1" toLane="1" uncontrolled="1" tl="Center" linkIndex="14" dir="s" state="o"/>
-    <connection from="7" to="2" fromLane="1" toLane="1" tl="Center" linkIndex="15" dir="l" state="o"/>
-    <connection from="8" to="2" fromLane="0" toLane="0" tl="Center" linkIndex="4" dir="r" state="o"/>
-    <connection from="8" to="3" fromLane="0" toLane="0" uncontrolled="1" tl="Center" linkIndex="5" dir="s" state="o"/>
-    <connection from="8" to="3" fromLane="1" toLane="1" uncontrolled="1" tl="Center" linkIndex="6" dir="s" state="o"/>
-    <connection from="8" to="1" fromLane="1" toLane="1" tl="Center" linkIndex="7" dir="l" state="o"/>
+    <connection from="5" to="4" fromLane="0" toLane="0" uncontrolled="1" dir="r" state="M"/>
+    <connection from="5" to="2" fromLane="0" toLane="0" uncontrolled="1" dir="s" state="M"/>
+    <connection from="5" to="2" fromLane="1" toLane="1" uncontrolled="1" dir="s" state="M"/>
+    <connection from="5" to="3" fromLane="1" toLane="1" uncontrolled="1" dir="l" state="m"/>
+    <connection from="6" to="3" fromLane="0" toLane="0" uncontrolled="1" dir="r" state="M"/>
+    <connection from="6" to="1" fromLane="0" toLane="0" uncontrolled="1" dir="s" state="M"/>
+    <connection from="6" to="1" fromLane="1" toLane="1" uncontrolled="1" dir="s" state="M"/>
+    <connection from="6" to="4" fromLane="1" toLane="1" uncontrolled="1" dir="l" state="m"/>
+    <connection from="7" to="1" fromLane="0" toLane="0" uncontrolled="1" dir="r" state="m"/>
+    <connection from="7" to="4" fromLane="0" toLane="0" uncontrolled="1" dir="s" state="m"/>
+    <connection from="7" to="4" fromLane="1" toLane="1" uncontrolled="1" dir="s" state="m"/>
+    <connection from="7" to="2" fromLane="1" toLane="1" uncontrolled="1" dir="l" state="m"/>
+    <connection from="8" to="2" fromLane="0" toLane="0" uncontrolled="1" dir="r" state="m"/>
+    <connection from="8" to="3" fromLane="0" toLane="0" uncontrolled="1" dir="s" state="m"/>
+    <connection from="8" to="3" fromLane="1" toLane="1" uncontrolled="1" dir="s" state="m"/>
+    <connection from="8" to="1" fromLane="1" toLane="1" uncontrolled="1" dir="l" state="m"/>
 
 </net>

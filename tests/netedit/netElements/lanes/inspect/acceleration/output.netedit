@@ -1,47 +1,7 @@
-+++ running this Java
-+++ trying to run SikuliX
-+++ using: -Xms64M -Xmx512M -Dfile.encoding=UTF-8 -Dsikuli.FromCommandLine -jar C:\Sikulix\sikulix.jar -run test.sikuli
 TestFunctions: Netedit opened successfully
 Finding reference
-TestFunctions: 'reference.png' found. Position: 304 - 140
-[log]  TYPE "#F5."
-[log]  TYPE "i"
-[log] CLICK on L(554,320)@S(0)[0,0 1600x900] (235 msec)
-TestFunctions: Clicked over position 554 - 320
-[log]  TYPE "#F12."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE "#TAB."
-[log]  TYPE " "
-[log]  TYPE "#F5."
-[log]  TYPE "i"
-[log] CLICK on L(304,140)@S(0)[0,0 1600x900] (235 msec)
-TestFunctions: Clicked over position 304 - 140
-[log] ( Ctrl )  TYPE "z"
-[log]  TYPE "#F5."
-[log]  TYPE "i"
-[log] CLICK on L(304,140)@S(0)[0,0 1600x900] (234 msec)
-TestFunctions: Clicked over position 304 - 140
-[log] ( Ctrl )  TYPE "y"
-[log] ( Ctrl+Shift )  TYPE "d"
-[log] ( Ctrl )  TYPE "s"
-[log] ( Ctrl )  TYPE "q"
+TestFunctions: 'reference.png' found. Position: 304 - 168
+TestFunctions: Clicked over position 554 - 348
+TestFunctions: Clicked over position 304 - 168
+TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully

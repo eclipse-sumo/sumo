@@ -35,19 +35,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 180)
 
 # Change parameter 16 with a non valid value (dummy)
-netedit.modifyAttribute(16, "dummyWidth")
+netedit.modifyAttribute(16, "dummyWidth", False)
 
 # Change parameter 16 with a non valid value (empty)
-netedit.modifyAttribute(16, "")
+netedit.modifyAttribute(16, "", False)
 
 # Change parameter 16 with a non valid value (negative)
-netedit.modifyAttribute(16, "-2")
+netedit.modifyAttribute(16, "-2", False)
 
 # Change parameter 16 with a valid value (default)
-netedit.modifyAttribute(16, "default")
+netedit.modifyAttribute(16, "default", False)
 
 # Change parameter 16 with a valid value (default)
-netedit.modifyAttribute(16, "4")
+netedit.modifyAttribute(16, "4", False)
 
 # recompute
 netedit.rebuildNetwork()

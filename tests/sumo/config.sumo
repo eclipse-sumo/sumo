@@ -73,6 +73,7 @@ state_12:state_12.00.xml
 binstate:state.sbx
 calibrator_log:calibrator.log.xml
 links:linkstate.xml
+railsignalblocks:railsignal_blocks.xml
 aggregated60Prefixed:pre_aggregated_60.xml
 tripinfosPrefix:pre_tripinfos.xml
 logPrefixed:pre_log.txt
@@ -118,6 +119,7 @@ emissions:<!--{[->]}-->
 battery:<!--{[->]}-->
 chargingstations:<!--{[->]}-->
 links:<!--{[->]}-->
+railsignalblocks:<!--{[->]}-->
 vtk:<!--{[->]}-->
 vehroutes_ignore_arrival:<!--{[->]}-->
 vehroutes_ignore_arrival:arrival="[^"]*"{REPLACE arrival="<ignored>"}

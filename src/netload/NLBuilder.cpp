@@ -279,11 +279,11 @@ NLBuilder::buildNet() {
     std::vector<SUMOTime> stateDumpTimes;
     std::vector<std::string> stateDumpFiles;
     try {
+        MSFrame::buildStreams(); // ensure streams are ready for output during building
         edges = myEdgeBuilder.build(myXMLHandler.networkVersion());
         junctions = myJunctionBuilder.build();
         routeLoaders = buildRouteLoaderControl(myOptions);
         tlc = myJunctionBuilder.buildTLLogics();
-        MSFrame::buildStreams();
         const std::vector<int> times = myOptions.getIntVector("save-state.times");
         for (std::vector<int>::const_iterator i = times.begin(); i != times.end(); ++i) {
             stateDumpTimes.push_back(TIME2STEPS(*i));

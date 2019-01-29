@@ -31,6 +31,7 @@
 #include <utils/gui/globjects/GUIPointOfInterest.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/globjects/GUIShapeContainer.h>
 #include <utils/xml/XMLSubSys.h>
 #include <utils/common/StringUtils.h>
@@ -137,8 +138,6 @@ void
 GUINet::initTLMap() {
     // get the list of loaded tl-logics
     const std::vector<MSTrafficLightLogic*>& logics = getTLSControl().getAllLogics();
-    // allocate storage for the wrappers
-    myTLLogicWrapper.reserve(logics.size());
     // go through the logics
     for (std::vector<MSTrafficLightLogic*>::const_iterator i = logics.begin(); i != logics.end(); ++i) {
         createTLWrapper(*i);
@@ -625,6 +624,11 @@ GUINet::getEdgeDataAttrs() const {
     return result;
 }
 
+bool
+GUINet::isSelected(const MSTrafficLightLogic* tll) const {
+    const auto it = myLogics2Wrapper.find(const_cast<MSTrafficLightLogic*>(tll));
+    return it != myLogics2Wrapper.end() && gSelected.isSelected(GLO_TLLOGIC, it->second->getGlID());
+}
 
 #ifdef HAVE_OSG
 void

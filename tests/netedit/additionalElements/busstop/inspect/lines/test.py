@@ -44,10 +44,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 190)
 
 # Change parameter 5 with a non valid value (throw warning)
-netedit.modifyAttribute(10, "line1, line2")
+netedit.modifyAttribute(6, "line1, line2", True)
 
 # Change parameter 5 with a valid value
-netedit.modifyAttribute(10, "line1 line2")
+netedit.modifyAttribute(6, "line1 line2", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)

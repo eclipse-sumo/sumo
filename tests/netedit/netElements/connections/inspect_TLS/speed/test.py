@@ -29,22 +29,22 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.rebuildNetwork()
 
 # show connections
-netedit.toogleShowConnectionsInspectorMode()
+netedit.toogleShowConnections()
 
 # inspect connection
-netedit.leftClick(referencePosition, 250, 190)
+netedit.leftClick(referencePosition, 250, 138)
 
 # Change speed with an invalid value
-netedit.modifyAttribute(9, "dummySpeed")
+netedit.modifyAttribute(6, "dummySpeed", True)
 
 # Change speed with an valid value
-netedit.modifyAttribute(9, "-3")
+netedit.modifyAttribute(6, "-3", True)
 
 # Change speed with an valid value
-netedit.modifyAttribute(9, "0")
+netedit.modifyAttribute(6, "0", True)
 
 # Change speed with an valid value
-netedit.modifyAttribute(9, "15.5")
+netedit.modifyAttribute(6, "15.5", True)
 
 # rebuild
 netedit.rebuildNetwork()

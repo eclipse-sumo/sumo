@@ -326,9 +326,24 @@ public class Edge {
 	 */
 
 	public static SumoCommand getParameter(String edgeID, String param){
-		return new SumoCommand(Constants.CMD_GET_EDGE_VARIABLE, Constants.VAR_PARAMETER, edgeID, Constants.RESPONSE_GET_EDGE_VARIABLE, Constants.TYPE_STRING);
+		Object[] array = new Object[]{param};
+		return new SumoCommand(Constants.CMD_GET_EDGE_VARIABLE, Constants.VAR_PARAMETER, edgeID, array, Constants.RESPONSE_GET_EDGE_VARIABLE, Constants.TYPE_STRING);
 	}
 	
+	/**
+	 * Sets the chosen parameter
+	 *
+	 *  @param vehID a string identifying the vehicle
+	 *  @param param a string identifying the parameter
+	 *  @param value a string identifying the new value
+	 *  
+	 * @return SumoCommand
+	 */
+
+	public static SumoCommand setParameter(String edgeID, String param, String value){
+		Object[] array = new Object[]{param, value};
+		return new SumoCommand(Constants.CMD_SET_EDGE_VARIABLE, Constants.VAR_PARAMETER, edgeID, array);
+	}
 	
 	//setter methods
 

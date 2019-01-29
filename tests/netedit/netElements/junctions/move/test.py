@@ -36,7 +36,7 @@ netedit.rebuildNetwork()
 # move 3-o'clock node of circular road via attributes
 netedit.inspectMode()
 netedit.leftClick(referencePosition, 540, 290)
-netedit.modifyAttribute(1, "120,20.2")
+netedit.modifyAttribute(1, "120,20.2", False)
 
 # save network
 netedit.saveNetwork()

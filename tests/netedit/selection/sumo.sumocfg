@@ -4,7 +4,7 @@
 
     <input>
         <net-file value="net.netedit"/>
-        <additional-files value="additionals.netedit, shapes.netedit"/>
+        <additional-files value="additionals.netedit"/>
     </input>
 	
 </configuration>

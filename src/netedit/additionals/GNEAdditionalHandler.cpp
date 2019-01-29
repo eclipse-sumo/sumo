@@ -97,91 +97,91 @@ GNEAdditionalHandler::myStartElement(int element, const SUMOSAXAttributes& attrs
             // additionals
             case SUMO_TAG_BUS_STOP:
             case SUMO_TAG_TRAIN_STOP:
-                parseAndBuildBusStop(attrs, SUMO_TAG_BUS_STOP);
+                parseAndBuildBusStop(attrs);
                 break;
             case SUMO_TAG_ACCESS:
-                parseAndBuildAccess(attrs, tag);
+                parseAndBuildAccess(attrs);
                 break;
             case SUMO_TAG_CONTAINER_STOP:
-                parseAndBuildContainerStop(attrs, tag);
+                parseAndBuildContainerStop(attrs);
                 break;
             case SUMO_TAG_CHARGING_STATION:
-                parseAndBuildChargingStation(attrs, tag);
+                parseAndBuildChargingStation(attrs);
                 break;
             case SUMO_TAG_E1DETECTOR:
             case SUMO_TAG_INDUCTION_LOOP:
-                parseAndBuildDetectorE1(attrs, SUMO_TAG_E1DETECTOR);
+                parseAndBuildDetectorE1(attrs);
                 break;
             case SUMO_TAG_E2DETECTOR:
             case SUMO_TAG_LANE_AREA_DETECTOR:
-                parseAndBuildDetectorE2(attrs, SUMO_TAG_E2DETECTOR);
+                parseAndBuildDetectorE2(attrs);
                 break;
             case SUMO_TAG_E3DETECTOR:
             case SUMO_TAG_ENTRY_EXIT_DETECTOR:
-                parseAndBuildDetectorE3(attrs, SUMO_TAG_E3DETECTOR);
+                parseAndBuildDetectorE3(attrs);
                 break;
             case SUMO_TAG_DET_ENTRY:
-                parseAndBuildDetectorEntry(attrs, tag);
+                parseAndBuildDetectorEntry(attrs);
                 break;
             case SUMO_TAG_DET_EXIT:
-                parseAndBuildDetectorExit(attrs, tag);
+                parseAndBuildDetectorExit(attrs);
                 break;
             case SUMO_TAG_INSTANT_INDUCTION_LOOP:
-                parseAndBuildDetectorE1Instant(attrs, tag);
+                parseAndBuildDetectorE1Instant(attrs);
                 break;
             case SUMO_TAG_ROUTEPROBE:
-                parseAndBuildRouteProbe(attrs, tag);
+                parseAndBuildRouteProbe(attrs);
                 break;
             case SUMO_TAG_VAPORIZER:
-                parseAndBuildVaporizer(attrs, tag);
+                parseAndBuildVaporizer(attrs);
                 break;
             case SUMO_TAG_TAZ:
-                parseAndBuildTAZ(attrs, tag);
+                parseAndBuildTAZ(attrs);
                 break;
             case SUMO_TAG_TAZSOURCE:
-                parseAndBuildTAZSource(attrs, tag);
+                parseAndBuildTAZSource(attrs);
                 break;
             case SUMO_TAG_TAZSINK:
-                parseAndBuildTAZSink(attrs, tag);
+                parseAndBuildTAZSink(attrs);
                 break;
             case SUMO_TAG_VSS:
-                parseAndBuildVariableSpeedSign(attrs, tag);
+                parseAndBuildVariableSpeedSign(attrs);
                 break;
             case SUMO_TAG_STEP:
-                parseAndBuildVariableSpeedSignStep(attrs, tag);
+                parseAndBuildVariableSpeedSignStep(attrs);
                 break;
             case SUMO_TAG_CALIBRATOR:
-                parseAndBuildCalibrator(attrs, tag);
+                parseAndBuildCalibrator(attrs);
                 break;
             case SUMO_TAG_PARKING_AREA:
-                parseAndBuildParkingArea(attrs, tag);
+                parseAndBuildParkingArea(attrs);
                 break;
             case SUMO_TAG_PARKING_SPACE:
-                parseAndBuildParkingSpace(attrs, tag);
+                parseAndBuildParkingSpace(attrs);
                 break;
-            case SUMO_TAG_FLOW:
-                parseAndBuildCalibratorFlow(attrs, tag);
+            case SUMO_TAG_CALIBRATORFLOW:
+                parseAndBuildCalibratorFlow(attrs);
                 break;
             case SUMO_TAG_REROUTER:
-                parseAndBuildRerouter(attrs, tag);
+                parseAndBuildRerouter(attrs);
                 break;
             case SUMO_TAG_INTERVAL:
-                parseAndBuildRerouterInterval(attrs, tag);
+                parseAndBuildRerouterInterval(attrs);
                 break;
             case SUMO_TAG_CLOSING_LANE_REROUTE:
-                parseAndBuildRerouterClosingLaneReroute(attrs, tag);
+                parseAndBuildRerouterClosingLaneReroute(attrs);
                 break;
             case SUMO_TAG_CLOSING_REROUTE:
-                parseAndBuildRerouterClosingReroute(attrs, tag);
+                parseAndBuildRerouterClosingReroute(attrs);
                 break;
             case SUMO_TAG_DEST_PROB_REROUTE:
-                parseAndBuildRerouterDestProbReroute(attrs, tag);
+                parseAndBuildRerouterDestProbReroute(attrs);
                 break;
             case SUMO_TAG_PARKING_ZONE_REROUTE:
-                parseAndBuildRerouterParkingAreaReroute(attrs, tag);
+                parseAndBuildRerouterParkingAreaReroute(attrs);
                 break;
             case SUMO_TAG_ROUTE_PROB_REROUTE:
-                parseAndBuildRerouterRouteProbReroute(attrs, tag);
+                parseAndBuildRerouterRouteProbReroute(attrs);
                 break;
             // shapes
             case SUMO_TAG_POLY:
@@ -1414,24 +1414,24 @@ GNEAdditionalHandler::checkOverlappingRerouterIntervals(GNEAdditional* rerouter,
 
 
 void
-GNEAdditionalHandler::parseAndBuildVaporizer(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
+GNEAdditionalHandler::parseAndBuildVaporizer(const SUMOSAXAttributes& attrs) {
     bool abort = false;
     // parse attributes of Vaporizer
-    const std::string edgeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ID, abort);
-    double begin = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", tag, SUMO_ATTR_BEGIN, abort);
-    double end = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", tag, SUMO_ATTR_END, abort);
-    std::string name = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_NAME, abort);
+    const std::string edgeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_VAPORIZER, SUMO_ATTR_ID, abort);
+    double begin = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", SUMO_TAG_VAPORIZER, SUMO_ATTR_BEGIN, abort);
+    double end = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", SUMO_TAG_VAPORIZER, SUMO_ATTR_END, abort);
+    std::string name = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_VAPORIZER, SUMO_ATTR_NAME, abort);
     // Continue if all parameters were successfully loaded
     if (!abort) {
         // get GNEEdge
         GNEEdge* edge = myViewNet->getNet()->retrieveEdge(edgeID, false);
         // check that all parameters are valid
         if (edge == nullptr) {
-            WRITE_WARNING("The edge '" + edgeID + "' to use within the " + toString(tag) + " is not known.");
-        } else if (myViewNet->getNet()->retrieveAdditional(tag, edgeID, false) != nullptr) {
-            WRITE_WARNING("There is already a " + toString(tag) + " in the edge '" + edgeID + "'.");
+            WRITE_WARNING("The edge '" + edgeID + "' to use within the " + toString(SUMO_TAG_VAPORIZER) + " is not known.");
+        } else if (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_VAPORIZER, edgeID, false) != nullptr) {
+            WRITE_WARNING("There is already a " + toString(SUMO_TAG_VAPORIZER) + " in the edge '" + edgeID + "'.");
         } else if (begin > end) {
-            WRITE_WARNING("Time interval of " + toString(tag) + " isn't valid. Attribute '" + toString(SUMO_ATTR_BEGIN) + "' is greater than attribute '" + toString(SUMO_ATTR_END) + "'.");
+            WRITE_WARNING("Time interval of " + toString(SUMO_TAG_VAPORIZER) + " isn't valid. Attribute '" + toString(SUMO_ATTR_BEGIN) + "' is greater than attribute '" + toString(SUMO_ATTR_END) + "'.");
         } else {
             // build vaporizer
             myHierarchyInsertedAdditionals.commitElementInsertion(buildVaporizer(myViewNet, myUndoAdditionals, edge, begin, end, name));
@@ -1441,12 +1441,12 @@ GNEAdditionalHandler::parseAndBuildVaporizer(const SUMOSAXAttributes& attrs, con
 
 
 void 
-GNEAdditionalHandler::parseAndBuildTAZ(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
+GNEAdditionalHandler::parseAndBuildTAZ(const SUMOSAXAttributes& attrs) {
     bool abort = false;
     // parse attributes of Vaporizer
-    const std::string id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ID, abort);
-    const PositionVector shape = GNEAttributeCarrier::parseAttributeFromXML<PositionVector>(attrs, id, tag, SUMO_ATTR_SHAPE, abort);
-    RGBColor color = GNEAttributeCarrier::parseAttributeFromXML<RGBColor>(attrs, id, tag, SUMO_ATTR_COLOR, abort);
+    const std::string id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_TAZ, SUMO_ATTR_ID, abort);
+    const PositionVector shape = GNEAttributeCarrier::parseAttributeFromXML<PositionVector>(attrs, id, SUMO_TAG_TAZ, SUMO_ATTR_SHAPE, abort);
+    RGBColor color = GNEAttributeCarrier::parseAttributeFromXML<RGBColor>(attrs, id, SUMO_TAG_TAZ, SUMO_ATTR_COLOR, abort);
     std::vector<std::string> edgeIDs;
     if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
         std::string parsedAttribute = attrs.get<std::string>(SUMO_ATTR_EDGES, id.c_str(), abort, false);
@@ -1466,8 +1466,8 @@ GNEAdditionalHandler::parseAndBuildTAZ(const SUMOSAXAttributes& attrs, const Sum
     // Continue if all parameters were successfully loaded
     if (!abort) {
         // check that all parameters are valid
-        if (myViewNet->getNet()->retrieveAdditional(tag, id, false) != nullptr) {
-            WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
+        if (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_TAZ, id, false) != nullptr) {
+            WRITE_WARNING("There is another " + toString(SUMO_TAG_TAZ) + " with the same ID='" + id + "'.");
         } else {
             // save ID of last created element
             myHierarchyInsertedAdditionals.commitElementInsertion(buildTAZ(myViewNet, myUndoAdditionals, id, shape, color, edges, false));
@@ -1477,11 +1477,11 @@ GNEAdditionalHandler::parseAndBuildTAZ(const SUMOSAXAttributes& attrs, const Sum
 
 
 void 
-GNEAdditionalHandler::parseAndBuildTAZSource(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
+GNEAdditionalHandler::parseAndBuildTAZSource(const SUMOSAXAttributes& attrs) {
     bool abort = false;
     // parse attributes of Vaporizer
-    const std::string edgeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ID, abort);
-    const double departWeight = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, edgeID, tag, SUMO_ATTR_WEIGHT, abort);
+    const std::string edgeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_TAZSOURCE, SUMO_ATTR_ID, abort);
+    const double departWeight = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, edgeID, SUMO_TAG_TAZSOURCE, SUMO_ATTR_WEIGHT, abort);
     // Continue if all parameters were successfully loaded
     if (!abort) {
         // get edge and TAZ
@@ -1489,9 +1489,9 @@ GNEAdditionalHandler::parseAndBuildTAZSource(const SUMOSAXAttributes& attrs, con
         GNEAdditional* TAZ = myHierarchyInsertedAdditionals.retrieveAdditionalParent(myViewNet, SUMO_TAG_TAZ);
         // check that all parameters are valid
         if (edge == nullptr) {
-            WRITE_WARNING("The edge '" + edgeID + "' to use within the " + toString(tag) + " is not known.");
+            WRITE_WARNING("The edge '" + edgeID + "' to use within the " + toString(SUMO_TAG_TAZSOURCE) + " is not known.");
         } else if (TAZ == nullptr) {
-            WRITE_WARNING("A " + toString(tag) + " must be declared within the definition of a " + toString(SUMO_TAG_TAZ) + ".");
+            WRITE_WARNING("A " + toString(SUMO_TAG_TAZSOURCE) + " must be declared within the definition of a " + toString(SUMO_TAG_TAZ) + ".");
         } else {
             // save ID of last created element
             myHierarchyInsertedAdditionals.commitElementInsertion(buildTAZSource(myViewNet, myUndoAdditionals, TAZ, edge, departWeight));
@@ -1501,11 +1501,11 @@ GNEAdditionalHandler::parseAndBuildTAZSource(const SUMOSAXAttributes& attrs, con
 
 
 void 
-GNEAdditionalHandler::parseAndBuildTAZSink(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
+GNEAdditionalHandler::parseAndBuildTAZSink(const SUMOSAXAttributes& attrs) {
     bool abort = false;
     // parse attributes of Vaporizer
-    const std::string edgeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ID, abort);
-    const double arrivalWeight = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, edgeID, tag, SUMO_ATTR_WEIGHT, abort);
+    const std::string edgeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_TAZSINK, SUMO_ATTR_ID, abort);
+    const double arrivalWeight = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, edgeID, SUMO_TAG_TAZSINK, SUMO_ATTR_WEIGHT, abort);
     // Continue if all parameters were successfully loaded
     if (!abort) {
         // get edge and TAZ
@@ -1513,9 +1513,9 @@ GNEAdditionalHandler::parseAndBuildTAZSink(const SUMOSAXAttributes& attrs, const
         GNEAdditional* TAZ = myHierarchyInsertedAdditionals.retrieveAdditionalParent(myViewNet, SUMO_TAG_TAZ);
         // check that all parameters are valid
         if (edge == nullptr) {
-            WRITE_WARNING("The edge '" + edgeID + "' to use within the " + toString(tag) + " is not known.");
+            WRITE_WARNING("The edge '" + edgeID + "' to use within the " + toString(SUMO_TAG_TAZSINK) + " is not known.");
         } else if (TAZ == nullptr) {
-            WRITE_WARNING("A " + toString(tag) + " must be declared within the definition of a " + toString(SUMO_TAG_TAZ) + ".");
+            WRITE_WARNING("A " + toString(SUMO_TAG_TAZSINK) + " must be declared within the definition of a " + toString(SUMO_TAG_TAZ) + ".");
         } else {
             // save ID of last created element
             myHierarchyInsertedAdditionals.commitElementInsertion(buildTAZSink(myViewNet, myUndoAdditionals, TAZ, edge, arrivalWeight));
@@ -1525,35 +1525,35 @@ GNEAdditionalHandler::parseAndBuildTAZSink(const SUMOSAXAttributes& attrs, const
 
 
 void
-GNEAdditionalHandler::parseAndBuildRouteProbe(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
+GNEAdditionalHandler::parseAndBuildRouteProbe(const SUMOSAXAttributes& attrs) {
     bool abort = false;
     // parse attributes of RouteProbe
-    std::string id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ID, abort);
-    std::string edgeId = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_EDGE, abort);
-    std::string freq = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_FREQUENCY, abort);
-    std::string name = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_NAME, abort);
-    std::string file = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_FILE, abort);
-    double begin = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_BEGIN, abort);
+    std::string id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_ROUTEPROBE, SUMO_ATTR_ID, abort);
+    std::string edgeId = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_ROUTEPROBE, SUMO_ATTR_EDGE, abort);
+    std::string freq = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_ROUTEPROBE, SUMO_ATTR_FREQUENCY, abort);
+    std::string name = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_ROUTEPROBE, SUMO_ATTR_NAME, abort);
+    std::string file = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_ROUTEPROBE, SUMO_ATTR_FILE, abort);
+    double begin = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, SUMO_TAG_ROUTEPROBE, SUMO_ATTR_BEGIN, abort);
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // get edge
         GNEEdge* edge = myViewNet->getNet()->retrieveEdge(edgeId, false);
         // check that all elements are valid
-        if (myViewNet->getNet()->retrieveAdditional(tag, id, false) != nullptr) {
-            WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
+        if (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_ROUTEPROBE, id, false) != nullptr) {
+            WRITE_WARNING("There is another " + toString(SUMO_TAG_ROUTEPROBE) + " with the same ID='" + id + "'.");
         } else if (edge == nullptr) {
             // Write error if lane isn't valid
-            WRITE_WARNING("The edge '" + edgeId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
+            WRITE_WARNING("The edge '" + edgeId + "' to use within the " + toString(SUMO_TAG_ROUTEPROBE) + " '" + id + "' is not known.");
         } else {
             // Freq needs an extra check, because it can be empty
             if (GNEAttributeCarrier::canParse<double>(freq)) {
                 if (GNEAttributeCarrier::parse<double>(freq) < 0) {
-                    WRITE_WARNING(toString(SUMO_ATTR_FREQUENCY) + "of " + toString(tag) + "'" + id + "' cannot be negative.");
+                    WRITE_WARNING(toString(SUMO_ATTR_FREQUENCY) + "of " + toString(SUMO_TAG_ROUTEPROBE) + "'" + id + "' cannot be negative.");
                     freq = "";
                 }
             } else {
                 if (freq.empty()) {
-                    WRITE_WARNING(toString(SUMO_ATTR_FREQUENCY) + "of " + toString(tag) + "'" + id + "' cannot be parsed to float.");
+                    WRITE_WARNING(toString(SUMO_ATTR_FREQUENCY) + "of " + toString(SUMO_TAG_ROUTEPROBE) + "'" + id + "' cannot be parsed to float.");
                 }
                 freq = "";
             }
@@ -1565,28 +1565,28 @@ GNEAdditionalHandler::parseAndBuildRouteProbe(const SUMOSAXAttributes& attrs, co
 
 
 void
-GNEAdditionalHandler::parseAndBuildCalibratorFlow(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
+GNEAdditionalHandler::parseAndBuildCalibratorFlow(const SUMOSAXAttributes& attrs) {
     bool abort = false;
     // parse attributes of calibrator flows
-    std::string vehicleTypeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_TYPE, abort);
-    std::string routeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ROUTE, abort);
-    std::string vehsPerHour = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_VEHSPERHOUR, abort);
-    std::string speed = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_SPEED, abort);
-    RGBColor color = GNEAttributeCarrier::parseAttributeFromXML<RGBColor>(attrs, "", tag, SUMO_ATTR_COLOR, abort);
-    std::string departLane = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_DEPARTLANE, abort);
-    std::string departPos = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_DEPARTPOS, abort);
-    std::string departSpeed = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_DEPARTSPEED, abort);
-    std::string arrivalLane = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ARRIVALLANE, abort);
-    std::string arrivalPos = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ARRIVALPOS, abort);
-    std::string arrivalSpeed = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ARRIVALSPEED, abort);
-    std::string line = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_LINE, abort);
-    int personNumber = GNEAttributeCarrier::parseAttributeFromXML<int>(attrs, "", tag, SUMO_ATTR_PERSON_NUMBER, abort);
-    int containerNumber = GNEAttributeCarrier::parseAttributeFromXML<int>(attrs, "", tag, SUMO_ATTR_CONTAINER_NUMBER, abort);
-    bool reroute = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, "", tag, SUMO_ATTR_REROUTE, abort);
-    std::string departPosLat = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_DEPARTPOS_LAT, abort);
-    std::string arrivalPosLat = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ARRIVALPOS_LAT, abort);
-    double begin = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", tag, SUMO_ATTR_BEGIN, abort);
-    double end = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", tag, SUMO_ATTR_END, abort);
+    std::string vehicleTypeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_CALIBRATORFLOW, SUMO_ATTR_TYPE, abort);
+    std::string routeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_CALIBRATORFLOW, SUMO_ATTR_ROUTE, abort);
+    std::string vehsPerHour = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_CALIBRATORFLOW, SUMO_ATTR_VEHSPERHOUR, abort);
+    std::string speed = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_CALIBRATORFLOW, SUMO_ATTR_SPEED, abort);
+    RGBColor color = GNEAttributeCarrier::parseAttributeFromXML<RGBColor>(attrs, "", SUMO_TAG_CALIBRATORFLOW, SUMO_ATTR_COLOR, abort);
+    std::string departLane = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_CALIBRATORFLOW, SUMO_ATTR_DEPARTLANE, abort);
+    std::string departPos = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_CALIBRATORFLOW, SUMO_ATTR_DEPARTPOS, abort);
+    std::string departSpeed = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_CALIBRATORFLOW, SUMO_ATTR_DEPARTSPEED, abort);
+    std::string arrivalLane = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_CALIBRATORFLOW, SUMO_ATTR_ARRIVALLANE, abort);
+    std::string arrivalPos = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_CALIBRATORFLOW, SUMO_ATTR_ARRIVALPOS, abort);
+    std::string arrivalSpeed = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_CALIBRATORFLOW, SUMO_ATTR_ARRIVALSPEED, abort);
+    std::string line = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_CALIBRATORFLOW, SUMO_ATTR_LINE, abort);
+    int personNumber = GNEAttributeCarrier::parseAttributeFromXML<int>(attrs, "", SUMO_TAG_CALIBRATORFLOW, SUMO_ATTR_PERSON_NUMBER, abort);
+    int containerNumber = GNEAttributeCarrier::parseAttributeFromXML<int>(attrs, "", SUMO_TAG_CALIBRATORFLOW, SUMO_ATTR_CONTAINER_NUMBER, abort);
+    bool reroute = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, "", SUMO_TAG_CALIBRATORFLOW, SUMO_ATTR_REROUTE, abort);
+    std::string departPosLat = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_CALIBRATORFLOW, SUMO_ATTR_DEPARTPOS_LAT, abort);
+    std::string arrivalPosLat = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_CALIBRATORFLOW, SUMO_ATTR_ARRIVALPOS_LAT, abort);
+    double begin = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", SUMO_TAG_CALIBRATORFLOW, SUMO_ATTR_BEGIN, abort);
+    double end = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", SUMO_TAG_CALIBRATORFLOW, SUMO_ATTR_END, abort);
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // obtain route, vehicle type and calibrator parent
@@ -1595,13 +1595,13 @@ GNEAdditionalHandler::parseAndBuildCalibratorFlow(const SUMOSAXAttributes& attrs
         GNEDemandElement* vtype = myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, vehicleTypeID, false);
         // check that all elements are valid
         if (route == nullptr) {
-            WRITE_WARNING(toString(SUMO_TAG_FLOW) + " cannot be created; their " + toString(SUMO_TAG_ROUTE) + " with ID = '" + routeID + "' doesn't exist");
+            WRITE_WARNING(toString(SUMO_TAG_CALIBRATORFLOW) + " cannot be created; their " + toString(SUMO_TAG_ROUTE) + " with ID = '" + routeID + "' doesn't exist");
             abort = true;
         } else if (vtype == nullptr) {
-            WRITE_WARNING(toString(SUMO_TAG_FLOW) + " cannot be created; their " + toString(SUMO_TAG_VTYPE) + " with ID = '" + vehicleTypeID + "' doesn't exist");
+            WRITE_WARNING(toString(SUMO_TAG_CALIBRATORFLOW) + " cannot be created; their " + toString(SUMO_TAG_VTYPE) + " with ID = '" + vehicleTypeID + "' doesn't exist");
             abort = true;
         } else if ((vehsPerHour.empty()) && (speed.empty())) {
-            WRITE_WARNING(toString(SUMO_TAG_FLOW) + " cannot be created; At least parameters " + toString(SUMO_ATTR_VEHSPERHOUR) + " or " + toString(SUMO_ATTR_SPEED) + " has to be defined");
+            WRITE_WARNING(toString(SUMO_TAG_CALIBRATORFLOW) + " cannot be created; At least parameters " + toString(SUMO_ATTR_VEHSPERHOUR) + " or " + toString(SUMO_ATTR_SPEED) + " has to be defined");
             abort = true;
         } else if (calibrator != nullptr) {
             // save ID of last created element
@@ -1801,14 +1801,14 @@ GNEAdditionalHandler::parseGenericParameter(const SUMOSAXAttributes& attrs) {
 
 
 void
-GNEAdditionalHandler::parseAndBuildVariableSpeedSign(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
+GNEAdditionalHandler::parseAndBuildVariableSpeedSign(const SUMOSAXAttributes& attrs) {
     bool abort = false;
     // parse attributes of VSS
-    std::string id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ID, abort);
-    std::string name = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_NAME, abort);
-    GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_FILE, abort); // deprecated
-    std::string lanesIDs = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_LANES, abort);
-    Position pos = GNEAttributeCarrier::parseAttributeFromXML<Position>(attrs, id, tag, SUMO_ATTR_POSITION, abort);
+    std::string id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_VSS, SUMO_ATTR_ID, abort);
+    std::string name = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_VSS, SUMO_ATTR_NAME, abort);
+    GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_VSS, SUMO_ATTR_FILE, abort); // deprecated
+    std::string lanesIDs = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_VSS, SUMO_ATTR_LANES, abort);
+    Position pos = GNEAttributeCarrier::parseAttributeFromXML<Position>(attrs, id, SUMO_TAG_VSS, SUMO_ATTR_POSITION, abort);
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // obtain lanes
@@ -1817,8 +1817,8 @@ GNEAdditionalHandler::parseAndBuildVariableSpeedSign(const SUMOSAXAttributes& at
             lanes = GNEAttributeCarrier::parse<std::vector<GNELane*> >(myViewNet->getNet(), lanesIDs);
         }
         // check that all elements are valid
-        if (myViewNet->getNet()->retrieveAdditional(tag, id, false) != nullptr) {
-            WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
+        if (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_VSS, id, false) != nullptr) {
+            WRITE_WARNING("There is another " + toString(SUMO_TAG_VSS) + " with the same ID='" + id + "'.");
         } else if (lanes.size() == 0) {
             WRITE_WARNING("A Variable Speed Sign needs at least one lane.");
         } else {
@@ -1828,12 +1828,13 @@ GNEAdditionalHandler::parseAndBuildVariableSpeedSign(const SUMOSAXAttributes& at
     }
 }
 
+
 void
-GNEAdditionalHandler::parseAndBuildVariableSpeedSignStep(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
+GNEAdditionalHandler::parseAndBuildVariableSpeedSignStep(const SUMOSAXAttributes& attrs) {
     bool abort = false;
     // Load step values
-    double time = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", tag, SUMO_ATTR_TIME, abort);
-    double speed = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", tag, SUMO_ATTR_SPEED, abort);
+    double time = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", SUMO_TAG_STEP, SUMO_ATTR_TIME, abort);
+    double speed = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", SUMO_TAG_STEP, SUMO_ATTR_SPEED, abort);
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // get Variable Speed Signal
@@ -1848,18 +1849,18 @@ GNEAdditionalHandler::parseAndBuildVariableSpeedSignStep(const SUMOSAXAttributes
 
 
 void
-GNEAdditionalHandler::parseAndBuildRerouter(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
+GNEAdditionalHandler::parseAndBuildRerouter(const SUMOSAXAttributes& attrs) {
     bool abort = false;
     // parse attributes of Rerouter
-    std::string id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ID, abort);
-    std::string edgesIDs = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_EDGES, abort);
-    std::string name = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_NAME, abort);
-    std::string file = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_FILE, abort);
-    double probability = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_PROB, abort);
-    bool off = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, tag, SUMO_ATTR_OFF, abort);
+    std::string id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_REROUTER, SUMO_ATTR_ID, abort);
+    std::string edgesIDs = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_REROUTER, SUMO_ATTR_EDGES, abort);
+    std::string name = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_REROUTER, SUMO_ATTR_NAME, abort);
+    std::string file = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_REROUTER, SUMO_ATTR_FILE, abort);
+    double probability = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, SUMO_TAG_REROUTER, SUMO_ATTR_PROB, abort);
+    bool off = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, SUMO_TAG_REROUTER, SUMO_ATTR_OFF, abort);
     double timeThreshold = attrs.getOpt<double>(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), abort, 0);
     const std::string vTypes = attrs.getOpt<std::string>(SUMO_ATTR_VTYPES, id.c_str(), abort, "");
-    Position pos = GNEAttributeCarrier::parseAttributeFromXML<Position>(attrs, id, tag, SUMO_ATTR_POSITION, abort);
+    Position pos = GNEAttributeCarrier::parseAttributeFromXML<Position>(attrs, id, SUMO_TAG_REROUTER, SUMO_ATTR_POSITION, abort);
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // obtain edges
@@ -1868,8 +1869,8 @@ GNEAdditionalHandler::parseAndBuildRerouter(const SUMOSAXAttributes& attrs, cons
             edges = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(myViewNet->getNet(), edgesIDs);
         }
         // check that all elements are valid
-        if (myViewNet->getNet()->retrieveAdditional(tag, id, false) != nullptr) {
-            WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
+        if (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_REROUTER, id, false) != nullptr) {
+            WRITE_WARNING("There is another " + toString(SUMO_TAG_REROUTER) + " with the same ID='" + id + "'.");
         } else if (edges.size() == 0) {
             WRITE_WARNING("A rerouter needs at least one Edge");
         } else {
@@ -1881,11 +1882,11 @@ GNEAdditionalHandler::parseAndBuildRerouter(const SUMOSAXAttributes& attrs, cons
 
 
 void
-GNEAdditionalHandler::parseAndBuildRerouterInterval(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
+GNEAdditionalHandler::parseAndBuildRerouterInterval(const SUMOSAXAttributes& attrs) {
     bool abort = false;
     // parse attributes of Rerouter
-    double begin = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", tag, SUMO_ATTR_BEGIN, abort);
-    double end = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", tag, SUMO_ATTR_END, abort);
+    double begin = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", SUMO_TAG_INTERVAL, SUMO_ATTR_BEGIN, abort);
+    double end = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", SUMO_TAG_INTERVAL, SUMO_ATTR_END, abort);
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // obtain rerouter
@@ -1899,7 +1900,7 @@ GNEAdditionalHandler::parseAndBuildRerouterInterval(const SUMOSAXAttributes& att
         }
         // check that rerouterInterval can be created
         if (begin >= end) {
-            WRITE_WARNING(toString(tag) + " cannot be created; Attribute " + toString(SUMO_ATTR_END) + " must be greather than " + toString(SUMO_ATTR_BEGIN) + ".");
+            WRITE_WARNING(toString(SUMO_TAG_INTERVAL) + " cannot be created; Attribute " + toString(SUMO_ATTR_END) + " must be greather than " + toString(SUMO_ATTR_BEGIN) + ".");
         } else if (rerouter != nullptr) {
             // save ID of last created element
             myHierarchyInsertedAdditionals.commitElementInsertion(buildRerouterInterval(myViewNet, true, rerouter, begin, end));
@@ -1909,12 +1910,12 @@ GNEAdditionalHandler::parseAndBuildRerouterInterval(const SUMOSAXAttributes& att
 
 
 void
-GNEAdditionalHandler::parseAndBuildRerouterClosingLaneReroute(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
+GNEAdditionalHandler::parseAndBuildRerouterClosingLaneReroute(const SUMOSAXAttributes& attrs) {
     bool abort = false;
     // parse attributes of Rerouter
-    std::string laneID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ID, abort);
-    std::string allow = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ALLOW, abort);
-    std::string disallow = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_DISALLOW, abort);
+    std::string laneID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_CLOSING_LANE_REROUTE, SUMO_ATTR_ID, abort);
+    std::string allow = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_CLOSING_LANE_REROUTE, SUMO_ATTR_ALLOW, abort);
+    std::string disallow = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_CLOSING_LANE_REROUTE, SUMO_ATTR_DISALLOW, abort);
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // obtain lane and rerouter interval
@@ -1922,7 +1923,7 @@ GNEAdditionalHandler::parseAndBuildRerouterClosingLaneReroute(const SUMOSAXAttri
         GNEAdditional* rerouterInterval = myHierarchyInsertedAdditionals.retrieveAdditionalParent(myViewNet, SUMO_TAG_INTERVAL);
         // check that all elements are valid
         if (lane == nullptr) {
-            WRITE_WARNING("The lane '" + laneID + "' to use within the " + toString(tag) + " is not known.");
+            WRITE_WARNING("The lane '" + laneID + "' to use within the " + toString(SUMO_TAG_CLOSING_LANE_REROUTE) + " is not known.");
         } else if (rerouterInterval != nullptr) {
             // save ID of last created element
             myHierarchyInsertedAdditionals.commitElementInsertion(buildClosingLaneReroute(myViewNet, true, rerouterInterval, lane, parseVehicleClasses(allow, disallow)));
@@ -1932,12 +1933,12 @@ GNEAdditionalHandler::parseAndBuildRerouterClosingLaneReroute(const SUMOSAXAttri
 
 
 void
-GNEAdditionalHandler::parseAndBuildRerouterClosingReroute(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
+GNEAdditionalHandler::parseAndBuildRerouterClosingReroute(const SUMOSAXAttributes& attrs) {
     bool abort = false;
     // parse attributes of Rerouter
-    std::string edgeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ID, abort);
-    std::string allow = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ALLOW, abort);
-    std::string disallow = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_DISALLOW, abort);
+    std::string edgeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_CLOSING_REROUTE, SUMO_ATTR_ID, abort);
+    std::string allow = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_CLOSING_REROUTE, SUMO_ATTR_ALLOW, abort);
+    std::string disallow = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_CLOSING_REROUTE, SUMO_ATTR_DISALLOW, abort);
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // obtain edge and rerouter interval
@@ -1945,7 +1946,7 @@ GNEAdditionalHandler::parseAndBuildRerouterClosingReroute(const SUMOSAXAttribute
         GNEAdditional* rerouterInterval = myHierarchyInsertedAdditionals.retrieveAdditionalParent(myViewNet, SUMO_TAG_INTERVAL);
         // check that all elements are valid
         if (edge == nullptr) {
-            WRITE_WARNING("The edge '" + edgeID + "' to use within the " + toString(tag) + " is not known.");
+            WRITE_WARNING("The edge '" + edgeID + "' to use within the " + toString(SUMO_TAG_CLOSING_REROUTE) + " is not known.");
         } else if (rerouterInterval != nullptr) {
             // save ID of last created element
             myHierarchyInsertedAdditionals.commitElementInsertion(buildClosingReroute(myViewNet, true, rerouterInterval, edge, parseVehicleClasses(allow, disallow)));
@@ -1955,11 +1956,11 @@ GNEAdditionalHandler::parseAndBuildRerouterClosingReroute(const SUMOSAXAttribute
 
 
 void
-GNEAdditionalHandler::parseAndBuildRerouterDestProbReroute(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
+GNEAdditionalHandler::parseAndBuildRerouterDestProbReroute(const SUMOSAXAttributes& attrs) {
     bool abort = false;
     // parse attributes of Rerouter
-    std::string edgeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ID, abort);
-    double probability = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", tag, SUMO_ATTR_PROB, abort);
+    std::string edgeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_DEST_PROB_REROUTE, SUMO_ATTR_ID, abort);
+    double probability = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", SUMO_TAG_DEST_PROB_REROUTE, SUMO_ATTR_PROB, abort);
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // obtain edge and rerouter interval
@@ -1967,7 +1968,7 @@ GNEAdditionalHandler::parseAndBuildRerouterDestProbReroute(const SUMOSAXAttribut
         GNEAdditional* rerouterInterval = myHierarchyInsertedAdditionals.retrieveAdditionalParent(myViewNet, SUMO_TAG_INTERVAL);
         // check that all elements are valid
         if (edge == nullptr) {
-            WRITE_WARNING("The edge '" + edgeID + "' to use within the " + toString(tag) + " is not known.");
+            WRITE_WARNING("The edge '" + edgeID + "' to use within the " + toString(SUMO_TAG_DEST_PROB_REROUTE) + " is not known.");
         } else if (rerouterInterval != nullptr) {
             // save ID of last created element
             myHierarchyInsertedAdditionals.commitElementInsertion(builDestProbReroute(myViewNet, true, rerouterInterval, edge, probability));
@@ -1977,12 +1978,12 @@ GNEAdditionalHandler::parseAndBuildRerouterDestProbReroute(const SUMOSAXAttribut
 
 
 void
-GNEAdditionalHandler::parseAndBuildRerouterParkingAreaReroute(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
+GNEAdditionalHandler::parseAndBuildRerouterParkingAreaReroute(const SUMOSAXAttributes& attrs) {
     bool abort = false;
     // parse attributes of Rerouter
-    std::string parkingAreaID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ID, abort);
-    double probability = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", tag, SUMO_ATTR_PROB, abort);
-    bool visible = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, "", tag, SUMO_ATTR_VISIBLE, abort);
+    std::string parkingAreaID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_PARKING_ZONE_REROUTE, SUMO_ATTR_ID, abort);
+    double probability = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", SUMO_TAG_PARKING_ZONE_REROUTE, SUMO_ATTR_PROB, abort);
+    bool visible = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, "", SUMO_TAG_PARKING_ZONE_REROUTE, SUMO_ATTR_VISIBLE, abort);
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // obtain edge and rerouter interval
@@ -1990,7 +1991,7 @@ GNEAdditionalHandler::parseAndBuildRerouterParkingAreaReroute(const SUMOSAXAttri
         GNEAdditional* rerouterInterval = myHierarchyInsertedAdditionals.retrieveAdditionalParent(myViewNet, SUMO_TAG_INTERVAL);
         // check that all elements are valid
         if (parkingArea == nullptr) {
-            WRITE_WARNING("The parkingArea '" + parkingAreaID + "' to use within the " + toString(tag) + " is not known.");
+            WRITE_WARNING("The parkingArea '" + parkingAreaID + "' to use within the " + toString(SUMO_TAG_PARKING_ZONE_REROUTE) + " is not known.");
         } else if (rerouterInterval != nullptr) {
             // save ID of last created element
             myHierarchyInsertedAdditionals.commitElementInsertion(builParkingAreaReroute(myViewNet, true, rerouterInterval, parkingArea, probability, visible));
@@ -2000,11 +2001,11 @@ GNEAdditionalHandler::parseAndBuildRerouterParkingAreaReroute(const SUMOSAXAttri
 
 
 void
-GNEAdditionalHandler::parseAndBuildRerouterRouteProbReroute(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
+GNEAdditionalHandler::parseAndBuildRerouterRouteProbReroute(const SUMOSAXAttributes& attrs) {
     bool abort = false;
     // parse attributes of Rerouter
-    std::string routeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ID, abort);
-    double probability = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", tag, SUMO_ATTR_PROB, abort);
+    std::string routeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_ROUTE_PROB_REROUTE, SUMO_ATTR_ID, abort);
+    double probability = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", SUMO_TAG_ROUTE_PROB_REROUTE, SUMO_ATTR_PROB, abort);
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // obtain rerouter interval
@@ -2019,29 +2020,29 @@ GNEAdditionalHandler::parseAndBuildRerouterRouteProbReroute(const SUMOSAXAttribu
 
 
 void
-GNEAdditionalHandler::parseAndBuildBusStop(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
+GNEAdditionalHandler::parseAndBuildBusStop(const SUMOSAXAttributes& attrs) {
     bool abort = false;
     // parse attributes of bus stop
-    std::string id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ID, abort);
-    std::string laneId = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_LANE, abort);
-    std::string startPos = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_STARTPOS, abort);
-    std::string endPos = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_ENDPOS, abort);
-    std::string name = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_NAME, abort);
-    std::vector<std::string> lines = GNEAttributeCarrier::parseAttributeFromXML<std::vector<std::string> >(attrs, id, tag, SUMO_ATTR_LINES, abort);
-    bool friendlyPosition = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, tag, SUMO_ATTR_FRIENDLY_POS, abort);
+    std::string id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_BUS_STOP, SUMO_ATTR_ID, abort);
+    std::string laneId = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_BUS_STOP, SUMO_ATTR_LANE, abort);
+    std::string startPos = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_BUS_STOP, SUMO_ATTR_STARTPOS, abort);
+    std::string endPos = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_BUS_STOP, SUMO_ATTR_ENDPOS, abort);
+    std::string name = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_BUS_STOP, SUMO_ATTR_NAME, abort);
+    std::vector<std::string> lines = GNEAttributeCarrier::parseAttributeFromXML<std::vector<std::string> >(attrs, id, SUMO_TAG_BUS_STOP, SUMO_ATTR_LINES, abort);
+    bool friendlyPosition = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, SUMO_TAG_BUS_STOP, SUMO_ATTR_FRIENDLY_POS, abort);
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // get pointer to lane
         GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false, true);
         // check that all elements are valid
-        if (myViewNet->getNet()->retrieveAdditional(tag, id, false) != nullptr) {
-            WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
+        if (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_BUS_STOP, id, false) != nullptr) {
+            WRITE_WARNING("There is another " + toString(SUMO_TAG_BUS_STOP) + " with the same ID='" + id + "'.");
         } else if (lane == nullptr) {
             // Write error if lane isn't valid
-            WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
+            WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(SUMO_TAG_BUS_STOP) + " '" + id + "' is not known.");
         } else if (!GNEStoppingPlace::checkStoppinPlacePosition(startPos, endPos, lane->getParentEdge().getNBEdge()->getFinalLength(), friendlyPosition)) {
             // Write error if position isn't valid
-            WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
+            WRITE_WARNING("Invalid position for " + toString(SUMO_TAG_BUS_STOP) + " with ID = '" + id + "'.");
         } else {
             // save ID of last created element
             myHierarchyInsertedAdditionals.commitElementInsertion(buildBusStop(myViewNet, myUndoAdditionals, id, lane, startPos, endPos, name, lines, friendlyPosition, false));
@@ -2051,29 +2052,29 @@ GNEAdditionalHandler::parseAndBuildBusStop(const SUMOSAXAttributes& attrs, const
 
 
 void
-GNEAdditionalHandler::parseAndBuildContainerStop(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
+GNEAdditionalHandler::parseAndBuildContainerStop(const SUMOSAXAttributes& attrs) {
     bool abort = false;
     // parse attributes of container stop
-    std::string id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ID, abort);
-    std::string laneId = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_LANE, abort);
-    std::string startPos = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_STARTPOS, abort);
-    std::string endPos = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_ENDPOS, abort);
-    std::string name = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_NAME, abort);
-    std::vector<std::string> lines = GNEAttributeCarrier::parseAttributeFromXML<std::vector<std::string> >(attrs, id, tag, SUMO_ATTR_LINES, abort);
-    bool friendlyPosition = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, tag, SUMO_ATTR_FRIENDLY_POS, abort);
+    std::string id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_CONTAINER_STOP, SUMO_ATTR_ID, abort);
+    std::string laneId = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_CONTAINER_STOP, SUMO_ATTR_LANE, abort);
+    std::string startPos = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_CONTAINER_STOP, SUMO_ATTR_STARTPOS, abort);
+    std::string endPos = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_CONTAINER_STOP, SUMO_ATTR_ENDPOS, abort);
+    std::string name = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_CONTAINER_STOP, SUMO_ATTR_NAME, abort);
+    std::vector<std::string> lines = GNEAttributeCarrier::parseAttributeFromXML<std::vector<std::string> >(attrs, id, SUMO_TAG_CONTAINER_STOP, SUMO_ATTR_LINES, abort);
+    bool friendlyPosition = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, SUMO_TAG_CONTAINER_STOP, SUMO_ATTR_FRIENDLY_POS, abort);
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // get pointer to lane
         GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false, true);
         // check that all elements are valid
-        if (myViewNet->getNet()->retrieveAdditional(tag, id, false) != nullptr) {
-            WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
+        if (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, id, false) != nullptr) {
+            WRITE_WARNING("There is another " + toString(SUMO_TAG_CONTAINER_STOP) + " with the same ID='" + id + "'.");
         } else if (lane == nullptr) {
             // Write error if lane isn't valid
-            WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
+            WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(SUMO_TAG_CONTAINER_STOP) + " '" + id + "' is not known.");
         } else if (!GNEStoppingPlace::checkStoppinPlacePosition(startPos, endPos, lane->getParentEdge().getNBEdge()->getFinalLength(), friendlyPosition)) {
             // write error if position isn't valid
-            WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
+            WRITE_WARNING("Invalid position for " + toString(SUMO_TAG_CONTAINER_STOP) + " with ID = '" + id + "'.");
         } else {
             // save ID of last created element
             myHierarchyInsertedAdditionals.commitElementInsertion(buildContainerStop(myViewNet, myUndoAdditionals, id, lane, startPos, endPos, name, lines, friendlyPosition, false));
@@ -2083,13 +2084,13 @@ GNEAdditionalHandler::parseAndBuildContainerStop(const SUMOSAXAttributes& attrs,
 
 
 void
-GNEAdditionalHandler::parseAndBuildAccess(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
+GNEAdditionalHandler::parseAndBuildAccess(const SUMOSAXAttributes& attrs) {
     bool abort = false;
     // parse attributes of Entry
-    std::string laneId = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_LANE, abort);
-    std::string position = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_POSITION, abort);
-    std::string length = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_LENGTH, abort);
-    bool friendlyPos = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, "", tag, SUMO_ATTR_FRIENDLY_POS, abort);
+    std::string laneId = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_ACCESS, SUMO_ATTR_LANE, abort);
+    std::string position = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_ACCESS, SUMO_ATTR_POSITION, abort);
+    std::string length = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_ACCESS, SUMO_ATTR_LENGTH, abort);
+    bool friendlyPos = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, "", SUMO_TAG_ACCESS, SUMO_ATTR_FRIENDLY_POS, abort);
     // Check if parsing of parameters was correct
     if (!abort) {
         double posDouble = GNEAttributeCarrier::parse<double>(position);
@@ -2098,11 +2099,11 @@ GNEAdditionalHandler::parseAndBuildAccess(const SUMOSAXAttributes& attrs, const 
         GNEAdditional* busStop = myHierarchyInsertedAdditionals.retrieveAdditionalParent(myViewNet, SUMO_TAG_BUS_STOP);
         // check that all parameters are valid
         if (lane == nullptr) {
-            WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " is not known.");
+            WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(SUMO_TAG_ACCESS) + " is not known.");
         } else if (busStop == nullptr) {
-            WRITE_WARNING("A " + toString(tag) + " must be declared within the definition of a " + toString(SUMO_TAG_BUS_STOP) + ".");
+            WRITE_WARNING("A " + toString(SUMO_TAG_ACCESS) + " must be declared within the definition of a " + toString(SUMO_TAG_BUS_STOP) + ".");
         } else if (!checkAndFixDetectorPosition(posDouble, lane->getLaneShapeLength(), friendlyPos)) {
-            WRITE_WARNING("Invalid position for " + toString(tag) + ".");
+            WRITE_WARNING("Invalid position for " + toString(SUMO_TAG_ACCESS) + ".");
         } else if (!accessCanBeCreated(busStop, lane->getParentEdge())) {
             WRITE_WARNING("Edge '" + lane->getParentEdge().getID() + "' already has an Access for busStop '" + busStop->getID() + "'");
         } else {
@@ -2114,32 +2115,32 @@ GNEAdditionalHandler::parseAndBuildAccess(const SUMOSAXAttributes& attrs, const 
 
 
 void
-GNEAdditionalHandler::parseAndBuildChargingStation(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
+GNEAdditionalHandler::parseAndBuildChargingStation(const SUMOSAXAttributes& attrs) {
     bool abort = false;
     // parse attributes of charging station
-    std::string id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ID, abort);
-    std::string laneId = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_LANE, abort);
-    std::string startPos = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_STARTPOS, abort);
-    std::string endPos = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_ENDPOS, abort);
-    std::string name = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_NAME, abort);
-    double chargingPower = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_CHARGINGPOWER, abort);
-    double efficiency = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_EFFICIENCY, abort);
-    bool chargeInTransit = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, tag, SUMO_ATTR_CHARGEINTRANSIT, abort);
-    double chargeDelay = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_CHARGEDELAY, abort);
-    bool friendlyPosition = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, tag, SUMO_ATTR_FRIENDLY_POS, abort);
+    std::string id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_CHARGING_STATION, SUMO_ATTR_ID, abort);
+    std::string laneId = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_CHARGING_STATION, SUMO_ATTR_LANE, abort);
+    std::string startPos = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_CHARGING_STATION, SUMO_ATTR_STARTPOS, abort);
+    std::string endPos = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_CHARGING_STATION, SUMO_ATTR_ENDPOS, abort);
+    std::string name = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_CHARGING_STATION, SUMO_ATTR_NAME, abort);
+    double chargingPower = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, SUMO_TAG_CHARGING_STATION, SUMO_ATTR_CHARGINGPOWER, abort);
+    double efficiency = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, SUMO_TAG_CHARGING_STATION, SUMO_ATTR_EFFICIENCY, abort);
+    bool chargeInTransit = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, SUMO_TAG_CHARGING_STATION, SUMO_ATTR_CHARGEINTRANSIT, abort);
+    double chargeDelay = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, SUMO_TAG_CHARGING_STATION, SUMO_ATTR_CHARGEDELAY, abort);
+    bool friendlyPosition = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, SUMO_TAG_CHARGING_STATION, SUMO_ATTR_FRIENDLY_POS, abort);
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // get pointer to lane
         GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false, true);
         // check that all elements are valid
-        if (myViewNet->getNet()->retrieveAdditional(tag, id, false) != nullptr) {
-            WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
+        if (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_CHARGING_STATION, id, false) != nullptr) {
+            WRITE_WARNING("There is another " + toString(SUMO_TAG_CHARGING_STATION) + " with the same ID='" + id + "'.");
         } else if (lane == nullptr) {
             // Write error if lane isn't valid
-            WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
+            WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(SUMO_TAG_CHARGING_STATION) + " '" + id + "' is not known.");
         } else if (!GNEStoppingPlace::checkStoppinPlacePosition(startPos, endPos, lane->getParentEdge().getNBEdge()->getFinalLength(), friendlyPosition)) {
             // write error if position isn't valid
-            WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
+            WRITE_WARNING("Invalid position for " + toString(SUMO_TAG_CHARGING_STATION) + " with ID = '" + id + "'.");
         } else {
             // save ID of last created element
             myHierarchyInsertedAdditionals.commitElementInsertion(buildChargingStation(myViewNet, myUndoAdditionals, id, lane, startPos, endPos, name, chargingPower, efficiency, chargeInTransit, chargeDelay, friendlyPosition, false));
@@ -2149,33 +2150,33 @@ GNEAdditionalHandler::parseAndBuildChargingStation(const SUMOSAXAttributes& attr
 
 
 void
-GNEAdditionalHandler::parseAndBuildParkingArea(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
+GNEAdditionalHandler::parseAndBuildParkingArea(const SUMOSAXAttributes& attrs) {
     bool abort = false;
     // parse attributes of charging station
-    std::string id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ID, abort);
-    std::string laneId = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_LANE, abort);
-    std::string startPos = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_STARTPOS, abort);
-    std::string endPos = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_ENDPOS, abort);
-    std::string name = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_NAME, abort);
-    bool friendlyPosition = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, tag, SUMO_ATTR_FRIENDLY_POS, abort);
-    int roadSideCapacity = GNEAttributeCarrier::parseAttributeFromXML<int>(attrs, id, tag, SUMO_ATTR_ROADSIDE_CAPACITY, abort);
-    bool onRoad = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, tag, SUMO_ATTR_ONROAD, abort);
-    double width = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_WIDTH, abort);
-    std::string length = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_LENGTH, abort);
-    double angle = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_ANGLE, abort);
+    std::string id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_PARKING_AREA, SUMO_ATTR_ID, abort);
+    std::string laneId = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_PARKING_AREA, SUMO_ATTR_LANE, abort);
+    std::string startPos = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_PARKING_AREA, SUMO_ATTR_STARTPOS, abort);
+    std::string endPos = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_PARKING_AREA, SUMO_ATTR_ENDPOS, abort);
+    std::string name = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_PARKING_AREA, SUMO_ATTR_NAME, abort);
+    bool friendlyPosition = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, SUMO_TAG_PARKING_AREA, SUMO_ATTR_FRIENDLY_POS, abort);
+    int roadSideCapacity = GNEAttributeCarrier::parseAttributeFromXML<int>(attrs, id, SUMO_TAG_PARKING_AREA, SUMO_ATTR_ROADSIDE_CAPACITY, abort);
+    bool onRoad = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, SUMO_TAG_PARKING_AREA, SUMO_ATTR_ONROAD, abort);
+    double width = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, SUMO_TAG_PARKING_AREA, SUMO_ATTR_WIDTH, abort);
+    std::string length = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_PARKING_AREA, SUMO_ATTR_LENGTH, abort);
+    double angle = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, SUMO_TAG_PARKING_AREA, SUMO_ATTR_ANGLE, abort);
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // get pointer to lane
         GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false, true);
         // check that all elements are valid
-        if (myViewNet->getNet()->retrieveAdditional(tag, id, false) != nullptr) {
-            WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
+        if (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_PARKING_AREA, id, false) != nullptr) {
+            WRITE_WARNING("There is another " + toString(SUMO_TAG_PARKING_AREA) + " with the same ID='" + id + "'.");
         } else if (lane == nullptr) {
             // Write error if lane isn't valid
-            WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
+            WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(SUMO_TAG_PARKING_AREA) + " '" + id + "' is not known.");
         } else if (!GNEStoppingPlace::checkStoppinPlacePosition(startPos, endPos, lane->getParentEdge().getNBEdge()->getFinalLength(), friendlyPosition)) {
             // write error if position isn't valid
-            WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
+            WRITE_WARNING("Invalid position for " + toString(SUMO_TAG_PARKING_AREA) + " with ID = '" + id + "'.");
         } else {
             // save ID of last created element
             myHierarchyInsertedAdditionals.commitElementInsertion(buildParkingArea(myViewNet, myUndoAdditionals, id, lane, startPos, endPos, name, friendlyPosition, roadSideCapacity, onRoad, width, length, angle, false));
@@ -2185,13 +2186,13 @@ GNEAdditionalHandler::parseAndBuildParkingArea(const SUMOSAXAttributes& attrs, c
 
 
 void
-GNEAdditionalHandler::parseAndBuildParkingSpace(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
+GNEAdditionalHandler::parseAndBuildParkingSpace(const SUMOSAXAttributes& attrs) {
     bool abort = false;
     // parse attributes of Parking Spaces
-    Position pos = GNEAttributeCarrier::parseAttributeFromXML<Position>(attrs, "", tag, SUMO_ATTR_POSITION, abort);
-    double width = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", tag, SUMO_ATTR_WIDTH, abort);
-    double length = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", tag, SUMO_ATTR_LENGTH, abort);
-    double angle = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", tag, SUMO_ATTR_ANGLE, abort);
+    Position pos = GNEAttributeCarrier::parseAttributeFromXML<Position>(attrs, "", SUMO_TAG_PARKING_SPACE, SUMO_ATTR_POSITION, abort);
+    double width = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", SUMO_TAG_PARKING_SPACE, SUMO_ATTR_WIDTH, abort);
+    double length = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", SUMO_TAG_PARKING_SPACE, SUMO_ATTR_LENGTH, abort);
+    double angle = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", SUMO_TAG_PARKING_SPACE, SUMO_ATTR_ANGLE, abort);
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // get Parking Area Parent
@@ -2206,88 +2207,85 @@ GNEAdditionalHandler::parseAndBuildParkingSpace(const SUMOSAXAttributes& attrs, 
 
 
 void
-GNEAdditionalHandler::parseAndBuildCalibrator(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
+GNEAdditionalHandler::parseAndBuildCalibrator(const SUMOSAXAttributes& attrs) {
     bool abort = false;
     // due there is two differents calibrators, has to be parsed in a different way
     std::string edgeID, laneId, id;
-    SumoXMLTag typeOfCalibrator = tag;
     // change tag depending of XML parmeters
     if (attrs.hasAttribute(SUMO_ATTR_EDGE)) {
-        typeOfCalibrator = SUMO_TAG_CALIBRATOR;
-        id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", typeOfCalibrator, SUMO_ATTR_ID, abort);
-        edgeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, typeOfCalibrator, SUMO_ATTR_EDGE, abort);
-        std::string outfile = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, typeOfCalibrator, SUMO_ATTR_OUTPUT, abort);
-        double position = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, typeOfCalibrator, SUMO_ATTR_POSITION, abort);
-        std::string name = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_NAME, abort);
-        double freq = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, typeOfCalibrator, SUMO_ATTR_FREQUENCY, abort);
-        std::string routeProbe = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_ROUTEPROBE, abort);
+        id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_CALIBRATOR, SUMO_ATTR_ID, abort);
+        edgeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_CALIBRATOR, SUMO_ATTR_EDGE, abort);
+        std::string outfile = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_CALIBRATOR, SUMO_ATTR_OUTPUT, abort);
+        double position = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, SUMO_TAG_CALIBRATOR, SUMO_ATTR_POSITION, abort);
+        std::string name = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_CALIBRATOR, SUMO_ATTR_NAME, abort);
+        double freq = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, SUMO_TAG_CALIBRATOR, SUMO_ATTR_FREQUENCY, abort);
+        std::string routeProbe = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_CALIBRATOR, SUMO_ATTR_ROUTEPROBE, abort);
         // Continue if all parameters were sucesfully loaded
         if (!abort) {
             // get pointer and edge
             GNEEdge* edge = myViewNet->getNet()->retrieveEdge(edgeID, false);
             // check that all elements are valid
-            if (myViewNet->getNet()->retrieveAdditional(typeOfCalibrator, id, false) != nullptr) {
-                WRITE_WARNING("There is another " + toString(typeOfCalibrator) + " with the same ID='" + id + "'.");
+            if (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_CALIBRATOR, id, false) != nullptr) {
+                WRITE_WARNING("There is another " + toString(SUMO_TAG_CALIBRATOR) + " with the same ID='" + id + "'.");
             } else if (edge == nullptr) {
-                WRITE_WARNING("The  edge '" + edgeID + "' to use within the " + toString(typeOfCalibrator) + " '" + id + "' is not known.");
+                WRITE_WARNING("The  edge '" + edgeID + "' to use within the " + toString(SUMO_TAG_CALIBRATOR) + " '" + id + "' is not known.");
             } else {
                 // save ID of last created element
                 myHierarchyInsertedAdditionals.commitElementInsertion(buildCalibrator(myViewNet, myUndoAdditionals, id, edge, position, name, outfile, freq, routeProbe));
             }
         }
     } else if (attrs.hasAttribute(SUMO_ATTR_LANE)) {
-        typeOfCalibrator = SUMO_TAG_LANECALIBRATOR;
-        id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", typeOfCalibrator, SUMO_ATTR_ID, abort);
-        laneId = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, typeOfCalibrator, SUMO_ATTR_LANE, abort);
-        std::string outfile = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, typeOfCalibrator, SUMO_ATTR_OUTPUT, abort);
-        double position = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, typeOfCalibrator, SUMO_ATTR_POSITION, abort);
-        std::string name = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_NAME, abort);
-        double freq = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, typeOfCalibrator, SUMO_ATTR_FREQUENCY, abort);
-        std::string routeProbe = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_ROUTEPROBE, abort);
+        id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_LANECALIBRATOR, SUMO_ATTR_ID, abort);
+        laneId = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_LANECALIBRATOR, SUMO_ATTR_LANE, abort);
+        std::string outfile = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_LANECALIBRATOR, SUMO_ATTR_OUTPUT, abort);
+        double position = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, SUMO_TAG_LANECALIBRATOR, SUMO_ATTR_POSITION, abort);
+        std::string name = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_LANECALIBRATOR, SUMO_ATTR_NAME, abort);
+        double freq = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, SUMO_TAG_LANECALIBRATOR, SUMO_ATTR_FREQUENCY, abort);
+        std::string routeProbe = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_LANECALIBRATOR, SUMO_ATTR_ROUTEPROBE, abort);
         // Continue if all parameters were sucesfully loaded
         if (!abort) {
             // get pointer to lane
             GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false, true);
             // check that all elements are valid
-            if (myViewNet->getNet()->retrieveAdditional(typeOfCalibrator, id, false) != nullptr) {
-                WRITE_WARNING("There is another " + toString(typeOfCalibrator) + " with the same ID='" + id + "'.");
+            if (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_LANECALIBRATOR, id, false) != nullptr) {
+                WRITE_WARNING("There is another " + toString(SUMO_TAG_CALIBRATOR) + " with the same ID='" + id + "'.");
             } else if (lane == nullptr) {
-                WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(typeOfCalibrator) + " '" + id + "' is not known.");
+                WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(SUMO_TAG_CALIBRATOR) + " '" + id + "' is not known.");
             } else {
                 // save ID of last created element
                 myHierarchyInsertedAdditionals.commitElementInsertion(buildCalibrator(myViewNet, myUndoAdditionals, id, lane, position, name, outfile, freq, routeProbe));
             }
         }
     } else {
-        WRITE_WARNING("additional " + toString(tag) + " must have either a lane or an edge attribute.");
+        WRITE_WARNING("additional " + toString(SUMO_TAG_CALIBRATOR) + " must have either a lane or an edge attribute.");
     }
 }
 
 
 void
-GNEAdditionalHandler::parseAndBuildDetectorE1(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
+GNEAdditionalHandler::parseAndBuildDetectorE1(const SUMOSAXAttributes& attrs) {
     bool abort = false;
     // parse attributes of E1
-    std::string id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ID, abort);
-    std::string laneId = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_LANE, abort);
-    double position = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_POSITION, abort);
-    double frequency = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_FREQUENCY, abort);
-    std::string file = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_FILE, abort);
-    std::string vehicleTypes = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_VTYPES, abort);
-    std::string name = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_NAME, abort);
-    bool friendlyPos = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, tag, SUMO_ATTR_FRIENDLY_POS, abort);
+    std::string id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_E1DETECTOR, SUMO_ATTR_ID, abort);
+    std::string laneId = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_E1DETECTOR, SUMO_ATTR_LANE, abort);
+    double position = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, SUMO_TAG_E1DETECTOR, SUMO_ATTR_POSITION, abort);
+    double frequency = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, SUMO_TAG_E1DETECTOR, SUMO_ATTR_FREQUENCY, abort);
+    std::string file = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_E1DETECTOR, SUMO_ATTR_FILE, abort);
+    std::string vehicleTypes = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_E1DETECTOR, SUMO_ATTR_VTYPES, abort);
+    std::string name = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_E1DETECTOR, SUMO_ATTR_NAME, abort);
+    bool friendlyPos = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, SUMO_TAG_E1DETECTOR, SUMO_ATTR_FRIENDLY_POS, abort);
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // get pointer to lane
         GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false, true);
         // check that all elements are valid
-        if (myViewNet->getNet()->retrieveAdditional(tag, id, false) != nullptr) {
-            WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
+        if (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_E1DETECTOR, id, false) != nullptr) {
+            WRITE_WARNING("There is another " + toString(SUMO_TAG_E1DETECTOR) + " with the same ID='" + id + "'.");
         } else if (lane == nullptr) {
             // Write error if lane isn't valid
-            WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
+            WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(SUMO_TAG_E1DETECTOR) + " '" + id + "' is not known.");
         } else if (!checkAndFixDetectorPosition(position, lane->getLaneShapeLength(), friendlyPos)) {
-            WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
+            WRITE_WARNING("Invalid position for " + toString(SUMO_TAG_E1DETECTOR) + " with ID = '" + id + "'.");
         } else {
             // save ID of last created element
             myHierarchyInsertedAdditionals.commitElementInsertion(buildDetectorE1(myViewNet, myUndoAdditionals, id, lane, position, frequency, file, vehicleTypes, name, friendlyPos, false));
@@ -2297,7 +2295,7 @@ GNEAdditionalHandler::parseAndBuildDetectorE1(const SUMOSAXAttributes& attrs, co
 
 
 void
-GNEAdditionalHandler::parseAndBuildDetectorE2(const SUMOSAXAttributes& attrs, const SumoXMLTag& /* tag */) {
+GNEAdditionalHandler::parseAndBuildDetectorE2(const SUMOSAXAttributes& attrs) {
     // Tag E2 detectors can build either E2 single lanes or E2 multilanes, depending of attribute "lanes"
     SumoXMLTag E2Tag = attrs.hasAttribute(SUMO_ATTR_LANES)? SUMO_TAG_E2DETECTOR_MULTILANE : SUMO_TAG_E2DETECTOR;
     bool abort = false;
@@ -2371,22 +2369,22 @@ GNEAdditionalHandler::parseAndBuildDetectorE2(const SUMOSAXAttributes& attrs, co
 
 
 void
-GNEAdditionalHandler::parseAndBuildDetectorE3(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
+GNEAdditionalHandler::parseAndBuildDetectorE3(const SUMOSAXAttributes& attrs) {
     bool abort = false;
     // parse attributes of E3
-    std::string id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ID, abort);
-    double frequency = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_FREQUENCY, abort);
-    std::string file = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_FILE, abort);
-    std::string vehicleTypes = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_VTYPES, abort);
-    std::string name = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_NAME, abort);
-    double haltingTimeThreshold = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_HALTING_TIME_THRESHOLD, abort);
-    double haltingSpeedThreshold = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_HALTING_SPEED_THRESHOLD, abort);
-    Position pos = GNEAttributeCarrier::parseAttributeFromXML<Position>(attrs, id, tag, SUMO_ATTR_POSITION, abort);
+    std::string id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_E3DETECTOR, SUMO_ATTR_ID, abort);
+    double frequency = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, SUMO_TAG_E3DETECTOR, SUMO_ATTR_FREQUENCY, abort);
+    std::string file = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_E3DETECTOR, SUMO_ATTR_FILE, abort);
+    std::string vehicleTypes = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_E3DETECTOR, SUMO_ATTR_VTYPES, abort);
+    std::string name = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_E3DETECTOR, SUMO_ATTR_NAME, abort);
+    double haltingTimeThreshold = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, SUMO_TAG_E3DETECTOR, SUMO_ATTR_HALTING_TIME_THRESHOLD, abort);
+    double haltingSpeedThreshold = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, SUMO_TAG_E3DETECTOR, SUMO_ATTR_HALTING_SPEED_THRESHOLD, abort);
+    Position pos = GNEAttributeCarrier::parseAttributeFromXML<Position>(attrs, id, SUMO_TAG_E3DETECTOR, SUMO_ATTR_POSITION, abort);
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // check that all elements are valid
-        if (myViewNet->getNet()->retrieveAdditional(tag, id, false) != nullptr) {
-            WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
+        if (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_E3DETECTOR, id, false) != nullptr) {
+            WRITE_WARNING("There is another " + toString(SUMO_TAG_E3DETECTOR) + " with the same ID='" + id + "'.");
         } else {
             // save ID of last created element
             myHierarchyInsertedAdditionals.commitElementInsertion(buildDetectorE3(myViewNet, myUndoAdditionals, id, pos, frequency, file, vehicleTypes, name, haltingTimeThreshold, haltingSpeedThreshold, false));
@@ -2396,12 +2394,12 @@ GNEAdditionalHandler::parseAndBuildDetectorE3(const SUMOSAXAttributes& attrs, co
 
 
 void
-GNEAdditionalHandler::parseAndBuildDetectorEntry(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
+GNEAdditionalHandler::parseAndBuildDetectorEntry(const SUMOSAXAttributes& attrs) {
     bool abort = false;
     // parse attributes of Entry
-    std::string laneId = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_LANE, abort);
-    double position = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", tag, SUMO_ATTR_POSITION, abort);
-    bool friendlyPos = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, "", tag, SUMO_ATTR_FRIENDLY_POS, abort);
+    std::string laneId = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_DET_ENTRY, SUMO_ATTR_LANE, abort);
+    double position = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", SUMO_TAG_DET_ENTRY, SUMO_ATTR_POSITION, abort);
+    bool friendlyPos = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, "", SUMO_TAG_DET_ENTRY, SUMO_ATTR_FRIENDLY_POS, abort);
     // Check if parsing of parameters was correct
     if (!abort) {
         // get lane and E3 parent
@@ -2409,9 +2407,9 @@ GNEAdditionalHandler::parseAndBuildDetectorEntry(const SUMOSAXAttributes& attrs,
         GNEAdditional* E3Parent = myHierarchyInsertedAdditionals.retrieveAdditionalParent(myViewNet, SUMO_TAG_E3DETECTOR);
         // check that all parameters are valid
         if (lane == nullptr) {
-            WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " is not known.");
+            WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(SUMO_TAG_DET_ENTRY) + " is not known.");
         } else if (!checkAndFixDetectorPosition(position, lane->getLaneShapeLength(), friendlyPos)) {
-            WRITE_WARNING("Invalid position for " + toString(tag) + ".");
+            WRITE_WARNING("Invalid position for " + toString(SUMO_TAG_DET_ENTRY) + ".");
         } else if (E3Parent) {
             // save ID of last created element
             myHierarchyInsertedAdditionals.commitElementInsertion(buildDetectorEntry(myViewNet, myUndoAdditionals, E3Parent, lane, position, friendlyPos, false));
@@ -2421,12 +2419,12 @@ GNEAdditionalHandler::parseAndBuildDetectorEntry(const SUMOSAXAttributes& attrs,
 
 
 void
-GNEAdditionalHandler::parseAndBuildDetectorExit(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
+GNEAdditionalHandler::parseAndBuildDetectorExit(const SUMOSAXAttributes& attrs) {
     bool abort = false;
     // parse attributes of Exit
-    std::string laneId = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_LANE, abort);
-    double position = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", tag, SUMO_ATTR_POSITION, abort);
-    bool friendlyPos = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, "", tag, SUMO_ATTR_FRIENDLY_POS, abort);
+    std::string laneId = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_DET_EXIT, SUMO_ATTR_LANE, abort);
+    double position = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", SUMO_TAG_DET_EXIT, SUMO_ATTR_POSITION, abort);
+    bool friendlyPos = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, "", SUMO_TAG_DET_EXIT, SUMO_ATTR_FRIENDLY_POS, abort);
     // Check if parsing of parameters was correct
     if (!abort) {
         // get lane and E3 parent
@@ -2434,9 +2432,9 @@ GNEAdditionalHandler::parseAndBuildDetectorExit(const SUMOSAXAttributes& attrs, 
         GNEAdditional* E3Parent = myHierarchyInsertedAdditionals.retrieveAdditionalParent(myViewNet, SUMO_TAG_E3DETECTOR);
         // check that all parameters are valid
         if (lane == nullptr) {
-            WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " is not known.");
+            WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(SUMO_TAG_DET_EXIT) + " is not known.");
         } else if (!checkAndFixDetectorPosition(position, lane->getLaneShapeLength(), friendlyPos)) {
-            WRITE_WARNING("Invalid position for " + toString(tag) + ".");
+            WRITE_WARNING("Invalid position for " + toString(SUMO_TAG_DET_EXIT) + ".");
         } else if (E3Parent) {
             // save ID of last created element
             myHierarchyInsertedAdditionals.commitElementInsertion(buildDetectorExit(myViewNet, myUndoAdditionals, E3Parent, lane, position, friendlyPos, false));
@@ -2446,28 +2444,28 @@ GNEAdditionalHandler::parseAndBuildDetectorExit(const SUMOSAXAttributes& attrs, 
 
 
 void
-GNEAdditionalHandler::parseAndBuildDetectorE1Instant(const SUMOSAXAttributes& attrs, const SumoXMLTag& tag) {
+GNEAdditionalHandler::parseAndBuildDetectorE1Instant(const SUMOSAXAttributes& attrs) {
     bool abort = false;
     // parse attributes of E1Instant
-    std::string id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", tag, SUMO_ATTR_ID, abort);
-    std::string laneId = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_LANE, abort);
-    double position = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, tag, SUMO_ATTR_POSITION, abort);
-    std::string file = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_FILE, abort);
-    std::string vehicleTypes = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_VTYPES, abort);
-    std::string name = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, tag, SUMO_ATTR_NAME, abort);
-    bool friendlyPos = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, tag, SUMO_ATTR_FRIENDLY_POS, abort);
+    std::string id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_INSTANT_INDUCTION_LOOP, SUMO_ATTR_ID, abort);
+    std::string laneId = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_INSTANT_INDUCTION_LOOP, SUMO_ATTR_LANE, abort);
+    double position = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, SUMO_TAG_INSTANT_INDUCTION_LOOP, SUMO_ATTR_POSITION, abort);
+    std::string file = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_INSTANT_INDUCTION_LOOP, SUMO_ATTR_FILE, abort);
+    std::string vehicleTypes = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_INSTANT_INDUCTION_LOOP, SUMO_ATTR_VTYPES, abort);
+    std::string name = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_INSTANT_INDUCTION_LOOP, SUMO_ATTR_NAME, abort);
+    bool friendlyPos = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, SUMO_TAG_INSTANT_INDUCTION_LOOP, SUMO_ATTR_FRIENDLY_POS, abort);
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // get pointer to lane
         GNELane* lane = myViewNet->getNet()->retrieveLane(laneId, false, true);
         // check that all elements are valid
-        if (myViewNet->getNet()->retrieveAdditional(tag, id, false) != nullptr) {
-            WRITE_WARNING("There is another " + toString(tag) + " with the same ID='" + id + "'.");
+        if (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_INSTANT_INDUCTION_LOOP, id, false) != nullptr) {
+            WRITE_WARNING("There is another " + toString(SUMO_TAG_INSTANT_INDUCTION_LOOP) + " with the same ID='" + id + "'.");
         } else if (lane == nullptr) {
             // Write error if lane isn't valid
-            WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(tag) + " '" + id + "' is not known.");
+            WRITE_WARNING("The lane '" + laneId + "' to use within the " + toString(SUMO_TAG_INSTANT_INDUCTION_LOOP) + " '" + id + "' is not known.");
         } else if (!checkAndFixDetectorPosition(position, lane->getLaneShapeLength(), friendlyPos)) {
-            WRITE_WARNING("Invalid position for " + toString(tag) + " with ID = '" + id + "'.");
+            WRITE_WARNING("Invalid position for " + toString(SUMO_TAG_INSTANT_INDUCTION_LOOP) + " with ID = '" + id + "'.");
         } else {
             // save ID of last created element
             myHierarchyInsertedAdditionals.commitElementInsertion(buildDetectorE1Instant(myViewNet, myUndoAdditionals, id, lane, position, file, vehicleTypes, name, friendlyPos, false));

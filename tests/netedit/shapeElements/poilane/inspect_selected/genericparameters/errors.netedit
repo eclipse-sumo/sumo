@@ -1,6 +1,6 @@
 Debug: Adding poiLane 'POI_1' into viewNet
-Debug: Shapes has to be saved
-Debug: Current saving Status: net saved, additionals saved, shapes unsaved
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Inserting generic parameter 'keyA1|valueA1' into shape.
 Debug: Inserting generic parameter 'keyA2|valueA2' into shape.
 Debug: Inserting generic parameter 'keyA3|valueA3' into shape.
@@ -9,10 +9,10 @@ Debug: Inserting generic parameter 'keyB1|valueB1' into shape.
 Debug: Inserting generic parameter 'keyB2|valueB2' into shape.
 Debug: Inserting generic parameter 'keyB3|valueB3' into shape.
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals saved, shapes unsaved
-Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 0, Shapes: 1, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 1, Polys: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 0, Shapes: 1, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 1, Polys: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 0, Shapes: 1, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 1, Polys: 0
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
+Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 1, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 1, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 1, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 1, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 1, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 1, Polys: 0
 Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into poiLane 'POI_1'
 Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into poiLane 'POI_2'
 Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into poiLane 'POI_1'
@@ -27,7 +27,7 @@ Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=v
 Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into poiLane 'POI_2'
 Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into poiLane 'POI_1'
 Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into poiLane 'POI_2'
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into poiLane 'POI_2'
 Debug: Setting previous attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into poiLane 'POI_1'
@@ -54,7 +54,7 @@ Debug: Removing poiLane 'POI_2' from viewNet
 Debug: Removed inspected element from Inspected ACs. 1 ACs remains.
 Debug: Removing poiLane 'POI_1' from viewNet
 Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Adding poiLane 'POI_1' into viewNet
 Debug: Adding poiLane 'POI_2' into viewNet
@@ -79,7 +79,7 @@ Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=v
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into poiLane 'POI_1'
 Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into poiLane 'POI_2'
-Debug: Shapes saved
+Debug: Additionals saved
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Removing poiLane 'POI_2' from net in ~GNEChange_Shape()

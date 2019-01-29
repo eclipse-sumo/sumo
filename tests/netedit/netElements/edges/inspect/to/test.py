@@ -34,16 +34,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 180)
 
 # Change parameter 2 with a non valid value (dummy Junction)
-netedit.modifyAttribute(2, "dummy_Junction")
+netedit.modifyAttribute(2, "dummy_Junction", False)
 
 # Change parameter 2 with a non valid value (empty Junction)
-netedit.modifyAttribute(2, "")
+netedit.modifyAttribute(2, "", False)
 
 # Change parameter 2 with a non valid value (same to Junction)
-netedit.modifyAttribute(2, "gneJ3")
+netedit.modifyAttribute(2, "gneJ3", False)
 
 # Change parameter 2 with a non valid value (two edges pararell)
-netedit.modifyAttribute(2, "gneJ1")
+netedit.modifyAttribute(2, "gneJ1", False)
 
 # recompute
 netedit.rebuildNetwork()

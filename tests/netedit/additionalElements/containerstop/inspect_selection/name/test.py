@@ -38,7 +38,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 150, 250)
 
 # Set name
-netedit.modifyAttribute(3, "common BusStop Name")
+netedit.modifyAttribute(0, "common BusStop Name", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

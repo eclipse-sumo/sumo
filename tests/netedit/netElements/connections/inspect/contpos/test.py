@@ -29,22 +29,22 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.rebuildNetwork()
 
 # show connections
-netedit.toogleShowConnectionsInspectorMode()
+netedit.toogleShowConnections()
 
 # inspect connection
-netedit.leftClick(referencePosition, 250, 190)
+netedit.leftClick(referencePosition, 250, 138)
 
 # Change constPos with an invalid value
-netedit.modifyAttribute(5, "dummyContPos")
+netedit.modifyAttribute(2, "dummyContPos", True)
 
 # Change constPos with an valid value
-netedit.modifyAttribute(5, "-3")
+netedit.modifyAttribute(2, "-3", True)
 
 # Change constPos with an valid value
-netedit.modifyAttribute(5, "0")
+netedit.modifyAttribute(2, "0", True)
 
 # Change constPos with an valid value
-netedit.modifyAttribute(5, "12")
+netedit.modifyAttribute(2, "12", True)
 
 # rebuild
 netedit.rebuildNetwork()

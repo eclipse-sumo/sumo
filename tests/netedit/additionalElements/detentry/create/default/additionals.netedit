@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 27.11.2018 10:17:12 by Eclipse SUMO netedit Version v1_0_0+1004-1c7613c4e7
+<!-- generated on 26.01.2019 11:45:06 by Eclipse SUMO netedit Version v1_1_0+0076-a16c2aae75
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.27Nov101702.8332/netedit.gui/additionalElements/detentry/create/default\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan165051.364/netedit.gui/additionalElements/detentry/create/default\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.27Nov101702.8332/netedit.gui/additionalElements/detentry/create/default\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan165051.364/netedit.gui/additionalElements/detentry/create/default\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
     </processing>
@@ -28,12 +29,12 @@
     </pedestrian>
 
     <netedit>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.27Nov101702.8332/netedit.gui/additionalElements/detentry/create/default\additionals.xml"/>
-        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.27Nov101702.8332/netedit.gui/additionalElements/detentry/create/default\shapes.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan165051.364/netedit.gui/additionalElements/detentry/create/default\additionals.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan165051.364/netedit.gui/additionalElements/detentry/create/default\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.27Nov101702.8332/netedit.gui/additionalElements/detentry/create/default\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan165051.364/netedit.gui/additionalElements/detentry/create/default\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -43,14 +44,14 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.27Nov101702.8332/netedit.gui/additionalElements/detentry/create/default\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan165051.364/netedit.gui/additionalElements/detentry/create/default\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <e3Detector id="e3Detector_0" pos="23.00,6.00" freq="900.00" file="e3Detector_0.xml">
+    <e3Detector id="e3Detector_0" pos="23.00,7.00" freq="900.00" file="e3Detector_0.xml">
         <detEntry lane="gneE1_0" pos="35.00"/>
         <detExit lane="gneE1_0" pos="24.00"/>
     </e3Detector>

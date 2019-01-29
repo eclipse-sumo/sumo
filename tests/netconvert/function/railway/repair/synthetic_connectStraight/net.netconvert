@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jan 18 13:22:50 2019 by Eclipse SUMO netconvert Version v1_1_0+0258-169157deea
+<!-- generated on Mon Jan 28 13:30:56 2019 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -343,15 +343,15 @@ SPDX-License-Identifier: EPL-2.0
 
     <connection from="-buffer3" to="gneE19" fromLane="0" toLane="0" via=":gneJ23_1_0" dir="s" state="M"/>
     <connection from="-gneE15" to="gneE16" fromLane="0" toLane="0" via=":gneJ20_0_0" dir="s" state="M"/>
-    <connection from="-gneE16" to="gneE15" fromLane="0" toLane="0" via=":gneJ20_2_0" dir="s" state="m"/>
-    <connection from="-gneE20" to="gneE5" fromLane="0" toLane="0" via=":gneJ6_0_0" dir="s" state="m"/>
+    <connection from="-gneE16" to="gneE15" fromLane="0" toLane="0" via=":gneJ20_2_0" dir="s" state="M"/>
+    <connection from="-gneE20" to="gneE5" fromLane="0" toLane="0" via=":gneJ6_0_0" dir="s" state="M"/>
     <connection from="-gneE21" to="gneE5" fromLane="0" toLane="0" via=":gneJ6_1_0" dir="s" state="M"/>
     <connection from="-gneE5" to="gneE21" fromLane="0" toLane="0" via=":gneJ6_2_0" dir="s" state="M"/>
-    <connection from="-gneE5" to="gneE20" fromLane="0" toLane="0" via=":gneJ6_3_0" dir="L" state="m"/>
+    <connection from="-gneE5" to="gneE20" fromLane="0" toLane="0" via=":gneJ6_3_0" dir="L" state="M"/>
     <connection from="-gneE8" to="gneE11" fromLane="0" toLane="0" via=":gneJ9_0_0" dir="s" state="M"/>
     <connection from="-gneE9" to="-gneE10" fromLane="0" toLane="0" via=":gneJ11_1_0" dir="s" state="M"/>
     <connection from="buffer1" to="gneE1" fromLane="0" toLane="0" via=":gneJ1_0_0" dir="s" state="M"/>
-    <connection from="gneE1" to="gneE3" fromLane="0" toLane="0" via=":gneJ2_1_0" dir="r" state="m"/>
+    <connection from="gneE1" to="gneE3" fromLane="0" toLane="0" via=":gneJ2_1_0" dir="r" state="M"/>
     <connection from="gneE10" to="gneE9" fromLane="0" toLane="0" via=":gneJ11_0_0" dir="s" state="M"/>
     <connection from="gneE11" to="buffer2" fromLane="0" toLane="0" via=":gneJ14_0_0" dir="s" state="M"/>
     <connection from="gneE13" to="gneE14" fromLane="0" toLane="0" via=":gneJ19_0_0" dir="s" state="M"/>
@@ -364,7 +364,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="gneE28" to="gneE29" fromLane="0" toLane="0" via=":gneJ35_0_0" dir="s" state="M"/>
     <connection from="gneE29" to="gneE30" fromLane="0" toLane="0" via=":gneJ36_0_0" dir="s" state="M"/>
     <connection from="gneE3" to="gneE4" fromLane="0" toLane="0" via=":gneJ4_0_0" dir="s" state="M"/>
-    <connection from="gneE5" to="gneE2" fromLane="0" toLane="0" via=":gneJ3_0_0" dir="s" state="m"/>
+    <connection from="gneE5" to="gneE2" fromLane="0" toLane="0" via=":gneJ3_0_0" dir="s" state="M"/>
     <connection from="gneE6" to="-gneE5" fromLane="0" toLane="0" via=":gneJ3_1_0" dir="s" state="M"/>
     <connection from="gneE7" to="gneE8" fromLane="0" toLane="0" via=":gneJ9_1_0" dir="s" state="M"/>
     <connection from="gneE8" to="-gneE9" fromLane="0" toLane="0" via=":gneJ10_1_0" dir="s" state="M"/>

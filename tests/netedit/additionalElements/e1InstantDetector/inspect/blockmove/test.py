@@ -41,7 +41,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 150)
 
 # Change boolean parameter block movement
-netedit.modifyBoolAttribute(13)
+netedit.modifyBoolAttribute(10, True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

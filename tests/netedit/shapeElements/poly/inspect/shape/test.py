@@ -41,17 +41,17 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 100, 50)
 
 # Change parameter 1 with a non valid value (dummy)
-netedit.modifyAttribute(1, "dummyShape")
+netedit.modifyAttribute(1, "dummyShape", False)
 
 # Change parameter 1 with a non valid value (empty)
-netedit.modifyAttribute(1, "")
+netedit.modifyAttribute(1, "", False)
 
 # Change parameter 1 with a valid value (single point)
-netedit.modifyAttribute(1, "12.00,8.00")
+netedit.modifyAttribute(1, "12.00,8.00", False)
 
 # Change parameter 1 with a valid value
 netedit.modifyAttribute(1, "12.00,8.00 9.00,13.00 12.00,18.00 7.00,15.00 2.00,18.00 " +
-                           "5.00,13.00 2.00,8.00 7.00,11.00 12.00,8.00")
+                           "5.00,13.00 2.00,8.00 7.00,11.00 12.00,8.00", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)

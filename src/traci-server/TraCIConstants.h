@@ -677,6 +677,9 @@
 // filled? (get: polygons)
 #define VAR_FILL 0x55
 
+// get/set image file (poi, poly, vehicle, person, simulation)
+#define VAR_IMAGFILE 0x93
+
 // position (1D along lane) (get: vehicle)
 #define VAR_LANEPOSITION 0x56
 

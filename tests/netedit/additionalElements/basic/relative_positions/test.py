@@ -32,13 +32,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 100, 230)
 
 # Change parameter lengt
-netedit.modifyAttribute(12, "25")
+netedit.modifyAttribute(12, "25", False)
 
 # inspect edge
 netedit.leftClick(referencePosition, 100, 370)
 
 # Change parameter lengt
-netedit.modifyAttribute(12, "25")
+netedit.modifyAttribute(12, "25", False)
 
 # recompute
 netedit.rebuildNetwork()

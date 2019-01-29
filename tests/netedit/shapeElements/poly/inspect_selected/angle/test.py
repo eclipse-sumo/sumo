@@ -29,10 +29,10 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 netedit.selectMode()
 
 # select first polygon
-netedit.leftClick(referencePosition, 100, 50)
+netedit.leftClick(referencePosition, 100, 53)
 
 # select second polygon
-netedit.leftClick(referencePosition, 300, 50)
+netedit.leftClick(referencePosition, 300, 53)
 
 # go to inspect mode
 netedit.inspectMode()
@@ -41,16 +41,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 100, 50)
 
 # Change parameter 8 with a non valid value (dummy)
-netedit.modifyAttribute(8, "dummyAngle")
+netedit.modifyAttribute(8, "dummyAngle", False)
 
 # Change parameter 8 with a valid value (negative)
-netedit.modifyAttribute(8, "-5")
+netedit.modifyAttribute(8, "-5", False)
 
 # Change parameter 8 with a valid value (> 360)
-netedit.modifyAttribute(8, "365")
+netedit.modifyAttribute(8, "365", False)
 
 # Change parameter 8 with a valid value (> 360)
-netedit.modifyAttribute(8, "10")
+netedit.modifyAttribute(8, "10", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 4)

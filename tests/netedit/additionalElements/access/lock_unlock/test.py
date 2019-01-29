@@ -51,7 +51,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 46, 181)
 
 # Change block movement
-netedit.modifyBoolAttribute(10)
+netedit.modifyBoolAttribute(7, True)
 
 # go to move mode
 netedit.moveMode()
@@ -66,7 +66,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 46, 181)
 
 # Change block movement
-netedit.modifyBoolAttribute(10)
+netedit.modifyBoolAttribute(7, True)
 
 # go to move mode
 netedit.moveMode()

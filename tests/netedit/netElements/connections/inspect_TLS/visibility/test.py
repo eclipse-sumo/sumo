@@ -29,22 +29,22 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.rebuildNetwork()
 
 # show connections
-netedit.toogleShowConnectionsInspectorMode()
+netedit.toogleShowConnections()
 
 # inspect connection
-netedit.leftClick(referencePosition, 250, 190)
+netedit.leftClick(referencePosition, 250, 138)
 
 # Change visibility with an invalid value
-netedit.modifyAttribute(7, "dummyVisibility")
+netedit.modifyAttribute(4, "dummyVisibility", True)
 
 # Change visibility with an valid value
-netedit.modifyAttribute(7, "-4")
+netedit.modifyAttribute(4, "-4", True)
 
 # Change visibility with an valid value
-netedit.modifyAttribute(7, "0")
+netedit.modifyAttribute(4, "0", True)
 
 # Change visibility with an valid value
-netedit.modifyAttribute(7, "11")
+netedit.modifyAttribute(4, "11", True)
 
 # rebuild
 netedit.rebuildNetwork()

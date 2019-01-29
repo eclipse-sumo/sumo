@@ -142,6 +142,8 @@ enum SumoXMLTag {
     SUMO_TAG_TRIP,
     /// @brief a flow definition (used by router)
     SUMO_TAG_FLOW,
+    /// @brief a flow definition within in Calibrator (used in NETEDIT)
+    SUMO_TAG_CALIBRATORFLOW,
     /// @brief a flow state definition (used when saving and loading simulatino state)
     SUMO_TAG_FLOWSTATE,
     /// @brief trigger: a step description

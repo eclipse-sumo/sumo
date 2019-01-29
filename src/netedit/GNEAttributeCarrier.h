@@ -81,6 +81,7 @@ public:
         ATTRPROPERTY_COMBINABLE =   1 << 20,    // Attribute is combinable with other Attribute
         ATTRPROPERTY_SYNONYM =      1 << 21,    // Attribute will be written with a different name in der XML
         ATTRPROPERTY_RANGE =        1 << 22,    // Attribute only accept a range of elements
+        ATTRPROPERTY_EXTENDED =     1 << 23,    // Attribute is extended (used in certain demand elements)
     };
 
     /// @brief struct with the attribute Properties
@@ -193,6 +194,9 @@ public:
 
         /// @brief return true if atribute isn't editable
         bool isNonEditable() const;
+
+        /// @brief return true if atribute is extended
+        bool isExtended() const;
 
     private:
         /// @brief Property of attribute
@@ -601,7 +605,7 @@ public:
     static T parseAttributeFromXML(const SUMOSAXAttributes& attrs, const std::string& objectID, const SumoXMLTag tag, const SumoXMLAttr attribute, bool& abort) {
         bool parsedOk = true;
         // @brief declare string values
-        std::string defaultValue, parsedAttribute, additionalOfWarningMessage;
+        std::string defaultValue, parsedAttribute, warningMessage;
         // obtain tag properties
         const auto& tagProperties = getTagProperties(tag);
         // first check if attribute is deprecated
@@ -615,9 +619,9 @@ public:
         }
         // now check if we're obtaining attribute of an object with an already parsed ID
         if (objectID != "") {
-            additionalOfWarningMessage = tagProperties.getTagStr() + " with ID '" + objectID + "'";
+            warningMessage = tagProperties.getTagStr() + " with ID '" + objectID + "'";
         } else {
-            additionalOfWarningMessage = tagProperties.getTagStr();
+            warningMessage = tagProperties.getTagStr();
         }
         // now check if we're parsing a GEO Attribute
         if (tagProperties.hasGEOPosition() && ((attribute == SUMO_ATTR_LON) || (attribute == SUMO_ATTR_LAT))) {
@@ -628,7 +632,7 @@ public:
                 // check that sucesfully parsed attribute can be converted to type double
                 if (!canParse<double>(parsedAttribute)) {
                     WRITE_WARNING("Format of GEO attribute '" + toString(attribute) + "' of " +
-                    additionalOfWarningMessage + " is invalid; Cannot be parsed to float; " + tagProperties.getTagStr() + " cannot be created");
+                    warningMessage + " is invalid; Cannot be parsed to float; " + tagProperties.getTagStr() + " cannot be created");
                     parsedOk = false;
                     // return default value
                     return parse<T>("0");
@@ -659,270 +663,18 @@ public:
             if (parsedOk && !canParse<T>(parsedAttribute)) {
                 parsedOk = false;
             }
-            // declare a string for details about error formats
-            std::string errorFormat;
-            // set extra check for ID Values
-            if (attribute == SUMO_ATTR_ID) {
-                if (parsedAttribute.empty()) {
-                    errorFormat = "ID cannot be empty; ";
-                    parsedOk = false;
-                } else if (tagProperties.isDetector()) {
-                    // special case for detectors (because in this case empty spaces are allowed)
-                    if (SUMOXMLDefinitions::isValidDetectorID(parsedAttribute) == false) {
-                        errorFormat = "Detector ID contains invalid characters; ";
-                        parsedOk = false;
-                    }
-                } else if (SUMOXMLDefinitions::isValidNetID(parsedAttribute) == false) {
-                    errorFormat = "ID contains invalid characters; ";
-                    parsedOk = false;
-                }
-            }
-            // Set extra checks for int values
-            if (attrProperties.isInt()) {
-                if (canParse<int>(parsedAttribute)) {
-                    // obtain int value
-                    int parsedIntAttribute = parse<int>(parsedAttribute);
-                    // check if attribute can be negative or zero
-                    if (attrProperties.isPositive() && (parsedIntAttribute < 0)) {
-                        errorFormat = "Cannot be negative; ";
-                        parsedOk = false;
-                    } else if (attrProperties.cannotBeZero() && (parsedIntAttribute == 0)) {
-                        errorFormat = "Cannot be zero; ";
-                        parsedOk = false;
-                    }
-                } else if (canParse<double>(parsedAttribute)) {
-                    errorFormat = "Float cannot be reinterpreted as int; ";
-                    parsedOk = false;
-                } else {
-                    errorFormat = "Cannot be parsed to int; ";
-                    parsedOk = false;
-                }
-            }
-            // Set extra checks for float(double) values
-            if (attrProperties.isFloat()) {
-                if (canParse<double>(parsedAttribute)) {
-                    // obtain double value
-                    double parsedDoubleAttribute = parse<double>(parsedAttribute);
-                    //check if can be negative and Zero
-                    if (attrProperties.isPositive() && (parsedDoubleAttribute < 0)) {
-                        errorFormat = "Cannot be negative; ";
-                        parsedOk = false;
-                    } else if (attrProperties.cannotBeZero() && (parsedDoubleAttribute == 0)) {
-                        errorFormat = "Cannot be zero; ";
-                        parsedOk = false;
-                    }
-                } else {
-                    errorFormat = "Cannot be parsed to float; ";
-                    parsedOk = false;
-                }
-            }
-            // Set extra checks for position values
-            if (attrProperties.isposition()) {
-                // check if we're parsing a single position or an entire shape
-                if (attrProperties.isList()) {
-                    // check if parsed attribute can be parsed to Position Vector
-                    if (!canParse<PositionVector>(parsedAttribute)) {
-                        errorFormat = "List of Positions aren't neither x,y nor x,y,z; ";
-                        parsedOk = false;
-                    }
-                } else if (!canParse<Position>(parsedAttribute)) {
-                    errorFormat = "Position is neither x,y nor x,y,z; ";
-                    parsedOk = false;
-                }
-            }
-            // set extra check for time(double) values
-            if (attrProperties.isTime()) {
-                if (canParse<double>(parsedAttribute)) {
-                    // parse to SUMO Real and check if is negative
-                    if (parse<double>(parsedAttribute) < 0) {
-                        errorFormat = "Time cannot be negative; ";
-                        parsedOk = false;
-                    }
-                } else {
-                    errorFormat = "Cannot be parsed to time; ";
-                    parsedOk = false;
-                }
-            }
-            // set extra check for probability values
-            if (attrProperties.isProbability()) {
-                if (canParse<double>(parsedAttribute)) {
-                    // parse to double and check if is between [0,1]
-                    double probability = parse<double>(parsedAttribute);
-                    if (probability < 0) {
-                        errorFormat = "Probability cannot be smaller than 0; ";
-                        parsedOk = false;
-                    } else if (probability > 1) {
-                        errorFormat = "Probability cannot be greather than 1; ";
-                        parsedOk = false;
-                    }
-                } else {
-                    errorFormat = "Cannot be parsed to probability; ";
-                    parsedOk = false;
-                }
-            }
-            // set extra check for range values
-            if (attrProperties.hasAttrRange()) {
-                if (canParse<double>(parsedAttribute)) {
-                    // parse to double and check if is in range
-                    double range = parse<double>(parsedAttribute);
-                    if (range < attrProperties.getMinimumRange()) {
-                        errorFormat = "Float cannot be smaller than " + toString(attrProperties.getMinimumRange()) + "; ";
-                        parsedOk = false;
-                    } else if (range > attrProperties.getMaximumRange()) {
-                        errorFormat = "Float cannot be greather than " + toString(attrProperties.getMaximumRange()) + "; ";
-                        parsedOk = false;
-                    }
-                } else {
-                    errorFormat = "Cannot be parsed to float; ";
-                    parsedOk = false;
-                }
-            }
-            // set extra check for discrete values
-            if (attrProperties.isDiscrete()) {
-                // search value in the list of discretes values of attribute properties
-                auto finder = std::find(attrProperties.getDiscreteValues().begin(), attrProperties.getDiscreteValues().end(), parsedAttribute);
-                // check if attribute is valid
-                if (finder == attrProperties.getDiscreteValues().end()) {
-                    errorFormat = "value is not within the set of allowed values for attribute '" + toString(attribute) + "'";
-                    parsedOk = false;
-                }
-            }
-            // set extra check for color values
-            if (attrProperties.isColor() && !canParse<RGBColor>(parsedAttribute)) {
-                errorFormat = "Invalid RGB format or named color; ";
-                parsedOk = false;
-            }
-            // set extra check for filename values
-            if (attrProperties.isFilename()) {
-                if (SUMOXMLDefinitions::isValidFilename(parsedAttribute) == false) {
-                    errorFormat = "Filename contains invalid characters; ";
-                    parsedOk = false;
-                } else if (parsedAttribute.empty()) {
-                    errorFormat = "Filename cannot be empty; ";
-                    parsedOk = false;
-                }
-            }
-            // set extra check for name values
-            if ((attribute == SUMO_ATTR_NAME) && !SUMOXMLDefinitions::isValidAttribute(parsedAttribute)) {
-                errorFormat = "name contains invalid characters; ";
-                parsedOk = false;
-            }
-            // set extra check for SVCPermissions values
-            if (attrProperties.isVClass()) {
-                if (!canParseVehicleClasses(parsedAttribute)) {
-                    errorFormat = "List of VClasses isn't valid; ";
-                    parsedAttribute = defaultValue;
-                    parsedOk = false;
-                }
-            }
-            // set extra check for Vehicle Classes
-            if ((!parsedOk) && (attribute == SUMO_ATTR_VCLASS)) {
-                errorFormat = "Is not a part of defined set of Vehicle Classes; ";
-            }
-            // set extra check for Vehicle Classes
-            if ((!parsedOk) && (attribute == SUMO_ATTR_GUISHAPE)) {
-                errorFormat = "Is not a part of defined set of Gui Vehicle Shapes; ";
-            }
-            // set extra check for RouteProbes
-            if ((attribute == SUMO_ATTR_ROUTEPROBE) && !SUMOXMLDefinitions::isValidNetID(parsedAttribute)) {
-                errorFormat = "RouteProbe ID contains invalid characters; ";
-                parsedOk = false;
-            }
-            // set extra check for list of edges
-            if ((attribute == SUMO_ATTR_EDGES) && parsedAttribute.empty()) {
-                errorFormat = "List of edges cannot be empty; ";
-                parsedOk = false;
-            }
-            // set extra check for list of lanes
-            if ((attribute == SUMO_ATTR_LANES) && parsedAttribute.empty()) {
-                errorFormat = "List of lanes cannot be empty; ";
-                parsedOk = false;
-            }
-            // set extra check for list of VTypes
-            if ((attribute == SUMO_ATTR_VTYPES) && !parsedAttribute.empty() && !SUMOXMLDefinitions::isValidListOfTypeID(parsedAttribute)) {
-                errorFormat = "List of vTypes contains invalid characters; ";
-                parsedOk = false;
-            }
-            // set extra check for list of RouteProbe
-            if ((attribute == SUMO_ATTR_ROUTEPROBE) && !parsedAttribute.empty() && !SUMOXMLDefinitions::isValidNetID(parsedAttribute)) {
-                errorFormat = "RouteProbe ID contains invalid characters; ";
-                parsedOk = false;
-            }
-            // If attribute has an invalid format
-            if (!parsedOk) {
-                // if attribute is optional and has a default value, obtain it as string. In other case, abort.
-                if (attrProperties.isOptional() && attrProperties.hasDefaultValue()) {
-                    parsedAttribute = attrProperties.getDefaultValue();
-                } else {
-                    WRITE_WARNING("Format of essential " + attrProperties.getDescription() + " attribute '" + toString(attribute) + "' of " +
-                                  additionalOfWarningMessage +  " is invalid; " + errorFormat + tagProperties.getTagStr() + " cannot be created");
-                    // abort parsing (and creation) of element
-                    abort = true;
-                    // set default value (To avoid errors in parse<T>(parsedAttribute))
-                    parsedAttribute = defaultValue;
-                }
-            }
+            // check parsed attribute
+            abort = !checkParsedAttribute(tagProperties, attrProperties, attribute, parsedOk, defaultValue, parsedAttribute, warningMessage);
         } else if (tagProperties.canMaskXYZPositions() && (attribute == SUMO_ATTR_POSITION)) {
-            // if element can mask their XYPosition, then must be extracted X Y coordiantes separeted
-            std::string x, y, z;
-            // give a default value to parsedAttribute to avoid problem parsing invalid positions
-            parsedAttribute = "0,0";
-            if (attrs.hasAttribute(SUMO_ATTR_X)) {
-                x = attrs.get<std::string>(SUMO_ATTR_X, objectID.c_str(), parsedOk, false);
-                // check that X attribute is valid
-                if (!canParse<double>(x)) {
-                    WRITE_WARNING("Format of essential " + attrProperties.getDescription() + " attribute '" + toString(SUMO_ATTR_X) + "' of " +
-                                  additionalOfWarningMessage +  " is invalid; Cannot be parsed to float; " + tagProperties.getTagStr() + " cannot be created");
-                    // abort parsing (and creation) of element
-                    abort = true;
-                }
-            } else {
-                WRITE_WARNING("Essential " + attrProperties.getDescription() + " attribute '" + toString(SUMO_ATTR_X) + "' of " +
-                              additionalOfWarningMessage +  " is missing; " + tagProperties.getTagStr() + " cannot be created");
-                // abort parsing (and creation) of element
-                abort = true;
-            }
-            if (attrs.hasAttribute(SUMO_ATTR_Y)) {
-                y = attrs.get<std::string>(SUMO_ATTR_Y, objectID.c_str(), parsedOk, false);
-                // check that X attribute is valid
-                if (!canParse<double>(y)) {
-                    WRITE_WARNING("Format of essential " + attrProperties.getDescription() + " attribute '" + toString(SUMO_ATTR_Y) + "' of " +
-                                  additionalOfWarningMessage + " is invalid; Cannot be parsed to float; " + tagProperties.getTagStr() + " cannot be created");
-                    // abort parsing (and creation) of element
-                    abort = true;
-                }
-            } else {
-                WRITE_WARNING("Essential " + attrProperties.getDescription() + " attribute '" + toString(SUMO_ATTR_Y) + "' of " +
-                              additionalOfWarningMessage +  " is missing; " + tagProperties.getTagStr() + " cannot be created");
-                // abort parsing (and creation) of element
-                abort = true;
-            }
-            // Z attribute is optional
-            if (attrs.hasAttribute(SUMO_ATTR_Z)) {
-                z = attrs.get<std::string>(SUMO_ATTR_Z, objectID.c_str(), parsedOk, false);
-                // check that Z attribute is valid
-                if (!canParse<double>(z)) {
-                    WRITE_WARNING("Format of optional " + attrProperties.getDescription() + " attribute '" + toString(SUMO_ATTR_Z) + "' of " +
-                                  additionalOfWarningMessage + " is invalid; Cannot be parsed to float; " + tagProperties.getTagStr() + " cannot be created");
-                    // leave Z attribute empty
-                    z.clear();
-                }
-            }
-            // create Position attribute using parsed coordinates X, Y and, optionally, Z
-            if (!abort) {
-                if (z.empty()) {
-                    parsedAttribute = x + "," + y;
-                } else {
-                    parsedAttribute = x + "," + y + "," + z;
-                }
-            }
+            // obtain masked position attribute
+            abort = !parseMaskedPositionAttribute(attrs, objectID, tagProperties, attrProperties, parsedOk, parsedAttribute, warningMessage);
         } else {
             // if attribute is optional and has a default value, obtain it. In other case, abort.
             if (attrProperties.isOptional() && attrProperties.hasDefaultValue()) {
                 parsedAttribute = attrProperties.getDefaultValue();
             } else {
                 WRITE_WARNING("Essential " + attrProperties.getDescription() + " attribute '" + toString(attribute) + "' of " +
-                              additionalOfWarningMessage +  " is missing; " + tagProperties.getTagStr() + " cannot be created");
+                              warningMessage +  " is missing; " + tagProperties.getTagStr() + " cannot be created");
                 // abort parsing (and creation) of element
                 abort = true;
                 // set default value (To avoid errors in parse<T>(parsedAttribute))
@@ -952,6 +704,28 @@ protected:
 private:
     /// @brief fill Attribute Carriers
     static void fillAttributeCarriers();
+
+    /// @brief fill Net Elements
+    static void fillNetElements();
+
+    /// @brief fill Additionals
+    static void fillAdditionals();
+
+    /// @brief fill Shapes
+    static void fillShapes();
+        
+    /// @brief fill DemandElements
+    static void fillDemandElements();
+
+    /// @brief parse and check attribute (note: This function is only to improve legilibility)
+    static bool checkParsedAttribute(const TagProperties& tagProperties, const AttributeProperties& attrProperties, 
+                                     const SumoXMLAttr attribute, bool& parsedOk, std::string &defaultValue, 
+                                     std::string &parsedAttribute, std::string &warningMessage);
+
+    /// @brief parse and check masked  (note: This function is only to improve legilibility)
+    static bool parseMaskedPositionAttribute(const SUMOSAXAttributes& attrs, const std::string& objectID, 
+                                             const TagProperties& tagProperties, const AttributeProperties& attrProperties, 
+                                             bool& parsedOk, std::string &parsedAttribute, std::string &warningMessage);
 
     /// @brief map with the tags properties
     static std::map<SumoXMLTag, TagProperties> myTagProperties;

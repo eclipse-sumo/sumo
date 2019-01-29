@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon Jan 28 10:52:40 2019 by Eclipse SUMO Version v1_0_1+0645-93703db
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <railsignal-block-output value="railsignal_blocks.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <routing>
+        <device.rerouting.period value="10"/>
+        <device.rerouting.adaptation-steps value="10"/>
+    </routing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<railsignal-block-output>
+    <railSignal id="w1">
+        <link linkIndex="0" from="T3_1_0" to=":w1_0_0">
+            <forwardBlock lanes=":w1_0_0 T7_1_0"/>
+            <bidiBlock lanes=":w1_1_0 T7_0_0"/>
+            <backwardBlock lanes=""/>
+            <conflictLinks logicIndex=""/>
+        </link>
+        <link linkIndex="1" from="T7_0_0" to=":w1_1_0">
+            <forwardBlock lanes=":w1_1_0 T9_0_0"/>
+            <bidiBlock lanes=""/>
+            <backwardBlock lanes=""/>
+            <conflictLinks logicIndex=""/>
+        </link>
+    </railSignal>
+    <railSignal id="w2">
+        <link linkIndex="0" from="T13_1_0" to=":w2_0_0">
+            <forwardBlock lanes=":w2_0_0 T3_1_0"/>
+            <bidiBlock lanes=""/>
+            <backwardBlock lanes=""/>
+            <conflictLinks logicIndex=""/>
+        </link>
+        <link linkIndex="1" from="T9_0_0" to=":w2_1_0">
+            <forwardBlock lanes=":w2_1_0 T11_0_0"/>
+            <bidiBlock lanes=":w2_0_0 T13_1_0 :w3_1_0 :w3_0_0"/>
+            <backwardBlock lanes=""/>
+            <conflictLinks logicIndex="w3_1 w3_0"/>
+        </link>
+    </railSignal>
+    <railSignal id="w3">
+        <link linkIndex="0" from="T16_1_0" to=":w3_0_0">
+            <forwardBlock lanes=":w3_0_0 T13_1_0"/>
+            <bidiBlock lanes=":w3_3_0 T11_0_0 :w2_1_0"/>
+            <backwardBlock lanes=":w3_1_0"/>
+            <conflictLinks logicIndex="w3_1 w2_1"/>
+        </link>
+        <link linkIndex="1" from="T6_1_0" to=":w3_1_0">
+            <forwardBlock lanes=":w3_1_0 T13_1_0"/>
+            <bidiBlock lanes=":w3_2_0 T11_0_0 :w2_1_0"/>
+            <backwardBlock lanes=":w3_0_0"/>
+            <conflictLinks logicIndex="w3_0 w2_1"/>
+        </link>
+        <link linkIndex="2" from="T11_0_0" to=":w3_2_0">
+            <forwardBlock lanes=":w3_2_0 T4_0_0"/>
+            <bidiBlock lanes=":w3_1_0 T6_1_0 :w4_1_0"/>
+            <backwardBlock lanes=""/>
+            <conflictLinks logicIndex="w4_1"/>
+        </link>
+        <link linkIndex="3" from="T11_0_0" to=":w3_3_0">
+            <forwardBlock lanes=":w3_3_0 T14_0_0"/>
+            <bidiBlock lanes=":w3_0_0 T16_1_0 :w4_0_0"/>
+            <backwardBlock lanes=""/>
+            <conflictLinks logicIndex="w4_0"/>
+        </link>
+    </railSignal>
+    <railSignal id="w4">
+        <link linkIndex="0" from="T18_1_0" to=":w4_0_0">
+            <forwardBlock lanes=":w4_0_0 T16_1_0"/>
+            <bidiBlock lanes=":w4_3_0 T14_0_0 :w3_3_0"/>
+            <backwardBlock lanes=""/>
+            <conflictLinks logicIndex="w3_3"/>
+        </link>
+        <link linkIndex="1" from="T18_1_0" to=":w4_1_0">
+            <forwardBlock lanes=":w4_1_0 T6_1_0"/>
+            <bidiBlock lanes=":w4_2_0 T4_0_0 :w3_2_0"/>
+            <backwardBlock lanes=""/>
+            <conflictLinks logicIndex="w3_2"/>
+        </link>
+        <link linkIndex="2" from="T4_0_0" to=":w4_2_0">
+            <forwardBlock lanes=":w4_2_0 T18_0_0"/>
+            <bidiBlock lanes=":w4_1_0 T18_1_0"/>
+            <backwardBlock lanes=":w4_3_0"/>
+            <conflictLinks logicIndex="w4_3"/>
+        </link>
+        <link linkIndex="3" from="T14_0_0" to=":w4_3_0">
+            <forwardBlock lanes=":w4_3_0 T18_0_0"/>
+            <bidiBlock lanes=":w4_0_0 T18_1_0"/>
+            <backwardBlock lanes=":w4_2_0"/>
+            <conflictLinks logicIndex="w4_2"/>
+        </link>
+    </railSignal>
+</railsignal-block-output>

@@ -1,5 +1,5 @@
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals saved, shapes saved
+Debug: Current saving Status: net unsaved, additionals saved, demand elements saved
 Debug: Opening about dialog
 Debug: Modules:  AMD64 MSVC 19.16.27024.1 Proj GUI GDAL FFmpeg OSG GL2PS SWIG GRPC
 Debug: Closed about dialog

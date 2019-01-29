@@ -29,37 +29,34 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.rebuildNetwork()
 
 # show connections
-netedit.toogleShowConnectionsInspectorMode()
+netedit.toogleShowConnections()
 
 # go to select mode
 netedit.selectMode()
 
-# select connection
-netedit.leftClick(referencePosition, 250, 125)
-netedit.leftClick(referencePosition, 250, 190)
-netedit.leftClick(referencePosition, 250, 257)
-netedit.leftClick(referencePosition, 250, 325)
+# select all using invert
+netedit.selectionInvert()
 
 # go to inspect mode agaim
 netedit.inspectMode()
 
-# inspect selected connection
-netedit.leftClick(referencePosition, 250, 125)
+# inspect selected connections
+netedit.leftClick(referencePosition, 250, 138)
 
 # Change linkIndex with an invalid value
-netedit.modifyAttribute(8, "dummyLinkIndex")
+netedit.modifyAttribute(5, "dummyLinkIndex", True)
 
 # Change linkIndex with an valid value
-netedit.modifyAttribute(8, "-2")
+netedit.modifyAttribute(5, "-2", True)
 
 # Change linkIndex with an valid value
-netedit.modifyAttribute(8, "0")
+netedit.modifyAttribute(5, "0", True)
 
 # Change linkIndex with an valid value (but big)
-netedit.modifyAttribute(8, "600")
+netedit.modifyAttribute(5, "600", True)
 
 # Change linkIndex with an valid value
-netedit.modifyAttribute(8, "12")
+netedit.modifyAttribute(5, "12", True)
 
 # rebuild
 netedit.rebuildNetwork()

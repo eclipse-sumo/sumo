@@ -38,10 +38,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 225)
 
 # set invalid edge
-netedit.modifyAttribute(3, "dummy Edges")
+netedit.modifyAttribute(0, "dummy Edges", True)
 
 # Change Edges adding a new edge
-netedit.modifyAttribute(3, "3 7 1")
+netedit.modifyAttribute(0, "3 7 1", True)
 
 # rebuild network
 netedit.rebuildNetwork()
@@ -51,7 +51,7 @@ netedit.leftClick(referencePosition, 291, 225)
 
 # Change Edges with the same edges as another crossing (Duplicate
 # crossings aren't allowed, see Ticket #4043
-netedit.modifyAttribute(3, "4 8")
+netedit.modifyAttribute(3, "4 8", True)
 
 # rebuild network
 netedit.rebuildNetwork()
@@ -60,7 +60,7 @@ netedit.rebuildNetwork()
 netedit.leftClick(referencePosition, 291, 225)
 
 # Change Edges to a single edge
-netedit.modifyAttribute(3, "3")
+netedit.modifyAttribute(3, "3", True)
 
 # rebuild network
 netedit.rebuildNetwork()

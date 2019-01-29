@@ -706,12 +706,16 @@ def inspectMode():
 """
 
 
-def modifyAttribute(attributeNumber, value):
+def modifyAttribute(attributeNumber, value, overlapped):
     # focus current frame
     focusOnFrame()
-    # jump to attribute
-    for _ in range(attributeNumber + 1):
-        typeTab()
+    # jump to attribute depending if it's a overlapped element
+    if (overlapped == True):
+        for _ in range(attributeNumber + 5):
+            typeTab()
+    else:
+        for _ in range(attributeNumber + 1):
+            typeTab()
     # paste the new value
     pasteIntoTextField(value)
     # type Enter to commit change
@@ -723,12 +727,16 @@ def modifyAttribute(attributeNumber, value):
 """
 
 
-def modifyBoolAttribute(attributeNumber):
+def modifyBoolAttribute(attributeNumber, overlapped):
     # focus current frame
     focusOnFrame()
-    # jump to attribute
-    for _ in range(attributeNumber + 1):
-        typeTab()
+    # jump to attribute depending if it's a overlapped element
+    if (overlapped == True):
+        for _ in range(attributeNumber + 5):
+            typeTab()
+    else:
+        for _ in range(attributeNumber + 1):
+            typeTab()
     # type SPACE to change value
     typeSpace()
 
@@ -857,12 +865,12 @@ def crossingInvertEdges(useSelectedEdges=False, thereIsSelectedEdges=False):
 
 
 #################################################
-# crossings
+# Connection mode
 #################################################
 
 
 """
-@brief Change to crossing mode
+@brief Change to connection mode
 """
 
 
@@ -875,15 +883,8 @@ def connectionMode():
 """
 
 
-def toogleShowConnectionsInspectorMode():
-    # focus current frame
-    focusOnFrame()
-    # go to check box
-    typeInvertTab()
-    # type space to toogle checkbox
-    typeSpace()
-    # focus frame again
-    typeTab()
+def toogleShowConnections():
+    typeThreeKeys('ctrl', 'shift', 'c')
 
 
 """
@@ -1154,33 +1155,12 @@ def abortSelection():
 
 
 """
-@brief toogle select edges
+@brief toogle select edges (using hotkey)
 """
 
 
 def toogleSelectEdges():
-    focusOnFrame()
-    # jump to toogle edge
-    for _ in range(3):
-        typeInvertTab()
-    typeSpace()
-    # Focus on frame again
-    focusOnFrame()
-
-
-"""
-@brief toogle show connections (in select mode)
-"""
-
-
-def toogleShowConnections():
-    focusOnFrame()
-    # jump to toogle edge
-    for _ in range(2):
-        typeInvertTab()
-    typeSpace()
-    # Focus on frame again
-    focusOnFrame()
+    typeThreeKeys('ctrl', 'shift', 'i')
 
 
 """
@@ -1404,20 +1384,6 @@ def selectionInvert():
     # wait for gl debug
     time.sleep(DELAY_SELECT)
 
-
-"""
-@brief Toggle select edges and lanes
-"""
-
-
-def selectionToogleEdges():
-    # focus current frame
-    focusOnFrame()
-    # go to check box "select edges"
-    for _ in range(2):
-        typeInvertTab()
-    # type space to enable or disable edge selection
-    typeSpace()
 
 #################################################
 # traffic light

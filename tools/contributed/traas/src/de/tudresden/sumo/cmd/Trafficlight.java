@@ -141,9 +141,26 @@ public class Trafficlight {
 	 */
 
 	public static SumoCommand getParameter(String tlsID, String param){
-		return new SumoCommand(Constants.CMD_GET_TL_VARIABLE, Constants.VAR_PARAMETER, tlsID, Constants.RESPONSE_GET_TL_VARIABLE, Constants.TYPE_STRING);
+		Object[] array = new Object[]{param};
+		return new SumoCommand(Constants.CMD_GET_TL_VARIABLE, Constants.VAR_PARAMETER, tlsID, array, Constants.RESPONSE_GET_TL_VARIABLE, Constants.TYPE_STRING);
 	}
 	
+
+	/**
+	 * Sets the chosen parameter
+	 *
+	 *  @param vehID a string identifying the vehicle
+	 *  @param param a string identifying the parameter
+	 *  @param value a string identifying the new value
+	 *  
+	 * @return SumoCommand
+	 */
+
+	public static SumoCommand setParameter(String tlsID, String param, String value){
+		Object[] array = new Object[]{param, value};
+		return new SumoCommand(Constants.CMD_SET_TL_VARIABLE, Constants.VAR_PARAMETER, tlsID, array);
+	}
+
 	/**
 	 * Returns the index of the current phase in the current program.
 	 * 

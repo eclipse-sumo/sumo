@@ -41,16 +41,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 100, 50)
 
 # Change parameter 2 with a non valid value (dummy)
-netedit.modifyAttribute(1, "dummyColor")
+netedit.modifyAttribute(1, "dummyColor", False)
 
 # Change parameter 2 with a non valid value (invalid format)
-netedit.modifyAttribute(1, "255,255,500")
+netedit.modifyAttribute(1, "255,255,500", False)
 
 # Change parameter 2 with a valid value (valid format)
-netedit.modifyAttribute(1, "blue")
+netedit.modifyAttribute(1, "blue", False)
 
 # Change parameter 2 with a valid value (valid format)
-netedit.modifyAttribute(1, "125,60,200")
+netedit.modifyAttribute(1, "125,60,200", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

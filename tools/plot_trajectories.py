@@ -26,15 +26,18 @@ import sys
 from collections import defaultdict
 from optparse import OptionParser
 import matplotlib.pyplot as plt
+import math
 
 from sumolib.xml import parse_fast_nested
+from sumolib.miscutils import uMin, uMax
 
 
 def getOptions(args=None):
     optParser = OptionParser()
     optParser.add_option("-t", "--trajectory-type", dest="ttype", default="ds",
-                         help="select one of ('ds','ts', 'td', 'da', 'ta') for plotting distanceVsSpeed (default), " +
-                         "timeVsSpeed, timeVsDistance, distanceVsAcceleration, timeVsAcceleration")
+                         help="select two leters from [t, s, d, a, i, x, y] to plot" 
+                         + " Time, Speed, Distance, Acceleration, Angle, x-Position, y-Position."
+                         + " Default 'ds' plots Distance vs. Speed")
     optParser.add_option("-s", "--show", action="store_true", default=False, help="show plot directly")
     optParser.add_option("-o", "--output", help="outputfile for saving plots", default="plot.png")
     optParser.add_option("--csv-output", dest="csv_output", help="write plot as csv", metavar="FILE")
@@ -42,8 +45,12 @@ def getOptions(args=None):
                          help="perform ballistic integration of distance")
     optParser.add_option("--filter-route", dest="filterRoute",
                          help="only export trajectories that pass the given list of edges (regardless of gaps)")
-    optParser.add_option("--pick-distance", dest="pickDist", type="float", default=1,
+    optParser.add_option("-p", "--pick-distance", dest="pickDist", type="float", default=1,
                          help="pick lines within the given distance in interactive plot mode")
+    optParser.add_option("-i", "--invert-distance-angle", dest="invertDistanceAngle", type="float",
+                         help="invert distance for trajectories with a average angle near FLOAT")
+    optParser.add_option("--label", help="plot label (default input file name")
+    optParser.add_option("--invert-yaxis", dest="invertYAxis", action="store_true", default=False, help="Invert the Y-Axis")
     optParser.add_option("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
 
     options, args = optParser.parse_args(args=args)
@@ -75,36 +82,31 @@ def main(options):
 
     xdata = 2
     ydata = 1
-    if options.ttype == 'ds':
-        plt.xlabel("Distance")
-        plt.ylabel("Speed")
-    elif options.ttype == 'ts':
-        plt.xlabel("Time")
-        plt.ylabel("Speed")
-        xdata = 0
-        ydata = 1
-    elif options.ttype == 'td':
-        plt.xlabel("Time")
-        plt.ylabel("Distance")
-        xdata = 0
-        ydata = 2
-    elif options.ttype == 'ta':
-        plt.xlabel("Time")
-        plt.ylabel("Acceleration")
-        xdata = 0
-        ydata = 3
-    elif options.ttype == 'da':
-        plt.xlabel("Distance")
-        plt.ylabel("Acceleration")
-        xdata = 2
-        ydata = 3
+    typespec = {
+            't' : ('Time', 0),
+            's' : ('Speed', 1),
+            'd' : ('Distance', 2),
+            'a' : ('Acceleration', 3),
+            'i' : ('Angle', 4),
+            'x' : ('x-Position', 5),
+            'y' : ('y-Position', 6),
+            }
+
+    if (len(options.ttype) == 2 
+            and options.ttype[0] in typespec
+            and options.ttype[1] in typespec):
+        xLabel, xdata = typespec[options.ttype[0]]
+        yLabel, ydata = typespec[options.ttype[1]]
+        plt.xlabel(xLabel)
+        plt.ylabel(yLabel)
+        plt.title(options.fcdfile if options.label is None else options.label)
     else:
         sys.exit("unsupported plot type '%s'" % options.ttype)
 
     routes = defaultdict(list)  # vehID -> recorded edges
-    data = defaultdict(lambda: ([], [], [], []))  # vehID -> (times, speeds, distances, accelerations)
+    data = defaultdict(lambda: ([], [], [], [], [], [], []))  # vehID -> (times, speeds, distances, accelerations, angles, xPositions, yPositions)
     for timestep, vehicle in parse_fast_nested(options.fcdfile, 'timestep', ['time'],
-                                               'vehicle', ['id', 'speed', 'lane']):
+                                               'vehicle', ['id', 'x', 'y', 'angle', 'speed', 'lane']):
         time = float(timestep.time)
         speed = float(vehicle.speed)
         prevTime = time
@@ -116,6 +118,9 @@ def main(options):
             prevDist = data[vehicle.id][2][-1]
         data[vehicle.id][0].append(time)
         data[vehicle.id][1].append(speed)
+        data[vehicle.id][4].append(float(vehicle.angle))
+        data[vehicle.id][5].append(float(vehicle.x))
+        data[vehicle.id][6].append(float(vehicle.y))
         if prevTime == time:
             data[vehicle.id][3].append(0)
         else:
@@ -133,10 +138,25 @@ def main(options):
     def line_picker(line, mouseevent):
         if mouseevent.xdata is None:
             return False, dict()
+        #minxy = None
+        #mindist = 10000
         for x, y in zip(line.get_xdata(), line.get_ydata()):
-            if (x - mouseevent.xdata) ** 2 + (y - mouseevent.ydata) ** 2 < options.pickDist:
+            dist = math.sqrt((x - mouseevent.xdata) ** 2 + (y - mouseevent.ydata) ** 2)
+            if dist < options.pickDist:
                 return True, dict(label=line.get_label())
+            #else:
+            #    if dist < mindist:
+            #        print("   ", x,y, dist, (x - mouseevent.xdata) ** 2, (y - mouseevent.ydata) ** 2)
+            #        mindist = dist
+            #        minxy = (x, y)
+        #print(mouseevent.xdata, mouseevent.ydata, minxy, dist,
+        #        line.get_label())
         return False, dict()
+
+    minY = uMax
+    maxY = uMin
+    minX = uMax
+    maxX = uMin
 
     for vehID, d in data.items():
         if options.filterRoute is not None:
@@ -148,7 +168,22 @@ def main(options):
                     break
             if skip:
                 continue
+        if options.invertDistanceAngle is not None:
+            avgAngle = sum(d[4]) / len(d[4])
+            if abs(avgAngle - options.invertDistanceAngle) < 45:
+                maxDist = d[2][-1]
+                for i,v in enumerate(d[2]):
+                    d[2][i] = maxDist - v
+
+        minY = min(minY, min(d[ydata]))
+        maxY = max(maxY, max(d[ydata]))
+        minX = min(minX, min(d[xdata]))
+        maxX = max(maxX, max(d[xdata]))
+
         plt.plot(d[xdata], d[ydata], picker=line_picker, label=vehID)
+    if options.invertYAxis:
+        plt.axis([minX, maxX, maxY, minY])
+
 
     plt.savefig(options.output)
     if options.csv_output is not None:

@@ -1,16 +1,6 @@
-+++ running this Java
-+++ trying to run SikuliX
-+++ using: -Xms64M -Xmx512M -Dfile.encoding=UTF-8 -Dsikuli.FromCommandLine -jar C:\Sikulix\sikulix.jar -run test.sikuli
 TestFunctions: Netedit opened successfully
 Finding reference
-TestFunctions: 'reference.png' found. Position: 304 - 140
-[log]  TYPE "#F5."
-[log]  TYPE "s"
-[log] CLICK on L(619,360)@S(0)[0,0 1600x900] (234 msec)
-TestFunctions: Clicked over position 619 - 360
-[log] CLICK on L(719,360)@S(0)[0,0 1600x900] (235 msec)
-TestFunctions: Clicked over position 719 - 360
-[log]  TYPE "#F7."
-[log] ( Ctrl )  TYPE "s"
-[log] ( Ctrl )  TYPE "q"
+TestFunctions: 'reference.png' found. Position: 304 - 168
+TestFunctions: Clicked over position 619 - 388
+TestFunctions: Clicked over position 719 - 388
 TestFunctions: Netedit closed successfully

@@ -38,7 +38,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 275, 242)
 
 # Change block movement
-netedit.modifyBoolAttribute(9)
+netedit.modifyBoolAttribute(5, True)
 
 # Check undo redo
 netedit.undo(referencePosition, 4)

@@ -204,6 +204,9 @@ MSFrame::fillOptions() {
 
     oc.doRegister("link-output", new Option_FileName());
     oc.addDescription("link-output", "Output", "Save links states into FILE");
+    
+    oc.doRegister("railsignal-block-output", new Option_FileName());
+    oc.addDescription("railsignal-block-output", "Output", "Save railsignal-blocks into FILE");
 
     oc.doRegister("bt-output", new Option_FileName());
     oc.addDescription("bt-output", "Output", "Save bluetooth visibilities into FILE (in conjunction with device.btreceiver and device.btsender)");
@@ -523,6 +526,7 @@ MSFrame::buildStreams() {
 
     //OutputDevice::createDeviceByOption("vtk-output", "vtk-export");
     OutputDevice::createDeviceByOption("link-output", "link-output");
+    OutputDevice::createDeviceByOption("railsignal-block-output", "railsignal-block-output");
     OutputDevice::createDeviceByOption("bt-output", "bt-output");
     OutputDevice::createDeviceByOption("lanechange-output", "lanechanges");
     OutputDevice::createDeviceByOption("stop-output", "stops", "stopinfo_file.xsd");

@@ -29,7 +29,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.rebuildNetwork()
 
 # show connections
-netedit.toogleShowConnectionsInspectorMode()
+netedit.toogleShowConnections()
 
 # set select mode
 netedit.selectMode()
@@ -41,7 +41,7 @@ netedit.selectItems("Net Element", "connection", "speed", "")
 netedit.deleteMode()
 
 # delete selected connections
-netedit.leftClick(referencePosition, 250, 190)
+netedit.leftClick(referencePosition, 250, 138)
 
 # rebuild
 netedit.rebuildNetwork()

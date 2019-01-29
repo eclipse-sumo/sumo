@@ -44,16 +44,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 100, 50)
 
 # Change parameter 0 with a non valid value (Duplicated ID)
-netedit.modifyAttribute(0, "POI_1")
+netedit.modifyAttribute(0, "POI_1", False)
 
 # Change parameter 0 with a non valid value (empty)
-netedit.modifyAttribute(0, "")
+netedit.modifyAttribute(0, "", False)
 
 # Change parameter 0 with a non valid value (invalid)
-netedit.modifyAttribute(0, "ID with spaces")
+netedit.modifyAttribute(0, "ID with spaces", False)
 
 # Change parameter 0 with a valid value
-netedit.modifyAttribute(0, "newID")
+netedit.modifyAttribute(0, "newID", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)

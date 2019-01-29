@@ -44,7 +44,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 325, 220)
 
 # change keep clear
-netedit.modifyBoolAttribute(2)
+netedit.modifyBoolAttribute(2, False)
 
 # rebuild network
 netedit.rebuildNetwork()

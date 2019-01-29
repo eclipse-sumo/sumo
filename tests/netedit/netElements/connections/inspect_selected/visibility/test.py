@@ -29,34 +29,31 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.rebuildNetwork()
 
 # show connections
-netedit.toogleShowConnectionsInspectorMode()
+netedit.toogleShowConnections()
 
 # go to select mode
 netedit.selectMode()
 
-# select connection
-netedit.leftClick(referencePosition, 250, 125)
-netedit.leftClick(referencePosition, 250, 190)
-netedit.leftClick(referencePosition, 250, 257)
-netedit.leftClick(referencePosition, 250, 325)
+# select all using invert
+netedit.selectionInvert()
 
 # go to inspect mode agaim
 netedit.inspectMode()
 
-# inspect selected connection
-netedit.leftClick(referencePosition, 250, 125)
+# inspect selected connections
+netedit.leftClick(referencePosition, 250, 138)
 
 # Change visibility with an invalid value
-netedit.modifyAttribute(7, "dummyVisibility")
+netedit.modifyAttribute(4, "dummyVisibility", True)
 
 # Change visibility with an valid value
-netedit.modifyAttribute(7, "-4")
+netedit.modifyAttribute(4, "-4", True)
 
 # Change visibility with an valid value
-netedit.modifyAttribute(7, "0")
+netedit.modifyAttribute(4, "0", True)
 
 # Change visibility with an valid value
-netedit.modifyAttribute(7, "11")
+netedit.modifyAttribute(4, "11", True)
 
 # rebuild
 netedit.rebuildNetwork()

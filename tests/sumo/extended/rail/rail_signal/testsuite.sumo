@@ -33,5 +33,24 @@ inserted_behind_signal
 # a rail signal with one incoming lange
 single_incoming_lane
 
+# Two trains approaching conflicting block simultaneously causing a head-on conflict
+stopped_conflict
+
 # switches for a bidirectional section guarded by extra rail signal nodes
 indirect_guard
+
+# switches for a bidirectional section guarded by extra rail signal nodes,
+# traffic light state must take the route of the approaching vehicle into account
+indirect_guard_route_conflict
+
+# track layout with a circle in it
+circle
+
+# track layout with a circle in it
+circle_bidi
+
+# track layout with a circle in the incoming block
+circle_backward
+
+# track layout with a circle and a single railSignal
+circle_1signal

@@ -47,6 +47,7 @@ import de.tudresden.ws.container.SumoVehicleData;
 import de.uniluebeck.itm.tcpip.Storage;
 import de.tudresden.ws.container.SumoTLSPhase;
 import de.tudresden.ws.container.SumoTLSController;
+import de.tudresden.ws.container.SumoStage;
 
 /**
  * 
@@ -621,53 +622,16 @@ public class CommandProcessor extends Query{
 				
 			}else if(sc.input2 == Constants.FIND_ROUTE){
 				
-				resp.content().readInt();
-				resp.content().readUnsignedByte();
-				resp.content().readInt();
-				resp.content().readUnsignedByte();
-				
-				resp.content().readStringASCII();
-				resp.content().readUnsignedByte();
-				resp.content().readStringASCII();
-				resp.content().readUnsignedByte();
-				
-				SumoStringList ssl = new SumoStringList();
-				int size = resp.content().readInt();
-				for(int i=0; i<size; i++){
-					ssl.add(resp.content().readStringASCII());
-				}
-				
-				resp.content().readDouble();
-				output = ssl;
+				output = readStage(resp.content());
 				
 			}else if(sc.input2 == Constants.FIND_INTERMODAL_ROUTE){
 				
-				LinkedList<SumoStringList> ll = new LinkedList<SumoStringList>();
+				LinkedList<SumoStage> ll = new LinkedList<SumoStage>();
 				int l = resp.content().readInt();
-				System.out.println("l: " + l);
-				
 				for(int i1=0; i1<l; i1++) {
-				
-					resp.content().readInt();
-					resp.content().readUnsignedByte();
-					resp.content().readInt();
-					resp.content().readUnsignedByte();
-					
-					resp.content().readStringASCII();
-					resp.content().readUnsignedByte();
-					resp.content().readStringASCII();
-					resp.content().readUnsignedByte();
-					
-					SumoStringList ssl = new SumoStringList();
-					int size = resp.content().readInt();
-					for(int i=0; i<size; i++){
-						ssl.add(resp.content().readStringASCII());
-					}
-					
-					resp.content().readDouble();
-					ll.add(ssl);
+                    resp.content().readUnsignedByte(); // type compound
+                    ll.add(readStage(resp.content()));
 				}
-				
 				output = ll;
 					
 			}else{
@@ -731,5 +695,42 @@ public class CommandProcessor extends Query{
 		return respObjectID;
 	}
 
+    public static SumoStage readStage(Storage content){
+        SumoStage result = new SumoStage();
+        content.readInt(); // Component (13)
+        content.readUnsignedByte();
+        result.type = content.readInt();
+
+        int b2 = content.readUnsignedByte();
+        result.vType = content.readStringASCII();
+        content.readUnsignedByte();
+        result.line = content.readStringASCII();
+        content.readUnsignedByte();
+        result.destStop = content.readStringASCII();
+        content.readUnsignedByte();
+
+        int size = content.readInt(); // number of edges
+        for(int i=0; i<size; i++){
+            result.edges.add(content.readStringASCII());
+        }
+
+        content.readUnsignedByte();
+        result.travelTime = content.readDouble();
+        content.readUnsignedByte();
+        result.cost = content.readDouble();
+        content.readUnsignedByte();
+        result.length = content.readDouble();
+        content.readUnsignedByte();
+        result.intended = content.readStringASCII();
+        content.readUnsignedByte();
+        result.depart = content.readDouble();
+        content.readUnsignedByte();
+        result.departPos = content.readDouble();
+        content.readUnsignedByte();
+        result.arrivalPos = content.readDouble();
+        content.readUnsignedByte();
+        result.description = content.readStringASCII();
+        return result;
+    }
 	
 }

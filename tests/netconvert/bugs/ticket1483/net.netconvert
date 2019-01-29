@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:28:01 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Mon Jan 28 13:32:20 2019 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -103,13 +103,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":n_m7_0_0" index="0" speed="6.51" length="9.03" shape="3486.40,492.00 3488.85,491.65 3490.60,490.60 3491.65,488.85 3492.00,486.40"/>
     </edge>
     <edge id=":n_m7_1" function="internal">
-        <lane id=":n_m7_1_0" index="0" speed="7.33" length="11.73" shape="3486.40,492.00 3490.25,491.65 3493.00,490.60 3494.65,488.85 3495.20,486.40"/>
+        <lane id=":n_m7_1_0" index="0" speed="8.00" length="14.19" shape="3486.40,495.20 3490.25,494.65 3493.00,493.00 3494.65,490.25 3495.20,486.40"/>
     </edge>
     <edge id=":n_m7_2" function="internal">
-        <lane id=":n_m7_2_0" index="0" speed="8.10" length="14.57" shape="3486.40,492.00 3491.65,491.65 3495.40,490.60 3497.65,488.85 3498.40,486.40"/>
+        <lane id=":n_m7_2_0" index="0" speed="8.67" length="16.85" shape="3486.40,495.20 3491.65,494.65 3495.40,493.00 3497.65,490.25 3498.40,486.40"/>
     </edge>
     <edge id=":n_m7_3" function="internal">
-        <lane id=":n_m7_3_0" index="0" speed="10.70" length="26.20" shape="3486.40,495.20 3493.99,495.17 3500.95,495.85 3506.03,498.41 3508.00,504.00"/>
+        <lane id=":n_m7_3_0" index="0" speed="10.53" length="25.33" shape="3486.40,498.40 3493.99,497.87 3500.95,497.45 3506.03,498.91 3508.00,504.00"/>
     </edge>
     <edge id=":n_m7_4" function="internal">
         <lane id=":n_m7_4_0" index="0" speed="9.51" length="20.48" shape="3486.40,498.40 3494.45,498.75 3500.20,499.80 3503.65,501.55 3504.80,504.00"/>
@@ -389,9 +389,9 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="e_m5" to="e_m6" fromLane="1" toLane="1" via=":n_m6_4_1" dir="s" state="M"/>
     <connection from="e_m5" to="e_m6" fromLane="2" toLane="2" via=":n_m6_4_2" dir="s" state="M"/>
     <connection from="e_m6" to="e_shape1" fromLane="0" toLane="0" via=":n_m7_0_0" dir="r" state="M"/>
-    <connection from="e_m6" to="e_shape1" fromLane="0" toLane="1" via=":n_m7_1_0" dir="r" state="M"/>
-    <connection from="e_m6" to="e_shape1" fromLane="0" toLane="2" via=":n_m7_2_0" dir="r" state="M"/>
-    <connection from="e_m6" to="e_shape0" fromLane="1" toLane="0" via=":n_m7_3_0" dir="l" state="M"/>
+    <connection from="e_m6" to="e_shape1" fromLane="1" toLane="1" via=":n_m7_1_0" dir="r" state="M"/>
+    <connection from="e_m6" to="e_shape1" fromLane="1" toLane="2" via=":n_m7_2_0" dir="r" state="M"/>
+    <connection from="e_m6" to="e_shape0" fromLane="2" toLane="0" via=":n_m7_3_0" dir="l" state="M"/>
     <connection from="e_m6" to="e_shape0" fromLane="2" toLane="1" via=":n_m7_4_0" dir="l" state="M"/>
     <connection from="e_m6" to="e_shape0" fromLane="2" toLane="2" via=":n_m7_5_0" dir="l" state="M"/>
     <connection from="e_o0" to="e_vo0" fromLane="1" toLane="0" via=":n_o0_0_0" dir="l" state="M"/>

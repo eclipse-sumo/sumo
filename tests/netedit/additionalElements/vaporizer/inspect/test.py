@@ -41,34 +41,34 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 310, 200)
 
 # Change parameter 0 with a non valid value (dummy edge)
-netedit.modifyAttribute(0, "dummyEdge")
+netedit.modifyAttribute(0, "dummyEdge", False)
 
 # Change parameter 0 with a valid value (different edge)
-netedit.modifyAttribute(0, "gneE0")
+netedit.modifyAttribute(0, "gneE0", False)
 
 # Change parameter 1 with a non valid value (dummy)
-netedit.modifyAttribute(1, "dummy")
+netedit.modifyAttribute(1, "dummy", False)
 
 # Change parameter 1 with a non valid value (negative)
-netedit.modifyAttribute(1, "-10")
+netedit.modifyAttribute(1, "-10", False)
 
 # Change parameter 1 with a non valid value (greather than end)
-netedit.modifyAttribute(1, "50")
+netedit.modifyAttribute(1, "50", False)
 
 # Change parameter 1 with a valid value
-netedit.modifyAttribute(1, "5")
+netedit.modifyAttribute(1, "5", False)
 
 # Change parameter 2 with a non valid value (dummy)
-netedit.modifyAttribute(2, "dummy")
+netedit.modifyAttribute(2, "dummy", False)
 
 # Change parameter 2 with a non valid value (negative)
-netedit.modifyAttribute(2, "-10")
+netedit.modifyAttribute(2, "-10", False)
 
 # Change parameter 2 with a non valid value (minor than startTime)
-netedit.modifyAttribute(2, "2")
+netedit.modifyAttribute(2, "2", False)
 
 # Change parameter 2 with a valid value
-netedit.modifyAttribute(2, "20")
+netedit.modifyAttribute(2, "20", False)
 
 # click over an empty area
 netedit.leftClick(referencePosition, 0, 0)

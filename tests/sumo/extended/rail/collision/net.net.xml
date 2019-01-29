@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue 29 Jan 2019 12:42:18 AM CET by Eclipse SUMO netedit Version v1_0_0+0026-c9a2754
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="-1"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<net version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="-1000.00,0.00,1000.00,0.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id=":B_0" function="internal">
+        <lane id=":B_0_0" index="0" allow="rail" speed="70.00" length="0.10" shape="0.00,0.00 0.00,0.00"/>
+    </edge>
+    <edge id=":B_1" function="internal">
+        <lane id=":B_1_0" index="0" allow="rail" speed="70.00" length="0.10" shape="0.00,0.00 0.00,0.00"/>
+    </edge>
+
+    <edge id="-beg" from="B" to="A" priority="1" spreadType="center" bidi="beg">
+        <lane id="-beg_0" index="0" allow="rail" speed="70.00" length="1000.00" shape="0.00,0.00 -1000.00,0.00"/>
+    </edge>
+    <edge id="-end" from="C" to="B" priority="1" spreadType="center" bidi="end">
+        <lane id="-end_0" index="0" allow="rail" speed="70.00" length="1000.00" shape="1000.00,0.00 0.00,0.00"/>
+    </edge>
+    <edge id="beg" from="A" to="B" priority="1" spreadType="center" bidi="-beg">
+        <lane id="beg_0" index="0" allow="rail" speed="70.00" length="1000.00" shape="-1000.00,0.00 0.00,0.00"/>
+    </edge>
+    <edge id="end" from="B" to="C" priority="1" spreadType="center" bidi="-end">
+        <lane id="end_0" index="0" allow="rail" speed="70.00" length="1000.00" shape="0.00,0.00 1000.00,0.00"/>
+    </edge>
+
+    <junction id="A" type="dead_end" x="-1000.00" y="0.00" incLanes="-beg_0" intLanes="" shape="-1000.00,1.60 -1000.00,-1.60 -1000.00,1.60 -1000.00,-1.60"/>
+    <junction id="B" type="priority" x="0.00" y="0.00" incLanes="-end_0 beg_0" intLanes=":B_0_0 :B_1_0" shape="0.00,1.60 0.00,-1.60 0.00,1.60">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
+    <junction id="C" type="dead_end" x="1000.00" y="0.00" incLanes="end_0" intLanes="" shape="1000.00,-1.60 1000.00,1.60 1000.00,-1.60 1000.00,1.60"/>
+
+    <connection from="-end" to="-beg" fromLane="0" toLane="0" via=":B_0_0" dir="s" state="M"/>
+    <connection from="beg" to="end" fromLane="0" toLane="0" via=":B_1_0" dir="s" state="M"/>
+
+    <connection from=":B_0" to="-beg" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":B_1" to="end" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>

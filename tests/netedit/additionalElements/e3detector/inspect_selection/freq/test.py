@@ -38,10 +38,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 150, 250)
 
 # Set invalid freq
-netedit.modifyAttribute(3, "-30")
+netedit.modifyAttribute(0, "-30", True)
 
 # Set valid freq
-netedit.modifyAttribute(3, "50")
+netedit.modifyAttribute(0, "50", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 4)

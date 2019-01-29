@@ -41,13 +41,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 140, 215)
 
 # Change parameter Layer with a non valid value
-netedit.modifyAttribute(7, "dummyLayer")
+netedit.modifyAttribute(4, "dummyLayer", True)
 
 # Change parameter Layer with a valid value (negative)
-netedit.modifyAttribute(7, "-2")
+netedit.modifyAttribute(4, "-2", True)
 
 # Change parameter Layer with a valid value (negative)
-netedit.modifyAttribute(7, "2.5")
+netedit.modifyAttribute(4, "2.5", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)

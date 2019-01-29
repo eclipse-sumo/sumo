@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 21.11.2018 10:29:06 by Eclipse SUMO netedit Version v1_0_0+1004-1c7613c4e7
+<!-- generated on 26.01.2019 11:28:32 by Eclipse SUMO netedit Version v1_1_0+0076-a16c2aae75
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.21Nov102722.6936/netedit.gui/additionalElements/e3detector/create/speedthreshold\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan165051.364/netedit.gui/additionalElements/e3detector/create/speedthreshold\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.21Nov102722.6936/netedit.gui/additionalElements/e3detector/create/speedthreshold\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan165051.364/netedit.gui/additionalElements/e3detector/create/speedthreshold\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
     </processing>
@@ -28,12 +29,12 @@
     </pedestrian>
 
     <netedit>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.21Nov102722.6936/netedit.gui/additionalElements/e3detector/create/speedthreshold\additionals.xml"/>
-        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.21Nov102722.6936/netedit.gui/additionalElements/e3detector/create/speedthreshold\shapes.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan165051.364/netedit.gui/additionalElements/e3detector/create/speedthreshold\additionals.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan165051.364/netedit.gui/additionalElements/e3detector/create/speedthreshold\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.21Nov102722.6936/netedit.gui/additionalElements/e3detector/create/speedthreshold\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan165051.364/netedit.gui/additionalElements/e3detector/create/speedthreshold\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -42,14 +43,14 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.21Nov102722.6936/netedit.gui/additionalElements/e3detector/create/speedthreshold\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan165051.364/netedit.gui/additionalElements/e3detector/create/speedthreshold\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <e3Detector id="e3Detector_0" pos="17.00,4.00" freq="900.00" file="e3Detector_0.xml" speedThreshold="2.51">
+    <e3Detector id="e3Detector_0" pos="17.00,5.00" freq="900.00" file="e3Detector_0.xml" speedThreshold="2.51">
         <detEntry lane="gneE0_6" pos="24.00"/>
         <detExit lane="gneE0_5" pos="24.00"/>
     </e3Detector>

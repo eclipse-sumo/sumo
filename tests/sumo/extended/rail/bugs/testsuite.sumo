@@ -1,0 +1,2 @@
+# do not crash when the only signalized connection from one lane  is a turn-around
+signalized_turn

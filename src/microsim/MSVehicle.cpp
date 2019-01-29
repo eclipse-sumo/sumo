@@ -4878,9 +4878,6 @@ MSVehicle::addPerson(MSTransportable* person) {
     MSBaseVehicle::addPerson(person);
     if (myStops.size() > 0 && myStops.front().reached && myStops.front().triggered && myStops.front().numExpectedPerson > 0) {
         myStops.front().numExpectedPerson -= (int)myStops.front().pars.awaitedPersons.count(person->getID());
-        if (myStops.front().numExpectedPerson == 0) {
-            myStops.front().duration = 0;
-        }
     }
 }
 
@@ -4889,9 +4886,6 @@ MSVehicle::addContainer(MSTransportable* container) {
     MSBaseVehicle::addContainer(container);
     if (myStops.size() > 0 && myStops.front().reached && myStops.front().pars.containerTriggered && myStops.front().numExpectedContainer > 0) {
         myStops.front().numExpectedContainer -= (int)myStops.front().pars.awaitedContainers.count(container->getID());
-        if (myStops.front().numExpectedContainer == 0) {
-            myStops.front().duration = 0;
-        }
     }
 }
 

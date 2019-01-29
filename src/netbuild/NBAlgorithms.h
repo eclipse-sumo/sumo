@@ -213,7 +213,7 @@ public:
     static void validateRailCrossings(NBNodeCont& nc, NBTrafficLightLogicCont& tlc);
 
     /// @brief whether the given node only has rail edges
-    static bool isRailwayNode(NBNode* n);
+    static bool isRailwayNode(const NBNode* n);
 };
 
 

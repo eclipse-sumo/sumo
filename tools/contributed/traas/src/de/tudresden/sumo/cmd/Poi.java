@@ -98,9 +98,26 @@ public class Poi {
 	 */
 
 	public static SumoCommand getParameter(String poiID, String param){
-		return new SumoCommand(Constants.CMD_GET_POI_VARIABLE, Constants.VAR_PARAMETER, poiID, Constants.RESPONSE_GET_POI_VARIABLE, Constants.TYPE_STRING);
+		Object[] array = new Object[]{param};
+		return new SumoCommand(Constants.CMD_GET_POI_VARIABLE, Constants.VAR_PARAMETER, poiID, array, Constants.RESPONSE_GET_POI_VARIABLE, Constants.TYPE_STRING);
 	}
 	
+
+	/**
+	 * Sets the chosen parameter
+	 *
+	 *  @param vehID a string identifying the vehicle
+	 *  @param param a string identifying the parameter
+	 *  @param value a string identifying the new value
+	 *  
+	 * @return SumoCommand
+	 */
+
+	public static SumoCommand setParameter(String poiID, String param, String value){
+		Object[] array = new Object[]{param, value};
+		return new SumoCommand(Constants.CMD_SET_POI_VARIABLE, Constants.VAR_PARAMETER, poiID, array);
+	}
+
 
 	/**
 	 * Returns the position of this poi.

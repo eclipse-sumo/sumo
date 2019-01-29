@@ -38,10 +38,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 150, 250)
 
 # set invalid filename
-netedit.modifyAttribute(5, "&&&&&&&&")
+netedit.modifyAttribute(2, "&&&&&&&&", True)
 
 # set valid filename
-netedit.modifyAttribute(5, "myOwnFilename.txt")
+netedit.modifyAttribute(2, "myOwnFilename.txt", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 4)

@@ -3,9 +3,9 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 parkingArea
 6
-TestFunctions: Clicked over position 604 - 390
+TestFunctions: Clicked over position 604 - 418
 reference right
-TestFunctions: Clicked over position 504 - 390
-TestFunctions: Clicked over position 304 - 140
-TestFunctions: Clicked over position 304 - 140
+TestFunctions: Clicked over position 504 - 418
+TestFunctions: Clicked over position 304 - 168
+TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully

@@ -8,22 +8,22 @@ GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
 Debug: Adding poi 'POI_1' into viewNet
 GLDebug: Inserted poi:POI_1 into SUMORTree with boundary 4.00,15.00,10.00,21.00
-Debug: Shapes has to be saved
-Debug: Current saving Status: net saved, additionals saved, shapes unsaved
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Adding poi 'POI_2' into viewNet
 GLDebug: Inserted poi:POI_2 into SUMORTree with boundary -1.00,15.00,5.00,21.00
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals saved, shapes unsaved
-Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 0, Shapes: 1, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 1, Polys: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 0, Shapes: 1, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 1, Polys: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 0, Shapes: 1, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 1, Polys: 0
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 1, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 1, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 1, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 1, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 1, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 1, Polys: 0
 Debug: Setting new attribute geo 'true' into poi 'POI_1'
 GLDebug: Removed object poi:POI_1 from SUMORTree with boundary 4.00,15.00,10.00,21.00
 GLDebug: Inserted poi:POI_1 into SUMORTree with boundary 4.00,15.00,10.00,21.00
 Debug: Setting new attribute geo 'true' into poi 'POI_2'
 GLDebug: Removed object poi:POI_2 from SUMORTree with boundary -1.00,15.00,5.00,21.00
 GLDebug: Inserted poi:POI_2 into SUMORTree with boundary -1.00,15.00,5.00,21.00
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute geo '0' into poi 'POI_2'
 GLDebug: Removed object poi:POI_2 from SUMORTree with boundary -1.00,15.00,5.00,21.00
@@ -32,7 +32,7 @@ Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute geo '0' into poi 'POI_1'
 GLDebug: Removed object poi:POI_1 from SUMORTree with boundary 4.00,15.00,10.00,21.00
 GLDebug: Inserted poi:POI_1 into SUMORTree with boundary 4.00,15.00,10.00,21.00
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute geo 'true' into poi 'POI_1'
 GLDebug: Removed object poi:POI_1 from SUMORTree with boundary 4.00,15.00,10.00,21.00
@@ -41,7 +41,7 @@ Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute geo 'true' into poi 'POI_2'
 GLDebug: Removed object poi:POI_2 from SUMORTree with boundary -1.00,15.00,5.00,21.00
 GLDebug: Inserted poi:POI_2 into SUMORTree with boundary -1.00,15.00,5.00,21.00
-Debug: Shapes saved
+Debug: Additionals saved
 GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
 GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
 GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
@@ -82,4 +82,4 @@ Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting net builder in GNENet destructor
-GLDebug: Number of objects in SUMORTree during call destructor: 6
+GLDebug: Number of objects in SUMORTree during call of the destructor: 6

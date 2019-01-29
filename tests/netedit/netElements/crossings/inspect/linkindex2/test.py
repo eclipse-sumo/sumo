@@ -38,16 +38,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 225)
 
 # Change linkindex2 with a non valid value
-netedit.modifyAttribute(7, "dummylinkIndex")
+netedit.modifyAttribute(4, "dummylinkIndex", True)
 
 # Change linkindex2 with a non valid value
-netedit.modifyAttribute(7, "-3")
+netedit.modifyAttribute(4, "-3", True)
 
 # Change linkindex2 with a non valid value
-netedit.modifyAttribute(7, "6")
+netedit.modifyAttribute(4, "6", True)
 
 # Change linkindex2 with a valid value
-netedit.modifyAttribute(7, "1")
+netedit.modifyAttribute(4, "1", True)
 
 # rebuild network
 netedit.rebuildNetwork()

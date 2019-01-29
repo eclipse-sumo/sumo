@@ -54,10 +54,10 @@ FXIMPLEMENT(GUIGlChildWindow, FXMDIChild, GUIGlChildWindowMap, ARRAYNUMBER(GUIGl
 GUIGlChildWindow::GUIGlChildWindow(FXMDIClient* p, GUIMainWindow* parentWindow, FXMDIMenu* mdimenu,
                                    const FXString& name, FXMenuBar* gripNavigationToolbar, FXIcon* ic, FXuint opts, FXint x, FXint y, FXint w, FXint h) :
     FXMDIChild(p, name, ic, mdimenu, opts, x, y, w, h),
+    myParent(parentWindow),
     myGripNavigationToolbar(gripNavigationToolbar),
     myStaticNavigationToolBar(nullptr),
-    myView(nullptr),
-    myParent(parentWindow) {
+    myView(nullptr) {
     // Make MDI Window Menu
     setTracking();
     // create a vertical frame to add elements
