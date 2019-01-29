@@ -116,6 +116,10 @@ enum GUIGlObjectType {
     GLO_ROUTE = 304,
     /// @brief a vehicle type
     GLO_VTYPE = 305,
+    /// @brief a flow
+    GLO_FLOW = 306,
+    /// @brief a trip
+    GLO_TRIP = 307,
     /// @brief empty max
     GLO_MAX = 2048
 };

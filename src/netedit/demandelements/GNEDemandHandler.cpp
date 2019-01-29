@@ -31,6 +31,8 @@
 #include "GNEDemandHandler.h"
 #include "GNERoute.h"
 #include "GNEVehicleType.h"
+#include "GNEFlow.h"
+#include "GNETrip.h"
 
 // ===========================================================================
 // member method definitions
