@@ -1357,7 +1357,7 @@ void
 TraCIAPI::POIScope::add(const std::string& poiID, double x, double y, const libsumo::TraCIColor& c, const std::string& type, int layer, const std::string& imgFile, double width, double height, double angle) const {
     tcpip::Storage content;
     content.writeUnsignedByte(TYPE_COMPOUND);
-    content.writeInt(4);
+    content.writeInt(8);
     content.writeUnsignedByte(TYPE_STRING);
     content.writeString(type);
     content.writeUnsignedByte(TYPE_COLOR);
