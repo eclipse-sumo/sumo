@@ -1,10 +1,10 @@
 Warning: Missing yellow phase in tlLogic '0', program 'freaky' for tl-index 0 when switching to phase 1
-Warning: Vehicle 'vertical.2'; collision with vehicle 'horizontal.2', lane=':0_9_0', gap=-1.00, time=13.00 stage=move.
+Warning: Vehicle 'horizontal.2'; collision with vehicle 'vertical.2', lane=':0_13_0', gap=-1.00, time=13.00 stage=move.
 Warning: Teleporting vehicle 'horizontal.2' after earlier collision, lane=':0_13_0, time=44.00.
 Warning: Vehicle 'horizontal.2' ends teleporting on edge '2o', time 44.00.
 Warning: Teleporting vehicle 'vertical.2' after earlier collision, lane=':0_9_0, time=46.00.
 Warning: Vehicle 'vertical.2' ends teleporting on edge '4o', time 46.00.
-Warning: Vehicle 'vertical.5'; collision with vehicle 'horizontal.16', lane=':0_9_0', gap=-1.00, time=83.00 stage=move.
+Warning: Vehicle 'horizontal.16'; collision with vehicle 'vertical.5', lane=':0_13_0', gap=-1.00, time=83.00 stage=move.
 Warning: Teleporting vehicle 'horizontal.16' after earlier collision, lane=':0_13_0, time=114.00.
 Warning: Vehicle 'horizontal.16' ends teleporting on edge '2o', time 114.00.
 Warning: Teleporting vehicle 'vertical.5' after earlier collision, lane=':0_9_0, time=116.00.
