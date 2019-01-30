@@ -276,11 +276,20 @@ MSRoute::dict_saveState(OutputDevice& out) {
 double
 MSRoute::getDistanceBetween(double fromPos, double toPos,
                             const MSEdge* fromEdge, const MSEdge* toEdge, bool includeInternal, int routePosition) const {
+    //std::cout << SIMTIME << " getDistanceBetween from=" << fromEdge->getID() << " to=" << toEdge->getID() << " fromPos=" << fromPos << " toPos=" << toPos << " includeInternal=" << includeInternal << "\n";
     if (routePosition < 0 || routePosition >= (int)myEdges.size()) {
         throw ProcessError("Invalid routePosition " + toString(routePosition) + " for route with " + toString(myEdges.size()) + " edges");
     }
-    /// XXX routes that start and end within the same intersection are not supported
-    //std::cout << SIMTIME << " getDistanceBetween from=" << fromEdge->getID() << " to=" << toEdge->getID() << " fromPos=" << fromPos << " toPos=" << toPos << " includeInternal=" << includeInternal << "\n";
+    if (fromEdge->isInternal() && toEdge->isInternal() && fromEdge->getToJunction() == toEdge->getToJunction()) {
+        // internal edges within the same junction
+        if (fromEdge == toEdge) {
+            if (fromPos <= toPos) {
+                return toPos - fromPos;
+            }
+        } else if (fromEdge->getSuccessors().front() == toEdge) {
+            return fromEdge->getLength() - fromPos + toPos;
+        }
+    }
     if (fromEdge->isInternal()) {
         if (fromEdge == myEdges.front()) {
             const MSEdge* succ = fromEdge->getSuccessors().front();

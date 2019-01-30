@@ -541,8 +541,8 @@ TraCIServerAPI_Simulation::commandDistanceRequest(TraCIServer& server, tcpip::St
             distance = roadPos2.second - roadPos1.second;
         } else {
             ConstMSEdgeVector newRoute;
-            if (roadPos2.first->isInternal()) {
-                distance = roadPos2.second;
+            while (roadPos2.first->isInternal() && roadPos2.first != roadPos1.first) {
+                distance += roadPos2.second;
                 roadPos2.first = roadPos2.first->getLogicalPredecessorLane();
                 roadPos2.second = roadPos2.first->getLength();
             }
