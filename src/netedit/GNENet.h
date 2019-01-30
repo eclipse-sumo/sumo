@@ -79,7 +79,7 @@ class GNENet : public GUIGlObject, public ShapeContainer {
 
     /// @brief declare friend class
     friend class GNEAdditionalHandler;
-    friend class GNEDemandHandler;
+    friend class GNEDemandElementHandler;
     friend class GNEChange_Junction;
     friend class GNEChange_Edge;
     friend class GNEChange_Lane;

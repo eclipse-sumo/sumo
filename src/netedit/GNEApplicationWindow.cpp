@@ -22,7 +22,7 @@
 
 #include <netbuild/NBFrame.h>
 #include <netedit/additionals/GNEAdditionalHandler.h>
-#include <netedit/demandelements/GNEDemandHandler.h>
+#include <netedit/demandelements/GNEDemandElementHandler.h>
 #include <netedit/dialogs/GNEDialog_About.h>
 #include <netedit/frames/GNETAZFrame.h>
 #include <netedit/frames/GNETLSEditorFrame.h>
@@ -674,7 +674,7 @@ GNEApplicationWindow::onCmdOpenDemandElements(FXObject*, FXSelector, void*) {
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto");
         // Create additional handler
-        GNEDemandHandler demandHandler(file, myNet->getViewNet());
+        GNEDemandElementHandler demandHandler(file, myNet->getViewNet());
         // begin undoList operation
         myUndoList->p_begin("Loading demand elements from '" + file + "'");
         // Run parser for additionals
@@ -874,7 +874,7 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     if (oc.isSet("route-files") && !oc.getString("route-files").empty() && myNet) {
         myMenuBarFile.myDemandElementsFile = oc.getString("route-files");
         WRITE_MESSAGE("Loading demand elements from '" + myMenuBarFile.myDemandElementsFile + "'");
-        GNEDemandHandler demandElementHandler(myMenuBarFile.myDemandElementsFile, myNet->getViewNet());
+        GNEDemandElementHandler demandElementHandler(myMenuBarFile.myDemandElementsFile, myNet->getViewNet());
         // disable validation for demand elements
         XMLSubSys::setValidation("never", "auto");
         // Run parser

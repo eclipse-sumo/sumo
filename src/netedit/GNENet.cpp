@@ -34,7 +34,7 @@
 #include <netedit/additionals/GNEAdditional.h>
 #include <netedit/additionals/GNEPOI.h>
 #include <netedit/additionals/GNEPoly.h>
-#include <netedit/demandelements/GNEDemandHandler.h>
+#include <netedit/demandelements/GNEDemandElementHandler.h>
 #include <netedit/demandelements/GNEDemandElement.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_Connection.h>
@@ -1445,7 +1445,7 @@ GNENet::computeEverything(GNEApplicationWindow* window, bool force, bool volatil
         defaultVehicleType->incRef("GNENet::DEFAULT_VEHTYPE");
         */
         // Create demandElement handler
-        GNEDemandHandler demandElementHandler(demandPath, myViewNet, false);
+        GNEDemandElementHandler demandElementHandler(demandPath, myViewNet, false);
         // Run parser
         if (!XMLSubSys::runParser(demandElementHandler, demandPath, false)) {
             WRITE_MESSAGE("Loading of " + demandPath + " failed.");

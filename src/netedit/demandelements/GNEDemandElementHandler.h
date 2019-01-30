@@ -7,15 +7,15 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    GNEDemandHandler.h
+/// @file    GNEDemandElementHandler.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jan 2019
 /// @version $Id$
 ///
 // Builds demand objects for netedit
 /****************************************************************************/
-#ifndef GNEDemandHandler_h
-#define GNEDemandHandler_h
+#ifndef GNEDemandElementHandler_h
+#define GNEDemandElementHandler_h
 
 // ===========================================================================
 // included modules
@@ -42,15 +42,15 @@ class GNEDemandElement;
 // class definitions
 // ===========================================================================
 
-/// @class GNEDemandHandler
+/// @class GNEDemandElementHandler
 /// @brief Builds trigger objects for GNENet (busStops, chargingStations, detectors, etc..)
-class GNEDemandHandler : public SUMOSAXHandler {
+class GNEDemandElementHandler : public SUMOSAXHandler {
 public:
     /// @brief Constructor
-    GNEDemandHandler(const std::string& file, GNEViewNet* viewNet, bool undoDemandElements = true, GNEDemandElement* demandElementParent = nullptr);
+    GNEDemandElementHandler(const std::string& file, GNEViewNet* viewNet, bool undoDemandElements = true, GNEDemandElement* demandElementParent = nullptr);
 
     /// @brief Destructor
-    ~GNEDemandHandler();
+    ~GNEDemandElementHandler();
 
     /// @name inherited from GenericSAXHandler
     /// @{

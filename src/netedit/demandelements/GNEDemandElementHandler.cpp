@@ -7,7 +7,7 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    GNEDemandHandler.cpp
+/// @file    GNEDemandElementHandler.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Jan 2019
 /// @version $Id$
@@ -28,7 +28,7 @@
 #include <netedit/GNENet.h>
 #include <utils/options/OptionsCont.h>
 
-#include "GNEDemandHandler.h"
+#include "GNEDemandElementHandler.h"
 #include "GNERoute.h"
 #include "GNEVehicleType.h"
 #include "GNEFlow.h"
@@ -39,7 +39,7 @@
 // member method definitions
 // ===========================================================================
 
-GNEDemandHandler::GNEDemandHandler(const std::string& file, GNEViewNet* viewNet, bool undoDemandElements, GNEDemandElement* demandElementParent) :
+GNEDemandElementHandler::GNEDemandElementHandler(const std::string& file, GNEViewNet* viewNet, bool undoDemandElements, GNEDemandElement* demandElementParent) :
     SUMOSAXHandler(file),
     myViewNet(viewNet),
     myUndoDemandElements(undoDemandElements),
@@ -51,11 +51,11 @@ GNEDemandHandler::GNEDemandHandler(const std::string& file, GNEViewNet* viewNet,
 }
 
 
-GNEDemandHandler::~GNEDemandHandler() {}
+GNEDemandElementHandler::~GNEDemandElementHandler() {}
 
 
 void
-GNEDemandHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
+GNEDemandElementHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
     // Obtain tag of element
     SumoXMLTag tag = static_cast<SumoXMLTag>(element);
     // check if we're parsing a generic parameter
@@ -89,14 +89,14 @@ GNEDemandHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
 
 
 void
-GNEDemandHandler::myEndElement(int /*element*/) {
+GNEDemandElementHandler::myEndElement(int /*element*/) {
     // pop last inserted element
     myHierarchyInsertedDemandElements.popElement();
 }
 
 
 void
-GNEDemandHandler::parseAndBuildRoute(const SUMOSAXAttributes& attrs) {
+GNEDemandElementHandler::parseAndBuildRoute(const SUMOSAXAttributes& attrs) {
     bool abort = false;
     // parse attribute of calibrator routes
     std::string routeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_ROUTE, SUMO_ATTR_ID, abort);
@@ -123,7 +123,7 @@ GNEDemandHandler::parseAndBuildRoute(const SUMOSAXAttributes& attrs) {
 
 
 GNEDemandElement*
-GNEDemandHandler::buildVehicleType(GNEViewNet* viewNet, bool allowUndoRedo, std::string vehicleTypeID,
+GNEDemandElementHandler::buildVehicleType(GNEViewNet* viewNet, bool allowUndoRedo, std::string vehicleTypeID,
                                    double accel, double decel, double sigma, double tau, double length, double minGap, double maxSpeed,
                                    double speedFactor, double speedDev, const RGBColor& color, SUMOVehicleClass vClass, const std::string& emissionClass,
                                    SUMOVehicleShape shape, double width, const std::string& filename, double impatience, const std::string& laneChangeModel,
@@ -148,7 +148,7 @@ GNEDemandHandler::buildVehicleType(GNEViewNet* viewNet, bool allowUndoRedo, std:
 
 
 GNEDemandElement* 
-GNEDemandHandler::buildVehicle(GNEViewNet* viewNet, bool allowUndoRedo, GNEDemandElement* route, GNEDemandElement* vType, const RGBColor& color, 
+GNEDemandElementHandler::buildVehicle(GNEViewNet* viewNet, bool allowUndoRedo, GNEDemandElement* route, GNEDemandElement* vType, const RGBColor& color, 
                                double depart, const std::string& departLane, const std::string& departPos, const std::string& departSpeed, const std::string& arrivalLane, 
                                const std::string& arrivalPos, const std::string& arrivalSpeed, const std::string& line, int personNumber, int containerNumber, 
                                bool reroute, const std::vector<GNEEdge*> &via, const std::string& departPosLat, const std::string& arrivalPosLat) {
@@ -157,7 +157,7 @@ GNEDemandHandler::buildVehicle(GNEViewNet* viewNet, bool allowUndoRedo, GNEDeman
 
 
 GNEDemandElement* 
-GNEDemandHandler::buildFlow(GNEViewNet* viewNet, bool allowUndoRedo, GNEDemandElement* route, GNEDemandElement* vType, const RGBColor& color, const std::string& departLane, 
+GNEDemandElementHandler::buildFlow(GNEViewNet* viewNet, bool allowUndoRedo, GNEDemandElement* route, GNEDemandElement* vType, const RGBColor& color, const std::string& departLane, 
                             const std::string& departPos, const std::string& departSpeed, const std::string& arrivalLane, const std::string& arrivalPos, const std::string& arrivalSpeed, 
                             const std::string& line, int personNumber, int containerNumber, bool reroute, const std::vector<GNEEdge*> &via, const std::string& departPosLat,
                             const std::string& arrivalPosLat, double begin, double end, const std::string& vehsPerHour, const std::string& period, const std::string& probability, int number) {
@@ -166,7 +166,7 @@ GNEDemandHandler::buildFlow(GNEViewNet* viewNet, bool allowUndoRedo, GNEDemandEl
 
 
 GNEDemandElement* 
-GNEDemandHandler::buildTrip(GNEViewNet* viewNet, bool allowUndoRedo, const std::string &id, double depart, GNEEdge *from, GNEEdge *to, const std::vector<GNEEdge*> &via, GNETAZ* fromTaz, 
+GNEDemandElementHandler::buildTrip(GNEViewNet* viewNet, bool allowUndoRedo, const std::string &id, double depart, GNEEdge *from, GNEEdge *to, const std::vector<GNEEdge*> &via, GNETAZ* fromTaz, 
                             const RGBColor& color, const std::string& departLane, const std::string& departPos, const std::string& departSpeed, const std::string& arrivalLane, 
                             const std::string& arrivalPos, const std::string& arrivalSpeed) {
     return nullptr;
@@ -174,7 +174,7 @@ GNEDemandHandler::buildTrip(GNEViewNet* viewNet, bool allowUndoRedo, const std::
 
 
 void
-GNEDemandHandler::parseAndBuildVehicleType(const SUMOSAXAttributes& attrs) {
+GNEDemandElementHandler::parseAndBuildVehicleType(const SUMOSAXAttributes& attrs) {
     bool abort = false;
     // parse attribute of calibrator vehicle types
     std::string vehicleTypeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_VTYPE, SUMO_ATTR_ID, abort);
@@ -218,25 +218,25 @@ GNEDemandHandler::parseAndBuildVehicleType(const SUMOSAXAttributes& attrs) {
 
 
 void 
-GNEDemandHandler::parseAndBuildVehicle(const SUMOSAXAttributes& attrs) {
+GNEDemandElementHandler::parseAndBuildVehicle(const SUMOSAXAttributes& attrs) {
 
 }
 
 
 void 
-GNEDemandHandler::parseAndBuildFlow(const SUMOSAXAttributes& attrs) {
+GNEDemandElementHandler::parseAndBuildFlow(const SUMOSAXAttributes& attrs) {
 
 }
 
 
 void 
-GNEDemandHandler::parseAndBuildTrip(const SUMOSAXAttributes& attrs) {
+GNEDemandElementHandler::parseAndBuildTrip(const SUMOSAXAttributes& attrs) {
 
 }
 
 
 void
-GNEDemandHandler::parseGenericParameter(const SUMOSAXAttributes& attrs) {
+GNEDemandElementHandler::parseGenericParameter(const SUMOSAXAttributes& attrs) {
     if (myHierarchyInsertedDemandElements.getLastInsertedDemandElement()) {
         // first check if given demand element supports generic parameters
         if (myHierarchyInsertedDemandElements.getLastInsertedDemandElement()->getTagProperty().hasGenericParameters()) {
@@ -280,7 +280,7 @@ GNEDemandHandler::parseGenericParameter(const SUMOSAXAttributes& attrs) {
 
 
 GNEDemandElement*
-GNEDemandHandler::buildRoute(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& routeID, const std::vector<GNEEdge*>& edges, const RGBColor& color) {
+GNEDemandElementHandler::buildRoute(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& routeID, const std::vector<GNEEdge*>& edges, const RGBColor& color) {
     if (viewNet->getNet()->retrieveDemandElement(SUMO_TAG_ROUTE, routeID, false) == nullptr) {
         // create route
         GNERoute* route = new GNERoute(viewNet, routeID, edges, color);
@@ -300,19 +300,19 @@ GNEDemandHandler::buildRoute(GNEViewNet* viewNet, bool allowUndoRedo, const std:
 
 
 void
-GNEDemandHandler::HierarchyInsertedDemandElements::insertElement(SumoXMLTag tag) {
+GNEDemandElementHandler::HierarchyInsertedDemandElements::insertElement(SumoXMLTag tag) {
     myInsertedElements.push_back(std::make_pair(tag, nullptr));
 }
 
 
 void
-GNEDemandHandler::HierarchyInsertedDemandElements::commitElementInsertion(GNEDemandElement* demandElement) {
+GNEDemandElementHandler::HierarchyInsertedDemandElements::commitElementInsertion(GNEDemandElement* demandElement) {
     myInsertedElements.back().second = demandElement;
 }
 
 
 void
-GNEDemandHandler::HierarchyInsertedDemandElements::popElement() {
+GNEDemandElementHandler::HierarchyInsertedDemandElements::popElement() {
     if (!myInsertedElements.empty()) {
         myInsertedElements.pop_back();
     }
@@ -320,7 +320,7 @@ GNEDemandHandler::HierarchyInsertedDemandElements::popElement() {
 
 
 GNEDemandElement*
-GNEDemandHandler::HierarchyInsertedDemandElements::retrieveDemandElementParent(GNEViewNet* viewNet, SumoXMLTag expectedTag) const {
+GNEDemandElementHandler::HierarchyInsertedDemandElements::retrieveDemandElementParent(GNEViewNet* viewNet, SumoXMLTag expectedTag) const {
     if (myInsertedElements.size() < 2) {
         // currently we're finding demand element parent in the demand element XML root
         WRITE_WARNING("A " + toString(myInsertedElements.back().first) + " must be declared within the definition of a " + toString(expectedTag) + ".");
@@ -351,7 +351,7 @@ GNEDemandHandler::HierarchyInsertedDemandElements::retrieveDemandElementParent(G
 
 
 GNEDemandElement*
-GNEDemandHandler::HierarchyInsertedDemandElements::getLastInsertedDemandElement() const {
+GNEDemandElementHandler::HierarchyInsertedDemandElements::getLastInsertedDemandElement() const {
     // ierate in reverse mode over myInsertedElements to obtain last inserted demand element
     for (std::vector<std::pair<SumoXMLTag, GNEDemandElement*> >::const_reverse_iterator i = myInsertedElements.rbegin(); i != myInsertedElements.rend(); i++) {
         // we need to avoid Tag Param because isn't an demand element
