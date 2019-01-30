@@ -1,6 +1,6 @@
 <routes>
-    <vType id="DEFAULT_VEHTYPE"/>
-    <vType id="emergency" vClass="emergency"/>
+    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+    <vType id="emergency" vClass="emergency" sigma="0"/>
 
     <route id="r0" edges="VODUGES_beg"/>
 

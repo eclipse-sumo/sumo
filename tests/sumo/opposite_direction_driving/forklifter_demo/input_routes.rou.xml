@@ -1,6 +1,6 @@
 <routes>
-    <vType id="DEFAULT_VEHTYPE" imgFile="forklift.png"/>
-    <vType id="opposite" imgFile="forklift_right.png"/>
+    <vType id="DEFAULT_VEHTYPE" imgFile="forklift.png" sigma="0"/>
+    <vType id="opposite" imgFile="forklift_right.png" sigma="0"/>
 
     <route id="r0" edges="VODUGES_beg"/>
     <route id="r1" edges="-VODUGES_beg"/>

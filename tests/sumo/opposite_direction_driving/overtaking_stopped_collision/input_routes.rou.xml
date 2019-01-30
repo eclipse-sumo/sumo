@@ -1,5 +1,5 @@
 <routes>
-    <vType id="DEFAULT_VEHTYPE" lcOpposite="1.5"/>
+    <vType id="DEFAULT_VEHTYPE" lcOpposite="1.5" sigma="0"/>
 
     <route id="r0" edges="VODUGES_beg"/>
     <route id="r1" edges="-VODUGES_beg"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 12 14:00:53 2018 by Eclipse SUMO Version v1_0_0+0139-646ed4b
+<!-- generated on Wed Jan 30 09:44:28 2019 by Eclipse SUMO Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -31,6 +31,6 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <lanechanges>
-    <change id="overtaking" type="DEFAULT_VEHTYPE" time="139.00" from="VODUGES_beg_0" to="-VODUGES_beg_0" dir="1" speed="1.98" pos="856.01" reason="speedGain" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="3.93" origLeaderSecureGap="1.98"/>
-    <change id="overtaking" type="DEFAULT_VEHTYPE" time="219.00" from="-VODUGES_beg_0" to="VODUGES_beg_0" dir="-1" speed="9.82" pos="117.94" reason="strategic|urgent" leaderGap="12.82" leaderSecureGap="1.70" followerGap="66.52" followerSecureGap="20.89" origLeaderGap="None" origLeaderSecureGap="None"/>
+    <change id="overtaking" type="DEFAULT_VEHTYPE" time="130.00" from="VODUGES_beg_0" to="-VODUGES_beg_0" dir="1" speed="0.20" pos="857.48" reason="speedGain" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="2.50" origLeaderSecureGap="0.20"/>
+    <change id="overtaking" type="DEFAULT_VEHTYPE" time="148.00" from="-VODUGES_beg_0" to="VODUGES_beg_0" dir="-1" speed="13.89" pos="921.95" reason="keepRight" leaderGap="39.29" leaderSecureGap="13.89" followerGap="34.05" followerSecureGap="10.83" origLeaderGap="None" origLeaderSecureGap="None"/>
 </lanechanges>
