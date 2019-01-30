@@ -144,6 +144,10 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
         case SUMO_TAG_FLOWSTATE: {
             SUMOVehicleParameter* pars = new SUMOVehicleParameter();
             pars->id = attrs.getString(SUMO_ATTR_ID);
+            bool ok;
+            if (attrs.getOpt<bool>(SUMO_ATTR_REROUTE, nullptr, ok, false)) {
+                pars->parametersSet |= VEHPARS_FORCE_REROUTE;
+            }
             MSNet::getInstance()->getInsertionControl().addFlow(pars,
                     attrs.getInt(SUMO_ATTR_INDEX));
             break;

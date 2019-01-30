@@ -57,6 +57,7 @@
     <xsd:complexType name="flowStateType">
         <xsd:attribute name="id" type="xsd:string" use="required"/>
         <xsd:attribute name="index" type="xsd:nonNegativeInteger" use="required"/>
+        <xsd:attribute name="reroute" type="boolType" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="vehicleStateType">

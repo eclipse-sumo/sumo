@@ -86,6 +86,9 @@ MSInsertionControl::addFlow(SUMOVehicleParameter* const pars, int index) {
             // if the flow was loaded from state this is recognizable by having
             // neither repetitionNumber nor repetitionProbability
             if (flow.pars->id == pars->id && flow.pars->repetitionNumber == -1 && flow.pars->repetitionProbability == -1) {
+                if (flow.pars->wasSet(VEHPARS_FORCE_REROUTE)) {
+                    pars->parametersSet |= VEHPARS_FORCE_REROUTE;
+                }
                 delete flow.pars;
                 flow.pars = pars;
                 return true;
@@ -337,6 +340,9 @@ MSInsertionControl::saveState(OutputDevice& out) {
         out.openTag(SUMO_TAG_FLOWSTATE);
         out.writeAttr(SUMO_ATTR_ID, flow.pars->id);
         out.writeAttr(SUMO_ATTR_INDEX, flow.index);
+        if (flow.pars->wasSet(VEHPARS_FORCE_REROUTE)) {
+            out.writeAttr(SUMO_ATTR_REROUTE, true);
+        }
         out.closeTag();
     }
 }
