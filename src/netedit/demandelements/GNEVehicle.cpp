@@ -54,9 +54,7 @@ GNEVehicle::GNEVehicle(GNEViewNet* viewNet, const std::string &vehicleID, GNEDem
     myContainerNumber(containerNumber),
     myReroute(reroute),
     myDepartPosLat(departPosLat),
-    myArrivalPosLat(arrivalPosLat),
-    myBegin(begin),
-    myEnd(end) {
+    myArrivalPosLat(arrivalPosLat) {
 }
 
 
@@ -102,6 +100,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& /* s */) const {
 std::string
 GNEVehicle::getAttribute(SumoXMLAttr key) const {
     switch (key) {
+        /*
         case SUMO_ATTR_ID:
             return getDemandElementID();
         case SUMO_ATTR_TYPE:
@@ -146,6 +145,7 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
             return myFirstDemandElementParent->getID();
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
+        */
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -319,12 +319,6 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_COLOR:
             myColor = parse<RGBColor>(value);
-            break;
-        case SUMO_ATTR_BEGIN:
-            myBegin = parse<double>(value);
-            break;
-        case SUMO_ATTR_END:
-            myEnd = parse<double>(value);
             break;
         case SUMO_ATTR_DEPARTLANE:
             myDepartLane = value;

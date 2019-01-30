@@ -22,6 +22,8 @@
 // included modules
 // ===========================================================================
 
+#include <utils/vehicle/SUMOVehicleParameter.h>
+
 #include "GNEDemandElement.h"
 
 
@@ -30,9 +32,8 @@
 // ===========================================================================
 /**
  * @class GNEVehicle
- * flow flow used by GNECalibrators
  */
-class GNEVehicle : public GNEDemandElement {
+class GNEVehicle : public GNEDemandElement, public SUMOVehicleParameter {
 
 public:
     /// @brief parameter constructor
@@ -158,15 +159,6 @@ protected:
 
     //// @brief arrivalPosLat
     std::string myArrivalPosLat;
-
-    /// @name specific of flows
-    /// @{
-    /// @brief time step begin
-    double myBegin;
-
-    /// @brief time step end
-    double myEnd;
-    /// @}
 
 private:
     /// @brief method for setting the attribute and nothing else
