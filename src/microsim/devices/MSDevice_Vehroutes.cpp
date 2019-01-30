@@ -443,7 +443,9 @@ MSDevice_Vehroutes::loadState(const SUMOSAXAttributes& attrs) {
         bis >> time;
         bis >> routeID;
         bis >> info;
-        myReplacedRoutes.push_back(RouteReplaceInfo(MSEdge::dictionary(edgeID), time, MSRoute::dictionary(routeID), info));
+        const MSRoute* route = MSRoute::dictionary(routeID);
+        route->addReference();
+        myReplacedRoutes.push_back(RouteReplaceInfo(MSEdge::dictionary(edgeID), time, route, info));
     }
 }
 
