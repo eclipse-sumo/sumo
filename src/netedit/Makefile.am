@@ -38,7 +38,6 @@ netedit_LDADD = ../netimport/libnetimport.a \
 ../utils/gui/tracker/libguiutilstracker.a \
 ../utils/distribution/libdistribution.a \
 ../foreign/eulerspiral/libeulerspiral.a \
-../utils/vehicle/libvehicle.a \
 ../utils/geom/libgeom.a \
 ../utils/shapes/libshapes.a \
 ../utils/options/liboptions.a \
@@ -56,6 +55,9 @@ netedit_LDADD = ../netimport/libnetimport.a \
 ../netedit/changes/libneteditchanges.a \
 ../netedit/netelements/libneteditnetelements.a \
 ../netedit/demandelements/libneteditdemandelements.a \
+../utils/vehicle/libvehicle.a \
+../utils/emissions/libemissions.a \
+../foreign/PHEMlight/cpp/libphemlight.a \
 $(XERCES_LIBS) $(FFMPEG_LIBS) \
 $(FOX_LDFLAGS) $(XERCES_LDFLAGS) $(PROJ_LDFLAGS) $(GDAL_LDFLAGS) $(X_LDFLAGS)
 endif
