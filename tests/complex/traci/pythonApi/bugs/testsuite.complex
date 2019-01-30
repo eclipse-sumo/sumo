@@ -68,3 +68,6 @@ ticket4920
 
 # moveToXY and opposite direction driving
 ticket5029
+
+# sumo aborts with error when calling traci.simulation.getDistanceRoad and no route is found
+ticket5114
