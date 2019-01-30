@@ -11,7 +11,7 @@ Loading configuration... done.
 7.0 vehicle v0 on lane=beg_0 pos=79.7338086679 speed=13.8333046154
 8.0 vehicle v0 on lane=beg_0 pos=92.6575740738 speed=12.9237654059
 9.0 vehicle v0 on lane=end_0 pos=4.22582340537 speed=13.5682493316
-10.0 vehicle v0 on lane=end_0 pos=17.4069656073 speed=13.181142202
+10.0 vehicle v0 on lane=end_0 pos=18.112179586 speed=13.8863561806
 
 21.0 vehicle v1 on lane=middle_0 pos=0.0 speed=13.89
 21.0 setStop for v1
@@ -37,7 +37,7 @@ Loading configuration... done.
 47.0 vehicle v2 on lane=middle_0 pos=2.0 speed=0.0
 48.0 vehicle v2 on lane=middle_0 pos=2.0 speed=0.0
 49.0 vehicle v2 on lane=middle_0 pos=2.0 speed=0.0
-50.0 vehicle v2 on lane=end_0 pos=2.30992941933 speed=2.30992941933
+50.0 vehicle v2 on lane=end_0 pos=2.16382706861 speed=2.16382706861
 
 61.0 vehicle v3 on lane=beg_0 pos=99.0 speed=13.89
 61.0 setStop for v3

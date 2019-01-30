@@ -60,8 +60,8 @@ getParameter parkingArea.occupancy 0
 getParameter parkingArea.name DLR
 getParameter busStop.name Magnusstr.
 getBusStopWaiting 0
-findRoute Stage(stageType=3, vType='', line='', destStop='', edges=('o', '2o'), travelTime=738.7359712230216, cost=738.7359712230216, length=10268.43, intended='', depart=-1.0, departPos=6.95333454765983e-310, arrivalPos=6.9533345476796e-310, description='')
-findRoute with routing mode Stage(stageType=3, vType='', line='', destStop='', edges=('o', '2o'), travelTime=1455.5902116141665, cost=1455.5902116141665, length=10268.43, intended='', depart=-1.0, departPos=6.95333454765983e-310, arrivalPos=6.9533345476796e-310, description='')
+findRoute Stage(stageType=3, vType='', line='', destStop='', edges=('o', '2o'), travelTime=738.7359712230216, cost=738.7359712230216, length=10268.43, intended='', depart=-1.0, departPos=6.95323718502677e-310, arrivalPos=4.65344393553814e-310, description='')
+findRoute with routing mode Stage(stageType=3, vType='', line='', destStop='', edges=('o', '2o'), travelTime=1331.6119242163597, cost=1331.6119242163597, length=10268.43, intended='', depart=-1.0, departPos=6.95323718502677e-310, arrivalPos=4.65344393553814e-310, description='')
 findIntermodalRoute [Stage(stageType=2, vType='', line='', destStop='', edges=('footpath', 'footpath2'), travelTime=144.00000000000003, cost=144.00000000000003, length=300.0, intended='', depart=-1.0, departPos=0.0, arrivalPos=100.0, description='')]
 findIntermodalRoute (walk)
   Stage(stageType=2, vType='', line='', destStop='', edges=('o', '2o'), travelTime=2467.7865600000005, cost=2467.7865600000005, length=10243.43, intended='', depart=-1.0, departPos=25.0, arrivalPos=25.0, description='')
@@ -96,8 +96,8 @@ time 14000
 loaded ()
 #departed 0
 departed ()
-#arrived 1
-arrived ('collider',)
+#arrived 0
+arrived ()
 #parkstart 0
 parkstart ()
 #parkend 0
@@ -110,7 +110,7 @@ stopend ()
 colliding ('suddenStop', 'collider')
 #emergencystopping 0
 emergencystopping ()
-min#expected 5
+min#expected 6
 #teleportStart 1
 teleportStart ('collider',)
 #teleportEnd 0

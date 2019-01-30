@@ -1,4 +1,5 @@
 Loading configuration... done.
+ Retrying in 1 seconds
 Subscribing to vehicle context of object 'ego'
 [001] Context results for vehicle 'ego':
 ego
@@ -40,5 +41,7 @@ opp1
 ego
 [016] Context results for vehicle 'ego':
 ego
-[017] Vehicle 'ego' has arrived at destination
-Print ended at 18.0
+[017] Context results for vehicle 'ego':
+ego
+[018] Vehicle 'ego' has arrived at destination
+Print ended at 19.0

@@ -13,12 +13,14 @@ Subscribing to vehicle context of object 'ego'
 [010] Context results for vehicle 'ego':
 [011] Context results for vehicle 'ego':
 [012] Context results for vehicle 'ego':
+opposite_lead_right
 [013] Context results for vehicle 'ego':
 opposite_lead_left
 opposite_lead_middle
 opposite_lead_right
 [014] Context results for vehicle 'ego':
 opposite_lead_left
+opposite_lead_left2
 opposite_lead_middle
 opposite_lead_middle2
 opposite_lead_right
@@ -43,6 +45,7 @@ opposite_lead_right
 opposite_lead_right2
 [017] Context results for vehicle 'ego':
 opposite_follow_left2
+opposite_follow_middle
 opposite_follow_middle2
 opposite_follow_right
 opposite_follow_right2
@@ -63,7 +66,6 @@ opposite_lead_left
 opposite_lead_left2
 opposite_lead_middle
 opposite_lead_middle2
-opposite_lead_right
 opposite_lead_right2
 [019] Context results for vehicle 'ego':
 opposite_follow_left
@@ -72,9 +74,7 @@ opposite_follow_middle
 opposite_follow_middle2
 opposite_follow_right
 opposite_follow_right2
-opposite_lead_left
 opposite_lead_left2
-opposite_lead_middle
 opposite_lead_middle2
 opposite_lead_right2
 [020] Context results for vehicle 'ego':
@@ -84,7 +84,6 @@ opposite_follow_middle
 opposite_follow_middle2
 opposite_follow_right
 opposite_follow_right2
-opposite_lead_left2
 opposite_lead_middle2
 opposite_lead_right2
 [021] Context results for vehicle 'ego':

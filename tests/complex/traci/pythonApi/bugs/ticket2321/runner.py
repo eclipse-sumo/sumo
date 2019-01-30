@@ -39,6 +39,7 @@ vehID = "v0"
 traci.simulationStep()
 traci.route.add("r0", ["SC", "CN"])
 traci.vehicle.add(vehID, "r0")
+traci.vehicle.setImperfection(vehID, 0)
 while traci.simulation.getMinExpectedNumber() > 0:
     traci.simulationStep()
     try:

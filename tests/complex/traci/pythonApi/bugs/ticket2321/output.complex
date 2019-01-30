@@ -1,20 +1,19 @@
 Loading configuration... done.
+ Retrying in 1 seconds
 step=2 road=SC lane=SC_0 pos=0.00 dist=0.00 simDist=0.00 simDistToEnd=198.05 distToInt=105.75 distToEnd=198.05 simDist2DToInt=105.75 simDist2DToEnd=198.05
-step=3 road=SC lane=SC_0 pos=1.44 dist=1.44 simDist=1.44 simDistToEnd=196.61 distToInt=104.31 distToEnd=196.61 simDist2DToInt=104.31 simDist2DToEnd=196.61
-step=4 road=SC lane=SC_0 pos=4.56 dist=4.56 simDist=4.56 simDistToEnd=193.49 distToInt=101.19 distToEnd=193.49 simDist2DToInt=101.19 simDist2DToEnd=193.49
-step=5 road=SC lane=SC_0 pos=10.21 dist=10.21 simDist=10.21 simDistToEnd=187.84 distToInt=95.54 distToEnd=187.84 simDist2DToInt=95.54 simDist2DToEnd=187.84
-step=6 road=SC lane=SC_0 pos=17.83 dist=17.83 simDist=17.83 simDistToEnd=180.22 distToInt=87.92 distToEnd=180.22 simDist2DToInt=87.92 simDist2DToEnd=180.22
-step=7 road=SC lane=SC_0 pos=27.28 dist=27.28 simDist=27.28 simDistToEnd=170.77 distToInt=78.47 distToEnd=170.77 simDist2DToInt=78.47 simDist2DToEnd=170.77
-step=8 road=SC lane=SC_0 pos=39.28 dist=39.28 simDist=39.28 simDistToEnd=158.77 distToInt=66.47 distToEnd=158.77 simDist2DToInt=66.47 simDist2DToEnd=158.77
-step=9 road=SC lane=SC_0 pos=52.20 dist=52.20 simDist=52.20 simDistToEnd=145.85 distToInt=53.55 distToEnd=145.85 simDist2DToInt=53.55 simDist2DToEnd=145.85
-step=10 road=SC lane=SC_0 pos=65.77 dist=65.77 simDist=65.77 simDistToEnd=132.28 distToInt=39.98 distToEnd=132.28 simDist2DToInt=39.98 simDist2DToEnd=132.28
-step=11 road=SC lane=SC_0 pos=78.95 dist=78.95 simDist=78.95 simDistToEnd=119.10 distToInt=26.80 distToEnd=119.10 simDist2DToInt=26.80 simDist2DToEnd=119.10
-step=12 road=SC lane=SC_0 pos=91.87 dist=91.87 simDist=91.87 simDistToEnd=106.18 distToInt=13.88 distToEnd=106.18 simDist2DToInt=13.88 simDist2DToEnd=106.18
-step=13 road=:C_10 lane=:C_10_0 pos=13.80 dist=105.75 simDist=105.75 simDistToEnd=92.30 distToInt=-0.00 distToEnd=92.30 simDist2DToInt=0.00 simDist2DToEnd=92.30
-step=14 road=CN lane=CN_0 pos=10.72 dist=118.77 simDist=118.77 simDistToEnd=79.28 distToInt=-1073741824.00 distToEnd=79.28 simDist2DToInt=13.02 simDist2DToEnd=79.28
-step=15 road=CN lane=CN_0 pos=24.00 dist=132.05 simDist=132.05 simDistToEnd=66.00 distToInt=-1073741824.00 distToEnd=66.00 simDist2DToInt=26.30 simDist2DToEnd=66.00
-step=16 road=CN lane=CN_0 pos=37.30 dist=145.35 simDist=145.35 simDistToEnd=52.70 distToInt=-1073741824.00 distToEnd=52.70 simDist2DToInt=39.60 simDist2DToEnd=52.70
-step=17 road=CN lane=CN_0 pos=50.46 dist=158.51 simDist=158.51 simDistToEnd=39.54 distToInt=-1073741824.00 distToEnd=39.54 simDist2DToInt=52.76 simDist2DToEnd=39.54
-step=18 road=CN lane=CN_0 pos=64.00 dist=172.05 simDist=172.05 simDistToEnd=26.00 distToInt=-1073741824.00 distToEnd=26.00 simDist2DToInt=66.30 simDist2DToEnd=26.00
-step=19 road=CN lane=CN_0 pos=77.81 dist=185.86 simDist=185.86 simDistToEnd=12.19 distToInt=-1073741824.00 distToEnd=12.19 simDist2DToInt=80.11 simDist2DToEnd=12.19
-step=20 road=CN lane=CN_0 pos=90.57 dist=198.62 simDist=198.62 simDistToEnd=179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368.00 distToInt=-1073741824.00 distToEnd=-1073741824.00 simDist2DToInt=92.87 simDist2DToEnd=0.57
+step=3 road=SC lane=SC_0 pos=2.60 dist=2.60 simDist=2.60 simDistToEnd=195.45 distToInt=103.15 distToEnd=195.45 simDist2DToInt=103.15 simDist2DToEnd=195.45
+step=4 road=SC lane=SC_0 pos=7.80 dist=7.80 simDist=7.80 simDistToEnd=190.25 distToInt=97.95 distToEnd=190.25 simDist2DToInt=97.95 simDist2DToEnd=190.25
+step=5 road=SC lane=SC_0 pos=15.60 dist=15.60 simDist=15.60 simDistToEnd=182.45 distToInt=90.15 distToEnd=182.45 simDist2DToInt=90.15 simDist2DToEnd=182.45
+step=6 road=SC lane=SC_0 pos=26.00 dist=26.00 simDist=26.00 simDistToEnd=172.05 distToInt=79.75 distToEnd=172.05 simDist2DToInt=79.75 simDist2DToEnd=172.05
+step=7 road=SC lane=SC_0 pos=39.00 dist=39.00 simDist=39.00 simDistToEnd=159.05 distToInt=66.75 distToEnd=159.05 simDist2DToInt=66.75 simDist2DToEnd=159.05
+step=8 road=SC lane=SC_0 pos=52.89 dist=52.89 simDist=52.89 simDistToEnd=145.16 distToInt=52.86 distToEnd=145.16 simDist2DToInt=52.86 simDist2DToEnd=145.16
+step=9 road=SC lane=SC_0 pos=66.78 dist=66.78 simDist=66.78 simDistToEnd=131.27 distToInt=38.97 distToEnd=131.27 simDist2DToInt=38.97 simDist2DToEnd=131.27
+step=10 road=SC lane=SC_0 pos=80.67 dist=80.67 simDist=80.67 simDistToEnd=117.38 distToInt=25.08 distToEnd=117.38 simDist2DToInt=25.08 simDist2DToEnd=117.38
+step=11 road=:C_10 lane=:C_10_0 pos=2.61 dist=94.56 simDist=94.56 simDistToEnd=103.49 distToInt=11.19 distToEnd=103.49 simDist2DToInt=11.19 simDist2DToEnd=103.49
+step=12 road=CN lane=CN_0 pos=0.40 dist=108.45 simDist=108.45 simDistToEnd=89.60 distToInt=-1073741824.00 distToEnd=89.60 simDist2DToInt=2.70 simDist2DToEnd=89.60
+step=13 road=CN lane=CN_0 pos=14.29 dist=122.34 simDist=122.34 simDistToEnd=75.71 distToInt=-1073741824.00 distToEnd=75.71 simDist2DToInt=16.59 simDist2DToEnd=75.71
+step=14 road=CN lane=CN_0 pos=28.18 dist=136.23 simDist=136.23 simDistToEnd=61.82 distToInt=-1073741824.00 distToEnd=61.82 simDist2DToInt=30.48 simDist2DToEnd=61.82
+step=15 road=CN lane=CN_0 pos=42.07 dist=150.12 simDist=150.12 simDistToEnd=47.93 distToInt=-1073741824.00 distToEnd=47.93 simDist2DToInt=44.37 simDist2DToEnd=47.93
+step=16 road=CN lane=CN_0 pos=55.96 dist=164.01 simDist=164.01 simDistToEnd=34.04 distToInt=-1073741824.00 distToEnd=34.04 simDist2DToInt=58.26 simDist2DToEnd=34.04
+step=17 road=CN lane=CN_0 pos=69.85 dist=177.90 simDist=177.90 simDistToEnd=20.15 distToInt=-1073741824.00 distToEnd=20.15 simDist2DToInt=72.15 simDist2DToEnd=20.15
+step=18 road=CN lane=CN_0 pos=83.74 dist=191.79 simDist=191.79 simDistToEnd=6.26 distToInt=-1073741824.00 distToEnd=6.26 simDist2DToInt=86.04 simDist2DToEnd=6.26

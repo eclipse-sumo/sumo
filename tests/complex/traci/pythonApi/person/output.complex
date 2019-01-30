@@ -1,4 +1,5 @@
 Loading configuration... done.
+ Retrying in 1 seconds
 step 0
 step 1
 step 2
@@ -86,18 +87,18 @@ persons on edge :0_10 at time 17.0: ('newPerson',)
 detour2 edges ('3si', '2o', '2fi', '2si', '4si')
 detour2 edges after routing (':0_w2', '4si')
 :0_w1
-10.1968710641
+10.0764419375
 :0_c0
 recovering from exception after asking for invalid stage index
 recovering from exception after asking for invalid stage index
 214 person=tripTest2 edge=2fi pos=10.0
 215 person=tripTest2 edge=2fi pos=10.0
-216 person=tripTest2 edge=2fi pos=11.2468102358
-217 person=tripTest2 edge=2fi pos=12.5072324515
-218 person=tripTest2 edge=2fi pos=13.6805523373
+216 person=tripTest2 edge=2fi pos=11.2702603498
+217 person=tripTest2 edge=2fi pos=12.6330235757
+218 person=tripTest2 edge=2fi pos=13.8008502379
   tripTest2 new edges edges=('2fi', '1fi')
-219 person=tripTest2 edge=2fi pos=14.896179108
-220 person=tripTest2 edge=2fi pos=16.1036448102
-221 person=tripTest2 edge=2fi pos=17.3740875268
-222 person=tripTest2 edge=2fi pos=18.6459144866
-223 person=tripTest2 edge=2fi pos=19.8721194038
+219 person=tripTest2 edge=2fi pos=15.1080027571
+220 person=tripTest2 edge=2fi pos=16.4488341582
+221 person=tripTest2 edge=2fi pos=17.7396310395
+222 person=tripTest2 edge=2fi pos=19.0504063853
+223 person=tripTest2 edge=2fi pos=20.2967095385

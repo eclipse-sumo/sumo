@@ -22,25 +22,25 @@ Current type: automatedDistributionWithToCDevice89
 time step 22000
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.5517145299
+  currentSpeed = 19.5733923556
   state = MANUAL
 Current type: manualDistribution71
 time step 42000
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.1700620404
+  currentSpeed = 19.4395209846
   state = MANUAL
 Current type: manualDistribution71
 time step 62000
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.4083548006
+  currentSpeed = 19.5640976612
   state = MANUAL
 Current type: manualDistribution71
 time step 82000
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.2968529223
+  currentSpeed = 19.076073231
   state = MANUAL
 Current type: manualDistribution71
 time step 102000

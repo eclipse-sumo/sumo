@@ -10,25 +10,25 @@ laneNumber 1
 streetName exampleStreetName1
 adaptedTraveltime -1.0
 effort -1.0
-CO2 3655.93323154
-CO 134.995693729
-HC 0.700169768806
-PMx 0.0768979695635
-NOx 1.60551769858
-Fuel 1.57157465769
-Noise 64.5318330666
+CO2 4962.09802901
+CO 148.404394312
+HC 0.793287746206
+PMx 0.106890250159
+NOx 2.197042561
+Fuel 2.1330214171
+Noise 68.9661301311
 Elec 0.0
-meanSpeed 3.1154472965
+meanSpeed 4.03334372395
 occupancy 0.0201207243461
 lastLength 5.0
-traveltime 79.7638272613
+traveltime 61.6114115255
 numVeh 1
 haltVeh 0
 vehIds ('horiz',)
 personIds ('p0',)
 waiting time 0.0
 checking occupancy with unicode id 0.0201207243461
-traveltime after adaption 79.7638272613
+traveltime after adaption 61.6114115255
 adaptedTraveltime after adaption 42.0
 adaptedTraveltime after adaption in interval (check time 0) 42.0
 adaptedTraveltime after adaption in interval (check time 15) 24.0

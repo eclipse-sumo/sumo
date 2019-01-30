@@ -1,7 +1,7 @@
 ----------- Warning Test -----------
  Run 1
 Loading configuration... done.
-***Starting server on port 33884 ***
+***Starting server on port 35213 ***
   waiting for 2 clients...
 Starting process 1
 Starting process 2
@@ -11,11 +11,11 @@ client 1:  connection closed by SUMO  (at TraCIStep 1)
 client 2:  connection closed by SUMO  (at TraCIStep 1)
  Run 2
 Loading configuration... done.
-***Starting server on port 33884 ***
+***Starting server on port 35213 ***
   waiting for 2 clients...
 Starting process 1
-Starting process 2
   client connected
+Starting process 2
   client connected
 client 1:  connection closed by SUMO  (at TraCIStep 1)
 client 2:  connection closed by SUMO  (at TraCIStep 1)

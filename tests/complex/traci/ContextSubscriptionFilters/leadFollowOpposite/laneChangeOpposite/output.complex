@@ -1,4 +1,5 @@
 Loading configuration... done.
+ Retrying in 1 seconds
 Subscribing to vehicle context of object 'ego'
 [001] Context results for vehicle 'ego':
 snail_leader
@@ -48,7 +49,6 @@ opposite.1
 snail_leader
 [019] Context results for vehicle 'ego':
 opposite.1
-opposite.2
 snail_leader
 [020] Context results for vehicle 'ego':
 opposite.1
@@ -67,7 +67,6 @@ opposite.2
 opposite.3
 snail_leader
 [024] Context results for vehicle 'ego':
-opposite.2
 opposite.3
 snail_leader
 [025] Context results for vehicle 'ego':
@@ -92,11 +91,7 @@ snail_leader
 [030] Context results for vehicle 'ego':
 opposite.5
 opposite.6
-snail_leader
 [031] Context results for vehicle 'ego':
-opposite.5
 opposite.6
-[032] Context results for vehicle 'ego':
-opposite.6
-[033] Vehicle 'ego' has arrived at destination
-Print ended at 34.0
+[032] Vehicle 'ego' has arrived at destination
+Print ended at 33.0
