@@ -390,6 +390,8 @@ Warning: Found sharp turn with radius 2.48 at the start of edge '72463267#2'.
 Warning: Found sharp turn with radius 2.14 at the end of edge '72463267#3'.
 Warning: Found sharp turn with radius 7.08 at the start of edge '82648766#2'.
 Warning: Lane '-24540240#5_0' is not connected from any incoming edge at junction '768038179'.
+Warning: Lane '122820534#0_1' is not connected from any incoming edge at junction '538718617'.
+Warning: Edge '4773029#1' is not connected to outgoing edges at junction '29207417'.
 Warning: Invalid pedestrian topology: crossing ':cluster_2010745295_2010745299_2045862310_2058568011_3754652237_4217234963_4603453643_4603453644_4603453647_c2' across '195411601#1 -4402228 4402228 165409971#1' has no target.
 Warning: The rail crossing '1157325170' does not have any roads.
 Warning: The rail crossing '4402536776' does not have any roads.
@@ -440,12 +442,6 @@ Warning: skipping line '78' because it has too few stops
 Warning: skipping line '79' because it has too few stops
 Warning: skipping line '80' because it has too few stops
 Warning: skipping line '83' because it has too few stops
-Warning: Rail lane '153537614#2_0' has more than one outgoing lane but does not have a rail signal at its end
-Warning: Rail lane '153522303#0_0' has more than one outgoing lane but does not have a rail signal at its end
-Warning: Rail lane '101699692#1_0' has more than one outgoing lane but does not have a rail signal at its end
-Warning: Rail lane '101699679#0_0' has more than one outgoing lane but does not have a rail signal at its end
-Warning: Rail lane '72984377#1_0' has more than one outgoing lane but does not have a rail signal at its end
-Warning: Rail lane '25946666#1_0' has more than one outgoing lane but does not have a rail signal at its end
 Warning: busStop '1827996414' on lane '72157174#1_1' is too short for vehicle '9_bus_TXL:0'.
 Warning: busStop '1827996417' on lane '24914992#1_1' is too short for vehicle '10_bus_TXL:1'.
 Warning: busStop '2175753204' on lane '207364192#0_0' is too short for vehicle '26_tram_12:0'.
@@ -460,12 +456,6 @@ Warning: Vehicle '72_bus_N6:1' is not allowed to stop on lane '388702041#11_0'.
 Warning: Vehicle '72_bus_N6:1' is not allowed on destination edge '388702041#11'.
 Warning: busStop '3869306764' for vehicle '72_bus_N6:1' on lane '4402228_1' is not downstream the current route.
 Warning: Vehicle '72_bus_N6:1' is not allowed to stop on lane '388702041#11_0'.
-Warning: Rail lane '153537614#2_0' has more than one outgoing lane but does not have a rail signal at its end
-Warning: Rail lane '153522303#0_0' has more than one outgoing lane but does not have a rail signal at its end
-Warning: Rail lane '101699692#1_0' has more than one outgoing lane but does not have a rail signal at its end
-Warning: Rail lane '101699679#0_0' has more than one outgoing lane but does not have a rail signal at its end
-Warning: Rail lane '72984377#1_0' has more than one outgoing lane but does not have a rail signal at its end
-Warning: Rail lane '25946666#1_0' has more than one outgoing lane but does not have a rail signal at its end
 Warning: busStop '1827996414' on lane '72157174#1_1' is too short for vehicle 'pt_bus_TXL:0.0'.
 Warning: busStop '1827996417' on lane '24914992#1_1' is too short for vehicle 'pt_bus_TXL:1.0'.
 Warning: busStop '2175753204' on lane '207364192#0_0' is too short for vehicle 'pt_tram_12:0.0'.
@@ -474,9 +464,11 @@ Warning: busStop '1668497956' on lane '153537614#2_0' is too short for vehicle '
 Warning: busStop '3869306762' on lane '111251382#2_1' is too short for vehicle 'pt_bus_147:0.0'.
 Warning: busStop '2071423352' on lane '295250361_0' is too short for vehicle 'pt_subway_U6:0.0'.
 Warning: Person 'ped26' aborted waiting for M5:1 at busStop '30731481'.
-Warning: Person 'ped72' aborted waiting for M1:1 at busStop '963600646'.
 Warning: Person 'ped5' aborted waiting for M5:3 at busStop '30731508'.
+Warning: Person 'ped19' aborted waiting for M5:0 at busStop '1668685086'.
 Warning: Person 'ped37' aborted waiting for M5:2 at busStop '1633759766'.
+Warning: Person 'ped69' aborted waiting for M4:1 at busStop '1633759766'.
 Warning: Person 'ped126' aborted waiting for 147:3 at busStop '3869306764'.
-Warning: Person 'ped14' aborted waiting for N65:1 at busStop '1686199552'.
+Warning: Person 'ped135' aborted waiting for N42:1 at busStop '270727260'.
 Warning: Person 'ped178' aborted waiting for 248:0 at busStop '3867910417'.
+Warning: Person 'ped36' aborted waiting for M5:0 at busStop '1862699772'.
