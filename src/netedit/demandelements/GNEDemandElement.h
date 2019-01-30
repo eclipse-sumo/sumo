@@ -397,9 +397,6 @@ protected:
     /// @brief variable ChildConnections
     ChildConnections myChildConnections;
 
-    /// @brief change all attributes of demand element with their default values (note: this cannot be undo)
-    void setDefaultValues();
-
     /// @name Functions relative to change values in setAttribute(...)
     /// @{
 

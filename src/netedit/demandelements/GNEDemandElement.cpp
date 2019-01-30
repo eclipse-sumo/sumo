@@ -860,17 +860,6 @@ GNEDemandElement::ChildConnections::draw() const {
 }
 
 
-void
-GNEDemandElement::setDefaultValues() {
-    // iterate over attributes and set default value
-    for (const auto& i : myTagProperty) {
-        if (i.second.hasDefaultValue()) {
-            setAttribute(i.first, i.second.getDefaultValue());
-        }
-    }
-}
-
-
 const std::string&
 GNEDemandElement::getDemandElementID() const {
     return getMicrosimID();

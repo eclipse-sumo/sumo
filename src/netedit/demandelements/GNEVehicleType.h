@@ -22,14 +22,10 @@
 // included modules
 // ===========================================================================
 
+#include <utils/vehicle/SUMOVTypeParameter.h>
+
 #include "GNEDemandElement.h"
 
-// ===========================================================================
-// class declaration
-// ===========================================================================
-
-class GNECalibrator;
-class GNECalibratorDialog;
 
 // ===========================================================================
 // class definitions
@@ -38,23 +34,14 @@ class GNECalibratorDialog;
  * @class GNEVehicleType
  * vehicleType vehicleType used by GNECalibrators
  */
-class GNEVehicleType : public GNEDemandElement {
+class GNEVehicleType : public GNEDemandElement, public SUMOVTypeParameter {
 
 public:
-    /// @brief constructor (Used only in GNECalibratorDialog)
-    GNEVehicleType(GNEViewNet* viewNet);
+    /// @brief constructor
+    GNEVehicleType(GNEViewNet* viewNet, const std::string &vTypeID);
 
-    /// @brief constructor in which ID can be specified
-    GNEVehicleType(GNEViewNet* viewNet, const std::string& id);
-
-    /// @brief parameter constructor
-    GNEVehicleType(GNEViewNet* viewNet, std::string vehicleTypeID,
-                   double accel, double decel, double sigma, double tau, double length, double minGap,
-                   double maxSpeed, double speedFactor, double speedDev, const RGBColor& color,
-                   SUMOVehicleClass vClass, const std::string& emissionClass, SUMOVehicleShape shape,
-                   double width, const std::string& filename, double impatience, const std::string& laneChangeModel,
-                   const std::string& carFollowModel, int personCapacity, int containerCapacity, double boardingDuration,
-                   double loadingDuration, const std::string& latAlignment, double minGapLat, double maxSpeedLat);
+    /// @brief constructor
+    GNEVehicleType(GNEViewNet* viewNet, const SUMOVTypeParameter &vTypeParameter);
 
     /// @brief destructor
     ~GNEVehicleType();
@@ -127,82 +114,6 @@ public:
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
     std::string getHierarchyName() const;
     /// @}
-
-private:
-    /// @brief The acceleration ability of vehicles of this type (in m/s^2)
-    double myAccel;
-
-    /// @brief The deceleration ability of vehicles of this type (in m/s^2)
-    double myDecel;
-
-    /// @brief Car-following model parameter
-    double mySigma;
-
-    /// @brief Car-following model parameter
-    double myTau;
-
-    /// @brief The vehicle's netto-length (length) (in m)
-    double myLength;
-
-    /// @brief Empty space after leader [m]
-    double myMinGap;
-
-    /// @brief The vehicle's maximum velocity (in m/s)
-    double myMaxSpeed;
-
-    /// @brief The vehicles expected multiplicator for lane speed limits
-    double mySpeedFactor;
-
-    /// @brief The deviation of the speedFactor; see below for details
-    double mySpeedDev;
-
-    /// @brief This vehicle type's color
-    RGBColor myColor;
-
-    /// @brief An abstract vehicle class
-    SUMOVehicleClass myVClass;
-
-    /// @brief An abstract emission class
-    std::string myEmissionClass;
-
-    /// @brief How this vehicle is rendered
-    SUMOVehicleShape myShape;
-
-    /// @brief The vehicle's width [m] (only used for drawing)
-    double myWidth;
-
-    /// @brief Image file for rendering vehicles of this type (should be grayscale to allow functional coloring)
-    std::string myFilename;
-
-    /// @brief Willingess of drivers to impede vehicles with higher priority. See below for semantics.
-    double myImpatience;
-
-    /// @brief The model used for changing lanes
-    std::string myLaneChangeModel;
-
-    /// @brief The model used for car following
-    std::string myCarFollowModel;
-
-    /// @brief The number of persons (excluding an autonomous driver) the vehicle can transport.
-    int myPersonCapacity;
-
-    /// @brief The number of containers the vehicle can transport.
-    int myContainerCapacity;
-
-    /// @brief The time required by a person to board the vehicle.
-    double myBoardingDuration;
-
-    /// @brief The time required to load a container onto the vehicle.
-    double myLoadingDuration;
-
-    /// @brief The preferred lateral alignment when using the sublane-model. One of (left, right, center, compact, nice, arbitrary).
-    std::string myLatAlignment;
-
-    /// @brief The minimum lateral gap at a speed difference of 100km/h when using the sublane-model
-    double myMinGapLat;
-
-    /// @brief The maximum lateral speed when using the sublane-model
-    double myMaxSpeedLat;
 
 private:
     /// @brief method for setting the attribute and nothing else

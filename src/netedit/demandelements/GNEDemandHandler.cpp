@@ -131,10 +131,7 @@ GNEDemandHandler::buildVehicleType(GNEViewNet* viewNet, bool allowUndoRedo, std:
                                    double loadingDuration, const std::string& latAlignment, double minGapLat, double maxSpeedLat) {
     if (viewNet->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, vehicleTypeID, false) == nullptr) {
         // create vehicle type and add it to calibrator parent
-        GNEVehicleType* vType = new GNEVehicleType(viewNet, vehicleTypeID, accel, decel, sigma, tau, length, minGap, maxSpeed,
-                speedFactor, speedDev, color, vClass, emissionClass, shape, width, filename, impatience,
-                laneChangeModel, carFollowModel, personCapacity, containerCapacity, boardingDuration,
-                loadingDuration, latAlignment, minGapLat, maxSpeedLat);
+        GNEVehicleType* vType = new GNEVehicleType(viewNet, vehicleTypeID);
         if (allowUndoRedo) {
             viewNet->getUndoList()->p_begin("add " + vType->getTagStr());
             viewNet->getUndoList()->add(new GNEChange_DemandElement(vType, true), true);
