@@ -217,6 +217,7 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
     oc.addOptionSubTopic("Formats");
     oc.addOptionSubTopic("Netedit");
     oc.addOptionSubTopic("Visualisation");
+    oc.addOptionSubTopic("Time");
 
     oc.doRegister("new", new Option_Bool(false)); // !!!
     oc.addDescription("new", "Input", "Start with a new network");
@@ -264,6 +265,13 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
 
     oc.doRegister("gui-testing-debug-gl", new Option_Bool(false));
     oc.addDescription("gui-testing-debug-gl", "Visualisation", "Enable output messages during GUI-Testing specific of gl functions");
+
+    // register the simulation settings (needed for GNEDemandElementHandler)
+    oc.doRegister("begin", new Option_String("0", "TIME"));
+    oc.addDescription("begin", "Time", "Defines the begin time in seconds; The simulation starts at this time");
+
+    oc.doRegister("end", new Option_String("-1", "TIME"));
+    oc.addDescription("end", "Time", "Defines the end time in seconds; The simulation ends at this time");
 
     SystemFrame::addReportOptions(oc); // this subtopic is filled here, too
 

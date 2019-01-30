@@ -27,6 +27,8 @@
 #include <netedit/netelements/GNELane.h>
 #include <netedit/netelements/GNEJunction.h>
 #include <netedit/demandelements/GNEDemandElementHandler.h>
+#include <netedit/demandelements/GNERoute.h>
+#include <netedit/changes/GNEChange_DemandElement.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewParent.h>
@@ -250,8 +252,14 @@ void
 GNERouteFrame::EdgeToEdge::createRoute() {
     // create edge only if there is route edges
     if (myRouteEdges.size() > 0) {
-        // creaste edge using buildRoute function of GNEDemandElementHandler
-        GNEDemandElementHandler::buildRoute(myRouteFrameParent->getViewNet(), true, myRouteFrameParent->getViewNet()->getNet()->generateDemandElementID(SUMO_TAG_ROUTE), myRouteEdges, RGBColor::BLUE);
+        // cenerate Route ID
+        std::string routeID = myRouteFrameParent->getViewNet()->getNet()->generateDemandElementID(SUMO_TAG_ROUTE);
+        // create route
+        GNERoute* route = new GNERoute(myRouteFrameParent->getViewNet(), routeID, myRouteEdges, RGBColor::BLUE);
+        // add it into GNENet using GNEChange_DemandElement (to allow undo-redo)
+        myRouteFrameParent->getViewNet()->getUndoList()->p_begin("add " + route->getTagStr());
+        myRouteFrameParent->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(route, true), true);
+        myRouteFrameParent->getViewNet()->getUndoList()->p_end();
         // abort route creation (because route it was already seleted and vector/colors has to be cleaned)
         abortRouteCreation();
     }
