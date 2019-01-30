@@ -137,8 +137,6 @@ GNEDemandElementHandler::closeVType() {
                 myViewNet->getNet()->insertDemandElement(vType);
                 vType->incRef("buildVType");
             }
-            // delete myCurrentVType (note: Check #5129)
-            delete myCurrentVType;
         }
     }
 }

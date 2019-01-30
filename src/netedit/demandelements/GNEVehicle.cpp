@@ -32,29 +32,20 @@
 // member method definitions
 // ===========================================================================
 
-
-GNEVehicle::GNEVehicle(GNEViewNet* viewNet, const std::string &vehicleID, GNEDemandElement* vehicleType, GNEDemandElement* route, const std::string& vehsPerHour, const std::string& speed,
-        const RGBColor& color, const std::string& departLane, const std::string& departPos, const std::string& departSpeed, const std::string& arrivalLane,
-        const std::string& arrivalPos, const std::string& arrivalSpeed, const std::string& line, int personNumber, int containerNumber, bool reroute,
-        const std::string& departPosLat, const std::string& arrivalPosLat, double begin, double end) :
+GNEVehicle::GNEVehicle(GNEViewNet* viewNet, const std::string &vehicleID, GNEDemandElement* vehicleType, GNEDemandElement* route) :
     GNEDemandElement(vehicleID, viewNet, GLO_VEHICLE, SUMO_TAG_VEHICLE),
+    SUMOVehicleParameter(),
     myVehicleType(vehicleType),
-    myRoute(route),
-    myVehsPerHour(vehsPerHour),
-    mySpeed(speed),
-    myColor(color),
-    myDepartLane(departLane),
-    myDepartPos(departPos),
-    myDepartSpeed(departSpeed),
-    myArrivalLane(arrivalLane),
-    myArrivalPos(arrivalPos),
-    myArrivalSpeed(arrivalSpeed),
-    myLine(line),
-    myPersonNumber(personNumber),
-    myContainerNumber(containerNumber),
-    myReroute(reroute),
-    myDepartPosLat(departPosLat),
-    myArrivalPosLat(arrivalPosLat) {
+    myRoute(route) {
+    id = vehicleID;
+}
+
+
+GNEVehicle::GNEVehicle(GNEViewNet* viewNet, const SUMOVehicleParameter &vehicleParameter, GNEDemandElement* vehicleType, GNEDemandElement* route) :
+    GNEDemandElement(vehicleParameter.id, viewNet, GLO_VEHICLE, SUMO_TAG_VEHICLE),
+    SUMOVehicleParameter(vehicleParameter),
+    myVehicleType(vehicleType),
+    myRoute(route) {
 }
 
 
@@ -192,6 +183,7 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             return isValidDemandElementID(value);
+/*
         case SUMO_ATTR_TYPE:
             return SUMOXMLDefinitions::isValidTypeID(value) && (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, value, false) != nullptr);
         case SUMO_ATTR_ROUTE:
@@ -278,6 +270,7 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
             return SUMOXMLDefinitions::LateralAlignments.hasString(value);
         case GNE_ATTR_GENERIC:
             return isGenericParametersValid(value);
+*/
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -305,6 +298,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             changeDemandElementID(value);
             break;
+/*
         case SUMO_ATTR_TYPE:
             myVehicleType = myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, value);
             break;
@@ -359,6 +353,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_GENERIC:
             setGenericParametersStr(value);
             break;
+*/
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
