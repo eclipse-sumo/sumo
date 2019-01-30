@@ -176,7 +176,7 @@ traci.vehicle.setParameter(vehID, "foo", "bar")
 traci.vehicle.setParameter(vehID, "laneChangeModel.lcStrategic", "2.0")
 traci.vehicle.setSignals(vehID, 12)
 traci.vehicle.setRoutingMode(vehID, traci.constants.ROUTING_MODE_AGGREGATED)
-traci.vehicle.setStop(vehID, "2fi", pos=50.0, laneIndex=0, duration=2, flags=1)
+traci.vehicle.setStop(vehID, "2fi", pos=55.0, laneIndex=0, duration=2, flags=1)
 sys.stderr.flush()
 
 check(vehID)

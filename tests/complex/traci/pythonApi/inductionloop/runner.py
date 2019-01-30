@@ -29,7 +29,7 @@ else:
 import sumolib  # noqa
 
 traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"])
-for step in range(4):
+for step in range(3):
     print("step", step)
     traci.simulationStep()
 print("inductionloops", traci.inductionloop.getIDList())
