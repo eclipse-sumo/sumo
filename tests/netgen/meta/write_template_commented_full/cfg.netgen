@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Dec  6 21:23:22 2018 by Eclipse SUMO netgenerate Version eeef47f
+<!-- generated on Wed Jan 30 12:23:32 2019 by Eclipse SUMO netgenerate Version v1_0_1+0645-93703db
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -401,6 +401,9 @@
 
         <!-- Disables building turnarounds at tls-controlled junctions -->
         <no-turnarounds.tls value="false" synonymes="no-tls-turnarounds" type="BOOL"/>
+
+        <!-- Disables building turnarounds at geometry-like junctions -->
+        <no-turnarounds.geometry value="true" type="BOOL"/>
 
         <!-- Disables building turnarounds except at dead end junctions -->
         <no-turnarounds.except-deadend value="false" type="BOOL"/>
