@@ -191,7 +191,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
     myRightOnRedConflicts.clear();
     const SUMOTime brakingTime = TIME2STEPS(brakingTimeSeconds);
     const SUMOTime leftTurnTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.left-green.time"));
-    const SUMOTime minDur = myType == TLTYPE_STATIC ? UNSPECIFIED_DURATION : TIME2STEPS(OptionsCont::getOptions().getInt("tls.min-dur"));
+    const SUMOTime minMinDur = myType == TLTYPE_STATIC ? UNSPECIFIED_DURATION : TIME2STEPS(OptionsCont::getOptions().getInt("tls.min-dur"));
     const SUMOTime maxDur = myType == TLTYPE_STATIC ? UNSPECIFIED_DURATION : TIME2STEPS(OptionsCont::getOptions().getInt("tls.max-dur"));
 
     // build complete lists first
@@ -280,6 +280,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
         std::string state((int) noLinksAll, 'r');
         //std::cout << " computing " << getID() << " prog=" << getProgramID() << " cho1=" << Named::getIDSecure(chosen.first) << " cho2=" << Named::getIDSecure(chosen.second) << " toProc=" << toString(toProc) << "\n";
         // plain straight movers
+        double maxSpeed = 0;
         for (int i1 = 0; i1 < (int) incoming.size(); ++i1) {
             NBEdge* fromEdge = incoming[i1];
             const bool inChosen = fromEdge == chosen.first || fromEdge == chosen.second; //chosen.find(fromEdge)!=chosen.end();
@@ -292,6 +293,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
                     }
                     if (inChosen) {
                         state[pos] = 'G';
+                        maxSpeed = MAX2(maxSpeed, fromEdge->getSpeed());
                     } else {
                         state[pos] = 'r';
                     }
@@ -299,6 +301,10 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
                 }
             }
         }
+        // 5s at 50km/h, 10s at 80km/h, rounded to full seconds
+        const double minDurBySpeed = maxSpeed * 3.6 / 6 - 3.3;
+        const SUMOTime minDur = MAX2(minMinDur, TIME2STEPS(floor(minDurBySpeed + 0.5)));
+
         //std::cout << " state after plain straight movers=" << state << "\n";
         // correct behaviour for those that are not in chosen, but may drive, though
         state = allowFollowersOfChosen(state, fromEdges, toEdges);
