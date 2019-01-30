@@ -130,6 +130,8 @@ struct TraCIRoadPosition : TraCIResult {
     * @brief A color
     */
 struct TraCIColor : TraCIResult {
+    TraCIColor() : r(0), g(0), b(0), a(255) {}
+    TraCIColor(int r, int g, int b, int a = 255) : r(r), g(g), b(b), a(a) {}
     std::string getString() {
         std::ostringstream os;
         os << "TraCIColor(" << (int)r << "," << (int)g << "," << (int)b << "," << (int)a << ")";
