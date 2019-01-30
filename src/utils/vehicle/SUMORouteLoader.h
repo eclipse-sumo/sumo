@@ -42,32 +42,30 @@ class SUMOSAXReader;
  */
 class SUMORouteLoader {
 public:
-    /// constructor
+    /// @brief constructor
     SUMORouteLoader(SUMORouteHandler* handler);
 
-    /// destructor
+    /// @brief destructor
     ~SUMORouteLoader();
 
-    /** loads vehicles until a vehicle is read that starts after
-        the specified time */
+    /// @brief loads vehicles until a vehicle is read that starts after the specified time
     SUMOTime loadUntil(SUMOTime time);
 
-    /// returns the information whether new data is available
+    /// @brief returns the information whether new data is available
     bool moreAvailable() const;
 
-    /// returns the first departure time that was ever read
+    /// @brief returns the first departure time that was ever read
     SUMOTime getFirstDepart() const;
 
 private:
-    /// the used SAXReader
+    /// @brief the used SAXReader
     SUMOSAXReader* myParser;
 
-    /// information whether more vehicles should be available
+    /// @brief flag with information whether more vehicles should be available
     bool myMoreAvailable;
 
-    /// the used Handler
+    /// @brief the used Handler
     SUMORouteHandler* myHandler;
-
 };
 
 

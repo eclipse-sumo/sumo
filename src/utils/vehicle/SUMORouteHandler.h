@@ -50,16 +50,16 @@ class SUMOVTypeParameter;
  */
 class SUMORouteHandler : public SUMOSAXHandler {
 public:
-    /// standard constructor
+    /// @brief standard constructor
     SUMORouteHandler(const std::string& file, const std::string& expectedRoot);
 
-    /// standard destructor
+    /// @brief standard destructor
     virtual ~SUMORouteHandler();
 
-    /// Returns the last loaded depart time
+    /// @brief Returns the last loaded depart time
     SUMOTime getLastDepart() const;
 
-    /// check start and end position of a stop
+    /// @brief check start and end position of a stop
     static bool checkStopPos(double& startPos, double& endPos, const double laneLength,
                              const double minLength, const bool friendlyPos);
 
@@ -93,41 +93,42 @@ protected:
     //@}
 
 
-    /** opens a type distribution for reading */
+    /// @brief opens a type distribution for reading
     virtual void openVehicleTypeDistribution(const SUMOSAXAttributes& attrs) = 0;
 
-    /** closes (ends) the building of a distribution */
+    /// @brief closes (ends) the building of a distribution
     virtual void closeVehicleTypeDistribution() = 0;
 
-    /** opens a route for reading */
+    /// @brief opens a route for reading
     virtual void openRoute(const SUMOSAXAttributes& attrs) = 0;
 
-    /** closes (ends) the building of a route.
-        Afterwards no edges may be added to it;
-        this method may throw exceptions when
-        a) the route is empty or
-        b) another route with the same id already exists */
+    /**closes (ends) the building of a route.
+     * Afterwards no edges may be added to it;
+     * this method may throw exceptions when
+     * a) the route is empty or
+     * b) another route with the same id already exists 
+     */
     virtual void closeRoute(const bool mayBeDisconnected = false) = 0;
 
-    /** opens a route distribution for reading */
+    /// @brief opens a route distribution for reading
     virtual void openRouteDistribution(const SUMOSAXAttributes& attrs) = 0;
 
-    /** closes (ends) the building of a distribution */
+    /// @brief closes (ends) the building of a distribution
     virtual void closeRouteDistribution() = 0;
 
-    /// Ends the processing of a vehicle
+    /// @brief Ends the processing of a vehicle
     virtual void closeVehicle() = 0;
 
-    /// Ends the processing of a person
+    /// @brief Ends the processing of a person
     virtual void closePerson() = 0;
 
-    /// Ends the processing of a container
+    /// @brief Ends the processing of a container
     virtual void closeContainer() = 0;
 
-    /// Ends the processing of a flow
+    /// @brief Ends the processing of a flow
     virtual void closeFlow() = 0;
 
-    /// Processing of a stop
+    /// @brief Processing of a stop
     virtual void addStop(const SUMOSAXAttributes& attrs) = 0;
 
     /// @brief add a routing request for a walking or intermodal person
@@ -136,10 +137,10 @@ protected:
     /// @brief add a fully specified walk
     virtual void addWalk(const SUMOSAXAttributes& attrs) = 0;
 
-    /// Checks whether the route file is sorted by departure time if needed
+    /// @brief Checks whether the route file is sorted by departure time if needed
     bool checkLastDepart();
 
-    /// save last depart (only to be used if vehicle is not discarded)
+    /// @brief save last depart (only to be used if vehicle is not discarded)
     void registerLastDepart();
 
     /// @brief assign arbitrary vehicle parameters
@@ -176,7 +177,7 @@ protected:
     /// @brief The currently parsed vehicle type
     SUMOVTypeParameter* myCurrentVType;
 
-    /// generates numerical ids
+    /// @brief generates numerical ids
     IDSupplier myIdSupplier;
 
     /// @brief The default value for flow begins
