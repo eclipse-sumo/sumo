@@ -43,12 +43,19 @@ Build and Installation
 ----------------------
 
 For Windows we provide pre-compiled binaries and CMake files to generate Visual Studio projects.
-Using Linux a simple "./configure && make" should be enough for the distributions, if you
-have installed all needed libraries properly. Using the repository checkout you
-need to issue "make -f Makefile.cvs" before "./configure && make" in order to run
-the autoconf utilities creating configure and the Makefiles.
-If configure does not find the libraries or includes needed, please check
-"./configure --help" for information on how to specify the paths needed.
+If you want to develop under windows, please also clone the dependent libraries using
+
+        git clone --recursive https://github.com/DLR-TS/SUMOLibraries
+        
+Using Linux you should have a look whether your distribution already contains sumo.
+There is also a [ppa for ubuntu users](https://launchpad.net/~sumo) and a
+[open build service instance](https://build.opensuse.org/project/show?project=home%3Abehrisch).
+If you want to build yourself, the steps for ubuntu are:
+
+        sudo apt-get install cmake libxerces-c-dev libfox-1.6-dev libgl1-mesa-dev libglu1-mesa-dev libgdal-dev libproj-dev
+        mkdir build/cmake-build && cd build/cmake-build
+        cmake ../..
+        make -j8
 
 For [detailed build instructions have a look at our wiki](http://sumo.dlr.de/wiki/Developer/Main#Build_instructions).
 
