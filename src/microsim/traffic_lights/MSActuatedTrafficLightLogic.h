@@ -104,8 +104,8 @@ protected:
      */
     SUMOTime duration(const double detectionGap) const;
 
-    /// @brief get the minimum min duration for all stretchable phases
-    SUMOTime getMinimumMinDuration() const;
+    /// @brief get the minimum min duration for all stretchable phases that affect the given lane
+    SUMOTime getMinimumMinDuration(MSLane* lane) const;
 
     /** @brief Return the minimum detection gap of all detectors if the current phase should be extended and double::max otherwise
      */

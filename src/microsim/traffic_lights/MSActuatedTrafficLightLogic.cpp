@@ -77,6 +77,26 @@ void
 MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
     MSTrafficLightLogic::init(nb);
     assert(myLanes.size() > 0);
+    bool warn = true; // warn only once
+
+    // Detector position should be computed based on road speed. If the position
+    // is quite far away and the minDur is short this may cause the following
+    // problems:
+    //
+    // 1)  high flow failure: 
+    // In a standing queue, no vehicle touches the detector. 
+    // By the time the queue advances, the detector gap has been exceeded and the phase terminates prematurely
+    //
+    // 2) low flow failure
+    // The standing queue is fully between stop line and detector and there are no further vehicles. 
+    // The minDur is too short to let all vehicles pass
+    //
+    // Problem 2) is not so critical because there is less potential for
+    // jamming in a low-flow situation. In contrast, problem 1) should be
+    // avoided as it has big jamming potential. We compute an upper bound for the
+    // detector disatnce to avoid it
+
+
     // change values for setting the loops and lanestate-detectors, here
     //SUMOTime inductLoopInterval = 1; //
     LaneVectorVector::const_iterator i2;
@@ -91,9 +111,21 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
                 // do not build detectors on green verges or sidewalks
                 continue;
             }
+            if (myInductLoops.find(lane) != myInductLoops.end()) {
+                // only build one detector per lane
+                continue;
+            }
+            const SUMOTime minDur = getMinimumMinDuration(lane);
+            if (minDur == std::numeric_limits<SUMOTime>::max()) {
+                // only build detector if this lane is relevant for an actuated phase
+                continue;
+            }
             double length = lane->getLength();
             double speed = lane->getSpeedLimit();
-            double inductLoopPosition = myDetectorGap * speed;
+            double inductLoopPosition = MIN2(
+                    myDetectorGap * speed,
+                    (STEPS2TIME(minDur) - 1) * DEFAULT_LENGTH_WITH_GAP);
+
             // check whether the lane is long enough
             double ilpos = length - inductLoopPosition;
             if (ilpos < 0) {
@@ -101,27 +133,35 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
             }
             // Build the induct loop and set it into the container
             std::string id = "TLS" + myID + "_" + myProgramID + "_InductLoopOn_" + lane->getID();
-            if (myInductLoops.find(lane) == myInductLoops.end()) {
-                myInductLoops[lane] = nb.createInductLoop(id, lane, ilpos, myVehicleTypes, myShowDetectors);
-                MSNet::getInstance()->getDetectorControl().add(SUMO_TAG_INDUCTION_LOOP, myInductLoops[lane], myFile, myFreq);
-            }
+            myInductLoops[lane] = nb.createInductLoop(id, lane, ilpos, myVehicleTypes, myShowDetectors);
+            MSNet::getInstance()->getDetectorControl().add(SUMO_TAG_INDUCTION_LOOP, myInductLoops[lane], myFile, myFreq);
             maxDetectorGap = MAX2(maxDetectorGap, length - ilpos);
+
+            if (warn && floor(floor(inductLoopPosition / DEFAULT_LENGTH_WITH_GAP) * myPassingTime) > STEPS2TIME(minDur)) {
+                // warn if the minGap is insufficient to clear vehicles between stop line and detector
+                WRITE_WARNING("At actuated tlLogic '" + getID() + "', minDur " + time2string(minDur) + " is too short for a detector gap of " + toString(inductLoopPosition) + "m.");
+                warn = false;
+            }
         }
-    }
-    // warn if the minGap is insufficient to clear vehicles between stop line and detector
-    SUMOTime minMinDur = getMinimumMinDuration();
-    if (floor(floor(maxDetectorGap / DEFAULT_LENGTH_WITH_GAP) * myPassingTime) > STEPS2TIME(minMinDur)) {
-        WRITE_WARNING("At actuated tlLogic '" + getID() + "', minDur " + time2string(minMinDur) + " is too short for a detector gap of " + toString(maxDetectorGap) + "m.");
     }
 }
 
 
 SUMOTime
-MSActuatedTrafficLightLogic::getMinimumMinDuration() const {
-    SUMOTime result = SUMOTime_MAX;
-    for (auto phase : myPhases) {
-        if (phase->minDuration != phase->maxDuration) {
-            result = MIN2(result, phase->minDuration);
+MSActuatedTrafficLightLogic::getMinimumMinDuration(MSLane* lane) const {
+    SUMOTime result = std::numeric_limits<SUMOTime>::max();
+    for (const MSPhaseDefinition* phase : myPhases) {
+        const std::string& state = phase->getState();
+        for (int i = 0; i < (int)state.size(); i++)  {
+            if (state[i] == LINKSTATE_TL_GREEN_MAJOR || state[i] == LINKSTATE_TL_GREEN_MINOR) {
+                for (MSLane* cand: getLanesAt(i)) {
+                    if (lane == cand) {
+                        if (phase->minDuration != phase->maxDuration) {
+                            result = MIN2(result, phase->minDuration);
+                        }
+                    }
+                }
+            }
         }
     }
     return result;
