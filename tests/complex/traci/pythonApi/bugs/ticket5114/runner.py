@@ -28,7 +28,21 @@ traci.start([sumoBinary,
              "--no-step-log",
              ])
 
-print("getDistanceRoad:", traci.simulation.getDistanceRoad("gneE0", 100,
-    "gneE1", 100, isDriving="true"))
+print("getDistanceRoad (no connection):", 
+        traci.simulation.getDistanceRoad("gneE0", 100, "gneE1", 100, isDriving="true"))
+print("getDistanceRoad (normal to normal):", 
+        traci.simulation.getDistanceRoad("gneE4", 50, "-gneE2", 50, isDriving="true"))
+print("getDistanceRoad (normal to 1st internal):", 
+        traci.simulation.getDistanceRoad("gneE4", 50, ":gneJ5_4", 5, isDriving="true"))
+print("getDistanceRoad (normal to 2nd internal):", 
+        traci.simulation.getDistanceRoad("gneE4", 50, ":gneJ5_7", 5, isDriving="true"))
+print("getDistanceRoad (1st internal to normal):", 
+        traci.simulation.getDistanceRoad(":gneJ5_4", 5, "-gneE2", 50, isDriving="true"))
+print("getDistanceRoad (1st internal to 2nd internal):", 
+        traci.simulation.getDistanceRoad(":gneJ5_4", 5, ":gneJ5_7", 5, isDriving="true"))
+print("getDistanceRoad (2nd internal to normal):", 
+        traci.simulation.getDistanceRoad(":gneJ5_7", 5, "-gneE2", 50, isDriving="true"))
+print("getDistanceRoad (2nd internal to 1st internal):", 
+        traci.simulation.getDistanceRoad(":gneJ5_7", 5, ":gneJ5_4", 5, isDriving="true"))
 
 traci.close()
