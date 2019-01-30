@@ -84,6 +84,7 @@ MSCFModel_Kerner::_v(const MSVehicle* const veh, double speed, double vfree, dou
     double vsafe = (double)(-1. * myTauDecel + sqrt(myTauDecel * myTauDecel + (predSpeed * predSpeed) + (2. * myDecel * gap)));
     VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
     double va = MAX2((double) 0, MIN3(vfree, vsafe, vcond)) + vars->rand;
+    //std::cout << SIMTIME << " veh=" << veh->getID() << " speed=" << speed << " gap=" << gap << " G=" << G << " predSpeed=" << predSpeed << " vfree=" << vfree << " vsafe=" << vsafe << " vcond=" << vcond << " rand=" << vars->rand << "\n";
     double v = MAX2((double) 0, MIN4(vfree, va, speed + ACCEL2SPEED(myAccel), vsafe));
     return v;
 }
