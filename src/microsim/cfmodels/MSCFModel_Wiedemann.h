@@ -163,10 +163,6 @@ private:
     static const double D_MAX;
     /// @}
 
-    /// @brief vsafe from krauss since Wiedemann is deficient at approaching
-    // standing obstacles (see MSCFModel_Krauss::_vsafe)
-    double krauss_vsafe(double gap, double predSpeed) const;
-
 private:
     /// @brief Invalidated assignment operator
     MSCFModel_Wiedemann& operator=(const MSCFModel_Wiedemann& s);

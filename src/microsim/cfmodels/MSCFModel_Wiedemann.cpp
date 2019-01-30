@@ -81,7 +81,7 @@ MSCFModel_Wiedemann::stopSpeed(const MSVehicle* const veh, const double speed, d
      * does a lousy job of closing in on a stop / junction
      * hence we borrow from Krauss here
      */
-    return MAX2(getSpeedAfterMaxDecel(speed), MIN2(krauss_vsafe(gap, 0), maxNextSpeed(speed, veh)));
+    return MIN2(maximumSafeStopSpeed(gap, speed, false, veh->getActionStepLengthSecs()), maxNextSpeed(speed, veh));
 }
 
 
@@ -168,8 +168,7 @@ MSCFModel_Wiedemann::approaching(double dv, double dx, double abx) const {
 
 
 double
-MSCFModel_Wiedemann::emergency(double /* dv */, double /* dx */) const {
-    /* emergency according to A.Stebens
+MSCFModel_Wiedemann::emergency(double dv, double  dx) const {
     // wiedemann assumes that dx will always be larger than myAX (sumo may
     // violate this assumption when crashing (-:
     if (dx > myAX) {
@@ -179,25 +178,9 @@ MSCFModel_Wiedemann::emergency(double /* dv */, double /* dx */) const {
         assert(accel <= 0);
         return accel;
     } else {
-        return = -myDecel;
+        return -myEmergencyDecel;
     }
-    */
 
     // emergency according to C.Werner
-    return -myEmergencyDecel;
-}
-
-
-
-// XXX: This could be replaced by maximumSafeStopSpeed(), refs. #2575
-double
-MSCFModel_Wiedemann::krauss_vsafe(double gap, double predSpeed) const {
-    if (predSpeed == 0 && gap < 0.01) {
-        return 0;
-    }
-    const double tauDecel = myDecel * myHeadwayTime;
-    const double speedReduction = ACCEL2SPEED(myDecel);
-    const int predSteps = int(predSpeed / speedReduction);
-    const double leaderContrib = 2. * myDecel * (gap + SPEED2DIST(predSteps * predSpeed - speedReduction * predSteps * (predSteps + 1) / 2));
-    return (double)(-tauDecel + sqrt(tauDecel * tauDecel + leaderContrib));
+    //return -myEmergencyDecel;
 }
