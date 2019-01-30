@@ -29,6 +29,7 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
+    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
 <route id="r1" edges="in1 mid out0" />
 <route id="r2" edges="in0 mid out1" />
 <vehicle id="839" route="r2" depart="0" departSpeed="38.12" departPos="256.63"/>
