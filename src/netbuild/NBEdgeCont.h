@@ -417,7 +417,7 @@ public:
      * @todo Recheck whether a visitor-pattern should be used herefor
      * @see NBEdge::appendTurnaround
      */
-    void appendTurnarounds(bool noTLSControlled, bool onlyDeadends);
+    void appendTurnarounds(bool noTLSControlled, bool onlyDeadends, bool noGeometryLike);
 
 
     /** @brief Appends turnarounds to all edges stored in the container

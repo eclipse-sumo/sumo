@@ -2608,7 +2608,7 @@ NBEdge::prepareEdgePriorities(const EdgeVector* outgoing) {
 
 
 void
-NBEdge::appendTurnaround(bool noTLSControlled, bool onlyDeadends, bool checkPermissions) {
+NBEdge::appendTurnaround(bool noTLSControlled, bool onlyDeadends, bool noGeometryLike, bool checkPermissions) {
     // do nothing if no turnaround is known
     if (myTurnDestination == nullptr || myTo->getType() == NODETYPE_RAIL_CROSSING) {
         return;
@@ -2647,6 +2647,9 @@ NBEdge::appendTurnaround(bool noTLSControlled, bool onlyDeadends, bool checkPerm
             return;
         }
     };
+    if (noGeometryLike && myTo->geometryLike() && myTo->getOutgoingEdges().size() > 1) {
+        return;
+    }
     setConnection(fromLane, myTurnDestination, toLane, L2L_VALIDATED);
 }
 

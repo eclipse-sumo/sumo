@@ -435,7 +435,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     before = SysUtils::getCurrentMillis();
     PROGRESS_BEGIN_MESSAGE("Processing turnarounds");
     if (!oc.getBool("no-turnarounds")) {
-        myEdgeCont.appendTurnarounds(oc.getBool("no-turnarounds.tls"), oc.getBool("no-turnarounds.except-deadend"));
+        myEdgeCont.appendTurnarounds(oc.getBool("no-turnarounds.tls"), oc.getBool("no-turnarounds.except-deadend"), oc.getBool("no-turnarounds.geometry"));
     } else {
         myEdgeCont.appendTurnarounds(explicitTurnarounds, oc.getBool("no-turnarounds.tls"));
     }
