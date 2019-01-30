@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Aug 29 08:53:29 2018 by Eclipse SUMO Version 1e9e126
+<!-- generated on Wed Jan 30 09:02:27 2019 by Eclipse SUMO Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -136,28 +136,28 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="WN_car" x="216.59" y="106.80" angle="267.89" type="passenger" speed="0.00" pos="192.71" lane="EW1_2" slope="0.00"/>
     </timestep>
     <timestep time="101.00">
-        <vehicle id="WN_car" x="215.83" y="103.52" angle="267.89" type="passenger" speed="0.87" pos="193.58" lane="EW1_3" slope="0.00"/>
+        <vehicle id="WN_car" x="215.80" y="103.52" angle="267.89" type="passenger" speed="0.91" pos="193.62" lane="EW1_3" slope="0.00"/>
     </timestep>
     <timestep time="102.00">
-        <vehicle id="WN_car" x="213.61" y="103.44" angle="267.89" type="passenger" speed="2.23" pos="195.81" lane="EW1_3" slope="0.00"/>
+        <vehicle id="WN_car" x="213.89" y="103.45" angle="267.89" type="passenger" speed="1.91" pos="195.53" lane="EW1_3" slope="0.00"/>
     </timestep>
     <timestep time="103.00">
-        <vehicle id="WN_car" x="209.94" y="103.16" angle="266.19" type="passenger" speed="3.68" pos="1.78" lane=":C_5_0" slope="0.00"/>
+        <vehicle id="WN_car" x="211.12" y="103.30" angle="267.32" type="passenger" speed="2.78" pos="0.60" lane=":C_5_0" slope="0.00"/>
     </timestep>
     <timestep time="104.00">
-        <vehicle id="WN_car" x="205.21" y="102.58" angle="263.11" type="passenger" speed="4.77" pos="6.55" lane=":C_5_0" slope="0.00"/>
+        <vehicle id="WN_car" x="207.54" y="102.87" angle="263.88" type="passenger" speed="3.60" pos="4.20" lane=":C_5_0" slope="0.00"/>
     </timestep>
     <timestep time="105.00">
-        <vehicle id="WN_car" x="201.75" y="101.60" angle="256.66" type="passenger" speed="3.61" pos="10.16" lane=":C_5_0" slope="0.00"/>
+        <vehicle id="WN_car" x="202.56" y="101.89" angle="258.83" type="passenger" speed="5.10" pos="9.30" lane=":C_5_0" slope="0.00"/>
     </timestep>
     <timestep time="106.00">
-        <vehicle id="WN_car" x="201.35" y="101.46" angle="255.59" type="passenger" speed="0.42" pos="10.59" lane=":C_5_0" slope="0.00"/>
+        <vehicle id="WN_car" x="201.33" y="101.46" angle="255.53" type="passenger" speed="1.31" pos="10.61" lane=":C_5_0" slope="0.00"/>
     </timestep>
     <timestep time="107.00">
-        <vehicle id="WN_car" x="201.14" y="101.39" angle="255.03" type="passenger" speed="0.23" pos="10.81" lane=":C_5_0" slope="0.00"/>
+        <vehicle id="WN_car" x="201.11" y="101.38" angle="254.96" type="passenger" speed="0.23" pos="10.84" lane=":C_5_0" slope="0.00"/>
     </timestep>
     <timestep time="108.00">
-        <vehicle id="WN_car" x="201.10" y="101.37" angle="254.92" type="passenger" speed="0.04" pos="10.86" lane=":C_5_0" slope="0.00"/>
+        <vehicle id="WN_car" x="201.10" y="101.37" angle="254.92" type="passenger" speed="0.01" pos="10.86" lane=":C_5_0" slope="0.00"/>
     </timestep>
     <timestep time="109.00">
         <vehicle id="WN_car" x="201.10" y="101.37" angle="254.92" type="passenger" speed="0.00" pos="10.86" lane=":C_5_0" slope="0.00"/>
@@ -505,44 +505,42 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="WN_car" x="201.10" y="101.37" angle="254.92" type="passenger" speed="0.00" pos="10.86" lane=":C_5_0" slope="0.00"/>
     </timestep>
     <timestep time="224.00">
-        <vehicle id="WN_car" x="200.38" y="101.12" angle="252.99" type="passenger" speed="0.76" pos="0.66" lane=":C_26_0" slope="0.00"/>
+        <vehicle id="WN_car" x="200.38" y="101.12" angle="253.01" type="passenger" speed="0.76" pos="0.66" lane=":C_26_0" slope="0.00"/>
     </timestep>
     <timestep time="225.00">
-        <vehicle id="WN_car" x="198.94" y="100.61" angle="250.57" type="passenger" speed="1.52" pos="2.18" lane=":C_26_0" slope="0.00"/>
+        <vehicle id="WN_car" x="198.51" y="100.46" angle="250.56" type="passenger" speed="1.98" pos="2.64" lane=":C_26_0" slope="0.00"/>
     </timestep>
     <timestep time="226.00">
-        <vehicle id="WN_car" x="196.48" y="99.28" angle="245.50" type="passenger" speed="2.85" pos="5.03" lane=":C_26_0" slope="0.00"/>
+        <vehicle id="WN_car" x="195.73" y="98.64" angle="241.25" type="passenger" speed="3.38" pos="6.02" lane=":C_26_0" slope="0.00"/>
     </timestep>
     <timestep time="227.00">
-        <vehicle id="WN_car" x="193.71" y="96.89" angle="229.86" type="passenger" speed="3.66" pos="8.69" lane=":C_26_0" slope="0.00"/>
+        <vehicle id="WN_car" x="192.46" y="95.68" angle="228.03" type="passenger" speed="4.44" pos="10.46" lane=":C_26_0" slope="0.00"/>
     </timestep>
     <timestep time="228.00">
-        <vehicle id="WN_car" x="191.74" y="93.09" angle="209.72" type="passenger" speed="4.46" pos="13.15" lane=":C_26_0" slope="0.00"/>
+        <vehicle id="WN_car" x="190.95" y="90.23" angle="195.45" type="passenger" speed="5.65" pos="16.11" lane=":C_26_0" slope="0.00"/>
     </timestep>
     <timestep time="229.00">
-        <vehicle id="WN_car" x="190.80" y="88.00" angle="190.26" type="passenger" speed="5.22" pos="1.53" lane="NS2_1" slope="0.00"/>
+        <vehicle id="WN_car" x="190.94" y="83.18" angle="178.39" type="passenger" speed="7.08" pos="6.35" lane="NS2_1" slope="0.00"/>
     </timestep>
     <timestep time="230.00">
-        <vehicle id="WN_car" x="190.98" y="81.73" angle="178.39" type="passenger" speed="6.27" pos="7.80" lane="NS2_1" slope="0.00"/>
+        <vehicle id="WN_car" x="191.17" y="75.07" angle="178.39" type="passenger" speed="8.11" pos="14.46" lane="NS2_1" slope="0.00"/>
     </timestep>
     <timestep time="231.00">
-        <vehicle id="WN_car" x="191.19" y="74.17" angle="178.39" type="passenger" speed="7.56" pos="15.37" lane="NS2_1" slope="0.00"/>
+        <vehicle id="WN_car" x="191.43" y="65.75" angle="178.39" type="passenger" speed="9.33" pos="23.79" lane="NS2_1" slope="0.00"/>
     </timestep>
     <timestep time="232.00">
-        <vehicle id="WN_car" x="191.43" y="65.83" angle="178.39" type="passenger" speed="8.34" pos="23.71" lane="NS2_1" slope="0.00"/>
+        <vehicle id="WN_car" x="191.71" y="55.60" angle="178.39" type="passenger" speed="10.15" pos="33.94" lane="NS2_1" slope="0.00"/>
     </timestep>
     <timestep time="233.00">
-        <vehicle id="WN_car" x="191.69" y="56.46" angle="178.39" type="passenger" speed="9.38" pos="33.08" lane="NS2_1" slope="0.00"/>
+        <vehicle id="WN_car" x="192.04" y="44.13" angle="178.39" type="passenger" speed="11.48" pos="45.42" lane="NS2_1" slope="0.00"/>
     </timestep>
     <timestep time="234.00">
-        <vehicle id="WN_car" x="191.99" y="45.88" angle="178.39" type="passenger" speed="10.58" pos="43.66" lane="NS2_1" slope="0.00"/>
+        <vehicle id="WN_car" x="192.38" y="31.82" angle="178.39" type="passenger" speed="12.31" pos="57.73" lane="NS2_1" slope="0.00"/>
     </timestep>
     <timestep time="235.00">
-        <vehicle id="WN_car" x="192.32" y="34.09" angle="178.39" type="passenger" speed="11.80" pos="55.46" lane="NS2_1" slope="0.00"/>
+        <vehicle id="WN_car" x="192.76" y="18.44" angle="178.39" type="passenger" speed="13.39" pos="71.12" lane="NS2_1" slope="0.00"/>
     </timestep>
-    <timestep time="236.00">
-        <vehicle id="WN_car" x="192.68" y="21.19" angle="178.39" type="passenger" speed="12.90" pos="68.37" lane="NS2_1" slope="0.00"/>
-    </timestep>
+    <timestep time="236.00"/>
     <timestep time="237.00"/>
     <timestep time="238.00"/>
     <timestep time="239.00"/>

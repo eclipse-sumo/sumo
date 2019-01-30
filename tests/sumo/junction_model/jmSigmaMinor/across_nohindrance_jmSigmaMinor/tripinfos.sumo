@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Nov 27 23:53:22 2018 by Eclipse SUMO Version eeef47f
+<!-- generated on Wed Jan 30 09:02:27 2019 by Eclipse SUMO Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -32,6 +32,6 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="prio" depart="0.00" departLane="NC_0" departPos="55.25" departSpeed="13.89" departDelay="0.00" arrival="11.00" arrivalLane="CS_0" arrivalPos="95.25" arrivalSpeed="13.83" duration="11.00" routeLength="144.75" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.41" rerouteNo="0" devices="tripinfo_prio" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="noprio" depart="0.00" departLane="EC_0" departPos="95.15" departSpeed="0.00" departDelay="0.00" arrival="14.00" arrivalLane="CW_0" arrivalPos="95.25" arrivalSpeed="12.67" duration="14.00" routeLength="104.85" waitingTime="3.00" waitingCount="1" stopTime="0.00" timeLoss="5.74" rerouteNo="0" devices="tripinfo_noprio" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="prio" depart="0.00" departLane="NC_0" departPos="55.25" departSpeed="13.89" departDelay="0.00" arrival="11.00" arrivalLane="CS_0" arrivalPos="95.25" arrivalSpeed="13.63" duration="11.00" routeLength="144.75" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.37" rerouteNo="0" devices="tripinfo_prio" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="noprio" depart="0.00" departLane="EC_0" departPos="95.15" departSpeed="0.00" departDelay="0.00" arrival="15.00" arrivalLane="CW_0" arrivalPos="95.25" arrivalSpeed="12.63" duration="15.00" routeLength="104.85" waitingTime="4.00" waitingCount="1" stopTime="0.00" timeLoss="6.65" rerouteNo="0" devices="tripinfo_noprio" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
 </tripinfos>
