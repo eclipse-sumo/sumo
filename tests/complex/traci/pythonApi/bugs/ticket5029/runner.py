@@ -9,7 +9,7 @@
 # SPDX-License-Identifier: EPL-2.0
 
 # @file    runner.py
-# @author  Mirko Barthauer (Technische Universitaet Braunschweig)
+# @author  Jakob Erdmann
 # @date    2018-09-27
 # @version $Id$
 
