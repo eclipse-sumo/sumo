@@ -172,6 +172,9 @@ SUMORouteHandler::myEndElement(int element) {
         case SUMO_TAG_ROUTE:
             closeRoute();
             break;
+         case SUMO_TAG_VTYPE:
+            closeVType();
+            break;
         case SUMO_TAG_PERSON:
             closePerson();
             delete myVehicleParameter;

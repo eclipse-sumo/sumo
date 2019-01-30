@@ -80,6 +80,9 @@ protected:
     /// @brief Ends the processing of a vehicle
     void closeVehicle();
 
+    /// @brief Ends the processing of a vehicle Type
+    void closeVType();
+
     /// @brief Ends the processing of a person
     void closePerson();
 

@@ -57,7 +57,7 @@ GNEDemandElementHandler::openVehicleTypeDistribution(const SUMOSAXAttributes& /*
 
 void 
 GNEDemandElementHandler::closeVehicleTypeDistribution() {
-
+    // currently unused
 }
 
 
@@ -86,19 +86,15 @@ GNEDemandElementHandler::closeRoute(const bool mayBeDisconnected) {
         } else if (edges.size() == 0) {
             WRITE_WARNING("Routes needs at least one edge.");
         } else {
-            if (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_ROUTE, myRouteID, false) == nullptr) {
-                // create route
-                GNERoute* route = new GNERoute(myViewNet, myRouteID, edges, myRouteColor);
-                if (myUndoDemandElements) {
-                    myViewNet->getUndoList()->p_begin("add " + route->getTagStr());
-                    myViewNet->getUndoList()->add(new GNEChange_DemandElement(route, true), true);
-                    myViewNet->getUndoList()->p_end();
-                } else {
-                    myViewNet->getNet()->insertDemandElement(route);
-                    route->incRef("buildRoute");
-                }
+            // creaste GNERoute
+            GNERoute* route = new GNERoute(myViewNet, myRouteID, edges, myRouteColor);
+            if (myUndoDemandElements) {
+                myViewNet->getUndoList()->p_begin("add " + route->getTagStr());
+                myViewNet->getUndoList()->add(new GNEChange_DemandElement(route, true), true);
+                myViewNet->getUndoList()->p_end();
             } else {
-                throw ProcessError("Could not build " + toString(SUMO_TAG_ROUTE) + " with ID '" + myRouteID + "' in netedit; probably declared twice.");
+                myViewNet->getNet()->insertDemandElement(route);
+                route->incRef("buildRoute");
             }
         }
     }
@@ -119,25 +115,50 @@ GNEDemandElementHandler::closeRouteDistribution() {
 
 void 
 GNEDemandElementHandler::closeVehicle() {
+    // currently unused
+}
 
+
+void 
+GNEDemandElementHandler::closeVType() {
+    // first check that VType was sucesfully created
+    if(myCurrentVType) {
+        // now check if exist another VType with the same ID
+        if (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_ROUTE, myCurrentVType->id, false) != nullptr) {
+            WRITE_WARNING("There is another " + toString(SUMO_TAG_VTYPE) + " with the same ID='" + myCurrentVType->id + "'.");
+        } else {
+            // create VType using myCurrentVType
+            GNEVehicleType* vType = new GNEVehicleType(myViewNet, *myCurrentVType);
+            if (myUndoDemandElements) {
+                myViewNet->getUndoList()->p_begin("add " + vType->getTagStr());
+                myViewNet->getUndoList()->add(new GNEChange_DemandElement(vType, true), true);
+                myViewNet->getUndoList()->p_end();
+            } else {
+                myViewNet->getNet()->insertDemandElement(vType);
+                vType->incRef("buildVType");
+            }
+            // delete myCurrentVType (note: Check #5129)
+            delete myCurrentVType;
+        }
+    }
 }
 
 
 void 
 GNEDemandElementHandler::closePerson() {
-
+    // currently unused
 }
 
 
 void 
 GNEDemandElementHandler::closeContainer() {
-
+    // currently unused
 }
 
 
 void 
 GNEDemandElementHandler::closeFlow() {
-
+    // currently unused
 }
 
 
