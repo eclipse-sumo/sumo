@@ -25,6 +25,7 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/frames/GNESelectorFrame.h>
+#include <utils/emissions/PollutantsInterface.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 
 #include "GNEVehicleType.h"
@@ -93,7 +94,7 @@ GNEVehicleType::selectAttributeCarrier(bool changeFlag) {
     } else {
         gSelected.select(dynamic_cast<GUIGlObject*>(this)->getGlID());
         // add object of list into selected objects
-        myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->addedLockedObject(GLO_ROUTE);
+        myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->addedLockedObject(GLO_VTYPE);
         if (changeFlag) {
             mySelected = true;
         }
@@ -108,7 +109,7 @@ GNEVehicleType::unselectAttributeCarrier(bool changeFlag) {
     } else {
         gSelected.deselect(dynamic_cast<GUIGlObject*>(this)->getGlID());
         // remove object of list of selected objects
-        myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->removeLockedObject(GLO_ROUTE);
+        myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->removeLockedObject(GLO_VTYPE);
         if (changeFlag) {
             mySelected = false;
 
@@ -122,33 +123,31 @@ GNEVehicleType::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getDemandElementID();
-        /*
         case SUMO_ATTR_ACCEL:
-            return toString(myAccel);
         case SUMO_ATTR_DECEL:
-            return toString(myDecel);
+        case SUMO_ATTR_APPARENTDECEL:
+        case SUMO_ATTR_EMERGENCYDECEL:
         case SUMO_ATTR_SIGMA:
-            return toString(mySigma);
         case SUMO_ATTR_TAU:
-            return toString(myTau);
+            return getCFParamString(key, "0");
         case SUMO_ATTR_LENGTH:
             return toString(length);
         case SUMO_ATTR_MINGAP:
             return toString(minGap);
         case SUMO_ATTR_MAXSPEED:
-            return toString(myMaxSpeed);
+            return toString(maxSpeed);
         case SUMO_ATTR_SPEEDFACTOR:
-            return toString(speedFactor);
+            return toString(speedFactor.getParameter()[0]);
         case SUMO_ATTR_SPEEDDEV:
-            return toString(mySpeedDev);
+            return toString(speedFactor.getParameter()[1]);
         case SUMO_ATTR_COLOR:
             return toString(color);
         case SUMO_ATTR_VCLASS:
-            return toString(myVClass);
+            return toString(vehicleClass);
         case SUMO_ATTR_EMISSIONCLASS:
-            return toString(emissionClass);
+            return PollutantsInterface::getName(emissionClass);
         case SUMO_ATTR_GUISHAPE:
-            return getVehicleShapeName(shape);
+            return SumoVehicleShapeStrings.getString(shape);
         case SUMO_ATTR_WIDTH:
             return toString(width);
         case SUMO_ATTR_IMGFILE:
@@ -156,9 +155,11 @@ GNEVehicleType::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_IMPATIENCE:
             return toString(impatience);
         case SUMO_ATTR_LANE_CHANGE_MODEL:
-            return myLaneChangeModel;
+            // CHECK
+            return "";
         case SUMO_ATTR_CAR_FOLLOW_MODEL:
-            return myCarFollowModel;
+            // CHECK
+            return "";
         case SUMO_ATTR_PERSON_CAPACITY:
             return toString(personCapacity);
         case SUMO_ATTR_CONTAINER_CAPACITY:
@@ -173,9 +174,10 @@ GNEVehicleType::getAttribute(SumoXMLAttr key) const {
             return toString(minGapLat);
         case SUMO_ATTR_MAXSPEED_LAT:
             return toString(maxSpeedLat);
+        case SUMO_ATTR_ACTIONSTEPLENGTH:
+            return toString(actionStepLength);
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
-            */
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -191,6 +193,8 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
         case SUMO_ATTR_ID:
         case SUMO_ATTR_ACCEL:
         case SUMO_ATTR_DECEL:
+        case SUMO_ATTR_APPARENTDECEL:
+        case SUMO_ATTR_EMERGENCYDECEL:
         case SUMO_ATTR_SIGMA:
         case SUMO_ATTR_TAU:
         case SUMO_ATTR_LENGTH:
@@ -214,6 +218,7 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
         case SUMO_ATTR_LATALIGNMENT:
         case SUMO_ATTR_MINGAP_LAT:
         case SUMO_ATTR_MAXSPEED_LAT:
+        case SUMO_ATTR_ACTIONSTEPLENGTH:
         case GNE_ATTR_GENERIC:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
@@ -232,6 +237,10 @@ GNEVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<double>(value);
         case SUMO_ATTR_DECEL:
             return canParse<double>(value);
+        case SUMO_ATTR_APPARENTDECEL:
+            return canParse<double>(value);
+        case SUMO_ATTR_EMERGENCYDECEL:
+            return canParse<double>(value);
         case SUMO_ATTR_SIGMA:
             return canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) <= 1);
         case SUMO_ATTR_TAU:
@@ -239,27 +248,20 @@ GNEVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_LENGTH:
             return canParse<double>(value) && (parse<double>(value) > 0);
         case SUMO_ATTR_MINGAP:
-            return canParse<double>(value);
+            return canParse<double>(value) && (parse<double>(value) > 0);
         case SUMO_ATTR_MAXSPEED:
-            return canParse<double>(value);
+            return canParse<double>(value) && (parse<double>(value) > 0);
         case SUMO_ATTR_SPEEDFACTOR:
-            return canParse<double>(value);
+            return canParse<double>(value) && (parse<double>(value) > 0);
         case SUMO_ATTR_SPEEDDEV:
-            return canParse<double>(value);
+            return canParse<double>(value) && (parse<double>(value) > 0);
         case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
         case SUMO_ATTR_VCLASS:
             return canParseVehicleClasses(value);
         case SUMO_ATTR_EMISSIONCLASS:
-            if ((value == "zero") || (value == "LDV") || (value == "LDV_G_EU0") || (value == "LDV_G_EU1") || (value == "LDV_G_EU2") || (value == "LDV_G_EU3") || (value == "LDV_G_EU4") || (value == "LDV_G_EU5") ||
-                    (value == "LDV_G_EU6") || (value == "LDV_G_East") || (value == "LDV_D_EU0") || (value == "LDV_D_EU1") || (value == "LDV_D_EU2") || (value == "LDV_D_EU3") || (value == "LDV_D_EU4") || (value == "LDV_D_EU5") || (value == "LDV_D_EU6") ||
-                    (value == "PC") || (value == "PC_Alternative") || (value == "PC_G_EU0") || (value == "PC_G_EU1") || (value == "PC_G_EU2") || (value == "PC_G_EU3") || (value == "PC_G_EU4") || (value == "PC_G_EU5") || (value == "PC_G_EU6") || (value == "PC_G_East") ||
-                    (value == "PC_D_EU0") || (value == "PC_D_EU1") || (value == "PC_D_EU2") || (value == "PC_D_EU3") || (value == "PC_D_EU4") || (value == "PC_D_EU5") || (value == "PC_D_EU6") || (value == "Bus") || (value == "Coach") || (value == "HDV") || (value == "HDV_G") ||
-                    (value == "HDV_D_EU0") || (value == "HDV_D_EU1") || (value == "HDV_D_EU2") || (value == "HDV_D_EU3") || (value == "HDV_D_EU4") || (value == "HDV_D_EU5") || (value == "HDV_D_EU6") || (value == "HDV_D_East")) {
-                return true;
-            } else {
-                return false;
-            }
+            /** check **/
+            return true;
         case SUMO_ATTR_GUISHAPE:
             return canParseVehicleShape(value);
         case SUMO_ATTR_WIDTH:
@@ -286,6 +288,8 @@ GNEVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<double>(value);
         case SUMO_ATTR_MAXSPEED_LAT:
             return canParse<double>(value);
+        case SUMO_ATTR_ACTIONSTEPLENGTH:
+            return canParse<double>(value) && (parse<double>(value) > 0);
         case GNE_ATTR_GENERIC:
             return isGenericParametersValid(value);
         default:
@@ -312,21 +316,16 @@ GNEVehicleType::getHierarchyName() const {
 void
 GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        /*
         case SUMO_ATTR_ID:
             changeDemandElementID(value);
             break;
         case SUMO_ATTR_ACCEL:
-            myAccel = parse<double>(value);
-            break;
         case SUMO_ATTR_DECEL:
-            myDecel = parse<double>(value);
-            break;
+        case SUMO_ATTR_APPARENTDECEL:
+        case SUMO_ATTR_EMERGENCYDECEL:
         case SUMO_ATTR_SIGMA:
-            mySigma = parse<double>(value);
-            break;
         case SUMO_ATTR_TAU:
-            myTau = parse<double>(value);
+            cfParameter[key] = value;
             break;
         case SUMO_ATTR_LENGTH:
             length = parse<double>(value);
@@ -335,22 +334,22 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
             minGap = parse<double>(value);
             break;
         case SUMO_ATTR_MAXSPEED:
-            myMaxSpeed = parse<double>(value);
+            maxSpeed = parse<double>(value);
             break;
         case SUMO_ATTR_SPEEDFACTOR:
-            speedFactor = parse<double>(value);
+            speedFactor.getParameter()[0] = parse<double>(value);
             break;
         case SUMO_ATTR_SPEEDDEV:
-            mySpeedDev = parse<double>(value);
+            speedFactor.getParameter()[1] = parse<double>(value);
             break;
         case SUMO_ATTR_COLOR:
             color = parse<RGBColor>(value);
             break;
         case SUMO_ATTR_VCLASS:
-            myVClass = getVehicleClassID(value);
+            vehicleClass = getVehicleClassID(value);
             break;
         case SUMO_ATTR_EMISSIONCLASS:
-            emissionClass = value;
+            emissionClass = PollutantsInterface::getClassByName("value");
             break;
         case SUMO_ATTR_GUISHAPE:
             shape = getVehicleShapeID(value);
@@ -365,25 +364,22 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
             impatience = parse<double>(value);
             break;
         case SUMO_ATTR_LANE_CHANGE_MODEL:
-            myLaneChangeModel = value;
             break;
         case SUMO_ATTR_CAR_FOLLOW_MODEL:
-            myCarFollowModel = value;
             break;
         case SUMO_ATTR_PERSON_CAPACITY:
-            personCapacity = parse<int>(value);
             break;
         case SUMO_ATTR_CONTAINER_CAPACITY:
             containerCapacity = parse<int>(value);
             break;
         case SUMO_ATTR_BOARDING_DURATION:
-            boardingDuration = parse<double>(value);
+            boardingDuration = parse<int>(value);
             break;
         case SUMO_ATTR_LOADING_DURATION:
-            loadingDuration = parse<double>(value);
+            loadingDuration = parse<int>(value);
             break;
         case SUMO_ATTR_LATALIGNMENT:
-            latAlignment = value;
+            latAlignment = SUMOXMLDefinitions::LateralAlignments.get(value);
             break;
         case SUMO_ATTR_MINGAP_LAT:
             minGapLat = parse<double>(value);
@@ -391,10 +387,12 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_MAXSPEED_LAT:
             maxSpeedLat = parse<double>(value);
             break;
+        case SUMO_ATTR_ACTIONSTEPLENGTH:
+            actionStepLength = parse<int>(value);
+            break;
         case GNE_ATTR_GENERIC:
             setGenericParametersStr(value);
             break;
-            */
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }

@@ -2989,7 +2989,7 @@ GNEAttributeCarrier::fillDemandElements() {
             "The deceleration ability of vehicles of this type [m/s^2]",
             "4.50");
         myTagProperties[currentTag].addAttribute(attrProperty);
-/*
+
         attrProperty = AttributeProperties(SUMO_ATTR_APPARENTDECEL,
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "The apparent deceleration of the vehicle as used by the standard model [m/s^2]",
@@ -3001,7 +3001,7 @@ GNEAttributeCarrier::fillDemandElements() {
             "The maximal physically possible deceleration for the vehicle [m/s^2]",
             "4.50");
         myTagProperties[currentTag].addAttribute(attrProperty);
-*/
+
         attrProperty = AttributeProperties(SUMO_ATTR_SIGMA,
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_RANGE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "Car-following model parameter",
@@ -3144,13 +3144,12 @@ GNEAttributeCarrier::fillDemandElements() {
             "The maximum lateral speed when using the sublane-model",
             "1.00");
         myTagProperties[currentTag].addAttribute(attrProperty);
-/*
+
         attrProperty = AttributeProperties(SUMO_ATTR_ACTIONSTEPLENGTH,
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "The interval length for which vehicle performs its decision logic (acceleration and lane-changing)",
-                toString(OptionsCont::getOptions().getFloat("default.action-step-length") 0));
+            toString(OptionsCont::getOptions().getFloat("default.action-step-length")));
         myTagProperties[currentTag].addAttribute(attrProperty);
-*/
     }
     currentTag = SUMO_TAG_VEHICLE;
     {

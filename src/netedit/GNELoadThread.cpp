@@ -273,6 +273,9 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
     oc.doRegister("end", new Option_String("-1", "TIME"));
     oc.addDescription("end", "Time", "Defines the end time in seconds; The simulation ends at this time");
 
+    oc.doRegister("default.action-step-length", new Option_Float(0.0));
+    oc.addDescription("default.action-step-length", "Processing", "Length of the default interval length between action points for the car-following and lane-change models (in seconds). If not specified, the simulation step-length is used per default. Vehicle- or VType-specific settings override the default. Must be a multiple of the simulation step-length.");
+
     SystemFrame::addReportOptions(oc); // this subtopic is filled here, too
 
     NIFrame::fillOptions();
