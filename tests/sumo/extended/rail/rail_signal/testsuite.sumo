@@ -51,6 +51,11 @@ indirect_guard_route_conflict2
 
 # switches for a bidirectional section guarded by extra rail signal nodes,
 # traffic light state must take the route of the approaching vehicle into account.
+# The blocked vehicle cannot reroute (no alternative)
+indirect_guard_route_conflict3
+
+# switches for a bidirectional section guarded by extra rail signal nodes,
+# traffic light state must take the route of the approaching vehicle into account.
 # The blocked vehicle may reroute
 indirect_guard_route_conflict_reroute
 
@@ -65,6 +70,3 @@ circle_backward
 
 # track layout with a circle and a single railSignal
 circle_1signal
-
-# prevent insertion on short edge before red rail signal
-guard_insertion
