@@ -30,19 +30,9 @@ set(microsim_cfmodels_STAT_SRCS
    CC_Const.h
    CC_VehicleVariables.cpp
    CC_VehicleVariables.h
-   EngineParameters.cpp
-   EngineParameters.h
-   FirstOrderLagModel.cpp
-   FirstOrderLagModel.h
-   GenericEngineModel.cpp
-   GenericEngineModel.h
    MSCFModel_CC.cpp
    MSCFModel_CC.h
    ParBuffer.h
-   RealisticEngineModel.cpp
-   RealisticEngineModel.h
-   VehicleEngineHandler.cpp
-   VehicleEngineHandler.h
 )
 
 add_library(microsim_cfmodels STATIC ${microsim_cfmodels_STAT_SRCS})

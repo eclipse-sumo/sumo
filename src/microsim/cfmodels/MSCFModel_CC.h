@@ -31,9 +31,9 @@
 #include <microsim/cfmodels/MSCFModel_Krauss.h>
 #include <string.h>
 
-#include "GenericEngineModel.h"
-#include "FirstOrderLagModel.h"
-#include "RealisticEngineModel.h"
+#include <microsim/engine/GenericEngineModel.h>
+#include <microsim/engine/FirstOrderLagModel.h>
+#include <microsim/engine/RealisticEngineModel.h>
 
 #include "CC_VehicleVariables.h"
 

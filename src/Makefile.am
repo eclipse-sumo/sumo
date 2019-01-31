@@ -33,6 +33,7 @@ sumo_SOURCES = sumo_main.cpp
 sumo_LDADD   = ./netload/libnetload.a \
 ./microsim/libmicrosim.a \
 ./microsim/cfmodels/libmicrosimcfmodels.a \
+./microsim/engine/libmicrosimengine.a \
 ./microsim/lcmodels/libmicrosimlcmodels.a \
 ./microsim/devices/libmicrosimdevs.a \
 ./microsim/output/libmicrosimoutput.a \

@@ -28,9 +28,9 @@
 #include <string>
 #include <map>
 
-#include "GenericEngineModel.h"
-#include "FirstOrderLagModel.h"
-#include "RealisticEngineModel.h"
+#include <microsim/engine/GenericEngineModel.h>
+#include <microsim/engine/FirstOrderLagModel.h>
+#include <microsim/engine/RealisticEngineModel.h>
 
 class CC_VehicleVariables : public MSCFModel::VehicleVariables {
 public:
