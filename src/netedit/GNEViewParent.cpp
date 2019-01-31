@@ -36,6 +36,7 @@
 #include <netedit/frames/GNETAZFrame.h>
 #include <netedit/frames/GNETLSEditorFrame.h>
 #include <netedit/frames/GNERouteFrame.h>
+#include <netedit/frames/GNEVehicleFrame.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNEJunction.h>
 #include <utils/foxtools/MFXUtils.h>
@@ -126,6 +127,7 @@ GNEViewParent::GNEViewParent(FXMDIClient* p, FXMDIMenu* mdimenu, const FXString&
 
     // Create Demand frames
     myFrames.routeFrame = new GNERouteFrame(myFramesArea, viewNet);
+    myFrames.vehicleFrame = new GNEVehicleFrame(myFramesArea, viewNet);
 
     // Update frame areas after creation
     onCmdUpdateFrameAreaWidth(nullptr, 0, nullptr);
@@ -223,6 +225,12 @@ GNEViewParent::getCreateEdgeFrame() const {
 GNERouteFrame*
 GNEViewParent::getRouteFrame() const {
     return myFrames.routeFrame;
+}
+
+
+GNEVehicleFrame*
+GNEViewParent::getVehicleFrame() const {
+    return myFrames.vehicleFrame;
 }
 
 
@@ -465,7 +473,8 @@ GNEViewParent::Frames::Frames() :
     polygonFrame(nullptr),
     prohibitionFrame(nullptr),
     createEdgeFrame(nullptr),
-    routeFrame(nullptr) {
+    routeFrame(nullptr),
+    vehicleFrame(nullptr) {
 }
 
 
@@ -485,6 +494,7 @@ GNEViewParent::Frames::hideFrames() {
     createEdgeFrame->hide();
     **/
     routeFrame->hide();
+    vehicleFrame->hide();
 }
 
 
@@ -505,6 +515,7 @@ GNEViewParent::Frames::setWidth(int frameWidth) {
     createEdgeFrame->setFrameWidth(frameWidth);
     **/
     routeFrame->setFrameWidth(frameWidth);
+    vehicleFrame->setFrameWidth(frameWidth);
 }
 
 
@@ -536,6 +547,8 @@ GNEViewParent::Frames::isFrameShown() const {
             return true;
         **/
     } else if (routeFrame->shown()) {
+        return true;
+    } else if (vehicleFrame->shown()) {
         return true;
     } else {
         return false;

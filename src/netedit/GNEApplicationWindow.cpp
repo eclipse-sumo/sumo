@@ -126,6 +126,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_R_CROSSINGMODE_ROUTEMODE,        GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_Z_TAZMODE,                       GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_P_POLYGONMODE,                   GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_V_VEHICLEMODE,                   GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_W_PROHIBITIONMODE,               GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_EDITVIEWSCHEME,                         GNEApplicationWindow::onCmdEditViewScheme),
     FXMAPFUNC(SEL_COMMAND,  MID_EDITVIEWPORT,                           GNEApplicationWindow::onCmdEditViewport),
@@ -358,8 +359,8 @@ GNEApplicationWindow::dependentBuild() {
     getAccelTable()->addAccel(90,  this, FXSEL(SEL_COMMAND, MID_HOTKEY_Z_TAZMODE));   // Z
     getAccelTable()->addAccel(112, this, FXSEL(SEL_COMMAND, MID_HOTKEY_P_POLYGONMODE));   // p
     getAccelTable()->addAccel(80,  this, FXSEL(SEL_COMMAND, MID_HOTKEY_P_POLYGONMODE));   // P
-    getAccelTable()->addAccel(118, this, FXSEL(SEL_COMMAND, MID_EDITVIEWPORT));     // v
-    getAccelTable()->addAccel(86,  this, FXSEL(SEL_COMMAND, MID_EDITVIEWPORT));     // V
+    getAccelTable()->addAccel(118, this, FXSEL(SEL_COMMAND, MID_HOTKEY_V_VEHICLEMODE));     // v
+    getAccelTable()->addAccel(86,  this, FXSEL(SEL_COMMAND, MID_HOTKEY_V_VEHICLEMODE));     // V
     // initialize Ctrl hotkeys with Caps Lock enabled using decimal code (to avoid problems in Linux)
     getAccelTable()->addAccel(262222, this, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_N_NEWNETWORK));         // Ctrl + N
     getAccelTable()->addAccel(262223, this, FXSEL(SEL_COMMAND, MID_OPEN_NETWORK));              // Ctrl + O
@@ -1159,6 +1160,7 @@ GNEApplicationWindow::NetworkMenuCommands::buildNetworkMenuCommands(FXMenuPane* 
 
 GNEApplicationWindow::DemandMenuCommands::DemandMenuCommands(GNEApplicationWindow* GNEApp) :
     routeMode(nullptr),
+    vehicleMode(nullptr),
     myGNEApp(GNEApp)
 {}
 
@@ -1166,6 +1168,7 @@ GNEApplicationWindow::DemandMenuCommands::DemandMenuCommands(GNEApplicationWindo
 void
 GNEApplicationWindow::DemandMenuCommands::showDemandMenuCommands() {
     routeMode->show();
+    vehicleMode->show();
     // also show separator
     myHorizontalSeparator->show();
 }
@@ -1174,6 +1177,7 @@ GNEApplicationWindow::DemandMenuCommands::showDemandMenuCommands() {
 void
 GNEApplicationWindow::DemandMenuCommands::hideDemandMenuCommands() {
     routeMode->hide();
+    vehicleMode->hide();
     // also hide separator
     myHorizontalSeparator->hide();
 }
@@ -1185,6 +1189,10 @@ GNEApplicationWindow::DemandMenuCommands::buildDemandMenuCommands(FXMenuPane* ed
     routeMode = new FXMenuCommand(editMenu,
                                   "&Route mode\tR\tCreate Routes.",
                                   GUIIconSubSys::getIcon(ICON_MODEROUTE), myGNEApp, MID_HOTKEY_R_CROSSINGMODE_ROUTEMODE);
+    vehicleMode = new FXMenuCommand(editMenu,
+                                  "&Vehicle mode\tR\tCreate vehicles.",
+                                  GUIIconSubSys::getIcon(ICON_MODEVEHICLE), myGNEApp, MID_HOTKEY_V_VEHICLEMODE);
+
     // build separator
     myHorizontalSeparator = new FXMenuSeparator(editMenu);
 }

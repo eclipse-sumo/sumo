@@ -90,7 +90,9 @@ enum DemandEditMode {
     ///@brief mode for selecting demand elements
     GNE_DMODE_SELECT,
     ///@brief Mode for editing routes
-    GNE_DMODE_ROUTES
+    GNE_DMODE_ROUTES,
+    ///@brief Mode for editing vehicles
+    GNE_DMODE_VEHICLES
 };
 
 // ===========================================================================
@@ -970,6 +972,9 @@ private:
 
         /// @brief chekable button for edit mode create routes
         MFXCheckableButton* routeButton;
+
+        /// @brief chekable button for edit mode create vehicles
+        MFXCheckableButton* vehicleButton;
 
     private:
         /// @brief pointer to viewNet

@@ -41,6 +41,7 @@ class GNEDeleteFrame;
 class GNEDialogACChooser;
 class GNEInspectorFrame;
 class GNERouteFrame;
+class GNEVehicleFrame;
 class GNENet;
 class GNEPolygonFrame;
 class GNEProhibitionFrame;
@@ -129,6 +130,9 @@ public:
 
     /// @brief get frame for GNE_RMODE_ROUTE
     GNERouteFrame* getRouteFrame() const;
+
+    /// @brief get frame for GNE_RMODE_VEHICLE
+    GNEVehicleFrame* getVehicleFrame() const;
 
     /// @brief show frames area if at least a GNEFrame is showed
     /// @note this function is called in GNEFrame::Show();
@@ -222,6 +226,9 @@ private:
 
         /// @brief frame for GNE_RMODE_ROUTE
         GNERouteFrame* routeFrame;
+
+        /// @brief frame for GNE_RMODE_VEHICLE
+        GNEVehicleFrame* vehicleFrame;
     };
 
     /// @brief struct for ACChoosers dialog
