@@ -53,6 +53,7 @@ MSParkingArea::MSParkingArea(const std::string& id,
     myWidth(width),
     myLength(length),
     myAngle(angle),
+    myEgressBlocked(false),
     myReservationTime(-1),
     myReservations(0),
     myReservationMaxLength(0) {
@@ -109,7 +110,7 @@ MSParkingArea::addLotEntry(double x, double y, double z,
 
 double
 MSParkingArea::getLastFreePos(const SUMOVehicle& forVehicle) const {
-    if (myCapacity == getOccupancy()) {
+    if (myCapacity == (int)myEndPositions.size()) {
         // keep enough space so that  parking vehicles can leave
         return myLastFreePos - forVehicle.getVehicleType().getMinGap() - POSITION_EPS;
     } else {
@@ -169,10 +170,19 @@ void
 MSParkingArea::computeLastFreePos() {
     myLastFreeLot = -1;
     myLastFreePos = myBegPos;
+    myEgressBlocked = false;
     for (auto& lsd : mySpaceOccupancies) {
-        if (lsd.vehicle == nullptr) {
-            myLastFreeLot = lsd.index;
-            myLastFreePos = lsd.myEndPos;
+        if (lsd.vehicle == nullptr
+                || (lsd.vehicle->remainingStopDuration() <= 0 && !lsd.vehicle->isStoppedTriggered())) {
+            if (lsd.vehicle == nullptr) {
+                myLastFreeLot = lsd.index;
+                myLastFreePos = lsd.myEndPos;
+            } else {
+                // vehicle wants to exit the parking area
+                myLastFreeLot = lsd.index;
+                myLastFreePos = lsd.myEndPos - lsd.vehicle->getVehicleType().getLength() - POSITION_EPS;
+                myEgressBlocked = true;
+            }
             break;
         } else {
             myLastFreePos = MIN2(myLastFreePos,
@@ -263,8 +273,12 @@ MSParkingArea::getCapacity() const {
 
 int
 MSParkingArea::getOccupancy() const {
-    return (int)myEndPositions.size();
+    return (int)myEndPositions.size() - (myEgressBlocked ? 1 : 0);
 }
 
+void 
+MSParkingArea::notifyEgressBlocked() {
+    computeLastFreePos();
+}
 
 /****************************************************************************/

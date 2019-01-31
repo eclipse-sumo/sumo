@@ -1583,6 +1583,16 @@ MSVehicle::getNextParkingArea() {
 }
 
 
+MSParkingArea*
+MSVehicle::getCurrentParkingArea() {
+    MSParkingArea* currentParkingArea = nullptr;
+    if (isParking()) {
+        currentParkingArea = myStops.begin()->parkingarea;
+    }
+    return currentParkingArea;
+}
+
+
 bool
 MSVehicle::isStopped() const {
     return !myStops.empty() && myStops.begin()->reached /*&& myState.mySpeed < SUMO_const_haltingSpeed @todo #1864#*/;

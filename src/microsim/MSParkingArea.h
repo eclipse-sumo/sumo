@@ -190,6 +190,10 @@ public:
      */
     double getAngle() const;
 
+
+    /// @brief update state so that vehicles wishing to enter cooperate with exiting vehicles
+    void notifyEgressBlocked();
+
 protected:
 
     /** @struct LotSpaceDefinition
@@ -245,6 +249,9 @@ protected:
 
     /// @brief The roadside shape of this parkingArea
     PositionVector myShape;
+
+    /// @brief whether a vehicle wants to exit but is blocked
+    bool myEgressBlocked;
 
     /// @brief track parking reservations from the lane for the current time step
     SUMOTime myReservationTime;

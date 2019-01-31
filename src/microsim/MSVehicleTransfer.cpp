@@ -30,6 +30,7 @@
 #include "MSLane.h"
 #include "MSEdge.h"
 #include "MSVehicle.h"
+#include "MSParkingArea.h"
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include "MSVehicleControl.h"
 #include "MSInsertionControl.h"
@@ -126,7 +127,14 @@ MSVehicleTransfer::checkInsertions(SUMOTime time) {
                 i = vehInfos.erase(i);
             } else {
                 // blocked from entering the road
-                desc.myVeh->switchOnSignal(MSNet::getInstance()->lefthand() ? MSVehicle::VEH_SIGNAL_BLINKER_RIGHT : MSVehicle::VEH_SIGNAL_BLINKER_LEFT);
+                if (!desc.myVeh->signalSet(MSVehicle::VEH_SIGNAL_BLINKER_LEFT | MSVehicle::VEH_SIGNAL_BLINKER_RIGHT)) {
+                    // signal wish to re-enter the road
+                    desc.myVeh->switchOnSignal(MSNet::getInstance()->lefthand() ? MSVehicle::VEH_SIGNAL_BLINKER_RIGHT : MSVehicle::VEH_SIGNAL_BLINKER_LEFT);
+                    if (desc.myVeh->getCurrentParkingArea() != nullptr) {
+                        // update freePosition so other vehicles can help with insertion
+                        desc.myVeh->getCurrentParkingArea()->notifyEgressBlocked();
+                    }
+                }
                 i++;
             }
         } else {

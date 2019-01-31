@@ -984,9 +984,12 @@ public:
      */
     void createDriverState();
 
-    /** @brief get the current parking area stop
+    /** @brief get the upcoming parking area stop or nullptr
      */
     MSParkingArea* getNextParkingArea();
+
+    /** @brief get the current  parking area stop or nullptr */
+    MSParkingArea* getCurrentParkingArea();
 
     /** @brief Returns whether the vehicle has to stop somewhere
      * @return Whether the vehicle has to stop somewhere
