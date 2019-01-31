@@ -452,8 +452,10 @@ public:
 
     /// @brief The vehicle's route id
     std::string routeid;
+
     /// @brief The vehicle's type id
     std::string vtypeid;
+
     /// @brief The vehicle's color, TraCI may change this
     mutable RGBColor color;
 
@@ -482,7 +484,6 @@ public:
     DepartSpeedDefinition departSpeedProcedure;
     /// @}
 
-
     /// @name Arrival definition
     /// @{
 
@@ -504,7 +505,6 @@ public:
     ArrivalSpeedDefinition arrivalSpeedProcedure;
     /// @}
 
-
     /// @name Repetition definition
     /// @{
 
@@ -519,7 +519,6 @@ public:
     /// @brief The time at which the flow ends (only needed when using repetitionProbability)
     SUMOTime repetitionEnd;
     /// @}
-
 
     /// @brief The vehicle's line (mainly for public transport)
     mutable std::string line;
@@ -592,6 +591,33 @@ public:
     /// @brief Information for the router which parameter were set, TraCI may modify this (whe changing color)
     mutable int parametersSet;
 
+protected:
+    /// @brief obtain depart parameter in string format
+    std::string getDepart() const;
+
+    /// @brief obtain depart lane parameter in string format
+    std::string getDepartLane() const;
+
+    /// @brief obtain depart pos parameter in string format
+    std::string getDepartPos() const;
+
+    /// @brief obtain depart pos lat parameter in string format
+    std::string getDepartPosLat() const;
+
+    /// @brief obtain depart speed parameter in string format
+    std::string getDepartSpeed() const;
+
+    /// @brief obtain arrival lane parameter in string format
+    std::string getArrivalLane() const;
+
+    /// @brief obtain arrival pos parameter in string format
+    std::string getArrivalPos() const;
+
+    /// @brief obtain arrival pos lat parameter in string format
+    std::string getArrivalPosLat() const;
+
+    /// @brief obtain arrival speed parameter in string format
+    std::string getArrivalSpeed() const;
 };
 
 #endif
