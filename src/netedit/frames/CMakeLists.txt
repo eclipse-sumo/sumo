@@ -23,6 +23,8 @@ set(netedit_frames_SRCS
    GNECreateEdgeFrame.cpp
    GNERouteFrame.h
    GNERouteFrame.cpp
+   GNEVehicleFrame.h
+   GNEVehicleFrame.cpp
    GNEProhibitionFrame.h
    GNEProhibitionFrame.cpp
    )

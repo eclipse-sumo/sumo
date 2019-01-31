@@ -12,4 +12,5 @@ GNEDeleteFrame.cpp GNEDeleteFrame.h \
 GNEPolygonFrame.cpp GNEPolygonFrame.h \
 GNECreateEdgeFrame.cpp GNECreateEdgeFrame.h \
 GNERouteFrame.cpp GNERouteFrame.h \
+GNEVehicleFrame.cpp GNEVehicleFrame.h \
 GNEProhibitionFrame.cpp GNEProhibitionFrame.h
