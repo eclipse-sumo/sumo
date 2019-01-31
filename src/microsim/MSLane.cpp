@@ -725,6 +725,14 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                           << "\n";
             }
 #endif
+            if (currentLane == this
+                    && currentLane->getEdge().getBidiEdge() != nullptr
+                    && currentLane->getEdge().getToJunction()->getType() == NODETYPE_RAIL_SIGNAL
+                    && (*link)->getTLLogic() != nullptr
+                    && getLength() < aVehicle->getVehicleType().getLength()) {
+                // allow guarding bidirectional tracks at the network border with railSignal
+                return false;
+            }
             break;
         }
         // get the next used lane (including internal)
