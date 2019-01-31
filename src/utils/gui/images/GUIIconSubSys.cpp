@@ -147,6 +147,7 @@
 #include "modeprohibition.xpm"
 
 #include "moderoute.xpm"
+#include "modevehicle.xpm"
 
 #include "computejunctions.xpm"
 #include "cleanjunctions.xpm"
@@ -366,6 +367,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[ICON_MODEPROHIBITION] = new FXXPMIcon(a, modeprohibition_xpm);
 
     myIcons[ICON_MODEROUTE] = new FXXPMIcon(a, moderoute_xpm);
+    myIcons[ICON_MODEVEHICLE] = new FXXPMIcon(a, modevehicle_xpm);
 
     myIcons[ICON_CLEANJUNCTIONS] = new FXXPMIcon(a, cleanjunctions_xpm);
     myIcons[ICON_COMPUTEJUNCTIONS] = new FXXPMIcon(a, computejunctions_xpm);

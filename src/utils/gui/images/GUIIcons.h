@@ -218,6 +218,7 @@ enum GUIIcon {
     /// @name NETEDIT Demand modes icons
     /// @{
     ICON_MODEROUTE,
+    ICON_MODEVEHICLE,
     /// @}
 
     /// @name NETEDIT processing icons

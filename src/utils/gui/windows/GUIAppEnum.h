@@ -62,6 +62,8 @@ enum {
     MID_HOTKEY_R_CROSSINGMODE_ROUTEMODE,
     /// @brief hotkey for mode editing TLS
     MID_HOTKEY_T_TLSMODE,
+    /// @brief hotkey for mode create vehicles
+    MID_HOTKEY_V_VEHICLEMODE,
     /// @brief hotkey for mode editing connection prohibitions
     MID_HOTKEY_W_PROHIBITIONMODE,
     /// @brief hotkey for mode editing TAZ
