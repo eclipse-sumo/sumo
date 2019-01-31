@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+	<vType id="REDosto7" vClass="rail" carFollowModel="Rail" trainType="REDosto7"/>
+    <trip id="RE2" depart="0" from="branch" to="-entry" type="REDosto7"/>
+	<trip id="RE1" depart="20" from="entry" to="end" type="REDosto7"/>
+</routes>
