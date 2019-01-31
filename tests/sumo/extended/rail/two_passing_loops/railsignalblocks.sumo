@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jan 28 10:52:40 2019 by Eclipse SUMO Version v1_0_1+0645-93703db
+<!-- generated on Thu Jan 31 23:58:31 2019 by Eclipse SUMO Version v1_1_0+0435-678c69824b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -71,13 +71,17 @@ SPDX-License-Identifier: EPL-2.0
             <forwardBlock lanes=":w3_0_0 T13_1_0"/>
             <bidiBlock lanes=":w3_3_0 T11_0_0 :w2_1_0"/>
             <backwardBlock lanes=":w3_1_0"/>
-            <conflictLinks logicIndex="w3_1 w2_1"/>
+            <conflictLinks logicIndex="w3_1 w2_1">
+                <conflictLink logicIndex="w3_1" lanes="T6_1_0 :w4_1_0" links="w4_1"/>
+            </conflictLinks>
         </link>
         <link linkIndex="1" from="T6_1_0" to=":w3_1_0">
             <forwardBlock lanes=":w3_1_0 T13_1_0"/>
             <bidiBlock lanes=":w3_2_0 T11_0_0 :w2_1_0"/>
             <backwardBlock lanes=":w3_0_0"/>
-            <conflictLinks logicIndex="w3_0 w2_1"/>
+            <conflictLinks logicIndex="w3_0 w2_1">
+                <conflictLink logicIndex="w3_0" lanes="T16_1_0 :w4_0_0" links="w4_0"/>
+            </conflictLinks>
         </link>
         <link linkIndex="2" from="T11_0_0" to=":w3_2_0">
             <forwardBlock lanes=":w3_2_0 T4_0_0"/>
@@ -109,13 +113,17 @@ SPDX-License-Identifier: EPL-2.0
             <forwardBlock lanes=":w4_2_0 T18_0_0"/>
             <bidiBlock lanes=":w4_1_0 T18_1_0"/>
             <backwardBlock lanes=":w4_3_0"/>
-            <conflictLinks logicIndex="w4_3"/>
+            <conflictLinks logicIndex="w4_3">
+                <conflictLink logicIndex="w4_3" lanes="T14_0_0 :w3_3_0" links="w3_3"/>
+            </conflictLinks>
         </link>
         <link linkIndex="3" from="T14_0_0" to=":w4_3_0">
             <forwardBlock lanes=":w4_3_0 T18_0_0"/>
             <bidiBlock lanes=":w4_0_0 T18_1_0"/>
             <backwardBlock lanes=":w4_2_0"/>
-            <conflictLinks logicIndex="w4_2"/>
+            <conflictLinks logicIndex="w4_2">
+                <conflictLink logicIndex="w4_2" lanes="T4_0_0 :w3_2_0" links="w3_2"/>
+            </conflictLinks>
         </link>
     </railSignal>
 </railsignal-block-output>

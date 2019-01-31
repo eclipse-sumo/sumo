@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jan 29 08:36:06 2019 by Eclipse SUMO Version v1_0_1+0645-93703db
+<!-- generated on Thu Jan 31 23:58:31 2019 by Eclipse SUMO Version v1_1_0+0435-678c69824b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -16,6 +16,7 @@ SPDX-License-Identifier: EPL-2.0
     <output>
         <write-license value="true"/>
         <tripinfo-output value="tripinfos.xml"/>
+        <vehroute-output value="vehroutes.xml"/>
         <railsignal-block-output value="railsignal_blocks.xml"/>
     </output>
 
@@ -38,7 +39,10 @@ SPDX-License-Identifier: EPL-2.0
             <forwardBlock lanes=":B.A_1_0 T13_0_0 :w3_3_0 :w3_4_0 T4_0_0 :B.P1_1_0 T5_0_0 :w3_2_0 T14_0_0 :B.P2_1_0 T15_0_0"/>
             <bidiBlock lanes=":B.A_0_0 T13_1_0 :w3_1_0 T14_1_0 :B.P2_0_0 :w3_0_0 T4_1_0 :B.P1_0_0"/>
             <backwardBlock lanes=""/>
-            <conflictLinks logicIndex="B.P2_0 B.P1_0"/>
+            <conflictLinks logicIndex="B.P2_0 B.P1_0">
+                <conflictLink logicIndex="B.P2_0" lanes="T15_1_0 :B.N2_0_0 T16_1_0 :w4_1_0 T17_1_0 :B.F_0_0 T18_1_0"/>
+                <conflictLink logicIndex="B.P1_0" lanes="T5_1_0 :B.N1_0_0 T6_1_0 :w4_0_0 T17_1_0 :B.F_0_0 T18_1_0"/>
+            </conflictLinks>
         </link>
     </railSignal>
     <railSignal id="B.F">
@@ -46,7 +50,10 @@ SPDX-License-Identifier: EPL-2.0
             <forwardBlock lanes=":B.F_0_0 T17_1_0 :w4_1_0 T16_1_0 :B.N2_0_0 T15_1_0 :w4_0_0 T6_1_0 :B.N1_0_0 T5_1_0"/>
             <bidiBlock lanes=":B.F_1_0 T17_0_0 :w4_3_0 T6_0_0 :B.N1_1_0 :w4_2_0 T16_0_0 :B.N2_1_0"/>
             <backwardBlock lanes=""/>
-            <conflictLinks logicIndex="B.N1_0 B.N2_0"/>
+            <conflictLinks logicIndex="B.N1_0 B.N2_0">
+                <conflictLink logicIndex="B.N1_0" lanes="T5_0_0 :B.P1_1_0 T4_0_0 :w3_4_0 :w3_3_0 T13_0_0 :B.A_1_0" links="B.A_0"/>
+                <conflictLink logicIndex="B.N2_0" lanes="T15_0_0 :B.P2_1_0 T14_0_0 :w3_2_0 T13_0_0 :B.A_1_0 T12_0_0"/>
+            </conflictLinks>
         </link>
     </railSignal>
     <railSignal id="B.N1">
@@ -54,7 +61,9 @@ SPDX-License-Identifier: EPL-2.0
             <forwardBlock lanes=":B.N1_1_0 T6_0_0 :w4_3_0 T17_0_0 :B.F_1_0 T18_0_0"/>
             <bidiBlock lanes=":B.N1_0_0 T6_1_0 :w4_0_0 T17_1_0 :B.F_0_0 T18_1_0"/>
             <backwardBlock lanes=":w4_2_0 T16_0_0 :B.N2_1_0"/>
-            <conflictLinks logicIndex="B.N2_0"/>
+            <conflictLinks logicIndex="B.N2_0">
+                <conflictLink logicIndex="B.N2_0" lanes="T15_0_0 :B.P2_1_0 T14_0_0 :w3_2_0 T13_0_0 :B.A_1_0 T12_0_0"/>
+            </conflictLinks>
         </link>
     </railSignal>
     <railSignal id="B.N2">
@@ -62,7 +71,9 @@ SPDX-License-Identifier: EPL-2.0
             <forwardBlock lanes=":B.N2_1_0 T16_0_0 :w4_2_0 T17_0_0 :B.F_1_0 T18_0_0"/>
             <bidiBlock lanes=":B.N2_0_0 T16_1_0 :w4_1_0 T17_1_0 :B.F_0_0 T18_1_0"/>
             <backwardBlock lanes=":w4_3_0 T6_0_0 :B.N1_1_0"/>
-            <conflictLinks logicIndex="B.N1_0"/>
+            <conflictLinks logicIndex="B.N1_0">
+                <conflictLink logicIndex="B.N1_0" lanes="T5_0_0 :B.P1_1_0 T4_0_0 :w3_4_0 :w3_3_0 T13_0_0 :B.A_1_0" links="B.A_0"/>
+            </conflictLinks>
         </link>
     </railSignal>
     <railSignal id="B.P1">
@@ -70,7 +81,10 @@ SPDX-License-Identifier: EPL-2.0
             <forwardBlock lanes=":B.P1_0_0 T4_1_0 :w3_0_0 T13_1_0 :B.A_0_0 T12_1_0"/>
             <bidiBlock lanes=":B.P1_1_0 T4_0_0 :w3_4_0 :w3_3_0 T13_0_0 :B.A_1_0"/>
             <backwardBlock lanes=":w3_1_0 T14_1_0 :B.P2_0_0"/>
-            <conflictLinks logicIndex="B.P2_0 B.A_0"/>
+            <conflictLinks logicIndex="B.P2_0 B.A_0">
+                <conflictLink logicIndex="B.P2_0" lanes="T15_1_0 :B.N2_0_0 T16_1_0 :w4_1_0 T17_1_0 :B.F_0_0 T18_1_0"/>
+                <conflictLink logicIndex="B.A_0" lanes="T12_0_0"/>
+            </conflictLinks>
         </link>
     </railSignal>
     <railSignal id="B.P2">
@@ -78,7 +92,9 @@ SPDX-License-Identifier: EPL-2.0
             <forwardBlock lanes=":B.P2_0_0 T14_1_0 :w3_1_0 T13_1_0 :B.A_0_0 T12_1_0"/>
             <bidiBlock lanes=":B.P2_1_0 T14_0_0 :w3_2_0 T13_0_0 :B.A_1_0 T12_0_0"/>
             <backwardBlock lanes=":w3_0_0 T4_1_0 :B.P1_0_0"/>
-            <conflictLinks logicIndex="B.P1_0"/>
+            <conflictLinks logicIndex="B.P1_0">
+                <conflictLink logicIndex="B.P1_0" lanes="T5_1_0 :B.N1_0_0 T6_1_0 :w4_0_0 T17_1_0 :B.F_0_0 T18_1_0"/>
+            </conflictLinks>
         </link>
     </railSignal>
 </railsignal-block-output>

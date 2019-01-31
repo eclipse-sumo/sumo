@@ -1,4 +1,6 @@
-Warning: Teleporting vehicle 'rail2'; waited too long (yield), lane='T12_0_0', time=331.00.
-Warning: Teleporting vehicle 'rail1'; waited too long (yield), lane='T15_1_0', time=331.00.
-Warning: Vehicle 'rail1' ends teleporting on edge 'T14_1', time 331.00.
-Warning: Vehicle 'rail2' ends teleporting on edge 'T14_0', time 336.00.
+Warning: No route for vehicle 'RE2' found.
+Warning: No route for vehicle 'RE1' found.
+Warning: Teleporting vehicle 'RE2'; waited too long (yield), lane='T0_0', time=348.00.
+Warning: Vehicle 'RE2' ends teleporting on edge 'T1', time 348.00.
+Warning: Teleporting vehicle 'RE2'; frontal collision with vehicle 'RE1', lane='-T11_0', gap=-1.00, time=364.00 stage=move.
+Warning: Vehicle 'RE2' ends teleporting on edge 'T12', time 364.00.
