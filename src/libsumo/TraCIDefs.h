@@ -134,10 +134,10 @@ struct TraCIColor : TraCIResult {
     TraCIColor(int r, int g, int b, int a = 255) : r(r), g(g), b(b), a(a) {}
     std::string getString() {
         std::ostringstream os;
-        os << "TraCIColor(" << (int)r << "," << (int)g << "," << (int)b << "," << (int)a << ")";
+        os << "TraCIColor(" << r << "," << g << "," << b << "," << a << ")";
         return os.str();
     }
-    unsigned char r, g, b, a;
+    int r, g, b, a;
 };
 
 /** @struct TraCIPositionVector
