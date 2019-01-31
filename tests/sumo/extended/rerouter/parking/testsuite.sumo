@@ -19,6 +19,9 @@ angled_roadside_parking
 # test what happens if a queue forms and a vehicle wants to exit the parkingarea
 congestion
 
+# alternative parkingAreas in a circle and too much demand. Test cooperation between vehicles that wish to park and those that wish to exit. (Circumvent instant rerouting causing infinite loop, #5128)
+congestion_alternatives
+
 # only activate rerouter after waiting for some time
 timeThreshold
 
