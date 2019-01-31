@@ -22,7 +22,7 @@
 
 #include <netbuild/NBFrame.h>
 #include <netedit/additionals/GNEAdditionalHandler.h>
-#include <netedit/demandelements/GNEDemandElementHandler.h>
+#include <netedit/demandelements/GNERouteHandler.h>
 #include <netedit/dialogs/GNEDialog_About.h>
 #include <netedit/frames/GNETAZFrame.h>
 #include <netedit/frames/GNETLSEditorFrame.h>
@@ -674,7 +674,7 @@ GNEApplicationWindow::onCmdOpenDemandElements(FXObject*, FXSelector, void*) {
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto");
         // Create additional handler
-        GNEDemandElementHandler demandHandler(file, myNet->getViewNet());
+        GNERouteHandler demandHandler(file, myNet->getViewNet());
         // begin undoList operation
         myUndoList->p_begin("Loading demand elements from '" + file + "'");
         // Run parser for additionals
@@ -874,12 +874,12 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     if (oc.isSet("route-files") && !oc.getString("route-files").empty() && myNet) {
         myMenuBarFile.myDemandElementsFile = oc.getString("route-files");
         WRITE_MESSAGE("Loading demand elements from '" + myMenuBarFile.myDemandElementsFile + "'");
-        GNEDemandElementHandler demandElementHandler(myMenuBarFile.myDemandElementsFile, myNet->getViewNet());
+        GNERouteHandler routeHandler(myMenuBarFile.myDemandElementsFile, myNet->getViewNet());
         // disable validation for demand elements
         XMLSubSys::setValidation("never", "auto");
         // Run parser
         myUndoList->p_begin("Loading demand elements from '" + myMenuBarFile.myDemandElementsFile + "'");
-        if (!XMLSubSys::runParser(demandElementHandler, myMenuBarFile.myDemandElementsFile, false)) {
+        if (!XMLSubSys::runParser(routeHandler, myMenuBarFile.myDemandElementsFile, false)) {
             WRITE_ERROR("Loading of " + myMenuBarFile.myDemandElementsFile + " failed.");
         }
         // disable validation for demand elements

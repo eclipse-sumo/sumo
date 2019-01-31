@@ -7,7 +7,7 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    GNEDemandElementHandler.cpp
+/// @file    GNERouteHandler.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Jan 2019
 /// @version $Id$
@@ -28,7 +28,7 @@
 #include <netedit/GNENet.h>
 #include <utils/options/OptionsCont.h>
 
-#include "GNEDemandElementHandler.h"
+#include "GNERouteHandler.h"
 #include "GNERoute.h"
 #include "GNEVehicleType.h"
 #include "GNEFlow.h"
@@ -39,30 +39,30 @@
 // member method definitions
 // ===========================================================================
 
-GNEDemandElementHandler::GNEDemandElementHandler(const std::string& file, GNEViewNet* viewNet, bool undoDemandElements) :
+GNERouteHandler::GNERouteHandler(const std::string& file, GNEViewNet* viewNet, bool undoDemandElements) :
     SUMORouteHandler(file, ""),
     myViewNet(viewNet),
     myUndoDemandElements(undoDemandElements) {
 }
 
 
-GNEDemandElementHandler::~GNEDemandElementHandler() {}
+GNERouteHandler::~GNERouteHandler() {}
 
 
 void 
-GNEDemandElementHandler::openVehicleTypeDistribution(const SUMOSAXAttributes& /*attrs*/) {
+GNERouteHandler::openVehicleTypeDistribution(const SUMOSAXAttributes& /*attrs*/) {
     // currently unused
 }
 
 
 void 
-GNEDemandElementHandler::closeVehicleTypeDistribution() {
+GNERouteHandler::closeVehicleTypeDistribution() {
     // currently unused
 }
 
 
 void 
-GNEDemandElementHandler::openRoute(const SUMOSAXAttributes& attrs) {
+GNERouteHandler::openRoute(const SUMOSAXAttributes& attrs) {
     myAbort = false;
     // parse attribute of calibrator routes
     myRouteID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_ROUTE, SUMO_ATTR_ID, myAbort);
@@ -72,7 +72,7 @@ GNEDemandElementHandler::openRoute(const SUMOSAXAttributes& attrs) {
 
 
 void 
-GNEDemandElementHandler::closeRoute(const bool mayBeDisconnected) {
+GNERouteHandler::closeRoute(const bool mayBeDisconnected) {
     // Continue if all parameters were sucesfully loaded
     if (!myAbort) {
         // obtain edges (And show warnings if isn't valid)
@@ -102,25 +102,25 @@ GNEDemandElementHandler::closeRoute(const bool mayBeDisconnected) {
 
 
 void 
-GNEDemandElementHandler::openRouteDistribution(const SUMOSAXAttributes& /*attrs*/) {
+GNERouteHandler::openRouteDistribution(const SUMOSAXAttributes& /*attrs*/) {
     // currently unused
 }
 
 
 void 
-GNEDemandElementHandler::closeRouteDistribution() {
+GNERouteHandler::closeRouteDistribution() {
     // currently unused
 }
 
 
 void 
-GNEDemandElementHandler::closeVehicle() {
+GNERouteHandler::closeVehicle() {
     // currently unused
 }
 
 
 void 
-GNEDemandElementHandler::closeVType() {
+GNERouteHandler::closeVType() {
     // first check that VType was sucesfully created
     if(myCurrentVType) {
         // now check if exist another VType with the same ID
@@ -143,37 +143,37 @@ GNEDemandElementHandler::closeVType() {
 
 
 void 
-GNEDemandElementHandler::closePerson() {
+GNERouteHandler::closePerson() {
     // currently unused
 }
 
 
 void 
-GNEDemandElementHandler::closeContainer() {
+GNERouteHandler::closeContainer() {
     // currently unused
 }
 
 
 void 
-GNEDemandElementHandler::closeFlow() {
+GNERouteHandler::closeFlow() {
     // currently unused
 }
 
 
 void 
-GNEDemandElementHandler::addStop(const SUMOSAXAttributes& /*attrs*/) {
+GNERouteHandler::addStop(const SUMOSAXAttributes& /*attrs*/) {
     // currently unused
 }
 
 
 void 
-GNEDemandElementHandler::addPersonTrip(const SUMOSAXAttributes& /*attrs*/) {
+GNERouteHandler::addPersonTrip(const SUMOSAXAttributes& /*attrs*/) {
     // currently unused
 }
 
 
 void 
-GNEDemandElementHandler::addWalk(const SUMOSAXAttributes& /*attrs*/) {
+GNERouteHandler::addWalk(const SUMOSAXAttributes& /*attrs*/) {
     // currently unused
 }
 

@@ -26,7 +26,7 @@
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNELane.h>
 #include <netedit/netelements/GNEJunction.h>
-#include <netedit/demandelements/GNEDemandElementHandler.h>
+#include <netedit/demandelements/GNERouteHandler.h>
 #include <netedit/demandelements/GNERoute.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
 #include <netedit/GNENet.h>

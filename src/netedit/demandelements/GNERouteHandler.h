@@ -7,15 +7,15 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    GNEDemandElementHandler.h
+/// @file    GNERouteHandler.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jan 2019
 /// @version $Id$
 ///
 // Builds demand objects for netedit
 /****************************************************************************/
-#ifndef GNEDemandElementHandler_h
-#define GNEDemandElementHandler_h
+#ifndef GNERouteHandler_h
+#define GNERouteHandler_h
 
 // ===========================================================================
 // included modules
@@ -43,15 +43,15 @@ class GNEDemandElement;
 // class definitions
 // ===========================================================================
 
-/// @class GNEDemandElementHandler
+/// @class GNERouteHandler
 /// @brief Builds trigger objects for GNENet (busStops, chargingStations, detectors, etc..)
-class GNEDemandElementHandler : public SUMORouteHandler {
+class GNERouteHandler : public SUMORouteHandler {
 public:
     /// @brief Constructor
-    GNEDemandElementHandler(const std::string& file, GNEViewNet* viewNet, bool undoDemandElements = true);
+    GNERouteHandler(const std::string& file, GNEViewNet* viewNet, bool undoDemandElements = true);
 
     /// @brief Destructor
-    ~GNEDemandElementHandler();
+    ~GNERouteHandler();
 
 protected:
     /// @brief opens a type distribution for reading

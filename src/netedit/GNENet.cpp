@@ -34,7 +34,7 @@
 #include <netedit/additionals/GNEAdditional.h>
 #include <netedit/additionals/GNEPOI.h>
 #include <netedit/additionals/GNEPoly.h>
-#include <netedit/demandelements/GNEDemandElementHandler.h>
+#include <netedit/demandelements/GNERouteHandler.h>
 #include <netedit/demandelements/GNEDemandElement.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_Connection.h>
@@ -168,7 +168,7 @@ GNENet::~GNENet() {
     // Drop demand elements (Only used for demand elements that were inserted without using GNEChange_DemandElement)
     for (auto it : myAttributeCarriers.demandElements) {
         for (auto j : it.second) {
-            // decrease reference manually (because it was increased manually in GNEDemandElementHandler)
+            // decrease reference manually (because it was increased manually in GNERouteHandler)
             j.second->decRef();
             // show extra information for tests
             WRITE_DEBUG("Deleting unreferenced " + j.second->getTagStr() + " '" + j.second->getID() + "' in GNENet destructor");
@@ -1445,7 +1445,7 @@ GNENet::computeEverything(GNEApplicationWindow* window, bool force, bool volatil
         defaultVehicleType->incRef("GNENet::DEFAULT_VEHTYPE");
         */
         // Create demandElement handler
-        GNEDemandElementHandler demandElementHandler(demandPath, myViewNet, false);
+        GNERouteHandler demandElementHandler(demandPath, myViewNet, false);
         // Run parser
         if (!XMLSubSys::runParser(demandElementHandler, demandPath, false)) {
             WRITE_MESSAGE("Loading of " + demandPath + " failed.");

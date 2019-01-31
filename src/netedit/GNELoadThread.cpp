@@ -266,7 +266,7 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
     oc.doRegister("gui-testing-debug-gl", new Option_Bool(false));
     oc.addDescription("gui-testing-debug-gl", "Visualisation", "Enable output messages during GUI-Testing specific of gl functions");
 
-    // register the simulation settings (needed for GNEDemandElementHandler)
+    // register the simulation settings (needed for GNERouteHandler)
     oc.doRegister("begin", new Option_String("0", "TIME"));
     oc.addDescription("begin", "Time", "Defines the begin time in seconds; The simulation starts at this time");
 
