@@ -1850,7 +1850,7 @@ protected:
     /// @brief the angle in radians (@todo consider moving this into myState)
     double myAngle;
 
-    /// @brief distance to the next stop or -1 if there is none
+    /// @brief distance to the next stop or doubleMax if there is none
     double myStopDist;
 
     /// @brief amount of time for which the vehicle is immune from collisions
