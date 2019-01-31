@@ -32,31 +32,33 @@
 // member method definitions
 // ===========================================================================
 
-
-GNEFlow::GNEFlow(GNEViewNet* viewNet, const std::string &flowID, GNEDemandElement* vehicleType, GNEDemandElement* route, const std::string& vehsPerHour, const std::string& speed,
-        const RGBColor& color, const std::string& departLane, const std::string& departPos, const std::string& departSpeed, const std::string& arrivalLane,
-        const std::string& arrivalPos, const std::string& arrivalSpeed, const std::string& line, int personNumber, int containerNumber, bool reroute,
-        const std::string& departPosLat, const std::string& arrivalPosLat, double begin, double end) :
+GNEFlow::GNEFlow(GNEViewNet* viewNet, const std::string &flowID, GNEDemandElement* vehicleType, GNEDemandElement* route, 
+    double begin, const std::string &end, const std::string &vehsPerHour, const std::string &period, const std::string &probability, int number) : 
     GNEDemandElement(flowID, viewNet, GLO_FLOW, SUMO_TAG_FLOW),
+    SUMOVehicleParameter(),
     myVehicleType(vehicleType),
     myRoute(route),
-    myVehsPerHour(vehsPerHour),
-    mySpeed(speed),
-    myColor(color),
-    myDepartLane(departLane),
-    myDepartPos(departPos),
-    myDepartSpeed(departSpeed),
-    myArrivalLane(arrivalLane),
-    myArrivalPos(arrivalPos),
-    myArrivalSpeed(arrivalSpeed),
-    myLine(line),
-    myPersonNumber(personNumber),
-    myContainerNumber(containerNumber),
-    myReroute(reroute),
-    myDepartPosLat(departPosLat),
-    myArrivalPosLat(arrivalPosLat),
-    myBegin(begin),
-    myEnd(end) {
+    myBegin(begin), 
+    myEnd(end), 
+    myVehsPerHour(vehsPerHour), 
+    myPeriod(period), 
+    myProbability(probability), 
+    myNumber(number) {
+}
+
+
+GNEFlow::GNEFlow(GNEViewNet* viewNet, const SUMOVehicleParameter &flowParameter, GNEDemandElement* vehicleType, GNEDemandElement* route,
+    double begin, const std::string &end, const std::string &vehsPerHour, const std::string &period, const std::string &probability, int number) :
+    GNEDemandElement(flowParameter.id, viewNet, GLO_FLOW, SUMO_TAG_FLOW),
+    SUMOVehicleParameter(flowParameter),
+    myVehicleType(vehicleType),
+    myRoute(route),
+    myBegin(begin), 
+    myEnd(end), 
+    myVehsPerHour(vehsPerHour), 
+    myPeriod(period), 
+    myProbability(probability), 
+    myNumber(number) {
 }
 
 
@@ -108,42 +110,48 @@ GNEFlow::getAttribute(SumoXMLAttr key) const {
             return myVehicleType->getID();
         case SUMO_ATTR_ROUTE:
             return myRoute->getID();
-        case SUMO_ATTR_VEHSPERHOUR:
-            return toString(myVehsPerHour);
-        case SUMO_ATTR_SPEED:
-            return toString(mySpeed);
         case SUMO_ATTR_COLOR:
-            return toString(myColor);
+            return toString(color);
+        case SUMO_ATTR_DEPARTLANE:
+            return getDepartLane();
+        case SUMO_ATTR_DEPARTPOS:
+            return getDepartPos();
+        case SUMO_ATTR_DEPARTSPEED:
+            return getDepartSpeed();
+        case SUMO_ATTR_ARRIVALLANE:
+            return getArrivalLane();
+        case SUMO_ATTR_ARRIVALPOS:
+            return getArrivalPos();
+        case SUMO_ATTR_ARRIVALSPEED:
+            return getArrivalSpeed();
+        case SUMO_ATTR_LINE:
+            return line;
+        case SUMO_ATTR_PERSON_NUMBER:
+            return toString(personNumber);
+        case SUMO_ATTR_CONTAINER_NUMBER:
+            return toString(containerNumber);
+        case SUMO_ATTR_REROUTE:
+            return toString(""); // check
+        case SUMO_ATTR_VIA:
+            return toString(""); // check
+        case SUMO_ATTR_DEPARTPOS_LAT:
+            return getDepartPosLat();
+        case SUMO_ATTR_ARRIVALPOS_LAT:
+            return getArrivalPosLat();
+        // Specific of flows
         case SUMO_ATTR_BEGIN:
             return toString(myBegin);
         case SUMO_ATTR_END:
             return toString(myEnd);
-        case SUMO_ATTR_DEPARTLANE:
-            return myDepartLane;
-        case SUMO_ATTR_DEPARTPOS:
-            return myDepartPos;
-        case SUMO_ATTR_DEPARTSPEED:
-            return myDepartSpeed;
-        case SUMO_ATTR_ARRIVALLANE:
-            return myArrivalLane;
-        case SUMO_ATTR_ARRIVALPOS:
-            return myArrivalPos;
-        case SUMO_ATTR_ARRIVALSPEED:
-            return myArrivalSpeed;
-        case SUMO_ATTR_LINE:
-            return myLine;
-        case SUMO_ATTR_PERSON_NUMBER:
-            return toString(myPersonNumber);
-        case SUMO_ATTR_CONTAINER_NUMBER:
-            return toString(myContainerNumber);
-        case SUMO_ATTR_REROUTE:
-            return toString(myReroute);
-        case SUMO_ATTR_DEPARTPOS_LAT:
-            return myDepartPosLat;
-        case SUMO_ATTR_ARRIVALPOS_LAT:
-            return myArrivalPosLat;
-        case GNE_ATTR_PARENT:
-            return myFirstDemandElementParent->getID();
+        case SUMO_ATTR_VEHSPERHOUR:
+            return toString(myVehsPerHour);
+        case SUMO_ATTR_PERIOD:
+            return toString(myPeriod);
+        case SUMO_ATTR_PROB:
+            return toString(myProbability);
+        case SUMO_ATTR_NUMBER:
+            return toString(myNumber);
+        //
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
         default:
@@ -162,10 +170,6 @@ GNEFlow::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_TYPE:
         case SUMO_ATTR_ROUTE:
         case SUMO_ATTR_COLOR:
-        case SUMO_ATTR_VEHSPERHOUR:
-        case SUMO_ATTR_SPEED:
-        case SUMO_ATTR_BEGIN:
-        case SUMO_ATTR_END:
         case SUMO_ATTR_DEPARTLANE:
         case SUMO_ATTR_DEPARTPOS:
         case SUMO_ATTR_DEPARTSPEED:
@@ -176,8 +180,17 @@ GNEFlow::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_PERSON_NUMBER:
         case SUMO_ATTR_CONTAINER_NUMBER:
         case SUMO_ATTR_REROUTE:
+        case SUMO_ATTR_VIA:
         case SUMO_ATTR_DEPARTPOS_LAT:
         case SUMO_ATTR_ARRIVALPOS_LAT:
+        // Specific of flows
+        case SUMO_ATTR_BEGIN:
+        case SUMO_ATTR_END:
+        case SUMO_ATTR_VEHSPERHOUR:
+        case SUMO_ATTR_PERIOD:
+        case SUMO_ATTR_PROB:
+        case SUMO_ATTR_NUMBER:
+        //
         case GNE_ATTR_GENERIC:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
@@ -189,6 +202,8 @@ GNEFlow::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
 
 bool
 GNEFlow::isValid(SumoXMLAttr key, const std::string& value) {
+    // declare string error
+    std::string error;
     switch (key) {
         case SUMO_ATTR_ID:
             return isValidDemandElementID(value);
@@ -196,74 +211,50 @@ GNEFlow::isValid(SumoXMLAttr key, const std::string& value) {
             return SUMOXMLDefinitions::isValidTypeID(value) && (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, value, false) != nullptr);
         case SUMO_ATTR_ROUTE:
             return SUMOXMLDefinitions::isValidVehicleID(value) && (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_ROUTE, value, false) != nullptr);
-        case SUMO_ATTR_VEHSPERHOUR:
-            if (value.empty()) {
-                // speed and vehsPerHour cannot be empty at the same time
-                if (mySpeed.empty()) {
-                    return false;
-                } else {
-                    return true;
-                }
-            } else if (canParse<double>(value)) {
-                return (parse<double>(value) >= 0);
-            } else {
-                return false;
-            }
-        case SUMO_ATTR_SPEED:
-            if (value.empty()) {
-                // speed and vehsPerHour cannot be empty at the same time
-                if (myVehsPerHour.empty()) {
-                    return false;
-                } else {
-                    return true;
-                }
-            } else if (canParse<double>(value)) {
-                return (parse<double>(value) >= 0);
-            } else {
-                return false;
-            }
         case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
-        case SUMO_ATTR_BEGIN:
-            return canParse<double>(value) && (parse<double>(value) >= 0);
-        case SUMO_ATTR_END:
-            return canParse<double>(value) && (parse<double>(value) >= 0);
-        case SUMO_ATTR_DEPARTLANE:
-            if ((value == "random") || (value == "free") || (value == "allowed") || (value == "best") || (value == "first")) {
-                return true;
-            } else {
-                return (myViewNet->getNet()->retrieveLane(value, false) != nullptr);
-            }
-        case SUMO_ATTR_DEPARTPOS:
-            if ((value == "random") || (value == "free") || (value == "random_free") || (value == "base") || (value == "last")) {
-                return true;
-            } else {
-                return canParse<double>(value);
-            }
-        case SUMO_ATTR_DEPARTSPEED:
-            if ((value == "random") || (value == "max")) {
-                return true;
-            } else {
-                return canParse<double>(value);
-            }
-        case SUMO_ATTR_ARRIVALLANE:
-            if (value == "current") {
-                return true;
-            } else {
-                return (myViewNet->getNet()->retrieveLane(value, false) != nullptr);
-            }
-        case SUMO_ATTR_ARRIVALPOS:
-            if ((value == "random") || (value == "max")) {
-                return true;
-            } else {
-                return canParse<double>(value);
-            }
-        case SUMO_ATTR_ARRIVALSPEED:
-            if (value == "current") {
-                return true;
-            } else {
-                return canParse<double>(value);
-            }
+        case SUMO_ATTR_DEPARTLANE: {
+            int dummyDepartLane;
+            DepartLaneDefinition dummyDepartLaneProcedure;
+            parseDepartLane(value, toString(SUMO_TAG_VEHICLE), id, dummyDepartLane, dummyDepartLaneProcedure, error); 
+            // if error is empty, given value is valid
+            return error.empty();
+        }
+        case SUMO_ATTR_DEPARTPOS: {
+            double dummyDepartPos;
+            DepartPosDefinition dummyDepartPosProcedure;
+            parseDepartPos(value, toString(SUMO_TAG_VEHICLE), id, dummyDepartPos, dummyDepartPosProcedure, error);
+            // if error is empty, given value is valid
+            return error.empty();
+        }
+        case SUMO_ATTR_DEPARTSPEED: {
+            double dummyDepartSpeed;
+            DepartSpeedDefinition dummyDepartSpeedProcedure;
+            parseDepartSpeed(value, toString(SUMO_TAG_VEHICLE), id, dummyDepartSpeed, dummyDepartSpeedProcedure, error);
+            // if error is empty, given value is valid
+            return error.empty();
+        }
+        case SUMO_ATTR_ARRIVALLANE: {
+            int dummyArrivalLane;
+            ArrivalLaneDefinition dummyArrivalLaneProcedure;
+            parseArrivalLane(value, toString(SUMO_TAG_VEHICLE), id, dummyArrivalLane, dummyArrivalLaneProcedure, error);
+            // if error is empty, given value is valid
+            return error.empty();
+        }
+        case SUMO_ATTR_ARRIVALPOS: {
+            double dummyArrivalPos;
+            ArrivalPosDefinition dummyArrivalPosProcedure;
+            parseArrivalPos(value, toString(SUMO_TAG_VEHICLE), id, dummyArrivalPos, dummyArrivalPosProcedure, error);
+            // if error is empty, given value is valid
+            return error.empty();
+        }
+        case SUMO_ATTR_ARRIVALSPEED: {
+            double dummyArrivalSpeed;
+            ArrivalSpeedDefinition dummyArrivalSpeedProcedure;
+            parseArrivalSpeed(value, toString(SUMO_TAG_VEHICLE), id, dummyArrivalSpeed, dummyArrivalSpeedProcedure, error);
+            // if error is empty, given value is valid
+            return error.empty();
+        }
         case SUMO_ATTR_LINE:
             return true;
         case SUMO_ATTR_PERSON_NUMBER:
@@ -271,11 +262,69 @@ GNEFlow::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_CONTAINER_NUMBER:
             return canParse<int>(value) && parse<int>(value) >= 0;
         case SUMO_ATTR_REROUTE:
-            return canParse<bool>(value);
-        case SUMO_ATTR_DEPARTPOS_LAT:
-            return SUMOXMLDefinitions::LateralAlignments.hasString(value);
-        case SUMO_ATTR_ARRIVALPOS_LAT:
-            return SUMOXMLDefinitions::LateralAlignments.hasString(value);
+            return true;    // check
+        case SUMO_ATTR_VIA:
+            return true;    // check
+        case SUMO_ATTR_DEPARTPOS_LAT: {
+            double dummyDepartPosLat;
+            DepartPosLatDefinition dummyDepartPosLatProcedure;
+            parseDepartPosLat(value, toString(SUMO_TAG_VEHICLE), id, dummyDepartPosLat, dummyDepartPosLatProcedure, error);
+            // if error is empty, given value is valid
+            return error.empty();
+        }
+        case SUMO_ATTR_ARRIVALPOS_LAT: {
+            double dummyArrivalPosLat;
+            ArrivalPosLatDefinition dummyArrivalPosLatProcedure;
+            parseArrivalPosLat(value, toString(SUMO_TAG_VEHICLE), id, dummyArrivalPosLat, dummyArrivalPosLatProcedure, error);
+            // if error is empty, given value is valid
+            return error.empty();
+        }
+        // Specific of flows
+        case SUMO_ATTR_BEGIN:
+            if (canParse<double>(value)) {
+                return (parse<double>(value) >= 0);
+            } else {
+                return false;
+            }
+        case SUMO_ATTR_END:
+            if (value.empty()) {
+                return true;
+            } else if (canParse<double>(value)) {
+                return (parse<double>(value) >= 0);
+            } else {
+                return false;
+            }
+        case SUMO_ATTR_VEHSPERHOUR:
+            if (value.empty()) {
+                return true;
+            } else if (canParse<double>(value)) {
+                return (parse<double>(value) >= 0);
+            } else {
+                return false;
+            }
+        case SUMO_ATTR_PERIOD:
+            if (value.empty()) {
+                return true;
+            } else if (canParse<double>(value)) {
+                return (parse<double>(value) >= 0);
+            } else {
+                return false;
+            }
+        case SUMO_ATTR_PROB:
+            if (value.empty()) {
+                return true;
+            } else if (canParse<double>(value)) {
+                return (parse<double>(value) >= 0);
+            } else {
+                return false;
+            }
+        case SUMO_ATTR_NUMBER:
+             if (canParse<int>(value)) {
+                return (parse<int>(value) >= 0);
+            } else {
+                return false;
+            }
+        //
         case GNE_ATTR_GENERIC:
             return isGenericParametersValid(value);
         default:
@@ -301,6 +350,8 @@ GNEFlow::getHierarchyName() const {
 
 void
 GNEFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
+    // declare string error
+    std::string error;
     switch (key) {
         case SUMO_ATTR_ID:
             changeDemandElementID(value);
@@ -311,57 +362,68 @@ GNEFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ROUTE:
             myRoute = myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_ROUTE, value);
             break;
-        case SUMO_ATTR_VEHSPERHOUR:
-            myVehsPerHour = value;
-            break;
-        case SUMO_ATTR_SPEED:
-            mySpeed = value;
-            break;
         case SUMO_ATTR_COLOR:
-            myColor = parse<RGBColor>(value);
+            color = parse<RGBColor>(value);
+            break;  
+        case SUMO_ATTR_DEPARTLANE:
+            parseDepartLane(value, toString(SUMO_TAG_VEHICLE), id, departLane, departLaneProcedure, error); 
+            break;       
+        case SUMO_ATTR_DEPARTPOS:
+            parseDepartPos(value, toString(SUMO_TAG_VEHICLE), id, departPos, departPosProcedure, error);
             break;
+        case SUMO_ATTR_DEPARTSPEED:
+            parseDepartSpeed(value, toString(SUMO_TAG_VEHICLE), id, departSpeed, departSpeedProcedure, error);
+            break;
+        case SUMO_ATTR_ARRIVALLANE:
+            parseArrivalLane(value, toString(SUMO_TAG_VEHICLE), id, arrivalLane, arrivalLaneProcedure, error);
+            break;
+        case SUMO_ATTR_ARRIVALPOS:
+            parseArrivalPos(value, toString(SUMO_TAG_VEHICLE), id, arrivalPos, arrivalPosProcedure, error);
+            break;
+        case SUMO_ATTR_ARRIVALSPEED:
+            parseArrivalSpeed(value, toString(SUMO_TAG_VEHICLE), id, arrivalSpeed, arrivalSpeedProcedure, error);
+            break;
+        case SUMO_ATTR_LINE:
+            line = value;
+            break;
+        case SUMO_ATTR_PERSON_NUMBER:
+            personNumber = parse<int>(value);
+            break;
+        case SUMO_ATTR_CONTAINER_NUMBER:
+            containerNumber = parse<int>(value);
+            break;
+        case SUMO_ATTR_REROUTE:
+            // check
+            break;
+        case SUMO_ATTR_VIA:
+            // check
+            break;
+        case SUMO_ATTR_DEPARTPOS_LAT:
+            parseDepartPosLat(value, toString(SUMO_TAG_VEHICLE), id, departPosLat, departPosLatProcedure, error);
+            break;
+        case SUMO_ATTR_ARRIVALPOS_LAT:
+            parseArrivalPosLat(value, toString(SUMO_TAG_VEHICLE), id, arrivalPosLat, arrivalPosLatProcedure, error);
+            break;
+        // Specific of flows
         case SUMO_ATTR_BEGIN:
             myBegin = parse<double>(value);
             break;
         case SUMO_ATTR_END:
-            myEnd = parse<double>(value);
+            myEnd = value;
             break;
-        case SUMO_ATTR_DEPARTLANE:
-            myDepartLane = value;
+        case SUMO_ATTR_VEHSPERHOUR:
+            myVehsPerHour = value;
             break;
-        case SUMO_ATTR_DEPARTPOS:
-            myDepartPos = value;
+        case SUMO_ATTR_PERIOD:
+            myProbability = value;
             break;
-        case SUMO_ATTR_DEPARTSPEED:
-            myDepartSpeed = value;
+        case SUMO_ATTR_PROB:
+            myProbability = value;
             break;
-        case SUMO_ATTR_ARRIVALLANE:
-            myArrivalLane = value;
+        case SUMO_ATTR_NUMBER:
+            myNumber = parse<int>(value);
             break;
-        case SUMO_ATTR_ARRIVALPOS:
-            myArrivalPos = value;
-            break;
-        case SUMO_ATTR_ARRIVALSPEED:
-            myArrivalSpeed = value;
-            break;
-        case SUMO_ATTR_LINE:
-            myLine = value;
-            break;
-        case SUMO_ATTR_PERSON_NUMBER:
-            myPersonNumber = parse<int>(value);
-            break;
-        case SUMO_ATTR_CONTAINER_NUMBER:
-            myContainerNumber = parse<int>(value);
-            break;
-        case SUMO_ATTR_REROUTE:
-            myReroute = parse<bool>(value);
-            break;
-        case SUMO_ATTR_DEPARTPOS_LAT:
-            myDepartPosLat = value;
-            break;
-        case SUMO_ATTR_ARRIVALPOS_LAT:
-            myArrivalPosLat = value;
-            break;
+        //
         case GNE_ATTR_GENERIC:
             setGenericParametersStr(value);
             break;

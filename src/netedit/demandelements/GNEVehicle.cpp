@@ -101,8 +101,6 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
             return myRoute->getID();
         case SUMO_ATTR_COLOR:
             return toString(color);
-        case SUMO_ATTR_DEPART:
-            return toString(depart);
         case SUMO_ATTR_DEPARTLANE:
             return getDepartLane();
         case SUMO_ATTR_DEPARTPOS:
@@ -129,6 +127,10 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
             return getDepartPosLat();
         case SUMO_ATTR_ARRIVALPOS_LAT:
             return getArrivalPosLat();
+        // Specific of vehicles
+        case SUMO_ATTR_DEPART:
+            return toString(depart);
+        //
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
         default:
@@ -147,7 +149,6 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList*
         case SUMO_ATTR_TYPE:
         case SUMO_ATTR_ROUTE:
         case SUMO_ATTR_COLOR:
-        case SUMO_ATTR_DEPART:
         case SUMO_ATTR_DEPARTLANE:
         case SUMO_ATTR_DEPARTPOS:
         case SUMO_ATTR_DEPARTSPEED:
@@ -161,6 +162,9 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList*
         case SUMO_ATTR_VIA:
         case SUMO_ATTR_DEPARTPOS_LAT:
         case SUMO_ATTR_ARRIVALPOS_LAT:
+        // Specific of vehicles
+        case SUMO_ATTR_DEPART:
+        //
         case GNE_ATTR_GENERIC:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
@@ -183,13 +187,6 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
             return SUMOXMLDefinitions::isValidVehicleID(value) && (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_ROUTE, value, false) != nullptr);
         case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
-        case SUMO_ATTR_DEPART: {
-            SUMOTime dummyDepart;
-            DepartDefinition dummyDepartProcedure;
-            parseDepart(value, toString(SUMO_TAG_VEHICLE), id, dummyDepart, dummyDepartProcedure, error);
-            // if error is empty, given value is valid
-            return error.empty();
-        }
         case SUMO_ATTR_DEPARTLANE: {
             int dummyDepartLane;
             DepartLaneDefinition dummyDepartLaneProcedure;
@@ -256,6 +253,15 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
             // if error is empty, given value is valid
             return error.empty();
         }
+        // Specific of vehicles
+        case SUMO_ATTR_DEPART: {
+            SUMOTime dummyDepart;
+            DepartDefinition dummyDepartProcedure;
+            parseDepart(value, toString(SUMO_TAG_VEHICLE), id, dummyDepart, dummyDepartProcedure, error);
+            // if error is empty, given value is valid
+            return error.empty();
+        }
+        //
         case GNE_ATTR_GENERIC:
             return isGenericParametersValid(value);
         default:
@@ -299,9 +305,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_COLOR:
             color = parse<RGBColor>(value);
             break;
-        case SUMO_ATTR_DEPART:
-            parseDepart(value, toString(SUMO_TAG_VEHICLE), id, depart, departProcedure, error);
-            break;       
+
         case SUMO_ATTR_DEPARTLANE:
             parseDepartLane(value, toString(SUMO_TAG_VEHICLE), id, departLane, departLaneProcedure, error); 
             break;       
@@ -340,7 +344,12 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_ARRIVALPOS_LAT:
             parseArrivalPosLat(value, toString(SUMO_TAG_VEHICLE), id, arrivalPosLat, arrivalPosLatProcedure, error);
-            break;
+            break;        
+        // Specific of vehicles
+        case SUMO_ATTR_DEPART:
+            parseDepart(value, toString(SUMO_TAG_VEHICLE), id, depart, departProcedure, error);
+            break;     
+        //
         case GNE_ATTR_GENERIC:
             setGenericParametersStr(value);
             break;
