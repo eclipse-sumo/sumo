@@ -1346,15 +1346,17 @@ private:
         /// @brief enum of possible directions
         enum Direction { DIR_RIGHTMOST, DIR_LEFTMOST, DIR_FORWARD };
 
-        /// @brief list of the main direction within the following junction relative to the edge
-        std::vector<Direction> myDirs;
-
     public:
         /// @brief constructor
-        MainDirections(const EdgeVector& outgoing, NBEdge* parent, NBNode* to, int indexOfStraightest);
+        MainDirections(const EdgeVector& outgoing, NBEdge* parent, NBNode* to, const std::vector<int>& availableLanes);
 
         /// @brief destructor
         ~MainDirections();
+
+        /// @brief returns the index of the straightmost among the given outgoing edges
+        int getStraightest() const {
+            return myStraightest;
+        }
 
         /// @brief returns the information whether no following street has a higher priority
         bool empty() const;
@@ -1363,6 +1365,12 @@ private:
         bool includes(Direction d) const;
 
     private:
+        /// @brief the index of the straightmost among the given outgoing edges
+        int myStraightest;
+
+        /// @brief list of the main direction within the following junction relative to the edge
+        std::vector<Direction> myDirs;
+
         /// @brief Invalidated copy constructor.
         MainDirections(const MainDirections&);
 
@@ -1399,13 +1407,13 @@ private:
     void divideOnEdges(const EdgeVector* outgoing);
 
     /// @brief divide selected lanes on edges
-    void divideSelectedLanesOnEdges(const EdgeVector* outgoing, const std::vector<int>& availableLanes, const std::vector<int>* priorities);
+    void divideSelectedLanesOnEdges(const EdgeVector* outgoing, const std::vector<int>& availableLanes);
 
     /// @brief add some straight connections
-    void addStraightConnections(const EdgeVector* outgoing, const std::vector<int>& availableLanes, const std::vector<int>* priorities);
+    void addStraightConnections(const EdgeVector* outgoing, const std::vector<int>& availableLanes, const std::vector<int>& priorities);
 
     /// @brief recomputes the edge priorities and manipulates them for a distribution of lanes on edges which is more like in real-life
-    std::vector<int>* prepareEdgePriorities(const EdgeVector* outgoing);
+    const std::vector<int> prepareEdgePriorities(const EdgeVector* outgoing, const std::vector<int>& availableLanes);
 
     /// @name Setting and getting connections
     /// @{

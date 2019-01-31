@@ -222,7 +222,7 @@ public:
             : myAngle(e->getShapeEndAngle()) {}
 
         /// comparing operation
-        int operator()(NBEdge* e1, NBEdge* e2) const {
+        int operator()(const NBEdge* e1, const NBEdge* e2) const {
             const double d1 = angleDiff(e1->getShapeStartAngle(), myAngle);
             const double d2 = angleDiff(e2->getShapeStartAngle(), myAngle);
             if (fabs(fabs(d1) - fabs(d2)) < NUMERICAL_EPS) {

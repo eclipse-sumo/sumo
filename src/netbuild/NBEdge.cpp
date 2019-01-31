@@ -173,17 +173,31 @@ NBEdge::ToEdgeConnectionsAdder::execute(const int lane, const int virtEdge) {
 /* -------------------------------------------------------------------------
  * NBEdge::MainDirections-methods
  * ----------------------------------------------------------------------- */
-NBEdge::MainDirections::MainDirections(const EdgeVector& outgoing,
-                                       NBEdge* parent, NBNode* to, int indexOfStraightest) {
-    if (outgoing.size() == 0) {
+NBEdge::MainDirections::MainDirections(const EdgeVector& outgoing, NBEdge* parent, NBNode* to, const std::vector<int>& availableLanes) : myStraightest(-1) {
+    NBContHelper::edge_similar_direction_sorter sorter(parent);
+    const NBEdge* straight = nullptr;
+    for (const NBEdge* const out : outgoing) {
+        const int outPerms = out->getPermissions();
+        for (const int l : availableLanes) {
+            if ((parent->myLanes[l].permissions & outPerms) != 0) {
+                if (straight == nullptr || sorter(out, straight)) {
+                    straight = out;
+                }
+                break;
+            }
+        }
+    }
+    if (straight == nullptr) {
         return;
     }
+    myStraightest = (int)std::distance(outgoing.begin(), std::find(outgoing.begin(), outgoing.end(), straight));
+
     // check whether the right turn has a higher priority
     assert(outgoing.size() > 0);
-    const LinkDirection straightestDir = to->getDirection(parent, outgoing[indexOfStraightest]);
+    const LinkDirection straightestDir = to->getDirection(parent, straight);
 #ifdef DEBUG_CONNECTION_GUESSING
     if (DEBUGCOND2(parent)) {
-        std::cout << " MainDirections edge=" << parent->getID() << " straightest=" << outgoing[indexOfStraightest]->getID() << " dir=" << toString(straightestDir) << "\n";
+        std::cout << " MainDirections edge=" << parent->getID() << " straightest=" << straight->getID() << " dir=" << toString(straightestDir) << "\n";
     }
 #endif
     if (NBNode::isTrafficLight(to->getType()) &&
@@ -199,23 +213,17 @@ NBEdge::MainDirections::MainDirections(const EdgeVector& outgoing,
         // ok, the left turn belongs to the higher priorised edges on the junction
         //  let's check, whether it has also a higher priority (lane number/speed)
         //  than the current
-        EdgeVector tmp(outgoing);
-        sort(tmp.begin(), tmp.end(), NBContHelper::edge_similar_direction_sorter(parent));
-        if (outgoing.back()->getPriority() > tmp[0]->getPriority()) {
+        if (outgoing.back()->getPriority() > straight->getPriority()) {
             myDirs.push_back(MainDirections::DIR_LEFTMOST);
         } else {
-            if (outgoing.back()->getNumLanes() > tmp[0]->getNumLanes()) {
+            if (outgoing.back()->getNumLanes() > straight->getNumLanes()) {
                 myDirs.push_back(MainDirections::DIR_LEFTMOST);
             }
         }
     }
     // check whether the forward direction has a higher priority
-    //  try to get the forward direction
-    EdgeVector tmp(outgoing);
-    sort(tmp.begin(), tmp.end(), NBContHelper::edge_similar_direction_sorter(parent));
-    NBEdge* edge = *(tmp.begin());
     // check whether it has a higher priority and is going straight
-    if (edge->getJunctionPriority(to) == 1 && to->getDirection(parent, edge) == LINKDIR_STRAIGHT) {
+    if (straight->getJunctionPriority(to) == 1 && to->getDirection(parent, straight) == LINKDIR_STRAIGHT) {
         myDirs.push_back(MainDirections::DIR_FORWARD);
     }
 }
@@ -2264,16 +2272,10 @@ NBEdge::divideOnEdges(const EdgeVector* outgoing) {
         myConnections.clear();
         return;
     }
-    // precompute edge priorities; needed as some kind of assumptions for
-    //  priorities of directions (see preparePriorities)
-    std::vector<int>* priorities = prepareEdgePriorities(outgoing);
-    // compute the indices of lanes that should have connections (excluding
-    // forbidden lanes and pedestrian lanes that will be connected via walkingAreas)
-
 
 #ifdef DEBUG_CONNECTION_GUESSING
     if (DEBUGCOND) {
-        std::cout << " divideOnEdges " << getID() << " outgoing=" << toString(*outgoing) << " prios=" << toString(*priorities) << "\n";
+        std::cout << " divideOnEdges " << getID() << " outgoing=" << toString(*outgoing) << "\n";
     }
 #endif
 
@@ -2285,7 +2287,7 @@ NBEdge::divideOnEdges(const EdgeVector* outgoing) {
         }
     }
     if (availableLanes.size() > 0) {
-        divideSelectedLanesOnEdges(outgoing, availableLanes, priorities);
+        divideSelectedLanesOnEdges(outgoing, availableLanes);
     }
     // build connections for miscellaneous further modes (more than bike,peds,bus and without passenger)
     availableLanes.clear();
@@ -2297,7 +2299,7 @@ NBEdge::divideOnEdges(const EdgeVector* outgoing) {
         availableLanes.push_back(i);
     }
     if (availableLanes.size() > 0) {
-        divideSelectedLanesOnEdges(outgoing, availableLanes, priorities);
+        divideSelectedLanesOnEdges(outgoing, availableLanes);
     }
     // build connections for busses (possibly combined with bicycles)
     availableLanes.clear();
@@ -2309,7 +2311,7 @@ NBEdge::divideOnEdges(const EdgeVector* outgoing) {
         availableLanes.push_back(i);
     }
     if (availableLanes.size() > 0) {
-        divideSelectedLanesOnEdges(outgoing, availableLanes, priorities);
+        divideSelectedLanesOnEdges(outgoing, availableLanes);
     }
     // build connections for bicycles (possibly combined with pedestrians)
     availableLanes.clear();
@@ -2321,7 +2323,7 @@ NBEdge::divideOnEdges(const EdgeVector* outgoing) {
         availableLanes.push_back(i);
     }
     if (availableLanes.size() > 0) {
-        divideSelectedLanesOnEdges(outgoing, availableLanes, priorities);
+        divideSelectedLanesOnEdges(outgoing, availableLanes);
     }
     // clean up unassigned fromLanes
     for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end();) {
@@ -2332,14 +2334,20 @@ NBEdge::divideOnEdges(const EdgeVector* outgoing) {
         }
     }
     sortOutgoingConnectionsByIndex();
-
-    delete priorities;
 }
 
 
 void
-NBEdge::divideSelectedLanesOnEdges(const EdgeVector* outgoing, const std::vector<int>& availableLanes, const std::vector<int>* priorities) {
-    //std::cout << "divideSelectedLanesOnEdges " << getID() << " out=" << toString(*outgoing) << " prios=" << toString(*priorities) << " avail=" << toString(availableLanes) << "\n";
+NBEdge::divideSelectedLanesOnEdges(const EdgeVector* outgoing, const std::vector<int>& availableLanes) {
+    const std::vector<int>& priorities = prepareEdgePriorities(outgoing, availableLanes);
+    if (priorities.empty()) {
+        return;
+    }
+#ifdef DEBUG_CONNECTION_GUESSING
+    if (DEBUGCOND) {
+        std::cout << "divideSelectedLanesOnEdges " << getID() << " out=" << toString(*outgoing) << " prios=" << toString(priorities) << " avail=" << toString(availableLanes) << "\n";
+    }
+#endif
     // compute the resulting number of lanes that should be used to reach the following edge
     const int numOutgoing = (int)outgoing->size();
     std::vector<int> resultingLanesFactor;
@@ -2347,7 +2355,7 @@ NBEdge::divideSelectedLanesOnEdges(const EdgeVector* outgoing, const std::vector
     int minResulting = std::numeric_limits<int>::max();
     for (int i = 0; i < numOutgoing; i++) {
         // res / minResulting will be the number of lanes which are meant to reach the current outgoing edge
-        const int res = (*priorities)[i] * (int)availableLanes.size();
+        const int res = priorities[i] * (int)availableLanes.size();
         resultingLanesFactor.push_back(res);
         if (minResulting > res && res > 0) {
             // prevent minResulting from becoming 0
@@ -2436,7 +2444,7 @@ NBEdge::divideSelectedLanesOnEdges(const EdgeVector* outgoing, const std::vector
 
 
 void
-NBEdge::addStraightConnections(const EdgeVector* outgoing, const std::vector<int>& availableLanes, const std::vector<int>* priorities) {
+NBEdge::addStraightConnections(const EdgeVector* outgoing, const std::vector<int>& availableLanes, const std::vector<int>& priorities) {
     // ensure sufficient straight connections for the (highest-priority) straight target
     const int numOutgoing = (int) outgoing->size();
     NBEdge* target = nullptr;
@@ -2444,10 +2452,10 @@ NBEdge::addStraightConnections(const EdgeVector* outgoing, const std::vector<int
     NBEdge* leftOfTarget = nullptr;
     int maxPrio = 0;
     for (int i = 0; i < numOutgoing; i++) {
-        if (maxPrio < (*priorities)[i]) {
+        if (maxPrio < priorities[i]) {
             const LinkDirection dir = myTo->getDirection(this, (*outgoing)[i]);
             if (dir == LINKDIR_STRAIGHT) {
-                maxPrio = (*priorities)[i];
+                maxPrio = priorities[i];
                 target = (*outgoing)[i];
                 rightOfTarget = i == 0 ? outgoing->back() : (*outgoing)[i - 1];
                 leftOfTarget = i + 1 == numOutgoing ? outgoing->front() : (*outgoing)[i + 1];
@@ -2517,45 +2525,38 @@ NBEdge::addStraightConnections(const EdgeVector* outgoing, const std::vector<int
 }
 
 
-std::vector<int>*
-NBEdge::prepareEdgePriorities(const EdgeVector* outgoing) {
-    // copy the priorities first
-    std::vector<int>* priorities = new std::vector<int>();
-    if (outgoing->size() == 0) {
+const std::vector<int>
+NBEdge::prepareEdgePriorities(const EdgeVector* outgoing, const std::vector<int>& availableLanes) {
+    std::vector<int> priorities;
+    MainDirections mainDirections(*outgoing, this, myTo, availableLanes);
+    const int dist = mainDirections.getStraightest();
+    if (dist == -1) {
         return priorities;
     }
-    priorities->reserve(outgoing->size());
-    EdgeVector::const_iterator i;
-    for (i = outgoing->begin(); i != outgoing->end(); i++) {
-        //int prio = (*i)->getJunctionPriority(myTo);
-        int prio = NBNode::isTrafficLight(myTo->getType()) ? 0 : (*i)->getJunctionPriority(myTo);
+    // copy the priorities first
+    priorities.reserve(outgoing->size());
+    for (const NBEdge* const out : *outgoing) {
+        int prio = NBNode::isTrafficLight(myTo->getType()) ? 0 : out->getJunctionPriority(myTo);
         assert((prio + 1) * 2 > 0);
         prio = (prio + 1) * 2;
-        priorities->push_back(prio);
+        priorities.push_back(prio);
     }
     // when the right turning direction has not a higher priority, divide
     //  the importance by 2 due to the possibility to leave the junction
     //  faster from this lane
-    EdgeVector tmp(*outgoing);
-    sort(tmp.begin(), tmp.end(), NBContHelper::edge_similar_direction_sorter(this));
-    i = std::find(outgoing->begin(), outgoing->end(), *(tmp.begin()));
-    int dist = (int) distance(outgoing->begin(), i);
-    MainDirections mainDirections(*outgoing, this, myTo, dist);
 #ifdef DEBUG_CONNECTION_GUESSING
     if (DEBUGCOND) std::cout << "  prepareEdgePriorities " << getID()
                                  << " outgoing=" << toString(*outgoing)
-                                 << " priorities1=" << toString(*priorities)
-                                 << " tmp=" << toString(tmp)
-                                 << " mainDirs=" << toString(mainDirections.myDirs)
+                                 << " priorities1=" << toString(priorities)
                                  << " dist=" << dist
                                  << "\n";
 #endif
     if (dist != 0 && !mainDirections.includes(MainDirections::DIR_RIGHTMOST)) {
-        assert(priorities->size() > 0);
-        (*priorities)[0] /= 2;
+        assert(priorities.size() > 0);
+        priorities[0] /= 2;
 #ifdef DEBUG_CONNECTION_GUESSING
         if (DEBUGCOND) {
-            std::cout << "   priorities2=" << toString(*priorities) << "\n";
+            std::cout << "   priorities2=" << toString(priorities) << "\n";
         }
 #endif
     }
@@ -2563,46 +2564,45 @@ NBEdge::prepareEdgePriorities(const EdgeVector* outgoing) {
     // when no higher priority exists, let the forward direction be
     //  the main direction
     if (mainDirections.empty()) {
-        assert(dist < (int)priorities->size());
-        (*priorities)[dist] *= 2;
+        assert(dist < (int)priorities.size());
+        priorities[dist] *= 2;
 #ifdef DEBUG_CONNECTION_GUESSING
         if (DEBUGCOND) {
-            std::cout << "   priorities3=" << toString(*priorities) << "\n";
+            std::cout << "   priorities3=" << toString(priorities) << "\n";
         }
 #endif
     }
     if (NBNode::isTrafficLight(myTo->getType())) {
-        (*priorities)[dist] += 1;
+        priorities[dist] += 1;
     } else {
         // try to ensure separation of left turns
         if (mainDirections.includes(MainDirections::DIR_RIGHTMOST) && mainDirections.includes(MainDirections::DIR_LEFTMOST)) {
-            (*priorities)[0] /= 4;
-            (*priorities)[(int)priorities->size() - 1] /= 2;
+            priorities[0] /= 4;
+            priorities[(int)priorities.size() - 1] /= 2;
 #ifdef DEBUG_CONNECTION_GUESSING
             if (DEBUGCOND) {
-                std::cout << "   priorities6=" << toString(*priorities) << "\n";
+                std::cout << "   priorities6=" << toString(priorities) << "\n";
             }
 #endif
         }
     }
     if (mainDirections.includes(MainDirections::DIR_FORWARD)) {
         if (myLanes.size() > 2) {
-            (*priorities)[dist] *= 2;
+            priorities[dist] *= 2;
 #ifdef DEBUG_CONNECTION_GUESSING
             if (DEBUGCOND) {
-                std::cout << "   priorities4=" << toString(*priorities) << "\n";
+                std::cout << "   priorities4=" << toString(priorities) << "\n";
             }
 #endif
         } else {
-            (*priorities)[dist] *= 3;
+            priorities[dist] *= 3;
 #ifdef DEBUG_CONNECTION_GUESSING
             if (DEBUGCOND) {
-                std::cout << "   priorities5=" << toString(*priorities) << "\n";
+                std::cout << "   priorities5=" << toString(priorities) << "\n";
             }
 #endif
         }
     }
-    // return
     return priorities;
 }
 
