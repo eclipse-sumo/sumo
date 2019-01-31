@@ -22,9 +22,11 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/demandelements/GNEDemandElement.h>
+#include <netedit/frames/GNESelectorFrame.h>
 #include <netedit/netelements/GNEEdge.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
 
 #include "GNETrip.h"
 
@@ -87,6 +89,37 @@ GNETrip::getParentName() const {
 void
 GNETrip::drawGL(const GUIVisualizationSettings& /* s */) const {
     // Currently This demand element isn't drawn
+}
+
+
+void
+GNETrip::selectAttributeCarrier(bool changeFlag) {
+    if (!myViewNet) {
+        throw ProcessError("ViewNet cannot be nullptr");
+    } else {
+        gSelected.select(dynamic_cast<GUIGlObject*>(this)->getGlID());
+        // add object of list into selected objects
+        myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->addedLockedObject(GLO_FLOW);
+        if (changeFlag) {
+            mySelected = true;
+        }
+    }
+}
+
+
+void
+GNETrip::unselectAttributeCarrier(bool changeFlag) {
+    if (!myViewNet) {
+        throw ProcessError("ViewNet cannot be nullptr");
+    } else {
+        gSelected.deselect(dynamic_cast<GUIGlObject*>(this)->getGlID());
+        // remove object of list of selected objects
+        myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->removeLockedObject(GLO_FLOW);
+        if (changeFlag) {
+            mySelected = false;
+
+        }
+    }
 }
 
 

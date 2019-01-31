@@ -80,6 +80,12 @@ public:
 
     /// @brief inherited from GNEAttributeCarrier
     /// @{
+    /// @brief select attribute carrier using GUIGlobalSelection
+    void selectAttributeCarrier(bool changeFlag = true);
+
+    /// @brief unselect attribute carrier using GUIGlobalSelection
+    void unselectAttributeCarrier(bool changeFlag = true);
+
     /* @brief method for getting the Attribute of an XML key
     * @param[in] key The attribute key
     * @return string with the value associated to key

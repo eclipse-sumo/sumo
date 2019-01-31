@@ -22,8 +22,10 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/demandelements/GNEDemandElement.h>
+#include <netedit/frames/GNESelectorFrame.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
 
 #include "GNEVehicle.h"
 
@@ -85,6 +87,37 @@ GNEVehicle::getParentName() const {
 void
 GNEVehicle::drawGL(const GUIVisualizationSettings& /* s */) const {
     // Currently This demand element isn't drawn
+}
+
+
+void
+GNEVehicle::selectAttributeCarrier(bool changeFlag) {
+    if (!myViewNet) {
+        throw ProcessError("ViewNet cannot be nullptr");
+    } else {
+        gSelected.select(dynamic_cast<GUIGlObject*>(this)->getGlID());
+        // add object of list into selected objects
+        myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->addedLockedObject(GLO_VEHICLE);
+        if (changeFlag) {
+            mySelected = true;
+        }
+    }
+}
+
+
+void
+GNEVehicle::unselectAttributeCarrier(bool changeFlag) {
+    if (!myViewNet) {
+        throw ProcessError("ViewNet cannot be nullptr");
+    } else {
+        gSelected.deselect(dynamic_cast<GUIGlObject*>(this)->getGlID());
+        // remove object of list of selected objects
+        myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->removeLockedObject(GLO_VEHICLE);
+        if (changeFlag) {
+            mySelected = false;
+
+        }
+    }
 }
 
 
@@ -294,7 +327,6 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeDemandElementID(value);
             break;
         case SUMO_ATTR_TYPE:
-            // update 
             vtypeid = value;
             myVehicleType = myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, value);
             break;
@@ -305,7 +337,6 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_COLOR:
             color = parse<RGBColor>(value);
             break;
-
         case SUMO_ATTR_DEPARTLANE:
             parseDepartLane(value, toString(SUMO_TAG_VEHICLE), id, departLane, departLaneProcedure, error); 
             break;       
