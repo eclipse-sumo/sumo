@@ -1343,6 +1343,8 @@ GNEAttributeCarrier::fillNetElements() {
                 ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE,
                 "Move the stop line back from the intersection by the given amount");
                 attrProperty.setDefaultValue("0");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
         attrProperty = AttributeProperties(GNE_ATTR_SHAPE_START,
                 ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_DEFAULTVALUE, // virtual attribute used to define an endPoint
                 "Custom position in which shape start (by default position of junction from)");
