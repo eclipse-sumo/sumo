@@ -125,6 +125,8 @@ MSVehicleTransfer::checkInsertions(SUMOTime time) {
                 desc.myVeh->getLane()->removeParking(desc.myVeh);
                 i = vehInfos.erase(i);
             } else {
+                // blocked from entering the road
+                desc.myVeh->switchOnSignal(MSNet::getInstance()->lefthand() ? MSVehicle::VEH_SIGNAL_BLINKER_RIGHT : MSVehicle::VEH_SIGNAL_BLINKER_LEFT);
                 i++;
             }
         } else {
