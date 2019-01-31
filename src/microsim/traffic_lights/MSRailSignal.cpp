@@ -80,6 +80,9 @@ MSRailSignal::init(NLDetectorBuilder&) {
 
     myConflictLanes.resize(myLinks.size());
     myConflictLinks.resize(myLinks.size());
+    myRouteConflictLanes.resize(myLinks.size());
+    myRouteConflictLinks.resize(myLinks.size());
+
     myLastRerouteAttempt.resize(myLinks.size(), std::make_pair(nullptr, -1));
 
     if (OptionsCont::getOptions().isSet("railsignal-block-output")) {
@@ -110,6 +113,15 @@ MSRailSignal::init(NLDetectorBuilder&) {
         //   until controlled railSignal link found
         //   -> add all found lanes
         //   -> add final links
+        //
+        // conditionalBlocks
+        // - for each conflict link (always signalized) that enters from a
+        // bidirectional track
+        //   - search bidi backward recursive until first switch that is
+        //   accessible from the bidi-direction
+        //     - from switch search bidi backward recursive until controlled rail signal link
+        //       -> add all found lanes
+        //       -> add final links
 
         std::vector<MSLane*> conflictLanes;
         std::vector<MSLink*> conflictLinks;
@@ -151,6 +163,8 @@ MSRailSignal::init(NLDetectorBuilder&) {
 
             conflictLanes.insert(conflictLanes.end(), forwardBlock.begin(), forwardBlock.end());
             conflictLanes.insert(conflictLanes.end(), bidiBlock.begin(), bidiBlock.end());
+
+            // compute conflict links
             for (MSLane* cl : conflictLanes) {
                 collectConflictLinks(cl, 0, backwardBlock, conflictLinks, visited);
             }
@@ -166,12 +180,37 @@ MSRailSignal::init(NLDetectorBuilder&) {
             if (DEBUG_COND) {
                 std::cout << "railSignal=" << getID() << " index=" << link->getTLIndex() << " backwardBlock=" << toString(backwardBlock);
                 std::cout << "railSignal=" << getID() << " index=" << link->getTLIndex() << " conflictLinks=";
-                for (MSLink* l : conflictLinks) {
-                    std::cout << toString(l->getViaLaneOrLane()->getID()) << " ";
+                for (MSLink* cl : conflictLinks) {
+                    std::cout << toString(cl->getViaLaneOrLane()->getID()) << " ";
                 }
                 std::cout << "\n";
             }
 #endif
+
+            // compute conditional conflict lanes and links
+            for (MSLink* cl : conflictLinks) {
+                std::vector<MSLane*> routeConflictLanes;
+                std::vector<MSLink*> routeConflictLinks;
+                MSLane* in = const_cast<MSLane*>(cl->getLaneBefore());
+                LaneSet rCVisited = visited;
+                // only collect if 
+                // 1) the in-edge is bidirectional
+                // 2) the foe has no alternative track before reach meeting the end of the forwardBlock
+                // 3) the forward block has no alternative track between the end of the forward block and the conflict link
+                if (in->getEdge().getBidiEdge() != nullptr 
+                        && !hasAlternativeTrack(cl) 
+                        && !hasAlternativeTrackBetween(forwardBlock, cl)) {
+                    collectBidiBlock(in, 0., false, routeConflictLanes, rCVisited);
+                    std::vector<MSLane*> rCBackwardBlock;
+                    for (MSLane* rCLane : routeConflictLanes) {
+                        collectConflictLinks(rCLane, 0, rCBackwardBlock, routeConflictLinks, rCVisited);
+                    }
+                }
+                myRouteConflictLanes[link->getTLIndex()].push_back(routeConflictLanes);
+                myRouteConflictLinks[link->getTLIndex()].push_back(routeConflictLinks);
+            }
+            
+
             if (OptionsCont::getOptions().isSet("railsignal-block-output")) {
                 OutputDevice& od = OutputDevice::getDeviceByOption("railsignal-block-output");
                 od.openTag("link");
@@ -190,13 +229,31 @@ MSRailSignal::init(NLDetectorBuilder&) {
                 od.closeTag();
                 od.openTag("conflictLinks");
                 std::vector<std::string> conflictLinkIDs; // railSignalID_tlIndex
-                for (MSLink* l : conflictLinks) {
-                    conflictLinkIDs.push_back(l->getTLLogic()->getID() + "_" + toString(l->getTLIndex()));
+                for (MSLink* cl : conflictLinks) {
+                    conflictLinkIDs.push_back(getTLLinkID(cl));
                 }
                 od.writeAttr("logicIndex", toString(conflictLinkIDs));
-                od.closeTag();
-
-                od.closeTag();
+                for (int i = 0; i < (int)conflictLinks.size(); i++) {
+                    const std::vector<MSLane*>& rCLanes = myRouteConflictLanes[link->getTLIndex()][i];
+                    const std::vector<MSLink*>& rCLinks = myRouteConflictLinks[link->getTLIndex()][i];
+                    if (rCLanes.size() > 0 || rCLinks.size() > 0) {
+                        od.openTag("conflictLink");
+                        od.writeAttr("logicIndex", getTLLinkID(conflictLinks[i]));
+                        if (rCLanes.size() > 0) {
+                            od.writeAttr("lanes", toString(rCLanes));
+                        }
+                        if (rCLinks.size() > 0) {
+                            std::vector<std::string> rCLinkIDs; 
+                            for (MSLink* rcl : rCLinks) {
+                                rCLinkIDs.push_back(getTLLinkID(rcl));
+                            }
+                            od.writeAttr("links", toString(rCLinkIDs));
+                        }
+                        od.closeTag();
+                    }
+                }
+                od.closeTag(); // conflictLinks
+                od.closeTag(); // link
             }
 
             myConflictLanes[link->getTLIndex()] = conflictLanes;
@@ -257,19 +314,27 @@ MSRailSignal::hasLinkConflict(int index) const {
     double foeMinDist = std::numeric_limits<double>::max();
     SUMOTime foeMinETA = std::numeric_limits<SUMOTime>::max();
     long long foeMinNumericalID = std::numeric_limits<long long>::max(); // tie braker
-    std::vector<MSEdge*> routeFoes; // foe vehicles that 
-    for (const MSLink* link : myConflictLinks[index]) {
+
+    // check for vehicles that enter the (unconditional) conflict area and
+    // resolve conflict according to priority
+    std::vector<int> checkRouteConflict;
+    const auto& cLinks = myConflictLinks[index];
+    for (int clIndex = 0; clIndex < (int)cLinks.size(); ++clIndex) {
+        if (myRouteConflictLanes[index][clIndex].size() > 0) {
+            // record links where the conditional conflict area may be occupied
+            checkRouteConflict.push_back(clIndex);
+        }
+        const MSLink* link = cLinks[clIndex];
         if (link->getApproaching().size() > 0) {
             const MSTrafficLightLogic* foeTLL = link->getTLLogic();
             assert(foeTLL != nullptr);
             const MSRailSignal* foeRS = dynamic_cast<const MSRailSignal*>(foeTLL);
             if (foeRS != nullptr) {
                 if (foeRS->conflictLaneOccupied(link->getTLIndex())) {
-                    // foe cannot drive but might still block the route beyond the switch
-                    MSEdge& before = link->getLaneBefore()->getEdge();
-                    if (before.getBidiEdge() != nullptr) {
-                        routeFoes.push_back(const_cast<MSEdge*>(before.getBidiEdge()));
-                    }
+#ifdef DEBUG_SIGNALSTATE_PRIORITY
+                if (DEBUG_COND) std::cout << SIMTIME << " railSignal=" << getID() << " index=" << index 
+                    << " foeLink " << link->getViaLaneOrLane()->getID() << " (ignored)\n";
+#endif
                     continue;
                 }
             } else if (link->getState() == LINKSTATE_TL_RED) {
@@ -296,7 +361,7 @@ MSRailSignal::hasLinkConflict(int index) const {
         }
     }
     SUMOVehicle* closest = nullptr;
-    if (foeMaxSpeed >= 0 || routeFoes.size() > 0) {
+    if (foeMaxSpeed >= 0 || checkRouteConflict.size() > 0) {
         // check against vehicles approaching this link
         double maxSpeed = -1;
         double minDist = std::numeric_limits<double>::max();
@@ -341,34 +406,41 @@ MSRailSignal::hasLinkConflict(int index) const {
         //if (DEBUG_COND) std::cout << SIMTIME << " railSignal=" << getID() << " index=" << index << " closestVeh=" << Named::getIDSecure(closest) << " routeFoes " << toString(routeFoes) << "\n";
 #endif
         if (closest != nullptr) {
-            for (const MSEdge* bidi : routeFoes) {
-                for (const MSEdge* e : closest->getRoute().getEdges()) {
-                    if (e == bidi) {
+            for (int clIndex : checkRouteConflict) {
+                const MSEdge& firstBidi = myRouteConflictLanes[index][clIndex].front()->getEdge();
+                const MSEdge* first = firstBidi.getBidiEdge();
+                assert(first != nullptr);
+                if (std::find(closest->getCurrentRouteEdge(), closest->getRoute().end(), first) != closest->getRoute().end()) {
+                    // vehicle wants to drive passt this conflict link
+                    //const ConstMSEdgeVector& route = closest->getRoute().getEdges();
+                    for (const MSLane* cLane : myRouteConflictLanes[index][clIndex]) {
+                        if (cLane->getVehicleNumberWithPartials() > 0) {
+                            if (DEBUG_COND) std::cout << SIMTIME << " railSignal=" << getID() << " index=" << index 
+                                << " closestVeh=" << closest->getID() << " route edge " << cLane->getEdge().getID() << " blocked\n";
+                            // trigger rerouting
+                            MSDevice_Routing* rDev = static_cast<MSDevice_Routing*>(closest->getDevice(typeid(MSDevice_Routing)));
+                            if (rDev != nullptr) {
+                                SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
+                                if (myLastRerouteAttempt[index].first != closest 
+                                        // reroute each vehicle only once if no
+                                        // periodic routing is allowed, otherwise
+                                        // with the specified period
+                                        || (rDev->getPeriod() > 0 &&  myLastRerouteAttempt[index].second + rDev->getPeriod() <= now)) {
+                                    MSEdgeVector routeFoes;
+                                    routeFoes.push_back(const_cast<MSEdge*>(first));
+                                    SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = MSRoutingEngine::getRouterTT(routeFoes);
+                                    myLastRerouteAttempt[index] = std::make_pair(closest, now);
+                                    try {
+                                        closest->reroute(now, "railSignal:" + getID(), router, false, false, true); // silent
+                                    } catch (ProcessError& error) {
 #ifdef DEBUG_SIGNALSTATE_PRIORITY
-                        if (DEBUG_COND) std::cout << SIMTIME << " railSignal=" << getID() << " index=" << index 
-                            << " closestVeh=" << closest->getID() << " route edge " << e->getID()  << " blocked\n";
+                                        if (DEBUG_COND) std::cout << " rerouting failed: " << error.what() << "\n";
 #endif
-                        // trigger rerouting
-                        MSDevice_Routing* rDev = static_cast<MSDevice_Routing*>(closest->getDevice(typeid(MSDevice_Routing)));
-                        if (rDev != nullptr) {
-                            SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
-                            if (myLastRerouteAttempt[index].first != closest 
-                                    // reroute each vehicle only once if no
-                                    // periodic routing is allowed, otherwise
-                                    // with the specified period
-                                    || (rDev->getPeriod() > 0 &&  myLastRerouteAttempt[index].second + rDev->getPeriod() <= now)) {
-                                SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = MSRoutingEngine::getRouterTT(routeFoes);
-                                myLastRerouteAttempt[index] = std::make_pair(closest, now);
-                                try {
-                                    closest->reroute(now, "railSignal:" + getID(), router, false, false, true); // silent
-                                } catch (ProcessError& error) {
-#ifdef DEBUG_SIGNALSTATE_PRIORITY
-                                    if (DEBUG_COND) std::cout << " rerouting failed: " << error.what() << "\n";
-#endif
-                                } 
+                                    } 
+                                }
                             }
+                            return true;
                         }
-                        return true;
                     }
                 }
             }
@@ -605,6 +677,42 @@ MSRailSignal::addLink(MSLink* link, MSLane* lane, int pos) {
     if (pos >= 0) {
         MSTrafficLightLogic::addLink(link, lane, pos);
     } // ignore uncontrolled link
+}
+
+
+bool 
+MSRailSignal::hasAlternativeTrack(MSLink* link) {
+    for (MSLink* cand : link->getLaneBefore()->getLinkCont()) {
+        if (cand != link && cand->getTLLogic() != nullptr) {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool 
+MSRailSignal::hasAlternativeTrackBetween(const std::vector<MSLane*>& forwardBlock, MSLink* cLink) {
+    // check if the forward block ends at a controlled switch
+    // note: link::myJunction not yet initialized here
+    const MSJunction* cLinkJunction = cLink->getLaneBefore()->getEdge().getToJunction(); 
+    //std::cout << " forwardBlock=" << toString(forwardBlock) << " cLink_j=" << cLinkJunction->getID() << "\n";
+    if (forwardBlock.back()->getEdge().getToJunction() == cLinkJunction) {
+        int numLinks = 0;
+        for (MSLink* cand : forwardBlock.back()->getLinkCont()) {
+            if (cand->getTLLogic() != nullptr) {
+                numLinks++;
+                if (numLinks > 1) {
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+
+std::string 
+MSRailSignal::getTLLinkID(MSLink* link) {
+    return link->getTLLogic()->getID() + "_" + toString(link->getTLIndex());
 }
 
 /****************************************************************************/

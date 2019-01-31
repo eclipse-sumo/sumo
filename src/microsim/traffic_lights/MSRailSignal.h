@@ -203,11 +203,27 @@ public:
 
 protected:
 
-    /// The conflict lanes for each link index
+    /*  The conflict lanes for each link index
+     *  If any of them is occupied the signal must be red */
     std::vector<std::vector<MSLane*> > myConflictLanes;
 
-    /// The conflict links for each link index
+    /* The conflict links for each link index
+     * Conflict resolution must be performed if vehicles are approaching the
+     * current link and any of the conflict links */
     std::vector<std::vector<MSLink*> > myConflictLinks;
+
+    /* Conflict lanes for each conflictLink of the current link
+     * linkIndex -> conflictLinkIndex -> lanes
+     * They must only be checked if the approaching vehicle's route enters the
+     * bidirectional block beyond that conflichLink */
+    std::vector<std::vector<std::vector<MSLane*> > > myRouteConflictLanes;
+
+    /* Conflict links for each conflictLink of the current link
+     * linkIndex -> conflictLinkIndex -> links
+     * They must only be checked if the approaching vehicle's route enters the
+     * bidirectional block beyond that conflictLink, then they are treated like
+     * regular conflictLinks */
+    std::vector<std::vector<std::vector<MSLink*> > > myRouteConflictLinks;
 
     /// Storage for rerouting times to avoid superfluous calls
     mutable std::vector<std::pair<SUMOVehicle*, SUMOTime> > myLastRerouteAttempt;
@@ -225,6 +241,15 @@ protected:
             std::vector<MSLane*>& backwardBlock,
             std::vector<MSLink*>& conflictLinks,
             LaneSet& visited);
+
+    /// @brief whether there are other controlled links from the same incoming lane
+    static bool hasAlternativeTrack(MSLink* link);
+
+    /// @brief whether there is an alternative track between the end of the forwardBlock and cLink
+    static bool hasAlternativeTrackBetween(const std::vector<MSLane*>& forwardBlock, MSLink* cLink);
+
+    /// @brief return logicID_linkIndex
+    static std::string getTLLinkID(MSLink* link);
 
 protected:
 
