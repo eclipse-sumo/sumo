@@ -153,9 +153,6 @@ MSEdgeControl::executeMovements(SUMOTime t) {
 #ifdef HAVE_FOX
 #ifdef PARALLEL_EXEC_MOVE
     if (MSGlobals::gNumSimThreads > 1) {
-#else
-    if (false) {
-#endif
 #ifdef LOAD_BALANCING
         myRNGLoad = std::priority_queue<std::pair<int, int> >();
         for (int i = 0; i < MSLane::getNumRNGs(); i++) {
@@ -174,6 +171,7 @@ MSEdgeControl::executeMovements(SUMOTime t) {
         }
         myThreadPool.waitAll(false);
     }
+#endif
 #endif
     for (std::list<MSLane*>::iterator i = myActiveLanes.begin(); i != myActiveLanes.end();) {
         if (
