@@ -91,7 +91,7 @@ public:
         AttributeProperties();
 
         /// @brief parameter constructor
-        AttributeProperties(SumoXMLAttr attribute, int attributeProperty, const std::string& definition);
+        AttributeProperties(SumoXMLAttr attribute, int attributeProperty, const std::string& definition, std::string defaultValue = "");
 
         /// @brief destructor
         ~AttributeProperties();
@@ -99,9 +99,6 @@ public:
         /// @brief check Attribute integrity (For example, throw an exception if tag has a Float default value, but given default value cannot be parse to float)
         void checkAttributeIntegrity();
 
-        /// @brief set default value
-        void setDefaultValue(const std::string& defaultValue);
-            
         /// @brief set discrete values
         void setDiscreteValues(const std::vector<std::string>& discreteValues);
             
