@@ -14,3 +14,6 @@ geomhelper
 
 # parsing a network working with tlLogic
 tls
+
+# generate a patch file to update the network
+patch_network
