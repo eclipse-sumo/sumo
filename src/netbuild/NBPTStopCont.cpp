@@ -59,7 +59,7 @@ NBPTStopCont::get(std::string id) {
 void
 NBPTStopCont::localizePTStops(NBEdgeCont& cont) {
     std::vector<NBPTStop*> reverseStops;
-    //frst pass localize pt stop at correct side of the street; create stop for opposite side if needed
+    //first pass localize pt stop at correct side of the street; create stop for opposite side if needed
     for (auto& myPTStop : myPTStops) {
 
         NBPTStop* stop = myPTStop.second;
@@ -67,7 +67,7 @@ NBPTStopCont::localizePTStops(NBEdgeCont& cont) {
         bool multipleStopPositions = stop->getIsMultipleStopPositions();
         bool platformsDefined = !stop->getPlatformCands().empty();
         if (!platformsDefined) {
-            //create pt stop for reverse edge if edge exist
+            //create pt stop for reverse edge if edge exists
             NBPTStop* reverseStop = getReverseStop(stop, cont);
             if (reverseStop != nullptr) {
                 reverseStops.push_back(reverseStop);
@@ -97,7 +97,7 @@ void NBPTStopCont::assignLanes(NBEdgeCont& cont) {
     for (auto i = myPTStops.begin(); i != myPTStops.end();) {
         NBPTStop* stop = i->second;
 
-        if (!stop->findLaneAndComputeBusStopExtend(cont)) {
+        if (!stop->findLaneAndComputeBusStopExtent(cont)) {
             WRITE_WARNING("Could not find corresponding edge or compatible lane for pt stop: " + i->second->getName()
                           + ". Thus, it will be removed!");
             EdgeVector edgeVector = cont.getGeneratedFrom((*i).second->getOrigEdgeId());
@@ -136,7 +136,7 @@ NBPTStopCont::generateBidiStops(NBEdgeCont& ec) {
                                               stop->getLength(),
                                               stop->getName(),
                                               stop->getPermissions());
-            if (bidiStop->findLaneAndComputeBusStopExtend(ec)) {
+            if (bidiStop->findLaneAndComputeBusStopExtent(ec)) {
                 toAdd.push_back(bidiStop);
                 stop->setBidiStop(bidiStop);
                 bidiStop->setBidiStop(stop);

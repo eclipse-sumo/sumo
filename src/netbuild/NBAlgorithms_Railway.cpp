@@ -618,7 +618,7 @@ NBRailwayTopologyAnalyzer::reverseEdges(NBNetBuilder& nb) {
         WRITE_MESSAGE("Reversed " + toString(numReversed) + " sequences (count by length: " + joinToString(seqLengths, " ", ":") + ")");
         for (auto& item : nb.getPTStopCont().getStops()) {
             if (reversedIDs.count(item.second->getEdgeId())) {
-                item.second->findLaneAndComputeBusStopExtend(nb.getEdgeCont());
+                item.second->findLaneAndComputeBusStopExtent(nb.getEdgeCont());
             }
         }
     }

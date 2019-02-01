@@ -59,7 +59,6 @@ public:
     const std::string getName() const;
     const Position& getPosition() const;
     SVCPermissions getPermissions() const;
-    void computExtent(double center, double d);
     void write(OutputDevice& device);
     void reshiftPosition(const double offsetX, const double offsetY);
 
@@ -70,7 +69,7 @@ public:
     bool setEdgeId(std::string edgeId, NBEdgeCont& ec);
     void registerAdditionalEdge(std::string wayId, std::string edgeId);
     void addPlatformCand(NBPTPlatform platform);
-    bool findLaneAndComputeBusStopExtend(NBEdgeCont& ec);
+    bool findLaneAndComputeBusStopExtent(NBEdgeCont& ec);
 
     void setMyPTStopId(std::string id);
     void addAccess(std::string laneID, double offset, double length);
@@ -88,6 +87,9 @@ public:
     NBPTStop* getBidiStop() const {
         return myBidiStop;
     }
+
+private:
+    void computeExtent(double center, double d);
 
 private:
     std::string myPTStopId;
