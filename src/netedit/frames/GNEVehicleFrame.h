@@ -39,6 +39,82 @@ class GNEVehicleFrame : public GNEFrame {
 
 public:
 
+    // ===========================================================================
+    // class VTypeSelector
+    // ===========================================================================
+
+    class VTypeSelector : protected FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEVehicleFrame::VTypeSelector)
+
+    public:
+        /// @brief constructor
+        VTypeSelector(GNEVehicleFrame* vehicleFrameParent);
+
+        /// @brief destructor
+        ~VTypeSelector();
+
+        /// @brief get current type tag
+        const GNEVehicleType* getCurrentVehicleType() const;
+
+        /// @brief show VType selector
+        void showVTypeSelector();
+
+        /// @brief hide VType selector
+        void hideVTypeSelector();
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when the user select another element in ComboBox
+        long onCmdSelectVType(FXObject*, FXSelector, void*);
+        /// @}
+
+    protected:
+        /// @brief FOX needs this
+        VTypeSelector() {}
+
+    private:
+        /// @brief pointer to Vehicle Frame Parent
+        GNEVehicleFrame* myVehicleFrameParent;
+
+        /// @brief comboBox with the list of elements type
+        FXComboBox* myTypeMatchBox;
+
+        /// @brief current vehicle type
+        GNEVehicleType* myCurrentVehicleType;
+    };
+
+    // ===========================================================================
+    // class HelpCreation
+    // ===========================================================================
+
+    class HelpCreation : protected FXGroupBox {
+
+    public:
+        /// @brief constructor
+        HelpCreation(GNEVehicleFrame* vehicleFrameParent);
+
+        /// @brief destructor
+        ~HelpCreation();
+
+        /// @brief show HelpCreation
+        void showHelpCreation();
+
+        /// @brief hide HelpCreation
+        void hideHelpCreation();
+
+        /// @brief update HelpCreation
+        void updateHelpCreation();
+
+    private:
+        /// @brief pointer to Vehicle Frame Parent
+        GNEVehicleFrame* myVehicleFrameParent;
+
+        /// @brief comboBox with the list of elements type
+        FXComboBox* myInformationLabel;
+
+    };
+
     /**@brief Constructor
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
@@ -80,14 +156,20 @@ private:
     /// @brief build vehicle over view
     bool buildVehicleOverView(std::map<SumoXMLAttr, std::string>& valuesMap, const GNEAttributeCarrier::TagProperties& tagValues);
 
-    /// @brief item selector
+    /// @brief item selector (used to select diffent kind of vehicles)
     ItemSelector* myItemSelector;
+
+    /// @brief Vehicle Type selectors
+    VTypeSelector* myVTypeSelector;
 
     /// @brief internal vehicle attributes
     ACAttributes* myVehicleAttributes;
 
     /// @brief Netedit parameter
     NeteditAttributes* myNeteditAttributes;
+
+    /// @brief Help creation
+    HelpCreation* myHelpCreation;
 };
 
 

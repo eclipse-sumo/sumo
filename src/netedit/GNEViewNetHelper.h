@@ -101,25 +101,33 @@ enum DemandEditMode {
 // class declarations
 // ===========================================================================
 
+// main elements
+class GNEViewParent;
+class GNEViewNet;
+class GNEUndoList;
+class GNEFrame;
+class GNEAttributeCarrier;
+// net elements
 class GNENet;
 class GNENetElement;
 class GNEJunction;
 class GNEEdge;
 class GNELane;
 class GNEConnection;
-class GNEViewParent;
-class GNEUndoList;
+class GNECrossing;
+class GNEInternalLane;
+// additional elements
 class GNEAdditional;
-class GNEDemandElement;
 class GNEShape;
 class GNEPoly;
 class GNEPOI;
-class GNEFrame;
-class GNECrossing;
-class GNEAttributeCarrier;
 class GNETAZ;
-class GNEInternalLane;
-class GNEViewNet;
+// demand elements
+class GNEDemandElement;
+class GNEVehicleType;
+class GNEFlow;
+class GNEVehicle;
+class GNEtrip;
 
 // ===========================================================================
 // classes and structs definitions

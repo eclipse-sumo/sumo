@@ -34,16 +34,136 @@
 
 #include "GNEVehicleFrame.h"
 
+// ===========================================================================
+// FOX callback mapping
+// ===========================================================================
+
+FXDEFMAP(GNEVehicleFrame::VTypeSelector) VTypeSelectorMap[] = {
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_TYPE,    GNEVehicleFrame::VTypeSelector::onCmdSelectVType),
+};
+
+// Object implementation
+FXIMPLEMENT(GNEVehicleFrame::VTypeSelector, FXGroupBox, VTypeSelectorMap,   ARRAYNUMBER(VTypeSelectorMap))
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 
+// ---------------------------------------------------------------------------
+// GNEVehicleFrame::VTypeSelector - methods
+// ---------------------------------------------------------------------------
+
+GNEVehicleFrame::VTypeSelector::VTypeSelector(GNEVehicleFrame* vehicleFrameParent) :
+    FXGroupBox(vehicleFrameParent->myContentFrame, "Vehicle Type", GUIDesignGroupBoxFrame),
+    myVehicleFrameParent(vehicleFrameParent),
+    myCurrentVehicleType(nullptr) {
+    // Create FXComboBox
+    myTypeMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+    /*
+    // fill myTypeMatchBox with list of tags
+    for (const auto& i : myListOfTags) {
+        myTypeMatchBox->appendItem(toString(i).c_str());
+    }
+    */
+    // Set visible items
+    myTypeMatchBox->setNumVisible((int)myTypeMatchBox->getNumItems());
+    // VTypeSelector is always shown
+    show();
+}
+
+
+GNEVehicleFrame::VTypeSelector::~VTypeSelector() {}
+
+
+const GNEVehicleType*
+GNEVehicleFrame::VTypeSelector::getCurrentVehicleType() const {
+    return myCurrentVehicleType;
+}
+
+
+void 
+GNEVehicleFrame::VTypeSelector::showVTypeSelector() {
+    show();
+}
+
+
+void 
+GNEVehicleFrame::VTypeSelector::hideVTypeSelector() {
+    hide();
+}
+
+
+long
+GNEVehicleFrame::VTypeSelector::onCmdSelectVType(FXObject*, FXSelector, void*) {
+    // Check if value of myTypeMatchBox correspond of an allowed additional tags
+    /*
+    for (const auto& i : myListOfTags) {
+        if (toString(i) == myTypeMatchBox->getText().text()) {
+            // set color of myTypeMatchBox to black (valid)
+            myTypeMatchBox->setTextColor(FXRGB(0, 0, 0));
+            // Set new current type
+            myCurrentTagProperties = GNEAttributeCarrier::getTagProperties(i);
+            // show moduls if selected item is valid
+            myFrameParent->enableModuls(myCurrentTagProperties);
+            // Write Warning in console if we're in testing mode
+            WRITE_DEBUG(("Selected item '" + myTypeMatchBox->getText() + "' in VTypeSelector").text());
+            return 1;
+        }
+    }
+
+    // if additional name isn't correct, set SUMO_TAG_NOTHING as current type
+    myCurrentTagProperties = myInvalidTagProperty;
+    */
+    // hide all moduls if selected item isn't valid
+    myVehicleFrameParent->disableModuls();
+    // set color of myTypeMatchBox to red (invalid)
+    myTypeMatchBox->setTextColor(FXRGB(255, 0, 0));
+    // Write Warning in console if we're in testing mode
+    WRITE_DEBUG("Selected invalid item in VTypeSelector");
+    return 1;
+}
+
+// ---------------------------------------------------------------------------
+// GNEVehicleFrame::HelpCreation - methods
+// ---------------------------------------------------------------------------
+
+GNEVehicleFrame::HelpCreation::HelpCreation(GNEVehicleFrame* vehicleFrameParent) :
+    FXGroupBox(vehicleFrameParent->myContentFrame, "Help", GUIDesignGroupBoxFrame),
+    myVehicleFrameParent(vehicleFrameParent) {
+}
+
+
+GNEVehicleFrame::HelpCreation::~HelpCreation() {}
+
+
+void 
+GNEVehicleFrame::HelpCreation::showHelpCreation() {
+    show();
+}
+
+
+void 
+GNEVehicleFrame::HelpCreation::hideHelpCreation() {
+    hide();
+}
+
+void 
+GNEVehicleFrame::HelpCreation::updateHelpCreation() {
+
+}
+
+// ---------------------------------------------------------------------------
+// GNEVehicleFrame - methods
+// ---------------------------------------------------------------------------
+
 GNEVehicleFrame::GNEVehicleFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
     GNEFrame(horizontalFrameParent, viewNet, "Vehicles") {
 
-    // create item Selector modul for vehicles
+    // Create item Selector modul for vehicles
     myItemSelector = new ItemSelector(this, GNEAttributeCarrier::TAGProperty::TAGPROPERTY_VEHICLE);
+
+    // Create vehicle type selector
+    myVTypeSelector = new VTypeSelector(this);
 
     // Create vehicle parameters
     myVehicleAttributes = new ACAttributes(this);
@@ -51,7 +171,10 @@ GNEVehicleFrame::GNEVehicleFrame(FXHorizontalFrame* horizontalFrameParent, GNEVi
     // Create Netedit parameter
     myNeteditAttributes = new NeteditAttributes(this);
 
-    // set BusStop as default vehicle
+    // Create Help Creation Modul
+    myHelpCreation = new HelpCreation(this);
+
+    // set Vehicle as default vehicle
     myItemSelector->setCurrentTypeTag(SUMO_TAG_VEHICLE);
 }
 
@@ -100,6 +223,8 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
 
 void
 GNEVehicleFrame::enableModuls(const GNEAttributeCarrier::TagProperties& tagProperties) {
+    // show vehicle type selector modul
+    myVTypeSelector->showVTypeSelector();
     // show vehicle attributes modul
     myVehicleAttributes->showACAttributesModul(tagProperties);
     // show netedit attributes
@@ -110,6 +235,7 @@ GNEVehicleFrame::enableModuls(const GNEAttributeCarrier::TagProperties& tagPrope
 void
 GNEVehicleFrame::disableModuls() {
     // hide all moduls if vehicle isn't valid
+    myVTypeSelector->hideVTypeSelector();
     myVehicleAttributes->hideACAttributesModul();
     myNeteditAttributes->hideNeteditAttributesModul();
 }
