@@ -68,7 +68,7 @@ GNECreateEdgeFrame::~GNECreateEdgeFrame() {}
 
 
 void
-GNECreateEdgeFrame::processClick(const Position& clickedPosition, GNEViewNet::ObjectsUnderCursor& objectsUnderCursor, bool opossiteEdge, bool chainEdge) {
+GNECreateEdgeFrame::processClick(const Position& clickedPosition, GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, bool opossiteEdge, bool chainEdge) {
     if (!myViewNet->getUndoList()->hasCommandGroup()) {
         myViewNet->getUndoList()->p_begin("create new " + toString(SUMO_TAG_EDGE));
     }

@@ -14,6 +14,7 @@ GNEApplicationWindow.cpp GNEApplicationWindow.h \
 GNELoadThread.cpp GNELoadThread.h \
 GNENet.cpp GNENet.h \
 GNEViewNet.cpp GNEViewNet.h \
+GNEViewNetHelper.cpp GNEViewNetHelper.h \
 GNEViewParent.cpp GNEViewParent.h \
 GNEUndoList.cpp GNEUndoList.h \
 GNEAttributeCarrier.cpp GNEAttributeCarrier.h \

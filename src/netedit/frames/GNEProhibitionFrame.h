@@ -56,7 +56,7 @@ public:
     /**@brief handle prohibitions and set the relative colouring
      * @param objectsUnderCursor collection of objects under cursor after click over view
      */
-    void handleProhibitionClick(const GNEViewNet::ObjectsUnderCursor& objectsUnderCursor);
+    void handleProhibitionClick(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
 
     /// @brief show prohibition frame
     void show();

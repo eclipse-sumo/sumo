@@ -68,7 +68,7 @@ GNEVehicleTypeFrame::show() {
 
 
 bool
-GNEVehicleTypeFrame::addVehicle(const GNEViewNet::ObjectsUnderCursor& objectsUnderCursor) {
+GNEVehicleTypeFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
     // first check that current selected vehicle is valid
     if (myItemSelector->getCurrentTagProperties().getTag() == SUMO_TAG_NOTHING) {
         myViewNet->setStatusBarText("Current selected vehicle isn't valid.");

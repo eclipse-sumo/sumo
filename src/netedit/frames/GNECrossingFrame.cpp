@@ -540,7 +540,7 @@ GNECrossingFrame::hide() {
 
 
 void
-GNECrossingFrame::addCrossing(const GNEViewNet::ObjectsUnderCursor& objectsUnderCursor) {
+GNECrossingFrame::addCrossing(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
     // If current element is a junction
     if (objectsUnderCursor.getJunctionFront()) {
         // change label

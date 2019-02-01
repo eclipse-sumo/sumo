@@ -55,7 +55,7 @@ public:
      * @param objectsUnderCursor collection of objects under cursor after click over view
      * @return true if vehicle was sucesfully added
      */
-    bool addVehicle(const GNEViewNet::ObjectsUnderCursor& objectsUnderCursor);
+    bool addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
 
 protected:
     /// @brief enable moduls depending of item selected in ItemSelector

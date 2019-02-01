@@ -150,7 +150,7 @@ GNEInspectorFrame::hide() {
 
 
 bool
-GNEInspectorFrame::processNetworkSupermodeClick(const Position& clickedPosition, GNEViewNet::ObjectsUnderCursor& objectsUnderCursor) {
+GNEInspectorFrame::processNetworkSupermodeClick(const Position& clickedPosition, GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
     // first check if we have clicked over an Attribute Carrier
     if (objectsUnderCursor.getAttributeCarrierFront()) {
         // change the selected attribute carrier if mySelectEdges is enabled and clicked element is a getLaneFront() and shift key isn't pressed
@@ -190,7 +190,7 @@ GNEInspectorFrame::processNetworkSupermodeClick(const Position& clickedPosition,
 
 
 bool
-GNEInspectorFrame::processDemandSupermodeClick(const Position& clickedPosition, GNEViewNet::ObjectsUnderCursor& objectsUnderCursor) {
+GNEInspectorFrame::processDemandSupermodeClick(const Position& clickedPosition, GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
     // first check if we have clicked over a demand element
     if (objectsUnderCursor.getDemandElementFront()) {
         // if Control key is Pressed, select instead inspect element
@@ -416,7 +416,7 @@ GNEInspectorFrame::getInspectedACs() const {
 
 
 void
-GNEInspectorFrame::inspectClickedElement(const GNEViewNet::ObjectsUnderCursor& objectsUnderCursor, const Position& clickedPosition) {
+GNEInspectorFrame::inspectClickedElement(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const Position& clickedPosition) {
     if (objectsUnderCursor.getAttributeCarrierFront()) {
         // inspect front element
         inspectSingleElement(objectsUnderCursor.getAttributeCarrierFront());
@@ -459,7 +459,7 @@ GNEInspectorFrame::OverlappedInspection::~OverlappedInspection() {}
 
 
 void
-GNEInspectorFrame::OverlappedInspection::showOverlappedInspection(const GNEViewNet::ObjectsUnderCursor& objectsUnderCursor, const Position& clickedPosition) {
+GNEInspectorFrame::OverlappedInspection::showOverlappedInspection(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const Position& clickedPosition) {
     myOverlappedACs = objectsUnderCursor.getClickedAttributeCarriers();
     mySavedClickedPosition = clickedPosition;
     // by default we inspect first element

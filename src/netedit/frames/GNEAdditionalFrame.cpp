@@ -723,7 +723,7 @@ GNEAdditionalFrame::show() {
 
 
 bool
-GNEAdditionalFrame::addAdditional(const GNEViewNet::ObjectsUnderCursor& objectsUnderCursor) {
+GNEAdditionalFrame::addAdditional(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
     // first check that current selected additional is valid
     if (myItemSelector->getCurrentTagProperties().getTag() == SUMO_TAG_NOTHING) {
         myViewNet->setStatusBarText("Current selected additional isn't valid.");

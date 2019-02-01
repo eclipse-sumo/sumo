@@ -1368,7 +1368,7 @@ GNETAZFrame::hide() {
 
 
 bool
-GNETAZFrame::processClick(const Position& clickedPosition, const GNEViewNet::ObjectsUnderCursor& objectsUnderCursor) {
+GNETAZFrame::processClick(const Position& clickedPosition, const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
     // Declare map to keep values
     std::map<SumoXMLAttr, std::string> valuesOfElement;
     if (myDrawingShape->isDrawing()) {

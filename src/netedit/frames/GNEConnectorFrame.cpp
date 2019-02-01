@@ -397,7 +397,7 @@ GNEConnectorFrame::~GNEConnectorFrame() {}
 
 
 void
-GNEConnectorFrame::handleLaneClick(const GNEViewNet::ObjectsUnderCursor& objectsUnderCursor) {
+GNEConnectorFrame::handleLaneClick(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
     // build connection
     buildConnection(objectsUnderCursor.getLaneFront(), myViewNet->getKeyPressed().shiftKeyPressed(), myViewNet->getKeyPressed().controlKeyPressed(), true);
 }

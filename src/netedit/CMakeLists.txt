@@ -15,6 +15,8 @@ set(netedit_SRCS
    GNENet.cpp
    GNEViewNet.h
    GNEViewNet.cpp
+   GNEViewNetHelper.h
+   GNEViewNetHelper.cpp
    GNEViewParent.h
    GNEViewParent.cpp
    GNEUndoList.h

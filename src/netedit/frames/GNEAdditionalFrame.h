@@ -316,7 +316,7 @@ public:
      * @param objectsUnderCursor collection of objects under cursor after click over view
      * @return true if additional was sucesfully added
      */
-    bool addAdditional(const GNEViewNet::ObjectsUnderCursor& objectsUnderCursor);
+    bool addAdditional(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
 
     /// @brief show selector lane child and update use selected edges/lanes
     void showSelectorLaneChildsModul();

@@ -248,7 +248,7 @@ GNEPolygonFrame::show() {
 
 
 GNEPolygonFrame::AddShapeResult
-GNEPolygonFrame::processClick(const Position& clickedPosition, const GNEViewNet::ObjectsUnderCursor& objectsUnderCursor) {
+GNEPolygonFrame::processClick(const Position& clickedPosition, const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
     // Declare map to keep values
     std::map<SumoXMLAttr, std::string> valuesOfElement;
     // check if current selected shape is valid

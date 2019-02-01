@@ -516,7 +516,7 @@ public:
     * @param[in] objectsUnderCursor objects under cursors
     * @return true if something (select TAZ or add edge) was sucefully done
     */
-    bool processClick(const Position& clickedPosition, const GNEViewNet::ObjectsUnderCursor& objectsUnderCursor);
+    bool processClick(const Position& clickedPosition, const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
 
     /// @brief process selection of edges in view net
     void processEdgeSelection(const std::vector<GNEEdge*>& edges);
