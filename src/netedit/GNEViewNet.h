@@ -275,10 +275,10 @@ public:
     };
 
     /// @brief struct used to group all variables related with Supermodes
-    struct EditMoves {
+    struct EditModes {
 
         /// @brief default constructor
-        EditMoves(GNEViewNet* viewNet);
+        EditModes(GNEViewNet* viewNet);
 
         /// @brief build checkable buttons
         void buildSuperModeButtons();
@@ -312,10 +312,10 @@ public:
         GNEViewNet* myViewNet;
 
         /// @brief Invalidated copy constructor.
-        EditMoves(const EditMoves&) = delete;
+        EditModes(const EditModes&) = delete;
 
         /// @brief Invalidated assignment operator.
-        EditMoves& operator=(const EditMoves&) = delete;
+        EditModes& operator=(const EditModes&) = delete;
     };
 
     /// @brief struct used to group all variables related to view options
@@ -445,7 +445,7 @@ public:
     void openObjectDialog();
 
     /// @brief get edit modes
-    const EditMoves& getEditModes() const;
+    const EditModes& getEditModes() const;
 
     /// @brief get move options
     const MoveOptions& getMoveOptions() const;
@@ -986,7 +986,17 @@ private:
         GNEViewNet* myViewNet;
     };
 
-    /// @name structs
+    /// @name structs related with modes and testing mode
+    /// @{
+
+    /// @brief variable used to save variables related with edit moves modes
+    EditModes myEditModes;
+
+    /// @brief variable used to save variables related with testing mode
+    TestingMode myTestingMode;
+    /// @}
+
+    /// @name structs related with input (keyboard and mouse)
     /// @{
 
     /// @brief variable used to save key status after certain events
@@ -994,7 +1004,32 @@ private:
 
     /// @brief variable use to save all pointers to objects under cursor after a click
     ObjectsUnderCursor myObjectsUnderCursor;
+    /// @}
+    
+    /// @name structs related with checkable buttons
+    /// @{
 
+    /// @brief variable used to save checkable buttons for common supermodes
+    CommonCheckableButtons myCommonCheckableButtons;
+
+    /// @brief variable used to save checkable buttons for Supermode Network
+    NetworkCheckableButtons myNetworkCheckableButtons;
+
+    /// @brief variable used to save checkable buttons for Supermode Demand
+    DemandCheckableButtons myDemandCheckableButtons;
+    /// @}
+    
+    /// @name structs related with Common options
+    /// @{
+    /// @brief variable used to save variables related with selecting areas
+    SelectingArea mySelectingArea;
+
+    /// @brief variable used to save variables related with view options
+    ViewOptions myViewOptions;
+    /// @}
+    
+    /// @name structs related with Network options
+    /// @{
     /// @brief variable used to save all elements related to creation of Edges
     CreateEdgeOptions myCreateEdgeOptions;
 
@@ -1006,27 +1041,11 @@ private:
 
     /// @brief variable used to save variables related with movement of multiple elements
     MoveMultipleElementValues myMoveMultipleElementValues;
+    // @}
 
-    /// @brief variable used to save variables related with selecting areas
-    SelectingArea mySelectingArea;
+    /// @name structs related with Demand options
+    /// @{
 
-    /// @brief variable used to save variables related with testing mode
-    TestingMode myTestingMode;
-
-    /// @brief variable used to save variables related with view options
-    ViewOptions myViewOptions;
-
-    /// @brief variable used to save variables related with edit moves modes
-    EditMoves myEditMoves;
-
-    /// @brief variable used to save checkable buttons for common supermodes
-    CommonCheckableButtons myCommonCheckableButtons;
-
-    /// @brief variable used to save checkable buttons for Supermode Network
-    NetworkCheckableButtons myNetworkCheckableButtons;
-
-    /// @brief variable used to save checkable buttons for Supermode Demand
-    DemandCheckableButtons myDemandCheckableButtons;
     // @}
 
     /// @brief view parent
