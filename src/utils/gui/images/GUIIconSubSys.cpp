@@ -148,6 +148,7 @@
 
 #include "moderoute.xpm"
 #include "modevehicle.xpm"
+#include "modevehicletype.xpm"
 
 #include "computejunctions.xpm"
 #include "cleanjunctions.xpm"
@@ -368,6 +369,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
 
     myIcons[ICON_MODEROUTE] = new FXXPMIcon(a, moderoute_xpm);
     myIcons[ICON_MODEVEHICLE] = new FXXPMIcon(a, modevehicle_xpm);
+    myIcons[ICON_MODEVEHICLETYPE] = new FXXPMIcon(a, modevehicletype_xpm);
 
     myIcons[ICON_CLEANJUNCTIONS] = new FXXPMIcon(a, cleanjunctions_xpm);
     myIcons[ICON_COMPUTEJUNCTIONS] = new FXXPMIcon(a, computejunctions_xpm);
