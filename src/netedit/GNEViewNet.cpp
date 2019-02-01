@@ -521,6 +521,8 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     mySelectingArea(this),
     myTestingMode(this),
     myViewOptions(this),
+    myVehicleOptions(this),
+    myVehicleTypeOptions(this),
     myEditModes(this),
     myCommonCheckableButtons(this),
     myNetworkCheckableButtons(this),
@@ -836,6 +838,8 @@ GNEViewNet::GNEViewNet() :
     mySelectingArea(this),
     myTestingMode(this),
     myViewOptions(this),
+    myVehicleOptions(this),
+    myVehicleTypeOptions(this),
     myEditModes(this),
     myCommonCheckableButtons(this),
     myNetworkCheckableButtons(this),
@@ -3388,6 +3392,46 @@ GNEViewNet::MoveMultipleElementValues::finishMoveSelection() {
 bool
 GNEViewNet::MoveMultipleElementValues::isMovingSelection() const {
     return myMovingSelection;
+}
+
+// ---------------------------------------------------------------------------
+// GNEViewNet::VehicleOptions - methods
+// ---------------------------------------------------------------------------
+
+GNEViewNet::VehicleOptions::VehicleOptions(GNEViewNet* viewNet) :
+    myViewNet(viewNet) {
+}
+
+
+void 
+GNEViewNet::VehicleOptions::buildVehicleOptionsMenuChecks() {
+    // currently unused
+}
+
+
+void 
+GNEViewNet::VehicleOptions::hideVehicleOptionsMenuChecks() {
+    // currently unused
+}
+
+// ---------------------------------------------------------------------------
+// GNEViewNet::VehicleTypeOptions - methods
+// ---------------------------------------------------------------------------
+
+GNEViewNet::VehicleTypeOptions::VehicleTypeOptions(GNEViewNet* viewNet) :
+    myViewNet(viewNet) {
+}
+
+
+void 
+GNEViewNet::VehicleTypeOptions::buildVehicleTypeOptionsMenuChecks() {
+    // currently unused
+}
+
+
+void 
+GNEViewNet::VehicleTypeOptions::hideVehicleTypeOptionsMenuChecks() {
+    // currently unused
 }
 
 // ---------------------------------------------------------------------------

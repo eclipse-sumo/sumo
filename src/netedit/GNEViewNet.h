@@ -766,6 +766,40 @@ private:
         std::map<GNEEdge*, MoveSingleElementValues*> myMovedEgdesGeometryPoints;
     };
 
+    /// @brief struct used to group all variables related with movement of groups of elements
+    struct VehicleOptions {
+
+        /// @brief constructor
+        VehicleOptions(GNEViewNet* viewNet);
+
+        /// @brief build menu checks
+        void buildVehicleOptionsMenuChecks();
+
+        /// @brief hide all options menu checks
+        void hideVehicleOptionsMenuChecks();
+
+    private:
+        /// @brief pointer to viewNet
+        GNEViewNet* myViewNet;
+    };
+
+    /// @brief struct used to group all variables related with movement of groups of elements
+    struct VehicleTypeOptions {
+
+        /// @brief constructor
+        VehicleTypeOptions(GNEViewNet* viewNet);
+
+        /// @brief build menu checks
+        void buildVehicleTypeOptionsMenuChecks();
+
+        /// @brief hide all options menu checks
+        void hideVehicleTypeOptionsMenuChecks();
+
+    private:
+        /// @brief pointer to viewNet
+        GNEViewNet* myViewNet;
+    };
+
     /// @brief struct used to group all variables related with selecting using a square or polygon
     /// @note in the future the variables used for selecting throught a polygon will be placed here
     struct SelectingArea {
@@ -1046,6 +1080,11 @@ private:
     /// @name structs related with Demand options
     /// @{
 
+    /// @brief variable used to save variables related with vehicle options
+    VehicleOptions myVehicleOptions;
+
+    /// @brief variable used to save variables related with vehicle type options
+    VehicleTypeOptions myVehicleTypeOptions;
     // @}
 
     /// @brief view parent
