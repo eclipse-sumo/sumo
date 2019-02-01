@@ -451,6 +451,7 @@ src/microsim/Makefile
 src/microsim/actions/Makefile
 src/microsim/cfmodels/Makefile
 src/microsim/devices/Makefile
+src/microsim/engine/Makefile
 src/microsim/lcmodels/Makefile
 src/microsim/logging/Makefile
 src/microsim/output/Makefile
