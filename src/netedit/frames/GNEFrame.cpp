@@ -112,7 +112,7 @@ GNEFrame::ItemSelector::ItemSelector(GNEFrame* frameParent, GNEAttributeCarrier:
     // first check that property is valid
     switch (type)     {
         case GNEAttributeCarrier::TAGProperty::TAGPROPERTY_NETELEMENT:
-            setText("NetElement element");
+            setText("Net element");
             break;
         case GNEAttributeCarrier::TAGProperty::TAGPROPERTY_ADDITIONAL:
             setText("Additional element");
@@ -123,9 +123,11 @@ GNEFrame::ItemSelector::ItemSelector(GNEFrame* frameParent, GNEAttributeCarrier:
         case GNEAttributeCarrier::TAGProperty::TAGPROPERTY_TAZ:
             setText("TAZ element");
             break;
+        case GNEAttributeCarrier::TAGProperty::TAGPROPERTY_VEHICLE:
+            setText("Vehicle");
+            break;
         default:
             throw ProcessError("invalid tag property");
-
     }
     // fill myListOfTags
     myListOfTags = GNEAttributeCarrier::allowedTagsByCategory(type, onlyDrawables);

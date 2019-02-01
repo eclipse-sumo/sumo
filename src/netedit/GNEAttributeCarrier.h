@@ -250,30 +250,31 @@ public:
         TAGPROPERTY_TAZ =                 1 << 4,   // Traffic Assignment Zones
         TAGPROPERTY_STOPPINGPLACE =       1 << 5,   // StoppingPlaces (BusStops, ChargingStations...)
         TAGPROPERTY_DETECTOR =            1 << 6,   // Detectors (E1, E2...)
-        TAGPROPERTY_ROUTEELEMENT =        1 << 7,   // VTypes, Vehicles, Flows...
-        TAGPROPERTY_DRAWABLE =            1 << 8,   // Element can be drawed in view
-        TAGPROPERTY_BLOCKMOVEMENT =       1 << 9,   // Element can block their movement
-        TAGPROPERTY_BLOCKSHAPE =          1 << 10,  // Element can block their shape
-        TAGPROPERTY_CLOSESHAPE =          1 << 11,  // Element can close their shape
-        TAGPROPERTY_GEOPOSITION =         1 << 12,  // Element's position can be defined using a GEO position
-        TAGPROPERTY_GEOSHAPE =            1 << 13,  // Element's shape acn be defined using a GEO Shape
-        TAGPROPERTY_DIALOG =              1 << 14,  // Element can be edited using a dialog (GNECalibratorDialog, GNERerouterDialog...)
-        TAGPROPERTY_PARENT =              1 << 15,  // Element will be writed in XML as child of another element (E3Entry -> E3Detector...)
-        TAGPROPERTY_MINIMUMCHILDS =       1 << 16,  // Element will be only writed in XML if has a minimum number of childs
-        TAGPROPERTY_REPARENT =            1 << 17,  // Element can be reparent
-        TAGPROPERTY_SYNONYM =             1 << 18,  // Element will be written with a different name in der XML
-        TAGPROPERTY_AUTOMATICSORTING =    1 << 19,  // Element sort automatic their Childs (used by Additionals)
-        TAGPROPERTY_SELECTABLE =          1 << 20,  // Element is selectable
-        TAGPROPERTY_MASKSTARTENDPOS =     1 << 21,  // Element mask attributes StartPos and EndPos as "lenght" (Only used in the appropiate GNEFrame)
-        TAGPROPERTY_MASKXYZPOSITION =     1 << 22,  // Element mask attributes X, Y and Z as "Position"
-        TAGPROPERTY_WRITECHILDSSEPARATE = 1 << 23,  // Element writes their childs in a separated filename
-        TAGPROPERTY_PLACEDOVER_VIEW =     1 << 24,  // Element will be placed in view
-        TAGPROPERTY_PLACEDOVER_EDGE =     1 << 25,  // Element will be placed over an edge
-        TAGPROPERTY_PLACEDOVER_LANE =     1 << 26,  // Element will be placed over a lane
-        TAGPROPERTY_PLACEDOVER_JUNCTION = 1 << 27,  // Element will be placed over a junction
-        TAGPROPERTY_PLACEDOVER_EDGES =    1 << 28,  // Element will be placed over a list of edges
-        TAGPROPERTY_PLACEDOVER_LANES =    1 << 29,  // Element will be placed over a list of lanes
-        TAGPROPERTY_NOGENERICPARAMETERS = 1 << 30,  // Element doesn't accept Generic Parameters (by default all tags supports generic parameters)
+        TAGPROPERTY_VEHICLE =             1 << 7,   // Vehicles (Flows, trips...)
+        TAGPROPERTY_ROUTEELEMENT =        1 << 8,   // VTypes, Vehicles, Flows...
+        TAGPROPERTY_DRAWABLE =            1 << 9,   // Element can be drawed in view
+        TAGPROPERTY_BLOCKMOVEMENT =       1 << 10,  // Element can block their movement
+        TAGPROPERTY_BLOCKSHAPE =          1 << 11,  // Element can block their shape
+        TAGPROPERTY_CLOSESHAPE =          1 << 12,  // Element can close their shape
+        TAGPROPERTY_GEOPOSITION =         1 << 13,  // Element's position can be defined using a GEO position
+        TAGPROPERTY_GEOSHAPE =            1 << 14,  // Element's shape acn be defined using a GEO Shape
+        TAGPROPERTY_DIALOG =              1 << 15,  // Element can be edited using a dialog (GNECalibratorDialog, GNERerouterDialog...)
+        TAGPROPERTY_PARENT =              1 << 16,  // Element will be writed in XML as child of another element (E3Entry -> E3Detector...)
+        TAGPROPERTY_MINIMUMCHILDS =       1 << 17,  // Element will be only writed in XML if has a minimum number of childs
+        TAGPROPERTY_REPARENT =            1 << 18,  // Element can be reparent
+        TAGPROPERTY_SYNONYM =             1 << 19,  // Element will be written with a different name in der XML
+        TAGPROPERTY_AUTOMATICSORTING =    1 << 20,  // Element sort automatic their Childs (used by Additionals)
+        TAGPROPERTY_SELECTABLE =          1 << 21,  // Element is selectable
+        TAGPROPERTY_MASKSTARTENDPOS =     1 << 22,  // Element mask attributes StartPos and EndPos as "lenght" (Only used in the appropiate GNEFrame)
+        TAGPROPERTY_MASKXYZPOSITION =     1 << 23,  // Element mask attributes X, Y and Z as "Position"
+        TAGPROPERTY_WRITECHILDSSEPARATE = 1 << 24,  // Element writes their childs in a separated filename
+        TAGPROPERTY_PLACEDOVER_VIEW =     1 << 25,  // Element will be placed in view
+        TAGPROPERTY_PLACEDOVER_EDGE =     1 << 26,  // Element will be placed over an edge
+        TAGPROPERTY_PLACEDOVER_LANE =     1 << 27,  // Element will be placed over a lane
+        TAGPROPERTY_PLACEDOVER_JUNCTION = 1 << 28,  // Element will be placed over a junction
+        TAGPROPERTY_PLACEDOVER_EDGES =    1 << 29,  // Element will be placed over a list of edges
+        TAGPROPERTY_PLACEDOVER_LANES =    1 << 30,  // Element will be placed over a list of lanes
+        TAGPROPERTY_NOGENERICPARAMETERS = 1 << 31,  // Element doesn't accept Generic Parameters (by default all tags supports generic parameters)
     };
 
     /// @brief struct with the attribute Properties
@@ -350,6 +351,9 @@ public:
 
         /// @brief return true if tag correspond to a shape (Only used to group all detectors in the XML)
         bool isDetector() const;
+
+        /// @brief return true if tag correspond to a vehicle element
+        bool isVehicle() const;
 
         /// @brief return true if tag correspond to a drawable element
         bool isDrawable() const;
