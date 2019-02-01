@@ -555,7 +555,10 @@ NIXMLEdgesHandler::deleteEdge(const SUMOSAXAttributes& attrs) {
 
 void
 NIXMLEdgesHandler::myEndElement(int element) {
-    if (element == SUMO_TAG_EDGE && myCurrentEdge != nullptr) {
+    if (myCurrentEdge == nullptr) {
+        return;
+    }
+    if (element == SUMO_TAG_EDGE) {
         myLastParameterised.pop_back();
         // add bike lane, wait until lanes are loaded to avoid building if it already exists
         if (myBikeLaneWidth != NBEdge::UNSPECIFIED_WIDTH) {
