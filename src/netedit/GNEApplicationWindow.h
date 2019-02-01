@@ -531,6 +531,9 @@ private:
         /// @brief menu command for vehicle mode
         FXMenuCommand* vehicleMode;
 
+        /// @brief menu command for vehicle type mode
+        FXMenuCommand* vehicleTypeMode;
+
     private:
         /// @brief pointer to current GNEApplicationWindows
         GNEApplicationWindow* myGNEApp;

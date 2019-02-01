@@ -40,15 +40,16 @@ class GNECrossingFrame;
 class GNEDeleteFrame;
 class GNEDialogACChooser;
 class GNEInspectorFrame;
-class GNERouteFrame;
-class GNEVehicleFrame;
 class GNENet;
 class GNEPolygonFrame;
 class GNEProhibitionFrame;
+class GNERouteFrame;
 class GNESelectorFrame;
 class GNETAZFrame;
 class GNETLSEditorFrame;
 class GNEUndoList;
+class GNEVehicleFrame;
+class GNEVehicleTypeFrame;
 
 // ===========================================================================
 // class declarations
@@ -128,11 +129,14 @@ public:
     /// @brief get frame for GNE_NMODE_CREATEEDGE
     GNECreateEdgeFrame* getCreateEdgeFrame() const;
 
-    /// @brief get frame for GNE_RMODE_ROUTE
+    /// @brief get frame for GNE_DMODE_ROUTE
     GNERouteFrame* getRouteFrame() const;
 
-    /// @brief get frame for GNE_RMODE_VEHICLE
+    /// @brief get frame for GNE_DMODE_VEHICLE
     GNEVehicleFrame* getVehicleFrame() const;
+
+    /// @brief get frame for GNE_DMODE_VEHICLETYPE
+    GNEVehicleTypeFrame* getVehicleTypeFrame() const;
 
     /// @brief show frames area if at least a GNEFrame is showed
     /// @note this function is called in GNEFrame::Show();
@@ -224,11 +228,14 @@ private:
         /// @brief frame for GNE_NMODE_CREATEDGE
         GNECreateEdgeFrame* createEdgeFrame;
 
-        /// @brief frame for GNE_RMODE_ROUTE
+        /// @brief frame for GNE_DMODE_ROUTE
         GNERouteFrame* routeFrame;
 
-        /// @brief frame for GNE_RMODE_VEHICLE
+        /// @brief frame for GNE_DMODE_VEHICLE
         GNEVehicleFrame* vehicleFrame;
+
+        /// @brief frame for GNE_DMODE_VEHICLETYPE
+        GNEVehicleTypeFrame* vehicleTypeFrame;
     };
 
     /// @brief struct for ACChoosers dialog

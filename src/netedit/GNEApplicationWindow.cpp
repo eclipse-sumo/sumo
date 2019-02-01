@@ -121,7 +121,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_I_INSPECTMODE,                   GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_S_SELECTMODE,                    GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_C_CONNECTMODE,                   GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_T_TLSMODE,                       GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_T_TLSMODE_VTYPEMODE,             GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_A_ADDITIONALMODE,                GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_R_CROSSINGMODE_ROUTEMODE,        GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_Z_TAZMODE,                       GNEApplicationWindow::onCmdSetMode),
@@ -349,8 +349,8 @@ GNEApplicationWindow::dependentBuild() {
     getAccelTable()->addAccel(67,  this, FXSEL(SEL_COMMAND, MID_HOTKEY_C_CONNECTMODE));   // C
     getAccelTable()->addAccel(119, this, FXSEL(SEL_COMMAND, MID_HOTKEY_W_PROHIBITIONMODE));   // w
     getAccelTable()->addAccel(87,  this, FXSEL(SEL_COMMAND, MID_HOTKEY_W_PROHIBITIONMODE));   // W
-    getAccelTable()->addAccel(116, this, FXSEL(SEL_COMMAND, MID_HOTKEY_T_TLSMODE));   // t
-    getAccelTable()->addAccel(94,  this, FXSEL(SEL_COMMAND, MID_HOTKEY_T_TLSMODE));   // T
+    getAccelTable()->addAccel(116, this, FXSEL(SEL_COMMAND, MID_HOTKEY_T_TLSMODE_VTYPEMODE));   // t
+    getAccelTable()->addAccel(94,  this, FXSEL(SEL_COMMAND, MID_HOTKEY_T_TLSMODE_VTYPEMODE));   // T
     getAccelTable()->addAccel(97,  this, FXSEL(SEL_COMMAND, MID_HOTKEY_A_ADDITIONALMODE));   // a
     getAccelTable()->addAccel(65,  this, FXSEL(SEL_COMMAND, MID_HOTKEY_A_ADDITIONALMODE));   // A
     getAccelTable()->addAccel(114, this, FXSEL(SEL_COMMAND, MID_HOTKEY_R_CROSSINGMODE_ROUTEMODE));   // r
@@ -1114,42 +1114,41 @@ void
 GNEApplicationWindow::NetworkMenuCommands::buildNetworkMenuCommands(FXMenuPane* editMenu) {
     // build every FXMenuCommand giving it a shortcut
     createEdgeMode = new FXMenuCommand(editMenu,
-                                       "&Edge mode\tE\tCreate junction and edges.",
-                                       GUIIconSubSys::getIcon(ICON_MODECREATEEDGE), myGNEApp, MID_HOTKEY_E_EDGEMODE);
+        "&Edge mode\tE\tCreate junction and edges.",
+        GUIIconSubSys::getIcon(ICON_MODECREATEEDGE), myGNEApp, MID_HOTKEY_E_EDGEMODE);
     moveMode = new FXMenuCommand(editMenu,
-                                 "&Move mode\tM\tMove elements.",
-                                 GUIIconSubSys::getIcon(ICON_MODEMOVE), myGNEApp, MID_HOTKEY_M_MOVEMODE);
+        "&Move mode\tM\tMove elements.",
+        GUIIconSubSys::getIcon(ICON_MODEMOVE), myGNEApp, MID_HOTKEY_M_MOVEMODE);
     deleteMode = new FXMenuCommand(editMenu,
-                                   "&Delete mode\tD\tDelete elements.",
-                                   GUIIconSubSys::getIcon(ICON_MODEDELETE), myGNEApp, MID_HOTKEY_D_DELETEMODE);
+        "&Delete mode\tD\tDelete elements.",
+        GUIIconSubSys::getIcon(ICON_MODEDELETE), myGNEApp, MID_HOTKEY_D_DELETEMODE);
     inspectMode = new FXMenuCommand(editMenu,
-                                    "&Inspect mode\tI\tInspect elements and change their attributes.",
-                                    GUIIconSubSys::getIcon(ICON_MODEINSPECT), myGNEApp, MID_HOTKEY_I_INSPECTMODE);
+        "&Inspect mode\tI\tInspect elements and change their attributes.",
+        GUIIconSubSys::getIcon(ICON_MODEINSPECT), myGNEApp, MID_HOTKEY_I_INSPECTMODE);
     selectMode = new FXMenuCommand(editMenu,
-                                   "&Select mode\tS\tSelect elements.",
-                                   GUIIconSubSys::getIcon(ICON_MODESELECT), myGNEApp, MID_HOTKEY_S_SELECTMODE);
+        "&Select mode\tS\tSelect elements.",
+        GUIIconSubSys::getIcon(ICON_MODESELECT), myGNEApp, MID_HOTKEY_S_SELECTMODE);
     connectMode = new FXMenuCommand(editMenu,
-                                    "&Connection mode\tC\tEdit connections between lanes.",
-                                    GUIIconSubSys::getIcon(ICON_MODECONNECTION), myGNEApp, MID_HOTKEY_C_CONNECTMODE);
+        "&Connection mode\tC\tEdit connections between lanes.",
+        GUIIconSubSys::getIcon(ICON_MODECONNECTION), myGNEApp, MID_HOTKEY_C_CONNECTMODE);
     prohibitionMode = new FXMenuCommand(editMenu,
-                                        "Pro&hibition mode\tW\tEdit connection prohibitions.",
-                                        GUIIconSubSys::getIcon(ICON_MODEPROHIBITION), myGNEApp, MID_HOTKEY_W_PROHIBITIONMODE);
+        "Pro&hibition mode\tW\tEdit connection prohibitions.",
+        GUIIconSubSys::getIcon(ICON_MODEPROHIBITION), myGNEApp, MID_HOTKEY_W_PROHIBITIONMODE);
     TLSMode = new FXMenuCommand(editMenu,
-                                "&Traffic light mode\tT\tEdit traffic lights over junctions.",
-                                GUIIconSubSys::getIcon(ICON_MODETLS), myGNEApp, MID_HOTKEY_T_TLSMODE);
+        "&Traffic light mode\tT\tEdit traffic lights over junctions.",
+        GUIIconSubSys::getIcon(ICON_MODETLS), myGNEApp, MID_HOTKEY_T_TLSMODE_VTYPEMODE);
     additionalMode = new FXMenuCommand(editMenu,
-                                       "&Additional mode\tA\tCreate additional elements.",
-                                       GUIIconSubSys::getIcon(ICON_MODEADDITIONAL), myGNEApp, MID_HOTKEY_A_ADDITIONALMODE);
+        "&Additional mode\tA\tCreate additional elements.",
+        GUIIconSubSys::getIcon(ICON_MODEADDITIONAL), myGNEApp, MID_HOTKEY_A_ADDITIONALMODE);
     crossingMode = new FXMenuCommand(editMenu,
-                                     "C&rossing mode\tR\tCreate crossings between edges.",
-                                     GUIIconSubSys::getIcon(ICON_MODECROSSING), myGNEApp, MID_HOTKEY_R_CROSSINGMODE_ROUTEMODE);
+        "C&rossing mode\tR\tCreate crossings between edges.",
+        GUIIconSubSys::getIcon(ICON_MODECROSSING), myGNEApp, MID_HOTKEY_R_CROSSINGMODE_ROUTEMODE);
     TAZMode = new FXMenuCommand(editMenu,
-                                "TA&Z mode\tZ\tCreate Traffic Assignment Zones.",
-                                GUIIconSubSys::getIcon(ICON_MODETAZ), myGNEApp, MID_HOTKEY_Z_TAZMODE);
+        "TA&Z mode\tZ\tCreate Traffic Assignment Zones.",
+        GUIIconSubSys::getIcon(ICON_MODETAZ), myGNEApp, MID_HOTKEY_Z_TAZMODE);
     shapeMode = new FXMenuCommand(editMenu,
-                                  "&POI-Poly mode\tP\tCreate Points-Of-Interest and polygons.",
-                                  GUIIconSubSys::getIcon(ICON_MODEPOLYGON), myGNEApp, MID_HOTKEY_P_POLYGONMODE);
-
+        "&POI-Poly mode\tP\tCreate Points-Of-Interest and polygons.",
+        GUIIconSubSys::getIcon(ICON_MODEPOLYGON), myGNEApp, MID_HOTKEY_P_POLYGONMODE);
     // build separator
     myHorizontalSeparator = new FXMenuSeparator(editMenu);
 }
@@ -1161,14 +1160,16 @@ GNEApplicationWindow::NetworkMenuCommands::buildNetworkMenuCommands(FXMenuPane* 
 GNEApplicationWindow::DemandMenuCommands::DemandMenuCommands(GNEApplicationWindow* GNEApp) :
     routeMode(nullptr),
     vehicleMode(nullptr),
-    myGNEApp(GNEApp)
-{}
+    vehicleTypeMode(nullptr),
+    myGNEApp(GNEApp) {
+}
 
 
 void
 GNEApplicationWindow::DemandMenuCommands::showDemandMenuCommands() {
     routeMode->show();
     vehicleMode->show();
+    vehicleTypeMode->show();
     // also show separator
     myHorizontalSeparator->show();
 }
@@ -1178,6 +1179,7 @@ void
 GNEApplicationWindow::DemandMenuCommands::hideDemandMenuCommands() {
     routeMode->hide();
     vehicleMode->hide();
+    vehicleTypeMode->hide();
     // also hide separator
     myHorizontalSeparator->hide();
 }
@@ -1187,12 +1189,14 @@ void
 GNEApplicationWindow::DemandMenuCommands::buildDemandMenuCommands(FXMenuPane* editMenu) {
     // build every FXMenuCommand giving it a shortcut
     routeMode = new FXMenuCommand(editMenu,
-                                  "&Route mode\tR\tCreate Routes.",
-                                  GUIIconSubSys::getIcon(ICON_MODEROUTE), myGNEApp, MID_HOTKEY_R_CROSSINGMODE_ROUTEMODE);
+        "&Route mode\tR\tCreate Routes.",
+        GUIIconSubSys::getIcon(ICON_MODEROUTE), myGNEApp, MID_HOTKEY_R_CROSSINGMODE_ROUTEMODE);
     vehicleMode = new FXMenuCommand(editMenu,
-                                  "&Vehicle mode\tR\tCreate vehicles.",
-                                  GUIIconSubSys::getIcon(ICON_MODEVEHICLE), myGNEApp, MID_HOTKEY_V_VEHICLEMODE);
-
+        "&Vehicle mode\tV\tCreate vehicles.",
+        GUIIconSubSys::getIcon(ICON_MODEVEHICLE), myGNEApp, MID_HOTKEY_V_VEHICLEMODE);
+    vehicleTypeMode = new FXMenuCommand(editMenu,
+        "&Vehicle type mode\tT\tCreate vehicle types.",
+        GUIIconSubSys::getIcon(ICON_MODEVEHICLETYPE), myGNEApp, MID_HOTKEY_T_TLSMODE_VTYPEMODE);
     // build separator
     myHorizontalSeparator = new FXMenuSeparator(editMenu);
 }

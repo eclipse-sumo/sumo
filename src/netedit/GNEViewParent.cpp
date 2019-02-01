@@ -32,11 +32,12 @@
 #include <netedit/frames/GNEInspectorFrame.h>
 #include <netedit/frames/GNEPolygonFrame.h>
 #include <netedit/frames/GNEProhibitionFrame.h>
+#include <netedit/frames/GNERouteFrame.h>
 #include <netedit/frames/GNESelectorFrame.h>
 #include <netedit/frames/GNETAZFrame.h>
 #include <netedit/frames/GNETLSEditorFrame.h>
-#include <netedit/frames/GNERouteFrame.h>
 #include <netedit/frames/GNEVehicleFrame.h>
+#include <netedit/frames/GNEVehicleTypeFrame.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNEJunction.h>
 #include <utils/foxtools/MFXUtils.h>
@@ -128,6 +129,7 @@ GNEViewParent::GNEViewParent(FXMDIClient* p, FXMDIMenu* mdimenu, const FXString&
     // Create Demand frames
     myFrames.routeFrame = new GNERouteFrame(myFramesArea, viewNet);
     myFrames.vehicleFrame = new GNEVehicleFrame(myFramesArea, viewNet);
+    myFrames.vehicleTypeFrame = new GNEVehicleTypeFrame(myFramesArea, viewNet);
 
     // Update frame areas after creation
     onCmdUpdateFrameAreaWidth(nullptr, 0, nullptr);
@@ -231,6 +233,12 @@ GNEViewParent::getRouteFrame() const {
 GNEVehicleFrame*
 GNEViewParent::getVehicleFrame() const {
     return myFrames.vehicleFrame;
+}
+
+
+GNEVehicleTypeFrame*
+GNEViewParent::getVehicleTypeFrame() const {
+    return myFrames.vehicleTypeFrame;
 }
 
 
@@ -474,7 +482,8 @@ GNEViewParent::Frames::Frames() :
     prohibitionFrame(nullptr),
     createEdgeFrame(nullptr),
     routeFrame(nullptr),
-    vehicleFrame(nullptr) {
+    vehicleFrame(nullptr),
+    vehicleTypeFrame(nullptr) {
 }
 
 
@@ -495,6 +504,7 @@ GNEViewParent::Frames::hideFrames() {
     **/
     routeFrame->hide();
     vehicleFrame->hide();
+    vehicleTypeFrame->hide();
 }
 
 
@@ -516,6 +526,7 @@ GNEViewParent::Frames::setWidth(int frameWidth) {
     **/
     routeFrame->setFrameWidth(frameWidth);
     vehicleFrame->setFrameWidth(frameWidth);
+    vehicleTypeFrame->setFrameWidth(frameWidth);
 }
 
 
@@ -549,6 +560,8 @@ GNEViewParent::Frames::isFrameShown() const {
     } else if (routeFrame->shown()) {
         return true;
     } else if (vehicleFrame->shown()) {
+        return true;
+    } else if (vehicleTypeFrame->shown()) {
         return true;
     } else {
         return false;
