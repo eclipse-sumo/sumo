@@ -9,9 +9,9 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    Main.java
-/// @author  Mario Krumnow
-/// @date    2013
+/// @file    MultiClient1.java
+/// @author  Jakob Erdmann
+/// @date    2019
 /// @version $Id$
 ///
 //
