@@ -301,6 +301,7 @@ endif ()
 # installation
 install(DIRECTORY data/ DESTINATION share/sumo/data)
 install(DIRECTORY tools/ DESTINATION share/sumo/tools
+        USE_SOURCE_PERMISSIONS
         PATTERN "calibration" EXCLUDE
         PATTERN "lisum-core" EXCLUDE
         PATTERN "lisum-gui" EXCLUDE
