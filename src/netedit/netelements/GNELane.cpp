@@ -34,6 +34,7 @@
 #include <netedit/frames/GNETLSEditorFrame.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNENet.h>
+#include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/additionals/GNEShape.h>
 #include <netedit/additionals/GNEAdditional.h>

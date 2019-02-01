@@ -65,6 +65,7 @@
 
 #include "GNEApplicationWindow.h"
 #include "GNENet.h"
+#include "GNEViewNet.h"
 #include "GNEUndoList.h"
 #include "GNEViewParent.h"
 

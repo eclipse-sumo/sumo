@@ -26,6 +26,7 @@
 #include <netedit/additionals/GNEAdditional.h>
 #include <netedit/frames/GNEInspectorFrame.h>
 #include <netedit/GNEViewParent.h>
+#include <netedit/GNEViewNet.h>
 
 #include "GNEChange_Additional.h"
 

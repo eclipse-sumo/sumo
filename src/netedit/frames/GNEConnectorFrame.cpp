@@ -29,6 +29,7 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNENet.h>
+#include <netedit/GNEViewNet.h>
 #include <netedit/netelements/GNELane.h>
 #include <netedit/netelements/GNEConnection.h>
 #include <netedit/netelements/GNEEdge.h>

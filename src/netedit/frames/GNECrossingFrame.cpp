@@ -25,6 +25,7 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <netedit/changes/GNEChange_Crossing.h>
 #include <netedit/GNENet.h>
+#include <netedit/GNEViewNet.h>
 #include <netedit/netelements/GNEJunction.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNELane.h>

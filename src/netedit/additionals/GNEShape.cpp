@@ -25,6 +25,7 @@
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <netedit/frames/GNESelectorFrame.h>
 #include <netedit/GNENet.h>
+#include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <utils/gui/globjects/GLIncludes.h>
 

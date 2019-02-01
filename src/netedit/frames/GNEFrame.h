@@ -25,7 +25,7 @@
 #include <fx.h>
 #include <netedit/GNEAttributeCarrier.h>
 #include <utils/geom/PositionVector.h>
-#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewNetHelper.h>
 
 // ===========================================================================
 // class definitions

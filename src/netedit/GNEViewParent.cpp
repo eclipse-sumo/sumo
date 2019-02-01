@@ -46,6 +46,7 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEApplicationWindow.h"
+#include "GNEViewNet.h"
 #include "GNENet.h"
 #include "GNEUndoList.h"
 #include "GNEViewParent.h"

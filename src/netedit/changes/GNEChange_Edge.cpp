@@ -24,6 +24,7 @@
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/frames/GNEInspectorFrame.h>
 #include <netedit/GNEViewParent.h>
+#include <netedit/GNEViewNet.h>
 
 #include "GNEChange_Edge.h"
 

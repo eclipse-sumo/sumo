@@ -38,6 +38,7 @@
 #include <netedit/additionals/GNEPOI.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNENet.h>
+#include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/dialogs/GNEGenericParameterDialog.h>
 

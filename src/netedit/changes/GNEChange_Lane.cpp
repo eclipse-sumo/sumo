@@ -25,6 +25,7 @@
 #include <netedit/netelements/GNELane.h>
 #include <netedit/frames/GNEInspectorFrame.h>
 #include <netedit/GNEViewParent.h>
+#include <netedit/GNEViewNet.h>
 
 #include "GNEChange_Lane.h"
 

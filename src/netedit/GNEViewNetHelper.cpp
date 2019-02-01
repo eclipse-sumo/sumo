@@ -57,9 +57,10 @@
 #include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/options/OptionsCont.h>
 
+#include "GNEViewNetHelper.h"
+#include "GNEViewNet.h"
 #include "GNENet.h"
 #include "GNEUndoList.h"
-#include "GNEViewNetHelper.h"
 #include "GNEViewParent.h"
 #include "GNEApplicationWindow.h"
 

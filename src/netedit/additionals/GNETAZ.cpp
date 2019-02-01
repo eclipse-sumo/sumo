@@ -24,6 +24,7 @@
 #include <netedit/netelements/GNELane.h>
 #include <netedit/frames/GNETAZFrame.h>
 #include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewNet.h>
 #include <netedit/GNENet.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/GNEViewParent.h>

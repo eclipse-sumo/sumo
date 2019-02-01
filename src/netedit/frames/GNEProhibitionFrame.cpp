@@ -29,6 +29,7 @@
 #include <netedit/netelements/GNEConnection.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNEJunction.h>
+#include <netedit/GNEViewNet.h>
 
 #include "GNEProhibitionFrame.h"
 

@@ -29,6 +29,7 @@
 #include <netedit/demandelements/GNERouteHandler.h>
 #include <netedit/demandelements/GNERoute.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
+#include <netedit/GNEViewNet.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewParent.h>

@@ -29,6 +29,7 @@
 #include <utils/xml/XMLSubSys.h>
 #include <netimport/NIXMLTrafficLightsHandler.h>
 #include <netedit/changes/GNEChange_TLS.h>
+#include <netedit/GNEViewNet.h>
 #include <netedit/GNENet.h>
 #include <netedit/netelements/GNEJunction.h>
 #include <netedit/netelements/GNEEdge.h>

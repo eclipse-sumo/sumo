@@ -31,6 +31,7 @@
 #include <netedit/additionals/GNETAZ.h>
 #include <netedit/demandelements/GNEDemandElement.h>
 #include <netedit/GNENet.h>
+#include <netedit/GNEViewNet.h>
 #include <netedit/additionals/GNEPoly.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewParent.h>

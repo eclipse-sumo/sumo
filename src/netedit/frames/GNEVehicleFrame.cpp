@@ -29,6 +29,7 @@
 #include <netedit/demandelements/GNEVehicle.h>
 #include <netedit/demandelements/GNERouteHandler.h>
 #include <netedit/GNENet.h>
+#include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 
 #include "GNEVehicleFrame.h"

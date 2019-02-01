@@ -25,6 +25,7 @@
 #include <utils/gui/div/GUIUserIO.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/GNENet.h>
+#include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/additionals/GNEPoly.h>
 #include <netedit/additionals/GNEPOI.h>

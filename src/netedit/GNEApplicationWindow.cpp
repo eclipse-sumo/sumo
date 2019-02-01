@@ -54,6 +54,7 @@
 #include "GNEEvent_NetworkLoaded.h"
 #include "GNELoadThread.h"
 #include "GNENet.h"
+#include "GNEViewNet.h"
 #include "GNEUndoList.h"
 #include "GNEViewParent.h"
 
