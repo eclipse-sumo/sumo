@@ -43,7 +43,7 @@ GNEVehicleTypeFrame::GNEVehicleTypeFrame(FXHorizontalFrame* horizontalFrameParen
     GNEFrame(horizontalFrameParent, viewNet, "Vehicles") {
 
     // create item Selector modul for vehicles
-    myItemSelector = new ItemSelector(this, GNEAttributeCarrier::TAGProperty::TAGPROPERTY_VEHICLE);
+    myItemSelector = new ItemSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_VEHICLE);
 
     // Create vehicle parameters
     myVehicleAttributes = new ACAttributes(this);

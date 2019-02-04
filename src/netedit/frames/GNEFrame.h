@@ -49,7 +49,7 @@ public:
 
     public:
         /// @brief constructor
-        ItemSelector(GNEFrame* frameParent, GNEAttributeCarrier::TAGProperty type, bool onlyDrawables = true);
+        ItemSelector(GNEFrame* frameParent, GNEAttributeCarrier::TagType type, bool onlyDrawables = true);
 
         /// @brief destructor
         ~ItemSelector();

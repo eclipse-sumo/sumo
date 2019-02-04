@@ -107,24 +107,24 @@ FXIMPLEMENT(GNEFrame::NeteditAttributes,        FXGroupBox,         NeteditAttri
 // GNEFrame::ItemSelector - methods
 // ---------------------------------------------------------------------------
 
-GNEFrame::ItemSelector::ItemSelector(GNEFrame* frameParent, GNEAttributeCarrier::TAGProperty type, bool onlyDrawables) :
+GNEFrame::ItemSelector::ItemSelector(GNEFrame* frameParent, GNEAttributeCarrier::TagType type, bool onlyDrawables) :
     FXGroupBox(frameParent->myContentFrame, "Element", GUIDesignGroupBoxFrame),
     myFrameParent(frameParent) {
     // first check that property is valid
     switch (type)     {
-        case GNEAttributeCarrier::TAGProperty::TAGPROPERTY_NETELEMENT:
+        case GNEAttributeCarrier::TagType::TAGTYPE_NETELEMENT:
             setText("Net element");
             break;
-        case GNEAttributeCarrier::TAGProperty::TAGPROPERTY_ADDITIONAL:
+        case GNEAttributeCarrier::TagType::TAGTYPE_ADDITIONAL:
             setText("Additional element");
             break;
-        case GNEAttributeCarrier::TAGProperty::TAGPROPERTY_SHAPE:
+        case GNEAttributeCarrier::TagType::TAGTYPE_SHAPE:
             setText("Shape element");
             break;
-        case GNEAttributeCarrier::TAGProperty::TAGPROPERTY_TAZ:
+        case GNEAttributeCarrier::TagType::TAGTYPE_TAZ:
             setText("TAZ element");
             break;
-        case GNEAttributeCarrier::TAGProperty::TAGPROPERTY_VEHICLE:
+        case GNEAttributeCarrier::TagType::TAGTYPE_VEHICLE:
             setText("Vehicle");
             break;
         default:
