@@ -42,6 +42,7 @@
 #include <utils/common/ToString.h>
 #include "TraCITestClient.h"
 
+using namespace libsumo;
 
 // ===========================================================================
 // method definitions

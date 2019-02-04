@@ -34,6 +34,7 @@
 #include "TraCIServerAPI_VehicleType.h"
 #include "TraCIServerAPI_Person.h"
 
+using namespace libsumo;
 
 // ===========================================================================
 // method definitions

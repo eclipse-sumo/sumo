@@ -30,6 +30,7 @@
 #include <libsumo/Junction.h>
 #include "TraCIServerAPI_Junction.h"
 
+using namespace libsumo;
 
 // ===========================================================================
 // method definitions

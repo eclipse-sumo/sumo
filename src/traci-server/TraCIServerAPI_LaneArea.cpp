@@ -30,6 +30,7 @@
 #include <libsumo/LaneArea.h>
 #include "TraCIServerAPI_LaneArea.h"
 
+using namespace libsumo;
 
 // ===========================================================================
 // method definitions

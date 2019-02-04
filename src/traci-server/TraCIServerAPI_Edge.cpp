@@ -40,6 +40,7 @@
 #include <utils/emissions/HelpersHarmonoise.h>
 #include <libsumo/Edge.h>
 
+using namespace libsumo;
 
 // ===========================================================================
 // method definitions

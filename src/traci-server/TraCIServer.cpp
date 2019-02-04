@@ -83,6 +83,7 @@
 #include "TraCIServerAPI_Simulation.h"
 #include "TraCIServerAPI_Person.h"
 
+using namespace libsumo;
 
 // ===========================================================================
 // debug constants

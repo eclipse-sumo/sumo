@@ -40,6 +40,7 @@
 #include "TraCIConstants.h"
 #include "TraCIServerAPI_Simulation.h"
 
+using namespace libsumo;
 
 // ===========================================================================
 // method definitions

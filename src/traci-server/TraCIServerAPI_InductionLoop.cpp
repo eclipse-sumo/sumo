@@ -30,6 +30,7 @@
 #include "TraCIConstants.h"
 #include "TraCIServerAPI_InductionLoop.h"
 
+using namespace libsumo;
 
 // ===========================================================================
 // method definitions

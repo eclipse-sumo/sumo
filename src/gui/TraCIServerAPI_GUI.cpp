@@ -36,6 +36,7 @@
 #include <guisim/GUIBaseVehicle.h>
 #include "TraCIServerAPI_GUI.h"
 
+using namespace libsumo;
 
 // ===========================================================================
 // method definitions

@@ -50,6 +50,7 @@
 #include "TraCIServerAPI_Vehicle.h"
 #include "TraCIServerAPI_VehicleType.h"
 
+using namespace libsumo;
 
 // ===========================================================================
 // method definitions

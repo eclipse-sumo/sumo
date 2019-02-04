@@ -32,6 +32,7 @@
 #include "TraCIConstants.h"
 #include "TraCIServerAPI_TrafficLight.h"
 
+using namespace libsumo;
 
 // ===========================================================================
 // method definitions

@@ -32,6 +32,8 @@
 #include <libsumo/POI.h>
 #include "TraCIServerAPI_POI.h"
 
+using namespace libsumo;
+
 // ===========================================================================
 // method definitions
 // ===========================================================================

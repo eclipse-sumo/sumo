@@ -30,6 +30,7 @@
 #include <libsumo/Route.h>
 #include "TraCIServerAPI_Route.h"
 
+using namespace libsumo;
 
 // ===========================================================================
 // method definitions

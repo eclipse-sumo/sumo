@@ -973,7 +973,7 @@ MSNet::getIntermodalRouter(const int routingMode, const MSEdgeVector& prohibited
             }
         }
         const std::string routingAlgorithm = OptionsCont::getOptions().getString("routing-algorithm");
-        if (routingMode == ROUTING_MODE_COMBINED) {
+        if (routingMode == libsumo::ROUTING_MODE_COMBINED) {
             myIntermodalRouter[routingMode] = new MSIntermodalRouter(MSNet::adaptIntermodalRouter, carWalk, routingAlgorithm, routingMode, new FareModul());
         } else {
             myIntermodalRouter[routingMode] = new MSIntermodalRouter(MSNet::adaptIntermodalRouter, carWalk, routingAlgorithm, routingMode);

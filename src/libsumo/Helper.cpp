@@ -57,6 +57,8 @@
 //#define DEBUG_MOVEXY_ANGLE
 //#define DEBUG_SURROUNDING
 
+using namespace libsumo;
+
 void
 LaneStoringVisitor::add(const MSLane* const l) const {
     switch (myDomain) {

@@ -27,6 +27,7 @@
 #include <libsumo/MultiEntryExit.h>
 #include "TraCIServerAPI_MultiEntryExit.h"
 
+using namespace libsumo;
 
 // ===========================================================================
 // method definitions

@@ -34,6 +34,8 @@
 #include "TraCIConstants.h"
 #include "TraCIServerAPI_Polygon.h"
 
+using namespace libsumo;
+
 // ===========================================================================
 // method definitions
 // ===========================================================================

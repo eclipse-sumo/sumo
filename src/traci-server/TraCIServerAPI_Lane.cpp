@@ -37,6 +37,7 @@
 #include "TraCIServerAPI_Lane.h"
 #include <libsumo/Lane.h>
 
+using namespace libsumo;
 
 // ===========================================================================
 // method definitions
