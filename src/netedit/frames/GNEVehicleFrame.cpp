@@ -82,8 +82,6 @@ GNEVehicleFrame::VTypeSelector::showVTypeSelector(const GNEAttributeCarrier::Tag
     if (myCurrentVehicleType) {
         // show vehicle attributes modul
         myVehicleFrameParent->myVehicleAttributes->showACAttributesModul(tagProperties);
-        // show netedit attributes
-        myVehicleFrameParent->myNeteditAttributes->showNeteditAttributesModul(tagProperties);
         // show help creation
         myVehicleFrameParent->myHelpCreation->showHelpCreation();
     } else {
@@ -131,8 +129,6 @@ GNEVehicleFrame::VTypeSelector::onCmdSelectVType(FXObject*, FXSelector, void*) {
             myCurrentVehicleType = i.second;
             // show vehicle attributes modul
             myVehicleFrameParent->myVehicleAttributes->showACAttributesModul(myVehicleFrameParent->myItemSelector->getCurrentTagProperties());
-            // show netedit attributes
-            myVehicleFrameParent->myNeteditAttributes->showNeteditAttributesModul(myVehicleFrameParent->myItemSelector->getCurrentTagProperties());
             // show help creation
             myVehicleFrameParent->myHelpCreation->showHelpCreation();
             // Write Warning in console if we're in testing mode
@@ -144,8 +140,6 @@ GNEVehicleFrame::VTypeSelector::onCmdSelectVType(FXObject*, FXSelector, void*) {
     myCurrentVehicleType = nullptr;
     // hide all moduls if selected item isn't valid
     myVehicleFrameParent->myVehicleAttributes->hideACAttributesModul();
-    // hide netedit attributes
-    myVehicleFrameParent->myNeteditAttributes->hideNeteditAttributesModul();
     // hide help creation
     myVehicleFrameParent->myHelpCreation->hideHelpCreation();
     // set color of myTypeMatchBox to red (invalid)
@@ -228,9 +222,6 @@ GNEVehicleFrame::GNEVehicleFrame(FXHorizontalFrame* horizontalFrameParent, GNEVi
     // Create vehicle parameters
     myVehicleAttributes = new ACAttributes(this);
 
-    // Create Netedit parameter
-    myNeteditAttributes = new NeteditAttributes(this);
-
     // Create Help Creation Modul
     myHelpCreation = new HelpCreation(this);
 
@@ -253,31 +244,45 @@ GNEVehicleFrame::show() {
 
 bool
 GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
+    // obtain tag (only for improve code legibility)
+    SumoXMLTag vehicleTag = myItemSelector->getCurrentTagProperties().getTag();
+
     // first check that current selected vehicle is valid
-    if (myItemSelector->getCurrentTagProperties().getTag() == SUMO_TAG_NOTHING) {
+    if (vehicleTag == SUMO_TAG_NOTHING) {
         myViewNet->setStatusBarText("Current selected vehicle isn't valid.");
         return false;
     }
 
-    // obtain tagproperty (only for improve code legibility)
-    const auto& tagValues = myItemSelector->getCurrentTagProperties();
+    // now check if VType is valid
+    if (myVTypeSelector->getCurrentVehicleType() == nullptr) {
+        myViewNet->setStatusBarText("Current selected vehicle type isn't valid.");
+        return false;
+    }
 
     // Declare map to keep attributes from Frames from Frame
     std::map<SumoXMLAttr, std::string> valuesMap = myVehicleAttributes->getAttributesAndValues();
 
-    // fill netedit attributes
-    if (!myNeteditAttributes->getNeteditAttributesAndValues(valuesMap, objectsUnderCursor.getLaneFront())) {
-        return false;
+    // add ID
+    valuesMap[SUMO_ATTR_ID] = myViewNet->getNet()->generateDemandElementID(vehicleTag);
+
+    // add VType
+    valuesMap[SUMO_ATTR_TYPE] = myVTypeSelector->getCurrentVehicleType()->getID();
+
+    // set route or edges depending of vehicle type
+    if ((vehicleTag == SUMO_TAG_VEHICLE || vehicleTag == SUMO_TAG_FLOW)) {
+        if (objectsUnderCursor.getDemandElementFront() && 
+           (objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE)) {
+            // obtain route
+            valuesMap[SUMO_ATTR_ROUTE] = objectsUnderCursor.getDemandElementFront()->getID();
+            // build vehicle/flow
+            return GNERouteHandler::buildDemandElement(valuesMap);
+        } else {
+            myViewNet->setStatusBarText(toString(vehicleTag) + " has to be placed within a route.");
+            return false;
+        }
     }
 
-    // If consecutive Lane Selector is enabled, it means that either we're selecting lanes or we're finished or we'rent started
-    if (tagValues.canBePlacedOverEdge()) {
-        return buildVehicleOverEdge(valuesMap, objectsUnderCursor.getLaneFront(), tagValues);
-    } else if (tagValues.canBePlacedOverLane()) {
-        return buildVehicleOverLane(valuesMap, objectsUnderCursor.getLaneFront(), tagValues);
-    } else {
-        return buildVehicleOverView(valuesMap, tagValues);
-    }
+    return true;
 }
 
 
@@ -293,135 +298,7 @@ GNEVehicleFrame::disableModuls() {
     // hide all moduls if vehicle isn't valid
     myVTypeSelector->hideVTypeSelector();
     myVehicleAttributes->hideACAttributesModul();
-    myNeteditAttributes->hideNeteditAttributesModul();
     myHelpCreation->hideHelpCreation();
-}
-
-
-std::string
-GNEVehicleFrame::generateID(GNENetElement* netElement) const {
-    // obtain current number of vehicles to generate a new index faster
-    int vehicleIndex = myViewNet->getNet()->getNumberOfDemandElements(myItemSelector->getCurrentTagProperties().getTag());
-    // obtain tag Properties (only for improve code legilibility
-    const auto& tagProperties = myItemSelector->getCurrentTagProperties();
-    if (netElement) {
-        // generate ID using netElement
-        while (myViewNet->getNet()->retrieveDemandElement(tagProperties.getTag(), tagProperties.getTagStr() + "_" + netElement->getID() + "_" + toString(vehicleIndex), false) != nullptr) {
-            vehicleIndex++;
-        }
-        return tagProperties.getTagStr() + "_" + netElement->getID() + "_" + toString(vehicleIndex);
-    } else {
-        // generate ID without netElement
-        while (myViewNet->getNet()->retrieveDemandElement(tagProperties.getTag(), tagProperties.getTagStr() + "_" + toString(vehicleIndex), false) != nullptr) {
-            vehicleIndex++;
-        }
-        return tagProperties.getTagStr() + "_" + toString(vehicleIndex);
-    }
-}
-
-
-bool
-GNEVehicleFrame::buildVehicleCommonAttributes(std::map<SumoXMLAttr, std::string>& valuesMap, const GNEAttributeCarrier::TagProperties& tagValues) {
-    // If vehicle has a interval defined by a begin or end, check that is valid
-    if (tagValues.hasAttribute(SUMO_ATTR_STARTTIME) && tagValues.hasAttribute(SUMO_ATTR_END)) {
-        double begin = GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_STARTTIME]);
-        double end = GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_END]);
-        if (begin > end) {
-            myVehicleAttributes->showWarningMessage("Attribute '" + toString(SUMO_ATTR_STARTTIME) + "' cannot be greater than attribute '" + toString(SUMO_ATTR_END) + "'.");
-            return false;
-        }
-    }
-    // If vehicle own the attribute SUMO_ATTR_FILE but was't defined, will defined as <ID>.xml
-    if (tagValues.hasAttribute(SUMO_ATTR_FILE) && valuesMap[SUMO_ATTR_FILE] == "") {
-        if ((myItemSelector->getCurrentTagProperties().getTag() != SUMO_TAG_CALIBRATOR) && (myItemSelector->getCurrentTagProperties().getTag() != SUMO_TAG_REROUTER)) {
-            // SUMO_ATTR_FILE is optional for calibrators and rerouters (fails to load in sumo when given and the file does not exist)
-            valuesMap[SUMO_ATTR_FILE] = (valuesMap[SUMO_ATTR_ID] + ".xml");
-        }
-    }
-    // all ok, continue building vehicles
-    return true;
-}
-
-
-bool
-GNEVehicleFrame::buildVehicleOverEdge(std::map<SumoXMLAttr, std::string>& valuesMap, GNELane* lane, const GNEAttributeCarrier::TagProperties& tagValues) {
-    // check that edge exist
-    if (lane) {
-        // Get attribute lane's edge
-        valuesMap[SUMO_ATTR_EDGE] = lane->getParentEdge().getID();
-        // Generate id of element based on the lane's edge
-        valuesMap[SUMO_ATTR_ID] = generateID(&lane->getParentEdge());
-    } else {
-        return false;
-    }
-    // parse common attributes
-    if (!buildVehicleCommonAttributes(valuesMap, tagValues)) {
-        return false;
-    }
-    // show warning dialogbox and stop check if input parameters are valid
-    if (!myVehicleAttributes->areValuesValid()) {
-        myVehicleAttributes->showWarningMessage();
-        return false;
-    } else {
-        
-        // GNEVehicleHandler::buildVehicle(myViewNet, true, myItemSelector->getCurrentTagProperties().getTag(), valuesMap) != nullptr) {
-
-        return true;
-    }
-}
-
-
-bool
-GNEVehicleFrame::buildVehicleOverLane(std::map<SumoXMLAttr, std::string>& valuesMap, GNELane* lane, const GNEAttributeCarrier::TagProperties& tagValues) {
-    // check that lane exist
-    if (lane != nullptr) {
-        // Get attribute lane
-        valuesMap[SUMO_ATTR_LANE] = lane->getID();
-        // Generate id of element based on the lane
-        valuesMap[SUMO_ATTR_ID] = generateID(lane);
-    } else {
-        return false;
-    }
-    // Obtain position of the mouse over lane (limited over grid)
-    double mousePositionOverLane = lane->getShape().nearest_offset_to_point2D(myViewNet->snapToActiveGrid(myViewNet->getPositionInformation())) / lane->getLengthGeometryFactor();
-    // set attribute position as mouse position over lane
-    valuesMap[SUMO_ATTR_POSITION] = toString(mousePositionOverLane);
-    // parse common attributes
-    if (!buildVehicleCommonAttributes(valuesMap, tagValues)) {
-        return false;
-    }
-    // show warning dialogbox and stop check if input parameters are valid
-    if (!myVehicleAttributes->areValuesValid()) {
-        myVehicleAttributes->showWarningMessage();
-        return false;
-    } else {
-
-        /// if (GNEVehicleHandler::buildVehicle(myViewNet, true, myItemSelector->getCurrentTagProperties().getTag(), valuesMap)
-       
-        return true;
-    }
-}
-
-
-bool
-GNEVehicleFrame::buildVehicleOverView(std::map<SumoXMLAttr, std::string>& valuesMap, const GNEAttributeCarrier::TagProperties& tagValues) {
-    // Generate id of element
-    valuesMap[SUMO_ATTR_ID] = generateID(nullptr);
-    // Obtain position as the clicked position over view
-    valuesMap[SUMO_ATTR_POSITION] = toString(myViewNet->snapToActiveGrid(myViewNet->getPositionInformation()));
-    // parse common attributes
-    if (!buildVehicleCommonAttributes(valuesMap, tagValues)) {
-        return false;
-    }
-    // show warning dialogbox and stop check if input parameters are valid
-    if (myVehicleAttributes->areValuesValid() == false) {
-        myVehicleAttributes->showWarningMessage();
-        return false;
-    } else { 
-        
-        // (GNEVehicleHandler::buildVehicle(myViewNet, true, myItemSelector->getCurrentTagProperties().getTag(), valuesMap)) {
-        return true;
-    }
 }
 
 /****************************************************************************/

@@ -53,6 +53,9 @@ public:
     /// @brief Destructor
     ~GNERouteHandler();
 
+    /// @brief build demand element
+    static bool buildDemandElement(const std::map<SumoXMLAttr, std::string> &valuesMap);
+
 protected:
     /// @brief opens a type distribution for reading
     void openVehicleTypeDistribution(const SUMOSAXAttributes& attrs);

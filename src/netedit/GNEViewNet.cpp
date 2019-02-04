@@ -20,6 +20,7 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
+
 #include <netedit/additionals/GNEPOI.h>
 #include <netedit/additionals/GNEPoly.h>
 #include <netedit/additionals/GNETAZ.h>
@@ -2966,6 +2967,13 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
                 // Handle edge click
                 myViewParent->getRouteFrame()->handleEdgeClick(&myObjectsUnderCursor.getLaneFront()->getParentEdge());
             }
+            // process click
+            processClick(eventData);
+            break;
+        }
+        case GNE_DMODE_VEHICLES: {
+            // Handle click
+            myViewParent->getVehicleFrame()->addVehicle(myObjectsUnderCursor);
             // process click
             processClick(eventData);
             break;

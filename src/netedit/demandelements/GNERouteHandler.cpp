@@ -49,6 +49,12 @@ GNERouteHandler::GNERouteHandler(const std::string& file, GNEViewNet* viewNet, b
 GNERouteHandler::~GNERouteHandler() {}
 
 
+bool 
+GNERouteHandler::buildDemandElement(const std::map<SumoXMLAttr, std::string> &valuesMap) {
+    return true;
+}
+
+
 void 
 GNERouteHandler::openVehicleTypeDistribution(const SUMOSAXAttributes& /*attrs*/) {
     // currently unused

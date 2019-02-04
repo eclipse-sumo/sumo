@@ -139,21 +139,6 @@ protected:
     void disableModuls();
 
 private:
-    /// @brief generate a ID for an additiona element
-    std::string generateID(GNENetElement* netElement) const;
-
-    /// @brief build common vehicle attributes
-    bool buildVehicleCommonAttributes(std::map<SumoXMLAttr, std::string>& valuesMap, const GNEAttributeCarrier::TagProperties& tagValues);
-
-    /// @brief build vehicle over an edge (parent of lane)
-    bool buildVehicleOverEdge(std::map<SumoXMLAttr, std::string>& valuesMap, GNELane* lane, const GNEAttributeCarrier::TagProperties& tagValues);
-
-    /// @brief build vehicle over a single lane
-    bool buildVehicleOverLane(std::map<SumoXMLAttr, std::string>& valuesMap, GNELane* lane, const GNEAttributeCarrier::TagProperties& tagValues);
-
-    /// @brief build vehicle over view
-    bool buildVehicleOverView(std::map<SumoXMLAttr, std::string>& valuesMap, const GNEAttributeCarrier::TagProperties& tagValues);
-
     /// @brief item selector (used to select diffent kind of vehicles)
     ItemSelector* myItemSelector;
 
@@ -162,9 +147,6 @@ private:
 
     /// @brief internal vehicle attributes
     ACAttributes* myVehicleAttributes;
-
-    /// @brief Netedit parameter
-    NeteditAttributes* myNeteditAttributes;
 
     /// @brief Help creation
     HelpCreation* myHelpCreation;
