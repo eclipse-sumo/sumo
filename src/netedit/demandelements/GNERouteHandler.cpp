@@ -51,6 +51,9 @@ GNERouteHandler::~GNERouteHandler() {}
 
 bool 
 GNERouteHandler::buildDemandElement(const std::map<SumoXMLAttr, std::string> &valuesMap) {
+
+    // Convert valuesMap into SUMO SUMOSAXAttributes
+
     return true;
 }
 
@@ -121,7 +124,33 @@ GNERouteHandler::closeRouteDistribution() {
 
 void 
 GNERouteHandler::closeVehicle() {
-    // currently unused
+    // first check if vehicle parameter was sucesfulyl created
+    if(myVehicleParameter) {
+        // now check if exist another VType with the same ID
+        if (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_VEHICLE, myVehicleParameter->id, false) != nullptr) {
+            WRITE_WARNING("There is another " + toString(SUMO_TAG_VEHICLE) + " with the same ID='" + myVehicleParameter->id + "'.");
+        } else {
+            // obtain routes and vtypes
+            GNEDemandElement* vType = myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, myVehicleParameter->vtypeid, false);
+            GNEDemandElement* route = myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_ROUTE, myVehicleParameter->routeid, false);
+            if (vType == nullptr) {
+                WRITE_WARNING("Invalid vehicle Type '" + myVehicleParameter->vtypeid + "' used in vehicle '" + myVehicleParameter->id + "'.");
+            } else if (route == nullptr) {
+                WRITE_WARNING("Invalid route '" + myVehicleParameter->routeid + "' used in vehicle '" + myVehicleParameter->id + "'.");
+            } else {
+                // create vehicle using myVehicleParameter 
+                GNEVehicle* vehicle = new GNEVehicle(myViewNet, *myVehicleParameter, vType, route);
+                if (myUndoDemandElements) {
+                    myViewNet->getUndoList()->p_begin("add " + vehicle->getTagStr());
+                    myViewNet->getUndoList()->add(new GNEChange_DemandElement(vehicle, true), true);
+                    myViewNet->getUndoList()->p_end();
+                } else {
+                    myViewNet->getNet()->insertDemandElement(vehicle);
+                    vehicle->incRef("buildVehicle");
+                }
+            }
+        }
+    }
 }
 
 

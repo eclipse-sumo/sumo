@@ -479,7 +479,7 @@ GNEAttributeCarrier::TagProperties::checkTagIntegrity() const {
         throw ProcessError("element can be only a netElement, Additional, shape or demandElement at the same time");
     }
     // If element is drawable, chek that at least one placeover is defined
-    if (isDrawable() && !(canBePlacedOverView() || canBePlacedOverEdge() || canBePlacedOverLane() || canBePlacedOverJunction() || canBePlacedOverEdges() || canBePlacedOverLanes())) {
+    if (isDrawable() && !(canBePlacedOverView() || canBePlacedOverEdge() || canBePlacedOverLane() || canBePlacedOverJunction() || canBePlacedOverEdges() || canBePlacedOverLanes() || canBePlacedOverRoute())) {
         throw ProcessError("If attribute is drawable a PLACEDOVER attribute must be defined");
     }
     // if element can mask the start and end position, check that bot attributes exist
@@ -798,6 +798,12 @@ GNEAttributeCarrier::TagProperties::canBePlacedOverEdges() const {
 bool
 GNEAttributeCarrier::TagProperties::canBePlacedOverLanes() const {
     return (myTagProperty & TAGPROPERTY_PLACEDOVER_LANES) != 0;
+}
+
+
+bool
+GNEAttributeCarrier::TagProperties::canBePlacedOverRoute() const {
+    return (myTagProperty & TAGPROPERTY_PLACEDOVER_ROUTE) != 0;
 }
 
 
@@ -3169,7 +3175,7 @@ GNEAttributeCarrier::fillDemandElements() {
     currentTag = SUMO_TAG_VEHICLE;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_DEMANDELEMENT | TAGPROPERTY_VEHICLE | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_LANE, ICON_VEHICLE);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGPROPERTY_DEMANDELEMENT | TAGPROPERTY_VEHICLE | TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_ROUTE, ICON_VEHICLE);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_ID,
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,

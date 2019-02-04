@@ -274,7 +274,8 @@ public:
         TAGPROPERTY_PLACEDOVER_JUNCTION = 1 << 28,  // Element will be placed over a junction
         TAGPROPERTY_PLACEDOVER_EDGES =    1 << 29,  // Element will be placed over a list of edges
         TAGPROPERTY_PLACEDOVER_LANES =    1 << 30,  // Element will be placed over a list of lanes
-        TAGPROPERTY_NOGENERICPARAMETERS = 1 << 31,  // Element doesn't accept Generic Parameters (by default all tags supports generic parameters)
+        TAGPROPERTY_PLACEDOVER_ROUTE =    1 << 31,  // Element will be placed over a route
+        TAGPROPERTY_NOGENERICPARAMETERS = 1 << 32,  // Element doesn't accept Generic Parameters (by default all tags supports generic parameters)
     };
 
     /// @brief struct with the attribute Properties
@@ -415,8 +416,11 @@ public:
         /// @brief return true if tag correspond to an element that can be placed over a list of edges
         bool canBePlacedOverEdges() const;
 
-        /// @brief return true if tag correspond
+        /// @brief return true if tag correspond to that can be placed over a list of lanes
         bool canBePlacedOverLanes() const;
+
+        /// @brief return true if tag correspond to an elemeent that can be placed over an route
+        bool canBePlacedOverRoute() const;
 
         /// @brief return true if tag correspond to an element that can mask the attributes "start" and "end" position as attribute "lenght"
         bool canMaskStartEndPos() const;
