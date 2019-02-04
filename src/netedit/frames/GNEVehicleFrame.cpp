@@ -31,6 +31,7 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
+#include <utils/common/SUMOVehicleClass.h>
 
 #include "GNEVehicleFrame.h"
 
@@ -59,14 +60,8 @@ GNEVehicleFrame::VTypeSelector::VTypeSelector(GNEVehicleFrame* vehicleFrameParen
     myCurrentVehicleType(nullptr) {
     // Create FXComboBox
     myTypeMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
-    /*
-    // fill myTypeMatchBox with list of tags
-    for (const auto& i : myListOfTags) {
-        myTypeMatchBox->appendItem(toString(i).c_str());
-    }
-    */
-    // Set visible items
-    myTypeMatchBox->setNumVisible((int)myTypeMatchBox->getNumItems());
+    // refresh TypeMatchBox
+    refreshVTypeSelector();
     // VTypeSelector is always shown
     show();
 }
@@ -75,14 +70,29 @@ GNEVehicleFrame::VTypeSelector::VTypeSelector(GNEVehicleFrame* vehicleFrameParen
 GNEVehicleFrame::VTypeSelector::~VTypeSelector() {}
 
 
-const GNEVehicleType*
+const GNEDemandElement*
 GNEVehicleFrame::VTypeSelector::getCurrentVehicleType() const {
     return myCurrentVehicleType;
 }
 
 
 void 
-GNEVehicleFrame::VTypeSelector::showVTypeSelector() {
+GNEVehicleFrame::VTypeSelector::showVTypeSelector(const GNEAttributeCarrier::TagProperties& tagProperties) {
+    // if current selected item isn't valid, set DEFAULT_VEHTYPE
+    if (myCurrentVehicleType) {
+        // show vehicle attributes modul
+        myVehicleFrameParent->myVehicleAttributes->showACAttributesModul(tagProperties);
+        // show netedit attributes
+        myVehicleFrameParent->myNeteditAttributes->showNeteditAttributesModul(tagProperties);
+        // show help creation
+        myVehicleFrameParent->myHelpCreation->showHelpCreation();
+    } else {
+        // set DEFAULT_VTYPE as current VType
+        myTypeMatchBox->setText(DEFAULT_VTYPE_ID.c_str());
+        // call manually onCmdSelectVType to update comboBox
+        onCmdSelectVType(nullptr, 0, nullptr);
+    }
+    // show VType selector
     show();
 }
 
@@ -93,29 +103,51 @@ GNEVehicleFrame::VTypeSelector::hideVTypeSelector() {
 }
 
 
+void 
+GNEVehicleFrame::VTypeSelector::refreshVTypeSelector() {
+    // clear comboBox
+    myTypeMatchBox->clearItems();
+    // get list of VTypes
+    const auto &vTypes = myVehicleFrameParent->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_VTYPE);
+    // fill myTypeMatchBox with list of tags
+    for (const auto& i : vTypes) {
+        myTypeMatchBox->appendItem(i.first.c_str());
+    }
+    // Set visible items
+    myTypeMatchBox->setNumVisible((int)myTypeMatchBox->getNumItems());
+}
+
+
 long
 GNEVehicleFrame::VTypeSelector::onCmdSelectVType(FXObject*, FXSelector, void*) {
-    // Check if value of myTypeMatchBox correspond of an allowed additional tags
-    /*
-    for (const auto& i : myListOfTags) {
-        if (toString(i) == myTypeMatchBox->getText().text()) {
+    // get list of VTypes
+    const auto &vTypes = myVehicleFrameParent->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_VTYPE);
+    // Check if value of myTypeMatchBox correspond to a VType
+    for (const auto& i : vTypes) {
+        if (i.first == myTypeMatchBox->getText().text()) {
             // set color of myTypeMatchBox to black (valid)
             myTypeMatchBox->setTextColor(FXRGB(0, 0, 0));
-            // Set new current type
-            myCurrentTagProperties = GNEAttributeCarrier::getTagProperties(i);
-            // show moduls if selected item is valid
-            myFrameParent->enableModuls(myCurrentTagProperties);
+            // Set new current VType
+            myCurrentVehicleType = i.second;
+            // show vehicle attributes modul
+            myVehicleFrameParent->myVehicleAttributes->showACAttributesModul(myVehicleFrameParent->myItemSelector->getCurrentTagProperties());
+            // show netedit attributes
+            myVehicleFrameParent->myNeteditAttributes->showNeteditAttributesModul(myVehicleFrameParent->myItemSelector->getCurrentTagProperties());
+            // show help creation
+            myVehicleFrameParent->myHelpCreation->showHelpCreation();
             // Write Warning in console if we're in testing mode
             WRITE_DEBUG(("Selected item '" + myTypeMatchBox->getText() + "' in VTypeSelector").text());
             return 1;
         }
     }
-
-    // if additional name isn't correct, set SUMO_TAG_NOTHING as current type
-    myCurrentTagProperties = myInvalidTagProperty;
-    */
+    // if VType selecte is invalid, select
+    myCurrentVehicleType = nullptr;
     // hide all moduls if selected item isn't valid
-    myVehicleFrameParent->disableModuls();
+    myVehicleFrameParent->myVehicleAttributes->hideACAttributesModul();
+    // hide netedit attributes
+    myVehicleFrameParent->myNeteditAttributes->hideNeteditAttributesModul();
+    // hide help creation
+    myVehicleFrameParent->myHelpCreation->hideHelpCreation();
     // set color of myTypeMatchBox to red (invalid)
     myTypeMatchBox->setTextColor(FXRGB(255, 0, 0));
     // Write Warning in console if we're in testing mode
@@ -130,6 +162,7 @@ GNEVehicleFrame::VTypeSelector::onCmdSelectVType(FXObject*, FXSelector, void*) {
 GNEVehicleFrame::HelpCreation::HelpCreation(GNEVehicleFrame* vehicleFrameParent) :
     FXGroupBox(vehicleFrameParent->myContentFrame, "Help", GUIDesignGroupBoxFrame),
     myVehicleFrameParent(vehicleFrameParent) {
+    myInformationLabel = new FXLabel(this, "", 0, GUIDesignLabelFrameInformation);
 }
 
 
@@ -138,6 +171,33 @@ GNEVehicleFrame::HelpCreation::~HelpCreation() {}
 
 void 
 GNEVehicleFrame::HelpCreation::showHelpCreation() {
+    // create information label
+    std::ostringstream information;
+    // set text depending of selected vehicle type
+    switch (myVehicleFrameParent->myItemSelector->getCurrentTagProperties().getTag()) {
+        case SUMO_TAG_VEHICLE:
+            information
+                << "- Click over a route to\n"
+                << "  create a vehicle.";
+            break;
+        case SUMO_TAG_FLOW:
+            information
+                << "- Click over a route to\n"
+                << "  create a flow.";
+            break;
+        case SUMO_TAG_TRIP:
+            information
+                << "- Click over a edge to\n"
+                << "  set the 'from' edge.\n"
+                << "- Then click over another\n"
+                << "  edge to set the 'to' edge.";
+            break;
+        default:
+            break;
+    }
+    // set information label
+    myInformationLabel->setText(information.str().c_str());
+    // show modul
     show();
 }
 
@@ -224,11 +284,7 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
 void
 GNEVehicleFrame::enableModuls(const GNEAttributeCarrier::TagProperties& tagProperties) {
     // show vehicle type selector modul
-    myVTypeSelector->showVTypeSelector();
-    // show vehicle attributes modul
-    myVehicleAttributes->showACAttributesModul(tagProperties);
-    // show netedit attributes
-    myNeteditAttributes->showNeteditAttributesModul(tagProperties);
+    myVTypeSelector->showVTypeSelector(tagProperties);
 }
 
 
@@ -238,6 +294,7 @@ GNEVehicleFrame::disableModuls() {
     myVTypeSelector->hideVTypeSelector();
     myVehicleAttributes->hideACAttributesModul();
     myNeteditAttributes->hideNeteditAttributesModul();
+    myHelpCreation->hideHelpCreation();
 }
 
 

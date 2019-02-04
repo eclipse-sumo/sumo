@@ -23,11 +23,6 @@
 // ===========================================================================
 #include "GNEFrame.h"
 
-// ===========================================================================
-// class declarations
-// ===========================================================================
-
-class GNEVehicle;
 
 // ===========================================================================
 // class definitions
@@ -55,13 +50,16 @@ public:
         ~VTypeSelector();
 
         /// @brief get current type tag
-        const GNEVehicleType* getCurrentVehicleType() const;
+        const GNEDemandElement* getCurrentVehicleType() const;
 
         /// @brief show VType selector
-        void showVTypeSelector();
+        void showVTypeSelector(const GNEAttributeCarrier::TagProperties& tagProperties);
 
         /// @brief hide VType selector
         void hideVTypeSelector();
+
+        /// @brief refresh VType selector
+        void refreshVTypeSelector();
 
         /// @name FOX-callbacks
         /// @{
@@ -81,7 +79,7 @@ public:
         FXComboBox* myTypeMatchBox;
 
         /// @brief current vehicle type
-        GNEVehicleType* myCurrentVehicleType;
+        GNEDemandElement* myCurrentVehicleType;
     };
 
     // ===========================================================================
@@ -110,8 +108,8 @@ public:
         /// @brief pointer to Vehicle Frame Parent
         GNEVehicleFrame* myVehicleFrameParent;
 
-        /// @brief comboBox with the list of elements type
-        FXComboBox* myInformationLabel;
+        /// @brief Label with creation information
+        FXLabel* myInformationLabel;
 
     };
 
