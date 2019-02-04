@@ -51,6 +51,12 @@ GNEVehicleType::GNEVehicleType(GNEViewNet* viewNet, const SUMOVTypeParameter &vT
 GNEVehicleType::~GNEVehicleType() {}
 
 
+void 
+GNEVehicleType::writeDemandElement(OutputDevice& device) const {
+    write(device);
+}
+
+
 void
 GNEVehicleType::moveGeometry(const Position&) {
     // This additional cannot be moved

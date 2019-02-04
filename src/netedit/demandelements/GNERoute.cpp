@@ -63,6 +63,16 @@ GNERoute::GNERoute(GNEViewNet* viewNet, const std::string& routeID, const std::v
 GNERoute::~GNERoute() {}
 
 
+void 
+GNERoute::writeDemandElement(OutputDevice& device) const {
+    device.openTag(SUMO_TAG_ROUTE);
+    device.writeAttr(SUMO_ATTR_ID, getDemandElementID());
+    device.writeAttr(SUMO_ATTR_EDGES, parseIDs(myEdges));
+    device.writeAttr(SUMO_ATTR_COLOR, toString(myColor));
+    device.closeTag();
+}
+
+
 const std::vector<GNEEdge*>&
 GNERoute::getGNEEdges() const {
     return myEdges;

@@ -26,6 +26,7 @@
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/frames/GNESelectorFrame.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
+#include <utils/options/OptionsCont.h>
 
 #include "GNEVehicle.h"
 
@@ -52,6 +53,12 @@ GNEVehicle::GNEVehicle(GNEViewNet* viewNet, const SUMOVehicleParameter &vehicleP
 
 
 GNEVehicle::~GNEVehicle() {}
+
+
+void 
+GNEVehicle::writeDemandElement(OutputDevice& device) const {
+    write(device, OptionsCont::getOptions(), SUMO_TAG_VEHICLE);
+}
 
 
 void

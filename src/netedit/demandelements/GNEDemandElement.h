@@ -100,7 +100,7 @@ public:
     /**@brief writte demand element element into a xml file
      * @param[in] device device in which write parameters of demand element element
      */
-    void writeDemandElement(OutputDevice& device) const;
+    virtual void writeDemandElement(OutputDevice& device) const = 0;
 
     /// @brief check if current demand element is valid to be writed into XML (by default true, can be reimplemented in childs)
     virtual bool isDemandElementValid() const;

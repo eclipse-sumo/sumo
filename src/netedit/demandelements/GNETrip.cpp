@@ -27,6 +27,7 @@
 #include <netedit/frames/GNESelectorFrame.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
+#include <utils/options/OptionsCont.h>
 
 #include "GNETrip.h"
 
@@ -54,6 +55,12 @@ GNETrip::GNETrip(GNEViewNet* viewNet, const SUMOVehicleParameter &tripParameter,
 
 
 GNETrip::~GNETrip() {}
+
+
+void 
+GNETrip::writeDemandElement(OutputDevice& device) const {
+    write(device, OptionsCont::getOptions(), SUMO_TAG_TRIP);
+}
 
 
 void

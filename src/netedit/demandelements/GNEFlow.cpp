@@ -27,6 +27,7 @@
 #include <netedit/demandelements/GNEDemandElement.h>
 #include <netedit/frames/GNESelectorFrame.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
+#include <utils/options/OptionsCont.h>
 
 #include "GNEFlow.h"
 
@@ -66,6 +67,12 @@ GNEFlow::GNEFlow(GNEViewNet* viewNet, const SUMOVehicleParameter &flowParameter,
 
 
 GNEFlow::~GNEFlow() {}
+
+
+void 
+GNEFlow::writeDemandElement(OutputDevice& device) const {
+    write(device, OptionsCont::getOptions(), SUMO_TAG_FLOW);
+}
 
 
 void
