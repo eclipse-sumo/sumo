@@ -1344,6 +1344,7 @@ GNEAttributeCarrier::fillNetElements() {
         attrProperty = AttributeProperties(SUMO_ATTR_NAME,
             ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE,
             "street name (need not be unique, used for visualization)");
+        myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_WIDTH,
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE,
