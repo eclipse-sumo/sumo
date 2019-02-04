@@ -113,6 +113,9 @@ public:
     ///@note disabled
     //bool allowRotation() const;
 
+    /// @brief return windows cursor position
+    Position getWindowCursorPosition() const;
+
     /// @brief Returns the gl-id of the object under the given coordinates
     void setWindowCursorPosition(FXint x, FXint y);
 

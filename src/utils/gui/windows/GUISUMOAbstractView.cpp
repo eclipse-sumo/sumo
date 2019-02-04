@@ -663,6 +663,12 @@ GUISUMOAbstractView::allowRotation() const
 }
 */
 
+Position 
+GUISUMOAbstractView::getWindowCursorPosition() const {
+	return Position(myWindowCursorPositionX, myWindowCursorPositionY);
+}
+
+
 void
 GUISUMOAbstractView::setWindowCursorPosition(FXint x, FXint y) {
     myWindowCursorPositionX = x + myMouseHotspotX;

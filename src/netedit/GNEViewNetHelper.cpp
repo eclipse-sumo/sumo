@@ -1231,7 +1231,7 @@ GNEViewNetHelper::TestingMode::drawTestingElements(GUIMainWindow* mainWindow) {
         // show box with the current position relative to pink square
         Position posRelative = myViewNet->screenPos2NetPos(myViewNet->getWidth() - 40, myViewNet->getHeight() - 20);
         // adjust cursor position (24,25) to show exactly the same position as in function netedit.leftClick(match, X, Y)
-        GLHelper::drawTextBox(toString(myViewNet->myWindowCursorPositionX - 24) + " " + toString(myViewNet->myWindowCursorPositionY - 25), posRelative, GLO_MAX - 1, myViewNet->p2m(20), RGBColor::BLACK, RGBColor::WHITE);
+		GLHelper::drawTextBox(toString(myViewNet->getWindowCursorPosition().x() - 24) + " " + toString(myViewNet->getWindowCursorPosition().y() - 25), posRelative, GLO_MAX - 1, myViewNet->p2m(20), RGBColor::BLACK, RGBColor::WHITE);
         glPopMatrix();
     }
 }
@@ -1486,7 +1486,7 @@ GNEViewNetHelper::ViewOptions::buildViewOptionsMenuChecks() {
 
     menuCheckShowConnections = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions, ("Show " + toString(SUMO_TAG_CONNECTION) + "s\t\tToggle show " + toString(SUMO_TAG_CONNECTION) + "s over " + toString(SUMO_TAG_JUNCTION) + "s").c_str(), myViewNet, MID_GNE_VIEWNET_SHOW_CONNECTIONS, LAYOUT_FIX_HEIGHT);
     menuCheckShowConnections->setHeight(23);
-    menuCheckShowConnections->setCheck(myViewNet->myVisualizationSettings->showLane2Lane);
+    menuCheckShowConnections->setCheck(myViewNet->getVisualisationSettings()->showLane2Lane);
     menuCheckShowConnections->create();
 
     menuCheckHideConnections = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions, ("hide " + toString(SUMO_TAG_CONNECTION) + "s\t\tHide connections").c_str(), myViewNet, 0, LAYOUT_FIX_HEIGHT);
@@ -1560,7 +1560,7 @@ GNEViewNetHelper::ViewOptions::showConnections() const {
     } else if (myViewNet->myViewOptions.menuCheckShowConnections->shown() == false) {
         return false;
     } else {
-        return (myViewNet->myVisualizationSettings->showLane2Lane);
+		return (myViewNet->getVisualisationSettings()->showLane2Lane);
     }
 }
 
