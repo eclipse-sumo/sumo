@@ -251,34 +251,35 @@ GNEAdditional::openAdditionalDialog() {
 
 void
 GNEAdditional::startGeometryMoving() {
-    // always save original position over view
-    myMove.originalViewPosition = getPositionInView();
-    // obtain tag properties (to improve code legibility)
-    const TagProperties& tagProperties = myTagProperty;
-    // check if position over lane or lanes has to be saved
-    if (tagProperties.canBePlacedOverLane()) {
-        if (tagProperties.canMaskStartEndPos()) {
+    // only move if additional is drawable
+    if(myTagProperty.isDrawable()) {
+        // always save original position over view
+        myMove.originalViewPosition = getPositionInView();
+        // check if position over lane or lanes has to be saved
+        if (myTagProperty.canBePlacedOverLane()) {
+            if (myTagProperty.canMaskStartEndPos()) {
+                // obtain start and end position
+                myMove.firstOriginalLanePosition = getAttribute(SUMO_ATTR_STARTPOS);
+                myMove.secondOriginalPosition = getAttribute(SUMO_ATTR_ENDPOS);
+            } else {
+                // obtain position attribute
+                myMove.firstOriginalLanePosition = getAttribute(SUMO_ATTR_POSITION);
+            }
+        } else if (myTagProperty.canBePlacedOverLanes()) {
             // obtain start and end position
-            myMove.firstOriginalLanePosition = getAttribute(SUMO_ATTR_STARTPOS);
-            myMove.secondOriginalPosition = getAttribute(SUMO_ATTR_ENDPOS);
-        } else {
-            // obtain position attribute
             myMove.firstOriginalLanePosition = getAttribute(SUMO_ATTR_POSITION);
+            myMove.secondOriginalPosition = getAttribute(SUMO_ATTR_ENDPOS);
         }
-    } else if (tagProperties.canBePlacedOverLanes()) {
-        // obtain start and end position
-        myMove.firstOriginalLanePosition = getAttribute(SUMO_ATTR_POSITION);
-        myMove.secondOriginalPosition = getAttribute(SUMO_ATTR_ENDPOS);
+        // save current centering boundary
+        myMove.movingGeometryBoundary = getCenteringBoundary();
     }
-    // save current centering boundary
-    myMove.movingGeometryBoundary = getCenteringBoundary();
 }
 
 
 void
 GNEAdditional::endGeometryMoving() {
     // check that endGeometryMoving was called only once
-    if (myMove.movingGeometryBoundary.isInitialised()) {
+    if (myTagProperty.isDrawable() && myMove.movingGeometryBoundary.isInitialised()) {
         // Remove object from net
         myViewNet->getNet()->removeGLObjectFromGrid(this);
         // reset myMovingGeometryBoundary
