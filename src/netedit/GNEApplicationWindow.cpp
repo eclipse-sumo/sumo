@@ -336,74 +336,8 @@ GNEApplicationWindow::dependentBuild() {
     setTitle(myTitlePrefix);
     // set Netedit ICON
     setIcon(GUIIconSubSys::getIcon(ICON_NETEDIT));
-    // initialize single hotkeys using decimal code (to avoid problems in Linux)
-    getAccelTable()->addAccel(101, this, FXSEL(SEL_COMMAND, MID_HOTKEY_E_EDGEMODE));   // e
-    getAccelTable()->addAccel(69,  this, FXSEL(SEL_COMMAND, MID_HOTKEY_E_EDGEMODE));   // E
-    getAccelTable()->addAccel(109, this, FXSEL(SEL_COMMAND, MID_HOTKEY_M_MOVEMODE));   // m
-    getAccelTable()->addAccel(77,  this, FXSEL(SEL_COMMAND, MID_HOTKEY_M_MOVEMODE));   // M
-    getAccelTable()->addAccel(100, this, FXSEL(SEL_COMMAND, MID_HOTKEY_D_DELETEMODE));   // d
-    getAccelTable()->addAccel(68,  this, FXSEL(SEL_COMMAND, MID_HOTKEY_D_DELETEMODE));   // D
-    getAccelTable()->addAccel(105, this, FXSEL(SEL_COMMAND, MID_HOTKEY_I_INSPECTMODE));   // i
-    getAccelTable()->addAccel(73,  this, FXSEL(SEL_COMMAND, MID_HOTKEY_I_INSPECTMODE));   // I
-    getAccelTable()->addAccel(115, this, FXSEL(SEL_COMMAND, MID_HOTKEY_S_SELECTMODE));   // s
-    getAccelTable()->addAccel(83,  this, FXSEL(SEL_COMMAND, MID_HOTKEY_S_SELECTMODE));   // S
-    getAccelTable()->addAccel(99,  this, FXSEL(SEL_COMMAND, MID_HOTKEY_C_CONNECTMODE));   // c
-    getAccelTable()->addAccel(67,  this, FXSEL(SEL_COMMAND, MID_HOTKEY_C_CONNECTMODE));   // C
-    getAccelTable()->addAccel(119, this, FXSEL(SEL_COMMAND, MID_HOTKEY_W_PROHIBITIONMODE));   // w
-    getAccelTable()->addAccel(87,  this, FXSEL(SEL_COMMAND, MID_HOTKEY_W_PROHIBITIONMODE));   // W
-    getAccelTable()->addAccel(116, this, FXSEL(SEL_COMMAND, MID_HOTKEY_T_TLSMODE_VTYPEMODE));   // t
-    getAccelTable()->addAccel(94,  this, FXSEL(SEL_COMMAND, MID_HOTKEY_T_TLSMODE_VTYPEMODE));   // T
-    getAccelTable()->addAccel(97,  this, FXSEL(SEL_COMMAND, MID_HOTKEY_A_ADDITIONALMODE));   // a
-    getAccelTable()->addAccel(65,  this, FXSEL(SEL_COMMAND, MID_HOTKEY_A_ADDITIONALMODE));   // A
-    getAccelTable()->addAccel(114, this, FXSEL(SEL_COMMAND, MID_HOTKEY_R_CROSSINGMODE_ROUTEMODE));   // r
-    getAccelTable()->addAccel(82,  this, FXSEL(SEL_COMMAND, MID_HOTKEY_R_CROSSINGMODE_ROUTEMODE));   // R
-    getAccelTable()->addAccel(122, this, FXSEL(SEL_COMMAND, MID_HOTKEY_Z_TAZMODE));   // z
-    getAccelTable()->addAccel(90,  this, FXSEL(SEL_COMMAND, MID_HOTKEY_Z_TAZMODE));   // Z
-    getAccelTable()->addAccel(112, this, FXSEL(SEL_COMMAND, MID_HOTKEY_P_POLYGONMODE));   // p
-    getAccelTable()->addAccel(80,  this, FXSEL(SEL_COMMAND, MID_HOTKEY_P_POLYGONMODE));   // P
-    getAccelTable()->addAccel(118, this, FXSEL(SEL_COMMAND, MID_HOTKEY_V_VEHICLEMODE));     // v
-    getAccelTable()->addAccel(86,  this, FXSEL(SEL_COMMAND, MID_HOTKEY_V_VEHICLEMODE));     // V
-    // initialize Ctrl hotkeys with Caps Lock enabled using decimal code (to avoid problems in Linux)
-    getAccelTable()->addAccel(262222, this, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_N_NEWNETWORK));         // Ctrl + N
-    getAccelTable()->addAccel(262223, this, FXSEL(SEL_COMMAND, MID_OPEN_NETWORK));              // Ctrl + O
-    getAccelTable()->addAccel(327691, this, FXSEL(SEL_COMMAND, MID_OPEN_CONFIG));               // Ctrl + Shift + O
-    getAccelTable()->addAccel(262226, this, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_R_RELOAD));             // Ctrl + R
-    getAccelTable()->addAccel(262227, this, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_S_SAVENETWORK_STOPSIMULATION));         // Ctrl + S
-    getAccelTable()->addAccel(327695, this, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_S_SAVENETWORKAS));   // Ctrl + Shift + S
-    getAccelTable()->addAccel(262220, this, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_L_SAVEASPLAINXML));         // Ctrl + L
-    getAccelTable()->addAccel(262218, this, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_J_SAVEJOINEDJUNCTIONS));         // Ctrl + J
-    /*
-    getAccelTable()->addAccel(262224, this, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_P));             // Ctrl + P
-    getAccelTable()->addAccel(327692, this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_CTRL_SHIFT_P));   // Ctrl + Shift + P
-    */
-    getAccelTable()->addAccel(262212, this, FXSEL(SEL_COMMAND, MID_OPEN_ADDITIONALS));                      // Ctrl + D
-    getAccelTable()->addAccel(327780, this, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_D_SAVEADDITIONAL));    // Ctrl + Shift + D
-    getAccelTable()->addAccel(262219, this, FXSEL(SEL_COMMAND, MID_OPEN_TLSPROGRAMS));                      // Ctrl + K
-    getAccelTable()->addAccel(327787, this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_CTRL_SHIFT_K));               // Ctrl + Shift + K
-    getAccelTable()->addAccel(262230, this, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_W_CLOSESIMULATION));         // Ctrl + W
-    getAccelTable()->addAccel(262225, this, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_Q_CLOSE));                   // Ctrl + Q
-    getAccelTable()->addAccel(262234, this, FXSEL(SEL_COMMAND, FXUndoList::ID_UNDO));                       // Ctrl + Z
-    getAccelTable()->addAccel(262233, this, FXSEL(SEL_COMMAND, FXUndoList::ID_REDO));                       // Ctrl + Y
-    getAccelTable()->addAccel(262230, this, FXSEL(SEL_COMMAND, MID_EDITVIEWSCHEME));                        // Ctrl + V
-    getAccelTable()->addAccel(262217, this, FXSEL(SEL_COMMAND, MID_EDITVIEWPORT));                          // Ctrl + I
-    getAccelTable()->addAccel(262215, this, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_G_GAMINGMODE_TOOGLEGRID));   // Ctrl + G
-    getAccelTable()->addAccel(262228, this, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_T_OPENSUMONETEDIT));         // Ctrl + T
-    getAccelTable()->addAccel(parseAccel("ctrl+shift+c"), this, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_C_SHOWCONNECTIONS));   // Ctrl + Shift + C
-    getAccelTable()->addAccel(parseAccel("ctrl+shift+i"), this, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_I_SELECTEDGES));       // Ctrl + Shift + I
-    // initialize Shift hotkeys with Caps Lock enabled using decimal code (to avoid problems in Linux)
-    getAccelTable()->addAccel(65642, this, FXSEL(SEL_COMMAND, MID_LOCATEJUNCTION)); // Shift + J
-    getAccelTable()->addAccel(65637, this, FXSEL(SEL_COMMAND, MID_LOCATEEDGE));     // Shift + E
-    getAccelTable()->addAccel(65652, this, FXSEL(SEL_COMMAND, MID_LOCATETLS));      // Shift + T
-    getAccelTable()->addAccel(65633, this, FXSEL(SEL_COMMAND, MID_LOCATEADD));      // Shift + A
-    getAccelTable()->addAccel(65647, this, FXSEL(SEL_COMMAND, MID_LOCATEPOI));      // Shift + O
-    getAccelTable()->addAccel(65644, this, FXSEL(SEL_COMMAND, MID_LOCATEPOLY));     // Shift + L
-    // initialize rest of hotkeys
-    getAccelTable()->addAccel(parseAccel("F3"), this, FXSEL(SEL_COMMAND, MID_HOTKEY_F3_SUPERMODE_NETWORK));
-    getAccelTable()->addAccel(parseAccel("F4"), this, FXSEL(SEL_COMMAND, MID_HOTKEY_F4_SUPERMODE_DEMAND));
-    getAccelTable()->addAccel(parseAccel("Esc"), this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_ESC));
-    getAccelTable()->addAccel(parseAccel("Del"), this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_DEL));
-    getAccelTable()->addAccel(parseAccel("Enter"), this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_ENTER));
-    getAccelTable()->addAccel(parseAccel("F12"), this, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_F12));
+    // build NETEDIT Accelerators (hotkeys)
+    GUIShortcutsSubSys::buildNETEDITAccelerators(this);
 }
 
 

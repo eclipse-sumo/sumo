@@ -26,32 +26,25 @@
 #include <fx.h>
 #include "GUIShortcuts.h"
 
+// ===========================================================================
+// class declaration
+// ==========================================================================
+class GNEApplicationWindow;
+class GUIApplicationWindow;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 class GUIShortcutsSubSys {
 public:
-    /**@brief Initiate GUIShortcutsSubSys
-     * @param[in] a FOX Toolkit APP
-     */
-    static void initShortcuts(FXApp* a);
+    /// @brief build SUMO Accelerators
+    static void buildSUMOAccelerators(GUIApplicationWindow *GUIApp);
 
-    /// @brief close GUIShortcutsSubSys
-    static void close();
+    /// @brief build NETEDIT Accelerators
+    static void buildNETEDITAccelerators(GNEApplicationWindow *GNEApp);
 
 private:
-    /// @brief constructor is private because is called by the static function init(FXApp* a)
-    GUIShortcutsSubSys(FXApp* a);
-
-    /// @brief destructor
-    ~GUIShortcutsSubSys();
-
-    /// @brief instance of GUIShortcutsSubSys
-    static GUIShortcutsSubSys* myInstance;
-
-    /// @brief vector with the icons
-    // FXShortcut* myShortcuts[Shortcut_MAX];
+    int parseKey();
 };
 
 
