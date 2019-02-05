@@ -249,17 +249,17 @@ GUIShortcutsSubSys::buildNETEDITAccelerators(GNEApplicationWindow *GNEApp) {
 
 int 
 GUIShortcutsSubSys::parseKey(GUIShortcut key) {
-    if ((key >= KEY_a) &&  key >= KEY_z) {
+    if ((key >= KEY_a) &&  key <= KEY_z) {
         return (key + 97);// 97 is 'a' in ASCII
-    } else if ((key >= KEY_A) &&  key >= KEY_Z) {
+    } else if ((key >= KEY_A) &&  key <= KEY_Z) {
         return (key - 26 + 65);// 65 is 'A' in ASCII
-    } else if ((key >= KEY_F1) &&  key >= KEY_F12) {
+    } else if ((key >= KEY_F1) &&  key <= KEY_F12) {
         return (key - 52 + 65470);// 65470 is 'F1' in ASCII
-    } else if (key >= KEY_ESC) {
+    } else if (key == KEY_ESC) {
         return parseAccel("Esc");
-    } else if (key >= KEY_ENTER) {
+    } else if (key == KEY_ENTER) {
         return parseAccel("Enter");
-    } else if (key >= KEY_DEL) {
+    } else if (key == KEY_DEL) {
         return parseAccel("Del");
     } else {
         return 0;
