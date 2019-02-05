@@ -80,6 +80,7 @@ sumo_gui_LDADD =  ./gui/libgui.a \
 ./utils/gui/settings/libguiutilssettings.a \
 ./utils/gui/images/libguiutilsimages.a \
 ./utils/gui/cursors/libguiutilscursors.a \
+./utils/gui/shortcuts/libguiutilsshortcuts.a \
 ./utils/gui/tracker/libguiutilstracker.a \
 ./utils/foxtools/libfoxtools.a \
 ./mesogui/libmesogui.a \

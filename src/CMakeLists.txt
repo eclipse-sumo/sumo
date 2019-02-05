@@ -49,7 +49,7 @@ if (FOX_FOUND)
     set_target_properties(sumo-gui PROPERTIES OUTPUT_NAME_DEBUG sumo-gui${BINARY_SUFFIX}D)
     target_link_libraries(sumo-gui gui guinetload guisim gui gui_dialogs
         utils_gui_windows utils_gui_globjects utils_gui_div utils_gui_settings
-        utils_gui_images utils_gui_cursors utils_gui_tracker utils_foxtools osgview microsim ${sumolibs} mesogui
+        utils_gui_images utils_gui_cursors utils_gui_shortcuts utils_gui_tracker utils_foxtools osgview microsim ${sumolibs} mesogui
         ${GDAL_LIBRARY} ${FFMPEG_LIBRARIES} ${OPENSCENEGRAPH_LIBRARIES} ${GL2PS_LIBRARIES})
     if (MSVC)
         set_target_properties(sumo-gui PROPERTIES LINK_FLAGS_RELEASE "/SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup")
