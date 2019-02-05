@@ -44,7 +44,14 @@ public:
     static void buildNETEDITAccelerators(GNEApplicationWindow *GNEApp);
 
 private:
-    int parseKey();
+    // @brief parse GUIShortcut to int
+    static int parseKey(GUIShortcut key);
+
+    // @brief parse GUIShortcut to int with a modifier
+    static int parseKey(GUIShortcut key, GUIShortcutModifier firstModifier);
+
+    // @brief parse GUIShortcut to int with two modifiers
+    static int parseKey(GUIShortcut key, GUIShortcutModifier firstModifier, GUIShortcutModifier secondModifier);
 };
 
 

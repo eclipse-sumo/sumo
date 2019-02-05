@@ -1,5 +1,5 @@
 /****************************************************************************/
-// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Eclipse SUMO, Simulation of Urban MObility;see https://eclipse.org/sumo
 // Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
@@ -35,109 +35,256 @@
 void 
 GUIShortcutsSubSys::buildSUMOAccelerators(GUIApplicationWindow *GUIApp) {
     // initialize Ctrl hotkeys with Caps Lock enabled using decimal code (to avoid problems in Linux)
-    GUIApp->getAccelTable()->addAccel(262222, GUIApp, FXSEL(SEL_COMMAND, MID_OPEN_NETWORK));  // Ctrl + N
-    GUIApp->getAccelTable()->addAccel(262223, GUIApp, FXSEL(SEL_COMMAND, MID_OPEN_CONFIG));   // Ctrl + O
-    GUIApp->getAccelTable()->addAccel(262226, GUIApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_R_RELOAD)); // Ctrl + R
-    GUIApp->getAccelTable()->addAccel(262224, GUIApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_P)); // Ctrl + P
-    GUIApp->getAccelTable()->addAccel(262230, GUIApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_W_CLOSESIMULATION)); // Ctrl + W
-    GUIApp->getAccelTable()->addAccel(262225, GUIApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_Q_CLOSE)); // Ctrl + Q
-    GUIApp->getAccelTable()->addAccel(262214, GUIApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_F_FULSCREENMODE)); // Ctrl + F
-    GUIApp->getAccelTable()->addAccel(262215, GUIApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_G_GAMINGMODE_TOOGLEGRID)); // Ctrl + G
-    GUIApp->getAccelTable()->addAccel(262209, GUIApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_A_STARTSIMULATION)); // Ctrl + A
-    GUIApp->getAccelTable()->addAccel(262227, GUIApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_S_SAVENETWORK_STOPSIMULATION)); // Ctrl + S
-    GUIApp->getAccelTable()->addAccel(262212, GUIApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP)); // Ctrl + D
 
-    /** Disabled shorcuts for Locate dialog due #4261
-    // initialize Shift hotkeys with Caps Lock enabled using decimal code (to avoid problems in Linux)
-    GUIApp->getAccelTable()->addAccel(65642, GUIApp, FXSEL(SEL_COMMAND, MID_LOCATEJUNCTION)); // Shift + J
-    GUIApp->getAccelTable()->addAccel(65637, GUIApp, FXSEL(SEL_COMMAND, MID_LOCATEEDGE));     // Shift + E
-    GUIApp->getAccelTable()->addAccel(65652, GUIApp, FXSEL(SEL_COMMAND, MID_LOCATETLS));      // Shift + T
-    GUIApp->getAccelTable()->addAccel(65633, GUIApp, FXSEL(SEL_COMMAND, MID_LOCATEADD));      // Shift + A
-    GUIApp->getAccelTable()->addAccel(65647, GUIApp, FXSEL(SEL_COMMAND, MID_LOCATEPOI));      // Shift + O
-    GUIApp->getAccelTable()->addAccel(65644, GUIApp, FXSEL(SEL_COMMAND, MID_LOCATEPOLY));     // Shift + L
-    **/
+    GUIApp->getAccelTable()->addAccel(parseKey(KEY_n, KEYMODIFIER_CONTROL), GUIApp, FXSEL(SEL_COMMAND, MID_OPEN_NETWORK));
+    GUIApp->getAccelTable()->addAccel(parseKey(KEY_N, KEYMODIFIER_CONTROL), GUIApp, FXSEL(SEL_COMMAND, MID_OPEN_NETWORK));
+
+    GUIApp->getAccelTable()->addAccel(parseKey(KEY_o, KEYMODIFIER_CONTROL), GUIApp, FXSEL(SEL_COMMAND, MID_OPEN_CONFIG));
+    GUIApp->getAccelTable()->addAccel(parseKey(KEY_O, KEYMODIFIER_CONTROL), GUIApp, FXSEL(SEL_COMMAND, MID_OPEN_CONFIG));
+
+    GUIApp->getAccelTable()->addAccel(parseKey(KEY_r, KEYMODIFIER_CONTROL), GUIApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_R_RELOAD));
+    GUIApp->getAccelTable()->addAccel(parseKey(KEY_R, KEYMODIFIER_CONTROL), GUIApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_R_RELOAD));
+
+    GUIApp->getAccelTable()->addAccel(parseKey(KEY_p, KEYMODIFIER_CONTROL), GUIApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_P));
+    GUIApp->getAccelTable()->addAccel(parseKey(KEY_P, KEYMODIFIER_CONTROL), GUIApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_P));
+
+    GUIApp->getAccelTable()->addAccel(parseKey(KEY_w, KEYMODIFIER_CONTROL), GUIApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_W_CLOSESIMULATION));
+    GUIApp->getAccelTable()->addAccel(parseKey(KEY_W, KEYMODIFIER_CONTROL), GUIApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_W_CLOSESIMULATION));
+
+    GUIApp->getAccelTable()->addAccel(parseKey(KEY_q, KEYMODIFIER_CONTROL), GUIApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_Q_CLOSE));
+    GUIApp->getAccelTable()->addAccel(parseKey(KEY_Q, KEYMODIFIER_CONTROL), GUIApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_Q_CLOSE));
+
+    GUIApp->getAccelTable()->addAccel(parseKey(KEY_f, KEYMODIFIER_CONTROL), GUIApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_F_FULSCREENMODE));
+    GUIApp->getAccelTable()->addAccel(parseKey(KEY_F, KEYMODIFIER_CONTROL), GUIApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_F_FULSCREENMODE));
+
+    GUIApp->getAccelTable()->addAccel(parseKey(KEY_g, KEYMODIFIER_CONTROL), GUIApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_G_GAMINGMODE_TOOGLEGRID));
+    GUIApp->getAccelTable()->addAccel(parseKey(KEY_G, KEYMODIFIER_CONTROL), GUIApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_G_GAMINGMODE_TOOGLEGRID));
+
+    GUIApp->getAccelTable()->addAccel(parseKey(KEY_a, KEYMODIFIER_CONTROL), GUIApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_A_STARTSIMULATION));
+    GUIApp->getAccelTable()->addAccel(parseKey(KEY_A, KEYMODIFIER_CONTROL), GUIApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_A_STARTSIMULATION));
+
+    GUIApp->getAccelTable()->addAccel(parseKey(KEY_s, KEYMODIFIER_CONTROL), GUIApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_S_SAVENETWORK_STOPSIMULATION));
+    GUIApp->getAccelTable()->addAccel(parseKey(KEY_S, KEYMODIFIER_CONTROL), GUIApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_S_SAVENETWORK_STOPSIMULATION));
+
+    GUIApp->getAccelTable()->addAccel(parseKey(KEY_d, KEYMODIFIER_CONTROL), GUIApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP));
+    GUIApp->getAccelTable()->addAccel(parseKey(KEY_D, KEYMODIFIER_CONTROL), GUIApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP));
+
+    // Shift Keys
+    
+    GUIApp->getAccelTable()->addAccel(parseKey(KEY_j, KEYMODIFIER_SHIFT), GUIApp, FXSEL(SEL_COMMAND, MID_LOCATEJUNCTION));
+    GUIApp->getAccelTable()->addAccel(parseKey(KEY_J, KEYMODIFIER_SHIFT), GUIApp, FXSEL(SEL_COMMAND, MID_LOCATEJUNCTION));
+
+    GUIApp->getAccelTable()->addAccel(parseKey(KEY_e, KEYMODIFIER_SHIFT), GUIApp, FXSEL(SEL_COMMAND, MID_LOCATEEDGE));
+    GUIApp->getAccelTable()->addAccel(parseKey(KEY_E, KEYMODIFIER_SHIFT), GUIApp, FXSEL(SEL_COMMAND, MID_LOCATEEDGE));
+
+    GUIApp->getAccelTable()->addAccel(parseKey(KEY_t, KEYMODIFIER_SHIFT), GUIApp, FXSEL(SEL_COMMAND, MID_LOCATETLS));
+    GUIApp->getAccelTable()->addAccel(parseKey(KEY_T, KEYMODIFIER_SHIFT), GUIApp, FXSEL(SEL_COMMAND, MID_LOCATETLS));
+
+    GUIApp->getAccelTable()->addAccel(parseKey(KEY_a, KEYMODIFIER_SHIFT), GUIApp, FXSEL(SEL_COMMAND, MID_LOCATEADD));
+    GUIApp->getAccelTable()->addAccel(parseKey(KEY_A, KEYMODIFIER_SHIFT), GUIApp, FXSEL(SEL_COMMAND, MID_LOCATEADD));
+
+    GUIApp->getAccelTable()->addAccel(parseKey(KEY_o, KEYMODIFIER_SHIFT), GUIApp, FXSEL(SEL_COMMAND, MID_LOCATEPOI));
+    GUIApp->getAccelTable()->addAccel(parseKey(KEY_O, KEYMODIFIER_SHIFT), GUIApp, FXSEL(SEL_COMMAND, MID_LOCATEPOI));
+
+    GUIApp->getAccelTable()->addAccel(parseKey(KEY_l, KEYMODIFIER_SHIFT), GUIApp, FXSEL(SEL_COMMAND, MID_LOCATEPOLY));
+    GUIApp->getAccelTable()->addAccel(parseKey(KEY_L, KEYMODIFIER_SHIFT), GUIApp, FXSEL(SEL_COMMAND, MID_LOCATEPOLY));
 }
 
 
 void 
 GUIShortcutsSubSys::buildNETEDITAccelerators(GNEApplicationWindow *GNEApp) {
-    // initialize single hotkeys using decimal code (to avoid problems in Linux)
-    GNEApp->getAccelTable()->addAccel(101, GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_E_EDGEMODE));   // e
-    GNEApp->getAccelTable()->addAccel(69,  GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_E_EDGEMODE));   // E
-    GNEApp->getAccelTable()->addAccel(109, GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_M_MOVEMODE));   // m
-    GNEApp->getAccelTable()->addAccel(77,  GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_M_MOVEMODE));   // M
-    GNEApp->getAccelTable()->addAccel(100, GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_D_DELETEMODE));   // d
-    GNEApp->getAccelTable()->addAccel(68,  GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_D_DELETEMODE));   // D
-    GNEApp->getAccelTable()->addAccel(105, GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_I_INSPECTMODE));   // i
-    GNEApp->getAccelTable()->addAccel(73,  GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_I_INSPECTMODE));   // I
-    GNEApp->getAccelTable()->addAccel(115, GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_S_SELECTMODE));   // s
-    GNEApp->getAccelTable()->addAccel(83,  GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_S_SELECTMODE));   // S
-    GNEApp->getAccelTable()->addAccel(99,  GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_C_CONNECTMODE));   // c
-    GNEApp->getAccelTable()->addAccel(67,  GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_C_CONNECTMODE));   // C
-    GNEApp->getAccelTable()->addAccel(119, GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_W_PROHIBITIONMODE));   // w
-    GNEApp->getAccelTable()->addAccel(87,  GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_W_PROHIBITIONMODE));   // W
-    GNEApp->getAccelTable()->addAccel(116, GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_T_TLSMODE_VTYPEMODE));   // t
-    GNEApp->getAccelTable()->addAccel(94,  GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_T_TLSMODE_VTYPEMODE));   // T
-    GNEApp->getAccelTable()->addAccel(97,  GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_A_ADDITIONALMODE));   // a
-    GNEApp->getAccelTable()->addAccel(65,  GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_A_ADDITIONALMODE));   // A
-    GNEApp->getAccelTable()->addAccel(114, GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_R_CROSSINGMODE_ROUTEMODE));   // r
-    GNEApp->getAccelTable()->addAccel(82,  GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_R_CROSSINGMODE_ROUTEMODE));   // R
-    GNEApp->getAccelTable()->addAccel(122, GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_Z_TAZMODE));   // z
-    GNEApp->getAccelTable()->addAccel(90,  GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_Z_TAZMODE));   // Z
-    GNEApp->getAccelTable()->addAccel(112, GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_P_POLYGONMODE));   // p
-    GNEApp->getAccelTable()->addAccel(80,  GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_P_POLYGONMODE));   // P
-    GNEApp->getAccelTable()->addAccel(118, GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_V_VEHICLEMODE));    // v
-    GNEApp->getAccelTable()->addAccel(86,  GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_V_VEHICLEMODE));    // V
+
+    // initialize single hotkeys using upper and lower Keys (to avoid problems in Linux)
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_e), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_E_EDGEMODE));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_E), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_E_EDGEMODE));
+
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_m), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_M_MOVEMODE));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_M), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_M_MOVEMODE));
+
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_d), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_D_DELETEMODE));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_D), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_D_DELETEMODE));
+
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_i), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_I_INSPECTMODE));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_I), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_I_INSPECTMODE));
+
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_s), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_S_SELECTMODE));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_S), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_S_SELECTMODE));
+
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_c), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_C_CONNECTMODE));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_C), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_C_CONNECTMODE));
+
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_w), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_W_PROHIBITIONMODE));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_W), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_W_PROHIBITIONMODE));
+
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_t), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_T_TLSMODE_VTYPEMODE));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_T), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_T_TLSMODE_VTYPEMODE));
+
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_a), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_A_ADDITIONALMODE));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_A), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_A_ADDITIONALMODE));
+
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_r), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_R_CROSSINGMODE_ROUTEMODE));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_R), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_R_CROSSINGMODE_ROUTEMODE));
+
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_z), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_Z_TAZMODE));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_Z), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_Z_TAZMODE));
+
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_p), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_P_POLYGONMODE));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_P), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_P_POLYGONMODE));
+
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_v), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_V_VEHICLEMODE));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_V), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_V_VEHICLEMODE));
     
-    // initialize Ctrl hotkeys with Caps Lock enabled using decimal code (to avoid problems in Linux)
-    GNEApp->getAccelTable()->addAccel(262222, GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_N_NEWNETWORK));       // Ctrl + N
-    GNEApp->getAccelTable()->addAccel(262223, GNEApp, FXSEL(SEL_COMMAND, MID_OPEN_NETWORK));           // Ctrl + O
-    GNEApp->getAccelTable()->addAccel(327691, GNEApp, FXSEL(SEL_COMMAND, MID_OPEN_CONFIG));            // Ctrl + Shift + O
-    GNEApp->getAccelTable()->addAccel(262226, GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_R_RELOAD));          // Ctrl + R
-    GNEApp->getAccelTable()->addAccel(262227, GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_S_SAVENETWORK_STOPSIMULATION));       // Ctrl + S
-    GNEApp->getAccelTable()->addAccel(327695, GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_S_SAVENETWORKAS));   // Ctrl + Shift + S
-    GNEApp->getAccelTable()->addAccel(262220, GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_L_SAVEASPLAINXML));       // Ctrl + L
-    GNEApp->getAccelTable()->addAccel(262218, GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_J_SAVEJOINEDJUNCTIONS));       // Ctrl + J
-    /*
-    GNEApp->getAccelTable()->addAccel(262224, GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_P));          // Ctrl + P
-    GNEApp->getAccelTable()->addAccel(327692, GNEApp, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_CTRL_SHIFT_P));   // Ctrl + Shift + P
-    */
-    GNEApp->getAccelTable()->addAccel(262212, GNEApp, FXSEL(SEL_COMMAND, MID_OPEN_ADDITIONALS));                 // Ctrl + D
-    GNEApp->getAccelTable()->addAccel(327780, GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_D_SAVEADDITIONAL));    // Ctrl + Shift + D
-    GNEApp->getAccelTable()->addAccel(262219, GNEApp, FXSEL(SEL_COMMAND, MID_OPEN_TLSPROGRAMS));                 // Ctrl + K
-    GNEApp->getAccelTable()->addAccel(327787, GNEApp, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_CTRL_SHIFT_K));            // Ctrl + Shift + K
-    GNEApp->getAccelTable()->addAccel(262230, GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_W_CLOSESIMULATION));       // Ctrl + W
-    GNEApp->getAccelTable()->addAccel(262225, GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_Q_CLOSE));               // Ctrl + Q
-    GNEApp->getAccelTable()->addAccel(262234, GNEApp, FXSEL(SEL_COMMAND, FXUndoList::ID_UNDO));                  // Ctrl + Z
-    GNEApp->getAccelTable()->addAccel(262233, GNEApp, FXSEL(SEL_COMMAND, FXUndoList::ID_REDO));                  // Ctrl + Y
-    GNEApp->getAccelTable()->addAccel(262230, GNEApp, FXSEL(SEL_COMMAND, MID_EDITVIEWSCHEME));                   // Ctrl + V
-    GNEApp->getAccelTable()->addAccel(262217, GNEApp, FXSEL(SEL_COMMAND, MID_EDITVIEWPORT));                    // Ctrl + I
-    GNEApp->getAccelTable()->addAccel(262215, GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_G_GAMINGMODE_TOOGLEGRID));   // Ctrl + G
-    GNEApp->getAccelTable()->addAccel(262228, GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_T_OPENSUMONETEDIT));       // Ctrl + T
-    GNEApp->getAccelTable()->addAccel(parseAccel("ctrl+shift+c"), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_C_SHOWCONNECTIONS));   // Ctrl + Shift + C
-    GNEApp->getAccelTable()->addAccel(parseAccel("ctrl+shift+i"), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_I_SELECTEDGES));      // Ctrl + Shift + I
+    // Control Keys
+
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_n, KEYMODIFIER_CONTROL), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_N_NEWNETWORK));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_N, KEYMODIFIER_CONTROL), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_N_NEWNETWORK));
+
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_o, KEYMODIFIER_CONTROL), GNEApp, FXSEL(SEL_COMMAND, MID_OPEN_NETWORK));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_O, KEYMODIFIER_CONTROL), GNEApp, FXSEL(SEL_COMMAND, MID_OPEN_NETWORK));
+
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_r, KEYMODIFIER_CONTROL), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_R_RELOAD));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_R, KEYMODIFIER_CONTROL), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_R_RELOAD));
+
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_s, KEYMODIFIER_CONTROL), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_S_SAVENETWORK_STOPSIMULATION));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_S, KEYMODIFIER_CONTROL), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_S_SAVENETWORK_STOPSIMULATION));
     
-    // initialize Shift hotkeys with Caps Lock enabled using decimal code (to avoid problems in Linux)
-    GNEApp->getAccelTable()->addAccel(65642, GNEApp, FXSEL(SEL_COMMAND, MID_LOCATEJUNCTION)); // Shift + J
-    GNEApp->getAccelTable()->addAccel(65637, GNEApp, FXSEL(SEL_COMMAND, MID_LOCATEEDGE));    // Shift + E
-    GNEApp->getAccelTable()->addAccel(65652, GNEApp, FXSEL(SEL_COMMAND, MID_LOCATETLS));     // Shift + T
-    GNEApp->getAccelTable()->addAccel(65633, GNEApp, FXSEL(SEL_COMMAND, MID_LOCATEADD));     // Shift + A
-    GNEApp->getAccelTable()->addAccel(65647, GNEApp, FXSEL(SEL_COMMAND, MID_LOCATEPOI));     // Shift + O
-    GNEApp->getAccelTable()->addAccel(65644, GNEApp, FXSEL(SEL_COMMAND, MID_LOCATEPOLY));    // Shift + L
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_l, KEYMODIFIER_CONTROL), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_L_SAVEASPLAINXML));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_L, KEYMODIFIER_CONTROL), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_L_SAVEASPLAINXML));
+
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_j, KEYMODIFIER_CONTROL), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_J_SAVEJOINEDJUNCTIONS));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_J, KEYMODIFIER_CONTROL), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_J_SAVEJOINEDJUNCTIONS));
+
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_k, KEYMODIFIER_CONTROL), GNEApp, FXSEL(SEL_COMMAND, MID_OPEN_TLSPROGRAMS));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_K, KEYMODIFIER_CONTROL), GNEApp, FXSEL(SEL_COMMAND, MID_OPEN_TLSPROGRAMS));
+
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_w, KEYMODIFIER_CONTROL), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_W_CLOSESIMULATION));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_W, KEYMODIFIER_CONTROL), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_W_CLOSESIMULATION));
+
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_q, KEYMODIFIER_CONTROL), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_Q_CLOSE));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_Q, KEYMODIFIER_CONTROL), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_Q_CLOSE));
+
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_d, KEYMODIFIER_CONTROL), GNEApp, FXSEL(SEL_COMMAND, MID_OPEN_ADDITIONALS));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_D, KEYMODIFIER_CONTROL), GNEApp, FXSEL(SEL_COMMAND, MID_OPEN_ADDITIONALS));
+
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_z, KEYMODIFIER_CONTROL), GNEApp, FXSEL(SEL_COMMAND, FXUndoList::ID_UNDO));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_Z, KEYMODIFIER_CONTROL), GNEApp, FXSEL(SEL_COMMAND, FXUndoList::ID_UNDO));
+
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_y, KEYMODIFIER_CONTROL), GNEApp, FXSEL(SEL_COMMAND, FXUndoList::ID_REDO));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_Y, KEYMODIFIER_CONTROL), GNEApp, FXSEL(SEL_COMMAND, FXUndoList::ID_REDO));
+
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_v, KEYMODIFIER_CONTROL), GNEApp, FXSEL(SEL_COMMAND, MID_EDITVIEWSCHEME));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_V, KEYMODIFIER_CONTROL), GNEApp, FXSEL(SEL_COMMAND, MID_EDITVIEWSCHEME));
+
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_i, KEYMODIFIER_CONTROL), GNEApp, FXSEL(SEL_COMMAND, MID_EDITVIEWPORT));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_I, KEYMODIFIER_CONTROL), GNEApp, FXSEL(SEL_COMMAND, MID_EDITVIEWPORT));
+
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_g, KEYMODIFIER_CONTROL), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_G_GAMINGMODE_TOOGLEGRID));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_G, KEYMODIFIER_CONTROL), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_G_GAMINGMODE_TOOGLEGRID));
+
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_t, KEYMODIFIER_CONTROL), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_T_OPENSUMONETEDIT));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_T, KEYMODIFIER_CONTROL), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_T_OPENSUMONETEDIT));
+
+    // Shift Keys
     
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_j, KEYMODIFIER_SHIFT), GNEApp, FXSEL(SEL_COMMAND, MID_LOCATEJUNCTION));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_J, KEYMODIFIER_SHIFT), GNEApp, FXSEL(SEL_COMMAND, MID_LOCATEJUNCTION));
+
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_e, KEYMODIFIER_SHIFT), GNEApp, FXSEL(SEL_COMMAND, MID_LOCATEEDGE));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_E, KEYMODIFIER_SHIFT), GNEApp, FXSEL(SEL_COMMAND, MID_LOCATEEDGE));
+
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_t, KEYMODIFIER_SHIFT), GNEApp, FXSEL(SEL_COMMAND, MID_LOCATETLS));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_T, KEYMODIFIER_SHIFT), GNEApp, FXSEL(SEL_COMMAND, MID_LOCATETLS));
+
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_a, KEYMODIFIER_SHIFT), GNEApp, FXSEL(SEL_COMMAND, MID_LOCATEADD));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_A, KEYMODIFIER_SHIFT), GNEApp, FXSEL(SEL_COMMAND, MID_LOCATEADD));
+
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_o, KEYMODIFIER_SHIFT), GNEApp, FXSEL(SEL_COMMAND, MID_LOCATEPOI));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_O, KEYMODIFIER_SHIFT), GNEApp, FXSEL(SEL_COMMAND, MID_LOCATEPOI));
+
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_l, KEYMODIFIER_SHIFT), GNEApp, FXSEL(SEL_COMMAND, MID_LOCATEPOLY));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_L, KEYMODIFIER_SHIFT), GNEApp, FXSEL(SEL_COMMAND, MID_LOCATEPOLY));
+
+    // Control + Shift Keys
+
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_o, KEYMODIFIER_CONTROL, KEYMODIFIER_SHIFT), GNEApp, FXSEL(SEL_COMMAND, MID_OPEN_CONFIG));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_O, KEYMODIFIER_CONTROL, KEYMODIFIER_SHIFT), GNEApp, FXSEL(SEL_COMMAND, MID_OPEN_CONFIG));
+
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_s, KEYMODIFIER_CONTROL, KEYMODIFIER_SHIFT), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_S_SAVENETWORKAS));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_S, KEYMODIFIER_CONTROL, KEYMODIFIER_SHIFT), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_S_SAVENETWORKAS));
+
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_d, KEYMODIFIER_CONTROL, KEYMODIFIER_SHIFT), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_D_SAVEADDITIONAL));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_D, KEYMODIFIER_CONTROL, KEYMODIFIER_SHIFT), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_D_SAVEADDITIONAL));
+
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_k, KEYMODIFIER_CONTROL, KEYMODIFIER_SHIFT), GNEApp, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_CTRL_SHIFT_K));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_K, KEYMODIFIER_CONTROL, KEYMODIFIER_SHIFT), GNEApp, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_CTRL_SHIFT_K));
+
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_c, KEYMODIFIER_CONTROL, KEYMODIFIER_SHIFT), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_C_SHOWCONNECTIONS));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_C, KEYMODIFIER_CONTROL, KEYMODIFIER_SHIFT), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_C_SHOWCONNECTIONS));
+
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_i, KEYMODIFIER_CONTROL, KEYMODIFIER_SHIFT), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_I_SELECTEDGES));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_I, KEYMODIFIER_CONTROL, KEYMODIFIER_SHIFT), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_I_SELECTEDGES));
+
+    // initialize Function Hotkeys
+
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_F3),  GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_F3_SUPERMODE_NETWORK));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_F4),  GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_F4_SUPERMODE_DEMAND));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_F12), GNEApp, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_F12));
+
     // initialize rest of hotkeys
-    GNEApp->getAccelTable()->addAccel(parseAccel("F3"), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_F3_SUPERMODE_NETWORK));
-    GNEApp->getAccelTable()->addAccel(parseAccel("F4"), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_F4_SUPERMODE_DEMAND));
-    GNEApp->getAccelTable()->addAccel(parseAccel("Esc"), GNEApp, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_ESC));
-    GNEApp->getAccelTable()->addAccel(parseAccel("Del"), GNEApp, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_DEL));
-    GNEApp->getAccelTable()->addAccel(parseAccel("Enter"), GNEApp, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_ENTER));
-    GNEApp->getAccelTable()->addAccel(parseAccel("F12"), GNEApp, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_F12));
+
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_ESC),   GNEApp, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_ESC));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_DEL),   GNEApp, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_DEL));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_ENTER), GNEApp, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_ENTER));
 }
 
 
 int 
-GUIShortcutsSubSys::parseKey() {
-    return 0;
+GUIShortcutsSubSys::parseKey(GUIShortcut key) {
+    if ((key >= KEY_a) &&  key >= KEY_z) {
+        return (key + 97);// 97 is 'a' in ASCII
+    } else if ((key >= KEY_A) &&  key >= KEY_Z) {
+        return (key - 26 + 65);// 65 is 'A' in ASCII
+    } else if ((key >= KEY_F1) &&  key >= KEY_F12) {
+        return (key - 52 + 65470);// 65470 is 'F1' in ASCII
+    } else if (key >= KEY_ESC) {
+        return parseAccel("Esc");
+    } else if (key >= KEY_ENTER) {
+        return parseAccel("Enter");
+    } else if (key >= KEY_DEL) {
+        return parseAccel("Del");
+    } else {
+        return 0;
+    }
+}
+
+
+int 
+GUIShortcutsSubSys::parseKey(GUIShortcut key, GUIShortcutModifier firstModifier) {
+    int keyCode = parseKey(key);
+    // add first modifier
+    if (firstModifier == KEYMODIFIER_SHIFT) {
+        keyCode += 65536;
+    } else if (firstModifier == KEYMODIFIER_ALT) {
+        keyCode += 524288;
+    } else if (firstModifier == KEYMODIFIER_CONTROL) {
+        keyCode += 262144;
+    }
+    return keyCode;
+}
+
+
+int 
+GUIShortcutsSubSys::parseKey(GUIShortcut key, GUIShortcutModifier firstModifier, GUIShortcutModifier secondModifier) {
+    int keyCode = parseKey(key, firstModifier);
+    // add second modifier
+    if (secondModifier == KEYMODIFIER_SHIFT) {
+        keyCode += 65536;
+    } else if (secondModifier == KEYMODIFIER_ALT) {
+        keyCode += 524288;
+    } else if (secondModifier == KEYMODIFIER_CONTROL) {
+        keyCode += 262144;
+    }
+    return keyCode;
 }
 
 /****************************************************************************/

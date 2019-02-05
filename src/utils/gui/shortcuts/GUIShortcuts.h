@@ -32,6 +32,32 @@
  * @brief An enumeration of Shortcuts used by the gui applications
  */
 enum GUIShortcut {
+    KEY_a,
+    KEY_b,
+    KEY_c,
+    KEY_d,
+    KEY_e,
+    KEY_f,
+    KEY_g,
+    KEY_h,
+    KEY_i,
+    KEY_j,
+    KEY_k,
+    KEY_l,
+    KEY_m,
+    KEY_n,
+    KEY_o,
+    KEY_p,
+    KEY_q,
+    KEY_r,
+    KEY_s,
+    KEY_t,
+    KEY_u,
+    KEY_v,
+    KEY_w,
+    KEY_x,
+    KEY_y,
+    KEY_z,
 
     KEY_A,
     KEY_B,
@@ -60,12 +86,6 @@ enum GUIShortcut {
     KEY_Y,
     KEY_Z,
 
-    KEY_ESC,
-    KEY_SHIF,
-    KEY_ALT,
-    KEY_CONTROL,
-    KEY_ENTER,
-
     KEY_F1,
     KEY_F2,
     KEY_F3,
@@ -79,10 +99,17 @@ enum GUIShortcut {
     KEY_F11,
     KEY_F12,
 
-    /// @brief max number of Shortcuts
-    Shortcut_MAX
+    KEY_ESC,
+    KEY_ENTER,
+    KEY_DEL,
 };
 
+
+enum GUIShortcutModifier {
+    KEYMODIFIER_SHIFT,
+    KEYMODIFIER_ALT,
+    KEYMODIFIER_CONTROL
+};
 
 #endif
 
