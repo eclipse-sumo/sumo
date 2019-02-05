@@ -498,6 +498,7 @@ src/utils/gui/events/Makefile
 src/utils/gui/globjects/Makefile
 src/utils/gui/images/Makefile
 src/utils/gui/cursors/Makefile
+src/utils/gui/shortcuts/Makefile
 src/utils/gui/settings/Makefile
 src/utils/gui/tracker/Makefile
 src/utils/gui/windows/Makefile
