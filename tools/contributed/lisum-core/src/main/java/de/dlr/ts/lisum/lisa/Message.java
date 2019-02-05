@@ -48,7 +48,8 @@ class Message
      * @param wunschVector
      * @return 
      */
-    public String getCommand(Type type, WunschVector wunschVector, String detectorsString, long simulationTime)
+    public String getCommand(Type type, WunschVector wunschVector, 
+            String detectorsString, String apWerte, long simulationTime)
     {
         createTime = simulationTime;
         time = simulationTime;
@@ -61,13 +62,16 @@ class Message
         sb.append(time);
         sb.append("{\"").append(type).append("\"}");
         sb.append("{").append(wunschVector.getVector()).append("}");
-        
+                        
         if(type == Type.Init)            
             sb.append("{}{}");
         else
         {
             sb.append("{").append(detectorsString).append("}{}");
-            sb.append("{}{}");
+            sb.append("{");
+            sb.append(apWerte);
+            sb.append("}");
+            sb.append("{}");
         }
             
         return sb.toString();

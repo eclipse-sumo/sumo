@@ -107,9 +107,22 @@ class SumoControlUnit
             if(apwertName.isEmpty())
                 continue;
             
-            DLRLogger.finest("Control unit " + name + ": APwerte: " + apwertName + "  " + apwertValue);            
+            DLRLogger.finest("Control unit " + name + ": APwerte: " + apwertName + "  " + apwertValue);
             try {                        
                 sumoTraciConnection.do_job_set(Trafficlight.setParameter(name, apwertName, apwertValue));
+            } catch (Exception ex) {
+                Logger.getLogger(SumoControlUnit.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            try {
+                String valueFromSumo = (String)sumoTraciConnection.do_job_get(Trafficlight
+                        .getParameter(name, "lisa_" + apwertName));
+                
+                if(valueFromSumo != null)
+                    cu.setAPWerteValue(i, valueFromSumo);
+                else
+                    cu.setAPWerteValue(i, "");
+                
             } catch (Exception ex) {
                 Logger.getLogger(SumoControlUnit.class.getName()).log(Level.SEVERE, null, ex);
             }

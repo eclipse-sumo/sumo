@@ -51,8 +51,8 @@ final class LisaControlUnit implements ControlUnitInterface {
     private boolean enabled = false;
 
     private final List<String> apWerteNames = new ArrayList<>();
-    private List<String> apWerteValues = new ArrayList<>();
-
+    private List<String> apWerteValuesToSumo = new ArrayList<>();    
+    private List<String> apWerteValuesFromSumo = new ArrayList<>();
     
     /**
      *
@@ -76,12 +76,17 @@ final class LisaControlUnit implements ControlUnitInterface {
 
     @Override
     public String getAPWerteValue(int index) {
-        if(apWerteValues == null || apWerteValues.isEmpty())
+        if(apWerteValuesToSumo == null || apWerteValuesToSumo.isEmpty())
             return "";
         
-        return apWerteValues.get(index);
+        return apWerteValuesToSumo.get(index);
     }
-
+    
+    @Override
+    public void setAPWerteValue(int index, String value) {
+        apWerteValuesFromSumo.set(index, value);
+    }
+    
     /**
      *
      * @param commands
@@ -113,8 +118,11 @@ final class LisaControlUnit implements ControlUnitInterface {
         lisaDetectors.load(cu);
         signalPrograms.load(cu);
         
-        for (String na : cu.apWerteNames)
-            this.apWerteNames.add(na);        
+        for (String na : cu.apWerteNames) {
+            this.apWerteNames.add(na);      
+            
+            this.apWerteValuesFromSumo.add(""); // initializing List
+        }                    
     }
 
     /**
@@ -154,7 +162,7 @@ final class LisaControlUnit implements ControlUnitInterface {
         /**
          *
          */
-        String command = message.getCommand(Message.Type.Init, vector, null, 0l);
+        String command = message.getCommand(Message.Type.Init, vector, null, "", 0l);
         commands.putMessage(command);
     }
 
@@ -166,8 +174,19 @@ final class LisaControlUnit implements ControlUnitInterface {
             String detectorsString = lisaDetectors.getLisaString();
 
             //Preparing message to send
-            String commandToLisa = message.getCommand(Message.Type.Run, vector, detectorsString, simulationTime);
+            String commandToLisa = message.getCommand(Message.Type.Run, 
+                    vector, 
+                    detectorsString, 
+                    APWertZustType.generate(apWerteValuesFromSumo),
+                    simulationTime);
 
+            /**
+             * Cleaning old values
+             */
+            for (int i = 0; i < apWerteValuesFromSumo.size(); i++)
+                apWerteValuesFromSumo.set(i, "");
+            
+            
             //Sending message to Lisa and receiving a response
             PutMessageResponse messageResponseFromLisa = commands.putMessage(commandToLisa);
 
@@ -177,7 +196,7 @@ final class LisaControlUnit implements ControlUnitInterface {
             }
 
             String apWerte = messageResponseFromLisa.getApWertZustType();                        
-            apWerteValues = APWertZustType.parse(apWerte);            
+            apWerteValuesToSumo = APWertZustType.parse(apWerte);            
         }
     }
 
@@ -324,6 +343,6 @@ final class LisaControlUnit implements ControlUnitInterface {
     @Override
     public int getCoordinated() {
         return vector.getCoordinated();
-    }
+    }    
 
 }

@@ -38,4 +38,45 @@ public class APWertZustType
         return values;
     }
     
+    public static void main(String[] args) {
+        List<String> a = new ArrayList<>();
+        
+        a.add("111");
+        a.add("222");
+        a.add("");
+        a.add("333");
+        a.add("333");
+        
+        System.out.println(generate(a));
+    }
+    /**
+     * 
+     * @param apWerte
+     * @return 
+     */
+    public final static String generate(List<String> apWerte) 
+    {   
+        StringBuilder sb = new StringBuilder();
+        boolean addIndex = false;
+        
+        for (int i = 0; i < apWerte.size(); i++) {
+            if(apWerte.get(i).isEmpty()) {
+                addIndex = true;
+                continue;
+            }                
+            
+            if(addIndex)
+            sb.append("(").append(i).append(")");
+            sb.append(apWerte.get(i));
+            sb.append("!");
+            addIndex = false;
+        }
+        
+        String ret = sb.toString();
+        if(!ret.isEmpty())
+            ret = ret.substring(0, ret.length()-1);
+                
+        return ret;
+    }
+        
 }
