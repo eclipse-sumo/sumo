@@ -40,6 +40,7 @@ GNEVehicle::GNEVehicle(GNEViewNet* viewNet, const std::string &vehicleID, GNEDem
     SUMOVehicleParameter(),
     myVehicleType(vehicleType),
     myRoute(route) {
+    // SUMOVehicleParameter ID has to be set manually
     id = vehicleID;
 }
 
@@ -49,6 +50,8 @@ GNEVehicle::GNEVehicle(GNEViewNet* viewNet, const SUMOVehicleParameter &vehicleP
     SUMOVehicleParameter(vehicleParameter),
     myVehicleType(vehicleType),
     myRoute(route) {
+    // SUMOVehicleParameter ID has to be set manually
+    id = vehicleParameter.id;
 }
 
 
@@ -58,6 +61,11 @@ GNEVehicle::~GNEVehicle() {}
 void 
 GNEVehicle::writeDemandElement(OutputDevice& device) const {
     write(device, OptionsCont::getOptions(), SUMO_TAG_VEHICLE);
+    // write manually type and route
+    device.writeAttr(SUMO_ATTR_TYPE, myVehicleType->getID());
+    device.writeAttr(SUMO_ATTR_ROUTE, myRoute->getID());
+    // close vehicle tag
+    device.closeTag();
 }
 
 
@@ -160,7 +168,7 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_CONTAINER_NUMBER:
             return toString(containerNumber);
         case SUMO_ATTR_REROUTE:
-            return toString(""); // check
+            return toString("false"); // check
         case SUMO_ATTR_VIA:
             return toString(""); // check
         case SUMO_ATTR_DEPARTPOS_LAT:
@@ -334,11 +342,9 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeDemandElementID(value);
             break;
         case SUMO_ATTR_TYPE:
-            vtypeid = value;
             myVehicleType = myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, value);
             break;
         case SUMO_ATTR_ROUTE:
-            routeid = value;
             myRoute = myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_ROUTE, value);
             break;
         case SUMO_ATTR_COLOR:

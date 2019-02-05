@@ -54,7 +54,7 @@ public:
     ~GNERouteHandler();
 
     /// @brief build demand element
-    static bool buildDemandElement(const std::map<SumoXMLAttr, std::string> &valuesMap);
+    static bool buildDemandElement(GNEViewNet* viewNet, SumoXMLTag tag, const std::map<SumoXMLAttr, std::string> &valuesMap);
 
 protected:
     /// @brief opens a type distribution for reading

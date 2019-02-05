@@ -275,7 +275,7 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
             // obtain route
             valuesMap[SUMO_ATTR_ROUTE] = objectsUnderCursor.getDemandElementFront()->getID();
             // build vehicle/flow
-            return GNERouteHandler::buildDemandElement(valuesMap);
+            return GNERouteHandler::buildDemandElement(myViewNet, vehicleTag, valuesMap);
         } else {
             myViewNet->setStatusBarText(toString(vehicleTag) + " has to be placed within a route.");
             return false;

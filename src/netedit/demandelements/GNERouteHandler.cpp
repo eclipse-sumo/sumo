@@ -50,10 +50,44 @@ GNERouteHandler::~GNERouteHandler() {}
 
 
 bool 
-GNERouteHandler::buildDemandElement(const std::map<SumoXMLAttr, std::string> &valuesMap) {
+GNERouteHandler::buildDemandElement(GNEViewNet* viewNet, SumoXMLTag tag, const std::map<SumoXMLAttr, std::string> &valuesMap) {
+    /** temporal **/
+    switch (tag) {
+        case SUMO_TAG_VEHICLE: {
+            // obtain routes and vtypes
+            GNEDemandElement* vType = viewNet->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, valuesMap.at(SUMO_ATTR_TYPE), false);
+            GNEDemandElement* route = viewNet->getNet()->retrieveDemandElement(SUMO_TAG_ROUTE, valuesMap.at(SUMO_ATTR_ROUTE), false);
+            if (vType == nullptr) {
+                WRITE_WARNING("Invalid vehicle Type '" + valuesMap.at(SUMO_ATTR_TYPE) + "' used in vehicle '" + valuesMap.at(SUMO_ATTR_ID) + "'.");
+            } else if (route == nullptr) {
+                WRITE_WARNING("Invalid route '" + valuesMap.at(SUMO_ATTR_ROUTE) + "' used in vehicle '" + valuesMap.at(SUMO_ATTR_ID) + "'.");
+            } else {
+                // create vehicle using myVehicleParameter 
+                GNEVehicle* vehicle = new GNEVehicle(viewNet, valuesMap.at(SUMO_ATTR_ID), vType, route);
+                // add it using GNEChange_DemandElement
+                viewNet->getUndoList()->p_begin("add " + vehicle->getTagStr());
+                viewNet->getUndoList()->add(new GNEChange_DemandElement(vehicle, true), true);
+                viewNet->getUndoList()->p_end();
+            }
+            return true;
+        }
+        case SUMO_TAG_FLOW: {
+            //
+            return false;
+        }
+        case SUMO_TAG_TRIP: {
+            //
+            return false;
+        }
+        case SUMO_TAG_VTYPE: {
 
+            return true;
+        }
+        default:
+            return false;
+    }
+    /** **/
     // Convert valuesMap into SUMO SUMOSAXAttributes
-
     return true;
 }
 

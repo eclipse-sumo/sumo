@@ -2259,9 +2259,6 @@ GNENet::saveAdditionalsConfirmed(const std::string& filename) {
 }
 
 
-
-
-
 void
 GNENet::saveDemandElementsConfirmed(const std::string& filename) {
     OutputDevice& device = OutputDevice::getDevice(filename);

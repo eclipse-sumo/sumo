@@ -42,22 +42,18 @@ FXIMPLEMENT_ABSTRACT(GNEChange_DemandElement, GNEChange, nullptr, 0)
 GNEChange_DemandElement::GNEChange_DemandElement(GNEDemandElement* demandElement, bool forward) :
     GNEChange(demandElement->getViewNet()->getNet(), forward),
     myDemandElement(demandElement),
-    myFirstDemandElementParent(myDemandElement->getFirstDemandElementParent()),
-    mySecondDemandElementParent(myDemandElement->getSecondDemandElementParent()),
-    myEdgeChilds(myDemandElement->getEdgeChilds()),
-    myLaneChilds(myDemandElement->getLaneChilds()) {
+    myRouteParent(myDemandElement->getFirstDemandElementParent()),
+    myVehicletypeParent(myDemandElement->getSecondDemandElementParent()) {
     myDemandElement->incRef("GNEChange_DemandElement");
-    // handle demandElements with lane parent
-    if (demandElement->getTagProperty().canBePlacedOverLane()) {
-        myLaneParents.push_back(myNet->retrieveLane(myDemandElement->getAttribute(SUMO_ATTR_LANE)));
+    // Obtain route parent (ej: Vehicles)
+    if (demandElement->getTagProperty().canBePlacedOverRoute()) {
+        myRouteParent = demandElement->getViewNet()->getNet()->retrieveDemandElement(SUMO_TAG_ROUTE, myDemandElement->getAttribute(SUMO_ATTR_ROUTE));
     }
-    if (demandElement->getTagProperty().canBePlacedOverLanes()) {
-        myLaneParents = GNEAttributeCarrier::parse<std::vector<GNELane*> >(demandElement->getViewNet()->getNet(), myDemandElement->getAttribute(SUMO_ATTR_LANES));
+    // Obtain VType (ej: Vehicles)
+    if (demandElement->getTagProperty().isVehicle()) {
+        myVehicletypeParent = demandElement->getViewNet()->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, myDemandElement->getAttribute(SUMO_ATTR_TYPE));
     }
-    // handle demandElements with edge parent
-    if (demandElement->getTagProperty().canBePlacedOverEdge()) {
-        myEdgeParents.push_back(myNet->retrieveEdge(myDemandElement->getAttribute(SUMO_ATTR_EDGE)));
-    }
+    // obtain edge parents (used by routes)
     if (demandElement->getTagProperty().canBePlacedOverEdges()) {
         myEdgeParents = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(demandElement->getViewNet()->getNet(), myDemandElement->getAttribute(SUMO_ATTR_EDGES));
     }
@@ -84,29 +80,17 @@ GNEChange_DemandElement::undo() {
     if (myForward) {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "' in GNEChange_DemandElement");
-        // 1 - If demand element own a lane parent, remove it from lane
-        for (auto i : myLaneParents) {
-            i->removeDemandElementChild(myDemandElement);
-        }
         // 2 - If demand element own a edge parent, remove it from edge
         for (auto i : myEdgeParents) {
             i->removeDemandElementChild(myDemandElement);
         }
-        // 3 - If demand element has a first parent, remove it from their demand element childs
-        if (myFirstDemandElementParent) {
-            myFirstDemandElementParent->removeDemandElementChild(myDemandElement);
+        // If demand element has a VType, remove it from VType parent
+        if (myVehicletypeParent) {
+            myVehicletypeParent->removeDemandElementChild(myDemandElement);
         }
-        // 4 - If additiona has a second parent, remove it from their demand element childs
-        if (mySecondDemandElementParent) {
-            mySecondDemandElementParent->removeDemandElementChild(myDemandElement);
-        }
-        // 5 - if DemandElement has edge childs, remove it of their demand element parents
-        for (auto i : myEdgeChilds) {
-            i->removeDemandElementParent(myDemandElement);
-        }
-        // 6 - if DemandElement has lane childs, remove it of their demand element parents
-        for (auto i : myLaneChilds) {
-            i->removeDemandElementParent(myDemandElement);
+        // If demand element has a Route, remove it from Route parent
+        if (myRouteParent) {
+            myRouteParent->removeDemandElementChild(myDemandElement);
         }
         // delete demand element of net
         myNet->deleteDemandElement(myDemandElement);
@@ -115,29 +99,17 @@ GNEChange_DemandElement::undo() {
         WRITE_DEBUG("Adding " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "' in GNEChange_DemandElement");
         // insert demand element of test
         myNet->insertDemandElement(myDemandElement);
-        // 1 - If demand element own a Lane parent, add it to lane
-        for (auto i : myLaneParents) {
-            i->addDemandElementChild(myDemandElement);
-        }
         // 2 - If demand element own a edge parent, add it to edge
         for (auto i : myEdgeParents) {
             i->addDemandElementChild(myDemandElement);
         }
-        // 3 - If demand element has a parent, add it into demand element parent
-        if (myFirstDemandElementParent) {
-            myFirstDemandElementParent->addDemandElementChild(myDemandElement);
+        // If demand element has a VType, add it into VType parent
+        if (myVehicletypeParent) {
+            myVehicletypeParent->addDemandElementChild(myDemandElement);
         }
-        // 4 - If demand element has a parent, add it into demand element parent
-        if (mySecondDemandElementParent) {
-            mySecondDemandElementParent->addDemandElementChild(myDemandElement);
-        }
-        // 5 - if DemandElement has edge childs, add id into demand element parents
-        for (auto i : myEdgeChilds) {
-            i->addDemandElementParent(myDemandElement);
-        }
-        // 6 - if DemandElement has lane childs, add id into demand element parents
-        for (auto i : myLaneChilds) {
-            i->addDemandElementParent(myDemandElement);
+        // If demand element has a Route, add it into Route parent
+        if (myRouteParent) {
+            myRouteParent->addDemandElementChild(myDemandElement);
         }
     }
     // Requiere always save demandElements
@@ -156,56 +128,32 @@ GNEChange_DemandElement::redo() {
         WRITE_DEBUG("Adding " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "' in GNEChange_DemandElement");
         // insert demand element into net
         myNet->insertDemandElement(myDemandElement);
-        // 1 - If demand element own a Lane parent, add it to lane
-        for (auto i : myLaneParents) {
-            i->addDemandElementChild(myDemandElement);
-        }
         // 2 - If demand element own a edge parent, add it to edge
         for (auto i : myEdgeParents) {
             i->addDemandElementChild(myDemandElement);
         }
-        // 3 - If demand element has a parent, add it into demand element parent
-        if (myFirstDemandElementParent) {
-            myFirstDemandElementParent->addDemandElementChild(myDemandElement);
+        // If demand element has a VType, add it into VType parent
+        if (myVehicletypeParent) {
+            myVehicletypeParent->addDemandElementChild(myDemandElement);
         }
-        // 4 - If demand element has a parent, add it into demand element parent
-        if (mySecondDemandElementParent) {
-            mySecondDemandElementParent->addDemandElementChild(myDemandElement);
-        }
-        // 5 - if DemandElement has edge childs, add id into demand element parents
-        for (auto i : myEdgeChilds) {
-            i->addDemandElementParent(myDemandElement);
-        }
-        // 6 - if DemandElement has lane childs, add id into demand element parents
-        for (auto i : myLaneChilds) {
-            i->addDemandElementParent(myDemandElement);
+        // If demand element has a Route, add it into Route parent
+        if (myRouteParent) {
+            myRouteParent->addDemandElementChild(myDemandElement);
         }
     } else {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "' in GNEChange_DemandElement");
-        // 1 - If demand element own a lane parent, remove it from lane
-        for (auto i : myLaneParents) {
-            i->removeDemandElementChild(myDemandElement);
-        }
         // 2 - If demand element own a edge parent, remove it from edge
         for (auto i : myEdgeParents) {
             i->removeDemandElementChild(myDemandElement);
         }
-        // 3 - If additiona has a first parent, remove it from their demand element childs
-        if (myFirstDemandElementParent) {
-            myFirstDemandElementParent->removeDemandElementChild(myDemandElement);
+        // If demand element has a VType, remove it from VType parent
+        if (myVehicletypeParent) {
+            myVehicletypeParent->removeDemandElementChild(myDemandElement);
         }
-        // 4 - If additiona has a second parent, remove it from their demand element childs
-        if (mySecondDemandElementParent) {
-            mySecondDemandElementParent->removeDemandElementChild(myDemandElement);
-        }
-        // 5 - if DemandElement has edge childs, remove it of their demand element parents
-        for (auto i : myEdgeChilds) {
-            i->removeDemandElementParent(myDemandElement);
-        }
-        // 6 - if DemandElement has lane childs, remove it of their demand element parents
-        for (auto i : myLaneChilds) {
-            i->removeDemandElementParent(myDemandElement);
+        // If demand element has a Route, remove it from Route parent
+        if (myRouteParent) {
+            myRouteParent->removeDemandElementChild(myDemandElement);
         }
         // delete demand element of net
         myNet->deleteDemandElement(myDemandElement);

@@ -73,23 +73,14 @@ private:
      */
     GNEDemandElement* myDemandElement;
 
-    /// @brief pointer to lane parents (used by demandElements with lane parent)
-    std::vector<GNELane*> myLaneParents;
+    /// @brief pointer to route parent
+    GNEDemandElement* myRouteParent;
+
+    /// @brief pointer to vehicle type parent
+    GNEDemandElement* myVehicletypeParent;
 
     /// @brief pointer to edge parents (used by demandElements with edge parents)
     std::vector<GNEEdge*> myEdgeParents;
-
-    /// @brief pointer to first demand element parent (used by demand element with parents, for example Entry/exits)
-    GNEDemandElement* myFirstDemandElementParent;
-
-    /// @brief pointer to second demand element parent (used by demand element with parents, for example Entry/exits)
-    GNEDemandElement* mySecondDemandElementParent;
-
-    /// @brief list of Edge childs (used by Rerouters)
-    std::vector<GNEEdge*> myEdgeChilds;
-
-    /// @brief list of Edge childs (used by VSS)
-    std::vector<GNELane*> myLaneChilds;
 };
 
 #endif
