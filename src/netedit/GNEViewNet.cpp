@@ -366,6 +366,12 @@ GNEViewNet::getViewOptions() const {
 }
 
 
+const GNEViewNetHelper::CreateEdgeOptions& 
+GNEViewNet::getCreateEdgeOptions() const {
+    return myCreateEdgeOptions;
+}
+
+
 const GNEViewNetHelper::KeyPressed&
 GNEViewNet::getKeyPressed() const {
     return myKeyPressed;

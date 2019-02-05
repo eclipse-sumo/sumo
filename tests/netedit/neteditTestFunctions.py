@@ -664,13 +664,7 @@ def cancelEdge():
 
 
 def changeChainOption():
-    # cancel current created edge
-    cancelEdge()
-    # jump to chain
-    for _ in range(3):
-        typeInvertTab()
-    # change chain mode
-    typeSpace()
+    typeThreeKeys('ctrl', 'shift', 'j')
 
 
 """
@@ -679,13 +673,7 @@ def changeChainOption():
 
 
 def changeTwoWayOption():
-    # cancel current created edge
-    cancelEdge()
-    # jump to two way
-    for _ in range(2):
-        typeInvertTab()
-    # change two way mode
-    typeSpace()
+    typeThreeKeys('ctrl', 'shift', 'k')
 
 #################################################
 # Inspect mode

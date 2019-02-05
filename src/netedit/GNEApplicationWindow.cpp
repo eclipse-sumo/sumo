@@ -136,8 +136,14 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_G_GAMINGMODE_TOOGLEGRID,    GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_C_SHOWCONNECTIONS,    GNEApplicationWindow::onCmdToogleShowConnections),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_SHIFT_C_SHOWCONNECTIONS,    GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_H_TOOGLEELEVATION,    GNEApplicationWindow::onCmdToogleElevation),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_SHIFT_H_TOOGLEELEVATION,    GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_I_SELECTEDGES,        GNEApplicationWindow::onCmdToogleSelectEdges),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_SHIFT_I_SELECTEDGES,        GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_J_TOOGLECHAIN,        GNEApplicationWindow::onCmdToogleChain),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_SHIFT_J_TOOGLECHAIN,        GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_K_TOOGLETWOWAY,       GNEApplicationWindow::onCmdToogleTwoWay),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_SHIFT_K_TOOGLETWOWAY,       GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_T_OPENSUMONETEDIT,          GNEApplicationWindow::onCmdOpenSUMOGUI),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_T_OPENSUMONETEDIT,          GNEApplicationWindow::onUpdNeedsNetwork),
 
@@ -1578,6 +1584,27 @@ GNEApplicationWindow::onCmdToogleShowConnections(FXObject*, FXSelector, void*) {
 
 
 long 
+GNEApplicationWindow::onCmdToogleElevation(FXObject*, FXSelector, void*) {
+    // check that view exists
+    if (myViewNet) {
+        // Toogle selectEdges of GNEViewNet
+        if (myViewNet->getMoveOptions().moveElevation->getCheck() == TRUE) {
+            myViewNet->getMoveOptions().moveElevation->setCheck(FALSE);
+            // show extra information for tests
+            WRITE_DEBUG("Disabled move elevation throught Ctrl+shift+h hotkey");
+        } else {
+            myViewNet->getMoveOptions().moveElevation->setCheck(TRUE);
+            // show extra information for tests
+            WRITE_WARNING("Disabled move elevation throught Ctrl+shift+h hotkey");
+        }
+        // update view
+        myViewNet->update();
+    }
+    return 1;
+}
+
+
+long 
 GNEApplicationWindow::onCmdToogleSelectEdges(FXObject*, FXSelector, void*) {
     // check that view exists
     if (myViewNet) {
@@ -1590,6 +1617,48 @@ GNEApplicationWindow::onCmdToogleSelectEdges(FXObject*, FXSelector, void*) {
             myViewNet->getViewOptions().menuCheckSelectEdges->setCheck(TRUE);
             // show extra information for tests
             WRITE_WARNING("Disabled select edges throught Ctrl+shift+i hotkey");
+        }
+        // update view
+        myViewNet->update();
+    }
+    return 1;
+}
+
+
+long 
+GNEApplicationWindow::onCmdToogleChain(FXObject*, FXSelector, void*) {
+    // check that view exists
+    if (myViewNet) {
+        // Toogle selectEdges of GNEViewNet
+        if (myViewNet->getCreateEdgeOptions().chainEdges->getCheck() == TRUE) {
+            myViewNet->getCreateEdgeOptions().chainEdges->setCheck(FALSE);
+            // show extra information for tests
+            WRITE_DEBUG("Disabled chain mode throught Ctrl+shift+j hotkey");
+        } else {
+            myViewNet->getCreateEdgeOptions().chainEdges->setCheck(TRUE);
+            // show extra information for tests
+            WRITE_WARNING("Disabled chain mode throught Ctrl+shift+j hotkey");
+        }
+        // update view
+        myViewNet->update();
+    }
+    return 1;
+}
+
+
+long 
+GNEApplicationWindow::onCmdToogleTwoWay(FXObject*, FXSelector, void*) {
+    // check that view exists
+    if (myViewNet) {
+        // Toogle selectEdges of GNEViewNet
+        if (myViewNet->getCreateEdgeOptions().autoOppositeEdge->getCheck() == TRUE) {
+            myViewNet->getCreateEdgeOptions().autoOppositeEdge->setCheck(FALSE);
+            // show extra information for tests
+            WRITE_DEBUG("Disabled two way throught Ctrl+shift+k hotkey");
+        } else {
+            myViewNet->getCreateEdgeOptions().autoOppositeEdge->setCheck(TRUE);
+            // show extra information for tests
+            WRITE_WARNING("Disabled two way throught Ctrl+shift+k hotkey");
         }
         // update view
         myViewNet->update();

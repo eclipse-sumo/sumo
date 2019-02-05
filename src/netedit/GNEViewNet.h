@@ -96,6 +96,9 @@ public:
     /// @brief get view options
     const GNEViewNetHelper::ViewOptions& getViewOptions() const;
 
+    // @brief get Create Edge Options
+    const GNEViewNetHelper::CreateEdgeOptions& getCreateEdgeOptions() const;
+
     /// @brief get Key Pressed modul
     const GNEViewNetHelper::KeyPressed& getKeyPressed() const;
 

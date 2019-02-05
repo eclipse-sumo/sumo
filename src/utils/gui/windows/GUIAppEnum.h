@@ -101,8 +101,14 @@ enum {
     MID_HOTKEY_CTRL_W_CLOSESIMULATION,
     /// @brief Toogle show connections in Netedit
     MID_HOTKEY_CTRL_SHIFT_C_SHOWCONNECTIONS,
+    /// @brief Toogle move elevation
+    MID_HOTKEY_CTRL_SHIFT_H_TOOGLEELEVATION,
     /// @brief Toogle select edges in Netedit
     MID_HOTKEY_CTRL_SHIFT_I_SELECTEDGES,
+    /// @brief Toogle chaing edges
+    MID_HOTKEY_CTRL_SHIFT_J_TOOGLECHAIN,
+    /// @brief Toogle two way
+    MID_HOTKEY_CTRL_SHIFT_K_TOOGLETWOWAY,
 
     /// @}
 
