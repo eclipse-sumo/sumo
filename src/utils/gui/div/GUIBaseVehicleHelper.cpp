@@ -20,42 +20,14 @@
 // included modules
 // ===========================================================================
 #include <config.h>
+#include <fx.h>
 
-#include <cmath>
-#include <vector>
-#include <string>
-#include <functional>
-#include <utils/common/StringUtils.h>
-#include <utils/geom/GeomHelper.h>
-#include <utils/vehicle/SUMOVehicleParameter.h>
-#include <utils/emissions/PollutantsInterface.h>
 #include <utils/gui/globjects/GLIncludes.h>
-#include <utils/gui/windows/GUISUMOAbstractView.h>
-#include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/images/GUITexturesHelper.h>
-#include <utils/gui/div/GUIGlobalSelection.h>
-#include <utils/gui/div/GLHelper.h>
-#include <utils/gui/div/GUIGlobalSelection.h>
-#include <microsim/MSVehicle.h>
-#include <microsim/MSLane.h>
-#include <microsim/logging/CastingFunctionBinding.h>
-#include <microsim/logging/FunctionBinding.h>
-#include <microsim/MSVehicleControl.h>
-#include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
-#include <microsim/devices/MSDevice_Vehroutes.h>
-#include <microsim/devices/MSDevice_Transportable.h>
-#include <microsim/devices/MSDevice_BTreceiver.h>
-#include <gui/GUIApplicationWindow.h>
-#include <gui/GUIGlobals.h>
-
-
-#include "GUIBaseVehicle.h"
+#include <utils/common/SUMOVehicleClass.h>
+#include <utils/gui/settings/GUIVisualizationSettings.h>
+#include "GLHelper.h"
 #include "GUIBaseVehicleHelper.h"
-#include "GUIPerson.h"
-#include "GUIContainer.h"
-#include "GUINet.h"
-#include "GUIEdge.h"
-#include "GUILane.h"
 
 
 // ===========================================================================
@@ -168,15 +140,15 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsTrianglePlus(const double width, c
 }
 
 
-bool
-GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIBaseVehicle *baseVehicle, const GUIVisualizationSettings& s, const SUMOVehicleShape shape, const double width, const double length) {
+void
+GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s, const SUMOVehicleShape shape, const double width, const double length) {
+    UNUSED_PARAMETER(s);
     RGBColor current = GLHelper::getColor();
     RGBColor lighter = current.changedBrightness(51);
     RGBColor darker = current.changedBrightness(-51);
     glPushMatrix();
     glRotated(90, 0, 0, 1);
     glScaled(length, width, 1.);
-    bool drawCarriages = false;
 
     // draw main body
     switch (shape) {
@@ -316,11 +288,6 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIBaseVehicle *baseVeh
         case SVS_RAIL:
         case SVS_RAIL_CAR:
         case SVS_RAIL_CARGO:
-            if(baseVehicle) {
-                baseVehicle->drawAction_drawCarriageClass(s, shape, false);
-                drawCarriages = true;
-            }
-            break;
         case SVS_E_VEHICLE:
             drawPoly(vehiclePoly_EVehicleBody, 4);
             glColor3d(0, 0, 0);
@@ -637,7 +604,6 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIBaseVehicle *baseVeh
     */
 
     glPopMatrix();
-    return drawCarriages;
 }
 
 

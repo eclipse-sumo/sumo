@@ -27,13 +27,13 @@
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
+#include <utils/gui/div/GUIBaseVehicleHelper.h>
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/gui/settings/GUIVisualizationSettings.h>
 #include <microsim/logging/CastingFunctionBinding.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <microsim/devices/MSVehicleDevice.h>
 #include <guisim/GUILane.h>
-#include <guisim/GUIBaseVehicleHelper.h>
 
 #include "GUIMEVehicle.h"
 

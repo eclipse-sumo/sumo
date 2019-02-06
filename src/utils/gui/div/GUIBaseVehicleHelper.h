@@ -23,25 +23,14 @@
 // ===========================================================================
 #include <config.h>
 
-#include <vector>
-#include <set>
 #include <string>
-#include <fx.h>
-#include <utils/common/RGBColor.h>
-#include <utils/geom/GeomHelper.h>
-#include <utils/geom/PositionVector.h>
-#include <utils/gui/globjects/GUIGlObject.h>
-#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/gui/settings/GUIPropertySchemeStorage.h>
-#include <microsim/MSVehicle.h>
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class GUISUMOAbstractView;
-class GUIGLObjectPopupMenu;
-class MSDevice_Vehroutes;
+class GUIVisualizationSettings;
+class GUIGlObject;
 
 
 // ===========================================================================
@@ -64,7 +53,7 @@ public:
     static void drawAction_drawVehicleAsTrianglePlus(const double width, const double length);
 
     /// @brief draw vehicle as a polygon
-    static bool drawAction_drawVehicleAsPoly(const GUIBaseVehicle *baseVehicle, const GUIVisualizationSettings& s, const SUMOVehicleShape shape, const double width, const double length);
+    static void drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s, const SUMOVehicleShape shape, const double width, const double length);
 
     /**@brief try to draw vehicle as raster image and return true if sucessful
      * @param[in] length The custom length of the vehicle (defaults to the * length specified in the vehicle type if -1 is passed)

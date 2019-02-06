@@ -322,6 +322,7 @@ protected:
         return myVehicle.getVehicleType();
     }
 
+    bool drawAction_drawVehicleAsPolyWithCarriagges(const GUIVisualizationSettings& s, const SUMOVehicleShape shape) const;
 
 protected:
     /// The mutex used to avoid concurrent updates of the vehicle buffer

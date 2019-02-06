@@ -44,8 +44,6 @@ SET(guisim_STAT_SRCS
    GUIChargingStation.h
    GUIBaseVehicle.cpp
    GUIBaseVehicle.h
-   GUIBaseVehicleHelper.cpp
-   GUIBaseVehicleHelper.h
    GUIVehicle.cpp
    GUIVehicle.h
    GUIVehicleControl.cpp

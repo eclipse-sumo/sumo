@@ -48,13 +48,13 @@
 #include <utils/gui/div/GLObjectValuePassConnector.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
+#include <utils/gui/div/GUIBaseVehicleHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
-#include <guisim/GUIBaseVehicleHelper.h>
 #include <vector>
 
 #include "GNEVehicle.h"
@@ -211,13 +211,13 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                 case 0:
                     // in "normal" mode draw vehicle as poly
                     //GUIBaseVehicleHelper::drawAction_drawVehicleAsTrianglePlus(width, length);
-                    GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(nullptr, s, shape, width, length);
+                    GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(s, shape, width, length);
                     break;
                 case 1:
                     GUIBaseVehicleHelper::drawAction_drawVehicleAsBoxPlus(width, length);
                     break;
                 default:
-                    GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(nullptr, s, shape, width, length);
+                    GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(s, shape, width, length);
                     break;
             }
             // check if min gap has to be drawn

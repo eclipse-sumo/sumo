@@ -24,7 +24,6 @@ GNEEvent_NetworkLoaded.h
 SUBDIRS = additionals changes dialogs frames netelements demandelements
 
 netedit_LDADD = ../netimport/libnetimport.a \
-../guisim/libguisim.a \
 ../netimport/vissim/libvissimimport.a \
 ../netimport/vissim/typeloader/libvissimtypeload.a \
 ../netimport/vissim/tempstructs/libvissimtmpstr.a \

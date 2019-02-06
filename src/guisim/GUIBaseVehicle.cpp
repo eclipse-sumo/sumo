@@ -39,6 +39,7 @@
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
+#include <utils/gui/div/GUIBaseVehicleHelper.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSLane.h>
 #include <microsim/logging/CastingFunctionBinding.h>
@@ -57,7 +58,6 @@
 #include "GUINet.h"
 #include "GUIEdge.h"
 #include "GUILane.h"
-#include "GUIBaseVehicleHelper.h"
 
 //#define DRAW_BOUNDING_BOX
 
@@ -316,7 +316,7 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
             GUIBaseVehicleHelper::drawAction_drawVehicleAsBoxPlus(getVType().getWidth(), getVType().getLength());
             break;
         case 2:
-            drawCarriages = GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(this, s, getVType().getGuiShape(), getVType().getWidth(), getVType().getLength());
+            drawCarriages = drawAction_drawVehicleAsPolyWithCarriagges(s, getVType().getGuiShape());
             // draw flashing blue light for emergency vehicles
             if (getVType().getGuiShape() == SVS_EMERGENCY) {
                 glTranslated(0, 0, .1);
@@ -330,7 +330,7 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
             glPushMatrix(); // drawAction_drawRailCarriages assumes matrix stack depth of 2
             if (!drawAction_drawCarriageClass(s, getVType().getGuiShape(), true)) {
                 if (!GUIBaseVehicleHelper::drawAction_drawVehicleAsImage(s, getVType().getImgFile(), this, getVType().getWidth())) {
-                    drawCarriages = GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(this, s, getVType().getGuiShape(), getVType().getWidth(), getVType().getLength());
+                    drawCarriages = drawAction_drawVehicleAsPolyWithCarriagges(s, getVType().getGuiShape());
                 };
             }
             glPopMatrix();
@@ -702,5 +702,20 @@ GUIBaseVehicle::drawAction_drawPersonsAndContainers(const GUIVisualizationSettin
 }
 
 
+bool 
+GUIBaseVehicle::drawAction_drawVehicleAsPolyWithCarriagges(const GUIVisualizationSettings& s, const SUMOVehicleShape shape) const 
+{
+    switch (shape) {
+        case SVS_BUS_FLEXIBLE:
+        case SVS_RAIL:
+        case SVS_RAIL_CAR:
+        case SVS_RAIL_CARGO:
+            drawAction_drawCarriageClass(s, shape, false);
+            return true;
+        default:
+            GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(s, getVType().getGuiShape(), getVType().getWidth(), getVType().getLength());
+            return false;
+    }
+}
 
 /****************************************************************************/

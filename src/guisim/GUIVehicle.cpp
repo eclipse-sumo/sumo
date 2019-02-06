@@ -39,6 +39,7 @@
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GLObjectValuePassConnector.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
+#include <utils/gui/div/GUIBaseVehicleHelper.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSJunction.h>
@@ -52,7 +53,6 @@
 #include <gui/GUIApplicationWindow.h>
 #include <gui/GUIGlobals.h>
 
-#include "GUIBaseVehicleHelper.h"
 #include "GUIVehicle.h"
 #include "GUIPerson.h"
 #include "GUIContainer.h"
