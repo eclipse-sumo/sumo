@@ -128,6 +128,9 @@ GNEVehicle::updateGeometry(bool updateGrid) {
         myViewNet->getNet()->removeGLObjectFromGrid(this);
     }
 
+    // obtain lenght
+    const double length = parse<double>(myVehicleType->getAttribute(SUMO_ATTR_LENGTH)) ;
+
     // Clear geometry container
     myGeometry.clearGeometry();
 
@@ -135,7 +138,7 @@ GNEVehicle::updateGeometry(bool updateGrid) {
     GNELane* vehicleLane = myRoute->getGNEEdges().at(0)->getLanes().at(0);
 
     // Get shape of lane parent
-    double offset = vehicleLane->getShape().length() < 3.5 ? vehicleLane->getShape().length() : 3.5;
+    double offset = vehicleLane->getShape().length() < length ? vehicleLane->getShape().length() : length;
     myGeometry.shape.push_back(vehicleLane->getShape().positionAtOffset(offset));
 
     // Obtain first position
@@ -145,7 +148,7 @@ GNEVehicle::updateGeometry(bool updateGrid) {
     Position s = myGeometry.shape[0] + Position(1, 0);
 
     // Save rotation (angle) of the vector constructed by points f and s
-    myGeometry.shapeRotations.push_back(vehicleLane->getShape().rotationDegreeAtOffset(0) * -1);
+    myGeometry.shapeRotations.push_back(vehicleLane->getShape().rotationDegreeAtOffset(offset) * -1);
 
     // last step is to check if object has to be added into grid (SUMOTree) again
     if (updateGrid) {
@@ -175,62 +178,80 @@ GNEVehicle::getParentName() const {
 
 void
 GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
-    glPushName(getGlID());
-    glPushMatrix();
-    // declare common attributes
-    const double width = parse<double>(myVehicleType->getAttribute(SUMO_ATTR_WIDTH));
-    const double length = parse<double>(myVehicleType->getAttribute(SUMO_ATTR_LENGTH));
-    SUMOVehicleShape shape = getVehicleShapeID(myVehicleType->getAttribute(SUMO_ATTR_GUISHAPE));
-    // translate to drawing position
-    glTranslated(myGeometry.shape[0].x(), myGeometry.shape[0].y(), getType());
-    glRotated(myGeometry.shapeRotations.front(), 0, 0, 1);
-    // set lane color
-    setColor(s);
-    // set scale
-    const double upscale = s.vehicleSize.getExaggeration(s, this);
-    double upscaleLength = upscale;
-    if (upscale > 1 && length > 5) {
-        // reduce the length/width ratio because this is not usefull at high zoom
-        upscaleLength = MAX2(1.0, upscaleLength * (5 + sqrt(length - 5)) / length);
-    }
-    glScaled(upscale, upscaleLength, 1);
-    // draw the vehicle
-    switch (s.vehicleQuality) {
-        case 0:
-            // in "normal" mode draw vehicle as poly
-            //GUIBaseVehicleHelper::drawAction_drawVehicleAsTrianglePlus(width, length);
-            GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(nullptr, s, shape, width, length);
-            break;
-        case 1:
+    // only drawn in super mode demand
+    if (myViewNet->getViewOptions().showDemandElements()) {
+        // declare common attributes
+        const double width = parse<double>(myVehicleType->getAttribute(SUMO_ATTR_WIDTH));
+        const double length = parse<double>(myVehicleType->getAttribute(SUMO_ATTR_LENGTH));
+        SUMOVehicleShape shape = getVehicleShapeID(myVehicleType->getAttribute(SUMO_ATTR_GUISHAPE));
+        // first push name
+        glPushName(getGlID());
+        // push draw matrix
+        glPushMatrix();
+        // translate to drawing position
+        glTranslated(myGeometry.shape[0].x(), myGeometry.shape[0].y(), getType());
+        glRotated(myGeometry.shapeRotations.front(), 0, 0, 1);
+        // set lane color
+        setColor(s);
+        // set scale
+        const double upscale = s.vehicleSize.getExaggeration(s, this);
+        double upscaleLength = upscale;
+        if (upscale > 1 && length > 5) {
+            // reduce the length/width ratio because this is not usefull at high zoom
+            upscaleLength = MAX2(1.0, upscaleLength * (5 + sqrt(length - 5)) / length);
+        }
+        glScaled(upscale, upscaleLength, 1);
+        // check if we're drawing in selecting mode
+        if (s.drawForSelecting) {
+            // draw vehicle as a box and don't draw the rest of details
             GUIBaseVehicleHelper::drawAction_drawVehicleAsBoxPlus(width, length);
-            break;
-        default:
-            GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(nullptr, s, shape, width, length);
-            break;
+        } else {
+            // draw the vehicle
+            switch (s.vehicleQuality) {
+                case 0:
+                    // in "normal" mode draw vehicle as poly
+                    //GUIBaseVehicleHelper::drawAction_drawVehicleAsTrianglePlus(width, length);
+                    GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(nullptr, s, shape, width, length);
+                    break;
+                case 1:
+                    GUIBaseVehicleHelper::drawAction_drawVehicleAsBoxPlus(width, length);
+                    break;
+                default:
+                    GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(nullptr, s, shape, width, length);
+                    break;
+            }
+            // check if min gap has to be drawn
+            if (s.drawMinGap) {
+                const double minGap = -1 * parse<double>(myVehicleType->getAttribute(SUMO_ATTR_MINGAP));
+                glColor3d(0., 1., 0.);
+                glBegin(GL_LINES);
+                glVertex2d(0., 0);
+                glVertex2d(0., minGap);
+                glVertex2d(-.5, minGap);
+                glVertex2d(.5, minGap);
+                glEnd();
+            }
+             // drawing name at GLO_MAX fails unless translating z
+            glTranslated(0, MIN2(length / 2, double(5)), -getType());
+            glScaled(1 / upscale, 1 / upscaleLength, 1);
+            glRotated(-1 * myGeometry.shapeRotations.front(), 0, 0, 1);
+            drawName(Position(0, 0), s.scale, myVehicleType->getAttribute(SUMO_ATTR_GUISHAPE) == "pedestrian" ? s.personName : s.vehicleName, s.angle);
+            // draw line
+            if (s.vehicleName.show && line != "") {
+                glTranslated(0, 0.6 * s.vehicleName.scaledSize(s.scale), 0);
+                GLHelper::drawTextSettings(s.vehicleName, "line:" + line, Position(0, 0), s.scale, s.angle);
+            }
+        }
+        // pop draw matrix
+        glPopMatrix();
+
+        // check if dotted contour has to be drawn
+        if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
+            GLHelper::drawShapeDottedContour(getType(), myGeometry.shape[0], width, length, myGeometry.shapeRotations[0], 0, length/2);
+        }
+        // pop name
+        glPopName();
     }
-    // check if min gap has to be drawn
-    if (s.drawMinGap) {
-        const double minGap = -1 * parse<double>(myVehicleType->getAttribute(SUMO_ATTR_MINGAP));
-        glColor3d(0., 1., 0.);
-        glBegin(GL_LINES);
-        glVertex2d(0., 0);
-        glVertex2d(0., minGap);
-        glVertex2d(-.5, minGap);
-        glVertex2d(.5, minGap);
-        glEnd();
-    }
-     // drawing name at GLO_MAX fails unless translating z
-    glTranslated(0, MIN2(length / 2, double(5)), -getType());
-    glScaled(1 / upscale, 1 / upscaleLength, 1);
-    glRotated(-1 * myGeometry.shapeRotations.front(), 0, 0, 1);
-    drawName(Position(0, 0), s.scale, myVehicleType->getAttribute(SUMO_ATTR_GUISHAPE) == "pedestrian" ? s.personName : s.vehicleName, s.angle);
-    // draw line
-    if (s.vehicleName.show && line != "") {
-        glTranslated(0, 0.6 * s.vehicleName.scaledSize(s.scale), 0);
-        GLHelper::drawTextSettings(s.vehicleName, "line:" + line, Position(0, 0), s.scale, s.angle);
-    }
-    glPopMatrix();
-    glPopName();
 }
 
 
