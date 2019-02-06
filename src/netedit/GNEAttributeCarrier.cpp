@@ -1524,13 +1524,13 @@ GNEAttributeCarrier::fillNetElements() {
 
         attrProperty = AttributeProperties(SUMO_ATTR_TLLINKINDEX,
             ATTRPROPERTY_INT | ATTRPROPERTY_DEFAULTVALUE,
-            "sets the tls-index for this crossing"
+            "sets the tls-index for this crossing",
             "-1");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_TLLINKINDEX2,
             ATTRPROPERTY_INT | ATTRPROPERTY_DEFAULTVALUE,
-            "sets the opposite-direction tls-index for this crossing"
+            "sets the opposite-direction tls-index for this crossing",
             "-1");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -1566,13 +1566,13 @@ GNEAttributeCarrier::fillNetElements() {
 
         attrProperty = AttributeProperties(SUMO_ATTR_PASS,
             ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE,
-            "if set, vehicles which pass this (lane-2-lane) connection) will not wait"
+            "if set, vehicles which pass this (lane-2-lane) connection) will not wait",
             "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_KEEP_CLEAR,
             ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE,
-            "if set to false, vehicles which pass this (lane-2-lane) connection) will not worry about blocking the intersection"
+            "if set to false, vehicles which pass this (lane-2-lane) connection) will not worry about blocking the intersection",
             "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -1584,7 +1584,7 @@ GNEAttributeCarrier::fillNetElements() {
 
         attrProperty = AttributeProperties(SUMO_ATTR_UNCONTROLLED,
             ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE,
-            "If set to true, This connection will not be TLS-controlled despite its node being controlled"
+            "If set to true, This connection will not be TLS-controlled despite its node being controlled",
             "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -1672,7 +1672,7 @@ GNEAttributeCarrier::fillAdditionals() {
 
         attrProperty = AttributeProperties(SUMO_ATTR_POSITION,
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
-            "The position on the lane (the lower position on the lane) in meters"
+            "The position on the lane (the lower position on the lane) in meters",
             "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -1683,7 +1683,7 @@ GNEAttributeCarrier::fillAdditionals() {
 
         attrProperty = AttributeProperties(SUMO_ATTR_FRIENDLY_POS,
             ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
-            "If set, no error will be reported if element is placed behind the lane. Instead,it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1"
+            "If set, no error will be reported if element is placed behind the lane. Instead,it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1",
             "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -1850,8 +1850,8 @@ GNEAttributeCarrier::fillAdditionals() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_ANGLE,
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
-            "The angle of the road-side parking spaces relative to the lane angle, positive means clockwise"
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_ANGLE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "The angle of the road-side parking spaces relative to the lane angle, positive means clockwise",
             "0.00");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -2253,7 +2253,7 @@ GNEAttributeCarrier::fillAdditionals() {
 
         attrProperty = AttributeProperties(SUMO_ATTR_SPEED,
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUE,
-            "Speed"
+            "Speed",
             "13.89");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
@@ -3033,7 +3033,7 @@ GNEAttributeCarrier::fillDemandElements() {
         
         attrProperty = AttributeProperties(SUMO_ATTR_TAU,
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
-            "Car-following model parameter"
+            "Car-following model parameter",
             "1.00");
         myTagProperties[currentTag].addAttribute(attrProperty);
         
@@ -3325,7 +3325,7 @@ GNEAttributeCarrier::fillDemandElements() {
         
         attrProperty = AttributeProperties(SUMO_ATTR_DEPARTSPEED,
             ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
-            "The speed with which the vehicle shall enter the network"
+            "The speed with which the vehicle shall enter the network",
             "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
         
