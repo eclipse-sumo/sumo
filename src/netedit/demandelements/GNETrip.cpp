@@ -25,6 +25,7 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/frames/GNESelectorFrame.h>
+#include <netedit/netelements/GNELane.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/options/OptionsCont.h>
@@ -95,13 +96,20 @@ GNETrip::updateGeometry(bool /*updateGrid*/) {
 
 Position
 GNETrip::getPositionInView() const {
-    return myFirstDemandElementParent->getPositionInView();
+    if (myEdges.at(0)->getLanes().front()->getShape().length() < 2.5) {
+        return myEdges.at(0)->getLanes().front()->getShape().front();
+    } else {
+        Position A = myEdges.at(0)->getLanes().front()->getShape().positionAtOffset(2.5);
+        Position B = myEdges.at(0)->getLanes().back()->getShape().positionAtOffset(2.5);
+        // return Middle point
+        return Position((A.x() + B.x()) / 2, (A.y() + B.y()) / 2);
+    }
 }
 
 
 std::string
 GNETrip::getParentName() const {
-    return myFirstDemandElementParent->getID();
+    return myEdges.at(0)->getID();
 }
 
 

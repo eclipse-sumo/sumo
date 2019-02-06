@@ -54,8 +54,9 @@ GNERoute::GNERoute(GNEViewNet* viewNet) :
 
 
 GNERoute::GNERoute(GNEViewNet* viewNet, const std::string& routeID, const std::vector<GNEEdge*>& edges, const RGBColor& color) :
-    GNEDemandElement(routeID, viewNet, GLO_ROUTE, SUMO_TAG_ROUTE, edges),
+    GNEDemandElement(routeID, viewNet, GLO_ROUTE, SUMO_TAG_ROUTE),
     myColor(color) {
+    myEdges = edges;
 }
 
 
@@ -157,6 +158,11 @@ GNERoute::updateGeometry(bool updateGrid) {
     // last step is to check if object has to be added into grid (SUMOTree) again
     if (updateGrid) {
         myViewNet->getNet()->addGLObjectIntoGrid(this);
+    }
+
+    // update demand element childs
+    for (const auto &i : myDemandElementChilds) {
+        i->updateGeometry(updateGrid);
     }
 }
 

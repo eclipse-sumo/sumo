@@ -25,6 +25,8 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/demandelements/GNEDemandElement.h>
+#include <netedit/netelements/GNEEdge.h>
+#include <netedit/netelements/GNELane.h>
 #include <netedit/frames/GNESelectorFrame.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/options/OptionsCont.h>
@@ -107,13 +109,20 @@ GNEFlow::updateGeometry(bool /*updateGrid*/) {
 
 Position
 GNEFlow::getPositionInView() const {
-    return myFirstDemandElementParent->getPositionInView();
+    if (myRoute->getGNEEdges().at(0)->getLanes().front()->getShape().length() < 2.5) {
+        return myRoute->getGNEEdges().at(0)->getLanes().front()->getShape().front();
+    } else {
+        Position A = myRoute->getGNEEdges().at(0)->getLanes().front()->getShape().positionAtOffset(2.5);
+        Position B = myRoute->getGNEEdges().at(0)->getLanes().back()->getShape().positionAtOffset(2.5);
+        // return Middle point
+        return Position((A.x() + B.x()) / 2, (A.y() + B.y()) / 2);
+    }
 }
 
 
 std::string
 GNEFlow::getParentName() const {
-    return myFirstDemandElementParent->getID();
+    return myRoute->getID();
 }
 
 

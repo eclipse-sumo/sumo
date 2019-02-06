@@ -56,16 +56,6 @@ public:
      */
     GNEDemandElement(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag);
 
-    /**@brief Constructor used by DemandElements that have Edge childs
-    * @param[in] id Gl-id of the demand element element (Must be unique)
-    * @param[in] viewNet pointer to GNEViewNet of this demand element element belongs
-    * @param[in] type GUIGlObjectType of demand element
-    * @param[in] tag Type of xml tag that define the demand element element (SUMO_TAG_BUS_STOP, SUMO_TAG_REROUTER, etc...)
-    * @param[in] block movement enable or disable demand element movement
-    * @param[in] edgeChilds vector of edge childs
-    */
-    GNEDemandElement(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::vector<GNEEdge*> edgeChilds);
-
     /// @brief Destructor
     ~GNEDemandElement();
 
@@ -134,12 +124,6 @@ public:
 
     /// @brief get color
     virtual const RGBColor &getColor() const = 0;
-
-    // @brief get first demand element parent
-    GNEDemandElement* getFirstDemandElementParent() const;
-
-    // @brief get second demand element parent
-    GNEDemandElement* getSecondDemandElementParent() const;
 
     /// @name members and functions relative to demand element's childs
     /// @{
@@ -319,12 +303,6 @@ protected:
     /// @brief variable DemandElementMove
     DemandElementMove myMove;
 
-    /// @brief pointer to first DemandElement parent
-    GNEDemandElement* myFirstDemandElementParent;
-
-    /// @brief pointer to second DemandElement parent
-    GNEDemandElement* mySecondDemandElementParent;
-
     /// @brief vector with the DemandElement childs
     std::vector<GNEDemandElement*> myDemandElementChilds;
 
@@ -360,18 +338,6 @@ protected:
     * @throw exception if lane with ID newLaneID doesn't exist
     */
     GNELane* changeLane(GNELane* oldLane, const std::string& newLaneID);
-
-    /**@brief change first demand element parent of demand element
-    * @throw exception if this demand element doesn't have previously a defined DemandElement parent
-    * @throw exception if demand element with ID newDemandElementParentID doesn't exist
-    */
-    void changeFirstDemandElementParent(const std::string& newDemandElementParentID);
-
-    /**@brief change second demand element parent of demand element
-    * @throw exception if this demand element doesn't have previously a defined DemandElement parent
-    * @throw exception if demand element with ID newDemandElementParentID doesn't exist
-    */
-    void changeSecondDemandElementParent(const std::string& newDemandElementParentID);
     /// @}
 
 private:

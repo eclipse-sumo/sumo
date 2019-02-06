@@ -42,8 +42,8 @@ FXIMPLEMENT_ABSTRACT(GNEChange_DemandElement, GNEChange, nullptr, 0)
 GNEChange_DemandElement::GNEChange_DemandElement(GNEDemandElement* demandElement, bool forward) :
     GNEChange(demandElement->getViewNet()->getNet(), forward),
     myDemandElement(demandElement),
-    myRouteParent(myDemandElement->getFirstDemandElementParent()),
-    myVehicletypeParent(myDemandElement->getSecondDemandElementParent()) {
+    myRouteParent(nullptr),
+    myVehicletypeParent(nullptr) {
     myDemandElement->incRef("GNEChange_DemandElement");
     // Obtain route parent (ej: Vehicles)
     if (demandElement->getTagProperty().canBePlacedOverRoute()) {

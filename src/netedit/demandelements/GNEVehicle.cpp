@@ -122,20 +122,54 @@ GNEVehicle::commitGeometryMoving(GNEUndoList*) {
 
 
 void
-GNEVehicle::updateGeometry(bool /*updateGrid*/) {
-    // Currently this demand element doesn't own a Geometry
+GNEVehicle::updateGeometry(bool updateGrid) {
+    // first check if object has to be removed from grid (SUMOTree)
+    if (updateGrid) {
+        myViewNet->getNet()->removeGLObjectFromGrid(this);
+    }
+
+    // Clear geometry container
+    myGeometry.clearGeometry();
+
+    // get lanes of edge
+    GNELane* vehicleLane = myRoute->getGNEEdges().at(0)->getLanes().at(0);
+
+    // Get shape of lane parent
+    double offset = vehicleLane->getShape().length() < 3.5 ? vehicleLane->getShape().length() : 3.5;
+    myGeometry.shape.push_back(vehicleLane->getShape().positionAtOffset(offset));
+
+    // Obtain first position
+    Position f = myGeometry.shape[0] - Position(1, 0);
+
+    // Obtain next position
+    Position s = myGeometry.shape[0] + Position(1, 0);
+
+    // Save rotation (angle) of the vector constructed by points f and s
+    myGeometry.shapeRotations.push_back(vehicleLane->getShape().rotationDegreeAtOffset(0) * -1);
+
+    // last step is to check if object has to be added into grid (SUMOTree) again
+    if (updateGrid) {
+        myViewNet->getNet()->addGLObjectIntoGrid(this);
+    }
 }
 
 
 Position
 GNEVehicle::getPositionInView() const {
-    return myFirstDemandElementParent->getPositionInView();
+    if (myRoute->getGNEEdges().at(0)->getLanes().front()->getShape().length() < 2.5) {
+        return myRoute->getGNEEdges().at(0)->getLanes().front()->getShape().front();
+    } else {
+        Position A = myRoute->getGNEEdges().at(0)->getLanes().front()->getShape().positionAtOffset(2.5);
+        Position B = myRoute->getGNEEdges().at(0)->getLanes().back()->getShape().positionAtOffset(2.5);
+        // return Middle point
+        return Position((A.x() + B.x()) / 2, (A.y() + B.y()) / 2);
+    }
 }
 
 
 std::string
 GNEVehicle::getParentName() const {
-    return myFirstDemandElementParent->getID();
+    return myRoute->getID();
 }
 
 
@@ -147,12 +181,9 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
     const double width = parse<double>(myVehicleType->getAttribute(SUMO_ATTR_WIDTH));
     const double length = parse<double>(myVehicleType->getAttribute(SUMO_ATTR_LENGTH));
     SUMOVehicleShape shape = getVehicleShapeID(myVehicleType->getAttribute(SUMO_ATTR_GUISHAPE));
-
-    Position p1(0, 0)/* = pos*/;
-    const double degAngle = 0; // RAD2DEG(angle + M_PI / 2.);
     // translate to drawing position
-    glTranslated(p1.x(), p1.y(), getType());
-    glRotated(degAngle, 0, 0, 1);
+    glTranslated(myGeometry.shape[0].x(), myGeometry.shape[0].y(), getType());
+    glRotated(myGeometry.shapeRotations.front(), 0, 0, 1);
     // set lane color
     setColor(s);
     // set scale
@@ -191,7 +222,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
      // drawing name at GLO_MAX fails unless translating z
     glTranslated(0, MIN2(length / 2, double(5)), -getType());
     glScaled(1 / upscale, 1 / upscaleLength, 1);
-    glRotated(-degAngle, 0, 0, 1);
+    glRotated(-1 * myGeometry.shapeRotations.front(), 0, 0, 1);
     drawName(Position(0, 0), s.scale, myVehicleType->getAttribute(SUMO_ATTR_GUISHAPE) == "pedestrian" ? s.personName : s.vehicleName, s.angle);
     // draw line
     if (s.vehicleName.show && line != "") {

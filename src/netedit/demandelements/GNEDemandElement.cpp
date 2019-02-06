@@ -47,19 +47,7 @@ GNEDemandElement::GNEDemandElement(const std::string& id, GNEViewNet* viewNet, G
     GUIGlObject(type, id),
     GNEAttributeCarrier(tag),
     Parameterised(),
-    myViewNet(viewNet),
-    myFirstDemandElementParent(nullptr),
-    mySecondDemandElementParent(nullptr) {
-}
-
-
-GNEDemandElement::GNEDemandElement(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::vector<GNEEdge*> edgeChilds) :
-    GUIGlObject(type, id),
-    GNEAttributeCarrier(tag),
-    Parameterised(),
-    myViewNet(viewNet),
-    myFirstDemandElementParent(nullptr),
-    mySecondDemandElementParent(nullptr) {
+    myViewNet(viewNet) {
 }
 
 
@@ -147,18 +135,6 @@ GNEDemandElement::getShape() const {
 const std::vector<GNEEdge*>& 
 GNEDemandElement::getGNEEdges() const {
     return myEdges;
-}
-
-
-GNEDemandElement*
-GNEDemandElement::getFirstDemandElementParent() const {
-    return myFirstDemandElementParent;
-}
-
-
-GNEDemandElement*
-GNEDemandElement::getSecondDemandElementParent() const {
-    return mySecondDemandElementParent;
 }
 
 
@@ -294,8 +270,6 @@ GNEDemandElement::getCenteringBoundary() const {
         Boundary b = myGeometry.multiShapeUnified.getBoxBoundary();
         b.grow(20);
         return b;
-    } else if (myFirstDemandElementParent) {
-        return myFirstDemandElementParent->getCenteringBoundary();
     } else {
         return Boundary(-0.1, -0.1, 0.1, 0.1);
     }
@@ -487,38 +461,6 @@ GNEDemandElement::changeLane(GNELane* oldLane, const std::string& newLaneID) {
         newLane->addDemandElementChild(this);
         updateGeometry(true);
         return newLane;
-    }
-}
-
-
-void
-GNEDemandElement::changeFirstDemandElementParent(const std::string& newDemandElementParentID) {
-    if (myFirstDemandElementParent == nullptr) {
-        throw InvalidArgument(getTagStr() + " with ID '" + getMicrosimID() + "' doesn't have an demand element parent");
-    } else {
-        // remove this demand element of the childs of parent demand element
-        myFirstDemandElementParent->removeDemandElementChild(this);
-        // set new demand element parent
-        myFirstDemandElementParent = myViewNet->getNet()->retrieveDemandElement(myFirstDemandElementParent->getTagProperty().getTag(), newDemandElementParentID);
-        // add this demand element int the childs of parent demand element
-        myFirstDemandElementParent->addDemandElementChild(this);
-        updateGeometry(true);
-    }
-}
-
-
-void
-GNEDemandElement::changeSecondDemandElementParent(const std::string& newDemandElementParentID) {
-    if (mySecondDemandElementParent == nullptr) {
-        throw InvalidArgument(getTagStr() + " with ID '" + getMicrosimID() + "' doesn't have an demand element parent");
-    } else {
-        // remove this demand element of the childs of parent demand element
-        mySecondDemandElementParent->removeDemandElementChild(this);
-        // set new demand element parent
-        mySecondDemandElementParent = myViewNet->getNet()->retrieveDemandElement(mySecondDemandElementParent->getTagProperty().getTag(), newDemandElementParentID);
-        // add this demand element int the childs of parent demand element
-        mySecondDemandElementParent->addDemandElementChild(this);
-        updateGeometry(true);
     }
 }
 
