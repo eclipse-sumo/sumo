@@ -31,13 +31,6 @@ netedit_LDADD = ../netimport/libnetimport.a \
 ../netbuild/libnetbuild.a \
 ../utils/distribution/libdistribution.a \
 ../foreign/eulerspiral/libeulerspiral.a \
-../utils/gui/globjects/libguiutilsglobjects.a \
-../utils/gui/div/libguiutilsdiv.a \
-../utils/gui/settings/libguiutilssettings.a \
-../utils/gui/images/libguiutilsimages.a \
-../utils/gui/cursors/libguiutilscursors.a \
-../utils/gui/shortcuts/libguiutilsshortcuts.a \
-../utils/gui/tracker/libguiutilstracker.a \
 ../utils/distribution/libdistribution.a \
 ../foreign/eulerspiral/libeulerspiral.a \
 ../utils/geom/libgeom.a \
@@ -57,6 +50,13 @@ netedit_LDADD = ../netimport/libnetimport.a \
 ../netedit/changes/libneteditchanges.a \
 ../netedit/netelements/libneteditnetelements.a \
 ../netedit/demandelements/libneteditdemandelements.a \
+../utils/gui/globjects/libguiutilsglobjects.a \
+../utils/gui/div/libguiutilsdiv.a \
+../utils/gui/settings/libguiutilssettings.a \
+../utils/gui/images/libguiutilsimages.a \
+../utils/gui/cursors/libguiutilscursors.a \
+../utils/gui/shortcuts/libguiutilsshortcuts.a \
+../utils/gui/tracker/libguiutilstracker.a \
 ../utils/vehicle/libvehicle.a \
 ../utils/emissions/libemissions.a \
 ../foreign/PHEMlight/cpp/libphemlight.a \
