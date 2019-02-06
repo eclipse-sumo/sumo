@@ -132,6 +132,8 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_W_PROHIBITIONMODE,               GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_EDITVIEWSCHEME,                         GNEApplicationWindow::onCmdEditViewScheme),
     FXMAPFUNC(SEL_COMMAND,  MID_EDITVIEWPORT,                           GNEApplicationWindow::onCmdEditViewport),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_Z_UNDO,                     GNEApplicationWindow::onCmdUndo),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_Y_REDO,                     GNEApplicationWindow::onCmdRedo),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_G_GAMINGMODE_TOOGLEGRID,    GNEApplicationWindow::onCmdToogleGrid),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_G_GAMINGMODE_TOOGLEGRID,    GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_C_SHOWCONNECTIONS,    GNEApplicationWindow::onCmdToogleShowConnections),
@@ -1858,6 +1860,26 @@ GNEApplicationWindow::onCmdOptions(FXObject*, FXSelector, void*) {
         NBFrame::checkOptions();
         NWFrame::checkOptions();
         SystemFrame::checkOptions(); // needed to set precision
+    }
+    return 1;
+}
+
+
+long 
+GNEApplicationWindow::onCmdUndo(FXObject*, FXSelector, void*) {
+    // Undo needs a viewnet
+    if(myViewNet) {
+        myViewNet->getUndoList()->undo();
+    }
+    return 1;
+}
+
+
+long 
+GNEApplicationWindow::onCmdRedo(FXObject*, FXSelector, void*) {
+    // redo needs a viewnet
+    if(myViewNet) {
+        myViewNet->getUndoList()->redo();
     }
     return 1;
 }

@@ -166,11 +166,11 @@ GUIShortcutsSubSys::buildNETEDITAccelerators(GNEApplicationWindow *GNEApp) {
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_d, KEYMODIFIER_CONTROL), GNEApp, FXSEL(SEL_COMMAND, MID_OPEN_ADDITIONALS));
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_D, KEYMODIFIER_CONTROL), GNEApp, FXSEL(SEL_COMMAND, MID_OPEN_ADDITIONALS));
 
-    GNEApp->getAccelTable()->addAccel(parseKey(KEY_z, KEYMODIFIER_CONTROL), GNEApp, FXSEL(SEL_COMMAND, FXUndoList::ID_UNDO));
-    GNEApp->getAccelTable()->addAccel(parseKey(KEY_Z, KEYMODIFIER_CONTROL), GNEApp, FXSEL(SEL_COMMAND, FXUndoList::ID_UNDO));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_z, KEYMODIFIER_CONTROL), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_Z_UNDO));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_Z, KEYMODIFIER_CONTROL), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_Z_UNDO));
 
-    GNEApp->getAccelTable()->addAccel(parseKey(KEY_y, KEYMODIFIER_CONTROL), GNEApp, FXSEL(SEL_COMMAND, FXUndoList::ID_REDO));
-    GNEApp->getAccelTable()->addAccel(parseKey(KEY_Y, KEYMODIFIER_CONTROL), GNEApp, FXSEL(SEL_COMMAND, FXUndoList::ID_REDO));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_y, KEYMODIFIER_CONTROL), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_Y_REDO));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_Y, KEYMODIFIER_CONTROL), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_Y_REDO));
 
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_v, KEYMODIFIER_CONTROL), GNEApp, FXSEL(SEL_COMMAND, MID_EDITVIEWSCHEME));
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_V, KEYMODIFIER_CONTROL), GNEApp, FXSEL(SEL_COMMAND, MID_EDITVIEWSCHEME));

@@ -327,6 +327,12 @@ public:
 
     /// @brief called if the user selects Processing->Configure Options
     long onCmdOptions(FXObject*, FXSelector, void*);
+
+    /// @brief called when user press Ctrl+Z
+    long onCmdUndo(FXObject*, FXSelector, void*);
+
+    // @brief called when user press Ctrl+Y
+    long onCmdRedo(FXObject*, FXSelector, void*);
     /// @}
 
     /// @name inherited from GUIMainWindow
