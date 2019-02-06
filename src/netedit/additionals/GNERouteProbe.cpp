@@ -71,12 +71,6 @@ GNERouteProbe::updateGeometry(bool updateGrid) {
     double offset = firstLane->getShape().length() < 0.5 ? firstLane->getShape().length() : 0.5;
     myGeometry.shape.push_back(firstLane->getShape().positionAtOffset(offset));
 
-    // Obtain first position
-    Position f = myGeometry.shape[0] - Position(1, 0);
-
-    // Obtain next position
-    Position s = myGeometry.shape[0] + Position(1, 0);
-
     // Save rotation (angle) of the vector constructed by points f and s
     myGeometry.shapeRotations.push_back(firstLane->getShape().rotationDegreeAtOffset(offset) * -1);
 
