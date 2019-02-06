@@ -30,6 +30,7 @@
 #include <microsim/cfmodels/ParBuffer.h>
 #include <libsumo/Vehicle.h>
 #include <libsumo/TraCIDefs.h>
+#include <algorithm>
 
 #ifndef sgn
 #define sgn(x) ((x > 0) - (x < 0))

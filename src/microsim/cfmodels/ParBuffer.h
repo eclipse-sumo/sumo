@@ -20,6 +20,7 @@
 #include <cstddef>
 #include <string>
 #include <sstream>
+#include <algorithm>
 
 class ParBuffer {
 public:

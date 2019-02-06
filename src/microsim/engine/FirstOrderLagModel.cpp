@@ -18,6 +18,7 @@
 #include "FirstOrderLagModel.h"
 #include <microsim/cfmodels/CC_Const.h>
 #include "utils/common/StdDefs.h"
+#include <algorithm>
 
 FirstOrderLagModel::FirstOrderLagModel() : GenericEngineModel(),
     tau_s(0.5), dt_s(0.01) {

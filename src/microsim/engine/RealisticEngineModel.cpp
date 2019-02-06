@@ -31,6 +31,7 @@
 
 #include <microsim/cfmodels/CC_Const.h>
 #include "utils/common/StdDefs.h"
+#include <algorithm>
 
 RealisticEngineModel::RealisticEngineModel() {
     className = "RealisticEngineModel";
