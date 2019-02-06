@@ -101,6 +101,10 @@ GNEDemandElement::startGeometryMoving() {
     }
     // save current centering boundary
     myMove.movingGeometryBoundary = getCenteringBoundary();
+    // Iterate over demand element childs and start geometry moving
+    for (auto i : myDemandElementChilds) {
+        i->startGeometryMoving();
+    }
 }
 
 
@@ -114,6 +118,10 @@ GNEDemandElement::endGeometryMoving() {
         myMove.movingGeometryBoundary.reset();
         // update geometry without updating grid
         updateGeometry(false);
+        // Iterate over demand element childs and end geometry moving
+        for (auto i : myDemandElementChilds) {
+            i->endGeometryMoving();
+        }
         // add object into grid again (using the new centering boundary)
         myViewNet->getNet()->addGLObjectIntoGrid(this);
     }
