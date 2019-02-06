@@ -107,13 +107,13 @@ enum GUIGlObjectType {
     /// @brief reserved GLO type to pack all RouteElments
     GLO_ROUTEELEMENT = 300,
     /// @brief a vehicles
-    GLO_VEHICLE = 301,
+    GLO_ROUTE = 301,
     /// @brief a person
     GLO_PERSON = 302,
     /// @brief a container
     GLO_CONTAINER = 303,
     /// @brief a route
-    GLO_ROUTE = 304,
+    GLO_VEHICLE = 304,
     /// @brief a vehicle type
     GLO_VTYPE = 305,
     /// @brief a flow
