@@ -50,31 +50,26 @@ class MSDevice_Vehroutes;
 /**
  * @class GUIBaseVehicleHelper
  * @brief A MSVehicle extended by some values for usage within the gui
- *
- * A visualisable MSVehicle. Extended by the possibility to retrieve names
- * of all available vehicles (static) and the possibility to retrieve the
- * color of the vehicle which is available in different forms allowing an
- * easier recognition of done actions such as lane changing.
  */
 class GUIBaseVehicleHelper {
 public:
 
-    /// @name drawing helper methods
-    /// @{
-    static void drawPoly(double* poses, double offset);
+    /// @brief draw poly
+    static void drawPoly(const double* poses, const double offset);
 
-    static void drawAction_drawVehicleAsBoxPlus(double width, double length);
-    static void drawAction_drawVehicleAsTrianglePlus(double width, double length);
-    static bool drawAction_drawVehicleAsPoly(const GUIBaseVehicle *baseVehicle, const GUIVisualizationSettings& s, SUMOVehicleShape shape, double width, double length);
+    /// @brief draw vehicle as a Box
+    static void drawAction_drawVehicleAsBoxPlus(const double width, const double length);
 
-    /* @brief try to draw vehicle as raster image and return true if sucessful
-     * @param[in] length The custom length of the vehicle
-     *   (defaults to the * length specified in the vehicle type if -1 is passed)
+    /// @brief draw vehicle as a triangle
+    static void drawAction_drawVehicleAsTrianglePlus(const double width, const double length);
+
+    /// @brief draw vehicle as a polygon
+    static bool drawAction_drawVehicleAsPoly(const GUIBaseVehicle *baseVehicle, const GUIVisualizationSettings& s, const SUMOVehicleShape shape, const double width, const double length);
+
+    /**@brief try to draw vehicle as raster image and return true if sucessful
+     * @param[in] length The custom length of the vehicle (defaults to the * length specified in the vehicle type if -1 is passed)
     */
-    static bool drawAction_drawVehicleAsImage(const GUIVisualizationSettings& s, const std::string& file, const GUIGlObject* o, double width, double length = -1);
-    /// @}
-
-
+    static bool drawAction_drawVehicleAsImage(const GUIVisualizationSettings& s, const std::string& file, const GUIGlObject* o, const double width, double length = -1);
 };
 
 

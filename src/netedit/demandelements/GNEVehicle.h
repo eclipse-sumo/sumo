@@ -137,23 +137,6 @@ protected:
     /// @brief sets the color according to the currente settings
     void setColor(const GUIVisualizationSettings& s) const;
 
-    /// @name drawing helper methods
-    /// @{
-    void drawPoly(double* poses, double offset) const;
-
-    void drawAction_drawVehicleAsBoxPlus() const;
-
-    void drawAction_drawVehicleAsTrianglePlus() const;
-
-    bool drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s) const;
-
-    /* @brief try to draw vehicle as raster image and return true if sucessful
-     * @param[in] length The custom length of the vehicle
-     *   (defaults to the * length specified in the vehicle type if -1 is passed)
-    */
-    bool drawAction_drawVehicleAsImage(const GUIVisualizationSettings& s, double length = -1) const;
-    /// @}
-
 private:
     /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value);

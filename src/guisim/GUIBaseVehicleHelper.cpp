@@ -122,7 +122,7 @@ double vehiclePoly_Rickshaw[] = { 0.5, 0,  0.25, 0.45,  0.25, 0.5, 0.8, 0.15,   
 // ===========================================================================
 
 void
-GUIBaseVehicleHelper::drawPoly(double* poses, double offset) {
+GUIBaseVehicleHelper::drawPoly(const double* poses, const double offset) {
     glPushMatrix();
     glTranslated(0, 0, offset * .1);
     glPolygonOffset(0, (GLfloat) - offset);
@@ -137,7 +137,7 @@ GUIBaseVehicleHelper::drawPoly(double* poses, double offset) {
 }
 
 void
-GUIBaseVehicleHelper::drawAction_drawVehicleAsBoxPlus(double width, double length) {
+GUIBaseVehicleHelper::drawAction_drawVehicleAsBoxPlus(const double width, const double length) {
     glPushMatrix();
     glScaled(width, length, 1.);
     glBegin(GL_TRIANGLE_STRIP);
@@ -152,7 +152,7 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsBoxPlus(double width, double lengt
 
 
 void
-GUIBaseVehicleHelper::drawAction_drawVehicleAsTrianglePlus(double width, double length) {
+GUIBaseVehicleHelper::drawAction_drawVehicleAsTrianglePlus(const double width, const double length) {
     if (length >= 8.) {
         drawAction_drawVehicleAsBoxPlus(width, length);
         return;
@@ -169,7 +169,7 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsTrianglePlus(double width, double 
 
 
 bool
-GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIBaseVehicle *baseVehicle, const GUIVisualizationSettings& s, SUMOVehicleShape shape, double width, double length) {
+GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIBaseVehicle *baseVehicle, const GUIVisualizationSettings& s, const SUMOVehicleShape shape, const double width, const double length) {
     RGBColor current = GLHelper::getColor();
     RGBColor lighter = current.changedBrightness(51);
     RGBColor darker = current.changedBrightness(-51);
@@ -642,7 +642,7 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIBaseVehicle *baseVeh
 
 
 bool
-GUIBaseVehicleHelper::drawAction_drawVehicleAsImage(const GUIVisualizationSettings& s, const std::string& file, const GUIGlObject* o, double width, double length) {
+GUIBaseVehicleHelper::drawAction_drawVehicleAsImage(const GUIVisualizationSettings& s, const std::string& file, const GUIGlObject* o, const double width, double length) {
     if (file != "") {
         int textureID = GUITexturesHelper::getTextureID(file);
         if (textureID > 0) {
