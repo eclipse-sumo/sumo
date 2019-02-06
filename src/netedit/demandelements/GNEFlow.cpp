@@ -69,6 +69,18 @@ GNEFlow::GNEFlow(GNEViewNet* viewNet, const SUMOVehicleParameter &flowParameter,
 GNEFlow::~GNEFlow() {}
 
 
+bool 
+GNEFlow::wasSet(int what) const {
+    return (parametersSet & what) != 0;
+}
+
+
+const RGBColor &
+GNEFlow::getColor() const {
+    return color;
+}
+
+
 void 
 GNEFlow::writeDemandElement(OutputDevice& device) const {
     write(device, OptionsCont::getOptions(), SUMO_TAG_FLOW);

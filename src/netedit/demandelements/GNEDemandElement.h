@@ -56,23 +56,6 @@ public:
      */
     GNEDemandElement(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag);
 
-    /**@brief Constructor used by DemandElements that have another demand element as parent
-    * @param[in] singleDemandElementParent pointer to single demand element parent
-    * @param[in] viewNet pointer to GNEViewNet of this demand element element belongs
-    * @param[in] type GUIGlObjectType of demand element
-    * @param[in] tag Type of xml tag that define the demand element element (SUMO_TAG_BUS_STOP, SUMO_TAG_REROUTER, etc...)
-    */
-    GNEDemandElement(GNEDemandElement* singleDemandElementParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag);
-
-    /**@brief Constructor used by DemandElements that have two demand elements as parent
-    * @param[in] demand elementParent pointer to first demand element parent
-    * @param[in] demand elementParent pointer to second demand element parent
-    * @param[in] viewNet pointer to GNEViewNet of this demand element element belongs
-    * @param[in] type GUIGlObjectType of demand element
-    * @param[in] tag Type of xml tag that define the demand element element (SUMO_TAG_BUS_STOP, SUMO_TAG_REROUTER, etc...)
-    */
-    GNEDemandElement(GNEDemandElement* firstDemandElementParent, GNEDemandElement* secondDemandElementParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag);
-
     /**@brief Constructor used by DemandElements that have Edge childs
     * @param[in] id Gl-id of the demand element element (Must be unique)
     * @param[in] viewNet pointer to GNEViewNet of this demand element element belongs
@@ -83,17 +66,14 @@ public:
     */
     GNEDemandElement(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::vector<GNEEdge*> edgeChilds);
 
-    /**@brief Constructor used by DemandElements that have lane childs
-    * @param[in] id Gl-id of the demand element element (Must be unique)
-    * @param[in] viewNet pointer to GNEViewNet of this demand element element belongs
-    * @param[in] type GUIGlObjectType of demand element
-    * @param[in] tag Type of xml tag that define the demand element element (SUMO_TAG_BUS_STOP, SUMO_TAG_REROUTER, etc...)
-    * @param[in] laneChilds vector of lane childs
-    */
-    GNEDemandElement(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::vector<GNELane*> laneChilds);
-
     /// @brief Destructor
     ~GNEDemandElement();
+
+    /** @brief Returns whether the given parameter was set
+     * @param[in] what The parameter which one asks for
+     * @return Whether the given parameter was set
+     */
+    virtual bool wasSet(int what) const = 0;
 
     /// @name members and functions relative to write demand elements into XML
     /// @{
@@ -149,14 +129,17 @@ public:
     /// @brief Returns demand element element's shape
     PositionVector getShape() const;
 
+    /// @brief get GNEEdges
+    const std::vector<GNEEdge*>& getGNEEdges() const;
+
+    /// @brief get color
+    virtual const RGBColor &getColor() const = 0;
+
     // @brief get first demand element parent
     GNEDemandElement* getFirstDemandElementParent() const;
 
     // @brief get second demand element parent
     GNEDemandElement* getSecondDemandElementParent() const;
-
-    /// @brief gererate a new ID for an demand element child
-    std::string generateDemandElementChildID(SumoXMLTag childTag);
 
     /// @name members and functions relative to demand element's childs
     /// @{
@@ -170,29 +153,8 @@ public:
     /// @brief return vector of demand elements that have as Parent this edge (For example, Calibrators)
     const std::vector<GNEDemandElement*>& getDemandElementChilds() const;
 
-    /// @brief sort childs (used by Rerouters and VSS)
+    /// @brief sort childs
     void sortDemandElementChilds();
-
-    /// @brief check if childs are overlapped (Used by Rerouters)
-    bool checkDemandElementChildsOverlapping() const;
-
-    /// @brief add edge child
-    void addEdgeChild(GNEEdge* edge);
-
-    /// @brief remove edge child
-    void removeEdgeChild(GNEEdge* edge);
-
-    /// @brief get edge chidls
-    const std::vector<GNEEdge*>& getEdgeChilds() const;
-
-    /// @brief add lane child
-    void addLaneChild(GNELane* lane);
-
-    /// @brief remove lane child
-    void removeLaneChild(GNELane* lane);
-
-    /// @brief get lanes of VSS
-    const std::vector<GNELane*>& getLaneChilds() const;
 
     /// @}
 
@@ -348,28 +310,6 @@ protected:
         std::string secondOriginalPosition;
     };
 
-    /// @brief struct for pack all variables and functions relative to connections between DemandElements and their childs
-    struct ChildConnections {
-        /// @brief constructor
-        ChildConnections(GNEDemandElement* demandElement);
-
-        /// @brief update Connection's geometry
-        void update();
-
-        /// @brief draw connections between Parent and childrens
-        void draw() const;
-
-        /// @brief position and rotation of every symbol over lane
-        std::vector<std::pair<Position, double> > symbolsPositionAndRotation;
-
-        /// @brief Matrix with the Vertex's positions of connections between parents an their childs
-        std::vector<PositionVector> connectionPositions;
-
-    private:
-        /// @brief pointer to demand element parent
-        GNEDemandElement* myDemandElement;
-    };
-
     /// @brief The GNEViewNet this demand element element belongs
     GNEViewNet* myViewNet;
 
@@ -388,14 +328,8 @@ protected:
     /// @brief vector with the DemandElement childs
     std::vector<GNEDemandElement*> myDemandElementChilds;
 
-    /// @brief vector with the edge childs of this demand element
-    std::vector<GNEEdge*> myEdgeChilds;
-
-    /// @brief vector with the lane childs of this demand element
-    std::vector<GNELane*> myLaneChilds;
-
-    /// @brief variable ChildConnections
-    ChildConnections myChildConnections;
+    /// @brief Routes used in certain Demand Elements
+    std::vector<GNEEdge*> myEdges;
 
     /// @name Functions relative to change values in setAttribute(...)
     /// @{

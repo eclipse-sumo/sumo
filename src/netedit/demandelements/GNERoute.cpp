@@ -54,13 +54,25 @@ GNERoute::GNERoute(GNEViewNet* viewNet) :
 
 
 GNERoute::GNERoute(GNEViewNet* viewNet, const std::string& routeID, const std::vector<GNEEdge*>& edges, const RGBColor& color) :
-    GNEDemandElement(routeID, viewNet, GLO_ROUTE, SUMO_TAG_ROUTE),
-    myEdges(edges),
+    GNEDemandElement(routeID, viewNet, GLO_ROUTE, SUMO_TAG_ROUTE, edges),
     myColor(color) {
 }
 
 
 GNERoute::~GNERoute() {}
+
+
+bool 
+GNERoute::wasSet(int what) const {
+    //return (parametersSet & what) != 0;
+    return true;
+}
+
+
+const RGBColor &
+GNERoute::getColor() const {
+    return myColor;
+}
 
 
 void 
@@ -70,12 +82,6 @@ GNERoute::writeDemandElement(OutputDevice& device) const {
     device.writeAttr(SUMO_ATTR_EDGES, parseIDs(myEdges));
     device.writeAttr(SUMO_ATTR_COLOR, toString(myColor));
     device.closeTag();
-}
-
-
-const std::vector<GNEEdge*>&
-GNERoute::getGNEEdges() const {
-    return myEdges;
 }
 
 

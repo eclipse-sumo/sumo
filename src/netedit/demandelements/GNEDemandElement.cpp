@@ -49,34 +49,7 @@ GNEDemandElement::GNEDemandElement(const std::string& id, GNEViewNet* viewNet, G
     Parameterised(),
     myViewNet(viewNet),
     myFirstDemandElementParent(nullptr),
-    mySecondDemandElementParent(nullptr),
-    myChildConnections(this) {
-}
-
-
-GNEDemandElement::GNEDemandElement(GNEDemandElement* singleDemandElementParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag) :
-    GUIGlObject(type, singleDemandElementParent->generateDemandElementChildID(tag)),
-    GNEAttributeCarrier(tag),
-    Parameterised(),
-    myViewNet(viewNet),
-    myFirstDemandElementParent(singleDemandElementParent),
-    mySecondDemandElementParent(nullptr),
-    myChildConnections(this) {
-    // check that demand element parent is of expected type
-    assert(singleDemandElementParent->getTagProperty().getTag() == myTagProperty.getParentTag());
-}
-
-
-GNEDemandElement::GNEDemandElement(GNEDemandElement* firstDemandElementParent, GNEDemandElement* secondDemandElementParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag) :
-    GUIGlObject(type, firstDemandElementParent->generateDemandElementChildID(tag)),
-    GNEAttributeCarrier(tag),
-    Parameterised(),
-    myViewNet(viewNet),
-    myFirstDemandElementParent(firstDemandElementParent),
-    mySecondDemandElementParent(secondDemandElementParent),
-    myChildConnections(this) {
-    // check that demand element parent is of expected type
-    assert(firstDemandElementParent->getTagProperty().getTag() == myTagProperty.getParentTag());
+    mySecondDemandElementParent(nullptr) {
 }
 
 
@@ -86,21 +59,7 @@ GNEDemandElement::GNEDemandElement(const std::string& id, GNEViewNet* viewNet, G
     Parameterised(),
     myViewNet(viewNet),
     myFirstDemandElementParent(nullptr),
-    mySecondDemandElementParent(nullptr),
-    myEdgeChilds(edgeChilds),
-    myChildConnections(this) {
-}
-
-
-GNEDemandElement::GNEDemandElement(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::vector<GNELane*> laneChilds) :
-    GUIGlObject(type, id),
-    GNEAttributeCarrier(tag),
-    Parameterised(),
-    myViewNet(viewNet),
-    myFirstDemandElementParent(nullptr),
-    mySecondDemandElementParent(nullptr),
-    myLaneChilds(laneChilds),
-    myChildConnections(this) {
+    mySecondDemandElementParent(nullptr) {
 }
 
 
@@ -185,6 +144,12 @@ GNEDemandElement::getShape() const {
 }
 
 
+const std::vector<GNEEdge*>& 
+GNEDemandElement::getGNEEdges() const {
+    return myEdges;
+}
+
+
 GNEDemandElement*
 GNEDemandElement::getFirstDemandElementParent() const {
     return myFirstDemandElementParent;
@@ -194,16 +159,6 @@ GNEDemandElement::getFirstDemandElementParent() const {
 GNEDemandElement*
 GNEDemandElement::getSecondDemandElementParent() const {
     return mySecondDemandElementParent;
-}
-
-
-std::string
-GNEDemandElement::generateDemandElementChildID(SumoXMLTag childTag) {
-    int counter = 0;
-    while (myViewNet->getNet()->retrieveDemandElement(childTag, getID() + toString(childTag) + toString(counter), false) != nullptr) {
-        counter++;
-    }
-    return (getID() + toString(childTag) + toString(counter));
 }
 
 
@@ -254,184 +209,7 @@ GNEDemandElement::getDemandElementChilds() const {
 
 void
 GNEDemandElement::sortDemandElementChilds() {
-    if (myTagProperty.getTag() == SUMO_TAG_E3DETECTOR) {
-        // we need to sort Entry/Exits due demand element.xds model
-        std::vector<GNEDemandElement*> sortedEntryExits;
-        // obtain all entrys
-        for (auto i : myDemandElementChilds) {
-            if (i->getTagProperty().getTag() == SUMO_TAG_DET_ENTRY) {
-                sortedEntryExits.push_back(i);
-            }
-        }
-        // obtain all exits
-        for (auto i : myDemandElementChilds) {
-            if (i->getTagProperty().getTag() == SUMO_TAG_DET_EXIT) {
-                sortedEntryExits.push_back(i);
-            }
-        }
-        // change myDemandElementChilds for sortedEntryExits
-        if (sortedEntryExits.size() == myDemandElementChilds.size()) {
-            myDemandElementChilds = sortedEntryExits;
-        } else {
-            throw ProcessError("Some demand element childs were lost during sorting");
-        }
-    } else if (myTagProperty.getTag() == SUMO_TAG_TAZ) {
-        // we need to sort Entry/Exits due demand element.xds model
-        std::vector<GNEDemandElement*> sortedTAZSourceSink;
-        // obtain all TAZSources
-        for (auto i : myDemandElementChilds) {
-            if (i->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) {
-                sortedTAZSourceSink.push_back(i);
-            }
-        }
-        // obtain all TAZSinks
-        for (auto i : myDemandElementChilds) {
-            if (i->getTagProperty().getTag() == SUMO_TAG_TAZSINK) {
-                sortedTAZSourceSink.push_back(i);
-            }
-        }
-        // change myDemandElementChilds for sortedEntryExits
-        if (sortedTAZSourceSink.size() == myDemandElementChilds.size()) {
-            myDemandElementChilds = sortedTAZSourceSink;
-        } else {
-            throw ProcessError("Some demand element childs were lost during sorting");
-        }
-    } else {
-        // declare a vector to keep sorted childs
-        std::vector<std::pair<std::pair<double, double>, GNEDemandElement*> > sortedChilds;
-        // iterate over demand element childs
-        for (auto i : myDemandElementChilds) {
-            sortedChilds.push_back(std::make_pair(std::make_pair(0., 0.), i));
-            // set begin/start attribute
-            if (i->getTagProperty().hasAttribute(SUMO_ATTR_TIME) && canParse<double>(i->getAttribute(SUMO_ATTR_TIME))) {
-                sortedChilds.back().first.first = parse<double>(i->getAttribute(SUMO_ATTR_TIME));
-            } else if (i->getTagProperty().hasAttribute(SUMO_ATTR_BEGIN) && canParse<double>(i->getAttribute(SUMO_ATTR_BEGIN))) {
-                sortedChilds.back().first.first = parse<double>(i->getAttribute(SUMO_ATTR_BEGIN));
-            }
-            // set end attribute
-            if (i->getTagProperty().hasAttribute(SUMO_ATTR_END) && canParse<double>(i->getAttribute(SUMO_ATTR_END))) {
-                sortedChilds.back().first.second = parse<double>(i->getAttribute(SUMO_ATTR_END));
-            } else {
-                sortedChilds.back().first.second = sortedChilds.back().first.first;
-            }
-        }
-        // sort childs
-        std::sort(sortedChilds.begin(), sortedChilds.end());
-        // make sure that number of sorted childs is the same as the demand element childs
-        if (sortedChilds.size() == myDemandElementChilds.size()) {
-            myDemandElementChilds.clear();
-            for (auto i : sortedChilds) {
-                myDemandElementChilds.push_back(i.second);
-            }
-        } else {
-            throw ProcessError("Some demand element childs were lost during sorting");
-        }
-    }
-}
-
-
-bool
-GNEDemandElement::checkDemandElementChildsOverlapping() const {
-    // declare a vector to keep sorted childs
-    std::vector<std::pair<std::pair<double, double>, GNEDemandElement*> > sortedChilds;
-    // iterate over demand element childs
-    for (auto i : myDemandElementChilds) {
-        sortedChilds.push_back(std::make_pair(std::make_pair(0., 0.), i));
-        // set begin/start attribute
-        if (i->getTagProperty().hasAttribute(SUMO_ATTR_TIME) && canParse<double>(i->getAttribute(SUMO_ATTR_TIME))) {
-            sortedChilds.back().first.first = parse<double>(i->getAttribute(SUMO_ATTR_TIME));
-        } else if (i->getTagProperty().hasAttribute(SUMO_ATTR_BEGIN) && canParse<double>(i->getAttribute(SUMO_ATTR_BEGIN))) {
-            sortedChilds.back().first.first = parse<double>(i->getAttribute(SUMO_ATTR_BEGIN));
-        }
-        // set end attribute
-        if (i->getTagProperty().hasAttribute(SUMO_ATTR_END) && canParse<double>(i->getAttribute(SUMO_ATTR_END))) {
-            sortedChilds.back().first.second = parse<double>(i->getAttribute(SUMO_ATTR_END));
-        } else {
-            sortedChilds.back().first.second = sortedChilds.back().first.first;
-        }
-    }
-    // sort childs
-    std::sort(sortedChilds.begin(), sortedChilds.end());
-    // make sure that number of sorted childs is the same as the demand element childs
-    if (sortedChilds.size() == myDemandElementChilds.size()) {
-        if (sortedChilds.size() <= 1) {
-            return true;
-        } else {
-            // check overlapping
-            for (int i = 0; i < (int)sortedChilds.size() - 1; i++) {
-                if (sortedChilds.at(i).first.second > sortedChilds.at(i + 1).first.first) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    } else {
-        throw ProcessError("Some demand element childs were lost during sorting");
-    }
-}
-
-
-void
-GNEDemandElement::addEdgeChild(GNEEdge* edge) {
-    // Check that edge is valid and doesn't exist previously
-    if (edge == nullptr) {
-        throw InvalidArgument("Trying to add an empty " + toString(SUMO_TAG_EDGE) + " child in " + getTagStr() + " with ID='" + getID() + "'");
-    } else if (std::find(myEdgeChilds.begin(), myEdgeChilds.end(), edge) != myEdgeChilds.end()) {
-        throw InvalidArgument("Trying to add a duplicate " + toString(SUMO_TAG_EDGE) + " child in " + getTagStr() + " with ID='" + getID() + "'");
-    } else {
-        myEdgeChilds.push_back(edge);
-    }
-}
-
-
-void
-GNEDemandElement::removeEdgeChild(GNEEdge* edge) {
-    // Check that edge is valid and exist previously
-    if (edge == nullptr) {
-        throw InvalidArgument("Trying to remove an empty " + toString(SUMO_TAG_EDGE) + " child in " + getTagStr() + " with ID='" + getID() + "'");
-    } else if (std::find(myEdgeChilds.begin(), myEdgeChilds.end(), edge) == myEdgeChilds.end()) {
-        throw InvalidArgument("Trying to remove a non previously inserted " + toString(SUMO_TAG_EDGE) + " child in " + getTagStr() + " with ID='" + getID() + "'");
-    } else {
-        myEdgeChilds.erase(std::find(myEdgeChilds.begin(), myEdgeChilds.end(), edge));
-    }
-}
-
-
-const std::vector<GNEEdge*>&
-GNEDemandElement::getEdgeChilds() const {
-    return myEdgeChilds;
-}
-
-
-void
-GNEDemandElement::addLaneChild(GNELane* lane) {
-    // Check that lane is valid and doesn't exist previously
-    if (lane == nullptr) {
-        throw InvalidArgument("Trying to add an empty " + toString(SUMO_TAG_EDGE) + " child in " + getTagStr() + " with ID='" + getID() + "'");
-    } else if (std::find(myLaneChilds.begin(), myLaneChilds.end(), lane) != myLaneChilds.end()) {
-        throw InvalidArgument("Trying to add a duplicate " + toString(SUMO_TAG_EDGE) + " child in " + getTagStr() + " with ID='" + getID() + "'");
-    } else {
-        myLaneChilds.push_back(lane);
-    }
-}
-
-
-void
-GNEDemandElement::removeLaneChild(GNELane* lane) {
-    // Check that lane is valid and exist previously
-    if (lane == nullptr) {
-        throw InvalidArgument("Trying to remove an empty " + toString(SUMO_TAG_EDGE) + " child in " + getTagStr() + " with ID='" + getID() + "'");
-    } else if (std::find(myLaneChilds.begin(), myLaneChilds.end(), lane) == myLaneChilds.end()) {
-        throw InvalidArgument("Trying to remove a non previously inserted " + toString(SUMO_TAG_EDGE) + " child in " + getTagStr() + " with ID='" + getID() + "'");
-    } else {
-        myLaneChilds.erase(std::find(myLaneChilds.begin(), myLaneChilds.end(), lane));
-    }
-}
-
-
-const std::vector<GNELane*>&
-GNEDemandElement::getLaneChilds() const {
-    return myLaneChilds;
+    //
 }
 
 
@@ -640,119 +418,6 @@ GNEDemandElement::DemandElementGeometry::calculateMultiShapeRotationsAndLengths(
             // Save rotation (angle) of the vector constructed by points f and s
             multiShapeRotations.at(i).push_back((double)atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double)M_PI);
         }
-    }
-}
-
-
-GNEDemandElement::ChildConnections::ChildConnections(GNEDemandElement* demandElementName) :
-    myDemandElement(demandElementName) {}
-
-
-void
-GNEDemandElement::ChildConnections::update() {
-    // first clear connection positions
-    connectionPositions.clear();
-    symbolsPositionAndRotation.clear();
-
-    // calculate position and rotation of every simbol for every edge
-    for (auto i : myDemandElement->myEdgeChilds) {
-        for (auto j : i->getLanes()) {
-            std::pair<Position, double> posRot;
-            // set position and lenght depending of shape's lengt
-            if (j->getShape().length() - 6 > 0) {
-                posRot.first = j->getShape().positionAtOffset(j->getShape().length() - 6);
-                posRot.second = j->getShape().rotationDegreeAtOffset(j->getShape().length() - 6);
-            } else {
-                posRot.first = j->getShape().positionAtOffset(j->getShape().length());
-                posRot.second = j->getShape().rotationDegreeAtOffset(j->getShape().length());
-            }
-            symbolsPositionAndRotation.push_back(posRot);
-        }
-    }
-
-    // calculate position and rotation of every symbol for every lane
-    for (auto i : myDemandElement->myLaneChilds) {
-        std::pair<Position, double> posRot;
-        // set position and lenght depending of shape's lengt
-        if (i->getShape().length() - 6 > 0) {
-            posRot.first = i->getShape().positionAtOffset(i->getShape().length() - 6);
-            posRot.second = i->getShape().rotationDegreeAtOffset(i->getShape().length() - 6);
-        } else {
-            posRot.first = i->getShape().positionAtOffset(i->getShape().length());
-            posRot.second = i->getShape().rotationDegreeAtOffset(i->getShape().length());
-        }
-        symbolsPositionAndRotation.push_back(posRot);
-    }
-
-    // calculate position for every demand element child
-    for (auto i : myDemandElement->myDemandElementChilds) {
-        // check that position is different of position
-        if (i->getPositionInView() != myDemandElement->getPositionInView()) {
-            std::vector<Position> posConnection;
-            double A = std::abs(i->getPositionInView().x() - myDemandElement->getPositionInView().x());
-            double B = std::abs(i->getPositionInView().y() - myDemandElement->getPositionInView().y());
-            // Set positions of connection's vertex. Connection is build from Entry to E3
-            posConnection.push_back(i->getPositionInView());
-            if (myDemandElement->getPositionInView().x() > i->getPositionInView().x()) {
-                if (myDemandElement->getPositionInView().y() > i->getPositionInView().y()) {
-                    posConnection.push_back(Position(i->getPositionInView().x() + A, i->getPositionInView().y()));
-                } else {
-                    posConnection.push_back(Position(i->getPositionInView().x(), i->getPositionInView().y() - B));
-                }
-            } else {
-                if (myDemandElement->getPositionInView().y() > i->getPositionInView().y()) {
-                    posConnection.push_back(Position(i->getPositionInView().x(), i->getPositionInView().y() + B));
-                } else {
-                    posConnection.push_back(Position(i->getPositionInView().x() - A, i->getPositionInView().y()));
-                }
-            }
-            posConnection.push_back(myDemandElement->getPositionInView());
-            connectionPositions.push_back(posConnection);
-        }
-    }
-
-    // calculate geometry for connections between parent and childs
-    for (auto i : symbolsPositionAndRotation) {
-        std::vector<Position> posConnection;
-        double A = std::abs(i.first.x() - myDemandElement->getPositionInView().x());
-        double B = std::abs(i.first.y() - myDemandElement->getPositionInView().y());
-        // Set positions of connection's vertex. Connection is build from Entry to E3
-        posConnection.push_back(i.first);
-        if (myDemandElement->getPositionInView().x() > i.first.x()) {
-            if (myDemandElement->getPositionInView().y() > i.first.y()) {
-                posConnection.push_back(Position(i.first.x() + A, i.first.y()));
-            } else {
-                posConnection.push_back(Position(i.first.x(), i.first.y() - B));
-            }
-        } else {
-            if (myDemandElement->getPositionInView().y() > i.first.y()) {
-                posConnection.push_back(Position(i.first.x(), i.first.y() + B));
-            } else {
-                posConnection.push_back(Position(i.first.x() - A, i.first.y()));
-            }
-        }
-        posConnection.push_back(myDemandElement->getPositionInView());
-        connectionPositions.push_back(posConnection);
-    }
-}
-
-
-void
-GNEDemandElement::ChildConnections::draw() const {
-    // Iterate over myConnectionPositions
-    for (auto i : connectionPositions) {
-        // Add a draw matrix
-        glPushMatrix();
-        // traslate in the Z axis
-        glTranslated(0, 0, myDemandElement->getType() - 0.01);
-        // Set color of the base
-        GLHelper::setColor(RGBColor(255, 235, 0));
-        for (auto j = i.begin(); (j + 1) != i.end(); j++) {
-            // Draw Lines
-            GLHelper::drawLine((*j), (*(j + 1)));
-        }
-        // Pop draw matrix
-        glPopMatrix();
     }
 }
 

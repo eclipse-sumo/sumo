@@ -51,6 +51,18 @@ GNEVehicleType::GNEVehicleType(GNEViewNet* viewNet, const SUMOVTypeParameter &vT
 GNEVehicleType::~GNEVehicleType() {}
 
 
+bool 
+GNEVehicleType::wasSet(int what) const {
+    return (parametersSet & what) != 0;
+}
+
+
+const RGBColor &
+GNEVehicleType::getColor() const {
+    return color;
+}
+
+
 void 
 GNEVehicleType::writeDemandElement(OutputDevice& device) const {
     write(device);

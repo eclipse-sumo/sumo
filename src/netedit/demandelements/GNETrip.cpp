@@ -57,6 +57,18 @@ GNETrip::GNETrip(GNEViewNet* viewNet, const SUMOVehicleParameter &tripParameter,
 GNETrip::~GNETrip() {}
 
 
+bool 
+GNETrip::wasSet(int what) const {
+    return (parametersSet & what) != 0;
+}
+
+
+const RGBColor &
+GNETrip::getColor() const {
+    return color;
+}
+
+
 void 
 GNETrip::writeDemandElement(OutputDevice& device) const {
     write(device, OptionsCont::getOptions(), SUMO_TAG_TRIP);

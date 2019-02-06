@@ -44,6 +44,15 @@ public:
     /// @brief destructor
     ~GNEVehicle();
 
+    /** @brief Returns whether the given parameter was set
+     * @param[in] what The parameter which one asks for
+     * @return Whether the given parameter was set
+     */
+    bool wasSet(int what) const;
+
+    /// @brief get color
+    const RGBColor &getColor() const;
+
     /**@brief writte demand element element into a xml file
      * @param[in] device device in which write parameters of demand element element
      */
@@ -124,6 +133,26 @@ protected:
 
     /// @brief route in which this flow is used
     GNEDemandElement* myRoute;
+
+    /// @brief sets the color according to the currente settings
+    void setColor(const GUIVisualizationSettings& s) const;
+
+    /// @name drawing helper methods
+    /// @{
+    void drawPoly(double* poses, double offset) const;
+
+    void drawAction_drawVehicleAsBoxPlus() const;
+
+    void drawAction_drawVehicleAsTrianglePlus() const;
+
+    bool drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s) const;
+
+    /* @brief try to draw vehicle as raster image and return true if sucessful
+     * @param[in] length The custom length of the vehicle
+     *   (defaults to the * length specified in the vehicle type if -1 is passed)
+    */
+    bool drawAction_drawVehicleAsImage(const GUIVisualizationSettings& s, double length = -1) const;
+    /// @}
 
 private:
     /// @brief method for setting the attribute and nothing else

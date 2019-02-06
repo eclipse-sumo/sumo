@@ -46,6 +46,15 @@ public:
     /// @brief destructor
     ~GNEVehicleType();
 
+    /** @brief Returns whether the given parameter was set
+     * @param[in] what The parameter which one asks for
+     * @return Whether the given parameter was set
+     */
+    bool wasSet(int what) const;
+
+    /// @brief get color
+    const RGBColor &getColor() const;
+
     /**@brief writte demand element element into a xml file
      * @param[in] device device in which write parameters of demand element element
      */
