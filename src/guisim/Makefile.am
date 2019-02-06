@@ -19,6 +19,7 @@ GUITrafficLightLogicWrapper.cpp GUITrafficLightLogicWrapper.h \
 GUITriggeredRerouter.cpp GUITriggeredRerouter.h \
 GUICalibrator.cpp GUICalibrator.h \
 GUIChargingStation.cpp GUIChargingStation.h \
+GUIBaseVehicleHelper.cpp GUIBaseVehicleHelper.h \
 GUIBaseVehicle.cpp GUIBaseVehicle.h \
 GUIVehicle.cpp GUIVehicle.h GUIVehicleControl.cpp GUIVehicleControl.h \
 GUITransportableControl.cpp GUITransportableControl.h

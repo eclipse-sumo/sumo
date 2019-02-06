@@ -51,6 +51,8 @@
 #include <microsim/devices/MSDevice_BTreceiver.h>
 #include <gui/GUIApplicationWindow.h>
 #include <gui/GUIGlobals.h>
+
+#include "GUIBaseVehicleHelper.h"
 #include "GUIVehicle.h"
 #include "GUIPerson.h"
 #include "GUIContainer.h"
@@ -598,7 +600,7 @@ GUIVehicle::drawAction_drawRailCarriages(const GUIVisualizationSettings& s, doub
         glPushMatrix();
         glTranslated(front.x(), front.y(), getType());
         glRotated(angle, 0, 0, 1);
-        if (!asImage || !drawAction_drawVehicleAsImage(s, carriageLength)) {
+        if (!asImage || !GUIBaseVehicleHelper::drawAction_drawVehicleAsImage(s, getVType().getImgFile(), this, getVType().getWidth(), carriageLength)) {
             glBegin(GL_TRIANGLE_FAN);
             glVertex2d(-halfWidth + xCornerCut, 0);
             glVertex2d(-halfWidth, yCornerCut);

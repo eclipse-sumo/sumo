@@ -33,6 +33,8 @@
 #include <microsim/logging/FunctionBinding.h>
 #include <microsim/devices/MSVehicleDevice.h>
 #include <guisim/GUILane.h>
+#include <guisim/GUIBaseVehicleHelper.h>
+
 #include "GUIMEVehicle.h"
 
 
@@ -151,7 +153,7 @@ bool
 GUIMEVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& /* s */, SUMOVehicleShape /* guiShape */, bool /* asImage */) const {
     // undo scaling from GUIBaseVehicle::drawAction_drawVehicleAsPoly
     glPopMatrix();
-    drawAction_drawVehicleAsBoxPlus();
+    GUIBaseVehicleHelper::drawAction_drawVehicleAsBoxPlus(getVType().getWidth(), getVType().getLength());
     glPushMatrix();
     return true;
 }

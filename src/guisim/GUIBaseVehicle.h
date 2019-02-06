@@ -312,21 +312,6 @@ protected:
     /// @brief sets the color according to the currente settings
     void setColor(const GUIVisualizationSettings& s) const;
 
-    /// @name drawing helper methods
-    /// @{
-    static void drawPoly(double* poses, double offset);
-
-    void drawAction_drawVehicleAsBoxPlus() const;
-    void drawAction_drawVehicleAsTrianglePlus() const;
-    bool drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s) const;
-
-    /* @brief try to draw vehicle as raster image and return true if sucessful
-     * @param[in] length The custom length of the vehicle
-     *   (defaults to the * length specified in the vehicle type if -1 is passed)
-    */
-    bool drawAction_drawVehicleAsImage(const GUIVisualizationSettings& s, double length = -1) const;
-    /// @}
-
     /// @brief returns the seat position for the person with the given index
     const Position& getSeatPosition(int personIndex) const;
 
