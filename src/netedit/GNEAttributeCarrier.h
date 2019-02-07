@@ -280,6 +280,7 @@ public:
         TAGPROPERTY_PLACEDOVER_LANES =    1 << 21,  // Element will be placed over a list of lanes
         TAGPROPERTY_PLACEDOVER_ROUTE =    1 << 22,  // Element will be placed over a route
         TAGPROPERTY_NOGENERICPARAMETERS = 1 << 23,  // Element doesn't accept Generic Parameters (by default all tags supports generic parameters)
+        TAGPROPERTY_DISJOINTATTRIBUTES =  1 << 24,  // Element owns attributes that cannot be defined together
     };
 
     /// @brief struct with the attribute Properties
@@ -332,6 +333,9 @@ public:
 
         /// @brief get tag synonym
         SumoXMLTag getTagSynonym() const;
+
+        /// @brief set disjoint attributes
+        void setDisjointAttributes(const std::vector<SumoXMLAttr> &attrs);
 
         /// @brief check if current TagProperties owns the attribute attr
         bool hasAttribute(SumoXMLAttr attr) const;
@@ -395,6 +399,9 @@ public:
 
         /// @brief return true if Tag correspond to an element that supports generic parameters
         bool hasGenericParameters() const;
+
+        /// @brief return true if Tag correspond to an element that has disjoint attributes
+        bool hasDisjointAttributes() const;
 
         /// @brief return true if tag correspond to an element that can be reparent
         bool canBeReparent() const;
@@ -462,6 +469,9 @@ public:
 
         /// @brief List with the deprecated Attributes
         std::vector<SumoXMLAttr> myDeprecatedAttributes;
+
+        /// @brief List of disjoint attributes
+        std::vector<SumoXMLAttr> myDisjointAttrs;
     };
 
     /**@brief Constructor
