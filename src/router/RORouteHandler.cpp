@@ -740,7 +740,7 @@ RORouteHandler::parseGeoEdges(const PositionVector& positions, bool geo,
             }
         }
         if (best == nullptr) {
-            myErrorOutput->inform("No edge found near position " + toString(orig) + " within the route " + rid + ".");
+            myErrorOutput->inform("No edge found near position " + toString(orig, geo ? gPrecisionGeo : gPrecision) + " within the route " + rid + ".");
         } else {
             into.push_back(&static_cast<const ROLane*>(best)->getEdge());
         }
