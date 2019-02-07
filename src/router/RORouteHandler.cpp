@@ -716,6 +716,11 @@ RORouteHandler::parseGeoEdges(const PositionVector& positions, bool geo,
         WRITE_ERROR("Cannot convert geo-positions because the network has no geo-reference");
         return;
     }
+    SUMOVehicleClass vClass = SVC_PASSENGER;
+    SUMOVTypeParameter* type = myNet.getVehicleTypeSecure(myVehicleParameter->vtypeid);
+    if (type != nullptr) {
+        vClass = type->vehicleClass;
+    }
     for (Position pos : positions) {
         Position orig = pos;
         if (geo) {
@@ -734,6 +739,9 @@ RORouteHandler::parseGeoEdges(const PositionVector& positions, bool geo,
         const ROLane* best = nullptr;
         for (const Named* o : lanes) {
             const ROLane* cand = static_cast<const ROLane*>(o);
+            if (!cand->allowsVehicleClass(vClass)) {
+                continue;
+            }
             double dist = cand->getShape().distance2D(pos);
             if (dist < minDist) {
                 minDist = dist;
