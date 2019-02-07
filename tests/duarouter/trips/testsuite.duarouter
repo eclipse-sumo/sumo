@@ -88,6 +88,9 @@ busStop
 # test trip validation (trip input and trip output)
 write-trips
 
+# test trip validation (trip input and trip output)
+write-trips.geo
+
 # test trip with intermediate container stop
 containerStop
 
