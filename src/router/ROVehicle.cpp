@@ -209,21 +209,29 @@ ROVehicle::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAltern
     // save the route
     if (writeTrip) {
         const ConstROEdgeVector edges = myRoute->getFirstRoute()->getEdgeVector();
+        const ROEdge* from = nullptr;
+        const ROEdge* to = nullptr;
         if (edges.size() > 0) {
             if (edges.front()->isTazConnector()) {
                 if (edges.size() > 1) {
-                    os.writeAttr(SUMO_ATTR_FROM, edges[1]->getID());
+                    from = edges[1];
                 }
             } else {
-                os.writeAttr(SUMO_ATTR_FROM, edges[0]->getID());
+                from = edges[0];
             }
             if (edges.back()->isTazConnector()) {
                 if (edges.size() > 1) {
-                    os.writeAttr(SUMO_ATTR_TO, edges[edges.size() - 2]->getID());
+                    to = edges[edges.size() - 2];
                 }
             } else {
-                os.writeAttr(SUMO_ATTR_TO, edges[edges.size() - 1]->getID());
+                to = edges[edges.size() - 1];
             }
+        }
+        if (from != nullptr) {
+            os.writeAttr(SUMO_ATTR_FROM, from->getID());
+        }
+        if (to != nullptr) {
+            os.writeAttr(SUMO_ATTR_TO, to->getID());
         }
         if (getParameter().via.size() > 0) {
             os.writeAttr(SUMO_ATTR_VIA, getParameter().via);
