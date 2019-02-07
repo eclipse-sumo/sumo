@@ -91,6 +91,9 @@ write-trips
 # test trip validation (trip input and trip output)
 write-trips.geo
 
+# test reading trips with geo-coordinates
+geoTrips
+
 # test trip with intermediate container stop
 containerStop
 
