@@ -126,7 +126,7 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
         myAttributeCarriers.demandElements.insert(std::make_pair(i, std::map<std::string, GNEDemandElement*>()));
     }
 
-    // default vehicle type is always available
+    // Create default vehicle
     GNEVehicleType* defaultVehicleType = new GNEVehicleType(myViewNet, DEFAULT_VTYPE_ID);
     myAttributeCarriers.demandElements.at(defaultVehicleType->getTagProperty().getTag()).insert(std::make_pair(defaultVehicleType->getID(), defaultVehicleType));
     defaultVehicleType->incRef("GNENet::DEFAULT_VEHTYPE");
@@ -166,7 +166,7 @@ GNENet::~GNENet() {
             delete j.second;
         }
     }
-    // Drop demand elements (Only used for demand elements that were inserted without using GNEChange_DemandElement)
+    // Drop demand elements (Only used for demand elements that were inserted without using GNEChange_DemandElement, for example the default VType")
     for (auto it : myAttributeCarriers.demandElements) {
         for (auto j : it.second) {
             // decrease reference manually (because it was increased manually in GNERouteHandler)
@@ -1414,12 +1414,10 @@ GNENet::computeEverything(GNEApplicationWindow* window, bool force, bool volatil
         for (auto i : listOfTags) {
             myAttributeCarriers.additionals.insert(std::make_pair(i, std::map<std::string, GNEAdditional*>()));
         }
-
-        // default vehicle type is always available
-        GNEVehicleType* defaultVehicleType = new GNEVehicleType(myViewNet, DEFAULT_VTYPE_ID);
-        myAttributeCarriers.demandElements.at(defaultVehicleType->getTagProperty().getTag()).insert(std::make_pair(defaultVehicleType->getID(), defaultVehicleType));
-        defaultVehicleType->incRef("GNENet::DEFAULT_VEHTYPE");
-
+        listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TagType::TAGTYPE_TAZ, false);
+        for (auto i : listOfTags) {
+            myAttributeCarriers.additionals.insert(std::make_pair(i, std::map<std::string, GNEAdditional*>()));
+        }
         // Create additional handler
         GNEAdditionalHandler additionalHandler(additionalPath, myViewNet, false);
         // Run parser
@@ -1435,16 +1433,10 @@ GNENet::computeEverything(GNEApplicationWindow* window, bool force, bool volatil
     // load demand elements if was recomputed with volatile options
     if (demandPath != "") {
         // fill demandElements with tags
-        auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TagType::TAGTYPE_ADDITIONAL, false);
+        auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TagType::TAGTYPE_DEMANDELEMENT, false);
         for (auto i : listOfTags) {
             myAttributeCarriers.demandElements.insert(std::make_pair(i, std::map<std::string, GNEDemandElement*>()));
         }
-        /*
-        // default vehicle type is always available
-        GNEVehicleType* defaultVehicleType = new GNEVehicleType(myViewNet, DEFAULT_VTYPE_ID);
-        myAttributeCarriers.demandElements.at(defaultVehicleType->getTagProperty().getTag()).insert(std::make_pair(defaultVehicleType->getID(), defaultVehicleType));
-        defaultVehicleType->incRef("GNENet::DEFAULT_VEHTYPE");
-        */
         // Create demandElement handler
         GNERouteHandler demandElementHandler(demandPath, myViewNet, false);
         // Run parser
@@ -2188,24 +2180,6 @@ void
 GNENet::saveAdditionalsConfirmed(const std::string& filename) {
     OutputDevice& device = OutputDevice::getDevice(filename);
     device.writeXMLHeader("additional", "additional_file.xsd");
-    // first write all vehicle types (Except DEFAULT_VTYPE_ID)
-    for (auto i : myAttributeCarriers.additionals) {
-        if (i.first == SUMO_TAG_VTYPE) {
-            for (auto j : i.second) {
-                if (j.second->getID() != DEFAULT_VTYPE_ID) {
-                    j.second->writeAdditional(device);
-                }
-            }
-        }
-    }
-    // now write all routes
-    for (auto i : myAttributeCarriers.additionals) {
-        if (i.first == SUMO_TAG_ROUTE) {
-            for (auto j : i.second) {
-                j.second->writeAdditional(device);
-            }
-        }
-    }
     // now write all route probes (see Ticket #4058)
     for (auto i : myAttributeCarriers.additionals) {
         if (i.first == SUMO_TAG_ROUTEPROBE) {
@@ -2262,7 +2236,7 @@ GNENet::saveAdditionalsConfirmed(const std::string& filename) {
 void
 GNENet::saveDemandElementsConfirmed(const std::string& filename) {
     OutputDevice& device = OutputDevice::getDevice(filename);
-    device.writeXMLHeader("routes", "route_file.xsd");
+    device.writeXMLHeader("routes", "routes_file.xsd");
     // first write all routes
     for (auto i : myAttributeCarriers.demandElements) {
         if (i.first == SUMO_TAG_ROUTE) {
@@ -2271,11 +2245,13 @@ GNENet::saveDemandElementsConfirmed(const std::string& filename) {
             }
         }
     }
-    // now  write all vehicle types
+    // now  write all vehicle types  (Except default VTYpe)
     for (auto i : myAttributeCarriers.demandElements) {
         if (i.first == SUMO_TAG_VTYPE) {
             for (auto j : i.second) {
-                j.second->writeDemandElement(device);
+                if (j.first != DEFAULT_VTYPE_ID) {
+                    j.second->writeDemandElement(device);
+                }
             }
         }
     }
@@ -2874,6 +2850,15 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
             }
         }
         myAttributeCarriers.additionals.clear();
+        // fill additionals with tags (note: this include the TAZS)
+        auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TagType::TAGTYPE_ADDITIONAL, false);
+        for (auto i : listOfTags) {
+            myAttributeCarriers.additionals.insert(std::make_pair(i, std::map<std::string, GNEAdditional*>()));
+        }
+        listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TagType::TAGTYPE_TAZ, false);
+        for (auto i : listOfTags) {
+            myAttributeCarriers.additionals.insert(std::make_pair(i, std::map<std::string, GNEAdditional*>()));
+        }
 
         // clear rest of polygons that weren't removed during cleaning of undo list
         for (const auto& it : myPolygons) {
@@ -2897,6 +2882,11 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
             }
         }
         myAttributeCarriers.additionals.clear();
+        // fill demand elements with tags
+        listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TagType::TAGTYPE_DEMANDELEMENT, false);
+        for (auto i : listOfTags) {
+            myAttributeCarriers.demandElements.insert(std::make_pair(i, std::map<std::string, GNEDemandElement*>()));
+        }
 
         // init again junction an edges (Additionals and shapes will be loaded after the end of this function)
         initJunctionsAndEdges();

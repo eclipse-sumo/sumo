@@ -1816,7 +1816,7 @@ GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*
             demandElementsSavePath = "";
         }
         // compute with volatile options
-        myNet->computeEverything(this, true, true, additionalsSavePath);
+        myNet->computeEverything(this, true, true, additionalsSavePath, demandElementsSavePath);
         updateControls();
         return 1;
     }
