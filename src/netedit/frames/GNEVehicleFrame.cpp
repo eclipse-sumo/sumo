@@ -280,8 +280,8 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
             SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, myVehicleAttributes->getPredefinedTagsMML(), toString(vehicleTag));
             // obtain vehicle parameters in vehicleParameters
             SUMOVehicleParameter* vehicleParameters = SUMOVehicleParserHelper::parseVehicleAttributes(SUMOSAXAttrs);
-            // creast it in RouteFrame
-
+            // create it in RouteFrame
+            GNERouteHandler::buildVehicle(myViewNet, true, vehicleParameters);
             // delete 
             delete vehicleParameters;
             // all ok, then return true;

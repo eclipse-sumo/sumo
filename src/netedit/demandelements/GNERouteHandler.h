@@ -52,6 +52,9 @@ public:
 
     /// @brief Destructor
     ~GNERouteHandler();
+    
+    /// @brief build vehicle
+    static void buildVehicle(GNEViewNet* viewNet, bool undoDemandElements, SUMOVehicleParameter* myVehicleParameter);
 
 protected:
     /// @brief opens a type distribution for reading
@@ -100,9 +103,6 @@ protected:
 
     /// @brief add a fully specified walk
     void addWalk(const SUMOSAXAttributes& attrs);
-
-    /// @brief build vehicle
-    static void buildVehicle(GNEViewNet* viewNet, bool undoDemandElements, SUMOVehicleParameter* myVehicleParameter);
 
 private:
     /// @brief flag used for parsing route attribute
