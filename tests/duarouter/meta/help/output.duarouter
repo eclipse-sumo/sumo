@@ -1,4 +1,4 @@
-Eclipse SUMO duarouter Version v1_1_0+0040-b68edb7a21e
+Eclipse SUMO duarouter Version v1_0_1+0645-93703db
  Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 Shortest path router and DUE computer for the microscopic, multi-modal traffic
   simulation SUMO.
@@ -53,6 +53,7 @@ Output Options:
                                         travel times to FILE
   --write-trips                       Write trips instead of vehicles (for
                                         validating trip input)
+  --write-trips.geo                   Write trips with geo-coordinates
   --exit-times                        Write exit times (weights) for each edge
 
 Processing Options:
