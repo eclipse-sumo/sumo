@@ -113,7 +113,9 @@ RORouteDef::preComputeCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router
                    myAlternatives[0]->getLast()->getID() + "'.");
         return;
     }
-    if (myTryRepair || myUsingJTRR) {
+    const bool skipTripRouting = (oc.exists("write-trips") && oc.getBool("write-trips") 
+            && RouteCostCalculator<RORoute, ROEdge, ROVehicle>::getCalculator().skipRouteCalculation());
+    if ((myTryRepair && !skipTripRouting) || myUsingJTRR) {
         ConstROEdgeVector newEdges;
         if (repairCurrentRoute(router, begin, veh, myAlternatives[0]->getEdgeVector(), newEdges)) {
             if (myAlternatives[0]->getEdgeVector() != newEdges) {
