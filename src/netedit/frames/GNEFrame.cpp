@@ -450,7 +450,13 @@ long GNEFrame::ACAttributeRow::onCmdSetColorAttribute(FXObject*, FXSelector, voi
 GNEFrame::ACAttributes::ACAttributes(GNEFrame* frameParent) :
     FXGroupBox(frameParent->myContentFrame, "Internal attributes", GUIDesignGroupBoxFrame),
     myFrameParent(frameParent) {
-
+    // fill myPredefinedTagsMML (to avoid repeating this fill during every element creation)
+    int i = 0;
+    while (SUMOXMLDefinitions::attrs[i].key != SUMO_ATTR_NOTHING) {
+        myPredefinedTagsMML[SUMOXMLDefinitions::attrs[i].key] = toString(SUMOXMLDefinitions::attrs[i].str);
+        myPredefinedTagsMML[SUMOXMLDefinitions::attrs[i].key] = SUMOXMLDefinitions::attrs[i].str;
+        i++;
+    }
     // Create single parameters
     for (int i = 0; i < GNEAttributeCarrier::getHigherNumberOfAttributes(); i++) {
         myACAttributeRows.push_back(new ACAttributeRow(this));
@@ -502,6 +508,12 @@ GNEFrame::ACAttributes::getAttributesAndValues() const {
         }
     }
     return values;
+}
+
+
+const std::map<int, std::string> &
+GNEFrame::ACAttributes::getPredefinedTagsMML() const {
+    return myPredefinedTagsMML;
 }
 
 

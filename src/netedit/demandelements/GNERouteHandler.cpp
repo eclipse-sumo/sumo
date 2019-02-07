@@ -49,49 +49,6 @@ GNERouteHandler::GNERouteHandler(const std::string& file, GNEViewNet* viewNet, b
 GNERouteHandler::~GNERouteHandler() {}
 
 
-bool 
-GNERouteHandler::buildDemandElement(GNEViewNet* viewNet, SumoXMLTag tag, const std::map<SumoXMLAttr, std::string> &valuesMap) {
-    /** temporal **/
-    switch (tag) {
-        case SUMO_TAG_VEHICLE: {
-            // obtain routes and vtypes
-            GNEDemandElement* vType = viewNet->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, valuesMap.at(SUMO_ATTR_TYPE), false);
-            GNEDemandElement* route = viewNet->getNet()->retrieveDemandElement(SUMO_TAG_ROUTE, valuesMap.at(SUMO_ATTR_ROUTE), false);
-            if (vType == nullptr) {
-                WRITE_WARNING("Invalid vehicle Type '" + valuesMap.at(SUMO_ATTR_TYPE) + "' used in vehicle '" + valuesMap.at(SUMO_ATTR_ID) + "'.");
-            } else if (route == nullptr) {
-                WRITE_WARNING("Invalid route '" + valuesMap.at(SUMO_ATTR_ROUTE) + "' used in vehicle '" + valuesMap.at(SUMO_ATTR_ID) + "'.");
-            } else {
-                // create vehicle using myVehicleParameter 
-                GNEVehicle* vehicle = new GNEVehicle(viewNet, valuesMap.at(SUMO_ATTR_ID), vType, route);
-                // add it using GNEChange_DemandElement
-                viewNet->getUndoList()->p_begin("add " + vehicle->getTagStr());
-                viewNet->getUndoList()->add(new GNEChange_DemandElement(vehicle, true), true);
-                viewNet->getUndoList()->p_end();
-            }
-            return true;
-        }
-        case SUMO_TAG_FLOW: {
-            //
-            return false;
-        }
-        case SUMO_TAG_TRIP: {
-            //
-            return false;
-        }
-        case SUMO_TAG_VTYPE: {
-
-            return true;
-        }
-        default:
-            return false;
-    }
-    /** **/
-    // Convert valuesMap into SUMO SUMOSAXAttributes
-    return true;
-}
-
-
 void 
 GNERouteHandler::openVehicleTypeDistribution(const SUMOSAXAttributes& /*attrs*/) {
     // currently unused
@@ -158,33 +115,8 @@ GNERouteHandler::closeRouteDistribution() {
 
 void 
 GNERouteHandler::closeVehicle() {
-    // first check if vehicle parameter was sucesfulyl created
-    if(myVehicleParameter) {
-        // now check if exist another VType with the same ID
-        if (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_VEHICLE, myVehicleParameter->id, false) != nullptr) {
-            WRITE_WARNING("There is another " + toString(SUMO_TAG_VEHICLE) + " with the same ID='" + myVehicleParameter->id + "'.");
-        } else {
-            // obtain routes and vtypes
-            GNEDemandElement* vType = myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, myVehicleParameter->vtypeid, false);
-            GNEDemandElement* route = myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_ROUTE, myVehicleParameter->routeid, false);
-            if (vType == nullptr) {
-                WRITE_WARNING("Invalid vehicle Type '" + myVehicleParameter->vtypeid + "' used in vehicle '" + myVehicleParameter->id + "'.");
-            } else if (route == nullptr) {
-                WRITE_WARNING("Invalid route '" + myVehicleParameter->routeid + "' used in vehicle '" + myVehicleParameter->id + "'.");
-            } else {
-                // create vehicle using myVehicleParameter 
-                GNEVehicle* vehicle = new GNEVehicle(myViewNet, *myVehicleParameter, vType, route);
-                if (myUndoDemandElements) {
-                    myViewNet->getUndoList()->p_begin("add " + vehicle->getTagStr());
-                    myViewNet->getUndoList()->add(new GNEChange_DemandElement(vehicle, true), true);
-                    myViewNet->getUndoList()->p_end();
-                } else {
-                    myViewNet->getNet()->insertDemandElement(vehicle);
-                    vehicle->incRef("buildVehicle");
-                }
-            }
-        }
-    }
+    // build vehicle
+    buildVehicle(myViewNet, myUndoDemandElements, myVehicleParameter);
 }
 
 
@@ -244,6 +176,38 @@ GNERouteHandler::addPersonTrip(const SUMOSAXAttributes& /*attrs*/) {
 void 
 GNERouteHandler::addWalk(const SUMOSAXAttributes& /*attrs*/) {
     // currently unused
+}
+
+
+void 
+GNERouteHandler::buildVehicle(GNEViewNet* viewNet, bool undoDemandElements, SUMOVehicleParameter* vehicleParameter) {
+    // first check if vehicle parameter was sucesfulyl created
+    if(vehicleParameter) {
+        // now check if exist another vehicle with the same ID
+        if (viewNet->getNet()->retrieveDemandElement(SUMO_TAG_VEHICLE, vehicleParameter->id, false) != nullptr) {
+            WRITE_WARNING("There is another " + toString(SUMO_TAG_VEHICLE) + " with the same ID='" + vehicleParameter->id + "'.");
+        } else {
+            // obtain routes and vtypes
+            GNEDemandElement* vType = viewNet->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, vehicleParameter->vtypeid, false);
+            GNEDemandElement* route = viewNet->getNet()->retrieveDemandElement(SUMO_TAG_ROUTE, vehicleParameter->routeid, false);
+            if (vType == nullptr) {
+                WRITE_WARNING("Invalid vehicle Type '" + vehicleParameter->vtypeid + "' used in vehicle '" + vehicleParameter->id + "'.");
+            } else if (route == nullptr) {
+                WRITE_WARNING("Invalid route '" + vehicleParameter->routeid + "' used in vehicle '" + vehicleParameter->id + "'.");
+            } else {
+                // create vehicle using vehicleParameter 
+                GNEVehicle* vehicle = new GNEVehicle(viewNet, *vehicleParameter, vType, route);
+                if (undoDemandElements) {
+                    viewNet->getUndoList()->p_begin("add " + vehicle->getTagStr());
+                    viewNet->getUndoList()->add(new GNEChange_DemandElement(vehicle, true), true);
+                    viewNet->getUndoList()->p_end();
+                } else {
+                    viewNet->getNet()->insertDemandElement(vehicle);
+                    vehicle->incRef("buildVehicle");
+                }
+            }
+        }
+    }
 }
 
 /****************************************************************************/

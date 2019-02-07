@@ -32,6 +32,8 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 #include <utils/common/SUMOVehicleClass.h>
+#include <utils/xml/SUMOSAXAttributesImpl_Cached.h>
+#include <utils/vehicle/SUMOVehicleParserHelper.h>
 
 #include "GNEVehicleFrame.h"
 
@@ -274,8 +276,16 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
            (objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE)) {
             // obtain route
             valuesMap[SUMO_ATTR_ROUTE] = objectsUnderCursor.getDemandElementFront()->getID();
-            // build vehicle/flow
-            return GNERouteHandler::buildDemandElement(myViewNet, vehicleTag, valuesMap);
+            // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
+            SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, myVehicleAttributes->getPredefinedTagsMML(), toString(vehicleTag));
+            // obtain vehicle parameters in vehicleParameters
+            SUMOVehicleParameter* vehicleParameters = SUMOVehicleParserHelper::parseVehicleAttributes(SUMOSAXAttrs);
+            // creast it in RouteFrame
+
+            // delete 
+            delete vehicleParameters;
+            // all ok, then return true;
+            return true;
         } else {
             myViewNet->setStatusBarText(toString(vehicleTag) + " has to be placed within a route.");
             return false;

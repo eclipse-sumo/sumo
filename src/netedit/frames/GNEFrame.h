@@ -201,6 +201,9 @@ public:
         /// @brief get attributes and their values
         std::map<SumoXMLAttr, std::string> getAttributesAndValues() const;
 
+        /// @brief get predefinedTagsMML
+        const std::map<int, std::string> &getPredefinedTagsMML() const;
+
         /// @brief check if parameters of attributes are valid
         bool areValuesValid() const;
 
@@ -226,6 +229,9 @@ public:
 
         /// @brief current edited Tag Properties
         GNEAttributeCarrier::TagProperties myTagProperties;
+
+        /// @brief Map of attribute ids to their (readable) string-representation (needed for SUMOSAXAttributesImpl_Cached)
+        std::map<int, std::string> myPredefinedTagsMML;
 
         /// @brief vector with the ACAttribute Rows
         std::vector<ACAttributeRow*> myACAttributeRows;

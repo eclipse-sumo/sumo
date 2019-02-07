@@ -45,13 +45,24 @@ class SUMOSAXAttributesImpl_Cached : public SUMOSAXAttributes {
 public:
     /** @brief Constructor
      *
-     * @param[in] attrs The encapsulated xerces-attributes
+     * @param[in] attrs The encapsulated xerces-attributes (string-string)
      * @param[in] predefinedTagsMML Map of attribute ids to their (readable) string-representation
      * @param[in] objectType object type in string format
      */
     SUMOSAXAttributesImpl_Cached(const std::map<std::string, std::string>& attrs,
                                  const std::map<int, std::string>& predefinedTagsMML,
                                  const std::string& objectType);
+
+    /** @brief Constructor
+     *
+     * @param[in] attrs The encapsulated xerces-attributes (SumoXMLAttr-string)
+     * @param[in] predefinedTagsMML Map of attribute ids to their (readable) string-representation
+     * @param[in] objectType object type in string format
+     */
+    SUMOSAXAttributesImpl_Cached(const std::map<SumoXMLAttr, std::string>& attrs,
+                                 const std::map<int, std::string>& predefinedTagsMML,
+                                 const std::string& objectType);
+
     /// @brief Destructor
     ~SUMOSAXAttributesImpl_Cached();
 

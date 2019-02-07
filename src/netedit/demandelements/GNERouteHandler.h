@@ -53,9 +53,6 @@ public:
     /// @brief Destructor
     ~GNERouteHandler();
 
-    /// @brief build demand element
-    static bool buildDemandElement(GNEViewNet* viewNet, SumoXMLTag tag, const std::map<SumoXMLAttr, std::string> &valuesMap);
-
 protected:
     /// @brief opens a type distribution for reading
     void openVehicleTypeDistribution(const SUMOSAXAttributes& attrs);
@@ -103,6 +100,9 @@ protected:
 
     /// @brief add a fully specified walk
     void addWalk(const SUMOSAXAttributes& attrs);
+
+    /// @brief build vehicle
+    static void buildVehicle(GNEViewNet* viewNet, bool undoDemandElements, SUMOVehicleParameter* myVehicleParameter);
 
 private:
     /// @brief flag used for parsing route attribute
