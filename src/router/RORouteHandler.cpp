@@ -731,18 +731,23 @@ RORouteHandler::parseGeoEdges(const PositionVector& positions, bool geo,
         t->Search(cmin, cmax, sv);
         // use closest
         double minDist = std::numeric_limits<double>::max();
-        const Named* best = nullptr;
+        const ROLane* best = nullptr;
         for (const Named* o : lanes) {
-            double dist = static_cast<const ROLane*>(o)->getShape().distance2D(pos);
+            const ROLane* cand = static_cast<const ROLane*>(o);
+            double dist = cand->getShape().distance2D(pos);
             if (dist < minDist) {
                 minDist = dist;
-                best = o;
+                best = cand;
             }
         }
         if (best == nullptr) {
             myErrorOutput->inform("No edge found near position " + toString(orig, geo ? gPrecisionGeo : gPrecision) + " within the route " + rid + ".");
         } else {
-            into.push_back(&static_cast<const ROLane*>(best)->getEdge());
+            const ROEdge* bestEdge = &best->getEdge();
+            while (bestEdge->isInternal()) {
+                bestEdge = bestEdge->getSuccessors().front();
+            }
+            into.push_back(bestEdge);
         }
     }
 }
