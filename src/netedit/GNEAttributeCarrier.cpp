@@ -1610,6 +1610,11 @@ GNEAttributeCarrier::fillNetElements() {
             ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE,
             "sets custom shape for the connection");
         myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_DIR,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_NONEDITABLE,
+            "turning direction for this connection (computed)");
+        myTagProperties[currentTag].addAttribute(attrProperty);
     }
 }
 
