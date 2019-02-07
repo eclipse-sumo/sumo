@@ -961,28 +961,35 @@ class VehicleDomain(Domain):
             "!BiBdBd", tc.TYPE_COMPOUND, 2, tc.TYPE_DOUBLE, speed, tc.TYPE_DOUBLE, duration)
         self._connection._sendExact()
 
-    def openGap(self, vehID, newTimeHeadway, newSpaceHeadway, duration, changeRate, maxDecel=-1):
-        """openGap(string, double, double, double, double, double) -> None
+    def openGap(self, vehID, newTimeHeadway, newSpaceHeadway, duration, changeRate, maxDecel=-1, referenceVehID=None):
+        """openGap(string, double, double, double, double, double, string) -> None
 
         Changes the vehicle's desired time headway (cf-parameter tau) smoothly to the given new value
         using the given change rate. Similarly, the given space headway is applied gradually
         to achieve a minimal spatial gap.
         The vehicle is commanded to keep the increased headway for
-        the given duration once its target value is attained. Optionally, a maximal value for the
-        deceleration (>0) can be given to prevent harsh braking due to the change of tau.
+        the given duration once its target value is attained. The maximal value for the
+        deceleration can be given to prevent harsh braking due to the change of tau. If maxDecel=-1, 
+        the limit determined by the CF model is used. 
+        A vehicle ID for a reference vehicle can optionally be given, otherwise, the gap is created with
+        respect to the current leader on the ego vehicle's current lane.
         Note that this does only affect the following behavior regarding the current leader and does
         not influence the gap acceptance during lane change, etc.
         """
         if type(duration) is int and duration >= 1000:
             warnings.warn("API change now handles duration as floating point seconds", stacklevel=2)
-        nParams = 4 + int(maxDecel > 0)
-        msgLength = 1 + 4 + (1 + 8) * nParams  # compoundType, nParams, newHeadway, duration, changeRate, [maxDecel]
+        nParams = 5
+        msgLength = 1 + 4 + (1 + 8) * nParams  # compoundType, nParams, float params (2 newHeadways, duration, changeRate, maxDecel)
+        if referenceVehID is not None:
+            nParams = 6
+            msgLength += 1 + 4 + len(referenceVehID) # TYPE_STRING, len, referenceVehID
         self._connection._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_OPENGAP, vehID, msgLength)
-        self._connection._string += struct.pack("!BiBdBdBdBd", tc.TYPE_COMPOUND, nParams,
+        self._connection._string += struct.pack("!BiBdBdBdBdBd", tc.TYPE_COMPOUND, nParams,
                                                 tc.TYPE_DOUBLE, newTimeHeadway, tc.TYPE_DOUBLE, newSpaceHeadway,
-                                                tc.TYPE_DOUBLE, duration, tc.TYPE_DOUBLE, changeRate)
-        if nParams == 5:
-            self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, maxDecel)
+                                                tc.TYPE_DOUBLE, duration, tc.TYPE_DOUBLE, changeRate,
+                                                tc.TYPE_DOUBLE, maxDecel)
+        if nParams == 6:
+            self._connection._packString(referenceVehID)
         self._connection._sendExact()
 
     def deactivateGapControl(self, vehID):
