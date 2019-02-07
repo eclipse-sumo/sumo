@@ -27,3 +27,12 @@ without_maxDecel_slow_spacegap
 
 # Giving a smaller time headway than the original should trigger a warning
 warning_smaller_headway
+
+# Vehicle on the left lane is allowed to merge by gap creation. Gap control stays active after merge with original reference vehicle
+merger_with_reference_vehicle
+
+# Vehicle on the left lane is allowed to merge by gap creation. Gap control uses merger as reference vehicle
+merger_as_reference_vehicle
+
+# Vehicle on the left lane is is used as reference vehicle but is removed during gap creation process.
+reference_vehicle_removed

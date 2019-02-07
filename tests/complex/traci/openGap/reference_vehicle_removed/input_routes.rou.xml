@@ -1,0 +1,7 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="fast" speedFactor="1.1" sigma="0"/>
+    <vType id="slow" speedFactor="1.0" sigma="0"/>
+    <vehicle id="leader" type="slow" route="circle" depart="0" departPos="30" departLane="0" departSpeed="max" />
+    <vehicle id="merger" type="slow" route="circle" depart="0" departPos="0" departLane="1" arrivalPos="100" departSpeed="max" />
+    <vehicle id="follower" type="fast" route="circle" depart="0" departPos="20" departLane="0" departSpeed="max" />
+</routes>
