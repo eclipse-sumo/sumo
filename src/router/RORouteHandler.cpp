@@ -31,6 +31,7 @@
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
+#include <utils/geom/GeoConvHelper.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/UtilExceptions.h>
@@ -66,7 +67,9 @@ RORouteHandler::RORouteHandler(RONet& net, const std::string& file,
     myBegin(string2time(OptionsCont::getOptions().getString("begin"))),
     myKeepVTypeDist(OptionsCont::getOptions().getBool("keep-vtype-distributions")),
     myCurrentVTypeDistribution(nullptr),
-    myCurrentAlternatives(nullptr) {
+    myCurrentAlternatives(nullptr),
+    myLaneTree(nullptr)
+{
     myActiveRoute.reserve(100);
 }
 
@@ -85,6 +88,7 @@ RORouteHandler::parseFromViaTo(std::string element,
         useTaz = false;
     }
     bool ok = true;
+    const std::string rid = "for " + element + " '" + myVehicleParameter->id + "'";
     if ((useTaz || !attrs.hasAttribute(SUMO_ATTR_FROM)) && myVehicleParameter->wasSet(VEHPARS_FROM_TAZ_SET)) {
         const ROEdge* fromTaz = myNet.getEdge(myVehicleParameter->fromTaz + "-source");
         if (fromTaz == nullptr) {
@@ -94,16 +98,24 @@ RORouteHandler::parseFromViaTo(std::string element,
         } else {
             myActiveRoute.push_back(fromTaz);
         }
+    } else if (attrs.hasAttribute(SUMO_ATTR_FROMXY)){
+        parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_FROMXY, myVehicleParameter->id.c_str(), ok, true), false, myActiveRoute, rid);
+    } else if (attrs.hasAttribute(SUMO_ATTR_FROMLONLAT)){
+        parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_FROMLONLAT, myVehicleParameter->id.c_str(), ok, true), true, myActiveRoute, rid);
     } else {
-        parseEdges(attrs.getOpt<std::string>(SUMO_ATTR_FROM, myVehicleParameter->id.c_str(), ok, "", true),
-                   myActiveRoute, "for " + element + " '" + myVehicleParameter->id + "'");
+        parseEdges(attrs.getOpt<std::string>(SUMO_ATTR_FROM, myVehicleParameter->id.c_str(), ok, "", true), myActiveRoute, rid);
     }
-    if (!attrs.hasAttribute(SUMO_ATTR_VIA)) {
+    if (!attrs.hasAttribute(SUMO_ATTR_VIA) && !attrs.hasAttribute(SUMO_ATTR_VIALONLAT) && !attrs.hasAttribute(SUMO_ATTR_VIAXY)) {
         myInsertStopEdgesAt = (int)myActiveRoute.size();
     }
     ConstROEdgeVector viaEdges;
-    parseEdges(attrs.getOpt<std::string>(SUMO_ATTR_VIA, myVehicleParameter->id.c_str(), ok, "", true),
-               viaEdges, "for " + element + " '" + myVehicleParameter->id + "'");
+    if (attrs.hasAttribute(SUMO_ATTR_VIAXY)){
+        parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_VIAXY, myVehicleParameter->id.c_str(), ok, true), false, viaEdges, rid);
+    } else if (attrs.hasAttribute(SUMO_ATTR_VIALONLAT)){
+        parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_VIALONLAT, myVehicleParameter->id.c_str(), ok, true), true, viaEdges, rid);
+    } else {
+        parseEdges(attrs.getOpt<std::string>(SUMO_ATTR_VIA, myVehicleParameter->id.c_str(), ok, "", true), viaEdges, rid);
+    }
     for (ConstROEdgeVector::const_iterator i = viaEdges.begin(); i != viaEdges.end(); ++i) {
         myActiveRoute.push_back(*i);
         myVehicleParameter->via.push_back((*i)->getID());
@@ -118,9 +130,12 @@ RORouteHandler::parseFromViaTo(std::string element,
         } else {
             myActiveRoute.push_back(toTaz);
         }
+    } else if (attrs.hasAttribute(SUMO_ATTR_TOXY)){
+        parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_TOXY, myVehicleParameter->id.c_str(), ok, true), false, myActiveRoute, rid);
+    } else if (attrs.hasAttribute(SUMO_ATTR_TOLONLAT)){
+        parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_TOLONLAT, myVehicleParameter->id.c_str(), ok, true), true, myActiveRoute, rid);
     } else {
-        parseEdges(attrs.getOpt<std::string>(SUMO_ATTR_TO, myVehicleParameter->id.c_str(), ok, "", true),
-                   myActiveRoute, "for " + element + " '" + myVehicleParameter->id + "'");
+        parseEdges(attrs.getOpt<std::string>(SUMO_ATTR_TO, myVehicleParameter->id.c_str(), ok, "", true), myActiveRoute, rid);
     }
     myActiveRouteID = "!" + myVehicleParameter->id;
     if (myVehicleParameter->routeid == "") {
@@ -692,6 +707,46 @@ RORouteHandler::parseEdges(const std::string& desc, ConstROEdgeVector& into,
     }
 }
 
+void 
+RORouteHandler::parseGeoEdges(const PositionVector& positions, bool geo, 
+        ConstROEdgeVector& into, const std::string& rid) {
+    const double range = 100;
+    NamedRTree* t = getLaneTree();
+    if (geo && !GeoConvHelper::getFinal().usingGeoProjection()) {
+        WRITE_ERROR("Cannot convert geo-positions because the network has no geo-reference");
+        return;
+    }
+    for (Position pos : positions) {
+        Position orig = pos;
+        if (geo) {
+            GeoConvHelper::getFinal().x2cartesian_const(pos);
+        }
+        Boundary b;
+        b.add(pos);
+        b.grow(range);
+        const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
+        const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
+        std::set<const Named*> lanes;
+        Named::StoringVisitor sv(lanes);
+        t->Search(cmin, cmax, sv);
+        // use closest
+        double minDist = std::numeric_limits<double>::max();
+        const Named* best = nullptr;
+        for (const Named* o : lanes) {
+            double dist = static_cast<const ROLane*>(o)->getShape().distance2D(pos);
+            if (dist < minDist) {
+                minDist = dist;
+                best = o;
+            }
+        }
+        if (best == nullptr) {
+            myErrorOutput->inform("No edge found near position " + toString(orig) + " within the route " + rid + ".");
+        } else {
+            into.push_back(&static_cast<const ROLane*>(best)->getEdge());
+        }
+    }
+}
+
 
 void
 RORouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
@@ -796,6 +851,23 @@ RORouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
     if (ok) {
         myActivePerson->addWalk(myActiveRoute, duration, speed, departPos, arrivalPos, busStop);
     }
+}
+
+
+NamedRTree* 
+RORouteHandler::getLaneTree() {
+    if (myLaneTree == nullptr) {
+        myLaneTree = new NamedRTree();
+        for (const auto& edgeItem : myNet.getEdgeMap()) {
+            for (ROLane* lane : edgeItem.second->getLanes()) {
+                Boundary b = lane->getShape().getBoxBoundary();
+                const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
+                const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
+                myLaneTree->Insert(cmin, cmax, lane);
+            }
+        }
+    }
+    return myLaneTree;
 }
 
 

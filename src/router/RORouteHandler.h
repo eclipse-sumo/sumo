@@ -29,6 +29,7 @@
 #include <vector>
 #include <utils/distribution/RandomDistributor.h>
 #include <utils/common/SUMOTime.h>
+#include <utils/common/NamedRTree.h>
 #include <utils/router/PedestrianRouter.h>
 #include <utils/vehicle/SUMORouteHandler.h>
 
@@ -144,11 +145,18 @@ protected:
     void parseEdges(const std::string& desc, ConstROEdgeVector& into,
                     const std::string& rid);
 
+    /// Parse edges from coordinates
+    void parseGeoEdges(const PositionVector& positions, bool geo,
+            ConstROEdgeVector& into, const std::string& rid);
+
     /// @brief add a routing request for a walking or intermodal person
     void addPersonTrip(const SUMOSAXAttributes& attrs);
 
     /// @brief add a fully specified walk
     void addWalk(const SUMOSAXAttributes& attrs);
+
+    /// @brief initialize lane-RTree
+    NamedRTree* getLaneTree();
 
 protected:
     /// @brief The current route
@@ -189,6 +197,9 @@ protected:
 
     /// @brief The currently parsed route alternatives
     RORouteDef* myCurrentAlternatives;
+
+    /// @brief RTree for finding lanes
+    NamedRTree* myLaneTree;
 
 private:
     /// @brief Invalidated copy constructor
