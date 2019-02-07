@@ -82,6 +82,38 @@ GNERouteHandler::buildVehicle(GNEViewNet* viewNet, bool undoDemandElements, SUMO
 
 
 void 
+GNERouteHandler::buildFlow(GNEViewNet* viewNet, bool undoDemandElements, SUMOVehicleParameter* flowParameter) {
+    // first check if flow parameter was sucesfulyl created
+    if(flowParameter) {
+        // now check if exist another flow with the same ID
+        if (viewNet->getNet()->retrieveDemandElement(SUMO_TAG_FLOW, flowParameter->id, false) != nullptr) {
+            WRITE_WARNING("There is another " + toString(SUMO_TAG_FLOW) + " with the same ID='" + flowParameter->id + "'.");
+        } else {
+            // obtain routes and vtypes
+            GNEDemandElement* vType = viewNet->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, flowParameter->vtypeid, false);
+            GNEDemandElement* route = viewNet->getNet()->retrieveDemandElement(SUMO_TAG_ROUTE, flowParameter->routeid, false);
+            if (vType == nullptr) {
+                WRITE_WARNING("Invalid flow Type '" + flowParameter->vtypeid + "' used in flow '" + flowParameter->id + "'.");
+            } else if (route == nullptr) {
+                WRITE_WARNING("Invalid route '" + flowParameter->routeid + "' used in flow '" + flowParameter->id + "'.");
+            } else {
+                // create flow using flowParameter 
+                GNEVehicle* flow = new GNEVehicle(viewNet, *flowParameter, vType, route);
+                if (undoDemandElements) {
+                    viewNet->getUndoList()->p_begin("add " + flow->getTagStr());
+                    viewNet->getUndoList()->add(new GNEChange_DemandElement(flow, true), true);
+                    viewNet->getUndoList()->p_end();
+                } else {
+                    viewNet->getNet()->insertDemandElement(flow);
+                    flow->incRef("buildFlow");
+                }
+            }
+        }
+    }
+}
+
+
+void 
 GNERouteHandler::openVehicleTypeDistribution(const SUMOSAXAttributes& /*attrs*/) {
     // currently unused
 }
@@ -189,7 +221,8 @@ GNERouteHandler::closeContainer() {
 
 void 
 GNERouteHandler::closeFlow() {
-    // currently unused
+    // build vehicle
+    buildFlow(myViewNet, myUndoDemandElements, myVehicleParameter);
 }
 
 

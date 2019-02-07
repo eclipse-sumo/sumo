@@ -278,12 +278,21 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
             valuesMap[SUMO_ATTR_ROUTE] = objectsUnderCursor.getDemandElementFront()->getID();
             // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
             SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, myVehicleAttributes->getPredefinedTagsMML(), toString(vehicleTag));
-            // obtain vehicle parameters in vehicleParameters
-            SUMOVehicleParameter* vehicleParameters = SUMOVehicleParserHelper::parseVehicleAttributes(SUMOSAXAttrs);
-            // create it in RouteFrame
-            GNERouteHandler::buildVehicle(myViewNet, true, vehicleParameters);
-            // delete 
-            delete vehicleParameters;
+            if(vehicleTag == SUMO_TAG_VEHICLE) {
+                // obtain vehicle parameters in vehicleParameters
+                SUMOVehicleParameter* vehicleParameters = SUMOVehicleParserHelper::parseVehicleAttributes(SUMOSAXAttrs);
+                // create it in RouteFrame
+                GNERouteHandler::buildVehicle(myViewNet, true, vehicleParameters);
+                // delete vehicleParameters
+                delete vehicleParameters;
+            } else {
+                // obtain flow parameters in vehicleParameters
+                SUMOVehicleParameter* flowParameters = SUMOVehicleParserHelper::parseFlowAttributes(SUMOSAXAttrs, 0, SUMOTime_MAX);
+                // create it in RouteFrame
+                GNERouteHandler::buildFlow(myViewNet, true, flowParameters);
+                // delete vehicleParameters
+                delete flowParameters;
+            }
             // all ok, then return true;
             return true;
         } else {

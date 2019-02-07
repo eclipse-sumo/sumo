@@ -54,7 +54,10 @@ public:
     ~GNERouteHandler();
     
     /// @brief build vehicle
-    static void buildVehicle(GNEViewNet* viewNet, bool undoDemandElements, SUMOVehicleParameter* myVehicleParameter);
+    static void buildVehicle(GNEViewNet* viewNet, bool undoDemandElements, SUMOVehicleParameter* vehicleParameter);
+
+    /// @brief build flow
+    static void buildFlow(GNEViewNet* viewNet, bool undoDemandElements, SUMOVehicleParameter* flowParameter);
 
 protected:
     /// @brief opens a type distribution for reading
