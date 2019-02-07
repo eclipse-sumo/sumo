@@ -376,6 +376,9 @@ GNEConnection::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_DIR:
             return toString(getEdgeFrom()->getNBEdge()->getToNode()->getDirection(
                         getEdgeFrom()->getNBEdge(), nbCon.toEdge, OptionsCont::getOptions().getBool("lefthand")));
+        case SUMO_ATTR_STATE:
+            return toString(getEdgeFrom()->getNBEdge()->getToNode()->getLinkState(
+                        getEdgeFrom()->getNBEdge(), nbCon.toEdge, nbCon.fromLane, nbCon.toLane, nbCon.mayDefinitelyPass, nbCon.tlID));
         case SUMO_ATTR_CUSTOMSHAPE:
             return toString(nbCon.customShape);
         case GNE_ATTR_SELECTED:
@@ -435,6 +438,8 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
             break;
         case SUMO_ATTR_DIR:
             throw InvalidArgument("Attribute of '" + toString(key) + "' cannot be modified");
+        case SUMO_ATTR_STATE:
+            throw InvalidArgument("Attribute of '" + toString(key) + "' cannot be modified");
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -476,6 +481,8 @@ GNEConnection::isValid(SumoXMLAttr key, const std::string& value) {
             // empty custom shapes are allowed
             return canParse<PositionVector>(value);
         }
+        case SUMO_ATTR_STATE:
+            return false;
         case SUMO_ATTR_DIR:
             return false;
         case GNE_ATTR_SELECTED:
@@ -564,6 +571,8 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_SPEED:
             nbCon.speed = parse<double>(value);
             break;
+        case SUMO_ATTR_STATE:
+            throw InvalidArgument("Attribute of '" + toString(key) + "' cannot be modified");
         case SUMO_ATTR_DIR:
             throw InvalidArgument("Attribute of '" + toString(key) + "' cannot be modified");
         case SUMO_ATTR_CUSTOMSHAPE: {

@@ -1615,6 +1615,11 @@ GNEAttributeCarrier::fillNetElements() {
             ATTRPROPERTY_STRING | ATTRPROPERTY_NONEDITABLE,
             "turning direction for this connection (computed)");
         myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_STATE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_NONEDITABLE,
+            "link state for this connection (computed)");
+        myTagProperties[currentTag].addAttribute(attrProperty);
     }
 }
 
