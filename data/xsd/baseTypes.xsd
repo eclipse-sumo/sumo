@@ -103,6 +103,14 @@
         </xsd:union>
     </xsd:simpleType>
 
+    <xsd:simpleType name="positionType">
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern
+                value="&PositionPattern;">
+            </xsd:pattern>
+        </xsd:restriction>
+    </xsd:simpleType>
+
     <xsd:simpleType name="shapeType">
         <xsd:restriction base="xsd:string">
             <xsd:pattern
