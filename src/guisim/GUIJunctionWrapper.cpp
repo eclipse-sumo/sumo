@@ -191,7 +191,7 @@ GUIJunctionWrapper::getColorValue(const GUIVisualizationSettings& s) const {
         case 0:
             if (myAmWaterway) {
                 return 1;
-            } else if (myAmRailway) {
+            } else if (myAmRailway && MSNet::getInstance()->hasInternalLinks()) {
                 return 2;
             } else {
                 return 0;
