@@ -592,6 +592,10 @@ enum SumoXMLAttr {
     SUMO_ATTR_LANES,
     SUMO_ATTR_FROM,
     SUMO_ATTR_TO,
+    SUMO_ATTR_FROMLONLAT,
+    SUMO_ATTR_TOLONLAT,
+    SUMO_ATTR_FROMXY,
+    SUMO_ATTR_TOXY,
     SUMO_ATTR_PERIOD,
     SUMO_ATTR_FROM_TAZ,
     SUMO_ATTR_TO_TAZ,
@@ -668,6 +672,8 @@ enum SumoXMLAttr {
     SUMO_ATTR_DEST,
     SUMO_ATTR_SOURCE,
     SUMO_ATTR_VIA,
+    SUMO_ATTR_VIALONLAT,
+    SUMO_ATTR_VIAXY,
     /// @brief a list of node ids, used for controlling joining
     SUMO_ATTR_NODES,
 

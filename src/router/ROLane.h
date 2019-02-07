@@ -25,6 +25,7 @@
 #include <config.h>
 
 #include <vector>
+#include <utils/geom/PositionVector.h>
 #include <utils/common/Named.h>
 #include <utils/common/SUMOVehicleClass.h>
 
@@ -56,8 +57,8 @@ public:
      * @param[in] maxSpeed The maximum speed allowed on the lane
      * @param[in] permissions Vehicle classes that may pass this lane
      */
-    ROLane(const std::string& id, ROEdge* edge, double length, double maxSpeed, SVCPermissions permissions) :
-        Named(id), myEdge(edge), myLength(length), myMaxSpeed(maxSpeed), myPermissions(permissions) {
+    ROLane(const std::string& id, ROEdge* edge, double length, double maxSpeed, SVCPermissions permissions, const PositionVector& shape) :
+        Named(id), myEdge(edge), myLength(length), myMaxSpeed(maxSpeed), myPermissions(permissions), myShape(shape) {
     }
 
 
@@ -113,6 +114,10 @@ public:
         return (myPermissions & vclass) == vclass;
     }
 
+    const PositionVector& getShape() const {
+        return myShape;
+    }
+
 private:
     /// @brief The parent edge of this lane
     ROEdge* myEdge;
@@ -127,6 +132,9 @@ private:
     SVCPermissions myPermissions;
 
     std::vector<std::pair<const ROLane*, const ROEdge*> > myOutgoingLanes;
+
+    /// @brief shape for this lane
+    const PositionVector myShape;
 
 
 private:

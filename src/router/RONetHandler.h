@@ -175,6 +175,8 @@ protected:
 
     //@}
 
+    /// Parses network location description
+    void setLocation(const SUMOSAXAttributes& attrs);
 
 protected:
     /// @brief The net to store the information into

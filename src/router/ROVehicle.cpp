@@ -29,6 +29,7 @@
 #include <utils/common/StringUtils.h>
 #include <utils/common/ToString.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/geom/GeoConvHelper.h>
 #include <utils/vehicle/SUMOVTypeParameter.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
@@ -203,6 +204,7 @@ ROVehicle::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAltern
     }
 
     const bool writeTrip = options.exists("write-trips") && options.getBool("write-trips");
+    const bool writeGeoTrip = writeTrip && options.getBool("write-trips.geo");
     // write the vehicle (new style, with included routes)
     getParameter().write(os, options, writeTrip ? SUMO_TAG_TRIP : SUMO_TAG_VEHICLE);
 
@@ -228,13 +230,58 @@ ROVehicle::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAltern
             }
         }
         if (from != nullptr) {
-            os.writeAttr(SUMO_ATTR_FROM, from->getID());
+            if (writeGeoTrip) {
+                Position fromPos = from->getLanes()[0]->getShape().positionAtOffset2D(0);
+                if (GeoConvHelper::getFinal().usingGeoProjection()) {
+                    os.setPrecision(gPrecisionGeo);
+                    GeoConvHelper::getFinal().cartesian2geo(fromPos);
+                    os.writeAttr(SUMO_ATTR_FROMLONLAT, fromPos);
+                    os.setPrecision(gPrecision);
+                } else {
+                    os.writeAttr(SUMO_ATTR_FROMXY, fromPos);
+                }
+            } else {
+                os.writeAttr(SUMO_ATTR_FROM, from->getID());
+            }
         }
         if (to != nullptr) {
-            os.writeAttr(SUMO_ATTR_TO, to->getID());
+            if (writeGeoTrip) {
+                Position toPos = to->getLanes()[0]->getShape().positionAtOffset2D(to->getLanes()[0]->getShape().length2D());
+                if (GeoConvHelper::getFinal().usingGeoProjection()) {
+                    os.setPrecision(gPrecisionGeo);
+                    GeoConvHelper::getFinal().cartesian2geo(toPos);
+                    os.writeAttr(SUMO_ATTR_TOLONLAT, toPos);
+                    os.setPrecision(gPrecision);
+                } else {
+                    os.writeAttr(SUMO_ATTR_TOXY, toPos);
+                }
+            } else {
+                os.writeAttr(SUMO_ATTR_TO, to->getID());
+            }
         }
         if (getParameter().via.size() > 0) {
-            os.writeAttr(SUMO_ATTR_VIA, getParameter().via);
+            if (writeGeoTrip) {
+                PositionVector viaPositions;
+                for (const std::string& viaID : getParameter().via) {
+                    const ROEdge* viaEdge = RONet::getInstance()->getEdge(viaID);
+                    assert(viaEdge != nullptr);
+                    Position viaPos = viaEdge->getLanes()[0]->getShape().positionAtOffset2D(viaEdge->getLanes()[0]->getShape().length2D() / 2);
+                    viaPositions.push_back(viaPos);
+                }
+                if (GeoConvHelper::getFinal().usingGeoProjection()) {
+                    for (int i = 0; i < (int)viaPositions.size(); i++) {
+                        GeoConvHelper::getFinal().cartesian2geo(viaPositions[i]);
+                    }
+                    os.setPrecision(gPrecisionGeo);
+                    os.writeAttr(SUMO_ATTR_VIALONLAT, viaPositions);
+                    os.setPrecision(gPrecision);
+                } else {
+                    os.writeAttr(SUMO_ATTR_VIAXY, viaPositions);
+                }
+
+            } else {
+                os.writeAttr(SUMO_ATTR_VIA, getParameter().via);
+            }
         }
     } else {
         myRoute->writeXMLDefinition(os, this, asAlternatives, options.getBool("exit-times"));

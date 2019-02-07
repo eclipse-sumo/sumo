@@ -31,6 +31,8 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/ToString.h>
 #include <utils/common/StringUtils.h>
+#include <utils/geom/PositionVector.h>
+#include <utils/geom/GeoConvHelper.h>
 #include <utils/vehicle/SUMORouteHandler.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
@@ -60,6 +62,9 @@ void
 RONetHandler::myStartElement(int element,
                              const SUMOSAXAttributes& attrs) {
     switch (element) {
+        case SUMO_TAG_LOCATION:
+            setLocation(attrs);
+            break;
         case SUMO_TAG_EDGE:
             // in the first step, we do need the name to allocate the edge
             // in the second, we need it to know to which edge we have to add
@@ -204,6 +209,7 @@ RONetHandler::parseLane(const SUMOSAXAttributes& attrs) {
     double length = attrs.get<double>(SUMO_ATTR_LENGTH, id.c_str(), ok);
     std::string allow = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, id.c_str(), ok, "");
     std::string disallow = attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, id.c_str(), ok, "");
+    const PositionVector shape = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), ok);
     if (!ok) {
         return;
     }
@@ -215,7 +221,7 @@ RONetHandler::parseLane(const SUMOSAXAttributes& attrs) {
     }
     // add when both values are valid
     if (maxSpeed > 0 && length > 0 && id.length() > 0) {
-        myCurrentEdge->addLane(new ROLane(id, myCurrentEdge, length, maxSpeed, permissions));
+        myCurrentEdge->addLane(new ROLane(id, myCurrentEdge, length, maxSpeed, permissions, shape));
     } else {
         WRITE_WARNING("Ignoring lane '" + id + "' with speed " + toString(maxSpeed) + " and length " + toString(length));
     }
@@ -364,5 +370,17 @@ RONetHandler::parseDistrictEdge(const SUMOSAXAttributes& attrs, bool isSource) {
     myNet.addDistrictEdge(myCurrentName, id, isSource);
 }
 
+void
+RONetHandler::setLocation(const SUMOSAXAttributes& attrs) {
+    bool ok = true;
+    PositionVector s = attrs.get<PositionVector>(SUMO_ATTR_NET_OFFSET, nullptr, ok);
+    Boundary convBoundary = attrs.get<Boundary>(SUMO_ATTR_CONV_BOUNDARY, nullptr, ok);
+    Boundary origBoundary = attrs.get<Boundary>(SUMO_ATTR_ORIG_BOUNDARY, nullptr, ok);
+    std::string proj = attrs.get<std::string>(SUMO_ATTR_ORIG_PROJ, nullptr, ok);
+    if (ok) {
+        Position networkOffset = s[0];
+        GeoConvHelper::init(proj, networkOffset, origBoundary, convBoundary);
+    }
+}
 
 /****************************************************************************/
