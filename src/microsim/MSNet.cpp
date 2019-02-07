@@ -170,6 +170,20 @@ MSNet::getInstance(void) {
     throw ProcessError("A network was not yet constructed.");
 }
 
+void
+MSNet::initStatic() {
+    if (!MSGlobals::gUseMesoSim) {
+        MSVehicle::Influencer::init();
+    }
+}
+
+void
+MSNet::cleanupStatic() {
+    if (!MSGlobals::gUseMesoSim) {
+        MSVehicle::Influencer::cleanup();
+    }
+}
+
 
 MSNet::MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
              MSEventControl* endOfTimestepEvents,
@@ -214,6 +228,7 @@ MSNet::MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
         MSGlobals::gMesoNet = new MELoop(string2time(oc.getString("meso-recheck")));
     }
     myInstance = this;
+    initStatic();
 }
 
 
@@ -254,6 +269,7 @@ MSNet::closeBuilding(const OptionsCont& oc, MSEdgeControl* edges, MSJunctionCont
 
 
 MSNet::~MSNet() {
+    cleanupStatic();
     // delete controls
     delete myJunctions;
     delete myDetectorControl;

@@ -99,6 +99,7 @@
 //#define DEBUG_COND (true)
 #define DEBUG_COND (isSelected())
 //#define DEBUG_COND2(obj) (obj->getID() == "follower")
+#define DEBUG_COND2(obj) (obj->isSelected())
 
 
 #define STOPPING_PLACE_OFFSET 0.5
@@ -242,17 +243,70 @@ MSVehicle::WaitingTimeCollector::passTime(SUMOTime dt, bool waiting) {
 /* -------------------------------------------------------------------------
  * methods of MSVehicle::Influencer::GapControlState
  * ----------------------------------------------------------------------- */
+void
+MSVehicle::Influencer::GapControlVehStateListener::vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet::VehicleState to, const std::string& /*info*/) {
+//    std::cout << "GapControlVehStateListener::vehicleStateChanged() vehicle=" << vehicle->getID() << ", to=" << to << std::endl;
+    switch (to) {
+    case MSNet::VEHICLE_STATE_STARTING_TELEPORT:
+    case MSNet::VEHICLE_STATE_ARRIVED:
+    case MSNet::VEHICLE_STATE_STARTING_PARKING:
+    {
+        // Vehicle left road
+//         Look up reference vehicle in refVehMap and in case deactivate corresponding gap control
+        const MSVehicle* msVeh = static_cast<const MSVehicle*>(vehicle);
+//        std::cout << "GapControlVehStateListener::vehicleStateChanged() vehicle=" << vehicle->getID() << " left the road." << std::endl;
+        if (GapControlState::refVehMap.find(msVeh) != end(GapControlState::refVehMap)) {
+//            std::cout << "GapControlVehStateListener::deactivating ref vehicle=" << vehicle->getID() << std::endl;
+            GapControlState::refVehMap[msVeh]->deactivate();
+        }
+    }
+        break;
+    default:
+    {};
+        // do nothing, vehicle still on road
+    }
+}
+
+std::map<const MSVehicle*, MSVehicle::Influencer::GapControlState*>
+MSVehicle::Influencer::GapControlState::refVehMap;
+
+MSVehicle::Influencer::GapControlVehStateListener
+MSVehicle::Influencer::GapControlState::vehStateListener;
+
 MSVehicle::Influencer::GapControlState::GapControlState() :
     tauOriginal(-1), tauCurrent(-1), tauTarget(-1), addGapCurrent(-1), addGapTarget(-1),
-    remainingDuration(-1), changeRate(-1), maxDecel(-1), active(false), gapAttained(false), prevLeader(nullptr),
+    remainingDuration(-1), changeRate(-1), maxDecel(-1), referenceVeh(nullptr), active(false), gapAttained(false), prevLeader(nullptr),
     lastUpdate(-1), timeHeadwayIncrement(0.0), spaceHeadwayIncrement(0.0) {}
 
 
+MSVehicle::Influencer::GapControlState::~GapControlState() {
+    deactivate();
+}
+
 void
-MSVehicle::Influencer::GapControlState::activate(double tauOrig, double tauNew, double additionalGap, double dur, double rate, double decel) {
+MSVehicle::Influencer::GapControlState::init() {
+//    std::cout << "GapControlState::init()" << std::endl;
+    if (MSNet::hasInstance()){
+        MSNet::VehicleStateListener* vsl = dynamic_cast<MSNet::VehicleStateListener*>(&vehStateListener);
+        MSNet::getInstance()->addVehicleStateListener(vsl);
+    } else {
+        WRITE_ERROR("MSVehicle::Influencer::GapControlState::init(): No MSNet instance found!")
+    }
+}
+
+void
+MSVehicle::Influencer::GapControlState::cleanup() {
+    MSNet::VehicleStateListener* vsl = dynamic_cast<MSNet::VehicleStateListener*>(&vehStateListener);
+    MSNet::getInstance()->removeVehicleStateListener(vsl);
+}
+
+void
+MSVehicle::Influencer::GapControlState::activate(double tauOrig, double tauNew, double additionalGap, double dur, double rate, double decel, const MSVehicle* refVeh) {
     if (MSGlobals::gUseMesoSim) {
         WRITE_ERROR("No gap control available for meso.")
     } else {
+        // always deactivate control before activating (triggers clean-up of refVehMap)
+//        std::cout << "activate gap control with refVeh=" << (refVeh==nullptr? "NULL" : refVeh->getID()) << std::endl;
         tauOriginal = tauOrig;
         tauCurrent = tauOrig;
         tauTarget = tauNew;
@@ -261,18 +315,29 @@ MSVehicle::Influencer::GapControlState::activate(double tauOrig, double tauNew, 
         remainingDuration = dur;
         changeRate = rate;
         maxDecel = decel;
+        referenceVeh = refVeh;
         active = true;
         gapAttained = false;
         prevLeader = nullptr;
         lastUpdate = SIMSTEP - DELTA_T;
         timeHeadwayIncrement = changeRate * TS * (tauTarget - tauOriginal);
         spaceHeadwayIncrement = changeRate * TS * addGapTarget;
+
+        if (referenceVeh != nullptr) {
+            // Add refVeh to refVehMap
+            GapControlState::refVehMap[referenceVeh] = this;
+        }
     }
 }
 
 void
 MSVehicle::Influencer::GapControlState::deactivate() {
     active = false;
+    if (referenceVeh != nullptr) {
+    // Remove corresponding refVehMapEntry if appropriate
+        GapControlState::refVehMap.erase(referenceVeh);
+        referenceVeh = nullptr;
+    }
 }
 
 
@@ -302,6 +367,15 @@ MSVehicle::Influencer::Influencer() :
 
 MSVehicle::Influencer::~Influencer() {}
 
+void
+MSVehicle::Influencer::init() {
+    GapControlState::init();
+}
+
+void
+MSVehicle::Influencer::cleanup() {
+    GapControlState::cleanup();
+}
 
 void
 MSVehicle::Influencer::setSpeedTimeLine(const std::vector<std::pair<SUMOTime, double> >& speedTimeLine) {
@@ -310,11 +384,11 @@ MSVehicle::Influencer::setSpeedTimeLine(const std::vector<std::pair<SUMOTime, do
 }
 
 void
-MSVehicle::Influencer::activateGapController(double originalTau, double newTimeHeadway, double newSpaceHeadway, double duration, double changeRate, double maxDecel) {
+MSVehicle::Influencer::activateGapController(double originalTau, double newTimeHeadway, double newSpaceHeadway, double duration, double changeRate, double maxDecel, MSVehicle* refVeh) {
     if (myGapControlState == nullptr) {
         myGapControlState = std::make_shared<GapControlState>();
     }
-    myGapControlState->activate(originalTau, newTimeHeadway, newSpaceHeadway, duration, changeRate, maxDecel);
+    myGapControlState->activate(originalTau, newTimeHeadway, newSpaceHeadway, duration, changeRate, maxDecel, refVeh);
 }
 
 void
@@ -427,7 +501,31 @@ MSVehicle::Influencer::gapControlSpeed(SUMOTime currentTime, const SUMOVehicle* 
         const MSVehicle* msVeh = dynamic_cast<const MSVehicle*>(veh);
         assert(msVeh != nullptr);
         const double desiredTargetTimeSpacing = myGapControlState->tauTarget * currentSpeed;
-        std::pair<const MSVehicle* const, double> leaderInfo = msVeh->getLeader(MAX2(desiredTargetTimeSpacing, myGapControlState->addGapCurrent)  + 20.);
+        std::pair<const MSVehicle*, double> leaderInfo;
+        if (myGapControlState->referenceVeh == nullptr) {
+            // No reference vehicle specified -> use current leader as reference
+            leaderInfo = msVeh->getLeader(MAX2(desiredTargetTimeSpacing, myGapControlState->addGapCurrent)  + 20.);
+        } else {
+            // Control gap wrt reference vehicle
+            const MSVehicle* leader = myGapControlState->referenceVeh;
+            double dist = msVeh->getDistanceToPosition(leader->getPositionOnLane(), leader->getEdge()) - leader->getLength();
+            if (dist > 100000) {
+                // Reference vehicle was not found downstream the ego's route
+                // Maybe, it is behind the ego vehicle
+                dist = - leader->getDistanceToPosition(msVeh->getPositionOnLane(), msVeh->getEdge()) - leader->getLength();
+#ifdef DEBUG_TRACI
+                if DEBUG_COND2(veh) {
+                    if (dist < -100000) {
+                        // also the ego vehicle is not ahead of the reference vehicle -> no CF-relation
+                        std::cout <<  " Ego and reference vehicle are not in CF relation..." << std::endl;
+                    } else {
+                        std::cout <<  " Reference vehicle is behind ego..." << std::endl;
+                    }
+                }
+#endif
+            }
+            leaderInfo = std::make_pair(leader, dist - msVeh->getVehicleType().getMinGap());
+        }
         const double fakeDist = MAX2(0.0, leaderInfo.second - myGapControlState->addGapCurrent);
 #ifdef DEBUG_TRACI
         if DEBUG_COND2(veh) {

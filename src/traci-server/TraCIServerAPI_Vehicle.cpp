@@ -486,8 +486,8 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Create gap needs a compound object description.", outputStorage);
                 }
                 const int nParameter = inputStorage.readInt();
-                if (nParameter != 4 && nParameter != 5) {
-                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Create gap needs a compound object description of four or five items.", outputStorage);
+                if (nParameter != 5 && nParameter != 6) {
+                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Create gap needs a compound object description of five or six items.", outputStorage);
                 }
                 double newTimeHeadway = 0;
                 if (!server.readTypeCheckingDouble(inputStorage, newTimeHeadway)) {
@@ -505,8 +505,12 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 if (!server.readTypeCheckingDouble(inputStorage, changeRate)) {
                     return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The fourth create gap parameter must be the change rate given as a double.", outputStorage);
                 }
+                double maxDecel = 0;
+                if (!server.readTypeCheckingDouble(inputStorage, maxDecel)) {
+                    return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The fifth create gap parameter must be the maximal braking rate given as a double.", outputStorage);
+                }
 
-                if (newTimeHeadway == -1 && newSpaceHeadway == -1 && duration == -1 && changeRate == -1) {
+                if (newTimeHeadway == -1 && newSpaceHeadway == -1 && duration == -1 && changeRate == -1 && maxDecel == -1) {
                     libsumo::Vehicle::deactivateGapControl(id);
                 } else {
                     if (newTimeHeadway <= 0) {
@@ -521,18 +525,20 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                         return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Invalid time interval for create gap", outputStorage);
                     }
                     if (changeRate <= 0) {
-                        return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The value for the change rate must be positive for create gap", outputStorage);
+                        return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The value for the change rate must be positive for the openGap command", outputStorage);
                     }
-                    double maxDecel = -1;
-                    if (nParameter == 5) {
-                        if (!server.readTypeCheckingDouble(inputStorage, maxDecel)) {
-                            return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The fifth create gap parameter must be the maximal deceleration given as a double.", outputStorage);
-                        }
-                        if (changeRate <= 0) {
-                            return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The value for the maximal deceleration must be positive for create gap", outputStorage);
+                    if (maxDecel <= 0) {
+                        if (maxDecel != -1) {
+                            return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The value for the maximal braking rate must be positive for the openGap command", outputStorage);
+                        } // else if == -1: don't limit cf model's suggested brake rate, see libsumo::Vehicle::openGap
+                    }
+                    std::string refVehID = "";
+                    if (nParameter == 6) {
+                        if (!server.readTypeCheckingString(inputStorage, refVehID)) {
+                            return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "The sixth create gap parameter must be a reference vehicle's ID given as a string.", outputStorage);
                         }
                     }
-                    libsumo::Vehicle::openGap(id, newTimeHeadway, newSpaceHeadway, duration, changeRate, maxDecel);
+                    libsumo::Vehicle::openGap(id, newTimeHeadway, newSpaceHeadway, duration, changeRate, maxDecel, refVehID);
                 }
             }
             break;

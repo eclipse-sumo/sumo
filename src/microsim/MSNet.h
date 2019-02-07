@@ -116,6 +116,12 @@ public:
      */
     static MSNet* getInstance();
 
+    /// @brief Place for static initializations of simulation components (called after successful net build)
+    static void initStatic();
+
+    /// @brief Place for static initializations of simulation components (called after successful net build)
+    static void cleanupStatic();
+
 
     /** @brief Returns whether the network was already constructed
     * @return whether the network was already constructed

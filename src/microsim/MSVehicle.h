@@ -44,6 +44,7 @@
 #include "MSBaseVehicle.h"
 #include "MSLink.h"
 #include "MSLane.h"
+#include "MSNet.h"
 
 #define INVALID_SPEED 299792458 + 1 // nothing can go faster than the speed of light! Refs. #2577
 
@@ -1356,10 +1357,31 @@ public:
      */
     class Influencer {
     private:
+
+        /// @brief A static instance of this class in GapControlState deactivates gap control
+        ///        for vehicles whose reference vehicle is removed from the road network
+        class GapControlVehStateListener : public MSNet::VehicleStateListener {
+            /** @brief Called if a vehicle changes its state
+             * @param[in] vehicle The vehicle which changed its state
+             * @param[in] to The state the vehicle has changed to
+             * @param[in] info Additional information on the state change
+             * @note This deactivates the corresponding gap control when a reference vehicle is removed.
+             */
+            void vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet::VehicleState to, const std::string& info = "");
+        };
+
+
         /// @brief Container for state and parameters of the gap control
         struct GapControlState {
             GapControlState();
-            void activate(double tauOriginal, double tauTarget, double additionalGap, double duration, double changeRate, double maxDecel);
+            virtual ~GapControlState();
+            /// @brief Static initalization (adds vehicle state listener)
+            static void init();
+            /// @brief Static cleanup (removes vehicle state listener)
+            static void cleanup();
+            /// @brief Start gap control with given params
+            void activate(double tauOriginal, double tauTarget, double additionalGap, double duration, double changeRate, double maxDecel, const MSVehicle* refVeh);
+            /// @brief Stop gap control
             void deactivate();
             /// @brief Original value for the desired headway (will be reset after duration has expired)
             double tauOriginal;
@@ -1378,6 +1400,8 @@ public:
             double changeRate;
             /// @brief Maximal deceleration to be applied due to the adapted headway
             double maxDecel;
+            /// @brief reference vehicle for the gap - if it is null, the current leader on the ego's lane is used as a reference
+            const MSVehicle* referenceVeh;
             /// @brief Whether the gap control is active
             bool active;
             /// @brief Whether the desired gap was attained during the current activity phase (induces the remaining duration to decrease)
@@ -1388,15 +1412,24 @@ public:
             SUMOTime lastUpdate;
             /// @brief cache storage for the headway increments of the current operation
             double timeHeadwayIncrement, spaceHeadwayIncrement;
+
+            /// @brief stores reference vehicles currently in use by a gapController
+            static std::map<const MSVehicle*, GapControlState*> refVehMap;
+
+        private:
+            static GapControlVehStateListener vehStateListener;
         };
     public:
         /// @brief Constructor
         Influencer();
 
-
         /// @brief Destructor
         ~Influencer();
 
+        /// @brief Static initalization
+        static void init();
+        /// @brief Static cleanup
+        static void cleanup();
 
         /** @brief Sets a new velocity timeline
          * @param[in] speedTimeLine The time line of speeds to use
@@ -1405,7 +1438,7 @@ public:
 
         /** @brief Activates the gap control with the given parameters, @see GapControlState
          */
-        void activateGapController(double originalTau, double newTimeHeadway, double newSpaceHeadway, double duration, double changeRate, double maxDecel);
+        void activateGapController(double originalTau, double newTimeHeadway, double newSpaceHeadway, double duration, double changeRate, double maxDecel, MSVehicle* refVeh=nullptr);
 
         /** @brief Deactivates the gap control
          */

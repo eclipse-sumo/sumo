@@ -87,6 +87,16 @@ public:
         */
     double getSecureGap(const double speed, const double leaderSpeed, const double leaderMaxDecel) const;
 
+    /** @brief Computes the vehicle's acceptable speed at insertion
+     * @param[in] veh The vehicle (EGO)
+     * @param[in] speed The vehicle's speed
+     * @param[in] gap2pred The (netto) distance to the LEADER
+     * @param[in] predSpeed The speed of LEADER
+     * @return EGO's safe speed
+     */
+    double insertionFollowSpeed(const MSVehicle* const v, double speed, double gap2pred, double predSpeed, double predMaxDecel) const;
+
+
     /** @brief Returns the maximum gap at which an interaction between both vehicles occurs
     *
     * "interaction" means that the LEADER influences EGO's speed.
