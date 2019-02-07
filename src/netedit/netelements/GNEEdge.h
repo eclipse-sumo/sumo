@@ -274,7 +274,7 @@ public:
     static const double SNAP_RADIUS;
 
     /// @brief Dummy edge to use when a reference must be supplied in the no-arguments constructor (FOX technicality)
-    static GNEEdge DummyEdge;
+    static GNEEdge& getDummyEdge();
 
     /// @brief clear current connections
     void clearGNEConnections();
@@ -369,6 +369,7 @@ private:
 
     /// @brief constructor for dummy edge
     GNEEdge();
+
 };
 
 

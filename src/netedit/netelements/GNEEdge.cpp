@@ -52,7 +52,11 @@
 // ===========================================================================
 const double GNEEdge::SNAP_RADIUS = SUMO_const_halfLaneWidth;
 
-GNEEdge GNEEdge::DummyEdge;
+GNEEdge& GNEEdge::getDummyEdge() {
+    // @note: using local static idiom to avoid static initialization order problem
+    static GNEEdge* dummy = new GNEEdge(); // 'static local variable', this line is called only once
+    return *dummy; // this line gets called with the same 'dummy' every time the function is called
+}
 
 // ===========================================================================
 // members methods
