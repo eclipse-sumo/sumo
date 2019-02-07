@@ -151,10 +151,7 @@ GUIMEVehicle::getTypeParameterWindow(GUIMainWindow& app,
 
 bool
 GUIMEVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& /* s */, SUMOVehicleShape /* guiShape */, bool /* asImage */) const {
-    // undo scaling from GUIBaseVehicle::drawAction_drawVehicleAsPoly
-    glPopMatrix();
     GUIBaseVehicleHelper::drawAction_drawVehicleAsBoxPlus(getVType().getWidth(), getVType().getLength());
-    glPushMatrix();
     return true;
 }
 

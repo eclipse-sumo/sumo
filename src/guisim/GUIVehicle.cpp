@@ -538,7 +538,6 @@ GUIVehicle::drawAction_drawRailCarriages(const GUIVisualizationSettings& s, doub
     carriageGap *= upscaleLength;
     const double length = totalLength * upscaleLength;
     const double halfWidth = getVehicleType().getWidth() / 2.0 * exaggeration;
-    glPopMatrix(); // undo scaling and 90 degree rotation
     glPopMatrix(); // undo initial translation and rotation
     GLHelper::setColor(darker);
     const double xCornerCut = 0.3 * exaggeration;
@@ -625,14 +624,13 @@ GUIVehicle::drawAction_drawRailCarriages(const GUIVisualizationSettings& s, doub
         drawAction_drawVehicleBrakeLight(carriageLength);
         glPopMatrix();
     }
-    // restore matrices
+    // restore matrix
     glPushMatrix();
     front = getPosition();
     glTranslated(front.x(), front.y(), getType());
     const double degAngle = RAD2DEG(getAngle() + M_PI / 2.);
     glRotated(degAngle, 0, 0, 1);
     glScaled(exaggeration, upscaleLength, 1);
-    glPushMatrix();
 }
 
 
