@@ -34,6 +34,7 @@
 
 void 
 GUIShortcutsSubSys::buildSUMOAccelerators(GUIApplicationWindow *GUIApp) {
+
     // initialize Ctrl hotkeys with Caps Lock enabled using decimal code (to avoid problems in Linux)
 
     GUIApp->getAccelTable()->addAccel(parseKey(KEY_n, KEYMODIFIER_CONTROL), GUIApp, FXSEL(SEL_COMMAND, MID_OPEN_NETWORK));
@@ -95,6 +96,7 @@ void
 GUIShortcutsSubSys::buildNETEDITAccelerators(GNEApplicationWindow *GNEApp) {
 
     // initialize single hotkeys using upper and lower Keys (to avoid problems in Linux)
+
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_e), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_E_EDGEMODE));
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_E), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_E_EDGEMODE));
 
@@ -221,7 +223,7 @@ GUIShortcutsSubSys::buildNETEDITAccelerators(GNEApplicationWindow *GNEApp) {
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_c, KEYMODIFIER_CONTROL, KEYMODIFIER_SHIFT), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_C_SHOWCONNECTIONS));
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_C, KEYMODIFIER_CONTROL, KEYMODIFIER_SHIFT), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_C_SHOWCONNECTIONS));
 
-    GNEApp->getAccelTable()->addAccel(parseKey(KEY_H, KEYMODIFIER_CONTROL, KEYMODIFIER_SHIFT), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_H_TOOGLEELEVATION));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_h, KEYMODIFIER_CONTROL, KEYMODIFIER_SHIFT), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_H_TOOGLEELEVATION));
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_H, KEYMODIFIER_CONTROL, KEYMODIFIER_SHIFT), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_H_TOOGLEELEVATION));
 
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_i, KEYMODIFIER_CONTROL, KEYMODIFIER_SHIFT), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_I_SELECTEDGES));
