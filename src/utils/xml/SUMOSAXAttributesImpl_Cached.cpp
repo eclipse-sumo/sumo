@@ -49,8 +49,7 @@ SUMOSAXAttributesImpl_Cached::SUMOSAXAttributesImpl_Cached(
     myPredefinedTagsMML(predefinedTagsMML) { }
 
 
-SUMOSAXAttributesImpl_Cached::~SUMOSAXAttributesImpl_Cached() {
-}
+SUMOSAXAttributesImpl_Cached::~SUMOSAXAttributesImpl_Cached() { }
 
 
 bool
