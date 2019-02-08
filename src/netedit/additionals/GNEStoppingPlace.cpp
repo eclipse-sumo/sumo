@@ -136,9 +136,9 @@ GNEStoppingPlace::fixAdditionalProblem() {
 
 bool
 GNEStoppingPlace::checkStoppinPlacePosition(const std::string& startPosStr, const std::string& endPosStr, const double laneLength, const bool friendlyPos) {
-    // obtain start and end position in double format
+    // obtain start and end position in double format, depending if it can be parsed to double
     double startPos = GNEAttributeCarrier::canParse<double>(startPosStr) ? GNEAttributeCarrier::parse<double>(startPosStr) : 0;
-    double endPos = GNEAttributeCarrier::parse<double>(endPosStr) ? GNEAttributeCarrier::parse<double>(endPosStr) : laneLength;
+    double endPos = GNEAttributeCarrier::canParse<double>(endPosStr) ? GNEAttributeCarrier::parse<double>(endPosStr) : laneLength;
     // return check stop pos (note: this is the same function of SUMORouteHandler::checkStopPos)
     if (POSITION_EPS > laneLength) {
         return false;

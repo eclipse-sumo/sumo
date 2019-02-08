@@ -3597,6 +3597,12 @@ GNEAttributeCarrier::checkParsedAttribute(const TagProperties& tagProperties,
             errorFormat = "Cannot be parsed to float; ";
         }
     }
+    // Set extra checks for bool values
+    if (attrProperties.isBool()) {
+        if (!canParse<bool>(parsedAttribute)) {
+            errorFormat = "Cannot be parsed to boolean; ";
+        }
+    }
     // Set extra checks for position values
     if (attrProperties.isposition()) {
         // check if we're parsing a single position or an entire shape
@@ -3665,7 +3671,7 @@ GNEAttributeCarrier::checkParsedAttribute(const TagProperties& tagProperties,
     if (attrProperties.isFilename()) {
         if (SUMOXMLDefinitions::isValidFilename(parsedAttribute) == false) {
             errorFormat = "Filename contains invalid characters; ";
-        } else if (parsedAttribute.empty()) {
+        } else if (parsedAttribute.empty() && !attrProperties.isOptional()) {
             errorFormat = "Filename cannot be empty; ";
         }
     }
@@ -3704,7 +3710,7 @@ GNEAttributeCarrier::checkParsedAttribute(const TagProperties& tagProperties,
     if (errorFormat.size() > 0) {
         // if attribute is optional and has a default value, obtain it as string. In other case, abort.
         if (attrProperties.isOptional() && attrProperties.hasDefaultValue()) {
-            WRITE_WARNING("Format of optional " + attrProperties.getDescription() + " attribute '" + toString(attribute) + "' of " +
+            WRITE_DEBUG("Format of optional " + attrProperties.getDescription() + " attribute '" + toString(attribute) + "' of " +
                 warningMessage +  " is invalid; " + errorFormat + "Default value will be used.");
             // set default value defined in AttrProperties
             parsedAttribute = attrProperties.getDefaultValue();
