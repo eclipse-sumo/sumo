@@ -26,32 +26,47 @@ def parse_log(logfile, edges=True, aggregate=3600):
     reFrom = re.compile("lane='([^']*)'")
     reFromMeso = re.compile("edge '([^']*)'")
     reTime = re.compile("time.(\d*)\.")
+    reHRTime = re.compile("time.(\d):(\d\d):(\d\d):(\d*).")
     # counts per lane
     waitingCounts = defaultdict(lambda: 0)
     collisionCounts = defaultdict(lambda: 0)
     # counts per step
     waitingStepCounts = defaultdict(lambda: 0)
     collisionStepCounts = defaultdict(lambda: 0)
-    for line in open(logfile):
+    for index, line in enumerate(open(logfile)):
         try:
             if "Warning: Teleporting vehicle" in line:
                 # figure out whether its micro or meso
+                
                 match = reFrom.search(line)
                 if match is None:
                     match = reFromMeso.search(line)
                 edge = match.group(1)
-                time = reTime.search(line).group(1)
+                timeMatch = reTime.search(line)
+                if timeMatch:
+                    time = int(timeMatch.group(1))
+                else:
+                    timeMatch = reHRTime.search(line)
+                    time = (24 * 3600 * int(timeMatch.group(1))
+                            + 3600 * int(timeMatch.group(2))
+                            + 60 * int(timeMatch.group(3))
+                            + int(timeMatch.group(4)))
                 if edges:
                     edge = edge[:-2]
                 if "collision" in line:
                     collisionCounts[edge] += 1
-                    collisionStepCounts[int(time) / aggregate] += 1
+                    collisionStepCounts[time / aggregate] += 1
                 else:
                     waitingCounts[edge] += 1
-                    waitingStepCounts[int(time) / aggregate] += 1
+                    waitingStepCounts[time / aggregate] += 1
         except Exception:
             print(sys.exc_info())
             sys.exit("error when parsing line '%s'" % line)
+        if index % 1000 == 0:
+            sys.stdout.write(".")
+            sys.stdout.flush()
+    print()
+    print("read %s lines" % index)
 
     return (waitingCounts, collisionCounts,
             waitingStepCounts, collisionStepCounts)
