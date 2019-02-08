@@ -1963,6 +1963,16 @@ MSVehicle::getStopEdges() const {
 }
 
 
+std::vector<int>
+MSVehicle::getStopIndices() const {
+    std::vector<int> result;
+    for (std::list<Stop>::const_iterator iter = myStops.begin(); iter != myStops.end(); ++iter) {
+        result.push_back(iter->edge - myRoute->begin());
+    }
+    return result;
+}
+
+
 double
 MSVehicle::getBrakeGap() const {
     return getCarFollowModel().brakeGap(getSpeed());

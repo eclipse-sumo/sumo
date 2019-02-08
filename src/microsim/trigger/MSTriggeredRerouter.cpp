@@ -390,43 +390,27 @@ MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification 
 
     if (rerouteDef->parkProbs.getOverallProb() > 0) {
         bool newDestination = false;
-        MSParkingArea* newParkingArea = rerouteParkingArea(rerouteDef, veh, newDestination);
+        ConstMSEdgeVector newRoute;
+        MSParkingArea* newParkingArea = rerouteParkingArea(rerouteDef, veh, newDestination, newRoute);
         if (newParkingArea != nullptr) {
-            const MSEdge* newEdge = &(newParkingArea->getLane().getEdge());
-
-            SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = hasReroutingDevice
-                    ? MSRoutingEngine::getRouterTT(rerouteDef->closed)
-                    : MSNet::getInstance()->getRouterTT(rerouteDef->closed);
-
-            // Compute the route from the current edge to the parking area edge
-            ConstMSEdgeVector edgesToPark;
-            router.compute(veh.getEdge(), newEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edgesToPark);
-
-            // Compute the route from the parking area edge to the end of the route
-            ConstMSEdgeVector edgesFromPark;
-            if (!newDestination) {
-                router.compute(newEdge, lastEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edgesFromPark);
-            } else {
-                // adapt plans of any riders
-                for (MSTransportable* p : veh.getPersons()) {
-                    p->rerouteParkingArea(veh.getNextParkingArea(), newParkingArea);
-                }
-            }
-
-            // we have a new destination, let's replace the vehicle route
-            ConstMSEdgeVector edges = edgesToPark;
-            if (edgesFromPark.size() > 0) {
-                edges.insert(edges.end(), edgesFromPark.begin() + 1, edgesFromPark.end());
+            // adapt plans of any riders
+            for (MSTransportable* p : veh.getPersons()) {
+                p->rerouteParkingArea(veh.getNextParkingArea(), newParkingArea);
             }
 
             if (newDestination) {
+                // update arrival parameters
                 SUMOVehicleParameter* newParameter = new SUMOVehicleParameter();
                 *newParameter = veh.getParameter();
                 newParameter->arrivalPosProcedure = ARRIVAL_POS_GIVEN;
                 newParameter->arrivalPos = newParkingArea->getEndLanePosition();
                 veh.replaceParameter(newParameter);
             }
-            const double routeCost = router.recomputeCosts(edges, &veh, MSNet::getInstance()->getCurrentTimeStep());
+
+            SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = hasReroutingDevice
+                ? MSRoutingEngine::getRouterTT(rerouteDef->closed)
+                : MSNet::getInstance()->getRouterTT(rerouteDef->closed);
+            const double routeCost = router.recomputeCosts(newRoute, &veh, MSNet::getInstance()->getCurrentTimeStep());
             ConstMSEdgeVector prevEdges(veh.getCurrentRouteEdge(), veh.getRoute().end());
             const double previousCost = router.recomputeCosts(prevEdges, &veh, MSNet::getInstance()->getCurrentTimeStep());
             const double savings = previousCost - routeCost;
@@ -434,7 +418,8 @@ MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification 
             //        << " prevEdges=" << toString(prevEdges)
             //        << " newEdges=" << toString(edges)
             //        << "\n";
-            veh.replaceRouteEdges(edges, routeCost, savings, getID(), false, false, false);
+
+            veh.replaceRouteEdges(newRoute, routeCost, savings, getID(), false, false, false);
             std::string errorMsg;
             if (!veh.replaceParkingArea(newParkingArea, errorMsg)) {
                 WRITE_WARNING("Vehicle '" + veh.getID() + "' at rerouter '" + getID()
@@ -567,7 +552,7 @@ MSTriggeredRerouter::getWeight(SUMOVehicle& veh, const std::string param, const 
 
 MSParkingArea*
 MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterval* rerouteDef,
-                                        SUMOVehicle& veh, bool& newDestination) const {
+                                        SUMOVehicle& veh, bool& newDestination, ConstMSEdgeVector& newRoute) const {
     // reroute destination from initial parking area to the near parking area
     // if the next stop is a parking area, it is included in the current
     // alternative set and if it can be observed to be full
@@ -619,6 +604,7 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
         typedef std::map<MSParkingArea*, ParkingParamMap_t> MSParkingAreaMap_t;
 
         ParkingParamMap_t weights;
+        std::map<MSParkingArea*, ConstMSEdgeVector> newRoutes;
 
         // The probability of choosing this area inside the zone
         weights["probability"] = getWeight(veh, "parking.probability.weight", 0.0);
@@ -689,8 +675,16 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
                     // Compute the route from the parking area edge to the end of the route
                     ConstMSEdgeVector edgesFromPark;
 
+                    const MSEdge* nextDestination = route.getLastEdge();
+                    int nextDestinationIndex = route.size() - 1;
                     if (!newDestination) {
-                        router.compute(parkEdge, route.getLastEdge(), &veh, MSNet::getInstance()->getCurrentTimeStep(), edgesFromPark);
+                        std::vector<int> stopIndices = veh.getStopIndices();
+                        if (stopIndices.size() > 1) {
+                            nextDestinationIndex = stopIndices[1];
+                            nextDestination = route.getEdges()[nextDestinationIndex];
+
+                        }
+                        router.compute(parkEdge, nextDestination, &veh, MSNet::getInstance()->getCurrentTimeStep(), edgesFromPark);
                     }
 
                     if (edgesFromPark.size() > 0 || newDestination) {
@@ -747,6 +741,8 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
                             maxValues["timeto"] = parkValues["timeto"];
                         }
 
+                        ConstMSEdgeVector newEdges = edgesToPark;
+
                         if (newDestination) {
                             parkValues["distancefrom"] = 0;
                             parkValues["timefrom"] = 0;
@@ -758,6 +754,8 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
                                                          routeFromPark.begin(), routeFromPark.end() - 1, includeInternalLengths);
                             // The time to reach this area
                             parkValues["timefrom"] = router.recomputeCosts(edgesFromPark, &veh, MSNet::getInstance()->getCurrentTimeStep());
+                            newEdges.insert(newEdges.end(), edgesFromPark.begin() + 1, edgesFromPark.end());
+                            newEdges.insert(newEdges.end(), route.begin() + nextDestinationIndex + 1, route.end());
                         }
 
                         if (parkValues["distancefrom"] > maxValues["distancefrom"]) {
@@ -769,6 +767,7 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
                         }
 
                         parkAreas[pa] = parkValues;
+                        newRoutes[pa] = newEdges;
 
 #ifdef DEBUG_PARKING
                         if (DEBUGCOND) {
@@ -819,6 +818,7 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
             if (nearParkArea == nullptr || parkingCost < minParkingCost) {
                 minParkingCost = parkingCost;
                 nearParkArea = it->first;
+                newRoute = newRoutes[nearParkArea];
             }
 
 #ifdef DEBUG_PARKING

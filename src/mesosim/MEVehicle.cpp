@@ -279,6 +279,21 @@ MEVehicle::getStopEdges() const {
     return myStopEdges;
 }
 
+std::vector<int>
+MEVehicle::getStopIndices() const {
+    /// XXX not handling looped routes
+    std::vector<int> result;
+    auto it = myRoute->begin();
+    for (const MSEdge* e : myStopEdges) {
+        auto it2 = std::find(it, myRoute->end(), e);
+        if (it2 != myRoute->end()) {
+            result.push_back(it2 - myRoute->begin());
+            it = it2;
+        }
+    }
+    return result;
+}
+
 
 void
 MEVehicle::processStop() {

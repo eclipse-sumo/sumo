@@ -333,6 +333,9 @@ public:
     virtual bool addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& errorMsg, SUMOTime untilOffset = 0, bool collision = false,
                          ConstMSEdgeVector::const_iterator* searchStart = 0) = 0;
 
+    /// @brief return list of route indices for the remaining stops
+    virtual std::vector<int> getStopIndices() const = 0;
+
 
     /**
     * returns the next imminent stop in the stop queue
