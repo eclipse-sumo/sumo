@@ -30,6 +30,7 @@ GLDebug: Inserted edge:gneE6 into SUMORTree with boundary -30.00,-11.60,80.00,50
 GLDebug: Inserted edge:gneE7 into SUMORTree with boundary -30.00,-10.00,80.00,51.60
 GLDebug: Inserted edge:gneE8 into SUMORTree with boundary -31.60,-30.00,30.00,50.00
 GLDebug: Inserted edge:gneE9 into SUMORTree with boundary 18.40,-30.00,80.00,50.00
+Debug: Selected item 'DEFAULT_VEHTYPE' in VTypeSelector
 Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_0' in GNEChange_Additional
 GLDebug: Inserted e2Detector:e2MultilaneDetector_0 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Removed object e2Detector:e2MultilaneDetector_0 from SUMORTree with boundary -0.10,-0.10,0.10,0.10

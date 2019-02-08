@@ -436,7 +436,7 @@ def redo(referencePosition, number):
 
 def setZoom(positionX, positionY, zoomLevel):
     # open edit viewport dialog
-    typeKey('v')
+    typeTwoKeys('ctrl', 'i')
     # by default is in "load" button, then go to position X
     for _ in range(3):
         typeTab()
