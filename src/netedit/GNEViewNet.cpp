@@ -158,19 +158,19 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
                        GNEViewParent* viewParent, GNENet* net, GNEUndoList* undoList,
                        FXGLVisual* glVis, FXGLCanvas* share) :
     GUISUMOAbstractView(tmpParent, app, viewParent, net->getVisualisationSpeedUp(), glVis, share),
+    myEditModes(this),
+    myTestingMode(this),
+    myCommonCheckableButtons(this),
+    myNetworkCheckableButtons(this),
+    myDemandCheckableButtons(this),
+    mySelectingArea(this),
+    myViewOptions(this),
     myCreateEdgeOptions(this),
     myMoveOptions(this),
     myMoveSingleElementValues(this),
     myMoveMultipleElementValues(this),
-    mySelectingArea(this),
-    myTestingMode(this),
-    myViewOptions(this),
     myVehicleOptions(this),
     myVehicleTypeOptions(this),
-    myEditModes(this),
-    myCommonCheckableButtons(this),
-    myNetworkCheckableButtons(this),
-    myDemandCheckableButtons(this),
     myViewParent(viewParent),
     myNet(net),
     myCurrentFrame(nullptr),
@@ -481,20 +481,20 @@ GNEViewNet::stopEditCustomShape() {
 
 
 GNEViewNet::GNEViewNet() :
+    myEditModes(this),
+    myTestingMode(this),
+    myCommonCheckableButtons(this),
+    myNetworkCheckableButtons(this),
+    myDemandCheckableButtons(this),
+    mySelectingArea(this),
+    myViewOptions(this),
     myCreateEdgeOptions(this),
     myMoveOptions(this),
     myMoveSingleElementValues(this),
     myMoveMultipleElementValues(this),
-    mySelectingArea(this),
-    myTestingMode(this),
-    myViewOptions(this),
     myVehicleOptions(this),
-    myVehicleTypeOptions(this),
-    myEditModes(this),
-    myCommonCheckableButtons(this),
-    myNetworkCheckableButtons(this),
-    myDemandCheckableButtons(this) {
-}
+    myVehicleTypeOptions(this)
+{ }
 
 
 int
