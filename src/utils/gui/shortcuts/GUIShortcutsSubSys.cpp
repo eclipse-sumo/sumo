@@ -89,6 +89,10 @@ GUIShortcutsSubSys::buildSUMOAccelerators(GUIApplicationWindow *GUIApp) {
 
     GUIApp->getAccelTable()->addAccel(parseKey(KEY_l, KEYMODIFIER_SHIFT), GUIApp, FXSEL(SEL_COMMAND, MID_LOCATEPOLY));
     GUIApp->getAccelTable()->addAccel(parseKey(KEY_L, KEYMODIFIER_SHIFT), GUIApp, FXSEL(SEL_COMMAND, MID_LOCATEPOLY));
+
+    // Alt Keys
+
+    GUIApp->getAccelTable()->addAccel(parseKey(KEY_F4, KEYMODIFIER_ALT), GUIApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_Q_CLOSE));
 }
 
 
@@ -234,6 +238,10 @@ GUIShortcutsSubSys::buildNETEDITAccelerators(GNEApplicationWindow *GNEApp) {
 
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_k, KEYMODIFIER_CONTROL, KEYMODIFIER_SHIFT), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_K_TOOGLETWOWAY));
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_K, KEYMODIFIER_CONTROL, KEYMODIFIER_SHIFT), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_SHIFT_K_TOOGLETWOWAY));
+
+    // Alt Keys
+
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_F4, KEYMODIFIER_ALT), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_Q_CLOSE));
 
     // initialize Function Hotkeys
 
