@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri 08 Feb 2019 10:48:02 AM CET by Eclipse SUMO netedit Version v1_0_1+0645-93703db
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <plain-output-prefix value="/scr2/debug/002_osmWebWizard/test0208/bad_connections_redux/input_plain"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<edges version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="-534588621#1" from="cluster_1827996421_1827996431_1827996455_2121324874_21487210_29221504_29221506_341340973_3792418589_3792418616_3792418629_3792418630_3792418641_3792418791" to="3182529377" name="Spandauer Straße" priority="7" numLanes="3" speed="13.89" shape="143.50,58.38 192.87,0.00">
+        <lane index="0" allow="pedestrian" width="3.00">
+            <param key="origId" value="534588621"/>
+        </lane>
+        <lane index="1" allow="bicycle" width="1.00">
+            <param key="origId" value="534588621"/>
+        </lane>
+        <lane index="2" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship">
+            <param key="origId" value="534588621"/>
+        </lane>
+        <param key="origFrom" value="2121324874"/>
+    </edge>
+    <edge id="171826985#3" from="1827996550" to="cluster_1827996421_1827996431_1827996455_2121324874_21487210_29221504_29221506_341340973_3792418589_3792418616_3792418629_3792418630_3792418641_3792418791" name="Karl-Liebknecht-Straße" priority="9" numLanes="5" speed="13.89" shape="188.60,169.07 132.00,125.03 129.08,122.76" spreadType="center">
+        <lane index="0" allow="pedestrian" width="3.00">
+            <param key="origId" value="171826985"/>
+        </lane>
+        <lane index="1" allow="bicycle" width="1.00">
+            <param key="origId" value="171826985"/>
+        </lane>
+        <lane index="2" disallow="tram rail_urban rail rail_electric pedestrian ship">
+            <param key="origId" value="171826985"/>
+        </lane>
+        <lane index="3" disallow="tram rail_urban rail rail_electric pedestrian ship">
+            <param key="origId" value="171826985"/>
+        </lane>
+        <lane index="4" disallow="tram rail_urban rail rail_electric pedestrian ship">
+            <param key="origId" value="171826985"/>
+        </lane>
+    </edge>
+    <edge id="202156994#0" from="341340986" to="cluster_1827996421_1827996431_1827996455_2121324874_21487210_29221504_29221506_341340973_3792418589_3792418616_3792418629_3792418630_3792418641_3792418791" name="Karl-Liebknecht-Straße" priority="9" numLanes="6" speed="13.89" shape="41.46,21.69 52.73,30.90 101.99,71.19 104.84,73.52" spreadType="center">
+        <lane index="0" allow="pedestrian" width="3.00">
+            <param key="origId" value="202156994"/>
+        </lane>
+        <lane index="1" disallow="tram rail_urban rail rail_electric pedestrian ship">
+            <param key="origId" value="202156994"/>
+        </lane>
+        <lane index="2" disallow="tram rail_urban rail rail_electric pedestrian ship">
+            <param key="origId" value="202156994"/>
+        </lane>
+        <lane index="3" disallow="tram rail_urban rail rail_electric pedestrian ship">
+            <param key="origId" value="202156994"/>
+        </lane>
+        <lane index="4" disallow="tram rail_urban rail rail_electric pedestrian ship">
+            <param key="origId" value="202156994"/>
+        </lane>
+        <lane index="5" disallow="tram rail_urban rail rail_electric pedestrian ship">
+            <param key="origId" value="202156994"/>
+        </lane>
+    </edge>
+    <edge id="202157002#3" from="3792418640" to="cluster_1827996421_1827996431_1827996455_2121324874_21487210_29221504_29221506_341340973_3792418589_3792418616_3792418629_3792418630_3792418641_3792418791" name="Spandauer Straße" priority="6" numLanes="4" speed="13.89" shape="44.15,165.80 87.63,110.16" spreadType="center">
+        <lane index="0" allow="pedestrian" width="3.00">
+            <param key="origId" value="202157002"/>
+        </lane>
+        <lane index="1" allow="bicycle" width="1.50">
+            <param key="origId" value="202157002"/>
+        </lane>
+        <lane index="2" disallow="tram rail_urban rail rail_electric pedestrian ship">
+            <param key="origId" value="202157002"/>
+        </lane>
+        <lane index="3" disallow="tram rail_urban rail rail_electric pedestrian ship">
+            <param key="origId" value="202157002"/>
+        </lane>
+        <param key="origTo" value="3792418630"/>
+    </edge>
+    <edge id="24913519#1" from="cluster_1827996421_1827996431_1827996455_2121324874_21487210_29221504_29221506_341340973_3792418589_3792418616_3792418629_3792418630_3792418641_3792418791" to="768082167" name="Karl-Liebknecht-Straße" priority="9" numLanes="3" speed="13.89" shape="91.99,90.79 90.22,89.23 39.65,44.98 30.14,36.67" spreadType="center">
+        <lane index="0" allow="pedestrian" width="3.00">
+            <param key="origId" value="24913519"/>
+        </lane>
+        <lane index="1" disallow="tram rail_urban rail rail_electric pedestrian ship">
+            <param key="origId" value="24913519"/>
+        </lane>
+        <lane index="2" disallow="tram rail_urban rail rail_electric pedestrian ship">
+            <param key="origId" value="24913519"/>
+        </lane>
+        <param key="origFrom" value="3792418791"/>
+    </edge>
+    <edge id="4773465#1" from="cluster_1827996421_1827996431_1827996455_2121324874_21487210_29221504_29221506_341340973_3792418589_3792418616_3792418629_3792418630_3792418641_3792418791" to="1157325174" name="Spandauer Straße" priority="6" numLanes="4" speed="13.89" shape="105.66,123.95 99.76,132.21 88.88,146.02 56.51,187.09" spreadType="center">
+        <lane index="0" allow="pedestrian" width="3.00">
+            <param key="origId" value="4773465"/>
+        </lane>
+        <lane index="1" allow="bicycle" width="1.50">
+            <param key="origId" value="4773465"/>
+        </lane>
+        <lane index="2" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship">
+            <param key="origId" value="4773465"/>
+        </lane>
+        <lane index="3" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship">
+            <param key="origId" value="4773465"/>
+        </lane>
+        <param key="origFrom" value="3792418616"/>
+    </edge>
+    <edge id="534588621#1" from="3182529377" to="cluster_1827996421_1827996431_1827996455_2121324874_21487210_29221504_29221506_341340973_3792418589_3792418616_3792418629_3792418630_3792418641_3792418791" name="Spandauer Straße" priority="7" numLanes="3" speed="13.89" shape="192.87,0.00 143.50,58.38">
+        <lane index="0" allow="pedestrian" width="3.00">
+            <param key="origId" value="534588621"/>
+        </lane>
+        <lane index="1" allow="bicycle" width="1.00">
+            <param key="origId" value="534588621"/>
+        </lane>
+        <lane index="2" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship">
+            <param key="origId" value="534588621"/>
+        </lane>
+        <param key="origTo" value="2121324874"/>
+    </edge>
+    <edge id="72157174#1" from="cluster_1827996421_1827996431_1827996455_2121324874_21487210_29221504_29221506_341340973_3792418589_3792418616_3792418629_3792418630_3792418641_3792418791" to="1827996414" name="Karl-Liebknecht-Straße" priority="9" numLanes="4" speed="13.89" shape="142.27,105.14 144.21,106.64 170.65,127.08" spreadType="center">
+        <lane index="0" allow="pedestrian" width="3.00">
+            <param key="origId" value="72157174"/>
+        </lane>
+        <lane index="1" disallow="tram rail_urban rail rail_electric pedestrian ship">
+            <param key="origId" value="72157174"/>
+        </lane>
+        <lane index="2" disallow="tram rail_urban rail rail_electric pedestrian ship">
+            <param key="origId" value="72157174"/>
+        </lane>
+        <lane index="3" disallow="tram rail_urban rail rail_electric pedestrian ship">
+            <param key="origId" value="72157174"/>
+        </lane>
+        <param key="origFrom" value="1827996431"/>
+    </edge>
+</edges>

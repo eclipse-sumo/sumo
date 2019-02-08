@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri 08 Feb 2019 10:48:02 AM CET by Eclipse SUMO netedit Version v1_0_1+0645-93703db
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <plain-output-prefix value="/scr2/debug/002_osmWebWizard/test0208/bad_connections_redux/input_plain"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<nodes version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-391653.05,-5819981.06" convBoundary="30.14,0.00,192.87,187.09" origBoundary="13.372213,52.501727,13.527402,52.569285" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <node id="1157325174" x="54.75" y="185.70" type="dead_end"/>
+    <node id="1827996414" x="169.74" y="128.26" type="dead_end"/>
+    <node id="1827996550" x="189.83" y="167.49" type="dead_end"/>
+    <node id="3182529377" x="192.87" y="0.00" type="priority"/>
+    <node id="341340986" x="40.51" y="22.85" type="dead_end"/>
+    <node id="3792418640" x="45.93" y="167.17" type="dead_end"/>
+    <node id="768082167" x="31.13" y="35.54" type="dead_end"/>
+    <node id="cluster_1827996421_1827996431_1827996455_2121324874_21487210_29221504_29221506_341340973_3792418589_3792418616_3792418629_3792418630_3792418641_3792418791" x="118.19" y="92.43" type="traffic_light" tl="cluster_1827996421_1827996431_1827996455_2121324874_21487210_29221504_29221506_341340973_3792418589_3792418616_3792418629_3792418630_3792418641_3792418791"/>
+</nodes>
