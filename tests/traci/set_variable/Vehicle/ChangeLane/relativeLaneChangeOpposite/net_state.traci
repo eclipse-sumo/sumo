@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jul 18 08:05:29 2018 by Eclipse SUMO Version UNKNOWN
+<!-- generated on Fri Feb  8 10:08:44 2019 by Eclipse SUMO Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -19,13 +19,17 @@ SPDX-License-Identifier: EPL-2.0
         <lanechange-output value="lanechanges.xml"/>
     </output>
 
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
     <report>
         <xml-validation value="never"/>
         <no-step-log value="true"/>
     </report>
 
     <traci_server>
-        <remote-port value="57284"/>
+        <remote-port value="57344"/>
     </traci_server>
 
 </configuration>
@@ -42,119 +46,119 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="1.00">
         <edge id="VODUGES_beg">
             <lane id="VODUGES_beg_0">
-                <vehicle id="overtaking" pos="1.44" speed="1.44"/>
+                <vehicle id="overtaking" pos="2.60" speed="2.60"/>
             </lane>
         </edge>
     </timestep>
     <timestep time="2.00">
         <edge id="VODUGES_beg">
             <lane id="VODUGES_beg_0">
-                <vehicle id="overtaking" pos="4.56" speed="3.12"/>
+                <vehicle id="overtaking" pos="7.39" speed="4.79"/>
             </lane>
         </edge>
     </timestep>
     <timestep time="3.00">
         <edge id="VODUGES_beg">
             <lane id="VODUGES_beg_0">
-                <vehicle id="overtaking" pos="10.21" speed="5.66"/>
+                <vehicle id="overtaking" pos="13.86" speed="6.47"/>
             </lane>
         </edge>
     </timestep>
     <timestep time="4.00">
         <edge id="VODUGES_beg">
             <lane id="VODUGES_beg_0">
-                <vehicle id="overtaking" pos="17.83" speed="7.62"/>
+                <vehicle id="overtaking" pos="22.08" speed="8.22"/>
             </lane>
         </edge>
     </timestep>
     <timestep time="5.00">
         <edge id="VODUGES_beg">
             <lane id="VODUGES_beg_0">
-                <vehicle id="overtaking" pos="27.28" speed="9.45"/>
+                <vehicle id="overtaking" pos="32.01" speed="9.93"/>
             </lane>
         </edge>
     </timestep>
     <timestep time="6.00">
         <edge id="VODUGES_beg">
             <lane id="VODUGES_beg_0">
-                <vehicle id="overtaking" pos="39.28" speed="11.99"/>
+                <vehicle id="overtaking" pos="43.31" speed="11.30"/>
             </lane>
         </edge>
     </timestep>
     <timestep time="7.00">
         <edge id="VODUGES_beg">
             <lane id="VODUGES_beg_0">
-                <vehicle id="overtaking" pos="52.20" speed="12.92"/>
+                <vehicle id="overtaking" pos="56.82" speed="13.50"/>
             </lane>
         </edge>
     </timestep>
     <timestep time="8.00">
         <edge id="VODUGES_beg">
             <lane id="VODUGES_beg_0">
-                <vehicle id="overtaking" pos="65.77" speed="13.57"/>
+                <vehicle id="overtaking" pos="69.69" speed="12.88"/>
             </lane>
         </edge>
     </timestep>
     <timestep time="9.00">
         <edge id="VODUGES_beg">
             <lane id="VODUGES_beg_0">
-                <vehicle id="overtaking" pos="78.95" speed="13.18"/>
+                <vehicle id="overtaking" pos="83.48" speed="13.79"/>
             </lane>
         </edge>
     </timestep>
     <timestep time="10.00">
         <edge id="VODUGES_beg">
             <lane id="VODUGES_beg_0">
-                <vehicle id="overtaking" pos="91.87" speed="12.92"/>
+                <vehicle id="overtaking" pos="96.50" speed="13.01"/>
             </lane>
         </edge>
     </timestep>
     <timestep time="11.00">
         <edge id="VODUGES_beg">
             <lane id="VODUGES_beg_0">
-                <vehicle id="overtaking" pos="105.75" speed="13.88"/>
+                <vehicle id="overtaking" pos="109.80" speed="13.30"/>
             </lane>
         </edge>
     </timestep>
     <timestep time="12.00">
         <edge id="VODUGES_beg">
             <lane id="VODUGES_beg_0">
-                <vehicle id="overtaking" pos="118.77" speed="13.02"/>
+                <vehicle id="overtaking" pos="122.68" speed="12.88"/>
             </lane>
         </edge>
     </timestep>
     <timestep time="13.00">
         <edge id="VODUGES_beg">
             <lane id="VODUGES_beg_0">
-                <vehicle id="overtaking" pos="132.05" speed="13.28"/>
+                <vehicle id="overtaking" pos="136.20" speed="13.52"/>
             </lane>
         </edge>
     </timestep>
     <timestep time="14.00">
         <edge id="VODUGES_beg">
             <lane id="VODUGES_beg_0">
-                <vehicle id="overtaking" pos="145.35" speed="13.30"/>
+                <vehicle id="overtaking" pos="149.02" speed="12.82"/>
             </lane>
         </edge>
     </timestep>
     <timestep time="15.00">
         <edge id="VODUGES_beg">
             <lane id="VODUGES_beg_0">
-                <vehicle id="overtaking" pos="158.51" speed="13.15"/>
+                <vehicle id="overtaking" pos="162.30" speed="13.29"/>
             </lane>
         </edge>
     </timestep>
     <timestep time="16.00">
         <edge id="VODUGES_beg">
             <lane id="VODUGES_beg_0">
-                <vehicle id="overtaking" pos="172.05" speed="13.55"/>
+                <vehicle id="overtaking" pos="175.31" speed="13.00"/>
             </lane>
         </edge>
     </timestep>
     <timestep time="17.00">
         <edge id="VODUGES_beg">
             <lane id="VODUGES_beg_0">
-                <vehicle id="overtaking" pos="185.86" speed="13.81"/>
+                <vehicle id="overtaking" pos="188.75" speed="13.44"/>
             </lane>
         </edge>
     </timestep>

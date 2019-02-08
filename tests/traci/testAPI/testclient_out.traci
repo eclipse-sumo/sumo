@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Mon Jan  7 12:11:09 2019
+TraCITestClient output file. Date: Fri Feb  8 10:09:00 2019
 
 
 -> Command sent: <SetOrder>:
@@ -89,7 +89,7 @@ testAPI:
     getWaitingTime: 0.00
     getAccumulatedWaitingTime: 0.00
     getShapeClass: bicycle
-    getLeader: 2, 494.88
+    getLeader: 2, 493.85
     getLaneChangeState (left): 1073741824, 1073741824
     getLaneChangeState (right): 1073741824, 1073741824
     remove:
@@ -107,11 +107,11 @@ testAPI:
     parkingArea param: 5
     subscribe to road and pos of vehicle '1':
     subscription results:
-      roadID=e_u1 pos=7.37825
+      roadID=e_u1 pos=7.34774
     subscribe to vehicles around edge 'e_u1':
     context subscription results:
-      vehicle=1 pos=11.2878
-      vehicle=2 pos=19.0044
+      vehicle=1 pos=11.4581
+      vehicle=2 pos=16.3564
   person:
     getIDList: p0
     getRoadID: e_m3
@@ -129,7 +129,7 @@ testAPI:
     getLength: 0.21
     getColor: TraCIColor(255,255,0,128)
     param: bar
-    getSpeed: 2.60
+    getSpeed: 2.47
     getRemainingStages: 4
     getRemainingStages: 3
     getRemainingStages: 1
