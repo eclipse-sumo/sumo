@@ -2328,10 +2328,11 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         const double majorStopOffset = MAX2(DIST_TO_STOPLINE_EXPECT_PRIORITY, lane->getStopOffset(this));
         const double minorStopOffset = lane->getStopOffset(this);
         const double brakeDist = cfModel.brakeGap(myState.mySpeed, cfModel.getMaxDecel(), 0);
-        const bool canBrake = seen >= brakeDist;
+        const bool canBrakeBeforeLaneEnd = seen >= brakeDist;
+        const bool canBrakeBeforeStopLine = seen - lane->getStopOffset(this) >= brakeDist;
         if (yellowOrRed) {
             // Wait at red traffic light with full distance if possible
-            if (canBrake) {
+            if (canBrakeBeforeLaneEnd) {
                 laneStopOffset = MIN2(majorStopOffset, seen - brakeDist);
             } else {
                 laneStopOffset = majorStopOffset;
@@ -2407,7 +2408,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
 
         // TODO: Consider option on the CFModel side to allow red/yellow light violation
 
-        if (yellowOrRed && canBrake && !ignoreRed(*link, canBrake)) {
+        if (yellowOrRed && canBrakeBeforeStopLine && !ignoreRed(*link, canBrakeBeforeStopLine)) {
             if (lane->isInternal()) {
                 checkLinkLeaderCurrentAndParallel(*link, lane, seen, lastLink, v, vLinkPass, vLinkWait, setRequest);
             }
@@ -2417,12 +2418,12 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             break;
         }
 
-        if (ignoreRed(*link, canBrake) && STEPS2TIME(t - (*link)->getLastStateChange()) > 2) {
+        if (ignoreRed(*link, canBrakeBeforeStopLine) && STEPS2TIME(t - (*link)->getLastStateChange()) > 2) {
             // restrict speed when ignoring a red light
             const double redSpeed = MIN2(v, getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_DRIVE_RED_SPEED, v));
             const double va = MAX2(redSpeed, cfModel.freeSpeed(this, getSpeed(), seen, redSpeed));
             v = MIN2(va, v);
-#ifdef DEBUG_EXEC_MOVE
+#ifdef DEBUG_PLAN_MOVE
             if (DEBUG_COND) std::cout
                         << "   ignoreRed spent=" << STEPS2TIME(t - (*link)->getLastStateChange())
                         << " redSpeed=" << redSpeed
@@ -2859,7 +2860,9 @@ MSVehicle::processLinkApproaches(double& vSafe, double& vSafeMin, double& vSafeM
             const bool yellow = link->haveYellow();
             const bool canBrake = (dpi.myDistance > getCarFollowModel().brakeGap(myState.mySpeed, getCarFollowModel().getMaxDecel(), 0.)
                                    || (MSGlobals::gSemiImplicitEulerUpdate && myState.mySpeed < ACCEL2SPEED(getCarFollowModel().getMaxDecel())));
-            const bool ignoreRedLink = ignoreRed(link, canBrake);
+            assert(link->getLaneBefore() != nullptr);
+            const bool beyondStopLine = dpi.myDistance < link->getLaneBefore()->getStopOffset(this);
+            const bool ignoreRedLink = ignoreRed(link, canBrake) || beyondStopLine;
             if (yellow && canBrake && !ignoreRedLink) {
                 vSafe = dpi.myVLinkWait;
                 myHaveToWaitOnNextLink = true;
@@ -2886,7 +2889,7 @@ MSVehicle::processLinkApproaches(double& vSafe, double& vSafeMin, double& vSafeM
                 if (parallelLink != nullptr) {
                     const double shadowLatPos = getLateralPositionOnLane() - getLaneChangeModel().getShadowDirection() * 0.5 * (
                                                     myLane->getWidth() + getLaneChangeModel().getShadowLane()->getWidth());
-                    opened = yellow || influencerPrio || (opened & parallelLink->opened(dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(),
+                    opened = yellow || influencerPrio || (opened && parallelLink->opened(dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(),
                                                           getVehicleType().getLength(), getImpatience(),
                                                           getCarFollowModel().getMaxDecel(),
                                                           getWaitingTime(), shadowLatPos, nullptr,
@@ -3415,6 +3418,7 @@ MSVehicle::processLaneAdvances(std::vector<MSLane*>& passedLanes, bool& moved, s
             myNextDriveItem = myLFLinkLanes.begin();
             while (myNextDriveItem != myLFLinkLanes.end() && approachedLane != nullptr && myState.myPos > approachedLane->getLength()) {
                 const MSLink* link = myNextDriveItem->myLink;
+                const double linkDist = myNextDriveItem->myDistance;
                 ++myNextDriveItem;
                 // check whether the vehicle was allowed to enter lane
                 //  otherwise it is decelerated and we do not need to test for it's
@@ -3423,7 +3427,8 @@ MSVehicle::processLaneAdvances(std::vector<MSLane*>& passedLanes, bool& moved, s
                 if (link != nullptr) {
                     approachedLane = link->getViaLaneOrLane();
                     if (myInfluencer == nullptr || myInfluencer->getEmergencyBrakeRedLight()) {
-                        if (link->haveRed() && !ignoreRed(link, false)) {
+                        bool beyondStopLine = linkDist < link->getLaneBefore()->getStopOffset(this);
+                        if (link->haveRed() && !ignoreRed(link, false) && !beyondStopLine) {
                             emergencyReason = " because of a red traffic light";
                             break;
                         }
