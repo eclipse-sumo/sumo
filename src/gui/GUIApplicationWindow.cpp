@@ -441,17 +441,17 @@ GUIApplicationWindow::fillMenuBar() {
             GUIIconSubSys::getIcon(ICON_FLAG), mySelectByPermissions);
     new FXMenuSeparator(myEditMenu);
     new FXMenuCommand(myEditMenu,
-                      "Edit Breakpoints...\tCtrl+B\tOpens a dialog for editing breakpoints.",
+                      "Edit Breakpoints\tCtrl+B\tOpens a dialog for editing breakpoints.",
                       nullptr, this, MID_GNE_HOTKEY_CTRL_B_EDITBREAKPOINT);
     new FXMenuCommand(myEditMenu,
-                      "Edit Visualisation ...\tCtrl+V\tOpens a dialog for editing visualization settings.",
+                      "Edit Visualisation\tCtrl+V\tOpens a dialog for editing visualization settings.",
                       nullptr, this, MID_EDITVIEWSCHEME);
     new FXMenuCommand(myEditMenu,
-                      "Edit Viewport...\tCtrl+I\tOpens a dialog for editing viewing are, zoom and rotation.",
+                      "Edit Viewport\tCtrl+I\tOpens a dialog for editing viewing are, zoom and rotation.",
                       nullptr, this, MID_EDITVIEWPORT);
     new FXMenuSeparator(myEditMenu);
     new FXMenuCommand(myEditMenu,
-                      "Open in Netedit...\tCtrl+T\tOpens the netedit application with the current network.",
+                      "Open in Netedit\tCtrl+T\tOpens the netedit application with the current network.",
                       nullptr, this, MID_NETEDIT);
 
     // build settings menu

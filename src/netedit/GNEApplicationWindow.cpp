@@ -131,7 +131,9 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_V_VEHICLEMODE,                   GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_W_PROHIBITIONMODE,               GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_EDITVIEWSCHEME,                         GNEApplicationWindow::onCmdEditViewScheme),
+    FXMAPFUNC(SEL_UPDATE,   MID_EDITVIEWSCHEME,                         GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_EDITVIEWPORT,                           GNEApplicationWindow::onCmdEditViewport),
+    FXMAPFUNC(SEL_UPDATE,   MID_EDITVIEWPORT,                           GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_Z_UNDO,                     GNEApplicationWindow::onCmdUndo),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_Y_REDO,                     GNEApplicationWindow::onCmdRedo),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_G_GAMINGMODE_TOOGLEGRID,    GNEApplicationWindow::onCmdToogleGrid),
@@ -1178,17 +1180,17 @@ GNEApplicationWindow::fillMenuBar() {
     myDemandMenuCommands.buildDemandMenuCommands(myEditMenu);
     myDemandMenuCommands.hideDemandMenuCommands();
     new FXMenuCommand(myEditMenu,
-                      "Edit Visualisation ...\tCtrl+V\tOpens a dialog for editing visualization settings.",
+                      "Edit Visualisation\tCtrl+V\tOpens a dialog for editing visualization settings.",
                       nullptr, this, MID_EDITVIEWSCHEME);
     new FXMenuCommand(myEditMenu,
-                      "Edit Viewport...\tCtrl+I\tOpens a dialog for editing viewing are, zoom and rotation.",
+                      "Edit Viewport\tCtrl+I\tOpens a dialog for editing viewing are, zoom and rotation.",
                       nullptr, this, MID_EDITVIEWPORT);
     new FXMenuCommand(myEditMenu,
-                      "Toggle Grid...\tCtrl+G\tToggles background grid (and snap-to-grid functionality).",
+                      "Toggle Grid\tCtrl+G\tToggles background grid (and snap-to-grid functionality).",
                       nullptr, this, MID_HOTKEY_CTRL_G_GAMINGMODE_TOOGLEGRID);
     new FXMenuSeparator(myEditMenu);
     new FXMenuCommand(myEditMenu,
-                      "Open in SUMO GUI...\tCtrl+T\tOpens the SUMO GUI application with the current network.",
+                      "Open in SUMO GUI\tCtrl+T\tOpens the SUMO GUI application with the current network.",
                       GUIIconSubSys::getIcon(ICON_SUMO_MINI), this, MID_HOTKEY_CTRL_T_OPENSUMONETEDIT);
     // processing menu (trigger netbuild computations)
     myProcessingMenu = new FXMenuPane(this);
