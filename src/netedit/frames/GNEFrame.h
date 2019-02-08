@@ -90,93 +90,6 @@ public:
         GNEAttributeCarrier::TagProperties myInvalidTagProperty;
     };
 
-    /// @brief class declaration
-    class ACAttributes;
-
-    // ===========================================================================
-    // class ACAttributeRow
-    // ===========================================================================
-
-    class ACAttributeRow : public FXHorizontalFrame {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEFrame::ACAttributeRow)
-
-    public:
-        /// @brief constructor
-        ACAttributeRow(ACAttributes* ACAttributesParent);
-
-        /// @brief destructor
-        ~ACAttributeRow();
-
-        /// @brief show name and value of attribute of type string
-        void showParameter(SumoXMLAttr const attr, const GNEAttributeCarrier::AttributeProperties& attrProperties, const std::string& value);
-
-        /// @brief hide all parameters
-        void hideParameter();
-
-        /// @brief return Attr
-        SumoXMLAttr getAttr() const;
-
-        /// @brief return value
-        std::string getValue() const;
-
-        /// @brief returns a empty string if current value is valid, a string with information about invalid value in other case
-        const std::string& isAttributeValid() const;
-
-        /// @brief get ACAttributes parent
-        ACAttributes* getACAttributesParent() const;
-
-        /// @name FOX-callbacks
-        /// @{
-        /// @brief called when user set the value of an attribute of type int/float/string
-        long onCmdSetAttribute(FXObject*, FXSelector, void*);
-
-        /// @brief called when user change the value of myBoolCheckButton
-        long onCmdSetBooleanAttribute(FXObject*, FXSelector, void*);
-
-        /// @brief called when user press the "Color" button
-        long onCmdSetColorAttribute(FXObject*, FXSelector, void*);
-        /// @}
-
-    protected:
-        /// @brief FOX needs this
-        ACAttributeRow() {}
-
-    private:
-        /// @brief pointer to ACAttributes
-        ACAttributes* myACAttributesParent;
-
-        /// @brief attribute properties
-        GNEAttributeCarrier::AttributeProperties myAttrProperties;
-
-        /// @brief current XML attribute
-        SumoXMLAttr myXMLAttr;
-
-        /// @brief lael with the name of the parameter
-        FXLabel* myLabel;
-
-        /// @brief textField to modify the default value of int/float/string parameters
-        FXTextField* myTextFieldInt;
-
-        /// @brief textField to modify the default value of real/times parameters
-        FXTextField* myTextFieldReal;
-
-        /// @brief textField to modify the default value of string parameters
-        FXTextField* myTextFieldStrings;
-
-        /// @brief check button to enable/disable the value of boolean parameters
-        FXCheckButton* myBoolCheckButton;
-
-        /// @brief Button for open color editor
-        FXButton* myColorEditor;
-
-        /// @brief Radio button for disjoint attributes
-        FXRadioButton* myRadioButton;
-
-        /// @brief string which indicates the reason due current value is invalid
-        std::string myInvalidValue;
-    };
-
     // ===========================================================================
     // class ACAttributes
     // ===========================================================================
@@ -186,7 +99,7 @@ public:
         FXDECLARE(GNEFrame::ACAttributes)
 
         // declare friend class
-        friend class ACAttributeRow;
+        friend class Row;
 
     public:
         /// @brief constructor
@@ -222,6 +135,93 @@ public:
         long onCmdHelp(FXObject*, FXSelector, void*);
         /// @}
 
+        // ===========================================================================
+        // class Row
+        // ===========================================================================
+
+        class Row : public FXHorizontalFrame {
+            /// @brief FOX-declaration
+            FXDECLARE(GNEFrame::ACAttributes::Row)
+
+        public:
+            /// @brief constructor
+            Row(ACAttributes* ACAttributesParent);
+
+            /// @brief destructor
+            ~Row();
+
+            /// @brief show name and value of attribute of type string
+            void showParameter(SumoXMLAttr const attr, const GNEAttributeCarrier::AttributeProperties& attrProperties, const std::string& value);
+
+            /// @brief hide all parameters
+            void hideParameter();
+
+            /// @brief return Attr
+            SumoXMLAttr getAttr() const;
+
+            /// @brief return value
+            std::string getValue() const;
+
+            /// @brief returns a empty string if current value is valid, a string with information about invalid value in other case
+            const std::string& isAttributeValid() const;
+
+            /// @brief get ACAttributes parent
+            ACAttributes* getACAttributesParent() const;
+
+            /// @name FOX-callbacks
+            /// @{
+            /// @brief called when user set the value of an attribute of type int/float/string
+            long onCmdSetAttribute(FXObject*, FXSelector, void*);
+
+            /// @brief called when user change the value of myBoolCheckButton
+            long onCmdSetBooleanAttribute(FXObject*, FXSelector, void*);
+
+            /// @brief called when user press the "Color" button
+            long onCmdSetColorAttribute(FXObject*, FXSelector, void*);
+
+            /// @brief called when user press a radio button
+            long onCmdSelectRadioButton(FXObject*, FXSelector, void*);
+            /// @}
+
+        protected:
+            /// @brief FOX needs this
+            Row() {}
+
+        private:
+            /// @brief pointer to ACAttributes
+            ACAttributes* myACAttributesParent;
+
+            /// @brief attribute properties
+            GNEAttributeCarrier::AttributeProperties myAttrProperties;
+
+            /// @brief current XML attribute
+            SumoXMLAttr myXMLAttr;
+
+            /// @brief lael with the name of the parameter
+            FXLabel* myLabel;
+
+            /// @brief textField to modify the default value of int/float/string parameters
+            FXTextField* myTextFieldInt;
+
+            /// @brief textField to modify the default value of real/times parameters
+            FXTextField* myTextFieldReal;
+
+            /// @brief textField to modify the default value of string parameters
+            FXTextField* myTextFieldStrings;
+
+            /// @brief check button to enable/disable the value of boolean parameters
+            FXCheckButton* myBoolCheckButton;
+
+            /// @brief Button for open color editor
+            FXButton* myColorEditor;
+
+            /// @brief Radio button for disjoint attributes
+            FXRadioButton* myRadioButton;
+
+            /// @brief string which indicates the reason due current value is invalid
+            std::string myInvalidValue;
+        };
+        
     protected:
         /// @brief FOX needs this
         ACAttributes() {};
@@ -237,7 +237,7 @@ public:
         std::map<int, std::string> myPredefinedTagsMML;
 
         /// @brief vector with the ACAttribute Rows
-        std::vector<ACAttributeRow*> myACAttributeRows;
+        std::vector<Row*> myRows;
     };
 
     // ===========================================================================

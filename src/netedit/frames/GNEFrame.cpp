@@ -21,30 +21,29 @@
 
 #include <config.h>
 
+#include <netedit/GNENet.h>
+#include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/additionals/GNEAdditional.h>
+#include <netedit/additionals/GNEPOI.h>
+#include <netedit/dialogs/GNEGenericParameterDialog.h>
+#include <netedit/netelements/GNEConnection.h>
+#include <netedit/netelements/GNECrossing.h>
+#include <netedit/netelements/GNEEdge.h>
+#include <netedit/netelements/GNEJunction.h>
+#include <netedit/netelements/GNELane.h>
+#include <utils/common/StringTokenizer.h>
 #include <utils/foxtools/MFXMenuHeader.h>
 #include <utils/foxtools/MFXUtils.h>
-#include <utils/common/StringTokenizer.h>
-#include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/images/GUITexturesHelper.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/windows/GUIMainWindow.h>
-#include <netedit/netelements/GNEEdge.h>
-#include <netedit/netelements/GNELane.h>
-#include <netedit/netelements/GNEConnection.h>
-#include <netedit/netelements/GNEJunction.h>
-#include <netedit/additionals/GNEAdditional.h>
-#include <netedit/netelements/GNECrossing.h>
-#include <netedit/additionals/GNEPOI.h>
-#include <netedit/GNEUndoList.h>
-#include <netedit/GNENet.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/GNEViewParent.h>
-#include <netedit/dialogs/GNEGenericParameterDialog.h>
 
 #include "GNEFrame.h"
 #include "GNEInspectorFrame.h"
-#include "GNEFrame.h"
 #include "GNEDeleteFrame.h"
 
 
@@ -56,14 +55,15 @@ FXDEFMAP(GNEFrame::ItemSelector) ItemSelectorMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_TYPE,    GNEFrame::ItemSelector::onCmdSelectItem),
 };
 
-FXDEFMAP(GNEFrame::ACAttributeRow) ACAttributeRowMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_TEXT,     GNEFrame::ACAttributeRow::onCmdSetAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_BOOL,     GNEFrame::ACAttributeRow::onCmdSetBooleanAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNEFrame::ACAttributeRow::onCmdSetColorAttribute),
-};
-
 FXDEFMAP(GNEFrame::ACAttributes) ACAttributesMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HELP,   GNEFrame::ACAttributes::onCmdHelp),
+};
+
+FXDEFMAP(GNEFrame::ACAttributes::Row) RowMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_TEXT,         GNEFrame::ACAttributes::Row::onCmdSetAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_BOOL,         GNEFrame::ACAttributes::Row::onCmdSetBooleanAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,       GNEFrame::ACAttributes::Row::onCmdSetColorAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_RADIOBUTTON,  GNEFrame::ACAttributes::Row::onCmdSelectRadioButton),
 };
 
 FXDEFMAP(GNEFrame::ACHierarchy) ACHierarchyMap[] = {
@@ -90,13 +90,13 @@ FXDEFMAP(GNEFrame::NeteditAttributes) NeteditAttributesMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEFrame::ItemSelector,             FXGroupBox,         ItemSelectorMap,                ARRAYNUMBER(ItemSelectorMap))
-FXIMPLEMENT(GNEFrame::ACAttributeRow,           FXHorizontalFrame,  ACAttributeRowMap,              ARRAYNUMBER(ACAttributeRowMap))
-FXIMPLEMENT(GNEFrame::ACAttributes,             FXGroupBox,         ACAttributesMap,                ARRAYNUMBER(ACAttributesMap))
-FXIMPLEMENT(GNEFrame::ACHierarchy,              FXGroupBox,         ACHierarchyMap,                 ARRAYNUMBER(ACHierarchyMap))
-FXIMPLEMENT(GNEFrame::GenericParametersEditor,  FXGroupBox,         GenericParametersEditorMap,     ARRAYNUMBER(GenericParametersEditorMap))
-FXIMPLEMENT(GNEFrame::DrawingShape,             FXGroupBox,         DrawingShapeMap,                ARRAYNUMBER(DrawingShapeMap))
-FXIMPLEMENT(GNEFrame::NeteditAttributes,        FXGroupBox,         NeteditAttributesMap,           ARRAYNUMBER(NeteditAttributesMap))
+FXIMPLEMENT(GNEFrame::ItemSelector,             FXGroupBox,         ItemSelectorMap,            ARRAYNUMBER(ItemSelectorMap))
+FXIMPLEMENT(GNEFrame::ACAttributes,             FXGroupBox,         ACAttributesMap,            ARRAYNUMBER(ACAttributesMap))
+FXIMPLEMENT(GNEFrame::ACAttributes::Row,        FXHorizontalFrame,  RowMap,                     ARRAYNUMBER(RowMap))
+FXIMPLEMENT(GNEFrame::ACHierarchy,              FXGroupBox,         ACHierarchyMap,             ARRAYNUMBER(ACHierarchyMap))
+FXIMPLEMENT(GNEFrame::GenericParametersEditor,  FXGroupBox,         GenericParametersEditorMap, ARRAYNUMBER(GenericParametersEditorMap))
+FXIMPLEMENT(GNEFrame::DrawingShape,             FXGroupBox,         DrawingShapeMap,            ARRAYNUMBER(DrawingShapeMap))
+FXIMPLEMENT(GNEFrame::NeteditAttributes,        FXGroupBox,         NeteditAttributesMap,       ARRAYNUMBER(NeteditAttributesMap))
 
 
 // ===========================================================================
@@ -210,10 +210,137 @@ GNEFrame::ItemSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
 }
 
 // ---------------------------------------------------------------------------
-// GNEFrame::ACAttributeRow - methods
+// GNEFrame::NeteditAttributes- methods
 // ---------------------------------------------------------------------------
 
-GNEFrame::ACAttributeRow::ACAttributeRow(ACAttributes* ACAttributesParent) :
+GNEFrame::ACAttributes::ACAttributes(GNEFrame* frameParent) :
+    FXGroupBox(frameParent->myContentFrame, "Internal attributes", GUIDesignGroupBoxFrame),
+    myFrameParent(frameParent) {
+    // fill myPredefinedTagsMML (to avoid repeating this fill during every element creation)
+    int i = 0;
+    while (SUMOXMLDefinitions::attrs[i].key != SUMO_ATTR_NOTHING) {
+        myPredefinedTagsMML[SUMOXMLDefinitions::attrs[i].key] = toString(SUMOXMLDefinitions::attrs[i].str);
+        myPredefinedTagsMML[SUMOXMLDefinitions::attrs[i].key] = SUMOXMLDefinitions::attrs[i].str;
+        i++;
+    }
+    // Create single parameters
+    for (int i = 0; i < GNEAttributeCarrier::getHigherNumberOfAttributes(); i++) {
+        myRows.push_back(new Row(this));
+    }
+
+    // Create help button
+    new FXButton(this, "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
+}
+
+
+GNEFrame::ACAttributes::~ACAttributes() {
+}
+
+
+void
+GNEFrame::ACAttributes::showACAttributesModul(const GNEAttributeCarrier::TagProperties& tagProperties) {
+    // get current tag Properties
+    myTagProperties = tagProperties;
+    // Hide all fields
+    for (int i = 0; i < (int)myRows.size(); i++) {
+        myRows.at(i)->hideParameter();
+    }
+    // iterate over tag attributes and show it
+    for (auto i : myTagProperties) {
+        //  make sure that only non-unique attributes are shown
+        if (!i.second.isUnique()) {
+            myRows.at(i.second.getPositionListed())->showParameter(i.first, i.second, i.second.getDefaultValue());
+        }
+    }
+    // recalc frame and show again
+    recalc();
+    show();
+}
+
+
+void
+GNEFrame::ACAttributes::hideACAttributesModul() {
+    hide();
+}
+
+
+std::map<SumoXMLAttr, std::string>
+GNEFrame::ACAttributes::getAttributesAndValues() const {
+    std::map<SumoXMLAttr, std::string> values;
+    // get standard parameters
+    for (int i = 0; i < (int)myRows.size(); i++) {
+        if (myRows.at(i)->getAttr() != SUMO_ATTR_NOTHING) {
+            values[myRows.at(i)->getAttr()] = myRows.at(i)->getValue();
+        }
+    }
+    return values;
+}
+
+
+const std::map<int, std::string> &
+GNEFrame::ACAttributes::getPredefinedTagsMML() const {
+    return myPredefinedTagsMML;
+}
+
+
+void
+GNEFrame::ACAttributes::showWarningMessage(std::string extra) const {
+    std::string errorMessage;
+    // iterate over standar parameters
+    for (auto i : myTagProperties) {
+        if (errorMessage.empty()) {
+            // Return string with the error if at least one of the parameter isn't valid
+            std::string attributeValue = myRows.at(i.second.getPositionListed())->isAttributeValid();
+            if (attributeValue.size() != 0) {
+                errorMessage = attributeValue;
+            }
+        }
+    }
+    // show warning box if input parameters aren't invalid
+    if (extra.size() == 0) {
+        errorMessage = "Invalid input parameter of " + myTagProperties.getTagStr() + ": " + errorMessage;
+    } else {
+        errorMessage = "Invalid input parameter of " + myTagProperties.getTagStr() + ": " + extra;
+    }
+
+    // set message in status bar
+    myFrameParent->getViewNet()->setStatusBarText(errorMessage);
+    // Write Warning in console if we're in testing mode
+    WRITE_DEBUG(errorMessage);
+}
+
+
+bool
+GNEFrame::ACAttributes::areValuesValid() const {
+    // iterate over standar parameters
+    for (auto i : myTagProperties) {
+        // Return false if error message of attriuve isn't empty
+        if (myRows.at(i.second.getPositionListed())->isAttributeValid().size() != 0) {
+            return false;
+        }
+    }
+    return true;
+}
+
+
+int
+GNEFrame::ACAttributes::getNumberOfAddedAttributes() const {
+    return (1);
+}
+
+
+long
+GNEFrame::ACAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
+    // open Help attributes dialog
+    myFrameParent->openHelpAttributesDialog(myTagProperties);
+    return 1;
+}
+
+// ---------------------------------------------------------------------------
+// GNEFrame::ACAttributes::Row - methods
+// ---------------------------------------------------------------------------
+
+GNEFrame::ACAttributes::Row::Row(ACAttributes* ACAttributesParent) :
     FXHorizontalFrame(ACAttributesParent, GUIDesignAuxiliarHorizontalFrame),
     myACAttributesParent(ACAttributesParent),
     myXMLAttr(SUMO_ATTR_NOTHING) {
@@ -231,11 +358,11 @@ GNEFrame::ACAttributeRow::ACAttributeRow(ACAttributes* ACAttributesParent) :
 }
 
 
-GNEFrame::ACAttributeRow::~ACAttributeRow() {}
+GNEFrame::ACAttributes::Row::~Row() {}
 
 
 void
-GNEFrame::ACAttributeRow::showParameter(const SumoXMLAttr attr, const GNEAttributeCarrier::AttributeProperties& attrProperties, const std::string& value) {
+GNEFrame::ACAttributes::Row::showParameter(const SumoXMLAttr attr, const GNEAttributeCarrier::AttributeProperties& attrProperties, const std::string& value) {
     myAttrProperties = attrProperties;
     myXMLAttr = attr;
     myInvalidValue = "";
@@ -278,7 +405,7 @@ GNEFrame::ACAttributeRow::showParameter(const SumoXMLAttr attr, const GNEAttribu
 
 
 void
-GNEFrame::ACAttributeRow::hideParameter() {
+GNEFrame::ACAttributes::Row::hideParameter() {
     myXMLAttr = SUMO_ATTR_NOTHING;
     myLabel->hide();
     myTextFieldInt->hide();
@@ -292,13 +419,13 @@ GNEFrame::ACAttributeRow::hideParameter() {
 
 
 SumoXMLAttr
-GNEFrame::ACAttributeRow::getAttr() const {
+GNEFrame::ACAttributes::Row::getAttr() const {
     return myXMLAttr;
 }
 
 
 std::string
-GNEFrame::ACAttributeRow::getValue() const {
+GNEFrame::ACAttributes::Row::getValue() const {
     if (myAttrProperties.isBool()) {
         return (myBoolCheckButton->getCheck() == 1) ? "true" : "false";
     } else if (myAttrProperties.isInt()) {
@@ -312,19 +439,19 @@ GNEFrame::ACAttributeRow::getValue() const {
 
 
 const std::string&
-GNEFrame::ACAttributeRow::isAttributeValid() const {
+GNEFrame::ACAttributes::Row::isAttributeValid() const {
     return myInvalidValue;
 }
 
 
 GNEFrame::ACAttributes*
-GNEFrame::ACAttributeRow::getACAttributesParent() const {
+GNEFrame::ACAttributes::Row::getACAttributesParent() const {
     return myACAttributesParent;
 }
 
 
 long
-GNEFrame::ACAttributeRow::onCmdSetAttribute(FXObject*, FXSelector, void*) {
+GNEFrame::ACAttributes::Row::onCmdSetAttribute(FXObject*, FXSelector, void*) {
     // We assume that current value is valid
     myInvalidValue = "";
     // Check if format of current value of myTextField is correct
@@ -421,7 +548,7 @@ GNEFrame::ACAttributeRow::onCmdSetAttribute(FXObject*, FXSelector, void*) {
 
 
 long
-GNEFrame::ACAttributeRow::onCmdSetBooleanAttribute(FXObject*, FXSelector, void*) {
+GNEFrame::ACAttributes::Row::onCmdSetBooleanAttribute(FXObject*, FXSelector, void*) {
     if (myBoolCheckButton->getCheck()) {
         myBoolCheckButton->setText("true");
     } else {
@@ -431,7 +558,8 @@ GNEFrame::ACAttributeRow::onCmdSetBooleanAttribute(FXObject*, FXSelector, void*)
 }
 
 
-long GNEFrame::ACAttributeRow::onCmdSetColorAttribute(FXObject*, FXSelector, void*) {
+long 
+GNEFrame::ACAttributes::Row::onCmdSetColorAttribute(FXObject*, FXSelector, void*) {
     // create FXColorDialog
     FXColorDialog colordialog(this, tr("Color Dialog"));
     colordialog.setTarget(this);
@@ -449,131 +577,9 @@ long GNEFrame::ACAttributeRow::onCmdSetColorAttribute(FXObject*, FXSelector, voi
     return 0;
 }
 
-// ---------------------------------------------------------------------------
-// GNEFrame::NeteditAttributes- methods
-// ---------------------------------------------------------------------------
-
-GNEFrame::ACAttributes::ACAttributes(GNEFrame* frameParent) :
-    FXGroupBox(frameParent->myContentFrame, "Internal attributes", GUIDesignGroupBoxFrame),
-    myFrameParent(frameParent) {
-    // fill myPredefinedTagsMML (to avoid repeating this fill during every element creation)
-    int i = 0;
-    while (SUMOXMLDefinitions::attrs[i].key != SUMO_ATTR_NOTHING) {
-        myPredefinedTagsMML[SUMOXMLDefinitions::attrs[i].key] = toString(SUMOXMLDefinitions::attrs[i].str);
-        myPredefinedTagsMML[SUMOXMLDefinitions::attrs[i].key] = SUMOXMLDefinitions::attrs[i].str;
-        i++;
-    }
-    // Create single parameters
-    for (int i = 0; i < GNEAttributeCarrier::getHigherNumberOfAttributes(); i++) {
-        myACAttributeRows.push_back(new ACAttributeRow(this));
-    }
-
-    // Create help button
-    new FXButton(this, "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
-}
-
-
-GNEFrame::ACAttributes::~ACAttributes() {
-}
-
-
-void
-GNEFrame::ACAttributes::showACAttributesModul(const GNEAttributeCarrier::TagProperties& tagProperties) {
-    // get current tag Properties
-    myTagProperties = tagProperties;
-    // Hide all fields
-    for (int i = 0; i < (int)myACAttributeRows.size(); i++) {
-        myACAttributeRows.at(i)->hideParameter();
-    }
-    // iterate over tag attributes and show it
-    for (auto i : myTagProperties) {
-        //  make sure that only non-unique attributes are shown
-        if (!i.second.isUnique()) {
-            myACAttributeRows.at(i.second.getPositionListed())->showParameter(i.first, i.second, i.second.getDefaultValue());
-        }
-    }
-    // recalc frame and show again
-    recalc();
-    show();
-}
-
-
-void
-GNEFrame::ACAttributes::hideACAttributesModul() {
-    hide();
-}
-
-
-std::map<SumoXMLAttr, std::string>
-GNEFrame::ACAttributes::getAttributesAndValues() const {
-    std::map<SumoXMLAttr, std::string> values;
-    // get standard parameters
-    for (int i = 0; i < (int)myACAttributeRows.size(); i++) {
-        if (myACAttributeRows.at(i)->getAttr() != SUMO_ATTR_NOTHING) {
-            values[myACAttributeRows.at(i)->getAttr()] = myACAttributeRows.at(i)->getValue();
-        }
-    }
-    return values;
-}
-
-
-const std::map<int, std::string> &
-GNEFrame::ACAttributes::getPredefinedTagsMML() const {
-    return myPredefinedTagsMML;
-}
-
-
-void
-GNEFrame::ACAttributes::showWarningMessage(std::string extra) const {
-    std::string errorMessage;
-    // iterate over standar parameters
-    for (auto i : myTagProperties) {
-        if (errorMessage.empty()) {
-            // Return string with the error if at least one of the parameter isn't valid
-            std::string attributeValue = myACAttributeRows.at(i.second.getPositionListed())->isAttributeValid();
-            if (attributeValue.size() != 0) {
-                errorMessage = attributeValue;
-            }
-        }
-    }
-    // show warning box if input parameters aren't invalid
-    if (extra.size() == 0) {
-        errorMessage = "Invalid input parameter of " + myTagProperties.getTagStr() + ": " + errorMessage;
-    } else {
-        errorMessage = "Invalid input parameter of " + myTagProperties.getTagStr() + ": " + extra;
-    }
-
-    // set message in status bar
-    myFrameParent->getViewNet()->setStatusBarText(errorMessage);
-    // Write Warning in console if we're in testing mode
-    WRITE_DEBUG(errorMessage);
-}
-
-
-bool
-GNEFrame::ACAttributes::areValuesValid() const {
-    // iterate over standar parameters
-    for (auto i : myTagProperties) {
-        // Return false if error message of attriuve isn't empty
-        if (myACAttributeRows.at(i.second.getPositionListed())->isAttributeValid().size() != 0) {
-            return false;
-        }
-    }
-    return true;
-}
-
-
-int
-GNEFrame::ACAttributes::getNumberOfAddedAttributes() const {
-    return (1);
-}
-
-
-long
-GNEFrame::ACAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
-    // open Help attributes dialog
-    myFrameParent->openHelpAttributesDialog(myTagProperties);
-    return 1;
+long 
+GNEFrame::ACAttributes::Row::onCmdSelectRadioButton(FXObject*, FXSelector, void*) {
+    return 0;
 }
 
 // ---------------------------------------------------------------------------
