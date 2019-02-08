@@ -217,9 +217,11 @@ GNEFrame::ACAttributeRow::ACAttributeRow(ACAttributes* ACAttributesParent) :
     FXHorizontalFrame(ACAttributesParent, GUIDesignAuxiliarHorizontalFrame),
     myACAttributesParent(ACAttributesParent),
     myXMLAttr(SUMO_ATTR_NOTHING) {
-    // Create visual elements
+    // Create left visual elements
     myLabel = new FXLabel(this, "name", nullptr, GUIDesignLabelAttribute);
     myColorEditor = new FXButton(this, "ColorButton", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
+    myRadioButton = new FXRadioButton(this, "name", this, MID_GNE_SET_ATTRIBUTE_RADIOBUTTON, GUIDesignRadioButtonAttribute);
+    // Create right visual elements
     myTextFieldInt = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE_TEXT, GUIDesignTextFieldInt);
     myTextFieldReal = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE_TEXT, GUIDesignTextFieldReal);
     myTextFieldStrings = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE_TEXT, GUIDesignTextField);
@@ -237,11 +239,14 @@ GNEFrame::ACAttributeRow::showParameter(const SumoXMLAttr attr, const GNEAttribu
     myAttrProperties = attrProperties;
     myXMLAttr = attr;
     myInvalidValue = "";
-    // show label or button for edit colors
+    // show label, button for edit colors or radio button
     if (myAttrProperties.isColor()) {
         myColorEditor->setTextColor(FXRGB(0, 0, 0));
         myColorEditor->setText(toString(myXMLAttr).c_str());
         myColorEditor->show();
+    } else if (myACAttributesParent->myTagProperties.isDisjointAttributes(attr)) {
+        myRadioButton->setText(toString(myXMLAttr).c_str());
+        myRadioButton->show();
     } else {
         myLabel->setText(toString(myXMLAttr).c_str());
         myLabel->show();
@@ -281,6 +286,7 @@ GNEFrame::ACAttributeRow::hideParameter() {
     myTextFieldStrings->hide();
     myBoolCheckButton->hide();
     myColorEditor->hide();
+    myRadioButton->hide();
     hide();
 }
 

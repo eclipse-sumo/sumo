@@ -170,6 +170,9 @@ public:
         /// @brief Button for open color editor
         FXButton* myColorEditor;
 
+        /// @brief Radio button for disjoint attributes
+        FXRadioButton* myRadioButton;
+
         /// @brief string which indicates the reason due current value is invalid
         std::string myInvalidValue;
     };

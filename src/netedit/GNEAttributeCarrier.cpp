@@ -632,6 +632,16 @@ GNEAttributeCarrier::TagProperties::setDisjointAttributes(const std::vector<Sumo
 }
 
 
+bool 
+GNEAttributeCarrier::TagProperties::isDisjointAttributes(SumoXMLAttr attr) const {
+    if (myDisjointAttrs.empty()) {
+        return false;
+    } else {
+        return (std::find(myDisjointAttrs.begin(), myDisjointAttrs.end(), attr) != myDisjointAttrs.end());
+    }
+}
+
+
 bool
 GNEAttributeCarrier::TagProperties::hasAttribute(SumoXMLAttr attr) const {
     return (myAttributeProperties.count(attr) == 1);

@@ -337,6 +337,9 @@ public:
         /// @brief set disjoint attributes
         void setDisjointAttributes(const std::vector<SumoXMLAttr> &attrs);
 
+        /// @brief check if given attribute is a disjoint attribute
+        bool isDisjointAttributes(SumoXMLAttr attr) const;
+
         /// @brief check if current TagProperties owns the attribute attr
         bool hasAttribute(SumoXMLAttr attr) const;
 

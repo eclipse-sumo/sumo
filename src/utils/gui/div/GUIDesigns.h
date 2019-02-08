@@ -142,7 +142,7 @@
 #define GUIDesignRadioButton                (LAYOUT_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT | JUSTIFY_LEFT)
 
 /// @brief design for radio button with fixed height
-#define GUIDesignRadioButtonAttribute       (LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | JUSTIFY_LEFT | JUSTIFY_CENTER_Y | ICON_BEFORE_TEXT), 0, 0, 0, 23, 2, 2, 2, 2
+#define GUIDesignRadioButtonAttribute       (RADIOBUTTON_NORMAL | JUSTIFY_CENTER_Y |  LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | JUSTIFY_LEFT | ICON_BEFORE_TEXT | FRAME_THICK), 0, 0, 100, 23, 2, 2, 2, 2
 /// @}
 
 
