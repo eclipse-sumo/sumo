@@ -53,7 +53,6 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     {"junction",            GLO_JUNCTION},
     {"crossing",            GLO_CROSSING},
     {"connection",          GLO_CONNECTION},
-    {"prohibition",         GLO_PROHIBITION},
     {"tlLogic",             GLO_TLLOGIC},
     {"additional",          GLO_ADDITIONAL},
     {"busStop",             GLO_BUS_STOP},

@@ -52,8 +52,6 @@ enum GUIGlObjectType {
     GLO_CROSSING = 5,
     /// @brief a connection
     GLO_CONNECTION = 6,
-    /// @brief a prohibition
-    GLO_PROHIBITION = 7,
     /// @brief a tl-logic
     GLO_TLLOGIC = 8,
     /// @brief reserved GLO type to pack all additionals
