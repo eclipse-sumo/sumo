@@ -444,7 +444,9 @@ Warning: skipping line '80' because it has too few stops
 Warning: skipping line '83' because it has too few stops
 Warning: busStop '1827996414' on lane '72157174#1_1' is too short for vehicle '9_bus_TXL:0'.
 Warning: busStop '1827996417' on lane '24914992#1_1' is too short for vehicle '10_bus_TXL:1'.
+Warning: busStop '1633759766' on lane '421641064_0' is too short for vehicle '20_tram_M4:0'.
 Warning: busStop '2175753204' on lane '207364192#0_0' is too short for vehicle '26_tram_12:0'.
+Warning: busStop '1673526976' on lane '167272512#2_0' is too short for vehicle '27_tram_12:1'.
 Warning: busStop '30731700' on lane '167272531#9_0' is too short for vehicle '27_tram_12:1'.
 Warning: busStop '1668497956' on lane '153537614#2_0' is too short for vehicle '34_tram_M1:2'.
 Warning: Vehicle '40_bus_N65:0' is not allowed to stop on lane '523630412_0'.
@@ -458,17 +460,17 @@ Warning: busStop '3869306764' for vehicle '72_bus_N6:1' on lane '4402228_1' is n
 Warning: Vehicle '72_bus_N6:1' is not allowed to stop on lane '388702041#11_0'.
 Warning: busStop '1827996414' on lane '72157174#1_1' is too short for vehicle 'pt_bus_TXL:0.0'.
 Warning: busStop '1827996417' on lane '24914992#1_1' is too short for vehicle 'pt_bus_TXL:1.0'.
+Warning: busStop '1633759766' on lane '421641064_0' is too short for vehicle 'pt_tram_M4:0.0'.
 Warning: busStop '2175753204' on lane '207364192#0_0' is too short for vehicle 'pt_tram_12:0.0'.
+Warning: busStop '1673526976' on lane '167272512#2_0' is too short for vehicle 'pt_tram_12:1.0'.
 Warning: busStop '30731700' on lane '167272531#9_0' is too short for vehicle 'pt_tram_12:1.0'.
 Warning: busStop '1668497956' on lane '153537614#2_0' is too short for vehicle 'pt_tram_M1:2.0'.
 Warning: busStop '3869306762' on lane '111251382#2_1' is too short for vehicle 'pt_bus_147:0.0'.
 Warning: busStop '2071423352' on lane '295250361_0' is too short for vehicle 'pt_subway_U6:0.0'.
+Warning: Teleporting vehicle 'veh138'; waited too long (jam), lane='202157002#2_3', time=1088.00.
+Warning: Vehicle 'veh138' ends teleporting on edge '24913519#1', time 1094.00.
 Warning: Person 'ped26' aborted waiting for M5:1 at busStop '30731481'.
-Warning: Person 'ped5' aborted waiting for M5:3 at busStop '30731508'.
-Warning: Person 'ped19' aborted waiting for M5:0 at busStop '1668685086'.
-Warning: Person 'ped37' aborted waiting for M5:2 at busStop '1633759766'.
 Warning: Person 'ped69' aborted waiting for M4:1 at busStop '1633759766'.
 Warning: Person 'ped126' aborted waiting for 147:3 at busStop '3869306764'.
-Warning: Person 'ped135' aborted waiting for N42:1 at busStop '270727260'.
 Warning: Person 'ped178' aborted waiting for 248:0 at busStop '3867910417'.
-Warning: Person 'ped36' aborted waiting for M5:0 at busStop '1862699772'.
+Warning: Person 'ped131' aborted waiting for 200:1 at busStop '270718978'.
