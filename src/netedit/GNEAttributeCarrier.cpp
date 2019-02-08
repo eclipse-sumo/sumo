@@ -3548,7 +3548,7 @@ GNEAttributeCarrier::fillDemandElements() {
 
 bool 
 GNEAttributeCarrier::checkParsedAttribute(const TagProperties& tagProperties, 
-                                          const AttributeProperties& attrProperties, const SumoXMLAttr attribute, bool& parsedOk, 
+                                          const AttributeProperties& attrProperties, const SumoXMLAttr attribute, 
                                           std::string &defaultValue, std::string &parsedAttribute, std::string &warningMessage) {
     // declare a string for details about error formats
     std::string errorFormat;
@@ -3556,16 +3556,13 @@ GNEAttributeCarrier::checkParsedAttribute(const TagProperties& tagProperties,
     if (attribute == SUMO_ATTR_ID) {
         if (parsedAttribute.empty()) {
             errorFormat = "ID cannot be empty; ";
-            parsedOk = false;
         } else if (tagProperties.isDetector()) {
             // special case for detectors (because in this case empty spaces are allowed)
             if (SUMOXMLDefinitions::isValidDetectorID(parsedAttribute) == false) {
                 errorFormat = "Detector ID contains invalid characters; ";
-                parsedOk = false;
             }
         } else if (SUMOXMLDefinitions::isValidNetID(parsedAttribute) == false) {
             errorFormat = "ID contains invalid characters; ";
-            parsedOk = false;
         }
     }
     // Set extra checks for int values
@@ -3576,17 +3573,13 @@ GNEAttributeCarrier::checkParsedAttribute(const TagProperties& tagProperties,
             // check if attribute can be negative or zero
             if (attrProperties.isPositive() && (parsedIntAttribute < 0)) {
                 errorFormat = "Cannot be negative; ";
-                parsedOk = false;
             } else if (attrProperties.cannotBeZero() && (parsedIntAttribute == 0)) {
                 errorFormat = "Cannot be zero; ";
-                parsedOk = false;
             }
         } else if (canParse<double>(parsedAttribute)) {
             errorFormat = "Float cannot be reinterpreted as int; ";
-            parsedOk = false;
         } else {
             errorFormat = "Cannot be parsed to int; ";
-            parsedOk = false;
         }
     }
     // Set extra checks for float(double) values
@@ -3597,14 +3590,11 @@ GNEAttributeCarrier::checkParsedAttribute(const TagProperties& tagProperties,
             //check if can be negative and Zero
             if (attrProperties.isPositive() && (parsedDoubleAttribute < 0)) {
                 errorFormat = "Cannot be negative; ";
-                parsedOk = false;
             } else if (attrProperties.cannotBeZero() && (parsedDoubleAttribute == 0)) {
                 errorFormat = "Cannot be zero; ";
-                parsedOk = false;
             }
         } else {
             errorFormat = "Cannot be parsed to float; ";
-            parsedOk = false;
         }
     }
     // Set extra checks for position values
@@ -3614,11 +3604,9 @@ GNEAttributeCarrier::checkParsedAttribute(const TagProperties& tagProperties,
             // check if parsed attribute can be parsed to Position Vector
             if (!canParse<PositionVector>(parsedAttribute)) {
                 errorFormat = "List of Positions aren't neither x,y nor x,y,z; ";
-                parsedOk = false;
             }
         } else if (!canParse<Position>(parsedAttribute)) {
             errorFormat = "Position is neither x,y nor x,y,z; ";
-            parsedOk = false;
         }
     }
     // set extra check for time(double) values
@@ -3627,11 +3615,9 @@ GNEAttributeCarrier::checkParsedAttribute(const TagProperties& tagProperties,
             // parse to SUMO Real and check if is negative
             if (parse<double>(parsedAttribute) < 0) {
                 errorFormat = "Time cannot be negative; ";
-                parsedOk = false;
             }
         } else {
             errorFormat = "Cannot be parsed to time; ";
-            parsedOk = false;
         }
     }
     // set extra check for probability values
@@ -3641,14 +3627,11 @@ GNEAttributeCarrier::checkParsedAttribute(const TagProperties& tagProperties,
             double probability = parse<double>(parsedAttribute);
             if (probability < 0) {
                 errorFormat = "Probability cannot be smaller than 0; ";
-                parsedOk = false;
             } else if (probability > 1) {
                 errorFormat = "Probability cannot be greather than 1; ";
-                parsedOk = false;
             }
         } else {
             errorFormat = "Cannot be parsed to probability; ";
-            parsedOk = false;
         }
     }
     // set extra check for range values
@@ -3658,14 +3641,11 @@ GNEAttributeCarrier::checkParsedAttribute(const TagProperties& tagProperties,
             double range = parse<double>(parsedAttribute);
             if (range < attrProperties.getMinimumRange()) {
                 errorFormat = "Float cannot be smaller than " + toString(attrProperties.getMinimumRange()) + "; ";
-                parsedOk = false;
             } else if (range > attrProperties.getMaximumRange()) {
                 errorFormat = "Float cannot be greather than " + toString(attrProperties.getMaximumRange()) + "; ";
-                parsedOk = false;
             }
         } else {
             errorFormat = "Cannot be parsed to float; ";
-            parsedOk = false;
         }
     }
     // set extra check for discrete values
@@ -3675,74 +3655,58 @@ GNEAttributeCarrier::checkParsedAttribute(const TagProperties& tagProperties,
         // check if attribute is valid
         if (finder == attrProperties.getDiscreteValues().end()) {
             errorFormat = "value is not within the set of allowed values for attribute '" + toString(attribute) + "'";
-            parsedOk = false;
         }
     }
     // set extra check for color values
     if (attrProperties.isColor() && !canParse<RGBColor>(parsedAttribute)) {
         errorFormat = "Invalid RGB format or named color; ";
-        parsedOk = false;
     }
     // set extra check for filename values
     if (attrProperties.isFilename()) {
         if (SUMOXMLDefinitions::isValidFilename(parsedAttribute) == false) {
             errorFormat = "Filename contains invalid characters; ";
-            parsedOk = false;
         } else if (parsedAttribute.empty()) {
             errorFormat = "Filename cannot be empty; ";
-            parsedOk = false;
         }
     }
     // set extra check for name values
     if ((attribute == SUMO_ATTR_NAME) && !SUMOXMLDefinitions::isValidAttribute(parsedAttribute)) {
         errorFormat = "name contains invalid characters; ";
-        parsedOk = false;
     }
     // set extra check for SVCPermissions values
     if (attrProperties.isVClass()) {
         if (!canParseVehicleClasses(parsedAttribute)) {
             errorFormat = "List of VClasses isn't valid; ";
             parsedAttribute = defaultValue;
-            parsedOk = false;
         }
-    }
-    // set extra check for Vehicle Classes
-    if ((!parsedOk) && (attribute == SUMO_ATTR_VCLASS)) {
-        errorFormat = "Is not a part of defined set of Vehicle Classes; ";
-    }
-    // set extra check for Vehicle Classes
-    if ((!parsedOk) && (attribute == SUMO_ATTR_GUISHAPE)) {
-        errorFormat = "Is not a part of defined set of Gui Vehicle Shapes; ";
     }
     // set extra check for RouteProbes
     if ((attribute == SUMO_ATTR_ROUTEPROBE) && !SUMOXMLDefinitions::isValidNetID(parsedAttribute)) {
         errorFormat = "RouteProbe ID contains invalid characters; ";
-        parsedOk = false;
     }
     // set extra check for list of edges
     if ((attribute == SUMO_ATTR_EDGES) && parsedAttribute.empty()) {
         errorFormat = "List of edges cannot be empty; ";
-        parsedOk = false;
     }
     // set extra check for list of lanes
     if ((attribute == SUMO_ATTR_LANES) && parsedAttribute.empty()) {
         errorFormat = "List of lanes cannot be empty; ";
-        parsedOk = false;
     }
     // set extra check for list of VTypes
     if ((attribute == SUMO_ATTR_VTYPES) && !parsedAttribute.empty() && !SUMOXMLDefinitions::isValidListOfTypeID(parsedAttribute)) {
         errorFormat = "List of vTypes contains invalid characters; ";
-        parsedOk = false;
     }
     // set extra check for list of RouteProbe
     if ((attribute == SUMO_ATTR_ROUTEPROBE) && !parsedAttribute.empty() && !SUMOXMLDefinitions::isValidNetID(parsedAttribute)) {
         errorFormat = "RouteProbe ID contains invalid characters; ";
-        parsedOk = false;
     }
     // If attribute has an invalid format
-    if (!parsedOk) {
+    if (errorFormat.size() > 0) {
         // if attribute is optional and has a default value, obtain it as string. In other case, abort.
         if (attrProperties.isOptional() && attrProperties.hasDefaultValue()) {
+            WRITE_WARNING("Format of optional " + attrProperties.getDescription() + " attribute '" + toString(attribute) + "' of " +
+                warningMessage +  " is invalid; " + errorFormat + "Default value will be used.");
+            // set default value defined in AttrProperties
             parsedAttribute = attrProperties.getDefaultValue();
         } else {
             WRITE_WARNING("Format of essential " + attrProperties.getDescription() + " attribute '" + toString(attribute) + "' of " +
@@ -3760,10 +3724,10 @@ GNEAttributeCarrier::checkParsedAttribute(const TagProperties& tagProperties,
 
 bool 
 GNEAttributeCarrier::parseMaskedPositionAttribute(const SUMOSAXAttributes& attrs, const std::string& objectID, const TagProperties& tagProperties, 
-                                                  const AttributeProperties& attrProperties, bool& parsedOk, 
-                                                  std::string &parsedAttribute, std::string &warningMessage) {
+                                                  const AttributeProperties& attrProperties, std::string &parsedAttribute, std::string &warningMessage) {
     // if element can mask their XYPosition, then must be extracted X Y coordiantes separeted
     std::string x, y, z;
+    bool parsedOk = true;
     // give a default value to parsedAttribute to avoid problem parsing invalid positions
     parsedAttribute = "0,0";
     if (attrs.hasAttribute(SUMO_ATTR_X)) {

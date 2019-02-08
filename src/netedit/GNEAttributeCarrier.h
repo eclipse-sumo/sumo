@@ -638,7 +638,7 @@ public:
     template <typename T>
     static T parseAttributeFromXML(const SUMOSAXAttributes& attrs, const std::string& objectID, const SumoXMLTag tag, const SumoXMLAttr attribute, bool& abort) {
         bool parsedOk = true;
-        // @brief declare string values
+        // declare string values
         std::string defaultValue, parsedAttribute, warningMessage;
         // obtain tag properties
         const auto& tagProperties = getTagProperties(tag);
@@ -693,15 +693,15 @@ public:
         if (attrs.hasAttribute(attribute)) {
             // First check if attribute can be parsed to string
             parsedAttribute = attrs.get<std::string>(attribute, objectID.c_str(), parsedOk, false);
-            // check that sucesfully parsed attribute can be converted to type T
-            if (parsedOk && !canParse<T>(parsedAttribute)) {
-                parsedOk = false;
-            }
             // check parsed attribute
-            abort = !checkParsedAttribute(tagProperties, attrProperties, attribute, parsedOk, defaultValue, parsedAttribute, warningMessage);
+            if (!checkParsedAttribute(tagProperties, attrProperties, attribute, defaultValue, parsedAttribute, warningMessage)) {
+                abort = true;
+            }
         } else if (tagProperties.canMaskXYZPositions() && (attribute == SUMO_ATTR_POSITION)) {
             // obtain masked position attribute
-            abort = !parseMaskedPositionAttribute(attrs, objectID, tagProperties, attrProperties, parsedOk, parsedAttribute, warningMessage);
+            if (!parseMaskedPositionAttribute(attrs, objectID, tagProperties, attrProperties, parsedAttribute, warningMessage)) {
+                abort = true;
+            }
         } else {
             // if attribute is optional and has a default value, obtain it. In other case, abort.
             if (attrProperties.isOptional() && attrProperties.hasDefaultValue()) {
@@ -752,14 +752,12 @@ private:
     static void fillDemandElements();
 
     /// @brief parse and check attribute (note: This function is only to improve legilibility)
-    static bool checkParsedAttribute(const TagProperties& tagProperties, const AttributeProperties& attrProperties, 
-                                     const SumoXMLAttr attribute, bool& parsedOk, std::string &defaultValue, 
-                                     std::string &parsedAttribute, std::string &warningMessage);
+    static bool checkParsedAttribute(const TagProperties& tagProperties, const AttributeProperties& attrProperties, const SumoXMLAttr attribute, 
+                                     std::string &defaultValue, std::string &parsedAttribute, std::string &warningMessage);
 
     /// @brief parse and check masked  (note: This function is only to improve legilibility)
-    static bool parseMaskedPositionAttribute(const SUMOSAXAttributes& attrs, const std::string& objectID, 
-                                             const TagProperties& tagProperties, const AttributeProperties& attrProperties, 
-                                             bool& parsedOk, std::string &parsedAttribute, std::string &warningMessage);
+    static bool parseMaskedPositionAttribute(const SUMOSAXAttributes& attrs, const std::string& objectID, const TagProperties& tagProperties, 
+                                             const AttributeProperties& attrProperties, std::string &parsedAttribute, std::string &warningMessage);
 
     /// @brief map with the tags properties
     static std::map<SumoXMLTag, TagProperties> myTagProperties;
