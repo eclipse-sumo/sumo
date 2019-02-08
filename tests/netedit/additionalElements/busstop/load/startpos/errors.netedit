@@ -6,6 +6,7 @@ GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00
 GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00,22.00
 GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
+Debug: Selected item 'DEFAULT_VEHTYPE' in VTypeSelector
 Debug: Adding busStop 'busStop_01' in GNEChange_Additional
 GLDebug: Inserted busStop:busStop_01 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Removed object busStop:busStop_01 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
@@ -32,6 +33,18 @@ GLDebug: Removed object busStop:busStop_02 from SUMORTree with boundary -20.00,-
 GLDebug: Inserted busStop:busStop_02 into SUMORTree with boundary -20.00,-23.20,45.00,16.80
 GLDebug: Removed object busStop:busStop_05 from SUMORTree with boundary -10.00,-23.20,45.00,16.80
 GLDebug: Inserted busStop:busStop_05 into SUMORTree with boundary -10.00,-23.20,45.00,16.80
+Debug: Adding busStop 'busStop_06' in GNEChange_Additional
+GLDebug: Inserted busStop:busStop_06 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Removed object busStop:busStop_06 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Inserted busStop:busStop_06 into SUMORTree with boundary -10.00,-23.20,45.00,16.80
+GLDebug: Removed object busStop:busStop_01 from SUMORTree with boundary -20.00,-23.20,50.00,16.80
+GLDebug: Inserted busStop:busStop_01 into SUMORTree with boundary -20.00,-23.20,50.00,16.80
+GLDebug: Removed object busStop:busStop_02 from SUMORTree with boundary -20.00,-23.20,45.00,16.80
+GLDebug: Inserted busStop:busStop_02 into SUMORTree with boundary -20.00,-23.20,45.00,16.80
+GLDebug: Removed object busStop:busStop_05 from SUMORTree with boundary -10.00,-23.20,45.00,16.80
+GLDebug: Inserted busStop:busStop_05 into SUMORTree with boundary -10.00,-23.20,45.00,16.80
+GLDebug: Removed object busStop:busStop_06 from SUMORTree with boundary -10.00,-23.20,45.00,16.80
+GLDebug: Inserted busStop:busStop_06 into SUMORTree with boundary -10.00,-23.20,45.00,16.80
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
 Debug: Additionals saved
@@ -57,6 +70,8 @@ GLDebug: Removed object busStop:busStop_02 from SUMORTree with boundary -20.00,-
 GLDebug: Inserted busStop:busStop_02 into SUMORTree with boundary -20.00,-23.20,45.00,16.80
 GLDebug: Removed object busStop:busStop_05 from SUMORTree with boundary -10.00,-23.20,45.00,16.80
 GLDebug: Inserted busStop:busStop_05 into SUMORTree with boundary -10.00,-23.20,45.00,16.80
+GLDebug: Removed object busStop:busStop_06 from SUMORTree with boundary -10.00,-23.20,45.00,16.80
+GLDebug: Inserted busStop:busStop_06 into SUMORTree with boundary -10.00,-23.20,45.00,16.80
 GLDebug: Removed object connection:fromgneE1_0togneE0_0 from SUMORTree with boundary -20.10,-20.10,20.10,20.10
 GLDebug: Inserted connection:fromgneE1_0togneE0_0 into SUMORTree with boundary -19.00,-21.60,21.00,21.60
 GLDebug: Removed object connection:fromgneE0_0togneE1_0 from SUMORTree with boundary 29.90,-20.10,70.10,70.10
@@ -65,10 +80,12 @@ GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
 GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,31.60
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
-Debug: Deleting unreferenced busStop 'busStop_05'
-GLDebug: Removed object busStop:busStop_05 from SUMORTree with boundary -10.00,-23.20,45.00,16.80
+Debug: Deleting unreferenced busStop 'busStop_06'
+GLDebug: Removed object busStop:busStop_06 from SUMORTree with boundary -10.00,-23.20,45.00,16.80
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Deleting unreferenced busStop 'busStop_05'
+GLDebug: Removed object busStop:busStop_05 from SUMORTree with boundary -10.00,-23.20,45.00,16.80
 Debug: Deleting unreferenced busStop 'busStop_02'
 GLDebug: Removed object busStop:busStop_02 from SUMORTree with boundary -20.00,-23.20,45.00,16.80
 Debug: Deleting unreferenced busStop 'busStop_01'

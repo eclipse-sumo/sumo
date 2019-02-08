@@ -18,6 +18,7 @@ GLDebug: Inserted edge:gneE4 into SUMORTree with boundary 18.40,-30.00,80.00,50.
 GLDebug: Inserted edge:gneE5 into SUMORTree with boundary 20.00,-30.00,81.60,50.00
 GLDebug: Inserted edge:gneE8 into SUMORTree with boundary -31.60,-30.00,30.00,50.00
 GLDebug: Inserted edge:gneE9 into SUMORTree with boundary -30.00,-30.00,31.60,50.00
+Debug: Selected item 'DEFAULT_VEHTYPE' in VTypeSelector
 Debug: Adding busStop 'busStop1' in GNEChange_Additional
 GLDebug: Inserted busStop:busStop1 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Removed object busStop:busStop1 from SUMORTree with boundary -0.10,-0.10,0.10,0.10

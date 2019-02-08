@@ -21,6 +21,7 @@ GLDebug: Inserted edge:5 into SUMORTree with boundary 20.00,-30.00,88.00,80.00
 GLDebug: Inserted edge:6 into SUMORTree with boundary 12.00,20.00,80.00,130.00
 GLDebug: Inserted edge:7 into SUMORTree with boundary -30.00,12.00,80.00,80.00
 GLDebug: Inserted edge:8 into SUMORTree with boundary 20.00,20.00,130.00,88.00
+Debug: Selected item 'DEFAULT_VEHTYPE' in VTypeSelector
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, demand elements saved
 Debug: Key F5 (Compute) pressed

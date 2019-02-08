@@ -54,6 +54,7 @@ GLDebug: Inserted edge:6 into SUMORTree with boundary -30.00,8.40,80.00,70.00
 GLDebug: Inserted edge:7 into SUMORTree with boundary -30.00,0.00,80.00,61.60
 GLDebug: Inserted edge:8 into SUMORTree with boundary -30.00,-1.60,80.00,60.00
 GLDebug: Inserted edge:9 into SUMORTree with boundary -30.00,-10.00,80.00,51.60
+Debug: Selected item 'DEFAULT_VEHTYPE' in VTypeSelector
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, demand elements saved
 GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,8.00,22.00,52.00
