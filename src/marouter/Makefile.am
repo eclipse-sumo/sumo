@@ -22,4 +22,4 @@ marouter_LDADD   = ../router/librouter.a \
 ../utils/emissions/libemissions.a \
 ../foreign/PHEMlight/cpp/libphemlight.a \
 ../foreign/tcpip/libtcpip.a \
--l$(LIB_XERCES) $(FOX_LDFLAGS)
+-l$(LIB_XERCES) $(FOX_LDFLAGS) $(PROJ_LDFLAGS)
