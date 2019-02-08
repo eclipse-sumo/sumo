@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 28.11.2018 14:27:55 by Eclipse SUMO netedit Version v1_0_0+1123-7e66fbd65e
+<!-- generated on 08.02.2019 16:04:08 by Eclipse SUMO netedit Version v1_1_0+0713-7b762ac814
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.28Nov142137.9884/netedit.gui/additionalElements/lanecalibrator/load/routeProbe\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_08Feb153949.1392/netedit.gui/additionalElements/lanecalibrator/load/routeProbe\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.28Nov142137.9884/netedit.gui/additionalElements/lanecalibrator/load/routeProbe\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_08Feb153949.1392/netedit.gui/additionalElements/lanecalibrator/load/routeProbe\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
     </processing>
@@ -28,13 +29,13 @@
     </pedestrian>
 
     <netedit>
-        <sumo-additionals-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.28Nov142137.9884/netedit.gui/additionalElements/lanecalibrator/load/routeProbe\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.28Nov142137.9884/netedit.gui/additionalElements/lanecalibrator/load/routeProbe\additionals.xml"/>
-        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.28Nov142137.9884/netedit.gui/additionalElements/lanecalibrator/load/routeProbe\shapes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_08Feb153949.1392/netedit.gui/additionalElements/lanecalibrator/load/routeProbe\input_additionals.add.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_08Feb153949.1392/netedit.gui/additionalElements/lanecalibrator/load/routeProbe\additionals.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_08Feb153949.1392/netedit.gui/additionalElements/lanecalibrator/load/routeProbe\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.28Nov142137.9884/netedit.gui/additionalElements/lanecalibrator/load/routeProbe\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_08Feb153949.1392/netedit.gui/additionalElements/lanecalibrator/load/routeProbe\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -44,14 +45,14 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.28Nov142137.9884/netedit.gui/additionalElements/lanecalibrator/load/routeProbe\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_08Feb153949.1392/netedit.gui/additionalElements/lanecalibrator/load/routeProbe\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <calibrator id="calibrator01" lane="gneE0_0" pos="26.00" freq="120.00" output="calibrator01.txt"/>
+    <calibrator id="calibrator01" lane="gneE0_0" pos="26.00" freq="120.00" routeProbe="%%$%$$$" output="calibrator01.txt"/>
     <calibrator id="calibrator02" lane="gneE0_0" pos="26.00" freq="120.00" output="calibrator02.txt"/>
-    <calibrator id="calibrator03" lane="gneE0_0" pos="26.00" freq="120.00" output="calibrator03.txt"/>
+    <calibrator id="calibrator03" lane="gneE0_0" pos="26.00" freq="120.00" routeProbe="myRouteProbe" output="calibrator03.txt"/>
 </additional>

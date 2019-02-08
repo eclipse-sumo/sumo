@@ -6,11 +6,12 @@ GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00
 GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00,22.00
 GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
+Debug: Selected item 'DEFAULT_VEHTYPE' in VTypeSelector
 Debug: Adding poly 'poly_0' into viewNet
 GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary -72.00,-52.00,-58.00,-38.00
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
-Error: Could not load 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_23Jan154612.2796/netedit.gui/shapeElements/poly/load/imgfile\paris.ico'.
+Error: Could not load 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_08Feb135012.1092/netedit.gui/shapeElements/poly/load/imgfile\paris.ico'.
 Loading failed!
 Debug: Adding poly 'poly_1' into viewNet
 GLDebug: Inserted polygon:poly_1 into SUMORTree with boundary -72.00,-52.00,-58.00,-38.00
@@ -18,7 +19,7 @@ Debug: Adding poly 'poly_2' into viewNet
 GLDebug: Inserted polygon:poly_2 into SUMORTree with boundary 48.00,28.00,62.00,42.00
 Debug: Adding poly 'poly_3' into viewNet
 GLDebug: Inserted polygon:poly_3 into SUMORTree with boundary 48.00,8.00,62.00,22.00
-Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_23Jan154612.2796/netedit.gui/shapeElements/poly/load/imgfile\input_additionals.add.xml failed.
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_08Feb135012.1092/netedit.gui/shapeElements/poly/load/imgfile\input_additionals.add.xml failed.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
 Debug: Additionals saved

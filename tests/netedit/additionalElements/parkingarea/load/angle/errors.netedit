@@ -15,6 +15,7 @@ Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 GLDebug: Removed object parkingArea:parkingArea_0 from SUMORTree with boundary 0.00,-4.80,45.00,35.20
 GLDebug: Inserted parkingArea:parkingArea_0 into SUMORTree with boundary 0.00,-4.80,45.00,35.20
+Debug: Format of optional optional angle[0, 360] attribute 'angle' of parkingArea with ID 'parkingArea_1' is invalid; Cannot be parsed to float; Default value will be used.
 Debug: Adding parkingArea 'parkingArea_1' in GNEChange_Additional
 GLDebug: Inserted parkingArea:parkingArea_1 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Removed object parkingArea:parkingArea_1 from SUMORTree with boundary -0.10,-0.10,0.10,0.10

@@ -22,6 +22,7 @@ GLDebug: Removed object e2Detector:e2MultilaneDetector_0 from SUMORTree with bou
 GLDebug: Inserted e2Detector:e2MultilaneDetector_0 into SUMORTree with boundary -5.00,-21.60,60.00,18.40
 GLDebug: Removed object e2Detector:e2MultilaneDetector_0 from SUMORTree with boundary -5.00,-21.60,60.00,18.40
 GLDebug: Inserted e2Detector:e2MultilaneDetector_0 into SUMORTree with boundary -5.00,-21.60,60.00,18.40
+Debug: Format of optional positive optional float attribute 'speedThreshold' of e2MultilaneDetector with ID 'e2MultilaneDetector_1' is invalid; Cannot be parsed to float; Default value will be used.
 Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_1' in GNEChange_Additional
 GLDebug: Inserted e2Detector:e2MultilaneDetector_1 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Removed object e2Detector:e2MultilaneDetector_1 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
@@ -34,6 +35,7 @@ GLDebug: Removed object e2Detector:e2MultilaneDetector_0 from SUMORTree with bou
 GLDebug: Inserted e2Detector:e2MultilaneDetector_0 into SUMORTree with boundary -5.00,-21.60,60.00,18.40
 GLDebug: Removed object e2Detector:e2MultilaneDetector_1 from SUMORTree with boundary -5.00,-21.60,60.00,18.40
 GLDebug: Inserted e2Detector:e2MultilaneDetector_1 into SUMORTree with boundary -5.00,-21.60,60.00,18.40
+Debug: Format of optional positive optional float attribute 'speedThreshold' of e2MultilaneDetector with ID 'e2MultilaneDetector_2' is invalid; Cannot be negative; Default value will be used.
 Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_2' in GNEChange_Additional
 GLDebug: Inserted e2Detector:e2MultilaneDetector_2 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Removed object e2Detector:e2MultilaneDetector_2 from SUMORTree with boundary -0.10,-0.10,0.10,0.10

@@ -37,6 +37,7 @@ GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 6.0
 GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 6.00,-10.00,46.00,30.00
 GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 6.00,-10.00,46.00,30.00
 GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 6.00,-10.00,46.00,30.00
+Debug: Format of optional positive optional float attribute 'speedThreshold' of e3Detector with ID 'e3Detector_1' is invalid; Cannot be parsed to float; Default value will be used.
 Debug: Adding e3Detector 'e3Detector_1' in GNEChange_Additional
 GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
@@ -73,6 +74,7 @@ GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 8.0
 GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 8.00,-10.00,48.00,30.00
 GLDebug: Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 8.00,-10.00,48.00,30.00
 GLDebug: Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 8.00,-10.00,48.00,30.00
+Debug: Format of optional positive optional float attribute 'speedThreshold' of e3Detector with ID 'e3Detector_2' is invalid; Cannot be negative; Default value will be used.
 Debug: Adding e3Detector 'e3Detector_2' in GNEChange_Additional
 GLDebug: Inserted e3Detector:e3Detector_2 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Removed object e3Detector:e3Detector_2 from SUMORTree with boundary -0.10,-0.10,0.10,0.10

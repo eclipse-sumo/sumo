@@ -15,6 +15,7 @@ Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 GLDebug: Removed object calibrator:calibrator01 from SUMORTree with boundary 0.00,-21.60,40.00,18.40
 GLDebug: Inserted calibrator:calibrator01 into SUMORTree with boundary 0.00,-21.60,40.00,18.40
+Debug: Format of optional positive optional time attribute 'freq' of laneCalibrator with ID 'calibrator02' is invalid; Cannot be parsed to time; Default value will be used.
 Debug: Adding laneCalibrator 'calibrator02' in GNEChange_Additional
 GLDebug: Inserted calibrator:calibrator02 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Removed object calibrator:calibrator02 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
@@ -23,6 +24,7 @@ GLDebug: Removed object calibrator:calibrator01 from SUMORTree with boundary 0.0
 GLDebug: Inserted calibrator:calibrator01 into SUMORTree with boundary 0.00,-21.60,40.00,18.40
 GLDebug: Removed object calibrator:calibrator02 from SUMORTree with boundary 2.00,-21.60,42.00,18.40
 GLDebug: Inserted calibrator:calibrator02 into SUMORTree with boundary 2.00,-21.60,42.00,18.40
+Debug: Format of optional positive optional time attribute 'freq' of laneCalibrator with ID 'calibrator03' is invalid; Time cannot be negative; Default value will be used.
 Debug: Adding laneCalibrator 'calibrator03' in GNEChange_Additional
 GLDebug: Inserted calibrator:calibrator03 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Removed object calibrator:calibrator03 from SUMORTree with boundary -0.10,-0.10,0.10,0.10

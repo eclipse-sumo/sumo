@@ -11,12 +11,8 @@ Debug: Adding poly 'poly_0' into viewNet
 GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary -52.00,8.00,-38.00,22.00
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
-Debug: Adding poly 'poly_1' into viewNet
-GLDebug: Inserted polygon:poly_1 into SUMORTree with boundary -52.00,-12.00,-38.00,2.00
-Debug: Adding poly 'poly_2' into viewNet
-GLDebug: Inserted polygon:poly_2 into SUMORTree with boundary -52.00,-32.00,-38.00,-18.00
-Debug: Adding poly 'poly_3' into viewNet
-GLDebug: Inserted polygon:poly_3 into SUMORTree with boundary -52.00,-32.00,-38.00,-18.00
+Error: Invalid Number Format '(double) dummyLayer'
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_08Feb135012.1092/netedit.gui/shapeElements/poly/load/layer\input_additionals.add.xml failed.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
 Debug: Additionals saved
@@ -44,15 +40,6 @@ GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
 GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,31.60
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
-Debug: Removing poly 'poly_3' from net in ~GNEChange_Shape()
-GLDebug: Removed object polygon:poly_3 from SUMORTree with boundary -52.00,-32.00,-38.00,-18.00
-Debug: delete poly 'poly_3' in ~GNEChange_Shape()
-Debug: Removing poly 'poly_2' from net in ~GNEChange_Shape()
-GLDebug: Removed object polygon:poly_2 from SUMORTree with boundary -52.00,-32.00,-38.00,-18.00
-Debug: delete poly 'poly_2' in ~GNEChange_Shape()
-Debug: Removing poly 'poly_1' from net in ~GNEChange_Shape()
-GLDebug: Removed object polygon:poly_1 from SUMORTree with boundary -52.00,-12.00,-38.00,2.00
-Debug: delete poly 'poly_1' in ~GNEChange_Shape()
 Debug: Removing poly 'poly_0' from net in ~GNEChange_Shape()
 GLDebug: Removed object polygon:poly_0 from SUMORTree with boundary -52.00,8.00,-38.00,22.00
 Debug: delete poly 'poly_0' in ~GNEChange_Shape()

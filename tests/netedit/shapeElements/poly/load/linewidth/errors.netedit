@@ -11,8 +11,10 @@ Debug: Adding poly 'poly_0' into viewNet
 GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary -52.00,8.00,-38.00,22.00
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Format of optional positive optional float attribute 'lineWidth' of poly with ID 'poly_1' is invalid; Cannot be parsed to float; Default value will be used.
 Debug: Adding poly 'poly_1' into viewNet
 GLDebug: Inserted polygon:poly_1 into SUMORTree with boundary -52.00,-12.00,-38.00,2.00
+Debug: Format of optional positive optional float attribute 'lineWidth' of poly with ID 'poly_2' is invalid; Cannot be negative; Default value will be used.
 Debug: Adding poly 'poly_2' into viewNet
 GLDebug: Inserted polygon:poly_2 into SUMORTree with boundary -52.00,-32.00,-38.00,-18.00
 Debug: Adding poly 'poly_3' into viewNet

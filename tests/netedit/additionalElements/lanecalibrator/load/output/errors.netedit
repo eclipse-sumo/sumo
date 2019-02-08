@@ -6,6 +6,7 @@ GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00
 GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00,22.00
 GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
+Debug: Selected item 'DEFAULT_VEHTYPE' in VTypeSelector
 Debug: Adding laneCalibrator 'calibrator01' in GNEChange_Additional
 GLDebug: Inserted calibrator:calibrator01 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Removed object calibrator:calibrator01 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
@@ -14,6 +15,7 @@ Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 GLDebug: Removed object calibrator:calibrator01 from SUMORTree with boundary 8.00,-21.60,48.00,18.40
 GLDebug: Inserted calibrator:calibrator01 into SUMORTree with boundary 8.00,-21.60,48.00,18.40
+Debug: Format of optional optional filename attribute 'output' of laneCalibrator with ID 'calibrator02' is invalid; Filename contains invalid characters; Default value will be used.
 Debug: Adding laneCalibrator 'calibrator02' in GNEChange_Additional
 GLDebug: Inserted calibrator:calibrator02 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Removed object calibrator:calibrator02 from SUMORTree with boundary -0.10,-0.10,0.10,0.10

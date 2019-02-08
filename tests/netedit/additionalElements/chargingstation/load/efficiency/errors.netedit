@@ -15,6 +15,7 @@ Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 GLDebug: Removed object chargingStation:chargingStation_0 from SUMORTree with boundary 16.00,-18.40,58.00,21.60
 GLDebug: Inserted chargingStation:chargingStation_0 into SUMORTree with boundary 16.00,-18.40,58.00,21.60
+Debug: Format of optional optional float attribute 'efficiency' of chargingStation with ID 'chargingStation_1' is invalid; Cannot be parsed to float; Default value will be used.
 Debug: Adding chargingStation 'chargingStation_1' in GNEChange_Additional
 GLDebug: Inserted chargingStation:chargingStation_1 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Removed object chargingStation:chargingStation_1 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
@@ -23,6 +24,7 @@ GLDebug: Removed object chargingStation:chargingStation_0 from SUMORTree with bo
 GLDebug: Inserted chargingStation:chargingStation_0 into SUMORTree with boundary 16.00,-18.40,58.00,21.60
 GLDebug: Removed object chargingStation:chargingStation_1 from SUMORTree with boundary 12.00,-18.40,54.00,21.60
 GLDebug: Inserted chargingStation:chargingStation_1 into SUMORTree with boundary 12.00,-18.40,54.00,21.60
+Debug: Format of optional optional float attribute 'efficiency' of chargingStation with ID 'chargingStation_2' is invalid; Float cannot be smaller than 0.00; Default value will be used.
 Debug: Adding chargingStation 'chargingStation_2' in GNEChange_Additional
 GLDebug: Inserted chargingStation:chargingStation_2 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Removed object chargingStation:chargingStation_2 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
@@ -33,6 +35,7 @@ GLDebug: Removed object chargingStation:chargingStation_1 from SUMORTree with bo
 GLDebug: Inserted chargingStation:chargingStation_1 into SUMORTree with boundary 12.00,-18.40,54.00,21.60
 GLDebug: Removed object chargingStation:chargingStation_2 from SUMORTree with boundary 8.00,-18.40,50.00,21.60
 GLDebug: Inserted chargingStation:chargingStation_2 into SUMORTree with boundary 8.00,-18.40,50.00,21.60
+Debug: Format of optional optional float attribute 'efficiency' of chargingStation with ID 'chargingStation_3' is invalid; Float cannot be greather than 1.00; Default value will be used.
 Debug: Adding chargingStation 'chargingStation_3' in GNEChange_Additional
 GLDebug: Inserted chargingStation:chargingStation_3 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Removed object chargingStation:chargingStation_3 from SUMORTree with boundary -0.10,-0.10,0.10,0.10

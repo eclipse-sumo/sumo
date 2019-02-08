@@ -6,14 +6,16 @@ GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00
 GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00,22.00
 GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
+Debug: Selected item 'DEFAULT_VEHTYPE' in VTypeSelector
 Debug: Adding chargingStation 'chargingStation_7' in GNEChange_Additional
 GLDebug: Inserted chargingStation:chargingStation_7 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Removed object chargingStation:chargingStation_7 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted chargingStation:chargingStation_7 into SUMORTree with boundary 15.00,-21.60,70.00,18.40
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 GLDebug: Removed object chargingStation:chargingStation_7 from SUMORTree with boundary 15.00,-21.60,70.00,18.40
 GLDebug: Inserted chargingStation:chargingStation_7 into SUMORTree with boundary 15.00,-21.60,70.00,18.40
+Debug: Format of optional optional unique float attribute 'endPos' of chargingStation with ID 'chargingStation_8' is invalid; Cannot be parsed to float; Default value will be used.
 Debug: Adding chargingStation 'chargingStation_8' in GNEChange_Additional
 GLDebug: Inserted chargingStation:chargingStation_8 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Removed object chargingStation:chargingStation_8 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
@@ -33,7 +35,7 @@ GLDebug: Inserted chargingStation:chargingStation_8 into SUMORTree with boundary
 GLDebug: Removed object chargingStation:chargingStation_10 from SUMORTree with boundary 15.00,-21.60,60.00,18.40
 GLDebug: Inserted chargingStation:chargingStation_10 into SUMORTree with boundary 15.00,-21.60,60.00,18.40
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
 Debug: Additionals saved
 GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
 GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
@@ -68,7 +70,7 @@ GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31
 Debug: Deleting unreferenced chargingStation 'chargingStation_10'
 GLDebug: Removed object chargingStation:chargingStation_10 from SUMORTree with boundary 15.00,-21.60,60.00,18.40
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Deleting unreferenced chargingStation 'chargingStation_8'
 GLDebug: Removed object chargingStation:chargingStation_8 from SUMORTree with boundary 15.00,-21.60,70.00,18.40
 Debug: Deleting unreferenced chargingStation 'chargingStation_7'
@@ -83,4 +85,4 @@ Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting net builder in GNENet destructor
-GLDebug: Number of objects in SUMORTree during call destructor: 6
+GLDebug: Number of objects in SUMORTree during call of the destructor: 6

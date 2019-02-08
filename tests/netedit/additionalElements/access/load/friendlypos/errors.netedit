@@ -71,6 +71,7 @@ GLDebug: Removed object access:busStop_0access0 from SUMORTree with boundary -10
 GLDebug: Inserted access:busStop_0access0 into SUMORTree with boundary -10.00,8.40,70.00,48.40
 GLDebug: Removed object busStop:busStop_0 from SUMORTree with boundary -3.00,43.20,47.00,83.20
 GLDebug: Inserted busStop:busStop_0 into SUMORTree with boundary -3.00,43.20,47.00,83.20
+Debug: Format of optional optional boolean attribute 'friendlyPos' of access is invalid; Cannot be parsed to boolean; Default value will be used.
 Debug: Adding access 'busStop_0access1' in GNEChange_Additional
 GLDebug: Inserted access:busStop_0access1 into SUMORTree with boundary -3.00,43.20,47.00,83.20
 GLDebug: Removed object access:busStop_0access1 from SUMORTree with boundary -3.00,43.20,47.00,83.20

@@ -71,6 +71,7 @@ GLDebug: Removed object access:busStop_0access0 from SUMORTree with boundary -10
 GLDebug: Inserted access:busStop_0access0 into SUMORTree with boundary -10.00,28.40,70.00,68.40
 GLDebug: Removed object busStop:busStop_0 from SUMORTree with boundary -3.00,43.20,47.00,83.20
 GLDebug: Inserted busStop:busStop_0 into SUMORTree with boundary -3.00,43.20,47.00,83.20
+Debug: Format of optional positive optional float attribute 'length' of access is invalid; Cannot be parsed to float; Default value will be used.
 Debug: Adding access 'busStop_0access1' in GNEChange_Additional
 GLDebug: Inserted access:busStop_0access1 into SUMORTree with boundary -3.00,43.20,47.00,83.20
 GLDebug: Removed object access:busStop_0access1 from SUMORTree with boundary -3.00,43.20,47.00,83.20
@@ -79,6 +80,7 @@ GLDebug: Removed object access:busStop_0access1 from SUMORTree with boundary -20
 GLDebug: Inserted access:busStop_0access1 into SUMORTree with boundary -20.00,21.60,60.00,61.60
 GLDebug: Removed object busStop:busStop_0 from SUMORTree with boundary -3.00,43.20,47.00,83.20
 GLDebug: Inserted busStop:busStop_0 into SUMORTree with boundary -3.00,43.20,47.00,83.20
+Debug: Format of optional positive optional float attribute 'length' of access is invalid; Cannot be negative; Default value will be used.
 Debug: Adding access 'busStop_0access2' in GNEChange_Additional
 GLDebug: Inserted access:busStop_0access2 into SUMORTree with boundary -3.00,43.20,47.00,83.20
 GLDebug: Removed object access:busStop_0access2 from SUMORTree with boundary -3.00,43.20,47.00,83.20

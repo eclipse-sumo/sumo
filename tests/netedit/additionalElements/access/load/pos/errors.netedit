@@ -63,6 +63,7 @@ Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 GLDebug: Removed object busStop:busStop_0 from SUMORTree with boundary -3.00,43.20,47.00,83.20
 GLDebug: Inserted busStop:busStop_0 into SUMORTree with boundary -3.00,43.20,47.00,83.20
+Debug: Format of optional optional unique float attribute 'pos' of access is invalid; Cannot be parsed to float; Default value will be used.
 Debug: Adding access 'busStop_0access0' in GNEChange_Additional
 GLDebug: Inserted access:busStop_0access0 into SUMORTree with boundary -3.00,43.20,47.00,83.20
 GLDebug: Removed object access:busStop_0access0 from SUMORTree with boundary -3.00,43.20,47.00,83.20
@@ -71,6 +72,7 @@ GLDebug: Removed object access:busStop_0access0 from SUMORTree with boundary -20
 GLDebug: Inserted access:busStop_0access0 into SUMORTree with boundary -20.00,31.60,70.00,71.60
 GLDebug: Removed object busStop:busStop_0 from SUMORTree with boundary -3.00,43.20,47.00,83.20
 GLDebug: Inserted busStop:busStop_0 into SUMORTree with boundary -3.00,43.20,47.00,83.20
+Debug: Format of optional optional unique float attribute 'pos' of access is invalid; Cannot be parsed to float; Default value will be used.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
 Debug: Additionals saved

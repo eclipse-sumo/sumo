@@ -13,6 +13,7 @@ GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -0.
 GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 2.97,-13.64,42.97,26.36
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Format of optional optional boolean attribute 'friendlyPos' of detExit is invalid; Cannot be parsed to boolean; Default value will be used.
 Debug: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
 GLDebug: Inserted entryDetector:e3Detector_0detExit0 into SUMORTree with boundary 2.97,-13.64,42.97,26.36
 GLDebug: Removed object entryDetector:e3Detector_0detExit0 from SUMORTree with boundary 2.97,-13.64,42.97,26.36

@@ -11,6 +11,7 @@ Debug: Adding poly 'poly_0' into viewNet
 GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary -12.00,28.00,2.00,42.00
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Format of optional optional color attribute 'color' of poly with ID 'poly_1' is invalid; Invalid RGB format or named color; Default value will be used.
 Debug: Adding poly 'poly_1' into viewNet
 GLDebug: Inserted polygon:poly_1 into SUMORTree with boundary 8.00,28.00,22.00,42.00
 Debug: Adding poly 'poly_2' into viewNet

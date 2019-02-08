@@ -21,18 +21,21 @@ GLDebug: Removed object parkingSpace:parkingArea_0space0 from SUMORTree with bou
 GLDebug: Inserted parkingSpace:parkingArea_0space0 into SUMORTree with boundary 10.00,-5.00,50.00,35.00
 GLDebug: Removed object parkingArea:parkingArea_0 from SUMORTree with boundary 0.00,-13.60,50.00,26.40
 GLDebug: Inserted parkingArea:parkingArea_0 into SUMORTree with boundary 0.00,-13.60,50.00,26.40
+Debug: Format of optional positive optional float attribute 'length' of space is invalid; Cannot be parsed to float; Default value will be used.
 Debug: Adding space 'parkingArea_0space1' in GNEChange_Additional
 GLDebug: Inserted parkingSpace:parkingArea_0space1 into SUMORTree with boundary 0.00,-13.60,50.00,26.40
 GLDebug: Removed object parkingSpace:parkingArea_0space1 from SUMORTree with boundary 0.00,-13.60,50.00,26.40
 GLDebug: Inserted parkingSpace:parkingArea_0space1 into SUMORTree with boundary 15.00,-5.00,55.00,35.00
 GLDebug: Removed object parkingArea:parkingArea_0 from SUMORTree with boundary 0.00,-13.60,50.00,26.40
 GLDebug: Inserted parkingArea:parkingArea_0 into SUMORTree with boundary 0.00,-13.60,50.00,26.40
+Debug: Format of optional positive optional float attribute 'length' of space is invalid; Cannot be parsed to float; Default value will be used.
 Debug: Adding space 'parkingArea_0space2' in GNEChange_Additional
 GLDebug: Inserted parkingSpace:parkingArea_0space2 into SUMORTree with boundary 0.00,-13.60,50.00,26.40
 GLDebug: Removed object parkingSpace:parkingArea_0space2 from SUMORTree with boundary 0.00,-13.60,50.00,26.40
 GLDebug: Inserted parkingSpace:parkingArea_0space2 into SUMORTree with boundary 15.00,-5.00,55.00,35.00
 GLDebug: Removed object parkingArea:parkingArea_0 from SUMORTree with boundary 0.00,-13.60,50.00,26.40
 GLDebug: Inserted parkingArea:parkingArea_0 into SUMORTree with boundary 0.00,-13.60,50.00,26.40
+Debug: Format of optional positive optional float attribute 'length' of space is invalid; Cannot be negative; Default value will be used.
 Debug: Adding space 'parkingArea_0space3' in GNEChange_Additional
 GLDebug: Inserted parkingSpace:parkingArea_0space3 into SUMORTree with boundary 0.00,-13.60,50.00,26.40
 GLDebug: Removed object parkingSpace:parkingArea_0space3 from SUMORTree with boundary 0.00,-13.60,50.00,26.40

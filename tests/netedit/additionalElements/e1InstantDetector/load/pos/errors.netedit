@@ -6,16 +6,25 @@ GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00
 GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00,22.00
 GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
+Debug: Selected item 'DEFAULT_VEHTYPE' in VTypeSelector
+Debug: Adding instantInductionLoop 'E1_03' in GNEChange_Additional
+GLDebug: Inserted e1DetectorInstant:E1_03 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Removed object e1DetectorInstant:E1_03 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Inserted e1DetectorInstant:E1_03 into SUMORTree with boundary 20.00,-21.60,60.00,18.40
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+GLDebug: Removed object e1DetectorInstant:E1_03 from SUMORTree with boundary 20.00,-21.60,60.00,18.40
+GLDebug: Inserted e1DetectorInstant:E1_03 into SUMORTree with boundary 20.00,-21.60,60.00,18.40
 Debug: Adding instantInductionLoop 'E1_05' in GNEChange_Additional
 GLDebug: Inserted e1DetectorInstant:E1_05 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Removed object e1DetectorInstant:E1_05 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted e1DetectorInstant:E1_05 into SUMORTree with boundary 5.00,-21.60,45.00,18.40
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+GLDebug: Removed object e1DetectorInstant:E1_03 from SUMORTree with boundary 20.00,-21.60,60.00,18.40
+GLDebug: Inserted e1DetectorInstant:E1_03 into SUMORTree with boundary 20.00,-21.60,60.00,18.40
 GLDebug: Removed object e1DetectorInstant:E1_05 from SUMORTree with boundary 5.00,-21.60,45.00,18.40
 GLDebug: Inserted e1DetectorInstant:E1_05 into SUMORTree with boundary 5.00,-21.60,45.00,18.40
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
 Debug: Additionals saved
 GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
 GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
@@ -33,6 +42,8 @@ GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00
 GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-23.20,72.00,23.20
 GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
 GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
+GLDebug: Removed object e1DetectorInstant:E1_03 from SUMORTree with boundary 20.00,-21.60,60.00,18.40
+GLDebug: Inserted e1DetectorInstant:E1_03 into SUMORTree with boundary 20.00,-21.60,60.00,18.40
 GLDebug: Removed object e1DetectorInstant:E1_05 from SUMORTree with boundary 5.00,-21.60,45.00,18.40
 GLDebug: Inserted e1DetectorInstant:E1_05 into SUMORTree with boundary 5.00,-21.60,45.00,18.40
 GLDebug: Removed object connection:fromgneE1_0togneE0_0 from SUMORTree with boundary -20.10,-20.10,20.10,20.10
@@ -46,7 +57,9 @@ GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31
 Debug: Deleting unreferenced instantInductionLoop 'E1_05'
 GLDebug: Removed object e1DetectorInstant:E1_05 from SUMORTree with boundary 5.00,-21.60,45.00,18.40
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Deleting unreferenced instantInductionLoop 'E1_03'
+GLDebug: Removed object e1DetectorInstant:E1_03 from SUMORTree with boundary 20.00,-21.60,60.00,18.40
 Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
@@ -57,4 +70,4 @@ Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting net builder in GNENet destructor
-GLDebug: Number of objects in SUMORTree during call destructor: 6
+GLDebug: Number of objects in SUMORTree during call of the destructor: 6

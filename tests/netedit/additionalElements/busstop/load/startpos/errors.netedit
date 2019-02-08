@@ -15,6 +15,7 @@ Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 GLDebug: Removed object busStop:busStop_01 from SUMORTree with boundary -20.00,-23.20,50.00,16.80
 GLDebug: Inserted busStop:busStop_01 into SUMORTree with boundary -20.00,-23.20,50.00,16.80
+Debug: Format of optional optional unique float attribute 'startPos' of busStop with ID 'busStop_02' is invalid; Cannot be parsed to float; Default value will be used.
 Debug: Adding busStop 'busStop_02' in GNEChange_Additional
 GLDebug: Inserted busStop:busStop_02 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Removed object busStop:busStop_02 from SUMORTree with boundary -0.10,-0.10,0.10,0.10

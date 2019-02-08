@@ -11,6 +11,7 @@ Debug: Adding poly 'poly_0' into viewNet
 GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary 28.00,8.00,42.00,22.00
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Format of optional optional boolean attribute 'fill' of poly is invalid; Cannot be parsed to boolean; Default value will be used.
 Debug: Adding poly 'poly_1' into viewNet
 GLDebug: Inserted polygon:poly_1 into SUMORTree with boundary 28.00,-32.00,42.00,-18.00
 Debug: Adding poly 'poly_2' into viewNet
