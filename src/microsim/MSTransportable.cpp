@@ -810,10 +810,19 @@ MSTransportable::rerouteParkingArea(MSStoppingPlace* orig, MSStoppingPlace* repl
             return;
         }
         // if the next step is a walk, adapt the route
-        // TODO Should we also reroute when the walk has a fixed edge list or only trips?
         Stage* nextStage = *(myStep + 1);
         if (nextStage->getStageType() == TRIP) {
             dynamic_cast<MSTransportable::Stage_Trip*>(nextStage)->setOrigin(stage->getDestination());
+        } else if (nextStage->getStageType() == MOVING_WITHOUT_VEHICLE) {
+            MSPerson::MSPersonStage_Walking* ws = dynamic_cast<MSPerson::MSPersonStage_Walking*>(nextStage);
+            if (ws != nullptr) {
+                Stage_Trip* newStage = new Stage_Trip(stage->getDestination(), nextStage->getDestination(),
+                        nextStage->getDestinationStop(), -1, 0, "", -1, 1, 0, true, nextStage->getArrivalPos());
+                removeStage(1);
+                appendStage(newStage, 1);
+            } else {
+                WRITE_WARNING("parkingAreaReroute not support for containers");
+            }
         }
     }
 }
