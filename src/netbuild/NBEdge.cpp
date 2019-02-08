@@ -3442,9 +3442,11 @@ NBEdge::restoreBikelane(std::vector<NBEdge::Lane> oldLanes, PositionVector oldGe
 
 void
 NBEdge::addRestrictedLane(double width, SUMOVehicleClass vclass) {
-    if (myLanes[0].permissions == vclass) {
-        WRITE_WARNING("Edge '" + getID() + "' already has a dedicated lane for " + toString(vclass) + "s. Not adding another one.");
-        return;
+    for (const Lane& lane : myLanes) {
+        if (lane.permissions == vclass) {
+            WRITE_WARNING("Edge '" + getID() + "' already has a dedicated lane for " + toString(vclass) + "s. Not adding another one.");
+            return;
+        }
     }
     if (myLaneSpreadFunction == LANESPREAD_CENTER) {
         myGeom.move2side(width / 2);
