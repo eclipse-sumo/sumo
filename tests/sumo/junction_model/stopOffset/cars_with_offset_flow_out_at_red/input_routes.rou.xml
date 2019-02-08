@@ -1,0 +1,9 @@
+<routes>
+    <vType id="car" vClass="passenger" sigma="0"/>
+    <vType id="bike" vClass="bicycle" sigma="0"/>
+    <route id="WE" edges="W E" />
+    <vehicle id="car2" type="car" route="WE" depart="5" departPos="60" arrivalLane="0" />
+    <vehicle id="car3" type="car" route="WE" depart="5" departPos="75" arrivalLane="1" departLane="1" />
+    <vehicle id="car4" type="car" route="WE" depart="12" departPos="83" arrivalLane="1" departLane="1" />
+    <vehicle id="car5" type="car" route="WE" depart="12" departPos="83" arrivalLane="0" departLane="0" />
+</routes>
