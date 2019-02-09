@@ -66,6 +66,7 @@
 #include "MSVehicleControl.h"
 #include "MSLeaderInfo.h"
 #include "MSVehicle.h"
+#include "cfmodels/MSCFModel_CC.h"
 
 //#define DEBUG_INSERTION
 //#define DEBUG_PLAN_MOVE
@@ -1548,6 +1549,14 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
         std::swap(collider, victim);
     }
     std::string prefix = "Vehicle '" + collider->getID() + "'; " + collisionType + " with vehicle '" + victim->getID() ;
+    const MSCFModel_CC* model = dynamic_cast<const MSCFModel_CC*>(&collider->getCarFollowModel());
+    if (model) {
+        model->setCrashed(collider, true);
+    }
+    model = dynamic_cast<const MSCFModel_CC*>(&victim->getCarFollowModel());
+    if (model) {
+        model->setCrashed(victim, true, true);
+    }
     if (myCollisionStopTime > 0) {
         if (collider->collisionStopTime() >= 0 && victim->collisionStopTime() >= 0) {
             return;

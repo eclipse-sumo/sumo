@@ -27,6 +27,12 @@ set(microsim_cfmodels_STAT_SRCS
    MSCFModel_CACC.h
    MSCFModel_Rail.cpp
    MSCFModel_Rail.h
+   CC_Const.h
+   CC_VehicleVariables.cpp
+   CC_VehicleVariables.h
+   MSCFModel_CC.cpp
+   MSCFModel_CC.h
+   ParBuffer.h
 )
 
 add_library(microsim_cfmodels STATIC ${microsim_cfmodels_STAT_SRCS})

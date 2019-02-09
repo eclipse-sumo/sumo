@@ -427,6 +427,8 @@ enum {
 
     /// @brief Center object
     MID_CHOOSER_CENTER,
+    /// @brief Track object
+    MID_CHOOSER_TRACK,
     /// @brief Text entry
     MID_CHOOSER_TEXT,
     /// @brief Object list

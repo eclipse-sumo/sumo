@@ -702,6 +702,31 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         allowedCFModelAttrs[SUMO_TAG_CF_CACC] = CACCParams;
         allParams.insert(CACCParams.begin(), CACCParams.end());
 
+        std::set<SumoXMLAttr> ccParams;
+        ccParams.insert(SUMO_ATTR_ACCEL);
+        ccParams.insert(SUMO_ATTR_DECEL);
+        ccParams.insert(SUMO_ATTR_TAU);
+        ccParams.insert(SUMO_ATTR_CF_CC_C1);
+        ccParams.insert(SUMO_ATTR_CF_CC_CCDECEL);
+        ccParams.insert(SUMO_ATTR_CF_CC_CONSTSPACING);
+        ccParams.insert(SUMO_ATTR_CF_CC_KP);
+        ccParams.insert(SUMO_ATTR_CF_CC_LAMBDA);
+        ccParams.insert(SUMO_ATTR_CF_CC_OMEGAN);
+        ccParams.insert(SUMO_ATTR_CF_CC_TAU);
+        ccParams.insert(SUMO_ATTR_CF_CC_XI);
+        ccParams.insert(SUMO_ATTR_CF_CC_LANES_COUNT);
+        ccParams.insert(SUMO_ATTR_CF_CC_CCACCEL);
+        ccParams.insert(SUMO_ATTR_CF_CC_PLOEG_KP);
+        ccParams.insert(SUMO_ATTR_CF_CC_PLOEG_KD);
+        ccParams.insert(SUMO_ATTR_CF_CC_PLOEG_H);
+        ccParams.insert(SUMO_ATTR_CF_CC_FLATBED_KA);
+        ccParams.insert(SUMO_ATTR_CF_CC_FLATBED_KV);
+        ccParams.insert(SUMO_ATTR_CF_CC_FLATBED_KP);
+        ccParams.insert(SUMO_ATTR_CF_CC_FLATBED_D);
+        ccParams.insert(SUMO_ATTR_CF_CC_FLATBED_H);
+        allowedCFModelAttrs[SUMO_TAG_CF_CC] = ccParams;
+        allParams.insert(ccParams.begin(), ccParams.end());
+
         allowedCFModelAttrs[SUMO_TAG_NOTHING] = allParams;
     }
     return allowedCFModelAttrs;

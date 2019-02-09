@@ -562,6 +562,32 @@ public:
      */
     double maximumSafeStopSpeedBallistic(double gap, double currentSpeed, bool onInsertion = false, double headway = -1) const;
 
+    /**
+     * @brief try to get the given parameter for this carFollowingModel
+     *
+     * @param[in] veh the vehicle from which the parameter must be retrieved
+     * @param[in] key the key of the parameter
+     * @return the value of the requested parameter
+     */
+    virtual std::string getParameter(const MSVehicle* veh, const std::string& key) const {
+        UNUSED_PARAMETER(veh);
+        UNUSED_PARAMETER(key);
+        return "";
+    }
+
+    /**
+     * @brief try to set the given parameter for this carFollowingModel
+     *
+     * @param[in] veh the vehicle for which the parameter must be set
+     * @param[in] key the key of the parameter
+     * @param[in] value the value to be set for the given parameter
+     */
+    virtual void setParameter(MSVehicle* veh, const std::string& key, const std::string& value) const {
+        UNUSED_PARAMETER(veh);
+        UNUSED_PARAMETER(key);
+        UNUSED_PARAMETER(value);
+    }
+
 protected:
 
     /** @brief Overwrites gap2pred and predSpeed by the perceived values obtained from the vehicle's driver state,

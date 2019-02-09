@@ -613,6 +613,13 @@ Vehicle::getParameter(const std::string& vehicleID, const std::string& key) {
         } catch (InvalidArgument& e) {
             throw TraCIException("Vehicle '" + vehicleID + "' does not support laneChangeModel parameter '" + key + "' (" + e.what() + ").");
         }
+    } else if (StringUtils::startsWith(key, "carFollowModel.")) {
+        const std::string attrName = key.substr(15);
+        try {
+            return veh->getCarFollowModel().getParameter(veh, attrName);
+        } catch (InvalidArgument& e) {
+            throw TraCIException("Vehicle '" + vehicleID + "' does not support carFollowModel parameter '" + key + "' (" + e.what() + ").");
+        }
     } else if (StringUtils::startsWith(key, "has.") && StringUtils::endsWith(key, ".device")) {
         StringTokenizer tok(key, ".");
         if (tok.size() != 3) {
@@ -1552,6 +1559,13 @@ Vehicle::setParameter(const std::string& vehicleID, const std::string& key, cons
             veh->getLaneChangeModel().setParameter(attrName, value);
         } catch (InvalidArgument& e) {
             throw TraCIException("Vehicle '" + vehicleID + "' does not support laneChangeModel parameter '" + key + "' (" + e.what() + ").");
+        }
+    } else if (StringUtils::startsWith(key, "carFollowModel.")) {
+        const std::string attrName = key.substr(15);
+        try {
+            veh->getCarFollowModel().setParameter(veh, attrName, value);
+        } catch (InvalidArgument& e) {
+            throw TraCIException("Vehicle '" + vehicleID + "' does not support carFollowModel parameter '" + key + "' (" + e.what() + ").");
         }
     } else if (StringUtils::startsWith(key, "has.") && StringUtils::endsWith(key, ".device")) {
         StringTokenizer tok(key, ".");

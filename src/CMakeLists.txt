@@ -2,7 +2,7 @@ set(netconvertlibs
         netwrite netimport netbuild foreign_eulerspiral ${GDAL_LIBRARY} netimport_vissim netimport_vissim_typeloader netimport_vissim_tempstructs ${commonlibs})
 
 set(sumolibs
-        traciserver libsumostatic netload microsim_cfmodels microsim_lcmodels microsim_devices microsim_trigger microsim_output microsim_pedestrians microsim_actions
+        traciserver libsumostatic netload microsim_cfmodels microsim_engine microsim_lcmodels microsim_devices microsim_trigger microsim_output microsim_pedestrians microsim_actions
         microsim_traffic_lights microsim mesosim ${commonvehiclelibs} ${GRPC_LIBS}
         ${PYTHON_LIBRARIES})
 

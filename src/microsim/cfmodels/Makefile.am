@@ -14,4 +14,7 @@ MSCFModel_SmartSK.cpp MSCFModel_SmartSK.h \
 MSCFModel_Wiedemann.cpp MSCFModel_Wiedemann.h \
 MSCFModel_ACC.cpp MSCFModel_ACC.h \
 MSCFModel_CACC.cpp MSCFModel_CACC.h \
-MSCFModel_Rail.cpp MSCFModel_Rail.h
+MSCFModel_Rail.cpp MSCFModel_Rail.h \
+MSCFModel_CC.cpp MSCFModel_CC.h \
+CC_VehicleVariables.cpp CC_VehicleVariables.h \
+ParBuffer.h

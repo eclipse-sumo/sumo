@@ -47,6 +47,7 @@
 #include "cfmodels/MSCFModel_ACC.h"
 #include "cfmodels/MSCFModel_CACC.h"
 #include "MSVehicleControl.h"
+#include "cfmodels/MSCFModel_CC.h"
 #include "MSVehicleType.h"
 
 
@@ -330,6 +331,9 @@ MSVehicleType::build(SUMOVTypeParameter& from) {
             break;
         case SUMO_TAG_CF_CACC:
             vtype->myCarFollowModel = new MSCFModel_CACC(vtype);
+            break;
+        case SUMO_TAG_CF_CC:
+            vtype->myCarFollowModel = new MSCFModel_CC(vtype);
             break;
         case SUMO_TAG_CF_KRAUSS:
         default:

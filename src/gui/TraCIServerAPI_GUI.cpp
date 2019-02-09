@@ -48,7 +48,8 @@ TraCIServerAPI_GUI::processGet(TraCIServer& server, tcpip::Storage& inputStorage
     std::string id = inputStorage.readString();
     // check variable
     if (variable != TRACI_ID_LIST && variable != VAR_VIEW_ZOOM && variable != VAR_VIEW_OFFSET
-            && variable != VAR_VIEW_SCHEMA && variable != VAR_VIEW_BOUNDARY && variable != VAR_HAS_VIEW) {
+            && variable != VAR_VIEW_SCHEMA && variable != VAR_VIEW_BOUNDARY && variable != VAR_HAS_VIEW
+            && variable != VAR_TRACK_VEHICLE) {
         return server.writeErrorStatusCmd(CMD_GET_GUI_VARIABLE, "Get GUI Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
     }
     // begin response building
@@ -91,10 +92,30 @@ TraCIServerAPI_GUI::processGet(TraCIServer& server, tcpip::Storage& inputStorage
                 tempMsg.writeDouble(b.ymax());
                 break;
             }
-            case VAR_HAS_VIEW:
+            case VAR_HAS_VIEW: {
                 tempMsg.writeUnsignedByte(TYPE_INTEGER);
                 tempMsg.writeInt(v != nullptr ? 1 : 0);
                 break;
+            }
+            case VAR_TRACK_VEHICLE: {
+                GUIVehicle* gv = 0;
+                std::string id;
+                GUIGlID gid = v->getTrackedID();
+                if (gid != GUIGlObject::INVALID_ID) {
+                    gv = static_cast<GUIVehicle*>(GUIGlObjectStorage::gIDStorage.getObjectBlocking(gid));
+                }
+                if (gv == 0) {
+                    id = "";
+                } else {
+                    id = gv->getID();
+                }
+                tempMsg.writeUnsignedByte(TYPE_STRING);
+                tempMsg.writeString(id);
+                if (gid != GUIGlObject::INVALID_ID) {
+                    GUIGlObjectStorage::gIDStorage.unblockObject(gid);
+                }
+                break;
+            }
             default:
                 break;
         }

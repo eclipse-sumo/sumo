@@ -84,6 +84,9 @@ public:
     /// @brief Callback: The selected item shall be centered within the calling view
     long onCmdCenter(FXObject*, FXSelector, void*);
 
+    /// @brief Callback: The selected vehicle shall be tracked within the calling view
+    long onCmdTrack(FXObject*, FXSelector, void*);
+
     /// @brief Callback: The dialog shall be closed
     long onCmdClose(FXObject*, FXSelector, void*);
 
@@ -123,6 +126,9 @@ private:
 
     /// @brief The button that triggers centering on the select object
     FXButton* myCenterButton;
+
+    /// @brief The button that triggers tracking on the select vehicle
+    FXButton* myTrackButton;
 
     /// @brief The parent window
     GUIGlChildWindow* myParent;
