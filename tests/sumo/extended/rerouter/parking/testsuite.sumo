@@ -37,3 +37,11 @@ skip_too_close
 
 # when rerouting, take subsequent stops into account
 subsequent_stops
+
+# when rerouting, take subsequent stops into account
+# this may trigger adaptation of multiple person stages.
+subsequent_stops_rider_walk
+
+# when rerouting, take subsequent stops into account
+# this may trigger adaptation of multiple person stages.
+subsequent_stops_rider_trip

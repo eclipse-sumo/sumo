@@ -1,0 +1,5 @@
+--no-step-log --no-duration-log -n net.net.xml
+--route-files=input_routes.rou.xml
+--additional-files=input_additional.add.xml
+--tripinfo-output=tripinfos.xml 
+--pedestrian.model nonInteracting
