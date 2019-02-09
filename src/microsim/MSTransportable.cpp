@@ -135,6 +135,17 @@ MSTransportable::Stage::getEdgeAngle(const MSEdge* e, double at) const {
 }
 
 
+void
+MSTransportable::Stage::setDestination(const MSEdge* newDestination, MSStoppingPlace* newDestStop) {
+    myDestination = newDestination;
+    myDestinationStop = newDestStop;
+    if (newDestStop != nullptr) {
+        myArrivalPos = (newDestStop->getBeginLanePosition() + newDestStop->getEndLanePosition()) / 2;
+    }
+}
+
+
+
 /* -------------------------------------------------------------------------
 * MSTransportable::Stage_Trip - methods
 * ----------------------------------------------------------------------- */
@@ -577,16 +588,6 @@ MSTransportable::Stage_Driving::setVehicle(SUMOVehicle* v) {
 }
 
 void
-MSTransportable::Stage_Driving::setDestination(const MSEdge* newDestination, MSStoppingPlace* newDestStop) {
-    myDestination = newDestination;
-    myDestinationStop = newDestStop;
-    if (newDestStop != nullptr) {
-        myArrivalPos = (newDestStop->getBeginLanePosition() + newDestStop->getEndLanePosition()) / 2;
-    }
-}
-
-
-void
 MSTransportable::Stage_Driving::abort(MSTransportable* t) {
     if (myVehicle != nullptr) {
         // jumping out of a moving vehicle!
@@ -800,6 +801,10 @@ MSTransportable::rerouteParkingArea(MSStoppingPlace* orig, MSStoppingPlace* repl
     // @note: parkingArea can currently not be set as myDestinationStop so we
     // check for stops on the edge instead
     assert(getCurrentStageType() == DRIVING);
+    if (dynamic_cast<MSPerson*>(this) == nullptr) {
+        WRITE_WARNING("parkingAreaReroute not support for containers");
+        return;
+    }
     if (getDestination() == &orig->getLane().getEdge()) {
         Stage_Driving* stage = dynamic_cast<Stage_Driving*>(*myStep);
         assert(stage != 0);
@@ -814,14 +819,31 @@ MSTransportable::rerouteParkingArea(MSStoppingPlace* orig, MSStoppingPlace* repl
         if (nextStage->getStageType() == TRIP) {
             dynamic_cast<MSTransportable::Stage_Trip*>(nextStage)->setOrigin(stage->getDestination());
         } else if (nextStage->getStageType() == MOVING_WITHOUT_VEHICLE) {
-            MSPerson::MSPersonStage_Walking* ws = dynamic_cast<MSPerson::MSPersonStage_Walking*>(nextStage);
-            if (ws != nullptr) {
-                Stage_Trip* newStage = new Stage_Trip(stage->getDestination(), nextStage->getDestination(),
-                        nextStage->getDestinationStop(), -1, 0, "", -1, 1, 0, true, nextStage->getArrivalPos());
-                removeStage(1);
-                appendStage(newStage, 1);
-            } else {
-                WRITE_WARNING("parkingAreaReroute not support for containers");
+            Stage_Trip* newStage = new Stage_Trip(stage->getDestination(), nextStage->getDestination(),
+                    nextStage->getDestinationStop(), -1, 0, "", -1, 1, 0, true, nextStage->getArrivalPos());
+            removeStage(1);
+            appendStage(newStage, 1);
+        }
+        // if the plan contains another ride with the same vehicle from the same
+        // parking area, adapt the preceeding walk to end at the replacement
+        // (ride origin is set implicitly from the walk destination)
+        for (auto it = myStep + 2; it != myPlan->end(); it++) {
+            Stage* futureStage = *it;
+            Stage* prevStage = *(it - 1);
+            if (futureStage->getStageType() == DRIVING) {
+                MSPerson::MSPersonStage_Driving* ds = dynamic_cast<MSPerson::MSPersonStage_Driving*>(stage);
+                if (ds->getLines() == stage->getLines()
+                        && prevStage->getDestination() == &orig->getLane().getEdge()) {
+                    if (prevStage->getStageType() == TRIP) {
+                        dynamic_cast<MSTransportable::Stage_Trip*>(prevStage)->setDestination(stage->getDestination(), replacement);
+                    } else if (prevStage->getStageType() == MOVING_WITHOUT_VEHICLE) {
+                        Stage_Trip* newStage = new Stage_Trip(prevStage->getFromEdge(), stage->getDestination(),
+                                replacement, -1, 0, "", -1, 1, 0, true, stage->getArrivalPos());
+                        int prevStageRelIndex = it - 1 - myStep;
+                        removeStage(prevStageRelIndex);
+                        appendStage(newStage, prevStageRelIndex);
+                    }
+                }
             }
         }
     }

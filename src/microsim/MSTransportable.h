@@ -160,6 +160,9 @@ public:
         /// @brief get angle of the edge at a certain position
         double getEdgeAngle(const MSEdge* e, double at) const;
 
+        void setDestination(const MSEdge* newDestination, MSStoppingPlace* newDestStop);
+
+
         /** @brief Called on writing tripinfo output
          * @param[in] os The stream to write the information into
          * @exception IOError not yet implemented
@@ -438,8 +441,6 @@ public:
 
         ConstMSEdgeVector getEdges() const;
 
-        void setDestination(const MSEdge* newDestination, MSStoppingPlace* newDestStop);
-
         void setVehicle(SUMOVehicle* v);
 
         /// @brief marks arrival time and records driven distance
@@ -456,6 +457,10 @@ public:
         * @exception IOError not yet implemented
         */
         virtual void endEventOutput(const MSTransportable& p, SUMOTime t, OutputDevice& os) const;
+
+        const std::set<std::string>& getLines() const {
+            return myLines;
+        }
 
     protected:
         /// the lines  to choose from
