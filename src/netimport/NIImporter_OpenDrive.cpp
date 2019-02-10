@@ -59,8 +59,9 @@
 //#define DEBUG_SPIRAL
 //#define DEBUG_INTERNALSHAPES
 
-#define DEBUG_COND(road) ((road)->id == "1000003")
-#define DEBUG_COND2(edgeID) (StringUtils::startsWith((edgeID), "2"))
+#define DEBUG_COND(road) ((road)->id == "12")
+#define DEBUG_COND2(edgeID) (StringUtils::startsWith((edgeID), "-12.0"))
+#define DEBUG_COND3(roadID) (roadID == "12")
 
 // ===========================================================================
 // definitions
@@ -761,24 +762,18 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
 
 void
 NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c, const std::map<std::string, OpenDriveEdge*>& innerEdges, std::vector<Connection>& into, std::set<Connection>& seen) {
-    //std::cout << "buildConnectionsToOuter "
-    //    << " seen=" << seen.size()
-    //    << " from=" << c.fromEdge
-    //    << " to=" << c.toEdge
-    //    << " fromLane=" << c.fromLane
-    //    << " toLane=" << c.toLane
-    //    << " fromCP=" << c.fromCP
-    //    << " toCP=" << c.toCP
-    //    << " all=" << c.all
-    //    << " origID=" << c.origID
-    //    << " origLane=" << c.origLane
-    //    << " seenlist=";
-    //for (std::set<Connection>::const_iterator i = seen.begin(); i != seen.end(); ++i) {
-    //    std::cout << (*i).fromEdge << "," << (*i).toEdge << " ";
-    //}
-    //std::cout << "\n";
 
     OpenDriveEdge* dest = innerEdges.find(c.toEdge)->second;
+#ifdef DEBUG_CONNECTIONS
+    if (DEBUG_COND3(c.fromEdge)) {
+        std::cout << "  buildConnectionsToOuter " << c.getDescription() << "\n";
+        std::cout << "    dest=" << (dest == nullptr ? "NULL" : dest->id) << " seenlist=";
+        for (std::set<Connection>::const_iterator i = seen.begin(); i != seen.end(); ++i) {
+            std::cout << "    " << (*i).fromEdge << "," << (*i).toEdge << " ";
+        }
+        std::cout << "\n";
+    }
+#endif
     if (dest == nullptr) {
         /// !!! should not, look in all?
         return;
@@ -787,6 +782,9 @@ NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c, const std::ma
     const std::set<Connection>& conts = dest->connections;
     for (std::set<Connection>::const_iterator i = conts.begin(); i != conts.end(); ++i) {
         auto innerEdgesIt = innerEdges.find((*i).toEdge);
+#ifdef DEBUG_CONNECTIONS
+        if (DEBUG_COND3(c.fromEdge)) std::cout << "      toInner=" << (innerEdgesIt != innerEdges.end()) << " destCon " << (*i).getDescription() << "\n";
+#endif
         if (innerEdgesIt != innerEdges.end()) {
             std::vector<Connection> t;
             if (seen.count(*i) == 0) {
@@ -888,6 +886,9 @@ NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c, const std::ma
                         cn.shape = cn.shape.reverse();
                     }
                 }
+#ifdef DEBUG_CONNECTIONS
+                if (DEBUG_COND3(c.fromEdge)) std::cout << "        added connection\n";
+#endif
                 into.push_back(cn);
             }
         }
