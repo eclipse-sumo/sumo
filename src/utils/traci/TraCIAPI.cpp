@@ -334,7 +334,7 @@ TraCIAPI::getUnsignedByte(int cmd, int var, const std::string& id, tcpip::Storag
     if (processGet(cmd, TYPE_UBYTE)) {
         return myInput.readUnsignedByte();
     }
-    return INVALID_DOUBLE_VALUE;
+    return INVALID_INT_VALUE;
 }
 
 
@@ -344,7 +344,7 @@ TraCIAPI::getByte(int cmd, int var, const std::string& id, tcpip::Storage* add) 
     if (processGet(cmd, TYPE_BYTE)) {
         return myInput.readByte();
     }
-    return INVALID_DOUBLE_VALUE;
+    return INVALID_INT_VALUE;
 }
 
 
@@ -355,7 +355,7 @@ TraCIAPI::getInt(int cmd, int var, const std::string& id, tcpip::Storage* add) {
     if (processGet(cmd, TYPE_INTEGER)) {
         return myInput.readInt();
     }
-    return INVALID_DOUBLE_VALUE;
+    return INVALID_INT_VALUE;
 }
 
 
@@ -2458,7 +2458,7 @@ TraCIAPI::VehicleScope::getLaneChangeState(const std::string& vehicleID, int dir
         const int state = myParent.myInput.readInt();
         return std::make_pair(stateWithoutTraCI, state);
     }
-    return std::make_pair(INVALID_DOUBLE_VALUE, INVALID_DOUBLE_VALUE);
+    return std::make_pair(INVALID_INT_VALUE, INVALID_INT_VALUE);
 }
 
 
