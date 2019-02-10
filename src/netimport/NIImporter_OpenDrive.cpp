@@ -59,9 +59,9 @@
 //#define DEBUG_SPIRAL
 //#define DEBUG_INTERNALSHAPES
 
-#define DEBUG_COND(road) ((road)->id == "12")
-#define DEBUG_COND2(edgeID) (StringUtils::startsWith((edgeID), "-12.0"))
-#define DEBUG_COND3(roadID) (roadID == "12")
+#define DEBUG_COND(road) ((road)->id == "175")
+#define DEBUG_COND2(edgeID) (StringUtils::startsWith((edgeID), "disabled"))
+#define DEBUG_COND3(roadID) (roadID == "175")
 
 // ===========================================================================
 // definitions
@@ -805,7 +805,7 @@ NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c, const std::ma
                 WRITE_WARNING("Circular connections in junction including roads '" + c.fromEdge + "' and '" + c.toEdge + "', loop size " + toString(seen.size()));
             }
         } else {
-            if ((*i).fromLane == c.toLane) {
+            if (laneSectionsConnected(dest, c.toLane, (*i).fromLane)) {
                 Connection cn = (*i);
                 cn.fromEdge = c.fromEdge;
                 cn.fromLane = c.fromLane;
@@ -892,6 +892,34 @@ NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c, const std::ma
                 into.push_back(cn);
             }
         }
+    }
+}
+
+
+bool
+NIImporter_OpenDrive::laneSectionsConnected(OpenDriveEdge* edge, int in, int out) {
+    if (edge->laneSections.size() == 1) {
+        return in == out;
+    } else {
+        // there could be spacing lanes (type 'none') that lead to a shift in lane index
+        for (auto it = edge->laneSections.begin(); it + 1 < edge->laneSections.end(); it++) {
+            OpenDriveLaneSection& laneSection = *it;
+            if (laneSection.lanesByDir.find(OPENDRIVE_TAG_RIGHT) != laneSection.lanesByDir.end()) {
+                for (OpenDriveLane& lane : laneSection.lanesByDir.find(OPENDRIVE_TAG_RIGHT)->second) {
+                    if (lane.id == in) {
+                        in = lane.successor;
+                    }
+                }
+            }
+            if (laneSection.lanesByDir.find(OPENDRIVE_TAG_LEFT) != laneSection.lanesByDir.end()) {
+                for (OpenDriveLane& lane : laneSection.lanesByDir.find(OPENDRIVE_TAG_LEFT)->second) {
+                    if (lane.id == in) {
+                        in = lane.successor;
+                    }
+                }
+            }
+        }
+        return in == out;
     }
 }
 
