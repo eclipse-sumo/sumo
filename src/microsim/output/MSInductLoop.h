@@ -283,6 +283,8 @@ public:
      */
     virtual std::vector<VehicleData> collectVehiclesOnDet(SUMOTime t, bool leaveTime = false) const;
 
+    /// @brief allows for special color in the gui version
+    virtual void setSpecialColor(const RGBColor* /*color*/) {};
 
 protected:
     /// @name Methods that add and remove vehicles from internal container

@@ -42,8 +42,10 @@
  * GUIInductLoop-methods
  * ----------------------------------------------------------------------- */
 GUIInductLoop::GUIInductLoop(const std::string& id, MSLane* const lane,
-                             double position, const std::string& vTypes)
-    : MSInductLoop(id, lane, position, vTypes) {}
+                             double position, const std::string& vTypes) : 
+    MSInductLoop(id, lane, position, vTypes),
+    myWrapper(nullptr)
+{}
 
 
 GUIInductLoop::~GUIInductLoop() {}
@@ -51,7 +53,9 @@ GUIInductLoop::~GUIInductLoop() {}
 
 GUIDetectorWrapper*
 GUIInductLoop::buildDetectorGUIRepresentation() {
-    return new MyWrapper(*this, myPosition);
+    // caller (GUINet) takes responsibility for pointer
+    myWrapper = new MyWrapper(*this, myPosition);
+    return myWrapper;
 }
 
 
@@ -87,13 +91,24 @@ GUIInductLoop::collectVehiclesOnDet(SUMOTime t, bool leaveTime) const {
     return MSInductLoop::collectVehiclesOnDet(t, leaveTime);
 }
 
+
+void 
+GUIInductLoop::setSpecialColor(const RGBColor* color) {
+    if (myWrapper != nullptr) {
+        myWrapper->setSpecialColor(color);
+    }
+}
+
+
 // -------------------------------------------------------------------------
 // GUIInductLoop::MyWrapper-methods
 // -------------------------------------------------------------------------
 
 GUIInductLoop::MyWrapper::MyWrapper(GUIInductLoop& detector, double pos) :
     GUIDetectorWrapper(GLO_E1DETECTOR, detector.getID()),
-    myDetector(detector), myPosition(pos) {
+    myDetector(detector), myPosition(pos),
+    mySpecialColor(nullptr)
+{
     myFGPosition = detector.getLane()->geometryPositionAtOffset(pos);
     myBoundary.add(myFGPosition.x() + (double) 5.5, myFGPosition.y() + (double) 5.5);
     myBoundary.add(myFGPosition.x() - (double) 5.5, myFGPosition.y() - (double) 5.5);
@@ -163,9 +178,14 @@ GUIInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
     glVertex2d(0, -2 + .1);
     glEnd();
 
+    if (mySpecialColor == nullptr) {
+        glColor3d(1, 1, 1);
+    } else {
+        GLHelper::setColor(*mySpecialColor);
+    }
+
     // outline
     if (width * exaggeration > 1) {
-        glColor3d(1, 1, 1);
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         glBegin(GL_QUADS);
         glVertex2f(0 - 1.0, 2);
@@ -179,7 +199,6 @@ GUIInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
     // position indicator
     if (width * exaggeration > 1) {
         glRotated(90, 0, 0, -1);
-        glColor3d(1, 1, 1);
         glBegin(GL_LINES);
         glVertex2d(0, 1.7);
         glVertex2d(0, -1.7);

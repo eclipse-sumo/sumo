@@ -88,6 +88,9 @@ public:
     std::vector<VehicleData> collectVehiclesOnDet(SUMOTime t, bool leaveTime = false) const;
 
 
+    /// @brief sets special caller for myWrapper
+    void setSpecialColor(const RGBColor* color); 
+
 protected:
     /// @name Methods that add and remove vehicles from internal container
     /// @{
@@ -174,6 +177,10 @@ public:
         /// @brief Returns the detector itself
         GUIInductLoop& getLoop();
 
+        /// @brief set (outline) color for extra visualiaztion
+        void setSpecialColor(const RGBColor* color) {
+            mySpecialColor = color;
+        }
 
     private:
         /// @brief The wrapped detector
@@ -191,6 +198,9 @@ public:
         /// @brief The position on the lane
         double myPosition;
 
+        /// @brief color for extra visualization
+        const RGBColor* mySpecialColor;
+
     private:
         /// @brief Invalidated copy constructor.
         MyWrapper(const MyWrapper&);
@@ -200,6 +210,10 @@ public:
 
     };
 
+private:
+
+    /// @brief the glObject wrapper for this induction loop
+    MyWrapper* myWrapper;
 
     /// @brief Mutex preventing parallel read/write access to internal MSInductLoop state
     mutable FXMutex myLock;

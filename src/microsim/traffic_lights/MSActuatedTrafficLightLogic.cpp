@@ -220,6 +220,9 @@ MSActuatedTrafficLightLogic::gapControl() {
     if (!getCurrentPhaseDef().isGreenPhase()) {
         return result; // end current phase
     }
+    if (MSGlobals::gUseMesoSim) {
+        return result;
+    }
 
     // Checks, if the maxDuration is kept. No phase should longer send than maxDuration.
     SUMOTime actDuration = MSNet::getInstance()->getCurrentTimeStep() - myPhases[myStep]->myLastSwitch;
@@ -230,18 +233,27 @@ MSActuatedTrafficLightLogic::gapControl() {
     // now the gapcontrol starts
     const std::string& state = getCurrentPhaseDef().getState();
     for (int i = 0; i < (int) state.size(); i++)  {
+        const std::vector<MSLane*>& lanes = getLanesAt(i);
         if (state[i] == LINKSTATE_TL_GREEN_MAJOR || state[i] == LINKSTATE_TL_GREEN_MINOR) {
-            const std::vector<MSLane*>& lanes = getLanesAt(i);
             for (LaneVector::const_iterator j = lanes.begin(); j != lanes.end(); j++) {
                 if (myInductLoops.find(*j) == myInductLoops.end()) {
                     continue;
                 }
-                if (!MSGlobals::gUseMesoSim) { // why not check outside the loop? (Leo)
-                    const double actualGap = static_cast<MSInductLoop*>(myInductLoops.find(*j)->second)->getTimeSinceLastDetection();
-                    if (actualGap < myMaxGap) {
-                        result = MIN2(result, actualGap);
-                    }
+                MSInductLoop* loop = static_cast<MSInductLoop*>(myInductLoops.find(*j)->second);
+                const double actualGap = loop->getTimeSinceLastDetection();
+                loop->setSpecialColor(&RGBColor::GREEN);
+                if (actualGap < myMaxGap) {
+                    result = MIN2(result, actualGap);
                 }
+            }
+        } else if (myShowDetectors) {
+            // reset color
+            for (LaneVector::const_iterator j = lanes.begin(); j != lanes.end(); j++) {
+                if (myInductLoops.find(*j) == myInductLoops.end()) {
+                    continue;
+                }
+                MSInductLoop* loop = static_cast<MSInductLoop*>(myInductLoops.find(*j)->second);
+                loop->setSpecialColor(nullptr);
             }
         }
     }
