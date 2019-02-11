@@ -825,6 +825,7 @@ public:
         int getStage(const std::string& personID, int nextStageIndex = 0) const;
         std::vector<std::string> getEdges(const std::string& personID, int nextStageIndex = 0) const;
         double getAngle(const std::string& personID) const;
+        double getSlope(const std::string& personID) const;
         double getLanePosition(const std::string& personID) const;
         libsumo::TraCIColor getColor(const std::string& personID) const;
 

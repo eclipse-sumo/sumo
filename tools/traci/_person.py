@@ -25,6 +25,7 @@ _RETURN_VALUE_FUNC = {tc.TRACI_ID_LIST: Storage.readStringList,
                       tc.VAR_POSITION: lambda result: result.read("!dd"),
                       tc.VAR_POSITION3D: lambda result: result.read("!ddd"),
                       tc.VAR_ANGLE: Storage.readDouble,
+                      tc.VAR_SLOPE: Storage.readDouble,
                       tc.VAR_ROAD_ID: Storage.readString,
                       tc.VAR_TYPE: Storage.readString,
                       tc.VAR_ROUTE_ID: Storage.readString,
@@ -76,6 +77,13 @@ class PersonDomain(Domain):
         Returns the angle in degrees of the named person within the last step.
         """
         return self._getUniversal(tc.VAR_ANGLE, personID)
+
+    def getSlope(self, personID):
+        """getSlope(string) -> double
+
+        Returns the slope at the current position of the person in degrees
+        """
+        return self._getUniversal(tc.VAR_SLOPE, personID)
 
     def getRoadID(self, personID):
         """getRoadID(string) -> string

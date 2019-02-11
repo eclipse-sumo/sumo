@@ -2978,6 +2978,11 @@ TraCIAPI::PersonScope::getAngle(const std::string& personID) const {
 }
 
 double
+TraCIAPI::PersonScope::getSlope(const std::string& personID) const {
+    return myParent.getDouble(CMD_GET_PERSON_VARIABLE, VAR_SLOPE, personID);
+}
+
+double
 TraCIAPI::PersonScope::getLanePosition(const std::string& personID) const {
     return myParent.getDouble(CMD_GET_PERSON_VARIABLE, VAR_LANEPOSITION, personID);
 }

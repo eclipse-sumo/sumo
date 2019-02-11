@@ -84,6 +84,19 @@ Person::getAngle(const std::string& personID) {
 
 
 double
+Person::getSlope(const std::string& personID) {
+    MSPerson* person = getPerson(personID);
+    const double ep = person->getEdgePos();
+    const MSLane* lane = getSidewalk<MSEdge, MSLane>(person->getEdge());
+    if (lane == nullptr) {
+        lane = person->getEdge()->getLanes()[0];
+    }
+    const double gp = lane->interpolateLanePosToGeometryPos(ep);
+    return lane->getShape().slopeDegreeAtOffset(gp);
+}
+
+
+double
 Person::getSpeed(const std::string& personID) {
     return getPerson(personID)->getSpeed();
 }
@@ -829,6 +842,8 @@ Person::handleVariable(const std::string& objID, const int variable, VariableWra
             return wrapper->wrapPosition(objID, variable, getPosition(objID, true));
         case VAR_ANGLE:
             return wrapper->wrapDouble(objID, variable, getAngle(objID));
+        case VAR_SLOPE:
+            return wrapper->wrapDouble(objID, variable, getSlope(objID));
         case VAR_SPEED:
             return wrapper->wrapDouble(objID, variable, getSpeed(objID));
         case VAR_ROAD_ID:

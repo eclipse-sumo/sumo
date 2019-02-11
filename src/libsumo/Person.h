@@ -63,6 +63,7 @@ public:
     static std::vector<std::string> getEdges(const std::string& personID, int nextStageIndex = 0);
     static std::string getParameter(const std::string& routeID, const std::string& param);
     static double getAngle(const std::string& personID);
+    static double getSlope(const std::string& personID);
     static double getLanePosition(const std::string& personID);
 
     LIBSUMO_VEHICLE_TYPE_GETTER

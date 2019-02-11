@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Fri Feb  8 10:09:00 2019
+TraCITestClient output file. Date: Mon Feb 11 18:55:40 2019
 
 
 -> Command sent: <SetOrder>:
@@ -125,6 +125,7 @@ testAPI:
     getPosition: TraCIPosition(1500,490.47,0)
     getPosition3D: TraCIPosition(1500,490.47,0)
     getAngle: 90.00
+    getSlope: 0.00
     getLanePosition: 0.00
     getLength: 0.21
     getColor: TraCIColor(255,255,0,128)

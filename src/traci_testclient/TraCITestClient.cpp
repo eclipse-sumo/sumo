@@ -893,6 +893,7 @@ TraCITestClient::testAPI() {
     answerLog << "    getPosition: " << person.getPosition("p0").getString() << "\n";
     answerLog << "    getPosition3D: " << person.getPosition3D("p0").getString() << "\n";
     answerLog << "    getAngle: " << person.getAngle("p0") << "\n";
+    answerLog << "    getSlope: " << person.getSlope("p0") << "\n";
     answerLog << "    getLanePosition: " << person.getLanePosition("p0") << "\n";
     answerLog << "    getLength: " << person.getLength("p0") << "\n";
     answerLog << "    getColor: " << person.getColor("p0").getString() << "\n";
