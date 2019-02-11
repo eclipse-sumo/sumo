@@ -90,6 +90,12 @@ GNEVehicle::GNEVehicle(GNEViewNet* viewNet, const SUMOVehicleParameter &vehicleP
 GNEVehicle::~GNEVehicle() {}
 
 
+std::string 
+GNEVehicle::getBegin() const {
+    return getDepart();
+}
+
+
 bool 
 GNEVehicle::wasSet(int what) const {
     return (parametersSet & what) != 0;
@@ -651,9 +657,12 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             parseArrivalPosLat(value, toString(SUMO_TAG_VEHICLE), id, arrivalPosLat, arrivalPosLatProcedure, error);
             break;        
         // Specific of vehicles
-        case SUMO_ATTR_DEPART:
+        case SUMO_ATTR_DEPART: {
+            std::string oldDepart = toString(depart);
             parseDepart(value, toString(SUMO_TAG_VEHICLE), id, depart, departProcedure, error);
-            break;     
+            myViewNet->getNet()->updateDemandElementBegin(oldDepart, this);
+            break;
+        }
         //
         case GNE_ATTR_GENERIC:
             setGenericParametersStr(value);

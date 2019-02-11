@@ -58,6 +58,12 @@ GNETrip::GNETrip(GNEViewNet* viewNet, const SUMOVehicleParameter &tripParameter,
 GNETrip::~GNETrip() {}
 
 
+std::string 
+GNETrip::getBegin() const {
+    return getDepart();
+}
+
+
 bool 
 GNETrip::wasSet(int what) const {
     return (parametersSet & what) != 0;

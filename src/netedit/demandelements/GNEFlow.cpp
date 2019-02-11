@@ -71,6 +71,12 @@ GNEFlow::GNEFlow(GNEViewNet* viewNet, const SUMOVehicleParameter &flowParameter,
 GNEFlow::~GNEFlow() {}
 
 
+std::string 
+GNEFlow::getBegin() const {
+    return toString(myBegin);
+}
+
+
 bool 
 GNEFlow::wasSet(int what) const {
     return (parametersSet & what) != 0;
@@ -467,9 +473,12 @@ GNEFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
             parseArrivalPosLat(value, toString(SUMO_TAG_VEHICLE), id, arrivalPosLat, arrivalPosLatProcedure, error);
             break;
         // Specific of flows
-        case SUMO_ATTR_BEGIN:
+        case SUMO_ATTR_BEGIN: {
+            std::string oldBegin = toString(myBegin);
             myBegin = parse<double>(value);
+            myViewNet->getNet()->updateDemandElementBegin(oldBegin, this);
             break;
+        }
         case SUMO_ATTR_END:
             myEnd = value;
             break;

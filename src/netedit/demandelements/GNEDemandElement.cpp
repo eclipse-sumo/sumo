@@ -78,6 +78,12 @@ GNEDemandElement::openDemandElementDialog() {
 }
 
 
+std::string 
+GNEDemandElement::getBegin() const {
+    throw InvalidArgument(getTagStr() + " doesn't have an begin time");
+}
+
+
 void
 GNEDemandElement::startGeometryMoving() {
     // always save original position over view

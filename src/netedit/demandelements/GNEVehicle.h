@@ -44,6 +44,12 @@ public:
     /// @brief destructor
     ~GNEVehicle();
 
+    /**@brief get begin time of demand element
+     * @note: used by demand elements of type "Vehicle", and it has to be implemented as childs
+     * @throw invalid argument if demand element doesn't has a begin time
+     */
+    std::string getBegin() const;
+
     /** @brief Returns whether the given parameter was set
      * @param[in] what The parameter which one asks for
      * @return Whether the given parameter was set

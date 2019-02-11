@@ -627,6 +627,11 @@ public:
     */
     void updateDemandElementID(const std::string& oldID, GNEDemandElement* demandElement);
 
+    /**@brief update demand element begin in container
+    * @note this function is automatically called when user changes the begin/departure of an demand element
+    */
+    void updateDemandElementBegin(const std::string& oldBegin, GNEDemandElement* demandElement);
+
     /// @brief inform that demand elements has to be saved
     void requiereSaveDemandElements(bool value);
 
@@ -694,6 +699,9 @@ protected:
 
         /// @brief map with the name and pointer to demand elements of net
         std::map<SumoXMLTag, std::map<std::string, GNEDemandElement*> > demandElements;
+
+        /// @brief special map used for saving Demand Elements of type "Vehicle" (Vehicles, flows, etc.) sorted by depart time
+        std::map<std::string, GNEDemandElement*> vehicleDepartures;
     };
 
     /// @brief the rtree which contains all GUIGlObjects (so named for historical reasons)

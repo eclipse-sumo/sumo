@@ -2131,8 +2131,31 @@ GNENet::updateDemandElementID(const std::string& oldID, GNEDemandElement* demand
         // remove an insert demand element again into container
         myAttributeCarriers.demandElements.at(demandElement->getTagProperty().getTag()).erase(oldID);
         myAttributeCarriers.demandElements.at(demandElement->getTagProperty().getTag()).insert(std::make_pair(demandElement->getID(), demandElement));
+        // remove an insert demand element again into vehicleDepartures container
+        if (demandElement->getTagProperty().isVehicle()) {
+            if (myAttributeCarriers.vehicleDepartures.count(demandElement->getBegin() + "_" + oldID) == 0) {
+                throw ProcessError(demandElement->getTagStr() + " with old ID='" + oldID + "' doesn't exist");
+            } else {
+                myAttributeCarriers.vehicleDepartures.erase(demandElement->getBegin() + "_" + oldID);
+                myAttributeCarriers.vehicleDepartures.insert(std::make_pair(demandElement->getBegin() + "_" + demandElement->getID(), demandElement));
+            }
+        }
         // demand elements has to be saved
         requiereSaveDemandElements(true);
+    }
+}
+
+
+void
+GNENet::updateDemandElementBegin(const std::string& oldBegin, GNEDemandElement* demandElement) {
+    if (myAttributeCarriers.vehicleDepartures.count(oldBegin + "_" + demandElement->getID()) == 0) {
+        throw ProcessError(demandElement->getTagStr() + " with old begin='" + oldBegin + "' doesn't exist");
+    } else {
+        // remove an insert demand element again into vehicleDepartures container
+        if (demandElement->getTagProperty().isVehicle()) {
+            myAttributeCarriers.vehicleDepartures.erase(oldBegin + "_" + demandElement->getID());
+            myAttributeCarriers.vehicleDepartures.insert(std::make_pair(demandElement->getBegin() + "_" + demandElement->getID(), demandElement));
+        }
     }
 }
 
@@ -2255,27 +2278,9 @@ GNENet::saveDemandElementsConfirmed(const std::string& filename) {
             }
         }
     }
-    // finally write all vehicles
-    for (auto i : myAttributeCarriers.demandElements) {
-        if (i.first == SUMO_TAG_VEHICLE) {
-            for (auto j : i.second) {
-                j.second->writeDemandElement(device);
-            }
-        }
-    }
-    for (auto i : myAttributeCarriers.demandElements) {
-        if (i.first == SUMO_TAG_FLOW) {
-            for (auto j : i.second) {
-                j.second->writeDemandElement(device);
-            }
-        }
-    }
-    for (auto i : myAttributeCarriers.demandElements) {
-        if (i.first == SUMO_TAG_TRIP) {
-            for (auto j : i.second) {
-                j.second->writeDemandElement(device);
-            }
-        }
+    // finally write all vehicles sorted by depart time
+    for (auto i : myAttributeCarriers.vehicleDepartures) {
+        i.second->writeDemandElement(device);
     }
     device.close();
 }
@@ -2487,7 +2492,16 @@ void
 GNENet::insertDemandElement(GNEDemandElement* demandElement) {
     // Check if demandElement element exists before insertion
     if (!demandElementExist(demandElement)) {
+        // insert in demandElements container
         myAttributeCarriers.demandElements.at(demandElement->getTagProperty().getTag()).insert(std::make_pair(demandElement->getID(), demandElement));
+        // also insert in vehicleDepartures container
+        if (demandElement->getTagProperty().isVehicle()) {
+            if (myAttributeCarriers.vehicleDepartures.count(demandElement->getBegin() + "_" + demandElement->getID()) != 0) {
+                throw ProcessError(demandElement->getTagStr() + " with departure ='" + demandElement->getBegin() + "_" + demandElement->getID() + "' already inserted");
+            } else {
+                myAttributeCarriers.vehicleDepartures.insert(std::make_pair(demandElement->getBegin() + "_" + demandElement->getID(), demandElement));
+            }
+        }
         // only add drawable elements in grid
         if (demandElement->getTagProperty().isDrawable()) {
             myGrid.addAdditionalGLObject(demandElement);
@@ -2518,6 +2532,14 @@ GNENet::deleteDemandElement(GNEDemandElement* demandElement) {
                 myViewNet->getViewParent()->getInspectorFrame()->removeInspectedAC(demandElement);
                 // Remove from container
                 myAttributeCarriers.demandElements.at(demandElement->getTagProperty().getTag()).erase(i);
+                // also remove fromvehicleDepartures container
+                if (demandElement->getTagProperty().isVehicle()) {
+                    if (myAttributeCarriers.vehicleDepartures.count(demandElement->getBegin() + "_" + demandElement->getID()) != 0) {
+                        throw ProcessError(demandElement->getTagStr() + " with departure ='" + demandElement->getBegin() + "_" + demandElement->getID() + "' doesn't exist");
+                    } else {
+                        myAttributeCarriers.vehicleDepartures.erase(demandElement->getBegin() + "_" + demandElement->getID());
+                    }
+                }
                 // only remove drawable elements of grid
                 if (demandElement->getTagProperty().isDrawable()) {
                     myGrid.removeAdditionalGLObject(demandElement);
