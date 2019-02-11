@@ -117,9 +117,6 @@ public:
         /// @brief get attributes and their values
         std::map<SumoXMLAttr, std::string> getAttributesAndValues() const;
 
-        /// @brief get predefinedTagsMML
-        const std::map<int, std::string> &getPredefinedTagsMML() const;
-
         /// @brief check if parameters of attributes are valid
         bool areValuesValid() const;
 
@@ -232,9 +229,6 @@ public:
 
         /// @brief current edited Tag Properties
         GNEAttributeCarrier::TagProperties myTagProperties;
-
-        /// @brief Map of attribute ids to their (readable) string-representation (needed for SUMOSAXAttributesImpl_Cached)
-        std::map<int, std::string> myPredefinedTagsMML;
 
         /// @brief vector with the ACAttribute Rows
         std::vector<Row*> myRows;
@@ -616,6 +610,9 @@ protected:
 
     /// @brief get selected color
     const RGBColor& getEdgeCandidateSelectedColor() const;
+    
+    /// @brief get predefinedTagsMML
+    const std::map<int, std::string> &getPredefinedTagsMML() const;
 
     /// @brief View Net for changes
     GNEViewNet* myViewNet;
@@ -636,8 +633,8 @@ private:
     /// @brief scroll windows that holds the content frame
     FXScrollWindow* myScrollWindowsContents;
 
-    /// @brief Font for the Header
-    FXFont* myFrameHeaderFont;
+    /// @brief static Font for the Header (it's common for all headers, then create only one time)
+    static FXFont* myFrameHeaderFont;
 
     /// @brief the label for the frame's header
     FXLabel* myFrameHeaderLabel;
@@ -647,6 +644,9 @@ private:
 
     /// @brief selected edge candidate color (used by some modulds to selected mark edges)
     RGBColor myEdgeCandidateSelectedColor;
+
+    /// @brief Map of attribute ids to their (readable) string-representation (needed for SUMOSAXAttributesImpl_Cached)
+    std::map<int, std::string> myPredefinedTagsMML;
 
     /// @brief Invalidated copy constructor.
     GNEFrame(const GNEFrame&) = delete;

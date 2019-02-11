@@ -98,6 +98,11 @@ FXIMPLEMENT(GNEFrame::GenericParametersEditor,  FXGroupBox,         GenericParam
 FXIMPLEMENT(GNEFrame::DrawingShape,             FXGroupBox,         DrawingShapeMap,            ARRAYNUMBER(DrawingShapeMap))
 FXIMPLEMENT(GNEFrame::NeteditAttributes,        FXGroupBox,         NeteditAttributesMap,       ARRAYNUMBER(NeteditAttributesMap))
 
+// ===========================================================================
+// static members
+// ===========================================================================
+
+FXFont* GNEFrame::myFrameHeaderFont = nullptr;
 
 // ===========================================================================
 // method definitions
@@ -216,18 +221,10 @@ GNEFrame::ItemSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
 GNEFrame::ACAttributes::ACAttributes(GNEFrame* frameParent) :
     FXGroupBox(frameParent->myContentFrame, "Internal attributes", GUIDesignGroupBoxFrame),
     myFrameParent(frameParent) {
-    // fill myPredefinedTagsMML (to avoid repeating this fill during every element creation)
-    int i = 0;
-    while (SUMOXMLDefinitions::attrs[i].key != SUMO_ATTR_NOTHING) {
-        myPredefinedTagsMML[SUMOXMLDefinitions::attrs[i].key] = toString(SUMOXMLDefinitions::attrs[i].str);
-        myPredefinedTagsMML[SUMOXMLDefinitions::attrs[i].key] = SUMOXMLDefinitions::attrs[i].str;
-        i++;
-    }
     // Create single parameters
     for (int i = 0; i < GNEAttributeCarrier::getHigherNumberOfAttributes(); i++) {
         myRows.push_back(new Row(this));
     }
-
     // Create help button
     new FXButton(this, "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
 }
@@ -274,12 +271,6 @@ GNEFrame::ACAttributes::getAttributesAndValues() const {
         }
     }
     return values;
-}
-
-
-const std::map<int, std::string> &
-GNEFrame::ACAttributes::getPredefinedTagsMML() const {
-    return myPredefinedTagsMML;
 }
 
 
@@ -1689,8 +1680,18 @@ GNEFrame::GNEFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet
     myEdgeCandidateColor(RGBColor(0, 64, 0, 255)),
     myEdgeCandidateSelectedColor(RGBColor::GREEN) {
 
-    // Create font
-    myFrameHeaderFont = new FXFont(getApp(), "Arial", 14, FXFont::Bold),
+    // fill myPredefinedTagsMML (to avoid repeating this fill during every element creation)
+    int i = 0;
+    while (SUMOXMLDefinitions::attrs[i].key != SUMO_ATTR_NOTHING) {
+        myPredefinedTagsMML[SUMOXMLDefinitions::attrs[i].key] = toString(SUMOXMLDefinitions::attrs[i].str);
+        myPredefinedTagsMML[SUMOXMLDefinitions::attrs[i].key] = SUMOXMLDefinitions::attrs[i].str;
+        i++;
+    }
+
+    // Create font only one time
+    if(myFrameHeaderFont == nullptr) {
+        myFrameHeaderFont = new FXFont(getApp(), "Arial", 14, FXFont::Bold);
+    }
 
     // Create frame for header
     myHeaderFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
@@ -1724,7 +1725,11 @@ GNEFrame::GNEFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet
 
 
 GNEFrame::~GNEFrame() {
-    delete myFrameHeaderFont;
+    // delete frame header only one time
+    if(myFrameHeaderFont) {
+        delete myFrameHeaderFont;
+        myFrameHeaderFont = nullptr;
+    }
 }
 
 
@@ -1872,6 +1877,12 @@ GNEFrame::getEdgeCandidateColor() const {
 const RGBColor&
 GNEFrame::getEdgeCandidateSelectedColor() const {
     return myEdgeCandidateSelectedColor;
+}
+
+
+const std::map<int, std::string> &
+GNEFrame::getPredefinedTagsMML() const {
+    return myPredefinedTagsMML;
 }
 
 /****************************************************************************/

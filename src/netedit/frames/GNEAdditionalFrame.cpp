@@ -22,6 +22,7 @@
 
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/xml/SUMOSAXAttributesImpl_Cached.h>
 #include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNELane.h>
@@ -154,12 +155,17 @@ GNEAdditionalFrame::SelectorLaneParents::stopConsecutiveLaneSelector() {
     if (myAdditionalFrameParent->myAdditionalAttributes->areValuesValid() == false) {
         myAdditionalFrameParent->myAdditionalAttributes->showWarningMessage();
         return false;
-    } else if (GNEAdditionalHandler::buildAdditional(myAdditionalFrameParent->myViewNet, true, myAdditionalFrameParent->myItemSelector->getCurrentTagProperties().getTag(), valuesMap)) {
-        // abort consecutive lane selector
-        abortConsecutiveLaneSelector();
-        return true;
     } else {
-        return false;
+        // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
+        SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, myAdditionalFrameParent->getPredefinedTagsMML(), toString(tagValues.getTag()));
+        // try to build additional
+        if (GNEAdditionalHandler::buildAdditional(myAdditionalFrameParent->myViewNet, true, myAdditionalFrameParent->myItemSelector->getCurrentTagProperties().getTag(), SUMOSAXAttrs, nullptr)) {
+            // abort consecutive lane selector
+            abortConsecutiveLaneSelector();
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 
@@ -926,15 +932,20 @@ GNEAdditionalFrame::buildAdditionalOverEdge(std::map<SumoXMLAttr, std::string>& 
     if (!myAdditionalAttributes->areValuesValid()) {
         myAdditionalAttributes->showWarningMessage();
         return false;
-    } else if (GNEAdditionalHandler::buildAdditional(myViewNet, true, myItemSelector->getCurrentTagProperties().getTag(), valuesMap) != nullptr) {
-        // Refresh additional Parent Selector (For additionals that have a limited number of childs)
-        mySelectorAdditionalParent->refreshSelectorAdditionalParentModul();
-        // clear selected eddges and lanes
-        mySelectorEdgeChilds->onCmdClearSelection(nullptr, 0, nullptr);
-        mySelectorLaneChilds->onCmdClearSelection(nullptr, 0, nullptr);
-        return true;
     } else {
-        return false;
+        // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
+        SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, getPredefinedTagsMML(), toString(tagValues.getTag()));
+        // try to build additional
+        if (GNEAdditionalHandler::buildAdditional(myViewNet, true, myItemSelector->getCurrentTagProperties().getTag(), SUMOSAXAttrs, nullptr)) {
+            // Refresh additional Parent Selector (For additionals that have a limited number of childs)
+            mySelectorAdditionalParent->refreshSelectorAdditionalParentModul();
+            // clear selected eddges and lanes
+            mySelectorEdgeChilds->onCmdClearSelection(nullptr, 0, nullptr);
+            mySelectorLaneChilds->onCmdClearSelection(nullptr, 0, nullptr);
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 
@@ -962,15 +973,20 @@ GNEAdditionalFrame::buildAdditionalOverLane(std::map<SumoXMLAttr, std::string>& 
     if (!myAdditionalAttributes->areValuesValid()) {
         myAdditionalAttributes->showWarningMessage();
         return false;
-    } else if (GNEAdditionalHandler::buildAdditional(myViewNet, true, myItemSelector->getCurrentTagProperties().getTag(), valuesMap)) {
-        // Refresh additional Parent Selector (For additionals that have a limited number of childs)
-        mySelectorAdditionalParent->refreshSelectorAdditionalParentModul();
-        // clear selected eddges and lanes
-        mySelectorEdgeChilds->onCmdClearSelection(nullptr, 0, nullptr);
-        mySelectorLaneChilds->onCmdClearSelection(nullptr, 0, nullptr);
-        return true;
     } else {
-        return false;
+        // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
+        SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, getPredefinedTagsMML(), toString(tagValues.getTag()));
+        // try to build additional
+        if (GNEAdditionalHandler::buildAdditional(myViewNet, true, myItemSelector->getCurrentTagProperties().getTag(), SUMOSAXAttrs, nullptr)) {
+            // Refresh additional Parent Selector (For additionals that have a limited number of childs)
+            mySelectorAdditionalParent->refreshSelectorAdditionalParentModul();
+            // clear selected eddges and lanes
+            mySelectorEdgeChilds->onCmdClearSelection(nullptr, 0, nullptr);
+            mySelectorLaneChilds->onCmdClearSelection(nullptr, 0, nullptr);
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 
@@ -1014,15 +1030,20 @@ GNEAdditionalFrame::buildAdditionalOverLanes(std::map<SumoXMLAttr, std::string>&
         if (myAdditionalAttributes->areValuesValid() == false) {
             myAdditionalAttributes->showWarningMessage();
             return false;
-        } else if (GNEAdditionalHandler::buildAdditional(myViewNet, true, myItemSelector->getCurrentTagProperties().getTag(), valuesMap)) {
-            // Refresh additional Parent Selector (For additionals that have a limited number of childs)
-            mySelectorAdditionalParent->refreshSelectorAdditionalParentModul();
-            // abort lane selector
-            mySelectorLaneParents->abortConsecutiveLaneSelector();
-            return true;
         } else {
-            // additional cannot be build
-            return false;
+            // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
+            SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, getPredefinedTagsMML(), toString(tagValues.getTag()));
+            // try to build additional
+            if (GNEAdditionalHandler::buildAdditional(myViewNet, true, myItemSelector->getCurrentTagProperties().getTag(), SUMOSAXAttrs, nullptr)) {
+                // Refresh additional Parent Selector (For additionals that have a limited number of childs)
+                mySelectorAdditionalParent->refreshSelectorAdditionalParentModul();
+                // abort lane selector
+                mySelectorLaneParents->abortConsecutiveLaneSelector();
+                return true;
+            } else {
+                // additional cannot be build
+                return false;
+            }
         }
     }
 }
@@ -1042,15 +1063,20 @@ GNEAdditionalFrame::buildAdditionalOverView(std::map<SumoXMLAttr, std::string>& 
     if (myAdditionalAttributes->areValuesValid() == false) {
         myAdditionalAttributes->showWarningMessage();
         return false;
-    } else if (GNEAdditionalHandler::buildAdditional(myViewNet, true, myItemSelector->getCurrentTagProperties().getTag(), valuesMap)) {
-        // Refresh additional Parent Selector (For additionals that have a limited number of childs)
-        mySelectorAdditionalParent->refreshSelectorAdditionalParentModul();
-        // clear selected eddges and lanes
-        mySelectorEdgeChilds->onCmdClearSelection(nullptr, 0, nullptr);
-        mySelectorLaneChilds->onCmdClearSelection(nullptr, 0, nullptr);
-        return true;
     } else {
-        return false;
+        // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
+        SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, getPredefinedTagsMML(), toString(tagValues.getTag()));
+        // try to build additional
+        if (GNEAdditionalHandler::buildAdditional(myViewNet, true, myItemSelector->getCurrentTagProperties().getTag(), SUMOSAXAttrs, nullptr)) {
+            // Refresh additional Parent Selector (For additionals that have a limited number of childs)
+            mySelectorAdditionalParent->refreshSelectorAdditionalParentModul();
+            // clear selected eddges and lanes
+            mySelectorEdgeChilds->onCmdClearSelection(nullptr, 0, nullptr);
+            mySelectorLaneChilds->onCmdClearSelection(nullptr, 0, nullptr);
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 

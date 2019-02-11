@@ -657,6 +657,25 @@ public:
         } else {
             warningMessage = tagProperties.getTagStr();
         }
+        // check if we're parsing block movement
+        if (attribute == GNE_ATTR_BLOCK_MOVEMENT) {
+            // first check if we can parse 
+            if (tagProperties.canBlockMovement()) {
+                // First check if attribute can be parsed to bool
+                parsedAttribute = attrs.get<std::string>(attribute, objectID.c_str(), parsedOk, false);
+                // check that sucesfully parsed attribute can be converted to type double
+                if (!canParse<bool>(parsedAttribute)) {
+                    abort = true;
+                    // return default value
+                    return parse<T>("0");
+                } else {
+                    // return readed value
+                    return parse<T>(parsedAttribute);
+                }
+            } else {
+                throw ProcessError("Trying to parsing block movement attribute in an AC that cannot be moved");
+            }
+        }
         // now check if we're parsing a GEO Attribute
         if (tagProperties.hasGEOPosition() && ((attribute == SUMO_ATTR_LON) || (attribute == SUMO_ATTR_LAT))) {
             // first check if GEO Attribute is defined
@@ -667,7 +686,6 @@ public:
                 if (!canParse<double>(parsedAttribute)) {
                     WRITE_WARNING("Format of GEO attribute '" + toString(attribute) + "' of " +
                     warningMessage + " is invalid; Cannot be parsed to float; " + tagProperties.getTagStr() + " cannot be created");
-                    parsedOk = false;
                     // return default value
                     return parse<T>("0");
                 } else {
