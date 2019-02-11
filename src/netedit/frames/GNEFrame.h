@@ -148,13 +148,13 @@ public:
             ~Row();
 
             /// @brief show name and value of attribute of type string
-            void showParameter(SumoXMLAttr const attr, const GNEAttributeCarrier::AttributeProperties& attrProperties, const std::string& value);
+            void showParameter(const GNEAttributeCarrier::AttributeProperties& attrProperties);
 
             /// @brief hide all parameters
             void hideParameter();
 
             /// @brief return Attr
-            SumoXMLAttr getAttr() const;
+            const GNEAttributeCarrier::AttributeProperties &getAttrProperties() const;
 
             /// @brief return value
             std::string getValue() const;
@@ -190,9 +190,6 @@ public:
 
             /// @brief attribute properties
             GNEAttributeCarrier::AttributeProperties myAttrProperties;
-
-            /// @brief current XML attribute
-            SumoXMLAttr myXMLAttr;
 
             /// @brief lael with the name of the parameter
             FXLabel* myLabel;

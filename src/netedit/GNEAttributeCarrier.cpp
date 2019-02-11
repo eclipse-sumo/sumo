@@ -55,6 +55,7 @@ const double GNEAttributeCarrier::INVALID_POSITION(-1000000);
 
 GNEAttributeCarrier::AttributeProperties::AttributeProperties() :
     myAttribute(SUMO_ATTR_NOTHING),
+    myAttrStr(toString(SUMO_ATTR_NOTHING)),
     myAttributeProperty(ATTRPROPERTY_STRING),
     myPositionListed(0),
     myDefinition(""),
@@ -66,6 +67,7 @@ GNEAttributeCarrier::AttributeProperties::AttributeProperties() :
 
 GNEAttributeCarrier::AttributeProperties::AttributeProperties(SumoXMLAttr attribute, int attributeProperty, const std::string& definition, std::string defaultValue) :
     myAttribute(attribute),
+    myAttrStr(toString(attribute)),
     myAttributeProperty(attributeProperty),
     myPositionListed(0),
     myDefinition(definition),
@@ -150,8 +152,14 @@ GNEAttributeCarrier::AttributeProperties::setPositionListed(int positionListed) 
 
 
 SumoXMLAttr 
-GNEAttributeCarrier::AttributeProperties::getAttribute() const {
+GNEAttributeCarrier::AttributeProperties::getAttr() const {
     return myAttribute;
+}
+
+
+const std::string& 
+GNEAttributeCarrier::AttributeProperties::getAttrStr() const {
+    return myAttrStr;
 }
 
 
@@ -535,15 +543,15 @@ GNEAttributeCarrier::TagProperties::getDefaultValue(SumoXMLAttr attr) const {
 
 void
 GNEAttributeCarrier::TagProperties::addAttribute(const AttributeProperties &attributeProperty) {
-    if (isAttributeDeprecated(attributeProperty.getAttribute())) {
-        throw ProcessError("Attribute '" + toString(attributeProperty.getAttribute()) + "' is deprecated and cannot be inserted");
-    } else if (myAttributeProperties.count(attributeProperty.getAttribute()) != 0) {
-        throw ProcessError("Attribute '" + toString(attributeProperty.getAttribute()) + "' already inserted");
+    if (isAttributeDeprecated(attributeProperty.getAttr())) {
+        throw ProcessError("Attribute '" + attributeProperty.getAttrStr() + "' is deprecated and cannot be inserted");
+    } else if (myAttributeProperties.count(attributeProperty.getAttr()) != 0) {
+        throw ProcessError("Attribute '" + attributeProperty.getAttrStr() + "' already inserted");
     } else {
         // insert AttributeProperties in map
-        myAttributeProperties[attributeProperty.getAttribute()] = attributeProperty;
+        myAttributeProperties[attributeProperty.getAttr()] = attributeProperty;
         // update position listed 
-        myAttributeProperties[attributeProperty.getAttribute()].setPositionListed((int)myAttributeProperties.size()-1);
+        myAttributeProperties[attributeProperty.getAttr()].setPositionListed((int)myAttributeProperties.size()-1);
     }
 }
 

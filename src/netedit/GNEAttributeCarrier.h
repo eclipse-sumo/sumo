@@ -112,7 +112,10 @@ public:
         void setPositionListed(int positionListed);
 
         /// @brief get XML Attribute
-        SumoXMLAttr getAttribute() const;
+        SumoXMLAttr getAttr() const;
+
+        /// @brief get XML Attribute
+        const std::string& getAttrStr() const;
 
         /// @brief get position in list (used in frames for listing attributes with certain sort)
         int getPositionListed() const;
@@ -216,6 +219,9 @@ public:
     private:
         /// @brief XML Attribute 
         SumoXMLAttr myAttribute;
+
+        /// @brief string with the Attribute in text format (to avoid unnecesaries toStrings(...) calls)
+        std::string myAttrStr;
 
         /// @brief Property of attribute
         int myAttributeProperty;
