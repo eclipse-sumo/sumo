@@ -27,7 +27,7 @@
 #include <vector>
 #include <memory>
 #include <libsumo/TraCIDefs.h>
-#include <traci-server/TraCIConstants.h>
+#include <libsumo/TraCIConstants.h>
 
 
 // ===========================================================================

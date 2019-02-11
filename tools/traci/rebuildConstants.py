@@ -15,7 +15,7 @@
 # @version $Id$
 
 """
-This script extracts definitions from <SUMO>/src/traci-server/TraCIConstants.h
+This script extracts definitions from <SUMO>/src/libsumo/TraCIConstants.h
  and builds an according constants definition python file "constants.py".
  For Python just call the script without options, for Java:
  tools/traci/rebuildConstants.py -j de.tudresden.sumo.config.Constants
@@ -54,7 +54,7 @@ print("""# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/s
 # @version $Id$
 
 \"\"\"
-This script contains TraCI constant definitions from <SUMO_HOME>/src/traci-server/TraCIConstants.h.\
+This script contains TraCI constant definitions from <SUMO_HOME>/src/libsumo/TraCIConstants.h.\
 """ % (os.path.basename(options.output), os.path.basename(__file__), datetime.datetime.now()), file=fdo)
 
 if options.java:
@@ -95,7 +95,7 @@ def translateFile(filePath, fdo, start, item, end):
 
 
 srcDir = os.path.join(dirname, "..", "..", "src")
-translateFile(os.path.join(srcDir, "traci-server", "TraCIConstants.h"),
+translateFile(os.path.join(srcDir, "libsumo", "TraCIConstants.h"),
               fdo, "#define TRACICONSTANTS_H", "#define ", "#endif")
 translateFile(os.path.join(srcDir, "utils", "xml", "SUMOXMLDefinitions.h"),
               fdo, "enum LaneChangeAction {", "LCA_", "};")

@@ -32,10 +32,10 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSTransportable.h>
-#include "TraCIConstants.h"
+#include <libsumo/Lane.h>
+#include <libsumo/TraCIConstants.h>
 #include "TraCIServer.h"
 #include "TraCIServerAPI_Lane.h"
-#include <libsumo/Lane.h>
 
 using namespace libsumo;
 

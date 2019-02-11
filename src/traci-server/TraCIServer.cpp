@@ -66,7 +66,7 @@
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <libsumo/Simulation.h>
 #include <libsumo/Subscription.h>
-#include "TraCIConstants.h"
+#include <libsumo/TraCIConstants.h>
 #include "TraCIServer.h"
 #include "TraCIServerAPI_InductionLoop.h"
 #include "TraCIServerAPI_Junction.h"

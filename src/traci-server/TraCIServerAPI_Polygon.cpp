@@ -31,7 +31,7 @@
 #include <utils/shapes/ShapeContainer.h>
 #include <libsumo/Polygon.h>
 #include <libsumo/Helper.h>
-#include "TraCIConstants.h"
+#include <libsumo/TraCIConstants.h>
 #include "TraCIServerAPI_Polygon.h"
 
 using namespace libsumo;

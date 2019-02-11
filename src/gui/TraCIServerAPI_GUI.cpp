@@ -30,7 +30,7 @@
 #include <utils/gui/windows/GUIPerspectiveChanger.h>
 #include <utils/foxtools/MFXImageHelper.h>
 #include <microsim/MSVehicleControl.h>
-#include <traci-server/TraCIConstants.h>
+#include <libsumo/TraCIConstants.h>
 #include <guisim/GUINet.h>
 #include <guisim/GUIVehicle.h>
 #include <guisim/GUIBaseVehicle.h>

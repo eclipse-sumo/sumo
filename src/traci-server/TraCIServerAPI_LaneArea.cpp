@@ -25,9 +25,9 @@
 #include <config.h>
 
 #include <microsim/output/MSDetectorControl.h>
-#include "TraCIConstants.h"
-#include "TraCIServer.h"
 #include <libsumo/LaneArea.h>
+#include <libsumo/TraCIConstants.h>
+#include "TraCIServer.h"
 #include "TraCIServerAPI_LaneArea.h"
 
 using namespace libsumo;

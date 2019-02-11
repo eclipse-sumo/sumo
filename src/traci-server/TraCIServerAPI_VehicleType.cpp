@@ -30,8 +30,8 @@
 #include <utils/emissions/PollutantsInterface.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicleType.h>
+#include <libsumo/TraCIConstants.h>
 #include <libsumo/VehicleType.h>
-#include "TraCIConstants.h"
 #include "TraCIServerAPI_VehicleType.h"
 
 using namespace libsumo;

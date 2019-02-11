@@ -43,9 +43,9 @@
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/emissions/HelpersHarmonoise.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
+#include <libsumo/TraCIConstants.h>
 #include <libsumo/Vehicle.h>
 #include <libsumo/VehicleType.h>
-#include "TraCIConstants.h"
 #include "TraCIServerAPI_Simulation.h"
 #include "TraCIServerAPI_Vehicle.h"
 #include "TraCIServerAPI_VehicleType.h"

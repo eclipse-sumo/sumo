@@ -26,7 +26,7 @@
 #include <microsim/MSEdge.h>
 #include <microsim/MSNet.h>
 #include <microsim/pedestrians/MSPerson.h>
-#include <traci-server/TraCIConstants.h>
+#include <libsumo/TraCIConstants.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/SUMOTime.h>

@@ -27,7 +27,7 @@
 #include <microsim/MSNet.h>
 #include <microsim/output/MSDetectorControl.h>
 #include <libsumo/InductionLoop.h>
-#include "TraCIConstants.h"
+#include <libsumo/TraCIConstants.h>
 #include "TraCIServerAPI_InductionLoop.h"
 
 using namespace libsumo;

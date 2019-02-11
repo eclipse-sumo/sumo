@@ -29,7 +29,7 @@
 #include <utils/shapes/ShapeContainer.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSJunctionControl.h>
-#include <traci-server/TraCIConstants.h>
+#include <libsumo/TraCIConstants.h>
 #include "Helper.h"
 #include "Junction.h"
 

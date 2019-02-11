@@ -48,7 +48,7 @@
 #include <libsumo/TrafficLight.h>
 #include <libsumo/Vehicle.h>
 #include <libsumo/VehicleType.h>
-#include <traci-server/TraCIConstants.h>
+#include <libsumo/TraCIConstants.h>
 #include "Helper.h"
 
 #define FAR_AWAY 1000.0

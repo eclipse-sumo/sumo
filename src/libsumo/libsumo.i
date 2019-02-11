@@ -297,7 +297,6 @@ def simulationStep(step=0):
 %template(TraCIConnectionVector) std::vector<libsumo::TraCIConnection>;
 %template(TraCILogicVector) std::vector<libsumo::TraCILogic>;
 %template(TraCIStageVector) std::vector<libsumo::TraCIStage>;
-%include "traci-server/TraCIConstants.h"
 %include "Edge.h"
 %include "InductionLoop.h"
 %include "Junction.h"
@@ -308,6 +307,7 @@ def simulationStep(step=0):
 %include "Polygon.h"
 %include "Route.h"
 %include "Simulation.h"
+%include "TraCIConstants.h"
 %include "TrafficLight.h"
 %include "VehicleType.h"
 %include "Vehicle.h"

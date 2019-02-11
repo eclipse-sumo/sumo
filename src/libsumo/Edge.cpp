@@ -22,7 +22,7 @@
 #include <microsim/MSTransportable.h>
 #include <microsim/MSVehicle.h>
 #include <libsumo/TraCIDefs.h>
-#include <traci-server/TraCIConstants.h>
+#include <libsumo/TraCIConstants.h>
 #include <utils/emissions/HelpersHarmonoise.h>
 #include "Edge.h"
 

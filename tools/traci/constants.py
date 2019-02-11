@@ -12,7 +12,7 @@
 # @version $Id$
 
 """
-This script contains TraCI constant definitions from <SUMO_HOME>/src/traci-server/TraCIConstants.h.
+This script contains TraCI constant definitions from <SUMO_HOME>/src/libsumo/TraCIConstants.h.
 """
 
 

@@ -20,7 +20,7 @@
 // included modules
 // ===========================================================================
 #include <microsim/MSNet.h>
-#include <traci-server/TraCIConstants.h>
+#include <libsumo/TraCIConstants.h>
 #include <utils/shapes/SUMOPolygon.h>
 #include <utils/shapes/ShapeContainer.h>
 

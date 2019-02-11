@@ -37,7 +37,7 @@
 #include <microsim/MSStoppingPlace.h>
 #include <libsumo/Helper.h>
 #include <libsumo/Simulation.h>
-#include "TraCIConstants.h"
+#include <libsumo/TraCIConstants.h>
 #include "TraCIServerAPI_Simulation.h"
 
 using namespace libsumo;

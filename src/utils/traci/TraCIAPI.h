@@ -31,7 +31,7 @@
 #include <sstream>
 #include <iomanip>
 #include <foreign/tcpip/socket.h>
-#include <traci-server/TraCIConstants.h>
+#include <libsumo/TraCIConstants.h>
 #include <libsumo/TraCIDefs.h>
 
 // ===========================================================================

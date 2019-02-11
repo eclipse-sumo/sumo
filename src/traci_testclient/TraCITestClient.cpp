@@ -36,7 +36,7 @@
 #include <foreign/tcpip/storage.h>
 #include <foreign/tcpip/socket.h>
 
-#include <traci-server/TraCIConstants.h>
+#include <libsumo/TraCIConstants.h>
 #include <libsumo/TraCIDefs.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/ToString.h>

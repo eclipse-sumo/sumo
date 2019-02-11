@@ -47,7 +47,7 @@
 #include <utils/options/OptionsCont.h>
 #include <microsim/MSNet.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
-#include <traci-server/TraCIConstants.h>
+#include <libsumo/TraCIConstants.h>
 #include <libsumo/Subscription.h>
 #include <libsumo/TraCIDefs.h>
 #include "TraCIServerAPI_Lane.h"

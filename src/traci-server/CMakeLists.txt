@@ -1,5 +1,4 @@
 SET(traciserver_STAT_SRCS
-   TraCIConstants.h
    TraCIServer.h
    TraCIServer.cpp
    TraCIServerAPI_Edge.h

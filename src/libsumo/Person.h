@@ -26,7 +26,7 @@
 #include <vector>
 #include <libsumo/TraCIDefs.h>
 #include <libsumo/VehicleType.h>
-#include <traci-server/TraCIConstants.h>
+#include <libsumo/TraCIConstants.h>
 
 
 // ===========================================================================

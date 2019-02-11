@@ -44,7 +44,7 @@
 #include <microsim/MSParkingArea.h>
 #include <microsim/devices/MSRoutingEngine.h>
 #include <netload/NLBuilder.h>
-#include <traci-server/TraCIConstants.h>
+#include <libsumo/TraCIConstants.h>
 #include "Simulation.h"
 #include <libsumo/TraCIDefs.h>
 

@@ -34,7 +34,7 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/pedestrians/MSPerson.h>
-#include "TraCIConstants.h"
+#include <libsumo/TraCIConstants.h>
 #include "TraCIServerAPI_Edge.h"
 #include <microsim/MSEdgeWeightsStorage.h>
 #include <utils/emissions/HelpersHarmonoise.h>

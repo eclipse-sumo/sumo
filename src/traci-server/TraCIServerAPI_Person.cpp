@@ -28,8 +28,8 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
 #include <libsumo/Person.h>
+#include <libsumo/TraCIConstants.h>
 #include <libsumo/VehicleType.h>
-#include "TraCIConstants.h"
 #include "TraCIServer.h"
 #include "TraCIServerAPI_VehicleType.h"
 #include "TraCIServerAPI_Person.h"

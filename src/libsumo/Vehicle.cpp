@@ -39,7 +39,7 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSParkingArea.h>
 #include <libsumo/TraCIDefs.h>
-#include <traci-server/TraCIConstants.h>
+#include <libsumo/TraCIConstants.h>
 #include "Helper.h"
 #include "Route.h"
 #include "Vehicle.h"
