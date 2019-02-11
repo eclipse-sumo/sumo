@@ -173,7 +173,9 @@ MSParkingArea::computeLastFreePos() {
     myEgressBlocked = false;
     for (auto& lsd : mySpaceOccupancies) {
         if (lsd.vehicle == nullptr
-                || (lsd.vehicle->remainingStopDuration() <= 0 && !lsd.vehicle->isStoppedTriggered())) {
+                || (getOccupancy() == getCapacity()
+                    && lsd.vehicle->remainingStopDuration() <= 0
+                    && !lsd.vehicle->isStoppedTriggered())) {
             if (lsd.vehicle == nullptr) {
                 myLastFreeLot = lsd.index;
                 myLastFreePos = lsd.myEndPos;
