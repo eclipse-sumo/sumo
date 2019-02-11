@@ -70,7 +70,7 @@ enum SUMOVehicleShape {
     /// @brief render as a van
     SVS_PASSENGER_VAN,
     /// @brief automated car (with cruise controllers)
-    SVS_PASSENGER_AUTOMATED,
+    //SVS_PASSENGER_AUTOMATED,
     /// @brief render as a delivery vehicle
     SVS_DELIVERY,
     /// @brief render as a transport vehicle
