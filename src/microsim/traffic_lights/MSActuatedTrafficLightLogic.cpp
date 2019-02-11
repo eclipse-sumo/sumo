@@ -200,7 +200,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
         myInductLoopsForPhase.push_back(std::vector<MSInductLoop*>(loops.begin(), loops.end()));
     }
     for (int i : actuatedLinks) {
-        if (linkToLoops[i].size() == 0) {
+        if (linkToLoops[i].size() == 0 && myLinks[i].size() > 0 && myLinks[i].front()->getViaLaneOrLane()->getPermissions() != SVC_PEDESTRIAN) {
             WRITE_WARNING("At actuated tlLogic '" + getID() + "', linkIndex " + toString(i) + " has no controlling detector");
         }
     }
