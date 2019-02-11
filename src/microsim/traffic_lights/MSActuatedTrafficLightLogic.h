@@ -50,8 +50,8 @@ class NLDetectorBuilder;
  */
 class MSActuatedTrafficLightLogic : public MSSimpleTrafficLightLogic {
 public:
-    /// @brief Definition of a map from lanes to induct loops lying on them
-    typedef std::map<MSLane*, MSDetectorFileOutput*> InductLoopMap;
+    /// @brief Definition of a map from phases to induct loops controlling them
+    typedef std::vector<std::vector<MSInductLoop*> > InductLoopMap;
 
 public:
     /** @brief Constructor
@@ -114,8 +114,9 @@ protected:
 
 
 protected:
-    /// A map from lanes to induct loops lying on them
-    InductLoopMap myInductLoops;
+    /// A map from phase to induction loops to be used for gap control
+    InductLoopMap myInductLoopsForPhase;
+    std::vector<MSInductLoop*> myInductLoops;
 
     /// The maximum gap to check in seconds
     double myMaxGap;
