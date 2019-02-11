@@ -15,3 +15,6 @@ minDur_too_short
 
 # test interaction of minDuration and detector position
 80kmh_lowFlow
+
+# test detector assignment for a lane where not all links have the green light in in a particular phase (#5161)
+partialy_green_lane
