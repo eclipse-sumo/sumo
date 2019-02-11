@@ -33,8 +33,7 @@
 #define TRACI_CONST const
 #endif
 
-namespace libsumo
-{
+namespace libsumo {
 
 // ****************************************
 // VERSION
@@ -982,7 +981,7 @@ TRACI_CONST int VAR_TRACK_VEHICLE = 0xa6;
 // presence of view
 TRACI_CONST int VAR_HAS_VIEW = 0xa7;
 
-}
+} // namespace libsumo
 
 #undef TRACI_CONST
 
