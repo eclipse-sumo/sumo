@@ -100,7 +100,9 @@ Distribution_Parameterized::getMax() const {
 
 std::string
 Distribution_Parameterized::toStr(std::streamsize accuracy) const {
-    return myParameter[1] == 0. ? toString(myParameter[0]) : myID + "(" + joinToString(myParameter, ",", accuracy) + ")";
+    return (myParameter[1] == 0. 
+            ? myID + "(" + toString(myParameter[0], accuracy) + "," + toString(myParameter[1], accuracy) + ")"
+            : myID + "(" + joinToString(myParameter, ",", accuracy) + ")");
 }
 
 

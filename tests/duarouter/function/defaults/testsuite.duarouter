@@ -16,7 +16,6 @@ departpos
 # Setting departspeed to 0, not overriding
 departspeed
 
-
 # Setting arrivallane to 0, overriding
 override_arrivallane
 
@@ -34,7 +33,3 @@ override_departpos
 
 # Setting departspeed to 0, overriding
 override_departspeed
-
-
-
-
