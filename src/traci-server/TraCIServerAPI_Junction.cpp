@@ -30,7 +30,6 @@
 #include <libsumo/Junction.h>
 #include "TraCIServerAPI_Junction.h"
 
-using namespace libsumo;
 
 // ===========================================================================
 // method definitions
@@ -40,21 +39,21 @@ TraCIServerAPI_Junction::processGet(TraCIServer& server, tcpip::Storage& inputSt
                                     tcpip::Storage& outputStorage) {
     const int variable = inputStorage.readUnsignedByte();
     const std::string id = inputStorage.readString();
-    server.initWrapper(RESPONSE_GET_JUNCTION_VARIABLE, variable, id);
+    server.initWrapper(libsumo::RESPONSE_GET_JUNCTION_VARIABLE, variable, id);
     try {
         if (!libsumo::Junction::handleVariable(id, variable, &server)) {
             switch (variable) {
-                case VAR_SHAPE:
+                case libsumo::VAR_SHAPE:
                     server.writePositionVector(server.getWrapperStorage(), libsumo::Junction::getShape(id));
                     break;
                 default:
-                    return server.writeErrorStatusCmd(CMD_GET_JUNCTION_VARIABLE, "Get Junction Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
+                    return server.writeErrorStatusCmd(libsumo::CMD_GET_JUNCTION_VARIABLE, "Get Junction Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
             }
         }
     } catch (libsumo::TraCIException& e) {
-        return server.writeErrorStatusCmd(CMD_GET_JUNCTION_VARIABLE, e.what(), outputStorage);
+        return server.writeErrorStatusCmd(libsumo::CMD_GET_JUNCTION_VARIABLE, e.what(), outputStorage);
     }
-    server.writeStatusCmd(CMD_GET_JUNCTION_VARIABLE, RTYPE_OK, "", outputStorage);
+    server.writeStatusCmd(libsumo::CMD_GET_JUNCTION_VARIABLE, libsumo::RTYPE_OK, "", outputStorage);
     server.writeResponseWithLength(outputStorage, server.getWrapperStorage());
     return true;
 }

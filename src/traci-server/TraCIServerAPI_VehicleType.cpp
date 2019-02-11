@@ -34,7 +34,6 @@
 #include <libsumo/VehicleType.h>
 #include "TraCIServerAPI_VehicleType.h"
 
-using namespace libsumo;
 
 // ===========================================================================
 // method definitions
@@ -44,30 +43,30 @@ TraCIServerAPI_VehicleType::processGet(TraCIServer& server, tcpip::Storage& inpu
                                        tcpip::Storage& outputStorage) {
     const int variable = inputStorage.readUnsignedByte();
     const std::string id = inputStorage.readString();
-    server.initWrapper(RESPONSE_GET_VEHICLETYPE_VARIABLE, variable, id);
+    server.initWrapper(libsumo::RESPONSE_GET_VEHICLETYPE_VARIABLE, variable, id);
     try {
         if (!libsumo::VehicleType::handleVariable(id, variable, &server)) {
             switch (variable) {
-                case VAR_PARAMETER: {
+                case libsumo::VAR_PARAMETER: {
                     std::string paramName = "";
                     if (!server.readTypeCheckingString(inputStorage, paramName)) {
-                        return server.writeErrorStatusCmd(CMD_GET_VEHICLETYPE_VARIABLE,
+                        return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLETYPE_VARIABLE,
                                                           "Retrieval of a parameter requires its name.", outputStorage);
                     }
-                    server.getWrapperStorage().writeUnsignedByte(TYPE_STRING);
+                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
                     server.getWrapperStorage().writeString(libsumo::VehicleType::getParameter(id, paramName));
                     break;
                 }
                 default:
-                    return server.writeErrorStatusCmd(CMD_GET_VEHICLETYPE_VARIABLE,
+                    return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLETYPE_VARIABLE,
                                                       "Get Vehicle Type Variable: unsupported variable " + toHex(variable, 2)
                                                       + " specified", outputStorage);
             }
         }
     } catch (libsumo::TraCIException& e) {
-        return server.writeErrorStatusCmd(CMD_GET_VEHICLETYPE_VARIABLE, e.what(), outputStorage);
+        return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLETYPE_VARIABLE, e.what(), outputStorage);
     }
-    server.writeStatusCmd(CMD_GET_VEHICLETYPE_VARIABLE, RTYPE_OK, "", outputStorage);
+    server.writeStatusCmd(libsumo::CMD_GET_VEHICLETYPE_VARIABLE, libsumo::RTYPE_OK, "", outputStorage);
     server.writeResponseWithLength(outputStorage, server.getWrapperStorage());
     return true;
 }
@@ -79,20 +78,20 @@ TraCIServerAPI_VehicleType::processSet(TraCIServer& server, tcpip::Storage& inpu
     std::string warning = ""; // additional description for response
     // variable
     int variable = inputStorage.readUnsignedByte();
-    if (variable != VAR_LENGTH && variable != VAR_MAXSPEED && variable != VAR_VEHICLECLASS
-            && variable != VAR_SPEED_FACTOR && variable != VAR_SPEED_DEVIATION && variable != VAR_EMISSIONCLASS
-            && variable != VAR_WIDTH && variable != VAR_MINGAP && variable != VAR_SHAPECLASS
-            && variable != VAR_ACCEL && variable != VAR_IMPERFECTION
-            && variable != VAR_DECEL && variable != VAR_EMERGENCY_DECEL && variable != VAR_APPARENT_DECEL
-            && variable != VAR_TAU && variable != VAR_COLOR && variable != VAR_ACTIONSTEPLENGTH
-            && variable != VAR_HEIGHT
-            && variable != VAR_MINGAP_LAT
-            && variable != VAR_MAXSPEED_LAT
-            && variable != VAR_LATALIGNMENT
-            && variable != VAR_PARAMETER
-            && variable != COPY
+    if (variable != libsumo::VAR_LENGTH && variable != libsumo::VAR_MAXSPEED && variable != libsumo::VAR_VEHICLECLASS
+            && variable != libsumo::VAR_SPEED_FACTOR && variable != libsumo::VAR_SPEED_DEVIATION && variable != libsumo::VAR_EMISSIONCLASS
+            && variable != libsumo::VAR_WIDTH && variable != libsumo::VAR_MINGAP && variable != libsumo::VAR_SHAPECLASS
+            && variable != libsumo::VAR_ACCEL && variable != libsumo::VAR_IMPERFECTION
+            && variable != libsumo::VAR_DECEL && variable != libsumo::VAR_EMERGENCY_DECEL && variable != libsumo::VAR_APPARENT_DECEL
+            && variable != libsumo::VAR_TAU && variable != libsumo::VAR_COLOR && variable != libsumo::VAR_ACTIONSTEPLENGTH
+            && variable != libsumo::VAR_HEIGHT
+            && variable != libsumo::VAR_MINGAP_LAT
+            && variable != libsumo::VAR_MAXSPEED_LAT
+            && variable != libsumo::VAR_LATALIGNMENT
+            && variable != libsumo::VAR_PARAMETER
+            && variable != libsumo::COPY
        ) {
-        return server.writeErrorStatusCmd(CMD_SET_VEHICLETYPE_VARIABLE,
+        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLETYPE_VARIABLE,
                                           "Change Vehicle Type State: unsupported variable " + toHex(variable, 2)
                                           + " specified", outputStorage);
     }
@@ -100,19 +99,19 @@ TraCIServerAPI_VehicleType::processSet(TraCIServer& server, tcpip::Storage& inpu
     std::string id = inputStorage.readString();
 //    MSVehicleType* v = libsumo::VehicleType::getVType(id);
 //    if (v == 0) {
-//        return server.writeErrorStatusCmd(CMD_SET_VEHICLETYPE_VARIABLE, "Vehicle type '" + id + "' is not known",
+//        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLETYPE_VARIABLE, "Vehicle type '" + id + "' is not known",
 //                                          outputStorage);
 //    }
     // process
     try {
-        if (setVariable(CMD_SET_VEHICLETYPE_VARIABLE, variable, id, server, inputStorage, outputStorage)) {
-            server.writeStatusCmd(CMD_SET_VEHICLETYPE_VARIABLE, RTYPE_OK, warning, outputStorage);
+        if (setVariable(libsumo::CMD_SET_VEHICLETYPE_VARIABLE, variable, id, server, inputStorage, outputStorage)) {
+            server.writeStatusCmd(libsumo::CMD_SET_VEHICLETYPE_VARIABLE, libsumo::RTYPE_OK, warning, outputStorage);
             return true;
         }
     } catch (ProcessError& e) {
-        return server.writeErrorStatusCmd(CMD_SET_VEHICLETYPE_VARIABLE, e.what(), outputStorage);
+        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLETYPE_VARIABLE, e.what(), outputStorage);
     } catch (libsumo::TraCIException& e) {
-        return server.writeErrorStatusCmd(CMD_SET_VEHICLETYPE_VARIABLE, e.what(), outputStorage);
+        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLETYPE_VARIABLE, e.what(), outputStorage);
     }
     return false;
 }
@@ -123,7 +122,7 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
                                         const std::string& id, TraCIServer& server,
                                         tcpip::Storage& inputStorage, tcpip::Storage& outputStorage) {
     switch (variable) {
-        case VAR_LENGTH: {
+        case libsumo::VAR_LENGTH: {
             double value = 0;
             if (!server.readTypeCheckingDouble(inputStorage, value)) {
                 return server.writeErrorStatusCmd(cmd, "Setting length requires a double.", outputStorage);
@@ -134,7 +133,7 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
             libsumo::VehicleType::setLength(id, value);
         }
         break;
-        case VAR_HEIGHT: {
+        case libsumo::VAR_HEIGHT: {
             double value = 0;
             if (!server.readTypeCheckingDouble(inputStorage, value)) {
                 return server.writeErrorStatusCmd(cmd, "Setting height requires a double.", outputStorage);
@@ -145,7 +144,7 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
             libsumo::VehicleType::setHeight(id, value);
         }
         break;
-        case VAR_MAXSPEED: {
+        case libsumo::VAR_MAXSPEED: {
             double value = 0;
             if (!server.readTypeCheckingDouble(inputStorage, value)) {
                 return server.writeErrorStatusCmd(cmd, "Setting maximum speed requires a double.", outputStorage);
@@ -156,7 +155,7 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
             libsumo::VehicleType::setMaxSpeed(id, value);
         }
         break;
-        case VAR_VEHICLECLASS: {
+        case libsumo::VAR_VEHICLECLASS: {
             std::string vclass;
             if (!server.readTypeCheckingString(inputStorage, vclass)) {
                 return server.writeErrorStatusCmd(cmd, "Setting vehicle class requires a string.", outputStorage);
@@ -168,7 +167,7 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
             }
         }
         break;
-        case VAR_SPEED_FACTOR: {
+        case libsumo::VAR_SPEED_FACTOR: {
             double value = 0;
             if (!server.readTypeCheckingDouble(inputStorage, value)) {
                 return server.writeErrorStatusCmd(cmd, "Setting speed factor requires a double.", outputStorage);
@@ -179,7 +178,7 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
             libsumo::VehicleType::setSpeedFactor(id, value);
         }
         break;
-        case VAR_SPEED_DEVIATION: {
+        case libsumo::VAR_SPEED_DEVIATION: {
             double value = 0;
             if (!server.readTypeCheckingDouble(inputStorage, value)) {
                 return server.writeErrorStatusCmd(cmd, "Setting speed deviation requires a double.", outputStorage);
@@ -190,7 +189,7 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
             libsumo::VehicleType::setSpeedDeviation(id, value);
         }
         break;
-        case VAR_EMISSIONCLASS: {
+        case libsumo::VAR_EMISSIONCLASS: {
             std::string eclass;
             if (!server.readTypeCheckingString(inputStorage, eclass)) {
                 return server.writeErrorStatusCmd(cmd, "Setting emission class requires a string.", outputStorage);
@@ -202,7 +201,7 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
             }
         }
         break;
-        case VAR_WIDTH: {
+        case libsumo::VAR_WIDTH: {
             double value = 0;
             if (!server.readTypeCheckingDouble(inputStorage, value)) {
                 return server.writeErrorStatusCmd(cmd, "Setting width requires a double.", outputStorage);
@@ -213,7 +212,7 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
             libsumo::VehicleType::setWidth(id, value);
         }
         break;
-        case VAR_MINGAP: {
+        case libsumo::VAR_MINGAP: {
             double value = 0;
             if (!server.readTypeCheckingDouble(inputStorage, value)) {
                 return server.writeErrorStatusCmd(cmd, "Setting minimum gap requires a double.", outputStorage);
@@ -224,7 +223,7 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
             libsumo::VehicleType::setMinGap(id, value);
         }
         break;
-        case VAR_MINGAP_LAT: {
+        case libsumo::VAR_MINGAP_LAT: {
             double value = 0;
             if (!server.readTypeCheckingDouble(inputStorage, value)) {
                 return server.writeErrorStatusCmd(cmd, "Setting minimum lateral gap requires a double.", outputStorage);
@@ -235,7 +234,7 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
             libsumo::VehicleType::setMinGapLat(id, value);
         }
         break;
-        case VAR_MAXSPEED_LAT: {
+        case libsumo::VAR_MAXSPEED_LAT: {
             double value = 0;
             if (!server.readTypeCheckingDouble(inputStorage, value)) {
                 return server.writeErrorStatusCmd(cmd, "Setting maximum lateral speed requires a double.", outputStorage);
@@ -246,7 +245,7 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
             libsumo::VehicleType::setMaxSpeedLat(id, value);
         }
         break;
-        case VAR_LATALIGNMENT: {
+        case libsumo::VAR_LATALIGNMENT: {
             std::string latAlign;
             if (!server.readTypeCheckingString(inputStorage, latAlign)) {
                 return server.writeErrorStatusCmd(cmd, "Setting preferred lateral alignment requires a string.",
@@ -259,7 +258,7 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
             }
         }
         break;
-        case VAR_SHAPECLASS: {
+        case libsumo::VAR_SHAPECLASS: {
             std::string sclass;
             if (!server.readTypeCheckingString(inputStorage, sclass)) {
                 return server.writeErrorStatusCmd(cmd, "Setting vehicle shape requires a string.", outputStorage);
@@ -271,7 +270,7 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
             }
         }
         break;
-        case VAR_ACCEL: {
+        case libsumo::VAR_ACCEL: {
             double value = 0;
             if (!server.readTypeCheckingDouble(inputStorage, value)) {
                 return server.writeErrorStatusCmd(cmd, "Setting acceleration requires a double.", outputStorage);
@@ -282,7 +281,7 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
             libsumo::VehicleType::setAccel(id, value);
         }
         break;
-        case VAR_DECEL: {
+        case libsumo::VAR_DECEL: {
             double value = 0;
             if (!server.readTypeCheckingDouble(inputStorage, value)) {
                 return server.writeErrorStatusCmd(cmd, "Setting deceleration requires a double.", outputStorage);
@@ -293,7 +292,7 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
             libsumo::VehicleType::setDecel(id, value);
         }
         break;
-        case VAR_EMERGENCY_DECEL: {
+        case libsumo::VAR_EMERGENCY_DECEL: {
             double value = 0;
             if (!server.readTypeCheckingDouble(inputStorage, value)) {
                 return server.writeErrorStatusCmd(cmd, "Setting deceleration requires a double.", outputStorage);
@@ -304,7 +303,7 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
             libsumo::VehicleType::setEmergencyDecel(id, value);
         }
         break;
-        case VAR_APPARENT_DECEL: {
+        case libsumo::VAR_APPARENT_DECEL: {
             double value = 0;
             if (!server.readTypeCheckingDouble(inputStorage, value)) {
                 return server.writeErrorStatusCmd(cmd, "Setting deceleration requires a double.", outputStorage);
@@ -315,19 +314,19 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
             libsumo::VehicleType::setApparentDecel(id, value);
         }
         break;
-        case VAR_ACTIONSTEPLENGTH: {
+        case libsumo::VAR_ACTIONSTEPLENGTH: {
             double value = 0;
             if (!server.readTypeCheckingDouble(inputStorage, value)) {
-                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Setting action step length requires a double.", outputStorage);
+                return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Setting action step length requires a double.", outputStorage);
             }
             if (fabs(value) == std::numeric_limits<double>::infinity()) {
-                return server.writeErrorStatusCmd(CMD_SET_VEHICLE_VARIABLE, "Invalid action step length.", outputStorage);
+                return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Invalid action step length.", outputStorage);
             }
             bool resetActionOffset = value >= 0.0;
             libsumo::VehicleType::setActionStepLength(id, fabs(value), resetActionOffset);
         }
         break;
-        case VAR_IMPERFECTION: {
+        case libsumo::VAR_IMPERFECTION: {
             double value = 0;
             if (!server.readTypeCheckingDouble(inputStorage, value)) {
                 return server.writeErrorStatusCmd(cmd, "Setting driver imperfection requires a double.", outputStorage);
@@ -338,7 +337,7 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
             libsumo::VehicleType::setImperfection(id, value);
         }
         break;
-        case VAR_TAU: {
+        case libsumo::VAR_TAU: {
             double value = 0;
             if (!server.readTypeCheckingDouble(inputStorage, value)) {
                 return server.writeErrorStatusCmd(cmd, "Setting headway time requires a double.", outputStorage);
@@ -349,7 +348,7 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
             libsumo::VehicleType::setTau(id, value);
         }
         break;
-        case VAR_COLOR: {
+        case libsumo::VAR_COLOR: {
             libsumo::TraCIColor col;
             if (!server.readTypeCheckingColor(inputStorage, col)) {
                 return server.writeErrorStatusCmd(cmd, "The color must be given using the according type.", outputStorage);
@@ -357,7 +356,7 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
             libsumo::VehicleType::setColor(id, col);
         }
         break;
-        case COPY: {
+        case libsumo::COPY: {
             std::string newTypeID;
             if (!server.readTypeCheckingString(inputStorage, newTypeID)) {
                 return server.writeErrorStatusCmd(cmd, "copying a vehicle type requires a string.",
@@ -366,8 +365,8 @@ TraCIServerAPI_VehicleType::setVariable(const int cmd, const int variable,
             libsumo::VehicleType::copy(id, newTypeID);
         }
         break;
-        case VAR_PARAMETER: {
-            if (inputStorage.readUnsignedByte() != TYPE_COMPOUND) {
+        case libsumo::VAR_PARAMETER: {
+            if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
                 return server.writeErrorStatusCmd(cmd, "A compound object is needed for setting a parameter.",
                                                   outputStorage);
             }

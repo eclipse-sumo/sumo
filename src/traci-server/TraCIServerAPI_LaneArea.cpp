@@ -30,7 +30,6 @@
 #include "TraCIServer.h"
 #include "TraCIServerAPI_LaneArea.h"
 
-using namespace libsumo;
 
 // ===========================================================================
 // method definitions
@@ -40,15 +39,15 @@ TraCIServerAPI_LaneArea::processGet(TraCIServer& server, tcpip::Storage& inputSt
                                     tcpip::Storage& outputStorage) {
     const int variable = inputStorage.readUnsignedByte();
     const std::string id = inputStorage.readString();
-    server.initWrapper(RESPONSE_GET_LANEAREA_VARIABLE, variable, id);
+    server.initWrapper(libsumo::RESPONSE_GET_LANEAREA_VARIABLE, variable, id);
     try {
         if (!libsumo::LaneArea::handleVariable(id, variable, &server)) {
-            return server.writeErrorStatusCmd(CMD_GET_LANEAREA_VARIABLE, "Get Lane Area Detector Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
+            return server.writeErrorStatusCmd(libsumo::CMD_GET_LANEAREA_VARIABLE, "Get Lane Area Detector Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
         }
     } catch (libsumo::TraCIException& e) {
-        return server.writeErrorStatusCmd(CMD_GET_LANEAREA_VARIABLE, e.what(), outputStorage);
+        return server.writeErrorStatusCmd(libsumo::CMD_GET_LANEAREA_VARIABLE, e.what(), outputStorage);
     }
-    server.writeStatusCmd(CMD_GET_LANEAREA_VARIABLE, RTYPE_OK, "", outputStorage);
+    server.writeStatusCmd(libsumo::CMD_GET_LANEAREA_VARIABLE, libsumo::RTYPE_OK, "", outputStorage);
     server.writeResponseWithLength(outputStorage, server.getWrapperStorage());
     return true;
 }

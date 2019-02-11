@@ -27,7 +27,6 @@
 #include <libsumo/TraCIConstants.h>
 #include "TraCIServerAPI_MultiEntryExit.h"
 
-using namespace libsumo;
 
 // ===========================================================================
 // method definitions
@@ -37,15 +36,15 @@ TraCIServerAPI_MultiEntryExit::processGet(TraCIServer& server, tcpip::Storage& i
         tcpip::Storage& outputStorage) {
     const int variable = inputStorage.readUnsignedByte();
     const std::string id = inputStorage.readString();
-    server.initWrapper(RESPONSE_GET_MULTIENTRYEXIT_VARIABLE, variable, id);
+    server.initWrapper(libsumo::RESPONSE_GET_MULTIENTRYEXIT_VARIABLE, variable, id);
     try {
         if (!libsumo::MultiEntryExit::handleVariable(id, variable, &server)) {
-            return server.writeErrorStatusCmd(CMD_GET_MULTIENTRYEXIT_VARIABLE, "Get Multi Entry Exit Detector Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
+            return server.writeErrorStatusCmd(libsumo::CMD_GET_MULTIENTRYEXIT_VARIABLE, "Get Multi Entry Exit Detector Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
         }
     } catch (libsumo::TraCIException& e) {
-        return server.writeErrorStatusCmd(CMD_GET_MULTIENTRYEXIT_VARIABLE, e.what(), outputStorage);
+        return server.writeErrorStatusCmd(libsumo::CMD_GET_MULTIENTRYEXIT_VARIABLE, e.what(), outputStorage);
     }
-    server.writeStatusCmd(CMD_GET_MULTIENTRYEXIT_VARIABLE, RTYPE_OK, "", outputStorage);
+    server.writeStatusCmd(libsumo::CMD_GET_MULTIENTRYEXIT_VARIABLE, libsumo::RTYPE_OK, "", outputStorage);
     server.writeResponseWithLength(outputStorage, server.getWrapperStorage());
     return true;
 }
