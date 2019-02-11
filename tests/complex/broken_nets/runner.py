@@ -201,25 +201,26 @@ def tinyPath(xmlStruct, path, newValue):
 
 if sys.argv[1] == "sumo":
     call = [checkBinary('sumo'), "--no-step-log", "--no-duration-log"]
+elif sys.argv[1] == "netconvert":
+    call = [checkBinary('netconvert')]
 elif sys.argv[1] == "dfrouter":
-    call = [checkBinary('dfrouter'),
-            "--detector-files", "input_additional.add.xml"]
+    call = [checkBinary('dfrouter'), "--detector-files", "input_additional.add.xml"]
 elif sys.argv[1] == "duarouter" or sys.argv[1] == "jtrrouter":
     call = [checkBinary(sys.argv[1]), "--no-step-log",
             "-o", "dummy.xml", "-a", "input_additional.add.xml"]
 else:
     print("Unsupported application defined", file=sys.stderr)
-call += sys.argv[2:]
+call += sys.argv[2:] + ["-n"]
+if sys.argv[1] == "netconvert":
+    call[-1] = "-s"
 
 netconvertBinary = checkBinary('netconvert')
 
 # build the correct network, first
 print(">>> Building the correct network")
-retcode = subprocess.call(
-    [netconvertBinary, "-c", "netconvert.netccfg"], stdout=sys.stdout, stderr=sys.stderr)
+retcode = subprocess.call([netconvertBinary, "-c", "netconvert.netccfg"])
 print(">>> Trying the correct network")
-retcode = subprocess.call(
-    call + ["-n", "correct.net.xml"], stdout=sys.stdout, stderr=sys.stderr)
+retcode = subprocess.call(call + ["correct.net.xml"])
 if retcode != 0:
     print("Error on processing the 'correct' network!")
     sys.exit()
@@ -235,8 +236,7 @@ for c in changes:
     writer.close()
     print("------------------ " + c[0] + ":" + c[1], file=sys.stderr)
     sys.stderr.flush()
-    retcode = subprocess.call(
-        call + ["-n", "mod.net.xml"], stdout=sys.stdout, stderr=sys.stderr)
+    retcode = subprocess.call(call + ["mod.net.xml"])
     sys.stderr.flush()
     sys.stdout.flush()
     if retcode != 1:
