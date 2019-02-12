@@ -99,11 +99,11 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, con
 
     // parse repetition information
     if (attrs.hasAttribute(SUMO_ATTR_PERIOD)) {
-        ret->parametersSet |= VEHPARS_PERIODFREQ_SET;
+        ret->parametersSet |= VEHPARS_PERIOD_SET;
         ret->repetitionOffset = attrs.getSUMOTimeReporting(SUMO_ATTR_PERIOD, id.c_str(), ok);
     }
     if (attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR)) {
-        ret->parametersSet |= VEHPARS_PERIODFREQ_SET;
+        ret->parametersSet |= VEHPARS_VPH_SET;
         const double vph = attrs.get<double>(SUMO_ATTR_VEHSPERHOUR, id.c_str(), ok);
         if (ok && vph <= 0) {
             delete ret;
@@ -147,7 +147,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, con
     }
     if (attrs.hasAttribute(SUMO_ATTR_NUMBER)) {
         ret->repetitionNumber = attrs.get<int>(SUMO_ATTR_NUMBER, id.c_str(), ok);
-        ret->parametersSet |= VEHPARS_PERIODFREQ_SET;
+        ret->parametersSet |= VEHPARS_NUMBER_SET;
         if (ret->repetitionNumber == 0) {
             WRITE_WARNING("Flow '" + id + "' has 0 vehicles; will skip it.");
         } else {

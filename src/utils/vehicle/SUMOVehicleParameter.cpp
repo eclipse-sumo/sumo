@@ -68,9 +68,12 @@ SUMOVehicleParameter::write(OutputDevice& dev, const OptionsCont& oc, const Sumo
     } else {
         dev.writeAttr(SUMO_ATTR_TYPE, typeID);
     }
-    // write depart
-    dev.writeAttr(SUMO_ATTR_DEPART, getDepart());
-
+    // write depart depending of tag
+    if (tag == SUMO_TAG_FLOW) {
+        dev.writeAttr(SUMO_ATTR_BEGIN, getDepart());
+    } else {
+        dev.writeAttr(SUMO_ATTR_DEPART, getDepart());
+    }
     // optional parameter
     //  departlane
     if (wasSet(VEHPARS_DEPARTLANE_SET) && !defaultOptionOverrides(oc, "departlane")) {
