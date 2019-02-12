@@ -41,14 +41,12 @@
 // MSLeaderInfo member method definitions
 // ===========================================================================
 MSLeaderInfo::MSLeaderInfo(const MSLane* lane, const MSVehicle* ego, double latOffset) :
+    myWidth(lane != nullptr ? lane->getWidth() : 0),
     myVehicles(MAX2(1, int(ceil(myWidth / MSGlobals::gLateralResolution))), (MSVehicle*)nullptr),
     myFreeSublanes((int)myVehicles.size()),
     egoRightMost(-1),
     egoLeftMost(-1),
     myHasVehicles(false) {
-    if (lane != nullptr) {
-        myWidth = lane->getWidth();
-    }
     if (ego != nullptr) {
         getSubLanes(ego, latOffset, egoRightMost, egoLeftMost);
         // filter out sublanes not of interest to ego
