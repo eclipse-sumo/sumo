@@ -268,6 +268,7 @@ StringUtils::toLong(const std::string& sData) {
         throw EmptyData();
     }
     char* end;
+    errno = 0;
 #ifdef _MSC_VER
     long long int ret = _strtoi64(data, &end, 10);
 #else
