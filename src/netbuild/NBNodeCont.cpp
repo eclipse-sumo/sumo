@@ -580,18 +580,40 @@ NBNodeCont::addJoinExclusion(const std::vector<std::string>& ids, bool check) {
 void
 NBNodeCont::addCluster2Join(std::set<std::string> cluster) {
     // error handling has to take place here since joins could be loaded from multiple files
-    for (std::set<std::string>::const_iterator it = cluster.begin(); it != cluster.end(); it++) {
-        if (myJoinExclusions.count(*it) > 0) {
-            WRITE_WARNING("Ignoring join-cluster because junction '" + *it + "' was already excluded from joining");
+    std::set<std::string> validCluster;
+    for (std::string nodeID : cluster) {
+        if (myJoinExclusions.count(nodeID) > 0) {
+            WRITE_WARNING("Ignoring join-cluster because junction '" + nodeID + "' was already excluded from joining");
             return;
-        } else if (myJoined.count(*it) > 0) {
-            WRITE_WARNING("Ignoring join-cluster because junction '" + *it + "' already occurred in another join-cluster");
+        } else if (myJoined.count(nodeID) > 0) {
+            WRITE_WARNING("Ignoring join-cluster because junction '" + nodeID + "' already occurred in another join-cluster");
             return;
         } else {
-            myJoined.insert(*it);
+            NBNode* node = retrieve(nodeID);
+            if (node != nullptr) {
+                validCluster.insert(nodeID);
+            } else {
+                if (StringUtils::startsWith(nodeID, "cluster_")) {
+                    // assume join directive came from a pre-processed network. try to use component IDs
+                    std::set<std::string> subIDs;
+                    for (std::string nID : StringTokenizer(nodeID.substr(8), "_").getVector()) {
+                        NBNode* node = retrieve(nID);
+                        if (node != nullptr) {
+                            validCluster.insert(nID);
+                        } else{
+                            WRITE_ERROR("Unknown junction '" + nodeID + "' in join-cluster (componentID)");
+                        }
+                    }
+                } else {
+                    WRITE_ERROR("Unknown junction '" + nodeID + "' in join-cluster");
+                }
+            }
         }
     }
-    myClusters2Join.push_back(cluster);
+    for (std::string nodeID : validCluster) {
+        myJoined.insert(nodeID);
+    }
+    myClusters2Join.push_back(validCluster);
 }
 
 
@@ -604,7 +626,7 @@ NBNodeCont::joinLoadedClusters(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLigh
         for (std::set<std::string>::iterator it_id = it->begin(); it_id != it->end(); it_id++) {
             NBNode* node = retrieve(*it_id);
             if (node == nullptr) {
-                WRITE_WARNING("Ignoring unknown junction '" + *it_id + "' while joining");
+                WRITE_ERROR("unknown junction '" + *it_id + "' while joining");
             } else {
                 cluster.insert(node);
             }
