@@ -3,5 +3,4 @@
 search_string:teleporting
 search_file:errors
 ignore_other_errors:1
-bug_system:trac
-bug_id:2319
+brief_description:#2319
