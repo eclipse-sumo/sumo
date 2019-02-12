@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:27:39 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Tue Feb 12 10:49:10 2019 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -176,9 +176,9 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="6"  state="rrGrrrrGGrrr"/>
         <phase duration="3"  state="rryrrrryyrrr"/>
         <phase duration="33" state="rrrGggrrrGGg"/>
-        <phase duration="3"  state="rrryggrrryyg"/>
-        <phase duration="6"  state="rrrrGGrrrrrG"/>
-        <phase duration="3"  state="rrrryyrrrrry"/>
+        <phase duration="3"  state="rrryggrrryyy"/>
+        <phase duration="6"  state="rrrGGGrrrrrr"/>
+        <phase duration="3"  state="rrryyyrrrrrr"/>
     </tlLogic>
 
     <junction id="0" type="traffic_light" x="500.00" y="500.00" incLanes="4si_0 4si_1 4si_2 2si_0 2si_1 2si_2 3si_0 3si_1 3si_2 1si_0 1si_1 1si_2" intLanes=":0_0_0 :0_1_0 :0_12_0 :0_3_0 :0_13_0 :0_14_0 :0_6_0 :0_15_0 :0_16_0 :0_9_0 :0_10_0 :0_17_0" shape="490.40,511.10 500.00,511.10 501.23,510.27 502.77,509.98 504.93,509.77 507.71,509.64 511.10,509.60 511.10,496.80 510.27,495.92 509.98,494.82 509.77,493.29 509.64,491.31 509.60,488.90 496.80,488.90 495.92,489.73 494.82,490.02 493.29,490.23 491.31,490.36 488.90,490.40 488.90,503.20 489.73,504.08 490.02,505.18 490.23,506.71 490.36,508.69">
