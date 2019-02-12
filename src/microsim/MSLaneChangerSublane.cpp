@@ -108,6 +108,7 @@ MSLaneChangerSublane::change() {
     // variant of change() for the sublane case
     myCandi = findCandidate();
     MSVehicle* vehicle = veh(myCandi);
+    vehicle->getLaneChangeModel().clearNeighbors();
 #ifdef DEBUG_ACTIONSTEPS
     if DEBUG_COND {
     std::cout << "\nCHANGE" << std::endl;
@@ -574,6 +575,9 @@ MSLaneChangerSublane::checkChangeSublane(
     }
 #endif
     vehicle->getLaneChangeModel().saveLCState(laneOffset, oldstate, state);
+    if (laneOffset != 0) {
+        vehicle->getLaneChangeModel().saveNeighbors(laneOffset, neighFollowers, neighLeaders);
+    }
     return state;
 }
 

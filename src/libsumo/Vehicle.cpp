@@ -632,6 +632,94 @@ Vehicle::getParameter(const std::string& vehicleID, const std::string& key) {
 }
 
 
+std::map<const MSVehicle*, double>
+Vehicle::getNeighbors(const std::string& vehicleID, const int mode) {
+    int dir = (1 & mode) ? -1 : 1;
+    bool queryLeaders = (2 & mode);
+    bool blockersOnly = (4 & mode);
+
+    MSVehicle* veh = getVehicle(vehicleID);
+    std::map<const MSVehicle*, double> neighs;
+    auto& lcm = veh->getLaneChangeModel();
+
+    if (blockersOnly) {
+        // Check if a blocking neigh exists in the given direction
+        bool blocked = false;
+        if (dir == 1) {
+            if (queryLeaders) {
+                blocked = (lcm.getOwnState() & LCA_BLOCKED_BY_RIGHT_LEADER);
+            } else {
+                blocked = (lcm.getOwnState() & LCA_BLOCKED_BY_RIGHT_FOLLOWER);
+            }
+        } else {
+            if (queryLeaders) {
+                blocked = (lcm.getOwnState() & LCA_BLOCKED_BY_LEFT_LEADER);
+            } else {
+                blocked = (lcm.getOwnState() & LCA_BLOCKED_BY_LEFT_FOLLOWER);
+            }
+        }
+        if (!blocked) {
+            // Not blocked => return empty vector
+            return neighs;
+        }
+    }
+
+    const std::shared_ptr<MSLeaderDistanceInfo> res = queryLeaders ? lcm.getLeaders(dir) : lcm.getFollowers(dir);
+    if (res != nullptr && res->hasVehicles()) {
+        auto distIt = begin(res->getDistances());
+        auto vehIt = begin(res->getVehicles());
+        while (distIt != end(res->getDistances())) {
+            if (*vehIt != nullptr) {
+                neighs[*vehIt] = *distIt;
+            }
+            ++vehIt;
+            ++distIt;
+        }
+    }
+    return neighs;
+}
+
+
+std::map<const MSVehicle*, double>
+Vehicle::getRightFollowers(const std::string& vehicleID, bool blockingOnly) {
+    if (blockingOnly) {
+        return getNeighbors(vehicleID, 5);
+    } else {
+        return getNeighbors(vehicleID, 1);
+    }
+}
+
+
+std::map<const MSVehicle*, double>
+Vehicle::getRightLeaders(const std::string& vehicleID, bool blockingOnly) {
+    if (blockingOnly) {
+        return getNeighbors(vehicleID, 7);
+    } else {
+        return getNeighbors(vehicleID, 3);
+    }
+}
+
+
+std::map<const MSVehicle*, double>
+Vehicle::getLeftFollowers(const std::string& vehicleID, bool blockingOnly) {
+    if (blockingOnly) {
+        return getNeighbors(vehicleID, 4);
+    } else {
+        return getNeighbors(vehicleID, 0);
+    }
+}
+
+
+std::map<const MSVehicle*, double>
+Vehicle::getLeftLeaders(const std::string& vehicleID, bool blockingOnly) {
+    if (blockingOnly) {
+        return getNeighbors(vehicleID, 6);
+    } else {
+        return getNeighbors(vehicleID, 2);
+    }
+}
+
+
 const MSVehicleType&
 Vehicle::getVehicleType(const std::string& vehicleID) {
     return getVehicle(vehicleID)->getVehicleType();

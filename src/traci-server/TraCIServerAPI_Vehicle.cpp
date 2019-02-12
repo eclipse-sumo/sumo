@@ -15,6 +15,7 @@
 /// @author  Bjoern Hendriks
 /// @author  Mario Krumnow
 /// @author  Jakob Erdmann
+/// @author  Leonhard Luecken
 /// @author  Robert Hilbrich
 /// @author  Lara Codeca
 /// @date    07.05.2009
@@ -261,6 +262,20 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                     }
                     server.getWrapperStorage().writeUnsignedByte(TYPE_STRING);
                     server.getWrapperStorage().writeString(libsumo::Vehicle::getParameter(id, paramName));
+                    break;
+                }
+                case VAR_NEIGHBORS: {
+                    int mode;
+                    if (!server.readTypeCheckingUnsignedByte(inputStorage, mode)) {
+                        return server.writeErrorStatusCmd(CMD_GET_VEHICLE_VARIABLE, "Retrieval of neighboring vehicles needs bitset to specify mode.", outputStorage);
+                    }
+                    const std::map<const MSVehicle*, double> neighVehicles = libsumo::Vehicle::getNeighbors(id, mode);
+                    server.getWrapperStorage().writeUnsignedByte(TYPE_COMPOUND);
+                    server.getWrapperStorage().writeInt(neighVehicles.size());
+                    for (auto& p : neighVehicles) {
+                        server.getWrapperStorage().writeString(p.first->getID());
+                        server.getWrapperStorage().writeDouble(p.second);
+                    }
                     break;
                 }
                 default:

@@ -162,6 +162,72 @@ MSAbstractLaneChangeModel::getManeuverDist() const {
 }
 
 
+void
+MSAbstractLaneChangeModel::saveNeighbors(const int dir, const MSLeaderDistanceInfo& followers, const MSLeaderDistanceInfo& leaders) {
+    if (dir == -1) {
+        myLeftFollowers = std::make_shared<MSLeaderDistanceInfo>(followers);
+        myLeftLeaders = std::make_shared<MSLeaderDistanceInfo>(leaders);
+    } else if (dir == 1) {
+        myRightFollowers = std::make_shared<MSLeaderDistanceInfo>(followers);
+        myRightLeaders = std::make_shared<MSLeaderDistanceInfo>(leaders);
+    } else {
+        // dir \in {-1,1} !
+        assert(false);
+    }
+}
+
+
+void
+MSAbstractLaneChangeModel::saveNeighbors(const int dir, const std::pair<MSVehicle* const, double>& follower, const std::pair<MSVehicle* const, double>& leader) {
+    if (dir == -1) {
+        myLeftFollowers = std::make_shared<MSLeaderDistanceInfo>(follower, myVehicle.getLane());
+        myLeftLeaders = std::make_shared<MSLeaderDistanceInfo>(leader, myVehicle.getLane());
+    } else if (dir == 1) {
+        myRightFollowers = std::make_shared<MSLeaderDistanceInfo>(follower, myVehicle.getLane());
+        myRightLeaders = std::make_shared<MSLeaderDistanceInfo>(leader, myVehicle.getLane());
+    } else {
+        // dir \in {-1,1} !
+        assert(false);
+    }
+}
+
+
+void
+MSAbstractLaneChangeModel::clearNeighbors() {
+    myLeftFollowers = nullptr;
+    myLeftLeaders = nullptr;
+    myRightFollowers = nullptr;
+    myRightLeaders = nullptr;
+}
+
+
+const std::shared_ptr<MSLeaderDistanceInfo>
+MSAbstractLaneChangeModel::getFollowers(const int dir) {
+    if (dir == -1) {
+        return myLeftFollowers;
+    } else if (dir == 1) {
+        return myRightFollowers;
+    } else {
+        // dir \in {-1,1} !
+        assert(false);
+    }
+    return nullptr;
+}
+
+const std::shared_ptr<MSLeaderDistanceInfo>
+MSAbstractLaneChangeModel::getLeaders(const int dir) {
+    if (dir == -1) {
+        return myLeftLeaders;
+    } else if (dir == 1) {
+        return myRightLeaders;
+    } else {
+        // dir \in {-1,1} !
+        assert(false);
+    }
+    return nullptr;
+}
+
+
 bool
 MSAbstractLaneChangeModel::congested(const MSVehicle* const neighLeader) {
     if (neighLeader == nullptr) {

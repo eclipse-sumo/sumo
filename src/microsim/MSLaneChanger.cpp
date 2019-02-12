@@ -265,6 +265,7 @@ MSLaneChanger::change() {
 
     myCandi = findCandidate();
     MSVehicle* vehicle = veh(myCandi);
+    vehicle->getLaneChangeModel().clearNeighbors();
 
     if (vehicle->getLaneChangeModel().isChangingLanes()) {
         return continueChange(vehicle, myCandi);
@@ -1005,6 +1006,9 @@ MSLaneChanger::checkChange(
         vehicle->getLaneChangeModel().setFollowerGaps(neighFollow, secureBackGap);
         vehicle->getLaneChangeModel().setLeaderGaps(neighLead, secureFrontGap);
         vehicle->getLaneChangeModel().setOrigLeaderGaps(leader, secureOrigFrontGap);
+    }
+    if (laneOffset != 0) {
+        vehicle->getLaneChangeModel().saveNeighbors(laneOffset, neighFollow, neighLead);
     }
     return state;
 }

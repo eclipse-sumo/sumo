@@ -756,6 +756,9 @@
 // get/set vehicle via
 #define VAR_VIA 0xbe
 
+// get (lane change relevant) neighboring vehicles (vehicles)
+#define VAR_NEIGHBORS 0xbf
+
 // current CO2 emission of a node (get: vehicle, lane, edge)
 #define VAR_CO2EMISSION 0x60
 

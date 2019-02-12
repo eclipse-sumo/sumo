@@ -15,6 +15,7 @@
 # @author  Jakob Erdmann
 # @author  Laura Bieker
 # @author  Daniel Krajzewicz
+# @author  Leonhard Luecken
 # @date    2011-03-09
 # @version $Id$
 
@@ -53,6 +54,18 @@ def _readLeader(result):
         return vehicleID, dist
     return None
 
+
+def _readNeighbors(result):
+    """ result has structure:
+    byte(TYPE_COMPOUND) | length(neighList) | Per list entry: string(vehID) | double(dist)   
+    """
+    N = result.readInt() # length of the vehicle list
+    neighs = [] 
+    for i in range(N):
+        vehID = result.readString()
+        dist = result.readDouble()
+        neighs.append((vehID, dist))
+    return neighs
 
 def _readNextTLS(result):
     result.read("!iB")  # numCompounds, TYPE_INT
@@ -144,6 +157,7 @@ _RETURN_VALUE_FUNC = {tc.VAR_SPEED: Storage.readDouble,
                       tc.VAR_TAU: Storage.readDouble,
                       tc.VAR_BEST_LANES: _readBestLanes,
                       tc.VAR_LEADER: _readLeader,
+                      tc.VAR_NEIGHBORS: _readNeighbors,
                       tc.VAR_NEXT_TLS: _readNextTLS,
                       tc.VAR_NEXT_STOPS: _readNextStops,
                       tc.VAR_LANEPOSITION_LAT: Storage.readDouble,
@@ -629,6 +643,59 @@ class VehicleDomain(Domain):
         self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, dist)
         return _readLeader(self._connection._checkResult(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_LEADER, vehID))
 
+    def getRightFollowers(self, vehID, blockingOnly=False):        
+        """ bool -> list(pair(string, double))
+        Convenience method, see getNeighbors()
+        """ 
+        if blockingOnly: mode = 5
+        else: mode = 1
+        return self.getNeighbors(vehID, mode)
+
+    def getRightLeaders(self, vehID, blockingOnly=False):        
+        """ bool -> list(pair(string, double))
+        Convenience method, see getNeighbors()
+        """ 
+        if blockingOnly: mode = 7
+        else: mode = 3
+        return self.getNeighbors(vehID, mode)
+    
+    def getLeftFollowers(self, vehID, blockingOnly=False):        
+        """ bool -> list(pair(string, double))
+        Convenience method, see getNeighbors()
+        """ 
+        if blockingOnly: mode = 4
+        else: mode = 0
+        return self.getNeighbors(vehID, mode)
+    
+    def getLeftLeaders(self, vehID, blockingOnly=False):        
+        """ bool -> list(pair(string, double))
+        Convenience method, see getNeighbors()
+        """ 
+        if blockingOnly: mode = 6
+        else: mode = 2
+        return self.getNeighbors(vehID, mode)
+
+    def getNeighbors(self, vehID, mode):
+        """ byte -> list(pair(string, double)) 
+        
+        The parameter mode is a bitset (UBYTE), specifying the following:
+        bit 1: query lateral direction (left:0, right:1)
+        bit 2: query longitudinal direction (followers:0, leaders:1)
+        bit 3: blocking (return all:0, return only blockers:1)
+
+        The returned list contains pairs (ID, dist) for all lane change relevant neighboring leaders, resp. followers, 
+        along with their longitudinal distance to the ego vehicle (egoFront - egoMinGap to leaderBack, resp. 
+        followerFront - followerMinGap to egoBack. The value can be negative for overlapping neighs). 
+        For the non-sublane case, the lists will contain at most one entry.
+        
+        Note: The exact set of blockers in case blocking==1 is not determined in for the sublane model, 
+        but all neighboring vehicles are either returned (in case LCA_BLOCKED) or none os returned (in case !LCA_BLOCKED).
+        """
+        length = 1 + 1 # TYPE_UBYTE + mode
+        self._connection._beginMessage(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_NEIGHBORS, vehID, 2) 
+        self._connection._string += struct.pack("!BB", tc.TYPE_UBYTE, mode)
+        return _readNeighbors(self._connection._checkResult(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_NEIGHBORS, vehID))
+    
     def getNextTLS(self, vehID):
         """getNextTLS(string) ->
 

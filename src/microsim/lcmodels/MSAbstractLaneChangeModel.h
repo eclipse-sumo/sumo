@@ -212,6 +212,23 @@ public:
         }
     }
 
+    /// @brief Saves the lane change relevant vehicles, which are currently on neighboring lanes in the given direction
+    ///        (as detected in wantsChangeSublane()). -> SL2015 case
+    void saveNeighbors(const int dir, const MSLeaderDistanceInfo& followers, const MSLeaderDistanceInfo& leaders);
+
+    /// @brief Saves the lane change relevant vehicles, which are currently on neighboring lanes in the given direction
+    ///        (as detected in wantsChange()). -> LC2013 case
+    void saveNeighbors(const int dir, const std::pair<MSVehicle* const, double>& follower, const std::pair<MSVehicle* const, double>& leader);
+
+    /// @brief Clear info on neighboring vehicle from previous step
+    void clearNeighbors();
+
+    /// @brief Returns the neighboring, lc-relevant followers for the last step in the requested direction
+    const std::shared_ptr<MSLeaderDistanceInfo> getFollowers(const int dir);
+
+    /// @brief Returns the neighboring, lc-relevant leaders for the last step in the requested direction
+    const std::shared_ptr<MSLeaderDistanceInfo> getLeaders(const int dir);
+
     int& getCanceledState(const int dir) {
         if (dir == -1) {
             return myCanceledStateRight;
@@ -602,6 +619,14 @@ protected:
     int myCanceledStateRight;
     int myCanceledStateCenter;
     int myCanceledStateLeft;
+
+    /// @brief Cached info on lc-relevant neighboring vehicles
+    /// @{
+    std::shared_ptr<MSLeaderDistanceInfo> myLeftFollowers;
+    std::shared_ptr<MSLeaderDistanceInfo> myLeftLeaders;
+    std::shared_ptr<MSLeaderDistanceInfo> myRightFollowers;
+    std::shared_ptr<MSLeaderDistanceInfo> myRightLeaders;
+    /// @}
 
     /// @brief the current lateral speed
     double mySpeedLat;

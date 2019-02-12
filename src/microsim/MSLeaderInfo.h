@@ -97,6 +97,10 @@ public:
         return myHasVehicles;
     }
 
+    const std::vector<const MSVehicle*>& getVehicles() const {
+        return myVehicles;
+    }
+
     /// @brief whether a stopped vehicle is leader
     bool hasStoppedVehicle() const;
 
@@ -162,6 +166,10 @@ public:
 
     /// @brief print a debugging representation
     virtual std::string toString() const;
+
+    const std::vector<double>& getDistances() const {
+        return myDistances;
+    }
 
 protected:
 
