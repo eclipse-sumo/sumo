@@ -1275,7 +1275,9 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
             }
             const EdgeVector& incoming = node->getIncomingEdges();
             const EdgeVector& outgoing = node->getOutgoingEdges();
-            if (!node->isTLControlled() && incoming.size() > 1 && !node->geometryLike() && !NBNodeTypeComputer::isRailwayNode(node)) {
+            if (!node->isTLControlled() && incoming.size() > 1 && !node->geometryLike() 
+                    && !NBNodeTypeComputer::isRailwayNode(node) 
+                    && node->getType() != NODETYPE_RAIL_CROSSING) {
                 std::vector<NBNode*> signals;
                 bool isTLS = true;
                 for (EdgeVector::const_iterator it_i = incoming.begin(); it_i != incoming.end(); ++it_i) {
