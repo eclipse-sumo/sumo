@@ -920,22 +920,19 @@ class VehicleDomain(Domain):
             "!BiBBBd", tc.TYPE_COMPOUND, 2, tc.TYPE_BYTE, laneIndex, tc.TYPE_DOUBLE, duration)
         self._connection._sendExact()
 
-    def changeLaneRelative(self, vehID, left, duration):
-        """changeLane(string, int, double) -> None
+    def changeLaneRelative(self, vehID, indexOffset, duration):
+        """changeLaneRelative(string, int, double) -> None
 
         Forces a relative lane change; if successful,
         the lane will be chosen for the given amount of time (in s).
+        The indexOffset specifies the target lane relative to the vehicles current lane
         """
         if type(duration) is int and duration >= 1000:
             warnings.warn("API change now handles duration as floating point seconds", stacklevel=2)
-        if left > 0:
-            laneIndex = left
-        else:
-            laneIndex = 0
         self._connection._beginMessage(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_CHANGELANE, vehID, 1 + 4 + 1 + 1 + 1 + 8 + 1 + 1)
         self._connection._string += struct.pack(
-            "!BiBBBdBB", tc.TYPE_COMPOUND, 3, tc.TYPE_BYTE, laneIndex, tc.TYPE_DOUBLE, duration, tc.TYPE_BYTE, 1)
+            "!BiBBBdBB", tc.TYPE_COMPOUND, 3, tc.TYPE_BYTE, indexOffset, tc.TYPE_DOUBLE, duration, tc.TYPE_BYTE, 1)
         self._connection._sendExact()
 
     def changeSublane(self, vehID, latDist):

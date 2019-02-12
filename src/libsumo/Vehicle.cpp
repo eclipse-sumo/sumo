@@ -884,15 +884,9 @@ Vehicle::changeLane(const std::string& vehicleID, int laneIndex, double duration
 }
 
 void
-Vehicle::changeLaneRelative(const std::string& vehicleID, int laneChange, double duration) {
+Vehicle::changeLaneRelative(const std::string& vehicleID, int indexOffset, double duration) {
     std::vector<std::pair<SUMOTime, int> > laneTimeLine;
-    int laneIndex;
-    // Check in which direction the lane change should be performed 0: for right, >0 to left
-    if (laneChange > 0) {
-        laneIndex = getVehicle(vehicleID)->getLaneIndex() + laneChange;
-    } else {
-        laneIndex = getVehicle(vehicleID)->getLaneIndex() - 1;
-    }
+    int laneIndex = getVehicle(vehicleID)->getLaneIndex() + indexOffset;
     laneTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), laneIndex));
     laneTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep() + TIME2STEPS(duration), laneIndex));
     getVehicle(vehicleID)->getInfluencer().setLaneTimeLine(laneTimeLine);
