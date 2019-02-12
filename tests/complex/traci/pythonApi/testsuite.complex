@@ -73,6 +73,12 @@ load
 # test retrieval of upcoming traffic lights
 nextTLS
 
+# Tests traci.vehicle.getNeighbors() method
+getNeighbors
+
+# Tests traci.vehicle.getNeighbors() method in presence of multiple leaders/followers
+getNeighborsSublane
+
 # test various functions and options for influencing the behavior of rerouting functions
 rerouting
 

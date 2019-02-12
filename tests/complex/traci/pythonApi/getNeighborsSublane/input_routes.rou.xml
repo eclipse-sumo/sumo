@@ -1,0 +1,15 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+   <route id="r0" edges="entry mid exit"/>
+   <vType id="t0" sigma="0.5" latAlignment="right" width="1.0" />
+   <vType id="t1" sigma="0.5" latAlignment="left"  width="1.0" />
+   <vType id="t2" speedFactor="1.2" />
+   <vehicle id="ego" type="t2" route="r0" depart="0" departLane="1" arrivalLane="1" />
+   <vehicle id="l0.0" type="t0" departPosLat="-1" route="r0" depart="0" departLane="2" departPos="0" arrivalLane="2" />
+   <vehicle id="l0.1" type="t1" departPosLat="1" route="r0" depart="0" departLane="2" departPos="10" arrivalLane="2" />
+   <vehicle id="l1.0" type="t0" departPosLat="-1" route="r0" depart="0" departLane="2" departPos="40" arrivalLane="2"/>
+   <vehicle id="l1.1" type="t1" departPosLat="1" route="r0" depart="0" departLane="2" departPos="50" arrivalLane="2"/>
+   <vehicle id="r0.0" type="t0" departPosLat="-1" route="r0" depart="0" departLane="0" departPos="0" arrivalLane="0" />
+   <vehicle id="r0.1" type="t1" departPosLat="1" route="r0" depart="0" departLane="0" departPos="10" arrivalLane="0" />
+   <vehicle id="r1.0" type="t0" departPosLat="-1" route="r0" depart="0" departLane="0" departPos="40" arrivalLane="0"/>
+   <vehicle id="r1.1" type="t1" departPosLat="1" route="r0" depart="0" departLane="0" departPos="50" arrivalLane="0"/>
+</routes>
