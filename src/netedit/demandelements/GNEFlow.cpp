@@ -38,33 +38,19 @@
 // member method definitions
 // ===========================================================================
 
-GNEFlow::GNEFlow(GNEViewNet* viewNet, const std::string &flowID, GNEDemandElement* vehicleType, GNEDemandElement* route, 
-    double begin, const std::string &end, const std::string &vehsPerHour, const std::string &period, const std::string &probability, int number) : 
+GNEFlow::GNEFlow(GNEViewNet* viewNet, const std::string &flowID, GNEDemandElement* vehicleType, GNEDemandElement* route) : 
     GNEDemandElement(flowID, viewNet, GLO_FLOW, SUMO_TAG_FLOW),
     SUMOVehicleParameter(),
     myVehicleType(vehicleType),
-    myRoute(route),
-    myBegin(begin), 
-    myEnd(end), 
-    myVehsPerHour(vehsPerHour), 
-    myPeriod(period), 
-    myProbability(probability), 
-    myNumber(number) {
+    myRoute(route) {
 }
 
 
-GNEFlow::GNEFlow(GNEViewNet* viewNet, const SUMOVehicleParameter &flowParameter, GNEDemandElement* vehicleType, GNEDemandElement* route,
-    double begin, const std::string &end, const std::string &vehsPerHour, const std::string &period, const std::string &probability, int number) :
+GNEFlow::GNEFlow(GNEViewNet* viewNet, const SUMOVehicleParameter &flowParameter, GNEDemandElement* vehicleType, GNEDemandElement* route) :
     GNEDemandElement(flowParameter.id, viewNet, GLO_FLOW, SUMO_TAG_FLOW),
     SUMOVehicleParameter(flowParameter),
     myVehicleType(vehicleType),
-    myRoute(route),
-    myBegin(begin), 
-    myEnd(end), 
-    myVehsPerHour(vehsPerHour), 
-    myPeriod(period), 
-    myProbability(probability), 
-    myNumber(number) {
+    myRoute(route) {
 }
 
 
@@ -74,11 +60,11 @@ GNEFlow::~GNEFlow() {}
 std::string 
 GNEFlow::getBegin() const {
     // obtain begin
-    std::string beginStr = toString(myBegin);
+    std::string beginStr = toString(depart);
     // we need to handle begin as a tuple of 20 numbers (format: 000000...00<beginTime>)
     beginStr.reserve(20 - beginStr.size());
     // add 0s at the beginning of beginStr until we have 20 numbers
-    for (int i = beginStr.size(); i < 20; i++) {
+    for (int i = (int)beginStr.size(); i < 20; i++) {
         beginStr.insert(beginStr.begin(), '0');
     }
     return beginStr;
@@ -100,6 +86,25 @@ GNEFlow::getColor() const {
 void 
 GNEFlow::writeDemandElement(OutputDevice& device) const {
     write(device, OptionsCont::getOptions(), SUMO_TAG_FLOW);
+    // write manually route
+    device.writeAttr(SUMO_ATTR_ROUTE, myRoute->getID());
+    // write flow values
+    if (repetitionEnd != -1) {
+        device.writeAttr(SUMO_ATTR_END, repetitionEnd);
+    }
+    if (repetitionNumber != -1) {
+        device.writeAttr(SUMO_ATTR_NUMBER , repetitionNumber);
+    }
+    if (repetitionOffset != -1) {
+        device.writeAttr(SUMO_ATTR_VEHSPERHOUR, repetitionOffset);
+    }
+    if (repetitionOffset != -1) {
+        device.writeAttr(SUMO_ATTR_PERIOD, repetitionOffset);
+    }
+    if (repetitionProbability != -1) {
+        device.writeAttr(SUMO_ATTR_PROB, repetitionProbability);
+    }
+    device.closeTag();
 }
 
 
@@ -216,17 +221,17 @@ GNEFlow::getAttribute(SumoXMLAttr key) const {
             return getArrivalPosLat();
         // Specific of flows
         case SUMO_ATTR_BEGIN:
-            return toString(myBegin);
+            return toString(depart);
         case SUMO_ATTR_END:
-            return toString(myEnd);
+            return toString(repetitionEnd);
         case SUMO_ATTR_VEHSPERHOUR:
-            return toString(myVehsPerHour);
+            return toString(repetitionOffset);
         case SUMO_ATTR_PERIOD:
-            return toString(myPeriod);
+            return toString(repetitionOffset);
         case SUMO_ATTR_PROB:
-            return toString(myProbability);
+            return toString(repetitionProbability);
         case SUMO_ATTR_NUMBER:
-            return toString(myNumber);
+            return toString(repetitionNumber);
         //
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
@@ -374,7 +379,7 @@ GNEFlow::isValid(SumoXMLAttr key, const std::string& value) {
             if (value.empty()) {
                 return true;
             } else if (canParse<double>(value)) {
-                return (parse<double>(value) >= 0);
+                return (parse<double>(value) > 0);
             } else {
                 return false;
             }
@@ -382,7 +387,7 @@ GNEFlow::isValid(SumoXMLAttr key, const std::string& value) {
             if (value.empty()) {
                 return true;
             } else if (canParse<double>(value)) {
-                return (parse<double>(value) >= 0);
+                return (parse<double>(value) > 0);
             } else {
                 return false;
             }
@@ -483,24 +488,24 @@ GNEFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
         // Specific of flows
         case SUMO_ATTR_BEGIN: {
             std::string oldBegin = getBegin();
-            myBegin = parse<double>(value);
+            depart = parse<SUMOTime>(value);
             myViewNet->getNet()->updateDemandElementBegin(oldBegin, this);
             break;
         }
         case SUMO_ATTR_END:
-            myEnd = value;
+            repetitionEnd = parse<SUMOTime>(value);
             break;
         case SUMO_ATTR_VEHSPERHOUR:
-            myVehsPerHour = value;
+            repetitionOffset = parse<SUMOTime>(value);
             break;
         case SUMO_ATTR_PERIOD:
-            myProbability = value;
+            repetitionOffset = parse<SUMOTime>(value);
             break;
         case SUMO_ATTR_PROB:
-            myProbability = value;
+            repetitionProbability = parse<double>(value);
             break;
         case SUMO_ATTR_NUMBER:
-            myNumber = parse<int>(value);
+            repetitionNumber = parse<int>(value);
             break;
         //
         case GNE_ATTR_GENERIC:

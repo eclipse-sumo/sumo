@@ -159,6 +159,9 @@ public:
             /// @brief return value
             std::string getValue() const;
 
+            /// @brief check if row is enabled
+            bool isRowEnabled() const;
+
             /// @brief returns a empty string if current value is valid, a string with information about invalid value in other case
             const std::string& isAttributeValid() const;
 

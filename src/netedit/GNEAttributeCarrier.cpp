@@ -630,6 +630,16 @@ GNEAttributeCarrier::TagProperties::getTagSynonym() const {
 }
 
 
+const std::vector<SumoXMLAttr> &
+GNEAttributeCarrier::TagProperties::getDisjointAttributes() const {
+    if (hasDisjointAttributes()) {
+        return myDisjointAttrs;
+    } else {
+        throw ProcessError("Tag doesn't support disjoint attributes");
+    }
+}
+
+
 void 
 GNEAttributeCarrier::TagProperties::setDisjointAttributes(const std::vector<SumoXMLAttr> &attrs) {
     if (hasDisjointAttributes()) {
@@ -879,6 +889,13 @@ GNEAttributeCarrier::parse(const std::string& string) {
 template<> double
 GNEAttributeCarrier::parse(const std::string& string) {
     return StringUtils::toDouble(string);
+}
+
+
+template<> SUMOTime
+GNEAttributeCarrier::parse(const std::string& string) {
+    // check this
+    return (SUMOTime)StringUtils::toDouble(string);
 }
 
 
@@ -3447,25 +3464,25 @@ GNEAttributeCarrier::fillDemandElements() {
         attrProperty = AttributeProperties(SUMO_ATTR_VEHSPERHOUR,
             ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "Number of vehicles per hour, equally spaced (not together with period or probability)",
-            "0");
+            "1800");
         myTagProperties[currentTag].addAttribute(attrProperty);
         
         attrProperty = AttributeProperties(SUMO_ATTR_PERIOD,
             ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "Insert equally spaced vehicles at that period (not together with vehsPerHour or probability)",
-            "0");
+            "2");
         myTagProperties[currentTag].addAttribute(attrProperty);
         
         attrProperty = AttributeProperties(SUMO_ATTR_PROB,
             ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "probability for emitting a vehicle each second (not together with vehsPerHour or period)",
-            "0");
+            "0.5");
         myTagProperties[currentTag].addAttribute(attrProperty);
         
         attrProperty = AttributeProperties(SUMO_ATTR_NUMBER,
             ATTRPROPERTY_INT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "probability for emitting a vehicle each second (not together with vehsPerHour or period)", 
-            "0");
+            "1800");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = SUMO_TAG_TRIP;

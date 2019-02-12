@@ -37,12 +37,10 @@ class GNEFlow : public GNEDemandElement, public SUMOVehicleParameter {
 
 public:
     /// @brief constructor
-    GNEFlow(GNEViewNet* viewNet, const std::string &flowID, GNEDemandElement* vehicleType, GNEDemandElement* route, 
-            double begin, const std::string &end, const std::string &vehsPerHour, const std::string &period, const std::string &probability, int number);
+    GNEFlow(GNEViewNet* viewNet, const std::string &flowID, GNEDemandElement* vehicleType, GNEDemandElement* route);
 
     /// @brief parameter constructor
-    GNEFlow(GNEViewNet* viewNet, const SUMOVehicleParameter &flowParameter, GNEDemandElement* vehicleType, GNEDemandElement* route,
-            double begin, const std::string &end, const std::string &vehsPerHour, const std::string &period, const std::string &probability, int number);
+    GNEFlow(GNEViewNet* viewNet, const SUMOVehicleParameter &flowParameter, GNEDemandElement* vehicleType, GNEDemandElement* route);
 
     /// @brief destructor
     ~GNEFlow();
@@ -142,24 +140,6 @@ protected:
 
     /// @brief route in which this flow is used
     GNEDemandElement* myRoute;
-
-    /// @brief time step begin
-    double myBegin;
-
-    /// @brief time step end (String instead float because can be empty) 
-    std::string myEnd;
-
-    /// @brief flows per hour (String instead float because can be empty)
-    std::string myVehsPerHour;
-
-    /// @brief flows period (String instead float because can be empty)
-    std::string myPeriod;
-
-    /// @brief flows probability (String instead float because can be empty)
-    std::string myProbability;
-
-    /// @brief total number of vehicle's flow
-    int myNumber;
 
 private:
     /// @brief method for setting the attribute and nothing else

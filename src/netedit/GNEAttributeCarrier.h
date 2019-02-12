@@ -340,6 +340,9 @@ public:
         /// @brief get tag synonym
         SumoXMLTag getTagSynonym() const;
 
+        /// @brief get disjoint attributes
+        const std::vector<SumoXMLAttr> &getDisjointAttributes() const;
+
         /// @brief set disjoint attributes
         void setDisjointAttributes(const std::vector<SumoXMLAttr> &attrs);
 

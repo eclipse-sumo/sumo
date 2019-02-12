@@ -98,7 +98,7 @@ GNERouteHandler::buildFlow(GNEViewNet* viewNet, bool undoDemandElements, SUMOVeh
                 WRITE_WARNING("Invalid route '" + flowParameter->routeid + "' used in flow '" + flowParameter->id + "'.");
             } else {
                 // create flow using flowParameter 
-                GNEVehicle* flow = new GNEVehicle(viewNet, *flowParameter, vType, route);
+                GNEFlow* flow = new GNEFlow(viewNet, *flowParameter, vType, route);
                 if (undoDemandElements) {
                     viewNet->getUndoList()->p_begin("add " + flow->getTagStr());
                     viewNet->getUndoList()->add(new GNEChange_DemandElement(flow, true), true);

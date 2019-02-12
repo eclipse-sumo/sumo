@@ -267,8 +267,9 @@ GNEFrame::ACAttributes::getAttributesAndValues() const {
     // get standard parameters
     for (int i = 0; i < (int)myRows.size(); i++) {
         if (myRows.at(i)->getAttrProperties().getAttr() != SUMO_ATTR_NOTHING) {
-            // ignore default values
-            if (!myRows.at(i)->getAttrProperties().hasDefaultValue() || (myRows.at(i)->getAttrProperties().getDefaultValue() != myRows.at(i)->getValue())) {
+            // ignore default values (except for disjont attributes, that has to be always writted)
+            if (myRows.at(i)->isRowEnabled() && 
+               (myTagProperties.isDisjointAttributes(myRows.at(i)->getAttrProperties().getAttr()) || !myRows.at(i)->getAttrProperties().hasDefaultValue() || (myRows.at(i)->getAttrProperties().getDefaultValue() != myRows.at(i)->getValue()))) {
                 values[myRows.at(i)->getAttrProperties().getAttr()] = myRows.at(i)->getValue();
             }
         }
@@ -366,6 +367,12 @@ GNEFrame::ACAttributes::Row::showParameter(const GNEAttributeCarrier::AttributeP
     } else if (myACAttributesParent->myTagProperties.isDisjointAttributes(myAttrProperties.getAttr())) {
         myRadioButton->setText(myAttrProperties.getAttrStr().c_str());
         myRadioButton->show();
+        // only edit first disjoint attribute
+        if (myAttrProperties.getAttr() == myACAttributesParent->myTagProperties.getDisjointAttributes().front()) {
+            myRadioButton->setCheck(TRUE);
+        } else {
+            myRadioButton->setCheck(FALSE);
+        }
     } else {
         myLabel->setText(myAttrProperties.getAttrStr().c_str());
         myLabel->show();
@@ -374,10 +381,18 @@ GNEFrame::ACAttributes::Row::showParameter(const GNEAttributeCarrier::AttributeP
         myTextFieldInt->setTextColor(FXRGB(0, 0, 0));
         myTextFieldInt->setText(attrProperties.getDefaultValue().c_str());
         myTextFieldInt->show();
+        // if it's associated to a radio button and is disabled, then disabled myTextFieldInt
+        if(myRadioButton->shown() && (myRadioButton->getCheck() == FALSE)) {
+            myTextFieldInt->disable();
+        }
     } else if (myAttrProperties.isFloat()) {
         myTextFieldReal->setTextColor(FXRGB(0, 0, 0));
         myTextFieldReal->setText(attrProperties.getDefaultValue().c_str());
         myTextFieldReal->show();
+        // if it's associated to a radio button and is disabled, then disable myTextFieldReal
+        if(myRadioButton->shown() && (myRadioButton->getCheck() == FALSE)) {
+            myTextFieldReal->disable();
+        }
     } else if (myAttrProperties.isBool()) {
         if (GNEAttributeCarrier::parse<bool>(attrProperties.getDefaultValue())) {
             myBoolCheckButton->setCheck(true);
@@ -387,10 +402,18 @@ GNEFrame::ACAttributes::Row::showParameter(const GNEAttributeCarrier::AttributeP
             myBoolCheckButton->setText("false");
         }
         myBoolCheckButton->show();
+        // if it's associated to a radio button and is disabled, then disable myBoolCheckButton
+        if(myRadioButton->shown() && (myRadioButton->getCheck() == FALSE)) {
+            myBoolCheckButton->disable();
+        }
     } else {
         myTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
         myTextFieldStrings->setText(attrProperties.getDefaultValue().c_str());
         myTextFieldStrings->show();
+        // if it's associated to a radio button and is disabled, then disable myTextFieldStrings
+        if(myRadioButton->shown() && (myRadioButton->getCheck() == FALSE)) {
+            myTextFieldStrings->disable();
+        }
     }
     show();
 }
@@ -426,6 +449,21 @@ GNEFrame::ACAttributes::Row::getValue() const {
         return myTextFieldReal->getText().text();
     } else {
         return myTextFieldStrings->getText().text();
+    }
+}
+
+bool 
+GNEFrame::ACAttributes::Row::isRowEnabled() const {
+    if (!shown()) {
+        return false;
+    } else if (myAttrProperties.isBool()) {
+        return myBoolCheckButton->isEnabled();
+    } else if (myAttrProperties.isInt()) {
+        return myTextFieldInt->isEnabled();
+    } else if (myAttrProperties.isFloat() || myAttrProperties.isTime()) {
+        return myTextFieldReal->isEnabled();
+    } else {
+        return myTextFieldStrings->isEnabled();
     }
 }
 
