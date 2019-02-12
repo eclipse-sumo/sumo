@@ -50,9 +50,9 @@
 //#define DEBUG_CONNECTION_GUESSING
 //#define DEBUG_ANGLES
 //#define DEBUG_NODE_BORDER
-//#define DEBUGCOND (getID() == "disabled")
+//#define DEBUGCOND (getID() == "77277065")
 //#define DEBUGCOND (getID() == "22762377#1" || getID() == "146511467")
-//#define DEBUGCOND2(obj) ((obj != 0 && (obj)->getID() == "disabled"))
+//#define DEBUGCOND2(obj) ((obj != 0 && (obj)->getID() == "77277065"))
 
 // ===========================================================================
 // static members
@@ -490,8 +490,6 @@ NBEdge::init(int noLanes, bool tryIgnoreNodePositions, const std::string& origID
         std::cout << "init edge=" << getID() << "\n";
         for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
             std::cout << "  conn " << getID() << "_" << (*i).fromLane << " to " << Named::getIDSecure((*i).toEdge) << "_" << (*i).toLane << "\n";
-            (*i).shape.mirrorX();
-            (*i).viaShape.mirrorX();
         }
     }
 #endif
@@ -2089,6 +2087,14 @@ NBEdge::needsLaneSpecificOutput() const {
 
 bool
 NBEdge::computeEdge2Edges(bool noLeftMovers) {
+#ifdef DEBUG_CONNECTION_GUESSING
+    if (DEBUGCOND) {
+        std::cout << "computeEdge2Edges  edge=" << getID() << " step=" << myStep << "\n";
+        for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
+            std::cout << "  conn " << getID() << "_" << (*i).fromLane << " to " << Named::getIDSecure((*i).toEdge) << "_" << (*i).toLane << "\n";
+        }
+    }
+#endif
     // return if this relationship has been build in previous steps or
     //  during the import
     if (myStep >= EDGE2EDGES) {
@@ -2114,6 +2120,14 @@ NBEdge::computeEdge2Edges(bool noLeftMovers) {
 
 bool
 NBEdge::computeLanes2Edges() {
+#ifdef DEBUG_CONNECTION_GUESSING
+    if (DEBUGCOND) {
+        std::cout << "computeLanes2Edges edge=" << getID() << " step=" << myStep << "\n";
+        for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
+            std::cout << "  conn " << getID() << "_" << (*i).fromLane << " to " << Named::getIDSecure((*i).toEdge) << "_" << (*i).toLane << "\n";
+        }
+    }
+#endif
     // return if this relationship has been build in previous steps or
     //  during the import
     if (myStep >= LANES2EDGES) {
@@ -2143,8 +2157,6 @@ NBEdge::recheckLanes() {
         std::cout << "recheckLanes (initial) edge=" << getID() << "\n";
         for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
             std::cout << "  conn " << getID() << "_" << (*i).fromLane << " to " << Named::getIDSecure((*i).toEdge) << "_" << (*i).toLane << "\n";
-            (*i).shape.mirrorX();
-            (*i).viaShape.mirrorX();
         }
     }
 #endif
@@ -2256,8 +2268,6 @@ NBEdge::recheckLanes() {
         std::cout << "recheckLanes (final) edge=" << getID() << "\n";
         for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
             std::cout << "  conn " << getID() << "_" << (*i).fromLane << " to " << Named::getIDSecure((*i).toEdge) << "_" << (*i).toLane << "\n";
-            (*i).shape.mirrorX();
-            (*i).viaShape.mirrorX();
         }
     }
 #endif
@@ -2428,6 +2438,15 @@ NBEdge::divideSelectedLanesOnEdges(const EdgeVector* outgoing, const std::vector
             if (myLanes[fromIndex].connectionsDone) {
                 // we already have complete information about connections from
                 // this lane. do not add anything else
+#ifdef DEBUG_CONNECTION_GUESSING
+                if (DEBUGCOND) {
+                    std::cout << "     connectionsDone from " << getID() << "_" << fromIndex << ": ";
+                    for (const Connection& c : getConnectionsFromLane(fromIndex)) {
+                        std::cout << c.getDescription(this) << ", ";
+                    }
+                    std::cout << "\n";
+                }
+#endif
                 continue;
             }
             myConnections.push_back(Connection(fromIndex, target, -1));
