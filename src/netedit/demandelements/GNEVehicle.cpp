@@ -158,13 +158,7 @@ GNEVehicle::updateGeometry(bool updateGrid) {
     double offset = vehicleLane->getShape().length() < length ? vehicleLane->getShape().length() : length;
     myGeometry.shape.push_back(vehicleLane->getShape().positionAtOffset(offset));
 
-    // Obtain first position
-    Position f = myGeometry.shape[0] - Position(1, 0);
-
-    // Obtain next position
-    Position s = myGeometry.shape[0] + Position(1, 0);
-
-    // Save rotation (angle) of the vector constructed by points f and s
+    // Save rotation (angle)
     myGeometry.shapeRotations.push_back(vehicleLane->getShape().rotationDegreeAtOffset(offset) * -1);
 
     // last step is to check if object has to be added into grid (SUMOTree) again

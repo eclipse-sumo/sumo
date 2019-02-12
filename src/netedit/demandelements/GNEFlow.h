@@ -141,6 +141,9 @@ protected:
     /// @brief route in which this flow is used
     GNEDemandElement* myRoute;
 
+    /// @brief sets the color according to the currente settings
+    void setColor(const GUIVisualizationSettings& s) const;
+
 private:
     /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value);
