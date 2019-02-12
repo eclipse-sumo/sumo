@@ -32,53 +32,53 @@ done.
    49 types loaded.
    5187 edges loaded.
 Proj projection parameters used: '+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
-Removing self-loops... done (0ms).
-Processing public transport stops... done (1ms).
+Removing self-loops... done (1ms).
+Processing public transport stops... done (0ms).
 Revising public transport stops based on pt lines... 
-done (11ms).
+done (15ms).
 Align pt stop id signs with corresponding edge id signs... done (0ms).
 Found 5 reversible edge sequences between broken rail nodes
 Reversed 5 sequences (count by length: 1:3 9:2)
 Added 4 edges to connect 3 buffer stops in both directions.
 Added 1 bidi-edges between 1 pairs of railway switches (count by length: 1:1)
 DijkstraRouter answered 49 queries and explored 49.80 edges on average.
-DijkstraRouter spent 0ms answering queries (0.00ms on average).
+DijkstraRouter spent 1ms answering queries (0.02ms on average).
 Joining junction clusters... 
-done (13ms).
+done (18ms).
  Joined 110 junction cluster(s).
-Removing empty nodes and geometry nodes... done (10ms).
+Removing empty nodes and geometry nodes... done (14ms).
    549 nodes removed.
-Moving network to origin... done (10ms).
+Moving network to origin... done (19ms).
 Computing turning directions... 
-done (2ms).
-Assigning nodes to traffic lights... done (0ms).
-Guessing and setting on-/off-ramps... done (4ms).
-Sorting nodes' edges... done (3ms).
-Computing node shapes... done (57ms).
-Computing edge shapes... done (32ms).
-Computing node types... done (0ms).
+done (4ms).
+Assigning nodes to traffic lights... done (1ms).
+Guessing and setting on-/off-ramps... done (9ms).
+Sorting nodes' edges... done (6ms).
+Computing node shapes... done (105ms).
+Computing edge shapes... done (38ms).
+Computing node types... done (1ms).
 Guessed 962 pedestrian crossings.
-Computing priorities... done (2ms).
+Computing priorities... done (4ms).
 Computing approached edges... done (3ms).
 Guessing and setting roundabouts... 
  Guessed 2 roundabout(s).
-done (1ms).
-Computing approaching lanes... done (9ms).
-Dividing of lanes on approached lanes... done (4ms).
-Processing turnarounds... done (1ms).
+done (2ms).
+Computing approaching lanes... done (12ms).
+Dividing of lanes on approached lanes... done (7ms).
+Processing turnarounds... done (2ms).
 Rechecking of lane endings... 
-done (0ms).
-Joining traffic light nodes... done (2ms).
+done (2ms).
+Joining traffic light nodes... done (5ms).
 Computing traffic light control information... 
-done (1ms).
-Computing node logics... done (17ms).
+done (2ms).
+Computing node logics... done (29ms).
 Computing traffic light logics... 
-done (6ms).
+done (10ms).
  59 traffic light(s) computed.
 Building inner edges... 
-done (47ms).
+done (66ms).
 Added 1 stops for superposed rail edges.
-Find accesses for pt rail stops... done (41ms).
+Find accesses for pt rail stops... done (48ms).
 DijkstraRouter answered 8 queries and explored 13.00 edges on average.
 DijkstraRouter spent 0ms answering queries (0.00ms on average).
 -----------------------------------------------------
@@ -94,14 +94,14 @@ Summary:
   Applied offset     : -389562.46,-5817979.56
   Converted boundary : 0.00,0.00,4934.15,4470.73
 -----------------------------------------------------
-Writing network... done (554ms).
+Writing network... done (827ms).
 Success.
 Written configuration to 'osm.polycfg'
 Loading configuration... done.
-Parsing network projection from 'osm.net.xml'... done (2ms).
-Parsing nodes from osm-file 'osm_bbox.osm.xml'... done (668ms).
-Parsing relations from osm-file 'osm_bbox.osm.xml'... done (512ms).
-Parsing edges from osm-file 'osm_bbox.osm.xml'... done (543ms).
+Parsing network projection from 'osm.net.xml'... done (4ms).
+Parsing nodes from osm-file 'osm_bbox.osm.xml'... done (1118ms).
+Parsing relations from osm-file 'osm_bbox.osm.xml'... done (804ms).
+Parsing edges from osm-file 'osm_bbox.osm.xml'... done (917ms).
 Success.
 Success.
 Success.
@@ -112,49 +112,48 @@ Success.
 Success.
 Written configuration to 'osm.sumocfg'
 Loading configuration... done.
-Loading net-file from '/scr2/texttest_tmp/tools.08Feb093600.21844/tools/import/OSM/webWizard/test/osm.net.xml'... done (828ms).
-Loading additional-files from '/scr2/texttest_tmp/tools.08Feb093600.21844/tools/import/OSM/webWizard/test/osm.poly.xml'... done (222ms).
-Loading additional-files from '/scr2/texttest_tmp/tools.08Feb093600.21844/tools/import/OSM/webWizard/test/osm_stops.add.xml'... done (9ms).
+Loading net-file from '/scr2/texttest_tmp/dynamic_gui.11Feb164144.17454/tools/import/OSM/webWizard/test/osm.net.xml'... done (797ms).
+Loading additional-files from '/scr2/texttest_tmp/dynamic_gui.11Feb164144.17454/tools/import/OSM/webWizard/test/osm.poly.xml'... done (215ms).
+Loading additional-files from '/scr2/texttest_tmp/dynamic_gui.11Feb164144.17454/tools/import/OSM/webWizard/test/osm_stops.add.xml'... done (9ms).
 Loading done.
 Simulation version v1_0_1+0645-93703db started with time: 0.00
-Simulation ended at time: 2610.00
+Simulation ended at time: 2613.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 7414ms
- Real time factor: 352.037
- UPS: 19338.009172
+ Duration: 6545ms
+ Real time factor: 399.236
+ UPS: 21569.442322
 Vehicles: 
  Inserted: 428
  Running: 0
  Waiting: 0
-Teleports: 1 (Jam: 1)
 Persons: 
  Inserted: 199
  Running: 0
 Statistics (avg):
- RouteLength: 1701.19
- Duration: 334.98
- WaitingTime: 61.56
- TimeLoss: 116.19
- DepartDelay: 0.59
-Pedestrian Statistics (avg of 413 walks):
- RouteLength: 292.78
- Duration: 245.79
- TimeLoss: 39.99
+ RouteLength: 1702.90
+ Duration: 329.84
+ WaitingTime: 56.58
+ TimeLoss: 110.99
+ DepartDelay: 0.39
+Pedestrian Statistics (avg of 414 walks):
+ RouteLength: 293.73
+ Duration: 249.47
+ TimeLoss: 40.16
 Ride Statistics (avg of 180 rides):
- WaitingTime: 114.77
- RouteLength: 897.88
- Duration: 116.54
- Bus: 52
- Train: 122
+ WaitingTime: 114.28
+ RouteLength: 892.33
+ Duration: 109.86
+ Bus: 53
+ Train: 123
  Bike: 0
- Aborted: 6
+ Aborted: 4
 
-DijkstraRouter answered 7666 queries and explored 12.16 edges on average.
-DijkstraRouter spent 29ms answering queries (0.00ms on average).
-DijkstraRouter answered 281 queries and explored 649.03 edges on average.
-DijkstraRouter spent 158ms answering queries (0.56ms on average).
-Building scenario in '/scr2/texttest_tmp/tools.08Feb093600.21844/tools/import/OSM/webWizard/test'
+DijkstraRouter answered 7599 queries and explored 12.00 edges on average.
+DijkstraRouter spent 23ms answering queries (0.00ms on average).
+DijkstraRouter answered 281 queries and explored 649.30 edges on average.
+DijkstraRouter spent 146ms answering queries (0.52ms on average).
+Building scenario in '/scr2/texttest_tmp/dynamic_gui.11Feb164144.17454/tools/import/OSM/webWizard/test'
 generating trips...
 Imported 81 lines with 319 stops and skipped 5 lines
    tram: 20
@@ -167,10 +166,10 @@ running SUMO to determine actual departure times...
 done.
 creating routes...
 done.
-calling  /scr1/sumo/bin/duarouter -n /scr2/texttest_tmp/tools.08Feb093600.21844/tools/import/OSM/webWizard/test/osm.net.xml -r /scr2/texttest_tmp/tools.08Feb093600.21844/tools/import/OSM/webWizard/test/osm.passenger.trips.xml --ignore-errors --begin 0 --end 900.0 --no-step-log --no-warnings -o routes.rou.xml
-calling  /scr1/sumo/bin/duarouter -n /scr2/texttest_tmp/tools.08Feb093600.21844/tools/import/OSM/webWizard/test/osm.net.xml -r /scr2/texttest_tmp/tools.08Feb093600.21844/tools/import/OSM/webWizard/test/osm.passenger.trips.xml --ignore-errors --begin 0 --end 900.0 --no-step-log --no-warnings -o /scr2/texttest_tmp/tools.08Feb093600.21844/tools/import/OSM/webWizard/test/osm.passenger.trips.xml.tmp --write-trips
-calling  /scr1/sumo/bin/duarouter -n /scr2/texttest_tmp/tools.08Feb093600.21844/tools/import/OSM/webWizard/test/osm.net.xml -r /scr2/texttest_tmp/tools.08Feb093600.21844/tools/import/OSM/webWizard/test/osm.ship.trips.xml --ignore-errors --begin 0 --end 900.0 --no-step-log --no-warnings -o routes.rou.xml
-calling  /scr1/sumo/bin/duarouter -n /scr2/texttest_tmp/tools.08Feb093600.21844/tools/import/OSM/webWizard/test/osm.net.xml -r /scr2/texttest_tmp/tools.08Feb093600.21844/tools/import/OSM/webWizard/test/osm.ship.trips.xml --ignore-errors --begin 0 --end 900.0 --no-step-log --no-warnings -o /scr2/texttest_tmp/tools.08Feb093600.21844/tools/import/OSM/webWizard/test/osm.ship.trips.xml.tmp --write-trips
-calling  /scr1/sumo/bin/duarouter -n /scr2/texttest_tmp/tools.08Feb093600.21844/tools/import/OSM/webWizard/test/osm.net.xml -r /scr2/texttest_tmp/tools.08Feb093600.21844/tools/import/OSM/webWizard/test/osm.bicycle.trips.xml --ignore-errors --begin 0 --end 900.0 --no-step-log --no-warnings -o routes.rou.xml
-calling  /scr1/sumo/bin/duarouter -n /scr2/texttest_tmp/tools.08Feb093600.21844/tools/import/OSM/webWizard/test/osm.net.xml -r /scr2/texttest_tmp/tools.08Feb093600.21844/tools/import/OSM/webWizard/test/osm.bicycle.trips.xml --ignore-errors --begin 0 --end 900.0 --no-step-log --no-warnings -o /scr2/texttest_tmp/tools.08Feb093600.21844/tools/import/OSM/webWizard/test/osm.bicycle.trips.xml.tmp --write-trips
-calling  /scr1/sumo/bin/duarouter -n /scr2/texttest_tmp/tools.08Feb093600.21844/tools/import/OSM/webWizard/test/osm.net.xml -r /scr2/texttest_tmp/tools.08Feb093600.21844/tools/import/OSM/webWizard/test/osm.pedestrian.trips.xml --ignore-errors --begin 0 --end 900.0 --no-step-log --no-warnings --additional-files /scr2/texttest_tmp/tools.08Feb093600.21844/tools/import/OSM/webWizard/test/osm_stops.add.xml,/scr2/texttest_tmp/tools.08Feb093600.21844/tools/import/OSM/webWizard/test/osm_pt.rou.xml -o /scr2/texttest_tmp/tools.08Feb093600.21844/tools/import/OSM/webWizard/test/osm.pedestrian.rou.xml
+calling  /scr1/sumo/bin/duarouter -n /scr2/texttest_tmp/dynamic_gui.11Feb164144.17454/tools/import/OSM/webWizard/test/osm.net.xml -r /scr2/texttest_tmp/dynamic_gui.11Feb164144.17454/tools/import/OSM/webWizard/test/osm.passenger.trips.xml --ignore-errors --begin 0 --end 900.0 --no-step-log --no-warnings -o routes.rou.xml
+calling  /scr1/sumo/bin/duarouter -n /scr2/texttest_tmp/dynamic_gui.11Feb164144.17454/tools/import/OSM/webWizard/test/osm.net.xml -r /scr2/texttest_tmp/dynamic_gui.11Feb164144.17454/tools/import/OSM/webWizard/test/osm.passenger.trips.xml --ignore-errors --begin 0 --end 900.0 --no-step-log --no-warnings -o /scr2/texttest_tmp/dynamic_gui.11Feb164144.17454/tools/import/OSM/webWizard/test/osm.passenger.trips.xml.tmp --write-trips
+calling  /scr1/sumo/bin/duarouter -n /scr2/texttest_tmp/dynamic_gui.11Feb164144.17454/tools/import/OSM/webWizard/test/osm.net.xml -r /scr2/texttest_tmp/dynamic_gui.11Feb164144.17454/tools/import/OSM/webWizard/test/osm.ship.trips.xml --ignore-errors --begin 0 --end 900.0 --no-step-log --no-warnings -o routes.rou.xml
+calling  /scr1/sumo/bin/duarouter -n /scr2/texttest_tmp/dynamic_gui.11Feb164144.17454/tools/import/OSM/webWizard/test/osm.net.xml -r /scr2/texttest_tmp/dynamic_gui.11Feb164144.17454/tools/import/OSM/webWizard/test/osm.ship.trips.xml --ignore-errors --begin 0 --end 900.0 --no-step-log --no-warnings -o /scr2/texttest_tmp/dynamic_gui.11Feb164144.17454/tools/import/OSM/webWizard/test/osm.ship.trips.xml.tmp --write-trips
+calling  /scr1/sumo/bin/duarouter -n /scr2/texttest_tmp/dynamic_gui.11Feb164144.17454/tools/import/OSM/webWizard/test/osm.net.xml -r /scr2/texttest_tmp/dynamic_gui.11Feb164144.17454/tools/import/OSM/webWizard/test/osm.bicycle.trips.xml --ignore-errors --begin 0 --end 900.0 --no-step-log --no-warnings -o routes.rou.xml
+calling  /scr1/sumo/bin/duarouter -n /scr2/texttest_tmp/dynamic_gui.11Feb164144.17454/tools/import/OSM/webWizard/test/osm.net.xml -r /scr2/texttest_tmp/dynamic_gui.11Feb164144.17454/tools/import/OSM/webWizard/test/osm.bicycle.trips.xml --ignore-errors --begin 0 --end 900.0 --no-step-log --no-warnings -o /scr2/texttest_tmp/dynamic_gui.11Feb164144.17454/tools/import/OSM/webWizard/test/osm.bicycle.trips.xml.tmp --write-trips
+calling  /scr1/sumo/bin/duarouter -n /scr2/texttest_tmp/dynamic_gui.11Feb164144.17454/tools/import/OSM/webWizard/test/osm.net.xml -r /scr2/texttest_tmp/dynamic_gui.11Feb164144.17454/tools/import/OSM/webWizard/test/osm.pedestrian.trips.xml --ignore-errors --begin 0 --end 900.0 --no-step-log --no-warnings --additional-files /scr2/texttest_tmp/dynamic_gui.11Feb164144.17454/tools/import/OSM/webWizard/test/osm_stops.add.xml,/scr2/texttest_tmp/dynamic_gui.11Feb164144.17454/tools/import/OSM/webWizard/test/osm_pt.rou.xml -o /scr2/texttest_tmp/dynamic_gui.11Feb164144.17454/tools/import/OSM/webWizard/test/osm.pedestrian.rou.xml
