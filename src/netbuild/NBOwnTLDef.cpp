@@ -294,7 +294,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
         }
         int pos = 0;
         std::string state((int) noLinksAll, 'r');
-        //std::cout << " computing " << getID() << " prog=" << getProgramID() << " cho1=" << Named::getIDSecure(chosen.first) << " cho2=" << Named::getIDSecure(chosen.second) << " toProc=" << toString(toProc) << "\n";
+        //std::cout << " computing " << getID() << " prog=" << getProgramID() << " cho1=" << Named::getIDSecure(chosen.first) << " cho2=" << Named::getIDSecure(chosen.second) << " toProc=" << toString(toProc) << " bentPrio=" << chosen.first->getToNode()->isBentPriority() << "\n";
         // plain straight movers
         double maxSpeed = 0;
         for (int i1 = 0; i1 < (int) incoming.size(); ++i1) {
@@ -362,18 +362,17 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
             }
         }
         const bool buildLeftGreenPhase = haveForbiddenLeftMover && !myHaveSinglePhase && leftTurnTime > 0 && foundLeftTurnLane;
-        //std::cout << getID() << " state=" << state << " buildLeft=" << buildLeftGreenPhase << " hFLM=" << haveForbiddenLeftMover << " turnLane=" << foundLeftTurnLane 
-        //    << "   \nrtC=" << toString(rightTurnConflicts) 
-        //    << "   \nhTL=" << toString(hasTurnLane)
-        //    << "\n";
 
         // find indices for exclusive left green phase and apply option minor-left.max-speed
         for (int i1 = 0; i1 < pos; ++i1) {
-            if (state[i1] == 'g' && !rightTurnConflicts[i1]) {
+            if (state[i1] == 'g' && !rightTurnConflicts[i1] 
+                    // only activate turn-around together with a real left-turn
+                    && (!isTurnaround[i1] || (i1 > 0 && leftGreen[i1 - 1]))) {
                 leftGreen[i1] = true;
                 if (fromEdges[i1]->getSpeed() > minorLeftSpeedThreshold) {
                     if (buildLeftGreenPhase) {
                         state[i1] = 'r';
+                        //std::cout << " disabling minorLeft " << i1 << " (speed=" << fromEdges[i1]->getSpeed() << " thresh=" << minorLeftSpeedThreshold << ")\n";
                     } else if (!isTurnaround[i1]) {
                         WRITE_WARNING("Minor green from edge '" + fromEdges[i1]->getID() + "' to edge '" + toEdges[i1]->getID() + "' exceeds "
                                       + toString(minorLeftSpeedThreshold) + "m/s. Maybe a left-turn lane is missing.");
@@ -381,6 +380,12 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
                 }
             }
         }
+
+        //std::cout << getID() << " state=" << state << " buildLeft=" << buildLeftGreenPhase << " hFLM=" << haveForbiddenLeftMover << " turnLane=" << foundLeftTurnLane 
+        //    << "   \nrtC=" << toString(rightTurnConflicts) 
+        //    << "   \nhTL=" << toString(hasTurnLane)
+        //    << "   \nlGr=" << toString(leftGreen)
+        //    << "\n";
 
         const std::string vehicleState = state; // backup state before pedestrian modifications
         greenPhases.push_back((int)logic->getPhases().size());
@@ -395,7 +400,10 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
                 if (state[i1] != 'G' && state[i1] != 'g') {
                     continue;
                 }
-                if ((vehicleState[i1] >= 'a' && vehicleState[i1] <= 'z') && buildLeftGreenPhase && !rightTurnConflicts[i1]) {
+                if ((vehicleState[i1] >= 'a' && vehicleState[i1] <= 'z') 
+                        && buildLeftGreenPhase 
+                        && !rightTurnConflicts[i1]
+                        && leftGreen[i1]) {
                     continue;
                 }
                 state[i1] = 'y';
@@ -414,7 +422,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
                     state[i1] = 'r';
                     continue;
                 }
-                if (state[i1] == 'g' || leftGreen[i1]) {
+                if (leftGreen[i1]) {
                     state[i1] = 'G';
                 }
             }
@@ -664,6 +672,23 @@ NBOwnTLDef::getConnectedOuterEdges(const EdgeVector& incoming) {
 
 std::string
 NBOwnTLDef::allowFollowersOfChosen(std::string state, const EdgeVector& fromEdges, const EdgeVector& toEdges) {
+    // if only one edge has green, ensure sure that all connections from that edge are green
+    std::set<NBEdge*> greenEdges;
+    for (int i1 = 0; i1 < (int)state.size(); ++i1) {
+        if (state[i1] == 'G') {
+            greenEdges.insert(fromEdges[i1]);
+        }
+    }
+    if (greenEdges.size() == 1) {
+        NBEdge* greenEdge = *greenEdges.begin();
+        for (int i1 = 0; i1 < (int)state.size(); ++i1) {
+            if (fromEdges[i1] == greenEdge) {
+                state[i1] = 'G';
+            }
+        }
+    }
+
+    // check continuation within joined traffic lights
     bool check = true;
     while (check) {
         check = false;
