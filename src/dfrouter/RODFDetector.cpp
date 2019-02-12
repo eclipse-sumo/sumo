@@ -720,6 +720,8 @@ RODFDetectorCon::setSpeedFactorAndDev(SUMOVTypeParameter& type, double maxFactor
         // individual speedFactors to match departSpeed (MSEdge::insertVehicle())
         type.speedFactor.getParameter()[1] = dev;
         type.parametersSet |= VTYPEPARS_SPEEDFACTOR_SET;
+    } else {
+        type.speedFactor.getParameter()[1] = -1; // do not write speedDev, only simple speedFactor
     }
 }
 
