@@ -1245,7 +1245,9 @@ NBEdgeCont::markRoundabouts() {
                 if ((inEdge)->getStep() >= NBEdge::LANES2LANES_USER) {
                     continue;
                 }
-                inEdge->removeFromConnections(inEdge->getTurnDestination(), -1);
+                if (inEdge->getTurnDestination() != nullptr) {
+                    inEdge->removeFromConnections(inEdge->getTurnDestination(), -1);
+                }
             }
             // let the connections to succeeding roundabout edge have a higher priority
             (*j)->setJunctionPriority(node, NBEdge::ROUNDABOUT);
