@@ -60,7 +60,15 @@ GNETrip::~GNETrip() {}
 
 std::string 
 GNETrip::getBegin() const {
-    return getDepart();
+    // obtain depart
+    std::string departStr = getDepart();
+    // we need to handle depart as a tuple of 20 numbers (format: 000000...00<departTime>)
+    departStr.reserve(20 - departStr.size());
+    // add 0s at the beginning of departStr until we have 20 numbers
+    for (int i = departStr.size(); i < 20; i++) {
+        departStr.insert(departStr.begin(), '0');
+    }
+    return departStr;
 }
 
 

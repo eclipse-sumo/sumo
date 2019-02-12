@@ -73,7 +73,15 @@ GNEFlow::~GNEFlow() {}
 
 std::string 
 GNEFlow::getBegin() const {
-    return toString(myBegin);
+    // obtain begin
+    std::string beginStr = toString(myBegin);
+    // we need to handle begin as a tuple of 20 numbers (format: 000000...00<beginTime>)
+    beginStr.reserve(20 - beginStr.size());
+    // add 0s at the beginning of beginStr until we have 20 numbers
+    for (int i = beginStr.size(); i < 20; i++) {
+        beginStr.insert(beginStr.begin(), '0');
+    }
+    return beginStr;
 }
 
 
