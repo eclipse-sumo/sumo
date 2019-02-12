@@ -209,7 +209,10 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
             NBEdge* fromEdge = incoming[i1];
             std::vector<NBEdge::Connection> approached = fromEdge->getConnectionsFromLane(i2);
             noLinksAll += (int) approached.size();
+            bool hasLeft = false;
             bool hasStraight = false;
+            bool hasRight = false;
+            bool hasTurnaround = false;
             for (int i3 = 0; i3 < (int)approached.size(); i3++) {
                 if (!fromEdge->mayBeTLSControlled(i2, approached[i3].toEdge, approached[i3].toLane)) {
                     --noLinksAll;
@@ -225,13 +228,26 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
                 } else {
                     isTurnaround.push_back(true);
                 }
-                if (fromEdge->getToNode()->getDirection(fromEdge, toEdge) == LINKDIR_STRAIGHT) {
+                LinkDirection dir = fromEdge->getToNode()->getDirection(fromEdge, toEdge);
+                if (dir == LINKDIR_STRAIGHT) {
                     hasStraight = true;
+                } else if (dir == LINKDIR_RIGHT || dir == LINKDIR_PARTRIGHT) {
+                    hasRight = true;
+                } else if (dir == LINKDIR_LEFT || dir == LINKDIR_PARTLEFT) {
+                    hasLeft = true;
+                } else if (dir == LINKDIR_TURN) {
+                    hasTurnaround = true;
                 }
             }
             for (int i3 = 0; i3 < (int)approached.size(); i3++) {
-                hasTurnLane.push_back(!hasStraight);
+                if (!fromEdge->mayBeTLSControlled(i2, approached[i3].toEdge, approached[i3].toLane)) {
+                    continue;
+                }
+                hasTurnLane.push_back(
+                        (hasLeft && !hasStraight && !hasRight) 
+                        || (!hasLeft && !hasTurnaround && hasRight));
             }
+            //std::cout << " from=" << fromEdge->getID() << "_" << i2 << " hasTurnLane=" << hasTurnLane.back() << " s=" << hasStraight << " l=" << hasLeft << " r=" << hasRight << " t=" << hasTurnaround << "\n";
         }
     }
     // collect crossings
@@ -346,6 +362,10 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
             }
         }
         const bool buildLeftGreenPhase = haveForbiddenLeftMover && !myHaveSinglePhase && leftTurnTime > 0 && foundLeftTurnLane;
+        //std::cout << getID() << " state=" << state << " buildLeft=" << buildLeftGreenPhase << " hFLM=" << haveForbiddenLeftMover << " turnLane=" << foundLeftTurnLane 
+        //    << "   \nrtC=" << toString(rightTurnConflicts) 
+        //    << "   \nhTL=" << toString(hasTurnLane)
+        //    << "\n";
 
         // find indices for exclusive left green phase and apply option minor-left.max-speed
         for (int i1 = 0; i1 < pos; ++i1) {
