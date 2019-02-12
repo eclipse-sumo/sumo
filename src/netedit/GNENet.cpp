@@ -2534,7 +2534,7 @@ GNENet::deleteDemandElement(GNEDemandElement* demandElement) {
                 myAttributeCarriers.demandElements.at(demandElement->getTagProperty().getTag()).erase(i);
                 // also remove fromvehicleDepartures container
                 if (demandElement->getTagProperty().isVehicle()) {
-                    if (myAttributeCarriers.vehicleDepartures.count(demandElement->getBegin() + "_" + demandElement->getID()) != 0) {
+                    if (myAttributeCarriers.vehicleDepartures.count(demandElement->getBegin() + "_" + demandElement->getID()) == 0) {
                         throw ProcessError(demandElement->getTagStr() + " with departure ='" + demandElement->getBegin() + "_" + demandElement->getID() + "' doesn't exist");
                     } else {
                         myAttributeCarriers.vehicleDepartures.erase(demandElement->getBegin() + "_" + demandElement->getID());

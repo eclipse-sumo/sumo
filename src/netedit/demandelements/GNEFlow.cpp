@@ -474,7 +474,7 @@ GNEFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         // Specific of flows
         case SUMO_ATTR_BEGIN: {
-            std::string oldBegin = toString(myBegin);
+            std::string oldBegin = getBegin();
             myBegin = parse<double>(value);
             myViewNet->getNet()->updateDemandElementBegin(oldBegin, this);
             break;

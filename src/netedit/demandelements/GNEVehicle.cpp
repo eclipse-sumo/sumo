@@ -658,7 +658,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;        
         // Specific of vehicles
         case SUMO_ATTR_DEPART: {
-            std::string oldDepart = toString(depart);
+            std::string oldDepart = getBegin();
             parseDepart(value, toString(SUMO_TAG_VEHICLE), id, depart, departProcedure, error);
             myViewNet->getNet()->updateDemandElementBegin(oldDepart, this);
             break;
