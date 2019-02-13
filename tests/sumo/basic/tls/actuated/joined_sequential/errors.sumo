@@ -1,1 +1,2 @@
 Warning: At actuated tlLogic 'joinedTLS', minDur 8.00 is too short for a detector gap of 38.88m.
+Warning: At actuated tlLogic 'joinedTLS', linkIndex 2 has no controlling detector
