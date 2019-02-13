@@ -255,9 +255,25 @@ void
 NIXMLNodesHandler::addJoinCluster(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     const std::string clusterString = attrs.get<std::string>(SUMO_ATTR_NODES, nullptr, ok);
-    const std::vector<std::string> ids = StringTokenizer(clusterString).getVector();
+    std::vector<std::string> ids = StringTokenizer(clusterString).getVector();
+    std::sort(ids.begin(), ids.end());
+
+    myID = attrs.getOpt<std::string>(SUMO_ATTR_ID, nullptr, ok, "cluster_" + joinToString(ids, "_"));
+
+    Position myPosition = Position::INVALID;
+    if (attrs.hasAttribute(SUMO_ATTR_X)) {
+        myPosition.setx(attrs.get<double>(SUMO_ATTR_X, myID.c_str(), ok));
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_Y)) {
+        myPosition.sety(attrs.get<double>(SUMO_ATTR_Y, myID.c_str(), ok));
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_Z)) {
+        myPosition.setz(attrs.get<double>(SUMO_ATTR_Z, myID.c_str(), ok));
+    }
+
+    NBNode* node = processNodeType(attrs, nullptr, myID, myPosition, false, myNodeCont, myTLLogicCont);
     if (ok) {
-        myNodeCont.addCluster2Join(std::set<std::string>(ids.begin(), ids.end()));
+        myNodeCont.addCluster2Join(std::set<std::string>(ids.begin(), ids.end()), node);
     }
 }
 

@@ -135,7 +135,7 @@ public:
     /** @brief add ids of nodes which shall be joined into a single node
      * @param[in] cluster The cluster to add
      */
-    void addCluster2Join(std::set<std::string> cluster);
+    void addCluster2Join(std::set<std::string> cluster, NBNode* node);
 
     /// @brief Joins loaded junction clusters (see NIXMLNodesHandler)
     int joinLoadedClusters(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc);
@@ -329,6 +329,7 @@ private:
 
     /// @brief joins the given node clusters
     void joinNodeClusters(NodeClusters clusters, NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc);
+    void joinNodeCluster(NodeSet clusters, NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc, NBNode* predefined = nullptr);
 
     /// @}
 
@@ -360,7 +361,7 @@ private:
     std::set<std::string> myJoinExclusions;
 
     /// @brief loaded sets of node ids to join (cleared after use)
-    std::vector<std::set<std::string> > myClusters2Join;
+    std::vector<std::pair<std::set<std::string>, NBNode*> > myClusters2Join;
 
     /// @brief sets of node ids which were joined
     std::vector<std::set<std::string> > myJoinedClusters;

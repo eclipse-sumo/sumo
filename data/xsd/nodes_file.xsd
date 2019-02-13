@@ -59,7 +59,11 @@
     </xsd:complexType>
 
     <xsd:complexType name="joinType">
-        <xsd:attribute name="nodes" type="xsd:string" use="required"/>
+        <xsd:complexContent>
+            <xsd:extension base="nodeType">
+                <xsd:attribute name="nodes" type="xsd:string" use="required"/>
+            </xsd:extension>
+        </xsd:complexContent>
     </xsd:complexType>
 
     <xsd:complexType name="joinExcludeType">
