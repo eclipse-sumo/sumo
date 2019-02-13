@@ -280,6 +280,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
     myAmInnerEdge(false), myAmMacroscopicConnector(false),
     myStreetName(streetName),
     mySignalOffset(UNSPECIFIED_SIGNAL_OFFSET),
+    mySignalNode(nullptr),
     myIndex(-1) {
     init(nolanes, false, "");
 }
@@ -308,6 +309,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
     myAmInnerEdge(false), myAmMacroscopicConnector(false),
     myStreetName(streetName),
     mySignalOffset(UNSPECIFIED_SIGNAL_OFFSET),
+    mySignalNode(nullptr),
     myIndex(-1) {
     init(nolanes, tryIgnoreNodePositions, origID);
 }
@@ -332,7 +334,9 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to, const NBEdge* tp
     myAmInnerEdge(false),
     myAmMacroscopicConnector(false),
     myStreetName(tpl->getStreetName()),
-    mySignalOffset(to == tpl->myTo ? tpl->mySignalOffset : UNSPECIFIED_SIGNAL_OFFSET) {
+    mySignalOffset(to == tpl->myTo ? tpl->mySignalOffset : UNSPECIFIED_SIGNAL_OFFSET),
+    mySignalNode(to == tpl->myTo ? tpl->mySignalNode : nullptr)
+{
     init(numLanes > 0 ? numLanes : tpl->getNumLanes(), myGeom.size() > 0, "");
     for (int i = 0; i < getNumLanes(); i++) {
         const int tplIndex = MIN2(i, tpl->getNumLanes() - 1);

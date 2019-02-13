@@ -1283,9 +1283,30 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
         for (std::map<std::string, NBNode*>::const_iterator i = myNodes.begin(); i != myNodes.end(); ++i) {
             NBNode* node = (*i).second;
             if (node->isTLControlled() && node->geometryLike()) {
-                const EdgeVector& outgoing = node->getOutgoingEdges();
-                for (EdgeVector::const_iterator it_o = outgoing.begin(); it_o != outgoing.end(); ++it_o) {
-                    (*it_o)->setSignalOffset((*it_o)->getLength());
+                std::set<NBEdge*> seen;
+                std::set<std::pair<NBEdge*, double> > check;
+                for (NBEdge* edge : node->getOutgoingEdges()) {
+                    double offset = edge->getLength();
+                    edge->setSignalOffset(offset, node);
+                    seen.insert(edge);
+                    check.insert(std::make_pair(edge, offset));
+                }
+                // propagate signalOffset until the next real intersection
+                while (check.size() > 0) {
+                    NBEdge* edge = check.begin()->first;
+                    const double offset = check.begin()->second;
+                    check.erase(check.begin());
+                    NBNode* nextNode = edge->getToNode();
+                    if (nextNode->geometryLike() && !nextNode->isTLControlled()) {
+                        for (NBEdge* edge : nextNode->getOutgoingEdges()) {
+                            if (seen.count(edge) == 0) {
+                                double offset2 = offset + edge->getLength();
+                                edge->setSignalOffset(offset2, node);
+                                seen.insert(edge);
+                                check.insert(std::make_pair(edge, offset2));
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -1304,12 +1325,15 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
                 bool isTLS = true;
                 for (EdgeVector::const_iterator it_i = incoming.begin(); it_i != incoming.end(); ++it_i) {
                     const NBEdge* inEdge = *it_i;
-                    if (inEdge->getSignalOffset() == NBEdge::UNSPECIFIED_SIGNAL_OFFSET || inEdge->getSignalOffset() > signalDist) {
+                    if ((inEdge->getSignalOffset() == NBEdge::UNSPECIFIED_SIGNAL_OFFSET || inEdge->getSignalOffset() > signalDist)
+                            && inEdge->getPermissions() != SVC_TRAM) {
+                        //if (node->getID() == "cluster_2292787672_259083790") std::cout << " noTLS, edge=" << inEdge->getID() << " offset=" << inEdge->getSignalOffset() << "\n";
                         isTLS = false;
                         break;
                     }
-                    if (inEdge->getSignalOffset() == inEdge->getLength()) {
-                        signals.push_back(inEdge->getFromNode());
+                    NBNode* signal = inEdge->getSignalNode();
+                    if (signal != nullptr) {
+                        signals.push_back(signal);
                     }
                 }
                 // outgoing edges may be tagged with pedestrian crossings. These
@@ -1642,7 +1666,7 @@ NBNodeCont::discardTrafficLights(NBTrafficLightLogicCont& tlc, bool geometryLike
                 // record signal location
                 const EdgeVector& outgoing = node->getOutgoingEdges();
                 for (EdgeVector::const_iterator it_o = outgoing.begin(); it_o != outgoing.end(); ++it_o) {
-                    (*it_o)->setSignalOffset((*it_o)->getLength());
+                    (*it_o)->setSignalOffset((*it_o)->getLength(), nullptr);
                 }
             }
             for (std::set<NBTrafficLightDefinition*>::const_iterator it = tldefs.begin(); it != tldefs.end(); ++it) {

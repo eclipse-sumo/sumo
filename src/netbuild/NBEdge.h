@@ -578,9 +578,15 @@ public:
         return mySignalOffset;
     }
 
+    /// @brief Returns the node that (possibly) represents a traffic signal controlling at the end of this edge
+    NBNode* getSignalNode() const {
+        return mySignalNode;
+    }
+
     /// @brief sets the offset of a traffic signal from the end of this edge
-    void setSignalOffset(double offset) {
+    void setSignalOffset(double offset, NBNode* signalNode) {
         mySignalOffset = offset;
+        mySignalNode = signalNode;
     }
 
     /** @brief Returns the lane definitions
@@ -1534,6 +1540,7 @@ private:
 
     /// @brief the offset of a traffic light signal from the end of this edge (-1 for None)
     double mySignalOffset;
+    NBNode* mySignalNode;
 
     /// @brief intersection borders (because the node shape might be invalid)
     /// @{
