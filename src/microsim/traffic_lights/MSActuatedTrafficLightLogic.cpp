@@ -104,7 +104,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
     LaneVectorVector::const_iterator i2;
     LaneVector::const_iterator i;
     // build the induct loops
-    std::map<MSLane*, MSInductLoop*> laneInductLoopMap;
+    std::map<const MSLane*, MSInductLoop*> laneInductLoopMap;
     double maxDetectorGap = 0;
     for (i2 = myLanes.begin(); i2 != myLanes.end(); ++i2) {
         const LaneVector& lanes = *i2;
@@ -150,7 +150,8 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
         }
     }
     // assign loops to phase index (myInductLoopsForPhase)
-    // @note: loops may not be used for a phase if there are other connections from the same lane that may not drive in that phase
+    //  check1: loops may not be used for a phase if there are other connections from the same lane that may not drive in that phase
+    //  check2: if there are two loops on subsequent lanes (joined tls) and the second one has a red link, the first loop may not be used
 
     // also assign loops to link index for validation:
     // check if all links from actuated phases (minDur != maxDur) have an inductionloop in at least one phase
@@ -162,7 +163,9 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
         if (phase->minDuration != phase->maxDuration) {
             // actuated phase
             const std::string& state = phase->getState();
+            // collect indices of all green links for the phase
             std::set<int> greenLinks;
+            // collect green links for each induction loops (in this phase)
             std::map<MSInductLoop*, std::set<int> > loopLinks;
             for (int i = 0; i < (int)state.size(); i++)  {
                 if (state[i] == LINKSTATE_TL_GREEN_MAJOR || state[i] == LINKSTATE_TL_GREEN_MINOR) {
@@ -177,12 +180,30 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
             }
             for (auto& item : loopLinks) {
                 bool usable = true;
+                // check1
                 for (int j : item.second) {
                     if (greenLinks.count(j) == 0) {
                         usable = false;
                         break;
                     }
                 }
+                // check2
+                if (usable) {
+                    const MSLane* loopLane = item.first->getLane();
+                    for (MSLink* link : loopLane->getLinkCont()) {
+                        const MSLane* next = link->getLane();
+                        if (laneInductLoopMap.count(next) != 0) {
+                            MSInductLoop* nextLoop = laneInductLoopMap[next];
+                            for (int j : loopLinks[nextLoop]) {
+                                if (greenLinks.count(j) == 0) {
+                                    usable = false;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+
                 if (usable) {
                     loops.insert(item.first);
                     for (int j : item.second) {
