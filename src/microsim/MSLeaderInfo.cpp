@@ -41,7 +41,7 @@
 // MSLeaderInfo member method definitions
 // ===========================================================================
 MSLeaderInfo::MSLeaderInfo(const MSLane* lane, const MSVehicle* ego, double latOffset) :
-    myWidth(lane != nullptr ? lane->getWidth() : 0),
+    myWidth(lane->getWidth()),
     myVehicles(MAX2(1, int(ceil(myWidth / MSGlobals::gLateralResolution))), (MSVehicle*)nullptr),
     myFreeSublanes((int)myVehicles.size()),
     egoRightMost(-1),
