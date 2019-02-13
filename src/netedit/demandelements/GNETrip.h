@@ -37,10 +37,10 @@ class GNETrip : public GNEDemandElement, public SUMOVehicleParameter {
 
 public:
     /// @brief constructor
-    GNETrip(GNEViewNet* viewNet, const std::string &tripID, GNEDemandElement* vehicleType, GNEEdge *from, GNEEdge *to);
+    GNETrip(GNEViewNet* viewNet, const std::string &tripID, GNEDemandElement* vehicleType, GNEEdge* from, GNEEdge* to);
 
     /// @brief parameter constructor
-    GNETrip(GNEViewNet* viewNet, const SUMOVehicleParameter &tripParameter, GNEDemandElement* vehicleType, GNEEdge *from, GNEEdge *to);
+    GNETrip(GNEViewNet* viewNet, const SUMOVehicleParameter &tripParameter, GNEDemandElement* vehicleType, GNEEdge* from, GNEEdge* to);
 
     /// @brief destructor
     ~GNETrip();
@@ -135,14 +135,17 @@ public:
     /// @}
 
 protected:
-    /// @brief type of flow
+    /// @brief type of trip
     GNEDemandElement* myVehicleType;
 
-    /// @brief GNEEdge from
+    /// @brief from edge
     GNEEdge* myFrom;
 
-    /// @brief GNEEdge to
+    /// @brief to edge
     GNEEdge* myTo;
+
+    /// @brief sets the color according to the currente settings
+    void setColor(const GUIVisualizationSettings& s) const;
 
 private:
     /// @brief method for setting the attribute and nothing else
