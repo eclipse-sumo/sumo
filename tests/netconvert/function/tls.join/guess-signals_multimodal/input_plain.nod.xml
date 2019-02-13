@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed 13 Feb 2019 10:22:51 AM CET by Eclipse SUMO netedit Version v1_0_1+0645-93703db
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_plain.nod.xml"/>
+        <edge-files value="input_plain.edg.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="/scr1/sumo/tests/netconvert/function/tls.join/guess-signals_multimodal/input_plain"/>
+    </output>
+
+    <report>
+        <ignore-errors.edge-type value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<nodes version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-357107.78,-5646271.09" convBoundary="0.00,0.00,255.77,292.12" origBoundary="6.762104,50.772113,7.222668,51.127542" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <node id="2292787678" x="146.49" y="173.36" type="traffic_light" tl="joinedS_228"/>
+    <node id="2292787679" x="170.40" y="173.15" type="priority"/>
+    <node id="310458128" x="209.18" y="225.18" type="dead_end"/>
+    <node id="310541110" x="0.00" y="292.12" type="right_before_left"/>
+    <node id="313574" x="255.77" y="268.94" type="dead_end"/>
+    <node id="313575" x="160.35" y="142.61" type="traffic_light" tl="joinedS_228"/>
+    <node id="449235" x="66.78" y="0.00" type="dead_end"/>
+    <node id="cluster_1679641274_1679797916_2292326589_311578845_449234" x="60.21" y="10.77" type="dead_end"/>
+    <node id="cluster_2292787672_259083790" x="165.66" y="158.45" type="priority"/>
+    <node id="gneJ0" x="153.95" y="167.47" type="priority"/>
+</nodes>

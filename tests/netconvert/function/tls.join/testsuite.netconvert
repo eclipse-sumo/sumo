@@ -20,6 +20,9 @@ specified_controlledInner
 # test heuristic for interpreting tls-nodes as signal locations
 guess-signals
 
+# test heuristic for interpreting tls-nodes as signal locations in a multimodal network
+guess-signals_multimodal
+
 # exclude nodes from receiving a traffic light via tls.unset
 guess-signals_unset
 
