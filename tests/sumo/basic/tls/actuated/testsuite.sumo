@@ -21,3 +21,6 @@ partialy_green_lane
 
 # test detector assignment for a lane where not all links have the green light in in a particular phase (#5161)
 partialy_green_lane_uncontrollable
+
+# joined traffic light with detectors on sequential lanes. prevent jamming (#5187)
+joined_sequential

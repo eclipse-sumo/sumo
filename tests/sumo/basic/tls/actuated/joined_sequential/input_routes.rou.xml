@@ -1,0 +1,4 @@
+<routes>
+    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+    <flow id="flow" from="W2W" to="CN" period="2" begin="0" end="200"/>
+</routes>
