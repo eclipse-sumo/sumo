@@ -167,6 +167,20 @@ GNEVehicleFrame::HelpCreation::~HelpCreation() {}
 
 void 
 GNEVehicleFrame::HelpCreation::showHelpCreation() {
+    // first update help cration
+    updateHelpCreation();
+    // show modul
+    show();
+}
+
+
+void 
+GNEVehicleFrame::HelpCreation::hideHelpCreation() {
+    hide();
+}
+
+void 
+GNEVehicleFrame::HelpCreation::updateHelpCreation() {
     // create information label
     std::ostringstream information;
     // set text depending of selected vehicle type
@@ -183,29 +197,14 @@ GNEVehicleFrame::HelpCreation::showHelpCreation() {
             break;
         case SUMO_TAG_TRIP:
             information
-                << "- Click over a edge to\n"
-                << "  set the 'from' edge.\n"
-                << "- Then click over another\n"
-                << "  edge to set the 'to' edge.";
+                << "- Select two edges to\n"
+                << "  create a Trip.";
             break;
         default:
             break;
     }
     // set information label
     myInformationLabel->setText(information.str().c_str());
-    // show modul
-    show();
-}
-
-
-void 
-GNEVehicleFrame::HelpCreation::hideHelpCreation() {
-    hide();
-}
-
-void 
-GNEVehicleFrame::HelpCreation::updateHelpCreation() {
-
 }
 
 // ---------------------------------------------------------------------------
@@ -213,7 +212,8 @@ GNEVehicleFrame::HelpCreation::updateHelpCreation() {
 // ---------------------------------------------------------------------------
 
 GNEVehicleFrame::GNEVehicleFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
-    GNEFrame(horizontalFrameParent, viewNet, "Vehicles") {
+    GNEFrame(horizontalFrameParent, viewNet, "Vehicles"),
+    myAutoRoute(this) {
 
     // Create item Selector modul for vehicles
     myItemSelector = new ItemSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_VEHICLE);
@@ -307,10 +307,12 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
         }
     } else if (vehicleTag == SUMO_TAG_TRIP) {
         // set first edge
-        if (myAutoRoute.from == nullptr) {
+        if (myAutoRoute.getFrom() == nullptr) {
             // set from edge
             if (objectsUnderCursor.getEdgeFront()) {
-                myAutoRoute.from = objectsUnderCursor.getEdgeFront();
+                myAutoRoute.setFrom(objectsUnderCursor.getEdgeFront());
+                // update showHelpCreation
+                myHelpCreation->updateHelpCreation();
                 return true;
             } else {
                 myViewNet->setStatusBarText(toString(vehicleTag) + " has to be placed in two edges.");
@@ -318,35 +320,41 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
             }
         }
         // set second edge
-        if (myAutoRoute.to == nullptr) {
+        if (myAutoRoute.getTo() == nullptr) {
             // set to edge
             if (objectsUnderCursor.getEdgeFront()) {
-                myAutoRoute.to = objectsUnderCursor.getEdgeFront();
+                myAutoRoute.setTo(objectsUnderCursor.getEdgeFront());
+                // update showHelpCreation
+                myHelpCreation->updateHelpCreation();
+                // Add parameter departure
+                if(valuesMap.count(SUMO_ATTR_DEPART) == 0) {
+                    valuesMap[SUMO_ATTR_DEPART] = "0";
+                }
+                // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
+                SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, getPredefinedTagsMML(), toString(vehicleTag));
+                // obtain trip parameters in tripParameters
+                SUMOVehicleParameter* tripParameters = SUMOVehicleParserHelper::parseVehicleAttributes(SUMOSAXAttrs);
+                // create it in RouteFrame
+                GNERouteHandler::buildTrip(myViewNet, true, tripParameters, myAutoRoute.getFrom(), myAutoRoute.getTo());
+                // delete tripParameters
+                delete tripParameters;
+                // clear edges
+                myAutoRoute.clearEdges();
+                // all ok, then return true;
                 return true;
             } else {
                 myViewNet->setStatusBarText(toString(vehicleTag) + " has to be placed in two edges.");
                 return false;
             }
         }
-        // Add parameter departure
-        if(valuesMap.count(SUMO_ATTR_DEPART) == 0) {
-            valuesMap[SUMO_ATTR_DEPART] = "0";
-        }
-        // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
-        SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, getPredefinedTagsMML(), toString(vehicleTag));
-        // obtain trip parameters in tripParameters
-        SUMOVehicleParameter* tripParameters = SUMOVehicleParserHelper::parseVehicleAttributes(SUMOSAXAttrs);
-        // create it in RouteFrame
-        GNERouteHandler::buildTrip(myViewNet, true, tripParameters, myAutoRoute.from, myAutoRoute.to);
-        // delete tripParameters
-        delete tripParameters;
-        // all ok, then return true;
-        return true;
     }
     // nothing crated
     return false;
 }
 
+// ===========================================================================
+// protected
+// ===========================================================================
 
 void
 GNEVehicleFrame::enableModuls(const GNEAttributeCarrier::TagProperties& tagProperties) {
@@ -367,9 +375,56 @@ GNEVehicleFrame::disableModuls() {
 // private
 // ===========================================================================
 
-GNEVehicleFrame::AutoRoute::AutoRoute() :
-    from(nullptr),
-    to(nullptr) {
+GNEVehicleFrame::AutoRoute::AutoRoute(GNEVehicleFrame* vehicleFrameParent) :
+    myVehicleFrameParent(vehicleFrameParent),
+    myFrom(nullptr),
+    myTo(nullptr) {
+}
+
+
+GNEEdge* 
+GNEVehicleFrame::AutoRoute::getFrom() const {
+    return myFrom;
+}
+        
+
+GNEEdge* 
+GNEVehicleFrame::AutoRoute::getTo() const {
+    return myTo;
+}
+
+void 
+GNEVehicleFrame::AutoRoute::setFrom(GNEEdge* from) {
+    myFrom = from;
+    // set special color
+    for (auto i : myFrom->getLanes()) {
+        i->setSpecialColor(&myVehicleFrameParent->getEdgeCandidateSelectedColor());
+    }
+}
+        
+
+void 
+GNEVehicleFrame::AutoRoute::setTo(GNEEdge* to) {
+    myTo = to;
+    // set special color
+    for (auto i : myTo->getLanes()) {
+        i->setSpecialColor(&myVehicleFrameParent->getEdgeCandidateSelectedColor());
+    }
+}
+
+
+void 
+GNEVehicleFrame::AutoRoute::clearEdges() {
+    // restore colors
+    for (auto i : myFrom->getLanes()) {
+        i->setSpecialColor(nullptr);
+    }
+    for (auto i : myTo->getLanes()) {
+        i->setSpecialColor(nullptr);
+    }
+    // reset pointers
+    myFrom = nullptr;
+    myTo = nullptr;
 }
 
 

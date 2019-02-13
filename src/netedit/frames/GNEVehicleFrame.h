@@ -141,10 +141,36 @@ protected:
 private:
     /// @brief structs used for creating routes only givin from-to routes
     struct AutoRoute {
-        AutoRoute();
-        GNEEdge* from;
-        GNEEdge* to;
+        /// @brief default construct0or
+        AutoRoute(GNEVehicleFrame* vehicleFrameParent);
+
+        /// @brief check if from and to edges create a valid route
         bool isValid() const;
+
+        /// @brief get edge form
+        GNEEdge* getFrom() const;
+        
+        /// @brief get edge to
+        GNEEdge* getTo() const;
+
+        /// @brief set edge from (and change color)
+        void setFrom(GNEEdge* from);
+        
+        /// @brief set edge to (and change color)
+        void setTo(GNEEdge* to);
+
+        /// @brief clear edges (and restore colors)
+        void clearEdges();
+
+    private:
+        /// @brief pointer to Vehicle Frame Parent
+        GNEVehicleFrame* myVehicleFrameParent;
+
+        /// @brief from Edge
+        GNEEdge* myFrom;
+
+        /// @brief to Edge
+        GNEEdge* myTo;
     };
 
     /// @brief item selector (used to select diffent kind of vehicles)
