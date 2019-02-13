@@ -20,18 +20,8 @@
 // ===========================================================================
 
 #include <cmath>
-#include <gui/GUIApplicationWindow.h>
-#include <gui/GUIGlobals.h>
-#include <microsim/MSGlobals.h>
-#include <microsim/MSJunction.h>
-#include <microsim/MSLane.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/devices/MSDevice_BTreceiver.h>
-#include <microsim/devices/MSDevice_Transportable.h>
-#include <microsim/devices/MSDevice_Vehroutes.h>
-#include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
-#include <microsim/logging/CastingFunctionBinding.h>
-#include <microsim/logging/FunctionBinding.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
@@ -40,22 +30,11 @@
 #include <netedit/frames/GNESelectorFrame.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNELane.h>
-#include <string>
-#include <utils/common/StringUtils.h>
-#include <utils/emissions/PollutantsInterface.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/gui/div/GLHelper.h>
-#include <utils/gui/div/GLObjectValuePassConnector.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
-#include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/div/GUIBaseVehicleHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
-#include <utils/gui/images/GUITexturesHelper.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/windows/GUISUMOAbstractView.h>
-#include <utils/options/OptionsCont.h>
-#include <utils/vehicle/SUMOVehicleParameter.h>
-#include <vector>
 
 #include "GNETrip.h"
 

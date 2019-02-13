@@ -19,20 +19,15 @@
 // included modules
 // ===========================================================================
 #include <config.h>
-#include <utils/xml/XMLSubSys.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
-#include <netedit/netelements/GNEEdge.h>
-#include <netedit/netelements/GNELane.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNENet.h>
-#include <utils/options/OptionsCont.h>
 
 #include "GNERouteHandler.h"
 #include "GNERoute.h"
 #include "GNEVehicleType.h"
 #include "GNEFlow.h"
-#include "GNETrip.h"
 #include "GNEVehicle.h"
 
 // ===========================================================================
