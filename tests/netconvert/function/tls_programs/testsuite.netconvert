@@ -15,3 +15,6 @@ allred.time
 
 # main direction (specified via edge priorities) takes a right turn at a 4-way intersection
 main_road_turns_right
+
+# an example for a joined tls from a real-world network (A391_AS_Weststadt)
+joined_rw
