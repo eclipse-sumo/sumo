@@ -139,6 +139,14 @@ protected:
     void disableModuls();
 
 private:
+    /// @brief structs used for creating routes only givin from-to routes
+    struct AutoRoute {
+        AutoRoute();
+        GNEEdge* from;
+        GNEEdge* to;
+        bool isValid() const;
+    };
+
     /// @brief item selector (used to select diffent kind of vehicles)
     ItemSelector* myItemSelector;
 
@@ -150,6 +158,9 @@ private:
 
     /// @brief Help creation
     HelpCreation* myHelpCreation;
+
+    /// @brief AutoRoute
+    AutoRoute myAutoRoute;
 };
 
 

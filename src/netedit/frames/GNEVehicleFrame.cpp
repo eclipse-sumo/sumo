@@ -292,7 +292,7 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
             } else {
                 // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
                 SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, getPredefinedTagsMML(), toString(vehicleTag));
-                // obtain flow parameters in vehicleParameters
+                // obtain flow parameters in flowParameters
                 SUMOVehicleParameter* flowParameters = SUMOVehicleParserHelper::parseFlowAttributes(SUMOSAXAttrs, 0, SUMOTime_MAX);
                 // create it in RouteFrame
                 GNERouteHandler::buildFlow(myViewNet, true, flowParameters);
@@ -305,9 +305,46 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
             myViewNet->setStatusBarText(toString(vehicleTag) + " has to be placed within a route.");
             return false;
         }
+    } else if (vehicleTag == SUMO_TAG_TRIP) {
+        // set first edge
+        if (myAutoRoute.from == nullptr) {
+            // set from edge
+            if (objectsUnderCursor.getEdgeFront()) {
+                myAutoRoute.from = objectsUnderCursor.getEdgeFront();
+                return true;
+            } else {
+                myViewNet->setStatusBarText(toString(vehicleTag) + " has to be placed in two edges.");
+                return false;
+            }
+        }
+        // set second edge
+        if (myAutoRoute.to == nullptr) {
+            // set to edge
+            if (objectsUnderCursor.getEdgeFront()) {
+                myAutoRoute.to = objectsUnderCursor.getEdgeFront();
+                return true;
+            } else {
+                myViewNet->setStatusBarText(toString(vehicleTag) + " has to be placed in two edges.");
+                return false;
+            }
+        }
+        // Add parameter departure
+        if(valuesMap.count(SUMO_ATTR_DEPART) == 0) {
+            valuesMap[SUMO_ATTR_DEPART] = "0";
+        }
+        // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
+        SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, getPredefinedTagsMML(), toString(vehicleTag));
+        // obtain trip parameters in tripParameters
+        SUMOVehicleParameter* tripParameters = SUMOVehicleParserHelper::parseVehicleAttributes(SUMOSAXAttrs);
+        // create it in RouteFrame
+        GNERouteHandler::buildTrip(myViewNet, true, tripParameters, myAutoRoute.from, myAutoRoute.to);
+        // delete tripParameters
+        delete tripParameters;
+        // all ok, then return true;
+        return true;
     }
-
-    return true;
+    // nothing crated
+    return false;
 }
 
 
@@ -324,6 +361,21 @@ GNEVehicleFrame::disableModuls() {
     myVTypeSelector->hideVTypeSelector();
     myVehicleAttributes->hideACAttributesModul();
     myHelpCreation->hideHelpCreation();
+}
+
+// ===========================================================================
+// private
+// ===========================================================================
+
+GNEVehicleFrame::AutoRoute::AutoRoute() :
+    from(nullptr),
+    to(nullptr) {
+}
+
+
+bool 
+GNEVehicleFrame::AutoRoute::isValid() const {
+    return true;
 }
 
 /****************************************************************************/
