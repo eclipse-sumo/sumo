@@ -67,9 +67,6 @@ load_location
 # tests for the generated junction logic
 junctionLogic
 
-# test building static tls programs for different junction types
-tlsPrograms
-
 # tests for roundabouts specified via xml
 roundabout
 
