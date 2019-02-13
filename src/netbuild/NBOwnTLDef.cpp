@@ -200,6 +200,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
     std::vector<bool> isTurnaround;
     std::vector<bool> hasTurnLane;
     std::vector<int> fromLanes;
+    std::vector<int> toLanes;
     int noLanesAll = 0;
     int noLinksAll = 0;
     for (int i1 = 0; i1 < (int)incoming.size(); i1++) {
@@ -221,7 +222,8 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
                 assert(i3 < (int)approached.size());
                 NBEdge* toEdge = approached[i3].toEdge;
                 fromEdges.push_back(fromEdge);
-                fromLanes.push_back((int)i2);
+                fromLanes.push_back(i2);
+                toLanes.push_back(approached[i3].toLane);
                 toEdges.push_back(toEdge);
                 if (toEdge != nullptr) {
                     isTurnaround.push_back(fromEdge->isTurningDirectionAt(toEdge));
@@ -323,7 +325,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
 
         //std::cout << " state after plain straight movers=" << state << "\n";
         // correct behaviour for those that are not in chosen, but may drive, though
-        state = allowFollowersOfChosen(state, fromEdges, toEdges);
+        state = allowFollowersOfChosen(state, fromEdges, toEdges, fromLanes, toLanes);
         if (groupOpposites || chosen.first->getToNode()->getType() == NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED) {
             for (int i1 = 0; i1 < pos; ++i1) {
                 if (state[i1] == 'G') {
@@ -426,7 +428,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
                     state[i1] = 'G';
                 }
             }
-            state = allowFollowersOfChosen(state, fromEdges, toEdges);
+            state = allowFollowersOfChosen(state, fromEdges, toEdges, fromLanes, toLanes);
             state = correctConflicting(state, fromEdges, toEdges, isTurnaround, fromLanes, hadGreenMajor, haveForbiddenLeftMover, rightTurnConflicts);
 
             // add step
@@ -671,7 +673,9 @@ NBOwnTLDef::getConnectedOuterEdges(const EdgeVector& incoming) {
 
 
 std::string
-NBOwnTLDef::allowFollowersOfChosen(std::string state, const EdgeVector& fromEdges, const EdgeVector& toEdges) {
+NBOwnTLDef::allowFollowersOfChosen(std::string state, const EdgeVector& fromEdges, const EdgeVector& toEdges,
+            const std::vector<int>& fromLanes, const std::vector<int>& toLanes) 
+{
     // if only one edge has green, ensure sure that all connections from that edge are green
     std::set<NBEdge*> greenEdges;
     for (int i1 = 0; i1 < (int)state.size(); ++i1) {
@@ -697,12 +701,46 @@ NBOwnTLDef::allowFollowersOfChosen(std::string state, const EdgeVector& fromEdge
                 continue;
             }
             bool followsChosen = false;
-            for (int i2 = 0; i2 < (int)fromEdges.size() && !followsChosen; ++i2) {
+            for (int i2 = 0; i2 < (int)fromEdges.size(); ++i2) {
                 if (state[i2] == 'G' && fromEdges[i1] == toEdges[i2]) {
                     followsChosen = true;
+                    break;
                 }
             }
             if (followsChosen) {
+                state[i1] = 'G';
+                check = true;
+            }
+        }
+    }
+    // also allow predecessors of chosen edges if the lanes match and there is no conflict
+    // (must be done after the followers are done because followers are less specific)
+    check = true;
+    while (check) {
+        check = false;
+        for (int i1 = 0; i1 < (int)fromEdges.size(); ++i1) {
+            if (state[i1] == 'G') {
+                continue;
+            }
+            bool forbidden = false;
+            for (int i2 = 0; i2 < (int)fromEdges.size(); ++i2) {
+                if (state[i2] == 'G' && foes(fromEdges[i2], toEdges[i2], fromEdges[i1], toEdges[i1])) {
+                    forbidden = true;
+                    break;
+                }
+            }
+            if (forbidden) {
+                continue;
+            }
+            bool preceedsChosen = false;
+            for (int i2 = 0; i2 < (int)fromEdges.size(); ++i2) {
+                if (state[i2] == 'G' && fromEdges[i2] == toEdges[i1]
+                        && fromLanes[i2] == toLanes[i1]) {
+                    preceedsChosen = true;
+                    break;
+                }
+            }
+            if (preceedsChosen) {
                 state[i1] = 'G';
                 check = true;
             }

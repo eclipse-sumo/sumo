@@ -216,7 +216,8 @@ protected:
 
 
     /// @brief allow connections that follow on of the chosen edges
-    std::string allowFollowersOfChosen(std::string state, const EdgeVector& fromEdges, const EdgeVector& toEdges);
+    std::string allowFollowersOfChosen(std::string state, const EdgeVector& fromEdges, const EdgeVector& toEdges,
+            const std::vector<int>& fromLanes, const std::vector<int>& toLanes);
 
     /** @brief change 'G' to 'g' for conflicting connections
      * @param[in] state
