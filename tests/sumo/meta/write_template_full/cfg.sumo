@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jan 28 09:05:18 2019 by Eclipse SUMO Version v1_0_1+0645-93703db
+<!-- generated on Thu Feb 14 09:14:41 2019 by Eclipse SUMO Version v1_0_1+0645-93703db
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -105,6 +105,7 @@
         <lanechange.duration value="0" type="TIME" help="Duration of a lane change maneuver (default 0)"/>
         <lanechange.overtake-right value="false" type="BOOL" help="Whether overtaking on the right on motorways is permitted"/>
         <tls.all-off value="false" type="BOOL" help="Switches off all traffic lights."/>
+        <tls.actuated.show-detectors value="false" type="BOOL" help="Sets default visibility for actuation detectors"/>
         <time-to-impatience value="300" type="TIME" help="Specify how long a vehicle may wait until impatience grows from 0 to 1, defaults to 300, non-positive values disable impatience growth"/>
         <default.action-step-length value="0" type="FLOAT" help="Length of the default interval length between action points for the car-following and lane-change models (in seconds). If not specified, the simulation step-length is used per default. Vehicle- or VType-specific settings override the default. Must be a multiple of the simulation step-length."/>
         <default.carfollowmodel value="Krauss" synonymes="carfollow.model" type="STR" help="Select default car following model (Krauss, IDM, ...)"/>

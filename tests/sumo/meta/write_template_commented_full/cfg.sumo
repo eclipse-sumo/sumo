@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jan 28 09:05:18 2019 by Eclipse SUMO Version v1_0_1+0645-93703db
+<!-- generated on Thu Feb 14 09:14:42 2019 by Eclipse SUMO Version v1_0_1+0645-93703db
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -278,6 +278,9 @@
 
         <!-- Switches off all traffic lights. -->
         <tls.all-off value="false" type="BOOL"/>
+
+        <!-- Sets default visibility for actuation detectors -->
+        <tls.actuated.show-detectors value="false" type="BOOL"/>
 
         <!-- Specify how long a vehicle may wait until impatience grows from 0 to 1, defaults to 300, non-positive values disable impatience growth -->
         <time-to-impatience value="300" type="TIME"/>

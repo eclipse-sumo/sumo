@@ -67,7 +67,7 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcon
     myMaxGap = StringUtils::toDouble(getParameter("max-gap", DEFAULT_MAX_GAP));
     myPassingTime = StringUtils::toDouble(getParameter("passing-time", DEFAULT_PASSING_TIME)); // passing-time seems obsolete... (Leo)
     myDetectorGap = StringUtils::toDouble(getParameter("detector-gap", DEFAULT_DETECTOR_GAP));
-    myShowDetectors = StringUtils::toBool(getParameter("show-detectors", "false"));
+    myShowDetectors = StringUtils::toBool(getParameter("show-detectors", toString(OptionsCont::getOptions().getBool("tls.actuated.show-detectors"))));
     myFile = FileHelpers::checkForRelativity(getParameter("file", "NUL"), basePath);
     myFreq = TIME2STEPS(StringUtils::toDouble(getParameter("freq", "300")));
     myVehicleTypes = getParameter("vTypes", "");

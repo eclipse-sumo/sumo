@@ -177,6 +177,8 @@ Processing Options:
   --lanechange.overtake-right          Whether overtaking on the right on
                                          motorways is permitted
   --tls.all-off                        Switches off all traffic lights.
+  --tls.actuated.show-detectors        Sets default visibility for actuation
+                                         detectors
   --time-to-impatience TIME            Specify how long a vehicle may wait
                                          until impatience grows from 0 to 1,
                                          defaults to 300, non-positive values

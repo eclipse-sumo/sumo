@@ -327,6 +327,9 @@ MSFrame::fillOptions() {
     oc.doRegister("tls.all-off", new Option_Bool(false));
     oc.addDescription("tls.all-off", "Processing", "Switches off all traffic lights.");
 
+    oc.doRegister("tls.actuated.show-detectors", new Option_Bool(false));
+    oc.addDescription("tls.actuated.show-detectors", "Processing", "Sets default visibility for actuation detectors");
+
     oc.doRegister("time-to-impatience", new Option_String("300", "TIME"));
     oc.addDescription("time-to-impatience", "Processing", "Specify how long a vehicle may wait until impatience grows from 0 to 1, defaults to 300, non-positive values disable impatience growth");
 
