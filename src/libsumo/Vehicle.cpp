@@ -1235,6 +1235,11 @@ Vehicle::deactivateGapControl(const std::string& vehicleID) {
 }
 
 void
+Vehicle::requestToC(const std::string& vehID, double leadTime) {
+    setParameter(vehID, "device.toc.requestToC", toString(leadTime));
+}
+
+void
 Vehicle::setSpeed(const std::string& vehicleID, double speed) {
     MSVehicle* veh = getVehicle(vehicleID);
     std::vector<std::pair<SUMOTime, double> > speedTimeLine;

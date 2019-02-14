@@ -1063,6 +1063,14 @@ class VehicleDomain(Domain):
         """
         self.openGap(vehID, -1, -1, -1, -1)
 
+    def requestToC(self, vehID, leadTime):
+        """ requestToC(string, double) -> None
+        
+        Interface for triggering a transition of control for a vehicle equipped with a ToC device.
+        """
+        self.setParameter(vehID, "device.toc.requestToC", str(leadTime))
+
+
     def changeTarget(self, vehID, edgeID):
         """changeTarget(string, string) -> None
 

@@ -157,6 +157,7 @@ public:
     static void slowDown(const std::string& vehicleID, double speed, double duration);
     static void openGap(const std::string& vehicleID, double newTimeHeadway, double newSpaceHeadway, double duration, double changeRate, double maxDecel, const std::string& referenceVehID="");
     static void deactivateGapControl(const std::string& vehicleID);
+    static void requestToC(const std::string& vehID, double leadTime);
     static void setSpeed(const std::string& vehicleID, double speed);
     static void setSpeedMode(const std::string& vehicleID, int speedMode);
     static void setLaneChangeMode(const std::string& vehicleID, int laneChangeMode);
