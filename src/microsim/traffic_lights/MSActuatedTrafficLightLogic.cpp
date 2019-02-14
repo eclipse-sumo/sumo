@@ -37,6 +37,7 @@
 #include "MSTrafficLightLogic.h"
 #include "MSActuatedTrafficLightLogic.h"
 #include <microsim/MSLane.h>
+#include <microsim/MSEdge.h>
 #include <netload/NLDetectorBuilder.h>
 #include <utils/common/StringUtils.h>
 
@@ -80,6 +81,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
     MSTrafficLightLogic::init(nb);
     assert(myLanes.size() > 0);
     bool warn = true; // warn only once
+    const int numLinks = (int)myLinks.size();
 
     // Detector position should be computed based on road speed. If the position
     // is quite far away and the minDur is short this may cause the following
@@ -151,6 +153,12 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
     }
     // assign loops to phase index (myInductLoopsForPhase)
     //  check1: loops may not be used for a phase if there are other connections from the same lane that may not drive in that phase
+    //            greenMinor is ambiguous as vehicles may not be able to drive
+    //            Under the following condition we allow actuation from minor link:
+    //              check1a : the minor link is minor in all phases
+    //              check1b : there is another major link from the same lane in the current phase
+    //            (Under these conditions we assume that the minor link is unimportant and traffic is mostly for the major link)
+    //             
     //  check2: if there are two loops on subsequent lanes (joined tls) and the second one has a red link, the first loop may not be used
 
     // also assign loops to link index for validation:
@@ -158,6 +166,15 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
     std::map<int, std::set<MSInductLoop*> > linkToLoops;
     std::set<int> actuatedLinks;
 
+    std::vector<bool> neverMajor(numLinks, true);
+    for (const MSPhaseDefinition* phase : myPhases) {
+        const std::string& state = phase->getState();
+        for (int i = 0; i < numLinks; i++)  {
+            if (state[i] == LINKSTATE_TL_GREEN_MAJOR) {
+                neverMajor[i] = false;
+            }
+        }
+    }
     for (const MSPhaseDefinition* phase : myPhases) {
         std::set<MSInductLoop*> loops;
         if (phase->minDuration != phase->maxDuration) {
@@ -168,7 +185,11 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
             // collect green links for each induction loops (in this phase)
             std::map<MSInductLoop*, std::set<int> > loopLinks;
             for (int i = 0; i < (int)state.size(); i++)  {
-                if (state[i] == LINKSTATE_TL_GREEN_MAJOR || state[i] == LINKSTATE_TL_GREEN_MINOR) {
+                if (state[i] == LINKSTATE_TL_GREEN_MAJOR 
+                        || (state[i] == LINKSTATE_TL_GREEN_MINOR 
+                            && neverMajor[i]  // check1a
+                            && hasMajor(state, getLanesAt(i))) // check1b
+                        ) {
                     greenLinks.insert(i);
                     actuatedLinks.insert(i);
                 }
@@ -246,6 +267,22 @@ MSActuatedTrafficLightLogic::getMinimumMinDuration(MSLane* lane) const {
         }
     }
     return result;
+}
+
+bool 
+MSActuatedTrafficLightLogic::hasMajor(const std::string& state, const LaneVector& lanes) const {
+    for (int i = 0; i < (int)state.size(); i++) {
+        if (state[i] == LINKSTATE_TL_GREEN_MAJOR) {
+            for (MSLane* cand : getLanesAt(i)) {
+                for (MSLane* lane : lanes) {
+                    if (lane == cand) {
+                        return true;
+                    }
+                }
+            }
+        }
+    }
+    return false;
 }
 
 

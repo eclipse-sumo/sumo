@@ -110,6 +110,10 @@ protected:
     /** @brief Return the minimum detection gap of all detectors if the current phase should be extended and double::max otherwise
      */
     double gapControl();
+
+
+    /// @brief return whether there is a major link from the given lane in the given phase
+    bool hasMajor(const std::string& state, const LaneVector& lanes) const;
     /// @}
 
 
