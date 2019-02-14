@@ -42,7 +42,7 @@
 #include <utils/common/StringUtils.h>
 
 //#define DEBUG_DETECTORS
-#define DEBUG_COND (getID()=="joinedS_0")
+#define DEBUG_COND (getID()=="26121229")
 
 // ===========================================================================
 // parameter defaults definitions
@@ -217,7 +217,16 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
                     actuatedLinks.insert(i);
                 }
 #ifdef DEBUG_DETECTORS
-                //if (DEBUG_COND) std::cout << " phase=" << myInductLoopsForPhase.size() << " i=" << i << " state=" << state[i] << " green=" << greenLinks.count(i) << "\n";
+               //if (DEBUG_COND) {
+               //    std::cout << " phase=" << myInductLoopsForPhase.size() << " i=" << i << " state=" << state[i] << " green=" << greenLinks.count(i) << " oneLane=" << oneLane[i] 
+               //        << " loopLanes="; 
+               //    for (MSLane* lane: getLanesAt(i)) {
+               //        if (laneInductLoopMap.count(lane) != 0) {
+               //            std::cout << lane->getID() << " ";
+               //        }
+               //    }
+               //    std::cout << "\n";
+               //}
 #endif
                 for (MSLane* lane: getLanesAt(i)) {
                     if (laneInductLoopMap.count(lane) != 0) {
@@ -260,6 +269,9 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
 
                 if (usable) {
                     loops.insert(item.first);
+#ifdef DEBUG_DETECTORS
+                    //if (DEBUG_COND) std::cout << " phase=" << myInductLoopsForPhase.size() << " usableLoops=" << item.first->getID() << " links=" << joinToString(item.second, " ") << "\n";
+#endif
                     for (int j : item.second) {
                         linkToLoops[j].insert(item.first);
                     }
@@ -271,9 +283,23 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
         }
 #ifdef DEBUG_DETECTORS
         if (DEBUG_COND) std::cout << " phase=" << myInductLoopsForPhase.size() << " loops=" << joinNamedToString(loops, " ") << "\n";
+        //if (DEBUG_COND) {
+        //    std::cout << " linkToLoops:\n"; 
+        //    for (auto item : linkToLoops) {
+        //        std::cout << "   link=" << item.first << " loops=" << joinNamedToString(item.second, " ") << "\n";
+        //    }
+        //}
 #endif
         myInductLoopsForPhase.push_back(std::vector<MSInductLoop*>(loops.begin(), loops.end()));
     }
+#ifdef DEBUG_DETECTORS
+    //if (DEBUG_COND) {
+    //    std::cout << "final linkToLoops:\n"; 
+    //    for (auto item : linkToLoops) {
+    //        std::cout << "   link=" << item.first << " loops=" << joinNamedToString(item.second, " ") << "\n";
+    //    }
+    //}
+#endif
     for (int i : actuatedLinks) {
         if (linkToLoops[i].size() == 0 && myLinks[i].size() > 0 
                 && (myLinks[i].front()->getLaneBefore()->getPermissions() & motorized) != 0) {
