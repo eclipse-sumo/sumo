@@ -215,9 +215,19 @@ protected:
     static EdgeVector getConnectedOuterEdges(const EdgeVector& incoming);
 
 
-    /// @brief allow connections that follow on of the chosen edges
-    std::string allowFollowersOfChosen(std::string state, const EdgeVector& fromEdges, const EdgeVector& toEdges,
+    /// @brief allow connections that are compatible with the chosen edges
+    std::string allowCompatible(std::string state, const EdgeVector& fromEdges, const EdgeVector& toEdges,
             const std::vector<int>& fromLanes, const std::vector<int>& toLanes);
+
+    std::string allowSingleEdge(std::string state, const EdgeVector& fromEdges);
+
+    std::string allowFollowers(std::string state, const EdgeVector& fromEdges, const EdgeVector& toEdges);
+            
+    std::string allowPredecessors(std::string state, const EdgeVector& fromEdges, const EdgeVector& toEdges,
+            const std::vector<int>& fromLanes, const std::vector<int>& toLanes);
+
+    /// @brief whether the given index is forbidden by a green link in the current state
+    bool forbidden(const std::string& state, int index, const EdgeVector& fromEdges, const EdgeVector& toEdges);
 
     /** @brief change 'G' to 'g' for conflicting connections
      * @param[in] state
