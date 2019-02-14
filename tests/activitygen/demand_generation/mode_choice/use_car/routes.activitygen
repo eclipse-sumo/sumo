@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 02/16/15 13:34:30 by SUMO activitygen Version dev-SVN-r17860
+<!-- generated on Thu Feb 14 17:36:14 2019 by Eclipse SUMO activitygen Version v1_1_0+0435-678c69824b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <output-file value="routes.activitygen"/>
     </output>
 
@@ -33,6 +34,6 @@ SPDX-License-Identifier: EPL-2.0
     <vType id="random" vClass="passenger" color="blue"/>
     <vType id="bus" vClass="bus" color="green"/>
 
-    <trip id="h1c1:1" type="default" depart="30592" departPos="40.89" arrivalPos="259.84" arrivalSpeed="0.00" from="e51t44" to="e11t01"/>
-    <trip id="h1c1:3" type="default" depart="43200" departPos="259.84" arrivalPos="40.89" arrivalSpeed="0.00" from="e11t01" to="e51t44"/>
+    <trip id="h1c1:1" type="default" depart="30592.00" departPos="40.89" arrivalPos="259.84" arrivalSpeed="0.00" from="e51t44" to="e11t01"/>
+    <trip id="h1c1:3" type="default" depart="43200.00" departPos="259.84" arrivalPos="40.89" arrivalSpeed="0.00" from="e11t01" to="e51t44"/>
 </routes>
