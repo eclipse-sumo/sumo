@@ -403,8 +403,12 @@ def main(options):
                     programs = tl.getPrograms()
                     for pro in programs:
                         phases = programs[pro].getPhases()
-            
-                    groupFlowsMap = optimizeGreenTime(groupFlowsMap, phaseLaneIndexMap, currentLength, options)
+                        
+                        # get the connection flows and group flows
+                        groupFlowsMap, phaseLaneIndexMap, currentLength = getLaneGroupFlows(tl, connFlowsMap, phases)
+                        
+                        # optimize the cycle length and calculate the respective green splits
+                        groupFlowsMap = optimizeGreenTime(groupFlowsMap, phaseLaneIndexMap, currentLength, options)
 
                     # write output
                     outf.write('    <tlLogic id="%s" type="%s" programID="%s" offset="%i">\n' %
