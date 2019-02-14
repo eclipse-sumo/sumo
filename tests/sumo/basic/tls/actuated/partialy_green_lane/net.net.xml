@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon 11 Feb 2019 01:51:18 PM CET by Eclipse SUMO netedit Version v1_0_1+0645-93703db
+<!-- generated on Thu 14 Feb 2019 10:35:17 AM CET by Eclipse SUMO netedit Version v1_0_1+0645-93703db
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="net.net.xml"/>
+        <sumo-net-file value="/scr1/sumo/tests/sumo/basic/tls/actuated/partialy_green_lane/net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="net.net.xml"/>
+        <output-file value="/scr1/sumo/tests/sumo/basic/tls/actuated/partialy_green_lane/net.net.xml"/>
         <output.street-names value="true"/>
     </output>
 
@@ -61,8 +61,8 @@
     <type id="highway.tertiary_link" priority="5" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
     <type id="highway.tertiary|railway.tram" priority="15" numLanes="1" speed="22.22" disallow="rail_urban rail rail_electric ship" oneway="0"/>
     <type id="highway.track" priority="1" numLanes="1" speed="5.56" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
-    <type id="highway.trunk" priority="11" numLanes="2" speed="27.78" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle moped evehicle custom1 custom2" oneway="0"/>
-    <type id="highway.trunk_link" priority="10" numLanes="1" speed="22.22" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle moped evehicle custom1 custom2" oneway="0"/>
+    <type id="highway.trunk" priority="11" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" oneway="0"/>
+    <type id="highway.trunk_link" priority="10" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" oneway="0"/>
     <type id="highway.unclassified" priority="5" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
     <type id="highway.unsurfaced" priority="1" numLanes="1" speed="8.33" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
     <type id="railway.light_rail" priority="15" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
@@ -165,9 +165,9 @@
 
     <tlLogic id="GS_28462102" type="actuated" programID="0" offset="0">
         <phase duration="38" state="GggrrrGGGg" minDur="5" maxDur="50"/>
-        <phase duration="3"  state="yggrrryyyg"/>
-        <phase duration="6"  state="rGGrrrrrrG" minDur="5" maxDur="50"/>
-        <phase duration="3"  state="ryyrrrrrry"/>
+        <phase duration="3"  state="Gggrrryyyy"/>
+        <phase duration="6"  state="GGGrrrrrrr" minDur="5" maxDur="50"/>
+        <phase duration="3"  state="yyyrrrrrrr"/>
         <phase duration="37" state="rrrGGgGrrr" minDur="5" maxDur="50"/>
         <phase duration="3"  state="rrryyyyrrr"/>
         <param key="show-detectors" value="true"/>

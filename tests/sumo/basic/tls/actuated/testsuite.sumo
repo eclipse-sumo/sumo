@@ -24,3 +24,9 @@ partialy_green_lane_uncontrollable
 
 # joined traffic light with detectors on sequential lanes. prevent jamming (#5187)
 joined_sequential
+
+# links with green minor should not be used for actuation
+green_minor_uncontrolled
+
+# links with green minor should not be used for actuation (even if there is no dedicated green phase)
+green_minor_uncontrolled2
