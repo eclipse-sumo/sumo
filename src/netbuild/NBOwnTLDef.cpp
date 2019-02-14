@@ -339,6 +339,9 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
 #endif
         // correct behaviour for those that are not in chosen, but may drive, though
         state = allowCompatible(state, fromEdges, toEdges, fromLanes, toLanes);
+        if (groupOpposites || chosen.first->getToNode()->getType() == NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED) {
+            state = allowUnrelated(state, fromEdges, toEdges, isTurnaround, crossings);
+        }
 #ifdef DEBUG_PHASES
     if (DEBUGCOND) {
         std::cout << " state after finding additional 'G's=" << state << "\n";
@@ -767,6 +770,29 @@ NBOwnTLDef::allowPredecessors(std::string state, const EdgeVector& fromEdges, co
                 state[i1] = 'G';
                 check = true;
             }
+        }
+    }
+    return state;
+}
+
+std::string 
+NBOwnTLDef::allowUnrelated(std::string state, const EdgeVector& fromEdges, const EdgeVector& toEdges, 
+        const std::vector<bool>& isTurnaround,
+        const std::vector<NBNode::Crossing*>& crossings) {
+    for (int i1 = 0; i1 < (int)fromEdges.size(); ++i1) {
+        if (state[i1] == 'G') {
+            continue;
+        }
+        bool isForbidden = false;
+        for (int i2 = 0; i2 < (int)fromEdges.size(); ++i2) {
+            if (state[i2] == 'G' && !isTurnaround[i2] &&
+                    (forbids(fromEdges[i2], toEdges[i2], fromEdges[i1], toEdges[i1], true) || forbids(fromEdges[i1], toEdges[i1], fromEdges[i2], toEdges[i2], true))) {
+                isForbidden = true;
+                break;
+            }
+        }
+        if (!isForbidden && !hasCrossing(fromEdges[i1], toEdges[i1], crossings)) {
+            state[i1] = 'G';
         }
     }
     return state;
