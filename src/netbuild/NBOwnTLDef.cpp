@@ -38,9 +38,11 @@
 #include <utils/options/Option.h>
 
 #define MIN_GREEN_TIME 5
-
+ 
 //#define DEBUG_STREAM_ORDERING
-#define DEBUGCOND true
+//#define DEBUG_PHASES
+//#define DEBUGCOND true
+#define DEBUGCOND (getID() == "joinedS_0")
 
 // ===========================================================================
 // member method definitions
@@ -296,7 +298,11 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
         }
         int pos = 0;
         std::string state((int) noLinksAll, 'r');
-        //std::cout << " computing " << getID() << " prog=" << getProgramID() << " cho1=" << Named::getIDSecure(chosen.first) << " cho2=" << Named::getIDSecure(chosen.second) << " toProc=" << toString(toProc) << " bentPrio=" << chosen.first->getToNode()->isBentPriority() << "\n";
+#ifdef DEBUG_PHASES
+    if (DEBUGCOND) {
+        std::cout << " computing " << getID() << " prog=" << getProgramID() << " cho1=" << Named::getIDSecure(chosen.first) << " cho2=" << Named::getIDSecure(chosen.second) << " toProc=" << toString(toProc) << " bentPrio=" << chosen.first->getToNode()->isBentPriority() << "\n";
+    }
+#endif
         // plain straight movers
         double maxSpeed = 0;
         for (int i1 = 0; i1 < (int) incoming.size(); ++i1) {
@@ -323,7 +329,11 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
         const double minDurBySpeed = maxSpeed * 3.6 / 6 - 3.3;
         const SUMOTime minDur = MAX2(minMinDur, TIME2STEPS(floor(minDurBySpeed + 0.5)));
 
-        //std::cout << " state after plain straight movers=" << state << "\n";
+#ifdef DEBUG_PHASES
+    if (DEBUGCOND) {
+        std::cout << " state after plain straight movers=" << state << "\n";
+    }
+#endif
         // correct behaviour for those that are not in chosen, but may drive, though
         state = allowFollowersOfChosen(state, fromEdges, toEdges, fromLanes, toLanes);
         if (groupOpposites || chosen.first->getToNode()->getType() == NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED) {
@@ -343,7 +353,11 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
                 }
             }
         }
-        //std::cout << " state after finding additional 'G's=" << state << "\n";
+#ifdef DEBUG_PHASES
+    if (DEBUGCOND) {
+        std::cout << " state after finding additional 'G's=" << state << "\n";
+    }
+#endif
         // correct behaviour for those that have to wait (mainly left-mover)
         bool haveForbiddenLeftMover = false;
         std::vector<bool> rightTurnConflicts(pos, false);
@@ -353,7 +367,11 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
                 hadGreenMajor[i1] = true;
             }
         }
-        //std::cout << " state after correcting left movers=" << state << "\n";
+#ifdef DEBUG_PHASES
+    if (DEBUGCOND) {
+        std::cout << " state after correcting left movers=" << state << "\n";
+    }
+#endif
 
         std::vector<bool> leftGreen(pos, false);
         // check whether at least one left-turn lane exist
@@ -383,11 +401,15 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
             }
         }
 
-        //std::cout << getID() << " state=" << state << " buildLeft=" << buildLeftGreenPhase << " hFLM=" << haveForbiddenLeftMover << " turnLane=" << foundLeftTurnLane 
-        //    << "   \nrtC=" << toString(rightTurnConflicts) 
-        //    << "   \nhTL=" << toString(hasTurnLane)
-        //    << "   \nlGr=" << toString(leftGreen)
-        //    << "\n";
+#ifdef DEBUG_PHASES
+    if (DEBUGCOND) {
+        std::cout << getID() << " state=" << state << " buildLeft=" << buildLeftGreenPhase << " hFLM=" << haveForbiddenLeftMover << " turnLane=" << foundLeftTurnLane 
+            << "   \nrtC=" << toString(rightTurnConflicts) 
+            << "   \nhTL=" << toString(hasTurnLane)
+            << "   \nlGr=" << toString(leftGreen)
+            << "\n";
+    }
+#endif
 
         const std::string vehicleState = state; // backup state before pedestrian modifications
         greenPhases.push_back((int)logic->getPhases().size());
