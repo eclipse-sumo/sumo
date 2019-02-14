@@ -52,6 +52,9 @@ bike_lane_starts
 # special case a)
 case_a_with_sidewalk
 
+# consider permissions when computing turn-around
+tram_turnaround
+
 # complete 4-arm intersection, real world example (Berlin)
 4arm_rw1
 
