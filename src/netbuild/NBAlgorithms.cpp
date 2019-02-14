@@ -64,6 +64,11 @@ NBTurningDirectionsComputer::computeTurnDirectionsForNode(NBNode* node, bool war
         NBEdge* outedge = *j;
         for (std::vector<NBEdge*>::const_iterator k = incoming.begin(); k != incoming.end(); ++k) {
             NBEdge* e = *k;
+            if ((outedge->getPermissions() & e->getPermissions() & ~SVC_PEDESTRIAN) == 0
+                    && outedge->getPermissions() != SVC_PEDESTRIAN
+                    && e->getPermissions() != SVC_PEDESTRIAN) {
+                continue;
+            }
             // @todo: check whether NBHelpers::relAngle is properly defined and whether it should really be used, here
             const double signedAngle = NBHelpers::normRelAngle(e->getAngleAtNode(node), outedge->getAngleAtNode(node));
             if (signedAngle > 0 && signedAngle < 177 && e->getGeometry().back().distanceTo2D(outedge->getGeometry().front()) < POSITION_EPS) {
