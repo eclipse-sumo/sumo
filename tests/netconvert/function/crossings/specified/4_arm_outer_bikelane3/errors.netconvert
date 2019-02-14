@@ -1,8 +1,3 @@
-Warning: Ambiguity in turnarounds computation at junction 'C'.
-Warning: Ambiguity in turnarounds computation at junction 'E'.
-Warning: Ambiguity in turnarounds computation at junction 'N'.
-Warning: Ambiguity in turnarounds computation at junction 'S'.
-Warning: Ambiguity in turnarounds computation at junction 'W'.
 Warning: Edge 'CE' is not connected to outgoing edges at junction 'E'.
 Warning: Edge 'CEb' is not connected to outgoing edges at junction 'E'.
 Warning: Edge 'CN' is not connected to outgoing edges at junction 'N'.
