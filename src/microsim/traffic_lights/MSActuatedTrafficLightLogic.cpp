@@ -42,7 +42,7 @@
 #include <utils/common/StringUtils.h>
 
 //#define DEBUG_DETECTORS
-//#define DEBUG_COND (getID()=="disabled")
+#define DEBUG_COND (getID()=="joinedS_0")
 
 // ===========================================================================
 // parameter defaults definitions
@@ -158,11 +158,14 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
     //              check1a : the minor link is minor in all phases
     //              check1b : there is another major link from the same lane in the current phase
     //            (Under these conditions we assume that the minor link is unimportant and traffic is mostly for the major link)
+    //
+    //              check1c: when the lane has only one edge, we treat greenMinor as green as there would be no actuation otherwise
     //             
     //  check2: if there are two loops on subsequent lanes (joined tls) and the second one has a red link, the first loop may not be used
 
     // also assign loops to link index for validation:
     // check if all links from actuated phases (minDur != maxDur) have an inductionloop in at least one phase
+    const SVCPermissions motorized = ~(SVC_PEDESTRIAN | SVC_BICYCLE);
     std::map<int, std::set<MSInductLoop*> > linkToLoops;
     std::set<int> actuatedLinks;
 
@@ -175,6 +178,24 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
             }
         }
     }
+    std::vector<bool> oneLane(numLinks, false);
+    for (int i = 0; i < numLinks; i++)  {
+        for (MSLane* lane : getLanesAt(i)) {
+            // only count motorized vehicle lanes
+            int numMotorized = 0;
+            for (MSLane* l : lane->getEdge().getLanes()) {
+                if ((l->getPermissions() & motorized) != 0) {
+                    numMotorized++;
+                }
+            }
+            if (numMotorized == 1) {
+                oneLane[i] = true;
+                break;
+            }
+        }
+    }
+
+
     for (const MSPhaseDefinition* phase : myPhases) {
         std::set<MSInductLoop*> loops;
         if (phase->minDuration != phase->maxDuration) {
@@ -184,15 +205,20 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
             std::set<int> greenLinks;
             // collect green links for each induction loops (in this phase)
             std::map<MSInductLoop*, std::set<int> > loopLinks;
+
             for (int i = 0; i < (int)state.size(); i++)  {
                 if (state[i] == LINKSTATE_TL_GREEN_MAJOR 
                         || (state[i] == LINKSTATE_TL_GREEN_MINOR 
-                            && neverMajor[i]  // check1a
-                            && hasMajor(state, getLanesAt(i))) // check1b
-                        ) {
+                            && ((neverMajor[i]  // check1a
+                                    && hasMajor(state, getLanesAt(i))) // check1b
+                                || oneLane[i])) // check1c
+                   ) {
                     greenLinks.insert(i);
                     actuatedLinks.insert(i);
                 }
+#ifdef DEBUG_DETECTORS
+                //if (DEBUG_COND) std::cout << " phase=" << myInductLoopsForPhase.size() << " i=" << i << " state=" << state[i] << " green=" << greenLinks.count(i) << "\n";
+#endif
                 for (MSLane* lane: getLanesAt(i)) {
                     if (laneInductLoopMap.count(lane) != 0) {
                         loopLinks[laneInductLoopMap[lane]].insert(i);
@@ -205,6 +231,9 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
                 for (int j : item.second) {
                     if (greenLinks.count(j) == 0) {
                         usable = false;
+#ifdef DEBUG_DETECTORS
+                        if (DEBUG_COND) std::cout << " phase=" << myInductLoopsForPhase.size() << " check1: loopLane=" << item.first->getLane()->getID() << " notGreen=" << j << " oneLane[j]=" << oneLane[j] << "\n";
+#endif
                         break;
                     }
                 }
@@ -218,6 +247,10 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
                             for (int j : loopLinks[nextLoop]) {
                                 if (greenLinks.count(j) == 0) {
                                     usable = false;
+#ifdef DEBUG_DETECTORS
+                                    if (DEBUG_COND) std::cout << " phase=" << myInductLoopsForPhase.size() << " check2: loopLane=" << item.first->getLane()->getID() 
+                                        << " nextLane=" << next->getID() << " nextLink=" << j << " nextState=" << state[j] << "\n";
+#endif
                                     break;
                                 }
                             }
@@ -242,7 +275,8 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
         myInductLoopsForPhase.push_back(std::vector<MSInductLoop*>(loops.begin(), loops.end()));
     }
     for (int i : actuatedLinks) {
-        if (linkToLoops[i].size() == 0 && myLinks[i].size() > 0 && myLinks[i].front()->getViaLaneOrLane()->getPermissions() != SVC_PEDESTRIAN) {
+        if (linkToLoops[i].size() == 0 && myLinks[i].size() > 0 
+                && (myLinks[i].front()->getLaneBefore()->getPermissions() & motorized) != 0) {
             WRITE_WARNING("At actuated tlLogic '" + getID() + "', linkIndex " + toString(i) + " has no controlling detector");
         }
     }
