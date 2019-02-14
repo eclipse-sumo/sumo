@@ -271,7 +271,10 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
     const SUMOTime greenTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.green.time"));
     const SUMOTime allRedTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.allred.time"));
     const double minorLeftSpeedThreshold = OptionsCont::getOptions().getFloat("tls.minor-left.max-speed");
-    const double groupOpposites = OptionsCont::getOptions().getString("tls.layout") == "opposites";
+    const double groupOpposites = (OptionsCont::getOptions().getString("tls.layout") == "opposites" 
+            //&& myControlledNodes.size() == 1 // simplified layout for joined tls
+            );
+
     // build all phases
     std::vector<int> greenPhases; // indices of green phases
     std::vector<bool> hadGreenMajor(noLinksAll, false);
@@ -336,23 +339,6 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
 #endif
         // correct behaviour for those that are not in chosen, but may drive, though
         state = allowCompatible(state, fromEdges, toEdges, fromLanes, toLanes);
-        if (groupOpposites || chosen.first->getToNode()->getType() == NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED) {
-            for (int i1 = 0; i1 < pos; ++i1) {
-                if (state[i1] == 'G') {
-                    continue;
-                }
-                bool isForbidden = false;
-                for (int i2 = 0; i2 < pos && !isForbidden; ++i2) {
-                    if (state[i2] == 'G' && !isTurnaround[i2] &&
-                            (forbids(fromEdges[i2], toEdges[i2], fromEdges[i1], toEdges[i1], true) || forbids(fromEdges[i1], toEdges[i1], fromEdges[i2], toEdges[i2], true))) {
-                        isForbidden = true;
-                    }
-                }
-                if (!isForbidden && !hasCrossing(fromEdges[i1], toEdges[i1], crossings)) {
-                    state[i1] = 'G';
-                }
-            }
-        }
 #ifdef DEBUG_PHASES
     if (DEBUGCOND) {
         std::cout << " state after finding additional 'G's=" << state << "\n";
