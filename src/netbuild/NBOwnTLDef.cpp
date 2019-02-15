@@ -346,6 +346,16 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
                 }
             } else {
                 chosen = getBestPair(toProc);
+                if (chosen.second == nullptr && chosen.first->getPermissions() == SVC_TRAM) {
+                    groupTram = true;
+                    for (auto it = toProc.begin(); it != toProc.end();) {
+                        if ((*it)->getPermissions() == SVC_TRAM) {
+                            it = toProc.erase(it);
+                        } else {
+                            it++;
+                        }
+                    }
+                }
             }
         } else {
             NBEdge* chosenEdge = toProc[0];
@@ -453,7 +463,8 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
                 foundLeftTurnLane = true;
             }
         }
-        const bool buildLeftGreenPhase = haveForbiddenLeftMover && !myHaveSinglePhase && leftTurnTime > 0 && foundLeftTurnLane && groupOpposites;
+        const bool buildLeftGreenPhase = (haveForbiddenLeftMover && !myHaveSinglePhase && leftTurnTime > 0 && foundLeftTurnLane 
+                && groupOpposites && !groupTram && !groupOther);
 
         // find indices for exclusive left green phase and apply option minor-left.max-speed
         for (int i1 = 0; i1 < pos; ++i1) {
