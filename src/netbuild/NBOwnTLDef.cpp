@@ -42,7 +42,7 @@
 //#define DEBUG_STREAM_ORDERING
 //#define DEBUG_PHASES
 //#define DEBUGCOND true
-#define DEBUGCOND (getID() == "joinedS_0")
+#define DEBUGCOND (getID() == "joinedS_12")
 
 // ===========================================================================
 // member method definitions
@@ -279,6 +279,8 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
     std::vector<int> greenPhases; // indices of green phases
     std::vector<bool> hadGreenMajor(noLinksAll, false);
     while (toProc.size() > 0) {
+        bool groupTram = false;
+        bool groupOther = false;
         std::pair<NBEdge*, NBEdge*> chosen;
         if (groupOpposites) {
             if (incoming.size() == 2) {
@@ -296,8 +298,25 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
                 chosen = getBestPair(toProc);
             }
         } else {
-            chosen = std::pair<NBEdge*, NBEdge*>(toProc[0], static_cast<NBEdge*>(nullptr));
+            NBEdge* chosenEdge = toProc[0];
+            chosen = std::pair<NBEdge*, NBEdge*>(chosenEdge, static_cast<NBEdge*>(nullptr));
             toProc.erase(toProc.begin());
+            SVCPermissions perms = chosenEdge->getPermissions();
+            if (perms == SVC_TRAM) {
+                groupTram = true;
+            } else if ((perms & ~(SVC_PEDESTRIAN | SVC_BICYCLE | SVC_DELIVERY)) == 0) {
+                groupOther = true;
+            }
+            // group all edges with the same permissions into a single phase (later)
+            if (groupTram || groupOther) {
+                for (auto it = toProc.begin(); it != toProc.end();) {
+                    if ((*it)->getPermissions() == perms) {
+                        it = toProc.erase(it);
+                    } else {
+                        it++;
+                    }
+                }
+            }
         }
         int pos = 0;
         std::string state((int) noLinksAll, 'r');
@@ -334,17 +353,27 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
 
 #ifdef DEBUG_PHASES
     if (DEBUGCOND) {
-        std::cout << " state after plain straight movers=" << state << "\n";
+        std::cout << " state after plain straight movers " << state << "\n";
     }
 #endif
         // correct behaviour for those that are not in chosen, but may drive, though
         state = allowCompatible(state, fromEdges, toEdges, fromLanes, toLanes);
+        if (groupTram) {
+            state = allowByVClass(state, fromEdges, toEdges, SVC_TRAM);
+        } else if (groupOther) {
+            state = allowByVClass(state, fromEdges, toEdges, SVC_PEDESTRIAN | SVC_BICYCLE | SVC_DELIVERY);
+        }
+#ifdef DEBUG_PHASES
+    if (DEBUGCOND) {
+        std::cout << " state after grouping by vClass " << state << "\n";
+    }
+#endif
         if (groupOpposites || chosen.first->getToNode()->getType() == NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED) {
             state = allowUnrelated(state, fromEdges, toEdges, isTurnaround, crossings);
         }
 #ifdef DEBUG_PHASES
     if (DEBUGCOND) {
-        std::cout << " state after finding additional 'G's=" << state << "\n";
+        std::cout << " state after finding allowUnrelated " << state << "\n";
     }
 #endif
         // correct behaviour for those that have to wait (mainly left-mover)
@@ -797,6 +826,19 @@ NBOwnTLDef::allowUnrelated(std::string state, const EdgeVector& fromEdges, const
     }
     return state;
 }
+
+
+std::string 
+NBOwnTLDef::allowByVClass(std::string state, const EdgeVector& fromEdges, const EdgeVector& toEdges, SVCPermissions perm) {
+    for (int i1 = 0; i1 < (int)fromEdges.size(); ++i1) {
+        SVCPermissions linkPerm = (fromEdges[i1]->getPermissions() & toEdges[i1]->getPermissions());
+        if ((linkPerm & ~perm) == 0) {
+            state[i1] = 'G';
+        }
+    }
+    return state;
+}
+
 
 bool 
 NBOwnTLDef::forbidden(const std::string& state, int index, const EdgeVector& fromEdges, const EdgeVector& toEdges) {

@@ -230,6 +230,8 @@ protected:
             const std::vector<bool>& isTurnaround,
             const std::vector<NBNode::Crossing*>& crossings);
 
+    std::string allowByVClass(std::string state, const EdgeVector& fromEdges, const EdgeVector& toEdges, SVCPermissions perm);
+
     /// @brief whether the given index is forbidden by a green link in the current state
     bool forbidden(const std::string& state, int index, const EdgeVector& fromEdges, const EdgeVector& toEdges);
 
