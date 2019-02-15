@@ -505,10 +505,10 @@ Warning: busStop '3869306762' on lane '111251382#2_1' is too short for vehicle '
 Warning: busStop '2071423352' on lane '295250361_0' is too short for vehicle 'pt_subway_U6:0.0'.
 Warning: Teleporting vehicle 'veh117'; waited too long (wrong lane), lane='202157002#3_3', time=890.00.
 Warning: Vehicle 'veh117' ends teleporting on edge '24913519#1', time 890.00.
-Warning: Teleporting vehicle 'veh138'; waited too long (wrong lane), lane='202157002#3_3', time=1221.00.
-Warning: Vehicle 'veh138' ends teleporting on edge '24913519#1', time 1221.00.
-Warning: Teleporting vehicle 'veh176'; waited too long (jam), lane='202157002#2_3', time=1224.00.
-Warning: Vehicle 'veh176' ends teleporting on edge '202157002#3', time 1224.00.
+Warning: Teleporting vehicle 'veh138'; waited too long (wrong lane), lane='202157002#3_3', time=1217.00.
+Warning: Vehicle 'veh138' ends teleporting on edge '24913519#1', time 1217.00.
+Warning: Teleporting vehicle 'veh176'; waited too long (jam), lane='202157002#2_3', time=1221.00.
+Warning: Vehicle 'veh176' ends teleporting on edge '202157002#3', time 1221.00.
 Warning: Person 'ped26' aborted waiting for M5:1 at busStop '30731481'.
-Warning: Person 'ped126' aborted waiting for 147:3 at busStop '3869306764'.
+Warning: Person 'ped69' aborted waiting for M4:1 at busStop '1633759766'.
 Warning: Person 'ped178' aborted waiting for 248:0 at busStop '3867910417'.
