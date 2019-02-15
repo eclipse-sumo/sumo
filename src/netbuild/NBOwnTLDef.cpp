@@ -42,7 +42,7 @@
 //#define DEBUG_STREAM_ORDERING
 //#define DEBUG_PHASES
 //#define DEBUGCOND true
-#define DEBUGCOND (getID() == "joinedS_12")
+#define DEBUGCOND (getID() == "cluster_251050941_280598736_280598739_28902891_3142549227_3142550438")
 
 // ===========================================================================
 // member method definitions
@@ -349,7 +349,11 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
         }
         // 5s at 50km/h, 10s at 80km/h, rounded to full seconds
         const double minDurBySpeed = maxSpeed * 3.6 / 6 - 3.3;
-        const SUMOTime minDur = MAX2(minMinDur, TIME2STEPS(floor(minDurBySpeed + 0.5)));
+        SUMOTime minDur = MAX2(minMinDur, TIME2STEPS(floor(minDurBySpeed + 0.5)));
+        if (chosen.first->getPermissions() == SVC_TRAM && (chosen.second == nullptr || chosen.second->getPermissions() == SVC_TRAM)) {
+            // one tram per actuated phase 
+            minDur = TIME2STEPS(1);
+        }
 
 #ifdef DEBUG_PHASES
     if (DEBUGCOND) {
