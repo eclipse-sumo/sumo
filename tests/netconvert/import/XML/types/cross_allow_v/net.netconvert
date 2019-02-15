@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Feb 12 10:49:10 2019 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Fri Feb 15 13:34:26 2019 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -171,24 +171,24 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <tlLogic id="0" type="static" programID="0" offset="0">
-        <phase duration="33" state="GGgrrrGggrrr"/>
-        <phase duration="3"  state="yygrrryggrrr"/>
-        <phase duration="6"  state="rrGrrrrGGrrr"/>
-        <phase duration="3"  state="rryrrrryyrrr"/>
-        <phase duration="33" state="rrrGggrrrGGg"/>
+        <phase duration="24" state="GGGrrrrrrrrr"/>
+        <phase duration="3"  state="yyyrrrrrrrrr"/>
+        <phase duration="24" state="rrrGggrrrGGg"/>
         <phase duration="3"  state="rrryggrrryyy"/>
         <phase duration="6"  state="rrrGGGrrrrrr"/>
         <phase duration="3"  state="rrryyyrrrrrr"/>
+        <phase duration="24" state="rrrrrrGGgGrr"/>
+        <phase duration="3"  state="rrrrrryyyyrr"/>
     </tlLogic>
 
     <junction id="0" type="traffic_light" x="500.00" y="500.00" incLanes="4si_0 4si_1 4si_2 2si_0 2si_1 2si_2 3si_0 3si_1 3si_2 1si_0 1si_1 1si_2" intLanes=":0_0_0 :0_1_0 :0_12_0 :0_3_0 :0_13_0 :0_14_0 :0_6_0 :0_15_0 :0_16_0 :0_9_0 :0_10_0 :0_17_0" shape="490.40,511.10 500.00,511.10 501.23,510.27 502.77,509.98 504.93,509.77 507.71,509.64 511.10,509.60 511.10,496.80 510.27,495.92 509.98,494.82 509.77,493.29 509.64,491.31 509.60,488.90 496.80,488.90 495.92,489.73 494.82,490.02 493.29,490.23 491.31,490.36 488.90,490.40 488.90,503.20 489.73,504.08 490.02,505.18 490.23,506.71 490.36,508.69">
-        <request index="0"  response="000000000000" foes="100010001000" cont="0"/>
-        <request index="1"  response="000000010000" foes="011110011000" cont="0"/>
+        <request index="0"  response="000010000000" foes="100010001000" cont="0"/>
+        <request index="1"  response="000010010000" foes="011110011000" cont="0"/>
         <request index="2"  response="000001010000" foes="010001111000" cont="1"/>
         <request index="3"  response="000010000111" foes="100010000111" cont="0"/>
         <request index="4"  response="011010000110" foes="011110000110" cont="1"/>
         <request index="5"  response="010001000100" foes="010001000100" cont="1"/>
-        <request index="6"  response="000000000000" foes="010000100100" cont="0"/>
+        <request index="6"  response="000000000100" foes="010000100100" cont="0"/>
         <request index="7"  response="000000010011" foes="110000011011" cont="1"/>
         <request index="8"  response="001000010010" foes="001000010010" cont="1"/>
         <request index="9"  response="000000000010" foes="000100010010" cont="0"/>
@@ -226,10 +226,10 @@ SPDX-License-Identifier: EPL-2.0
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
 
-    <junction id=":0_12_0" type="internal" x="501.57" y="501.58" incLanes=":0_2_0 3si_0" intLanes=":0_3_0 :0_4_0 :0_5_0 :0_6_0 :0_7_0 :0_10_0"/>
+    <junction id=":0_12_0" type="internal" x="501.57" y="501.58" incLanes=":0_2_0" intLanes=":0_3_0 :0_4_0 :0_5_0 :0_6_0 :0_7_0 :0_10_0"/>
     <junction id=":0_13_0" type="internal" x="501.10" y="499.83" incLanes=":0_4_0 1si_0 1si_1" intLanes=":0_1_0 :0_2_0 :0_7_0 :0_8_0 :0_9_0 :0_10_0"/>
     <junction id=":0_14_0" type="internal" x="509.50" y="500.00" incLanes=":0_5_0 1si_1 3si_0 4si_2" intLanes=":0_2_0 :0_6_0 :0_10_0"/>
-    <junction id=":0_15_0" type="internal" x="501.01" y="498.19" incLanes=":0_7_0 4si_0 4si_1 :0_2_0" intLanes=":0_12_0 :0_0_0 :0_1_0 :0_2_0 :0_3_0 :0_4_0 :0_10_0 :0_11_0"/>
+    <junction id=":0_15_0" type="internal" x="501.01" y="498.19" incLanes=":0_7_0 :0_2_0" intLanes=":0_12_0 :0_0_0 :0_1_0 :0_2_0 :0_3_0 :0_4_0 :0_10_0 :0_11_0"/>
     <junction id=":0_16_0" type="internal" x="500.00" y="490.50" incLanes=":0_8_0 1si_0 2si_1 4si_1" intLanes=":0_1_0 :0_4_0 :0_9_0"/>
     <junction id=":0_17_0" type="internal" x="490.50" y="500.00" incLanes=":0_11_0 2si_0 3si_1 4si_0" intLanes=":0_0_0 :0_3_0 :0_7_0"/>
 

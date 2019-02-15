@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:27:45 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Fri Feb 15 12:50:59 2019 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -117,16 +117,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":F_17_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.89" length="42.69" shape="157.58,66.36 162.60,60.98 171.20,52.46 180.48,43.30 187.55,35.96"/>
     </edge>
     <edge id=":F_18" function="internal">
-        <lane id=":F_18_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.34" length="29.51" shape="157.58,66.36 167.94,54.58 177.39,48.05 179.70,47.71"/>
+        <lane id=":F_18_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.34" length="44.44" shape="157.58,66.36 167.94,54.58 177.39,48.05 185.95,46.78 193.60,50.76"/>
     </edge>
     <edge id=":F_19" function="internal">
         <lane id=":F_19_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="4.30" length="2.66" shape="157.58,66.36 159.74,67.91"/>
     </edge>
     <edge id=":F_30" function="internal">
-        <lane id=":F_30_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.34" length="14.94" shape="179.70,47.71 185.95,46.78 193.60,50.76"/>
-    </edge>
-    <edge id=":F_31" function="internal">
-        <lane id=":F_31_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="4.30" length="4.69" shape="159.74,67.91 163.55,70.64"/>
+        <lane id=":F_30_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="4.30" length="4.69" shape="159.74,67.91 163.55,70.64"/>
     </edge>
     <edge id=":F_20" function="internal">
         <lane id=":F_20_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.89" length="46.11" shape="153.79,76.76 161.27,64.41 164.29,53.34 162.87,43.57 157.00,35.08"/>
@@ -140,11 +137,11 @@ SPDX-License-Identifier: EPL-2.0
     <edge id=":F_23" function="internal">
         <lane id=":F_23_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="6.05" length="10.75" shape="153.79,76.76 153.94,71.57 155.62,68.82 157.95,68.60"/>
     </edge>
-    <edge id=":F_32" function="internal">
-        <lane id=":F_32_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.89" length="40.26" shape="159.96,70.04 161.50,68.36 173.18,58.22 185.11,50.84 193.60,50.76"/>
+    <edge id=":F_31" function="internal">
+        <lane id=":F_31_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.89" length="40.26" shape="159.96,70.04 161.50,68.36 173.18,58.22 185.11,50.84 193.60,50.76"/>
     </edge>
-    <edge id=":F_33" function="internal">
-        <lane id=":F_33_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="6.05" length="6.06" shape="157.95,68.60 158.82,68.51 163.55,70.64"/>
+    <edge id=":F_32" function="internal">
+        <lane id=":F_32_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="6.05" length="6.06" shape="157.95,68.60 158.82,68.51 163.55,70.64"/>
     </edge>
     <edge id=":F1_0" function="internal">
         <lane id=":F1_0_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.89" length="2.06" shape="148.16,79.60 148.46,79.07 148.59,78.67 148.73,78.27 149.04,77.75"/>
@@ -219,14 +216,14 @@ SPDX-License-Identifier: EPL-2.0
     <tlLogic id="F" type="static" programID="0" offset="0">
         <phase duration="15" state="GGrGgGrrrrGrrrGGrrrrrrrr"/>
         <phase duration="3"  state="yyryyyrrrryrrryyrrrrrrrr"/>
-        <phase duration="18" state="rrrrrGGGggrrrrrrGGggrrrr"/>
-        <phase duration="3"  state="rrrrryyyyyrrrrrryyyyrrrr"/>
+        <phase duration="18" state="rrrrrGGGggrrrrrrrrrrGGgg"/>
+        <phase duration="3"  state="rrrrryyyyyrrrrrrrrrryyyy"/>
         <phase duration="18" state="GGGggrrrrrrGGggrrrrrrrrr"/>
         <phase duration="3"  state="yyyggrrrrrryyggrrrrrrrrr"/>
         <phase duration="6"  state="rrrGGrrrrrrrrGGrrrrrrrrr"/>
         <phase duration="3"  state="rrryyrrrrrrrryyrrrrrrrrr"/>
-        <phase duration="18" state="GGrrrrrrrrrrrrrrrrrrGGGg"/>
-        <phase duration="3"  state="yyrrrrrrrrrrrrrrrrrryyyy"/>
+        <phase duration="18" state="rrrrrrrrrrrrrrrrGGGGrrrr"/>
+        <phase duration="3"  state="rrrrrrrrrrrrrrrryyyyrrrr"/>
     </tlLogic>
 
     <junction id="1917221202" type="priority" x="0.00" y="295.99" incLanes="F_N_0_0" intLanes=":1917221202_0_0" shape="1.34,296.87 -1.34,295.11 1.34,296.87 -1.34,295.11" rightOfWay="edgePriority">
@@ -241,15 +238,15 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="E" type="priority" x="124.83" y="120.92" incLanes="E_N_0_0 E_N_0_1 E_N_0_2" intLanes=":E_0_0" shape="124.83,120.92 119.60,117.23 130.76,125.23" rightOfWay="edgePriority">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="F" type="traffic_light" x="170.15" y="41.50" incLanes="F_K2_0_0 F_K2_0_1 F_K3_0_0 F_K3_0_1 F_K3_0_2 F_K3_0_3 249043170#2_0 F_K5_0_0 F_K5_0_1 F_K5_0_2 gneE32_0 gneE34_0 F_S1_0_0 F_K1_0_0 F_K1L_0_0" intLanes=":F_0_0 :F_1_0 :F_2_0 :F_24_0 :F_25_0 :F_5_0 :F_6_0 :F_6_1 :F_26_0 :F_27_0 :F_10_0 :F_11_0 :F_12_0 :F_28_0 :F_29_0 :F_15_0 :F_16_0 :F_17_0 :F_30_0 :F_31_0 :F_20_0 :F_21_0 :F_32_0 :F_33_0" shape="188.20,57.01 195.16,48.95 196.46,47.56 196.80,46.02 197.10,44.13 184.37,33.24 178.40,33.59 172.50,32.23 169.27,30.77 168.80,31.42 163.94,27.28 154.57,37.81 160.09,43.25 160.69,45.40 160.54,48.01 159.63,51.08 157.98,54.62 152.71,62.95 155.39,64.81 159.19,67.50 152.75,76.02 155.29,77.81 161.58,69.21 168.23,74.04 173.79,66.50 176.58,62.88 178.92,60.98 181.79,58.60 184.77,57.26" customShape="1" rightOfWay="edgePriority">
+    <junction id="F" type="traffic_light" x="170.15" y="41.50" incLanes="F_K2_0_0 F_K2_0_1 F_K3_0_0 F_K3_0_1 F_K3_0_2 F_K3_0_3 249043170#2_0 F_K5_0_0 F_K5_0_1 F_K5_0_2 gneE32_0 gneE34_0 F_S1_0_0 F_K1_0_0 F_K1L_0_0" intLanes=":F_0_0 :F_1_0 :F_2_0 :F_24_0 :F_25_0 :F_5_0 :F_6_0 :F_6_1 :F_26_0 :F_27_0 :F_10_0 :F_11_0 :F_12_0 :F_28_0 :F_29_0 :F_15_0 :F_16_0 :F_17_0 :F_18_0 :F_30_0 :F_20_0 :F_21_0 :F_31_0 :F_32_0" shape="188.20,57.01 195.16,48.95 196.46,47.56 196.80,46.02 197.10,44.13 184.37,33.24 178.40,33.59 172.50,32.23 169.27,30.77 168.80,31.42 163.94,27.28 154.57,37.81 160.09,43.25 160.69,45.40 160.54,48.01 159.63,51.08 157.98,54.62 152.71,62.95 155.39,64.81 159.19,67.50 152.75,76.02 155.29,77.81 161.58,69.21 168.23,74.04 173.79,66.50 176.58,62.88 178.92,60.98 181.79,58.60 184.77,57.26" customShape="1" rightOfWay="edgePriority">
         <request index="0"  response="000000000000000001000000" foes="000000000000000001000000" cont="0"/>
         <request index="1"  response="000010000000000011000000" foes="100010000010000011000000" cont="0"/>
         <request index="2"  response="011101111000010111000000" foes="011101111110010111000000" cont="0"/>
         <request index="3"  response="011001100001100111000000" foes="011001100001101111000000" cont="1"/>
         <request index="4"  response="010001000001000000100000" foes="010001000001000000100000" cont="1"/>
-        <request index="5"  response="010000000000000000000000" foes="010001000001000000010000" cont="0"/>
-        <request index="6"  response="010000000000000000001000" foes="010001000001000000001111" cont="0"/>
-        <request index="7"  response="010000000010000000001000" foes="110011000011000000001110" cont="0"/>
+        <request index="5"  response="000000000000000000000000" foes="010001000001000000010000" cont="0"/>
+        <request index="6"  response="000000000000000000001000" foes="010001000001000000001111" cont="0"/>
+        <request index="7"  response="000010000010000000001000" foes="110011000011000000001110" cont="0"/>
         <request index="8"  response="001100111000010000000000" foes="001100111111010000001100" cont="1"/>
         <request index="9"  response="001000100000100000001000" foes="001000100000100000001000" cont="1"/>
         <request index="10" response="000000000010000100000000" foes="000100010011100100000100" cont="0"/>
@@ -258,12 +255,12 @@ SPDX-License-Identifier: EPL-2.0
         <request index="13" response="011011101000010110000110" foes="111011101000010110000110" cont="1"/>
         <request index="14" response="000100010000000100000100" foes="000100010000000100000100" cont="1"/>
         <request index="15" response="000000000010000100000000" foes="000100010011100100000100" cont="0"/>
-        <request index="16" response="000000001000010000000000" foes="000100001100010100000100" cont="0"/>
-        <request index="17" response="000000000010000000001000" foes="001100000011101100001100" cont="0"/>
-        <request index="18" response="011000000010000011101000" foes="011100000011000011111100" cont="1"/>
+        <request index="16" response="000000001000010100000000" foes="000100001100010100000100" cont="0"/>
+        <request index="17" response="000000000010000100001000" foes="001100000011101100001100" cont="0"/>
+        <request index="18" response="011000000010000011101000" foes="011100000011000011111100" cont="0"/>
         <request index="19" response="001000000000000010000000" foes="111100000010000010000010" cont="1"/>
-        <request index="20" response="000011111000010100000000" foes="000011111100010100000100" cont="0"/>
-        <request index="21" response="000011100010000100001000" foes="000011100011101100001100" cont="0"/>
+        <request index="20" response="000011111000010000000000" foes="000011111100010100000100" cont="0"/>
+        <request index="21" response="000010100010000000001000" foes="000011100011101100001100" cont="0"/>
         <request index="22" response="000011000000000011100000" foes="000011000011000011111100" cont="1"/>
         <request index="23" response="000010000010000010000010" foes="000010000010000010000010" cont="1"/>
     </junction>
@@ -280,14 +277,13 @@ SPDX-License-Identifier: EPL-2.0
 
     <junction id=":F_24_0" type="internal" x="190.68" y="52.39" incLanes=":F_3_0 F_K1L_0_0 F_K3_0_3 F_K5_0_1" intLanes=":F_6_0 :F_6_1 :F_8_0 :F_9_0 :F_11_0 :F_12_0 :F_17_0 :F_18_0 :F_21_0 :F_22_0"/>
     <junction id=":F_25_0" type="internal" x="191.21" y="52.38" incLanes=":F_4_0 F_K1L_0_0 F_K1_0_0 F_K3_0_2 F_K5_0_1" intLanes=":F_5_0 :F_12_0 :F_18_0 :F_22_0"/>
-    <junction id=":F_26_0" type="internal" x="187.11" y="39.88" incLanes=":F_8_0 F_K1_0_0" intLanes=":F_2_0 :F_3_0 :F_10_0 :F_12_0 :F_13_0 :F_14_0 :F_15_0 :F_16_0 :F_17_0 :F_20_0 :F_21_0"/>
+    <junction id=":F_26_0" type="internal" x="187.11" y="39.88" incLanes=":F_8_0 F_K1L_0_0" intLanes=":F_2_0 :F_3_0 :F_10_0 :F_12_0 :F_13_0 :F_14_0 :F_15_0 :F_16_0 :F_17_0 :F_20_0 :F_21_0"/>
     <junction id=":F_27_0" type="internal" x="187.91" y="38.51" incLanes=":F_9_0 F_K1L_0_0 F_K1_0_0 F_K2_0_1 F_K5_0_1" intLanes=":F_3_0 :F_11_0 :F_17_0 :F_21_0"/>
     <junction id=":F_28_0" type="internal" x="161.97" y="36.26" incLanes=":F_13_0 F_K1L_0_0 F_K1_0_0 F_K2_0_0 F_K2_0_1 F_K3_0_3" intLanes=":F_0_0 :F_1_0 :F_2_0 :F_6_0 :F_6_1 :F_8_0 :F_10_0 :F_15_0 :F_17_0 :F_18_0 :F_19_0 :F_21_0 :F_22_0 :F_23_0"/>
     <junction id=":F_29_0" type="internal" x="159.34" y="34.64" incLanes=":F_14_0 F_K1L_0_0 F_K1_0_0 F_K2_0_1 F_K3_0_3" intLanes=":F_2_0 :F_8_0 :F_16_0 :F_20_0"/>
-    <junction id=":F_30_0" type="internal" x="179.70" y="47.71" incLanes=":F_18_0 F_K3_0_2 F_K3_0_3" intLanes=":F_2_0 :F_3_0 :F_4_0 :F_5_0 :F_6_0 :F_6_1 :F_12_0 :F_13_0 :F_20_0 :F_21_0 :F_22_0"/>
-    <junction id=":F_31_0" type="internal" x="159.74" y="67.91" incLanes=":F_19_0 F_K3_0_2 F_K3_0_3" intLanes=":F_0_0 :F_1_0 :F_6_0 :F_6_1 :F_13_0 :F_20_0 :F_21_0 :F_22_0 :F_23_0"/>
-    <junction id=":F_32_0" type="internal" x="159.96" y="70.04" incLanes=":F_22_0 F_K1_0_0" intLanes=":F_2_0 :F_3_0 :F_4_0 :F_5_0 :F_6_0 :F_6_1 :F_12_0 :F_13_0 :F_18_0 :F_19_0"/>
-    <junction id=":F_33_0" type="internal" x="157.95" y="68.60" incLanes=":F_23_0 F_K1_0_0 F_K2_0_0 F_K2_0_1 F_K3_0_2 F_K3_0_3 F_K5_0_2" intLanes=":F_0_0 :F_1_0 :F_6_0 :F_6_1 :F_13_0 :F_19_0"/>
+    <junction id=":F_30_0" type="internal" x="159.74" y="67.91" incLanes=":F_19_0" intLanes=":F_0_0 :F_1_0 :F_6_0 :F_6_1 :F_13_0 :F_20_0 :F_21_0 :F_22_0 :F_23_0"/>
+    <junction id=":F_31_0" type="internal" x="159.96" y="70.04" incLanes=":F_22_0 F_K1_0_0 F_K3_0_2 F_K3_0_3" intLanes=":F_2_0 :F_3_0 :F_4_0 :F_5_0 :F_6_0 :F_6_1 :F_12_0 :F_13_0 :F_18_0 :F_19_0"/>
+    <junction id=":F_32_0" type="internal" x="157.95" y="68.60" incLanes=":F_23_0 F_K1_0_0 F_K2_0_0 F_K2_0_1 F_K3_0_2 F_K3_0_3 F_K5_0_2" intLanes=":F_0_0 :F_1_0 :F_6_0 :F_6_1 :F_13_0 :F_19_0"/>
 
     <connection from="-F_K2_0" to="F_K2_0" fromLane="0" toLane="1" via=":2075862255_0_0" dir="t" state="M"/>
     <connection from="-F_K3_0" to="F_K3_0" fromLane="1" toLane="3" via=":G_0_0" dir="t" state="M"/>
@@ -349,16 +345,15 @@ SPDX-License-Identifier: EPL-2.0
     <connection from=":F_15" to="181057005#0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":F_16" to="-F_K5_0" fromLane="0" toLane="1" dir="r" state="M"/>
     <connection from=":F_17" to="-F_K3_0" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":F_18" to="-F_K2_0" fromLane="0" toLane="0" via=":F_30_0" dir="L" state="m"/>
-    <connection from=":F_30" to="-F_K2_0" fromLane="0" toLane="0" dir="L" state="M"/>
-    <connection from=":F_19" to="E_N_0" fromLane="0" toLane="2" via=":F_31_0" dir="l" state="m"/>
-    <connection from=":F_31" to="E_N_0" fromLane="0" toLane="2" dir="l" state="M"/>
+    <connection from=":F_18" to="-F_K2_0" fromLane="0" toLane="0" dir="L" state="M"/>
+    <connection from=":F_19" to="E_N_0" fromLane="0" toLane="2" via=":F_30_0" dir="l" state="m"/>
+    <connection from=":F_30" to="E_N_0" fromLane="0" toLane="2" dir="l" state="M"/>
     <connection from=":F_20" to="-F_K5_0" fromLane="0" toLane="1" dir="r" state="M"/>
     <connection from=":F_21" to="-F_K3_0" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":F_22" to="-F_K2_0" fromLane="0" toLane="0" via=":F_32_0" dir="l" state="m"/>
-    <connection from=":F_32" to="-F_K2_0" fromLane="0" toLane="0" dir="l" state="M"/>
-    <connection from=":F_23" to="E_N_0" fromLane="0" toLane="2" via=":F_33_0" dir="t" state="m"/>
-    <connection from=":F_33" to="E_N_0" fromLane="0" toLane="2" dir="t" state="M"/>
+    <connection from=":F_22" to="-F_K2_0" fromLane="0" toLane="0" via=":F_31_0" dir="l" state="m"/>
+    <connection from=":F_31" to="-F_K2_0" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":F_23" to="E_N_0" fromLane="0" toLane="2" via=":F_32_0" dir="t" state="m"/>
+    <connection from=":F_32" to="E_N_0" fromLane="0" toLane="2" dir="t" state="M"/>
     <connection from=":F1_0" to="F_K1_0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":F1_1" to="F_K1L_0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":G_0" to="F_K3_0" fromLane="0" toLane="3" dir="t" state="M"/>

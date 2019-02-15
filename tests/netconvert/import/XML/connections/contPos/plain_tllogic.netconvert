@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Feb 12 11:03:51 2019 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Fri Feb 15 12:50:56 2019 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -29,13 +29,14 @@ SPDX-License-Identifier: EPL-2.0
 
 <tlLogics version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
     <tlLogic id="K048" type="static" programID="0" offset="0">
-        <phase duration="33" state="gGGGGrrrrG"/>
+        <phase duration="22" state="gGGGGrrrrG"/>
         <phase duration="5"  state="gGGGGrrrrr"/>
         <phase duration="3"  state="yyyyyrrrrr"/>
-        <phase duration="32" state="rrrrrGGgGr"/>
-        <phase duration="5"  state="rrrrrGGgrr"/>
-        <phase duration="3"  state="rrrrryygrr"/>
-        <phase duration="6"  state="rrrrrrGGrr"/>
+        <phase duration="22" state="rrrrrGrrGr"/>
+        <phase duration="5"  state="rrrrrGrrrr"/>
+        <phase duration="3"  state="rrrrryrrrr"/>
+        <phase duration="22" state="rrrrrrGgGr"/>
+        <phase duration="5"  state="rrrrrrGgrr"/>
         <phase duration="3"  state="rrrrrryyrr"/>
     </tlLogic>
 
