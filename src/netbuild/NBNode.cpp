@@ -2881,21 +2881,26 @@ NBNode::addWalkingAreaShape(EdgeVector edges, const PositionVector& shape) {
 
 bool
 NBNode::geometryLike() const {
-    if (myIncomingEdges.size() == 1 && myOutgoingEdges.size() == 1) {
+    return geometryLike(myIncomingEdges, myOutgoingEdges);
+}
+
+bool
+NBNode::geometryLike(const EdgeVector& incoming, const EdgeVector& outgoing) const {
+    if (incoming.size() == 1 && outgoing.size() == 1) {
         return true;
     }
-    if (myIncomingEdges.size() == 2 && myOutgoingEdges.size() == 2) {
+    if (incoming.size() == 2 && outgoing.size() == 2) {
         // check whether the incoming and outgoing edges are pairwise (near) parallel and
         // thus the only cross-connections could be turn-arounds
-        NBEdge* in0 = myIncomingEdges[0];
-        NBEdge* in1 = myIncomingEdges[1];
-        NBEdge* out0 = myOutgoingEdges[0];
-        NBEdge* out1 = myOutgoingEdges[1];
+        NBEdge* in0 = incoming[0];
+        NBEdge* in1 = incoming[1];
+        NBEdge* out0 = outgoing[0];
+        NBEdge* out1 = outgoing[1];
         if ((in0->isTurningDirectionAt(out0) || in0->isTurningDirectionAt(out1))
                 && (in1->isTurningDirectionAt(out0) || in1->isTurningDirectionAt(out1))) {
             return true;
         }
-        for (EdgeVector::const_iterator it = myIncomingEdges.begin(); it != myIncomingEdges.end(); ++it) {
+        for (EdgeVector::const_iterator it = incoming.begin(); it != incoming.end(); ++it) {
             NBEdge* inEdge = *it;
             double angle0 = fabs(NBHelpers::relAngle(inEdge->getAngleAtNode(this), out0->getAngleAtNode(this)));
             double angle1 = fabs(NBHelpers::relAngle(inEdge->getAngleAtNode(this), out1->getAngleAtNode(this)));
@@ -2908,7 +2913,6 @@ NBNode::geometryLike() const {
     }
     return false;
 }
-
 
 void
 NBNode::setRoundabout() {

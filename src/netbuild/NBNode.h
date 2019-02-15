@@ -627,6 +627,7 @@ public:
 
     /// @brief whether this is structurally similar to a geometry node
     bool geometryLike() const;
+    bool geometryLike(const EdgeVector& incoming, const EdgeVector& outgoing) const;
 
     /// @brief update the type of this node as a roundabout
     void setRoundabout();

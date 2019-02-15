@@ -341,6 +341,9 @@ private:
      * @return Whether this node cluster shall be controlled by a tls
      */
     bool shouldBeTLSControlled(const NodeSet& c, double laneSpeedThreshold) const;
+
+    /// @brief check wheter the set of nodes only contains pedestrian crossings
+    bool onlyCrossings(const NodeSet& c) const; 
     /// @}
 
 

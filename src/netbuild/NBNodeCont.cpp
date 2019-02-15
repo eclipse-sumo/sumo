@@ -1267,6 +1267,35 @@ NBNodeCont::shouldBeTLSControlled(const NodeSet& c, double laneSpeedThreshold) c
     return !tooFast && f >= laneSpeedThreshold && c.size() != 0;
 }
 
+bool
+NBNodeCont::onlyCrossings(const NodeSet& c) const {
+    // check whether all component nodes are solely pedestrian crossings 
+    // (these work fine without joining)
+    for (NBNode* node : c) {
+        EdgeVector nonPedIncoming;
+        EdgeVector nonPedOutgoing;
+        for (NBEdge* e : node->getIncomingEdges()) {
+            if (e->getPermissions() != SVC_PEDESTRIAN) {
+                nonPedIncoming.push_back(e);
+            }
+        }
+        for (NBEdge* e : node->getOutgoingEdges()) {
+            if (e->getPermissions() != SVC_PEDESTRIAN) {
+                nonPedOutgoing.push_back(e);
+            }
+        }
+        if (!node->geometryLike(nonPedIncoming, nonPedOutgoing)) {
+            //for (NBNode* node : c) {
+            //    if (node->getID() == "2480337678") {
+            //        std::cout << " node=" << node->getID() << " nonPedIncoming=" << toString(nonPedIncoming) << " nonPedOutgoing=" << toString(nonPedOutgoing) << "\n";
+            //    }
+            //}
+            return false;
+        }
+    }
+    return true;
+}
+
 
 void
 NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
@@ -1473,7 +1502,7 @@ NBNodeCont::joinTLS(NBTrafficLightLogicCont& tlc, double maxdist) {
                 ++j;
             }
         }
-        if (c.size() < 2) {
+        if (c.size() < 2 || onlyCrossings(c)) {
             continue;
         }
         // figure out type of the joined TLS
