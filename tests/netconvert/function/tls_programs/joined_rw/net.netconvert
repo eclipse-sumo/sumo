@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Feb 14 23:00:04 2019 by Eclipse SUMO netconvert Version v1_1_0+0435-678c69824b
+<!-- generated on Fri Feb 15 09:44:39 2019 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -398,16 +398,16 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="3"  state="ry"/>
     </tlLogic>
     <tlLogic id="joinedS_12" type="static" programID="0" offset="0">
-        <phase duration="21" state="GGGGGGGGrrrrrGGGggrrrrrrGGGgg"/>
-        <phase duration="3"  state="yyyyyyyyrrrrryyyggrrrrrryyygg"/>
-        <phase duration="6"  state="rrrGrrrGrrrrrrrrGGrrrrrrrrrGG"/>
-        <phase duration="3"  state="rrryrrryrrrrrrrryyrrrrrrrrryy"/>
-        <phase duration="21" state="GGGGGGGGGrrrGrGGrrGrrrrGrGGrr"/>
-        <phase duration="3"  state="yyyyyyyyyrrryryyrryrrrryryyrr"/>
-        <phase duration="21" state="GrrrGrrrrGGggrrrrrrGGgggrrrrr"/>
-        <phase duration="3"  state="yrrryrrrryyggrrrrrryygggrrrrr"/>
-        <phase duration="6"  state="rrrrrrrrrrrGGrrrrrrrrGGGrrrrr"/>
-        <phase duration="3"  state="rrrrrrrrrrryyrrrrrrrryyyrrrrr"/>
+        <phase duration="15" state="GGGGrrrrrrrrrGGGGGrrrrrrrrrrr"/>
+        <phase duration="3"  state="yyyyrrrrrrrrryyyyyrrrrrrrrrrr"/>
+        <phase duration="15" state="rrrrGGGGrrrrrrrrrrrrrrrrGGGGG"/>
+        <phase duration="3"  state="rrrryyyyrrrrrrrrrrrrrrrryyyyy"/>
+        <phase duration="15" state="rrrrrrrrGrrrrrrrrrGrrrrrrrrrr"/>
+        <phase duration="3"  state="rrrrrrrryrrrrrrrrryrrrrrrrrrr"/>
+        <phase duration="15" state="rrrrrrrrrGGGGrrrrrrrrrrrrrrrr"/>
+        <phase duration="3"  state="rrrrrrrrryyyyrrrrrrrrrrrrrrrr"/>
+        <phase duration="15" state="rrrrrrrrrrrrrrrrrrrGGGGGrrrrr"/>
+        <phase duration="3"  state="rrrrrrrrrrrrrrrrrrryyyyyrrrrr"/>
     </tlLogic>
 
     <junction id="1230277350" type="dead_end" x="440.44" y="473.80" incLanes="" intLanes="" shape="442.21,469.34 438.67,478.26"/>
