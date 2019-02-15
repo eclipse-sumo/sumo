@@ -37,12 +37,18 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/options/Option.h>
 
+#define HEIGH_WEIGHT 2
+#define LOW_WEIGHT .5;
+
 #define MIN_GREEN_TIME 5
  
 //#define DEBUG_STREAM_ORDERING
 //#define DEBUG_PHASES
 //#define DEBUGCOND true
-#define DEBUGCOND (getID() == "cluster_251050941_280598736_280598739_28902891_3142549227_3142550438")
+//#define DEBUGCOND (getID() == "cluster_251050941_280598736_280598739_28902891_3142549227_3142550438")
+//#define DEBUGEDGE(edge) (edge->getID() == "23209153#1" || edge->getID() == "319583927#0")
+#define DEBUGCOND (true)
+#define DEBUGEDGE(edge) (true)
 
 // ===========================================================================
 // member method definitions
@@ -84,10 +90,10 @@ NBOwnTLDef::getDirectionalWeight(LinkDirection dir) {
         case LINKDIR_STRAIGHT:
         case LINKDIR_PARTLEFT:
         case LINKDIR_PARTRIGHT:
-            return 2.;
+            return HEIGH_WEIGHT;
         case LINKDIR_LEFT:
         case LINKDIR_RIGHT:
-            return .5;
+            return LOW_WEIGHT;
         default:
             break;
     }
@@ -109,14 +115,46 @@ NBOwnTLDef::computeUnblockedWeightedStreamNumber(const NBEdge* const e1, const N
                     if (e2->getTurnDestination() == (*e2c).toEdge) {
                         continue;
                     }
-                    if (!forbids(e1, (*e1c).toEdge, e2, (*e2c).toEdge, true)) {
-                        val += getDirectionalWeight(e1->getToNode()->getDirection(e1, (*e1c).toEdge));
-                        val += getDirectionalWeight(e2->getToNode()->getDirection(e2, (*e2c).toEdge));
+                    const double sign = (forbids(e1, (*e1c).toEdge, e2, (*e2c).toEdge, true) 
+                            || forbids(e2, (*e2c).toEdge, e1, (*e1c).toEdge, true)) ? -1 : 1;
+                    double w1;
+                    double w2;
+                    if (e1->getJunctionPriority(e1->getToNode()) == e2->getJunctionPriority(e2->getToNode())) {
+                        w1 = getDirectionalWeight(e1->getToNode()->getDirection(e1, (*e1c).toEdge));
+                        w2 = getDirectionalWeight(e2->getToNode()->getDirection(e2, (*e2c).toEdge));
+                    } else {
+                        if (e1->getJunctionPriority(e1->getToNode()) > e2->getJunctionPriority(e2->getToNode())) {
+                            w1 = HEIGH_WEIGHT;
+                            w2 = LOW_WEIGHT;
+                        } else {
+                            w1 = LOW_WEIGHT;
+                            w2 = HEIGH_WEIGHT;
+                        }
+                        if (sign == -1) {
+                            // extra penalty if edges with different junction priority are in conflict
+                            w1 *= 2;
+                            w2 *= 2;
+                        }
                     }
+                    val += sign * w1;
+                    val += sign * w2;
+#ifdef DEBUG_STREAM_ORDERING
+                    if (DEBUGCOND && DEBUGEDGE(e2) && DEBUGEDGE(e1)) {
+                        std::cout << "      sign=" << sign << " w1=" << w1 << " w2=" << w2 << " val=" << val 
+                            << " c1=" << (*e1c).getDescription(e1) 
+                            << " c2=" << (*e2c).getDescription(e2) 
+                            << "\n";
+                    }
+#endif
                 }
             }
         }
     }
+#ifdef DEBUG_STREAM_ORDERING
+    if (DEBUGCOND && DEBUGEDGE(e2) && DEBUGEDGE(e1)) {
+        std::cout << "     computeUnblockedWeightedStreamNumber e1=" << e1->getID() << " e2=" << e2->getID() << " val=" << val << "\n";
+    }
+#endif
     return val;
 }
 
@@ -124,7 +162,7 @@ NBOwnTLDef::computeUnblockedWeightedStreamNumber(const NBEdge* const e1, const N
 std::pair<NBEdge*, NBEdge*>
 NBOwnTLDef::getBestCombination(const EdgeVector& edges) {
     std::pair<NBEdge*, NBEdge*> bestPair(static_cast<NBEdge*>(nullptr), static_cast<NBEdge*>(nullptr));
-    double bestValue = -1;
+    double bestValue = -std::numeric_limits<double>::max();
     for (EdgeVector::const_iterator i = edges.begin(); i != edges.end(); ++i) {
         for (EdgeVector::const_iterator j = i + 1; j != edges.end(); ++j) {
             const double value = computeUnblockedWeightedStreamNumber(*i, *j);
@@ -144,6 +182,16 @@ NBOwnTLDef::getBestCombination(const EdgeVector& edges) {
             }
         }
     }
+    if (bestValue <=0) {
+        // do not group edges
+        bestPair.second = nullptr;
+        
+    }
+#ifdef DEBUG_STREAM_ORDERING
+    if (DEBUGCOND) {
+        std::cout << "   getBestCombination bestValue=" << bestValue << "  best=" << Named::getIDSecure(bestPair.first) << ", " << Named::getIDSecure(bestPair.second) << "\n";
+    }
+#endif
     return bestPair;
 }
 
@@ -178,7 +226,9 @@ NBOwnTLDef::getBestPair(EdgeVector& incoming) {
 #endif
 
     incoming.erase(find(incoming.begin(), incoming.end(), ret.first));
-    incoming.erase(find(incoming.begin(), incoming.end(), ret.second));
+    if (ret.second != nullptr) {
+        incoming.erase(find(incoming.begin(), incoming.end(), ret.second));
+    }
     return ret;
 }
 
@@ -1023,7 +1073,6 @@ NBOwnTLDef::corridorLike() const {
         }
     }
     delete tllDummy;
-    myNeedsContRelation = dummy.myNeedsContRelation;
     for (std::vector<NBNode*>::const_iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
         (*i)->removeTrafficLight(&dummy);
     }
