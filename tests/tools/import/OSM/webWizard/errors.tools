@@ -214,7 +214,6 @@ Warning: Ambiguity in turnarounds computation at junction '740379739'.
 Warning: Ambiguity in turnarounds computation at junction 'cluster_1769589073_4603453626'.
 Warning: Ambiguity in turnarounds computation at junction 'cluster_1876468341_25665883_29219439_5747234980_961875299_961984568_961984577_961984592'.
 Warning: Ambiguity in turnarounds computation at junction 'cluster_1876479331_2882261439'.
-Warning: Ambiguity in turnarounds computation at junction 'cluster_1987191204_29219465_4673135646'.
 Warning: Ambiguity in turnarounds computation at junction 'cluster_25661397_3767874536_3767874549'.
 Warning: Ambiguity in turnarounds computation at junction 'cluster_25662562_3767875478_3767875479'.
 Warning: Ambiguity in turnarounds computation at junction 'cluster_25665679_4590472037_4590472042_4590472043'.
@@ -222,7 +221,6 @@ Warning: Ambiguity in turnarounds computation at junction 'cluster_262469634_292
 Warning: Ambiguity in turnarounds computation at junction 'cluster_26701256_3590535061'.
 Warning: Ambiguity in turnarounds computation at junction 'cluster_29192960_3590535063'.
 Warning: Ambiguity in turnarounds computation at junction 'cluster_4121410266_4590472026_4590472036'.
-Warning: Ambiguity in turnarounds computation at junction 'cluster_4565322441_5397577486_768038174_863119413'.
 Warning: Ambiguity in turnarounds computation at junction 'cluster_5527777338_5716766315'.
 Warning: Found sharp turn with radius 8.20 at the start of edge '-409507435#2'.
 Warning: Found sharp turn with radius 6.39 at the start of edge '-52348720#0'.
@@ -457,10 +455,10 @@ Warning: At actuated tlLogic 'joinedS_0', linkIndex 25 has no controlling detect
 Warning: At actuated tlLogic 'joinedS_0', linkIndex 32 has no controlling detector
 Warning: At actuated tlLogic 'joinedS_0', linkIndex 33 has no controlling detector
 Warning: At actuated tlLogic 'joinedS_0', linkIndex 34 has no controlling detector
-Warning: At actuated tlLogic 'joinedS_3', linkIndex 32 has no controlling detector
-Warning: At actuated tlLogic 'joinedS_3', linkIndex 33 has no controlling detector
-Warning: At actuated tlLogic 'joinedS_3', linkIndex 34 has no controlling detector
-Warning: At actuated tlLogic 'joinedS_3', linkIndex 35 has no controlling detector
+Warning: At actuated tlLogic 'joinedS_2', linkIndex 32 has no controlling detector
+Warning: At actuated tlLogic 'joinedS_2', linkIndex 33 has no controlling detector
+Warning: At actuated tlLogic 'joinedS_2', linkIndex 34 has no controlling detector
+Warning: At actuated tlLogic 'joinedS_2', linkIndex 35 has no controlling detector
 Warning: busStop '1827996414' on lane '72157174#1_1' is too short for vehicle '9_bus_TXL:0'.
 Warning: busStop '1827996417' on lane '24914992#1_1' is too short for vehicle '10_bus_TXL:1'.
 Warning: busStop '1633759766' on lane '421641064_0' is too short for vehicle '20_tram_M4:0'.
@@ -492,10 +490,10 @@ Warning: At actuated tlLogic 'joinedS_0', linkIndex 25 has no controlling detect
 Warning: At actuated tlLogic 'joinedS_0', linkIndex 32 has no controlling detector
 Warning: At actuated tlLogic 'joinedS_0', linkIndex 33 has no controlling detector
 Warning: At actuated tlLogic 'joinedS_0', linkIndex 34 has no controlling detector
-Warning: At actuated tlLogic 'joinedS_3', linkIndex 32 has no controlling detector
-Warning: At actuated tlLogic 'joinedS_3', linkIndex 33 has no controlling detector
-Warning: At actuated tlLogic 'joinedS_3', linkIndex 34 has no controlling detector
-Warning: At actuated tlLogic 'joinedS_3', linkIndex 35 has no controlling detector
+Warning: At actuated tlLogic 'joinedS_2', linkIndex 32 has no controlling detector
+Warning: At actuated tlLogic 'joinedS_2', linkIndex 33 has no controlling detector
+Warning: At actuated tlLogic 'joinedS_2', linkIndex 34 has no controlling detector
+Warning: At actuated tlLogic 'joinedS_2', linkIndex 35 has no controlling detector
 Warning: busStop '1827996414' on lane '72157174#1_1' is too short for vehicle 'pt_bus_TXL:0.0'.
 Warning: busStop '1827996417' on lane '24914992#1_1' is too short for vehicle 'pt_bus_TXL:1.0'.
 Warning: busStop '1633759766' on lane '421641064_0' is too short for vehicle 'pt_tram_M4:0.0'.
@@ -505,9 +503,5 @@ Warning: busStop '30731700' on lane '167272531#9_0' is too short for vehicle 'pt
 Warning: busStop '1668497956' on lane '153537614#2_0' is too short for vehicle 'pt_tram_M1:2.0'.
 Warning: busStop '3869306762' on lane '111251382#2_1' is too short for vehicle 'pt_bus_147:0.0'.
 Warning: busStop '2071423352' on lane '295250361_0' is too short for vehicle 'pt_subway_U6:0.0'.
-Warning: Teleporting vehicle 'veh206'; waited too long (wrong lane), lane='202157002#3_3', time=1172.00.
-Warning: Vehicle 'veh206' ends teleporting on edge '24913519#1', time 1172.00.
 Warning: Person 'ped26' aborted waiting for M5:1 at busStop '30731481'.
-Warning: Person 'ped69' aborted waiting for M4:1 at busStop '1633759766'.
-Warning: Person 'ped126' aborted waiting for 147:3 at busStop '3869306764'.
 Warning: Person 'ped178' aborted waiting for 248:0 at busStop '3867910417'.
