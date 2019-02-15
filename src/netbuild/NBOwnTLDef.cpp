@@ -271,9 +271,9 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
     const SUMOTime greenTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.green.time"));
     const SUMOTime allRedTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.allred.time"));
     const double minorLeftSpeedThreshold = OptionsCont::getOptions().getFloat("tls.minor-left.max-speed");
+    // left-turn phases do not work well for joined tls, so we build incoming instead
     const double groupOpposites = (OptionsCont::getOptions().getString("tls.layout") == "opposites" 
-            //&& myControlledNodes.size() == 1 // simplified layout for joined tls
-            );
+            && (myControlledNodes.size() <= 2 || corridorLike())); 
 
     // build all phases
     std::vector<int> greenPhases; // indices of green phases
@@ -1000,4 +1000,30 @@ NBOwnTLDef::getMaxIndex() {
         return -1;
     }
 }
+ 
+
+bool 
+NBOwnTLDef::corridorLike() const {
+    if (getID() == DummyID) {
+        // avoid infinite recursion
+        return true;
+    }
+    assert(myControlledNodes.size() >= 2);
+    NBOwnTLDef dummy(DummyID, myControlledNodes, 0, TLTYPE_STATIC);
+    dummy.setParticipantsInformation();
+    NBTrafficLightLogic* tllDummy = dummy.computeLogicAndConts(0, true);
+    int greenPhases = 0;
+    for (const auto& phase : tllDummy->getPhases()) {
+        if (phase.state.find_first_of("gG") != std::string::npos) {
+            greenPhases++;
+        }
+    }
+    delete tllDummy;
+    myNeedsContRelation = dummy.myNeedsContRelation;
+    for (std::vector<NBNode*>::const_iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
+        (*i)->removeTrafficLight(&dummy);
+    }
+    return greenPhases <= 2;
+}
+
 /****************************************************************************/

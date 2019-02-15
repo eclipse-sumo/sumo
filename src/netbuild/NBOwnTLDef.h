@@ -168,6 +168,10 @@ protected:
 
 
 protected:
+
+    /// @brief test whether a joined tls with layout 'opposites' would be built without dedicated left-turn phase
+    bool corridorLike() const;
+        
     /** @brief Returns the weight of a stream given its direction
      * @param[in] dir The direction of the stream
      * @return This stream's weight
