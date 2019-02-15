@@ -94,13 +94,17 @@ public:
     //factor taking into account inertia of rotating masses, such as flywheel
     double massFactor;
     //number of cylinders of the engine
-    uint32_t cylinders;
+    int cylinders;
+    //simulation timestep
+    double dt;
+    //min and max rpm
+    double minRpm, maxRpm;
+    //brakes actuation time constant in second
+    double brakesTau_s;
     //engine time constants for exhaust and burning
     double tauEx_s, tauBurn_s;
     //whether tauBurn_s is fixed or dynamic
     bool fixedTauBurn;
-    //brakes actuation time constant in second
-    double brakesTau_s;
     //other precomputed coefficients
     double __rpmToSpeedCoefficient;
     double __speedToRpmCoefficient;
@@ -111,10 +115,6 @@ public:
     double __engineTauDe_s;
     double __brakesAlpha;
     double __brakesOneMinusAlpha;
-    //simulation timestep
-    double dt;
-    //min and max rpm
-    double minRpm, maxRpm;
     //todo: finish
     double minSpeed;
 

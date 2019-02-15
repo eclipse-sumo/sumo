@@ -14,16 +14,16 @@
 ///
 /****************************************************************************/
 
-#include "EngineParameters.h"
+#include <config.h>
+
 #include <cmath>
-//define M_PI if this is not defined in <cmath>
-#ifndef M_PI
-#define M_PI 3.14159265358979323846
-#endif
+#include <utils/geom/GeomHelper.h> // for M_PI
+#include "EngineParameters.h"
+
 
 EngineParameters::EngineParameters() : nGears(5), differentialRatio(3.714), wheelDiameter_m(0.94),
     mass_kg(1300), cAir(0.3), a_m2(2.7), rho_kgpm3(1.2), cr1(0.0136), cr2(5.18e-7),
-    slope(0), tiresFrictionCoefficient(0.7), engineEfficiency(0.8),
+    slope(0.), tiresFrictionCoefficient(0.7), engineEfficiency(0.8),
     massFactor(1.089), cylinders(4), dt(0.01), minRpm(1000), maxRpm(7000),
     brakesTau_s(0.2), tauEx_s(0.1), tauBurn_s(-1), fixedTauBurn(false) {
     id = "";

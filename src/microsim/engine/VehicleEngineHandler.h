@@ -10,7 +10,7 @@
 /// @file    VehicleEngineHandler.h
 /// @author  Michele Segata
 /// @date    4 Feb 2015
-/// @version $Id: $
+/// @version $Id$
 ///
 /****************************************************************************/
 
@@ -84,14 +84,6 @@ class VehicleEngineHandler : public XERCES_CPP_NAMESPACE::DefaultHandler {
 public:
 
     /**
-     * Engine map (rpm to power) type. For now only supports a polynomial
-     * function. In future it might support a table like rpm -> hp
-     */
-    enum ENGINE_MAP_TYPE {
-        POLYNOMIAL
-    };
-
-    /**
      * Constructor
      *
      * @param[in] toLoad id of the vehicle to be loaded
@@ -157,10 +149,6 @@ protected:
      * Load final drive ratio
      */
     void loadDifferentialData(const XERCES_CPP_NAMESPACE::Attributes& attrs);
-    /**
-     * Load the mapping between engine rpm and output power
-     */
-    void loadEngineMapData(const XERCES_CPP_NAMESPACE::Attributes& attrs);
     /**
      * Load the mapping between engine rpm and output power in terms of linear
      * function, i.e., slope and intercept
@@ -230,16 +218,12 @@ private:
     std::string vehicleToLoad;
     //skip loading of current vehicle data
     bool skip;
-    //engine map type, either map or polynomial
-    enum ENGINE_MAP_TYPE engineMapType;
     //current loaded gear
     int currentGear;
     //where to store loaded data
     EngineParameters engineParameters;
     //vector of gear ratios
     std::vector<double> gearRatios;
-    //engine map
-    std::vector<std::pair<double, double> > engineMap;
 
 private:
     /// @brief invalidated copy constructor
