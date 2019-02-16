@@ -215,16 +215,19 @@ for name in pages:
 imageFiles = []
 for i in images:
     print("Fetching image %s" % i)
+    if i.startswith("https://"):
+        f = urlopen(i)
+        i = i[i.rfind("/") + 1:]
     if i.find(":") >= 0:
-        f = urlopen("http://sumo.dlr.de%s" % i)
+        f = urlopen("https://sumo.dlr.de%s" % i)
         c = f.read()
         b = c.find("<div class=\"fullImageLink\" id=\"file\">")
         b = c.find("href=", b) + 6
         e = c.find("\"", b + 1)
-        f = urlopen("http://sumo.dlr.de/%s" % c[b:e])
+        f = urlopen("https://sumo.dlr.de/%s" % c[b:e])
         i = i[i.find(":") + 1:]
     else:
-        f = urlopen("http://sumo.dlr.de/%s" % i)
+        f = urlopen("https://sumo.dlr.de/%s" % i)
         i = i[i.rfind("/") + 1:]
     if i.find("px-") >= 0:
         i = i[:i.find('-') + 1]
@@ -302,7 +305,7 @@ for name in pages:
     if name.endswith(".css"):
         print("Skipping css-file %s" % name)
         continue
-    fromStr = 'generated on %s from <a href="http://sumo.dlr.de/wiki/%s">the wiki page for %s</a>' % (
+    fromStr = 'generated on %s from <a href="https://sumo.dlr.de/wiki/%s">the wiki page for %s</a>' % (
         datetime.datetime.now(), name, name)
     name = name + ".html"
     t = os.path.join(options.output, name)
@@ -310,8 +313,12 @@ for name in pages:
     c = fd.read().decode("utf8")
     if options.version:
         fromStr += " for SUMO %s" % options.version
-    c = c.replace(
-        '<div id="siteSub">From Sumo</div>', '<div id="siteSub">%s</div>' % fromStr)
+    c = c.replace('<div id="siteSub" class="noprint">From Sumo</div>',
+                  '<div id="siteSub" class="noprint">%s</div>' % fromStr)
+    navLink = c.find('<a class="mw-jump-link" ')
+    while navLink > 0:
+        c = c[:navLink] + c[c.find('</a>', navLink)+4:]
+        navLink = c.find('<a class="mw-jump-link" ')
     fd.close()
     #
     if name.find('/') >= 0:
