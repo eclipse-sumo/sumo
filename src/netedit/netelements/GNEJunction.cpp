@@ -1261,7 +1261,10 @@ double
 GNEJunction::getColorValue(const GUIVisualizationSettings& s, bool bubble) const {
     switch (s.junctionColorer.getActive()) {
         case 0:
-            if (bubble) {
+            if (bubble
+                    // ensure visibility of red connections
+                    && !(s.editMode == GNE_NMODE_TLS && myNBNode.isTLControlled())
+                ) {
                 return 1;
             } else {
                 return 0;
