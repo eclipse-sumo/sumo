@@ -132,9 +132,14 @@ GNETLSEditorFrame::editJunction(GNEJunction* junction) {
         onCmdCancel(nullptr, 0, nullptr);
         myViewNet->getUndoList()->p_begin("modifying traffic light definition");
         myTLSJunction->setCurrentJunction(junction);
-        myTLSJunction->getCurrentJunction()->selectTLS(true);
         myTLSAttributes->initTLSAttributes(myTLSJunction->getCurrentJunction());
         myTLSJunction->updateJunctionDescription();
+        myTLSJunction->getCurrentJunction()->selectTLS(true);
+        if (myTLSAttributes->getNumberOfTLSDefinitions() > 0) {
+            for (NBNode* node : myTLSAttributes->getCurrentTLSDefinition()->getNodes()) {
+                myViewNet->getNet()->retrieveJunction(node->getID())->selectTLS(true);
+            }
+        }
     } else {
         myViewNet->setStatusBarText("Unsaved modifications. Abort or Save");
     }
@@ -640,6 +645,11 @@ void
 GNETLSEditorFrame::cleanup() {
     if (myTLSJunction->getCurrentJunction()) {
         myTLSJunction->getCurrentJunction()->selectTLS(false);
+        if (myTLSAttributes->getNumberOfTLSDefinitions() > 0) {
+            for (NBNode* node : myTLSAttributes->getCurrentTLSDefinition()->getNodes()) {
+                myViewNet->getNet()->retrieveJunction(node->getID())->selectTLS(false);
+            }
+        }
     }
     // clean data structures
     myTLSJunction->setCurrentJunction(nullptr);
