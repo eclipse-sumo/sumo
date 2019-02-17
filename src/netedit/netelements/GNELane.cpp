@@ -257,7 +257,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
     // Push name
     glPushName(getGlID());
     // Traslate to fromt
-    glTranslated(0, 0, getType());
+    glTranslated(0, 0, myParentEdge.getNBEdge()->getLength() < 1 ? GLO_JUNCTION + 1 : getType());
     setLaneColor(s);
     // start drawing lane checking whether it is not too small
     const double selectionScale = isAttributeCarrierSelected() || myParentEdge.isAttributeCarrierSelected() ? s.selectionScale : 1;
