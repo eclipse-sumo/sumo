@@ -40,6 +40,7 @@ except ImportError:
 
 def validate(root, f):
     root = os.path.abspath(root)
+    normalized = os.path.abspath(f)[len(root) + 1:].replace('\\', '/')
     try:
         if os.path.getsize(f) < 80:
             # this is probably a texttest place holder file
@@ -48,9 +49,9 @@ def validate(root, f):
         doc = etree.parse(f)
         schemaLoc = doc.getroot().get(
             '{http://www.w3.org/2001/XMLSchema-instance}noNamespaceSchemaLocation')
-        if schemaLoc:
+        if schemaLoc and '/xsd/' in schemaLoc:
             localSchema = os.path.join(os.path.dirname(
-                __file__), '..', '..', 'data', 'xsd', os.path.basename(schemaLoc))
+                __file__), '..', '..', 'data', schemaLoc[schemaLoc.find('/xsd/') + 1:])
             if os.path.exists(localSchema):
                 schemaLoc = localSchema
 # if schemaLoc not in schemes: // temporarily disabled due to lxml bug
@@ -61,11 +62,9 @@ def validate(root, f):
                 s = unquote(str(entry))
                 # remove everything before (and including) the filename
                 s = s[s.find(f.replace('\\', '/')) + len(f):]
-                print(os.path.abspath(
-                    f)[len(root) + 1:].replace('\\', '/') + s, file=sys.stderr)
+                print(normalized + s, file=sys.stderr)
     except Exception:
-        print("Error on parsing '%s'!" % os.path.abspath(
-            f)[len(root) + 1:].replace('\\', '/'), file=sys.stderr)
+        print("Error on parsing '%s'!" % normalized, file=sys.stderr)
         traceback.print_exc()
 
 
@@ -87,14 +86,13 @@ def main(srcRoot, toCheck, err):
     fileNo = 0
     if os.path.exists(srcRoot):
         if os.path.isdir(srcRoot):
-            for root, dirs, files in os.walk(srcRoot):
+            for root, dirs, _ in os.walk(srcRoot):
                 for pattern in toCheck:
                     for name in glob.glob(os.path.join(root, pattern)):
                         if haveLxml:
                             validate(srcRoot, name)
                         elif os.name != "posix":
-                            subprocess.call(
-                                sax2count + " " + name, stdout=open(os.devnull), stderr=err)
+                            subprocess.call(sax2count + " " + name, stdout=open(os.devnull), stderr=err)
                         fileNo += 1
                     if '.svn' in dirs:
                         dirs.remove('.svn')
