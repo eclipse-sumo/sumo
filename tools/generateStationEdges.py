@@ -45,8 +45,8 @@ def main(options):
     l2 = options.length / 2
     with open(options.outfile + ".edg.xml", 'w') as out_e:
         with open(options.outfile + ".nod.xml", 'w') as out_n:
-            sumolib.writeXMLHeader(out_e, "$Id$")
-            sumolib.writeXMLHeader(out_n, "$Id$")
+            sumolib.writeXMLHeader(out_e, "$Id$")  # noqa
+            sumolib.writeXMLHeader(out_n, "$Id$")  # noqa
             out_e.write('<edges>\n')
             out_n.write('<nodes>\n')
             for stop in sumolib.xml.parse(options.stopfile, 'busStop', heterogeneous=True):

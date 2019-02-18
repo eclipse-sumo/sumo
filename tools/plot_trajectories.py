@@ -140,8 +140,8 @@ def main(options):
     def line_picker(line, mouseevent):
         if mouseevent.xdata is None:
             return False, dict()
-        #minxy = None
-        #mindist = 10000
+        # minxy = None
+        # mindist = 10000
         for x, y in zip(line.get_xdata(), line.get_ydata()):
             dist = math.sqrt((x - mouseevent.xdata) ** 2 + (y - mouseevent.ydata) ** 2)
             if dist < options.pickDist:

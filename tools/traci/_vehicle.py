@@ -697,10 +697,10 @@ class VehicleDomain(Domain):
         followerFront - followerMinGap to egoBack. The value can be negative for overlapping neighs). 
         For the non-sublane case, the lists will contain at most one entry.
 
-        Note: The exact set of blockers in case blocking==1 is not determined in for the sublane model, 
-        but all neighboring vehicles are either returned (in case LCA_BLOCKED) or none os returned (in case !LCA_BLOCKED).
+        Note: The exact set of blockers in case blocking==1 is not determined for the sublane model, 
+        but either all neighboring vehicles are returned (in case LCA_BLOCKED) or
+        none is returned (in case !LCA_BLOCKED).
         """
-        length = 1 + 1  # TYPE_UBYTE + mode
         self._connection._beginMessage(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_NEIGHBORS, vehID, 2)
         self._connection._string += struct.pack("!BB", tc.TYPE_UBYTE, mode)
         return _readNeighbors(self._connection._checkResult(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_NEIGHBORS, vehID))

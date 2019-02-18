@@ -65,7 +65,7 @@ def printNeighInfo():
 
 
 traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"])
-#~ traci.init(port=12345)
+# ~ traci.init(port=12345)
 
 for i in range(1):
     print("step", step())

@@ -42,9 +42,10 @@ def build():
 def runHistory(args, versions, extraInfo=""):
     results = collections.defaultdict(list)
     for d in versions:
+        command = ['/usr/bin/time', '-v', os.path.join(d, 'bin', 'sumo'), "-v", "-c", args.cfg]
         try:
-            for _ in xrange(args.runs):
-                for l in subprocess.check_output(['/usr/bin/time', '-v', os.path.join(d, 'bin', 'sumo'), "-v", "-c", args.cfg], stderr=subprocess.STDOUT).splitlines():
+            for _ in range(args.runs):
+                for l in subprocess.check_output(command, stderr=subprocess.STDOUT).splitlines():
                     if "User time" in l:
                         t = float(l.split(": ")[-1])
                     elif "wall clock" in l:

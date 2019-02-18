@@ -134,8 +134,7 @@ class PoiDomain(Domain):
 
         Sets the height of the poi.
         """
-        self._connection._beginMessage(
-            tc.CMD_SET_POI_VARIABLE, tc.VAR_HEIGHT, poiID, 1 + 8)
+        self._connection._beginMessage(tc.CMD_SET_POI_VARIABLE, tc.VAR_HEIGHT, poiID, 1 + 8)
         self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, height)
         self._connection._sendExact()
 
@@ -144,8 +143,7 @@ class PoiDomain(Domain):
 
         Sets the angle of the poi.
         """
-        self._connection._beginMessage(
-            tc.CMD_SET_POI_VARIABLE, tc.VAR_ANGLE, poiID, 1 + 8)
+        self._connection._beginMessage(tc.CMD_SET_POI_VARIABLE, tc.VAR_ANGLE, poiID, 1 + 8)
         self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, angle)
         self._connection._sendExact()
 
@@ -160,8 +158,9 @@ class PoiDomain(Domain):
         self._connection._sendExact()
 
     def add(self, poiID, x, y, color, poiType="", layer=0, imgFile="", width=1, height=1, angle=0):
-        self._connection._beginMessage(tc.CMD_SET_POI_VARIABLE, tc.ADD, poiID, 1 +
-                                       4 + 1 + 4 + len(poiType) + 1 + 1 + 1 + 1 + 1 + 1 + 4 + 1 + 8 + 8 + 1 + 4 + len(imgFile) + 1 + 8 + 1 + 8 + 1 + 8)
+        self._connection._beginMessage(tc.CMD_SET_POI_VARIABLE, tc.ADD, poiID, 1 + 4 + 1 + 4 + len(poiType) +
+                                       1 + 1 + 1 + 1 + 1 + 1 + 4 + 1 + 8 + 8 + 1 + 4 + len(imgFile) + 
+                                       1 + 8 + 1 + 8 + 1 + 8)
         self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 8)
         self._connection._packString(poiType)
         self._connection._string += struct.pack("!BBBBB", tc.TYPE_COLOR, int(color[0]), int(color[1]), int(color[2]),
@@ -175,8 +174,7 @@ class PoiDomain(Domain):
         self._connection._sendExact()
 
     def remove(self, poiID, layer=0):
-        self._connection._beginMessage(
-            tc.CMD_SET_POI_VARIABLE, tc.REMOVE, poiID, 1 + 4)
+        self._connection._beginMessage(tc.CMD_SET_POI_VARIABLE, tc.REMOVE, poiID, 1 + 4)
         self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, layer)
         self._connection._sendExact()
 
