@@ -126,7 +126,7 @@ public:
     */
     MSCFModel* duplicate(const MSVehicleType* vtype) const;
 
-    virtual MSCFModel::VehicleVariables* createVehicleVariables() const {
+    VehicleVariables* createVehicleVariables() const {
         ACCVehicleVariables* ret = new ACCVehicleVariables();
         ret->ACC_ControlMode = 0;
         ret->lastUpdateTime = 0;

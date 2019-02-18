@@ -127,9 +127,9 @@ MSCFModel_ACC::getSecureGap(const double speed, const double leaderSpeed, const 
 
 double
 MSCFModel_ACC::insertionFollowSpeed(const MSVehicle* const v, double speed, double gap2pred, double predSpeed, double predMaxDecel) const {
-#ifdef DEBUG_ACC
-        std::cout << "MSCFModel_ACC::insertionFollowSpeed(), speed="<<speed<< std::endl;
-#endif
+//#ifdef DEBUG_ACC
+//        std::cout << "MSCFModel_ACC::insertionFollowSpeed(), speed="<<speed<< std::endl;
+//#endif
     // iterate to find a stationary value for
     //    speed = followSpeed(v, speed, gap2pred, predSpeed, predMaxDecel, nullptr)
     const int max_iter = 50;
@@ -142,9 +142,9 @@ MSCFModel_ACC::insertionFollowSpeed(const MSVehicle* const v, double speed, doub
         // proposed acceleration
         const double a = SPEED2ACCEL(followSpeed(v, res, gap2pred, predSpeed, predMaxDecel, nullptr) - res);
         res = res + damping*a;
-#ifdef DEBUG_ACC
-        std::cout << "   n_iter=" << n_iter << ", a=" << a << ", res=" << res << std::endl;
-#endif
+//#ifdef DEBUG_ACC
+//        std::cout << "   n_iter=" << n_iter << ", a=" << a << ", res=" << res << std::endl;
+//#endif
         if (fabs(a) < tol) {
             break;
         } else {
@@ -220,7 +220,7 @@ MSCFModel_ACC::_v(const MSVehicle* const veh, const double gap2pred, const doubl
     /* Velocity error */
     double vErr = speed - desSpeed;
     int setControlMode = 0;
-    ACCVehicleVariables* vars = (ACCVehicleVariables*)veh->getCarFollowVariables();
+    ACCVehicleVariables* vars = (ACCVehicleVariables*) veh->getCarFollowVariables();
     if (vars->lastUpdateTime != MSNet::getInstance()->getCurrentTimeStep()) {
         vars->lastUpdateTime = MSNet::getInstance()->getCurrentTimeStep();
         setControlMode = 1;
