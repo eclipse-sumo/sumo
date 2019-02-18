@@ -236,7 +236,7 @@ POI::handleVariable(const std::string& objID, const int variable, VariableWrappe
 			return wrapper->wrapDouble(objID, variable, getHeight(objID));
 		case VAR_ANGLE:
 			return wrapper->wrapDouble(objID, variable, getAngle(objID));
-        case VAR_IMAGFILE:
+        case VAR_IMAGEFILE:
             return wrapper->wrapString(objID, variable, getImageFile(objID));
         default:
             return false;
