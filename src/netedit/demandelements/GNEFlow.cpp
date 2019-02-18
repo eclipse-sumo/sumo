@@ -93,17 +93,18 @@ GNEFlow::writeDemandElement(OutputDevice& device) const {
     write(device, OptionsCont::getOptions(), SUMO_TAG_FLOW);
     // write manually route
     device.writeAttr(SUMO_ATTR_ROUTE, myRoute->getID());
-    // write flow values
+    // write flow values depending if it was set
+    if (wasSet(VEHPARS_END_SET)) {
+        device.writeAttr(SUMO_ATTR_END,  time2string(repetitionEnd));
+    }
     if (wasSet(VEHPARS_NUMBER_SET)) {
         device.writeAttr(SUMO_ATTR_NUMBER , repetitionNumber);
-    } else {
-        device.writeAttr(SUMO_ATTR_END, repetitionEnd);
     }
     if (wasSet(VEHPARS_VPH_SET)) {
-        device.writeAttr(SUMO_ATTR_VEHSPERHOUR, repetitionOffset);
+        device.writeAttr(SUMO_ATTR_VEHSPERHOUR, 3600. / STEPS2TIME(repetitionOffset));
     }
     if (wasSet(VEHPARS_PERIOD_SET)) {
-        device.writeAttr(SUMO_ATTR_PERIOD, repetitionOffset);
+        device.writeAttr(SUMO_ATTR_PERIOD, time2string(repetitionOffset));
     }
     if (repetitionProbability != -1) {
         device.writeAttr(SUMO_ATTR_PROB, repetitionProbability);

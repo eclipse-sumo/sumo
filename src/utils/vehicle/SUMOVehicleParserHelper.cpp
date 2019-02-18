@@ -135,6 +135,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, con
     }
     if (attrs.hasAttribute(SUMO_ATTR_END)) {
         ret->repetitionEnd = attrs.getSUMOTimeReporting(SUMO_ATTR_END, id.c_str(), ok);
+        ret->parametersSet |= VEHPARS_END_SET;
     } else if (!attrs.hasAttribute(SUMO_ATTR_NUMBER) &&
                // see SUMOTIME_MAXSTRING (which differs slightly from SUMOTime_MAX)
                (endDefault >= TIME2STEPS(9223372036854773) || endDefault < 0)) {
