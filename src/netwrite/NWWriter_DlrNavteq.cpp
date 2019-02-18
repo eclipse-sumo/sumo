@@ -206,9 +206,11 @@ NWWriter_DlrNavteq::writeLinksUnsplitted(const OptionsCont& oc, NBEdgeCont& ec, 
         std::string nameID = UNDEFINED;
         if (oc.getBool("output.street-names")) {
             const std::string& name = i->second->getStreetName();
-            if (name != "" && nameIDs.count(name) == 0) {
-                nameID = toString(nameIDs.size());
-                nameIDs[name] = nameID;
+            if (name != "") {
+                if (nameIDs.count(name) == 0) {
+                    nameIDs[name] = toString(nameIDs.size());
+                }
+                nameID = nameIDs[name];
             }
         }
         device << e->getID() << "\t"
@@ -224,8 +226,8 @@ NWWriter_DlrNavteq::writeLinksUnsplitted(const OptionsCont& oc, NBEdgeCont& ec, 
                << getNavteqLaneCode(e->getNumLanes()) << "\t"
                << getSpeedCategoryUpperBound(kph) << "\t"
                << kph << "\t"
-               << nameID << "\t" // NAME_ID1_REGIONAL XXX
-               << UNDEFINED << "\t" // NAME_ID2_LOCAL XXX
+               << UNDEFINED << "\t" // NAME_ID1_REGIONAL XXX
+               << nameID << "\t" // NAME_ID2_LOCAL
                << UNDEFINED << "\t" // housenumbers_right
                << UNDEFINED << "\t" // housenumbers_left
                << getSinglePostalCode(e->getParameter("postal_code", UNDEFINED), e->getID()) << "\t" // ZIP_CODE
