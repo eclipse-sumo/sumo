@@ -35,6 +35,7 @@ if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(tools))
     from sumolib.output import parse, parse_fast  # noqa
     from sumolib.net import readNet  # noqa
+    import sumolib
 else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 
@@ -48,8 +49,10 @@ extrapolated based on edge-lengths and maximum speeds multiplied with --speed-fa
     optParser.add_option("-v", "--verbose", action="store_true",
                          default=False, help="Give more output")
     optParser.add_option("--trips-output", help="output trip file")
-    optParser.add_option("--min-length", type='int',
+    optParser.add_option("--min-length", type='int', dest="min_length",
                          default=0, help="minimum route length in the subnetwork (in #edges)")
+    optParser.add_option("--min-air-dist", type='int', dest="min_air_dist",
+                         default=0, help="minimum route length in the subnetwork (in meters)")
     optParser.add_option("--routes-output", help="output route file")
     optParser.add_option("--stops-output", help="output filtered stop file")
     optParser.add_option(
@@ -101,6 +104,7 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None):
     multiAffectedRoutes = 0
     teleportFactorSum = 0.0
     too_short = 0
+    too_short_airdist = 0
     standaloneRoutes = {}  # routeID -> routeObject
     standaloneRoutesDepart = {}  # routeID -> time or 'discard' or None
     if options.additional_input:
@@ -157,6 +161,14 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None):
                     if routeRef:
                         standaloneRoutesDepart[vehicle.route] = 'discard'
                     continue
+                if options.min_air_dist > 0:
+                    fromPos = orig_net.getEdge(edges[fromIndex]).getFromNode().getCoord()
+                    toPos = orig_net.getEdge(edges[toIndex]).getToNode().getCoord()
+                    if sumolib.miscutils.euclidean(fromPos, toPos) < options.min_air_dist:
+                        too_short_airdist += 1
+                        if routeRef:
+                            standaloneRoutesDepart[vehicle.route] = 'discard'
+                        continue
                 # compute new departure
                 if routeRef or vehicle.route[0].exitTimes is None:
                     if orig_net is not None:
@@ -213,6 +225,9 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None):
     if too_short > 0:
         print("Discarded %s routes because they have less than %s edges" %
               (too_short, options.min_length))
+    if too_short_airdist > 0:
+        print("Discarded %s routes because the air-line distance between start and end is less than %s" %
+              (too_short_airdist, options.min_air_dist))
     print("Number of disconnected routes: %s. Most frequent missing edges:" %
           multiAffectedRoutes)
     printTop(missingEdgeOccurences)
