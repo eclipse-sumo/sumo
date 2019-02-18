@@ -273,10 +273,10 @@ GNEStoppingPlace::commitGeometryMoving(GNEUndoList* undoList) {
     if (!myStartPosition.empty() || !myEndPosition.empty()) {
         undoList->p_begin("position of " + getTagStr());
         if (!myStartPosition.empty()) {
-            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, myStartPosition, true, myMove.firstOriginalLanePosition));
+            undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), SUMO_ATTR_STARTPOS, myStartPosition, true, myMove.firstOriginalLanePosition));
         }
         if (!myEndPosition.empty()) {
-            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, myEndPosition, true, myMove.secondOriginalPosition));
+            undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), SUMO_ATTR_ENDPOS, myEndPosition, true, myMove.secondOriginalPosition));
         }
         undoList->p_end();
     }

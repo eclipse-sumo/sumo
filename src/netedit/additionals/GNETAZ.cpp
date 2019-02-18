@@ -88,7 +88,7 @@ void
 GNETAZ::commitGeometryMoving(GNEUndoList* undoList) {
     // commit new position allowing undo/redo
     undoList->p_begin("position of " + getTagStr());
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(myGeometry.shape[0]), true, toString(myMove.originalViewPosition)));
+    undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), SUMO_ATTR_SHAPE, toString(myGeometry.shape[0]), true, toString(myMove.originalViewPosition)));
     undoList->p_end();
 }
 
@@ -165,7 +165,7 @@ GNETAZ::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList)
         }
         // commit new shape
         undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
-        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(shapeToCommit)));
+        undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), SUMO_ATTR_SHAPE, toString(shapeToCommit)));
         undoList->p_end();
     }
 }
@@ -379,7 +379,7 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* und
         case GNE_ATTR_BLOCK_SHAPE:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_GENERIC:
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

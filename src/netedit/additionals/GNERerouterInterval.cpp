@@ -20,11 +20,12 @@
 // ===========================================================================
 #include <config.h>
 
-#include "GNERerouterInterval.h"
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/dialogs/GNERerouterDialog.h>
 #include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewNet.h>
 
+#include "GNERerouterInterval.h"
 
 // ===========================================================================
 // member method definitions
@@ -109,7 +110,7 @@ GNERerouterInterval::setAttribute(SumoXMLAttr key, const std::string& value, GNE
     switch (key) {
         case SUMO_ATTR_ID: {
             // change ID of Rerouter Interval
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
             // Change Ids of all Rerouter childs
             for (auto i : myAdditionalChilds) {
                 i->setAttribute(SUMO_ATTR_ID, generateAdditionalChildID(i->getTagProperty().getTag()), undoList);
@@ -119,7 +120,7 @@ GNERerouterInterval::setAttribute(SumoXMLAttr key, const std::string& value, GNE
         case SUMO_ATTR_BEGIN:
         case SUMO_ATTR_END:
         case GNE_ATTR_GENERIC:
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

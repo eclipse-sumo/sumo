@@ -134,11 +134,11 @@ GNEPOI::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
             // restore old position before commit new position
             double originalPosOverLane = myGNELane->getShape().nearest_offset_to_point2D(oldPos, false);
             undoList->p_begin("position of " + getTagStr());
-            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPosOverLane), true, toString(originalPosOverLane)));
+            undoList->p_add(new GNEChange_Attribute(this, myNet, SUMO_ATTR_POSITION, toString(myPosOverLane), true, toString(originalPosOverLane)));
             undoList->p_end();
         } else {
             undoList->p_begin("position of " + getTagStr());
-            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myNewPosition), true, toString(oldPos)));
+            undoList->p_add(new GNEChange_Attribute(this, myNet, SUMO_ATTR_POSITION, toString(myNewPosition), true, toString(oldPos)));
             undoList->p_end();
         }
     }
@@ -341,7 +341,7 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* und
         case GNE_ATTR_BLOCK_MOVEMENT:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_GENERIC:
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            undoList->p_add(new GNEChange_Attribute(this, myNet, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

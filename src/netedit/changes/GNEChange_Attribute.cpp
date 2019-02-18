@@ -38,91 +38,29 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Attribute, GNEChange, nullptr, 0)
 // member method definitions
 // ===========================================================================
 
-GNEChange_Attribute::GNEChange_Attribute(GNENetElement* netElement,
-        SumoXMLAttr key, const std::string& value,
+GNEChange_Attribute::GNEChange_Attribute(GNEAttributeCarrier *ac,
+        GNENet* net, SumoXMLAttr key, const std::string& value,
         bool customOrigValue, const std::string& origValue) :
-    GNEChange(nullptr, true),
-    myAC(netElement),
+    GNEChange(net, true),
+    myAC(ac),
     myKey(key),
-    myOrigValue(customOrigValue ? origValue : netElement->getAttribute(key)),
-    myNewValue(value),
-    myNet(netElement->getNet()),
-    myNetElement(netElement),
-    myAdditional(nullptr),
-    myShape(nullptr),
-    myDemandElement(nullptr) {
-    assert(myAC && (myNetElement || myAdditional || myShape || myDemandElement));
+    myOrigValue(customOrigValue ? origValue : ac->getAttribute(key)),
+    myNewValue(value) {
     myAC->incRef("GNEChange_Attribute " + toString(myKey));
 }
-
-
-GNEChange_Attribute::GNEChange_Attribute(GNEAdditional* additional,
-        SumoXMLAttr key, const std::string& value,
-        bool customOrigValue, const std::string& origValue) :
-    GNEChange(nullptr, true),
-    myAC(additional),
-    myKey(key),
-    myOrigValue(customOrigValue ? origValue : additional->getAttribute(key)),
-    myNewValue(value),
-    myNet(additional->getViewNet()->getNet()),
-    myNetElement(nullptr),
-    myAdditional(additional),
-    myShape(nullptr),
-    myDemandElement(nullptr) {
-    assert(myAC && (myNetElement || myAdditional || myShape || myDemandElement));
-    myAC->incRef("GNEChange_Attribute " + toString(myKey));
-}
-
-
-GNEChange_Attribute::GNEChange_Attribute(GNEShape* shape,
-        SumoXMLAttr key, const std::string& value,
-        bool customOrigValue, const std::string& origValue) :
-    GNEChange(nullptr, true),
-    myAC(shape),
-    myKey(key),
-    myOrigValue(customOrigValue ? origValue : shape->getAttribute(key)),
-    myNewValue(value),
-    myNet(shape->getNet()),
-    myNetElement(nullptr),
-    myAdditional(nullptr),
-    myShape(shape),
-    myDemandElement(nullptr) {
-    assert(myAC && (myNetElement || myAdditional || myShape || myDemandElement));
-    myAC->incRef("GNEChange_Attribute " + toString(myKey));
-}
-
-
-GNEChange_Attribute::GNEChange_Attribute(GNEDemandElement* demandElement,
-        SumoXMLAttr key, const std::string& value,
-        bool customOrigValue, const std::string& origValue) :
-    GNEChange(nullptr, true),
-    myAC(demandElement),
-    myKey(key),
-    myOrigValue(customOrigValue ? origValue : demandElement->getAttribute(key)),
-    myNewValue(value),
-    myNet(demandElement->getViewNet()->getNet()),
-    myNetElement(nullptr),
-    myAdditional(nullptr),
-    myShape(nullptr),
-    myDemandElement(demandElement) {
-    assert(myAC && (myNetElement || myAdditional || myShape || myDemandElement));
-    myAC->incRef("GNEChange_Attribute " + toString(myKey));
-}
-
 
 GNEChange_Attribute::~GNEChange_Attribute() {
-    assert(myAC);
     myAC->decRef("GNEChange_Attribute " + toString(myKey));
     if (myAC->unreferenced()) {
         // show extra information for tests
         WRITE_DEBUG("Deleting unreferenced " + myAC->getTagStr() + " '" + myAC->getID() + "' in GNEChange_Attribute");
         // Check if attribute carrier is a shape
-        if (myShape) {
-            // remove shape using pecify functions
-            if (myShape->getTagProperty().getTag() == SUMO_TAG_POLY) {
-                myNet->removePolygon(myShape->getID());
-            } else if ((myShape->getTagProperty().getTag() == SUMO_TAG_POI) || (myShape->getTagProperty().getTag() == SUMO_TAG_POILANE)) {
-                myNet->removePOI(myShape->getID());
+        if (myAC->getTagProperty().isShape()) {
+            // remove shape using specific functions
+            if (myAC->getTagProperty().getTag() == SUMO_TAG_POLY) {
+                myNet->removePolygon(myAC->getID());
+            } else if ((myAC->getTagProperty().getTag() == SUMO_TAG_POI) || (myAC->getTagProperty().getTag() == SUMO_TAG_POILANE)) {
+                myNet->removePOI(myAC->getID());
             }
         } else {
             delete myAC;
@@ -139,11 +77,11 @@ GNEChange_Attribute::undo() {
     myAC->setAttribute(myKey, myOrigValue);
     // check if netElements, additional or shapes has to be saved (only if key isn't GNE_ATTR_SELECTED)
     if (myKey != GNE_ATTR_SELECTED) {
-        if (myNetElement) {
+        if (myAC->getTagProperty().isNetElement()) {
             myNet->requiereSaveNet(true);
-        } else if (myAdditional || myShape) {
+        } else if (myAC->getTagProperty().isAdditional() || myAC->getTagProperty().isShape()) {
             myNet->requiereSaveAdditionals(true);
-        } else if (myDemandElement) {
+        } else if (myAC->getTagProperty().isDemandElement()) {
             myNet->requiereSaveDemandElements(true);
         }
     }
@@ -158,11 +96,11 @@ GNEChange_Attribute::redo() {
     myAC->setAttribute(myKey, myNewValue);
     // check if netElements, additional or shapes has to be saved (only if key isn't GNE_ATTR_SELECTED)
     if (myKey != GNE_ATTR_SELECTED) {
-        if (myNetElement) {
+        if (myAC->getTagProperty().isNetElement()) {
             myNet->requiereSaveNet(true);
-        } else if (myAdditional || myShape) {
+        } else if (myAC->getTagProperty().isAdditional() || myAC->getTagProperty().isShape()) {
             myNet->requiereSaveAdditionals(true);
-        } else if (myDemandElement) {
+        } else if (myAC->getTagProperty().isDemandElement()) {
             myNet->requiereSaveDemandElements(true);
         }
     }

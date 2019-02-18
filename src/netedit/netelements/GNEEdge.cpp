@@ -214,7 +214,7 @@ GNEEdge::commitShapeStartChange(const Position& oldPos, GNEUndoList* undoList) {
     setShapeStartPos(oldPos, true);
     // set attribute using undolist
     undoList->p_begin("shape start of " + getTagStr());
-    undoList->p_add(new GNEChange_Attribute(this, GNE_ATTR_SHAPE_START, toString(modifiedShapeStartPos), true, toString(oldPos)));
+    undoList->p_add(new GNEChange_Attribute(this, myNet, GNE_ATTR_SHAPE_START, toString(modifiedShapeStartPos), true, toString(oldPos)));
     undoList->p_end();
 }
 
@@ -227,7 +227,7 @@ GNEEdge::commitShapeEndChange(const Position& oldPos, GNEUndoList* undoList) {
     setShapeEndPos(oldPos, true);
     // set attribute using undolist
     undoList->p_begin("shape end of " + getTagStr());
-    undoList->p_add(new GNEChange_Attribute(this, GNE_ATTR_SHAPE_END, toString(modifiedShapeEndPos), true, toString(oldPos)));
+    undoList->p_add(new GNEChange_Attribute(this, myNet, GNE_ATTR_SHAPE_END, toString(modifiedShapeEndPos), true, toString(oldPos)));
     undoList->p_end();
 }
 
@@ -402,7 +402,7 @@ GNEEdge::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList
     setGeometry(oldShape, true, true);
     // commit new shape
     undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(innerShapeToCommit)));
+    undoList->p_add(new GNEChange_Attribute(this, myNet, SUMO_ATTR_SHAPE, toString(innerShapeToCommit)));
     undoList->p_end();
 }
 
@@ -1018,7 +1018,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
                 it->setAttribute(key, value, undoList);
             }
             // ensure that the edge value is also changed. Actually this sets the lane attributes again but it does not matter
-            undoList->p_add(new GNEChange_Attribute(this, key, value, true, origValue));
+            undoList->p_add(new GNEChange_Attribute(this, myNet, key, value, true, origValue));
             undoList->p_end();
             break;
         }
@@ -1029,7 +1029,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
             // continue changing from junction
             GNEJunction* oldGNEJunctionSource = myGNEJunctionSource;
             myGNEJunctionSource->setLogicValid(false, undoList);
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            undoList->p_add(new GNEChange_Attribute(this, myNet, key, value));
             myGNEJunctionSource->setLogicValid(false, undoList);
             myNet->retrieveJunction(value)->setLogicValid(false, undoList);
             setAttribute(GNE_ATTR_SHAPE_START, toString(myGNEJunctionSource->getNBNode()->getPosition()), undoList);
@@ -1048,7 +1048,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
             // continue changing destiny junction
             GNEJunction* oldGNEJunctionDestiny = myGNEJunctionDestiny;
             myGNEJunctionDestiny->setLogicValid(false, undoList);
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            undoList->p_add(new GNEChange_Attribute(this, myNet, key, value));
             myGNEJunctionDestiny->setLogicValid(false, undoList);
             myNet->retrieveJunction(value)->setLogicValid(false, undoList);
             setAttribute(GNE_ATTR_SHAPE_END, toString(myGNEJunctionDestiny->getNBNode()->getPosition()), undoList);
@@ -1070,13 +1070,13 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case GNE_ATTR_SHAPE_END:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_GENERIC:
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            undoList->p_add(new GNEChange_Attribute(this, myNet, key, value));
             break;
         case SUMO_ATTR_NAME:
             // user cares about street names. Make sure they appear in the output
             OptionsCont::getOptions().resetWritable();
             OptionsCont::getOptions().set("output.street-names", "true");
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            undoList->p_add(new GNEChange_Attribute(this, myNet, key, value));
             break;
         case SUMO_ATTR_NUMLANES:
             if (value != getAttribute(key)) {
@@ -1093,7 +1093,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
             // actually the geometry is already updated (incrementally
             // during mouse movement). We set the restore point to the end
             // of the last change-set
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            undoList->p_add(new GNEChange_Attribute(this, myNet, key, value));
             break;
         case GNE_ATTR_BIDIR:
             throw InvalidArgument("Attribute of '" + toString(key) + "' cannot be modified");

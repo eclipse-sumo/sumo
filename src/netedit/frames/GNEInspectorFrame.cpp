@@ -59,8 +59,9 @@ FXDEFMAP(GNEInspectorFrame) GNEInspectorFrameMap[] = {
 };
 
 FXDEFMAP(GNEInspectorFrame::AttributesEditor::AttributeInput) AttributeInputMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdSetAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdOpenAttributeDialog)
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,              GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdSetAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,       GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdOpenAttributeDialog),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_RADIOBUTTON,  GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdSetDisjointAttribute)
 };
 
 FXDEFMAP(GNEInspectorFrame::AttributesEditor) AttributesEditorMap[] = {
@@ -1083,6 +1084,12 @@ GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdSetAttribute(FXObject*
         WRITE_DEBUG("Value '" + newVal + "' for attribute " + toString(myAttr) + " of " + toString(myTag) + " isn't valid");
     }
     return 1;
+}
+
+
+long 
+GNEInspectorFrame::AttributesEditor::AttributeInput::onCmdSetDisjointAttribute(FXObject*, FXSelector, void*) {
+    return 0;
 }
 
 

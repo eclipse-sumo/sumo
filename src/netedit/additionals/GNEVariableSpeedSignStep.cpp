@@ -23,6 +23,7 @@
 #include <netedit/dialogs/GNEVariableSpeedSignDialog.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewNet.h>
 
 #include "GNEVariableSpeedSignStep.h"
 
@@ -125,7 +126,7 @@ GNEVariableSpeedSignStep::setAttribute(SumoXMLAttr key, const std::string& value
         case SUMO_ATTR_TIME:
         case SUMO_ATTR_SPEED:
         case GNE_ATTR_GENERIC:
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
+            undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

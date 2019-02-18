@@ -164,6 +164,9 @@ public:
             /// @brief try to set new attribute value
             long onCmdSetAttribute(FXObject*, FXSelector, void*);
 
+            /// @brief set new disjoint attribute
+            long onCmdSetDisjointAttribute(FXObject*, FXSelector, void*);
+
             /// @brief open model dialog for more comfortable attribute editing
             long onCmdOpenAttributeDialog(FXObject*, FXSelector, void*);
             /// @}

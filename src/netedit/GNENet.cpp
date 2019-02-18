@@ -492,34 +492,34 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList, bool recomputeConnectio
 void
 GNENet::replaceIncomingEdge(GNEEdge* which, GNEEdge* by, GNEUndoList* undoList) {
     undoList->p_begin("replace " + toString(SUMO_TAG_EDGE));
-    undoList->p_add(new GNEChange_Attribute(by, SUMO_ATTR_TO, which->getAttribute(SUMO_ATTR_TO)));
+    undoList->p_add(new GNEChange_Attribute(by, this, SUMO_ATTR_TO, which->getAttribute(SUMO_ATTR_TO)));
     // replace in additionals childs of edge
     while (which->getAdditionalChilds().size() > 0) {
-        undoList->p_add(new GNEChange_Attribute(which->getAdditionalChilds().front(), SUMO_ATTR_EDGE, by->getID()));
+        undoList->p_add(new GNEChange_Attribute(which->getAdditionalChilds().front(), this, SUMO_ATTR_EDGE, by->getID()));
     }
     // replace in additionals childs of lane
     for (auto i : which->getLanes()) {
         std::vector<GNEAdditional*> copyOfLaneAdditionals = i->getAdditionalChilds();
         for (auto j : copyOfLaneAdditionals) {
-            undoList->p_add(new GNEChange_Attribute(j, SUMO_ATTR_LANE, by->getNBEdge()->getLaneID(i->getIndex())));
+            undoList->p_add(new GNEChange_Attribute(j, this, SUMO_ATTR_LANE, by->getNBEdge()->getLaneID(i->getIndex())));
         }
     }
     // replace in demand elements childs of edge
     while (which->getDemandElementChilds().size() > 0) {
-        undoList->p_add(new GNEChange_Attribute(which->getDemandElementChilds().front(), SUMO_ATTR_EDGE, by->getID()));
+        undoList->p_add(new GNEChange_Attribute(which->getDemandElementChilds().front(), this, SUMO_ATTR_EDGE, by->getID()));
     }
     // replace in demand elements childs of lane
     for (auto i : which->getLanes()) {
         std::vector<GNEDemandElement*> copyOfLaneDemandElements = i->getDemandElementChilds();
         for (auto j : copyOfLaneDemandElements) {
-            undoList->p_add(new GNEChange_Attribute(j, SUMO_ATTR_LANE, by->getNBEdge()->getLaneID(i->getIndex())));
+            undoList->p_add(new GNEChange_Attribute(j, this, SUMO_ATTR_LANE, by->getNBEdge()->getLaneID(i->getIndex())));
         }
     }
     // replace in shapes childs of lane
     for (auto i : which->getLanes()) {
         std::vector<GNEShape*> copyOfLaneShapes = i->getShapeChilds();
         for (auto j : copyOfLaneShapes) {
-            undoList->p_add(new GNEChange_Attribute(j, SUMO_ATTR_LANE, by->getNBEdge()->getLaneID(i->getIndex())));
+            undoList->p_add(new GNEChange_Attribute(j, this, SUMO_ATTR_LANE, by->getNBEdge()->getLaneID(i->getIndex())));
         }
     }
     // replace in rerouters
@@ -794,7 +794,7 @@ GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNE
         }
     }
     // modify the edge so that it ends at the new junction (and all incoming connections are preserved
-    undoList->p_add(new GNEChange_Attribute(edge, SUMO_ATTR_TO, newJunction->getID()));
+    undoList->p_add(new GNEChange_Attribute(edge, this, SUMO_ATTR_TO, newJunction->getID()));
     // fix first part of geometry
     newGeoms.first.pop_back();
     newGeoms.first.erase(newGeoms.first.begin());
@@ -892,7 +892,7 @@ GNENet::mergeJunctions(GNEJunction* moved, GNEJunction* target, GNEUndoList* und
         if (e->getGNEJunctionSource() == target) {
             deleteEdge(e, undoList, false);
         } else {
-            undoList->p_add(new GNEChange_Attribute(e, SUMO_ATTR_TO, target->getID()));
+            undoList->p_add(new GNEChange_Attribute(e, this, SUMO_ATTR_TO, target->getID()));
         }
     }
     // deleting edges changes in the underlying EdgeVector so we have to make a copy
@@ -904,7 +904,7 @@ GNENet::mergeJunctions(GNEJunction* moved, GNEJunction* target, GNEUndoList* und
         if (e->getGNEJunctionDestiny() == target) {
             deleteEdge(e, undoList, false);
         } else {
-            undoList->p_add(new GNEChange_Attribute(e, SUMO_ATTR_FROM, target->getID()));
+            undoList->p_add(new GNEChange_Attribute(e, this, SUMO_ATTR_FROM, target->getID()));
         }
     }
     // deleted moved junction
@@ -1593,7 +1593,7 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
     }
     // remap edges
     for (auto it : allIncoming) {
-        undoList->p_add(new GNEChange_Attribute(myAttributeCarriers.edges[it->getID()], SUMO_ATTR_TO, joined->getID()));
+        undoList->p_add(new GNEChange_Attribute(myAttributeCarriers.edges[it->getID()], this, SUMO_ATTR_TO, joined->getID()));
     }
 
     EdgeSet edgesWithin;
@@ -1605,7 +1605,7 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
             edgesWithin.insert(it);
             deleteEdge(e, undoList, false);
         } else {
-            undoList->p_add(new GNEChange_Attribute(myAttributeCarriers.edges[it->getID()], SUMO_ATTR_FROM, joined->getID()));
+            undoList->p_add(new GNEChange_Attribute(myAttributeCarriers.edges[it->getID()], this, SUMO_ATTR_FROM, joined->getID()));
         }
     }
 
@@ -1790,19 +1790,19 @@ GNENet::splitJunction(GNEJunction* junction, GNEUndoList* undoList) {
             //std::cout << "   incoming " << e->getID() << " pos=" << pos << " origTo=" << e->getNBEdge()->getParameter("origTo") << " newID=" << newID << "\n";
             if (e->getNBEdge()->getGeometry().back().almostSame(pos) || e->getNBEdge()->getParameter("origTo") == newID) {
                 //std::cout << "     match\n";
-                undoList->p_add(new GNEChange_Attribute(e, SUMO_ATTR_TO, newJunction->getID()));
+                undoList->p_add(new GNEChange_Attribute(e, this, SUMO_ATTR_TO, newJunction->getID()));
             }
         }
         for (GNEEdge* e : outgoing) {
             //std::cout << "   outgoing " << e->getID() << " pos=" << pos << " origFrom=" << e->getNBEdge()->getParameter("origFrom") << " newID=" << newID << "\n";
             if (e->getNBEdge()->getGeometry().front().almostSame(pos) || e->getNBEdge()->getParameter("origFrom") == newID) {
                 //std::cout << "     match\n";
-                undoList->p_add(new GNEChange_Attribute(e, SUMO_ATTR_FROM, newJunction->getID()));
+                undoList->p_add(new GNEChange_Attribute(e, this, SUMO_ATTR_FROM, newJunction->getID()));
             }
         }
         if (newID != newJunction->getID()) {
             if (newJunction->isValid(SUMO_ATTR_ID, newID)) {
-                undoList->p_add(new GNEChange_Attribute(newJunction, SUMO_ATTR_ID, newID));
+                undoList->p_add(new GNEChange_Attribute(newJunction, this, SUMO_ATTR_ID, newID));
             } else {
                 WRITE_WARNING("Could not rename split node to '" + newID + "'");
             }
