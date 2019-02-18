@@ -1297,6 +1297,23 @@ NBNodeCont::onlyCrossings(const NodeSet& c) const {
 }
 
 
+bool
+NBNodeCont::customTLID(const NodeSet& c) const {
+    for (NBNode* node : c) {
+        if (node->isTLControlled()) {
+            const std::string tlID = (*node->getControllingTLS().begin())->getID();
+            if (tlID != node->getID() 
+                    && !StringUtils::startsWith(tlID, "joinedS_")
+                    && !StringUtils::startsWith(tlID, "joinedG_")
+                    && !StringUtils::startsWith(tlID, "GS")) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+
 void
 NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
     // build list of definitely not tls-controlled junctions
@@ -1502,7 +1519,7 @@ NBNodeCont::joinTLS(NBTrafficLightLogicCont& tlc, double maxdist) {
                 ++j;
             }
         }
-        if (c.size() < 2 || onlyCrossings(c)) {
+        if (c.size() < 2 || onlyCrossings(c) || customTLID(c)) {
             continue;
         }
         // figure out type of the joined TLS

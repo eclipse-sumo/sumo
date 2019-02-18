@@ -344,6 +344,9 @@ private:
 
     /// @brief check wheter the set of nodes only contains pedestrian crossings
     bool onlyCrossings(const NodeSet& c) const; 
+
+    /// @brief check wheter the set of nodes contains traffic lights with custom id
+    bool customTLID(const NodeSet& c) const; 
     /// @}
 
 
