@@ -213,6 +213,10 @@ RONetHandler::parseLane(const SUMOSAXAttributes& attrs) {
     if (!ok) {
         return;
     }
+    if (shape.size() < 2) {
+        WRITE_ERROR("Ignoring lane '" + id + "' with broken shape.");
+        return;
+    }
     // get the length
     // get the vehicle classes
     SVCPermissions permissions = parseVehicleClasses(allow, disallow);

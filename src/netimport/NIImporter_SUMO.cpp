@@ -69,6 +69,7 @@ NIImporter_SUMO::NIImporter_SUMO(NBNetBuilder& nb)
       myNetBuilder(nb),
       myNodeCont(nb.getNodeCont()),
       myTLLCont(nb.getTLLogicCont()),
+      myTypesHandler(nb.getTypeCont()),
       myCurrentEdge(nullptr),
       myCurrentLane(nullptr),
       myCurrentTL(nullptr),
@@ -94,6 +95,7 @@ NIImporter_SUMO::~NIImporter_SUMO() {
         delete ed;
     }
     delete myLocation;
+
 }
 
 
@@ -104,7 +106,6 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
         return;
     }
     // parse file(s)
-    NIXMLTypesHandler* typesHandler = new NIXMLTypesHandler(myNetBuilder.getTypeCont());
     std::vector<std::string> files = oc.getStringVector("sumo-net-file");
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
         if (!FileHelpers::isReadable(*file)) {
@@ -114,7 +115,6 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
         setFileName(*file);
         PROGRESS_BEGIN_MESSAGE("Parsing sumo-net from '" + *file + "'");
         XMLSubSys::runParser(*this, *file, true);
-        XMLSubSys::runParser(*typesHandler, *file, true);
         PROGRESS_DONE_MESSAGE();
     }
     // build edges
@@ -466,6 +466,7 @@ NIImporter_SUMO::myStartElement(int element,
             }
             break;
         default:
+            myTypesHandler.myStartElement(element, attrs);
             break;
     }
 }
@@ -574,8 +575,12 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
         return;
     }
     if (!myCurrentEdge) {
-        WRITE_ERROR("Found lane '" + id  + "' not within edge element");
+        WRITE_ERROR("Found lane '" + id  + "' not within edge element.");
         return;
+    }
+    const std::string expectedID = myCurrentEdge->id + "_" + toString(myCurrentEdge->lanes.size());
+    if (id != expectedID) {
+        WRITE_WARNING("Renaming lane '" + id  + "' to '" + expectedID + "'.");
     }
     myCurrentLane = new LaneAttrs();
     myLastParameterised.push_back(myCurrentLane);

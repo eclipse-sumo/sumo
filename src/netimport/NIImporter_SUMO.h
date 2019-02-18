@@ -31,6 +31,7 @@
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/common/Parameterised.h>
 #include <netbuild/NBLoadedSUMOTLDef.h>
+#include "NIXMLTypesHandler.h"
 
 
 // ===========================================================================
@@ -83,11 +84,8 @@ protected:
      */
     NIImporter_SUMO(NBNetBuilder& nb);
 
-
     /// @brief Destructor
     ~NIImporter_SUMO();
-
-
 
     /// @name inherited from GenericSAXHandler
     //@{
@@ -328,6 +326,9 @@ private:
 
     /// @brief The node container to fill
     NBTrafficLightLogicCont& myTLLCont;
+
+    /// @brief The handler for parsing edge types and restrictions
+    NIXMLTypesHandler myTypesHandler;
 
     /// @brief The currently parsed edge's definition (to add loaded lanes to)
     EdgeAttrs* myCurrentEdge;

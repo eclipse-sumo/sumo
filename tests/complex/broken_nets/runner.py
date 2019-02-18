@@ -202,7 +202,7 @@ def tinyPath(xmlStruct, path, newValue):
 if sys.argv[1] == "sumo":
     call = [checkBinary('sumo'), "--no-step-log", "--no-duration-log"]
 elif sys.argv[1] == "netconvert":
-    call = [checkBinary('netconvert')]
+    call = [checkBinary('netconvert'), "-o", "/dev/null"]
 elif sys.argv[1] == "dfrouter":
     call = [checkBinary('dfrouter'), "--detector-files", "input_additional.add.xml"]
 elif sys.argv[1] == "duarouter" or sys.argv[1] == "jtrrouter":

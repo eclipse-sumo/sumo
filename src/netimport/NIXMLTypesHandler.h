@@ -52,12 +52,9 @@ public:
      */
     NIXMLTypesHandler(NBTypeCont& tc);
 
-
     /// @brief Destructor
     ~NIXMLTypesHandler();
 
-
-protected:
     /// @name inherited from GenericSAXHandler
     //@{
 
