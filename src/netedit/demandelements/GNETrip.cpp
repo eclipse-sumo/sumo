@@ -78,12 +78,6 @@ GNETrip::getBegin() const {
 }
 
 
-bool 
-GNETrip::wasSet(int what) const {
-    return (parametersSet & what) != 0;
-}
-
-
 const RGBColor &
 GNETrip::getColor() const {
     return color;
@@ -446,6 +440,12 @@ GNETrip::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
+bool 
+GNETrip::isAttributeSet(const SumoXMLAttr /*attr*/) const {
+    return true;
+}
+
+
 std::string
 GNETrip::getPopUpID() const {
     return getTagStr();
@@ -486,7 +486,7 @@ GNETrip::setColor(const GUIVisualizationSettings& s) const {
                 GLHelper::setColor(color);
                 break;
             }
-            if (myVehicleType->wasSet(VTYPEPARS_COLOR_SET)) {
+            if (myVehicleType->isAttributeSet(SUMO_ATTR_COLOR)) {
                 GLHelper::setColor(myVehicleType->getColor());
                 break;
             }
@@ -502,7 +502,7 @@ GNETrip::setColor(const GUIVisualizationSettings& s) const {
             break;
         }
         case 3: {
-            if (myVehicleType->wasSet(VTYPEPARS_COLOR_SET)) {
+            if (myVehicleType->isAttributeSet(SUMO_ATTR_COLOR)) {
                 GLHelper::setColor(myVehicleType->getColor());
             } else {
                 GLHelper::setColor(c.getScheme().getColor(0));

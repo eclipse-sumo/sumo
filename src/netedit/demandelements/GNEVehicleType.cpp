@@ -51,12 +51,6 @@ GNEVehicleType::GNEVehicleType(GNEViewNet* viewNet, const SUMOVTypeParameter &vT
 GNEVehicleType::~GNEVehicleType() {}
 
 
-bool 
-GNEVehicleType::wasSet(int what) const {
-    return (parametersSet & what) != 0;
-}
-
-
 const RGBColor &
 GNEVehicleType::getColor() const {
     return color;
@@ -313,6 +307,17 @@ GNEVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+}
+
+
+bool 
+GNEVehicleType::isAttributeSet(const SumoXMLAttr attr) const {
+    switch (attr) {
+        case SUMO_ATTR_COLOR:
+            return (parametersSet & VTYPEPARS_COLOR_SET) != 0;
+        default:
+            return false;
+    };
 }
 
 

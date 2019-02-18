@@ -874,9 +874,19 @@ GNEAttributeCarrier::TagProperties::isAttributeDeprecated(SumoXMLAttr attr) cons
 // GNEAttributeCarrier - methods
 // ---------------------------------------------------------------------------
 
-GNEAttributeCarrier::GNEAttributeCarrier(SumoXMLTag tag) :
+GNEAttributeCarrier::GNEAttributeCarrier(const SumoXMLTag tag) :
     myTagProperty(getTagProperties(tag)),
     mySelected(false) {
+}
+
+
+GNEAttributeCarrier::~GNEAttributeCarrier() {}
+
+
+bool 
+GNEAttributeCarrier::isAttributeSet(const SumoXMLAttr attr) const {
+    // by default all attributes are set
+    return true;
 }
 
 

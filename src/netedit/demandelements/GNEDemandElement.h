@@ -59,12 +59,6 @@ public:
     /// @brief Destructor
     ~GNEDemandElement();
 
-    /** @brief Returns whether the given parameter was set
-     * @param[in] what The parameter which one asks for
-     * @return Whether the given parameter was set
-     */
-    virtual bool wasSet(int what) const = 0;
-
     /// @name members and functions relative to write demand elements into XML
     /// @{
     /**@brief writte demand element element into a xml file
@@ -214,6 +208,12 @@ public:
      * @return true if the value is valid, false in other case
      */
     virtual bool isValid(SumoXMLAttr key, const std::string& value) = 0;
+
+    /* @brief method for check if certain attribute is set (used by ACs with disjoint attributes)
+     * @param[in] key The attribute key
+     * @return true if it's set, false in other case
+     */
+    virtual bool isAttributeSet(const SumoXMLAttr attr) const = 0;
 
     /// @brief get PopPup ID (Used in AC Hierarchy)
     virtual std::string getPopUpID() const = 0;

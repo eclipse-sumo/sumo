@@ -57,13 +57,6 @@ GNERoute::GNERoute(GNEViewNet* viewNet, const std::string& routeID, const std::v
 GNERoute::~GNERoute() {}
 
 
-bool 
-GNERoute::wasSet(int what) const {
-    //return (parametersSet & what) != 0;
-    return true;
-}
-
-
 const RGBColor &
 GNERoute::getColor() const {
     return myColor;
@@ -318,6 +311,12 @@ GNERoute::isValid(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+}
+
+
+bool 
+GNERoute::isAttributeSet(const SumoXMLAttr /*attr*/) const {
+    return true;
 }
 
 

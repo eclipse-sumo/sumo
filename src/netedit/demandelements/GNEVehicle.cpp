@@ -76,16 +76,10 @@ GNEVehicle::getBegin() const {
     // we need to handle depart as a tuple of 20 numbers (format: 000000...00<departTime>)
     departStr.reserve(20 - departStr.size());
     // add 0s at the beginning of departStr until we have 20 numbers
-    for (int i = departStr.size(); i < 20; i++) {
+    for (int i = (int)departStr.size(); i < 20; i++) {
         departStr.insert(departStr.begin(), '0');
     }
     return departStr;
-}
-
-
-bool 
-GNEVehicle::wasSet(int what) const {
-    return (parametersSet & what) != 0;
 }
 
 
@@ -458,6 +452,12 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
+bool 
+GNEVehicle::isAttributeSet(const SumoXMLAttr /*attr*/) const {
+    return true;
+}
+
+
 std::string
 GNEVehicle::getPopUpID() const {
     return getTagStr();
@@ -498,7 +498,7 @@ GNEVehicle::setColor(const GUIVisualizationSettings& s) const {
                 GLHelper::setColor(color);
                 break;
             }
-            if (myVehicleType->wasSet(VTYPEPARS_COLOR_SET)) {
+            if (myVehicleType->isAttributeSet(SUMO_ATTR_COLOR)) {
                 GLHelper::setColor(myVehicleType->getColor());
                 break;
             }
@@ -518,7 +518,7 @@ GNEVehicle::setColor(const GUIVisualizationSettings& s) const {
             break;
         }
         case 3: {
-            if (myVehicleType->wasSet(VTYPEPARS_COLOR_SET)) {
+            if (myVehicleType->isAttributeSet(SUMO_ATTR_COLOR)) {
                 GLHelper::setColor(myVehicleType->getColor());
             } else {
                 GLHelper::setColor(c.getScheme().getColor(0));

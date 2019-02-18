@@ -490,10 +490,10 @@ public:
      * @param[in] tag SUMO Tag assigned to this type of object
      * @param[in] icon GUIIcon associated to the type of object
      */
-    GNEAttributeCarrier(SumoXMLTag tag);
+    GNEAttributeCarrier(const SumoXMLTag tag);
 
     /// @brief Destructor
-    virtual ~GNEAttributeCarrier() {};
+    virtual ~GNEAttributeCarrier();
 
     /// @name This functions has to be implemented in all GNEAttributeCarriers
     /// @{
@@ -523,12 +523,17 @@ public:
      */
     virtual void setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) = 0;
 
-    /* @brief method for setting the attribute and letting the object perform additional changes
-    * @param[in] key The attribute key
-    * @param[in] value The new value
-    * @param[in] undoList The undoList on which to register changes
-    */
+    /* @brief method for check if new value for certain attribute is valid
+     * @param[in] key The attribute key
+     * @param[in] value The new value
+     */
     virtual bool isValid(SumoXMLAttr key, const std::string& value) = 0;
+
+    /* @brief method for check if certain attribute is set (used by ACs with disjoint attributes)
+     * @param[in] key The attribute key
+     * @return true if it's set, false in other case
+     */
+    virtual bool isAttributeSet(const SumoXMLAttr attr) const;
 
     /// @brief get PopPup ID (Used in AC Hierarchy)
     virtual std::string getPopUpID() const = 0;

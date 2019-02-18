@@ -76,12 +76,6 @@ GNEFlow::getBegin() const {
 }
 
 
-bool 
-GNEFlow::wasSet(int what) const {
-    return (parametersSet & what) != 0;
-}
-
-
 const RGBColor &
 GNEFlow::getColor() const {
     return color;
@@ -94,16 +88,16 @@ GNEFlow::writeDemandElement(OutputDevice& device) const {
     // write manually route
     device.writeAttr(SUMO_ATTR_ROUTE, myRoute->getID());
     // write flow values depending if it was set
-    if (wasSet(VEHPARS_END_SET)) {
+    if (isAttributeSet(SUMO_ATTR_END)) {
         device.writeAttr(SUMO_ATTR_END,  time2string(repetitionEnd));
     }
-    if (wasSet(VEHPARS_NUMBER_SET)) {
+    if (isAttributeSet(SUMO_ATTR_NUMBER)) {
         device.writeAttr(SUMO_ATTR_NUMBER , repetitionNumber);
     }
-    if (wasSet(VEHPARS_VPH_SET)) {
+    if (isAttributeSet(SUMO_ATTR_VEHSPERHOUR)) {
         device.writeAttr(SUMO_ATTR_VEHSPERHOUR, 3600. / STEPS2TIME(repetitionOffset));
     }
-    if (wasSet(VEHPARS_PERIOD_SET)) {
+    if (isAttributeSet(SUMO_ATTR_PERIOD)) {
         device.writeAttr(SUMO_ATTR_PERIOD, time2string(repetitionOffset));
     }
     if (repetitionProbability != -1) {
@@ -516,6 +510,23 @@ GNEFlow::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
+bool 
+GNEFlow::isAttributeSet(const SumoXMLAttr attr) const {
+    switch (attr) {
+        case SUMO_ATTR_END:
+            return (parametersSet & VEHPARS_END_SET) != 0;
+        case SUMO_ATTR_NUMBER:
+            return (parametersSet & VEHPARS_NUMBER_SET) != 0;
+        case SUMO_ATTR_VEHSPERHOUR:
+            return (parametersSet & VEHPARS_VPH_SET) != 0;
+        case SUMO_ATTR_PERIOD:
+            return (parametersSet & VEHPARS_PERIOD_SET) != 0;
+        default:
+            return true;
+    };
+}
+
+
 std::string
 GNEFlow::getPopUpID() const {
     return getTagStr();
@@ -556,7 +567,7 @@ GNEFlow::setColor(const GUIVisualizationSettings& s) const {
                 GLHelper::setColor(color);
                 break;
             }
-            if (myVehicleType->wasSet(VTYPEPARS_COLOR_SET)) {
+            if (myVehicleType->isAttributeSet(SUMO_ATTR_COLOR)) {
                 GLHelper::setColor(myVehicleType->getColor());
                 break;
             }
@@ -576,7 +587,7 @@ GNEFlow::setColor(const GUIVisualizationSettings& s) const {
             break;
         }
         case 3: {
-            if (myVehicleType->wasSet(VTYPEPARS_COLOR_SET)) {
+            if (myVehicleType->isAttributeSet(SUMO_ATTR_COLOR)) {
                 GLHelper::setColor(myVehicleType->getColor());
             } else {
                 GLHelper::setColor(c.getScheme().getColor(0));

@@ -46,12 +46,6 @@ public:
     /// @brief destructor
     ~GNEVehicleType();
 
-    /** @brief Returns whether the given parameter was set
-     * @param[in] what The parameter which one asks for
-     * @return Whether the given parameter was set
-     */
-    bool wasSet(int what) const;
-
     /// @brief get color
     const RGBColor &getColor() const;
 
@@ -121,6 +115,12 @@ public:
     * @param[in] undoList The undoList on which to register changes
     */
     bool isValid(SumoXMLAttr key, const std::string& value);
+
+    /* @brief method for check if certain attribute is set (used by ACs with disjoint attributes)
+     * @param[in] key The attribute key
+     * @return true if it's set, false in other case
+     */
+    bool isAttributeSet(const SumoXMLAttr attr) const;
 
     /// @brief get PopPup ID (Used in AC Hierarchy)
     std::string getPopUpID() const;
