@@ -27,7 +27,7 @@ _RETURN_VALUE_FUNC = {tc.TRACI_ID_LIST: Storage.readStringList,
                       tc.VAR_WIDTH: Storage.readDouble,
                       tc.VAR_HEIGHT: Storage.readDouble,
                       tc.VAR_ANGLE: Storage.readDouble,
-                      tc.VAR_IMAGFILE: Storage.readString}
+                      tc.VAR_IMAGEFILE: Storage.readString}
 
 
 class PoiDomain(Domain):
@@ -85,7 +85,7 @@ class PoiDomain(Domain):
 
         Returns the image file of the given poi.
         """
-        return self._getUniversal(tc.VAR_IMAGFILE, poiID)
+        return self._getUniversal(tc.VAR_IMAGEFILE, poiID)
 
     def setType(self, poiID, poiType):
         """setType(string, string) -> None
@@ -153,7 +153,7 @@ class PoiDomain(Domain):
         Sets the image file of the poi.
         """
         self._connection._beginMessage(
-            tc.CMD_SET_POI_VARIABLE, tc.VAR_IMAGFILE, poiID, 1 + 4 + len(imageFile))
+            tc.CMD_SET_POI_VARIABLE, tc.VAR_IMAGEFILE, poiID, 1 + 4 + len(imageFile))
         self._connection._packString(imageFile)
         self._connection._sendExact()
 
