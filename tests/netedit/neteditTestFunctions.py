@@ -698,7 +698,7 @@ def modifyAttribute(attributeNumber, value, overlapped):
     # focus current frame
     focusOnFrame()
     # jump to attribute depending if it's a overlapped element
-    if (overlapped == True):
+    if overlapped:
         for _ in range(attributeNumber + 5):
             typeTab()
     else:
@@ -719,7 +719,7 @@ def modifyBoolAttribute(attributeNumber, overlapped):
     # focus current frame
     focusOnFrame()
     # jump to attribute depending if it's a overlapped element
-    if (overlapped == True):
+    if overlapped:
         for _ in range(attributeNumber + 5):
             typeTab()
     else:

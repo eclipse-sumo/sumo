@@ -103,7 +103,8 @@ Time 50.0: Gap 'follower'->'leader' = 19.601 (headway=1.000)
 Time 51.0: Gap 'follower'->'leader' = 19.601 (headway=1.000)
 'follower' speed = 19.5999643877
 ## Starting to open gap.
-(followerID, targetTimeHeadway, targetSpaceHeadway, duration, changeRate, maxDecel) = ('follower', 5.0, 0.0, 10.0, 0.25, 0.01)
+(followerID, targetTimeHeadway, targetSpaceHeadway, duration, changeRate) = ('follower', 5.0, 0.0, 10.0, 0.25)
+maxDecel = 0.01
 Time 52.0: Gap 'follower'->'leader' = 19.601 (headway=1.000)
 'follower' speed = 19.599971722
 Current/target headway: 1.000/5.0

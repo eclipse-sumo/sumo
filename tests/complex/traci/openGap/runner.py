@@ -66,15 +66,15 @@ def runSingle(targetTimeHeadway, targetSpaceHeadway, duration, changeRate, maxDe
         if refVehID is "":
             leader = results[tc.VAR_LEADER][0]
             leaderDist = results[tc.VAR_LEADER][1]
-        elif not leaderArrived: 
+        elif not leaderArrived:
             leader = refVehID
             arrived = traci.simulation.getArrivedIDList()
-            #print ("arrived vehicles: %s"%(str(arrived)))
+            # print ("arrived vehicles: %s"%(str(arrived)))
             if leader in arrived:
-                print ("Reference vehicle has been removed.")
-                leaderArrived=True
-                targetGapEstablished=True
-                gapControlActive=False
+                print("Reference vehicle has been removed.")
+                leaderArrived = True
+                targetGapEstablished = True
+                gapControlActive = False
             else:
                 traci.vehicle.subscribe(leaderID, [tc.VAR_SPEED])
                 leaderEdgeID = traci.vehicle.getRoadID(leader)
@@ -91,23 +91,23 @@ def runSingle(targetTimeHeadway, targetSpaceHeadway, duration, changeRate, maxDe
         if (not gapControlActive and not targetGapEstablished and currentTime > 50.):
             print("## Starting to open gap.")
             sys.stdout.flush()
+            print("(followerID, targetTimeHeadway, targetSpaceHeadway, duration, changeRate) = %s" %
+                    str((followerID, targetTimeHeadway, targetSpaceHeadway, duration, changeRate)))
             if refVehID is "":
                 if maxDecel == -1:
-                    print("(followerID, targetTimeHeadway, targetSpaceHeadway, duration, changeRate) = %s" %
-                          str((followerID, targetTimeHeadway, targetSpaceHeadway, duration, changeRate)))
                     traci.vehicle.openGap(followerID, targetTimeHeadway, targetSpaceHeadway, duration, changeRate)
                 else:
-                    print("(followerID, targetTimeHeadway, targetSpaceHeadway, duration, changeRate, maxDecel) = %s" %
-                          str((followerID, targetTimeHeadway, targetSpaceHeadway, duration, changeRate, maxDecel)))
-                    traci.vehicle.openGap(followerID, targetTimeHeadway, targetSpaceHeadway, duration, changeRate, maxDecel)
+                    print("maxDecel = %s" % maxDecel)
+                    traci.vehicle.openGap(followerID, targetTimeHeadway, targetSpaceHeadway, duration, changeRate,
+                                          maxDecel)
             else:
-                print("(followerID, targetTimeHeadway, targetSpaceHeadway, duration, changeRate, maxDecel, refVehID) = %s" %
-                      str((followerID, targetTimeHeadway, targetSpaceHeadway, duration, changeRate, maxDecel, refVehID)))
-                traci.vehicle.openGap(followerID, targetTimeHeadway, targetSpaceHeadway, duration, changeRate, maxDecel, refVehID)
+                print("(maxDecel, refVehID) = %s" % str((maxDecel, refVehID)))
+                traci.vehicle.openGap(followerID, targetTimeHeadway, targetSpaceHeadway, duration, changeRate,
+                                      maxDecel, refVehID)
                 if maxDecel == -1:
                     # For test 'reference_vehicle_removed' set new route for merger
                     traci.vehicle.setRouteID('merger', 'route_merger')
-                
+
             gapControlActive = True
         elif gapControlActive:
             print("Current/target headway: {0:.3f}/{1}".format(currentTimeHeadway, targetTimeHeadway))

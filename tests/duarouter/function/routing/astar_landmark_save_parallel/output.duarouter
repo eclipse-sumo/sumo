@@ -4,14 +4,14 @@ Building Contraction Hierarchy for vClass='passenger' and time=0.00 (2048 edges)
 ... 
 Created 4647 shortcuts.
 Recomputed priority 2518 times.
-done (145ms).
+done (325ms).
 done.
 Cloning Contraction Hierarchy for passenger and time 2147483.65.
 Cloning Contraction Hierarchy for passenger and time 2147483.65.
-CHRouterClone answered 718 queries and explored 66.85 edges on average.
-CHRouterClone spent 24ms answering queries (0.03ms on average).
 CHRouterClone answered 718 queries and explored 75.53 edges on average.
-CHRouterClone spent 39ms answering queries (0.05ms on average).
+CHRouterClone spent 100ms answering queries (0.14ms on average).
+CHRouterClone answered 718 queries and explored 66.85 edges on average.
+CHRouterClone spent 111ms answering queries (0.15ms on average).
 CHRouter answered 1 queries and explored 3.00 edges on average.
 CHRouter spent 0ms answering queries (0.00ms on average).
 AStarRouter answered 1 queries and explored 95.00 edges on average.

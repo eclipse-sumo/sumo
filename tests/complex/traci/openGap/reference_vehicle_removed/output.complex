@@ -103,7 +103,8 @@ Time 50.0: Gap 'follower'->'merger' = 9838.701 (headway=501.976)
 Time 51.0: Gap 'follower'->'merger' = 9838.701 (headway=501.975)
 'follower' speed = 19.5999643877
 ## Starting to open gap.
-(followerID, targetTimeHeadway, targetSpaceHeadway, duration, changeRate, maxDecel, refVehID) = ('follower', 5.0, 0.0, 10.0, 0.25, -1.0, 'merger')
+(followerID, targetTimeHeadway, targetSpaceHeadway, duration, changeRate) = ('follower', 5.0, 0.0, 10.0, 0.25)
+(maxDecel, refVehID) = (-1.0, 'merger')
 Time 52.0: Gap 'follower'->'merger' = -1073741824.000 (headway=-54782825.161)
 'follower' speed = 19.599971722
 Current/target headway: -54782825.161/5.0
