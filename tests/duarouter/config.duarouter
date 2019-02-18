@@ -38,3 +38,6 @@ log:ms answering queries
 [floating_point_tolerance]
 routes:0.0101
 alts:0.0101
+
+[batch_filter_file]
+msvc12x64D:debug_filter
