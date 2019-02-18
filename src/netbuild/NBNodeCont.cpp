@@ -634,6 +634,7 @@ NBNodeCont::joinLoadedClusters(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLigh
         if (cluster.size() > 1) {
             joinNodeCluster(cluster, dc, ec, tlc, item.second);
             numJoined++;
+            myJoinExclusions.insert(item.second->getID());
         }
     }
     myClusters2Join.clear(); // make save for recompute
