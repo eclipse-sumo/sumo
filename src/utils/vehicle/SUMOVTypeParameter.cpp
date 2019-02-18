@@ -49,6 +49,7 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
     cfModel(SUMO_TAG_CF_KRAUSS),
     hasDriverState(false), lcModel(LCM_DEFAULT),
     maxSpeedLat(1.0), latAlignment(LATALIGN_CENTER), minGapLat(0.6),
+    carriageLength(-1), locomotiveLength(-1), carriageGap(1),
     parametersSet(0), saved(false), onlyReferenced(false) {
     const OptionsCont& oc = OptionsCont::getOptions();
     if (oc.exists("carfollow.model")) {
@@ -114,6 +115,8 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
             width = 2.55;
             height = 4.;
             shape = SVS_TRUCK_SEMITRAILER;
+            carriageLength = 13.5;
+            locomotiveLength = 3.5;
             osgFile = "car-microcargo-citrus.obj";
             personCapacity = 2;
             containerCapacity = 2;
@@ -147,6 +150,8 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
             width = 2.4;
             height = 3.2;
             shape = SVS_RAIL_CAR;
+            carriageLength = 5.71; // http://de.wikipedia.org/wiki/Bombardier_Flexity_Berlin
+            locomotiveLength = 5.71;
             personCapacity = 120;
             emissionClass = PollutantsInterface::getClassByName(EMPREFIX + "zero", vclass);
             break;
@@ -156,6 +161,8 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
             width = 3.0;
             height = 3.6;
             shape = SVS_RAIL_CAR;
+            carriageLength = 18.4;  // https://en.wikipedia.org/wiki/DBAG_Class_481
+            locomotiveLength = 18.4;
             personCapacity = 300;
             emissionClass = PollutantsInterface::getClassByName(EMPREFIX + "zero", vclass);
             break;
@@ -165,6 +172,8 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
             width = 2.84;
             height = 3.75;
             shape = SVS_RAIL;
+            carriageLength = 24.5; // http://de.wikipedia.org/wiki/UIC-Y-Wagen_%28DR%29
+            locomotiveLength = 16.4; // https://en.wikipedia.org/wiki/DB_Class_218
             personCapacity = 434;
             // slight understatement (-:
             emissionClass = PollutantsInterface::getClassByName(EMPREFIX + "HDV_D_EU0", vclass);
@@ -175,6 +184,8 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
             width = 2.95;
             height = 3.89;
             shape = SVS_RAIL;
+            carriageLength = 24.775; // http://de.wikipedia.org/wiki/ICE_3
+            locomotiveLength = 25.835;
             personCapacity = 425;
             emissionClass = PollutantsInterface::getClassByName(EMPREFIX + "zero", vclass);
             break;

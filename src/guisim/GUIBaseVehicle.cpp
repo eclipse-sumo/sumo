@@ -316,7 +316,7 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
             GUIBaseVehicleHelper::drawAction_drawVehicleAsBoxPlus(getVType().getWidth(), getVType().getLength());
             break;
         case 2:
-            drawCarriages = drawAction_drawVehicleAsPolyWithCarriagges(s, getVType().getGuiShape());
+            drawCarriages = drawAction_drawVehicleAsPolyWithCarriagges(s);
             // draw flashing blue light for emergency vehicles
             if (getVType().getGuiShape() == SVS_EMERGENCY) {
                 glTranslated(0, 0, .1);
@@ -325,12 +325,7 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
             break;
         case 3:
         default:
-            // draw as image but take special care for drawing trains fallback to simple shapes
-            if (!drawAction_drawCarriageClass(s, getVType().getGuiShape(), true)) {
-                if (!GUIBaseVehicleHelper::drawAction_drawVehicleAsImage(s, getVType().getImgFile(), this, getVType().getWidth())) {
-                    drawCarriages = drawAction_drawVehicleAsPolyWithCarriagges(s, getVType().getGuiShape());
-                };
-            }
+            drawCarriages = drawAction_drawVehicleAsPolyWithCarriagges(s, true);
             break;
     }
     if (s.drawMinGap) {
@@ -700,18 +695,18 @@ GUIBaseVehicle::drawAction_drawPersonsAndContainers(const GUIVisualizationSettin
 
 
 bool 
-GUIBaseVehicle::drawAction_drawVehicleAsPolyWithCarriagges(const GUIVisualizationSettings& s, const SUMOVehicleShape shape) const 
+GUIBaseVehicle::drawAction_drawVehicleAsPolyWithCarriagges(const GUIVisualizationSettings& s, bool asImage) const 
 {
-    switch (shape) {
-        case SVS_BUS_FLEXIBLE:
-        case SVS_RAIL:
-        case SVS_RAIL_CAR:
-        case SVS_RAIL_CARGO:
-            drawAction_drawCarriageClass(s, shape, false);
-            return true;
-        default:
-            GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(s, getVType().getGuiShape(), getVType().getWidth(), getVType().getLength());
+    if (getVType().getParameter().carriageLength > 0) {
+        drawAction_drawCarriageClass(s, asImage);
+        return true;
+    } else {
+        if (asImage && 
+                GUIBaseVehicleHelper::drawAction_drawVehicleAsImage(s, getVType().getImgFile(), this, getVType().getWidth())) {
             return false;
+        }
+        GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(s, getVType().getGuiShape(), getVType().getWidth(), getVType().getLength());
+        return false;
     }
 }
 

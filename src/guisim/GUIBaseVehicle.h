@@ -90,8 +90,8 @@ public:
     /// @brief gets the color value according to the current scheme index
     virtual double getColorValue(int activeScheme) const = 0;
 
-    /// @brief draws the given guiShape if it has distinc carriages/modules and eturns true if so
-    virtual bool drawAction_drawCarriageClass(const GUIVisualizationSettings& s, SUMOVehicleShape guiShape, bool asImage) const = 0;
+    /// @brief draws the given guiShape with distinct carriages/modules
+    virtual void drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool asImage) const = 0;
 
     /** @brief Returns the time since the last lane change in seconds
      * @see MSVehicle::myLastLaneChangeOffset
@@ -322,7 +322,8 @@ protected:
         return myVehicle.getVehicleType();
     }
 
-    bool drawAction_drawVehicleAsPolyWithCarriagges(const GUIVisualizationSettings& s, const SUMOVehicleShape shape) const;
+    /// @brief draw vehicle body and return whether carriages are being drawn
+    bool drawAction_drawVehicleAsPolyWithCarriagges(const GUIVisualizationSettings& s, bool asImage=false) const;
 
 protected:
     /// The mutex used to avoid concurrent updates of the vehicle buffer

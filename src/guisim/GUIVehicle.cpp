@@ -265,28 +265,120 @@ GUIVehicle::drawAction_drawLinkItems(const GUIVisualizationSettings& s) const {
 }
 
 
-bool
-GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, SUMOVehicleShape guiShape, bool asImage) const {
-    switch (guiShape) {
-        case SVS_BUS_FLEXIBLE:
-            drawAction_drawRailCarriages(s, 8.25, 0, 0, asImage); // 16.5 overall, 2 modules http://de.wikipedia.org/wiki/Ikarus_180
-            break;
-        case SVS_RAIL:
-            drawAction_drawRailCarriages(s, 24.5, 1, 1, asImage); // http://de.wikipedia.org/wiki/UIC-Y-Wagen_%28DR%29
-            break;
-        case SVS_RAIL_CAR:
-            drawAction_drawRailCarriages(s, 16.85, 1, 0, asImage); // 67.4m overall, 4 carriages http://de.wikipedia.org/wiki/DB-Baureihe_423
-//            drawAction_drawRailCarriages(s, 5.71, 0, 0, asImage); // 40.0m overall, 7 modules http://de.wikipedia.org/wiki/Bombardier_Flexity_Berlin
-//            drawAction_drawRailCarriages(s, 9.44, 1, 1, asImage); // actually length of the locomotive http://de.wikipedia.org/wiki/KJI_Nr._20_und_21
-//            drawAction_drawRailCarriages(s, 24.775, 0, 0, asImage); // http://de.wikipedia.org/wiki/ICE_3
-            break;
-        case SVS_RAIL_CARGO:
-            drawAction_drawRailCarriages(s, 13.86, 1, 0, asImage); // UIC 571-1 http://de.wikipedia.org/wiki/Flachwagen
-            break;
-        default:
-            return false;
+void
+GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool asImage) const {
+    RGBColor current = GLHelper::getColor();
+    RGBColor darker = current.changedBrightness(-51);
+    const double exaggeration = s.vehicleSize.getExaggeration(s, this);
+    const double totalLength = getVType().getLength();
+    double upscaleLength = exaggeration;
+    if (exaggeration > 1 && totalLength > 5) {
+        // reduce the length/width ratio because this is not usefull at high zoom
+        upscaleLength = MAX2(1.0, upscaleLength * (5 + sqrt(totalLength - 5)) / totalLength);
     }
-    return true;
+    const double locomotiveLength = getVehicleType().getParameter().locomotiveLength * upscaleLength;
+    if (exaggeration == 0) {
+        return;
+    }
+    const double defaultLength = getVehicleType().getParameter().carriageLength * upscaleLength;
+    const int firstPassengerCarriage = defaultLength == locomotiveLength ? 0 : 1;
+    const double carriageGap = getVehicleType().getParameter().carriageGap * upscaleLength;
+    const double length = totalLength * upscaleLength;
+    const double halfWidth = getVehicleType().getWidth() / 2.0 * exaggeration;
+    glPopMatrix(); // undo initial translation and rotation
+    GLHelper::setColor(darker);
+    const double xCornerCut = 0.3 * exaggeration;
+    const double yCornerCut = 0.4 * exaggeration;
+    // round to closest integer
+    const int numCarriages = MAX2(1, 1 + (int)((length - locomotiveLength) / (defaultLength + carriageGap) + 0.5));
+    assert(numCarriages > 0);
+    const double carriageLengthWithGap = length / numCarriages;
+    const double carriageLength = carriageLengthWithGap - carriageGap;
+    // lane on which the carriage front is situated
+    MSLane* lane = myLane;
+    int routeIndex = getRoutePosition();
+    // lane on which the carriage back is situated
+    MSLane* backLane = myLane;
+    int backRouteIndex = routeIndex;
+    // offsets of front and back
+    double carriageOffset = myState.pos();
+    double carriageBackOffset = myState.pos() - carriageLength;
+    // handle seats
+    int requiredSeats = getNumPassengers();
+    if (requiredSeats > 0) {
+        mySeatPositions.clear();
+    }
+    Position front, back;
+    double angle = 0.;
+    // draw individual carriages
+    for (int i = 0; i < numCarriages; ++i) {
+        while (carriageOffset < 0) {
+            MSLane* prev = getPreviousLane(lane, routeIndex);
+            if (prev != lane) {
+                carriageOffset += prev->getLength();
+            } else {
+                // no lane available for drawing.
+                carriageOffset = 0;
+            }
+            lane = prev;
+        }
+        while (carriageBackOffset < 0) {
+            MSLane* prev = getPreviousLane(backLane, backRouteIndex);
+            if (prev != backLane) {
+                carriageBackOffset += prev->getLength();
+            } else {
+                // no lane available for drawing.
+                carriageBackOffset = 0;
+            }
+            backLane = prev;
+        }
+        front = lane->geometryPositionAtOffset(carriageOffset);
+        back = backLane->geometryPositionAtOffset(carriageBackOffset);
+        if (front == back) {
+            // no place for drawing available
+            continue;
+        }
+        const double drawnCarriageLength = front.distanceTo2D(back);
+        angle = atan2((front.x() - back.x()), (back.y() - front.y())) * (double) 180.0 / (double) M_PI;
+        if (i >= firstPassengerCarriage) {
+            computeSeats(front, back, requiredSeats);
+        }
+        glPushMatrix();
+        glTranslated(front.x(), front.y(), getType());
+        glRotated(angle, 0, 0, 1);
+        if (!asImage || !GUIBaseVehicleHelper::drawAction_drawVehicleAsImage(s, getVType().getImgFile(), this, getVType().getWidth(), carriageLength)) {
+            glBegin(GL_TRIANGLE_FAN);
+            glVertex2d(-halfWidth + xCornerCut, 0);
+            glVertex2d(-halfWidth, yCornerCut);
+            glVertex2d(-halfWidth, drawnCarriageLength - yCornerCut);
+            glVertex2d(-halfWidth + xCornerCut, drawnCarriageLength);
+            glVertex2d(halfWidth - xCornerCut, drawnCarriageLength);
+            glVertex2d(halfWidth, drawnCarriageLength - yCornerCut);
+            glVertex2d(halfWidth, yCornerCut);
+            glVertex2d(halfWidth - xCornerCut, 0);
+            glEnd();
+        }
+        glPopMatrix();
+        carriageOffset -= carriageLengthWithGap;
+        carriageBackOffset -= carriageLengthWithGap;
+        GLHelper::setColor(current);
+    }
+    if (getVType().getGuiShape() == SVS_RAIL_CAR) {
+        glPushMatrix();
+        glTranslated(front.x(), front.y(), getType());
+        glRotated(angle, 0, 0, 1);
+        drawAction_drawVehicleBlinker(carriageLength);
+        drawAction_drawVehicleBrakeLight(carriageLength);
+        glPopMatrix();
+    }
+    // restore matrix
+    glPushMatrix();
+    front = getPosition();
+    glTranslated(front.x(), front.y(), getType());
+    const double degAngle = RAD2DEG(getAngle() + M_PI / 2.);
+    glRotated(degAngle, 0, 0, 1);
+    glScaled(exaggeration, upscaleLength, 1);
+
 }
 
 #define BLINKER_POS_FRONT .5
@@ -523,120 +615,6 @@ GUIVehicle::getPreviousLane(MSLane* current, int& routeIndex) const {
         }
     }
     return current;
-}
-
-
-void
-GUIVehicle::drawAction_drawRailCarriages(const GUIVisualizationSettings& s, double defaultLength, double carriageGap, int firstPassengerCarriage, bool asImage) const {
-    RGBColor current = GLHelper::getColor();
-    RGBColor darker = current.changedBrightness(-51);
-    const double exaggeration = s.vehicleSize.getExaggeration(s, this);
-    const double totalLength = getVType().getLength();
-    double upscaleLength = exaggeration;
-    if (exaggeration > 1 && totalLength > 5) {
-        // reduce the length/width ratio because this is not usefull at high zoom
-        upscaleLength = MAX2(1.0, upscaleLength * (5 + sqrt(totalLength - 5)) / totalLength);
-    }
-    defaultLength *= upscaleLength;
-    if (exaggeration == 0) {
-        return;
-    }
-    carriageGap *= upscaleLength;
-    const double length = totalLength * upscaleLength;
-    const double halfWidth = getVehicleType().getWidth() / 2.0 * exaggeration;
-    glPopMatrix(); // undo initial translation and rotation
-    GLHelper::setColor(darker);
-    const double xCornerCut = 0.3 * exaggeration;
-    const double yCornerCut = 0.4 * exaggeration;
-    // round to closest integer
-    const int numCarriages = MAX2(1, (int)(length / (defaultLength + carriageGap) + 0.5));
-    assert(numCarriages > 0);
-    const double carriageLengthWithGap = length / numCarriages;
-    const double carriageLength = carriageLengthWithGap - carriageGap;
-    // lane on which the carriage front is situated
-    MSLane* lane = myLane;
-    int routeIndex = getRoutePosition();
-    // lane on which the carriage back is situated
-    MSLane* backLane = myLane;
-    int backRouteIndex = routeIndex;
-    // offsets of front and back
-    double carriageOffset = myState.pos();
-    double carriageBackOffset = myState.pos() - carriageLength;
-    // handle seats
-    int requiredSeats = getNumPassengers();
-    if (requiredSeats > 0) {
-        mySeatPositions.clear();
-    }
-    Position front, back;
-    double angle = 0.;
-    // draw individual carriages
-    for (int i = 0; i < numCarriages; ++i) {
-        while (carriageOffset < 0) {
-            MSLane* prev = getPreviousLane(lane, routeIndex);
-            if (prev != lane) {
-                carriageOffset += prev->getLength();
-            } else {
-                // no lane available for drawing.
-                carriageOffset = 0;
-            }
-            lane = prev;
-        }
-        while (carriageBackOffset < 0) {
-            MSLane* prev = getPreviousLane(backLane, backRouteIndex);
-            if (prev != backLane) {
-                carriageBackOffset += prev->getLength();
-            } else {
-                // no lane available for drawing.
-                carriageBackOffset = 0;
-            }
-            backLane = prev;
-        }
-        front = lane->geometryPositionAtOffset(carriageOffset);
-        back = backLane->geometryPositionAtOffset(carriageBackOffset);
-        if (front == back) {
-            // no place for drawing available
-            continue;
-        }
-        const double drawnCarriageLength = front.distanceTo2D(back);
-        angle = atan2((front.x() - back.x()), (back.y() - front.y())) * (double) 180.0 / (double) M_PI;
-        if (i >= firstPassengerCarriage) {
-            computeSeats(front, back, requiredSeats);
-        }
-        glPushMatrix();
-        glTranslated(front.x(), front.y(), getType());
-        glRotated(angle, 0, 0, 1);
-        if (!asImage || !GUIBaseVehicleHelper::drawAction_drawVehicleAsImage(s, getVType().getImgFile(), this, getVType().getWidth(), carriageLength)) {
-            glBegin(GL_TRIANGLE_FAN);
-            glVertex2d(-halfWidth + xCornerCut, 0);
-            glVertex2d(-halfWidth, yCornerCut);
-            glVertex2d(-halfWidth, drawnCarriageLength - yCornerCut);
-            glVertex2d(-halfWidth + xCornerCut, drawnCarriageLength);
-            glVertex2d(halfWidth - xCornerCut, drawnCarriageLength);
-            glVertex2d(halfWidth, drawnCarriageLength - yCornerCut);
-            glVertex2d(halfWidth, yCornerCut);
-            glVertex2d(halfWidth - xCornerCut, 0);
-            glEnd();
-        }
-        glPopMatrix();
-        carriageOffset -= carriageLengthWithGap;
-        carriageBackOffset -= carriageLengthWithGap;
-        GLHelper::setColor(current);
-    }
-    if (getVType().getGuiShape() == SVS_RAIL_CAR) {
-        glPushMatrix();
-        glTranslated(front.x(), front.y(), getType());
-        glRotated(angle, 0, 0, 1);
-        drawAction_drawVehicleBlinker(carriageLength);
-        drawAction_drawVehicleBrakeLight(carriageLength);
-        glPopMatrix();
-    }
-    // restore matrix
-    glPushMatrix();
-    front = getPosition();
-    glTranslated(front.x(), front.y(), getType());
-    const double degAngle = RAD2DEG(getAngle() + M_PI / 2.);
-    glRotated(degAngle, 0, 0, 1);
-    glScaled(exaggeration, upscaleLength, 1);
 }
 
 

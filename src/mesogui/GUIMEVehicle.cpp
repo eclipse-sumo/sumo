@@ -149,10 +149,9 @@ GUIMEVehicle::getTypeParameterWindow(GUIMainWindow& app,
 }
 
 
-bool
-GUIMEVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& /* s */, SUMOVehicleShape /* guiShape */, bool /* asImage */) const {
+void
+GUIMEVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& /* s */, bool /* asImage */) const {
     GUIBaseVehicleHelper::drawAction_drawVehicleAsBoxPlus(getVType().getWidth(), getVType().getLength());
-    return true;
 }
 
 

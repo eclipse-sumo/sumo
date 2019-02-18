@@ -221,6 +221,11 @@ public:
     /// @brief The vehicle type's minimum lateral gap [m]
     double minGapLat;
 
+    /// @brief the length of train carriages and locomotive
+    double carriageLength;
+    double locomotiveLength;
+    double carriageGap;
+
     /// @brief Information for the router which parameter were set
     int parametersSet;
 

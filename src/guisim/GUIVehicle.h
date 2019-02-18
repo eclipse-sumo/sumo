@@ -158,12 +158,7 @@ private:
     /* @brief draw train with individual carriages. The number of carriages is
      * determined from defaultLength of carriages and vehicle length
      * passengerSeats are computed beginning at firstPassengerCarriage */
-    void drawAction_drawRailCarriages(const GUIVisualizationSettings& s, double defaultLength, double carriageGap,
-                                      int firstPassengerCarriage, bool asImage) const;
-    /// @}
-
-    /// @brief draws the given guiShape if it has distinct carriages/modules and returns true if so
-    bool drawAction_drawCarriageClass(const GUIVisualizationSettings& s, SUMOVehicleShape guiShape, bool asImage) const;
+    void drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool asImage) const;
 
     /* @brief return the previous lane in this vehicles route including internal lanes
      * @param[in] current The lane of which the predecessor should be returned

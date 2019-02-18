@@ -555,6 +555,11 @@ public:
      */
     void check();
 
+protected:
+
+    // init further param values
+    void initParameters(); 
+
 private:
     /// @brief the parameter container
     SUMOVTypeParameter myParameter;
