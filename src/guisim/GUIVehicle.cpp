@@ -292,8 +292,14 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
     // round to closest integer
     const int numCarriages = MAX2(1, 1 + (int)((length - locomotiveLength) / (defaultLength + carriageGap) + 0.5));
     assert(numCarriages > 0);
-    const double carriageLengthWithGap = length / numCarriages;
-    const double carriageLength = carriageLengthWithGap - carriageGap;
+    double carriageLengthWithGap = length / numCarriages;
+    double carriageLength = carriageLengthWithGap - carriageGap;
+    double firstCarriageLength = carriageLength;
+    if (defaultLength != locomotiveLength && numCarriages > 1) {
+        firstCarriageLength = locomotiveLength;
+        carriageLengthWithGap = (length - locomotiveLength) / numCarriages;
+        carriageLength = carriageLengthWithGap - carriageGap;
+    }
     // lane on which the carriage front is situated
     MSLane* lane = myLane;
     int routeIndex = getRoutePosition();
@@ -302,7 +308,7 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
     int backRouteIndex = routeIndex;
     // offsets of front and back
     double carriageOffset = myState.pos();
-    double carriageBackOffset = myState.pos() - carriageLength;
+    double carriageBackOffset = myState.pos() - firstCarriageLength;
     // handle seats
     int requiredSeats = getNumPassengers();
     if (requiredSeats > 0) {
@@ -311,7 +317,11 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
     Position front, back;
     double angle = 0.;
     // draw individual carriages
+    double curCLength = firstCarriageLength;
     for (int i = 0; i < numCarriages; ++i) {
+        if (i > 0) {
+            curCLength = carriageLength;
+        }
         while (carriageOffset < 0) {
             MSLane* prev = getPreviousLane(lane, routeIndex);
             if (prev != lane) {
@@ -346,7 +356,7 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
         glPushMatrix();
         glTranslated(front.x(), front.y(), getType());
         glRotated(angle, 0, 0, 1);
-        if (!asImage || !GUIBaseVehicleHelper::drawAction_drawVehicleAsImage(s, getVType().getImgFile(), this, getVType().getWidth(), carriageLength)) {
+        if (!asImage || !GUIBaseVehicleHelper::drawAction_drawVehicleAsImage(s, getVType().getImgFile(), this, getVType().getWidth(), curCLength)) {
             glBegin(GL_TRIANGLE_FAN);
             glVertex2d(-halfWidth + xCornerCut, 0);
             glVertex2d(-halfWidth, yCornerCut);
@@ -359,7 +369,7 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
             glEnd();
         }
         glPopMatrix();
-        carriageOffset -= carriageLengthWithGap;
+        carriageOffset -= (curCLength + carriageGap);
         carriageBackOffset -= carriageLengthWithGap;
         GLHelper::setColor(current);
     }
@@ -367,8 +377,8 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
         glPushMatrix();
         glTranslated(front.x(), front.y(), getType());
         glRotated(angle, 0, 0, 1);
-        drawAction_drawVehicleBlinker(carriageLength);
-        drawAction_drawVehicleBrakeLight(carriageLength);
+        drawAction_drawVehicleBlinker(curCLength);
+        drawAction_drawVehicleBrakeLight(curCLength);
         glPopMatrix();
     }
     // restore matrix
