@@ -478,6 +478,9 @@ GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r)
         }
         GLHelper::drawBoxLines(lane->getShape(), lane->getShapeRotations(), lane->getShapeLengths(), exaggeration);
     }
+    // draw stop labels
+    // (vertical shift for repeated stops at the same position
+    std::map<std::pair<const MSLane*, double>, int> repeat; // count repeated occurrences of the same position
     int stopIndex = 0;
     for (const Stop& stop : myStops) {
         Position pos = stop.lane->geometryPositionAtOffset(stop.reached ? getPositionOnLane() : stop.getEndPos(*this));
@@ -489,7 +492,10 @@ GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r)
         if (stop.duration >= 0) {
             label += " duration:" + time2string(stop.duration);
         }
-        GLHelper::drawText(label, pos, 1.0, s.vehicleName.size / s.scale, s.vehicleName.color);
+        std::pair<const MSLane*, double> stopPos = std::make_pair(stop.lane, stop.getEndPos(*this));
+        const double textSize = s.vehicleName.size / s.scale;
+        GLHelper::drawText(label, pos - Position(0, textSize * repeat[stopPos]), 1.0, textSize, s.vehicleName.color);
+        repeat[stopPos]++;
         stopIndex++;
     }
 }
