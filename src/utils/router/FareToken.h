@@ -7,7 +7,7 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    FareModul.h
+/// @file    FareToken.h
 /// @author  Ricardo Euler
 /// @date    Thu, 17 August 2018
 /// @version $Id$

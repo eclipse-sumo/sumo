@@ -39,31 +39,34 @@ def step():
     traci.simulationStep()
     return s
 
+
 egoID = "ego"
+
 
 def printNeighInfo():
     print("Neigh infos for ego:")
     rightFollowers = traci.vehicle.getRightFollowers(egoID)
-    print("  rightFollowers:\n  %s"%str(rightFollowers))
+    print("  rightFollowers:\n  %s" % str(rightFollowers))
     rightLeaders = traci.vehicle.getRightLeaders(egoID)
-    print("  rightLeaders:\n  %s"%str(rightLeaders))
+    print("  rightLeaders:\n  %s" % str(rightLeaders))
     leftFollowers = traci.vehicle.getLeftFollowers(egoID)
-    print("  leftFollowers:\n  %s"%str(leftFollowers))
+    print("  leftFollowers:\n  %s" % str(leftFollowers))
     leftLeaders = traci.vehicle.getLeftLeaders(egoID)
-    print("  leftLeaders:\n  %s"%str(leftLeaders))
+    print("  leftLeaders:\n  %s" % str(leftLeaders))
     rightFollowersBlocking = traci.vehicle.getRightFollowers(egoID, True)
-    print("  rightFollowers (only blocking):\n  %s"%str(rightFollowersBlocking))
+    print("  rightFollowers (only blocking):\n  %s" % str(rightFollowersBlocking))
     rightLeadersBlocking = traci.vehicle.getRightLeaders(egoID, True)
-    print("  rightLeaders (only blocking):\n  %s"%str(rightLeadersBlocking))
+    print("  rightLeaders (only blocking):\n  %s" % str(rightLeadersBlocking))
     leftFollowersBlocking = traci.vehicle.getLeftFollowers(egoID, True)
-    print("  leftFollowers (only blocking):\n  %s"%str(leftFollowersBlocking))
+    print("  leftFollowers (only blocking):\n  %s" % str(leftFollowersBlocking))
     leftLeadersBlocking = traci.vehicle.getLeftLeaders(egoID, True)
-    print("  leftLeaders (only blocking):\n  %s"%str(leftLeadersBlocking))
+    print("  leftLeaders (only blocking):\n  %s" % str(leftLeadersBlocking))
     sys.stdout.flush()
-    
+
+
 traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"])
 #~ traci.init(port=12345)
-             
+
 for i in range(1):
     print("step", step())
 

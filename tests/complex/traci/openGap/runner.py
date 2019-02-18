@@ -92,7 +92,7 @@ def runSingle(targetTimeHeadway, targetSpaceHeadway, duration, changeRate, maxDe
             print("## Starting to open gap.")
             sys.stdout.flush()
             print("(followerID, targetTimeHeadway, targetSpaceHeadway, duration, changeRate) = %s" %
-                    str((followerID, targetTimeHeadway, targetSpaceHeadway, duration, changeRate)))
+                  str((followerID, targetTimeHeadway, targetSpaceHeadway, duration, changeRate)))
             if refVehID is "":
                 if maxDecel == -1:
                     traci.vehicle.openGap(followerID, targetTimeHeadway, targetSpaceHeadway, duration, changeRate)
