@@ -340,9 +340,6 @@ public:
         /// @brief get tag synonym
         SumoXMLTag getTagSynonym() const;
 
-        /// @brief get disjoint attributes
-        const std::vector<SumoXMLAttr> &getDisjointAttributes() const;
-
         /// @brief set disjoint attributes
         void setDisjointAttributes(const std::vector<SumoXMLAttr> &attrs);
 
@@ -484,6 +481,9 @@ public:
 
         /// @brief List of disjoint attributes
         std::vector<SumoXMLAttr> myDisjointAttrs;
+        
+        /// @brief list of valid combinations of disjoint attributes
+        std::vector<std::pair<SumoXMLAttr, SumoXMLAttr> > myDisjointAttrsCombinations;
     };
 
     /**@brief Constructor
@@ -533,7 +533,13 @@ public:
      * @param[in] key The attribute key
      * @return true if it's set, false in other case
      */
-    virtual bool isAttributeSet(const SumoXMLAttr attr) const;
+    virtual bool isDisjointAttributeSet(const SumoXMLAttr attr) const;
+
+    /* @brief method for set certain attribute is set (used by ACs with disjoint attributes)
+     * @param[in] key The attribute key
+     * @return true if it was sucesfully set, false in other case
+     */
+    virtual bool setDisjointAttribute(const SumoXMLAttr attr);
 
     /// @brief get PopPup ID (Used in AC Hierarchy)
     virtual std::string getPopUpID() const = 0;

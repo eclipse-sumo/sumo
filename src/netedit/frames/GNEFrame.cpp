@@ -249,6 +249,8 @@ GNEFrame::ACAttributes::showACAttributesModul(const GNEAttributeCarrier::TagProp
             myRows.at(i.second.getPositionListed())->showParameter(i.second);
         }
     }
+    // update disjoint attributes
+    updateDisjointAttributes(nullptr);
     // recalc frame and show again
     recalc();
     show();
@@ -318,9 +320,81 @@ GNEFrame::ACAttributes::areValuesValid() const {
 }
 
 
-int
-GNEFrame::ACAttributes::getNumberOfAddedAttributes() const {
-    return (1);
+void 
+GNEFrame::ACAttributes::updateDisjointAttributes(ACAttributes::Row *row) {
+    // currently only Flows supports disjoint attributes
+    if (myTagProperties.getTag() == SUMO_TAG_FLOW) {
+        // obtain all rows (to improve code legibility)
+        Row* endRow = myRows[myTagProperties.getAttributeProperties(SUMO_ATTR_END).getPositionListed()];
+        Row* numberRow = myRows[myTagProperties.getAttributeProperties(SUMO_ATTR_NUMBER).getPositionListed()];
+        Row* vehsperhourRow = myRows[myTagProperties.getAttributeProperties(SUMO_ATTR_VEHSPERHOUR).getPositionListed()];
+        Row* periodRow = myRows[myTagProperties.getAttributeProperties(SUMO_ATTR_PERIOD).getPositionListed()];
+        Row* probabilityRow = myRows[myTagProperties.getAttributeProperties(SUMO_ATTR_PROB).getPositionListed()];
+        if(row == nullptr) {
+            // by default flows uses end and number
+            endRow->setRadioButtonCheck(true);
+            numberRow->setRadioButtonCheck(true);
+            vehsperhourRow->setRadioButtonCheck(false);
+            periodRow->setRadioButtonCheck(false);
+            probabilityRow->setRadioButtonCheck(false);
+        } else {
+            // check what row was clicked
+            switch (row->getAttrProperties().getAttr()) {
+                // end has more priority as number
+                case SUMO_ATTR_END:
+                    endRow->setRadioButtonCheck(true);
+                    // disable other combinations
+                    vehsperhourRow->setRadioButtonCheck(false);
+                    periodRow->setRadioButtonCheck(false);
+                    probabilityRow->setRadioButtonCheck(false);
+                    break;
+                case SUMO_ATTR_NUMBER:
+                    numberRow->setRadioButtonCheck(true);
+                    // disable number if begin and end are enabled because end has more priority as number
+                    if (endRow->getRadioButtonCheck()) {
+                        endRow->setRadioButtonCheck(false);
+                    } else {
+                        // disable other combinations
+                        vehsperhourRow->setRadioButtonCheck(false);
+                        periodRow->setRadioButtonCheck(false);
+                        probabilityRow->setRadioButtonCheck(false);
+                    }
+                    break;
+                case SUMO_ATTR_VEHSPERHOUR:
+                    // disable number if begin and end are enabled because end has more priority as number
+                    if (endRow->getRadioButtonCheck() && numberRow->getRadioButtonCheck()) {
+                        numberRow->setRadioButtonCheck(false);
+                    }
+                    // disable other combinations
+                    vehsperhourRow->setRadioButtonCheck(true);
+                    periodRow->setRadioButtonCheck(false);
+                    probabilityRow->setRadioButtonCheck(false);
+                    break;
+                case SUMO_ATTR_PERIOD:
+                    // disable number if begin and end are enabled because end has more priority as number
+                    if (endRow->getRadioButtonCheck() && numberRow->getRadioButtonCheck()) {
+                        numberRow->setRadioButtonCheck(false);
+                    }
+                    // disable other combinations
+                    vehsperhourRow->setRadioButtonCheck(false);
+                    periodRow->setRadioButtonCheck(true);
+                    probabilityRow->setRadioButtonCheck(false);
+                    break;
+                case SUMO_ATTR_PROB:
+                    // disable number if begin and end are enabled because end has more priority as number
+                    if (endRow->getRadioButtonCheck() && numberRow->getRadioButtonCheck()) {
+                        numberRow->setRadioButtonCheck(false);
+                    }
+                    // disable other combinations
+                    vehsperhourRow->setRadioButtonCheck(false);
+                    periodRow->setRadioButtonCheck(false);
+                    probabilityRow->setRadioButtonCheck(true);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
 }
 
 
@@ -367,12 +441,6 @@ GNEFrame::ACAttributes::Row::showParameter(const GNEAttributeCarrier::AttributeP
     } else if (myACAttributesParent->myTagProperties.isDisjointAttributes(myAttrProperties.getAttr())) {
         myRadioButton->setText(myAttrProperties.getAttrStr().c_str());
         myRadioButton->show();
-        // only edit first disjoint attribute
-        if (myAttrProperties.getAttr() == myACAttributesParent->myTagProperties.getDisjointAttributes().front()) {
-            myRadioButton->setCheck(TRUE);
-        } else {
-            myRadioButton->setCheck(FALSE);
-        }
     } else {
         myLabel->setText(myAttrProperties.getAttrStr().c_str());
         myLabel->show();
@@ -451,6 +519,48 @@ GNEFrame::ACAttributes::Row::getValue() const {
         return myTextFieldStrings->getText().text();
     }
 }
+
+
+bool
+GNEFrame::ACAttributes::Row::getRadioButtonCheck() const {
+    if (shown()) {
+        return myRadioButton->getCheck();
+    } else {
+        return false;
+    }
+}
+
+
+void
+GNEFrame::ACAttributes::Row::setRadioButtonCheck(bool value) {
+    if (shown()) {
+        // set radio button
+        myRadioButton->setCheck(value);
+        // enable or disable input fields
+        if (value) {
+            if (myAttrProperties.isBool()) {
+                myBoolCheckButton->enable();
+            } else if (myAttrProperties.isInt()) {
+                myTextFieldInt->enable();
+            } else if (myAttrProperties.isFloat() || myAttrProperties.isTime()) {
+                myTextFieldReal->enable();
+            } else {
+                myTextFieldStrings->enable();
+            }
+        } else {
+            if (myAttrProperties.isBool()) {
+                myBoolCheckButton->disable();
+            } else if (myAttrProperties.isInt()) {
+                myTextFieldInt->disable();
+            } else if (myAttrProperties.isFloat() || myAttrProperties.isTime()) {
+                myTextFieldReal->disable();
+            } else {
+                myTextFieldStrings->disable();
+            }
+        }
+    }
+}
+
 
 bool 
 GNEFrame::ACAttributes::Row::isRowEnabled() const {
@@ -609,6 +719,10 @@ GNEFrame::ACAttributes::Row::onCmdSetColorAttribute(FXObject*, FXSelector, void*
 
 long 
 GNEFrame::ACAttributes::Row::onCmdSelectRadioButton(FXObject*, FXSelector, void*) {
+    // write debug (for Netedit tests)
+    WRITE_DEBUG("Selected radio button for attribute '" + myAttrProperties.getAttrStr() + "'");
+    // update disjoint attributes in AC Attributes parent
+    myACAttributesParent->updateDisjointAttributes(this);
     return 0;
 }
 

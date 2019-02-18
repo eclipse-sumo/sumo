@@ -88,16 +88,16 @@ GNEFlow::writeDemandElement(OutputDevice& device) const {
     // write manually route
     device.writeAttr(SUMO_ATTR_ROUTE, myRoute->getID());
     // write flow values depending if it was set
-    if (isAttributeSet(SUMO_ATTR_END)) {
+    if (isDisjointAttributeSet(SUMO_ATTR_END)) {
         device.writeAttr(SUMO_ATTR_END,  time2string(repetitionEnd));
     }
-    if (isAttributeSet(SUMO_ATTR_NUMBER)) {
+    if (isDisjointAttributeSet(SUMO_ATTR_NUMBER)) {
         device.writeAttr(SUMO_ATTR_NUMBER , repetitionNumber);
     }
-    if (isAttributeSet(SUMO_ATTR_VEHSPERHOUR)) {
+    if (isDisjointAttributeSet(SUMO_ATTR_VEHSPERHOUR)) {
         device.writeAttr(SUMO_ATTR_VEHSPERHOUR, 3600. / STEPS2TIME(repetitionOffset));
     }
-    if (isAttributeSet(SUMO_ATTR_PERIOD)) {
+    if (isDisjointAttributeSet(SUMO_ATTR_PERIOD)) {
         device.writeAttr(SUMO_ATTR_PERIOD, time2string(repetitionOffset));
     }
     if (repetitionProbability != -1) {
@@ -511,7 +511,7 @@ GNEFlow::isValid(SumoXMLAttr key, const std::string& value) {
 
 
 bool 
-GNEFlow::isAttributeSet(const SumoXMLAttr attr) const {
+GNEFlow::isDisjointAttributeSet(const SumoXMLAttr attr) const {
     switch (attr) {
         case SUMO_ATTR_END:
             return (parametersSet & VEHPARS_END_SET) != 0;
@@ -524,6 +524,12 @@ GNEFlow::isAttributeSet(const SumoXMLAttr attr) const {
         default:
             return true;
     };
+}
+
+
+bool 
+GNEFlow::setDisjointAttribute(const SumoXMLAttr /*attr*/) {
+    return true;
 }
 
 
@@ -567,7 +573,7 @@ GNEFlow::setColor(const GUIVisualizationSettings& s) const {
                 GLHelper::setColor(color);
                 break;
             }
-            if (myVehicleType->isAttributeSet(SUMO_ATTR_COLOR)) {
+            if (myVehicleType->isDisjointAttributeSet(SUMO_ATTR_COLOR)) {
                 GLHelper::setColor(myVehicleType->getColor());
                 break;
             }
@@ -587,7 +593,7 @@ GNEFlow::setColor(const GUIVisualizationSettings& s) const {
             break;
         }
         case 3: {
-            if (myVehicleType->isAttributeSet(SUMO_ATTR_COLOR)) {
+            if (myVehicleType->isDisjointAttributeSet(SUMO_ATTR_COLOR)) {
                 GLHelper::setColor(myVehicleType->getColor());
             } else {
                 GLHelper::setColor(c.getScheme().getColor(0));

@@ -453,7 +453,13 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
 
 
 bool 
-GNEVehicle::isAttributeSet(const SumoXMLAttr /*attr*/) const {
+GNEVehicle::isDisjointAttributeSet(const SumoXMLAttr /*attr*/) const {
+    return true;
+}
+
+
+bool 
+GNEVehicle::setDisjointAttribute(const SumoXMLAttr /*attr*/) {
     return true;
 }
 
@@ -498,7 +504,7 @@ GNEVehicle::setColor(const GUIVisualizationSettings& s) const {
                 GLHelper::setColor(color);
                 break;
             }
-            if (myVehicleType->isAttributeSet(SUMO_ATTR_COLOR)) {
+            if (myVehicleType->isDisjointAttributeSet(SUMO_ATTR_COLOR)) {
                 GLHelper::setColor(myVehicleType->getColor());
                 break;
             }
@@ -518,7 +524,7 @@ GNEVehicle::setColor(const GUIVisualizationSettings& s) const {
             break;
         }
         case 3: {
-            if (myVehicleType->isAttributeSet(SUMO_ATTR_COLOR)) {
+            if (myVehicleType->isDisjointAttributeSet(SUMO_ATTR_COLOR)) {
                 GLHelper::setColor(myVehicleType->getColor());
             } else {
                 GLHelper::setColor(c.getScheme().getColor(0));

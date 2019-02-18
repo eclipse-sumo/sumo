@@ -123,9 +123,6 @@ public:
         /// @brief show warning message with information about non-valid attributes
         void showWarningMessage(std::string extra = "") const;
 
-        /// @brief get number of added attributes
-        int getNumberOfAddedAttributes() const;
-
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when help button is pressed
@@ -158,6 +155,12 @@ public:
 
             /// @brief return value
             std::string getValue() const;
+
+            /// @brief return status of radio button
+            bool getRadioButtonCheck() const;
+
+            /// @brief enable or disable radio button for disjoint attributes
+            void setRadioButtonCheck(bool value);
 
             /// @brief check if row is enabled
             bool isRowEnabled() const;
@@ -218,7 +221,10 @@ public:
             /// @brief string which indicates the reason due current value is invalid
             std::string myInvalidValue;
         };
-        
+
+        /// @brief update disjoint attributes
+        void updateDisjointAttributes(Row *row);
+
     protected:
         /// @brief FOX needs this
         ACAttributes() {};

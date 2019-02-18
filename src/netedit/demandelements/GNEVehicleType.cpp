@@ -311,13 +311,19 @@ GNEVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
 
 
 bool 
-GNEVehicleType::isAttributeSet(const SumoXMLAttr attr) const {
+GNEVehicleType::isDisjointAttributeSet(const SumoXMLAttr attr) const {
     switch (attr) {
         case SUMO_ATTR_COLOR:
             return (parametersSet & VTYPEPARS_COLOR_SET) != 0;
         default:
             return false;
     };
+}
+
+
+bool 
+GNEVehicleType::setDisjointAttribute(const SumoXMLAttr /*attr*/) {
+    return true;
 }
 
 

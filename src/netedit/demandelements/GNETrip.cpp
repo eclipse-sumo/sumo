@@ -441,7 +441,13 @@ GNETrip::isValid(SumoXMLAttr key, const std::string& value) {
 
 
 bool 
-GNETrip::isAttributeSet(const SumoXMLAttr /*attr*/) const {
+GNETrip::isDisjointAttributeSet(const SumoXMLAttr /*attr*/) const {
+    return true;
+}
+
+
+bool 
+GNETrip::setDisjointAttribute(const SumoXMLAttr /*attr*/) {
     return true;
 }
 
@@ -486,7 +492,7 @@ GNETrip::setColor(const GUIVisualizationSettings& s) const {
                 GLHelper::setColor(color);
                 break;
             }
-            if (myVehicleType->isAttributeSet(SUMO_ATTR_COLOR)) {
+            if (myVehicleType->isDisjointAttributeSet(SUMO_ATTR_COLOR)) {
                 GLHelper::setColor(myVehicleType->getColor());
                 break;
             }
@@ -502,7 +508,7 @@ GNETrip::setColor(const GUIVisualizationSettings& s) const {
             break;
         }
         case 3: {
-            if (myVehicleType->isAttributeSet(SUMO_ATTR_COLOR)) {
+            if (myVehicleType->isDisjointAttributeSet(SUMO_ATTR_COLOR)) {
                 GLHelper::setColor(myVehicleType->getColor());
             } else {
                 GLHelper::setColor(c.getScheme().getColor(0));
