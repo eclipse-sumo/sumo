@@ -38,6 +38,7 @@ def build():
         return "sumo"
     return ""
 
+
 def runHistory(args, versions, extraInfo=""):
     results = collections.defaultdict(list)
     for d in versions:

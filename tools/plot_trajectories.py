@@ -35,7 +35,7 @@ from sumolib.miscutils import uMin, uMax
 def getOptions(args=None):
     optParser = OptionParser()
     optParser.add_option("-t", "--trajectory-type", dest="ttype", default="ds",
-                         help="select two leters from [t, s, d, a, i, x, y] to plot" 
+                         help="select two letters from [t, s, d, a, i, x, y] to plot"
                          + " Time, Speed, Distance, Acceleration, Angle, x-Position, y-Position."
                          + " Default 'ds' plots Distance vs. Speed")
     optParser.add_option("-s", "--show", action="store_true", default=False, help="show plot directly")
@@ -50,7 +50,8 @@ def getOptions(args=None):
     optParser.add_option("-i", "--invert-distance-angle", dest="invertDistanceAngle", type="float",
                          help="invert distance for trajectories with a average angle near FLOAT")
     optParser.add_option("--label", help="plot label (default input file name")
-    optParser.add_option("--invert-yaxis", dest="invertYAxis", action="store_true", default=False, help="Invert the Y-Axis")
+    optParser.add_option("--invert-yaxis", dest="invertYAxis", action="store_true",
+                         default=False, help="Invert the Y-Axis")
     optParser.add_option("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
 
     options, args = optParser.parse_args(args=args)
@@ -83,16 +84,16 @@ def main(options):
     xdata = 2
     ydata = 1
     typespec = {
-            't' : ('Time', 0),
-            's' : ('Speed', 1),
-            'd' : ('Distance', 2),
-            'a' : ('Acceleration', 3),
-            'i' : ('Angle', 4),
-            'x' : ('x-Position', 5),
-            'y' : ('y-Position', 6),
-            }
+        't': ('Time', 0),
+        's': ('Speed', 1),
+        'd': ('Distance', 2),
+        'a': ('Acceleration', 3),
+        'i': ('Angle', 4),
+        'x': ('x-Position', 5),
+        'y': ('y-Position', 6),
+    }
 
-    if (len(options.ttype) == 2 
+    if (len(options.ttype) == 2
             and options.ttype[0] in typespec
             and options.ttype[1] in typespec):
         xLabel, xdata = typespec[options.ttype[0]]
@@ -104,7 +105,8 @@ def main(options):
         sys.exit("unsupported plot type '%s'" % options.ttype)
 
     routes = defaultdict(list)  # vehID -> recorded edges
-    data = defaultdict(lambda: ([], [], [], [], [], [], []))  # vehID -> (times, speeds, distances, accelerations, angles, xPositions, yPositions)
+    # vehID -> (times, speeds, distances, accelerations, angles, xPositions, yPositions)
+    data = defaultdict(lambda: ([], [], [], [], [], [], []))
     for timestep, vehicle in parse_fast_nested(options.fcdfile, 'timestep', ['time'],
                                                'vehicle', ['id', 'x', 'y', 'angle', 'speed', 'lane']):
         time = float(timestep.time)
@@ -144,12 +146,12 @@ def main(options):
             dist = math.sqrt((x - mouseevent.xdata) ** 2 + (y - mouseevent.ydata) ** 2)
             if dist < options.pickDist:
                 return True, dict(label=line.get_label())
-            #else:
+            # else:
             #    if dist < mindist:
             #        print("   ", x,y, dist, (x - mouseevent.xdata) ** 2, (y - mouseevent.ydata) ** 2)
             #        mindist = dist
             #        minxy = (x, y)
-        #print(mouseevent.xdata, mouseevent.ydata, minxy, dist,
+        # print(mouseevent.xdata, mouseevent.ydata, minxy, dist,
         #        line.get_label())
         return False, dict()
 
@@ -172,7 +174,7 @@ def main(options):
             avgAngle = sum(d[4]) / len(d[4])
             if abs(avgAngle - options.invertDistanceAngle) < 45:
                 maxDist = d[2][-1]
-                for i,v in enumerate(d[2]):
+                for i, v in enumerate(d[2]):
                     d[2][i] = maxDist - v
 
         minY = min(minY, min(d[ydata]))
@@ -183,7 +185,6 @@ def main(options):
         plt.plot(d[xdata], d[ydata], picker=line_picker, label=vehID)
     if options.invertYAxis:
         plt.axis([minX, maxX, maxY, minY])
-
 
     plt.savefig(options.output)
     if options.csv_output is not None:

@@ -37,7 +37,7 @@ def parse_log(logfile, edges=True, aggregate=3600):
         try:
             if "Warning: Teleporting vehicle" in line:
                 # figure out whether its micro or meso
-                
+
                 match = reFrom.search(line)
                 if match is None:
                     match = reFromMeso.search(line)

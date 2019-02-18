@@ -80,7 +80,7 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
 			variable != VAR_WIDTH &&
 			variable != VAR_HEIGHT &&
 			variable != VAR_ANGLE &&
-			variable != VAR_IMAGFILE &&
+			variable != VAR_IMAGEFILE &&
             variable != ADD &&
             variable != REMOVE &&
             variable != VAR_PARAMETER) {
@@ -137,7 +137,7 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
 				libsumo::POI::setAngle(id, angle);
 			}
 			break;
-            case VAR_IMAGFILE: {
+            case VAR_IMAGEFILE: {
                 std::string imageFile;
                 if (!server.readTypeCheckingString(inputStorage, imageFile)) {
                     return server.writeErrorStatusCmd(CMD_SET_POI_VARIABLE, "The type must be given as a string.", outputStorage);

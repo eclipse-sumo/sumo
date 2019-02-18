@@ -138,4 +138,5 @@ class GuiDomain(Domain):
         """
         return self._getUniversal(tc.VAR_TRACK_VEHICLE, viewID)
 
+
 GuiDomain()

@@ -1275,7 +1275,7 @@ TraCIAPI::POIScope::getAngle(const std::string& poiID) const {
 
 std::string
 TraCIAPI::POIScope::getImageFile(const std::string& poiID) const {
-    return myParent.getString(CMD_GET_POI_VARIABLE, VAR_IMAGFILE, poiID);
+    return myParent.getString(CMD_GET_POI_VARIABLE, VAR_IMAGEFILE, poiID);
 }
 
 
@@ -1348,7 +1348,7 @@ TraCIAPI::POIScope::setImageFile(const std::string& poiID, const std::string& im
     tcpip::Storage content;
     content.writeUnsignedByte(TYPE_STRING);
     content.writeString(imageFile);
-    myParent.createCommand(CMD_SET_POI_VARIABLE, VAR_IMAGFILE, poiID, &content);
+    myParent.createCommand(CMD_SET_POI_VARIABLE, VAR_IMAGEFILE, poiID, &content);
     myParent.processSet(CMD_SET_POI_VARIABLE);
 }
 

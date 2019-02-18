@@ -79,7 +79,7 @@ class Platoon(object):
             if self.size() == 1:
                 self.setMode(PlatoonMode.NONE)
                 return
-    
+
             if self.getMode() == PlatoonMode.CATCHUP:
                 self.setMode(PlatoonMode.CATCHUP)
             else:

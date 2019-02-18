@@ -36,7 +36,7 @@ call([netconvert, '-s', netfile, '--plain-output-prefix', 'plain'])
 # create patch
 with open(patchfile, 'w') as outf:
     # setting attrs is optional, it results in a cleaner patch file
-    attrs = {'node' : ['id', 'x', 'y']} # other attrs are not needed for patching
+    attrs = {'node': ['id', 'x', 'y']}  # other attrs are not needed for patching
     # parse always returns a generator but there is only one root element
     nodes = list(sumolib.xml.parse('plain.nod.xml', 'nodes', attrs))[0]
     for node in nodes.node:
