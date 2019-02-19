@@ -38,16 +38,29 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Attribute, GNEChange, nullptr, 0)
 // member method definitions
 // ===========================================================================
 
-GNEChange_Attribute::GNEChange_Attribute(GNEAttributeCarrier *ac,
-        GNENet* net, SumoXMLAttr key, const std::string& value,
+GNEChange_Attribute::GNEChange_Attribute(GNEAttributeCarrier *ac, GNENet* net, 
+        SumoXMLAttr key, const std::string& value,
         bool customOrigValue, const std::string& origValue) :
     GNEChange(net, true),
     myAC(ac),
     myKey(key),
     myOrigValue(customOrigValue ? origValue : ac->getAttribute(key)),
-    myNewValue(value) {
+    myNewValue(value),
+    myNewAttribute(SUMO_ATTR_NOTHING) {
     myAC->incRef("GNEChange_Attribute " + toString(myKey));
 }
+
+
+GNEChange_Attribute::GNEChange_Attribute(GNEAttributeCarrier *ac,
+        GNENet* net, const SumoXMLAttr originAttribute, 
+        const SumoXMLAttr newAttribute) :
+    GNEChange(net, true),
+    myAC(ac),
+    myKey(originAttribute),
+    myNewAttribute(newAttribute) {
+    myAC->incRef("GNEChange_Attribute " + toString(myKey));
+}
+
 
 GNEChange_Attribute::~GNEChange_Attribute() {
     myAC->decRef("GNEChange_Attribute " + toString(myKey));
@@ -73,8 +86,14 @@ void
 GNEChange_Attribute::undo() {
     // show extra information for tests
     WRITE_DEBUG("Setting previous attribute " + toString(myKey) + " '" + myOrigValue + "' into " + myAC->getTagStr() + " '" + myAC->getID() + "'");
-    // set original value
-    myAC->setAttribute(myKey, myOrigValue);
+    // check if we're editing the value of an attribute or changing a disjoint attribute
+    if(myNewAttribute == SUMO_ATTR_NOTHING) {
+        // set original value
+        myAC->setAttribute(myKey, myOrigValue);
+    } else {
+        // set original disjoint attribute
+        myAC->setDisjointAttribute(myNewAttribute);
+    }
     // check if netElements, additional or shapes has to be saved (only if key isn't GNE_ATTR_SELECTED)
     if (myKey != GNE_ATTR_SELECTED) {
         if (myAC->getTagProperty().isNetElement()) {
@@ -92,8 +111,14 @@ void
 GNEChange_Attribute::redo() {
     // show extra information for tests
     WRITE_DEBUG("Setting new attribute " + toString(myKey) + " '" + myNewValue + "' into " + myAC->getTagStr() + " '" + myAC->getID() + "'");
-    // set new value
-    myAC->setAttribute(myKey, myNewValue);
+    // check if we're editing the value of an attribute or changing a disjoint attribute
+    if(myNewAttribute == SUMO_ATTR_NOTHING) {
+        // set new value
+        myAC->setAttribute(myKey, myNewValue);
+    } else {
+        // set original disjoint attribute
+        myAC->setDisjointAttribute(myKey);
+    }
     // check if netElements, additional or shapes has to be saved (only if key isn't GNE_ATTR_SELECTED)
     if (myKey != GNE_ATTR_SELECTED) {
         if (myAC->getTagProperty().isNetElement()) {

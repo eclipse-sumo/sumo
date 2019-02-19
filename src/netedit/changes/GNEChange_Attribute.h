@@ -54,7 +54,6 @@ public:
      * @param[in] net Net in which AC is saved
      * @param[in] key The attribute key
      * @param[in] value The new value
-     * @param[in] testingMode flag to indicate if netedit is running in testing mode
      */
     GNEChange_Attribute(GNEAttributeCarrier* ac,
                         GNENet* net,
@@ -62,6 +61,16 @@ public:
                         const std::string& value,
                         bool customOrigValue = false,
                         const std::string& origValue = "");
+
+    /**@brief Constructor used for disjoint attributes
+     * @param[in] ac The attribute-carrier to be modified
+     * @param[in] net Net in which AC is saved
+     * @param[in] key The attribute key
+     */
+    GNEChange_Attribute(GNEAttributeCarrier* ac,
+                        GNENet* net,
+                        const SumoXMLAttr originAttribute,
+                        const SumoXMLAttr newAttribute);
 
     /// @brief Destructor
     ~GNEChange_Attribute();
@@ -90,7 +99,7 @@ private:
      */
     GNEAttributeCarrier* myAC;
 
-    /// @brief The attribute name
+    /// @brief The attribute name (or the original attribute if we're editing a disjoint attribute)
     SumoXMLAttr myKey;
 
     /// @brief the original value
@@ -98,6 +107,9 @@ private:
 
     /// @brief the original value
     std::string myNewValue;
+
+    /// @brief the new attribute (used for disjoint attributes)
+    SumoXMLAttr myNewAttribute;
 };
 
 #endif
