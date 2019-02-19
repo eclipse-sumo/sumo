@@ -24,7 +24,7 @@
 #include <config.h>
 
 #include <vector>
-#include <traci-server/TraCIConstants.h>
+#include <libsumo/TraCIConstants.h>
 
 
 // ===========================================================================

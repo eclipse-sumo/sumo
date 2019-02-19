@@ -31,7 +31,7 @@
 #include <sstream>
 #include <iomanip>
 #include <foreign/tcpip/socket.h>
-#include <traci-server/TraCIConstants.h>
+#include <libsumo/TraCIConstants.h>
 #include <libsumo/TraCIDefs.h>
 
 // ===========================================================================
@@ -170,7 +170,7 @@ public:
      */
     class EdgeScope : public TraCIScopeWrapper {
     public:
-        EdgeScope(TraCIAPI& parent) : TraCIScopeWrapper(parent, CMD_GET_EDGE_VARIABLE, CMD_SET_EDGE_VARIABLE, CMD_SUBSCRIBE_EDGE_VARIABLE, CMD_SUBSCRIBE_EDGE_CONTEXT) {}
+        EdgeScope(TraCIAPI& parent) : TraCIScopeWrapper(parent, libsumo::CMD_GET_EDGE_VARIABLE, libsumo::CMD_SET_EDGE_VARIABLE, libsumo::CMD_SUBSCRIBE_EDGE_VARIABLE, libsumo::CMD_SUBSCRIBE_EDGE_CONTEXT) {}
         virtual ~EdgeScope() {}
 
         std::vector<std::string> getIDList() const;
@@ -217,7 +217,7 @@ public:
      */
     class GUIScope : public TraCIScopeWrapper {
     public:
-        GUIScope(TraCIAPI& parent) : TraCIScopeWrapper(parent, CMD_GET_GUI_VARIABLE, CMD_SET_GUI_VARIABLE, CMD_SUBSCRIBE_GUI_VARIABLE, CMD_SUBSCRIBE_GUI_CONTEXT) {}
+        GUIScope(TraCIAPI& parent) : TraCIScopeWrapper(parent, libsumo::CMD_GET_GUI_VARIABLE, libsumo::CMD_SET_GUI_VARIABLE, libsumo::CMD_SUBSCRIBE_GUI_VARIABLE, libsumo::CMD_SUBSCRIBE_GUI_CONTEXT) {}
         virtual ~GUIScope() {}
 
         std::vector<std::string> getIDList() const;
@@ -250,7 +250,7 @@ public:
      */
     class InductionLoopScope : public TraCIScopeWrapper {
     public:
-        InductionLoopScope(TraCIAPI& parent) : TraCIScopeWrapper(parent, CMD_GET_INDUCTIONLOOP_VARIABLE, -1, CMD_SUBSCRIBE_INDUCTIONLOOP_VARIABLE, CMD_SUBSCRIBE_INDUCTIONLOOP_CONTEXT) {}
+        InductionLoopScope(TraCIAPI& parent) : TraCIScopeWrapper(parent, libsumo::CMD_GET_INDUCTIONLOOP_VARIABLE, -1, libsumo::CMD_SUBSCRIBE_INDUCTIONLOOP_VARIABLE, libsumo::CMD_SUBSCRIBE_INDUCTIONLOOP_CONTEXT) {}
         virtual ~InductionLoopScope() {}
 
         std::vector<std::string> getIDList() const;
@@ -283,7 +283,7 @@ public:
      */
     class JunctionScope : public TraCIScopeWrapper {
     public:
-        JunctionScope(TraCIAPI& parent) : TraCIScopeWrapper(parent, CMD_GET_JUNCTION_VARIABLE, CMD_SET_JUNCTION_VARIABLE, CMD_SUBSCRIBE_JUNCTION_VARIABLE, CMD_SUBSCRIBE_JUNCTION_CONTEXT) {}
+        JunctionScope(TraCIAPI& parent) : TraCIScopeWrapper(parent, libsumo::CMD_GET_JUNCTION_VARIABLE, libsumo::CMD_SET_JUNCTION_VARIABLE, libsumo::CMD_SUBSCRIBE_JUNCTION_VARIABLE, libsumo::CMD_SUBSCRIBE_JUNCTION_CONTEXT) {}
         virtual ~JunctionScope() {}
 
         std::vector<std::string> getIDList() const;
@@ -307,7 +307,7 @@ public:
      */
     class LaneScope : public TraCIScopeWrapper {
     public:
-        LaneScope(TraCIAPI& parent) : TraCIScopeWrapper(parent, CMD_GET_LANE_VARIABLE, CMD_SET_LANE_VARIABLE, CMD_SUBSCRIBE_LANE_VARIABLE, CMD_SUBSCRIBE_LANE_CONTEXT) {}
+        LaneScope(TraCIAPI& parent) : TraCIScopeWrapper(parent, libsumo::CMD_GET_LANE_VARIABLE, libsumo::CMD_SET_LANE_VARIABLE, libsumo::CMD_SUBSCRIBE_LANE_VARIABLE, libsumo::CMD_SUBSCRIBE_LANE_CONTEXT) {}
         virtual ~LaneScope() {}
 
         std::vector<std::string> getIDList() const;
@@ -359,7 +359,7 @@ public:
     */
     class LaneAreaScope : public TraCIScopeWrapper {
     public:
-        LaneAreaScope(TraCIAPI& parent) : TraCIScopeWrapper(parent, CMD_GET_LANEAREA_VARIABLE, -1, CMD_SUBSCRIBE_LANEAREA_VARIABLE, CMD_SUBSCRIBE_LANEAREA_CONTEXT) {}
+        LaneAreaScope(TraCIAPI& parent) : TraCIScopeWrapper(parent, libsumo::CMD_GET_LANEAREA_VARIABLE, -1, libsumo::CMD_SUBSCRIBE_LANEAREA_VARIABLE, libsumo::CMD_SUBSCRIBE_LANEAREA_CONTEXT) {}
         virtual ~LaneAreaScope() {}
 
         std::vector<std::string> getIDList() const;
@@ -379,7 +379,7 @@ public:
      */
     class MeMeScope : public TraCIScopeWrapper {
     public:
-        MeMeScope(TraCIAPI& parent) : TraCIScopeWrapper(parent, CMD_GET_MULTIENTRYEXIT_VARIABLE, -1, CMD_SUBSCRIBE_MULTIENTRYEXIT_VARIABLE, CMD_SUBSCRIBE_MULTIENTRYEXIT_CONTEXT) {}
+        MeMeScope(TraCIAPI& parent) : TraCIScopeWrapper(parent, libsumo::CMD_GET_MULTIENTRYEXIT_VARIABLE, -1, libsumo::CMD_SUBSCRIBE_MULTIENTRYEXIT_VARIABLE, libsumo::CMD_SUBSCRIBE_MULTIENTRYEXIT_CONTEXT) {}
         virtual ~MeMeScope() {}
 
         std::vector<std::string> getIDList() const;
@@ -406,7 +406,7 @@ public:
      */
     class POIScope : public TraCIScopeWrapper {
     public:
-        POIScope(TraCIAPI& parent) : TraCIScopeWrapper(parent, CMD_GET_POI_VARIABLE, CMD_SET_POI_VARIABLE, CMD_SUBSCRIBE_POI_VARIABLE, CMD_SUBSCRIBE_POI_CONTEXT) {}
+        POIScope(TraCIAPI& parent) : TraCIScopeWrapper(parent, libsumo::CMD_GET_POI_VARIABLE, libsumo::CMD_SET_POI_VARIABLE, libsumo::CMD_SUBSCRIBE_POI_VARIABLE, libsumo::CMD_SUBSCRIBE_POI_CONTEXT) {}
         virtual ~POIScope() {}
 
         std::vector<std::string> getIDList() const;
@@ -447,7 +447,7 @@ public:
      */
     class PolygonScope : public TraCIScopeWrapper {
     public:
-        PolygonScope(TraCIAPI& parent) : TraCIScopeWrapper(parent, CMD_GET_POLYGON_VARIABLE, CMD_SET_POLYGON_VARIABLE, CMD_SUBSCRIBE_POLYGON_VARIABLE, CMD_SUBSCRIBE_POLYGON_CONTEXT) {}
+        PolygonScope(TraCIAPI& parent) : TraCIScopeWrapper(parent, libsumo::CMD_GET_POLYGON_VARIABLE, libsumo::CMD_SET_POLYGON_VARIABLE, libsumo::CMD_SUBSCRIBE_POLYGON_VARIABLE, libsumo::CMD_SUBSCRIBE_POLYGON_CONTEXT) {}
         virtual ~PolygonScope() {}
 
         std::vector<std::string> getIDList() const;
@@ -481,7 +481,7 @@ public:
      */
     class RouteScope : public TraCIScopeWrapper {
     public:
-        RouteScope(TraCIAPI& parent) : TraCIScopeWrapper(parent, CMD_GET_ROUTE_VARIABLE, CMD_SET_ROUTE_VARIABLE, CMD_SUBSCRIBE_ROUTE_VARIABLE, CMD_SUBSCRIBE_ROUTE_CONTEXT) {}
+        RouteScope(TraCIAPI& parent) : TraCIScopeWrapper(parent, libsumo::CMD_GET_ROUTE_VARIABLE, libsumo::CMD_SET_ROUTE_VARIABLE, libsumo::CMD_SUBSCRIBE_ROUTE_VARIABLE, libsumo::CMD_SUBSCRIBE_ROUTE_CONTEXT) {}
         virtual ~RouteScope() {}
 
         std::vector<std::string> getIDList() const;
@@ -505,7 +505,7 @@ public:
      */
     class SimulationScope : public TraCIScopeWrapper {
     public:
-        SimulationScope(TraCIAPI& parent) : TraCIScopeWrapper(parent, CMD_GET_SIM_VARIABLE, CMD_SET_SIM_VARIABLE, CMD_SUBSCRIBE_SIM_VARIABLE, CMD_SUBSCRIBE_SIM_CONTEXT) {}
+        SimulationScope(TraCIAPI& parent) : TraCIScopeWrapper(parent, libsumo::CMD_GET_SIM_VARIABLE, libsumo::CMD_SET_SIM_VARIABLE, libsumo::CMD_SUBSCRIBE_SIM_VARIABLE, libsumo::CMD_SUBSCRIBE_SIM_CONTEXT) {}
         virtual ~SimulationScope() {}
 
         int getCurrentTime() const;
@@ -545,7 +545,7 @@ public:
      */
     class TrafficLightScope : public TraCIScopeWrapper {
     public:
-        TrafficLightScope(TraCIAPI& parent) : TraCIScopeWrapper(parent, CMD_GET_TL_VARIABLE, CMD_SET_TL_VARIABLE, CMD_SUBSCRIBE_TL_VARIABLE, CMD_SUBSCRIBE_TL_CONTEXT) {}
+        TrafficLightScope(TraCIAPI& parent) : TraCIScopeWrapper(parent, libsumo::CMD_GET_TL_VARIABLE, libsumo::CMD_SET_TL_VARIABLE, libsumo::CMD_SUBSCRIBE_TL_VARIABLE, libsumo::CMD_SUBSCRIBE_TL_CONTEXT) {}
         virtual ~TrafficLightScope() {}
 
         std::vector<std::string> getIDList() const;
@@ -585,7 +585,7 @@ public:
      */
     class VehicleTypeScope : public TraCIScopeWrapper {
     public:
-        VehicleTypeScope(TraCIAPI& parent) : TraCIScopeWrapper(parent, CMD_GET_VEHICLETYPE_VARIABLE, CMD_SET_VEHICLETYPE_VARIABLE, CMD_SUBSCRIBE_VEHICLETYPE_VARIABLE, CMD_SUBSCRIBE_VEHICLETYPE_CONTEXT) {}
+        VehicleTypeScope(TraCIAPI& parent) : TraCIScopeWrapper(parent, libsumo::CMD_GET_VEHICLETYPE_VARIABLE, libsumo::CMD_SET_VEHICLETYPE_VARIABLE, libsumo::CMD_SUBSCRIBE_VEHICLETYPE_VARIABLE, libsumo::CMD_SUBSCRIBE_VEHICLETYPE_CONTEXT) {}
         virtual ~VehicleTypeScope() {}
 
         std::vector<std::string> getIDList() const;
@@ -650,7 +650,7 @@ public:
      */
     class VehicleScope : public TraCIScopeWrapper {
     public:
-        VehicleScope(TraCIAPI& parent) : TraCIScopeWrapper(parent, CMD_GET_VEHICLE_VARIABLE, CMD_SET_VEHICLE_VARIABLE, CMD_SUBSCRIBE_VEHICLE_VARIABLE, CMD_SUBSCRIBE_VEHICLE_CONTEXT) {}
+        VehicleScope(TraCIAPI& parent) : TraCIScopeWrapper(parent, libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::CMD_SET_VEHICLE_VARIABLE, libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::CMD_SUBSCRIBE_VEHICLE_CONTEXT) {}
         virtual ~VehicleScope() {}
 
         enum VehicleSignal {
@@ -778,7 +778,7 @@ public:
                      const int flags = 0, const double startPos = std::numeric_limits<int>::min(),
                      const double until = -1) const;
         void setType(const std::string& vehicleID, const std::string& typeID) const;
-        void remove(const std::string& vehicleID, char reason = REMOVE_VAPORIZED) const;
+        void remove(const std::string& vehicleID, char reason = libsumo::REMOVE_VAPORIZED) const;
         void setColor(const std::string& vehicleID, const libsumo::TraCIColor& c) const;
         void setLine(const std::string& vehicleID, const std::string& line) const;
         void setVia(const std::string& vehicleID, const std::vector<std::string>& via) const;
@@ -808,7 +808,7 @@ public:
      * */
     class PersonScope : public TraCIScopeWrapper {
     public:
-        PersonScope(TraCIAPI& parent) : TraCIScopeWrapper(parent, CMD_GET_PERSON_VARIABLE, CMD_SET_PERSON_VARIABLE, CMD_SUBSCRIBE_PERSON_VARIABLE, CMD_SUBSCRIBE_PERSON_CONTEXT) {}
+        PersonScope(TraCIAPI& parent) : TraCIScopeWrapper(parent, libsumo::CMD_GET_PERSON_VARIABLE, libsumo::CMD_SET_PERSON_VARIABLE, libsumo::CMD_SUBSCRIBE_PERSON_VARIABLE, libsumo::CMD_SUBSCRIBE_PERSON_CONTEXT) {}
         virtual ~PersonScope() {}
 
         std::vector<std::string> getIDList() const;
@@ -836,7 +836,7 @@ public:
 
 
         void removeStages(const std::string& personID) const;
-        void add(const std::string& personID, const std::string& edgeID, double pos, double depart = DEPARTFLAG_NOW, const std::string typeID = "DEFAULT_PEDTYPE");
+        void add(const std::string& personID, const std::string& edgeID, double pos, double depart = libsumo::DEPARTFLAG_NOW, const std::string typeID = "DEFAULT_PEDTYPE");
         void appendWaitingStage(const std::string& personID, double duration, const std::string& description = "waiting", const std::string& stopID = "");
         void appendWalkingStage(const std::string& personID, const std::vector<std::string>& edges, double arrivalPos, double duration = -1, double speed = -1, const std::string& stopID = "");
         void appendDrivingStage(const std::string& personID, const std::string& toEdge, const std::string& lines, const std::string& stopID = "");

@@ -36,7 +36,7 @@
 #include <foreign/tcpip/storage.h>
 #include <foreign/tcpip/socket.h>
 
-#include <traci-server/TraCIConstants.h>
+#include <libsumo/TraCIConstants.h>
 #include <libsumo/TraCIDefs.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/ToString.h>
@@ -181,7 +181,7 @@ TraCITestClient::commandSimulationStep(double time) {
         answerLog << std::endl << "-> Command sent: <SimulationStep>:" << std::endl;
         tcpip::Storage inMsg;
         std::string acknowledgement;
-        check_resultState(inMsg, CMD_SIMSTEP, false, &acknowledgement);
+        check_resultState(inMsg, libsumo::CMD_SIMSTEP, false, &acknowledgement);
         answerLog << acknowledgement << std::endl;
         validateSimulationStep2(inMsg);
     } catch (libsumo::TraCIException& e) {
@@ -197,7 +197,7 @@ TraCITestClient::commandClose() {
         answerLog << std::endl << "-> Command sent: <Close>:" << std::endl;
         tcpip::Storage inMsg;
         std::string acknowledgement;
-        check_resultState(inMsg, CMD_CLOSE, false, &acknowledgement);
+        check_resultState(inMsg, libsumo::CMD_CLOSE, false, &acknowledgement);
         answerLog << acknowledgement << std::endl;
     } catch (libsumo::TraCIException& e) {
         answerLog << e.what() << std::endl;
@@ -212,7 +212,7 @@ TraCITestClient::commandSetOrder(int order) {
         answerLog << std::endl << "-> Command sent: <SetOrder>:" << std::endl;
         tcpip::Storage inMsg;
         std::string acknowledgement;
-        check_resultState(inMsg, CMD_SETORDER, false, &acknowledgement);
+        check_resultState(inMsg, libsumo::CMD_SETORDER, false, &acknowledgement);
         answerLog << acknowledgement << std::endl;
     } catch (libsumo::TraCIException& e) {
         answerLog << e.what() << std::endl;
@@ -381,20 +381,20 @@ TraCITestClient::validateSubscription(tcpip::Storage& inMsg) {
             length = inMsg.readInt();
         }
         int cmdId = inMsg.readUnsignedByte();
-        if (cmdId >= RESPONSE_SUBSCRIBE_INDUCTIONLOOP_VARIABLE && cmdId <= RESPONSE_SUBSCRIBE_GUI_VARIABLE) {
+        if (cmdId >= libsumo::RESPONSE_SUBSCRIBE_INDUCTIONLOOP_VARIABLE && cmdId <= libsumo::RESPONSE_SUBSCRIBE_GUI_VARIABLE) {
             answerLog << "  CommandID=" << cmdId;
             answerLog << "  ObjectID=" << inMsg.readString();
             int varNo = inMsg.readUnsignedByte();
             answerLog << "  #variables=" << varNo << std::endl;
             for (int i = 0; i < varNo; ++i) {
                 answerLog << "      VariableID=" << inMsg.readUnsignedByte();
-                bool ok = inMsg.readUnsignedByte() == RTYPE_OK;
+                bool ok = inMsg.readUnsignedByte() == libsumo::RTYPE_OK;
                 answerLog << "      ok=" << ok;
                 int valueDataType = inMsg.readUnsignedByte();
                 answerLog << " valueDataType=" << valueDataType;
                 readAndReportTypeDependent(inMsg, valueDataType);
             }
-        } else if (cmdId >= RESPONSE_SUBSCRIBE_INDUCTIONLOOP_CONTEXT && cmdId <= RESPONSE_SUBSCRIBE_GUI_CONTEXT) {
+        } else if (cmdId >= libsumo::RESPONSE_SUBSCRIBE_INDUCTIONLOOP_CONTEXT && cmdId <= libsumo::RESPONSE_SUBSCRIBE_GUI_CONTEXT) {
             answerLog << "  CommandID=" << cmdId;
             answerLog << "  ObjectID=" << inMsg.readString();
             answerLog << "  Domain=" << inMsg.readUnsignedByte();
@@ -406,7 +406,7 @@ TraCITestClient::validateSubscription(tcpip::Storage& inMsg) {
                 answerLog << "   ObjectID=" << inMsg.readString() << std::endl;
                 for (int i = 0; i < varNo; ++i) {
                     answerLog << "      VariableID=" << inMsg.readUnsignedByte();
-                    bool ok = inMsg.readUnsignedByte() == RTYPE_OK;
+                    bool ok = inMsg.readUnsignedByte() == libsumo::RTYPE_OK;
                     answerLog << "      ok=" << ok;
                     int valueDataType = inMsg.readUnsignedByte();
                     answerLog << " valueDataType=" << valueDataType;
@@ -436,10 +436,10 @@ TraCITestClient::setValueTypeDependant(tcpip::Storage& into, std::ifstream& defF
     std::string dataTypeS;
     defFile >> dataTypeS;
     if (dataTypeS == "<airDist>") {
-        into.writeUnsignedByte(REQUEST_AIRDIST);
+        into.writeUnsignedByte(libsumo::REQUEST_AIRDIST);
         return 1;
     } else if (dataTypeS == "<drivingDist>") {
-        into.writeUnsignedByte(REQUEST_DRIVINGDIST);
+        into.writeUnsignedByte(libsumo::REQUEST_DRIVINGDIST);
         return 1;
     } else if (dataTypeS == "<objSubscription>") {
         int beginTime, endTime, numVars;
@@ -458,22 +458,22 @@ TraCITestClient::setValueTypeDependant(tcpip::Storage& into, std::ifstream& defF
     double valF;
     if (dataTypeS == "<int>") {
         defFile >> valI;
-        into.writeUnsignedByte(TYPE_INTEGER);
+        into.writeUnsignedByte(libsumo::TYPE_INTEGER);
         into.writeInt(valI);
         return 4 + 1;
     } else if (dataTypeS == "<byte>") {
         defFile >> valI;
-        into.writeUnsignedByte(TYPE_BYTE);
+        into.writeUnsignedByte(libsumo::TYPE_BYTE);
         into.writeByte(valI);
         return 1 + 1;
     }  else if (dataTypeS == "<ubyte>") {
         defFile >> valI;
-        into.writeUnsignedByte(TYPE_UBYTE);
+        into.writeUnsignedByte(libsumo::TYPE_UBYTE);
         into.writeUnsignedByte(valI);
         return 1 + 1;
     } else if (dataTypeS == "<double>") {
         defFile >> valF;
-        into.writeUnsignedByte(TYPE_DOUBLE);
+        into.writeUnsignedByte(libsumo::TYPE_DOUBLE);
         into.writeDouble(valF);
         return 8 + 1;
     } else if (dataTypeS == "<string>") {
@@ -482,7 +482,7 @@ TraCITestClient::setValueTypeDependant(tcpip::Storage& into, std::ifstream& defF
         if (valueS == "\"\"") {
             valueS = "";
         }
-        into.writeUnsignedByte(TYPE_STRING);
+        into.writeUnsignedByte(libsumo::TYPE_STRING);
         into.writeString(valueS);
         return 4 + 1 + (int) valueS.length();
     } else if (dataTypeS == "<string*>") {
@@ -495,12 +495,12 @@ TraCITestClient::setValueTypeDependant(tcpip::Storage& into, std::ifstream& defF
             slValue.push_back(tmp);
             length += 4 + int(tmp.length());
         }
-        into.writeUnsignedByte(TYPE_STRINGLIST);
+        into.writeUnsignedByte(libsumo::TYPE_STRINGLIST);
         into.writeStringList(slValue);
         return length;
     } else if (dataTypeS == "<compound>") {
         defFile >> valI;
-        into.writeUnsignedByte(TYPE_COMPOUND);
+        into.writeUnsignedByte(libsumo::TYPE_COMPOUND);
         into.writeInt(valI);
         int length = 1 + 4;
         for (int i = 0; i < valI; ++i) {
@@ -509,7 +509,7 @@ TraCITestClient::setValueTypeDependant(tcpip::Storage& into, std::ifstream& defF
         return length;
     } else if (dataTypeS == "<color>") {
         defFile >> valI;
-        into.writeUnsignedByte(TYPE_COLOR);
+        into.writeUnsignedByte(libsumo::TYPE_COLOR);
         into.writeUnsignedByte(valI);
         for (int i = 0; i < 3; ++i) {
             defFile >> valI;
@@ -518,14 +518,14 @@ TraCITestClient::setValueTypeDependant(tcpip::Storage& into, std::ifstream& defF
         return 1 + 4;
     } else if (dataTypeS == "<position2D>") {
         defFile >> valF;
-        into.writeUnsignedByte(POSITION_2D);
+        into.writeUnsignedByte(libsumo::POSITION_2D);
         into.writeDouble(valF);
         defFile >> valF;
         into.writeDouble(valF);
         return 1 + 8 + 8;
     } else if (dataTypeS == "<position3D>") {
         defFile >> valF;
-        into.writeUnsignedByte(POSITION_3D);
+        into.writeUnsignedByte(libsumo::POSITION_3D);
         into.writeDouble(valF);
         defFile >> valF;
         into.writeDouble(valF);
@@ -535,7 +535,7 @@ TraCITestClient::setValueTypeDependant(tcpip::Storage& into, std::ifstream& defF
     } else if (dataTypeS == "<positionRoadmap>") {
         std::string valueS;
         defFile >> valueS;
-        into.writeUnsignedByte(POSITION_ROADMAP);
+        into.writeUnsignedByte(libsumo::POSITION_ROADMAP);
         into.writeString(valueS);
         int length = 1 + 8 + (int) valueS.length();
         defFile >> valF;
@@ -545,7 +545,7 @@ TraCITestClient::setValueTypeDependant(tcpip::Storage& into, std::ifstream& defF
         return length + 4 + 1;
     } else if (dataTypeS == "<shape>") {
         defFile >> valI;
-        into.writeUnsignedByte(TYPE_POLYGON);
+        into.writeUnsignedByte(libsumo::TYPE_POLYGON);
         into.writeUnsignedByte(valI);
         int length = 1 + 1;
         for (int i = 0; i < valI; ++i) {
@@ -564,19 +564,19 @@ TraCITestClient::setValueTypeDependant(tcpip::Storage& into, std::ifstream& defF
 
 void
 TraCITestClient::readAndReportTypeDependent(tcpip::Storage& inMsg, int valueDataType) {
-    if (valueDataType == TYPE_UBYTE) {
+    if (valueDataType == libsumo::TYPE_UBYTE) {
         int ubyte = inMsg.readUnsignedByte();
         answerLog << " Unsigned Byte Value: " << ubyte << std::endl;
-    } else if (valueDataType == TYPE_BYTE) {
+    } else if (valueDataType == libsumo::TYPE_BYTE) {
         int byte = inMsg.readByte();
         answerLog << " Byte value: " << byte << std::endl;
-    } else if (valueDataType == TYPE_INTEGER) {
+    } else if (valueDataType == libsumo::TYPE_INTEGER) {
         int integer = inMsg.readInt();
         answerLog << " Int value: " << integer << std::endl;
-    } else if (valueDataType == TYPE_DOUBLE) {
+    } else if (valueDataType == libsumo::TYPE_DOUBLE) {
         double doublev = inMsg.readDouble();
         answerLog << " Double value: " << doublev << std::endl;
-    } else if (valueDataType == TYPE_POLYGON) {
+    } else if (valueDataType == libsumo::TYPE_POLYGON) {
         int size = inMsg.readUnsignedByte();
         if (size == 0) {
             size = inMsg.readInt();
@@ -588,24 +588,24 @@ TraCITestClient::readAndReportTypeDependent(tcpip::Storage& inMsg, int valueData
             answerLog << "(" << x << "," << y << ") ";
         }
         answerLog << std::endl;
-    } else if (valueDataType == POSITION_3D) {
+    } else if (valueDataType == libsumo::POSITION_3D) {
         double x = inMsg.readDouble();
         double y = inMsg.readDouble();
         double z = inMsg.readDouble();
         answerLog << " Position3DValue: " << std::endl;
         answerLog << " x: " << x << " y: " << y
                   << " z: " << z << std::endl;
-    } else if (valueDataType == POSITION_ROADMAP) {
+    } else if (valueDataType == libsumo::POSITION_ROADMAP) {
         std::string roadId = inMsg.readString();
         double pos = inMsg.readDouble();
         int laneId = inMsg.readUnsignedByte();
         answerLog << " RoadMapPositionValue: roadId=" << roadId
                   << " pos=" << pos
                   << " laneId=" << laneId << std::endl;
-    } else if (valueDataType == TYPE_STRING) {
+    } else if (valueDataType == libsumo::TYPE_STRING) {
         std::string s = inMsg.readString();
         answerLog << " string value: " << s << std::endl;
-    } else if (valueDataType == TYPE_STRINGLIST) {
+    } else if (valueDataType == libsumo::TYPE_STRINGLIST) {
         std::vector<std::string> s = inMsg.readStringList();
         answerLog << " string list value: [ " << std::endl;
         for (std::vector<std::string>::iterator i = s.begin(); i != s.end(); ++i) {
@@ -615,7 +615,7 @@ TraCITestClient::readAndReportTypeDependent(tcpip::Storage& inMsg, int valueData
             answerLog << '"' << *i << '"';
         }
         answerLog << " ]" << std::endl;
-    } else if (valueDataType == TYPE_COMPOUND) {
+    } else if (valueDataType == libsumo::TYPE_COMPOUND) {
         int no = inMsg.readInt();
         answerLog << " compound value with " << no << " members: [ " << std::endl;
         for (int i = 0; i < no; ++i) {
@@ -624,11 +624,11 @@ TraCITestClient::readAndReportTypeDependent(tcpip::Storage& inMsg, int valueData
             readAndReportTypeDependent(inMsg, currentValueDataType);
         }
         answerLog << " ]" << std::endl;
-    } else if (valueDataType == POSITION_2D) {
+    } else if (valueDataType == libsumo::POSITION_2D) {
         double xv = inMsg.readDouble();
         double yv = inMsg.readDouble();
         answerLog << " position value: (" << xv << "," << yv << ")" << std::endl;
-    } else if (valueDataType == TYPE_COLOR) {
+    } else if (valueDataType == libsumo::TYPE_COLOR) {
         int r = inMsg.readUnsignedByte();
         int g = inMsg.readUnsignedByte();
         int b = inMsg.readUnsignedByte();
@@ -791,7 +791,7 @@ TraCITestClient::testAPI() {
     int signals = vehicle.getSignals("0");
     answerLog << "    getSignals: " << signals << "\n";
     vehicle.setSignals("0", signals ^ TraCIAPI::VehicleScope::SIGNAL_FOGLIGHT);
-    vehicle.setRoutingMode("0", ROUTING_MODE_AGGREGATED);
+    vehicle.setRoutingMode("0", libsumo::ROUTING_MODE_AGGREGATED);
     answerLog << "    getRoutingMode: " << vehicle.getRoutingMode("0") << "\n";
     answerLog << "    getNextTLS:\n";
     std::vector<libsumo::TraCINextTLSData> result = vehicle.getNextTLS("0");
@@ -854,23 +854,23 @@ TraCITestClient::testAPI() {
     answerLog << "    parkingArea param: " << simulation.getParameter("park1", "parkingArea.capacity") << "\n";
     answerLog << "    subscribe to road and pos of vehicle '1':\n";
     std::vector<int> vars;
-    vars.push_back(VAR_ROAD_ID);
-    vars.push_back(VAR_LANEPOSITION);
+    vars.push_back(libsumo::VAR_ROAD_ID);
+    vars.push_back(libsumo::VAR_LANEPOSITION);
     vehicle.subscribe("1", vars, 0, 100);
     simulationStep();
     answerLog << "    subscription results:\n";
     libsumo::TraCIResults result3 = vehicle.getSubscriptionResults("1");
-    answerLog << "      roadID=" << result3[VAR_ROAD_ID]->getString() << " pos=" << result3[VAR_LANEPOSITION]->getString() << "\n";
+    answerLog << "      roadID=" << result3[libsumo::VAR_ROAD_ID]->getString() << " pos=" << result3[libsumo::VAR_LANEPOSITION]->getString() << "\n";
 
     answerLog << "    subscribe to vehicles around edge 'e_u1':\n";
     std::vector<int> vars2;
-    vars2.push_back(VAR_LANEPOSITION);
-    edge.subscribeContext("e_u1", CMD_GET_VEHICLE_VARIABLE, 100, vars2, 0, 100);
+    vars2.push_back(libsumo::VAR_LANEPOSITION);
+    edge.subscribeContext("e_u1", libsumo::CMD_GET_VEHICLE_VARIABLE, 100, vars2, 0, 100);
     simulationStep();
     answerLog << "    context subscription results:\n";
     libsumo::SubscriptionResults result4 = edge.getContextSubscriptionResults("e_u1");
     for (libsumo::SubscriptionResults::iterator it = result4.begin(); it != result4.end(); ++it) {
-        answerLog << "      vehicle=" << it->first << " pos=" << it->second[VAR_LANEPOSITION]->getString() << "\n";
+        answerLog << "      vehicle=" << it->first << " pos=" << it->second[libsumo::VAR_LANEPOSITION]->getString() << "\n";
     }
 
     // person
@@ -978,7 +978,7 @@ TraCITestClient::testAPI() {
     simulationStep();
     answerLog << "    getCurrentTime: " << simulation.getCurrentTime() << "\n";
     vehicle.subscribe("0", vars, 0, TIME2STEPS(100));
-    edge.subscribeContext("e_u1", CMD_GET_VEHICLE_VARIABLE, 100, vars2, 0, TIME2STEPS(100));
+    edge.subscribeContext("e_u1", libsumo::CMD_GET_VEHICLE_VARIABLE, 100, vars2, 0, TIME2STEPS(100));
 
     answerLog << "  gui:\n";
     try {

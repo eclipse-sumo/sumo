@@ -15,7 +15,7 @@
 # @version $Id$
 
 """
-This script extracts definitions from <SUMO>/src/traci-server/TraCIConstants.h
+This script extracts definitions from <SUMO>/src/libsumo/TraCIConstants.h
  and builds an according constants definition python file "constants.py".
  For Python just call the script without options, for Java:
  tools/traci/rebuildConstants.py -j de.tudresden.sumo.config.Constants
@@ -27,6 +27,7 @@ from __future__ import absolute_import
 import os
 import datetime
 import argparse
+import re
 
 dirname = os.path.dirname(__file__)
 argParser = argparse.ArgumentParser()
@@ -54,7 +55,7 @@ print("""# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/s
 # @version $Id$
 
 \"\"\"
-This script contains TraCI constant definitions from <SUMO_HOME>/src/traci-server/TraCIConstants.h.\
+This script contains TraCI constant definitions from <SUMO_HOME>/src/libsumo/TraCIConstants.h.\
 """ % (os.path.basename(options.output), os.path.basename(__file__), datetime.datetime.now()), file=fdo)
 
 if options.java:
@@ -68,7 +69,8 @@ else:
     print('"""\n', file=fdo)
 
 
-def translateFile(filePath, fdo, start, item, end):
+def translateFile(filePath, fdo, start, item, end, item_parser):
+    comment_marker = "//" if options.java else "#"
     with open(filePath) as fdi:
         started = False
         for line in fdi:
@@ -82,23 +84,41 @@ def translateFile(filePath, fdo, start, item, end):
                 else:
                     line = line.replace("///", "#").lstrip(" ")
                     line = line.replace("//", "# ").lstrip(" ")
-                if line.find(item) >= 0 and "//" not in line:
-                    line = line.rstrip(",")
-                    if "=" not in line:
-                        vals = line.split(" ")
-                        line = vals[1] + " = " + vals[2]
+                if line.find(item) >= 0 and comment_marker not in line:
+                    (ctype, cname, cvalue) = item_parser(line)
                     if options.java:
-                        line = "    public static final int " + line + ";"
+                        line = "    public static final {} {} = {};".format(ctype, cname, cvalue)
+                    else:
+                        line = "{} = {}".format(cname, cvalue)
+
                 print(line, file=fdo)
             if line.find(start) >= 0:
                 started = True
 
 
+def parseTraciConstant(line):
+    match = re.search('(\S+) ([A-Z0-9_]+) = (\S+);', line)
+    if match:
+        return match.group(1, 2, 3)
+    else:
+        return None
+
+
+def parseLaneChangeAction(line):
+    line = line.rstrip(',')
+    match = re.search('([A-Z0-9_]+) = (.+)', line)
+    if match:
+        return ('int', match.group(1), match.group(2))
+    else:
+        return None
+
+
 srcDir = os.path.join(dirname, "..", "..", "src")
-translateFile(os.path.join(srcDir, "traci-server", "TraCIConstants.h"),
-              fdo, "#define TRACICONSTANTS_H", "#define ", "#endif")
+translateFile(os.path.join(srcDir, "libsumo", "TraCIConstants.h"),
+              fdo, "namespace libsumo {", "TRACI_CONST ", "} // namespace libsumo", parseTraciConstant)
+
 translateFile(os.path.join(srcDir, "utils", "xml", "SUMOXMLDefinitions.h"),
-              fdo, "enum LaneChangeAction {", "LCA_", "};")
+              fdo, "enum LaneChangeAction {", "LCA_", "};", parseLaneChangeAction)
 if options.java:
     fdo.write("}")
 fdo.close()

@@ -48,7 +48,7 @@
 #include <libsumo/TrafficLight.h>
 #include <libsumo/Vehicle.h>
 #include <libsumo/VehicleType.h>
-#include <traci-server/TraCIConstants.h>
+#include <libsumo/TraCIConstants.h>
 #include "Helper.h"
 
 #define FAR_AWAY 1000.0
@@ -57,10 +57,11 @@
 //#define DEBUG_MOVEXY_ANGLE
 //#define DEBUG_SURROUNDING
 
+
 void
 LaneStoringVisitor::add(const MSLane* const l) const {
     switch (myDomain) {
-        case CMD_GET_VEHICLE_VARIABLE: {
+        case libsumo::CMD_GET_VEHICLE_VARIABLE: {
             const MSLane::VehCont& vehs = l->getVehiclesSecure();
             for (MSLane::VehCont::const_iterator j = vehs.begin(); j != vehs.end(); ++j) {
                 if (myShape.distance2D((*j)->getPosition()) <= myRange) {
@@ -70,7 +71,7 @@ LaneStoringVisitor::add(const MSLane* const l) const {
             l->releaseVehicles();
         }
         break;
-        case CMD_GET_PERSON_VARIABLE: {
+        case libsumo::CMD_GET_PERSON_VARIABLE: {
             l->getVehiclesSecure();
             std::vector<MSTransportable*> persons = l->getEdge().getSortedPersons(MSNet::getInstance()->getCurrentTimeStep(), true);
             for (auto p : persons) {
@@ -81,13 +82,13 @@ LaneStoringVisitor::add(const MSLane* const l) const {
             l->releaseVehicles();
         }
         break;
-        case CMD_GET_EDGE_VARIABLE: {
+        case libsumo::CMD_GET_EDGE_VARIABLE: {
             if (myShape.size() != 1 || l->getShape().distance2D(myShape[0]) <= myRange) {
                 myIDs.insert(l->getEdge().getID());
             }
         }
         break;
-        case CMD_GET_LANE_VARIABLE: {
+        case libsumo::CMD_GET_LANE_VARIABLE: {
             if (myShape.size() != 1 || l->getShape().distance2D(myShape[0]) <= myRange) {
                 myIDs.insert(l->getID());
             }
@@ -152,22 +153,22 @@ Helper::handleSingleSubscription(const Subscription& s) {
     } else {
         objIDs.insert(s.id);
     }
-    const int numVars = s.contextDomain > 0 && s.variables.size() == 1 && s.variables[0] == TRACI_ID_LIST ? 0 : (int)s.variables.size();
+    const int numVars = s.contextDomain > 0 && s.variables.size() == 1 && s.variables[0] == libsumo::TRACI_ID_LIST ? 0 : (int)s.variables.size();
     if (myWrapper.empty()) {
-        myWrapper[CMD_GET_EDGE_VARIABLE] = Edge::makeWrapper();
-        myWrapper[CMD_GET_INDUCTIONLOOP_VARIABLE] = InductionLoop::makeWrapper();
-        myWrapper[CMD_GET_JUNCTION_VARIABLE] = Junction::makeWrapper();
-        myWrapper[CMD_GET_LANE_VARIABLE] = Lane::makeWrapper();
-        myWrapper[CMD_GET_LANEAREA_VARIABLE] = LaneArea::makeWrapper();
-        myWrapper[CMD_GET_MULTIENTRYEXIT_VARIABLE] = MultiEntryExit::makeWrapper();
-        myWrapper[CMD_GET_PERSON_VARIABLE] = Person::makeWrapper();
-        myWrapper[CMD_GET_POI_VARIABLE] = POI::makeWrapper();
-        myWrapper[CMD_GET_POLYGON_VARIABLE] = Polygon::makeWrapper();
-        myWrapper[CMD_GET_ROUTE_VARIABLE] = Route::makeWrapper();
-        myWrapper[CMD_GET_SIM_VARIABLE] = Simulation::makeWrapper();
-        myWrapper[CMD_GET_TL_VARIABLE] = TrafficLight::makeWrapper();
-        myWrapper[CMD_GET_VEHICLE_VARIABLE] = Vehicle::makeWrapper();
-        myWrapper[CMD_GET_VEHICLETYPE_VARIABLE] = VehicleType::makeWrapper();
+        myWrapper[libsumo::CMD_GET_EDGE_VARIABLE] = Edge::makeWrapper();
+        myWrapper[libsumo::CMD_GET_INDUCTIONLOOP_VARIABLE] = InductionLoop::makeWrapper();
+        myWrapper[libsumo::CMD_GET_JUNCTION_VARIABLE] = Junction::makeWrapper();
+        myWrapper[libsumo::CMD_GET_LANE_VARIABLE] = Lane::makeWrapper();
+        myWrapper[libsumo::CMD_GET_LANEAREA_VARIABLE] = LaneArea::makeWrapper();
+        myWrapper[libsumo::CMD_GET_MULTIENTRYEXIT_VARIABLE] = MultiEntryExit::makeWrapper();
+        myWrapper[libsumo::CMD_GET_PERSON_VARIABLE] = Person::makeWrapper();
+        myWrapper[libsumo::CMD_GET_POI_VARIABLE] = POI::makeWrapper();
+        myWrapper[libsumo::CMD_GET_POLYGON_VARIABLE] = Polygon::makeWrapper();
+        myWrapper[libsumo::CMD_GET_ROUTE_VARIABLE] = Route::makeWrapper();
+        myWrapper[libsumo::CMD_GET_SIM_VARIABLE] = Simulation::makeWrapper();
+        myWrapper[libsumo::CMD_GET_TL_VARIABLE] = TrafficLight::makeWrapper();
+        myWrapper[libsumo::CMD_GET_VEHICLE_VARIABLE] = Vehicle::makeWrapper();
+        myWrapper[libsumo::CMD_GET_VEHICLETYPE_VARIABLE] = VehicleType::makeWrapper();
     }
     auto wrapper = myWrapper.find(getCommandId);
     if (wrapper == myWrapper.end()) {
@@ -180,8 +181,8 @@ Helper::handleSingleSubscription(const Subscription& s) {
                 handler->handle(objID, variable, handler.get());
             }
         } else {
-            if (!handler->handle(objID, LAST_STEP_VEHICLE_NUMBER, handler.get())) {
-                handler->handle(objID, TRACI_ID_LIST, handler.get());
+            if (!handler->handle(objID, libsumo::LAST_STEP_VEHICLE_NUMBER, handler.get())) {
+                handler->handle(objID, libsumo::TRACI_ID_LIST, handler.get());
             }
         }
     }
@@ -346,28 +347,28 @@ Helper::clearVehicleStates() {
 void
 Helper::findObjectShape(int domain, const std::string& id, PositionVector& shape) {
     switch (domain) {
-        case CMD_SUBSCRIBE_INDUCTIONLOOP_CONTEXT:
+        case libsumo::CMD_SUBSCRIBE_INDUCTIONLOOP_CONTEXT:
             InductionLoop::storeShape(id, shape);
             break;
-        case CMD_SUBSCRIBE_LANE_CONTEXT:
+        case libsumo::CMD_SUBSCRIBE_LANE_CONTEXT:
             Lane::storeShape(id, shape);
             break;
-        case CMD_SUBSCRIBE_VEHICLE_CONTEXT:
+        case libsumo::CMD_SUBSCRIBE_VEHICLE_CONTEXT:
             Vehicle::storeShape(id, shape);
             break;
-        case CMD_SUBSCRIBE_PERSON_CONTEXT:
+        case libsumo::CMD_SUBSCRIBE_PERSON_CONTEXT:
             Person::storeShape(id, shape);
             break;
-        case CMD_SUBSCRIBE_POI_CONTEXT:
+        case libsumo::CMD_SUBSCRIBE_POI_CONTEXT:
             POI::storeShape(id, shape);
             break;
-        case CMD_SUBSCRIBE_POLYGON_CONTEXT:
+        case libsumo::CMD_SUBSCRIBE_POLYGON_CONTEXT:
             Polygon::storeShape(id, shape);
             break;
-        case CMD_SUBSCRIBE_JUNCTION_CONTEXT:
+        case libsumo::CMD_SUBSCRIBE_JUNCTION_CONTEXT:
             Junction::storeShape(id, shape);
             break;
-        case CMD_SUBSCRIBE_EDGE_CONTEXT:
+        case libsumo::CMD_SUBSCRIBE_EDGE_CONTEXT:
             Edge::storeShape(id, shape);
             break;
         default:
@@ -381,28 +382,28 @@ Helper::collectObjectsInRange(int domain, const PositionVector& shape, double ra
     // build the look-up tree if not yet existing
     if (myObjects.find(domain) == myObjects.end()) {
         switch (domain) {
-            case CMD_GET_INDUCTIONLOOP_VARIABLE:
-                myObjects[CMD_GET_INDUCTIONLOOP_VARIABLE] = InductionLoop::getTree();
+            case libsumo::CMD_GET_INDUCTIONLOOP_VARIABLE:
+                myObjects[libsumo::CMD_GET_INDUCTIONLOOP_VARIABLE] = InductionLoop::getTree();
                 break;
-            case CMD_GET_EDGE_VARIABLE:
-            case CMD_GET_LANE_VARIABLE:
-            case CMD_GET_PERSON_VARIABLE:
-            case CMD_GET_VEHICLE_VARIABLE:
-                myObjects[CMD_GET_EDGE_VARIABLE] = nullptr;
-                myObjects[CMD_GET_LANE_VARIABLE] = nullptr;
-                myObjects[CMD_GET_PERSON_VARIABLE] = nullptr;
-                myObjects[CMD_GET_VEHICLE_VARIABLE] = nullptr;
+            case libsumo::CMD_GET_EDGE_VARIABLE:
+            case libsumo::CMD_GET_LANE_VARIABLE:
+            case libsumo::CMD_GET_PERSON_VARIABLE:
+            case libsumo::CMD_GET_VEHICLE_VARIABLE:
+                myObjects[libsumo::CMD_GET_EDGE_VARIABLE] = nullptr;
+                myObjects[libsumo::CMD_GET_LANE_VARIABLE] = nullptr;
+                myObjects[libsumo::CMD_GET_PERSON_VARIABLE] = nullptr;
+                myObjects[libsumo::CMD_GET_VEHICLE_VARIABLE] = nullptr;
                 myLaneTree = new LANE_RTREE_QUAL(&MSLane::visit);
                 MSLane::fill(*myLaneTree);
                 break;
-            case CMD_GET_POI_VARIABLE:
-                myObjects[CMD_GET_POI_VARIABLE] = POI::getTree();
+            case libsumo::CMD_GET_POI_VARIABLE:
+                myObjects[libsumo::CMD_GET_POI_VARIABLE] = POI::getTree();
                 break;
-            case CMD_GET_POLYGON_VARIABLE:
-                myObjects[CMD_GET_POLYGON_VARIABLE] = Polygon::getTree();
+            case libsumo::CMD_GET_POLYGON_VARIABLE:
+                myObjects[libsumo::CMD_GET_POLYGON_VARIABLE] = Polygon::getTree();
                 break;
-            case CMD_GET_JUNCTION_VARIABLE:
-                myObjects[CMD_GET_JUNCTION_VARIABLE] = Junction::getTree();
+            case libsumo::CMD_GET_JUNCTION_VARIABLE:
+                myObjects[libsumo::CMD_GET_JUNCTION_VARIABLE] = Junction::getTree();
                 break;
             default:
                 break;
@@ -412,18 +413,18 @@ Helper::collectObjectsInRange(int domain, const PositionVector& shape, double ra
     const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
     const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
     switch (domain) {
-        case CMD_GET_INDUCTIONLOOP_VARIABLE:
-        case CMD_GET_POI_VARIABLE:
-        case CMD_GET_POLYGON_VARIABLE:
-        case CMD_GET_JUNCTION_VARIABLE: {
+        case libsumo::CMD_GET_INDUCTIONLOOP_VARIABLE:
+        case libsumo::CMD_GET_POI_VARIABLE:
+        case libsumo::CMD_GET_POLYGON_VARIABLE:
+        case libsumo::CMD_GET_JUNCTION_VARIABLE: {
             Named::StoringVisitor sv(into);
             myObjects[domain]->Search(cmin, cmax, sv);
         }
         break;
-        case CMD_GET_EDGE_VARIABLE:
-        case CMD_GET_LANE_VARIABLE:
-        case CMD_GET_PERSON_VARIABLE:
-        case CMD_GET_VEHICLE_VARIABLE: {
+        case libsumo::CMD_GET_EDGE_VARIABLE:
+        case libsumo::CMD_GET_LANE_VARIABLE:
+        case libsumo::CMD_GET_PERSON_VARIABLE:
+        case libsumo::CMD_GET_VEHICLE_VARIABLE: {
             LaneStoringVisitor sv(into, shape, range, domain);
             myLaneTree->Search(cmin, cmax, sv);
         }
@@ -782,7 +783,7 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
     std::set<std::string> into;
     PositionVector shape;
     shape.push_back(pos);
-    collectObjectsInRange(CMD_GET_EDGE_VARIABLE, shape, maxRouteDistance, into);
+    collectObjectsInRange(libsumo::CMD_GET_EDGE_VARIABLE, shape, maxRouteDistance, into);
     double maxDist = 0;
     std::map<MSLane*, LaneUtility> lane2utility;
     // compute utility for all candidate edges

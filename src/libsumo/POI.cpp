@@ -28,7 +28,7 @@
 #include <utils/shapes/PointOfInterest.h>
 #include <utils/shapes/ShapeContainer.h>
 #include <microsim/MSNet.h>
-#include <traci-server/TraCIConstants.h>
+#include <libsumo/TraCIConstants.h>
 #include "POI.h"
 #include "Helper.h"
 
