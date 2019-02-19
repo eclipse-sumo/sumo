@@ -19,6 +19,9 @@ busstop_out_of_order_ignore
 # Tests whether stops can be on cyclic routes
 cyclic_route
 
+# Tests whether cyclical stops can be handled within a trip
+cyclic_trip
+
 # Tests whether max-depart-delay can be handled
 max_delay
 
