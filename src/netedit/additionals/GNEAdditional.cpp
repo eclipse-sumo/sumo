@@ -123,20 +123,18 @@ GNEAdditional::~GNEAdditional() {}
 
 void
 GNEAdditional::writeAdditional(OutputDevice& device) const {
-    // obtain tag properties
-    const TagProperties& tagProperties = myTagProperty;
     // first check if minimum number of childs is correct
-    if ((tagProperties.hasMinimumNumberOfChilds() || tagProperties.hasMinimumNumberOfChilds()) && !checkAdditionalChildRestriction()) {
+    if ((myTagProperty.hasMinimumNumberOfChilds() || myTagProperty.hasMinimumNumberOfChilds()) && !checkAdditionalChildRestriction()) {
         WRITE_WARNING(getTagStr() + " with ID='" + getID() + "' cannot be written");
     } else {
         // Open Tag or synonym Tag
-        if (tagProperties.hasTagSynonym()) {
-            device.openTag(tagProperties.getTagSynonym());
+        if (myTagProperty.hasTagSynonym()) {
+            device.openTag(myTagProperty.getTagSynonym());
         } else {
             device.openTag(myTagProperty.getTag());
         }
         // iterate over attributes and write it
-        for (auto i : tagProperties) {
+        for (auto i : myTagProperty) {
             // obtain attribute
             std::string attribute = getAttribute(i.first);
             if (i.second.isOptional() && i.second.hasDefaultValue() && !i.second.isCombinable()) {
@@ -152,7 +150,7 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
                             if (i.first != SUMO_ATTR_DISALLOW) {
                                 writePermissions(device, parseVehicleClasses(attribute));
                             }
-                        } else if (tagProperties.canMaskXYZPositions() && (i.first == SUMO_ATTR_POSITION)) {
+                        } else if (myTagProperty.canMaskXYZPositions() && (i.first == SUMO_ATTR_POSITION)) {
                             // get position attribute and write it separate
                             Position pos = parse<Position>(getAttribute(SUMO_ATTR_POSITION));
                             device.writeAttr(SUMO_ATTR_X, toString(pos.x()));
@@ -177,7 +175,7 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
                         if (i.first != SUMO_ATTR_DISALLOW) {
                             writePermissions(device, parseVehicleClasses(attribute));
                         }
-                    } else if (tagProperties.canMaskXYZPositions() && (i.first == SUMO_ATTR_POSITION)) {
+                    } else if (myTagProperty.canMaskXYZPositions() && (i.first == SUMO_ATTR_POSITION)) {
                         // get position attribute and write it separate
                         Position pos = parse<Position>(getAttribute(SUMO_ATTR_POSITION));
                         device.writeAttr(SUMO_ATTR_X, toString(pos.x()));
@@ -193,7 +191,7 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
             }
         }
         // iterate over childs and write it in XML (or in a different file)
-        if (tagProperties.canWriteChildsSeparate() && tagProperties.hasAttribute(SUMO_ATTR_FILE) && !getAttribute(SUMO_ATTR_FILE).empty()) {
+        if (myTagProperty.canWriteChildsSeparate() && myTagProperty.hasAttribute(SUMO_ATTR_FILE) && !getAttribute(SUMO_ATTR_FILE).empty()) {
             // we assume that rerouter values files is placed in the same folder as the additional file
             OutputDevice& deviceChilds = OutputDevice::getDevice(FileHelpers::getFilePath(OptionsCont::getOptions().getString("additional-files")) + getAttribute(SUMO_ATTR_FILE));
             deviceChilds.writeXMLHeader("rerouterValue", "additional_file.xsd");

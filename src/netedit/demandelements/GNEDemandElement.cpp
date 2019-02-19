@@ -81,11 +81,9 @@ void
 GNEDemandElement::startGeometryMoving() {
     // always save original position over view
     myMove.originalViewPosition = getPositionInView();
-    // obtain tag properties (to improve code legibility)
-    const TagProperties& tagProperties = myTagProperty;
     // check if position over lane or lanes has to be saved
-    if (tagProperties.canBePlacedOverLane()) {
-        if (tagProperties.canMaskStartEndPos()) {
+    if (myTagProperty.canBePlacedOverLane()) {
+        if (myTagProperty.canMaskStartEndPos()) {
             // obtain start and end position
             myMove.firstOriginalLanePosition = getAttribute(SUMO_ATTR_STARTPOS);
             myMove.secondOriginalPosition = getAttribute(SUMO_ATTR_ENDPOS);
@@ -93,7 +91,7 @@ GNEDemandElement::startGeometryMoving() {
             // obtain position attribute
             myMove.firstOriginalLanePosition = getAttribute(SUMO_ATTR_POSITION);
         }
-    } else if (tagProperties.canBePlacedOverLanes()) {
+    } else if (myTagProperty.canBePlacedOverLanes()) {
         // obtain start and end position
         myMove.firstOriginalLanePosition = getAttribute(SUMO_ATTR_POSITION);
         myMove.secondOriginalPosition = getAttribute(SUMO_ATTR_ENDPOS);

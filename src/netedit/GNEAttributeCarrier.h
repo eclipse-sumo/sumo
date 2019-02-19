@@ -52,10 +52,15 @@ class GNEEdge;
  * inherits from GNEReferenceCounter for convenience
  */
 class GNEAttributeCarrier : public GNEReferenceCounter {
+
     /// @brief declare friend class
     friend class GNEChange_Attribute;
 
 public:
+    
+    // @brief declare class TagProperties
+    class TagProperties;
+
     /// @brief struct with the tag Properties
     enum AttrProperty {
         ATTRPROPERTY_INT =          1 << 0,     // Attribute is an integer (Including Zero)
@@ -86,12 +91,13 @@ public:
 
     /// @brief struct with the attribute Properties
     class AttributeProperties {
+
     public:
         /// @brief default constructor
         AttributeProperties();
 
         /// @brief parameter constructor
-        AttributeProperties(SumoXMLAttr attribute, int attributeProperty, const std::string& definition, std::string defaultValue = "");
+        AttributeProperties(const SumoXMLAttr attribute, const int attributeProperty, const std::string& definition, std::string defaultValue = "");
 
         /// @brief destructor
         ~AttributeProperties();
@@ -103,19 +109,25 @@ public:
         void setDiscreteValues(const std::vector<std::string>& discreteValues);
             
         /// @brief set synonim
-        void setSynonym(SumoXMLAttr synonym);
+        void setSynonym(const SumoXMLAttr synonym);
 
         /// @brief set range
-        void setRange(double minimum, double maximum);
+        void setRange(const double minimum, const double maximum);
 
         /// @brief set position listed
-        void setPositionListed(int positionListed);
+        void setPositionListed(const int positionListed);
+
+        /// @brief set tag property parent
+        void setTagPropertyParent(TagProperties *tagPropertyParent);
 
         /// @brief get XML Attribute
         SumoXMLAttr getAttr() const;
 
         /// @brief get XML Attribute
         const std::string& getAttrStr() const;
+
+        /// @brief get reference to tagProperty parent
+        const TagProperties &getTagPropertyParent() const;
 
         /// @brief get position in list (used in frames for listing attributes with certain sort)
         int getPositionListed() const;
@@ -219,6 +231,9 @@ public:
     private:
         /// @brief XML Attribute 
         SumoXMLAttr myAttribute;
+
+        /// @brief pointer to tagProperty parent
+        TagProperties *myTagPropertyParent;
 
         /// @brief string with the Attribute in text format (to avoid unnecesaries toStrings(...) calls)
         std::string myAttrStr;

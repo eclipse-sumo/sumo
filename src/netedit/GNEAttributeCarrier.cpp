@@ -55,6 +55,7 @@ const double GNEAttributeCarrier::INVALID_POSITION(-1000000);
 
 GNEAttributeCarrier::AttributeProperties::AttributeProperties() :
     myAttribute(SUMO_ATTR_NOTHING),
+    myTagPropertyParent(nullptr),
     myAttrStr(toString(SUMO_ATTR_NOTHING)),
     myAttributeProperty(ATTRPROPERTY_STRING),
     myPositionListed(0),
@@ -65,8 +66,9 @@ GNEAttributeCarrier::AttributeProperties::AttributeProperties() :
     myMaximumRange(0) {}
 
 
-GNEAttributeCarrier::AttributeProperties::AttributeProperties(SumoXMLAttr attribute, int attributeProperty, const std::string& definition, std::string defaultValue) :
+GNEAttributeCarrier::AttributeProperties::AttributeProperties(const SumoXMLAttr attribute, const int attributeProperty, const std::string& definition, std::string defaultValue) :
     myAttribute(attribute),
+    myTagPropertyParent(nullptr),
     myAttrStr(toString(attribute)),
     myAttributeProperty(attributeProperty),
     myPositionListed(0),
@@ -125,7 +127,7 @@ GNEAttributeCarrier::AttributeProperties::setDiscreteValues(const std::vector<st
             
 
 void 
-GNEAttributeCarrier::AttributeProperties::setSynonym(SumoXMLAttr synonym) {
+GNEAttributeCarrier::AttributeProperties::setSynonym(const SumoXMLAttr synonym) {
     if (hasAttrSynonym()) {
         myAttrSynonym = synonym;
     } else {
@@ -135,7 +137,7 @@ GNEAttributeCarrier::AttributeProperties::setSynonym(SumoXMLAttr synonym) {
 
 
 void 
-GNEAttributeCarrier::AttributeProperties::setRange(double minimum, double maximum) {
+GNEAttributeCarrier::AttributeProperties::setRange(const double minimum, const double maximum) {
     if (hasAttrRange()) {
         myMinimumRange = minimum;
         myMaximumRange = maximum;
@@ -146,8 +148,14 @@ GNEAttributeCarrier::AttributeProperties::setRange(double minimum, double maximu
 
 
 void 
-GNEAttributeCarrier::AttributeProperties::setPositionListed(int positionListed) {
+GNEAttributeCarrier::AttributeProperties::setPositionListed(const int positionListed) {
     myPositionListed = positionListed;
+}
+
+
+void 
+GNEAttributeCarrier::AttributeProperties::setTagPropertyParent(TagProperties *tagPropertyParent) {
+    myTagPropertyParent = tagPropertyParent;
 }
 
 
@@ -160,6 +168,12 @@ GNEAttributeCarrier::AttributeProperties::getAttr() const {
 const std::string& 
 GNEAttributeCarrier::AttributeProperties::getAttrStr() const {
     return myAttrStr;
+}
+
+
+const GNEAttributeCarrier::TagProperties&
+GNEAttributeCarrier::AttributeProperties::getTagPropertyParent() const {
+    return *myTagPropertyParent;
 }
 
 
@@ -552,6 +566,7 @@ GNEAttributeCarrier::TagProperties::addAttribute(const AttributeProperties &attr
         myAttributeProperties[attributeProperty.getAttr()] = attributeProperty;
         // update position listed 
         myAttributeProperties[attributeProperty.getAttr()].setPositionListed((int)myAttributeProperties.size()-1);
+        myAttributeProperties[attributeProperty.getAttr()].setTagPropertyParent(this);
     }
 }
 
