@@ -25,6 +25,7 @@
 // included modules
 // ===========================================================================
 // we do not include config.h here, since we should be independent of a special sumo build
+#include <libsumo/TraCIConstants.h>
 #include <vector>
 #include <limits>
 #include <map>
@@ -37,12 +38,10 @@
 // ===========================================================================
 // global definitions
 // ===========================================================================
-// value for invalid queries
-#define INVALID_DOUBLE_VALUE -1073741824
 
 #define LIBSUMO_SUBSCRIPTION_API \
-static void subscribe(const std::string& objID, const std::vector<int>& vars = std::vector<int>(), double beginTime = INVALID_DOUBLE_VALUE, double endTime = INVALID_DOUBLE_VALUE); \
-static void subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars = std::vector<int>(), double beginTime = INVALID_DOUBLE_VALUE, double endTime = INVALID_DOUBLE_VALUE); \
+static void subscribe(const std::string& objID, const std::vector<int>& vars = std::vector<int>(), double beginTime = libsumo::INVALID_DOUBLE_VALUE, double endTime = libsumo::INVALID_DOUBLE_VALUE); \
+static void subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars = std::vector<int>(), double beginTime = libsumo::INVALID_DOUBLE_VALUE, double endTime = libsumo::INVALID_DOUBLE_VALUE); \
 static const SubscriptionResults getAllSubscriptionResults(); \
 static const TraCIResults getSubscriptionResults(const std::string& objID); \
 static const ContextSubscriptionResults getAllContextSubscriptionResults(); \
@@ -204,7 +203,7 @@ typedef std::map<std::string, SubscriptionResults> ContextSubscriptionResults;
 class TraCIPhase {
 public:
     TraCIPhase() {}
-    TraCIPhase(const double _duration, const std::string& _state, const double _minDur = INVALID_DOUBLE_VALUE, const double _maxDur = INVALID_DOUBLE_VALUE, const int _next = -1, const std::string& _name = "")
+    TraCIPhase(const double _duration, const std::string& _state, const double _minDur = libsumo::INVALID_DOUBLE_VALUE, const double _maxDur = libsumo::INVALID_DOUBLE_VALUE, const int _next = -1, const std::string& _name = "")
         : duration(_duration), state(_state), minDur(_minDur), maxDur(_maxDur), next(_next), name(_name) {}
     ~TraCIPhase() {}
 

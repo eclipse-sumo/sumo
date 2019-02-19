@@ -27,7 +27,7 @@
 
 #include <vector>
 #include <libsumo/TraCIDefs.h>
-#include <traci-server/TraCIConstants.h>
+#include <libsumo/TraCIConstants.h>
 #ifndef SWIGJAVA
 #ifndef SWIGPYTHON
 #include <microsim/traffic_lights/MSTLLogicControl.h>

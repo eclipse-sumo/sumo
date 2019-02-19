@@ -28,7 +28,7 @@
 #include <microsim/MSNet.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <microsim/traffic_lights/MSSimpleTrafficLightLogic.h>
-#include <traci-server/TraCIConstants.h>
+#include <libsumo/TraCIConstants.h>
 #include "TrafficLight.h"
 
 

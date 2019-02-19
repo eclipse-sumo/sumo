@@ -307,6 +307,7 @@ def simulationStep(step=0):
 %include "Polygon.h"
 %include "Route.h"
 %include "Simulation.h"
+%include "TraCIConstants.h"
 %include "TrafficLight.h"
 %include "VehicleType.h"
 %include "Vehicle.h"

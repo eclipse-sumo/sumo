@@ -24,7 +24,7 @@
 // ===========================================================================
 #include <string>
 #include <libsumo/TraCIDefs.h>
-#include <traci-server/TraCIConstants.h>
+#include <libsumo/TraCIConstants.h>
 
 
 #define LIBSUMO_VEHICLE_TYPE_GETTER \

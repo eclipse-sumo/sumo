@@ -28,7 +28,7 @@
 #include <microsim/output/MSInductLoop.h>
 #include <microsim/MSNet.h>
 #include <libsumo/TraCIDefs.h>
-#include <traci-server/TraCIConstants.h>
+#include <libsumo/TraCIConstants.h>
 #include "InductionLoop.h"
 
 
