@@ -147,7 +147,7 @@ public:
             Row(GNEInspectorFrame::AttributesEditor* attributeEditorParent);
 
             /// @brief show row attribute
-            void showRow(const GNEAttributeCarrier::AttributeProperties &ACAttr, const std::string& value);
+            void showRow(const GNEAttributeCarrier::AttributeProperties &ACAttr, const std::string& value, bool disjointAttributeEnabled);
 
             /// @brief show row attribute
             void hideRow();

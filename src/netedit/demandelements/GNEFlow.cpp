@@ -100,7 +100,7 @@ GNEFlow::writeDemandElement(OutputDevice& device) const {
     if (isDisjointAttributeSet(SUMO_ATTR_PERIOD)) {
         device.writeAttr(SUMO_ATTR_PERIOD, time2string(repetitionOffset));
     }
-    if (repetitionProbability != -1) {
+    if (isDisjointAttributeSet(SUMO_ATTR_PROB)) {
         device.writeAttr(SUMO_ATTR_PROB, repetitionProbability);
     }
     device.closeTag();
@@ -363,10 +363,10 @@ GNEFlow::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         // Specific of flows
         case SUMO_ATTR_BEGIN:
         case SUMO_ATTR_END:
+        case SUMO_ATTR_NUMBER:
         case SUMO_ATTR_VEHSPERHOUR:
         case SUMO_ATTR_PERIOD:
         case SUMO_ATTR_PROB:
-        case SUMO_ATTR_NUMBER:
         //
         case GNE_ATTR_GENERIC:
             undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
@@ -521,6 +521,8 @@ GNEFlow::isDisjointAttributeSet(const SumoXMLAttr attr) const {
             return (parametersSet & VEHPARS_VPH_SET) != 0;
         case SUMO_ATTR_PERIOD:
             return (parametersSet & VEHPARS_PERIOD_SET) != 0;
+        case SUMO_ATTR_PROB:
+            return (parametersSet & VEHPARS_PROB_SET) != 0;
         default:
             return true;
     };

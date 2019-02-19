@@ -673,7 +673,7 @@ GNEInspectorFrame::AttributesEditor::Row::Row(GNEInspectorFrame::AttributesEdito
 
 
 void
-GNEInspectorFrame::AttributesEditor::Row::showRow(const GNEAttributeCarrier::AttributeProperties &ACAttr, const std::string& value) {
+GNEInspectorFrame::AttributesEditor::Row::showRow(const GNEAttributeCarrier::AttributeProperties &ACAttr, const std::string& value, bool disjointAttributeEnabled) {
     // start enabling all elements
     myTextFieldInt->enable();
     myTextFieldReal->enable();
@@ -696,6 +696,7 @@ GNEInspectorFrame::AttributesEditor::Row::showRow(const GNEAttributeCarrier::Att
     } else if (myACAttr.getTagPropertyParent().isDisjointAttributes(myACAttr.getAttr())) {
         myRadioButton->setTextColor(FXRGB(0, 0, 0));
         myRadioButton->setText(myACAttr.getAttrStr().c_str());
+        myRadioButton->setCheck(disjointAttributeEnabled);
         myRadioButton->show();
     } else {
         // Show attribute Label
@@ -726,22 +727,18 @@ GNEInspectorFrame::AttributesEditor::Row::showRow(const GNEAttributeCarrier::Att
             }
             // show check button
             myBoolCheckButton->show();
-            // enable or disable depending if attribute is editable
-            if (myACAttr.isNonEditable()) {
+            // enable or disable depending if attribute is editable and is enabled (used by disjoint attributes)
+            if (myACAttr.isNonEditable() || !disjointAttributeEnabled) {
                 myBoolCheckButton->disable();
-            } else {
-                myBoolCheckButton->enable();
             }
         } else {
             // show list of bools (0 1)
             myTextFieldStrings->setText(value.c_str());
             myTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
             myTextFieldStrings->show();
-            // enable or disable depending if attribute is editable
-            if (myACAttr.isNonEditable()) {
+            // enable or disable depending if attribute is editable and is enabled (used by disjoint attributes)
+            if (myACAttr.isNonEditable() || !disjointAttributeEnabled) {
                 myTextFieldStrings->disable();
-            } else {
-                myTextFieldStrings->enable();
             }
         }
     } else if (myACAttr.isDiscrete()) {
@@ -767,22 +764,18 @@ GNEInspectorFrame::AttributesEditor::Row::showRow(const GNEAttributeCarrier::Att
             myChoicesCombo->setCurrentItem(myChoicesCombo->findItem(value.c_str()));
             myChoicesCombo->setTextColor(FXRGB(0, 0, 0));
             myChoicesCombo->show();
-            // enable or disable depending if attribute is editable
-            if (myACAttr.isNonEditable()) {
+            // enable or disable depending if attribute is editable and is enabled (used by disjoint attributes)
+            if (myACAttr.isNonEditable() || !disjointAttributeEnabled) {
                 myChoicesCombo->disable();
-            } else {
-                myChoicesCombo->enable();
             }
         } else {
             // represent combinable choices in multiple selections always with a textfield instead with a comboBox
             myTextFieldStrings->setText(value.c_str());
             myTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
             myTextFieldStrings->show();
-            // enable or disable depending if attribute is editable
-            if (myACAttr.isNonEditable()) {
+            // enable or disable depending if attribute is editable and is enabled (used by disjoint attributes)
+            if (myACAttr.isNonEditable() || !disjointAttributeEnabled) {
                 myTextFieldStrings->disable();
-            } else {
-                myTextFieldStrings->enable();
             }
         }
     } else if (myACAttr.isFloat() || myACAttr.isTime()) {
@@ -790,22 +783,18 @@ GNEInspectorFrame::AttributesEditor::Row::showRow(const GNEAttributeCarrier::Att
         myTextFieldReal->setText(value.c_str());
         myTextFieldReal->setTextColor(FXRGB(0, 0, 0));
         myTextFieldReal->show();
-        // enable or disable depending if attribute is editable
-        if (myACAttr.isNonEditable()) {
+        // enable or disable depending if attribute is editable and is enabled (used by disjoint attributes)
+        if (myACAttr.isNonEditable() || !disjointAttributeEnabled) {
             myTextFieldReal->disable();
-        } else {
-            myTextFieldReal->enable();
         }
     } else if (myACAttr.isInt()) {
         // Show textField for int attributes
         myTextFieldInt->setText(value.c_str());
         myTextFieldInt->setTextColor(FXRGB(0, 0, 0));
         myTextFieldInt->show();
-        // enable or disable depending if attribute is editable
-        if (myACAttr.isNonEditable()) {
+        // enable or disable depending if attribute is editable and is enabled (used by disjoint attributes)
+        if (myACAttr.isNonEditable() || !disjointAttributeEnabled) {
             myTextFieldInt->disable();
-        } else {
-            myTextFieldInt->enable();
         }
         // we need an extra check for connection attribute "TLIndex", because it cannot be edited if junction's connection doesn' have a TLS
         if ((myACAttr.getTagPropertyParent().getTag() == SUMO_TAG_CONNECTION) && (myACAttr.getAttr() == SUMO_ATTR_TLLINKINDEX) && (value == "No TLS")) {
@@ -816,11 +805,9 @@ GNEInspectorFrame::AttributesEditor::Row::showRow(const GNEAttributeCarrier::Att
         myTextFieldStrings->setText(value.c_str());
         myTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
         myTextFieldStrings->show();
-        // enable or disable depending if attribute is editable
-        if (myACAttr.isNonEditable()) {
+        // enable or disable depending if attribute is editable and is enabled (used by disjoint attributes)
+        if (myACAttr.isNonEditable() || !disjointAttributeEnabled) {
             myTextFieldStrings->disable();
-        } else {
-            myTextFieldStrings->enable();
         }
     }
     // if Tag correspond to an network element but we're in demand mode, disable all elements
@@ -1182,7 +1169,7 @@ GNEInspectorFrame::AttributesEditor::showAttributeEditorModul() {
                 // first show AttributesEditor
                 show();
                 // show attribute
-                myVectorOfRows[i.second.getPositionListed()]->showRow(i.second, value);
+                myVectorOfRows[i.second.getPositionListed()]->showRow(i.second, value, myInspectorFrameParent->getInspectedACs().front()->isDisjointAttributeSet(i.first));
             }
         }
     }

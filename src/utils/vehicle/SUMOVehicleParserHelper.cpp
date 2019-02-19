@@ -114,6 +114,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, con
         }
     }
     if (attrs.hasAttribute(SUMO_ATTR_PROB)) {
+        ret->parametersSet |= VEHPARS_PROB_SET;
         ret->repetitionProbability = attrs.get<double>(SUMO_ATTR_PROB, id.c_str(), ok);
         if (ok && (ret->repetitionProbability <= 0 || ret->repetitionProbability > 1)) {
             delete ret;
