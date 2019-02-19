@@ -29,10 +29,9 @@ import sys
 import os
 
 if 'SUMO_HOME' in os.environ:
-    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
-    sys.path.append(tools)
+    sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 else:
-    sys.exit("please declare environment variable 'SUMO_HOME'")
+    sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import sumolib  # noqa
 from sumolib.miscutils import getFreeSocketPort  # noqa
