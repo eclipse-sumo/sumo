@@ -135,28 +135,28 @@ public:
     public:
 
         // ===========================================================================
-        // class AttributeInput
+        // class Row
         // ===========================================================================
 
-        class AttributeInput : private FXHorizontalFrame {
+        class Row : private FXHorizontalFrame {
             /// @brief FOX-declaration
-            FXDECLARE(GNEInspectorFrame::AttributesEditor::AttributeInput)
+            FXDECLARE(GNEInspectorFrame::AttributesEditor::Row)
 
         public:
             /// @brief constructor
-            AttributeInput(GNEInspectorFrame::AttributesEditor* attributeEditorParent);
+            Row(GNEInspectorFrame::AttributesEditor* attributeEditorParent);
 
-            /// @brief show attribute of ac
-            void showAttribute(SumoXMLTag ACTag, SumoXMLAttr ACAttribute, const std::string& value);
+            /// @brief show row attribute
+            void showRow(const GNEAttributeCarrier::AttributeProperties &ACAttr, const std::string& value);
 
-            /// @brief show attribute
-            void hideAttribute();
+            /// @brief show row attribute
+            void hideRow();
 
-            /// @brief refresh current attribute input
-            void refreshAttributeInput(const std::string& value, bool forceRefresh);
+            /// @brief refresh current row
+            void refreshRow(const std::string& value, bool forceRefresh);
 
             /// @brief check if current attribute of TextField/ComboBox is valid
-            bool isCurrentAttributeValid() const;
+            bool isRowValid() const;
 
             /// @name FOX-callbacks
             /// @{
@@ -173,32 +173,38 @@ public:
 
         protected:
             /// @brief FOX needs this
-            AttributeInput() {}
+            Row() {}
 
             /// @brief removed invalid spaces of Positions and shapes
             std::string stripWhitespaceAfterComma(const std::string& stringValue);
+            
+            /// @brief enable row elements
+            void enableRowElements();
+
+            /// @brief disable row elements
+            void disableRowElements();
 
         private:
-            /// @brief enable attribute input elements
-            void enableAttributeInputElements();
-
-            /// @brief disable attribute input elements
-            void disableAttributeInputElements();
-
             /// @brief pointer to AttributesEditor parent
             GNEInspectorFrame::AttributesEditor* myAttributesEditorParent;
 
-            /// @brief current tag
-            SumoXMLTag myTag;
-
-            /// @brief current Attr
-            SumoXMLAttr myAttr;
+            /// @brief current AC Attribute
+            GNEAttributeCarrier::AttributeProperties myACAttr;
 
             /// @brief flag to check if input element contains multiple values
             bool myMultiple;
 
             /// @brief pointer to attribute label
             FXLabel* myLabel;
+
+            /// @brief Radio button for disjoint attributes
+            FXRadioButton* myRadioButton;
+
+            /// @brief pointer to buttonCombinableChoices
+            FXButton* myButtonCombinableChoices;
+
+            /// @brief Button for open color editor
+            FXButton* myColorEditor;
 
             /// @brief textField to modify the value of int attributes
             FXTextField* myTextFieldInt;
@@ -214,12 +220,6 @@ public:
 
             /// @brief pointer to menu check
             FXCheckButton* myBoolCheckButton;
-
-            /// @brief pointer to buttonCombinableChoices
-            FXButton* myButtonCombinableChoices;
-
-            /// @brief Button for open color editor
-            FXButton* myColorEditor;
         };
 
         /// @brief constructor
@@ -234,14 +234,10 @@ public:
         /// @brief refresh attribute editor (only the valid values will be refresh)
         void refreshAttributeEditor(bool forceRefreshShape, bool forceRefreshPosition);
 
-        /// @brief get InspectorFrame Parent
-        GNEInspectorFrame* getInspectorFrameParent() const;
-
         /// @name FOX-callbacks
         /// @{
-
         /// @brief Called when user press the help button
-        long onCmdAttributeHelp(FXObject*, FXSelector, void*);
+        long onCmdAttributesEditorHelp(FXObject*, FXSelector, void*);
         /// @}
 
     protected:
@@ -252,8 +248,8 @@ public:
         /// @brief pointer to GNEInspectorFrame parent
         GNEInspectorFrame* myInspectorFrameParent;
 
-        /// @brief list of Attribute inputs
-        std::vector<GNEInspectorFrame::AttributesEditor::AttributeInput*> myVectorOfAttributeInputs;
+        /// @brief list of Attribute inputs rows
+        std::vector<GNEInspectorFrame::AttributesEditor::Row*> myVectorOfRows;
 
         /// @brief button for help
         FXButton* myHelpButton;
@@ -285,7 +281,6 @@ public:
 
         /// @name FOX-callbacks
         /// @{
-
         /// @brief Called when user change the current GEO Attribute
         long onCmdSetNeteditAttribute(FXObject*, FXSelector, void*);
 
