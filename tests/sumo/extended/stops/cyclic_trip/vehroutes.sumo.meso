@@ -9,13 +9,14 @@ SPDX-License-Identifier: EPL-2.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
-        <net-file value="net.net.xml"/>
+        <net-file value="net2.net.xml"/>
         <route-files value="input_routes.rou.xml"/>
     </input>
 
     <output>
         <write-license value="true"/>
         <vehroute-output value="vehroutes.xml"/>
+        <stop-output value="stopinfos.xml"/>
     </output>
 
     <processing>
@@ -37,21 +38,14 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="veh0" type="Car" depart="1.00" departPos="0.00" arrival="12.00">
-        <route edges="1to2 out"/>
-        <stop lane="1to2_0" endPos="4.00" duration="10.00" expected="p1 p2"/>
+    <vehicle id="veh0" depart="0.00" arrival="37.00">
+        <routeDistribution>
+            <route replacedOnEdge="" reason="device.rerouting" replacedAtTime="0.00" probability="0" edges="SC SC SC"/>
+            <route edges="SC"/>
+        </routeDistribution>
+        <stop lane="SC_0" endPos="50.00" duration="10.00"/>
+        <stop lane="SC_0" endPos="10.00" duration="10.00"/>
+        <stop lane="SC_0" endPos="50.00" duration="10.00"/>
     </vehicle>
-
-    <vehicle id="veh1" type="Car" depart="12.00" departPos="0.00" arrival="13.00">
-        <route edges="1to2 out"/>
-    </vehicle>
-
-    <person id="p1" depart="100.00" departPos="4.00">
-        <ride from="1to2" to="out" lines="veh0"/>
-    </person>
-
-    <person id="p2" depart="200.00" departPos="4.00">
-        <ride from="1to2" to="out" lines="veh0"/>
-    </person>
 
 </routes>

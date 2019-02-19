@@ -37,18 +37,18 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="veh0" type="Car" depart="1.00" departPos="0.00" arrival="12.00">
-        <route edges="1to2 out"/>
-        <stop lane="1to2_0" endPos="4.00" duration="10.00" expected="p1 p2"/>
-    </vehicle>
-
-    <vehicle id="veh1" type="Car" depart="12.00" departPos="0.00" arrival="13.00">
-        <route edges="1to2 out"/>
-    </vehicle>
-
-    <person id="p1" depart="100.00" departPos="4.00">
+    <person id="p1" depart="100.00" departPos="4.00" arrival="252.00">
         <ride from="1to2" to="out" lines="veh0"/>
     </person>
+
+    <vehicle id="veh0" type="Car" depart="1.00" departPos="0.00" arrival="252.00">
+        <route edges="1to2 out"/>
+        <stop lane="1to2_0" endPos="4.00" duration="250.00" triggered="1" expected="p1 p2"/>
+    </vehicle>
+
+    <vehicle id="veh1" type="Car" depart="252.00" departPos="0.00" arrival="253.00">
+        <route edges="1to2 out"/>
+    </vehicle>
 
     <person id="p2" depart="200.00" departPos="4.00">
         <ride from="1to2" to="out" lines="veh0"/>
