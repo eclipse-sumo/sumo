@@ -227,7 +227,10 @@ MEVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& /*err
     if (myStops[stopSeg].back().until >= 0) {
         myStops[stopSeg].back().until += untilOffset;
     }
-    myStopEdges.push_back(edge);
+    if (myStopEdges.empty() || myStopEdges.back() != edge) {
+        // XXX handle later stop on lower position of the same edge
+        myStopEdges.push_back(edge);
+    }
     return true;
 }
 
@@ -274,8 +277,12 @@ MEVehicle::getCurrentStoppingTimeSeconds() const {
 
 
 const ConstMSEdgeVector
-MEVehicle::getStopEdges() const {
-// TODO: myStopEdges still needs to be updated when leaving a stop
+MEVehicle::getStopEdges(double& firstPos, double& lastPos) const {
+    if (myStopEdges.size() > 0) {
+        // always try to skip
+        firstPos = myStopEdges.front()->getLength();
+        lastPos = 0;
+    }
     return myStopEdges;
 }
 

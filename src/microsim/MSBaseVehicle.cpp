@@ -173,12 +173,34 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
     ConstMSEdgeVector edges;
     ConstMSEdgeVector stops;
     if (myParameter->via.size() == 0) {
-        stops = getStopEdges();
+        double firstPos = -1;
+        double lastPos = -1;
+        stops = getStopEdges(firstPos, lastPos);
+        if (stops.size() > 0) {
+            const double sourcePos = onInit ? 0 : getPositionOnLane();
+            // avoid superfluous waypoints for first and last edge
+            const bool skipFirst = stops.front() == source && sourcePos < firstPos;
+            const bool skipLast = stops.back() == sink && myArrivalPos > lastPos;
+            //std::cout << getID() << " route=" << toString(myRoute->getEdges()) << " stopEdges=" << toString(stops) << " skipFirst=" << skipFirst << " skipLast=" << skipLast << "\n";;
+            if (stops.size() == 1 && (skipFirst || skipLast)) {
+                stops.clear();
+            } else {
+                if (skipFirst) {
+                    stops.erase(stops.begin());
+                }
+                if (skipLast) {
+                    stops.erase(stops.end() - 1);
+                }
+            }
+        }
     } else {
         // via takes precedence over stop edges
         // XXX check for inconsistencies #2275
         for (std::vector<std::string>::const_iterator it = myParameter->via.begin(); it != myParameter->via.end(); ++it) {
             MSEdge* viaEdge = MSEdge::dictionary(*it);
+            if (viaEdge == source || viaEdge == sink) {
+                continue;
+            }
             assert(viaEdge != 0);
             if (!viaEdge->isTazConnector() && viaEdge->allowedLanes(getVClass()) == nullptr) {
                 throw ProcessError("Vehicle '" + getID() + "' is not allowed on any lane of via edge '" + viaEdge->getID() + "'.");
@@ -188,29 +210,27 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
     }
 
     for (MSRouteIterator s = stops.begin(); s != stops.end(); ++s) {
-        if (*s != source) {
-            // !!! need to adapt t here
-            ConstMSEdgeVector into;
-            router.compute(source, *s, this, t, into, silent);
-            if (into.size() > 0) {
-                into.pop_back();
-                edges.insert(edges.end(), into.begin(), into.end());
-                if ((*s)->isTazConnector()) {
-                    source = into.back();
-                    edges.pop_back();
-                } else {
-                    source = *s;
-                }
+        // !!! need to adapt t here
+        ConstMSEdgeVector into;
+        router.computeLooped(source, *s, this, t, into, silent);
+        if (into.size() > 0) {
+            into.pop_back();
+            edges.insert(edges.end(), into.begin(), into.end());
+            if ((*s)->isTazConnector()) {
+                source = into.back();
+                edges.pop_back();
             } else {
-                std::string error = "Vehicle '" + getID() + "' has no valid route from edge '" + source->getID() + "' to stop edge '" + (*s)->getID() + "'.";
-                if (MSGlobals::gCheckRoutes) {
-                    throw ProcessError(error);
-                } else {
-                    WRITE_WARNING(error);
-                    edges.push_back(source);
-                }
                 source = *s;
             }
+        } else {
+            std::string error = "Vehicle '" + getID() + "' has no valid route from edge '" + source->getID() + "' to stop edge '" + (*s)->getID() + "'.";
+            if (MSGlobals::gCheckRoutes) {
+                throw ProcessError(error);
+            } else {
+                WRITE_WARNING(error);
+                edges.push_back(source);
+            }
+            source = *s;
         }
     }
     router.compute(source, sink, this, t, edges, silent);

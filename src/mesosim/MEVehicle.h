@@ -181,7 +181,7 @@ public:
 
     /** @brief Returns the list of still pending stop edges
      */
-    const ConstMSEdgeVector getStopEdges() const;
+    const ConstMSEdgeVector getStopEdges(double& firstPos, double& lastPos) const;
 
     /// @brief return list of route indices for the remaining stops
     std::vector<int> getStopIndices() const;

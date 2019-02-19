@@ -55,13 +55,13 @@ private:
 public:
     /// Constructor
     PedestrianRouter():
-        SUMOAbstractRouter<E, _IntermodalTrip>("PedestrianRouter"), myAmClone(false) {
+        SUMOAbstractRouter<E, _IntermodalTrip>("PedestrianRouter", true), myAmClone(false) {
         myPedNet = new _IntermodalNetwork(E::getAllEdges(), true);
         myInternalRouter = new _InternalRouter(myPedNet->getAllEdges(), true, &_IntermodalEdge::getTravelTimeStatic);
     }
 
     PedestrianRouter(_IntermodalNetwork* net):
-        SUMOAbstractRouter<E, _IntermodalTrip>("PedestrianRouterClone"), myAmClone(true) {
+        SUMOAbstractRouter<E, _IntermodalTrip>("PedestrianRouterClone", true), myAmClone(true) {
         myPedNet = net;
         myInternalRouter = new _InternalRouter(myPedNet->getAllEdges(), true, &_IntermodalEdge::getTravelTimeStatic);
     }

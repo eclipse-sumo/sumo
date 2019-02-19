@@ -226,9 +226,8 @@ public:
              const SUMOVehicleClass svc,
              SUMOTime weightPeriod,
              bool validatePermissions):
-        BASE("CHRouter", operation),
+        BASE("CHRouter", unbuildIsWarning, operation),
         myEdges(edges),
-        myErrorMsgHandler(unbuildIsWarning ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
         myForwardSearch(edges, true),
         myBackwardSearch(edges, false),
         myHierarchyBuilder(new CHBuilder<E, V>(edges, unbuildIsWarning, svc, validatePermissions)),
@@ -244,9 +243,8 @@ public:
              const SUMOVehicleClass svc,
              SUMOTime weightPeriod,
              const typename CHBuilder<E, V>::Hierarchy* hierarchy) :
-        BASE("CHRouterClone", operation),
+        BASE("CHRouterClone", unbuildIsWarning, operation),
         myEdges(edges),
-        myErrorMsgHandler(unbuildIsWarning ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
         myForwardSearch(edges, true),
         myBackwardSearch(edges, false),
         myHierarchyBuilder(0),
@@ -267,7 +265,7 @@ public:
 
     virtual SUMOAbstractRouter<E, V>* clone() {
         WRITE_MESSAGE("Cloning Contraction Hierarchy for " + SumoVehicleClassStrings.getString(mySVC) + " and time " + time2string(myValidUntil) + ".");
-        CHRouter<E, V, BASE>* clone = new CHRouter<E, V, BASE>(myEdges, myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation,
+        CHRouter<E, V, BASE>* clone = new CHRouter<E, V, BASE>(myEdges, this->myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation,
                 mySVC, myWeightPeriod, myHierarchy);
         clone->myValidUntil = myValidUntil;
         return clone;
@@ -313,7 +311,7 @@ public:
             buildPathFromMeeting(meeting, into);
         } else {
             if (!silent) {
-                myErrorMsgHandler->inform("No connection between edge '" + from->getID() + "' and edge '" + to->getID() + "' found.");
+                this->myErrorMsgHandler->inform("No connection between edge '" + from->getID() + "' and edge '" + to->getID() + "' found.");
             }
             result = false;
         }
@@ -389,9 +387,6 @@ private:
 private:
     /// @brief all edges with numerical ids
     const std::vector<E*>& myEdges;
-
-    /// @brief the handler for routing errors
-    MsgHandler* const myErrorMsgHandler;
 
     /// @brief the unidirectional search queues
     Unidirectional myForwardSearch;

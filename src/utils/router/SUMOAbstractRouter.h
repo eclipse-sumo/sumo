@@ -92,7 +92,8 @@ public:
     typedef double(* Operation)(const E* const, const V* const, double);
 
     /// Constructor
-    SUMOAbstractRouter(const std::string& type, Operation operation = nullptr, Operation ttOperation = nullptr) :
+    SUMOAbstractRouter(const std::string& type, bool unbuildIsWarning, Operation operation = nullptr, Operation ttOperation = nullptr) :
+        myErrorMsgHandler(unbuildIsWarning ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
         myOperation(operation), myTTOperation(ttOperation),
         myBulkMode(false),
         myType(type),
@@ -117,9 +118,41 @@ public:
     virtual bool compute(const E* from, const E* to, const V* const vehicle,
                          SUMOTime msTime, std::vector<const E*>& into, bool silent = false) = 0;
 
+    /** @brief Builds the route between the given edges using the minimum effort at the given time
+     * if from == to, return the shortest looped route */
+    bool computeLooped(const E* from, const E* to, const V* const vehicle,
+                         SUMOTime msTime, std::vector<const E*>& into, bool silent = false) {
+        if (from != to) {
+            return compute(from, to, vehicle, msTime, into, silent);
+        }
+        double minEffort = std::numeric_limits<double>::max();
+        std::vector<const E*> best;
+        const SUMOVehicleClass vClass = vehicle == 0 ? SVC_IGNORING : vehicle->getVClass();
+        for (const std::pair<const E*, const E*>& follower : from->getViaSuccessors(vClass)) {
+            std::vector<const E*> tmp;
+            compute(follower.first, to, vehicle, msTime, tmp, false);
+            if (tmp.size() > 0) {
+                double effort = recomputeCosts(tmp, vehicle, msTime);
+                if (effort < minEffort) {
+                    minEffort = effort;
+                    best = tmp;
+                }
+            }
+        }
+        if (minEffort != std::numeric_limits<double>::max()) {
+            into.push_back(from);
+            std::copy(best.begin(), best.end(), std::back_inserter(into));
+            return true;
+        } else if (!silent && myErrorMsgHandler != nullptr) {
+            myErrorMsgHandler->inform("No connection between edge '" + from->getID() + "' and edge '" + to->getID() + "' found.");
+        }
+        return false;
+    }
+
     virtual bool isProhibited(const E* const /* edge */, const V* const /* vehicle */) const  {
         return false;
     }
+
 
     inline double getTravelTime(const E* const e, const V* const v, const double t, const double effort) const {
         return myTTOperation == nullptr ? effort : (*myTTOperation)(e, v, t);
@@ -191,6 +224,9 @@ public:
     }
 
 protected:
+    /// @brief the handler for routing errors
+    MsgHandler* const myErrorMsgHandler;
+
     /// @brief The object's operation to perform.
     Operation myOperation;
 
@@ -220,8 +256,9 @@ template<class E, class V>
 class SUMOAbstractRouterPermissions : public SUMOAbstractRouter<E, V> {
 public:
     /// Constructor
-    SUMOAbstractRouterPermissions(const std::string& type, typename SUMOAbstractRouter<E, V>::Operation operation = nullptr, typename SUMOAbstractRouter<E, V>::Operation ttOperation = nullptr) :
-        SUMOAbstractRouter<E, V>(type, operation, ttOperation) {
+    SUMOAbstractRouterPermissions(const std::string& type, bool unbuildIsWarning, 
+            typename SUMOAbstractRouter<E, V>::Operation operation = nullptr, typename SUMOAbstractRouter<E, V>::Operation ttOperation = nullptr) :
+        SUMOAbstractRouter<E, V>(type, unbuildIsWarning, operation, ttOperation) {
     }
 
     /// Destructor

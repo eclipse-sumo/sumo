@@ -72,7 +72,7 @@ public:
      */
     CHRouterWrapper(const std::vector<E*>& edges, const bool ignoreErrors, typename BASE::Operation operation,
                     const SUMOTime begin, const SUMOTime end, const SUMOTime weightPeriod, const int numThreads) :
-        BASE("CHRouterWrapper", operation),
+        BASE("CHRouterWrapper", myIgnoreErrors, operation),
         myEdges(edges),
         myIgnoreErrors(ignoreErrors),
         myBegin(begin),

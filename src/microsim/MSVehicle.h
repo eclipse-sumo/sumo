@@ -1797,9 +1797,10 @@ protected:
     /// updates LaneQ::nextOccupation and myCurrentLaneInBestLanes
     void updateOccupancyAndCurrentBestLane(const MSLane* startLane);
 
-    /** @brief Returns the list of still pending stop edges
+    /** @brief Returns the list of still pending stop edges 
+     * also returns the first and last stop position 
      */
-    const ConstMSEdgeVector getStopEdges() const;
+    const ConstMSEdgeVector getStopEdges(double& firstPos, double& lastPos) const;
 
     /// @brief return list of route indices for the remaining stops
     std::vector<int> getStopIndices() const;

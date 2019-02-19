@@ -81,8 +81,7 @@ public:
     /// Constructor
     DijkstraRouter(const std::vector<E*>& edges, bool unbuildIsWarning, typename BASE::Operation effortOperation,
                    typename BASE::Operation ttOperation = nullptr, bool silent = false, EffortCalculator* calc = nullptr) :
-        BASE("DijkstraRouter", effortOperation, ttOperation),
-        myErrorMsgHandler(unbuildIsWarning ?  MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
+        BASE("DijkstraRouter", unbuildIsWarning, effortOperation, ttOperation),
         mySilent(silent), myExternalEffort(calc) {
         for (typename std::vector<E*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
             myEdgeInfos.push_back(typename BASE::EdgeInfo(*i));
@@ -93,7 +92,7 @@ public:
     virtual ~DijkstraRouter() { }
 
     virtual SUMOAbstractRouter<E, V>* clone() {
-        return new DijkstraRouter<E, V, BASE>(myEdgeInfos, myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation, this->myTTOperation, mySilent, myExternalEffort);
+        return new DijkstraRouter<E, V, BASE>(myEdgeInfos, this->myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation, this->myTTOperation, mySilent, myExternalEffort);
     }
 
     void init() {
@@ -117,13 +116,13 @@ public:
         // check whether from and to can be used
         if (this->isProhibited(from, vehicle)) {
             if (!silent) {
-                myErrorMsgHandler->inform("Vehicle '" + vehicle->getID() + "' is not allowed on source edge '" + from->getID() + "'.");
+                this->myErrorMsgHandler->inform("Vehicle '" + vehicle->getID() + "' is not allowed on source edge '" + from->getID() + "'.");
             }
             return false;
         }
         if (this->isProhibited(to, vehicle)) {
             if (!silent) {
-                myErrorMsgHandler->inform("Vehicle '" + vehicle->getID() + "' is not allowed on destination edge '" + to->getID() + "'.");
+                this->myErrorMsgHandler->inform("Vehicle '" + vehicle->getID() + "' is not allowed on destination edge '" + to->getID() + "'.");
             }
             return false;
         }
@@ -221,7 +220,7 @@ public:
         std::cout << "visited " + toString(num_visited) + " edges (unsuccessful path length: " + toString(into.size()) + ")\n";
 #endif
         if (to != 0 && !mySilent && !silent) {
-            myErrorMsgHandler->inform("No connection between edge '" + from->getID() + "' and edge '" + to->getID() + "' found.");
+            this->myErrorMsgHandler->inform("No connection between edge '" + from->getID() + "' and edge '" + to->getID() + "' found.");
         }
         return false;
     }
@@ -244,8 +243,7 @@ public:
 private:
     DijkstraRouter(const std::vector<typename BASE::EdgeInfo>& edgeInfos, bool unbuildIsWarning,
                    typename BASE::Operation effortOperation, typename BASE::Operation ttOperation, bool silent, EffortCalculator* calc) :
-        BASE("DijkstraRouter", effortOperation, ttOperation),
-        myErrorMsgHandler(unbuildIsWarning ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
+        BASE("DijkstraRouter", unbuildIsWarning, effortOperation, ttOperation),
         mySilent(silent),
         myExternalEffort(calc) {
         for (const auto& edgeInfo : edgeInfos) {
@@ -254,9 +252,6 @@ private:
     }
 
 private:
-    /// @brief the handler for routing errors
-    MsgHandler* const myErrorMsgHandler;
-
     /// @brief whether to supress warning/error if no route was found
     bool mySilent;
 

@@ -98,8 +98,7 @@ public:
 
     /// Constructor
     AStarRouter(const std::vector<E*>& edges, bool unbuildIsWarning, typename BASE::Operation operation, const std::shared_ptr<const LookupTable> lookup = 0) :
-        BASE("AStarRouter", operation),
-        myErrorMsgHandler(unbuildIsWarning ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
+        BASE("AStarRouter", unbuildIsWarning, operation),
         myLookupTable(lookup),
         myMaxSpeed(NUMERICAL_EPS) {
         for (typename std::vector<E*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
@@ -109,8 +108,7 @@ public:
     }
 
     AStarRouter(const std::vector<typename BASE::EdgeInfo>& edgeInfos, bool unbuildIsWarning, typename BASE::Operation operation, const std::shared_ptr<const LookupTable> lookup = 0) :
-        BASE("AStarRouter", operation),
-        myErrorMsgHandler(unbuildIsWarning ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
+        BASE("AStarRouter", unbuildIsWarning, operation),
         myLookupTable(lookup),
         myMaxSpeed(NUMERICAL_EPS) {
         for (const auto& edgeInfo : edgeInfos) {
@@ -123,7 +121,7 @@ public:
     virtual ~AStarRouter() {}
 
     virtual SUMOAbstractRouter<E, V>* clone() {
-        return new AStarRouter<E, V, BASE>(myEdgeInfos, myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation, myLookupTable);
+        return new AStarRouter<E, V, BASE>(myEdgeInfos, this->myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation, myLookupTable);
     }
 
     void init() {
@@ -146,13 +144,13 @@ public:
         // check whether from and to can be used
         if (this->isProhibited(from, vehicle)) {
             if (!silent) {
-                myErrorMsgHandler->inform("Vehicle '" + vehicle->getID() + "' is not allowed on source edge '" + from->getID() + "'.");
+                this->myErrorMsgHandler->inform("Vehicle '" + vehicle->getID() + "' is not allowed on source edge '" + from->getID() + "'.");
             }
             return false;
         }
         if (this->isProhibited(to, vehicle)) {
             if (!silent) {
-                myErrorMsgHandler->inform("Vehicle '" + vehicle->getID() + "' is not allowed on destination edge '" + to->getID() + "'.");
+                this->myErrorMsgHandler->inform("Vehicle '" + vehicle->getID() + "' is not allowed on destination edge '" + to->getID() + "'.");
             }
             return false;
         }
@@ -282,7 +280,7 @@ public:
         std::cout << "visited " + toString(num_visited) + " edges (unsuccesful path length: " + toString(into.size()) + ")\n";
 #endif
         if (!silent) {
-            myErrorMsgHandler->inform("No connection between edge '" + from->getID() + "' and edge '" + to->getID() + "' found.");
+            this->myErrorMsgHandler->inform("No connection between edge '" + from->getID() + "' and edge '" + to->getID() + "' found.");
         }
         return false;
     }
@@ -308,9 +306,6 @@ protected:
     std::vector<typename BASE::EdgeInfo*> myFound;
 
     EdgeInfoComparator myComparator;
-
-    /// @brief the handler for routing errors
-    MsgHandler* const myErrorMsgHandler;
 
     /// @brief the lookup table for travel time heuristics
     const std::shared_ptr<const LookupTable> myLookupTable;

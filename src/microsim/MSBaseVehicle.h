@@ -475,7 +475,7 @@ protected:
 
     /** @brief Returns the list of still pending stop edges
      */
-    virtual const ConstMSEdgeVector getStopEdges() const = 0;
+    virtual const ConstMSEdgeVector getStopEdges(double& firstPos, double& lastPos) const = 0;
 
 protected:
     /// @brief This vehicle's parameter.

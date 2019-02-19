@@ -85,7 +85,7 @@ public:
     /// Constructor
     IntermodalRouter(CreateNetCallback callback, const int carWalkTransfer, const std::string& routingAlgorithm,
                      const int routingMode = 0, EffortCalculator* calc = nullptr) :
-        SUMOAbstractRouter<E, _IntermodalTrip>("IntermodalRouter"),
+        SUMOAbstractRouter<E, _IntermodalTrip>("IntermodalRouter", true),
         myAmClone(false), myInternalRouter(nullptr), myIntermodalNet(nullptr),
         myCallback(callback), myCarWalkTransfer(carWalkTransfer), myRoutingAlgorithm(routingAlgorithm),
         myRoutingMode(routingMode), myExternalEffort(calc) {
@@ -233,7 +233,7 @@ public:
 private:
     IntermodalRouter(Network* net, const int carWalkTransfer, const std::string& routingAlgorithm,
                      const int routingMode, EffortCalculator* calc) :
-        SUMOAbstractRouter<E, _IntermodalTrip>("IntermodalRouterClone"), myAmClone(true),
+        SUMOAbstractRouter<E, _IntermodalTrip>("IntermodalRouterClone", true), myAmClone(true),
         myInternalRouter(new _InternalDijkstra(net->getAllEdges(), true, &_IntermodalEdge::getTravelTimeStatic)),
         myIntermodalNet(net), myCarWalkTransfer(carWalkTransfer), myRoutingAlgorithm(routingAlgorithm), myRoutingMode(routingMode), myExternalEffort(calc) {}
 

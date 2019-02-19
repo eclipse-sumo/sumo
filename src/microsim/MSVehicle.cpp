@@ -1538,6 +1538,7 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& error
             return addStop(stopPar, errorMsg, untilOffset, collision, &next);
         }
         errorMsg = errorMsgStart + " for vehicle '" + myParameter->id + "' on lane '" + stopPar.lane + "' is not downstream the current route.";
+        //std::cout << " could not add stop " << errorMsgStart << " prevStops=" << myStops.size() << " searchStart=" << (*searchStart - myRoute->begin()) << " route=" << toString(myRoute->getEdges())  << "\n";
         return false;
     }
     // David.C:
@@ -1592,6 +1593,9 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& error
         }
     }
     myStops.insert(iter, stop);
+    //std::cout << " added stop " << errorMsgStart << " totalStops=" << myStops.size() << " searchStart=" << (*searchStart - myRoute->begin()) 
+    //    << " routeIndex=" << (stop.edge - myRoute->begin())
+    //    << " route=" << toString(myRoute->getEdges())  << "\n";
     return true;
 }
 
@@ -1954,11 +1958,23 @@ MSVehicle::processNextStop(double currentVelocity) {
 
 
 const ConstMSEdgeVector
-MSVehicle::getStopEdges() const {
+MSVehicle::getStopEdges(double& firstPos, double& lastPos) const {
     ConstMSEdgeVector result;
-    for (std::list<Stop>::const_iterator iter = myStops.begin(); iter != myStops.end(); ++iter) {
-        result.push_back(*iter->edge);
+    const Stop* prev = nullptr;
+    for (const Stop& stop : myStops) {
+        const double stopPos = stop.getEndPos(*this);
+        if (prev == nullptr 
+                || prev->edge != stop.edge
+                || prev->getEndPos(*this) > stopPos) {
+            result.push_back(*stop.edge);
+        }
+        prev = &stop;
+        if (firstPos < 0) {
+            firstPos = stopPos;
+        }
+        lastPos = stopPos;
     }
+    //std::cout << "getStopEdges veh=" << getID() << " result=" << toString(result) << "\n";
     return result;
 }
 

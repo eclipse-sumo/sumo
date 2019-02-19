@@ -967,6 +967,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         myActiveRouteStops.push_back(stop);
     }
     if (myInsertStopEdgesAt >= 0) {
+        //std::cout << " myInsertStopEdgesAt=" << myInsertStopEdgesAt << " edge=" << edge->getID() << " myRoute=" << toString(myActiveRoute) << "\n";
         myActiveRoute.insert(myActiveRoute.begin() + myInsertStopEdgesAt, edge);
         myInsertStopEdgesAt++;
     }
