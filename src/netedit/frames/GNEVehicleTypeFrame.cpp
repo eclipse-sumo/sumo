@@ -80,7 +80,7 @@ GNEVehicleTypeFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& obje
     const auto& tagValues = myItemSelector->getCurrentTagProperties();
 
     // Declare map to keep attributes from Frames from Frame
-    std::map<SumoXMLAttr, std::string> valuesMap = myVehicleAttributes->getAttributesAndValues();
+    std::map<SumoXMLAttr, std::string> valuesMap = myVehicleAttributes->getAttributesAndValues(false);
 
     // fill netedit attributes
     if (!myNeteditAttributes->getNeteditAttributesAndValues(valuesMap, objectsUnderCursor.getLaneFront())) {

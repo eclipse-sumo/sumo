@@ -115,7 +115,7 @@ public:
         void hideACAttributesModul();
 
         /// @brief get attributes and their values
-        std::map<SumoXMLAttr, std::string> getAttributesAndValues() const;
+        std::map<SumoXMLAttr, std::string> getAttributesAndValues(bool includeAll) const;
 
         /// @brief check if parameters of attributes are valid
         bool areValuesValid() const;

@@ -264,14 +264,14 @@ GNEFrame::ACAttributes::hideACAttributesModul() {
 
 
 std::map<SumoXMLAttr, std::string>
-GNEFrame::ACAttributes::getAttributesAndValues() const {
+GNEFrame::ACAttributes::getAttributesAndValues(bool includeAll) const {
     std::map<SumoXMLAttr, std::string> values;
     // get standard parameters
     for (int i = 0; i < (int)myRows.size(); i++) {
         if (myRows.at(i)->getAttrProperties().getAttr() != SUMO_ATTR_NOTHING) {
             // ignore default values (except for disjont attributes, that has to be always writted)
-            if (myRows.at(i)->isRowEnabled() && 
-               (myTagProperties.isDisjointAttributes(myRows.at(i)->getAttrProperties().getAttr()) || !myRows.at(i)->getAttrProperties().hasDefaultValue() || (myRows.at(i)->getAttrProperties().getDefaultValue() != myRows.at(i)->getValue()))) {
+            if (myRows.at(i)->isRowEnabled() &&
+               (includeAll || myTagProperties.isDisjointAttributes(myRows.at(i)->getAttrProperties().getAttr()) || !myRows.at(i)->getAttrProperties().hasDefaultValue() || (myRows.at(i)->getAttrProperties().getDefaultValue() != myRows.at(i)->getValue()))) {
                 values[myRows.at(i)->getAttrProperties().getAttr()] = myRows.at(i)->getValue();
             }
         }

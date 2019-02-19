@@ -175,7 +175,7 @@ GNEPolygonFrame::GEOPOICreator::onCmdCreateGEOPOI(FXObject*, FXSelector, void*) 
         }
         if (GNEAttributeCarrier::canParse<Position>(geoPosStr)) {
             // obtain shape attributes and values
-            auto valuesOfElement = myPolygonFrameParent->myShapeAttributes->getAttributesAndValues();
+            auto valuesOfElement = myPolygonFrameParent->myShapeAttributes->getAttributesAndValues(true);
             // obtain netedit attributes and values
             myPolygonFrameParent->myNeteditAttributes->getNeteditAttributesAndValues(valuesOfElement, nullptr);
             // generate new ID
@@ -260,7 +260,7 @@ GNEPolygonFrame::processClick(const Position& clickedPosition, const GNEViewNetH
             return ADDSHAPE_INVALID;
         }
         // obtain shape attributes and values
-        valuesOfElement = myShapeAttributes->getAttributesAndValues();
+        valuesOfElement = myShapeAttributes->getAttributesAndValues(true);
         // obtain netedit attributes and values
         myNeteditAttributes->getNeteditAttributesAndValues(valuesOfElement, objectsUnderCursor.getLaneFront());
         // generate new ID
@@ -287,7 +287,7 @@ GNEPolygonFrame::processClick(const Position& clickedPosition, const GNEViewNetH
             return ADDSHAPE_INVALID;
         }
         // obtain shape attributes and values
-        valuesOfElement = myShapeAttributes->getAttributesAndValues();
+        valuesOfElement = myShapeAttributes->getAttributesAndValues(true);
         // obtain netedit attributes and values
         myNeteditAttributes->getNeteditAttributesAndValues(valuesOfElement, objectsUnderCursor.getLaneFront());
         // generate new ID
@@ -355,7 +355,7 @@ GNEPolygonFrame::buildShape() {
         return false;
     } else {
         // Declare map to keep values
-        std::map<SumoXMLAttr, std::string> valuesOfElement = myShapeAttributes->getAttributesAndValues();
+        std::map<SumoXMLAttr, std::string> valuesOfElement = myShapeAttributes->getAttributesAndValues(true);
 
         // obtain netedit attributes and values
         myNeteditAttributes->getNeteditAttributesAndValues(valuesOfElement, nullptr);
