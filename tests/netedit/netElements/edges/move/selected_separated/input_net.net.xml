@@ -1,58 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 13.12.2018 10:53:42 by Eclipse SUMO netedit Version v1_0_0+1354-a5b8c6b0c6
+<!-- generated on Tue Feb 19 09:11:19 2019 by Eclipse SUMO netconvert Version v1_1_0+0919-80296dbfce
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="D:\sumo\tests\netedit\netElements\edges\move\selected_separated\input_net.net.xml"/>
+        <node-files value=".\netedit\netElements\edges\move\selected_separated\input_net.nod.xml"/>
+        <edge-files value=".\netedit\netElements\edges\move\selected_separated\input_net.edg.xml"/>
+        <connection-files value=".\netedit\netElements\edges\move\selected_separated\input_net.con.xml"/>
+        <tllogic-files value=".\netedit\netElements\edges\move\selected_separated\input_net.tll.xml"/>
     </input>
 
     <output>
-        <output-file value="D:\sumo\tests\netedit\netElements\edges\move\selected_separated\input_net.net.xml"/>
+        <output-file value=".\netedit\netElements\edges\move\selected_separated\input_net.net.xml"/>
     </output>
 
-    <processing>
-        <geometry.max-grade.fix value="false"/>
-        <offset.disable-normalization value="true"/>
-        <lefthand value="false"/>
-    </processing>
-
-    <junctions>
-        <no-turnarounds value="true"/>
-        <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="5.5"/>
-        <rectangular-lane-cut value="false"/>
-    </junctions>
-
-    <pedestrian>
-        <walkingareas value="false"/>
-    </pedestrian>
+    <report>
+        <verbose value="true"/>
+    </report>
 
 </configuration>
 -->
 
-<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
-    <location netOffset="25.00,0.00" convBoundary="0.00,-11.00,50.00,11.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+    <location netOffset="25.00,11.00" convBoundary="0.00,0.00,50.00,22.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id=":gneJ0_0" function="internal">
-        <lane id=":gneJ0_0_0" index="0" speed="3.65" length="4.67" shape="0.00,1.60 -1.20,0.80 -1.60,0.00 -1.20,-0.80 0.00,-1.60"/>
+        <lane id=":gneJ0_0_0" index="0" speed="3.65" length="4.67" shape="0.00,12.60 -1.20,11.80 -1.60,11.00 -1.20,10.20 0.00,9.40"/>
     </edge>
     <edge id=":gneJ1_0" function="internal">
-        <lane id=":gneJ1_0_0" index="0" speed="3.65" length="4.67" shape="50.00,-1.60 51.20,-0.80 51.60,0.00 51.20,0.80 50.00,1.60"/>
+        <lane id=":gneJ1_0_0" index="0" speed="3.65" length="4.67" shape="50.00,9.40 51.20,10.20 51.60,11.00 51.20,11.80 50.00,12.60"/>
     </edge>
 
     <edge id="gneE0" from="gneJ0" to="gneJ1" priority="1">
-        <lane id="gneE0_0" index="0" speed="13.89" length="50.00" shape="0.00,-1.60 50.00,-1.60"/>
+        <lane id="gneE0_0" index="0" speed="13.89" length="50.00" shape="0.00,9.40 50.00,9.40"/>
     </edge>
     <edge id="gneE1" from="gneJ1" to="gneJ0" priority="1">
-        <lane id="gneE1_0" index="0" speed="13.89" length="50.00" shape="50.00,1.60 0.00,1.60"/>
+        <lane id="gneE1_0" index="0" speed="13.89" length="50.00" shape="50.00,12.60 0.00,12.60"/>
     </edge>
     <edge id="gneE3" from="gneJ4" to="gneJ5" priority="-1">
-        <lane id="gneE3_0" index="0" speed="13.89" length="49.00" shape="0.00,-12.60 49.00,-12.60"/>
+        <lane id="gneE3_0" index="0" speed="13.89" length="49.00" shape="0.00,-1.60 49.00,-1.60"/>
     </edge>
     <edge id="gneE4" from="gneJ3" to="gneJ2" priority="-1">
-        <lane id="gneE4_0" index="0" speed="13.89" length="50.00" shape="50.00,12.60 0.00,12.60"/>
+        <lane id="gneE4_0" index="0" speed="13.89" length="50.00" shape="50.00,23.60 0.00,23.60"/>
     </edge>
 
     <tlLogic id="gneJ0" type="static" programID="0" offset="0">
@@ -64,16 +54,16 @@
         <phase duration="3"  state="y"/>
     </tlLogic>
 
-    <junction id="gneJ0" type="traffic_light" x="0.00" y="0.00" incLanes="gneE1_0" intLanes=":gneJ0_0_0" shape="0.00,0.00 0.00,3.20 0.00,0.00">
+    <junction id="gneJ0" type="traffic_light" x="0.00" y="11.00" incLanes="gneE1_0" intLanes=":gneJ0_0_0" shape="0.00,11.00 0.00,14.20 0.00,11.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="gneJ1" type="traffic_light" x="50.00" y="0.00" incLanes="gneE0_0" intLanes=":gneJ1_0_0" shape="50.00,0.00 50.00,-3.20 50.00,0.00">
+    <junction id="gneJ1" type="traffic_light" x="50.00" y="11.00" incLanes="gneE0_0" intLanes=":gneJ1_0_0" shape="50.00,11.00 50.00,7.80 50.00,11.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="gneJ2" type="dead_end" x="0.00" y="11.00" incLanes="gneE4_0" intLanes="" shape="0.00,14.20 0.00,11.00"/>
-    <junction id="gneJ3" type="dead_end" x="50.00" y="11.00" incLanes="" intLanes="" shape="50.00,11.00 50.00,14.20"/>
-    <junction id="gneJ4" type="dead_end" x="0.00" y="-11.00" incLanes="" intLanes="" shape="0.00,-11.00 0.00,-14.20"/>
-    <junction id="gneJ5" type="dead_end" x="49.00" y="-11.00" incLanes="gneE3_0" intLanes="" shape="49.00,-14.20 49.00,-11.00"/>
+    <junction id="gneJ2" type="dead_end" x="0.00" y="22.00" incLanes="gneE4_0" intLanes="" shape="0.00,25.20 0.00,22.00"/>
+    <junction id="gneJ3" type="dead_end" x="50.00" y="22.00" incLanes="" intLanes="" shape="50.00,22.00 50.00,25.20"/>
+    <junction id="gneJ4" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 0.00,-3.20"/>
+    <junction id="gneJ5" type="dead_end" x="49.00" y="0.00" incLanes="gneE3_0" intLanes="" shape="49.00,-3.20 49.00,0.00"/>
 
     <connection from="gneE0" to="gneE1" fromLane="0" toLane="0" via=":gneJ1_0_0" tl="gneJ1" linkIndex="0" dir="t" state="O"/>
     <connection from="gneE1" to="gneE0" fromLane="0" toLane="0" via=":gneJ0_0_0" tl="gneJ0" linkIndex="0" dir="t" state="O"/>
