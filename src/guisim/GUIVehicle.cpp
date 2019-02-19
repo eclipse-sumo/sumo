@@ -286,7 +286,6 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
     const double length = totalLength * upscaleLength;
     const double halfWidth = getVehicleType().getWidth() / 2.0 * exaggeration;
     glPopMatrix(); // undo initial translation and rotation
-    GLHelper::setColor(darker);
     const double xCornerCut = 0.3 * exaggeration;
     const double yCornerCut = 0.4 * exaggeration;
     // round to closest integer
@@ -297,7 +296,7 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
     double firstCarriageLength = carriageLength;
     if (defaultLength != locomotiveLength && numCarriages > 1) {
         firstCarriageLength = locomotiveLength;
-        carriageLengthWithGap = (length - locomotiveLength) / numCarriages;
+        carriageLengthWithGap = (length - locomotiveLength) / (numCarriages - 1);
         carriageLength = carriageLengthWithGap - carriageGap;
     }
     // lane on which the carriage front is situated
@@ -318,6 +317,7 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
     double angle = 0.;
     // draw individual carriages
     double curCLength = firstCarriageLength;
+    //std::cout << SIMTIME << " veh=" << getID() << " curCLength=" << curCLength << " loc=" << locomotiveLength << " car=" << carriageLength << " tlen=" << totalLength << " len=" << length << "\n";
     for (int i = 0; i < numCarriages; ++i) {
         if (i > 0) {
             curCLength = carriageLength;
@@ -357,21 +357,39 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
         glTranslated(front.x(), front.y(), getType());
         glRotated(angle, 0, 0, 1);
         if (!asImage || !GUIBaseVehicleHelper::drawAction_drawVehicleAsImage(s, getVType().getImgFile(), this, getVType().getWidth(), curCLength)) {
-            glBegin(GL_TRIANGLE_FAN);
-            glVertex2d(-halfWidth + xCornerCut, 0);
-            glVertex2d(-halfWidth, yCornerCut);
-            glVertex2d(-halfWidth, drawnCarriageLength - yCornerCut);
-            glVertex2d(-halfWidth + xCornerCut, drawnCarriageLength);
-            glVertex2d(halfWidth - xCornerCut, drawnCarriageLength);
-            glVertex2d(halfWidth, drawnCarriageLength - yCornerCut);
-            glVertex2d(halfWidth, yCornerCut);
-            glVertex2d(halfWidth - xCornerCut, 0);
-            glEnd();
+            switch(getVType().getGuiShape()) {
+                case SVS_TRUCK_SEMITRAILER:
+                case SVS_TRUCK_1TRAILER:
+                    if (i == 0) {
+                        GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(s, getVType().getGuiShape(), getVType().getWidth() * exaggeration, curCLength, i); 
+                    } else {
+                        GLHelper::setColor(current);
+                        GLHelper::drawBoxLine(Position(0, 0), 180, curCLength, halfWidth);
+                    }
+                    break;
+                default: {
+                    if (i == 0) {
+                        GLHelper::setColor(darker);
+                    } else {
+                        GLHelper::setColor(current);
+                    }
+                    // generic rail carriage
+                    glBegin(GL_TRIANGLE_FAN);
+                    glVertex2d(-halfWidth + xCornerCut, 0);
+                    glVertex2d(-halfWidth, yCornerCut);
+                    glVertex2d(-halfWidth, drawnCarriageLength - yCornerCut);
+                    glVertex2d(-halfWidth + xCornerCut, drawnCarriageLength);
+                    glVertex2d(halfWidth - xCornerCut, drawnCarriageLength);
+                    glVertex2d(halfWidth, drawnCarriageLength - yCornerCut);
+                    glVertex2d(halfWidth, yCornerCut);
+                    glVertex2d(halfWidth - xCornerCut, 0);
+                    glEnd();
+                }
+            }
         }
         glPopMatrix();
         carriageOffset -= (curCLength + carriageGap);
         carriageBackOffset -= carriageLengthWithGap;
-        GLHelper::setColor(current);
     }
     if (getVType().getGuiShape() == SVS_RAIL_CAR) {
         glPushMatrix();

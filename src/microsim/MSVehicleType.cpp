@@ -456,6 +456,16 @@ MSVehicleType::initParameters() {
             case SVS_RAIL_CARGO:
                 myParameter.carriageLength = 13.86; // UIC 571-1 http://de.wikipedia.org/wiki/Flachwagen
                 break;
+            case SVS_TRUCK_SEMITRAILER:
+                myParameter.carriageLength = 13.5;
+                myParameter.locomotiveLength = 2.5;
+                myParameter.carriageGap = 0.5;
+                break;
+            case SVS_TRUCK_1TRAILER:
+                myParameter.carriageLength = 6.75;
+                myParameter.locomotiveLength = 2.5 + 6.75;
+                myParameter.carriageGap = 0.5;
+                break;
             default:
                 break;
         }

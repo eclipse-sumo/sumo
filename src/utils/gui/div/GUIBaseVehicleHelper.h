@@ -53,7 +53,8 @@ public:
     static void drawAction_drawVehicleAsTrianglePlus(const double width, const double length);
 
     /// @brief draw vehicle as a polygon
-    static void drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s, const SUMOVehicleShape shape, const double width, const double length);
+    static void drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s, const SUMOVehicleShape shape, const double width, const double length,
+            int carriageIndex = -1);
 
     /**@brief try to draw vehicle as raster image and return true if sucessful
      * @param[in] length The custom length of the vehicle (defaults to the * length specified in the vehicle type if -1 is passed)

@@ -141,7 +141,8 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsTrianglePlus(const double width, c
 
 
 void
-GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s, const SUMOVehicleShape shape, const double width, const double length) {
+GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s, const SUMOVehicleShape shape, const double width, const double length,
+        int carriageIndex) {
     UNUSED_PARAMETER(s);
     RGBColor current = GLHelper::getColor();
     RGBColor lighter = current.changedBrightness(51);
@@ -229,12 +230,14 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
         case SVS_TRUCK:
         case SVS_TRUCK_SEMITRAILER:
         case SVS_TRUCK_1TRAILER:
-            glScaled(1. / (length), 1, 1.);
-            drawPoly(vehiclePoly_TransportBody, 4);
-            glColor3d(0, 0, 0);
-            drawPoly(vehiclePoly_TransportFrontGlass, 4.5);
-            drawPoly(vehiclePoly_TransportRightGlass, 4.5);
-            drawPoly(vehiclePoly_TransportLeftGlass, 4.5);
+            if (carriageIndex < 1) {
+                glScaled(1. / (length), 1, 1.);
+                drawPoly(vehiclePoly_TransportBody, 4);
+                glColor3d(0, 0, 0);
+                drawPoly(vehiclePoly_TransportFrontGlass, 4.5);
+                drawPoly(vehiclePoly_TransportRightGlass, 4.5);
+                drawPoly(vehiclePoly_TransportLeftGlass, 4.5);
+            }
             break;
         case SVS_BUS:
         case SVS_BUS_COACH:
@@ -490,15 +493,21 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
             GLHelper::drawBoxLine(Position(2.3, 0), 90., length - 2.3, .5);
             break;
         case SVS_TRUCK_SEMITRAILER:
-            GLHelper::setColor(current);
-            GLHelper::drawBoxLine(Position(2.8, 0), 90., length - 2.8, .5);
+            if (carriageIndex < 0) {
+                GLHelper::setColor(current);
+                GLHelper::drawBoxLine(Position(2.8, 0), 90., length - 2.8, .5);
+            }
             break;
         case SVS_TRUCK_1TRAILER: {
             GLHelper::setColor(current);
             double l = length - 2.3;
-            l = l / 2.;
-            GLHelper::drawBoxLine(Position(2.3, 0), 90., l, .5);
-            GLHelper::drawBoxLine(Position(2.3 + l + .5, 0), 90., l - .5, .5);
+            if (carriageIndex != 0) {
+                l = l / 2.;
+                GLHelper::drawBoxLine(Position(2.3, 0), 90., l, .5);
+                GLHelper::drawBoxLine(Position(2.3 + l + .5, 0), 90., l - .5, .5);
+            } else {
+                GLHelper::drawBoxLine(Position(2.3, 0), 90., l, .5);
+            }
             break;
         }
         case SVS_BUS_TROLLEY:

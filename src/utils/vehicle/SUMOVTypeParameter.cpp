@@ -114,9 +114,7 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
             maxSpeed = 130. / 3.6;
             width = 2.55;
             height = 4.;
-            shape = SVS_TRUCK_SEMITRAILER;
-            carriageLength = 13.5;
-            locomotiveLength = 3.5;
+            shape = SVS_TRUCK_1TRAILER;
             osgFile = "car-microcargo-citrus.obj";
             personCapacity = 2;
             containerCapacity = 2;
