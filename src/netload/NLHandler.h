@@ -329,7 +329,7 @@ protected:
 
     bool myCurrentIsBroken;
 
-    bool myHaveWarnedAboutDeprecatedLanes;
+    bool myHaveWarnedAboutInvalidTLType;
 
     Parameterised myLastEdgeParameters;
     std::vector<Parameterised*> myLastParameterised;

@@ -65,7 +65,7 @@ NLHandler::NLHandler(const std::string& file, MSNet& net,
     myDetectorBuilder(detBuilder), myTriggerBuilder(triggerBuilder),
     myEdgeControlBuilder(edgeBuilder), myJunctionControlBuilder(junctionBuilder),
     myAmParsingTLLogicOrJunction(false), myCurrentIsBroken(false),
-    myHaveWarnedAboutDeprecatedLanes(false),
+    myHaveWarnedAboutInvalidTLType(false),
     myHaveSeenInternalEdge(false),
     myHaveSeenNeighs(false),
     myHaveSeenAdditionalSpeedRestrictions(false),
@@ -679,6 +679,13 @@ NLHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs) {
             type = SUMOXMLDefinitions::TrafficLightTypes.get(typeS);
         } else {
             WRITE_ERROR("Traffic light '" + id + "' has unknown type '" + typeS + "'.");
+        }
+        if (MSGlobals::gUseMesoSim && type == TLTYPE_ACTUATED) {
+            if (!myHaveWarnedAboutInvalidTLType) {
+                WRITE_WARNING("Traffic light type '" + toString(type) + "' cannot be used in mesoscopic simulation. Using '" + toString(TLTYPE_STATIC) + "' as fallback");
+                myHaveWarnedAboutInvalidTLType = true;
+            }
+            type = TLTYPE_STATIC;
         }
     }
     //
