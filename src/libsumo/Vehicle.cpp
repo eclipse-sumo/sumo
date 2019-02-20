@@ -45,6 +45,14 @@
 #include "Vehicle.h"
 
 
+// ===========================================================================
+// debug defines
+// ===========================================================================
+//#define DEBUG_NEIGHBORS
+#define DEBUG_COND (veh->isSelected())
+
+
+
 namespace libsumo {
 // ===========================================================================
 // static member initializations
@@ -642,10 +650,20 @@ Vehicle::getNeighbors(const std::string& vehicleID, const int mode) {
     std::map<const MSVehicle*, double> neighs;
     auto& lcm = veh->getLaneChangeModel();
 
+#ifdef DEBUG_NEIGHBORS
+    if DEBUG_COND {
+        std::cout << "getNeighbors() for veh '" << vehicleID << "': dir=" << dir
+                << ", queryLeaders=" << queryLeaders
+                << ", blockersOnly=" << blockersOnly << std::endl;
+    }
+#endif
+
+
+
     if (blockersOnly) {
         // Check if a blocking neigh exists in the given direction
         bool blocked = false;
-        if (dir == 1) {
+        if (dir == -1) {
             if (queryLeaders) {
                 blocked = (lcm.getOwnState() & LCA_BLOCKED_BY_RIGHT_LEADER);
             } else {
@@ -658,6 +676,13 @@ Vehicle::getNeighbors(const std::string& vehicleID, const int mode) {
                 blocked = (lcm.getOwnState() & LCA_BLOCKED_BY_LEFT_FOLLOWER);
             }
         }
+
+#ifdef DEBUG_NEIGHBORS
+    if DEBUG_COND {
+        std::cout << " blocked=" << blocked << std::endl;
+    }
+#endif
+
         if (!blocked) {
             // Not blocked => return empty vector
             return neighs;
