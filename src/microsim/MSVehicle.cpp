@@ -95,6 +95,7 @@
 //#define DEBUG_ACTIONSTEPS
 //#define DEBUG_NEXT_TURN
 //#define DEBUG_TRACI
+//#define DEBUG_REVERSE_BIDI
 //#define DEBUG_COND (getID() == "follower")
 //#define DEBUG_COND (true)
 #define DEBUG_COND (isSelected())
@@ -2390,6 +2391,10 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                       << "' is " << laneStopOffset << " (-> stopDist=" << stopDist << ")" << std::endl;
         }
 #endif
+        // check for train direction reversal
+        if (canBrakeBeforeLaneEnd && canReverse(laneMaxV)) {
+            lfLinks.push_back(DriveProcessItem(*link, vMinComfortable, vMinComfortable, false, t, vMinComfortable, 0, 0, seen));
+        }
 
         // check whether we need to slow down in order to finish a continuous lane change
         if (getLaneChangeModel().isChangingLanes()) {
@@ -3396,9 +3401,22 @@ MSVehicle::updateTimeLoss(double vNext) {
 
 
 bool
-MSVehicle::canReverse() const {
+MSVehicle::canReverse(double speedThreshold) const {
+#ifdef DEBUG_REVERSE_BIDI
+    if (DEBUG_COND) std::cout << SIMTIME  << " canReverse lane=" << myLane->getID() 
+        << " pos=" << myState.myPos
+        << " speed=" << std::setprecision(6) << getPreviousSpeed() << std::setprecision(gPrecision)
+        << " isRail=" << ((getVClass() & SVC_RAIL_CLASSES) != 0)
+        << " speedOk=" << (getPreviousSpeed() <= speedThreshold)
+        << " posOK=" << (myState.myPos <= myLane->getLength())
+        << " normal=" << !myLane->isInternal()
+        << " routeOK=" << ((myCurrEdge + 1) != myRoute->end())
+        << " bidi=" << (myLane->getEdge().getBidiEdge() == *(myCurrEdge + 1))
+        << " stopOk=" << (myStops.empty() || myStops.front().edge != myCurrEdge)
+        << "\n";
+#endif
     if ((getVClass() & SVC_RAIL_CLASSES) != 0
-            && getPreviousSpeed() <= SUMO_const_haltingSpeed
+            && getPreviousSpeed() <= speedThreshold
             && myState.myPos <= myLane->getLength()
             && !myLane->isInternal()
             && (myCurrEdge + 1) != myRoute->end()
@@ -3406,16 +3424,19 @@ MSVehicle::canReverse() const {
             // ensure there are no further stops on this edge
             && (myStops.empty() || myStops.front().edge != myCurrEdge)
        ) {
+        //if (isSelected()) std::cout << "   check1 passed\n";
         // ensure that the vehicle is fully on bidi edges that allow reversal
         if ((int)(myRoute->end() - myCurrEdge) <= (int)myFurtherLanes.size()) {
             return false;
         }
+        //if (isSelected()) std::cout << "   check2 passed\n";
         // ensure that the turn-around connection exists from the current edge to it's bidi-edge
         const MSEdgeVector& succ = myLane->getEdge().getSuccessors();
         if (std::find(succ.begin(), succ.end(), myLane->getEdge().getBidiEdge()) == succ.end()) {
             return false;
         }
 
+        //if (isSelected()) std::cout << "   check3 passed\n";
         int view = 2;
         for (MSLane* further : myFurtherLanes) {
             if (!further->getEdge().isInternal()) {
