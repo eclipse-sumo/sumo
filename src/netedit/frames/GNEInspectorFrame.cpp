@@ -51,11 +51,11 @@ FXDEFMAP(GNEInspectorFrame::OverlappedInspection) OverlappedInspectionMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_INSPECTORFRAME_PREVIOUS,        GNEInspectorFrame::OverlappedInspection::onCmdPreviousElement),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_INSPECTORFRAME_SHOWLIST,        GNEInspectorFrame::OverlappedInspection::onCmdShowList),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_INSPECTORFRAME_ITEMSELECTED,    GNEInspectorFrame::OverlappedInspection::onCmdListItemSelected),
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,                               GNEInspectorFrame::OverlappedInspection::onCmdOverlappingHelp),
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,                               GNEInspectorFrame::OverlappedInspection::onCmdOverlappingHelp)
 };
 
 FXDEFMAP(GNEInspectorFrame) GNEInspectorFrameMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_INSPECTORFRAME_GOBACK,  GNEInspectorFrame::onCmdGoBack),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_INSPECTORFRAME_GOBACK,  GNEInspectorFrame::onCmdGoBack)
 };
 
 FXDEFMAP(GNEInspectorFrame::AttributesEditor::Row) RowMap[] = {
@@ -65,34 +65,34 @@ FXDEFMAP(GNEInspectorFrame::AttributesEditor::Row) RowMap[] = {
 };
 
 FXDEFMAP(GNEInspectorFrame::AttributesEditor) AttributesEditorMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,   GNEInspectorFrame::AttributesEditor::onCmdAttributesEditorHelp),
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,   GNEInspectorFrame::AttributesEditor::onCmdAttributesEditorHelp)
 };
 
 FXDEFMAP(GNEInspectorFrame::NeteditAttributesEditor) NeteditAttributesEditorMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEInspectorFrame::NeteditAttributesEditor::onCmdSetNeteditAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,               GNEInspectorFrame::NeteditAttributesEditor::onCmdNeteditAttributeHelp),
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,               GNEInspectorFrame::NeteditAttributesEditor::onCmdNeteditAttributeHelp)
 };
 
 FXDEFMAP(GNEInspectorFrame::GEOAttributesEditor) GEOAttributesEditorMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEInspectorFrame::GEOAttributesEditor::onCmdSetGEOAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,               GNEInspectorFrame::GEOAttributesEditor::onCmdGEOAttributeHelp),
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,               GNEInspectorFrame::GEOAttributesEditor::onCmdGEOAttributeHelp)
 };
 
 FXDEFMAP(GNEInspectorFrame::TemplateEditor) TemplateEditorMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_INSPECTORFRAME_COPYTEMPLATE,    GNEInspectorFrame::TemplateEditor::onCmdCopyTemplate),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_INSPECTORFRAME_SETTEMPLATE,     GNEInspectorFrame::TemplateEditor::onCmdSetTemplate),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_INSPECTORFRAME_COPYTEMPLATE,    GNEInspectorFrame::TemplateEditor::onUpdCopyTemplate),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_INSPECTORFRAME_COPYTEMPLATE,    GNEInspectorFrame::TemplateEditor::onUpdCopyTemplate)
 };
 
 
 // Object implementation
-FXIMPLEMENT(GNEInspectorFrame,                                      FXVerticalFrame,    GNEInspectorFrameMap,       ARRAYNUMBER(GNEInspectorFrameMap))
-FXIMPLEMENT(GNEInspectorFrame::OverlappedInspection,                FXGroupBox,         OverlappedInspectionMap,    ARRAYNUMBER(OverlappedInspectionMap))
-FXIMPLEMENT(GNEInspectorFrame::AttributesEditor::Row,    FXHorizontalFrame,  RowMap,          ARRAYNUMBER(RowMap))
-FXIMPLEMENT(GNEInspectorFrame::AttributesEditor,                    FXGroupBox,         AttributesEditorMap,        ARRAYNUMBER(AttributesEditorMap))
-FXIMPLEMENT(GNEInspectorFrame::NeteditAttributesEditor,             FXGroupBox,         NeteditAttributesEditorMap, ARRAYNUMBER(NeteditAttributesEditorMap))
-FXIMPLEMENT(GNEInspectorFrame::GEOAttributesEditor,                 FXGroupBox,         GEOAttributesEditorMap,     ARRAYNUMBER(GEOAttributesEditorMap))
-FXIMPLEMENT(GNEInspectorFrame::TemplateEditor,                      FXGroupBox,         TemplateEditorMap,          ARRAYNUMBER(TemplateEditorMap))
+FXIMPLEMENT(GNEInspectorFrame,                              FXVerticalFrame,    GNEInspectorFrameMap,       ARRAYNUMBER(GNEInspectorFrameMap))
+FXIMPLEMENT(GNEInspectorFrame::OverlappedInspection,        FXGroupBox,         OverlappedInspectionMap,    ARRAYNUMBER(OverlappedInspectionMap))
+FXIMPLEMENT(GNEInspectorFrame::AttributesEditor::Row,       FXHorizontalFrame,  RowMap,                     ARRAYNUMBER(RowMap))
+FXIMPLEMENT(GNEInspectorFrame::AttributesEditor,            FXGroupBox,         AttributesEditorMap,        ARRAYNUMBER(AttributesEditorMap))
+FXIMPLEMENT(GNEInspectorFrame::NeteditAttributesEditor,     FXGroupBox,         NeteditAttributesEditorMap, ARRAYNUMBER(NeteditAttributesEditorMap))
+FXIMPLEMENT(GNEInspectorFrame::GEOAttributesEditor,         FXGroupBox,         GEOAttributesEditorMap,     ARRAYNUMBER(GEOAttributesEditorMap))
+FXIMPLEMENT(GNEInspectorFrame::TemplateEditor,              FXGroupBox,         TemplateEditorMap,          ARRAYNUMBER(TemplateEditorMap))
 
 
 // ===========================================================================
@@ -848,12 +848,22 @@ GNEInspectorFrame::AttributesEditor::Row::hideRow() {
 
 
 void
-GNEInspectorFrame::AttributesEditor::Row::refreshRow(const std::string& value, bool forceRefresh) {
+GNEInspectorFrame::AttributesEditor::Row::refreshRow(const std::string& value, bool forceRefresh, bool disjointAttributeEnabled) {    
+    // set radio buton
+    if (myRadioButton->shown()) {
+        myRadioButton->setCheck(disjointAttributeEnabled);
+    }
     if (myTextFieldInt->shown()) {
         // set last valid value and restore color if onlyValid is disabled
         if (myTextFieldInt->getTextColor() == FXRGB(0, 0, 0) || forceRefresh) {
             myTextFieldInt->setText(value.c_str());
             myTextFieldInt->setTextColor(FXRGB(0, 0, 0));
+        }
+        // disable depending of disjointAttributeEnabled
+        if (disjointAttributeEnabled) {
+            myTextFieldInt->enable();
+        } else {
+            myTextFieldInt->disable();
         }
     } else if (myTextFieldReal->shown()) {
         // set last valid value and restore color if onlyValid is disabled
@@ -861,11 +871,23 @@ GNEInspectorFrame::AttributesEditor::Row::refreshRow(const std::string& value, b
             myTextFieldReal->setText(value.c_str());
             myTextFieldReal->setTextColor(FXRGB(0, 0, 0));
         }
+        // disable depending of disjointAttributeEnabled
+        if (disjointAttributeEnabled) {
+            myTextFieldReal->enable();
+        } else {
+            myTextFieldReal->disable();
+        }
     } else if (myTextFieldStrings->shown()) {
         // set last valid value and restore color if onlyValid is disabled
         if (myTextFieldStrings->getTextColor() == FXRGB(0, 0, 0) || forceRefresh) {
             myTextFieldStrings->setText(value.c_str());
             myTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
+        }
+        // disable depending of disjointAttributeEnabled
+        if (disjointAttributeEnabled) {
+            myTextFieldStrings->enable();
+        } else {
+            myTextFieldStrings->disable();
         }
     } else if (myChoicesCombo->shown()) {
         // set last valid value and restore color if onlyValid is disabled
@@ -873,8 +895,20 @@ GNEInspectorFrame::AttributesEditor::Row::refreshRow(const std::string& value, b
             myChoicesCombo->setText(value.c_str());
             myChoicesCombo->setTextColor(FXRGB(0, 0, 0));
         }
+        // disable depending of disjointAttributeEnabled
+        if (disjointAttributeEnabled) {
+            myChoicesCombo->enable();
+        } else {
+            myChoicesCombo->disable();
+        }
     } else if (myBoolCheckButton->shown()) {
         myBoolCheckButton->setCheck(GNEAttributeCarrier::parse<bool>(value));
+        // disable depending of disjointAttributeEnabled
+        if (disjointAttributeEnabled) {
+            myBoolCheckButton->enable();
+        } else {
+            myBoolCheckButton->disable();
+        }
     }
 }
 
@@ -1077,6 +1111,13 @@ GNEInspectorFrame::AttributesEditor::Row::onCmdSetAttribute(FXObject*, FXSelecto
 
 long 
 GNEInspectorFrame::AttributesEditor::Row::onCmdSetDisjointAttribute(FXObject*, FXSelector, void*) {
+    // write debug (for Netedit tests)
+    WRITE_DEBUG("Selected radio button for attribute '" + myACAttr.getAttrStr() + "'");
+    // change disjoint attribute with undo/redo
+    myAttributesEditorParent->myInspectorFrameParent->getInspectedACs().front()->setDisjointAttribute(myACAttr.getAttr(),
+        myAttributesEditorParent->myInspectorFrameParent->myViewNet->getUndoList());
+    // refresh Attributes edito parent
+    myAttributesEditorParent->refreshAttributeEditor(false, false);
     return 0;
 }
 
@@ -1217,6 +1258,8 @@ GNEInspectorFrame::AttributesEditor::refreshAttributeEditor(bool forceRefreshSha
             // Show attribute
             if ((disableTLSinJunctions && (myInspectorFrameParent->getInspectedACs().front()->getTagProperty().getTag() == SUMO_TAG_JUNCTION) && 
                 ((i.first == SUMO_ATTR_TLTYPE) || (i.first == SUMO_ATTR_TLID))) == false) {
+                // check if is a disjoint attribute
+                bool disjointAttributeSet = myInspectorFrameParent->getInspectedACs().front()->isDisjointAttributeSet(i.first);
                 // refresh attribute, with a special case for allow/disallow vehicles
                 if (i.first  == SUMO_ATTR_ALLOW) {
                     myAllowAttribute.first = myVectorOfRows[i.second.getPositionListed()];
@@ -1227,13 +1270,13 @@ GNEInspectorFrame::AttributesEditor::refreshAttributeEditor(bool forceRefreshSha
                 } else {
                     // Check if refresh of Position or Shape has to be forced
                     if ((i.first  == SUMO_ATTR_SHAPE) && forceRefreshShape) {
-                        myVectorOfRows[i.second.getPositionListed()]->refreshRow(oss.str(), true);
+                        myVectorOfRows[i.second.getPositionListed()]->refreshRow(oss.str(), true, disjointAttributeSet);
                     } else if ((i.first  == SUMO_ATTR_POSITION) && forceRefreshPosition) {
                         // Refresh attributes maintain invalid values
-                        myVectorOfRows[i.second.getPositionListed()]->refreshRow(oss.str(), true);
+                        myVectorOfRows[i.second.getPositionListed()]->refreshRow(oss.str(), true, disjointAttributeSet);
                     } else {
                         // Refresh attributes maintain invalid values
-                        myVectorOfRows[i.second.getPositionListed()]->refreshRow(oss.str(), false);
+                        myVectorOfRows[i.second.getPositionListed()]->refreshRow(oss.str(), false, disjointAttributeSet);
                     }
                 }
             }
@@ -1243,12 +1286,12 @@ GNEInspectorFrame::AttributesEditor::refreshAttributeEditor(bool forceRefreshSha
             // if allow attribute is valid but disallow attribute is invalid
             if (myAllowAttribute.first->isRowValid() && !myDisallowAttribute.first->isRowValid()) {
                 // force refresh of disallow attribute
-                myDisallowAttribute.first->refreshRow(myDisallowAttribute.second, true);
+                myDisallowAttribute.first->refreshRow(myDisallowAttribute.second, true, true);
             }
             // if disallow attribute is valid but allow attribute is invalid
             if (myDisallowAttribute.first->isRowValid() && !myAllowAttribute.first->isRowValid()) {
                 // force refresh of disallow attribute
-                myAllowAttribute.first->refreshRow(myAllowAttribute.second, true);
+                myAllowAttribute.first->refreshRow(myAllowAttribute.second, true, true);
             }
         }
     }

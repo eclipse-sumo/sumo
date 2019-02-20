@@ -153,7 +153,7 @@ public:
             void hideRow();
 
             /// @brief refresh current row
-            void refreshRow(const std::string& value, bool forceRefresh);
+            void refreshRow(const std::string& value, bool forceRefresh, bool disjointAttributeEnabled);
 
             /// @brief check if current attribute of TextField/ComboBox is valid
             bool isRowValid() const;
