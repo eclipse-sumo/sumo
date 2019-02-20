@@ -128,10 +128,10 @@ public:
     bool isDisjointAttributeSet(const SumoXMLAttr attr) const;
 
     /* @brief method for set certain attribute is set (used by ACs with disjoint attributes)
-     * @param[in] key The attribute key
-     * @return true if it was sucesfully set, false in other case
+     * @param[in] attr The attribute key
+     * @param[in] undoList The undoList on which to register changes
      */
-    bool setDisjointAttribute(const SumoXMLAttr attr);
+    void setDisjointAttribute(const SumoXMLAttr attr, GNEUndoList* undoList);
 
     /// @brief get PopPup ID (Used in AC Hierarchy)
     std::string getPopUpID() const;
@@ -153,6 +153,9 @@ protected:
 private:
     /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value);
+
+    /// @brief method for setting the disjoint attribute and nothing else (used in GNEChange_Attribute)
+    void setDisjointAttribute(const int newParameterSet);
 
     /// @brief Invalidated copy constructor.
     GNEFlow(const GNEFlow&) = delete;

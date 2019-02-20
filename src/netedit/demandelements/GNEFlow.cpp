@@ -529,9 +529,64 @@ GNEFlow::isDisjointAttributeSet(const SumoXMLAttr attr) const {
 }
 
 
-bool 
-GNEFlow::setDisjointAttribute(const SumoXMLAttr /*attr*/) {
-    return true;
+void 
+GNEFlow::setDisjointAttribute(const SumoXMLAttr attr, GNEUndoList* undoList) {
+    // obtain a copy of parameter sets
+    int parametersSetCopy = parametersSet;
+    // modify parametersSetCopy depending of attr
+    switch (attr) {
+        case SUMO_ATTR_END: {
+            // give more priority to end
+            parametersSetCopy = VEHPARS_END_SET | VEHPARS_NUMBER_SET;
+            break;
+        }
+        case SUMO_ATTR_NUMBER:
+            parametersSetCopy ^= VEHPARS_END_SET;
+            parametersSetCopy |= VEHPARS_NUMBER_SET;
+            break;
+        case SUMO_ATTR_VEHSPERHOUR: {
+            // give more priority to end
+            if ((parametersSetCopy & VEHPARS_END_SET) && (parametersSetCopy & VEHPARS_NUMBER_SET)) {
+                parametersSetCopy = VEHPARS_END_SET;
+            } else if (parametersSetCopy & VEHPARS_END_SET) {
+                parametersSetCopy = VEHPARS_END_SET;
+            } else if (parametersSetCopy & VEHPARS_NUMBER_SET) {
+                parametersSetCopy = VEHPARS_NUMBER_SET;
+            }
+            // set VehsPerHour
+            parametersSetCopy |= VEHPARS_VPH_SET;
+            break;
+        }
+        case SUMO_ATTR_PERIOD: {
+            // give more priority to end
+            if ((parametersSetCopy & VEHPARS_END_SET) && (parametersSetCopy & VEHPARS_NUMBER_SET)) {
+                parametersSetCopy = VEHPARS_END_SET;
+            } else if (parametersSetCopy & VEHPARS_END_SET) {
+                parametersSetCopy = VEHPARS_END_SET;
+            } else if (parametersSetCopy & VEHPARS_NUMBER_SET) {
+                parametersSetCopy = VEHPARS_NUMBER_SET;
+            }
+            // set period
+            parametersSetCopy |= VEHPARS_PERIOD_SET;
+            break;
+        }
+        case SUMO_ATTR_PROB: {
+            // give more priority to end
+            if ((parametersSetCopy & VEHPARS_END_SET) && (parametersSetCopy & VEHPARS_NUMBER_SET)) {
+                parametersSetCopy = VEHPARS_END_SET;
+            } else if (parametersSetCopy & VEHPARS_END_SET) {
+                parametersSetCopy = VEHPARS_END_SET;
+            } else if (parametersSetCopy & VEHPARS_NUMBER_SET) {
+                parametersSetCopy = VEHPARS_NUMBER_SET;
+            }
+            // set probability
+            parametersSetCopy |= VEHPARS_PROB_SET;
+            break;
+        }
+        default:
+            break;
+    }
+    undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), parametersSet, parametersSetCopy));
 }
 
 
@@ -741,6 +796,12 @@ GNEFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+}
+
+
+void 
+GNEFlow::setDisjointAttribute(const int newParameterSet) {
+    parametersSet = newParameterSet;
 }
 
 /****************************************************************************/
