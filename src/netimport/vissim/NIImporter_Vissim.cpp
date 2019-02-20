@@ -322,10 +322,14 @@ NIImporter_Vissim::NIVissimXMLHandler_Streckendefinition::myEndElement(int eleme
 
         if (isConnector == false) {
             // Add Edge
+            std::vector<double> laneWidths;
+            for (std::string& w : myElemData["width"]) {
+                laneWidths.push_back(StringUtils::toDouble(w));
+            }
             NIVissimEdge* edge = new NIVissimEdge(id,
                                                   myElemData["name"].front(),
                                                   myElemData["type"].front(),
-                                                  (int)myElemData["width"].size(),   // numLanes,
+                                                  laneWidths,
                                                   StringUtils::toDouble(myElemData["zuschlag1"].front()),
                                                   StringUtils::toDouble(myElemData["zuschlag2"].front()),
                                                   length, geom, clv);

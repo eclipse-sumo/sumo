@@ -122,7 +122,7 @@ NIVissimSingleTypeParser_Streckendefinition::parse(std::istream& from) {
             tag = readEndSecure(from);
         }
     }
-    NIVissimEdge* e = new NIVissimEdge(id, name, type, noLanes,
+    NIVissimEdge* e = new NIVissimEdge(id, name, type, std::vector<double>(noLanes, NBEdge::UNSPECIFIED_WIDTH),
                                        zuschlag1, zuschlag2, length, geom, clv);
     if (!NIVissimEdge::dictionary(id, e)) {
         return false;

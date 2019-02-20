@@ -106,20 +106,23 @@ NIVissimEdge::connection_cluster_position_sorter::operator()(
 
 
 NIVissimEdge::NIVissimEdge(int id, const std::string& name,
-                           const std::string& type, int noLanes,
+                           const std::string& type, 
+                           std::vector<double> laneWidths, 
                            double zuschlag1, double zuschlag2,
                            double /*length*/, const PositionVector& geom,
-                           const NIVissimClosedLanesVector& clv)
-    : NIVissimAbstractEdge(id, geom),
-      myName(name), myType(type), myNoLanes(noLanes),
-      myZuschlag1(zuschlag1), myZuschlag2(zuschlag2),
-      myClosedLanes(clv), myAmWithinJunction(false) { //, mySpeed(-1)
-    assert(noLanes >= 0);
+                           const NIVissimClosedLanesVector& clv) : 
+    NIVissimAbstractEdge(id, geom),
+    myName(name), myType(type), myNoLanes(laneWidths.size()),
+    myLaneWidths(laneWidths),
+    myZuschlag1(zuschlag1), myZuschlag2(zuschlag2),
+    myClosedLanes(clv), 
+    myLaneSpeeds(myNoLanes, -1),
+    myAmWithinJunction(false) 
+    //, mySpeed(-1)
+{
+    assert(myNoLanes >= 0);
     if (myMaxID < myID) {
         myMaxID = myID;
-    }
-    for (int i = 0; i < noLanes; i++) {
-        myLaneSpeeds.push_back(-1);
     }
 }
 
@@ -138,8 +141,8 @@ NIVissimEdge::dictionary(int id, const std::string& name,
                          double zuschlag1, double zuschlag2, double length,
                          const PositionVector& geom,
                          const NIVissimClosedLanesVector& clv) {
-    NIVissimEdge* o = new NIVissimEdge(id, name, type, noLanes, zuschlag1,
-                                       zuschlag2, length, geom, clv);
+    NIVissimEdge* o = new NIVissimEdge(id, name, type, std::vector<double>(noLanes, NBEdge::UNSPECIFIED_WIDTH), 
+            zuschlag1, zuschlag2, length, geom, clv);
     if (!dictionary(id, o)) {
         delete o;
         return false;
@@ -495,6 +498,7 @@ NIVissimEdge::buildNBEdge(NBDistrictCont& dc, NBNodeCont& nc, NBEdgeCont& ec,
                                    NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET,
                                    myGeom, myName, "", LANESPREAD_CENTER, true);
     for (int i = 0; i < myNoLanes; i++) {
+        buildEdge->setLaneWidth(i, myLaneWidths[i]);
         if ((int) myLaneSpeeds.size() <= i || myLaneSpeeds[i] == -1) {
             buildEdge->setSpeed(i, OptionsCont::getOptions().getFloat("vissim.default-speed") / (double) 3.6);
         } else {
