@@ -534,7 +534,6 @@ public:
      * @param[in] key The attribute key
      * @param[in] value The new value
      * @param[in] undoList The undoList on which to register changes
-     * @param[in] net optionally the GNENet to inform about gui updates
      */
     virtual void setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) = 0;
 
@@ -551,10 +550,10 @@ public:
     virtual bool isDisjointAttributeSet(const SumoXMLAttr attr) const;
 
     /* @brief method for set certain attribute is set (used by ACs with disjoint attributes)
-     * @param[in] key The attribute key
-     * @return true if it was sucesfully set, false in other case
+     * @param[in] attr The attribute key
+     * @param[in] undoList The undoList on which to register changes
      */
-    virtual bool setDisjointAttribute(const SumoXMLAttr attr);
+    virtual void setDisjointAttribute(const SumoXMLAttr attr, GNEUndoList* undoList);
 
     /// @brief get PopPup ID (Used in AC Hierarchy)
     virtual std::string getPopUpID() const = 0;
@@ -776,9 +775,6 @@ public:
     static int getCircleResolution(const GUIVisualizationSettings& settings);
 
 protected:
-    /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
-    virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
-
     /// @brief the xml tag to which this attribute carrier corresponds
     const TagProperties& myTagProperty;
 
@@ -789,6 +785,12 @@ protected:
     static TagProperties dummyTagProperty;
 
 private:
+    /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
+    virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
+
+    /// @brief method for setting the disjoint attribute and nothing else (used in GNEChange_Attribute)
+    virtual void setDisjointAttribute(const int newParameterSet);
+
     /// @brief fill Attribute Carriers
     static void fillAttributeCarriers();
 

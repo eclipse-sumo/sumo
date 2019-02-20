@@ -440,18 +440,6 @@ GNETrip::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-bool 
-GNETrip::isDisjointAttributeSet(const SumoXMLAttr /*attr*/) const {
-    return true;
-}
-
-
-bool 
-GNETrip::setDisjointAttribute(const SumoXMLAttr /*attr*/) {
-    return true;
-}
-
-
 std::string
 GNETrip::getPopUpID() const {
     return getTagStr();

@@ -321,12 +321,6 @@ GNEVehicleType::isDisjointAttributeSet(const SumoXMLAttr attr) const {
 }
 
 
-bool 
-GNEVehicleType::setDisjointAttribute(const SumoXMLAttr /*attr*/) {
-    return true;
-}
-
-
 std::string
 GNEVehicleType::getPopUpID() const {
     return getTagStr() + ": " + getID();

@@ -895,10 +895,9 @@ GNEAttributeCarrier::isDisjointAttributeSet(const SumoXMLAttr /*attr*/) const {
 }
 
 
-bool 
-GNEAttributeCarrier::setDisjointAttribute(const SumoXMLAttr /*attr*/) {
-    // by default return true
-    return true;
+void 
+GNEAttributeCarrier::setDisjointAttribute(const SumoXMLAttr /*attr*/, GNEUndoList* /*undoList*/) {
+    // by default empty
 }
 
 
@@ -1322,6 +1321,14 @@ GNEAttributeCarrier::getCircleResolution(const GUIVisualizationSettings& setting
     }
 }
 
+// ===========================================================================
+// private
+// ===========================================================================
+
+void 
+GNEAttributeCarrier::setDisjointAttribute(const int /*newParameterSet*/) {
+    // by default empty
+}
 
 void
 GNEAttributeCarrier::fillAttributeCarriers() {

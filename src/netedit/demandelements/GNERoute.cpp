@@ -314,18 +314,6 @@ GNERoute::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-bool 
-GNERoute::isDisjointAttributeSet(const SumoXMLAttr /*attr*/) const {
-    return true;
-}
-
-
-bool 
-GNERoute::setDisjointAttribute(const SumoXMLAttr /*attr*/) {
-    return true;
-}
-
-
 std::string
 GNERoute::getPopUpID() const {
     return getTagStr() + ": " + getID();

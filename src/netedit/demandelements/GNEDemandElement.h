@@ -209,18 +209,6 @@ public:
      */
     virtual bool isValid(SumoXMLAttr key, const std::string& value) = 0;
 
-    /* @brief method for check if certain attribute is set (used by ACs with disjoint attributes)
-     * @param[in] key The attribute key
-     * @return true if it's set, false in other case
-     */
-    virtual bool isDisjointAttributeSet(const SumoXMLAttr attr) const = 0;
-
-    /* @brief method for set certain attribute is set (used by ACs with disjoint attributes)
-     * @param[in] key The attribute key
-     * @return true if it was sucesfully set, false in other case
-     */
-    virtual bool setDisjointAttribute(const SumoXMLAttr attr) = 0;
-
     /// @brief get PopPup ID (Used in AC Hierarchy)
     virtual std::string getPopUpID() const = 0;
 
