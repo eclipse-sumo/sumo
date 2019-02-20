@@ -148,7 +148,7 @@ GNEChange_Attribute::redo() {
 bool
 GNEChange_Attribute::trueChange() {
     // check if we're editing the value of an attribute or changing a disjoint attribute
-    if (myKey == SUMO_TAG_NOTHING) {
+    if (myKey == SUMO_ATTR_NOTHING) {
         return (myOldParametersSet != myNewParametersSet);
     } else {
         return (myOrigValue != myNewValue);
