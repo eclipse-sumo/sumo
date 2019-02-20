@@ -181,7 +181,7 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
             // avoid superfluous waypoints for first and last edge
             const bool skipFirst = stops.front() == source && sourcePos < firstPos;
             const bool skipLast = stops.back() == sink && myArrivalPos > lastPos;
-            //std::cout << getID() << " route=" << toString(myRoute->getEdges()) << " stopEdges=" << toString(stops) << " skipFirst=" << skipFirst << " skipLast=" << skipLast << "\n";;
+            //std::cout << SIMTIME << " veh=" << getID() << " route=" << toString(myRoute->getEdges()) << " stopEdges=" << toString(stops) << " skipFirst=" << skipFirst << " skipLast=" << skipLast << "\n";;
             if (stops.size() == 1 && (skipFirst || skipLast)) {
                 stops.clear();
             } else {

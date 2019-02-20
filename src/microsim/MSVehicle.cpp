@@ -1089,14 +1089,32 @@ MSVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info, bool o
         addStops(!MSGlobals::gCheckRoutes);
     } else {
         // recheck old stops
+        MSRouteIterator searchStart = myCurrEdge;
+        double lastPos = getPositionOnLane();
         for (std::list<Stop>::iterator iter = myStops.begin(); iter != myStops.end();) {
-            if (removeStops && std::find(myCurrEdge, edges.end(), &iter->lane->getEdge()) == edges.end()) {
-                iter = myStops.erase(iter);
-            } else {
-                // iter->edge may point to edges.end() if removeStops is false but it should be replaced by the triggered rerouter anyway
-                iter->edge = std::find(myCurrEdge, edges.end(), &iter->lane->getEdge());
-                ++iter;
+            double endPos = iter->getEndPos(*this);
+            if (*searchStart != &iter->lane->getEdge()
+                    || endPos < lastPos) {
+                if (searchStart != edges.end()) {
+                    searchStart++;
+                }
             }
+            lastPos = endPos;
+
+            iter->edge = std::find(searchStart, edges.end(), &iter->lane->getEdge());
+            if (iter->edge == edges.end()) {
+                if (removeStops) {
+                    iter = myStops.erase(iter);
+                    continue;
+                } else if (iter->parkingarea == nullptr) {
+                    // parkingAreaReroute replaces edges first and stop target
+                    // parkingArea later so a temporary inconsistency is permitted here
+                    // If there is no parkingArea it means something else has
+                    // broken down
+                    assert(false);
+                }
+            } 
+            ++iter;
         }
         // add new stops
         if (addRouteStops) {
@@ -1962,6 +1980,9 @@ MSVehicle::getStopEdges(double& firstPos, double& lastPos) const {
     ConstMSEdgeVector result;
     const Stop* prev = nullptr;
     for (const Stop& stop : myStops) {
+        if (stop.reached) {
+            continue;
+        }
         const double stopPos = stop.getEndPos(*this);
         if (prev == nullptr 
                 || prev->edge != stop.edge
