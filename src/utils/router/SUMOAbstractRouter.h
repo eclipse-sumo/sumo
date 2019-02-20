@@ -28,6 +28,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <iterator>
 #include <assert.h>
 #include <utils/common/SysUtils.h>
 #include <utils/common/MsgHandler.h>
