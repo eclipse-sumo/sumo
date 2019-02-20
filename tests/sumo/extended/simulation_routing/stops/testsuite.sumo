@@ -1,0 +1,2 @@
+# Tests whether cyclical stops are handled correctly while reroutig
+cyclic_trip

@@ -19,5 +19,8 @@ personTrip
 # use periodic rerouting to avoid congestion
 reroute_congestions
 
+# handlng stops while rerouting
+stops
+
 # handle input errors
 errors
