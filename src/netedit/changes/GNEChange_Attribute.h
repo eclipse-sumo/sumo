@@ -65,12 +65,13 @@ public:
     /**@brief Constructor used for disjoint attributes
      * @param[in] ac The attribute-carrier to be modified
      * @param[in] net Net in which AC is saved
-     * @param[in] key The attribute key
+     * @param[in] oldParametersSet The old ParameterSet
+     * @param[in] newParametersSet The new ParameterSet
      */
     GNEChange_Attribute(GNEAttributeCarrier* ac,
                         GNENet* net,
-                        const SumoXMLAttr originAttribute,
-                        const SumoXMLAttr newAttribute);
+                        const int oldParametersSet,
+                        const int newParametersSet);
 
     /// @brief Destructor
     ~GNEChange_Attribute();
@@ -100,16 +101,19 @@ private:
     GNEAttributeCarrier* myAC;
 
     /// @brief The attribute name (or the original attribute if we're editing a disjoint attribute)
-    SumoXMLAttr myKey;
+    const SumoXMLAttr myKey;
 
     /// @brief the original value
-    std::string myOrigValue;
+    const std::string myOrigValue;
 
     /// @brief the original value
-    std::string myNewValue;
+    const std::string myNewValue;
 
-    /// @brief the new attribute (used for disjoint attributes)
-    SumoXMLAttr myNewAttribute;
+    /// @brief old parameter set (used for disjoint attributes)
+    const int myOldParametersSet;
+
+    /// @brief new parameter set (used for disjoint attributes)
+    const int myNewParametersSet;
 };
 
 #endif
