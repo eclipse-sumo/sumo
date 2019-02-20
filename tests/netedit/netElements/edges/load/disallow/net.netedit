@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 07.12.2018 15:18:30 by Eclipse SUMO netedit Version v1_0_0+1208-d42a3cd999
+<!-- generated on 20.02.2019 10:11:24 by Eclipse SUMO netedit Version v1_1_0+0919-80296dbfce
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.07Dec151734.3292/netedit.gui/netElements/edges/load/disallow\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.20Feb090524.1924/netedit.gui/netElements/edges/load/disallow\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.07Dec151734.3292/netedit.gui/netElements/edges/load/disallow\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.20Feb090524.1924/netedit.gui/netElements/edges/load/disallow\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,22 +30,23 @@
     </pedestrian>
 
     <netedit>
-        <sumo-additionals-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.07Dec151734.3292/netedit.gui/netElements/edges/load/disallow\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.07Dec151734.3292/netedit.gui/netElements/edges/load/disallow\additionals.xml"/>
-        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.07Dec151734.3292/netedit.gui/netElements/edges/load/disallow\shapes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.20Feb090524.1924/netedit.gui/netElements/edges/load/disallow\input_additionals.add.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.20Feb090524.1924/netedit.gui/netElements/edges/load/disallow\additionals.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.20Feb090524.1924/netedit.gui/netElements/edges/load/disallow\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.07Dec151734.3292/netedit.gui/netElements/edges/load/disallow\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.20Feb090524.1924/netedit.gui/netElements/edges/load/disallow\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
+        <gui-testing-debug-gl value="true"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.07Dec151734.3292/netedit.gui/netElements/edges/load/disallow\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.20Feb090524.1924/netedit.gui/netElements/edges/load/disallow\log.txt"/>
     </report>
 
 </configuration>
@@ -63,6 +64,6 @@
     </edge>
 
     <junction id="gneJ21" type="dead_end" x="0.00" y="0.00" incLanes="gneE13_0" intLanes="" shape="0.00,0.00 0.00,3.20 0.00,0.00"/>
-    <junction id="gneJ22" type="dead_end" x="50.00" y="0.00" incLanes="gneE12_0" intLanes="" shape="50.00,0.00 50.00,-3.20 50.00,0.00"/>
+    <junction id="gneJ22" type="dead_end" x="50.00" y="0.00" incLanes="gneE12_0" intLanes="" shape="50.00,-3.20 50.00,0.00 50.00,3.20"/>
 
 </net>

@@ -18,7 +18,7 @@ GLDebug: Removed object poi:POI_0 from SUMORTree with boundary -3.00,-3.00,3.00,
 GLDebug: Inserted poi:POI_0 into SUMORTree with boundary 4.00,-1.40,10.00,4.60
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
-Debug: Setting new attribute blockMovement 'true' into poiLane 'POI_0'
+Debug: Setting new attribute blockMovement '1' into poiLane 'POI_0'
 GLDebug: Removed object poi:POI_0 from SUMORTree with boundary 4.00,-1.40,10.00,4.60
 GLDebug: Inserted poi:POI_0 into SUMORTree with boundary 4.00,-1.40,10.00,4.60
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
@@ -34,7 +34,7 @@ Debug: Adding poiLane 'POI_0' into viewNet
 GLDebug: Inserted poi:POI_0 into SUMORTree with boundary 4.00,-1.40,10.00,4.60
 GLDebug: Removed object poi:POI_0 from SUMORTree with boundary 4.00,-1.40,10.00,4.60
 GLDebug: Inserted poi:POI_0 into SUMORTree with boundary 4.00,-1.40,10.00,4.60
-Debug: Setting new attribute blockMovement 'true' into poiLane 'POI_0'
+Debug: Setting new attribute blockMovement '1' into poiLane 'POI_0'
 GLDebug: Removed object poi:POI_0 from SUMORTree with boundary 4.00,-1.40,10.00,4.60
 GLDebug: Inserted poi:POI_0 into SUMORTree with boundary 4.00,-1.40,10.00,4.60
 Debug: Additionals saved

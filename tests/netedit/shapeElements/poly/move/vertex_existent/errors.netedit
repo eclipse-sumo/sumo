@@ -22,12 +22,6 @@ Debug: Adding poly 'poly_0' into viewNet
 GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary -5.00,7.00,4.00,16.00
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
-Debug: Setting new attribute blockMovement 'false' into poly 'poly_0'
-GLDebug: Removed object polygon:poly_0 from SUMORTree with boundary -5.00,7.00,4.00,16.00
-GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary -5.00,7.00,4.00,16.00
-Debug: Setting new attribute blockShape 'false' into poly 'poly_0'
-GLDebug: Removed object polygon:poly_0 from SUMORTree with boundary -5.00,7.00,4.00,16.00
-GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary -5.00,7.00,4.00,16.00
 Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 1, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 1
 Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 1, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 1
 Debug: Setting new attribute shape '2.00,-5.00 2.00,14.00 -3.00,14.00 -3.00,9.00 2.00,-5.00' into poly 'poly_0'
@@ -39,23 +33,11 @@ Debug: Setting previous attribute shape '2.00,9.00 2.00,14.00 -3.00,14.00 -3.00,
 GLDebug: Removed object polygon:poly_0 from SUMORTree with boundary -5.00,-7.00,4.00,16.00
 GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary -5.00,7.00,4.00,16.00
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute blockShape '0' into poly 'poly_0'
-GLDebug: Removed object polygon:poly_0 from SUMORTree with boundary -5.00,7.00,4.00,16.00
-GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary -5.00,7.00,4.00,16.00
-Debug: Setting previous attribute blockMovement '0' into poly 'poly_0'
-GLDebug: Removed object polygon:poly_0 from SUMORTree with boundary -5.00,7.00,4.00,16.00
-GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary -5.00,7.00,4.00,16.00
 Debug: Removing poly 'poly_0' from viewNet
 GLDebug: Removed object polygon:poly_0 from SUMORTree with boundary -5.00,7.00,4.00,16.00
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Adding poly 'poly_0' into viewNet
-GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary -5.00,7.00,4.00,16.00
-Debug: Setting new attribute blockMovement 'false' into poly 'poly_0'
-GLDebug: Removed object polygon:poly_0 from SUMORTree with boundary -5.00,7.00,4.00,16.00
-GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary -5.00,7.00,4.00,16.00
-Debug: Setting new attribute blockShape 'false' into poly 'poly_0'
-GLDebug: Removed object polygon:poly_0 from SUMORTree with boundary -5.00,7.00,4.00,16.00
 GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary -5.00,7.00,4.00,16.00
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute shape '2.00,-5.00 2.00,14.00 -3.00,14.00 -3.00,9.00 2.00,-5.00' into poly 'poly_0'
