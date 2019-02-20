@@ -316,13 +316,13 @@ GNERoute::isValid(SumoXMLAttr key, const std::string& value) {
 
 std::string
 GNERoute::getPopUpID() const {
-    return getTagStr() + ": " + getID();
+    return getTagStr();
 }
 
 
 std::string
 GNERoute::getHierarchyName() const {
-    return getTagStr();
+    return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID) ;
 }
 
 // ===========================================================================

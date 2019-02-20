@@ -323,13 +323,13 @@ GNEVehicleType::isDisjointAttributeSet(const SumoXMLAttr attr) const {
 
 std::string
 GNEVehicleType::getPopUpID() const {
-    return getTagStr() + ": " + getID();
+    return getTagStr();
 }
 
 
 std::string
 GNEVehicleType::getHierarchyName() const {
-    return getTagStr();
+    return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID) ;
 }
 
 // ===========================================================================

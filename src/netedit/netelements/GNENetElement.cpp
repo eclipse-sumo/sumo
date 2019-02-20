@@ -264,8 +264,8 @@ GNENetElement::getHierarchyName() const {
         return toString(SUMO_TAG_LANE) + " " + getAttribute(SUMO_ATTR_INDEX);
     } else if (myTagProperty.getTag() == SUMO_TAG_CONNECTION) {
         return getAttribute(SUMO_ATTR_FROM_LANE) + " -> " + getAttribute(SUMO_ATTR_TO_LANE);
-    } else if (myTagProperty.getTag() == SUMO_TAG_CROSSING) {
-        return toString(SUMO_TAG_CROSSING) + " " + getAttribute(SUMO_ATTR_ID);
+    } else if ((myTagProperty.getTag() == SUMO_TAG_EDGE) || (myTagProperty.getTag() == SUMO_TAG_CROSSING)) {
+        return getPopUpID();
     } else {
         return getTagStr();
     }

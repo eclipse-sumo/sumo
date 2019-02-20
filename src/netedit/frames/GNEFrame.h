@@ -293,8 +293,10 @@ public:
         void showAttributeCarrierChilds(GNEAttributeCarrier* AC, FXTreeItem* itemParent);
 
         /// @brief add item into list
-        FXTreeItem* addACIntoList(GNEAttributeCarrier* AC, FXTreeItem* itemParent);
+        FXTreeItem* addListItem(GNEAttributeCarrier* AC, FXTreeItem* itemParent = nullptr, std::string prefix = "", std::string sufix = "");
 
+        /// @brief add item into list
+        FXTreeItem* addListItem(FXTreeItem* itemParent, const std::string &text, FXIcon* icon, bool expanded);
     private:
         /// @brief Frame Parent
         GNEFrame* myFrameParent;
