@@ -310,7 +310,7 @@ VehicleEngineHandler::loadBrakesData(const XERCES_CPP_NAMESPACE::Attributes& att
     engineParameters.brakesTau_s = parseDoubleAttribute(ENGINE_TAG_BRAKES, ENGINE_TAG_BRAKES_TAU, attrs);
 }
 
-int VehicleEngineHandler::existsAttribute(std::string tag, const char* attribute, const XERCES_CPP_NAMESPACE::Attributes& attrs) {
+int VehicleEngineHandler::existsAttribute(std::string /*tag*/, const char* attribute, const XERCES_CPP_NAMESPACE::Attributes& attrs) {
     return attrs.getIndex(transcode(attribute));
 }
 std::string VehicleEngineHandler::parseStringAttribute(std::string tag, const char* attribute, const XERCES_CPP_NAMESPACE::Attributes& attrs) {
