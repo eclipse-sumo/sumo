@@ -23,6 +23,7 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
+#include <netedit/dialogs/GNEVehicleTypeDialog.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNELane.h>
 #include <netedit/netelements/GNEConnection.h>
@@ -143,6 +144,9 @@ GNEVehicleTypeFrame::GNEVehicleTypeFrame(FXHorizontalFrame* horizontalFrameParen
     // Create vehicle parameters
     myVehicleTypeAttributes = new ACAttributes(this);
 
+    // create modul for open extended attributes dialog
+    myACAttributesExtended = new ACAttributesExtended(this);
+
     // set "VTYPE_DEFAULT" as default vehicle Type
     myvehicleTypeSelector->setCurrentVType(myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_VTYPE_ID));
 }
@@ -171,5 +175,13 @@ GNEVehicleTypeFrame::disableModuls() {
     myVehicleTypeAttributes->hideACAttributesModul();
 }
 
+
+void 
+GNEVehicleTypeFrame::openACAttributesExtendedDialog() {
+    // open vehicle type dialog
+    if (myvehicleTypeSelector->getCurrentVType()) {
+        GNEVehicleTypeDialog(myvehicleTypeSelector->getCurrentVType(), true);
+    }
+}
 
 /****************************************************************************/

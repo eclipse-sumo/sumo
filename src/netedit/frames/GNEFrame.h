@@ -241,6 +241,42 @@ public:
     };
 
     // ===========================================================================
+    // class ACAttributesExtended
+    // ===========================================================================
+
+    class ACAttributesExtended : protected FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEFrame::ACAttributesExtended)
+
+    public:
+        /// @brief constructor
+        ACAttributesExtended(GNEFrame* frameParent);
+
+        /// @brief destructor
+        ~ACAttributesExtended();
+
+        /// @brief show ACAttributesExtended modul
+        void showACAttributesExtendedModul();
+
+        /// @brief hide group box
+        void hideACAttributesExtendedModul();
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when open dialog button is clicked
+        long onCmdOpenDialog(FXObject*, FXSelector, void*);
+        /// @}
+
+    protected:
+        /// @brief FOX needs this
+        ACAttributesExtended() {};
+
+    private:
+        /// @brief pointer to Polygon Frame Parent
+        GNEFrame* myFrameParent;
+    };
+
+    // ===========================================================================
     // class ACHierarchy
     // ===========================================================================
 
@@ -609,6 +645,9 @@ protected:
 
     /// @brief disable moduls if element selected in itemSelector isn't valid (can be reimplemented in frame childs)
     virtual void disableModuls();
+
+    /// @brief open ACAttributes extended dialog (can be reimplemented in frame childs)
+    virtual void openACAttributesExtendedDialog();
 
     /// @brief Open help attributes dialog
     void openHelpAttributesDialog(const GNEAttributeCarrier::TagProperties& tagProperties) const;

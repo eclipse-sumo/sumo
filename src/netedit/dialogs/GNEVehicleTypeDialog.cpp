@@ -619,7 +619,7 @@ GNEVehicleTypeDialog::setVClassLabelImage() {
             myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VCLASS_CUSTOM2));
             break;
         default:
-            throw InvalidArgument("Invalid " + toString(SUMO_ATTR_VCLASS) + " " + myEditedDemandElement->getAttribute(SUMO_ATTR_VCLASS));
+            myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VCLASS_IGNORING));
             break;
     }
 }

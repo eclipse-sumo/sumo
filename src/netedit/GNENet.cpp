@@ -125,11 +125,6 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
     for (auto i : listOfTags) {
         myAttributeCarriers.demandElements.insert(std::make_pair(i, std::map<std::string, GNEDemandElement*>()));
     }
-
-    // Create default vehicle
-    GNEVehicleType* defaultVehicleType = new GNEVehicleType(myViewNet, DEFAULT_VTYPE_ID);
-    myAttributeCarriers.demandElements.at(defaultVehicleType->getTagProperty().getTag()).insert(std::make_pair(defaultVehicleType->getID(), defaultVehicleType));
-    defaultVehicleType->incRef("GNENet::DEFAULT_VEHTYPE");
 }
 
 
@@ -972,6 +967,11 @@ GNENet::saveJoined(OptionsCont& oc) {
 void
 GNENet::setViewNet(GNEViewNet* viewNet) {
     myViewNet = viewNet;
+
+    // Create default vehicle (it has to be created here due myViewNet was previously nullptr)
+    GNEVehicleType* defaultVehicleType = new GNEVehicleType(myViewNet, DEFAULT_VTYPE_ID);
+    myAttributeCarriers.demandElements.at(defaultVehicleType->getTagProperty().getTag()).insert(std::make_pair(defaultVehicleType->getID(), defaultVehicleType));
+    defaultVehicleType->incRef("GNENet::DEFAULT_VEHTYPE");
 }
 
 

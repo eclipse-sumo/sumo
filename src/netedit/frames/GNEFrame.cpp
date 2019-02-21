@@ -67,6 +67,10 @@ FXDEFMAP(GNEFrame::ACAttributes::Row) RowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_RADIOBUTTON,  GNEFrame::ACAttributes::Row::onCmdSelectRadioButton),
 };
 
+FXDEFMAP(GNEFrame::ACAttributesExtended) ACAttributesExtendedMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNEFrame::ACAttributesExtended::onCmdOpenDialog),
+};
+
 FXDEFMAP(GNEFrame::ACHierarchy) ACHierarchyMap[] = {
     FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECTORFRAME_CENTER,      GNEFrame::ACHierarchy::onCmdCenterItem),
     FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECTORFRAME_INSPECT,     GNEFrame::ACHierarchy::onCmdInspectItem),
@@ -94,6 +98,7 @@ FXDEFMAP(GNEFrame::NeteditAttributes) NeteditAttributesMap[] = {
 FXIMPLEMENT(GNEFrame::ItemSelector,             FXGroupBox,         ItemSelectorMap,            ARRAYNUMBER(ItemSelectorMap))
 FXIMPLEMENT(GNEFrame::ACAttributes,             FXGroupBox,         ACAttributesMap,            ARRAYNUMBER(ACAttributesMap))
 FXIMPLEMENT(GNEFrame::ACAttributes::Row,        FXHorizontalFrame,  RowMap,                     ARRAYNUMBER(RowMap))
+FXIMPLEMENT(GNEFrame::ACAttributesExtended,     FXGroupBox,         ACAttributesExtendedMap,    ARRAYNUMBER(ACAttributesExtendedMap))
 FXIMPLEMENT(GNEFrame::ACHierarchy,              FXGroupBox,         ACHierarchyMap,             ARRAYNUMBER(ACHierarchyMap))
 FXIMPLEMENT(GNEFrame::GenericParametersEditor,  FXGroupBox,         GenericParametersEditorMap, ARRAYNUMBER(GenericParametersEditorMap))
 FXIMPLEMENT(GNEFrame::DrawingShape,             FXGroupBox,         DrawingShapeMap,            ARRAYNUMBER(DrawingShapeMap))
@@ -403,6 +408,40 @@ long
 GNEFrame::ACAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
     // open Help attributes dialog
     myFrameParent->openHelpAttributesDialog(myTagProperties);
+    return 1;
+}
+
+// ---------------------------------------------------------------------------
+// GNEFrame::ACAttributesExtended- methods
+// ---------------------------------------------------------------------------
+
+GNEFrame::ACAttributesExtended::ACAttributesExtended(GNEFrame* frameParent) :
+    FXGroupBox(frameParent->myContentFrame, "Extended attributes", GUIDesignGroupBoxFrame),
+    myFrameParent(frameParent) {
+    // Create open dialog button
+    new FXButton(this, "Open attributes editor", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButton);
+}
+
+
+GNEFrame::ACAttributesExtended::~ACAttributesExtended() {}
+
+
+void 
+GNEFrame::ACAttributesExtended::showACAttributesExtendedModul() {
+    show();
+}
+
+
+void 
+GNEFrame::ACAttributesExtended::hideACAttributesExtendedModul() {
+    hide();
+}
+
+
+long 
+GNEFrame::ACAttributesExtended::onCmdOpenDialog(FXObject*, FXSelector, void*) {
+    // open ACAttributes extended dialog
+    myFrameParent->openACAttributesExtendedDialog();
     return 1;
 }
 
@@ -2003,6 +2042,12 @@ GNEFrame::enableModuls(const GNEAttributeCarrier::TagProperties&) {
 void
 GNEFrame::disableModuls() {
     // this function has to be reimplemente in all child frames that uses a ItemSelector modul
+}
+
+
+void
+GNEFrame::openACAttributesExtendedDialog()  {
+    // this function has to be reimplemente in all child frames that uses a ACAttributes editor with extended attributes
 }
 
 

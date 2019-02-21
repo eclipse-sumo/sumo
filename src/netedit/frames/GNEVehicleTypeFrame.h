@@ -97,12 +97,18 @@ protected:
     /// @brief disable moduls if element selected in itemSelector isn't valid
     void disableModuls();
 
+    /// @brief open ACAttributes extended dialog
+    void openACAttributesExtendedDialog();
+
 private:
     /// @brief item selector
     vehicleTypeSelector* myvehicleTypeSelector;
 
     /// @brief internal vehicle type attributes
     ACAttributes* myVehicleTypeAttributes;
+
+    /// @brief modul for open extended attributes dialog
+    ACAttributesExtended* myACAttributesExtended;
 };
 
 
