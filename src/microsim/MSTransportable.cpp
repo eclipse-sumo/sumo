@@ -283,12 +283,14 @@ MSTransportable::Stage_Trip::setArrived(MSNet* net, MSTransportable* transportab
                 }
             }
         } else {
+            // append stage so the GUI won't crash due to inconsistent state
+            transportable->appendStage(new MSPerson::MSPersonStage_Walking(transportable->getID(), ConstMSEdgeVector({ myOrigin, myDestination }), myDestinationStop, myDuration, mySpeed, previous->getArrivalPos(), myArrivalPos, myDepartPosLat), stageIndex++);
             if (MSGlobals::gCheckRoutes) {
-                const std::string error = "No connection found between '" + myOrigin->getID() + "' and '" + (myDestinationStop != nullptr ? myDestinationStop->getID() : myDestination->getID()) + "' for person '" + transportable->getID() + "'.";
+                const std::string error = "No connection found between edge '" + myOrigin->getID() + "' and edge '" + (myDestinationStop != nullptr ? myDestinationStop->getID() : myDestination->getID()) + "' for person '" + transportable->getID() + "'.";
+                transportable->myStep++;
                 throw ProcessError(error);
             } else {
                 // pedestrian will teleport
-                transportable->appendStage(new MSPerson::MSPersonStage_Walking(transportable->getID(), ConstMSEdgeVector({ myOrigin, myDestination }), myDestinationStop, myDuration, mySpeed, previous->getArrivalPos(), myArrivalPos, myDepartPosLat), stageIndex++);
             }
         }
         if (vehicle != nullptr && !carUsed) {
