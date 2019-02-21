@@ -290,7 +290,7 @@ VehicleEngineHandler::loadEngineModelData(const XERCES_CPP_NAMESPACE::Attributes
         raiseError(ss.str());
     }
     //parse all polynomial coefficients
-    for (int i = 0; i < attrs.getLength(); i++) {
+    for (int i = 0; i < (int)attrs.getLength(); i++) {
         engineParameters.engineMapping.x[i] = parsePolynomialCoefficient(i, attrs);
     }
     //save the actual degree
