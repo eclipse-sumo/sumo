@@ -677,6 +677,17 @@ enum {
     /// @}
 
 
+    /// @name GNETLSEditorFrame messages
+    /// @{
+    /// @brief create vehicle types
+    MID_GNE_VEHICLETYPEFRAME_CREATE,
+    /// @brief delete a vehicle type
+    MID_GNE_VEHICLETYPEFRAME_DELETE,
+    /// @brief copy a vehicle type
+    MID_GNE_VEHICLETYPEFRAME_COPY,
+    /// @}
+
+
     /// @name GNECrossingFrame messages
     /// @{
 

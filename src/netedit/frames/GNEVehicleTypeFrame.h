@@ -40,25 +40,25 @@ class GNEVehicleTypeFrame : public GNEFrame {
 public:
 
     // ===========================================================================
-    // class vehicleTypeSelector
+    // class VehicleTypeSelector
     // ===========================================================================
 
-    class vehicleTypeSelector : protected FXGroupBox {
+    class VehicleTypeSelector : protected FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNEVehicleTypeFrame::vehicleTypeSelector)
+        FXDECLARE(GNEVehicleTypeFrame::VehicleTypeSelector)
 
     public:
         /// @brief constructor
-        vehicleTypeSelector(GNEVehicleTypeFrame* vehicleTypeFrameParent);
+        VehicleTypeSelector(GNEVehicleTypeFrame* vehicleTypeFrameParent);
 
         /// @brief destructor
-        ~vehicleTypeSelector();
+        ~VehicleTypeSelector();
 
         /// @brief get current Vehicle Type
-        GNEDemandElement* getCurrentVType() const;
+        GNEDemandElement* getCurrentVehicleType() const;
 
-        /// @brief set current Vehicle Type manually
-        void setCurrentVType(GNEDemandElement *vType);
+        /// @brief set current Vehicle Type
+        void setCurrentVehicleType(GNEDemandElement *vType);
 
         /// @name FOX-callbacks
         /// @{
@@ -68,7 +68,7 @@ public:
 
     protected:
         /// @brief FOX needs this
-        vehicleTypeSelector() {}
+        VehicleTypeSelector() {}
 
     private:
         /// @brief pointer to Frame Parent
@@ -76,6 +76,51 @@ public:
 
         /// @brief comboBox with the list of elements type
         FXComboBox* myTypeMatchBox;
+    };
+
+    // ===========================================================================
+    // class VehicleTypeEditor
+    // ===========================================================================
+
+    class VehicleTypeEditor : protected FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEVehicleTypeFrame::VehicleTypeEditor)
+
+    public:
+        /// @brief constructor
+        VehicleTypeEditor(GNEVehicleTypeFrame* vehicleTypeFrameParent);
+
+        /// @brief destructor
+        ~VehicleTypeEditor();
+
+        /// @brief show VehicleTypeEditor modul
+        void showVehicleTypeEditorModul();
+
+        /// @brief hide VehicleTypeEditor box
+        void hideVehicleTypeEditorModul();
+
+        /// @brief update VehicleTypeEditor modul
+        void updateVehicleTypeEditorModul();
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when "Vreate Vehicle Type" button is clicked
+        long onCmdCreateVehicleType(FXObject*, FXSelector, void*);
+
+        /// @brief Called when "Delete Vehicle Type" button is clicked
+        long onCmdDeleteVehicleType(FXObject*, FXSelector, void*);
+
+        /// @brief Called when "Copy Vehicle Type" button is clicked
+        long onCmdCopyVehicleType(FXObject*, FXSelector, void*);
+        /// @}
+
+    protected:
+        /// @brief FOX needs this
+        VehicleTypeEditor() {};
+
+    private:
+        /// @brief pointer to vehicle type Frame Parent
+        GNEVehicleTypeFrame* myVehicleTypeFrameParent;
     };
 
     /**@brief Constructor
@@ -91,24 +136,27 @@ public:
     void show();
 
 protected:
-    /// @brief enable moduls depending of item selected in vehicleTypeSelector
+    /// @brief enable moduls depending of item selected in VehicleTypeSelector
     void enableModuls(GNEDemandElement *vType);
 
     /// @brief disable moduls if element selected in itemSelector isn't valid
     void disableModuls();
 
-    /// @brief open ACAttributes extended dialog
+    /// @brief open ACAttributes extended dialog (used for editing advance attributes of Vehicle Types)
     void openACAttributesExtendedDialog();
 
 private:
-    /// @brief item selector
-    vehicleTypeSelector* myvehicleTypeSelector;
+    /// @brief vehicle type selector
+    VehicleTypeSelector* myVehicleTypeSelector;
 
     /// @brief internal vehicle type attributes
     ACAttributes* myVehicleTypeAttributes;
 
     /// @brief modul for open extended attributes dialog
     ACAttributesExtended* myACAttributesExtended;
+
+    /// @brief Vehicle Type editor (Create, copy, etc.)
+    VehicleTypeEditor* myVehicleTypeEditor;
 };
 
 
