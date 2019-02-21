@@ -546,8 +546,8 @@ NBEdge::hasDefaultGeometry() const {
 
 bool
 NBEdge::hasDefaultGeometryEndpoints() const {
-    return myGeom.front() == myFrom->getPosition() &&
-           myGeom.back() == myTo->getPosition();
+    return myGeom.front().almostSame(myFrom->getPosition(), 0.01)  &&
+           myGeom.back().almostSame(myTo->getPosition(), 0.01);
 }
 
 
