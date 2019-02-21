@@ -32,7 +32,7 @@ void FirstOrderLagModel::computeParameters() {
     oneMinusAlpha = 1 - alpha;
 }
 
-double FirstOrderLagModel::getRealAcceleration(double speed_mps, double accel_mps2, double reqAccel_mps2, int timeStep) {
+double FirstOrderLagModel::getRealAcceleration(double speed_mps, double accel_mps2, double reqAccel_mps2, SUMOTime timeStep) {
     UNUSED_PARAMETER(speed_mps);
     UNUSED_PARAMETER(timeStep);
     return std::min(

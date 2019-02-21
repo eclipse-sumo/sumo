@@ -642,9 +642,9 @@ Vehicle::getParameter(const std::string& vehicleID, const std::string& key) {
 
 std::map<const MSVehicle*, double>
 Vehicle::getNeighbors(const std::string& vehicleID, const int mode) {
-    int dir = (1 & mode) ? -1 : 1;
-    bool queryLeaders = (2 & mode);
-    bool blockersOnly = (4 & mode);
+    int dir = (1 & mode) != 0 ? -1 : 1;
+    bool queryLeaders = (2 & mode) != 0;
+    bool blockersOnly = (4 & mode) != 0;
 
     MSVehicle* veh = getVehicle(vehicleID);
     std::map<const MSVehicle*, double> neighs;
@@ -665,15 +665,15 @@ Vehicle::getNeighbors(const std::string& vehicleID, const int mode) {
         bool blocked = false;
         if (dir == -1) {
             if (queryLeaders) {
-                blocked = (lcm.getOwnState() & LCA_BLOCKED_BY_RIGHT_LEADER);
+                blocked = (lcm.getOwnState() & LCA_BLOCKED_BY_RIGHT_LEADER) != 0;
             } else {
-                blocked = (lcm.getOwnState() & LCA_BLOCKED_BY_RIGHT_FOLLOWER);
+                blocked = (lcm.getOwnState() & LCA_BLOCKED_BY_RIGHT_FOLLOWER) != 0;
             }
         } else {
             if (queryLeaders) {
-                blocked = (lcm.getOwnState() & LCA_BLOCKED_BY_LEFT_LEADER);
+                blocked = (lcm.getOwnState() & LCA_BLOCKED_BY_LEFT_LEADER) != 0;
             } else {
-                blocked = (lcm.getOwnState() & LCA_BLOCKED_BY_LEFT_FOLLOWER);
+                blocked = (lcm.getOwnState() & LCA_BLOCKED_BY_LEFT_FOLLOWER) != 0;
             }
         }
 
@@ -1519,7 +1519,7 @@ Vehicle::remove(const std::string& vehicleID, char reason) {
 void
 Vehicle::setColor(const std::string& vehicleID, const TraCIColor& col) {
     const SUMOVehicleParameter& p = getVehicle(vehicleID)->getParameter();
-    p.color.set(col.r, col.g, col.b, col.a);
+    p.color.set((unsigned char)col.r, (unsigned char)col.g, (unsigned char)col.b, (unsigned char)col.a);
     p.parametersSet |= VEHPARS_COLOR_SET;
 }
 

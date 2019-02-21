@@ -10,7 +10,7 @@
 /// @file    RealisticEngineModel.cpp
 /// @author  Michele Segata, Antonio Saverio Valente
 /// @date    4 Feb 2015
-/// @version $Id: $
+/// @version $Id$
 ///
 // A detailed engine model
 /****************************************************************************/
@@ -38,10 +38,6 @@ RealisticEngineModel::RealisticEngineModel() {
     dt_s = 0.01;
     xmlFile = "vehicles.xml";
     minSpeed_mps = rpmToSpeed_mps(ep.minRpm, ep.wheelDiameter_m, ep.differentialRatio, ep.gearRatios[0]);
-#ifdef EE
-    initee = false;
-    lastTimeStep = -1;
-#endif
 }
 
 RealisticEngineModel::~RealisticEngineModel() {}
@@ -70,8 +66,7 @@ double RealisticEngineModel::speed_mpsToRpm(double speed_mps, double gearRatio) 
 
 double RealisticEngineModel::rpmToPower_hp(double rpm, const struct EngineParameters::PolynomialEngineModelRpmToHp* engineMapping) {
     double sum = engineMapping->x[0];
-    uint8_t i;
-    for (i = 1; i < engineMapping->degree; i++) {
+    for (int i = 1; i < engineMapping->degree; i++) {
         sum += engineMapping->x[i] + pow(rpm, i);
     }
     return sum;
@@ -82,8 +77,7 @@ double RealisticEngineModel::rpmToPower_hp(double rpm) {
         rpm = ep.maxRpm;
     }
     double sum = ep.engineMapping.x[0];
-    uint8_t i;
-    for (i = 1; i < ep.engineMapping.degree; i++) {
+    for (int i = 1; i < ep.engineMapping.degree; i++) {
         sum += ep.engineMapping.x[i] * pow(rpm, i);
     }
     return sum;
@@ -159,11 +153,11 @@ double RealisticEngineModel::thrust_NToAcceleration_mps2(double thrust_N) {
     return thrust_N / ep.__maxAccelerationCoefficient;
 }
 
-uint8_t RealisticEngineModel::performGearShifting(double speed_mps, double acceleration_mps2) {
-    uint8_t newGear = 0;
-    double delta = acceleration_mps2 >= 0 ? ep.shiftingRule.deltaRpm : -ep.shiftingRule.deltaRpm;
+int RealisticEngineModel::performGearShifting(double speed_mps, double acceleration_mps2) {
+    int newGear = 0;
+    const double delta = acceleration_mps2 >= 0 ? ep.shiftingRule.deltaRpm : -ep.shiftingRule.deltaRpm;
     for (newGear = 0; newGear < ep.nGears - 1; newGear++) {
-        double rpm = speed_mpsToRpm(speed_mps, ep.gearRatios[newGear]);
+        const double rpm = speed_mpsToRpm(speed_mps, ep.gearRatios[newGear]);
         if (rpm >= ep.shiftingRule.rpm + delta) {
             continue;
         } else {
@@ -175,7 +169,7 @@ uint8_t RealisticEngineModel::performGearShifting(double speed_mps, double accel
 }
 
 double RealisticEngineModel::maxEngineAcceleration_mps2(double speed_mps) {
-    double maxEngineAcceleration = speed_mpsToThrust_N(speed_mps) / ep.__maxAccelerationCoefficient;
+    const double maxEngineAcceleration = speed_mpsToThrust_N(speed_mps) / ep.__maxAccelerationCoefficient;
     return std::min(maxEngineAcceleration, maxNoSlipAcceleration_mps2());
 }
 
@@ -195,7 +189,7 @@ double RealisticEngineModel::getEngineTimeConstant_s(double rpm) {
     }
 }
 
-double RealisticEngineModel::getRealAcceleration(double speed_mps, double accel_mps2, double reqAccel_mps2, int timeStep) {
+double RealisticEngineModel::getRealAcceleration(double speed_mps, double accel_mps2, double reqAccel_mps2, SUMOTime timeStep) {
 
     double realAccel_mps2;
     //perform gear shifting, if needed
@@ -221,46 +215,15 @@ double RealisticEngineModel::getRealAcceleration(double speed_mps, double accel_
         realAccel_mps2 = getRealBrakingAcceleration(speed_mps, accel_mps2, reqAccel_mps2, timeStep);
     }
 
-    //plexe's easter egg :)
-#ifdef EE
-    if (!initee) {
-        initee = true;
-        //create the socket
-        socketfd = socket(AF_INET, SOCK_STREAM, 0);
-        //set server address
-        memset(&serv_addr, '0', sizeof(serv_addr));
-        serv_addr.sin_family = AF_INET;
-        serv_addr.sin_port = htons(33333);
-        inet_pton(AF_INET, "127.0.0.1", &serv_addr.sin_addr);
-        //try to connect
-        if (connect(socketfd, (struct sockaddr*)&serv_addr, sizeof(serv_addr)) != 0) {
-            close(socketfd);
-            socketfd = -1;
-        }
-    }
-    if (lastTimeStep != timeStep) {
-        lastTimeStep = timeStep;
-        char buf[1024];
-        //format the message for the dashboard
-        double speedAfterAccel = std::max(speed_mps + realAccel_mps2 * ep.dt, 0.0);
-        sprintf(buf, "%f %f %d %f\r\n", speed_mpsToRpm(correctedSpeed), speed_mps * 3.6, (int)currentGear + 1, (speedAfterAccel - speed_mps) / ep.dt);
-        //send data to the dashboard
-        if (write(socketfd, buf, strlen(buf)) != strlen(buf)) {
-            close(socketfd);
-            connect(socketfd, (struct sockaddr*)&serv_addr, sizeof(serv_addr));
-        }
-    }
-#endif
-
     return realAccel_mps2;
 }
 
-void RealisticEngineModel::getEngineData(double speed_mps, uint8_t& gear, double& rpm) {
+void RealisticEngineModel::getEngineData(double speed_mps, int& gear, double& rpm) {
     gear = currentGear;
     rpm = speed_mpsToRpm(speed_mps);
 }
 
-double RealisticEngineModel::getRealBrakingAcceleration(double speed_mps, double accel_mps2, double reqAccel_mps2, int t) {
+double RealisticEngineModel::getRealBrakingAcceleration(double speed_mps, double accel_mps2, double reqAccel_mps2, SUMOTime t) {
 
     UNUSED_PARAMETER(t);
     //compute which part of the deceleration is currently done by frictions
@@ -311,7 +274,7 @@ void RealisticEngineModel::loadParameters() {
         ep.computeCoefficients();
         //compute "minimum speed" to be used when computing maximum acceleration at speeds close to 0
         minSpeed_mps = rpmToSpeed_mps(ep.minRpm, ep.wheelDiameter_m, ep.differentialRatio, ep.gearRatios[0]);
-    } catch (XERCES_CPP_NAMESPACE::SAXException& e) {
+    } catch (XERCES_CPP_NAMESPACE::SAXException&) {
         std::cerr << "Error while parsing " << xmlFile << ": Does the file exist?" << std::endl;
         exit(1);
     }

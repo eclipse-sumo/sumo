@@ -10,7 +10,7 @@
 /// @file    RealisticEngineModel.h
 /// @author  Michele Segata, Antonio Saverio Valente
 /// @date    4 Feb 2015
-/// @version $Id: $
+/// @version $Id$
 ///
 // A detailed engine model
 /****************************************************************************/
@@ -25,14 +25,6 @@
 #include "VehicleEngineHandler.h"
 #include "EngineParameters.h"
 
-//plexe's easter egg :)
-#ifdef EE
-#include <sys/socket.h>
-#include <sys/types.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <unistd.h>
-#endif
 
 /**
  * This class implements a detailed engine and braking model which takes into
@@ -55,7 +47,7 @@ protected:
 
     EngineParameters ep;
     //current gear
-    uint8_t currentGear;
+    int currentGear;
     //minimum speed to be considered for horsepower computation
     double minSpeed_mps;
     //simulation sampling time
@@ -293,7 +285,7 @@ protected:
      * @param[in] acceleration_mps2 current acceleration in meters per squared second
      * @return current gear (0 based)
      */
-    uint8_t performGearShifting(double speed_mps, double acceleration_mps2);
+    int performGearShifting(double speed_mps, double acceleration_mps2);
 
     /**
      * Computes the engine actuation time constant as function of the rpm
@@ -324,7 +316,7 @@ protected:
      * @param[in] the real deceleration in meters per squared second. Notice
      * that the returned value is an acceleration, you should not invert it
      */
-    double getRealBrakingAcceleration(double speed_mps, double accel_mps2, double reqAccel_mps2, int t);
+    double getRealBrakingAcceleration(double speed_mps, double accel_mps2, double reqAccel_mps2, SUMOTime t);
 
 public:
     RealisticEngineModel();
@@ -341,7 +333,7 @@ public:
      * @param[in] timeStep current simulation timestep. needed for debugging purposes only
      * @return the real acceleration that the vehicle applies
      */
-    virtual double getRealAcceleration(double speed_mps, double accel_mps2, double reqAccel_mps2, int timeStep = 0);
+    virtual double getRealAcceleration(double speed_mps, double accel_mps2, double reqAccel_mps2, SUMOTime timeStep = 0);
 
     /**
      * Load model parameters. This method requires a map of strings to be as
@@ -374,7 +366,7 @@ public:
      * @param[out] gear current gear
      * @param[out] rpm engine's rpm
      */
-    void getEngineData(double speed_mps, uint8_t& gear, double& rpm);
+    void getEngineData(double speed_mps, int& gear, double& rpm);
 
 #ifdef EE
 private:

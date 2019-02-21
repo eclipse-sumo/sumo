@@ -841,7 +841,7 @@ MSTransportable::rerouteParkingArea(MSStoppingPlace* orig, MSStoppingPlace* repl
                     } else if (prevStage->getStageType() == MOVING_WITHOUT_VEHICLE) {
                         Stage_Trip* newStage = new Stage_Trip(prevStage->getFromEdge(), stage->getDestination(),
                                 replacement, -1, 0, "", -1, 1, 0, true, stage->getArrivalPos());
-                        int prevStageRelIndex = it - 1 - myStep;
+                        int prevStageRelIndex = (int)(it - 1 - myStep);
                         removeStage(prevStageRelIndex);
                         appendStage(newStage, prevStageRelIndex);
                     }

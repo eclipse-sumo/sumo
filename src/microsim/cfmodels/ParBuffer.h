@@ -97,19 +97,17 @@ public:
     }
 
     std::string next() {
-        std::string value;
-        int sep;
-
         if (inBuffer.size() == 0) {
             return "";
         }
 
-        sep = -1;
+        int sep = -1;
         do {
-            sep = inBuffer.find(SEP, sep + 1);
-        } while (!((size_t)sep == std::string::npos || sep == 0 || inBuffer.c_str()[sep - 1] != ESC));
+            sep = (int)inBuffer.find(SEP, sep + 1);
+        } while (!(sep == (int)std::string::npos || sep == 0 || inBuffer.c_str()[sep - 1] != ESC));
 
-        if ((size_t)sep == std::string::npos) {
+        std::string value;
+        if (sep == (int)std::string::npos) {
             value = unescape(inBuffer);
             inBuffer = "";
         } else {

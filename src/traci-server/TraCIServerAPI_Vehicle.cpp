@@ -271,7 +271,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                     }
                     const std::map<const MSVehicle*, double> neighVehicles = libsumo::Vehicle::getNeighbors(id, mode);
                     server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
-                    server.getWrapperStorage().writeInt(neighVehicles.size());
+                    server.getWrapperStorage().writeInt((int)neighVehicles.size());
                     for (auto& p : neighVehicles) {
                         server.getWrapperStorage().writeString(p.first->getID());
                         server.getWrapperStorage().writeDouble(p.second);

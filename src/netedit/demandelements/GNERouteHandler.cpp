@@ -164,7 +164,7 @@ GNERouteHandler::openRoute(const SUMOSAXAttributes& attrs) {
 
 
 void 
-GNERouteHandler::closeRoute(const bool mayBeDisconnected) {
+GNERouteHandler::closeRoute(const bool /* mayBeDisconnected */) {
     // Continue if all parameters were sucesfully loaded
     if (!myAbort) {
         // obtain edges (And show warnings if isn't valid)

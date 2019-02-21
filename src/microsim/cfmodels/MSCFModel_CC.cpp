@@ -46,17 +46,17 @@ MSCFModel_CC::MSCFModel_CC(const MSVehicleType* vtype) : MSCFModel(vtype),
     myKp(vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_KP, 1.0)),
     myLambda(vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_LAMBDA, 0.1)),
     myC1(vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_C1, 0.5)),
-    myXi(vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_XI, 1)),
+    myXi(vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_XI, 1.0)),
     myOmegaN(vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_OMEGAN, 0.2)),
     myTau(vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_TAU, 0.5)),
-    myLanesCount(vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_LANES_COUNT, -1)),
+    myLanesCount((int)vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_LANES_COUNT, -1)),
     myPloegH(vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_PLOEG_H, 0.5)),
     myPloegKp(vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_PLOEG_KP, 0.2)),
     myPloegKd(vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_PLOEG_KD, 0.7)),
     myFlatbedKa(vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_FLATBED_KA, 2.4)),
     myFlatbedKv(vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_FLATBED_KV, 0.6)),
     myFlatbedKp(vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_FLATBED_KP, 12.0)),
-    myFlatbedH(vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_FLATBED_H, 4)),
+    myFlatbedH(vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_FLATBED_H, 4.0)),
     myFlatbedD(vtype->getParameter().getCFParam(SUMO_ATTR_CF_CC_FLATBED_D, 5.0)) {
 
     //if the lanes count has not been specified in the attributes of the model, lane changing cannot properly work
@@ -287,8 +287,10 @@ MSCFModel_CC::minNextSpeed(double speed, const MSVehicle* const veh) const {
 double
 MSCFModel_CC::_v(const MSVehicle* const veh, double gap2pred, double egoSpeed, double predSpeed) const {
 
+    CC_VehicleVariables* vars = (CC_VehicleVariables*)veh->getCarFollowVariables();
+
     //acceleration computed by the controller
-    double controllerAcceleration;
+    double controllerAcceleration = vars->fixedAcceleration;
     //speed computed by the model
     double speed;
     //acceleration computed by the Cruise Control
@@ -302,40 +304,24 @@ MSCFModel_CC::_v(const MSVehicle* const veh, double gap2pred, double egoSpeed, d
     //dummy variables used for auto feeding
     Position pos;
     double time;
-    double currentTime;
-
-    CC_VehicleVariables* vars = (CC_VehicleVariables*) veh->getCarFollowVariables();
+    const double currentTime = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep() + DELTA_T);
 
     if (vars->crashed || vars->crashedVictim) {
         return 0;
     }
-
-    if (vars->usePrediction) {
-        currentTime = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep() + DELTA_T);
-    }
-
-    if (vars->activeController != Plexe::DRIVER && vars->useFixedAcceleration) {
-        controllerAcceleration = vars->fixedAcceleration;
-    } else {
-
+    if (vars->activeController == Plexe::DRIVER || !vars->useFixedAcceleration) {
         switch (vars->activeController) {
-
             case Plexe::ACC:
-
                 ccAcceleration = _cc(veh, egoSpeed, vars->ccDesiredSpeed);
                 accAcceleration = _acc(veh, egoSpeed, predSpeed, gap2pred, vars->accHeadwayTime);
-
                 if (gap2pred > 250 || ccAcceleration < accAcceleration) {
                     controllerAcceleration = ccAcceleration;
                 } else {
                     controllerAcceleration = accAcceleration;
                 }
-
-
                 break;
 
             case Plexe::CACC:
-
                 if (vars->autoFeed) {
                     getVehicleInformation(vars->leaderVehicle, vars->leaderSpeed, vars->leaderAcceleration, vars->leaderControllerAcceleration, pos, time);
                     getVehicleInformation(vars->frontVehicle, vars->frontSpeed, vars->frontAcceleration, vars->frontControllerAcceleration, pos, time);
@@ -413,13 +399,7 @@ MSCFModel_CC::_v(const MSVehicle* const veh, double gap2pred, double egoSpeed, d
                 break;
 
             case Plexe::CONSENSUS:
-
-                controllerAcceleration = _consensus(veh,
-                                                    egoSpeed,
-                                                    veh->getPosition(),
-                                                    STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep() + DELTA_T)
-                                                   );
-
+                controllerAcceleration = _consensus(veh, egoSpeed, veh->getPosition(), currentTime);
                 break;
 
             case Plexe::FLATBED:
@@ -448,13 +428,11 @@ MSCFModel_CC::_v(const MSVehicle* const veh, double gap2pred, double egoSpeed, d
                 break;
 
             case Plexe::DRIVER:
-
                 std::cerr << "Switching to normal driver behavior still not implemented in MSCFModel_CC\n";
                 assert(false);
                 break;
 
             default:
-
                 std::cerr << "Invalid controller selected in MSCFModel_CC\n";
                 assert(false);
                 break;
@@ -488,7 +466,6 @@ MSCFModel_CC::_acc(const MSVehicle* veh, double egoSpeed, double predSpeed, doub
 
 double
 MSCFModel_CC::_cacc(const MSVehicle* veh, double egoSpeed, double predSpeed, double predAcceleration, double gap2pred, double leaderSpeed, double leaderAcceleration, double spacing) const {
-
     CC_VehicleVariables* vars = (CC_VehicleVariables*)veh->getCarFollowVariables();
     //compute epsilon, i.e., the desired distance error
     double epsilon = -gap2pred + spacing; //NOTICE: error (if any) should already be included in gap2pred
@@ -497,21 +474,18 @@ MSCFModel_CC::_cacc(const MSVehicle* veh, double egoSpeed, double predSpeed, dou
     //Eq. 7.39 of the Rajamani book
     return vars->caccAlpha1 * predAcceleration + vars->caccAlpha2 * leaderAcceleration +
            vars->caccAlpha3 * epsilon_dot + vars->caccAlpha4 * (egoSpeed - leaderSpeed) + vars->caccAlpha5 * epsilon;
-
 }
+
 
 double
 MSCFModel_CC::_ploeg(const MSVehicle* veh, double egoSpeed, double predSpeed, double predAcceleration, double gap2pred) const {
-
     CC_VehicleVariables* vars = (CC_VehicleVariables*)veh->getCarFollowVariables();
-
     return (1 / vars->ploegH * (
                 -vars->controllerAcceleration +
                 vars->ploegKp * (gap2pred - (2 + vars->ploegH * egoSpeed)) +
                 vars->ploegKd * (predSpeed - egoSpeed - vars->ploegH * veh->getAcceleration()) +
                 predAcceleration
             )) * TS ;
-
 }
 
 double
@@ -1008,7 +982,7 @@ std::string MSCFModel_CC::getParameter(const MSVehicle* veh, const std::string& 
         return buf.str();
     }
     if (key.compare(PAR_ENGINE_DATA) == 0) {
-        uint8_t gear;
+        int gear;
         double rpm;
         RealisticEngineModel* engine = dynamic_cast<RealisticEngineModel*>(vars->engine);
         if (engine) {

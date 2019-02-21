@@ -115,7 +115,7 @@ public:
      * @see MSCFModel::ffeS
      * @todo generic Interface, models can call for the values they need
      */
-    double stopSpeed(const MSVehicle* const veh, double speed, double gap2pred) const;
+    double stopSpeed(const MSVehicle* const veh, const double speed, double gap2pred) const;
 
     /** @brief Computes the vehicle's safe speed without a leader
      *
@@ -405,6 +405,9 @@ private:
     const double myFlatbedH;
     const double myFlatbedD;
 
+private:
+    /// @brief Invalidated assignment operator.
+    MSCFModel_CC& operator=(const MSCFModel_CC&) = delete;
 };
 
 #endif /* MSCFMODEL_CC_H */

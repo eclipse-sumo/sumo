@@ -191,7 +191,7 @@ protected:
      * an error is printed to stderr and the simulation is stopped. The
      * simulation is stopped if the value cannot be parsed as well
      */
-    double parsePolynomialCoefficient(uint8_t index, const XERCES_CPP_NAMESPACE::Attributes& attrs);
+    double parsePolynomialCoefficient(int index, const XERCES_CPP_NAMESPACE::Attributes& attrs);
     /**
      * Writes an error to stderr and terminates the simulation
      */

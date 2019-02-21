@@ -54,11 +54,11 @@ EngineParameters::EngineParameters(const EngineParameters& other) :
     brakesTau_s(other.brakesTau_s), tauEx_s(other.tauEx_s), tauBurn_s(other.tauBurn_s), fixedTauBurn(other.fixedTauBurn) {
     id = other.id;
     gearRatios = new double[nGears];
-    for (uint8_t i = 0; i < nGears; i++) {
+    for (int i = 0; i < nGears; i++) {
         gearRatios[i] = other.gearRatios[i];
     }
     engineMapping.degree = other.engineMapping.degree;
-    for (uint8_t i = 0; i < engineMapping.degree; i++) {
+    for (int i = 0; i < engineMapping.degree; i++) {
         engineMapping.x[i] = other.engineMapping.x[i];
     }
     shiftingRule.rpm = other.shiftingRule.rpm;
@@ -86,11 +86,11 @@ EngineParameters& EngineParameters::operator =(const EngineParameters& other) {
     maxRpm = other.maxRpm;
     delete [] gearRatios;
     gearRatios = new double[nGears];
-    for (uint8_t i = 0; i < nGears; i++) {
+    for (int i = 0; i < nGears; i++) {
         gearRatios[i] = other.gearRatios[i];
     }
     engineMapping.degree = other.engineMapping.degree;
-    for (uint8_t i = 0; i < engineMapping.degree; i++) {
+    for (int i = 0; i < engineMapping.degree; i++) {
         engineMapping.x[i] = other.engineMapping.x[i];
     }
     shiftingRule.rpm = other.shiftingRule.rpm;
@@ -129,7 +129,7 @@ void EngineParameters::dumpParameters(std::ostream& out) {
 
     out << "Gearbox:\n";
     out << "\tGears number: " << (int)nGears << std::endl;
-    for (uint8_t i = 0; i < nGears; i++) {
+    for (int i = 0; i < nGears; i++) {
         out << std::setprecision(4) << "\tRatio of gear " << (i + 1) << ": " << gearRatios[i] << std::endl;
     }
     out << std::setprecision(4) << "\tFinal drive ratio: " << differentialRatio << std::endl;
@@ -154,7 +154,7 @@ void EngineParameters::dumpParameters(std::ostream& out) {
     out << "\tMinimum rpm: " << minRpm << std::endl;
     out << "\tMaximum rpm: " << maxRpm << std::endl;
     out << "\tMapping (rpm to hp) degree: " << engineMapping.degree << std::endl;
-    for (uint8_t i = 0; i < engineMapping.degree; i++) {
+    for (int i = 0; i < engineMapping.degree; i++) {
         out << "\t\tMapping coefficient x" << i << ": " << engineMapping.x[i] << std::endl;
     }
     out << "\tShifting rpm: " << shiftingRule.rpm << std::endl;

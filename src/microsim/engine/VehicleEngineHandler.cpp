@@ -180,10 +180,10 @@ VehicleEngineHandler::endElement(const XMLCh* const /*uri*/,
 
                 delete [] engineParameters.gearRatios;
                 engineParameters.gearRatios = new double[gearRatios.size()];
-                for (unsigned int i = 0; i < gearRatios.size(); i++) {
+                for (int i = 0; i < (int)gearRatios.size(); i++) {
                     engineParameters.gearRatios[i] = gearRatios[i];
                 }
-                engineParameters.nGears = gearRatios.size();
+                engineParameters.nGears = (int)gearRatios.size();
             }
 
             break;
@@ -283,7 +283,6 @@ VehicleEngineHandler::loadDifferentialData(const XERCES_CPP_NAMESPACE::Attribute
 
 void
 VehicleEngineHandler::loadEngineModelData(const XERCES_CPP_NAMESPACE::Attributes& attrs) {
-    uint8_t i;
     //check that the degree is within the maximum supported
     if (attrs.getLength() > MAX_POLY_DEGREE) {
         std::stringstream ss;
@@ -291,11 +290,11 @@ VehicleEngineHandler::loadEngineModelData(const XERCES_CPP_NAMESPACE::Attributes
         raiseError(ss.str());
     }
     //parse all polynomial coefficients
-    for (i = 0; i < attrs.getLength(); i++) {
+    for (int i = 0; i < attrs.getLength(); i++) {
         engineParameters.engineMapping.x[i] = parsePolynomialCoefficient(i, attrs);
     }
     //save the actual degree
-    engineParameters.engineMapping.degree = attrs.getLength();
+    engineParameters.engineMapping.degree = (int)attrs.getLength();
 }
 
 
@@ -344,9 +343,9 @@ double VehicleEngineHandler::parseDoubleAttribute(std::string tag, const char* a
     }
     return doubleValue;
 }
-double VehicleEngineHandler::parsePolynomialCoefficient(uint8_t index, const XERCES_CPP_NAMESPACE::Attributes& attrs) {
+double VehicleEngineHandler::parsePolynomialCoefficient(int index, const XERCES_CPP_NAMESPACE::Attributes& attrs) {
     std::stringstream ss;
-    ss << "x" << (int)index;
+    ss << "x" << index;
     return parseDoubleAttribute(ENGINE_TAG_ENGINE_POWER, ss.str().c_str(), attrs);
 }
 

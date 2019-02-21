@@ -2005,7 +2005,7 @@ std::vector<int>
 MSVehicle::getStopIndices() const {
     std::vector<int> result;
     for (std::list<Stop>::const_iterator iter = myStops.begin(); iter != myStops.end(); ++iter) {
-        result.push_back(iter->edge - myRoute->begin());
+        result.push_back((int)(iter->edge - myRoute->begin()));
     }
     return result;
 }

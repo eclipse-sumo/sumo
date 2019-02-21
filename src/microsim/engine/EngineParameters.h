@@ -17,7 +17,6 @@
 #ifndef ENGINEPARAMETERS_H_
 #define ENGINEPARAMETERS_H_
 
-#include <stdint.h>
 #include <iostream>
 #include <iomanip>
 
@@ -41,7 +40,7 @@ public:
      * power(rpm) [hp] = x0 + x1*hp + x2*hp^2 + ...
      */
     struct PolynomialEngineModelRpmToHp {
-        uint8_t degree;
+        int degree;
         double x[MAX_POLY_DEGREE];
     };
 
@@ -60,7 +59,7 @@ public:
     //id of the type of vehicle
     std::string id;
     //number of gears
-    uint8_t nGears;
+    int nGears;
     //gear ratios
     double* gearRatios;
     //differential ratio

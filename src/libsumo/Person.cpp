@@ -798,7 +798,7 @@ Person::setActionStepLength(const std::string& personID, double actionStepLength
 void
 Person::setColor(const std::string& personID, const TraCIColor& c) {
     const SUMOVehicleParameter& p = getPerson(personID)->getParameter();
-    p.color.set(c.r, c.g, c.b, c.a);
+    p.color.set((unsigned char)c.r, (unsigned char)c.g, (unsigned char)c.b, (unsigned char)c.a);
     p.parametersSet |= VEHPARS_COLOR_SET;
 }
 
