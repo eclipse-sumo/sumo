@@ -4333,6 +4333,7 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, bool onTeleporting) {
     // internal edges are not a part of the route...
     if (!enteredLane->getEdge().isInternal()) {
         ++myCurrEdge;
+        assert(haveValidStopEdges());
     }
     if (!onTeleporting) {
         activateReminders(MSMoveReminder::NOTIFICATION_JUNCTION, enteredLane);
@@ -5966,6 +5967,48 @@ MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
 void
 MSVehicle::createDriverState() {
     myDriverState = std::make_shared<MSSimpleDriverState>(this);
+}
+
+bool 
+MSVehicle::haveValidStopEdges() {
+    MSRouteIterator start = myCurrEdge;
+    const std::string err = "for vehicle '" + getID() + "' at time " + time2string(MSNet::getInstance()->getCurrentTimeStep());
+    int i = 0;
+    bool ok = true;
+    double lastPos = getPositionOnLane();
+    for (Stop stop : myStops) {
+        const double endPos = stop.getEndPos(*this);
+        MSEdge* stopEdge = &stop.lane->getEdge();
+        MSRouteIterator it = std::find(start, myRoute->end(), stopEdge);
+        const std::string prefix = "Stop " + toString(i) + " on edge '" + stopEdge->getID() + "' ";
+        if (it == myRoute->end()) {
+            WRITE_ERROR(prefix + "is not found after edge '" + (*start)->getID() + "' (" + toString(start - myCurrEdge) + " after current " + err);
+            ok = false;
+        } else {
+            MSRouteIterator it2;
+            for (it2 = myRoute->begin(); it2 != myRoute->end(); it2++) {
+                if (it2 == stop.edge) {
+                    break;
+                }
+            }
+            if (it2 == myRoute->end()) {
+                WRITE_ERROR(prefix + " used invalid route index " + err);
+                ok = false;
+            } else if (it2 < start) {
+                WRITE_ERROR(prefix + " used invalid (relative) route index " + toString(it2 - myCurrEdge) + " expected after " + toString(start - myCurrEdge) + " " + err);
+                ok = false;
+            } else {
+                if (it != stop.edge && endPos >= lastPos) {
+                    WRITE_WARNING(prefix + "is used in " + toString(stop.edge - myCurrEdge) + " edges but first encounter is in " 
+                            + toString(it - myCurrEdge) + " edges " + err);
+                }
+                start = stop.edge;
+            }
+        }
+        lastPos = endPos;
+        i++;
+    }
+    return ok;
 }
 
 /****************************************************************************/

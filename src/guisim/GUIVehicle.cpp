@@ -605,7 +605,10 @@ GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r)
     for (const Stop& stop : myStops) {
         Position pos = stop.lane->geometryPositionAtOffset(stop.reached ? getPositionOnLane() : stop.getEndPos(*this));
         GLHelper::drawBoxLines(stop.lane->getShape().getOrthogonal(pos, 10, true, stop.lane->getWidth()), 0.1);
-        std::string label = stop.reached ? "stopped" : "stop " + toString(stopIndex); // + " (" + toString(stop.edge - myCurrEdge) + "e)";
+        std::string label = stop.reached ? "stopped" : "stop " + toString(stopIndex);
+#ifdef _DEBUG
+        label += " (" + toString(stop.edge - myCurrEdge) + "e)";
+#endif
         if (stop.pars.until >= 0) {
             label += " until:" + time2string(stop.pars.until);
         }
