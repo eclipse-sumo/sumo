@@ -83,7 +83,7 @@ GNEVehicleFrame::VTypeSelector::showVTypeSelector(const GNEAttributeCarrier::Tag
     // if current selected item isn't valid, set DEFAULT_VEHTYPE
     if (myCurrentVehicleType) {
         // show vehicle attributes modul
-        myVehicleFrameParent->myVehicleAttributes->showACAttributesModul(tagProperties);
+        myVehicleFrameParent->myVehicleAttributes->showACAttributesModul(tagProperties, true);
         // show help creation
         myVehicleFrameParent->myHelpCreation->showHelpCreation();
     } else {
@@ -130,7 +130,7 @@ GNEVehicleFrame::VTypeSelector::onCmdSelectVType(FXObject*, FXSelector, void*) {
             // Set new current VType
             myCurrentVehicleType = i.second;
             // show vehicle attributes modul
-            myVehicleFrameParent->myVehicleAttributes->showACAttributesModul(myVehicleFrameParent->myItemSelector->getCurrentTagProperties());
+            myVehicleFrameParent->myVehicleAttributes->showACAttributesModul(myVehicleFrameParent->myItemSelector->getCurrentTagProperties(), true);
             // show help creation
             myVehicleFrameParent->myHelpCreation->showHelpCreation();
             // Write Warning in console if we're in testing mode

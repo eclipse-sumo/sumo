@@ -36,23 +36,115 @@
 
 
 // ===========================================================================
+// FOX callback mapping
+// ===========================================================================
+
+FXDEFMAP(GNEVehicleTypeFrame::vehicleTypeSelector) vehicleTypeSelectorMap[] = {
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_TYPE,    GNEVehicleTypeFrame::vehicleTypeSelector::onCmdSelectItem),
+};
+
+// Object implementation
+FXIMPLEMENT(GNEVehicleTypeFrame::vehicleTypeSelector, FXGroupBox, vehicleTypeSelectorMap,    ARRAYNUMBER(vehicleTypeSelectorMap))
+
+// ===========================================================================
 // method definitions
 // ===========================================================================
 
-GNEVehicleTypeFrame::GNEVehicleTypeFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
-    GNEFrame(horizontalFrameParent, viewNet, "Vehicles") {
+// ---------------------------------------------------------------------------
+// GNEVehicleTypeFrame::vehicleTypeSelector - methods
+// ---------------------------------------------------------------------------
 
-    // create item Selector modul for vehicles
-    myItemSelector = new ItemSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_VEHICLE);
+GNEVehicleTypeFrame::vehicleTypeSelector::vehicleTypeSelector(GNEVehicleTypeFrame* vehicleTypeFrameParent) :
+    FXGroupBox(vehicleTypeFrameParent->myContentFrame, "Current Vehicle Type", GUIDesignGroupBoxFrame),
+    myVehicleTypeFrameParent(vehicleTypeFrameParent) {
+    // Create FXComboBox
+    myTypeMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+    // fill myTypeMatchBox with list of VTypes IDs
+    for (const auto& i : myVehicleTypeFrameParent->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_VTYPE)) {
+        myTypeMatchBox->appendItem(i.first.c_str());
+    }
+    // Set visible items
+    myTypeMatchBox->setNumVisible((int)myTypeMatchBox->getNumItems());
+    // vehicleTypeSelector is always shown
+    show();
+}
+
+
+GNEVehicleTypeFrame::vehicleTypeSelector::~vehicleTypeSelector() {}
+
+
+GNEDemandElement*
+GNEVehicleTypeFrame::vehicleTypeSelector::getCurrentVType() const {
+    // obtain current VType ID (To improve code legibly)
+    std::string vTypeID = myTypeMatchBox->getItem(myTypeMatchBox->getCurrentItem()).text();
+    // check if ID of myTypeMatchBox is a valid ID
+    if (myVehicleTypeFrameParent->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_VTYPE).count(vTypeID) == 1) {
+        return myVehicleTypeFrameParent->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_VTYPE).at(vTypeID);
+    } else {
+        return nullptr;
+    }
+}
+
+
+void
+GNEVehicleTypeFrame::vehicleTypeSelector::setCurrentVType(GNEDemandElement *vType) {
+    bool valid = false;
+    // make sure that tag is in myTypeMatchBox
+    for (int i = 0; i < (int)myTypeMatchBox->getNumItems(); i++) {
+        if (myTypeMatchBox->getItem(i).text() == vType->getID()) {
+            myTypeMatchBox->setCurrentItem(i);
+            valid = true;
+        }
+    }
+    // Check that give vType type is valid
+    if (valid) {
+        // show moduls if selected item is valid
+        myVehicleTypeFrameParent->enableModuls(vType);
+    } else {
+        // hide all moduls if selected item isn't valid
+        myVehicleTypeFrameParent->disableModuls();
+    }
+}
+
+
+long
+GNEVehicleTypeFrame::vehicleTypeSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
+    // Check if value of myTypeMatchBox correspond of an allowed additional tags
+    for (const auto& i : myVehicleTypeFrameParent->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_VTYPE)) {
+        if (i.first == myTypeMatchBox->getText().text()) {
+            // set color of myTypeMatchBox to black (valid)
+            myTypeMatchBox->setTextColor(FXRGB(0, 0, 0));
+            // show moduls if selected item is valid
+            myVehicleTypeFrameParent->enableModuls(i.second);
+            // Write Warning in console if we're in testing mode
+            WRITE_DEBUG(("Selected item '" + myTypeMatchBox->getText() + "' in vehicleTypeSelector").text());
+            return 1;
+        }
+    }
+    // hide all moduls if selected item isn't valid
+    myVehicleTypeFrameParent->disableModuls();
+    // set color of myTypeMatchBox to red (invalid)
+    myTypeMatchBox->setTextColor(FXRGB(255, 0, 0));
+    // Write Warning in console if we're in testing mode
+    WRITE_DEBUG("Selected invalid item in vehicleTypeSelector");
+    return 1;
+}
+
+// ---------------------------------------------------------------------------
+// GNEVehicleTypeFrame - methods
+// ---------------------------------------------------------------------------
+
+GNEVehicleTypeFrame::GNEVehicleTypeFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
+    GNEFrame(horizontalFrameParent, viewNet, "Vehicle Types") {
+
+    // create vehicle type selector
+    myvehicleTypeSelector = new vehicleTypeSelector(this);
 
     // Create vehicle parameters
-    myVehicleAttributes = new ACAttributes(this);
+    myVehicleTypeAttributes = new ACAttributes(this);
 
-    // Create Netedit parameter
-    myNeteditAttributes = new NeteditAttributes(this);
-
-    // set BusStop as default vehicle
-    myItemSelector->setCurrentTypeTag(SUMO_TAG_VEHICLE);
+    // set "VTYPE_DEFAULT" as default vehicle Type
+    myvehicleTypeSelector->setCurrentVType(myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_VTYPE_ID));
 }
 
 
@@ -61,184 +153,23 @@ GNEVehicleTypeFrame::~GNEVehicleTypeFrame() {}
 
 void
 GNEVehicleTypeFrame::show() {
-    // refresh item selector
-    myItemSelector->refreshTagProperties();
-    // show frame
+    // simply show frame
     GNEFrame::show();
 }
 
 
-bool
-GNEVehicleTypeFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
-    // first check that current selected vehicle is valid
-    if (myItemSelector->getCurrentTagProperties().getTag() == SUMO_TAG_NOTHING) {
-        myViewNet->setStatusBarText("Current selected vehicle isn't valid.");
-        return false;
-    }
-
-    // obtain tagproperty (only for improve code legibility)
-    const auto& tagValues = myItemSelector->getCurrentTagProperties();
-
-    // Declare map to keep attributes from Frames from Frame
-    std::map<SumoXMLAttr, std::string> valuesMap = myVehicleAttributes->getAttributesAndValues(false);
-
-    // fill netedit attributes
-    if (!myNeteditAttributes->getNeteditAttributesAndValues(valuesMap, objectsUnderCursor.getLaneFront())) {
-        return false;
-    }
-
-    // If consecutive Lane Selector is enabled, it means that either we're selecting lanes or we're finished or we'rent started
-    if (tagValues.canBePlacedOverEdge()) {
-        return buildVehicleOverEdge(valuesMap, objectsUnderCursor.getLaneFront(), tagValues);
-    } else if (tagValues.canBePlacedOverLane()) {
-        return buildVehicleOverLane(valuesMap, objectsUnderCursor.getLaneFront(), tagValues);
-    } else {
-        return buildVehicleOverView(valuesMap, tagValues);
-    }
-}
-
-
 void
-GNEVehicleTypeFrame::enableModuls(const GNEAttributeCarrier::TagProperties& tagProperties) {
-    // show vehicle attributes modul
-    myVehicleAttributes->showACAttributesModul(tagProperties);
-    // show netedit attributes
-    myNeteditAttributes->showNeteditAttributesModul(tagProperties);
+GNEVehicleTypeFrame::enableModuls(GNEDemandElement *vType) {
+    // show vehicle type attributes moduls (Except the extended attributes)
+    myVehicleTypeAttributes->showACAttributesModul(vType->getTagProperty(), false);
 }
 
 
 void
 GNEVehicleTypeFrame::disableModuls() {
     // hide all moduls if vehicle isn't valid
-    myVehicleAttributes->hideACAttributesModul();
-    myNeteditAttributes->hideNeteditAttributesModul();
+    myVehicleTypeAttributes->hideACAttributesModul();
 }
 
-
-std::string
-GNEVehicleTypeFrame::generateID(GNENetElement* netElement) const {
-    // obtain current number of vehicles to generate a new index faster
-    int vehicleIndex = myViewNet->getNet()->getNumberOfDemandElements(myItemSelector->getCurrentTagProperties().getTag());
-    // obtain tag Properties (only for improve code legilibility
-    const auto& tagProperties = myItemSelector->getCurrentTagProperties();
-    if (netElement) {
-        // generate ID using netElement
-        while (myViewNet->getNet()->retrieveDemandElement(tagProperties.getTag(), tagProperties.getTagStr() + "_" + netElement->getID() + "_" + toString(vehicleIndex), false) != nullptr) {
-            vehicleIndex++;
-        }
-        return tagProperties.getTagStr() + "_" + netElement->getID() + "_" + toString(vehicleIndex);
-    } else {
-        // generate ID without netElement
-        while (myViewNet->getNet()->retrieveDemandElement(tagProperties.getTag(), tagProperties.getTagStr() + "_" + toString(vehicleIndex), false) != nullptr) {
-            vehicleIndex++;
-        }
-        return tagProperties.getTagStr() + "_" + toString(vehicleIndex);
-    }
-}
-
-
-bool
-GNEVehicleTypeFrame::buildVehicleCommonAttributes(std::map<SumoXMLAttr, std::string>& valuesMap, const GNEAttributeCarrier::TagProperties& tagValues) {
-    // If vehicle has a interval defined by a begin or end, check that is valid
-    if (tagValues.hasAttribute(SUMO_ATTR_STARTTIME) && tagValues.hasAttribute(SUMO_ATTR_END)) {
-        double begin = GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_STARTTIME]);
-        double end = GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_END]);
-        if (begin > end) {
-            myVehicleAttributes->showWarningMessage("Attribute '" + toString(SUMO_ATTR_STARTTIME) + "' cannot be greater than attribute '" + toString(SUMO_ATTR_END) + "'.");
-            return false;
-        }
-    }
-    // If vehicle own the attribute SUMO_ATTR_FILE but was't defined, will defined as <ID>.xml
-    if (tagValues.hasAttribute(SUMO_ATTR_FILE) && valuesMap[SUMO_ATTR_FILE] == "") {
-        if ((myItemSelector->getCurrentTagProperties().getTag() != SUMO_TAG_CALIBRATOR) && (myItemSelector->getCurrentTagProperties().getTag() != SUMO_TAG_REROUTER)) {
-            // SUMO_ATTR_FILE is optional for calibrators and rerouters (fails to load in sumo when given and the file does not exist)
-            valuesMap[SUMO_ATTR_FILE] = (valuesMap[SUMO_ATTR_ID] + ".xml");
-        }
-    }
-    // all ok, continue building vehicles
-    return true;
-}
-
-
-bool
-GNEVehicleTypeFrame::buildVehicleOverEdge(std::map<SumoXMLAttr, std::string>& valuesMap, GNELane* lane, const GNEAttributeCarrier::TagProperties& tagValues) {
-    // check that edge exist
-    if (lane) {
-        // Get attribute lane's edge
-        valuesMap[SUMO_ATTR_EDGE] = lane->getParentEdge().getID();
-        // Generate id of element based on the lane's edge
-        valuesMap[SUMO_ATTR_ID] = generateID(&lane->getParentEdge());
-    } else {
-        return false;
-    }
-    // parse common attributes
-    if (!buildVehicleCommonAttributes(valuesMap, tagValues)) {
-        return false;
-    }
-    // show warning dialogbox and stop check if input parameters are valid
-    if (!myVehicleAttributes->areValuesValid()) {
-        myVehicleAttributes->showWarningMessage();
-        return false;
-    } else {
-        
-        // GNEVehicleHandler::buildVehicle(myViewNet, true, myItemSelector->getCurrentTagProperties().getTag(), valuesMap) != nullptr) {
-
-        return true;
-    }
-}
-
-
-bool
-GNEVehicleTypeFrame::buildVehicleOverLane(std::map<SumoXMLAttr, std::string>& valuesMap, GNELane* lane, const GNEAttributeCarrier::TagProperties& tagValues) {
-    // check that lane exist
-    if (lane != nullptr) {
-        // Get attribute lane
-        valuesMap[SUMO_ATTR_LANE] = lane->getID();
-        // Generate id of element based on the lane
-        valuesMap[SUMO_ATTR_ID] = generateID(lane);
-    } else {
-        return false;
-    }
-    // Obtain position of the mouse over lane (limited over grid)
-    double mousePositionOverLane = lane->getShape().nearest_offset_to_point2D(myViewNet->snapToActiveGrid(myViewNet->getPositionInformation())) / lane->getLengthGeometryFactor();
-    // set attribute position as mouse position over lane
-    valuesMap[SUMO_ATTR_POSITION] = toString(mousePositionOverLane);
-    // parse common attributes
-    if (!buildVehicleCommonAttributes(valuesMap, tagValues)) {
-        return false;
-    }
-    // show warning dialogbox and stop check if input parameters are valid
-    if (!myVehicleAttributes->areValuesValid()) {
-        myVehicleAttributes->showWarningMessage();
-        return false;
-    } else {
-
-        /// if (GNEVehicleHandler::buildVehicle(myViewNet, true, myItemSelector->getCurrentTagProperties().getTag(), valuesMap)
-       
-        return true;
-    }
-}
-
-
-bool
-GNEVehicleTypeFrame::buildVehicleOverView(std::map<SumoXMLAttr, std::string>& valuesMap, const GNEAttributeCarrier::TagProperties& tagValues) {
-    // Generate id of element
-    valuesMap[SUMO_ATTR_ID] = generateID(nullptr);
-    // Obtain position as the clicked position over view
-    valuesMap[SUMO_ATTR_POSITION] = toString(myViewNet->snapToActiveGrid(myViewNet->getPositionInformation()));
-    // parse common attributes
-    if (!buildVehicleCommonAttributes(valuesMap, tagValues)) {
-        return false;
-    }
-    // show warning dialogbox and stop check if input parameters are valid
-    if (myVehicleAttributes->areValuesValid() == false) {
-        myVehicleAttributes->showWarningMessage();
-        return false;
-    } else { 
-        
-        // (GNEVehicleHandler::buildVehicle(myViewNet, true, myItemSelector->getCurrentTagProperties().getTag(), valuesMap)) {
-        return true;
-    }
-}
 
 /****************************************************************************/

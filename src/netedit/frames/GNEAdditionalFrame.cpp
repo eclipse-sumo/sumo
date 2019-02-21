@@ -785,7 +785,7 @@ GNEAdditionalFrame::getConsecutiveLaneSelector() const {
 void
 GNEAdditionalFrame::enableModuls(const GNEAttributeCarrier::TagProperties& tagProperties) {
     // show additional attributes modul
-    myAdditionalAttributes->showACAttributesModul(tagProperties);
+    myAdditionalAttributes->showACAttributesModul(tagProperties, true);
     // show netedit attributes
     myNeteditAttributes->showNeteditAttributesModul(tagProperties);
     // Show myAdditionalFrameParent if we're adding a additional with parent

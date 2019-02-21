@@ -382,7 +382,7 @@ GNEPolygonFrame::buildShape() {
 void
 GNEPolygonFrame::enableModuls(const GNEAttributeCarrier::TagProperties& tagProperties) {
     // if there are parmeters, show and Recalc groupBox
-    myShapeAttributes->showACAttributesModul(tagProperties);
+    myShapeAttributes->showACAttributesModul(tagProperties, true);
     // show netedit attributes
     myNeteditAttributes->showNeteditAttributesModul(tagProperties);
     // Check if drawing mode has to be shown

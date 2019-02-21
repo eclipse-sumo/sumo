@@ -236,7 +236,7 @@ GNEFrame::ACAttributes::~ACAttributes() {
 
 
 void
-GNEFrame::ACAttributes::showACAttributesModul(const GNEAttributeCarrier::TagProperties& tagProperties) {
+GNEFrame::ACAttributes::showACAttributesModul(const GNEAttributeCarrier::TagProperties& tagProperties, bool includeExtendedAttributes) {
     // get current tag Properties
     myTagProperties = tagProperties;
     // Hide all fields
@@ -245,8 +245,8 @@ GNEFrame::ACAttributes::showACAttributesModul(const GNEAttributeCarrier::TagProp
     }
     // iterate over tag attributes and show it
     for (auto i : myTagProperties) {
-        //  make sure that only non-unique attributes are shown
-        if (!i.second.isUnique()) {
+        //  make sure that only non-unique attributes are shown (And depending of includeExtendedAttributes)
+        if (!i.second.isUnique() && (includeExtendedAttributes || !i.second.isExtended())) {
             myRows.at(i.second.getPositionListed())->showParameter(i.second);
         }
     }

@@ -39,6 +39,45 @@ class GNEVehicleTypeFrame : public GNEFrame {
 
 public:
 
+    // ===========================================================================
+    // class vehicleTypeSelector
+    // ===========================================================================
+
+    class vehicleTypeSelector : protected FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEVehicleTypeFrame::vehicleTypeSelector)
+
+    public:
+        /// @brief constructor
+        vehicleTypeSelector(GNEVehicleTypeFrame* vehicleTypeFrameParent);
+
+        /// @brief destructor
+        ~vehicleTypeSelector();
+
+        /// @brief get current Vehicle Type
+        GNEDemandElement* getCurrentVType() const;
+
+        /// @brief set current Vehicle Type manually
+        void setCurrentVType(GNEDemandElement *vType);
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when the user select another element in ComboBox
+        long onCmdSelectItem(FXObject*, FXSelector, void*);
+        /// @}
+
+    protected:
+        /// @brief FOX needs this
+        vehicleTypeSelector() {}
+
+    private:
+        /// @brief pointer to Frame Parent
+        GNEVehicleTypeFrame* myVehicleTypeFrameParent;
+
+        /// @brief comboBox with the list of elements type
+        FXComboBox* myTypeMatchBox;
+    };
+
     /**@brief Constructor
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
@@ -51,43 +90,19 @@ public:
     /// @brief show Frame
     void show();
 
-    /**@brief add vehicle element
-     * @param objectsUnderCursor collection of objects under cursor after click over view
-     * @return true if vehicle was sucesfully added
-     */
-    bool addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
-
 protected:
-    /// @brief enable moduls depending of item selected in ItemSelector
-    void enableModuls(const GNEAttributeCarrier::TagProperties& tagProperties);
+    /// @brief enable moduls depending of item selected in vehicleTypeSelector
+    void enableModuls(GNEDemandElement *vType);
 
     /// @brief disable moduls if element selected in itemSelector isn't valid
     void disableModuls();
 
 private:
-    /// @brief generate a ID for an additiona element
-    std::string generateID(GNENetElement* netElement) const;
-
-    /// @brief build common vehicle attributes
-    bool buildVehicleCommonAttributes(std::map<SumoXMLAttr, std::string>& valuesMap, const GNEAttributeCarrier::TagProperties& tagValues);
-
-    /// @brief build vehicle over an edge (parent of lane)
-    bool buildVehicleOverEdge(std::map<SumoXMLAttr, std::string>& valuesMap, GNELane* lane, const GNEAttributeCarrier::TagProperties& tagValues);
-
-    /// @brief build vehicle over a single lane
-    bool buildVehicleOverLane(std::map<SumoXMLAttr, std::string>& valuesMap, GNELane* lane, const GNEAttributeCarrier::TagProperties& tagValues);
-
-    /// @brief build vehicle over view
-    bool buildVehicleOverView(std::map<SumoXMLAttr, std::string>& valuesMap, const GNEAttributeCarrier::TagProperties& tagValues);
-
     /// @brief item selector
-    ItemSelector* myItemSelector;
+    vehicleTypeSelector* myvehicleTypeSelector;
 
-    /// @brief internal vehicle attributes
-    ACAttributes* myVehicleAttributes;
-
-    /// @brief Netedit parameter
-    NeteditAttributes* myNeteditAttributes;
+    /// @brief internal vehicle type attributes
+    ACAttributes* myVehicleTypeAttributes;
 };
 
 

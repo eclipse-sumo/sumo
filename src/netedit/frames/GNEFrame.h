@@ -109,7 +109,7 @@ public:
         ~ACAttributes();
 
         /// @brief show ACAttributes modul
-        void showACAttributesModul(const GNEAttributeCarrier::TagProperties& myTagProperties);
+        void showACAttributesModul(const GNEAttributeCarrier::TagProperties& myTagProperties, bool includeExtendedAttributes);
 
         /// @brief hide group box
         void hideACAttributesModul();
