@@ -597,14 +597,6 @@ NBEdgeCont::splitAt(NBDistrictCont& dc,
     // build the new edges' geometries
     std::pair<PositionVector, PositionVector> geoms =
         edge->getGeometry().splitAt(pos);
-    if (geoms.first[-1] != node->getPosition()) {
-        geoms.first.pop_back();
-        geoms.first.push_back(node->getPosition());
-    }
-
-    if (geoms.second[0] != node->getPosition()) {
-        geoms.second[0] = node->getPosition();
-    }
     // build and insert the edges
     NBEdge* one = new NBEdge(firstEdgeName, edge->myFrom, node, edge, geoms.first, noLanesFirstEdge);
     NBEdge* two = new NBEdge(secondEdgeName, node, edge->myTo, edge, geoms.second, noLanesSecondEdge);
