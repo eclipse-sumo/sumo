@@ -1287,10 +1287,11 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
                     double high = (*veh)->getPositionOnLane(this);
                     double low = (*veh)->getBackPositionOnLane(this);
                     for (AnyVehicleIterator veh2 = bidiLane->anyVehiclesBegin(); veh2 != bidiLane->anyVehiclesEnd(); ++veh2) {
-                        if (*veh == *veh2) {
-                            // no self-collision (when performing a turn-around)
-                            continue;
-                        }
+                        // self-collisions might ligitemately occur when a long train loops back on itself
+                        //if (*veh == *veh2) {
+                        //    // no self-collision (when performing a turn-around)
+                        //    continue;
+                        //}
                         double low2 = myLength - (*veh2)->getPositionOnLane(bidiLane);
                         double high2 = myLength - (*veh2)->getBackPositionOnLane(bidiLane);
                         if (!(high < low2 || high2 < low)) {
