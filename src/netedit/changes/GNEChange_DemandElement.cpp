@@ -25,6 +25,7 @@
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/demandelements/GNEDemandElement.h>
 #include <netedit/frames/GNEInspectorFrame.h>
+#include <netedit/frames/GNEVehicleTypeFrame.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/GNEViewNet.h>
 
@@ -94,11 +95,19 @@ GNEChange_DemandElement::undo() {
         }
         // delete demand element of net
         myNet->deleteDemandElement(myDemandElement);
+        // update vehicle type frame if it's shown
+        if (myNet->getViewNet()->getViewParent()->getVehicleTypeFrame()->shown()) {
+            myNet->getViewNet()->getViewParent()->getVehicleTypeFrame()->getVehicleTypeSelector()->refreshVehicleTypeSelector();
+        }
     } else {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "' in GNEChange_DemandElement");
         // insert demand element of test
         myNet->insertDemandElement(myDemandElement);
+        // update vehicle type frame if it's shown
+        if (myNet->getViewNet()->getViewParent()->getVehicleTypeFrame()->shown()) {
+            myNet->getViewNet()->getViewParent()->getVehicleTypeFrame()->getVehicleTypeSelector()->refreshVehicleTypeSelector();
+        }
         // 2 - If demand element own a edge parent, add it to edge
         for (auto i : myEdgeParents) {
             i->addDemandElementChild(myDemandElement);
@@ -128,6 +137,10 @@ GNEChange_DemandElement::redo() {
         WRITE_DEBUG("Adding " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "' in GNEChange_DemandElement");
         // insert demand element into net
         myNet->insertDemandElement(myDemandElement);
+        // update vehicle type frame if it's shown
+        if (myNet->getViewNet()->getViewParent()->getVehicleTypeFrame()->shown()) {
+            myNet->getViewNet()->getViewParent()->getVehicleTypeFrame()->getVehicleTypeSelector()->refreshVehicleTypeSelector();
+        }
         // 2 - If demand element own a edge parent, add it to edge
         for (auto i : myEdgeParents) {
             i->addDemandElementChild(myDemandElement);
@@ -157,6 +170,10 @@ GNEChange_DemandElement::redo() {
         }
         // delete demand element of net
         myNet->deleteDemandElement(myDemandElement);
+        // update vehicle type frame if it's shown
+        if (myNet->getViewNet()->getViewParent()->getVehicleTypeFrame()->shown()) {
+            myNet->getViewNet()->getViewParent()->getVehicleTypeFrame()->getVehicleTypeSelector()->refreshVehicleTypeSelector();
+        }
     }
     // Requiere always save demandElements
     myNet->requiereSaveDemandElements(true);

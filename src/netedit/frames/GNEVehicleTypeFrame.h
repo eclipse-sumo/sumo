@@ -60,6 +60,9 @@ public:
         /// @brief set current Vehicle Type
         void setCurrentVehicleType(GNEDemandElement *vType);
 
+        /// @brief refresh vehicle type
+        void refreshVehicleTypeSelector();
+
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when the user select another element in ComboBox
@@ -100,7 +103,7 @@ public:
         void hideVehicleTypeEditorModul();
 
         /// @brief update VehicleTypeEditor modul
-        void updateVehicleTypeEditorModul();
+        void refreshVehicleTypeEditorModul();
 
         /// @name FOX-callbacks
         /// @{
@@ -121,6 +124,15 @@ public:
     private:
         /// @brief pointer to vehicle type Frame Parent
         GNEVehicleTypeFrame* myVehicleTypeFrameParent;
+
+        /// @brief "create vehicle type" button
+        FXButton* myCreateVehicleTypeButton;
+
+        /// @brief "delete vehicle type" button
+        FXButton* myDeleteVehicleTypeButton;
+
+        /// @brief "copy vehicle type"
+        FXButton* myCopyVehicleTypeButton;
     };
 
     /**@brief Constructor
@@ -134,6 +146,9 @@ public:
 
     /// @brief show Frame
     void show();
+
+    /// @brief get vehicle type selector
+    VehicleTypeSelector* getVehicleTypeSelector() const;
 
 protected:
     /// @brief enable moduls depending of item selected in VehicleTypeSelector
