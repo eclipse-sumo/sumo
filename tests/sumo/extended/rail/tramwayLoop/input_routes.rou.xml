@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2019-01-15 10:11:11.417125 by $Id$ via randomTrips.py
+  options:
+  T1_0 ==      ====  > T9_0
+        \ T11_0 /
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+  <vType id="RB628" vClass="rail" carFollowModel="Rail" trainType="RB628" color="red"/>
+
+  <trip id="tram1" depart="01" departLane="best" departSpeed="max" from="Tdepot_1" to="Tdepot_1" type="RB628">
+    <stop busStop="leftStop" duration="20"/>
+    <stop busStop="rightStop" duration="20"/>
+    <stop busStop="leftStop" duration="20"/>
+    <stop busStop="rightStop" duration="20"/>
+    <stop busStop="leftStop" duration="20"/>
+  </trip>
+  <trip id="tram2" depart="02" departLane="best" departSpeed="max" from="Tdepot_1" to="Tdepot_1" type="RB628">
+    <stop busStop="rightStop" duration="20"/>
+    <stop busStop="leftStop" duration="20"/>
+    <stop busStop="rightStop" duration="20"/>
+    <stop busStop="leftStop" duration="20"/>
+    <stop busStop="rightStop" duration="20"/>
+    <stop busStop="leftStop" duration="20"/>
+  </trip>
+  <trip id="tram3" depart="10" departLane="best" departSpeed="max" from="TrightLoop_1" to="TleftLoop_1" type="RB628"/>
+  <trip id="tram4" depart="11" departLane="best" departSpeed="max" from="Tdepot_1" to="Tdepot_1" type="RB628">
+    <stop busStop="leftStop" duration="20"/>
+    <stop busStop="rightStop" duration="20"/>
+    <stop busStop="leftStop" duration="20"/>
+    <stop busStop="rightStop" duration="20"/>
+    <stop busStop="leftStop" duration="20"/>
+  </trip>
+  <trip id="tram5" depart="100" departLane="best" departSpeed="max" from="Tdepot_1" to="Tdepot_1" type="RB628">
+    <stop busStop="rightStop" duration="20"/>
+    <stop busStop="leftStop" duration="20"/>
+    <stop busStop="rightStop" duration="20"/>
+    <stop busStop="leftStop" duration="20"/>
+  </trip>
+  <trip id="tram6" depart="110" departLane="best" departSpeed="max" from="Tdepot_1" to="Tdepot_1" type="RB628">
+    <stop busStop="leftStop" duration="20"/>
+    <stop busStop="rightStop" duration="20"/>
+    <stop busStop="leftStop" duration="20"/>
+    <stop busStop="rightStop" duration="20"/>
+    <stop busStop="leftStop" duration="20"/>
+  </trip>
+  <trip id="tram7" depart="200" departLane="best" departSpeed="max" from="Tdepot_1" to="Tdepot_1" type="RB628">
+    <stop busStop="rightStop" duration="20"/>
+    <stop busStop="leftStop" duration="20"/>
+    <stop busStop="rightStop" duration="20"/>
+    <stop busStop="leftStop" duration="20"/>
+  </trip>
+  <trip id="tram8" depart="210" departLane="best" departSpeed="max" from="Tdepot_1" to="Tdepot_1" type="RB628">
+    <stop busStop="leftStop" duration="20"/>
+    <stop busStop="rightStop" duration="20"/>
+    <stop busStop="leftStop" duration="20"/>
+  </trip>
+  <trip id="tram9" depart="300" departLane="best" departSpeed="max" from="Tdepot_1" to="Tdepot_1" type="RB628">
+    <stop busStop="rightStop" duration="20"/>
+    <stop busStop="leftStop" duration="20"/>
+    <stop busStop="rightStop" duration="20"/>
+    <stop busStop="leftStop" duration="20"/>
+  </trip>
+</routes>

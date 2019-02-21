@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu Feb 21 14:22:35 2019 by Eclipse SUMO Version v1_0_1+0645-93703db
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <vehroute-output value="vehroutes.xml"/>
+        <railsignal-block-output value="railsignal_blocks.xml"/>
+        <stop-output value="stopinfos.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <routing>
+        <device.rerouting.period value="10"/>
+        <device.rerouting.adaptation-steps value="10"/>
+    </routing>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+        <duration-log.statistics value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="tram3" depart="10.00" departLane="TrightLoop_1_0" departPos="46.10" departSpeed="21.21" departDelay="0.00" arrival="703.00" arrivalLane="TleftLoop_1_0" arrivalPos="400.00" arrivalSpeed="16.02" duration="693.00" routeLength="10295.68" waitingTime="97.00" waitingCount="3" stopTime="0.00" timeLoss="383.26" rerouteNo="1" devices="vehroute_tram3 tripinfo_tram3 routing_tram3" vType="RB628" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="tram8" depart="210.00" departLane="Tdepot_1_0" departPos="46.10" departSpeed="9.68" departDelay="0.00" arrival="2469.00" arrivalLane="Tdepot_1_0" arrivalPos="150.00" arrivalSpeed="7.35" duration="2259.00" routeLength="31008.35" waitingTime="413.00" waitingCount="9" stopTime="63.00" timeLoss="1257.38" rerouteNo="5" devices="vehroute_tram8 tripinfo_tram8 routing_tram8" vType="RB628" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="tram5" depart="100.00" departLane="Tdepot_1_0" departPos="46.10" departSpeed="12.38" departDelay="0.00" arrival="3133.00" arrivalLane="Tdepot_1_0" arrivalPos="150.00" arrivalSpeed="7.35" duration="3033.00" routeLength="40247.98" waitingTime="609.00" waitingCount="10" stopTime="84.00" timeLoss="1724.78" rerouteNo="9" devices="vehroute_tram5 tripinfo_tram5 routing_tram5" vType="RB628" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="tram7" depart="200.00" departLane="Tdepot_1_0" departPos="46.10" departSpeed="12.38" departDelay="0.00" arrival="3234.00" arrivalLane="Tdepot_1_0" arrivalPos="150.00" arrivalSpeed="6.81" duration="3034.00" routeLength="40247.98" waitingTime="522.00" waitingCount="12" stopTime="84.00" timeLoss="1725.60" rerouteNo="9" devices="vehroute_tram7 tripinfo_tram7 routing_tram7" vType="RB628" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="tram9" depart="300.00" departLane="Tdepot_1_0" departPos="46.10" departSpeed="12.38" departDelay="0.00" arrival="3331.00" arrivalLane="Tdepot_1_0" arrivalPos="150.00" arrivalSpeed="6.81" duration="3031.00" routeLength="40247.98" waitingTime="484.00" waitingCount="16" stopTime="84.00" timeLoss="1721.77" rerouteNo="11" devices="vehroute_tram9 tripinfo_tram9 routing_tram9" vType="RB628" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="tram1" depart="1.00" departLane="Tdepot_1_0" departPos="46.10" departSpeed="12.45" departDelay="0.00" arrival="3473.00" arrivalLane="Tdepot_1_0" arrivalPos="150.00" arrivalSpeed="7.35" duration="3472.00" routeLength="50925.57" waitingTime="402.00" waitingCount="18" stopTime="105.00" timeLoss="1830.33" rerouteNo="17" devices="vehroute_tram1 tripinfo_tram1 routing_tram1" vType="RB628" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="tram4" depart="13.00" departLane="Tdepot_1_0" departPos="46.10" departSpeed="5.98" departDelay="2.00" arrival="3572.00" arrivalLane="Tdepot_1_0" arrivalPos="150.00" arrivalSpeed="6.81" duration="3559.00" routeLength="50925.57" waitingTime="551.00" waitingCount="16" stopTime="105.00" timeLoss="1920.28" rerouteNo="28" devices="vehroute_tram4 tripinfo_tram4 routing_tram4" vType="RB628" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="tram6" depart="110.00" departLane="Tdepot_1_0" departPos="46.10" departSpeed="9.68" departDelay="0.00" arrival="3750.00" arrivalLane="Tdepot_1_0" arrivalPos="150.00" arrivalSpeed="7.35" duration="3640.00" routeLength="50925.57" waitingTime="766.00" waitingCount="12" stopTime="105.00" timeLoss="2000.82" rerouteNo="25" devices="vehroute_tram6 tripinfo_tram6 routing_tram6" vType="RB628" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="tram2" depart="6.00" departLane="Tdepot_1_0" departPos="46.10" departSpeed="9.76" departDelay="4.00" arrival="3956.00" arrivalLane="Tdepot_1_0" arrivalPos="150.00" arrivalSpeed="7.35" duration="3950.00" routeLength="60165.20" waitingTime="508.00" waitingCount="13" stopTime="126.00" timeLoss="2001.35" rerouteNo="29" devices="vehroute_tram2 tripinfo_tram2 routing_tram2" vType="RB628" speedFactor="1.00" vaporized=""/>
+</tripinfos>
