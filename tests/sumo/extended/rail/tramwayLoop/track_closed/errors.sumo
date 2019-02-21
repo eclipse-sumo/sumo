@@ -20,5 +20,3 @@ Warning: Teleporting vehicle 'tram6'; waited too long (yield), lane='T29_0_0', t
 Warning: Vehicle 'tram6' ends teleporting on edge 'T32_0', time 2588.00.
 Warning: Vehicle 'tram9' performs emergency stop at the end of lane 'T6_0_0' because of a red traffic light (decel=-4.81, offset=0.64), time=2590.00.
 Warning: Vehicle 'tram2' performs emergency stop at the end of lane 'T29_0_0' because of a red traffic light (decel=-3.84, offset=1.88), time=2637.00.
-Warning: Vehicle 'tram5' performs emergency stop at the end of lane 'TleftLoop_1_0' because there is no connection to the next edge (decel=-8.12, offset=6.84), time=2931.00.
-Warning: Vehicle 'tram6' stops on edge 'TleftLoop_1', time 3561.00 without ending the previous stop entered at time 3040.00
