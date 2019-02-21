@@ -35,7 +35,6 @@
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/globjects/GUIGlObject_AbstractAdd.h>
-#include <guisim/GUIVehicle.h>
 #include "GUIDialog_GLObjChooser.h"
 
 
@@ -122,13 +121,13 @@ GUIDialog_GLObjChooser::onCmdTrack(FXObject*, FXSelector, void*) {
         GUIGlID id = *static_cast<GUIGlID*>(myList->getItemData(selected));
         GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
         if (o->getType() == GLO_VEHICLE) {
-            GUIVehicle* v = (GUIVehicle*)o;
-            myParent->getView()->startTrack(v->getGlID());
+            myParent->getView()->startTrack(o->getGlID());
         }
         GUIGlObjectStorage::gIDStorage.unblockObject(id);
     }
     return 1;
 }
+
 
 long
 GUIDialog_GLObjChooser::onCmdClose(FXObject*, FXSelector, void*) {
