@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:27:51 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Thu Feb 21 10:09:38 2019 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -316,10 +316,10 @@ SPDX-License-Identifier: EPL-2.0
     <edge id="-1.13.31" from="1.13.31" to="1.16.77" priority="1" type="driving" shape="235.32,202.30 235.44,204.03 235.57,205.75">
         <lane id="-1.13.31_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.89" length="3.33" width="3.50" shape="237.07,202.30 237.19,203.90 237.32,205.62"/>
     </edge>
-    <edge id="-1.16.77" from="1.16.77" to="1.17.09" priority="1" type="driving" shape="235.57,205.75 235.57,206.07">
+    <edge id="-1.16.77" from="1.16.77" to="1.17.09" priority="1" type="driving">
         <lane id="-1.16.77_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.89" length="0.32" width="3.25" shape="237.19,205.75 237.19,206.07"/>
     </edge>
-    <edge id="-1.17.09" from="1.17.09" to="1.17.90" priority="1" type="driving" shape="235.57,206.07 235.57,206.88">
+    <edge id="-1.17.09" from="1.17.09" to="1.17.90" priority="1" type="driving">
         <lane id="-1.17.09_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.89" length="0.81" width="3.25" shape="237.19,206.07 237.19,206.88"/>
     </edge>
     <edge id="-1.17.90" from="1.17.90" to="1.24.42" priority="1" type="driving" shape="235.57,206.88 235.57,208.51 235.57,210.14 235.57,211.77 235.57,213.40">
@@ -334,7 +334,7 @@ SPDX-License-Identifier: EPL-2.0
     <edge id="-1.32.61" from="1.32.61" to="1.43.49" priority="1" type="driving" shape="235.57,221.59 235.57,223.40 235.57,225.22 235.57,227.03 235.57,228.84 235.57,230.66 235.57,232.47">
         <lane id="-1.32.61_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.89" length="10.88" width="3.25" shape="237.19,221.59 237.19,223.40 237.19,225.22 237.19,227.03 237.19,228.84 237.19,230.66 237.19,232.47"/>
     </edge>
-    <edge id="-1.4.28" from="1.4.28" to="1.6.25" priority="1" type="driving" shape="235.32,193.27 235.32,195.24">
+    <edge id="-1.4.28" from="1.4.28" to="1.6.25" priority="1" type="driving">
         <lane id="-1.4.28_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.89" length="1.97" width="3.50" shape="237.07,193.27 237.07,195.24"/>
     </edge>
     <edge id="-1.43.49" from="1.43.49" to="1.end" priority="1" type="driving" shape="235.57,232.47 235.57,234.46 235.57,236.45 235.57,238.43 235.57,240.42 235.57,242.41 235.57,244.40 235.57,246.39 235.57,248.38 235.57,250.36 235.57,252.35 235.57,254.34 235.56,256.33 235.56,258.32 235.56,260.30 235.56,262.29 235.56,264.28 235.56,266.27 235.56,268.26 235.56,270.25 235.56,272.23 235.56,274.22 235.55,276.21 235.55,278.20 235.55,280.19 235.55,282.17 235.55,284.16 235.55,286.15 235.55,288.14 235.54,290.13 235.54,292.12 235.54,294.10 235.54,296.09 235.54,298.08 235.54,300.07 235.53,302.06 235.53,304.04 235.53,306.03 235.53,308.02 235.53,310.01 235.53,312.00 235.52,313.99 235.52,315.97 235.52,317.96 235.52,319.95 235.52,321.94 235.51,323.93 235.51,325.91 235.51,327.90 235.51,329.89 235.51,331.88 235.50,333.87 235.50,335.86 235.50,337.84 235.50,339.83 235.50,341.82 235.49,343.81 235.49,345.80 235.49,347.78 235.49,349.77 235.49,351.76 235.48,353.75 235.48,355.74 235.48,357.73 235.48,359.71 235.48,361.70 235.47,363.69 235.47,365.68 235.47,367.67 235.47,369.66 235.47,371.64 235.46,373.63 235.46,375.62 235.46,377.61 235.46,379.60 235.46,381.58 235.46,383.57 235.45,385.56 235.45,387.55 235.45,389.54 235.45,391.53 235.45,393.51 235.45,395.50 235.44,397.49 235.44,399.48 235.44,401.47 235.44,403.45 235.44,405.44 235.44,407.43 235.44,409.42 235.43,411.41 235.43,413.40 235.43,415.38 235.43,417.37 235.43,419.36 235.43,421.35">
@@ -415,7 +415,7 @@ SPDX-License-Identifier: EPL-2.0
     <edge id="-4.236.70" from="4.236.70" to="4.239.39" priority="1" type="driving" shape="253.15,181.45 251.81,181.45 250.46,181.45">
         <lane id="-4.236.70_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.89" length="2.58" width="3.00" shape="253.04,182.95 251.80,182.95 250.46,182.95"/>
     </edge>
-    <edge id="-4.239.39" from="4.239.39" to="4.240.14" priority="1" type="driving" shape="250.46,181.45 249.71,181.45">
+    <edge id="-4.239.39" from="4.239.39" to="4.240.14" priority="1" type="driving">
         <lane id="-4.239.39_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.89" length="0.75" width="3.00" shape="250.46,182.95 249.71,182.95"/>
     </edge>
     <edge id="-4.240.14" from="4.240.14" to="1000000" priority="1" type="driving" shape="249.71,181.45 247.81,181.45 235.21,181.45">
@@ -427,10 +427,10 @@ SPDX-License-Identifier: EPL-2.0
     <edge id="1.13.31" from="1.16.77" to="1.13.31" priority="1" type="driving" shape="235.57,205.75 235.44,204.03 235.32,202.30">
         <lane id="1.13.31_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.89" length="3.33" width="3.00" shape="234.07,205.86 233.95,204.13 233.83,202.53"/>
     </edge>
-    <edge id="1.16.77" from="1.17.09" to="1.16.77" priority="1" type="driving" shape="235.57,206.07 235.57,205.75">
+    <edge id="1.16.77" from="1.17.09" to="1.16.77" priority="1" type="driving">
         <lane id="1.16.77_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.89" length="0.32" width="3.25" shape="233.94,206.07 233.94,205.75"/>
     </edge>
-    <edge id="1.17.09" from="1.17.90" to="1.17.09" priority="1" type="driving" shape="235.57,206.88 235.57,206.07">
+    <edge id="1.17.09" from="1.17.90" to="1.17.09" priority="1" type="driving">
         <lane id="1.17.09_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.89" length="0.81" width="3.25" shape="233.94,206.88 233.94,206.07"/>
     </edge>
     <edge id="1.17.90" from="1.24.42" to="1.17.90" priority="1" type="driving" shape="235.57,213.40 235.57,211.77 235.57,210.14 235.57,208.51 235.57,206.88">
@@ -445,7 +445,7 @@ SPDX-License-Identifier: EPL-2.0
     <edge id="1.32.61" from="1.43.49" to="1.32.61" priority="1" type="driving" shape="235.57,232.47 235.57,230.66 235.57,228.84 235.57,227.03 235.57,225.22 235.57,223.40 235.57,221.59">
         <lane id="1.32.61_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.89" length="10.88" width="3.25" shape="233.94,232.47 233.94,230.66 233.94,228.84 233.94,227.03 233.94,225.22 233.94,223.40 233.94,221.59"/>
     </edge>
-    <edge id="1.4.28" from="1.6.25" to="1.4.28" priority="1" type="driving" shape="235.32,195.24 235.32,193.27">
+    <edge id="1.4.28" from="1.6.25" to="1.4.28" priority="1" type="driving">
         <lane id="1.4.28_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.89" length="1.97" width="3.00" shape="233.82,195.24 233.82,193.27"/>
     </edge>
     <edge id="1.43.49" from="1.end" to="1.43.49" priority="1" type="driving" shape="235.43,421.35 235.43,419.36 235.43,417.37 235.43,415.38 235.43,413.40 235.43,411.41 235.44,409.42 235.44,407.43 235.44,405.44 235.44,403.45 235.44,401.47 235.44,399.48 235.44,397.49 235.45,395.50 235.45,393.51 235.45,391.53 235.45,389.54 235.45,387.55 235.45,385.56 235.46,383.57 235.46,381.58 235.46,379.60 235.46,377.61 235.46,375.62 235.46,373.63 235.47,371.64 235.47,369.66 235.47,367.67 235.47,365.68 235.47,363.69 235.48,361.70 235.48,359.71 235.48,357.73 235.48,355.74 235.48,353.75 235.49,351.76 235.49,349.77 235.49,347.78 235.49,345.80 235.49,343.81 235.50,341.82 235.50,339.83 235.50,337.84 235.50,335.86 235.50,333.87 235.51,331.88 235.51,329.89 235.51,327.90 235.51,325.91 235.51,323.93 235.52,321.94 235.52,319.95 235.52,317.96 235.52,315.97 235.52,313.99 235.53,312.00 235.53,310.01 235.53,308.02 235.53,306.03 235.53,304.04 235.53,302.06 235.54,300.07 235.54,298.08 235.54,296.09 235.54,294.10 235.54,292.12 235.54,290.13 235.55,288.14 235.55,286.15 235.55,284.16 235.55,282.17 235.55,280.19 235.55,278.20 235.55,276.21 235.56,274.22 235.56,272.23 235.56,270.25 235.56,268.26 235.56,266.27 235.56,264.28 235.56,262.29 235.56,260.30 235.56,258.32 235.56,256.33 235.57,254.34 235.57,252.35 235.57,250.36 235.57,248.38 235.57,246.39 235.57,244.40 235.57,242.41 235.57,240.42 235.57,238.43 235.57,236.45 235.57,234.46 235.57,232.47">
@@ -526,7 +526,7 @@ SPDX-License-Identifier: EPL-2.0
     <edge id="4.236.70" from="4.239.39" to="4.236.70" priority="1" type="driving" shape="250.46,181.45 251.81,181.45 253.15,181.45">
         <lane id="4.236.70_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.89" length="2.58" width="3.50" shape="250.46,179.70 251.81,179.70 253.04,179.70"/>
     </edge>
-    <edge id="4.239.39" from="4.240.14" to="4.239.39" priority="1" type="driving" shape="249.71,181.45 250.46,181.45">
+    <edge id="4.239.39" from="4.240.14" to="4.239.39" priority="1" type="driving">
         <lane id="4.239.39_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.89" length="0.75" width="3.50" shape="249.71,179.70 250.46,179.70"/>
     </edge>
     <edge id="4.240.14" from="1000000" to="4.240.14" priority="1" type="driving" shape="235.21,181.45 247.81,181.45 249.71,181.45">
