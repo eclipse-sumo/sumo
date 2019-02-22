@@ -166,6 +166,9 @@ protected:
     /// @brief set VClass texture
     void setVClassLabelImage();
 
+    /// @brief set VShape texture
+    void setVShapeLabelImage();
+
 private:
     /// @brief Invalidated copy constructor.
     GNEVehicleTypeDialog(const GNEVehicleTypeDialog&) = delete;
