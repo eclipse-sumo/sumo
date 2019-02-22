@@ -48,6 +48,12 @@ GNEVehicleType::GNEVehicleType(GNEViewNet* viewNet, const SUMOVTypeParameter &vT
 }
 
 
+GNEVehicleType::GNEVehicleType(GNEViewNet* viewNet, const std::string &vTypeID, GNEVehicleType *vTypeOriginal) :
+    GNEDemandElement(vTypeID, viewNet, GLO_VTYPE, SUMO_TAG_VTYPE),
+    SUMOVTypeParameter(*vTypeOriginal) {
+}
+
+
 GNEVehicleType::~GNEVehicleType() {}
 
 
@@ -316,7 +322,7 @@ GNEVehicleType::isDisjointAttributeSet(const SumoXMLAttr attr) const {
         case SUMO_ATTR_COLOR:
             return (parametersSet & VTYPEPARS_COLOR_SET) != 0;
         default:
-            return false;
+            return true;
     };
 }
 

@@ -107,8 +107,6 @@ GNEVehicleTypeFrame::VehicleTypeSelector::setCurrentVehicleType(GNEDemandElement
     }
     // Check that give vType type is valid
     if (valid) {
-        // refresh vehicle type selector
-        refreshVehicleTypeSelector();
         // show moduls if selected item is valid
         myVehicleTypeFrameParent->enableModuls(vType);
     } else {
@@ -202,12 +200,18 @@ GNEVehicleTypeFrame::VehicleTypeEditor::refreshVehicleTypeEditorModul() {
 
 long 
 GNEVehicleTypeFrame::VehicleTypeEditor::onCmdCreateVehicleType(FXObject*, FXSelector, void*) {
-    // create new vehicle type
+    // obtain a new valid Vehicle Type ID
     std::string vehicleTypeID = myVehicleTypeFrameParent->myViewNet->getNet()->generateDemandElementID(SUMO_TAG_VTYPE);
+    // create new vehicle type
     GNEDemandElement *vehicleType = new GNEVehicleType(myVehicleTypeFrameParent->myViewNet, vehicleTypeID);
+    // add it using undoList (to allow undo-redo)
     myVehicleTypeFrameParent->myViewNet->getUndoList()->add(new GNEChange_DemandElement(vehicleType, true), true);
+    // refresh Vehicle Type Selector (to show the new VType)
+    myVehicleTypeFrameParent->myVehicleTypeSelector->refreshVehicleTypeSelector();
     // set created vehicle type in selector
     myVehicleTypeFrameParent->myVehicleTypeSelector->setCurrentVehicleType(vehicleType);
+    // refresh VehicleType Editor Modul
+    myVehicleTypeFrameParent->myVehicleTypeEditor->refreshVehicleTypeEditorModul();
     return 1;
 }
 
@@ -223,6 +227,23 @@ GNEVehicleTypeFrame::VehicleTypeEditor::onCmdDeleteVehicleType(FXObject*, FXSele
 
 long 
 GNEVehicleTypeFrame::VehicleTypeEditor::onCmdCopyVehicleType(FXObject*, FXSelector, void*) {
+    // obtain a new valid Vehicle Type ID
+    std::string vehicleTypeID = myVehicleTypeFrameParent->myViewNet->getNet()->generateDemandElementID(SUMO_TAG_VTYPE) + "_copy";
+    // obtain vehicle type in which new Vehicle Type will be based
+    GNEVehicleType *vType = dynamic_cast<GNEVehicleType*>(myVehicleTypeFrameParent->myVehicleTypeSelector->getCurrentVehicleType());
+    // check that vType exist
+    if (vType) {
+        // create a new Vehicle Type based on the current selected vehicle type
+        GNEDemandElement *vehicleTypeCopy = new GNEVehicleType(myVehicleTypeFrameParent->myViewNet, vehicleTypeID, vType);
+        // add it using undoList (to allow undo-redo)
+        myVehicleTypeFrameParent->myViewNet->getUndoList()->add(new GNEChange_DemandElement(vehicleTypeCopy, true), true);
+        // refresh Vehicle Type Selector (to show the new VType)
+        myVehicleTypeFrameParent->myVehicleTypeSelector->refreshVehicleTypeSelector();
+        // set created vehicle type in selector
+        myVehicleTypeFrameParent->myVehicleTypeSelector->setCurrentVehicleType(vehicleTypeCopy);
+        // refresh VehicleType Editor Modul
+        myVehicleTypeFrameParent->myVehicleTypeEditor->refreshVehicleTypeEditorModul();
+    }
     return 1;
 }
 
@@ -270,8 +291,8 @@ GNEVehicleTypeFrame::getVehicleTypeSelector() const {
 
 void
 GNEVehicleTypeFrame::enableModuls(GNEDemandElement *vType) {
-    // show vehicle type attributes editor
-    myVehicleTypeAttributesEditor->showAttributeEditorModul({vType});
+    // show vehicle type attributes editor (except extended attributes)
+    myVehicleTypeAttributesEditor->showAttributeEditorModul({vType}, false);
 }
 
 

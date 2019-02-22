@@ -54,18 +54,18 @@
 // ===========================================================================
 
 FXDEFMAP(GNEFrame::ItemSelector) ItemSelectorMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_TYPE,    GNEFrame::ItemSelector::onCmdSelectItem),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_TYPE,    GNEFrame::ItemSelector::onCmdSelectItem)
 };
 
 FXDEFMAP(GNEFrame::AttributesCreator) AttributesCreatorMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,   GNEFrame::AttributesCreator::onCmdHelp),
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,   GNEFrame::AttributesCreator::onCmdHelp)
 };
 
 FXDEFMAP(GNEFrame::AttributesCreator::RowCreator) RowCreatorMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_TEXT,         GNEFrame::AttributesCreator::RowCreator::onCmdSetAttribute),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_BOOL,         GNEFrame::AttributesCreator::RowCreator::onCmdSetBooleanAttribute),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,       GNEFrame::AttributesCreator::RowCreator::onCmdSetColorAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_RADIOBUTTON,  GNEFrame::AttributesCreator::RowCreator::onCmdSelectRadioButton),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_RADIOBUTTON,  GNEFrame::AttributesCreator::RowCreator::onCmdSelectRadioButton)
 };
 
 FXDEFMAP(GNEFrame::AttributesEditor) AttributesEditorMap[] = {
@@ -79,30 +79,30 @@ FXDEFMAP(GNEFrame::AttributesEditor::RowEditor) RowEditorMap[] = {
 };
 
 FXDEFMAP(GNEFrame::AttributesEditorExtended) AttributesEditorExtendedMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNEFrame::AttributesEditorExtended::onCmdOpenDialog),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNEFrame::AttributesEditorExtended::onCmdOpenDialog)
 };
 
 FXDEFMAP(GNEFrame::ACHierarchy) ACHierarchyMap[] = {
     FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECTORFRAME_CENTER,      GNEFrame::ACHierarchy::onCmdCenterItem),
     FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECTORFRAME_INSPECT,     GNEFrame::ACHierarchy::onCmdInspectItem),
     FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECTORFRAME_DELETE,      GNEFrame::ACHierarchy::onCmdDeleteItem),
-    FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,   MID_GNE_DELETEFRAME_CHILDS,         GNEFrame::ACHierarchy::onCmdShowChildMenu),
+    FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,   MID_GNE_DELETEFRAME_CHILDS,         GNEFrame::ACHierarchy::onCmdShowChildMenu)
 };
 
 FXDEFMAP(GNEFrame::GenericParametersEditor) GenericParametersEditorMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNEFrame::GenericParametersEditor::onCmdEditGenericParameter),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEFrame::GenericParametersEditor::onCmdSetGenericParameter),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEFrame::GenericParametersEditor::onCmdSetGenericParameter)
 };
 
 FXDEFMAP(GNEFrame::DrawingShape) DrawingShapeMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_STARTDRAWING,   GNEFrame::DrawingShape::onCmdStartDrawing),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_STOPDRAWING,    GNEFrame::DrawingShape::onCmdStopDrawing),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ABORTDRAWING,   GNEFrame::DrawingShape::onCmdAbortDrawing),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ABORTDRAWING,   GNEFrame::DrawingShape::onCmdAbortDrawing)
 };
 
 FXDEFMAP(GNEFrame::NeteditAttributes) NeteditAttributesMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEFrame::NeteditAttributes::onCmdSetNeteditAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,               GNEFrame::NeteditAttributes::onCmdHelp),
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,               GNEFrame::NeteditAttributes::onCmdHelp)
 };
 
 // Object implementation
@@ -1259,7 +1259,8 @@ GNEFrame::AttributesEditor::RowEditor::disableRowElements() {
 
 GNEFrame::AttributesEditor::AttributesEditor(GNEFrame* FrameParent) :
     FXGroupBox(FrameParent->myContentFrame, "Internal attributes", GUIDesignGroupBoxFrame),
-    myFrameParent(FrameParent) {
+    myFrameParent(FrameParent),
+    myIncludeExtended(true) {
     // Create sufficient Row for all types of AttributeCarriers
     for (int i = 0; i < (int)GNEAttributeCarrier::getHigherNumberOfAttributes(); i++) {
         myVectorOfRows.push_back(new RowEditor(this));
@@ -1270,8 +1271,13 @@ GNEFrame::AttributesEditor::AttributesEditor(GNEFrame* FrameParent) :
 
 
 void
-GNEFrame::AttributesEditor::showAttributeEditorModul(const std::vector<GNEAttributeCarrier*>& ACs) {
+GNEFrame::AttributesEditor::showAttributeEditorModul(const std::vector<GNEAttributeCarrier*>& ACs, bool includeExtended) {
     myEditedACs = ACs;
+    myIncludeExtended = includeExtended;
+    // first hide all rows
+    for (const auto& i : myVectorOfRows) {
+        i->hideRow();
+    }
     if (myEditedACs.size() > 0) {
         //  check if current AC is a Junction without TLSs (needed to hidde TLS options)
         bool disableTLSinJunctions = (dynamic_cast<GNEJunction*>(myEditedACs.front()) && (dynamic_cast<GNEJunction*>(myEditedACs.front())->getNBNode()->getControllingTLS().empty()));
@@ -1281,6 +1287,11 @@ GNEFrame::AttributesEditor::showAttributeEditorModul(const std::vector<GNEAttrib
             if ((myEditedACs.size() > 1) && i.second.isUnique()) {
                 continue;
             }
+            // disable editing of extended attributes if includeExtended isn't enabled
+            if (i.second.isExtended() && !includeExtended) {
+                continue;
+            }
+
             // Declare a set of occuring values and insert attribute's values of item (note: We use a set to avoid repeated values)
             std::set<std::string> occuringValues;
             for (const auto& it_ac : myEditedACs) {
@@ -1422,7 +1433,7 @@ GNEFrame::AttributesEditor::removeEditedAC(GNEAttributeCarrier* AC) {
             // Write Warning in console if we're in testing mode
             WRITE_DEBUG("Removed inspected element from Inspected ACs. " + toString(myEditedACs.size()) + " ACs remains.");
             // Inspect multi selection again (To refresh Modul)
-            showAttributeEditorModul(myEditedACs);
+            showAttributeEditorModul(myEditedACs, myIncludeExtended);
         }
     }
 }

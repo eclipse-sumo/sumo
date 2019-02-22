@@ -130,7 +130,7 @@ public:
         /// @}
 
         // ===========================================================================
-        // class Row
+        // class RowCreator
         // ===========================================================================
 
         class RowCreator : public FXHorizontalFrame {
@@ -248,7 +248,7 @@ public:
     public:
 
         // ===========================================================================
-        // class Row
+        // class RowEditor
         // ===========================================================================
 
         class RowEditor : private FXHorizontalFrame {
@@ -339,7 +339,7 @@ public:
         AttributesEditor(GNEFrame* inspectorFrameParent);
 
         /// @brief show attributes of multiple ACs
-        void showAttributeEditorModul(const std::vector<GNEAttributeCarrier*>& ACs);
+        void showAttributeEditorModul(const std::vector<GNEAttributeCarrier*>& ACs, bool includeExtended);
 
         /// @brief hide attribute editor
         void hideAttributesEditorModul();
@@ -375,6 +375,9 @@ public:
 
         /// @brief the multi-selection currently being inspected
         std::vector<GNEAttributeCarrier*> myEditedACs;
+
+        /// @brief flag used to mark if current edited ACs are bein edited including extended attribute
+        bool myIncludeExtended;
     };
 
     // ===========================================================================

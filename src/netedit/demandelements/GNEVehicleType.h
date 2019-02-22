@@ -43,6 +43,9 @@ public:
     /// @brief constructor
     GNEVehicleType(GNEViewNet* viewNet, const SUMOVTypeParameter &vTypeParameter);
 
+    /// @brief copy constructor
+    GNEVehicleType(GNEViewNet* viewNet, const std::string &vTypeID, GNEVehicleType *vTypeOriginal);
+
     /// @brief destructor
     ~GNEVehicleType();
 
