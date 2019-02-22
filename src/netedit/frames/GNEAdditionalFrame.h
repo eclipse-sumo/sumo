@@ -357,7 +357,7 @@ private:
     ItemSelector* myItemSelector;
 
     /// @brief internal additional attributes
-    ACAttributes* myAdditionalAttributes;
+    AttributesCreator* myAdditionalAttributes;
 
     /// @brief Netedit parameter
     NeteditAttributes* myNeteditAttributes;

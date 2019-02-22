@@ -154,7 +154,7 @@ private:
     ItemSelector* myItemSelector;
 
     /// @brief shape internal attributes
-    ACAttributes* myShapeAttributes;
+    AttributesCreator* myShapeAttributes;
 
     /// @brief Netedit parameter
     NeteditAttributes* myNeteditAttributes;

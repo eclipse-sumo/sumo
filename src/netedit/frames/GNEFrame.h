@@ -91,28 +91,28 @@ public:
     };
 
     // ===========================================================================
-    // class ACAttributes
+    // class AttributesCreator
     // ===========================================================================
 
-    class ACAttributes : protected FXGroupBox {
+    class AttributesCreator : protected FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNEFrame::ACAttributes)
+        FXDECLARE(GNEFrame::AttributesCreator)
 
         // declare friend class
         friend class Row;
 
     public:
         /// @brief constructor
-        ACAttributes(GNEFrame* frameParent);
+        AttributesCreator(GNEFrame* frameParent);
 
         /// @brief destructor
-        ~ACAttributes();
+        ~AttributesCreator();
 
-        /// @brief show ACAttributes modul
-        void showACAttributesModul(const GNEAttributeCarrier::TagProperties& myTagProperties, bool includeExtendedAttributes);
+        /// @brief show AttributesCreator modul
+        void showAttributesCreatorModul(const GNEAttributeCarrier::TagProperties& myTagProperties);
 
         /// @brief hide group box
-        void hideACAttributesModul();
+        void hideAttributesCreatorModul();
 
         /// @brief get attributes and their values
         std::map<SumoXMLAttr, std::string> getAttributesAndValues(bool includeAll) const;
@@ -133,16 +133,13 @@ public:
         // class Row
         // ===========================================================================
 
-        class Row : public FXHorizontalFrame {
+        class RowCreator : public FXHorizontalFrame {
             /// @brief FOX-declaration
-            FXDECLARE(GNEFrame::ACAttributes::Row)
+            FXDECLARE(GNEFrame::AttributesCreator::RowCreator)
 
         public:
             /// @brief constructor
-            Row(ACAttributes* ACAttributesParent);
-
-            /// @brief destructor
-            ~Row();
+            RowCreator(AttributesCreator* AttributesCreatorParent);
 
             /// @brief show name and value of attribute of type string
             void showParameter(const GNEAttributeCarrier::AttributeProperties& attrProperties);
@@ -168,8 +165,8 @@ public:
             /// @brief returns a empty string if current value is valid, a string with information about invalid value in other case
             const std::string& isAttributeValid() const;
 
-            /// @brief get ACAttributes parent
-            ACAttributes* getACAttributesParent() const;
+            /// @brief get AttributesCreator parent
+            AttributesCreator* getAttributesCreatorParent() const;
 
             /// @name FOX-callbacks
             /// @{
@@ -188,11 +185,11 @@ public:
 
         protected:
             /// @brief FOX needs this
-            Row() {}
+            RowCreator() {}
 
         private:
-            /// @brief pointer to ACAttributes
-            ACAttributes* myACAttributesParent;
+            /// @brief pointer to AttributesCreator
+            AttributesCreator* myAttributesCreatorParent;
 
             /// @brief attribute properties
             GNEAttributeCarrier::AttributeProperties myAttrProperties;
@@ -223,11 +220,11 @@ public:
         };
 
         /// @brief update disjoint attributes
-        void updateDisjointAttributes(Row *row);
+        void updateDisjointAttributes(RowCreator *row);
 
     protected:
         /// @brief FOX needs this
-        ACAttributes() {};
+        AttributesCreator() {};
 
     private:
         /// @brief pointer to Polygon Frame Parent
@@ -237,29 +234,169 @@ public:
         GNEAttributeCarrier::TagProperties myTagProperties;
 
         /// @brief vector with the ACAttribute Rows
-        std::vector<Row*> myRows;
+        std::vector<RowCreator*> myRows;
     };
 
     // ===========================================================================
-    // class ACAttributesExtended
+    // class AttributesEditor
     // ===========================================================================
 
-    class ACAttributesExtended : protected FXGroupBox {
+    class AttributesEditor : private FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNEFrame::ACAttributesExtended)
+        FXDECLARE(GNEFrame::AttributesEditor)
+
+    public:
+
+        // ===========================================================================
+        // class Row
+        // ===========================================================================
+
+        class RowEditor : private FXHorizontalFrame {
+            /// @brief FOX-declaration
+            FXDECLARE(GNEFrame::AttributesEditor::RowEditor)
+
+        public:
+            /// @brief constructor
+            RowEditor(GNEFrame::AttributesEditor* attributeEditorParent);
+
+            /// @brief show row attribute
+            void showRow(const GNEAttributeCarrier::AttributeProperties &ACAttr, const std::string& value, bool disjointAttributeEnabled);
+
+            /// @brief show row attribute
+            void hideRow();
+
+            /// @brief refresh current row
+            void refreshRow(const std::string& value, bool forceRefresh, bool disjointAttributeEnabled);
+
+            /// @brief check if current attribute of TextField/ComboBox is valid
+            bool isRowValid() const;
+
+            /// @name FOX-callbacks
+            /// @{
+
+            /// @brief try to set new attribute value
+            long onCmdSetAttribute(FXObject*, FXSelector, void*);
+
+            /// @brief set new disjoint attribute
+            long onCmdSetDisjointAttribute(FXObject*, FXSelector, void*);
+
+            /// @brief open model dialog for more comfortable attribute editing
+            long onCmdOpenAttributeDialog(FXObject*, FXSelector, void*);
+            /// @}
+
+        protected:
+            /// @brief FOX needs this
+            RowEditor() {}
+
+            /// @brief removed invalid spaces of Positions and shapes
+            std::string stripWhitespaceAfterComma(const std::string& stringValue);
+            
+            /// @brief enable row elements
+            void enableRowElements();
+
+            /// @brief disable row elements
+            void disableRowElements();
+
+        private:
+            /// @brief pointer to AttributesEditor parent
+            GNEFrame::AttributesEditor* myAttributesEditorParent;
+
+            /// @brief current AC Attribute
+            GNEAttributeCarrier::AttributeProperties myACAttr;
+
+            /// @brief flag to check if input element contains multiple values
+            bool myMultiple;
+
+            /// @brief pointer to attribute label
+            FXLabel* myLabel;
+
+            /// @brief Radio button for disjoint attributes
+            FXRadioButton* myRadioButton;
+
+            /// @brief pointer to buttonCombinableChoices
+            FXButton* myButtonCombinableChoices;
+
+            /// @brief Button for open color editor
+            FXButton* myColorEditor;
+
+            /// @brief textField to modify the value of int attributes
+            FXTextField* myTextFieldInt;
+
+            /// @brief textField to modify the value of real/Time attributes
+            FXTextField* myTextFieldReal;
+
+            /// @brief textField to modify the value of string attributes
+            FXTextField* myTextFieldStrings;
+
+            /// @brief pointer to combo box choices
+            FXComboBox* myChoicesCombo;
+
+            /// @brief pointer to menu check
+            FXCheckButton* myBoolCheckButton;
+        };
+
+        /// @brief constructor
+        AttributesEditor(GNEFrame* inspectorFrameParent);
+
+        /// @brief show attributes of multiple ACs
+        void showAttributeEditorModul(const std::vector<GNEAttributeCarrier*>& ACs);
+
+        /// @brief hide attribute editor
+        void hideAttributesEditorModul();
+
+        /// @brief refresh attribute editor (only the valid values will be refresh)
+        void refreshAttributeEditor(bool forceRefreshShape, bool forceRefreshPosition);
+
+        /// @brief get current edited ACs
+        const std::vector<GNEAttributeCarrier*> &getEditedACs() const;
+
+        /// @brief remove edited ACs
+        void removeEditedAC(GNEAttributeCarrier* AC);
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when user press the help button
+        long onCmdAttributesEditorHelp(FXObject*, FXSelector, void*);
+        /// @}
+
+    protected:
+        /// @brief FOX needs this
+        AttributesEditor() {}
+
+    private:
+        /// @brief pointer to GNEFrame parent
+        GNEFrame* myFrameParent;
+
+        /// @brief list of Attribute inputs rows
+        std::vector<RowEditor*> myVectorOfRows;
+
+        /// @brief button for help
+        FXButton* myHelpButton;
+
+        /// @brief the multi-selection currently being inspected
+        std::vector<GNEAttributeCarrier*> myEditedACs;
+    };
+
+    // ===========================================================================
+    // class AttributesEditorExtended
+    // ===========================================================================
+
+    class AttributesEditorExtended : protected FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEFrame::AttributesEditorExtended)
 
     public:
         /// @brief constructor
-        ACAttributesExtended(GNEFrame* frameParent);
+        AttributesEditorExtended(GNEFrame* frameParent);
 
         /// @brief destructor
-        ~ACAttributesExtended();
+        ~AttributesEditorExtended();
 
-        /// @brief show ACAttributesExtended modul
-        void showACAttributesExtendedModul();
+        /// @brief show AttributesEditorExtended modul
+        void showAttributesEditorExtendedModul();
 
         /// @brief hide group box
-        void hideACAttributesExtendedModul();
+        void hideAttributesEditorExtendedModul();
 
         /// @name FOX-callbacks
         /// @{
@@ -269,7 +406,7 @@ public:
 
     protected:
         /// @brief FOX needs this
-        ACAttributesExtended() {};
+        AttributesEditorExtended() {};
 
     private:
         /// @brief pointer to Polygon Frame Parent
@@ -646,8 +783,11 @@ protected:
     /// @brief disable moduls if element selected in itemSelector isn't valid (can be reimplemented in frame childs)
     virtual void disableModuls();
 
-    /// @brief open ACAttributes extended dialog (can be reimplemented in frame childs)
-    virtual void openACAttributesExtendedDialog();
+    /// @brief function called after set a valid attribute in AttributeEditor
+    virtual void attributeSetInEditor();
+
+    /// @brief open AttributesCreator extended dialog (can be reimplemented in frame childs)
+    virtual void openAttributesEditorExtendedDialog();
 
     /// @brief Open help attributes dialog
     void openHelpAttributesDialog(const GNEAttributeCarrier::TagProperties& tagProperties) const;

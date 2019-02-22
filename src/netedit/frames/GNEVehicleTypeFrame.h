@@ -157,18 +157,18 @@ protected:
     /// @brief disable moduls if element selected in itemSelector isn't valid
     void disableModuls();
 
-    /// @brief open ACAttributes extended dialog (used for editing advance attributes of Vehicle Types)
-    void openACAttributesExtendedDialog();
+    /// @brief open AttributesCreator extended dialog (used for editing advance attributes of Vehicle Types)
+    void openAttributesEditorExtendedDialog();
 
 private:
     /// @brief vehicle type selector
     VehicleTypeSelector* myVehicleTypeSelector;
 
-    /// @brief internal vehicle type attributes
-    ACAttributes* myVehicleTypeAttributes;
+    /// @brief editorinternal vehicle type attributes
+    AttributesEditor* myVehicleTypeAttributesEditor;
 
     /// @brief modul for open extended attributes dialog
-    ACAttributesExtended* myACAttributesExtended;
+    AttributesEditorExtended* myAttributesEditorExtended;
 
     /// @brief Vehicle Type editor (Create, copy, etc.)
     VehicleTypeEditor* myVehicleTypeEditor;

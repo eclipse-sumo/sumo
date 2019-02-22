@@ -2305,7 +2305,7 @@ void
 GNENet::removePolygonForEditShapes(GNEPoly* polygon) {
     if (polygon) {
         // remove it from Inspector Frame
-        myViewNet->getViewParent()->getInspectorFrame()->removeInspectedAC(polygon);
+        myViewNet->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(polygon);
         // Remove from grid
         myGrid.removeAdditionalGLObject(polygon);
         myViewNet->update();
@@ -2444,7 +2444,7 @@ GNENet::deleteAdditional(GNEAdditional* additional) {
                 i != myAttributeCarriers.additionals.at(additional->getTagProperty().getTag()).end(); i++) {
             if (i->second == additional) {
                 // remove it from Inspector Frame
-                myViewNet->getViewParent()->getInspectorFrame()->removeInspectedAC(additional);
+                myViewNet->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(additional);
                 // Remove from container
                 myAttributeCarriers.additionals.at(additional->getTagProperty().getTag()).erase(i);
                 // only remove drawable elements of grid
@@ -2529,7 +2529,7 @@ GNENet::deleteDemandElement(GNEDemandElement* demandElement) {
                 i != myAttributeCarriers.demandElements.at(demandElement->getTagProperty().getTag()).end(); i++) {
             if (i->second == demandElement) {
                 // remove it from Inspector Frame
-                myViewNet->getViewParent()->getInspectorFrame()->removeInspectedAC(demandElement);
+                myViewNet->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(demandElement);
                 // Remove from container
                 myAttributeCarriers.demandElements.at(demandElement->getTagProperty().getTag()).erase(i);
                 // also remove fromvehicleDepartures container
@@ -2664,7 +2664,7 @@ GNENet::registerEdge(GNEEdge* edge) {
 void
 GNENet::deleteSingleJunction(GNEJunction* junction) {
     // remove it from Inspector Frame
-    myViewNet->getViewParent()->getInspectorFrame()->removeInspectedAC(junction);
+    myViewNet->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(junction);
     // Remove from grid and container
     myGrid.removeAdditionalGLObject(junction);
     // check if junction is selected
@@ -2682,7 +2682,7 @@ GNENet::deleteSingleJunction(GNEJunction* junction) {
 void
 GNENet::deleteSingleEdge(GNEEdge* edge) {
     // remove it from Inspector Frame
-    myViewNet->getViewParent()->getInspectorFrame()->removeInspectedAC(edge);
+    myViewNet->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(edge);
     // remove edge from visual grid and container
     myGrid.removeAdditionalGLObject(edge);
     // check if junction is selected
@@ -2733,7 +2733,7 @@ GNENet::insertShape(GNEShape* shape) {
 void
 GNENet::removeShape(GNEShape* shape) {
     // remove it from Inspector Frame
-    myViewNet->getViewParent()->getInspectorFrame()->removeInspectedAC(shape);
+    myViewNet->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(shape);
     if (shape->getTagProperty().getTag() == SUMO_TAG_POLY) {
         GUIPolygon* poly = dynamic_cast<GUIPolygon*>(shape);
         myGrid.removeAdditionalGLObject(poly);

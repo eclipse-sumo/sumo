@@ -219,7 +219,7 @@ GNEPolygonFrame::GNEPolygonFrame(FXHorizontalFrame* horizontalFrameParent, GNEVi
     myItemSelector = new ItemSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_SHAPE);
 
     // Create shape parameters
-    myShapeAttributes = new ACAttributes(this);
+    myShapeAttributes = new AttributesCreator(this);
 
     // Create Netedit parameter
     myNeteditAttributes = new NeteditAttributes(this);
@@ -382,7 +382,7 @@ GNEPolygonFrame::buildShape() {
 void
 GNEPolygonFrame::enableModuls(const GNEAttributeCarrier::TagProperties& tagProperties) {
     // if there are parmeters, show and Recalc groupBox
-    myShapeAttributes->showACAttributesModul(tagProperties, true);
+    myShapeAttributes->showAttributesCreatorModul(tagProperties);
     // show netedit attributes
     myNeteditAttributes->showNeteditAttributesModul(tagProperties);
     // Check if drawing mode has to be shown
@@ -403,7 +403,7 @@ GNEPolygonFrame::enableModuls(const GNEAttributeCarrier::TagProperties& tagPrope
 void
 GNEPolygonFrame::disableModuls() {
     // hide all widgets
-    myShapeAttributes->hideACAttributesModul();
+    myShapeAttributes->hideAttributesCreatorModul();
     myNeteditAttributes->hideNeteditAttributesModul();
     myDrawingShape->hideDrawingShape();
     myGEOPOICreator->hideGEOPOICreatorModul();

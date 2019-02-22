@@ -180,7 +180,7 @@ private:
     VTypeSelector* myVTypeSelector;
 
     /// @brief internal vehicle attributes
-    ACAttributes* myVehicleAttributes;
+    AttributesCreator* myVehicleAttributes;
 
     /// @brief Help creation
     HelpCreation* myHelpCreation;

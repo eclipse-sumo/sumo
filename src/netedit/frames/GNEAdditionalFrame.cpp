@@ -695,7 +695,7 @@ GNEAdditionalFrame::GNEAdditionalFrame(FXHorizontalFrame* horizontalFrameParent,
     myItemSelector = new ItemSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_ADDITIONAL);
 
     // Create additional parameters
-    myAdditionalAttributes = new ACAttributes(this);
+    myAdditionalAttributes = new AttributesCreator(this);
 
     // Create Netedit parameter
     myNeteditAttributes = new NeteditAttributes(this);
@@ -785,7 +785,7 @@ GNEAdditionalFrame::getConsecutiveLaneSelector() const {
 void
 GNEAdditionalFrame::enableModuls(const GNEAttributeCarrier::TagProperties& tagProperties) {
     // show additional attributes modul
-    myAdditionalAttributes->showACAttributesModul(tagProperties, true);
+    myAdditionalAttributes->showAttributesCreatorModul(tagProperties);
     // show netedit attributes
     myNeteditAttributes->showNeteditAttributesModul(tagProperties);
     // Show myAdditionalFrameParent if we're adding a additional with parent
@@ -821,7 +821,7 @@ GNEAdditionalFrame::enableModuls(const GNEAttributeCarrier::TagProperties& tagPr
 void
 GNEAdditionalFrame::disableModuls() {
     // hide all moduls if additional isn't valid
-    myAdditionalAttributes->hideACAttributesModul();
+    myAdditionalAttributes->hideAttributesCreatorModul();
     myNeteditAttributes->hideNeteditAttributesModul();
     mySelectorAdditionalParent->hideSelectorAdditionalParentModul();
     mySelectorEdgeChilds->hideSelectorEdgeChildsModul();

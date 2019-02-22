@@ -239,11 +239,11 @@ GNEVehicleTypeFrame::GNEVehicleTypeFrame(FXHorizontalFrame* horizontalFrameParen
     // create vehicle type selector
     myVehicleTypeSelector = new VehicleTypeSelector(this);
 
-    // Create vehicle parameters
-    myVehicleTypeAttributes = new ACAttributes(this);
+    // Create vehicle type attributes editor
+    myVehicleTypeAttributesEditor = new AttributesEditor(this);
 
     // create modul for open extended attributes dialog
-    myACAttributesExtended = new ACAttributesExtended(this);
+    myAttributesEditorExtended = new AttributesEditorExtended(this);
 
     // set "VTYPE_DEFAULT" as default vehicle Type
     myVehicleTypeSelector->setCurrentVehicleType(myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_VTYPE_ID));
@@ -270,20 +270,20 @@ GNEVehicleTypeFrame::getVehicleTypeSelector() const {
 
 void
 GNEVehicleTypeFrame::enableModuls(GNEDemandElement *vType) {
-    // show vehicle type attributes moduls (Except the extended attributes)
-    myVehicleTypeAttributes->showACAttributesModul(vType->getTagProperty(), false);
+    // show vehicle type attributes editor
+    myVehicleTypeAttributesEditor->showAttributeEditorModul({vType});
 }
 
 
 void
 GNEVehicleTypeFrame::disableModuls() {
-    // hide all moduls if vehicle isn't valid
-    myVehicleTypeAttributes->hideACAttributesModul();
+    // hide attributes editor
+    myVehicleTypeAttributesEditor->hideAttributesEditorModul();
 }
 
 
 void 
-GNEVehicleTypeFrame::openACAttributesExtendedDialog() {
+GNEVehicleTypeFrame::openAttributesEditorExtendedDialog() {
     // open vehicle type dialog
     if (myVehicleTypeSelector->getCurrentVehicleType()) {
         GNEVehicleTypeDialog(myVehicleTypeSelector->getCurrentVehicleType(), true);

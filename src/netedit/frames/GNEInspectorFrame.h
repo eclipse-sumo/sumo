@@ -125,137 +125,6 @@ public:
     };
 
     // ===========================================================================
-    // class AttributesEditor
-    // ===========================================================================
-
-    class AttributesEditor : private FXGroupBox {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEInspectorFrame::AttributesEditor)
-
-    public:
-
-        // ===========================================================================
-        // class Row
-        // ===========================================================================
-
-        class Row : private FXHorizontalFrame {
-            /// @brief FOX-declaration
-            FXDECLARE(GNEInspectorFrame::AttributesEditor::Row)
-
-        public:
-            /// @brief constructor
-            Row(GNEInspectorFrame::AttributesEditor* attributeEditorParent);
-
-            /// @brief show row attribute
-            void showRow(const GNEAttributeCarrier::AttributeProperties &ACAttr, const std::string& value, bool disjointAttributeEnabled);
-
-            /// @brief show row attribute
-            void hideRow();
-
-            /// @brief refresh current row
-            void refreshRow(const std::string& value, bool forceRefresh, bool disjointAttributeEnabled);
-
-            /// @brief check if current attribute of TextField/ComboBox is valid
-            bool isRowValid() const;
-
-            /// @name FOX-callbacks
-            /// @{
-
-            /// @brief try to set new attribute value
-            long onCmdSetAttribute(FXObject*, FXSelector, void*);
-
-            /// @brief set new disjoint attribute
-            long onCmdSetDisjointAttribute(FXObject*, FXSelector, void*);
-
-            /// @brief open model dialog for more comfortable attribute editing
-            long onCmdOpenAttributeDialog(FXObject*, FXSelector, void*);
-            /// @}
-
-        protected:
-            /// @brief FOX needs this
-            Row() {}
-
-            /// @brief removed invalid spaces of Positions and shapes
-            std::string stripWhitespaceAfterComma(const std::string& stringValue);
-            
-            /// @brief enable row elements
-            void enableRowElements();
-
-            /// @brief disable row elements
-            void disableRowElements();
-
-        private:
-            /// @brief pointer to AttributesEditor parent
-            GNEInspectorFrame::AttributesEditor* myAttributesEditorParent;
-
-            /// @brief current AC Attribute
-            GNEAttributeCarrier::AttributeProperties myACAttr;
-
-            /// @brief flag to check if input element contains multiple values
-            bool myMultiple;
-
-            /// @brief pointer to attribute label
-            FXLabel* myLabel;
-
-            /// @brief Radio button for disjoint attributes
-            FXRadioButton* myRadioButton;
-
-            /// @brief pointer to buttonCombinableChoices
-            FXButton* myButtonCombinableChoices;
-
-            /// @brief Button for open color editor
-            FXButton* myColorEditor;
-
-            /// @brief textField to modify the value of int attributes
-            FXTextField* myTextFieldInt;
-
-            /// @brief textField to modify the value of real/Time attributes
-            FXTextField* myTextFieldReal;
-
-            /// @brief textField to modify the value of string attributes
-            FXTextField* myTextFieldStrings;
-
-            /// @brief pointer to combo box choices
-            FXComboBox* myChoicesCombo;
-
-            /// @brief pointer to menu check
-            FXCheckButton* myBoolCheckButton;
-        };
-
-        /// @brief constructor
-        AttributesEditor(GNEInspectorFrame* inspectorFrameParent);
-
-        /// @brief show attributes of ac
-        void showAttributeEditorModul();
-
-        /// @brief hide attribute editor
-        void hideAttributesEditorModul();
-
-        /// @brief refresh attribute editor (only the valid values will be refresh)
-        void refreshAttributeEditor(bool forceRefreshShape, bool forceRefreshPosition);
-
-        /// @name FOX-callbacks
-        /// @{
-        /// @brief Called when user press the help button
-        long onCmdAttributesEditorHelp(FXObject*, FXSelector, void*);
-        /// @}
-
-    protected:
-        /// @brief FOX needs this
-        AttributesEditor() {}
-
-    private:
-        /// @brief pointer to GNEInspectorFrame parent
-        GNEInspectorFrame* myInspectorFrameParent;
-
-        /// @brief list of Attribute inputs rows
-        std::vector<GNEInspectorFrame::AttributesEditor::Row*> myVectorOfRows;
-
-        /// @brief button for help
-        FXButton* myHelpButton;
-    };
-
-    // ===========================================================================
     // class NeteditAttributesEditor
     // ===========================================================================
 
@@ -499,11 +368,11 @@ public:
     /// @brief inspect called from DeleteFrame
     void inspectFromDeleteFrame(GNEAttributeCarrier* AC, GNEAttributeCarrier* previousElement, bool previousElementWasMarked);
 
-    /// @brief remove AC from current inspected ACs
-    void removeInspectedAC(GNEAttributeCarrier* ac);
-
     /// @brief Clear all current inspected ACs
     void clearInspectedAC();
+
+    /// @brief get AttributesEditor
+    GNEFrame::AttributesEditor* getAttributesEditor() const;
 
     /// @brief get ACHierarchy
     GNEFrame::ACHierarchy* getACHierarchy() const;
@@ -521,15 +390,15 @@ public:
     long onCmdGoBack(FXObject*, FXSelector, void*);
     /// @}
 
-    /// @brief get current list of inspected ACs
-    const std::vector<GNEAttributeCarrier*>& getInspectedACs() const;
-
 protected:
     /// @brief FOX needs this
     GNEInspectorFrame() {}
 
     /// @brief Inspect a singe element (the front of AC AttributeCarriers of ObjectUnderCursor
     void inspectClickedElement(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const Position& clickedPosition);
+
+    /// @brief function called after set a valid attribute in AttributeEditor
+    void attributeSetInEditor();
 
 private:
     /// @brief Overlapped Inspection
@@ -564,9 +433,6 @@ private:
 
     /// @brief flag to ckec if myPreviousElementDelete was marked in Delete Frame
     bool myPreviousElementDeleteWasMarked;
-
-    /// @brief the multi-selection currently being inspected
-    std::vector<GNEAttributeCarrier*> myInspectedACs;
 };
 
 
