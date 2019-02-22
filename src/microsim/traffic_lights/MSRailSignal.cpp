@@ -151,7 +151,7 @@ MSRailSignal::init(NLDetectorBuilder&) {
 
             for (MSLane* forward : forwardBlock) {
                 if (forward->getEdge().getBidiEdge() != nullptr) {
-                    MSLane* bidi = forward->getEdge().getBidiEdge()->getLanes()[0];
+                    MSLane* bidi = forward->getBidiLane();
                     for (MSLink* bidiOutLink : bidi->getLinkCont()) {
                         if (bidiOutLink->getViaLane() != nullptr) {
                             bidiBlock.push_back(bidiOutLink->getViaLane());
@@ -601,7 +601,7 @@ MSRailSignal::collectBidiBlock(MSLane* toLane, double length, bool foundSwitch, 
         }
         if (toLane != nullptr && !foundSwitch && prev->getEdge().getBidiEdge() != nullptr) {
             // check switch in the other direction
-            MSLane* prevBidi = prev->getEdge().getBidiEdge()->getLanes()[0];
+            MSLane* prevBidi = prev->getBidiLane();
             for (MSLink* link : prevBidi->getLinkCont()) {
                 if (link->getDirection() == LINKDIR_TURN) {
                     continue;
