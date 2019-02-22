@@ -1141,6 +1141,7 @@ MSVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info, bool o
     myLastBestLanesEdge = nullptr;
     myLastBestLanesInternalLane = nullptr;
     updateBestLanes(true, onInit ? (*myCurrEdge)->getLanes().front() : 0);
+    assert(haveValidStopEdges());
     return true;
 }
 
@@ -1695,6 +1696,7 @@ MSVehicle::replaceParkingArea(MSParkingArea* parkingArea, std::string& errorMsg)
     if (myLane != nullptr) {
         updateBestLanes(true);
     }
+    assert(haveValidStopEdges());
     return result;
 }
 
@@ -1987,6 +1989,7 @@ MSVehicle::processNextStop(double currentVelocity) {
 
 const ConstMSEdgeVector
 MSVehicle::getStopEdges(double& firstPos, double& lastPos) const {
+    assert(haveValidStopEdges());
     ConstMSEdgeVector result;
     const Stop* prev = nullptr;
     for (const Stop& stop : myStops) {
@@ -5979,7 +5982,7 @@ MSVehicle::createDriverState() {
 }
 
 bool 
-MSVehicle::haveValidStopEdges() {
+MSVehicle::haveValidStopEdges() const {
     MSRouteIterator start = myCurrEdge;
     const std::string err = "for vehicle '" + getID() + "' at time " + time2string(MSNet::getInstance()->getCurrentTimeStep());
     int i = 0;
