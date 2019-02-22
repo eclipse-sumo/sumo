@@ -307,7 +307,8 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::setColor(GNEInternalLane::colorForLinksState(getLinkState()));
         }
         // draw connection checking whether it is not too small if isn't being drawn for selecting
-        if ((s.scale < 5.) && !s.drawForSelecting) {
+        const double selectionScale = isAttributeCarrierSelected() ? s.selectionScale : 1;
+        if ((s.scale * selectionScale < 5.) && !s.drawForSelecting) {
             // If it's small, draw a simple line
             GLHelper::drawLine(myShape);
         } else {
@@ -317,7 +318,7 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
             if (spreadSuperposed) {
                 shape.move2side(0.5);
             }
-            GLHelper::drawBoxLines(shape, myShapeRotations, myShapeLengths, 0.2);
+            GLHelper::drawBoxLines(shape, myShapeRotations, myShapeLengths, 0.2 * selectionScale);
             glTranslated(0, 0, 0.1);
             GLHelper::setColor(GLHelper::getColor().changedBrightness(51));
             // check if internal junction marker has to be drawn
