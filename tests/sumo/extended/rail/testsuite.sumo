@@ -1,7 +1,7 @@
 # tests for rail signals
 rail_signal
 
-# trams driving in a loop servicing stops, tracks are shared with regional train
+# trams driving in a loop servicing stops
 tramwayLoop
 
 # Two trains approaching conflicting block simultaneously causing a head-on conflict
