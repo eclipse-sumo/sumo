@@ -897,7 +897,7 @@ GNESelectorFrame::VisualScaling::VisualScaling(GNESelectorFrame* selectorFramePa
     //mySelectionScaling->setNumberFormat(1);
     //mySelectionScaling->setIncrements(0.1, .5, 1);
     mySelectionScaling->setIncrement(0.5);
-    mySelectionScaling->setRange(1, 100);
+    mySelectionScaling->setRange(1, 100000);
     mySelectionScaling->setValue(1);
     mySelectionScaling->setHelpText("Enlarge selected objects");
 }
