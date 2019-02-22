@@ -267,6 +267,7 @@ GNEVehicleTypeDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     if (myEditedDemandElement->isValid(SUMO_ATTR_GUISHAPE, myComboBoxShape->getText().text())) {
         myComboBoxShape->setTextColor(FXRGB(0, 0, 0));
         myEditedDemandElement->setAttribute(SUMO_ATTR_GUISHAPE, myComboBoxShape->getText().text(), myEditedDemandElement->getViewNet()->getUndoList());
+        setVShapeLabelImage();
     } else {
         myComboBoxShape->setTextColor(FXRGB(255, 0, 0));
         myVehicleTypeValid = false;
@@ -624,4 +625,96 @@ GNEVehicleTypeDialog::setVClassLabelImage() {
     }
 }
 
+
+void
+GNEVehicleTypeDialog::setVShapeLabelImage() {
+    // set Icon in label depending of current VClass
+    switch (getVehicleClassID(myEditedDemandElement->getAttribute(SUMO_ATTR_GUISHAPE))) {
+        case SVS_UNKNOWN:
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_UNKNOWN));
+            break;
+        case SVS_PEDESTRIAN:
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_PEDESTRIAN));
+            break;
+        case SVS_BICYCLE:
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_BICYCLE));
+            break;
+        case SVS_MOPED:
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_MOPED));
+            break;
+        case SVS_MOTORCYCLE:
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_MOTORCYCLE));
+            break;
+        case SVS_PASSENGER:
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_PASSENGER));
+            break;
+        case SVS_PASSENGER_SEDAN:
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_PASSENGER_SEDAN));
+            break;
+        case SVS_PASSENGER_HATCHBACK:
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_PASSENGER_HATCHBACK));
+            break;
+        case SVS_PASSENGER_WAGON:
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_PASSENGER_WAGON));
+            break;
+        case SVS_PASSENGER_VAN:
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_PASSENGER_VAN));
+            break;
+        case SVS_DELIVERY:
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_DELIVERY));
+            break;
+        case SVS_TRUCK:
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_TRUCK));
+            break;
+        case SVS_TRUCK_SEMITRAILER:
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_TRUCK_SEMITRAILER));
+            break;
+        case SVS_TRUCK_1TRAILER:
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_TRUCK_1TRAILER));
+            break;
+        case SVS_BUS:
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_BUS));
+            break;
+        case SVS_BUS_COACH:
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_BUS_COACH));
+            break;
+        case SVS_BUS_FLEXIBLE:
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_BUS_FLEXIBLE));
+            break;
+        case SVS_BUS_TROLLEY:
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_BUS_TROLLEY));
+            break;
+        case SVS_RAIL:
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_RAIL));
+            break;
+        case SVS_RAIL_CAR:
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_RAIL_CAR));
+            break;
+        case SVS_RAIL_CARGO:
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_RAIL_CARGO));
+            break;
+        case SVS_E_VEHICLE:
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_E_VEHICLE));
+            break;
+        case SVS_ANT:
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_ANT));
+            break;
+        case SVS_SHIP:
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_SHIP));
+            break;
+        case SVS_EMERGENCY:
+        case SVS_FIREBRIGADE:
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_EMERGENCY));
+            break;
+        case SVS_POLICE:
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_POLICE));
+            break;
+        case SVS_RICKSHAW:
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_RICKSHAW));
+            break;
+        default:
+            myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VCLASS_IGNORING));
+            break;
+    }
+}
 /****************************************************************************/
