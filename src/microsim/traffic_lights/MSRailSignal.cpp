@@ -177,7 +177,7 @@ MSRailSignal::init(NLDetectorBuilder&) {
             if (thisLinkIt != conflictLinks.end()) {
                 conflictLinks.erase(thisLinkIt);
             } else {
-                WRITE_WARNING("At railSignal junction '" + getID() + "' link " + toString(link->getTLIndex() + " with direction " + toString(link->getDirection()) + " should be uncontrolled"));
+                WRITE_WARNING("At railSignal junction '" + getID() + "' link " + toString(link->getTLIndex()) + " with direction " + toString(link->getDirection()) + " should be uncontrolled");
             }
 
             conflictLanes.insert(conflictLanes.end(), backwardBlock.begin(), backwardBlock.end());

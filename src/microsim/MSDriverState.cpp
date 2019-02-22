@@ -129,7 +129,7 @@ MSSimpleDriverState::MSSimpleDriverState(MSVehicle* veh) :
     myHeadwayErrorCoefficient(DriverStateDefaults::headwayErrorCoefficient),
     myHeadwayChangePerceptionThreshold(DriverStateDefaults::headwayChangePerceptionThreshold),
     mySpeedDifferenceChangePerceptionThreshold(DriverStateDefaults::speedDifferenceChangePerceptionThreshold),
-    myActionStepLength(TS),
+//    myActionStepLength(TS),
     myStepDuration(TS),
     myLastUpdateTime(SIMTIME - TS),
     myDebugLock(false) {

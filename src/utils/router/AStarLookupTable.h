@@ -81,6 +81,9 @@ public:
         }
     }
 
+    virtual ~FullLookupTable() {
+    }
+
     double lowerBound(const E* from, const E* to, double /*speed*/, double speedFactor, double /*fromEffort*/, double /*toEffort*/) const {
         return myTable[from->getNumericalID()][to->getNumericalID()] / speedFactor;
     }
@@ -241,6 +244,8 @@ public:
                     currentTasks.clear();
                     continue;
                 }
+#else
+                UNUSED_PARAMETER(maxNumThreads);
 #endif
                 for (int j = (int)myFromLandmarkDists[i].size() + myFirstNonInternal; j < (int)edges.size(); ++j) {
                     const E* edge = edges[j];
@@ -274,6 +279,9 @@ public:
             }
         }
         delete ostrm;
+    }
+
+    virtual ~LandmarkLookupTable() {
     }
 
     double lowerBound(const E* from, const E* to, double speed, double speedFactor, double fromEffort, double toEffort) const {

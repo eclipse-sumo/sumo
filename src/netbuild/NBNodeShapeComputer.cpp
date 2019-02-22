@@ -555,39 +555,38 @@ void
 NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, std::set<NBEdge*> >& same,
         GeomsMap& geomsCCW,
         GeomsMap& geomsCW) {
-    EdgeVector::const_iterator i, j;
     // compute boundary lines and extend it by 100m
-    for (i = myNode.myAllEdges.begin(); i != myNode.myAllEdges.end(); i++) {
+    for (NBEdge* const edge : myNode.myAllEdges) {
         // store current edge's boundary as current ccw/cw boundary
         try {
-            geomsCCW[*i] = (*i)->getCCWBoundaryLine(myNode);
+            geomsCCW[edge] = edge->getCCWBoundaryLine(myNode);
         } catch (InvalidArgument& e) {
             WRITE_WARNING("While computing intersection geometry at junction '" + myNode.getID() + "': " + std::string(e.what()));
-            geomsCCW[*i] = (*i)->getGeometry();
+            geomsCCW[edge] = edge->getGeometry();
         }
         try {
-            geomsCW[*i] = (*i)->getCWBoundaryLine(myNode);
+            geomsCW[edge] = edge->getCWBoundaryLine(myNode);
         } catch (InvalidArgument& e) {
             WRITE_WARNING("While computing intersection geometry at junction '" + myNode.getID() + "': " + std::string(e.what()));
-            geomsCW[*i] = (*i)->getGeometry();
+            geomsCW[edge] = edge->getGeometry();
         }
         // ensure the boundary is valid
-        if (geomsCCW[*i].length2D() < NUMERICAL_EPS) {
-            geomsCCW[*i] = (*i)->getGeometry();
+        if (geomsCCW[edge].length2D() < NUMERICAL_EPS) {
+            geomsCCW[edge] = edge->getGeometry();
         }
-        if (geomsCW[*i].length2D() < NUMERICAL_EPS) {
-            geomsCW[*i] = (*i)->getGeometry();
+        if (geomsCW[edge].length2D() < NUMERICAL_EPS) {
+            geomsCW[edge] = edge->getGeometry();
         }
         // extend the boundary by extroplating it by 100m
-        geomsCCW[*i].extrapolate2D(100, true);
-        geomsCW[*i].extrapolate2D(100, true);
+        geomsCCW[edge].extrapolate2D(100, true);
+        geomsCW[edge].extrapolate2D(100, true);
     }
     // compute same (edges where an intersection doesn't work well
     // (always check an edge and its cw neightbor)
     // distance to look ahead for a misleading angle
     const double angleChangeLookahead = 35;
     EdgeSet foundOpposite;
-    for (i = myNode.myAllEdges.begin(); i != myNode.myAllEdges.end(); i++) {
+    for (EdgeVector::const_iterator i = myNode.myAllEdges.begin(); i != myNode.myAllEdges.end(); i++) {
         EdgeVector::const_iterator j;
         if (i == myNode.myAllEdges.end() - 1) {
             j = myNode.myAllEdges.begin();

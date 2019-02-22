@@ -31,21 +31,10 @@
 #include <utils/common/SUMOTime.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 
-// ===========================================================================
-// class declarations
-// ===========================================================================
-//class MSJunction;
-//class MSLink;
-//class MSVehicle;
-//class MSLane;
-//class MSPerson;
-
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-
-
 /// @class OUProcess
 /// @brief An Ornstein-Uhlenbeck stochastic process
 class OUProcess {
@@ -293,7 +282,7 @@ private:
 
     /// @brief action step length induced by awareness level
     /// @todo make effective
-    double myActionStepLength;
+    //double myActionStepLength;
 
     /// @name Variables for tracking update instants
     /// @see updateStepDuration()

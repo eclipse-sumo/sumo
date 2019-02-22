@@ -1077,8 +1077,6 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
     // if the vehicle is driving on the opposite side then 1) is found on the neighboring lane and 2) on the current lane
 
     std::pair<MSVehicle*, double> overtaken;
-    std::pair<MSVehicle*, double> oncoming;
-
 
     if (!isOpposite && !oppositeChangeByTraci) {
         overtaken = getColumnleader(vehicle, leader);
