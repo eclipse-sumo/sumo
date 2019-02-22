@@ -5,8 +5,6 @@ Warning: No route for vehicle 'tram3' found.
 Warning: Vehicle 'tram2' performs emergency stop at the end of lane 'T6_0_0' because of a red traffic light (decel=-2.14, offset=1.62), time=354.00.
 Warning: Vehicle 'tram7' performs emergency stop at the end of lane 'T33_0_0' because of a red traffic light (decel=-6.10, offset=3.05), time=430.00.
 Warning: Vehicle 'tram1' performs emergency stop at the end of lane 'T33_0_0' because of a red traffic light (decel=-6.10, offset=3.05), time=779.00.
-Warning: Vehicle 'tram1' performs emergency stop at the end of lane 'T19_1_0' because of a red traffic light (decel=-7.74, offset=3.57), time=1320.00.
-Warning: Vehicle 'tram6' performs emergency stop at the end of lane 'T19_1_0' because of a red traffic light (decel=-14.53, offset=3.17), time=1572.00.
-Warning: Vehicle 'tram1' performs emergency stop at the end of lane 'T35_0_0' because of a red traffic light (decel=-20.01, offset=3.45), time=2215.00.
-Warning: Vehicle 'tram4' performs emergency stop at the end of lane 'T35_0_0' because of a red traffic light (decel=-19.94, offset=6.35), time=2389.00.
-Warning: Vehicle 'tram4' performs emergency stop at the end of lane 'T3_1_0' because of a red traffic light (decel=-13.22, offset=3.77), time=2671.00.
+Warning: Vehicle 'tram1' performs emergency stop at the end of lane 'T35_0_0' because of a red traffic light (decel=-19.97, offset=5.37), time=2213.00.
+Warning: Vehicle 'tram4' performs emergency stop at the end of lane 'T35_0_0' because of a red traffic light (decel=-19.94, offset=6.35), time=2387.00.
+Warning: Vehicle 'tram4' performs emergency stop at the end of lane 'T3_1_0' because of a red traffic light (decel=-12.00, offset=4.02), time=2671.00.
