@@ -3626,5 +3626,17 @@ MSLane::initRNGs(const OptionsCont& oc) {
     }
 }
 
+MSLane* 
+MSLane::getBidiLane() const {
+    const MSEdge* bidiEdge = myEdge->getBidiEdge();
+    if (bidiEdge == nullptr) {
+        return nullptr;
+    } else {
+        /// XXX multi-lane edges are not considered
+        assert(bidiEdge->getLanes().size() == 1);
+        return bidiEdge->getLanes()[0];
+    }
+}
+
 /****************************************************************************/
 

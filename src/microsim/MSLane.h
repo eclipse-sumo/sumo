@@ -1119,6 +1119,9 @@ public:
         return false;
     }
 
+    /// @brief retrieve bidirectional lane or nullptr
+    MSLane* getBidiLane() const;
+
 #ifdef HAVE_FOX
     FXWorkerThread::Task* getPlanMoveTask(const SUMOTime time) {
         mySimulationTask.init(&MSLane::planMovements, time);

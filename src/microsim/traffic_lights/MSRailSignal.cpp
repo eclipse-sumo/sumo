@@ -138,6 +138,11 @@ MSRailSignal::init(NLDetectorBuilder&) {
         }
         for (MSLink* link : links) {
             MSLane* toLane = link->getViaLaneOrLane();   //the lane this link is leading to
+            MSLane* fromBidi = link->getLaneBefore()->getBidiLane();
+            if (fromBidi != nullptr) {
+                // do not extend to forward block beyond the entering track (in case of a loop)
+                visited.insert(fromBidi);
+            }
 
             collectForwardBlock(toLane, 0., forwardBlock, visited);
 #ifdef DEBUG_FORWARD_BLOCK
