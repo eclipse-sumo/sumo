@@ -119,7 +119,11 @@ MSVehicleControl::scheduleVehicleRemoval(SUMOVehicle* veh) {
 
 void
 MSVehicleControl::removePending() {
+#ifdef HAVE_FOX
     std::vector<SUMOVehicle*>& vehs = myPendingRemovals.getContainer();
+#else
+    std::vector<SUMOVehicle*>& vehs = myPendingRemovals;
+#endif
     std::sort(vehs.begin(), vehs.end(), ComparatorNumericalIdLess());
     for (SUMOVehicle* const veh : vehs) {
         myTotalTravelTime += STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep() - veh->getDeparture());
@@ -135,7 +139,9 @@ MSVehicleControl::removePending() {
         deleteVehicle(veh);
     }
     vehs.clear();
+#ifdef HAVE_FOX
     myPendingRemovals.unlock();
+#endif
 }
 
 

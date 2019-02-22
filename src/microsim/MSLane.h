@@ -1133,13 +1133,13 @@ public:
         return &mySimulationTask;
     }
 
-    void changeLanes(const SUMOTime time);
-
     FXWorkerThread::Task* getLaneChangeTask(const SUMOTime time) {
         mySimulationTask.init(&MSLane::changeLanes, time);
         return &mySimulationTask;
     }
 #endif
+
+    void changeLanes(const SUMOTime time);
 
     /// @name State saving/loading
     /// @{

@@ -37,8 +37,8 @@ FXIMPLEMENT(MFXIconComboBox, FXComboBox, nullptr, 0)
 
 void MFXListItem::draw(const FXList* list, FXDC& dc, FXint xx, FXint yy, FXint ww, FXint hh) {
     // almost the same code as FXListItem::draw except for using custom background color
-    register FXFont* font = list->getFont();
-    register FXint ih = 0, th = 0;
+    FXFont* font = list->getFont();
+    FXint ih = 0, th = 0;
     if (icon) {
         ih = icon->getHeight();
     }

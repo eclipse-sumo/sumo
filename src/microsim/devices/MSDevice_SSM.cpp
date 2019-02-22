@@ -487,7 +487,6 @@ MSDevice_SSM::createEncounters(FoeInfoMap& foes) {
 #endif
 
     for (FoeInfoMap::const_iterator foe = foes.begin(); foe != foes.end(); ++foe) {
-        std::pair<MSLane*, MSLane*> conflictLanes;
         Encounter* e = new Encounter(myHolderMS, foe->first, SIMTIME, myExtraTime);
         updateEncounter(e, foe->second); // deletes foe->second
         if (myOldestActiveEncounterBegin == INVALID) {
