@@ -222,6 +222,35 @@
 #include "vclass_custom1.xpm"
 #include "vclass_custom2.xpm"
 
+#include "vshape_pedestrian.xpm"
+#include "vshape_bicycle.xpm"
+#include "vshape_moped.xpm"
+#include "vshape_motorcycle.xpm"
+#include "vshape_passenger.xpm"
+#include "vshape_passenger_sedan.xpm"
+#include "vshape_passenger_hatchback.xpm"
+#include "vshape_passenger_wagon.xpm"
+#include "vshape_passenger_van.xpm"
+#include "vshape_delivery.xpm"
+#include "vshape_truck.xpm"
+#include "vshape_truck_semitrailer.xpm"
+#include "vshape_truck_1trailer.xpm"
+#include "vshape_bus.xpm"
+#include "vshape_bus_coach.xpm"
+#include "vshape_bus_flexible.xpm"
+#include "vshape_bus_trolley.xpm"
+#include "vshape_rail.xpm"
+#include "vshape_rail_car.xpm"
+#include "vshape_rail_cargo.xpm"
+#include "vshape_e_vehicle.xpm"
+#include "vshape_ant.xpm"
+#include "vshape_ship.xpm"
+#include "vshape_emergency.xpm"
+#include "vshape_firebrigade.xpm"
+#include "vshape_police.xpm"
+#include "vshape_rickshaw.xpm"
+#include "vshape_unknown.xpm"
+
 #include "accept.xpm"
 #include "cancel.xpm"
 #include "correct.xpm"
@@ -442,6 +471,35 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[ICON_VCLASS_SHIP] = new FXXPMIcon(a, vclass_ship_xpm);
     myIcons[ICON_VCLASS_CUSTOM1] = new FXXPMIcon(a, vclass_custom1_xpm);
     myIcons[ICON_VCLASS_CUSTOM2] = new FXXPMIcon(a, vclass_custom2_xpm);
+
+    myIcons[ICON_VSHAPE_PEDESTRIAN] = new FXXPMIcon(a, vshape_pedestrian_xpm);
+    myIcons[ICON_VSHAPE_BICYCLE] = new FXXPMIcon(a, vshape_bicycle_xpm);
+    myIcons[ICON_VSHAPE_MOPED] = new FXXPMIcon(a, vshape_moped_xpm);
+    myIcons[ICON_VSHAPE_MOTORCYCLE] = new FXXPMIcon(a, vshape_motorcycle_xpm);
+    myIcons[ICON_VSHAPE_PASSENGER] = new FXXPMIcon(a, vshape_passenger_xpm);
+    myIcons[ICON_VSHAPE_PASSENGER_SEDAN] = new FXXPMIcon(a, vshape_passenger_sedan_xpm);
+    myIcons[ICON_VSHAPE_PASSENGER_HATCHBACK] = new FXXPMIcon(a, vshape_passenger_hatchback_xpm);
+    myIcons[ICON_VSHAPE_PASSENGER_WAGON] = new FXXPMIcon(a, vshape_passenger_wagon_xpm);
+    myIcons[ICON_VSHAPE_PASSENGER_VAN] = new FXXPMIcon(a, vshape_passenger_van_xpm);
+    myIcons[ICON_VSHAPE_DELIVERY] = new FXXPMIcon(a, vshape_delivery_xpm);
+    myIcons[ICON_VSHAPE_TRUCK] = new FXXPMIcon(a, vshape_truck_xpm);
+    myIcons[ICON_VSHAPE_TRUCK_SEMITRAILER] = new FXXPMIcon(a, vshape_truck_semitrailer_xpm);
+    myIcons[ICON_VSHAPE_TRUCK_1TRAILER] = new FXXPMIcon(a, vshape_truck_1trailer_xpm);
+    myIcons[ICON_VSHAPE_BUS] = new FXXPMIcon(a, vshape_bus_xpm);
+    myIcons[ICON_VSHAPE_BUS_COACH] = new FXXPMIcon(a, vshape_bus_coach_xpm);
+    myIcons[ICON_VSHAPE_BUS_FLEXIBLE] = new FXXPMIcon(a, vshape_bus_flexible_xpm);
+    myIcons[ICON_VSHAPE_BUS_TROLLEY] = new FXXPMIcon(a, vshape_bus_trolley_xpm);
+    myIcons[ICON_VSHAPE_RAIL] = new FXXPMIcon(a, vshape_rail_xpm);
+    myIcons[ICON_VSHAPE_RAIL_CAR] = new FXXPMIcon(a, vshape_rail_car_xpm);
+    myIcons[ICON_VSHAPE_RAIL_CARGO] = new FXXPMIcon(a, vshape_rail_cargo_xpm);
+    myIcons[ICON_VSHAPE_E_VEHICLE] = new FXXPMIcon(a, vshape_e_vehicle_xpm);
+    myIcons[ICON_VSHAPE_ANT] = new FXXPMIcon(a, vshape_ant_xpm);
+    myIcons[ICON_VSHAPE_SHIP] = new FXXPMIcon(a, vshape_ship_xpm);
+    myIcons[ICON_VSHAPE_EMERGENCY] = new FXXPMIcon(a, vshape_emergency_xpm);
+    myIcons[ICON_VSHAPE_FIREBRIGADE] = new FXXPMIcon(a, vshape_firebrigade_xpm);
+    myIcons[ICON_VSHAPE_POLICE] = new FXXPMIcon(a, vshape_police_xpm);
+    myIcons[ICON_VSHAPE_RICKSHAW] = new FXXPMIcon(a, vshape_rickshaw_xpm);
+    myIcons[ICON_VSHAPE_UNKNOWN] = new FXXPMIcon(a, vshape_unknown_xpm);
 
     myIcons[ICON_OK] = new FXXPMIcon(a, accept_xpm);    // @todo create ok icon
     myIcons[ICON_ACCEPT] = new FXXPMIcon(a, accept_xpm);
