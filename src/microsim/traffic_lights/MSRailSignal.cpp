@@ -344,14 +344,6 @@ MSRailSignal::hasLinkConflict(int index) const {
         }
         for (auto apprIt : link->getApproaching()) {
             MSLink::ApproachingVehicleInformation info = apprIt.second;
-            if (info.arrivalSpeedBraking > 0) {
-#ifdef DEBUG_SIGNALSTATE_PRIORITY
-                if (DEBUG_COND) std::cout << SIMTIME << " railSignal=" << getID() << " index=" << index 
-                    << " foeLink " << link->getViaLaneOrLane()->getID() 
-                    << " approached by " << apprIt.first->getID() << " arrivalSpeedBraking=" << info.arrivalSpeedBraking << "\n";
-#endif
-                return true;
-            }
             foeMaxSpeed = MAX2(apprIt.first->getSpeed(), foeMaxSpeed);
             foeMinDist = MIN2(info.dist, foeMinDist);
             if (info.willPass) {
