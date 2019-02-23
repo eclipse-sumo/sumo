@@ -1,6 +1,9 @@
 # join traffic lights within the default distance
 basic
 
+# join traffic lights within the default distance, select unique id
+id_exists
+
 # set a lower maxdist and test that nothing is joined
 option_join-dist
 
