@@ -51,6 +51,9 @@ roundabout_modify
 # test discarding traffic lights for geometry-like junctions
 tls.discard-simple
 
+# test discarding traffic lights for geometry-like junctions, protect joined tls
+tls.discard-simple_joined
+
 # see ticket917
 infer_option_street_names
 add_split
