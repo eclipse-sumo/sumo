@@ -237,8 +237,8 @@ def simulationStep(step=0):
 
 %begin %{
 #ifdef _MSC_VER
-// ignore constant conditional expression warnings
-#pragma warning(disable:4127)
+// ignore constant conditional expression and unreachable code warnings
+#pragma warning(disable:4127 4702)
 #endif
 %}
 
