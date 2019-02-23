@@ -1,2 +1,2 @@
 Warning: Found circular block at railSignal junction 'B' (10 lanes, length 589.26)
-Warning: At railSignal junction 'B' link  with direction s should be uncontrolled
+Warning: At railSignal junction 'B' link 0 with direction s should be uncontrolled
