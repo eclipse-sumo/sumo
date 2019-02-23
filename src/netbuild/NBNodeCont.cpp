@@ -1511,7 +1511,7 @@ void
 NBNodeCont::joinTLS(NBTrafficLightLogicCont& tlc, double maxdist) {
     NodeClusters cands;
     generateNodeClusters(maxdist, cands);
-    int index = 0;
+    IDSupplier idSupplier("joinedS_");
     for (NodeSet& c : cands) {
         for (NodeSet::iterator j = c.begin(); j != c.end();) {
             if (!(*j)->isTLControlled()) {
@@ -1537,10 +1537,13 @@ NBNodeCont::joinTLS(NBTrafficLightLogicCont& tlc, double maxdist) {
                 tlc.removeFully(j->getID());
             }
         }
-        id = "joinedS_" + toString(index++);
         std::vector<NBNode*> nodes;
         for (NBNode* j : c) {
             nodes.push_back(j);
+        }
+        id = idSupplier.getNext();
+        while (tlc.getPrograms(id).size() > 0) {
+            id = idSupplier.getNext();
         }
         NBTrafficLightDefinition* tlDef = new NBOwnTLDef(id, nodes, 0, type);
         if (!tlc.insert(tlDef)) {
