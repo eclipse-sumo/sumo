@@ -1738,6 +1738,10 @@ NBNodeCont::discardTrafficLights(NBTrafficLightLogicCont& tlc, bool geometryLike
         if (node->isTLControlled() && (!geometryLike || node->geometryLike())) {
             // make a copy of tldefs
             const std::set<NBTrafficLightDefinition*> tldefs = node->getControllingTLS();
+            if (geometryLike && (*tldefs.begin())->getNodes().size() > 1) {
+                // do not remove joined tls when only removing geometry-like tls
+                continue;
+            }
             if (guessSignals && node->isTLControlled() && node->geometryLike()) {
                 // record signal location
                 const EdgeVector& outgoing = node->getOutgoingEdges();
