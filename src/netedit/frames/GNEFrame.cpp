@@ -540,7 +540,7 @@ GNEFrame::AttributesCreator::RowCreator::getValue() const {
 bool
 GNEFrame::AttributesCreator::RowCreator::getRadioButtonCheck() const {
     if (shown()) {
-        return myRadioButton->getCheck();
+        return myRadioButton->getCheck() == TRUE;
     } else {
         return false;
     }

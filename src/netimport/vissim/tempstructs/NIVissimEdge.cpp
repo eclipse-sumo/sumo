@@ -112,7 +112,7 @@ NIVissimEdge::NIVissimEdge(int id, const std::string& name,
                            double /*length*/, const PositionVector& geom,
                            const NIVissimClosedLanesVector& clv) : 
     NIVissimAbstractEdge(id, geom),
-    myName(name), myType(type), myNoLanes(laneWidths.size()),
+    myName(name), myType(type), myNoLanes((int)laneWidths.size()),
     myLaneWidths(laneWidths),
     myZuschlag1(zuschlag1), myZuschlag2(zuschlag2),
     myClosedLanes(clv), 

@@ -629,7 +629,7 @@ GNEVehicleTypeDialog::setVClassLabelImage() {
 void
 GNEVehicleTypeDialog::setVShapeLabelImage() {
     // set Icon in label depending of current VClass
-    switch (getVehicleClassID(myEditedDemandElement->getAttribute(SUMO_ATTR_GUISHAPE))) {
+    switch (getVehicleShapeID(myEditedDemandElement->getAttribute(SUMO_ATTR_GUISHAPE))) {
         case SVS_UNKNOWN:
             myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_UNKNOWN));
             break;
