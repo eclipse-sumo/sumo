@@ -37,52 +37,52 @@
 } \
 
 class PositionVectorTest : public testing::Test {
-	protected :
-		PositionVector *vectorPolygon;
-		PositionVector *vectorLine;
+    protected :
+        PositionVector *vectorPolygon;
+        PositionVector *vectorLine;
 
-		virtual void SetUp(){
-			vectorPolygon = new PositionVector();
-			vectorPolygon->push_back(Position(0,0));
-			vectorPolygon->push_back(Position(0,2));
-			vectorPolygon->push_back(Position(2,4));
-			vectorPolygon->push_back(Position(4,2));
-			vectorPolygon->push_back(Position(4,0));	
+        virtual void SetUp(){
+            vectorPolygon = new PositionVector();
+            vectorPolygon->push_back(Position(0,0));
+            vectorPolygon->push_back(Position(0,2));
+            vectorPolygon->push_back(Position(2,4));
+            vectorPolygon->push_back(Position(4,2));
+            vectorPolygon->push_back(Position(4,0));
 
-			vectorLine = new PositionVector();
-			vectorLine->push_back(Position(0,0));
-			vectorLine->push_back(Position(2,2));
-		}
+            vectorLine = new PositionVector();
+            vectorLine->push_back(Position(0,0));
+            vectorLine->push_back(Position(2,2));
+        }
 
-		virtual void TearDown(){
-			delete vectorPolygon;
-			delete vectorLine;
-		}
+        virtual void TearDown(){
+            delete vectorPolygon;
+            delete vectorLine;
+        }
 
 };
 
 /* Test the method 'around'*/
 TEST_F(PositionVectorTest, test_method_around) {
 
-	EXPECT_TRUE(vectorPolygon->around(Position(1,1)));
-	EXPECT_TRUE(vectorPolygon->around(Position(1,2)));
-	EXPECT_FALSE(vectorPolygon->around(Position(4,4)));
-	EXPECT_FALSE(vectorPolygon->around(Position(0,0)));
+    EXPECT_TRUE(vectorPolygon->around(Position(1,1)));
+    EXPECT_TRUE(vectorPolygon->around(Position(1,2)));
+    EXPECT_FALSE(vectorPolygon->around(Position(4,4)));
+    EXPECT_FALSE(vectorPolygon->around(Position(0,0)));
 
-	EXPECT_FALSE(vectorLine->around(Position(1,1)));
-	EXPECT_FALSE(vectorLine->around(Position(0,2)));
+    EXPECT_FALSE(vectorLine->around(Position(1,1)));
+    EXPECT_FALSE(vectorLine->around(Position(0,2)));
 
     // with positive offset
-	EXPECT_TRUE(vectorPolygon->around(Position(4,2), 1));
-	EXPECT_FALSE(vectorPolygon->around(Position(5,2), 1));
+    EXPECT_TRUE(vectorPolygon->around(Position(4,2), 1));
+    EXPECT_FALSE(vectorPolygon->around(Position(5,2), 1));
     // what was true remains true
-	EXPECT_TRUE(vectorPolygon->around(Position(1,1), POSITION_EPS));
-	EXPECT_TRUE(vectorPolygon->around(Position(1,2), POSITION_EPS));
+    EXPECT_TRUE(vectorPolygon->around(Position(1,1), POSITION_EPS));
+    EXPECT_TRUE(vectorPolygon->around(Position(1,2), POSITION_EPS));
 
     // with negative offset
-	EXPECT_FALSE(vectorPolygon->around(Position(4,2), -POSITION_EPS));
-	EXPECT_TRUE(vectorPolygon->around(Position(1,1), -1));
-	EXPECT_FALSE(vectorPolygon->around(Position(0.5,0.5), -1));
+    EXPECT_FALSE(vectorPolygon->around(Position(4,2), -POSITION_EPS));
+    EXPECT_TRUE(vectorPolygon->around(Position(1,1), -1));
+    EXPECT_FALSE(vectorPolygon->around(Position(0.5,0.5), -1));
 }
 
 /* Test the method 'area'*/
@@ -92,9 +92,9 @@ TEST_F(PositionVectorTest, test_method_area) {
     square.push_back(Position(1,0));
     square.push_back(Position(1,1));
     square.push_back(Position(0,1)); // open
-    EXPECT_DOUBLE_EQ(square.area(), 1); 
+    EXPECT_DOUBLE_EQ(square.area(), 1);
     square.push_back(Position(0,0)); // closed
-    EXPECT_DOUBLE_EQ(square.area(), 1); 
+    EXPECT_DOUBLE_EQ(square.area(), 1);
 }
 
 /* Test the method 'scaleRelative'.*/
@@ -132,9 +132,9 @@ TEST_F(PositionVectorTest, test_method_getCentroid) {
     square.push_back(Position(0,1));
     EXPECT_EQ(Position(0.5, 0.5), square.getCentroid());
 
-	Position pos2 = vectorLine->getCentroid();
-	EXPECT_DOUBLE_EQ(1, pos2.x());
-	EXPECT_DOUBLE_EQ(1, pos2.y());
+    Position pos2 = vectorLine->getCentroid();
+    EXPECT_DOUBLE_EQ(1, pos2.x());
+    EXPECT_DOUBLE_EQ(1, pos2.y());
 }
 
 /* Test the method 'getPolygonCenter'.*/
@@ -147,16 +147,16 @@ TEST_F(PositionVectorTest, test_method_getPolygonCenter) {
 
 
 /* Test the method 'getBoxBoundary'*/
-TEST_F(PositionVectorTest, test_method_getBoxBoundary) {	
-	Boundary bound = vectorPolygon->getBoxBoundary();
-	EXPECT_DOUBLE_EQ(bound.xmax(), 4);
-	EXPECT_DOUBLE_EQ(bound.xmin(), 0);
-	EXPECT_DOUBLE_EQ(bound.ymax(), 4);
-	EXPECT_DOUBLE_EQ(bound.ymin(), 0);
+TEST_F(PositionVectorTest, test_method_getBoxBoundary) {
+    Boundary bound = vectorPolygon->getBoxBoundary();
+    EXPECT_DOUBLE_EQ(bound.xmax(), 4);
+    EXPECT_DOUBLE_EQ(bound.xmin(), 0);
+    EXPECT_DOUBLE_EQ(bound.ymax(), 4);
+    EXPECT_DOUBLE_EQ(bound.ymin(), 0);
 }
 
 /* Test the method 'splitAt'*/
-TEST_F(PositionVectorTest, test_method_splitAt) {	
+TEST_F(PositionVectorTest, test_method_splitAt) {
     PositionVector vec;
     vec.push_back(Position(0,0));
     vec.push_back(Position(2,0));
@@ -165,64 +165,64 @@ TEST_F(PositionVectorTest, test_method_splitAt) {
     std::pair<PositionVector, PositionVector> result;
     // split in first segment
     result = vec.splitAt(1);
-	EXPECT_EQ(2, result.first.size());
-	EXPECT_DOUBLE_EQ(0., result.first[0].x());
-	EXPECT_DOUBLE_EQ(1., result.first[1].x());
-	EXPECT_EQ(3, result.second.size());
-	EXPECT_DOUBLE_EQ(1., result.second[0].x());
-	EXPECT_DOUBLE_EQ(2., result.second[1].x());
-	EXPECT_DOUBLE_EQ(5., result.second[2].x());
+    EXPECT_EQ(2, (int)result.first.size());
+    EXPECT_DOUBLE_EQ(0., result.first[0].x());
+    EXPECT_DOUBLE_EQ(1., result.first[1].x());
+    EXPECT_EQ(3, (int)result.second.size());
+    EXPECT_DOUBLE_EQ(1., result.second[0].x());
+    EXPECT_DOUBLE_EQ(2., result.second[1].x());
+    EXPECT_DOUBLE_EQ(5., result.second[2].x());
     // split in second segment
     result = vec.splitAt(4);
-	EXPECT_EQ(3, result.first.size());
-	EXPECT_DOUBLE_EQ(0., result.first[0].x());
-	EXPECT_DOUBLE_EQ(2., result.first[1].x());
-	EXPECT_DOUBLE_EQ(4., result.first[2].x());
-	EXPECT_EQ(2, result.second.size());
-	EXPECT_DOUBLE_EQ(4., result.second[0].x());
-	EXPECT_DOUBLE_EQ(5., result.second[1].x());
+    EXPECT_EQ(3, (int)result.first.size());
+    EXPECT_DOUBLE_EQ(0., result.first[0].x());
+    EXPECT_DOUBLE_EQ(2., result.first[1].x());
+    EXPECT_DOUBLE_EQ(4., result.first[2].x());
+    EXPECT_EQ(2, (int)result.second.size());
+    EXPECT_DOUBLE_EQ(4., result.second[0].x());
+    EXPECT_DOUBLE_EQ(5., result.second[1].x());
     // split close before inner point
     result = vec.splitAt(2 - smallDiff);
-	EXPECT_EQ(2, result.first.size());
-	EXPECT_DOUBLE_EQ(0., result.first[0].x());
-	EXPECT_DOUBLE_EQ(2., result.first[1].x());
-	EXPECT_EQ(2, result.second.size());
-	EXPECT_DOUBLE_EQ(2., result.second[0].x());
-	EXPECT_DOUBLE_EQ(5., result.second[1].x());
+    EXPECT_EQ(2, (int)result.first.size());
+    EXPECT_DOUBLE_EQ(0., result.first[0].x());
+    EXPECT_DOUBLE_EQ(2., result.first[1].x());
+    EXPECT_EQ(2, (int)result.second.size());
+    EXPECT_DOUBLE_EQ(2., result.second[0].x());
+    EXPECT_DOUBLE_EQ(5., result.second[1].x());
     // split close after inner point
     result = vec.splitAt(2 + smallDiff);
-	EXPECT_EQ(2, result.first.size());
-	EXPECT_DOUBLE_EQ(0., result.first[0].x());
-	EXPECT_DOUBLE_EQ(2., result.first[1].x());
-	EXPECT_EQ(2, result.second.size());
-	EXPECT_DOUBLE_EQ(2., result.second[0].x());
-	EXPECT_DOUBLE_EQ(5., result.second[1].x());
+    EXPECT_EQ(2, (int)result.first.size());
+    EXPECT_DOUBLE_EQ(0., result.first[0].x());
+    EXPECT_DOUBLE_EQ(2., result.first[1].x());
+    EXPECT_EQ(2, (int)result.second.size());
+    EXPECT_DOUBLE_EQ(2., result.second[0].x());
+    EXPECT_DOUBLE_EQ(5., result.second[1].x());
 
     // catch a bug
     vec.push_back(Position(6,0));
     vec.push_back(Position(8,0));
     // split at inner point
     result = vec.splitAt(5);
-	EXPECT_EQ(3, result.first.size());
-	EXPECT_DOUBLE_EQ(0., result.first[0].x());
-	EXPECT_DOUBLE_EQ(2., result.first[1].x());
-	EXPECT_DOUBLE_EQ(5., result.first[2].x());
-	EXPECT_EQ(3, result.second.size());
-	EXPECT_DOUBLE_EQ(5., result.second[0].x());
-	EXPECT_DOUBLE_EQ(6., result.second[1].x());
-	EXPECT_DOUBLE_EQ(8., result.second[2].x());
+    EXPECT_EQ(3, (int)result.first.size());
+    EXPECT_DOUBLE_EQ(0., result.first[0].x());
+    EXPECT_DOUBLE_EQ(2., result.first[1].x());
+    EXPECT_DOUBLE_EQ(5., result.first[2].x());
+    EXPECT_EQ(3, (int)result.second.size());
+    EXPECT_DOUBLE_EQ(5., result.second[0].x());
+    EXPECT_DOUBLE_EQ(6., result.second[1].x());
+    EXPECT_DOUBLE_EQ(8., result.second[2].x());
 
     // split short vector
     PositionVector vec2;
     vec2.push_back(Position(0,0));
     vec2.push_back(Position(2,0));
     result = vec2.splitAt(1);
-	EXPECT_EQ(2, result.first.size());
-	EXPECT_DOUBLE_EQ(0., result.first[0].x());
-	EXPECT_DOUBLE_EQ(1., result.first[1].x());
-	EXPECT_EQ(2, result.second.size());
-	EXPECT_DOUBLE_EQ(1., result.second[0].x());
-	EXPECT_DOUBLE_EQ(2. ,result.second[1].x());
+    EXPECT_EQ(2, (int)result.first.size());
+    EXPECT_DOUBLE_EQ(0., result.first[0].x());
+    EXPECT_DOUBLE_EQ(1., result.first[1].x());
+    EXPECT_EQ(2, (int)result.second.size());
+    EXPECT_DOUBLE_EQ(1., result.second[0].x());
+    EXPECT_DOUBLE_EQ(2. ,result.second[1].x());
 
     // split very short vector
     PositionVector vec3;
@@ -233,17 +233,17 @@ TEST_F(PositionVectorTest, test_method_splitAt) {
     result = vec3.splitAt(smallDiff);
     MsgHandler::getWarningInstance()->addRetriever(&OutputDevice::getDevice("stderr"));
 
-	EXPECT_EQ(2, result.first.size());
-	EXPECT_DOUBLE_EQ(0., result.first[0].x());
-	EXPECT_DOUBLE_EQ(smallDiff, result.first[1].x());
-	EXPECT_EQ(2, result.second.size());
-	EXPECT_DOUBLE_EQ(smallDiff, result.second[0].x());
-	EXPECT_DOUBLE_EQ(POSITION_EPS, result.second[1].x());
+    EXPECT_EQ(2, (int)result.first.size());
+    EXPECT_DOUBLE_EQ(0., result.first[0].x());
+    EXPECT_DOUBLE_EQ(smallDiff, result.first[1].x());
+    EXPECT_EQ(2, (int)result.second.size());
+    EXPECT_DOUBLE_EQ(smallDiff, result.second[0].x());
+    EXPECT_DOUBLE_EQ(POSITION_EPS, result.second[1].x());
 }
 
 
 /* Test the method 'intersectsAtLengths2D'*/
-TEST_F(PositionVectorTest, test_method_intersectsAtLenghts2D) {	
+TEST_F(PositionVectorTest, test_method_intersectsAtLenghts2D) {
     PositionVector vec1;
     vec1.push_back(Position(0,0,42));
     vec1.push_back(Position(100,0,0));
@@ -251,27 +251,27 @@ TEST_F(PositionVectorTest, test_method_intersectsAtLenghts2D) {
     PositionVector vec2;
     vec2.push_back(Position(0,0,0));
     vec2.push_back(Position(3,1,0));
-	EXPECT_DOUBLE_EQ(0, vec1.intersectsAtLengths2D(vec2)[0]);
+    EXPECT_DOUBLE_EQ(0, vec1.intersectsAtLengths2D(vec2)[0]);
 }
 
 
 /* Test the method 'nearest_offset_to_point2D'*/
-TEST_F(PositionVectorTest, test_method_nearest_offset_to_point2D) {	
+TEST_F(PositionVectorTest, test_method_nearest_offset_to_point2D) {
     PositionVector vec1;
     vec1.push_back(Position(0,1,0));
     vec1.push_back(Position(0,0,0));
     vec1.push_back(Position(1,0,0));
 
-	EXPECT_DOUBLE_EQ(1, vec1.nearest_offset_to_point2D(Position(-1,-1), false));
-	EXPECT_DOUBLE_EQ(1, vec1.nearest_offset_to_point2D(Position(-1,-1), true));
-	EXPECT_DOUBLE_EQ(2, vec1.nearest_offset_to_point2D(Position(2,1), false));
-	EXPECT_DOUBLE_EQ(0, vec1.nearest_offset_to_point2D(Position(2,1), true));
-	EXPECT_DOUBLE_EQ(2, vec1.nearest_offset_to_point2D(Position(3,2), false));
-	EXPECT_DOUBLE_EQ(-1, vec1.nearest_offset_to_point2D(Position(3,2), true));
+    EXPECT_DOUBLE_EQ(1, vec1.nearest_offset_to_point2D(Position(-1,-1), false));
+    EXPECT_DOUBLE_EQ(1, vec1.nearest_offset_to_point2D(Position(-1,-1), true));
+    EXPECT_DOUBLE_EQ(2, vec1.nearest_offset_to_point2D(Position(2,1), false));
+    EXPECT_DOUBLE_EQ(0, vec1.nearest_offset_to_point2D(Position(2,1), true));
+    EXPECT_DOUBLE_EQ(2, vec1.nearest_offset_to_point2D(Position(3,2), false));
+    EXPECT_DOUBLE_EQ(-1, vec1.nearest_offset_to_point2D(Position(3,2), true));
 }
 
 
-TEST_F(PositionVectorTest, test_method_extrapolate2D) {	
+TEST_F(PositionVectorTest, test_method_extrapolate2D) {
     PositionVector vec1;
     vec1.push_back(Position(0,1,0));
     vec1.push_back(Position(0,0,0));
@@ -303,7 +303,7 @@ TEST_F(PositionVectorTest, test_method_extrapolate2D) {
 
 
 /* Test the method 'move2side'*/
-TEST_F(PositionVectorTest, test_method_move2side) {	
+TEST_F(PositionVectorTest, test_method_move2side) {
     PositionVector vec1;
     vec1.push_back(Position(0,1,0));
     vec1.push_back(Position(0,0,0));
@@ -349,14 +349,14 @@ TEST_F(PositionVectorTest, test_method_move2side) {
     vec4.push_back(Position(0,0,0));
     vec4.push_back(Position(1,0,0));
     vec4.move2side(-2);
-    EXPECT_EQ(vec4.size(), 2);
+    EXPECT_EQ(2, (int)vec4.size());
     EXPECT_EQ(Position(0,2), vec4[0]);
     EXPECT_EQ(Position(1,2), vec4[1]);
     }
 }
 
 /* Test the method 'transformToVectorCoordinates'*/
-TEST_F(PositionVectorTest, test_method_transformToVectorCoordinates) {	
+TEST_F(PositionVectorTest, test_method_transformToVectorCoordinates) {
     {
         PositionVector vec1;
         vec1.push_back(Position(1,0));
@@ -387,7 +387,7 @@ TEST_F(PositionVectorTest, test_method_transformToVectorCoordinates) {
         EXPECT_EQ(Position(28, -4),  vec1.transformToVectorCoordinates(beyond, true));
     }
 
-    { 
+    {
         PositionVector vec1; // the same tests as before, mirrored on x-axis
         vec1.push_back(Position(1,0));
         vec1.push_back(Position(10,0));
@@ -420,7 +420,7 @@ TEST_F(PositionVectorTest, test_method_transformToVectorCoordinates) {
 
 
 /* Test the method 'distance'*/
-TEST_F(PositionVectorTest, test_method_distance) {	
+TEST_F(PositionVectorTest, test_method_distance) {
     {
         PositionVector vec1;
         vec1.push_back(Position(1,0));
@@ -437,21 +437,21 @@ TEST_F(PositionVectorTest, test_method_distance) {
         Position before(-3,-3);
         Position beyond(24,8);
 
-        EXPECT_EQ(0,  vec1.distance2D(on));
-        EXPECT_EQ(1,  vec1.distance2D(left));
-        EXPECT_EQ(1,  vec1.distance2D(right));
-        EXPECT_EQ(2,  vec1.distance2D(left2));
-        EXPECT_EQ(2,  vec1.distance2D(right2));
-        EXPECT_EQ(5,  vec1.distance2D(cornerRight));
-        EXPECT_EQ(5,  vec1.distance2D(cornerLeft));
+        EXPECT_EQ(0, vec1.distance2D(on));
+        EXPECT_EQ(1, vec1.distance2D(left));
+        EXPECT_EQ(1, vec1.distance2D(right));
+        EXPECT_EQ(2, vec1.distance2D(left2));
+        EXPECT_EQ(2, vec1.distance2D(right2));
+        EXPECT_EQ(5, vec1.distance2D(cornerRight));
+        EXPECT_EQ(5, vec1.distance2D(cornerLeft));
 
         EXPECT_EQ(GeomHelper::INVALID_OFFSET,  vec1.distance2D(before, true));
         EXPECT_EQ(GeomHelper::INVALID_OFFSET,  vec1.distance2D(beyond, true));
-        EXPECT_EQ(5,  vec1.distance2D(before));
-        EXPECT_EQ(5,  vec1.distance2D(beyond));
+        EXPECT_EQ(5, vec1.distance2D(before));
+        EXPECT_EQ(5, vec1.distance2D(beyond));
     }
 
-    { 
+    {
         PositionVector vec1; // the same tests as before, mirrored on x-axis
         vec1.push_back(Position(1,0));
         vec1.push_back(Position(10,0));
@@ -467,24 +467,24 @@ TEST_F(PositionVectorTest, test_method_distance) {
         Position before(-3,3);
         Position beyond(24,-8);
 
-        EXPECT_EQ(0,  vec1.distance2D(on));
-        EXPECT_EQ(1,  vec1.distance2D(left));
-        EXPECT_EQ(1,  vec1.distance2D(right));
-        EXPECT_EQ(2,  vec1.distance2D(left2));
-        EXPECT_EQ(2,  vec1.distance2D(right2));
-        EXPECT_EQ(5,  vec1.distance2D(cornerRight));
-        EXPECT_EQ(5,  vec1.distance2D(cornerLeft));
+        EXPECT_EQ(0, vec1.distance2D(on));
+        EXPECT_EQ(1, vec1.distance2D(left));
+        EXPECT_EQ(1, vec1.distance2D(right));
+        EXPECT_EQ(2, vec1.distance2D(left2));
+        EXPECT_EQ(2, vec1.distance2D(right2));
+        EXPECT_EQ(5, vec1.distance2D(cornerRight));
+        EXPECT_EQ(5, vec1.distance2D(cornerLeft));
 
         EXPECT_EQ(GeomHelper::INVALID_OFFSET,  vec1.distance2D(before, true));
         EXPECT_EQ(GeomHelper::INVALID_OFFSET,  vec1.distance2D(beyond, true));
-        EXPECT_EQ(5,  vec1.distance2D(before));
-        EXPECT_EQ(5,  vec1.distance2D(beyond));
+        EXPECT_EQ(5, vec1.distance2D(before));
+        EXPECT_EQ(5, vec1.distance2D(beyond));
     }
 }
 
 
 /* Test the method 'distance'*/
-TEST_F(PositionVectorTest, test_method_distances) {	
+TEST_F(PositionVectorTest, test_method_distances) {
     {
         PositionVector vec1;
         vec1.push_back(Position(0,0));
@@ -566,9 +566,8 @@ TEST_F(PositionVectorTest, test_method_overlapsWith) {
     EXPECT_TRUE(vec1.overlapsWith(vec4));
     EXPECT_FALSE(vec1.overlapsWith(vec5, 0));
     // growth is from centroid and thus different from Boundary behavior
-    EXPECT_FALSE(vec1.overlapsWith(vec5, 1)); 
+    EXPECT_FALSE(vec1.overlapsWith(vec5, 1));
     EXPECT_TRUE(vec1.overlapsWith(vec5, 3));
     EXPECT_TRUE(vec1.overlapsWith(vec5, 6));
     EXPECT_FALSE(vec1.overlapsWith(empty));
 }
-

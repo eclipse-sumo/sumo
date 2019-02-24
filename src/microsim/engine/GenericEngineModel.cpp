@@ -15,10 +15,12 @@
 // Generic interface for an engine model
 /****************************************************************************/
 
-#include "GenericEngineModel.h"
+#include <config.h>
 
 #include <iostream>
-#include <stdio.h>
+#include <utils/common/StringUtils.h>
+#include "GenericEngineModel.h"
+
 
 void GenericEngineModel::printParameterError(std::string parameter, std::string value) {
     std::cerr << className << ": invalid value " << value << " for parameter " << parameter << std::endl;
@@ -26,23 +28,21 @@ void GenericEngineModel::printParameterError(std::string parameter, std::string 
 
 void GenericEngineModel::parseParameter(const ParMap& parameters, std::string parameter, double& value) {
     ParMap::const_iterator par = parameters.find(parameter);
-    double v;
     if (par != parameters.end()) {
-        if (sscanf(par->second.c_str(), "%lf", &v) != 1) {
+        try {
+            value = StringUtils::toDouble(par->second);
+        } catch (ProcessError&) {
             printParameterError(par->first, par->second);
-        } else {
-            value = v;
         }
     }
 }
 void GenericEngineModel::parseParameter(const ParMap& parameters, std::string parameter, int& value) {
     ParMap::const_iterator par = parameters.find(parameter);
-    int v;
     if (par != parameters.end()) {
-        if (sscanf(par->second.c_str(), "%d", &v) != 1) {
+        try {
+            value = StringUtils::toInt(par->second);
+        } catch (ProcessError&) {
             printParameterError(par->first, par->second);
-        } else {
-            value = v;
         }
     }
 }
