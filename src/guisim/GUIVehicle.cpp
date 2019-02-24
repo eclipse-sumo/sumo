@@ -854,6 +854,7 @@ GUIVehicle::rerouteDRTStop(MSStoppingPlace* busStop, SUMOTime intermediateDurati
     // after it and set the stop duration
     std::string line = "";
     int destinations = 0;
+    bool add = true;
     for (auto it = myStops.begin(); it != myStops.end(); it++) {
         if (destinations < 2 && it->busstop != nullptr) {
             line += it->busstop->getID();
@@ -862,36 +863,37 @@ GUIVehicle::rerouteDRTStop(MSStoppingPlace* busStop, SUMOTime intermediateDurati
         if (it->busstop == busStop) {
             it->duration = finalDuration;
             myStops.erase(++it, myStops.end());
-            myParameter->line = line;
-            myParameter->line = line;
-            return;
+            add = false;
+            break;
         } else {
-            it->duration = intermediateDuration;
+            it->duration = MIN2(it->duration, intermediateDuration);
         }
     }
     if (destinations < 2) {
         line += busStop->getID();
     }
-    // create new stop
-    SUMOVehicleParameter::Stop stopPar;
-    stopPar.lane = busStop->getLane().getID();
-    stopPar.startPos = busStop->getBeginLanePosition();
-    stopPar.endPos = busStop->getEndLanePosition();
-    stopPar.duration = finalDuration;
-    stopPar.until = -1;
-    stopPar.triggered = false;
-    stopPar.containerTriggered = false;
-    stopPar.parking = false;
-    stopPar.index = STOP_INDEX_FIT;
-    stopPar.parametersSet = STOP_START_SET | STOP_END_SET;
-    // clean up prior route to improve visualisation, ensure that the stop can be added immediately 
-    ConstMSEdgeVector edges = myRoute->getEdges();
-    edges.erase(edges.begin(), edges.begin() + getRoutePosition());
-    edges.push_back(&busStop->getLane().getEdge());
-    replaceRouteEdges(edges, -1, 0, "DRT.tmp", false, false, false);
-    std::string errorMsg;
-    // add stop
-    addStop(stopPar, errorMsg);
+    if (add) {
+        // create new stop
+        SUMOVehicleParameter::Stop stopPar;
+        stopPar.lane = busStop->getLane().getID();
+        stopPar.startPos = busStop->getBeginLanePosition();
+        stopPar.endPos = busStop->getEndLanePosition();
+        stopPar.duration = finalDuration;
+        stopPar.until = -1;
+        stopPar.triggered = false;
+        stopPar.containerTriggered = false;
+        stopPar.parking = false;
+        stopPar.index = STOP_INDEX_FIT;
+        stopPar.parametersSet = STOP_START_SET | STOP_END_SET;
+        // clean up prior route to improve visualisation, ensure that the stop can be added immediately 
+        ConstMSEdgeVector edges = myRoute->getEdges();
+        edges.erase(edges.begin(), edges.begin() + getRoutePosition());
+        edges.push_back(&busStop->getLane().getEdge());
+        replaceRouteEdges(edges, -1, 0, "DRT.tmp", false, false, false);
+        std::string errorMsg;
+        // add stop
+        addStop(stopPar, errorMsg);
+    }
     const bool hasReroutingDevice = getDevice(typeid(MSDevice_Routing)) != nullptr;
     SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = hasReroutingDevice
         ? MSRoutingEngine::getRouterTT()
@@ -899,6 +901,7 @@ GUIVehicle::rerouteDRTStop(MSStoppingPlace* busStop, SUMOTime intermediateDurati
     // reroute to ensure the new stop is reached
     reroute(MSNet::getInstance()->getCurrentTimeStep(), "DRT", router);
     myParameter->line = line;
+    assert(haveValidStopEdges());
 }
 
 /****************************************************************************/
