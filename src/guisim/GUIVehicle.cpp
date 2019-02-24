@@ -875,6 +875,7 @@ GUIVehicle::rerouteDRTStop(MSStoppingPlace* busStop, SUMOTime intermediateDurati
     if (add) {
         // create new stop
         SUMOVehicleParameter::Stop stopPar;
+        stopPar.busstop = busStop->getID();
         stopPar.lane = busStop->getLane().getID();
         stopPar.startPos = busStop->getBeginLanePosition();
         stopPar.endPos = busStop->getEndLanePosition();
