@@ -907,6 +907,16 @@ MSNet::getStoppingPlaceID(const MSLane* lane, const double pos, const SumoXMLTag
 }
 
 
+const NamedObjectCont<MSStoppingPlace*>& 
+MSNet::getStoppingPlaces(SumoXMLTag category) const {
+    auto it = myStoppingPlaces.find(category);
+    if (it != myStoppingPlaces.end()) {
+        return it->second;
+    } else {
+        throw ProcessError("No stoppingPlace of type '" + toString(category) + "' found");
+    }
+}
+
 void
 MSNet::writeChargingStationOutput() const {
     if (myStoppingPlaces.count(SUMO_TAG_CHARGING_STATION) > 0) {

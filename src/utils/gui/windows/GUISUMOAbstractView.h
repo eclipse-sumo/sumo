@@ -246,6 +246,7 @@ public:
 
     /// @brief on gaming click
     virtual void onGamingClick(Position /*pos*/);
+    virtual void onGamingRightClick(Position /*pos*/);
 
     /// @brief @name Additional visualisations
     ///@{

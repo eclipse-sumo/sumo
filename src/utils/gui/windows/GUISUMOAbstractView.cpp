@@ -800,6 +800,9 @@ GUISUMOAbstractView::onRightBtnRelease(FXObject* o, FXSelector sel, void* data) 
     if (!myChanger->onRightBtnRelease(data) && !myApp->isGaming()) {
         openObjectDialog();
     }
+    if (myApp->isGaming()) {
+        onGamingRightClick(getPositionInformation());
+    }
     ungrab();
     return 1;
 }
@@ -1249,6 +1252,10 @@ GUISUMOAbstractView::getTrackedID() const {
 
 void
 GUISUMOAbstractView::onGamingClick(Position /*pos*/) {
+}
+
+void
+GUISUMOAbstractView::onGamingRightClick(Position /*pos*/) {
 }
 
 

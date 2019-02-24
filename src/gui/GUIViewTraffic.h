@@ -95,6 +95,7 @@ public:
 
     /// @brief handle mouse click in gaming mode
     void onGamingClick(Position pos);
+    void onGamingRightClick(Position pos);
 
     /// @brief get the current simulation time
     SUMOTime getCurrentTimeStep() const;

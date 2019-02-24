@@ -486,6 +486,7 @@ public:
     std::string getStoppingPlaceID(const MSLane* lane, const double pos, const SumoXMLTag category) const;
     /// @}
 
+    const NamedObjectCont<MSStoppingPlace*>& getStoppingPlaces(SumoXMLTag category) const;
 
     /// @brief write charging station output
     void writeChargingStationOutput() const;

@@ -59,6 +59,7 @@
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <foreign/rtree/SUMORTree.h>
 #include <utils/gui/div/GLHelper.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/globjects/GLIncludes.h>
 
 /* -------------------------------------------------------------------------
@@ -369,7 +370,71 @@ GUIViewTraffic::onGamingClick(Position pos) {
             l->changeStepAndDuration(tlsControl, MSNet::getInstance()->getCurrentTimeStep(), 0, l->getPhase(0).duration);
             update();
         }
+    } else {
+        // DRT game
+        if (MSGlobals::gUseMesoSim) {
+            return;
+        }
+        const std::set<GUIGlID>& sel = gSelected.getSelected(GLO_VEHICLE);
+        if (sel.size() == 0) {
+            // find closest pt vehicle
+            minDist = std::numeric_limits<double>::infinity();
+            GUIVehicle* closest = nullptr;
+            MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
+            MSVehicleControl::constVehIt it = vc.loadedVehBegin();
+            MSVehicleControl::constVehIt end = vc.loadedVehEnd();
+            for (it = vc.loadedVehBegin(); it != end; ++it) {
+                GUIVehicle* veh = dynamic_cast<GUIVehicle*>(it->second);
+                assert(veh != 0);
+                if (veh->getParameter().line != "") {
+                    const double dist = veh->getPosition().distanceTo2D(pos);
+                    if (dist < minDist) {
+                        minDist = dist;
+                        closest = veh;
+                    }
+                }
+            }
+            if (closest != nullptr) {
+                gSelected.select(closest->getGlID());
+                closest->addActiveAddVisualisation(this, GUIBaseVehicle::VO_SHOW_ALL_ROUTES);
+            }
+        } else {
+            // find closest pt stop
+            minDist = std::numeric_limits<double>::infinity();
+            MSStoppingPlace* closestStop = nullptr;
+            const NamedObjectCont<MSStoppingPlace*>& stops = MSNet::getInstance()->getStoppingPlaces(SUMO_TAG_BUS_STOP);
+            for (auto it = stops.begin(); it != stops.end(); ++it) {
+                MSStoppingPlace* stop = it->second;
+                const double dist = pos.distanceTo2D(stop->getLane().geometryPositionAtOffset(stop->getEndLanePosition()));
+                if (dist < minDist) {
+                    minDist = dist;
+                    closestStop = stop;
+                }
+            }
+            if (closestStop != 0) {
+                GUIGlID id = *sel.begin();
+                GUIVehicle* veh = dynamic_cast<GUIVehicle*>(GUIGlObjectStorage::gIDStorage.getObjectBlocking(id));
+                assert(veh != 0);
+                veh->rerouteDRTStop(closestStop);
+                GUIGlObjectStorage::gIDStorage.unblockObject(id);
+            }
+        }
     }
+}
+
+
+void
+GUIViewTraffic::onGamingRightClick(Position /*pos*/) {
+    const std::set<GUIGlID>& sel = gSelected.getSelected(GLO_VEHICLE);
+    if (sel.size() > 0) {
+        GUIGlID id = *sel.begin();
+        GUIVehicle* veh = dynamic_cast<GUIVehicle*>(GUIGlObjectStorage::gIDStorage.getObjectBlocking(id));
+        if (veh != 0) {
+            veh->removeActiveAddVisualisation(this, GUIBaseVehicle::VO_SHOW_ALL_ROUTES);
+        }
+        GUIGlObjectStorage::gIDStorage.unblockObject(id);
+    }
+    gSelected.clear();
 }
 
 

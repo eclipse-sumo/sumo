@@ -148,6 +148,10 @@ public:
     /// @brief return the lane-change maneuver distance
     double getManeuverDist() const;
 
+    /// @brief handle route to accomodate to given stop
+    void rerouteDRTStop(MSStoppingPlace* busStop,
+            SUMOTime intermediateDuration=TIME2STEPS(20),
+            SUMOTime finalDuration=SUMOTime_MAX);
 
 protected:
     /// @brief register vehicle for drawing while outside the network
