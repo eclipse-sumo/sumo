@@ -1094,15 +1094,11 @@ MSVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info, bool o
         double lastPos = getPositionOnLane();
         //if (getID() == "tram2") std::cout << "  replaceRoute on " << (*myCurrEdge)->getID() << "\n";
         for (std::list<Stop>::iterator iter = myStops.begin(); iter != myStops.end();) {
-            if (iter->reached) {
-                ++iter;
-                continue;
-            }
             double endPos = iter->getEndPos(*this);
             //if (getID() == "tram2") std::cout << "     stopEdge=" << iter->lane->getEdge().getID() << " start=" << (searchStart - myCurrEdge) << " endPos=" << endPos << " lastPos=" << lastPos << "\n";
             if (*searchStart != &iter->lane->getEdge()
                     || endPos < lastPos) {
-                if (searchStart != edges.end()) {
+                if (searchStart != edges.end() && !iter->reached) {
                     searchStart++;
                 }
             }
