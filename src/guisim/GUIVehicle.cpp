@@ -856,7 +856,7 @@ GUIVehicle::rerouteDRTStop(MSStoppingPlace* busStop, SUMOTime intermediateDurati
     int destinations = 0;
     bool add = true;
     for (auto it = myStops.begin(); it != myStops.end(); it++) {
-        if (destinations < 2 && it->busstop != nullptr) {
+        if (!it->reached && destinations < 2 && it->busstop != nullptr) {
             line += it->busstop->getID();
             destinations++;
         }
