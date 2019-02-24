@@ -171,6 +171,11 @@ public:
      */
     bool isStoppedInRange(double pos) const;
 
+    /** @brief Returns whether the vehicle stops at the given stopping place */
+    bool stopsAt(MSStoppingPlace* /*stop*/) const {
+        return false;
+    };
+
     /** @brief Returns until when to stop at the given segment
      * @param[in] seg The segment in question
      * @param[in] time the current time

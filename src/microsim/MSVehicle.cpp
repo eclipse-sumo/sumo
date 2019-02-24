@@ -2018,6 +2018,21 @@ MSVehicle::getStopIndices() const {
     return result;
 }
 
+bool
+MSVehicle::stopsAt(MSStoppingPlace* stop) const {
+    if (stop == nullptr) {
+        return false;
+    }
+    for (const Stop& s : myStops) {
+        if (s.busstop == stop 
+                || s.containerstop == stop
+                || s.parkingarea == stop
+                || s.chargingStation == stop) {
+            return true;
+        }
+    }
+    return false;
+}
 
 double
 MSVehicle::getBrakeGap() const {

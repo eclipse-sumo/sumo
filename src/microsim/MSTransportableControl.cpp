@@ -158,7 +158,8 @@ MSTransportableControl::boardAnyWaiting(MSEdge* edge, SUMOVehicle* vehicle, cons
         const std::string& line = vehicle->getParameter().line == "" ? vehicle->getParameter().id : vehicle->getParameter().line;
         SUMOTime currentTime =  MSNet::getInstance()->getCurrentTimeStep();
         for (TransportableVector::iterator i = wait.begin(); i != wait.end();) {
-            if ((*i)->isWaitingFor(line) && vehicle->getVehicleType().getPersonCapacity() > vehicle->getPersonNumber() && timeToBoardNextPerson <= currentTime && stop.startPos <= (*i)->getEdgePos() && (*i)->getEdgePos() <= stop.endPos) {
+            if (((*i)->isWaitingFor(line) || ((*i)->isWaitingFor("ANY") && vehicle->stopsAt((*i)->getCurrentStage()->getDestinationStop()))) 
+                    && vehicle->getVehicleType().getPersonCapacity() > vehicle->getPersonNumber() && timeToBoardNextPerson <= currentTime && stop.startPos <= (*i)->getEdgePos() && (*i)->getEdgePos() <= stop.endPos) {
                 edge->removePerson(*i);
                 vehicle->addPerson(*i);
                 //if the time a person needs to enter the vehicle extends the duration of the stop of the vehicle extend

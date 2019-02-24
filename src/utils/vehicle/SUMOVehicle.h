@@ -45,6 +45,7 @@ class MSVehicleDevice;
 class MSPerson;
 class MSTransportable;
 class MSParkingArea;
+class MSStoppingPlace;
 class SUMOSAXAttributes;
 
 typedef std::vector<const MSEdge*> ConstMSEdgeVector;
@@ -365,6 +366,9 @@ public:
 
     /** @brief Returns whether the vehicle is stoped in range of the given position */
     virtual bool isStoppedInRange(double pos) const = 0;
+
+    /** @brief Returns whether the vehicle stops at the given stopping place */
+    virtual bool stopsAt(MSStoppingPlace* stop) const = 0;
 
     /// @brief Returns a device of the given type if it exists or 0
     virtual MSVehicleDevice* getDevice(const std::type_info& type) const = 0;

@@ -1012,6 +1012,9 @@ public:
 
     /// @brief Returns the remaining stop duration for a stopped vehicle or 0
     SUMOTime remainingStopDuration() const;
+    
+    /** @brief Returns whether the vehicle stops at the given stopping place */
+    bool stopsAt(MSStoppingPlace* stop) const; 
 
     /** @brief Returns whether the vehicle will stop on the current edge
      */
