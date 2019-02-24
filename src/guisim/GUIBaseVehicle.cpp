@@ -69,6 +69,8 @@ FXDEFMAP(GUIBaseVehicle::GUIBaseVehiclePopupMenu) GUIBaseVehiclePopupMenuMap[] =
     FXMAPFUNC(SEL_COMMAND, MID_HIDE_ALLROUTES, GUIBaseVehicle::GUIBaseVehiclePopupMenu::onCmdHideAllRoutes),
     FXMAPFUNC(SEL_COMMAND, MID_SHOW_CURRENTROUTE, GUIBaseVehicle::GUIBaseVehiclePopupMenu::onCmdShowCurrentRoute),
     FXMAPFUNC(SEL_COMMAND, MID_HIDE_CURRENTROUTE, GUIBaseVehicle::GUIBaseVehiclePopupMenu::onCmdHideCurrentRoute),
+    FXMAPFUNC(SEL_COMMAND, MID_SHOW_FUTUREROUTE, GUIBaseVehicle::GUIBaseVehiclePopupMenu::onCmdShowFutureRoute),
+    FXMAPFUNC(SEL_COMMAND, MID_HIDE_FUTUREROUTE, GUIBaseVehicle::GUIBaseVehiclePopupMenu::onCmdHideFutureRoute),
     FXMAPFUNC(SEL_COMMAND, MID_SHOW_BEST_LANES, GUIBaseVehicle::GUIBaseVehiclePopupMenu::onCmdShowBestLanes),
     FXMAPFUNC(SEL_COMMAND, MID_HIDE_BEST_LANES, GUIBaseVehicle::GUIBaseVehiclePopupMenu::onCmdHideBestLanes),
     FXMAPFUNC(SEL_COMMAND, MID_START_TRACK, GUIBaseVehicle::GUIBaseVehiclePopupMenu::onCmdStartTrack),
@@ -127,6 +129,23 @@ long
 GUIBaseVehicle::GUIBaseVehiclePopupMenu::onCmdHideCurrentRoute(FXObject*, FXSelector, void*) {
     assert(myObject->getType() == GLO_VEHICLE);
     static_cast<GUIBaseVehicle*>(myObject)->removeActiveAddVisualisation(myParent, VO_SHOW_ROUTE);
+    return 1;
+}
+
+
+long
+GUIBaseVehicle::GUIBaseVehiclePopupMenu::onCmdShowFutureRoute(FXObject*, FXSelector, void*) {
+    assert(myObject->getType() == GLO_VEHICLE);
+    if (!static_cast<GUIBaseVehicle*>(myObject)->hasActiveAddVisualisation(myParent, VO_SHOW_FUTURE_ROUTE)) {
+        static_cast<GUIBaseVehicle*>(myObject)->addActiveAddVisualisation(myParent, VO_SHOW_FUTURE_ROUTE);
+    }
+    return 1;
+}
+
+long
+GUIBaseVehicle::GUIBaseVehiclePopupMenu::onCmdHideFutureRoute(FXObject*, FXSelector, void*) {
+    assert(myObject->getType() == GLO_VEHICLE);
+    static_cast<GUIBaseVehicle*>(myObject)->removeActiveAddVisualisation(myParent, VO_SHOW_FUTURE_ROUTE);
     return 1;
 }
 
@@ -230,6 +249,11 @@ GUIBaseVehicle::getPopUpMenu(GUIMainWindow& app,
         new FXMenuCommand(ret, "Hide Current Route", nullptr, ret, MID_HIDE_CURRENTROUTE);
     } else {
         new FXMenuCommand(ret, "Show Current Route", nullptr, ret, MID_SHOW_CURRENTROUTE);
+    }
+    if (hasActiveAddVisualisation(&parent, VO_SHOW_FUTURE_ROUTE)) {
+        new FXMenuCommand(ret, "Hide Future Route", nullptr, ret, MID_HIDE_FUTUREROUTE);
+    } else {
+        new FXMenuCommand(ret, "Show Future Route", nullptr, ret, MID_SHOW_FUTUREROUTE);
     }
     if (hasActiveAddVisualisation(&parent, VO_SHOW_ALL_ROUTES)) {
         new FXMenuCommand(ret, "Hide All Routes", nullptr, ret, MID_HIDE_ALLROUTES);
@@ -454,7 +478,10 @@ GUIBaseVehicle::drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVis
         drawBestLanes();
     }
     if (hasActiveAddVisualisation(parent, VO_SHOW_ROUTE)) {
-        drawRoute(s, 0, 0.25);
+        drawRoute(s, 0, 0.25, false);
+    }
+    if (hasActiveAddVisualisation(parent, VO_SHOW_FUTURE_ROUTE)) {
+        drawRoute(s, 0, 0.25, true);
     }
     if (hasActiveAddVisualisation(parent, VO_SHOW_ALL_ROUTES)) {
         if (myVehicle.getNumberReroutes() > 0) {
@@ -614,7 +641,7 @@ GUIBaseVehicle::removeActiveAddVisualisation(GUISUMOAbstractView* const parent, 
 
 
 void
-GUIBaseVehicle::drawRoute(const GUIVisualizationSettings& s, int routeNo, double darken) const {
+GUIBaseVehicle::drawRoute(const GUIVisualizationSettings& s, int routeNo, double darken, bool future) const {
     setColor(s);
     GLdouble colors[4];
     glGetDoublev(GL_CURRENT_COLOR, colors);
@@ -636,13 +663,13 @@ GUIBaseVehicle::drawRoute(const GUIVisualizationSettings& s, int routeNo, double
     }
     glColor3dv(colors);
     if (routeNo == 0) {
-        drawRouteHelper(s, myVehicle.getRoute());
+        drawRouteHelper(s, myVehicle.getRoute(), future);
         return;
     }
     --routeNo; // only prior routes are stored
     const MSRoute* route = myRoutes->getRoute(routeNo);
     if (route != nullptr) {
-        drawRouteHelper(s, *route);
+        drawRouteHelper(s, *route, future);
     }
 }
 

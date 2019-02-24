@@ -396,7 +396,7 @@ GUIViewTraffic::onGamingClick(Position pos) {
             }
             if (closest != nullptr) {
                 gSelected.select(closest->getGlID());
-                closest->addActiveAddVisualisation(this, GUIBaseVehicle::VO_SHOW_ALL_ROUTES);
+                closest->addActiveAddVisualisation(this, GUIBaseVehicle::VO_SHOW_FUTURE_ROUTE);
             }
         } else {
             // find closest pt stop
@@ -430,7 +430,7 @@ GUIViewTraffic::onGamingRightClick(Position /*pos*/) {
         GUIGlID id = *sel.begin();
         GUIVehicle* veh = dynamic_cast<GUIVehicle*>(GUIGlObjectStorage::gIDStorage.getObjectBlocking(id));
         if (veh != 0) {
-            veh->removeActiveAddVisualisation(this, GUIBaseVehicle::VO_SHOW_ALL_ROUTES);
+            veh->removeActiveAddVisualisation(this, GUIBaseVehicle::VO_SHOW_FUTURE_ROUTE);
         }
         GUIGlObjectStorage::gIDStorage.unblockObject(id);
     }

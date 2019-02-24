@@ -579,9 +579,9 @@ GUIVehicle::drawBestLanes() const {
 
 
 void
-GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r) const {
+GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r, bool future) const {
     const double exaggeration = s.vehicleSize.getExaggeration(s, this);
-    MSRouteIterator i = r.begin();
+    MSRouteIterator i = future ? myCurrEdge : r.begin();
     const std::vector<MSLane*>& bestLaneConts = getBestLanesContinuation();
     // draw continuation lanes when drawing the current route where available
     int bestLaneIndex = (&r == myRoute ? 0 : (int)bestLaneConts.size());
@@ -866,7 +866,7 @@ GUIVehicle::rerouteDRTStop(MSStoppingPlace* busStop, SUMOTime intermediateDurati
             myParameter->line = line;
             return;
         } else {
-            it->duration = intermediateDuration;;
+            it->duration = intermediateDuration;
         }
     }
     if (destinations < 2) {
