@@ -1506,7 +1506,7 @@ MSLaneChanger::getColumnleader(MSVehicle* vehicle, std::pair<MSVehicle*, double>
                     std::cout << "   look for another leader on lane " << Named::getIDSecure(next) << "\n";
                 }
 #endif
-                while (next != nullptr) {
+                while (next != nullptr && seen < maxLookAhead) {
                     seen += next->getLength();
                     MSVehicle* cand = next->getLastAnyVehicle();
                     if (cand == nullptr) {
