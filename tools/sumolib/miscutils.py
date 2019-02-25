@@ -254,18 +254,48 @@ class working_dir:
 
 
 class Colorgen:
+    DISTINCT = [
+            (0.17, 1.0, 0.5),
+            (0.0, 0.9, 1.0),
+            (0.35, 0.67, 0.71),
+            (0.14, 0.9, 1.0),
+            (0.56, 1.0, 0.78),
+            (0.07, 0.8, 0.96),
+            (0.79, 0.83, 0.71),
+            (0.5, 0.71, 0.94),
+            (0.84, 0.79, 0.94),
+            (0.2, 0.76, 0.96),
+            (0.0, 0.24, 0.98),
+            (0.5, 1.0, 0.5),
+            (0.77, 0.25, 1.0),
+            (0.09, 0.76, 0.67),
+            (0.15, 0.22, 1.0),
+            (0.0, 1.0, 0.5),
+            (0.38, 0.33, 1.0),
+            (0.67, 1.0, 0.5),
+            ]
 
-    def __init__(self, hsv):
+    def __init__(self, hsv, cycleLength=10.67):
         self.hsv = hsv
         self.cycle = [random.randint(0, 255) for x in self.hsv]
+        self.cycleOffset = int(round(256 / cycleLength))
+        self.distinctIndex = 0
 
     def get_value(self, opt, index):
         if opt == 'random':
             return random.random()
         elif opt == 'cycle':
             # the 255 below is intentional to get all color values when cycling long enough
-            self.cycle[index] = (self.cycle[index] + 24) % 255
+            self.cycle[index] = (self.cycle[index] + self.cycleOffset) % 255
             return self.cycle[index] / 255.0
+        elif opt == 'cycle':
+            # the 255 below is intentional to get all color values when cycling long enough
+            self.cycle[index] = (self.cycle[index] + self.cycleOffset) % 255
+            return self.cycle[index] / 255.0
+        elif opt == 'distinct':
+            if index == 0:
+                self.distinctIndex = (self.distinctIndex + 1) % len(self.DISTINCT)
+            return self.DISTINCT[self.distinctIndex][index]
         else:
             return float(opt)
 
