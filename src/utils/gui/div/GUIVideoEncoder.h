@@ -14,7 +14,7 @@
 ///
 // A simple video encoder from RGBA pics to anything ffmpeg can handle.
 // Tested with h264 only.
-// Based on work by Lei Xiaohua, Philip Schneider and Fabrice Bellard, see
+// Inspired by Lei Xiaohua, Philip Schneider and Fabrice Bellard, see
 // https://github.com/leixiaohua1020/simplest_ffmpeg_video_encoder and
 // https://github.com/codefromabove/FFmpegRGBAToYUV
 /****************************************************************************/

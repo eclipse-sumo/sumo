@@ -150,12 +150,11 @@ public:
      */
     static RGBColor interpolate(const RGBColor& minColor, const RGBColor& maxColor, double weight);
 
-    /** @brief Converts the given hsv-triplet to rgb
+    /** @brief Converts the given hsv-triplet to rgb, inspired by http://alvyray.com/Papers/CG/hsv2rgb.htm
      * @param[in] h Hue (0-360)
      * @param[in] s Saturation (0-1)
      * @param[in] v Value (0-1)
      * @return The color as RGB
-     * @author Alvy Ray Smith (http://www.alvyray.com/default.htm)
      */
     static RGBColor fromHSV(double h, double s, double v);
 
