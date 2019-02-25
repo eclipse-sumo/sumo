@@ -12,7 +12,7 @@
 /// @date    Jan 2019
 /// @version $Id$
 ///
-// Dialog for edit calibrator vehicleTypes
+// Dialog for edit vehicleTypes
 /****************************************************************************/
 
 // ===========================================================================
@@ -53,144 +53,95 @@ FXIMPLEMENT(GNEVehicleTypeDialog, GNEDemandElementDialog, GNEVehicleTypeDialogMa
 // ===========================================================================
 
 GNEVehicleTypeDialog::GNEVehicleTypeDialog(GNEDemandElement* editedVehicleType, bool updatingElement) :
-    GNEDemandElementDialog(editedVehicleType, updatingElement, 500, 370),
+    GNEDemandElementDialog(editedVehicleType, updatingElement, 500, 800),
     myVehicleTypeValid(true),
     myInvalidAttr(SUMO_ATTR_NOTHING) {
+
+    /*500, 370*/
+
     // change default header
     changeDemandElementDialogHeader(updatingElement ? "Edit " + myEditedDemandElement->getTagStr() + " of " : "Create " + myEditedDemandElement->getTagStr());
 
     // Create auxiliar frames for values
-    FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignUniformHorizontalFrame);
-    FXVerticalFrame* columnLeftLabel = new FXVerticalFrame(columns, GUIDesignAuxiliarFrame);
-    FXVerticalFrame* columnLeftValues = new FXVerticalFrame(columns, GUIDesignAuxiliarFrame);
-    FXVerticalFrame* columnRightLabel = new FXVerticalFrame(columns, GUIDesignAuxiliarFrame);
-    FXVerticalFrame* columnRightValues = new FXVerticalFrame(columns, GUIDesignAuxiliarFrame);
-
-    // create FXComboBox for VClass
-    new FXLabel(columnLeftLabel, toString(SUMO_ATTR_VCLASS).c_str(), nullptr, GUIDesignLabelThick);
-    myComboBoxVClass = new FXComboBox(columnLeftLabel, GUIDesignComboBoxNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignComboBox);
-    myComboBoxVClassLabelImage = new FXLabel(columnLeftValues, "", nullptr, GUIDesignLabelIconExtendedx46Ticked);
-    myComboBoxVClassLabelImage->setBackColor(FXRGBA(255, 255, 255, 255));
-    // fill combo Box with all VClass
-    std::vector<std::string> VClassStrings = SumoVehicleClassStrings.getStrings();
-    for (auto i : VClassStrings) {
-        if (i != SumoVehicleClassStrings.getString(SVC_IGNORING)) {
-            myComboBoxVClass->appendItem(i.c_str());
-        }
-    }
-    // only show 10 VClasses
-    myComboBoxVClass->setNumVisible(10);
-
-    // create combo bof for vehicle shapes
-    new FXLabel(columnRightLabel, toString(SUMO_ATTR_GUISHAPE).c_str(), nullptr, GUIDesignLabelThick);
-    myComboBoxShape = new FXComboBox(columnRightLabel, GUIDesignComboBoxNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignComboBox);
-    myComboBoxShapeLabelImage = new FXLabel(columnRightValues, "", nullptr, GUIDesignLabelIconExtendedx46Ticked);
-    myComboBoxShapeLabelImage->setBackColor(FXRGBA(255, 255, 255, 255));
-    // fill combo Box with all vehicle shapes
-    std::vector<std::string> VShapeStrings = SumoVehicleShapeStrings.getStrings();
-    for (auto i : VShapeStrings) {
-        if (i != SumoVehicleShapeStrings.getString(SVS_UNKNOWN)) {
-            myComboBoxShape->appendItem(i.c_str());
-        }
-    }
-    // only show 10 Shapes
-    myComboBoxShape->setNumVisible(10);
+    FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignContentsFrame);
+    FXVerticalFrame* columnLeft = new FXVerticalFrame(columns, GUIDesignAuxiliarFrame);
+    FXVerticalFrame* columnRight = new FXVerticalFrame(columns, GUIDesignAuxiliarFrame);
 
     // 01 create FXTextField and Label for vehicleTypeID
-    new FXLabel(columnLeftLabel, toString(SUMO_ATTR_ID).c_str(), nullptr, GUIDesignLabelThick);
-    myTextFieldVehicleTypeID = new FXTextField(columnLeftValues, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextField);
+    myTextFieldVehicleTypeID = buildRowFloat(columnLeft, SUMO_ATTR_ID);
+
+    myVClassRow = new VClassRow(this, columnLeft);
+    
+    myVShapeRow = new VShapeRow(this, columnRight);
 
     // 02 create FXTextField and Label for Accel
-    new FXLabel(columnLeftLabel, toString(SUMO_ATTR_ACCEL).c_str(), nullptr, GUIDesignLabelThick);
-    myTextFieldAccel = new FXTextField(columnLeftValues, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldReal);
+    myTextFieldAccel = buildRowFloat(columnLeft, SUMO_ATTR_ACCEL);
 
     // 03 create FXTextField and Label for Decel
-    new FXLabel(columnLeftLabel, toString(SUMO_ATTR_DECEL).c_str(), nullptr, GUIDesignLabelThick);
-    myTextFieldDecel = new FXTextField(columnLeftValues, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldReal);
+    myTextFieldDecel = buildRowFloat(columnLeft, SUMO_ATTR_DECEL);
 
     // 04 create FXTextField and Label for Sigma
-    new FXLabel(columnLeftLabel, toString(SUMO_ATTR_SIGMA).c_str(), nullptr, GUIDesignLabelThick);
-    myTextFieldSigma = new FXTextField(columnLeftValues, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldReal);
+    myTextFieldSigma = buildRowFloat(columnLeft, SUMO_ATTR_SIGMA);
 
     // 05 create FXTextField and Label for Tau
-    new FXLabel(columnLeftLabel, toString(SUMO_ATTR_TAU).c_str(), nullptr, GUIDesignLabelThick);
-    myTextFieldTau = new FXTextField(columnLeftValues, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldReal);
+    myTextFieldTau = buildRowFloat(columnLeft, SUMO_ATTR_TAU);
 
     // 06 create FXTextField and Label for Length
-    new FXLabel(columnLeftLabel, toString(SUMO_ATTR_LENGTH).c_str(), nullptr, GUIDesignLabelThick);
-    myTextFieldLength = new FXTextField(columnLeftValues, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldReal);
+    myTextFieldLength = buildRowFloat(columnLeft, SUMO_ATTR_LENGTH);
 
     // 07 create FXTextField and Label for MinGap
-    new FXLabel(columnLeftLabel, toString(SUMO_ATTR_MINGAP).c_str(), nullptr, GUIDesignLabelThick);
-    myTextFieldMinGap = new FXTextField(columnLeftValues, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldReal);
+    myTextFieldMinGap = buildRowFloat(columnLeft, SUMO_ATTR_MINGAP);
 
     // 08 create FXTextField and Label for MaxSpeed
-    new FXLabel(columnLeftLabel, toString(SUMO_ATTR_MAXSPEED).c_str(), nullptr, GUIDesignLabelThick);
-    myTextFieldMaxSpeed = new FXTextField(columnLeftValues, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldReal);
+    myTextFieldMaxSpeed = buildRowFloat(columnLeft, SUMO_ATTR_MAXSPEED);
 
     // 09 create FXTextField and Label for SpeedFactor
-    new FXLabel(columnLeftLabel, toString(SUMO_ATTR_SPEEDFACTOR).c_str(), nullptr, GUIDesignLabelThick);
-    myTextFieldSpeedFactor = new FXTextField(columnLeftValues, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldReal);
+    myTextFieldSpeedFactor = buildRowFloat(columnLeft, SUMO_ATTR_SPEEDFACTOR);
 
     // 10 create FXTextField and Label for SpeedDev
-    new FXLabel(columnLeftLabel, toString(SUMO_ATTR_SPEEDDEV).c_str(), nullptr, GUIDesignLabelThick);
-    myTextFieldSpeedDev = new FXTextField(columnLeftValues, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldReal);
+    myTextFieldSpeedDev = buildRowFloat(columnLeft, SUMO_ATTR_SPEEDDEV);
 
     // 11 create FXTextField and Label for Color
-    new FXLabel(columnLeftLabel, toString(SUMO_ATTR_COLOR).c_str(), nullptr, GUIDesignLabelThick);
-    myTextFieldColor = new FXTextField(columnLeftValues, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextField);
+    myTextFieldColor = buildRowString(columnLeft, SUMO_ATTR_COLOR);
 
     // 12 create FXTextField and Label for EmissionClass
-    new FXLabel(columnLeftLabel, toString(SUMO_ATTR_EMISSIONCLASS).c_str(), nullptr, GUIDesignLabelThick);
-    myTextFieldEmissionClass = new FXTextField(columnLeftValues, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextField);
+    myTextFieldEmissionClass = buildRowFloat(columnLeft, SUMO_ATTR_EMISSIONCLASS);
 
     // 01 create FXTextField and Label for Width
-    new FXLabel(columnRightLabel, toString(SUMO_ATTR_WIDTH).c_str(), nullptr, GUIDesignLabelThick);
-    myTextFieldWidth = new FXTextField(columnRightValues, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldReal);
+    myTextFieldWidth = buildRowFloat(columnLeft, SUMO_ATTR_WIDTH);
 
     // 02 create FXTextField and Label for Filename
-    new FXLabel(columnRightLabel, toString(SUMO_ATTR_IMGFILE).c_str(), nullptr, GUIDesignLabelThick);
-    myTextFieldFilename = new FXTextField(columnRightValues, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextField);
+    myTextFieldFilename = buildRowString(columnLeft, SUMO_ATTR_IMGFILE);
 
     // 03 create FXTextField and Label for Impatience
-    new FXLabel(columnRightLabel, toString(SUMO_ATTR_IMPATIENCE).c_str(), nullptr, GUIDesignLabelThick);
-    myTextFieldImpatience = new FXTextField(columnRightValues, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldReal);
+    myTextFieldImpatience = buildRowFloat(columnLeft, SUMO_ATTR_IMPATIENCE);
 
     // 04 create FXTextField and Label for LaneChangeModel
-    new FXLabel(columnRightLabel, toString(SUMO_ATTR_LANE_CHANGE_MODEL).c_str(), nullptr, GUIDesignLabelThick);
-    myTextFieldLaneChangeModel = new FXTextField(columnRightValues, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldReal);
+    myTextFieldLaneChangeModel = buildRowFloat(columnLeft, SUMO_ATTR_LANE_CHANGE_MODEL);
 
     // 05 create FXTextField and Label for CarFollowModel
-    new FXLabel(columnRightLabel, toString(SUMO_ATTR_CAR_FOLLOW_MODEL).c_str(), nullptr, GUIDesignLabelThick);
-    myTextFieldCarFollowModel = new FXTextField(columnRightValues, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldReal);
+    myTextFieldCarFollowModel = buildRowFloat(columnLeft, SUMO_ATTR_CAR_FOLLOW_MODEL);
 
     // 06 create FXTextField and Label for PersonCapacity
-    new FXLabel(columnRightLabel, toString(SUMO_ATTR_PERSON_CAPACITY).c_str(), nullptr, GUIDesignLabelThick);
-    myTextFieldPersonCapacity = new FXTextField(columnRightValues, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldInt);
+    myTextFieldPersonCapacity = buildRowInt(columnLeft, SUMO_ATTR_CAR_FOLLOW_MODEL);
 
     // 07 create FXTextField and Label for ContainerCapacity
-    new FXLabel(columnRightLabel, toString(SUMO_ATTR_CONTAINER_CAPACITY).c_str(), nullptr, GUIDesignLabelThick);
-    myTextFieldContainerCapacity = new FXTextField(columnRightValues, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldInt);
+    myTextFieldContainerCapacity = buildRowInt(columnLeft, SUMO_ATTR_CONTAINER_CAPACITY);
 
     // 08 create FXTextField and Label for BoardingDuration
-    new FXLabel(columnRightLabel, toString(SUMO_ATTR_BOARDING_DURATION).c_str(), nullptr, GUIDesignLabelThick);
-    myTextFieldBoardingDuration = new FXTextField(columnRightValues, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldReal);
+    myTextFieldBoardingDuration = buildRowFloat(columnLeft, SUMO_ATTR_BOARDING_DURATION);
 
     // 09 create FXTextField and Label for LoadingDuration
-    new FXLabel(columnRightLabel, toString(SUMO_ATTR_LOADING_DURATION).c_str(), nullptr, GUIDesignLabelThick);
-    myTextFieldLoadingDuration = new FXTextField(columnRightValues, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldReal);
+    myTextFieldLoadingDuration = buildRowFloat(columnRight, SUMO_ATTR_LOADING_DURATION);
 
     // 10 create FXTextField and Label for LatAlignment
-    new FXLabel(columnRightLabel, toString(SUMO_ATTR_LATALIGNMENT).c_str(), nullptr, GUIDesignLabelThick);
-    myTextFieldLatAlignment = new FXTextField(columnRightValues, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextField);
+    myTextFieldLatAlignment = buildRowString(columnRight, SUMO_ATTR_LATALIGNMENT);
 
     // 11 create FXTextField and Label for MinGapLat
-    new FXLabel(columnRightLabel, toString(SUMO_ATTR_MINGAP_LAT).c_str(), nullptr, GUIDesignLabelThick);
-    myTextFieldMinGapLat = new FXTextField(columnRightValues, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldReal);
+    myTextFieldMinGapLat = buildRowFloat(columnRight, SUMO_ATTR_MINGAP_LAT);
 
     // 12 create FXTextField and Label for MaxSpeedLat
-    new FXLabel(columnRightLabel, toString(SUMO_ATTR_MAXSPEED_LAT).c_str(), nullptr, GUIDesignLabelThick);
-    myTextFieldMaxSpeedLat = new FXTextField(columnRightValues, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldReal);
+    myTextFieldMaxSpeedLat = buildRowFloat(columnRight, SUMO_ATTR_MAXSPEED_LAT);
 
     // update fields
     updateVehicleTypeValues();
@@ -264,22 +215,23 @@ GNEVehicleTypeDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     myVehicleTypeValid = true;
     myInvalidAttr = SUMO_ATTR_NOTHING;
     // set color of myComboBoxShape, depending if current value is valid or not
-    if (myEditedDemandElement->isValid(SUMO_ATTR_GUISHAPE, myComboBoxShape->getText().text())) {
-        myComboBoxShape->setTextColor(FXRGB(0, 0, 0));
-        myEditedDemandElement->setAttribute(SUMO_ATTR_GUISHAPE, myComboBoxShape->getText().text(), myEditedDemandElement->getViewNet()->getUndoList());
-        setVShapeLabelImage();
+    if (myEditedDemandElement->isValid(SUMO_ATTR_GUISHAPE, myVShapeRow->comboBoxShape->getText().text())) {
+        myVShapeRow->comboBoxShape->setTextColor(FXRGB(0, 0, 0));
+        myEditedDemandElement->setAttribute(SUMO_ATTR_GUISHAPE, myVShapeRow->comboBoxShape->getText().text(), myEditedDemandElement->getViewNet()->getUndoList());
+        myVShapeRow->setVShapeLabelImage();
     } else {
-        myComboBoxShape->setTextColor(FXRGB(255, 0, 0));
+        myVShapeRow->comboBoxShape->setTextColor(FXRGB(255, 0, 0));
         myVehicleTypeValid = false;
         myInvalidAttr = SUMO_ATTR_GUISHAPE;
     }
     // set color of myComboBoxVClass, depending if current value is valid or not
-    if (myEditedDemandElement->isValid(SUMO_ATTR_VCLASS, myComboBoxVClass->getText().text())) {
-        myComboBoxVClass->setTextColor(FXRGB(0, 0, 0));
-        myEditedDemandElement->setAttribute(SUMO_ATTR_VCLASS, myComboBoxVClass->getText().text(), myEditedDemandElement->getViewNet()->getUndoList());
-        setVClassLabelImage();
+        myVClassRow->comboBoxVClass->setTextColor(FXRGB(0, 0, 0));
+    if (myEditedDemandElement->isValid(SUMO_ATTR_VCLASS, myVClassRow->comboBoxVClass->getText().text())) {
+        myVClassRow->comboBoxVClass->setTextColor(FXRGB(0, 0, 0));
+        myEditedDemandElement->setAttribute(SUMO_ATTR_VCLASS, myVClassRow->comboBoxVClass->getText().text(), myEditedDemandElement->getViewNet()->getUndoList());
+        myVClassRow->setVClassLabelImage();
     } else {
-        myComboBoxVClass->setTextColor(FXRGB(255, 0, 0));
+        myVClassRow->comboBoxVClass->setTextColor(FXRGB(255, 0, 0));
         myVehicleTypeValid = false;
         myInvalidAttr = SUMO_ATTR_VCLASS;
     }
@@ -510,8 +462,8 @@ void
 GNEVehicleTypeDialog::updateVehicleTypeValues() {
     //set values of myEditedDemandElement int fields
     myTextFieldVehicleTypeID->setText(myEditedDemandElement->getAttribute(SUMO_ATTR_ID).c_str());
-    myComboBoxVClass->setText(myEditedDemandElement->getAttribute(SUMO_ATTR_VCLASS).c_str());
-    myComboBoxShape->setText(myEditedDemandElement->getAttribute(SUMO_ATTR_GUISHAPE).c_str());
+    myVClassRow->comboBoxVClass->setText(myEditedDemandElement->getAttribute(SUMO_ATTR_VCLASS).c_str());
+    myVShapeRow->comboBoxShape->setText(myEditedDemandElement->getAttribute(SUMO_ATTR_GUISHAPE).c_str());
     myTextFieldAccel->setText(myEditedDemandElement->getAttribute(SUMO_ATTR_ACCEL).c_str());
     myTextFieldDecel->setText(myEditedDemandElement->getAttribute(SUMO_ATTR_DECEL).c_str());
     myTextFieldSigma->setText(myEditedDemandElement->getAttribute(SUMO_ATTR_SIGMA).c_str());
@@ -536,14 +488,41 @@ GNEVehicleTypeDialog::updateVehicleTypeValues() {
     myTextFieldMinGapLat->setText(myEditedDemandElement->getAttribute(SUMO_ATTR_MINGAP_LAT).c_str());
     myTextFieldMaxSpeedLat->setText(myEditedDemandElement->getAttribute(SUMO_ATTR_MAXSPEED_LAT).c_str());
     // set image labels
-    setVClassLabelImage();
+    myVClassRow->setVClassLabelImage();
+    myVShapeRow->setVShapeLabelImage();
 }
 
 
+// ---------------------------------------------------------------------------
+// GNEVehicleTypeDialog::VClassRow - methods
+// ---------------------------------------------------------------------------
+
+GNEVehicleTypeDialog::VClassRow::VClassRow(GNEVehicleTypeDialog* vehicleTypeDialog, FXVerticalFrame* column) :
+    FXHorizontalFrame(vehicleTypeDialog),
+    myVehicleTypeDialog(vehicleTypeDialog) {
+    // create two auxiliar frames
+    FXHorizontalFrame* horizontalFrame = new FXHorizontalFrame(column, GUIDesignAuxiliarHorizontalFrame);
+    FXVerticalFrame* verticalFrame = new FXVerticalFrame(horizontalFrame, GUIDesignAuxiliarVerticalFrame);
+    // create FXComboBox for VClass
+    new FXLabel(verticalFrame, toString(SUMO_ATTR_VCLASS).c_str(), nullptr, GUIDesignLabelAttribute);
+    comboBoxVClass = new FXComboBox(verticalFrame, GUIDesignComboBoxNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignComboBox);
+    myComboBoxVClassLabelImage = new FXLabel(horizontalFrame, "", nullptr, GUIDesignLabelIconExtendedx46Ticked);
+    myComboBoxVClassLabelImage->setBackColor(FXRGBA(255, 255, 255, 255));
+    // fill combo Box with all VClass
+    std::vector<std::string> VClassStrings = SumoVehicleClassStrings.getStrings();
+    for (auto i : VClassStrings) {
+        if (i != SumoVehicleClassStrings.getString(SVC_IGNORING)) {
+            comboBoxVClass->appendItem(i.c_str());
+        }
+    }
+    // only show 10 VClasses
+    comboBoxVClass->setNumVisible(10);
+}
+
 void
-GNEVehicleTypeDialog::setVClassLabelImage() {
+GNEVehicleTypeDialog::VClassRow::setVClassLabelImage() {
     // set Icon in label depending of current VClass
-    switch (getVehicleClassID(myEditedDemandElement->getAttribute(SUMO_ATTR_VCLASS))) {
+    switch (getVehicleClassID(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_VCLASS))) {
         case SVC_PRIVATE:
             myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VCLASS_PRIVATE));
             break;
@@ -625,11 +604,37 @@ GNEVehicleTypeDialog::setVClassLabelImage() {
     }
 }
 
+// ---------------------------------------------------------------------------
+// GNEVehicleTypeDialog::VShapeRow - methods
+// ---------------------------------------------------------------------------
+
+GNEVehicleTypeDialog::VShapeRow::VShapeRow(GNEVehicleTypeDialog* vehicleTypeDialog, FXVerticalFrame* column) :
+    FXHorizontalFrame(vehicleTypeDialog),
+    myVehicleTypeDialog(vehicleTypeDialog) {
+    // create two auxiliar frames
+    FXHorizontalFrame* horizontalFrame = new FXHorizontalFrame(column, GUIDesignAuxiliarHorizontalFrame);
+    FXVerticalFrame* verticalFrame = new FXVerticalFrame(horizontalFrame, GUIDesignAuxiliarVerticalFrame);
+    // create combo bof for vehicle shapes
+    new FXLabel(verticalFrame, toString(SUMO_ATTR_GUISHAPE).c_str(), nullptr, GUIDesignLabelAttribute);
+    comboBoxShape = new FXComboBox(verticalFrame, GUIDesignComboBoxNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignComboBox);
+    myComboBoxShapeLabelImage = new FXLabel(horizontalFrame, "", nullptr, GUIDesignLabelIconExtendedx46Ticked);
+    myComboBoxShapeLabelImage->setBackColor(FXRGBA(255, 255, 255, 255));
+    // fill combo Box with all vehicle shapes
+    std::vector<std::string> VShapeStrings = SumoVehicleShapeStrings.getStrings();
+    for (auto i : VShapeStrings) {
+        if (i != SumoVehicleShapeStrings.getString(SVS_UNKNOWN)) {
+            comboBoxShape->appendItem(i.c_str());
+        }
+    }
+    // only show 10 Shapes
+    comboBoxShape->setNumVisible(10);
+}
+
 
 void
-GNEVehicleTypeDialog::setVShapeLabelImage() {
+GNEVehicleTypeDialog::VShapeRow::setVShapeLabelImage() {
     // set Icon in label depending of current VClass
-    switch (getVehicleShapeID(myEditedDemandElement->getAttribute(SUMO_ATTR_GUISHAPE))) {
+    switch (getVehicleShapeID(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_GUISHAPE))) {
         case SVS_UNKNOWN:
             myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_UNKNOWN));
             break;
@@ -713,8 +718,33 @@ GNEVehicleTypeDialog::setVShapeLabelImage() {
             myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_RICKSHAW));
             break;
         default:
-            myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VCLASS_IGNORING));
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VCLASS_IGNORING));
             break;
     }
 }
+
+
+FXTextField * 
+GNEVehicleTypeDialog::buildRowInt(FXVerticalFrame* column, SumoXMLAttr attr) {
+    FXHorizontalFrame* row = new FXHorizontalFrame(column, GUIDesignAuxiliarHorizontalFrame);
+    new FXLabel(row, toString(attr).c_str(), nullptr, GUIDesignLabelAttribute);
+    return new FXTextField(row, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldInt);
+}
+
+
+FXTextField * 
+GNEVehicleTypeDialog::buildRowFloat(FXVerticalFrame* column, SumoXMLAttr attr) {
+    FXHorizontalFrame* row = new FXHorizontalFrame(column, GUIDesignAuxiliarHorizontalFrame);
+    new FXLabel(row, toString(attr).c_str(), nullptr, GUIDesignLabelAttribute);
+    return new FXTextField(row, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldReal);
+}
+
+
+FXTextField * 
+GNEVehicleTypeDialog::buildRowString(FXVerticalFrame* column, SumoXMLAttr attr) {
+    FXHorizontalFrame* row = new FXHorizontalFrame(column, GUIDesignAuxiliarHorizontalFrame);
+    new FXLabel(row, toString(attr).c_str(), nullptr, GUIDesignLabelAttribute);
+    return new FXTextField(row, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextField);
+}
+
 /****************************************************************************/

@@ -12,7 +12,7 @@
 /// @date    Jan 2019
 /// @version $Id$
 ///
-// Dialog for edit calibrator vehicleTypes
+// Dialog for edit vehicleTypes
 /****************************************************************************/
 #ifndef GNEVehicleTypeDialog_h
 #define GNEVehicleTypeDialog_h
@@ -67,10 +67,52 @@ public:
     /// @}
 
 protected:
+    /// @brief class for VClasses
+    class VClassRow : public FXHorizontalFrame {
+
+    public:
+        /// @brief constructor
+        VClassRow(GNEVehicleTypeDialog* vehicleTypeDialog, FXVerticalFrame* column);
+
+        /// @brief set VClass texture
+        void setVClassLabelImage();
+
+        /// @brief FXComboBox for VClass
+        FXComboBox* comboBoxVClass;
+        
+    private:
+        /// @brief label with image of VClass
+        FXLabel* myComboBoxVClassLabelImage;
+
+        /// @brief pointer to Vehicle Type dialog parent
+        GNEVehicleTypeDialog* myVehicleTypeDialog;
+    };
+
+    /// @brief class for VShapeRow
+    class VShapeRow : public FXHorizontalFrame {
+        
+    public:
+        /// @brief constructor
+        VShapeRow(GNEVehicleTypeDialog* vehicleTypeDialog, FXVerticalFrame* column);
+
+        /// @brief set VShape texture
+        void setVShapeLabelImage();
+
+        /// @brief FXComboBox for Shape
+        FXComboBox* comboBoxShape;
+        
+    private:
+        /// @brief label with image of Shape
+        FXLabel* myComboBoxShapeLabelImage;
+
+        /// @brief pointer to Vehicle Type dialog parent
+        GNEVehicleTypeDialog* myVehicleTypeDialog;
+    };
+
     /// @brief FOX needs this
     GNEVehicleTypeDialog() {}
 
-    /// @brief flag to check if current calibrator vehicleType is valid
+    /// @brief flag to check if current vehicleType is valid
     bool myVehicleTypeValid;
 
     /// @brief current sumo attribute invalid
@@ -79,23 +121,23 @@ protected:
     /// @brief FXTextfield for vehicleTypeID
     FXTextField* myTextFieldVehicleTypeID;
 
-    /// @brief FXComboBox for VClass
-    FXComboBox* myComboBoxVClass;
+    /// @brief vehicle class row
+    VClassRow* myVClassRow;
 
-    /// @brief label with image of VClass
-    FXLabel* myComboBoxVClassLabelImage;
-
-    /// @brief FXComboBox for Shape
-    FXComboBox* myComboBoxShape;
-
-    /// @brief label with image of Shape
-    FXLabel* myComboBoxShapeLabelImage;
+    /// @brief FXTextfield for Color
+    FXTextField* myTextFieldColor;
 
     /// @brief FXTextfield for Accel
     FXTextField* myTextFieldAccel;
 
     /// @brief FXTextfield for Decel
     FXTextField* myTextFieldDecel;
+
+    /// @brief FXTextfield for aparent Decel
+    FXTextField* myTextFieldAparentDecel;
+    
+    /// @brief FXTextfield for emergency Decel
+    FXTextField* myTextFieldEmergencyAccel;
 
     /// @brief FXTextfield for Sigma
     FXTextField* myTextFieldSigma;
@@ -118,11 +160,11 @@ protected:
     /// @brief FXTextfield for SpeedDev
     FXTextField* myTextFieldSpeedDev;
 
-    /// @brief FXTextfield for Color
-    FXTextField* myTextFieldColor;
-
     /// @brief FXTextfield for EmissionClass
     FXTextField* myTextFieldEmissionClass;
+
+    /// @brief vehicle shape row
+    VShapeRow* myVShapeRow;
 
     /// @brief FXTextfield for Width
     FXTextField* myTextFieldWidth;
@@ -160,16 +202,22 @@ protected:
     /// @brief FXTextfield for MaxSpeedLat
     FXTextField* myTextFieldMaxSpeedLat;
 
+    /// @brief FXTextfield for MaxSpeedLat
+    FXTextField* myTextFieldActionStepLenght;
+
     /// @brief update data fields
     void updateVehicleTypeValues();
 
-    /// @brief set VClass texture
-    void setVClassLabelImage();
-
-    /// @brief set VShape texture
-    void setVShapeLabelImage();
-
 private:
+    /// @brief build row int
+    FXTextField* buildRowInt(FXVerticalFrame* column, SumoXMLAttr tag);
+
+    /// @brief build row float
+    FXTextField* buildRowFloat(FXVerticalFrame* column, SumoXMLAttr tag);
+
+    /// @brief build row
+    FXTextField* buildRowString(FXVerticalFrame* column, SumoXMLAttr tag);
+
     /// @brief Invalidated copy constructor.
     GNEVehicleTypeDialog(const GNEVehicleTypeDialog&) = delete;
 
