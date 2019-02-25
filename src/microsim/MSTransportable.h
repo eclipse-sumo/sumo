@@ -322,7 +322,7 @@ public:
     class Stage_Waiting : public Stage {
     public:
         /// constructor
-        Stage_Waiting(const MSEdge* destination, SUMOTime duration, SUMOTime until,
+        Stage_Waiting(const MSEdge* destination, MSStoppingPlace* toStop, SUMOTime duration, SUMOTime until,
                       double pos, const std::string& actType, const bool initial);
 
         /// destructor

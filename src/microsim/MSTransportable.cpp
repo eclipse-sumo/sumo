@@ -223,7 +223,7 @@ MSTransportable::Stage_Trip::setArrived(MSNet* net, MSTransportable* transportab
         if (transportable->getParameter().departPosProcedure == DEPART_POS_RANDOM) {
             myDepartPos = RandHelper::rand(myOrigin->getLength());
         }
-        previous = new MSTransportable::Stage_Waiting(myOrigin, -1, transportable->getParameter().depart, myDepartPos, "start", true);
+        previous = new MSTransportable::Stage_Waiting(myOrigin, nullptr, -1, transportable->getParameter().depart, myDepartPos, "start", true);
     } else {
         previous = transportable->getNextStage(-1);
         myDepartPos = previous->getArrivalPos();
@@ -336,10 +336,10 @@ MSTransportable::Stage_Trip::getStageSummary() const {
 /* -------------------------------------------------------------------------
 * MSTransportable::Stage_Waiting - methods
 * ----------------------------------------------------------------------- */
-MSTransportable::Stage_Waiting::Stage_Waiting(const MSEdge* destination,
+MSTransportable::Stage_Waiting::Stage_Waiting(const MSEdge* destination, MSStoppingPlace* toStop,
         SUMOTime duration, SUMOTime until, double pos, const std::string& actType,
         const bool initial) :
-    MSTransportable::Stage(destination, nullptr, SUMOVehicleParameter::interpretEdgePos(
+    MSTransportable::Stage(destination, toStop, SUMOVehicleParameter::interpretEdgePos(
                                pos, destination->getLength(), SUMO_ATTR_DEPARTPOS, "stopping at " + destination->getID()),
                            initial ? WAITING_FOR_DEPART : WAITING),
     myWaitingDuration(duration),
@@ -374,6 +374,9 @@ void
 MSTransportable::Stage_Waiting::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now, Stage* previous) {
     myDeparted = now;
     const SUMOTime until = MAX3(now, now + myWaitingDuration, myWaitingUntil);
+    if (myDestinationStop != nullptr) {
+        myDestinationStop->addTransportable(transportable);
+    }
     if (dynamic_cast<MSPerson*>(transportable) != nullptr) {
         previous->getEdge()->addPerson(transportable);
         net->getPersonControl().setWaitEnd(until, transportable);
@@ -724,7 +727,7 @@ MSTransportable::removeStage(int next) {
     } else {
         if (myStep + 1 == myPlan->end()) {
             // stay in the simulation until the start of simStep to allow appending new stages (at the correct position)
-            appendStage(new Stage_Waiting(getEdge(), 0, 0, getEdgePos(), "last stage removed", false));
+            appendStage(new Stage_Waiting(getEdge(), nullptr, 0, 0, getEdgePos(), "last stage removed", false));
         }
         (*myStep)->abort(this);
         proceed(MSNet::getInstance(), MSNet::getInstance()->getCurrentTimeStep());

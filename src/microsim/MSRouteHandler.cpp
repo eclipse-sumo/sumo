@@ -196,7 +196,7 @@ MSRouteHandler::myStartElement(int element,
                     }
                     if (myActivePlan->empty()) {
                         myActivePlan->push_back(new MSTransportable::Stage_Waiting(
-                                                    from, -1, myVehicleParameter->depart, myVehicleParameter->departPos, "start", true));
+                                                    from, nullptr, -1, myVehicleParameter->depart, myVehicleParameter->departPos, "start", true));
                     }
                 } else if (myActivePlan->empty()) {
                     throw ProcessError("The start edge for person '" + pid + "' is not known.");
@@ -241,7 +241,7 @@ MSRouteHandler::myStartElement(int element,
                         }
                         if (myActiveContainerPlan->empty()) {
                             myActiveContainerPlan->push_back(new MSTransportable::Stage_Waiting(
-                                                                 from, -1, myVehicleParameter->depart, myVehicleParameter->departPos, "start", true));
+                                                                 from, nullptr, -1, myVehicleParameter->depart, myVehicleParameter->departPos, "start", true));
                         }
                     } else if (myActiveContainerPlan->empty()) {
                         throw ProcessError("The start edge within a transport of container '" + containerId + "' is not known.");
@@ -317,7 +317,7 @@ MSRouteHandler::myStartElement(int element,
                 }
                 if (myActiveContainerPlan->empty()) {
                     myActiveContainerPlan->push_back(new MSTransportable::Stage_Waiting(
-                                                         myActiveRoute.front(), -1, myVehicleParameter->depart, departPos, "start", true));
+                                                         myActiveRoute.front(), nullptr, -1, myVehicleParameter->depart, departPos, "start", true));
                 }
                 myActiveContainerPlan->push_back(new MSContainer::MSContainerStage_Tranship(myActiveRoute, cs, speed, departPos, arrivalPos));
                 myActiveRoute.clear();
@@ -839,6 +839,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         return;
     }
     const MSEdge* edge = nullptr;
+    MSStoppingPlace* toStop = nullptr;
     // try to parse the assigned bus stop
     if (stop.busstop != "") {
         // ok, we have a bus stop
@@ -847,6 +848,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
             WRITE_ERROR("The busStop '" + stop.busstop + "' is not known" + errorSuffix);
             return;
         }
+        toStop = bs;
         const MSLane& l = bs->getLane();
         stop.lane = l.getID();
         stop.endPos = bs->getEndLanePosition();
@@ -860,6 +862,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
             WRITE_ERROR("The containerStop '" + stop.containerstop + "' is not known" + errorSuffix);
             return;
         }
+        toStop = cs;
         const MSLane& l = cs->getLane();
         stop.lane = l.getID();
         stop.endPos = cs->getEndLanePosition();
@@ -873,6 +876,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
             WRITE_ERROR("The parkingArea '" + stop.parkingarea + "' is not known" + errorSuffix);
             return;
         }
+        toStop = pa;
         const MSLane& l = pa->getLane();
         stop.lane = l.getID();
         stop.endPos = pa->getEndLanePosition();
@@ -890,6 +894,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
             WRITE_ERROR("The chargingStation '" + stop.chargingStation + "' is not known" + errorSuffix);
             return;
         }
+        toStop = cs;
     } else {
         // no, the lane and the position should be given
         // get the lane
@@ -919,24 +924,6 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
             }
         }
         edge = &MSLane::dictionary(stop.lane)->getEdge();
-        if (myActivePlan &&
-                !myActivePlan->empty() &&
-                myActivePlan->back()->getDestination() != edge) {
-            throw ProcessError("Disconnected plan for person '" + myVehicleParameter->id + "' (" + edge->getID() + "!=" + myActivePlan->back()->getDestination()->getID() + ").");
-        }
-        if (myActivePlan && myActivePlan->empty()) {
-            myActivePlan->push_back(new MSTransportable::Stage_Waiting(
-                                        edge, -1, myVehicleParameter->depart, myVehicleParameter->departPos, "start", true));
-        }
-        if (myActiveContainerPlan &&
-                !myActiveContainerPlan->empty() &&
-                myActiveContainerPlan->back()->getDestination() != &MSLane::dictionary(stop.lane)->getEdge()) {
-            throw ProcessError("Disconnected plan for container '" + myVehicleParameter->id + "' (" + MSLane::dictionary(stop.lane)->getEdge().getID() + "!=" + myActiveContainerPlan->back()->getDestination()->getID() + ").");
-        }
-        if (myActiveContainerPlan && myActiveContainerPlan->empty()) {
-            myActiveContainerPlan->push_back(new MSTransportable::Stage_Waiting(
-                                                 &MSLane::dictionary(stop.lane)->getEdge(), -1, myVehicleParameter->depart, myVehicleParameter->departPos, "start", true));
-        }
         stop.endPos = attrs.getOpt<double>(SUMO_ATTR_ENDPOS, nullptr, ok, MSLane::dictionary(stop.lane)->getLength());
         if (attrs.hasAttribute(SUMO_ATTR_POSITION)) {
             WRITE_WARNING("Deprecated attribute 'pos' in description of stop" + errorSuffix);
@@ -949,6 +936,24 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
             return;
         }
     }
+    if (myActivePlan &&
+            !myActivePlan->empty() &&
+            myActivePlan->back()->getDestination() != edge) {
+        throw ProcessError("Disconnected plan for person '" + myVehicleParameter->id + "' (" + edge->getID() + "!=" + myActivePlan->back()->getDestination()->getID() + ").");
+    }
+    if (myActivePlan && myActivePlan->empty()) {
+        myActivePlan->push_back(new MSTransportable::Stage_Waiting(
+                    edge, toStop, -1, myVehicleParameter->depart, myVehicleParameter->departPos, "start", true));
+    }
+    if (myActiveContainerPlan &&
+            !myActiveContainerPlan->empty() &&
+            myActiveContainerPlan->back()->getDestination() != &MSLane::dictionary(stop.lane)->getEdge()) {
+        throw ProcessError("Disconnected plan for container '" + myVehicleParameter->id + "' (" + MSLane::dictionary(stop.lane)->getEdge().getID() + "!=" + myActiveContainerPlan->back()->getDestination()->getID() + ").");
+    }
+    if (myActiveContainerPlan && myActiveContainerPlan->empty()) {
+        myActiveContainerPlan->push_back(new MSTransportable::Stage_Waiting(
+                    &MSLane::dictionary(stop.lane)->getEdge(), toStop, -1, myVehicleParameter->depart, myVehicleParameter->departPos, "start", true));
+    }
     if (myActivePlan != nullptr) {
         std::string actType = attrs.getOpt<std::string>(SUMO_ATTR_ACTTYPE, nullptr, ok, "waiting");
         double pos = (stop.startPos + stop.endPos) / 2.;
@@ -956,11 +961,11 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
             pos = myActivePlan->back()->getArrivalPos();
         }
         myActivePlan->push_back(new MSTransportable::Stage_Waiting(
-                                    &MSLane::dictionary(stop.lane)->getEdge(), stop.duration, stop.until, pos, actType, false));
+                                    &MSLane::dictionary(stop.lane)->getEdge(), toStop, stop.duration, stop.until, pos, actType, false));
     } else if (myActiveContainerPlan != nullptr) {
         std::string actType = attrs.getOpt<std::string>(SUMO_ATTR_ACTTYPE, nullptr, ok, "waiting");
         myActiveContainerPlan->push_back(new MSTransportable::Stage_Waiting(
-                                             &MSLane::dictionary(stop.lane)->getEdge(), stop.duration, stop.until, stop.startPos, actType, false));
+                                             &MSLane::dictionary(stop.lane)->getEdge(), toStop, stop.duration, stop.until, stop.startPos, actType, false));
     } else if (myVehicleParameter != nullptr) {
         myVehicleParameter->stops.push_back(stop);
     } else {
@@ -1125,7 +1130,7 @@ MSRouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
             if (myVehicleParameter->departPosProcedure == DEPART_POS_RANDOM) {
                 initialDepartPos = RandHelper::rand(myActiveRoute.front()->getLength(), &myParsingRNG);
             }
-            myActivePlan->push_back(new MSTransportable::Stage_Waiting(myActiveRoute.front(), -1, myVehicleParameter->depart, initialDepartPos, "start", true));
+            myActivePlan->push_back(new MSTransportable::Stage_Waiting(myActiveRoute.front(), nullptr, -1, myVehicleParameter->depart, initialDepartPos, "start", true));
         }
         parseWalkPositions(attrs, myVehicleParameter->id, myActiveRoute.front(), myActiveRoute.back(), departPos, arrivalPos, bs, myActivePlan->back(), ok);
         if (myActiveRoute.empty()) {
