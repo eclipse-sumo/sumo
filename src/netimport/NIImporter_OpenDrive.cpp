@@ -520,36 +520,47 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         }
         // optionally write road objects
         if (oc.isSet("polygon-output")) {
-            const bool writeGeo = oc.getBool("proj.plain-geo");
+            const bool writeGeo = GeoConvHelper::getLoaded().usingGeoProjection() && (
+                    oc.isDefault("proj.plain-geo") || oc.getBool("proj.plain-geo"));
             OutputDevice& dev = OutputDevice::getDevice(oc.getString("polygon-output"));
             dev.writeXMLHeader("additional", "additional_file.xsd");
             //SUMOPolygon poly("road_" + e->id, "road", RGBColor::BLUE, e->geom, true, false);
             //poly.writeXML(dev, false);
             for (auto& o : e->objects) {
-                PositionVector centerLine;
-                centerLine.push_back(Position(-o.length / 2, 0));
-                centerLine.push_back(Position(o.length / 2, 0));
-                double roadHdg = e->geom.rotationAtOffset(o.s);
-                centerLine.rotate2D(roadHdg + o.hdg);
                 Position ref = e->geom.positionAtOffset2D(o.s, -o.t);
-                //PointOfInterest poiRef("ref_" + o.id, "", RGBColor::CYAN, ref, false, "", 0, 0, Shape::DEFAULT_LAYER + 2);
-                //poiRef.writeXML(dev, false);
-                centerLine.add(ref);
-                //SUMOPolygon polyCenter("center_" + o.id, "", RGBColor::MAGENTA, centerLine, true, false, Shape::DEFAULT_LAYER + 1);
-                //polyCenter.writeXML(dev, false);
-                centerLine.move2side(o.width / 2);
-                PositionVector shape = centerLine;
-                centerLine.move2side(-o.width);
-                shape.append(centerLine.reverse(), POSITION_EPS);
-                if (writeGeo) {
+                if (o.radius >= 0) {
+                    // cicrular shape
                     // GeoConvHelper::getFinal is not ready yet
-                    for (int i = 0; i < (int) shape.size(); i++) {
-                        GeoConvHelper::getLoaded().cartesian2geo(shape[i]);
+                    GeoConvHelper::getLoaded().cartesian2geo(ref);
+                    PointOfInterest poly(o.id, o.type, RGBColor::YELLOW, ref, true, "", -1, 0);
+                    poly.setParameter("name", o.name);
+                    poly.writeXML(dev, writeGeo);
+                } else {
+                    // rectangular shape
+                    PositionVector centerLine;
+                    centerLine.push_back(Position(-o.length / 2, 0));
+                    centerLine.push_back(Position(o.length / 2, 0));
+                    double roadHdg = e->geom.rotationAtOffset(o.s);
+                    centerLine.rotate2D(roadHdg + o.hdg);
+                    //PointOfInterest poiRef("ref_" + o.id, "", RGBColor::CYAN, ref, false, "", 0, 0, Shape::DEFAULT_LAYER + 2);
+                    //poiRef.writeXML(dev, false);
+                    centerLine.add(ref);
+                    //SUMOPolygon polyCenter("center_" + o.id, "", RGBColor::MAGENTA, centerLine, true, false, Shape::DEFAULT_LAYER + 1);
+                    //polyCenter.writeXML(dev, false);
+                    centerLine.move2side(o.width / 2);
+                    PositionVector shape = centerLine;
+                    centerLine.move2side(-o.width);
+                    shape.append(centerLine.reverse(), POSITION_EPS);
+                    if (writeGeo) {
+                        // GeoConvHelper::getFinal is not ready yet
+                        for (int i = 0; i < (int) shape.size(); i++) {
+                            GeoConvHelper::getLoaded().cartesian2geo(shape[i]);
+                        }
                     }
+                    SUMOPolygon poly(o.id, o.type, RGBColor::YELLOW, shape, true, true, 1);
+                    poly.setParameter("name", o.name);
+                    poly.writeXML(dev, writeGeo);
                 }
-                SUMOPolygon poly(o.id, o.type, RGBColor::YELLOW, shape, true, true, 1);
-                poly.setParameter("name", o.name);
-                poly.writeXML(dev, writeGeo);
             }
         }
         if (!lanesBuilt) {
