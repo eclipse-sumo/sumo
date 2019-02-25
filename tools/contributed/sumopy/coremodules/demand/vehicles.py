@@ -304,7 +304,7 @@ class VehicleTypes(am.ArrayObjman):
                                   groupnames=['parameters'],
                                   choices=get_inversemap(EMISSIONCLASSES),
                                   name='Emission',
-                                  info="HBEFA3 emission class, see sourceforge.net/apps/mediawiki/sumo/index.php?title=Simulation/Models/Emissions/HBEFA-based",
+                                  info="HBEFA3 emission class, see https://sumo.dlr.de/wiki/Models/Emissions/HBEFA3-based",
                                   xmltag='emissionClass',
                                   xmlmap=emissionclasses_xml,
                                   ))

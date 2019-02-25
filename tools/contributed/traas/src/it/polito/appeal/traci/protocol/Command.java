@@ -25,14 +25,14 @@ import de.uniluebeck.itm.tcpip.Storage;
  * Represents a single TraCI command, with its identifier and content. It can
  * be used either as a request (i.e. from client to server) and as a response
  * (i.e. from server to client). The "command" term reflects the description
- * in the <a href="http://sourceforge.net/apps/mediawiki/sumo/index.php?title=TraCI/Protocol#Messages">wiki</a>.
+ * in the <a href="https://sumo.dlr.de/wiki/TraCI/Protocol#Messages">wiki</a>.
  * Each command is characterized by a type identifier and a variable-sized
  * content. The command can be constructed either from a data block (a
  * {@link Storage}) or from scratch; its content can be read or written to a
  * {@link Storage}.
  * 
  * @author Enrico Gueli &lt;enrico.gueli@polito.it&gt;
- * @see <a href="http://sourceforge.net/apps/mediawiki/sumo/index.php?title=TraCI/Protocol#Messages">Messages</a>
+ * @see <a href="https://sumo.dlr.de/wiki/TraCI/Protocol#Messages">Messages</a>
  */
 public class Command {
 

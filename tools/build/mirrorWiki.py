@@ -118,15 +118,15 @@ if __name__ == "__main__":
     for i in images:
         print("Fetching image %s" % i)
         if i.find(":") >= 0:
-            f = urlopen("http://sumo.dlr.de/wiki/%s" % i)
+            f = urlopen("https://sumo.dlr.de/wiki/%s" % i)
             c = f.read()
             b = c.find("<div class=\"fullImageLink\" id=\"file\">")
             b = c.find("href=", b) + 6
             e = c.find("\"", b + 1)
-            f = urlopen("http://sourceforge.net/%s" % c[b:e])
+            f = urlopen("http://sumo.dlr.de/%s" % c[b:e])
             i = i[i.find(":") + 1:]
         else:
-            f = urlopen("http://sourceforge.net/%s" % i)
+            f = urlopen("https://sumo.dlr.de/%s" % i)
             i = i[i.rfind("/") + 1:]
         if i.find("px-") >= 0:
             i = i[:i.find('-') + 1]
