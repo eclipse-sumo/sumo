@@ -300,7 +300,7 @@ NIFrame::fillOptions() {
     oc.addDescription("opendrive.ignore-widths", "Formats", "Whether lane widths shall be ignored.");
     oc.doRegister("opendrive.curve-resolution", new Option_Float(2.0));
     oc.addDescription("opendrive.curve-resolution", "Formats", "The geometry resolution in m when importing curved geometries as line segments.");
-    oc.doRegister("opendrive.advance-stopline", new Option_Float(12.0));
+    oc.doRegister("opendrive.advance-stopline", new Option_Float(0.0));
     oc.addDescription("opendrive.advance-stopline", "Formats", "Allow stop lines to be built beyond the start of the junction if the geometries allow so");
     oc.doRegister("opendrive.min-width", new Option_Float(1.8));
     oc.addDescription("opendrive.min-width", "Formats", "The minimum lane width for determining start or end of variable-width lanes");
@@ -378,10 +378,6 @@ NIFrame::checkOptions() {
         if (oc.isDefault("rectangular-lane-cut")) {
             // a better interpretation of imported geometries
             oc.set("rectangular-lane-cut", "true");
-        }
-        if (oc.isDefault("opendrive.advance-stopline") && oc.getBool("opendrive.internal-shapes")) {
-            // avoid mismatch between edge shapes and and internal edge shapes
-            oc.set("opendrive.advance-stopline", "0");
         }
     }
     return ok;
