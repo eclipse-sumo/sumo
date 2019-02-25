@@ -259,8 +259,8 @@ def get_dist_point_to_segs(p, y1, x1, y2, x2, is_ending=True,
 
     If is_return_pos then the position on the section is returned.
 
-    Written by Paul Bourke,    October 1988
-    http://astronomy.swin.edu.au/~pbourke/geometry/pointline/
+    Inspired by the description by Paul Bourke,    October 1988
+    http://paulbourke.net/geometry/pointlineplane/
 
     Rewritten in vectorial form by Joerg Schweizer
     """

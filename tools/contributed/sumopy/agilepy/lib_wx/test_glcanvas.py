@@ -646,8 +646,8 @@ def get_dist_point_to_segs(p, y1, x1, y2, x2, is_ending=True):
     Minimum Distance between a Point p = (x,y) and a Line segments ,
     where vectors x1, y1 are the first  points and x2,y2 are the second points 
     of the line segments.
-    Written by Paul Bourke,    October 1988
-    http://astronomy.swin.edu.au/~pbourke/geometry/pointline/
+    Inspired by the description by Paul Bourke,    October 1988
+    http://paulbourke.net/geometry/pointlineplane/
 
     Rewritten in vectorial form by Joerg Schweizer
     """
