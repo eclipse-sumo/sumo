@@ -25,10 +25,14 @@ import sumolib  # noqa
 
 def get_options(args=None):
     optParser = optparse.OptionParser()
+    optParser.add_option("-n", "--net-file", dest="netfile",
+                         help="define the net file")
     optParser.add_option("-a", "--additional-files", dest="additional",
-                         help="define additional files for loading busStops")
+                         help="define additional files for loading busStops (mandatory)")
     optParser.add_option("-o", "--output-file", dest="outfile",
                          help="define the output trip filename")
+    optParser.add_option("--poi-output", dest="poiout",
+                         help="define the output file for busStop pois")
     optParser.add_option("--prefix", dest="tripprefix",
                          default="", help="prefix for the trip ids")
     optParser.add_option("-t", "--trip-attributes", dest="tripattrs",
@@ -57,12 +61,33 @@ def get_options(args=None):
         print("Error: Period must be positive", file=sys.stderr)
         sys.exit(1)
 
+    if options.poiout is not None and options.netfile is None:
+        print("Error: poi-output requires a net-file", file=sys.stderr)
+        sys.exit(1)
+
+
     return options
 
 def main(options):
     if options.seed:
         random.seed(options.seed)
     busStops = [bs.id for bs in sumolib.xml.parse_fast(options.additional, 'busStop', ['id'])]
+    stopColors = {}
+    if options.poiout:
+        colorgen = sumolib.miscutils.Colorgen(('distinct', 'distinct', 'distinct'))
+        net = sumolib.net.readNet(options.netfile)
+        with open(options.poiout, 'w') as outf:
+            outf.write('<additional>\n')
+            for bs in sumolib.xml.parse(options.additional, 'busStop'):
+                laneShape = net.getLane(bs.lane).getShape()
+                sideShape = sumolib.geomhelper.move2side(laneShape, 12)
+                offset = (float(bs.startPos) + float(bs.endPos)) / 2
+                x,y = sumolib.geomhelper.positionAtShapeOffset(sideShape, offset)
+                stopColors[bs.id] = colorgen()
+                outf.write('    <poi id="%s" x="%s" y="%s" color="%s"/>\n' % (
+                    bs.id, x, y, stopColors[bs.id]))
+            outf.write('</additional>\n')
+
     if len(busStops) < 2:
         print("Error: At least two busStops are required", file=sys.stderr)
         sys.exit(1)
@@ -76,8 +101,11 @@ def main(options):
             bsTo = random.choice(busStops)
             while bsTo == bsFrom:
                 bsTo = random.choice(busStops)
-            outf.write('    <person id="%s%s" depart="%s">\n' % (
-                options.tripprefix, idx, depart))
+            color = ""
+            if options.poiout:
+                color = ' color="%s"' % stopColors[bsTo] 
+            outf.write('    <person id="%s%s" depart="%s"%s>\n' % (
+                options.tripprefix, idx, depart, color))
             outf.write('        <stop busStop="%s" duration="5"/>\n' % bsFrom)
             outf.write('        <ride busStop="%s" lines="ANY"/>\n' % (bsTo))
             outf.write('    </person>\n')
