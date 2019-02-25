@@ -83,10 +83,10 @@
 #include "MSLeaderInfo.h"
 #include "MSDriverState.h"
 
-#define DEBUG_PLAN_MOVE
-#define DEBUG_PLAN_MOVE_LEADERINFO
-#define DEBUG_CHECKREWINDLINKLANES
-#define DEBUG_EXEC_MOVE
+//#define DEBUG_PLAN_MOVE
+//#define DEBUG_PLAN_MOVE_LEADERINFO
+//#define DEBUG_CHECKREWINDLINKLANES
+//#define DEBUG_EXEC_MOVE
 //#define DEBUG_FURTHER
 //#define DEBUG_TARGET_LANE
 //#define DEBUG_STOPS
