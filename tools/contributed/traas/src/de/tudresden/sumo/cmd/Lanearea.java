@@ -49,7 +49,16 @@ public class Lanearea {
 	 */
 
 	public static SumoCommand getLastStepVehicleNumber(String loopID){
-		return new SumoCommand(Constants.CMD_GET_LANEAREA_VARIABLE, Constants.LAST_STEP_VEHICLE_NUMBER, "", Constants.RESPONSE_GET_LANEAREA_VARIABLE, Constants.TYPE_INTEGER);
+		return new SumoCommand(Constants.CMD_GET_LANEAREA_VARIABLE, Constants.LAST_STEP_VEHICLE_NUMBER, loopID, Constants.RESPONSE_GET_LANEAREA_VARIABLE, Constants.TYPE_INTEGER);
+	}
+
+	/**
+	 * Returns the number of the areal detectors in the network.
+	 * @return the number of areal detectors
+	 */
+
+	public static SumoCommand getIDCount(){
+		return new SumoCommand(Constants.CMD_GET_LANEAREA_VARIABLE, Constants.ID_COUNT, "", Constants.RESPONSE_GET_LANEAREA_VARIABLE, Constants.TYPE_INTEGER);
 	}
 	
 	/**
@@ -59,7 +68,7 @@ public class Lanearea {
 	 */
 
 	public static SumoCommand getLastStepHaltingNumber(String loopID){
-		return new SumoCommand(Constants.CMD_GET_LANEAREA_VARIABLE, Constants.LAST_STEP_VEHICLE_HALTING_NUMBER, "", Constants.RESPONSE_GET_LANEAREA_VARIABLE, Constants.TYPE_INTEGER);
+		return new SumoCommand(Constants.CMD_GET_LANEAREA_VARIABLE, Constants.LAST_STEP_VEHICLE_HALTING_NUMBER, loopID, Constants.RESPONSE_GET_LANEAREA_VARIABLE, Constants.TYPE_INTEGER);
 	}
 	
 	
@@ -70,18 +79,8 @@ public class Lanearea {
 	 */
 
 	public static SumoCommand getLastStepVehicleIDs(String loopID){
-		return new SumoCommand(Constants.CMD_GET_LANEAREA_VARIABLE, Constants.LAST_STEP_VEHICLE_ID_LIST, "", Constants.RESPONSE_GET_LANEAREA_VARIABLE, Constants.TYPE_STRINGLIST);
+		return new SumoCommand(Constants.CMD_GET_LANEAREA_VARIABLE, Constants.LAST_STEP_VEHICLE_ID_LIST, loopID, Constants.RESPONSE_GET_LANEAREA_VARIABLE, Constants.TYPE_STRINGLIST);
 	}
-	
-	/**
-	 * Returns the number of the areal detectors in the network.
-	 * @return the number of areal detectors
-	 */
-
-	public static SumoCommand getIDCount(){
-		return new SumoCommand(Constants.CMD_GET_LANEAREA_VARIABLE, Constants.ID_COUNT, "", Constants.RESPONSE_GET_LANEAREA_VARIABLE, Constants.TYPE_INTEGER);
-	}
-
 	
 	/**
 	 * getJamLengthVehicle
