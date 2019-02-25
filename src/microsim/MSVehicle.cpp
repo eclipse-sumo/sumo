@@ -83,10 +83,10 @@
 #include "MSLeaderInfo.h"
 #include "MSDriverState.h"
 
-//#define DEBUG_PLAN_MOVE
-//#define DEBUG_PLAN_MOVE_LEADERINFO
-//#define DEBUG_CHECKREWINDLINKLANES
-//#define DEBUG_EXEC_MOVE
+#define DEBUG_PLAN_MOVE
+#define DEBUG_PLAN_MOVE_LEADERINFO
+#define DEBUG_CHECKREWINDLINKLANES
+#define DEBUG_EXEC_MOVE
 //#define DEBUG_FURTHER
 //#define DEBUG_TARGET_LANE
 //#define DEBUG_STOPS
@@ -3115,7 +3115,7 @@ MSVehicle::processLinkApproaches(double& vSafe, double& vSafeMin, double& vSafeM
             std::cout << "vSafeMin Problem? vSafe=" << vSafe << " vSafeMin=" << vSafeMin << " vSafeMinDist=" << vSafeMinDist << std::endl;
         }
 #endif
-        if (canBrakeVSafeMin) {
+        if (canBrakeVSafeMin && vSafe < getSpeed()) {
             // cannot drive across a link so we need to stop before it
             vSafe = MIN2(vSafe, getCarFollowModel().stopSpeed(this, getSpeed(), vSafeMinDist));
             vSafeMin = 0;
