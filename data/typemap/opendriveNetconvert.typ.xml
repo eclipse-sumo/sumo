@@ -1,7 +1,7 @@
 <types xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/types_file.xsd">
     <type id="driving"       priority="1"  speed="13.89" width="3.65" disallow="pedestrian rail rail_urban rail_electric tram ship"/>
     <type id="stop"          priority="1"  speed="13.89" width="3.65" disallow="pedestrian rail rail_urban rail_electric tram ship"/>
-    <type id="restricted"    priority="0"  speed="13.89" width="3.65" disallow="all"/> <!-- ambiguous semantics. Could mean bus-lane as well as fully-area restricted (but surfaced) lane area (examples from http://www.opendrive.org -->
+    <type id="restricted"    priority="0"  speed="13.89" width="3.65" disallow="all"/> <!-- ambiguous semantics. Could mean bus-lane as well as fully-area restricted (but surfaced) lane area (as seen in official examples) -->
     <type id="parking"       priority="1"  speed="1.39"  width="2.50" disallow="pedestrian rail rail_urban rail_electric tram ship"/>
     <type id="entry"         priority="1"  speed="22.22" width="3.65" disallow="pedestrian rail rail_urban rail_electric tram ship"/>
     <type id="exit"          priority="1"  speed="22.22" width="3.65" disallow="pedestrian rail rail_urban rail_electric tram ship"/>
