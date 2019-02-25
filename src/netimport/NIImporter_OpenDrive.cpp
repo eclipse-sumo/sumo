@@ -1935,8 +1935,8 @@ NIImporter_OpenDrive::myStartElement(int element,
         case OPENDRIVE_TAG_OBJECT: {
             OpenDriveObject o;
             o.id = attrs.get<std::string>(OPENDRIVE_ATTR_ID, 0, ok);
-            o.type = attrs.get<std::string>(OPENDRIVE_ATTR_TYPE, o.id.c_str(), ok);
-            o.name = attrs.get<std::string>(OPENDRIVE_ATTR_NAME, o.id.c_str(), ok);
+            o.type = attrs.getOpt<std::string>(OPENDRIVE_ATTR_TYPE, o.id.c_str(), ok, "", false);
+            o.name = attrs.getOpt<std::string>(OPENDRIVE_ATTR_NAME, o.id.c_str(), ok, "", false);
             o.s = attrs.get<double>(OPENDRIVE_ATTR_S, o.id.c_str(), ok);
             o.t = attrs.get<double>(OPENDRIVE_ATTR_T, o.id.c_str(), ok);
             o.width = attrs.getOpt<double>(OPENDRIVE_ATTR_WIDTH, o.id.c_str(), ok, -1);
