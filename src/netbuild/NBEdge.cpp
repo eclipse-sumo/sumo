@@ -2932,7 +2932,7 @@ NBEdge::expandableBy(NBEdge* possContinuation, std::string& reason) const {
             // all lanes must go to the possible continuation
             std::vector<int> conns = getConnectionLanes(possContinuation);
             const int offset = MAX2(0, getFirstNonPedestrianLaneIndex(NBNode::FORWARD, true));
-            if (conns.size() != myLanes.size() - offset) {
+            if (conns.size() < myLanes.size() - offset) {
                 reason = "some lanes disconnected";
                 return false;
             }
