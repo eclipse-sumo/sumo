@@ -74,11 +74,18 @@ protected:
         /// @brief constructor
         VClassRow(GNEVehicleTypeDialog* vehicleTypeDialog, FXVerticalFrame* column);
 
+        /// @brief set variables
+        void setVariable();
+
+        /// @brief update values
+        void updateValues();
+
+    protected:
         /// @brief set VClass texture
         void setVClassLabelImage();
 
         /// @brief FXComboBox for VClass
-        FXComboBox* comboBoxVClass;
+        FXComboBox* myComboBoxVClass;
         
     private:
         /// @brief label with image of VClass
@@ -95,11 +102,18 @@ protected:
         /// @brief constructor
         VShapeRow(GNEVehicleTypeDialog* vehicleTypeDialog, FXVerticalFrame* column);
 
+        /// @brief set variables
+        void setVariable();
+
+        /// @brief update values
+        void updateValues();
+
+    protected:
         /// @brief set VShape texture
         void setVShapeLabelImage();
 
         /// @brief FXComboBox for Shape
-        FXComboBox* comboBoxShape;
+        FXComboBox* myComboBoxShape;
         
     private:
         /// @brief label with image of Shape
@@ -109,114 +123,182 @@ protected:
         GNEVehicleTypeDialog* myVehicleTypeDialog;
     };
 
+    /// @brief class for VClasses
+    class VTypeCommonAtributes : public FXGroupBox {
+
+    public:
+        /// @brief constructor
+        VTypeCommonAtributes(GNEVehicleTypeDialog* vehicleTypeDialog, FXHorizontalFrame* column);
+
+        /// @brief build commmon attributes (A)
+        void buildCommonAttributesA(FXVerticalFrame* column);
+
+        /// @brief build commmon attributes (B)
+        void buildCommonAttributesB(FXVerticalFrame* column);
+
+        /// @brief set variables
+        void setVariable();
+
+        /// @brief update values
+        void updateValues();
+
+    protected:
+        /// @brief FXTextfield for vehicleTypeID
+        FXTextField* myTextFieldVehicleTypeID;
+
+        /// @brief vehicle class row
+        VClassRow* myVClassRow;
+
+        /// @brief FXTextfield for Color
+        FXTextField* myTextFieldColor;
+
+        /// @brief FXTextfield for Length
+        FXTextField* myTextFieldLength;
+
+        /// @brief FXTextfield for MaxSpeed
+        FXTextField* myTextFieldMaxSpeed;
+
+        /// @brief FXTextfield for SpeedFactor
+        FXTextField* myTextFieldSpeedFactor;
+
+        /// @brief FXTextfield for SpeedDev
+        FXTextField* myTextFieldSpeedDev;
+
+        /// @brief FXTextfield for EmissionClass
+        FXTextField* myTextFieldEmissionClass;
+
+        /// @brief vehicle shape row
+        VShapeRow* myVShapeRow;
+
+        /// @brief FXTextfield for Width
+        FXTextField* myTextFieldWidth;
+
+        /// @brief FXTextfield for Filename
+        FXTextField* myTextFieldFilename;
+
+        /// @brief FXTextfield for Impatience
+        FXTextField* myTextFieldImpatience;
+
+        /// @brief FXTextfield for LaneChangeModel
+        FXTextField* myTextFieldLaneChangeModel;
+
+        /// @brief FXTextfield for PersonCapacity
+        FXTextField* myTextFieldPersonCapacity;
+
+        /// @brief FXTextfield for ContainerCapacity
+        FXTextField* myTextFieldContainerCapacity;
+
+        /// @brief FXTextfield for BoardingDuration
+        FXTextField* myTextFieldBoardingDuration;
+
+        /// @brief FXTextfield for LoadingDuration
+        FXTextField* myTextFieldLoadingDuration;
+
+        /// @brief FXTextfield for LatAlignment
+        FXTextField* myTextFieldLatAlignment;
+
+        /// @brief FXTextfield for MinGapLat
+        FXTextField* myTextFieldMinGapLat;
+
+        /// @brief FXTextfield for MaxSpeedLat
+        FXTextField* myTextFieldMaxSpeedLat;
+
+        /// @brief FXTextfield for ActionStepLenght
+        FXTextField* myTextFieldActionStepLenght;
+
+    private:
+        /// @brief pointer to Vehicle Type dialog parent
+        GNEVehicleTypeDialog* myVehicleTypeDialog;
+    };
+
+    /// @brief class for CarFollowingModel
+    class CarFollowingModelParameters : public FXGroupBox {
+        
+    public:
+        /// @brief constructor
+        CarFollowingModelParameters(GNEVehicleTypeDialog* vehicleTypeDialog, FXHorizontalFrame* column);
+
+        /// @brief set variables
+        void setVariable();
+
+        /// @brief update values
+        void updateValues();
+        
+    protected:
+        /// @brief FXTextfield for CarFollowModel
+        FXComboBox* myComboBoxCarFollowModel;
+
+        /// @brief FXTextfield for Accel
+        FXTextField* myTextFieldAccel;
+
+        /// @brief FXTextfield for Decel
+        FXTextField* myTextFieldDecel;
+
+        /// @brief FXTextfield for aparent Decel
+        FXTextField* myTextFieldAparentDecel;
+    
+        /// @brief FXTextfield for emergency Decel
+        FXTextField* myTextFieldEmergencyAccel;
+
+        /// @brief FXTextfield for Sigma
+        FXTextField* myTextFieldSigma;
+
+        /// @brief FXTextfield for Tau
+        FXTextField* myTextFieldTau;
+
+        /// @brief FXTextfield for MinGap
+        FXTextField* myTextFieldMinGap;
+
+        /// @brief FXTextfield for MinGap (only for Kerner)
+        FXTextField* myTextFieldK;
+
+        /// @brief FXTextfield for MinGap (only for Kerner)
+        FXTextField* myTextFieldPhi;
+
+        /// @brief FXTextfield for MinGap (only for IDM)
+        FXTextField* myTextFieldDelta;
+
+        /// @brief FXTextfield for MinGap(only for IDM)
+        FXTextField* myTextFieldStepping;
+
+        /// @brief FXTextfield for Security (only for Wiedemann)
+        FXTextField* myTextFieldSecurity;
+
+        /// @brief FXTextfield for Estimation (only for Wiedemann)
+        FXTextField* myTextFieldEstimation;
+
+    private:
+        /// @brief pointer to Vehicle Type dialog parent
+        GNEVehicleTypeDialog* myVehicleTypeDialog;
+    };
+
     /// @brief FOX needs this
     GNEVehicleTypeDialog() {}
 
+    /// @brief update data fields
+    void updateVehicleTypeValues();
+
+    /// @brief build row int
+    FXTextField* buildRowInt(FXPacker* column, SumoXMLAttr tag);
+
+    /// @brief build row float
+    FXTextField* buildRowFloat(FXPacker* column, SumoXMLAttr tag);
+
+    /// @brief build row
+    FXTextField* buildRowString(FXPacker* column, SumoXMLAttr tag);
+
+private:
     /// @brief flag to check if current vehicleType is valid
     bool myVehicleTypeValid;
 
     /// @brief current sumo attribute invalid
     SumoXMLAttr myInvalidAttr;
 
-    /// @brief FXTextfield for vehicleTypeID
-    FXTextField* myTextFieldVehicleTypeID;
+    /// @brief Vehicle Type Common Attributes
+    VTypeCommonAtributes* myVTypeCommonAtributes;
 
-    /// @brief vehicle class row
-    VClassRow* myVClassRow;
-
-    /// @brief FXTextfield for Color
-    FXTextField* myTextFieldColor;
-
-    /// @brief FXTextfield for Accel
-    FXTextField* myTextFieldAccel;
-
-    /// @brief FXTextfield for Decel
-    FXTextField* myTextFieldDecel;
-
-    /// @brief FXTextfield for aparent Decel
-    FXTextField* myTextFieldAparentDecel;
-    
-    /// @brief FXTextfield for emergency Decel
-    FXTextField* myTextFieldEmergencyAccel;
-
-    /// @brief FXTextfield for Sigma
-    FXTextField* myTextFieldSigma;
-
-    /// @brief FXTextfield for Tau
-    FXTextField* myTextFieldTau;
-
-    /// @brief FXTextfield for Length
-    FXTextField* myTextFieldLength;
-
-    /// @brief FXTextfield for MinGap
-    FXTextField* myTextFieldMinGap;
-
-    /// @brief FXTextfield for MaxSpeed
-    FXTextField* myTextFieldMaxSpeed;
-
-    /// @brief FXTextfield for SpeedFactor
-    FXTextField* myTextFieldSpeedFactor;
-
-    /// @brief FXTextfield for SpeedDev
-    FXTextField* myTextFieldSpeedDev;
-
-    /// @brief FXTextfield for EmissionClass
-    FXTextField* myTextFieldEmissionClass;
-
-    /// @brief vehicle shape row
-    VShapeRow* myVShapeRow;
-
-    /// @brief FXTextfield for Width
-    FXTextField* myTextFieldWidth;
-
-    /// @brief FXTextfield for Filename
-    FXTextField* myTextFieldFilename;
-
-    /// @brief FXTextfield for Impatience
-    FXTextField* myTextFieldImpatience;
-
-    /// @brief FXTextfield for LaneChangeModel
-    FXTextField* myTextFieldLaneChangeModel;
-
-    /// @brief FXTextfield for CarFollowModel
-    FXTextField* myTextFieldCarFollowModel;
-
-    /// @brief FXTextfield for PersonCapacity
-    FXTextField* myTextFieldPersonCapacity;
-
-    /// @brief FXTextfield for ContainerCapacity
-    FXTextField* myTextFieldContainerCapacity;
-
-    /// @brief FXTextfield for BoardingDuration
-    FXTextField* myTextFieldBoardingDuration;
-
-    /// @brief FXTextfield for LoadingDuration
-    FXTextField* myTextFieldLoadingDuration;
-
-    /// @brief FXTextfield for LatAlignment
-    FXTextField* myTextFieldLatAlignment;
-
-    /// @brief FXTextfield for MinGapLat
-    FXTextField* myTextFieldMinGapLat;
-
-    /// @brief FXTextfield for MaxSpeedLat
-    FXTextField* myTextFieldMaxSpeedLat;
-
-    /// @brief FXTextfield for MaxSpeedLat
-    FXTextField* myTextFieldActionStepLenght;
-
-    /// @brief update data fields
-    void updateVehicleTypeValues();
-
-private:
-    /// @brief build row int
-    FXTextField* buildRowInt(FXVerticalFrame* column, SumoXMLAttr tag);
-
-    /// @brief build row float
-    FXTextField* buildRowFloat(FXVerticalFrame* column, SumoXMLAttr tag);
-
-    /// @brief build row
-    FXTextField* buildRowString(FXVerticalFrame* column, SumoXMLAttr tag);
+    /// @brief Car Following model parameters
+    CarFollowingModelParameters* myCarFollowingModelParameters;
 
     /// @brief Invalidated copy constructor.
     GNEVehicleTypeDialog(const GNEVehicleTypeDialog&) = delete;

@@ -172,6 +172,9 @@
 /// @brief label extended over the matrix column with thick frame and height of 23
 #define GUIDesignLabelAttribute             (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | ICON_BEFORE_TEXT), 0, 0, 100, 23, 2, 2, 2, 2
 
+/// @brief label extended over the matrix column with thick frame and height of 23
+#define GUIDesignLabelAttribute150          (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | ICON_BEFORE_TEXT), 0, 0, 150, 23, 2, 2, 2, 2
+
 /// @brief label extended over frame without thick and with text justify to center and without vertical spaces
 #define GUIDesignLabelAboutInfo             (JUSTIFY_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT), 0, 0, 0, 0, 2, 2, 0, 0
 
