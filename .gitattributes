@@ -41,6 +41,7 @@
 *.sumocfg     text eol=lf
 *.netccfg     text eol=lf
 *.netgcfg     text eol=lf
+*.big         text eol=lf
 visum.net     text eol=lf
 # .scenario .tapasVEU only used in internal repo
 
