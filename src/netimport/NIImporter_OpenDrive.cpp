@@ -108,6 +108,7 @@ StringBijection<int>::Entry NIImporter_OpenDrive::openDriveAttrs[] = {
     { "id",             NIImporter_OpenDrive::OPENDRIVE_ATTR_ID },
     { "length",         NIImporter_OpenDrive::OPENDRIVE_ATTR_LENGTH },
     { "width",          NIImporter_OpenDrive::OPENDRIVE_ATTR_WIDTH },
+    { "radius",         NIImporter_OpenDrive::OPENDRIVE_ATTR_RADIUS },
     { "distance",       NIImporter_OpenDrive::OPENDRIVE_ATTR_DISTANCE },
     { "tStart",         NIImporter_OpenDrive::OPENDRIVE_ATTR_TSTART },
     { "tEnd",           NIImporter_OpenDrive::OPENDRIVE_ATTR_TEND },
@@ -1159,6 +1160,7 @@ NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges
                             //std::cout << " edge=" << e.id << " k=" << k << " offset=" << offset << " geom[k]=" << e.geom[k] << " tmp[k]=" << tmp[k] << " gSize=" << e.geom.size() << " tSize=" << tmp.size() <<  " geom=" << e.geom << " tmp=" << tmp << "\n";
                             geom2.push_back(tmp[k]);
                         } catch (InvalidArgument&) {
+                            WRITE_WARNING("Could not compute shape for edge " + toString(e.id));
                             geom2.push_back(e.geom[k]);
                         }
                     } else {
@@ -1926,35 +1928,40 @@ NIImporter_OpenDrive::myStartElement(int element,
             o.name = attrs.get<std::string>(OPENDRIVE_ATTR_NAME, o.id.c_str(), ok);
             o.s = attrs.get<double>(OPENDRIVE_ATTR_S, o.id.c_str(), ok);
             o.t = attrs.get<double>(OPENDRIVE_ATTR_T, o.id.c_str(), ok);
-            o.width = attrs.get<double>(OPENDRIVE_ATTR_WIDTH, o.id.c_str(), ok);
-            o.length = attrs.get<double>(OPENDRIVE_ATTR_LENGTH, o.id.c_str(), ok);
-            o.hdg = attrs.get<double>(OPENDRIVE_ATTR_HDG, o.id.c_str(), ok);
+            o.width = attrs.getOpt<double>(OPENDRIVE_ATTR_WIDTH, o.id.c_str(), ok, -1);
+            o.length = attrs.getOpt<double>(OPENDRIVE_ATTR_LENGTH, o.id.c_str(), ok, -1);
+            o.radius = attrs.getOpt<double>(OPENDRIVE_ATTR_RADIUS, o.id.c_str(), ok, -1);
+            o.hdg = attrs.getOpt<double>(OPENDRIVE_ATTR_HDG, o.id.c_str(), ok, 0);
             myCurrentEdge.objects.push_back(o);
         }
         break;
         case OPENDRIVE_TAG_REPEAT: {
             if (myCurrentEdge.objects.empty()) {
-                WRITE_ERROR("Repeat without object");
+                WRITE_ERROR("Repeat without object at edge '" + toString(myCurrentEdge.id) + "'");
                 ok = false;
             } else {
                 OpenDriveObject o = myCurrentEdge.objects.back();
                 const std::string baseID = o.id;
-                myCurrentEdge.objects.pop_back();
                 const double dist = attrs.get<double>(OPENDRIVE_ATTR_DISTANCE, o.id.c_str(), ok);
-                const double length = attrs.get<double>(OPENDRIVE_ATTR_LENGTH, o.id.c_str(), ok);
-                o.s = attrs.getOpt<double>(OPENDRIVE_ATTR_S, o.id.c_str(), ok, o.s);
-                double wStart = attrs.getOpt<double>(OPENDRIVE_ATTR_WIDTHSTART, o.id.c_str(), ok, o.width);
-                double wEnd = attrs.getOpt<double>(OPENDRIVE_ATTR_WIDTHEND, o.id.c_str(), ok, o.width);
-                double tStart = attrs.getOpt<double>(OPENDRIVE_ATTR_TSTART, o.id.c_str(), ok, o.t);
-                double tEnd = attrs.getOpt<double>(OPENDRIVE_ATTR_TEND, o.id.c_str(), ok, o.t);
-                int index = 0;
-                for (double x = 0; x <= length + NUMERICAL_EPS; x += dist) {
-                    o.id = baseID + "#" + toString(index++);
-                    const double a = x / length;
-                    o.width = wStart * (1 - a) + wEnd * a;
-                    o.t = tStart * (1 - a) + tEnd * a;
-                    myCurrentEdge.objects.push_back(o);
-                    o.s += dist;
+                if (dist > 0) {
+                    myCurrentEdge.objects.pop_back();
+                    const double length = attrs.get<double>(OPENDRIVE_ATTR_LENGTH, o.id.c_str(), ok);
+                    o.s = attrs.getOpt<double>(OPENDRIVE_ATTR_S, o.id.c_str(), ok, o.s);
+                    double wStart = attrs.getOpt<double>(OPENDRIVE_ATTR_WIDTHSTART, o.id.c_str(), ok, o.width);
+                    double wEnd = attrs.getOpt<double>(OPENDRIVE_ATTR_WIDTHEND, o.id.c_str(), ok, o.width);
+                    double tStart = attrs.getOpt<double>(OPENDRIVE_ATTR_TSTART, o.id.c_str(), ok, o.t);
+                    double tEnd = attrs.getOpt<double>(OPENDRIVE_ATTR_TEND, o.id.c_str(), ok, o.t);
+                    int index = 0;
+                    for (double x = 0; x <= length + NUMERICAL_EPS; x += dist) {
+                        o.id = baseID + "#" + toString(index++);
+                        const double a = x / length;
+                        o.width = wStart * (1 - a) + wEnd * a;
+                        o.t = tStart * (1 - a) + tEnd * a;
+                        myCurrentEdge.objects.push_back(o);
+                        o.s += dist;
+                    }
+                } else {
+                    WRITE_WARNING("Invalid repeat distance " + toString(dist) + " for road object '" + baseID + "' at edge '" + toString(myCurrentEdge.id) + "'");
                 }
             }
         }

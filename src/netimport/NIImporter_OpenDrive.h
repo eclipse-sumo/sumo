@@ -123,6 +123,7 @@ protected:
         OPENDRIVE_ATTR_ID,
         OPENDRIVE_ATTR_LENGTH,
         OPENDRIVE_ATTR_WIDTH,
+        OPENDRIVE_ATTR_RADIUS,
         OPENDRIVE_ATTR_DISTANCE,
         OPENDRIVE_ATTR_TSTART,
         OPENDRIVE_ATTR_TEND,
@@ -425,6 +426,7 @@ protected:
         double length;
         double width;
         double height;
+        double radius;
         double hdg;
         double pitch;
         double roll;
