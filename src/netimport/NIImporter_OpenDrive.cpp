@@ -1953,26 +1953,27 @@ NIImporter_OpenDrive::myStartElement(int element,
             } else {
                 OpenDriveObject o = myCurrentEdge.objects.back();
                 const std::string baseID = o.id;
-                const double dist = attrs.get<double>(OPENDRIVE_ATTR_DISTANCE, o.id.c_str(), ok);
-                if (dist > 0) {
-                    myCurrentEdge.objects.pop_back();
-                    const double length = attrs.get<double>(OPENDRIVE_ATTR_LENGTH, o.id.c_str(), ok);
-                    o.s = attrs.getOpt<double>(OPENDRIVE_ATTR_S, o.id.c_str(), ok, o.s);
-                    double wStart = attrs.getOpt<double>(OPENDRIVE_ATTR_WIDTHSTART, o.id.c_str(), ok, o.width);
-                    double wEnd = attrs.getOpt<double>(OPENDRIVE_ATTR_WIDTHEND, o.id.c_str(), ok, o.width);
-                    double tStart = attrs.getOpt<double>(OPENDRIVE_ATTR_TSTART, o.id.c_str(), ok, o.t);
-                    double tEnd = attrs.getOpt<double>(OPENDRIVE_ATTR_TEND, o.id.c_str(), ok, o.t);
-                    int index = 0;
-                    for (double x = 0; x <= length + NUMERICAL_EPS; x += dist) {
-                        o.id = baseID + "#" + toString(index++);
-                        const double a = x / length;
-                        o.width = wStart * (1 - a) + wEnd * a;
-                        o.t = tStart * (1 - a) + tEnd * a;
-                        myCurrentEdge.objects.push_back(o);
-                        o.s += dist;
-                    }
-                } else {
-                    WRITE_WARNING("Invalid repeat distance " + toString(dist) + " for road object '" + baseID + "' at edge '" + toString(myCurrentEdge.id) + "'");
+                double dist = attrs.get<double>(OPENDRIVE_ATTR_DISTANCE, o.id.c_str(), ok);
+                if (dist == 0) {
+                    // continuous feature. Split into parts (XXX exmport as a single polygon #5235)
+                    dist = OptionsCont::getOptions().getFloat("opendrive.curve-resolution");
+                }
+
+                myCurrentEdge.objects.pop_back();
+                const double length = attrs.get<double>(OPENDRIVE_ATTR_LENGTH, o.id.c_str(), ok);
+                o.s = attrs.getOpt<double>(OPENDRIVE_ATTR_S, o.id.c_str(), ok, o.s);
+                double wStart = attrs.getOpt<double>(OPENDRIVE_ATTR_WIDTHSTART, o.id.c_str(), ok, o.width);
+                double wEnd = attrs.getOpt<double>(OPENDRIVE_ATTR_WIDTHEND, o.id.c_str(), ok, o.width);
+                double tStart = attrs.getOpt<double>(OPENDRIVE_ATTR_TSTART, o.id.c_str(), ok, o.t);
+                double tEnd = attrs.getOpt<double>(OPENDRIVE_ATTR_TEND, o.id.c_str(), ok, o.t);
+                int index = 0;
+                for (double x = 0; x <= length + NUMERICAL_EPS; x += dist) {
+                    o.id = baseID + "#" + toString(index++);
+                    const double a = x / length;
+                    o.width = wStart * (1 - a) + wEnd * a;
+                    o.t = tStart * (1 - a) + tEnd * a;
+                    myCurrentEdge.objects.push_back(o);
+                    o.s += dist;
                 }
             }
         }
