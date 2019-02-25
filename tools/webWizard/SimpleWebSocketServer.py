@@ -1,10 +1,5 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2015-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# The MIT License (MIT) Copyright (c) 2013 Dave P.
 
 # @file    SimpleWebSocketServer.py
 # @author  Dave Pallot
@@ -13,7 +8,7 @@
 
 """
 A web socket server implementation to be used by the osm server.py
-Originally distributed under the MIT license at
+Originally distributed at
 https://github.com/dpallot/simple-websocket-server/tree/master/SimpleWebSocketServer.
 """
 import sys
