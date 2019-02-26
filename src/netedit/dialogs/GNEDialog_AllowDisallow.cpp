@@ -70,7 +70,7 @@ GNEDialog_AllowDisallow::GNEDialog_AllowDisallow(GNEViewNet* viewNet, GNEAttribu
     new FXLabel(myOptionsFrame, "Allow all vehicles", nullptr, GUIDesignLabelLeftThick);
     mySelectOnlyNonRoadVClassButton = new FXButton(myOptionsFrame, "", GUIIconSubSys::getIcon(ICON_OK), this, MID_GNE_ALLOWDISALLOW_SELECTONLYNONROAD, GUIDesignButtonIcon);
     new FXLabel(myOptionsFrame, "Allow only non-road vehicles", nullptr, GUIDesignLabelLeftThick);
-    myUnselectAllVClassButton = new FXButton(myOptionsFrame, "", GUIIconSubSys::getIcon(ICON_OK), this, MID_GNE_ALLOWDISALLOW_UNSELECTALL, GUIDesignButtonIcon);
+    myUnselectAllVClassButton = new FXButton(myOptionsFrame, "", GUIIconSubSys::getIcon(ICON_CANCEL), this, MID_GNE_ALLOWDISALLOW_UNSELECTALL, GUIDesignButtonIcon);
     new FXLabel(myOptionsFrame, "Disallow all vehicles", nullptr, GUIDesignLabelLeftThick);
     // create groupbox for vehicles
     FXGroupBox* myGroupBoxVehiclesFrame = new FXGroupBox(mainFrame, ("Select " + toString(SUMO_ATTR_VCLASS) + "es").c_str(), GUIDesignGroupBoxFrame);
@@ -207,7 +207,6 @@ GNEDialog_AllowDisallow::onCmdReset(FXObject*, FXSelector, void*) {
         // iterate over myVClassMap and set all icons as true
         for (auto i : myVClassMap) {
             i.second.first->setIcon(GUIIconSubSys::getIcon(ICON_ACCEPT));
-            i.second.second->setText((getVehicleClassNames(i.first) + " allowed").c_str());
         }
     } else {
         // declare string vector for saving all vclasses
@@ -217,10 +216,8 @@ GNEDialog_AllowDisallow::onCmdReset(FXObject*, FXSelector, void*) {
         for (auto i : myVClassMap) {
             if (allowSet.count(getVehicleClassNames(i.first)) > 0) {
                 i.second.first->setIcon(GUIIconSubSys::getIcon(ICON_ACCEPT));
-                i.second.second->setText((getVehicleClassNames(i.first) + " allowed").c_str());
             } else {
                 i.second.first->setIcon(GUIIconSubSys::getIcon(ICON_CANCEL));
-                i.second.second->setText((getVehicleClassNames(i.first) + " disallowed").c_str());
             }
         }
     }
@@ -239,7 +236,7 @@ GNEDialog_AllowDisallow::buildVClass(FXVerticalFrame* contentsFrame, SUMOVehicle
     FXHorizontalFrame* buttonAndStatusFrame = new FXHorizontalFrame(buttonAndInformationFrame, GUIDesignAuxiliarHorizontalFrame);
     // create status and text button
     myVClassMap[vclass].first = new FXButton(buttonAndStatusFrame, "", GUIIconSubSys::getIcon(ICON_EMPTY), this, MID_GNE_ALLOWDISALLOW_CHANGE, GUIDesignButtonIcon);
-    myVClassMap[vclass].second = new FXLabel(buttonAndStatusFrame, "status", nullptr, GUIDesignLabelLeftThick);
+    myVClassMap[vclass].second = new FXLabel(buttonAndStatusFrame, toString(vclass).c_str(), nullptr, GUIDesignLabelLeftThick);
     // create label for description of vehicle
     new FXLabel(buttonAndInformationFrame, description.c_str(), nullptr, GUIDesignLabelLeftThick);
 }
