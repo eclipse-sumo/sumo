@@ -341,7 +341,7 @@ GUIViewTraffic::onGamingClick(Position pos) {
     for (std::vector<MSTrafficLightLogic*>::const_iterator i = logics.begin(); i != logics.end(); ++i) {
         // get the logic
         MSTrafficLightLogic* tll = (*i);
-        if (tlsControl.isActive(tll)) {
+        if (tlsControl.isActive(tll) && tll->getProgramID() != "off") {
             // get the links
             const MSTrafficLightLogic::LaneVector& lanes = tll->getLanesAt(0);
             if (lanes.size() > 0) {
