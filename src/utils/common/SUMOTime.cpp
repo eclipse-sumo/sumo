@@ -90,7 +90,7 @@ time2string(SUMOTime t) {
         if (s < 10 && s >= 0) {
             oss << "0";
         }
-        if (fmod(s, 1) == 0) {
+        if (fmod(s, 1) == 0 && TS == 1) {
             oss << (int)s;
         } else {
             oss << s;
