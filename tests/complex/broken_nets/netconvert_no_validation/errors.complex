@@ -26,12 +26,16 @@ Quitting (on error).
 Error: Attribute 'id' in definition of a edge is empty.
 Error: Found lane '1_0' not within edge element.
 Error: Found lane '1_1' not within edge element.
- Wrong error code returned (-11)!
+Error: Unknown edge '1' given in connection.
+Error: Unknown edge '1' given in connection.
+Quitting (on error).
 ------------------ net/edge[1]@id:
 Error: Attribute 'id' in definition of a edge is empty.
 Error: Found lane '2_0' not within edge element.
 Error: Found lane '2_1' not within edge element.
- Wrong error code returned (-11)!
+Error: Unknown edge '2' given in connection.
+Error: Unknown edge '2' given in connection.
+Quitting (on error).
 ------------------ net/edge[0]@id:a
 Warning: Renaming lane '1_0' to 'a_0'.
 Warning: Renaming lane '1_1' to 'a_1'.
@@ -48,12 +52,16 @@ Quitting (on error).
 Error: Attribute 'id' is missing in definition of a edge.
 Error: Found lane '1_0' not within edge element.
 Error: Found lane '1_1' not within edge element.
- Wrong error code returned (-11)!
+Error: Unknown edge '1' given in connection.
+Error: Unknown edge '1' given in connection.
+Quitting (on error).
 ------------------ net/edge[1]@id:<remove>
 Error: Attribute 'id' is missing in definition of a edge.
 Error: Found lane '2_0' not within edge element.
 Error: Found lane '2_1' not within edge element.
- Wrong error code returned (-11)!
+Error: Unknown edge '2' given in connection.
+Error: Unknown edge '2' given in connection.
+Quitting (on error).
 ------------------ net/edge[0]@to:
 Error: Attribute 'to' in definition of edge '1' is empty.
 Error: Edge's '1' to-node '' is not known.
@@ -106,16 +114,22 @@ Quitting (on error).
  Wrong error code returned (0)!
 ------------------ net/edge[0]/lane[0]@id:
 Error: Attribute 'id' in definition of a lane is empty.
- Wrong error code returned (-11)!
+Warning: Renaming lane '1_1' to '1_0'.
+Error: Invalid lane index '1' for connection from '1'.
+Quitting (on error).
 ------------------ net/edge[0]/lane[1]@id:
 Error: Attribute 'id' in definition of a lane is empty.
- Wrong error code returned (-11)!
+Error: Invalid lane index '1' for connection from '1'.
+Quitting (on error).
 ------------------ net/edge[1]/lane[0]@id:
 Error: Attribute 'id' in definition of a lane is empty.
- Wrong error code returned (-11)!
+Warning: Renaming lane '2_1' to '2_0'.
+Warning: Could not set connection from '1_1' to '2_1'.
+Quitting (on error).
 ------------------ net/edge[1]/lane[1]@id:
 Error: Attribute 'id' in definition of a lane is empty.
- Wrong error code returned (-11)!
+Warning: Could not set connection from '1_1' to '2_1'.
+Quitting (on error).
 ------------------ net/edge[0]/lane[0]@id:a_0
 Warning: Renaming lane 'a_0' to '1_0'.
  Wrong error code returned (0)!
@@ -130,16 +144,22 @@ Warning: Renaming lane 'a_1' to '2_1'.
  Wrong error code returned (0)!
 ------------------ net/edge[0]/lane[0]@id:<remove>
 Error: Attribute 'id' is missing in definition of a lane.
- Wrong error code returned (-11)!
+Warning: Renaming lane '1_1' to '1_0'.
+Error: Invalid lane index '1' for connection from '1'.
+Quitting (on error).
 ------------------ net/edge[0]/lane[1]@id:<remove>
 Error: Attribute 'id' is missing in definition of a lane.
- Wrong error code returned (-11)!
+Error: Invalid lane index '1' for connection from '1'.
+Quitting (on error).
 ------------------ net/edge[1]/lane[0]@id:<remove>
 Error: Attribute 'id' is missing in definition of a lane.
- Wrong error code returned (-11)!
+Warning: Renaming lane '2_1' to '2_0'.
+Warning: Could not set connection from '1_1' to '2_1'.
+Quitting (on error).
 ------------------ net/edge[1]/lane[1]@id:<remove>
 Error: Attribute 'id' is missing in definition of a lane.
- Wrong error code returned (-11)!
+Warning: Could not set connection from '1_1' to '2_1'.
+Quitting (on error).
 ------------------ net/edge[0]/lane[0]@length:
  Wrong error code returned (0)!
 ------------------ net/edge[0]/lane[1]@length:

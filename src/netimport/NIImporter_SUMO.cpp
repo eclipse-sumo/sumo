@@ -476,21 +476,23 @@ void
 NIImporter_SUMO::myEndElement(int element) {
     switch (element) {
         case SUMO_TAG_EDGE:
-            if (myEdges.find(myCurrentEdge->id) != myEdges.end()) {
-                WRITE_ERROR("Edge '" + myCurrentEdge->id + "' occurred at least twice in the input.");
-            } else {
-                myEdges[myCurrentEdge->id] = myCurrentEdge;
+            if (myCurrentEdge != nullptr) {
+                if (myEdges.find(myCurrentEdge->id) != myEdges.end()) {
+                    WRITE_ERROR("Edge '" + myCurrentEdge->id + "' occurred at least twice in the input.");
+                } else {
+                    myEdges[myCurrentEdge->id] = myCurrentEdge;
+                }
+                myCurrentEdge = nullptr;
+                myLastParameterised.pop_back();
             }
-            myCurrentEdge = nullptr;
-            myLastParameterised.pop_back();
             break;
         case SUMO_TAG_LANE:
-            if (myCurrentEdge != nullptr) {
+            if (myCurrentEdge != nullptr && myCurrentLane != nullptr) {
                 myCurrentEdge->maxSpeed = MAX2(myCurrentEdge->maxSpeed, myCurrentLane->maxSpeed);
                 myCurrentEdge->lanes.push_back(myCurrentLane);
+                myLastParameterised.pop_back();
             }
             myCurrentLane = nullptr;
-            myLastParameterised.pop_back();
             break;
         case SUMO_TAG_TLLOGIC:
             if (!myCurrentTL) {
