@@ -1711,7 +1711,7 @@ GNEEdge::smoothShape(const PositionVector& old, bool forElevation) {
     } else {
         const int numPoints = MAX2(oc.getInt("junctions.internal-link-detail"),
                                    int(old.length2D() / oc.getFloat("opendrive.curve-resolution")));
-        return bezier(init, numPoints);
+        return init.bezier(numPoints);
     }
 }
 

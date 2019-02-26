@@ -374,13 +374,13 @@ NWWriter_OpenDrive::writeInternalEdge(OutputDevice& device, OutputDevice& juncti
             endShape = getRightLaneBorder(outEdge, cLeft.toLane);
             init = NBNode::bezierControlPoints(begShape, endShape, turnaround, 25, 25, ok, nullptr, straightThresh);
             if (init.size() != 0) {
-                length = bezier(init, 12).length2D();
+                length = init.bezier(12).length2D();
                 laneOffset = outEdge->getLaneWidth(cLeft.toLane);
                 //std::cout << " internalLane=" << cLeft.getInternalLaneID() << " length=" << length << "\n";
             }
         }
     } else {
-        length = bezier(init, 12).length2D();
+        length = init.bezier(12).length2D();
     }
 
     junctionDevice << "        <connection id=\"" << connectionID << "\" incomingRoad=\"" << inEdgeID << "\" connectingRoad=\"" << edgeID << "\" contactPoint=\"start\">\n";
@@ -813,7 +813,7 @@ NWWriter_OpenDrive::writeGeomSmooth(const PositionVector& shape, double speed, O
 #endif
             } else {
                 // write bezier
-                const double curveLength = bezier(init, 12).length2D();
+                const double curveLength = init.bezier(12).length2D();
                 offset = writeGeomPP3(device, elevationDevice, init, curveLength, offset);
 #ifdef DEBUG_SMOOTH_GEOM
                 if (DEBUGCOND) {

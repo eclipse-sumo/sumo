@@ -490,7 +490,7 @@ NBNode::computeSmoothShape(const PositionVector& begShape,
         ret.push_back(endShape.front());
         return ret;
     } else {
-        return bezier(init, numPoints).smoothedZFront();
+        return init.bezier(numPoints).smoothedZFront();
     }
 }
 
