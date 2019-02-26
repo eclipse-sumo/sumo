@@ -1576,7 +1576,7 @@ GUIApplicationWindow::checkGamingEvents() {
     for (it = vc.loadedVehBegin(); it != end; ++it) {
         const MSVehicle* veh = dynamic_cast<MSVehicle*>(it->second);
         assert(veh != 0);
-        if (veh->isOnRoad()) {
+        if (veh->isOnRoad() && !veh->isStopped()) {
             const double vmax = MIN2(veh->getVehicleType().getMaxSpeed(), veh->getEdge()->getSpeedLimit());
             if (veh->getSpeed() < SUMO_const_haltingSpeed) {
                 myWaitingTime += DELTA_T;
