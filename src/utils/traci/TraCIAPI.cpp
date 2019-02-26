@@ -2463,7 +2463,7 @@ TraCIAPI::VehicleScope::getLaneChangeState(const std::string& vehicleID, int dir
 
 int
 TraCIAPI::VehicleScope::getStopState(const std::string& vehicleID) const {
-    return myParent.getUnsignedByte(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_STOPSTATE, vehicleID);
+    return myParent.getInt(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_STOPSTATE, vehicleID);
 }
 
 int
