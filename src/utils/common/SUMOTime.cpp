@@ -71,7 +71,7 @@ time2string(SUMOTime t) {
         double s = STEPS2TIME(t);
         if (s > 3600 * 24) {
             // days
-            oss << (int)(s / (3600 * 24)) << ":";
+            oss << (long long)(s / (3600 * 24)) << ":";
             s = fmod(s, 3600 * 24);
         }
         // hours, pad with zero
