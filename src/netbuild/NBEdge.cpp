@@ -2641,8 +2641,16 @@ NBEdge::appendTurnaround(bool noTLSControlled, bool onlyDeadends, bool noGeometr
     if (noTLSControlled && myTo->isTLControlled()) {
         return;
     }
-    if (onlyDeadends && myTo->getOutgoingEdges().size() > 1) {
-        return;
+    if (onlyDeadends) {
+        for (NBEdge* out : myTo->getOutgoingEdges()) {
+            int allowedOutgoing = 0;
+            if ((out->getPermissions() & SVC_PASSENGER) != 0 || out->getPermissions() == getPermissions()) {
+                allowedOutgoing++;
+                if (allowedOutgoing > 1) {
+                    return;
+                }
+            }
+        }
     }
     const int fromLane = (int)myLanes.size() - 1;
     const int toLane = (int)myTurnDestination->getNumLanes() - 1;
