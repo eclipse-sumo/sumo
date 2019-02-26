@@ -232,12 +232,12 @@ void FXSevenSegment::drawFigure(FXDCWindow& dc, FXchar figure) {
             break;
 //    case '+' : drawSegments (dc, FALSE,FALSE,FALSE,TRUE ,FALSE,FALSE,FALSE); break;
         case '-' :
+        case ':' :
             drawSegments(dc, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE);
             break;
         case '_' :
         case '.' :
         case ',' :
-        case ':' :
             drawSegments(dc, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE);
             break;
         case '0' :
