@@ -615,7 +615,11 @@ GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r,
             label += " until:" + time2string(stop.pars.until);
         }
         if (stop.duration >= 0) {
-            label += " duration:" + time2string(stop.duration);
+            if (STEPS2TIME(stop.duration) > 3600 * 24) {
+                label += " duration:1day+";
+            } else {
+                label += " duration:" + time2string(stop.duration);
+            }
         }
         std::pair<const MSLane*, double> stopPos = std::make_pair(stop.lane, stop.getEndPos(*this));
         const double textSize = s.vehicleName.size / s.scale;
