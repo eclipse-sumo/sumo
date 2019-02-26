@@ -107,21 +107,6 @@ public:
 protected:
 
     /**
-     * Tries to translate a string into an integer
-     * @param[in] val string to be translated
-     * @param[out] value integer where to store the result, if successfull
-     * @return true on success, false otherwise
-     */
-    bool toInt(std::string val, int& value);
-    /**
-     * Tries to translate a string into a double
-     * @param[in] val string to be translated
-     * @param[out] value double where to store the result, if successfull
-     * @return true on success, false otherwise
-     */
-    bool toDouble(std::string val, double& value);
-
-    /**
      * Loads mass information, i.e., mass in kg and mass factor which takes
      * into account rotational parts of the engine
      */
@@ -192,14 +177,6 @@ protected:
      * simulation is stopped if the value cannot be parsed as well
      */
     double parsePolynomialCoefficient(int index, const XERCES_CPP_NAMESPACE::Attributes& attrs);
-    /**
-     * Writes an error to stderr and terminates the simulation
-     */
-    void raiseError(std::string error);
-    /**
-     * Writes a parsing error to stderr and terminates the simulation
-     */
-    void raiseParsingError(std::string tag, std::string attribute, std::string value);
     /**
      * Writes a missing attribute error to stderr and terminates the simulation
      */

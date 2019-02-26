@@ -18,9 +18,11 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
+#include <config.h>
 
+#include <utils/common/StringUtils.h>
 #include "VehicleEngineHandler.h"
-#include <stdio.h>
+
 
 // ===========================================================================
 // class definitions
@@ -254,7 +256,7 @@ VehicleEngineHandler::loadEngineData(const XERCES_CPP_NAMESPACE::Attributes& att
     engineParameters.maxRpm = parseIntAttribute(ENGINE_TAG_ENGINE, ENGINE_TAG_ENGINE_MAXRPM, attrs);
     std::string mapType = parseStringAttribute(ENGINE_TAG_ENGINE, ENGINE_TAG_ENGINE_TYPE, attrs);
     if (mapType != "poly") {
-        raiseError("Invalid engine map type. Only \"poly\" is supported for now");
+        throw ProcessError("Invalid engine map type. Only \"poly\" is supported for now");
     }
 }
 
@@ -267,7 +269,7 @@ VehicleEngineHandler::loadGearData(const XERCES_CPP_NAMESPACE::Attributes& attrs
         //fatal
         std::stringstream ss;
         ss << "Invalid gear number " << number << ". Please check that gears are inserted in order";
-        raiseError(ss.str());
+        throw ProcessError(ss.str());
     }
     gearRatios.push_back(parseDoubleAttribute(ENGINE_TAG_GEAR, ENGINE_TAG_GEAR_RATIO, attrs));
     currentGear++;
@@ -287,7 +289,7 @@ VehicleEngineHandler::loadEngineModelData(const XERCES_CPP_NAMESPACE::Attributes
     if (attrs.getLength() > MAX_POLY_DEGREE) {
         std::stringstream ss;
         ss << "Maximum degree for the engine polynomial is " << MAX_POLY_DEGREE << ". Please check your model's data";
-        raiseError(ss.str());
+        throw ProcessError(ss.str());
     }
     //parse all polynomial coefficients
     for (int i = 0; i < (int)attrs.getLength(); i++) {
@@ -324,24 +326,10 @@ std::string VehicleEngineHandler::parseStringAttribute(std::string tag, const ch
     return transcode(attrs.getValue(attributeIndex));
 }
 int VehicleEngineHandler::parseIntAttribute(std::string tag, const char* attribute, const XERCES_CPP_NAMESPACE::Attributes& attrs) {
-    std::string strValue;
-    int intValue;
-    strValue = parseStringAttribute(tag, attribute, attrs);
-    if (!toInt(strValue, intValue)) {
-        //raise will stop execution
-        raiseParsingError(tag, attribute, strValue);
-    }
-    return intValue;
+    return StringUtils::toInt(parseStringAttribute(tag, attribute, attrs));
 }
 double VehicleEngineHandler::parseDoubleAttribute(std::string tag, const char* attribute, const XERCES_CPP_NAMESPACE::Attributes& attrs) {
-    std::string strValue;
-    double doubleValue;
-    strValue = parseStringAttribute(tag, attribute, attrs);
-    if (!toDouble(strValue, doubleValue)) {
-        //raise will stop execution
-        raiseParsingError(tag, attribute, strValue);
-    }
-    return doubleValue;
+    return StringUtils::toDouble(parseStringAttribute(tag, attribute, attrs));
 }
 double VehicleEngineHandler::parsePolynomialCoefficient(int index, const XERCES_CPP_NAMESPACE::Attributes& attrs) {
     std::stringstream ss;
@@ -351,25 +339,10 @@ double VehicleEngineHandler::parsePolynomialCoefficient(int index, const XERCES_
 
 
 void
-VehicleEngineHandler::raiseError(std::string error) {
-    std::cerr << error << std::endl;
-    exit(1);
-}
-
-
-void
-VehicleEngineHandler::raiseParsingError(std::string tag, std::string attribute, std::string value) {
-    std::stringstream ss;
-    ss << "Invalid value \"" << value << "\" for attribute " << attribute << ", inside tag " << tag;
-    raiseError(ss.str());
-}
-
-
-void
 VehicleEngineHandler::raiseMissingAttributeError(std::string tag, std::string attribute) {
     std::stringstream ss;
     ss << "Missing attribute \"" << attribute << "\" for tag " << tag;
-    raiseError(ss.str());
+    throw ProcessError(ss.str());
 }
 
 
@@ -377,23 +350,7 @@ void
 VehicleEngineHandler::raiseUnknownTagError(std::string tag) {
     std::stringstream ss;
     ss << "I don't know what to do with this tag: " << tag;
-    raiseError(ss.str());
-}
-
-
-bool VehicleEngineHandler::toInt(std::string val, int& value) {
-    if (sscanf(val.c_str(), "%d", &value) != 1) {
-        return false;
-    }
-    return true;
-}
-
-
-bool VehicleEngineHandler::toDouble(std::string val, double& value) {
-    if (sscanf(val.c_str(), "%lf", &value) != 1) {
-        return false;
-    }
-    return true;
+    throw ProcessError(ss.str());
 }
 
 
