@@ -1,4 +1,4 @@
-Eclipse SUMO Version v1_0_1+0645-93703db
+Eclipse SUMO Version v1_1_0+0435-678c69824b
  Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -511,6 +511,7 @@ GUI Only Options:
   -g, --gui-settings-file FILE         Load visualisation settings from FILE
   -Q, --quit-on-end                    Quits the GUI when the simulation stops
   -G, --game                           Start the GUI in gaming mode
+  --game.mode STR                      Select the game type ('tls', 'drt')
   -S, --start                          Start the simulation after loading
   --breakpoints STR                    Use TIME[] as times when the simulation
                                          should halt

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Feb 14 09:14:41 2019 by Eclipse SUMO Version v1_0_1+0645-93703db
+<!-- generated on Tue Feb 26 22:08:00 2019 by Eclipse SUMO Version v1_1_0+0435-678c69824b
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -282,6 +282,7 @@
         <gui-settings-file value="" synonymes="g" type="FILE" help="Load visualisation settings from FILE"/>
         <quit-on-end value="false" synonymes="Q" type="BOOL" help="Quits the GUI when the simulation stops"/>
         <game value="false" synonymes="G" type="BOOL" help="Start the GUI in gaming mode"/>
+        <game.mode value="tls" type="STR" help="Select the game type (&apos;tls&apos;, &apos;drt&apos;)"/>
         <start value="false" synonymes="S" type="BOOL" help="Start the simulation after loading"/>
         <breakpoints value="" type="STR" help="Use TIME[] as times when the simulation should halt"/>
         <edgedata-files value="" type="FILE" help="Load edge/lane weights for visualization from FILE"/>
