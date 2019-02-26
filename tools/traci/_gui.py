@@ -92,8 +92,9 @@ class GuiDomain(Domain):
 
     def setBoundary(self, viewID, xmin, ymin, xmax, ymax):
         """setBoundary(string, double, double, double, double) -> None
-
-        Set the current boundary for the given view (see getBoundary()).
+        Sets the boundary of the visible network. If the window has a different
+        aspect ratio than the given boundary, the view is expanded along one
+        axis to meet the window aspect ratio and contain the given boundary.
         """
         self._connection._beginMessage(
             tc.CMD_SET_GUI_VARIABLE, tc.VAR_VIEW_BOUNDARY, viewID, 1 + 1 + 8 + 8 + 8 + 8)
