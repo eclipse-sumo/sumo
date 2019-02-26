@@ -469,6 +469,9 @@ MSFrame::fillOptions() {
     oc.doRegister("game", 'G', new Option_Bool(false));
     oc.addDescription("game", "GUI Only", "Start the GUI in gaming mode");
 
+    oc.doRegister("game.mode", new Option_String("tls"));
+    oc.addDescription("game.mode", "GUI Only", "Select the game type ('tls', 'drt')");
+
     oc.doRegister("start", 'S', new Option_Bool(false));
     oc.addDescription("start", "GUI Only", "Start the simulation after loading");
 
@@ -658,6 +661,9 @@ MSFrame::checkOptions() {
     };
     if (oc.getInt("threads") > oc.getInt("thread-rngs")) {
         WRITE_WARNING("Number of threads exceeds number of thread-rngs. Simulation runs with the same seed may produce different results");
+    }
+    if (oc.getString("game.mode") != "tls" && oc.getString("game.mode") != "drt") {
+        WRITE_ERROR("game.mode must be one of ['tls', 'drt']");
     }
 
     ok &= MSDevice::checkOptions(oc);

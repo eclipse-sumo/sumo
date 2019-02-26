@@ -1432,7 +1432,11 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
             }
 
             if (isGaming()) {
-                setTitle("SUMO Interactive Traffic Light");
+                if (OptionsCont::getOptions().getString("game.mode") == "tls") {
+                    setTitle("SUMO Interactive Traffic Light");
+                } else {
+                    setTitle("SUMO Interactive Demand-Responsive-Transport");
+                }
             } else {
                 // set simulation name on the caption
                 setTitle(MFXUtils::getTitleText("SUMO " VERSION_STRING, ec->myFile.c_str()));

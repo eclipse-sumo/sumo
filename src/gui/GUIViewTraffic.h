@@ -130,6 +130,9 @@ protected:
 private:
     GUIGlID myTrackedID;
 
+    /// @brief whether game mode was set to 'tls'
+    bool myTLSGame;
+
 #ifdef HAVE_FFMPEG
     GUIVideoEncoder* myCurrentVideo;
 #endif

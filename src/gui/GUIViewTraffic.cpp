@@ -85,7 +85,8 @@ GUIViewTraffic::GUIViewTraffic(
     GUINet& net, FXGLVisual* glVis,
     FXGLCanvas* share) :
     GUISUMOAbstractView(p, app, parent, net.getVisualisationSpeedUp(), glVis, share),
-    myTrackedID(GUIGlObject::INVALID_ID)
+    myTrackedID(GUIGlObject::INVALID_ID),
+    myTLSGame(OptionsCont::getOptions().getString("game.mode") == "tls")
 #ifdef HAVE_FFMPEG
     , myCurrentVideo(nullptr)
 #endif
@@ -334,41 +335,43 @@ GUIViewTraffic::getTrackedID() const {
 
 void
 GUIViewTraffic::onGamingClick(Position pos) {
-    MSTLLogicControl& tlsControl = MSNet::getInstance()->getTLSControl();
-    const std::vector<MSTrafficLightLogic*>& logics = tlsControl.getAllLogics();
-    MSTrafficLightLogic* minTll = nullptr;
-    double minDist = std::numeric_limits<double>::infinity();
-    for (std::vector<MSTrafficLightLogic*>::const_iterator i = logics.begin(); i != logics.end(); ++i) {
-        // get the logic
-        MSTrafficLightLogic* tll = (*i);
-        if (tlsControl.isActive(tll) && tll->getProgramID() != "off") {
-            // get the links
-            const MSTrafficLightLogic::LaneVector& lanes = tll->getLanesAt(0);
-            if (lanes.size() > 0) {
-                const Position& endPos = lanes[0]->getShape().back();
-                if (endPos.distanceTo(pos) < minDist) {
-                    minDist = endPos.distanceTo(pos);
-                    minTll = tll;
+    if (myTLSGame) {
+        MSTLLogicControl& tlsControl = MSNet::getInstance()->getTLSControl();
+        const std::vector<MSTrafficLightLogic*>& logics = tlsControl.getAllLogics();
+        MSTrafficLightLogic* minTll = nullptr;
+        double minDist = std::numeric_limits<double>::infinity();
+        for (std::vector<MSTrafficLightLogic*>::const_iterator i = logics.begin(); i != logics.end(); ++i) {
+            // get the logic
+            MSTrafficLightLogic* tll = (*i);
+            if (tlsControl.isActive(tll) && tll->getProgramID() != "off") {
+                // get the links
+                const MSTrafficLightLogic::LaneVector& lanes = tll->getLanesAt(0);
+                if (lanes.size() > 0) {
+                    const Position& endPos = lanes[0]->getShape().back();
+                    if (endPos.distanceTo(pos) < minDist) {
+                        minDist = endPos.distanceTo(pos);
+                        minTll = tll;
+                    }
                 }
             }
         }
-    }
-    if (minTll != nullptr) {
-        const MSTLLogicControl::TLSLogicVariants& vars = tlsControl.get(minTll->getID());
-        const std::vector<MSTrafficLightLogic*> logics = vars.getAllLogics();
-        if (logics.size() > 1) {
-            MSSimpleTrafficLightLogic* l = (MSSimpleTrafficLightLogic*) logics[0];
-            for (int i = 0; i < (int)logics.size() - 1; ++i) {
-                if (minTll->getProgramID() == logics[i]->getProgramID()) {
-                    l = (MSSimpleTrafficLightLogic*) logics[i + 1];
+        if (minTll != nullptr) {
+            const MSTLLogicControl::TLSLogicVariants& vars = tlsControl.get(minTll->getID());
+            const std::vector<MSTrafficLightLogic*> logics = vars.getAllLogics();
+            if (logics.size() > 1) {
+                MSSimpleTrafficLightLogic* l = (MSSimpleTrafficLightLogic*) logics[0];
+                for (int i = 0; i < (int)logics.size() - 1; ++i) {
+                    if (minTll->getProgramID() == logics[i]->getProgramID()) {
+                        l = (MSSimpleTrafficLightLogic*) logics[i + 1];
+                        tlsControl.switchTo(minTll->getID(), l->getProgramID());
+                    }
+                }
+                if (l == logics[0]) {
                     tlsControl.switchTo(minTll->getID(), l->getProgramID());
                 }
+                l->changeStepAndDuration(tlsControl, MSNet::getInstance()->getCurrentTimeStep(), 0, l->getPhase(0).duration);
+                update();
             }
-            if (l == logics[0]) {
-                tlsControl.switchTo(minTll->getID(), l->getProgramID());
-            }
-            l->changeStepAndDuration(tlsControl, MSNet::getInstance()->getCurrentTimeStep(), 0, l->getPhase(0).duration);
-            update();
         }
     } else {
         // DRT game
@@ -378,7 +381,7 @@ GUIViewTraffic::onGamingClick(Position pos) {
         const std::set<GUIGlID>& sel = gSelected.getSelected(GLO_VEHICLE);
         if (sel.size() == 0) {
             // find closest pt vehicle
-            minDist = std::numeric_limits<double>::infinity();
+            double minDist = std::numeric_limits<double>::infinity();
             GUIVehicle* closest = nullptr;
             MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
             MSVehicleControl::constVehIt it = vc.loadedVehBegin();
@@ -400,7 +403,7 @@ GUIViewTraffic::onGamingClick(Position pos) {
             }
         } else {
             // find closest pt stop
-            minDist = std::numeric_limits<double>::infinity();
+            double minDist = std::numeric_limits<double>::infinity();
             MSStoppingPlace* closestStop = nullptr;
             const NamedObjectCont<MSStoppingPlace*>& stops = MSNet::getInstance()->getStoppingPlaces(SUMO_TAG_BUS_STOP);
             for (auto it = stops.begin(); it != stops.end(); ++it) {
