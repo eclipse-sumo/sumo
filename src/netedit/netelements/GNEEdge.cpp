@@ -24,7 +24,6 @@
 
 #include <utils/common/StringTokenizer.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/geom/bezier.h>
 #include <utils/gui/div/GLHelper.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_Lane.h>
