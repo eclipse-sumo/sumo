@@ -936,33 +936,34 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
             return;
         }
     }
-    if (myActivePlan &&
-            !myActivePlan->empty() &&
-            myActivePlan->back()->getDestination() != edge) {
-        throw ProcessError("Disconnected plan for person '" + myVehicleParameter->id + "' (" + edge->getID() + "!=" + myActivePlan->back()->getDestination()->getID() + ").");
-    }
-    if (myActivePlan && myActivePlan->empty()) {
-        myActivePlan->push_back(new MSTransportable::Stage_Waiting(
-                    edge, toStop, -1, myVehicleParameter->depart, myVehicleParameter->departPos, "start", true));
-    }
-    if (myActiveContainerPlan &&
-            !myActiveContainerPlan->empty() &&
-            myActiveContainerPlan->back()->getDestination() != &MSLane::dictionary(stop.lane)->getEdge()) {
-        throw ProcessError("Disconnected plan for container '" + myVehicleParameter->id + "' (" + MSLane::dictionary(stop.lane)->getEdge().getID() + "!=" + myActiveContainerPlan->back()->getDestination()->getID() + ").");
-    }
-    if (myActiveContainerPlan && myActiveContainerPlan->empty()) {
-        myActiveContainerPlan->push_back(new MSTransportable::Stage_Waiting(
-                    &MSLane::dictionary(stop.lane)->getEdge(), toStop, -1, myVehicleParameter->depart, myVehicleParameter->departPos, "start", true));
-    }
-    if (myActivePlan != nullptr) {
+    if (myActivePlan) {
+        if (myActivePlan->empty()) {
+            double departPos = toStop == nullptr || myVehicleParameter->wasSet(VEHPARS_DEPARTPOS_SET)
+                ? myVehicleParameter->departPos
+                : (toStop->getBeginLanePosition() + toStop->getEndLanePosition()) / 2;
+            myActivePlan->push_back(new MSTransportable::Stage_Waiting(
+                        edge, toStop, -1, myVehicleParameter->depart, departPos, "start", true));
+        } else if (myActivePlan->back()->getDestination() != edge) {
+            throw ProcessError("Disconnected plan for person '" + myVehicleParameter->id + "' (" + edge->getID() + "!=" + myActivePlan->back()->getDestination()->getID() + ").");
+        }
         std::string actType = attrs.getOpt<std::string>(SUMO_ATTR_ACTTYPE, nullptr, ok, "waiting");
         double pos = (stop.startPos + stop.endPos) / 2.;
         if (!myActivePlan->empty()) {
             pos = myActivePlan->back()->getArrivalPos();
         }
         myActivePlan->push_back(new MSTransportable::Stage_Waiting(
-                                    &MSLane::dictionary(stop.lane)->getEdge(), toStop, stop.duration, stop.until, pos, actType, false));
-    } else if (myActiveContainerPlan != nullptr) {
+                    &MSLane::dictionary(stop.lane)->getEdge(), toStop, stop.duration, stop.until, pos, actType, false));
+
+    } else if (myActiveContainerPlan) {
+        if (myActiveContainerPlan->empty()) {
+            double departPos = toStop == nullptr || myVehicleParameter->wasSet(VEHPARS_DEPARTPOS_SET)
+                ? myVehicleParameter->departPos
+                : (toStop->getBeginLanePosition() + toStop->getEndLanePosition()) / 2;
+            myActiveContainerPlan->push_back(new MSTransportable::Stage_Waiting(
+                        &MSLane::dictionary(stop.lane)->getEdge(), toStop, -1, departPos, myVehicleParameter->departPos, "start", true));
+        } else if (myActiveContainerPlan->back()->getDestination() != &MSLane::dictionary(stop.lane)->getEdge()) {
+            throw ProcessError("Disconnected plan for container '" + myVehicleParameter->id + "' (" + MSLane::dictionary(stop.lane)->getEdge().getID() + "!=" + myActiveContainerPlan->back()->getDestination()->getID() + ").");
+        }
         std::string actType = attrs.getOpt<std::string>(SUMO_ATTR_ACTTYPE, nullptr, ok, "waiting");
         myActiveContainerPlan->push_back(new MSTransportable::Stage_Waiting(
                                              &MSLane::dictionary(stop.lane)->getEdge(), toStop, stop.duration, stop.until, stop.startPos, actType, false));
