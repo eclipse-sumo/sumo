@@ -751,62 +751,101 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::CarFollowingModelParameters(G
     }
     myComboBoxCarFollowModel->setNumVisible(10);
 
-    // 01 create FXTextField and Label for Accel
-    myTextFieldAccel = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_ACCEL);
+    // 01 create FX and Label for Accel
+    myAccelRow = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_ACCEL);
+    myRows.push_back(myAccelRow);
 
-    // 02 create FXTextField and Label for Decel
-    myTextFieldDecel = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_DECEL);
+    // 02 create FX and Label for Decel
+    myDecelRow = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_DECEL);
+    myRows.push_back(myDecelRow);
 
-    // 03 create FXTextField and Label for Apparent decel
-    myTextFieldApparentDecel = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_APPARENTDECEL);
+    // 03 create FX and Label for Apparent decel
+    myApparentDecelRow = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_APPARENTDECEL);
+    myRows.push_back(myApparentDecelRow);
 
-    // 04 create FXTextField and Label for emergency decel
-    myTextFieldEmergencyDecel = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_EMERGENCYDECEL);
+    // 04 create FX and Label for emergency decel
+    myEmergencyDecelRow = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_EMERGENCYDECEL);
+    myRows.push_back(myEmergencyDecelRow);
 
-    // 05 create FXTextField and Label for Sigma
-    myTextFieldSigma = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_SIGMA);
+    // 05 create FX and Label for Sigma
+    mySigmaRow = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_SIGMA);
+    myRows.push_back(mySigmaRow);
 
-    // 06 create FXTextField and Label for Tau
-    myTextFieldTau = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_TAU);
+    // 06 create FX and Label for Tau
+    myTauRow = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_TAU);
+    myRows.push_back(myTauRow);
 
-    // 07 myTextFieldMinGapFactor FXTextField and Label for MinGapFactor
-    myTextFieldMinGapFactor = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_COLLISION_MINGAP_FACTOR);
+    // 07 myMinGapFactor FX and Label for MinGapFactor
+    myMinGapFactorRow = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_COLLISION_MINGAP_FACTOR);
+    myRows.push_back(myMinGapFactorRow);
 
-    // 08 create FXTextField and Label for K
-    myTextFieldK = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_K);
+    // 08 create FX and Label for K
+    myKRow = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_K);
+    myRows.push_back(myKRow);
 
-    // 09 create FXTextField and Label for PHI
-    myTextFieldPhi = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_CF_KERNER_PHI);
+    // 09 create FX and Label for PHI
+    myPhiRow = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_CF_KERNER_PHI);
+    myRows.push_back(myPhiRow);
 
-    // 10 create FXTextField and Label for Deleta
-    myTextFieldDelta = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_CF_IDM_DELTA);
+    // 10 create FX and Label for Deleta
+    myDeltaRow = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_CF_IDM_DELTA);
+    myRows.push_back(myDeltaRow);
 
-    // 11 create FXTextField and Label for Stepping
-    myTextFieldStepping = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_CF_IDM_STEPPING);
+    // 11 create FX and Label for Stepping
+    mySteppingRow = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_CF_IDM_STEPPING);
+    myRows.push_back(mySteppingRow);
 
-    // 12 create FXTextField and Label for Security
-    myTextFieldSecurity = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_CF_WIEDEMANN_SECURITY);
+    // 12 create FX and Label for Security
+    mySecurityRow = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_CF_WIEDEMANN_SECURITY);
+    myRows.push_back(mySecurityRow);
 
-    // 13 create FXTextField and Label for Estimation
-    myTextFieldEstimation = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_CF_WIEDEMANN_ESTIMATION);
+    // 13 create FX and Label for Estimation
+    myEstimationRow = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_CF_WIEDEMANN_ESTIMATION);
+    myRows.push_back(myEstimationRow);
 
-    // 14 create FXTextField and Label for Estimation
-    myTextFieldTmp1 = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_TMP1);
+    // 14 create FX and Label for TMP1
+    myTmp1Row = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_TMP1);
+    myRows.push_back(myTmp1Row);
 
-    // 15 create FXTextField and Label for Estimation
-    myTextFieldTmp2 = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_TMP2);
+    // 15 create FX and Label for TMP2
+    myTmp2Row = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_TMP2);
+    myRows.push_back(myTmp2Row);
 
-    // 16 create FXTextField and Label for Estimation
-    myTextFieldTmp3 = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_TMP3);
+    // 16 create FX and Label for TMP3
+    myTmp3Row = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_TMP3);
+    myRows.push_back(myTmp3Row);
 
-    // 17 create FXTextField and Label for Estimation
-    myTextFieldTmp4 = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_TMP4);
+    // 17 create FX and Label for TMP4
+    myTmp4Row = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_TMP4);
+    myRows.push_back(myTmp4Row);
 
-    // 18 create FXTextField and Label for Estimation
-    myTextFieldTmp5 = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_TMP5);
+    // 18 create FX and Label for TMP5
+    myTmp5Row = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_TMP5);
+    myRows.push_back(myTmp5Row);
 
-    // 19 create FXTextField and Label for Estimation
-    myTextFieldTrainType = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_TRAIN_TYPE);
+    // 19 create FX and Label for Estimation
+    myTrainTypeRow = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_TRAIN_TYPE);
+    myRows.push_back(myTrainTypeRow);
+
+    // 20 create FX and Label for Tau Last
+    myTrauLastRow = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_CF_PWAGNER2009_TAULAST);
+    myRows.push_back(myTrauLastRow);
+
+    // 21 create FX and Label for Aprob
+    myAprobRow = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_CF_PWAGNER2009_APPROB);
+    myRows.push_back(myAprobRow);
+
+    // 22 create FX and Label for Adapt Factor
+    myAdaptFactorRow = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_CF_IDMM_ADAPT_FACTOR);
+    myRows.push_back(myAdaptFactorRow);
+
+    // 23 create FX and Label for Adapt Time
+    myAdaptTimeRow = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_CF_IDMM_ADAPT_TIME);
+    myRows.push_back(myAdaptTimeRow);
+
+    // create myLabelIncompleteAttribute
+    myLabelIncompleteAttribute = new FXLabel(myVerticalFrameRows, "Some attributes wasn't\nimplemented yet", nullptr, GUIDesignLabelAboutInfoCenter);
+    myLabelIncompleteAttribute->hide();
 
     // show or hidde ComboBox depending of current selected CFM
     refreshCFMFields();
@@ -815,25 +854,12 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::CarFollowingModelParameters(G
 
 void 
 GNEVehicleTypeDialog::CarFollowingModelParameters::refreshCFMFields() {
-    // start hidding all textfields (except TAU, because it's common for all CFM)
-    myTextFieldAccel->hide();
-    myTextFieldDecel->hide();
-    myTextFieldApparentDecel->hide();
-    myTextFieldEmergencyDecel->hide();
-    myTextFieldSigma->hide();
-    myTextFieldMinGapFactor->hide();
-    myTextFieldK->hide();
-    myTextFieldPhi->hide();
-    myTextFieldDelta->hide();
-    myTextFieldStepping->hide();
-    myTextFieldSecurity->hide();
-    myTextFieldEstimation->hide();
-    myTextFieldTmp1->hide();
-    myTextFieldTmp2->hide();
-    myTextFieldTmp3->hide();
-    myTextFieldTmp4->hide();
-    myTextFieldTmp5->hide();
-    myTextFieldTrainType->hide();
+    // start hidding all rows
+    for (const auto &i : myRows) {
+        i->hide();
+    }
+    // hide myLabelIncompleteAttribute
+    myLabelIncompleteAttribute->hide();
     // show textfield depending of current CFM
     if (SUMOXMLDefinitions::CarFollowModels.hasString(myComboBoxCarFollowModel->getText().text())) {
         // show textfield depending of selected CFM
@@ -841,143 +867,155 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::refreshCFMFields() {
             case SUMO_TAG_CF_KRAUSS:
             case SUMO_TAG_CF_KRAUSS_ORIG1:
             case SUMO_TAG_CF_KRAUSS_PLUS_SLOPE:
-                myTextFieldAccel->show();
-                myTextFieldDecel->show();
-                myTextFieldApparentDecel->show();
-                myTextFieldEmergencyDecel->show();
-                myTextFieldSigma->show();
+                myTauRow->show();
+                myAccelRow->show();
+                myDecelRow->show();
+                myApparentDecelRow->show();
+                myEmergencyDecelRow->show();
+                mySigmaRow->show();
                 break;
             case SUMO_TAG_CF_KRAUSSX:
-                myTextFieldTmp1->show();
-                myTextFieldTmp2->show();
-                myTextFieldTmp3->show();
-                myTextFieldTmp4->show();
-                myTextFieldTmp5->show();
+                myTauRow->show();
+                myTmp1Row->show();
+                myTmp2Row->show();
+                myTmp3Row->show();
+                myTmp4Row->show();
+                myTmp5Row->show();
                 break;
             case SUMO_TAG_CF_SMART_SK:
             case SUMO_TAG_CF_DANIEL1:
-                myTextFieldAccel->show();
-                myTextFieldDecel->show();
-                myTextFieldEmergencyDecel->show();
-                myTextFieldSigma->show();
-                myTextFieldMinGapFactor->show();
-                myTextFieldTmp1->show();
-                myTextFieldTmp2->show();
-                myTextFieldTmp3->show();
-                myTextFieldTmp4->show();
-                myTextFieldTmp5->show();
+                myTauRow->show();
+                myAccelRow->show();
+                myDecelRow->show();
+                myEmergencyDecelRow->show();
+                mySigmaRow->show();
+                myMinGapFactorRow->show();
+                myTmp1Row->show();
+                myTmp2Row->show();
+                myTmp3Row->show();
+                myTmp4Row->show();
+                myTmp5Row->show();
                 break;
             case SUMO_TAG_CF_PWAGNER2009:
-                myTextFieldAccel->show();
-                myTextFieldDecel->show();
-                myTextFieldEmergencyDecel->show();
-                myTextFieldSigma->show();
-                myTextFieldMinGapFactor->show();
-                /** extra Fields for 
-                    pwagParams.insert(SUMO_ATTR_CF_PWAGNER2009_TAULAST);
-                    pwagParams.insert(SUMO_ATTR_CF_PWAGNER2009_APPROB);
-                */
+                myTauRow->show();
+                myAccelRow->show();
+                myDecelRow->show();
+                myEmergencyDecelRow->show();
+                mySigmaRow->show();
+                myMinGapFactorRow->show();
+                myTrauLastRow->show();
+                myAprobRow->show();
                 break;
             case SUMO_TAG_CF_IDM:
-                myTextFieldAccel->show();
-                myTextFieldDecel->show();
-                myTextFieldEmergencyDecel->show();
-                myTextFieldStepping->show();
-                myTextFieldMinGapFactor->show();
+                myTauRow->show();
+                myAccelRow->show();
+                myDecelRow->show();
+                myEmergencyDecelRow->show();
+                mySteppingRow->show();
+                myMinGapFactorRow->show();
                 break;
             case SUMO_TAG_CF_IDMM:
-                myTextFieldAccel->show();
-                myTextFieldDecel->show();
-                myTextFieldEmergencyDecel->show();
-                myTextFieldStepping->show();
-                myTextFieldMinGapFactor->show();
-                /** extra Fields for 
-                    idmmParams.insert(SUMO_ATTR_CF_IDMM_ADAPT_FACTOR);
-                    idmmParams.insert(SUMO_ATTR_CF_IDMM_ADAPT_TIME);
-                */
+                myTauRow->show();
+                myAccelRow->show();
+                myDecelRow->show();
+                myEmergencyDecelRow->show();
+                mySteppingRow->show();
+                myMinGapFactorRow->show();
+                myAdaptFactorRow->show();
+                myAdaptTimeRow->show();
                 break;
             case SUMO_TAG_CF_BKERNER:
-                myTextFieldAccel->show();
-                myTextFieldDecel->show();
-                myTextFieldEmergencyDecel->show();
-                myTextFieldK->show();
-                myTextFieldPhi->show();
-                myTextFieldMinGapFactor->show();
+                myTauRow->show();
+                myAccelRow->show();
+                myDecelRow->show();
+                myEmergencyDecelRow->show();
+                myKRow->show();
+                myPhiRow->show();
+                myMinGapFactorRow->show();
                 break;
-            case SUMO_TAG_CF_WIEDEMANN: // Ask Jakob (Only two)?
-                myTextFieldAccel->show();
-                myTextFieldDecel->show();
-                myTextFieldEmergencyDecel->show();  
-                myTextFieldMinGapFactor->show();
-                /**
-                wiedemannParams.insert(SUMO_ATTR_CF_WIEDEMANN_SECURITY);
-                wiedemannParams.insert(SUMO_ATTR_CF_WIEDEMANN_ESTIMATION);
-                */
+            case SUMO_TAG_CF_WIEDEMANN:
+                myTauRow->show();
+                myAccelRow->show();
+                myDecelRow->show();
+                myEmergencyDecelRow->show();  
+                myMinGapFactorRow->show();
+                mySecurityRow->show();
+                myEstimationRow->show();
                 break;
             case SUMO_TAG_CF_RAIL:
-                myTextFieldTrainType->show();
+                myTauRow->show();
+                myTrainTypeRow->show();
                 break;
             case SUMO_TAG_CF_ACC:
-                myTextFieldAccel->show();
-                myTextFieldDecel->show();
-                myTextFieldEmergencyDecel->show();
-                myTextFieldMinGapFactor->show();
+                myTauRow->show();
+                myAccelRow->show();
+                myDecelRow->show();
+                myEmergencyDecelRow->show();
+                myMinGapFactorRow->show();
+                // show myLabelIncompleteAttribute
+                myLabelIncompleteAttribute->show();
                 /**
-                The follow parameters has to be inserted:
-                    ACCParams.insert(SUMO_ATTR_SC_GAIN);
-                    ACCParams.insert(SUMO_ATTR_GCC_GAIN_SPEED);
-                    ACCParams.insert(SUMO_ATTR_GCC_GAIN_SPACE);
-                    ACCParams.insert(SUMO_ATTR_GC_GAIN_SPEED);
-                    ACCParams.insert(SUMO_ATTR_GC_GAIN_SPACE);
-                    ACCParams.insert(SUMO_ATTR_CA_GAIN_SPEED);
-                    ACCParams.insert(SUMO_ATTR_CA_GAIN_SPACE);
+                The follow parameters has to be added:
+                    SUMO_ATTR_SC_GAIN
+                    SUMO_ATTR_GCC_GAIN_SPEED
+                    SUMO_ATTR_GCC_GAIN_SPACE
+                    SUMO_ATTR_GC_GAIN_SPEED
+                    SUMO_ATTR_GC_GAIN_SPACE
+                    SUMO_ATTR_CA_GAIN_SPEED
+                    SUMO_ATTR_CA_GAIN_SPACE
                 */
                 break;
             case SUMO_TAG_CF_CACC:
-                myTextFieldAccel->show();
-                myTextFieldDecel->show();
-                myTextFieldEmergencyDecel->show();
-                myTextFieldMinGapFactor->show();
+                myTauRow->show();
+                myAccelRow->show();
+                myDecelRow->show();
+                myEmergencyDecelRow->show();
+                myMinGapFactorRow->show();
+                // show myLabelIncompleteAttribute
+                myLabelIncompleteAttribute->show();
                 /**
-                The follow parameters has to be inserted:
-                    CACCParams.insert(SUMO_ATTR_SC_GAIN_CACC);
-                    CACCParams.insert(SUMO_ATTR_GCC_GAIN_GAP_CACC);
-                    CACCParams.insert(SUMO_ATTR_GCC_GAIN_GAP_DOT_CACC);
-                    CACCParams.insert(SUMO_ATTR_GC_GAIN_GAP_CACC);
-                    CACCParams.insert(SUMO_ATTR_GC_GAIN_GAP_DOT_CACC);
-                    CACCParams.insert(SUMO_ATTR_CA_GAIN_GAP_CACC);
-                    CACCParams.insert(SUMO_ATTR_CA_GAIN_GAP_DOT_CACC);
-                    CACCParams.insert(SUMO_ATTR_GCC_GAIN_SPEED);
-                    CACCParams.insert(SUMO_ATTR_GCC_GAIN_SPACE);
-                    CACCParams.insert(SUMO_ATTR_GC_GAIN_SPEED);
-                    CACCParams.insert(SUMO_ATTR_GC_GAIN_SPACE);
-                    CACCParams.insert(SUMO_ATTR_CA_GAIN_SPEED);
-                    CACCParams.insert(SUMO_ATTR_CA_GAIN_SPACE);
+                The follow parameters has to be added:
+                    SUMO_ATTR_SC_GAIN_CACC
+                    SUMO_ATTR_GCC_GAIN_GAP_CACC
+                    SUMO_ATTR_GCC_GAIN_GAP_DOT_CACC
+                    SUMO_ATTR_GC_GAIN_GAP_CACC
+                    SUMO_ATTR_GC_GAIN_GAP_DOT_CACC
+                    SUMO_ATTR_CA_GAIN_GAP_CACC
+                    SUMO_ATTR_CA_GAIN_GAP_DOT_CACC
+                    SUMO_ATTR_GCC_GAIN_SPEED
+                    SUMO_ATTR_GCC_GAIN_SPACE
+                    SUMO_ATTR_GC_GAIN_SPEED
+                    SUMO_ATTR_GC_GAIN_SPACE
+                    SUMO_ATTR_CA_GAIN_SPEED
+                    SUMO_ATTR_CA_GAIN_SPACE
                 */
                 break;
             case SUMO_TAG_CF_CC:
-                myTextFieldAccel->show();
-                myTextFieldDecel->show();
+                myTauRow->show();
+                myAccelRow->show();
+                myDecelRow->show();
+                // show myLabelIncompleteAttribute
+                myLabelIncompleteAttribute->show();
                 /**
-                The follow parameters has to be inserted:
-                    ccParams.insert(SUMO_ATTR_CF_CC_C1);
-                    ccParams.insert(SUMO_ATTR_CF_CC_CCDECEL);
-                    ccParams.insert(SUMO_ATTR_CF_CC_CONSTSPACING);
-                    ccParams.insert(SUMO_ATTR_CF_CC_KP);
-                    ccParams.insert(SUMO_ATTR_CF_CC_LAMBDA);
-                    ccParams.insert(SUMO_ATTR_CF_CC_OMEGAN);
-                    ccParams.insert(SUMO_ATTR_CF_CC_TAU);
-                    ccParams.insert(SUMO_ATTR_CF_CC_XI);
-                    ccParams.insert(SUMO_ATTR_CF_CC_LANES_COUNT);
-                    ccParams.insert(SUMO_ATTR_CF_CC_CCACCEL);
-                    ccParams.insert(SUMO_ATTR_CF_CC_PLOEG_KP);
-                    ccParams.insert(SUMO_ATTR_CF_CC_PLOEG_KD);
-                    ccParams.insert(SUMO_ATTR_CF_CC_PLOEG_H);
-                    ccParams.insert(SUMO_ATTR_CF_CC_FLATBED_KA);
-                    ccParams.insert(SUMO_ATTR_CF_CC_FLATBED_KV);
-                    ccParams.insert(SUMO_ATTR_CF_CC_FLATBED_KP);
-                    ccParams.insert(SUMO_ATTR_CF_CC_FLATBED_D);
-                    ccParams.insert(SUMO_ATTR_CF_CC_FLATBED_H);
+                The follow parameters has to be added:
+                    SUMO_ATTR_CF_CC_C1
+                    SUMO_ATTR_CF_CC_CCDECEL
+                    SUMO_ATTR_CF_CC_CONSTSPACING
+                    SUMO_ATTR_CF_CC_KP
+                    SUMO_ATTR_CF_CC_LAMBDA
+                    SUMO_ATTR_CF_CC_OMEGAN
+                    SUMO_ATTR_CF_CC_TAU
+                    SUMO_ATTR_CF_CC_XI
+                    SUMO_ATTR_CF_CC_LANES_COUNT
+                    SUMO_ATTR_CF_CC_CCACCEL
+                    SUMO_ATTR_CF_CC_PLOEG_KP
+                    SUMO_ATTR_CF_CC_PLOEG_KD
+                    SUMO_ATTR_CF_CC_PLOEG_H
+                    SUMO_ATTR_CF_CC_FLATBED_KA
+                    SUMO_ATTR_CF_CC_FLATBED_KV
+                    SUMO_ATTR_CF_CC_FLATBED_KP
+                    SUMO_ATTR_CF_CC_FLATBED_D
+                    SUMO_ATTR_CF_CC_FLATBED_H
                 */
                 break;
             default:
@@ -1000,122 +1038,9 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::setVariable() {
         myVehicleTypeDialog->myVehicleTypeValid = false;
         myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_CAR_FOLLOW_MODEL;
     }
-    // set color of myTextFieldAccel, depending if current value is valid or not
-    if (myVehicleTypeDialog->myEditedDemandElement->isValid(SUMO_ATTR_ACCEL, myTextFieldAccel->textField->getText().text())) {
-        myTextFieldAccel->textField->setTextColor(FXRGB(0, 0, 0));
-        myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_ACCEL, myTextFieldAccel->textField->getText().text(), myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
-    } else {
-        myTextFieldAccel->textField->setTextColor(FXRGB(255, 0, 0));
-        myVehicleTypeDialog->myVehicleTypeValid = false;
-        myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_ACCEL;
-    }
-    // set color of myTextFieldDecel, depending if current value is valid or not
-    if (myVehicleTypeDialog->myEditedDemandElement->isValid(SUMO_ATTR_DECEL, myTextFieldDecel->textField->getText().text())) {
-        myTextFieldDecel->textField->setTextColor(FXRGB(0, 0, 0));
-        myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_DECEL, myTextFieldDecel->textField->getText().text(), myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
-    } else {
-        myTextFieldDecel->textField->setTextColor(FXRGB(255, 0, 0));
-        myVehicleTypeDialog->myVehicleTypeValid = false;
-        myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_DECEL;
-    }
-    // set color of myTextFieldApparentDecel, depending if current value is valid or not
-    if (myVehicleTypeDialog->myEditedDemandElement->isValid(SUMO_ATTR_APPARENTDECEL, myTextFieldApparentDecel->textField->getText().text())) {
-        myTextFieldApparentDecel->textField->setTextColor(FXRGB(0, 0, 0));
-        myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_APPARENTDECEL, myTextFieldApparentDecel->textField->getText().text(), myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
-    } else {
-        myTextFieldApparentDecel->textField->setTextColor(FXRGB(255, 0, 0));
-        myVehicleTypeDialog->myVehicleTypeValid = false;
-        myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_APPARENTDECEL;
-    }
-    // set color of myTextFieldEmergencyAccel, depending if current value is valid or not
-    if (myVehicleTypeDialog->myEditedDemandElement->isValid(SUMO_ATTR_EMERGENCYDECEL, myTextFieldEmergencyDecel->textField->getText().text())) {
-        myTextFieldEmergencyDecel->textField->setTextColor(FXRGB(0, 0, 0));
-        myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_EMERGENCYDECEL, myTextFieldEmergencyDecel->textField->getText().text(), myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
-    } else {
-        myTextFieldEmergencyDecel->textField->setTextColor(FXRGB(255, 0, 0));
-        myVehicleTypeDialog->myVehicleTypeValid = false;
-        myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_EMERGENCYDECEL;
-    }
-    // set color of myTextFieldSigma, depending if current value is valid or not
-    if (myVehicleTypeDialog->myEditedDemandElement->isValid(SUMO_ATTR_SIGMA, myTextFieldSigma->textField->getText().text())) {
-        myTextFieldSigma->textField->setTextColor(FXRGB(0, 0, 0));
-        myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_SIGMA, myTextFieldSigma->textField->getText().text(), myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
-    } else {
-        myTextFieldSigma->textField->setTextColor(FXRGB(255, 0, 0));
-        myVehicleTypeDialog->myVehicleTypeValid = false;
-        myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_SIGMA;
-    }
-    // set color of myTextFieldTau, depending if current value is valid or not
-    if (myVehicleTypeDialog->myEditedDemandElement->isValid(SUMO_ATTR_TAU, myTextFieldTau->textField->getText().text())) {
-        myTextFieldTau->textField->setTextColor(FXRGB(0, 0, 0));
-        myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_TAU, myTextFieldTau->textField->getText().text(), myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
-    } else {
-        myTextFieldTau->textField->setTextColor(FXRGB(255, 0, 0));
-        myVehicleTypeDialog->myVehicleTypeValid = false;
-        myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_TAU;
-    }
-    // set color of myTextFieldMinGapFactor, depending if current value is valid or not
-    if (myVehicleTypeDialog->myEditedDemandElement->isValid(SUMO_ATTR_COLLISION_MINGAP_FACTOR, myTextFieldMinGapFactor->textField->getText().text())) {
-        myTextFieldMinGapFactor->textField->setTextColor(FXRGB(0, 0, 0));
-        myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_COLLISION_MINGAP_FACTOR, myTextFieldMinGapFactor->textField->getText().text(), myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
-    } else {
-        myTextFieldMinGapFactor->textField->setTextColor(FXRGB(255, 0, 0));
-        myVehicleTypeDialog->myVehicleTypeValid = false;
-        myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_MINGAP;
-    }
-    // set color of myTextFieldTmp1, depending if current value is valid or not
-    if (myVehicleTypeDialog->myEditedDemandElement->isValid(SUMO_ATTR_TMP1, myTextFieldTmp1->textField->getText().text())) {
-        myTextFieldTmp1->textField->setTextColor(FXRGB(0, 0, 0));
-        myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_TMP1, myTextFieldTmp1->textField->getText().text(), myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
-    } else {
-        myTextFieldTmp1->textField->setTextColor(FXRGB(255, 0, 0));
-        myVehicleTypeDialog->myVehicleTypeValid = false;
-        myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_TMP1;
-    }
-    // set color of myTextFieldTmp2, depending if current value is valid or not
-    if (myVehicleTypeDialog->myEditedDemandElement->isValid(SUMO_ATTR_TMP2, myTextFieldTmp2->textField->getText().text())) {
-        myTextFieldTmp2->textField->setTextColor(FXRGB(0, 0, 0));
-        myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_TMP2, myTextFieldTmp2->textField->getText().text(), myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
-    } else {
-        myTextFieldTmp2->textField->setTextColor(FXRGB(255, 0, 0));
-        myVehicleTypeDialog->myVehicleTypeValid = false;
-        myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_TMP2;
-    }
-    // set color of myTextFieldTmp3, depending if current value is valid or not
-    if (myVehicleTypeDialog->myEditedDemandElement->isValid(SUMO_ATTR_TMP3, myTextFieldTmp3->textField->getText().text())) {
-        myTextFieldTmp3->textField->setTextColor(FXRGB(0, 0, 0));
-        myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_TMP3, myTextFieldTmp3->textField->getText().text(), myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
-    } else {
-        myTextFieldTmp3->textField->setTextColor(FXRGB(255, 0, 0));
-        myVehicleTypeDialog->myVehicleTypeValid = false;
-        myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_TMP3;
-    }
-    // set color of myTextFieldTmp4, depending if current value is valid or not
-    if (myVehicleTypeDialog->myEditedDemandElement->isValid(SUMO_ATTR_TMP4, myTextFieldTmp4->textField->getText().text())) {
-        myTextFieldTmp4->textField->setTextColor(FXRGB(0, 0, 0));
-        myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_TMP4, myTextFieldTmp4->textField->getText().text(), myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
-    } else {
-        myTextFieldTmp4->textField->setTextColor(FXRGB(255, 0, 0));
-        myVehicleTypeDialog->myVehicleTypeValid = false;
-        myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_TMP4;
-    }
-    // set color of myTextFieldTmp5, depending if current value is valid or not
-    if (myVehicleTypeDialog->myEditedDemandElement->isValid(SUMO_ATTR_TMP5, myTextFieldTmp5->textField->getText().text())) {
-        myTextFieldTmp5->textField->setTextColor(FXRGB(0, 0, 0));
-        myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_TMP5, myTextFieldTmp5->textField->getText().text(), myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
-    } else {
-        myTextFieldTmp5->textField->setTextColor(FXRGB(255, 0, 0));
-        myVehicleTypeDialog->myVehicleTypeValid = false;
-        myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_TMP5;
-    }
-    // set color of myTextFieldTrainType, depending if current value is valid or not
-    if (myVehicleTypeDialog->myEditedDemandElement->isValid(SUMO_ATTR_TRAIN_TYPE, myTextFieldTrainType->textField->getText().text())) {
-        myTextFieldTrainType->textField->setTextColor(FXRGB(0, 0, 0));
-        myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_TRAIN_TYPE, myTextFieldTrainType->textField->getText().text(), myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
-    } else {
-        myTextFieldTrainType->textField->setTextColor(FXRGB(255, 0, 0));
-        myVehicleTypeDialog->myVehicleTypeValid = false;
-        myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_TRAIN_TYPE;
+    // set variable in all Rows
+    for (const auto &i : myRows) {
+        i->setVariable();
     }
     // refresh fields
     refreshCFMFields();
@@ -1130,19 +1055,10 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::updateValues() {
     } else {
         myComboBoxCarFollowModel->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_CAR_FOLLOW_MODEL).c_str());
     }
-    myTextFieldAccel->textField->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_ACCEL).c_str());
-    myTextFieldDecel->textField->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_DECEL).c_str());
-    myTextFieldApparentDecel->textField->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_APPARENTDECEL).c_str());
-    myTextFieldEmergencyDecel->textField->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_EMERGENCYDECEL).c_str());
-    myTextFieldSigma->textField->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_SIGMA).c_str());
-    myTextFieldTau->textField->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_TAU).c_str());
-    myTextFieldMinGapFactor->textField->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_COLLISION_MINGAP_FACTOR).c_str());
-    myTextFieldTmp1->textField->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_TMP1).c_str());
-    myTextFieldTmp2->textField->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_TMP2).c_str());
-    myTextFieldTmp3->textField->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_TMP3).c_str());
-    myTextFieldTmp4->textField->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_TMP4).c_str());
-    myTextFieldTmp5->textField->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_TMP5).c_str());
-    myTextFieldTrainType->textField->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_TRAIN_TYPE).c_str());
+    // update value in all Rows
+    for (const auto &i : myRows) {
+        i->updateValue();
+    }
 }
 
 // ---------------------------------------------------------------------------
@@ -1150,9 +1066,34 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::updateValues() {
 // ---------------------------------------------------------------------------
 
 GNEVehicleTypeDialog::CarFollowingModelParameters::CarFollowingModelRow::CarFollowingModelRow(CarFollowingModelParameters *carFollowingModelParametersParent, FXVerticalFrame* verticalFrame, SumoXMLAttr attr) :
-    FXHorizontalFrame(verticalFrame, GUIDesignAuxiliarHorizontalFrame) {
+    FXHorizontalFrame(verticalFrame, GUIDesignAuxiliarHorizontalFrame),
+    myCarFollowingModelParametersParent(carFollowingModelParametersParent),
+    myAttr(attr) {
     myLabel = new FXLabel(this, toString(attr).c_str(), nullptr, GUIDesignLabelAttribute150);
     textField = new FXTextField(this, GUIDesignTextFieldNCol, carFollowingModelParametersParent, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldReal);
+}
+
+
+void 
+GNEVehicleTypeDialog::CarFollowingModelParameters::CarFollowingModelRow::setVariable() {
+    // set color of textField, depending if current value is valid or not
+    if (myCarFollowingModelParametersParent->myVehicleTypeDialog->myEditedDemandElement->isValid(myAttr, textField->getText().text())) {
+        textField->setTextColor(FXRGB(0, 0, 0));
+        myCarFollowingModelParametersParent->myVehicleTypeDialog->myEditedDemandElement->setAttribute(myAttr, textField->getText().text(), 
+            myCarFollowingModelParametersParent->myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
+    } else {
+        textField->setTextColor(FXRGB(255, 0, 0));
+        // mark VType as invalid
+        myCarFollowingModelParametersParent->myVehicleTypeDialog->myVehicleTypeValid = false;
+        myCarFollowingModelParametersParent->myVehicleTypeDialog->myInvalidAttr = myAttr;
+    }
+}
+
+
+void 
+GNEVehicleTypeDialog::CarFollowingModelParameters::CarFollowingModelRow::updateValue() {
+    // set text of myTextField using current value of VType
+    textField->setText(myCarFollowingModelParametersParent->myVehicleTypeDialog->myEditedDemandElement->getAttribute(myAttr).c_str());
 }
 
 // ---------------------------------------------------------------------------

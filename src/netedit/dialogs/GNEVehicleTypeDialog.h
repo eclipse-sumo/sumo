@@ -231,84 +231,116 @@ protected:
         void updateValues();
         
     protected:
-
+        /// @brief class used for represent rows with Car Following Model parameters
         class CarFollowingModelRow : public FXHorizontalFrame {
         public:
+            /// @brief constructor
             CarFollowingModelRow(CarFollowingModelParameters *carFollowingModelParametersParent, FXVerticalFrame* verticalFrame, SumoXMLAttr attr);
             
-            FXTextField* textField;
+            /// @brief set Variablen in VehicleType
+            void setVariable();
+
+            /// @brief update value of Vehicle Type
+            void updateValue();
+
         private:
+            /// @brief pointer to CarFollowingModelParameters parent
+            CarFollowingModelParameters *myCarFollowingModelParametersParent;
 
+            /// @brief edited attribute
+            SumoXMLAttr myAttr;
+
+            /// @brief text field
+            FXTextField* textField;
+
+            /// @label Label with the Row attribute
             FXLabel *myLabel;
-
         };
+        
+    private:
+        /// @brief pointer to Vehicle Type dialog parent
+        GNEVehicleTypeDialog* myVehicleTypeDialog;
+                
+        /// @brief vector with the Car Following Model Row
+        std::vector<CarFollowingModelRow*> myRows;
 
-        /// @brief FXTextfield for CarFollowModel
+        /// @brief Row for CarFollowModel
         FXComboBox* myComboBoxCarFollowModel;
 
         /// @brief Vertical Frame for CarFollowingModelRow
         FXVerticalFrame *myVerticalFrameRows;
 
-        /// @brief FXTextfield for Accel
-        CarFollowingModelRow* myTextFieldAccel;
+        /// @brief Row for Accel
+        CarFollowingModelRow* myAccelRow;
 
-        /// @brief FXTextfield for Decel
-        CarFollowingModelRow* myTextFieldDecel;
+        /// @brief Row for Decel
+        CarFollowingModelRow* myDecelRow;
 
-        /// @brief FXTextfield for aparent Decel
-        CarFollowingModelRow* myTextFieldApparentDecel;
+        /// @brief Row for aparent Decel
+        CarFollowingModelRow* myApparentDecelRow;
     
-        /// @brief FXTextfield for emergency Decel
-        CarFollowingModelRow* myTextFieldEmergencyDecel;
+        /// @brief Row for emergency Decel
+        CarFollowingModelRow* myEmergencyDecelRow;
 
-        /// @brief FXTextfield for Sigma
-        CarFollowingModelRow* myTextFieldSigma;
+        /// @brief Row for Sigma
+        CarFollowingModelRow* mySigmaRow;
 
-        /// @brief FXTextfield for Tau
-        CarFollowingModelRow* myTextFieldTau;
+        /// @brief Row for Tau
+        CarFollowingModelRow* myTauRow;
 
-        /// @brief FXTextfield for MinGapFactor
-        CarFollowingModelRow* myTextFieldMinGapFactor;
+        /// @brief Row for MinGapFactor
+        CarFollowingModelRow* myMinGapFactorRow;
 
-        /// @brief FXTextfield for MinGap (only for Kerner)
-        CarFollowingModelRow* myTextFieldK;
+        /// @brief Row for MinGap (only for Kerner)
+        CarFollowingModelRow* myKRow;
 
-        /// @brief FXTextfield for MinGap (only for Kerner)
-        CarFollowingModelRow* myTextFieldPhi;
+        /// @brief Row for MinGap (only for Kerner)
+        CarFollowingModelRow* myPhiRow;
 
-        /// @brief FXTextfield for MinGap (only for IDM)
-        CarFollowingModelRow* myTextFieldDelta;
+        /// @brief Row for MinGap (only for IDM)
+        CarFollowingModelRow* myDeltaRow;
 
-        /// @brief FXTextfield for MinGap(only for IDM)
-        CarFollowingModelRow* myTextFieldStepping;
+        /// @brief Row for MinGap(only for IDM)
+        CarFollowingModelRow* mySteppingRow;
 
-        /// @brief FXTextfield for Security (only for Wiedemann)
-        CarFollowingModelRow* myTextFieldSecurity;
+        /// @brief Row for Security (only for Wiedemann)
+        CarFollowingModelRow* mySecurityRow;
 
-        /// @brief FXTextfield for Estimation (only for Wiedemann)
-        CarFollowingModelRow* myTextFieldEstimation;
+        /// @brief Row for Estimation (only for Wiedemann)
+        CarFollowingModelRow* myEstimationRow;
 
-        /// @brief FXTextfield for TMP1
-        CarFollowingModelRow* myTextFieldTmp1;
+        /// @brief Row for TMP1
+        CarFollowingModelRow* myTmp1Row;
 
-        /// @brief FXTextfield for TMP2
-        CarFollowingModelRow* myTextFieldTmp2;
+        /// @brief Row for TMP2
+        CarFollowingModelRow* myTmp2Row;
 
-        /// @brief FXTextfield for TMP3
-        CarFollowingModelRow* myTextFieldTmp3;
+        /// @brief Row for TMP3
+        CarFollowingModelRow* myTmp3Row;
 
-        /// @brief FXTextfield for TMP4
-        CarFollowingModelRow* myTextFieldTmp4;
+        /// @brief Row for TMP4
+        CarFollowingModelRow* myTmp4Row;
 
-        /// @brief FXTextfield for TMP5
-        CarFollowingModelRow* myTextFieldTmp5;
+        /// @brief Row for TMP5
+        CarFollowingModelRow* myTmp5Row;
 
-        /// @brief FXTextfield for TrainType
-        CarFollowingModelRow* myTextFieldTrainType;
+        /// @brief Row for TrainType
+        CarFollowingModelRow* myTrainTypeRow;
 
-    private:
-        /// @brief pointer to Vehicle Type dialog parent
-        GNEVehicleTypeDialog* myVehicleTypeDialog;
+        /// @brief Row for TauLast
+        CarFollowingModelRow* myTrauLastRow;
+
+        /// @brief Row for Aprob
+        CarFollowingModelRow* myAprobRow;
+
+        /// @brief Row for Adapt Factor
+        CarFollowingModelRow* myAdaptFactorRow;
+
+        /// @brief Row for Adapt Time
+        CarFollowingModelRow* myAdaptTimeRow;
+
+        /// @brief temporal label for incomplete attributes
+        FXLabel *myLabelIncompleteAttribute;
     };
 
     /// @brief FOX needs this
