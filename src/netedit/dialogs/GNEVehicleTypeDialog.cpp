@@ -41,132 +41,37 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(GNEVehicleTypeDialog) GNEVehicleTypeDialogMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CALIBRATORDIALOG_SET_VARIABLE,  GNEVehicleTypeDialog::onCmdSetVariable),
+FXDEFMAP(GNEVehicleTypeDialog::VTypeCommonAtributes) VTypeCommonAtributesMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEVehicleTypeDialog::VTypeCommonAtributes::onCmdSetVariable),
 };
 
+FXDEFMAP(GNEVehicleTypeDialog::CarFollowingModelParameters) CarFollowingModelParametersMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEVehicleTypeDialog::CarFollowingModelParameters::onCmdSetVariable),
+};
+
+
 // Object implementation
-FXIMPLEMENT(GNEVehicleTypeDialog, GNEDemandElementDialog, GNEVehicleTypeDialogMap, ARRAYNUMBER(GNEVehicleTypeDialogMap))
+FXIMPLEMENT(GNEVehicleTypeDialog::VTypeCommonAtributes,         FXGroupBox,     VTypeCommonAtributesMap,        ARRAYNUMBER(VTypeCommonAtributesMap))
+FXIMPLEMENT(GNEVehicleTypeDialog::CarFollowingModelParameters,  FXGroupBox,     CarFollowingModelParametersMap, ARRAYNUMBER(CarFollowingModelParametersMap))
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
-GNEVehicleTypeDialog::GNEVehicleTypeDialog(GNEDemandElement* editedVehicleType, bool updatingElement) :
-    GNEDemandElementDialog(editedVehicleType, updatingElement, 1000, 350),
-    myVehicleTypeValid(true),
-    myInvalidAttr(SUMO_ATTR_NOTHING) {
-
-    // change default header
-    changeDemandElementDialogHeader(updatingElement ? "Edit " + myEditedDemandElement->getTagStr() + " of " : "Create " + myEditedDemandElement->getTagStr());
-    
-    // Create auxiliar frames for values
-    FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
-
-    myVTypeCommonAtributes = new VTypeCommonAtributes(this, columns);
-
-    myCarFollowingModelParameters = new CarFollowingModelParameters(this, columns);
-
-    // update fields
-    updateVehicleTypeValues();
-
-    // start a undo list for editing local to this additional
-    initChanges();
-
-    // add element if we aren't updating an existent element
-    if (myUpdatingElement == false) {
-        myEditedDemandElement->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(myEditedDemandElement, true), true);
-    }
-
-    // open as modal dialog
-    openAsModalDialog();
-}
-
-
-GNEVehicleTypeDialog::~GNEVehicleTypeDialog() {}
-
-
-long
-GNEVehicleTypeDialog::onCmdAccept(FXObject*, FXSelector, void*) {
-    if (myVehicleTypeValid == false) {
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
-        std::string operation1 = myUpdatingElement ? ("updating") : ("creating");
-        std::string operation2 = myUpdatingElement ? ("updated") : ("created");
-        std::string tagString = myEditedDemandElement->getTagStr();
-        // open warning dialogBox
-        FXMessageBox::warning(getApp(), MBOX_OK,
-                              ("Error " + operation1 + " " + tagString).c_str(), "%s",
-                              (tagString + " cannot be " + operation2 +
-                               " because parameter " + toString(myInvalidAttr) +
-                               " is invalid.").c_str());
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
-        return 0;
-    } else {
-        // accept changes before closing dialog
-        acceptChanges();
-        // stop dialgo sucesfully
-        getApp()->stopModal(this, TRUE);
-        return 1;
-    }
-}
-
-
-long
-GNEVehicleTypeDialog::onCmdCancel(FXObject*, FXSelector, void*) {
-    // cancel changes
-    cancelChanges();
-    // Stop Modal
-    getApp()->stopModal(this, FALSE);
-    return 1;
-}
-
-
-long
-GNEVehicleTypeDialog::onCmdReset(FXObject*, FXSelector, void*) {
-    // reset changes
-    resetChanges();
-    // update fields
-    updateVehicleTypeValues();
-    return 1;
-}
-
-
-long
-GNEVehicleTypeDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
-    // At start we assumed, that all values are valid
-    myVehicleTypeValid = true;
-    myInvalidAttr = SUMO_ATTR_NOTHING;
-    // set car following model rows
-    myCarFollowingModelParameters->setVariable();
-    myVTypeCommonAtributes->setVariable();
-    return 1;
-}
-
-
-void
-GNEVehicleTypeDialog::updateVehicleTypeValues() {
-    // update values of Vehicle Type common attributes
-    myVTypeCommonAtributes->updateValues();
-    // update values of Car Following Model Parameters
-    myCarFollowingModelParameters->updateValues();
-}
-
 // ---------------------------------------------------------------------------
 // GNEVehicleTypeDialog::VClassRow - methods
 // ---------------------------------------------------------------------------
 
-GNEVehicleTypeDialog::VClassRow::VClassRow(GNEVehicleTypeDialog* vehicleTypeDialog, FXVerticalFrame* column) :
-    FXHorizontalFrame(vehicleTypeDialog),
-    myVehicleTypeDialog(vehicleTypeDialog) {
+GNEVehicleTypeDialog::VTypeCommonAtributes::VClassRow::VClassRow(VTypeCommonAtributes* VTypeCommonAtributesParent, FXVerticalFrame* column) :
+    FXHorizontalFrame(column, GUIDesignAuxiliarHorizontalFrame),
+    myVTypeCommonAtributesParent(VTypeCommonAtributesParent) {
     // create two auxiliar frames
-    FXHorizontalFrame* horizontalFrame = new FXHorizontalFrame(column, GUIDesignAuxiliarHorizontalFrame);
-    FXVerticalFrame* verticalFrame = new FXVerticalFrame(horizontalFrame, GUIDesignAuxiliarVerticalFrame);
+    FXVerticalFrame* verticalFrameLabelAndComboBox = new FXVerticalFrame(this, GUIDesignAuxiliarVerticalFrame);
     // create FXComboBox for VClass
-    new FXLabel(verticalFrame, toString(SUMO_ATTR_VCLASS).c_str(), nullptr, GUIDesignLabelAttribute150);
-    myComboBoxVClass = new FXComboBox(verticalFrame, GUIDesignComboBoxNCol, vehicleTypeDialog, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignComboBox);
-    myComboBoxVClassLabelImage = new FXLabel(horizontalFrame, "", nullptr, GUIDesignLabelIconExtendedx46Ticked);
+    new FXLabel(verticalFrameLabelAndComboBox, toString(SUMO_ATTR_VCLASS).c_str(), nullptr, GUIDesignLabelAttribute150);
+    myComboBoxVClass = new FXComboBox(verticalFrameLabelAndComboBox, GUIDesignComboBoxNCol, 
+        VTypeCommonAtributesParent, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBox);
+    myComboBoxVClassLabelImage = new FXLabel(this, "", nullptr, GUIDesignLabelTickedIcon180x46);
     myComboBoxVClassLabelImage->setBackColor(FXRGBA(255, 255, 255, 255));
     // fill combo Box with all VClass
     std::vector<std::string> VClassStrings = SumoVehicleClassStrings.getStrings();
@@ -181,32 +86,33 @@ GNEVehicleTypeDialog::VClassRow::VClassRow(GNEVehicleTypeDialog* vehicleTypeDial
 
 
 void 
-GNEVehicleTypeDialog::VClassRow::setVariable() {
+GNEVehicleTypeDialog::VTypeCommonAtributes::VClassRow::setVariable() {
     // set color of myComboBoxVClass, depending if current value is valid or not
     myComboBoxVClass->setTextColor(FXRGB(0, 0, 0));
-    if (myVehicleTypeDialog->myEditedDemandElement->isValid(SUMO_ATTR_VCLASS, myComboBoxVClass->getText().text())) {
+    if (myVTypeCommonAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isValid(SUMO_ATTR_VCLASS, myComboBoxVClass->getText().text())) {
         myComboBoxVClass->setTextColor(FXRGB(0, 0, 0));
-        myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_VCLASS, myComboBoxVClass->getText().text(), myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
+        myVTypeCommonAtributesParent->myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_VCLASS, myComboBoxVClass->getText().text(), 
+            myVTypeCommonAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
         setVClassLabelImage();
     } else {
         myComboBoxVClass->setTextColor(FXRGB(255, 0, 0));
-        myVehicleTypeDialog->myVehicleTypeValid = false;
-        myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_VCLASS;
+        myVTypeCommonAtributesParent->myVehicleTypeDialog->myVehicleTypeValid = false;
+        myVTypeCommonAtributesParent->myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_VCLASS;
     }
 }
 
 
 void 
-GNEVehicleTypeDialog::VClassRow::updateValues() {
-    myComboBoxVClass->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_VCLASS).c_str());
+GNEVehicleTypeDialog::VTypeCommonAtributes::VClassRow::updateValues() {
+    myComboBoxVClass->setText(myVTypeCommonAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_VCLASS).c_str());
     setVClassLabelImage();
 }
 
 
 void
-GNEVehicleTypeDialog::VClassRow::setVClassLabelImage() {
+GNEVehicleTypeDialog::VTypeCommonAtributes::VClassRow::setVClassLabelImage() {
     // set Icon in label depending of current VClass
-    switch (getVehicleClassID(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_VCLASS))) {
+    switch (getVehicleClassID(myVTypeCommonAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_VCLASS))) {
         case SVC_PRIVATE:
             myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VCLASS_PRIVATE));
             break;
@@ -292,16 +198,16 @@ GNEVehicleTypeDialog::VClassRow::setVClassLabelImage() {
 // GNEVehicleTypeDialog::VShapeRow - methods
 // ---------------------------------------------------------------------------
 
-GNEVehicleTypeDialog::VShapeRow::VShapeRow(GNEVehicleTypeDialog* vehicleTypeDialog, FXVerticalFrame* column) :
-    FXHorizontalFrame(vehicleTypeDialog),
-    myVehicleTypeDialog(vehicleTypeDialog) {
+GNEVehicleTypeDialog::VTypeCommonAtributes::VShapeRow::VShapeRow(VTypeCommonAtributes* VTypeCommonAtributesParent, FXVerticalFrame* column) :
+    FXHorizontalFrame(column, GUIDesignAuxiliarHorizontalFrame),
+    myVTypeCommonAtributesParent(VTypeCommonAtributesParent) {
     // create two auxiliar frames
-    FXHorizontalFrame* horizontalFrame = new FXHorizontalFrame(column, GUIDesignAuxiliarHorizontalFrame);
-    FXVerticalFrame* verticalFrame = new FXVerticalFrame(horizontalFrame, GUIDesignAuxiliarVerticalFrame);
-    // create combo bof for vehicle shapes
-    new FXLabel(verticalFrame, toString(SUMO_ATTR_GUISHAPE).c_str(), nullptr, GUIDesignLabelAttribute150);
-    myComboBoxShape = new FXComboBox(verticalFrame, GUIDesignComboBoxNCol, vehicleTypeDialog, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignComboBox);
-    myComboBoxShapeLabelImage = new FXLabel(horizontalFrame, "", nullptr, GUIDesignLabelIconExtendedx46Ticked);
+    FXVerticalFrame* verticalFrameLabelAndComboBox = new FXVerticalFrame(this, GUIDesignAuxiliarVerticalFrame);
+    // create combo for for vehicle shapes
+    new FXLabel(verticalFrameLabelAndComboBox, toString(SUMO_ATTR_GUISHAPE).c_str(), nullptr, GUIDesignLabelAttribute150);
+    myComboBoxShape = new FXComboBox(verticalFrameLabelAndComboBox, GUIDesignComboBoxNCol, 
+        VTypeCommonAtributesParent, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBox);
+    myComboBoxShapeLabelImage = new FXLabel(this, "", nullptr, GUIDesignLabelTickedIcon180x46);
     myComboBoxShapeLabelImage->setBackColor(FXRGBA(255, 255, 255, 255));
     // fill combo Box with all vehicle shapes
     std::vector<std::string> VShapeStrings = SumoVehicleShapeStrings.getStrings();
@@ -316,31 +222,32 @@ GNEVehicleTypeDialog::VShapeRow::VShapeRow(GNEVehicleTypeDialog* vehicleTypeDial
 
 
 void 
-GNEVehicleTypeDialog::VShapeRow::setVariable() {
+GNEVehicleTypeDialog::VTypeCommonAtributes::VShapeRow::setVariable() {
     // set color of myComboBoxShape, depending if current value is valid or not
-    if (myVehicleTypeDialog->myEditedDemandElement->isValid(SUMO_ATTR_GUISHAPE, myComboBoxShape->getText().text())) {
+    if (myVTypeCommonAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isValid(SUMO_ATTR_GUISHAPE, myComboBoxShape->getText().text())) {
         myComboBoxShape->setTextColor(FXRGB(0, 0, 0));
-        myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_GUISHAPE, myComboBoxShape->getText().text(), myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
+        myVTypeCommonAtributesParent->myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_GUISHAPE, myComboBoxShape->getText().text(), 
+            myVTypeCommonAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
         setVShapeLabelImage();
     } else {
         myComboBoxShape->setTextColor(FXRGB(255, 0, 0));
-        myVehicleTypeDialog->myVehicleTypeValid = false;
-        myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_GUISHAPE;
+        myVTypeCommonAtributesParent->myVehicleTypeDialog->myVehicleTypeValid = false;
+        myVTypeCommonAtributesParent->myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_GUISHAPE;
     }
 }
 
 
 void 
-GNEVehicleTypeDialog::VShapeRow::updateValues() {
-    myComboBoxShape->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_GUISHAPE).c_str());
+GNEVehicleTypeDialog::VTypeCommonAtributes::VShapeRow::updateValues() {
+    myComboBoxShape->setText(myVTypeCommonAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_GUISHAPE).c_str());
     setVShapeLabelImage();
 }
 
 
 void
-GNEVehicleTypeDialog::VShapeRow::setVShapeLabelImage() {
+GNEVehicleTypeDialog::VTypeCommonAtributes::VShapeRow::setVShapeLabelImage() {
     // set Icon in label depending of current VClass
-    switch (getVehicleShapeID(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_GUISHAPE))) {
+    switch (getVehicleShapeID(myVTypeCommonAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_GUISHAPE))) {
         case SVS_UNKNOWN:
             myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_UNKNOWN));
             break;
@@ -436,11 +343,11 @@ GNEVehicleTypeDialog::VShapeRow::setVShapeLabelImage() {
 GNEVehicleTypeDialog::VTypeCommonAtributes::VTypeCommonAtributes(GNEVehicleTypeDialog* vehicleTypeDialog, FXHorizontalFrame* column) :
     FXGroupBox(column, "Vehicle Type attributes", GUIDesignGroupBoxFrame),
     myVehicleTypeDialog(vehicleTypeDialog) {
-
+    // create two columns
     FXHorizontalFrame* columnsCommonVTypes = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-
+    // build left attributes
     buildCommonAttributesA(new FXVerticalFrame(columnsCommonVTypes, GUIDesignAuxiliarFrame));
-
+    // build right attributes
     buildCommonAttributesB(new FXVerticalFrame(columnsCommonVTypes, GUIDesignAuxiliarFrame));
 }
 
@@ -448,7 +355,7 @@ GNEVehicleTypeDialog::VTypeCommonAtributes::VTypeCommonAtributes(GNEVehicleTypeD
 void 
 GNEVehicleTypeDialog::VTypeCommonAtributes::buildCommonAttributesA(FXVerticalFrame* column) {
     // 01 Create VClassRow
-    myVClassRow = new VClassRow(myVehicleTypeDialog, column);
+    myVClassRow = new VClassRow(this, column);
 
     // 02 create FXTextField and Label for vehicleTypeID
     myTextFieldVehicleTypeID = myVehicleTypeDialog->buildRowFloat(column, SUMO_ATTR_ID);
@@ -485,13 +392,22 @@ GNEVehicleTypeDialog::VTypeCommonAtributes::buildCommonAttributesA(FXVerticalFra
 void 
 GNEVehicleTypeDialog::VTypeCommonAtributes::buildCommonAttributesB(FXVerticalFrame* column) {
     // 01 Create VShapeRow
-    myVShapeRow = new VShapeRow(myVehicleTypeDialog, column);
+    myVShapeRow = new VShapeRow(this, column);
 
     // 02 create FXTextField and Label for Impatience
     myTextFieldImpatience = myVehicleTypeDialog->buildRowFloat(column, SUMO_ATTR_IMPATIENCE);
 
-    // 03 create FXTextField and Label for LaneChangeModel
-    myTextFieldLaneChangeModel = myVehicleTypeDialog->buildRowFloat(column, SUMO_ATTR_LANE_CHANGE_MODEL);
+    // 03 create FXComboBox and Label for LaneChangeModel
+    FXHorizontalFrame* row = new FXHorizontalFrame(column, GUIDesignAuxiliarHorizontalFrame);
+    new FXLabel(row, toString(SUMO_ATTR_LANE_CHANGE_MODEL).c_str(), nullptr, GUIDesignLabelAttribute150);
+    myComboBoxLaneChangeModel = new FXComboBox(row, GUIDesignComboBoxNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBox);
+    
+    // fill combo Box with all VClass
+    std::vector<std::string> laneChangeModelStrings = SUMOXMLDefinitions::LaneChangeModels.getStrings();
+    for (auto i : laneChangeModelStrings) {
+        myComboBoxLaneChangeModel->appendItem(i.c_str());
+    }
+    myComboBoxLaneChangeModel->setNumVisible(myComboBoxLaneChangeModel->getNumItems());
 
     // 04 create FXTextField and Label for PersonCapacity
     myTextFieldPersonCapacity = myVehicleTypeDialog->buildRowInt(column, SUMO_ATTR_PERSON_CAPACITY);
@@ -519,8 +435,11 @@ GNEVehicleTypeDialog::VTypeCommonAtributes::buildCommonAttributesB(FXVerticalFra
 }
 
 
-void 
-GNEVehicleTypeDialog::VTypeCommonAtributes::setVariable() {
+long 
+GNEVehicleTypeDialog::VTypeCommonAtributes::onCmdSetVariable(FXObject*, FXSelector, void*) {
+    // At start we assumed, that all values are valid
+    myVehicleTypeDialog->myVehicleTypeValid = true;
+    myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_NOTHING;
     // set variables of special rows VType and VShape
     myVClassRow->setVariable();
     myVShapeRow->setVariable();
@@ -627,11 +546,11 @@ GNEVehicleTypeDialog::VTypeCommonAtributes::setVariable() {
         myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_IMPATIENCE;
     }
     // set color of myTextFieldLaneChangeModel, depending if current value is valid or not
-    if (myVehicleTypeDialog->myEditedDemandElement->isValid(SUMO_ATTR_LANE_CHANGE_MODEL, myTextFieldLaneChangeModel->getText().text())) {
-        myTextFieldLaneChangeModel->setTextColor(FXRGB(0, 0, 0));
-        myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_LANE_CHANGE_MODEL, myTextFieldLaneChangeModel->getText().text(), myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
+    if (myVehicleTypeDialog->myEditedDemandElement->isValid(SUMO_ATTR_LANE_CHANGE_MODEL, myComboBoxLaneChangeModel->getText().text())) {
+        myComboBoxLaneChangeModel->setTextColor(FXRGB(0, 0, 0));
+        myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_LANE_CHANGE_MODEL, myComboBoxLaneChangeModel->getText().text(), myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
     } else {
-        myTextFieldLaneChangeModel->setTextColor(FXRGB(255, 0, 0));
+        myComboBoxLaneChangeModel->setTextColor(FXRGB(255, 0, 0));
         myVehicleTypeDialog->myVehicleTypeValid = false;
         myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_LANE_CHANGE_MODEL;
     }
@@ -698,6 +617,7 @@ GNEVehicleTypeDialog::VTypeCommonAtributes::setVariable() {
         myVehicleTypeDialog->myVehicleTypeValid = false;
         myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_MAXSPEED_LAT;
     }
+    return true;
 }
 
 
@@ -718,7 +638,7 @@ GNEVehicleTypeDialog::VTypeCommonAtributes::updateValues() {
     myTextFieldWidth->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_WIDTH).c_str());
     myTextFieldFilename->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_IMGFILE).c_str());
     myTextFieldImpatience->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_IMPATIENCE).c_str());
-    myTextFieldLaneChangeModel->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_LANE_CHANGE_MODEL).c_str());
+    myComboBoxLaneChangeModel->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_LANE_CHANGE_MODEL).c_str());
     myTextFieldPersonCapacity->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_PERSON_CAPACITY).c_str());
     myTextFieldContainerCapacity->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_CONTAINER_CAPACITY).c_str());
     myTextFieldBoardingDuration->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_BOARDING_DURATION).c_str());
@@ -742,7 +662,7 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::CarFollowingModelParameters(G
     // declare combo box
     FXHorizontalFrame* row = new FXHorizontalFrame(myVerticalFrameRows, GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(row, "Algorithm", nullptr, GUIDesignLabelAttribute150);
-    myComboBoxCarFollowModel = new FXComboBox(row, GUIDesignComboBoxNCol, vehicleTypeDialog, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignComboBox);
+    myComboBoxCarFollowModel = new FXComboBox(row, GUIDesignComboBoxNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBox);
     
     // fill combo Box with all Car following models
     std::vector<std::string> CFModels = SUMOXMLDefinitions::CarFollowModels.getStrings();
@@ -1028,7 +948,25 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::refreshCFMFields() {
 
 
 void 
-GNEVehicleTypeDialog::CarFollowingModelParameters::setVariable() {
+GNEVehicleTypeDialog::CarFollowingModelParameters::updateValues() {
+    //set values of myEditedDemandElement into fields
+    if (myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_CAR_FOLLOW_MODEL).empty()) {
+        myComboBoxCarFollowModel->setCurrentItem(0);
+    } else {
+        myComboBoxCarFollowModel->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_CAR_FOLLOW_MODEL).c_str());
+    }
+    // update value in all Rows
+    for (const auto &i : myRows) {
+        i->updateValue();
+    }
+}
+
+
+long 
+GNEVehicleTypeDialog::CarFollowingModelParameters::onCmdSetVariable(FXObject*, FXSelector, void*) {
+    // At start we assumed, that all values are valid
+    myVehicleTypeDialog->myVehicleTypeValid = true;
+    myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_NOTHING;
      // set color of myTextFieldCarFollowModel, depending if current value is valid or not
     if (myVehicleTypeDialog->myEditedDemandElement->isValid(SUMO_ATTR_CAR_FOLLOW_MODEL, myComboBoxCarFollowModel->getText().text())) {
         myComboBoxCarFollowModel->setTextColor(FXRGB(0, 0, 0));
@@ -1044,21 +982,100 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::setVariable() {
     }
     // refresh fields
     refreshCFMFields();
+    return true;
+}
+
+// ---------------------------------------------------------------------------
+// GNEVehicleTypeDialog - public methods
+// ---------------------------------------------------------------------------
+
+GNEVehicleTypeDialog::GNEVehicleTypeDialog(GNEDemandElement* editedVehicleType, bool updatingElement) :
+    GNEDemandElementDialog(editedVehicleType, updatingElement, 1022, 350),
+    myVehicleTypeValid(true),
+    myInvalidAttr(SUMO_ATTR_NOTHING) {
+
+    // change default header
+    changeDemandElementDialogHeader(updatingElement ? "Edit " + myEditedDemandElement->getTagStr() + " of " : "Create " + myEditedDemandElement->getTagStr());
+    
+    // Create auxiliar frames for values
+    FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
+
+    myVTypeCommonAtributes = new VTypeCommonAtributes(this, columns);
+
+    myCarFollowingModelParameters = new CarFollowingModelParameters(this, columns);
+
+    // update fields
+    updateVehicleTypeValues();
+
+    // start a undo list for editing local to this additional
+    initChanges();
+
+    // add element if we aren't updating an existent element
+    if (myUpdatingElement == false) {
+        myEditedDemandElement->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(myEditedDemandElement, true), true);
+    }
+
+    // open as modal dialog
+    openAsModalDialog();
 }
 
 
-void 
-GNEVehicleTypeDialog::CarFollowingModelParameters::updateValues() {
-    //set values of myEditedDemandElement into fields
-    if (myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_CAR_FOLLOW_MODEL).empty()) {
-        myComboBoxCarFollowModel->setCurrentItem(0);
+GNEVehicleTypeDialog::~GNEVehicleTypeDialog() {}
+
+
+long
+GNEVehicleTypeDialog::onCmdAccept(FXObject*, FXSelector, void*) {
+    if (myVehicleTypeValid == false) {
+        // write warning if netedit is running in testing mode
+        WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
+        std::string operation1 = myUpdatingElement ? ("updating") : ("creating");
+        std::string operation2 = myUpdatingElement ? ("updated") : ("created");
+        std::string tagString = myEditedDemandElement->getTagStr();
+        // open warning dialogBox
+        FXMessageBox::warning(getApp(), MBOX_OK,
+                              ("Error " + operation1 + " " + tagString).c_str(), "%s",
+                              (tagString + " cannot be " + operation2 +
+                               " because parameter " + toString(myInvalidAttr) +
+                               " is invalid.").c_str());
+        // write warning if netedit is running in testing mode
+        WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
+        return 0;
     } else {
-        myComboBoxCarFollowModel->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_CAR_FOLLOW_MODEL).c_str());
+        // accept changes before closing dialog
+        acceptChanges();
+        // stop dialgo sucesfully
+        getApp()->stopModal(this, TRUE);
+        return 1;
     }
-    // update value in all Rows
-    for (const auto &i : myRows) {
-        i->updateValue();
-    }
+}
+
+
+long
+GNEVehicleTypeDialog::onCmdCancel(FXObject*, FXSelector, void*) {
+    // cancel changes
+    cancelChanges();
+    // Stop Modal
+    getApp()->stopModal(this, FALSE);
+    return 1;
+}
+
+
+long
+GNEVehicleTypeDialog::onCmdReset(FXObject*, FXSelector, void*) {
+    // reset changes
+    resetChanges();
+    // update fields
+    updateVehicleTypeValues();
+    return 1;
+}
+
+
+void
+GNEVehicleTypeDialog::updateVehicleTypeValues() {
+    // update values of Vehicle Type common attributes
+    myVTypeCommonAtributes->updateValues();
+    // update values of Car Following Model Parameters
+    myCarFollowingModelParameters->updateValues();
 }
 
 // ---------------------------------------------------------------------------
@@ -1070,7 +1087,7 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::CarFollowingModelRow::CarFoll
     myCarFollowingModelParametersParent(carFollowingModelParametersParent),
     myAttr(attr) {
     myLabel = new FXLabel(this, toString(attr).c_str(), nullptr, GUIDesignLabelAttribute150);
-    textField = new FXTextField(this, GUIDesignTextFieldNCol, carFollowingModelParametersParent, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldReal);
+    textField = new FXTextField(this, GUIDesignTextFieldNCol, carFollowingModelParametersParent, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFielWidth180Real);
 }
 
 
@@ -1104,7 +1121,7 @@ FXTextField*
 GNEVehicleTypeDialog::buildRowInt(FXPacker* column, SumoXMLAttr attr) {
     FXHorizontalFrame* row = new FXHorizontalFrame(column, GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(row, toString(attr).c_str(), nullptr, GUIDesignLabelAttribute150);
-    return new FXTextField(row, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldInt);
+    return new FXTextField(row, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFielWidth180Int);
 }
 
 
@@ -1112,7 +1129,7 @@ FXTextField *
 GNEVehicleTypeDialog::buildRowFloat(FXPacker* column, SumoXMLAttr attr) {
     FXHorizontalFrame* row = new FXHorizontalFrame(column, GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(row, toString(attr).c_str(), nullptr, GUIDesignLabelAttribute150);
-    return new FXTextField(row, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextFieldReal);
+    return new FXTextField(row, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFielWidth180Real);
 }
 
 
@@ -1120,7 +1137,7 @@ FXTextField *
 GNEVehicleTypeDialog::buildRowString(FXPacker* column, SumoXMLAttr attr) {
     FXHorizontalFrame* row = new FXHorizontalFrame(column, GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(row, toString(attr).c_str(), nullptr, GUIDesignLabelAttribute150);
-    return new FXTextField(row, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextField);
+    return new FXTextField(row, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFielWidth180);
 }
 
 

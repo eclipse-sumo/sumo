@@ -36,11 +36,23 @@
 /// @brief text field extended over Frame with thick frame and limited to Integers
 #define GUIDesignTextFieldInt               (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | TEXTFIELD_INTEGER), 0, 0, 0, 23, 2, 2, 2, 2
 
-/// @brief text field extended over Frame with thick frame and limited to Doubles/doubles
+/// @brief text field extended over Frame with thick frame and limited to doubles/floats
 #define GUIDesignTextFieldReal              (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | TEXTFIELD_REAL), 0, 0, 0, 23, 2, 2, 2, 2
 
 /// @brief text field with thick frame and size of 100x23
 #define GUIDesignTextFielWidth100           (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 100, 23, 2, 2, 2, 2
+
+/// @brief text field with thick frame and size of 100x23
+#define GUIDesignTextFielWidth100Real       (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 100, 23, 2, 2, 2, 2
+
+/// @brief text field with thick frame, size of 180x23 and limited to integers (Used in GNEVehicleType)
+#define GUIDesignTextFielWidth180Int        (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | TEXTFIELD_INTEGER), 0, 0, 180, 23, 2, 2, 2, 2
+
+/// @brief text field with thick frame, size of 180x23 and limited to doubles/floats (Used in GNEVehicleType)
+#define GUIDesignTextFielWidth180Real       (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | TEXTFIELD_REAL), 0, 0, 180, 23, 2, 2, 2, 2
+
+/// @brief text field with thick frame, size of 180x23 /doubles (Used in GNEVehicleType)
+#define GUIDesignTextFielWidth180           (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 180, 23, 2, 2, 2, 2
 
 /// @brief Num of column of text field
 #define GUIDesignTextFieldNCol              1
@@ -190,8 +202,8 @@
 /// @brief design for label with icon
 #define GUIDesignLabelIcon                  (LAYOUT_CENTER_Y | LAYOUT_CENTER_X ), 0, 0, 0, 0, 2, 2, 0, 0
 
-/// @brief label ticked filled extended over frame used for VClasses. can be used by icons of 64x32 pixels
-#define GUIDesignLabelIconExtendedx46Ticked (FRAME_THICK | ICON_BEFORE_TEXT | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, 46, 2, 2, 2, 2
+/// @brief label ticked filled extended over frame used for VClasses/VShapes. (can be used by icons of 64x32 pixels)
+#define GUIDesignLabelTickedIcon180x46      (FRAME_THICK | ICON_BEFORE_TEXT | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | LAYOUT_FIX_WIDTH), 0, 0, 180, 46, 2, 2, 2, 2
 
 /// @brief label extended over frame without thick and with text justify to left, used to show information in frames
 #define GUIDesignLabelFrameInformation      (JUSTIFY_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT), 0, 0, 0, 0, 2, 2, 2, 2

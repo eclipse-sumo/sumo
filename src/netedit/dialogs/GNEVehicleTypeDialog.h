@@ -41,92 +41,70 @@ class GNEVehicleType;
  */
 
 class GNEVehicleTypeDialog : public GNEDemandElementDialog {
-    /// @brief FOX-declaration
-    FXDECLARE(GNEVehicleTypeDialog)
 
 public:
-    /// @brief constructor
-    GNEVehicleTypeDialog(GNEDemandElement* editedVehicleType, bool updatingElement);
-
-    /// @brief destructor
-    ~GNEVehicleTypeDialog();
-
-    /// @name FOX-callbacks
-    /// @{
-    /// @brief event after press accept button
-    long onCmdAccept(FXObject*, FXSelector, void*);
-
-    /// @brief event after press cancel button
-    long onCmdCancel(FXObject*, FXSelector, void*);
-
-    /// @brief event after press reset button
-    long onCmdReset(FXObject*, FXSelector, void*);
-
-    /// @event after change a variable of vehicle type
-    long onCmdSetVariable(FXObject*, FXSelector, void*);
-    /// @}
-
-protected:
     /// @brief class for VClasses
-    class VClassRow : public FXHorizontalFrame {
+    class VTypeCommonAtributes : protected FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEVehicleTypeDialog::VTypeCommonAtributes)
 
     public:
-        /// @brief constructor
-        VClassRow(GNEVehicleTypeDialog* vehicleTypeDialog, FXVerticalFrame* column);
+        /// @brief class for VClasses
+        class VClassRow : protected FXHorizontalFrame {
 
-        /// @brief set variables
-        void setVariable();
+        public:
+            /// @brief constructor
+            VClassRow(VTypeCommonAtributes* VTypeCommonAtributesParent, FXVerticalFrame* column);
 
-        /// @brief update values
-        void updateValues();
+            /// @brief set variables
+            void setVariable();
 
-    protected:
-        /// @brief set VClass texture
-        void setVClassLabelImage();
+            /// @brief update values
+            void updateValues();
 
-        /// @brief FXComboBox for VClass
-        FXComboBox* myComboBoxVClass;
+        protected:
+            /// @brief set VClass texture
+            void setVClassLabelImage();
+
+            /// @brief FXComboBox for VClass
+            FXComboBox* myComboBoxVClass;
         
-    private:
-        /// @brief label with image of VClass
-        FXLabel* myComboBoxVClassLabelImage;
+            /// @brief label with image of VClass
+            FXLabel* myComboBoxVClassLabelImage;
 
-        /// @brief pointer to Vehicle Type dialog parent
-        GNEVehicleTypeDialog* myVehicleTypeDialog;
-    };
+        private:
+            /// @brief pointer to VTypeCommonAtributes parent
+            VTypeCommonAtributes* myVTypeCommonAtributesParent;
+        };
 
-    /// @brief class for VShapeRow
-    class VShapeRow : public FXHorizontalFrame {
+        /// @brief class for VShapeRow
+        class VShapeRow : protected FXHorizontalFrame {
         
-    public:
-        /// @brief constructor
-        VShapeRow(GNEVehicleTypeDialog* vehicleTypeDialog, FXVerticalFrame* column);
+        public:
+            /// @brief constructor
+            VShapeRow(VTypeCommonAtributes* VTypeCommonAtributesParent, FXVerticalFrame* column);
 
-        /// @brief set variables
-        void setVariable();
+            /// @brief set variables
+            void setVariable();
 
-        /// @brief update values
-        void updateValues();
+            /// @brief update values
+            void updateValues();
 
-    protected:
-        /// @brief set VShape texture
-        void setVShapeLabelImage();
+        protected:
+            /// @brief set VShape texture
+            void setVShapeLabelImage();
 
-        /// @brief FXComboBox for Shape
-        FXComboBox* myComboBoxShape;
-        
-    private:
-        /// @brief label with image of Shape
-        FXLabel* myComboBoxShapeLabelImage;
+            /// @brief FXComboBox for Shape
+            FXComboBox* myComboBoxShape;
 
-        /// @brief pointer to Vehicle Type dialog parent
-        GNEVehicleTypeDialog* myVehicleTypeDialog;
-    };
+            /// @brief label with image of Shape
+            FXLabel* myComboBoxShapeLabelImage;
 
-    /// @brief class for VClasses
-    class VTypeCommonAtributes : public FXGroupBox {
+        private:
+            /// @brief pointer to VTypeCommonAtributes parent
+            VTypeCommonAtributes* myVTypeCommonAtributesParent;
+        };
 
-    public:
         /// @brief constructor
         VTypeCommonAtributes(GNEVehicleTypeDialog* vehicleTypeDialog, FXHorizontalFrame* column);
 
@@ -136,13 +114,19 @@ protected:
         /// @brief build commmon attributes (B)
         void buildCommonAttributesB(FXVerticalFrame* column);
 
-        /// @brief set variables
-        void setVariable();
-
         /// @brief update values
         void updateValues();
 
+        /// @name FOX-callbacks
+        /// @{
+        /// @event called after change a CFM variable
+        long onCmdSetVariable(FXObject*, FXSelector, void*);
+        /// @}
+
     protected:
+        /// @brief fox need this
+        VTypeCommonAtributes() {}
+
         /// @brief FXTextfield for vehicleTypeID
         FXTextField* myTextFieldVehicleTypeID;
 
@@ -182,8 +166,8 @@ protected:
         /// @brief FXTextfield for Impatience
         FXTextField* myTextFieldImpatience;
 
-        /// @brief FXTextfield for LaneChangeModel
-        FXTextField* myTextFieldLaneChangeModel;
+        /// @brief ComboBox for LaneChangeModel
+        FXComboBox* myComboBoxLaneChangeModel;
 
         /// @brief FXTextfield for PersonCapacity
         FXTextField* myTextFieldPersonCapacity;
@@ -216,7 +200,9 @@ protected:
 
     /// @brief class for CarFollowingModel
     class CarFollowingModelParameters : public FXGroupBox {
-        
+        /// @brief FOX-declaration
+        FXDECLARE(GNEVehicleTypeDialog::CarFollowingModelParameters)
+
     public:
         /// @brief constructor
         CarFollowingModelParameters(GNEVehicleTypeDialog* vehicleTypeDialog, FXHorizontalFrame* column);
@@ -224,13 +210,19 @@ protected:
         /// @brief refresh Car Following Model Fields
         void refreshCFMFields();
 
-        /// @brief set variables
-        void setVariable();
-
         /// @brief update values
         void updateValues();
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @event called after change a CFM variable
+        long onCmdSetVariable(FXObject*, FXSelector, void*);
+        /// @}
         
     protected:
+        /// @brief fox need this
+        CarFollowingModelParameters() {}
+
         /// @brief class used for represent rows with Car Following Model parameters
         class CarFollowingModelRow : public FXHorizontalFrame {
         public:
@@ -343,9 +335,28 @@ protected:
         FXLabel *myLabelIncompleteAttribute;
     };
 
-    /// @brief FOX needs this
-    GNEVehicleTypeDialog() {}
+    /// @brief constructor
+    GNEVehicleTypeDialog(GNEDemandElement* editedVehicleType, bool updatingElement);
 
+    /// @brief destructor
+    ~GNEVehicleTypeDialog();
+
+    /// @name FOX-callbacks
+    /// @{
+    /// @brief event after press accept button
+    long onCmdAccept(FXObject*, FXSelector, void*);
+
+    /// @brief event after press cancel button
+    long onCmdCancel(FXObject*, FXSelector, void*);
+
+    /// @brief event after press reset button
+    long onCmdReset(FXObject*, FXSelector, void*);
+
+    /// @event after change a variable of vehicle type
+    long onCmdSetVariable(FXObject*, FXSelector, void*);
+    /// @}
+
+protected:
     /// @brief update data fields
     void updateVehicleTypeValues();
 
