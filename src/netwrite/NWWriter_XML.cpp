@@ -150,6 +150,9 @@ NWWriter_XML::writeNodes(const OptionsCont& oc, NBNodeCont& nc) {
         if (n->getRightOfWay() != RIGHT_OF_WAY_DEFAULT) {
             device.writeAttr<std::string>(SUMO_ATTR_RIGHT_OF_WAY, toString(n->getRightOfWay()));
         }
+        if (n->getFringeType() != FRINGE_TYPE_DEFAULT) {
+            device.writeAttr<std::string>(SUMO_ATTR_FRINGE, toString(n->getFringeType()));
+        }
         n->writeParams(device);
         device.closeTag();
     }

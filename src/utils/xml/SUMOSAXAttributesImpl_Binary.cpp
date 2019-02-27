@@ -279,6 +279,19 @@ SUMOSAXAttributesImpl_Binary::getRightOfWay(bool& ok) const {
 }
 
 
+FringeType
+SUMOSAXAttributesImpl_Binary::getFringeType(bool& ok) const {
+    try {
+        return SUMOXMLDefinitions::FringeTypeValues.get(getString(SUMO_ATTR_FRINGE));
+    } catch (InvalidArgument) {
+        ok = false;
+        return FRINGE_TYPE_DEFAULT;
+    } catch (EmptyData) {
+        return FRINGE_TYPE_DEFAULT;
+    }
+}
+
+
 RGBColor
 SUMOSAXAttributesImpl_Binary::getColor() const {
     const std::map<int, int>::const_iterator i = myIntValues.find(SUMO_ATTR_COLOR);

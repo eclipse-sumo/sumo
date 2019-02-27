@@ -712,6 +712,9 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes& attrs) {
     if (attrs.hasAttribute(SUMO_ATTR_RIGHT_OF_WAY)) {
         node->setRightOfWay(attrs.getRightOfWay(ok));
     }
+    if (attrs.hasAttribute(SUMO_ATTR_FRINGE)) {
+        node->setFringeType(attrs.getFringeType(ok));
+    }
 }
 
 

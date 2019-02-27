@@ -320,6 +320,8 @@ public:
      */
     virtual RightOfWay getRightOfWay(bool& ok) const = 0;
 
+    /// @brief returns fringe type
+    virtual FringeType getFringeType(bool& ok) const = 0;
 
     /**
      * @brief Returns the value of the named attribute

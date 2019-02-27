@@ -51,6 +51,15 @@
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
+        <xsd:attribute name="fringe" use="optional">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="default"/>
+                    <xsd:enumeration value="outer"/>
+                    <xsd:enumeration value="inner"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:attribute>
     </xsd:complexType>
 
     <xsd:complexType name="nodeType">

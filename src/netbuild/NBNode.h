@@ -286,6 +286,11 @@ public:
     RightOfWay getRightOfWay() const {
         return myRightOfWay;
     }
+
+    /// @brief Returns fringe type
+    FringeType getFringeType() const {
+        return myFringeType;
+    }
     /// @}
 
     /// @name Methods for dealing with assigned traffic lights
@@ -509,6 +514,11 @@ public:
     /// @brief set method for computing right-of-way
     void setRightOfWay(RightOfWay rightOfWay) {
         myRightOfWay = rightOfWay;
+    }
+
+    /// @brief set method for computing right-of-way
+    void setFringeType(FringeType fringeType) {
+        myFringeType = fringeType;
     }
 
     /// @brief return whether the shape was set by the user
@@ -838,6 +848,9 @@ private:
 
     /// @brief how to compute right of way for this node
     RightOfWay myRightOfWay;
+
+    /// @brief fringe type of this node
+    FringeType myFringeType;
 
     /// @brief whether to discard all pedestrian crossings
     bool myDiscardAllCrossings;

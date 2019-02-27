@@ -650,6 +650,8 @@ enum SumoXMLAttr {
     SUMO_ATTR_KEEP_CLEAR,
     /// @brief How to compute right of way
     SUMO_ATTR_RIGHT_OF_WAY,
+    /// @brief Fringe type of node
+    SUMO_ATTR_FRINGE,
     /// @brief whether a given shape is user-defined
     SUMO_ATTR_CUSTOMSHAPE,
     /// @brief A color information
@@ -1032,6 +1034,12 @@ enum RightOfWay {
     RIGHT_OF_WAY_EDGEPRIORITY
 };
 
+/// @brief algorithms for computing right of way
+enum FringeType {
+    FRINGE_TYPE_OUTER,
+    FRINGE_TYPE_INNER,
+    FRINGE_TYPE_DEFAULT
+};
 
 /**
  * @enum LinkState
@@ -1271,8 +1279,11 @@ public:
     /// @brief lane spread functions
     static StringBijection<LaneSpreadFunction> LaneSpreadFunctions;
 
-    /// @brief lane spread functions
+    /// @brief righ of way algorithms
     static StringBijection<RightOfWay> RightOfWayValues;
+
+    /// @brief fringe types 
+    static StringBijection<FringeType> FringeTypeValues;
 
     /// @brief link states
     static StringBijection<LinkState> LinkStates;
@@ -1356,6 +1367,9 @@ private:
 
     /// @brief lane spread function values
     static StringBijection<RightOfWay>::Entry rightOfWayValuesInitializer[];
+
+    /// @brief lane spread function values
+    static StringBijection<FringeType>::Entry fringeTypeValuesInitializer[];
 
     /// @brief link state values
     static StringBijection<LinkState>::Entry linkStateValues[];

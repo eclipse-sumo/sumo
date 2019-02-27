@@ -117,6 +117,11 @@ inline std::string toString<RightOfWay>(const RightOfWay& row, std::streamsize a
     return SUMOXMLDefinitions::RightOfWayValues.getString(row);
 }
 
+template <>
+inline std::string toString<FringeType>(const FringeType& fringeType, std::streamsize accuracy) {
+    UNUSED_PARAMETER(accuracy);
+    return SUMOXMLDefinitions::FringeTypeValues.getString(fringeType);
+}
 
 template <>
 inline std::string toString<LinkState>(const LinkState& linkState, std::streamsize accuracy) {

@@ -1508,6 +1508,13 @@ GNEAttributeCarrier::fillNetElements() {
                 attrProperty.setDiscreteValues(SUMOXMLDefinitions::RightOfWayValues.getStrings());
         myTagProperties[currentTag].addAttribute(attrProperty);
 
+        attrProperty = AttributeProperties(SUMO_ATTR_FRINGE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE,
+            "Whether this junction is at the fringe of the network",
+                SUMOXMLDefinitions::FringeTypeValues.getString(FRINGE_TYPE_DEFAULT));
+                attrProperty.setDiscreteValues(SUMOXMLDefinitions::FringeTypeValues.getStrings());
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
         attrProperty = AttributeProperties(SUMO_ATTR_TLTYPE,
             ATTRPROPERTY_STRING | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE,
             "An optional type for the traffic light algorithm");

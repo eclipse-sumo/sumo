@@ -234,6 +234,9 @@ public:
     /// @brief returns rightOfWay method
     RightOfWay getRightOfWay(bool& ok) const;
 
+    /// @brief returns fringe type
+    FringeType getFringeType(bool& ok) const;
+
     /**
      * @brief Returns the value of the named attribute
      *

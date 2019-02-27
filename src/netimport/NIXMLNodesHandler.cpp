@@ -228,6 +228,11 @@ NIXMLNodesHandler::processNodeType(const SUMOSAXAttributes& attrs, NBNode* node,
     if (attrs.hasAttribute(SUMO_ATTR_RIGHT_OF_WAY)) {
         node->setRightOfWay(attrs.getRightOfWay(ok));
     }
+
+    // set optional fringe type
+    if (attrs.hasAttribute(SUMO_ATTR_FRINGE)) {
+        node->setFringeType(attrs.getFringeType(ok));
+    }
     return node;
 }
 

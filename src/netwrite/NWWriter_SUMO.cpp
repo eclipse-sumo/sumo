@@ -589,6 +589,9 @@ NWWriter_SUMO::writeJunction(OutputDevice& into, const NBNode& n) {
     if (n.getRightOfWay() != RIGHT_OF_WAY_DEFAULT) {
         into.writeAttr<std::string>(SUMO_ATTR_RIGHT_OF_WAY, toString(n.getRightOfWay()));
     }
+    if (n.getFringeType() != FRINGE_TYPE_DEFAULT) {
+        into.writeAttr<std::string>(SUMO_ATTR_FRINGE, toString(n.getFringeType()));
+    }
     if (n.getType() != NODETYPE_DEAD_END) {
         // write right-of-way logics
         n.writeLogic(into);

@@ -434,6 +434,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "customShape",            SUMO_ATTR_CUSTOMSHAPE },
     { "keepClear",              SUMO_ATTR_KEEP_CLEAR },
     { "rightOfWay",             SUMO_ATTR_RIGHT_OF_WAY },
+    { "fringe",                 SUMO_ATTR_FRINGE },
     { "color",                  SUMO_ATTR_COLOR },
     { "dir",                    SUMO_ATTR_DIR },
     { "state",                  SUMO_ATTR_STATE },
@@ -705,6 +706,11 @@ StringBijection<RightOfWay>::Entry SUMOXMLDefinitions::rightOfWayValuesInitializ
     {"default",      RIGHT_OF_WAY_DEFAULT } // default (must be the last one)
 };
 
+StringBijection<FringeType>::Entry SUMOXMLDefinitions::fringeTypeValuesInitializer[] = {
+    {"outer",   FRINGE_TYPE_OUTER },
+    {"inner",   FRINGE_TYPE_INNER },
+    {"default", FRINGE_TYPE_DEFAULT } // default (must be the last one)
+};
 
 StringBijection<LinkState>::Entry SUMOXMLDefinitions::linkStateValues[] = {
     { "G", LINKSTATE_TL_GREEN_MAJOR },
@@ -841,6 +847,9 @@ StringBijection<LaneSpreadFunction> SUMOXMLDefinitions::LaneSpreadFunctions(
 
 StringBijection<RightOfWay> SUMOXMLDefinitions::RightOfWayValues(
     SUMOXMLDefinitions::rightOfWayValuesInitializer, RIGHT_OF_WAY_DEFAULT);
+
+StringBijection<FringeType> SUMOXMLDefinitions::FringeTypeValues(
+    SUMOXMLDefinitions::fringeTypeValuesInitializer, FRINGE_TYPE_DEFAULT);
 
 StringBijection<LinkState> SUMOXMLDefinitions::LinkStates(
     SUMOXMLDefinitions::linkStateValues, LINKSTATE_DEADEND);
