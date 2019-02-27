@@ -46,6 +46,7 @@
 #include <osg/ShadeModel>
 #include <osg/Light>
 #include <osg/LightSource>
+#include <osg/ComputeBoundsVisitor>
 #ifdef _MSC_VER
 #pragma warning(pop)
 #endif
@@ -65,7 +66,6 @@
 #include <guisim/GUILane.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
-#include "GUIOSGBoundingBoxCalculator.h"
 #include "GUIOSGView.h"
 #include "GUIOSGBuilder.h"
 
@@ -275,7 +275,7 @@ GUIOSGBuilder::buildOSGJunctionGeometry(GUIJunctionWrapper& junction,
 void
 GUIOSGBuilder::buildDecal(const GUISUMOAbstractView::Decal& d, osg::Group& addTo) {
     osg::Node* pLoadedModel = osgDB::readNodeFile(d.filename);
-    if (pLoadedModel == 0) {
+    if (pLoadedModel == nullptr) {
         WRITE_ERROR("Could not load '" + d.filename + "'.");
         return;
     }
@@ -284,7 +284,7 @@ GUIOSGBuilder::buildDecal(const GUISUMOAbstractView::Decal& d, osg::Group& addTo
     pLoadedModel->getOrCreateStateSet()->setAttribute(sm);
     osg::PositionAttitudeTransform* base = new osg::PositionAttitudeTransform();
     base->addChild(pLoadedModel);
-    GUIOSGBoundingBoxCalculator bboxCalc;
+    osg::ComputeBoundsVisitor bboxCalc;
     pLoadedModel->accept(bboxCalc);
     const osg::BoundingBox& bbox = bboxCalc.getBoundingBox();
     WRITE_MESSAGE("Loaded decal '" + d.filename + "' with bounding box " + toString(Position(bbox.xMin(), bbox.yMin(), bbox.zMin())) + " " + toString(Position(bbox.xMax(), bbox.yMax(), bbox.zMax())) + ".");
@@ -306,10 +306,10 @@ GUIOSGBuilder::buildDecal(const GUISUMOAbstractView::Decal& d, osg::Group& addTo
 osg::PositionAttitudeTransform*
 GUIOSGBuilder::getTrafficLight(const GUISUMOAbstractView::Decal& d, osg::Node* tl, const osg::Vec4& color, const double size) {
     osg::PositionAttitudeTransform* ret = new osg::PositionAttitudeTransform();
-    if (tl != 0) {
+    if (tl != nullptr) {
         osg::PositionAttitudeTransform* base = new osg::PositionAttitudeTransform();
         base->addChild(tl);
-        GUIOSGBoundingBoxCalculator bboxCalc;
+        osg::ComputeBoundsVisitor bboxCalc;
         tl->accept(bboxCalc);
         const osg::BoundingBox& bbox = bboxCalc.getBoundingBox();
         double xScale = d.width > 0 ? d.width / (bbox.xMax() - bbox.xMin()) : 1.;
@@ -364,8 +364,8 @@ GUIOSGBuilder::buildMovable(const MSVehicleType& type) {
         }
     }
     osg::Node* carNode = myCars[osgFile];
-    if (carNode != 0) {
-        GUIOSGBoundingBoxCalculator bboxCalc;
+    if (carNode != nullptr) {
+        osg::ComputeBoundsVisitor bboxCalc;
         carNode->accept(bboxCalc);
         const osg::BoundingBox& bbox = bboxCalc.getBoundingBox();
         osg::PositionAttitudeTransform* base = new osg::PositionAttitudeTransform();
