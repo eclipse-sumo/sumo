@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jan 28 13:32:15 2019 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Wed Feb 27 16:01:50 2019 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -64,11 +64,11 @@ SPDX-License-Identifier: EPL-2.0
     <type id="highway.trunk_link" priority="10" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" oneway="0"/>
     <type id="highway.unclassified" priority="5" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
     <type id="highway.unsurfaced" priority="1" numLanes="1" speed="8.33" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
-    <type id="railway.light_rail" priority="15" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
+    <type id="railway.light_rail" priority="18" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
     <type id="railway.preserved" priority="15" numLanes="1" speed="27.78" allow="rail" oneway="1"/>
-    <type id="railway.rail" priority="15" numLanes="1" speed="83.33" allow="rail rail_electric" oneway="1"/>
-    <type id="railway.subway" priority="15" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
-    <type id="railway.tram" priority="15" numLanes="1" speed="13.89" allow="tram" oneway="1"/>
+    <type id="railway.rail" priority="19" numLanes="1" speed="83.33" allow="rail rail_electric" oneway="1"/>
+    <type id="railway.subway" priority="17" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
+    <type id="railway.tram" priority="16" numLanes="1" speed="13.89" allow="tram" oneway="1"/>
 
     <edge id=":-67442_0" function="internal">
         <lane id=":-67442_0_0" index="0" allow="rail rail_electric" speed="44.44" length="15.08" shape="843.27,3105.70 855.65,3097.08"/>
@@ -173,121 +173,121 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":706889382_0_0" index="0" allow="rail rail_electric" speed="27.78" length="2.72" shape="1020.90,2963.23 1023.14,2961.69"/>
     </edge>
 
-    <edge id="-223017774#0" from="465456203" to="4371828433" priority="15" type="railway.rail" spreadType="center" shape="1189.65,2859.20 1925.62,2355.97 1967.10,2325.80 2008.27,2293.94 2047.98,2260.71 2087.36,2225.81 2140.96,2173.20 2167.35,2146.26 2193.22,2118.13 2587.48,1661.08" bidi="223017774#0">
+    <edge id="-223017774#0" from="465456203" to="4371828433" priority="19" type="railway.rail" spreadType="center" shape="1189.65,2859.20 1925.62,2355.97 1967.10,2325.80 2008.27,2293.94 2047.98,2260.71 2087.36,2225.81 2140.96,2173.20 2167.35,2146.26 2193.22,2118.13 2587.48,1661.08" bidi="223017774#0">
         <lane id="-223017774#0_0" index="0" allow="rail rail_electric" speed="44.44" length="1850.87" shape="1190.67,2858.51 1925.62,2355.97 1967.10,2325.80 2008.27,2293.94 2047.98,2260.71 2087.36,2225.81 2140.96,2173.20 2167.35,2146.26 2193.22,2118.13 2586.27,1662.47"/>
         <param key="railway:preferred_direction" value="both"/>
     </edge>
-    <edge id="-223017774#1" from="1509953396" to="465456203" priority="15" type="railway.rail" spreadType="center" bidi="223017774#1">
+    <edge id="-223017774#1" from="1509953396" to="465456203" priority="19" type="railway.rail" spreadType="center" bidi="223017774#1">
         <lane id="-223017774#1_0" index="0" allow="rail rail_electric" speed="44.44" length="48.07" shape="1152.32,2892.00 1188.43,2860.27"/>
         <param key="railway:preferred_direction" value="both"/>
     </edge>
-    <edge id="-39028488" from="1509953431" to="33618767" priority="15" type="railway.rail" spreadType="center" shape="1090.57,2916.12 1136.73,2880.38 1149.17,2870.53 1161.87,2859.06 1173.68,2847.21 1184.84,2834.78 1195.46,2821.47 1225.02,2781.61 1241.04,2754.75 1275.09,2696.63 1297.52,2648.39 1312.81,2615.14 1328.66,2572.93 1346.30,2508.64 1355.35,2466.87 1362.68,2412.71 1365.72,2374.28 1365.93,2314.31 1346.69,1999.18 1331.17,1766.23 1262.57,696.41 1259.37,645.32 1255.40,584.03 1253.83,552.46" bidi="39028488">
+    <edge id="-39028488" from="1509953431" to="33618767" priority="19" type="railway.rail" spreadType="center" shape="1090.57,2916.12 1136.73,2880.38 1149.17,2870.53 1161.87,2859.06 1173.68,2847.21 1184.84,2834.78 1195.46,2821.47 1225.02,2781.61 1241.04,2754.75 1275.09,2696.63 1297.52,2648.39 1312.81,2615.14 1328.66,2572.93 1346.30,2508.64 1355.35,2466.87 1362.68,2412.71 1365.72,2374.28 1365.93,2314.31 1346.69,1999.18 1331.17,1766.23 1262.57,696.41 1259.37,645.32 1255.40,584.03 1253.83,552.46" bidi="39028488">
         <lane id="-39028488_0" index="0" allow="rail rail_electric" speed="27.78" length="2426.79" shape="1110.34,2900.81 1136.73,2880.38 1149.17,2870.53 1161.87,2859.06 1173.68,2847.21 1184.84,2834.78 1195.46,2821.47 1225.02,2781.61 1241.04,2754.75 1275.09,2696.63 1297.52,2648.39 1312.81,2615.14 1328.66,2572.93 1346.30,2508.64 1355.35,2466.87 1362.68,2412.71 1365.72,2374.28 1365.93,2314.31 1346.69,1999.18 1331.17,1766.23 1262.57,696.41 1259.37,645.32 1255.40,584.03 1253.89,553.63"/>
         <param key="railway:preferred_direction" value="both"/>
     </edge>
-    <edge id="-67388" from="706888658" to="4371828433" priority="15" type="railway.rail" spreadType="center" shape="246.21,3511.81 245.06,3512.68 239.47,3516.17 214.50,3541.10 217.66,3550.72 227.86,3557.72 254.12,3559.25 686.16,3541.38 916.25,3481.72 2026.20,2824.90 2793.04,2100.48 2888.25,1860.70 2869.34,1661.15 2728.62,1532.58 2608.26,1590.65 2587.48,1661.08">
+    <edge id="-67388" from="706888658" to="4371828433" priority="19" type="railway.rail" spreadType="center" shape="246.21,3511.81 245.06,3512.68 239.47,3516.17 214.50,3541.10 217.66,3550.72 227.86,3557.72 254.12,3559.25 686.16,3541.38 916.25,3481.72 2026.20,2824.90 2793.04,2100.48 2888.25,1860.70 2869.34,1661.15 2728.62,1532.58 2608.26,1590.65 2587.48,1661.08">
         <lane id="-67388_0" index="0" allow="rail rail_electric" speed="11.11" length="3959.59" shape="244.98,3512.73 239.47,3516.17 214.50,3541.10 217.66,3550.72 227.86,3557.72 254.12,3559.25 686.16,3541.38 916.25,3481.72 2026.20,2824.90 2793.04,2100.48 2888.25,1860.70 2869.34,1661.15 2728.62,1532.58 2608.26,1590.65 2588.00,1659.31"/>
     </edge>
-    <edge id="-67445" from="-67442" to="-67444" priority="15" type="railway.rail" spreadType="center">
+    <edge id="-67445" from="-67442" to="-67444" priority="19" type="railway.rail" spreadType="center">
         <lane id="-67445_0" index="0" allow="rail rail_electric" speed="83.33" length="62.89" shape="857.28,3100.26 916.57,3079.30"/>
     </edge>
-    <edge id="223017774#0" from="4371828433" to="465456203" priority="15" type="railway.rail" spreadType="center" shape="2587.48,1661.08 2193.22,2118.13 2167.35,2146.26 2140.96,2173.20 2087.36,2225.81 2047.98,2260.71 2008.27,2293.94 1967.10,2325.80 1925.62,2355.97 1189.65,2859.20" bidi="-223017774#0">
+    <edge id="223017774#0" from="4371828433" to="465456203" priority="19" type="railway.rail" spreadType="center" shape="2587.48,1661.08 2193.22,2118.13 2167.35,2146.26 2140.96,2173.20 2087.36,2225.81 2047.98,2260.71 2008.27,2293.94 1967.10,2325.80 1925.62,2355.97 1189.65,2859.20" bidi="-223017774#0">
         <lane id="223017774#0_0" index="0" allow="rail rail_electric" speed="44.44" length="1850.87" shape="2586.27,1662.47 2193.22,2118.13 2167.35,2146.26 2140.96,2173.20 2087.36,2225.81 2047.98,2260.71 2008.27,2293.94 1967.10,2325.80 1925.62,2355.97 1190.67,2858.51"/>
         <param key="railway:preferred_direction" value="both"/>
     </edge>
-    <edge id="223017774#1" from="465456203" to="1509953396" priority="15" type="railway.rail" spreadType="center" bidi="-223017774#1">
+    <edge id="223017774#1" from="465456203" to="1509953396" priority="19" type="railway.rail" spreadType="center" bidi="-223017774#1">
         <lane id="223017774#1_0" index="0" allow="rail rail_electric" speed="44.44" length="48.07" shape="1188.43,2860.27 1152.32,2892.00"/>
         <param key="railway:preferred_direction" value="both"/>
     </edge>
-    <edge id="224055116" from="1509953431" to="465615035" priority="15" type="railway.rail" spreadType="center" shape="1090.57,2916.12 1071.10,2929.06 1049.48,2943.57">
+    <edge id="224055116" from="1509953431" to="465615035" priority="19" type="railway.rail" spreadType="center" shape="1090.57,2916.12 1071.10,2929.06 1049.48,2943.57">
         <lane id="224055116_0" index="0" allow="rail rail_electric" speed="27.78" length="46.39" shape="1089.27,2916.98 1071.10,2929.06 1050.70,2942.75"/>
     </edge>
-    <edge id="254150069" from="1509953396" to="33618767" priority="15" type="railway.rail" spreadType="center" shape="1150.99,2893.16 1122.99,2904.72 1091.52,2926.23 1061.71,2946.61 1026.37,2970.77 802.44,3123.84 176.56,3551.78 100.62,3603.71 33.12,3624.42 0.00,3581.21 0.24,3542.14 4.82,3509.46 161.35,2982.25 267.23,2370.13 499.42,1325.88 567.83,686.70 535.44,342.25 671.39,17.94 911.93,0.00 1089.88,126.42 1232.25,366.18 1243.73,491.74 1253.83,552.46">
+    <edge id="254150069" from="1509953396" to="33618767" priority="19" type="railway.rail" spreadType="center" shape="1150.99,2893.16 1122.99,2904.72 1091.52,2926.23 1061.71,2946.61 1026.37,2970.77 802.44,3123.84 176.56,3551.78 100.62,3603.71 33.12,3624.42 0.00,3581.21 0.24,3542.14 4.82,3509.46 161.35,2982.25 267.23,2370.13 499.42,1325.88 567.83,686.70 535.44,342.25 671.39,17.94 911.93,0.00 1089.88,126.42 1232.25,366.18 1243.73,491.74 1253.83,552.46">
         <lane id="254150069_0" index="0" allow="rail rail_electric" speed="44.44" length="5970.64" shape="1149.66,2893.71 1122.99,2904.72 1091.52,2926.23 1061.71,2946.61 1026.37,2970.77 802.44,3123.84 176.56,3551.78 100.62,3603.71 33.12,3624.42 0.00,3581.21 0.24,3542.14 4.82,3509.46 161.35,2982.25 267.23,2370.13 499.42,1325.88 567.83,686.70 535.44,342.25 671.39,17.94 911.93,0.00 1089.88,126.42 1232.25,366.18 1243.73,491.74 1253.64,551.31"/>
     </edge>
-    <edge id="254150073#0" from="706888658" to="2756928180" priority="15" type="railway.rail" spreadType="center">
+    <edge id="254150073#0" from="706888658" to="2756928180" priority="19" type="railway.rail" spreadType="center">
         <lane id="254150073#0_0" index="0" allow="rail rail_electric" speed="27.78" length="107.58" shape="281.76,3483.68 366.10,3416.90"/>
     </edge>
-    <edge id="254150073#1" from="2756928180" to="2756927490" priority="15" type="railway.rail" spreadType="center" shape="367.24,3416.01 389.54,3400.61 414.08,3383.41 445.84,3357.78 477.01,3334.33 643.14,3221.05 797.24,3117.09 976.40,2993.84">
+    <edge id="254150073#1" from="2756928180" to="2756927490" priority="19" type="railway.rail" spreadType="center" shape="367.24,3416.01 389.54,3400.61 414.08,3383.41 445.84,3357.78 477.01,3334.33 643.14,3221.05 797.24,3117.09 976.40,2993.84">
         <lane id="254150073#1_0" index="0" allow="rail rail_electric" speed="27.78" length="738.05" shape="368.51,3415.13 389.54,3400.61 414.08,3383.41 445.84,3357.78 477.01,3334.33 643.14,3221.05 797.24,3117.09 974.99,2994.81"/>
     </edge>
-    <edge id="254150073#2" from="2756927490" to="706889382" priority="15" type="railway.rail" spreadType="center">
+    <edge id="254150073#2" from="2756927490" to="706889382" priority="19" type="railway.rail" spreadType="center">
         <lane id="254150073#2_0" index="0" allow="rail rail_electric" speed="27.78" length="52.73" shape="977.45,2993.11 1020.90,2963.23"/>
     </edge>
-    <edge id="254150073#3" from="706889382" to="465615035" priority="15" type="railway.rail" spreadType="center">
+    <edge id="254150073#3" from="706889382" to="465615035" priority="19" type="railway.rail" spreadType="center">
         <lane id="254150073#3_0" index="0" allow="rail rail_electric" speed="27.78" length="30.58" shape="1023.14,2961.69 1048.34,2944.36"/>
     </edge>
-    <edge id="270683728#0" from="2756927639" to="2756927642" priority="15" type="railway.rail" spreadType="center">
+    <edge id="270683728#0" from="2756927639" to="2756927642" priority="19" type="railway.rail" spreadType="center">
         <lane id="270683728#0_0" index="0" allow="rail rail_electric" speed="83.33" length="2.45" shape="848.09,3055.62 845.93,3056.77"/>
     </edge>
-    <edge id="270683728#1" from="2756927642" to="2756927951" priority="15" type="railway.rail" spreadType="center" shape="844.57,3057.50 833.57,3064.26 757.17,3116.48 652.35,3188.19 553.87,3255.47 542.70,3263.25">
+    <edge id="270683728#1" from="2756927642" to="2756927951" priority="19" type="railway.rail" spreadType="center" shape="844.57,3057.50 833.57,3064.26 757.17,3116.48 652.35,3188.19 553.87,3255.47 542.70,3263.25">
         <lane id="270683728#1_0" index="0" allow="rail rail_electric" speed="83.33" length="287.94" shape="817.48,3075.26 757.17,3116.48 652.35,3188.19 579.79,3237.77"/>
     </edge>
-    <edge id="270683728#2" from="2756927951" to="2756928018" priority="15" type="railway.rail" spreadType="center" shape="542.70,3263.25 501.35,3292.09 486.61,3304.38 475.27,3314.18">
+    <edge id="270683728#2" from="2756927951" to="2756928018" priority="19" type="railway.rail" spreadType="center" shape="542.70,3263.25 501.35,3292.09 486.61,3304.38 475.27,3314.18">
         <lane id="270683728#2_0" index="0" allow="rail rail_electric" speed="83.33" length="50.32" shape="541.34,3264.20 501.35,3292.09 500.15,3293.09"/>
     </edge>
-    <edge id="270683733" from="2756927630" to="2756927972" priority="15" type="railway.rail" spreadType="center" shape="912.07,3022.02 894.23,3034.22 840.14,3071.04 785.50,3107.98 724.87,3149.67 670.22,3186.88 588.87,3241.99 530.03,3282.13">
+    <edge id="270683733" from="2756927630" to="2756927972" priority="19" type="railway.rail" spreadType="center" shape="912.07,3022.02 894.23,3034.22 840.14,3071.04 785.50,3107.98 724.87,3149.67 670.22,3186.88 588.87,3241.99 530.03,3282.13">
         <lane id="270683733_0" index="0" allow="rail rail_electric" speed="83.33" length="436.40" shape="890.78,3036.57 840.14,3071.04 785.50,3107.98 724.87,3149.67 670.22,3186.88 588.87,3241.99 530.03,3282.13"/>
     </edge>
-    <edge id="270683737" from="2756927490" to="2756927608" priority="15" type="railway.rail" spreadType="center" shape="976.40,2993.84 957.83,3003.26 936.47,3016.53">
+    <edge id="270683737" from="2756927490" to="2756927608" priority="19" type="railway.rail" spreadType="center" shape="976.40,2993.84 957.83,3003.26 936.47,3016.53">
         <lane id="270683737_0" index="0" allow="rail rail_electric" speed="83.33" length="44.13" shape="974.86,2994.62 957.83,3003.26 936.56,3016.47"/>
     </edge>
-    <edge id="270683743#0" from="2756926658" to="2756927630" priority="15" type="railway.rail" spreadType="center" shape="1116.79,2887.37 1068.79,2920.59 1028.94,2947.34 912.07,3022.02">
+    <edge id="270683743#0" from="2756926658" to="2756927630" priority="19" type="railway.rail" spreadType="center" shape="1116.79,2887.37 1068.79,2920.59 1028.94,2947.34 912.07,3022.02">
         <lane id="270683743#0_0" index="0" allow="rail rail_electric" speed="83.33" length="241.88" shape="1115.48,2888.27 1068.79,2920.59 1028.94,2947.34 913.41,3021.16"/>
     </edge>
-    <edge id="270683743#1" from="2756927630" to="2756927639" priority="15" type="railway.rail" spreadType="center" shape="912.07,3022.02 898.56,3028.57 872.37,3042.69">
+    <edge id="270683743#1" from="2756927630" to="2756927639" priority="19" type="railway.rail" spreadType="center" shape="912.07,3022.02 898.56,3028.57 872.37,3042.69">
         <lane id="270683743#1_0" index="0" allow="rail rail_electric" speed="83.33" length="17.40" shape="889.10,3033.68 873.78,3041.93"/>
     </edge>
-    <edge id="270683743#2" from="2756927639" to="2756928018" priority="15" type="railway.rail" spreadType="center" shape="872.37,3042.69 844.84,3062.02 775.77,3109.05 674.62,3178.28 590.40,3235.95 510.34,3290.39 493.77,3301.31 475.27,3314.18">
+    <edge id="270683743#2" from="2756927639" to="2756928018" priority="19" type="railway.rail" spreadType="center" shape="872.37,3042.69 844.84,3062.02 775.77,3109.05 674.62,3178.28 590.40,3235.95 510.34,3290.39 493.77,3301.31 475.27,3314.18">
         <lane id="270683743#2_0" index="0" allow="rail rail_electric" speed="83.33" length="420.89" shape="849.86,3058.50 844.84,3062.02 775.77,3109.05 674.62,3178.28 590.40,3235.95 510.34,3290.39 502.21,3295.75"/>
     </edge>
-    <edge id="270683743#3" from="2756928018" to="3246174664" priority="15" type="railway.rail" spreadType="center">
+    <edge id="270683743#3" from="2756928018" to="3246174664" priority="19" type="railway.rail" spreadType="center">
         <lane id="270683743#3_0" index="0" allow="rail rail_electric" speed="83.33" length="11.05" shape="474.08,3315.27 465.99,3322.80"/>
     </edge>
-    <edge id="270683746" from="465615032" to="3175148864" priority="15" type="railway.rail" spreadType="center" shape="1139.06,2867.60 1115.41,2883.34 1096.28,2892.51 1068.24,2902.57 971.28,2934.61 958.66,2938.98">
+    <edge id="270683746" from="465615032" to="3175148864" priority="19" type="railway.rail" spreadType="center" shape="1139.06,2867.60 1115.41,2883.34 1096.28,2892.51 1068.24,2902.57 971.28,2934.61 958.66,2938.98">
         <lane id="270683746_0" index="0" allow="rail rail_electric" speed="83.33" length="193.16" shape="1137.62,2868.56 1115.41,2883.34 1096.28,2892.51 1068.24,2902.57 971.28,2934.61 958.66,2938.98"/>
     </edge>
-    <edge id="270683749" from="465615029" to="2756926663" priority="15" type="railway.rail" spreadType="center" shape="1184.98,2821.67 1173.69,2831.90 1161.36,2841.86 1143.81,2853.81 1125.20,2863.36 1098.31,2873.66 1016.45,2901.56">
+    <edge id="270683749" from="465615029" to="2756926663" priority="19" type="railway.rail" spreadType="center" shape="1184.98,2821.67 1173.69,2831.90 1161.36,2841.86 1143.81,2853.81 1125.20,2863.36 1098.31,2873.66 1016.45,2901.56">
         <lane id="270683749_0" index="0" allow="rail rail_electric" speed="83.33" length="186.80" shape="1183.71,2822.82 1173.69,2831.90 1161.36,2841.86 1143.81,2853.81 1125.20,2863.36 1098.31,2873.66 1016.45,2901.56"/>
     </edge>
-    <edge id="270683750" from="2756927642" to="2756927951" priority="15" type="railway.rail" spreadType="center" shape="844.57,3057.50 812.61,3073.96 736.88,3124.65 553.05,3252.44 542.70,3263.25">
+    <edge id="270683750" from="2756927642" to="2756927951" priority="19" type="railway.rail" spreadType="center" shape="844.57,3057.50 812.61,3073.96 736.88,3124.65 553.05,3252.44 542.70,3263.25">
         <lane id="270683750_0" index="0" allow="rail rail_electric" speed="83.33" length="288.61" shape="815.81,3072.31 812.61,3073.96 736.88,3124.65 577.69,3235.31"/>
     </edge>
-    <edge id="313088548" from="2756927608" to="2756928180" priority="15" type="railway.rail" spreadType="center" shape="936.47,3016.53 861.45,3067.20 810.17,3102.15 715.34,3166.84 604.97,3242.18 504.71,3310.38 451.93,3347.00 427.35,3366.57 397.49,3391.79 386.80,3400.65 367.24,3416.01">
+    <edge id="313088548" from="2756927608" to="2756928180" priority="19" type="railway.rail" spreadType="center" shape="936.47,3016.53 861.45,3067.20 810.17,3102.15 715.34,3166.84 604.97,3242.18 504.71,3310.38 451.93,3347.00 427.35,3366.57 397.49,3391.79 386.80,3400.65 367.24,3416.01">
         <lane id="313088548_0" index="0" allow="rail rail_electric" speed="83.33" length="694.10" shape="936.37,3016.60 861.45,3067.20 810.17,3102.15 715.34,3166.84 604.97,3242.18 504.71,3310.38 451.93,3347.00 427.35,3366.57 397.49,3391.79 386.80,3400.65 368.45,3415.05"/>
     </edge>
-    <edge id="318225497" from="3246049066" to="2756928198" priority="15" type="railway.rail" spreadType="center">
+    <edge id="318225497" from="3246049066" to="2756928198" priority="19" type="railway.rail" spreadType="center">
         <lane id="318225497_0" index="0" allow="rail rail_electric" speed="83.33" length="9.54" shape="364.13,3407.52 356.94,3413.79"/>
     </edge>
-    <edge id="39028488" from="33618767" to="1509953431" priority="15" type="railway.rail" spreadType="center" shape="1253.83,552.46 1255.40,584.03 1259.37,645.32 1262.57,696.41 1331.17,1766.23 1346.69,1999.18 1365.93,2314.31 1365.72,2374.28 1362.68,2412.71 1355.35,2466.87 1346.30,2508.64 1328.66,2572.93 1312.81,2615.14 1297.52,2648.39 1275.09,2696.63 1241.04,2754.75 1225.02,2781.61 1195.46,2821.47 1184.84,2834.78 1173.68,2847.21 1161.87,2859.06 1149.17,2870.53 1136.73,2880.38 1090.57,2916.12" bidi="-39028488">
+    <edge id="39028488" from="33618767" to="1509953431" priority="19" type="railway.rail" spreadType="center" shape="1253.83,552.46 1255.40,584.03 1259.37,645.32 1262.57,696.41 1331.17,1766.23 1346.69,1999.18 1365.93,2314.31 1365.72,2374.28 1362.68,2412.71 1355.35,2466.87 1346.30,2508.64 1328.66,2572.93 1312.81,2615.14 1297.52,2648.39 1275.09,2696.63 1241.04,2754.75 1225.02,2781.61 1195.46,2821.47 1184.84,2834.78 1173.68,2847.21 1161.87,2859.06 1149.17,2870.53 1136.73,2880.38 1090.57,2916.12" bidi="-39028488">
         <lane id="39028488_0" index="0" allow="rail rail_electric" speed="27.78" length="2426.79" shape="1253.89,553.63 1255.40,584.03 1259.37,645.32 1262.57,696.41 1331.17,1766.23 1346.69,1999.18 1365.93,2314.31 1365.72,2374.28 1362.68,2412.71 1355.35,2466.87 1346.30,2508.64 1328.66,2572.93 1312.81,2615.14 1297.52,2648.39 1275.09,2696.63 1241.04,2754.75 1225.02,2781.61 1195.46,2821.47 1184.84,2834.78 1173.68,2847.21 1161.87,2859.06 1149.17,2870.53 1136.73,2880.38 1110.34,2900.81"/>
         <param key="railway:preferred_direction" value="both"/>
     </edge>
-    <edge id="39028962" from="465456203" to="1509953431" priority="15" type="railway.rail" spreadType="center" shape="1189.65,2859.20 1142.97,2885.92 1090.57,2916.12">
+    <edge id="39028962" from="465456203" to="1509953431" priority="19" type="railway.rail" spreadType="center" shape="1189.65,2859.20 1142.97,2885.92 1090.57,2916.12">
         <lane id="39028962_0" index="0" allow="rail rail_electric" speed="83.33" length="87.62" shape="1188.22,2860.02 1142.97,2885.92 1112.23,2903.64"/>
     </edge>
-    <edge id="39029310#0" from="465615035" to="2756926658" priority="15" type="railway.rail" spreadType="center" shape="1049.48,2943.57 1089.88,2909.95 1116.79,2887.37">
+    <edge id="39029310#0" from="465615035" to="2756926658" priority="19" type="railway.rail" spreadType="center" shape="1049.48,2943.57 1089.88,2909.95 1116.79,2887.37">
         <lane id="39029310#0_0" index="0" allow="rail rail_electric" speed="83.33" length="84.64" shape="1050.61,2942.63 1089.88,2909.95 1115.58,2888.39"/>
     </edge>
-    <edge id="39029310#1" from="2756926658" to="465615032" priority="15" type="railway.rail" spreadType="center">
+    <edge id="39029310#1" from="2756926658" to="465615032" priority="19" type="railway.rail" spreadType="center">
         <lane id="39029310#1_0" index="0" allow="rail rail_electric" speed="83.33" length="26.76" shape="1117.77,2886.50 1137.78,2868.74"/>
     </edge>
-    <edge id="39029310#2" from="465615032" to="465615029" priority="15" type="railway.rail" spreadType="center" shape="1139.06,2867.60 1155.40,2853.83 1167.63,2842.07 1176.88,2831.94 1184.98,2821.67">
+    <edge id="39029310#2" from="465615032" to="465615029" priority="19" type="railway.rail" spreadType="center" shape="1139.06,2867.60 1155.40,2853.83 1167.63,2842.07 1176.88,2831.94 1184.98,2821.67">
         <lane id="39029310#2_0" index="0" allow="rail rail_electric" speed="83.33" length="62.11" shape="1140.08,2866.74 1155.40,2853.83 1167.63,2842.07 1176.88,2831.94 1183.93,2823.00"/>
     </edge>
-    <edge id="39029310#3" from="465615029" to="465471501" priority="15" type="railway.rail" spreadType="center" shape="1184.98,2821.67 1190.63,2815.54 1220.04,2777.78 1237.53,2751.20 1259.19,2715.54 1278.32,2679.79 1298.62,2635.75 1315.21,2594.06 1329.10,2555.68 1340.57,2513.26 1349.82,2467.89 1358.23,2413.54 1361.36,2374.30 1362.51,2331.27 1360.89,2296.48 1342.15,1998.87 1330.19,1834.02">
+    <edge id="39029310#3" from="465615029" to="465471501" priority="19" type="railway.rail" spreadType="center" shape="1184.98,2821.67 1190.63,2815.54 1220.04,2777.78 1237.53,2751.20 1259.19,2715.54 1278.32,2679.79 1298.62,2635.75 1315.21,2594.06 1329.10,2555.68 1340.57,2513.26 1349.82,2467.89 1358.23,2413.54 1361.36,2374.30 1362.51,2331.27 1360.89,2296.48 1342.15,1998.87 1330.19,1834.02">
         <lane id="39029310#3_0" index="0" allow="rail rail_electric" speed="83.33" length="1029.10" shape="1185.88,2820.70 1190.63,2815.54 1220.04,2777.78 1237.53,2751.20 1259.19,2715.54 1278.32,2679.79 1298.62,2635.75 1315.21,2594.06 1329.10,2555.68 1340.57,2513.26 1349.82,2467.89 1358.23,2413.54 1361.36,2374.30 1362.51,2331.27 1360.89,2296.48 1342.15,1998.87 1330.19,1834.02"/>
     </edge>
-    <edge id="56392722#0" from="706888658" to="-67442" priority="15" type="railway.rail" spreadType="center" shape="246.21,3511.81 807.40,3130.65 844.68,3104.72">
+    <edge id="56392722#0" from="706888658" to="-67442" priority="19" type="railway.rail" spreadType="center" shape="246.21,3511.81 807.40,3130.65 844.68,3104.72">
         <lane id="56392722#0_0" index="0" allow="rail rail_electric" speed="44.44" length="676.76" shape="283.71,3486.34 807.40,3130.65 843.27,3105.70"/>
     </edge>
-    <edge id="56392722#1" from="-67442" to="706888666" priority="15" type="railway.rail" spreadType="center">
+    <edge id="56392722#1" from="-67442" to="706888666" priority="19" type="railway.rail" spreadType="center">
         <lane id="56392722#1_0" index="0" allow="rail rail_electric" speed="44.44" length="126.20" shape="855.65,3097.08 959.25,3025.02"/>
     </edge>
-    <edge id="56392722#2" from="706888666" to="1509953396" priority="15" type="railway.rail" spreadType="center" shape="960.16,3024.39 1043.39,2965.62 1127.46,2909.40 1150.99,2893.16">
+    <edge id="56392722#2" from="706888666" to="1509953396" priority="19" type="railway.rail" spreadType="center" shape="960.16,3024.39 1043.39,2965.62 1127.46,2909.40 1150.99,2893.16">
         <lane id="56392722#2_0" index="0" allow="rail rail_electric" speed="44.44" length="228.60" shape="961.47,3023.46 1043.39,2965.62 1127.46,2909.40 1149.83,2893.96"/>
     </edge>
-    <edge id="56392724" from="706889382" to="706888666" priority="15" type="railway.rail" spreadType="center">
+    <edge id="56392724" from="706889382" to="706888666" priority="19" type="railway.rail" spreadType="center">
         <lane id="56392724_0" index="0" allow="rail rail_electric" speed="83.33" length="84.61" shape="1021.11,2963.45 961.28,3023.27"/>
     </edge>
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:27:52 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Wed Feb 27 16:01:50 2019 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -66,11 +66,11 @@ SPDX-License-Identifier: EPL-2.0
     <type id="highway.trunk_link" priority="10" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" oneway="0"/>
     <type id="highway.unclassified" priority="5" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
     <type id="highway.unsurfaced" priority="1" numLanes="1" speed="8.33" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
-    <type id="railway.light_rail" priority="15" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
+    <type id="railway.light_rail" priority="18" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
     <type id="railway.preserved" priority="15" numLanes="1" speed="27.78" allow="rail" oneway="1"/>
-    <type id="railway.rail" priority="15" numLanes="1" speed="83.33" allow="rail rail_electric" oneway="1"/>
-    <type id="railway.subway" priority="15" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
-    <type id="railway.tram" priority="15" numLanes="1" speed="13.89" allow="tram" oneway="1"/>
+    <type id="railway.rail" priority="19" numLanes="1" speed="83.33" allow="rail rail_electric" oneway="1"/>
+    <type id="railway.subway" priority="17" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
+    <type id="railway.tram" priority="16" numLanes="1" speed="13.89" allow="tram" oneway="1"/>
 
     <edge id="-190083608#0" from="2627346845" to="1560223378" priority="9" type="highway.primary" shape="220.59,20.70 215.94,21.22 210.97,21.77 206.00,22.33 201.03,22.88 196.06,23.44 191.09,23.99 186.12,24.55 181.15,25.10 176.19,25.66 171.22,26.21 166.25,26.77 161.28,27.32 156.31,27.88 151.34,28.44 146.37,28.99 141.40,29.55 136.43,30.10 131.46,30.66 126.50,31.21 121.53,31.77 116.56,32.32 112.05,33.21 107.15,34.19 102.24,35.16 97.34,36.13 92.43,37.10 87.53,38.07 82.62,39.04 77.72,40.01 72.81,40.98 67.91,41.95 63.00,42.92 58.10,43.89 53.19,44.86 48.29,45.83 43.38,46.80 38.48,47.78 35.50,48.18 30.55,48.85 25.59,49.52 20.64,50.19 15.68,50.86 14.93,50.94 9.95,51.42 4.98,51.90 0.00,52.39">
         <lane id="-190083608#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="223.03" shape="218.61,25.75 216.47,25.99 211.50,26.54 206.53,27.10 201.56,27.65 196.60,28.21 191.63,28.76 186.66,29.32 181.69,29.87 176.72,30.43 171.75,30.98 166.78,31.54 161.81,32.09 156.84,32.65 151.87,33.21 146.90,33.76 141.94,34.32 136.97,34.87 132.00,35.43 127.03,35.98 122.06,36.54 117.29,37.07 112.98,37.92 108.08,38.89 103.17,39.86 98.27,40.84 93.37,41.81 88.46,42.78 83.56,43.75 78.65,44.72 73.75,45.69 68.84,46.66 63.94,47.63 59.03,48.60 54.13,49.57 49.22,50.54 44.32,51.51 39.27,52.51 36.14,52.94 31.19,53.61 26.24,54.28 21.28,54.95 16.30,55.62 15.39,55.72 10.42,56.20 5.44,56.68 0.46,57.16"/>

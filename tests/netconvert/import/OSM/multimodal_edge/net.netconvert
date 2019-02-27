@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:27:52 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Wed Feb 27 16:01:49 2019 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -51,7 +51,7 @@ SPDX-License-Identifier: EPL-2.0
     <type id="highway.residential" priority="4" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
     <type id="highway.secondary" priority="7" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
     <type id="highway.secondary_link" priority="6" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
-    <type id="highway.secondary|railway.tram" priority="15" numLanes="2" speed="27.78" disallow="rail_urban rail rail_electric ship" oneway="0"/>
+    <type id="highway.secondary|railway.tram" priority="16" numLanes="2" speed="27.78" disallow="rail_urban rail rail_electric ship" oneway="0"/>
     <type id="highway.service" priority="2" numLanes="1" speed="5.56" allow="delivery bicycle pedestrian" oneway="0"/>
     <type id="highway.stairs" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1" width="2.00"/>
     <type id="highway.step" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1" width="2.00"/>
@@ -63,11 +63,11 @@ SPDX-License-Identifier: EPL-2.0
     <type id="highway.trunk_link" priority="10" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" oneway="0"/>
     <type id="highway.unclassified" priority="5" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
     <type id="highway.unsurfaced" priority="1" numLanes="1" speed="8.33" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
-    <type id="railway.light_rail" priority="15" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
+    <type id="railway.light_rail" priority="18" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
     <type id="railway.preserved" priority="15" numLanes="1" speed="27.78" allow="rail" oneway="1"/>
-    <type id="railway.rail" priority="15" numLanes="1" speed="83.33" allow="rail rail_electric" oneway="1"/>
-    <type id="railway.subway" priority="15" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
-    <type id="railway.tram" priority="15" numLanes="1" speed="13.89" allow="tram" oneway="1"/>
+    <type id="railway.rail" priority="19" numLanes="1" speed="83.33" allow="rail rail_electric" oneway="1"/>
+    <type id="railway.subway" priority="17" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
+    <type id="railway.tram" priority="16" numLanes="1" speed="13.89" allow="tram" oneway="1"/>
 
     <edge id=":1_0" function="internal">
         <lane id=":1_0_0" index="0" disallow="rail_urban rail rail_electric pedestrian ship" speed="3.65" length="4.67" shape="-0.76,1.41 -1.44,0.13 -1.41,-0.76 -0.67,-1.28 0.76,-1.41"/>
@@ -82,20 +82,20 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":2_2_0" index="0" disallow="rail_urban rail rail_electric pedestrian ship" speed="3.65" length="4.67" shape="656.93,354.18 657.60,355.45 657.57,356.35 656.84,356.86 655.40,356.99"/>
     </edge>
 
-    <edge id="-10860201" from="2" to="1" name="Sterndamm" priority="15" type="highway.secondary|railway.tram">
+    <edge id="-10860201" from="2" to="1" name="Sterndamm" priority="16" type="highway.secondary|railway.tram">
         <lane id="-10860201_0" index="0" allow="pedestrian" speed="27.78" length="746.32" width="2.00" shape="652.64,362.09 -3.53,6.51"/>
         <lane id="-10860201_1" index="1" disallow="rail_urban rail rail_electric pedestrian ship" speed="27.78" length="746.32" shape="653.88,359.80 -2.29,4.22"/>
         <lane id="-10860201_2" index="2" disallow="rail_urban rail rail_electric pedestrian ship" speed="27.78" length="746.32" shape="655.40,356.99 -0.76,1.41"/>
     </edge>
-    <edge id="10860201" from="1" to="2" name="Sterndamm" priority="15" type="highway.secondary|railway.tram">
+    <edge id="10860201" from="1" to="2" name="Sterndamm" priority="16" type="highway.secondary|railway.tram">
         <lane id="10860201_0" index="0" allow="pedestrian" speed="27.78" length="746.32" width="2.00" shape="3.53,-6.51 659.69,349.08"/>
         <lane id="10860201_1" index="1" disallow="rail_urban rail rail_electric pedestrian ship" speed="27.78" length="746.32" shape="2.29,-4.22 658.45,351.36"/>
         <lane id="10860201_2" index="2" disallow="rail_urban rail rail_electric pedestrian ship" speed="27.78" length="746.32" shape="0.76,-1.41 656.93,354.18"/>
     </edge>
-    <edge id="10860202" from="2" to="3" name="Sterndamm" priority="15" type="railway.tram" spreadType="center">
+    <edge id="10860202" from="2" to="3" name="Sterndamm" priority="16" type="railway.tram" spreadType="center">
         <lane id="10860202_0" index="0" allow="tram" speed="13.89" length="6792.15" shape="663.01,350.47 7454.01,225.32"/>
     </edge>
-    <edge id="10860203" from="2" to="4" name="Sterndamm" priority="15" type="railway.tram" spreadType="center">
+    <edge id="10860203" from="2" to="4" name="Sterndamm" priority="16" type="railway.tram" spreadType="center">
         <lane id="10860203_0" index="0" allow="tram" speed="13.89" length="13599.93" shape="663.01,350.49 14260.81,109.28"/>
     </edge>
 
