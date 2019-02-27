@@ -11,3 +11,5 @@ laneParams lk1:lv1 lk2:lv2
 laneParams lk3:lv3 lk4:lv4
 junctionParams jk1:jv1 jk2:jv2
 tlsParams tk1:tv1 tk2:tv2
+getNeighboringEdges [u':S_0', u'CS', u'SC']
+getNeighboringLanes [u':S_0_0', u'CS_0', u'CS_1', u'SC_0', u'SC_1']

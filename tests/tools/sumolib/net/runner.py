@@ -61,3 +61,7 @@ print("laneParams",     printSorted(net.getLane("CE_0").getParams()))
 print("laneParams",     printSorted(net.getLane("CE_1").getParams()))
 print("junctionParams", printSorted(net.getNode("C").getParams()))
 print("tlsParams",      printSorted(net.getTLS("C").getPrograms()["0"].getParams()))
+
+# functions
+print("getNeighboringEdges", sorted([e.getID() for e,d in net.getNeighboringEdges(100,0, 10)]))
+print("getNeighboringLanes", sorted([l.getID() for l,d in net.getNeighboringLanes(100,0, 10)]))
