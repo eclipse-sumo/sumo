@@ -141,13 +141,28 @@ GNEVehicleType::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getDemandElementID();
+        // CFM Values
         case SUMO_ATTR_ACCEL:
         case SUMO_ATTR_DECEL:
         case SUMO_ATTR_APPARENTDECEL:
         case SUMO_ATTR_EMERGENCYDECEL:
         case SUMO_ATTR_SIGMA:
         case SUMO_ATTR_TAU:
+        case SUMO_ATTR_COLLISION_MINGAP_FACTOR:
+        case SUMO_ATTR_TMP1:
+        case SUMO_ATTR_TMP2:
+        case SUMO_ATTR_TMP3:
+        case SUMO_ATTR_TMP4:
+        case SUMO_ATTR_TMP5:
+        case SUMO_ATTR_CF_PWAGNER2009_TAULAST:
+        case SUMO_ATTR_CF_PWAGNER2009_APPROB:
+        case SUMO_ATTR_CF_IDMM_ADAPT_FACTOR:
+        case SUMO_ATTR_CF_IDMM_ADAPT_TIME:
+        case SUMO_ATTR_CF_WIEDEMANN_SECURITY:
+        case SUMO_ATTR_CF_WIEDEMANN_ESTIMATION:
+        case SUMO_ATTR_TRAIN_TYPE:
             return getCFParamString(key, "0");
+        //
         case SUMO_ATTR_LENGTH:
             return toString(length);
         case SUMO_ATTR_MINGAP:
@@ -209,12 +224,21 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
     }
     switch (key) {
         case SUMO_ATTR_ID:
-        case SUMO_ATTR_ACCEL:
-        case SUMO_ATTR_DECEL:
-        case SUMO_ATTR_APPARENTDECEL:
-        case SUMO_ATTR_EMERGENCYDECEL:
-        case SUMO_ATTR_SIGMA:
-        case SUMO_ATTR_TAU:
+        // CFM
+        case SUMO_ATTR_COLLISION_MINGAP_FACTOR:
+        case SUMO_ATTR_TMP1:
+        case SUMO_ATTR_TMP2:
+        case SUMO_ATTR_TMP3:
+        case SUMO_ATTR_TMP4:
+        case SUMO_ATTR_TMP5:
+        case SUMO_ATTR_CF_PWAGNER2009_TAULAST:
+        case SUMO_ATTR_CF_PWAGNER2009_APPROB:
+        case SUMO_ATTR_CF_IDMM_ADAPT_FACTOR:
+        case SUMO_ATTR_CF_IDMM_ADAPT_TIME:
+        case SUMO_ATTR_CF_WIEDEMANN_SECURITY:
+        case SUMO_ATTR_CF_WIEDEMANN_ESTIMATION:
+        case SUMO_ATTR_TRAIN_TYPE:
+        //
         case SUMO_ATTR_LENGTH:
         case SUMO_ATTR_MINGAP:
         case SUMO_ATTR_MAXSPEED:
@@ -251,6 +275,7 @@ GNEVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             return isValidDemandElementID(value);
+        // CFM parameters
         case SUMO_ATTR_ACCEL:
             return canParse<double>(value);
         case SUMO_ATTR_DECEL:
@@ -263,6 +288,21 @@ GNEVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) <= 1);
         case SUMO_ATTR_TAU:
             return canParse<double>(value);
+        case SUMO_ATTR_COLLISION_MINGAP_FACTOR:
+        case SUMO_ATTR_TMP1:
+        case SUMO_ATTR_TMP2:
+        case SUMO_ATTR_TMP3:
+        case SUMO_ATTR_TMP4:
+        case SUMO_ATTR_TMP5:
+        case SUMO_ATTR_CF_PWAGNER2009_TAULAST:
+        case SUMO_ATTR_CF_PWAGNER2009_APPROB:
+        case SUMO_ATTR_CF_IDMM_ADAPT_FACTOR:
+        case SUMO_ATTR_CF_IDMM_ADAPT_TIME:
+        case SUMO_ATTR_CF_WIEDEMANN_SECURITY:
+        case SUMO_ATTR_CF_WIEDEMANN_ESTIMATION:
+        case SUMO_ATTR_TRAIN_TYPE:
+            return canParse<double>(value);
+        //
         case SUMO_ATTR_LENGTH:
             return canParse<double>(value) && (parse<double>(value) > 0);
         case SUMO_ATTR_MINGAP:
@@ -348,14 +388,29 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             changeDemandElementID(value);
             break;
+        // CFM
         case SUMO_ATTR_ACCEL:
         case SUMO_ATTR_DECEL:
         case SUMO_ATTR_APPARENTDECEL:
         case SUMO_ATTR_EMERGENCYDECEL:
         case SUMO_ATTR_SIGMA:
         case SUMO_ATTR_TAU:
+        case SUMO_ATTR_COLLISION_MINGAP_FACTOR:
+        case SUMO_ATTR_TMP1:
+        case SUMO_ATTR_TMP2:
+        case SUMO_ATTR_TMP3:
+        case SUMO_ATTR_TMP4:
+        case SUMO_ATTR_TMP5:
+        case SUMO_ATTR_CF_PWAGNER2009_TAULAST:
+        case SUMO_ATTR_CF_PWAGNER2009_APPROB:
+        case SUMO_ATTR_CF_IDMM_ADAPT_FACTOR:
+        case SUMO_ATTR_CF_IDMM_ADAPT_TIME:
+        case SUMO_ATTR_CF_WIEDEMANN_SECURITY:
+        case SUMO_ATTR_CF_WIEDEMANN_ESTIMATION:
+        case SUMO_ATTR_TRAIN_TYPE:
             cfParameter[key] = value;
             break;
+        //
         case SUMO_ATTR_LENGTH:
             length = parse<double>(value);
             break;
