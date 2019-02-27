@@ -960,7 +960,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
                 ? myVehicleParameter->departPos
                 : (toStop->getBeginLanePosition() + toStop->getEndLanePosition()) / 2;
             myActiveContainerPlan->push_back(new MSTransportable::Stage_Waiting(
-                        &MSLane::dictionary(stop.lane)->getEdge(), toStop, -1, departPos, myVehicleParameter->departPos, "start", true));
+                        &MSLane::dictionary(stop.lane)->getEdge(), toStop, -1, myVehicleParameter->depart, departPos, "start", true));
         } else if (myActiveContainerPlan->back()->getDestination() != &MSLane::dictionary(stop.lane)->getEdge()) {
             throw ProcessError("Disconnected plan for container '" + myVehicleParameter->id + "' (" + MSLane::dictionary(stop.lane)->getEdge().getID() + "!=" + myActiveContainerPlan->back()->getDestination()->getID() + ").");
         }
