@@ -30,10 +30,10 @@
     <type id="highway.raceway"        numLanes="2" speed="83.33" priority="14" oneway="false" allow="vip"/>
     <type id="highway.ford"           numLanes="1" speed="2.78"  priority="1"  oneway="false" allow="army"/>
 
-    <type id="railway.rail"           numLanes="1" speed="83.33" priority="15" oneway="true"  allow="rail rail_electric"/>
-    <type id="railway.tram"           numLanes="1" speed="13.89" priority="15" oneway="true"  allow="tram"/>
-    <type id="railway.light_rail"     numLanes="1" speed="27.78" priority="15" oneway="true"  allow="rail_urban"/>
-    <type id="railway.subway"         numLanes="1" speed="27.78" priority="15" oneway="true"  allow="rail_urban"/>
     <type id="railway.preserved"      numLanes="1" speed="27.78" priority="15" oneway="true"  allow="rail"/>
+    <type id="railway.tram"           numLanes="1" speed="13.89" priority="16" oneway="true"  allow="tram"/>
+    <type id="railway.subway"         numLanes="1" speed="27.78" priority="17" oneway="true"  allow="rail_urban"/>
+    <type id="railway.rail"           numLanes="1" speed="83.33" priority="19" oneway="true"  allow="rail rail_electric"/>
+    <type id="railway.light_rail"     numLanes="1" speed="27.78" priority="18" oneway="true"  allow="rail_urban"/>
 
 </types>
