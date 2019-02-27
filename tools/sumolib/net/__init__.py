@@ -258,7 +258,8 @@ class Net:
         return result
 
     # Please be aware that the resulting list of edges is NOT sorted
-    def getNeighboringEdges(self, x, y, r=0.1, includeJunctions=True):
+    def getNeighboringEdges(self, x, y, r=0.1, includeJunctions=True, 
+            allowFallback=True):
         edges = []
         try:
             if self._rtreeEdges is None:
@@ -270,9 +271,13 @@ class Net:
                 if d < r:
                     edges.append((e, d))
         except ImportError:
-            if not self.hasWarnedAboutMissingRTree:
-                sys.stderr.write("Warning: Module 'rtree' not available. Using brute-force fallback\n")
-                self.hasWarnedAboutMissingRTree = True
+            if allowFallback:
+                if not self.hasWarnedAboutMissingRTree:
+                    sys.stderr.write("Warning: Module 'rtree' not available. Using brute-force fallback\n")
+                    self.hasWarnedAboutMissingRTree = True
+            else:
+                sys.stderr.write("Error: Module 'rtree' not available.\n")
+                sys.exit(1)
 
             for the_edge in self._edges:
                 d = sumolib.geomhelper.distancePointToPolygon(
@@ -281,7 +286,8 @@ class Net:
                     edges.append((the_edge, d))
         return edges
 
-    def getNeighboringLanes(self, x, y, r=0.1, includeJunctions=True):
+    def getNeighboringLanes(self, x, y, r=0.1, includeJunctions=True,
+            allowFallback=True):
         lanes = []
         try:
             if self._rtreeLanes is None:
@@ -295,9 +301,13 @@ class Net:
                 if d < r:
                     lanes.append((lane, d))
         except ImportError:
-            if not self.hasWarnedAboutMissingRTree:
-                sys.stderr.write("Warning: Module 'rtree' not available. Using brute-force fallback\n")
-                self.hasWarnedAboutMissingRTree = True
+            if allowFallback:
+                if not self.hasWarnedAboutMissingRTree:
+                    sys.stderr.write("Warning: Module 'rtree' not available. Using brute-force fallback\n")
+                    self.hasWarnedAboutMissingRTree = True
+            else:
+                sys.stderr.write("Error: Module 'rtree' not available.\n")
+                sys.exit(1)
 
             for the_edge in self._edges:
                 for lane in the_edge.getLanes():
