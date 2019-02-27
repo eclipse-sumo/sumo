@@ -96,6 +96,7 @@
 //#define DEBUG_NEXT_TURN
 //#define DEBUG_TRACI
 //#define DEBUG_REVERSE_BIDI
+//#define DEBUG_REPLACE_ROUTE
 //#define DEBUG_COND (getID() == "follower")
 //#define DEBUG_COND (true)
 #define DEBUG_COND (isSelected())
@@ -1092,10 +1093,14 @@ MSVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info, bool o
         // recheck old stops
         MSRouteIterator searchStart = myCurrEdge;
         double lastPos = getPositionOnLane();
-        //if (getID() == "tram2") std::cout << "  replaceRoute on " << (*myCurrEdge)->getID() << "\n";
+#ifdef DEBUG_REPLACE_ROUTE
+        if (DEBUG_COND) std::cout << "  replaceRoute on " << (*myCurrEdge)->getID() << "\n";
+#endif
         for (std::list<Stop>::iterator iter = myStops.begin(); iter != myStops.end();) {
             double endPos = iter->getEndPos(*this);
-            //if (getID() == "tram2") std::cout << "     stopEdge=" << iter->lane->getEdge().getID() << " start=" << (searchStart - myCurrEdge) << " endPos=" << endPos << " lastPos=" << lastPos << "\n";
+#ifdef DEBUG_REPLACE_ROUTE
+            if (DEBUG_COND) std::cout << "     stopEdge=" << iter->lane->getEdge().getID() << " start=" << (searchStart - myCurrEdge) << " endPos=" << endPos << " lastPos=" << lastPos << "\n";
+#endif
             if (*searchStart != &iter->lane->getEdge()
                     || endPos < lastPos) {
                 if (searchStart != edges.end() && !iter->reached) {
@@ -1105,16 +1110,14 @@ MSVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info, bool o
             lastPos = endPos;
 
             iter->edge = std::find(searchStart, edges.end(), &iter->lane->getEdge());
-            //if (getID() == "tram2") std::cout << "        foundIndex=" << (iter->edge - myCurrEdge) << " end=" << (edges.end() - myCurrEdge) << "\n";
+#ifdef DEBUG_REPLACE_ROUTE
+            if (DEBUG_COND) std::cout << "        foundIndex=" << (iter->edge - myCurrEdge) << " end=" << (edges.end() - myCurrEdge) << "\n";
+#endif
             if (iter->edge == edges.end()) {
                 if (removeStops) {
                     iter = myStops.erase(iter);
                     continue;
-                } else if (iter->parkingarea == nullptr) {
-                    // parkingAreaReroute replaces edges first and stop target
-                    // parkingArea later so a temporary inconsistency is permitted here
-                    // If there is no parkingArea it means something else has
-                    // broken down
+                } else  {
                     assert(false);
                 }
             } else {
@@ -1628,72 +1631,37 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& error
 bool
 MSVehicle::replaceParkingArea(MSParkingArea* parkingArea, std::string& errorMsg) {
     // Check if there is a parking area to be replaced
-    assert(parkingArea != nullptr);
-    if (myStops.empty()) {
-        errorMsg = "Vehicle '" + myParameter->id + "' has no stops.";
+    if (parkingArea == 0) { 
+        errorMsg = "new parkingArea is NULL";
         return false;
     }
-    SUMOVehicleParameter::Stop stopPar;
-    Stop stop = myStops.front();
-    if (stop.reached) {
-        errorMsg = "current stop already reached";
+    if (myStops.size() == 0) {
+        errorMsg = "vehicle has no stops";
         return false;
     }
-    if (stop.parkingarea == nullptr) {
-        errorMsg = "current stop is not a parkingArea";
+    if (myStops.front().parkingarea == 0) {
+        errorMsg = "first stop is not at parkingArea";
         return false;
     }
-    if (stop.parkingarea == parkingArea) {
-        errorMsg = "current stop is the same as the new parking area";
-        return false;
-    }
-    stopPar.lane = parkingArea->getLane().getID();
-
-    // merge duplicated stops equals to parking area
-    int removeStops = 0;
-    SUMOTime duration = 0;
-
-    for (const Stop& exStop: myStops) {
-        if (duration == 0) {
-            duration = exStop.duration;
-            ++removeStops;
+    Stop& first = myStops.front();
+    SUMOVehicleParameter::Stop& stopPar = const_cast<SUMOVehicleParameter::Stop&>(first.pars);
+    // merge subsequent duplicate stops equals to parking area
+    for (std::list<Stop>::iterator iter = ++myStops.begin(); iter != myStops.end();) {
+        if (iter->parkingarea == parkingArea) {
+            stopPar.duration += iter->duration;
+            myStops.erase(iter++);
         } else {
-            if (exStop.parkingarea == parkingArea) {
-                duration += exStop.duration;
-                ++removeStops;
-            } else {
-                break;
-            }
+            break;
         }
     }
-
-    stopPar.index = 0;
-    stopPar.busstop = "";
-    stopPar.chargingStation = "";
-    stopPar.containerstop = "";
+    stopPar.lane = parkingArea->getLane().getID();
     stopPar.parkingarea = parkingArea->getID();
     stopPar.startPos = parkingArea->getBeginLanePosition();
     stopPar.endPos = parkingArea->getEndLanePosition();
-    stopPar.duration = duration;
-    stopPar.until = stop.pars.until;
-    stopPar.awaitedPersons = stop.pars.awaitedPersons;
-    stopPar.awaitedContainers = stop.pars.awaitedContainers;
-    stopPar.triggered = stop.pars.triggered;
-    stopPar.containerTriggered = stop.pars.containerTriggered;
-    stopPar.parking = stop.pars.parking;
-    stopPar.parametersSet = stop.pars.parametersSet;
-
-    // remove stops equals to parking area
-    while (removeStops > 0) {
-        myStops.pop_front();
-        --removeStops;
-    }
-    const bool result = addStop(stopPar, errorMsg);
-    if (myLane != nullptr) {
-        updateBestLanes(true);
-    }
-    assert(haveValidStopEdges());
-    return result;
+    first.edge = myRoute->end(); // will be patched in replaceRoute
+    first.lane = &parkingArea->getLane();
+    first.parkingarea = parkingArea;
+    return true;
 }
 
 
@@ -5538,14 +5506,13 @@ MSVehicle::rerouteParkingArea(const std::string& parkingAreaID, std::string& err
     const double routeCost = router.recomputeCosts(edges, this, MSNet::getInstance()->getCurrentTimeStep());
     ConstMSEdgeVector prevEdges(myCurrEdge, myRoute->end());
     const double savings = router.recomputeCosts(prevEdges, this, MSNet::getInstance()->getCurrentTimeStep());
-    replaceRouteEdges(edges, routeCost, savings, "TraCI:rerouteParkingArea", false, false, false);
-
-    if (!replaceParkingArea(newParkingArea, errorMsg)) {
+    if (replaceParkingArea(newParkingArea, errorMsg)) {
+        replaceRouteEdges(edges, routeCost, savings, "TraCI:" + toString(SUMO_TAG_PARKING_ZONE_REROUTE), false, false, false);
+    } else {
         WRITE_WARNING("Vehicle '" + getID() + "' could not reroute to new parkingArea '" + newParkingArea->getID()
                       + "' reason=" + errorMsg + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
         return false;
     }
-
     return true;
 }
 
@@ -5675,7 +5642,6 @@ MSVehicle::addTraciStopAtStoppingPlace(const std::string& stopId, const SUMOTime
     }
     return result;
 }
-
 
 bool
 MSVehicle::resumeFromStopping() {

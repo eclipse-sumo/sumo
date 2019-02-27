@@ -419,9 +419,10 @@ MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification 
             //        << " newEdges=" << toString(edges)
             //        << "\n";
 
-            veh.replaceRouteEdges(newRoute, routeCost, savings, getID(), false, false, false);
             std::string errorMsg;
-            if (!veh.replaceParkingArea(newParkingArea, errorMsg)) {
+            if (veh.replaceParkingArea(newParkingArea, errorMsg)) {
+                veh.replaceRouteEdges(newRoute, routeCost, savings, getID() + ":" + toString(SUMO_TAG_PARKING_ZONE_REROUTE), false, false, false);
+            } else {
                 WRITE_WARNING("Vehicle '" + veh.getID() + "' at rerouter '" + getID()
                               + "' could not reroute to new parkingArea '" + newParkingArea->getID()
                               + "' reason=" + errorMsg + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");

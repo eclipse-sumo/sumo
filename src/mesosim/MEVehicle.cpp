@@ -302,7 +302,6 @@ MEVehicle::getStopIndices() const {
     return result;
 }
 
-
 void
 MEVehicle::processStop() {
     assert(isStopped());

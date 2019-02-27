@@ -290,7 +290,8 @@ MSBaseVehicle::replaceRouteEdges(ConstMSEdgeVector& edges, double cost, double s
         }
         edges.insert(edges.begin(), myRoute->begin(), myCurrEdge);
     }
-    if (edges == myRoute->getEdges()) {
+    if (edges == myRoute->getEdges() && !StringUtils::endsWith(info, toString(SUMO_TAG_PARKING_ZONE_REROUTE))) {
+        // re-assign stop iterators when rerouting to a new parkingArea
         return true;
     }
     const RGBColor& c = myRoute->getColor();
