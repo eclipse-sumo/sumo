@@ -161,6 +161,10 @@ GNEVehicleType::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_CF_WIEDEMANN_SECURITY:
         case SUMO_ATTR_CF_WIEDEMANN_ESTIMATION:
         case SUMO_ATTR_TRAIN_TYPE:
+        case SUMO_ATTR_K:
+        case SUMO_ATTR_CF_KERNER_PHI:
+        case SUMO_ATTR_CF_IDM_DELTA:
+        case SUMO_ATTR_CF_IDM_STEPPING:
             return getCFParamString(key, "0");
         //
         case SUMO_ATTR_LENGTH:
@@ -238,6 +242,10 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
         case SUMO_ATTR_CF_WIEDEMANN_SECURITY:
         case SUMO_ATTR_CF_WIEDEMANN_ESTIMATION:
         case SUMO_ATTR_TRAIN_TYPE:
+        case SUMO_ATTR_K:
+        case SUMO_ATTR_CF_KERNER_PHI:
+        case SUMO_ATTR_CF_IDM_DELTA:
+        case SUMO_ATTR_CF_IDM_STEPPING:
         //
         case SUMO_ATTR_LENGTH:
         case SUMO_ATTR_MINGAP:
@@ -301,6 +309,10 @@ GNEVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_CF_WIEDEMANN_SECURITY:
         case SUMO_ATTR_CF_WIEDEMANN_ESTIMATION:
         case SUMO_ATTR_TRAIN_TYPE:
+        case SUMO_ATTR_K:
+        case SUMO_ATTR_CF_KERNER_PHI:
+        case SUMO_ATTR_CF_IDM_DELTA:
+        case SUMO_ATTR_CF_IDM_STEPPING:
             return canParse<double>(value);
         //
         case SUMO_ATTR_LENGTH:
@@ -408,6 +420,10 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_CF_WIEDEMANN_SECURITY:
         case SUMO_ATTR_CF_WIEDEMANN_ESTIMATION:
         case SUMO_ATTR_TRAIN_TYPE:
+        case SUMO_ATTR_K:
+        case SUMO_ATTR_CF_KERNER_PHI:
+        case SUMO_ATTR_CF_IDM_DELTA:
+        case SUMO_ATTR_CF_IDM_STEPPING:
             cfParameter[key] = value;
             break;
         //
