@@ -192,11 +192,9 @@ GNEVehicleType::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_IMPATIENCE:
             return toString(impatience);
         case SUMO_ATTR_LANE_CHANGE_MODEL:
-            // CHECK
-            return "";
+            return SUMOXMLDefinitions::LaneChangeModels.getString(lcModel);
         case SUMO_ATTR_CAR_FOLLOW_MODEL:
-            // CHECK
-            return "";
+            return SUMOXMLDefinitions::CarFollowModels.getString(cfModel);
         case SUMO_ATTR_PERSON_CAPACITY:
             return toString(personCapacity);
         case SUMO_ATTR_CONTAINER_CAPACITY:
@@ -229,6 +227,12 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
     switch (key) {
         case SUMO_ATTR_ID:
         // CFM
+        case SUMO_ATTR_ACCEL:
+        case SUMO_ATTR_DECEL:
+        case SUMO_ATTR_APPARENTDECEL:
+        case SUMO_ATTR_EMERGENCYDECEL:
+        case SUMO_ATTR_SIGMA:
+        case SUMO_ATTR_TAU:
         case SUMO_ATTR_COLLISION_MINGAP_FACTOR:
         case SUMO_ATTR_TMP1:
         case SUMO_ATTR_TMP2:
@@ -284,18 +288,13 @@ GNEVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidDemandElementID(value);
         // CFM parameters
-        case SUMO_ATTR_ACCEL:
-            return canParse<double>(value);
-        case SUMO_ATTR_DECEL:
-            return canParse<double>(value);
-        case SUMO_ATTR_APPARENTDECEL:
-            return canParse<double>(value);
-        case SUMO_ATTR_EMERGENCYDECEL:
-            return canParse<double>(value);
         case SUMO_ATTR_SIGMA:
             return canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) <= 1);
+        case SUMO_ATTR_ACCEL:
+        case SUMO_ATTR_DECEL:
+        case SUMO_ATTR_APPARENTDECEL:
+        case SUMO_ATTR_EMERGENCYDECEL:
         case SUMO_ATTR_TAU:
-            return canParse<double>(value);
         case SUMO_ATTR_COLLISION_MINGAP_FACTOR:
         case SUMO_ATTR_TMP1:
         case SUMO_ATTR_TMP2:
@@ -314,17 +313,18 @@ GNEVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_CF_IDM_DELTA:
         case SUMO_ATTR_CF_IDM_STEPPING:
             return canParse<double>(value);
+            // rail string
         //
         case SUMO_ATTR_LENGTH:
             return canParse<double>(value) && (parse<double>(value) > 0);
         case SUMO_ATTR_MINGAP:
-            return canParse<double>(value) && (parse<double>(value) > 0);
+            return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_MAXSPEED:
-            return canParse<double>(value) && (parse<double>(value) > 0);
+            return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_SPEEDFACTOR:
-            return canParse<double>(value) && (parse<double>(value) > 0);
+            return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_SPEEDDEV:
-            return canParse<double>(value) && (parse<double>(value) > 0);
+            return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
         case SUMO_ATTR_VCLASS:
