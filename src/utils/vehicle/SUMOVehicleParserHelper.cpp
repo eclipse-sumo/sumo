@@ -558,7 +558,6 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         kraussParams.insert(SUMO_ATTR_DECEL);
         kraussParams.insert(SUMO_ATTR_APPARENTDECEL);
         kraussParams.insert(SUMO_ATTR_EMERGENCYDECEL);
-        kraussParams.insert(SUMO_ATTR_EMERGENCYDECEL);
         kraussParams.insert(SUMO_ATTR_SIGMA);
         kraussParams.insert(SUMO_ATTR_TAU);
         allowedCFModelAttrs[SUMO_TAG_CF_KRAUSS] = kraussParams;
