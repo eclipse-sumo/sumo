@@ -744,6 +744,7 @@ NIImporter_SUMO::addConnection(const SUMOSAXAttributes& attrs) {
     conn.visibility = attrs.getOpt<double>(SUMO_ATTR_VISIBILITY_DISTANCE, nullptr, ok, NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE);
     conn.speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, nullptr, ok, NBEdge::UNSPECIFIED_SPEED);
     conn.customShape = attrs.getOpt<PositionVector>(SUMO_ATTR_SHAPE, nullptr, ok, PositionVector::EMPTY);
+    NBNetBuilder::transformCoordinates(conn.customShape, false, myLocation);
     conn.uncontrolled = attrs.getOpt<bool>(SUMO_ATTR_UNCONTROLLED, nullptr, ok, NBEdge::UNSPECIFIED_CONNECTION_UNCONTROLLED, false);
     if (conn.tlID != "") {
         conn.tlLinkIndex = attrs.get<int>(SUMO_ATTR_TLLINKINDEX, nullptr, ok);
