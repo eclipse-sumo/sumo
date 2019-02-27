@@ -647,7 +647,7 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
 
         SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = MSNet::getInstance()->getRouterTT(rerouteDef->closed);
 
-        std::vector<double> probs = rerouteDef->parkProbs.getProbs();
+        const std::vector<double>& probs = rerouteDef->parkProbs.getProbs();
 
         const double brakeGap = veh.getBrakeGap();
 

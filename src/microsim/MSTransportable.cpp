@@ -811,7 +811,7 @@ MSTransportable::rerouteParkingArea(MSStoppingPlace* orig, MSStoppingPlace* repl
         return;
     }
     if (getDestination() == &orig->getLane().getEdge()) {
-        Stage_Driving* stage = dynamic_cast<Stage_Driving*>(*myStep);
+        Stage_Driving* const stage = dynamic_cast<Stage_Driving*>(*myStep);
         assert(stage != 0);
         assert(stage->getVehicle() != 0);
         // adapt plan
@@ -833,10 +833,10 @@ MSTransportable::rerouteParkingArea(MSStoppingPlace* orig, MSStoppingPlace* repl
         // parking area, adapt the preceeding walk to end at the replacement
         // (ride origin is set implicitly from the walk destination)
         for (auto it = myStep + 2; it != myPlan->end(); it++) {
-            Stage* futureStage = *it;
-            Stage* prevStage = *(it - 1);
+            const Stage* const futureStage = *it;
+            Stage* const prevStage = *(it - 1);
             if (futureStage->getStageType() == DRIVING) {
-                MSPerson::MSPersonStage_Driving* ds = dynamic_cast<MSPerson::MSPersonStage_Driving*>(stage);
+                const MSPerson::MSPersonStage_Driving* const ds = dynamic_cast<const MSPerson::MSPersonStage_Driving* const>(futureStage);
                 if (ds->getLines() == stage->getLines()
                         && prevStage->getDestination() == &orig->getLane().getEdge()) {
                     if (prevStage->getStageType() == TRIP) {
@@ -848,6 +848,7 @@ MSTransportable::rerouteParkingArea(MSStoppingPlace* orig, MSStoppingPlace* repl
                         removeStage(prevStageRelIndex);
                         appendStage(newStage, prevStageRelIndex);
                     }
+                    break;
                 }
             }
         }

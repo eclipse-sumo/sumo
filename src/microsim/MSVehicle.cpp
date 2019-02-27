@@ -1137,7 +1137,7 @@ MSVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info, bool o
     myLastBestLanesEdge = nullptr;
     myLastBestLanesInternalLane = nullptr;
     updateBestLanes(true, onInit ? (*myCurrEdge)->getLanes().front() : 0);
-    assert(haveValidStopEdges());
+    assert(!removeStops || haveValidStopEdges());
     return true;
 }
 
@@ -1628,7 +1628,7 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& error
 bool
 MSVehicle::replaceParkingArea(MSParkingArea* parkingArea, std::string& errorMsg) {
     // Check if there is a parking area to be replaced
-    assert(parkingArea != 0);
+    assert(parkingArea != nullptr);
     if (myStops.empty()) {
         errorMsg = "Vehicle '" + myParameter->id + "' has no stops.";
         return false;
@@ -1653,13 +1653,13 @@ MSVehicle::replaceParkingArea(MSParkingArea* parkingArea, std::string& errorMsg)
     int removeStops = 0;
     SUMOTime duration = 0;
 
-    for (std::list<Stop>::const_iterator iter = myStops.begin(); iter != myStops.end(); ++iter) {
+    for (const Stop& exStop: myStops) {
         if (duration == 0) {
-            duration = iter->duration;
+            duration = exStop.duration;
             ++removeStops;
         } else {
-            if (iter->parkingarea != nullptr && iter->parkingarea == parkingArea) {
-                duration += iter->duration;
+            if (exStop.parkingarea == parkingArea) {
+                duration += exStop.duration;
                 ++removeStops;
             } else {
                 break;
@@ -5999,10 +5999,10 @@ MSVehicle::haveValidStopEdges() const {
     int i = 0;
     bool ok = true;
     double lastPos = getPositionOnLane();
-    for (Stop stop : myStops) {
+    for (const Stop& stop : myStops) {
         const double endPos = stop.getEndPos(*this);
-        MSEdge* stopEdge = &stop.lane->getEdge();
-        MSRouteIterator it = std::find(start, myRoute->end(), stopEdge);
+        const MSEdge* const stopEdge = &stop.lane->getEdge();
+        const MSRouteIterator it = std::find(start, myRoute->end(), stopEdge);
         const std::string prefix = "Stop " + toString(i) + " on edge '" + stopEdge->getID() + "' ";
         if (it == myRoute->end()) {
             WRITE_ERROR(prefix + "is not found after edge '" + (*start)->getID() + "' (" + toString(start - myCurrEdge) + " after current " + err);
@@ -6015,10 +6015,10 @@ MSVehicle::haveValidStopEdges() const {
                 }
             }
             if (it2 == myRoute->end()) {
-                WRITE_ERROR(prefix + " used invalid route index " + err);
+                WRITE_ERROR(prefix + "used invalid route index " + err);
                 ok = false;
             } else if (it2 < start) {
-                WRITE_ERROR(prefix + " used invalid (relative) route index " + toString(it2 - myCurrEdge) + " expected after " + toString(start - myCurrEdge) + " " + err);
+                WRITE_ERROR(prefix + "used invalid (relative) route index " + toString(it2 - myCurrEdge) + " expected after " + toString(start - myCurrEdge) + " " + err);
                 ok = false;
             } else {
                 if (it != stop.edge && endPos >= lastPos) {
