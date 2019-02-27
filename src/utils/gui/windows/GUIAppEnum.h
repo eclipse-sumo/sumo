@@ -774,6 +774,8 @@ enum {
     MID_GNE_JUNCTION_REPLACE,
     /// @brief turn junction into multiple junctions
     MID_GNE_JUNCTION_SPLIT,
+    /// @brief turn junction into multiple junctions and reconnect them heuristically
+    MID_GNE_JUNCTION_SPLIT_RECONNECT,
     /// @brief edit junction shape
     MID_GNE_JUNCTION_EDIT_SHAPE,
     /// @brief reset junction shape

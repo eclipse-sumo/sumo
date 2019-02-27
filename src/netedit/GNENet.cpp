@@ -1758,7 +1758,7 @@ GNENet::replaceJunctionByGeometry(GNEJunction* junction, GNEUndoList* undoList) 
 
 
 void
-GNENet::splitJunction(GNEJunction* junction, GNEUndoList* undoList) {
+GNENet::splitJunction(GNEJunction* junction, bool reconnect, GNEUndoList* undoList) {
     std::vector<std::pair<Position, std::string> > endpoints = junction->getNBNode()->getEndPoints();
     if (endpoints.size() < 2) {
         return;
@@ -1809,26 +1809,28 @@ GNENet::splitJunction(GNEJunction* junction, GNEUndoList* undoList) {
         }
     }
     // recreate edges from straightConnections
-    for (const auto& item : straightConnections) {
-        GNEEdge* in = item.first;
-        std::map<NBEdge*, GNEEdge*> newEdges;
-        for (auto& c : item.second) {
-            GNEEdge* out = retrieveEdge(c.toEdge->getID());
-            GNEEdge* newEdge = nullptr;
-            if (in->getGNEJunctionDestiny() == out->getGNEJunctionSource()) {
-                continue;
+    if (reconnect) {
+        for (const auto& item : straightConnections) {
+            GNEEdge* in = item.first;
+            std::map<NBEdge*, GNEEdge*> newEdges;
+            for (auto& c : item.second) {
+                GNEEdge* out = retrieveEdge(c.toEdge->getID());
+                GNEEdge* newEdge = nullptr;
+                if (in->getGNEJunctionDestiny() == out->getGNEJunctionSource()) {
+                    continue;
+                }
+                if (newEdges.count(c.toEdge) == 0) {
+                    newEdge = createEdge(in->getGNEJunctionDestiny(), out->getGNEJunctionSource(), in, undoList);
+                    newEdges[c.toEdge] = newEdge;
+                    newEdge->setAttribute(SUMO_ATTR_NUMLANES, "1", undoList);
+                } else {
+                    newEdge = newEdges[c.toEdge];
+                    duplicateLane(newEdge->getLanes().back(), undoList, true);
+                }
+                // copy permissions
+                newEdge->getLanes().back()->setAttribute(SUMO_ATTR_ALLOW,
+                        in->getLanes()[c.fromLane]-> getAttribute(SUMO_ATTR_ALLOW), undoList);
             }
-            if (newEdges.count(c.toEdge) == 0) {
-                newEdge = createEdge(in->getGNEJunctionDestiny(), out->getGNEJunctionSource(), in, undoList);
-                newEdges[c.toEdge] = newEdge;
-                newEdge->setAttribute(SUMO_ATTR_NUMLANES, "1", undoList);
-            } else {
-                newEdge = newEdges[c.toEdge];
-                duplicateLane(newEdge->getLanes().back(), undoList, true);
-            }
-            // copy permissions
-            newEdge->getLanes().back()->setAttribute(SUMO_ATTR_ALLOW,
-                    in->getLanes()[c.fromLane]-> getAttribute(SUMO_ATTR_ALLOW), undoList);
         }
     }
 

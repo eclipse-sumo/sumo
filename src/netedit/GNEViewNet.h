@@ -208,6 +208,9 @@ public:
     /// @brief split junction into multiple junctions
     long onCmdSplitJunction(FXObject*, FXSelector, void*);
 
+    /// @brief split junction into multiple junctions and reconnect them
+    long onCmdSplitJunctionReconnect(FXObject*, FXSelector, void*);
+
     /// @brief clear junction connections
     long onCmdClearConnections(FXObject*, FXSelector, void*);
 

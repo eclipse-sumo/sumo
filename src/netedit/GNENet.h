@@ -519,7 +519,7 @@ public:
     void replaceJunctionByGeometry(GNEJunction* junction, GNEUndoList* undoList);
 
     /// @brief replace the selected junction by a list of junctions for each unique edge endpoint
-    void splitJunction(GNEJunction* junction, GNEUndoList* undoList);
+    void splitJunction(GNEJunction* junction, bool reconnect, GNEUndoList* undoList);
 
     /// @brief clear junction's connections
     void clearJunctionConnections(GNEJunction* junction, GNEUndoList* undoList);
