@@ -155,6 +155,9 @@ protected:
         /// @brief FXTextfield for Length
         FXTextField* myTextFieldLength;
 
+        /// @brief FXTextfield for MinGap
+        FXTextField* myTextFieldMinGap;
+
         /// @brief FXTextfield for MaxSpeed
         FXTextField* myTextFieldMaxSpeed;
 
@@ -218,6 +221,9 @@ protected:
         /// @brief constructor
         CarFollowingModelParameters(GNEVehicleTypeDialog* vehicleTypeDialog, FXHorizontalFrame* column);
 
+        /// @brief refresh Car Following Model Fields
+        void refreshCFMFields();
+
         /// @brief set variables
         void setVariable();
 
@@ -225,47 +231,80 @@ protected:
         void updateValues();
         
     protected:
+
+        class CarFollowingModelRow : public FXHorizontalFrame {
+        public:
+            CarFollowingModelRow(CarFollowingModelParameters *carFollowingModelParametersParent, FXVerticalFrame* verticalFrame, SumoXMLAttr attr);
+            
+            FXTextField* textField;
+        private:
+
+            FXLabel *myLabel;
+
+        };
+
         /// @brief FXTextfield for CarFollowModel
         FXComboBox* myComboBoxCarFollowModel;
 
+        /// @brief Vertical Frame for CarFollowingModelRow
+        FXVerticalFrame *myVerticalFrameRows;
+
         /// @brief FXTextfield for Accel
-        FXTextField* myTextFieldAccel;
+        CarFollowingModelRow* myTextFieldAccel;
 
         /// @brief FXTextfield for Decel
-        FXTextField* myTextFieldDecel;
+        CarFollowingModelRow* myTextFieldDecel;
 
         /// @brief FXTextfield for aparent Decel
-        FXTextField* myTextFieldAparentDecel;
+        CarFollowingModelRow* myTextFieldApparentDecel;
     
         /// @brief FXTextfield for emergency Decel
-        FXTextField* myTextFieldEmergencyAccel;
+        CarFollowingModelRow* myTextFieldEmergencyDecel;
 
         /// @brief FXTextfield for Sigma
-        FXTextField* myTextFieldSigma;
+        CarFollowingModelRow* myTextFieldSigma;
 
         /// @brief FXTextfield for Tau
-        FXTextField* myTextFieldTau;
+        CarFollowingModelRow* myTextFieldTau;
 
-        /// @brief FXTextfield for MinGap
-        FXTextField* myTextFieldMinGap;
-
-        /// @brief FXTextfield for MinGap (only for Kerner)
-        FXTextField* myTextFieldK;
+        /// @brief FXTextfield for MinGapFactor
+        CarFollowingModelRow* myTextFieldMinGapFactor;
 
         /// @brief FXTextfield for MinGap (only for Kerner)
-        FXTextField* myTextFieldPhi;
+        CarFollowingModelRow* myTextFieldK;
+
+        /// @brief FXTextfield for MinGap (only for Kerner)
+        CarFollowingModelRow* myTextFieldPhi;
 
         /// @brief FXTextfield for MinGap (only for IDM)
-        FXTextField* myTextFieldDelta;
+        CarFollowingModelRow* myTextFieldDelta;
 
         /// @brief FXTextfield for MinGap(only for IDM)
-        FXTextField* myTextFieldStepping;
+        CarFollowingModelRow* myTextFieldStepping;
 
         /// @brief FXTextfield for Security (only for Wiedemann)
-        FXTextField* myTextFieldSecurity;
+        CarFollowingModelRow* myTextFieldSecurity;
 
         /// @brief FXTextfield for Estimation (only for Wiedemann)
-        FXTextField* myTextFieldEstimation;
+        CarFollowingModelRow* myTextFieldEstimation;
+
+        /// @brief FXTextfield for TMP1
+        CarFollowingModelRow* myTextFieldTmp1;
+
+        /// @brief FXTextfield for TMP2
+        CarFollowingModelRow* myTextFieldTmp2;
+
+        /// @brief FXTextfield for TMP3
+        CarFollowingModelRow* myTextFieldTmp3;
+
+        /// @brief FXTextfield for TMP4
+        CarFollowingModelRow* myTextFieldTmp4;
+
+        /// @brief FXTextfield for TMP5
+        CarFollowingModelRow* myTextFieldTmp5;
+
+        /// @brief FXTextfield for TrainType
+        CarFollowingModelRow* myTextFieldTrainType;
 
     private:
         /// @brief pointer to Vehicle Type dialog parent
