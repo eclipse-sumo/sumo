@@ -38,19 +38,25 @@
 
 GNEVehicleType::GNEVehicleType(GNEViewNet* viewNet, const std::string &vTypeID) :
     GNEDemandElement(vTypeID, viewNet, GLO_VTYPE, SUMO_TAG_VTYPE),
-    SUMOVTypeParameter(vTypeID) {
+    SUMOVTypeParameter(vTypeID),
+    myDefaultVehicleType(true),
+    myDefaultVehicleTypeModified(false) {
 }
 
 
 GNEVehicleType::GNEVehicleType(GNEViewNet* viewNet, const SUMOVTypeParameter &vTypeParameter) :
     GNEDemandElement(vTypeParameter.id, viewNet, GLO_VTYPE, SUMO_TAG_VTYPE),
-    SUMOVTypeParameter(vTypeParameter) {
+    SUMOVTypeParameter(vTypeParameter),
+    myDefaultVehicleType(false),
+    myDefaultVehicleTypeModified(false)   {
 }
 
 
 GNEVehicleType::GNEVehicleType(GNEViewNet* viewNet, const std::string &vTypeID, GNEVehicleType *vTypeOriginal) :
     GNEDemandElement(vTypeID, viewNet, GLO_VTYPE, SUMO_TAG_VTYPE),
-    SUMOVTypeParameter(*vTypeOriginal) {
+    SUMOVTypeParameter(*vTypeOriginal),
+    myDefaultVehicleType(false),
+    myDefaultVehicleTypeModified(false)  {
 }
 
 
@@ -65,7 +71,14 @@ GNEVehicleType::getColor() const {
 
 void 
 GNEVehicleType::writeDemandElement(OutputDevice& device) const {
-    write(device);
+    // only write default vehicle types if it was modified
+    if (myDefaultVehicleType) {
+        if (myDefaultVehicleTypeModified) {
+            write(device);
+        }
+    } else {
+        write(device);
+    }
 }
 
 
@@ -429,63 +442,103 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
         //
         case SUMO_ATTR_LENGTH:
             length = parse<double>(value);
+            // mark parameter as set
+            parametersSet |= VTYPEPARS_LENGTH_SET;
             break;
         case SUMO_ATTR_MINGAP:
             minGap = parse<double>(value);
+            // mark parameter as set
+            parametersSet |= VTYPEPARS_MINGAP_SET;
             break;
         case SUMO_ATTR_MAXSPEED:
             maxSpeed = parse<double>(value);
+            // mark parameter as set
+            parametersSet |= VTYPEPARS_MAXSPEED_SET;
             break;
         case SUMO_ATTR_SPEEDFACTOR:
             speedFactor.getParameter()[0] = parse<double>(value);
+            // mark parameter as set
+            parametersSet |= VTYPEPARS_SPEEDFACTOR_SET;
             break;
         case SUMO_ATTR_SPEEDDEV:
             speedFactor.getParameter()[1] = parse<double>(value);
             break;
         case SUMO_ATTR_COLOR:
             color = parse<RGBColor>(value);
+            // mark parameter as set
+            parametersSet |= VTYPEPARS_COLOR_SET;
             break;
         case SUMO_ATTR_VCLASS:
             vehicleClass = getVehicleClassID(value);
+            // mark parameter as set
+            parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
             break;
         case SUMO_ATTR_EMISSIONCLASS:
             emissionClass = PollutantsInterface::getClassByName("value");
+            // mark parameter as set
+            parametersSet |= VTYPEPARS_EMISSIONCLASS_SET;
             break;
         case SUMO_ATTR_GUISHAPE:
             shape = getVehicleShapeID(value);
+            // mark parameter as set
+            parametersSet |= VTYPEPARS_SHAPE_SET;
             break;
         case SUMO_ATTR_WIDTH:
             width = parse<double>(value);
+            // mark parameter as set
+            parametersSet |= VTYPEPARS_WIDTH_SET;
             break;
         case SUMO_ATTR_IMGFILE:
             imgFile = value;
+            // mark parameter as set
+            parametersSet |= VTYPEPARS_IMGFILE_SET;
             break;
         case SUMO_ATTR_IMPATIENCE:
             impatience = parse<double>(value);
+            // mark parameter as set
+            parametersSet |= VTYPEPARS_IMPATIENCE_SET;
             break;
         case SUMO_ATTR_LANE_CHANGE_MODEL:
+            // mark parameter as set
+            parametersSet |= VTYPEPARS_LANE_CHANGE_MODEL_SET;
             break;
         case SUMO_ATTR_CAR_FOLLOW_MODEL:
+            // mark parameter as set
+            parametersSet |= VTYPEPARS_CAR_FOLLOW_MODEL;
             break;
         case SUMO_ATTR_PERSON_CAPACITY:
+            // mark parameter as set
+            parametersSet |= VTYPEPARS_PERSON_CAPACITY;
             break;
         case SUMO_ATTR_CONTAINER_CAPACITY:
             containerCapacity = parse<int>(value);
+            // mark parameter as set
+            parametersSet |= VTYPEPARS_CONTAINER_CAPACITY;
             break;
         case SUMO_ATTR_BOARDING_DURATION:
             boardingDuration = parse<int>(value);
+            // mark parameter as set
+            parametersSet |= VTYPEPARS_BOARDING_DURATION;
             break;
         case SUMO_ATTR_LOADING_DURATION:
             loadingDuration = parse<int>(value);
+            // mark parameter as set
+            parametersSet |= VTYPEPARS_LOADING_DURATION;
             break;
         case SUMO_ATTR_LATALIGNMENT:
             latAlignment = SUMOXMLDefinitions::LateralAlignments.get(value);
+            // mark parameter as set
+            parametersSet |= VTYPEPARS_LATALIGNMENT_SET;
             break;
         case SUMO_ATTR_MINGAP_LAT:
             minGapLat = parse<double>(value);
+            // mark parameter as set
+            parametersSet |= VTYPEPARS_MINGAP_LAT_SET;
             break;
         case SUMO_ATTR_MAXSPEED_LAT:
             maxSpeedLat = parse<double>(value);
+            // mark parameter as set
+            parametersSet |= VTYPEPARS_MAXSPEED_LAT_SET;
             break;
         case SUMO_ATTR_ACTIONSTEPLENGTH:
             actionStepLength = parse<int>(value);
@@ -494,6 +547,16 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
             setGenericParametersStr(value);
             break;
         default:
+            /*
+            // mark parameter as set
+            parametersSet |= VTYPEPARS_HASDRIVERSTATE_SET;
+            // mark parameter as set
+            parametersSet |= VTYPEPARS_PROBABILITY_SET;
+            // mark parameter as set
+            parametersSet |= VTYPEPARS_HEIGHT_SET;
+            // mark parameter as set
+            parametersSet |= VTYPEPARS_OSGFILE_SET;
+            */
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }

@@ -190,7 +190,9 @@ GNEVehicleTypeFrame::VehicleTypeEditor::hideVehicleTypeEditorModul() {
 void 
 GNEVehicleTypeFrame::VehicleTypeEditor::refreshVehicleTypeEditorModul() {
     // disable delete button if DEFAULT_VTYPE_ID is selected
-    if (myVehicleTypeFrameParent->myVehicleTypeSelector->getCurrentVehicleType()->getID() == DEFAULT_VTYPE_ID) {
+    if ((myVehicleTypeFrameParent->myVehicleTypeSelector->getCurrentVehicleType()->getID() == DEFAULT_VTYPE_ID) &&
+        (myVehicleTypeFrameParent->myVehicleTypeSelector->getCurrentVehicleType()->getID() == DEFAULT_PEDTYPE_ID) &&
+        (myVehicleTypeFrameParent->myVehicleTypeSelector->getCurrentVehicleType()->getID() == DEFAULT_BIKETYPE_ID)) {
         myDeleteVehicleTypeButton->disable();
     } else {
         myDeleteVehicleTypeButton->enable();

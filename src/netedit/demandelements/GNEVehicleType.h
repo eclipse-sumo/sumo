@@ -37,7 +37,7 @@
 class GNEVehicleType : public GNEDemandElement, public SUMOVTypeParameter {
 
 public:
-    /// @brief constructor
+    /// @brief constructor (Only used for default vehicle types)
     GNEVehicleType(GNEViewNet* viewNet, const std::string &vTypeID);
 
     /// @brief constructor
@@ -131,6 +131,13 @@ public:
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
     std::string getHierarchyName() const;
     /// @}
+
+protected:
+    /// @brief flag to check if this GNEVehicleType is a default vehicle Type (For Vehicles, Pedestrians...)
+    bool myDefaultVehicleType;
+
+    /// @brief flag to check if this default GNEVehicleType was modified
+    bool myDefaultVehicleTypeModified;
 
 private:
     /// @brief method for setting the attribute and nothing else
