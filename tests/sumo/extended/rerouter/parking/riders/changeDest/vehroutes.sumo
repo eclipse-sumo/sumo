@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jun 26 22:34:44 2018 by Eclipse SUMO Version 5ee8417
+<!-- generated on Wed Feb 27 10:01:43 2019 by Eclipse SUMO Version v1_1_0+0433-16c2ffa
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -18,6 +18,10 @@ SPDX-License-Identifier: EPL-2.0
         <write-license value="true"/>
         <vehroute-output value="vehroutes.xml"/>
     </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
 
     <report>
         <xml-validation value="never"/>
@@ -41,7 +45,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <vehicle id="ego" depart="triggered" arrivalPos="55.00" arrival="141.00">
         <routeDistribution>
-            <route replacedOnEdge="D0D1" reason="parkD" replacedAtTime="24.00" probability="0" edges="A0B0 B0C0 C0D0 D0D1"/>
+            <route replacedOnEdge="D0D1" reason="parkD:parkingAreaReroute" replacedAtTime="24.00" probability="0" edges="A0B0 B0C0 C0D0 D0D1"/>
             <route edges="A0B0 B0C0 C0D0 D0D1 D1D2"/>
         </routeDistribution>
         <stop parkingArea="parkD1D2" duration="100.00"/>
