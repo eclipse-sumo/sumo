@@ -46,7 +46,7 @@ public:
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] block movement enable or disable additional movement
      */
-    GNEBusStop(const std::string& id, GNELane* lane, GNEViewNet* viewNet, const std::string& startPos, const std::string& endPos, const std::string& name, const std::vector<std::string>& lines, bool friendlyPosition, bool blockMovement);
+    GNEBusStop(const std::string& id, GNELane* lane, GNEViewNet* viewNet, const std::string& startPos, const std::string& endPos, const std::string& name, const std::vector<std::string>& lines, int personCapacity, bool friendlyPosition, bool blockMovement);
 
     /// @brief Destructor
     ~GNEBusStop();
@@ -92,6 +92,9 @@ public:
 protected:
     /// @brief The list of lines that are assigned to this stop
     std::vector<std::string> myLines;
+
+    /// @brief maximum number of persons that can wait at this stop
+    int myPersonCapacity;
 
 private:
     /// @brief set attribute after validation

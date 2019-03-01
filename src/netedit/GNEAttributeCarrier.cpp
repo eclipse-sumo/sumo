@@ -1753,6 +1753,12 @@ GNEAttributeCarrier::fillAdditionals() {
             ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "Meant to be the names of the bus lines that stop at this bus stop. This is only used for visualization purposes");
         myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_PERSON_CAPACITY,
+            ATTRPROPERTY_INT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "Meant to be the names of the bus lines that stop at this bus stop. This is only used for visualization purposes",
+            "-1");
+        myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = SUMO_TAG_ACCESS;
     {
