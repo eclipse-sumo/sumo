@@ -214,6 +214,12 @@ public:
     void removeActiveAddVisualisation(GUISUMOAbstractView* const parent, int which);
     /// @}
 
+    /// @brief return the number of passengers
+    int getNumPassengers() const;
+
+    /// @brief return the number of passengers
+    int getNumContainers() const;
+
 
 
     /**
@@ -330,6 +336,10 @@ protected:
 
     /// @brief draw vehicle body and return whether carriages are being drawn
     bool drawAction_drawVehicleAsPolyWithCarriagges(const GUIVisualizationSettings& s, bool asImage=false) const;
+
+    /// @brief add seats to mySeatPositions and update requiredSeats
+    void computeSeats(const Position& front, const Position& back, int maxSeats, double exaggeration, int& requiredSeats) const;
+
 
 protected:
     /// The mutex used to avoid concurrent updates of the vehicle buffer

@@ -302,12 +302,6 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
     Position p1 = pos;
     const double degAngle = RAD2DEG(angle + M_PI / 2.);
     const double length = getVType().getLength();
-    // one seat in the center of the vehicle by default
-    if (myVehicle.getLane() != nullptr) {
-        mySeatPositions[0] = myVehicle.getPosition(-length / 2);
-    } else {
-        mySeatPositions[0] = p1;
-    }
     glTranslated(p1.x(), p1.y(), getType());
     glRotated(degAngle, 0, 0, 1);
     // set lane color
@@ -454,6 +448,15 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
         const double value = getColorValue(s.vehicleColorer.getActive());
         GLHelper::drawTextSettings(s.vehicleValue, toString(value), Position(0, 0), s.scale, s.angle);
     }
+
+    if (!drawCarriages) {
+        mySeatPositions.clear();
+        int requiredSeats = getNumPassengers() + getNumContainers();
+        const int totalSeats = getVType().getPersonCapacity() + getVType().getContainerCapacity();
+        const Position back = (p1 + Position(-length * upscaleLength, 0)).rotateAround2D(angle, p1);
+        computeSeats(p1, back, totalSeats, upscale, requiredSeats);
+    }
+
     glPopMatrix();
     glPopName();
     drawAction_drawPersonsAndContainers(s);
@@ -736,5 +739,49 @@ GUIBaseVehicle::drawAction_drawVehicleAsPolyWithCarriagges(const GUIVisualizatio
         return false;
     }
 }
+
+
+int
+GUIBaseVehicle::getNumPassengers() const {
+    if (myVehicle.getPersonDevice() != nullptr) {
+        return (int)myVehicle.getPersonDevice()->size();
+    }
+    return 0;
+}
+
+
+int
+GUIBaseVehicle::getNumContainers() const {
+    if (myVehicle.getContainerDevice() != nullptr) {
+        return (int)myVehicle.getContainerDevice()->size();
+    }
+    return 0;
+}
+
+
+void
+GUIBaseVehicle::computeSeats(const Position& front, const Position& back, int maxSeats, double exaggeration, int& requiredSeats) const {
+    if (requiredSeats <= 0) {
+        return; // save some work
+    }
+    const double vehWidth = getVType().getWidth() * exaggeration;
+    const double length = front.distanceTo2D(back);
+    const double seatOffset = 0.8 * exaggeration;
+    const int rowSize = floor(vehWidth / seatOffset);
+    const double rowOffset = (length - 1) / ceil(maxSeats / rowSize);
+    const double sideOffset = (rowSize - 1) / 2 * seatOffset;
+    double rowPos = 1 - rowOffset;
+    for (int i = 0; requiredSeats > 0 && i < maxSeats; i++) {
+        int seat = (i % rowSize);
+        if (seat == 0) {
+            rowPos += rowOffset;
+        }
+        mySeatPositions.push_back(PositionVector::positionAtOffset2D(front, back, rowPos, 
+                    seat * seatOffset - sideOffset));
+        requiredSeats--;
+    }
+}
+
+
 
 /****************************************************************************/

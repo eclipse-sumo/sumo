@@ -468,6 +468,14 @@ public:
         return myNumericalID;
     }
 
+    const MSDevice_Transportable* getPersonDevice() const {
+        return myPersonDevice;
+    }
+
+    const MSDevice_Transportable* getContainerDevice() const {
+        return myContainerDevice;
+    }
+
 protected:
     /** @brief (Re-)Calculates the arrival position and lane from the vehicle parameters
      */

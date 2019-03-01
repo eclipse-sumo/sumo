@@ -170,12 +170,6 @@ private:
      */
     MSLane* getPreviousLane(MSLane* current, int& routeIndex) const;
 
-    /// @brief return the number of passengers
-    int getNumPassengers() const;
-
-    /// @brief add seats to mySeatPositions and update requiredSeats
-    void computeSeats(const Position& front, const Position& back, int& requiredSeats) const;
-
     /// @brief retrieve information about the current stop state
     std::string getStopInfo() const;
 

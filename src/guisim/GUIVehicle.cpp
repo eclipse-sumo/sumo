@@ -301,6 +301,8 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
         carriageLengthWithGap = (length - locomotiveLength) / (numCarriages - 1);
         carriageLength = carriageLengthWithGap - carriageGap;
     }
+    const int totalSeats = getVType().getPersonCapacity() + getVType().getContainerCapacity();
+    const int seatsPerCarriage = (int)ceil(totalSeats / (numCarriages - firstPassengerCarriage));
     // lane on which the carriage front is situated
     MSLane* lane = myLane;
     int routeIndex = getRoutePosition();
@@ -311,7 +313,7 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
     double carriageOffset = myState.pos();
     double carriageBackOffset = myState.pos() - firstCarriageLength;
     // handle seats
-    int requiredSeats = getNumPassengers();
+    int requiredSeats = getNumPassengers() + getNumContainers();
     if (requiredSeats > 0) {
         mySeatPositions.clear();
     }
@@ -353,7 +355,7 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
         const double drawnCarriageLength = front.distanceTo2D(back);
         angle = atan2((front.x() - back.x()), (back.y() - front.y())) * (double) 180.0 / (double) M_PI;
         if (i >= firstPassengerCarriage) {
-            computeSeats(front, back, requiredSeats);
+            computeSeats(front, back, seatsPerCarriage, exaggeration, requiredSeats);
         }
         glPushMatrix();
         glTranslated(front.x(), front.y(), getType());
@@ -652,34 +654,6 @@ GUIVehicle::getPreviousLane(MSLane* current, int& routeIndex) const {
         }
     }
     return current;
-}
-
-
-int
-GUIVehicle::getNumPassengers() const {
-    if (myPersonDevice != nullptr) {
-        return (int)myPersonDevice->size();
-    }
-    return 0;
-}
-
-
-void
-GUIVehicle::computeSeats(const Position& front, const Position& back, int& requiredSeats) const {
-    if (requiredSeats <= 0) {
-        return; // save some work
-    }
-    const double length = front.distanceTo2D(back);
-    if (length < 4) {
-        // small vehicle, sit at the center
-        mySeatPositions.push_back(PositionVector::positionAtOffset2D(front, back, length / 2));
-        requiredSeats--;
-    } else {
-        for (double p = 2; p <= length - 1; p += 1) {
-            mySeatPositions.push_back(PositionVector::positionAtOffset2D(front, back, p));
-            requiredSeats--;
-        }
-    }
 }
 
 
