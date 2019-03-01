@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri May 13 13:08:46 2016 by SUMO Version dev-SVN-r20719
+<!-- generated on Fri Mar  1 09:56:28 2019 by Eclipse SUMO Version v1_1_0+0435-678c69824b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,11 +14,13 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <netstate-dump value="netstate_dump.xml"/>
     </output>
 
     <processing>
         <lateral-resolution value="0.8"/>
+        <default.speeddev value="0"/>
     </processing>
 
     <report>
@@ -27,7 +29,7 @@ SPDX-License-Identifier: EPL-2.0
     </report>
 
     <traci_server>
-        <remote-port value="45272"/>
+        <remote-port value="45997"/>
     </traci_server>
 
 </configuration>
@@ -45,14 +47,14 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="1.00">
         <edge id=":C_14">
             <lane id=":C_14_0">
-                <vehicle id="VTD_EGO" pos="1.05" speed="0.00" posLat="0.10"/>
+                <vehicle id="VTD_EGO" pos="1.05" speed="12.62" posLat="0.10"/>
             </lane>
         </edge>
     </timestep>
     <timestep time="2.00">
         <edge id=":C_6">
             <lane id=":C_6_0">
-                <vehicle id="VTD_EGO" pos="15.05" speed="0.00" posLat="-0.35"/>
+                <vehicle id="VTD_EGO" pos="15.05" speed="7.00" posLat="-0.35"/>
             </lane>
         </edge>
     </timestep>
@@ -60,7 +62,7 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="CW">
             <lane id="CW_0"/>
             <lane id="CW_1">
-                <vehicle id="VTD_EGO" pos="1.55" speed="2.60" posLat="0.00"/>
+                <vehicle id="VTD_EGO" pos="8.55" speed="9.60" posLat="0.00"/>
             </lane>
         </edge>
     </timestep>
@@ -68,7 +70,7 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="CW">
             <lane id="CW_0"/>
             <lane id="CW_1">
-                <vehicle id="VTD_EGO" pos="6.75" speed="5.20" posLat="0.00"/>
+                <vehicle id="VTD_EGO" pos="20.75" speed="12.20" posLat="0.00"/>
             </lane>
         </edge>
     </timestep>
@@ -76,7 +78,7 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="CW">
             <lane id="CW_0"/>
             <lane id="CW_1">
-                <vehicle id="VTD_EGO" pos="14.55" speed="7.80" posLat="0.00"/>
+                <vehicle id="VTD_EGO" pos="34.64" speed="13.89" posLat="0.00"/>
             </lane>
         </edge>
     </timestep>
@@ -84,7 +86,7 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="CW">
             <lane id="CW_0"/>
             <lane id="CW_1">
-                <vehicle id="VTD_EGO" pos="24.95" speed="10.40" posLat="0.00"/>
+                <vehicle id="VTD_EGO" pos="48.53" speed="13.89" posLat="0.00"/>
             </lane>
         </edge>
     </timestep>
@@ -92,7 +94,7 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="CW">
             <lane id="CW_0"/>
             <lane id="CW_1">
-                <vehicle id="VTD_EGO" pos="37.95" speed="13.00" posLat="0.00"/>
+                <vehicle id="VTD_EGO" pos="62.42" speed="13.89" posLat="0.00"/>
             </lane>
         </edge>
     </timestep>
@@ -100,7 +102,7 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="CW">
             <lane id="CW_0"/>
             <lane id="CW_1">
-                <vehicle id="VTD_EGO" pos="51.84" speed="13.89" posLat="0.00"/>
+                <vehicle id="VTD_EGO" pos="76.31" speed="13.89" posLat="0.00"/>
             </lane>
         </edge>
     </timestep>

@@ -1,0 +1,2 @@
+#Error while connecting: tcpip::Socket::connect() @ connect: Connection refused
+Warning: Vehicle 'veh0' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=6.00.
