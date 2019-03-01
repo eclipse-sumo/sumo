@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jan 30 19:41:23 2019 by Eclipse SUMO Version v1_1_0+0435-678c69824b
+<!-- generated on Fri Mar  1 09:19:29 2019 by Eclipse SUMO Version v1_1_0+0435-678c69824b
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -25,7 +25,7 @@
     </report>
 
     <traci_server>
-        <remote-port value="55301"/>
+        <remote-port value="33893"/>
     </traci_server>
 
     <gui_only>
@@ -45,7 +45,7 @@
         <stop lane="2fi_0" startPos="49.90" endPos="50.00" duration="1.00" parking="1"/>
     </vehicle>
 
-    <vehicle id="movedVeh" depart="125.00" arrival="134.00">
+    <vehicle id="movedVeh" depart="125.00" arrival="131.00">
         <routeDistribution>
             <route replacedOnEdge="1si" reason="traci:moveToXY" replacedAtTime="126.00" probability="0" edges="3fi 3si 4o"/>
             <route edges="3fi 3si 4o 1si"/>

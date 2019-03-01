@@ -63,7 +63,11 @@ def check(x, y, angle, exLane, exPos, exPosLat, comment):
           " lane=%s" % lane2,
           # " route=%s" % str(traci.vehicle.getRoute(vehID)),
           " right=%s, %s" % traci.vehicle.getLaneChangeStatePretty(vehID, -1),
-          " left=%s, %s" % traci.vehicle.getLaneChangeStatePretty(vehID,  1))
+          " left=%s, %s" % traci.vehicle.getLaneChangeStatePretty(vehID,  1),
+          " accel=%s" % traci.vehicle.getAcceleration(vehID),
+          " nextTLS=%s" % traci.vehicle.getNextTLS(vehID),
+          " leader=%s" % traci.vehicle.getLeader(vehID, 500),
+          )
 
 
 traci.start(cmd)

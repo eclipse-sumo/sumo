@@ -34,7 +34,7 @@ PORT = sumolib.miscutils.getFreeSocketPort()
 sumoProcess = subprocess.Popen([sumoBinary,
                                 '-n', 'input_net.net.xml',
                                 '--no-step-log',
-                                '-S', '-Q',
+                                #'-S', '-Q',
                                 '--remote-port', str(PORT)], stdout=sys.stdout)
 
 ANGLE_UNDEF = traci.constants.INVALID_DOUBLE_VALUE
