@@ -192,8 +192,10 @@ NLTriggerBuilder::parseAndBuildStoppingPlace(MSNet& net, const SUMOSAXAttributes
         throw InvalidArgument("Invalid position for " + toString(element) + " '" + id + "'.");
     }
     const std::vector<std::string>& lines = attrs.getOptStringVector(SUMO_ATTR_LINES, id.c_str(), ok, false);
+    const int defaultCapacity = MAX2((int)floor((topos - frompos) / SUMO_const_waitingPersonWidth) * 3, 6);
+    const int personCapacity = attrs.getOpt<int>(SUMO_ATTR_PERSON_CAPACITY, id.c_str(), ok, defaultCapacity);
     // build the bus stop
-    buildStoppingPlace(net, id, lines, lane, frompos, topos, element, ptStopName);
+    buildStoppingPlace(net, id, lines, lane, frompos, topos, element, ptStopName, personCapacity);
 }
 
 
@@ -422,8 +424,8 @@ NLTriggerBuilder::buildRerouter(MSNet&, const std::string& id,
 
 void
 NLTriggerBuilder::buildStoppingPlace(MSNet& net, std::string id, std::vector<std::string> lines, MSLane* lane,
-                                     double frompos, double topos, const SumoXMLTag element, std::string ptStopName) {
-    myCurrentStop = new MSStoppingPlace(id, lines, *lane, frompos, topos, ptStopName);
+                                     double frompos, double topos, const SumoXMLTag element, std::string ptStopName, int personCapacity) {
+    myCurrentStop = new MSStoppingPlace(id, lines, *lane, frompos, topos, ptStopName, personCapacity);
     if (!net.addStoppingPlace(element, myCurrentStop)) {
         delete myCurrentStop;
         myCurrentStop = nullptr;

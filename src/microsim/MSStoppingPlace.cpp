@@ -39,9 +39,13 @@
 MSStoppingPlace::MSStoppingPlace(const std::string& id,
                                  const std::vector<std::string>& lines,
                                  MSLane& lane,
-                                 double begPos, double endPos, const std::string name)
-    : Named(id), myLines(lines), myLane(lane),
-      myBegPos(begPos), myEndPos(endPos), myLastFreePos(endPos), myWaitingPos(endPos), myName(name) {
+                                 double begPos, double endPos, const std::string name,
+                                 int capacity) : 
+    Named(id), myLines(lines), myLane(lane),
+    myBegPos(begPos), myEndPos(endPos), myLastFreePos(endPos), myWaitingPos(endPos), 
+    myName(name),
+    myTransportableCapacity(capacity)
+{
     computeLastFreePos();
 }
 

@@ -54,8 +54,8 @@
 // method definitions
 // ===========================================================================
 GUIBusStop::GUIBusStop(const std::string& id, const std::vector<std::string>& lines, MSLane& lane,
-                       double frompos, double topos, const std::string name) :
-    MSStoppingPlace(id, lines, lane, frompos, topos, name),
+                       double frompos, double topos, const std::string name, int personCapacity) :
+    MSStoppingPlace(id, lines, lane, frompos, topos, name, personCapacity),
     GUIGlObject_AbstractAdd(GLO_BUS_STOP, id) {
     const double offsetSign = MSNet::getInstance()->lefthand() ? -1 : 1;
     myFGShape = lane.getShape();
@@ -119,6 +119,7 @@ GUIBusStop::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("name", false, getMyName());
     ret->mkItem("begin position [m]", false, myBegPos);
     ret->mkItem("end position [m]", false, myEndPos);
+    ret->mkItem("person capacity [#]", false, myTransportableCapacity);
     ret->mkItem("person number [#]", true, new FunctionBinding<GUIBusStop, int>(this, &MSStoppingPlace::getTransportableNumber));
     ret->mkItem("stopped vehicles[#]", true, new FunctionBinding<GUIBusStop, int>(this, &MSStoppingPlace::getStoppedVehicleNumber));
     ret->mkItem("last free pos[m]", true, new FunctionBinding<GUIBusStop, double>(this, &MSStoppingPlace::getLastFreePos));

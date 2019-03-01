@@ -70,7 +70,9 @@ public:
      */
     MSStoppingPlace(const std::string& id,
                     const std::vector<std::string>& lines, MSLane& lane,
-                    double begPos, double endPos, const std::string name = "");
+                    double begPos, double endPos, const std::string name = "", 
+                    int capacity = std::numeric_limits<int>::max());
+
 
 
     /// @brief Destructor
@@ -224,6 +226,9 @@ protected:
 
     /// @brief The name of the stopping place
     const std::string myName;
+
+    /// @brief The number of transportables that can wait here
+    const int myTransportableCapacity;
 public:
     const std::string& getMyName() const;
 protected:

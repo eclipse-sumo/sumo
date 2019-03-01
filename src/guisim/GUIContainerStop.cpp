@@ -52,9 +52,10 @@
 // method definitions
 // ===========================================================================
 GUIContainerStop::GUIContainerStop(const std::string& id, const std::vector<std::string>& lines, MSLane& lane,
-                                   double frompos, double topos)
-    : MSStoppingPlace(id, lines, lane, frompos, topos),
-      GUIGlObject_AbstractAdd(GLO_CONTAINER_STOP, id) {
+                                   double frompos, double topos, const std::string& name, int containerCapacity) : 
+    MSStoppingPlace(id, lines, lane, frompos, topos, name, containerCapacity),
+    GUIGlObject_AbstractAdd(GLO_CONTAINER_STOP, id) 
+{
     const double offsetSign = MSNet::getInstance()->lefthand() ? -1 : 1;
     myFGShape = lane.getShape();
     myFGShape.move2side(1.65 * offsetSign);

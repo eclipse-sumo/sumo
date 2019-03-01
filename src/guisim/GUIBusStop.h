@@ -72,7 +72,7 @@ public:
      */
     GUIBusStop(const std::string& id,
                const std::vector<std::string>& lines, MSLane& lane,
-               double frompos, double topos, const std::string name);
+               double frompos, double topos, const std::string name, int personCapacity);
 
 
     /// @brief Destructor
