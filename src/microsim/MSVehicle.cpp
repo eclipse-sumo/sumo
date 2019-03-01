@@ -845,8 +845,13 @@ MSVehicle::Influencer::implicitSpeedRemote(const MSVehicle* veh, double oldSpeed
         }
     }
     //std::cout << SIMTIME << " veh=" << veh->getID() << " oldPos=" << veh->getPosition() << " traciPos=" << myRemoteXYPos << " dist=" << dist << "\n";
-    const double minSpeed = veh->getCarFollowModel().minNextSpeedEmergency(oldSpeed, veh);
-    const double maxSpeed = veh->getLane() != nullptr ? veh->getLane()->getVehicleMaxSpeed(veh) : veh->getVehicleType().getMaxSpeed();
+    const double minSpeed = myConsiderMaxDeceleration ?
+        veh->getCarFollowModel().minNextSpeedEmergency(oldSpeed, veh) : 0;
+    const double maxSpeed = (myRemoteLane != nullptr
+        ? myRemoteLane->getVehicleMaxSpeed(veh)
+        : (veh->getLane() != nullptr
+                ? veh->getLane()->getVehicleMaxSpeed(veh)
+                : veh->getVehicleType().getMaxSpeed()));
     return MIN2(maxSpeed, MAX2(minSpeed, DIST2SPEED(dist)));
 }
 
