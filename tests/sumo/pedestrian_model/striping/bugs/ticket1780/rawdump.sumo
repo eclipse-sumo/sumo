@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Nov  9 16:57:49 2017 by SUMO Version v0_31_0-889-g053ce4c
+<!-- generated on Fri Mar  1 20:04:20 2019 by Eclipse SUMO Version v1_1_0+0435-678c69824b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,10 +15,12 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <netstate-dump value="rawdump.xml"/>
     </output>
 
     <processing>
+        <default.speeddev value="0"/>
         <pedestrian.model value="striping"/>
         <pedestrian.striping.dawdling value="0"/>
     </processing>
@@ -54,7 +56,7 @@ SPDX-License-Identifier: EPL-2.0
     </timestep>
     <timestep time="4.00">
         <edge id="SC">
-            <person id="visitor2" pos="9.79" angle="270.00" stage="waiting for dummy"/>
+            <person id="visitor2" pos="9.60" angle="270.00" stage="waiting for dummy"/>
         </edge>
     </timestep>
 </netstate>
