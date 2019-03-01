@@ -42,7 +42,8 @@
 // ===========================================================================
 
 FXDEFMAP(GNEVehicleTypeDialog::VTypeCommonAtributes) VTypeCommonAtributesMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEVehicleTypeDialog::VTypeCommonAtributes::onCmdSetVariable),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEVehicleTypeDialog::VTypeCommonAtributes::onCmdSetVariable),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNEVehicleTypeDialog::VTypeCommonAtributes::onCmdSetColor)
 };
 
 FXDEFMAP(GNEVehicleTypeDialog::CarFollowingModelParameters) CarFollowingModelParametersMap[] = {
@@ -365,8 +366,10 @@ GNEVehicleTypeDialog::VTypeCommonAtributes::buildCommonAttributesA(FXVerticalFra
     // 02 create FXTextField and Label for vehicleTypeID
     myTextFieldVehicleTypeID = buildRowFloat(column, SUMO_ATTR_ID);
 
-    // 03 create FXTextField and Label for Color
-    myTextFieldColor = buildRowString(column, SUMO_ATTR_COLOR);
+    // 03 create FXTextField and Button for Color
+    FXHorizontalFrame* row = new FXHorizontalFrame(column, GUIDesignAuxiliarHorizontalFrame);
+    myButtonColor = new FXButton(row, toString(SUMO_ATTR_COLOR).c_str(), nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonRectangular150x23);
+    myTextFieldColor = new FXTextField(row, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFielWidth180);
 
     // 04 create FXTextField and Label for Length
     myTextFieldLength = buildRowFloat(column, SUMO_ATTR_LENGTH);
@@ -660,6 +663,32 @@ GNEVehicleTypeDialog::VTypeCommonAtributes::onCmdSetVariable(FXObject*, FXSelect
         myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_MAXSPEED_LAT;
     }
     return true;
+}
+
+
+long 
+GNEVehicleTypeDialog::VTypeCommonAtributes::onCmdSetColor(FXObject*, FXSelector, void*) {
+    // create FXColorDialog
+    FXColorDialog colordialog(this, tr("Color Dialog"));
+    colordialog.setTarget(this);
+    // If previous attribute wasn't correct, set black as default color
+    if (GNEAttributeCarrier::canParse<RGBColor>(myTextFieldColor->getText().text())) {
+        colordialog.setRGBA(MFXUtils::getFXColor(RGBColor::parseColor(myTextFieldColor->getText().text())));
+    } else {
+        colordialog.setRGBA(MFXUtils::getFXColor(RGBColor::BLACK));
+    }
+    // execute dialog to get a new color
+    if (colordialog.execute()) {
+        std::string newValue = toString(MFXUtils::getRGBColor(colordialog.getRGBA()));
+        myTextFieldColor->setText(newValue.c_str());
+        if (myVehicleTypeDialog->myEditedDemandElement->isValid(SUMO_ATTR_COLOR, newValue)) {
+            myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_COLOR, newValue, myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
+            // If previously value was incorrect, change font color to black
+            myTextFieldColor->setTextColor(FXRGB(0, 0, 0));
+            myTextFieldColor->killFocus();
+        }
+    }
+    return 1;
 }
 
 

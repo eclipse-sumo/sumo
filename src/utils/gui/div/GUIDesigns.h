@@ -80,6 +80,9 @@
 /// @brief button rectangular with thick and raise frame with a size of 100x23
 #define GUIDesignButtonRectangular100x23    (FRAME_THICK | FRAME_RAISED | ICON_BEFORE_TEXT | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 100, 23, 2, 2, 2, 2
 
+/// @brief button rectangular with thick and raise frame with a size of 150x23
+#define GUIDesignButtonRectangular150x23    (FRAME_THICK | FRAME_RAISED | ICON_BEFORE_TEXT | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 150, 23, 2, 2, 2, 2
+
 /// @}
 
 
@@ -128,9 +131,6 @@
 
 /// @brief checkButton without thick extended over the frame used for attributes
 #define GUIDesignCheckButtonAttribute       (CHECKBUTTON_NORMAL | JUSTIFY_CENTER_Y | LAYOUT_FIX_HEIGHT | JUSTIFY_LEFT), 0, 0, 0, 23, 2, 2, 2, 2
-
-/// @brief checkButton with thick extended over the frame used for attributes
-#define GUIDesignCheckButtonAttributeLabel  (CHECKBUTTON_NORMAL | JUSTIFY_CENTER_Y | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | JUSTIFY_LEFT | FRAME_THICK), 0, 0, 100, 23, 2, 2, 2, 2
 
 /// @brief checkButton placed in left position
 #define GUIDesignCheckButtonLeft            (CHECKBUTTON_NORMAL | JUSTIFY_CENTER_Y | LAYOUT_FIX_HEIGHT | JUSTIFY_LEFT), 0, 0, 0, 23, 2, 2, 2, 2

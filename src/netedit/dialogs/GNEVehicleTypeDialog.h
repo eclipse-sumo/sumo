@@ -119,8 +119,11 @@ public:
 
         /// @name FOX-callbacks
         /// @{
-        /// @event called after change a CFM variable
+        /// @event called after change a Vehicle Type parameter
         long onCmdSetVariable(FXObject*, FXSelector, void*);
+
+        /// @event called after change a Vehicle Type color
+        long onCmdSetColor(FXObject*, FXSelector, void*);
         /// @}
 
     protected:
@@ -141,6 +144,9 @@ public:
 
         /// @brief vehicle class row
         VClassRow* myVClassRow;
+
+        /// @brief FXButton for Color
+        FXButton* myButtonColor;
 
         /// @brief FXTextfield for Color
         FXTextField* myTextFieldColor;
