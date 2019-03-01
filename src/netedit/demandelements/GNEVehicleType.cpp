@@ -154,13 +154,16 @@ GNEVehicleType::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getDemandElementID();
-        // CFM Values
+        /// @brief CFM Values
+        /// @{
         case SUMO_ATTR_ACCEL:
         case SUMO_ATTR_DECEL:
         case SUMO_ATTR_APPARENTDECEL:
         case SUMO_ATTR_EMERGENCYDECEL:
         case SUMO_ATTR_SIGMA:
         case SUMO_ATTR_TAU:
+            // this CFM has default values
+            return getCFParamString(key, myTagProperty.getDefaultValue(key));
         case SUMO_ATTR_COLLISION_MINGAP_FACTOR:
         case SUMO_ATTR_TMP1:
         case SUMO_ATTR_TMP2:
@@ -178,8 +181,8 @@ GNEVehicleType::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_CF_KERNER_PHI:
         case SUMO_ATTR_CF_IDM_DELTA:
         case SUMO_ATTR_CF_IDM_STEPPING:
-            return getCFParamString(key, "0");
-        //
+            return getCFParamString(key, "");
+        /// @}
         case SUMO_ATTR_LENGTH:
             return toString(length);
         case SUMO_ATTR_MINGAP:
@@ -228,18 +231,22 @@ GNEVehicleType::getAttribute(SumoXMLAttr key) const {
             return getGenericParametersStr();
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+            /*
+            VTYPEPARS_PROBABILITY_SET
+            VTYPEPARS_HASDRIVERSTATE_SET
+            VTYPEPARS_HEIGHT_SET;
+            VTYPEPARS_OSGFILE_SET;
+            */
     }
 }
 
 
 void
 GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
-    if (value == getAttribute(key)) {
-        return; //avoid needless changes, later logic relies on the fact that attributes have changed
-    }
     switch (key) {
         case SUMO_ATTR_ID:
-        // CFM
+        /// @brief CFM Values
+        /// @{
         case SUMO_ATTR_ACCEL:
         case SUMO_ATTR_DECEL:
         case SUMO_ATTR_APPARENTDECEL:
@@ -263,7 +270,7 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
         case SUMO_ATTR_CF_KERNER_PHI:
         case SUMO_ATTR_CF_IDM_DELTA:
         case SUMO_ATTR_CF_IDM_STEPPING:
-        //
+        /// @}
         case SUMO_ATTR_LENGTH:
         case SUMO_ATTR_MINGAP:
         case SUMO_ATTR_MAXSPEED:
@@ -300,7 +307,8 @@ GNEVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             return isValidDemandElementID(value);
-        // CFM parameters
+        /// @brief CFM Values
+        /// @{
         case SUMO_ATTR_SIGMA:
             return canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) <= 1);
         case SUMO_ATTR_ACCEL:
@@ -320,14 +328,15 @@ GNEVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_CF_IDMM_ADAPT_TIME:
         case SUMO_ATTR_CF_WIEDEMANN_SECURITY:
         case SUMO_ATTR_CF_WIEDEMANN_ESTIMATION:
-        case SUMO_ATTR_TRAIN_TYPE:
         case SUMO_ATTR_K:
         case SUMO_ATTR_CF_KERNER_PHI:
         case SUMO_ATTR_CF_IDM_DELTA:
         case SUMO_ATTR_CF_IDM_STEPPING:
             return canParse<double>(value);
             // rail string
-        //
+        case SUMO_ATTR_TRAIN_TYPE:
+            return SUMOXMLDefinitions::TrainTypes.hasString(value);
+        /// @}
         case SUMO_ATTR_LENGTH:
             return canParse<double>(value) && (parse<double>(value) > 0);
         case SUMO_ATTR_MINGAP:
@@ -346,7 +355,13 @@ GNEVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
             /** check **/
             return true;
         case SUMO_ATTR_GUISHAPE:
-            return canParseVehicleShape(value);
+            if (value == "all") {
+                return false;
+            } else if (value.empty()) {
+                return true;
+            } else {
+                return canParseVehicleShape(value);
+            }
         case SUMO_ATTR_WIDTH:
             return canParse<double>(value);
         case SUMO_ATTR_IMGFILE:
@@ -354,7 +369,11 @@ GNEVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_IMPATIENCE:
             return canParse<double>(value);
         case SUMO_ATTR_LANE_CHANGE_MODEL:
-            return SUMOXMLDefinitions::LaneChangeModels.hasString(value);
+            if (!value.empty()) {
+                return SUMOXMLDefinitions::LaneChangeModels.hasString(value);
+            } else {
+                return true;
+            }
         case SUMO_ATTR_CAR_FOLLOW_MODEL:
             return SUMOXMLDefinitions::CarFollowModels.hasString(value);
         case SUMO_ATTR_PERSON_CAPACITY:
@@ -413,7 +432,8 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             changeDemandElementID(value);
             break;
-        // CFM
+        /// @brief CFM Values
+        /// @{
         case SUMO_ATTR_ACCEL:
         case SUMO_ATTR_DECEL:
         case SUMO_ATTR_APPARENTDECEL:
@@ -437,111 +457,278 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_CF_KERNER_PHI:
         case SUMO_ATTR_CF_IDM_DELTA:
         case SUMO_ATTR_CF_IDM_STEPPING:
-            cfParameter[key] = value;
+            // empty values means that value isnt't set
+            if (value.empty()) {
+                const auto it = cfParameter.find(key);
+                if (it != cfParameter.end()) {
+                    cfParameter.erase(it);
+                }
+            } else {
+                cfParameter[key] = value;
+            }
             break;
-        //
+        /// @}
         case SUMO_ATTR_LENGTH:
-            length = parse<double>(value);
-            // mark parameter as set
-            parametersSet |= VTYPEPARS_LENGTH_SET;
+            if (!value.empty()) {
+                length = parse<double>(value);
+                // mark parameter as set
+                parametersSet |= VTYPEPARS_LENGTH_SET;
+            } else {
+                // set default value
+                length = parse<double>(myTagProperty.getDefaultValue(key));
+                // unset parameter
+                parametersSet ^= VTYPEPARS_LENGTH_SET;
+            }                
             break;
         case SUMO_ATTR_MINGAP:
-            minGap = parse<double>(value);
-            // mark parameter as set
-            parametersSet |= VTYPEPARS_MINGAP_SET;
+            if (!value.empty()) {
+                minGap = parse<double>(value);
+                // mark parameter as set
+                parametersSet |= VTYPEPARS_MINGAP_SET;
+            } else {
+                // set default value
+                minGap = parse<double>(myTagProperty.getDefaultValue(key));
+                // unset parameter
+                parametersSet ^= VTYPEPARS_MINGAP_SET;
+            }                
             break;
         case SUMO_ATTR_MAXSPEED:
-            maxSpeed = parse<double>(value);
-            // mark parameter as set
-            parametersSet |= VTYPEPARS_MAXSPEED_SET;
+            if (!value.empty()) {
+                maxSpeed = parse<double>(value);
+                // mark parameter as set
+                parametersSet |= VTYPEPARS_MAXSPEED_SET;
+            } else {
+                // set default value
+                maxSpeed = parse<double>(myTagProperty.getDefaultValue(key));
+                // unset parameter
+                parametersSet ^= VTYPEPARS_MAXSPEED_SET;
+            }                
             break;
         case SUMO_ATTR_SPEEDFACTOR:
-            speedFactor.getParameter()[0] = parse<double>(value);
-            // mark parameter as set
-            parametersSet |= VTYPEPARS_SPEEDFACTOR_SET;
+            if (!value.empty()) {
+                speedFactor.getParameter()[0] = parse<double>(value);
+                // mark parameter as set
+                parametersSet |= VTYPEPARS_SPEEDFACTOR_SET;
+            } else {
+                // set default value
+                speedFactor.getParameter()[0] = parse<double>(myTagProperty.getDefaultValue(key));
+                // unset parameter
+                parametersSet ^= VTYPEPARS_SPEEDFACTOR_SET;
+            }                
             break;
         case SUMO_ATTR_SPEEDDEV:
-            speedFactor.getParameter()[1] = parse<double>(value);
+            if (!value.empty()) {
+                speedFactor.getParameter()[1] = parse<double>(value);
+            } else {
+                // set default value
+                speedFactor.getParameter()[1] = parse<double>(myTagProperty.getDefaultValue(key));
+                // unset parameter
+                parametersSet ^= VTYPEPARS_SPEEDFACTOR_SET;
+            }                
             break;
         case SUMO_ATTR_COLOR:
-            color = parse<RGBColor>(value);
-            // mark parameter as set
-            parametersSet |= VTYPEPARS_COLOR_SET;
+            if (!value.empty()) {
+                color = parse<RGBColor>(value);
+                // mark parameter as set
+                parametersSet |= VTYPEPARS_COLOR_SET;
+            } else {
+                // set default value
+                color = parse<RGBColor>(myTagProperty.getDefaultValue(key));
+                // unset parameter
+                parametersSet ^= VTYPEPARS_COLOR_SET;
+            }                
             break;
         case SUMO_ATTR_VCLASS:
-            vehicleClass = getVehicleClassID(value);
-            // mark parameter as set
-            parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
+            if (!value.empty()) {
+                vehicleClass = getVehicleClassID(value);
+                // mark parameter as set
+                parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
+            } else {
+                // set default value
+                vehicleClass = getVehicleClassID(myTagProperty.getDefaultValue(key));
+                // unset parameter
+                parametersSet ^= VTYPEPARS_VEHICLECLASS_SET;
+            }                
             break;
         case SUMO_ATTR_EMISSIONCLASS:
-            emissionClass = PollutantsInterface::getClassByName("value");
-            // mark parameter as set
-            parametersSet |= VTYPEPARS_EMISSIONCLASS_SET;
+            if (!value.empty()) {
+                emissionClass = PollutantsInterface::getClassByName(value);
+                // mark parameter as set
+                parametersSet |= VTYPEPARS_EMISSIONCLASS_SET;
+            } else {
+                // set default value
+                emissionClass = PollutantsInterface::getClassByName(myTagProperty.getDefaultValue(key));
+                // unset parameter
+                parametersSet ^= VTYPEPARS_EMISSIONCLASS_SET;
+            }                
             break;
         case SUMO_ATTR_GUISHAPE:
-            shape = getVehicleShapeID(value);
-            // mark parameter as set
-            parametersSet |= VTYPEPARS_SHAPE_SET;
+            if (!value.empty()) {
+                shape = getVehicleShapeID(value);
+                // mark parameter as set
+                parametersSet |= VTYPEPARS_SHAPE_SET;
+            } else {
+                // set default value
+                shape = getVehicleShapeID(myTagProperty.getDefaultValue(key));
+                // unset parameter
+                parametersSet ^= VTYPEPARS_SHAPE_SET;
+            }                
             break;
         case SUMO_ATTR_WIDTH:
-            width = parse<double>(value);
-            // mark parameter as set
-            parametersSet |= VTYPEPARS_WIDTH_SET;
+            if (!value.empty()) {
+                width = parse<double>(value);
+                // mark parameter as set
+                parametersSet |= VTYPEPARS_WIDTH_SET;
+            } else {
+                // set default value
+                width = parse<double>(myTagProperty.getDefaultValue(key));
+                // unset parameter
+                parametersSet ^= VTYPEPARS_WIDTH_SET;
+            }                
             break;
         case SUMO_ATTR_IMGFILE:
-            imgFile = value;
-            // mark parameter as set
-            parametersSet |= VTYPEPARS_IMGFILE_SET;
+            if (!value.empty()) {
+                imgFile = value;
+                // mark parameter as set
+                parametersSet |= VTYPEPARS_IMGFILE_SET;
+            } else {
+                // set default value
+                imgFile = myTagProperty.getDefaultValue(key);
+                // unset parameter
+                parametersSet ^= VTYPEPARS_IMGFILE_SET;
+            }                
             break;
         case SUMO_ATTR_IMPATIENCE:
-            impatience = parse<double>(value);
-            // mark parameter as set
-            parametersSet |= VTYPEPARS_IMPATIENCE_SET;
+            if (!value.empty()) {
+                impatience = parse<double>(value);
+                // mark parameter as set
+                parametersSet |= VTYPEPARS_IMPATIENCE_SET;
+            } else {
+                // set default value
+                impatience = parse<double>(myTagProperty.getDefaultValue(key));
+                // unset parameter
+                parametersSet ^= VTYPEPARS_IMPATIENCE_SET;
+            }                
             break;
         case SUMO_ATTR_LANE_CHANGE_MODEL:
-            // mark parameter as set
-            parametersSet |= VTYPEPARS_LANE_CHANGE_MODEL_SET;
+            if (!value.empty()) {
+                lcModel = SUMOXMLDefinitions::LaneChangeModels.get(value);
+                // mark parameter as set
+                parametersSet |= VTYPEPARS_LANE_CHANGE_MODEL_SET;
+            } else {
+                // set default value
+                lcModel = SUMOXMLDefinitions::LaneChangeModels.get(myTagProperty.getDefaultValue(key));
+                // unset parameter
+                parametersSet ^= VTYPEPARS_LANE_CHANGE_MODEL_SET;
+            }                
             break;
         case SUMO_ATTR_CAR_FOLLOW_MODEL:
-            // mark parameter as set
-            parametersSet |= VTYPEPARS_CAR_FOLLOW_MODEL;
+            if (!value.empty()) {
+                cfModel = SUMOXMLDefinitions::CarFollowModels.get(value);
+                // mark parameter as set
+                parametersSet |= VTYPEPARS_CAR_FOLLOW_MODEL;
+            } else {
+                // set default value
+                cfModel = SUMOXMLDefinitions::CarFollowModels.get(myTagProperty.getDefaultValue(key));
+                // unset parameter
+                parametersSet ^= VTYPEPARS_CAR_FOLLOW_MODEL;
+            }                
             break;
         case SUMO_ATTR_PERSON_CAPACITY:
-            // mark parameter as set
-            parametersSet |= VTYPEPARS_PERSON_CAPACITY;
+            if (!value.empty()) {
+                personCapacity = parse<int>(value);
+                // mark parameter as set
+                parametersSet |= VTYPEPARS_PERSON_CAPACITY;
+            } else {
+                // set default value
+                personCapacity = parse<int>(myTagProperty.getDefaultValue(key));
+                // unset parameter
+                parametersSet ^= VTYPEPARS_PERSON_CAPACITY;
+            }                
             break;
         case SUMO_ATTR_CONTAINER_CAPACITY:
-            containerCapacity = parse<int>(value);
-            // mark parameter as set
-            parametersSet |= VTYPEPARS_CONTAINER_CAPACITY;
+            if (!value.empty()) {
+                containerCapacity = parse<int>(value);
+                // mark parameter as set
+                parametersSet |= VTYPEPARS_CONTAINER_CAPACITY;
+            } else {
+                // set default value
+                containerCapacity = parse<int>(myTagProperty.getDefaultValue(key));
+                // unset parameter
+                parametersSet ^= VTYPEPARS_CONTAINER_CAPACITY;
+            }                
             break;
         case SUMO_ATTR_BOARDING_DURATION:
-            boardingDuration = parse<int>(value);
-            // mark parameter as set
-            parametersSet |= VTYPEPARS_BOARDING_DURATION;
+            if (!value.empty()) {
+                boardingDuration = parse<int>(value);
+                // mark parameter as set
+                parametersSet |= VTYPEPARS_BOARDING_DURATION;
+            } else {
+                // set default value
+                boardingDuration = parse<int>(myTagProperty.getDefaultValue(key));
+                // unset parameter
+                parametersSet ^= VTYPEPARS_BOARDING_DURATION;
+            }                
             break;
         case SUMO_ATTR_LOADING_DURATION:
-            loadingDuration = parse<int>(value);
-            // mark parameter as set
-            parametersSet |= VTYPEPARS_LOADING_DURATION;
+            if (!value.empty()) {
+                loadingDuration = parse<int>(value);
+                // mark parameter as set
+                parametersSet |= VTYPEPARS_LOADING_DURATION;
+            } else {
+                // set default value
+                loadingDuration = parse<int>(myTagProperty.getDefaultValue(key));
+                // unset parameter
+                parametersSet ^= VTYPEPARS_LOADING_DURATION;
+            }                
             break;
         case SUMO_ATTR_LATALIGNMENT:
-            latAlignment = SUMOXMLDefinitions::LateralAlignments.get(value);
-            // mark parameter as set
-            parametersSet |= VTYPEPARS_LATALIGNMENT_SET;
+            if (!value.empty()) {
+                latAlignment = SUMOXMLDefinitions::LateralAlignments.get(value);
+                // mark parameter as set
+                parametersSet |= VTYPEPARS_LATALIGNMENT_SET;
+            } else {
+                // set default value
+                latAlignment = SUMOXMLDefinitions::LateralAlignments.get(myTagProperty.getDefaultValue(key));
+                // unset parameter
+                parametersSet ^= VTYPEPARS_LATALIGNMENT_SET;
+            }                
             break;
         case SUMO_ATTR_MINGAP_LAT:
-            minGapLat = parse<double>(value);
-            // mark parameter as set
-            parametersSet |= VTYPEPARS_MINGAP_LAT_SET;
+            if (!value.empty()) {
+                minGapLat = parse<double>(value);
+                // mark parameter as set
+                parametersSet |= VTYPEPARS_MINGAP_LAT_SET;
+            } else {
+                // set default value
+                minGapLat = parse<double>(myTagProperty.getDefaultValue(key));
+                // unset parameter
+                parametersSet ^= VTYPEPARS_MINGAP_LAT_SET;
+            }                
             break;
         case SUMO_ATTR_MAXSPEED_LAT:
-            maxSpeedLat = parse<double>(value);
-            // mark parameter as set
-            parametersSet |= VTYPEPARS_MAXSPEED_LAT_SET;
+            if (!value.empty()) {
+                maxSpeedLat = parse<double>(value);
+                // mark parameter as set
+                parametersSet |= VTYPEPARS_MAXSPEED_LAT_SET;
+            } else {
+                // set default value
+                maxSpeedLat = parse<double>(myTagProperty.getDefaultValue(key));
+                // unset parameter
+                parametersSet ^= VTYPEPARS_MAXSPEED_LAT_SET;
+            }                
             break;
         case SUMO_ATTR_ACTIONSTEPLENGTH:
-            actionStepLength = parse<int>(value);
+            if (!value.empty()) {
+                actionStepLength = parse<int>(value);
+                // mark parameter as set
+                parametersSet |= VTYPEPARS_ACTIONSTEPLENGTH_SET;
+            } else {
+                // set default value
+                actionStepLength = parse<int>(myTagProperty.getDefaultValue(key));
+                // unset parameter
+                parametersSet ^= VTYPEPARS_ACTIONSTEPLENGTH_SET;
+            }                
             break;
         case GNE_ATTR_GENERIC:
             setGenericParametersStr(value);

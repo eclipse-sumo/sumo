@@ -3141,7 +3141,7 @@ GNEAttributeCarrier::fillDemandElements() {
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_RANGE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "Car-following model parameter",
             "0.50");
-                attrProperty.setRange(0, 1);
+            attrProperty.setRange(0, 1);
         myTagProperties[currentTag].addAttribute(attrProperty);
         
         attrProperty = AttributeProperties(SUMO_ATTR_TAU,
@@ -3184,13 +3184,13 @@ GNEAttributeCarrier::fillDemandElements() {
             ATTRPROPERTY_STRING | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_EXTENDED,
             "An abstract emission class",
             "PC_G_EU4");
-                attrProperty.setDiscreteValues(emissions);
+            attrProperty.setDiscreteValues(emissions);
         myTagProperties[currentTag].addAttribute(attrProperty);
         
         attrProperty = AttributeProperties(SUMO_ATTR_GUISHAPE,
             ATTRPROPERTY_STRING | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_EXTENDED,
             "How this vehicle is rendered");
-                attrProperty.setDiscreteValues(SumoVehicleShapeStrings.getStrings());
+            attrProperty.setDiscreteValues(SumoVehicleShapeStrings.getStrings());
         myTagProperties[currentTag].addAttribute(attrProperty);
         
         attrProperty = AttributeProperties(SUMO_ATTR_WIDTH,
@@ -3213,15 +3213,15 @@ GNEAttributeCarrier::fillDemandElements() {
         attrProperty = AttributeProperties(SUMO_ATTR_LANE_CHANGE_MODEL,
             ATTRPROPERTY_STRING | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_EXTENDED,
             "The model used for changing lanes",
-            "LC2013");
-                attrProperty.setDiscreteValues(SUMOXMLDefinitions::LaneChangeModels.getStrings());
+            "default");
+            attrProperty.setDiscreteValues(SUMOXMLDefinitions::LaneChangeModels.getStrings());
         myTagProperties[currentTag].addAttribute(attrProperty);
         
         attrProperty = AttributeProperties(SUMO_ATTR_CAR_FOLLOW_MODEL,
             ATTRPROPERTY_STRING | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_EXTENDED,
             "The model used for car following",
             "Krauss");
-                attrProperty.setDiscreteValues(SUMOXMLDefinitions::CarFollowModels.getStrings());
+            attrProperty.setDiscreteValues(SUMOXMLDefinitions::CarFollowModels.getStrings());
         myTagProperties[currentTag].addAttribute(attrProperty);
         
         attrProperty = AttributeProperties(SUMO_ATTR_PERSON_CAPACITY,
