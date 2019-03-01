@@ -382,8 +382,8 @@ MSPerson::MSPersonStage_Driving::proceed(MSNet* net, MSTransportable* person, SU
     if (previous->getDestinationStop() != nullptr) {
         // the arrival stop may have an access point
         myWaitingEdge = &previous->getDestinationStop()->getLane().getEdge();
-        myStopWaitPos = previous->getDestinationStop()->getWaitPosition();
-        myWaitingPos = previous->getDestinationStop()->getWaitingPositionOnLane();
+        myStopWaitPos = previous->getDestinationStop()->getWaitPosition(person);
+        myWaitingPos = previous->getDestinationStop()->getWaitingPositionOnLane(person);
     } else {
         myWaitingEdge = previous->getEdge();
         myStopWaitPos = Position::INVALID;

@@ -141,6 +141,9 @@ private:
     /// @brief The rotation of the sign
     double myFGSignRot;
 
+    /// @brief The visual width of the stoppling place
+    double myWidth;
+
     /// @brief The coordinates of access points
     PositionVector myAccessCoords;
 

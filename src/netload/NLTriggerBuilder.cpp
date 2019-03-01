@@ -192,7 +192,7 @@ NLTriggerBuilder::parseAndBuildStoppingPlace(MSNet& net, const SUMOSAXAttributes
         throw InvalidArgument("Invalid position for " + toString(element) + " '" + id + "'.");
     }
     const std::vector<std::string>& lines = attrs.getOptStringVector(SUMO_ATTR_LINES, id.c_str(), ok, false);
-    const int defaultCapacity = MAX2((int)floor((topos - frompos) / SUMO_const_waitingPersonWidth) * 3, 6);
+    const int defaultCapacity = MAX2(MSStoppingPlace::getPersonsAbreast(topos - frompos) * 3, 6);
     const int personCapacity = attrs.getOpt<int>(SUMO_ATTR_PERSON_CAPACITY, id.c_str(), ok, defaultCapacity);
     // build the bus stop
     buildStoppingPlace(net, id, lines, lane, frompos, topos, element, ptStopName, personCapacity);

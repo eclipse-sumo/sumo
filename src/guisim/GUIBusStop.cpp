@@ -58,8 +58,9 @@ GUIBusStop::GUIBusStop(const std::string& id, const std::vector<std::string>& li
     MSStoppingPlace(id, lines, lane, frompos, topos, name, personCapacity),
     GUIGlObject_AbstractAdd(GLO_BUS_STOP, id) {
     const double offsetSign = MSNet::getInstance()->lefthand() ? -1 : 1;
+    myWidth = ceil(personCapacity / getPersonsAbreast(topos - frompos)) * SUMO_const_waitingPersonDepth;
     myFGShape = lane.getShape();
-    myFGShape.move2side(1.65 * offsetSign);
+    myFGShape.move2side((lane.getWidth() + myWidth) * 0.45 * offsetSign);
     myFGShape = myFGShape.getSubpart(
                     lane.interpolateLanePosToGeometryPos(frompos),
                     lane.interpolateLanePosToGeometryPos(topos));
@@ -73,7 +74,7 @@ GUIBusStop::GUIBusStop(const std::string& id, const std::vector<std::string>& li
         myFGShapeRotations.push_back((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double) M_PI);
     }
     PositionVector tmp = myFGShape;
-    tmp.move2side(1.5 * offsetSign);
+    tmp.move2side(myWidth / 2 * offsetSign);
     myFGSignPos = tmp.getLineCenter();
     myFGSignRot = 0;
     if (tmp.length() != 0) {
@@ -137,7 +138,7 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
     glTranslated(0, 0, getType());
     GLHelper::setColor(s.SUMO_color_busStop);
     const double exaggeration = s.addSize.getExaggeration(s, this);
-    GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, exaggeration);
+    GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, myWidth * 0.5 * exaggeration);
     // draw details unless zoomed out to far
     if (s.scale * exaggeration >= 10) {
         glPushMatrix();
