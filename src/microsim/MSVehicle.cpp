@@ -830,6 +830,9 @@ MSVehicle::Influencer::postProcessRemoteControl(MSVehicle* v) {
 
 double
 MSVehicle::Influencer::implicitSpeedRemote(const MSVehicle* veh, double oldSpeed) {
+    if (veh->getPosition() == Position::INVALID) {
+        return oldSpeed;
+    }
     double dist = veh->getPosition().distanceTo2D(myRemoteXYPos);
     if (myRemoteLane != nullptr) {
         // if the vehicles is frequently placed on a new edge, the route may
@@ -841,13 +844,10 @@ MSVehicle::Influencer::implicitSpeedRemote(const MSVehicle* veh, double oldSpeed
             dist = distAlongRoute;
         }
     }
-    if (DIST2SPEED(dist) > veh->getCarFollowModel().maxNextSpeed(oldSpeed, veh)
-            || DIST2SPEED(dist) < veh->getCarFollowModel().minNextSpeedEmergency(oldSpeed, veh)) {
-        // implausible movement, keep old speed
-        return oldSpeed;
-    } else {
-        return DIST2SPEED(dist);
-    }
+    //std::cout << SIMTIME << " veh=" << veh->getID() << " oldPos=" << veh->getPosition() << " traciPos=" << myRemoteXYPos << " dist=" << dist << "\n";
+    const double minSpeed = veh->getCarFollowModel().minNextSpeedEmergency(oldSpeed, veh);
+    const double maxSpeed = veh->getLane() != nullptr ? veh->getLane()->getVehicleMaxSpeed(veh) : veh->getVehicleType().getMaxSpeed();
+    return MIN2(maxSpeed, MAX2(minSpeed, DIST2SPEED(dist)));
 }
 
 double
