@@ -1226,6 +1226,19 @@ enum LaneChangeModel {
     LCM_DEFAULT
 };
 
+/// @enum train types
+enum TrainType {
+    TRAINTYPE_NGT400,
+    TRAINTYPE_NGT400_16,
+    TRAINTYPE_RB425,
+    TRAINTYPE_RB628,
+    TRAINTYPE_ICE1,
+    TRAINTYPE_REDOSTO7,
+    TRAINTYPE_FREIGHT,
+    TRAINTYPE_ICE3,
+    TRAINTYPE_UNKNOWN
+};
+
 /**
  * @enum LateralAlignment
  * @brief Numbers representing special SUMO-XML-attribute values
@@ -1305,6 +1318,9 @@ public:
 
     /// @brief lane change actions
     static StringBijection<LaneChangeAction> LaneChangeActions;
+
+    /// @brief train types
+    static StringBijection<TrainType> TrainTypes;
     /// @}
 
     /// @name Helper functions for ID-string manipulations
@@ -1391,6 +1407,9 @@ private:
 
     /// @brief lane change action values
     static StringBijection<LaneChangeAction>::Entry laneChangeActionValues[];
+
+    /// @brief train type values values
+    static StringBijection<TrainType>::Entry trainTypeValues[];
     /// @}
 
     /// @brief all allowed characters for phase state
