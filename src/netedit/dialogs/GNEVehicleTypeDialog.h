@@ -127,6 +127,15 @@ public:
         /// @brief fox need this
         VTypeCommonAtributes() {}
 
+        /// @brief build row int
+        FXTextField* buildRowInt(FXPacker* column, SumoXMLAttr tag);
+
+        /// @brief build row float
+        FXTextField* buildRowFloat(FXPacker* column, SumoXMLAttr tag);
+
+        /// @brief build row
+        FXTextField* buildRowString(FXPacker* column, SumoXMLAttr tag);
+
         /// @brief FXTextfield for vehicleTypeID
         FXTextField* myTextFieldVehicleTypeID;
 
@@ -181,8 +190,8 @@ public:
         /// @brief FXTextfield for LoadingDuration
         FXTextField* myTextFieldLoadingDuration;
 
-        /// @brief FXTextfield for LatAlignment
-        FXTextField* myTextFieldLatAlignment;
+        /// @brief FXComboBox for LatAlignment
+        FXComboBox* myComboBoxLatAlignment;
 
         /// @brief FXTextfield for MinGapLat
         FXTextField* myTextFieldMinGapLat;
@@ -359,15 +368,6 @@ public:
 protected:
     /// @brief update data fields
     void updateVehicleTypeValues();
-
-    /// @brief build row int
-    FXTextField* buildRowInt(FXPacker* column, SumoXMLAttr tag);
-
-    /// @brief build row float
-    FXTextField* buildRowFloat(FXPacker* column, SumoXMLAttr tag);
-
-    /// @brief build row
-    FXTextField* buildRowString(FXPacker* column, SumoXMLAttr tag);
 
 private:
     /// @brief flag to check if current vehicleType is valid

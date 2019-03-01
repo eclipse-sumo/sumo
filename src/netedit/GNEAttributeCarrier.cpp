@@ -93,10 +93,6 @@ GNEAttributeCarrier::AttributeProperties::~AttributeProperties() {}
 
 void
 GNEAttributeCarrier::AttributeProperties::checkAttributeIntegrity() {
-    // Check that color attributes always owns an default value
-    if (isColor() && myDefaultValue.empty()) {
-        throw FormatException("Color attributes must own always a default color");
-    }
     // check that secuential attributes correspond to a list
     if (isSecuential() && !isList()) {
         throw FormatException("Secuential property only is compatible with list properties");
@@ -3110,7 +3106,7 @@ GNEAttributeCarrier::fillDemandElements() {
         attrProperty = AttributeProperties(SUMO_ATTR_COLOR,
             ATTRPROPERTY_STRING | ATTRPROPERTY_COLOR | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "This vehicle type's color",
-            "1,1,0");
+            "");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_ACCEL,
@@ -3252,7 +3248,7 @@ GNEAttributeCarrier::fillDemandElements() {
             ATTRPROPERTY_STRING | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_EXTENDED,
             "The preferred lateral alignment when using the sublane-model",
             "center");
-                attrProperty.setDiscreteValues(SUMOXMLDefinitions::LateralAlignments.getStrings());
+            attrProperty.setDiscreteValues(SUMOXMLDefinitions::LateralAlignments.getStrings());
         myTagProperties[currentTag].addAttribute(attrProperty);
         
         attrProperty = AttributeProperties(SUMO_ATTR_MINGAP_LAT,

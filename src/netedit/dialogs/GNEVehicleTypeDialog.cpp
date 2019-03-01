@@ -363,34 +363,34 @@ GNEVehicleTypeDialog::VTypeCommonAtributes::buildCommonAttributesA(FXVerticalFra
     myVClassRow = new VClassRow(this, column);
 
     // 02 create FXTextField and Label for vehicleTypeID
-    myTextFieldVehicleTypeID = myVehicleTypeDialog->buildRowFloat(column, SUMO_ATTR_ID);
+    myTextFieldVehicleTypeID = buildRowFloat(column, SUMO_ATTR_ID);
 
     // 03 create FXTextField and Label for Color
-    myTextFieldColor = myVehicleTypeDialog->buildRowString(column, SUMO_ATTR_COLOR);
+    myTextFieldColor = buildRowString(column, SUMO_ATTR_COLOR);
 
     // 04 create FXTextField and Label for Length
-    myTextFieldLength = myVehicleTypeDialog->buildRowFloat(column, SUMO_ATTR_LENGTH);
+    myTextFieldLength = buildRowFloat(column, SUMO_ATTR_LENGTH);
 
     // 05 create FXTextField and Label for MinGap
-    myTextFieldMinGap = myVehicleTypeDialog->buildRowFloat(column, SUMO_ATTR_MINGAP);
+    myTextFieldMinGap = buildRowFloat(column, SUMO_ATTR_MINGAP);
 
     // 06 create FXTextField and Label for MaxSpeed
-    myTextFieldMaxSpeed = myVehicleTypeDialog->buildRowFloat(column, SUMO_ATTR_MAXSPEED);
+    myTextFieldMaxSpeed = buildRowFloat(column, SUMO_ATTR_MAXSPEED);
 
     // 07 create FXTextField and Label for SpeedFactor
-    myTextFieldSpeedFactor = myVehicleTypeDialog->buildRowFloat(column, SUMO_ATTR_SPEEDFACTOR);
+    myTextFieldSpeedFactor = buildRowFloat(column, SUMO_ATTR_SPEEDFACTOR);
 
     // 08 create FXTextField and Label for SpeedDev
-    myTextFieldSpeedDev = myVehicleTypeDialog->buildRowFloat(column, SUMO_ATTR_SPEEDDEV);
+    myTextFieldSpeedDev = buildRowFloat(column, SUMO_ATTR_SPEEDDEV);
 
     // 09 create FXTextField and Label for EmissionClass
-    myTextFieldEmissionClass = myVehicleTypeDialog->buildRowFloat(column, SUMO_ATTR_EMISSIONCLASS);
+    myTextFieldEmissionClass = buildRowFloat(column, SUMO_ATTR_EMISSIONCLASS);
 
     // 10 create FXTextField and Label for Width
-    myTextFieldWidth = myVehicleTypeDialog->buildRowFloat(column, SUMO_ATTR_WIDTH);
+    myTextFieldWidth = buildRowFloat(column, SUMO_ATTR_WIDTH);
 
     // 11 create FXTextField and Label for Filename
-    myTextFieldFilename = myVehicleTypeDialog->buildRowString(column, SUMO_ATTR_IMGFILE);
+    myTextFieldFilename = buildRowString(column, SUMO_ATTR_IMGFILE);
 }
 
 
@@ -400,7 +400,7 @@ GNEVehicleTypeDialog::VTypeCommonAtributes::buildCommonAttributesB(FXVerticalFra
     myVShapeRow = new VShapeRow(this, column);
 
     // 02 create FXTextField and Label for Impatience
-    myTextFieldImpatience = myVehicleTypeDialog->buildRowFloat(column, SUMO_ATTR_IMPATIENCE);
+    myTextFieldImpatience = buildRowFloat(column, SUMO_ATTR_IMPATIENCE);
 
     // 03 create FXComboBox and Label for LaneChangeModel
     FXHorizontalFrame* row = new FXHorizontalFrame(column, GUIDesignAuxiliarHorizontalFrame);
@@ -415,28 +415,65 @@ GNEVehicleTypeDialog::VTypeCommonAtributes::buildCommonAttributesB(FXVerticalFra
     myComboBoxLaneChangeModel->setNumVisible(myComboBoxLaneChangeModel->getNumItems());
 
     // 04 create FXTextField and Label for PersonCapacity
-    myTextFieldPersonCapacity = myVehicleTypeDialog->buildRowInt(column, SUMO_ATTR_PERSON_CAPACITY);
+    myTextFieldPersonCapacity = buildRowInt(column, SUMO_ATTR_PERSON_CAPACITY);
 
     // 05 create FXTextField and Label for ContainerCapacity
-    myTextFieldContainerCapacity = myVehicleTypeDialog->buildRowInt(column, SUMO_ATTR_CONTAINER_CAPACITY);
+    myTextFieldContainerCapacity = buildRowInt(column, SUMO_ATTR_CONTAINER_CAPACITY);
 
     // 06 create FXTextField and Label for BoardingDuration
-    myTextFieldBoardingDuration = myVehicleTypeDialog->buildRowFloat(column, SUMO_ATTR_BOARDING_DURATION);
+    myTextFieldBoardingDuration = buildRowFloat(column, SUMO_ATTR_BOARDING_DURATION);
 
     // 07 create FXTextField and Label for LoadingDuration
-    myTextFieldLoadingDuration = myVehicleTypeDialog->buildRowFloat(column, SUMO_ATTR_LOADING_DURATION);
+    myTextFieldLoadingDuration = buildRowFloat(column, SUMO_ATTR_LOADING_DURATION);
 
-    // 08 create FXTextField and Label for LatAlignment
-    myTextFieldLatAlignment = myVehicleTypeDialog->buildRowString(column, SUMO_ATTR_LATALIGNMENT);
+    // 08 create ComboBox and Label for LatAlignment
+    row = new FXHorizontalFrame(column, GUIDesignAuxiliarHorizontalFrame);
+    new FXLabel(row, toString(SUMO_ATTR_LATALIGNMENT).c_str(), nullptr, GUIDesignLabelAttribute150);
+    myComboBoxLatAlignment = new FXComboBox(row, GUIDesignComboBoxNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBox);
+    
+    // fill combo Box with all Lateral Alignments
+    std::vector<std::string> lateralAlignmentsStrings = SUMOXMLDefinitions::LateralAlignments.getStrings();
+    for (auto i : lateralAlignmentsStrings) {
+        myComboBoxLatAlignment->appendItem(i.c_str());
+    }
+    myComboBoxLatAlignment->setNumVisible(myComboBoxLatAlignment->getNumItems());
 
     // 09 create FXTextField and Label for MinGapLat
-    myTextFieldMinGapLat = myVehicleTypeDialog->buildRowFloat(column, SUMO_ATTR_MINGAP_LAT);
+    myTextFieldMinGapLat = buildRowFloat(column, SUMO_ATTR_MINGAP_LAT);
 
     // 10 create FXTextField and Label for MaxSpeedLat
-    myTextFieldMaxSpeedLat = myVehicleTypeDialog->buildRowFloat(column, SUMO_ATTR_MAXSPEED_LAT);
+    myTextFieldMaxSpeedLat = buildRowFloat(column, SUMO_ATTR_MAXSPEED_LAT);
 
     // 11 create FXTextField and Label for ActionStepLenght
-    myTextFieldActionStepLenght = myVehicleTypeDialog->buildRowFloat(column, SUMO_ATTR_ACTIONSTEPLENGTH);
+    myTextFieldActionStepLenght = buildRowFloat(column, SUMO_ATTR_ACTIONSTEPLENGTH);
+}
+
+
+void 
+GNEVehicleTypeDialog::VTypeCommonAtributes::updateValues() {
+    // set variables of special rows VType and VShape
+    myVClassRow->updateValues();
+    myVShapeRow->updateValues();
+    //set values of myEditedDemandElement into fields
+    myTextFieldVehicleTypeID->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_ID).c_str());
+    myTextFieldLength->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_LENGTH).c_str());
+    myTextFieldMinGap->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_MINGAP).c_str());
+    myTextFieldMaxSpeed->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_MAXSPEED).c_str());
+    myTextFieldSpeedFactor->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_SPEEDFACTOR).c_str());
+    myTextFieldSpeedDev->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_SPEEDDEV).c_str());
+    myTextFieldColor->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_COLOR).c_str());
+    myTextFieldEmissionClass->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_EMISSIONCLASS).c_str());
+    myTextFieldWidth->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_WIDTH).c_str());
+    myTextFieldFilename->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_IMGFILE).c_str());
+    myTextFieldImpatience->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_IMPATIENCE).c_str());
+    myComboBoxLaneChangeModel->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_LANE_CHANGE_MODEL).c_str());
+    myTextFieldPersonCapacity->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_PERSON_CAPACITY).c_str());
+    myTextFieldContainerCapacity->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_CONTAINER_CAPACITY).c_str());
+    myTextFieldBoardingDuration->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_BOARDING_DURATION).c_str());
+    myTextFieldLoadingDuration->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_LOADING_DURATION).c_str());
+    myComboBoxLatAlignment->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_LATALIGNMENT).c_str());
+    myTextFieldMinGapLat->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_MINGAP_LAT).c_str());
+    myTextFieldMaxSpeedLat->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_MAXSPEED_LAT).c_str());
 }
 
 
@@ -596,11 +633,11 @@ GNEVehicleTypeDialog::VTypeCommonAtributes::onCmdSetVariable(FXObject*, FXSelect
         myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_LOADING_DURATION;
     }
     // set color of myTextFieldLatAlignment, depending if current value is valid or not
-    if (myVehicleTypeDialog->myEditedDemandElement->isValid(SUMO_ATTR_LATALIGNMENT, myTextFieldLatAlignment->getText().text())) {
-        myTextFieldLatAlignment->setTextColor(FXRGB(0, 0, 0));
-        myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_LATALIGNMENT, myTextFieldLatAlignment->getText().text(), myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
+    if (myVehicleTypeDialog->myEditedDemandElement->isValid(SUMO_ATTR_LATALIGNMENT, myComboBoxLatAlignment->getText().text())) {
+        myComboBoxLatAlignment->setTextColor(FXRGB(0, 0, 0));
+        myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_LATALIGNMENT, myComboBoxLatAlignment->getText().text(), myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
     } else {
-        myTextFieldLatAlignment->setTextColor(FXRGB(255, 0, 0));
+        myComboBoxLatAlignment->setTextColor(FXRGB(255, 0, 0));
         myVehicleTypeDialog->myVehicleTypeValid = false;
         myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_LATALIGNMENT;
     }
@@ -626,31 +663,27 @@ GNEVehicleTypeDialog::VTypeCommonAtributes::onCmdSetVariable(FXObject*, FXSelect
 }
 
 
-void 
-GNEVehicleTypeDialog::VTypeCommonAtributes::updateValues() {
-    // set variables of special rows VType and VShape
-    myVClassRow->updateValues();
-    myVShapeRow->updateValues();
-    //set values of myEditedDemandElement into fields
-    myTextFieldVehicleTypeID->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_ID).c_str());
-    myTextFieldLength->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_LENGTH).c_str());
-    myTextFieldMinGap->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_MINGAP).c_str());
-    myTextFieldMaxSpeed->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_MAXSPEED).c_str());
-    myTextFieldSpeedFactor->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_SPEEDFACTOR).c_str());
-    myTextFieldSpeedDev->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_SPEEDDEV).c_str());
-    myTextFieldColor->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_COLOR).c_str());
-    myTextFieldEmissionClass->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_EMISSIONCLASS).c_str());
-    myTextFieldWidth->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_WIDTH).c_str());
-    myTextFieldFilename->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_IMGFILE).c_str());
-    myTextFieldImpatience->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_IMPATIENCE).c_str());
-    myComboBoxLaneChangeModel->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_LANE_CHANGE_MODEL).c_str());
-    myTextFieldPersonCapacity->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_PERSON_CAPACITY).c_str());
-    myTextFieldContainerCapacity->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_CONTAINER_CAPACITY).c_str());
-    myTextFieldBoardingDuration->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_BOARDING_DURATION).c_str());
-    myTextFieldLoadingDuration->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_LOADING_DURATION).c_str());
-    myTextFieldLatAlignment->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_LATALIGNMENT).c_str());
-    myTextFieldMinGapLat->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_MINGAP_LAT).c_str());
-    myTextFieldMaxSpeedLat->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_MAXSPEED_LAT).c_str());
+FXTextField* 
+GNEVehicleTypeDialog::VTypeCommonAtributes::buildRowInt(FXPacker* column, SumoXMLAttr attr) {
+    FXHorizontalFrame* row = new FXHorizontalFrame(column, GUIDesignAuxiliarHorizontalFrame);
+    new FXLabel(row, toString(attr).c_str(), nullptr, GUIDesignLabelAttribute150);
+    return new FXTextField(row, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFielWidth180Int);
+}
+
+
+FXTextField * 
+GNEVehicleTypeDialog::VTypeCommonAtributes::buildRowFloat(FXPacker* column, SumoXMLAttr attr) {
+    FXHorizontalFrame* row = new FXHorizontalFrame(column, GUIDesignAuxiliarHorizontalFrame);
+    new FXLabel(row, toString(attr).c_str(), nullptr, GUIDesignLabelAttribute150);
+    return new FXTextField(row, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFielWidth180Real);
+}
+
+
+FXTextField * 
+GNEVehicleTypeDialog::VTypeCommonAtributes::buildRowString(FXPacker* column, SumoXMLAttr attr) {
+    FXHorizontalFrame* row = new FXHorizontalFrame(column, GUIDesignAuxiliarHorizontalFrame);
+    new FXLabel(row, toString(attr).c_str(), nullptr, GUIDesignLabelAttribute150);
+    return new FXTextField(row, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFielWidth180);
 }
 
 // ---------------------------------------------------------------------------
@@ -1117,33 +1150,5 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::CarFollowingModelRow::updateV
     // set text of myTextField using current value of VType
     textField->setText(myCarFollowingModelParametersParent->myVehicleTypeDialog->myEditedDemandElement->getAttribute(myAttr).c_str());
 }
-
-// ---------------------------------------------------------------------------
-// GNEVehicleTypeDialog - private methods
-// ---------------------------------------------------------------------------
-
-FXTextField* 
-GNEVehicleTypeDialog::buildRowInt(FXPacker* column, SumoXMLAttr attr) {
-    FXHorizontalFrame* row = new FXHorizontalFrame(column, GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(row, toString(attr).c_str(), nullptr, GUIDesignLabelAttribute150);
-    return new FXTextField(row, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFielWidth180Int);
-}
-
-
-FXTextField * 
-GNEVehicleTypeDialog::buildRowFloat(FXPacker* column, SumoXMLAttr attr) {
-    FXHorizontalFrame* row = new FXHorizontalFrame(column, GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(row, toString(attr).c_str(), nullptr, GUIDesignLabelAttribute150);
-    return new FXTextField(row, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFielWidth180Real);
-}
-
-
-FXTextField * 
-GNEVehicleTypeDialog::buildRowString(FXPacker* column, SumoXMLAttr attr) {
-    FXHorizontalFrame* row = new FXHorizontalFrame(column, GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(row, toString(attr).c_str(), nullptr, GUIDesignLabelAttribute150);
-    return new FXTextField(row, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFielWidth180);
-}
-
 
 /****************************************************************************/

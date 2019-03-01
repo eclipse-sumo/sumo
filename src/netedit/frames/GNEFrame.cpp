@@ -1037,8 +1037,10 @@ GNEFrame::AttributesEditor::RowEditor::onCmdOpenAttributeDialog(FXObject* obj, F
         // If previous attribute wasn't correct, set black as default color
         if (GNEAttributeCarrier::canParse<RGBColor>(myTextFieldStrings->getText().text())) {
             colordialog.setRGBA(MFXUtils::getFXColor(RGBColor::parseColor(myTextFieldStrings->getText().text())));
-        } else {
+        } else if (!myACAttr.getDefaultValue().empty()){
             colordialog.setRGBA(MFXUtils::getFXColor(RGBColor::parseColor(myACAttr.getDefaultValue())));
+        } else {
+            colordialog.setRGBA(MFXUtils::getFXColor(RGBColor::BLACK));
         }
         // execute dialog to get a new color
         if (colordialog.execute()) {

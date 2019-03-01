@@ -194,7 +194,11 @@ GNEVehicleType::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_SPEEDDEV:
             return toString(speedFactor.getParameter()[1]);
         case SUMO_ATTR_COLOR:
-            return toString(color);
+            if (wasSet(VTYPEPARS_COLOR_SET)) {
+                return toString(color);
+            } else {
+                return "";
+            }
         case SUMO_ATTR_VCLASS:
             return toString(vehicleClass);
         case SUMO_ATTR_EMISSIONCLASS:
@@ -220,7 +224,7 @@ GNEVehicleType::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_LOADING_DURATION:
             return toString(loadingDuration);
         case SUMO_ATTR_LATALIGNMENT:
-            return toString(latAlignment);
+            return SUMOXMLDefinitions::LateralAlignments.getString(latAlignment);
         case SUMO_ATTR_MINGAP_LAT:
             return toString(minGapLat);
         case SUMO_ATTR_MAXSPEED_LAT:
@@ -348,7 +352,11 @@ GNEVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_SPEEDDEV:
             return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_COLOR:
-            return canParse<RGBColor>(value);
+            if (value.empty()) {
+                return true;
+            } else {
+                return canParse<RGBColor>(value);
+            }
         case SUMO_ATTR_VCLASS:
             return canParseVehicleClasses(value);
         case SUMO_ATTR_EMISSIONCLASS:
@@ -402,12 +410,7 @@ GNEVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
 
 bool 
 GNEVehicleType::isDisjointAttributeSet(const SumoXMLAttr attr) const {
-    switch (attr) {
-        case SUMO_ATTR_COLOR:
-            return (parametersSet & VTYPEPARS_COLOR_SET) != 0;
-        default:
-            return true;
-    };
+    return true;
 }
 
 
@@ -532,8 +535,6 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
                 // mark parameter as set
                 parametersSet |= VTYPEPARS_COLOR_SET;
             } else {
-                // set default value
-                color = parse<RGBColor>(myTagProperty.getDefaultValue(key));
                 // unset parameter
                 parametersSet ^= VTYPEPARS_COLOR_SET;
             }                
