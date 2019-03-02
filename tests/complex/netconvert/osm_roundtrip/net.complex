@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Feb  8 10:04:35 2019 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Sat Mar  2 10:02:58 2019 by Eclipse SUMO netconvert Version v1_1_0+0435-678c69824b
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -64,11 +64,11 @@
     <type id="highway.trunk_link" priority="10" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" oneway="0"/>
     <type id="highway.unclassified" priority="5" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
     <type id="highway.unsurfaced" priority="1" numLanes="1" speed="8.33" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
-    <type id="railway.light_rail" priority="15" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
+    <type id="railway.light_rail" priority="18" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
     <type id="railway.preserved" priority="15" numLanes="1" speed="27.78" allow="rail" oneway="1"/>
-    <type id="railway.rail" priority="15" numLanes="1" speed="83.33" allow="rail rail_electric" oneway="1"/>
-    <type id="railway.subway" priority="15" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
-    <type id="railway.tram" priority="15" numLanes="1" speed="13.89" allow="tram" oneway="1"/>
+    <type id="railway.rail" priority="19" numLanes="1" speed="83.33" allow="rail rail_electric" oneway="1"/>
+    <type id="railway.subway" priority="17" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
+    <type id="railway.tram" priority="16" numLanes="1" speed="13.89" allow="tram" oneway="1"/>
 
     <edge id="-22917251" from="32266936" to="32266938" priority="6" type="highway.tertiary">
         <lane id="-22917251_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="58.43" shape="474.36,48.86 479.18,104.72"/>
@@ -604,12 +604,16 @@
         <phase duration="5"  state="r"/>
     </tlLogic>
     <tlLogic id="joinedS_0" type="static" programID="0" offset="0">
-        <phase duration="27" state="GrrGGGGggrrrrGGggrrrr"/>
-        <phase duration="3"  state="yrryyyyyyrrrryyyyrrrr"/>
-        <phase duration="27" state="GrrGGrrrrGGggrrrrGGgg"/>
-        <phase duration="3"  state="yrryyrrrryyyyrrrryyyy"/>
-        <phase duration="27" state="rGgGrGGGgGrrrrrrrrrrr"/>
-        <phase duration="3"  state="ryyyryyyyyrrrrrrrrrrr"/>
+        <phase duration="15" state="rGGrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="3"  state="ryyrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="15" state="GrrGGGGGGrrrrrrrrrrrr"/>
+        <phase duration="3"  state="yrryyyyyyrrrrrrrrrrrr"/>
+        <phase duration="15" state="GrrGGrrrrGGGGrrrrrrrr"/>
+        <phase duration="3"  state="yrryyrrrryyyyrrrrrrrr"/>
+        <phase duration="15" state="GrrGGrrrrrrrrGGGGrrrr"/>
+        <phase duration="3"  state="yrryyrrrrrrrryyyyrrrr"/>
+        <phase duration="15" state="GrrGGrrrrrrrrrrrrGGGG"/>
+        <phase duration="3"  state="yrryyrrrrrrrrrrrryyyy"/>
     </tlLogic>
 
     <junction id="175648134" type="priority" x="15.68" y="168.06" incLanes="-25951490_0" intLanes="" shape="15.68,168.06 15.81,169.05 15.68,168.06">

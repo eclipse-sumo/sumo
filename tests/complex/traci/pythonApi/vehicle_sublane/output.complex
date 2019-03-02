@@ -555,9 +555,9 @@ step 126.0
 vehicles ('2', 'block_2si', 'blocker', 'bus', 'collider', 'departInTheFuture', 'departInThePast', 'departTriggered', 'horiz', 'movedVeh', 'offRoad', 'parking', 'parking2', 'routeTest', 'routeTest2', 'triptest', 'victim')
 vehicle count 17
 examining movedVeh
-speed 11.11
-speed w/o traci 11.11
-acceleration 11.11
+speed 13.89
+speed w/o traci 13.89
+acceleration 13.89
 pos (448.99, 491.19)
 angle 90.0
 road 1si
@@ -570,13 +570,13 @@ route ('1si',)
 lanePos 197.49
 color (255, 255, 0, 255)
 bestLanes (('1si_0', 250.0, 0.0, 0, True, ('1si_0',)), ('1si_1', 250.0, 0.0, 0, True, ('1si_1',)), ('1si_2', 250.0, 0.0, 0, True, ('1si_2',)))
-CO2 34326.7757739
-CO 672.661120167
-HC 3.90916000056
-PMx 0.851096634028
-NOx 15.8678733253
-fuel 14.755336358
-noise 109.411599601
+CO2 52627.9791072
+CO 1029.35056461
+HC 5.98867722278
+PMx 1.32455766181
+NOx 24.4336324919
+fuel 22.6220640459
+noise 122.892969481
 Elec 0.0
 traveltime -1073741824.0
 effort -1073741824.0
