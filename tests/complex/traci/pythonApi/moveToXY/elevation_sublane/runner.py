@@ -32,7 +32,7 @@ sumoBinary = sumolib.checkBinary("sumo")
 traci.start([sumoBinary,
              '-n', 'input_net.net.xml',
              '--no-step-log',
-             #'-S', '-Q'
+             # '-S', '-Q'
              ])
 
 ANGLE_UNDEF = traci.constants.INVALID_DOUBLE_VALUE
