@@ -157,12 +157,14 @@ NLHandler::myStartElement(int element,
             case SUMO_TAG_TRAIN_STOP:
             case SUMO_TAG_CONTAINER_STOP:
                 myTriggerBuilder.parseAndBuildStoppingPlace(myNet, attrs, (SumoXMLTag)element);
+                myLastParameterised.push_back(myTriggerBuilder.getCurrentStop());
                 break;
             case SUMO_TAG_PARKING_SPACE:
                 myTriggerBuilder.parseAndAddLotEntry(attrs);
                 break;
             case SUMO_TAG_PARKING_AREA:
                 myTriggerBuilder.parseAndBeginParkingArea(myNet, attrs);
+                myLastParameterised.push_back(myTriggerBuilder.getCurrentStop());
                 break;
             case SUMO_TAG_ACCESS:
                 myTriggerBuilder.addAccess(myNet, attrs);
@@ -285,11 +287,13 @@ NLHandler::myEndElement(int element) {
             break;
         case SUMO_TAG_PARKING_AREA:
             myTriggerBuilder.endParkingArea();
+            myLastParameterised.pop_back();
             break;
         case SUMO_TAG_BUS_STOP:
         case SUMO_TAG_TRAIN_STOP:
         case SUMO_TAG_CONTAINER_STOP:
             myTriggerBuilder.endStoppingPlace();
+            myLastParameterised.pop_back();
             break;
         case SUMO_TAG_NET:
             // build junction graph

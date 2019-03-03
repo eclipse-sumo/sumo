@@ -231,6 +231,12 @@ public:
                                  const std::string& base);
     //@}
 
+
+    MSStoppingPlace* getCurrentStop() {
+        return myCurrentStop;
+    }
+
+
 protected:
     /// @name building methods
     ///
