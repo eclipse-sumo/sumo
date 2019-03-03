@@ -95,6 +95,9 @@ public class APITest {
             conn.do_job_set(Vehicle.setParameter("v0","vehParam", "vehValue"));
             System.out.println("vehicle.getParameter: " + (String)conn.do_job_get(Vehicle.getParameter("v0", "vehParam")));
 
+            conn.do_job_set(Vehicle.setAdaptedTraveltime("v0", 100, 200, "gneE0", 200));
+            System.out.println("Vehicletype.getAdaptedTraveltime: " + (double)conn.do_job_get(Vehicle.getAdaptedTraveltime("v0", 150, "gneE0")));
+
             conn.do_job_set(Vehicletype.setParameter("car","vehtypeParam", "vehtypeValue"));
             System.out.println("Vehicletype.getParameter: " + (String)conn.do_job_get(Vehicletype.getParameter("car", "vehtypeParam")));
 

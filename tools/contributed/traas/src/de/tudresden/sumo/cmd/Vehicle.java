@@ -72,7 +72,7 @@ public class Vehicle {
 	 * @param edgeID id of the edge
 	 * @return SumoCommand
 	 */
-	public static SumoCommand getAdaptedTraveltime(String vehID, int time, String edgeID){
+	public static SumoCommand getAdaptedTraveltime(String vehID, double time, String edgeID){
 		Object[] array = new Object[]{time, edgeID};
 		return new SumoCommand(Constants.CMD_GET_VEHICLE_VARIABLE, Constants.VAR_EDGE_TRAVELTIME, vehID, array, Constants.RESPONSE_GET_VEHICLE_VARIABLE, Constants.TYPE_DOUBLE);
 	}
@@ -1055,7 +1055,7 @@ public class Vehicle {
 	 * @param time time
 	 * @return SumoCommand
 	 */
-	public static SumoCommand setAdaptedTraveltime(String vehID, int begTime, int endTime, String edgeID, double time){
+	public static SumoCommand setAdaptedTraveltime(String vehID, double begTime, double endTime, String edgeID, double time){
 
 		Object[] array = new Object[]{begTime, endTime, edgeID, time};
 		return new SumoCommand(Constants.CMD_SET_VEHICLE_VARIABLE, Constants.VAR_EDGE_TRAVELTIME, vehID, array);
