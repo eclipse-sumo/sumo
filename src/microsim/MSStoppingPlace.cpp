@@ -32,7 +32,6 @@
 #include "MSTransportable.h"
 #include "MSStoppingPlace.h"
 
-
 // ===========================================================================
 // method definitions
 // ===========================================================================
@@ -125,7 +124,7 @@ double
 MSStoppingPlace::getWaitingPositionOnLane(MSTransportable* t) const {
     auto it = myWaitingTransportables.find(t);
     if (it != myWaitingTransportables.end() && it->second >= 0) {
-        return myEndPos - (0.5 + (it->second) % getPersonsAbreast(myEndPos - myBegPos)) * SUMO_const_waitingPersonWidth;
+        return myEndPos - (0.5 + (it->second) % getPersonsAbreast()) * SUMO_const_waitingPersonWidth;
     } else {
         return (myEndPos + myBegPos) / 2;
     }
@@ -137,6 +136,10 @@ MSStoppingPlace::getPersonsAbreast(double length) {
     return (int)floor(length / SUMO_const_waitingPersonWidth);
 }
 
+int
+MSStoppingPlace::getPersonsAbreast() const {
+    return getPersonsAbreast(myEndPos - myBegPos);
+}
 
 Position
 MSStoppingPlace::getWaitPosition(MSTransportable* t) const {
@@ -145,10 +148,10 @@ MSStoppingPlace::getWaitPosition(MSTransportable* t) const {
     auto it = myWaitingTransportables.find(t);
     if (it != myWaitingTransportables.end()) {
         if (it->second >= 0) {
-            row = int(it->second / getPersonsAbreast(myEndPos - myBegPos));
+            row = int(it->second / getPersonsAbreast());
         } else {
             // invalid position, draw outside bounds
-            row = 1 + myTransportableCapacity / getPersonsAbreast(myEndPos - myBegPos);
+            row = 1 + myTransportableCapacity / getPersonsAbreast();
         }
     }
     return myLane.getShape().positionAtOffset(myLane.interpolateLanePosToGeometryPos(lanePos),

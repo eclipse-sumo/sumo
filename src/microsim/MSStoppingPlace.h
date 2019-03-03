@@ -206,6 +206,8 @@ protected:
      */
     void computeLastFreePos();
 
+    int getPersonsAbreast() const;
+
 protected:
     /// @brief The list of lines that are assigned to this stop
     std::vector<std::string> myLines;

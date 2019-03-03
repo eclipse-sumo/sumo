@@ -58,7 +58,7 @@ GUIBusStop::GUIBusStop(const std::string& id, const std::vector<std::string>& li
     MSStoppingPlace(id, lines, lane, frompos, topos, name, personCapacity),
     GUIGlObject_AbstractAdd(GLO_BUS_STOP, id) {
     const double offsetSign = MSNet::getInstance()->lefthand() ? -1 : 1;
-    myWidth = ceil(personCapacity / getPersonsAbreast(topos - frompos)) * SUMO_const_waitingPersonDepth;
+    myWidth = MAX2(1.0, ceil(personCapacity / getPersonsAbreast()) * SUMO_const_waitingPersonDepth);
     myFGShape = lane.getShape();
     myFGShape.move2side((lane.getWidth() + myWidth) * 0.45 * offsetSign);
     myFGShape = myFGShape.getSubpart(
