@@ -1544,7 +1544,6 @@ GUIApplicationWindow::handleEvent_SimulationEnded(GUIEvent* e) {
 
 void
 GUIApplicationWindow::checkGamingEvents() {
-    return;
     MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
     MSVehicleControl::constVehIt it = vc.loadedVehBegin();
     MSVehicleControl::constVehIt end = vc.loadedVehEnd();
