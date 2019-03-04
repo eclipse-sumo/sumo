@@ -269,7 +269,7 @@ long
 GNECalibratorDialog::onCmdAddVehicleType(FXObject*, FXSelector, void*) {
     // create a new Vehicle Type and configure it with GNEVehicleTypeDialog
     std::string vehicleTypeID = myEditedAdditional->getViewNet()->getNet()->generateDemandElementID(SUMO_TAG_VTYPE);
-    GNEVehicleTypeDialog(new GNEVehicleType(myEditedAdditional->getViewNet(), vehicleTypeID), false);
+    GNEVehicleTypeDialog(new GNEVehicleType(myEditedAdditional->getViewNet(), vehicleTypeID, false), false);
     // update vehicle types table
     updateVehicleTypeTable();
     return 1;

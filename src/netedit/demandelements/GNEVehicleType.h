@@ -37,11 +37,11 @@
 class GNEVehicleType : public GNEDemandElement, public SUMOVTypeParameter {
 
 public:
-    /// @brief constructor (Only used for default vehicle types)
-    GNEVehicleType(GNEViewNet* viewNet, const std::string &vTypeID);
+    /// @brief constructor
+    GNEVehicleType(GNEViewNet* viewNet, const std::string &vTypeID, bool defaultVehicleType);
 
     /// @brief constructor
-    GNEVehicleType(GNEViewNet* viewNet, const SUMOVTypeParameter &vTypeParameter);
+    GNEVehicleType(GNEViewNet* viewNet, const SUMOVTypeParameter &vTypeParameter, bool defaultVehicleType);
 
     /// @brief copy constructor
     GNEVehicleType(GNEViewNet* viewNet, const std::string &vTypeID, GNEVehicleType *vTypeOriginal);
