@@ -214,7 +214,9 @@ GUIApplicationWindow::GUIApplicationWindow(FXApp* a, const std::string& configPa
     myJamSoundTime(60),
     myPreviousCollisionNumber(0),
     myWaitingTime(0),
-    myTimeLoss(0) {
+    myTimeLoss(0),
+    myTotalDistance(0)
+{
     // init icons
     GUIIconSubSys::initIcons(a);
     // init cursors
@@ -271,6 +273,7 @@ GUIApplicationWindow::dependentBuild() {
     fillMenuBar();
     myToolBar6->hide();
     myToolBar7->hide();
+    myToolBar9->hide();
     // build additional threads
     myLoadThread = new GUILoadThread(getApp(), this, myEvents, myLoadThreadEvent);
     myRunThread = new GUIRunThread(getApp(), this, mySimDelay, myEvents, myRunThreadEvent);
@@ -684,6 +687,18 @@ GUIApplicationWindow::buildToolBars() {
         myTimeLossLabel->setThickness(2);
         myTimeLossLabel->setGroove(2);
         myTimeLossLabel->setText("-------------");
+
+        // total driving distance
+        myToolBarDrag8 = new FXToolBarShell(this, GUIDesignToolBar);
+        myToolBar9 = new FXToolBar(myTopDock, myToolBarDrag9, GUIDesignToolBarRaisedSameTop);
+        new FXToolBarGrip(myToolBar9, myToolBar9, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
+        new FXLabel(myToolBar9, "Distance (km):\t\tTotal distance driven by DRT vehicles", nullptr, LAYOUT_TOP | LAYOUT_LEFT);
+        myTotalDistanceLabel = new FXEX::FXLCDLabel(myToolBar9, 13, nullptr, 0, JUSTIFY_RIGHT);
+        myTotalDistanceLabel->setHorizontal(2);
+        myTotalDistanceLabel->setVertical(6);
+        myTotalDistanceLabel->setThickness(2);
+        myTotalDistanceLabel->setGroove(2);
+        myTotalDistanceLabel->setText("-------------");
     }
 }
 
@@ -1162,12 +1177,17 @@ GUIApplicationWindow::onCmdGaming(FXObject*, FXSelector, void*) {
         myToolBar4->hide();
         myToolBar5->hide();
         myToolBar6->show();
-        myToolBar7->show();
         myToolBar8->hide();
+        if (myTLSGame) {
+            myToolBar7->show();
+        } else {
+            myToolBar9->show();
+        }
         myMessageWindow->hide();
         myLCDLabel->setFgColor(MFXUtils::getFXColor(RGBColor::RED));
         myWaitingTimeLabel->setFgColor(MFXUtils::getFXColor(RGBColor::RED));
         myTimeLossLabel->setFgColor(MFXUtils::getFXColor(RGBColor::RED));
+        myTotalDistanceLabel->setFgColor(MFXUtils::getFXColor(RGBColor::RED));
         gSchemeStorage.getDefault().gaming = true;
     } else {
         myMenuBar->show();
@@ -1179,6 +1199,7 @@ GUIApplicationWindow::onCmdGaming(FXObject*, FXSelector, void*) {
         myToolBar6->hide();
         myToolBar7->hide();
         myToolBar8->show();
+        myToolBar9->hide();
         myMessageWindow->show();
         myLCDLabel->setFgColor(MFXUtils::getFXColor(RGBColor::GREEN));
         gSchemeStorage.getDefault().gaming = false;
@@ -1356,9 +1377,6 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
             getApp()->exit(1);
         }
     } else {
-        if (OptionsCont::getOptions().getBool("game")) {
-            onCmdGaming(nullptr, 0, nullptr);
-        }
         // initialise simulation thread
         if (!myRunThread->init(ec->myNet, ec->myBegin, ec->myEnd)) {
             if (GUIGlobals::gQuitOnEnd) {
@@ -1431,12 +1449,15 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
                 myRunThread->getBreakpointLock().unlock();
             }
 
-            if (isGaming()) {
+            if (OptionsCont::getOptions().getBool("game")) {
                 if (OptionsCont::getOptions().getString("game.mode") == "tls") {
+                    myTLSGame = true;
                     setTitle("SUMO Interactive Traffic Light");
                 } else {
+                    myTLSGame = false;
                     setTitle("SUMO Interactive Demand-Responsive-Transport");
                 }
+                onCmdGaming(nullptr, 0, nullptr);
             } else {
                 // set simulation name on the caption
                 setTitle(MFXUtils::getTitleText("SUMO " VERSION_STRING, ec->myFile.c_str()));
@@ -1497,7 +1518,11 @@ GUIApplicationWindow::handleEvent_SimulationStep(GUIEvent*) {
         myStatButtons[2]->setText(toString(myRunThread->getNet().getContainerControl().getRunningNumber()).c_str());
     }
     if (myAmGaming) {
-        checkGamingEvents();
+        if (myTLSGame) {
+            checkGamingEvents();
+        } else {
+            checkGamingEventsDRT();
+        }
     }
     if (myRunThread->simulationIsStartable()) {
         getApp()->forceRefresh(); // restores keyboard focus
@@ -1592,6 +1617,24 @@ GUIApplicationWindow::checkGamingEvents() {
     myTimeLossLabel->setText(time2string(myTimeLoss).c_str());
 }
 
+void
+GUIApplicationWindow::checkGamingEventsDRT() {
+    // update performance indicators
+    MSTransportableControl& pc = myRunThread->getNet().getPersonControl();
+    myWaitingTime += pc.getWaitingForVehicleNumber() * DELTA_T;
+    myWaitingTimeLabel->setText(time2string(myWaitingTime).c_str());
+
+    MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
+    MSVehicleControl::constVehIt end = vc.loadedVehEnd();
+    for (auto it = vc.loadedVehBegin(); it != end; ++it) {
+        const MSVehicle* veh = dynamic_cast<MSVehicle*>(it->second);
+        assert(veh != 0);
+        if (veh->isOnRoad() && !veh->isStopped()) {
+            myTotalDistance += SPEED2DIST(veh->getSpeed());
+        }
+    }
+    myTotalDistanceLabel->setText(toString(myTotalDistance / 100).c_str());
+}
 
 void
 GUIApplicationWindow::loadConfigOrNet(const std::string& file, bool isNet) {

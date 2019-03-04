@@ -194,6 +194,12 @@ public:
         return myJammedNumber;
     }
 
+    /** @brief Returns the number of vehicles waiting for a ride
+     */
+    int getWaitingForVehicleNumber() const {
+        return myWaitingForVehicleNumber;
+    }
+
     /// @}
 
 protected:

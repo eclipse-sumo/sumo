@@ -311,6 +311,7 @@ private:
 
     /// @brief handles additional game-related events
     void checkGamingEvents();
+    void checkGamingEventsDRT();
 
 protected:
     /// FOX needs this for static members
@@ -429,14 +430,18 @@ protected:
     /// @brief A random number generator used to choose a gaming sound
     static std::mt19937 myGamingRNG;
     int myPreviousCollisionNumber;
+    /// @brief current game mode
+    bool myTLSGame;
 
     /// @brief performance indicators
     FXEX::FXLCDLabel* myWaitingTimeLabel;
     FXEX::FXLCDLabel* myTimeLossLabel;
+    FXEX::FXLCDLabel* myTotalDistanceLabel;
     SUMOTime myWaitingTime;
     SUMOTime myTimeLoss;
-    FXToolBar* myToolBar6, *myToolBar7;
-    FXToolBarShell* myToolBarDrag6, *myToolBarDrag7;
+    double myTotalDistance;
+    FXToolBar* myToolBar6, *myToolBar7, *myToolBar9;
+    FXToolBarShell* myToolBarDrag6, *myToolBarDrag7, *myToolBarDrag9;
     ////}
 
 };

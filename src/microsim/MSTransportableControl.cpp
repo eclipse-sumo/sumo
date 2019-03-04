@@ -304,4 +304,5 @@ MSTransportableControl::buildContainer(const SUMOVehicleParameter* pars, MSVehic
     return new MSContainer(pars, vtype, plan);
 }
 
+
 /****************************************************************************/
