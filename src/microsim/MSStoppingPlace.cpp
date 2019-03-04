@@ -133,7 +133,7 @@ MSStoppingPlace::getWaitingPositionOnLane(MSTransportable* t) const {
 
 int
 MSStoppingPlace::getPersonsAbreast(double length) {
-    return (int)floor(length / SUMO_const_waitingPersonWidth);
+    return MAX2(1, (int)floor(length / SUMO_const_waitingPersonWidth));
 }
 
 int
