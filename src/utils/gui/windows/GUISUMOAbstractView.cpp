@@ -273,6 +273,7 @@ GUISUMOAbstractView::paintGL() {
     if (getWidth() == 0 || getHeight() == 0) {
         return;
     }
+    const long start = SysUtils::getCurrentMillis();
 
     if (getTrackedID() != GUIGlObject::INVALID_ID) {
         centerTo(getTrackedID(), false);
@@ -305,9 +306,8 @@ GUISUMOAbstractView::paintGL() {
     if (myVisualizationSettings->showSizeLegend) {
         displayLegend();
     }
-    const long ms = SysUtils::getCurrentMillis();
-    myFrameDrawTime = ms - myLastDrawTime; 
-    myLastDrawTime = ms;
+    const long end = SysUtils::getCurrentMillis();
+    myFrameDrawTime = end - start; 
     if (myVisualizationSettings->fps) {
         drawFPS();
     }

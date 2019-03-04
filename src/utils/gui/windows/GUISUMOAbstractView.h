@@ -485,7 +485,6 @@ protected:
     std::map<const GUIGlObject*, int> myAdditionallyDrawn;
 
     /// @brief counter for measuring rendering time
-    long myLastDrawTime;
     long myFrameDrawTime;
 
 private:
