@@ -827,7 +827,14 @@ GUIVehicle::getManeuverDist() const {
 }
 
 void
-GUIVehicle::rerouteDRTStop(MSStoppingPlace* busStop, SUMOTime intermediateDuration, SUMOTime finalDuration) {
+GUIVehicle::rerouteDRTStop(MSStoppingPlace* busStop) {
+    SUMOTime intermediateDuration=TIME2STEPS(20);
+    SUMOTime finalDuration=SUMOTime_MAX;
+    if (myParameter->stops.size() >= 2) {
+        // copy durations from the original stops
+        intermediateDuration = myParameter->stops.front().duration;
+        finalDuration = myParameter->stops.back().duration;
+    }
     // if the stop is already in the list of stops, cancel all stops that come
     // after it and set the stop duration
     std::string line = "";
