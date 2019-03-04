@@ -333,6 +333,9 @@ GNEVehicleType::getAttribute(SumoXMLAttr key) const {
 
 void
 GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
+    if (value == getAttribute(key)) {
+        return; //avoid needless changes, later logic relies on the fact that attributes have changed
+    }
     switch (key) {
         case SUMO_ATTR_ID:
             undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));

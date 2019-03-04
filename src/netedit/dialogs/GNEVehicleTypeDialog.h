@@ -44,9 +44,9 @@ class GNEVehicleTypeDialog : public GNEDemandElementDialog {
 
 public:
     /// @brief class for VClasses
-    class VTypeCommonAtributes : protected FXGroupBox {
+    class VTypeAtributes : protected FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNEVehicleTypeDialog::VTypeCommonAtributes)
+        FXDECLARE(GNEVehicleTypeDialog::VTypeAtributes)
 
     public:
         /// @brief class for VClasses
@@ -54,7 +54,7 @@ public:
 
         public:
             /// @brief constructor
-            VClassRow(VTypeCommonAtributes* VTypeCommonAtributesParent, FXVerticalFrame* column);
+            VClassRow(VTypeAtributes* VTypeAtributesParent, FXVerticalFrame* column);
 
             /// @brief set variables
             void setVariable();
@@ -73,8 +73,8 @@ public:
             FXLabel* myComboBoxVClassLabelImage;
 
         private:
-            /// @brief pointer to VTypeCommonAtributes parent
-            VTypeCommonAtributes* myVTypeCommonAtributesParent;
+            /// @brief pointer to VTypeAtributes parent
+            VTypeAtributes* myVTypeAtributesParent;
         };
 
         /// @brief class for VShapeRow
@@ -82,7 +82,7 @@ public:
         
         public:
             /// @brief constructor
-            VShapeRow(VTypeCommonAtributes* VTypeCommonAtributesParent, FXVerticalFrame* column);
+            VShapeRow(VTypeAtributes* VTypeAtributesParent, FXVerticalFrame* column);
 
             /// @brief set variables
             void setVariable();
@@ -101,18 +101,47 @@ public:
             FXLabel* myComboBoxShapeLabelImage;
 
         private:
-            /// @brief pointer to VTypeCommonAtributes parent
-            VTypeCommonAtributes* myVTypeCommonAtributesParent;
+            /// @brief pointer to VTypeAtributes parent
+            VTypeAtributes* myVTypeAtributesParent;
+        };
+
+        /// @brief class used for represent rows with Vehicle Type parameters
+        class VTypeAttributeRow : protected FXHorizontalFrame {
+        public:
+            /// @brief constructor fox TextFields (type: 0 -> int, 1 -> float, other: string)
+            VTypeAttributeRow(VTypeAtributes *VTypeAtributesParent, FXVerticalFrame* verticalFrame, SumoXMLAttr attr, int type);
+            
+            /// @brief constructor for comboBox
+            VTypeAttributeRow(VTypeAtributes *VTypeAtributesParent, FXVerticalFrame* verticalFrame, SumoXMLAttr attr, const std::vector<std::string>& values);
+
+            /// @brief set Variablen in VehicleType
+            void setVariable();
+
+            /// @brief update value of Vehicle Type
+            void updateValue();
+
+        private:
+            /// @brief pointer to VTypeAttributeParameters parent
+            VTypeAtributes *myVTypeAtributesParent;
+
+            /// @brief edited attribute
+            SumoXMLAttr myAttr;
+
+            /// @brief text field
+            FXTextField* myTextField;
+
+            /// @brief ComboBox for attributes with limited values
+            FXComboBox* myComboBox;
         };
 
         /// @brief constructor
-        VTypeCommonAtributes(GNEVehicleTypeDialog* vehicleTypeDialog, FXHorizontalFrame* column);
+        VTypeAtributes(GNEVehicleTypeDialog* vehicleTypeDialog, FXHorizontalFrame* column);
 
         /// @brief build commmon attributes (A)
-        void buildCommonAttributesA(FXVerticalFrame* column);
+        void buildAttributesA(FXVerticalFrame* column);
 
         /// @brief build commmon attributes (B)
-        void buildCommonAttributesB(FXVerticalFrame* column);
+        void buildAttributesB(FXVerticalFrame* column);
 
         /// @brief update values
         void updateValues();
@@ -128,24 +157,7 @@ public:
 
     protected:
         /// @brief fox need this
-        VTypeCommonAtributes() {}
-
-        void setAttribute(FXTextField* row, SumoXMLAttr attr);
-        
-        void setAttribute(FXComboBox* row, SumoXMLAttr attr);
-
-        void updateRow(FXTextField* row, SumoXMLAttr attr);
-
-        void updateRow(FXComboBox* row, SumoXMLAttr attr);
-
-        /// @brief build row int
-        FXTextField* buildRowInt(FXPacker* column, SumoXMLAttr tag);
-
-        /// @brief build row float
-        FXTextField* buildRowFloat(FXPacker* column, SumoXMLAttr tag);
-
-        /// @brief build row
-        FXTextField* buildRowString(FXPacker* column, SumoXMLAttr tag);
+        VTypeAtributes() {}
 
         /// @brief FXTextfield for vehicleTypeID
         FXTextField* myTextFieldVehicleTypeID;
@@ -156,65 +168,65 @@ public:
         /// @brief FXButton for Color
         FXButton* myButtonColor;
 
-        /// @brief FXTextfield for Color
+        /// @brief FXTextField for Color
         FXTextField* myTextFieldColor;
 
-        /// @brief FXTextfield for Length
-        FXTextField* myTextFieldLength;
+        /// @brief VTypeAttributeRow for Length
+        VTypeAttributeRow* myLength;
 
-        /// @brief FXTextfield for MinGap
-        FXTextField* myTextFieldMinGap;
+        /// @brief VTypeAttributeRow for MinGap
+        VTypeAttributeRow* myMinGap;
 
-        /// @brief FXTextfield for MaxSpeed
-        FXTextField* myTextFieldMaxSpeed;
+        /// @brief VTypeAttributeRow for MaxSpeed
+        VTypeAttributeRow* myMaxSpeed;
 
-        /// @brief FXTextfield for SpeedFactor
-        FXTextField* myTextFieldSpeedFactor;
+        /// @brief VTypeAttributeRow for SpeedFactor
+        VTypeAttributeRow* mySpeedFactor;
 
-        /// @brief FXTextfield for SpeedDev
-        FXTextField* myTextFieldSpeedDev;
+        /// @brief VTypeAttributeRow for SpeedDev
+        VTypeAttributeRow* mySpeedDev;
 
-        /// @brief FXTextfield for EmissionClass
-        FXTextField* myTextFieldEmissionClass;
+        /// @brief VTypeAttributeRow for EmissionClass
+        VTypeAttributeRow* myEmissionClass;
 
         /// @brief vehicle shape row
         VShapeRow* myVShapeRow;
 
-        /// @brief FXTextfield for Width
-        FXTextField* myTextFieldWidth;
+        /// @brief VTypeAttributeRow for Width
+        VTypeAttributeRow* myWidth;
 
-        /// @brief FXTextfield for Filename
-        FXTextField* myTextFieldFilename;
+        /// @brief VTypeAttributeRow for Filename
+        VTypeAttributeRow* myFilename;
 
-        /// @brief FXTextfield for Impatience
-        FXTextField* myTextFieldImpatience;
+        /// @brief VTypeAttributeRow for Impatience
+        VTypeAttributeRow* myImpatience;
 
-        /// @brief ComboBox for LaneChangeModel
-        FXComboBox* myComboBoxLaneChangeModel;
+        /// @brief VTypeAttributeRow for LaneChangeModel
+        VTypeAttributeRow* myLaneChangeModel;
 
-        /// @brief FXTextfield for PersonCapacity
-        FXTextField* myTextFieldPersonCapacity;
+        /// @brief VTypeAttributeRow for PersonCapacity
+        VTypeAttributeRow* myPersonCapacity;
 
-        /// @brief FXTextfield for ContainerCapacity
-        FXTextField* myTextFieldContainerCapacity;
+        /// @brief VTypeAttributeRow for ContainerCapacity
+        VTypeAttributeRow* myContainerCapacity;
 
-        /// @brief FXTextfield for BoardingDuration
-        FXTextField* myTextFieldBoardingDuration;
+        /// @brief VTypeAttributeRow for BoardingDuration
+        VTypeAttributeRow* myBoardingDuration;
 
-        /// @brief FXTextfield for LoadingDuration
-        FXTextField* myTextFieldLoadingDuration;
+        /// @brief VTypeAttributeRow for LoadingDuration
+        VTypeAttributeRow* myLoadingDuration;
 
-        /// @brief FXComboBox for LatAlignment
-        FXComboBox* myComboBoxLatAlignment;
+        /// @brief VTypeAttributeRow for LatAlignment
+        VTypeAttributeRow* myLatAlignment;
 
-        /// @brief FXTextfield for MinGapLat
-        FXTextField* myTextFieldMinGapLat;
+        /// @brief VTypeAttributeRow for MinGapLat
+        VTypeAttributeRow* myMinGapLat;
 
-        /// @brief FXTextfield for MaxSpeedLat
-        FXTextField* myTextFieldMaxSpeedLat;
+        /// @brief VTypeAttributeRow for MaxSpeedLat
+        VTypeAttributeRow* myMaxSpeedLat;
 
-        /// @brief FXTextfield for ActionStepLenght
-        FXTextField* myTextFieldActionStepLenght;
+        /// @brief VTypeAttributeRow for ActionStepLenght
+        VTypeAttributeRow* myActionStepLenght;
 
     private:
         /// @brief pointer to Vehicle Type dialog parent
@@ -379,10 +391,6 @@ public:
     long onCmdSetVariable(FXObject*, FXSelector, void*);
     /// @}
 
-protected:
-    /// @brief update data fields
-    void updateVehicleTypeValues();
-
 private:
     /// @brief flag to check if current vehicleType is valid
     bool myVehicleTypeValid;
@@ -391,7 +399,7 @@ private:
     SumoXMLAttr myInvalidAttr;
 
     /// @brief Vehicle Type Common Attributes
-    VTypeCommonAtributes* myVTypeCommonAtributes;
+    VTypeAtributes* myVTypeAtributes;
 
     /// @brief Car Following model parameters
     CarFollowingModelParameters* myCarFollowingModelParameters;
