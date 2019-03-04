@@ -369,8 +369,11 @@ protected:
     /// @brief paints a grid
     void paintGLGrid();
 
-    /// @briefDraws a line with ticks, and the length information.
+    /// @brief Draws a line with ticks, and the length information.
     void displayLegend();
+
+    /// @brief Draws frames-per-second indicator
+    void drawFPS();
 
     /// @brief returns the id of the front object under the cursor using GL_SELECT
     GUIGlID getObjectUnderCursor();
@@ -477,6 +480,9 @@ protected:
 
     /// @brief List of objects for which GUIGlObject::drawGLAdditional is called
     std::map<const GUIGlObject*, int> myAdditionallyDrawn;
+
+    /// @brief counter for measuring rendering time
+    long myFrameDrawTime;
 
 private:
     // @brief sensitivity for "<>AtPosition(...) functions

@@ -41,6 +41,7 @@
 #include <utils/common/ToString.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/SysUtils.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/images/GUITexturesHelper.h>
@@ -303,6 +304,9 @@ GUISUMOAbstractView::paintGL() {
     doPaintGL(GL_RENDER, bound);
     if (myVisualizationSettings->showSizeLegend) {
         displayLegend();
+    }
+    if (myVisualizationSettings->fps) {
+        drawFPS();
     }
     // check whether the select mode /tooltips)
     //  shall be computed, too
@@ -605,6 +609,30 @@ GUISUMOAbstractView::displayLegend() {
 
     // draw current scale
     GLHelper::drawText((text.substr(0, noDigits) + "m").c_str(), Position(-.99 + len, -0.99 + o2 + oo), z, fontHeight, RGBColor::BLACK, 0, FONS_ALIGN_LEFT, fontWidth);
+
+    // restore matrices
+    glMatrixMode(GL_PROJECTION);
+    glPopMatrix();
+    glMatrixMode(GL_MODELVIEW);
+    glPopMatrix();
+}
+
+void
+GUISUMOAbstractView::drawFPS() {
+    glMatrixMode(GL_PROJECTION);
+    glPushMatrix();
+    glLoadIdentity();
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glLoadIdentity();
+
+    const long ms = SysUtils::getCurrentMillis();
+    const double durationS = (ms - myFrameDrawTime) / 1000.0;
+    myFrameDrawTime = ms;
+    const double fps = 1.0 / durationS;
+    const double fontHeight = 0.2 * 300. / getHeight();
+    const double fontWidth = 0.2 * 300. / getWidth();
+    GLHelper::drawText(toString(fps) + " FPS", Position(0.82, 0.88), -1, fontHeight, RGBColor::RED, 0, FONS_ALIGN_LEFT, fontWidth);
 
     // restore matrices
     glMatrixMode(GL_PROJECTION);
