@@ -40,6 +40,8 @@ def get_options(args=None):
                          "<person> and <walk> are supported.")
     optParser.add_option("-b", "--begin", type="float", default=0, help="begin time")
     optParser.add_option("-e", "--end", type="float", default=3600, help="end time (default 3600)")
+    optParser.add_option("--poi-offset", dest="poiOffset", type="float", default=12, help="offset of stop-poi from the lane in m")
+    optParser.add_option("--initial-duration", dest="duration", type="int", default=5, help="inital stop duration in s")
     optParser.add_option(
         "-p", "--period", type="float", default=1, help="Generate vehicles with equidistant departure times and " +
         "period=FLOAT (default 1.0). If option --binomial is used, the expected arrival rate is set to 1/period.")
@@ -80,7 +82,7 @@ def main(options):
             outf.write('<additional>\n')
             for bs in sumolib.xml.parse(options.additional, 'busStop'):
                 laneShape = net.getLane(bs.lane).getShape()
-                sideShape = sumolib.geomhelper.move2side(laneShape, 12)
+                sideShape = sumolib.geomhelper.move2side(laneShape, options.poiOffset)
                 offset = (float(bs.startPos) + float(bs.endPos)) / 2
                 x,y = sumolib.geomhelper.positionAtShapeOffset(sideShape, offset)
                 stopColors[bs.id] = colorgen()
@@ -106,7 +108,7 @@ def main(options):
                 color = ' color="%s"' % stopColors[bsTo] 
             outf.write('    <person id="%s%s" depart="%s"%s>\n' % (
                 options.tripprefix, idx, depart, color))
-            outf.write('        <stop busStop="%s" duration="5"/>\n' % bsFrom)
+            outf.write('        <stop busStop="%s" duration="%s"/>\n' % (bsFrom, options.duration))
             outf.write('        <ride busStop="%s" lines="ANY"/>\n' % (bsTo))
             outf.write('    </person>\n')
             depart += options.period
