@@ -1,0 +1,15 @@
+Loading net-file from 'net.net.xml'... done (0ms).
+Loading done.
+Performance: 
+ Duration: 0ms
+Vehicles: 
+ Inserted: 0
+ Running: 0
+ Waiting: 0
+Statistics (avg):
+ RouteLength: 0.00
+ Duration: 0.00
+ WaitingTime: 0.00
+ TimeLoss: 0.00
+ DepartDelay: 0.00
+

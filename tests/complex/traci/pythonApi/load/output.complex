@@ -1,6 +1,8 @@
 Loading configuration... done.
 Loading configuration... done.
 Loading configuration... done.
+ Retrying in 1 seconds
+ Retrying in 1 seconds
 step=1000 departed=('horiz',)
 step=2000 departed=()
 step=3000 departed=()
@@ -366,4 +368,3 @@ step=358000 departed=()
 step=359000 departed=()
 step=360000 departed=()
 step=361000 departed=()
-step=362000 departed=()
