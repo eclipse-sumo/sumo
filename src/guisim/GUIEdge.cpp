@@ -211,14 +211,11 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
     }
     glPushName(getGlID());
     // draw the lanes
+    if (MSGlobals::gUseMesoSim) {
+        setColor(s);
+    }
     for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
-        if (MSGlobals::gUseMesoSim) {
-            setColor(s);
-        }
-        GUILane* l = dynamic_cast<GUILane*>(*i);
-        if (l != nullptr) {
-            l->drawGL(s);
-        }
+        static_cast<GUILane*>(*i)->drawGL(s);
     }
     if (MSGlobals::gUseMesoSim) {
         if (s.scale * s.vehicleSize.getExaggeration(s, nullptr) > s.vehicleSize.minSize) {
