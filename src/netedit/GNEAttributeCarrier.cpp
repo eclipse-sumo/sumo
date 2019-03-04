@@ -3115,43 +3115,6 @@ GNEAttributeCarrier::fillDemandElements() {
             "");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
-        attrProperty = AttributeProperties(SUMO_ATTR_ACCEL,
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
-            "The acceleration ability of vehicles of this type [m/s^2]",
-            "2.60");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-        
-        attrProperty = AttributeProperties(SUMO_ATTR_DECEL,
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
-            "The deceleration ability of vehicles of this type [m/s^2]",
-            "4.50");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_APPARENTDECEL,
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_EXTENDED,
-            "The apparent deceleration of the vehicle as used by the standard model [m/s^2]",
-            "4.50");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_EMERGENCYDECEL,
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_EXTENDED,
-            "The maximal physically possible deceleration for the vehicle [m/s^2]",
-            "4.50");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_SIGMA,
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_RANGE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
-            "Car-following model parameter",
-            "0.50");
-            attrProperty.setRange(0, 1);
-        myTagProperties[currentTag].addAttribute(attrProperty);
-        
-        attrProperty = AttributeProperties(SUMO_ATTR_TAU,
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
-            "Car-following model parameter",
-            "1.00");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-        
         attrProperty = AttributeProperties(SUMO_ATTR_LENGTH,
             ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "The vehicle's netto-length (length) [m]",
@@ -3274,6 +3237,9 @@ GNEAttributeCarrier::fillDemandElements() {
             "The interval length for which vehicle performs its decision logic (acceleration and lane-changing)",
             toString(OptionsCont::getOptions().getFloat("default.action-step-length")));
         myTagProperties[currentTag].addAttribute(attrProperty);
+
+        // fill Car Following Model Values (implemented in a separated function to improve code legibility)
+        fillCarFollowingModelAttributes();
     }
     currentTag = SUMO_TAG_VEHICLE;
     {
@@ -3606,6 +3572,153 @@ GNEAttributeCarrier::fillDemandElements() {
             "current");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
+}
+
+
+void 
+GNEAttributeCarrier::fillCarFollowingModelAttributes() {
+    // declare empty AttributeProperties
+    AttributeProperties attrProperty;
+    attrProperty = AttributeProperties(SUMO_ATTR_ACCEL,
+        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+        "The acceleration ability of vehicles of this type [m/s^2]",
+        "2.60");
+    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+        
+    attrProperty = AttributeProperties(SUMO_ATTR_DECEL,
+        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+        "The deceleration ability of vehicles of this type [m/s^2]",
+        "4.50");
+    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_APPARENTDECEL,
+        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_EXTENDED,
+        "The apparent deceleration of the vehicle as used by the standard model [m/s^2]",
+        "4.50");
+    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_EMERGENCYDECEL,
+        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_EXTENDED,
+        "The maximal physically possible deceleration for the vehicle [m/s^2]",
+        "4.50");
+    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_SIGMA,
+        ATTRPROPERTY_FLOAT | ATTRPROPERTY_RANGE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+        "Car-following model parameter",
+        "0.50");
+        attrProperty.setRange(0, 1);
+    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+        
+    attrProperty = AttributeProperties(SUMO_ATTR_TAU,
+        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+        "Car-following model parameter",
+        "1.00");
+    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_TMP1,
+        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_EXTENDED,
+        "SKRAUSSX parameter 1",
+        "");
+    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_TMP2,
+        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_EXTENDED,
+        "SKRAUSSX parameter 2",
+        "");
+    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_TMP3,
+        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_EXTENDED,
+        "SKRAUSSX parameter 3",
+        "");
+    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_TMP4,
+        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_EXTENDED,
+        "SKRAUSSX parameter 4",
+        "");
+    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_TMP5,
+        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_EXTENDED,
+        "SKRAUSSX parameter 5",
+        "");
+    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_CF_PWAGNER2009_TAULAST,
+        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_EXTENDED,
+        "Peter Wagner 2009 parameter",
+        "");
+    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_CF_PWAGNER2009_APPROB,
+        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_EXTENDED,
+        "Peter Wagner 2009 parameter",
+        "");
+    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_CF_IDMM_ADAPT_FACTOR,
+        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_EXTENDED,
+        "IDMM parameter",
+        "");
+    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_CF_IDMM_ADAPT_TIME,
+        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_EXTENDED,
+        "IDMM parameter",
+        "");
+    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_CF_WIEDEMANN_SECURITY,
+        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_EXTENDED,
+        "Wiedemann parameter",
+        "");
+    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_CF_WIEDEMANN_ESTIMATION,
+        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_EXTENDED,
+        "Wiedemann parameter",
+        "");
+    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_COLLISION_MINGAP_FACTOR,
+        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_EXTENDED,
+        "MinGap factor parameter",
+        "");
+    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_K,
+        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_EXTENDED,
+        "K parameter",
+        "");
+    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+
+
+    attrProperty = AttributeProperties(SUMO_ATTR_CF_KERNER_PHI,
+        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_EXTENDED,
+        "Kerner Phi parameter",
+        "");
+    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_CF_IDM_DELTA,
+        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_EXTENDED,
+        "IDM Delta parameter",
+        "");
+    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_CF_IDM_STEPPING,
+        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_EXTENDED,
+        "IDM Stepping parameter",
+        "");
+    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_TRAIN_TYPE,
+        ATTRPROPERTY_STRING | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_EXTENDED,
+        "Train Types",
+        "NGT400");
+        attrProperty.setDiscreteValues(SUMOXMLDefinitions::TrainTypes.getStrings());
+    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
 }
 
 
