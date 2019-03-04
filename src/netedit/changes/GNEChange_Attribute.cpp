@@ -43,8 +43,23 @@ GNEChange_Attribute::GNEChange_Attribute(GNEAttributeCarrier *ac, GNENet* net,
         bool customOrigValue, const std::string& origValue) :
     GNEChange(net, true),
     myAC(ac),
+    myForceChange(false),
     myKey(key),
     myOrigValue(customOrigValue ? origValue : ac->getAttribute(key)),
+    myNewValue(value),
+    myOldParametersSet(0),
+    myNewParametersSet(0) {
+    myAC->incRef("GNEChange_Attribute " + toString(myKey));
+}
+
+
+GNEChange_Attribute::GNEChange_Attribute(GNEAttributeCarrier *ac, GNENet* net, 
+        bool forceChange, SumoXMLAttr key, const std::string& value) :
+    GNEChange(net, true),
+    myAC(ac),
+    myForceChange(forceChange),
+    myKey(key),
+    myOrigValue(ac->getAttribute(key)),
     myNewValue(value),
     myOldParametersSet(0),
     myNewParametersSet(0) {
@@ -56,6 +71,7 @@ GNEChange_Attribute::GNEChange_Attribute(GNEAttributeCarrier *ac,
         GNENet* net, const int oldParametersSet, const int newParametersSet) :
     GNEChange(net, true),
     myAC(ac),
+    myForceChange(false),
     myKey(SUMO_ATTR_NOTHING),
     myOldParametersSet(oldParametersSet),
     myNewParametersSet(newParametersSet) {
@@ -148,7 +164,9 @@ GNEChange_Attribute::redo() {
 bool
 GNEChange_Attribute::trueChange() {
     // check if we're editing the value of an attribute or changing a disjoint attribute
-    if (myKey == SUMO_ATTR_NOTHING) {
+    if(myForceChange) {
+        return true;
+    } else if (myKey == SUMO_ATTR_NOTHING) {
         return (myOldParametersSet != myNewParametersSet);
     } else {
         return (myOrigValue != myNewValue);
