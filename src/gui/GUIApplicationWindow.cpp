@@ -689,7 +689,7 @@ GUIApplicationWindow::buildToolBars() {
         myTimeLossLabel->setText("-------------");
 
         // total driving distance
-        myToolBarDrag8 = new FXToolBarShell(this, GUIDesignToolBar);
+        myToolBarDrag9 = new FXToolBarShell(this, GUIDesignToolBar);
         myToolBar9 = new FXToolBar(myTopDock, myToolBarDrag9, GUIDesignToolBarRaisedSameTop);
         new FXToolBarGrip(myToolBar9, myToolBar9, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
         new FXLabel(myToolBar9, "Distance (km):\t\tTotal distance driven by DRT vehicles", nullptr, LAYOUT_TOP | LAYOUT_LEFT);
