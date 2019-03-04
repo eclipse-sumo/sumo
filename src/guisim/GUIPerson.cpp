@@ -285,8 +285,10 @@ GUIPerson::drawGL(const GUIVisualizationSettings& s) const {
     glScaled(upscale, upscale, 1);
     switch (s.personQuality) {
         case 0:
-        case 1:
             drawAction_drawAsTriangle(s);
+            break;
+        case 1:
+            drawAction_drawAsCircle(s);
             break;
         case 2:
             drawAction_drawAsPoly(s);
@@ -497,6 +499,13 @@ GUIPerson::drawAction_drawAsTriangle(const GUIVisualizationSettings& /* s */) co
     glVertex2d(0.5, 0.25);
     glEnd();
     glTranslated(0, 0, -.045);
+}
+
+
+void
+GUIPerson::drawAction_drawAsCircle(const GUIVisualizationSettings& /* s */) const {
+    glScaled(getVehicleType().getLength(), getVehicleType().getLength(), 1);
+    GLHelper::drawFilledCircle(0.5);
 }
 
 

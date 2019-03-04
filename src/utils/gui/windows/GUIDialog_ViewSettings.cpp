@@ -297,7 +297,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         new FXLabel(m101, "Show As", nullptr, GUIDesignViewSettingsLabel1);
         myPersonShapeDetail = new MFXIconComboBox(m101, 20, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
         myPersonShapeDetail->appendItem("'triangles'");
-        myPersonShapeDetail->appendItem("'boxes'");
+        myPersonShapeDetail->appendItem("'circles'");
         myPersonShapeDetail->appendItem("'simple shapes'");
         myPersonShapeDetail->appendItem("'raster images'");
         myPersonShapeDetail->setNumVisible(4);

@@ -259,6 +259,7 @@ private:
     /// @name drawing helper methods
     /// @{
     void drawAction_drawAsTriangle(const GUIVisualizationSettings& s) const;
+    void drawAction_drawAsCircle(const GUIVisualizationSettings& s) const;
     void drawAction_drawAsPoly(const GUIVisualizationSettings& s) const;
     void drawAction_drawAsImage(const GUIVisualizationSettings& s) const;
 
