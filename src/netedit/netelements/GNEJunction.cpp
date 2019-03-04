@@ -236,7 +236,6 @@ GNEJunction::getCenteringBoundary() const {
 void
 GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
     // declare variables
-    GLfloat color[4];
     double exaggeration = isAttributeCarrierSelected() ? s.selectionScale : 1;
     exaggeration *= s.junctionSize.getExaggeration(s, this);
     // declare values for circles
@@ -258,10 +257,9 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                                  || myNet->getViewNet()->showJunctionAsBubbles());
 
         if (drawShape) {
-            setColor(s, false);
+            RGBColor color = setColor(s, false);
             // recognize full transparency and simply don't draw
-            glGetFloatv(GL_CURRENT_COLOR, color);
-            if (color[3] != 0) {
+            if (color.alpha() != 0) {
                 glPushMatrix();
                 glTranslated(0, 0, getType());
                 PositionVector shape = myNBNode.getShape();
@@ -282,10 +280,9 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             }
         }
         if (drawBubble) {
-            setColor(s, true);
+            RGBColor color = setColor(s, true);
             // recognize full transparency and simply don't draw
-            glGetFloatv(GL_CURRENT_COLOR, color);
-            if (color[3] != 0) {
+            if (color.alpha() != 0) {
                 glPushMatrix();
                 glTranslated(myNBNode.getPosition().x(), myNBNode.getPosition().y(), getType() + 0.05);
                 if (!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(myNBNode.getPosition()) <= (circleWidthSquared + 2))) {
@@ -1337,16 +1334,18 @@ GNEJunction::moveJunctionGeometry(const Position& pos, bool updateGrid) {
 }
 
 
-void
+RGBColor
 GNEJunction::setColor(const GUIVisualizationSettings& s, bool bubble) const {
-    GLHelper::setColor(s.junctionColorer.getScheme().getColor(getColorValue(s, bubble)));
+    RGBColor color = s.junctionColorer.getScheme().getColor(getColorValue(s, bubble));
     // override with special colors (unless the color scheme is based on selection)
     if (drawUsingSelectColor() && s.junctionColorer.getActive() != 1) {
-        GLHelper::setColor(s.selectionColor);
+        color = s.selectionColor;
     }
     if (myAmCreateEdgeSource) {
-        glColor3d(0, 1, 0);
+        color = RGBColor(0, 255, 0);
     }
+    GLHelper::setColor(color);
+    return color;
 }
 
 void

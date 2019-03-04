@@ -281,10 +281,10 @@ private:
     void drawLane2LaneConnections() const;
 
     /// @brief sets the color according to the current scheme index and some lane function
-    bool setFunctionalColor(int activeScheme) const;
+    bool setFunctionalColor(int activeScheme, RGBColor& col) const;
 
     /// @brief sets multiple colors according to the current scheme index and some lane function
-    bool setMultiColor(const GUIColorer& c) const;
+    bool setMultiColor(const GUIVisualizationSettings& s, const GUIColorer& c, RGBColor& col) const;
 
     /// @brief whether to draw this lane as a waterways
     bool drawAsWaterway(const GUIVisualizationSettings& s) const;
@@ -293,7 +293,7 @@ private:
     void drawDirectionIndicators(double exaggeration, bool spreadSuperposed) const;
 
     /// @brief set color according to edit mode and visualisation settings
-    void setLaneColor(const GUIVisualizationSettings& s) const;
+    RGBColor setLaneColor(const GUIVisualizationSettings& s) const;
 
     /// @brief Invalidated copy constructor.
     GNELane(const GNELane&) = delete;

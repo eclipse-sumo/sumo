@@ -515,15 +515,14 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     }
     // draw geometry points if isnt's too small
     if (s.scale > 8.0) {
-        GLHelper::setColor(s.junctionColorer.getSchemes()[0].getColor(2));
+        RGBColor color = s.junctionColorer.getSchemes()[0].getColor(2);
         if (drawUsingSelectColor() && s.laneColorer.getActive() != 1) {
             // override with special colors (unless the color scheme is based on selection)
-            GLHelper::setColor(s.selectedEdgeColor.changedBrightness(-20));
+            color = s.selectedEdgeColor.changedBrightness(-20);
         }
+        GLHelper::setColor(color);
         // recognize full transparency and simply don't draw
-        GLfloat color[4];
-        glGetFloatv(GL_CURRENT_COLOR, color);
-        if (color[3] > 0) {
+        if (color.alpha() > 0) {
             // push name
             glPushName(getGlID());
             // draw geometry points expect initial and final

@@ -258,7 +258,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
     glPushName(getGlID());
     // Traslate to fromt
     glTranslated(0, 0, myParentEdge.getNBEdge()->getLength() < 1 ? GLO_JUNCTION + 1 : getType());
-    setLaneColor(s);
+    const RGBColor color = setLaneColor(s);
     // start drawing lane checking whether it is not too small
     const double selectionScale = isAttributeCarrierSelected() || myParentEdge.isAttributeCarrierSelected() ? s.selectionScale : 1;
     double exaggeration = selectionScale * s.laneWidthExaggeration; // * s.laneScaler.getScheme().getColor(getScaleValue(s.laneScaler.getActive()));
@@ -266,9 +266,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
     //exaggeration *= s.laneScaler.getScheme().getColor(getScaleValue(s.laneScaler.getActive()));
 
     // recognize full transparency and simply don't draw
-    GLfloat color[4];
-    glGetFloatv(GL_CURRENT_COLOR, color);
-    if ((color[3] == 0) || (s.scale * exaggeration < s.laneMinSize)) {
+    if (color.alpha() == 0 || (s.scale * exaggeration < s.laneMinSize)) {
         // Pop draw matrix 1
         glPopMatrix();
     } else if (s.scale * exaggeration < 1.) {
@@ -1044,32 +1042,35 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void
+RGBColor
 GNELane::setLaneColor(const GUIVisualizationSettings& s) const {
+    RGBColor color;
     if (mySpecialColor != nullptr) {
         // If special color is enabled, set it
-        GLHelper::setColor(*mySpecialColor);
+        color = *mySpecialColor;
     } else if (drawUsingSelectColor() && s.laneColorer.getActive() != 1) {
         // override with special colors (unless the color scheme is based on selection)
-        GLHelper::setColor(s.selectedLaneColor);
+        color = s.selectedLaneColor;
     } else if (myParentEdge.drawUsingSelectColor() && s.laneColorer.getActive() != 1) {
         // override with special colors (unless the color scheme is based on selection)
-        GLHelper::setColor(s.selectedEdgeColor);
+        color = s.selectedEdgeColor;
     } else {
         // Get normal lane color
         const GUIColorer& c = s.laneColorer;
-        if (!setFunctionalColor(c.getActive()) && !setMultiColor(c)) {
-            GLHelper::setColor(c.getScheme().getColor(getColorValue(s, c.getActive())));
+        if (!setFunctionalColor(c.getActive(), color) && !setMultiColor(s, c, color)) {
+            color = c.getScheme().getColor(getColorValue(s, c.getActive()));
         }
     }
+    GLHelper::setColor(color);
+    return color;
 }
 
 bool
-GNELane::setFunctionalColor(int activeScheme) const {
+GNELane::setFunctionalColor(int activeScheme, RGBColor& col) const {
     switch (activeScheme) {
         case 6: {
             double hue = GeomHelper::naviDegree(getShape().beginEndAngle()); // [0-360]
-            GLHelper::setColor(RGBColor::fromHSV(hue, 1., 1.));
+            col = RGBColor::fromHSV(hue, 1., 1.);
             return true;
         }
         default:
@@ -1079,7 +1080,7 @@ GNELane::setFunctionalColor(int activeScheme) const {
 
 
 bool
-GNELane::setMultiColor(const GUIColorer& c) const {
+GNELane::setMultiColor(const GUIVisualizationSettings& s, const GUIColorer& c, RGBColor& col) const {
     const int activeScheme = c.getActive();
     myShapeColors.clear();
     switch (activeScheme) {
@@ -1087,12 +1088,14 @@ GNELane::setMultiColor(const GUIColorer& c) const {
             for (PositionVector::const_iterator ii = getShape().begin(); ii != getShape().end() - 1; ++ii) {
                 myShapeColors.push_back(c.getScheme().getColor(ii->z()));
             }
+            col = c.getScheme().getColor(getColorValue(s, 8));
             return true;
         case 11: // color by inclination  at segment start
             for (int ii = 1; ii < (int)getShape().size(); ++ii) {
                 const double inc = (getShape()[ii].z() - getShape()[ii - 1].z()) / MAX2(POSITION_EPS, getShape()[ii].distanceTo2D(getShape()[ii - 1]));
                 myShapeColors.push_back(c.getScheme().getColor(inc));
             }
+            col = c.getScheme().getColor(getColorValue(s, 10));
             return true;
         default:
             return false;

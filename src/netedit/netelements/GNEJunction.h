@@ -299,7 +299,7 @@ private:
     void moveJunctionGeometry(const Position& pos, bool updateGrid);
 
     /// @brief sets junction color depending on circumstances
-    void setColor(const GUIVisualizationSettings& s, bool bubble) const;
+    RGBColor setColor(const GUIVisualizationSettings& s, bool bubble) const;
 
     /// @brief determines color value
     double getColorValue(const GUIVisualizationSettings& s, bool bubble) const;
