@@ -130,6 +130,14 @@ public:
         /// @brief fox need this
         VTypeCommonAtributes() {}
 
+        void setAttribute(FXTextField* row, SumoXMLAttr attr);
+        
+        void setAttribute(FXComboBox* row, SumoXMLAttr attr);
+
+        void updateRow(FXTextField* row, SumoXMLAttr attr);
+
+        void updateRow(FXComboBox* row, SumoXMLAttr attr);
+
         /// @brief build row int
         FXTextField* buildRowInt(FXPacker* column, SumoXMLAttr tag);
 

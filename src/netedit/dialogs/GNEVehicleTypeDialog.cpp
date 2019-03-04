@@ -459,24 +459,24 @@ GNEVehicleTypeDialog::VTypeCommonAtributes::updateValues() {
     myVShapeRow->updateValues();
     //set values of myEditedDemandElement into fields
     myTextFieldVehicleTypeID->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_ID).c_str());
-    myTextFieldLength->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_LENGTH).c_str());
-    myTextFieldMinGap->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_MINGAP).c_str());
-    myTextFieldMaxSpeed->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_MAXSPEED).c_str());
-    myTextFieldSpeedFactor->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_SPEEDFACTOR).c_str());
-    myTextFieldSpeedDev->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_SPEEDDEV).c_str());
-    myTextFieldColor->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_COLOR).c_str());
-    myTextFieldEmissionClass->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_EMISSIONCLASS).c_str());
-    myTextFieldWidth->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_WIDTH).c_str());
-    myTextFieldFilename->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_IMGFILE).c_str());
-    myTextFieldImpatience->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_IMPATIENCE).c_str());
-    myComboBoxLaneChangeModel->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_LANE_CHANGE_MODEL).c_str());
-    myTextFieldPersonCapacity->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_PERSON_CAPACITY).c_str());
-    myTextFieldContainerCapacity->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_CONTAINER_CAPACITY).c_str());
-    myTextFieldBoardingDuration->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_BOARDING_DURATION).c_str());
-    myTextFieldLoadingDuration->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_LOADING_DURATION).c_str());
-    myComboBoxLatAlignment->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_LATALIGNMENT).c_str());
-    myTextFieldMinGapLat->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_MINGAP_LAT).c_str());
-    myTextFieldMaxSpeedLat->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_MAXSPEED_LAT).c_str());
+    updateRow(myTextFieldLength, SUMO_ATTR_LENGTH);
+    updateRow(myTextFieldMinGap, SUMO_ATTR_MINGAP);
+    updateRow(myTextFieldMaxSpeed, SUMO_ATTR_MAXSPEED);
+    updateRow(myTextFieldSpeedFactor, SUMO_ATTR_SPEEDFACTOR);
+    updateRow(myTextFieldSpeedDev, SUMO_ATTR_SPEEDDEV);
+    updateRow(myTextFieldColor, SUMO_ATTR_COLOR);
+    updateRow(myTextFieldEmissionClass, SUMO_ATTR_EMISSIONCLASS);
+    updateRow(myTextFieldWidth, SUMO_ATTR_WIDTH);
+    updateRow(myTextFieldFilename, SUMO_ATTR_IMGFILE);
+    updateRow(myTextFieldImpatience, SUMO_ATTR_IMPATIENCE);
+    updateRow(myComboBoxLaneChangeModel, SUMO_ATTR_LANE_CHANGE_MODEL);
+    updateRow(myTextFieldPersonCapacity, SUMO_ATTR_PERSON_CAPACITY);
+    updateRow(myTextFieldContainerCapacity, SUMO_ATTR_CONTAINER_CAPACITY);
+    updateRow(myTextFieldBoardingDuration, SUMO_ATTR_BOARDING_DURATION);
+    updateRow(myTextFieldLoadingDuration, SUMO_ATTR_LOADING_DURATION);
+    updateRow(myComboBoxLatAlignment, SUMO_ATTR_LATALIGNMENT);
+    updateRow(myTextFieldMinGapLat, SUMO_ATTR_MINGAP_LAT);
+    updateRow(myTextFieldMaxSpeedLat, SUMO_ATTR_MAXSPEED_LAT);
 }
 
 
@@ -501,167 +501,41 @@ GNEVehicleTypeDialog::VTypeCommonAtributes::onCmdSetVariable(FXObject*, FXSelect
         myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_ID;
     }
     // set color of myTextFieldLength, depending if current value is valid or not
-    if (myVehicleTypeDialog->myEditedDemandElement->isValid(SUMO_ATTR_LENGTH, myTextFieldLength->getText().text())) {
-        myTextFieldLength->setTextColor(FXRGB(0, 0, 0));
-        myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_LENGTH, myTextFieldLength->getText().text(), myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
-    } else {
-        myTextFieldLength->setTextColor(FXRGB(255, 0, 0));
-        myVehicleTypeDialog->myVehicleTypeValid = false;
-        myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_LENGTH;
-    }
+    setAttribute(myTextFieldLength, SUMO_ATTR_LENGTH);
     // set color of myTextFieldMinGap, depending if current value is valid or not
-    if (myVehicleTypeDialog->myEditedDemandElement->isValid(SUMO_ATTR_MINGAP, myTextFieldMinGap->getText().text())) {
-        myTextFieldMinGap->setTextColor(FXRGB(0, 0, 0));
-        myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_MINGAP, myTextFieldMinGap->getText().text(), myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
-    } else {
-        myTextFieldMinGap->setTextColor(FXRGB(255, 0, 0));
-        myVehicleTypeDialog->myVehicleTypeValid = false;
-        myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_MINGAP;
-    }
+    setAttribute(myTextFieldMinGap, SUMO_ATTR_MINGAP);
     // set color of myTextFieldMaxSpeed, depending if current value is valid or not
-    if (myVehicleTypeDialog->myEditedDemandElement->isValid(SUMO_ATTR_MAXSPEED, myTextFieldMaxSpeed->getText().text())) {
-        myTextFieldMaxSpeed->setTextColor(FXRGB(0, 0, 0));
-        myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_MAXSPEED, myTextFieldMaxSpeed->getText().text(), myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
-    } else {
-        myTextFieldMaxSpeed->setTextColor(FXRGB(255, 0, 0));
-        myVehicleTypeDialog->myVehicleTypeValid = false;
-        myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_MAXSPEED;
-    }
+    setAttribute(myTextFieldMaxSpeed, SUMO_ATTR_MAXSPEED);
     // set color of myTextFieldSpeedFactor, depending if current value is valid or not
-    if (myVehicleTypeDialog->myEditedDemandElement->isValid(SUMO_ATTR_SPEEDFACTOR, myTextFieldSpeedFactor->getText().text())) {
-        myTextFieldSpeedFactor->setTextColor(FXRGB(0, 0, 0));
-        myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_SPEEDFACTOR, myTextFieldSpeedFactor->getText().text(), myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
-    } else {
-        myTextFieldSpeedFactor->setTextColor(FXRGB(255, 0, 0));
-        myVehicleTypeDialog->myVehicleTypeValid = false;
-        myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_SPEEDFACTOR;
-    }
+    setAttribute(myTextFieldSpeedFactor, SUMO_ATTR_SPEEDFACTOR);
     // set color of myTextFieldSpeedDev, depending if current value is valid or not
-    if (myVehicleTypeDialog->myEditedDemandElement->isValid(SUMO_ATTR_SPEEDDEV, myTextFieldSpeedDev->getText().text())) {
-        myTextFieldSpeedDev->setTextColor(FXRGB(0, 0, 0));
-        myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_SPEEDDEV, myTextFieldSpeedDev->getText().text(), myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
-    } else {
-        myTextFieldSpeedDev->setTextColor(FXRGB(255, 0, 0));
-        myVehicleTypeDialog->myVehicleTypeValid = false;
-        myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_SPEEDDEV;
-    }
+    setAttribute(myTextFieldSpeedDev, SUMO_ATTR_SPEEDDEV);
     // set color of myTextFieldColor, depending if current value is valid or not
-    if (myVehicleTypeDialog->myEditedDemandElement->isValid(SUMO_ATTR_COLOR, myTextFieldColor->getText().text())) {
-        myTextFieldColor->setTextColor(FXRGB(0, 0, 0));
-        myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_COLOR, myTextFieldColor->getText().text(), myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
-    } else {
-        myTextFieldColor->setTextColor(FXRGB(255, 0, 0));
-        myVehicleTypeDialog->myVehicleTypeValid = false;
-        myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_COLOR;
-    }
+    setAttribute(myTextFieldColor, SUMO_ATTR_COLOR);
     // set color of myTextFieldEmissionClass, depending if current value is valid or not
-    if (myVehicleTypeDialog->myEditedDemandElement->isValid(SUMO_ATTR_EMISSIONCLASS, myTextFieldEmissionClass->getText().text())) {
-        myTextFieldEmissionClass->setTextColor(FXRGB(0, 0, 0));
-        myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_EMISSIONCLASS, myTextFieldEmissionClass->getText().text(), myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
-    } else {
-        myTextFieldEmissionClass->setTextColor(FXRGB(255, 0, 0));
-        myVehicleTypeDialog->myVehicleTypeValid = false;
-        myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_EMISSIONCLASS;
-    }
+    setAttribute(myTextFieldEmissionClass, SUMO_ATTR_EMISSIONCLASS);
     // set color of myTextFieldWidth, depending if current value is valid or not
-    if (myVehicleTypeDialog->myEditedDemandElement->isValid(SUMO_ATTR_WIDTH, myTextFieldWidth->getText().text())) {
-        myTextFieldWidth->setTextColor(FXRGB(0, 0, 0));
-        myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_WIDTH, myTextFieldWidth->getText().text(), myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
-    } else {
-        myTextFieldWidth->setTextColor(FXRGB(255, 0, 0));
-        myVehicleTypeDialog->myVehicleTypeValid = false;
-        myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_WIDTH;
-    }
+    setAttribute(myTextFieldWidth, SUMO_ATTR_WIDTH);
     // set color of myTextFieldFilename, depending if current value is valid or not
-    if (myVehicleTypeDialog->myEditedDemandElement->isValid(SUMO_ATTR_IMGFILE, myTextFieldFilename->getText().text())) {
-        myTextFieldFilename->setTextColor(FXRGB(0, 0, 0));
-        myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_IMGFILE, myTextFieldFilename->getText().text(), myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
-    } else {
-        myTextFieldFilename->setTextColor(FXRGB(255, 0, 0));
-        myVehicleTypeDialog->myVehicleTypeValid = false;
-        myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_IMGFILE;
-    }
+    setAttribute(myTextFieldFilename, SUMO_ATTR_IMGFILE);
     // set color of myTextFieldImpatience, depending if current value is valid or not
-    if (myVehicleTypeDialog->myEditedDemandElement->isValid(SUMO_ATTR_IMPATIENCE, myTextFieldImpatience->getText().text())) {
-        myTextFieldImpatience->setTextColor(FXRGB(0, 0, 0));
-        myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_IMPATIENCE, myTextFieldImpatience->getText().text(), myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
-    } else {
-        myTextFieldImpatience->setTextColor(FXRGB(255, 0, 0));
-        myVehicleTypeDialog->myVehicleTypeValid = false;
-        myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_IMPATIENCE;
-    }
+    setAttribute(myTextFieldImpatience, SUMO_ATTR_IMPATIENCE);
     // set color of myTextFieldLaneChangeModel, depending if current value is valid or not
-    if (myVehicleTypeDialog->myEditedDemandElement->isValid(SUMO_ATTR_LANE_CHANGE_MODEL, myComboBoxLaneChangeModel->getText().text())) {
-        myComboBoxLaneChangeModel->setTextColor(FXRGB(0, 0, 0));
-        myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_LANE_CHANGE_MODEL, myComboBoxLaneChangeModel->getText().text(), myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
-    } else {
-        myComboBoxLaneChangeModel->setTextColor(FXRGB(255, 0, 0));
-        myVehicleTypeDialog->myVehicleTypeValid = false;
-        myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_LANE_CHANGE_MODEL;
-    }
+    setAttribute(myComboBoxLaneChangeModel, SUMO_ATTR_LANE_CHANGE_MODEL);
     // set color of myTextFieldPersonCapacity, depending if current value is valid or not
-    if (myVehicleTypeDialog->myEditedDemandElement->isValid(SUMO_ATTR_PERSON_CAPACITY, myTextFieldPersonCapacity->getText().text())) {
-        myTextFieldPersonCapacity->setTextColor(FXRGB(0, 0, 0));
-        myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_PERSON_CAPACITY, myTextFieldPersonCapacity->getText().text(), myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
-    } else {
-        myTextFieldPersonCapacity->setTextColor(FXRGB(255, 0, 0));
-        myVehicleTypeDialog->myVehicleTypeValid = false;
-        myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_PERSON_CAPACITY;
-    }
+    setAttribute(myTextFieldPersonCapacity, SUMO_ATTR_PERSON_CAPACITY);
     // set color of myTextFieldContainerCapacity, depending if current value is valid or not
-    if (myVehicleTypeDialog->myEditedDemandElement->isValid(SUMO_ATTR_CONTAINER_CAPACITY, myTextFieldContainerCapacity->getText().text())) {
-        myTextFieldContainerCapacity->setTextColor(FXRGB(0, 0, 0));
-        myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_CONTAINER_CAPACITY, myTextFieldContainerCapacity->getText().text(), myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
-    } else {
-        myTextFieldContainerCapacity->setTextColor(FXRGB(255, 0, 0));
-        myVehicleTypeDialog->myVehicleTypeValid = false;
-        myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_CONTAINER_CAPACITY;
-    }
+    setAttribute(myTextFieldContainerCapacity, SUMO_ATTR_CONTAINER_CAPACITY);
     // set color of myTextFieldBoardingDuration, depending if current value is valid or not
-    if (myVehicleTypeDialog->myEditedDemandElement->isValid(SUMO_ATTR_BOARDING_DURATION, myTextFieldBoardingDuration->getText().text())) {
-        myTextFieldBoardingDuration->setTextColor(FXRGB(0, 0, 0));
-        myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_BOARDING_DURATION, myTextFieldBoardingDuration->getText().text(), myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
-    } else {
-        myTextFieldBoardingDuration->setTextColor(FXRGB(255, 0, 0));
-        myVehicleTypeDialog->myVehicleTypeValid = false;
-        myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_BOARDING_DURATION;
-    }
+    setAttribute(myTextFieldBoardingDuration, SUMO_ATTR_BOARDING_DURATION);
     // set color of myTextFieldLoadingDuration, depending if current value is valid or not
-    if (myVehicleTypeDialog->myEditedDemandElement->isValid(SUMO_ATTR_LOADING_DURATION, myTextFieldLoadingDuration->getText().text())) {
-        myTextFieldLoadingDuration->setTextColor(FXRGB(0, 0, 0));
-        myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_LOADING_DURATION, myTextFieldLoadingDuration->getText().text(), myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
-    } else {
-        myTextFieldLoadingDuration->setTextColor(FXRGB(255, 0, 0));
-        myVehicleTypeDialog->myVehicleTypeValid = false;
-        myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_LOADING_DURATION;
-    }
+    setAttribute(myTextFieldLoadingDuration, SUMO_ATTR_LOADING_DURATION);
     // set color of myTextFieldLatAlignment, depending if current value is valid or not
-    if (myVehicleTypeDialog->myEditedDemandElement->isValid(SUMO_ATTR_LATALIGNMENT, myComboBoxLatAlignment->getText().text())) {
-        myComboBoxLatAlignment->setTextColor(FXRGB(0, 0, 0));
-        myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_LATALIGNMENT, myComboBoxLatAlignment->getText().text(), myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
-    } else {
-        myComboBoxLatAlignment->setTextColor(FXRGB(255, 0, 0));
-        myVehicleTypeDialog->myVehicleTypeValid = false;
-        myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_LATALIGNMENT;
-    }
+    setAttribute(myComboBoxLatAlignment, SUMO_ATTR_LATALIGNMENT);
     // set color of myTextFieldMinGapLat, depending if current value is valid or not
-    if (myVehicleTypeDialog->myEditedDemandElement->isValid(SUMO_ATTR_MINGAP, myTextFieldMinGapLat->getText().text())) {
-        myTextFieldMinGapLat->setTextColor(FXRGB(0, 0, 0));
-        myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_MINGAP, myTextFieldMinGapLat->getText().text(), myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
-    } else {
-        myTextFieldMinGapLat->setTextColor(FXRGB(255, 0, 0));
-        myVehicleTypeDialog->myVehicleTypeValid = false;
-        myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_MINGAP_LAT;
-    }
+    setAttribute(myTextFieldMinGapLat, SUMO_ATTR_MINGAP_LAT);
     // set color of myTextFieldVehicleTypeID, depending if current value is valid or not
-    if (myVehicleTypeDialog->myEditedDemandElement->isValid(SUMO_ATTR_MAXSPEED, myTextFieldMaxSpeedLat->getText().text())) {
-        myTextFieldMaxSpeedLat->setTextColor(FXRGB(0, 0, 0));
-        myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_MAXSPEED, myTextFieldMaxSpeedLat->getText().text(), myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
-    } else {
-        myTextFieldMaxSpeedLat->setTextColor(FXRGB(255, 0, 0));
-        myVehicleTypeDialog->myVehicleTypeValid = false;
-        myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_MAXSPEED_LAT;
-    }
+    setAttribute(myTextFieldMaxSpeedLat, SUMO_ATTR_MAXSPEED_LAT);
     return true;
 }
 
@@ -689,6 +563,68 @@ GNEVehicleTypeDialog::VTypeCommonAtributes::onCmdSetColor(FXObject*, FXSelector,
         }
     }
     return 1;
+}
+
+
+void 
+GNEVehicleTypeDialog::VTypeCommonAtributes::setAttribute(FXTextField* row, SumoXMLAttr attr) {
+    // set color of myTextFieldBoardingDuration, depending if current value is valid or not
+    if (myVehicleTypeDialog->myEditedDemandElement->isValid(attr, row->getText().text())) {
+        // set color depending if is a default value
+        if (myVehicleTypeDialog->myEditedDemandElement->getTagProperty().getDefaultValue(attr) != row->getText().text()) {
+            row->setTextColor(FXRGB(0, 0, 0));
+        } else {
+            row->setTextColor(FXRGB(195, 195, 195));
+        }
+        myVehicleTypeDialog->myEditedDemandElement->setAttribute(attr, row->getText().text(), myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
+    } else {
+        row->setTextColor(FXRGB(255, 0, 0));
+        myVehicleTypeDialog->myVehicleTypeValid = false;
+        myVehicleTypeDialog->myInvalidAttr = attr;
+    }
+}
+
+
+void 
+GNEVehicleTypeDialog::VTypeCommonAtributes::setAttribute(FXComboBox* row, SumoXMLAttr attr) {
+    // set color of myTextFieldBoardingDuration, depending if current value is valid or not
+    if (myVehicleTypeDialog->myEditedDemandElement->isValid(attr, row->getText().text())) {
+        // set color depending if is a default value
+        if (myVehicleTypeDialog->myEditedDemandElement->getTagProperty().getDefaultValue(attr) != row->getText().text()) {
+            row->setTextColor(FXRGB(0, 0, 0));
+        } else {
+            row->setTextColor(FXRGB(195, 195, 195));
+        }
+        myVehicleTypeDialog->myEditedDemandElement->setAttribute(attr, row->getText().text(), myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
+    } else {
+        row->setTextColor(FXRGB(255, 0, 0));
+        myVehicleTypeDialog->myVehicleTypeValid = false;
+        myVehicleTypeDialog->myInvalidAttr = attr;
+    }
+}
+
+
+void 
+GNEVehicleTypeDialog::VTypeCommonAtributes::updateRow(FXTextField* row, SumoXMLAttr attr) {
+    row->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(attr).c_str());
+    // set color depending if is a default value
+    if (myVehicleTypeDialog->myEditedDemandElement->getTagProperty().getDefaultValue(attr) != row->getText().text()) {
+        row->setTextColor(FXRGB(0, 0, 0));
+    } else {
+        row->setTextColor(FXRGB(195, 195, 195));
+    }
+}
+
+
+void 
+GNEVehicleTypeDialog::VTypeCommonAtributes::updateRow(FXComboBox* row, SumoXMLAttr attr) {
+    row->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(attr).c_str());
+    // set color depending if is a default value
+    if (myVehicleTypeDialog->myEditedDemandElement->getTagProperty().getDefaultValue(attr) != row->getText().text()) {
+        row->setTextColor(FXRGB(0, 0, 0));
+    } else {
+        row->setTextColor(FXRGB(195, 195, 195));
+    }
 }
 
 
