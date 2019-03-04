@@ -137,12 +137,11 @@ GUIJunctionWrapper::drawGL(const GUIVisualizationSettings& s) const {
             glPushMatrix();
             glPushName(getGlID());
             const double colorValue = getColorValue(s);
-            GLHelper::setColor(s.junctionColorer.getScheme().getColor(colorValue));
+            const RGBColor color = s.junctionColorer.getScheme().getColor(colorValue);
+            GLHelper::setColor(color);
 
             // recognize full transparency and simply don't draw
-            GLfloat color[4];
-            glGetFloatv(GL_CURRENT_COLOR, color);
-            if (color[3] != 0) {
+            if (color.alpha() != 0) {
                 PositionVector shape = myJunction.getShape();
                 shape.closePolygon();
                 if (exaggeration > 1) {
