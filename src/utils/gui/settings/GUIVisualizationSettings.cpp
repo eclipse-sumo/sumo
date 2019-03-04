@@ -88,6 +88,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) :
     netedit(_netedit),
     angle(0),
     dither(false),
+    fps(false),
     backgroundColor(RGBColor::WHITE),
     showGrid(false), gridXSize(100), gridYSize(100),
     laneShowBorders(false), showBikeMarkings(true), showLinkDecals(true),
@@ -935,6 +936,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.writeAttr(SUMO_ATTR_NAME, name);
     dev.openTag(SUMO_TAG_VIEWSETTINGS_OPENGL);
     dev.writeAttr("dither", dither);
+    dev.writeAttr("fps", fps);
     dev.closeTag();
     dev.openTag(SUMO_TAG_VIEWSETTINGS_BACKGROUND);
     dev.writeAttr("backgroundColor", backgroundColor);
@@ -1077,6 +1079,9 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
 bool
 GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
     if (dither != v2.dither) {
+        return false;
+    }
+    if (fps != v2.fps) {
         return false;
     }
     if (backgroundColor != v2.backgroundColor) {

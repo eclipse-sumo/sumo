@@ -140,6 +140,9 @@ public:
     /// @brief Information whether dithering shall be enabled
     bool dither;
 
+    /// @brief Information whether frames-per-second should be drawn
+    bool fps;
+
     /// @name Background visualization settings
     //@{
 

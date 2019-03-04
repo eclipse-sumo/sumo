@@ -505,6 +505,9 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         FXMatrix* m82 = new FXMatrix(frame8, 1, GUIDesignMatrixViewSettings);
         myDither = new FXCheckButton(m82, "Dither", this, MID_SIMPLE_VIEW_COLORCHANGE);
         myDither->setCheck(mySettings->dither);
+        FXMatrix* m83 = new FXMatrix(frame8, 1, GUIDesignMatrixViewSettings);
+        myFPS = new FXCheckButton(m83, "FPS", this, MID_SIMPLE_VIEW_COLORCHANGE);
+        myFPS->setCheck(mySettings->fps);
     }
     FXHorizontalFrame* f2 = new FXHorizontalFrame(contentFrame, GUIDesignViewSettingsHorizontalFrame2);
     FXButton* initial = new FXButton(f2, "&OK", nullptr, this, MID_SETTINGS_OK, GUIDesignViewSettingsButton2);
@@ -675,6 +678,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* data) {
     myDrawJunctionShape->setCheck(mySettings->drawJunctionShape);
     myDrawCrossingsAndWalkingAreas->setCheck(mySettings->drawCrossingsAndWalkingareas);
     myDither->setCheck(mySettings->dither);
+    myFPS->setCheck(mySettings->fps);
     myShowSizeLegend->setCheck(mySettings->showSizeLegend);
 
     myParent->setColorScheme(mySettings->name);
@@ -898,6 +902,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.drawJunctionShape = (myDrawJunctionShape->getCheck() != FALSE);
     tmpSettings.drawCrossingsAndWalkingareas = (myDrawCrossingsAndWalkingAreas->getCheck() != FALSE);
     tmpSettings.dither = (myDither->getCheck() != FALSE);
+    tmpSettings.fps = (myFPS->getCheck() != FALSE);
     tmpSettings.showSizeLegend = (myShowSizeLegend->getCheck() != FALSE);
 
     // lanes (colors)
