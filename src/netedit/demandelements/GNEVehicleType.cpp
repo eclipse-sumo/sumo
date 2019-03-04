@@ -282,13 +282,13 @@ GNEVehicleType::getAttribute(SumoXMLAttr key) const {
             }              
         case SUMO_ATTR_BOARDING_DURATION:
             if (wasSet(VTYPEPARS_BOARDING_DURATION)) {
-                return toString(boardingDuration);
+                return time2string(boardingDuration);
             } else {
                 return myTagProperty.getDefaultValue(SUMO_ATTR_BOARDING_DURATION);
             }         
         case SUMO_ATTR_LOADING_DURATION:
             if (wasSet(VTYPEPARS_LOADING_DURATION)) {
-                return toString(loadingDuration);
+                return time2string(loadingDuration);
             } else {
                 return myTagProperty.getDefaultValue(SUMO_ATTR_LOADING_DURATION);
             }              
@@ -751,24 +751,24 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_BOARDING_DURATION:
             if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
-                boardingDuration = parse<double>(value);
+                boardingDuration = string2time(value);
                 // mark parameter as set
                 parametersSet |= VTYPEPARS_BOARDING_DURATION;
             } else {
                 // set default value
-                boardingDuration = parse<double>(myTagProperty.getDefaultValue(key));
+                boardingDuration = string2time(myTagProperty.getDefaultValue(key));
                 // unset parameter
                 parametersSet &= ~VTYPEPARS_BOARDING_DURATION;
             }                
             break;
         case SUMO_ATTR_LOADING_DURATION:
             if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
-                loadingDuration = parse<double>(value);
+                loadingDuration = string2time(value);
                 // mark parameter as set
                 parametersSet |= VTYPEPARS_LOADING_DURATION;
             } else {
                 // set default value
-                loadingDuration = parse<double>(myTagProperty.getDefaultValue(key));
+                loadingDuration = string2time(myTagProperty.getDefaultValue(key));
                 // unset parameter
                 parametersSet &= ~VTYPEPARS_LOADING_DURATION;
             }                
