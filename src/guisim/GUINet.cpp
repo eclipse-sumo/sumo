@@ -421,9 +421,9 @@ GUINet::getPopUpMenu(GUIMainWindow& app,
 
 GUIParameterTableWindow*
 GUINet::getParameterWindow(GUIMainWindow& app,
-                           GUISUMOAbstractView&) {
+                           GUISUMOAbstractView& parent) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 35);
+        new GUIParameterTableWindow(app, *this, 36);
     // add items
     ret->mkItem("loaded vehicles [#]", true,
                 new FunctionBinding<MSVehicleControl, int>(&getVehicleControl(), &MSVehicleControl::getLoadedVehicleNo));
@@ -460,6 +460,7 @@ GUINet::getParameterWindow(GUIMainWindow& app,
 //    ret->mkItem("time step [s]", true, new FunctionBinding<GUINet, SUMOTime>(this, &GUINet::getCurrentTimeStep));
     if (logSimulationDuration()) {
         ret->mkItem("step duration [ms]", true, new FunctionBinding<GUINet, int>(this, &GUINet::getWholeDuration));
+        ret->mkItem("FPS", true, new FunctionBinding<GUISUMOAbstractView, double>(&parent, &GUISUMOAbstractView::getFPS));
         ret->mkItem("simulation duration [ms]", true, new FunctionBinding<GUINet, int>(this, &GUINet::getSimDuration));
         /*
         ret->mkItem("visualisation duration [ms]", true,

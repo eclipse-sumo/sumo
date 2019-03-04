@@ -305,6 +305,9 @@ GUISUMOAbstractView::paintGL() {
     if (myVisualizationSettings->showSizeLegend) {
         displayLegend();
     }
+    const long ms = SysUtils::getCurrentMillis();
+    myFrameDrawTime = ms - myLastDrawTime; 
+    myLastDrawTime = ms;
     if (myVisualizationSettings->fps) {
         drawFPS();
     }
@@ -617,6 +620,11 @@ GUISUMOAbstractView::displayLegend() {
     glPopMatrix();
 }
 
+double
+GUISUMOAbstractView::getFPS() const {
+    return 1000.0 / MAX2((long)1,myFrameDrawTime);
+}
+
 void
 GUISUMOAbstractView::drawFPS() {
     glMatrixMode(GL_PROJECTION);
@@ -625,14 +633,9 @@ GUISUMOAbstractView::drawFPS() {
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
     glLoadIdentity();
-
-    const long ms = SysUtils::getCurrentMillis();
-    const double durationS = (ms - myFrameDrawTime) / 1000.0;
-    myFrameDrawTime = ms;
-    const double fps = 1.0 / durationS;
     const double fontHeight = 0.2 * 300. / getHeight();
     const double fontWidth = 0.2 * 300. / getWidth();
-    GLHelper::drawText(toString(fps) + " FPS", Position(0.82, 0.88), -1, fontHeight, RGBColor::RED, 0, FONS_ALIGN_LEFT, fontWidth);
+    GLHelper::drawText(toString(getFPS()) + " FPS", Position(0.82, 0.88), -1, fontHeight, RGBColor::RED, 0, FONS_ALIGN_LEFT, fontWidth);
 
     // restore matrices
     glMatrixMode(GL_PROJECTION);

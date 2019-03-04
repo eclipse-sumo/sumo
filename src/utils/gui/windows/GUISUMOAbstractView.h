@@ -353,6 +353,9 @@ public:
         return std::vector<SUMOTime>();
     }
 
+    /// @brief retrieve FPS
+    double getFPS() const;
+
 protected:
     /// @brief performs the painting of the simulation
     void paintGL();
@@ -482,6 +485,7 @@ protected:
     std::map<const GUIGlObject*, int> myAdditionallyDrawn;
 
     /// @brief counter for measuring rendering time
+    long myLastDrawTime;
     long myFrameDrawTime;
 
 private:
