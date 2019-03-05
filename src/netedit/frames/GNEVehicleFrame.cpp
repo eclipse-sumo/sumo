@@ -34,6 +34,10 @@
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/xml/SUMOSAXAttributesImpl_Cached.h>
 #include <utils/vehicle/SUMOVehicleParserHelper.h>
+#include <utils/router/DijkstraRouter.h>
+#include <utils/vehicle/SUMOVehicle.h>
+#include <netbuild/NBNetBuilder.h>
+#include <netbuild/NBVehicle.h>
 
 #include "GNEVehicleFrame.h"
 
@@ -321,9 +325,12 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
         }
         // set second edge
         if (myAutoRoute.getTo() == nullptr) {
-            // set to edge
+
             if (objectsUnderCursor.getEdgeFront()) {
+                // set to edge
                 myAutoRoute.setTo(objectsUnderCursor.getEdgeFront());
+                // check if route is valid
+                myAutoRoute.isValid(GNEAttributeCarrier::parse<SUMOVehicleClass>(myVTypeSelector->getCurrentVehicleType()->getAttribute(SUMO_ATTR_VCLASS)));
                 // update showHelpCreation
                 myHelpCreation->updateHelpCreation();
                 // Add parameter departure
@@ -429,8 +436,22 @@ GNEVehicleFrame::AutoRoute::clearEdges() {
 
 
 bool 
-GNEVehicleFrame::AutoRoute::isValid() const {
-    return true;
+GNEVehicleFrame::AutoRoute::isValid(SUMOVehicleClass vehicleClass) const {
+    
+    std::vector<const NBEdge*> into;
+
+    NBVehicle tmpVehicle("temporalNBVehicle", vehicleClass);
+
+    SUMOAbstractRouter<NBEdge, NBVehicle>* route;
+
+    route = new DijkstraRouter<NBEdge, NBVehicle, SUMOAbstractRouter<NBEdge, NBVehicle> >(
+        myVehicleFrameParent->myViewNet->getNet()->getNetBuilder()->getEdgeCont().getAllEdges(), true, &NBEdge::getTravelTimeStatic, nullptr, true);
+
+    bool routeExist = route->compute(myFrom->getNBEdge(), myTo->getNBEdge(), &tmpVehicle, 10, into);
+
+    delete route;
+
+    return routeExist;
 }
 
 /****************************************************************************/

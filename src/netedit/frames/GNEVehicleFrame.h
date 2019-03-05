@@ -145,7 +145,7 @@ private:
         AutoRoute(GNEVehicleFrame* vehicleFrameParent);
 
         /// @brief check if from and to edges create a valid route
-        bool isValid() const;
+        bool isValid(SUMOVehicleClass vehicleClass) const;
 
         /// @brief get edge form
         GNEEdge* getFrom() const;
