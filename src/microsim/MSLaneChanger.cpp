@@ -1043,18 +1043,28 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
     }
     if (!isOpposite && !oppositeChangeByTraci
             && vehicle->getVClass() != SVC_EMERGENCY
-            && leader.first != 0
-            && leader.first->signalSet(MSNet::getInstance()->lefthand()
-                                       ? MSVehicle::VEH_SIGNAL_BLINKER_RIGHT : MSVehicle::VEH_SIGNAL_BLINKER_LEFT)) {
-        // do not try to overtake a vehicle that is about to turn left or wants
-        // to change left itself
+            && leader.first != 0) {
+        if (leader.first->signalSet(MSNet::getInstance()->lefthand()
+                    ? MSVehicle::VEH_SIGNAL_BLINKER_RIGHT : MSVehicle::VEH_SIGNAL_BLINKER_LEFT)) {
+            // do not try to overtake a vehicle that is about to turn left or wants
+            // to change left itself
 #ifdef DEBUG_CHANGE_OPPOSITE
-        if (DEBUG_COND) {
-            std::cout << "   not overtaking leader " << leader.first->getID() << " that has blinker set\n";
-        }
+            if (DEBUG_COND) {
+                std::cout << "   not overtaking leader " << leader.first->getID() << " that has blinker set\n";
+            }
 #endif
-        return false;
+            return false;
+        } else if (leader.second < 0) {
+            // leaders is either a junction leader (that cannot be overtaken) or something else is wrong
+#ifdef DEBUG_CHANGE_OPPOSITE
+            if (DEBUG_COND) {
+                std::cout << "   not overtaking leader " << leader.first->getID() << " with gap " << leader.second << "\n";
+            }
+#endif
+            return false;
+        }
     }
+
 
     MSLane* opposite = source->getOpposite();
     //There is no lane for opposite driving
@@ -1349,7 +1359,7 @@ MSLaneChanger::computeOvertakingTime(const MSVehicle* vehicle, const MSVehicle* 
     const double u = leader->getAcceleration() > 0 ? leader->getLane()->getVehicleMaxSpeed(leader) : leader->getSpeed();
     const double a = vehicle->getCarFollowModel().getMaxAccel();
     const double d = vehicle->getCarFollowModel().getMaxDecel();
-    const double g = (
+    const double g = MAX2(0.0, (
                          // drive up to the rear of leader
                          gap + vehicle->getVehicleType().getMinGap()
                          // drive head-to-head with the leader
@@ -1357,7 +1367,7 @@ MSLaneChanger::computeOvertakingTime(const MSVehicle* vehicle, const MSVehicle* 
                          // drive past the leader
                          + vehicle->getVehicleType().getLength()
                          // allow for safe gap between leader and vehicle
-                         + leader->getCarFollowModel().getSecureGap(u, vMax, d));
+                         + leader->getCarFollowModel().getSecureGap(u, vMax, d)));
     const double sign = -1; // XXX recheck
     // v*t + t*t*a*0.5 = g + u*t
     // solve t
