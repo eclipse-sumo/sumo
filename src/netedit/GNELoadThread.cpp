@@ -278,7 +278,7 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
 
     SystemFrame::addReportOptions(oc); // this subtopic is filled here, too
 
-    NIFrame::fillOptions(true);
+    NIFrame::fillOptions();
     NBFrame::fillOptions(false);
     NWFrame::fillOptions(false);
     RandHelper::insertRandOptions();
