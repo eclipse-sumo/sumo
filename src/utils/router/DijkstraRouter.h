@@ -129,7 +129,11 @@ public:
         double length = 0.; // dummy for the via edge cost update
         this->startQuery();
 #ifdef DijkstraRouter_DEBUG_QUERY
-        std::cout << "DEBUG: starting search for '" << Named::getIDSecure(vehicle) << "' time: " << STEPS2TIME(msTime) << "\n";
+        if (vehicle) {
+            std::cout << "DEBUG: starting search for '" << vehicle->getID() << "' time: " << STEPS2TIME(msTime) << "\n";
+        } else {
+            std::cout << "DEBUG: starting search for time: " << STEPS2TIME(msTime) << "\n";
+        }
 #endif
         const SUMOVehicleClass vClass = vehicle == 0 ? SVC_IGNORING : vehicle->getVClass();
         if (this->myBulkMode) {
