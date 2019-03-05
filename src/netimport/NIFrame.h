@@ -39,7 +39,7 @@ public:
      * Calls "NBNetBuilder::insertNetBuildOptions" for inserting network
      *  building options.
      */
-    static void fillOptions();
+    static void fillOptions(bool forNetedit=false);
 
 
     /** @brief Checks set options from the OptionsCont-singleton for being valid
