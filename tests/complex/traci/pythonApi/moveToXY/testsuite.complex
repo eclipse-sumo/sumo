@@ -4,6 +4,9 @@ keepRoute2
 # tests for mapping vehicles on multi-lane road
 multi_lane
 
+# tests for mapping vehicles on multi-lane road
+multi_lane_sublane
+
 # mapping a fast vehicle onto short edges
 short_edges
 

@@ -1,0 +1,8 @@
+ Retrying in 1 seconds
+2.0  lane=SC_0  right=[], []  left=[], []  accel=0.0  nextTLS=('C', 10, 71.95, 'G')  leader=None
+3.0  lane=SC_0  right=[], []  left=['stay', 'strategic'], ['stay', 'strategic']  accel=10.0  nextTLS=('C', 10, 61.95, 'G')  leader=None
+4.0  lane=SC_0  right=[], []  left=['stay', 'strategic'], ['stay', 'strategic']  accel=0.0  nextTLS=('C', 10, 51.95, 'G')  leader=None
+5.0  lane=SC_1  right=[], []  left=['stay', 'strategic'], ['stay', 'strategic']  accel=7.1054273576e-15  nextTLS=('C', 10, 41.949999999999996, 'G')  leader=None
+6.0  lane=SC_1  right=['right', 'strategic', 'urgent'], ['right', 'strategic', 'urgent']  left=[], []  accel=-1.42108547152e-14  nextTLS=('C', 10, 31.950000000000003, 'G')  leader=None
+7.0  lane=SC_1  right=['right', 'strategic', 'urgent'], ['right', 'strategic', 'urgent']  left=[], []  accel=2.13162820728e-14  nextTLS=('C', 10, 21.94999999999999, 'G')  leader=None
+8.0  lane=SC_1  right=['right', 'strategic', 'urgent'], ['right', 'strategic', 'urgent']  left=[], []  accel=-2.84217094304e-14  nextTLS=('C', 10, 11.950000000000003, 'G')  leader=None
