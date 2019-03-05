@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue 05 Mar 2019 01:11:26 PM CET by Eclipse SUMO netedit Version v1_0_1+0645-93703db
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/scr1/sumo/tests/sumo/pedestrian_model/striping/bugs/ticket5257/net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/scr1/sumo/tests/sumo/pedestrian_model/striping/bugs/ticket5257/net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="-1"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<net version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="100.00,100.00" convBoundary="0.00,100.00,200.00,100.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id=":C_0" function="internal">
+        <lane id=":C_0_0" index="0" allow="pedestrian" speed="13.89" length="0.10" shape="100.00,100.00 100.00,100.00"/>
+    </edge>
+    <edge id=":gneJ0_0" function="internal">
+        <lane id=":gneJ0_0_0" index="0" allow="pedestrian" speed="13.89" length="0.10" width="0.20" shape="81.62,100.00 81.62,100.00"/>
+    </edge>
+
+    <edge id="beg" from="W" to="gneJ0" priority="3" spreadType="center">
+        <lane id="beg_0" index="0" allow="pedestrian" speed="13.89" length="81.62" shape="0.00,100.00 81.62,100.00"/>
+    </edge>
+    <edge id="end" from="C" to="E" priority="3" spreadType="center">
+        <lane id="end_0" index="0" allow="pedestrian" speed="13.89" length="100.00" shape="100.00,100.00 200.00,100.00"/>
+    </edge>
+    <edge id="middle" from="gneJ0" to="C" priority="3" spreadType="center">
+        <lane id="middle_0" index="0" allow="pedestrian" speed="13.89" length="18.38" width="0.20" shape="81.62,100.00 100.00,100.00"/>
+    </edge>
+
+    <junction id="C" type="priority" x="100.00" y="100.00" incLanes="middle_0" intLanes=":C_0_0" shape="100.00,101.60 100.00,99.90 100.00,100.10">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="E" type="dead_end" x="200.00" y="100.00" incLanes="end_0" intLanes="" shape="200.00,98.40 200.00,101.60"/>
+    <junction id="W" type="dead_end" x="0.00" y="100.00" incLanes="" intLanes="" shape="0.00,101.60 0.00,98.40"/>
+    <junction id="gneJ0" type="priority" x="81.62" y="100.00" incLanes="beg_0" intLanes=":gneJ0_0_0" shape="81.62,100.10 81.62,98.40 81.62,101.60">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+
+    <connection from="beg" to="middle" fromLane="0" toLane="0" via=":gneJ0_0_0" dir="s" state="M"/>
+    <connection from="middle" to="end" fromLane="0" toLane="0" via=":C_0_0" dir="s" state="M"/>
+
+    <connection from=":C_0" to="end" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":gneJ0_0" to="middle" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>
