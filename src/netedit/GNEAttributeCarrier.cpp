@@ -3498,18 +3498,18 @@ GNEAttributeCarrier::fillDemandElements() {
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE,
             "The name of vehicles that will be generated using this trip definition");
         myTagProperties[currentTag].addAttribute(attrProperty);
-        
+
         attrProperty = AttributeProperties(SUMO_ATTR_DEPART,
             ATTRPROPERTY_INT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE,
             "The departure time of the (first) vehicle which is generated using this trip definition",
             "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
-        
+
         attrProperty = AttributeProperties(SUMO_ATTR_FROM,
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
             "The name of the edge the route starts at; the edge must be a part of the used network");
         myTagProperties[currentTag].addAttribute(attrProperty);
-        
+
         attrProperty = AttributeProperties(SUMO_ATTR_TO,
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
             "The name of the edge the route ends at; the edge must be a part of the used network");
@@ -3519,59 +3519,119 @@ GNEAttributeCarrier::fillDemandElements() {
             ATTRPROPERTY_STRING | ATTRPROPERTY_LIST,
             "List of intermediate edge ids which shall be part of the route; the edges must be a part of the used network");
         myTagProperties[currentTag].addAttribute(attrProperty);
-        
-        attrProperty = AttributeProperties(SUMO_ATTR_FROM_TAZ,
-            ATTRPROPERTY_STRING,
-            "The name of the district the route starts at. TAZ edges are selected so that travel time is minimized");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-        
-        attrProperty = AttributeProperties(SUMO_ATTR_TO_TAZ,
-            ATTRPROPERTY_STRING,
-            "The name of the district the route ends at. TAZ edges are selected so that travel time is minimized");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-        
+
         attrProperty = AttributeProperties(SUMO_ATTR_COLOR,
             ATTRPROPERTY_COLOR | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_DEFAULTVALUE,
             "This generated vehicle's color",
             "yellow");
         myTagProperties[currentTag].addAttribute(attrProperty);
-        
+
         attrProperty = AttributeProperties(SUMO_ATTR_DEPARTLANE,
             ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "The lane on which the vehicle shall be inserted",
             "first");
         myTagProperties[currentTag].addAttribute(attrProperty);
-        
+
         attrProperty = AttributeProperties(SUMO_ATTR_DEPARTPOS,
             ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "The position at which the vehicle shall enter the net",
             "base");
         myTagProperties[currentTag].addAttribute(attrProperty);
-        
+
         attrProperty = AttributeProperties(SUMO_ATTR_DEPARTSPEED,
             ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "The speed with which the vehicle shall enter the network",
             "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
-        
+
         attrProperty = AttributeProperties(SUMO_ATTR_ARRIVALLANE,
             ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "The lane at which the vehicle shall leave the network",
             "current");
         myTagProperties[currentTag].addAttribute(attrProperty);
-        
+
         attrProperty = AttributeProperties(SUMO_ATTR_ARRIVALPOS,
             ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "The position at which the vehicle shall leave the network",
             "max");
         myTagProperties[currentTag].addAttribute(attrProperty);
-        
+
         attrProperty = AttributeProperties(SUMO_ATTR_ARRIVALSPEED,
             ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "The speed with which the vehicle shall leave the network",
             "current");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
+    /* currently disabled. See #5259
+    currentTag = SUMO_TAG_TRIP_TAZ;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_VEHICLE, TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_LANE, ICON_TRIP);
+        // set values of attributes
+        attrProperty = AttributeProperties(SUMO_ATTR_ID,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE,
+            "The name of vehicles that will be generated using this trip definition");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+        
+        attrProperty = AttributeProperties(SUMO_ATTR_DEPART,
+            ATTRPROPERTY_INT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE,
+            "The departure time of the (first) vehicle which is generated using this trip definition",
+            "0");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_FROM_TAZ,
+            ATTRPROPERTY_STRING,
+            "The name of the district the route starts at. TAZ edges are selected so that travel time is minimized");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_TO_TAZ,
+            ATTRPROPERTY_STRING,
+            "The name of the district the route ends at. TAZ edges are selected so that travel time is minimized");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_COLOR,
+            ATTRPROPERTY_COLOR | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_DEFAULTVALUE,
+            "This generated vehicle's color",
+            "yellow");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_DEPARTLANE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "The lane on which the vehicle shall be inserted",
+            "first");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_DEPARTPOS,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "The position at which the vehicle shall enter the net",
+            "base");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_DEPARTSPEED,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "The speed with which the vehicle shall enter the network",
+            "0");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_ARRIVALLANE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "The lane at which the vehicle shall leave the network",
+            "current");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_ARRIVALPOS,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "The position at which the vehicle shall leave the network",
+            "max");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_ARRIVALSPEED,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "The speed with which the vehicle shall leave the network",
+            "current");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
+    */
 }
 
 

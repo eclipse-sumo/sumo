@@ -140,6 +140,8 @@ enum SumoXMLTag {
     SUMO_TAG_PHASE,
     /// @brief a single trip definition (used by router)
     SUMO_TAG_TRIP,
+    /// @brief a single trip definition that uses TAZs (used in NETEDIT)
+    SUMO_TAG_TRIP_TAZ,
     /// @brief a flow definition (used by router)
     SUMO_TAG_FLOW,
     /// @brief a flow definition within in Calibrator (used in NETEDIT)
