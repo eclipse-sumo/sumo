@@ -452,7 +452,7 @@ Vehicle::getNextStops(const std::string& vehicleID) {
             if (it->chargingStation != nullptr) {
                 nsd.stoppingPlaceID = it->chargingStation->getID();
             }
-            nsd.stopFlags = (1 +
+            nsd.stopFlags = ((it->reached ? 1 : 0) +
                              (it->pars.parking ? 2 : 0) +
                              (it->pars.triggered ? 4 : 0) +
                              (it->pars.containerTriggered ? 8 : 0) +
@@ -475,7 +475,8 @@ Vehicle::getStopState(const std::string& vehicleID) {
     int result = 0;
     if (veh->isStopped()) {
         const MSVehicle::Stop& stop = veh->getNextStop();
-        result = (1 + (stop.pars.parking ? 2 : 0) +
+        result = ((stop.reached ? 1 : 0) + 
+                  (stop.pars.parking ? 2 : 0) +
                   (stop.pars.triggered ? 4 : 0) +
                   (stop.pars.containerTriggered ? 8 : 0) +
                   (stop.busstop != nullptr ? 16 : 0) +

@@ -460,7 +460,7 @@ vehicle 'bus' lane=2fi_0 lanePos=29.996849141 stopped=True
 step 77.0
 vehicle 'bus' lane=2fi_0 lanePos=32.2610415413 stopped=False
 triptest route: ('3si', '2o', '2fi', '2si', '4o', '4fi', '4si')
-nextStop: (('2fi_0', 20.0, '', 3, 10.0, -0.001),)
+nextStop: (('2fi_0', 20.0, '', 2, 10.0, -0.001),)
 step 78.0
 ('veh', 'parking', 'speed', 0.0, 'pos', (1000.0, 501.65), 'pos3d', (1000.0, 501.65, 0.0), 'angle', 55.967663020733376, 'road', '2fi', 'lane', '2fi_0', 'lanePos', 0.0, 'CO2', 2624.722222222222)
 step 79.0
