@@ -175,24 +175,30 @@ NILoader::loadXML(OptionsCont& oc) {
                 oc.getStringVector("tllogic-files"), "traffic lights");
 
     // load public transport stops (used for restricting edge removal and as input when repairing railroad topology)
-    loadXMLType(new NIXMLPTHandler(
+    if (oc.exists("ptstop-files")) {
+            loadXMLType(new NIXMLPTHandler(
                     myNetBuilder.getEdgeCont(),
                     myNetBuilder.getPTStopCont(),
                     myNetBuilder.getPTLineCont()),
                 oc.getStringVector("ptstop-files"), "public transport stops");
+    }
 
     // load public transport lines (used as input when repairing railroad topology)
-    loadXMLType(new NIXMLPTHandler(
-                    myNetBuilder.getEdgeCont(),
-                    myNetBuilder.getPTStopCont(),
-                    myNetBuilder.getPTLineCont()),
-                oc.getStringVector("ptline-files"), "public transport lines");
+    if (oc.exists("ptline-files")) {
+        loadXMLType(new NIXMLPTHandler(
+                myNetBuilder.getEdgeCont(),
+                myNetBuilder.getPTStopCont(),
+                myNetBuilder.getPTLineCont()),
+            oc.getStringVector("ptline-files"), "public transport lines");
+        }
 
     // load shapes for output formats that embed shape data
-    loadXMLType(new NIXMLShapeHandler(
-                    myNetBuilder.getShapeCont(),
-                    myNetBuilder.getEdgeCont()),
-                oc.getStringVector("polygon-files"), "polygon data");
+    if (oc.exists("polygon-files")) {
+        loadXMLType(new NIXMLShapeHandler(
+                myNetBuilder.getShapeCont(),
+                myNetBuilder.getEdgeCont()),
+            oc.getStringVector("polygon-files"), "polygon data");
+        }
 }
 
 void
