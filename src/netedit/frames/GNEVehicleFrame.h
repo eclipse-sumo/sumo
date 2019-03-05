@@ -23,6 +23,8 @@
 // ===========================================================================
 #include "GNEFrame.h"
 
+#include <utils/router/SUMOAbstractRouter.h>
+
 
 // ===========================================================================
 // class definitions
@@ -110,7 +112,52 @@ public:
 
         /// @brief Label with creation information
         FXLabel* myInformationLabel;
+    };
 
+    /// @brief structs used for creating routes only givin from-to routes
+    struct AutoRoute {
+        /// @brief default constructor
+        AutoRoute(GNEVehicleFrame* vehicleFrameParent);
+
+        /// @brief destructor
+        ~AutoRoute();
+
+        /// @brief check if from and to edges create a valid route
+        bool isValid(SUMOVehicleClass vehicleClass) const;
+
+        /// @brief get edge form
+        GNEEdge* getFrom() const;
+        
+        /// @brief get edge to
+        GNEEdge* getTo() const;
+
+        /// @brief set edge from (and change color)
+        void setFrom(GNEEdge* from);
+        
+        /// @brief set edge to (and change color)
+        void setTo(GNEEdge* to);
+
+        /// @brief clear edges (and restore colors)
+        void clearEdges();
+
+        /// @brief update abstract router edges
+        void updateAbstractRouterEdges();
+
+        /// @brief draw temporal route
+        void drawRoute();
+
+    private:
+        /// @brief pointer to Vehicle Frame Parent
+        GNEVehicleFrame* myVehicleFrameParent;
+
+        /// @brief from Edge
+        GNEEdge* myFrom;
+
+        /// @brief to Edge
+        GNEEdge* myTo;
+
+        /// @brief SUMO Abstract Router
+        SUMOAbstractRouter<NBEdge, NBVehicle>* myRouter;
     };
 
     /**@brief Constructor
@@ -139,40 +186,6 @@ protected:
     void disableModuls();
 
 private:
-    /// @brief structs used for creating routes only givin from-to routes
-    struct AutoRoute {
-        /// @brief default construct0or
-        AutoRoute(GNEVehicleFrame* vehicleFrameParent);
-
-        /// @brief check if from and to edges create a valid route
-        bool isValid(SUMOVehicleClass vehicleClass) const;
-
-        /// @brief get edge form
-        GNEEdge* getFrom() const;
-        
-        /// @brief get edge to
-        GNEEdge* getTo() const;
-
-        /// @brief set edge from (and change color)
-        void setFrom(GNEEdge* from);
-        
-        /// @brief set edge to (and change color)
-        void setTo(GNEEdge* to);
-
-        /// @brief clear edges (and restore colors)
-        void clearEdges();
-
-    private:
-        /// @brief pointer to Vehicle Frame Parent
-        GNEVehicleFrame* myVehicleFrameParent;
-
-        /// @brief from Edge
-        GNEEdge* myFrom;
-
-        /// @brief to Edge
-        GNEEdge* myTo;
-    };
-
     /// @brief item selector (used to select diffent kind of vehicles)
     ItemSelector* myItemSelector;
 

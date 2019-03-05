@@ -20,9 +20,13 @@
 // ===========================================================================
 #include <config.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
+#include <netedit/netelements/GNEEdge.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNENet.h>
+#include <utils/router/DijkstraRouter.h>
+#include <netbuild/NBNetBuilder.h>
+#include <netbuild/NBVehicle.h>
 
 #include "GNERouteHandler.h"
 #include "GNERoute.h"
@@ -117,14 +121,24 @@ GNERouteHandler::buildTrip(GNEViewNet* viewNet, bool undoDemandElements, SUMOVeh
         if (viewNet->getNet()->retrieveDemandElement(SUMO_TAG_TRIP, tripParameters->id, false) != nullptr) {
             WRITE_WARNING("There is another " + toString(SUMO_TAG_TRIP) + " with the same ID='" + tripParameters->id + "'.");
         } else {
-            // obtain routes and vtypes
+            // obtain  vtypes
             GNEDemandElement* vType = viewNet->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, tripParameters->vtypeid, false);
-            GNEDemandElement* route = viewNet->getNet()->retrieveDemandElement(SUMO_TAG_ROUTE, tripParameters->routeid, false);
             if (vType == nullptr) {
                 WRITE_WARNING("Invalid trip Type '" + tripParameters->vtypeid + "' used in trip '" + tripParameters->id + "'.");
-            } else if (route == nullptr) {
-                WRITE_WARNING("Invalid route '" + tripParameters->routeid + "' used in trip '" + tripParameters->id + "'.");
             } else {
+                // check if route exist
+                std::vector<const NBEdge*> routeEdges;
+                NBVehicle tmpVehicle("temporalNBVehicle", GNEAttributeCarrier::parse<SUMOVehicleClass>(vType->getAttribute(SUMO_ATTR_VCLASS)));
+                SUMOAbstractRouter<NBEdge, NBVehicle>* route;
+                // create Dijkstra route
+                route = new DijkstraRouter<NBEdge, NBVehicle, SUMOAbstractRouter<NBEdge, NBVehicle> >(
+                    viewNet->getNet()->getNetBuilder()->getEdgeCont().getAllEdges(), true, &NBEdge::getTravelTimeStatic, nullptr, true);
+                // check if route is valid
+                if (!route->compute(from->getNBEdge(), to->getNBEdge(), &tmpVehicle, 10, routeEdges)) {
+                    WRITE_WARNING("There isn't a route bewteen edges '" + from->getID() + "' and '" + to->getID() + "'.");
+                }
+                // delete route
+                delete route;
                 // create trip using tripParameters 
                 GNETrip* trip = new GNETrip(viewNet, *tripParameters, vType, from, to);
                 if (undoDemandElements) {

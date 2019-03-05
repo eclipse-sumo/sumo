@@ -212,6 +212,101 @@ GNEVehicleFrame::HelpCreation::updateHelpCreation() {
 }
 
 // ---------------------------------------------------------------------------
+// GNEVehicleFrame::AutoRoute - methods
+// ---------------------------------------------------------------------------
+
+GNEVehicleFrame::AutoRoute::AutoRoute(GNEVehicleFrame* vehicleFrameParent) :
+    myVehicleFrameParent(vehicleFrameParent),
+    myFrom(nullptr),
+    myTo(nullptr) {
+    myRouter = new DijkstraRouter<NBEdge, NBVehicle, SUMOAbstractRouter<NBEdge, NBVehicle> >(
+        myVehicleFrameParent->myViewNet->getNet()->getNetBuilder()->getEdgeCont().getAllEdges(), 
+        true, &NBEdge::getTravelTimeStatic, nullptr, true);
+}
+
+
+GNEVehicleFrame::AutoRoute::~AutoRoute() {
+    delete myRouter;
+}
+
+
+GNEEdge* 
+GNEVehicleFrame::AutoRoute::getFrom() const {
+    return myFrom;
+}
+        
+
+GNEEdge* 
+GNEVehicleFrame::AutoRoute::getTo() const {
+    return myTo;
+}
+
+
+void 
+GNEVehicleFrame::AutoRoute::setFrom(GNEEdge* from) {
+    myFrom = from;
+    // set special color
+    for (auto i : myFrom->getLanes()) {
+        i->setSpecialColor(&myVehicleFrameParent->getEdgeCandidateSelectedColor());
+    }
+}
+        
+
+void 
+GNEVehicleFrame::AutoRoute::setTo(GNEEdge* to) {
+    myTo = to;
+    // set special color
+    for (auto i : myTo->getLanes()) {
+        i->setSpecialColor(&myVehicleFrameParent->getEdgeCandidateSelectedColor());
+    }
+}
+
+
+void 
+GNEVehicleFrame::AutoRoute::clearEdges() {
+    // restore colors
+    for (auto i : myFrom->getLanes()) {
+        i->setSpecialColor(nullptr);
+    }
+    for (auto i : myTo->getLanes()) {
+        i->setSpecialColor(nullptr);
+    }
+    // reset pointers
+    myFrom = nullptr;
+    myTo = nullptr;
+}
+
+
+void 
+GNEVehicleFrame::AutoRoute::updateAbstractRouterEdges() {
+    // simply delete and create myRouter again
+    delete myRouter;
+    myRouter = new DijkstraRouter<NBEdge, NBVehicle, SUMOAbstractRouter<NBEdge, NBVehicle> >(
+        myVehicleFrameParent->myViewNet->getNet()->getNetBuilder()->getEdgeCont().getAllEdges(), 
+        true, &NBEdge::getTravelTimeStatic, nullptr, true);
+}
+
+
+void 
+GNEVehicleFrame::AutoRoute::drawRoute() {
+    if (myFrom) {
+
+    }
+}
+
+
+bool 
+GNEVehicleFrame::AutoRoute::isValid(SUMOVehicleClass vehicleClass) const {
+    if (myFrom && myTo) {
+        std::vector<const NBEdge*> into;
+        NBVehicle tmpVehicle("temporalNBVehicle", vehicleClass);
+        return myRouter->compute(myFrom->getNBEdge(), myTo->getNBEdge(), &tmpVehicle, 10, into);
+    } else {
+        return false;
+    }
+}
+
+// ---------------------------------------------------------------------------
 // GNEVehicleFrame - methods
 // ---------------------------------------------------------------------------
 
@@ -325,7 +420,6 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
         }
         // set second edge
         if (myAutoRoute.getTo() == nullptr) {
-
             if (objectsUnderCursor.getEdgeFront()) {
                 // set to edge
                 myAutoRoute.setTo(objectsUnderCursor.getEdgeFront());
@@ -376,82 +470,6 @@ GNEVehicleFrame::disableModuls() {
     myVTypeSelector->hideVTypeSelector();
     myVehicleAttributes->hideAttributesCreatorModul();
     myHelpCreation->hideHelpCreation();
-}
-
-// ===========================================================================
-// private
-// ===========================================================================
-
-GNEVehicleFrame::AutoRoute::AutoRoute(GNEVehicleFrame* vehicleFrameParent) :
-    myVehicleFrameParent(vehicleFrameParent),
-    myFrom(nullptr),
-    myTo(nullptr) {
-}
-
-
-GNEEdge* 
-GNEVehicleFrame::AutoRoute::getFrom() const {
-    return myFrom;
-}
-        
-
-GNEEdge* 
-GNEVehicleFrame::AutoRoute::getTo() const {
-    return myTo;
-}
-
-void 
-GNEVehicleFrame::AutoRoute::setFrom(GNEEdge* from) {
-    myFrom = from;
-    // set special color
-    for (auto i : myFrom->getLanes()) {
-        i->setSpecialColor(&myVehicleFrameParent->getEdgeCandidateSelectedColor());
-    }
-}
-        
-
-void 
-GNEVehicleFrame::AutoRoute::setTo(GNEEdge* to) {
-    myTo = to;
-    // set special color
-    for (auto i : myTo->getLanes()) {
-        i->setSpecialColor(&myVehicleFrameParent->getEdgeCandidateSelectedColor());
-    }
-}
-
-
-void 
-GNEVehicleFrame::AutoRoute::clearEdges() {
-    // restore colors
-    for (auto i : myFrom->getLanes()) {
-        i->setSpecialColor(nullptr);
-    }
-    for (auto i : myTo->getLanes()) {
-        i->setSpecialColor(nullptr);
-    }
-    // reset pointers
-    myFrom = nullptr;
-    myTo = nullptr;
-}
-
-
-bool 
-GNEVehicleFrame::AutoRoute::isValid(SUMOVehicleClass vehicleClass) const {
-    
-    std::vector<const NBEdge*> into;
-
-    NBVehicle tmpVehicle("temporalNBVehicle", vehicleClass);
-
-    SUMOAbstractRouter<NBEdge, NBVehicle>* route;
-
-    route = new DijkstraRouter<NBEdge, NBVehicle, SUMOAbstractRouter<NBEdge, NBVehicle> >(
-        myVehicleFrameParent->myViewNet->getNet()->getNetBuilder()->getEdgeCont().getAllEdges(), true, &NBEdge::getTravelTimeStatic, nullptr, true);
-
-    bool routeExist = route->compute(myFrom->getNBEdge(), myTo->getNBEdge(), &tmpVehicle, 10, into);
-
-    delete route;
-
-    return routeExist;
 }
 
 /****************************************************************************/
