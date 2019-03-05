@@ -144,20 +144,20 @@ public:
         // check whether from and to can be used
         if (this->isProhibited(from, vehicle)) {
             if (!silent) {
-                this->myErrorMsgHandler->inform("Vehicle '" + vehicle->getID() + "' is not allowed on source edge '" + from->getID() + "'.");
+                this->myErrorMsgHandler->inform("Vehicle '" + Named::getIDSecure(vehicle) + "' is not allowed on source edge '" + from->getID() + "'.");
             }
             return false;
         }
         if (this->isProhibited(to, vehicle)) {
             if (!silent) {
-                this->myErrorMsgHandler->inform("Vehicle '" + vehicle->getID() + "' is not allowed on destination edge '" + to->getID() + "'.");
+                this->myErrorMsgHandler->inform("Vehicle '" + Named::getIDSecure(vehicle) + "' is not allowed on destination edge '" + to->getID() + "'.");
             }
             return false;
         }
         double length = 0.; // dummy for the via edge cost update
         this->startQuery();
 #ifdef ASTAR_DEBUG_QUERY
-        std::cout << "DEBUG: starting search for '" << vehicle->getID() << "' speed: " << MIN2(vehicle->getMaxSpeed(), myMaxSpeed * vehicle->getChosenSpeedFactor()) << " time: " << STEPS2TIME(msTime) << "\n";
+        std::cout << "DEBUG: starting search for '" << Named::getIDSecure(vehicle) << "' speed: " << MIN2(vehicle->getMaxSpeed(), myMaxSpeed * vehicle->getChosenSpeedFactor()) << " time: " << STEPS2TIME(msTime) << "\n";
 #endif
         const SUMOVehicleClass vClass = vehicle == 0 ? SVC_IGNORING : vehicle->getVClass();
         if (this->myBulkMode) {
@@ -195,7 +195,7 @@ public:
                           + " edges=" + toString(into) + ")\n";
 #endif
 #ifdef ASTAR_DEBUG_VISITED
-                OutputDevice& dev = OutputDevice::getDevice(vehicle->getID() + "_" + time2string(msTime) + "_" + from->getID() + "_" + to->getID());
+                OutputDevice& dev = OutputDevice::getDevice(Named::getIDSecure(vehicle) + "_" + time2string(msTime) + "_" + from->getID() + "_" + to->getID());
                 for (const auto& i : myEdgeInfos) {
                     if (i.visited) {
                         dev << "edge:" << i.edge->getID() << "\n";
