@@ -236,6 +236,8 @@ if (CHECK_OPTIONAL_LIBS)
         include_directories(${GDAL_INCLUDE_DIR})
         set(HAVE_GDAL 1)
         set(ENABLED_FEATURES "${ENABLED_FEATURES} GDAL")
+    else (GDAL_FOUND)
+        set(GDAL_LIBRARY "")
     endif (GDAL_FOUND)
 
     find_package(FFMPEG)
