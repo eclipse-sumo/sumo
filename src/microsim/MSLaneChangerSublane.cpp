@@ -120,10 +120,6 @@ assert(vehicle->getLane() == (*myCandi).lane);
         registerUnchanged(vehicle);
         return false;
     }
-    if (vehicle->isRemoteControlled()) {
-        registerUnchanged(vehicle);
-        return false;
-    }
     if (!vehicle->isActive()) {
 #ifdef DEBUG_ACTIONSTEPS
         if DEBUG_COND {
@@ -268,6 +264,10 @@ MSLaneChangerSublane::continueChangeSublane(MSVehicle* vehicle, ChangerIt& from)
 
 bool
 MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, double latDist) {
+    if (vehicle->isRemoteControlled()) {
+        registerUnchanged(vehicle);
+        return false;
+    }
     // Prevent continuation of LC beyond lane borders if change is not allowed
     const double distToRightLaneBorder = latDist < 0 ? vehicle->getLane()->getWidth() * 0.5 + vehicle->getLateralPositionOnLane() - vehicle->getWidth() * 0.5 : 0.;
     const double distToLeftLaneBorder = latDist > 0 ? vehicle->getLane()->getWidth() * 0.5 - vehicle->getLateralPositionOnLane() - vehicle->getWidth() * 0.5 : 0.;
