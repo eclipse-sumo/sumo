@@ -283,7 +283,7 @@ MSPModel_Striping::cleanupHelper() {
 
 int
 MSPModel_Striping::numStripes(const MSLane* lane) {
-    return (int)floor(lane->getWidth() / stripeWidth);
+    return MAX2(1, (int)floor(lane->getWidth() / stripeWidth));
 }
 
 int
