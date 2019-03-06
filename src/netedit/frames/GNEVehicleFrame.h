@@ -114,8 +114,13 @@ public:
         FXLabel* myInformationLabel;
     };
 
-    /// @brief structs used for creating routes only givin from-to routes
-    struct AutoRoute {
+    // ===========================================================================
+    // class AutoRoute
+    // ===========================================================================
+
+    class AutoRoute {
+
+    public:
         /// @brief default constructor
         AutoRoute(GNEVehicleFrame* vehicleFrameParent);
 
@@ -125,17 +130,11 @@ public:
         /// @brief check if from and to edges create a valid route
         bool isValid(SUMOVehicleClass vehicleClass) const;
 
-        /// @brief get edge form
-        GNEEdge* getFrom() const;
-        
-        /// @brief get edge to
-        GNEEdge* getTo() const;
+        /// @brief get current selected edgesm
+        std::vector<GNEEdge*> getSelectedEdges() const;
 
         /// @brief set edge from (and change color)
-        void setFrom(GNEEdge* from);
-        
-        /// @brief set edge to (and change color)
-        void setTo(GNEEdge* to);
+        void addEdge(GNEEdge* edge);
 
         /// @brief clear edges (and restore colors)
         void clearEdges();
@@ -144,20 +143,20 @@ public:
         void updateAbstractRouterEdges();
 
         /// @brief draw temporal route
-        void drawRoute();
+        void drawRoute() const;
 
     private:
         /// @brief pointer to Vehicle Frame Parent
         GNEVehicleFrame* myVehicleFrameParent;
 
-        /// @brief from Edge
-        GNEEdge* myFrom;
-
-        /// @brief to Edge
-        GNEEdge* myTo;
+        /// @brief current selected edges
+        std::vector<GNEEdge*> mySelectedEdges;
 
         /// @brief SUMO Abstract Router
         SUMOAbstractRouter<NBEdge, NBVehicle>* myRouter;
+
+        /// @brief vector with temporal route edges
+        std::vector<const NBEdge*> myTemporalRoute;
     };
 
     /**@brief Constructor
@@ -177,6 +176,9 @@ public:
      * @return true if vehicle was sucesfully added
      */
     bool addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
+
+    /// @brief get AutoRoute modul
+    AutoRoute* getAutoRoute() const;
 
 protected:
     /// @brief enable moduls depending of item selected in ItemSelector
@@ -199,7 +201,7 @@ private:
     HelpCreation* myHelpCreation;
 
     /// @brief AutoRoute
-    AutoRoute myAutoRoute;
+    AutoRoute* myAutoRoute;
 };
 
 

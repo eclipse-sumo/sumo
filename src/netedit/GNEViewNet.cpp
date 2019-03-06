@@ -536,6 +536,8 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
         drawLaneCandidates();
         // draw testing elements
         myTestingMode.drawTestingElements(myApp);
+        // draw AutoRoute
+        myViewParent->getVehicleFrame()->getAutoRoute()->drawRoute();
     }
     // draw elements
     glLineWidth(1);

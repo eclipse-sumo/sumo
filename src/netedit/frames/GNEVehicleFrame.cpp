@@ -38,6 +38,8 @@
 #include <utils/vehicle/SUMOVehicle.h>
 #include <netbuild/NBNetBuilder.h>
 #include <netbuild/NBVehicle.h>
+#include <utils/gui/div/GLHelper.h>
+#include <utils/gui/globjects/GLIncludes.h>
 
 #include "GNEVehicleFrame.h"
 
@@ -216,9 +218,7 @@ GNEVehicleFrame::HelpCreation::updateHelpCreation() {
 // ---------------------------------------------------------------------------
 
 GNEVehicleFrame::AutoRoute::AutoRoute(GNEVehicleFrame* vehicleFrameParent) :
-    myVehicleFrameParent(vehicleFrameParent),
-    myFrom(nullptr),
-    myTo(nullptr) {
+    myVehicleFrameParent(vehicleFrameParent) {
     myRouter = new DijkstraRouter<NBEdge, NBVehicle, SUMOAbstractRouter<NBEdge, NBVehicle> >(
         myVehicleFrameParent->myViewNet->getNet()->getNetBuilder()->getEdgeCont().getAllEdges(), 
         true, &NBEdge::getTravelTimeStatic, nullptr, true);
@@ -230,34 +230,30 @@ GNEVehicleFrame::AutoRoute::~AutoRoute() {
 }
 
 
-GNEEdge* 
-GNEVehicleFrame::AutoRoute::getFrom() const {
-    return myFrom;
-}
-        
-
-GNEEdge* 
-GNEVehicleFrame::AutoRoute::getTo() const {
-    return myTo;
-}
-
-
-void 
-GNEVehicleFrame::AutoRoute::setFrom(GNEEdge* from) {
-    myFrom = from;
-    // set special color
-    for (auto i : myFrom->getLanes()) {
-        i->setSpecialColor(&myVehicleFrameParent->getEdgeCandidateSelectedColor());
-    }
+std::vector<GNEEdge*>
+GNEVehicleFrame::AutoRoute::getSelectedEdges() const {
+    return mySelectedEdges;
 }
         
 
 void 
-GNEVehicleFrame::AutoRoute::setTo(GNEEdge* to) {
-    myTo = to;
-    // set special color
-    for (auto i : myTo->getLanes()) {
-        i->setSpecialColor(&myVehicleFrameParent->getEdgeCandidateSelectedColor());
+GNEVehicleFrame::AutoRoute::addEdge(GNEEdge* edge) {
+    if (mySelectedEdges.empty() || ((mySelectedEdges.size() > 0) && (mySelectedEdges.back() != edge))) {
+        mySelectedEdges.push_back(edge);
+        // set special color
+        for (auto i : edge->getLanes()) {
+            i->setSpecialColor(&myVehicleFrameParent->getEdgeCandidateSelectedColor());
+        }
+        if (mySelectedEdges.size() > 1) {
+            std::vector<const NBEdge*> temporalRoute;
+            NBVehicle tmpVehicle("temporalNBVehicle", SVC_PASSENGER);
+            myRouter->compute(mySelectedEdges.at(mySelectedEdges.size()-2)->getNBEdge(), 
+                                                 mySelectedEdges.at(mySelectedEdges.size()-1)->getNBEdge(), 
+                                                 &tmpVehicle, 10, temporalRoute);
+            for (const auto &i : temporalRoute) {
+                myTemporalRoute.push_back(i);
+            }
+        }
     }
 }
 
@@ -265,15 +261,14 @@ GNEVehicleFrame::AutoRoute::setTo(GNEEdge* to) {
 void 
 GNEVehicleFrame::AutoRoute::clearEdges() {
     // restore colors
-    for (auto i : myFrom->getLanes()) {
-        i->setSpecialColor(nullptr);
+    for (const auto &i : mySelectedEdges) {
+        for (const auto &j : i->getLanes()) {
+            j->setSpecialColor(nullptr);
+        }
     }
-    for (auto i : myTo->getLanes()) {
-        i->setSpecialColor(nullptr);
-    }
-    // reset pointers
-    myFrom = nullptr;
-    myTo = nullptr;
+    // clear edges
+    mySelectedEdges.clear();
+    myTemporalRoute.clear();
 }
 
 
@@ -288,22 +283,36 @@ GNEVehicleFrame::AutoRoute::updateAbstractRouterEdges() {
 
 
 void 
-GNEVehicleFrame::AutoRoute::drawRoute() {
-    if (myFrom) {
-
+GNEVehicleFrame::AutoRoute::drawRoute() const {
+    // only draw if there is at least two edges
+    if (myTemporalRoute.size() > 1) {
+        // Add a draw matrix
+        glPushMatrix();
+        // Start with the drawing of the area traslating matrix to origin
+        glTranslated(0, 0, GLO_MAX);
+        // set orange color
+        GLHelper::setColor(RGBColor::ORANGE);
+        // set line width
+        glLineWidth(5);
+        // draw first edge
+        GLHelper::drawLine(myTemporalRoute.at(0)->getLanes().front().shape.front(), 
+                           myTemporalRoute.at(0)->getLanes().front().shape.back());
+        // 
+        for (int i = 1; i < (int)myTemporalRoute.size(); i++) {
+            GLHelper::drawLine(myTemporalRoute.at(i-1)->getLanes().front().shape.back(), 
+                               myTemporalRoute.at(i)->getLanes().front().shape.front());
+            GLHelper::drawLine(myTemporalRoute.at(i)->getLanes().front().shape.front(), 
+                               myTemporalRoute.at(i)->getLanes().front().shape.back());
+        }
+        // Pop last matrix
+        glPopMatrix();
     }
 }
 
 
 bool 
 GNEVehicleFrame::AutoRoute::isValid(SUMOVehicleClass vehicleClass) const {
-    if (myFrom && myTo) {
-        std::vector<const NBEdge*> into;
-        NBVehicle tmpVehicle("temporalNBVehicle", vehicleClass);
-        return myRouter->compute(myFrom->getNBEdge(), myTo->getNBEdge(), &tmpVehicle, 10, into);
-    } else {
-        return false;
-    }
+    return mySelectedEdges.size() > 0;
 }
 
 // ---------------------------------------------------------------------------
@@ -311,8 +320,7 @@ GNEVehicleFrame::AutoRoute::isValid(SUMOVehicleClass vehicleClass) const {
 // ---------------------------------------------------------------------------
 
 GNEVehicleFrame::GNEVehicleFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
-    GNEFrame(horizontalFrameParent, viewNet, "Vehicles"),
-    myAutoRoute(this) {
+    GNEFrame(horizontalFrameParent, viewNet, "Vehicles") {
 
     // Create item Selector modul for vehicles
     myItemSelector = new ItemSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_VEHICLE);
@@ -325,6 +333,9 @@ GNEVehicleFrame::GNEVehicleFrame(FXHorizontalFrame* horizontalFrameParent, GNEVi
 
     // Create Help Creation Modul
     myHelpCreation = new HelpCreation(this);
+
+    // create AutoRoute Modul
+    myAutoRoute = new AutoRoute(this);
 
     // set Vehicle as default vehicle
     myItemSelector->setCurrentTypeTag(SUMO_TAG_VEHICLE);
@@ -406,10 +417,10 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
         }
     } else if (vehicleTag == SUMO_TAG_TRIP) {
         // set first edge
-        if (myAutoRoute.getFrom() == nullptr) {
+        if (myAutoRoute->getSelectedEdges().empty()) {
             // set from edge
             if (objectsUnderCursor.getEdgeFront()) {
-                myAutoRoute.setFrom(objectsUnderCursor.getEdgeFront());
+                myAutoRoute->addEdge(objectsUnderCursor.getEdgeFront());
                 // update showHelpCreation
                 myHelpCreation->updateHelpCreation();
                 return true;
@@ -419,12 +430,12 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
             }
         }
         // set second edge
-        if (myAutoRoute.getTo() == nullptr) {
+        if (myAutoRoute->getSelectedEdges().size() == 1) {
             if (objectsUnderCursor.getEdgeFront()) {
                 // set to edge
-                myAutoRoute.setTo(objectsUnderCursor.getEdgeFront());
+                myAutoRoute->addEdge(objectsUnderCursor.getEdgeFront());
                 // check if route is valid
-                myAutoRoute.isValid(GNEAttributeCarrier::parse<SUMOVehicleClass>(myVTypeSelector->getCurrentVehicleType()->getAttribute(SUMO_ATTR_VCLASS)));
+                myAutoRoute->isValid(GNEAttributeCarrier::parse<SUMOVehicleClass>(myVTypeSelector->getCurrentVehicleType()->getAttribute(SUMO_ATTR_VCLASS)));
                 // update showHelpCreation
                 myHelpCreation->updateHelpCreation();
                 // Add parameter departure
@@ -436,11 +447,11 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
                 // obtain trip parameters in tripParameters
                 SUMOVehicleParameter* tripParameters = SUMOVehicleParserHelper::parseVehicleAttributes(SUMOSAXAttrs);
                 // create it in RouteFrame
-                GNERouteHandler::buildTrip(myViewNet, true, tripParameters, myAutoRoute.getFrom(), myAutoRoute.getTo());
+                GNERouteHandler::buildTrip(myViewNet, true, tripParameters, myAutoRoute->getSelectedEdges().front(), myAutoRoute->getSelectedEdges().back());
                 // delete tripParameters
                 delete tripParameters;
                 // clear edges
-                myAutoRoute.clearEdges();
+                myAutoRoute->clearEdges();
                 // all ok, then return true;
                 return true;
             } else {
@@ -451,6 +462,12 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
     }
     // nothing crated
     return false;
+}
+
+
+GNEVehicleFrame::AutoRoute* 
+GNEVehicleFrame::getAutoRoute() const {
+    return myAutoRoute;
 }
 
 // ===========================================================================
