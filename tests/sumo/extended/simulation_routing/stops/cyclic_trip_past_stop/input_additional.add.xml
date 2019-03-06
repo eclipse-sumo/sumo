@@ -15,4 +15,11 @@
     <busStop id="busStop_-c" lane="-c_0" startPos="74.38" endPos="84.38"/>
     <busStop id="busStop_a" lane="a_0" startPos="20.69" endPos="30.69"/>
     <busStop id="busStop_c" lane="c_0" startPos="77.86" endPos="87.86"/>
+
+    <!-- temporary close edge to ensure a route change while the vehicle is on an intersection -->
+    <rerouter id="rr" edges="-c">
+        <interval begin="11" end="14">
+            <closingReroute id="-b" allow="authority"/>
+        </interval>
+    </rerouter>
 </additional>

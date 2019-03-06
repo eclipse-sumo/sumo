@@ -1,5 +1,5 @@
 <routes>
-    <vType id="bus" sigma="0"/>
+    <vType id="bus" sigma="0" maxSpeed="3"/>
     <vehicle id="bus" type="bus" depart="0" departPos="50">
         <route edges="a b c -c -b -a a b c"/>
         <stop busStop="busStop_a" duration="10"/>
