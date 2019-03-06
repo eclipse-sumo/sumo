@@ -1,2 +1,5 @@
 # Tests whether cyclical stops are handled correctly while reroutig
 cyclic_trip
+
+# reroute while on a stop edge but already past the stop
+cyclic_trip_past_stop
