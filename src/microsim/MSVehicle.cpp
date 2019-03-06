@@ -5970,6 +5970,12 @@ MSVehicle::haveValidStopEdges() const {
     int i = 0;
     bool ok = true;
     double lastPos = getPositionOnLane();
+    if (myLane != nullptr && myLane->isInternal() 
+            && myStops.size() > 0 && !myStops.front().lane->isInternal()) {
+        // first route edge is still incoming to the intersection so lastPos
+        // relative to that edge must be adapted
+        lastPos += (*myRoute->begin())->getLength();
+    }
     for (const Stop& stop : myStops) {
         const double endPos = stop.getEndPos(*this);
         const MSEdge* const stopEdge = &stop.lane->getEdge();
