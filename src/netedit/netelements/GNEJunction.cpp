@@ -237,7 +237,7 @@ void
 GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
     // declare variables
     double exaggeration = isAttributeCarrierSelected() ? s.selectionScale : 1;
-    exaggeration *= s.junctionSize.getExaggeration(s, this);
+    exaggeration *= s.junctionSize.getExaggeration(s, this, 4);
     // declare values for circles
     double circleWidth = BUBBLE_RADIUS * exaggeration;
     double circleWidthSquared = circleWidth * circleWidth;
