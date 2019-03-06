@@ -28,7 +28,6 @@
 #include <utility>
 #include <utils/common/SUMOTime.h>
 
-#include <config.h>
 
 
 // ===========================================================================
