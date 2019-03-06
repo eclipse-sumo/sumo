@@ -1098,8 +1098,14 @@ MSVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info, bool o
         // recheck old stops
         MSRouteIterator searchStart = myCurrEdge;
         double lastPos = getPositionOnLane();
+        if (myLane != nullptr && myLane->isInternal() 
+                && myStops.size() > 0 && !myStops.front().lane->isInternal()) {
+            // searchStart is still incoming to the intersection so lastPos
+            // relative to that edge must be adapted
+            lastPos += (*myCurrEdge)->getLength();
+        }
 #ifdef DEBUG_REPLACE_ROUTE
-        if (DEBUG_COND) std::cout << "  replaceRoute on " << (*myCurrEdge)->getID() << "\n";
+        if (DEBUG_COND) std::cout << "  replaceRoute on " << (*myCurrEdge)->getID() << " lane=" << myLane->getID() << "\n";
 #endif
         for (std::list<Stop>::iterator iter = myStops.begin(); iter != myStops.end();) {
             double endPos = iter->getEndPos(*this);
@@ -4691,7 +4697,9 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
             currentLanes.push_back(q);
         }
         //
-        if (nextStopEdge == ce && !nextStopLane->isInternal()) {
+        if (nextStopEdge == ce && !nextStopLane->isInternal()
+                // already past the stop edge
+                && !(ce == myCurrEdge && myLane != nullptr && myLane->isInternal())) {
             progress = false;
             for (std::vector<LaneQ>::iterator q = currentLanes.begin(); q != currentLanes.end(); ++q) {
                 if (nextStopLane != nullptr && nextStopLane != (*q).lane) {
@@ -5972,9 +5980,9 @@ MSVehicle::haveValidStopEdges() const {
     double lastPos = getPositionOnLane();
     if (myLane != nullptr && myLane->isInternal() 
             && myStops.size() > 0 && !myStops.front().lane->isInternal()) {
-        // first route edge is still incoming to the intersection so lastPos
+        // start edge is still incoming to the intersection so lastPos
         // relative to that edge must be adapted
-        lastPos += (*myRoute->begin())->getLength();
+        lastPos += (*myCurrEdge)->getLength();
     }
     for (const Stop& stop : myStops) {
         const double endPos = stop.getEndPos(*this);

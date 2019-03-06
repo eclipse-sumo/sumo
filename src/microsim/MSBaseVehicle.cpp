@@ -47,7 +47,7 @@
 //#define DEBUG_REROUTE
 //#define DEBUG_COND (getID() == "follower")
 //#define DEBUG_COND (true)
-//#define DEBUG_COND (isSelected())
+#define DEBUG_COND (isSelected())
 
 // ===========================================================================
 // static members
@@ -187,7 +187,7 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
             const bool skipFirst = stops.front() == source && sourcePos < firstPos;
             const bool skipLast = stops.back() == sink && myArrivalPos > lastPos;
 #ifdef DEBUG_REROUTE
-            if (DEBUGCOND) { 
+            if (DEBUG_COND) { 
                 std::cout << SIMTIME << " reroute " << info << " veh=" << getID() << " lane=" << getLane()->getID() 
                     << " source=" << source->getID() << " sourcePos=" << sourcePos << " firstPos=" << firstPos << " arrivalPos=" << myArrivalPos << " lastPos=" << lastPos 
                     << " route=" << toString(myRoute->getEdges()) << " stopEdges=" << toString(stops) << " skipFirst=" << skipFirst << " skipLast=" << skipLast << "\n";
