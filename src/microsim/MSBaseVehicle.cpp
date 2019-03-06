@@ -44,6 +44,11 @@
 #include <microsim/devices/MSDevice_Transportable.h>
 #include "MSInsertionControl.h"
 
+//#define DEBUG_REROUTE
+//#define DEBUG_COND (getID() == "follower")
+//#define DEBUG_COND (true)
+//#define DEBUG_COND (isSelected())
+
 // ===========================================================================
 // static members
 // ===========================================================================
@@ -181,7 +186,13 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
             // avoid superfluous waypoints for first and last edge
             const bool skipFirst = stops.front() == source && sourcePos < firstPos;
             const bool skipLast = stops.back() == sink && myArrivalPos > lastPos;
-            //if (getID() == "tram2") std::cout << SIMTIME << " reroute " << info << " veh=" << getID() << " route=" << toString(myRoute->getEdges()) << " stopEdges=" << toString(stops) << " skipFirst=" << skipFirst << " skipLast=" << skipLast << "\n";;
+#ifdef DEBUG_REROUTE
+            if (DEBUGCOND) { 
+                std::cout << SIMTIME << " reroute " << info << " veh=" << getID() << " lane=" << getLane()->getID() 
+                    << " source=" << source->getID() << " sourcePos=" << sourcePos << " firstPos=" << firstPos << " arrivalPos=" << myArrivalPos << " lastPos=" << lastPos 
+                    << " route=" << toString(myRoute->getEdges()) << " stopEdges=" << toString(stops) << " skipFirst=" << skipFirst << " skipLast=" << skipLast << "\n";
+            }
+#endif
             if (stops.size() == 1 && (skipFirst || skipLast)) {
                 stops.clear();
             } else {
