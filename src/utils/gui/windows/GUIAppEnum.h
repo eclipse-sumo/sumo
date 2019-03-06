@@ -579,7 +579,7 @@ enum {
     /// @}
 
 
-    /// @name GNESeletorFrame messages
+    /// @name GNESelectorFrame messages
     /// @{
 
     /// @brief select tag in selector frame
@@ -734,6 +734,18 @@ enum {
     MID_GNE_PROHIBITIONFRAME_SELECTPROHIBITED,
     /// @brief abort drawing polygon
     MID_GNE_PROHIBITIONFRAME_ABORTDRAWING,
+    /// @}
+
+
+    /// @name GNEVehicleFrame messages
+    /// @{
+
+    /// @brief abort route creation
+    MID_GNE_VEHICLEFRAME_ABORT,
+    /// @brief finish route creation
+    MID_GNE_VEHICLEFRAME_FINISHCREATION,
+    /// @brief remove last inserted edge
+    MID_GNE_VEHICLEFRAME_REMOVELASTEDGE,
     /// @}
 
 

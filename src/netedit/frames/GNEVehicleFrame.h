@@ -115,17 +115,25 @@ public:
     };
 
     // ===========================================================================
-    // class AutoRoute
+    // class AutoRouteCreator
     // ===========================================================================
 
-    class AutoRoute {
+    class AutoRouteCreator : protected FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEVehicleFrame::AutoRouteCreator)
 
     public:
         /// @brief default constructor
-        AutoRoute(GNEVehicleFrame* vehicleFrameParent);
+        AutoRouteCreator(GNEVehicleFrame* vehicleFrameParent);
 
         /// @brief destructor
-        ~AutoRoute();
+        ~AutoRouteCreator();
+
+        /// @brief show AutoRouteCreator
+        void showAutoRouteCreator();
+
+        /// @brief show AutoRouteCreator
+        void hideAutoRouteCreator();
 
         /// @brief check if from and to edges create a valid route
         bool isValid(SUMOVehicleClass vehicleClass) const;
@@ -145,6 +153,22 @@ public:
         /// @brief draw temporal route
         void drawRoute() const;
 
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when the user click over button "Abort route creation"
+        long onCmdAbortRouteCreation(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user click over button "Abort route creation"
+        long onCmdFinishRouteCreation(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user click over button "Abort route creation"
+        long onCmdRemoveLastEdge(FXObject*, FXSelector, void*);
+        /// @}
+
+    protected:
+        /// @brief FOX needs this
+        AutoRouteCreator() {}
+
     private:
         /// @brief pointer to Vehicle Frame Parent
         GNEVehicleFrame* myVehicleFrameParent;
@@ -152,11 +176,20 @@ public:
         /// @brief current selected edges
         std::vector<GNEEdge*> mySelectedEdges;
 
-        /// @brief SUMO Abstract Router
-        SUMOAbstractRouter<NBEdge, NBVehicle>* myRouter;
+        /// @brief SUMO Abstract DijkstraRouter
+        SUMOAbstractRouter<NBEdge, NBVehicle>* myDijkstraRouter;
 
         /// @brief vector with temporal route edges
         std::vector<const NBEdge*> myTemporalRoute;
+
+        /// @brief button for finish route creation
+        FXButton* myFinishCreationButton;
+
+        /// @brief button for abort route creation
+        FXButton* myAbortCreationButton;
+
+        /// @brief button for removing last inserted edge
+        FXButton* myRemoveLastInsertedEdge;
     };
 
     /**@brief Constructor
@@ -177,8 +210,8 @@ public:
      */
     bool addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
 
-    /// @brief get AutoRoute modul
-    AutoRoute* getAutoRoute() const;
+    /// @brief get AutoRouteCreator modul
+    AutoRouteCreator* getAutoRouteCreator() const;
 
 protected:
     /// @brief enable moduls depending of item selected in ItemSelector
@@ -197,11 +230,11 @@ private:
     /// @brief internal vehicle attributes
     AttributesCreator* myVehicleAttributes;
 
+    /// @brief AutoRouteCreator
+    AutoRouteCreator* myAutoRouteCreator;
+
     /// @brief Help creation
     HelpCreation* myHelpCreation;
-
-    /// @brief AutoRoute
-    AutoRoute* myAutoRoute;
 };
 
 
