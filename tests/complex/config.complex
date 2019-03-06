@@ -107,6 +107,7 @@ output:^Reason: TraCI requested termination.
 output:[0-9] vehicle subscription results:
 output:[0-9] simulation subscription results:
 output:Process [0-9]:
+output:Starting process
 output:[0-9] stepping \(step 
 output:^Starting process [0-9] with steplength
 errors:^This will probably
