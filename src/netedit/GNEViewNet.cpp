@@ -537,7 +537,7 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
         // draw testing elements
         myTestingMode.drawTestingElements(myApp);
         // draw AutoRouteCreator
-        myViewParent->getVehicleFrame()->getAutoRouteCreator()->drawRoute();
+        myViewParent->getVehicleFrame()->getTripRouteCreator()->drawTemporalRoute();
     }
     // draw elements
     glLineWidth(1);
@@ -739,6 +739,8 @@ GNEViewNet::abortOperation(bool clearSelection) {
             }
         } else if (myEditModes.demandEditMode == GNE_DMODE_ROUTES) {
             myViewParent->getRouteFrame()->hotKeyEsc();
+        } else if (myEditModes.demandEditMode == GNE_DMODE_VEHICLES) {
+            myViewParent->getVehicleFrame()->getTripRouteCreator()->onCmdAbortRouteCreation(0,0,0);
         }
     }
     // abort undo list
@@ -825,6 +827,8 @@ GNEViewNet::hotkeyEnter() {
         // abort operation depending of current mode
         if (myEditModes.demandEditMode == GNE_DMODE_ROUTES) {
             myViewParent->getRouteFrame()->hotKeyEnter();
+        } else if (myEditModes.demandEditMode == GNE_DMODE_VEHICLES) {
+            myViewParent->getVehicleFrame()->getTripRouteCreator()->onCmdFinishRouteCreation(0,0,0);
         }
     }
 }

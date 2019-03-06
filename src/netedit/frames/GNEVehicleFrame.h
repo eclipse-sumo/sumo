@@ -115,25 +115,25 @@ public:
     };
 
     // ===========================================================================
-    // class AutoRouteCreator
+    // class TripRouteCreator
     // ===========================================================================
 
-    class AutoRouteCreator : protected FXGroupBox {
+    class TripRouteCreator : protected FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNEVehicleFrame::AutoRouteCreator)
+        FXDECLARE(GNEVehicleFrame::TripRouteCreator)
 
     public:
         /// @brief default constructor
-        AutoRouteCreator(GNEVehicleFrame* vehicleFrameParent);
+        TripRouteCreator(GNEVehicleFrame* vehicleFrameParent);
 
         /// @brief destructor
-        ~AutoRouteCreator();
+        ~TripRouteCreator();
 
-        /// @brief show AutoRouteCreator
-        void showAutoRouteCreator();
+        /// @brief show TripRouteCreator
+        void showTripRouteCreator();
 
-        /// @brief show AutoRouteCreator
-        void hideAutoRouteCreator();
+        /// @brief show TripRouteCreator
+        void hideTripRouteCreator();
 
         /// @brief check if from and to edges create a valid route
         bool isValid(SUMOVehicleClass vehicleClass) const;
@@ -148,26 +148,26 @@ public:
         void clearEdges();
 
         /// @brief update abstract router edges
-        void updateAbstractRouterEdges();
+        void updateDijkstraRouter();
 
         /// @brief draw temporal route
-        void drawRoute() const;
+        void drawTemporalRoute() const;
 
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when the user click over button "Abort route creation"
         long onCmdAbortRouteCreation(FXObject*, FXSelector, void*);
 
-        /// @brief Called when the user click over button "Abort route creation"
+        /// @brief Called when the user click over button "Finish route creation"
         long onCmdFinishRouteCreation(FXObject*, FXSelector, void*);
 
-        /// @brief Called when the user click over button "Abort route creation"
-        long onCmdRemoveLastEdge(FXObject*, FXSelector, void*);
+        /// @brief Called when the user click over button "Remove las inserted edge"
+        long onCmdRemoveLastRouteEdge(FXObject*, FXSelector, void*);
         /// @}
 
     protected:
         /// @brief FOX needs this
-        AutoRouteCreator() {}
+        TripRouteCreator() {}
 
     private:
         /// @brief pointer to Vehicle Frame Parent
@@ -210,8 +210,8 @@ public:
      */
     bool addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
 
-    /// @brief get AutoRouteCreator modul
-    AutoRouteCreator* getAutoRouteCreator() const;
+    /// @brief get TripRouteCreator modul
+    TripRouteCreator* getTripRouteCreator() const;
 
 protected:
     /// @brief enable moduls depending of item selected in ItemSelector
@@ -230,8 +230,8 @@ private:
     /// @brief internal vehicle attributes
     AttributesCreator* myVehicleAttributes;
 
-    /// @brief AutoRouteCreator
-    AutoRouteCreator* myAutoRouteCreator;
+    /// @brief TripRouteCreator
+    TripRouteCreator* myTripRouteCreator;
 
     /// @brief Help creation
     HelpCreation* myHelpCreation;

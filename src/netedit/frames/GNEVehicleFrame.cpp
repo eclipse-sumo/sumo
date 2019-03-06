@@ -51,15 +51,15 @@ FXDEFMAP(GNEVehicleFrame::VTypeSelector) VTypeSelectorMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_TYPE,    GNEVehicleFrame::VTypeSelector::onCmdSelectVType),
 };
 
-FXDEFMAP(GNEVehicleFrame::AutoRouteCreator) AutoRouteCreatorMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_VEHICLEFRAME_ABORT, GNEVehicleFrame::AutoRouteCreator::onCmdAbortRouteCreation),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_VEHICLEFRAME_FINISHCREATION, GNEVehicleFrame::AutoRouteCreator::onCmdFinishRouteCreation),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_VEHICLEFRAME_REMOVELASTEDGE,GNEVehicleFrame::AutoRouteCreator::onCmdRemoveLastEdge)
+FXDEFMAP(GNEVehicleFrame::TripRouteCreator) TripRouteCreatorMap[] = {
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_VEHICLEFRAME_ABORT,          GNEVehicleFrame::TripRouteCreator::onCmdAbortRouteCreation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_VEHICLEFRAME_FINISHCREATION, GNEVehicleFrame::TripRouteCreator::onCmdFinishRouteCreation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_VEHICLEFRAME_REMOVELASTEDGE, GNEVehicleFrame::TripRouteCreator::onCmdRemoveLastRouteEdge)
 };
 
 // Object implementation
 FXIMPLEMENT(GNEVehicleFrame::VTypeSelector,     FXGroupBox, VTypeSelectorMap,       ARRAYNUMBER(VTypeSelectorMap))
-FXIMPLEMENT(GNEVehicleFrame::AutoRouteCreator,  FXGroupBox, AutoRouteCreatorMap,    ARRAYNUMBER(AutoRouteCreatorMap))
+FXIMPLEMENT(GNEVehicleFrame::TripRouteCreator,  FXGroupBox, TripRouteCreatorMap,    ARRAYNUMBER(TripRouteCreatorMap))
 
 // ===========================================================================
 // method definitions
@@ -221,10 +221,10 @@ GNEVehicleFrame::HelpCreation::updateHelpCreation() {
 }
 
 // ---------------------------------------------------------------------------
-// GNEVehicleFrame::AutoRouteCreator - methods
+// GNEVehicleFrame::TripRouteCreator - methods
 // ---------------------------------------------------------------------------
 
-GNEVehicleFrame::AutoRouteCreator::AutoRouteCreator(GNEVehicleFrame* vehicleFrameParent) :
+GNEVehicleFrame::TripRouteCreator::TripRouteCreator(GNEVehicleFrame* vehicleFrameParent) :
     FXGroupBox(vehicleFrameParent->myContentFrame, "Route creator", GUIDesignGroupBoxFrame),
     myVehicleFrameParent(vehicleFrameParent),
     myDijkstraRouter(nullptr) {
@@ -243,13 +243,13 @@ GNEVehicleFrame::AutoRouteCreator::AutoRouteCreator(GNEVehicleFrame* vehicleFram
 }
 
 
-GNEVehicleFrame::AutoRouteCreator::~AutoRouteCreator() {
+GNEVehicleFrame::TripRouteCreator::~TripRouteCreator() {
     delete myDijkstraRouter;
 }
 
 
 void 
-GNEVehicleFrame::AutoRouteCreator::showAutoRouteCreator() {
+GNEVehicleFrame::TripRouteCreator::showTripRouteCreator() {
     // disable buttons
     myFinishCreationButton->disable();
     myAbortCreationButton->disable();
@@ -259,23 +259,23 @@ GNEVehicleFrame::AutoRouteCreator::showAutoRouteCreator() {
 
 
 void 
-GNEVehicleFrame::AutoRouteCreator::hideAutoRouteCreator() {
+GNEVehicleFrame::TripRouteCreator::hideTripRouteCreator() {
     hide();
 }
 
 
 std::vector<GNEEdge*>
-GNEVehicleFrame::AutoRouteCreator::getSelectedEdges() const {
+GNEVehicleFrame::TripRouteCreator::getSelectedEdges() const {
     return mySelectedEdges;
 }
         
 
 void 
-GNEVehicleFrame::AutoRouteCreator::addEdge(GNEEdge* edge) {
+GNEVehicleFrame::TripRouteCreator::addEdge(GNEEdge* edge) {
     if (mySelectedEdges.empty() || ((mySelectedEdges.size() > 0) && (mySelectedEdges.back() != edge))) {
         mySelectedEdges.push_back(edge);
-        // enable creation button
-        myFinishCreationButton->enable();
+        // enable abort route button
+        myAbortCreationButton->enable();
         // set special color
         for (auto i : edge->getLanes()) {
             i->setSpecialColor(&myVehicleFrameParent->getEdgeCandidateSelectedColor());
@@ -284,6 +284,8 @@ GNEVehicleFrame::AutoRouteCreator::addEdge(GNEEdge* edge) {
         if (mySelectedEdges.size() > 1) {
             // enable remove last edge button
             myRemoveLastInsertedEdge->enable();
+            // enable finish button
+            myFinishCreationButton->enable();
             // clear myTemporalRoute
             myTemporalRoute.clear();
             // declare temporal vehicle
@@ -306,7 +308,7 @@ GNEVehicleFrame::AutoRouteCreator::addEdge(GNEEdge* edge) {
 
 
 void 
-GNEVehicleFrame::AutoRouteCreator::clearEdges() {
+GNEVehicleFrame::TripRouteCreator::clearEdges() {
     // restore colors
     for (const auto &i : mySelectedEdges) {
         for (const auto &j : i->getLanes()) {
@@ -320,8 +322,8 @@ GNEVehicleFrame::AutoRouteCreator::clearEdges() {
 
 
 void 
-GNEVehicleFrame::AutoRouteCreator::updateAbstractRouterEdges() {
-    // simply delete and create myRouter again
+GNEVehicleFrame::TripRouteCreator::updateDijkstraRouter() {
+    // simply delete and create myDijkstraRouter again
     if(myDijkstraRouter) {
         delete myDijkstraRouter;
     }
@@ -332,7 +334,7 @@ GNEVehicleFrame::AutoRouteCreator::updateAbstractRouterEdges() {
 
 
 void 
-GNEVehicleFrame::AutoRouteCreator::drawRoute() const {
+GNEVehicleFrame::TripRouteCreator::drawTemporalRoute() const {
     // only draw if there is at least two edges
     if (myTemporalRoute.size() > 1) {
         // Add a draw matrix
@@ -360,13 +362,13 @@ GNEVehicleFrame::AutoRouteCreator::drawRoute() const {
 
 
 bool 
-GNEVehicleFrame::AutoRouteCreator::isValid(SUMOVehicleClass vehicleClass) const {
+GNEVehicleFrame::TripRouteCreator::isValid(SUMOVehicleClass vehicleClass) const {
     return mySelectedEdges.size() > 0;
 }
 
 
 long 
-GNEVehicleFrame::AutoRouteCreator::onCmdAbortRouteCreation(FXObject*, FXSelector, void*) {
+GNEVehicleFrame::TripRouteCreator::onCmdAbortRouteCreation(FXObject*, FXSelector, void*) {
     clearEdges();
     // disable buttons
     myFinishCreationButton->disable();
@@ -377,56 +379,59 @@ GNEVehicleFrame::AutoRouteCreator::onCmdAbortRouteCreation(FXObject*, FXSelector
 
 
 long 
-GNEVehicleFrame::AutoRouteCreator::onCmdFinishRouteCreation(FXObject*, FXSelector, void*) {
-    // obtain tag (only for improve code legibility)
-    SumoXMLTag vehicleTag = myVehicleFrameParent->myItemSelector->getCurrentTagProperties().getTag();
+GNEVehicleFrame::TripRouteCreator::onCmdFinishRouteCreation(FXObject*, FXSelector, void*) {
+    // only create route if there is more than two edges
+    if (mySelectedEdges.size() > 1) {
+        // obtain tag (only for improve code legibility)
+        SumoXMLTag vehicleTag = myVehicleFrameParent->myItemSelector->getCurrentTagProperties().getTag();
 
-    // Declare map to keep attributes from Frames from Frame
-    std::map<SumoXMLAttr, std::string> valuesMap = myVehicleFrameParent->myVehicleAttributes->getAttributesAndValues(false);
+        // Declare map to keep attributes from Frames from Frame
+        std::map<SumoXMLAttr, std::string> valuesMap = myVehicleFrameParent->myVehicleAttributes->getAttributesAndValues(false);
 
-    // add ID
-    valuesMap[SUMO_ATTR_ID] = myVehicleFrameParent->myViewNet->getNet()->generateDemandElementID(vehicleTag);
+        // add ID
+        valuesMap[SUMO_ATTR_ID] = myVehicleFrameParent->myViewNet->getNet()->generateDemandElementID(vehicleTag);
 
-    // add VType
-    valuesMap[SUMO_ATTR_TYPE] = myVehicleFrameParent->myVTypeSelector->getCurrentVehicleType()->getID();
+        // add VType
+        valuesMap[SUMO_ATTR_TYPE] = myVehicleFrameParent->myVTypeSelector->getCurrentVehicleType()->getID();
 
-    // Add parameter departure
-    if(valuesMap.count(SUMO_ATTR_DEPART) == 0) {
-        valuesMap[SUMO_ATTR_DEPART] = "0";
+        // Add parameter departure
+        if(valuesMap.count(SUMO_ATTR_DEPART) == 0) {
+            valuesMap[SUMO_ATTR_DEPART] = "0";
+        }
+
+        // obtain "via" parameter
+        std::vector<GNEEdge*> viaEdges;
+        // obtain IDs of VIA Edges
+        for (int i = 1; i < (int)(mySelectedEdges.size()-1); i++) {
+            viaEdges.push_back(mySelectedEdges.at(i));
+        }
+
+        // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
+        SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, myVehicleFrameParent->getPredefinedTagsMML(), toString(vehicleTag));
+
+        // obtain trip parameters in tripParameters
+        SUMOVehicleParameter* tripParameters = SUMOVehicleParserHelper::parseVehicleAttributes(SUMOSAXAttrs);
+
+        // create it in RouteFrame
+        GNERouteHandler::buildTrip(myVehicleFrameParent->myViewNet, true, tripParameters, mySelectedEdges.front(), mySelectedEdges.back(), viaEdges);
+    
+        // delete tripParameters
+        delete tripParameters;
+    
+        // clear edges
+        clearEdges();
+    
+        // disable buttons
+        myFinishCreationButton->disable();
+        myAbortCreationButton->disable();
+        myRemoveLastInsertedEdge->disable();
     }
-
-    // obtain "via" parameter
-    std::vector<GNEEdge*> viaEdges;
-    // obtain IDs of VIA Edges
-    for (int i = 1; i < (int)(mySelectedEdges.size()-1); i++) {
-        viaEdges.push_back(mySelectedEdges.at(i));
-    }
-
-    // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
-    SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, myVehicleFrameParent->getPredefinedTagsMML(), toString(vehicleTag));
-
-    // obtain trip parameters in tripParameters
-    SUMOVehicleParameter* tripParameters = SUMOVehicleParserHelper::parseVehicleAttributes(SUMOSAXAttrs);
-
-    // create it in RouteFrame
-    GNERouteHandler::buildTrip(myVehicleFrameParent->myViewNet, true, tripParameters, mySelectedEdges.front(), mySelectedEdges.back(), viaEdges);
-    
-    // delete tripParameters
-    delete tripParameters;
-    
-    // clear edges
-    clearEdges();
-    
-    // disable buttons
-    myFinishCreationButton->disable();
-    myAbortCreationButton->disable();
-    myRemoveLastInsertedEdge->disable();
     return 1;
 }
 
 
 long 
-GNEVehicleFrame::AutoRouteCreator::onCmdRemoveLastEdge(FXObject*, FXSelector, void*) {
+GNEVehicleFrame::TripRouteCreator::onCmdRemoveLastRouteEdge(FXObject*, FXSelector, void*) {
     if (mySelectedEdges.size() > 1) {
         // remove last edge
         mySelectedEdges.pop_back();
@@ -470,8 +475,8 @@ GNEVehicleFrame::GNEVehicleFrame(FXHorizontalFrame* horizontalFrameParent, GNEVi
     // Create vehicle parameters
     myVehicleAttributes = new AttributesCreator(this);
     
-    // create AutoRouteCreator Modul
-    myAutoRouteCreator = new AutoRouteCreator(this);
+    // create TripRouteCreator Modul
+    myTripRouteCreator = new TripRouteCreator(this);
 
     // Create Help Creation Modul
     myHelpCreation = new HelpCreation(this);
@@ -488,8 +493,8 @@ void
 GNEVehicleFrame::show() {
     // refresh item selector
     myItemSelector->refreshTagProperties();
-    // update AbstractRouterEdges of AutoRouteCreator (because Network could was changed)
-    myAutoRouteCreator->updateAbstractRouterEdges();
+    // update AbstractRouterEdges of TripRouteCreator (because Network could was changed)
+    myTripRouteCreator->updateDijkstraRouter();
     // show frame
     GNEFrame::show();
 }
@@ -557,17 +562,17 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
             return false;
         }
     } else if ((vehicleTag == SUMO_TAG_TRIP) && objectsUnderCursor.getEdgeFront()) {
-        // add clicked edge in AutoRouteCreator
-        myAutoRouteCreator->addEdge(objectsUnderCursor.getEdgeFront());
+        // add clicked edge in TripRouteCreator
+        myTripRouteCreator->addEdge(objectsUnderCursor.getEdgeFront());
     }
     // nothing crated
     return false;
 }
 
 
-GNEVehicleFrame::AutoRouteCreator* 
-GNEVehicleFrame::getAutoRouteCreator() const {
-    return myAutoRouteCreator;
+GNEVehicleFrame::TripRouteCreator* 
+GNEVehicleFrame::getTripRouteCreator() const {
+    return myTripRouteCreator;
 }
 
 // ===========================================================================
@@ -580,9 +585,9 @@ GNEVehicleFrame::enableModuls(const GNEAttributeCarrier::TagProperties& tagPrope
     myVTypeSelector->showVTypeSelector(tagProperties);
     // show AutoRute creator if we're editing a trip
     if (myItemSelector->getCurrentTagProperties().getTag() == SUMO_TAG_TRIP) {
-        myAutoRouteCreator->showAutoRouteCreator();
+        myTripRouteCreator->showTripRouteCreator();
     } else {
-        myAutoRouteCreator->hideAutoRouteCreator();
+        myTripRouteCreator->hideTripRouteCreator();
     }
 }
 
