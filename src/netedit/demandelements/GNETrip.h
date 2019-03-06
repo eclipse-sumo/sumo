@@ -37,10 +37,10 @@ class GNETrip : public GNEDemandElement, public SUMOVehicleParameter {
 
 public:
     /// @brief constructor
-    GNETrip(GNEViewNet* viewNet, const std::string &tripID, GNEDemandElement* vehicleType, GNEEdge* from, GNEEdge* to);
+    GNETrip(GNEViewNet* viewNet, const std::string &tripID, GNEDemandElement* vehicleType, GNEEdge* from, GNEEdge* to, std::vector<GNEEdge*> viaEdges);
 
     /// @brief parameter constructor
-    GNETrip(GNEViewNet* viewNet, const SUMOVehicleParameter &tripParameter, GNEDemandElement* vehicleType, GNEEdge* from, GNEEdge* to);
+    GNETrip(GNEViewNet* viewNet, const SUMOVehicleParameter &tripParameter, GNEDemandElement* vehicleType, GNEEdge* from, GNEEdge* to, std::vector<GNEEdge*> viaEdges);
 
     /// @brief destructor
     ~GNETrip();
@@ -137,6 +137,9 @@ protected:
 
     /// @brief to edge
     GNEEdge* myTo;
+
+    /// @brief list of VIA edges
+    std::vector<GNEEdge*> myVia;
 
     /// @brief sets the color according to the currente settings
     void setColor(const GUIVisualizationSettings& s) const;

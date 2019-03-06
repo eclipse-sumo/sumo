@@ -114,7 +114,7 @@ GNERouteHandler::buildFlow(GNEViewNet* viewNet, bool undoDemandElements, SUMOVeh
 
 
 void 
-GNERouteHandler::buildTrip(GNEViewNet* viewNet, bool undoDemandElements, SUMOVehicleParameter* tripParameters, GNEEdge* from, GNEEdge* to) {
+GNERouteHandler::buildTrip(GNEViewNet* viewNet, bool undoDemandElements, SUMOVehicleParameter* tripParameters, GNEEdge* from, GNEEdge* to, const std::vector<GNEEdge*> &via) {
     // first check if trip parameter was sucesfulyl created
     if(tripParameters) {
         // now check if exist another trip with the same ID
@@ -140,7 +140,7 @@ GNERouteHandler::buildTrip(GNEViewNet* viewNet, bool undoDemandElements, SUMOVeh
                 // delete route
                 delete route;
                 // create trip using tripParameters 
-                GNETrip* trip = new GNETrip(viewNet, *tripParameters, vType, from, to);
+                GNETrip* trip = new GNETrip(viewNet, *tripParameters, vType, from, to, via);
                 if (undoDemandElements) {
                     viewNet->getUndoList()->p_begin("add " + trip->getTagStr());
                     viewNet->getUndoList()->add(new GNEChange_DemandElement(trip, true), true);

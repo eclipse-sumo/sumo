@@ -43,21 +43,23 @@
 // member method definitions
 // ===========================================================================
 
-GNETrip::GNETrip(GNEViewNet* viewNet, const std::string &tripID, GNEDemandElement* vehicleType, GNEEdge* from, GNEEdge* to) : 
+GNETrip::GNETrip(GNEViewNet* viewNet, const std::string &tripID, GNEDemandElement* vehicleType, GNEEdge* from, GNEEdge* to, std::vector<GNEEdge*> viaEdges) : 
     GNEDemandElement(tripID, viewNet, GLO_TRIP, SUMO_TAG_TRIP),
     SUMOVehicleParameter(),
     myVehicleType(vehicleType),
     myFrom(from),
-    myTo(to) {
+    myTo(to),
+    myVia(viaEdges) {
 }
 
 
-GNETrip::GNETrip(GNEViewNet* viewNet, const SUMOVehicleParameter &tripParameter, GNEDemandElement* vehicleType, GNEEdge* from, GNEEdge* to) :
+GNETrip::GNETrip(GNEViewNet* viewNet, const SUMOVehicleParameter &tripParameter, GNEDemandElement* vehicleType, GNEEdge* from, GNEEdge* to, std::vector<GNEEdge*> viaEdges) :
     GNEDemandElement(tripParameter.id, viewNet, GLO_TRIP, SUMO_TAG_TRIP),
     SUMOVehicleParameter(tripParameter),
     myVehicleType(vehicleType),
     myFrom(from),
-    myTo(to) {
+    myTo(to),
+    myVia(viaEdges) {
 }
 
 
@@ -90,6 +92,10 @@ GNETrip::writeDemandElement(OutputDevice& device) const {
     // write manually from/to edges
     device.writeAttr(SUMO_ATTR_FROM, myFrom->getID());
     device.writeAttr(SUMO_ATTR_TO, myTo->getID());
+    // write via only if there is edges
+    if(myVia.size() > 0) {
+        device.writeAttr(SUMO_ATTR_VIA, toString(myVia));
+    }
     device.closeTag();
 }
 
@@ -299,12 +305,14 @@ GNETrip::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_REROUTE:
             return toString("0"); // check
         case SUMO_ATTR_VIA:
-            return toString(""); // check
+            return parseIDs(myVia);
         case SUMO_ATTR_DEPARTPOS_LAT:
             return getDepartPosLat();
         case SUMO_ATTR_ARRIVALPOS_LAT:
             return getArrivalPosLat();
         // Specific of trips
+        case SUMO_ATTR_DEPART:
+            return toString(depart);
         //
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
@@ -338,6 +346,7 @@ GNETrip::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_DEPARTPOS_LAT:
         case SUMO_ATTR_ARRIVALPOS_LAT:
         // Specific of trips
+        case SUMO_ATTR_DEPART:
         //
         case GNE_ATTR_GENERIC:
             undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
@@ -414,7 +423,11 @@ GNETrip::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_REROUTE:
             return true;    // check
         case SUMO_ATTR_VIA:
-            return true;    // check
+            if (value.empty()) {
+                return true;
+            } else {
+                return canParse<std::vector<GNEEdge*> >(myViewNet->getNet(), value, false);
+            }
         case SUMO_ATTR_DEPARTPOS_LAT: {
             double dummyDepartPosLat;
             DepartPosLatDefinition dummyDepartPosLatProcedure;
@@ -430,7 +443,13 @@ GNETrip::isValid(SumoXMLAttr key, const std::string& value) {
             return error.empty();
         }
         // Specific of trips
-        
+        case SUMO_ATTR_DEPART: {
+            SUMOTime dummyDepart;
+            DepartDefinition dummyDepartProcedure;
+            parseDepart(value, toString(SUMO_TAG_VEHICLE), id, dummyDepart, dummyDepartProcedure, error);
+            // if error is empty, given value is valid
+            return error.empty();
+        }
         //
         case GNE_ATTR_GENERIC:
             return isGenericParametersValid(value);
@@ -604,7 +623,7 @@ GNETrip::setAttribute(SumoXMLAttr key, const std::string& value) {
             // check
             break;
         case SUMO_ATTR_VIA:
-            // check
+            myVia = parse<std::vector<GNEEdge*> >(myViewNet->getNet(), value);
             break;
         case SUMO_ATTR_DEPARTPOS_LAT:
             parseDepartPosLat(value, toString(SUMO_TAG_VEHICLE), id, departPosLat, departPosLatProcedure, error);
@@ -613,6 +632,12 @@ GNETrip::setAttribute(SumoXMLAttr key, const std::string& value) {
             parseArrivalPosLat(value, toString(SUMO_TAG_VEHICLE), id, arrivalPosLat, arrivalPosLatProcedure, error);
             break;
         // Specific of trips
+        case SUMO_ATTR_DEPART: {
+            std::string oldDepart = getBegin();
+            parseDepart(value, toString(SUMO_TAG_VEHICLE), id, depart, departProcedure, error);
+            myViewNet->getNet()->updateDemandElementBegin(oldDepart, this);
+            break;
+        }
         //
         case GNE_ATTR_GENERIC:
             setGenericParametersStr(value);
