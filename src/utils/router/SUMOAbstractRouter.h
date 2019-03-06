@@ -131,7 +131,7 @@ public:
         const SUMOVehicleClass vClass = vehicle == 0 ? SVC_IGNORING : vehicle->getVClass();
         for (const std::pair<const E*, const E*>& follower : from->getViaSuccessors(vClass)) {
             std::vector<const E*> tmp;
-            compute(follower.first, to, vehicle, msTime, tmp, false);
+            compute(follower.first, to, vehicle, msTime, tmp, true);
             if (tmp.size() > 0) {
                 double effort = recomputeCosts(tmp, vehicle, msTime);
                 if (effort < minEffort) {
