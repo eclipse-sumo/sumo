@@ -2650,12 +2650,14 @@ GNEViewNet::drawTemporalDrawShape() const {
         // draw blue line with the current drawed shape
         glPushMatrix();
         glLineWidth(2);
+        glTranslated(0, 0, GLO_MAX);
         GLHelper::setColor(RGBColor::BLUE);
         GLHelper::drawLine(temporalShape);
         glPopMatrix();
         // draw red line from the last point of shape to the current mouse position
         glPushMatrix();
         glLineWidth(2);
+        glTranslated(0, 0, GLO_MAX);
         // draw last line depending if shift key (delete last created point) is pressed
         if (deleteLastCreatedPoint) {
             GLHelper::setColor(RGBColor::RED);
