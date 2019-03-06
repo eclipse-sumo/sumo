@@ -2528,6 +2528,16 @@ MSLane::getLogicalPredecessorLane() const {
 }
 
 
+const MSLane* 
+MSLane::getNormalPredecessorLane() const {
+    if (isInternal()) {
+        return getLogicalPredecessorLane()->getNormalPredecessorLane();
+    } else {
+        return this;
+    }
+}
+
+
 MSLane*
 MSLane::getLogicalPredecessorLane(const MSEdge& fromEdge) const {
     for (std::vector<IncomingLaneInfo>::const_iterator i = myIncomingLanes.begin(); i != myIncomingLanes.end(); ++i) {

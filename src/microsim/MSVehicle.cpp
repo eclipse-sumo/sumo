@@ -4666,7 +4666,8 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
         // large enough to overcome a magic threshold in MSLCM_DK2004.cpp:383)
         nextStopPos = MAX2(POSITION_EPS, MIN2((double)nextStopPos, (double)(nextStopLane->getLength() - 2 * POSITION_EPS)));
         if (nextStopLane->isInternal()) {
-            nextStopPos += (*nextStopEdge)->getLength();
+            // switch to the correct lane before entering the intersection
+            nextStopPos = (*nextStopEdge)->getLength();
         }
     }
 
@@ -4697,12 +4698,15 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
             currentLanes.push_back(q);
         }
         //
-        if (nextStopEdge == ce && !nextStopLane->isInternal()
+        if (nextStopEdge == ce
                 // already past the stop edge
                 && !(ce == myCurrEdge && myLane != nullptr && myLane->isInternal())) {
-            progress = false;
+            if (!nextStopLane->isInternal()) {
+                progress = false;
+            }
+            const MSLane* normalStopLane = nextStopLane->getNormalPredecessorLane();
             for (std::vector<LaneQ>::iterator q = currentLanes.begin(); q != currentLanes.end(); ++q) {
-                if (nextStopLane != nullptr && nextStopLane != (*q).lane) {
+                if (nextStopLane != nullptr && normalStopLane != (*q).lane) {
                     (*q).allowsContinuation = false;
                     (*q).length = nextStopPos;
                     (*q).currentLength = (*q).length;

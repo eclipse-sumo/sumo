@@ -936,6 +936,11 @@ public:
      */
     MSLane* getLogicalPredecessorLane() const;
 
+    /** @brief get normal lane leading to this internal lane, for normal lanes,
+     * the lane itself is returned
+     */
+    const MSLane* getNormalPredecessorLane() const;
+
     /** @brief return the (first) predecessor lane from the given edge
      */
     MSLane* getLogicalPredecessorLane(const MSEdge& fromEdge) const;
