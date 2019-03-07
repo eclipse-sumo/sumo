@@ -141,6 +141,9 @@ protected:
     /// @brief list of VIA edges
     std::vector<GNEEdge*> myVia;
 
+    /// @brief vector with temporal route edges  (only used for visualization)
+    std::vector<const NBEdge*> myTemporalRoute;
+
     /// @brief sets the color according to the currente settings
     void setColor(const GUIVisualizationSettings& s) const;
 

@@ -91,6 +91,20 @@ GNEDemandElement::RouteCalculator::calculateDijkstraRoute(SUMOVehicleClass vClas
 }
 
 
+std::vector<const NBEdge*> 
+GNEDemandElement::RouteCalculator::calculateDijkstraRoute(SUMOVehicleClass vClass, GNEEdge* from, GNEEdge*to , const std::vector<GNEEdge*> &edges) const {
+    // create a full vector with from, via and to
+    std::vector<GNEEdge*> fullVector;
+    fullVector.reserve(2 + edges.size());
+    fullVector.push_back(from);
+    for (const auto &i : edges) {
+        fullVector.push_back(i);
+    }
+    fullVector.push_back(to);
+    return calculateDijkstraRoute(vClass, fullVector);
+}
+
+
 std::vector<std::vector<const NBEdge*> >
 GNEDemandElement::RouteCalculator::calculateDijkstraPartialRoute(SUMOVehicleClass vClass, const std::vector<GNEEdge*> &edges) const {
     // declare a solution matrix
@@ -371,17 +385,18 @@ GNEDemandElement::getCenteringBoundary() const {
     // Return Boundary depending if myMovingGeometryBoundary is initialised (important for move geometry)
     if (myMove.movingGeometryBoundary.isInitialised()) {
         return myMove.movingGeometryBoundary;
-    } else if (myGeometry.shape.size() > 0) {
-        Boundary b = myGeometry.shape.getBoxBoundary();
-        b.grow(20);
-        return b;
-    } else if (myGeometry.multiShape.size() > 0) {
-        // obtain boundary of multishape fixed
-        Boundary b = myGeometry.multiShapeUnified.getBoxBoundary();
-        b.grow(20);
-        return b;
-    } else {
+    } else if ((myGeometry.shape.size() == 0) && (myGeometry.multiShape.size() == 0)) {
         return Boundary(-0.1, -0.1, 0.1, 0.1);
+    } else {
+        Boundary b;
+        if (myGeometry.shape.size() > 0) {
+            b.add(myGeometry.shape.getBoxBoundary());
+        }
+        if (myGeometry.multiShapeUnified.size() > 0) {
+            b.add(myGeometry.multiShapeUnified.getBoxBoundary());
+        }
+        b.grow(20);
+        return b;
     }
 }
 

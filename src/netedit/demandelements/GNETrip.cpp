@@ -50,6 +50,8 @@ GNETrip::GNETrip(GNEViewNet* viewNet, const std::string &tripID, GNEDemandElemen
     myFrom(from),
     myTo(to),
     myVia(viaEdges) {
+    // calculate temporal route
+    myTemporalRoute = getRouteCalculatorInstance()->calculateDijkstraRoute(parse<SUMOVehicleClass>(myVehicleType->getAttribute(SUMO_ATTR_VCLASS)), myFrom, myTo, myVia);
 }
 
 
@@ -60,6 +62,8 @@ GNETrip::GNETrip(GNEViewNet* viewNet, const SUMOVehicleParameter &tripParameter,
     myFrom(from),
     myTo(to),
     myVia(viaEdges) {
+    // calculate temporal route
+    myTemporalRoute = getRouteCalculatorInstance()->calculateDijkstraRoute(parse<SUMOVehicleClass>(myVehicleType->getAttribute(SUMO_ATTR_VCLASS)), myFrom, myTo, myVia);
 }
 
 
@@ -134,6 +138,26 @@ GNETrip::updateGeometry(bool updateGrid) {
 
     // Save rotation (angle)
     myGeometry.shapeRotations.push_back(vehicleLane->getShape().rotationDegreeAtOffset(offset) * -1);
+
+    // start with the first lane shape
+    myGeometry.multiShape.push_back(myTemporalRoute.front()->getLanes().front().shape);
+
+    // add first shape connection (if exist, in other case leave it empty)
+    myGeometry.multiShape.push_back(PositionVector{myTemporalRoute.at(0)->getLanes().front().shape.back(), myTemporalRoute.at(1)->getLanes().front().shape.front()});
+
+    // append shapes of intermediate lanes AND connections (if exist)
+    for (int i = 1; i < ((int)myTemporalRoute.size() - 1); i++) {
+        // add lane shape
+        myGeometry.multiShape.push_back(myTemporalRoute.at(i)->getLanes().front().shape);
+        // add empty shape for connection
+        myGeometry.multiShape.push_back(PositionVector{myTemporalRoute.at(i)->getLanes().front().shape.back(), myTemporalRoute.at(i + 1)->getLanes().front().shape.front()});
+    }
+
+    // append last shape
+    myGeometry.multiShape.push_back(myTemporalRoute.back()->getLanes().front().shape);
+
+    // calculate unified shape
+    myGeometry.calculateMultiShapeUnified();
 
     // last step is to check if object has to be added into grid (SUMOTree) again
     if (updateGrid) {
@@ -233,6 +257,26 @@ GNETrip::drawGL(const GUIVisualizationSettings& s) const {
         // check if dotted contour has to be drawn
         if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
             GLHelper::drawShapeDottedContour(getType(), myGeometry.shape[0], width, length, myGeometry.shapeRotations[0], 0, length/2);
+            // Add a draw matrix
+            glPushMatrix();
+            // Start with the drawing of the area traslating matrix to origin
+            glTranslated(0, 0, getType() - 0.01);
+            // set orange color
+            GLHelper::setColor(RGBColor::ORANGE);
+            // set line width
+            glLineWidth(5);
+            // draw first line
+            GLHelper::drawLine(myTemporalRoute.at(0)->getLanes().front().shape.front(), 
+                                myTemporalRoute.at(0)->getLanes().front().shape.back());
+            // draw rest of lines
+            for (int i = 1; i < (int)myTemporalRoute.size(); i++) {
+                GLHelper::drawLine(myTemporalRoute.at(i-1)->getLanes().front().shape.back(), 
+                                    myTemporalRoute.at(i)->getLanes().front().shape.front());
+                GLHelper::drawLine(myTemporalRoute.at(i)->getLanes().front().shape.front(), 
+                                    myTemporalRoute.at(i)->getLanes().front().shape.back());
+            }
+            // Pop last matrix
+            glPopMatrix();
         }
         // pop name
         glPopName();
@@ -585,9 +629,11 @@ GNETrip::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_FROM:
             myFrom = myViewNet->getNet()->retrieveEdge(value);
+            myTemporalRoute = getRouteCalculatorInstance()->calculateDijkstraRoute(parse<SUMOVehicleClass>(myVehicleType->getAttribute(SUMO_ATTR_VCLASS)), myFrom, myTo, myVia);
             break;
         case SUMO_ATTR_TO:
             myTo = myViewNet->getNet()->retrieveEdge(value);
+            myTemporalRoute = getRouteCalculatorInstance()->calculateDijkstraRoute(parse<SUMOVehicleClass>(myVehicleType->getAttribute(SUMO_ATTR_VCLASS)), myFrom, myTo, myVia);
             break;
         case SUMO_ATTR_COLOR:
             color = parse<RGBColor>(value);
@@ -624,6 +670,7 @@ GNETrip::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_VIA:
             myVia = parse<std::vector<GNEEdge*> >(myViewNet->getNet(), value);
+            myTemporalRoute = getRouteCalculatorInstance()->calculateDijkstraRoute(parse<SUMOVehicleClass>(myVehicleType->getAttribute(SUMO_ATTR_VCLASS)), myFrom, myTo, myVia);
             break;
         case SUMO_ATTR_DEPARTPOS_LAT:
             parseDepartPosLat(value, toString(SUMO_TAG_VEHICLE), id, departPosLat, departPosLatProcedure, error);

@@ -67,6 +67,9 @@ public:
         /// @brief calculate Dijkstra route (and save it in a single vector
         std::vector<const NBEdge*> calculateDijkstraRoute(SUMOVehicleClass vClass, const std::vector<GNEEdge*> &edges) const;
 
+        /// @brief calculate Dijkstra route (and save it in a single vector
+        std::vector<const NBEdge*> calculateDijkstraRoute(SUMOVehicleClass vClass, GNEEdge* from, GNEEdge*to , const std::vector<GNEEdge*> &edges) const;
+
         /// @brief calculate partial Dijkstra route (and save it in a Matrix vector)
         std::vector<std::vector<const NBEdge*> > calculateDijkstraPartialRoute(SUMOVehicleClass vClass, const std::vector<GNEEdge*> &edges) const;
 
