@@ -329,6 +329,8 @@ GNEFlow::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_NUMBER:
             return toString(repetitionNumber);
         //
+        case GNE_ATTR_SELECTED:
+            return toString(isAttributeCarrierSelected());
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
         default:
@@ -369,6 +371,7 @@ GNEFlow::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_PROB:
         //
         case GNE_ATTR_GENERIC:
+        case GNE_ATTR_SELECTED:
             undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
             break;
         default:
@@ -502,6 +505,8 @@ GNEFlow::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         //
+        case GNE_ATTR_SELECTED:
+            return canParse<bool>(value);
         case GNE_ATTR_GENERIC:
             return isGenericParametersValid(value);
         default:
@@ -790,6 +795,13 @@ GNEFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
             repetitionNumber = parse<int>(value);
             break;
         //
+        case GNE_ATTR_SELECTED:
+            if (parse<bool>(value)) {
+                selectAttributeCarrier();
+            } else {
+                unselectAttributeCarrier();
+            }
+            break;
         case GNE_ATTR_GENERIC:
             setGenericParametersStr(value);
             break;

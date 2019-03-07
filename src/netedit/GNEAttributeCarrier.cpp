@@ -3095,7 +3095,7 @@ GNEAttributeCarrier::fillDemandElements() {
     currentTag = SUMO_TAG_VTYPE;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT, TAGPROPERTY_SELECTABLE, ICON_VTYPE);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT, 0, ICON_VTYPE);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_ID,
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
@@ -3244,7 +3244,7 @@ GNEAttributeCarrier::fillDemandElements() {
     currentTag = SUMO_TAG_VEHICLE;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_VEHICLE, TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_ROUTE, ICON_VEHICLE);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_VEHICLE, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_PLACEDOVER_ROUTE, ICON_VEHICLE);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_ID,
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
@@ -3355,7 +3355,7 @@ GNEAttributeCarrier::fillDemandElements() {
     currentTag = SUMO_TAG_FLOW;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_VEHICLE, TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_LANE | TAGPROPERTY_DISJOINTATTRIBUTES, ICON_FLOW);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_VEHICLE, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_PLACEDOVER_LANE | TAGPROPERTY_DISJOINTATTRIBUTES, ICON_FLOW);
         myTagProperties[currentTag].setDisjointAttributes({SUMO_ATTR_NUMBER, SUMO_ATTR_END, SUMO_ATTR_VEHSPERHOUR, SUMO_ATTR_PERIOD, SUMO_ATTR_PROB});
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_ID,
@@ -3492,7 +3492,7 @@ GNEAttributeCarrier::fillDemandElements() {
     currentTag = SUMO_TAG_TRIP;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_VEHICLE, TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_LANE, ICON_TRIP);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_VEHICLE, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_PLACEDOVER_LANE, ICON_TRIP);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_ID,
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE,

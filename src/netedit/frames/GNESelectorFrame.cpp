@@ -320,6 +320,9 @@ GNESelectorFrame::LockGLObjectTypes::LockGLObjectTypes(GNESelectorFrame* selecto
     myTypeEntries[GLO_POI] = std::make_pair(Supermode::GNE_SUPERMODE_NETWORK, new ObjectTypeEntry(matrixLockGLObjectTypes, "POIs"));
     // create typeEntries for the different Demand elements
     myTypeEntries[GLO_ROUTE] = std::make_pair(Supermode::GNE_SUPERMODE_DEMAND, new ObjectTypeEntry(matrixLockGLObjectTypes, "Routes"));
+    myTypeEntries[GLO_VEHICLE] = std::make_pair(Supermode::GNE_SUPERMODE_DEMAND, new ObjectTypeEntry(matrixLockGLObjectTypes, "Vehicles"));
+    myTypeEntries[GLO_FLOW] = std::make_pair(Supermode::GNE_SUPERMODE_DEMAND, new ObjectTypeEntry(matrixLockGLObjectTypes, "Flows"));
+    myTypeEntries[GLO_TRIP] = std::make_pair(Supermode::GNE_SUPERMODE_DEMAND, new ObjectTypeEntry(matrixLockGLObjectTypes, "Trips"));
 }
 
 

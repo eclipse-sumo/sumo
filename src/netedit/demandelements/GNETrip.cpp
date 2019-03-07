@@ -358,6 +358,8 @@ GNETrip::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_DEPART:
             return toString(depart);
         //
+        case GNE_ATTR_SELECTED:
+            return toString(isAttributeCarrierSelected());
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
         default:
@@ -393,6 +395,7 @@ GNETrip::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_DEPART:
         //
         case GNE_ATTR_GENERIC:
+        case GNE_ATTR_SELECTED:
             undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
             break;
         default:
@@ -495,6 +498,8 @@ GNETrip::isValid(SumoXMLAttr key, const std::string& value) {
             return error.empty();
         }
         //
+        case GNE_ATTR_SELECTED:
+            return canParse<bool>(value);
         case GNE_ATTR_GENERIC:
             return isGenericParametersValid(value);
         default:
@@ -686,6 +691,13 @@ GNETrip::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         }
         //
+        case GNE_ATTR_SELECTED:
+            if (parse<bool>(value)) {
+                selectAttributeCarrier();
+            } else {
+                unselectAttributeCarrier();
+            }
+            break;
         case GNE_ATTR_GENERIC:
             setGenericParametersStr(value);
             break;
