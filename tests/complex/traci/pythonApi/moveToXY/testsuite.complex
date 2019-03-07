@@ -13,5 +13,11 @@ short_edges
 # tests for mapping vehicles on a 3d-network
 elevation_sublane
 
+# tests for mapping vehicles on a road with a 100% incline
+extreme_elevation
+
+# tests for mapping vehicles on a road with a 100% incline
+extreme_elevation_keeproute2
+
 # moveToXY for persons
 person
