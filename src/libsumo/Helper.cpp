@@ -936,7 +936,7 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
     const LaneUtility& u = lane2utility.find(bestLane)->second;
     bestDistance = u.dist;
     *lane = bestLane;
-    lanePos = bestLane->getShape().nearest_offset_to_point2D(pos, false);
+    lanePos = bestLane->getShape().nearest_offset_to_point25D(pos, false);
     const MSEdge* prevEdge = u.prevEdge;
     if (u.onRoute) {
         ConstMSEdgeVector::const_iterator prevEdgePos = std::find(currentRoute.begin(), currentRoute.end(), prevEdge);
@@ -1053,7 +1053,7 @@ Helper::moveToXYMap_matchingRoutePosition(const Position& pos, const std::string
     // check position, stuff, we should have the best lane along the route
     lanePos = MAX2(0., MIN2(double((*lane)->getLength() - POSITION_EPS),
                             (*lane)->interpolateGeometryPosToLanePos(
-                                (*lane)->getShape().nearest_offset_to_point2D(pos, false))));
+                                (*lane)->getShape().nearest_offset_to_point25D(pos, false))));
     //std::cout << SIMTIME << " moveToXYMap_matchingRoutePosition vehicle=" << veh.getID() << " currLane=" << veh.getLane()->getID() << " routeOffset=" << routeOffset << " edges=" << toString(edges) << " lane=" << (*lane)->getID() << "\n";
 #ifdef DEBUG_MOVEXY
     std::cout << "  b ok lane " << (*lane)->getID() << " lanePos:" << lanePos << std::endl;
