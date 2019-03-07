@@ -1381,8 +1381,6 @@ GNEViewNetHelper::EditModes::setSupermode(Supermode supermode) {
             myViewNet->myNetworkCheckableButtons.hideNetworkCheckableButtons();
             // show demand buttons
             myViewNet->myDemandCheckableButtons.showDemandCheckableButtons();
-            // update DijkstraRouter of RouteCalculatorInstance
-            GNEDemandElement::getRouteCalculatorInstance()->updateDijkstraRouter();
             // force update demand mode
             setDemandEditMode(demandEditMode, true);
         }
@@ -1461,6 +1459,10 @@ GNEViewNetHelper::EditModes::setDemandEditMode(DemandEditMode mode, bool force) 
         }
         // demand modes requiere ALWAYS a recomputing
         myViewNet->myNet->computeEverything(myViewNet->myViewParent->getGNEAppWindows());
+        // update DijkstraRouter of RouteCalculatorInstance
+        GNEDemandElement::getRouteCalculatorInstance()->updateDijkstraRouter();
+        // update geometry of all demand elements (because certain geometry changes affect to demand elements
+        myViewNet->getNet()->updateGeometryDemandElements();
         // update network mode specific controls
         myViewNet->updateDemandModeSpecificControls();
     }

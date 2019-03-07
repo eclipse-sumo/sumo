@@ -501,6 +501,9 @@ public:
      */
     void computeEverything(GNEApplicationWindow* window, bool force = false, bool volatileOptions = false, std::string additionalPath = "", std::string demandPath = "");
 
+    // @brief compute geometry of all demand elements
+    void updateGeometryDemandElements();
+
     /**@brief join selected junctions
      * @note difference to mergeJunctions:
      *  - can join more than 2

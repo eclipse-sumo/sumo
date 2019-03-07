@@ -1474,6 +1474,16 @@ GNENet::computeEverything(GNEApplicationWindow* window, bool force, bool volatil
 }
 
 
+void 
+GNENet::updateGeometryDemandElements() {
+    for (const auto &i : myAttributeCarriers.demandElements) {
+        for (const auto &j : i.second) {
+            j.second->updateGeometry(true);
+        }
+    }
+}
+
+
 void
 GNENet::computeJunction(GNEJunction* junction) {
     // recompute tl-logics

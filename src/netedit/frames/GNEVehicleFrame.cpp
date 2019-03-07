@@ -284,7 +284,8 @@ GNEVehicleFrame::TripRouteCreator::addEdge(GNEEdge* edge) {
             // enable finish button
             myFinishCreationButton->enable();
             // calculate temporal route
-            myTemporalRoute = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(SVC_PASSENGER, mySelectedEdges);
+            myTemporalRoute = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(
+                GNEAttributeCarrier::parse<SUMOVehicleClass>(myVehicleFrameParent->myVTypeSelector->getCurrentVehicleType()->getAttribute(SUMO_ATTR_VCLASS)), mySelectedEdges);
         }
     }
 }
@@ -407,7 +408,8 @@ GNEVehicleFrame::TripRouteCreator::onCmdRemoveLastRouteEdge(FXObject*, FXSelecto
         // remove last edge
         mySelectedEdges.pop_back();
         // calculate temporal route
-        myTemporalRoute = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(SVC_PASSENGER, mySelectedEdges);
+        myTemporalRoute = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(
+            GNEAttributeCarrier::parse<SUMOVehicleClass>(myVehicleFrameParent->myVTypeSelector->getCurrentVehicleType()->getAttribute(SUMO_ATTR_VCLASS)), mySelectedEdges);
     }
     return 1;
 }
