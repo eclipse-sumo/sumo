@@ -23,8 +23,6 @@
 // ===========================================================================
 #include "GNEFrame.h"
 
-#include <utils/router/SUMOAbstractRouter.h>
-
 
 // ===========================================================================
 // class definitions
@@ -147,9 +145,6 @@ public:
         /// @brief clear edges (and restore colors)
         void clearEdges();
 
-        /// @brief update abstract router edges
-        void updateDijkstraRouter();
-
         /// @brief draw temporal route
         void drawTemporalRoute() const;
 
@@ -175,9 +170,6 @@ public:
 
         /// @brief current selected edges
         std::vector<GNEEdge*> mySelectedEdges;
-
-        /// @brief SUMO Abstract DijkstraRouter
-        SUMOAbstractRouter<NBEdge, NBVehicle>* myDijkstraRouter;
 
         /// @brief vector with temporal route edges
         std::vector<const NBEdge*> myTemporalRoute;

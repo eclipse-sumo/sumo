@@ -21,6 +21,7 @@
 // ===========================================================================
 #include <config.h>
 
+#include <netbuild/NBNetBuilder.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/netelements/GNEEdge.h>
@@ -29,12 +30,86 @@
 #include <utils/common/StringTokenizer.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
+#include <utils/router/DijkstraRouter.h>
 
 #include "GNEDemandElement.h"
 
 // ===========================================================================
+// static members
+// ===========================================================================
+
+GNEDemandElement::RouteCalculator* GNEDemandElement::myRouteCalculatorInstance = nullptr;
+
+// ===========================================================================
 // member method definitions
 // ===========================================================================
+
+// ---------------------------------------------------------------------------
+// GNEDemandElement::RouteCalculator - methods
+// ---------------------------------------------------------------------------
+
+GNEDemandElement::RouteCalculator::RouteCalculator(GNENet* net) :
+    myNet(net) {
+    myDijkstraRouter = new DijkstraRouter<NBEdge, NBVehicle, SUMOAbstractRouter<NBEdge, NBVehicle> >(
+        myNet->getNetBuilder()->getEdgeCont().getAllEdges(), 
+        true, &NBEdge::getTravelTimeStatic, nullptr, true);
+}
+
+
+GNEDemandElement::RouteCalculator::~RouteCalculator() {}
+
+
+void 
+GNEDemandElement::RouteCalculator::updateDijkstraRouter() {
+    // simply delete and create myDijkstraRouter again
+    if(myDijkstraRouter) {
+        delete myDijkstraRouter;
+    }
+    myDijkstraRouter = new DijkstraRouter<NBEdge, NBVehicle, SUMOAbstractRouter<NBEdge, NBVehicle> >(
+        myNet->getNetBuilder()->getEdgeCont().getAllEdges(), 
+        true, &NBEdge::getTravelTimeStatic, nullptr, true);
+}
+
+
+std::vector<const NBEdge*> 
+GNEDemandElement::RouteCalculator::calculateDijkstraRoute(SUMOVehicleClass vClass, const std::vector<GNEEdge*> &edges) const {
+    // declare a solution vector
+    std::vector<const NBEdge*> solution;
+    // declare temporal vehicle
+    NBVehicle tmpVehicle("temporalNBVehicle", vClass);
+    // iterate over every selected edges
+    for (int i = 1; i < (int)edges.size(); i++) {
+        // declare a temporal route in which save route between two last edges
+        std::vector<const NBEdge*> partialRoute;
+        myDijkstraRouter->compute(edges.at(i-1)->getNBEdge(), edges.at(i)->getNBEdge(), &tmpVehicle, 10, partialRoute);
+        // save partial route in solution
+        for (const auto &i : partialRoute) {
+            solution.push_back(i);
+        }
+    }
+    return solution;
+}
+
+
+std::vector<std::vector<const NBEdge*> >
+GNEDemandElement::RouteCalculator::calculateDijkstraPartialRoute(SUMOVehicleClass vClass, const std::vector<GNEEdge*> &edges) const {
+    // declare a solution matrix
+    std::vector<std::vector<const NBEdge*> > solution;
+    // declare temporal vehicle
+    NBVehicle tmpVehicle("temporalNBVehicle", vClass);
+    // iterate over every selected edges
+    for (int i = 1; i < (int)edges.size(); i++) {
+        // add a temporal route in which save route between two last edges
+        solution.push_back(std::vector<const NBEdge*>());
+        myDijkstraRouter->compute(edges.at(i-1)->getNBEdge(), edges.at(i)->getNBEdge(), &tmpVehicle, 10, solution.back());
+    }
+    // return matrix solution
+    return solution;
+}
+
+// ---------------------------------------------------------------------------
+// GNEDemandElement - methods
+// ---------------------------------------------------------------------------
 
 GNEDemandElement::GNEDemandElement(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag) :
     GUIGlObject(type, id),
@@ -140,6 +215,36 @@ GNEDemandElement::getShape() const {
 const std::vector<GNEEdge*>& 
 GNEDemandElement::getGNEEdges() const {
     return myEdges;
+}
+
+
+void 
+GNEDemandElement::createRouteCalculatorInstance(GNENet *net) {
+    if(myRouteCalculatorInstance == nullptr) {
+        myRouteCalculatorInstance = new RouteCalculator(net);
+    } else {
+        throw ProcessError("Instance already created");
+    }
+}
+
+
+void 
+GNEDemandElement::deleteRouteCalculatorInstance() {
+    if(myRouteCalculatorInstance) {
+        delete myRouteCalculatorInstance;
+    } else {
+        throw ProcessError("Instance wasn't created");
+    }
+}
+
+
+GNEDemandElement::RouteCalculator* 
+GNEDemandElement::getRouteCalculatorInstance() {
+    if(myRouteCalculatorInstance) {
+        return myRouteCalculatorInstance;
+    } else {
+        throw ProcessError("Instance wasn't created");
+    }
 }
 
 

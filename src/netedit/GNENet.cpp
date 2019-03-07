@@ -171,6 +171,8 @@ GNENet::~GNENet() {
             delete j.second;
         }
     }
+    // delete RouteCalculator instance of GNEDemandElement
+    GNEDemandElement::deleteRouteCalculatorInstance();
     // show extra information for tests
     WRITE_DEBUG("Deleting net builder in GNENet destructor");
     delete myNetBuilder;
@@ -986,6 +988,9 @@ GNENet::setViewNet(GNEViewNet* viewNet) {
     GNEVehicleType* defaultBikeType = new GNEVehicleType(myViewNet, DEFAULT_BIKETYPE_ID, true);
     myAttributeCarriers.demandElements.at(defaultBikeType->getTagProperty().getTag()).insert(std::make_pair(defaultBikeType->getID(), defaultBikeType));
     defaultBikeType->incRef("GNENet::DEFAULT_BIKETYPE_ID");
+
+    // create instance of RouteCalculator
+    GNEDemandElement::createRouteCalculatorInstance(this);
 }
 
 

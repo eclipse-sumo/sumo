@@ -34,7 +34,6 @@
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/xml/SUMOSAXAttributesImpl_Cached.h>
 #include <utils/vehicle/SUMOVehicleParserHelper.h>
-#include <utils/router/DijkstraRouter.h>
 #include <utils/vehicle/SUMOVehicle.h>
 #include <netbuild/NBNetBuilder.h>
 #include <netbuild/NBVehicle.h>
@@ -226,8 +225,7 @@ GNEVehicleFrame::HelpCreation::updateHelpCreation() {
 
 GNEVehicleFrame::TripRouteCreator::TripRouteCreator(GNEVehicleFrame* vehicleFrameParent) :
     FXGroupBox(vehicleFrameParent->myContentFrame, "Route creator", GUIDesignGroupBoxFrame),
-    myVehicleFrameParent(vehicleFrameParent),
-    myDijkstraRouter(nullptr) {
+    myVehicleFrameParent(vehicleFrameParent) {
 
     // create button for create GEO POIs
     myFinishCreationButton = new FXButton(this, "Finish route creation", nullptr, this, MID_GNE_VEHICLEFRAME_FINISHCREATION, GUIDesignButton);
@@ -244,7 +242,6 @@ GNEVehicleFrame::TripRouteCreator::TripRouteCreator(GNEVehicleFrame* vehicleFram
 
 
 GNEVehicleFrame::TripRouteCreator::~TripRouteCreator() {
-    delete myDijkstraRouter;
 }
 
 
@@ -286,22 +283,8 @@ GNEVehicleFrame::TripRouteCreator::addEdge(GNEEdge* edge) {
             myRemoveLastInsertedEdge->enable();
             // enable finish button
             myFinishCreationButton->enable();
-            // clear myTemporalRoute
-            myTemporalRoute.clear();
-            // declare temporal vehicle
-            NBVehicle tmpVehicle("temporalNBVehicle", SVC_PASSENGER);
-            // iterate over every selected edges
-            for (int i = 1; i < (int)mySelectedEdges.size(); i++) {
-                // declare a temporal route in which save route between two last edges
-                std::vector<const NBEdge*> partialRoute;
-                myDijkstraRouter->compute(mySelectedEdges.at(i-1)->getNBEdge(), 
-                                          mySelectedEdges.at(i)->getNBEdge(), 
-                                          &tmpVehicle, 10, partialRoute);
-                // save partial route in myTemporalRoute
-                for (const auto &i : partialRoute) {
-                    myTemporalRoute.push_back(i);
-                }
-            }
+            // calculate temporal route
+            myTemporalRoute = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(SVC_PASSENGER, mySelectedEdges);
         }
     }
 }
@@ -318,18 +301,6 @@ GNEVehicleFrame::TripRouteCreator::clearEdges() {
     // clear edges
     mySelectedEdges.clear();
     myTemporalRoute.clear();
-}
-
-
-void 
-GNEVehicleFrame::TripRouteCreator::updateDijkstraRouter() {
-    // simply delete and create myDijkstraRouter again
-    if(myDijkstraRouter) {
-        delete myDijkstraRouter;
-    }
-    myDijkstraRouter = new DijkstraRouter<NBEdge, NBVehicle, SUMOAbstractRouter<NBEdge, NBVehicle> >(
-        myVehicleFrameParent->myViewNet->getNet()->getNetBuilder()->getEdgeCont().getAllEdges(), 
-        true, &NBEdge::getTravelTimeStatic, nullptr, true);
 }
 
 
@@ -435,26 +406,8 @@ GNEVehicleFrame::TripRouteCreator::onCmdRemoveLastRouteEdge(FXObject*, FXSelecto
     if (mySelectedEdges.size() > 1) {
         // remove last edge
         mySelectedEdges.pop_back();
-        // clear myTemporalRoute
-        myTemporalRoute.clear();
-        // declare temporal vehicle
-        NBVehicle tmpVehicle("temporalNBVehicle", SVC_PASSENGER);
-        // iterate over every selected edges
-        for (int i = 1; i < (int)mySelectedEdges.size(); i++) {
-            // declare a temporal route in which save route between two last edges
-            std::vector<const NBEdge*> partialRoute;
-            myDijkstraRouter->compute(mySelectedEdges.at(i-1)->getNBEdge(), 
-                                        mySelectedEdges.at(i)->getNBEdge(), 
-                                        &tmpVehicle, 10, partialRoute);
-            // save partial route in myTemporalRoute
-            for (const auto &i : partialRoute) {
-                myTemporalRoute.push_back(i);
-            }
-        }
-        // check if button has to be removed
-        if(mySelectedEdges.size() <= 1) {
-            myRemoveLastInsertedEdge->disable();
-        }
+        // calculate temporal route
+        myTemporalRoute = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(SVC_PASSENGER, mySelectedEdges);
     }
     return 1;
 }
@@ -493,8 +446,6 @@ void
 GNEVehicleFrame::show() {
     // refresh item selector
     myItemSelector->refreshTagProperties();
-    // update AbstractRouterEdges of TripRouteCreator (because Network could was changed)
-    myTripRouteCreator->updateDijkstraRouter();
     // show frame
     GNEFrame::show();
 }

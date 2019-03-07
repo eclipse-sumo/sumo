@@ -27,6 +27,9 @@
 #include <utils/common/Parameterised.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/gui/globjects/GUIGlObject.h>
+#include <utils/router/SUMOAbstractRouter.h>
+#include <netbuild/NBVehicle.h>
+#include <netbuild/NBEdge.h>
 
 // ===========================================================================
 // class declarations
@@ -48,6 +51,33 @@ class GUIGLObjectPopupMenu;
 class GNEDemandElement : public GUIGlObject, public GNEAttributeCarrier, public Parameterised {
 
 public:
+    /// @brief class used to calculate routes in nets
+    class RouteCalculator {
+
+    public:
+        /// @brief constructor
+        RouteCalculator(GNENet* net);
+
+        /// @brief destructor
+        ~RouteCalculator();
+
+        /// @brief update DijkstraRoute (called when SuperMode Demand is selected)
+        void updateDijkstraRouter();
+
+        /// @brief calculate Dijkstra route (and save it in a single vector
+        std::vector<const NBEdge*> calculateDijkstraRoute(SUMOVehicleClass vClass, const std::vector<GNEEdge*> &edges) const;
+
+        /// @brief calculate partial Dijkstra route (and save it in a Matrix vector)
+        std::vector<std::vector<const NBEdge*> > calculateDijkstraPartialRoute(SUMOVehicleClass vClass, const std::vector<GNEEdge*> &edges) const;
+
+    private:
+        /// @brief pointer to net
+        GNENet* myNet;
+
+        /// @brief SUMO Abstract DijkstraRouter
+        SUMOAbstractRouter<NBEdge, NBVehicle>* myDijkstraRouter;
+    };
+
     /**@brief Constructor
      * @param[in] id Gl-id of the demand element element (Must be unique)
      * @param[in] viewNet pointer to GNEViewNet of this demand element element belongs
@@ -124,6 +154,20 @@ public:
 
     /// @brief get color
     virtual const RGBColor &getColor() const = 0;
+    
+    /// @name members and functions relative to RouteCalculator isntance
+    /// @{
+
+    /// @brief create instance of RouteCalculator
+    static void createRouteCalculatorInstance(GNENet *net);
+
+    /// @brief delete instance of RouteCalculator
+    static void deleteRouteCalculatorInstance();
+
+    /// @brief obtain instance of RouteCalculator
+    static RouteCalculator* getRouteCalculatorInstance();
+
+    /// @}
 
     /// @name members and functions relative to demand element's childs
     /// @{
@@ -348,6 +392,9 @@ private:
 
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
+
+    /// @brief RouteCalculator instance
+    static RouteCalculator* myRouteCalculatorInstance;
 
     /// @brief Invalidated copy constructor.
     GNEDemandElement(const GNEDemandElement&) = delete;
