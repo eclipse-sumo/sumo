@@ -441,7 +441,7 @@ void
 MSVehicleType::initParameters() {
     if (myParameter.knowsParameter("carriageLength")) {
         myParameter.carriageLength = StringUtils::toDouble(myParameter.getParameter("carriageLength"));
-    } else {
+    } else if (myParameter.wasSet(VTYPEPARS_SHAPE_SET)) {
         switch (myParameter.shape) {
             case SVS_BUS_FLEXIBLE:
                 myParameter.carriageLength = 8.25; // 16.5 overall, 2 modules http://de.wikipedia.org/wiki/Ikarus_180
