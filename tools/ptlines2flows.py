@@ -152,14 +152,16 @@ def createTrips(options):
                 numSkipped += 1
                 continue
 
-            if len(stop_ids) < options.min_stops:
-                sys.stderr.write("Warning: skipping line '%s' because it has too few stops\n" % line.id)
-                numSkipped += 1
-                continue
-
             lineRefOrig = line.line.replace(" ", "_")
             lineRefOrig = lineRefOrig.replace(";", "+")
             lineRefOrig = lineRefOrig.replace(">", "")
+
+            if len(stop_ids) < options.min_stops:
+                sys.stderr.write("Warning: skipping line '%s' (%s_%s) because it has too few stops\n" % (
+                    line.id, line.type, lineRefOrig))
+                numSkipped += 1
+                continue
+
             lineRef = "%s:%s" % (lineRefOrig, lineCount[lineRefOrig])
             lineCount[lineRefOrig] += 1
             tripID = "%s_%s_%s" % (trp_nr, line.type, lineRef)
