@@ -440,11 +440,15 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
     drawName(Position(0, 0), s.scale,
              getVType().getGuiShape() == SVS_PEDESTRIAN ? s.personName : s.vehicleName, s.angle);
     if (s.vehicleName.show && myVehicle.getParameter().line != "") {
-        glTranslated(0, 0.6 * s.vehicleName.scaledSize(s.scale), 0);
+        glRotated(-s.angle, 0, 0, 1);
+        glTranslated(0, 0.7 * s.vehicleName.scaledSize(s.scale), 0);
+        glRotated(s.angle, 0, 0, 1);
         GLHelper::drawTextSettings(s.vehicleName, "line:" + myVehicle.getParameter().line, Position(0, 0), s.scale, s.angle);
     }
     if (s.vehicleValue.show) {
-        glTranslated(0, 0.6 * s.vehicleName.scaledSize(s.scale), 0);
+        glRotated(-s.angle, 0, 0, 1);
+        glTranslated(0, 0.7 * s.vehicleName.scaledSize(s.scale), 0);
+        glRotated(s.angle, 0, 0, 1);
         const double value = getColorValue(s.vehicleColorer.getActive());
         GLHelper::drawTextSettings(s.vehicleValue, toString(value), Position(0, 0), s.scale, s.angle);
     }
