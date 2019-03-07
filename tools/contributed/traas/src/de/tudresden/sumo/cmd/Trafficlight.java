@@ -253,7 +253,7 @@ public class Trafficlight {
 	 * @return SumoCommand
 	 */
 
-	public static SumoCommand setPhaseDuration(String tlsID, int phaseDuration){
+	public static SumoCommand setPhaseDuration(String tlsID, double phaseDuration){
 
 		return new SumoCommand(Constants.CMD_SET_TL_VARIABLE, Constants.TL_PHASE_DURATION, tlsID, phaseDuration);
 	}

@@ -115,6 +115,8 @@ public class APITest {
 
             conn.do_job_set(Trafficlight.setParameter("gneJ1","tlsParam", "tlsValue"));
             System.out.println("Trafficlight.getParameter: " + (String)conn.do_job_get(Trafficlight.getParameter("gneJ1", "tlsParam")));
+
+            conn.do_job_set(Trafficlight.setPhaseDuration("gneJ1", 15));
 			
 			conn.close();
 			
