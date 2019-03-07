@@ -316,6 +316,9 @@ private:
     /// @brief remove the given connections from all traffic light definitions of this junction
     void removeTLSConnections(std::vector<NBConnection>& connections, GNEUndoList* undoList);
 
+    /// @brief temporarily mirror coordinates in lefthand network to compute correct crossing geometries
+    void mirrorXLeftHand();
+
     /// @brief Invalidated copy constructor.
     GNEJunction(const GNEJunction&) = delete;
 

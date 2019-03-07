@@ -38,6 +38,7 @@
 #include <netedit/GNEViewNet.h>
 #include <netbuild/NBNetBuilder.h>
 #include <utils/gui/globjects/GLIncludes.h>
+#include <utils/options/OptionsCont.h>
 
 #include "GNEEdge.h"
 #include "GNEConnection.h"
@@ -117,7 +118,9 @@ GNEJunction::rebuildGNECrossings(bool rebuildNBNodeCrossings) {
     if (myNet->getNetBuilder()->haveNetworkCrossings()) {
         if (rebuildNBNodeCrossings) {
             // build new NBNode::Crossings and walking areas
+            mirrorXLeftHand();
             myNBNode.buildCrossingsAndWalkingAreas();
+            mirrorXLeftHand();
         }
         // create a vector to keep retrieved and created crossings
         std::vector<GNECrossing*> retrievedCrossings;
@@ -152,6 +155,17 @@ GNEJunction::rebuildGNECrossings(bool rebuildNBNodeCrossings) {
         }
         // copy retrieved (existent and created) GNECrossigns to myGNECrossings
         myGNECrossings = retrievedCrossings;
+    }
+}
+
+void 
+GNEJunction::mirrorXLeftHand() {
+    if (OptionsCont::getOptions().getBool("lefthand")) {
+        myNBNode.mirrorX();
+        for (NBEdge* e : myNBNode.getEdges()) {
+            e->mirrorX();
+            
+        }
     }
 }
 
