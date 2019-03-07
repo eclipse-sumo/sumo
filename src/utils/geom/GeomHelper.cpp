@@ -112,6 +112,19 @@ GeomHelper::nearest_offset_on_line_to_point2D(const Position& lineStart,
 }
 
 
+double
+GeomHelper::nearest_offset_on_line_to_point25D(const Position& lineStart,
+        const Position& lineEnd,
+        const Position& p, bool perpendicular) {
+    double result = nearest_offset_on_line_to_point2D(lineStart, lineEnd, p, perpendicular);
+    if (result != INVALID_OFFSET) {
+        const double lineLength2D = lineStart.distanceTo2D(lineEnd);
+        const double lineLength = lineStart.distanceTo(lineEnd);
+        result *= (lineLength / lineLength2D);
+    }
+    return result;
+}
+
 Position
 GeomHelper::crossPoint(const Boundary& b, const PositionVector& v) {
     if (v.intersects(Position(b.xmin(), b.ymin()), Position(b.xmin(), b.ymax()))) {

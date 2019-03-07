@@ -74,6 +74,10 @@ public:
         const Position& lineStart, const Position& lineEnd,
         const Position& p, bool perpendicular = true);
 
+    static double nearest_offset_on_line_to_point25D(
+        const Position& lineStart, const Position& lineEnd,
+        const Position& p, bool perpendicular = true);
+
     static Position crossPoint(const Boundary& b,
                                const PositionVector& v);
 

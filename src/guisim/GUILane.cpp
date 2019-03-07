@@ -825,8 +825,8 @@ GUILane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     buildSelectionPopupEntry(ret);
     //
     buildShowParamsPopupEntry(ret, false);
-    const double pos = interpolateGeometryPosToLanePos(myShape.nearest_offset_to_point2D(parent.getPositionInformation()));
-    const double height = myShape.positionAtOffset2D(myShape.nearest_offset_to_point2D(parent.getPositionInformation())).z();
+    const double pos = interpolateGeometryPosToLanePos(myShape.nearest_offset_to_point25D(parent.getPositionInformation()));
+    const double height = myShape.positionAtOffset(pos).z();
     new FXMenuCommand(ret, ("pos: " + toString(pos) + " height: " + toString(height)).c_str(), nullptr, nullptr, 0);
     new FXMenuSeparator(ret);
     buildPositionCopyEntry(ret, false);

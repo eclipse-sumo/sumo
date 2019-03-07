@@ -319,6 +319,9 @@ public:
     /// @brief return the nearest offest to point 2D
     double nearest_offset_to_point2D(const Position& p, bool perpendicular = true) const;
 
+    /// @brief return the nearest offest to point 2D projected onto the 3D geometry
+    double nearest_offset_to_point25D(const Position& p, bool perpendicular = true) const;
+
     /** @brief return position p within the length-wise coordinate system
      * defined by this position vector. The x value is the same as that returned
      * by nearest_offset_to_point2D(p) and the y value is the perpendicular distance to this

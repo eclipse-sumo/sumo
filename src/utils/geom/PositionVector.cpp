@@ -817,6 +817,43 @@ PositionVector::nearest_offset_to_point2D(const Position& p, bool perpendicular)
 }
 
 
+double
+PositionVector::nearest_offset_to_point25D(const Position& p, bool perpendicular) const {
+    if (size() == 0) {
+        return INVALID_DOUBLE;
+    }
+    double minDist = std::numeric_limits<double>::max();
+    double nearestPos = GeomHelper::INVALID_OFFSET;
+    double seen = 0;
+    for (const_iterator i = begin(); i != end() - 1; i++) {
+        const double pos =
+            GeomHelper::nearest_offset_on_line_to_point2D(*i, *(i + 1), p, perpendicular);
+        const double dist = pos == GeomHelper::INVALID_OFFSET ? minDist : p.distanceTo2D(positionAtOffset2D(*i, *(i + 1), pos));
+        if (dist < minDist) {
+            const double pos25D = pos * (*i).distanceTo(*(i + 1)) / (*i).distanceTo2D(*(i + 1));
+            nearestPos = pos25D + seen;
+            minDist = dist;
+        }
+        if (perpendicular && i != begin() && pos == GeomHelper::INVALID_OFFSET) {
+            // even if perpendicular is set we still need to check the distance to the inner points
+            const double cornerDist = p.distanceTo2D(*i);
+            if (cornerDist < minDist) {
+                const double pos1 =
+                    GeomHelper::nearest_offset_on_line_to_point2D(*(i - 1), *i, p, false);
+                const double pos2 =
+                    GeomHelper::nearest_offset_on_line_to_point2D(*i, *(i + 1), p, false);
+                if (pos1 == (*(i - 1)).distanceTo2D(*i) && pos2 == 0.) {
+                    nearestPos = seen;
+                    minDist = cornerDist;
+                }
+            }
+        }
+        seen += (*i).distanceTo(*(i + 1));
+    }
+    return nearestPos;
+}
+
+
 Position
 PositionVector::transformToVectorCoordinates(const Position& p, bool extend) const {
     if (size() == 0) {
