@@ -83,6 +83,7 @@ const double NBNode::UNSPECIFIED_RADIUS = -1;
 const int NBNode::AVOID_WIDE_LEFT_TURN(1);
 const int NBNode::AVOID_WIDE_RIGHT_TURN(2);
 const int NBNode::FOUR_CONTROL_POINTS(4);
+const int NBNode::AVOID_INTERSECTING_LEFT_TURNS(8);
 
 // ===========================================================================
 // method definitions
@@ -620,14 +621,22 @@ NBNode::bezierControlPoints(
                 } else if (lengthenBeg || lengthenEnd) {
                     init.push_back(begShapeEndLineRev.positionAtOffset2D(100 - minControlLength));
                     init.push_back(endShapeBegLine.positionAtOffset2D(100 - minControlLength));
-                } else if ((shapeFlag & AVOID_WIDE_LEFT_TURN) != 0 && angle > DEG2RAD(85) && (distBeg > 20 || distEnd > 20)) {
+                } else if ((shapeFlag & AVOID_WIDE_LEFT_TURN) != 0
+                        // there are two reasons for enabling special geometry rules:
+                        // 1) sharp edge angles which could cause overshoot
+                        // 2) junction geometries with a large displacement between opposite left turns
+                        //    which would cause the default geometry to overlap
+                        && ((shapeFlag & AVOID_INTERSECTING_LEFT_TURNS) != 0
+                            || (angle > DEG2RAD(95) && (distBeg > 20 || distEnd > 20)))) {
+                    //std::cout << "   bezierControlPoints intersect=" << intersect << " dist=" << dist << " distBeg=" << distBeg <<  " distEnd=" << distEnd << " angle=" << RAD2DEG(angle) << " flag=" << shapeFlag << "\n";
+                    const double factor = ((shapeFlag & AVOID_INTERSECTING_LEFT_TURNS) == 0 ? 1 
+                        : MIN2(0.6, 16 / dist));
+                    init.push_back(begShapeEndLineRev.positionAtOffset2D(100 - MIN2(distBeg * factor / 1.2, dist * factor / 1.8)));
+                    init.push_back(endShapeBegLine.positionAtOffset2D(100 - MIN2(distEnd * factor / 1.2, dist * factor / 1.8)));
+                } else if ((shapeFlag & AVOID_WIDE_RIGHT_TURN) != 0 && angle < DEG2RAD(-95) && (distBeg > 20 || distEnd > 20)) {
                     //std::cout << "   bezierControlPoints intersect=" << intersect << " distBeg=" << distBeg <<  " distEnd=" << distEnd << "\n";
-                    init.push_back(begShapeEndLineRev.positionAtOffset2D(100 - 10.0));
-                    init.push_back(endShapeBegLine.positionAtOffset2D(100 - 10.0));
-                } else if ((shapeFlag & AVOID_WIDE_RIGHT_TURN) != 0 && angle < DEG2RAD(-85) && (distBeg > 20 || distEnd > 20)) {
-                    //std::cout << "   bezierControlPoints intersect=" << intersect << " distBeg=" << distBeg <<  " distEnd=" << distEnd << "\n";
-                    init.push_back(begShapeEndLineRev.positionAtOffset2D(100 - 10.0));
-                    init.push_back(endShapeBegLine.positionAtOffset2D(100 - 10.0));
+                    init.push_back(begShapeEndLineRev.positionAtOffset2D(100 - MIN2(distBeg / 1.4, dist / 2)));
+                    init.push_back(endShapeBegLine.positionAtOffset2D(100 - MIN2(distEnd / 1.4, dist / 2)));
                 } else {
                     double z;
                     const double z1 = begShapeEndLineRev.positionAtOffset2D(begShapeEndLineRev.nearest_offset_to_point2D(intersect)).z();
@@ -653,7 +662,7 @@ NBNode::bezierControlPoints(
 
 
 PositionVector
-NBNode::computeInternalLaneShape(NBEdge* fromE, const NBEdge::Connection& con, int numPoints, NBNode* recordError) const {
+NBNode::computeInternalLaneShape(NBEdge* fromE, const NBEdge::Connection& con, int numPoints, NBNode* recordError, int shapeFlag) const {
     if (con.fromLane >= fromE->getNumLanes()) {
         throw ProcessError("Connection '" + con.getDescription(fromE) + "' starts at a non-existant lane.");
     }
@@ -708,10 +717,14 @@ NBNode::computeInternalLaneShape(NBEdge* fromE, const NBEdge::Connection& con, i
         double extrapolateBeg = 5. * fromE->getNumLanes();
         double extrapolateEnd = 5. * con.toEdge->getNumLanes();
         LinkDirection dir = getDirection(fromE, con.toEdge);
-        int shapeFlag = 0;
         if (dir == LINKDIR_LEFT || dir == LINKDIR_TURN) {
-            shapeFlag = AVOID_WIDE_LEFT_TURN;
+            shapeFlag += AVOID_WIDE_LEFT_TURN;
         }
+#ifdef DEBUG_SMOOTH_GEOM
+        if (DEBUGCOND) {
+            std::cout << "computeInternalLaneShape node " << getID() << " fromE=" << fromE->getID() << " toE=" << con.toEdge->getID() << "\n";
+        }
+#endif
         ret = computeSmoothShape(fromShape, toShape,
                                  numPoints, fromE->getTurnDestination() == con.toEdge,
                                  extrapolateBeg, extrapolateEnd, recordError, shapeFlag);
