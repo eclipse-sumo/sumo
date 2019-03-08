@@ -206,7 +206,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
             // collect green links for each induction loops (in this phase)
             std::map<MSInductLoop*, std::set<int> > loopLinks;
 
-            for (int i = 0; i < (int)state.size(); i++)  {
+            for (int i = 0; i < numLinks; i++)  {
                 if (state[i] == LINKSTATE_TL_GREEN_MAJOR 
                         || (state[i] == LINKSTATE_TL_GREEN_MINOR 
                             && ((neverMajor[i]  // check1a
