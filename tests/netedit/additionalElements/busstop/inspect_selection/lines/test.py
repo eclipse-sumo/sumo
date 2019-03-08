@@ -38,7 +38,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 150, 265)
 
 # Set lines
-netedit.modifyAttribute(3, "commonLine1 commonLine2", True)
+netedit.modifyAttribute(2, "commonLine1 commonLine2", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

@@ -5,21 +5,21 @@ TestFunctions: 'reference.png' found. Position: 304 - 168
 25
 25
 e3Detector
-TestFunctions: Clicked over position 554 - 240
-TestFunctions: Clicked over position 704 - 240
+TestFunctions: Clicked over position 554 - 268
+TestFunctions: Clicked over position 704 - 268
 detEntry
-TestFunctions: Clicked over position 554 - 240
-TestFunctions: Clicked over position 484 - 340
-TestFunctions: Clicked over position 704 - 240
-TestFunctions: Clicked over position 484 - 440
+TestFunctions: Clicked over position 554 - 268
+TestFunctions: Clicked over position 484 - 368
+TestFunctions: Clicked over position 704 - 268
+TestFunctions: Clicked over position 484 - 468
 detExit
-TestFunctions: Clicked over position 554 - 240
-TestFunctions: Clicked over position 704 - 340
-TestFunctions: Clicked over position 704 - 240
-TestFunctions: Clicked over position 704 - 440
-TestFunctions: Clicked over position 504 - 340
+TestFunctions: Clicked over position 554 - 268
+TestFunctions: Clicked over position 704 - 368
+TestFunctions: Clicked over position 704 - 268
+TestFunctions: Clicked over position 704 - 468
+TestFunctions: Clicked over position 504 - 368
 invalidE3
 e3Detector_1
-TestFunctions: Clicked over position 304 - 140
-TestFunctions: Clicked over position 304 - 140
+TestFunctions: Clicked over position 304 - 168
+TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully

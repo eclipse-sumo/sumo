@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 16.10.2018 13:00:43 by Eclipse SUMO netedit Version v1_0_1+0269-07f0f88abc
+<!-- generated on 08.03.2019 10:44:16 by Eclipse SUMO netedit Version v1_1_0+1177-ae4e665b46
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_15Oct152540.2992/netedit.gui/additionalElements/chargingstation/move\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.08Mar104348.5132/netedit.gui/additionalElements/chargingstation/move\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_15Oct152540.2992/netedit.gui/additionalElements/chargingstation/move\net.net.xml"/>
+        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.08Mar104348.5132/netedit.gui/additionalElements/chargingstation/move\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
     </processing>
@@ -28,26 +29,27 @@
     </pedestrian>
 
     <netedit>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_15Oct152540.2992/netedit.gui/additionalElements/chargingstation/move\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_15Oct152540.2992/netedit.gui/additionalElements/chargingstation/move\shapes.xml"/>
+        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.08Mar104348.5132/netedit.gui/additionalElements/chargingstation/move\additionals.xml"/>
+        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.08Mar104348.5132/netedit.gui/additionalElements/chargingstation/move\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_15Oct152540.2992/netedit.gui/additionalElements/chargingstation/move\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.08Mar104348.5132/netedit.gui/additionalElements/chargingstation/move\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
+        <gui-testing-debug-gl value="true"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_15Oct152540.2992/netedit.gui/additionalElements/chargingstation/move\log.txt"/>
+        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.08Mar104348.5132/netedit.gui/additionalElements/chargingstation/move\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <chargingStation id="chargingStation_gneE0_0_0" lane="gneE0_0" startPos="28.00" endPos="38.00"/>
+    <chargingStation id="chargingStation_gneE0_0_0" lane="gneE0_0" startPos="25.00" endPos="35.00"/>
 </additional>

@@ -35,7 +35,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect E1
-netedit.leftClick(referencePosition, 150, 240)
+netedit.leftClick(referencePosition, 150, 260)
 
 # Change parameter freq with a non valid value (non numeral)
 netedit.modifyAttribute(0, "dummyFrequency", True)

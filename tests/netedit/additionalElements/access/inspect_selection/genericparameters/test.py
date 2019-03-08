@@ -25,6 +25,9 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
+# apply zoom
+netedit.setZoom("20", "0", "17")
+
 # go to select mode
 netedit.selectMode()
 
@@ -35,7 +38,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect Access
-netedit.leftClick(referencePosition, 275, 242)
+netedit.leftClick(referencePosition, 326, 308)
 
 # Change generic parameters with a dummy value
 netedit.modifyAttribute(3, "dummyGenericParameters", True)

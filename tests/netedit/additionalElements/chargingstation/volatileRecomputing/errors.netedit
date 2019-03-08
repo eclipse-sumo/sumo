@@ -114,41 +114,49 @@ GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-34.20,80.00,30
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,34.20
 GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -30.00,-10.00,80.00,67.00
 GLDebug: Inserted edge:gneE4 into SUMORTree with boundary -30.00,-11.60,80.00,50.00
+Debug: Adding chargingStation 'chargingStation_gneE0_0_0' in GNEChange_Additional
 GLDebug: Inserted chargingStation:chargingStation_gneE0_0_0 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Removed object chargingStation:chargingStation_gneE0_0_0 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted chargingStation:chargingStation_gneE0_0_0 into SUMORTree with boundary -1.79,-21.60,48.21,18.40
 GLDebug: Removed object chargingStation:chargingStation_gneE0_0_0 from SUMORTree with boundary -1.79,-21.60,48.21,18.40
 GLDebug: Inserted chargingStation:chargingStation_gneE0_0_0 into SUMORTree with boundary -1.79,-21.60,48.21,18.40
+Debug: Adding chargingStation 'chargingStation_gneE1_0_1' in GNEChange_Additional
 GLDebug: Inserted chargingStation:chargingStation_gneE1_0_1 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Removed object chargingStation:chargingStation_gneE1_0_1 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted chargingStation:chargingStation_gneE1_0_1 into SUMORTree with boundary -9.73,-18.40,40.27,21.60
 GLDebug: Removed object chargingStation:chargingStation_gneE1_0_1 from SUMORTree with boundary -9.73,-18.40,40.27,21.60
 GLDebug: Inserted chargingStation:chargingStation_gneE1_0_1 into SUMORTree with boundary -9.73,-18.40,40.27,21.60
+Debug: Adding chargingStation 'chargingStation_gneE2_0_7' in GNEChange_Additional
 GLDebug: Inserted chargingStation:chargingStation_gneE2_0_7 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Removed object chargingStation:chargingStation_gneE2_0_7 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted chargingStation:chargingStation_gneE2_0_7 into SUMORTree with boundary 10.54,14.40,60.54,54.40
 GLDebug: Removed object chargingStation:chargingStation_gneE2_0_7 from SUMORTree with boundary 10.54,14.40,60.54,54.40
 GLDebug: Inserted chargingStation:chargingStation_gneE2_0_7 into SUMORTree with boundary 10.54,14.40,60.54,54.40
+Debug: Adding chargingStation 'chargingStation_gneE2_1_6' in GNEChange_Additional
 GLDebug: Inserted chargingStation:chargingStation_gneE2_1_6 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Removed object chargingStation:chargingStation_gneE2_1_6 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted chargingStation:chargingStation_gneE2_1_6 into SUMORTree with boundary 7.10,11.20,57.10,51.20
 GLDebug: Removed object chargingStation:chargingStation_gneE2_1_6 from SUMORTree with boundary 7.10,11.20,57.10,51.20
 GLDebug: Inserted chargingStation:chargingStation_gneE2_1_6 into SUMORTree with boundary 7.10,11.20,57.10,51.20
+Debug: Adding chargingStation 'chargingStation_gneE2_2_5' in GNEChange_Additional
 GLDebug: Inserted chargingStation:chargingStation_gneE2_2_5 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Removed object chargingStation:chargingStation_gneE2_2_5 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted chargingStation:chargingStation_gneE2_2_5 into SUMORTree with boundary 3.58,8.00,53.58,48.00
 GLDebug: Removed object chargingStation:chargingStation_gneE2_2_5 from SUMORTree with boundary 3.58,8.00,53.58,48.00
 GLDebug: Inserted chargingStation:chargingStation_gneE2_2_5 into SUMORTree with boundary 3.58,8.00,53.58,48.00
+Debug: Adding chargingStation 'chargingStation_gneE2_3_4' in GNEChange_Additional
 GLDebug: Inserted chargingStation:chargingStation_gneE2_3_4 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Removed object chargingStation:chargingStation_gneE2_3_4 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted chargingStation:chargingStation_gneE2_3_4 into SUMORTree with boundary 0.15,4.80,50.15,44.80
 GLDebug: Removed object chargingStation:chargingStation_gneE2_3_4 from SUMORTree with boundary 0.15,4.80,50.15,44.80
 GLDebug: Inserted chargingStation:chargingStation_gneE2_3_4 into SUMORTree with boundary 0.15,4.80,50.15,44.80
+Debug: Adding chargingStation 'chargingStation_gneE2_4_3' in GNEChange_Additional
 GLDebug: Inserted chargingStation:chargingStation_gneE2_4_3 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Removed object chargingStation:chargingStation_gneE2_4_3 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted chargingStation:chargingStation_gneE2_4_3 into SUMORTree with boundary -3.98,1.60,46.02,41.60
 GLDebug: Removed object chargingStation:chargingStation_gneE2_4_3 from SUMORTree with boundary -3.98,1.60,46.02,41.60
 GLDebug: Inserted chargingStation:chargingStation_gneE2_4_3 into SUMORTree with boundary -3.98,1.60,46.02,41.60
+Debug: Adding chargingStation 'chargingStation_gneE4_0_2' in GNEChange_Additional
 GLDebug: Inserted chargingStation:chargingStation_gneE4_0_2 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Removed object chargingStation:chargingStation_gneE4_0_2 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted chargingStation:chargingStation_gneE4_0_2 into SUMORTree with boundary -7.63,-1.60,42.37,38.40
@@ -219,6 +227,24 @@ GLDebug: Removed object edge:gneE4 from SUMORTree with boundary -30.00,-11.60,80
 GLDebug: Removed object chargingStation:chargingStation_gneE4_0_2 from SUMORTree with boundary -7.63,-1.60,42.37,38.40
 GLDebug: Inserted chargingStation:chargingStation_gneE4_0_2 into SUMORTree with boundary -7.63,-1.60,42.37,38.40
 GLDebug: Inserted edge:gneE4 into SUMORTree with boundary -30.00,-11.60,80.00,50.00
+Debug: Deleting unreferenced chargingStation 'chargingStation_gneE4_0_2'
+GLDebug: Removed object chargingStation:chargingStation_gneE4_0_2 from SUMORTree with boundary -7.63,-1.60,42.37,38.40
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Deleting unreferenced chargingStation 'chargingStation_gneE2_4_3'
+GLDebug: Removed object chargingStation:chargingStation_gneE2_4_3 from SUMORTree with boundary -3.98,1.60,46.02,41.60
+Debug: Deleting unreferenced chargingStation 'chargingStation_gneE2_3_4'
+GLDebug: Removed object chargingStation:chargingStation_gneE2_3_4 from SUMORTree with boundary 0.15,4.80,50.15,44.80
+Debug: Deleting unreferenced chargingStation 'chargingStation_gneE2_2_5'
+GLDebug: Removed object chargingStation:chargingStation_gneE2_2_5 from SUMORTree with boundary 3.58,8.00,53.58,48.00
+Debug: Deleting unreferenced chargingStation 'chargingStation_gneE2_1_6'
+GLDebug: Removed object chargingStation:chargingStation_gneE2_1_6 from SUMORTree with boundary 7.10,11.20,57.10,51.20
+Debug: Deleting unreferenced chargingStation 'chargingStation_gneE2_0_7'
+GLDebug: Removed object chargingStation:chargingStation_gneE2_0_7 from SUMORTree with boundary 10.54,14.40,60.54,54.40
+Debug: Deleting unreferenced chargingStation 'chargingStation_gneE1_0_1'
+GLDebug: Removed object chargingStation:chargingStation_gneE1_0_1 from SUMORTree with boundary -9.73,-18.40,40.27,21.60
+Debug: Deleting unreferenced chargingStation 'chargingStation_gneE0_0_0'
+GLDebug: Removed object chargingStation:chargingStation_gneE0_0_0 from SUMORTree with boundary -1.79,-21.60,48.21,18.40
 Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE0_1' in GNEEdge destructor
@@ -242,14 +268,8 @@ Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
 Debug: Deleting unreferenced junction 'gneJ2' in GNENet destructor
 Debug: Deleting unreferenced junction 'gneJ3' in GNENet destructor
-Debug: Deleting unreferenced chargingStation 'chargingStation_gneE0_0_0' in GNENet destructor
-Debug: Deleting unreferenced chargingStation 'chargingStation_gneE1_0_1' in GNENet destructor
-Debug: Deleting unreferenced chargingStation 'chargingStation_gneE2_0_7' in GNENet destructor
-Debug: Deleting unreferenced chargingStation 'chargingStation_gneE2_1_6' in GNENet destructor
-Debug: Deleting unreferenced chargingStation 'chargingStation_gneE2_2_5' in GNENet destructor
-Debug: Deleting unreferenced chargingStation 'chargingStation_gneE2_3_4' in GNENet destructor
-Debug: Deleting unreferenced chargingStation 'chargingStation_gneE2_4_3' in GNENet destructor
-Debug: Deleting unreferenced chargingStation 'chargingStation_gneE4_0_2' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_PEDTYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting net builder in GNENet destructor
-GLDebug: Number of objects in SUMORTree during call of the destructor: 20
+GLDebug: Number of objects in SUMORTree during call of the destructor: 12

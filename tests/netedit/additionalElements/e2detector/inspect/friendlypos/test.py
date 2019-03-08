@@ -32,13 +32,13 @@ netedit.additionalMode()
 netedit.changeAdditional("e2Detector")
 
 # create E2
-netedit.leftClick(referencePosition, 250, 150)
+netedit.leftClick(referencePosition, 250, 170)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first E2
-netedit.leftClick(referencePosition, 260, 150)
+netedit.leftClick(referencePosition, 260, 170)
 
 # Change boolean parameter friendly pos
 netedit.modifyBoolAttribute(11, True)

@@ -35,7 +35,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect E1
-netedit.leftClick(referencePosition, 150, 240)
+netedit.leftClick(referencePosition, 150, 260)
 
 # Change generic parameters with a dummy value
 netedit.modifyAttribute(6, "dummyGenericParameters", True)

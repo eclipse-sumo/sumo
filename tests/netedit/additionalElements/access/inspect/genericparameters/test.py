@@ -42,13 +42,13 @@ netedit.changeAdditional("access")
 
 # Create Access
 netedit.selectAdditionalChild(7, 0)
-netedit.leftClick(referencePosition, 200, 250)
+netedit.leftClick(referencePosition, 200, 280)
 
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect Access
-netedit.leftClick(referencePosition, 208, 260)
+# delete Access
+netedit.leftClick(referencePosition, 208, 280)
 
 # Change generic parameters with a dummy value
 netedit.modifyAttribute(5, "dummyGenericParameters", True)

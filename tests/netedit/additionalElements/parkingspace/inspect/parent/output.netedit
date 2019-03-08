@@ -2,15 +2,15 @@ TestFunctions: Netedit opened successfully
 Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 parkingArea
-TestFunctions: Clicked over position 554 - 320
-TestFunctions: Clicked over position 704 - 320
+TestFunctions: Clicked over position 554 - 348
+TestFunctions: Clicked over position 704 - 348
 space
-TestFunctions: Clicked over position 554 - 460
-TestFunctions: Clicked over position 704 - 460
-TestFunctions: Clicked over position 554 - 440
+TestFunctions: Clicked over position 554 - 488
+TestFunctions: Clicked over position 704 - 488
+TestFunctions: Clicked over position 554 - 468
 dummyParent
 
 parkingArea_gneE2_0_1
-TestFunctions: Clicked over position 304 - 140
-TestFunctions: Clicked over position 304 - 140
+TestFunctions: Clicked over position 304 - 168
+TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully

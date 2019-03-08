@@ -32,13 +32,13 @@ netedit.additionalMode()
 netedit.changeAdditional("instantInductionLoop")
 
 # create E1
-netedit.leftClick(referencePosition, 250, 150)
+netedit.leftClick(referencePosition, 250, 140)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first E1
-netedit.leftClick(referencePosition, 250, 150)
+netedit.leftClick(referencePosition, 250, 140)
 
 # Change generic parameters with a dummy value
 netedit.modifyAttribute(8, "dummyGenericParameters", True)

@@ -32,13 +32,13 @@ netedit.additionalMode()
 netedit.changeAdditional("e2Detector")
 
 # create E2
-netedit.leftClick(referencePosition, 250, 150)
+netedit.leftClick(referencePosition, 250, 170)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first E2
-netedit.leftClick(referencePosition, 260, 150)
+netedit.leftClick(referencePosition, 260, 170)
 
 # Change parameter file with an non valid value
 netedit.modifyAttribute(6, "%;;%%&%%%&&", True)

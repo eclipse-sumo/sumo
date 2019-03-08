@@ -14,22 +14,25 @@ GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
 GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -30.00,-14.80,80.00,50.00
 GLDebug: Inserted edge:gneE3 into SUMORTree with boundary -30.00,-10.00,80.00,54.80
+Debug: Selected item 'DEFAULT_VEHTYPE' in VTypeSelector
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals saved, shapes saved
+Debug: Current saving Status: net unsaved, additionals saved, demand elements saved
 Debug: Current Viewport values: 25.00, 20.00, 25.00. Zoom = '280.00'
 Debug: Selected item 'busStop' in ItemSelector
 Debug: Selected item 'busStop' in ItemSelector
-Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: Format of optional positive optional integer attribute 'personCapacity' of busStop with ID 'busStop_gneE2_1_0' is invalid; Cannot be negative; Default value will be used.
 Debug: Adding busStop 'busStop_gneE2_1_0' in GNEChange_Additional
 GLDebug: Inserted busStop:busStop_gneE2_1_0 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Removed object busStop:busStop_gneE2_1_0 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted busStop:busStop_gneE2_1_0 into SUMORTree with boundary 7.00,-3.20,57.00,36.80
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 GLDebug: Removed object busStop:busStop_gneE2_1_0 from SUMORTree with boundary 7.00,-3.20,57.00,36.80
 GLDebug: Inserted busStop:busStop_gneE2_1_0 into SUMORTree with boundary 7.00,-3.20,57.00,36.80
 Debug: Selected item 'access' in ItemSelector
-Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: Format of optional positive optional float attribute 'length' of access is invalid; Cannot be parsed to float; Default value will be used.
 Debug: Adding access 'busStop_gneE2_1_0access0' in GNEChange_Additional
 GLDebug: Inserted access:busStop_gneE2_1_0access0 into SUMORTree with boundary 7.00,-3.20,57.00,36.80
 GLDebug: Removed object access:busStop_gneE2_1_0access0 from SUMORTree with boundary 7.00,-3.20,57.00,36.80
@@ -38,7 +41,8 @@ GLDebug: Removed object access:busStop_gneE2_1_0access0 from SUMORTree with boun
 GLDebug: Inserted access:busStop_gneE2_1_0access0 into SUMORTree with boundary -20.00,4.80,41.00,44.80
 GLDebug: Removed object busStop:busStop_gneE2_1_0 from SUMORTree with boundary 7.00,-3.20,57.00,36.80
 GLDebug: Inserted busStop:busStop_gneE2_1_0 into SUMORTree with boundary 7.00,-3.20,57.00,36.80
-Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: Format of optional positive optional float attribute 'length' of access is invalid; Cannot be parsed to float; Default value will be used.
 Debug: Adding access 'busStop_gneE2_1_0access1' in GNEChange_Additional
 GLDebug: Inserted access:busStop_gneE2_1_0access1 into SUMORTree with boundary 7.00,-3.20,57.00,36.80
 GLDebug: Removed object access:busStop_gneE2_1_0access1 from SUMORTree with boundary 7.00,-3.20,57.00,36.80
@@ -49,7 +53,7 @@ GLDebug: Removed object access:busStop_gneE2_1_0access1 from SUMORTree with boun
 GLDebug: Inserted access:busStop_gneE2_1_0access1 into SUMORTree with boundary 1.00,-1.60,70.00,38.40
 GLDebug: Removed object busStop:busStop_gneE2_1_0 from SUMORTree with boundary 7.00,-3.20,57.00,36.80
 GLDebug: Inserted busStop:busStop_gneE2_1_0 into SUMORTree with boundary 7.00,-3.20,57.00,36.80
-Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 1, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 1, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Value 'dummyLane' for attribute lane of access isn't valid
 Debug: Value '' for attribute lane of access isn't valid
 Debug: Value 'gneE3_0' for attribute lane of access isn't valid
@@ -62,7 +66,7 @@ GLDebug: Removed object access:busStop_gneE2_1_0access1 from SUMORTree with boun
 GLDebug: Inserted access:busStop_gneE2_1_0access1 into SUMORTree with boundary 1.00,-1.60,70.00,38.40
 GLDebug: Removed object access:busStop_gneE2_1_0access1 from SUMORTree with boundary 1.00,-1.60,70.00,38.40
 GLDebug: Inserted access:busStop_gneE2_1_0access1 into SUMORTree with boundary -20.00,-18.40,49.00,21.60
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute lane 'gneE2_1' into access 'busStop_gneE2_1_0access1'
 GLDebug: Removed object busStop:busStop_gneE2_1_0 from SUMORTree with boundary 7.00,-3.20,57.00,36.80
@@ -75,21 +79,21 @@ GLDebug: Removed object access:busStop_gneE2_1_0access1 from SUMORTree with boun
 GLDebug: Inserted access:busStop_gneE2_1_0access1 into SUMORTree with boundary 1.00,-1.60,70.00,38.40
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Removing access 'busStop_gneE2_1_0access1' in GNEChange_Additional
+GLDebug: Removed object busStop:busStop_gneE2_1_0 from SUMORTree with boundary 7.00,-3.20,57.00,36.80
+GLDebug: Inserted busStop:busStop_gneE2_1_0 into SUMORTree with boundary 7.00,-3.20,57.00,36.80
+GLDebug: Removed object busStop:busStop_gneE2_1_0 from SUMORTree with boundary 7.00,-3.20,57.00,36.80
+GLDebug: Inserted busStop:busStop_gneE2_1_0 into SUMORTree with boundary 7.00,-3.20,57.00,36.80
 Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
 GLDebug: Removed object access:busStop_gneE2_1_0access1 from SUMORTree with boundary 1.00,-1.60,70.00,38.40
-GLDebug: Removed object busStop:busStop_gneE2_1_0 from SUMORTree with boundary 7.00,-3.20,57.00,36.80
-GLDebug: Inserted busStop:busStop_gneE2_1_0 into SUMORTree with boundary 7.00,-3.20,57.00,36.80
-GLDebug: Removed object busStop:busStop_gneE2_1_0 from SUMORTree with boundary 7.00,-3.20,57.00,36.80
-GLDebug: Inserted busStop:busStop_gneE2_1_0 into SUMORTree with boundary 7.00,-3.20,57.00,36.80
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Removing access 'busStop_gneE2_1_0access0' in GNEChange_Additional
-GLDebug: Removed object access:busStop_gneE2_1_0access0 from SUMORTree with boundary -20.00,4.80,41.00,44.80
 GLDebug: Removed object busStop:busStop_gneE2_1_0 from SUMORTree with boundary 7.00,-3.20,57.00,36.80
 GLDebug: Inserted busStop:busStop_gneE2_1_0 into SUMORTree with boundary 7.00,-3.20,57.00,36.80
+GLDebug: Removed object access:busStop_gneE2_1_0access0 from SUMORTree with boundary -20.00,4.80,41.00,44.80
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Removing busStop 'busStop_gneE2_1_0' in GNEChange_Additional
 GLDebug: Removed object busStop:busStop_gneE2_1_0 from SUMORTree with boundary 7.00,-3.20,57.00,36.80
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Adding busStop 'busStop_gneE2_1_0' in GNEChange_Additional
 GLDebug: Inserted busStop:busStop_gneE2_1_0 into SUMORTree with boundary 7.00,-3.20,57.00,36.80
@@ -189,7 +193,7 @@ GLDebug: Inserted edge:gneE3 into SUMORTree with boundary -30.00,-10.00,80.00,54
 Debug: Deleting unreferenced access 'busStop_gneE2_1_0access1'
 GLDebug: Removed object access:busStop_gneE2_1_0access1 from SUMORTree with boundary -20.00,-18.40,49.00,21.60
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Deleting unreferenced access 'busStop_gneE2_1_0access0'
 GLDebug: Removed object access:busStop_gneE2_1_0access0 from SUMORTree with boundary -20.00,4.80,41.00,44.80
 Debug: Deleting unreferenced busStop 'busStop_gneE2_1_0'
@@ -216,6 +220,8 @@ Debug: Deleting unreferenced crossing ':gneJ1_c0' in GNEJunction destructor
 Debug: Deleting unreferenced crossing ':gneJ1_c1' in GNEJunction destructor
 Debug: Deleting unreferenced junction 'gneJ2' in GNENet destructor
 Debug: Deleting unreferenced junction 'gneJ3' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_PEDTYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting net builder in GNENet destructor
-GLDebug: Number of objects in SUMORTree during call destructor: 12
+GLDebug: Number of objects in SUMORTree during call of the destructor: 12

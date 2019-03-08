@@ -35,7 +35,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect E2s
-netedit.leftClick(referencePosition, 150, 250)
+netedit.leftClick(referencePosition, 150, 255)
 
 # Change parameter TimeTreshold with a non valid value
 netedit.modifyAttribute(5, "dummyTimeTreshold", True)

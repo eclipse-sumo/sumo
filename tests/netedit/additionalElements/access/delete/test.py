@@ -42,36 +42,36 @@ netedit.changeAdditional("access")
 
 # Create Access
 netedit.selectAdditionalChild(7, 0)
-netedit.leftClick(referencePosition, 200, 50)
+netedit.leftClick(referencePosition, 200, 110)
 
 # Create second Access
 netedit.selectAdditionalChild(7, 0)
-netedit.leftClick(referencePosition, 200, 250)
+netedit.leftClick(referencePosition, 200, 280)
 
-# go to inspect mode
+# go to delete mode
 netedit.deleteMode()
 
 # delete Access
-netedit.leftClick(referencePosition, 208, 260)
+netedit.leftClick(referencePosition, 208, 280)
 
 # undo
 netedit.undo(referencePosition, 1)
 
-# go to inspect mode
+# go to delete mode
 netedit.deleteMode()
 
 # delete busStop
-netedit.leftClick(referencePosition, 420, 295)
+netedit.leftClick(referencePosition, 420, 320)
 
 # undo
 netedit.undo(referencePosition, 1)
 
-# go to inspect mode
+# go to delete mode
 netedit.deleteMode()
 
 # delete both acces
-netedit.leftClick(referencePosition, 208, 81)
-netedit.leftClick(referencePosition, 208, 260)
+netedit.leftClick(referencePosition, 208, 110)
+netedit.leftClick(referencePosition, 208, 280)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)

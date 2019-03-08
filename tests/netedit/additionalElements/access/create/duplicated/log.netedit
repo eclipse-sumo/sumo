@@ -1,1 +1,1 @@
-Warning: busStop'busStop_gneE0_0_0' already owns a Acces in the edge 'gneE1'
+Warning: Edge 'gneE1' already has an Access for busStop 'busStop_gneE0_0_0'

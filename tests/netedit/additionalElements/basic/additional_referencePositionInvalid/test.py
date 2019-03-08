@@ -32,13 +32,13 @@ netedit.additionalMode()
 netedit.changeAdditional("busStop")
 
 # set invalid reference (dummy)
-netedit.modifyAdditionalDefaultValue(6, "dummy reference")
+netedit.modifyAdditionalDefaultValue(7, "dummy reference")
 
 # try to create busStop with the dummy reference
 netedit.leftClick(referencePosition, 240, 250)
 
 # set valid reference
-netedit.modifyAdditionalDefaultValue(6, "reference right")
+netedit.modifyAdditionalDefaultValue(7, "reference right")
 
 # create busStop with the valid reference
 netedit.leftClick(referencePosition, 300, 250)

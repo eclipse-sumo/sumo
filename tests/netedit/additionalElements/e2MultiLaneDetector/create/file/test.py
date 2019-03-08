@@ -35,8 +35,8 @@ netedit.additionalMode()
 netedit.changeAdditional("e2MultilaneDetector")
 
 # select lanes
-netedit.leftClick(referencePosition, 190, 240)
-netedit.leftClick(referencePosition, 440, 240)
+netedit.leftClick(referencePosition, 190, 255)
+netedit.leftClick(referencePosition, 440, 255)
 
 # set invalid filename
 netedit.modifyAdditionalDefaultValue(4, "&&&&&&&&")

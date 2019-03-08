@@ -14,20 +14,21 @@ GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
 GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -30.00,-14.80,80.00,50.00
 GLDebug: Inserted edge:gneE3 into SUMORTree with boundary -30.00,-10.00,80.00,54.80
+Debug: Selected item 'DEFAULT_VEHTYPE' in VTypeSelector
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals saved, shapes saved
+Debug: Current saving Status: net unsaved, additionals saved, demand elements saved
 Debug: Selected item 'busStop' in ItemSelector
 Debug: Selected item 'e2Detector' in ItemSelector
-Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Adding e2Detector 'e2Detector_gneE2_1_0' in GNEChange_Additional
 GLDebug: Inserted e2Detector:e2Detector_gneE2_1_0 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Removed object e2Detector:e2Detector_gneE2_1_0 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted e2Detector:e2Detector_gneE2_1_0 into SUMORTree with boundary -3.00,-1.60,47.00,38.40
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 GLDebug: Removed object e2Detector:e2Detector_gneE2_1_0 from SUMORTree with boundary -3.00,-1.60,47.00,38.40
 GLDebug: Inserted e2Detector:e2Detector_gneE2_1_0 into SUMORTree with boundary -3.00,-1.60,47.00,38.40
-Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 1, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 1, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Value '-5' for attribute length of e2Detector isn't valid
 Debug: Setting new attribute length '0' into e2Detector 'e2Detector_gneE2_1_0'
 GLDebug: Removed object e2Detector:e2Detector_gneE2_1_0 from SUMORTree with boundary -3.00,-1.60,47.00,38.40
@@ -38,7 +39,7 @@ GLDebug: Inserted e2Detector:e2Detector_gneE2_1_0 into SUMORTree with boundary -
 Debug: Setting new attribute length '5' into e2Detector 'e2Detector_gneE2_1_0'
 GLDebug: Removed object e2Detector:e2Detector_gneE2_1_0 from SUMORTree with boundary -3.00,-1.60,70.00,38.40
 GLDebug: Inserted e2Detector:e2Detector_gneE2_1_0 into SUMORTree with boundary -3.00,-1.60,42.00,38.40
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute length '500.00' into e2Detector 'e2Detector_gneE2_1_0'
 GLDebug: Removed object e2Detector:e2Detector_gneE2_1_0 from SUMORTree with boundary -3.00,-1.60,42.00,38.40
@@ -47,7 +48,7 @@ Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute length '0.00' into e2Detector 'e2Detector_gneE2_1_0'
 GLDebug: Removed object e2Detector:e2Detector_gneE2_1_0 from SUMORTree with boundary -3.00,-1.60,70.00,38.40
 GLDebug: Inserted e2Detector:e2Detector_gneE2_1_0 into SUMORTree with boundary -3.00,-1.60,37.00,38.40
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute length '500' into e2Detector 'e2Detector_gneE2_1_0'
 GLDebug: Removed object e2Detector:e2Detector_gneE2_1_0 from SUMORTree with boundary -3.00,-1.60,37.00,38.40
@@ -114,7 +115,7 @@ GLDebug: Inserted edge:gneE3 into SUMORTree with boundary -30.00,-10.00,80.00,54
 Debug: Deleting unreferenced e2Detector 'e2Detector_gneE2_1_0'
 GLDebug: Removed object e2Detector:e2Detector_gneE2_1_0 from SUMORTree with boundary -3.00,-1.60,42.00,38.40
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
@@ -137,6 +138,8 @@ Debug: Deleting unreferenced crossing ':gneJ1_c0' in GNEJunction destructor
 Debug: Deleting unreferenced crossing ':gneJ1_c1' in GNEJunction destructor
 Debug: Deleting unreferenced junction 'gneJ2' in GNENet destructor
 Debug: Deleting unreferenced junction 'gneJ3' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_PEDTYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting net builder in GNENet destructor
-GLDebug: Number of objects in SUMORTree during call destructor: 12
+GLDebug: Number of objects in SUMORTree during call of the destructor: 12

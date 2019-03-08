@@ -32,7 +32,7 @@ netedit.additionalMode()
 netedit.changeAdditional("busStop")
 
 # set block movement
-netedit.modifyAdditionalDefaultBoolValue(9)
+netedit.modifyAdditionalDefaultBoolValue(10)
 
 # create busStop in mode "reference left"
 netedit.leftClick(referencePosition, 250, 250)

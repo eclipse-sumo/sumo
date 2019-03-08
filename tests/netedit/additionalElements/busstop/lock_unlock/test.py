@@ -32,7 +32,7 @@ netedit.additionalMode()
 netedit.changeAdditional("busStop")
 
 # change reference to center
-netedit.modifyAdditionalDefaultValue(6, "reference center")
+netedit.modifyAdditionalDefaultValue(7, "reference center")
 
 # create busStop in mode "reference center"
 netedit.leftClick(referencePosition, 250, 270)
@@ -50,7 +50,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 350, 275)
 
 # block additional
-netedit.modifyBoolAttribute(10, True)
+netedit.modifyBoolAttribute(7, True)
 
 # change to move mode
 netedit.moveMode()
@@ -65,7 +65,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 350, 275)
 
 # unblock additional
-netedit.modifyBoolAttribute(10, True)
+netedit.modifyBoolAttribute(7, True)
 
 # change to move mode
 netedit.moveMode()

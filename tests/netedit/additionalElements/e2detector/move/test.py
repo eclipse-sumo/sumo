@@ -32,34 +32,34 @@ netedit.additionalMode()
 netedit.changeAdditional("e2Detector")
 
 # create E2
-netedit.leftClick(referencePosition, 210, 250)
+netedit.leftClick(referencePosition, 210, 255)
 
 # change to move mode
 netedit.moveMode()
 
 # move E2 to left
-netedit.moveElement(referencePosition, 120, 250, 30, 250)
+netedit.moveElement(referencePosition, 120, 255, 30, 255)
 
 # move back
-netedit.moveElement(referencePosition, 50, 250, 120, 250)
+netedit.moveElement(referencePosition, 50, 255, 120, 255)
 
 # move E2 to right
-netedit.moveElement(referencePosition, 130, 250, 250, 250)
+netedit.moveElement(referencePosition, 130, 255, 250, 255)
 
 # move back
-netedit.moveElement(referencePosition, 260, 250, 120, 250)
+netedit.moveElement(referencePosition, 260, 255, 120, 255)
 
 # move E2 to left overpassing lane
-netedit.moveElement(referencePosition, 130, 250, -150, 250)
+netedit.moveElement(referencePosition, 130, 255, -150, 255)
 
 # move back
-netedit.moveElement(referencePosition, -80, 250, 120, 250)
+netedit.moveElement(referencePosition, -80, 255, 120, 255)
 
 # move E2 to right overpassing lane
-netedit.moveElement(referencePosition, 130, 250, 480, 250)
+netedit.moveElement(referencePosition, 130, 255, 480, 255)
 
 # move back to another different position of initial
-netedit.moveElement(referencePosition, 500, 250, 300, 250)
+netedit.moveElement(referencePosition, 500, 255, 300, 255)
 
 # Check undos and redos
 netedit.undo(referencePosition, 10)

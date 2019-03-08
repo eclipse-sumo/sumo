@@ -32,13 +32,13 @@ netedit.additionalMode()
 netedit.changeAdditional("e1Detector")
 
 # create E1
-netedit.leftClick(referencePosition, 250, 150)
+netedit.leftClick(referencePosition, 250, 170)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first E1
-netedit.leftClick(referencePosition, 250, 150)
+netedit.leftClick(referencePosition, 250, 170)
 
 # Change parameter frequency with a non valid value (non numeral)
 netedit.modifyAttribute(3, "dummyFrequency", True)

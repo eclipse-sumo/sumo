@@ -42,17 +42,17 @@ netedit.changeAdditional("access")
 
 # Create Access
 netedit.selectAdditionalChild(7, 0)
-netedit.leftClick(referencePosition, 200, 50)
+netedit.leftClick(referencePosition, 200, 110)
 
-# Create another Access
+# Create second Access
 netedit.selectAdditionalChild(7, 0)
-netedit.leftClick(referencePosition, 200, 250)
+netedit.leftClick(referencePosition, 200, 280)
 
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect Access
-netedit.leftClick(referencePosition, 208, 260)
+# delete Access
+netedit.leftClick(referencePosition, 208, 280)
 
 # Change parameter lane with a non valid value (dummy Lane)
 netedit.modifyAttribute(0, "dummyLane", True)

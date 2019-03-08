@@ -14,20 +14,22 @@ GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
 GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -30.00,-14.80,80.00,50.00
 GLDebug: Inserted edge:gneE3 into SUMORTree with boundary -30.00,-10.00,80.00,54.80
+Debug: Selected item 'DEFAULT_VEHTYPE' in VTypeSelector
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals saved, shapes saved
+Debug: Current saving Status: net unsaved, additionals saved, demand elements saved
 Debug: Selected item 'busStop' in ItemSelector
 Debug: Selected item 'parkingArea' in ItemSelector
-Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: Format of optional optional float attribute 'length' of parkingArea with ID 'parkingArea_gneE2_1_0' is invalid; Cannot be parsed to float; Default value will be used.
 Debug: Adding parkingArea 'parkingArea_gneE2_1_0' in GNEChange_Additional
 GLDebug: Inserted parkingArea:parkingArea_gneE2_1_0 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Removed object parkingArea:parkingArea_gneE2_1_0 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Inserted parkingArea:parkingArea_gneE2_1_0 into SUMORTree with boundary -8.00,-6.40,42.00,33.60
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 GLDebug: Removed object parkingArea:parkingArea_gneE2_1_0 from SUMORTree with boundary -8.00,-6.40,42.00,33.60
 GLDebug: Inserted parkingArea:parkingArea_gneE2_1_0 into SUMORTree with boundary -8.00,-6.40,42.00,33.60
-Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 1, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 1, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Value '-5' for attribute width of parkingArea isn't valid
 Debug: Setting new attribute width '0' into parkingArea 'parkingArea_gneE2_1_0'
 GLDebug: Removed object parkingArea:parkingArea_gneE2_1_0 from SUMORTree with boundary -8.00,-6.40,42.00,33.60
@@ -35,7 +37,7 @@ GLDebug: Inserted parkingArea:parkingArea_gneE2_1_0 into SUMORTree with boundary
 Debug: Setting new attribute width '2.3' into parkingArea 'parkingArea_gneE2_1_0'
 GLDebug: Removed object parkingArea:parkingArea_gneE2_1_0 from SUMORTree with boundary -8.00,-3.20,42.00,36.80
 GLDebug: Inserted parkingArea:parkingArea_gneE2_1_0 into SUMORTree with boundary -8.00,-5.50,42.00,34.50
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute width '0.00' into parkingArea 'parkingArea_gneE2_1_0'
 GLDebug: Removed object parkingArea:parkingArea_gneE2_1_0 from SUMORTree with boundary -8.00,-5.50,42.00,34.50
@@ -44,7 +46,7 @@ Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute width '3.20' into parkingArea 'parkingArea_gneE2_1_0'
 GLDebug: Removed object parkingArea:parkingArea_gneE2_1_0 from SUMORTree with boundary -8.00,-3.20,42.00,36.80
 GLDebug: Inserted parkingArea:parkingArea_gneE2_1_0 into SUMORTree with boundary -8.00,-6.40,42.00,33.60
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute width '0' into parkingArea 'parkingArea_gneE2_1_0'
 GLDebug: Removed object parkingArea:parkingArea_gneE2_1_0 from SUMORTree with boundary -8.00,-6.40,42.00,33.60
@@ -111,7 +113,7 @@ GLDebug: Inserted edge:gneE3 into SUMORTree with boundary -30.00,-10.00,80.00,54
 Debug: Deleting unreferenced parkingArea 'parkingArea_gneE2_1_0'
 GLDebug: Removed object parkingArea:parkingArea_gneE2_1_0 from SUMORTree with boundary -8.00,-5.50,42.00,34.50
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, shapes saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
@@ -134,6 +136,8 @@ Debug: Deleting unreferenced crossing ':gneJ1_c0' in GNEJunction destructor
 Debug: Deleting unreferenced crossing ':gneJ1_c1' in GNEJunction destructor
 Debug: Deleting unreferenced junction 'gneJ2' in GNENet destructor
 Debug: Deleting unreferenced junction 'gneJ3' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_PEDTYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting net builder in GNENet destructor
-GLDebug: Number of objects in SUMORTree during call destructor: 12
+GLDebug: Number of objects in SUMORTree during call of the destructor: 12

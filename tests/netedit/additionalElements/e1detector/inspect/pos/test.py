@@ -32,13 +32,13 @@ netedit.additionalMode()
 netedit.changeAdditional("e1Detector")
 
 # create E1
-netedit.leftClick(referencePosition, 250, 150)
+netedit.leftClick(referencePosition, 250, 170)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first E1
-netedit.leftClick(referencePosition, 250, 150)
+netedit.leftClick(referencePosition, 250, 170)
 
 # Change parameter friendlyPos with a non valid value (dummy)
 netedit.modifyAttribute(2, "dummyFriendlyPos", True)

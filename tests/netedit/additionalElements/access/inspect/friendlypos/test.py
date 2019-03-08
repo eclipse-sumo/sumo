@@ -42,16 +42,16 @@ netedit.changeAdditional("access")
 
 # Create Access
 netedit.selectAdditionalChild(7, 0)
-netedit.leftClick(referencePosition, 200, 250)
+netedit.leftClick(referencePosition, 200, 280)
 
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect Access
-netedit.leftClick(referencePosition, 208, 260)
+# delete Access
+netedit.leftClick(referencePosition, 208, 280)
 
 # Change friendly position
-netedit.modifyBoolAttribute(4, True)
+netedit.modifyBoolAttribute(3, True)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

@@ -35,7 +35,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect E1
-netedit.leftClick(referencePosition, 150, 240)
+netedit.leftClick(referencePosition, 150, 260)
 
 # Change boolean parameter friendlypos
 netedit.modifyAttribute(4, "dummyTrue", True)

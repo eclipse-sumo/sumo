@@ -35,13 +35,13 @@ netedit.changeAdditional("chargingStation")
 netedit.modifyAdditionalDefaultValue(9, "reference center")
 
 # create chargingStation in mode "reference center"
-netedit.leftClick(referencePosition, 250, 150)
+netedit.leftClick(referencePosition, 250, 170)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first chargingStation
-netedit.leftClick(referencePosition, 250, 160)
+netedit.leftClick(referencePosition, 250, 168)
 
 # Change parameter name with a non valid value
 netedit.modifyAttribute(4, "%%%;:..&&%$%$", True)

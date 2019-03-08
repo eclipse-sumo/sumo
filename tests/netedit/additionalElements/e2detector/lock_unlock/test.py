@@ -32,19 +32,19 @@ netedit.additionalMode()
 netedit.changeAdditional("e2Detector")
 
 # create E2
-netedit.leftClick(referencePosition, 240, 250)
+netedit.leftClick(referencePosition, 240, 255)
 
 # change to move mode
 netedit.moveMode()
 
 # move E2 to right
-netedit.moveElement(referencePosition, 130, 250, 220, 250)
+netedit.moveElement(referencePosition, 130, 255, 220, 255)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect E2
-netedit.leftClick(referencePosition, 350, 250)
+netedit.leftClick(referencePosition, 350, 255)
 
 # block additional
 netedit.modifyBoolAttribute(15, True)
@@ -53,13 +53,13 @@ netedit.modifyBoolAttribute(15, True)
 netedit.moveMode()
 
 # try to move E2 to right (must be blocked)
-netedit.moveElement(referencePosition, 250, 250, 350, 250)
+netedit.moveElement(referencePosition, 250, 255, 350, 255)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect E2
-netedit.leftClick(referencePosition, 350, 250)
+netedit.leftClick(referencePosition, 350, 255)
 
 # unblock additional
 netedit.modifyBoolAttribute(15, True)
@@ -68,7 +68,7 @@ netedit.modifyBoolAttribute(15, True)
 netedit.moveMode()
 
 # move E2 to right (must be allowed)
-netedit.moveElement(referencePosition, 250, 250, 350, 250)
+netedit.moveElement(referencePosition, 250, 255, 350, 255)
 
 # Check undos and redos
 netedit.undo(referencePosition, 5)

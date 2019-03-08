@@ -5,10 +5,10 @@ TestFunctions: 'reference.png' found. Position: 304 - 168
 20
 25
 busStop
-TestFunctions: Clicked over position 679 - 390
+TestFunctions: Clicked over position 679 - 418
 access
-TestFunctions: Clicked over position 504 - 390
-TestFunctions: Clicked over position 512 - 400
+TestFunctions: Clicked over position 504 - 448
+TestFunctions: Clicked over position 512 - 448
 dummyGenericParameters
 key1|key2|key3
 key1=value1|key2=value2|key3=value3
@@ -19,6 +19,6 @@ key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated
 keyInvalid.;%>%$$=value1|key2=value2|key3=value3
 key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3
 keyFinal1=value1|keyFinal2=value2|keyFinal3=value3
-TestFunctions: Clicked over position 304 - 140
-TestFunctions: Clicked over position 304 - 140
+TestFunctions: Clicked over position 304 - 168
+TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully

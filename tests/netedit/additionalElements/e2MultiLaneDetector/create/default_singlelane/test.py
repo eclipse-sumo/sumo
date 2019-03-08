@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeAdditional("e2MultilaneDetector")
 
 # create E2 with default parameters
-netedit.leftClick(referencePosition, 190, 240)
+netedit.leftClick(referencePosition, 190, 255)
 netedit.typeEnter()
 
 # save additionals

@@ -25,6 +25,9 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
+# apply zoom
+netedit.setZoom("20", "0", "17")
+
 # go to select mode
 netedit.selectMode()
 
@@ -35,19 +38,19 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect Access
-netedit.leftClick(referencePosition, 275, 242)
+netedit.leftClick(referencePosition, 326, 308)
 
 # Change lenght (invalid, empty)
-netedit.modifyAttribute(1, "", True)
+netedit.modifyAttribute(0, "", True)
 
 # Change lenght (invalid, dummy)
-netedit.modifyAttribute(1, "dummyLenght", True)
+netedit.modifyAttribute(0, "dummyLenght", True)
 
 # Change lenght (invalid, negative)
-netedit.modifyAttribute(1, "-7", True)
+netedit.modifyAttribute(0, "-7", True)
 
 # Change lenght (valid)
-netedit.modifyAttribute(1, "5.5", True)
+netedit.modifyAttribute(0, "5.5", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 4)

@@ -35,7 +35,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect E2s
-netedit.leftClick(referencePosition, 150, 250)
+netedit.leftClick(referencePosition, 150, 255)
 
 # Change parameter vtypes with a invalid value
 netedit.modifyAttribute(4, "Type%%%%%1 T;;yp$2 Type3", True)

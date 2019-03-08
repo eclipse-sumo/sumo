@@ -35,10 +35,10 @@ netedit.additionalMode()
 netedit.changeAdditional("e2MultilaneDetector")
 
 # create E2 with default parameters
-netedit.leftClick(referencePosition, 190, 240)
-netedit.leftClick(referencePosition, 440, 240)
-netedit.leftClick(referencePosition, 440, 210)
-netedit.leftClick(referencePosition, 190, 210)
+netedit.leftClick(referencePosition, 190, 255)
+netedit.leftClick(referencePosition, 440, 255)
+netedit.leftClick(referencePosition, 440, 225)
+netedit.leftClick(referencePosition, 190, 225)
 netedit.typeEnter()
 
 # Check undo redo

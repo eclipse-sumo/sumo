@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 10.12.2018 14:32:36 by Eclipse SUMO netedit Version v1_0_0+1208-d42a3cd999
+<!-- generated on 08.03.2019 14:35:44 by Eclipse SUMO netedit Version v1_1_0+1177-ae4e665b46
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.10Dec143129.352/netedit.gui/additionalElements/parkingspace/inspect/lenght\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.2_from_08Mar141950.4152/netedit.gui/additionalElements/parkingspace/inspect/lenght\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.10Dec143129.352/netedit.gui/additionalElements/parkingspace/inspect/lenght\net.net.xml"/>
+        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.2_from_08Mar141950.4152/netedit.gui/additionalElements/parkingspace/inspect/lenght\net.net.xml"/>
     </output>
 
     <processing>
@@ -29,12 +29,12 @@
     </pedestrian>
 
     <netedit>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.10Dec143129.352/netedit.gui/additionalElements/parkingspace/inspect/lenght\additionals.xml"/>
-        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.10Dec143129.352/netedit.gui/additionalElements/parkingspace/inspect/lenght\shapes.xml"/>
+        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.2_from_08Mar141950.4152/netedit.gui/additionalElements/parkingspace/inspect/lenght\additionals.xml"/>
+        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.2_from_08Mar141950.4152/netedit.gui/additionalElements/parkingspace/inspect/lenght\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.10Dec143129.352/netedit.gui/additionalElements/parkingspace/inspect/lenght\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.2_from_08Mar141950.4152/netedit.gui/additionalElements/parkingspace/inspect/lenght\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -44,14 +44,14 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.10Dec143129.352/netedit.gui/additionalElements/parkingspace/inspect/lenght\log.txt"/>
+        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.2_from_08Mar141950.4152/netedit.gui/additionalElements/parkingspace/inspect/lenght\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <parkingArea id="parkingArea_gneE2_0_0" lane="gneE2_0" startPos="17.00" endPos="27.00">
-        <space length="3.40" x="17.00" y="2.00"/>
+    <parkingArea id="parkingArea_gneE2_1_0" lane="gneE2_1" startPos="17.00" endPos="27.00">
+        <space length="3.40" x="17.00" y="4.00"/>
     </parkingArea>
 </additional>
