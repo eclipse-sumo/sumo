@@ -1055,5 +1055,7 @@ Debug: Deleting unreferenced junction 'gneJ16' in GNENet destructor
 Debug: Deleting unreferenced crossing ':gneJ16_c0' in GNEJunction destructor
 Debug: Deleting unreferenced junction 'gneJ18' in GNENet destructor
 Debug: Deleting unreferenced crossing ':gneJ18_c0' in GNEJunction destructor
+Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_PEDTYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting net builder in GNENet destructor

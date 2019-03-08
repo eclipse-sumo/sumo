@@ -36,6 +36,19 @@ Debug: Deleting unreferenced busStop 'busStop_-gneE6_0_4'
 Debug: Deleting unreferenced busStop 'busStop_-gneE5_0_3'
 Debug: Deleting unreferenced busStop 'busStop_-gneE4_0_2'
 Debug: Deleting unreferenced busStop 'busStop_-gneE3_0_1'
+Debug: Adding busStop 'busStop_-gneE3_0_1' in GNEChange_Additional
+Debug: Adding busStop 'busStop_-gneE4_0_2' in GNEChange_Additional
+Debug: Adding busStop 'busStop_-gneE5_0_3' in GNEChange_Additional
+Debug: Adding busStop 'busStop_-gneE6_0_4' in GNEChange_Additional
+Debug: Adding busStop 'busStop_-gneE7_0_5' in GNEChange_Additional
+Debug: Adding busStop 'busStop_gneE2_0_0' in GNEChange_Additional
+Debug: Adding busStop 'busStop_gneE4_0_7' in GNEChange_Additional
+Debug: Adding busStop 'busStop_gneE5_0_8' in GNEChange_Additional
+Debug: Adding busStop 'busStop_gneE6_0_9' in GNEChange_Additional
+Debug: Adding busStop 'busStop_gneE7_0_6' in GNEChange_Additional
+Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
 Debug: Additionals saved
 Debug: Created connection 'from-gneE10_1to-gneE9_1' in retrieveGNEConnection()
 Debug: Created connection 'from-gneE10_1to-gneE17_1' in retrieveGNEConnection()
@@ -93,6 +106,21 @@ Debug: Created connection 'fromgneE7_1togneE4_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_1togneE9_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_1to-gneE17_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_1togneE10_1' in retrieveGNEConnection()
+Debug: Deleting unreferenced detExit 'e3Detector_0detExit0'
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Deleting unreferenced detEntry 'e3Detector_0detEntry0'
+Debug: Deleting unreferenced e3Detector 'e3Detector_0'
+Debug: Deleting unreferenced busStop 'busStop_gneE7_0_6'
+Debug: Deleting unreferenced busStop 'busStop_gneE6_0_9'
+Debug: Deleting unreferenced busStop 'busStop_gneE5_0_8'
+Debug: Deleting unreferenced busStop 'busStop_gneE4_0_7'
+Debug: Deleting unreferenced busStop 'busStop_gneE2_0_0'
+Debug: Deleting unreferenced busStop 'busStop_-gneE7_0_5'
+Debug: Deleting unreferenced busStop 'busStop_-gneE6_0_4'
+Debug: Deleting unreferenced busStop 'busStop_-gneE5_0_3'
+Debug: Deleting unreferenced busStop 'busStop_-gneE4_0_2'
+Debug: Deleting unreferenced busStop 'busStop_-gneE3_0_1'
 Debug: Deleting unreferenced edge '-gneE10' in GNENet destructor
 Debug: Deleting unreferenced lane '-gneE10_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '-gneE10_1' in GNEEdge destructor
@@ -279,18 +307,7 @@ Debug: Deleting unreferenced junction 'gneJ6' in GNENet destructor
 Debug: Deleting unreferenced junction 'gneJ7' in GNENet destructor
 Debug: Deleting unreferenced junction 'gneJ8' in GNENet destructor
 Debug: Deleting unreferenced junction 'gneJ9' in GNENet destructor
-Debug: Deleting unreferenced e3Detector 'e3Detector_0' in GNENet destructor
-Debug: Deleting unreferenced detEntry 'e3Detector_0detEntry0' in GNENet destructor
-Debug: Deleting unreferenced detExit 'e3Detector_0detExit0' in GNENet destructor
-Debug: Deleting unreferenced busStop 'busStop_-gneE3_0_1' in GNENet destructor
-Debug: Deleting unreferenced busStop 'busStop_-gneE4_0_2' in GNENet destructor
-Debug: Deleting unreferenced busStop 'busStop_-gneE5_0_3' in GNENet destructor
-Debug: Deleting unreferenced busStop 'busStop_-gneE6_0_4' in GNENet destructor
-Debug: Deleting unreferenced busStop 'busStop_-gneE7_0_5' in GNENet destructor
-Debug: Deleting unreferenced busStop 'busStop_gneE2_0_0' in GNENet destructor
-Debug: Deleting unreferenced busStop 'busStop_gneE4_0_7' in GNENet destructor
-Debug: Deleting unreferenced busStop 'busStop_gneE5_0_8' in GNENet destructor
-Debug: Deleting unreferenced busStop 'busStop_gneE6_0_9' in GNENet destructor
-Debug: Deleting unreferenced busStop 'busStop_gneE7_0_6' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_PEDTYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting net builder in GNENet destructor

@@ -306,6 +306,8 @@ Debug: Deleting unreferenced junction 'E' in GNENet destructor
 Debug: Deleting unreferenced junction 'N' in GNENet destructor
 Debug: Deleting unreferenced junction 'S' in GNENet destructor
 Debug: Deleting unreferenced junction 'W' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_PEDTYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 33

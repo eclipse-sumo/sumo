@@ -24,7 +24,7 @@ GLDebug: Removed object poi:POI_2 from SUMORTree with boundary -2.50,-2.50,2.50,
 GLDebug: Inserted poi:POI_2 into SUMORTree with boundary 27.50,-0.90,32.50,4.10
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
-Error: Could not load 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_08Feb135012.1092/netedit.gui/shapeElements/poilane/load/imgfile\paris.ico'.
+Error: Could not load 'C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Mar091225.2224/netedit.gui/shapeElements/poilane/load/imgfile\paris.ico'.
 Loading failed!
 Debug: Additionals saved
 GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
@@ -74,6 +74,8 @@ Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_PEDTYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 6

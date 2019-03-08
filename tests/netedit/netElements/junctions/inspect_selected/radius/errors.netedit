@@ -125,5 +125,7 @@ Debug: Deleting unreferenced junction 'Center' in GNENet destructor
 Debug: Deleting unreferenced crossing ':Center_c0' in GNEJunction destructor
 Debug: Deleting unreferenced crossing ':Center_c1' in GNEJunction destructor
 Debug: Deleting unreferenced junction 'D' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_PEDTYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting net builder in GNENet destructor

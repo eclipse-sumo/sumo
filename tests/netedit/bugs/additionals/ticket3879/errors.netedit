@@ -40,9 +40,41 @@ Debug: Deleting unreferenced e1Detector 'e1Detector_gneE1_0_0'
 Debug: Deleting unreferenced containerStop 'containerStop_gneE1_0_0'
 Debug: Deleting unreferenced chargingStation 'chargingStation_gneE1_0_0'
 Debug: Deleting unreferenced busStop 'busStop_gneE1_0_0'
+Debug: Adding busStop 'busStop_gneE1_0_0' in GNEChange_Additional
+Debug: Adding containerStop 'containerStop_gneE1_0_0' in GNEChange_Additional
+Debug: Adding parkingArea 'parkingArea_gneE1_0_0' in GNEChange_Additional
+Debug: Adding space 'parkingArea_gneE1_0_0space0' in GNEChange_Additional
+Debug: Adding space 'parkingArea_gneE1_0_0space1' in GNEChange_Additional
+Debug: Adding space 'parkingArea_gneE1_0_0space2' in GNEChange_Additional
+Debug: Adding chargingStation 'chargingStation_gneE1_0_0' in GNEChange_Additional
+Debug: Adding e1Detector 'e1Detector_gneE1_0_0' in GNEChange_Additional
+Debug: Adding e2Detector 'e2Detector_gneE1_0_0' in GNEChange_Additional
+Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
+Debug: Adding instantInductionLoop 'instantInductionLoop_0' in GNEChange_Additional
+Debug: Adding variableSpeedSign 'variableSpeedSign_0' in GNEChange_Additional
+Debug: Adding rerouter 'rerouter_0' in GNEChange_Additional
 Debug: Additionals saved
 Debug: Created connection 'fromgneE0_1togneE1_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_1togneE0_1' in retrieveGNEConnection()
+Debug: Deleting unreferenced rerouter 'rerouter_0'
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Deleting unreferenced variableSpeedSign 'variableSpeedSign_0'
+Debug: Deleting unreferenced instantInductionLoop 'instantInductionLoop_0'
+Debug: Deleting unreferenced detExit 'e3Detector_0detExit0'
+Debug: Deleting unreferenced detEntry 'e3Detector_0detEntry0'
+Debug: Deleting unreferenced e3Detector 'e3Detector_0'
+Debug: Deleting unreferenced e2Detector 'e2Detector_gneE1_0_0'
+Debug: Deleting unreferenced e1Detector 'e1Detector_gneE1_0_0'
+Debug: Deleting unreferenced chargingStation 'chargingStation_gneE1_0_0'
+Debug: Deleting unreferenced space 'parkingArea_gneE1_0_0space2'
+Debug: Deleting unreferenced space 'parkingArea_gneE1_0_0space1'
+Debug: Deleting unreferenced space 'parkingArea_gneE1_0_0space0'
+Debug: Deleting unreferenced parkingArea 'parkingArea_gneE1_0_0'
+Debug: Deleting unreferenced containerStop 'containerStop_gneE1_0_0'
+Debug: Deleting unreferenced busStop 'busStop_gneE1_0_0'
 Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE0_1' in GNEEdge destructor
@@ -53,20 +85,7 @@ Debug: Deleting unreferenced lane 'gneE1_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE1_1togneE0_1' in GNEEdge destructor
 Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
-Debug: Deleting unreferenced e1Detector 'e1Detector_gneE1_0_0' in GNENet destructor
-Debug: Deleting unreferenced e2Detector 'e2Detector_gneE1_0_0' in GNENet destructor
-Debug: Deleting unreferenced e3Detector 'e3Detector_0' in GNENet destructor
-Debug: Deleting unreferenced detEntry 'e3Detector_0detEntry0' in GNENet destructor
-Debug: Deleting unreferenced detExit 'e3Detector_0detExit0' in GNENet destructor
-Debug: Deleting unreferenced instantInductionLoop 'instantInductionLoop_0' in GNENet destructor
-Debug: Deleting unreferenced variableSpeedSign 'variableSpeedSign_0' in GNENet destructor
-Debug: Deleting unreferenced rerouter 'rerouter_0' in GNENet destructor
-Debug: Deleting unreferenced busStop 'busStop_gneE1_0_0' in GNENet destructor
-Debug: Deleting unreferenced containerStop 'containerStop_gneE1_0_0' in GNENet destructor
-Debug: Deleting unreferenced parkingArea 'parkingArea_gneE1_0_0' in GNENet destructor
-Debug: Deleting unreferenced space 'parkingArea_gneE1_0_0space0' in GNENet destructor
-Debug: Deleting unreferenced space 'parkingArea_gneE1_0_0space1' in GNENet destructor
-Debug: Deleting unreferenced space 'parkingArea_gneE1_0_0space2' in GNENet destructor
-Debug: Deleting unreferenced chargingStation 'chargingStation_gneE1_0_0' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_PEDTYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting net builder in GNENet destructor

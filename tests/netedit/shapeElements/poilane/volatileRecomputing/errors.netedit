@@ -17,6 +17,7 @@ Debug: Adding poiLane 'POI_1' into viewNet
 GLDebug: Inserted poi:POI_1 into SUMORTree with boundary -3.00,-3.00,3.00,3.00
 GLDebug: Removed object poi:POI_1 from SUMORTree with boundary -3.00,-3.00,3.00,3.00
 GLDebug: Inserted poi:POI_1 into SUMORTree with boundary 5.00,2.60,11.00,8.60
+Debug: Format of optional positive optional float attribute 'height' of poi with ID 'POI_10' is invalid; Cannot be negative; Default value will be used.
 Debug: Adding poiLane 'POI_10' into viewNet
 GLDebug: Inserted poi:POI_10 into SUMORTree with boundary -3.00,-3.00,3.00,3.00
 GLDebug: Removed object poi:POI_10 from SUMORTree with boundary -3.00,-3.00,3.00,3.00
@@ -73,6 +74,7 @@ Debug: Adding poiLane 'POI_7' into viewNet
 GLDebug: Inserted poi:POI_7 into SUMORTree with boundary -3.00,-3.00,3.00,3.00
 GLDebug: Removed object poi:POI_7 from SUMORTree with boundary -3.00,-3.00,3.00,3.00
 GLDebug: Inserted poi:POI_7 into SUMORTree with boundary 17.00,-7.40,23.00,-1.40
+Debug: Format of optional positive optional float attribute 'width' of poi with ID 'POI_8' is invalid; Cannot be negative; Default value will be used.
 Debug: Adding poiLane 'POI_8' into viewNet
 GLDebug: Inserted poi:POI_8 into SUMORTree with boundary -3.00,-3.00,3.00,3.00
 GLDebug: Removed object poi:POI_8 from SUMORTree with boundary -3.00,-3.00,3.00,3.00
@@ -188,6 +190,8 @@ Debug: Deleting unreferenced lane 'gneE1_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE1_1togneE0_1' in GNEEdge destructor
 Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_PEDTYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 6

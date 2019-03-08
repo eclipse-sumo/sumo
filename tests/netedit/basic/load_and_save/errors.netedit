@@ -70,5 +70,7 @@ Debug: Deleting unreferenced junction 'B' in GNENet destructor
 Debug: Deleting unreferenced junction 'C' in GNENet destructor
 Debug: Deleting unreferenced junction 'Center' in GNENet destructor
 Debug: Deleting unreferenced junction 'D' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_PEDTYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting net builder in GNENet destructor
