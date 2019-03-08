@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Feb 15 13:34:40 2019 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Fri Mar  8 10:44:34 2019 by Eclipse SUMO netconvert Version v1_1_0+0435-678c69824b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -43,7 +43,7 @@ SPDX-License-Identifier: EPL-2.0
     <type id="withBikeLaneDefault"/>
 
     <edge id=":C_0" function="internal">
-        <lane id=":C_0_0" index="0" allow="bicycle" speed="11.27" length="29.57" width="2.00" shape="92.60,110.40 94.37,103.40 99.00,97.75 105.51,93.97 112.90,92.60"/>
+        <lane id=":C_0_0" index="0" allow="bicycle" speed="11.18" length="29.09" width="2.00" shape="92.60,110.40 94.52,103.91 99.42,98.20 105.98,94.15 112.90,92.60"/>
     </edge>
     <edge id=":C_1" function="internal">
         <lane id=":C_1_0" index="0" allow="passenger" speed="6.51" length="9.03" shape="95.20,110.40 94.85,107.95 93.80,106.20 92.05,105.15 89.60,104.80"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:27:55 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Fri Mar  8 10:25:20 2019 by Eclipse SUMO netconvert Version v1_1_0+0435-678c69824b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -125,7 +125,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="61321724" type="priority" x="205.52" y="0.00" incLanes="8856384_0 8856384_1" intLanes="" shape="205.49,0.00 211.82,-0.91 199.31,1.36 205.57,-0.01">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="61322089" type="priority" x="229.05" y="49.45" incLanes="8616185_0 8616185_1 8615594_0 8615594_1" intLanes="" shape="231.53,65.12 237.97,60.86 237.97,60.11 238.11,59.91 238.34,59.82 238.66,59.86 239.07,60.01 243.58,54.15 240.02,53.30 236.41,51.55 232.76,48.91 229.07,45.36 225.34,40.92 221.57,35.58 217.01,40.31 217.30,41.00 217.25,41.24 217.08,41.40 216.77,41.50 216.34,41.52 212.48,48.55 217.19,47.89 221.73,49.10 225.77,51.80 228.96,55.62 230.99,60.19">
+    <junction id="61322089" type="priority" x="229.05" y="49.45" incLanes="8616185_0 8616185_1 8615594_0 8615594_1" intLanes="" shape="231.53,65.12 237.97,60.86 237.97,60.11 238.11,59.91 238.34,59.82 238.66,59.86 239.07,60.01 243.58,54.15 240.02,53.30 236.41,51.55 232.76,48.91 229.07,45.36 225.34,40.92 221.57,35.58 217.01,40.31 217.30,41.00 217.25,41.24 217.08,41.40 216.77,41.50 216.34,41.52 212.48,48.55 218.53,47.13 223.47,47.59 227.28,49.77 229.92,53.53 231.34,58.70">
         <request index="0" response="000000" foes="000000"/>
         <request index="1" response="011000" foes="011000"/>
         <request index="2" response="111000" foes="111000"/>

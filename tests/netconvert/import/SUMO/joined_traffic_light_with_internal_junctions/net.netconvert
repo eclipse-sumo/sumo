@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jan 25 01:26:37 2019 by Eclipse SUMO netconvert Version v1_1_0+0435-678c69824b
+<!-- generated on Fri Mar  8 10:25:14 2019 by Eclipse SUMO netconvert Version v1_1_0+0435-678c69824b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -52,10 +52,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":27_1_0" index="0" allow="bus" speed="13.89" length="37.24" shape="1579.38,580.77 1568.16,581.20 1557.41,579.15 1548.48,576.68 1542.74,575.82"/>
     </edge>
     <edge id=":27_2" function="internal">
-        <lane id=":27_2_0" index="0" speed="13.89" length="16.63" shape="1578.75,577.63 1571.14,577.31 1564.12,573.83 1563.37,572.92"/>
+        <lane id=":27_2_0" index="0" speed="13.89" length="21.40" shape="1578.75,577.63 1571.74,577.00 1564.74,573.24 1560.49,568.44"/>
     </edge>
     <edge id=":27_14" function="internal">
-        <lane id=":27_14_0" index="0" speed="13.89" length="13.21" shape="1563.37,572.92 1559.39,568.15 1558.63,561.19"/>
+        <lane id=":27_14_0" index="0" speed="13.89" length="7.63" shape="1560.49,568.44 1559.71,567.56 1558.63,561.19"/>
     </edge>
     <edge id=":27_3" function="internal">
         <lane id=":27_3_0" index="0" speed="13.89" length="12.54" shape="1574.24,565.05 1573.53,569.61 1573.94,572.68 1575.46,574.26 1578.09,574.36"/>
@@ -75,10 +75,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":27_9_0" index="0" speed="13.89" length="36.97" shape="1541.66,569.36 1552.91,569.26 1563.59,571.33 1572.41,573.66 1578.09,574.36"/>
     </edge>
     <edge id=":27_10" function="internal">
-        <lane id=":27_10_0" index="0" speed="13.89" length="12.63" shape="1542.19,572.52 1550.61,574.23 1553.92,576.53"/>
+        <lane id=":27_10_0" index="0" speed="13.89" length="25.28" shape="1542.19,572.52 1550.11,574.46 1558.82,580.76 1562.83,585.71"/>
     </edge>
     <edge id=":27_15" function="internal">
-        <lane id=":27_15_0" index="0" speed="13.89" length="25.14" shape="1553.92,576.53 1559.34,580.29 1565.73,588.46 1567.15,596.51"/>
+        <lane id=":27_15_0" index="0" speed="13.89" length="11.92" shape="1562.83,585.71 1565.45,588.94 1567.15,596.51"/>
     </edge>
     <edge id=":27_11" function="internal">
         <lane id=":27_11_0" index="0" speed="13.89" length="31.86" shape="1545.01,590.62 1552.42,559.65"/>
@@ -97,7 +97,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":34_0_1" index="1" speed="13.89" length="18.35" shape="1594.19,468.13 1589.77,485.95"/>
     </edge>
     <edge id=":34_2" function="internal">
-        <lane id=":34_2_0" index="0" speed="13.89" length="26.08" shape="1591.09,467.35 1587.85,472.50 1582.41,474.18 1575.63,473.52 1568.38,471.65"/>
+        <lane id=":34_2_0" index="0" speed="13.89" length="25.70" shape="1591.09,467.35 1588.70,471.43 1584.12,473.51 1577.34,473.58 1568.38,471.65"/>
     </edge>
     <edge id=":34_3" function="internal">
         <lane id=":34_3_0" index="0" speed="13.89" length="9.88" shape="1569.27,468.58 1571.75,468.87 1573.76,468.14 1575.29,466.41 1576.34,463.66"/>
@@ -224,8 +224,8 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="51" type="dead_end" x="1438.56" y="432.19" incLanes="118_0" intLanes="" shape="1438.56,432.19 1437.67,435.26 1438.56,432.19"/>
     <junction id="73" type="dead_end" x="1386.00" y="600.50" incLanes="115_0" intLanes="" shape="1386.53,603.66 1386.00,600.50"/>
 
-    <junction id=":27_14_0" type="internal" x="1563.37" y="572.92" incLanes=":27_2_0 46_0 46_1" intLanes=":27_4_0 :27_4_1 :27_4_2 :27_7_0 :27_8_0 :27_9_0 :27_11_0 :27_11_1 :27_13_0"/>
-    <junction id=":27_15_0" type="internal" x="1553.92" y="576.53" incLanes=":27_10_0 31_0 31_1" intLanes=":27_0_0 :27_1_0 :27_4_0 :27_4_1 :27_4_2 :27_7_0 :27_11_0 :27_11_1 :27_13_0"/>
+    <junction id=":27_14_0" type="internal" x="1560.49" y="568.44" incLanes=":27_2_0 46_0 46_1" intLanes=":27_4_0 :27_4_1 :27_4_2 :27_7_0 :27_8_0 :27_9_0 :27_11_0 :27_11_1 :27_13_0"/>
+    <junction id=":27_15_0" type="internal" x="1562.83" y="585.71" incLanes=":27_10_0 31_0 31_1" intLanes=":27_0_0 :27_1_0 :27_4_0 :27_4_1 :27_4_2 :27_7_0 :27_11_0 :27_11_1 :27_13_0"/>
 
     <connection from="113" to="118" fromLane="0" toLane="0" via=":34_4_0" tl="210" linkIndex="16" dir="r" state="O"/>
     <connection from="113" to="209" fromLane="0" toLane="0" via=":34_5_0" tl="210" linkIndex="17" dir="s" state="O"/>

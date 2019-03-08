@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:27:59 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Fri Mar  8 10:25:25 2019 by Eclipse SUMO netconvert Version v1_1_0+0435-678c69824b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -118,7 +118,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="635894914" type="priority" x="666.19" y="0.00" incLanes="CS_0" intLanes=":635894914_0_0" shape="666.19,-0.00 663.04,0.56 666.19,-0.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="C" type="priority" x="694.68" y="561.27" incLanes="NC_0 EC_rail_0 EC_0 SC_0" intLanes=":C_0_0 :C_1_0 :C_2_0 :C_3_0 :C_4_0 :C_5_0 :C_6_0 :C_7_0 :C_8_0 :C_9_0" shape="691.36,575.42 697.75,575.12 698.10,572.91 698.62,572.14 699.37,571.59 700.35,571.27 701.57,571.18 701.61,567.98 697.64,567.08 695.62,564.87 695.38,561.90 696.78,558.70 699.65,555.82 703.84,553.78 702.00,547.65 699.86,547.84 699.10,547.51 698.55,546.89 698.20,545.99 698.06,544.80 691.66,544.97 692.12,550.14 692.85,555.35 693.28,560.17 692.86,564.15 691.03,566.83 687.21,567.78 687.16,570.98 689.40,571.49 690.21,572.11 690.80,572.97 691.19,574.07">
+    <junction id="C" type="priority" x="694.68" y="561.27" incLanes="NC_0 EC_rail_0 EC_0 SC_0" intLanes=":C_0_0 :C_1_0 :C_2_0 :C_3_0 :C_4_0 :C_5_0 :C_6_0 :C_7_0 :C_8_0 :C_9_0" shape="691.36,575.42 697.75,575.12 698.10,572.91 698.62,572.14 699.37,571.59 700.35,571.27 701.57,571.18 701.61,567.98 698.47,567.05 696.94,564.76 696.86,561.70 698.09,558.45 700.46,555.62 703.84,553.78 702.00,547.65 699.86,547.84 699.10,547.51 698.55,546.89 698.20,545.99 698.06,544.80 691.66,544.97 691.71,551.96 691.44,557.67 690.85,562.11 689.95,565.27 688.74,567.16 687.21,567.78 687.16,570.98 689.40,571.49 690.21,572.11 690.80,572.97 691.19,574.07">
         <request index="0" response="0000001000" foes="1000101000" cont="0"/>
         <request index="1" response="0110001000" foes="0111101000" cont="0"/>
         <request index="2" response="0100010000" foes="0100010000" cont="0"/>

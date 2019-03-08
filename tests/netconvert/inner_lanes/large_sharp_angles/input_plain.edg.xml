@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri 08 Mar 2019 09:06:01 AM CET by Eclipse SUMO netedit Version v1_1_0+0435-678c69824b
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net4.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net4.net.xml"/>
+        <plain-output-prefix value="/home/kobo/dlr/debug/5254/input_plain"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="-1"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<edges version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="CE" from="C" to="E" priority="2" numLanes="5" speed="13.89">
+        <lane index="0"/>
+        <lane index="1"/>
+        <lane index="2"/>
+        <lane index="3"/>
+        <lane index="4" disallow="all"/>
+    </edge>
+    <edge id="CN" from="C" to="N" priority="2" numLanes="5" speed="13.89">
+        <lane index="0"/>
+        <lane index="1"/>
+        <lane index="2"/>
+        <lane index="3"/>
+        <lane index="4" disallow="all"/>
+    </edge>
+    <edge id="CS" from="C" to="S" priority="2" numLanes="5" speed="13.89">
+        <lane index="0"/>
+        <lane index="1"/>
+        <lane index="2"/>
+        <lane index="3"/>
+        <lane index="4" disallow="all"/>
+    </edge>
+    <edge id="CW" from="C" to="W" priority="2" numLanes="5" speed="13.89">
+        <lane index="0"/>
+        <lane index="1"/>
+        <lane index="2"/>
+        <lane index="3"/>
+        <lane index="4" disallow="all"/>
+    </edge>
+    <edge id="EC" from="E" to="C" priority="2" numLanes="5" speed="13.89"/>
+    <edge id="NC" from="N" to="C" priority="2" numLanes="5" speed="13.89"/>
+    <edge id="SC" from="S" to="C" priority="2" numLanes="5" speed="13.89"/>
+    <edge id="WC" from="W" to="C" priority="2" numLanes="5" speed="13.89"/>
+</edges>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:28:01 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Fri Mar  8 10:25:27 2019 by Eclipse SUMO netconvert Version v1_1_0+0435-678c69824b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -314,7 +314,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":cluster_1865620626_3314305185_5_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="11.11" length="46.92" shape="163.59,499.41 172.99,506.93 184.02,513.57 193.16,520.91 196.87,530.50"/>
     </edge>
     <edge id=":cluster_1865620626_3314305185_6" function="internal">
-        <lane id=":cluster_1865620626_3314305185_6_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="11.11" length="19.44" shape="163.59,499.41 168.19,505.19 171.34,510.07 171.86,512.29 168.55,510.10"/>
+        <lane id=":cluster_1865620626_3314305185_6_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="11.11" length="15.61" shape="163.59,499.41 166.87,503.77 169.52,508.24 170.45,510.96 168.55,510.10"/>
     </edge>
     <edge id=":cluster_1865620626_3314305185_c0" function="crossing" crossingEdges="175999143#0">
         <lane id=":cluster_1865620626_3314305185_c0_0" index="0" allow="pedestrian" speed="1.00" length="6.40" width="4.00" shape="167.15,496.11 163.37,501.27"/>

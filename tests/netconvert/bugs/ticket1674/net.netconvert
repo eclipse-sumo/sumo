@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:28:01 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Fri Mar  8 10:25:27 2019 by Eclipse SUMO netconvert Version v1_1_0+0435-678c69824b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -82,7 +82,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":829260313_0_0" index="0" disallow="rail_urban rail rail_electric" speed="13.89" length="13.82" shape="93.66,47.86 90.38,49.31 86.88,49.95 83.65,50.82 81.13,53.00"/>
     </edge>
     <edge id=":829260313_1" function="internal">
-        <lane id=":829260313_1_0" index="0" disallow="rail_urban rail rail_electric" speed="6.70" length="19.32" shape="93.66,47.86 88.61,49.96 85.83,48.27 85.76,44.02 88.82,38.46"/>
+        <lane id=":829260313_1_0" index="0" disallow="rail_urban rail rail_electric" speed="5.92" length="14.67" shape="93.66,47.86 90.38,48.49 88.07,46.16 87.34,42.33 88.82,38.46"/>
     </edge>
     <edge id=":829260313_2" function="internal">
         <lane id=":829260313_2_0" index="0" disallow="rail_urban rail rail_electric" speed="3.86" length="5.50" shape="93.66,47.86 92.19,47.03 91.64,46.13 92.04,45.15 93.38,44.11"/>
