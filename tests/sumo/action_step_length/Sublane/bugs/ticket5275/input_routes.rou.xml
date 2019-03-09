@@ -1,0 +1,10 @@
+<routes>
+    <vType id="DEFAULT_VEHTYPE" sigma="0" maxSpeedLat="3" minGapLat="0" lcAccelLat="3" width="2.9" actionStepLength="1.0" lcStrategic="10"/>
+    <route id="r0" edges="beg"/>
+    <!--
+    -->
+    <vehicle id="l1" route="r0" depart="0" departSpeed="max" departLane="2" arrivalLane="1" departPos="100"/>
+    <vehicle id="l2" route="r0" depart="0" departSpeed="max" departLane="2" arrivalLane="1" departPos="50"/>
+    <vehicle id="r1" route="r0" depart="0" departSpeed="max" departLane="0" arrivalLane="1" departPos="50"/>
+    <vehicle id="r2" route="r0" depart="0" departSpeed="max" departLane="0" arrivalLane="1" departPos="100"/>
+</routes>
