@@ -134,8 +134,8 @@ MSLCM_SL2015::MSLCM_SL2015(MSVehicle& v) :
     // by default use SUMO_ATTR_LCA_PUSHY. If that is not set, try SUMO_ATTR_LCA_PUSHYGAP
     myPushy(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_PUSHY,
             1 - (v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_PUSHYGAP,
-                    v.getVehicleType().getMinGapLat()) /
-                 v.getVehicleType().getMinGapLat()))),
+                    MAX2(NUMERICAL_EPS, v.getVehicleType().getMinGapLat())) /
+                 MAX2(NUMERICAL_EPS, v.getVehicleType().getMinGapLat())))),
     myAssertive(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_ASSERTIVE, 1)),
     myImpatience(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_IMPATIENCE, 0)),
     myMinImpatience(myImpatience),
