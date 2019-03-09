@@ -210,13 +210,6 @@ MSEdgeControl::executeMovements(SUMOTime t) {
             }
         }
     }
-    if (MSGlobals::gLateralResolution > 0) {
-        // multiple vehicle shadows may have entered an inactive lane and would
-        // not be sorted otherwise
-        for (const LaneUsage& lu : myLanes) {
-            lu.lane->sortPartialVehicles();
-        }
-    }
 }
 
 
