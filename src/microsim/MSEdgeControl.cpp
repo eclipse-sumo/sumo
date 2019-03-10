@@ -296,20 +296,11 @@ MSEdgeControl::detectCollisions(SUMOTime timestep, const std::string& stage) {
 }
 
 
-std::vector<std::string>
-MSEdgeControl::getEdgeNames() const {
-    std::vector<std::string> ret;
-    for (MSEdgeVector::const_iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
-        ret.push_back((*i)->getID());
-    }
-    return ret;
-}
-
-
 void
 MSEdgeControl::gotActive(MSLane* l) {
     myChangedStateLanes.insert(l);
 }
+
 
 void
 MSEdgeControl::setAdditionalRestrictions() {

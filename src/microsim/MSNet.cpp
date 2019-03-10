@@ -1019,16 +1019,6 @@ MSNet::adaptIntermodalRouter(MSIntermodalRouter& router) {
 }
 
 
-const NamedRTree&
-MSNet::getLanesRTree() const {
-    if (!myLanesRTree.first) {
-        MSLane::fill(myLanesRTree.second);
-        myLanesRTree.first = true;
-    }
-    return myLanesRTree.second;
-}
-
-
 bool
 MSNet::checkElevation() {
     const MSEdgeVector& edges = myEdges->getEdges();

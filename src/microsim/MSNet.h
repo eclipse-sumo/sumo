@@ -608,11 +608,6 @@ public:
     static void adaptIntermodalRouter(MSIntermodalRouter& router);
 
 
-    /** @brief Returns an RTree that contains lane IDs
-     * @return An Rtree containing lane IDs
-     */
-    const NamedRTree& getLanesRTree() const;
-
     /// @brief return whether the network contains internal links
     bool hasInternalLinks() const {
         return myHasInternalLinks;

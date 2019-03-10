@@ -170,13 +170,6 @@ public:
     }
 
 
-    /** @brief Returns the list of names of all known edges
-     *
-     * @return a vector of names of all known edges
-     */
-    std::vector<std::string> getEdgeNames() const;
-
-
     /** @brief Informs the control that the given lane got active
      *
      * @param[in] l The activated lane
