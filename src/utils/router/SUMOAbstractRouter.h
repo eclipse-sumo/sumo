@@ -80,6 +80,7 @@ public:
 
         inline void reset() {
             effort = std::numeric_limits<double>::max();
+            heuristicEffort = std::numeric_limits<double>::max();
             visited = false;
         }
 
