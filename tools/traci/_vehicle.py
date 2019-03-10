@@ -57,7 +57,7 @@ def _readLeader(result):
 
 def _readNeighbors(result):
     """ result has structure:
-    byte(TYPE_COMPOUND) | length(neighList) | Per list entry: string(vehID) | double(dist)   
+    byte(TYPE_COMPOUND) | length(neighList) | Per list entry: string(vehID) | double(dist)
     """
     N = result.readInt()  # length of the vehicle list
     neighs = []
@@ -685,19 +685,19 @@ class VehicleDomain(Domain):
         return self.getNeighbors(vehID, mode)
 
     def getNeighbors(self, vehID, mode):
-        """ byte -> list(pair(string, double)) 
+        """ byte -> list(pair(string, double))
 
         The parameter mode is a bitset (UBYTE), specifying the following:
         bit 1: query lateral direction (left:0, right:1)
         bit 2: query longitudinal direction (followers:0, leaders:1)
         bit 3: blocking (return all:0, return only blockers:1)
 
-        The returned list contains pairs (ID, dist) for all lane change relevant neighboring leaders, resp. followers, 
-        along with their longitudinal distance to the ego vehicle (egoFront - egoMinGap to leaderBack, resp. 
-        followerFront - followerMinGap to egoBack. The value can be negative for overlapping neighs). 
+        The returned list contains pairs (ID, dist) for all lane change relevant neighboring leaders, resp. followers,
+        along with their longitudinal distance to the ego vehicle (egoFront - egoMinGap to leaderBack, resp.
+        followerFront - followerMinGap to egoBack. The value can be negative for overlapping neighs).
         For the non-sublane case, the lists will contain at most one entry.
 
-        Note: The exact set of blockers in case blocking==1 is not determined for the sublane model, 
+        Note: The exact set of blockers in case blocking==1 is not determined for the sublane model,
         but either all neighboring vehicles are returned (in case LCA_BLOCKED) or
         none is returned (in case !LCA_BLOCKED).
         """
@@ -1042,8 +1042,8 @@ class VehicleDomain(Domain):
         to achieve a minimal spatial gap.
         The vehicle is commanded to keep the increased headway for
         the given duration once its target value is attained. The maximal value for the
-        deceleration can be given to prevent harsh braking due to the change of tau. If maxDecel=-1, 
-        the limit determined by the CF model is used. 
+        deceleration can be given to prevent harsh braking due to the change of tau. If maxDecel=-1,
+        the limit determined by the CF model is used.
         A vehicle ID for a reference vehicle can optionally be given, otherwise, the gap is created with
         respect to the current leader on the ego vehicle's current lane.
         Note that this does only affect the following behavior regarding the current leader and does
@@ -1505,8 +1505,8 @@ class VehicleDomain(Domain):
             depart = str(self._connection.simulation.getTime())
         for val in (routeID, typeID, depart, departLane, departPos, departSpeed,
                     arrivalLane, arrivalPos, arrivalSpeed, fromTaz, toTaz, line):
-            messageString += struct.pack("!Bi",
-                                         tc.TYPE_STRING, len(val)) + str(val).encode("latin1")
+            val = str(val)
+            messageString += struct.pack("!Bi", tc.TYPE_STRING, len(val)) + val.encode("latin1")
         messageString += struct.pack("!Bi", tc.TYPE_INTEGER, personCapacity)
         messageString += struct.pack("!Bi", tc.TYPE_INTEGER, personNumber)
 
