@@ -104,7 +104,6 @@ public:
 public:
     /** @brief Constructor
      *
-     * @param[in] holder The vehicle that holds this device
      * @param[in] id The ID of the device
      */
     MSDevice(const std::string& id) : Named(id) {
