@@ -552,7 +552,7 @@ MSAbstractLaneChangeModel::getShadowDirection() const {
 }
 
 
-void
+MSLane*
 MSAbstractLaneChangeModel::updateTargetLane() {
 #ifdef DEBUG_TARGET_LANE
     MSLane* oldTarget = myTargetLane;
@@ -596,6 +596,7 @@ MSAbstractLaneChangeModel::updateTargetLane() {
                   << std::endl;
     }
 #endif
+    return myTargetLane;
 }
 
 

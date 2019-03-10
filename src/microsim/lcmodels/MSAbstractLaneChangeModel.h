@@ -503,7 +503,7 @@ public:
 
     /* @brief update lane change reservations after the vehicle moved to a new lane
      * @note  The shadow lane should always be updated before updating the target lane. */
-    void updateTargetLane();
+    MSLane* updateTargetLane();
 
     /* @brief Determines the lane which the vehicle intends to enter during its current action step.
      *        targetDir is set to the offset of the returned lane with respect to the vehicle'a current lane. */

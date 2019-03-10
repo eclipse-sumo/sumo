@@ -332,7 +332,18 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
     }
 
     // Update maneuver reservations on target lanes
-    vehicle->getLaneChangeModel().updateTargetLane();
+    MSLane* targetLane = vehicle->getLaneChangeModel().updateTargetLane();
+    if (!changedToNewLane && targetLane != nullptr
+            && vehicle->getActionStepLength() > DELTA_T) {
+        const int dir = (vehicle->getLaneChangeModel().getManeuverDist() > 0 ? 1 : -1);
+        ChangerIt target = from + dir;
+        const double actionStepDist = dir * vehicle->getVehicleType().getMaxSpeedLat() * vehicle->getActionStepLengthSecs();
+        const double latOffset = vehicle->getLatOffset(targetLane) + actionStepDist;
+        target->ahead.addLeader(vehicle, false, latOffset);
+        //std::cout << SIMTIME << " veh=" << vehicle->getID() << " target=" << targetLane->getID()
+        //    << " actionStepDist=" << actionStepDist << " latOffset=" << latOffset
+        //    << " targetAhead=" << target->ahead.toString() << "\n";
+    }
 
     // compute new angle of the vehicle from the x- and y-distances travelled within last time step
     // (should happen last because primaryLaneChanged() also triggers angle computation)
@@ -354,7 +365,6 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
     }
 #ifdef DEBUG_MANEUVER
     if (vehicle->getLaneChangeModel().debugVehicle()) {
-        MSLane* targetLane = vehicle->getLaneChangeModel().getTargetLane();
         std::cout << SIMTIME << " startChangeSublane()"
                   << " shadowLane=" << (shadowLane != nullptr ? shadowLane->getID() : "NULL")
                   << " targetLane=" << (targetLane != nullptr ? targetLane->getID() : "NULL")

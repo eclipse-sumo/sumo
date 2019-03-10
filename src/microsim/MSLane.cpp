@@ -1940,14 +1940,14 @@ void
 MSLane::sortManeuverReservations() {
     if (myManeuverReservations.size() > 1) {
 #ifdef DEBUG_CONTEXT
-        if DEBUG_COND {
+        if (DEBUG_COND) {
         std::cout << "sortManeuverReservations on lane " << getID()
                       << "\nBefore sort: " << toString(myManeuverReservations) << std::endl;
         }
 #endif
         sort(myManeuverReservations.begin(), myManeuverReservations.end(), vehicle_natural_position_sorter(this));
 #ifdef DEBUG_CONTEXT
-        if DEBUG_COND {
+        if (DEBUG_COND) {
         std::cout << "After sort: " << toString(myManeuverReservations) << std::endl;
         }
 #endif
