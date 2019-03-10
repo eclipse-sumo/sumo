@@ -318,16 +318,16 @@ class SimulationDomain(Domain):
                                                 pos, laneIndex, tc.TYPE_UBYTE, posType)
         return self._connection._checkResult(tc.CMD_GET_SIM_VARIABLE, tc.POSITION_CONVERSION, "").read("!ddd")
 
-    def convertRoad(self, x, y, isGeo=False):
+    def convertRoad(self, x, y, isGeo=False, vClass="ignoring"):
         posType = tc.POSITION_2D
         if isGeo:
             posType = tc.POSITION_LON_LAT
         self._connection._beginMessage(
-            tc.CMD_GET_SIM_VARIABLE, tc.POSITION_CONVERSION, "", 1 + 4 + 1 + 8 + 8 + 1 + 1)
-        self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 2)
+            tc.CMD_GET_SIM_VARIABLE, tc.POSITION_CONVERSION, "", 1 + 4 + 1 + 8 + 8 + 1 + 1 + 1 + 4 + len(vClass))
+        self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 3)
         self._connection._string += struct.pack("!Bdd", posType, x, y)
-        self._connection._string += struct.pack("!BB",
-                                                tc.TYPE_UBYTE, tc.POSITION_ROADMAP)
+        self._connection._string += struct.pack("!BB", tc.TYPE_UBYTE, tc.POSITION_ROADMAP)
+        self._connection._packString(vClass)
         result = self._connection._checkResult(
             tc.CMD_GET_SIM_VARIABLE, tc.POSITION_CONVERSION, "")
         return result.readString(), result.readDouble(), result.read("!B")[0]

@@ -323,12 +323,16 @@ Simulation::convert3D(const std::string& edgeID, double pos, int laneIndex, bool
 
 
 TraCIRoadPosition
-Simulation::convertRoad(double x, double y, bool isGeo) {
+Simulation::convertRoad(double x, double y, bool isGeo, const std::string& vClass) {
     Position pos(x, y);
     if (isGeo) {
         GeoConvHelper::getFinal().x2cartesian_const(pos);
     }
-    std::pair<MSLane*, double> roadPos = libsumo::Helper::convertCartesianToRoadMap(pos);
+    if (!SumoVehicleClassStrings.hasString(vClass)) {
+        throw TraCIException("Unknown vehicle class '" + vClass + "'.");
+    }
+    const SUMOVehicleClass vc = SumoVehicleClassStrings.get(vClass);
+    std::pair<MSLane*, double> roadPos = libsumo::Helper::convertCartesianToRoadMap(pos, vc);
     if (roadPos.first == nullptr) {
         throw TraCIException("Cannot convert position to road.");
     }
@@ -361,8 +365,8 @@ Simulation::getDistance2D(double x1, double y1, double x2, double y2, bool isGeo
         GeoConvHelper::getFinal().x2cartesian_const(pos2);
     }
     if (isDriving) {
-        std::pair<const MSLane*, double> roadPos1 = libsumo::Helper::convertCartesianToRoadMap(pos1);
-        std::pair<const MSLane*, double> roadPos2 = libsumo::Helper::convertCartesianToRoadMap(pos2);
+        std::pair<const MSLane*, double> roadPos1 = libsumo::Helper::convertCartesianToRoadMap(pos1, SVC_IGNORING);
+        std::pair<const MSLane*, double> roadPos2 = libsumo::Helper::convertCartesianToRoadMap(pos2, SVC_IGNORING);
         if ((roadPos1.first == roadPos2.first) && (roadPos1.second <= roadPos2.second)) {
             // same edge
             return roadPos2.second - roadPos1.second;

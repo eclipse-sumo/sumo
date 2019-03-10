@@ -534,7 +534,7 @@ double
 Vehicle::getDrivingDistance2D(const std::string& vehicleID, double x, double y) {
     MSVehicle* veh = getVehicle(vehicleID);
     if (veh->isOnRoad()) {
-        std::pair<MSLane*, double> roadPos = Helper::convertCartesianToRoadMap(Position(x, y));
+        std::pair<MSLane*, double> roadPos = Helper::convertCartesianToRoadMap(Position(x, y), veh->getVehicleType().getVehicleClass());
         double distance = veh->getRoute().getDistanceBetween(veh->getPositionOnLane(), roadPos.second,
                           veh->getEdge(), &roadPos.first->getEdge(), true, veh->getRoutePosition());
         if (distance == std::numeric_limits<double>::max()) {

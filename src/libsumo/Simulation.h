@@ -94,7 +94,7 @@ public:
 
     static TraCIPosition convert3D(const std::string& edgeID, double pos, int laneIndex = 0, bool toGeo = false);
 
-    static TraCIRoadPosition convertRoad(double x, double y, bool isGeo = false);
+    static TraCIRoadPosition convertRoad(double x, double y, bool isGeo = false, const std::string& vClass="ignoring");
 
     static TraCIPosition convertGeo(double x, double y, bool fromGeo = false);
 

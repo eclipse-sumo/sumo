@@ -23,6 +23,7 @@
 #include <config.h>
 
 #include <utils/geom/GeomHelper.h>
+#include <utils/geom/GeoConvHelper.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSTransportableControl.h>
@@ -288,25 +289,33 @@ Helper::getLaneChecking(const std::string& edgeID, int laneIndex, double pos) {
 
 
 std::pair<MSLane*, double>
-Helper::convertCartesianToRoadMap(Position pos) {
-    /// XXX use rtree instead
+Helper::convertCartesianToRoadMap(const Position& pos, const SUMOVehicleClass vClass) {
+    const PositionVector shape({ pos });
     std::pair<MSLane*, double> result;
-    std::vector<std::string> allEdgeIds;
-    double minDistance = std::numeric_limits<double>::max();
-
-    allEdgeIds = MSNet::getInstance()->getEdgeControl().getEdgeNames();
-    for (std::vector<std::string>::iterator itId = allEdgeIds.begin(); itId != allEdgeIds.end(); itId++) {
-        const std::vector<MSLane*>& allLanes = MSEdge::dictionary((*itId))->getLanes();
-        for (std::vector<MSLane*>::const_iterator itLane = allLanes.begin(); itLane != allLanes.end(); itLane++) {
-            const double newDistance = (*itLane)->getShape().distance2D(pos);
-            if (newDistance < minDistance) {
-                minDistance = newDistance;
-                result.first = (*itLane);
+    double range = 1000.;
+    const Boundary& netBounds = GeoConvHelper::getFinal().getConvBoundary();
+    const double maxRange = MAX2(1001., netBounds.getWidth() + netBounds.getHeight() + netBounds.distanceTo2D(pos));
+    while (range < maxRange) {
+        std::set<std::string> laneIds;
+        collectObjectsInRange(libsumo::CMD_GET_LANE_VARIABLE, shape, range, laneIds);
+        double minDistance = std::numeric_limits<double>::max();
+        for (const std::string& laneID : laneIds) {
+            MSLane* const lane = MSLane::dictionary(laneID);
+            if (lane->allowsVehicleClass(vClass)) {
+                const double newDistance = lane->getShape().distance2D(pos);
+                if (newDistance < minDistance) {
+                    minDistance = newDistance;
+                    result.first = lane;
+                }
             }
         }
+        if (minDistance < std::numeric_limits<double>::max()) {
+            // @todo this may be a place where 3D is required but 2D is delivered
+            result.second = result.first->getShape().nearest_offset_to_point2D(pos, false);
+            break;
+        }
+        range *= 2;
     }
-    // @todo this may be a place where 3D is required but 2D is delivered
-    result.second = result.first->getShape().nearest_offset_to_point2D(pos, false);
     return result;
 }
 
