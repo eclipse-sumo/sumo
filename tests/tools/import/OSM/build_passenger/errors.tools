@@ -10,4 +10,3 @@ Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|hi
 Warning: Discarding unusable type 'highway.construction' (first occurence for edge '190461577').
 Warning: No way found for reference '48858193' in relation '2439689'
 Warning: Ignoring restriction relation '2439689' with unknown from-way.
-Warning: Intersecting left turns at junction 'cluster_1560224191_1560224195_2697454310_443598395' from lane '142575693#0_0' and lane '142575692#0_0'. (increase junction radius to avoid this)

@@ -1,10 +1,10 @@
-Written configuration to '/scr2/texttest_tmp/tools.10Jul161808.9640/tools/import/OSM/build_passenger/net.netccfg'
+Written configuration to 'net.netccfg'
 Loading configuration... done.
 Parsing types from '/scr1/sumo/data/typemap/osmNetconvert.typ.xml'... done.
-Parsing nodes from osm-file '/scr2/texttest_tmp/tools.10Jul161808.9640/tools/import/OSM/build_passenger/osm.xml'... done.
-Parsing edges from osm-file '/scr2/texttest_tmp/tools.10Jul161808.9640/tools/import/OSM/build_passenger/osm.xml'... done.
+Parsing nodes from osm-file 'osm.xml'... done.
+Parsing edges from osm-file 'osm.xml'... done.
 Removing duplicate edges... done.
-Parsing relations from osm-file '/scr2/texttest_tmp/tools.10Jul161808.9640/tools/import/OSM/build_passenger/osm.xml'... 
+Parsing relations from osm-file 'osm.xml'... 
 done.
  Removed 32 traffic lights before loading plain-XML
  Import done:
@@ -13,17 +13,17 @@ done.
    257 edges loaded.
 Proj projection parameters used: '+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
 Removing self-loops... done (0ms).
-Joining junction clusters... done (0ms).
+Joining junction clusters... done (1ms).
  Joined 6 junction cluster(s).
 Removing empty nodes and geometry nodes... done (1ms).
    245 nodes removed.
 Moving network to origin... done (0ms).
 Computing turning directions... done (0ms).
 Assigning nodes to traffic lights... done (0ms).
-Guessing and setting on-/off-ramps... done (1ms).
+Guessing and setting on-/off-ramps... done (0ms).
 Sorting nodes' edges... done (0ms).
-Computing node shapes... done (2ms).
-Computing edge shapes... done (0ms).
+Computing node shapes... done (1ms).
+Computing edge shapes... done (2ms).
 Computing node types... done (0ms).
 Computing priorities... done (0ms).
 Computing approached edges... done (0ms).
@@ -35,10 +35,9 @@ Rechecking of lane endings... done (0ms).
 Joining traffic light nodes... done (0ms).
 Computing traffic light control information... done (0ms).
 Computing node logics... done (1ms).
-Computing traffic light logics... done (0ms).
+Computing traffic light logics... done (1ms).
  6 traffic light(s) computed.
-Building inner edges... 
-done (3ms).
+Building inner edges... done (2ms).
 -----------------------------------------------------
 Summary:
  Node type statistics:
@@ -51,5 +50,5 @@ Summary:
   Applied offset     : -398348.81,-5809189.04
   Converted boundary : 0.00,0.00,2640.77,946.75
 -----------------------------------------------------
-Writing network... done (22ms).
+Writing network... done (19ms).
 Success.
