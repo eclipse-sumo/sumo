@@ -198,8 +198,9 @@ GUICompleteSchemeStorage::writeSettings(FXApp* app) {
 
 
 void
-GUICompleteSchemeStorage::saveViewport(const double x, const double y, const double z) {
+GUICompleteSchemeStorage::saveViewport(const double x, const double y, const double z, const double rot) {
     myLookFrom.set(x, y, z);
+    myRotation = rot;
 }
 
 
@@ -207,7 +208,7 @@ void
 GUICompleteSchemeStorage::setViewport(GUISUMOAbstractView* view) {
     if (myLookFrom.z() > 0) {
         // look straight down
-        view->setViewportFromToRot(myLookFrom, Position(myLookFrom.x(), myLookFrom.y(), 0), 0);
+        view->setViewportFromToRot(myLookFrom, Position(myLookFrom.x(), myLookFrom.y(), 0), myRotation);
     } else {
         view->recenterView();
     }

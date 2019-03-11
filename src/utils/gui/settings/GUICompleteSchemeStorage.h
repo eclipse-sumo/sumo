@@ -115,7 +115,7 @@ public:
      * @param[in] y The y-offset
      * @param[in] z The camera height
      */
-    void saveViewport(const double x, const double y, const double z);
+    void saveViewport(const double x, const double y, const double z, const double rot);
 
 
     /** @brief Sets the default viewport
@@ -139,6 +139,7 @@ protected:
 
     /// @brief The default viewport
     Position myLookFrom, myLookAt;
+    double myRotation;
 
 
 };

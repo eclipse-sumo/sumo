@@ -1642,7 +1642,7 @@ GUIApplicationWindow::loadConfigOrNet(const std::string& file, bool isNet) {
     getApp()->beginWaitCursor();
     myAmLoading = true;
     closeAllWindows();
-    gSchemeStorage.saveViewport(0, 0, -1); // recenter view
+    gSchemeStorage.saveViewport(0, 0, -1, 0); // recenter view
     myLoadThread->loadConfigOrNet(file, isNet);
     setStatusBarText("Loading '" + file + "'.");
     update();

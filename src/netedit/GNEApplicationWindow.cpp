@@ -1279,7 +1279,7 @@ GNEApplicationWindow::loadConfigOrNet(const std::string file, bool isNet, bool i
         myLoadThread->start();
         setStatusBarText("Reloading.");
     } else {
-        gSchemeStorage.saveViewport(0, 0, -1); // recenter view
+        gSchemeStorage.saveViewport(0, 0, -1, 0); // recenter view
         myLoadThread->loadConfigOrNet(file, isNet, useStartupOptions, newNet);
         setStatusBarText("Loading '" + file + "'.");
     }
