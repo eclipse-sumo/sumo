@@ -1954,6 +1954,10 @@ MSVehicle::processNextStop(double currentVelocity) {
                     // let the parking area know the vehicle
                     stop.parkingarea->enter(this, myState.pos() + getVehicleType().getMinGap(), myState.pos() - myType->getLength());
                 }
+
+                if (stop.pars.tripId != "") {
+                    ((SUMOVehicleParameter&)getParameter()).setParameter("tripId", stop.pars.tripId);
+                }
             }
         }
     }

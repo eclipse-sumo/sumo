@@ -189,6 +189,9 @@ SUMOVehicleParameter::Stop::write(OutputDevice& dev) const {
     if ((parametersSet & STOP_EXPECTED_CONTAINERS_SET) != 0) {
         dev.writeAttr(SUMO_ATTR_EXPECTED_CONTAINERS, awaitedContainers);
     }
+    if ((parametersSet & STOP_TRIP_ID_SET) != 0) {
+        dev.writeAttr(SUMO_ATTR_TRIP_ID, tripId);
+    }
     dev.closeTag();
 }
 
