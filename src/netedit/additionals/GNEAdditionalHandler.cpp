@@ -179,6 +179,7 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
         case SUMO_TAG_INDUCTION_LOOP:
             return parseAndBuildDetectorE1(viewNet, allowUndoRedo, attrs, insertedAdditionals);
         case SUMO_TAG_E2DETECTOR:
+        case SUMO_TAG_E2DETECTOR_MULTILANE:
         case SUMO_TAG_LANE_AREA_DETECTOR:
             return parseAndBuildDetectorE2(viewNet, allowUndoRedo, attrs, insertedAdditionals);
         case SUMO_TAG_E3DETECTOR:
