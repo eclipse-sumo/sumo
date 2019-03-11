@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Feb 15 13:34:36 2019 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Mon Mar 11 08:15:32 2019 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -357,7 +357,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":1637792027_3_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="8.33" length="26.48" shape="1189.38,2271.65 1206.76,2251.67"/>
     </edge>
     <edge id=":1637792027_4" function="internal">
-        <lane id=":1637792027_4_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="7.09" length="20.04" shape="1189.38,2271.65 1194.16,2267.85 1198.21,2267.66 1200.63,2270.73 1200.51,2276.70"/>
+        <lane id=":1637792027_4_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="6.53" length="16.70" shape="1189.38,2271.65 1193.19,2269.32 1197.16,2269.75 1200.03,2272.39 1200.51,2276.70"/>
     </edge>
     <edge id=":1637792027_5" function="internal">
         <lane id=":1637792027_5_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="3.65" length="4.67" shape="1189.38,2271.65 1190.77,2271.25 1191.64,2271.46 1191.99,2272.28 1191.82,2273.71"/>
