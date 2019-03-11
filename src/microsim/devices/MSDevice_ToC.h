@@ -149,9 +149,6 @@ public:
     void setParameter(const std::string& key, const std::string& value);
 
 
-    /// @brief Ensure existence of DriverState for equipped vehicles
-    SUMOTime ensureDriverStateExistence(SUMOTime);
-
     /// @brief Trigger execution of an MRM
     SUMOTime triggerMRM(SUMOTime t);
 

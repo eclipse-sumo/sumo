@@ -72,6 +72,14 @@ public:
      */
     static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into);
 
+    /// update internal state
+    void update();
+
+    /// return internal state
+    inline std::shared_ptr<MSSimpleDriverState> getDriverState() const {
+        return myDriverState;
+    }
+
 private:
     /// @name Helpers for parameter parsing
     /// @{
@@ -120,9 +128,6 @@ private:
 
     /// @brief Initializeses the driver state parameters
     void initDriverState();
-
-    /// @brief Creates a DriverState for the equipped vehicle
-    SUMOTime createDriverState(SUMOTime);
 
 private:
     /// @brief The holder vehicle casted to MSVehicle*

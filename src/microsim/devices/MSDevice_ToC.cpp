@@ -279,8 +279,6 @@ MSDevice_ToC::MSDevice_ToC(SUMOVehicle& holder, const std::string& id, const std
     myOpenGapParams(ogp) {
     // Take care! Holder is currently being constructed. Cast occurs before completion.
     myHolderMS = static_cast<MSVehicle*>(&holder);
-    // Ensure that the holder receives a driver state as soon as it is created (can't be done here, since myHolderMS is incomplete)
-    MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(new WrappingCommand<MSDevice_ToC>(this, &MSDevice_ToC::ensureDriverStateExistence), SIMSTEP);
 
     if (outputFilename != "") {
         myOutputFile = &OutputDevice::getDevice(outputFilename);
@@ -365,21 +363,6 @@ MSDevice_ToC::initColorScheme() {
 }
 
 
-SUMOTime
-MSDevice_ToC::ensureDriverStateExistence(SUMOTime /* t */) {
-#ifdef DEBUG_TOC
-    std::cout << SIMTIME << " ensureDriverStateExistence() for vehicle '" << myHolder.getID() << "'" << std::endl;
-#endif
-    // Ensure that the holder has a driver state
-    if (myHolderMS->getDriverState() == nullptr
-            && !myHolderMS->hasDevice("driverstate")) {
-        // Create an MSDriverState for the vehicle if it hasn't one already,
-        // and has no DriverState Device attached (that will create the driver state, then)
-        myHolderMS->createDriverState();
-    }
-    return 0;
-}
-
 MSDevice_ToC::~MSDevice_ToC() {
     // unregister from static instance container
     instances.erase(this);
@@ -418,8 +401,7 @@ MSDevice_ToC::setAwareness(double value) {
         resetDeliberateLCs();
     }
     myCurrentAwareness = value;
-    std::shared_ptr<MSSimpleDriverState> ds = myHolderMS->getDriverState();
-    ds->setAwareness(value);
+    myHolderMS->getDriverState()->setAwareness(value);
 }
 
 

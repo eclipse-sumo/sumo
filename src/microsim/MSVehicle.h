@@ -67,7 +67,7 @@ class Position;
 class MSContainer;
 class MSJunction;
 class MSLeaderInfo;
-//class MSDriverState;
+class MSDevice_DriverState;
 class MSSimpleDriverState;
 
 // ===========================================================================
@@ -898,9 +898,8 @@ public:
      * @return The vehicle driver's state
      *
      */
-    inline std::shared_ptr<MSSimpleDriverState> getDriverState() const {
-        return myDriverState;
-    }
+
+    std::shared_ptr<MSSimpleDriverState> getDriverState() const;
 
 
     /** @brief Returns the vehicle's car following model variables
@@ -981,10 +980,6 @@ public:
      */
     bool replaceParkingArea(MSParkingArea* parkingArea, std::string& errorMsg);
 
-    /** @brief Create a DriverState for the vehicle
-     */
-    void createDriverState();
-
     /** @brief get the upcoming parking area stop or nullptr
      */
     MSParkingArea* getNextParkingArea();
@@ -1002,7 +997,7 @@ public:
     /** @brief Whether this vehicle is equipped with a MSDriverState
      */
     inline bool hasDriverState() const {
-        return (myDriverState != nullptr);
+        return myDriverState != nullptr;
     }
 
     /** @brief Returns whether the vehicle is at a stop
@@ -1828,8 +1823,7 @@ protected:
     State myState;
 
     /// @brief This vehicle's driver state @see MSDriverState
-//    std::shared_ptr<MSDriverState> myDriverState;
-    std::shared_ptr<MSSimpleDriverState> myDriverState;
+    MSDevice_DriverState* myDriverState;
 
     /// @brief The flag myActionStep indicates whether the current time step is an action point for the vehicle.
     bool myActionStep;

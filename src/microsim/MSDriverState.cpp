@@ -183,7 +183,7 @@ MSSimpleDriverState::setAwareness(const double value) {
     assert(value <= 1.);
 #ifdef DEBUG_AWARENESS
     if DEBUG_COND {
-    std::cout << SIMTIME << " veh=" << myVehicle->getID() << ", setAwareness(" << MAX2(value, minAwareness) << ")" << std::endl;
+    std::cout << SIMTIME << " veh=" << myVehicle->getID() << ", setAwareness(" << MAX2(value, myMinAwareness) << ")" << std::endl;
     }
 #endif
     myAwareness = MAX2(value, myMinAwareness);

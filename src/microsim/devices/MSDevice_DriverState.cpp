@@ -63,7 +63,7 @@ void
 MSDevice_DriverState::insertOptions(OptionsCont& oc) {
     oc.addOptionSubTopic("Driver State Device");
     insertDefaultAssignmentOptions("driverstate", "Driver State Device", oc);
-    oc.doRegister("device.driverstate.initialAwareness", new Option_Float(DriverStateDefaults::minAwareness));
+    oc.doRegister("device.driverstate.initialAwareness", new Option_Float(DriverStateDefaults::initialAwareness));
     oc.addDescription("device.driverstate.initialAwareness", "Driver State Device", "Initial value assigned to the driver's awareness.");
     oc.doRegister("device.driverstate.errorTimeScaleCoefficient", new Option_Float(DriverStateDefaults::errorTimeScaleCoefficient));
     oc.addDescription("device.driverstate.errorTimeScaleCoefficient", "Driver State Device", "Time scale for the error process.");
@@ -85,7 +85,8 @@ MSDevice_DriverState::insertOptions(OptionsCont& oc) {
 void
 MSDevice_DriverState::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into) {
     OptionsCont& oc = OptionsCont::getOptions();
-    if (equippedByDefaultAssignmentOptions(oc, "driverstate", v, false)) {
+    // ToC device implies driverstate
+    if (equippedByDefaultAssignmentOptions(oc, "driverstate", v, false) || equippedByDefaultAssignmentOptions(oc, "toc", v, false)) {
         const double minAwareness = getMinAwareness(v, oc);
         const double initialAwareness = getInitialAwareness(v, oc);
         const double errorTimeScaleCoefficient = getErrorTimeScaleCoefficient(v, oc);
@@ -163,12 +164,12 @@ MSDevice_DriverState::MSDevice_DriverState(SUMOVehicle& holder, const std::strin
     mySpeedDifferenceErrorCoefficient(speedDifferenceErrorCoefficient),
     mySpeedDifferenceChangePerceptionThreshold(speedDifferenceChangePerceptionThreshold),
     myHeadwayChangePerceptionThreshold(headwayChangePerceptionThreshold),
-    myHeadwayErrorCoefficient(headwayErrorCoefficient),
-    myDriverState(nullptr) {
+    myHeadwayErrorCoefficient(headwayErrorCoefficient)
+{
     // Take care! Holder is currently being constructed. Cast occurs before completion.
     myHolderMS = static_cast<MSVehicle*>(&holder);
-    // Ensure that the holder receives a driver state as soon as it is created (can't be done here, since myHolderMS is incomplete)
-    MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(new WrappingCommand<MSDevice_DriverState>(this, &MSDevice_DriverState::createDriverState), SIMSTEP);
+    initDriverState();
+
 
 #ifdef DEBUG_DSDEVICE
     std::cout << "initialized device '" << id << "' with "
@@ -184,23 +185,9 @@ MSDevice_DriverState::MSDevice_DriverState(SUMOVehicle& holder, const std::strin
 
 }
 
-//MSDevice_DriverState::~MSDevice_DriverState() {}
-
-SUMOTime
-MSDevice_DriverState::createDriverState(SUMOTime /* t */) {
-#ifdef DEBUG_DSDEVICE
-    std::cout << SIMTIME << " MSDevice_DriverState::createDriverState() for vehicle '" << myHolder.getID() << "'" << std::endl;
-#endif
-    assert(myDriverState == nullptr);
-    assert(myHolderMS->getDriverState() == nullptr);
-    myHolderMS->createDriverState();
-    myDriverState = myHolderMS->getDriverState();
-    initDriverState();
-    return 0;
-}
-
 void
 MSDevice_DriverState::initDriverState() {
+    myDriverState = std::make_shared<MSSimpleDriverState>(myHolderMS);
     myDriverState->setMinAwareness(myMinAwareness);
     myDriverState->setInitialAwareness(myInitialAwareness);
     myDriverState->setErrorTimeScaleCoefficient(myErrorTimeScaleCoefficient);
@@ -210,6 +197,11 @@ MSDevice_DriverState::initDriverState() {
     myDriverState->setSpeedDifferenceChangePerceptionThreshold(mySpeedDifferenceChangePerceptionThreshold);
     myDriverState->setHeadwayChangePerceptionThreshold(myHeadwayChangePerceptionThreshold);
     myDriverState->setAwareness(myInitialAwareness);
+}
+
+void
+MSDevice_DriverState::update() {
+    myDriverState->update();
 }
 
 std::string

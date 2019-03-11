@@ -56,6 +56,7 @@
 #include <microsim/pedestrians/MSPerson.h>
 #include <microsim/pedestrians/MSPModel.h>
 #include <microsim/devices/MSDevice_Transportable.h>
+#include <microsim/devices/MSDevice_DriverState.h>
 #include <microsim/devices/MSRoutingEngine.h>
 #include <microsim/devices/MSDevice_Vehroutes.h>
 #include <microsim/output/MSStopOut.h>
@@ -1009,9 +1010,7 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
     }
     myLaneChangeModel = MSAbstractLaneChangeModel::build(type->getLaneChangeModel(), *this);
     myCFVariables = type->getCarFollowModel().createVehicleVariables();
-    if (type->getParameter().hasDriverState) {
-        createDriverState();
-    }
+    myDriverState = static_cast<MSDevice_DriverState*>(getDevice(typeid(MSDevice_DriverState)));
     myNextDriveItem = myLFLinkLanes.begin();
 }
 
@@ -5970,11 +5969,6 @@ MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     // no need to reset myCachedPosition here since state loading happens directly after creation
 }
 
-void
-MSVehicle::createDriverState() {
-    myDriverState = std::make_shared<MSSimpleDriverState>(this);
-}
-
 bool 
 MSVehicle::haveValidStopEdges() const {
     MSRouteIterator start = myCurrEdge;
@@ -6021,6 +6015,11 @@ MSVehicle::haveValidStopEdges() const {
         i++;
     }
     return ok;
+}
+
+std::shared_ptr<MSSimpleDriverState>
+MSVehicle::getDriverState() const {
+    return myDriverState->getDriverState();
 }
 
 /****************************************************************************/
