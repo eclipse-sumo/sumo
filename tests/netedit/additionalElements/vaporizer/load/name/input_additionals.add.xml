@@ -1,0 +1,9 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+	<!-- Without errors -->
+    <vaporizer id="1" begin="5.00" name="%%$$$" end="15.00"/>
+
+	<!-- valid id -->
+    <vaporizer id="2" begin="5.00" name="customName" end="15.00"/>
+	
+</additional>

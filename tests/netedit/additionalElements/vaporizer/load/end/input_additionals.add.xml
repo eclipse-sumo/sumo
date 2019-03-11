@@ -1,0 +1,21 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+	<!-- non valid end (missing) -->
+	<vaporizer id="1" begin="5.00"/>
+	
+	<!-- non valid end (missing, default < begin) -->
+	<vaporizer id="2" begin="50.00"/>
+	
+	<!-- non valid end (dummy) -->
+	<vaporizer id="3" begin="5.00" end="dummy"/>
+	
+	<!-- non valid end (negative) -->
+	<vaporizer id="4" begin="5.00" end="-20.00"/>
+	
+	<!-- valid end -->
+    <vaporizer id="5" begin="5.00" end="20.00"/>
+
+	<!-- non valid interval (begin > end) -->
+	<vaporizer id="6" begin="50.00" end="20.00"/>
+	
+</additional>

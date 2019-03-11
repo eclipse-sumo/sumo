@@ -1,0 +1,12 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+	<!-- non valid edge (missing) -->
+    <routeProbe id="routeProbe_0" edge="gneE1" freq="100.00" file="routeProbe_0.txt" begin="0.00"/>
+	
+	<!-- non valid edge (invalid) -->
+	<routeProbe id="routeProbe_1" edge="dummyEdge" freq="100.00" file="routeProbe_1.txt" begin="0.00"/>
+	
+	<!-- valid edge -->
+	<routeProbe id="routeProbe_2" edge="gneE1" freq="100.00" file="routeProbe_2.txt" begin="0.00"/>
+	
+</additional>

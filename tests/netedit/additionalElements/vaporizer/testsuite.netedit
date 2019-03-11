@@ -8,20 +8,11 @@ delete
 # inspect additional
 inspect
 
-# inspect additional generic parameters
-inspect_generic
-
 # inspect selection
 inspect_selection
 
-# inspect selection additional generic parameters
-inspect_selection_generic
-
 # load additional
 load
-
-# load additionals with generic parameters
-load_genericparameters
 
 # volatile recomputing
 volatileRecomputing

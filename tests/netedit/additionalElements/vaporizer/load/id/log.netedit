@@ -1,0 +1,2 @@
+Warning: Essential unique string attribute 'id' of vaporizer is missing; vaporizer cannot be created
+Warning: The edge 'dummyid' to use within the vaporizer is not known.

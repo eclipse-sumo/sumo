@@ -29,10 +29,10 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 netedit.deleteMode()
 
 # delete loaded vaporizer
-netedit.leftClick(referencePosition, 310, 200)
+netedit.leftClick(referencePosition, 310, 215)
 
 # delete lane with the loaded vaporizer
-netedit.leftClick(referencePosition, 310, 250)
+netedit.leftClick(referencePosition, 310, 265)
 
 # Check undo
 netedit.undo(referencePosition, 2)
@@ -44,7 +44,7 @@ netedit.deleteMode()
 netedit.changeAutomaticallyDeleteAdditionals(referencePosition)
 
 # try to delete lane with the  loaded vaporizer (doesn't allowed)
-netedit.leftClick(referencePosition, 310, 250)
+netedit.leftClick(referencePosition, 310, 265)
 
 # wait warning
 netedit.waitAutomaticallyDeleteAdditionalsWarning()

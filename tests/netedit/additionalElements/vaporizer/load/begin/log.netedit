@@ -1,0 +1,4 @@
+Warning: Essential time attribute 'begin' of vaporizer is missing; vaporizer cannot be created
+Warning: Essential time attribute 'begin' of vaporizer is missing; vaporizer cannot be created
+Warning: Format of essential time attribute 'begin' of vaporizer is invalid; Cannot be parsed to time; vaporizer cannot be created
+Warning: Format of essential time attribute 'begin' of vaporizer is invalid; Time cannot be negative; vaporizer cannot be created
