@@ -17,3 +17,6 @@ resampling_ticket4193_lowResampling
 
 # assign a negative constant value
 negative_constant
+
+# capped normal speed distribution
+cappedNormal_speed

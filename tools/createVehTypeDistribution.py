@@ -100,6 +100,22 @@ class NormalDistribution(FixDistribution):
     def _sampleValue(self):
         return random.normalvariate(self._params[0], self._params[1])
 
+class NormalCappedDistribution(FixDistribution):
+
+    def __init__(self, loc, scale, cutLow, cutHigh):
+        FixDistribution.__init__(self, (loc, scale, cutLow, cutHigh))
+        if loc < cutLow or loc > cutHigh:
+            sys.stderr.write("mean %s is outside cutoff bounds [%s, %s]" % (
+                loc, cutLow, cutHigh))
+            sys.exit()
+
+    def _sampleValue(self):
+        while True:
+            cand = random.normalvariate(self._params[0], self._params[1])
+            if cand >= self._params[2] and cand <= self._params[3]:
+                return cand
+
+
 
 class UniformDistribution(FixDistribution):
 
@@ -148,6 +164,7 @@ def readConfigFile(options):
     result = {}
 
     distSyntaxes = {'normal': 'normal\(\s*(-?[0-9]+(\.[0-9]+)?)\s*,\s*([0-9]+(\.[0-9]+)?)\s*\)',
+                    'normalCapped': 'normalCapped\(\s*(-?[0-9]+(\.[0-9]+)?)\s*,\s*(-?[0-9]+(\.[0-9]+)?)\s*,\s*(-?[0-9]+(\.[0-9]+)?)\s*,\s*(-?[0-9]+(\.[0-9]+)?)\s*\)',
                     'uniform': 'uniform\(\s*(-?[0-9]+(\.[0-9]+)?)\s*,\s*(-?[0-9]+(\.[0-9]+)?)\s*\)',
                     'gamma': 'gamma\(\s*([0-9]+(\.[0-9]+)?)\s*,\s*([0-9]+(\.[0-9]+)?)\s*\)'}
 
@@ -185,6 +202,10 @@ def readConfigFile(options):
 
                             if distName == 'normal':
                                 value = NormalDistribution(distPar1, distPar2)
+                            elif distName == 'normalCapped':
+                                cutLow = float(items[0][4])
+                                cutHigh = float(items[0][6])
+                                value = NormalCappedDistribution(distPar1, distPar2, cutLow, cutHigh)
                             elif distName == 'uniform':
                                 value = UniformDistribution(distPar1, distPar2)
                             elif distName == 'gamma':
