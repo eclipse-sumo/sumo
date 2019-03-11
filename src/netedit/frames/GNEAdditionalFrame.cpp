@@ -837,11 +837,16 @@ GNEAdditionalFrame::generateID(GNENetElement* netElement) const {
     // obtain tag Properties (only for improve code legilibility
     const auto& tagProperties = myItemSelector->getCurrentTagProperties();
     if (netElement) {
-        // generate ID using netElement
-        while (myViewNet->getNet()->retrieveAdditional(tagProperties.getTag(), tagProperties.getTagStr() + "_" + netElement->getID() + "_" + toString(additionalIndex), false) != nullptr) {
-            additionalIndex++;
+        // special case for vaporizers
+        if (tagProperties.getTag() == SUMO_TAG_VAPORIZER) {
+            return netElement->getID();
+        } else {
+            // generate ID using netElement
+            while (myViewNet->getNet()->retrieveAdditional(tagProperties.getTag(), tagProperties.getTagStr() + "_" + netElement->getID() + "_" + toString(additionalIndex), false) != nullptr) {
+                additionalIndex++;
+            }
+            return tagProperties.getTagStr() + "_" + netElement->getID() + "_" + toString(additionalIndex);
         }
-        return tagProperties.getTagStr() + "_" + netElement->getID() + "_" + toString(additionalIndex);
     } else {
         // generate ID without netElement
         while (myViewNet->getNet()->retrieveAdditional(tagProperties.getTag(), tagProperties.getTagStr() + "_" + toString(additionalIndex), false) != nullptr) {
