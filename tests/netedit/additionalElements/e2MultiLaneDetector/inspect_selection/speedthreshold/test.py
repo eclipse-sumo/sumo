@@ -38,7 +38,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect selection
-netedit.leftClick(referencePosition, 320, 240)
+netedit.leftClick(referencePosition, 320, 255)
 
 # Change parameter SpeedTreshold with a non valid value
 netedit.modifyAttribute(5, "dummySpeedTreshold", True)

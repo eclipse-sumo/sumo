@@ -35,20 +35,20 @@ netedit.additionalMode()
 netedit.changeAdditional("e2MultilaneDetector")
 
 # create E2 with default parameters
-netedit.leftClick(referencePosition, 190, 240)
-netedit.leftClick(referencePosition, 440, 240)
+netedit.leftClick(referencePosition, 190, 255)
+netedit.leftClick(referencePosition, 440, 255)
 netedit.typeEnter()
 
 # go to move mode
 netedit.moveMode()
 
 # move E2 to left taking the first lane
-netedit.moveElement(referencePosition, 190, 240, 20, 240)
-netedit.moveElement(referencePosition, 20, 240, 300, 240)
+netedit.moveElement(referencePosition, 190, 255, 20, 255)
+netedit.moveElement(referencePosition, 20, 255, 300, 255)
 
 # move E2 to left taking the last lane
-netedit.moveElement(referencePosition, 460, 240, 600, 240)
-netedit.moveElement(referencePosition, 500, 240, 350, 240)
+netedit.moveElement(referencePosition, 460, 255, 600, 255)
+netedit.moveElement(referencePosition, 500, 255, 350, 255)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)

@@ -34,6 +34,18 @@ GLDebug: Removed object containerStop:containerStop_02 from SUMORTree with bound
 GLDebug: Inserted containerStop:containerStop_02 into SUMORTree with boundary -20.00,-23.20,45.00,16.80
 GLDebug: Removed object containerStop:containerStop_05 from SUMORTree with boundary -10.00,-23.20,45.00,16.80
 GLDebug: Inserted containerStop:containerStop_05 into SUMORTree with boundary -10.00,-23.20,45.00,16.80
+Debug: Adding containerStop 'containerStop_06' in GNEChange_Additional
+GLDebug: Inserted containerStop:containerStop_06 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Removed object containerStop:containerStop_06 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Inserted containerStop:containerStop_06 into SUMORTree with boundary -10.00,-23.20,45.00,16.80
+GLDebug: Removed object containerStop:containerStop_01 from SUMORTree with boundary -20.00,-23.20,50.00,16.80
+GLDebug: Inserted containerStop:containerStop_01 into SUMORTree with boundary -20.00,-23.20,50.00,16.80
+GLDebug: Removed object containerStop:containerStop_02 from SUMORTree with boundary -20.00,-23.20,45.00,16.80
+GLDebug: Inserted containerStop:containerStop_02 into SUMORTree with boundary -20.00,-23.20,45.00,16.80
+GLDebug: Removed object containerStop:containerStop_05 from SUMORTree with boundary -10.00,-23.20,45.00,16.80
+GLDebug: Inserted containerStop:containerStop_05 into SUMORTree with boundary -10.00,-23.20,45.00,16.80
+GLDebug: Removed object containerStop:containerStop_06 from SUMORTree with boundary -10.00,-23.20,45.00,16.80
+GLDebug: Inserted containerStop:containerStop_06 into SUMORTree with boundary -10.00,-23.20,45.00,16.80
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
 Debug: Additionals saved
@@ -59,6 +71,8 @@ GLDebug: Removed object containerStop:containerStop_02 from SUMORTree with bound
 GLDebug: Inserted containerStop:containerStop_02 into SUMORTree with boundary -20.00,-23.20,45.00,16.80
 GLDebug: Removed object containerStop:containerStop_05 from SUMORTree with boundary -10.00,-23.20,45.00,16.80
 GLDebug: Inserted containerStop:containerStop_05 into SUMORTree with boundary -10.00,-23.20,45.00,16.80
+GLDebug: Removed object containerStop:containerStop_06 from SUMORTree with boundary -10.00,-23.20,45.00,16.80
+GLDebug: Inserted containerStop:containerStop_06 into SUMORTree with boundary -10.00,-23.20,45.00,16.80
 GLDebug: Removed object connection:fromgneE1_0togneE0_0 from SUMORTree with boundary -20.10,-20.10,20.10,20.10
 GLDebug: Inserted connection:fromgneE1_0togneE0_0 into SUMORTree with boundary -19.00,-21.60,21.00,21.60
 GLDebug: Removed object connection:fromgneE0_0togneE1_0 from SUMORTree with boundary 29.90,-20.10,70.10,70.10
@@ -67,10 +81,12 @@ GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
 GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,31.60
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
-Debug: Deleting unreferenced containerStop 'containerStop_05'
-GLDebug: Removed object containerStop:containerStop_05 from SUMORTree with boundary -10.00,-23.20,45.00,16.80
+Debug: Deleting unreferenced containerStop 'containerStop_06'
+GLDebug: Removed object containerStop:containerStop_06 from SUMORTree with boundary -10.00,-23.20,45.00,16.80
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Deleting unreferenced containerStop 'containerStop_05'
+GLDebug: Removed object containerStop:containerStop_05 from SUMORTree with boundary -10.00,-23.20,45.00,16.80
 Debug: Deleting unreferenced containerStop 'containerStop_02'
 GLDebug: Removed object containerStop:containerStop_02 from SUMORTree with boundary -20.00,-23.20,45.00,16.80
 Debug: Deleting unreferenced containerStop 'containerStop_01'
@@ -83,6 +99,8 @@ Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_PEDTYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 6

@@ -35,16 +35,16 @@ netedit.changeAdditional("containerStop")
 netedit.modifyAdditionalDefaultValue(6, "reference center")
 
 # create containerStop 1 in mode "reference center"
-netedit.leftClick(referencePosition, 250, 150)
+netedit.leftClick(referencePosition, 250, 170)
 
 # create containerStop 2 in mode "reference center"
-netedit.leftClick(referencePosition, 450, 150)
+netedit.leftClick(referencePosition, 450, 170)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first containerStop
-netedit.leftClick(referencePosition, 250, 170)
+netedit.leftClick(referencePosition, 250, 190)
 
 # Change parameter id with a non valid value (Duplicated ID)
 netedit.modifyAttribute(0, "containerStop_gneE2_1_1", True)

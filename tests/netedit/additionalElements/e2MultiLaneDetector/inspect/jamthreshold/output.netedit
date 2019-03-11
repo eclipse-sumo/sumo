@@ -2,12 +2,12 @@ TestFunctions: Netedit opened successfully
 Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 e2MultilaneDetector
-TestFunctions: Clicked over position 494 - 380
-TestFunctions: Clicked over position 744 - 380
-TestFunctions: Clicked over position 624 - 380
+TestFunctions: Clicked over position 494 - 423
+TestFunctions: Clicked over position 744 - 423
+TestFunctions: Clicked over position 624 - 423
 dummyJamThreshold
 -11.1
 7.3
-TestFunctions: Clicked over position 304 - 140
-TestFunctions: Clicked over position 304 - 140
+TestFunctions: Clicked over position 304 - 168
+TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully

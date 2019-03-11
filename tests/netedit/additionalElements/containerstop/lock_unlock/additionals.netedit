@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 16.11.2018 13:42:30 by Eclipse SUMO netedit Version v1_0_0+0907-4934d005c3
+<!-- generated on 16.10.2018 13:08:16 by Eclipse SUMO netedit Version v1_0_1+0269-07f0f88abc
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.2_from_16Nov133029.3436/netedit.gui/additionalElements/containerstop/lock_unlock\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_16Oct125820.1772/netedit.gui/additionalElements/containerStop/lock_unlock\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.2_from_16Nov133029.3436/netedit.gui/additionalElements/containerstop/lock_unlock\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_16Oct125820.1772/netedit.gui/additionalElements/containerStop/lock_unlock\net.net.xml"/>
     </output>
 
     <processing>
@@ -28,12 +28,12 @@
     </pedestrian>
 
     <netedit>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.2_from_16Nov133029.3436/netedit.gui/additionalElements/containerstop/lock_unlock\additionals.xml"/>
-        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.2_from_16Nov133029.3436/netedit.gui/additionalElements/containerstop/lock_unlock\shapes.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_16Oct125820.1772/netedit.gui/additionalElements/containerStop/lock_unlock\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_16Oct125820.1772/netedit.gui/additionalElements/containerStop/lock_unlock\shapes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.2_from_16Nov133029.3436/netedit.gui/additionalElements/containerstop/lock_unlock\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_16Oct125820.1772/netedit.gui/additionalElements/containerStop/lock_unlock\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -42,7 +42,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.2_from_16Nov133029.3436/netedit.gui/additionalElements/containerstop/lock_unlock\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_16Oct125820.1772/netedit.gui/additionalElements/containerStop/lock_unlock\log.txt"/>
     </report>
 
 </configuration>

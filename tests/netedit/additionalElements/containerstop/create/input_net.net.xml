@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Feb 19 09:09:42 2019 by Eclipse SUMO netconvert Version v1_1_0+0919-80296dbfce
+<!-- generated on Tue Feb 19 09:09:35 2019 by Eclipse SUMO netconvert Version v1_1_0+0919-80296dbfce
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value=".\netedit\additionalElements\containerstop\create\input_net.nod.xml"/>
-        <edge-files value=".\netedit\additionalElements\containerstop\create\input_net.edg.xml"/>
-        <connection-files value=".\netedit\additionalElements\containerstop\create\input_net.con.xml"/>
-        <tllogic-files value=".\netedit\additionalElements\containerstop\create\input_net.tll.xml"/>
+        <node-files value=".\netedit\additionalElements\busstop\create\input_net.nod.xml"/>
+        <edge-files value=".\netedit\additionalElements\busstop\create\input_net.edg.xml"/>
+        <connection-files value=".\netedit\additionalElements\busstop\create\input_net.con.xml"/>
+        <tllogic-files value=".\netedit\additionalElements\busstop\create\input_net.tll.xml"/>
     </input>
 
     <output>
-        <output-file value=".\netedit\additionalElements\containerstop\create\input_net.net.xml"/>
+        <output-file value=".\netedit\additionalElements\busstop\create\input_net.net.xml"/>
     </output>
 
     <report>

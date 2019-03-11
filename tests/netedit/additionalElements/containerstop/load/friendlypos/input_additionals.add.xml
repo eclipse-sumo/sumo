@@ -6,16 +6,19 @@
 	<!-- enabled friendlyPos -->
     <containerStop id="containerStop_02" lane="gneE1_0" startPos="15" endPos="20" lines="lineA lineB" name="containerStop" friendlyPos="true"/>
 	
+	<!-- enabled friendlyPos (negative positions)-->
+    <containerStop id="containerStop_03" lane="gneE1_0" startPos="-10" endPos="-20" lines="lineA lineB" name="containerStop" friendlyPos="true"/>
+	
 	<!-- enabled friendlyPos, invalid positions 1 -->
-    <containerStop id="containerStop_03" lane="gneE1_0" startPos="-20" endPos="-10" lines="lineA lineB" name="containerStop" friendlyPos="true"/>
+    <containerStop id="containerStop_04" lane="gneE1_0" startPos="-20" endPos="-10" lines="lineA lineB" name="containerStop" friendlyPos="true"/>
 	
 	<!-- enabled friendlyPos, invalid positions 2 -->
-    <containerStop id="containerStop_04" lane="gneE1_0" startPos="200" endPos="300" lines="lineA lineB" name="containerStop" friendlyPos="true"/>
+    <containerStop id="containerStop_05" lane="gneE1_0" startPos="200" endPos="300" lines="lineA lineB" name="containerStop" friendlyPos="true"/>
 	
 	<!-- enabled friendlyPos, invalid positions 3 -->
-    <containerStop id="containerStop_05" lane="gneE1_0" startPos="50" endPos="20" lines="lineA lineB" name="containerStop" friendlyPos="true"/>
+    <containerStop id="containerStop_06" lane="gneE1_0" startPos="50" endPos="20" lines="lineA lineB" name="containerStop" friendlyPos="true"/>
 	
 	<!-- enabled friendlyPos, invalid positions 4 -->
-    <containerStop id="containerStop_06" lane="gneE1_0" startPos="20" endPos="20" lines="lineA lineB" name="containerStop" friendlyPos="true"/>
+    <containerStop id="containerStop_07" lane="gneE1_0" startPos="20" endPos="20" lines="lineA lineB" name="containerStop" friendlyPos="true"/>
 	
 </additional>

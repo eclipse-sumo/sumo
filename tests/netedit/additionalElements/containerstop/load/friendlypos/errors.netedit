@@ -36,45 +36,63 @@ GLDebug: Inserted containerStop:containerStop_03 into SUMORTree with boundary -1
 Debug: Adding containerStop 'containerStop_04' in GNEChange_Additional
 GLDebug: Inserted containerStop:containerStop_04 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Removed object containerStop:containerStop_04 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
-GLDebug: Inserted containerStop:containerStop_04 into SUMORTree with boundary -20.00,-16.80,20.00,23.20
+GLDebug: Inserted containerStop:containerStop_04 into SUMORTree with boundary -10.00,-16.80,40.00,23.20
 GLDebug: Removed object containerStop:containerStop_01 from SUMORTree with boundary 20.00,-16.80,65.00,23.20
 GLDebug: Inserted containerStop:containerStop_01 into SUMORTree with boundary 20.00,-16.80,65.00,23.20
 GLDebug: Removed object containerStop:containerStop_02 from SUMORTree with boundary 10.00,-16.80,55.00,23.20
 GLDebug: Inserted containerStop:containerStop_02 into SUMORTree with boundary 10.00,-16.80,55.00,23.20
 GLDebug: Removed object containerStop:containerStop_03 from SUMORTree with boundary -10.00,-16.80,40.00,23.20
 GLDebug: Inserted containerStop:containerStop_03 into SUMORTree with boundary -10.00,-16.80,40.00,23.20
-GLDebug: Removed object containerStop:containerStop_04 from SUMORTree with boundary -20.00,-16.80,20.00,23.20
-GLDebug: Inserted containerStop:containerStop_04 into SUMORTree with boundary -20.00,-16.80,20.00,23.20
+GLDebug: Removed object containerStop:containerStop_04 from SUMORTree with boundary -10.00,-16.80,40.00,23.20
+GLDebug: Inserted containerStop:containerStop_04 into SUMORTree with boundary -10.00,-16.80,40.00,23.20
 Debug: Adding containerStop 'containerStop_05' in GNEChange_Additional
 GLDebug: Inserted containerStop:containerStop_05 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Removed object containerStop:containerStop_05 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
-GLDebug: Inserted containerStop:containerStop_05 into SUMORTree with boundary -20.00,-16.80,50.00,23.20
+GLDebug: Inserted containerStop:containerStop_05 into SUMORTree with boundary -20.00,-16.80,20.00,23.20
 GLDebug: Removed object containerStop:containerStop_01 from SUMORTree with boundary 20.00,-16.80,65.00,23.20
 GLDebug: Inserted containerStop:containerStop_01 into SUMORTree with boundary 20.00,-16.80,65.00,23.20
 GLDebug: Removed object containerStop:containerStop_02 from SUMORTree with boundary 10.00,-16.80,55.00,23.20
 GLDebug: Inserted containerStop:containerStop_02 into SUMORTree with boundary 10.00,-16.80,55.00,23.20
 GLDebug: Removed object containerStop:containerStop_03 from SUMORTree with boundary -10.00,-16.80,40.00,23.20
 GLDebug: Inserted containerStop:containerStop_03 into SUMORTree with boundary -10.00,-16.80,40.00,23.20
-GLDebug: Removed object containerStop:containerStop_04 from SUMORTree with boundary -20.00,-16.80,20.00,23.20
-GLDebug: Inserted containerStop:containerStop_04 into SUMORTree with boundary -20.00,-16.80,20.00,23.20
-GLDebug: Removed object containerStop:containerStop_05 from SUMORTree with boundary -20.00,-16.80,50.00,23.20
-GLDebug: Inserted containerStop:containerStop_05 into SUMORTree with boundary -20.00,-16.80,50.00,23.20
+GLDebug: Removed object containerStop:containerStop_04 from SUMORTree with boundary -10.00,-16.80,40.00,23.20
+GLDebug: Inserted containerStop:containerStop_04 into SUMORTree with boundary -10.00,-16.80,40.00,23.20
+GLDebug: Removed object containerStop:containerStop_05 from SUMORTree with boundary -20.00,-16.80,20.00,23.20
+GLDebug: Inserted containerStop:containerStop_05 into SUMORTree with boundary -20.00,-16.80,20.00,23.20
 Debug: Adding containerStop 'containerStop_06' in GNEChange_Additional
 GLDebug: Inserted containerStop:containerStop_06 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Removed object containerStop:containerStop_06 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
-GLDebug: Inserted containerStop:containerStop_06 into SUMORTree with boundary 10.00,-16.80,50.00,23.20
+GLDebug: Inserted containerStop:containerStop_06 into SUMORTree with boundary -20.00,-16.80,50.00,23.20
 GLDebug: Removed object containerStop:containerStop_01 from SUMORTree with boundary 20.00,-16.80,65.00,23.20
 GLDebug: Inserted containerStop:containerStop_01 into SUMORTree with boundary 20.00,-16.80,65.00,23.20
 GLDebug: Removed object containerStop:containerStop_02 from SUMORTree with boundary 10.00,-16.80,55.00,23.20
 GLDebug: Inserted containerStop:containerStop_02 into SUMORTree with boundary 10.00,-16.80,55.00,23.20
 GLDebug: Removed object containerStop:containerStop_03 from SUMORTree with boundary -10.00,-16.80,40.00,23.20
 GLDebug: Inserted containerStop:containerStop_03 into SUMORTree with boundary -10.00,-16.80,40.00,23.20
-GLDebug: Removed object containerStop:containerStop_04 from SUMORTree with boundary -20.00,-16.80,20.00,23.20
-GLDebug: Inserted containerStop:containerStop_04 into SUMORTree with boundary -20.00,-16.80,20.00,23.20
-GLDebug: Removed object containerStop:containerStop_05 from SUMORTree with boundary -20.00,-16.80,50.00,23.20
-GLDebug: Inserted containerStop:containerStop_05 into SUMORTree with boundary -20.00,-16.80,50.00,23.20
-GLDebug: Removed object containerStop:containerStop_06 from SUMORTree with boundary 10.00,-16.80,50.00,23.20
-GLDebug: Inserted containerStop:containerStop_06 into SUMORTree with boundary 10.00,-16.80,50.00,23.20
+GLDebug: Removed object containerStop:containerStop_04 from SUMORTree with boundary -10.00,-16.80,40.00,23.20
+GLDebug: Inserted containerStop:containerStop_04 into SUMORTree with boundary -10.00,-16.80,40.00,23.20
+GLDebug: Removed object containerStop:containerStop_05 from SUMORTree with boundary -20.00,-16.80,20.00,23.20
+GLDebug: Inserted containerStop:containerStop_05 into SUMORTree with boundary -20.00,-16.80,20.00,23.20
+GLDebug: Removed object containerStop:containerStop_06 from SUMORTree with boundary -20.00,-16.80,50.00,23.20
+GLDebug: Inserted containerStop:containerStop_06 into SUMORTree with boundary -20.00,-16.80,50.00,23.20
+Debug: Adding containerStop 'containerStop_07' in GNEChange_Additional
+GLDebug: Inserted containerStop:containerStop_07 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Removed object containerStop:containerStop_07 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
+GLDebug: Inserted containerStop:containerStop_07 into SUMORTree with boundary 10.00,-16.80,50.00,23.20
+GLDebug: Removed object containerStop:containerStop_01 from SUMORTree with boundary 20.00,-16.80,65.00,23.20
+GLDebug: Inserted containerStop:containerStop_01 into SUMORTree with boundary 20.00,-16.80,65.00,23.20
+GLDebug: Removed object containerStop:containerStop_02 from SUMORTree with boundary 10.00,-16.80,55.00,23.20
+GLDebug: Inserted containerStop:containerStop_02 into SUMORTree with boundary 10.00,-16.80,55.00,23.20
+GLDebug: Removed object containerStop:containerStop_03 from SUMORTree with boundary -10.00,-16.80,40.00,23.20
+GLDebug: Inserted containerStop:containerStop_03 into SUMORTree with boundary -10.00,-16.80,40.00,23.20
+GLDebug: Removed object containerStop:containerStop_04 from SUMORTree with boundary -10.00,-16.80,40.00,23.20
+GLDebug: Inserted containerStop:containerStop_04 into SUMORTree with boundary -10.00,-16.80,40.00,23.20
+GLDebug: Removed object containerStop:containerStop_05 from SUMORTree with boundary -20.00,-16.80,20.00,23.20
+GLDebug: Inserted containerStop:containerStop_05 into SUMORTree with boundary -20.00,-16.80,20.00,23.20
+GLDebug: Removed object containerStop:containerStop_06 from SUMORTree with boundary -20.00,-16.80,50.00,23.20
+GLDebug: Inserted containerStop:containerStop_06 into SUMORTree with boundary -20.00,-16.80,50.00,23.20
+GLDebug: Removed object containerStop:containerStop_07 from SUMORTree with boundary 10.00,-16.80,50.00,23.20
+GLDebug: Inserted containerStop:containerStop_07 into SUMORTree with boundary 10.00,-16.80,50.00,23.20
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
 Debug: Additionals saved
@@ -107,21 +125,25 @@ GLDebug: Removed object containerStop:containerStop_02 from SUMORTree with bound
 GLDebug: Inserted containerStop:containerStop_02 into SUMORTree with boundary 10.00,-16.80,55.00,23.20
 GLDebug: Removed object containerStop:containerStop_03 from SUMORTree with boundary -10.00,-16.80,40.00,23.20
 GLDebug: Inserted containerStop:containerStop_03 into SUMORTree with boundary -10.00,-16.80,40.00,23.20
-GLDebug: Removed object containerStop:containerStop_04 from SUMORTree with boundary -20.00,-16.80,20.00,23.20
-GLDebug: Inserted containerStop:containerStop_04 into SUMORTree with boundary -20.00,-16.80,20.00,23.20
-GLDebug: Removed object containerStop:containerStop_05 from SUMORTree with boundary -20.00,-16.80,50.00,23.20
-GLDebug: Inserted containerStop:containerStop_05 into SUMORTree with boundary -20.00,-16.80,50.00,23.20
-GLDebug: Removed object containerStop:containerStop_06 from SUMORTree with boundary 10.00,-16.80,50.00,23.20
-GLDebug: Inserted containerStop:containerStop_06 into SUMORTree with boundary 10.00,-16.80,50.00,23.20
+GLDebug: Removed object containerStop:containerStop_04 from SUMORTree with boundary -10.00,-16.80,40.00,23.20
+GLDebug: Inserted containerStop:containerStop_04 into SUMORTree with boundary -10.00,-16.80,40.00,23.20
+GLDebug: Removed object containerStop:containerStop_05 from SUMORTree with boundary -20.00,-16.80,20.00,23.20
+GLDebug: Inserted containerStop:containerStop_05 into SUMORTree with boundary -20.00,-16.80,20.00,23.20
+GLDebug: Removed object containerStop:containerStop_06 from SUMORTree with boundary -20.00,-16.80,50.00,23.20
+GLDebug: Inserted containerStop:containerStop_06 into SUMORTree with boundary -20.00,-16.80,50.00,23.20
+GLDebug: Removed object containerStop:containerStop_07 from SUMORTree with boundary 10.00,-16.80,50.00,23.20
+GLDebug: Inserted containerStop:containerStop_07 into SUMORTree with boundary 10.00,-16.80,50.00,23.20
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
-Debug: Deleting unreferenced containerStop 'containerStop_06'
-GLDebug: Removed object containerStop:containerStop_06 from SUMORTree with boundary 10.00,-16.80,50.00,23.20
+Debug: Deleting unreferenced containerStop 'containerStop_07'
+GLDebug: Removed object containerStop:containerStop_07 from SUMORTree with boundary 10.00,-16.80,50.00,23.20
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Deleting unreferenced containerStop 'containerStop_06'
+GLDebug: Removed object containerStop:containerStop_06 from SUMORTree with boundary -20.00,-16.80,50.00,23.20
 Debug: Deleting unreferenced containerStop 'containerStop_05'
-GLDebug: Removed object containerStop:containerStop_05 from SUMORTree with boundary -20.00,-16.80,50.00,23.20
+GLDebug: Removed object containerStop:containerStop_05 from SUMORTree with boundary -20.00,-16.80,20.00,23.20
 Debug: Deleting unreferenced containerStop 'containerStop_04'
-GLDebug: Removed object containerStop:containerStop_04 from SUMORTree with boundary -20.00,-16.80,20.00,23.20
+GLDebug: Removed object containerStop:containerStop_04 from SUMORTree with boundary -10.00,-16.80,40.00,23.20
 Debug: Deleting unreferenced containerStop 'containerStop_03'
 GLDebug: Removed object containerStop:containerStop_03 from SUMORTree with boundary -10.00,-16.80,40.00,23.20
 Debug: Deleting unreferenced containerStop 'containerStop_02'
@@ -136,6 +158,8 @@ Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_PEDTYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 6

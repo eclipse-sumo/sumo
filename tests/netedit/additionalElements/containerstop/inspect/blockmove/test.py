@@ -35,16 +35,16 @@ netedit.changeAdditional("containerStop")
 netedit.modifyAdditionalDefaultValue(6, "reference center")
 
 # create containerStop in mode "reference center"
-netedit.leftClick(referencePosition, 250, 150)
+netedit.leftClick(referencePosition, 250, 170)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first containerStop
-netedit.leftClick(referencePosition, 250, 170)
+netedit.leftClick(referencePosition, 250, 190)
 
 # Change parameter block movement
-netedit.modifyBoolAttribute(9, True)
+netedit.modifyBoolAttribute(10, True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 08.02.2019 15:41:24 by Eclipse SUMO netedit Version v1_1_0+0713-7b762ac814
+<!-- generated on 23.01.2019 09:21:23 by Eclipse SUMO netedit Version v1_1_0+0076-a16c2aae75
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_08Feb150705.2884/netedit.gui/additionalElements/containerstop/load/friendlypos\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jan091720.2040/netedit.gui/additionalElements/containerStop/load/friendlypos\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_08Feb150705.2884/netedit.gui/additionalElements/containerstop/load/friendlypos\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jan091720.2040/netedit.gui/additionalElements/containerStop/load/friendlypos\net.net.xml"/>
     </output>
 
     <processing>
@@ -29,13 +29,13 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_08Feb150705.2884/netedit.gui/additionalElements/containerstop/load/friendlypos\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_08Feb150705.2884/netedit.gui/additionalElements/containerstop/load/friendlypos\additionals.xml"/>
-        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_08Feb150705.2884/netedit.gui/additionalElements/containerstop/load/friendlypos\routes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jan091720.2040/netedit.gui/additionalElements/containerStop/load/friendlypos\input_additionals.add.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jan091720.2040/netedit.gui/additionalElements/containerStop/load/friendlypos\additionals.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jan091720.2040/netedit.gui/additionalElements/containerStop/load/friendlypos\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_08Feb150705.2884/netedit.gui/additionalElements/containerstop/load/friendlypos\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jan091720.2040/netedit.gui/additionalElements/containerStop/load/friendlypos\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -45,7 +45,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_08Feb150705.2884/netedit.gui/additionalElements/containerstop/load/friendlypos\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jan091720.2040/netedit.gui/additionalElements/containerStop/load/friendlypos\log.txt"/>
     </report>
 
 </configuration>
@@ -54,8 +54,9 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <containerStop id="containerStop_01" name="containerStop" lane="gneE1_0" lines="lineA lineB" startPos="5" endPos="10"/>
     <containerStop id="containerStop_02" name="containerStop" lane="gneE1_0" friendlyPos="1" lines="lineA lineB" startPos="15" endPos="20"/>
-    <containerStop id="containerStop_03" name="containerStop" lane="gneE1_0" friendlyPos="1" lines="lineA lineB" startPos="-20" endPos="-10"/>
-    <containerStop id="containerStop_04" name="containerStop" lane="gneE1_0" friendlyPos="1" lines="lineA lineB" startPos="200" endPos="300"/>
-    <containerStop id="containerStop_05" name="containerStop" lane="gneE1_0" friendlyPos="1" lines="lineA lineB" startPos="50" endPos="20"/>
-    <containerStop id="containerStop_06" name="containerStop" lane="gneE1_0" friendlyPos="1" lines="lineA lineB" startPos="20" endPos="20"/>
+    <containerStop id="containerStop_03" name="containerStop" lane="gneE1_0" friendlyPos="1" lines="lineA lineB" startPos="-10" endPos="-20"/>
+    <containerStop id="containerStop_04" name="containerStop" lane="gneE1_0" friendlyPos="1" lines="lineA lineB" startPos="-20" endPos="-10"/>
+    <containerStop id="containerStop_05" name="containerStop" lane="gneE1_0" friendlyPos="1" lines="lineA lineB" startPos="200" endPos="300"/>
+    <containerStop id="containerStop_06" name="containerStop" lane="gneE1_0" friendlyPos="1" lines="lineA lineB" startPos="50" endPos="20"/>
+    <containerStop id="containerStop_07" name="containerStop" lane="gneE1_0" friendlyPos="1" lines="lineA lineB" startPos="20" endPos="20"/>
 </additional>

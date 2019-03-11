@@ -14,5 +14,8 @@
 	
 	<!-- valid start position -->
     <containerStop id="containerStop_05" lane="gneE0_0" startPos="10" endPos="25" lines="line1 line2" name="containerStop" friendlyPos="false"/>
+	
+	<!-- valid start position (Negative) -->
+    <containerStop id="containerStop_06" lane="gneE0_0" startPos="-40" endPos="25" lines="line1 line2" name="containerStop" friendlyPos="false"/>
     
 </additional>

@@ -28,23 +28,23 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 # go to additional mode
 netedit.additionalMode()
 
-# select busStop
-netedit.changeAdditional("busStop")
+# select containerStop
+netedit.changeAdditional("containerStop")
 
-# create busStop in mode "reference left"
-netedit.leftClick(referencePosition, 250, 250)
+# create containerStop in mode "reference left"
+netedit.leftClick(referencePosition, 250, 260)
 
 # Change to delete
 netedit.deleteMode()
 
-# delete created busStop
-netedit.leftClick(referencePosition, 260, 250)
+# delete created containerStop
+netedit.leftClick(referencePosition, 260, 270)
 
-# delete first loaded busStop
-netedit.leftClick(referencePosition, 450, 250)
+# delete first loaded containerStop
+netedit.leftClick(referencePosition, 450, 270)
 
-# delete lane with the second loaded busStop
-netedit.leftClick(referencePosition, 200, 200)
+# delete lane with the second loaded containerStop
+netedit.leftClick(referencePosition, 200, 220)
 
 # Check undo
 netedit.undo(referencePosition, 3)
@@ -55,8 +55,8 @@ netedit.deleteMode()
 # disble 'Automatically delete additionals'
 netedit.changeAutomaticallyDeleteAdditionals(referencePosition)
 
-# try to delete lane with the second loaded busStop (doesn't allowed)
-netedit.leftClick(referencePosition, 200, 200)
+# try to delete lane with the second loaded containerStop (doesn't allowed)
+netedit.leftClick(referencePosition, 200, 220)
 
 # wait warning
 netedit.waitAutomaticallyDeleteAdditionalsWarning()

@@ -34,11 +34,11 @@ netedit.selectionInvert()
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect busstops
-netedit.leftClick(referencePosition, 150, 250)
+# inspect containerStops
+netedit.leftClick(referencePosition, 150, 265)
 
 # Set block movement
-netedit.modifyBoolAttribute(5, True)
+netedit.modifyBoolAttribute(6, True)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

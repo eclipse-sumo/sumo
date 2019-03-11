@@ -35,43 +35,43 @@ netedit.changeAdditional("containerStop")
 netedit.modifyAdditionalDefaultValue(6, "reference center")
 
 # create containerStop in mode "reference center"
-netedit.leftClick(referencePosition, 250, 150)
+netedit.leftClick(referencePosition, 250, 170)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first containerStop
-netedit.leftClick(referencePosition, 250, 170)
+netedit.leftClick(referencePosition, 250, 190)
 
 # Change generic parameters with a dummy value
-netedit.modifyAttribute(7, "dummyGenericParameters", True)
+netedit.modifyAttribute(8, "dummyGenericParameters", True)
 
 # Change generic parameters with a invalid format
-netedit.modifyAttribute(7, "key1|key2|key3", True)
+netedit.modifyAttribute(8, "key1|key2|key3", True)
 
 # Change generic parameters with a valid value
-netedit.modifyAttribute(7, "key1=value1|key2=value2|key3=value3", True)
+netedit.modifyAttribute(8, "key1=value1|key2=value2|key3=value3", True)
 
 # Change generic parameters with a valid value (empty values)
-netedit.modifyAttribute(7, "key1=|key2=|key3=", True)
+netedit.modifyAttribute(8, "key1=|key2=|key3=", True)
 
 # Change generic parameters with a valid value (all empty)
-netedit.modifyAttribute(7, "", True)
+netedit.modifyAttribute(8, "", True)
 
 # Change generic parameters with an invalid value (duplicated)
-netedit.modifyAttribute(7, "key1duplicated=value1|key1duplicated=value2|key3=value3", True)
+netedit.modifyAttribute(8, "key1duplicated=value1|key1duplicated=value2|key3=value3", True)
 
 # Change generic parameters with a valid value
-netedit.modifyAttribute(7, "key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated", True)
+netedit.modifyAttribute(8, "key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated", True)
 
 # Change generic parameters with an invalid value (invalid key characters)
-netedit.modifyAttribute(7, "keyInvalid.;%>%$$=value1|key2=value2|key3=value3", True)
+netedit.modifyAttribute(8, "keyInvalid.;%>%$$=value1|key2=value2|key3=value3", True)
 
 # Change generic parameters with a invalid value (invalid value characters)
-netedit.modifyAttribute(7, "key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3", True)
+netedit.modifyAttribute(8, "key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3", True)
 
 # Change generic parameters with a valid value
-netedit.modifyAttribute(7, "keyFinal1=value1|keyFinal2=value2|keyFinal3=value3", True)
+netedit.modifyAttribute(8, "keyFinal1=value1|keyFinal2=value2|keyFinal3=value3", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 8)

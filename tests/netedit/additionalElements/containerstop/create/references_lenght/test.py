@@ -34,13 +34,13 @@ netedit.changeAdditional("containerStop")
 # set invalid lenght (dummy)
 netedit.modifyAdditionalDefaultValue(8, "dummyLenght")
 
-# try to create busstop with invalid lenght
+# try to create containerStop with invalid lenght
 netedit.leftClick(referencePosition, 500, 250)
 
 # set invalid lenght (negative)
 netedit.modifyAdditionalDefaultValue(8, "-20")
 
-# try to create busstop with invalid lenght
+# try to create containerStop with invalid lenght
 netedit.leftClick(referencePosition, 500, 250)
 
 # Change length

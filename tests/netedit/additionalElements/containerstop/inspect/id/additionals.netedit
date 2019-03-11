@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 16.11.2018 13:32:56 by Eclipse SUMO netedit Version v1_0_0+0907-4934d005c3
+<!-- generated on 16.11.2018 11:10:47 by Eclipse SUMO netedit Version v1_0_0+0907-4934d005c3
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.16Nov133029.9208/netedit.gui/additionalElements/containerstop/inspect/id\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.16Nov111037.7160/netedit.gui/additionalElements/containerStop/inspect/id\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.16Nov133029.9208/netedit.gui/additionalElements/containerstop/inspect/id\net.net.xml"/>
+        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.16Nov111037.7160/netedit.gui/additionalElements/containerStop/inspect/id\net.net.xml"/>
     </output>
 
     <processing>
@@ -28,12 +28,12 @@
     </pedestrian>
 
     <netedit>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.16Nov133029.9208/netedit.gui/additionalElements/containerstop/inspect/id\additionals.xml"/>
-        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.16Nov133029.9208/netedit.gui/additionalElements/containerstop/inspect/id\shapes.xml"/>
+        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.16Nov111037.7160/netedit.gui/additionalElements/containerStop/inspect/id\additionals.xml"/>
+        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.16Nov111037.7160/netedit.gui/additionalElements/containerStop/inspect/id\shapes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.16Nov133029.9208/netedit.gui/additionalElements/containerstop/inspect/id\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.16Nov111037.7160/netedit.gui/additionalElements/containerStop/inspect/id\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -42,7 +42,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.16Nov133029.9208/netedit.gui/additionalElements/containerstop/inspect/id\log.txt"/>
+        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.16Nov111037.7160/netedit.gui/additionalElements/containerStop/inspect/id\log.txt"/>
     </report>
 
 </configuration>

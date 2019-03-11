@@ -2,9 +2,11 @@ default
 
 name
 
+friendlypos
+
 lines
 
-friendlypos
+personcapacity
 
 blockmovement
 
