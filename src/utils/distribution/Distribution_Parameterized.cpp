@@ -113,7 +113,7 @@ Distribution_Parameterized::toStr(std::streamsize accuracy) const {
 
 bool
 Distribution_Parameterized::isValid(std::string& error) {
-    if (myParameter.size() > 2) {
+    if (myParameter.size() > 2 && myParameter[1] != 0) {
         if (myParameter[0] > getMax()) {
             error = "distribution mean " + toString(myParameter[0]) + " is larger than upper boundary " + toString(getMax());
             return false;
