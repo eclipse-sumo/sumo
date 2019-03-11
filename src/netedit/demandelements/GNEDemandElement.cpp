@@ -246,6 +246,7 @@ void
 GNEDemandElement::deleteRouteCalculatorInstance() {
     if(myRouteCalculatorInstance) {
         delete myRouteCalculatorInstance;
+        myRouteCalculatorInstance = nullptr;
     } else {
         throw ProcessError("Instance wasn't created");
     }
