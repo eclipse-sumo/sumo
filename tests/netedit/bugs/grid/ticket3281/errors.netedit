@@ -1,36 +1,37 @@
+Debug: Selected item 'DEFAULT_VEHTYPE' in VTypeSelector
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals saved, shapes saved
+Debug: Current saving Status: net unsaved, additionals saved, demand elements saved
 Debug: Current Viewport values: 100.00, 0.00, 200.00. Zoom = '50.00'
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Adding junction 'gneJ0' into net
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals saved, shapes saved
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: Current saving Status: net unsaved, additionals saved, demand elements saved
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Adding junction 'gneJ1' into net
 Debug: Adding edge 'gneE0' from net
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
 Debug: invalidating (removing) connections of edge 'gneE0' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
-Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: ObjectsUnderCursor: swapped Lanes to edges
 Debug: Setting new attribute shape '100.00,0.00' into edge 'gneE0'
-Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: ObjectsUnderCursor: swapped Lanes to edges
 Debug: Setting new attribute shape '' into edge 'gneE0'
-Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: ObjectsUnderCursor: swapped Lanes to edges
 Debug: Setting new attribute shape '100.00,0.00' into edge 'gneE0'
-Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: ObjectsUnderCursor: swapped Lanes to edges
 Debug: Setting new attribute shape '100.00,-100.00' into edge 'gneE0'
 Debug: Key F5 (Compute) pressed
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute shape '100.00,0.00' into edge 'gneE0'
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute shape '' into edge 'gneE0'
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute shape '100.00,0.00' into edge 'gneE0'
 Debug: Keys Ctrl + Y (Redo) pressed
@@ -39,5 +40,7 @@ Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
 Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
+Debug: Deleting unreferenced vType 'DEFAULT_PEDTYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting net builder in GNENet destructor

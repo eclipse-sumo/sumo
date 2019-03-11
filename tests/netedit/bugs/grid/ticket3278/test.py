@@ -31,11 +31,11 @@ netedit.rebuildNetwork()
 # zoom in central node
 netedit.setZoom("50", "50", "100")
 
-# go to delete mode
+# go to move mode
 netedit.moveMode()
 
 # move back to another different position of initial
-netedit.moveElement(referencePosition, -25, 225, 25, 350)
+netedit.moveElement(referencePosition, -40, 240, 40, 365)
 
 # check undo redo
 netedit.undo(referencePosition, 1)

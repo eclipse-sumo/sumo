@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 06.12.2018 16:05:49 by Eclipse SUMO netedit Version v1_0_1+0692-c9085b9bf1
+<!-- generated on 11.03.2019 08:38:34 by Eclipse SUMO netedit Version v1_1_0+1184-22a37878bd
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Projects\sumo\tests\netedit\selection\viewoptions\input_net.net.xml"/>
+        <node-files value="C:\Projects\sumo\tests\netedit\selection\viewoptions\input_net.nod.xml"/>
+        <edge-files value="C:\Projects\sumo\tests\netedit\selection\viewoptions\input_net.edg.xml"/>
     </input>
 
     <output>
@@ -14,25 +15,17 @@
 
     <processing>
         <offset.disable-normalization value="true"/>
-        <lefthand value="false"/>
     </processing>
 
     <junctions>
         <no-internal-links value="false"/>
         <no-turnarounds value="true"/>
-        <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="5.5"/>
-        <rectangular-lane-cut value="false"/>
     </junctions>
-
-    <pedestrian>
-        <walkingareas value="false"/>
-    </pedestrian>
 
 </configuration>
 -->
 
-<edges version="1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+<edges version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
     <edge id="1" from="Center" to="A" priority="-1" numLanes="3" speed="13.90">
         <lane index="0" allow="pedestrian"/>
         <lane index="1" disallow="pedestrian"/>

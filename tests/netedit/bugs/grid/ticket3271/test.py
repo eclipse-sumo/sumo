@@ -35,17 +35,17 @@ netedit.setZoom("50", "50", "150")
 netedit.createEdgeMode()
 
 # Create an edge in
-netedit.leftClick(referencePosition, -80, 50)
-netedit.leftClick(referencePosition, 45, 50)
+netedit.leftClick(referencePosition, -80, 65)
+netedit.leftClick(referencePosition, 45, 65)
 
-netedit.leftClick(referencePosition, -80, 50)
-netedit.leftClick(referencePosition, -78, 215)
+netedit.leftClick(referencePosition, -80, 65)
+netedit.leftClick(referencePosition, -78, 230)
 
-netedit.leftClick(referencePosition, 460, 50)
-netedit.leftClick(referencePosition, 500, 50)
+netedit.leftClick(referencePosition, 460, 65)
+netedit.leftClick(referencePosition, 500, 65)
 
-netedit.leftClick(referencePosition, 500, 50)
-netedit.leftClick(referencePosition, 500, 180)
+netedit.leftClick(referencePosition, 500, 65)
+netedit.leftClick(referencePosition, 500, 195)
 
 # save network
 netedit.saveNetwork()
