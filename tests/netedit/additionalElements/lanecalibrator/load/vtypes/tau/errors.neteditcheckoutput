@@ -1,2 +1,1 @@
-Warning: Value of tau=0.90 in car following model 'carFollowing-Krauss' lower than simulation step size may cause collisions
 Warning: No flow intervals in calibrator 'laneCalibratorVehicleTypes'.
