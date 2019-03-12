@@ -181,7 +181,7 @@ GNEFlow::drawGL(const GUIVisualizationSettings& s) const {
         // push draw matrix
         glPushMatrix();
         // translate to drawing position
-        glTranslated(myGeometry.shape[0].x(), myGeometry.shape[0].y(), getType());
+        glTranslated(myGeometry.shape.front().x(), myGeometry.shape.front().y(), getType());
         glRotated(myGeometry.shapeRotations.front(), 0, 0, 1);
         // set lane color
         setColor(s);
@@ -239,7 +239,7 @@ GNEFlow::drawGL(const GUIVisualizationSettings& s) const {
 
         // check if dotted contour has to be drawn
         if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
-            GLHelper::drawShapeDottedContour(getType(), myGeometry.shape[0], width, length, myGeometry.shapeRotations[0], 0, length/2);
+            GLHelper::drawShapeDottedContour(getType(), myGeometry.shape.front(), width, length, myGeometry.shapeRotations.front(), 0, length/2);
         }
         // pop name
         glPopName();

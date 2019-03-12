@@ -152,9 +152,6 @@ public:
     /// @brief Returns a pointer to GNEViewNet in which demand element element is located
     GNEViewNet* getViewNet() const;
 
-    /// @brief Returns demand element element's shape
-    PositionVector getShape() const;
-
     /// @brief get GNEEdges
     const std::vector<GNEEdge*>& getGNEEdges() const;
 
@@ -298,35 +295,17 @@ protected:
         /// @brief reset geometry
         void clearGeometry();
 
-        /// @brief calculate multi shape unified
-        void calculateMultiShapeUnified();
-
-        /// @brief calculate shape rotations and lenghts
+        /// @brief calculate multi shape rotations and lenghts
         void calculateShapeRotationsAndLengths();
 
-        /// @brief calculate multi shape rotations and lenghts
-        void calculateMultiShapeRotationsAndLengths();
-
-        /// @brief The shape of the demand element element
+        /// @brief The shape of the demand element
         PositionVector shape;
-
-        /// @brief The multi-shape of the demand element element (used by certain demand elements)
-        std::vector<PositionVector> multiShape;
 
         /// @brief The rotations of the single shape parts
         std::vector<double> shapeRotations;
 
         /// @brief The lengths of the single shape parts
         std::vector<double> shapeLengths;
-
-        /// @brief The rotations of the multi-shape parts
-        std::vector<std::vector<double> > multiShapeRotations;
-
-        /// @brief The lengths of the multi-shape shape parts
-        std::vector<std::vector<double> > multiShapeLengths;
-
-        /// @brief multi shape unified
-        PositionVector multiShapeUnified;
     };
 
     /// @brief struct for pack all variables related with demand element move

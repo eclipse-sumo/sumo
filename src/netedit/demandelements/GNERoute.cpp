@@ -114,48 +114,54 @@ GNERoute::updateGeometry(bool updateGrid) {
     // Clear all containers
     myGeometry.clearGeometry();
 
-    // calculate start and end positions dependin of number of lanes
+    // calculate start and end positions depending of number of lanes
     if (myEdges.size() == 1) {
-        // set shape lane as detector shape
-        myGeometry.shape = myEdges.front()->getLanes().front()->getShape();
+        // append shape
+        myGeometry.shape = myEdges.back()->getLanes().front()->getShape();
 
-        // Get calculate lenghts and rotations
+        // calculate multi shape rotation and lengths
         myGeometry.calculateShapeRotationsAndLengths();
 
     } else if (myEdges.size() > 1) {
+        // declare a vector of shapes
+        std::vector<PositionVector> multiShape;
+
         // start with the first lane shape
-        myGeometry.multiShape.push_back(myEdges.front()->getLanes().front()->getShape());
+        multiShape.push_back(myEdges.front()->getLanes().front()->getShape());
 
         // add first shape connection (if exist, in other case leave it empty)
-        myGeometry.multiShape.push_back(PositionVector{myEdges.at(0)->getLanes().front()->getShape().back(), myEdges.at(1)->getLanes().front()->getShape().front()});
+        multiShape.push_back(PositionVector{myEdges.at(0)->getLanes().front()->getShape().back(), myEdges.at(1)->getLanes().front()->getShape().front()});
         for (auto j : myEdges.at(0)->getGNEConnections()) {
             if (j->getLaneTo() == myEdges.at(1)->getLanes().front()) {
-                myGeometry.multiShape.back() = j->getShape();
+                multiShape.back() = j->getShape();
             }
         }
 
         // append shapes of intermediate lanes AND connections (if exist)
         for (int i = 1; i < ((int)myEdges.size() - 1); i++) {
             // add lane shape
-            myGeometry.multiShape.push_back(myEdges.at(i)->getLanes().front()->getShape());
+            multiShape.push_back(myEdges.at(i)->getLanes().front()->getShape());
             // add empty shape for connection
-            myGeometry.multiShape.push_back(PositionVector{myEdges.at(i)->getLanes().front()->getShape().back(), myEdges.at(i + 1)->getLanes().front()->getShape().front()});
+            multiShape.push_back(PositionVector{myEdges.at(i)->getLanes().front()->getShape().back(), myEdges.at(i + 1)->getLanes().front()->getShape().front()});
             // set connection shape (if exist). In other case, insert an empty shape
             for (auto j : myEdges.at(i)->getGNEConnections()) {
                 if (j->getLaneTo() == myEdges.at(i + 1)->getLanes().front()) {
-                    myGeometry.multiShape.back() = j->getShape();
+                    multiShape.back() = j->getShape();
                 }
             }
         }
 
         // append last shape
-        myGeometry.multiShape.push_back(myEdges.back()->getLanes().front()->getShape());
-
-        // calculate multi shape rotation and lengths
-        myGeometry.calculateMultiShapeRotationsAndLengths();
+        multiShape.push_back(myEdges.back()->getLanes().front()->getShape());
 
         // calculate unified shape
-        myGeometry.calculateMultiShapeUnified();
+        for (auto i : multiShape) {
+            myGeometry.shape.append(i);
+        }
+        myGeometry.shape.removeDoublePoints();
+
+        // calculate multi shape rotation and lengths
+        myGeometry.calculateShapeRotationsAndLengths();
     }
 
     // last step is to check if object has to be added into grid (SUMOTree) again
@@ -206,13 +212,7 @@ GNERoute::drawGL(const GUIVisualizationSettings& s) const {
         }
 
         // draw route
-        if (myGeometry.shape.size() > 0) {
-            GLHelper::drawBoxLines(myGeometry.shape, myGeometry.shapeRotations, myGeometry.shapeLengths, routeWidth);
-        } else {
-            for (int i = 0; i < (int)myGeometry.multiShape.size(); i++) {
-                GLHelper::drawBoxLines(myGeometry.multiShape.at(i), myGeometry.multiShapeRotations.at(i), myGeometry.multiShapeLengths.at(i), routeWidth);
-            }
-        }
+        GLHelper::drawBoxLines(myGeometry.shape, myGeometry.shapeRotations, myGeometry.shapeLengths, routeWidth);
 
         // Pop last matrix
         glPopMatrix();
@@ -224,11 +224,7 @@ GNERoute::drawGL(const GUIVisualizationSettings& s) const {
 
         // check if dotted contour has to be drawn
         if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
-            if (myGeometry.shape.size() > 0) {
-                GLHelper::drawShapeDottedContour(getType(), myGeometry.shape, routeWidth);
-            } else {
-                GLHelper::drawShapeDottedContour(getType(), myGeometry.multiShapeUnified, routeWidth);
-            }
+            GLHelper::drawShapeDottedContour(getType(), myGeometry.shape, routeWidth);
         }
 
         // Pop name

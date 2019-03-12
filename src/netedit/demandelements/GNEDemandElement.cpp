@@ -239,12 +239,6 @@ GNEDemandElement::getViewNet() const {
 }
 
 
-PositionVector
-GNEDemandElement::getShape() const {
-    return myGeometry.shape;
-}
-
-
 const std::vector<GNEEdge*>& 
 GNEDemandElement::getGNEEdges() const {
     return myEdges;
@@ -353,30 +347,7 @@ GNEDemandElement::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) 
         new FXMenuCommand(ret, ("Open " + getTagStr() + " Dialog").c_str(), getIcon(), &parent, MID_OPEN_ADDITIONAL_DIALOG);
         new FXMenuSeparator(ret);
     }
-    // Show position parameters
-    if (myTagProperty.hasAttribute(SUMO_ATTR_LANE)) {
-        GNELane* lane = myViewNet->getNet()->retrieveLane(getAttribute(SUMO_ATTR_LANE));
-        // Show menu command inner position
-        const double innerPos = myGeometry.shape.nearest_offset_to_point2D(parent.getPositionInformation());
-        new FXMenuCommand(ret, ("Cursor position inner demand element: " + toString(innerPos)).c_str(), nullptr, nullptr, 0);
-        // If shape isn't empty, show menu command lane position
-        if (myGeometry.shape.size() > 0) {
-            const double lanePos = lane->getShape().nearest_offset_to_point2D(myGeometry.shape[0]);
-            new FXMenuCommand(ret, ("Cursor position over " + toString(SUMO_TAG_LANE) + ": " + toString(innerPos + lanePos)).c_str(), nullptr, nullptr, 0);
-        }
-    } else if (myTagProperty.hasAttribute(SUMO_ATTR_EDGE)) {
-        GNEEdge* edge = myViewNet->getNet()->retrieveEdge(getAttribute(SUMO_ATTR_EDGE));
-        // Show menu command inner position
-        const double innerPos = myGeometry.shape.nearest_offset_to_point2D(parent.getPositionInformation());
-        new FXMenuCommand(ret, ("Cursor position inner demand element: " + toString(innerPos)).c_str(), nullptr, nullptr, 0);
-        // If shape isn't empty, show menu command edge position
-        if (myGeometry.shape.size() > 0) {
-            const double edgePos = edge->getLanes().at(0)->getShape().nearest_offset_to_point2D(myGeometry.shape[0]);
-            new FXMenuCommand(ret, ("Mouse position over " + toString(SUMO_TAG_EDGE) + ": " + toString(innerPos + edgePos)).c_str(), nullptr, nullptr, 0);
-        }
-    } else {
-        new FXMenuCommand(ret, ("Cursor position in view: " + toString(getPositionInView().x()) + "," + toString(getPositionInView().y())).c_str(), nullptr, nullptr, 0);
-    }
+    new FXMenuCommand(ret, ("Cursor position in view: " + toString(getPositionInView().x()) + "," + toString(getPositionInView().y())).c_str(), nullptr, nullptr, 0);
     return ret;
 }
 
@@ -405,18 +376,12 @@ GNEDemandElement::getCenteringBoundary() const {
     // Return Boundary depending if myMovingGeometryBoundary is initialised (important for move geometry)
     if (myMove.movingGeometryBoundary.isInitialised()) {
         return myMove.movingGeometryBoundary;
-    } else if ((myGeometry.shape.size() == 0) && (myGeometry.multiShape.size() == 0)) {
-        return Boundary(-0.1, -0.1, 0.1, 0.1);
-    } else {
-        Boundary b;
-        if (myGeometry.shape.size() > 0) {
-            b.add(myGeometry.shape.getBoxBoundary());
-        }
-        if (myGeometry.multiShapeUnified.size() > 0) {
-            b.add(myGeometry.multiShapeUnified.getBoxBoundary());
-        }
+    } else if (myGeometry.shape.size() > 0) {
+        Boundary b = myGeometry.shape.getBoxBoundary();
         b.grow(20);
         return b;
+    } else {
+        return Boundary(-0.1, -0.1, 0.1, 0.1);
     }
 }
 
@@ -468,21 +433,8 @@ GNEDemandElement::DemandElementGeometry::DemandElementGeometry() {}
 void
 GNEDemandElement::DemandElementGeometry::clearGeometry() {
     shape.clear();
-    multiShape.clear();
     shapeRotations.clear();
     shapeLengths.clear();
-    multiShapeRotations.clear();
-    multiShapeLengths.clear();
-    multiShapeUnified.clear();
-}
-
-
-void
-GNEDemandElement::DemandElementGeometry::calculateMultiShapeUnified() {
-    // merge all multishape parts in a single shape
-    for (auto i : multiShape) {
-        multiShapeUnified.append(i);
-    }
 }
 
 
@@ -505,37 +457,6 @@ GNEDemandElement::DemandElementGeometry::calculateShapeRotationsAndLengths() {
             shapeLengths.push_back(f.distanceTo(s));
             // Save rotation (angle) of the vector constructed by points f and s
             shapeRotations.push_back((double)atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double)M_PI);
-        }
-    }
-}
-
-
-void
-GNEDemandElement::DemandElementGeometry::calculateMultiShapeRotationsAndLengths() {
-    // Get number of parts of the shape for every part shape
-    std::vector<int> numberOfSegments;
-    for (auto i : multiShape) {
-        // numseg cannot be 0
-        int numSeg = (int)i.size() - 1;
-        numberOfSegments.push_back((numSeg >= 0) ? numSeg : 0);
-        multiShapeRotations.push_back(std::vector<double>());
-        multiShapeLengths.push_back(std::vector<double>());
-    }
-    // If number of segments is more than 0
-    for (int i = 0; i < (int)multiShape.size(); i++) {
-        // Reserve size for every part
-        multiShapeRotations.back().reserve(numberOfSegments.at(i));
-        multiShapeLengths.back().reserve(numberOfSegments.at(i));
-        // iterate over each segment
-        for (int j = 0; j < numberOfSegments.at(i); j++) {
-            // Obtain first position
-            const Position& f = multiShape[i][j];
-            // Obtain next position
-            const Position& s = multiShape[i][j + 1];
-            // Save distance between position into myShapeLengths
-            multiShapeLengths.at(i).push_back(f.distanceTo(s));
-            // Save rotation (angle) of the vector constructed by points f and s
-            multiShapeRotations.at(i).push_back((double)atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double)M_PI);
         }
     }
 }

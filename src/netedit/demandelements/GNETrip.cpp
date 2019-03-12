@@ -139,25 +139,31 @@ GNETrip::updateGeometry(bool updateGrid) {
     myTemporalRoute = getRouteCalculatorInstance()->calculateDijkstraRoute(parse<SUMOVehicleClass>(myVehicleType->getAttribute(SUMO_ATTR_VCLASS)), myFrom, myTo, myVia);
 
     if (myTemporalRoute.size() > 1) {
+        // declare a vector of shapes
+        std::vector<PositionVector> multiShape;
+
         // start with the first lane shape
-        myGeometry.multiShape.push_back(myTemporalRoute.front()->getLanes().front().shape);
+        multiShape.push_back(myTemporalRoute.front()->getLanes().front().shape);
 
         // add first shape connection (if exist, in other case leave it empty)
-        myGeometry.multiShape.push_back(PositionVector{myTemporalRoute.at(0)->getLanes().front().shape.back(), myTemporalRoute.at(1)->getLanes().front().shape.front()});
+        multiShape.push_back(PositionVector{myTemporalRoute.at(0)->getLanes().front().shape.back(), myTemporalRoute.at(1)->getLanes().front().shape.front()});
 
         // append shapes of intermediate lanes AND connections (if exist)
         for (int i = 1; i < ((int)myTemporalRoute.size() - 1); i++) {
             // add lane shape
-            myGeometry.multiShape.push_back(myTemporalRoute.at(i)->getLanes().front().shape);
+            multiShape.push_back(myTemporalRoute.at(i)->getLanes().front().shape);
             // add empty shape for connection
-            myGeometry.multiShape.push_back(PositionVector{myTemporalRoute.at(i)->getLanes().front().shape.back(), myTemporalRoute.at(i + 1)->getLanes().front().shape.front()});
+            multiShape.push_back(PositionVector{myTemporalRoute.at(i)->getLanes().front().shape.back(), myTemporalRoute.at(i + 1)->getLanes().front().shape.front()});
         }
 
         // append last shape
-        myGeometry.multiShape.push_back(myTemporalRoute.back()->getLanes().front().shape);
+        multiShape.push_back(myTemporalRoute.back()->getLanes().front().shape);
 
         // calculate unified shape
-        myGeometry.calculateMultiShapeUnified();
+        for (auto i : multiShape) {
+            myGeometry.shape.append(i);
+        }
+        myGeometry.shape.removeDoublePoints();
     }
     // last step is to check if object has to be added into grid (SUMOTree) again
     if (updateGrid) {
@@ -198,11 +204,11 @@ GNETrip::drawGL(const GUIVisualizationSettings& s) const {
         // push draw matrix
         glPushMatrix();
         // translate to drawing position
-        glTranslated(myGeometry.shape[0].x(), myGeometry.shape[0].y(), getType());
+        glTranslated(myGeometry.shape.front().x(), myGeometry.shape.front().y(), getType());
         glRotated(myGeometry.shapeRotations.front(), 0, 0, 1);
         // set lane color
         setColor(s);
-        // set scale
+        // set scale3
         const double upscale = s.vehicleSize.getExaggeration(s, this);
         double upscaleLength = upscale;
         if (upscale > 1 && length > 5) {
@@ -256,7 +262,7 @@ GNETrip::drawGL(const GUIVisualizationSettings& s) const {
 
         // check if dotted contour has to be drawn
         if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
-            GLHelper::drawShapeDottedContour(getType(), myGeometry.shape[0], width, length, myGeometry.shapeRotations[0], 0, length/2);
+            GLHelper::drawShapeDottedContour(getType(), myGeometry.shape.front(), width, length, myGeometry.shapeRotations.front(), 0, length/2);
             if (myTemporalRoute.size() > 1) {
                 // Add a draw matrix
                 glPushMatrix();
