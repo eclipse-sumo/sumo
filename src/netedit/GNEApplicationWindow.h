@@ -466,6 +466,38 @@ private:
         GNEApplicationWindow* myGNEApp;
     };
 
+    /// @brief struct for File menu commands
+    struct EditMenuCommands {
+
+        /// @brief constructor
+        EditMenuCommands(GNEApplicationWindow* GNEApp);
+
+        /// @brief build edit menu commands
+        void buildEditMenuCommands(FXMenuPane* editMenu);
+
+        /// @brief FXMenuCommand for undo last change
+        FXMenuCommand* undoLastChange;
+
+        /// @brief FXMenuCommand for redo last change
+        FXMenuCommand* redoLastChange;
+
+        /// @brief FXMenuCommand for edit view scheme
+        FXMenuCommand* editViewScheme;
+
+        /// @brief FXMenuCommand for edit view port
+        FXMenuCommand* editViewPort;
+
+        /// @brief FXMenuCommand for toogle grid
+        FXMenuCommand* toogleGrid;
+
+        /// @brief FXMenuCommand for open in SUMO GUI
+        FXMenuCommand* openInSUMOGUI;
+
+    private:
+        /// @brief pointer to current GNEApplicationWindows
+        GNEApplicationWindow* myGNEApp;
+    };
+
     /// @brief struct for network menu commands
     struct NetworkMenuCommands {
 
@@ -565,6 +597,9 @@ private:
 
     /// @brief File Menu Commands
     FileMenuCommands myFileMenuCommands;
+
+    /// @brief Edit Menu Commands
+    EditMenuCommands myEditMenuCommands;
 
     /// @brief Network Menu Commands
     NetworkMenuCommands myNetworkMenuCommands;

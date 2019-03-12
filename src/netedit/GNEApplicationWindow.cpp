@@ -292,6 +292,7 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     myToolbarsGrip(this),
     myMenuBarFile(this),
     myFileMenuCommands(this),
+    myEditMenuCommands(this),
     myNetworkMenuCommands(this),
     myDemandMenuCommands(this),
     myViewNet(nullptr),
@@ -998,6 +999,47 @@ GNEApplicationWindow::FileMenuCommands::buildFileMenuCommands(FXMenuPane* fileMe
 }
 
 // ---------------------------------------------------------------------------
+// GNEViewNet::EditMenuCommands - methods
+// ---------------------------------------------------------------------------
+
+GNEApplicationWindow::EditMenuCommands::EditMenuCommands(GNEApplicationWindow* GNEApp) :
+    myGNEApp(GNEApp) {
+}
+
+
+void
+GNEApplicationWindow::EditMenuCommands::buildEditMenuCommands(FXMenuPane* fileMenu) {
+    // build undo/redo command
+    undoLastChange = new FXMenuCommand(fileMenu,
+                                       "&Undo\tCtrl+Z\tUndo the last change.",
+                                       GUIIconSubSys::getIcon(ICON_UNDO), myGNEApp->myUndoList, FXUndoList::ID_UNDO);
+    redoLastChange = new FXMenuCommand(fileMenu,
+                                       "&Redo\tCtrl+Y\tRedo the last change.",
+                                       GUIIconSubSys::getIcon(ICON_REDO), myGNEApp->myUndoList, FXUndoList::ID_REDO);
+    // build separator
+    new FXMenuSeparator(fileMenu);
+    // build Network modes commands and hide it
+    myGNEApp->myNetworkMenuCommands.buildNetworkMenuCommands(fileMenu);
+    myGNEApp->myNetworkMenuCommands.hideNetworkMenuCommands();
+    // build Demand Modes commands
+    myGNEApp->myDemandMenuCommands.buildDemandMenuCommands(fileMenu);
+    myGNEApp->myDemandMenuCommands.hideDemandMenuCommands();
+    editViewScheme = new FXMenuCommand(fileMenu,
+                                       "Edit Visualisation\tCtrl+V\tOpens a dialog for editing visualization settings.",
+                                       nullptr, myGNEApp, MID_EDITVIEWSCHEME);
+    editViewPort = new FXMenuCommand(fileMenu,
+                                     "Edit Viewport\tCtrl+I\tOpens a dialog for editing viewing are, zoom and rotation.",
+                                     nullptr, myGNEApp, MID_EDITVIEWPORT);
+    toogleGrid = new FXMenuCommand(fileMenu,
+                                   "Toggle Grid\tCtrl+G\tToggles background grid (and snap-to-grid functionality).",
+                                   nullptr, myGNEApp, MID_HOTKEY_CTRL_G_GAMINGMODE_TOOGLEGRID);
+    new FXMenuSeparator(fileMenu);
+    openInSUMOGUI = new FXMenuCommand(fileMenu,
+                                      "Open in SUMO GUI\tCtrl+T\tOpens the SUMO GUI application with the current network.",
+                                      GUIIconSubSys::getIcon(ICON_SUMO_MINI), myGNEApp, MID_HOTKEY_CTRL_T_OPENSUMONETEDIT);
+}
+
+// ---------------------------------------------------------------------------
 // GNEViewNet::NetworkCheckableButtons - methods
 // ---------------------------------------------------------------------------
 
@@ -1164,34 +1206,7 @@ GNEApplicationWindow::fillMenuBar() {
     myEditMenu = new FXMenuPane(this);
     menuTitle = new FXMenuTitle(myToolbarsGrip.menu, "&Edit", nullptr, myEditMenu, LAYOUT_FIX_HEIGHT);
     menuTitle->setHeight(23);
-    // build undo/redo command
-    new FXMenuCommand(myEditMenu,
-                      "&Undo\tCtrl+Z\tUndo the last change.",
-                      GUIIconSubSys::getIcon(ICON_UNDO), myUndoList, FXUndoList::ID_UNDO);
-    new FXMenuCommand(myEditMenu,
-                      "&Redo\tCtrl+Y\tRedo the last change.",
-                      GUIIconSubSys::getIcon(ICON_REDO), myUndoList, FXUndoList::ID_REDO);
-    // build separator
-    new FXMenuSeparator(myEditMenu);
-    // build Network modes commands and hide it
-    myNetworkMenuCommands.buildNetworkMenuCommands(myEditMenu);
-    myNetworkMenuCommands.hideNetworkMenuCommands();
-    // build Demand Modes commands
-    myDemandMenuCommands.buildDemandMenuCommands(myEditMenu);
-    myDemandMenuCommands.hideDemandMenuCommands();
-    new FXMenuCommand(myEditMenu,
-                      "Edit Visualisation\tCtrl+V\tOpens a dialog for editing visualization settings.",
-                      nullptr, this, MID_EDITVIEWSCHEME);
-    new FXMenuCommand(myEditMenu,
-                      "Edit Viewport\tCtrl+I\tOpens a dialog for editing viewing are, zoom and rotation.",
-                      nullptr, this, MID_EDITVIEWPORT);
-    new FXMenuCommand(myEditMenu,
-                      "Toggle Grid\tCtrl+G\tToggles background grid (and snap-to-grid functionality).",
-                      nullptr, this, MID_HOTKEY_CTRL_G_GAMINGMODE_TOOGLEGRID);
-    new FXMenuSeparator(myEditMenu);
-    new FXMenuCommand(myEditMenu,
-                      "Open in SUMO GUI\tCtrl+T\tOpens the SUMO GUI application with the current network.",
-                      GUIIconSubSys::getIcon(ICON_SUMO_MINI), this, MID_HOTKEY_CTRL_T_OPENSUMONETEDIT);
+    myEditMenuCommands.buildEditMenuCommands(myEditMenu);
     // processing menu (trigger netbuild computations)
     myProcessingMenu = new FXMenuPane(this);
     menuTitle = new FXMenuTitle(myToolbarsGrip.menu, "&Processing", nullptr, myProcessingMenu, LAYOUT_FIX_HEIGHT);
@@ -1869,8 +1884,8 @@ GNEApplicationWindow::onCmdOptions(FXObject*, FXSelector, void*) {
 
 long 
 GNEApplicationWindow::onCmdUndo(FXObject*, FXSelector, void*) {
-    // Undo needs a viewnet
-    if(myViewNet) {
+    // Undo needs a viewnet and a enabled undoLastChange menu command
+    if(myViewNet && myEditMenuCommands.undoLastChange->isEnabled()) {
         myViewNet->getUndoList()->undo();
     }
     return 1;
@@ -1879,8 +1894,8 @@ GNEApplicationWindow::onCmdUndo(FXObject*, FXSelector, void*) {
 
 long 
 GNEApplicationWindow::onCmdRedo(FXObject*, FXSelector, void*) {
-    // redo needs a viewnet
-    if(myViewNet) {
+    // redo needs a viewnet and a enabled redoLastChange menu command
+    if(myViewNet && myEditMenuCommands.redoLastChange->isEnabled()) {
         myViewNet->getUndoList()->redo();
     }
     return 1;
@@ -2359,6 +2374,7 @@ GNEApplicationWindow::GNEApplicationWindow() :
     myToolbarsGrip(this),
     myMenuBarFile(this),
     myFileMenuCommands(this),
+    myEditMenuCommands(this),
     myNetworkMenuCommands(this),
     myDemandMenuCommands(this) {
 }
