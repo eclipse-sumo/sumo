@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 08.03.2019 13:40:52 by Eclipse SUMO netedit Version v1_1_0+1184-22a37878bd
+<!-- generated on 11.03.2019 16:23:28 by Eclipse SUMO netedit Version v1_1_0+1184-22a37878bd
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Mar091225.2224/netedit.gui/shapeElements/poly/load/relativepath\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Mar120521.2252/netedit.gui/shapeElements/poly/load/relativepath\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Mar091225.2224/netedit.gui/shapeElements/poly/load/relativepath\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Mar120521.2252/netedit.gui/shapeElements/poly/load/relativepath\net.net.xml"/>
     </output>
 
     <processing>
@@ -29,13 +29,13 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Mar091225.2224/netedit.gui/shapeElements/poly/load/relativepath\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Mar091225.2224/netedit.gui/shapeElements/poly/load/relativepath\additionals.xml"/>
-        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Mar091225.2224/netedit.gui/shapeElements/poly/load/relativepath\routes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Mar120521.2252/netedit.gui/shapeElements/poly/load/relativepath\input_additionals.add.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Mar120521.2252/netedit.gui/shapeElements/poly/load/relativepath\additionals.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Mar120521.2252/netedit.gui/shapeElements/poly/load/relativepath\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Mar091225.2224/netedit.gui/shapeElements/poly/load/relativepath\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Mar120521.2252/netedit.gui/shapeElements/poly/load/relativepath\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -45,15 +45,15 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Mar091225.2224/netedit.gui/shapeElements/poly/load/relativepath\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Mar120521.2252/netedit.gui/shapeElements/poly/load/relativepath\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <poly id="poly_0" color="green" fill="1" layer="0.00" shape="60.000000,-40.000000 60.000000,-50.000000 50.000000,-50.000000 50.000000,-40.000000 60.000000,-40.000000" angle="-30.00" imgFile="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Mar091225.2224/netedit.gui/shapeElements/poly/load/relativepath\berlin_icon.ico"/>
-    <poly id="poly_1" color="green" fill="1" layer="0.00" shape="60.000000,-40.000000 60.000000,-50.000000 50.000000,-50.000000 50.000000,-40.000000 60.000000,-40.000000" angle="-30.00" imgFile="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Mar091225.2224/netedit.gui/shapeElements/poly/load/relativepath\berlin_icon.ico"/>
-    <poly id="poly_2" color="green" fill="1" layer="0.00" shape="60.000000,-40.000000 60.000000,-50.000000 50.000000,-50.000000 50.000000,-40.000000 60.000000,-40.000000" angle="-30.00" imgFile="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Mar091225.2224/netedit.gui/shapeElements/poly/load/relativepath\berlin_icon.ico"/>
+    <poly id="poly_0" color="green" fill="1" layer="0.00" shape="60.000000,-40.000000 60.000000,-50.000000 50.000000,-50.000000 50.000000,-40.000000 60.000000,-40.000000" angle="-30.00" imgFile="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Mar120521.2252/netedit.gui/shapeElements/poly/load/relativepath\berlin_icon.ico"/>
+    <poly id="poly_1" color="green" fill="1" layer="0.00" shape="60.000000,-40.000000 60.000000,-50.000000 50.000000,-50.000000 50.000000,-40.000000 60.000000,-40.000000" angle="-30.00" imgFile="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Mar120521.2252/netedit.gui/shapeElements/poly/load/relativepath\berlin_icon.ico"/>
+    <poly id="poly_2" color="green" fill="1" layer="0.00" shape="60.000000,-40.000000 60.000000,-50.000000 50.000000,-50.000000 50.000000,-40.000000 60.000000,-40.000000" angle="-30.00" imgFile="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Mar120521.2252/netedit.gui/shapeElements/poly/load/relativepath\berlin_icon.ico"/>
     <poly id="poly_3" color="green" fill="1" layer="0.00" shape="60.000000,-40.000000 60.000000,-50.000000 50.000000,-50.000000 50.000000,-40.000000 60.000000,-40.000000" angle="-30.00" imgFile="berlin_icon.ico"/>
 </additional>

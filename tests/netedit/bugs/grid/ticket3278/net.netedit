@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 04.12.2018 14:56:37 by Eclipse SUMO netedit Version v1_0_0+1208-d42a3cd999
+<!-- generated on 11.03.2019 12:15:45 by Eclipse SUMO netedit Version v1_1_0+1184-22a37878bd
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.04Dec144832.5768/netedit.gui/bugs/grid/ticket3278\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Mar120521.2252/netedit.gui/bugs/grid/ticket3278\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.04Dec144832.5768/netedit.gui/bugs/grid/ticket3278\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Mar120521.2252/netedit.gui/bugs/grid/ticket3278\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
     </processing>
@@ -29,12 +30,12 @@
     </pedestrian>
 
     <netedit>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.04Dec144832.5768/netedit.gui/bugs/grid/ticket3278\additionals.xml"/>
-        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.04Dec144832.5768/netedit.gui/bugs/grid/ticket3278\shapes.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Mar120521.2252/netedit.gui/bugs/grid/ticket3278\additionals.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Mar120521.2252/netedit.gui/bugs/grid/ticket3278\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.04Dec144832.5768/netedit.gui/bugs/grid/ticket3278\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Mar120521.2252/netedit.gui/bugs/grid/ticket3278\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -43,7 +44,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.04Dec144832.5768/netedit.gui/bugs/grid/ticket3278\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Mar120521.2252/netedit.gui/bugs/grid/ticket3278\log.txt"/>
     </report>
 
 </configuration>
@@ -103,7 +104,7 @@
         <lane id=":Center_7_0" index="0" speed="13.90" length="29.74" shape="60.40,51.60 53.22,50.37 46.66,47.14 40.64,42.58 35.11,37.38"/>
     </edge>
     <edge id=":Center_8" function="internal">
-        <lane id=":Center_8_0" index="0" speed="10.86" length="27.01" shape="60.40,51.60 54.31,49.72 50.65,44.82 48.87,38.06 48.40,30.55"/>
+        <lane id=":Center_8_0" index="0" speed="10.87" length="27.05" shape="60.40,51.60 55.15,50.28 51.40,46.34 49.15,39.76 48.40,30.55"/>
     </edge>
     <edge id=":Center_9" function="internal">
         <lane id=":Center_9_0" index="0" speed="3.65" length="4.67" shape="60.40,51.60 59.20,50.80 58.80,50.00 59.20,49.20 60.40,48.40"/>
@@ -116,7 +117,7 @@
         <lane id=":Center_11_1" index="1" speed="13.90" length="29.85" shape="51.60,30.55 51.60,60.40"/>
     </edge>
     <edge id=":Center_13" function="internal">
-        <lane id=":Center_13_0" index="0" speed="8.15" length="6.48" shape="51.60,30.55 50.02,36.83"/>
+        <lane id=":Center_13_0" index="0" speed="8.14" length="6.43" shape="51.60,30.55 50.01,36.78"/>
     </edge>
     <edge id=":Center_14" function="internal">
         <lane id=":Center_14_0" index="0" speed="3.65" length="2.34" shape="51.60,30.55 50.80,31.75 50.00,32.15"/>
@@ -125,7 +126,7 @@
         <lane id=":Center_23_0" index="0" speed="8.71" length="3.64" shape="57.40,43.42 57.95,44.28 60.40,45.20"/>
     </edge>
     <edge id=":Center_24" function="internal">
-        <lane id=":Center_24_0" index="0" speed="8.15" length="17.17" shape="50.02,36.83 46.01,40.36 40.67,40.70 35.11,37.38"/>
+        <lane id=":Center_24_0" index="0" speed="8.14" length="17.13" shape="50.01,36.78 45.99,40.31 40.65,40.66 35.11,37.38"/>
     </edge>
     <edge id=":Center_25" function="internal">
         <lane id=":Center_25_0" index="0" speed="3.65" length="2.34" shape="50.00,32.15 49.20,31.75 48.40,30.55"/>
@@ -241,7 +242,7 @@
     <junction id=":Center_21_0" type="internal" x="50.00" y="53.73" incLanes=":Center_3_0 5_0 5_1" intLanes=":Center_6_0 :Center_7_0 :Center_8_0 :Center_9_0 :Center_10_0 :Center_11_0 :Center_11_1 :Center_16_0 :Center_17_0 :Center_18_0 :Center_c0_0"/>
     <junction id=":Center_22_0" type="internal" x="50.00" y="58.80" incLanes=":Center_4_0 5_0 5_1 7_1 8_0" intLanes=":Center_5_0 :Center_11_0 :Center_11_1 :Center_18_0"/>
     <junction id=":Center_23_0" type="internal" x="57.40" y="43.42" incLanes=":Center_10_0" intLanes=":Center_3_0 :Center_9_0 :Center_16_0 :Center_17_0 :Center_c0_0"/>
-    <junction id=":Center_24_0" type="internal" x="50.02" y="36.83" incLanes=":Center_13_0 6_0 6_1" intLanes=":Center_0_0 :Center_1_0 :Center_1_1 :Center_6_0 :Center_7_0 :Center_8_0 :Center_16_0 :Center_17_0 :Center_18_0 :Center_19_0 :Center_c1_0"/>
+    <junction id=":Center_24_0" type="internal" x="50.01" y="36.78" incLanes=":Center_13_0 6_0 6_1" intLanes=":Center_0_0 :Center_1_0 :Center_1_1 :Center_6_0 :Center_7_0 :Center_8_0 :Center_16_0 :Center_17_0 :Center_18_0 :Center_19_0 :Center_c1_0"/>
     <junction id=":Center_25_0" type="internal" x="50.00" y="32.15" incLanes=":Center_14_0 6_0 6_1 7_0 8_1" intLanes=":Center_1_0 :Center_1_1 :Center_8_0 :Center_15_0"/>
 
     <connection from="1" to="5" fromLane="1" toLane="1" via=":A_0_0" dir="t" state="M"/>

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 08.02.2019 11:44:06 by Eclipse SUMO netedit Version v1_1_0+0713-7b762ac814
+<!-- generated on 11.03.2019 14:03:42 by Eclipse SUMO netedit Version v1_1_0+1184-22a37878bd
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_07Feb135005.2940/netedit.gui/netElements/junctions/inspect_selected/type/unregulated\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Mar120521.2252/netedit.gui/netElements/junctions/inspect_selected/type/unregulated\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_07Feb135005.2940/netedit.gui/netElements/junctions/inspect_selected/type/unregulated\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Mar120521.2252/netedit.gui/netElements/junctions/inspect_selected/type/unregulated\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,13 +30,13 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_07Feb135005.2940/netedit.gui/netElements/junctions/inspect_selected/type/unregulated\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_07Feb135005.2940/netedit.gui/netElements/junctions/inspect_selected/type/unregulated\additionals.xml"/>
-        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_07Feb135005.2940/netedit.gui/netElements/junctions/inspect_selected/type/unregulated\routes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Mar120521.2252/netedit.gui/netElements/junctions/inspect_selected/type/unregulated\input_additionals.add.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Mar120521.2252/netedit.gui/netElements/junctions/inspect_selected/type/unregulated\additionals.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Mar120521.2252/netedit.gui/netElements/junctions/inspect_selected/type/unregulated\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_07Feb135005.2940/netedit.gui/netElements/junctions/inspect_selected/type/unregulated\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Mar120521.2252/netedit.gui/netElements/junctions/inspect_selected/type/unregulated\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -45,7 +45,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_07Feb135005.2940/netedit.gui/netElements/junctions/inspect_selected/type/unregulated\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Mar120521.2252/netedit.gui/netElements/junctions/inspect_selected/type/unregulated\log.txt"/>
     </report>
 
 </configuration>
@@ -81,7 +81,7 @@
         <lane id=":Center_1_1" index="1" speed="13.90" length="20.80" shape="48.40,60.40 48.40,39.60"/>
     </edge>
     <edge id=":Center_3" function="internal">
-        <lane id=":Center_3_0" index="0" speed="9.26" length="19.35" shape="48.40,60.40 49.15,55.15 51.40,51.40 55.15,49.15 60.40,48.40"/>
+        <lane id=":Center_3_0" index="0" speed="9.02" length="18.33" shape="48.40,60.40 49.48,56.14 52.28,52.28 56.14,49.48 60.40,48.40"/>
     </edge>
     <edge id=":Center_4" function="internal">
         <lane id=":Center_4_0" index="0" speed="3.65" length="4.67" shape="48.40,60.40 49.20,59.20 50.00,58.80 50.80,59.20 51.60,60.40"/>
@@ -94,7 +94,7 @@
         <lane id=":Center_6_1" index="1" speed="13.90" length="20.80" shape="60.40,51.60 39.60,51.60"/>
     </edge>
     <edge id=":Center_8" function="internal">
-        <lane id=":Center_8_0" index="0" speed="9.26" length="19.35" shape="60.40,51.60 55.15,50.85 51.40,48.60 49.15,44.85 48.40,39.60"/>
+        <lane id=":Center_8_0" index="0" speed="9.02" length="18.33" shape="60.40,51.60 56.14,50.52 52.28,47.72 49.48,43.86 48.40,39.60"/>
     </edge>
     <edge id=":Center_9" function="internal">
         <lane id=":Center_9_0" index="0" speed="3.65" length="4.67" shape="60.40,51.60 59.20,50.80 58.80,50.00 59.20,49.20 60.40,48.40"/>
@@ -107,7 +107,7 @@
         <lane id=":Center_11_1" index="1" speed="13.90" length="20.80" shape="51.60,39.60 51.60,60.40"/>
     </edge>
     <edge id=":Center_13" function="internal">
-        <lane id=":Center_13_0" index="0" speed="9.26" length="19.35" shape="51.60,39.60 50.85,44.85 48.60,48.60 44.85,50.85 39.60,51.60"/>
+        <lane id=":Center_13_0" index="0" speed="9.02" length="18.33" shape="51.60,39.60 50.52,43.86 47.72,47.72 43.86,50.52 39.60,51.60"/>
     </edge>
     <edge id=":Center_14" function="internal">
         <lane id=":Center_14_0" index="0" speed="3.65" length="4.67" shape="51.60,39.60 50.80,40.80 50.00,41.20 49.20,40.80 48.40,39.60"/>
@@ -120,7 +120,7 @@
         <lane id=":Center_16_1" index="1" speed="13.90" length="20.80" shape="39.60,48.40 60.40,48.40"/>
     </edge>
     <edge id=":Center_18" function="internal">
-        <lane id=":Center_18_0" index="0" speed="9.26" length="19.35" shape="39.60,48.40 44.85,49.15 48.60,51.40 50.85,55.15 51.60,60.40"/>
+        <lane id=":Center_18_0" index="0" speed="9.02" length="18.33" shape="39.60,48.40 43.86,49.48 47.72,52.28 50.52,56.14 51.60,60.40"/>
     </edge>
     <edge id=":Center_19" function="internal">
         <lane id=":Center_19_0" index="0" speed="3.65" length="4.67" shape="39.60,48.40 40.80,49.20 41.20,50.00 40.80,50.80 39.60,51.60"/>
