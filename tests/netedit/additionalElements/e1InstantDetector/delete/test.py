@@ -47,7 +47,7 @@ netedit.leftClick(referencePosition, 250, 250)
 netedit.leftClick(referencePosition, 450, 250)
 
 # delete lane with the second loaded E1
-netedit.leftClick(referencePosition, 200, 200)
+netedit.leftClick(referencePosition, 200, 220)
 
 # Check undo
 netedit.undo(referencePosition, 3)
@@ -59,7 +59,7 @@ netedit.deleteMode()
 netedit.changeAutomaticallyDeleteAdditionals(referencePosition)
 
 # try to delete lane with the second loaded E1 (doesn't allowed)
-netedit.leftClick(referencePosition, 200, 200)
+netedit.leftClick(referencePosition, 200, 220)
 
 # wait warning
 netedit.waitAutomaticallyDeleteAdditionalsWarning()
