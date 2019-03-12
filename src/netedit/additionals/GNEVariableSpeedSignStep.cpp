@@ -159,7 +159,7 @@ GNEVariableSpeedSignStep::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_SPEED:
-            return canParse<double>(value) && (parse<double>(value) >= 0);
+            return canParse<double>(value);
         case GNE_ATTR_GENERIC:
             return isGenericParametersValid(value);
         default:
