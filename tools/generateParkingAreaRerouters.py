@@ -22,12 +22,7 @@ import os
 import sys
 import xml.etree.ElementTree
 
-# """ Import SUMOLIB """
-if 'SUMO_TOOLS' in os.environ:
-    sys.path.append(os.environ['SUMO_TOOLS'])
-    import traci
-else:
-    sys.exit("Please declare environment variable 'SUMO_TOOLS'")
+import traci
 
 def _logs():
     """ Log init. """
@@ -44,10 +39,10 @@ def _args():
         prog='{}'.format(sys.argv[0]), usage='%(prog)s [options]',
         description='Generate parking area rerouters from the parking area definition.')
     parser.add_argument(
-        '--parking-areas', type=str, dest='parking_area_definition', required=True,
+        '-a', '--parking-areas', type=str, dest='parking_area_definition', required=True,
         help='SUMO parkingArea definition.')
     parser.add_argument(
-        '--sumo-net', type=str, dest='sumo_net_definition', required=True,
+        '-n', '--sumo-net', type=str, dest='sumo_net_definition', required=True,
         help='SUMO network definition.')
     parser.add_argument(
         '--max-number-alternatives', type=int, dest='num_alternatives', required=True,
@@ -185,7 +180,7 @@ class ReroutersGeneration(object):
                     _visibility = 'false'
                     if alt == rerouter['rid']:
                         _visibility = 'true'
-                    if (int(self._parking_areas[alt]['roadsideCapacity']) >=
+                    if (int(self._parking_areas[alt].get('roadsideCapacity', 0)) >=
                             self._capacity_threshold):
                         _visibility = 'true'
                     if dist <= self._dist_threshold:
