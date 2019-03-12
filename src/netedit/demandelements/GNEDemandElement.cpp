@@ -121,6 +121,25 @@ GNEDemandElement::RouteCalculator::calculateDijkstraPartialRoute(SUMOVehicleClas
     return solution;
 }
 
+
+bool 
+GNEDemandElement::RouteCalculator::areEdgesConsecutives(GNEEdge* from, GNEEdge*to) const {
+    std::vector<const NBEdge*> route;
+    route = calculateDijkstraRoute(SVC_PASSENGER, {from, to});
+    if (route.empty()) {
+        return false;
+    } else {
+        for (int i = 0; i < (int)route.size(); i++) {
+            if ((route.at(i)->getID() == from->getID()) && 
+                ((i+1) < (int)route.size()) &&
+                (route.at(i+1)->getID() == to->getID())) {
+                return true;
+            }
+        }
+        return false;
+    }
+}
+
 // ---------------------------------------------------------------------------
 // GNEDemandElement - methods
 // ---------------------------------------------------------------------------

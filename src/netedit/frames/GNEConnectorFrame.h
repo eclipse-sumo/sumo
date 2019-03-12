@@ -93,6 +93,9 @@ public:
 
         /// @brief "OK" button
         FXButton* mySaveButton;
+
+        /// @brief protect routes checkbox
+        FXCheckButton* myProtectRoutesCheckBox;
     };
 
     // ===========================================================================

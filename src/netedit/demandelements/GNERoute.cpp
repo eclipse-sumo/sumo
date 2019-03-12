@@ -73,6 +73,25 @@ GNERoute::writeDemandElement(OutputDevice& device) const {
 }
 
 
+bool 
+GNERoute::isDemandElementValid() const {
+    if (myEdges.size() == 0) {
+        return false;
+    } else if (myEdges.size() == 1) {
+        return true;
+    } else {            
+        // check if exist at least a connection between every edge
+        for (int i = 1; i < (int)myEdges.size(); i++) {
+            if (getRouteCalculatorInstance()->areEdgesConsecutives(myEdges.at(i-1), myEdges.at(i)) == false) {
+                return false;
+            }
+        }
+        // there is connections bewteen all edges, then return true 
+        return true;
+    }
+}
+
+
 void
 GNERoute::moveGeometry(const Position&) {
     // This additional cannot be moved
@@ -137,9 +156,6 @@ GNERoute::updateGeometry(bool updateGrid) {
 
         // calculate unified shape
         myGeometry.calculateMultiShapeUnified();
-
-        // check integrity
-        /*checkRouteIntegrity();*/
     }
 
     // last step is to check if object has to be added into grid (SUMOTree) again

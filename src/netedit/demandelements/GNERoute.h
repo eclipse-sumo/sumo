@@ -60,6 +60,9 @@ public:
      */
     void writeDemandElement(OutputDevice& device) const;
 
+    /// @brief check if current demand element is valid to be writed into XML (by default true, can be reimplemented in childs)
+    bool isDemandElementValid() const;
+
     /// @name Functions related with geometry of element
     /// @{
     /**@brief change the position of the element geometry without saving in undoList

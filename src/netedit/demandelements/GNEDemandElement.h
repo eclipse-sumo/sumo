@@ -73,6 +73,9 @@ public:
         /// @brief calculate partial Dijkstra route (and save it in a Matrix vector)
         std::vector<std::vector<const NBEdge*> > calculateDijkstraPartialRoute(SUMOVehicleClass vClass, const std::vector<GNEEdge*> &edges) const;
 
+        /// @ brief check if exist a route between the two given consecutives edges
+        bool areEdgesConsecutives(GNEEdge* from, GNEEdge*to) const;
+
     private:
         /// @brief pointer to net
         GNENet* myNet;
