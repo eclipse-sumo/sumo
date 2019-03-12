@@ -618,6 +618,11 @@ public:
         return myHasElevation;
     }
 
+    /// @brief return whether the network contains walkingareas and crossings
+    bool hasPedestrianNetwork() const {
+        return myHasPedestrianNetwork;
+    }
+
     /// @brief return whether the network was built for lefthand traffic
     bool lefthand() const {
         return myLefthand;
@@ -643,6 +648,8 @@ protected:
     /// @brief check all lanes for elevation data
     bool checkElevation();
 
+    /// @brief check all lanes for type walkingArea
+    bool checkWalkingarea();
 
 protected:
     /// @brief Unique instance of MSNet
@@ -743,6 +750,9 @@ protected:
 
     /// @brief Whether the network contains elevation data
     bool myHasElevation;
+
+    /// @brief Whether the network contains pedestrian network elements
+    bool myHasPedestrianNetwork;
 
     /// @brief Whether the network was built for left-hand traffic
     bool myLefthand;

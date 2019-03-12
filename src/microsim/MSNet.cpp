@@ -194,6 +194,7 @@ MSNet::MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
     myHavePermissions(false),
     myHasInternalLinks(false),
     myHasElevation(false),
+    myHasPedestrianNetwork(false),
     myEdgeDataEndTime(-1),
     myRouterTT(nullptr),
     myRouterEffort(nullptr),
@@ -263,6 +264,7 @@ MSNet::closeBuilding(const OptionsCont& oc, MSEdgeControl* edges, MSJunctionCont
         WRITE_WARNING("Opposite direction driving does not work together with the sublane model.");
     }
     myHasElevation = checkElevation();
+    myHasPedestrianNetwork = checkWalkingarea();
     myLefthand = lefthand;
     myVersion = version;
 }
@@ -1027,6 +1029,17 @@ MSNet::checkElevation() {
             if ((*i)->getShape().hasElevation()) {
                 return true;
             }
+        }
+    }
+    return false;
+}
+
+
+bool
+MSNet::checkWalkingarea() {
+    for (const MSEdge* e : myEdges->getEdges()) {
+        if (e->getFunction() == EDGEFUNC_WALKINGAREA) {
+            return true;
         }
     }
     return false;
