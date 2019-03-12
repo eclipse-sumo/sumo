@@ -189,7 +189,7 @@ public:
     const ConstMSEdgeVector getStopEdges(double& firstPos, double& lastPos) const;
 
     /// @brief return list of route indices for the remaining stops
-    std::vector<int> getStopIndices() const;
+    std::vector<std::pair<int, double> > getStopIndices() const;
 
     /// @brief get distance for coming to a stop (used for rerouting checks)
     double getBrakeGap() const {

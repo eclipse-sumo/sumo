@@ -677,15 +677,21 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
                     ConstMSEdgeVector edgesFromPark;
 
                     const MSEdge* nextDestination = route.getLastEdge();
+                    double nextPos = veh.getArrivalPos();
                     int nextDestinationIndex = route.size() - 1;
                     if (!newDestination) {
-                        std::vector<int> stopIndices = veh.getStopIndices();
+                        std::vector<std::pair<int, double> > stopIndices = veh.getStopIndices();
                         if (stopIndices.size() > 1) {
-                            nextDestinationIndex = stopIndices[1];
+                            nextDestinationIndex = stopIndices[1].first;
                             nextDestination = route.getEdges()[nextDestinationIndex];
+                            nextPos = stopIndices[1].second;
 
                         }
-                        router.compute(parkEdge, nextDestination, &veh, MSNet::getInstance()->getCurrentTimeStep(), edgesFromPark);
+                        if (parkEdge == nextDestination && nextPos < pa->getEndLanePosition()) {
+                            router.computeLooped(parkEdge, nextDestination, &veh, MSNet::getInstance()->getCurrentTimeStep(), edgesFromPark);
+                        } else {
+                            router.compute(parkEdge, nextDestination, &veh, MSNet::getInstance()->getCurrentTimeStep(), edgesFromPark);
+                        }
                     }
 
                     if (edgesFromPark.size() > 0 || newDestination) {

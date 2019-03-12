@@ -1991,11 +1991,13 @@ MSVehicle::getStopEdges(double& firstPos, double& lastPos) const {
 }
 
 
-std::vector<int>
+std::vector<std::pair<int, double> >
 MSVehicle::getStopIndices() const {
-    std::vector<int> result;
+    std::vector<std::pair<int, double> > result;
     for (std::list<Stop>::const_iterator iter = myStops.begin(); iter != myStops.end(); ++iter) {
-        result.push_back((int)(iter->edge - myRoute->begin()));
+        result.push_back(std::make_pair(
+                    (int)(iter->edge - myRoute->begin()),
+                    iter->getEndPos(*this)));
     }
     return result;
 }
