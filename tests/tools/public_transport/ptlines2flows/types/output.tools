@@ -1,6 +1,5 @@
 generating trips...
 Skipping line '2' because it has type 'aerialway'
-
 Imported 2 lines with 4 stops and skipped 1 lines
    bus: 1
    trolleybus: 1

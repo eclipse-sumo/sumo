@@ -148,7 +148,7 @@ def createTrips(options):
 
             if options.types is not None and line.type not in options.types:
                 if options.verbose:
-                    print("Skipping line '%s' because it has type '%s'\n" % (line.id, line.type))
+                    print("Skipping line '%s' because it has type '%s'" % (line.id, line.type))
                 numSkipped += 1
                 continue
 
