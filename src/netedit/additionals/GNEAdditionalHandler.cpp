@@ -206,6 +206,7 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
         case SUMO_TAG_STEP:
             return parseAndBuildVariableSpeedSignStep(viewNet, allowUndoRedo, attrs, insertedAdditionals);
         case SUMO_TAG_CALIBRATOR:
+        case SUMO_TAG_LANECALIBRATOR:
             return parseAndBuildCalibrator(viewNet, allowUndoRedo, attrs, insertedAdditionals);
         case SUMO_TAG_PARKING_AREA:
             return parseAndBuildParkingArea(viewNet, allowUndoRedo, attrs, insertedAdditionals);
