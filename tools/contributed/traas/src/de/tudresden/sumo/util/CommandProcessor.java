@@ -168,26 +168,34 @@ public class CommandProcessor extends Query{
 					s.readUnsignedByte();
 					int currentPhaseIndex = s.readInt();
 					
-					SumoTLSProgram stl = new SumoTLSProgram(subID, type0, subParameter, currentPhaseIndex);
+					SumoTLSProgram stl = new SumoTLSProgram(subID, type0, currentPhaseIndex);
 					
 					s.readUnsignedByte();
 					int nbPhases = s.readInt();
 					
 					for(int i1=0; i1<nbPhases; i1++){
+                        s.readUnsignedByte(); // type compound
+						s.readInt(); // 6
 						
 						s.readUnsignedByte();
-						int duration = s.readInt();
-						
-						s.readUnsignedByte();
-						int duration1 =s.readInt();
-						
-						s.readUnsignedByte();
-						int duration2 = s.readInt();
-						
+						double duration = s.readDouble();
+
 						s.readUnsignedByte();
 						String phaseDef = s.readStringASCII();
 						
-						stl.add(new  SumoTLSPhase(duration, duration1, duration2, phaseDef));
+						s.readUnsignedByte();
+						double minDur = s.readDouble();
+						
+						s.readUnsignedByte();
+						double maxDur = s.readDouble();
+
+						s.readUnsignedByte();
+						int next = s.readInt();
+						
+						s.readUnsignedByte();
+						String name = s.readStringASCII();
+						
+						stl.add(new SumoTLSPhase(duration, minDur, maxDur, phaseDef, next, name));
 						
 					}
 
@@ -425,52 +433,75 @@ public class CommandProcessor extends Query{
 			
 			}else if(sc.input2 == Constants.TL_COMPLETE_DEFINITION_RYG){
 				
-				resp.content().readUnsignedByte();
-				resp.content().readInt();
-				
+                //System.out.println("read TL_COMPLETE_DEFINITION_RYG");
+                //System.out.println(resp.content().debug());
 				int length = resp.content().readInt();
+                //System.out.println("length=" + length);
 				
 				SumoTLSController sp = new SumoTLSController();
 				for(int i=0; i<length; i++){
+                    resp.content().readUnsignedByte(); // type compound
+                    int tmp = resp.content().readInt(); // 5
+                    //System.out.println("read compound " + tmp);
 					
-					resp.content().readUnsignedByte();
+                    resp.content().readUnsignedByte();
 					String subID = resp.content().readStringASCII();
+                    //System.out.println("subID=" + subID);
 					
 					resp.content().readUnsignedByte();
 					int type = resp.content().readInt();
-					
-					resp.content().readUnsignedByte();
-					int subParameter = resp.content().readInt();
+                    //System.out.println("type=" + type);
 					
 					resp.content().readUnsignedByte();
 					int currentPhaseIndex = resp.content().readInt();
+                    //System.out.println("currentPhaseIndex=" + currentPhaseIndex);
 					
-					SumoTLSProgram stl = new SumoTLSProgram(subID, type, subParameter, currentPhaseIndex);
+					SumoTLSProgram stl = new SumoTLSProgram(subID, type, currentPhaseIndex);
 					
 					resp.content().readUnsignedByte();
 					int nbPhases = resp.content().readInt();
+                    //System.out.println("nbPhases=" + nbPhases);
 					
 					for(int i1=0; i1<nbPhases; i1++){
+                        resp.content().readUnsignedByte(); // type compound
+						int tmp2 = resp.content().readInt(); // 6
+                        //System.out.println("read compound " + tmp2);
 						
 						resp.content().readUnsignedByte();
-						int duration = resp.content().readInt();
-						
-						resp.content().readUnsignedByte();
-						int duration1 = resp.content().readInt();
-						
-						resp.content().readUnsignedByte();
-						int duration2 = resp.content().readInt();
-						
+						double duration = resp.content().readDouble();
+                        //System.out.println("duration=" + duration);
+
 						resp.content().readUnsignedByte();
 						String phaseDef = resp.content().readStringASCII();
+                        //System.out.println("phaseDef=" + phaseDef);
 						
-						stl.add(new  SumoTLSPhase(duration, duration1, duration2, phaseDef));
+						resp.content().readUnsignedByte();
+						double minDur = resp.content().readDouble();
+                        //System.out.println("minDur=" + minDur);
+						
+						resp.content().readUnsignedByte();
+						double maxDur = resp.content().readDouble();
+                        //System.out.println("maxDur=" + maxDur);
+
+						resp.content().readUnsignedByte();
+						int next = resp.content().readInt();
+                        //System.out.println("next=" + next);
+						
+						resp.content().readUnsignedByte();
+						String name = resp.content().readStringASCII();
+                        //System.out.println("name=" + name);
+						
+						stl.add(new SumoTLSPhase(duration, minDur, maxDur, phaseDef, next, name));
 						
 					}
+					resp.content().readUnsignedByte();
+					int nParams = resp.content().readInt();
+                    //System.out.println("nParams=" + nParams);
 
 					sp.addProgram(stl);
 					
 				}
+                System.out.println("done");
 				
 				output = sp;
 				

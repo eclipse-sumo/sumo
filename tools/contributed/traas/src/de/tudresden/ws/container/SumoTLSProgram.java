@@ -31,7 +31,6 @@ public class SumoTLSProgram implements SumoObject {
 
 	public String subID;
 	public int type;
-	public int subParameter;
 	public int currentPhaseIndex;
 	public LinkedList<SumoTLSPhase> phases;
 		
@@ -39,16 +38,14 @@ public class SumoTLSProgram implements SumoObject {
 		
 		this.subID = "unkown";
 		this.type = -1;
-		this.subParameter = -1;
 		this.currentPhaseIndex = -1;
 		this.phases = new LinkedList<SumoTLSPhase>();
 	}
 	
-	public SumoTLSProgram(String subID, int type, int subParameter, int currentPhaseIndex){
+	public SumoTLSProgram(String subID, int type, int currentPhaseIndex){
 		
 		this.subID = subID;
 		this.type = type;
-		this.subParameter = subParameter;
 		this.currentPhaseIndex = currentPhaseIndex;
 		this.phases = new LinkedList<SumoTLSPhase>();
 		
@@ -62,7 +59,6 @@ public class SumoTLSProgram implements SumoObject {
 		StringBuilder sb = new StringBuilder();
 		sb.append(this.subID+"#");
 		sb.append(this.type+"#");
-		sb.append(this.subParameter+"#");
 		sb.append(this.currentPhaseIndex+"#");
 		for(SumoTLSPhase sp : this.phases){
 			sb.append(sp.toString()+"#");

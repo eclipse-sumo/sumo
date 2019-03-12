@@ -557,4 +557,8 @@ public class Storage implements Serializable {
 		
 		return sb.toString();
 	}
+
+    public String debug() {
+        return ("storageSize=" + storageList.size() + " pos=" + position + " storage=" + storageList);
+    }
 }

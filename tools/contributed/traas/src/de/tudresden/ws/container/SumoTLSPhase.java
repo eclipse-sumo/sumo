@@ -27,40 +27,48 @@ package de.tudresden.ws.container;
 
 public class SumoTLSPhase implements SumoObject {
 
-	public int duration;
-	public int duration1;
-	public int duration2;
+	public double duration;
+	public double minDur;
+	public double maxDur;
 	public String phasedef;
+	public int next;
+	public String name;
 	
 	public SumoTLSPhase(){
 		
 		this.duration = 0;
-		this.duration1 = 0;
-		this.duration2 = 0;
+		this.minDur = 0;
+		this.maxDur = 0;
 		this.phasedef = "r";
+        this.name = "";
+        this.next = -1;
 		
 	}
 	
-	public SumoTLSPhase(int duration, int duration1, int duration2, String phasedef){
+	public SumoTLSPhase(double duration, double minDur, double maxDur, String phasedef, int next, String name){
 		
 		this.duration = duration;
-		this.duration1 = duration1;
-		this.duration2 = duration2;
+		this.minDur = minDur;
+		this.maxDur = maxDur;
 		this.phasedef = phasedef;
+        this.name = name;
+        this.next = next;
 		
 	}
 	
 	public SumoTLSPhase(int duration, String phasedef){
 		
 		this.duration = duration;
-		this.duration1 = duration;
-		this.duration2 = duration;
+		this.minDur = duration;
+		this.maxDur = duration;
 		this.phasedef = phasedef;
+        this.name = "";
+        this.next = -1;
 		
 	}
 	
 	public String toString(){
-		return this.phasedef+"#"+this.duration+"#"+this.duration1+"#"+this.duration2;
+		return this.phasedef+"#"+this.duration+"#"+this.minDur+"#"+this.maxDur+"#"+this.next+"#"+this.name;
 	}
 	
 }
