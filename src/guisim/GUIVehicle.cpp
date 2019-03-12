@@ -410,7 +410,9 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
     const double degAngle = RAD2DEG(getAngle() + M_PI / 2.);
     glRotated(degAngle, 0, 0, 1);
     glScaled(exaggeration, upscaleLength, 1);
-
+    if (mySeatPositions.size() == 0) {
+        mySeatPositions.push_back(back);
+    }
 }
 
 #define BLINKER_POS_FRONT .5
