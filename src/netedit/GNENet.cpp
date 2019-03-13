@@ -45,7 +45,7 @@
 #include <netedit/changes/GNEChange_Junction.h>
 #include <netedit/changes/GNEChange_Lane.h>
 #include <netedit/changes/GNEChange_Shape.h>
-#include <netedit/dialogs/GNEDialog_FixAdditionalPositions.h>
+#include <netedit/dialogs/GNEDialog_FixAdditionalElements.h>
 #include <netedit/dialogs/GNEDialog_FixDemandElements.h>
 #include <netedit/frames/GNEAdditionalFrame.h>
 #include <netedit/frames/GNEInspectorFrame.h>
@@ -2077,12 +2077,12 @@ GNENet::saveAdditionals(const std::string& filename) {
             }
         }
     }
-    // if there are invalid StoppingPlaces or detectors, open GNEDialog_FixAdditionalPositions
+    // if there are invalid StoppingPlaces or detectors, open GNEDialog_FixAdditionalElements
     if (invalidSingleLaneAdditionals.size() > 0 || invalidMultiLaneAdditionals.size() > 0) {
         // 0 -> Canceled Saving, with or whithout selecting invalid stopping places and E2
         // 1 -> Invalid stoppingPlaces and E2 fixed, friendlyPos enabled, or saved with invalid positions
-        GNEDialog_FixAdditionalPositions fixAdditionalPositionsDialog(myViewNet, invalidSingleLaneAdditionals, invalidMultiLaneAdditionals);
-        if (fixAdditionalPositionsDialog.execute() == 0) {
+        GNEDialog_FixAdditionalElements fixAdditionalElementsDialog(myViewNet, invalidSingleLaneAdditionals, invalidMultiLaneAdditionals);
+        if (fixAdditionalElementsDialog.execute() == 0) {
             // Here a console message
             ;
         } else {

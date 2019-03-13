@@ -7,12 +7,12 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    GNEDialog_FixAdditionalPositions.cpp
+/// @file    GNEDialog_FixAdditionalElements.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Jul 2017
 /// @version $Id$
 ///
-// Dialog used to fix invalid stopping places
+// Dialog used to fix additional elements
 /****************************************************************************/
 
 // ===========================================================================
@@ -39,27 +39,27 @@
 #include <netedit/additionals/GNEAdditionalHandler.h>
 #include <netedit/frames/GNEAdditionalFrame.h>
 
-#include "GNEDialog_FixAdditionalPositions.h"
+#include "GNEDialog_FixAdditionalElements.h"
 
 
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(GNEDialog_FixAdditionalPositions) GNEDialog_FixAdditionalPositionsMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_OPERATION,                  GNEDialog_FixAdditionalPositions::onCmdSelectOption),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALDIALOG_BUTTONACCEPT,  GNEDialog_FixAdditionalPositions::onCmdAccept),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALDIALOG_BUTTONCANCEL,  GNEDialog_FixAdditionalPositions::onCmdCancel),
+FXDEFMAP(GNEDialog_FixAdditionalElements) GNEDialog_FixAdditionalElementsMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_OPERATION,                  GNEDialog_FixAdditionalElements::onCmdSelectOption),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALDIALOG_BUTTONACCEPT,  GNEDialog_FixAdditionalElements::onCmdAccept),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALDIALOG_BUTTONCANCEL,  GNEDialog_FixAdditionalElements::onCmdCancel),
 };
 
 // Object implementation
-FXIMPLEMENT(GNEDialog_FixAdditionalPositions, FXDialogBox, GNEDialog_FixAdditionalPositionsMap, ARRAYNUMBER(GNEDialog_FixAdditionalPositionsMap))
+FXIMPLEMENT(GNEDialog_FixAdditionalElements, FXDialogBox, GNEDialog_FixAdditionalElementsMap, ARRAYNUMBER(GNEDialog_FixAdditionalElementsMap))
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
-GNEDialog_FixAdditionalPositions::GNEDialog_FixAdditionalPositions(GNEViewNet* viewNet, const std::vector<GNEAdditional*>& invalidSingleLaneAdditionals, const std::vector<GNEAdditional*>& invalidMultiLaneAdditionals) :
+GNEDialog_FixAdditionalElements::GNEDialog_FixAdditionalElements(GNEViewNet* viewNet, const std::vector<GNEAdditional*>& invalidSingleLaneAdditionals, const std::vector<GNEAdditional*>& invalidMultiLaneAdditionals) :
     FXDialogBox(viewNet->getApp(), ("Fix additional problems"), GUIDesignDialogBoxExplicit, 0, 0, 478, 350, 0, 0, 0, 0),
     myViewNet(viewNet),
     myInvalidSingleLaneAdditionals(invalidSingleLaneAdditionals),
@@ -149,12 +149,12 @@ GNEDialog_FixAdditionalPositions::GNEDialog_FixAdditionalPositions(GNEViewNet* v
 }
 
 
-GNEDialog_FixAdditionalPositions::~GNEDialog_FixAdditionalPositions() {
+GNEDialog_FixAdditionalElements::~GNEDialog_FixAdditionalElements() {
 }
 
 
 long
-GNEDialog_FixAdditionalPositions::onCmdSelectOption(FXObject* obj, FXSelector, void*) {
+GNEDialog_FixAdditionalElements::onCmdSelectOption(FXObject* obj, FXSelector, void*) {
     myPositionOptions.selectOption(obj);
     myConsecutiveLaneOptions.selectOption(obj);
     return 1;
@@ -162,7 +162,7 @@ GNEDialog_FixAdditionalPositions::onCmdSelectOption(FXObject* obj, FXSelector, v
 
 
 long
-GNEDialog_FixAdditionalPositions::onCmdAccept(FXObject*, FXSelector, void*) {
+GNEDialog_FixAdditionalElements::onCmdAccept(FXObject*, FXSelector, void*) {
     bool continueSaving = true;
     // first check options from single lane additionals
     if (myInvalidSingleLaneAdditionals.size() > 0) {
@@ -242,7 +242,7 @@ GNEDialog_FixAdditionalPositions::onCmdAccept(FXObject*, FXSelector, void*) {
 
 
 long
-GNEDialog_FixAdditionalPositions::onCmdCancel(FXObject*, FXSelector, void*) {
+GNEDialog_FixAdditionalElements::onCmdCancel(FXObject*, FXSelector, void*) {
     // Stop Modal (abort saving)
     getApp()->stopModal(this, FALSE);
     return 1;
@@ -250,7 +250,7 @@ GNEDialog_FixAdditionalPositions::onCmdCancel(FXObject*, FXSelector, void*) {
 
 
 void
-GNEDialog_FixAdditionalPositions::PositionOptions::buildPositionOptions(GNEDialog_FixAdditionalPositions* fixAdditionalPositions, FXVerticalFrame* mainFrame) {
+GNEDialog_FixAdditionalElements::PositionOptions::buildPositionOptions(GNEDialog_FixAdditionalElements* fixAdditionalPositions, FXVerticalFrame* mainFrame) {
     // create label for elements
     new FXLabel(mainFrame, "Select a solution for StoppingPlaces and E2 detectors:", nullptr, GUIDesignLabelCenterThick);
     // create horizontal frames for radio buttons
@@ -273,7 +273,7 @@ GNEDialog_FixAdditionalPositions::PositionOptions::buildPositionOptions(GNEDialo
 
 
 void
-GNEDialog_FixAdditionalPositions::PositionOptions::selectOption(FXObject* option) {
+GNEDialog_FixAdditionalElements::PositionOptions::selectOption(FXObject* option) {
     if (option == activateFriendlyPositionAndSave) {
         activateFriendlyPositionAndSave->setCheck(true);
         fixPositionsAndSave->setCheck(false);
@@ -299,7 +299,7 @@ GNEDialog_FixAdditionalPositions::PositionOptions::selectOption(FXObject* option
 
 
 void
-GNEDialog_FixAdditionalPositions::PositionOptions::enablePositionOptions() {
+GNEDialog_FixAdditionalElements::PositionOptions::enablePositionOptions() {
     activateFriendlyPositionAndSave->enable();
     fixPositionsAndSave->enable();
     saveInvalid->enable();
@@ -308,7 +308,7 @@ GNEDialog_FixAdditionalPositions::PositionOptions::enablePositionOptions() {
 
 
 void
-GNEDialog_FixAdditionalPositions::PositionOptions::disablePositionOptions() {
+GNEDialog_FixAdditionalElements::PositionOptions::disablePositionOptions() {
     activateFriendlyPositionAndSave->disable();
     fixPositionsAndSave->disable();
     saveInvalid->disable();
@@ -317,7 +317,7 @@ GNEDialog_FixAdditionalPositions::PositionOptions::disablePositionOptions() {
 
 
 void
-GNEDialog_FixAdditionalPositions::ConsecutiveLaneOptions::buildConsecutiveLaneOptions(GNEDialog_FixAdditionalPositions* fixAdditionalPositions, FXVerticalFrame* mainFrame) {
+GNEDialog_FixAdditionalElements::ConsecutiveLaneOptions::buildConsecutiveLaneOptions(GNEDialog_FixAdditionalElements* fixAdditionalPositions, FXVerticalFrame* mainFrame) {
     // create label for elements
     new FXLabel(mainFrame, "Select a solution for Multilane E2 detectors:", nullptr, GUIDesignLabelCenterThick);
     // create horizontal frames for radio buttons
@@ -343,7 +343,7 @@ GNEDialog_FixAdditionalPositions::ConsecutiveLaneOptions::buildConsecutiveLaneOp
 
 
 void
-GNEDialog_FixAdditionalPositions::ConsecutiveLaneOptions::selectOption(FXObject* option) {
+GNEDialog_FixAdditionalElements::ConsecutiveLaneOptions::selectOption(FXObject* option) {
     // set top buttons
     if (option == buildConnectionBetweenLanes) {
         buildConnectionBetweenLanes->setCheck(true);
@@ -364,7 +364,7 @@ GNEDialog_FixAdditionalPositions::ConsecutiveLaneOptions::selectOption(FXObject*
 
 
 void
-GNEDialog_FixAdditionalPositions::ConsecutiveLaneOptions::enableConsecutiveLaneOptions() {
+GNEDialog_FixAdditionalElements::ConsecutiveLaneOptions::enableConsecutiveLaneOptions() {
     buildConnectionBetweenLanes->enable();
     removeInvalidElements->enable();
     activateFriendlyPositionAndSave->enable();
@@ -373,7 +373,7 @@ GNEDialog_FixAdditionalPositions::ConsecutiveLaneOptions::enableConsecutiveLaneO
 
 
 void
-GNEDialog_FixAdditionalPositions::ConsecutiveLaneOptions::disableConsecutiveLaneOptions() {
+GNEDialog_FixAdditionalElements::ConsecutiveLaneOptions::disableConsecutiveLaneOptions() {
     buildConnectionBetweenLanes->disable();
     removeInvalidElements->disable();
     activateFriendlyPositionAndSave->disable();

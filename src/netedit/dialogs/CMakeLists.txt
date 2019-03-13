@@ -7,8 +7,8 @@ set(netedit_dialogs_SRCS
    GNEDialog_AllowDisallow.cpp
    GNEGenericParameterDialog.h
    GNEGenericParameterDialog.cpp
-   GNEDialog_FixAdditionalPositions.h
-   GNEDialog_FixAdditionalPositions.cpp
+   GNEDialog_FixAdditionalElements.h
+   GNEDialog_FixAdditionalElements.cpp
    GNEDialog_FixDemandElements.h
    GNEDialog_FixDemandElements.cpp
    GNEAdditionalDialog.h

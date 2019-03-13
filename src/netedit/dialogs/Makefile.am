@@ -4,7 +4,7 @@ libneteditdialogs_a_SOURCES = GNEVariableSpeedSignDialog.cpp GNEVariableSpeedSig
 GNEDialog_About.cpp GNEDialog_About.h \
 GNEDialog_AllowDisallow.cpp GNEDialog_AllowDisallow.h \
 GNEGenericParameterDialog.cpp GNEGenericParameterDialog.h \
-GNEDialog_FixAdditionalPositions.cpp GNEDialog_FixAdditionalPositions.h \
+GNEDialog_FixAdditionalElements.cpp GNEDialog_FixAdditionalElements.h \
 GNEDialog_FixDemandElements.cpp GNEDialog_FixDemandElements.h \
 GNEAdditionalDialog.cpp GNEAdditionalDialog.h \
 GNEDemandElementDialog.cpp GNEDemandElementDialog.h \

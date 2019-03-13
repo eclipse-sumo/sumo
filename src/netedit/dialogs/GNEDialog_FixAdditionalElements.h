@@ -7,15 +7,15 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    GNEDialog_FixAdditionalPositions.h
+/// @file    GNEDialog_FixAdditionalElements.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jul 2017
 /// @version $Id$
 ///
-// Dialog used to fix invalid stopping places
+// Dialog used to fix additional elements
 /****************************************************************************/
-#ifndef GNEDialog_FixAdditionalPositions_h
-#define GNEDialog_FixAdditionalPositions_h
+#ifndef GNEDialog_FixAdditionalElements_h
+#define GNEDialog_FixAdditionalElements_h
 
 // ===========================================================================
 // included modules
@@ -37,19 +37,19 @@ class GNEViewNet;
 // ===========================================================================
 
 /**
- * @class GNEDialog_FixAdditionalPositions
+ * @class GNEDialog_FixAdditionalElements
  * @brief Dialog for edit rerouters
  */
-class GNEDialog_FixAdditionalPositions : public FXDialogBox {
+class GNEDialog_FixAdditionalElements : public FXDialogBox {
     /// @brief FOX-declaration
-    FXDECLARE(GNEDialog_FixAdditionalPositions)
+    FXDECLARE(GNEDialog_FixAdditionalElements)
 
 public:
     /// @brief Constructor
-    GNEDialog_FixAdditionalPositions(GNEViewNet* viewNet, const std::vector<GNEAdditional*>& invalidSingleLaneAdditionals, const std::vector<GNEAdditional*>& invalidMultiLaneAdditionals);
+    GNEDialog_FixAdditionalElements(GNEViewNet* viewNet, const std::vector<GNEAdditional*>& invalidSingleLaneAdditionals, const std::vector<GNEAdditional*>& invalidMultiLaneAdditionals);
 
     /// @brief destructor
-    ~GNEDialog_FixAdditionalPositions();
+    ~GNEDialog_FixAdditionalElements();
 
     /// @name FOX-callbacks
     /// @{
@@ -67,7 +67,7 @@ protected:
     /// @brief struct for group all radio buttons related with position
     struct PositionOptions {
         /// @brief build Position Options
-        void buildPositionOptions(GNEDialog_FixAdditionalPositions* fixAdditionalPositions, FXVerticalFrame* mainFrame);
+        void buildPositionOptions(GNEDialog_FixAdditionalElements* fixAdditionalPositions, FXVerticalFrame* mainFrame);
 
         /// @brief select option
         void selectOption(FXObject* option);
@@ -94,7 +94,7 @@ protected:
     /// @brief struct for group all radio buttons related with position
     struct ConsecutiveLaneOptions {
         /// @brief build consecutive lane Options
-        void buildConsecutiveLaneOptions(GNEDialog_FixAdditionalPositions* fixAdditionalPositions, FXVerticalFrame* mainFrame);
+        void buildConsecutiveLaneOptions(GNEDialog_FixAdditionalElements* fixAdditionalPositions, FXVerticalFrame* mainFrame);
 
         /// @brief select option
         void selectOption(FXObject* option);
@@ -119,7 +119,7 @@ protected:
     };
 
     /// @brief FOX needs this
-    GNEDialog_FixAdditionalPositions() {}
+    GNEDialog_FixAdditionalElements() {}
 
     /// @brief view net
     GNEViewNet* myViewNet;
@@ -147,10 +147,10 @@ protected:
 
 private:
     /// @brief Invalidated copy constructor.
-    GNEDialog_FixAdditionalPositions(const GNEDialog_FixAdditionalPositions&) = delete;
+    GNEDialog_FixAdditionalElements(const GNEDialog_FixAdditionalElements&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNEDialog_FixAdditionalPositions& operator=(const GNEDialog_FixAdditionalPositions&) = delete;
+    GNEDialog_FixAdditionalElements& operator=(const GNEDialog_FixAdditionalElements&) = delete;
 };
 
 #endif
