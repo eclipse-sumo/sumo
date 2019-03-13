@@ -334,7 +334,7 @@ GNEVehicleFrame::TripRouteCreator::drawTemporalRoute() const {
 
 
 bool 
-GNEVehicleFrame::TripRouteCreator::isValid(SUMOVehicleClass vehicleClass) const {
+GNEVehicleFrame::TripRouteCreator::isValid(SUMOVehicleClass /* vehicleClass */) const {
     return mySelectedEdges.size() > 0;
 }
 
