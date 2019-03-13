@@ -122,6 +122,9 @@ public class APITest {
             SumoTLSController tlsc = (SumoTLSController)conn.do_job_get(Trafficlight.getCompleteRedYellowGreenDefinition("gneJ1"));
             System.out.println("Trafficlight.getCompleteRedYellowGreenDefinition: " + tlsc.programs);
 
+            System.out.println("Trafficlight.getPhaseDuration: " + (double)conn.do_job_get(Trafficlight.getPhaseDuration("gneJ1")));
+            System.out.println("Trafficlight.getNextSwitch: " + (double)conn.do_job_get(Trafficlight.getNextSwitch("gneJ1")));
+
 			conn.close();
 			
 		}catch(Exception ex){ex.printStackTrace();}

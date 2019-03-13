@@ -62,7 +62,7 @@ public class Trafficlight {
 	 */
 
 	public static SumoCommand getPhaseDuration(String tlsID){
-		return new SumoCommand(Constants.CMD_GET_TL_VARIABLE, Constants.TL_PHASE_DURATION, tlsID, Constants.RESPONSE_GET_TL_VARIABLE, Constants.TYPE_INTEGER);
+		return new SumoCommand(Constants.CMD_GET_TL_VARIABLE, Constants.TL_PHASE_DURATION, tlsID, Constants.RESPONSE_GET_TL_VARIABLE, Constants.TYPE_DOUBLE);
 	}
 	
 	/**
@@ -128,7 +128,7 @@ public class Trafficlight {
 	 */
 
 	public static SumoCommand getNextSwitch(String tlsID){
-		return new SumoCommand(Constants.CMD_GET_TL_VARIABLE, Constants.TL_NEXT_SWITCH, tlsID, Constants.RESPONSE_GET_TL_VARIABLE, Constants.TYPE_INTEGER);
+		return new SumoCommand(Constants.CMD_GET_TL_VARIABLE, Constants.TL_NEXT_SWITCH, tlsID, Constants.RESPONSE_GET_TL_VARIABLE, Constants.TYPE_DOUBLE);
 	}
 
 	/**
