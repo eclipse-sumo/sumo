@@ -43,6 +43,7 @@ class MSVehicleType;
 class OutputDevice;
 class SUMOVehicleParameter;
 class SUMOVehicle;
+class MSTransportableDevice;
 
 typedef std::vector<const MSEdge*> ConstMSEdgeVector;
 
@@ -689,6 +690,15 @@ public:
     /// @brief adapt plan when the vehicle reroutes and now stops at replacement instead of orig
     void rerouteParkingArea(MSStoppingPlace* orig, MSStoppingPlace* replacement);
 
+    /// @brief Returns a device of the given type if it exists or 0
+    MSTransportableDevice* getDevice(const std::type_info& type) const;
+
+    /** @brief Returns this vehicle's devices
+     * @return This vehicle's devices
+     */
+    inline const std::vector<MSTransportableDevice*>& getDevices() const {
+        return myDevices;
+    }
 
 protected:
     /// @brief the offset for computing positions when standing at an edge
@@ -709,6 +719,9 @@ protected:
 
     /// the iterator over the route
     MSTransportablePlan::iterator myStep;
+
+    /// @brief The devices this transportable has
+    std::vector<MSTransportableDevice*> myDevices;
 
 private:
     /// @brief Invalidated copy constructor.

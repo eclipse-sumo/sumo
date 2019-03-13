@@ -32,6 +32,7 @@
 #include "MSLane.h"
 #include "MSNet.h"
 #include <microsim/pedestrians/MSPerson.h>
+#include <microsim/devices/MSTransportableDevice.h>
 #include "MSVehicleControl.h"
 #include "MSTransportableControl.h"
 #include "MSTransportable.h"
@@ -630,6 +631,8 @@ MSTransportable::Stage_Driving::endEventOutput(const MSTransportable& p, SUMOTim
 MSTransportable::MSTransportable(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportablePlan* plan)
     : myParameter(pars), myVType(vtype), myPlan(plan) {
     myStep = myPlan->begin();
+    // init devices
+    MSDevice::buildTransportableDevices(*this, myDevices);
 }
 
 
@@ -854,6 +857,17 @@ MSTransportable::rerouteParkingArea(MSStoppingPlace* orig, MSStoppingPlace* repl
         }
     }
 }
+
+MSTransportableDevice*
+MSTransportable::getDevice(const std::type_info& type) const {
+    for (MSTransportableDevice* const dev : myDevices) {
+        if (typeid(*dev) == type) {
+            return dev;
+        }
+    }
+    return nullptr;
+}
+
 
 
 /****************************************************************************/

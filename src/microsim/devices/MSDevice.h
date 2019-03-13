@@ -31,6 +31,7 @@
 #include <set>
 #include <random>
 #include <microsim/MSMoveReminder.h>
+#include <microsim/MSVehicleType.h>
 #include <microsim/MSVehicleControl.h>
 #include <utils/common/Named.h>
 #include <utils/common/StringUtils.h>
@@ -93,10 +94,6 @@ public:
 
     /// @brief return the name for this type of device
     virtual const std::string deviceName() const = 0;
-
-    /** @brief Determines whether a transportable should get a certain device
-     **/
-    static bool equippedByParameter(const MSTransportable* t, const std::string& deviceName, bool outputOptionSet);
 
     /// @brief perform cleanup for all devices
     static void cleanupAll();

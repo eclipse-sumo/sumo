@@ -51,7 +51,7 @@ MSTransportableDevice_Routing::insertOptions(OptionsCont& oc) {
 void
 MSTransportableDevice_Routing::buildDevices(MSTransportable& p, std::vector<MSTransportableDevice*>& into) {
     const OptionsCont& oc = OptionsCont::getOptions();
-    if (p.getParameter().wasSet(VEHPARS_FORCE_REROUTE) || equippedByDefaultAssignmentOptions(oc, "rerouting", p, false)) {
+    if (p.getParameter().wasSet(VEHPARS_FORCE_REROUTE) || equippedByDefaultAssignmentOptions(oc, "rerouting", p, false, true)) {
         // route computation is enabled
         const SUMOTime period = string2time(oc.getString("person-device.rerouting.period"));
         MSRoutingEngine::initWeightUpdate();

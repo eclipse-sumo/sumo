@@ -29,17 +29,18 @@
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/geom/GeomHelper.h>
 #include <microsim/devices/MSDevice_FCD.h>
+#include <microsim/devices/MSTransportableDevice_FCD.h>
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSGlobals.h>
-#include "MSFCDExport.h"
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/pedestrians/MSPerson.h>
 #include <microsim/MSTransportableControl.h>
 #include <microsim/MSContainer.h>
 #include <microsim/MSVehicleControl.h>
+#include "MSFCDExport.h"
 
 
 // ===========================================================================
@@ -134,7 +135,7 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
 
 void
 MSFCDExport::writeTransportable(OutputDevice& of, const MSEdge* e, MSTransportable* p, SumoXMLTag tag, bool useGeo, bool elevation) {
-    if (!MSDevice::equippedByParameter(p, "fcd", true)) {
+    if (p->getDevice(typeid(MSTransportableDevice_FCD)) == nullptr) {
         return;
     }
     Position pos = p->getPosition();
