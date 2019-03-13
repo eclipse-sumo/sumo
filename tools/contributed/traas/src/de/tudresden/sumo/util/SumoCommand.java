@@ -504,14 +504,18 @@ public class SumoCommand {
 			
 			SumoTLSPhase stp = (SumoTLSPhase) input;
 			
-			this.cmd.content().writeUnsignedByte(Constants.TYPE_INTEGER);
-			cmd.content().writeInt(stp.duration);
-			this.cmd.content().writeUnsignedByte(Constants.TYPE_INTEGER);
-			cmd.content().writeInt(stp.duration1);
-			this.cmd.content().writeUnsignedByte(Constants.TYPE_INTEGER);
-			cmd.content().writeInt(stp.duration2);
+			this.cmd.content().writeUnsignedByte(Constants.TYPE_DOUBLE);
+			cmd.content().writeDouble(stp.duration);
 			this.cmd.content().writeUnsignedByte(Constants.TYPE_STRING);
 			cmd.content().writeStringASCII(stp.phasedef);
+			this.cmd.content().writeUnsignedByte(Constants.TYPE_DOUBLE);
+			cmd.content().writeDouble(stp.minDur);
+			this.cmd.content().writeUnsignedByte(Constants.TYPE_DOUBLE);
+			cmd.content().writeDouble(stp.maxDur);
+			this.cmd.content().writeUnsignedByte(Constants.TYPE_INTEGER);
+			cmd.content().writeInt(stp.next);
+			this.cmd.content().writeUnsignedByte(Constants.TYPE_STRING);
+			cmd.content().writeStringASCII(stp.name);
 			
 		}else if(input.getClass().equals(SumoStringList.class)){
 			
