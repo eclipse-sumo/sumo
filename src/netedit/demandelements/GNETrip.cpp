@@ -397,7 +397,8 @@ GNETrip::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
     switch (key) {
         case SUMO_ATTR_ID:
         case SUMO_ATTR_TYPE:
-        case SUMO_ATTR_ROUTE:
+        case SUMO_ATTR_FROM:
+        case SUMO_ATTR_TO:
         case SUMO_ATTR_COLOR:
         case SUMO_ATTR_DEPARTLANE:
         case SUMO_ATTR_DEPARTPOS:
@@ -435,7 +436,6 @@ GNETrip::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_TYPE:
             return SUMOXMLDefinitions::isValidTypeID(value) && (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, value, false) != nullptr);
         case SUMO_ATTR_FROM:
-            return SUMOXMLDefinitions::isValidNetID(value) && (myViewNet->getNet()->retrieveEdge(value, false) != nullptr);
         case SUMO_ATTR_TO:
             return SUMOXMLDefinitions::isValidNetID(value) && (myViewNet->getNet()->retrieveEdge(value, false) != nullptr);
         case SUMO_ATTR_COLOR:
@@ -723,6 +723,8 @@ GNETrip::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+    // update geometry
+    updateGeometry(true);
 }
 
 /****************************************************************************/
