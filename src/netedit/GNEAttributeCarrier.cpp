@@ -3505,6 +3505,12 @@ GNEAttributeCarrier::fillDemandElements() {
             "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
+        attrProperty = AttributeProperties(SUMO_ATTR_TYPE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE,
+            "The id of the vehicle type to use for this trip",
+                DEFAULT_VTYPE_ID);
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
         attrProperty = AttributeProperties(SUMO_ATTR_FROM,
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
             "The name of the edge the route starts at; the edge must be a part of the used network");
