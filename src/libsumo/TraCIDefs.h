@@ -108,7 +108,7 @@ struct TraCIPosition : TraCIResult {
         os << "TraCIPosition(" << x << "," << y << "," << z << ")";
         return os.str();
     }
-    double x, y, z;
+    double x = 0., y = 0., z = 0.;
 };
 
 /** @struct TraCIRoadPosition
@@ -331,7 +331,7 @@ struct TraCIBestLanesData {
 class TraCIStage {
 public:
     TraCIStage() {} // only to make swig happy
-    TraCIStage(int _type) : type(_type), depart(-1) {}
+    TraCIStage(int _type) : type(_type) {}
     /// @brief The type of stage (walking, driving, ...)
     int type;
     /// @brief The vehicle type when using a private car or bike
@@ -347,17 +347,17 @@ public:
     /// @brief effort needed
     double cost;
     /// @brief length in m
-    double length;
+    double length = INVALID_DOUBLE_VALUE;
     /// @brief id of the intended vehicle for public transport ride
-    std::string intended;
-    /// @brief intended depart time for public transport ride or -1
-    double depart;
+    std::string intended = "";
+    /// @brief intended depart time for public transport ride or INVALID_DOUBLE_VALUE
+    double depart = INVALID_DOUBLE_VALUE;
     /// @brief position on the lane when starting the stage
-    double departPos;
+    double departPos = INVALID_DOUBLE_VALUE;
     /// @brief position on the lane when ending the stage
-    double arrivalPos;
+    double arrivalPos = INVALID_DOUBLE_VALUE;
     /// @brief arbitrary description string
-    std::string description;
+    std::string description = "";
 };
 }
 

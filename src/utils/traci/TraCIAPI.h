@@ -523,6 +523,12 @@ public:
         double getDeltaT() const;
         libsumo::TraCIPositionVector getNetBoundary() const;
         int getMinExpectedNumber() const;
+
+        libsumo::TraCIPosition convert2D(const std::string& edgeID, double pos, int laneIndex = 0, bool toGeo = false) const;
+        libsumo::TraCIPosition convert3D(const std::string& edgeID, double pos, int laneIndex = 0, bool toGeo = false) const;
+        libsumo::TraCIRoadPosition convertRoad(double x, double y, bool isGeo = false, const std::string& vClass = "ignoring") const;
+        libsumo::TraCIPosition convertGeo(double x, double y, bool fromGeo = false) const;
+
         double getDistance2D(double x1, double y1, double x2, double y2, bool isGeo = false, bool isDriving = false);
         double getDistanceRoad(const std::string& edgeID1, double pos1, const std::string& edgeID2, double pos2, bool isDriving = false);
 

@@ -846,6 +846,14 @@ TraCITestClient::testAPI() {
 
     // simulation
     answerLog << "  simulation:\n";
+    answerLog << "    convert2D: " << simulation.convert2D("e_m5", 0).getString() << "\n";
+    answerLog << "    convert2DGeo: " << simulation.convert2D("e_m5", 0, 0, true).getString() << "\n";
+    answerLog << "    convert3D: " << simulation.convert3D("e_m5", 0).getString() << "\n";
+    answerLog << "    convert3DGeo: " << simulation.convert3D("e_m5", 0, 0, true).getString() << "\n";
+    answerLog << "    convertRoad: " << simulation.convertRoad(2500, 500).getString() << "\n";
+    answerLog << "    convertRoadBus: " << simulation.convertRoad(2500, 500, false, "bus").getString() << "\n";
+    answerLog << "    convertGeo: " << simulation.convertGeo(2500, 500).getString() << "\n";
+    answerLog << "    convertCartesian: " << simulation.convertGeo(12, 52, true).getString() << "\n";
     answerLog << "    getDistance2D_air: " << simulation.getDistance2D(2500, 500, 2000, 500, false, false) << "\n";
     answerLog << "    getDistance2D_driving: " << simulation.getDistance2D(2500, 500, 2000, 500, false, true) << "\n";
     answerLog << "    getDistanceRoad_air: " << simulation.getDistanceRoad("e_m5", 0, "e_m4", 0, false) << "\n";

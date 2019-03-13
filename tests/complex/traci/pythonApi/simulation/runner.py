@@ -80,6 +80,9 @@ print("convert2DGeo", traci.simulation.convertGeo(488.65, 501.65))
 print("convertGeo2D", traci.simulation.convertGeo(12, 48, True))
 print("convert2DRoad", traci.simulation.convertRoad(488.65, 501.65))
 print("convertGeoRoad", traci.simulation.convertRoad(12, 48.1, True))
+print("convertGeoRoadBus", traci.simulation.convertRoad(12, 48.1, True, "bus"))
+traci.lane.setDisallowed("o_0", ["bus"])
+print("convertGeoRoadBusDisallowed", traci.simulation.convertRoad(12, 48.1, True, "bus"))
 print("distance2D", traci.simulation.getDistance2D(
     488.65, 501.65, 498.65, 501.65))
 print("drivingDistance2D", traci.simulation.getDistance2D(

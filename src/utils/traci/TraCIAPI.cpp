@@ -1617,6 +1617,95 @@ TraCIAPI::SimulationScope::getMinExpectedNumber() const {
 }
 
 
+libsumo::TraCIPosition
+TraCIAPI::SimulationScope::convert2D(const std::string& edgeID, double pos, int laneIndex, bool toGeo) const {
+    const int posType = toGeo ? libsumo::POSITION_LON_LAT : libsumo::POSITION_2D;
+    libsumo::TraCIPosition result;
+    tcpip::Storage content;
+    content.writeByte(libsumo::TYPE_COMPOUND);
+    content.writeInt(2);
+    content.writeByte(libsumo::POSITION_ROADMAP);
+    content.writeString(edgeID);
+    content.writeDouble(pos);
+    content.writeByte(laneIndex);
+    content.writeByte(libsumo::TYPE_UBYTE);
+    content.writeByte(posType);
+    myParent.createCommand(libsumo::CMD_GET_SIM_VARIABLE, libsumo::POSITION_CONVERSION, "", &content);
+    if (myParent.processGet(libsumo::CMD_GET_SIM_VARIABLE, posType)) {
+        result.x = myParent.myInput.readDouble();
+        result.y = myParent.myInput.readDouble();
+    }
+    return result;
+}
+
+
+libsumo::TraCIPosition
+TraCIAPI::SimulationScope::convert3D(const std::string& edgeID, double pos, int laneIndex, bool toGeo) const {
+    const int posType = toGeo ? libsumo::POSITION_LON_LAT_ALT : libsumo::POSITION_3D;
+    libsumo::TraCIPosition result;
+    tcpip::Storage content;
+    content.writeByte(libsumo::TYPE_COMPOUND);
+    content.writeInt(2);
+    content.writeByte(libsumo::POSITION_ROADMAP);
+    content.writeString(edgeID);
+    content.writeDouble(pos);
+    content.writeByte(laneIndex);
+    content.writeByte(libsumo::TYPE_UBYTE);
+    content.writeByte(posType);
+    myParent.createCommand(libsumo::CMD_GET_SIM_VARIABLE, libsumo::POSITION_CONVERSION, "", &content);
+    if (myParent.processGet(libsumo::CMD_GET_SIM_VARIABLE, posType)) {
+        result.x = myParent.myInput.readDouble();
+        result.y = myParent.myInput.readDouble();
+        result.z = myParent.myInput.readDouble();
+    }
+    return result;
+}
+
+
+libsumo::TraCIRoadPosition
+TraCIAPI::SimulationScope::convertRoad(double x, double y, bool isGeo, const std::string& vClass) const {
+    libsumo::TraCIRoadPosition result;
+    tcpip::Storage content;
+    content.writeByte(libsumo::TYPE_COMPOUND);
+    content.writeInt(3);
+    content.writeByte(isGeo ? libsumo::POSITION_LON_LAT : libsumo::POSITION_2D);
+    content.writeDouble(x);
+    content.writeDouble(y);
+    content.writeByte(libsumo::TYPE_UBYTE);
+    content.writeByte(libsumo::POSITION_ROADMAP);
+    content.writeByte(libsumo::TYPE_STRING);
+    content.writeString(vClass);
+    myParent.createCommand(libsumo::CMD_GET_SIM_VARIABLE, libsumo::POSITION_CONVERSION, "", &content);
+    if (myParent.processGet(libsumo::CMD_GET_SIM_VARIABLE, libsumo::POSITION_ROADMAP)) {
+        result.edgeID = myParent.myInput.readString();
+        result.pos = myParent.myInput.readDouble();
+        result.laneIndex = myParent.myInput.readUnsignedByte();
+    }
+    return result;
+}
+
+
+libsumo::TraCIPosition
+TraCIAPI::SimulationScope::convertGeo(double x, double y, bool fromGeo) const {
+    const int posType = fromGeo ? libsumo::POSITION_2D : libsumo::POSITION_LON_LAT;
+    libsumo::TraCIPosition result;
+    tcpip::Storage content;
+    content.writeByte(libsumo::TYPE_COMPOUND);
+    content.writeInt(2);
+    content.writeByte(fromGeo ? libsumo::POSITION_LON_LAT : libsumo::POSITION_2D);
+    content.writeDouble(x);
+    content.writeDouble(y);
+    content.writeByte(libsumo::TYPE_UBYTE);
+    content.writeByte(posType);
+    myParent.createCommand(libsumo::CMD_GET_SIM_VARIABLE, libsumo::POSITION_CONVERSION, "", &content);
+    if (myParent.processGet(libsumo::CMD_GET_SIM_VARIABLE, posType)) {
+        result.x = myParent.myInput.readDouble();
+        result.y = myParent.myInput.readDouble();
+    }
+    return result;
+}
+
+
 double
 TraCIAPI::SimulationScope::getDistance2D(double x1, double y1, double x2, double y2, bool isGeo, bool isDriving) {
     tcpip::Storage content;
