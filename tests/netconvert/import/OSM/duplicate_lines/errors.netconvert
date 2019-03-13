@@ -8,6 +8,21 @@ Warning: No way found for reference '475519856' in relation '2873596'
 Warning: Ignoring restriction relation '2873596' with unknown from-way.
 Warning: Ignoring restriction relation '2873596' with unknown to-way.
 Warning: Done reading first coherent chunk of pt stops. Further stops in relation 6187329 are ignored
+Warning: Ignoring duplicate PT line 1901599.
+Warning: Ignoring duplicate PT line 1901600.
+Warning: Done reading first coherent chunk of pt stops. Further stops in relation 2000799 are ignored
+Warning: Ignoring duplicate PT line 2000799.
+Warning: Done reading first coherent chunk of pt stops. Further stops in relation 2000803 are ignored
+Warning: Ignoring duplicate PT line 2000803.
+Warning: No way found for reference '475519856' in relation '2008468'
+Warning: Ignoring restriction relation '2008468' with unknown to-way.
+Warning: No way found for reference '13863062' in relation '2873596'
+Warning: No way found for reference '475519856' in relation '2873596'
+Warning: Ignoring restriction relation '2873596' with unknown from-way.
+Warning: Ignoring restriction relation '2873596' with unknown to-way.
+Warning: Ignoring duplicate PT line 6187328.
+Warning: Done reading first coherent chunk of pt stops. Further stops in relation 6187329 are ignored
+Warning: Ignoring duplicate PT line 6187329.
 Warning: PT stop: 3959807201 has been moved to edge: -391493954#3
 Warning: PT stop: 3959807220 has been moved to edge: -110450334#1
 Warning: PT stop: 4032629820 has been moved to edge: -53356539#0

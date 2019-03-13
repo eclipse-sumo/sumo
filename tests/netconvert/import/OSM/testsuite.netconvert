@@ -4,6 +4,9 @@ rail_stop_road_access
 # direction of bus stops imported correctly based on pt lines
 bus_stop_direction_from_pt_lines
 
+# merge osm files that contain the same ptline information
+duplicate_lines
+
 # mport ptlines and handle network modification options
 ptline_network_modification
 
