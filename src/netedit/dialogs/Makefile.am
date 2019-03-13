@@ -5,6 +5,7 @@ GNEDialog_About.cpp GNEDialog_About.h \
 GNEDialog_AllowDisallow.cpp GNEDialog_AllowDisallow.h \
 GNEGenericParameterDialog.cpp GNEGenericParameterDialog.h \
 GNEDialog_FixAdditionalPositions.cpp GNEDialog_FixAdditionalPositions.h \
+GNEDialog_FixDemandElements.cpp GNEDialog_FixDemandElements.h \
 GNEAdditionalDialog.cpp GNEAdditionalDialog.h \
 GNEDemandElementDialog.cpp GNEDemandElementDialog.h \
 GNERerouterDialog.cpp GNERerouterDialog.h \

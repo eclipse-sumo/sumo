@@ -9,6 +9,8 @@ set(netedit_dialogs_SRCS
    GNEGenericParameterDialog.cpp
    GNEDialog_FixAdditionalPositions.h
    GNEDialog_FixAdditionalPositions.cpp
+   GNEDialog_FixDemandElements.h
+   GNEDialog_FixDemandElements.cpp
    GNEAdditionalDialog.h
    GNEAdditionalDialog.cpp
    GNEDemandElementDialog.h

@@ -46,6 +46,7 @@
 #include <netedit/changes/GNEChange_Lane.h>
 #include <netedit/changes/GNEChange_Shape.h>
 #include <netedit/dialogs/GNEDialog_FixAdditionalPositions.h>
+#include <netedit/dialogs/GNEDialog_FixDemandElements.h>
 #include <netedit/frames/GNEAdditionalFrame.h>
 #include <netedit/frames/GNEInspectorFrame.h>
 #include <netedit/netelements/GNEConnection.h>
@@ -2212,7 +2213,33 @@ GNENet::requiereSaveDemandElements(bool value) {
 
 void
 GNENet::saveDemandElements(const std::string& filename) {
-    saveDemandElementsConfirmed(filename);
+    // obtain invalid demandElements depending of number of their lane parents
+    std::vector<GNEDemandElement*> invalidSingleLaneDemandElements;
+    // iterate over demandElements and obtain invalids
+    for (auto i : myAttributeCarriers.demandElements) {
+        for (auto j : i.second) {
+            // check if has to be fixed
+            if (!j.second->isDemandElementValid()) {
+                invalidSingleLaneDemandElements.push_back(j.second);
+            }
+        }
+    }
+    // if there are invalid StoppingPlaces or detectors, open GNEDialog_FixDemandElementPositions
+    if (invalidSingleLaneDemandElements.size() > 0) {
+        // 0 -> Canceled Saving, with or whithout selecting invalid stopping places and E2
+        // 1 -> Invalid stoppingPlaces and E2 fixed, friendlyPos enabled, or saved with invalid positions
+        GNEDialog_FixDemandElements fixDemandElementsDialog(myViewNet, invalidSingleLaneDemandElements);
+        if (fixDemandElementsDialog.execute() == 0) {
+            // Here a console message
+            ;
+        } else {
+            saveDemandElementsConfirmed(filename);
+        }
+        // set focus again in viewNet
+        myViewNet->setFocus();
+    } else {
+        saveDemandElementsConfirmed(filename);
+    }
     // change value of flag
     myDemandElementsSaved = true;
     // show debug information
