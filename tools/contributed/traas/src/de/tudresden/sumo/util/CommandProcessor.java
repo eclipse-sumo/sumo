@@ -497,11 +497,20 @@ public class CommandProcessor extends Query{
 					resp.content().readUnsignedByte();
 					int nParams = resp.content().readInt();
                     //System.out.println("nParams=" + nParams);
-
+                    for (int i2=0; i2 < nParams; i2++) {
+                        resp.content().readUnsignedByte();
+                        int tmp3 = resp.content().readInt(); // 2
+                        //System.out.println("tmp3=" + tmp3);
+                        String key = resp.content().readStringASCII();
+                        //System.out.println("key=" + key);
+                        String value = resp.content().readStringASCII();
+                        //System.out.println("value=" + value);
+                        stl.addParam(key, value);
+                    }
 					sp.addProgram(stl);
 					
 				}
-                System.out.println("done");
+                //System.out.println("done");
 				
 				output = sp;
 				
