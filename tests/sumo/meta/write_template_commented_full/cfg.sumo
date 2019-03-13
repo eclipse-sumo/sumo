@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Mar 12 11:16:26 2019 by Eclipse SUMO Version v1_0_1+0645-93703db
+<!-- generated on Wed Mar 13 10:07:16 2019 by Eclipse SUMO Version v1_0_1+0645-93703db
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -378,6 +378,18 @@
         <!-- Save adapting weights to FILE -->
         <device.rerouting.output value="" type="FILE"/>
 
+        <!-- The probability for a person to have a &apos;rerouting&apos; device -->
+        <person-device.rerouting.probability value="-1" type="FLOAT"/>
+
+        <!-- Assign a &apos;rerouting&apos; device to named persons -->
+        <person-device.rerouting.explicit value="" synonymes="person-device.rerouting.knownveh" type="STR"/>
+
+        <!-- The &apos;rerouting&apos; devices are set deterministic using a fraction of 1000 -->
+        <person-device.rerouting.deterministic value="false" type="BOOL"/>
+
+        <!-- The period with which the person shall be rerouted -->
+        <person-device.rerouting.period value="0" synonymes="person-device.routing.period" type="TIME"/>
+
     </routing>
 
     <report>
@@ -641,6 +653,18 @@
 
         <!-- Recording period for FCD-data -->
         <device.fcd.period value="0" type="STR"/>
+
+        <!-- The probability for a person to have a &apos;fcd&apos; device -->
+        <person-device.fcd.probability value="-1" type="FLOAT"/>
+
+        <!-- Assign a &apos;fcd&apos; device to named persons -->
+        <person-device.fcd.explicit value="" synonymes="person-device.fcd.knownveh" type="STR"/>
+
+        <!-- The &apos;fcd&apos; devices are set deterministic using a fraction of 1000 -->
+        <person-device.fcd.deterministic value="false" type="BOOL"/>
+
+        <!-- Recording period for FCD-data -->
+        <person-device.fcd.period value="0" type="STR"/>
 
     </fcd_device>
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Mar 12 11:16:26 2019 by Eclipse SUMO Version v1_0_1+0645-93703db
+<!-- generated on Wed Mar 13 10:07:16 2019 by Eclipse SUMO Version v1_0_1+0645-93703db
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -140,6 +140,10 @@
         <device.rerouting.threads value="0" type="INT" help="The number of parallel execution threads used for rerouting"/>
         <device.rerouting.synchronize value="false" type="BOOL" help="Let rerouting happen at the same time for all vehicles"/>
         <device.rerouting.output value="" type="FILE" help="Save adapting weights to FILE"/>
+        <person-device.rerouting.probability value="-1" type="FLOAT" help="The probability for a person to have a &apos;rerouting&apos; device"/>
+        <person-device.rerouting.explicit value="" synonymes="person-device.rerouting.knownveh" type="STR" help="Assign a &apos;rerouting&apos; device to named persons"/>
+        <person-device.rerouting.deterministic value="false" type="BOOL" help="The &apos;rerouting&apos; devices are set deterministic using a fraction of 1000"/>
+        <person-device.rerouting.period value="0" synonymes="person-device.routing.period" type="TIME" help="The period with which the person shall be rerouted"/>
     </routing>
 
     <report>
@@ -248,6 +252,10 @@
         <device.fcd.explicit value="" synonymes="device.fcd.knownveh" type="STR" help="Assign a &apos;fcd&apos; device to named vehicles"/>
         <device.fcd.deterministic value="false" type="BOOL" help="The &apos;fcd&apos; devices are set deterministic using a fraction of 1000"/>
         <device.fcd.period value="0" type="STR" help="Recording period for FCD-data"/>
+        <person-device.fcd.probability value="-1" type="FLOAT" help="The probability for a person to have a &apos;fcd&apos; device"/>
+        <person-device.fcd.explicit value="" synonymes="person-device.fcd.knownveh" type="STR" help="Assign a &apos;fcd&apos; device to named persons"/>
+        <person-device.fcd.deterministic value="false" type="BOOL" help="The &apos;fcd&apos; devices are set deterministic using a fraction of 1000"/>
+        <person-device.fcd.period value="0" type="STR" help="Recording period for FCD-data"/>
     </fcd_device>
 
     <traci_server>
