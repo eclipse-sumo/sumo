@@ -42,10 +42,12 @@
 // member method definitions
 // ===========================================================================
 
-GNEVehicle::GNEVehicle(GNEViewNet* viewNet, const std::string &vehicleID, GNEDemandElement* vehicleType, GNEDemandElement* route) :
-    GNEDemandElement(vehicleID, viewNet, GLO_VEHICLE, SUMO_TAG_VEHICLE),
+GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const std::string &vehicleID, GNEDemandElement* vehicleType, GNEDemandElement* route) :
+    GNEDemandElement(vehicleID, viewNet, (tag == SUMO_TAG_FLOW)? GLO_FLOW : GLO_VEHICLE, tag),
     SUMOVehicleParameter(),
     myVehicleType(vehicleType),
+    myFrom(nullptr),
+    myTo(nullptr),
     myRoute(route) {
     // SUMOVehicleParameter ID has to be set manually
     id = vehicleID;
@@ -54,10 +56,12 @@ GNEVehicle::GNEVehicle(GNEViewNet* viewNet, const std::string &vehicleID, GNEDem
 }
 
 
-GNEVehicle::GNEVehicle(GNEViewNet* viewNet, const SUMOVehicleParameter &vehicleParameter, GNEDemandElement* vehicleType, GNEDemandElement* route) :
-    GNEDemandElement(vehicleParameter.id, viewNet, GLO_VEHICLE, SUMO_TAG_VEHICLE),
+GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehicleParameter &vehicleParameter, GNEDemandElement* vehicleType, GNEDemandElement* route) :
+    GNEDemandElement(vehicleParameter.id, viewNet, (tag == SUMO_TAG_FLOW)? GLO_FLOW : GLO_VEHICLE, tag),
     SUMOVehicleParameter(vehicleParameter),
     myVehicleType(vehicleType),
+    myFrom(nullptr),
+    myTo(nullptr),
     myRoute(route) {
     // SUMOVehicleParameter ID has to be set manually
     id = vehicleParameter.id;
@@ -66,13 +70,40 @@ GNEVehicle::GNEVehicle(GNEViewNet* viewNet, const SUMOVehicleParameter &vehicleP
 }
 
 
+GNEVehicle::GNEVehicle(GNEViewNet* viewNet, const std::string &tripID, GNEDemandElement* vehicleType, GNEEdge* from, GNEEdge* to, std::vector<GNEEdge*> viaEdges) : 
+    GNEDemandElement(tripID, viewNet, GLO_TRIP, SUMO_TAG_TRIP),
+    SUMOVehicleParameter(),
+    myVehicleType(vehicleType),
+    myFrom(from),
+    myTo(to),
+    myRoute(nullptr),
+    myVia(viaEdges) {
+}
+
+
+GNEVehicle::GNEVehicle(GNEViewNet* viewNet, const SUMOVehicleParameter &tripParameter, GNEDemandElement* vehicleType, GNEEdge* from, GNEEdge* to, std::vector<GNEEdge*> viaEdges) :
+    GNEDemandElement(tripParameter.id, viewNet, GLO_TRIP, SUMO_TAG_TRIP),
+    SUMOVehicleParameter(tripParameter),
+    myVehicleType(vehicleType),
+    myFrom(from),
+    myTo(to),
+    myRoute(nullptr),
+    myVia(viaEdges) {
+}
+
+
 GNEVehicle::~GNEVehicle() {}
 
 
 std::string 
 GNEVehicle::getBegin() const {
-    // obtain depart
-    std::string departStr = getDepart();
+    // obtain depart depending if is a Vehicle, trip or flow
+    std::string departStr;
+    if (myTagProperty.getTag() == SUMO_TAG_FLOW) {
+        departStr = toString(depart);
+    } else {
+        departStr = getDepart();
+    }
     // we need to handle depart as a tuple of 20 numbers (format: 000000...00<departTime>)
     departStr.reserve(20 - departStr.size());
     // add 0s at the beginning of departStr until we have 20 numbers
@@ -91,9 +122,39 @@ GNEVehicle::getColor() const {
 
 void 
 GNEVehicle::writeDemandElement(OutputDevice& device) const {
-    write(device, OptionsCont::getOptions(), SUMO_TAG_VEHICLE);
-    // write manually route
-    device.writeAttr(SUMO_ATTR_ROUTE, myRoute->getID());
+    write(device, OptionsCont::getOptions(), myTagProperty.getTag());
+    // write specific attribute depeding of vehicle type
+    if (myTagProperty.getTag() == SUMO_TAG_VEHICLE) {
+        // write manually route
+        device.writeAttr(SUMO_ATTR_ROUTE, myRoute->getID());
+    } else if (myTagProperty.getTag() == SUMO_TAG_FLOW) {
+        // write flow values depending if it was set
+        if (isDisjointAttributeSet(SUMO_ATTR_END)) {
+            device.writeAttr(SUMO_ATTR_END,  time2string(repetitionEnd));
+        }
+        if (isDisjointAttributeSet(SUMO_ATTR_NUMBER)) {
+            device.writeAttr(SUMO_ATTR_NUMBER , repetitionNumber);
+        }
+        if (isDisjointAttributeSet(SUMO_ATTR_VEHSPERHOUR)) {
+            device.writeAttr(SUMO_ATTR_VEHSPERHOUR, 3600. / STEPS2TIME(repetitionOffset));
+        }
+        if (isDisjointAttributeSet(SUMO_ATTR_PERIOD)) {
+            device.writeAttr(SUMO_ATTR_PERIOD, time2string(repetitionOffset));
+        }
+        if (isDisjointAttributeSet(SUMO_ATTR_PROB)) {
+            device.writeAttr(SUMO_ATTR_PROB, repetitionProbability);
+        }
+    } else if (myTagProperty.getTag() == SUMO_TAG_TRIP) {
+        // write manually from/to edges
+        device.writeAttr(SUMO_ATTR_FROM, myFrom->getID());
+        device.writeAttr(SUMO_ATTR_TO, myTo->getID());
+        // write via only if there is edges
+        if(myVia.size() > 0) {
+            device.writeAttr(SUMO_ATTR_VIA, toString(myVia));
+        }
+    } else {
+        throw ProcessError("Invalid vehicle tag");
+    }
     // close vehicle tag
     device.closeTag();
 }
@@ -125,7 +186,14 @@ GNEVehicle::updateGeometry(bool updateGrid) {
     myGeometry.clearGeometry();
 
     // get lanes of edge
-    GNELane* vehicleLane = myRoute->getGNEEdges().at(0)->getLanes().at(0);
+    GNELane* vehicleLane;
+    if (myRoute) {
+        vehicleLane = myRoute->getGNEEdges().at(0)->getLanes().at(0);
+    } else if (myFrom) {
+        vehicleLane = myFrom->getLanes().at(0);
+    } else {
+        throw ProcessError("Invalid vehicle tag");
+    }
 
     // Get shape of lane parent
     double offset = vehicleLane->getShape().length() < length ? vehicleLane->getShape().length() : length;
@@ -133,6 +201,40 @@ GNEVehicle::updateGeometry(bool updateGrid) {
 
     // Save rotation (angle)
     myGeometry.shapeRotations.push_back(vehicleLane->getShape().rotationDegreeAtOffset(offset) * -1);
+
+    // calculate route for trip
+    if (myTagProperty.getTag() == SUMO_TAG_TRIP) {
+        // update temporal route
+        myTemporalRoute = getRouteCalculatorInstance()->calculateDijkstraRoute(parse<SUMOVehicleClass>(myVehicleType->getAttribute(SUMO_ATTR_VCLASS)), myFrom, myTo, myVia);
+
+        if (myTemporalRoute.size() > 1) {
+            // declare a vector of shapes
+            std::vector<PositionVector> multiShape;
+
+            // start with the first lane shape
+            multiShape.push_back(myTemporalRoute.front()->getLanes().front().shape);
+
+            // add first shape connection (if exist, in other case leave it empty)
+            multiShape.push_back(PositionVector{myTemporalRoute.at(0)->getLanes().front().shape.back(), myTemporalRoute.at(1)->getLanes().front().shape.front()});
+
+            // append shapes of intermediate lanes AND connections (if exist)
+            for (int i = 1; i < ((int)myTemporalRoute.size() - 1); i++) {
+                // add lane shape
+                multiShape.push_back(myTemporalRoute.at(i)->getLanes().front().shape);
+                // add empty shape for connection
+                multiShape.push_back(PositionVector{myTemporalRoute.at(i)->getLanes().front().shape.back(), myTemporalRoute.at(i + 1)->getLanes().front().shape.front()});
+            }
+
+            // append last shape
+            multiShape.push_back(myTemporalRoute.back()->getLanes().front().shape);
+
+            // calculate unified shape
+            for (auto i : multiShape) {
+                myGeometry.shape.append(i);
+            }
+            myGeometry.shape.removeDoublePoints();
+        }
+    }
 
     // last step is to check if object has to be added into grid (SUMOTree) again
     if (updateGrid) {
@@ -156,7 +258,15 @@ GNEVehicle::getPositionInView() const {
 
 std::string
 GNEVehicle::getParentName() const {
-    return myRoute->getID();
+    if (myTagProperty.getTag() == SUMO_TAG_VEHICLE) {
+        return myRoute->getID();
+    } else if (myTagProperty.getTag() == SUMO_TAG_FLOW) {
+        return myRoute->getID();
+    } else if (myTagProperty.getTag() == SUMO_TAG_TRIP) {
+        return myFrom->getID();
+    } else {
+        throw ProcessError("Invalid vehicle tag");
+    }
 }
 
 
@@ -232,6 +342,44 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
         // check if dotted contour has to be drawn
         if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
             GLHelper::drawShapeDottedContour(getType(), myGeometry.shape.front(), width, length, myGeometry.shapeRotations.front(), 0, length/2);
+            // check if draw temporal route must be drawed (only for Tags
+            if (myTagProperty.getTag() == SUMO_TAG_TRIP) {
+                if (myTemporalRoute.size() > 1) {
+                    // Add a draw matrix
+                    glPushMatrix();
+                    // Start with the drawing of the area traslating matrix to origin
+                    glTranslated(0, 0, getType() - 0.01);
+                    // set orange color
+                    GLHelper::setColor(RGBColor::ORANGE);
+                    // set line width
+                    glLineWidth(5);
+                    // draw first line
+                    GLHelper::drawLine(myTemporalRoute.at(0)->getLanes().front().shape.front(), 
+                                        myTemporalRoute.at(0)->getLanes().front().shape.back());
+                    // draw rest of lines
+                    for (int i = 1; i < (int)myTemporalRoute.size(); i++) {
+                        GLHelper::drawLine(myTemporalRoute.at(i-1)->getLanes().front().shape.back(), 
+                                            myTemporalRoute.at(i)->getLanes().front().shape.front());
+                        GLHelper::drawLine(myTemporalRoute.at(i)->getLanes().front().shape.front(), 
+                                            myTemporalRoute.at(i)->getLanes().front().shape.back());
+                    }
+                    // Pop last matrix
+                    glPopMatrix();
+                } else {
+                    // Add a draw matrix
+                    glPushMatrix();
+                    // Start with the drawing of the area traslating matrix to origin
+                    glTranslated(0, 0, getType() - 0.01);
+                    // set orange color
+                    GLHelper::setColor(RGBColor::RED);
+                    // set line width
+                    glLineWidth(5);
+                    // draw first line
+                    GLHelper::drawLine(myFrom->getNBEdge()->getLanes().front().shape.front(), myTo->getNBEdge()->getLanes().front().shape.back());
+                    // Pop last matrix
+                    glPopMatrix();
+                }
+            }
         }
         // pop name
         glPopName();
@@ -279,8 +427,6 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
             return getDemandElementID();
         case SUMO_ATTR_TYPE:
             return myVehicleType->getID();
-        case SUMO_ATTR_ROUTE:
-            return myRoute->getID();
         case SUMO_ATTR_COLOR:
             return toString(color);
         case SUMO_ATTR_DEPARTLANE:
@@ -304,7 +450,7 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_REROUTE:
             return toString("false"); // check
         case SUMO_ATTR_VIA:
-            return toString(""); // check
+            return parseIDs(myVia);
         case SUMO_ATTR_DEPARTPOS_LAT:
             return getDepartPosLat();
         case SUMO_ATTR_ARRIVALPOS_LAT:
@@ -312,6 +458,26 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
         // Specific of vehicles
         case SUMO_ATTR_DEPART:
             return toString(depart);
+        case SUMO_ATTR_ROUTE:
+            return myRoute->getID();
+        // Specific of Trips
+        case SUMO_ATTR_FROM:
+            return myFrom->getID();
+        case SUMO_ATTR_TO:
+            return myTo->getID();
+        // Specific of flows
+        case SUMO_ATTR_BEGIN:
+            return toString(depart);
+        case SUMO_ATTR_END:
+            return toString(repetitionEnd);
+        case SUMO_ATTR_VEHSPERHOUR:
+            return toString(repetitionOffset);
+        case SUMO_ATTR_PERIOD:
+            return toString(repetitionOffset);
+        case SUMO_ATTR_PROB:
+            return toString(repetitionProbability);
+        case SUMO_ATTR_NUMBER:
+            return toString(repetitionNumber);
         //
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
@@ -331,7 +497,6 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList*
     switch (key) {
         case SUMO_ATTR_ID:
         case SUMO_ATTR_TYPE:
-        case SUMO_ATTR_ROUTE:
         case SUMO_ATTR_COLOR:
         case SUMO_ATTR_DEPARTLANE:
         case SUMO_ATTR_DEPARTPOS:
@@ -348,6 +513,18 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList*
         case SUMO_ATTR_ARRIVALPOS_LAT:
         // Specific of vehicles
         case SUMO_ATTR_DEPART:
+        case SUMO_ATTR_ROUTE:
+        // Specific of Trips
+        case SUMO_ATTR_FROM:
+        case SUMO_ATTR_TO:
+        //
+        // Specific of flows
+        case SUMO_ATTR_BEGIN:
+        case SUMO_ATTR_END:
+        case SUMO_ATTR_NUMBER:
+        case SUMO_ATTR_VEHSPERHOUR:
+        case SUMO_ATTR_PERIOD:
+        case SUMO_ATTR_PROB:
         //
         case GNE_ATTR_GENERIC:
         case GNE_ATTR_SELECTED:
@@ -368,8 +545,6 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
             return isValidDemandElementID(value);
         case SUMO_ATTR_TYPE:
             return SUMOXMLDefinitions::isValidTypeID(value) && (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, value, false) != nullptr);
-        case SUMO_ATTR_ROUTE:
-            return SUMOXMLDefinitions::isValidVehicleID(value) && (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_ROUTE, value, false) != nullptr);
         case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
         case SUMO_ATTR_DEPARTLANE: {
@@ -423,7 +598,11 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_REROUTE:
             return true;    // check
         case SUMO_ATTR_VIA:
-            return true;    // check
+            if (value.empty()) {
+                return true;
+            } else {
+                return canParse<std::vector<GNEEdge*> >(myViewNet->getNet(), value, false);
+            }
         case SUMO_ATTR_DEPARTPOS_LAT: {
             double dummyDepartPosLat;
             DepartPosLatDefinition dummyDepartPosLatProcedure;
@@ -446,6 +625,57 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
             // if error is empty, given value is valid
             return error.empty();
         }
+        case SUMO_ATTR_ROUTE:
+            return SUMOXMLDefinitions::isValidVehicleID(value) && (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_ROUTE, value, false) != nullptr);
+        // Specific of Trips
+        case SUMO_ATTR_FROM:
+        case SUMO_ATTR_TO:
+            return SUMOXMLDefinitions::isValidNetID(value) && (myViewNet->getNet()->retrieveEdge(value, false) != nullptr);
+        // Specific of flows
+        case SUMO_ATTR_BEGIN:
+            if (canParse<double>(value)) {
+                return (parse<double>(value) >= 0);
+            } else {
+                return false;
+            }
+        case SUMO_ATTR_END:
+            if (value.empty()) {
+                return true;
+            } else if (canParse<double>(value)) {
+                return (parse<double>(value) >= 0);
+            } else {
+                return false;
+            }
+        case SUMO_ATTR_VEHSPERHOUR:
+            if (value.empty()) {
+                return true;
+            } else if (canParse<double>(value)) {
+                return (parse<double>(value) > 0);
+            } else {
+                return false;
+            }
+        case SUMO_ATTR_PERIOD:
+            if (value.empty()) {
+                return true;
+            } else if (canParse<double>(value)) {
+                return (parse<double>(value) > 0);
+            } else {
+                return false;
+            }
+        case SUMO_ATTR_PROB:
+            if (value.empty()) {
+                return true;
+            } else if (canParse<double>(value)) {
+                return (parse<double>(value) >= 0);
+            } else {
+                return false;
+            }
+        case SUMO_ATTR_NUMBER:
+             if (canParse<int>(value)) {
+                return (parse<int>(value) >= 0);
+            } else {
+                return false;
+            }
         //
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
@@ -454,6 +684,86 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+}
+
+
+bool 
+GNEVehicle::isDisjointAttributeSet(const SumoXMLAttr attr) const {
+    switch (attr) {
+        case SUMO_ATTR_END:
+            return (parametersSet & VEHPARS_END_SET) != 0;
+        case SUMO_ATTR_NUMBER:
+            return (parametersSet & VEHPARS_NUMBER_SET) != 0;
+        case SUMO_ATTR_VEHSPERHOUR:
+            return (parametersSet & VEHPARS_VPH_SET) != 0;
+        case SUMO_ATTR_PERIOD:
+            return (parametersSet & VEHPARS_PERIOD_SET) != 0;
+        case SUMO_ATTR_PROB:
+            return (parametersSet & VEHPARS_PROB_SET) != 0;
+        default:
+            return true;
+    };
+}
+
+
+void 
+GNEVehicle::setDisjointAttribute(const SumoXMLAttr attr, GNEUndoList* undoList) {
+    // obtain a copy of parameter sets
+    int parametersSetCopy = parametersSet;
+    // modify parametersSetCopy depending of attr
+    switch (attr) {
+        case SUMO_ATTR_END: {
+            // give more priority to end
+            parametersSetCopy = VEHPARS_END_SET | VEHPARS_NUMBER_SET;
+            break;
+        }
+        case SUMO_ATTR_NUMBER:
+            parametersSetCopy ^= VEHPARS_END_SET;
+            parametersSetCopy |= VEHPARS_NUMBER_SET;
+            break;
+        case SUMO_ATTR_VEHSPERHOUR: {
+            // give more priority to end
+            if ((parametersSetCopy & VEHPARS_END_SET) && (parametersSetCopy & VEHPARS_NUMBER_SET)) {
+                parametersSetCopy = VEHPARS_END_SET;
+            } else if (parametersSetCopy & VEHPARS_END_SET) {
+                parametersSetCopy = VEHPARS_END_SET;
+            } else if (parametersSetCopy & VEHPARS_NUMBER_SET) {
+                parametersSetCopy = VEHPARS_NUMBER_SET;
+            }
+            // set VehsPerHour
+            parametersSetCopy |= VEHPARS_VPH_SET;
+            break;
+        }
+        case SUMO_ATTR_PERIOD: {
+            // give more priority to end
+            if ((parametersSetCopy & VEHPARS_END_SET) && (parametersSetCopy & VEHPARS_NUMBER_SET)) {
+                parametersSetCopy = VEHPARS_END_SET;
+            } else if (parametersSetCopy & VEHPARS_END_SET) {
+                parametersSetCopy = VEHPARS_END_SET;
+            } else if (parametersSetCopy & VEHPARS_NUMBER_SET) {
+                parametersSetCopy = VEHPARS_NUMBER_SET;
+            }
+            // set period
+            parametersSetCopy |= VEHPARS_PERIOD_SET;
+            break;
+        }
+        case SUMO_ATTR_PROB: {
+            // give more priority to end
+            if ((parametersSetCopy & VEHPARS_END_SET) && (parametersSetCopy & VEHPARS_NUMBER_SET)) {
+                parametersSetCopy = VEHPARS_END_SET;
+            } else if (parametersSetCopy & VEHPARS_END_SET) {
+                parametersSetCopy = VEHPARS_END_SET;
+            } else if (parametersSetCopy & VEHPARS_NUMBER_SET) {
+                parametersSetCopy = VEHPARS_NUMBER_SET;
+            }
+            // set probability
+            parametersSetCopy |= VEHPARS_PROB_SET;
+            break;
+        }
+        default:
+            break;
+    }
+    undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), parametersSet, parametersSetCopy));
 }
 
 
@@ -591,12 +901,9 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             // set manually vtypeID (needed for saving)
             vtypeid = value;
             break;
-        case SUMO_ATTR_ROUTE:
-            myRoute = myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_ROUTE, value);
-            break;
         case SUMO_ATTR_COLOR:
             color = parse<RGBColor>(value);
-            break;
+            break;  
         case SUMO_ATTR_DEPARTLANE:
             parseDepartLane(value, toString(SUMO_TAG_VEHICLE), id, departLane, departLaneProcedure, error); 
             break;       
@@ -628,14 +935,15 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             // check
             break;
         case SUMO_ATTR_VIA:
-            // check
+            myVia = parse<std::vector<GNEEdge*> >(myViewNet->getNet(), value);
+            myTemporalRoute = getRouteCalculatorInstance()->calculateDijkstraRoute(parse<SUMOVehicleClass>(myVehicleType->getAttribute(SUMO_ATTR_VCLASS)), myFrom, myTo, myVia);
             break;
         case SUMO_ATTR_DEPARTPOS_LAT:
             parseDepartPosLat(value, toString(SUMO_TAG_VEHICLE), id, departPosLat, departPosLatProcedure, error);
             break;
         case SUMO_ATTR_ARRIVALPOS_LAT:
             parseArrivalPosLat(value, toString(SUMO_TAG_VEHICLE), id, arrivalPosLat, arrivalPosLatProcedure, error);
-            break;        
+            break;
         // Specific of vehicles
         case SUMO_ATTR_DEPART: {
             std::string oldDepart = getBegin();
@@ -643,6 +951,40 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             myViewNet->getNet()->updateDemandElementBegin(oldDepart, this);
             break;
         }
+        case SUMO_ATTR_ROUTE:
+            myRoute = myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_ROUTE, value);
+            break;
+        // Specific of Trips
+        case SUMO_ATTR_FROM:
+            myFrom = myViewNet->getNet()->retrieveEdge(value);
+            updateGeometry(true);
+            break;
+        case SUMO_ATTR_TO:
+            myTo = myViewNet->getNet()->retrieveEdge(value);
+            updateGeometry(true);
+            break;
+        // Specific of flows
+        case SUMO_ATTR_BEGIN: {
+            std::string oldBegin = getBegin();
+            depart = parse<SUMOTime>(value);
+            myViewNet->getNet()->updateDemandElementBegin(oldBegin, this);
+            break;
+        }
+        case SUMO_ATTR_END:
+            repetitionEnd = parse<SUMOTime>(value);
+            break;
+        case SUMO_ATTR_VEHSPERHOUR:
+            repetitionOffset = parse<SUMOTime>(value);
+            break;
+        case SUMO_ATTR_PERIOD:
+            repetitionOffset = parse<SUMOTime>(value);
+            break;
+        case SUMO_ATTR_PROB:
+            repetitionProbability = parse<double>(value);
+            break;
+        case SUMO_ATTR_NUMBER:
+            repetitionNumber = parse<int>(value);
+            break;
         //
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {

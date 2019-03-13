@@ -31,9 +31,7 @@
 #include "GNERouteHandler.h"
 #include "GNERoute.h"
 #include "GNEVehicleType.h"
-#include "GNEFlow.h"
 #include "GNEVehicle.h"
-#include "GNETrip.h"
 
 // ===========================================================================
 // member method definitions
@@ -66,7 +64,7 @@ GNERouteHandler::buildVehicle(GNEViewNet* viewNet, bool undoDemandElements, SUMO
                 WRITE_WARNING("Invalid route '" + vehicleParameters->routeid + "' used in vehicle '" + vehicleParameters->id + "'.");
             } else {
                 // create vehicle using vehicleParameters 
-                GNEVehicle* vehicle = new GNEVehicle(viewNet, *vehicleParameters, vType, route);
+                GNEVehicle* vehicle = new GNEVehicle(SUMO_TAG_VEHICLE, viewNet, *vehicleParameters, vType, route);
                 if (undoDemandElements) {
                     viewNet->getUndoList()->p_begin("add " + vehicle->getTagStr());
                     viewNet->getUndoList()->add(new GNEChange_DemandElement(vehicle, true), true);
@@ -98,7 +96,7 @@ GNERouteHandler::buildFlow(GNEViewNet* viewNet, bool undoDemandElements, SUMOVeh
                 WRITE_WARNING("Invalid route '" + flowParameters->routeid + "' used in flow '" + flowParameters->id + "'.");
             } else {
                 // create flow using flowParameters 
-                GNEFlow* flow = new GNEFlow(viewNet, *flowParameters, vType, route);
+                GNEVehicle* flow = new GNEVehicle(SUMO_TAG_FLOW, viewNet, *flowParameters, vType, route);
                 if (undoDemandElements) {
                     viewNet->getUndoList()->p_begin("add " + flow->getTagStr());
                     viewNet->getUndoList()->add(new GNEChange_DemandElement(flow, true), true);
@@ -140,7 +138,7 @@ GNERouteHandler::buildTrip(GNEViewNet* viewNet, bool undoDemandElements, SUMOVeh
                 // delete route
                 delete route;
                 // create trip using tripParameters 
-                GNETrip* trip = new GNETrip(viewNet, *tripParameters, vType, from, to, via);
+                GNEVehicle* trip = new GNEVehicle(viewNet, *tripParameters, vType, from, to, via);
                 if (undoDemandElements) {
                     viewNet->getUndoList()->p_begin("add " + trip->getTagStr());
                     viewNet->getUndoList()->add(new GNEChange_DemandElement(trip, true), true);
@@ -263,7 +261,7 @@ GNERouteHandler::closeContainer() {
 
 void 
 GNERouteHandler::closeFlow() {
-    // build vehicle
+    // build flow
     buildFlow(myViewNet, myUndoDemandElements, myVehicleParameter);
 }
 

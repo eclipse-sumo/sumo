@@ -7,12 +7,8 @@ set(netedit_demandelements_SRCS
    GNERoute.cpp
    GNEVehicleType.h
    GNEVehicleType.cpp
-   GNEFlow.h
-   GNEFlow.cpp
    GNEVehicle.h
    GNEVehicle.cpp
-   GNETrip.h
-   GNETrip.cpp
    )
 
 add_library(netedit_demandelements STATIC ${netedit_demandelements_SRCS})

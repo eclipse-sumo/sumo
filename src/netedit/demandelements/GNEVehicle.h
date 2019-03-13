@@ -35,11 +35,17 @@
 class GNEVehicle : public GNEDemandElement, public SUMOVehicleParameter {
 
 public:
-   /// @brief constructor
-    GNEVehicle(GNEViewNet* viewNet, const std::string &vehicleID, GNEDemandElement* vehicleType, GNEDemandElement* route);
+   /// @brief constructor for vehicles and flows
+    GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const std::string &vehicleID, GNEDemandElement* vehicleType, GNEDemandElement* route);
 
-    /// @brief constructor
-    GNEVehicle(GNEViewNet* viewNet, const SUMOVehicleParameter &vehicleParameter, GNEDemandElement* vehicleType, GNEDemandElement* route);
+    /// @brief constructor for vehicles
+    GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehicleParameter &vehicleParameter, GNEDemandElement* vehicleType, GNEDemandElement* route);
+
+    /// @brief constructor for Trips
+    GNEVehicle(GNEViewNet* viewNet, const std::string &tripID, GNEDemandElement* vehicleType, GNEEdge* from, GNEEdge* to, std::vector<GNEEdge*> viaEdges);
+
+    /// @brief parameter constructor for Trips
+    GNEVehicle(GNEViewNet* viewNet, const SUMOVehicleParameter &tripParameter, GNEDemandElement* vehicleType, GNEEdge* from, GNEEdge* to, std::vector<GNEEdge*> viaEdges);
 
     /// @brief destructor
     ~GNEVehicle();
@@ -120,6 +126,18 @@ public:
     */
     bool isValid(SumoXMLAttr key, const std::string& value);
 
+    /* @brief method for check if certain attribute is set (used by ACs with disjoint attributes)
+     * @param[in] key The attribute key
+     * @return true if it's set, false in other case
+     */
+    bool isDisjointAttributeSet(const SumoXMLAttr attr) const;
+
+    /* @brief method for set certain attribute is set (used by ACs with disjoint attributes)
+     * @param[in] attr The attribute key
+     * @param[in] undoList The undoList on which to register changes
+     */
+    void setDisjointAttribute(const SumoXMLAttr attr, GNEUndoList* undoList);
+
     /// @brief get PopPup ID (Used in AC Hierarchy)
     std::string getPopUpID() const;
 
@@ -128,11 +146,23 @@ public:
     /// @}
 
 protected:
-    /// @brief type of flow
+    /// @brief Vehicle type
     GNEDemandElement* myVehicleType;
 
-    /// @brief route in which this flow is used
+    /// @brief route in which this vehicle or flow is used
     GNEDemandElement* myRoute;
+
+    /// @brief from edge (used by Trips)
+    GNEEdge* myFrom;
+
+    /// @brief to edge (used by Trips)
+    GNEEdge* myTo;
+
+    /// @brief list of VIA edges (used by Trips)
+    std::vector<GNEEdge*> myVia;
+
+    /// @brief vector with temporal route edges (only used for Trip visualization)
+    std::vector<const NBEdge*> myTemporalRoute;
 
     /// @brief sets the color according to the currente settings
     void setColor(const GUIVisualizationSettings& s) const;
