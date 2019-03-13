@@ -58,64 +58,28 @@ FXIMPLEMENT(GNEDialog_FixDemandElements, FXDialogBox, GNEDialog_FixDemandElement
 // ===========================================================================
 
 GNEDialog_FixDemandElements::GNEDialog_FixDemandElements(GNEViewNet* viewNet, const std::vector<GNEDemandElement*>& invalidDemandElements) :
-    FXDialogBox(viewNet->getApp(), ("Fix additional problems"), GUIDesignDialogBoxExplicit, 0, 0, 478, 350, 0, 0, 0, 0),
-    myViewNet(viewNet),
-    myInvalidDemandElements(invalidDemandElements) {
+    FXDialogBox(viewNet->getApp(), ("Fix demand elements problems"), GUIDesignDialogBoxExplicit, 0, 0, 500, 380, 4, 4, 4, 4, 4, 4),
+    myViewNet(viewNet) {
     // set busStop icon for this dialog
-    setIcon(GUIIconSubSys::getIcon(ICON_BUSSTOP));
+    setIcon(GUIIconSubSys::getIcon(ICON_ROUTE));
     // create main frame
-    FXVerticalFrame* mainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
-    // create label for table
-    new FXLabel(mainFrame, "List of Stopping places and E2 detectors with conflicts", nullptr, GUIDesignLabelCenterThick);
-    // Create table, copy intervals and update table
-    myTable = new FXTable(mainFrame, this, MID_GNE_FIXSTOPPINGPLACES_CHANGE, GUIDesignTableAdditionals);
-    myTable->setSelBackColor(FXRGBA(255, 255, 255, 255));
-    myTable->setSelTextColor(FXRGBA(0, 0, 0, 255));
-    myTable->setEditable(false);
-    // clear table
-    myTable->clearItems();
-    // set number of rows
-    myTable->setTableSize((int)myInvalidDemandElements.size(), 3);
-    // Configure list
-    myTable->setVisibleColumns(4);
-    myTable->setColumnWidth(0, GUIDesignTableIconCellWidth);
-    myTable->setColumnWidth(1, 160);
-    myTable->setColumnWidth(2, 280);
-    myTable->setColumnText(0, "");
-    myTable->setColumnText(1, toString(SUMO_ATTR_ID).c_str());
-    myTable->setColumnText(2, "Conflict");
-    myTable->getRowHeader()->setWidth(0);
-    // Declare index for rows and pointer to FXTableItem
-    int indexRow = 0;
-    FXTableItem* item = nullptr;
-    // iterate over single lane additionals
-    for (auto i : myInvalidDemandElements) {
-        // Set icon
-        item = new FXTableItem("", i->getIcon());
-        item->setIconPosition(FXTableItem::CENTER_X);
-        myTable->setItem(indexRow, 0, item);
-        // Set ID
-        item = new FXTableItem(i->getID().c_str());
-        item->setJustify(FXTableItem::LEFT | FXTableItem::CENTER_Y);
-        myTable->setItem(indexRow, 1, item);
-        // Set conflict
-        item = new FXTableItem(i->getDemandElementProblem().c_str());
-        item->setJustify(FXTableItem::LEFT | FXTableItem::CENTER_Y);
-        myTable->setItem(indexRow, 2, item);
-        // Update index
-        indexRow++;
+    myMainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
+    // create demand list 
+    myDemandList = new DemandList(this, invalidDemandElements);
+    // create fix route options
+    myFixRouteOptions = new FixRouteOptions(this);
+    // create route options
+    myFixVehicleOptions = new FixVehicleOptions(this);
+    // check if fix route options has to be disabled
+    if (myDemandList->myInvalidRoutes.empty()) {
+        myFixRouteOptions->disableFixRouteOptions();
     }
-    // create position options
-    myPositionOptions.buildPositionOptions(this, mainFrame);
-    // check if position options has to be disabled
-    if (myInvalidDemandElements.empty()) {
-        myPositionOptions.disablePositionOptions();
+    // check if fix vehicle options has to be disabled
+    if (myDemandList->myInvalidVehicles.empty()) {
+        myFixVehicleOptions->disableFixVehicleOptions();
     }
-    // create consecutive lane options
-    myConsecutiveLaneOptions.buildConsecutiveLaneOptions(this, mainFrame);
     // create dialog buttons bot centered
-    new FXHorizontalSeparator(mainFrame, GUIDesignHorizontalSeparator);
-    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
+    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(myMainFrame, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
     myAcceptButton = new FXButton(buttonsFrame, FXWindow::tr("&Accept"), GUIIconSubSys::getIcon(ICON_ACCEPT), this, MID_GNE_ADDITIONALDIALOG_BUTTONACCEPT, GUIDesignButtonAccept);
     myCancelButton = new FXButton(buttonsFrame, FXWindow::tr("&Cancel"), GUIIconSubSys::getIcon(ICON_CANCEL), this, MID_GNE_ADDITIONALDIALOG_BUTTONCANCEL, GUIDesignButtonCancel);
@@ -131,8 +95,8 @@ GNEDialog_FixDemandElements::~GNEDialog_FixDemandElements() {
 
 long
 GNEDialog_FixDemandElements::onCmdSelectOption(FXObject* obj, FXSelector, void*) {
-    myPositionOptions.selectOption(obj);
-    myConsecutiveLaneOptions.selectOption(obj);
+    myFixRouteOptions->selectOption(obj);
+    myFixVehicleOptions->selectOption(obj);
     return 1;
 }
 
@@ -141,25 +105,53 @@ long
 GNEDialog_FixDemandElements::onCmdAccept(FXObject*, FXSelector, void*) {
     bool continueSaving = true;
     // first check options from single lane additionals
-    if (myInvalidDemandElements.size() > 0) {
-        if (myPositionOptions.activateFriendlyPositionAndSave->getCheck() == TRUE) {
+    if (myDemandList->myInvalidRoutes.size() > 0) {
+        if (myFixRouteOptions->activateFriendlyPositionAndSave->getCheck() == TRUE) {
             myViewNet->getUndoList()->p_begin("change " + toString(SUMO_ATTR_FRIENDLY_POS) + " of invalid additionals");
             // iterate over invalid single lane elements to enable friendly position
-            for (auto i : myInvalidDemandElements) {
+            for (auto i : myDemandList->myInvalidRoutes) {
                 i->setAttribute(SUMO_ATTR_FRIENDLY_POS, "true", myViewNet->getUndoList());
             }
             myViewNet->getUndoList()->p_end();
-        } else if (myPositionOptions.fixPositionsAndSave->getCheck() == TRUE) {
+        } else if (myFixRouteOptions->fixPositionsAndSave->getCheck() == TRUE) {
             myViewNet->getUndoList()->p_begin("fix positions of invalid additionals");
             // iterate over invalid single lane elements to fix positions
-            for (auto i : myInvalidDemandElements) {
+            for (auto i : myDemandList->myInvalidRoutes) {
                 i->fixDemandElementProblem();
             }
             myViewNet->getUndoList()->p_end();
-        } else if (myPositionOptions.selectInvalidStopsAndCancel->getCheck() == TRUE) {
+        } else if (myFixRouteOptions->selectInvalidStopsAndCancel->getCheck() == TRUE) {
             myViewNet->getUndoList()->p_begin("select invalid additionals");
             // iterate over invalid single lane elements to select all elements
-            for (auto i : myInvalidDemandElements) {
+            for (auto i : myDemandList->myInvalidRoutes) {
+                i->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
+            }
+            myViewNet->getUndoList()->p_end();
+            // abort saving
+            continueSaving = false;
+        }
+    }
+
+    // first check options from single lane additionals
+    if (myDemandList->myInvalidVehicles.size() > 0) {
+        if (myFixRouteOptions->activateFriendlyPositionAndSave->getCheck() == TRUE) {
+            myViewNet->getUndoList()->p_begin("change " + toString(SUMO_ATTR_FRIENDLY_POS) + " of invalid additionals");
+            // iterate over invalid single lane elements to enable friendly position
+            for (auto i : myDemandList->myInvalidVehicles) {
+                i->setAttribute(SUMO_ATTR_FRIENDLY_POS, "true", myViewNet->getUndoList());
+            }
+            myViewNet->getUndoList()->p_end();
+        } else if (myFixRouteOptions->fixPositionsAndSave->getCheck() == TRUE) {
+            myViewNet->getUndoList()->p_begin("fix positions of invalid additionals");
+            // iterate over invalid single lane elements to fix positions
+            for (auto i : myDemandList->myInvalidVehicles) {
+                i->fixDemandElementProblem();
+            }
+            myViewNet->getUndoList()->p_end();
+        } else if (myFixRouteOptions->selectInvalidStopsAndCancel->getCheck() == TRUE) {
+            myViewNet->getUndoList()->p_begin("select invalid additionals");
+            // iterate over invalid single lane elements to select all elements
+            for (auto i : myDemandList->myInvalidVehicles) {
                 i->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
             }
             myViewNet->getUndoList()->p_end();
@@ -185,13 +177,86 @@ GNEDialog_FixDemandElements::onCmdCancel(FXObject*, FXSelector, void*) {
     return 1;
 }
 
+// ---------------------------------------------------------------------------
+// GNEDialog_FixDemandElements::DemandList - methods
+// ---------------------------------------------------------------------------
 
-void
-GNEDialog_FixDemandElements::PositionOptions::buildPositionOptions(GNEDialog_FixDemandElements* fixAdditionalPositions, FXVerticalFrame* mainFrame) {
-    // create label for elements
-    new FXLabel(mainFrame, "Select a solution for StoppingPlaces and E2 detectors:", nullptr, GUIDesignLabelCenterThick);
+GNEDialog_FixDemandElements::DemandList::DemandList(GNEDialog_FixDemandElements* fixAdditionalPositions, const std::vector<GNEDemandElement*>& invalidDemandElements) :
+    FXGroupBox(fixAdditionalPositions->myMainFrame, "Routes and Vehicles with conflicts", GUIDesignGroupBoxFrameFill) {
+    // Create table, copy intervals and update table
+    myTable = new FXTable(this, this, MID_GNE_FIXSTOPPINGPLACES_CHANGE, GUIDesignTableAdditionals);
+    myTable->setSelBackColor(FXRGBA(255, 255, 255, 255));
+    myTable->setSelTextColor(FXRGBA(0, 0, 0, 255));
+    myTable->setEditable(false);
+    // separate demand elements in two groups
+    for (const auto &i : invalidDemandElements) {
+        if (i->getTagProperty().isVehicle()) {
+            myInvalidVehicles.push_back(i);
+        } else {
+            myInvalidRoutes.push_back(i);
+        }
+    }
+    // clear table
+    myTable->clearItems();
+    // set number of rows
+    myTable->setTableSize((int)(myInvalidRoutes.size() + myInvalidVehicles.size()), 3);
+    // Configure list
+    myTable->setVisibleColumns(4);
+    myTable->setColumnWidth(0, GUIDesignTableIconCellWidth);
+    myTable->setColumnWidth(1, 160);
+    myTable->setColumnWidth(2, 280);
+    myTable->setColumnText(0, "");
+    myTable->setColumnText(1, toString(SUMO_ATTR_ID).c_str());
+    myTable->setColumnText(2, "Conflict");
+    myTable->getRowHeader()->setWidth(0);
+    // Declare index for rows and pointer to FXTableItem
+    int indexRow = 0;
+    FXTableItem* item = nullptr;
+    // iterate over invalid routes
+    for (auto i : myInvalidRoutes) {
+        // Set icon
+        item = new FXTableItem("", i->getIcon());
+        item->setIconPosition(FXTableItem::CENTER_X);
+        myTable->setItem(indexRow, 0, item);
+        // Set ID
+        item = new FXTableItem(i->getID().c_str());
+        item->setJustify(FXTableItem::LEFT | FXTableItem::CENTER_Y);
+        myTable->setItem(indexRow, 1, item);
+        // Set conflict
+        item = new FXTableItem(i->getDemandElementProblem().c_str());
+        item->setJustify(FXTableItem::LEFT | FXTableItem::CENTER_Y);
+        myTable->setItem(indexRow, 2, item);
+        // Update index
+        indexRow++;
+    }
+    // iterate over invalid vehicles
+    for (auto i : myInvalidVehicles) {
+        // Set icon
+        item = new FXTableItem("", i->getIcon());
+        item->setIconPosition(FXTableItem::CENTER_X);
+        myTable->setItem(indexRow, 0, item);
+        // Set ID
+        item = new FXTableItem(i->getID().c_str());
+        item->setJustify(FXTableItem::LEFT | FXTableItem::CENTER_Y);
+        myTable->setItem(indexRow, 1, item);
+        // Set conflict
+        item = new FXTableItem(i->getDemandElementProblem().c_str());
+        item->setJustify(FXTableItem::LEFT | FXTableItem::CENTER_Y);
+        myTable->setItem(indexRow, 2, item);
+        // Update index
+        indexRow++;
+    }
+};
+
+
+// ---------------------------------------------------------------------------
+// GNEDialog_FixDemandElements::FixRouteOptions - methods
+// ---------------------------------------------------------------------------
+
+GNEDialog_FixDemandElements::FixRouteOptions::FixRouteOptions(GNEDialog_FixDemandElements* fixAdditionalPositions) :
+    FXGroupBox(fixAdditionalPositions->myMainFrame, "Solution for Route options", GUIDesignGroupBoxFrame) {
     // create horizontal frames for radio buttons
-    FXHorizontalFrame* RadioButtons = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
+    FXHorizontalFrame* RadioButtons = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
     // create Vertical Frame for left options
     FXVerticalFrame* RadioButtonsLeft = new FXVerticalFrame(RadioButtons, GUIDesignAuxiliarVerticalFrame);
     activateFriendlyPositionAndSave = new FXRadioButton(RadioButtonsLeft, "Activate friendlyPos and save\t\tFriendly pos parameter will be activated in all stopping places and E2 detectors",
@@ -210,7 +275,7 @@ GNEDialog_FixDemandElements::PositionOptions::buildPositionOptions(GNEDialog_Fix
 
 
 void
-GNEDialog_FixDemandElements::PositionOptions::selectOption(FXObject* option) {
+GNEDialog_FixDemandElements::FixRouteOptions::selectOption(FXObject* option) {
     if (option == activateFriendlyPositionAndSave) {
         activateFriendlyPositionAndSave->setCheck(true);
         fixPositionsAndSave->setCheck(false);
@@ -236,7 +301,7 @@ GNEDialog_FixDemandElements::PositionOptions::selectOption(FXObject* option) {
 
 
 void
-GNEDialog_FixDemandElements::PositionOptions::enablePositionOptions() {
+GNEDialog_FixDemandElements::FixRouteOptions::enableFixRouteOptions() {
     activateFriendlyPositionAndSave->enable();
     fixPositionsAndSave->enable();
     saveInvalid->enable();
@@ -245,20 +310,21 @@ GNEDialog_FixDemandElements::PositionOptions::enablePositionOptions() {
 
 
 void
-GNEDialog_FixDemandElements::PositionOptions::disablePositionOptions() {
+GNEDialog_FixDemandElements::FixRouteOptions::disableFixRouteOptions() {
     activateFriendlyPositionAndSave->disable();
     fixPositionsAndSave->disable();
     saveInvalid->disable();
     selectInvalidStopsAndCancel->disable();
 }
 
+// ---------------------------------------------------------------------------
+// GNEDialog_FixDemandElements::FixVehicleOptions - methods
+// ---------------------------------------------------------------------------
 
-void
-GNEDialog_FixDemandElements::ConsecutiveLaneOptions::buildConsecutiveLaneOptions(GNEDialog_FixDemandElements* fixAdditionalPositions, FXVerticalFrame* mainFrame) {
-    // create label for elements
-    new FXLabel(mainFrame, "Select a solution for Multilane E2 detectors:", nullptr, GUIDesignLabelCenterThick);
+GNEDialog_FixDemandElements::FixVehicleOptions::FixVehicleOptions(GNEDialog_FixDemandElements* fixAdditionalPositions) :
+    FXGroupBox(fixAdditionalPositions->myMainFrame, "Solution for Vehicle options", GUIDesignGroupBoxFrame) {
     // create horizontal frames for radio buttons
-    FXHorizontalFrame* RadioButtons = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
+    FXHorizontalFrame* RadioButtons = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
     // create Vertical Frame for left options
     FXVerticalFrame* RadioButtonsLeft = new FXVerticalFrame(RadioButtons, GUIDesignAuxiliarVerticalFrame);
     buildConnectionBetweenLanes = new FXRadioButton(RadioButtonsLeft, "Build connections between lanes\t\tNew connections will be created between non-connected lanes",
@@ -266,7 +332,7 @@ GNEDialog_FixDemandElements::ConsecutiveLaneOptions::buildConsecutiveLaneOptions
     removeInvalidElements = new FXRadioButton(RadioButtonsLeft, "Remove invalid E2 detectors\t\tRemove Multilane E2 Detectors with non-connected lanes",
             fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // add a vertical separator beween both options
-    new FXVerticalSeparator(RadioButtons, GUIDesignVerticalSeparator);
+    new FXVerticalSeparator(this, GUIDesignVerticalSeparator);
     // create Vertical Frame for right options
     FXVerticalFrame* RadioButtonsRight = new FXVerticalFrame(RadioButtons, GUIDesignAuxiliarVerticalFrame);
     activateFriendlyPositionAndSave = new FXRadioButton(RadioButtonsRight, "Activate friendlyPos and save\t\tFriendly pos parameter will be activated in all stopping places and E2 detectors",
@@ -280,7 +346,7 @@ GNEDialog_FixDemandElements::ConsecutiveLaneOptions::buildConsecutiveLaneOptions
 
 
 void
-GNEDialog_FixDemandElements::ConsecutiveLaneOptions::selectOption(FXObject* option) {
+GNEDialog_FixDemandElements::FixVehicleOptions::selectOption(FXObject* option) {
     // set top buttons
     if (option == buildConnectionBetweenLanes) {
         buildConnectionBetweenLanes->setCheck(true);
@@ -301,7 +367,7 @@ GNEDialog_FixDemandElements::ConsecutiveLaneOptions::selectOption(FXObject* opti
 
 
 void
-GNEDialog_FixDemandElements::ConsecutiveLaneOptions::enableConsecutiveLaneOptions() {
+GNEDialog_FixDemandElements::FixVehicleOptions::enableFixVehicleOptions() {
     buildConnectionBetweenLanes->enable();
     removeInvalidElements->enable();
     activateFriendlyPositionAndSave->enable();
@@ -310,7 +376,7 @@ GNEDialog_FixDemandElements::ConsecutiveLaneOptions::enableConsecutiveLaneOption
 
 
 void
-GNEDialog_FixDemandElements::ConsecutiveLaneOptions::disableConsecutiveLaneOptions() {
+GNEDialog_FixDemandElements::FixVehicleOptions::disableFixVehicleOptions() {
     buildConnectionBetweenLanes->disable();
     removeInvalidElements->disable();
     activateFriendlyPositionAndSave->disable();

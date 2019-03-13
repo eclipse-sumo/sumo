@@ -63,19 +63,38 @@ public:
     /// @}
 
 protected:
-    /// @brief struct for group all radio buttons related with position
-    struct PositionOptions {
-        /// @brief build Position Options
-        void buildPositionOptions(GNEDialog_FixDemandElements* fixAdditionalPositions, FXVerticalFrame* mainFrame);
+    /// @brief groupbox for list
+    class DemandList : protected FXGroupBox {
+
+    public:
+        /// @brief constructor
+        DemandList(GNEDialog_FixDemandElements* fixAdditionalPositions, const std::vector<GNEDemandElement*>& invalidDemandElements);
+
+        /// @brief vector with the invalid routes
+        std::vector<GNEDemandElement*> myInvalidRoutes;
+
+        /// @brief vector with the invalid vehicles
+        std::vector<GNEDemandElement*> myInvalidVehicles;
+
+        /// @brief list with the demand elements
+        FXTable* myTable;
+    };
+
+    /// @brief groupbox for all radio buttons related with fix route options
+    class FixRouteOptions : protected FXGroupBox {
+
+    public:
+        /// @brief constructor
+        FixRouteOptions(GNEDialog_FixDemandElements* fixAdditionalPositions);
 
         /// @brief select option
         void selectOption(FXObject* option);
 
         /// @brief enable position options
-        void enablePositionOptions();
+        void enableFixRouteOptions();
 
         /// @brief disable position options
-        void disablePositionOptions();
+        void disableFixRouteOptions();
 
         /// @brief Option "Activate friendlyPos and save"
         FXRadioButton* activateFriendlyPositionAndSave;
@@ -90,19 +109,21 @@ protected:
         FXRadioButton* selectInvalidStopsAndCancel;
     };
 
-    /// @brief struct for group all radio buttons related with position
-    struct ConsecutiveLaneOptions {
-        /// @brief build consecutive lane Options
-        void buildConsecutiveLaneOptions(GNEDialog_FixDemandElements* fixAdditionalPositions, FXVerticalFrame* mainFrame);
+    /// @brief groupbox for all radio buttons related with fix vehicle options
+    class FixVehicleOptions : protected FXGroupBox {
+
+    public:
+        /// @brief constructor
+        FixVehicleOptions(GNEDialog_FixDemandElements* fixAdditionalPositions);
 
         /// @brief select option
         void selectOption(FXObject* option);
 
         /// @brief enable consecutive lane options
-        void enableConsecutiveLaneOptions();
+        void enableFixVehicleOptions();
 
         /// @brief disable consecutive lane options
-        void disableConsecutiveLaneOptions();
+        void disableFixVehicleOptions();
 
         /// @brief Option "build connections between lanes"
         FXRadioButton* buildConnectionBetweenLanes;
@@ -123,17 +144,17 @@ protected:
     /// @brief view net
     GNEViewNet* myViewNet;
 
-    /// @brief vector with the invalid demand elements
-    std::vector<GNEDemandElement*> myInvalidDemandElements;
+    /// @brief main frame
+    FXVerticalFrame* myMainFrame;
 
-    /// @brief list with the stoppingPlaces and detectors
-    FXTable* myTable;
+    /// @brief list with the demand elements
+    DemandList *myDemandList;
 
-    /// @brief struct with position options
-    PositionOptions myPositionOptions;
+    /// @brief fix route options
+    FixRouteOptions *myFixRouteOptions;
 
-    /// @brief struct with the consecutive lane options
-    ConsecutiveLaneOptions myConsecutiveLaneOptions;
+    /// @brief fix vehicle options
+    FixVehicleOptions *myFixVehicleOptions;
 
     /// @brief accept button
     FXButton* myAcceptButton;
