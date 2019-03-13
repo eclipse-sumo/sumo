@@ -64,10 +64,29 @@ public:
     /// @}
 
 protected:
-    /// @brief struct for group all radio buttons related with position
-    struct PositionOptions {
+    /// @brief groupbox for list
+    class AdditionalList : protected FXGroupBox {
+
+    public:
+        /// @brief constructor
+        AdditionalList(GNEDialog_FixAdditionalElements* fixAdditionalPositions, const std::vector<GNEAdditional*>& invalidSingleLaneAdditionals, const std::vector<GNEAdditional*>& invalidMultiLaneAdditionals);
+
+        /// @brief vector with the invalid single-lane additionals
+        std::vector<GNEAdditional*> myInvalidSingleLaneAdditionals;
+
+        /// @brief vector with the invalid multi-lane additionals
+        std::vector<GNEAdditional*> myInvalidMultiLaneAdditionals;
+
+        /// @brief list with the stoppingPlaces and detectors
+        FXTable* myTable;
+    };
+
+    /// @brief groupbox for group all radio buttons related to additionals with single lanes
+    class PositionOptions : public FXGroupBox {
+
+    public:
         /// @brief build Position Options
-        void buildPositionOptions(GNEDialog_FixAdditionalElements* fixAdditionalPositions, FXVerticalFrame* mainFrame);
+        PositionOptions(GNEDialog_FixAdditionalElements* fixAdditionalPositions);
 
         /// @brief select option
         void selectOption(FXObject* option);
@@ -91,10 +110,12 @@ protected:
         FXRadioButton* selectInvalidStopsAndCancel;
     };
 
-    /// @brief struct for group all radio buttons related with position
-    struct ConsecutiveLaneOptions {
+    /// @brief groupbox for group all radio buttons related to additionals with consecutive lanes
+    class ConsecutiveLaneOptions : public FXGroupBox {
+
+    public:
         /// @brief build consecutive lane Options
-        void buildConsecutiveLaneOptions(GNEDialog_FixAdditionalElements* fixAdditionalPositions, FXVerticalFrame* mainFrame);
+        ConsecutiveLaneOptions(GNEDialog_FixAdditionalElements* fixAdditionalPositions);
 
         /// @brief select option
         void selectOption(FXObject* option);
@@ -124,20 +145,17 @@ protected:
     /// @brief view net
     GNEViewNet* myViewNet;
 
-    /// @brief vector with the invalid single-lane additionals
-    std::vector<GNEAdditional*> myInvalidSingleLaneAdditionals;
+    /// @brief main 
+    FXVerticalFrame* myMainFrame;
 
-    /// @brief vector with the invalid multi-lane additionals
-    std::vector<GNEAdditional*> myInvalidMultiLaneAdditionals;
+    /// @brief Additional List
+    AdditionalList *myAdditionalList;
 
-    /// @brief list with the stoppingPlaces and detectors
-    FXTable* myTable;
+    /// @brief position options
+    PositionOptions *myPositionOptions;
 
-    /// @brief struct with position options
-    PositionOptions myPositionOptions;
-
-    /// @brief struct with the consecutive lane options
-    ConsecutiveLaneOptions myConsecutiveLaneOptions;
+    /// @brief consecutive lane options
+    ConsecutiveLaneOptions *myConsecutiveLaneOptions;
 
     /// @brief accept button
     FXButton* myAcceptButton;
