@@ -34,23 +34,9 @@ public:
     ~NBPTLineCont();
 
     /// @brief insert new line
-    void insert(NBPTLine* pLine);
+    void insert(NBPTLine* ptLine);
 
-    /** @brief Returns the pointer to the begin of the stored pt lines
-    * @return The iterator to the beginning of stored pt lines
-    */
-    std::vector<NBPTLine*>::const_iterator begin() const {
-        return myPTLines.begin();
-    }
-
-    /** @brief Returns the pointer to the end of the stored pt lines
-     * @return The iterator to the end of stored pt lines
-     */
-    std::vector<NBPTLine*>::const_iterator end() const {
-        return myPTLines.end();
-    }
-
-    const std::vector<NBPTLine*>& getLines() const {
+    const std::map<std::string, NBPTLine*>& getLines() const {
         return myPTLines;
     }
 
@@ -69,9 +55,8 @@ private:
     static const int BWD;
 
     /// @brief The map of names to pt lines
-    std::vector<NBPTLine*> myPTLines;
+    std::map<std::string, NBPTLine*> myPTLines;
 
-    long long int myIdCnt;
     void reviseStops(NBPTLine* myPTLine, NBEdgeCont& cont);
     void constructRoute(NBPTLine* myPTLine, NBEdgeCont& cont);
 

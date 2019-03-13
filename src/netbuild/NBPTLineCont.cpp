@@ -37,36 +37,28 @@ const int NBPTLineCont::BWD(-1);
 // method definitions
 // ===========================================================================
 
-NBPTLineCont::NBPTLineCont()
-    :
-    myIdCnt(0) { }
+NBPTLineCont::NBPTLineCont() { }
 
 
 NBPTLineCont::~NBPTLineCont() {
     for (auto& myPTLine : myPTLines) {
-        delete myPTLine;
+        delete myPTLine.second;
     }
     myPTLines.clear();
 }
 
 void
-NBPTLineCont::insert(NBPTLine* pLine) {
-    pLine->setId(myIdCnt++);
-    myPTLines.push_back(pLine);
+NBPTLineCont::insert(NBPTLine* ptLine) {
+    myPTLines[ptLine->getLineID()] = ptLine;
 }
+
 void NBPTLineCont::process(NBEdgeCont& cont) {
     for (auto& myPTLine : myPTLines) {
-        reviseStops(myPTLine, cont);
-
-        constructRoute(myPTLine, cont);
-
-
-        //
-
-
-
+        reviseStops(myPTLine.second, cont);
+        constructRoute(myPTLine.second, cont);
     }
 }
+
 void NBPTLineCont::reviseStops(NBPTLine* myPTLine, NBEdgeCont& cont) {
     std::vector<NBPTStop*> stops = myPTLine->getStops();
     for (auto& stop : stops) {
@@ -294,8 +286,8 @@ void NBPTLineCont::constructRoute(NBPTLine* pTLine, NBEdgeCont& cont) {
 void
 NBPTLineCont::addEdges2Keep(const OptionsCont& oc, std::set<std::string>& into) {
     if (oc.isSet("ptline-output")) {
-        for (auto line : myPTLines) {
-            for (auto edge : line->getRoute()) {
+        for (auto& item : myPTLines) {
+            for (auto edge : item.second->getRoute()) {
                 into.insert(edge->getID());
             }
         }
@@ -323,7 +315,8 @@ NBPTLineCont::fixBidiStops(const NBEdgeCont& ec) {
     router = new DijkstraRouter<NBEdge, NBVehicle, SUMOAbstractRouter<NBEdge, NBVehicle> >(
         ec.getAllEdges(), true, &NBEdge::getTravelTimeStatic, nullptr, true);
 
-    for (NBPTLine* line : myPTLines) {
+    for (auto& item : myPTLines) {
+        NBPTLine* line = item.second;
         std::vector<NBPTStop*> stops = line->getStops();
         if (stops.size() < 2) {
             continue;

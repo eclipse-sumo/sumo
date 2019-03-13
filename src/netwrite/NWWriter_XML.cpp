@@ -424,8 +424,8 @@ NWWriter_XML::writePTStops(const OptionsCont& oc, NBPTStopCont& sc) {
 void NWWriter_XML::writePTLines(const OptionsCont& oc, NBPTLineCont& lc, NBEdgeCont& ec) {
     OutputDevice& device = OutputDevice::getDevice(oc.getString("ptline-output"));
     device.writeXMLHeader("additional", "additional_file.xsd");
-    for (std::vector<NBPTLine*>::const_iterator i = lc.begin(); i != lc.end(); ++i) {
-        (*i)->write(device, ec);
+    for (const auto& item : lc.getLines()) {
+        item.second->write(device, ec);
     }
     device.close();
 }

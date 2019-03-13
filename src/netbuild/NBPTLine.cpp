@@ -24,10 +24,10 @@
 #include "NBPTLine.h"
 #include "NBPTStop.h"
 
-NBPTLine::NBPTLine(const std::string& name, const std::string& type, const std::string& ref, int interval, const std::string& nightService) :
+NBPTLine::NBPTLine(const std::string& id, const std::string& name, const std::string& type, const std::string& ref, int interval, const std::string& nightService) :
     myName(name),
     myType(type),
-    myPTLineId(-1),
+    myPTLineId(id),
     myRef(ref != "" ? ref : name),
     myInterval(interval),
     myNightService(nightService) {
@@ -36,14 +36,6 @@ NBPTLine::NBPTLine(const std::string& name, const std::string& type, const std::
 void NBPTLine::addPTStop(NBPTStop* pStop) {
     myPTStops.push_back(pStop);
 
-}
-const std::string& NBPTLine::getName() const {
-    return myName;
-}
-
-long long int
-NBPTLine::getLineID() const {
-    return myPTLineId;
 }
 
 std::vector<NBPTStop*> NBPTLine::getStops() {
@@ -94,9 +86,7 @@ void NBPTLine::write(OutputDevice& device, NBEdgeCont& ec) {
     device.closeTag();
 
 }
-void NBPTLine::setId(long long int id) {
-    myPTLineId = id;
-}
+
 void NBPTLine::addWayNode(long long int way, long long int node) {
     std::string wayStr = toString(way);
     if (wayStr != myCurrentWay) {

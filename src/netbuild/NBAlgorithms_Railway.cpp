@@ -863,7 +863,8 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBNetBuilder& nb) {
     std::set<NBEdge*> addBidiStops;
     std::set<NBEdge*> addBidiEdges;
     std::set<std::pair<NBPTStop*, NBPTStop*> > visited;
-    for (NBPTLine* line : nb.getPTLineCont().getLines()) {
+    for (const auto& item : nb.getPTLineCont().getLines()) {
+        NBPTLine* line = item.second;
         std::vector<NBPTStop*> stops = line->getStops();
         if (stops.size() < 2) {
             continue;

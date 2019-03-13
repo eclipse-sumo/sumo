@@ -34,11 +34,18 @@ class NBEdgeCont;
 class NBPTLine {
 
 public:
-    explicit NBPTLine(const std::string& name, const std::string& type, const std::string& ref, int interval, const std::string& nightService);
+    explicit NBPTLine(const std::string& id, const std::string& name, 
+            const std::string& type, const std::string& ref, int interval, const std::string& nightService);
 
     void addPTStop(NBPTStop* pStop);
-    long long int getLineID() const;
-    const std::string& getName() const ;
+
+    const std::string& getLineID() const {
+        return myPTLineId;
+    }
+
+    const std::string& getName() const {
+        return myName;
+    }
 
     const std::string& getType() const {
         return myType;
@@ -46,7 +53,6 @@ public:
 
     std::vector<NBPTStop*> getStops();
     void write(OutputDevice& device, NBEdgeCont& ec);
-    void setId(long long int id);
     void addWayNode(long long int way, long long int node);
 
     void setMyNumOfStops(int numStops);
@@ -74,7 +80,7 @@ public:
 private:
 
     std::string myCurrentWay;
-    long long int myPTLineId;
+    std::string myPTLineId;
     std::string myRef;
     int myInterval;
     std::string myNightService;

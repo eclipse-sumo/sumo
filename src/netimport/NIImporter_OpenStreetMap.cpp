@@ -1368,7 +1368,7 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
                 ptStop->setIsMultipleStopPositions(myStops.size() > 1);;
             }
         } else if (myPTRouteType != "" && myIsRoute && OptionsCont::getOptions().isSet("ptline-output") && myStops.size() > 1) {
-            NBPTLine* ptLine = new NBPTLine(myName, myPTRouteType, myRef, myInterval, myNightService);
+            NBPTLine* ptLine = new NBPTLine(toString(myCurrentRelation), myName, myPTRouteType, myRef, myInterval, myNightService);
             ptLine->setMyNumOfStops((int)myStops.size());
             for (long long ref : myStops) {
                 if (myOSMNodes.find(ref) == myOSMNodes.end()) {

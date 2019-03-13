@@ -169,7 +169,7 @@ NIXMLPTHandler::addPTLine(const SUMOSAXAttributes& attrs) {
     //    device.closeTag();
     //}
     if (ok) {
-        myCurrentLine = new NBPTLine(name, type, line, intervalS / 60, nightService);
+        myCurrentLine = new NBPTLine(id, name, type, line, intervalS / 60, nightService);
         myLineCont.insert(myCurrentLine);
     }
 }
