@@ -74,7 +74,7 @@ public:
         std::vector<std::vector<const NBEdge*> > calculateDijkstraPartialRoute(SUMOVehicleClass vClass, const std::vector<GNEEdge*> &edges) const;
 
         /// @ brief check if exist a route between the two given consecutives edges
-        bool areEdgesConsecutives(GNEEdge* from, GNEEdge*to) const;
+        bool areEdgesConsecutives(SUMOVehicleClass vClass, GNEEdge* from, GNEEdge*to) const;
 
     private:
         /// @brief pointer to net

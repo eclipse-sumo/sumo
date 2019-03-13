@@ -82,7 +82,7 @@ GNERoute::isDemandElementValid() const {
     } else {            
         // check if exist at least a connection between every edge
         for (int i = 1; i < (int)myEdges.size(); i++) {
-            if (getRouteCalculatorInstance()->areEdgesConsecutives(myEdges.at(i-1), myEdges.at(i)) == false) {
+            if (getRouteCalculatorInstance()->areEdgesConsecutives(SVC_PASSENGER, myEdges.at(i-1), myEdges.at(i)) == false) {
                 return false;
             }
         }

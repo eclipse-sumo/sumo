@@ -56,7 +56,9 @@ GNEDemandElement::RouteCalculator::RouteCalculator(GNENet* net) :
 }
 
 
-GNEDemandElement::RouteCalculator::~RouteCalculator() {}
+GNEDemandElement::RouteCalculator::~RouteCalculator() {
+    delete myDijkstraRouter;
+}
 
 
 void 
@@ -83,8 +85,8 @@ GNEDemandElement::RouteCalculator::calculateDijkstraRoute(SUMOVehicleClass vClas
         std::vector<const NBEdge*> partialRoute;
         myDijkstraRouter->compute(edges.at(i-1)->getNBEdge(), edges.at(i)->getNBEdge(), &tmpVehicle, 10, partialRoute);
         // save partial route in solution
-        for (const auto &i : partialRoute) {
-            solution.push_back(i);
+        for (const auto &j : partialRoute) {
+            solution.push_back(j);
         }
     }
     return solution;
@@ -93,7 +95,7 @@ GNEDemandElement::RouteCalculator::calculateDijkstraRoute(SUMOVehicleClass vClas
 
 std::vector<const NBEdge*> 
 GNEDemandElement::RouteCalculator::calculateDijkstraRoute(SUMOVehicleClass vClass, GNEEdge* from, GNEEdge*to , const std::vector<GNEEdge*> &edges) const {
-    // create a full vector with from, via and to
+    // create a full vector with from, via and to ({from, <via>, to})
     std::vector<GNEEdge*> fullVector;
     fullVector.reserve(2 + edges.size());
     fullVector.push_back(from);
@@ -123,12 +125,14 @@ GNEDemandElement::RouteCalculator::calculateDijkstraPartialRoute(SUMOVehicleClas
 
 
 bool 
-GNEDemandElement::RouteCalculator::areEdgesConsecutives(GNEEdge* from, GNEEdge*to) const {
-    std::vector<const NBEdge*> route;
-    route = calculateDijkstraRoute(SVC_PASSENGER, {from, to});
+GNEDemandElement::RouteCalculator::areEdgesConsecutives(SUMOVehicleClass vClass, GNEEdge* from, GNEEdge*to) const {
+    // first calculate a route between from and to edge
+    std::vector<const NBEdge*> route = calculateDijkstraRoute(vClass, {from, to});
+    // if route is empty, return false
     if (route.empty()) {
         return false;
     } else {
+        // iterate over route and check if from and to edge are consecutives
         for (int i = 0; i < (int)route.size(); i++) {
             if ((route.at(i)->getID() == from->getID()) && 
                 ((i+1) < (int)route.size()) &&
