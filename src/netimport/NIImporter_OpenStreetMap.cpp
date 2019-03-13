@@ -1414,7 +1414,11 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
                 resetValues();
                 return;
             }
-            myNBPTLineCont->insert(ptLine);
+            if (myNBPTLineCont->getLines().count(ptLine->getLineID()) == 0) {
+                myNBPTLineCont->insert(ptLine);
+            } else {
+                WRITE_WARNING("Ignoring duplicate PT line " + toString(myCurrentRelation) + ".");
+            }
         }
         // other relations might use similar subelements so reset in any case
         resetValues();
