@@ -46,7 +46,7 @@ class SUMOVehicle;
 class MSTransportable;
 class SUMOSAXAttributes;
 class MSVehicleDevice;
-class MSPersonDevice;
+class MSTransportableDevice;
 
 
 // ===========================================================================
@@ -85,7 +85,7 @@ public:
     * @param[in] p The person for which a device may be built
     * @param[filled] into The vector to store the built device in
     */
-    static void buildPersonDevices(MSTransportable& p, std::vector<MSPersonDevice*>& into);
+    static void buildTransportableDevices(MSTransportable& p, std::vector<MSTransportableDevice*>& into);
 
     static std::mt19937* getEquipmentRNG() {
         return &myEquipmentRNG;

@@ -40,7 +40,7 @@
 #include "MSDevice_DriverState.h"
 #include "MSDevice_Bluelight.h"
 #include "MSDevice_FCD.h"
-#include "MSPersonDevice_Routing.h"
+#include "MSTransportableDevice_Routing.h"
 #include "MSRoutingEngine.h"
 
 
@@ -105,8 +105,8 @@ MSDevice::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& int
 
 
 void
-MSDevice::buildPersonDevices(MSTransportable& p, std::vector<MSPersonDevice*>& into) {
-    MSPersonDevice_Routing::buildDevices(p, into);
+MSDevice::buildTransportableDevices(MSTransportable& p, std::vector<MSTransportableDevice*>& into) {
+    MSTransportableDevice_Routing::buildDevices(p, into);
 }
 
 

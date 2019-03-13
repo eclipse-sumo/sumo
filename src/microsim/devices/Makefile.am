@@ -14,7 +14,7 @@ MSDevice_Battery.cpp MSDevice_Battery.h \
 MSDevice_Example.cpp MSDevice_Example.h \
 MSDevice_Bluelight.cpp MSDevice_Bluelight.h \
 MSDevice_FCD.cpp MSDevice_FCD.h \
-MSPersonDevice.h MSVehicleDevice.h \
-MSPersonDevice_Routing.cpp MSPersonDevice_Routing.h \
+MSTransportableDevice.h MSVehicleDevice.h \
+MSTransportableDevice_Routing.cpp MSTransportableDevice_Routing.h \
 MSRoutingEngine.cpp MSRoutingEngine.h \
 MSDevice_Vehroutes.cpp MSDevice_Vehroutes.h 

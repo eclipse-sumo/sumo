@@ -7,7 +7,7 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    MSPersonDevice.h
+/// @file    MSTransportableDevice.h
 /// @author  Michael Behrisch
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
@@ -16,8 +16,8 @@
 ///
 // Abstract in-person device
 /****************************************************************************/
-#ifndef MSPersonDevice_h
-#define MSPersonDevice_h
+#ifndef MSTransportableDevice_h
+#define MSTransportableDevice_h
 
 
 // ===========================================================================
@@ -43,27 +43,27 @@ class MSTransportable;
 // class definitions
 // ===========================================================================
 /**
- * @class MSPersonDevice
+ * @class MSTransportableDevice
  * @brief Abstract in-person device
  *
- * The MSPersonDevice-interface brings the following interfaces to a vehicle that
+ * The MSTransportableDevice-interface brings the following interfaces to a vehicle that
  *  may be overwritten by real devices:
  * @arg Retrieval of the person that holds the device
  */
-class MSPersonDevice : public MSDevice {
+class MSTransportableDevice : public MSDevice {
 public:
     /** @brief Constructor
      *
      * @param[in] holder The person that holds this device
      * @param[in] id The ID of the device
      */
-    MSPersonDevice(MSTransportable& holder, const std::string& id) :
+    MSTransportableDevice(MSTransportable& holder, const std::string& id) :
         MSDevice(id), myHolder(holder) {
     }
 
 
     /// @brief Destructor
-    virtual ~MSPersonDevice() { }
+    virtual ~MSTransportableDevice() { }
 
 
     /** @brief Returns the person that holds this device
@@ -80,10 +80,10 @@ protected:
 
 private:
     /// @brief Invalidated copy constructor.
-    MSPersonDevice(const MSPersonDevice&);
+    MSTransportableDevice(const MSTransportableDevice&);
 
     /// @brief Invalidated assignment operator.
-    MSPersonDevice& operator=(const MSPersonDevice&);
+    MSTransportableDevice& operator=(const MSTransportableDevice&);
 
 };
 

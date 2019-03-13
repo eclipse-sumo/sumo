@@ -7,7 +7,7 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    MSPersonDevice_Routing.h
+/// @file    MSTransportableDevice_Routing.h
 /// @author  Michael Behrisch
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
@@ -16,8 +16,8 @@
 ///
 // A device that performs vehicle rerouting based on current edge speeds
 /****************************************************************************/
-#ifndef MSPersonDevice_Routing_h
-#define MSPersonDevice_Routing_h
+#ifndef MSTransportableDevice_Routing_h
+#define MSTransportableDevice_Routing_h
 
 
 // ===========================================================================
@@ -25,7 +25,7 @@
 // ===========================================================================
 #include <config.h>
 
-#include "MSPersonDevice.h"
+#include "MSTransportableDevice.h"
 
 
 // ===========================================================================
@@ -38,7 +38,7 @@ class MSLane;
 // class definitions
 // ===========================================================================
 /**
- * @class MSPersonDevice_Routing
+ * @class MSTransportableDevice_Routing
  * @brief A device that performs person rerouting based on current edge speeds
  *
  * The routing-device system consists of in-vehicle devices that perform the routing
@@ -49,14 +49,14 @@ class MSLane;
  *
  * A device computes a new route for a person as soon as a personTrip appears in the plan.
  */
-class MSPersonDevice_Routing : public MSPersonDevice {
+class MSTransportableDevice_Routing : public MSTransportableDevice {
 public:
-    /** @brief Inserts MSPersonDevice_Routing-options
+    /** @brief Inserts MSTransportableDevice_Routing-options
      * @param[filled] oc The options container to add the options to
      */
     static void insertOptions(OptionsCont& oc);
 
-    /** @brief checks MSPersonDevice_Routing-options
+    /** @brief checks MSTransportableDevice_Routing-options
      * @param[filled] oc The options container with the user-defined options
      */
     static bool checkOptions(OptionsCont& oc);
@@ -77,11 +77,11 @@ public:
      * @param[in] p The person for which a device may be built
      * @param[filled] into The vector to store the built device in
      */
-    static void buildDevices(MSTransportable& p, std::vector<MSPersonDevice*>& into);
+    static void buildDevices(MSTransportable& p, std::vector<MSTransportableDevice*>& into);
 
 
     /// @brief Destructor.
-    ~MSPersonDevice_Routing();
+    ~MSTransportableDevice_Routing();
 
 
     /// @brief return the name for this type of device
@@ -119,7 +119,7 @@ private:
      * @param[in] id The ID of the device
      * @param[in] period The period with which a new route shall be searched
      */
-    MSPersonDevice_Routing(MSTransportable& holder, const std::string& id, SUMOTime period);
+    MSTransportableDevice_Routing(MSTransportable& holder, const std::string& id, SUMOTime period);
 
     /** @brief Performs rerouting after a period
      *
@@ -146,14 +146,14 @@ private:
     SUMOTime myLastRouting;
 
     /// @brief The (optional) command responsible for rerouting
-    WrappingCommand< MSPersonDevice_Routing >* myRerouteCommand;
+    WrappingCommand< MSTransportableDevice_Routing >* myRerouteCommand;
 
 private:
     /// @brief Invalidated copy constructor.
-    MSPersonDevice_Routing(const MSPersonDevice_Routing&);
+    MSTransportableDevice_Routing(const MSTransportableDevice_Routing&);
 
     /// @brief Invalidated assignment operator.
-    MSPersonDevice_Routing& operator=(const MSPersonDevice_Routing&);
+    MSTransportableDevice_Routing& operator=(const MSTransportableDevice_Routing&);
 
 
 };
