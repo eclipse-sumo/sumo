@@ -1,5 +1,4 @@
+#Error while connecting: tcpip::Socket::connect() @ connect: Connection refused
 Error: Answered with error to command 0xa3: No connection from lane 'e_vu0_0' to lane 'e_m4_1'
 Error: Answered with error to command 0xa3: Lane 'dummy' is not known
-Warning: Person 'p1' could not find route across junction 'n_u1' from edge 'e_u1' to edge 'e_shape1', time=10.00.
-Warning: Person 'p1' could not find route across junction 'n_u2' from edge 'e_u1' to edge 'e_vu2', time=11.00.
 Error: Requested command not implemented (0xcc): GUI is not running, command not implemented in command line sumo
