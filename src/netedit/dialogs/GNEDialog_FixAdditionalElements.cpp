@@ -60,7 +60,7 @@ FXIMPLEMENT(GNEDialog_FixAdditionalElements, FXDialogBox, GNEDialog_FixAdditiona
 // ===========================================================================
 
 GNEDialog_FixAdditionalElements::GNEDialog_FixAdditionalElements(GNEViewNet* viewNet, const std::vector<GNEAdditional*>& invalidSingleLaneAdditionals, const std::vector<GNEAdditional*>& invalidMultiLaneAdditionals) :
-    FXDialogBox(viewNet->getApp(), ("Fix additional problems"), GUIDesignDialogBoxExplicit, 0, 0, 478, 350, 0, 0, 0, 0),
+    FXDialogBox(viewNet->getApp(), ("Fix additional problems"), GUIDesignDialogBoxExplicit(478, 350)),
     myViewNet(viewNet),
     myInvalidSingleLaneAdditionals(invalidSingleLaneAdditionals),
     myInvalidMultiLaneAdditionals(invalidMultiLaneAdditionals) {

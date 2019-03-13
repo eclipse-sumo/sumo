@@ -51,7 +51,7 @@ FXIMPLEMENT_ABSTRACT(GNEAdditionalDialog, FXTopWindow, GNEAdditionalDialogMap, A
 // ===========================================================================
 
 GNEAdditionalDialog::GNEAdditionalDialog(GNEAdditional* editedAdditional, bool updatingElement, int width, int height) :
-    FXTopWindow(editedAdditional->getViewNet(), ("Edit '" + editedAdditional->getID() + "' data").c_str(), editedAdditional->getIcon(), editedAdditional->getIcon(), GUIDesignDialogBoxExplicit, 0, 0, width, height, 0, 0, 0, 0, 4, 4),
+    FXTopWindow(editedAdditional->getViewNet(), ("Edit '" + editedAdditional->getID() + "' data").c_str(), editedAdditional->getIcon(), editedAdditional->getIcon(), GUIDesignDialogBoxExplicit(width, height)),
     myEditedAdditional(editedAdditional),
     myUpdatingElement(updatingElement),
     myChangesDescription("change " + editedAdditional->getTagStr() + " values"),

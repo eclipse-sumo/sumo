@@ -58,7 +58,7 @@ FXIMPLEMENT(GNEDialog_FixDemandElements, FXDialogBox, GNEDialog_FixDemandElement
 // ===========================================================================
 
 GNEDialog_FixDemandElements::GNEDialog_FixDemandElements(GNEViewNet* viewNet, const std::vector<GNEDemandElement*>& invalidDemandElements) :
-    FXDialogBox(viewNet->getApp(), ("Fix demand elements problems"), GUIDesignDialogBoxExplicit, 0, 0, 500, 380, 4, 4, 4, 4, 4, 4),
+    FXDialogBox(viewNet->getApp(), "Fix demand elements problems", GUIDesignDialogBoxExplicit(500, 380)),
     myViewNet(viewNet) {
     // set busStop icon for this dialog
     setIcon(GUIIconSubSys::getIcon(ICON_ROUTE));
@@ -254,7 +254,7 @@ GNEDialog_FixDemandElements::DemandList::DemandList(GNEDialog_FixDemandElements*
 // ---------------------------------------------------------------------------
 
 GNEDialog_FixDemandElements::FixRouteOptions::FixRouteOptions(GNEDialog_FixDemandElements* fixAdditionalPositions) :
-    FXGroupBox(fixAdditionalPositions->myMainFrame, "Solution for Route options", GUIDesignGroupBoxFrame) {
+    FXGroupBox(fixAdditionalPositions->myMainFrame, "Solution for routes", GUIDesignGroupBoxFrame) {
     // create horizontal frames for radio buttons
     FXHorizontalFrame* RadioButtons = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
     // create Vertical Frame for left options
@@ -322,7 +322,7 @@ GNEDialog_FixDemandElements::FixRouteOptions::disableFixRouteOptions() {
 // ---------------------------------------------------------------------------
 
 GNEDialog_FixDemandElements::FixVehicleOptions::FixVehicleOptions(GNEDialog_FixDemandElements* fixAdditionalPositions) :
-    FXGroupBox(fixAdditionalPositions->myMainFrame, "Solution for Vehicle options", GUIDesignGroupBoxFrame) {
+    FXGroupBox(fixAdditionalPositions->myMainFrame, "Solution for vehicles", GUIDesignGroupBoxFrame) {
     // create horizontal frames for radio buttons
     FXHorizontalFrame* RadioButtons = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
     // create Vertical Frame for left options

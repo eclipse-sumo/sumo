@@ -503,7 +503,7 @@ GNEGenericParameterDialog::GenericParametersOptions::GNEGenericParameterHandler:
 // ---------------------------------------------------------------------------
 
 GNEGenericParameterDialog::GNEGenericParameterDialog(GNEViewNet* viewNet, std::vector<std::pair<std::string, std::string> >* genericParameters) :
-    FXDialogBox(viewNet->getApp(), "Edit generic parameters", GUIDesignDialogBoxExplicitStretchable, 0, 0, 400, 300),
+    FXDialogBox(viewNet->getApp(), "Edit generic parameters", GUIDesignDialogBoxExplicitStretchable(400, 300)),
     myViewNet(viewNet),
     myCopyOfGenericParameters(*genericParameters) {
     assert(genericParameters);

@@ -443,28 +443,22 @@
 /// @name design for dialog boxs
 /// @{
 /// @brief design for standard dialog box with close button (for example, about dialog)
-#define GUIDesignDialogBox                      (DECOR_CLOSE | DECOR_TITLE)
+#define GUIDesignDialogBox                                      (DECOR_CLOSE | DECOR_TITLE)
 
 /// @brief design for standard dialog box that can be stretched (But not shrinked)
-#define GUIDesignDialogBoxStretchable           (DECOR_CLOSE | DECOR_TITLE | DECOR_STRETCHABLE)
+#define GUIDesignDialogBoxStretchable                           (DECOR_CLOSE | DECOR_TITLE | DECOR_STRETCHABLE)
 
 /// @brief design for standard dialog box that can be schinked (But not stretched)
-#define GUIDesignDialogBoxShrinkable            (DECOR_CLOSE | DECOR_TITLE | DECOR_SHRINKABLE)
+#define GUIDesignDialogBoxShrinkable                            (DECOR_CLOSE | DECOR_TITLE | DECOR_SHRINKABLE)
 
 /// @brief design for standard dialog box (for example, about dialog)
-#define GUIDesignDialogBoxResizable             (DECOR_CLOSE | DECOR_TITLE | DECOR_RESIZE)
+#define GUIDesignDialogBoxResizable                             (DECOR_CLOSE | DECOR_TITLE | DECOR_RESIZE)
 
 /// @brief design for dialog box with specift width and height     (for example, additional dialogs)
-#define GUIDesignDialogBoxExplicit              (DECOR_CLOSE | DECOR_TITLE | LAYOUT_EXPLICIT)
+#define GUIDesignDialogBoxExplicit(width, height)               (DECOR_CLOSE | DECOR_TITLE | LAYOUT_EXPLICIT), 0, 0, width, height, 4, 4, 4, 4, 4, 4
 
 /// @brief design for dialog box with specift width and height that can be stretched (But not shrinked)
-#define GUIDesignDialogBoxExplicitStretchable   (DECOR_CLOSE | DECOR_TITLE | LAYOUT_EXPLICIT | DECOR_STRETCHABLE)
-
-/// @brief design for dialog box with specift width and height that can be schinked (But not stretched)
-#define GUIDesignDialogBoxExplicitShrinkable    (DECOR_CLOSE | DECOR_TITLE | LAYOUT_EXPLICIT | DECOR_SHRINKABLE)
-
-/// @brief design for dialog box with specift width and height and resizable
-#define GUIDesignDialogBoxExplicitResizable     (DECOR_CLOSE | DECOR_TITLE | LAYOUT_EXPLICIT | DECOR_RESIZE)
+#define GUIDesignDialogBoxExplicitStretchable(width, height)    (DECOR_CLOSE | DECOR_TITLE | LAYOUT_EXPLICIT | DECOR_STRETCHABLE), 0, 0, width, height, 4, 4, 4, 4, 4, 4
 /// @}
 
 
