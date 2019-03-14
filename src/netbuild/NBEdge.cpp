@@ -50,7 +50,8 @@
 //#define DEBUG_CONNECTION_GUESSING
 //#define DEBUG_ANGLES
 //#define DEBUG_NODE_BORDER
-//#define DEBUGCOND (getID() == "77277065")
+//#define DEBUG_REPLACECONNECTION
+#define DEBUGCOND (getID() == "27437972")
 //#define DEBUGCOND (getID() == "22762377#1" || getID() == "146511467")
 //#define DEBUGCOND2(obj) ((obj != 0 && (obj)->getID() == "77277065"))
 
@@ -1401,8 +1402,17 @@ NBEdge::replaceInConnections(NBEdge* which, const std::vector<NBEdge::Connection
     }
     // add new connections
     std::vector<NBEdge::Connection> conns = origConns;
+    EdgeVector origTargets = getSuccessors();
     for (std::vector<NBEdge::Connection>::iterator i = conns.begin(); i != conns.end(); ++i) {
-        if ((*i).toEdge == which || (*i).toEdge == this) {
+        if ((*i).toEdge == which || (*i).toEdge == this
+                // if we already have connections to the target edge, do not add new ones as they are probably from a circular replacement
+                || std::find(origTargets.begin(), origTargets.end(), (*i).toEdge) != origTargets.end()) {
+#ifdef DEBUG_REPLACECONNECTION
+            if (DEBUGCOND) {
+                std::cout << " replaceInConnections edge=" << getID() << " which=" << which->getID() 
+                    << " origTargets=" << toString(origTargets) << " newTarget=" << i->toEdge->getID() << " skipped\n";
+            }
+#endif
             continue;
         }
         if (which->getStep() == EDGE2EDGES) {
@@ -1415,9 +1425,21 @@ NBEdge::replaceInConnections(NBEdge* which, const std::vector<NBEdge::Connection
         if (laneMap.find(fromLane) == laneMap.end()) {
             if (fromLane >= 0 && fromLane <= minLane) {
                 toUse = minLane;
+                // patch laneMap to avoid crossed-over connections
+                for (auto& item : laneMap) {
+                    if (item.first < fromLane) {
+                        item.second = MIN2(item.second, minLane);
+                    }
+                }
             }
             if (fromLane >= 0 && fromLane >= maxLane) {
                 toUse = maxLane;
+                // patch laneMap to avoid crossed-over connections
+                for (auto& item : laneMap) {
+                    if (item.first > fromLane) {
+                        item.second = MAX2(item.second, maxLane);
+                    }
+                }
             }
         } else {
             toUse = laneMap[fromLane];
@@ -1425,6 +1447,13 @@ NBEdge::replaceInConnections(NBEdge* which, const std::vector<NBEdge::Connection
         if (toUse == -1) {
             toUse = 0;
         }
+#ifdef DEBUG_REPLACECONNECTION
+        if (DEBUGCOND) {
+            std::cout  << " replaceInConnections edge=" << getID() << " which=" << which->getID() << " origTargets=" << toString(origTargets) 
+                << " origFrom=" << fromLane << " laneMap=" << joinToString(laneMap, ":", ",") << " minLane=" << minLane << " maxLane=" << maxLane 
+                << " newTarget=" << i->toEdge->getID() << " fromLane=" << toUse << " toLane=" << i->toLane << "\n";
+        }
+#endif
         setConnection(toUse, i->toEdge, i->toLane, L2L_COMPUTED, false, i->mayDefinitelyPass, i->keepClear,
                       i->contPos, i->visibility, i->speed, i->customShape, i->uncontrolled);
     }
@@ -3615,8 +3644,8 @@ NBEdge::getSuccessors(SUMOVehicleClass vClass) const {
     //std::cout << "getSuccessors edge=" << getID() << " svc=" << toString(vClass) << " cons=" << myConnections.size() << "\n";
     for (const Connection& con : myConnections) {
         if (con.fromLane >= 0 && con.toLane >= 0 && con.toEdge != nullptr &&
-                (getPermissions(con.fromLane)
-                 & con.toEdge->getPermissions(con.toLane) & vClass) != 0
+                (vClass == SVC_IGNORING || (getPermissions(con.fromLane)
+                 & con.toEdge->getPermissions(con.toLane) & vClass) != 0)
                 && std::find(mySuccessors.begin(), mySuccessors.end(), con.toEdge) == mySuccessors.end()) {
             mySuccessors.push_back(con.toEdge);
             //std::cout << "   succ=" << con.toEdge->getID() << "\n";
