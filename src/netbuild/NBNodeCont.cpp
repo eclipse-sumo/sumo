@@ -57,7 +57,7 @@
 #include "NBParking.h"
 
 //#define DEBUG_JOINJUNCTIONS
-#define DEBUGNODEID "1311774270"
+#define DEBUGNODEID "C1"
 //#define DEBUGNODEID "5548037023"
 #define DEBUGCOND(obj) ((obj != 0 && (obj)->getID() == DEBUGNODEID))
 
@@ -793,7 +793,10 @@ NBNodeCont::pruneClusterFringe(NodeSet& cluster) const {
             for (NBEdge* e : n->getEdges()) {
                 NBNode* neighbor = e->getFromNode() == n ? e->getToNode() : e->getFromNode();
                 if (cluster.count(neighbor) == 0) {
-                    if ((e->getPermissions() & SVC_PASSENGER) != 0 || clusterDist <= pedestrianFringeThreshold || touchingCluster) {
+                    if ((e->getPermissions() & SVC_PASSENGER) != 0 
+                            || isRailway(e->getPermissions()) // join railway crossings
+                            || clusterDist <= pedestrianFringeThreshold 
+                            || touchingCluster) {
                         outsideNeighbors.insert(neighbor);
                     }
                 } else {
