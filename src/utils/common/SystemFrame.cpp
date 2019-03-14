@@ -71,8 +71,8 @@ SystemFrame::addReportOptions(OptionsCont& oc) {
     oc.doRegister("print-options", new Option_Bool(false));
     oc.addDescription("print-options", "Report", "Prints option values before processing");
 
-    oc.doRegister("help", '?', new Option_Bool(false));
-    oc.addDescription("help", "Report", "Prints this screen");
+    oc.doRegister("help", '?', new Option_BoolExtended(false));
+    oc.addDescription("help", "Report", "Prints this screen or selected topics");
 
     oc.doRegister("version", 'V', new Option_Bool(false));
     oc.addDescription("version", "Report", "Prints the current version");

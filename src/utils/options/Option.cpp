@@ -407,6 +407,55 @@ Option_Bool::isBool() const {
 
 
 /* -------------------------------------------------------------------------
+ * Option_BoolExtended - methods
+ * ----------------------------------------------------------------------- */
+Option_BoolExtended::Option_BoolExtended(bool value)
+    : Option_Bool(value), myValueString(value ? "true" : "false") {
+}
+
+
+Option_BoolExtended::~Option_BoolExtended() {}
+
+
+Option_BoolExtended::Option_BoolExtended(const Option_BoolExtended& s)
+    : Option_Bool(s.myValue) {
+    myValueString = s.myValueString;
+}
+
+
+Option_BoolExtended&
+Option_BoolExtended::operator=(const Option_BoolExtended& s) {
+    if (this == &s) {
+        return *this;
+    }
+    Option::operator=(s);
+    myValue = s.myValue;
+    myValueString = s.myValueString;
+    return *this;
+}
+
+
+bool
+Option_BoolExtended::set(const std::string& v) {
+    try {
+        myValue = StringUtils::toBool(v);
+        myValueString = "";
+    } catch (...) {
+        myValue = true;
+        myValueString = v;
+    }
+    return markSet();
+}
+
+
+std::string
+Option_BoolExtended::getValueString() const {
+    return myValueString;
+}
+
+
+
+/* -------------------------------------------------------------------------
  * Option_FileName - methods
  * ----------------------------------------------------------------------- */
 Option_FileName::Option_FileName()

@@ -166,6 +166,12 @@ public:
      */
     void printHelp(std::ostream& os);
 
+    /** @brief Prints help on the given topic
+     *
+     * @param[in] topic The topic name
+     * @param[in] os The stream to write the help into
+     */
+    void printHelpOnTopic(const std::string& topic, int tooLarge, int maxSize, std::ostream& os);
 
     /** @brief Writes the configuration
      *

@@ -567,6 +567,65 @@ public:
     bool getBool() const;
 
     /** sets the given value (converts it to bool) */
+    virtual bool set(const std::string& v);
+
+
+    /** @brief Returns the string-representation of the value
+     *
+     * If myValue is true, "true" is returned, "false" otherwise.
+     *
+     * @see std::string Option::getValueString()
+     * @return The stored value encoded into a string
+     */
+    virtual std::string getValueString() const;
+
+
+    /** @brief Returns true, the information whether the option is a bool option
+     *
+     * Returns true.
+     *
+     * @see bool Option::isBool()
+     * @return true
+     */
+    bool isBool() const;
+
+
+protected:
+    /** the value, valid only when the base-classes "myAmSet"-member is true */
+    bool        myValue;
+
+};
+
+
+
+/* -------------------------------------------------------------------------
+ * Option_BoolExtended
+ * ----------------------------------------------------------------------- */
+class Option_BoolExtended : public Option_Bool {
+public:
+    /** @brief Constructor for an option that can be used without an argument
+     * like Option_BoolExtended but which also handles value strings
+     *
+     * Calls Option(true)
+     *
+     * @param[in] value This option's default value
+     */
+    Option_BoolExtended(bool value);
+
+
+    /** @brief Copy constructor */
+    Option_BoolExtended(const Option_BoolExtended& s);
+
+
+    /** @brief Destructor */
+    ~Option_BoolExtended();
+
+
+    /** @brief Assignment operator */
+    Option_BoolExtended& operator=(const Option_BoolExtended& s);
+
+
+    /** sets the given value (converts it to bool) */
     bool set(const std::string& v);
 
 
@@ -580,22 +639,11 @@ public:
     std::string getValueString() const;
 
 
-    /** @brief Returns true, the information whether the option is a bool option
-     *
-     * Returns true.
-     *
-     * @see bool Option::isBool()
-     * @return true
-     */
-    bool isBool() const;
-
-
 private:
     /** the value, valid only when the base-classes "myAmSet"-member is true */
-    bool        myValue;
+    std::string myValueString;
 
 };
-
 
 /* -------------------------------------------------------------------------
  * Option_FileName

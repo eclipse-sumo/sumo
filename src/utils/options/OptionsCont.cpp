@@ -663,14 +663,8 @@ OptionsCont::printHelp(std::ostream& os) {
     // print application description
     splitLines(os, myAppDescription, 0, 0);
     os << std::endl;
-    // print usage BNF
-    os << "Usage: " << myAppName << " [OPTION]*" << std::endl;
-    // print additional text if any
-    if (myAdditionalMessage.length() > 0) {
-        os << myAdditionalMessage << std::endl << ' ' << std::endl;
-    }
-    // print the options
-    // check their sizes first
+
+    // check option sizes first
     //  we want to know how large the largest not-too-large-entry will be
     int tooLarge = 40;
     int maxSize = 0;
@@ -700,43 +694,33 @@ OptionsCont::printHelp(std::ostream& os) {
         }
     }
 
-    for (i = mySubTopics.begin(); i != mySubTopics.end(); ++i) {
-        os << *i << " Options:" << std::endl;
-        const std::vector<std::string>& entries = mySubTopicEntries[*i];
-        for (j = entries.begin(); j != entries.end(); ++j) {
-            // start length computation
-            int csize = (int)j->length() + 2;
-            Option* o = getSecure(*j);
-            os << "  ";
-            // write abbreviation if given
-            std::vector<std::string> synonymes = getSynonymes(*j);
-            for (std::vector<std::string>::const_iterator s = synonymes.begin(); s != synonymes.end(); ++s) {
-                if (s->length() == 1 && myDeprecatedSynonymes.count(*s) == 0) {
-                    os << '-' << *s << ", ";
-                    csize += 4;
-                    break;
-                }
+    const std::string helpTopic = StringUtils::to_lower_case(getSecure("help")->getValueString());
+    if (helpTopic != "") {
+        bool foundTopic = false;
+        for (const std::string& topic : mySubTopics) {
+            if (StringUtils::to_lower_case(topic).find(helpTopic) != std::string::npos) {
+                foundTopic = true;
+                printHelpOnTopic(topic, tooLarge, maxSize, os);
             }
-            // write leading '-'/"--"
-            os << "--";
-            csize += 2;
-            // write the name
-            os << *j;
-            // write the type if not a bool option
-            if (!o->isBool()) {
-                os << ' ' << o->getTypeName();
-                csize += 1 + (int)o->getTypeName().length();
+        } 
+        if (!foundTopic) {
+            // print topic list
+            os << "Help Topics:"  << std::endl;
+            for (std::string t : mySubTopics) {
+                os << "    " << t << std::endl;
             }
-            csize += 2;
-            // write the description formatting it
-            os << "  ";
-            for (int r = maxSize; r > csize; --r) {
-                os << ' ';
-            }
-            int offset = csize > tooLarge ? csize : maxSize;
-            splitLines(os, o->getDescription(), offset, maxSize);
         }
-        os << std::endl;
+        return;
+    }
+    // print usage BNF
+    os << "Usage: " << myAppName << " [OPTION]*" << std::endl;
+    // print additional text if any
+    if (myAdditionalMessage.length() > 0) {
+        os << myAdditionalMessage << std::endl << ' ' << std::endl;
+    }
+    // print the options
+    for (i = mySubTopics.begin(); i != mySubTopics.end(); ++i) {
+        printHelpOnTopic(*i, tooLarge, maxSize, os);
     }
     os << std::endl;
     // print usage examples, calc size first
@@ -752,6 +736,44 @@ OptionsCont::printHelp(std::ostream& os) {
     os << "Get in contact via <sumo@dlr.de>." << std::endl;
 }
 
+void
+OptionsCont::printHelpOnTopic(const std::string& topic, int tooLarge, int maxSize, std::ostream& os) {
+    os << topic << " Options:" << std::endl;
+    for (std::string entry : mySubTopicEntries[topic]) {
+        // start length computation
+        int csize = (int)entry.length() + 2;
+        Option* o = getSecure(entry);
+        os << "  ";
+        // write abbreviation if given
+        std::vector<std::string> synonymes = getSynonymes(entry);
+        for (std::vector<std::string>::const_iterator s = synonymes.begin(); s != synonymes.end(); ++s) {
+            if (s->length() == 1 && myDeprecatedSynonymes.count(*s) == 0) {
+                os << '-' << *s << ", ";
+                csize += 4;
+                break;
+            }
+        }
+        // write leading '-'/"--"
+        os << "--";
+        csize += 2;
+        // write the name
+        os << entry;
+        // write the type if not a bool option
+        if (!o->isBool()) {
+            os << ' ' << o->getTypeName();
+            csize += 1 + (int)o->getTypeName().length();
+        }
+        csize += 2;
+        // write the description formatting it
+        os << "  ";
+        for (int r = maxSize; r > csize; --r) {
+            os << ' ';
+        }
+        int offset = csize > tooLarge ? csize : maxSize;
+        splitLines(os, o->getDescription(), offset, maxSize);
+    }
+    os << std::endl;
+}
 
 void
 OptionsCont::writeConfiguration(std::ostream& os, const bool filled,
