@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Feb 26 15:34:32 2019 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Thu Mar 14 15:48:58 2019 by Eclipse SUMO netconvert Version v1_1_0+0435-678c69824b
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -768,7 +768,7 @@
         <!-- Prints option values before processing -->
         <print-options value="false" type="BOOL"/>
 
-        <!-- Prints this screen -->
+        <!-- Prints this screen or selected topics -->
         <help value="false" synonymes="?" type="BOOL"/>
 
         <!-- Prints the current version -->

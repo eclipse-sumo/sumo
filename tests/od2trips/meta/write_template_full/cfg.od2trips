@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Aug 15 14:29:15 2018 by Eclipse SUMO od2trips Version 7cc56db
+<!-- generated on Thu Mar 14 15:50:38 2019 by Eclipse SUMO od2trips Version v1_1_0+0435-678c69824b
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/od2tripsConfiguration.xsd">
@@ -61,7 +61,7 @@
     <report>
         <verbose value="false" synonymes="v" type="BOOL" help="Switches to verbose output"/>
         <print-options value="false" type="BOOL" help="Prints option values before processing"/>
-        <help value="false" synonymes="?" type="BOOL" help="Prints this screen"/>
+        <help value="false" synonymes="?" type="BOOL" help="Prints this screen or selected topics"/>
         <version value="false" synonymes="V" type="BOOL" help="Prints the current version"/>
         <xml-validation value="auto" synonymes="X" type="STR" help="Set schema validation scheme of XML inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;)"/>
         <xml-validation.net value="never" type="STR" help="Set schema validation scheme of SUMO network inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;)"/>

@@ -1,4 +1,4 @@
-Eclipse SUMO dfrouter Version v1_1_0+0040-b68edb7a21e
+Eclipse SUMO dfrouter Version v1_1_0+0435-678c69824b
  Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; http://sumo.dlr.de
 Builds vehicle routes for SUMO using detector values.
 
@@ -105,7 +105,7 @@ Time Options:
 Report Options:
   -v, --verbose                        Switches to verbose output
   --print-options                      Prints option values before processing
-  -?, --help                           Prints this screen
+  -?, --help                           Prints this screen or selected topics
   -V, --version                        Prints the current version
   -X, --xml-validation STR             Set schema validation scheme of XML
                                          inputs ("never", "auto" or "always")
