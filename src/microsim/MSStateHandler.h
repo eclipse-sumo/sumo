@@ -44,10 +44,10 @@ class MESegment;
  */
 class MSStateHandler : public MSRouteHandler {
 public:
-    /// standard constructor
+    /// @brief standard constructor
     MSStateHandler(const std::string& file, const SUMOTime offset);
 
-    /// standard destructor
+    /// @brief standard destructor
     virtual ~MSStateHandler();
 
     /** @brief Saves the current state
@@ -56,6 +56,7 @@ public:
      */
     static void saveState(const std::string& file, SUMOTime step);
 
+    /// @brief get time
     SUMOTime getTime() const {
         return myTime;
     }
@@ -74,7 +75,6 @@ protected:
     void myStartElement(int element,
                         const SUMOSAXAttributes& attrs);
 
-
     /** @brief Called when a closing tag occurs
      *
      * @param[in] element ID of the currently opened element
@@ -88,10 +88,19 @@ protected:
     void closeVehicle();
 
 private:
+    /// @brief offset
     const SUMOTime myOffset;
+
+    /// @brief time
     SUMOTime myTime;
+
+    /// @brief segment
     MESegment* mySegment;
+
+    /// @brief edge and lanes
     std::pair<int, int> myEdgeAndLane;
+
+    /// @brief que index
     int myQueIndex;
 
     /// @brief cached attrs (used when loading vehicles)
@@ -112,11 +121,10 @@ private:
 
 private:
     /// @brief Invalidated copy constructor
-    MSStateHandler(const MSStateHandler& s);
+    MSStateHandler(const MSStateHandler& s) = delete;
 
     /// @brief Invalidated assignment operator
-    MSStateHandler& operator=(const MSStateHandler& s);
-
+    MSStateHandler& operator=(const MSStateHandler& s) = delete;
 };
 
 

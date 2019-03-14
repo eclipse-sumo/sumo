@@ -82,7 +82,6 @@ protected:
     virtual void myStartElement(int element,
                                 const SUMOSAXAttributes& attrs);
 
-
     /** @brief Called when a closing tag occurs
      *
      * @param[in] element ID of the currently opened element
@@ -91,7 +90,6 @@ protected:
      */
     virtual void myEndElement(int element);
     //@}
-
 
     /// @brief opens a type distribution for reading
     virtual void openVehicleTypeDistribution(const SUMOSAXAttributes& attrs) = 0;
@@ -200,11 +198,10 @@ protected:
 
 private:
     /// @brief Invalidated copy constructor
-    SUMORouteHandler(const SUMORouteHandler& s);
+    SUMORouteHandler(const SUMORouteHandler& s) = delete;
 
     /// @brief Invalidated assignment operator
-    SUMORouteHandler& operator=(const SUMORouteHandler& s);
-
+    SUMORouteHandler& operator=(const SUMORouteHandler& s) = delete;
 };
 
 

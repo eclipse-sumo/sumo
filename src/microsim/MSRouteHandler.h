@@ -53,13 +53,13 @@ class MSVehicleType;
  */
 class MSRouteHandler : public SUMORouteHandler {
 public:
-    /// standard constructor
-    MSRouteHandler(const std::string& file,
-                   bool addVehiclesDirectly);
+    /// @brief standard constructor
+    MSRouteHandler(const std::string& file, bool addVehiclesDirectly);
 
-    /// standard destructor
+    /// @brief standard destructor
     virtual ~MSRouteHandler();
 
+    /// @brief get parsing RNG
     static std::mt19937* getParsingRNG() {
         return &myParsingRNG;
     }
@@ -79,7 +79,6 @@ protected:
                                 const SUMOSAXAttributes& attrs);
     //@}
 
-
     /** @brief Called for parsing from and to and the corresponding taz attributes
      *
      * @param[in] element description of the currently opened element
@@ -89,48 +88,48 @@ protected:
     void parseFromViaTo(std::string element,
                         const SUMOSAXAttributes& attrs);
 
-
-    /** opens a type distribution for reading */
+    /// @brief opens a type distribution for reading
     void openVehicleTypeDistribution(const SUMOSAXAttributes& attrs);
 
-    /** closes (ends) the building of a distribution */
+    /// @brief closes (ends) the building of a distribution
     void closeVehicleTypeDistribution();
 
-    /** opens a route for reading */
+    /// @brief opens a route for reading
     void openRoute(const SUMOSAXAttributes& attrs);
 
-    /** closes (ends) the building of a route.
-        Afterwards no edges may be added to it;
-        this method may throw exceptions when
-        a) the route is empty or
-        b) another route with the same id already exists */
+    /**@brief closes (ends) the building of a route.
+     * @note Afterwards no edges may be added to it;
+     *       this method may throw exceptions when
+     *       a) the route is empty or
+     *       b) another route with the same id already exists 
+     */
     void closeRoute(const bool mayBeDisconnected = false);
 
-    /** opens a route distribution for reading */
+    /// @brief opens a route distribution for reading
     void openRouteDistribution(const SUMOSAXAttributes& attrs);
 
-    /** closes (ends) the building of a distribution */
+    /// @brief closes (ends) the building of a distribution
     void closeRouteDistribution();
 
-    /// Ends the processing of a vehicle (note: is virtual because is reimplemented in MSStateHandler)
+    /// @brief Ends the processing of a vehicle (note: is virtual because is reimplemented in MSStateHandler)
     virtual void closeVehicle();
 
-    /// Ends the processing of a vehicle type
+    /// @brief Ends the processing of a vehicle type
     void closeVType();
 
-    /// Ends the processing of a person
+    /// @brief Ends the processing of a person
     void closePerson();
 
-    /// Ends the processing of a container
+    /// @brief Ends the processing of a container
     void closeContainer();
 
-    /// Ends the processing of a flow
+    /// @brief Ends the processing of a flow
     void closeFlow();
 
-    /// Ends the processing of a trip
+    /// @brief Ends the processing of a trip
     void closeTrip();
 
-    /// Processing of a stop
+    /// @brief Processing of a stop
     void addStop(const SUMOSAXAttributes& attrs);
 
     /// @brief add a routing request for a walking or intermodal person
@@ -181,11 +180,10 @@ private:
     void deleteActivePlans();
 
     /// @brief Invalidated copy constructor
-    MSRouteHandler(const MSRouteHandler& s);
+    MSRouteHandler(const MSRouteHandler& s) = delete;
 
     /// @brief Invalidated assignment operator
-    MSRouteHandler& operator=(const MSRouteHandler& s);
-
+    MSRouteHandler& operator=(const MSRouteHandler& s) = delete;
 };
 
 
