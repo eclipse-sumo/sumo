@@ -543,6 +543,8 @@ public:
                                   bool uncontrolled,
                                   bool warnOnly);
 
+    bool hasPostProcessConnection(const std::string& from, const std::string& to = "");
+
 
     /** @brief Try to set any stored connections
      */
@@ -653,7 +655,7 @@ private:
     };
 
     /// @brief The list of connections to recheck
-    std::vector<PostProcessConnection> myConnections;
+    std::map<std::string, std::vector<PostProcessConnection> > myConnections;
 
 
     /// @brief The type of the dictionary where an edge may be found by its id

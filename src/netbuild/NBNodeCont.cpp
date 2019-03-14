@@ -1135,33 +1135,85 @@ NBNodeCont::joinNodeCluster(NodeSet cluster, NBDistrictCont& dc, NBEdgeCont& ec,
         }
     }
     // collect edges
-    std::set<NBEdge*> allEdges;
+    EdgeSet allEdges;
     for (NBNode* n : cluster) {
         const EdgeVector& edges = n->getEdges();
         allEdges.insert(edges.begin(), edges.end());
     }
-
-    // remap and remove edges which are completely within the new intersection
-    for (std::set<NBEdge*>::iterator j = allEdges.begin(); j != allEdges.end();) {
-        NBEdge* e = (*j);
-        NBNode* from = e->getFromNode();
-        NBNode* to = e->getToNode();
-        if (cluster.count(from) > 0 && cluster.count(to) > 0) {
-            for (std::set<NBEdge*>::iterator l = allEdges.begin(); l != allEdges.end(); ++l) {
-                if (e != *l) {
-                    (*l)->replaceInConnections(e, e->getConnections());
-                }
+    // determine edges with are incoming or fully inside
+    EdgeSet clusterIncoming;
+    EdgeSet inside;
+    for (NBEdge* e : allEdges) {
+        if (cluster.count(e->getToNode()) > 0) {
+            if (cluster.count(e->getFromNode()) > 0) {
+                inside.insert(e);
+            } else {
+                clusterIncoming.insert(e);
             }
-            ec.extract(dc, e, true);
-            allEdges.erase(j++); // erase does not invalidate the other iterators
-        } else {
-            ++j;
         }
     }
 
+    // determine possible connectivity from outside edges
+    std::map<NBEdge*, EdgeSet> reachable;
+    for (NBEdge* e : clusterIncoming) {
+        EdgeVector open;
+        EdgeSet seen;
+        open.push_back(e);
+        while (open.size() > 0) {
+            NBEdge* cur = open.back();
+            //std::cout << "   e=" << e->getID() << " cur=" << cur->getID() << " open=" << toString(open) << "\n";
+            seen.insert(cur);
+            open.pop_back();
+            if (cluster.count(cur->getToNode()) == 0) {
+                //std::cout << "      continue\n";
+                continue;
+            }
+            const auto& cons = cur->getConnections();
+            if (cons.size() == 0 || ec.hasPostProcessConnection(cur->getID())) {
+                // check permissions to determine reachability
+                for (NBEdge* out : cur->getToNode()->getOutgoingEdges()) {
+                    if (seen.count(out) == 0
+                            && allEdges.count(out) != 0
+                            && (out->getPermissions() & cur->getPermissions() & ~SVC_PEDESTRIAN) != 0) {
+                        open.push_back(out);
+                    }
+                }
+            } else {
+                // check existing connections
+                for (const auto& con : cons) {
+                    if (con.toEdge != nullptr
+                            && seen.count(con.toEdge) == 0
+                            && allEdges.count(con.toEdge) != 0) {
+                        open.push_back(con.toEdge);
+                    }
+                }
+            }
+        }
+        seen.erase(e);
+        for (NBEdge* reached : seen) {
+            // filter out inside edges from reached
+            if (inside.count(reached) == 0) {
+                reachable[e].insert(reached);
+            }
+        }
+#ifdef DEBUG_JOINJUNCTIONS
+        std::cout << " reachable e=" << e->getID() << " seen=" << toString(seen) << " reachable=" << toString(reachable[e]) << "\n";
+#endif
+    }
+
+    // remap and remove edges which are completely within the new intersection
+    for (NBEdge* e : inside) {
+        for (NBEdge* e2 : allEdges) {
+            if (e != e2) {
+                e2->replaceInConnections(e, e->getConnections());
+            }
+        }
+        ec.extract(dc, e, true);
+        allEdges.erase(e);
+    }
+
     // remap edges which are incoming / outgoing
-    for (std::set<NBEdge*>::iterator j = allEdges.begin(); j != allEdges.end(); ++j) {
-        NBEdge* e = (*j);
+    for (NBEdge* e : allEdges) {
         std::vector<NBEdge::Connection> conns = e->getConnections();
         const bool outgoing = cluster.count(e->getFromNode()) > 0;
         NBNode* from = outgoing ? newNode : e->getFromNode();
@@ -1184,10 +1236,20 @@ NBNodeCont::joinNodeCluster(NodeSet cluster, NBDistrictCont& dc, NBEdgeCont& ec,
             }
         }
     }
+    // disable connections that were impossible with the old topology
+    for (NBEdge* in : newNode->getIncomingEdges()) {
+        for (NBEdge* out : newNode->getOutgoingEdges()) {
+            if (reachable[in].count(out) == 0 && !ec.hasPostProcessConnection(in->getID(), out->getID())) {
+                //std::cout << " removeUnreachable in=" << in->getID() << " out=" << out->getID() << "\n";
+                in->removeFromConnections(out, -1, -1, true);
+            }
+        }
+    }
+
     // remove original nodes
     registerJoinedCluster(cluster);
-    for (NodeSet::const_iterator j = cluster.begin(); j != cluster.end(); ++j) {
-        erase(*j);
+    for (NBNode* n : cluster) {
+        erase(n);
     }
 }
 

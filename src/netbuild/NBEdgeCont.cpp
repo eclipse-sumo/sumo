@@ -1011,24 +1011,43 @@ void
 NBEdgeCont::addPostProcessConnection(const std::string& from, int fromLane, const std::string& to, int toLane, bool mayDefinitelyPass,
                                      bool keepClear, double contPos, double visibility, double speed,
                                      const PositionVector& customShape, bool uncontrolled, bool warnOnly) {
-    myConnections.push_back(PostProcessConnection(from, fromLane, to, toLane, mayDefinitelyPass, keepClear, contPos, visibility, speed, customShape, uncontrolled, warnOnly));
+    myConnections[from].push_back(PostProcessConnection(from, fromLane, to, toLane, mayDefinitelyPass, keepClear, contPos, visibility, speed, customShape, uncontrolled, warnOnly));
 }
 
+bool
+NBEdgeCont::hasPostProcessConnection(const std::string& from, const std::string& to) {
+    if (myConnections.count(from) == 0) {
+        return false;
+    } else {
+        if (to == "") {
+            // wildcard
+            return true;
+        }
+        for (const auto& ppc : myConnections[from]) {
+            if (ppc.to == to) {
+                return true;
+            }
+        }
+        return false;
+    }
+}
 
 void
 NBEdgeCont::recheckPostProcessConnections() {
     const bool warnOnly = OptionsCont::getOptions().exists("ignore-errors.connections") && OptionsCont::getOptions().getBool("ignore-errors.connections");
-    for (std::vector<PostProcessConnection>::const_iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
-        NBEdge* from = retrievePossiblySplit((*i).from, true);
-        NBEdge* to = retrievePossiblySplit((*i).to, false);
-        if (from == nullptr || to == nullptr ||
-                !from->addLane2LaneConnection((*i).fromLane, to, (*i).toLane, NBEdge::L2L_USER, true, (*i).mayDefinitelyPass,
-                                              (*i).keepClear, (*i).contPos, (*i).visibility, (*i).speed, (*i).customShape, (*i).uncontrolled)) {
-            const std::string msg = "Could not insert connection between '" + (*i).from + "' and '" + (*i).to + "' after build.";
-            if (warnOnly || (*i).warnOnly) {
-                WRITE_WARNING(msg);
-            } else {
-                WRITE_ERROR(msg);
+    for (const auto& item : myConnections) {
+        for (std::vector<PostProcessConnection>::const_iterator i = item.second.begin(); i != item.second.end(); ++i) {
+            NBEdge* from = retrievePossiblySplit((*i).from, true);
+            NBEdge* to = retrievePossiblySplit((*i).to, false);
+            if (from == nullptr || to == nullptr ||
+                    !from->addLane2LaneConnection((*i).fromLane, to, (*i).toLane, NBEdge::L2L_USER, true, (*i).mayDefinitelyPass,
+                        (*i).keepClear, (*i).contPos, (*i).visibility, (*i).speed, (*i).customShape, (*i).uncontrolled)) {
+                const std::string msg = "Could not insert connection between '" + (*i).from + "' and '" + (*i).to + "' after build.";
+                if (warnOnly || (*i).warnOnly) {
+                    WRITE_WARNING(msg);
+                } else {
+                    WRITE_ERROR(msg);
+                }
             }
         }
     }
