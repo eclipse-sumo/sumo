@@ -326,6 +326,9 @@ MSRouteHandler::myStartElement(int element,
             case SUMO_TAG_FLOW:
                 parseFromViaTo("flow", attrs);
                 break;
+            case SUMO_TAG_TRIP:
+                parseFromViaTo("trip", attrs);
+                break;
             default:
                 break;
         }
@@ -424,8 +427,7 @@ MSRouteHandler::openRoute(const SUMOSAXAttributes& attrs) {
 
 
 void 
-MSRouteHandler::openTrip(const SUMOSAXAttributes& attrs) {
-    parseFromViaTo("trip", attrs);
+MSRouteHandler::openTrip(const SUMOSAXAttributes& /*attrs*/) {
 }
 
 
@@ -1149,5 +1151,29 @@ MSRouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
     }
 }
 
+
+void 
+MSRouteHandler::addPerson(const SUMOSAXAttributes& /*attrs*/) {
+}
+
+
+void 
+MSRouteHandler::addContainer(const SUMOSAXAttributes& /*attrs*/) {
+}
+
+
+void 
+MSRouteHandler::addRide(const SUMOSAXAttributes& /*attrs*/) {
+}
+
+
+void 
+MSRouteHandler::addTransport(const SUMOSAXAttributes& /*attrs*/) {
+}
+
+
+void 
+MSRouteHandler::addTranship(const SUMOSAXAttributes& /*attrs*/) {
+}
 
 /****************************************************************************/

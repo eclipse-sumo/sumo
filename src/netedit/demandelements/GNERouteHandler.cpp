@@ -320,4 +320,34 @@ GNERouteHandler::addWalk(const SUMOSAXAttributes& /*attrs*/) {
     // currently unused
 }
 
+
+void 
+GNERouteHandler::addPerson(const SUMOSAXAttributes& /*attrs*/) {
+    // currently unused
+}
+
+
+void 
+GNERouteHandler::addContainer(const SUMOSAXAttributes& /*attrs*/) {
+    // currently unused
+}
+
+
+void 
+GNERouteHandler::addRide(const SUMOSAXAttributes& /*attrs*/) {
+    // currently unused
+}
+
+
+void 
+GNERouteHandler::addTransport(const SUMOSAXAttributes& /*attrs*/) {
+    // currently unused
+}
+
+
+void 
+GNERouteHandler::addTranship(const SUMOSAXAttributes& attrs) {
+    // currently unused
+}
+
 /****************************************************************************/

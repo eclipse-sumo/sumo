@@ -141,6 +141,21 @@ protected:
     /// @brief add a fully specified walk
     void addWalk(const SUMOSAXAttributes& attrs);
 
+    /// @brief Processing of a person
+    void addPerson(const SUMOSAXAttributes& attrs);
+
+    /// @brief Processing of a container
+    void addContainer(const SUMOSAXAttributes& attrs);
+
+    /// @brief Processing of a ride
+    void addRide(const SUMOSAXAttributes& attrs);
+
+    /// @brief Processing of a transport
+    void addTransport(const SUMOSAXAttributes& attrs);
+
+    /// @brief Processing of a tranship
+    void addTranship(const SUMOSAXAttributes& attrs);
+
     ///@ brief parse depart- and arrival positions of a walk
     void parseWalkPositions(const SUMOSAXAttributes& attrs, const std::string& personID,
                             const MSEdge* fromEdge, const MSEdge*& toEdge,

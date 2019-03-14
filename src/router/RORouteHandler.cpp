@@ -229,6 +229,10 @@ RORouteHandler::myStartElement(int element,
             myActiveRouteProbability = DEFAULT_VEH_PROB;
             parseFromViaTo("flow", attrs);
             break;
+        case SUMO_TAG_TRIP:
+            myActiveRouteProbability = DEFAULT_VEH_PROB;
+            parseFromViaTo("trip", attrs);
+            break;
         default:
             break;
     }
@@ -325,9 +329,7 @@ RORouteHandler::openRoute(const SUMOSAXAttributes& attrs) {
 
 
 void 
-RORouteHandler::openTrip(const SUMOSAXAttributes& attrs) {
-    myActiveRouteProbability = DEFAULT_VEH_PROB;
-    parseFromViaTo("trip", attrs);
+RORouteHandler::openTrip(const SUMOSAXAttributes& /*attrs*/) {
 }
 
 
@@ -678,6 +680,31 @@ RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         myActiveRoute.insert(myActiveRoute.begin() + myInsertStopEdgesAt, edge);
         myInsertStopEdgesAt++;
     }
+}
+
+
+void 
+RORouteHandler::addPerson(const SUMOSAXAttributes& /*attrs*/) {
+}
+
+
+void 
+RORouteHandler::addContainer(const SUMOSAXAttributes& /*attrs*/) {
+}
+
+
+void 
+RORouteHandler::addRide(const SUMOSAXAttributes& /*attrs*/) {
+}
+
+
+void 
+RORouteHandler::addTransport(const SUMOSAXAttributes& /*attrs*/) {
+}
+
+
+void 
+RORouteHandler::addTranship(const SUMOSAXAttributes& /*attrs*/) {
 }
 
 

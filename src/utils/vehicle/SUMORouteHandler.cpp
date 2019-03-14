@@ -103,10 +103,12 @@ SUMORouteHandler::myStartElement(int element,
         case SUMO_TAG_PERSON:
             delete myVehicleParameter;
             myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs, false, false, true);
+            addPerson(attrs);
             break;
         case SUMO_TAG_CONTAINER:
             delete myVehicleParameter;
             myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs);
+            addContainer(attrs);
             break;
         case SUMO_TAG_FLOW:
             delete myVehicleParameter;
@@ -154,6 +156,15 @@ SUMORouteHandler::myStartElement(int element,
             myEndDefault = attrs.getSUMOTimeReporting(SUMO_ATTR_END, nullptr, ok);
             break;
         }
+        case SUMO_TAG_RIDE:
+            addRide(attrs);
+            break;
+        case SUMO_TAG_TRANSPORT:
+            addTransport(attrs);
+            break;
+        case SUMO_TAG_TRANSHIP:
+            addTranship(attrs);
+            break;
         case SUMO_TAG_PARAM:
             addParam(attrs);
             break;

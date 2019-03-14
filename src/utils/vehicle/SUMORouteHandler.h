@@ -154,6 +154,22 @@ protected:
 
     /// @brief add a fully specified walk
     virtual void addWalk(const SUMOSAXAttributes& attrs) = 0;
+
+    /// @brief Processing of a person
+    virtual void addPerson(const SUMOSAXAttributes& attrs) = 0;
+
+    /// @brief Processing of a container
+    virtual void addContainer(const SUMOSAXAttributes& attrs) = 0;
+
+    /// @brief Processing of a ride
+    virtual void addRide(const SUMOSAXAttributes& attrs) = 0;
+
+    /// @brief Processing of a transport
+    virtual void addTransport(const SUMOSAXAttributes& attrs) = 0;
+
+    /// @brief Processing of a tranship
+    virtual void addTranship(const SUMOSAXAttributes& attrs) = 0;
+
     //@}
 
     /// @brief Checks whether the route file is sorted by departure time if needed
