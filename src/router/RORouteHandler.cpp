@@ -341,13 +341,6 @@ RORouteHandler::myEndElement(int element) {
             }
             myCurrentVType = nullptr;
             break;
-        case SUMO_TAG_TRIP:
-            closeRoute(true);
-            closeVehicle();
-            delete myVehicleParameter;
-            myVehicleParameter = nullptr;
-            myInsertStopEdgesAt = -1;
-            break;
         default:
             break;
     }
@@ -592,6 +585,16 @@ RORouteHandler::closeFlow() {
     } else {
         delete myVehicleParameter;
     }
+    myVehicleParameter = nullptr;
+    myInsertStopEdgesAt = -1;
+}
+
+
+void 
+RORouteHandler::closeTrip() {
+    closeRoute(true);
+    closeVehicle();
+    delete myVehicleParameter;
     myVehicleParameter = nullptr;
     myInsertStopEdgesAt = -1;
 }

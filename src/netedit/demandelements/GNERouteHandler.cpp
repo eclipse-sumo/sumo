@@ -267,6 +267,15 @@ GNERouteHandler::closeFlow() {
 
 
 void 
+GNERouteHandler::closeTrip() {
+    // build trip
+    /*
+    buildTrip(myViewNet, myUndoDemandElements, myVehicleParameter);
+    */
+}
+
+
+void 
 GNERouteHandler::addStop(const SUMOSAXAttributes& /*attrs*/) {
     // currently unused
 }

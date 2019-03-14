@@ -101,6 +101,9 @@ protected:
     /// @brief Ends the processing of a flow
     void closeFlow();
 
+    /// @brief Ends the processing of a trip
+    void closeTrip();
+
     /// @brief Processing of a stop
     void addStop(const SUMOSAXAttributes& attrs);
 

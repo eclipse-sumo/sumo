@@ -138,6 +138,9 @@ protected:
     /// Ends the processing of a flow
     void closeFlow();
 
+    /// Ends the processing of a trip
+    void closeTrip();
+
     /// Processing of a stop
     void addStop(const SUMOSAXAttributes& attrs);
 

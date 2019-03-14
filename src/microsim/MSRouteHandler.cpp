@@ -447,14 +447,6 @@ MSRouteHandler::myEndElement(int element) {
             }
         }
         break;
-        case SUMO_TAG_TRIP:
-            myVehicleParameter->parametersSet |= VEHPARS_FORCE_REROUTE;
-            closeRoute(true);
-            closeVehicle();
-            delete myVehicleParameter;
-            myVehicleParameter = nullptr;
-            myInsertStopEdgesAt = -1;
-            break;
         default:
             break;
     }
@@ -818,6 +810,17 @@ MSRouteHandler::closeFlow() {
         }
     }
     myVehicleParameter = nullptr;
+}
+
+
+void
+MSRouteHandler::closeTrip() {
+    myVehicleParameter->parametersSet |= VEHPARS_FORCE_REROUTE;
+    closeRoute(true);
+    closeVehicle();
+    delete myVehicleParameter;
+    myVehicleParameter = nullptr;
+    myInsertStopEdgesAt = -1;
 }
 
 
