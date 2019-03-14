@@ -946,6 +946,8 @@ enum SumoXMLAttr {
     GNE_ATTR_AVERAGE_SINK,
     /// @brief Color of TAZSources/TAZChilds
     GNE_ATTR_TAZCOLOR,
+    /// @brief Flag to check if a default VType was modified
+    GNE_ATTR_DEFAULT_VTYPE_MODIFIED,
     // @}
 
     SUMO_ATTR_TARGETLANE,

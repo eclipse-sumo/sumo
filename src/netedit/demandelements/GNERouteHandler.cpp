@@ -249,7 +249,7 @@ GNERouteHandler::closeVType() {
             WRITE_WARNING("There is another " + toString(SUMO_TAG_VTYPE) + " with the same ID='" + myCurrentVType->id + "'.");
         } else {
             // create VType using myCurrentVType
-            GNEVehicleType* vType = new GNEVehicleType(myViewNet, *myCurrentVType, false);
+            GNEVehicleType* vType = new GNEVehicleType(myViewNet, *myCurrentVType);
             if (myUndoDemandElements) {
                 myViewNet->getUndoList()->p_begin("add " + vType->getTagStr());
                 myViewNet->getUndoList()->add(new GNEChange_DemandElement(vType, true), true);

@@ -448,6 +448,8 @@ void
 GNEVehicleFrame::show() {
     // refresh item selector
     myItemSelector->refreshTagProperties();
+    // refresh vType selector
+    myVTypeSelector->refreshVTypeSelector();
     // show frame
     GNEFrame::show();
 }

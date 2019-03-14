@@ -976,17 +976,17 @@ GNENet::setViewNet(GNEViewNet* viewNet) {
     myViewNet = viewNet;
 
     // Create default vehicle Type (it has to be created here due myViewNet was previously nullptr)
-    GNEVehicleType* defaultVehicleType = new GNEVehicleType(myViewNet, DEFAULT_VTYPE_ID, true);
+    GNEVehicleType* defaultVehicleType = new GNEVehicleType(myViewNet, DEFAULT_VTYPE_ID, SVC_PASSENGER);
     myAttributeCarriers.demandElements.at(defaultVehicleType->getTagProperty().getTag()).insert(std::make_pair(defaultVehicleType->getID(), defaultVehicleType));
     defaultVehicleType->incRef("GNENet::DEFAULT_VEHTYPE");
 
     // Create default pedestrian Type (it has to be created here due myViewNet was previously nullptr)
-    GNEVehicleType* defaultPedestrianType = new GNEVehicleType(myViewNet, DEFAULT_PEDTYPE_ID, true);
+    GNEVehicleType* defaultPedestrianType = new GNEVehicleType(myViewNet, DEFAULT_PEDTYPE_ID, SVC_PEDESTRIAN);
     myAttributeCarriers.demandElements.at(defaultPedestrianType->getTagProperty().getTag()).insert(std::make_pair(defaultPedestrianType->getID(), defaultPedestrianType));
     defaultPedestrianType->incRef("GNENet::DEFAULT_PEDTYPE_ID");
 
     // Create default Bike Type (it has to be created here due myViewNet was previously nullptr)
-    GNEVehicleType* defaultBikeType = new GNEVehicleType(myViewNet, DEFAULT_BIKETYPE_ID, true);
+    GNEVehicleType* defaultBikeType = new GNEVehicleType(myViewNet, DEFAULT_BIKETYPE_ID, SVC_BICYCLE);
     myAttributeCarriers.demandElements.at(defaultBikeType->getTagProperty().getTag()).insert(std::make_pair(defaultBikeType->getID(), defaultBikeType));
     defaultBikeType->incRef("GNENet::DEFAULT_BIKETYPE_ID");
 

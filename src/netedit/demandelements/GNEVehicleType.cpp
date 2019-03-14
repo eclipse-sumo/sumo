@@ -36,18 +36,21 @@
 // ===========================================================================
 
 
-GNEVehicleType::GNEVehicleType(GNEViewNet* viewNet, const std::string &vTypeID, bool defaultVehicleType) :
+GNEVehicleType::GNEVehicleType(GNEViewNet* viewNet, const std::string &vTypeID, SUMOVehicleClass defaultVClass) :
     GNEDemandElement(vTypeID, viewNet, GLO_VTYPE, SUMO_TAG_VTYPE),
     SUMOVTypeParameter(vTypeID),
-    myDefaultVehicleType(defaultVehicleType),
+    myDefaultVehicleType(true),
     myDefaultVehicleTypeModified(false) {
+    // set default vehicle class
+    vehicleClass = defaultVClass;
+    parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
 }
 
 
-GNEVehicleType::GNEVehicleType(GNEViewNet* viewNet, const SUMOVTypeParameter &vTypeParameter, bool defaultVehicleType) :
+GNEVehicleType::GNEVehicleType(GNEViewNet* viewNet, const SUMOVTypeParameter &vTypeParameter) :
     GNEDemandElement(vTypeParameter.id, viewNet, GLO_VTYPE, SUMO_TAG_VTYPE),
     SUMOVTypeParameter(vTypeParameter),
-    myDefaultVehicleType(defaultVehicleType),
+    myDefaultVehicleType(false),
     myDefaultVehicleTypeModified(false)   {
 }
 
@@ -319,14 +322,20 @@ GNEVehicleType::getAttribute(SumoXMLAttr key) const {
             }               
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
+        case GNE_ATTR_DEFAULT_VTYPE_MODIFIED:
+            if (myDefaultVehicleType) {
+                return toString(myDefaultVehicleTypeModified);
+            } else {
+                return toString(false);
+            }
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
-            /*
-            VTYPEPARS_PROBABILITY_SET
-            VTYPEPARS_HASDRIVERSTATE_SET
-            VTYPEPARS_HEIGHT_SET;
-            VTYPEPARS_OSGFILE_SET;
-            */
+/*
+VTYPEPARS_PROBABILITY_SET
+VTYPEPARS_HASDRIVERSTATE_SET
+VTYPEPARS_HEIGHT_SET;
+VTYPEPARS_OSGFILE_SET;
+*/
     }
 }
 
@@ -388,8 +397,13 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
         case SUMO_ATTR_MINGAP_LAT:
         case SUMO_ATTR_MAXSPEED_LAT:
         case SUMO_ATTR_ACTIONSTEPLENGTH:
-        case GNE_ATTR_GENERIC:
+        case GNE_ATTR_GENERIC: {
+            // if we change the original value of a default vehicle Type, change also flag "myDefaultVehicleType"
+            if (myDefaultVehicleType) {
+                undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), true, GNE_ATTR_DEFAULT_VTYPE_MODIFIED, "true"));
+            }
             undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), true, key, value));
+        }
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -492,6 +506,12 @@ GNEVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<double>(value) && (parse<double>(value) > 0);
         case GNE_ATTR_GENERIC:
             return isGenericParametersValid(value);
+        case GNE_ATTR_DEFAULT_VTYPE_MODIFIED:
+            if (myDefaultVehicleType) {
+            return canParse<bool>(value);
+            } else {
+                return false;
+            }
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -824,19 +844,21 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_GENERIC:
             setGenericParametersStr(value);
             break;
+        case GNE_ATTR_DEFAULT_VTYPE_MODIFIED:
+            myDefaultVehicleTypeModified = parse<bool>(value);
         default:
-            /*
-            // mark parameter as set
-            parametersSet |= VTYPEPARS_HASDRIVERSTATE_SET;
-            // mark parameter as set
-            parametersSet |= VTYPEPARS_PROBABILITY_SET;
-            // mark parameter as set
-            parametersSet |= VTYPEPARS_HEIGHT_SET;
-            // mark parameter as set
-            parametersSet |= VTYPEPARS_OSGFILE_SET;
-            */
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+    /*
+    // mark parameter as set
+    parametersSet |= VTYPEPARS_HASDRIVERSTATE_SET;
+    // mark parameter as set
+    parametersSet |= VTYPEPARS_PROBABILITY_SET;
+    // mark parameter as set
+    parametersSet |= VTYPEPARS_HEIGHT_SET;
+    // mark parameter as set
+    parametersSet |= VTYPEPARS_OSGFILE_SET;
+    */
 }
 
 /****************************************************************************/
