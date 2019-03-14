@@ -542,6 +542,8 @@ GUIVehicle::getColorValue(int activeScheme) const {
             return getElectricityConsumption();
         case 28:
             return getTimeLossSeconds();
+        case 29:
+            return getLaneChangeModel().getSpeedLat();getTimeLossSeconds();
     }
     return 0;
 }

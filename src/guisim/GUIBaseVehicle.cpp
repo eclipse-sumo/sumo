@@ -611,7 +611,7 @@ GUIBaseVehicle::setFunctionalColor(int activeScheme, const MSBaseVehicle* veh) {
             GLHelper::setColor(RGBColor::fromHSV(hue, sat, 1.));
             return true;
         }
-        case 29: { // color randomly (by pointer hash)
+        case 30: { // color randomly (by pointer hash)
             std::hash<const MSBaseVehicle*> ptr_hash;
             const double hue = (double)(ptr_hash(veh) % 360); // [0-360]
             const double sat = ((ptr_hash(veh) / 360) % 67) / 100.0 + 0.33; // [0.33-1]

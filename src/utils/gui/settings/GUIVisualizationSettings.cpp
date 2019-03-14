@@ -448,6 +448,13 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::YELLOW, (double)180);
     scheme.addColor(RGBColor::RED, (double)900);
     vehicleColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by lateral speed", RGBColor(179, 179, 179, 255), "0", false, 0, COL_SCHEME_DYNAMIC);
+    scheme.addColor(RGBColor(255,   0, 0, 255), -3, "-1.5");
+    scheme.addColor(RGBColor(255, 255, 0, 255), -1, "-0.5");
+    scheme.addColor(RGBColor(0, 255, 255, 255),  1,  "0.5");
+    scheme.addColor(RGBColor(0,   0, 255, 255),  3,  "1.5");
+    scheme.setAllowsNegativeValues(true);
+    vehicleColorer.addScheme(scheme);
     vehicleColorer.addScheme(GUIColorScheme("random", RGBColor::YELLOW, "", true));
 
     /// add person coloring schemes
