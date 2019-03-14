@@ -1114,12 +1114,6 @@ NBEdge::setConnection(int lane, NBEdge* destEdge,
 }
 
 
-void
-NBEdge::insertConnection(NBEdge::Connection connection) {
-    myConnections.push_back(connection);
-}
-
-
 std::vector<NBEdge::Connection>
 NBEdge::getConnectionsFromLane(int lane) const {
     std::vector<NBEdge::Connection> ret;

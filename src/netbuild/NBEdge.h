@@ -824,9 +824,6 @@ public:
                        const PositionVector& customShape = PositionVector::EMPTY,
                        const bool uncontrolled = UNSPECIFIED_CONNECTION_UNCONTROLLED);
 
-    /// @brief insert a previously created NBEdge::connection
-    void insertConnection(NBEdge::Connection connection);
-
     /** @brief Returns connections from a given lane
      *
      * This method goes through "myConnections" and copies those which are
