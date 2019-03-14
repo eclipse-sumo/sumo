@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu Mar 14 16:10:04 2019 by Eclipse SUMO netconvert Version v1_1_0+0435-678c69824b
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net2.net.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="plain"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="-1"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<edges version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="CE" from="C" to="E" priority="2" numLanes="2" speed="13.89">
+        <lane index="1">
+            <param key="laneParam" value="bla"/>
+        </lane>
+    </edge>
+    <edge id="CN" from="C" to="N" priority="2" numLanes="2" speed="13.89">
+        <param key="edgeParam" value="blub"/>
+    </edge>
+    <edge id="CS" from="C" to="S" priority="2" numLanes="2" speed="13.89">
+        <lane index="0">
+            <param key="laneParam2" value="bla2"/>
+        </lane>
+        <param key="edgeParam2" value="blub2"/>
+    </edge>
+    <edge id="CW" from="C" to="W" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="EC" from="E" to="C" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="NC" from="N" to="C" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="SC" from="S" to="C" priority="2" numLanes="2" speed="13.89"/>
+    <edge id="WC" from="W" to="C" priority="2" numLanes="2" speed="13.89"/>
+</edges>
