@@ -28,3 +28,6 @@ change_to_unwritten_default
 
 # handle param child elements
 params
+
+# generate connectipn diff suitable for patching during network import (with connection guessing)
+patch_on_import
