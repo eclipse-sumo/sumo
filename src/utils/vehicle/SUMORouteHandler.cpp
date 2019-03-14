@@ -199,6 +199,9 @@ SUMORouteHandler::myEndElement(int element) {
         case SUMO_TAG_FLOW:
             closeFlow();
             break;
+        case SUMO_TAG_TRIP:
+            closeTrip();
+            break;
         case SUMO_TAG_VTYPE_DISTRIBUTION:
             closeVehicleTypeDistribution();
             break;
