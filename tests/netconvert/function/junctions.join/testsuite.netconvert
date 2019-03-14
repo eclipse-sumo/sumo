@@ -56,3 +56,4 @@ staggered_spread
 
 # do not join one-way turnaround edges
 one_way_turnaround
+rail_crossing
