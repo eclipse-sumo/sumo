@@ -107,6 +107,7 @@ RESET = 0
 
 # stores attributes for later comparison
 class AttributeStore:
+    patchImport = False
 
     def __init__(self, type, copy_tags, level=1):
         # xml type being parsed
@@ -178,6 +179,18 @@ class AttributeStore:
         tag, id, children, attrs = self.getAttrs(xmlnode)
         tagid = (tag, id)
         if id != ():
+            if AttributeStore.patchImport:
+                if self.hasChangedConnection(tagid, attrs):
+                    # export all connections from the same edge
+                    fromEdge = id[0]
+                    markChanged = []
+                    for tagid2 in self.ids_deleted:
+                        fromEdge2 = tagid2[1][0]
+                        if fromEdge == fromEdge2:
+                            markChanged.append(tagid2)
+                    for tagid2 in markChanged:
+                        self.ids_deleted.remove(tagid2)
+                return
             if tagid in self.ids_deleted:
                 self.ids_deleted.remove(tagid)
                 self.id_attrs[tagid] = self.compareAttrs(
@@ -245,6 +258,20 @@ class AttributeStore:
             return DEFAULT_VALUES[name]
         else:
             return destValue
+
+    def hasChangedConnection(self, tagid, attrs):
+        tag, id = tagid
+        if tag != TAG_CONNECTION:
+            return False
+        if tagid in self.ids_deleted:
+            names, values, children = self.compareAttrs(self.id_attrs[tagid], attrs, tag)
+            for v in values:
+                if v is not None:
+                    return True
+            return False
+        else:
+            return True
+
 
     def writeDeleted(self, file):
         # data loss if two elements with different tags
@@ -348,6 +375,10 @@ def parse_args():
                          default=False, help="interpret source and dest as plain-xml prefix instead of network names")
     optParser.add_option("-d", "--direct", action="store_true",
                          default=False, help="compare source and dest files directly")
+    optParser.add_option("-i", "--patch-on-import", action="store_true",
+                         dest="patchImport",
+                         default=False, help="generate patch that can be applied during initial network import" + 
+                         " (exports additional connection elements)")
     optParser.add_option(
         "-c", "--copy", help="comma-separated list of element names to copy (if they are unchanged)")
     optParser.add_option("--path", dest="path", help="Path to binaries")
@@ -372,7 +403,7 @@ def create_plain(netfile, netconvert):
 
 # creates diff of a flat xml structure
 # (only children of the root element and their attrs are compared)
-def xmldiff(source, dest, diff, type, copy_tags):
+def xmldiff(source, dest, diff, type, copy_tags, patchImport):
     attributeStore = AttributeStore(type, copy_tags)
     root_open = None
     have_source = os.path.isfile(source)
@@ -380,7 +411,14 @@ def xmldiff(source, dest, diff, type, copy_tags):
     if have_source:
         root_open, root_close = handle_children(source, attributeStore.store)
     if have_dest:
-        root_open, root_close = handle_children(dest, attributeStore.compare)
+        if patchImport:
+            # run diff twice to determine edges with changed connections
+            AttributeStore.patchImport = True
+            root_open, root_close = handle_children(dest, attributeStore.compare)
+            AttributeStore.patchImport = False
+            root_open, root_close = handle_children(dest, attributeStore.compare)
+        else:
+            root_open, root_close = handle_children(dest, attributeStore.compare)
 
     if not have_source and not have_dest:
         print("Skipping %s due to lack of input files" % diff)
@@ -446,7 +484,8 @@ def main():
                 options.dest,
                 options.outprefix + type,
                 type,
-                copy_tags)
+                copy_tags,
+                options.patchImport)
     else:
         if not options.use_prefix:
             netconvert = sumolib.checkBinary("netconvert", options.path)
@@ -457,7 +496,8 @@ def main():
                     options.dest + type,
                     options.outprefix + type,
                     type,
-                    copy_tags)
+                    copy_tags,
+                    options.patchImport)
 
 
 if __name__ == "__main__":
