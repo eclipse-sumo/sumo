@@ -77,15 +77,6 @@ protected:
      */
     virtual void myStartElement(int element,
                                 const SUMOSAXAttributes& attrs);
-
-
-    /** @brief Called when a closing tag occurs
-     *
-     * @param[in] element ID of the currently opened element
-     * @exception ProcessError If something fails
-     * @see GenericSAXHandler::myEndElement
-     */
-    virtual void myEndElement(int element);
     //@}
 
 
@@ -121,8 +112,11 @@ protected:
     /** closes (ends) the building of a distribution */
     void closeRouteDistribution();
 
-    /// Ends the processing of a vehicle
+    /// Ends the processing of a vehicle (note: is virtual because is reimplemented in MSStateHandler)
     virtual void closeVehicle();
+
+    /// Ends the processing of a vehicle type
+    void closeVType();
 
     /// Ends the processing of a person
     void closePerson();

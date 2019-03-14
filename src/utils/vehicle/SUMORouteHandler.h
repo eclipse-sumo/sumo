@@ -119,8 +119,8 @@ protected:
     /// @brief Ends the processing of a vehicle
     virtual void closeVehicle() = 0;
     
-    /// @brief Ends the processing of a vehicle type (by default empty)
-    virtual void closeVType() {}
+    /// @brief Ends the processing of a vehicle type
+    virtual void closeVType() = 0;
 
     /// @brief Ends the processing of a person
     virtual void closePerson() = 0;

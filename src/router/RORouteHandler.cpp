@@ -330,24 +330,6 @@ RORouteHandler::openRoute(const SUMOSAXAttributes& attrs) {
 
 
 void
-RORouteHandler::myEndElement(int element) {
-    SUMORouteHandler::myEndElement(element);
-    switch (element) {
-        case SUMO_TAG_VTYPE:
-            if (myNet.addVehicleType(myCurrentVType)) {
-                if (myCurrentVTypeDistribution != nullptr) {
-                    myCurrentVTypeDistribution->add(myCurrentVType, myCurrentVType->defaultProbability);
-                }
-            }
-            myCurrentVType = nullptr;
-            break;
-        default:
-            break;
-    }
-}
-
-
-void
 RORouteHandler::closeRoute(const bool mayBeDisconnected) {
     if (myActiveRoute.size() == 0) {
         if (myActiveRouteRefID != "" && myCurrentAlternatives != nullptr) {
@@ -509,6 +491,17 @@ RORouteHandler::closeVehicle() {
             registerLastDepart();
         }
     }
+}
+
+
+void 
+RORouteHandler::closeVType() {
+    if (myNet.addVehicleType(myCurrentVType)) {
+        if (myCurrentVTypeDistribution != nullptr) {
+            myCurrentVTypeDistribution->add(myCurrentVType, myCurrentVType->defaultProbability);
+        }
+    }
+    myCurrentVType = nullptr;
 }
 
 

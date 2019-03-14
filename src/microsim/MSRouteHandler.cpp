@@ -427,33 +427,6 @@ MSRouteHandler::openRoute(const SUMOSAXAttributes& attrs) {
 
 
 void
-MSRouteHandler::myEndElement(int element) {
-    SUMORouteHandler::myEndElement(element);
-    switch (element) {
-        case SUMO_TAG_VTYPE: {
-            MSVehicleType* vehType = MSVehicleType::build(*myCurrentVType);
-            delete myCurrentVType;
-            myCurrentVType = nullptr;
-            if (!MSNet::getInstance()->getVehicleControl().addVType(vehType)) {
-                const std::string id = vehType->getID();
-                delete vehType;
-                if (!MSGlobals::gStateLoaded) {
-                    throw ProcessError("Another vehicle type (or distribution) with the id '" + id + "' exists.");
-                }
-            } else {
-                if (myCurrentVTypeDistribution != nullptr) {
-                    myCurrentVTypeDistribution->add(vehType, vehType->getDefaultProbability());
-                }
-            }
-        }
-        break;
-        default:
-            break;
-    }
-}
-
-
-void
 MSRouteHandler::closeRoute(const bool mayBeDisconnected) {
     std::string type = "vehicle";
     if (mayBeDisconnected) {
@@ -738,6 +711,26 @@ MSRouteHandler::closePerson() {
     myVehicleParameter = nullptr;
     myActivePlan = nullptr;
 }
+
+
+void
+MSRouteHandler::closeVType() {
+    MSVehicleType* vehType = MSVehicleType::build(*myCurrentVType);
+    delete myCurrentVType;
+    myCurrentVType = nullptr;
+    if (!MSNet::getInstance()->getVehicleControl().addVType(vehType)) {
+        const std::string id = vehType->getID();
+        delete vehType;
+        if (!MSGlobals::gStateLoaded) {
+            throw ProcessError("Another vehicle type (or distribution) with the id '" + id + "' exists.");
+        }
+    } else {
+        if (myCurrentVTypeDistribution != nullptr) {
+            myCurrentVTypeDistribution->add(vehType, vehType->getDefaultProbability());
+        }
+    }
+}
+
 
 void
 MSRouteHandler::closeContainer() {
