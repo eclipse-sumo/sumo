@@ -68,6 +68,8 @@ TAG_TLL = 'tlLogic'
 TAG_CONNECTION = 'connection'
 TAG_CROSSING = 'crossing'
 TAG_ROUNDABOUT = 'roundabout'
+TAG_LANE = 'lane'
+TAG_PARAM = 'param'
 
 # see CAVEAT1
 IDATTRS = defaultdict(lambda: ('id',))
@@ -76,6 +78,8 @@ IDATTRS[TAG_CONNECTION] = ('from', 'to', 'fromLane', 'toLane')
 IDATTRS[TAG_CROSSING] = ('node', 'edges')
 IDATTRS[TAG_ROUNDABOUT] = ('edges',)
 IDATTRS['interval'] = ('begin', 'end')
+IDATTRS[TAG_LANE] = ('index',)
+IDATTRS[TAG_PARAM] = ('key',)
 
 DELETE_ELEMENT = 'delete'  # the xml element for signifying deletes
 
@@ -143,7 +147,7 @@ class AttributeStore:
         # only store a single instance of this tuple to conserve memory
         return self.attrnames[instance]
 
-    def getAttrs(self, xmlnode):
+    def getAttrs(self, xmlnode, parentID):
         names = self.getNames(xmlnode)
         values = tuple([self.getValue(xmlnode, a) for a in names])
         children = None
@@ -153,10 +157,12 @@ class AttributeStore:
         tag = xmlnode.localName
         id = tuple([xmlnode.getAttribute(a)
                     for a in IDATTRS[tag] if xmlnode.hasAttribute(a)])
+        if tag == TAG_LANE:
+            id = tuple([parentID] + list(id))
         return tag, id, children, (names, values, children)
 
-    def store(self, xmlnode):
-        tag, id, children, attrs = self.getAttrs(xmlnode)
+    def store(self, xmlnode, parentID=None):
+        tag, id, children, attrs = self.getAttrs(xmlnode, parentID)
         tagid = (tag, id)
         if id != ():
             self.ids_deleted.add(tagid)
@@ -165,13 +171,13 @@ class AttributeStore:
             if children:
                 for child in xmlnode.childNodes:
                     if child.nodeType == Node.ELEMENT_NODE:
-                        children.store(child)
+                        children.store(child, id)
         else:
             self.no_children_supported(children, tag)
             self.idless_deleted[tag].add(attrs)
 
-    def compare(self, xmlnode):
-        tag, id, children, attrs = self.getAttrs(xmlnode)
+    def compare(self, xmlnode, parentID=None):
+        tag, id, children, attrs = self.getAttrs(xmlnode, parentID)
         tagid = (tag, id)
         if id != ():
             if tagid in self.ids_deleted:
@@ -186,7 +192,7 @@ class AttributeStore:
             if children:
                 for child in xmlnode.childNodes:
                     if child.nodeType == Node.ELEMENT_NODE:
-                        children.compare(child)
+                        children.compare(child, id)
                 if tag == TAG_TLL or tag in self.copy_tags:  # see CAVEAT2
                     child_strings = StringIO()
                     children.writeDeleted(child_strings)
@@ -199,7 +205,7 @@ class AttributeStore:
                             self.type, self.copy_tags, self.level + 1)
                         for child in xmlnode.childNodes:
                             if child.nodeType == Node.ELEMENT_NODE:
-                                children.compare(child)
+                                children.compare(child, id)
                         self.id_attrs[tagid] = self.id_attrs[
                             tagid][0:2] + (children,)
 
@@ -332,6 +338,8 @@ class AttributeStore:
 
     def id_string(self, tag, id):
         idattrs = IDATTRS[tag]
+        if tag == TAG_LANE:
+            id = id[1:]
         return ' '.join(['%s="%s"' % (n, v) for n, v in sorted(zip(idattrs, id))])
 
 
