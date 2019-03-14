@@ -2986,6 +2986,7 @@ NBEdge::append(NBEdge* e) {
     myConnections = e->myConnections;
     myTurnDestination = e->myTurnDestination;
     myPossibleTurnDestination = e->myPossibleTurnDestination;
+    myConnectionsToDelete = e->myConnectionsToDelete;
     // set the node
     myTo = e->myTo;
     myToBorder = e->myToBorder;

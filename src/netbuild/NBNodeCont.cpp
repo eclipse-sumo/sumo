@@ -1152,6 +1152,11 @@ NBNodeCont::joinNodeCluster(NodeSet cluster, NBDistrictCont& dc, NBEdgeCont& ec,
             }
         }
     }
+#ifdef DEBUG_JOINJUNCTIONS
+    std::cout << "joining cluster " << joinNamedToString(cluster, ' ') << "\n"
+        << "  incoming=" << toString(clusterIncoming) << "\n"
+        << "  inside=" << toString(inside) << "\n";
+#endif
 
     // determine possible connectivity from outside edges
     std::map<NBEdge*, EdgeSet> reachable;
