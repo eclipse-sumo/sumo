@@ -100,6 +100,9 @@ protected:
     /// @brief opens a route for reading
     virtual void openRoute(const SUMOSAXAttributes& attrs) = 0;
 
+    /// @brief opens a trip for reading
+    virtual void openTrip(const SUMOSAXAttributes& attrs) = 0;
+
     /**closes (ends) the building of a route.
      * Afterwards no edges may be added to it;
      * this method may throw exceptions when

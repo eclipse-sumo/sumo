@@ -172,18 +172,18 @@ GNERouteHandler::openRoute(const SUMOSAXAttributes& attrs) {
     myRouteID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_ROUTE, SUMO_ATTR_ID, myAbort);
     myEdgeIDs = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, myRouteID, SUMO_TAG_ROUTE, SUMO_ATTR_EDGES, myAbort);
     myRouteColor = GNEAttributeCarrier::parseAttributeFromXML<RGBColor>(attrs, myRouteID, SUMO_TAG_ROUTE, SUMO_ATTR_COLOR, myAbort);
+
+}
+
+
+void 
+GNERouteHandler::openTrip(const SUMOSAXAttributes& attrs) {
+    myAbort = false;
     // parse attributes of Trips
-    if (attrs.hasAttribute(SUMO_ATTR_FROM)) {
-        myFromID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_TRIP, SUMO_ATTR_FROM, myAbort);
-    } else {
-        myFromID.clear();
-    }
-    if (attrs.hasAttribute(SUMO_ATTR_FROM)) {
-        myToID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_TRIP, SUMO_ATTR_TO, myAbort);
-    } else {
-        myToID.clear();
-    }
-    if (attrs.hasAttribute(SUMO_ATTR_FROM)) {
+    myFromID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_TRIP, SUMO_ATTR_FROM, myAbort);
+    myToID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_TRIP, SUMO_ATTR_TO, myAbort);
+    // attribute VIA is optional
+    if (attrs.hasAttribute(SUMO_ATTR_VIA)) {
         myViaIDs = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_TRIP, SUMO_ATTR_VIA, myAbort);
     } else {
         myViaIDs.clear();

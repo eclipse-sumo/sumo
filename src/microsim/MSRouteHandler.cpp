@@ -326,9 +326,6 @@ MSRouteHandler::myStartElement(int element,
             case SUMO_TAG_FLOW:
                 parseFromViaTo("flow", attrs);
                 break;
-            case SUMO_TAG_TRIP:
-                parseFromViaTo("trip", attrs);
-                break;
             default:
                 break;
         }
@@ -423,6 +420,12 @@ MSRouteHandler::openRoute(const SUMOSAXAttributes& attrs) {
     if (ok && myCurrentCosts != -1 && myCurrentCosts < 0) {
         WRITE_ERROR("Invalid cost for route '" + myActiveRouteID + "'.");
     }
+}
+
+
+void 
+MSRouteHandler::openTrip(const SUMOSAXAttributes& attrs) {
+    parseFromViaTo("trip", attrs);
 }
 
 

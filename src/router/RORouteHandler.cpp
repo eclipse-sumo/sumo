@@ -229,11 +229,6 @@ RORouteHandler::myStartElement(int element,
             myActiveRouteProbability = DEFAULT_VEH_PROB;
             parseFromViaTo("flow", attrs);
             break;
-        case SUMO_TAG_TRIP: {
-            myActiveRouteProbability = DEFAULT_VEH_PROB;
-            parseFromViaTo("trip", attrs);
-        }
-        break;
         default:
             break;
     }
@@ -326,6 +321,13 @@ RORouteHandler::openRoute(const SUMOSAXAttributes& attrs) {
     if (ok && myCurrentCosts != -1 && myCurrentCosts < 0) {
         myErrorOutput->inform("Invalid cost for route '" + myActiveRouteID + "'.");
     }
+}
+
+
+void 
+RORouteHandler::openTrip(const SUMOSAXAttributes& attrs) {
+    myActiveRouteProbability = DEFAULT_VEH_PROB;
+    parseFromViaTo("trip", attrs);
 }
 
 
