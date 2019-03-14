@@ -811,9 +811,6 @@ MSRouteHandler::closeTrip() {
     myVehicleParameter->parametersSet |= VEHPARS_FORCE_REROUTE;
     closeRoute(true);
     closeVehicle();
-    delete myVehicleParameter;
-    myVehicleParameter = nullptr;
-    myInsertStopEdgesAt = -1;
 }
 
 

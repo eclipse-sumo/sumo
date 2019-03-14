@@ -129,6 +129,8 @@ SUMORouteHandler::myStartElement(int element,
             addStop(attrs);
             break;
         case SUMO_TAG_TRIP: {
+            // open route
+            openRoute(attrs);
             myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs, true);
             if (myVehicleParameter->id == "") {
                 WRITE_WARNING("Omitting trip ids is deprecated!");
@@ -201,6 +203,9 @@ SUMORouteHandler::myEndElement(int element) {
             break;
         case SUMO_TAG_TRIP:
             closeTrip();
+            delete myVehicleParameter;
+            myVehicleParameter = nullptr;
+            myInsertStopEdgesAt = -1;
             break;
         case SUMO_TAG_VTYPE_DISTRIBUTION:
             closeVehicleTypeDistribution();

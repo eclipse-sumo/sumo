@@ -126,6 +126,15 @@ private:
     /// @brief string for saving parsed route colors
     RGBColor myRouteColor;
 
+    /// @brief string for saving parsed from edge ID
+    std::string myFromID;
+
+    /// @brief string for saving parsed to edge ID
+    std::string myToID;
+
+    /// @brief string for saving parsed via edges IDs
+    std::string myViaIDs;
+
     /// @brief pointer to View's Net
     GNEViewNet* myViewNet;
 

@@ -168,38 +168,54 @@ GNERouteHandler::closeVehicleTypeDistribution() {
 void 
 GNERouteHandler::openRoute(const SUMOSAXAttributes& attrs) {
     myAbort = false;
-    // parse attribute of calibrator routes
+    // parse attribute of routes
     myRouteID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_ROUTE, SUMO_ATTR_ID, myAbort);
     myEdgeIDs = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, myRouteID, SUMO_TAG_ROUTE, SUMO_ATTR_EDGES, myAbort);
     myRouteColor = GNEAttributeCarrier::parseAttributeFromXML<RGBColor>(attrs, myRouteID, SUMO_TAG_ROUTE, SUMO_ATTR_COLOR, myAbort);
+    // parse attributes of Trips
+    if (attrs.hasAttribute(SUMO_ATTR_FROM)) {
+        myFromID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_TRIP, SUMO_ATTR_FROM, myAbort);
+    } else {
+        myFromID.clear();
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_FROM)) {
+        myToID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_TRIP, SUMO_ATTR_TO, myAbort);
+    } else {
+        myToID.clear();
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_FROM)) {
+        myViaIDs = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_TRIP, SUMO_ATTR_VIA, myAbort);
+    } else {
+        myViaIDs.clear();
+    }
 }
 
 
 void 
 GNERouteHandler::closeRoute(const bool /* mayBeDisconnected */) {
-    // Continue if all parameters were sucesfully loaded
-    if (!myAbort) {
-        // obtain edges (And show warnings if isn't valid)
-        std::vector<GNEEdge*> edges;
-        if (GNEAttributeCarrier::canParse<std::vector<GNEEdge*> >(myViewNet->getNet(), myEdgeIDs, true)) {
-            edges = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(myViewNet->getNet(), myEdgeIDs);
-        }
-        // check that all elements are valid
-        if (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_ROUTE, myRouteID, false) != nullptr) {
-            WRITE_WARNING("There is another " + toString(SUMO_TAG_ROUTE) + " with the same ID='" + myRouteID + "'.");
-        } else if (edges.size() == 0) {
-            WRITE_WARNING("Routes needs at least one edge.");
+    // obtain edges (And show warnings if isn't valid)
+    std::vector<GNEEdge*> edges;
+    if (GNEAttributeCarrier::canParse<std::vector<GNEEdge*> >(myViewNet->getNet(), myEdgeIDs, true)) {
+        edges = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(myViewNet->getNet(), myEdgeIDs);
+    }
+    // check that all elements are valid
+    if (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_ROUTE, myRouteID, false) != nullptr) {
+        WRITE_WARNING("There is another " + toString(SUMO_TAG_ROUTE) + " with the same ID='" + myRouteID + "'.");
+    } else if (edges.size() == 0) {
+        WRITE_WARNING("Routes needs at least one edge.");
+    } else {
+        // creaste GNERoute
+        GNERoute* route = new GNERoute(myViewNet, myRouteID, edges, myRouteColor);
+        if (myUndoDemandElements) {
+            myViewNet->getUndoList()->p_begin("add " + route->getTagStr());
+            myViewNet->getUndoList()->add(new GNEChange_DemandElement(route, true), true);
+            myViewNet->getUndoList()->p_end();
         } else {
-            // creaste GNERoute
-            GNERoute* route = new GNERoute(myViewNet, myRouteID, edges, myRouteColor);
-            if (myUndoDemandElements) {
-                myViewNet->getUndoList()->p_begin("add " + route->getTagStr());
-                myViewNet->getUndoList()->add(new GNEChange_DemandElement(route, true), true);
-                myViewNet->getUndoList()->p_end();
-            } else {
-                myViewNet->getNet()->insertDemandElement(route);
-                route->incRef("buildRoute");
+            myViewNet->getNet()->insertDemandElement(route);
+            for (const auto &i : edges) {
+                i->addDemandElementChild(route);
             }
+            route->incRef("buildRoute");
         }
     }
 }
@@ -268,10 +284,22 @@ GNERouteHandler::closeFlow() {
 
 void 
 GNERouteHandler::closeTrip() {
-    // build trip
-    /*
-    buildTrip(myViewNet, myUndoDemandElements, myVehicleParameter);
-    */
+    // force reroute
+    myVehicleParameter->parametersSet |= VEHPARS_FORCE_REROUTE;
+    // obtain from and to edges
+    GNEEdge *from = myViewNet->getNet()->retrieveEdge(myFromID, false);
+    GNEEdge *to = myViewNet->getNet()->retrieveEdge(myToID, false);
+    // check if edges are valid
+    if (from == nullptr) {
+        WRITE_WARNING("Invalid 'from' edge used in trip '" + myVehicleParameter->vtypeid + "'.");
+    } else if (to == nullptr) { 
+        WRITE_WARNING("Invalid 'to' edge used in trip '" + myVehicleParameter->vtypeid + "'.");
+    } else if (!GNEAttributeCarrier::canParse<std::vector<GNEEdge*> >(myViewNet->getNet(), myEdgeIDs, false)) {
+        WRITE_WARNING("Invalid 'via' edges used in trip '" + myVehicleParameter->vtypeid + "'.");
+    } else {
+        // build trips
+        buildTrip(myViewNet, true, myVehicleParameter, from, to, GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(myViewNet->getNet(), myEdgeIDs)); 
+    }
 }
 
 

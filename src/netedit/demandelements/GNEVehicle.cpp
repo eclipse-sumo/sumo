@@ -245,11 +245,20 @@ GNEVehicle::updateGeometry(bool updateGrid) {
 
 Position
 GNEVehicle::getPositionInView() const {
-    if (myRoute->getGNEEdges().at(0)->getLanes().front()->getShape().length() < 2.5) {
-        return myRoute->getGNEEdges().at(0)->getLanes().front()->getShape().front();
+    // obtain lane depending of edited vehicle type
+    GNELane *lane = nullptr;
+    if (myRoute) {
+        lane = myRoute->getGNEEdges().at(0)->getLanes().front();
+    } else if (myFrom) {
+        lane = myFrom->getLanes().front();
     } else {
-        Position A = myRoute->getGNEEdges().at(0)->getLanes().front()->getShape().positionAtOffset(2.5);
-        Position B = myRoute->getGNEEdges().at(0)->getLanes().back()->getShape().positionAtOffset(2.5);
+        throw ProcessError("Invalid vehicle tag");
+    }
+    if (lane->getShape().length() < 2.5) {
+        return lane->getShape().front();
+    } else {
+        Position A = lane->getShape().positionAtOffset(2.5);
+        Position B = lane->getShape().positionAtOffset(2.5);
         // return Middle point
         return Position((A.x() + B.x()) / 2, (A.y() + B.y()) / 2);
     }

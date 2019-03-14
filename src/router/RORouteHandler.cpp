@@ -587,9 +587,6 @@ void
 RORouteHandler::closeTrip() {
     closeRoute(true);
     closeVehicle();
-    delete myVehicleParameter;
-    myVehicleParameter = nullptr;
-    myInsertStopEdgesAt = -1;
 }
 
 
