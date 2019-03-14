@@ -1246,7 +1246,7 @@ NBNodeCont::joinNodeCluster(NodeSet cluster, NBDistrictCont& dc, NBEdgeCont& ec,
         for (NBEdge* out : newNode->getOutgoingEdges()) {
             if (reachable[in].count(out) == 0 && !ec.hasPostProcessConnection(in->getID(), out->getID())) {
                 //std::cout << " removeUnreachable in=" << in->getID() << " out=" << out->getID() << "\n";
-                in->removeFromConnections(out, -1, -1, true);
+                in->removeFromConnections(out, -1, -1, true, false, true);
             }
         }
     }

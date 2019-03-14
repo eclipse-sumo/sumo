@@ -1848,7 +1848,7 @@ NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing,
         if ((*i)->getFromNode() == this
                 && !incoming->isTurningDirectionAt(*i)
                 && (vehPerm & (*i)->getPermissions()) != 0) {
-            //std::cout << incoming->getID() << " -> " << outgoing->getID() << " partLeft because auf " << (*i)->getID() << "\n";
+            //std::cout << incoming->getID() << " -> " << outgoing->getID() << " partLeft because auf " << (*i)->getID() << " turn=" << incoming->getTurnDestination(true) << "\n";
             return LINKDIR_PARTLEFT;
         }
         if (leftHand) {

@@ -921,7 +921,7 @@ public:
      * @param[in] tryLater If the connection does not exist, try again during recheckLanes()
      * @param[in] adaptToLaneRemoval we are in the process of removing a complete lane, adapt all connections accordingly
      */
-    void removeFromConnections(NBEdge* toEdge, int fromLane = -1, int toLane = -1, bool tryLater = false, const bool adaptToLaneRemoval = false);
+    void removeFromConnections(NBEdge* toEdge, int fromLane = -1, int toLane = -1, bool tryLater = false, const bool adaptToLaneRemoval = false, const bool keepPossibleTurns = false);
 
     /// @brief remove an existent connection of edge
     bool removeFromConnections(NBEdge::Connection connectionToRemove);

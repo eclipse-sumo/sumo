@@ -1285,7 +1285,8 @@ NBEdge::remapConnections(const EdgeVector& incoming) {
 
 
 void
-NBEdge::removeFromConnections(NBEdge* toEdge, int fromLane, int toLane, bool tryLater, const bool adaptToLaneRemoval) {
+NBEdge::removeFromConnections(NBEdge* toEdge, int fromLane, int toLane, bool tryLater, const bool adaptToLaneRemoval,
+        const bool keepPossibleTurns) {
     // remove from "myConnections"
     const int fromLaneRemoved = adaptToLaneRemoval && fromLane >= 0 ? fromLane : -1;
     const int toLaneRemoved = adaptToLaneRemoval && toLane >= 0 ? toLane : -1;
@@ -1327,7 +1328,7 @@ NBEdge::removeFromConnections(NBEdge* toEdge, int fromLane, int toLane, bool try
     if (myTurnDestination == toEdge && fromLane < 0) {
         myTurnDestination = nullptr;
     }
-    if (myPossibleTurnDestination == toEdge && fromLane < 0) {
+    if (myPossibleTurnDestination == toEdge && fromLane < 0 && !keepPossibleTurns) {
         myPossibleTurnDestination = nullptr;
     }
     if (tryLater) {
@@ -2252,7 +2253,7 @@ NBEdge::recheckLanes() {
     }
     // check delayed removals
     for (std::vector<Connection>::iterator it = myConnectionsToDelete.begin(); it != myConnectionsToDelete.end(); ++it) {
-        removeFromConnections(it->toEdge, it->fromLane, it->toLane);
+        removeFromConnections(it->toEdge, it->fromLane, it->toLane, false, false, true);
     }
     // check involuntary dead end at "real" junctions
     if (getPermissions() != SVC_PEDESTRIAN) {
