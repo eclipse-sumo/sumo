@@ -157,8 +157,6 @@ class AttributeStore:
         tag = xmlnode.localName
         id = tuple([xmlnode.getAttribute(a)
                     for a in IDATTRS[tag] if xmlnode.hasAttribute(a)])
-        if tag == TAG_LANE:
-            id = tuple([parentID] + list(id))
         return tag, id, children, (names, values, children)
 
     def store(self, xmlnode, parentID=None):
@@ -338,8 +336,6 @@ class AttributeStore:
 
     def id_string(self, tag, id):
         idattrs = IDATTRS[tag]
-        if tag == TAG_LANE:
-            id = id[1:]
         return ' '.join(['%s="%s"' % (n, v) for n, v in sorted(zip(idattrs, id))])
 
 
