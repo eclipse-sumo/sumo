@@ -91,6 +91,9 @@ protected:
     virtual void myEndElement(int element);
     //@}
 
+    /// @name open element functions
+    //@{
+
     /// @brief opens a type distribution for reading
     virtual void openVehicleTypeDistribution(const SUMOSAXAttributes& attrs) = 0;
 
@@ -102,6 +105,10 @@ protected:
 
     /// @brief opens a trip for reading
     virtual void openTrip(const SUMOSAXAttributes& attrs) = 0;
+    //@}
+
+    /// @name close element functions
+    //@{
 
     /**closes (ends) the building of a route.
      * Afterwards no edges may be added to it;
@@ -134,6 +141,10 @@ protected:
 
     /// @brief Ends the processing of a trip
     virtual void closeTrip() = 0;
+    //@}
+
+    /// @name add element functions
+    //@{
 
     /// @brief Processing of a stop
     virtual void addStop(const SUMOSAXAttributes& attrs) = 0;
@@ -143,6 +154,7 @@ protected:
 
     /// @brief add a fully specified walk
     virtual void addWalk(const SUMOSAXAttributes& attrs) = 0;
+    //@}
 
     /// @brief Checks whether the route file is sorted by departure time if needed
     bool checkLastDepart();
