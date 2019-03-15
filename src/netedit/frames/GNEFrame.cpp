@@ -918,8 +918,9 @@ GNEFrame::AttributesEditor::RowEditor::showRow(const GNEAttributeCarrier::Attrib
             myTextFieldStrings->disable();
         }
     }
-    // if Tag correspond to an network element but we're in demand mode, disable all elements
-    if ((myAttributesEditorParent->myFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myACAttr.getTagPropertyParent().isDemandElement()) {
+    // if Tag correspond to an network element but we're in demand mode (or vice versa), disable all elements
+    if ((myAttributesEditorParent->myFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && !myACAttr.getTagPropertyParent().isNetElement() ||
+        (myAttributesEditorParent->myFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myACAttr.getTagPropertyParent().isDemandElement()) {
         myColorEditor->disable();
         myRadioButton->disable();
         myTextFieldInt->disable();
@@ -928,6 +929,11 @@ GNEFrame::AttributesEditor::RowEditor::showRow(const GNEAttributeCarrier::Attrib
         myChoicesCombo->disable();
         myBoolCheckButton->disable();
         myButtonCombinableChoices->disable();
+    }
+    // special case for Default vehicle types (ID cannot be edited)
+    if ((ACAttr.getTagPropertyParent().getTag() == SUMO_TAG_VTYPE) && (ACAttr.getAttr() == SUMO_ATTR_ID) &&
+        ((value == DEFAULT_VTYPE_ID) || (value == DEFAULT_PEDTYPE_ID) || (value == DEFAULT_BIKETYPE_ID))) {
+         myTextFieldStrings->disable();
     }
     // Show Row
     show();
@@ -998,11 +1004,16 @@ GNEFrame::AttributesEditor::RowEditor::refreshRow(const std::string& value, bool
             myTextFieldStrings->disable();
         }
     } else if (myChoicesCombo->shown()) {
-        // set last valid value and restore color if onlyValid is disabled
-        if (myChoicesCombo->getTextColor() == FXRGB(0, 0, 0) || forceRefresh) {
-            myChoicesCombo->setText(value.c_str());
-            myChoicesCombo->setTextColor(FXRGB(0, 0, 0));
+        // fill comboBox again
+        myChoicesCombo->clearItems();
+        for (const auto& it : myACAttr.getDiscreteValues()) {
+            myChoicesCombo->appendItem(it.c_str());
         }
+        // show combo box with values
+        myChoicesCombo->setNumVisible((int)myACAttr.getDiscreteValues().size());
+        myChoicesCombo->setCurrentItem(myChoicesCombo->findItem(value.c_str()));
+        myChoicesCombo->setTextColor(FXRGB(0, 0, 0));
+        myChoicesCombo->show();
         // disable depending of disjointAttributeEnabled
         if (disjointAttributeEnabled) {
             myChoicesCombo->enable();
@@ -1077,6 +1088,8 @@ GNEFrame::AttributesEditor::RowEditor::onCmdOpenAttributeDialog(FXObject* obj, F
         if (myAttributesEditorParent->myEditedACs.size() > 1) {
             myAttributesEditorParent->myFrameParent->getViewNet()->getUndoList()->p_end();
         }
+        // update frame parent after attribute sucesfully set
+        myAttributesEditorParent->myFrameParent->updateFrameAfterChangeAttribute();
         return 1;
     } else {
         throw ProcessError("Invalid call to onCmdOpenAttributeDialog");
@@ -1189,8 +1202,8 @@ GNEFrame::AttributesEditor::RowEditor::onCmdSetAttribute(FXObject*, FXSelector, 
             myTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
             myTextFieldStrings->killFocus();
         }
-        // call attributeSetInEditor
-        myAttributesEditorParent->myFrameParent->attributeSetInEditor();
+        // update frame parent after attribute sucesfully set
+        myAttributesEditorParent->myFrameParent->updateFrameAfterChangeAttribute();
     } else {
         // If value of TextField isn't valid, change color to Red depending of type
         if (myACAttr.isCombinable()) {
@@ -2107,6 +2120,8 @@ GNEFrame::GenericParametersEditor::onCmdEditGenericParameter(FXObject*, FXSelect
                 i->setAttribute(GNE_ATTR_GENERIC, getGenericParametersStr(), myFrameParent->getViewNet()->getUndoList());
             }
             myFrameParent->getViewNet()->getUndoList()->p_end();
+            // update frame parent after attribute sucesfully set
+            myFrameParent->updateFrameAfterChangeAttribute();
         }
         // Refresh parameter editor
         refreshGenericParametersEditor();
@@ -2178,6 +2193,8 @@ GNEFrame::GenericParametersEditor::onCmdSetGenericParameter(FXObject*, FXSelecto
             i->setAttribute(GNE_ATTR_GENERIC, getGenericParametersStr(), myFrameParent->getViewNet()->getUndoList());
         }
         myFrameParent->getViewNet()->getUndoList()->p_end();
+        // update frame parent after attribute sucesfully set
+        myFrameParent->updateFrameAfterChangeAttribute();
     }
     return 1;
 }
@@ -2765,10 +2782,9 @@ GNEFrame::disableModuls() {
 
 
 void 
-GNEFrame::attributeSetInEditor() {
+GNEFrame::updateFrameAfterChangeAttribute() {
     // this function has to be reimplemente in all child frames that uses a ItemSelector modul
 }
-
 
 void
 GNEFrame::openAttributesEditorExtendedDialog()  {

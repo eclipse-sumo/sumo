@@ -687,6 +687,8 @@ enum {
     MID_GNE_VEHICLETYPEFRAME_CREATE,
     /// @brief delete a vehicle type
     MID_GNE_VEHICLETYPEFRAME_DELETE,
+    /// @brief reset a default vehicle type
+    MID_GNE_VEHICLETYPEFRAME_RESET,
     /// @brief copy a vehicle type
     MID_GNE_VEHICLETYPEFRAME_COPY,
     /// @}

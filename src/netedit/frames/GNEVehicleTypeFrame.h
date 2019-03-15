@@ -113,6 +113,9 @@ public:
         /// @brief Called when "Delete Vehicle Type" button is clicked
         long onCmdDeleteVehicleType(FXObject*, FXSelector, void*);
 
+        /// @brief Called when "Delete Vehicle Type" button is clicked
+        long onCmdResetVehicleType(FXObject*, FXSelector, void*);
+
         /// @brief Called when "Copy Vehicle Type" button is clicked
         long onCmdCopyVehicleType(FXObject*, FXSelector, void*);
         /// @}
@@ -130,6 +133,9 @@ public:
 
         /// @brief "delete vehicle type" button
         FXButton* myDeleteVehicleTypeButton;
+
+        /// @brief "delete default vehicle type" button
+        FXButton* myResetDefaultVehicleTypeButton;
 
         /// @brief "copy vehicle type"
         FXButton* myCopyVehicleTypeButton;
@@ -156,6 +162,9 @@ protected:
 
     /// @brief disable moduls if element selected in itemSelector isn't valid
     void disableModuls();
+
+    /// @brief function called after set a valid attribute in AttributeCreator/AttributeEditor/GenericParametersEditor/...
+    void updateFrameAfterChangeAttribute();
 
     /// @brief open AttributesCreator extended dialog (used for editing advance attributes of Vehicle Types)
     void openAttributesEditorExtendedDialog();

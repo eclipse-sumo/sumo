@@ -786,8 +786,8 @@ protected:
     /// @brief disable moduls if element selected in itemSelector isn't valid (can be reimplemented in frame childs)
     virtual void disableModuls();
 
-    /// @brief function called after set a valid attribute in AttributeEditor
-    virtual void attributeSetInEditor();
+    /// @brief function called after set a valid attribute in AttributeCreator/AttributeEditor/GenericParametersEditor/...
+    virtual void updateFrameAfterChangeAttribute();
 
     /// @brief open AttributesCreator extended dialog (can be reimplemented in frame childs)
     virtual void openAttributesEditorExtendedDialog();

@@ -396,7 +396,7 @@ GNEInspectorFrame::inspectClickedElement(const GNEViewNetHelper::ObjectsUnderCur
 
 
 void 
-GNEInspectorFrame::attributeSetInEditor() {
+GNEInspectorFrame::updateFrameAfterChangeAttribute() {
     myNeteditAttributesEditor->refreshNeteditAttributesEditor(true);
     myGEOAttributesEditor->refreshGEOAttributesEditor(true);
 }

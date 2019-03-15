@@ -398,7 +398,7 @@ protected:
     void inspectClickedElement(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const Position& clickedPosition);
 
     /// @brief function called after set a valid attribute in AttributeEditor
-    void attributeSetInEditor();
+    void updateFrameAfterChangeAttribute();
 
 private:
     /// @brief Overlapped Inspection
