@@ -113,6 +113,7 @@ public:
         createNet();
         _IntermodalTrip trip(from, to, departPos, arrivalPos, speed, msTime, 0, vehicle, modeSet, myExternalEffort, externalFactor);
         std::vector<const _IntermodalEdge*> intoEdges;
+        //std::cout << "compute from=" << from->getID() << " to=" << to->getID() << " dPos=" << departPos << " aPos=" << arrivalPos << " stopID=" << stopID << " speed=" << speed << " veh=" << Named::getIDSecure(vehicle) << " modeSet=" << modeSet << " t=" << msTime << "\n";
         const bool success = myInternalRouter->compute(myIntermodalNet->getDepartEdge(from, trip.departPos),
                              stopID != "" ? myIntermodalNet->getStopEdge(stopID) : myIntermodalNet->getArrivalEdge(to, trip.arrivalPos),
                              &trip, msTime, intoEdges);
@@ -125,12 +126,20 @@ public:
             for (const _IntermodalEdge* iEdge : intoEdges) {
                 if (iEdge->includeInRoute(false)) {
                     if (iEdge->getLine() == "!stop") {
-                        into.back().destStop = iEdge->getID();
-                        if (myExternalEffort != nullptr) {
-                            into.back().description = myExternalEffort->output(iEdge->getNumericalID());
-                        }
-                        if (lastLine == "!ped") {
-                            lastLine = ""; // a stop always starts a new trip item
+                        if (into.size() > 0) {
+                            // previous stage ends at stop
+                            into.back().destStop = iEdge->getID();
+                            if (myExternalEffort != nullptr) {
+                                into.back().description = myExternalEffort->output(iEdge->getNumericalID());
+                            }
+                            if (lastLine == "!ped") {
+                                lastLine = ""; // a stop always starts a new trip item
+                            }
+                        } else {
+                            // trip starts at stop
+                            lastLine = "";
+                            into.push_back(TripItem("!stop"));
+                            into.back().destStop = iEdge->getID();
                         }
                     } else {
                         if (iEdge->getLine() != lastLine) {

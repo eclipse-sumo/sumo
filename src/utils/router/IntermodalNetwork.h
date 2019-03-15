@@ -428,6 +428,7 @@ public:
     */
     void addAccess(const std::string& stopId, const E* stopEdge, const double pos, const double length, const SumoXMLTag category) {
         assert(stopEdge != 0);
+        //std::cout << "addAccess stopId=" << stopId << " stopEdge=" << stopEdge->getID() << " pos=" << pos << " length=" << length << " cat=" << category << "\n";
         if (myStopConnections.count(stopId) == 0) {
             myStopConnections[stopId] = new StopEdge<E, L, N, V>(stopId, myNumericalID++, stopEdge);
             addEdge(myStopConnections[stopId]);
@@ -496,6 +497,26 @@ public:
                 }
                 addConnectors(depConn, arrConn, splitIndex + 1);
             }
+        } else {
+            // pedestrians cannot walk here:
+            // add depart connectors on the stop edge so that pedestrians may start at the stop
+            auto& splitList = myDepartLookup[stopEdge];
+            assert(splitList.size() > 0);
+            typename std::vector<_IntermodalEdge*>::const_iterator splitIt = splitList.begin();
+            double totalLength = 0.;
+            _IntermodalEdge* last = nullptr;
+            while (splitIt != splitList.end() && totalLength < pos) {
+                totalLength += (*splitIt)->getLength();
+                last = *splitIt;
+                ++splitIt;
+            }
+            auto* stopConnector = myStopConnections[stopId];
+            // insert before last
+            const double newLength = pos - (totalLength - last->getLength());
+            stopConnector->setLength(newLength);
+            splitList.insert(splitIt - 1, stopConnector);
+            // correct length of subsequent edge
+            last->setLength(last->getLength() - newLength);
         }
     }
 

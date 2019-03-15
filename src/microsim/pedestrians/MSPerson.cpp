@@ -574,7 +574,8 @@ MSPerson::proceed(MSNet* net, SUMOTime time) {
         if (bs != nullptr) {
             const double accessDist = bs->getAccessDistance(prior->getDestination());
             if (accessDist > 0.) {
-                myStep = myPlan->insert(myStep, new MSPersonStage_Access(prior->getDestination(), bs, bs->getAccessPos(prior->getDestination()), accessDist, false));
+                const double arrivalAtBs = (bs->getBeginLanePosition() + bs->getEndLanePosition()) / 2;
+                myStep = myPlan->insert(myStep, new MSPersonStage_Access(prior->getDestination(), bs, arrivalAtBs, accessDist, false));
             }
         }
     }
