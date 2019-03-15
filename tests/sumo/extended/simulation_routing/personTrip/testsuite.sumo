@@ -121,4 +121,7 @@ access_length
 
 # walking from one access-stop to another access-stop
 stop_access_stop
+
+# start directly at a stop and then ride
+ride_from_stop
 errors

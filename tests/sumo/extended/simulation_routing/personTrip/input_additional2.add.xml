@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2018-08-09 13:44:25.628253 by $Id$
+  options: -n net.net.xml -s stops.xml -l ptlines.xml -o pt.rou.xml <doubleminus>random-begin -e 10000
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="bus" vClass="bus"/>
+    <vType id="tram" vClass="tram"/>
+    <vType id="train" vClass="rail"/>
+    <vType id="subway" vClass="rail_urban"/>
+    <vType id="light_rail" vClass="rail_urban"/>
+    <vType id="monorail" vClass="rail"/>
+    <vType id="trolleybus" vClass="bus"/>
+    <vType id="aerialway" vClass="bus"/>
+    <vType id="ferry" vClass="ship"/>
+    <route id="busABCD" edges="A1A0 A0B0 B0B1 B1A1 A1A0 A0B0 B0B1" >
+        <stop busStop="busStopA" duration="30.00" until="76.0"/> <!-- A -->
+        <stop busStop="busStopB" duration="30.00" until="299.0"/> <!-- B -->
+        <stop busStop="busStopC" duration="30.00" until="452.0"/> <!-- C -->
+        <stop busStop="busStopD" duration="30.00" until="536.0"/> <!-- D -->
+    </route>
+    <route id="trainAB" edges="railSN" >
+        <stop busStop="stopA_N" duration="30.00" until="86.0"/> <!-- A -->
+        <stop busStop="stopB_N" duration="30.00" until="186.0"/> <!-- B -->
+    </route>
+    <route id="trainBA" edges="railNS" >
+        <stop busStop="stopB_S" duration="30.00" until="77.0"/> <!-- B -->
+        <stop busStop="stopA_S" duration="30.00" until="177.0"/> <!-- A -->
+    </route>
+    <route id="trainAC" edges="railWE" >
+        <stop busStop="stopA_E" duration="30.00" until="77.0"/> <!-- A -->
+        <stop busStop="stopC_E" duration="30.00" until="220.0"/> <!-- C -->
+    </route>
+    <route id="trainCA" edges="railEW" >
+        <stop busStop="stopC_W" duration="30.00" until="77.0"/> <!-- C -->
+        <stop busStop="stopA_W" duration="30.00" until="220.0"/> <!-- A -->
+    </route>
+
+    <flow id="busABCD" type="bus" route="busABCD" begin="5.0" end="10005.0" period="1200" line="bABCD"/>
+    <flow id="trainAB" type="train" route="trainAB" begin="315.0" end="10315.0" period="600" line="tAB"/>
+    <flow id="trainBA" type="train" route="trainBA" begin="362.0" end="10362.0" period="600" line="tBA"/>
+    <flow id="trainAC" type="train" route="trainAC" begin="451.0" end="10451.0" period="1800" line="tAC"/>
+    <flow id="trainCA" type="train" route="trainCA" begin="522.0" end="10522.0" period="1800" line="tCA"/>
+</routes>
