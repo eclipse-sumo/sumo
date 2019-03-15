@@ -113,7 +113,7 @@ public:
             return edge;
         }
         double getDestinationPos() const {
-            return stopDesc.endPos;
+            return (stopDesc.startPos + stopDesc.endPos) / 2;
         }
         void saveAsXML(OutputDevice& os, const bool /* extended */) const {
             stopDesc.write(os);

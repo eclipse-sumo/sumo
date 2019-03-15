@@ -164,7 +164,7 @@ ROPerson::Walk::saveAsXML(OutputDevice& os, const bool extended) const {
     if (dep != 0.) {
         os.writeAttr(SUMO_ATTR_DEPARTPOS, dep);
     }
-    if (arr != 0.) {
+    if (arr != 0. && destStop == "") {
         os.writeAttr(SUMO_ATTR_ARRIVALPOS, arr);
     }
     if (destStop != "") {

@@ -798,18 +798,28 @@ RORouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
                               + "\n The route can not be build.");
         ok = false;
     }
-    if (toID == "") {
-        const SUMOVehicleParameter::Stop* stop = myNet.getStoppingPlace(busStopID, SUMO_TAG_BUS_STOP);
-        if (stop == nullptr) {
-            myErrorOutput->inform("Unknown bus stop '" + busStopID + "' within a walk or personTrip of '" + myVehicleParameter->id + "'.");
-            ok = false;
-        }
-    }
+    double arrivalPos = 0;
     const ROEdge* to = myNet.getEdge(toID);
     if (toID != "" && to == nullptr) {
         myErrorOutput->inform("The edge '" + toID + "' within a walk or personTrip of '" + myVehicleParameter->id + "' is not known."
                               + "\n The route can not be build.");
         ok = false;
+    }
+    if (toID == "" && busStopID == "") {
+        myErrorOutput->inform("Either a destination edge or busStop must be define within a walk or personTrip of '" + myVehicleParameter->id + "'."
+                              + "\n The route can not be build.");
+        ok = false;
+    }
+
+    if (toID == "") {
+        const SUMOVehicleParameter::Stop* stop = myNet.getStoppingPlace(busStopID, SUMO_TAG_BUS_STOP);
+        if (stop == nullptr) {
+            myErrorOutput->inform("Unknown bus stop '" + busStopID + "' within a walk or personTrip of '" + myVehicleParameter->id + "'.");
+            ok = false;
+        } else {
+            to = myNet.getEdge(stop->lane.substr(0, stop->lane.rfind('_')));
+            arrivalPos = (stop->startPos + stop->endPos) / 2;
+        }
     }
 
     double departPos = myActivePerson->getParameter().departPos;
@@ -817,7 +827,6 @@ RORouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
         departPos = myActivePerson->getPlan().back()->getDestinationPos();
     }
 
-    double arrivalPos = 0.;
     if (attrs.hasAttribute(SUMO_ATTR_DEPARTPOS)) {
         WRITE_WARNING("The attribute departPos is no longer supported for walks, please use the person attribute, the arrivalPos of the previous step or explicit stops.");
     }
