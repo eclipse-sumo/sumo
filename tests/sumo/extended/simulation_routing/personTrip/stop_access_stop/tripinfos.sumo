@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri Mar 15 12:52:16 2019 by Eclipse SUMO Version v1_1_0+0435-678c69824b
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net2.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <vehroute-output.skip-ptlines value="true"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <personinfo id="p0" depart="0.00" type="DEFAULT_PEDTYPE">
+        <stop duration="1.00" arrival="1.00" arrivalPos="800.00" actType="waiting"/>
+        <walk depart="1.00" departPos="111.92" arrival="22.00" arrivalPos="86.23" duration="21.00" routeLength="25.69" timeLoss="2.50" maxSpeed="1.39"/>
+        <access stop="stopA_W" duration="71.00" routeLength="98.62"/>
+    </personinfo>
+    <personinfo id="p1" depart="100.00" type="DEFAULT_PEDTYPE">
+        <stop duration="1.00" arrival="101.00" arrivalPos="100.00" actType="waiting"/>
+        <walk depart="101.00" departPos="100.00" arrival="111.00" arrivalPos="111.92" duration="10.00" routeLength="11.92" timeLoss="1.42" maxSpeed="1.39"/>
+        <access stop="stopA_S" duration="12.00" routeLength="17.52"/>
+        <walk depart="123.00" departPos="111.92" arrival="144.00" arrivalPos="86.23" duration="21.00" routeLength="25.69" timeLoss="2.50" maxSpeed="1.39"/>
+        <access stop="stopA_W" duration="71.00" routeLength="98.62"/>
+    </personinfo>
+</tripinfos>

@@ -118,4 +118,7 @@ bike_public_walk
 
 # train access with given length
 access_length
+
+# walking from one access-stop to another access-stop
+stop_access_stop
 errors
