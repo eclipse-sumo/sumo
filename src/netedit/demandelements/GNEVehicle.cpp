@@ -46,9 +46,9 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const std::string &v
     GNEDemandElement(vehicleID, viewNet, (tag == SUMO_TAG_FLOW)? GLO_FLOW : GLO_VEHICLE, tag),
     SUMOVehicleParameter(),
     myVehicleType(vehicleType),
+    myRoute(route),
     myFrom(nullptr),
-    myTo(nullptr),
-    myRoute(route) {
+    myTo(nullptr) {
     // SUMOVehicleParameter ID has to be set manually
     id = vehicleID;
     // set manually vtypeID (needed for saving)
@@ -60,9 +60,9 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehiclePar
     GNEDemandElement(vehicleParameter.id, viewNet, (tag == SUMO_TAG_FLOW)? GLO_FLOW : GLO_VEHICLE, tag),
     SUMOVehicleParameter(vehicleParameter),
     myVehicleType(vehicleType),
+    myRoute(route),
     myFrom(nullptr),
-    myTo(nullptr),
-    myRoute(route) {
+    myTo(nullptr) {
     // SUMOVehicleParameter ID has to be set manually
     id = vehicleParameter.id;
     // set manually vtypeID (needed for saving)
@@ -74,9 +74,9 @@ GNEVehicle::GNEVehicle(GNEViewNet* viewNet, const std::string &tripID, GNEDemand
     GNEDemandElement(tripID, viewNet, GLO_TRIP, SUMO_TAG_TRIP),
     SUMOVehicleParameter(),
     myVehicleType(vehicleType),
+    myRoute(nullptr),
     myFrom(from),
     myTo(to),
-    myRoute(nullptr),
     myVia(viaEdges) {
 }
 
@@ -85,9 +85,9 @@ GNEVehicle::GNEVehicle(GNEViewNet* viewNet, const SUMOVehicleParameter &tripPara
     GNEDemandElement(tripParameter.id, viewNet, GLO_TRIP, SUMO_TAG_TRIP),
     SUMOVehicleParameter(tripParameter),
     myVehicleType(vehicleType),
+    myRoute(nullptr),
     myFrom(from),
     myTo(to),
-    myRoute(nullptr),
     myVia(viaEdges) {
 }
 

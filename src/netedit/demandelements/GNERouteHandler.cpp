@@ -349,7 +349,7 @@ GNERouteHandler::addTransport(const SUMOSAXAttributes& /*attrs*/) {
 
 
 void 
-GNERouteHandler::addTranship(const SUMOSAXAttributes& attrs) {
+GNERouteHandler::addTranship(const SUMOSAXAttributes& /*attrs*/) {
     // currently unused
 }
 
