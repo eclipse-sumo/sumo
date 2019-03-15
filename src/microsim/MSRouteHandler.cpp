@@ -1089,7 +1089,8 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
     const double departPosLat = attrs.getOpt<double>(SUMO_ATTR_DEPARTPOS_LAT, nullptr, ok, 0);
     if (ok) {
         myVehicleParameter->parametersSet |= VEHPARS_FORCE_REROUTE;
-        myActivePlan->push_back(new MSTransportable::Stage_Trip(from, to == nullptr ? &stoppingPlace->getLane().getEdge() : to, stoppingPlace, duration, modeSet, types, speed, walkFactor, departPosLat, attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS), arrivalPos));
+        MSStoppingPlace* fromStop = myActivePlan->empty() ? nullptr : myActivePlan->back()->getDestinationStop();
+        myActivePlan->push_back(new MSTransportable::Stage_Trip(from, fromStop, to == nullptr ? &stoppingPlace->getLane().getEdge() : to, stoppingPlace, duration, modeSet, types, speed, walkFactor, departPosLat, attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS), arrivalPos));
     }
     myActiveRoute.clear();
 }

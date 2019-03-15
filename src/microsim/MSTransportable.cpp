@@ -150,10 +150,14 @@ MSTransportable::Stage::setDestination(const MSEdge* newDestination, MSStoppingP
 /* -------------------------------------------------------------------------
 * MSTransportable::Stage_Trip - methods
 * ----------------------------------------------------------------------- */
-MSTransportable::Stage_Trip::Stage_Trip(const MSEdge* origin, const MSEdge* destination, MSStoppingPlace* toStop, const SUMOTime duration, const SVCPermissions modeSet,
-                                        const std::string& vTypes, const double speed, const double walkFactor, const double departPosLat, const bool hasArrivalPos, const double arrivalPos) :
+MSTransportable::Stage_Trip::Stage_Trip(const MSEdge* origin, MSStoppingPlace* fromStop,
+                const MSEdge* destination, MSStoppingPlace* toStop,
+                const SUMOTime duration, const SVCPermissions modeSet,
+                const std::string& vTypes, const double speed, const double walkFactor,
+                const double departPosLat, const bool hasArrivalPos, const double arrivalPos):
     MSTransportable::Stage(destination, toStop, arrivalPos, TRIP),
     myOrigin(origin),
+    myOriginStop(fromStop),
     myDuration(duration),
     myModeSet(modeSet),
     myVTypes(vTypes),
@@ -827,7 +831,7 @@ MSTransportable::rerouteParkingArea(MSStoppingPlace* orig, MSStoppingPlace* repl
         if (nextStage->getStageType() == TRIP) {
             dynamic_cast<MSTransportable::Stage_Trip*>(nextStage)->setOrigin(stage->getDestination());
         } else if (nextStage->getStageType() == MOVING_WITHOUT_VEHICLE) {
-            Stage_Trip* newStage = new Stage_Trip(stage->getDestination(), nextStage->getDestination(),
+            Stage_Trip* newStage = new Stage_Trip(stage->getDestination(), nullptr, nextStage->getDestination(),
                     nextStage->getDestinationStop(), -1, 0, "", -1, 1, 0, true, nextStage->getArrivalPos());
             removeStage(1);
             appendStage(newStage, 1);
@@ -845,7 +849,7 @@ MSTransportable::rerouteParkingArea(MSStoppingPlace* orig, MSStoppingPlace* repl
                     if (prevStage->getStageType() == TRIP) {
                         dynamic_cast<MSTransportable::Stage_Trip*>(prevStage)->setDestination(stage->getDestination(), replacement);
                     } else if (prevStage->getStageType() == MOVING_WITHOUT_VEHICLE) {
-                        Stage_Trip* newStage = new Stage_Trip(prevStage->getFromEdge(), stage->getDestination(),
+                        Stage_Trip* newStage = new Stage_Trip(prevStage->getFromEdge(), nullptr, stage->getDestination(),
                                 replacement, -1, 0, "", -1, 1, 0, true, stage->getArrivalPos());
                         int prevStageRelIndex = (int)(it - 1 - myStep);
                         removeStage(prevStageRelIndex);

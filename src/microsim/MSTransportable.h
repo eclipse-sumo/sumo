@@ -86,6 +86,11 @@ public:
             return myDestinationStop;
         }
 
+        /// returns the origin stop (if any). only needed for Stage_Trip
+        virtual const MSStoppingPlace* getOriginStop() const {
+            return nullptr;
+        }
+
         double getArrivalPos() const {
             return myArrivalPos;
         }
@@ -223,13 +228,20 @@ public:
     class Stage_Trip : public Stage {
     public:
         /// constructor
-        Stage_Trip(const MSEdge* origin, const MSEdge* destination, MSStoppingPlace* toStop, const SUMOTime duration, const SVCPermissions modeSet,
-                   const std::string& vTypes, const double speed, const double walkFactor, const double departPosLat, const bool hasArrivalPos, const double arrivalPos);
+        Stage_Trip(const MSEdge* origin, MSStoppingPlace* fromStop,
+                const MSEdge* destination, MSStoppingPlace* toStop,
+                const SUMOTime duration, const SVCPermissions modeSet,
+                const std::string& vTypes, const double speed, const double walkFactor,
+                const double departPosLat, const bool hasArrivalPos, const double arrivalPos);
 
         /// destructor
         virtual ~Stage_Trip();
 
         const MSEdge* getEdge() const;
+
+        const MSStoppingPlace* getOriginStop() const {
+            return myOriginStop;
+        }
 
         double getEdgePos(SUMOTime now) const;
 
@@ -283,6 +295,9 @@ public:
     private:
         /// the origin edge
         const MSEdge* myOrigin;
+
+        /// the origin edge
+        const MSStoppingPlace* myOriginStop;
 
         /// the time the trip should take (applies to only walking)
         SUMOTime myDuration;

@@ -379,11 +379,15 @@ MSPerson::MSPersonStage_Driving::~MSPersonStage_Driving() {}
 
 void
 MSPerson::MSPersonStage_Driving::proceed(MSNet* net, MSTransportable* person, SUMOTime now, Stage* previous) {
-    if (previous->getDestinationStop() != nullptr) {
+    const MSStoppingPlace* start = (previous->getStageType() == TRIP
+            ? previous->getOriginStop()
+            : previous->getDestinationStop());
+
+    if (start != nullptr) {
         // the arrival stop may have an access point
-        myWaitingEdge = &previous->getDestinationStop()->getLane().getEdge();
-        myStopWaitPos = previous->getDestinationStop()->getWaitPosition(person);
-        myWaitingPos = previous->getDestinationStop()->getWaitingPositionOnLane(person);
+        myWaitingEdge = &start->getLane().getEdge();
+        myStopWaitPos = start->getWaitPosition(person);
+        myWaitingPos = start->getWaitingPositionOnLane(person);
     } else {
         myWaitingEdge = previous->getEdge();
         myStopWaitPos = Position::INVALID;
