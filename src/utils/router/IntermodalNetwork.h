@@ -502,7 +502,7 @@ public:
             // add depart connectors on the stop edge so that pedestrians may start at the stop
             auto& splitList = myDepartLookup[stopEdge];
             assert(splitList.size() > 0);
-            typename std::vector<_IntermodalEdge*>::const_iterator splitIt = splitList.begin();
+            typename std::vector<_IntermodalEdge*>::iterator splitIt = splitList.begin();
             double totalLength = 0.;
             _IntermodalEdge* last = nullptr;
             while (splitIt != splitList.end() && totalLength < pos) {
