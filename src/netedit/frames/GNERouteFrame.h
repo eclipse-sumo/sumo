@@ -35,10 +35,9 @@ public:
 
     /// @brief route creation modes
     enum RouteMode {
-        ROUTEMODE_INVALID,          // invalid RouteMode
-        ROUTEMODE_EDGETOEDGE,       // Create route clicking over consecutive edges
-        ROUTEMODE_MAXVELOCITY,      // Give start and end edges, and calculate route with maximum velocity
-        ROUTEMODE_MINIMUMLENGHT,    // Give start and end edges, and calculate route with minimum edge lenghts
+        ROUTEMODE_INVALID,              // invalid RouteMode
+        ROUTEMODE_CONSECUTIVE_EDGES,    // Create route clicking over consecutive edges
+        ROUTEMODE_NONCONSECUTIVE_EDGES  // Create route clicking over non consecutive edges
     };
 
     // ===========================================================================
@@ -87,25 +86,25 @@ public:
     };
 
     // ===========================================================================
-    // class EdgeToEdge
+    // class ConsecutiveEdges
     // ===========================================================================
 
-    class EdgeToEdge : protected FXGroupBox {
+    class ConsecutiveEdges : protected FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNERouteFrame::EdgeToEdge)
+        FXDECLARE(GNERouteFrame::ConsecutiveEdges)
 
     public:
         /// @brief constructor
-        EdgeToEdge(GNERouteFrame* routeFrameParent);
+        ConsecutiveEdges(GNERouteFrame* routeFrameParent);
 
         /// @brief destructor
-        ~EdgeToEdge();
+        ~ConsecutiveEdges();
 
-        /// @brief show EdgeToEdge modul
-        void showEdgeToEdgeModul();
+        /// @brief show ConsecutiveEdges modul
+        void showConsecutiveEdgesModul();
 
-        /// @brief hide EdgeToEdge modul
-        void hideEdgeToEdgeModul();
+        /// @brief hide ConsecutiveEdges modul
+        void hideConsecutiveEdgesModul();
 
         /// @brief add edge to current route (note: edge must be included in set of candidate edges
         bool addEdgeIntoRoute(GNEEdge* edge);
@@ -127,7 +126,70 @@ public:
 
     protected:
         /// @brief FOX needs this
-        EdgeToEdge() {}
+        ConsecutiveEdges() {}
+
+        /// @brief update InfoRouteLabel
+        void updateInfoRouteLabel();
+
+    private:
+        /// @brief pointer to Frame Parent
+        GNERouteFrame* myRouteFrameParent;
+
+        /// @brief label with route info
+        FXLabel* myInfoRouteLabel;
+
+        /// @brief FXButton for create routes
+        FXButton* myCreateRouteButton;
+
+        /// @bief FXButton for abort creating route
+        FXButton* myAbortCreationButton;
+
+        /// @brief vector with current route edges
+        std::vector<GNEEdge*> myRouteEdges;
+    };
+
+    // ===========================================================================
+    // class NonConsecutiveEdges
+    // ===========================================================================
+
+    class NonConsecutiveEdges : protected FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNERouteFrame::NonConsecutiveEdges)
+
+    public:
+        /// @brief constructor
+        NonConsecutiveEdges(GNERouteFrame* routeFrameParent);
+
+        /// @brief destructor
+        ~NonConsecutiveEdges();
+
+        /// @brief show ConsecutiveEdges modul
+        void showNonConsecutiveEdgesModul();
+
+        /// @brief hide ConsecutiveEdges modul
+        void hideNonConsecutiveEdgesModul();
+
+        /// @brief add edge to current route (note: edge must be included in set of candidate edges
+        bool addEdgeIntoRoute(GNEEdge* edge);
+
+        /// @brief create route with the current edges
+        void createRoute();
+
+        /// @brief abort creation of current route
+        void abortRouteCreation();
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when the user press create route button
+        long onCmdCreateRoute(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user press create route button
+        long onCmdAbortCreateRoute(FXObject*, FXSelector, void*);
+        /// @}
+
+    protected:
+        /// @brief FOX needs this
+        NonConsecutiveEdges() {}
 
         /// @brief update InfoRouteLabel
         void updateInfoRouteLabel();
@@ -177,8 +239,11 @@ private:
     /// @brief route mode selector
     RouteModeSelector* myRouteModeSelector;
 
-    /// @brief Edge To Edge modul
-    EdgeToEdge* myEdgeToEdge;
+    /// @brief Create routes using consecutive edges modul
+    ConsecutiveEdges* myConsecutiveEdges;
+
+    /// @brief Create routes using non consecutive edges modul
+    NonConsecutiveEdges* myNonConsecutiveEdges;
 };
 
 
