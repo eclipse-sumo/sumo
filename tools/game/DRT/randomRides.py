@@ -14,7 +14,8 @@
 
 from __future__ import print_function
 from __future__ import absolute_import
-import os, sys
+import os
+import sys
 import random
 import optparse
 
@@ -40,7 +41,8 @@ def get_options(args=None):
                          "<person> and <walk> are supported.")
     optParser.add_option("-b", "--begin", type="float", default=0, help="begin time")
     optParser.add_option("-e", "--end", type="float", default=3600, help="end time (default 3600)")
-    optParser.add_option("--poi-offset", dest="poiOffset", type="float", default=12, help="offset of stop-poi from the lane in m")
+    optParser.add_option("--poi-offset", dest="poiOffset", type="float",
+                         default=12, help="offset of stop-poi from the lane in m")
     optParser.add_option("--initial-duration", dest="duration", type="int", default=5, help="inital stop duration in s")
     optParser.add_option(
         "-p", "--period", type="float", default=1, help="Generate vehicles with equidistant departure times and " +
@@ -67,8 +69,8 @@ def get_options(args=None):
         print("Error: poi-output requires a net-file", file=sys.stderr)
         sys.exit(1)
 
-
     return options
+
 
 def main(options):
     if options.seed:
@@ -84,7 +86,7 @@ def main(options):
                 laneShape = net.getLane(bs.lane).getShape()
                 sideShape = sumolib.geomhelper.move2side(laneShape, options.poiOffset)
                 offset = (float(bs.startPos) + float(bs.endPos)) / 2
-                x,y = sumolib.geomhelper.positionAtShapeOffset(sideShape, offset)
+                x, y = sumolib.geomhelper.positionAtShapeOffset(sideShape, offset)
                 stopColors[bs.id] = colorgen()
                 outf.write('    <poi id="%s" x="%s" y="%s" color="%s"/>\n' % (
                     bs.id, x, y, stopColors[bs.id]))
@@ -105,7 +107,7 @@ def main(options):
                 bsTo = random.choice(busStops)
             color = ""
             if options.poiout:
-                color = ' color="%s"' % stopColors[bsTo] 
+                color = ' color="%s"' % stopColors[bsTo]
             outf.write('    <person id="%s%s" depart="%s"%s>\n' % (
                 options.tripprefix, idx, depart, color))
             outf.write('        <stop busStop="%s" duration="%s"/>\n' % (bsFrom, options.duration))
@@ -114,6 +116,7 @@ def main(options):
             depart += options.period
             idx += 1
         outf.write('</routes>\n')
+
 
 if __name__ == "__main__":
     if not main(get_options()):

@@ -236,7 +236,8 @@ class Net:
             print('    <edge id="%s" from="%s" to="%s" numLanes="%s" speed="%s">' % (
                 e.eid, e.fromNode.nid, e.toNode.nid, e.numLanes, e.maxSpeed), file=edgesFile)
             for s in e.splits:
-                print('        <split pos="%s" lanes="%s"/>' % (-s.distance, " ".join(map(str, s.lanes))), file=edgesFile)
+                print('        <split pos="%s" lanes="%s"/>' %
+                      (-s.distance, " ".join(map(str, s.lanes))), file=edgesFile)
 
             """
         for i,l in enumerate(e.lanes):

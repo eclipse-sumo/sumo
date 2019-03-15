@@ -259,7 +259,7 @@ class Net:
 
     # Please be aware that the resulting list of edges is NOT sorted
     def getNeighboringEdges(self, x, y, r=0.1, includeJunctions=True,
-            allowFallback=True):
+                            allowFallback=True):
         edges = []
         try:
             if self._rtreeEdges is None:
@@ -287,7 +287,7 @@ class Net:
         return edges
 
     def getNeighboringLanes(self, x, y, r=0.1, includeJunctions=True,
-            allowFallback=True):
+                            allowFallback=True):
         lanes = []
         try:
             if self._rtreeLanes is None:

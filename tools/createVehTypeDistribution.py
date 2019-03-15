@@ -100,6 +100,7 @@ class NormalDistribution(FixDistribution):
     def _sampleValue(self):
         return random.normalvariate(self._params[0], self._params[1])
 
+
 class NormalCappedDistribution(FixDistribution):
 
     def __init__(self, loc, scale, cutLow, cutHigh):
@@ -114,7 +115,6 @@ class NormalCappedDistribution(FixDistribution):
             cand = random.normalvariate(self._params[0], self._params[1])
             if cand >= self._params[2] and cand <= self._params[3]:
                 return cand
-
 
 
 class UniformDistribution(FixDistribution):

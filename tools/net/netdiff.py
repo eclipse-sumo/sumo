@@ -272,7 +272,6 @@ class AttributeStore:
         else:
             return True
 
-
     def writeDeleted(self, file):
         # data loss if two elements with different tags
         # have the same id
@@ -377,7 +376,7 @@ def parse_args():
                          default=False, help="compare source and dest files directly")
     optParser.add_option("-i", "--patch-on-import", action="store_true",
                          dest="patchImport",
-                         default=False, help="generate patch that can be applied during initial network import" + 
+                         default=False, help="generate patch that can be applied during initial network import" +
                          " (exports additional connection elements)")
     optParser.add_option(
         "-c", "--copy", help="comma-separated list of element names to copy (if they are unchanged)")

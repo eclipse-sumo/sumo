@@ -159,7 +159,7 @@ class PoiDomain(Domain):
 
     def add(self, poiID, x, y, color, poiType="", layer=0, imgFile="", width=1, height=1, angle=0):
         self._connection._beginMessage(tc.CMD_SET_POI_VARIABLE, tc.ADD, poiID, 1 + 4 + 1 + 4 + len(poiType) +
-                                       1 + 1 + 1 + 1 + 1 + 1 + 4 + 1 + 8 + 8 + 1 + 4 + len(imgFile) + 
+                                       1 + 1 + 1 + 1 + 1 + 1 + 4 + 1 + 8 + 8 + 1 + 4 + len(imgFile) +
                                        1 + 8 + 1 + 8 + 1 + 8)
         self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 8)
         self._connection._packString(poiType)

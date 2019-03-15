@@ -23,12 +23,14 @@ import xml.etree.ElementTree
 
 import traci
 
+
 def _logs():
     """ Log init. """
     stdout_handler = logging.StreamHandler(sys.stdout)
     logging.basicConfig(handlers=[stdout_handler], level=logging.DEBUG,
                         format='[%(asctime)s] %(levelname)s: %(message)s',
                         datefmt='%m/%d/%Y %I:%M:%S %p')
+
 
 def _args():
     """ Argument Parser
@@ -59,6 +61,7 @@ def _args():
         '-o', type=str, dest='output', required=True,
         help='Name for the output file.')
     return parser.parse_args()
+
 
 class ReroutersGeneration(object):
     """ Generate parking area rerouters from the parking area definition. """
@@ -126,7 +129,7 @@ class ReroutersGeneration(object):
 
         traci.close()
 
-        ## select closest parking areas
+        # select closest parking areas
         for pid, dists in distances.items():
             list_of_dist = [tuple(reversed(x)) for x in dists.items() if x[1] is not None]
             list_of_dist = sorted(list_of_dist)
@@ -205,6 +208,7 @@ def _main():
     rerouters.save_rerouters(args.output)
 
     logging.info('Done.')
+
 
 if __name__ == "__main__":
     _logs()
