@@ -33,6 +33,7 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewParent.h>
+#include <netedit/GNEApplicationWindow.h>
 
 #include "GNERouteFrame.h"
 
@@ -190,6 +191,9 @@ bool
 GNERouteFrame::EdgeToEdge::addEdgeIntoRoute(GNEEdge* edge) {
     // check if currently we're creating a new route
     if (myRouteEdges.empty()) {
+        // block undo/redo
+        myRouteFrameParent->myViewNet->getViewParent()->getGNEAppWindows()->disableUndoRedo("route creation");
+        // add edge into list
         myRouteEdges.push_back(edge);
         // set selected color in all edges
         for (const auto& j : edge->getLanes()) {
@@ -271,6 +275,8 @@ void
 GNERouteFrame::EdgeToEdge::abortRouteCreation() {
     // first check that there is route edges selected
     if (myRouteEdges.size() > 0) {
+        // unblock undo/redo
+        myRouteFrameParent->myViewNet->getViewParent()->getGNEAppWindows()->enableUndoRedo();
         // disable special color in candidate edges
         for (const auto& j : myRouteEdges.back()->getGNEJunctionDestiny()->getGNEOutgoingEdges()) {
             for (const auto& k : j->getLanes()) {

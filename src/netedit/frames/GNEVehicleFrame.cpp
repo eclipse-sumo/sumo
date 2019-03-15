@@ -30,6 +30,8 @@
 #include <netedit/demandelements/GNERouteHandler.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNEUndoList.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/xml/SUMOSAXAttributesImpl_Cached.h>
@@ -273,6 +275,8 @@ GNEVehicleFrame::TripRouteCreator::addEdge(GNEEdge* edge) {
         mySelectedEdges.push_back(edge);
         // enable abort route button
         myAbortCreationButton->enable();
+        // disable undo/redo
+        myVehicleFrameParent->myViewNet->getViewParent()->getGNEAppWindows()->disableUndoRedo("trip creation");
         // set special color
         for (auto i : edge->getLanes()) {
             i->setSpecialColor(&myVehicleFrameParent->getEdgeCandidateSelectedColor());
@@ -302,6 +306,8 @@ GNEVehicleFrame::TripRouteCreator::clearEdges() {
     // clear edges
     mySelectedEdges.clear();
     myTemporalRoute.clear();
+    // enable undo/redo
+    myVehicleFrameParent->myViewNet->getViewParent()->getGNEAppWindows()->enableUndoRedo();
 }
 
 

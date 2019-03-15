@@ -65,7 +65,7 @@ FXIMPLEMENT_ABSTRACT(GNEUndoList, FXUndoList, GNEUndoListMap, ARRAYNUMBER(GNEUnd
 
 GNEUndoList::GNEUndoList(GNEApplicationWindow* parent) :
     FXUndoList(),
-    myParent(parent) {
+    myGNEApplicationWindowParent(parent) {
 }
 
 
@@ -112,20 +112,17 @@ GNEUndoList::p_abortLastCommandGroup() {
 
 void
 GNEUndoList::undo() {
-    //std::cout << undoName().text() << "\n";
     WRITE_DEBUG("Keys Ctrl + Z (Undo) pressed");
     FXUndoList::undo();
-    myParent->updateControls();
+    myGNEApplicationWindowParent->updateControls();
 }
 
 
 void
 GNEUndoList::redo() {
-    //std::cout << redoName().text() << "\n";
-    //std::cout << undoName().text() << "\n";
     WRITE_DEBUG("Keys Ctrl + Y (Redo) pressed");
     FXUndoList::redo();
-    myParent->updateControls();
+    myGNEApplicationWindowParent->updateControls();
 }
 
 
@@ -151,10 +148,15 @@ GNEUndoList::currentCommandGroupSize() const {
 
 long
 GNEUndoList::p_onUpdUndo(FXObject* sender, FXSelector, void*) {
-    bool enable = canUndo() && !hasCommandGroup();
+    // first check if Undo Menu command has to be disabled
+    bool enable = canUndo() && !hasCommandGroup() && myGNEApplicationWindowParent->isUndoRedoEnabled().empty();
     sender->handle(this, enable ? FXSEL(SEL_COMMAND, FXWindow::ID_ENABLE) : FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
+    // change caption of FXMenuCommand
     FXString caption = undoName();
-    if (hasCommandGroup()) {
+    // set caption of FXmenuCommand edit/undo
+    if (myGNEApplicationWindowParent->isUndoRedoEnabled().size() > 0) {
+        caption = ("Cannot Undo in the middle of " + myGNEApplicationWindowParent->isUndoRedoEnabled()).c_str();
+    } else if (hasCommandGroup()) {
         caption = ("Cannot Undo in the middle of " + myCommandGroups.top()->getDescription()).c_str();
     } else if (!canUndo()) {
         caption = "Undo";
@@ -169,10 +171,16 @@ GNEUndoList::p_onUpdUndo(FXObject* sender, FXSelector, void*) {
 
 long
 GNEUndoList::p_onUpdRedo(FXObject* sender, FXSelector, void*) {
-    bool enable = canRedo() && !hasCommandGroup();
+    // first check if Redo Menu command has to be disabled
+    bool enable = canRedo() && !hasCommandGroup() && myGNEApplicationWindowParent->isUndoRedoEnabled().empty();
+    // enable or disable depending of "enable" flag
     sender->handle(this, enable ? FXSEL(SEL_COMMAND, FXWindow::ID_ENABLE) : FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
+    // change caption of FXMenuCommand
     FXString caption = redoName();
-    if (hasCommandGroup()) {
+    // set caption of FXmenuCommand edit/undo
+    if (myGNEApplicationWindowParent->isUndoRedoEnabled().size() > 0) {
+        caption = ("Cannot Redo in the middle of " + myGNEApplicationWindowParent->isUndoRedoEnabled()).c_str();
+    } else if (hasCommandGroup()) {
         caption = ("Cannot Redo in the middle of " + myCommandGroups.top()->getDescription()).c_str();
     } else if (!canRedo()) {
         caption = "Redo";

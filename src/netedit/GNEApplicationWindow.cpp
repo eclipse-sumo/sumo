@@ -2366,6 +2366,24 @@ GNEApplicationWindow::updateSuperModeMenuCommands(int supermode) {
     }
 }
 
+
+void 
+GNEApplicationWindow::disableUndoRedo(const std::string &reason) {
+    myUndoRedoListEnabled = reason;
+}
+
+
+void 
+GNEApplicationWindow::enableUndoRedo() {
+    myUndoRedoListEnabled.clear();
+}
+
+
+const std::string &
+GNEApplicationWindow::isUndoRedoEnabled() const {
+    return myUndoRedoListEnabled;
+}
+
 // ---------------------------------------------------------------------------
 // GNEApplicationWindow - protected methods
 // ---------------------------------------------------------------------------

@@ -362,6 +362,15 @@ public:
     /// @brief update FXMenuCommands
     void updateSuperModeMenuCommands(int supermode);
 
+    /// @brief disable undo-redo giving a string with the reason
+    void disableUndoRedo(const std::string &reason);
+
+    /// @brief disable undo-redo
+    void enableUndoRedo();
+
+    /// @brief check if undo-redo is enabled
+    const std::string &isUndoRedoEnabled() const;
+
 protected:
     /// @brief FOX needs this for static members
     GNEApplicationWindow();
@@ -406,6 +415,9 @@ protected:
 
     /// @brief Input file pattern
     std::string myConfigPattern;
+
+    /// @brief string to check if undo/redo list is enabled (a String is used to keep the disabling reason)
+    std::string myUndoRedoListEnabled;
 
 private:
     /// @brief struct for menu bar file

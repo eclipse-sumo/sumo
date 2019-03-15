@@ -122,11 +122,11 @@ private:
         const std::string myDescription;
     };
 
-    // the stack of currently active command groups
+    // @brief the stack of currently active command groups
     std::stack<CommandGroup*> myCommandGroups;
 
-    // the parent application for this undolist
-    GNEApplicationWindow* const myParent;
+    // @brief the parent GNEApplicationWindow for this undolist
+    GNEApplicationWindow* const myGNEApplicationWindowParent;
 };
 
 
