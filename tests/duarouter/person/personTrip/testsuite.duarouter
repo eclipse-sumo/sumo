@@ -132,4 +132,11 @@ walk_no_connections
 # see #4314
 walk_strange_network
 intermodal_train_bus_walk
+
+# walking from one access-stop to another access-stop
+# 
+stop_access_stop
+
+# start directly at a stop and then ride
+ride_from_stop
 errors
