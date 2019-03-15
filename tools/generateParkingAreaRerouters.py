@@ -1,5 +1,4 @@
-#!/usr/bin/env python3
-
+#!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 # Copyright (C) 2010-2019 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials
@@ -11,7 +10,7 @@
 # @file    generateParkingAreaRerouters.py
 # @author  Lara CODECA
 # @date    11-3-2019
-# @version 1.0
+# @version $Id$
 
 """ Generate parking area rerouters from the parking area definition. """
 

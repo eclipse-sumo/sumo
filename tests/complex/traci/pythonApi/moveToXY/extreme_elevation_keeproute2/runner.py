@@ -37,14 +37,13 @@ traci.start([sumoBinary,
              ])
 
 
-
 vehID = 'v0'
-traci.simulationStep();
+traci.simulationStep()
 while traci.simulation.getTime() < 75:
     pos = traci.vehicle.getPosition3D(vehID)
     pos2 = (pos[0] + 20, pos[1])
-    traci.vehicle.moveToXY('v0', '', 0, pos2[0], pos2[1], keepRoute=2) 
-    traci.simulationStep();
+    traci.vehicle.moveToXY('v0', '', 0, pos2[0], pos2[1], keepRoute=2)
+    traci.simulationStep()
     pos3 = traci.vehicle.getPosition3D(vehID)
     print("step=%s old=%s target=%s mapped=%s" % (
         traci.simulation.getTime(), pos, pos2, pos3))
