@@ -71,6 +71,7 @@ GNERouteHandler::buildVehicle(GNEViewNet* viewNet, bool undoDemandElements, SUMO
                     viewNet->getUndoList()->p_end();
                 } else {
                     viewNet->getNet()->insertDemandElement(vehicle);
+                    vType->addDemandElementChild(vehicle);
                     vehicle->incRef("buildVehicle");
                 }
             }
@@ -103,6 +104,7 @@ GNERouteHandler::buildFlow(GNEViewNet* viewNet, bool undoDemandElements, SUMOVeh
                     viewNet->getUndoList()->p_end();
                 } else {
                     viewNet->getNet()->insertDemandElement(flow);
+                    vType->addDemandElementChild(flow);
                     flow->incRef("buildFlow");
                 }
             }
@@ -145,6 +147,7 @@ GNERouteHandler::buildTrip(GNEViewNet* viewNet, bool undoDemandElements, SUMOVeh
                     viewNet->getUndoList()->p_end();
                 } else {
                     viewNet->getNet()->insertDemandElement(trip);
+                    vType->addDemandElementChild(trip);
                     trip->incRef("buildTrip");
                 }
             }

@@ -60,6 +60,8 @@ GNEVehicleType::GNEVehicleType(GNEViewNet* viewNet, const std::string &vTypeID, 
     SUMOVTypeParameter(*vTypeOriginal),
     myDefaultVehicleType(false),
     myDefaultVehicleTypeModified(false)  {
+    // change manually the ID (to avoid to use the ID of vTypeOriginal)
+    id = vTypeID;
 }
 
 
@@ -316,7 +318,7 @@ GNEVehicleType::getAttribute(SumoXMLAttr key) const {
             }              
         case SUMO_ATTR_ACTIONSTEPLENGTH:
             if (wasSet(VTYPEPARS_ACTIONSTEPLENGTH_SET)) {
-                return toString(actionStepLength);
+                return time2string(actionStepLength);
             } else {
                 return myTagProperty.getDefaultValue(SUMO_ATTR_ACTIONSTEPLENGTH);
             }               
@@ -397,13 +399,15 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
         case SUMO_ATTR_MINGAP_LAT:
         case SUMO_ATTR_MAXSPEED_LAT:
         case SUMO_ATTR_ACTIONSTEPLENGTH:
-        case GNE_ATTR_GENERIC: {
+        case GNE_ATTR_GENERIC:
             // if we change the original value of a default vehicle Type, change also flag "myDefaultVehicleType"
             if (myDefaultVehicleType) {
                 undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), true, GNE_ATTR_DEFAULT_VTYPE_MODIFIED, "true"));
             }
             undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), true, key, value));
-        }
+            break;
+        case GNE_ATTR_DEFAULT_VTYPE_MODIFIED:
+            undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), true, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -508,7 +512,7 @@ GNEVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
             return isGenericParametersValid(value);
         case GNE_ATTR_DEFAULT_VTYPE_MODIFIED:
             if (myDefaultVehicleType) {
-            return canParse<bool>(value);
+                return canParse<bool>(value);
             } else {
                 return false;
             }
@@ -831,12 +835,12 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_ACTIONSTEPLENGTH:
             if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
-                actionStepLength = parse<int>(value);
+                actionStepLength = string2time(value);
                 // mark parameter as set
                 parametersSet |= VTYPEPARS_ACTIONSTEPLENGTH_SET;
             } else {
                 // set default value
-                actionStepLength = parse<int>(myTagProperty.getDefaultValue(key));
+                actionStepLength = string2time(myTagProperty.getDefaultValue(key));
                 // unset parameter
                 parametersSet &= ~VTYPEPARS_ACTIONSTEPLENGTH_SET;
             }                
@@ -846,6 +850,7 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case GNE_ATTR_DEFAULT_VTYPE_MODIFIED:
             myDefaultVehicleTypeModified = parse<bool>(value);
+            break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }

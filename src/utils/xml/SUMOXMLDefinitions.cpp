@@ -643,6 +643,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "closedShape",                        GNE_ATTR_CLOSE_SHAPE },
     { "parentItem",                         GNE_ATTR_PARENT },
     { "genericParameter",                   GNE_ATTR_GENERIC },
+    { "defaultVTypeModified",               GNE_ATTR_DEFAULT_VTYPE_MODIFIED },
 
     { "targetLanes", SUMO_ATTR_TARGETLANE },
     { "crossing", SUMO_ATTR_CROSSING },
