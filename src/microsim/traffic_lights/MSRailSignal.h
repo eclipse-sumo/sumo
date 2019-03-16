@@ -240,7 +240,8 @@ protected:
     void collectConflictLinks(MSLane* toLane, double length, 
             std::vector<MSLane*>& backwardBlock,
             std::vector<MSLink*>& conflictLinks,
-            LaneSet& visited);
+            LaneSet& visited,
+            bool checkFoes = false);
 
     /// @brief whether there are other controlled links from the same incoming lane
     static bool hasAlternativeTrack(MSLink* link);

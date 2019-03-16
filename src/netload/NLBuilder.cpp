@@ -282,6 +282,7 @@ NLBuilder::buildNet() {
         MSFrame::buildStreams(); // ensure streams are ready for output during building
         edges = myEdgeBuilder.build(myXMLHandler.networkVersion());
         junctions = myJunctionBuilder.build();
+        junctions->postloadInitContainer();
         routeLoaders = buildRouteLoaderControl(myOptions);
         tlc = myJunctionBuilder.buildTLLogics();
         const std::vector<int> times = myOptions.getIntVector("save-state.times");

@@ -123,7 +123,6 @@ MSRailSignal::init(NLDetectorBuilder&) {
         //       -> add all found lanes
         //       -> add final links
 
-        std::vector<MSLane*> conflictLanes;
         std::vector<MSLink*> conflictLinks;
         LaneSet visited;
 
@@ -166,13 +165,14 @@ MSRailSignal::init(NLDetectorBuilder&) {
             if (DEBUG_COND)  std::cout << "railSignal=" << getID() << " index=" << link->getTLIndex() << " bidiBlock=" << toString(bidiBlock) << "\n";
 #endif
 
-            conflictLanes.insert(conflictLanes.end(), forwardBlock.begin(), forwardBlock.end());
-            conflictLanes.insert(conflictLanes.end(), bidiBlock.begin(), bidiBlock.end());
-
             // compute conflict links
-            for (MSLane* cl : conflictLanes) {
-                collectConflictLinks(cl, 0, backwardBlock, conflictLinks, visited);
+            for (MSLane* cl : forwardBlock) {
+                collectConflictLinks(cl, 0, backwardBlock, conflictLinks, visited, true);
             }
+            for (MSLane* cl : bidiBlock) {
+                collectConflictLinks(cl, 0, backwardBlock, conflictLinks, visited, false);
+            }
+
             auto thisLinkIt = std::find(conflictLinks.begin(), conflictLinks.end(), link);
             if (thisLinkIt != conflictLinks.end()) {
                 conflictLinks.erase(thisLinkIt);
@@ -180,7 +180,6 @@ MSRailSignal::init(NLDetectorBuilder&) {
                 WRITE_WARNING("At railSignal junction '" + getID() + "' link " + toString(link->getTLIndex()) + " with direction " + toString(link->getDirection()) + " should be uncontrolled");
             }
 
-            conflictLanes.insert(conflictLanes.end(), backwardBlock.begin(), backwardBlock.end());
 #ifdef DEBUG_BACKWARD_BLOCK
             if (DEBUG_COND) {
                 std::cout << "railSignal=" << getID() << " index=" << link->getTLIndex() << " backwardBlock=" << toString(backwardBlock);
@@ -261,6 +260,10 @@ MSRailSignal::init(NLDetectorBuilder&) {
                 od.closeTag(); // link
             }
 
+            std::vector<MSLane*> conflictLanes;
+            conflictLanes.insert(conflictLanes.end(), forwardBlock.begin(), forwardBlock.end());
+            conflictLanes.insert(conflictLanes.end(), bidiBlock.begin(), bidiBlock.end());
+            conflictLanes.insert(conflictLanes.end(), backwardBlock.begin(), backwardBlock.end());
             myConflictLanes[link->getTLIndex()] = conflictLanes;
             myConflictLinks[link->getTLIndex()] = conflictLinks;
         }
@@ -626,13 +629,15 @@ void
 MSRailSignal::collectConflictLinks(MSLane* toLane, double length,
             std::vector<MSLane*>& backwardBlock,
             std::vector<MSLink*>& conflictLinks,
-            LaneSet& visited)
+            LaneSet& visited,
+            bool checkFoes)
 {
     while (toLane != nullptr) {
         //std::cout << "collectConflictLinks " << getID() << " toLane=" << toLane->getID() << " length=" << length 
         //    << " backward=" << toString(backwardBlock) 
         //    << " conflictLinks=" << conflictLinks.size()
         //    << " visited=" << visited.size()
+        //    << " checkFoes=" << checkFoes
         //    << "\n";
         const auto& incomingLaneInfos = toLane->getIncomingLanes();
         MSLane* orig = toLane;
@@ -662,7 +667,21 @@ MSRailSignal::collectConflictLinks(MSLane* toLane, double length,
             if (toLane == nullptr) {
                 toLane = ili.lane;
             } else {
-                collectConflictLinks(ili.lane, length, backwardBlock, conflictLinks, visited);
+                collectConflictLinks(ili.lane, length, backwardBlock, conflictLinks, visited, false);
+            }
+        }
+        if (checkFoes && orig->isInternal()) {
+            // check for crossed tracks
+            MSLink* link = orig->getIncomingLanes().front().viaLink;
+            if (link->getDirection() != LINKDIR_TURN) {
+                for (const MSLane* foeConst : link->getFoeLanes()) {
+                    MSLane* foe = const_cast<MSLane*>(foeConst);
+                    if (visited.count(foe) == 0) {
+                        backwardBlock.push_back(foe);
+                        visited.insert(foe);
+                        collectConflictLinks(foe, length, backwardBlock, conflictLinks, visited, false);
+                    }
+                }
             }
         }
     }
