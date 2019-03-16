@@ -5421,6 +5421,9 @@ PositionVector
 MSVehicle::getBoundingBox() const {
     PositionVector centerLine;
     centerLine.push_back(getPosition());
+    for (MSLane* lane : myFurtherLanes) {
+        centerLine.push_back(lane->getShape().back());
+    }
     centerLine.push_back(getBackPosition());
     centerLine.move2side(0.5 * myType->getWidth());
     PositionVector result = centerLine;
