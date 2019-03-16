@@ -406,6 +406,15 @@ MSVehicle::Influencer::setLaneTimeLine(const std::vector<std::pair<SUMOTime, int
     myLaneTimeLine = laneTimeLine;
 }
 
+
+void
+MSVehicle::Influencer::adaptLaneTimeLine(int indexShift) {
+    for (auto& item : myLaneTimeLine) {
+        item.second += indexShift;
+    }
+}
+
+
 void
 MSVehicle::Influencer::setSublaneChange(double latDist) {
     myLatDist = latDist;
@@ -4341,6 +4350,9 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, bool onTeleporting) {
     if (!enteredLane->getEdge().isInternal()) {
         ++myCurrEdge;
         assert(haveValidStopEdges());
+    }
+    if (myInfluencer != nullptr) {
+        myInfluencer->adaptLaneTimeLine(myLane->getIndex() - oldLane->getIndex());
     }
     if (!onTeleporting) {
         activateReminders(MSMoveReminder::NOTIFICATION_JUNCTION, enteredLane);

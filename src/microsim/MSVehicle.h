@@ -1447,6 +1447,11 @@ public:
          */
         void setLaneTimeLine(const std::vector<std::pair<SUMOTime, int> >& laneTimeLine);
 
+        /** @brief Adapts lane timeline when moving to a new lane and the lane index changes
+         * @param[in] indexShift The change in laneIndex
+         */
+        void adaptLaneTimeLine(int indexShift);
+
         /** @brief Sets a new sublane-change request
          * @param[in] latDist The lateral distance for changing
          */
