@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jan 31 23:58:31 2019 by Eclipse SUMO Version v1_1_0+0435-678c69824b
+<!-- generated on Sat Mar 16 22:46:05 2019 by Eclipse SUMO Version v1_1_0+0435-678c69824b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -42,7 +42,7 @@ SPDX-License-Identifier: EPL-2.0
         <link linkIndex="0" from="T8_0" to=":A_0_0">
             <forwardBlock lanes=":A_0_0 T9_0 :W1_1_0 T10_0 :B_1_0 T11_0"/>
             <bidiBlock lanes=":W1_0_0 -T10_0 :B_0_0 -T11_0 :C_0_0 -T12_0 :D_0_0 -T13_0 :W2_1_0 -T4_0 :F_0_0 :W2_0_0 -T14_0 :E_0_0"/>
-            <backwardBlock lanes=""/>
+            <backwardBlock lanes=":W1_0_0"/>
             <conflictLinks logicIndex="F_0 E_0">
                 <conflictLink logicIndex="F_0" lanes="-T5_0"/>
                 <conflictLink logicIndex="E_0" lanes="-T15_0"/>
@@ -105,7 +105,7 @@ SPDX-License-Identifier: EPL-2.0
         <link linkIndex="0" from="-T5_0" to=":F_0_0">
             <forwardBlock lanes=":F_0_0 -T4_0 :W2_1_0 -T13_0 :D_0_0 -T12_0"/>
             <bidiBlock lanes=":F_1_0 T4_0 :W2_2_0 T13_0 :D_1_0 T12_0 :C_1_0 T11_0 :B_1_0 T10_0 :W1_1_0 T9_0 :A_0_0"/>
-            <backwardBlock lanes=":W2_0_0 -T14_0 :E_0_0"/>
+            <backwardBlock lanes=":W2_0_0 -T14_0 :E_0_0 :W2_3_0"/>
             <conflictLinks logicIndex="E_0 A_0">
                 <conflictLink logicIndex="E_0" lanes="-T15_0"/>
             </conflictLinks>

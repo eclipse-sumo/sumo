@@ -41,5 +41,8 @@ two_passing_loops2
 collision
 crossing_tracks
 
+# as above but without rail signals
+crossing_tracks_collision
+
 # railway-specific bugs
 bugs
