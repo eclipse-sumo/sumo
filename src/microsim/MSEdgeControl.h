@@ -177,6 +177,9 @@ public:
      */
     void gotActive(MSLane* l);
 
+    /// @brief trigger collision checking for inactive lane
+    void checkCollisionForInactive(MSLane* l);
+
     /// @brief apply additional restrictions
     void setAdditionalRestrictions();
 
@@ -223,6 +226,9 @@ private:
 
     /// @brief The list of active (not empty) lanes
     std::vector<SUMOTime> myLastLaneChange;
+
+    /// @brief Additional lanes for which collision checking must be performed
+    std::set<MSLane*, ComparatorNumericalIdLess> myInactiveCheckCollisions;
 
 #ifdef HAVE_FOX
     FXWorkerThread::Pool myThreadPool;

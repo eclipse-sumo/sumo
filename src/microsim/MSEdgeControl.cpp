@@ -293,6 +293,12 @@ MSEdgeControl::detectCollisions(SUMOTime timestep, const std::string& stage) {
             lane->detectCollisions(timestep, stage);
         }
     }
+    if (myInactiveCheckCollisions.size() > 0) {
+        for (MSLane* lane : myInactiveCheckCollisions) {
+            lane->detectCollisions(timestep, stage);
+        }
+        myInactiveCheckCollisions.clear();
+    }
 }
 
 
@@ -301,6 +307,10 @@ MSEdgeControl::gotActive(MSLane* l) {
     myChangedStateLanes.insert(l);
 }
 
+void
+MSEdgeControl::checkCollisionForInactive(MSLane* l) {
+    myInactiveCheckCollisions.insert(l);
+}
 
 void
 MSEdgeControl::setAdditionalRestrictions() {

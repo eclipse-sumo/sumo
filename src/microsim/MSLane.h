@@ -1127,6 +1127,9 @@ public:
     /// @brief retrieve bidirectional lane or nullptr
     MSLane* getBidiLane() const;
 
+    /// @brief whether this lane must check for junction collisions
+    bool mustCheckJunctionCollisions() const;
+
 #ifdef HAVE_FOX
     FXWorkerThread::Task* getPlanMoveTask(const SUMOTime time) {
         mySimulationTask.init(&MSLane::planMovements, time);

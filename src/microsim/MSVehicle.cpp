@@ -62,6 +62,7 @@
 #include <microsim/output/MSStopOut.h>
 #include <microsim/trigger/MSChargingStation.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
+#include "MSEdgeControl.h"
 #include "MSVehicleControl.h"
 #include "MSVehicleTransfer.h"
 #include "MSGlobals.h"
@@ -3498,6 +3499,10 @@ MSVehicle::processLaneAdvances(std::vector<MSLane*>& passedLanes, bool& moved, s
                 //  otherwise it is decelerated and we do not need to test for it's
                 //  approach on the following lanes when a lane changing is performed
                 // proceed to the next lane
+                if (approachedLane->mustCheckJunctionCollisions()) {
+                    // vehicle moves past approachedLane within a single step, collision checking must still be done
+                    MSNet::getInstance()->getEdgeControl().checkCollisionForInactive(approachedLane);
+                }
                 if (link != nullptr) {
                     approachedLane = link->getViaLaneOrLane();
                     if (myInfluencer == nullptr || myInfluencer->getEmergencyBrakeRedLight()) {

@@ -82,11 +82,13 @@
 //#define DEBUG_SURROUNDING
 
 //#define DEBUG_COND (false)
+//#define DEBUG_COND (true)
 //#define DEBUG_COND (getID() == "undefined")
 //#define DEBUG_COND2(obj) ((obj != 0 && (obj)->getID() == "disabled"))
 //#define DEBUG_COND2(obj) ((obj != 0 && (obj)->isSelected()))
 //#define DEBUG_COND (getID() == "ego")
 //#define DEBUG_COND2(obj) ((obj != 0 && (obj)->getID() == "ego"))
+//#define DEBUG_COND2(obj) (true)
 
 
 // ===========================================================================
@@ -1264,11 +1266,63 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
     }
 #endif
 
-    if (myVehicles.size() == 0 || myCollisionAction == COLLISION_ACTION_NONE) {
+    if (myCollisionAction == COLLISION_ACTION_NONE) {
         return;
     }
+
     std::set<const MSVehicle*, ComparatorNumericalIdLess> toRemove;
     std::set<const MSVehicle*> toTeleport;
+    if (mustCheckJunctionCollisions()) {
+        myNeedsCollisionCheck = true; // always check
+#ifdef DEBUG_JUNCTION_COLLISIONS
+        if (DEBUG_COND) {
+            std::cout << SIMTIME << " detect junction Collisions stage=" << stage << " lane=" << getID() << ":\n"
+                      << "   vehs=" << toString(myVehicles) << "\n"
+                      << "   part=" << toString(myPartialVehicles) << "\n"
+                      << "\n";
+        }
+#endif
+        assert(myLinks.size() == 1);
+        //std::cout << SIMTIME << " checkJunctionCollisions " << getID() << "\n";
+        const std::vector<const MSLane*>& foeLanes = myLinks.front()->getFoeLanes();
+        for (AnyVehicleIterator veh = anyVehiclesBegin(); veh != anyVehiclesEnd(); ++veh) {
+            MSVehicle* collider = const_cast<MSVehicle*>(*veh);
+            //std::cout << "   collider " << collider->getID() << "\n";
+            PositionVector colliderBoundary = collider->getBoundingBox();
+            for (std::vector<const MSLane*>::const_iterator it = foeLanes.begin(); it != foeLanes.end(); ++it) {
+                const MSLane* foeLane = *it;
+                //std::cout << "     foeLane " << foeLane->getID() << "\n";
+                MSLane::AnyVehicleIterator end = foeLane->anyVehiclesEnd();
+                for (MSLane::AnyVehicleIterator it_veh = foeLane->anyVehiclesBegin(); it_veh != end; ++it_veh) {
+                    MSVehicle* victim = (MSVehicle*)*it_veh;
+                    if (victim == collider) {
+                        // may happen if the vehicles lane and shadow lane are siblings
+                        continue;
+                    }
+                    //std::cout << "             victim " << victim->getID() << "\n";
+#ifdef DEBUG_JUNCTION_COLLISIONS
+                    if (DEBUG_COND && DEBUG_COND2(collider)) {
+                        std::cout << SIMTIME << " foe=" << victim->getID() << " bound=" << colliderBoundary << " foeBound=" << victim->getBoundingBox() << "\n";
+                    }
+#endif
+                    if (colliderBoundary.overlapsWith(victim->getBoundingBox())) {
+                        // make a detailed check
+                        if (collider->getBoundingPoly().overlapsWith(victim->getBoundingPoly())) {
+                            handleCollisionBetween(timestep, stage, collider, victim, -1, 0, toRemove, toTeleport);
+                        }
+                    }
+                }
+                detectPedestrianJunctionCollision(collider, colliderBoundary, foeLane, timestep, stage);
+            }
+            if (myLinks.front()->getWalkingAreaFoe() != nullptr) {
+                detectPedestrianJunctionCollision(collider, colliderBoundary, myLinks.front()->getWalkingAreaFoe(), timestep, stage);
+            }
+        }
+    }
+
+    if (myVehicles.size() == 0) {
+        return;
+    }
     if (!MSAbstractLaneChangeModel::haveLateralDynamics()) {
         // no sublanes
         VehCont::reverse_iterator lastVeh = myVehicles.rend() - 1;
@@ -1348,53 +1402,6 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
         }
     }
 
-    if (myCheckJunctionCollisions && myEdge->isInternal()) {
-        myNeedsCollisionCheck = true; // always check
-#ifdef DEBUG_JUNCTION_COLLISIONS
-        if (DEBUG_COND) {
-            std::cout << SIMTIME << " detect junction Collisions stage=" << stage << " lane=" << getID() << ":\n"
-                      << "   vehs=" << toString(myVehicles) << "\n"
-                      << "   part=" << toString(myPartialVehicles) << "\n"
-                      << "\n";
-        }
-#endif
-        assert(myLinks.size() == 1);
-        //std::cout << SIMTIME << " checkJunctionCollisions " << getID() << "\n";
-        const std::vector<const MSLane*>& foeLanes = myLinks.front()->getFoeLanes();
-        for (AnyVehicleIterator veh = anyVehiclesBegin(); veh != anyVehiclesEnd(); ++veh) {
-            MSVehicle* collider = const_cast<MSVehicle*>(*veh);
-            //std::cout << "   collider " << collider->getID() << "\n";
-            PositionVector colliderBoundary = collider->getBoundingBox();
-            for (std::vector<const MSLane*>::const_iterator it = foeLanes.begin(); it != foeLanes.end(); ++it) {
-                const MSLane* foeLane = *it;
-                //std::cout << "     foeLane " << foeLane->getID() << "\n";
-                MSLane::AnyVehicleIterator end = foeLane->anyVehiclesEnd();
-                for (MSLane::AnyVehicleIterator it_veh = foeLane->anyVehiclesBegin(); it_veh != end; ++it_veh) {
-                    MSVehicle* victim = (MSVehicle*)*it_veh;
-                    if (victim == collider) {
-                        // may happen if the vehicles lane and shadow lane are siblings
-                        continue;
-                    }
-                    //std::cout << "             victim " << victim->getID() << "\n";
-#ifdef DEBUG_JUNCTION_COLLISIONS
-                    if (DEBUG_COND && DEBUG_COND2(collider)) {
-                        std::cout << SIMTIME << " foe=" << victim->getID() << " bound=" << colliderBoundary << " foeBound=" << victim->getBoundingBox() << "\n";
-                    }
-#endif
-                    if (colliderBoundary.overlapsWith(victim->getBoundingBox())) {
-                        // make a detailed check
-                        if (collider->getBoundingPoly().overlapsWith(victim->getBoundingPoly())) {
-                            handleCollisionBetween(timestep, stage, collider, victim, -1, 0, toRemove, toTeleport);
-                        }
-                    }
-                }
-                detectPedestrianJunctionCollision(collider, colliderBoundary, foeLane, timestep, stage);
-            }
-            if (myLinks.front()->getWalkingAreaFoe() != nullptr) {
-                detectPedestrianJunctionCollision(collider, colliderBoundary, myLinks.front()->getWalkingAreaFoe(), timestep, stage);
-            }
-        }
-    }
 
     if (myEdge->getPersons().size() > 0 && MSPModel::getModel()->hasPedestrians(this)) {
 #ifdef DEBUG_PEDESTRIAN_COLLISIONS
@@ -3648,5 +3655,9 @@ MSLane::getBidiLane() const {
     }
 }
 
+bool
+MSLane::mustCheckJunctionCollisions() const {
+    return myCheckJunctionCollisions && myEdge->isInternal() && myLinks.front()->getFoeLanes().size() > 0;
+}
 /****************************************************************************/
 
