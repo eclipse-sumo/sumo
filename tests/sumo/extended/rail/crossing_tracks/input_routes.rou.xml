@@ -14,4 +14,6 @@
     <trip id="rail1" depart="01" departLane="best" departSpeed="max" from="TL1_0" to="TO1_0" type="Freight"/>
     <trip id="rail2" depart="40" departLane="best" departSpeed="max" from="TR2_1" to="TL2_1" type="REDosto7"/>
     <trip id="rail3" depart="240" departLane="best" departSpeed="max" from="TR2_1" to="TL2_1" type="REDosto7" departPos="20"/>
+    <trip id="rail4" depart="401" departLane="best" departSpeed="max" from="TL1_0" to="TO1_0" type="Freight"/>
+    <trip id="rail5" depart="440" departLane="best" departSpeed="max" from="TR2_1" to="TL2_1" type="REDosto7" departPos="227"/>
 </routes>
