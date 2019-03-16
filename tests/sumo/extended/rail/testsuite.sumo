@@ -39,6 +39,7 @@ two_passing_loops2
 
 # frontal train collision
 collision
+crossing_tracks
 
 # railway-specific bugs
 bugs
