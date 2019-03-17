@@ -919,8 +919,8 @@ GNEFrame::AttributesEditor::RowEditor::showRow(const GNEAttributeCarrier::Attrib
         }
     }
     // if Tag correspond to an network element but we're in demand mode (or vice versa), disable all elements
-    if ((myAttributesEditorParent->myFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && !myACAttr.getTagPropertyParent().isNetElement() ||
-        (myAttributesEditorParent->myFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myACAttr.getTagPropertyParent().isDemandElement()) {
+    if (((myAttributesEditorParent->myFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && myACAttr.getTagPropertyParent().isDemandElement()) ||
+        ((myAttributesEditorParent->myFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myACAttr.getTagPropertyParent().isDemandElement())) {
         myColorEditor->disable();
         myRadioButton->disable();
         myTextFieldInt->disable();
@@ -2061,8 +2061,9 @@ GNEFrame::GenericParametersEditor::refreshGenericParametersEditor() {
     if (myAC) {
         myTextFieldGenericParameter->setText(getGenericParametersStr().c_str());
         myTextFieldGenericParameter->setTextColor(FXRGB(0, 0, 0));
-        // disable myTextFieldGenericParameter if we're in demand mode and inspected AC isn't a demand element
-        if ((myFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myAC->getTagProperty().isDemandElement()) {
+        // disable myTextFieldGenericParameter if Tag correspond to an network element but we're in demand mode (or vice versa), disable all elements
+        if (((myFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && myAC->getTagProperty().isDemandElement()) ||
+            ((myFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myAC->getTagProperty().isDemandElement())) {
             myTextFieldGenericParameter->disable();
             myEditGenericParameterButton->disable();
         } else {
@@ -2080,8 +2081,9 @@ GNEFrame::GenericParametersEditor::refreshGenericParametersEditor() {
         }
         myTextFieldGenericParameter->setText(genericParameter.c_str());
         myTextFieldGenericParameter->setTextColor(FXRGB(0, 0, 0));
-        // disable myTextFieldGenericParameter if we're in demand mode and inspected AC isn't a demand element
-        if ((myFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myACs.front()->getTagProperty().isDemandElement()) {
+        // disable myTextFieldGenericParameter if we're in demand mode and inspected AC isn't a demand element (or viceversa)
+        if (((myFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && myACs.front()->getTagProperty().isDemandElement()) ||
+            ((myFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myACs.front()->getTagProperty().isDemandElement())) {
             myTextFieldGenericParameter->disable();
             myEditGenericParameterButton->disable();
         } else {
