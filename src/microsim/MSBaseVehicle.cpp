@@ -235,7 +235,7 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
             }
         } else {
             std::string error = "Vehicle '" + getID() + "' has no valid route from edge '" + source->getID() + "' to stop edge '" + (*s)->getID() + "'.";
-            if (MSGlobals::gCheckRoutes) {
+            if (MSGlobals::gCheckRoutes || silent) {
                 throw ProcessError(error);
             } else {
                 WRITE_WARNING(error);
