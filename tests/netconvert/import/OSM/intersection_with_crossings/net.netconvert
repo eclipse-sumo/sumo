@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Feb 27 16:01:50 2019 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Mon Mar 18 13:18:54 2019 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -170,14 +170,12 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <tlLogic id="cluster_1802245009_335683858" type="static" programID="0" offset="0">
-        <phase duration="32" state="rrrGGgGGGrrr"/>
-        <phase duration="5"  state="rrrGGgGGrrrr"/>
+        <phase duration="37" state="rrrGGggGGrGr"/>
+        <phase duration="5"  state="rrrGGggGrrrr"/>
         <phase duration="3"  state="rrryyyyyrrrr"/>
-        <phase duration="32" state="gGgrrrrrrGrG"/>
+        <phase duration="37" state="gGgrrrrrrGrG"/>
         <phase duration="5"  state="gGgrrrrrrrrr"/>
         <phase duration="3"  state="yyyrrrrrrrrr"/>
-        <phase duration="5"  state="rrrrrrrrGGGG"/>
-        <phase duration="5"  state="rrrrrrrrrrrr"/>
     </tlLogic>
 
     <junction id="1802244960" type="dead_end" x="0.00" y="36.69" incLanes="177308083_0 177308083_1" intLanes="" shape="-0.18,40.29 0.08,35.09"/>
@@ -213,7 +211,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="177308057" to="-324752522" fromLane="1" toLane="1" via=":cluster_1802245009_335683858_2_0" tl="cluster_1802245009_335683858" linkIndex="2" dir="l" state="o"/>
     <connection from="324752522" to="324752524" fromLane="1" toLane="1" via=":cluster_1802245009_335683858_3_0" tl="cluster_1802245009_335683858" linkIndex="3" dir="s" state="o"/>
     <connection from="324752522" to="324752524" fromLane="2" toLane="2" via=":cluster_1802245009_335683858_3_1" tl="cluster_1802245009_335683858" linkIndex="4" dir="s" state="o"/>
-    <connection from="324752522" to="177308083" fromLane="2" toLane="1" via=":cluster_1802245009_335683858_5_0" tl="cluster_1802245009_335683858" linkIndex="5" dir="L" state="o"/>
+    <connection from="324752522" to="177308083" fromLane="2" toLane="1" via=":cluster_1802245009_335683858_5_0" tl="cluster_1802245009_335683858" linkIndex="5" dir="l" state="o"/>
     <connection from="324752524" to="-324752524" fromLane="2" toLane="1" via=":447602290_0_0" dir="t" state="M"/>
 
     <connection from=":447602290_0" to="-324752524" fromLane="0" toLane="1" dir="t" state="M"/>
@@ -224,8 +222,8 @@ SPDX-License-Identifier: EPL-2.0
     <connection from=":cluster_1802245009_335683858_9" to="-324752522" fromLane="0" toLane="1" dir="l" state="M"/>
     <connection from=":cluster_1802245009_335683858_3" to="324752524" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":cluster_1802245009_335683858_3" to="324752524" fromLane="1" toLane="2" dir="s" state="M"/>
-    <connection from=":cluster_1802245009_335683858_5" to="177308083" fromLane="0" toLane="1" via=":cluster_1802245009_335683858_10_0" dir="L" state="m"/>
-    <connection from=":cluster_1802245009_335683858_10" to="177308083" fromLane="0" toLane="1" dir="L" state="M"/>
+    <connection from=":cluster_1802245009_335683858_5" to="177308083" fromLane="0" toLane="1" via=":cluster_1802245009_335683858_10_0" dir="l" state="m"/>
+    <connection from=":cluster_1802245009_335683858_10" to="177308083" fromLane="0" toLane="1" dir="l" state="M"/>
     <connection from=":cluster_1802245009_335683858_6" to="177308083" fromLane="0" toLane="1" via=":cluster_1802245009_335683858_11_0" dir="r" state="m"/>
     <connection from=":cluster_1802245009_335683858_11" to="177308083" fromLane="0" toLane="1" dir="r" state="M"/>
     <connection from=":cluster_1802245009_335683858_7" to="-324752522" fromLane="0" toLane="1" dir="s" state="M"/>
