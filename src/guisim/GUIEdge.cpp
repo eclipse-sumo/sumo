@@ -203,6 +203,10 @@ GUIEdge::getCenteringBoundary() const {
     return b;
 }
 
+const std::string
+GUIEdge::getOptionalName() const {
+    return myStreetName;
+}
 
 void
 GUIEdge::drawGL(const GUIVisualizationSettings& s) const {

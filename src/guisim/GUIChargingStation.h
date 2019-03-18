@@ -112,6 +112,9 @@ public:
      */
     Boundary getCenteringBoundary() const;
 
+    /// @brief Returns the stopping place name
+    const std::string getOptionalName() const;
+
     /** @brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL

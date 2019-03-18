@@ -162,6 +162,8 @@ public:
      */
     Boundary getCenteringBoundary() const;
 
+    /// @brief Returns the value for generic parameter 'name' or ''
+    const std::string getOptionalName() const;
 
     /** @brief Draws the object on the specified position with the specified angle
      * @param[in] s The settings for the current view (may influence drawing)

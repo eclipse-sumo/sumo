@@ -127,6 +127,9 @@ public:
     /// @brief Returns the id of the object as known to microsim
     virtual const std::string& getMicrosimID() const;
 
+    /// @brief Returns the name of the object (default "")
+    virtual const std::string getOptionalName() const;
+
     /// @brief Changes the microsimID of the object
     /// @note happens in NETEDIT
     virtual void setMicrosimID(const std::string& newID);

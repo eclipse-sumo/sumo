@@ -119,6 +119,9 @@ public:
      */
     Boundary getCenteringBoundary() const;
 
+    /// @brief Returns the stopping place name
+    const std::string getOptionalName() const;
+
     /// @brief extend boundary
     void addLotEntry(double x, double y, double z,
                      double width, double length, double angle);

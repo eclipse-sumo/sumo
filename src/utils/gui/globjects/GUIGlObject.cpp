@@ -147,6 +147,10 @@ GUIGlObject::getMicrosimID() const {
     return myMicrosimID;
 }
 
+const std::string
+GUIGlObject::getOptionalName() const {
+    return "";
+}
 
 void
 GUIGlObject::setMicrosimID(const std::string& newID) {

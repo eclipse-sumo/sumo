@@ -187,4 +187,9 @@ GUIChargingStation::drawGL(const GUIVisualizationSettings& s) const {
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName, s.angle);
 }
 
+const std::string
+GUIChargingStation::getOptionalName() const {
+    return myName;
+}
+
 /****************************************************************************/

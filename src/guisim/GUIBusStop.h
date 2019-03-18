@@ -116,6 +116,8 @@ public:
      */
     Boundary getCenteringBoundary() const;
 
+    /// @brief Returns the street name
+    const std::string getOptionalName() const;
 
     /** @brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)

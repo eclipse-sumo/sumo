@@ -176,6 +176,11 @@ GUIContainerStop::getCenteringBoundary() const {
     return b;
 }
 
+const std::string
+GUIContainerStop::getOptionalName() const {
+    return myName;
+}
+
 
 
 /****************************************************************************/

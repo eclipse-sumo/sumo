@@ -461,6 +461,8 @@ enum {
     MID_CHOOSEN_DESELECT,
     /// @brief Deselect selected items
     MID_CHOOSEN_INVERT,
+    /// @brief Deselect selected items
+    MID_CHOOSEN_NAME,
     /// @}
 
     /// NETEDIT

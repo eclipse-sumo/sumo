@@ -104,6 +104,9 @@ public:
 
     /// @brief Callback: Toggle selection status of current object
     long onCmdToggleSelection(FXObject*, FXSelector, void*);
+
+    /// @brief Callback: Toggle locator by name
+    long onCmdLocateByName(FXObject*, FXSelector, void*);
     /// @}
 
     /// @brief sets the focus after the window is created to work-around bug in libfox
@@ -143,6 +146,8 @@ private:
     //volatile pointers to GUIGlObject
     std::set<GUIGlID> myIDs;
 
+    /// @brief whether to locate by object name instead of id
+    bool myLocateByName;
 
 protected:
     /// FOX needs this

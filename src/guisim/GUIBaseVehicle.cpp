@@ -295,6 +295,13 @@ GUIBaseVehicle::getCenteringBoundary() const {
     return b;
 }
 
+
+const std::string
+GUIBaseVehicle::getOptionalName() const {
+    return myVehicle.getParameter().getParameter("name", "");
+}
+
+
 void
 GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos, const double angle) const {
     glPushName(getGlID());

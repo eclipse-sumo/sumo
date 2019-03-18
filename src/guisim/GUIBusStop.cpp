@@ -200,6 +200,11 @@ GUIBusStop::getCenteringBoundary() const {
     return b;
 }
 
+const std::string
+GUIBusStop::getOptionalName() const {
+    return myName;
+}
+
 Position
 GUIBusStop::getWaitPosition(MSTransportable* t) const {
     Position result = MSStoppingPlace::getWaitPosition(t);

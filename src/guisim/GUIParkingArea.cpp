@@ -217,6 +217,10 @@ GUIParkingArea::getCenteringBoundary() const {
 }
 
 
+const std::string
+GUIParkingArea::getOptionalName() const {
+    return myName;
+}
 
 /****************************************************************************/
 

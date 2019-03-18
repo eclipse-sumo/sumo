@@ -50,6 +50,7 @@ FXDEFMAP(GUIDialog_GLObjChooser) GUIDialog_GLObjChooserMap[] = {
     FXMAPFUNC(SEL_KEYPRESS, MID_CHOOSER_LIST,   GUIDialog_GLObjChooser::onListKeyPress),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSER_FILTER, GUIDialog_GLObjChooser::onCmdFilter),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_INVERT,  GUIDialog_GLObjChooser::onCmdToggleSelection),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_NAME,  GUIDialog_GLObjChooser::onCmdLocateByName),
 };
 
 FXIMPLEMENT(GUIDialog_GLObjChooser, FXMainWindow, GUIDialog_GLObjChooserMap, ARRAYNUMBER(GUIDialog_GLObjChooserMap))
@@ -60,7 +61,9 @@ FXIMPLEMENT(GUIDialog_GLObjChooser, FXMainWindow, GUIDialog_GLObjChooserMap, ARR
 // ===========================================================================
 GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(GUIGlChildWindow* parent, FXIcon* icon, const FXString& title, const std::vector<GUIGlID>& ids, GUIGlObjectStorage& /*glStorage*/) :
     FXMainWindow(parent->getApp(), title, icon, nullptr, GUIDesignChooserDialog),
-    myParent(parent) {
+    myParent(parent),
+    myLocateByName(false)
+{
     FXHorizontalFrame* hbox = new FXHorizontalFrame(this, GUIDesignAuxiliarFrame);
     // build the list
     FXVerticalFrame* layoutLeft = new FXVerticalFrame(hbox, GUIDesignChooserLayoutLeft);
@@ -80,6 +83,7 @@ GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(GUIGlChildWindow* parent, FXIcon*
     new FXHorizontalSeparator(layoutRight, GUIDesignHorizontalSeparator);
     new FXButton(layoutRight, "&Hide Unselected\t\t", GUIIconSubSys::getIcon(ICON_FLAG), this, MID_CHOOSER_FILTER, GUIDesignChooserButtons);
     new FXButton(layoutRight, "&Select/deselect\tSelect/deselect current object\t", GUIIconSubSys::getIcon(ICON_FLAG), this, MID_CHOOSEN_INVERT, GUIDesignChooserButtons);
+    new FXButton(layoutRight, "By Name\tLocate item by name\t", nullptr, this, MID_CHOOSEN_NAME, GUIDesignChooserButtons);
     new FXHorizontalSeparator(layoutRight, GUIDesignHorizontalSeparator);
     new FXButton(layoutRight, "&Close\t\t", GUIIconSubSys::getIcon(ICON_NO), this, MID_CANCEL, GUIDesignChooserButtons);
 
@@ -199,7 +203,11 @@ GUIDialog_GLObjChooser::onCmdFilter(FXObject*, FXSelector, void*) {
 
 std::string
 GUIDialog_GLObjChooser::getObjectName(GUIGlObject* o) const {
-    return o->getMicrosimID();
+    if (myLocateByName) {
+        return o->getOptionalName();
+    } else {
+        return o->getMicrosimID();
+    }
 }
 
 void
@@ -235,6 +243,25 @@ GUIDialog_GLObjChooser::onCmdToggleSelection(FXObject*, FXSelector, void*) {
     }
     myList->update();
     myParent->getView()->update();
+    return 1;
+}
+
+
+long
+GUIDialog_GLObjChooser::onCmdLocateByName(FXObject*, FXSelector, void*) {
+    std::vector<GUIGlID> selectedGlIDs;
+    myLocateByName = true;
+    const int numItems = myList->getNumItems();
+    for (int i = 0; i < numItems; i++) {
+        GUIGlID glID = *static_cast<GUIGlID*>(myList->getItemData(i));
+        GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(glID);
+        const std::string& name = getObjectName(o);
+        if (name != "") {
+            selectedGlIDs.push_back(glID);
+        }
+        GUIGlObjectStorage::gIDStorage.unblockObject(glID);
+    }
+    refreshList(selectedGlIDs);
     return 1;
 }
 
