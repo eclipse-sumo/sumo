@@ -92,7 +92,7 @@ GNEDialogACChooser::getObjectName(GUIGlObject* o) const {
             return tlDef->getID() + " (" + o->getMicrosimID() + ")";
         }
     } else {
-        return o->getMicrosimID();
+        return GUIDialog_GLObjChooser::getObjectName(o);
     }
 }
 

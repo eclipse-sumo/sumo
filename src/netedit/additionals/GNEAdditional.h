@@ -234,6 +234,11 @@ public:
      */
     Boundary getCenteringBoundary() const;
 
+    /// @brief Returns the additional name
+    const std::string getOptionalName() const {
+        return myAdditionalName;
+    }
+
     /**@brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL

@@ -465,6 +465,10 @@ GNEEdge::getCenteringBoundary() const {
     }
 }
 
+const std::string
+GNEEdge::getOptionalName() const {
+    return myNBEdge.getStreetName();
+}
 
 GUIGLObjectPopupMenu*
 GNEEdge::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
