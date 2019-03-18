@@ -152,7 +152,7 @@ MSAbstractLaneChangeModel::setManeuverDist(const double dist) {
                   << std::endl;
     }
 #endif
-    myManeuverDist = dist;
+    myManeuverDist = fabs(dist) < NUMERICAL_EPS ? 0. : dist;
 }
 
 
