@@ -112,6 +112,7 @@ XMLSubSys::setHandler(GenericSAXHandler& handler) {
 bool
 XMLSubSys::runParser(GenericSAXHandler& handler,
                      const std::string& file, const bool isNet) {
+    MsgHandler::getErrorInstance()->clear();
     try {
         XERCES_CPP_NAMESPACE::SAX2XMLReader::ValSchemes validationScheme = isNet ? myNetValidationScheme : myValidationScheme;
         if (myNextFreeReader == (int)myReaders.size()) {
