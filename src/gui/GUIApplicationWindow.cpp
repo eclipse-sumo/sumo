@@ -108,7 +108,7 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_R_RELOAD,           GUIApplicationWindow::onCmdReload),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_W_CLOSESIMULATION,  GUIApplicationWindow::onCmdClose),
     FXMAPFUNC(SEL_COMMAND,  MID_EDITCHOSEN,                     GUIApplicationWindow::onCmdEditChosen),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_CTRL_B_EDITBREAKPOINT, GUIApplicationWindow::onCmdEditBreakpoints),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_B_EDITBREAKPOINT,   GUIApplicationWindow::onCmdEditBreakpoints),
     FXMAPFUNC(SEL_COMMAND,  MID_EDITVIEWSCHEME,                 GUIApplicationWindow::onCmdEditViewScheme),
     FXMAPFUNC(SEL_COMMAND,  MID_EDITVIEWPORT,                   GUIApplicationWindow::onCmdEditViewport),
     FXMAPFUNC(SEL_COMMAND,  MID_NETEDIT,                        GUIApplicationWindow::onCmdNetedit),
@@ -124,14 +124,14 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
 #ifdef HAVE_OSG
     FXMAPFUNC(SEL_COMMAND,  MID_NEW_OSGVIEW,        GUIApplicationWindow::onCmdNewOSG),
 #endif
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_A_STARTSIMULATION,              GUIApplicationWindow::onCmdStart),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_S_SAVENETWORK_STOPSIMULATION,   GUIApplicationWindow::onCmdStop),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP,         GUIApplicationWindow::onCmdStep),
-    FXMAPFUNC(SEL_COMMAND,  MID_SIMSAVE,                                    GUIApplicationWindow::onCmdSaveState),
-    FXMAPFUNC(SEL_COMMAND,  MID_TIME_TOOGLE,                                GUIApplicationWindow::onCmdTimeToggle),
-    FXMAPFUNC(SEL_COMMAND,  MID_DELAY_TOOGLE,                               GUIApplicationWindow::onCmdDelayToggle),
-    FXMAPFUNC(SEL_COMMAND,  MID_DEMAND_SCALE,                               GUIApplicationWindow::onCmdDemandScale),
-    FXMAPFUNC(SEL_COMMAND,  MID_CLEARMESSAGEWINDOW,                         GUIApplicationWindow::onCmdClearMsgWindow),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS,  GUIApplicationWindow::onCmdStart),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK,       GUIApplicationWindow::onCmdStop),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP_OPENDEMAND,  GUIApplicationWindow::onCmdStep),
+    FXMAPFUNC(SEL_COMMAND,  MID_SIMSAVE,                                        GUIApplicationWindow::onCmdSaveState),
+    FXMAPFUNC(SEL_COMMAND,  MID_TIME_TOOGLE,                                    GUIApplicationWindow::onCmdTimeToggle),
+    FXMAPFUNC(SEL_COMMAND,  MID_DELAY_TOOGLE,                                   GUIApplicationWindow::onCmdDelayToggle),
+    FXMAPFUNC(SEL_COMMAND,  MID_DEMAND_SCALE,                                   GUIApplicationWindow::onCmdDemandScale),
+    FXMAPFUNC(SEL_COMMAND,  MID_CLEARMESSAGEWINDOW,                             GUIApplicationWindow::onCmdClearMsgWindow),
 
     FXMAPFUNC(SEL_COMMAND,  MID_SHOWNETSTATS,       GUIApplicationWindow::onCmdShowStats),
     FXMAPFUNC(SEL_COMMAND,  MID_SHOWVEHSTATS,       GUIApplicationWindow::onCmdShowStats),
@@ -148,18 +148,18 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
 #ifdef HAVE_OSG
     FXMAPFUNC(SEL_UPDATE,   MID_NEW_OSGVIEW,        GUIApplicationWindow::onUpdAddView),
 #endif
-    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_A_STARTSIMULATION,              GUIApplicationWindow::onUpdStart),
-    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_S_SAVENETWORK_STOPSIMULATION,   GUIApplicationWindow::onUpdStop),
-    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP,         GUIApplicationWindow::onUpdStep),
-    FXMAPFUNC(SEL_UPDATE,   MID_SIMSAVE,                                    GUIApplicationWindow::onUpdNeedsSimulation),
-    FXMAPFUNC(SEL_UPDATE,   MID_EDITCHOSEN,                                 GUIApplicationWindow::onUpdNeedsSimulation),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_HOTKEY_CTRL_B_EDITBREAKPOINT,           GUIApplicationWindow::onUpdNeedsSimulation),
-    FXMAPFUNC(SEL_UPDATE,   MID_EDITVIEWSCHEME,                             GUIApplicationWindow::onUpdNeedsSimulation),
-    FXMAPFUNC(SEL_UPDATE,   MID_EDITVIEWPORT,                               GUIApplicationWindow::onUpdNeedsSimulation),
-    FXMAPFUNC(SEL_UPDATE,   MID_NETEDIT,                                    GUIApplicationWindow::onUpdNeedsSimulation),
-    FXMAPFUNC(SEL_UPDATE,   MID_DEMAND_SCALE,                               GUIApplicationWindow::onUpdNeedsSimulation),
-    FXMAPFUNC(SEL_UPDATE,   MID_TRACI_STATUS,                               GUIApplicationWindow::onUpdTraCIStatus),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F1_ONLINEDOCUMENTATION,              GUIApplicationWindow::onCmdHelp),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS,  GUIApplicationWindow::onUpdStart),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK,       GUIApplicationWindow::onUpdStop),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP_OPENDEMAND,  GUIApplicationWindow::onUpdStep),
+    FXMAPFUNC(SEL_UPDATE,   MID_SIMSAVE,                                        GUIApplicationWindow::onUpdNeedsSimulation),
+    FXMAPFUNC(SEL_UPDATE,   MID_EDITCHOSEN,                                     GUIApplicationWindow::onUpdNeedsSimulation),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_B_EDITBREAKPOINT,                   GUIApplicationWindow::onUpdNeedsSimulation),
+    FXMAPFUNC(SEL_UPDATE,   MID_EDITVIEWSCHEME,                                 GUIApplicationWindow::onUpdNeedsSimulation),
+    FXMAPFUNC(SEL_UPDATE,   MID_EDITVIEWPORT,                                   GUIApplicationWindow::onUpdNeedsSimulation),
+    FXMAPFUNC(SEL_UPDATE,   MID_NETEDIT,                                        GUIApplicationWindow::onUpdNeedsSimulation),
+    FXMAPFUNC(SEL_UPDATE,   MID_DEMAND_SCALE,                                   GUIApplicationWindow::onUpdNeedsSimulation),
+    FXMAPFUNC(SEL_UPDATE,   MID_TRACI_STATUS,                                   GUIApplicationWindow::onUpdTraCIStatus),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F1_ONLINEDOCUMENTATION,                  GUIApplicationWindow::onCmdHelp),
 
     // forward requests to the active view
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEJUNCTION, GUIApplicationWindow::onCmdLocate),
@@ -445,7 +445,7 @@ GUIApplicationWindow::fillMenuBar() {
     new FXMenuSeparator(myEditMenu);
     new FXMenuCommand(myEditMenu,
                       "Edit Breakpoints\tCtrl+B\tOpens a dialog for editing breakpoints.",
-                      nullptr, this, MID_GNE_HOTKEY_CTRL_B_EDITBREAKPOINT);
+                      nullptr, this, MID_HOTKEY_CTRL_B_EDITBREAKPOINT);
     new FXMenuCommand(myEditMenu,
                       "Edit Visualisation\tCtrl+V\tOpens a dialog for editing visualization settings.",
                       nullptr, this, MID_EDITVIEWSCHEME);
@@ -514,13 +514,13 @@ GUIApplicationWindow::fillMenuBar() {
     new FXMenuTitle(myMenuBar, "Simulation", nullptr, myControlMenu);
     new FXMenuCommand(myControlMenu,
                       "Run\tCtrl+A\tStart running the simulation.",
-                      GUIIconSubSys::getIcon(ICON_START), this, MID_HOTKEY_CTRL_A_STARTSIMULATION);
+                      GUIIconSubSys::getIcon(ICON_START), this, MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS);
     new FXMenuCommand(myControlMenu,
                       "Stop\tCtrl+S\tStop running the simulation.",
-                      GUIIconSubSys::getIcon(ICON_STOP), this, MID_HOTKEY_CTRL_S_SAVENETWORK_STOPSIMULATION);
+                      GUIIconSubSys::getIcon(ICON_STOP), this, MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK);
     new FXMenuCommand(myControlMenu,
                       "Step\tCtrl+D\tPerform one simulation step.",
-                      GUIIconSubSys::getIcon(ICON_STEP), this, MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP);
+                      GUIIconSubSys::getIcon(ICON_STEP), this, MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP_OPENDEMAND);
     new FXMenuCommand(myControlMenu,
                       "Save\t\tSave the current simulation state to a file.",
                       GUIIconSubSys::getIcon(ICON_SAVE), this, MID_SIMSAVE);
@@ -598,9 +598,9 @@ GUIApplicationWindow::buildToolBars() {
         myToolBar2 = new FXToolBar(myTopDock, myToolBarDrag2, GUIDesignToolBarRaisedSameTop);
         new FXToolBarGrip(myToolBar2, myToolBar2, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
         // build simulation tools
-        new FXButton(myToolBar2, "\t\tStart the loaded simulation.", GUIIconSubSys::getIcon(ICON_START), this, MID_HOTKEY_CTRL_A_STARTSIMULATION, GUIDesignButtonToolbar);
-        new FXButton(myToolBar2, "\t\tStop the running simulation.", GUIIconSubSys::getIcon(ICON_STOP), this, MID_HOTKEY_CTRL_S_SAVENETWORK_STOPSIMULATION, GUIDesignButtonToolbar);
-        new FXButton(myToolBar2, "\t\tPerform a single simulation step.", GUIIconSubSys::getIcon(ICON_STEP), this, MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP, GUIDesignButtonToolbar);
+        new FXButton(myToolBar2, "\t\tStart the loaded simulation.", GUIIconSubSys::getIcon(ICON_START), this, MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS, GUIDesignButtonToolbar);
+        new FXButton(myToolBar2, "\t\tStop the running simulation.", GUIIconSubSys::getIcon(ICON_STOP), this, MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK, GUIDesignButtonToolbar);
+        new FXButton(myToolBar2, "\t\tPerform a single simulation step.", GUIIconSubSys::getIcon(ICON_STEP), this, MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP_OPENDEMAND, GUIDesignButtonToolbar);
     }
     {
         // Simulation Step Display

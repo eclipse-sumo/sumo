@@ -73,13 +73,13 @@ enum {
 
     /// @name Ctrl - hotkeys
     /// @{
-    /// @brief Start the simulation
-    MID_HOTKEY_CTRL_A_STARTSIMULATION,
+    /// @brief Start the simulation in SUMO and open Additionals Elemements in NETEDIT
+    MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS,
     /// @brief Edit simulation breakpoints
-    MID_GNE_HOTKEY_CTRL_B_EDITBREAKPOINT,
-    /// @brief Perform a single simulation step
-    MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP,
-    /// @brief Gaming mode or toogle grid
+    MID_HOTKEY_CTRL_B_EDITBREAKPOINT,
+    /// @brief Perform a single simulation step in SUMO and open Demand Elements in NETEDIT
+    MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP_OPENDEMAND,
+    /// @brief Toogle Gaming mode in SUMO and grid in NETEDIT
     MID_HOTKEY_CTRL_G_GAMINGMODE_TOOGLEGRID,
     /// @brief Fullscreen mode - menu entry
     MID_HOTKEY_CTRL_F_FULSCREENMODE,
@@ -91,11 +91,11 @@ enum {
     MID_HOTKEY_CTRL_N_NEWNETWORK,
     /// @brief Main window closes
     MID_HOTKEY_CTRL_Q_CLOSE,
-    /// @brief save newtork and Stop the simulation
-    MID_HOTKEY_CTRL_S_SAVENETWORK_STOPSIMULATION,
+    /// @brief Stop the simulation in SUMO and save network in NETEDIT
+    MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK,
     /// @brief Reload the previously loaded simulation
     MID_HOTKEY_CTRL_R_RELOAD,
-    /// @brief Open in SUMO GUI or in NETEDIT
+    /// @brief Open current network in SUMO or in NETEDIT
     MID_HOTKEY_CTRL_T_OPENSUMONETEDIT,
     /// @brief Close simulation - ID
     MID_HOTKEY_CTRL_W_CLOSESIMULATION,
@@ -119,10 +119,12 @@ enum {
     /// @name Other hotkeys
     /// @{
 
+    /// @brief Save Additional Elements
+    MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALS,
+    /// @brief Save Demand Elements
+    MID_HOTKEY_CTRL_SHIFT_D_SAVEDEMAND,
     /// @brief save newtwork as
     MID_HOTKEY_CTRL_SHIFT_S_SAVENETWORKAS,
-    /// @brief Save additionals
-    MID_HOTKEY_CTRL_SHIFT_D_SAVEADDITIONAL,
     /// @brief compute junctions
     MID_HOTKEY_F5_RECOMPUTE,
     /// @brief compute junctions with volatile options
@@ -186,8 +188,6 @@ enum {
     MID_HOTKEY_CTRL_P,
     /// @brief Load edge data for visualization
     MID_OPEN_EDGEDATA,
-    /// @brief Load additional file with additional elements
-    MID_OPEN_ADDITIONALS,
     /// @brief Load additional file with additional elements
     MID_OPEN_TLSPROGRAMS,
     /// @brief Loads a file previously loaded
@@ -515,13 +515,8 @@ enum {
     MID_GNE_TOOLBARFILE_OPENFOREIGN,
     /// @brief save additionals as
     MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS,
-
     /// @brief save TLS Programs as
     MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS,
-    /// @brief open demand elements
-    MID_GNE_TOOLBARFILE_LOADDEMAND,
-    /// @brief save demand elements
-    MID_GNE_TOOLBARFILE_SAVEDEMAND,
     /// @brief save demand elements as
     MID_GNE_TOOLBARFILE_SAVEDEMAND_AS,
     /// @}
