@@ -83,7 +83,7 @@ GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(GUIGlChildWindow* parent, FXIcon*
     new FXHorizontalSeparator(layoutRight, GUIDesignHorizontalSeparator);
     new FXButton(layoutRight, "&Hide Unselected\t\t", GUIIconSubSys::getIcon(ICON_FLAG), this, MID_CHOOSER_FILTER, GUIDesignChooserButtons);
     new FXButton(layoutRight, "&Select/deselect\tSelect/deselect current object\t", GUIIconSubSys::getIcon(ICON_FLAG), this, MID_CHOOSEN_INVERT, GUIDesignChooserButtons);
-    new FXButton(layoutRight, "By Name\tLocate item by name\t", nullptr, this, MID_CHOOSEN_NAME, GUIDesignChooserButtons);
+    new FXButton(layoutRight, "By &Name\tLocate item by name\t", nullptr, this, MID_CHOOSEN_NAME, GUIDesignChooserButtons);
     new FXHorizontalSeparator(layoutRight, GUIDesignHorizontalSeparator);
     new FXButton(layoutRight, "&Close\t\t", GUIIconSubSys::getIcon(ICON_NO), this, MID_CANCEL, GUIDesignChooserButtons);
 
@@ -262,7 +262,7 @@ GUIDialog_GLObjChooser::onCmdToggleSelection(FXObject*, FXSelector, void*) {
 
 long
 GUIDialog_GLObjChooser::onCmdLocateByName(FXObject*, FXSelector, void*) {
-    std::vector<GUIGlID> selectedGlIDs;
+    std::vector<std::pair<std::string, GUIGlID> > namesAndIDs;
     myLocateByName = true;
     const int numItems = myList->getNumItems();
     for (int i = 0; i < numItems; i++) {
@@ -270,11 +270,17 @@ GUIDialog_GLObjChooser::onCmdLocateByName(FXObject*, FXSelector, void*) {
         GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(glID);
         const std::string& name = getObjectName(o);
         if (name != "") {
-            selectedGlIDs.push_back(glID);
+            namesAndIDs.push_back(std::make_pair(name, glID));
         }
         GUIGlObjectStorage::gIDStorage.unblockObject(glID);
     }
+    std::sort(namesAndIDs.begin(), namesAndIDs.end());
+    std::vector<GUIGlID> selectedGlIDs;
+    for (const auto& item : namesAndIDs) {
+        selectedGlIDs.push_back(item.second);
+    }
     refreshList(selectedGlIDs);
+    myTextEntry->setFocus();
     return 1;
 }
 
