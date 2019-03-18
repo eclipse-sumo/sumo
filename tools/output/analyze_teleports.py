@@ -94,10 +94,10 @@ def main(logfile):
                 print(' '.join(
                     map(str, [step, waitingStepCounts[step], collisionStepCounts[step]])), file=f)
     with open(logfile + "data.xml", 'w') as f:
-        print("<edgeData>", file=f)
+        print('<meandata>\n    <interval begin="0" end="100:00:00:00">', file=f)
         for item in waitingCounts.items():
-            print('     <edge id="%s" waiting_teleport="%s"' % item, file=f)
-        print("</edgeData>", file=f)
+            print('        <edge id="%s" waiting_teleport="%s"/>' % item, file=f)
+        print("    </interval>\n</meandata>", file=f)
 
 
 if __name__ == "__main__":
