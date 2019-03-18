@@ -156,7 +156,7 @@ NBNodeCont::extract(NBNode* node, bool remember) {
     myRTree.Remove(pos, pos, node);
     node->removeTrafficLights();
     if (remember) {
-        myExtractedNodes.insert(node);
+        myExtractedNodes[node->getID()] = node;
     }
     return true;
 }
@@ -1686,8 +1686,8 @@ NBNodeCont::clear() {
         delete ((*i).second);
     }
     myNodes.clear();
-    for (std::set<NBNode*>::iterator i = myExtractedNodes.begin(); i != myExtractedNodes.end(); i++) {
-        delete (*i);
+    for (auto& item : myExtractedNodes) {
+        delete item.second;
     }
     myExtractedNodes.clear();
 }

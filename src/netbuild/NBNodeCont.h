@@ -240,6 +240,13 @@ public:
      */
     void setAsTLControlled(NBNode* node, NBTrafficLightLogicCont& tlc, TrafficLightType type, std::string id = "");
     /// @}
+    
+    /** @brief Returns whether the node with the id was deleted explicitly
+     */
+    bool wasRemoved(std::string id) const {
+        return myExtractedNodes.count(id) != 0;
+    }
+
 
     /// @brief Renames the node. Throws exception if newID already exists
     void rename(NBNode* node, const std::string& newID);
@@ -361,7 +368,7 @@ private:
     NodeCont myNodes;
 
     /// @brief The extracted nodes which are kept for reference
-    std::set<NBNode*> myExtractedNodes;
+    NodeCont myExtractedNodes;
 
     /// @brief set of node ids which should not be joined
     std::set<std::string> myJoinExclusions;

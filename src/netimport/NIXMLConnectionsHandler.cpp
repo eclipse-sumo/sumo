@@ -305,7 +305,7 @@ NIXMLConnectionsHandler::addCrossing(const SUMOSAXAttributes& attrs) {
     NBNode* node = nullptr;
     EdgeVector edges;
     const std::string nodeID = attrs.get<std::string>(SUMO_ATTR_NODE, nullptr, ok);
-    const double width = attrs.getOpt<double>(SUMO_ATTR_WIDTH, nodeID.c_str(), ok, NBEdge::UNSPECIFIED_WIDTH, true);
+    double width = attrs.getOpt<double>(SUMO_ATTR_WIDTH, nodeID.c_str(), ok, NBEdge::UNSPECIFIED_WIDTH, true);
     const bool discard = attrs.getOpt<bool>(SUMO_ATTR_DISCARD, nodeID.c_str(), ok, false, true);
     int tlIndex = attrs.getOpt<int>(SUMO_ATTR_TLLINKINDEX, nullptr, ok, -1);
     int tlIndex2 = attrs.getOpt<int>(SUMO_ATTR_TLLINKINDEX2, nullptr, ok, -1);
@@ -313,7 +313,9 @@ NIXMLConnectionsHandler::addCrossing(const SUMOSAXAttributes& attrs) {
         if (discard) {
             node = myNodeCont.retrieve(nodeID);
             if (node == nullptr) {
-                WRITE_ERROR("Node '" + nodeID + "' in crossing is not known.");
+                if (!myNodeCont.wasRemoved(nodeID)) {
+                    WRITE_ERROR("Node '" + nodeID + "' in crossing is not known.");
+                }
                 return;
             }
             node->discardAllCrossings(true);
@@ -326,7 +328,9 @@ NIXMLConnectionsHandler::addCrossing(const SUMOSAXAttributes& attrs) {
     for (const std::string& id : attrs.get<std::vector<std::string> >(SUMO_ATTR_EDGES, nodeID.c_str(), ok)) {
         NBEdge* edge = myEdgeCont.retrieve(id);
         if (edge == nullptr) {
-            WRITE_ERROR("Edge '" + id + "' for crossing at node '" + nodeID + "' is not known.");
+            if (!(discard && myEdgeCont.wasRemoved(id))) {
+                WRITE_ERROR("Edge '" + id + "' for crossing at node '" + nodeID + "' is not known.");
+            }
             return;
         }
         if (node == nullptr) {
@@ -335,12 +339,16 @@ NIXMLConnectionsHandler::addCrossing(const SUMOSAXAttributes& attrs) {
             } else if (edge->getFromNode()->getID() == nodeID) {
                 node = edge->getFromNode();
             } else {
-                WRITE_ERROR("Edge '" + id + "' does not touch node '" + nodeID + "'.");
+                if (!discard) {
+                    WRITE_ERROR("Edge '" + id + "' does not touch node '" + nodeID + "'.");
+                }
                 return;
             }
         } else {
             if (edge->getToNode() != node && edge->getFromNode() != node) {
-                WRITE_ERROR("Edge '" + id + "' does not touch node '" + nodeID + "'.");
+                if (!discard) {
+                    WRITE_ERROR("Edge '" + id + "' does not touch node '" + nodeID + "'.");
+                }
                 return;
             }
         }
@@ -363,8 +371,31 @@ NIXMLConnectionsHandler::addCrossing(const SUMOSAXAttributes& attrs) {
         node->removeCrossing(edges);
     } else {
         if (node->checkCrossingDuplicated(edges)) {
-            WRITE_ERROR("Crossing with edges '" + toString(edges) + "' already exists at node '" + node->getID() + "'.");
-            return;
+            // possibly a diff
+            NBNode::Crossing* existing =  node->getCrossing(edges);
+            if (!(
+                        (attrs.hasAttribute(SUMO_ATTR_WIDTH) && width != existing->width)
+                        || (attrs.hasAttribute(SUMO_ATTR_TLLINKINDEX) && tlIndex != existing->customTLIndex)
+                        || (attrs.hasAttribute(SUMO_ATTR_TLLINKINDEX2) && tlIndex2 != existing->customTLIndex2)
+                        || (attrs.hasAttribute(SUMO_ATTR_PRIORITY) && priority != existing->priority))) {
+                WRITE_ERROR("Crossing with edges '" + toString(edges) + "' already exists at node '" + node->getID() + "'.");
+                return;
+            } else {
+                // replace existing, keep old attributes
+                if (!attrs.hasAttribute(SUMO_ATTR_WIDTH)) {
+                    width = existing->width;
+                }
+                if (!attrs.hasAttribute(SUMO_ATTR_TLLINKINDEX)) {
+                    tlIndex = existing->customTLIndex;
+                }
+                if (!attrs.hasAttribute(SUMO_ATTR_TLLINKINDEX2)) {
+                    tlIndex2 = existing->customTLIndex2;
+                }
+                if (!attrs.hasAttribute(SUMO_ATTR_PRIORITY)) {
+                    priority = existing->priority;
+                }
+                node->removeCrossing(edges);
+            }
         }
         node->addCrossing(edges, width, priority, tlIndex, tlIndex2, customShape);
     }
