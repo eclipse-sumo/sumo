@@ -37,11 +37,13 @@ def parse_log(logfile, edges=True, aggregate=3600):
         try:
             if "Warning: Teleporting vehicle" in line:
                 # figure out whether its micro or meso
-
                 match = reFrom.search(line)
                 if match is None:
-                    match = reFromMeso.search(line)
-                edge = match.group(1)
+                    edge = reFromMeso.search(line).group(1)
+                else:
+                    edge = match.group(1)
+                    if edges:
+                        edge = edge[:-2]
                 timeMatch = reTime.search(line)
                 if timeMatch:
                     time = int(timeMatch.group(1))
@@ -51,8 +53,6 @@ def parse_log(logfile, edges=True, aggregate=3600):
                             + 3600 * int(timeMatch.group(2))
                             + 60 * int(timeMatch.group(3))
                             + int(timeMatch.group(4)))
-                if edges:
-                    edge = edge[:-2]
                 if "collision" in line:
                     collisionCounts[edge] += 1
                     collisionStepCounts[time / aggregate] += 1
@@ -72,15 +72,14 @@ def parse_log(logfile, edges=True, aggregate=3600):
             waitingStepCounts, collisionStepCounts)
 
 
-def print_counts(countDict, label):
-    counts = sorted([(v, k) for k, v in countDict.items()])
-    print(counts)
+def print_counts(countDict, label, num=10):
+    counts = sorted(countDict.items(), key=lambda k: -k[1])
+    print(label, "worst %s edges: " % num, counts[:num])
     print(label, 'total:', sum(countDict.values()))
 
 
 def main(logfile):
-    waitingCounts, collisionCounts, waitingStepCounts, collisionStepCounts = parse_log(
-        logfile)
+    waitingCounts, collisionCounts, waitingStepCounts, collisionStepCounts = parse_log(logfile)
     print_counts(waitingCounts, 'waiting')
     print_counts(collisionCounts, 'collisions')
     # generate plot
@@ -94,6 +93,11 @@ def main(logfile):
             for step in range(min_step, max_step + 1):
                 print(' '.join(
                     map(str, [step, waitingStepCounts[step], collisionStepCounts[step]])), file=f)
+    with open(logfile + "data.xml", 'w') as f:
+        print("<edgeData>", file=f)
+        for item in waitingCounts.items():
+            print('     <edge id="%s" waiting_teleport="%s"' % item, file=f)
+        print("</edgeData>", file=f)
 
 
 if __name__ == "__main__":
