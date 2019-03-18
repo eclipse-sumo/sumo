@@ -2100,6 +2100,12 @@ GNENet::saveAdditionals(const std::string& filename) {
 }
 
 
+bool 
+GNENet::isAdditionalsSaved() const {
+    return myAdditionalsSaved;
+}
+
+
 std::string
 GNENet::generateAdditionalID(SumoXMLTag type) const {
     int counter = 0;
@@ -2244,6 +2250,12 @@ GNENet::saveDemandElements(const std::string& filename) {
     myDemandElementsSaved = true;
     // show debug information
     WRITE_DEBUG("DemandElements saved");
+}
+
+
+bool 
+GNENet::isDemandElementsSaved() const {
+    return myDemandElementsSaved;
 }
 
 

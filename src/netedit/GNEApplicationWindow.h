@@ -233,6 +233,12 @@ public:
     /// @brief called when the update/FXCall reload is executed
     long onUpdReload(FXObject*, FXSelector, void*);
 
+    /// @brief called when the update/FXCall save additionals is executed
+    long onUpdSaveAdditionals(FXObject*, FXSelector, void*);
+
+    /// @brief called when the update/FXCall save demand elements is executed
+    long onUpdSaveDemandElements(FXObject*, FXSelector, void*);
+
     /// @brief called when the command/FXCall save as plain xml is executed
     long onCmdSaveAsPlainXML(FXObject*, FXSelector, void*);
 

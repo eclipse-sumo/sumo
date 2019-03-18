@@ -593,6 +593,9 @@ public:
     */
     void saveAdditionals(const std::string& filename);
 
+    /// @brief check if additionals are saved
+    bool isAdditionalsSaved() const;
+
     /// @brief generate additional id
     std::string generateAdditionalID(SumoXMLTag type) const;
 
@@ -642,6 +645,9 @@ public:
     * @param[in] filename name of the file in wich save demand elements
     */
     void saveDemandElements(const std::string& filename);
+
+    /// @brief check if demand elements are saved
+    bool isDemandElementsSaved() const;
 
     /// @brief generate demand element id
     std::string generateDemandElementID(SumoXMLTag type) const;
