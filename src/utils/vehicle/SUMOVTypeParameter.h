@@ -88,6 +88,7 @@ public:
      */
     SUMOVTypeParameter(const std::string& vtid, const SUMOVehicleClass vc = SVC_IGNORING);
 
+    virtual ~SUMOVTypeParameter() {};
 
     /** @brief Returns whether the given parameter was set
      * @param[in] what The parameter which one asks for

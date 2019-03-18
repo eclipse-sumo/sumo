@@ -290,7 +290,7 @@ public:
     SUMOVehicleParameter();
 
     /// @brief Destructor
-    ~SUMOVehicleParameter();
+    virtual ~SUMOVehicleParameter();
 
     /** @brief Returns whether the given parameter was set
      * @param[in] what The parameter which one asks for
