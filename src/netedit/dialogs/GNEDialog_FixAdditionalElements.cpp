@@ -253,7 +253,7 @@ GNEDialog_FixAdditionalElements::AdditionalList::AdditionalList(GNEDialog_FixAdd
         // Update index
         indexRow++;
     }
-};
+}
 
 // ---------------------------------------------------------------------------
 // GNEDialog_FixAdditionalElements::PositionOptions - methods

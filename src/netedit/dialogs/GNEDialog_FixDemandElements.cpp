@@ -246,7 +246,7 @@ GNEDialog_FixDemandElements::DemandList::DemandList(GNEDialog_FixDemandElements*
         // Update index
         indexRow++;
     }
-};
+}
 
 
 // ---------------------------------------------------------------------------
