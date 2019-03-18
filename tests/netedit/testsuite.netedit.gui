@@ -13,9 +13,6 @@ shapeElements
 # test for demand elements (Routes, Vehicles, etc.)
 #demandElements
 
-# test for Traffic lights
-trafficLights
-
 # test for select elements 
 selection
 

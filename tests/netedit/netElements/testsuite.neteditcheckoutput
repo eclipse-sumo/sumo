@@ -7,9 +7,6 @@ edges
 # junctions
 junctions
 
-# traffic lights
-#tls
-
 # connections
 connections
 
@@ -18,3 +15,6 @@ connections
 
 # lanes
 lanes
+
+# traffic lights
+trafficlights
