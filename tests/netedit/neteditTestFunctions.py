@@ -27,7 +27,8 @@ DELAY_KEY_TAB = 0.01
 DELAY_MOUSE = 0.1
 DELAY_QUESTION = 0.1
 DELAY_REFERENCE = 30
-DELAY_QUIT = 3
+DELAY_QUIT_NETEDIT = 3
+DELAY_QUIT_SUMOGUI = 3
 DELAY_UNDOREDO = 0.1
 DELAY_SELECT = 0.1
 DELAY_RECOMPUTE = 2
@@ -36,6 +37,7 @@ DELAY_REMOVESELECTION = 0.1
 
 NeteditApp = os.environ.get("NETEDIT_BINARY", "netedit")
 textTestSandBox = os.environ.get("TEXTTEST_SANDBOX", ".")
+SumoGuiCall = [os.environ.get("GUISIM_BINARY", "sumo-gui"), '-c', os.path.join(textTestSandBox, 'sumo.sumocfg'), '--no-step-log', '--no-duration-log', '--start', '--quit-on-end']
 
 #################################################
 # interaction functions
@@ -295,7 +297,7 @@ def Popen(extraParameters, debugInformation):
 
     # add extra parameters
     NeteditCall += extraParameters
-
+     
     # return a subprocess with Netedit
     return subprocess.Popen(NeteditCall, env=os.environ, stdout=sys.stdout, stderr=sys.stderr)
 
@@ -515,7 +517,7 @@ def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
                 waitQuestion('q')
 
         # wait some seconds
-        time.sleep(DELAY_QUIT)
+        time.sleep(DELAY_QUIT_NETEDIT)
         if NeteditProcess.poll() is not None:
             # print debug information
             print("TestFunctions: Netedit closed successfully")
@@ -523,7 +525,18 @@ def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
             NeteditProcess.kill()
             # print debug information
             print("TestFunctions: Error closing Netedit")
-
+			
+"""            
+            # return a subprocess with Netedit
+            sumoGuiProcess = subprocess.Popen(SumoGuiCall, env=os.environ, stdout=sys.stdout, stderr=sys.stderr)
+            if sumoGuiProcess.poll() is not None:
+                # print debug information
+                print("TestFunctions: Sumo-GUI closed successfully")
+            else:
+                sumoGuiProcess.kill()
+                # print debug information
+                print("TestFunctions: Error closing SumoGui")
+"""
 
 """
 @brief load network as

@@ -20,6 +20,7 @@ copy_test_path:fileA.txt
 copy_test_path:fileB.txt
 copy_test_path_merge:selection.txt
 copy_test_path_merge:myOwnFilenameRerouter.txt
+copy_test_path:sumo.sumocfg
 
 [collate_file]
 net:net.net.xml
