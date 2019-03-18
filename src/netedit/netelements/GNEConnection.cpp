@@ -577,16 +577,7 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_DIR:
             throw InvalidArgument("Attribute of '" + toString(key) + "' cannot be modified");
         case SUMO_ATTR_CUSTOMSHAPE: {
-            const bool init = (myShape.size() == 0);
-            if (!init) {
-                // first remove object from net grid
-                myNet->removeGLObjectFromGrid(this);
-            }
             nbCon.customShape = parse<PositionVector>(value);
-            if (!init) {
-                // add object into net again
-                myNet->addGLObjectIntoGrid(this);
-            }
             break;
         }
         case GNE_ATTR_SELECTED:
@@ -604,7 +595,9 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
     // Update Geometry after setting a new attribute (but avoided for certain attributes)
     if ((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
-        updateGeometry(true);
+        const bool init = (myShape.size() == 0);
+        markConnectionGeometryDeprecated();
+        updateGeometry(!init);
     }
 }
 
