@@ -142,7 +142,20 @@ GUIDialog_GLObjChooser::onCmdClose(FXObject*, FXSelector, void*) {
 
 long
 GUIDialog_GLObjChooser::onChgText(FXObject*, FXSelector, void*) {
-    int id = myList->findItem(myTextEntry->getText(), -1, SEARCH_PREFIX);
+    int id = -1;
+    if (myLocateByName) {
+        // findItem does not support substring search
+        const int numItems = myList->getNumItems();
+        FXString t = myTextEntry->getText().lower();
+        for (int i = 0; i < numItems; i++) {
+            if (myList->getItemText(i).lower().find(t) >= 0) {
+                id = i;
+                break;
+            }
+        }
+    } else {
+        id = myList->findItem(myTextEntry->getText(), -1, SEARCH_PREFIX);
+    }
     if (id < 0) {
         if (myList->getNumItems() > 0) {
             myList->deselectItem(myList->getCurrentItem());
