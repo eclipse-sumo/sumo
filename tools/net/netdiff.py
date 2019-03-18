@@ -70,6 +70,7 @@ TAG_CROSSING = 'crossing'
 TAG_ROUNDABOUT = 'roundabout'
 TAG_LANE = 'lane'
 TAG_PARAM = 'param'
+TAG_LOCATION = 'location'
 
 # see CAVEAT1
 IDATTRS = defaultdict(lambda: ('id',))
@@ -104,6 +105,7 @@ DEFAULT_VALUES['z'] = "0"
 DEFAULT_VALUES['radius'] = "-1"
 RESET = 0
 
+IGNORE_TAGS = set([TAG_LOCATION])
 
 # stores attributes for later comparison
 class AttributeStore:
@@ -226,6 +228,8 @@ class AttributeStore:
                 self.idless_deleted[tag].remove(attrs)
                 if tag in self.copy_tags:
                     self.idless_copied[tag].add(attrs)
+            elif tag in IGNORE_TAGS:
+                self.idless_deleted[tag].clear()
             else:
                 self.idless_created[tag].add(attrs)
 
