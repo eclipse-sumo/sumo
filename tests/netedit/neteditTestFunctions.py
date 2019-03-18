@@ -582,7 +582,7 @@ def saveNetworkAs(waitTime=2):
 
 def saveAdditionals():
     # save additionals using hotkey
-    typeThreeKeys('ctrl', 'shift', 'd')
+    typeThreeKeys('ctrl', 'shift', 'a')
 
 
 """
