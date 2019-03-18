@@ -103,6 +103,7 @@ DEFAULT_VALUES['contPos'] = "-1"
 DEFAULT_VALUES['visibility'] = "-1"
 DEFAULT_VALUES['z'] = "0"
 DEFAULT_VALUES['radius'] = "-1"
+DEFAULT_VALUES['linkIndex'] = "-1"
 RESET = 0
 
 IGNORE_TAGS = set([TAG_LOCATION])
