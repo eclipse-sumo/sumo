@@ -1476,6 +1476,7 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
                     }
                     NBNode* signal = inEdge->getSignalNode();
                     if (signal != nullptr) {
+                        //if (true || node->getID() == "cluster_2648427269_3180391961_3180391964_736234762") std::cout << " edge=" << inEdge->getID() << " signalNode=" << signal->getID() << " offset=" << inEdge->getSignalOffset() << "\n";
                         signals.push_back(signal);
                     }
                 }
@@ -1485,6 +1486,7 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
                     const NBEdge* outEdge = *it_i;
                     NBNode* cand = outEdge->getToNode();
                     if (cand->isTLControlled() && cand->geometryLike() && outEdge->getLength() <= signalDist) {
+                        //if (true || node->getID() == "cluster_2648427269_3180391961_3180391964_736234762") std::cout << " node=" << node->getID() << " outEdge=" << outEdge->getID() << " signalNode=" << cand->getID() << " len=" << outEdge->getLength() << "\n";
                         signals.push_back(cand);
                     }
                 }
@@ -1496,6 +1498,7 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
                             tlc.removeFully((*j)->getID());
                         }
                     }
+                    //if (true) std::cout << " node=" << node->getID() << " signals=" << toString(signals) << "\n";
                     NBTrafficLightDefinition* tlDef = new NBOwnTLDef("GS_" + node->getID(), node, 0, type);
                     // @todo patch endOffset for all incoming lanes according to the signal positions
                     if (!tlc.insert(tlDef)) {

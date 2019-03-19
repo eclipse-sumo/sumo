@@ -3019,7 +3019,7 @@ NBEdge::append(NBEdge* e) {
     }
     if (e->getSignalOffset() != UNSPECIFIED_SIGNAL_OFFSET) {
         mySignalOffset = e->getSignalOffset();
-    } else {
+    } else if (mySignalOffset != UNSPECIFIED_SIGNAL_OFFSET) {
         mySignalOffset += e->getLength();
     }
     computeAngle(); // myEndAngle may be different now
