@@ -10,6 +10,9 @@ boarding_duration_extension
 # person with a single ride
 ride
 
+# person with a triggered vehicles ride specified using the exact vehicle id rather than the line attribute
+ride_ignore_line
+
 # person rides and then stops
 ride_and_stop
 
@@ -33,6 +36,9 @@ walk_random_pos
 
 # person with a public transport ride
 public
+
+# person with a public transport ride specified using the exact vehicle id
+public_by_id
 
 # person waiting for a public transport ride
 public_wait
