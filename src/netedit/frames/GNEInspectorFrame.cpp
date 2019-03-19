@@ -346,12 +346,6 @@ GNEInspectorFrame::getAttributesEditor() const {
 }
 
 
-GNEFrame::ACHierarchy*
-GNEInspectorFrame::getACHierarchy() const {
-    return myACHierarchy;
-}
-
-
 GNEInspectorFrame::TemplateEditor*
 GNEInspectorFrame::getTemplateEditor() const {
     return myTemplateEditor;
@@ -377,6 +371,17 @@ GNEInspectorFrame::onCmdGoBack(FXObject*, FXSelector, void*) {
         myViewNet->getViewParent()->getDeleteFrame()->show();
     }
     return 1;
+}
+
+
+void 
+GNEInspectorFrame::updateFrameAfterUndoRedo() {
+    // refresh Attribute Editor
+    myAttributesEditor->refreshAttributeEditor(false, false);
+    // refresh GenericParameters
+    myGenericParametersEditor->refreshGenericParametersEditor();
+    // refresh AC Hierarchy
+    myACHierarchy->refreshACHierarchy();
 }
 
 

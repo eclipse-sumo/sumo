@@ -24,8 +24,8 @@
 #include <netedit/netelements/GNELane.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/demandelements/GNEDemandElement.h>
-#include <netedit/frames/GNEInspectorFrame.h>
 #include <netedit/frames/GNEVehicleTypeFrame.h>
+#include <netedit/frames/GNEFrame.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/GNEViewNet.h>
 
@@ -146,9 +146,9 @@ GNEChange_DemandElement::undo() {
     }
     // Requiere always save demandElements
     myNet->requiereSaveDemandElements(true);
-    // check if inspector frame has to be updated
-    if (myNet->getViewNet()->getViewParent()->getInspectorFrame()->shown()) {
-        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getACHierarchy()->refreshACHierarchy();
+    // update current show frame afgter undo/redo
+    if (myNet->getViewNet()->getViewParent()->getCurrentShownFrame()) {
+        myNet->getViewNet()->getViewParent()->getCurrentShownFrame()->updateFrameAfterUndoRedo();
     }
 }
 
@@ -216,9 +216,9 @@ GNEChange_DemandElement::redo() {
     }
     // Requiere always save demandElements
     myNet->requiereSaveDemandElements(true);
-    // check if inspector frame has to be updated
-    if (myNet->getViewNet()->getViewParent()->getInspectorFrame()->shown()) {
-        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getACHierarchy()->refreshACHierarchy();
+    // update current show frame afgter undo/redo
+    if (myNet->getViewNet()->getViewParent()->getCurrentShownFrame()) {
+        myNet->getViewNet()->getViewParent()->getCurrentShownFrame()->updateFrameAfterUndoRedo();
     }
 }
 

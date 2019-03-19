@@ -23,10 +23,10 @@
 #include <netedit/GNENet.h>
 #include <netedit/netelements/GNECrossing.h>
 #include <netedit/netelements/GNEJunction.h>
-#include <netedit/frames/GNEInspectorFrame.h>
 #include <netedit/GNEViewParent.h>
 #include <netbuild/NBNetBuilder.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/frames/GNEFrame.h>
 
 #include "GNEChange_Crossing.h"
 
@@ -112,12 +112,12 @@ void GNEChange_Crossing::undo() {
         // Update view
         myNet->getViewNet()->update();
     }
-    // check if inspector frame has to be updated
-    if (myNet->getViewNet()->getViewParent()->getInspectorFrame()->shown()) {
-        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getACHierarchy()->refreshACHierarchy();
-    }
     // enable save netElements
     myNet->requiereSaveNet(true);
+    // update current show frame afgter undo/redo
+    if (myNet->getViewNet()->getViewParent()->getCurrentShownFrame()) {
+        myNet->getViewNet()->getViewParent()->getCurrentShownFrame()->updateFrameAfterUndoRedo();
+    }
 }
 
 
@@ -158,12 +158,12 @@ void GNEChange_Crossing::redo() {
         // Update view
         myNet->getViewNet()->update();
     }
-    // check if inspector frame has to be updated
-    if (myNet->getViewNet()->getViewParent()->getInspectorFrame()->shown()) {
-        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getACHierarchy()->refreshACHierarchy();
-    }
     // enable save netElements
     myNet->requiereSaveNet(true);
+    // update current show frame afgter undo/redo
+    if (myNet->getViewNet()->getViewParent()->getCurrentShownFrame()) {
+        myNet->getViewNet()->getViewParent()->getCurrentShownFrame()->updateFrameAfterUndoRedo();
+    }
 }
 
 

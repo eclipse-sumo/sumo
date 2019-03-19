@@ -159,6 +159,13 @@ GNEViewParent::hideAllFrames() {
     myFrames.hideFrames();
 }
 
+
+GNEFrame* 
+GNEViewParent::getCurrentShownFrame() const {
+    return myFrames.getCurrentShownFrame();
+}
+
+
 GNEInspectorFrame*
 GNEViewParent::getInspectorFrame() const {
     return myFrames.inspectorFrame;
@@ -566,6 +573,45 @@ GNEViewParent::Frames::isFrameShown() const {
         return true;
     } else {
         return false;
+    }
+}
+
+
+GNEFrame* 
+GNEViewParent::Frames::getCurrentShownFrame() const {
+    // check all frames
+    if (inspectorFrame->shown()) {
+        return inspectorFrame;
+    } else if (selectorFrame->shown()) {
+        return selectorFrame;
+    } else if (connectorFrame->shown()) {
+        return connectorFrame;
+    } else if (TLSEditorFrame->shown()) {
+        return TLSEditorFrame;
+    } else if (additionalFrame->shown()) {
+        return additionalFrame;
+    } else if (crossingFrame->shown()) {
+        return crossingFrame;
+    } else if (TAZFrame->shown()) {
+        return TAZFrame;
+    } else if (deleteFrame->shown()) {
+        return deleteFrame;
+    } else if (polygonFrame->shown()) {
+        return polygonFrame;
+    } else if (prohibitionFrame->shown()) {
+        return prohibitionFrame;
+        /** currently createEdgeFrame unused
+        } else if (createEdgeFrame->shown()) {
+            return true;
+        **/
+    } else if (routeFrame->shown()) {
+        return routeFrame;
+    } else if (vehicleFrame->shown()) {
+        return vehicleFrame;
+    } else if (vehicleTypeFrame->shown()) {
+        return vehicleTypeFrame;
+    } else {
+        return nullptr;
     }
 }
 

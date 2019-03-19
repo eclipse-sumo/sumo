@@ -25,6 +25,9 @@
 #include <netbuild/NBOwnTLDef.h>
 #include <netedit/netelements/GNEJunction.h>
 #include <netedit/GNENet.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/frames/GNEFrame.h>
 
 #include "GNEChange_TLS.h"
 
@@ -82,6 +85,10 @@ GNEChange_TLS::undo() {
     }
     // enable save netElements
     myNet->requiereSaveNet(true);
+    // update current show frame afgter undo/redo
+    if (myNet->getViewNet()->getViewParent()->getCurrentShownFrame()) {
+        myNet->getViewNet()->getViewParent()->getCurrentShownFrame()->updateFrameAfterUndoRedo();
+    }
 }
 
 
@@ -100,6 +107,10 @@ GNEChange_TLS::redo() {
     }
     // enable save netElements
     myNet->requiereSaveNet(true);
+    // update current show frame afgter undo/redo
+    if (myNet->getViewNet()->getViewParent()->getCurrentShownFrame()) {
+        myNet->getViewNet()->getViewParent()->getCurrentShownFrame()->updateFrameAfterUndoRedo();
+    }
 }
 
 

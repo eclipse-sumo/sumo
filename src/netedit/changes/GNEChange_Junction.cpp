@@ -22,9 +22,9 @@
 
 #include <netedit/GNENet.h>
 #include <netedit/netelements/GNEJunction.h>
-#include <netedit/frames/GNEInspectorFrame.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/frames/GNEFrame.h>
 
 #include "GNEChange_Junction.h"
 
@@ -71,12 +71,12 @@ GNEChange_Junction::undo() {
         // delete junction from net
         myNet->insertJunction(myJunction);
     }
-    // check if inspector frame has to be updated
-    if (myNet->getViewNet()->getViewParent()->getInspectorFrame()->shown()) {
-        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getACHierarchy()->refreshACHierarchy();
-    }
     // enable save netElements
     myNet->requiereSaveNet(true);
+    // update current show frame afgter undo/redo
+    if (myNet->getViewNet()->getViewParent()->getCurrentShownFrame()) {
+        myNet->getViewNet()->getViewParent()->getCurrentShownFrame()->updateFrameAfterUndoRedo();
+    }
 }
 
 
@@ -93,12 +93,12 @@ GNEChange_Junction::redo() {
         // delete junction from net
         myNet->deleteSingleJunction(myJunction);
     }
-    // check if inspector frame has to be updated
-    if (myNet->getViewNet()->getViewParent()->getInspectorFrame()->shown()) {
-        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getACHierarchy()->refreshACHierarchy();
-    }
     // enable save netElements
     myNet->requiereSaveNet(true);
+    // update current show frame afgter undo/redo
+    if (myNet->getViewNet()->getViewParent()->getCurrentShownFrame()) {
+        myNet->getViewNet()->getViewParent()->getCurrentShownFrame()->updateFrameAfterUndoRedo();
+    }
 }
 
 

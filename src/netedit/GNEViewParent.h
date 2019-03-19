@@ -41,6 +41,7 @@ class GNEDeleteFrame;
 class GNEDialogACChooser;
 class GNEInspectorFrame;
 class GNENet;
+class GNEFrame;
 class GNEPolygonFrame;
 class GNEProhibitionFrame;
 class GNERouteFrame;
@@ -95,6 +96,9 @@ public:
 
     /// @brief hide all frames
     void hideAllFrames();
+
+    /// @brief get current frame (note: it can be null)
+    GNEFrame* getCurrentShownFrame() const;
 
     /// @brief get frame for GNE_NMODE_INSPECT
     GNEInspectorFrame* getInspectorFrame() const;
@@ -194,6 +198,9 @@ private:
 
         /// @brief return true if at least there is a frame shown
         bool isFrameShown() const;
+
+        /// @brief get current frame show
+        GNEFrame* getCurrentShownFrame() const;
 
         /// @brief frame for GNE_NMODE_INSPECT
         GNEInspectorFrame* inspectorFrame;

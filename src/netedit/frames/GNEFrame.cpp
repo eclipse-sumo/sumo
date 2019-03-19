@@ -1362,9 +1362,6 @@ GNEFrame::AttributesEditor::hideAttributesEditorModul() {
 void
 GNEFrame::AttributesEditor::refreshAttributeEditor(bool forceRefreshShape, bool forceRefreshPosition) {
     if (myEditedACs.size() > 0) {
-        // Declare pointer for allow/Disallow vehicles
-        std::pair<GNEFrame::AttributesEditor::RowEditor*, std::string> myAllowAttribute(nullptr, "");
-        std::pair<GNEFrame::AttributesEditor::RowEditor*, std::string> myDisallowAttribute(nullptr, "");
         //  check if current AC is a Junction without TLSs (needed to hidde TLS options)
         bool disableTLSinJunctions = (dynamic_cast<GNEJunction*>(myEditedACs.front()) && (dynamic_cast<GNEJunction*>(myEditedACs.front())->getNBNode()->getControllingTLS().empty()));
         // Iterate over attributes
@@ -1391,38 +1388,16 @@ GNEFrame::AttributesEditor::refreshAttributeEditor(bool forceRefreshShape, bool 
                 ((i.first == SUMO_ATTR_TLTYPE) || (i.first == SUMO_ATTR_TLID))) == false) {
                 // check if is a disjoint attribute
                 bool disjointAttributeSet = myEditedACs.front()->isDisjointAttributeSet(i.first);
-                // refresh attribute, with a special case for allow/disallow vehicles
-                if (i.first  == SUMO_ATTR_ALLOW) {
-                    myAllowAttribute.first = myVectorOfRows[i.second.getPositionListed()];
-                    myAllowAttribute.second = oss.str();
-                } else if (i.first  == SUMO_ATTR_DISALLOW) {
-                    myDisallowAttribute.first = myVectorOfRows[i.second.getPositionListed()];
-                    myDisallowAttribute.second = oss.str();
+                // Check if refresh of Position or Shape has to be forced
+                if ((i.first  == SUMO_ATTR_SHAPE) && forceRefreshShape) {
+                    myVectorOfRows[i.second.getPositionListed()]->refreshRow(oss.str(), true, disjointAttributeSet);
+                } else if ((i.first  == SUMO_ATTR_POSITION) && forceRefreshPosition) {
+                    // Refresh attributes maintain invalid values
+                    myVectorOfRows[i.second.getPositionListed()]->refreshRow(oss.str(), true, disjointAttributeSet);
                 } else {
-                    // Check if refresh of Position or Shape has to be forced
-                    if ((i.first  == SUMO_ATTR_SHAPE) && forceRefreshShape) {
-                        myVectorOfRows[i.second.getPositionListed()]->refreshRow(oss.str(), true, disjointAttributeSet);
-                    } else if ((i.first  == SUMO_ATTR_POSITION) && forceRefreshPosition) {
-                        // Refresh attributes maintain invalid values
-                        myVectorOfRows[i.second.getPositionListed()]->refreshRow(oss.str(), true, disjointAttributeSet);
-                    } else {
-                        // Refresh attributes maintain invalid values
-                        myVectorOfRows[i.second.getPositionListed()]->refreshRow(oss.str(), false, disjointAttributeSet);
-                    }
+                    // Refresh attributes maintain invalid values
+                    myVectorOfRows[i.second.getPositionListed()]->refreshRow(oss.str(), false, disjointAttributeSet);
                 }
-            }
-        }
-        // Check special case for Allow/Disallow attributes
-        if (myAllowAttribute.first && myDisallowAttribute.first) {
-            // if allow attribute is valid but disallow attribute is invalid
-            if (myAllowAttribute.first->isRowValid() && !myDisallowAttribute.first->isRowValid()) {
-                // force refresh of disallow attribute
-                myDisallowAttribute.first->refreshRow(myDisallowAttribute.second, true, true);
-            }
-            // if disallow attribute is valid but allow attribute is invalid
-            if (myDisallowAttribute.first->isRowValid() && !myAllowAttribute.first->isRowValid()) {
-                // force refresh of disallow attribute
-                myAllowAttribute.first->refreshRow(myAllowAttribute.second, true, true);
             }
         }
     }
@@ -2059,7 +2034,7 @@ void
 GNEFrame::GenericParametersEditor::refreshGenericParametersEditor() {
     // update text field depending of AC
     if (myAC) {
-        myTextFieldGenericParameter->setText(getGenericParametersStr().c_str());
+        myTextFieldGenericParameter->setText(myAC->getAttribute(GNE_ATTR_GENERIC).c_str());
         myTextFieldGenericParameter->setTextColor(FXRGB(0, 0, 0));
         // disable myTextFieldGenericParameter if Tag correspond to an network element but we're in demand mode (or vice versa), disable all elements
         if (((myFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && myAC->getTagProperty().isDemandElement()) ||
@@ -2763,6 +2738,15 @@ GNEFrame::getFrameHeaderFont() const {
     return myFrameHeaderFont;
 }
 
+
+void 
+GNEFrame::updateFrameAfterUndoRedo() {
+    // this function has to be reimplemente in all child frames that needs to draw a polygon (for example, GNEFrame or GNETAZFrame)
+}
+
+// ---------------------------------------------------------------------------
+// GNEFrame - protected methods
+// ---------------------------------------------------------------------------
 
 bool
 GNEFrame::buildShape() {

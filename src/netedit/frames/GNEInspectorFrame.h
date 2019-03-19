@@ -374,9 +374,6 @@ public:
     /// @brief get AttributesEditor
     GNEFrame::AttributesEditor* getAttributesEditor() const;
 
-    /// @brief get ACHierarchy
-    GNEFrame::ACHierarchy* getACHierarchy() const;
-
     /// @brief get template editor
     TemplateEditor* getTemplateEditor() const;
 
@@ -389,6 +386,9 @@ public:
     /// @brief called when user toogle the go back button
     long onCmdGoBack(FXObject*, FXSelector, void*);
     /// @}
+
+    /// @brief function called after undo/redo in the current frame (can be reimplemented in frame childs)
+    void updateFrameAfterUndoRedo();
 
 protected:
     /// @brief FOX needs this

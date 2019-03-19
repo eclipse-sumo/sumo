@@ -770,6 +770,9 @@ public:
     /// @brief get font of the header's frame
     FXFont* getFrameHeaderFont() const;
 
+    /// @brief function called after undo/redo in the current frame (can be reimplemented in frame childs)
+    virtual void updateFrameAfterUndoRedo();
+
 protected:
     /// @brief FOX needs this
     GNEFrame() {}
