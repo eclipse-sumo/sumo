@@ -47,7 +47,7 @@
 #include "NBTypeCont.h"
 #include "NBEdge.h"
 
-#define DEBUG_CONNECTION_GUESSING
+//#define DEBUG_CONNECTION_GUESSING
 //#define DEBUG_ANGLES
 //#define DEBUG_NODE_BORDER
 //#define DEBUG_REPLACECONNECTION
@@ -3433,6 +3433,15 @@ NBEdge::getFirstNonPedestrianLaneIndex(int direction, bool exclusive) const {
     return -1;
 }
 
+int
+NBEdge::getSpecialLane(SVCPermissions permissions) const {
+    for (int i = 0; i < (int)myLanes.size(); i++) {
+        if (myLanes[i].permissions == permissions) {
+            return i;
+        }
+    }
+    return -1;
+}
 
 int
 NBEdge::getFirstAllowedLaneIndex(int direction) const {

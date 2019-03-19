@@ -1037,6 +1037,9 @@ NBNode::computeLanes2Lanes() {
                 && in2 != out
                 && in1->isConnectedTo(out)
                 && in2->isConnectedTo(out)
+                && in1->getSpecialLane(SVC_BICYCLE) == -1
+                && in2->getSpecialLane(SVC_BICYCLE) == -1
+                && out->getSpecialLane(SVC_BICYCLE) == -1
                 && isLongEnough(out, MIN_WEAVE_LENGTH)) {
 #ifdef DEBUG_CONNECTION_GUESSING
             if (DEBUGCOND) std::cout << "l2l node=" << getID() << " specialCase b\n";

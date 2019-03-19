@@ -603,6 +603,9 @@ public:
      */
     int getFirstNonPedestrianLaneIndex(int direction, bool exclusive = false) const;
 
+    /// @brief return index of the first lane that allows the given permissions
+    int getSpecialLane(SVCPermissions permissions) const;
+
     /** @brief return the first lane that permits at least 1 vClass or the last lane if search direction of there is no such lane
      * @param[in] direction The direction in which the lanes shall be checked
      */
