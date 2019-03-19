@@ -81,10 +81,6 @@ GNEChange_Shape::undo() {
         // Add shape in net
         myNet->insertShape(myShape);
     }
-    // update current show frame afgter undo/redo
-    if (myNet->getViewNet()->getViewParent()->getCurrentShownFrame()) {
-        myNet->getViewNet()->getViewParent()->getCurrentShownFrame()->updateFrameAfterUndoRedo();
-    }
 }
 
 
@@ -100,10 +96,6 @@ GNEChange_Shape::redo() {
         WRITE_DEBUG("Removing " + myShape->getTagStr() + " '" + myShape->getID() + "' from viewNet");
         // remove shape from net
         myNet->removeShape(myShape);
-    }
-    // update current show frame afgter undo/redo
-    if (myNet->getViewNet()->getViewParent()->getCurrentShownFrame()) {
-        myNet->getViewNet()->getViewParent()->getCurrentShownFrame()->updateFrameAfterUndoRedo();
     }
 }
 

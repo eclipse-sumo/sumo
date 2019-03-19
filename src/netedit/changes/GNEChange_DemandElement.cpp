@@ -146,10 +146,6 @@ GNEChange_DemandElement::undo() {
     }
     // Requiere always save demandElements
     myNet->requiereSaveDemandElements(true);
-    // update current show frame afgter undo/redo
-    if (myNet->getViewNet()->getViewParent()->getCurrentShownFrame()) {
-        myNet->getViewNet()->getViewParent()->getCurrentShownFrame()->updateFrameAfterUndoRedo();
-    }
 }
 
 
@@ -216,10 +212,6 @@ GNEChange_DemandElement::redo() {
     }
     // Requiere always save demandElements
     myNet->requiereSaveDemandElements(true);
-    // update current show frame afgter undo/redo
-    if (myNet->getViewNet()->getViewParent()->getCurrentShownFrame()) {
-        myNet->getViewNet()->getViewParent()->getCurrentShownFrame()->updateFrameAfterUndoRedo();
-    }
 }
 
 

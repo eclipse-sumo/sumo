@@ -131,10 +131,6 @@ GNEChange_Attribute::undo() {
             }
         }
     }
-    // update current show frame afgter undo/redo
-    if (myNet->getViewNet()->getViewParent()->getCurrentShownFrame()) {
-        myNet->getViewNet()->getViewParent()->getCurrentShownFrame()->updateFrameAfterUndoRedo();
-    }
 }
 
 
@@ -162,10 +158,6 @@ GNEChange_Attribute::redo() {
                 myNet->requiereSaveDemandElements(true);
             }
         }
-    }
-    // update current show frame afgter undo/redo
-    if (myNet->getViewNet()->getViewParent()->getCurrentShownFrame()) {
-        myNet->getViewNet()->getViewParent()->getCurrentShownFrame()->updateFrameAfterUndoRedo();
     }
 }
 

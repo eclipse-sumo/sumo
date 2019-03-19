@@ -1899,6 +1899,10 @@ GNEApplicationWindow::onCmdUndo(FXObject*, FXSelector, void*) {
     // Undo needs a viewnet and a enabled undoLastChange menu command
     if(myViewNet && myEditMenuCommands.undoLastChange->isEnabled()) {
         myViewNet->getUndoList()->undo();
+        // update current show frame after undo
+        if (myViewNet->getViewParent()->getCurrentShownFrame()) {
+            myViewNet->getViewParent()->getCurrentShownFrame()->updateFrameAfterUndoRedo();
+        }
     }
     return 1;
 }
@@ -1909,6 +1913,10 @@ GNEApplicationWindow::onCmdRedo(FXObject*, FXSelector, void*) {
     // redo needs a viewnet and a enabled redoLastChange menu command
     if(myViewNet && myEditMenuCommands.redoLastChange->isEnabled()) {
         myViewNet->getUndoList()->redo();
+        // update current show frame after redo
+        if (myViewNet->getViewParent()->getCurrentShownFrame()) {
+            myViewNet->getViewParent()->getCurrentShownFrame()->updateFrameAfterUndoRedo();
+        }
     }
     return 1;
 }

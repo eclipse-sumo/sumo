@@ -146,10 +146,6 @@ GNEChange_Additional::undo() {
     }
     // Requiere always save additionals
     myNet->requiereSaveAdditionals(true);
-    // update current show frame afgter undo/redo
-    if (myNet->getViewNet()->getViewParent()->getCurrentShownFrame()) {
-        myNet->getViewNet()->getViewParent()->getCurrentShownFrame()->updateFrameAfterUndoRedo();
-    }
 }
 
 
@@ -216,10 +212,6 @@ GNEChange_Additional::redo() {
     }
     // Requiere always save additionals
     myNet->requiereSaveAdditionals(true);
-    // update current show frame afgter undo/redo
-    if (myNet->getViewNet()->getViewParent()->getCurrentShownFrame()) {
-        myNet->getViewNet()->getViewParent()->getCurrentShownFrame()->updateFrameAfterUndoRedo();
-    }
 }
 
 
