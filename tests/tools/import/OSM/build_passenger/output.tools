@@ -23,8 +23,8 @@ Assigning nodes to traffic lights... done (0ms).
 Guessing and setting on-/off-ramps... done (0ms).
 Sorting nodes' edges... done (0ms).
 Computing node shapes... done (1ms).
-Computing edge shapes... done (2ms).
-Computing node types... done (0ms).
+Computing edge shapes... done (1ms).
+Computing node types... done (1ms).
 Computing priorities... done (0ms).
 Computing approached edges... done (0ms).
 Guessing and setting roundabouts... done (0ms).
@@ -35,9 +35,9 @@ Rechecking of lane endings... done (0ms).
 Joining traffic light nodes... done (0ms).
 Computing traffic light control information... done (0ms).
 Computing node logics... done (1ms).
-Computing traffic light logics... done (1ms).
- 6 traffic light(s) computed.
-Building inner edges... done (2ms).
+Computing traffic light logics... done (0ms).
+ 4 traffic light(s) computed.
+Building inner edges... done (3ms).
 -----------------------------------------------------
 Summary:
  Node type statistics:

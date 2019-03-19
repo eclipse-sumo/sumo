@@ -422,8 +422,6 @@ Warning: The rail crossing 'cluster_5534476068_5534476069' does not have any roa
 Warning: The rail crossing 'cluster_5727160041_5727160042' does not have any roads.
 Warning: The traffic light '4363312288' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '4363312288'
-Warning: The traffic light 'GS_5473650726' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light 'GS_5473650726'
 Warning: Connection '101699692#1_0->101694131#0_0' is only 0.08 short.
 Warning: Connection '101699692#1_0->153522302#0_0' is only 0.08 short.
 Warning: Intersecting left turns at junction '1769589042' from lane '4610472#2_1' and lane '-34848160#0_1'. (increase junction radius to avoid this)
@@ -485,9 +483,6 @@ Warning: busStop '2071423352' on lane '295250361_0' is too short for vehicle 'pt
 Warning: Teleporting vehicle 'pt_tram_M2:0.1'; frontal collision with vehicle 'pt_tram_M2:2.1', lane='148458500#0_0', gap=-1.00, time=447.00 stage=move.
 Warning: Vehicle 'pt_tram_M2:0.1' teleports beyond arrival edge '148458500#1', time 513.00.
 Warning: Vehicle 'pt_tram_M2:0.1' skips stop on lane '148458500#1_0' time=513.00.
-Warning: Teleporting vehicle 'pt_tram_M2:2.2'; frontal collision with vehicle 'pt_tram_M2:0.2', lane='-148458500#0_0', gap=-1.00, time=749.00 stage=move.
-Warning: Vehicle 'pt_tram_M2:2.2' ends teleporting on edge '148457212#0', time 749.00.
-Warning: Teleporting vehicle 'veh190'; waited too long (wrong lane), lane='202157002#3_3', time=1245.00.
-Warning: Vehicle 'veh190' ends teleporting on edge '24913519#1', time 1245.00.
-Warning: Person 'ped139' aborted waiting for 147:1 at busStop '-3867910422'.
-Warning: Person 'ped126' aborted waiting for 147:3 at busStop '3869306764'.
+Warning: Teleporting vehicle 'pt_tram_M2:0.2'; frontal collision with vehicle 'pt_tram_M2:2.2', lane='148458500#0_0', gap=-1.00, time=747.00 stage=move.
+Warning: Vehicle 'pt_tram_M2:0.2' ends teleporting on edge '148458500#1', time 751.00.
+Warning: Person 'ped69' aborted waiting for M5:2 at busStop '1633759766'.
