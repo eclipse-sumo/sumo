@@ -223,12 +223,14 @@ MSTransportable::Stage_Trip::setArrived(MSNet* net, MSTransportable* transportab
         }
     }
     MSTransportable::Stage* previous;
+    SUMOTime time = MSNet::getInstance()->getCurrentTimeStep();
     if (transportable->getNumStages() == transportable->getNumRemainingStages()) { // this is a difficult way to check that we are the first stage
         myDepartPos = transportable->getParameter().departPos;
         if (transportable->getParameter().departPosProcedure == DEPART_POS_RANDOM) {
             myDepartPos = RandHelper::rand(myOrigin->getLength());
         }
         previous = new MSTransportable::Stage_Waiting(myOrigin, nullptr, -1, transportable->getParameter().depart, myDepartPos, "start", true);
+        time = transportable->getParameter().depart;
     } else {
         previous = transportable->getNextStage(-1);
         myDepartPos = previous->getArrivalPos();
@@ -249,7 +251,7 @@ MSTransportable::Stage_Trip::setArrived(MSNet* net, MSTransportable* transportab
         std::vector<MSNet::MSIntermodalRouter::TripItem> result;
         int stageIndex = 1;
         if (net->getIntermodalRouter().compute(myOrigin, myDestination, previous->getArrivalPos(), myArrivalPos, myDestinationStop == nullptr ? "" : myDestinationStop->getID(),
-                                               transportable->getVehicleType().getMaxSpeed() * myWalkFactor, vehicle, myModeSet, transportable->getParameter().depart, result)) {
+                                               transportable->getVehicleType().getMaxSpeed() * myWalkFactor, vehicle, myModeSet, time, result)) {
             for (std::vector<MSNet::MSIntermodalRouter::TripItem>::iterator it = result.begin(); it != result.end(); ++it) {
                 if (!it->edges.empty()) {
                     MSStoppingPlace* bs = MSNet::getInstance()->getStoppingPlace(it->destStop, SUMO_TAG_BUS_STOP);
