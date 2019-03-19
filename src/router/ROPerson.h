@@ -96,6 +96,8 @@ public:
         virtual bool needsRouting() const {
             return false;
         }
+
+        virtual SUMOTime getDuration() const = 0;
     };
 
     /**
@@ -120,6 +122,9 @@ public:
         }
         bool isStop() const {
             return true;
+        }
+        SUMOTime getDuration() const {
+            return stopDesc.duration;
         }
 
     private:
@@ -148,6 +153,9 @@ public:
         virtual const ROEdge* getDestination() const = 0;
         virtual double getDestinationPos() const = 0;
         virtual void saveAsXML(OutputDevice& os, const bool extended) const = 0;
+        SUMOTime getDuration() const {
+            return TIME2STEPS(cost);
+        }
     protected:
         double cost;
     };
@@ -301,6 +309,9 @@ public:
             return walkFactor;
         }
 
+        /// @brief return duration sum of all trip items
+        SUMOTime getDuration() const; 
+
     private:
         const ROEdge* from;
         const ROEdge* to;
@@ -351,7 +362,8 @@ public:
     }
 
 private:
-    bool computeIntermodal(const RORouterProvider& provider, PersonTrip* const trip, const ROVehicle* const veh, MsgHandler* const errorHandler);
+    bool computeIntermodal(SUMOTime time, const RORouterProvider& provider, 
+            PersonTrip* const trip, const ROVehicle* const veh, MsgHandler* const errorHandler);
 
 private:
     /**

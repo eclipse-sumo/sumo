@@ -186,11 +186,21 @@ ROPerson::PersonTrip::saveVehicles(OutputDevice& os, OutputDevice* const typeos,
 }
 
 
+SUMOTime
+ROPerson::PersonTrip::getDuration() const {
+    SUMOTime result = 0;
+    for (TripItem* tItem : myTripItems) {
+        result += tItem->getDuration();
+    }
+    return result;
+}
+
 bool
-ROPerson::computeIntermodal(const RORouterProvider& provider, PersonTrip* const trip, const ROVehicle* const veh, MsgHandler* const errorHandler) {
+ROPerson::computeIntermodal(SUMOTime time, const RORouterProvider& provider, 
+        PersonTrip* const trip, const ROVehicle* const veh, MsgHandler* const errorHandler) {
     std::vector<ROIntermodalRouter::TripItem> result;
     provider.getIntermodalRouter().compute(trip->getOrigin(), trip->getDestination(), trip->getDepartPos(), trip->getArrivalPos(), trip->getStopDest(),
-                                           getType()->maxSpeed * trip->getWalkFactor(), veh, trip->getModes(), getParameter().depart, result);
+                                           getType()->maxSpeed * trip->getWalkFactor(), veh, trip->getModes(), time, result);
     bool carUsed = false;
     for (std::vector<ROIntermodalRouter::TripItem>::const_iterator it = result.begin(); it != result.end(); ++it) {
         if (!it->edges.empty()) {
@@ -221,15 +231,16 @@ void
 ROPerson::computeRoute(const RORouterProvider& provider,
                        const bool /* removeLoops */, MsgHandler* errorHandler) {
     myRoutingSuccess = true;
+    SUMOTime time = getParameter().depart;
     for (std::vector<PlanItem*>::iterator it = myPlan.begin(); it != myPlan.end(); ++it) {
         if ((*it)->needsRouting()) {
             PersonTrip* trip = static_cast<PersonTrip*>(*it);
             std::vector<ROVehicle*>& vehicles = trip->getVehicles();
             if (vehicles.empty()) {
-                computeIntermodal(provider, trip, nullptr, errorHandler);
+                computeIntermodal(time, provider, trip, nullptr, errorHandler);
             } else {
                 for (std::vector<ROVehicle*>::iterator v = vehicles.begin(); v != vehicles.end();) {
-                    if (!computeIntermodal(provider, trip, *v, errorHandler)) {
+                    if (!computeIntermodal(time, provider, trip, *v, errorHandler)) {
                         v = vehicles.erase(v);
                     } else {
                         ++v;
@@ -237,6 +248,7 @@ ROPerson::computeRoute(const RORouterProvider& provider,
                 }
             }
         }
+        time += (*it)->getDuration();
     }
 }
 
