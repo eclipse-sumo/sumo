@@ -89,4 +89,11 @@
         <xsd:attribute name="lane" type="xsd:string" use="required"/>
     </xsd:complexType>
 
+    <xsd:complexType name="stopOffsetType">
+        <xsd:attribute name="value" type="nonNegativeFloatType" use="required"/>
+        <xsd:attribute name="exceptions" type="xsd:string" use="optional"/>
+        <xsd:attribute name="vClasses" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+
+
 </xsd:schema>
