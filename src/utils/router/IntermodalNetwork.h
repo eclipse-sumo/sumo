@@ -290,19 +290,26 @@ public:
     }
 
     /// @brief Returns the departing intermodal edge
-    _IntermodalEdge* getDepartEdge(const E* e, const double pos) const {
+    const _IntermodalEdge* getDepartEdge(const E* e, const double pos) const {
         typename std::map<const E*, std::vector<_IntermodalEdge*> >::const_iterator it = myDepartLookup.find(e);
         if (it == myDepartLookup.end()) {
             throw ProcessError("Depart edge '" + e->getID() + "' not found in intermodal network.");
         }
-        const std::vector<_IntermodalEdge*>& splitList = it->second;
-        typename std::vector<_IntermodalEdge*>::const_iterator splitIt = splitList.begin();
         double totalLength = 0.;
-        while (splitIt != splitList.end() && totalLength + (*splitIt)->getLength() < pos) {
-            totalLength += (*splitIt)->getLength();
-            ++splitIt;
+        double bestDist = std::numeric_limits<double>::max();
+        const _IntermodalEdge* best = nullptr;
+        for (const _IntermodalEdge* split : it->second) {
+            totalLength += split->getLength();
+            double dist = fabs(totalLength - pos);
+            if (dist < bestDist) {
+                bestDist = dist;
+                best = split;
+            } else {
+                break;
+            }
         }
-        return *splitIt;
+        assert(best != 0);
+        return best;
     }
 
     /// @brief Returns the departing intermodal connector at the given split offset
