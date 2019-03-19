@@ -67,11 +67,12 @@
 // minimum length for a weaving section at a combined on-off ramp
 #define MIN_WEAVE_LENGTH 20.0
 
+//#define DEBUG_CONNECTION_GUESSING
 //#define DEBUG_SMOOTH_GEOM
 //#define DEBUG_PED_STRUCTURES
 //#define DEBUG_EDGE_SORTING
 //#define DEBUGCOND true
-#define DEBUGCOND (getID() == "C")
+#define DEBUGCOND (getID() == "100157398")
 #define DEBUGCOND2(obj) ((obj != 0 && (obj)->getID() ==  "disabled"))
 
 // ===========================================================================
@@ -1003,6 +1004,9 @@ NBNode::computeLanes2Lanes() {
             // will be added later or not...
             return;
         }
+#ifdef DEBUG_CONNECTION_GUESSING
+        if (DEBUGCOND) std::cout << "l2l node=" << getID() << " specialCase a\n";
+#endif
         const int inOffset = MAX2(0, in->getFirstNonPedestrianLaneIndex(FORWARD, true));
         const int outOffset = MAX2(0, out->getFirstNonPedestrianLaneIndex(FORWARD, true));
         if (in->getStep() <= NBEdge::LANES2EDGES
@@ -1034,6 +1038,9 @@ NBNode::computeLanes2Lanes() {
                 && in1->isConnectedTo(out)
                 && in2->isConnectedTo(out)
                 && isLongEnough(out, MIN_WEAVE_LENGTH)) {
+#ifdef DEBUG_CONNECTION_GUESSING
+            if (DEBUGCOND) std::cout << "l2l node=" << getID() << " specialCase b\n";
+#endif
             // for internal: check which one is the rightmost
             double a1 = in1->getAngleAtNode(this);
             double a2 = in2->getAngleAtNode(this);
@@ -1068,6 +1075,9 @@ NBNode::computeLanes2Lanes() {
                 && !in->isTurningDirectionAt(out1)
                 && !in->isTurningDirectionAt(out2)
            ) {
+#ifdef DEBUG_CONNECTION_GUESSING
+            if (DEBUGCOND) std::cout << "l2l node=" << getID() << " specialCase c\n";
+#endif
             // for internal: check which one is the rightmost
             if (NBContHelper::relative_outgoing_edge_sorter(in)(out2, out1)) {
                 std::swap(out1, out2);
@@ -1088,6 +1098,9 @@ NBNode::computeLanes2Lanes() {
             // will be added later or not...
             return;
         }
+#ifdef DEBUG_CONNECTION_GUESSING
+        if (DEBUGCOND) std::cout << "l2l node=" << getID() << " specialCase d\n";
+#endif
         const int inOffset = MAX2(0, in->getFirstNonPedestrianLaneIndex(FORWARD, true));
         const int outOffset = MAX2(0, out->getFirstNonPedestrianLaneIndex(FORWARD, true));
         if (in->getStep() <= NBEdge::LANES2EDGES
@@ -1110,6 +1123,9 @@ NBNode::computeLanes2Lanes() {
             // will be added later or not...
             return;
         }
+#ifdef DEBUG_CONNECTION_GUESSING
+        if (DEBUGCOND) std::cout << "l2l node=" << getID() << " specialCase f\n";
+#endif
         int inOffset = MAX2(0, in->getFirstNonPedestrianLaneIndex(FORWARD, true));
         const int outOffset = MAX2(0, out->getFirstNonPedestrianLaneIndex(FORWARD, true));
         const int reduction = (in->getNumLanes() - inOffset) - (out->getNumLanes() - outOffset);
@@ -1140,6 +1156,17 @@ NBNode::computeLanes2Lanes() {
             ApproachingDivider divider(approaching, currentOutgoing);
             Bresenham::compute(&divider, numApproaching, divider.numAvailableLanes());
         }
+#ifdef DEBUG_CONNECTION_GUESSING
+        if (DEBUGCOND) {
+            std::cout << "l2l node=" << getID() << " bresenham:\n";
+            for (NBEdge* e : myIncomingEdges) {
+                const std::vector<NBEdge::Connection>& elv = e->getConnections();
+                for (std::vector<NBEdge::Connection>::const_iterator k = elv.begin(); k != elv.end(); ++k) {
+                    std::cout << "  " << e->getID() << "_" << (*k).fromLane << " -> " << (*k).toEdge->getID() << "_" << (*k).toLane << "\n";
+                }
+            }
+        }
+#endif
 
         // ensure that all modes have a connection if possible
         for (NBEdge* incoming : myIncomingEdges) {
@@ -1158,7 +1185,11 @@ NBNode::computeLanes2Lanes() {
                     }
                 }
                 if (unsatisfied != 0) {
-                    //std::cout << " unsatisfied modes from edge=" << incoming->getID() << " toEdge=" << currentOutgoing->getID() << " deadModes=" << getVehicleClassNames(unsatisfied) << "\n";
+#ifdef DEBUG_CONNECTION_GUESSING
+                    if (DEBUGCOND) {
+                        std::cout << " unsatisfied modes from edge=" << incoming->getID() << " toEdge=" << currentOutgoing->getID() << " deadModes=" << getVehicleClassNames(unsatisfied) << "\n";
+                    }
+#endif
                     int fromLane = 0;
                     while (unsatisfied != 0 && fromLane < incoming->getNumLanes()) {
                         if ((incoming->getPermissions(fromLane) & unsatisfied) != 0) {
@@ -1166,16 +1197,24 @@ NBNode::computeLanes2Lanes() {
                                 const SVCPermissions satisfied = incoming->getPermissions(fromLane) & currentOutgoing->getPermissions(toLane) & unsatisfied;
                                 if (satisfied != 0 && !incoming->getLaneStruct(fromLane).connectionsDone) {
                                     incoming->setConnection((int)fromLane, currentOutgoing, toLane, NBEdge::L2L_COMPUTED);
-                                    //std::cout << "  new connection from=" << fromLane << " to=" << currentOutgoing->getID() << "_" << toLane << " satisfies=" << getVehicleClassNames(satisfied) << "\n";
+#ifdef DEBUG_CONNECTION_GUESSING
+                                    if (DEBUGCOND) {
+                                        std::cout << "  new connection from=" << fromLane << " to=" << currentOutgoing->getID() << "_" << toLane << " satisfies=" << getVehicleClassNames(satisfied) << "\n";
+                                    }
+#endif
                                     unsatisfied &= ~satisfied;
                                 }
                             }
                         }
                         fromLane++;
                     }
-                    //if (unsatisfied != 0) {
-                    //    std::cout << "     still unsatisfied modes from edge=" << incoming->getID() << " toEdge=" << currentOutgoing->getID() << " deadModes=" << getVehicleClassNames(unsatisfied) << "\n";
-                    //}
+#ifdef DEBUG_CONNECTION_GUESSING
+                    if (DEBUGCOND) {
+                        if (unsatisfied != 0) {
+                            std::cout << "     still unsatisfied modes from edge=" << incoming->getID() << " toEdge=" << currentOutgoing->getID() << " deadModes=" << getVehicleClassNames(unsatisfied) << "\n";
+                        }
+                    }
+#endif
                 }
             }
         }
@@ -1202,14 +1241,17 @@ NBNode::computeLanes2Lanes() {
         }
     }
 
-    // DEBUG
-    //std::cout << "connections at " << getID() << "\n";
-    //for (i = myIncomingEdges.rbegin(); i != myIncomingEdges.rend(); i++) {
-    //    const std::vector<NBEdge::Connection>& elv = (*i)->getConnections();
-    //    for (std::vector<NBEdge::Connection>::const_iterator k = elv.begin(); k != elv.end(); ++k) {
-    //        std::cout << "  " << (*i)->getID() << "_" << (*k).fromLane << " -> " << (*k).toEdge->getID() << "_" << (*k).toLane << "\n";
-    //    }
-    //}
+#ifdef DEBUG_CONNECTION_GUESSING
+    if (DEBUGCOND) {
+        std::cout << "final connections at " << getID() << "\n";
+        for (NBEdge* e : myIncomingEdges) {
+            const std::vector<NBEdge::Connection>& elv = e->getConnections();
+            for (std::vector<NBEdge::Connection>::const_iterator k = elv.begin(); k != elv.end(); ++k) {
+                std::cout << "  " << e->getID() << "_" << (*k).fromLane << " -> " << (*k).toEdge->getID() << "_" << (*k).toLane << "\n";
+            }
+        }
+    }
+#endif
 }
 
 bool

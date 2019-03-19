@@ -47,13 +47,13 @@
 #include "NBTypeCont.h"
 #include "NBEdge.h"
 
-//#define DEBUG_CONNECTION_GUESSING
+#define DEBUG_CONNECTION_GUESSING
 //#define DEBUG_ANGLES
 //#define DEBUG_NODE_BORDER
 //#define DEBUG_REPLACECONNECTION
-#define DEBUGCOND (getID() == "27437972")
+#define DEBUGCOND (getID() == "11279622#0")
 //#define DEBUGCOND (getID() == "22762377#1" || getID() == "146511467")
-//#define DEBUGCOND2(obj) ((obj != 0 && (obj)->getID() == "77277065"))
+#define DEBUGCOND2(obj) ((obj != 0 && (obj)->getID() == "11279622#0"))
 
 // ===========================================================================
 // static members
@@ -2301,6 +2301,26 @@ NBEdge::recheckLanes() {
             }
         }
     }
+    // check for connections with bad access permissions
+    /*
+    for (const Connection& c : myConnections) {
+        SVCPermissions fromP = getPermissions(c.fromLane);
+        SVCPermissions toP = c.toEdge->getPermissions(c.toLane);
+        if ((fromP & SVC_PASSENGER) != 0 
+                && toP == SVC_BICYCLE) {
+            bool hasAlternative = false;
+            for (const Connection& c2 : myConnections) {
+                if (c.fromLane == c2.fromLane && c.toEdge == c2.toEdge
+                        && (c.toEdge->getPermissions(c2.toLane) & SVC_PASSENGER) != 0) {
+                    hasAlternative = true;
+                }
+            }
+            if (!hasAlternative) {
+                WRITE_WARNING("Road lane ends on bikeLane for connection " + c.getDescription(this));
+            }
+        }
+    }
+    */
 #ifdef DEBUG_CONNECTION_GUESSING
     if (DEBUGCOND) {
         std::cout << "recheckLanes (final) edge=" << getID() << "\n";
