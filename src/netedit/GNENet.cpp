@@ -1598,9 +1598,7 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
     GNEJunction* joined = createJunction(pos, undoList);
     joined->setAttribute(SUMO_ATTR_TYPE, toString(nodeType), undoList); // i.e. rail crossing
     if (setTL) {
-        joined->setAttribute(SUMO_ATTR_TYPE, toString(NODETYPE_TRAFFIC_LIGHT), undoList);
-        // XXX ticket831
-        //joined-><getTrafficLight>->setAttribute(SUMO_ATTR_TYPE, toString(type), undoList);
+        joined->setAttribute(SUMO_ATTR_TLTYPE, toString(type), undoList);
     }
 
     // #3128 this is not undone when calling 'undo'
