@@ -281,8 +281,8 @@ NIXMLTrafficLightsHandler::removeTlConnection(const SUMOSAXAttributes& attrs) {
         if (!ok) {
             return;
         }
-        int fromLane = retrieveLaneIndex(attrs, SUMO_ATTR_FROM_LANE, from, ok);
-        int toLane = retrieveLaneIndex(attrs, SUMO_ATTR_TO_LANE, to, ok);
+        int fromLane = retrieveLaneIndex(attrs, SUMO_ATTR_FROM_LANE, from, ok, true);
+        int toLane = retrieveLaneIndex(attrs, SUMO_ATTR_TO_LANE, to, ok, true);
         if (!ok) {
             return;
         }
@@ -319,10 +319,12 @@ NIXMLTrafficLightsHandler::retrieveEdge(
 
 int
 NIXMLTrafficLightsHandler::retrieveLaneIndex(
-    const SUMOSAXAttributes& attrs, SumoXMLAttr attr, NBEdge* edge, bool& ok) {
+    const SUMOSAXAttributes& attrs, SumoXMLAttr attr, NBEdge* edge, bool& ok, bool isDelete) {
     int laneIndex = attrs.get<int>(attr, nullptr, ok);
     if (edge->getNumLanes() <= laneIndex) {
-        WRITE_ERROR("Invalid lane index '" + toString(laneIndex) + "' for edge '" + edge->getID() + "'.");
+        if (!isDelete) {
+            WRITE_ERROR("Invalid lane index '" + toString(laneIndex) + "' for edge '" + edge->getID() + "'.");
+        }
         ok = false;
     }
     return laneIndex;

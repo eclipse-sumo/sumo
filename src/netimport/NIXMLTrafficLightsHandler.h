@@ -113,7 +113,7 @@ private:
     NBEdge* retrieveEdge(const SUMOSAXAttributes& attrs, SumoXMLAttr attr, bool& ok);
 
     /// parses a lane index and verifies its correctness
-    int retrieveLaneIndex(const SUMOSAXAttributes& attrs, SumoXMLAttr attr, NBEdge* edge, bool& ok);
+    int retrieveLaneIndex(const SUMOSAXAttributes& attrs, SumoXMLAttr attr, NBEdge* edge, bool& ok, bool isDelete = false);
 
     /// @brief whether definitions for unknown traffic lights shall be silently ignored
     bool myIgnoreUnknown;
