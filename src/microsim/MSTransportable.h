@@ -135,8 +135,8 @@ public:
         /// logs end of the step
         virtual void setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now);
 
-        /// Whether the transportable waits for a vehicle of the line specified.
-        virtual bool isWaitingFor(const std::string& line) const;
+        /// Whether the transportable waits for the given vehicle
+        virtual bool isWaitingFor(const SUMOVehicle* vehicle) const;
 
         /// @brief Whether the transportable waits for a vehicle
         virtual bool isWaiting4Vehicle() const {
@@ -437,8 +437,8 @@ public:
 
         double getAngle(SUMOTime now) const;
 
-        /// Whether the person waits for a vehicle of the line specified.
-        bool isWaitingFor(const std::string& line) const;
+        /// Whether the person waits for the given vehicle
+        bool isWaitingFor(const SUMOVehicle* vehicle) const;
 
         /// @brief Whether the person waits for a vehicle
         bool isWaiting4Vehicle() const;
@@ -638,9 +638,9 @@ public:
      */
     virtual void routeOutput(OutputDevice& os, const bool withRouteLength) const = 0;
 
-    /// @brief Whether the transportable waits for a vehicle of the line specified.
-    bool isWaitingFor(const std::string& line) const {
-        return (*myStep)->isWaitingFor(line);
+    /// Whether the transportable waits for the given vehicle in the current step
+    bool isWaitingFor(const SUMOVehicle* vehicle) const {
+        return (*myStep)->isWaitingFor(vehicle);
     }
 
     /// @brief Whether the transportable waits for a vehicle

@@ -116,7 +116,7 @@ MSTransportable::Stage::setArrived(MSNet* /* net */, MSTransportable* /* transpo
 }
 
 bool
-MSTransportable::Stage::isWaitingFor(const std::string& /*line*/) const {
+MSTransportable::Stage::isWaitingFor(const SUMOVehicle* /*vehicle*/) const {
     return false;
 }
 
@@ -539,8 +539,10 @@ MSTransportable::Stage_Driving::getAngle(SUMOTime /* now */) const {
 
 
 bool
-MSTransportable::Stage_Driving::isWaitingFor(const std::string& line) const {
-    return myLines.count(line) > 0;
+MSTransportable::Stage_Driving::isWaitingFor(const SUMOVehicle* vehicle) const {
+    return (myLines.count(vehicle->getID()) > 0
+                || myLines.count(vehicle->getParameter().line) > 0
+                || (myLines.count("ANY") > 0 && vehicle->stopsAt(myDestinationStop)));
 }
 
 

@@ -392,31 +392,31 @@ MSVehicleControl::removeWaiting(const MSEdge* const edge, const SUMOVehicle* veh
 
 
 SUMOVehicle*
-MSVehicleControl::getWaitingVehicle(const MSEdge* const edge, const std::set<std::string>& lines, const double position, const std::string ridingID) {
+MSVehicleControl::getWaitingVehicle(MSTransportable* transportable, const MSEdge* const edge, const double position) {
     if (myWaiting.find(edge) != myWaiting.end()) {
         // for every vehicle waiting vehicle at this edge
         std::vector<SUMOVehicle*> waitingTooFarAway;
-        for (std::vector<SUMOVehicle*>::const_iterator it = myWaiting[edge].begin(); it != myWaiting[edge].end(); ++it) {
-            const std::string& line = (*it)->getParameter().line == "" ? (*it)->getParameter().id : (*it)->getParameter().line;
-            double vehiclePosition = (*it)->getPositionOnLane();
+        for (SUMOVehicle* vehicle : myWaiting[edge]) {
+            double vehiclePosition = vehicle->getPositionOnLane();
             // if the line of the vehicle is contained in the set of given lines and the vehicle is stopped and is positioned
             // in the interval [position - t, position + t] for a tolerance t=10
-            if (lines.count(line)) {
+            if (transportable->isWaitingFor(vehicle)) {
                 if ((position - 10 <= vehiclePosition) && (vehiclePosition <= position + 10)) {
-                    return (*it);
-                } else if ((*it)->isStoppedTriggered() ||
-                           (*it)->getParameter().departProcedure == DEPART_TRIGGERED) {
+                    return vehicle;
+                } else if (vehicle->isStoppedTriggered() ||
+                           vehicle->getParameter().departProcedure == DEPART_TRIGGERED) {
                     // maybe we are within the range of the stop
-                    if ((*it)->isStoppedInRange(position)) {
-                        return (*it);
+                    if (vehicle->isStoppedInRange(position)) {
+                        return vehicle;
                     } else {
-                        waitingTooFarAway.push_back(*it);
+                        waitingTooFarAway.push_back(vehicle);
                     }
                 }
             }
         }
-        for (std::vector<SUMOVehicle*>::iterator it = waitingTooFarAway.begin(); it != waitingTooFarAway.end(); ++it) {
-            WRITE_WARNING(ridingID + " at edge '" + edge->getID() + "' position " + toString(position) + " cannot use waiting vehicle '" + (*it)->getID() + "' at position " + toString((*it)->getPositionOnLane()) + " because it is too far away.");
+        for (SUMOVehicle* vehicle : waitingTooFarAway) {
+            WRITE_WARNING(transportable->getID() + " at edge '" + edge->getID() + "' position " + toString(position) + " cannot use waiting vehicle '" 
+                + vehicle->getID() + "' at position " + toString(vehicle->getPositionOnLane()) + " because it is too far away.");
         }
     }
     return nullptr;

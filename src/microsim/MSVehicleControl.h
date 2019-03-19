@@ -424,7 +424,7 @@ public:
      * @param[in] position The vehicle shall be positioned in the interval [position - t, position + t], where t is some tolerance
      * @param[in] ridingID The id of the person or container that wants to ride
      */
-    SUMOVehicle* getWaitingVehicle(const MSEdge* const edge, const std::set<std::string>& lines, const double position, const std::string ridingID);
+    SUMOVehicle* getWaitingVehicle(MSTransportable* transportable, const MSEdge* const edge, const double position);
 
     /** @brief increases the count of vehicles waiting for a transport to allow recognition of person / container related deadlocks
      */

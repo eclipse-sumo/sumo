@@ -155,11 +155,13 @@ MSTransportableControl::boardAnyWaiting(MSEdge* edge, SUMOVehicle* vehicle, cons
     bool ret = false;
     if (myWaiting4Vehicle.find(edge) != myWaiting4Vehicle.end()) {
         TransportableVector& wait = myWaiting4Vehicle[edge];
-        const std::string& line = vehicle->getParameter().line == "" ? vehicle->getParameter().id : vehicle->getParameter().line;
         SUMOTime currentTime =  MSNet::getInstance()->getCurrentTimeStep();
         for (TransportableVector::iterator i = wait.begin(); i != wait.end();) {
-            if (((*i)->isWaitingFor(line) || ((*i)->isWaitingFor("ANY") && vehicle->stopsAt((*i)->getCurrentStage()->getDestinationStop()))) 
-                    && vehicle->getVehicleType().getPersonCapacity() > vehicle->getPersonNumber() && timeToBoardNextPerson <= currentTime && stop.startPos <= (*i)->getEdgePos() && (*i)->getEdgePos() <= stop.endPos) {
+            if ((*i)->isWaitingFor(vehicle)
+                    && vehicle->getVehicleType().getPersonCapacity() > vehicle->getPersonNumber() 
+                    && timeToBoardNextPerson <= currentTime 
+                    && stop.startPos <= (*i)->getEdgePos() 
+                    && (*i)->getEdgePos() <= stop.endPos) {
                 edge->removePerson(*i);
                 vehicle->addPerson(*i);
                 //if the time a person needs to enter the vehicle extends the duration of the stop of the vehicle extend
@@ -197,11 +199,12 @@ MSTransportableControl::loadAnyWaiting(MSEdge* edge, SUMOVehicle* vehicle, const
     if (myWaiting4Vehicle.find(edge) != myWaiting4Vehicle.end()) {
         TransportableVector& waitContainers = myWaiting4Vehicle[edge];
         for (TransportableVector::iterator i = waitContainers.begin(); i != waitContainers.end();) {
-            const std::string& line = vehicle->getParameter().line == "" ? vehicle->getParameter().id : vehicle->getParameter().line;
             SUMOTime currentTime = MSNet::getInstance()->getCurrentTimeStep();
-            if ((*i)->isWaitingFor(line) && vehicle->getVehicleType().getContainerCapacity() > vehicle->getContainerNumber()
+            if ((*i)->isWaitingFor(vehicle) 
+                    && vehicle->getVehicleType().getContainerCapacity() > vehicle->getContainerNumber()
                     && timeToLoadNextContainer <= currentTime
-                    && stop.startPos <= (*i)->getEdgePos() && (*i)->getEdgePos() <= stop.endPos) {
+                    && stop.startPos <= (*i)->getEdgePos() 
+                    && (*i)->getEdgePos() <= stop.endPos) {
                 edge->removeContainer(*i);
                 vehicle->addContainer(*i);
                 //if the time a container needs to get loaded on the vehicle extends the duration of the stop of the vehicle extend
