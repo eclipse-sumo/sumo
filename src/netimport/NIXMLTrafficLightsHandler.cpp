@@ -196,8 +196,12 @@ NIXMLTrafficLightsHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs,
         }
     } else {
         // case 1
-        loadedDef->setOffset(offset);
-        loadedDef->setType(type);
+        if (attrs.hasAttribute(SUMO_ATTR_OFFSET)) {
+            loadedDef->setOffset(offset);
+        }
+        if (attrs.hasAttribute(SUMO_ATTR_TYPE)) {
+            loadedDef->setType(type);
+        }
     }
     if (ok) {
         myResetPhases = true;

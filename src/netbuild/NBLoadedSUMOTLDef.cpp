@@ -120,7 +120,7 @@ NBLoadedSUMOTLDef::addConnection(NBEdge* from, NBEdge* to, int fromLane, int toL
 void
 NBLoadedSUMOTLDef::setTLControllingInformation() const {
     if (myReconstructAddedConnections) {
-        NBOwnTLDef dummy(DummyID, myControlledNodes, 0, TLTYPE_STATIC);
+        NBOwnTLDef dummy(DummyID, myControlledNodes, 0, getType());
         dummy.setParticipantsInformation();
         dummy.setTLControllingInformation();
         for (std::vector<NBNode*>::const_iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
@@ -452,7 +452,7 @@ NBLoadedSUMOTLDef::reconstructLogic() {
         if (!myPhasesLoaded && !(netedit && hasValidIndices())) {
             // rebuild the logic from scratch
             // XXX if a connection with the same from- and to-edge already exisits, its states could be copied instead
-            NBOwnTLDef dummy(DummyID, myControlledNodes, 0, TLTYPE_STATIC);
+            NBOwnTLDef dummy(DummyID, myControlledNodes, 0, getType());
             dummy.setParticipantsInformation();
             dummy.setProgramID(getProgramID());
             dummy.setTLControllingInformation();
