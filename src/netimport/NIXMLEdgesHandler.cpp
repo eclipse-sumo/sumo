@@ -170,19 +170,20 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
     myCurrentPriority = myTypeCont.getPriority("");
     myCurrentLaneNo = myTypeCont.getNumLanes("");
     myCurrentEndOffset = NBEdge::UNSPECIFIED_OFFSET;
+    myCurrentType = "";
     if (myCurrentEdge != nullptr) {
         // update existing edge. only update lane-specific settings when explicitly requested
         myIsUpdate = true;
         myCurrentSpeed = NBEdge::UNSPECIFIED_SPEED;
         myPermissions = SVC_UNSPECIFIED;
         myCurrentWidth = NBEdge::UNSPECIFIED_WIDTH;
+        myCurrentType = myCurrentEdge->getTypeID();
     } else {
         // this is a completely new edge. get the type specific defaults
         myCurrentSpeed = myTypeCont.getSpeed("");
         myPermissions = myTypeCont.getPermissions("");
         myCurrentWidth = myTypeCont.getWidth("");
     }
-    myCurrentType = "";
     myShape = PositionVector();
     myLanesSpread = LANESPREAD_RIGHT;
     myLength = NBEdge::UNSPECIFIED_LOADED_LENGTH;
