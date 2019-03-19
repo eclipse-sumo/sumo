@@ -435,15 +435,6 @@ private:
         /// @brief build recent files
         void buildRecentFiles(FXMenuPane* fileMenu);
 
-        /// @brief filename for load/save additionals
-        std::string myAdditionalsFile;
-
-        /// @brief filename for load/save TLS Programs
-        std::string myTLSProgramsFile;
-
-        /// @brief filename for load/save demand elemetns
-        std::string myDemandElementsFile;
-
         /// @brief List of recent config files
         FXRecentFiles myRecentConfigs;
 
