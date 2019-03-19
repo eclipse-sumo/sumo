@@ -93,8 +93,7 @@ ATTRIBUTE_NAMES = {
 
 # default values for the given attribute (needed when attributes appear in
 # source but do not appear in dest)
-DEFAULT_VALUES = defaultdict(lambda: "")
-DEFAULT_VALUES['width'] = "-1"
+DEFAULT_VALUES = defaultdict(lambda: None)
 DEFAULT_VALUES['offset'] = "0"
 DEFAULT_VALUES['spreadType'] = "right"
 DEFAULT_VALUES['customShape'] = "false"
@@ -103,7 +102,6 @@ DEFAULT_VALUES['contPos'] = "-1"
 DEFAULT_VALUES['visibility'] = "-1"
 DEFAULT_VALUES['z'] = "0"
 DEFAULT_VALUES['radius'] = "-1"
-DEFAULT_VALUES['linkIndex'] = "-1"
 RESET = 0
 
 IGNORE_TAGS = set([TAG_LOCATION])
