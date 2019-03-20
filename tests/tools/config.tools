@@ -185,7 +185,7 @@ ptroutes:<!--{[->]}-->
 osmbatch:python.*randomTrips\.py"{REPLACE python /path/to/randomTrips.py}
 osmbatch:python.*route2trips\.py{REPLACE python /path/to/route2trips.py}
 osmbatch:python.*ptlines2flows\.py{REPLACE python /path/to/ptlines2flows.py}
-osmbatch:--trip-attributes.*--{REPLACE --trip-attributes <attrs-with-os-dependent-quoting> --}
+osmbatch:-attributes.*--{REPLACE -attributes <attrs-with-os-dependent-quoting> --}
 osmbatch:#!/bin/bash
 image:id="[^"]*"{REPLACE id="ReplacedTransientID"}
 image:url\(.*\){REPLACE url(ReplacedTransientURL)}
