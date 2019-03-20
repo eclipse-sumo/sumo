@@ -297,7 +297,7 @@ def Popen(extraParameters, debugInformation):
 
     # add extra parameters
     NeteditCall += extraParameters
-     
+
     # return a subprocess with Netedit
     return subprocess.Popen(NeteditCall, env=os.environ, stdout=sys.stdout, stderr=sys.stderr)
 
@@ -392,21 +392,33 @@ def joinSelectedJunctions():
     typeKey('F7')
 
 
-"""
-@brief select focus on upper element of current frame
-"""
-
-
 def focusOnFrame():
+    """
+    @brief select focus on upper element of current frame
+    """
     typeKey('F12')
 
 
-"""
-@brief undo last operation
-"""
+def enableGUITesting(referencePosition):
+    """
+    @brief select options pane and enable the GUI testing option
+    """
+    typeKey('F10')
+    for _ in range(15):
+        typeTab()
+    typeKey("right")
+    for _ in range(6):
+        typeKey("down")
+    typeSpace()
+    for _ in range(6):
+        typeTab()
+    typeSpace()
 
 
 def undo(referencePosition, number):
+    """
+    @brief undo last operation
+    """
     # needed to avoid errors with undo/redo (Provisionally)
     typeKey('i')
     # click over referencePosition
@@ -525,8 +537,8 @@ def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
             NeteditProcess.kill()
             # print debug information
             print("TestFunctions: Error closing Netedit")
-			
-"""            
+
+"""
             # return a subprocess with Netedit
             sumoGuiProcess = subprocess.Popen(SumoGuiCall, env=os.environ, stdout=sys.stdout, stderr=sys.stderr)
             if sumoGuiProcess.poll() is not None:
