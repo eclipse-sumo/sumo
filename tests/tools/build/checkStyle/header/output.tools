@@ -8,3 +8,7 @@ src/foreign/tcpip/socket.cpp header does not start
 src/foreign/tcpip/socket.h header does not start
 src/foreign/tcpip/storage.cpp header does not start
 src/foreign/tcpip/storage.h header does not start
+SimpleWebSocketServer.py different license:
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# The MIT License (MIT) Copyright (c) 2013 Dave P.
+

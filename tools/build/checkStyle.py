@@ -145,22 +145,21 @@ class PropertyReader(xml.sax.handler.ContentHandler):
             if lines[idx][:5] == '# -*-':
                 idx += 1
             license = EPL_HEADER.replace("//   ", "# ").replace("// ", "# ").replace("\n//", "")
-            end = idx + 7
+            end = lines.index("\n", idx)
             if len(lines) < 13:
                 print(self._file, "is too short (%s lines, at least 13 required for valid header)" % len(lines))
                 return
             year = lines[idx + 1][16:20]
             license = license.replace("2001", year).replace(SEPARATOR, "")
             if "module" in lines[idx + 2]:
-                end += 2
                 fileLicense = "".join(lines[idx:idx + 2]) + "".join(lines[idx + 4:end])
             else:
                 fileLicense = "".join(lines[idx:end])
             if fileLicense != license:
-                print(self._file, "invalid license")
+                print(self._file, "different license:")
+                print(fileLicense)
                 if options.verbose:
                     print("!!%s!!" % os.path.commonprefix([fileLicense, license]))
-                    print(fileLicense)
                     print(license)
             self.checkDoxyLines(lines, end + 1, "#")
         if self._haveFixed:
