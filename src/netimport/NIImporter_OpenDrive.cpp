@@ -1066,6 +1066,18 @@ NIImporter_OpenDrive::setNodeSecure(NBNodeCont& nc, OpenDriveEdge& e,
     }
 }
 
+bool
+NIImporter_OpenDrive::hasNonLinearElevation(OpenDriveEdge& e) {
+    if (e.elevations.size() > 1) {
+        return true;
+    }
+    for (OpenDriveElevation& el : e.elevations) {
+        if (el.c != 0 || el.d != 0) {
+            return true;
+        }
+    }
+    return false;
+}
 
 void
 NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges) {
@@ -1074,6 +1086,7 @@ NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges
     for (std::map<std::string, OpenDriveEdge*>::iterator i = edges.begin(); i != edges.end(); ++i) {
         OpenDriveEdge& e = *(*i).second;
         GeometryType prevType = OPENDRIVE_GT_UNKNOWN;
+        const double lineRes = hasNonLinearElevation(e) ? res : -1;
         for (std::vector<OpenDriveGeometry>::iterator j = e.geometries.begin(); j != e.geometries.end(); ++j) {
             OpenDriveGeometry& g = *j;
             PositionVector geom;
@@ -1081,7 +1094,7 @@ NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges
                 case OPENDRIVE_GT_UNKNOWN:
                     break;
                 case OPENDRIVE_GT_LINE:
-                    geom = geomFromLine(e, g);
+                    geom = geomFromLine(e, g, lineRes);
                     break;
                 case OPENDRIVE_GT_SPIRAL:
                     geom = geomFromSpiral(e, g, res);
@@ -1123,12 +1136,13 @@ NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges
         // add z-data
         int k = 0;
         double pos = 0;
+        std::cout << " edge=" << e.id << " geom.size=" << e.geom.size() << " geom.len=" << e.geom.length2D() << " ele.size=" << e.elevations.size() << "\n";
         for (std::vector<OpenDriveElevation>::iterator j = e.elevations.begin(); j != e.elevations.end(); ++j) {
             const OpenDriveElevation& el = *j;
             const double sNext = (j + 1) == e.elevations.end() ? std::numeric_limits<double>::max() : (*(j + 1)).s;
             while (k < (int)e.geom.size() && pos < sNext) {
                 const double z = el.computeAt(pos);
-                //std::cout << " edge=" << e.id << " k=" << k << " sNext=" << sNext << " pos=" << pos << " z=" << z << " ds=" << ds << " el.s=" << el.s << "el.a=" << el.a << " el.b=" << el.b << " el.c=" << el.c << " el.d=" << el.d <<  "\n";
+                //std::cout << " edge=" << e.id << " k=" << k << " sNext=" << sNext << " pos=" << pos << " z=" << z << " el.s=" << el.s << " el.a=" << el.a << " el.b=" << el.b << " el.c=" << el.c << " el.d=" << el.d <<  "\n";
                 e.geom[k].add(0, 0, z);
                 k++;
                 if (k < (int)e.geom.size()) {
@@ -1252,10 +1266,15 @@ NIImporter_OpenDrive::revisitLaneSections(const NBTypeCont& tc, std::map<std::st
 
 
 PositionVector
-NIImporter_OpenDrive::geomFromLine(const OpenDriveEdge& e, const OpenDriveGeometry& g) {
+NIImporter_OpenDrive::geomFromLine(const OpenDriveEdge& e, const OpenDriveGeometry& g, double resolution) {
     UNUSED_PARAMETER(e);
     PositionVector ret;
     ret.push_back(Position(g.x, g.y));
+    if (resolution > 0) {
+        for (double off = 0; off < g.length; off += resolution) {
+            ret.push_back(calculateStraightEndPoint(g.hdg, off, Position(g.x, g.y)));
+        }
+    }
     ret.push_back(calculateStraightEndPoint(g.hdg, g.length, Position(g.x, g.y)));
     return ret;
 }
