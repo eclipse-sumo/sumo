@@ -164,6 +164,8 @@ protected:
         const long long int id;
         /// @brief The edge's street name
         std::string streetName;
+        /// @brief The edge's track name
+        std::string ref;
         /// @brief number of lanes, or -1 if unknown
         int myNoLanes;
         /// @brief number of lanes in forward direction or 0 if unknown, negative if backwards lanes are meant
