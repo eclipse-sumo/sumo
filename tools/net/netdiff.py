@@ -64,6 +64,7 @@ PLAIN_TYPES = [
 # CAVEAT5 - phases must maintain their order
 # CAVEAT6 - identical phases may occur multiple times, thus OrderedMultiSet
 # CAVEAT7 - changing edge type triggers 'type override' (all attributes defined for the edge type are applied. This must be avoided)
+# CAVEAT8 - TAG_TLL must always be written before TAG_CONNECTION
 
 TAG_TLL = 'tlLogic'
 TAG_CONNECTION = 'connection'
@@ -316,15 +317,20 @@ class AttributeStore:
         for value_set in self.idless_deleted.values():
             self.write_idless(file, value_set, DELETE_ELEMENT)
 
-    def writeCreated(self, file):
-        self.write_tagids(file, self.ids_created, True)
+    def writeCreated(self, file, whiteList=None, blackList=None):
+        self.write_tagids(file, self.filterTags(self.ids_created, whiteList, blackList), True)
         for tag, value_set in self.idless_created.items():
+            if ((whiteList is not None and not tag in whiteList)
+                    or (blackList is not None and tag in blackList)):
+                continue
             self.write_idless(file, value_set, tag)
 
-    def writeChanged(self, file):
-        tagids_changed = self.ids_copied - \
-            (self.ids_deleted | self.ids_created)
-        self.write_tagids(file, tagids_changed, False)
+    def getTagidsChanged(self):
+        return self.ids_copied - (self.ids_deleted | self.ids_created)
+
+    def writeChanged(self, file, whiteList=None, blackList=None):
+        tagids_changed = self.getTagidsChanged() 
+        self.write_tagids(file, self.filterTags(tagids_changed, whiteList, blackList), False)
 
     def writeCopies(self, file, copy_tags):
         tagids_unchanged = self.ids_copied - \
@@ -371,6 +377,23 @@ class AttributeStore:
     def id_string(self, tag, id):
         idattrs = IDATTRS[tag]
         return ' '.join(['%s="%s"' % (n, v) for n, v in sorted(zip(idattrs, id))])
+
+    def filterTags(self, tagids, whiteList, blackList):
+        if whiteList is not None:
+            return [tagid for tagid in tagids if tagid[0] in whiteList]
+        elif blackList is not None:
+            return [tagid for tagid in tagids if tagid[0] not in blackList]
+        else:
+            return tagids
+
+    def reorderTLL(self):
+        for tag,id in self.ids_created:
+            if tag == TAG_CONNECTION:
+                for tag2,id2 in self.getTagidsChanged():
+                    if tag2 == TAG_TLL:
+                        return True;
+                return False
+        return False
 
 
 def parse_args():
@@ -445,10 +468,22 @@ def xmldiff(source, dest, diff, type, copy_tags, patchImport):
                 attributeStore.writeCopies(diff_file, copy_tags)
             attributeStore.write(diff_file, "<!-- Deleted Elements -->\n")
             attributeStore.writeDeleted(diff_file)
-            attributeStore.write(diff_file, "<!-- Created Elements -->\n")
-            attributeStore.writeCreated(diff_file)
-            attributeStore.write(diff_file, "<!-- Changed Elements -->\n")
-            attributeStore.writeChanged(diff_file)
+
+            if attributeStore.reorderTLL():
+                # CAVEAT8
+                attributeStore.write(diff_file, "<!-- Created Elements -->\n")
+                attributeStore.writeCreated(diff_file, whiteList=[TAG_TLL])
+                attributeStore.write(diff_file, "<!-- Changed Elements -->\n")
+                attributeStore.writeChanged(diff_file, whiteList=[TAG_TLL])
+                attributeStore.write(diff_file, "<!-- Created Elements -->\n")
+                attributeStore.writeCreated(diff_file, blackList=[TAG_TLL])
+                attributeStore.write(diff_file, "<!-- Changed Elements -->\n")
+                attributeStore.writeChanged(diff_file, blackList=[TAG_TLL])
+            else:
+                attributeStore.write(diff_file, "<!-- Created Elements -->\n")
+                attributeStore.writeCreated(diff_file)
+                attributeStore.write(diff_file, "<!-- Changed Elements -->\n")
+                attributeStore.writeChanged(diff_file)
             diff_file.write(root_close)
 
 
