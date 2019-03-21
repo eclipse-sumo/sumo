@@ -47,13 +47,14 @@ def runHistory(args, versions, extraInfo=""):
             for _ in range(args.runs):
                 for l in subprocess.check_output(command, stderr=subprocess.STDOUT).splitlines():
                     if "User time" in l:
-                        t = float(l.split(": ")[-1])
+                        t = float(l.split(": ")[-1])  # noqa
                     elif "wall clock" in l:
-                        w = float(l.split(":")[-1])
+                        w = float(l.split(":")[-1])  # noqa
                     elif "UPS: " in l:
-                        u = 1e6 / max(1., float(l.split(": ")[-1]))
+                        u = 1e6 / max(1., float(l.split(": ")[-1]))  # noqa
                     elif "Maximum resident" in l:
-                        m = float(l.split(": ")[-1])
+                        m = float(l.split(": ")[-1])  # noqa
+                # adapt the return values as needed below
                 results[d].append((u, t))
         except subprocess.CalledProcessError as e:
             if len(versions) == 1:

@@ -162,11 +162,11 @@ def get_options(args=None):
 def readConfigFile(options):
     filePath = options.configFile
     result = {}
-
-    distSyntaxes = {'normal': 'normal\(\s*(-?[0-9]+(\.[0-9]+)?)\s*,\s*([0-9]+(\.[0-9]+)?)\s*\)',
-                    'normalCapped': 'normalCapped\(\s*(-?[0-9]+(\.[0-9]+)?)\s*,\s*(-?[0-9]+(\.[0-9]+)?)\s*,\s*(-?[0-9]+(\.[0-9]+)?)\s*,\s*(-?[0-9]+(\.[0-9]+)?)\s*\)',
-                    'uniform': 'uniform\(\s*(-?[0-9]+(\.[0-9]+)?)\s*,\s*(-?[0-9]+(\.[0-9]+)?)\s*\)',
-                    'gamma': 'gamma\(\s*([0-9]+(\.[0-9]+)?)\s*,\s*([0-9]+(\.[0-9]+)?)\s*\)'}
+    floatRegex = ['\s*(-?[0-9]+(\.[0-9]+)?)\s*']
+    distSyntaxes = {'normal': 'normal\(%s\)' % (",".join(2 * floatRegex)),
+                    'normalCapped': 'normalCapped\(%s\)' % (",".join(4 * floatRegex)),
+                    'uniform': 'uniform\(%s\)' % (",".join(2 * floatRegex)),
+                    'gamma': 'gamma\(%s\)' % (",".join(2 * floatRegex))}
 
     with open(filePath) as f:
         reader = csv.reader(f, delimiter=';')
