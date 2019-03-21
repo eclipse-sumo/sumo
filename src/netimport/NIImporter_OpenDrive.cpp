@@ -1269,13 +1269,19 @@ PositionVector
 NIImporter_OpenDrive::geomFromLine(const OpenDriveEdge& e, const OpenDriveGeometry& g, double resolution) {
     UNUSED_PARAMETER(e);
     PositionVector ret;
-    ret.push_back(Position(g.x, g.y));
-    if (resolution > 0) {
-        for (double off = 0; off < g.length; off += resolution) {
-            ret.push_back(calculateStraightEndPoint(g.hdg, off, Position(g.x, g.y)));
+    Position start(g.x, g.y);
+    Position end = calculateStraightEndPoint(g.hdg, g.length, start);
+    if (resolution > 0 && g.length > 0) {
+        const int numPoints = (int)ceil(g.length / resolution) + 1;
+        double dx = (end.x() - start.x()) / (numPoints - 1);
+        double dy = (end.y() - start.y()) / (numPoints - 1);
+        for (int i = 0; i < numPoints; i++) {
+            ret.push_back(Position(g.x + i * dx, g.y + i * dy));
         }
+    } else {
+        ret.push_back(start);
+        ret.push_back(end);
     }
-    ret.push_back(calculateStraightEndPoint(g.hdg, g.length, Position(g.x, g.y)));
     return ret;
 }
 
