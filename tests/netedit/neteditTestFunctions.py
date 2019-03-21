@@ -37,7 +37,8 @@ DELAY_REMOVESELECTION = 0.1
 
 NeteditApp = os.environ.get("NETEDIT_BINARY", "netedit")
 textTestSandBox = os.environ.get("TEXTTEST_SANDBOX", ".")
-SumoGuiCall = [os.environ.get("GUISIM_BINARY", "sumo-gui"), '-c', os.path.join(textTestSandBox, 'sumo.sumocfg'), '--no-step-log', '--no-duration-log', '--start', '--quit-on-end']
+SumoGuiCall = [os.environ.get("GUISIM_BINARY", "sumo-gui"), '-c', os.path.join(textTestSandBox, 'sumo.sumocfg'),
+               '--no-step-log', '--no-duration-log', '--start', '--quit-on-end']
 
 #################################################
 # interaction functions
@@ -550,12 +551,11 @@ def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
                 print("TestFunctions: Error closing SumoGui")
 """
 
-"""
-@brief load network as
-"""
-
 
 def openNetworkAs(waitTime=2):
+    """
+    @brief load network as
+    """
     # open save network as dialog
     typeTwoKeys('ctrl', 'o')
     # jump to filename TextField

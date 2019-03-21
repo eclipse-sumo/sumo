@@ -1,4 +1,4 @@
-<turns xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/turns_file.xsd">
+<turns xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/turns_file.xsd">
     <interval begin="100" end="200">
         <fromEdge id="1fi">
             <toEdge id="1si" probability="100"/>
