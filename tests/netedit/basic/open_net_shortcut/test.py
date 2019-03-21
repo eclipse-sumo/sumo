@@ -28,6 +28,10 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--n
 # open configuration using shortcut
 netedit.openNetworkAs()
 
+# we somehow lose focus after loading
+netedit.leftClick(referencePosition, 0, 0)
+
+netedit.enableGUITesting(referencePosition)
 # save loaded network as (for texttest comparing)
 netedit.saveNetworkAs()
 

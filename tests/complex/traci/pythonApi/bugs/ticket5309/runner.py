@@ -25,18 +25,18 @@ import sumolib  # noqa
 
 sumoBinary = os.environ["SUMO_BINARY"]
 cmd = [sumoBinary,
-    '-n', 'input_net.net.xml',
-    '-r', 'input_routes.rou.xml',
-    '--lanechange-output', 'lanechanges.xml',
-    '--no-step-log',
-    ]
+       '-n', 'input_net.net.xml',
+       '-r', 'input_routes.rou.xml',
+       '--lanechange-output', 'lanechanges.xml',
+       '--no-step-log',
+       ]
 
 traci.start(cmd)
 
 while traci.simulation.getMinExpectedNumber() > 0:
-        
+
     traci.simulationStep()
-    
+
     if traci.simulation.getTime() == 30:
         traci.vehicle.changeLaneRelative("1", 1, 3)
 

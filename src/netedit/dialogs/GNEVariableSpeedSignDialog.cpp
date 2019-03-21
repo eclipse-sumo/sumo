@@ -207,7 +207,7 @@ GNEVariableSpeedSignDialog::updateTableSteps() {
     myStepsTable->setColumnWidth(2, GUIDesignTableIconCellWidth);
     myStepsTable->setColumnWidth(3, GUIDesignTableIconCellWidth);
     myStepsTable->setColumnText(0, "timeStep");
-    myStepsTable->setColumnText(1, "speed (km/h)");
+    myStepsTable->setColumnText(1, "speed (m/s)");
     myStepsTable->setColumnText(2, "");
     myStepsTable->setColumnText(3, "");
     myStepsTable->getRowHeader()->setWidth(0);

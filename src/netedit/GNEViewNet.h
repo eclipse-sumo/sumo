@@ -32,7 +32,6 @@
 #include <utils/gui/settings/GUIPropertyScheme.h>
 #include <utils/gui/settings/GUIVisualizationSettings.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
-#include <utils/gui/windows/GUISUMOAbstractView.h>
 
 // ===========================================================================
 // class definitions
@@ -68,6 +67,9 @@ public:
 
     /// @brief builds the view toolbars
     void buildViewToolBars(GUIGlChildWindow&);
+
+    /// @brief Mark the entire GNEViewNet to be repainted later
+    void update() const;
 
     /// @brief get AttributeCarriers in Boundary
     std::set<std::pair<std::string, GNEAttributeCarrier*> > getAttributeCarriersInBoundary(const Boundary& boundary, bool forceSelectEdges = false);

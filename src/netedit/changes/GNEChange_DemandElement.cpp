@@ -76,7 +76,7 @@ GNEChange_DemandElement::~GNEChange_DemandElement() {
         WRITE_DEBUG("Deleting unreferenced " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "'");
         // make sure that demand element isn't in net before removing
         if (myNet->demandElementExist(myDemandElement)) {
-            myNet->deleteDemandElement(myDemandElement);
+            myNet->deleteDemandElement(myDemandElement, false);
         }
         delete myDemandElement;
     }
@@ -109,7 +109,7 @@ GNEChange_DemandElement::undo() {
             myToEdge->removeDemandElementChild(myDemandElement);
         }
         // delete demand element of net
-        myNet->deleteDemandElement(myDemandElement);
+        myNet->deleteDemandElement(myDemandElement, false);
         // update vehicle type frame if it's shown
         if (myNet->getViewNet()->getViewParent()->getVehicleTypeFrame()->shown()) {
             myNet->getViewNet()->getViewParent()->getVehicleTypeFrame()->getVehicleTypeSelector()->refreshVehicleTypeSelector();
@@ -204,7 +204,7 @@ GNEChange_DemandElement::redo() {
             myToEdge->removeDemandElementChild(myDemandElement);
         }
         // delete demand element of net
-        myNet->deleteDemandElement(myDemandElement);
+        myNet->deleteDemandElement(myDemandElement, false);
         // update vehicle type frame if it's shown
         if (myNet->getViewNet()->getViewParent()->getVehicleTypeFrame()->shown()) {
             myNet->getViewNet()->getViewParent()->getVehicleTypeFrame()->getVehicleTypeSelector()->refreshVehicleTypeSelector();

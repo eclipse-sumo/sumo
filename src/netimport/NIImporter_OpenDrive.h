@@ -605,7 +605,7 @@ protected:
     static NBNode* getOrBuildNode(const std::string& id, const Position& pos, NBNodeCont& nc);
 
 
-    static PositionVector geomFromLine(const OpenDriveEdge& e, const OpenDriveGeometry& g);
+    static PositionVector geomFromLine(const OpenDriveEdge& e, const OpenDriveGeometry& g, double resolution);
     static PositionVector geomFromSpiral(const OpenDriveEdge& e, const OpenDriveGeometry& g, double resolution);
     static PositionVector geomFromArc(const OpenDriveEdge& e, const OpenDriveGeometry& g, double resolution);
     static PositionVector geomFromPoly(const OpenDriveEdge& e, const OpenDriveGeometry& g, double resolution);
@@ -620,6 +620,8 @@ protected:
      * @param[in] edges The edges which geometries shall be converted
      */
     static void computeShapes(std::map<std::string, OpenDriveEdge*>& edges);
+
+    static bool hasNonLinearElevation(OpenDriveEdge& e); 
 
     /** @brief Rechecks lane sections of the given edges
      *
