@@ -302,22 +302,21 @@ NIXMLConnectionsHandler::parseLaneDefinition(const SUMOSAXAttributes& attributes
 void
 NIXMLConnectionsHandler::addCrossing(const SUMOSAXAttributes& attrs) {
     bool ok = true;
-    NBNode* node = nullptr;
     EdgeVector edges;
     const std::string nodeID = attrs.get<std::string>(SUMO_ATTR_NODE, nullptr, ok);
     double width = attrs.getOpt<double>(SUMO_ATTR_WIDTH, nodeID.c_str(), ok, NBEdge::UNSPECIFIED_WIDTH, true);
     const bool discard = attrs.getOpt<bool>(SUMO_ATTR_DISCARD, nodeID.c_str(), ok, false, true);
     int tlIndex = attrs.getOpt<int>(SUMO_ATTR_TLLINKINDEX, nullptr, ok, -1);
     int tlIndex2 = attrs.getOpt<int>(SUMO_ATTR_TLLINKINDEX2, nullptr, ok, -1);
+    NBNode* node = myNodeCont.retrieve(nodeID);
+    if (node == nullptr) {
+        if (!discard && myNodeCont.wasRemoved(nodeID)) {
+            WRITE_ERROR("Node '" + nodeID + "' in crossing is not known.");
+        }
+        return;
+    }
     if (!attrs.hasAttribute(SUMO_ATTR_EDGES)) {
         if (discard) {
-            node = myNodeCont.retrieve(nodeID);
-            if (node == nullptr) {
-                if (!myNodeCont.wasRemoved(nodeID)) {
-                    WRITE_ERROR("Node '" + nodeID + "' in crossing is not known.");
-                }
-                return;
-            }
             node->discardAllCrossings(true);
             return;
         } else {
@@ -330,26 +329,16 @@ NIXMLConnectionsHandler::addCrossing(const SUMOSAXAttributes& attrs) {
         if (edge == nullptr) {
             if (!(discard && myEdgeCont.wasRemoved(id))) {
                 WRITE_ERROR("Edge '" + id + "' for crossing at node '" + nodeID + "' is not known.");
-            }
-            return;
-        }
-        if (node == nullptr) {
-            if (edge->getToNode()->getID() == nodeID) {
-                node = edge->getToNode();
-            } else if (edge->getFromNode()->getID() == nodeID) {
-                node = edge->getFromNode();
-            } else {
-                if (!discard) {
-                    WRITE_ERROR("Edge '" + id + "' does not touch node '" + nodeID + "'.");
-                }
                 return;
+            } else {
+                edge = myEdgeCont.retrieve(id, true);
             }
         } else {
             if (edge->getToNode() != node && edge->getFromNode() != node) {
                 if (!discard) {
                     WRITE_ERROR("Edge '" + id + "' does not touch node '" + nodeID + "'.");
+                    return;
                 }
-                return;
             }
         }
         edges.push_back(edge);
