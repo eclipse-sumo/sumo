@@ -812,7 +812,7 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     if (oc.isSet("additional-files") && !oc.getString("additional-files").empty() && myNet) {
         // obtain additional files (only for improve legibility)
         std::string additionalFile = oc.getString("additional-files");
-        WRITE_MESSAGE("Loading additionals and shpes from '" + additionalFile + "'");
+        WRITE_MESSAGE("Loading additionals and shapes from '" + additionalFile + "'");
         GNEAdditionalHandler additionalHandler(additionalFile, myNet->getViewNet());
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto");
