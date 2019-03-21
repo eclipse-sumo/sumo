@@ -470,7 +470,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     bool defaultsToOneWay = tc.getIsOneWay(type);
     SVCPermissions forwardPermissions = tc.getPermissions(type);
     SVCPermissions backwardPermissions = tc.getPermissions(type);
-    const std::string streetName = isRailway(forwardPermissions) ? e->ref : e->streetName;
+    const std::string streetName = isRailway(forwardPermissions) && e->ref != "" ? e->ref : e->streetName;
     double forwardWidth = tc.getWidth(type);
     double backwardWidth = tc.getWidth(type);
     const bool addSidewalk = (tc.getSidewalkWidth(type) != NBEdge::UNSPECIFIED_WIDTH);
