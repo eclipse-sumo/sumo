@@ -23,6 +23,8 @@ set(netedit_SRCS
    GNEUndoList.cpp
    GNEAttributeCarrier.h
    GNEAttributeCarrier.cpp
+   GNEHierarchicalElement.h
+   GNEHierarchicalElement.cpp
    GNEReferenceCounter.h
    GNEEvent_NetworkLoaded.h
 )
