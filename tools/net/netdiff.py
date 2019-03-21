@@ -63,12 +63,14 @@ PLAIN_TYPES = [
 #     parsing in netconvert becomes tedious
 # CAVEAT5 - phases must maintain their order
 # CAVEAT6 - identical phases may occur multiple times, thus OrderedMultiSet
+# CAVEAT7 - changing edge type triggers 'type override' (all attributes defined for the edge type are applied. This must be avoided)
 
 TAG_TLL = 'tlLogic'
 TAG_CONNECTION = 'connection'
 TAG_CROSSING = 'crossing'
 TAG_ROUNDABOUT = 'roundabout'
 TAG_LANE = 'lane'
+TAG_EDGE = 'edge'
 TAG_PARAM = 'param'
 TAG_LOCATION = 'location'
 
@@ -245,18 +247,20 @@ class AttributeStore:
         if schildren and dchildren:
             dchildren = schildren
         if snames == dnames:
-            values = tuple([self.diff(n, s, d)
+            values = tuple([self.diff(tag, n, s, d)
                             for n, s, d in zip(snames, svalues, dvalues)])
             return snames, values, dchildren
         else:
             sdict = defaultdict(lambda: None, zip(snames, svalues))
             ddict = defaultdict(lambda: None, zip(dnames, dvalues))
             names = tuple(set(snames + dnames))
-            values = tuple([self.diff(n, sdict[n], ddict[n]) for n in names])
+            values = tuple([self.diff(tag, n, sdict[n], ddict[n]) for n in names])
             return names, values, dchildren
 
-    def diff(self, name, sourceValue, destValue):
-        if sourceValue == destValue:
+    def diff(self, tag, name, sourceValue, destValue):
+        if (sourceValue == destValue or 
+                # CAVEAT7
+                (tag == TAG_EDGE and name == "type")):
             return None
         elif destValue is None:
             return DEFAULT_VALUES[name]
