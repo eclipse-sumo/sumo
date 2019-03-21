@@ -137,6 +137,7 @@ StringBijection<SUMOVehicleShape> SumoVehicleShapeStrings(
 static std::map<int, std::vector<std::string> > vehicleClassNamesListCached;
 static std::map<std::string, SVCPermissions> parseVehicleClassesCached;
 static std::map<SVCPermissions, std::string> getVehicleClassNamesCached;
+static std::string vehicleClassNameAll = "all";
 
 // ===========================================================================
 // additional constants
@@ -168,7 +169,7 @@ const double DEFAULT_CONTAINER_TRANSHIP_SPEED(5. / 3.6);
 const std::string&
 getVehicleClassNames(SVCPermissions permissions, bool expand) {
     if (permissions == SVCAll && !expand) {
-        return "all";
+        return vehicleClassNameAll;
     }
     // check if previously was cached
     if (getVehicleClassNamesCached.count(permissions) == 0) {
