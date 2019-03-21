@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<edges version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edgediff_file.xsd">
+    <!-- Deleted Elements -->
+    <delete id="206889079#10"/>
+    <!-- Created Elements -->
+    <edge id="renamed" allow="tram" from="101343850" numLanes="1" priority="16" shape="3927.37,1192.34 3912.29,1177.18 3895.64,1160.57 3876.84,1143.49 3861.86,1132.33 3840.01,1119.70" speed="13.89" spreadType="center" to="C" type="railway.tram">
+        <lane index="0" >
+            <param key="origId" value="206889079"/>
+        </lane>
+        <param key="origTo" value="1866350919"/>
+    </edge>
+    <!-- Changed Elements -->
+</edges>
