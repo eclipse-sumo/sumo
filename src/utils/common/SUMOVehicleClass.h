@@ -238,13 +238,13 @@ typedef int SUMOEmissionClass;
  * @param[in] expand whether 'all' should be used
  * @return The string representation of these classes
  */
-extern std::string getVehicleClassNames(SVCPermissions permissions, bool expand = false);
+extern const std::string &getVehicleClassNames(SVCPermissions permissions, bool expand = false);
 
 /** @brief Returns the ids of the given classes, divided using a ' '
  * @param[in] the permissions to encode
  * @return The string representation of these classes as a vector
  */
-extern std::vector<std::string> getVehicleClassNamesList(SVCPermissions permissions);
+extern const std::vector<std::string> &getVehicleClassNamesList(SVCPermissions permissions);
 
 /** @brief Returns the class id of the abstract class given by its name
  * @param[in] name The name of the abstract vehicle class
