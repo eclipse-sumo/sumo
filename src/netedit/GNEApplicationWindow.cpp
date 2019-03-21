@@ -141,7 +141,9 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_EDITVIEWPORT,                           GNEApplicationWindow::onCmdEditViewport),
     FXMAPFUNC(SEL_UPDATE,   MID_EDITVIEWPORT,                           GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_Z_UNDO,                     GNEApplicationWindow::onCmdUndo),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_Z_UNDO,                     GNEApplicationWindow::onUpdUndo),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_Y_REDO,                     GNEApplicationWindow::onCmdRedo),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_Y_REDO,                     GNEApplicationWindow::onUpdRedo),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_G_GAMINGMODE_TOOGLEGRID,    GNEApplicationWindow::onCmdToogleGrid),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_G_GAMINGMODE_TOOGLEGRID,    GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_C_SHOWCONNECTIONS,    GNEApplicationWindow::onCmdToogleShowConnections),
@@ -1018,10 +1020,10 @@ GNEApplicationWindow::EditMenuCommands::buildEditMenuCommands(FXMenuPane* fileMe
     // build undo/redo command
     undoLastChange = new FXMenuCommand(fileMenu,
                                        "&Undo\tCtrl+Z\tUndo the last change.",
-                                       GUIIconSubSys::getIcon(ICON_UNDO), myGNEApp->myUndoList, FXUndoList::ID_UNDO);
+                                       GUIIconSubSys::getIcon(ICON_UNDO), myGNEApp, MID_HOTKEY_CTRL_Z_UNDO);
     redoLastChange = new FXMenuCommand(fileMenu,
                                        "&Redo\tCtrl+Y\tRedo the last change.",
-                                       GUIIconSubSys::getIcon(ICON_REDO), myGNEApp->myUndoList, FXUndoList::ID_REDO);
+                                       GUIIconSubSys::getIcon(ICON_REDO), myGNEApp, MID_HOTKEY_CTRL_Y_REDO);
     // build separator
     new FXMenuSeparator(fileMenu);
     // build Network modes commands and hide it
@@ -2051,6 +2053,18 @@ long
 GNEApplicationWindow::onUpdSaveDemandElements(FXObject* sender, FXSelector, void*) {
     sender->handle(this, ((myNet == nullptr) || myNet->isDemandElementsSaved()) ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     return 1;
+}
+
+
+long 
+GNEApplicationWindow::onUpdUndo(FXObject* obj, FXSelector sel, void* ptr) {
+    return myUndoList->p_onUpdUndo(obj, sel, ptr);
+}
+
+
+long 
+GNEApplicationWindow::onUpdRedo(FXObject* obj, FXSelector sel, void* ptr) {
+    return myUndoList->p_onUpdRedo(obj, sel, ptr);
 }
 
 

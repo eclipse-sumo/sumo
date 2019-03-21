@@ -227,7 +227,7 @@ public:
     /// @brief called when the command/FXCall save network as is executed
     long onCmdSaveAsNetwork(FXObject*, FXSelector, void*);
 
-    /// @brief called when the upadte/FXCall needs network is executed
+    /// @brief called when the update/FXCall needs network is executed
     long onUpdNeedsNetwork(FXObject*, FXSelector, void*);
 
     /// @brief called when the update/FXCall reload is executed
@@ -238,6 +238,12 @@ public:
 
     /// @brief called when the update/FXCall save demand elements is executed
     long onUpdSaveDemandElements(FXObject*, FXSelector, void*);
+
+    /// @brief called when the update/FXCall undo is executed
+    long onUpdUndo(FXObject* obj, FXSelector sel, void* ptr);
+
+    /// @brief called when the update/FXCall redo is executed
+    long onUpdRedo(FXObject* obj, FXSelector sel, void* ptr);
 
     /// @brief called when the command/FXCall save as plain xml is executed
     long onCmdSaveAsPlainXML(FXObject*, FXSelector, void*);
