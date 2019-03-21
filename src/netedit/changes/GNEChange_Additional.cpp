@@ -76,7 +76,7 @@ GNEChange_Additional::~GNEChange_Additional() {
         WRITE_DEBUG("Deleting unreferenced " + myAdditional->getTagStr() + " '" + myAdditional->getID() + "'");
         // make sure that additional isn't in net before removing
         if (myNet->additionalExist(myAdditional)) {
-            myNet->deleteAdditional(myAdditional);
+            myNet->deleteAdditional(myAdditional, false);
         }
         delete myAdditional;
     }
@@ -113,7 +113,7 @@ GNEChange_Additional::undo() {
             i->removeAdditionalParent(myAdditional);
         }
         // delete additional from net
-        myNet->deleteAdditional(myAdditional);
+        myNet->deleteAdditional(myAdditional, false);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myAdditional->getTagStr() + " '" + myAdditional->getID() + "' in GNEChange_Additional");
@@ -208,7 +208,7 @@ GNEChange_Additional::redo() {
             i->removeAdditionalParent(myAdditional);
         }
         // remove additional of test
-        myNet->deleteAdditional(myAdditional);
+        myNet->deleteAdditional(myAdditional, false);
     }
     // Requiere always save additionals
     myNet->requiereSaveAdditionals(true);

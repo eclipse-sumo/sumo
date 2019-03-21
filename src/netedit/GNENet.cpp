@@ -225,7 +225,7 @@ GNENet::addPolygon(const std::string& id, const std::string& type, const RGBColo
             myViewNet->getUndoList()->p_end();
         } else {
             // insert shape without allowing undo/redo
-            insertShape(poly);
+            insertShape(poly, true);
             poly->incRef("addPolygon");
         }
         return true;
@@ -252,7 +252,7 @@ GNENet::addPOI(const std::string& id, const std::string& type, const RGBColor& c
                     myViewNet->getUndoList()->p_end();
                 } else {
                     // insert shape without allowing undo/redo
-                    insertShape(poi);
+                    insertShape(poi, true);
                     poi->incRef("addPOI");
                 }
                 return true;
@@ -270,7 +270,7 @@ GNENet::addPOI(const std::string& id, const std::string& type, const RGBColor& c
                     myViewNet->getUndoList()->p_end();
                 } else {
                     // insert shape without allowing undo/redo
-                    insertShape(poi);
+                    insertShape(poi, true);
                     poi->incRef("addPOI");
                 }
                 return true;
@@ -1264,7 +1264,6 @@ GNENet::retrieveShapes(bool onlySelected) {
 void
 GNENet::addGLObjectIntoGrid(GUIGlObject* o) {
     myGrid.addAdditionalGLObject(o);
-    update();
 }
 
 
@@ -1471,7 +1470,6 @@ GNENet::computeEverything(GNEApplicationWindow* window, bool force, bool volatil
     }
     window->getApp()->endWaitCursor();
     window->setStatusBarText("Finished computing junctions.");
-    update();
 }
 
 
@@ -2502,7 +2500,7 @@ GNENet::insertAdditional(GNEAdditional* additional) {
 
 
 bool
-GNENet::deleteAdditional(GNEAdditional* additional) {
+GNENet::deleteAdditional(GNEAdditional* additional, bool updateViewAfterDeleting) {
     // first check that additional pointer is valid
     if (additional) {
         // iterate over additionals to find it
@@ -2521,8 +2519,10 @@ GNENet::deleteAdditional(GNEAdditional* additional) {
                 if (additional->isAttributeCarrierSelected()) {
                     additional->unselectAttributeCarrier(false);
                 }
-                // update view
-                update();
+                // check if view has to be updated
+                if(updateViewAfterDeleting) {
+                    myViewNet->update();
+                }
                 // additionals has to be saved
                 requiereSaveAdditionals(true);
                 // additional removed, then return true
@@ -2587,7 +2587,7 @@ GNENet::insertDemandElement(GNEDemandElement* demandElement) {
 
 
 bool
-GNENet::deleteDemandElement(GNEDemandElement* demandElement) {
+GNENet::deleteDemandElement(GNEDemandElement* demandElement, bool updateViewAfterDeleting) {
     // first check that demandElement pointer is valid
     if (demandElement) {
         // iterate over demandElements to find it
@@ -2614,8 +2614,10 @@ GNENet::deleteDemandElement(GNEDemandElement* demandElement) {
                 if (demandElement->isAttributeCarrierSelected()) {
                     demandElement->unselectAttributeCarrier(false);
                 }
-                // update view
-                update();
+                // check if view has to be updated
+                if(updateViewAfterDeleting) {
+                    myViewNet->update();
+                }
                 // demandElements has to be saved
                 requiereSaveDemandElements(true);
                 // demandElement removed, then return true
@@ -2728,7 +2730,7 @@ GNENet::registerEdge(GNEEdge* edge) {
 
 
 void
-GNENet::deleteSingleJunction(GNEJunction* junction) {
+GNENet::deleteSingleJunction(GNEJunction* junction, bool updateViewAfterDeleting) {
     // remove it from Inspector Frame
     myViewNet->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(junction);
     // Remove from grid and container
@@ -2741,12 +2743,15 @@ GNENet::deleteSingleJunction(GNEJunction* junction) {
     myNetBuilder->getNodeCont().extract(junction->getNBNode());
     junction->decRef("GNENet::deleteSingleJunction");
     junction->setResponsible(true);
-    update();
+    // check if view has to be updated
+    if(updateViewAfterDeleting) {
+        myViewNet->update();
+    }
 }
 
 
 void
-GNENet::deleteSingleEdge(GNEEdge* edge) {
+GNENet::deleteSingleEdge(GNEEdge* edge, bool updateViewAfterDeleting) {
     // remove it from Inspector Frame
     myViewNet->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(edge);
     // remove edge from visual grid and container
@@ -2763,13 +2768,15 @@ GNENet::deleteSingleEdge(GNEEdge* edge) {
     // Remove refrences from GNEJunctions
     edge->getGNEJunctionSource()->removeOutgoingGNEEdge(edge);
     edge->getGNEJunctionDestiny()->removeIncomingGNEEdge(edge);
-    // invalidate junction logic
-    update();
+    // check if view has to be updated
+    if(updateViewAfterDeleting) {
+        myViewNet->update();
+    }
 }
 
 
 void
-GNENet::insertShape(GNEShape* shape) {
+GNENet::insertShape(GNEShape* shape, bool updateViewAfterDeleting) {
     // add shape depending of their type and if is selected
     if (shape->getTagProperty().getTag() == SUMO_TAG_POLY) {
         GUIPolygon* poly = dynamic_cast<GUIPolygon*>(shape);
@@ -2791,13 +2798,15 @@ GNENet::insertShape(GNEShape* shape) {
     }
     // insert shape requieres always save additionals
     requiereSaveAdditionals(true);
-    // update view
-    myViewNet->update();
+    // check if view has to be updated
+    if(updateViewAfterDeleting) {
+        myViewNet->update();
+    }
 }
 
 
 void
-GNENet::removeShape(GNEShape* shape) {
+GNENet::removeShape(GNEShape* shape, bool updateViewAfterDeleting) {
     // remove it from Inspector Frame
     myViewNet->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(shape);
     if (shape->getTagProperty().getTag() == SUMO_TAG_POLY) {
@@ -2819,8 +2828,10 @@ GNENet::removeShape(GNEShape* shape) {
     }
     // remove shape requires always save additionals
     requiereSaveAdditionals(true);
-    // update view
-    myViewNet->update();
+    // check if view has to be updated
+    if(updateViewAfterDeleting) {
+        myViewNet->update();
+    }
 }
 
 

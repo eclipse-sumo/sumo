@@ -64,7 +64,7 @@ GNEChange_Edge::undo() {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myEdge->getTagStr() + " '" + myEdge->getID() + "' from " + toString(SUMO_TAG_NET));
         // delete edge from net
-        myNet->deleteSingleEdge(myEdge);
+        myNet->deleteSingleEdge(myEdge, false);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myEdge->getTagStr() + " '" + myEdge->getID() + "' from " + toString(SUMO_TAG_NET));
@@ -87,7 +87,7 @@ GNEChange_Edge::redo() {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myEdge->getTagStr() + " '" + myEdge->getID() + "' from " + toString(SUMO_TAG_NET));
         // delte edge from net
-        myNet->deleteSingleEdge(myEdge);
+        myNet->deleteSingleEdge(myEdge, false);
     }
     // enable save netElements
     myNet->requiereSaveNet(true);

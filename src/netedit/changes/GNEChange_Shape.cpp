@@ -74,12 +74,12 @@ GNEChange_Shape::undo() {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myShape->getTagStr() + " '" + myShape->getID() + "' from viewNet");
         // remove shape from net
-        myNet->removeShape(myShape);
+        myNet->removeShape(myShape, false);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myShape->getTagStr() + " '" + myShape->getID() + "' into viewNet");
         // Add shape in net
-        myNet->insertShape(myShape);
+        myNet->insertShape(myShape, false);
     }
 }
 
@@ -90,12 +90,12 @@ GNEChange_Shape::redo() {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myShape->getTagStr() + " '" + myShape->getID() + "' into viewNet");
         // Add shape in net
-        myNet->insertShape(myShape);
+        myNet->insertShape(myShape, false);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myShape->getTagStr() + " '" + myShape->getID() + "' from viewNet");
         // remove shape from net
-        myNet->removeShape(myShape);
+        myNet->removeShape(myShape, false);
     }
 }
 

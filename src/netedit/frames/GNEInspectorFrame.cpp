@@ -253,11 +253,11 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
     if (ACs.size() > 0) {
         // Set header
         std::string headerString;
-        if (dynamic_cast<GNENetElement*>(ACs.front())) {
+        if (ACs.front()->getTagProperty().isNetElement()) {
             headerString = "Net: ";
-        } else if (dynamic_cast<GNEAdditional*>(ACs.front())) {
+        } else if (ACs.front()->getTagProperty().isAdditional()) {
             headerString = "Additional: ";
-        } else if (dynamic_cast<GNEShape*>(ACs.front())) {
+        } else if (ACs.front()->getTagProperty().isShape()) {
             headerString = "Shape: ";
         }
         if (ACs.size() > 1) {

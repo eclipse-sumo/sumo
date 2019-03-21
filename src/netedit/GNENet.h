@@ -763,7 +763,7 @@ protected:
     /**@brief delete additional element of GNENet container
      * @throw processError if additional wasn't previously inserted
      */
-    bool deleteAdditional(GNEAdditional* additional);
+    bool deleteAdditional(GNEAdditional* additional, bool updateViewAfterDeleting);
 
     /// @}
 
@@ -781,7 +781,7 @@ protected:
     /**@brief delete demand element element of GNENet container
      * @throw processError if demand element wasn't previously inserted
      */
-    bool deleteDemandElement(GNEDemandElement* demandElement);
+    bool deleteDemandElement(GNEDemandElement* demandElement, bool updateViewAfterDeleting);
 
     /// @}
 
@@ -802,16 +802,16 @@ private:
     GNEEdge* registerEdge(GNEEdge* edge);
 
     /// @brief deletes a single junction
-    void deleteSingleJunction(GNEJunction* junction);
+    void deleteSingleJunction(GNEJunction* junction, bool updateViewAfterDeleting);
 
     /// @brief deletes a single edge
-    void deleteSingleEdge(GNEEdge* edge);
+    void deleteSingleEdge(GNEEdge* edge, bool updateViewAfterDeleting);
 
     /// @brief insert shape
-    void insertShape(GNEShape* shape);
+    void insertShape(GNEShape* shape, bool updateViewAfterDeleting);
 
     /// @brief remove created shape (but NOT delete)
-    void removeShape(GNEShape* shape);
+    void removeShape(GNEShape* shape, bool updateViewAfterDeleting);
 
     /// @brief notify myViewNet
     void update();
