@@ -17,10 +17,10 @@
 import argparse
 import collections
 import logging
-import os
 import sys
 import xml.etree.ElementTree
 
+import sumolib
 import traci
 
 
@@ -95,9 +95,9 @@ class ReroutersGeneration(object):
             self._parking_areas[child.attrib['id']] = child.attrib
             self._parking_areas[child.attrib['id']]['edge'] = child.attrib['lane'].split('_')[0]
 
-    ## ---------------------------------------------------------------------------------------- ##
-    ##                                 Rerouters Generation                                     ##
-    ## ---------------------------------------------------------------------------------------- ##
+    # ---------------------------------------------------------------------------------------- #
+    #                                 Rerouter Generation                                      #
+    # ---------------------------------------------------------------------------------------- #
 
     def _generate_rerouters(self):
         """ Compute the rerouters for each parking lot for SUMO. """
@@ -152,14 +152,10 @@ class ReroutersGeneration(object):
 
         logging.debug('Computed %d rerouters.', len(self._sumo_rerouters.keys()))
 
-    ## ---------------------------------------------------------------------------------------- ##
-    ##                             Save SUMO Additionals to File                                ##
-    ## ---------------------------------------------------------------------------------------- ##
+    # ---------------------------------------------------------------------------------------- #
+    #                             Save SUMO Additionals to File                                #
+    # ---------------------------------------------------------------------------------------- #
 
-    _ADDITIONALS = """<?xml version="1.0" encoding="UTF-8"?>
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd"> {content}
-</additional>
-    """
     _REROUTER = """
     <rerouter id="{rid}" edges="{edges}">
         <interval begin="0.0" end="86400">
@@ -175,7 +171,7 @@ class ReroutersGeneration(object):
             with threshold visibility set to True. """
         logging.info("Creation of %s", filename)
         with open(filename, 'w') as outfile:
-            list_of_routers = ''
+            sumolib.xml.writeHeader(outfile, "additional")
             for rerouter in self._sumo_rerouters.values():
                 alternatives = ''
                 for alt, dist in rerouter['rerouters']:
@@ -188,14 +184,12 @@ class ReroutersGeneration(object):
                     if dist <= self._dist_threshold:
                         _visibility = 'true'
                     alternatives += self._RR_PARKING.format(pid=alt, visible=_visibility, dist=dist)
-                list_of_routers += self._REROUTER.format(
-                    rid=rerouter['rid'], edges=rerouter['edge'], parkings=alternatives)
-
-            content = list_of_routers
-            outfile.write(self._ADDITIONALS.format(content=content))
+                outfile.write(self._REROUTER.format(
+                    rid=rerouter['rid'], edges=rerouter['edge'], parkings=alternatives))
+            outfile.write("</additional>\n")
         logging.info("%s created.", filename)
 
-    ## ----------------------------------------------------------------------------------------- ##
+    # ----------------------------------------------------------------------------------------- #
 
 
 def _main():

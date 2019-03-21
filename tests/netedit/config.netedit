@@ -54,9 +54,8 @@ errors:delete: freed
 errors:java{LINES 1}
 errors:Java{LINES 1}
 errors:Could not load{LINES 1}
+errors:Debug: Modules:
 log:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
-log:Proj GUI GDAL FFmpeg OSG GL2PS SWIG GRPC{REPLACE MODULES}
-log:Proj GUI{REPLACE MODULES}
 
 [floating_point_tolerance]
 net:0.0101

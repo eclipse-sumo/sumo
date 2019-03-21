@@ -114,6 +114,7 @@ void
 GNEUndoList::undo() {
     WRITE_DEBUG("Keys Ctrl + Z (Undo) pressed");
     FXUndoList::undo();
+    // update specific controls 
     myGNEApplicationWindowParent->updateControls();
 }
 
@@ -122,6 +123,7 @@ void
 GNEUndoList::redo() {
     WRITE_DEBUG("Keys Ctrl + Y (Redo) pressed");
     FXUndoList::redo();
+    // update specific controls 
     myGNEApplicationWindowParent->updateControls();
 }
 

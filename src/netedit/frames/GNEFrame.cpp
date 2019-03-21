@@ -937,8 +937,6 @@ GNEFrame::AttributesEditor::RowEditor::showRow(const GNEAttributeCarrier::Attrib
     }
     // Show Row
     show();
-    // recalc after show elements
-    recalc();
 }
 
 
@@ -1306,7 +1304,6 @@ GNEFrame::AttributesEditor::showAttributeEditorModul(const std::vector<GNEAttrib
             if (i.second.isExtended() && !includeExtended) {
                 continue;
             }
-
             // Declare a set of occuring values and insert attribute's values of item (note: We use a set to avoid repeated values)
             std::set<std::string> occuringValues;
             for (const auto& it_ac : myEditedACs) {

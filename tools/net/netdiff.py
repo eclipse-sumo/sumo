@@ -106,6 +106,7 @@ RESET = 0
 
 IGNORE_TAGS = set([TAG_LOCATION])
 
+
 # stores attributes for later comparison
 class AttributeStore:
     patchImport = False

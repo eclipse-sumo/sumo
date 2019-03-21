@@ -470,6 +470,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     bool defaultsToOneWay = tc.getIsOneWay(type);
     SVCPermissions forwardPermissions = tc.getPermissions(type);
     SVCPermissions backwardPermissions = tc.getPermissions(type);
+    const std::string streetName = isRailway(forwardPermissions) && e->ref != "" ? e->ref : e->streetName;
     double forwardWidth = tc.getWidth(type);
     double backwardWidth = tc.getWidth(type);
     const bool addSidewalk = (tc.getSidewalkWidth(type) != NBEdge::UNSPECIFIED_WIDTH);
@@ -587,7 +588,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             assert(numLanesForward > 0);
             NBEdge* nbe = new NBEdge(id, from, to, type, speed, numLanesForward, tc.getPriority(type),
                                      forwardWidth, NBEdge::UNSPECIFIED_OFFSET, shape,
-                                     StringUtils::escapeXML(e->streetName), origID, lsf, true);
+                                     StringUtils::escapeXML(streetName), origID, lsf, true);
             nbe->setPermissions(forwardPermissions);
             if ((e->myBuswayType & WAY_FORWARD) != 0) {
                 nbe->setPermissions(SVC_BUS, 0);
@@ -611,7 +612,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             assert(numLanesBackward > 0);
             NBEdge* nbe = new NBEdge(reverseID, to, from, type, speed, numLanesBackward, tc.getPriority(type),
                                      backwardWidth, NBEdge::UNSPECIFIED_OFFSET, shape.reverse(),
-                                     StringUtils::escapeXML(e->streetName), origID, lsf, true);
+                                     StringUtils::escapeXML(streetName), origID, lsf, true);
             nbe->setPermissions(backwardPermissions);
             if ((e->myBuswayType & WAY_BACKWARD) != 0) {
                 nbe->setPermissions(SVC_BUS, 0);
@@ -907,6 +908,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
                 && key != "maxspeed" && key != "junction" && key != "name" && key != "tracks" && key != "layer"
                 && key != "route"
                 && key != "sidewalk"
+                && key != "ref"
                 && !StringUtils::startsWith(key, "parking")
                 && key != "postal_code" && key != "railway:preferred_direction" && key != "public_transport") {
             return;
@@ -1035,6 +1037,8 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
             myCurrentEdge->myIsOneWay = value;
         } else if (key == "name") {
             myCurrentEdge->streetName = value;
+        } else if (key == "ref") {
+            myCurrentEdge->ref = value;
         } else if (key == "layer") {
             if (myAllAttributes) {
                 myCurrentEdge->setParameter(key, value);

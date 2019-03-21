@@ -64,7 +64,7 @@ GNEChange_Junction::undo() {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myJunction->getTagStr() + " '" + myJunction->getID() + "' from " + toString(SUMO_TAG_NET));
         // add junction to net
-        myNet->deleteSingleJunction(myJunction);
+        myNet->deleteSingleJunction(myJunction, false);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myJunction->getTagStr() + " '" + myJunction->getID() + "' into " + toString(SUMO_TAG_NET));
@@ -87,7 +87,7 @@ GNEChange_Junction::redo() {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myJunction->getTagStr() + " '" + myJunction->getID() + "' from " + toString(SUMO_TAG_NET));
         // delete junction from net
-        myNet->deleteSingleJunction(myJunction);
+        myNet->deleteSingleJunction(myJunction, false);
     }
     // enable save netElements
     myNet->requiereSaveNet(true);

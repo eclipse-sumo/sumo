@@ -249,6 +249,13 @@ GNEViewNet::buildViewToolBars(GUIGlChildWindow& cw) {
 }
 
 
+void 
+GNEViewNet::update() const {
+    // this call is only used for breakpoints (to check when view is updated)
+    GUISUMOAbstractView::update();
+}
+
+
 std::set<std::pair<std::string, GNEAttributeCarrier*> >
 GNEViewNet::getAttributeCarriersInBoundary(const Boundary& boundary, bool forceSelectEdges) {
     // use a SET of pairs to obtain IDs and Pointers to attribute carriers. We need this because certain ACs can be returned many times (example: Edges)
@@ -580,6 +587,8 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
     }
     // update cursor
     updateCursor();
+    // update view
+    update();
     return 1;
 }
 
@@ -598,6 +607,7 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
     } else if (myEditModes.currentSupermode == GNE_SUPERMODE_DEMAND) {
         processLeftButtonReleaseDemand();
     }
+    // update view
     update();
     return 1;
 }
@@ -647,7 +657,7 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
     } else if (myEditModes.currentSupermode == GNE_SUPERMODE_DEMAND) {
         processMoveMouseDemand();
     }
-    // update view
+    // update view after movement
     update();
     return 1;
 }
@@ -662,10 +672,11 @@ GNEViewNet::onKeyPress(FXObject* o, FXSelector sel, void* eventData) {
     // change "delete last created point" depending of shift key
     if ((myEditModes.networkEditMode == GNE_NMODE_POLYGON) && myViewParent->getPolygonFrame()->getDrawingShapeModul()->isDrawing()) {
         myViewParent->getPolygonFrame()->getDrawingShapeModul()->setDeleteLastCreatedPoint(myKeyPressed.shiftKeyPressed());
+        update();
     } else if ((myEditModes.networkEditMode == GNE_NMODE_TAZ) && myViewParent->getTAZFrame()->getDrawingShapeModul()->isDrawing()) {
         myViewParent->getTAZFrame()->getDrawingShapeModul()->setDeleteLastCreatedPoint(myKeyPressed.shiftKeyPressed());
+        update();
     }
-    update();
     return GUISUMOAbstractView::onKeyPress(o, sel, eventData);
 }
 
@@ -679,12 +690,13 @@ GNEViewNet::onKeyRelease(FXObject* o, FXSelector sel, void* eventData) {
     // change "delete last created point" depending of shift key
     if ((myEditModes.networkEditMode == GNE_NMODE_POLYGON) && myViewParent->getPolygonFrame()->getDrawingShapeModul()->isDrawing()) {
         myViewParent->getPolygonFrame()->getDrawingShapeModul()->setDeleteLastCreatedPoint(myKeyPressed.shiftKeyPressed());
+        update();
     }
     // check if selecting using rectangle has to be disabled
     if (mySelectingArea.selectingUsingRectangle && !myKeyPressed.shiftKeyPressed()) {
         mySelectingArea.selectingUsingRectangle = false;
+        update();
     }
-    update();
     return GUISUMOAbstractView::onKeyRelease(o, sel, eventData);
 }
 
@@ -769,6 +781,8 @@ GNEViewNet::hotkeyDel() {
             deleteSelectedDemandElements();
             myUndoList->p_end();
         }
+        // update view
+        update();
     }
 }
 
@@ -1780,8 +1794,6 @@ GNEViewNet::processClick(void* eventData) {
     if (evt->click_count == 2) {
         handle(this, FXSEL(SEL_DOUBLECLICKED, 0), eventData);
     }
-    // update view
-    update();
 }
 
 
@@ -2553,6 +2565,8 @@ GNEViewNet::updateControls() {
         default:
             break;
     }
+    // update view
+    update();
 }
 
 // ---------------------------------------------------------------------------
@@ -2792,11 +2806,10 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                     } else if (myObjectsUnderCursor.getLaneFront()) {
                         myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->startConsecutiveLaneSelector(myObjectsUnderCursor.getLaneFront(), snapToActiveGrid(getPositionInformation()));
                     }
-                } else {
-                    // call function addAdditional from additional frame
-                    myViewParent->getAdditionalFrame()->addAdditional(myObjectsUnderCursor);
+                } else if (myViewParent->getAdditionalFrame()->addAdditional(myObjectsUnderCursor)) {
+                    // update view to show the new additional
+                    update();
                 }
-                update();
             }
             // process click
             processClick(eventData);
