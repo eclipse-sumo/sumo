@@ -87,6 +87,8 @@ def main(args=None):
     optParser.add_option("-v", "--verbose", dest="verbose", action="store_true",
                          default=False,
                          help="If set, the script says what it's doing")
+    optParser.add_option("--color-bar-label", dest="colorBarLabel", default="",
+                         help="The label to put on the color bar")
 
     # standard plot options
     helpers.addInteractionOptions(optParser)
@@ -229,7 +231,8 @@ def main(args=None):
         # "fake up the array of the scalar mappable. Urgh..."
         # (pelson, http://stackoverflow.com/questions/8342549/matplotlib-add-colorbar-to-a-sequence-of-line-plots)
         sm._A = []
-        plt.colorbar(sm)
+        color_bar = plt.colorbar(sm)
+        color_bar.set_label(options.colorBarLabel)
 
         # Should we also save the figure to a file / list of files (comma
         # separated)?
