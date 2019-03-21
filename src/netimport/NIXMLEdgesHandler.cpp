@@ -488,11 +488,6 @@ NIXMLEdgesHandler::setNodes(const SUMOSAXAttributes& attrs) {
     if (myToNode == nullptr) {
         WRITE_ERROR("Edge's '" + myCurrentID + "' to-node '" + endNodeID + "' is not known.");
     }
-    if (myFromNode != nullptr && myToNode != nullptr) {
-        if (myIsUpdate && (myFromNode->getID() != oldBegID || myToNode->getID() != oldEndID)) {
-            myShape = PositionVector();
-        }
-    }
     return myFromNode != nullptr && myToNode != nullptr;
 }
 
