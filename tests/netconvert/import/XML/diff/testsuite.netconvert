@@ -27,3 +27,4 @@ remove_tll_connection
 remove_tll_connection2
 patch_crossing
 remove_crossing
+rename_node
