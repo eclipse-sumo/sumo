@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2019-03-19 15:06:03.640590 by $Id$
+<!-- generated on 2019-03-22 08:31:46.623143 by $Id$
   options: <doubleminus>test-output test
 -->
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="pt_bus" vClass="bus"/>
     <vType id="pt_tram" vClass="tram"/>
     <vType id="pt_train" vClass="rail"/>
