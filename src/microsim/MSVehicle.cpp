@@ -1413,6 +1413,18 @@ MSVehicle::setAngle(double angle, bool straightenFurther) {
 }
 
 
+void
+MSVehicle::setActionStepLength(double actionStepLength, bool resetOffset) {
+    SUMOTime actionStepLengthMillisecs = SUMOVehicleParserHelper::processActionStepLength(actionStepLength);
+    SUMOTime previousActionStepLength = getActionStepLength();
+    getSingularType().setActionStepLength(actionStepLengthMillisecs, resetOffset);
+    if (resetOffset) {
+        resetActionOffset();
+    }
+    updateActionOffset(previousActionStepLength, actionStepLengthMillisecs);
+}
+
+
 double
 MSVehicle::computeAngle() const {
     Position p1;
@@ -2097,6 +2109,12 @@ MSVehicle::planMove(const SUMOTime t, const MSLeaderInfo& ahead, const double le
                 << "\n";
     }
 #endif
+    // Update the driver state
+    if (hasDriverState()) {
+        myDriverState->update();
+        setActionStepLength(myDriverState->getDriverState()->getActionStepLength(), false);
+    }
+
     if (!checkActionStep(t)) {
 #ifdef DEBUG_ACTIONSTEPS
         if DEBUG_COND {
@@ -2113,6 +2131,7 @@ MSVehicle::planMove(const SUMOTime t, const MSLeaderInfo& ahead, const double le
         std::cout << STEPS2TIME(t) << " vehicle = '" << getID() << "' takes action." << std::endl;
         }
 #endif
+
         myLFLinkLanesPrev = myLFLinkLanes;
         planMoveInternal(t, ahead, myLFLinkLanes, myStopDist, myNextTurn);
 #ifdef DEBUG_PLAN_MOVE
@@ -2136,10 +2155,6 @@ MSVehicle::planMove(const SUMOTime t, const MSLeaderInfo& ahead, const double le
 
 void
 MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVector& lfLinks, double& myStopDist, std::pair<double, LinkDirection>& myNextTurn) const {
-    // Serving the task difficulty interface
-    if (hasDriverState()) {
-        myDriverState->update();
-    }
     lfLinks.clear();
     myStopDist = std::numeric_limits<double>::max();
     //

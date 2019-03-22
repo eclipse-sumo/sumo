@@ -153,6 +153,14 @@ public:
         return myAwareness;
     }
 
+    inline double getMaximalReactionTime() const {
+        return myMaximalReactionTime;
+    }
+
+    inline double getActionStepLength() const {
+        return myActionStepLength;
+    }
+
     inline double getErrorState() const {
         return myError.getState();
     };
@@ -191,6 +199,10 @@ public:
 
     inline void setHeadwayChangePerceptionThreshold(const double value)  {
         myHeadwayChangePerceptionThreshold = value;
+    }
+
+    inline void setMaximalReactionTime(const double value)  {
+        myMaximalReactionTime = value;
     }
 
     void setAwareness(const double value);
@@ -250,19 +262,21 @@ private:
     void updateStepDuration();
     // Update the error process
     void updateError();
+    // Update the reaction time (actionStepLength)
+    void updateReactionTime();
 
 private:
 
     /// @brief Vehicle corresponding to this driver state
     MSVehicle* myVehicle;
 
-    // @brief Driver's 'awareness' \in [0,1]
+    /// @brief Driver's 'awareness' \in [0,1]
     double myAwareness;
-    // @brief Minimal value for 'awareness' \in [0,1]
+    /// @brief Minimal value for 'awareness' \in [0,1]
     double myMinAwareness;
-    // @brief Initial value for 'awareness' \in [0,1]
+    /// @brief Initial value for 'awareness' \in [0,1]
     double myInitialAwareness;
-    // @brief Driver's 'error', @see TCI_Model
+    /// @brief Driver's 'error', @see TCI_Model
     OUProcess myError;
     /// @brief Coefficient controlling the impact of awareness on the time scale of the error process
     double myErrorTimeScaleCoefficient;
@@ -280,9 +294,14 @@ private:
 //    // @brief if a perception threshold is passed for some object, a flag is set to induce a reaction to the object
 //    std::map<void*, bool> myReactionFlag;
 
-    /// @brief action step length induced by awareness level
-    /// @todo make effective
-    //double myActionStepLength;
+    /// @brief Action step length (~current maximal reaction time) induced by awareness level
+    /// @note  This interpolates linearly from myOriginalReactionTime for awareness==1
+    ///        to myMaximalReactionTime for awareness==myMinAwareness
+    double myActionStepLength;
+    /// @brief Maximal reaction time (value set for the actionStepLength at awareness=1)
+    double myOriginalReactionTime;
+    /// @brief Maximal reaction time (value set for the actionStepLength at awareness=myMinAwareness)
+    double myMaximalReactionTime;
 
     /// @name Variables for tracking update instants
     /// @see updateStepDuration()
@@ -674,6 +693,7 @@ struct DriverStateDefaults {
     static double speedDifferenceChangePerceptionThreshold;
     static double headwayChangePerceptionThreshold;
     static double headwayErrorCoefficient;
+    static double maximalReactionTimeFactor;
 };
 
 

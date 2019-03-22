@@ -24,6 +24,7 @@
 #include <config.h>
 
 #include <math.h>
+#include <cmath>
 #include <utils/common/RandHelper.h>
 #include <utils/common/SUMOTime.h>
 //#include <microsim/MSVehicle.h>
@@ -85,6 +86,7 @@ double DriverStateDefaults::speedDifferenceErrorCoefficient = 0.15;
 double DriverStateDefaults::headwayErrorCoefficient = 0.75;
 double DriverStateDefaults::speedDifferenceChangePerceptionThreshold = 0.1;
 double DriverStateDefaults::headwayChangePerceptionThreshold = 0.1;
+double DriverStateDefaults::maximalReactionTimeFactor = 3.0;
 
 
 // ===========================================================================
@@ -129,6 +131,8 @@ MSSimpleDriverState::MSSimpleDriverState(MSVehicle* veh) :
     myHeadwayErrorCoefficient(DriverStateDefaults::headwayErrorCoefficient),
     myHeadwayChangePerceptionThreshold(DriverStateDefaults::headwayChangePerceptionThreshold),
     mySpeedDifferenceChangePerceptionThreshold(DriverStateDefaults::speedDifferenceChangePerceptionThreshold),
+    myOriginalReactionTime(veh->getActionStepLengthSecs()),
+    myMaximalReactionTime(DriverStateDefaults::maximalReactionTimeFactor*myOriginalReactionTime),
 //    myActionStepLength(TS),
     myStepDuration(TS),
     myLastUpdateTime(SIMTIME - TS),
@@ -137,6 +141,7 @@ MSSimpleDriverState::MSSimpleDriverState(MSVehicle* veh) :
     std::cout << "Constructing driver state for veh '" << veh->getID() << "'." << std::endl;
 #endif
     updateError();
+    updateReactionTime();
 }
 
 
@@ -151,6 +156,8 @@ MSSimpleDriverState::update() {
     updateStepDuration();
     // Update error
     updateError();
+    // Update actionStepLength, aka reaction time
+    updateReactionTime();
     // Update assumed gaps
     updateAssumedGaps();
 #ifdef DEBUG_AWARENESS
@@ -174,6 +181,20 @@ MSSimpleDriverState::updateError() {
         myError.setTimeScale(myErrorTimeScaleCoefficient * myAwareness);
         myError.setNoiseIntensity(myErrorNoiseIntensityCoefficient * (1. - myAwareness));
         myError.step(myStepDuration);
+    }
+}
+
+void
+MSSimpleDriverState::updateReactionTime() {
+    if (myAwareness == 1.0 || myAwareness == 0.0) {
+        myActionStepLength = myOriginalReactionTime;
+    } else {
+        const double theta = (myAwareness - myMinAwareness)/(1.0 - myMinAwareness);
+        myActionStepLength = myOriginalReactionTime + theta*(myMaximalReactionTime - myOriginalReactionTime);
+        // Round to multiple of simstep length
+        int quotient;
+        remquo(myActionStepLength,TS,&quotient);
+        myActionStepLength = TS*quotient;
     }
 }
 

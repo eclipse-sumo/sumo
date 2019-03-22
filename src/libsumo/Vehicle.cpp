@@ -1460,15 +1460,8 @@ Vehicle::setActionStepLength(const std::string& vehicleID, double actionStepLeng
     MSVehicle* veh = getVehicle(vehicleID);
     if (actionStepLength == 0.) {
         veh->resetActionOffset();
-        return;
-    }
-    SUMOTime actionStepLengthMillisecs = SUMOVehicleParserHelper::processActionStepLength(actionStepLength);
-    SUMOTime previousActionStepLength = veh->getActionStepLength();
-    veh->getSingularType().setActionStepLength(actionStepLengthMillisecs, resetActionOffset);
-    if (resetActionOffset) {
-        veh->resetActionOffset();
     } else {
-        veh->updateActionOffset(previousActionStepLength, actionStepLengthMillisecs);
+        veh->setActionStepLength(actionStepLength, resetActionOffset);
     }
 }
 
