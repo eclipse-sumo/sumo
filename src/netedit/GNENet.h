@@ -694,6 +694,19 @@ public:
     int getNumberOfTLSPrograms() const;
     /// @}
 
+    /// @name Functions related to Enable or disable update geometry of elements after insertio
+    /// @{
+    /// @brief enable update geometry of elements after inserting or removing an element in net
+    void enableUpdateGeometry();
+
+    /// @brief disable update geometry of elements after inserting or removing an element in net
+    void disableUpdateGeometry();
+
+    /// @brief check if update geometry after inserting or removing has to be updated
+    bool isUpdateGeometryEnabled() const;
+
+    /// @}
+
 protected:
     /// @brief struct used for saving all attribute carriers of net, in different formats
     struct AttributeCarriers {
@@ -748,6 +761,9 @@ protected:
 
     /// @brief Flag to check if demand elements has to be saved
     bool myDemandElementsSaved;
+
+    /// @brief Flag to enable or disable update geometry of elements after inserting or removing element in net
+    bool myUpdateGeometryEnabled;
 
     /// @name Insertion and erasing of GNEAdditionals items
     /// @{

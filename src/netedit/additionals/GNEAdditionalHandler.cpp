@@ -805,6 +805,8 @@ GNEAdditionalHandler::buildVaporizer(GNEViewNet* viewNet, bool allowUndoRedo, GN
 GNEAdditional*
 GNEAdditionalHandler::buildTAZ(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, const PositionVector& shape, const RGBColor& color, const std::vector<GNEEdge*>& edges, bool blockMovement) {
     GNETAZ* TAZ = new GNETAZ(id, viewNet, shape, color, blockMovement);
+    // disable updating geometry of TAZ childs during insertion (because in large nets provokes slowdowns)
+    viewNet->getNet()->disableUpdateGeometry();
     if (allowUndoRedo) {
         viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_TAZ));
         viewNet->getUndoList()->add(new GNEChange_Additional(TAZ, true), true);
@@ -832,6 +834,11 @@ GNEAdditionalHandler::buildTAZ(GNEViewNet* viewNet, bool allowUndoRedo, const st
             TAZ->addAdditionalChild(TAZSink);
         }
     }
+    // enable updating geometry again and update geometry of TAZ
+    viewNet->getNet()->enableUpdateGeometry();
+    // update TAZ Frame
+    TAZ->updateGeometry(true);
+    TAZ->updateAdditionalParent();
     return TAZ;
 }
 

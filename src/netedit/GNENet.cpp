@@ -99,7 +99,8 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
     myAdditionalsSaved(true),
     myTLSProgramsSaved(true),
     myDemandElementsSaved(true),
-    myAllowUndoShapes(true) {
+    myAllowUndoShapes(true),
+    myUpdateGeometryEnabled(true) {
     // set net in gIDStorage
     GUIGlObjectStorage::gIDStorage.setNetObject(this);
 
@@ -2458,6 +2459,26 @@ GNENet::getNumberOfTLSPrograms() const {
     return -1;
 }
 
+void 
+GNENet::enableUpdateGeometry() {
+    myUpdateGeometryEnabled = true;
+}
+
+
+void 
+GNENet::disableUpdateGeometry() {
+    myUpdateGeometryEnabled = false;
+}
+
+
+bool 
+GNENet::isUpdateGeometryEnabled() const {
+    return myUpdateGeometryEnabled;
+}
+
+// ---------------------------------------------------------------------------
+// GNENet - protected methods
+// ---------------------------------------------------------------------------
 
 bool
 GNENet::additionalExist(GNEAdditional* additional) {
@@ -2489,8 +2510,10 @@ GNENet::insertAdditional(GNEAdditional* additional) {
         if (additional->isAttributeCarrierSelected()) {
             additional->selectAttributeCarrier(false);
         }
-        // update geometry after insertion of additionals
-        additional->updateGeometry(true);
+        // update geometry after insertion of additionals if myUpdateGeometryEnabled is enabled
+        if(myUpdateGeometryEnabled) {
+            additional->updateGeometry(true);
+        }
         // additionals has to be saved
         requiereSaveAdditionals(true);
     } else {
@@ -2576,8 +2599,10 @@ GNENet::insertDemandElement(GNEDemandElement* demandElement) {
         if (demandElement->isAttributeCarrierSelected()) {
             demandElement->selectAttributeCarrier(false);
         }
-        // update geometry after insertion of demandElements
-        demandElement->updateGeometry(true);
+        // update geometry after insertion of demandElements if myUpdateGeometryEnabled is enabled
+        if (myUpdateGeometryEnabled) {
+            demandElement->updateGeometry(true);
+        }
         // demandElements has to be saved
         requiereSaveDemandElements(true);
     } else {

@@ -82,7 +82,9 @@ GNEHierarchicalElement::addAdditionalParent(GNEAdditional* additional) {
     } else {
         myAdditionalParents.push_back(additional);
         // update geometry is needed for stacked additionals (routeProbes and Vaporicers)
-        updateGeometry(true);
+        if (additional->getViewNet()->getNet()->isUpdateGeometryEnabled()) {
+            updateGeometry(true);
+        }
     }
 }
 
@@ -96,7 +98,9 @@ GNEHierarchicalElement::removeAdditionalParent(GNEAdditional* additional) {
     } else {
         myAdditionalParents.erase(it);
         // update geometry is needed for stacked additionals (routeProbes and Vaporizers)
-        updateGeometry(true);
+        if (additional->getViewNet()->getNet()->isUpdateGeometryEnabled()) {
+            updateGeometry(true);
+        }
     }
 }
 
@@ -114,14 +118,16 @@ GNEHierarchicalElement::addAdditionalChild(GNEAdditional* additional) {
         throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' was already inserted in " + getTagStr() + " with ID='" + getID() + "'");
     } else {
         myAdditionalChilds.push_back(additional);
-        // Check if childs has to be sorted automatically
-        if (myTagProperty.canAutomaticSortChilds()) {
-            sortAdditionalChilds();
+        // only execute post operations if update geometry is enabled
+        if (additional->getViewNet()->getNet()->isUpdateGeometryEnabled()) {
+            // Check if childs has to be sorted automatically
+            if (myTagProperty.canAutomaticSortChilds()) {
+                sortAdditionalChilds();
+            }
+            // update additional parent after add additional (note: by default non-implemented)
+            updateAdditionalParent();
+            updateGeometry(true);
         }
-        // update additional parent after add additional (note: by default non-implemented)
-        updateAdditionalParent();
-        // update geometry (for set geometry of lines between Parents and Childs)
-        updateGeometry(true);
     }
 }
 
@@ -134,14 +140,16 @@ GNEHierarchicalElement::removeAdditionalChild(GNEAdditional* additional) {
         throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' doesn't exist in " + getTagStr() + " with ID='" + getID() + "'");
     } else {
         myAdditionalChilds.erase(it);
-        // Check if childs has to be sorted automatically
-        if (myTagProperty.canAutomaticSortChilds()) {
-            sortAdditionalChilds();
+        // only execute post operations if update geometry is enabled
+        if (additional->getViewNet()->getNet()->isUpdateGeometryEnabled()) {
+            // Check if childs has to be sorted automatically
+            if (myTagProperty.canAutomaticSortChilds()) {
+                sortAdditionalChilds();
+            }
+            // update additional parent after add additional (note: by default non-implemented)
+            updateAdditionalParent();
+            updateGeometry(true);
         }
-        // update additional parent after add additional (note: by default non-implemented)
-        updateAdditionalParent();
-        // update geometry (for remove geometry of lines between Parents and Childs)
-        updateGeometry(true);
     }
 }
 
@@ -279,7 +287,9 @@ GNEHierarchicalElement::addDemandElementParent(GNEDemandElement* demandElement) 
     } else {
         myDemandElementParents.push_back(demandElement);
         // update geometry is needed for stacked demandElements (routeProbes and Vaporicers)
-        updateGeometry(true);
+        if (demandElement->getViewNet()->getNet()->isUpdateGeometryEnabled()) {
+            updateGeometry(true);
+        }
     }
 }
 
@@ -293,7 +303,9 @@ GNEHierarchicalElement::removeDemandElementParent(GNEDemandElement* demandElemen
     } else {
         myDemandElementParents.erase(it);
         // update geometry is needed for stacked demandElements (routeProbes and Vaporizers)
-        updateGeometry(true);
+        if (demandElement->getViewNet()->getNet()->isUpdateGeometryEnabled()) {
+            updateGeometry(true);
+        }
     }
 }
 
@@ -318,7 +330,9 @@ GNEHierarchicalElement::addDemandElementChild(GNEDemandElement* demandElement) {
         // update demandElement parent after add demandElement (note: by default non-implemented)
         updateDemandElementParent();
         // update geometry (for set geometry of lines between Parents and Childs)
-        updateGeometry(true);
+        if (demandElement->getViewNet()->getNet()->isUpdateGeometryEnabled()) {
+            updateGeometry(true);
+        }
     }
 }
 
@@ -338,7 +352,9 @@ GNEHierarchicalElement::removeDemandElementChild(GNEDemandElement* demandElement
         // update demandElement parent after add demandElement (note: by default non-implemented)
         updateDemandElementParent();
         // update geometry (for remove geometry of lines between Parents and Childs)
-        updateGeometry(true);
+        if (demandElement->getViewNet()->getNet()->isUpdateGeometryEnabled()) {
+            updateGeometry(true);
+        }
     }
 }
 
@@ -567,7 +583,8 @@ GNEHierarchicalElement::changeFirstAdditionalParent(GNEAdditional *additionalTob
         myAdditionalParents.at(0) = additionalTobeChanged->getViewNet()->getNet()->retrieveAdditional(myAdditionalParents.at(0)->getTagProperty().getTag(), newAdditionalParentID);
         // add this additional int the childs of parent additional
         myAdditionalParents.at(0)->addAdditionalChild(additionalTobeChanged);
-        //updateGeometry(true);
+        // update geometry after inserting
+        updateGeometry(true);
     }
 }
 
@@ -583,7 +600,8 @@ GNEHierarchicalElement::changeSecondAdditionalParent(GNEAdditional *additionalTo
         myAdditionalParents.at(1) = additionalTobeChanged->getViewNet()->getNet()->retrieveAdditional(myAdditionalParents.at(1)->getTagProperty().getTag(), newAdditionalParentID);
         // add this additional int the childs of parent additional
         myAdditionalParents.at(1)->addAdditionalChild(additionalTobeChanged);
-        //updateGeometry(true);
+        // update geometry after inserting
+        updateGeometry(true);
     }
 }
 
@@ -599,7 +617,8 @@ GNEHierarchicalElement::changeDemandElementParent(GNEDemandElement *demandElemen
         myDemandElementParents.at(0) = demandElementTobeChanged->getViewNet()->getNet()->retrieveDemandElement(myDemandElementParents.at(0)->getTagProperty().getTag(), newAdditionalParentID);
         // add this additional int the childs of parent additional
         myDemandElementParents.at(0)->addDemandElementChild(demandElementTobeChanged);
-        //updateGeometry(true);
+        // update geometry after inserting
+        updateGeometry(true);
     }
 }
 
