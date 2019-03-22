@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Feb 15 12:50:58 2019 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Fri Mar 22 11:37:39 2019 by Eclipse SUMO netconvert Version v1_1_0+0433-16c2ffa
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -32,24 +32,23 @@ SPDX-License-Identifier: EPL-2.0
 
 <tlLogics version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
     <tlLogic id="C" type="static" programID="0" offset="0">
-        <phase duration="40" state="GGggGGgGGGrrrr"/>
-        <phase duration="5"  state="yyyyyyyyyyrrrr"/>
-        <phase duration="40" state="rrrrrrrGGGGGGG"/>
-        <phase duration="5"  state="rrrrrrryyyyyyy"/>
+        <phase duration="40" state="GggGGgGGGrrrr"/>
+        <phase duration="5"  state="yyyyyyyyyrrrr"/>
+        <phase duration="40" state="rrrrrrGGGGGGG"/>
+        <phase duration="5"  state="rrrrrryyyyyyy"/>
     </tlLogic>
 
-    <connection from="EC" to="CN" fromLane="0" toLane="0" tl="C" linkIndex="7"/>
-    <connection from="EC" to="CN" fromLane="0" toLane="1" tl="C" linkIndex="8"/>
-    <connection from="EC" to="CN" fromLane="0" toLane="2" tl="C" linkIndex="9"/>
-    <connection from="EC" to="CW" fromLane="0" toLane="0" tl="C" linkIndex="10"/>
-    <connection from="EC" to="CW" fromLane="1" toLane="1" tl="C" linkIndex="11"/>
-    <connection from="EC" to="CW" fromLane="2" toLane="2" tl="C" linkIndex="12"/>
-    <connection from="EC" to="CE" fromLane="2" toLane="2" tl="C" linkIndex="13"/>
-    <connection from="NC" to="CW" fromLane="0" toLane="0" tl="C" linkIndex="0"/>
-    <connection from="NC" to="CE" fromLane="0" toLane="0" tl="C" linkIndex="1"/>
-    <connection from="NC" to="CW" fromLane="1" toLane="1" tl="C" linkIndex="2"/>
-    <connection from="NC" to="CW" fromLane="2" toLane="2" tl="C" linkIndex="3"/>
-    <connection from="NC" to="CE" fromLane="2" toLane="1" tl="C" linkIndex="4"/>
-    <connection from="NC" to="CE" fromLane="2" toLane="2" tl="C" linkIndex="5"/>
-    <connection from="NC" to="CN" fromLane="2" toLane="2" tl="C" linkIndex="6"/>
+    <connection from="EC" to="CN" fromLane="0" toLane="0" tl="C" linkIndex="6"/>
+    <connection from="EC" to="CN" fromLane="0" toLane="1" tl="C" linkIndex="7"/>
+    <connection from="EC" to="CN" fromLane="0" toLane="2" tl="C" linkIndex="8"/>
+    <connection from="EC" to="CW" fromLane="0" toLane="0" tl="C" linkIndex="9"/>
+    <connection from="EC" to="CW" fromLane="1" toLane="1" tl="C" linkIndex="10"/>
+    <connection from="EC" to="CW" fromLane="2" toLane="2" tl="C" linkIndex="11"/>
+    <connection from="EC" to="CE" fromLane="2" toLane="2" tl="C" linkIndex="12"/>
+    <connection from="NC" to="CE" fromLane="0" toLane="0" tl="C" linkIndex="0"/>
+    <connection from="NC" to="CW" fromLane="1" toLane="0" tl="C" linkIndex="1"/>
+    <connection from="NC" to="CW" fromLane="2" toLane="1" tl="C" linkIndex="2"/>
+    <connection from="NC" to="CE" fromLane="2" toLane="1" tl="C" linkIndex="3"/>
+    <connection from="NC" to="CE" fromLane="2" toLane="2" tl="C" linkIndex="4"/>
+    <connection from="NC" to="CN" fromLane="2" toLane="2" tl="C" linkIndex="5"/>
 </tlLogics>
