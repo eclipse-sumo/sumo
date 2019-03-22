@@ -1,0 +1,4 @@
+--no-step-log --net-file=net.net.xml 
+--routes=input_routes.rou.xml 
+--stop-output stopinfos.xml 
+
