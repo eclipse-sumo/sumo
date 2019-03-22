@@ -44,45 +44,36 @@
 
 GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement) :
     GUIGlObject(type, id),
-    GNEAttributeCarrier(tag),
+    GNEHierarchicalElement(tag),
     Parameterised(),
     myViewNet(viewNet),
     myAdditionalName(additionalName),
     myBlockMovement(blockMovement),
-    myFirstAdditionalParent(nullptr),
-    mySecondAdditionalParent(nullptr),
-    myBlockIcon(this),
-    myChildConnections(this) {
+    myBlockIcon(this) {
 }
 
 
 GNEAdditional::GNEAdditional(GNEAdditional* singleAdditionalParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement) :
-    GUIGlObject(type, singleAdditionalParent->generateAdditionalChildID(tag)),
-    GNEAttributeCarrier(tag),
+    GUIGlObject(type, singleAdditionalParent->generateChildID(tag)),
+    GNEHierarchicalElement(tag, singleAdditionalParent),
     Parameterised(),
     myViewNet(viewNet),
     myAdditionalName(additionalName),
     myBlockMovement(blockMovement),
-    myFirstAdditionalParent(singleAdditionalParent),
-    mySecondAdditionalParent(nullptr),
-    myBlockIcon(this),
-    myChildConnections(this) {
+    myBlockIcon(this) {
     // check that additional parent is of expected type
     assert(singleAdditionalParent->getTagProperty().getTag() == myTagProperty.getParentTag());
 }
 
 
 GNEAdditional::GNEAdditional(GNEAdditional* firstAdditionalParent, GNEAdditional* secondAdditionalParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement) :
-    GUIGlObject(type, firstAdditionalParent->generateAdditionalChildID(tag)),
-    GNEAttributeCarrier(tag),
+    GUIGlObject(type, firstAdditionalParent->generateChildID(tag)),
+    GNEHierarchicalElement(tag, firstAdditionalParent, secondAdditionalParent),
     Parameterised(),
     myViewNet(viewNet),
     myAdditionalName(additionalName),
     myBlockMovement(blockMovement),
-    myFirstAdditionalParent(firstAdditionalParent),
-    mySecondAdditionalParent(secondAdditionalParent),
-    myBlockIcon(this),
-    myChildConnections(this) {
+    myBlockIcon(this) {
     // check that additional parent is of expected type
     assert(firstAdditionalParent->getTagProperty().getTag() == myTagProperty.getParentTag());
 }
@@ -90,35 +81,37 @@ GNEAdditional::GNEAdditional(GNEAdditional* firstAdditionalParent, GNEAdditional
 
 GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement, std::vector<GNEEdge*> edgeChilds) :
     GUIGlObject(type, id),
-    GNEAttributeCarrier(tag),
+    GNEHierarchicalElement(tag, edgeChilds),
     Parameterised(),
     myViewNet(viewNet),
     myAdditionalName(additionalName),
     myBlockMovement(blockMovement),
-    myFirstAdditionalParent(nullptr),
-    mySecondAdditionalParent(nullptr),
-    myEdgeChilds(edgeChilds),
-    myBlockIcon(this),
-    myChildConnections(this) {
+    myBlockIcon(this) {
 }
 
 
 GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement, std::vector<GNELane*> laneChilds) :
     GUIGlObject(type, id),
-    GNEAttributeCarrier(tag),
+    GNEHierarchicalElement(tag, laneChilds),
     Parameterised(),
     myViewNet(viewNet),
     myAdditionalName(additionalName),
     myBlockMovement(blockMovement),
-    myFirstAdditionalParent(nullptr),
-    mySecondAdditionalParent(nullptr),
-    myLaneChilds(laneChilds),
-    myBlockIcon(this),
-    myChildConnections(this) {
+    myBlockIcon(this) {
 }
 
 
 GNEAdditional::~GNEAdditional() {}
+
+
+std::string 
+GNEAdditional::generateChildID(SumoXMLTag childTag) {
+    int counter = 0;
+    while (myViewNet->getNet()->retrieveAdditional(childTag, getID() + toString(childTag) + toString(counter), false) != nullptr) {
+        counter++;
+    }
+    return (getID() + toString(childTag) + toString(counter));
+}
 
 
 void
@@ -308,256 +301,6 @@ GNEAdditional::isAdditionalBlocked() const {
 }
 
 
-GNEAdditional*
-GNEAdditional::getFirstAdditionalParent() const {
-    return myFirstAdditionalParent;
-}
-
-
-GNEAdditional*
-GNEAdditional::getSecondAdditionalParent() const {
-    return mySecondAdditionalParent;
-}
-
-
-std::string
-GNEAdditional::generateAdditionalChildID(SumoXMLTag childTag) {
-    int counter = 0;
-    while (myViewNet->getNet()->retrieveAdditional(childTag, getID() + toString(childTag) + toString(counter), false) != nullptr) {
-        counter++;
-    }
-    return (getID() + toString(childTag) + toString(counter));
-}
-
-
-void
-GNEAdditional::addAdditionalChild(GNEAdditional* additional) {
-    // First check that additional wasn't already inserted
-    if (std::find(myAdditionalChilds.begin(), myAdditionalChilds.end(), additional) != myAdditionalChilds.end()) {
-        throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' was already inserted in " + getTagStr() + " with ID='" + getID() + "'");
-    } else {
-        myAdditionalChilds.push_back(additional);
-        // Check if childs has to be sorted automatically
-        if (myTagProperty.canAutomaticSortChilds()) {
-            sortAdditionalChilds();
-        }
-        // update additional parent after add additional (note: by default non-implemented)
-        updateAdditionalParent();
-        // update geometry (for set geometry of lines between Parents and Childs)
-        updateGeometry(true);
-    }
-}
-
-
-void
-GNEAdditional::removeAdditionalChild(GNEAdditional* additional) {
-    // First check that additional was already inserted
-    auto it = std::find(myAdditionalChilds.begin(), myAdditionalChilds.end(), additional);
-    if (it == myAdditionalChilds.end()) {
-        throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' doesn't exist in " + getTagStr() + " with ID='" + getID() + "'");
-    } else {
-        myAdditionalChilds.erase(it);
-        // Check if childs has to be sorted automatically
-        if (myTagProperty.canAutomaticSortChilds()) {
-            sortAdditionalChilds();
-        }
-        // update additional parent after add additional (note: by default non-implemented)
-        updateAdditionalParent();
-        // update geometry (for remove geometry of lines between Parents and Childs)
-        updateGeometry(true);
-    }
-}
-
-
-const std::vector<GNEAdditional*>&
-GNEAdditional::getAdditionalChilds() const {
-    return myAdditionalChilds;
-}
-
-
-void
-GNEAdditional::sortAdditionalChilds() {
-    if (myTagProperty.getTag() == SUMO_TAG_E3DETECTOR) {
-        // we need to sort Entry/Exits due additional.xds model
-        std::vector<GNEAdditional*> sortedEntryExits;
-        // obtain all entrys
-        for (auto i : myAdditionalChilds) {
-            if (i->getTagProperty().getTag() == SUMO_TAG_DET_ENTRY) {
-                sortedEntryExits.push_back(i);
-            }
-        }
-        // obtain all exits
-        for (auto i : myAdditionalChilds) {
-            if (i->getTagProperty().getTag() == SUMO_TAG_DET_EXIT) {
-                sortedEntryExits.push_back(i);
-            }
-        }
-        // change myAdditionalChilds for sortedEntryExits
-        if (sortedEntryExits.size() == myAdditionalChilds.size()) {
-            myAdditionalChilds = sortedEntryExits;
-        } else {
-            throw ProcessError("Some additional childs were lost during sorting");
-        }
-    } else if (myTagProperty.getTag() == SUMO_TAG_TAZ) {
-        // we need to sort Entry/Exits due additional.xds model
-        std::vector<GNEAdditional*> sortedTAZSourceSink;
-        // obtain all TAZSources
-        for (auto i : myAdditionalChilds) {
-            if (i->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) {
-                sortedTAZSourceSink.push_back(i);
-            }
-        }
-        // obtain all TAZSinks
-        for (auto i : myAdditionalChilds) {
-            if (i->getTagProperty().getTag() == SUMO_TAG_TAZSINK) {
-                sortedTAZSourceSink.push_back(i);
-            }
-        }
-        // change myAdditionalChilds for sortedEntryExits
-        if (sortedTAZSourceSink.size() == myAdditionalChilds.size()) {
-            myAdditionalChilds = sortedTAZSourceSink;
-        } else {
-            throw ProcessError("Some additional childs were lost during sorting");
-        }
-    } else {
-        // declare a vector to keep sorted childs
-        std::vector<std::pair<std::pair<double, double>, GNEAdditional*> > sortedChilds;
-        // iterate over additional childs
-        for (auto i : myAdditionalChilds) {
-            sortedChilds.push_back(std::make_pair(std::make_pair(0., 0.), i));
-            // set begin/start attribute
-            if (i->getTagProperty().hasAttribute(SUMO_ATTR_TIME) && canParse<double>(i->getAttribute(SUMO_ATTR_TIME))) {
-                sortedChilds.back().first.first = parse<double>(i->getAttribute(SUMO_ATTR_TIME));
-            } else if (i->getTagProperty().hasAttribute(SUMO_ATTR_BEGIN) && canParse<double>(i->getAttribute(SUMO_ATTR_BEGIN))) {
-                sortedChilds.back().first.first = parse<double>(i->getAttribute(SUMO_ATTR_BEGIN));
-            }
-            // set end attribute
-            if (i->getTagProperty().hasAttribute(SUMO_ATTR_END) && canParse<double>(i->getAttribute(SUMO_ATTR_END))) {
-                sortedChilds.back().first.second = parse<double>(i->getAttribute(SUMO_ATTR_END));
-            } else {
-                sortedChilds.back().first.second = sortedChilds.back().first.first;
-            }
-        }
-        // sort childs
-        std::sort(sortedChilds.begin(), sortedChilds.end());
-        // make sure that number of sorted childs is the same as the additional childs
-        if (sortedChilds.size() == myAdditionalChilds.size()) {
-            myAdditionalChilds.clear();
-            for (auto i : sortedChilds) {
-                myAdditionalChilds.push_back(i.second);
-            }
-        } else {
-            throw ProcessError("Some additional childs were lost during sorting");
-        }
-    }
-}
-
-
-bool
-GNEAdditional::checkAdditionalChildsOverlapping() const {
-    // declare a vector to keep sorted childs
-    std::vector<std::pair<std::pair<double, double>, GNEAdditional*> > sortedChilds;
-    // iterate over additional childs
-    for (auto i : myAdditionalChilds) {
-        sortedChilds.push_back(std::make_pair(std::make_pair(0., 0.), i));
-        // set begin/start attribute
-        if (i->getTagProperty().hasAttribute(SUMO_ATTR_TIME) && canParse<double>(i->getAttribute(SUMO_ATTR_TIME))) {
-            sortedChilds.back().first.first = parse<double>(i->getAttribute(SUMO_ATTR_TIME));
-        } else if (i->getTagProperty().hasAttribute(SUMO_ATTR_BEGIN) && canParse<double>(i->getAttribute(SUMO_ATTR_BEGIN))) {
-            sortedChilds.back().first.first = parse<double>(i->getAttribute(SUMO_ATTR_BEGIN));
-        }
-        // set end attribute
-        if (i->getTagProperty().hasAttribute(SUMO_ATTR_END) && canParse<double>(i->getAttribute(SUMO_ATTR_END))) {
-            sortedChilds.back().first.second = parse<double>(i->getAttribute(SUMO_ATTR_END));
-        } else {
-            sortedChilds.back().first.second = sortedChilds.back().first.first;
-        }
-    }
-    // sort childs
-    std::sort(sortedChilds.begin(), sortedChilds.end());
-    // make sure that number of sorted childs is the same as the additional childs
-    if (sortedChilds.size() == myAdditionalChilds.size()) {
-        if (sortedChilds.size() <= 1) {
-            return true;
-        } else {
-            // check overlapping
-            for (int i = 0; i < (int)sortedChilds.size() - 1; i++) {
-                if (sortedChilds.at(i).first.second > sortedChilds.at(i + 1).first.first) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    } else {
-        throw ProcessError("Some additional childs were lost during sorting");
-    }
-}
-
-
-void
-GNEAdditional::addEdgeChild(GNEEdge* edge) {
-    // Check that edge is valid and doesn't exist previously
-    if (edge == nullptr) {
-        throw InvalidArgument("Trying to add an empty " + toString(SUMO_TAG_EDGE) + " child in " + getTagStr() + " with ID='" + getID() + "'");
-    } else if (std::find(myEdgeChilds.begin(), myEdgeChilds.end(), edge) != myEdgeChilds.end()) {
-        throw InvalidArgument("Trying to add a duplicate " + toString(SUMO_TAG_EDGE) + " child in " + getTagStr() + " with ID='" + getID() + "'");
-    } else {
-        myEdgeChilds.push_back(edge);
-    }
-}
-
-
-void
-GNEAdditional::removeEdgeChild(GNEEdge* edge) {
-    // Check that edge is valid and exist previously
-    if (edge == nullptr) {
-        throw InvalidArgument("Trying to remove an empty " + toString(SUMO_TAG_EDGE) + " child in " + getTagStr() + " with ID='" + getID() + "'");
-    } else if (std::find(myEdgeChilds.begin(), myEdgeChilds.end(), edge) == myEdgeChilds.end()) {
-        throw InvalidArgument("Trying to remove a non previously inserted " + toString(SUMO_TAG_EDGE) + " child in " + getTagStr() + " with ID='" + getID() + "'");
-    } else {
-        myEdgeChilds.erase(std::find(myEdgeChilds.begin(), myEdgeChilds.end(), edge));
-    }
-}
-
-
-const std::vector<GNEEdge*>&
-GNEAdditional::getEdgeChilds() const {
-    return myEdgeChilds;
-}
-
-
-void
-GNEAdditional::addLaneChild(GNELane* lane) {
-    // Check that lane is valid and doesn't exist previously
-    if (lane == nullptr) {
-        throw InvalidArgument("Trying to add an empty " + toString(SUMO_TAG_EDGE) + " child in " + getTagStr() + " with ID='" + getID() + "'");
-    } else if (std::find(myLaneChilds.begin(), myLaneChilds.end(), lane) != myLaneChilds.end()) {
-        throw InvalidArgument("Trying to add a duplicate " + toString(SUMO_TAG_EDGE) + " child in " + getTagStr() + " with ID='" + getID() + "'");
-    } else {
-        myLaneChilds.push_back(lane);
-    }
-}
-
-
-void
-GNEAdditional::removeLaneChild(GNELane* lane) {
-    // Check that lane is valid and exist previously
-    if (lane == nullptr) {
-        throw InvalidArgument("Trying to remove an empty " + toString(SUMO_TAG_EDGE) + " child in " + getTagStr() + " with ID='" + getID() + "'");
-    } else if (std::find(myLaneChilds.begin(), myLaneChilds.end(), lane) == myLaneChilds.end()) {
-        throw InvalidArgument("Trying to remove a non previously inserted " + toString(SUMO_TAG_EDGE) + " child in " + getTagStr() + " with ID='" + getID() + "'");
-    } else {
-        myLaneChilds.erase(std::find(myLaneChilds.begin(), myLaneChilds.end(), lane));
-    }
-}
-
-
-const std::vector<GNELane*>&
-GNEAdditional::getLaneChilds() const {
-    return myLaneChilds;
-}
-
-
 GUIGLObjectPopupMenu*
 GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
@@ -644,12 +387,6 @@ GNEAdditional::getCenteringBoundary() const {
     } else {
         return Boundary(-0.1, -0.1, 0.1, 0.1);
     }
-}
-
-
-void
-GNEAdditional::updateAdditionalParent() {
-    // by default nothing to do
 }
 
 
@@ -793,119 +530,6 @@ GNEAdditional::BlockIcon::draw(double size) const {
             }
         }
         // Pop matrix
-        glPopMatrix();
-    }
-}
-
-
-GNEAdditional::ChildConnections::ChildConnections(GNEAdditional* additional) :
-    myAdditional(additional) {}
-
-
-void
-GNEAdditional::ChildConnections::update() {
-    // first clear connection positions
-    connectionPositions.clear();
-    symbolsPositionAndRotation.clear();
-
-    // calculate position and rotation of every simbol for every edge
-    for (auto i : myAdditional->myEdgeChilds) {
-        for (auto j : i->getLanes()) {
-            std::pair<Position, double> posRot;
-            // set position and lenght depending of shape's lengt
-            if (j->getShape().length() - 6 > 0) {
-                posRot.first = j->getShape().positionAtOffset(j->getShape().length() - 6);
-                posRot.second = j->getShape().rotationDegreeAtOffset(j->getShape().length() - 6);
-            } else {
-                posRot.first = j->getShape().positionAtOffset(j->getShape().length());
-                posRot.second = j->getShape().rotationDegreeAtOffset(j->getShape().length());
-            }
-            symbolsPositionAndRotation.push_back(posRot);
-        }
-    }
-
-    // calculate position and rotation of every symbol for every lane
-    for (auto i : myAdditional->myLaneChilds) {
-        std::pair<Position, double> posRot;
-        // set position and lenght depending of shape's lengt
-        if (i->getShape().length() - 6 > 0) {
-            posRot.first = i->getShape().positionAtOffset(i->getShape().length() - 6);
-            posRot.second = i->getShape().rotationDegreeAtOffset(i->getShape().length() - 6);
-        } else {
-            posRot.first = i->getShape().positionAtOffset(i->getShape().length());
-            posRot.second = i->getShape().rotationDegreeAtOffset(i->getShape().length());
-        }
-        symbolsPositionAndRotation.push_back(posRot);
-    }
-
-    // calculate position for every additional child
-    for (auto i : myAdditional->myAdditionalChilds) {
-        // check that position is different of position
-        if (i->getPositionInView() != myAdditional->getPositionInView()) {
-            std::vector<Position> posConnection;
-            double A = std::abs(i->getPositionInView().x() - myAdditional->getPositionInView().x());
-            double B = std::abs(i->getPositionInView().y() - myAdditional->getPositionInView().y());
-            // Set positions of connection's vertex. Connection is build from Entry to E3
-            posConnection.push_back(i->getPositionInView());
-            if (myAdditional->getPositionInView().x() > i->getPositionInView().x()) {
-                if (myAdditional->getPositionInView().y() > i->getPositionInView().y()) {
-                    posConnection.push_back(Position(i->getPositionInView().x() + A, i->getPositionInView().y()));
-                } else {
-                    posConnection.push_back(Position(i->getPositionInView().x(), i->getPositionInView().y() - B));
-                }
-            } else {
-                if (myAdditional->getPositionInView().y() > i->getPositionInView().y()) {
-                    posConnection.push_back(Position(i->getPositionInView().x(), i->getPositionInView().y() + B));
-                } else {
-                    posConnection.push_back(Position(i->getPositionInView().x() - A, i->getPositionInView().y()));
-                }
-            }
-            posConnection.push_back(myAdditional->getPositionInView());
-            connectionPositions.push_back(posConnection);
-        }
-    }
-
-    // calculate geometry for connections between parent and childs
-    for (auto i : symbolsPositionAndRotation) {
-        std::vector<Position> posConnection;
-        double A = std::abs(i.first.x() - myAdditional->getPositionInView().x());
-        double B = std::abs(i.first.y() - myAdditional->getPositionInView().y());
-        // Set positions of connection's vertex. Connection is build from Entry to E3
-        posConnection.push_back(i.first);
-        if (myAdditional->getPositionInView().x() > i.first.x()) {
-            if (myAdditional->getPositionInView().y() > i.first.y()) {
-                posConnection.push_back(Position(i.first.x() + A, i.first.y()));
-            } else {
-                posConnection.push_back(Position(i.first.x(), i.first.y() - B));
-            }
-        } else {
-            if (myAdditional->getPositionInView().y() > i.first.y()) {
-                posConnection.push_back(Position(i.first.x(), i.first.y() + B));
-            } else {
-                posConnection.push_back(Position(i.first.x() - A, i.first.y()));
-            }
-        }
-        posConnection.push_back(myAdditional->getPositionInView());
-        connectionPositions.push_back(posConnection);
-    }
-}
-
-
-void
-GNEAdditional::ChildConnections::draw() const {
-    // Iterate over myConnectionPositions
-    for (auto i : connectionPositions) {
-        // Add a draw matrix
-        glPushMatrix();
-        // traslate in the Z axis
-        glTranslated(0, 0, myAdditional->getType() - 0.01);
-        // Set color of the base
-        GLHelper::setColor(RGBColor(255, 235, 0));
-        for (auto j = i.begin(); (j + 1) != i.end(); j++) {
-            // Draw Lines
-            GLHelper::drawLine((*j), (*(j + 1)));
-        }
-        // Pop draw matrix
         glPopMatrix();
     }
 }

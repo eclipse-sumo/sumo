@@ -23,13 +23,15 @@
 
 #include <config.h>
 
+#include <utils/gui/globjects/GUIGlObjectTypes.h>
+
 #include "GNEAttributeCarrier.h"
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 
-class GNEAdditionalElement;
+class GNEAdditional;
 class GNEDemandElement;
 class GNEShape;
 
@@ -78,18 +80,33 @@ public:
     /// @brief Destructor
     ~GNEHierarchicalElement();
 
-    // @brief get first additional parent
+    /// @brief gererate a new ID for an element child
+    virtual std::string generateChildID(SumoXMLTag childTag) = 0;
+
+    /// @name Functions related with geometry of element
+    /// @{
+    /// @brief update pre-computed geometry information
+    virtual void updateGeometry(bool updateGrid) = 0;
+
+    /// @brief Returns position of additional in view
+    virtual Position getPositionInView() const = 0;
+    /// @}
+
+    /// @name members and functions relative to additional parents
+    /// @{
+    /// @brief get first additional parent
     GNEAdditional* getFirstAdditionalParent() const;
 
     // @brief get second additional parent
     GNEAdditional* getSecondAdditionalParent() const;
 
-    /// @brief gererate a new ID for an additional child
-    std::string generateAdditionalChildID(GNEAdditional *additionalParent, SumoXMLTag childTag);
+    /// @brief get demand element parent
+    GNEDemandElement* getDemandElementParent() const;
 
-    /// @name members and functions relative to additional's childs
+    /// @}
+
+    /// @name members and functions relative to additional childs
     /// @{
-
     /// @brief add additional child to this additional
     void addAdditionalChild(GNEAdditional* additional);
 
@@ -104,6 +121,30 @@ public:
 
     /// @brief check if childs are overlapped (Used by Rerouters)
     bool checkAdditionalChildsOverlapping() const;
+    
+    /// @}
+
+    /// @name members and functions relative to demand element childs
+    /// @{
+    /// @brief add demand element child to this demand element
+    void addDemandElementChild(GNEDemandElement* demandElement);
+
+    /// @brief remove demand element child from this demand element
+    void removeDemandElementChild(GNEDemandElement* demandElement);
+
+    /// @brief return vector of demand elements that have as Parent this edge (For example, Calibrators)
+    const std::vector<GNEDemandElement*>& getDemandElementChilds() const;
+
+    /// @brief sort childs (used by Rerouters, VSS, TAZs...)
+    void sortDemandElementChilds();
+
+    /// @brief check if childs are overlapped (Used by Rerouters)
+    bool checkDemandElementChildsOverlapping() const;
+    
+    /// @}
+
+    /// @name members and functions relative to edge childs
+    /// @{
 
     /// @brief add edge child
     void addEdgeChild(GNEEdge* edge);
@@ -113,6 +154,11 @@ public:
 
     /// @brief get edge chidls
     const std::vector<GNEEdge*>& getEdgeChilds() const;
+
+    /// @}
+
+    /// @name members and functions relative to edge childs
+    /// @{
 
     /// @brief add lane child
     void addLaneChild(GNELane* lane);
@@ -125,18 +171,24 @@ public:
 
     /// @}
 
+    /// @brief update parent after add or remove a child (can be reimplemented, for example used for statistics)
+    virtual void updateAdditionalParent();
+
+    /// @brief update parent after add or remove a child (can be reimplemented, for example used for statistics)
+    virtual void updateDemandElementParent();
+
 protected:
   
-    /// @brief struct for pack all variables and functions relative to connections between Additionals and their childs
+    /// @brief struct for pack all variables and functions relative to connections between hierarchical element and their childs
     struct ChildConnections {
         /// @brief constructor
-        ChildConnections(GNEHierarchicalElement* additional);
+        ChildConnections(GNEHierarchicalElement* hierarchicalElement);
 
         /// @brief update Connection's geometry
         void update();
 
         /// @brief draw connections between Parent and childrens
-        void draw() const;
+        void draw(GUIGlObjectType parentType) const;
 
         /// @brief position and rotation of every symbol over lane
         std::vector<std::pair<Position, double> > symbolsPositionAndRotation;
@@ -145,8 +197,8 @@ protected:
         std::vector<PositionVector> connectionPositions;
 
     private:
-        /// @brief pointer to additional parent
-        GNEHierarchicalElement* myAdditional;
+        /// @brief pointer to hierarchical element parent
+        GNEHierarchicalElement* myHierarchicalElement;
     };
 
     /// @brief pointer to first Additional parent
@@ -155,8 +207,14 @@ protected:
     /// @brief pointer to second Additional parent
     GNEAdditional* mySecondAdditionalParent;
 
+    /// @brief pointer to demand element parent
+    GNEDemandElement* myDemandElementParent;
+
     /// @brief vector with the Additional childs
     std::vector<GNEAdditional*> myAdditionalChilds;
+
+    /// @brief vector with the demand elements childs
+    std::vector<GNEDemandElement*> myDemandElementChilds;
 
     /// @brief vector with the edge childs of this additional
     std::vector<GNEEdge*> myEdgeChilds;
@@ -167,6 +225,8 @@ protected:
     /// @brief variable ChildConnections
     ChildConnections myChildConnections;
 
+    /// @name members and functions relative to changing parents
+    /// @{
     /**@brief change first additional parent of additional
     * @throw exception if this additional doesn't have previously a defined Additional parent
     * @throw exception if additional with ID newAdditionalParentID doesn't exist
@@ -178,6 +238,13 @@ protected:
     * @throw exception if additional with ID newAdditionalParentID doesn't exist
     */
     void changeSecondAdditionalParent(GNEAdditional *additionalTobeChanged, const std::string& newAdditionalParentID);
+
+    /**@brief change first demand element parent of demandElement
+    * @throw exception if this demand element doesn't have previously a defined DemandElement parent
+    * @throw exception if demand element with ID newDemandElementParentID doesn't exist
+    */
+    void changeDemandElementParent(GNEDemandElement *demandElementTobeChanged, const std::string& newDemandElementParentID);
+
     /// @}
 
 private:

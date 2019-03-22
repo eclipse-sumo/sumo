@@ -191,7 +191,7 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
         }
 
         // Draw connections
-        myChildConnections.draw();
+        myChildConnections.draw(getType());
     }
     // check if dotted contour has to be drawn
     if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
@@ -258,7 +258,7 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
             undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
             // Change Ids of all Rerouter interval childs
             for (auto i : myAdditionalChilds) {
-                i->setAttribute(SUMO_ATTR_ID, generateAdditionalChildID(SUMO_TAG_INTERVAL), undoList);
+                i->setAttribute(SUMO_ATTR_ID, generateChildID(SUMO_TAG_INTERVAL), undoList);
             }
             break;
         }

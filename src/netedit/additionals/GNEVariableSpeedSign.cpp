@@ -187,7 +187,7 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
         }
 
         // Draw connections
-        myChildConnections.draw();
+        myChildConnections.draw(getType());
     }
 
     // Pop symbol matrix
@@ -250,7 +250,7 @@ GNEVariableSpeedSign::setAttribute(SumoXMLAttr key, const std::string& value, GN
             undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
             // Change Ids of all Variable Speed Sign
             for (auto i : myAdditionalChilds) {
-                i->setAttribute(SUMO_ATTR_ID, generateAdditionalChildID(SUMO_TAG_STEP), undoList);
+                i->setAttribute(SUMO_ATTR_ID, generateChildID(SUMO_TAG_STEP), undoList);
             }
             break;
         }

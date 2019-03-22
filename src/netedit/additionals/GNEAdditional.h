@@ -23,7 +23,7 @@
 
 #include <config.h>
 
-#include <netedit/GNEAttributeCarrier.h>
+#include <netedit/GNEHierarchicalElement.h>
 #include <utils/common/Parameterised.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/gui/globjects/GUIGlObject.h>
@@ -32,8 +32,6 @@
 // class declarations
 // ===========================================================================
 
-class GNEEdge;
-class GNELane;
 class GNEViewNet;
 class GUIGLObjectPopupMenu;
 
@@ -45,7 +43,7 @@ class GUIGLObjectPopupMenu;
  * @class GNEAdditional
  * @brief An Element which don't belongs to GNENet but has influency in the simulation
  */
-class GNEAdditional : public GUIGlObject, public GNEAttributeCarrier, public Parameterised {
+class GNEAdditional : public GUIGlObject, public GNEHierarchicalElement, public Parameterised {
 
 public:
     /**@brief Constructor
@@ -104,6 +102,9 @@ public:
     /// @brief Destructor
     ~GNEAdditional();
 
+    /// @brief gererate a new ID for an element child
+    std::string generateChildID(SumoXMLTag childTag);
+
     /// @name members and functions relative to write additionals into XML
     /// @{
     /**@brief writte additional element into a xml file
@@ -160,53 +161,6 @@ public:
 
     /// @brief Check if additional item is currently blocked (i.e. cannot be moved with mouse)
     bool isAdditionalBlocked() const;
-
-    // @brief get first additional parent
-    GNEAdditional* getFirstAdditionalParent() const;
-
-    // @brief get second additional parent
-    GNEAdditional* getSecondAdditionalParent() const;
-
-    /// @brief gererate a new ID for an additional child
-    std::string generateAdditionalChildID(SumoXMLTag childTag);
-
-    /// @name members and functions relative to additional's childs
-    /// @{
-
-    /// @brief add additional child to this additional
-    void addAdditionalChild(GNEAdditional* additional);
-
-    /// @brief remove additional child from this additional
-    void removeAdditionalChild(GNEAdditional* additional);
-
-    /// @brief return vector of additionals that have as Parent this edge (For example, Calibrators)
-    const std::vector<GNEAdditional*>& getAdditionalChilds() const;
-
-    /// @brief sort childs (used by Rerouters and VSS)
-    void sortAdditionalChilds();
-
-    /// @brief check if childs are overlapped (Used by Rerouters)
-    bool checkAdditionalChildsOverlapping() const;
-
-    /// @brief add edge child
-    void addEdgeChild(GNEEdge* edge);
-
-    /// @brief remove edge child
-    void removeEdgeChild(GNEEdge* edge);
-
-    /// @brief get edge chidls
-    const std::vector<GNEEdge*>& getEdgeChilds() const;
-
-    /// @brief add lane child
-    void addLaneChild(GNELane* lane);
-
-    /// @brief remove lane child
-    void removeLaneChild(GNELane* lane);
-
-    /// @brief get lanes of VSS
-    const std::vector<GNELane*>& getLaneChilds() const;
-
-    /// @}
 
     /// @name inherited from GUIGlObject
     /// @{
@@ -301,9 +255,6 @@ public:
 
     /// @}
 
-    /// @brief update parent after add or remove a child (can be reimplemented, for example used for stadistics)
-    virtual void updateAdditionalParent();
-
 protected:
     /// @brief struct for pack all variables related with geometry of elemement
     struct AdditionalGeometry {
@@ -385,28 +336,6 @@ protected:
         double rotation;
     };
 
-    /// @brief struct for pack all variables and functions relative to connections between Additionals and their childs
-    struct ChildConnections {
-        /// @brief constructor
-        ChildConnections(GNEAdditional* additional);
-
-        /// @brief update Connection's geometry
-        void update();
-
-        /// @brief draw connections between Parent and childrens
-        void draw() const;
-
-        /// @brief position and rotation of every symbol over lane
-        std::vector<std::pair<Position, double> > symbolsPositionAndRotation;
-
-        /// @brief Matrix with the Vertex's positions of connections between parents an their childs
-        std::vector<PositionVector> connectionPositions;
-
-    private:
-        /// @brief pointer to additional parent
-        GNEAdditional* myAdditional;
-    };
-
     /// @brief The GNEViewNet this additional element belongs
     GNEViewNet* myViewNet;
 
@@ -422,26 +351,8 @@ protected:
     /// @brief boolean to check if additional element is blocked (i.e. cannot be moved with mouse)
     bool myBlockMovement;
 
-    /// @brief pointer to first Additional parent
-    GNEAdditional* myFirstAdditionalParent;
-
-    /// @brief pointer to second Additional parent
-    GNEAdditional* mySecondAdditionalParent;
-
-    /// @brief vector with the Additional childs
-    std::vector<GNEAdditional*> myAdditionalChilds;
-
-    /// @brief vector with the edge childs of this additional
-    std::vector<GNEEdge*> myEdgeChilds;
-
-    /// @brief vector with the lane childs of this additional
-    std::vector<GNELane*> myLaneChilds;
-
     /// @brief variable BlockIcon
     BlockIcon myBlockIcon;
-
-    /// @brief variable ChildConnections
-    ChildConnections myChildConnections;
 
     /// @brief change all attributes of additional with their default values (note: this cannot be undo)
     void setDefaultValues();

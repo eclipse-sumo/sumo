@@ -143,7 +143,7 @@ GNEDetectorE3::drawGL(const GUIVisualizationSettings& s) const {
         // Show Lock icon depending of the Edit mode
         myBlockIcon.draw(0.4);
         // Draw connections
-        myChildConnections.draw();
+        myChildConnections.draw(getType());
     }
     // Draw name if isn't being drawn for selecting
     if (!s.drawForSelecting) {
@@ -204,7 +204,7 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
             undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
             // Change Ids of all Entry/Exits childs
             for (auto i : myAdditionalChilds) {
-                i->setAttribute(SUMO_ATTR_ID, generateAdditionalChildID(i->getTagProperty().getTag()), undoList);
+                i->setAttribute(SUMO_ATTR_ID, generateChildID(i->getTagProperty().getTag()), undoList);
             }
             break;
         }

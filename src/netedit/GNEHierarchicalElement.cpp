@@ -101,13 +101,9 @@ GNEHierarchicalElement::getSecondAdditionalParent() const {
 }
 
 
-std::string
-GNEHierarchicalElement::generateAdditionalChildID(GNEAdditional *additionalParent, SumoXMLTag childTag) {
-    int counter = 0;
-    while (additionalParent->getViewNet()->getNet()->retrieveAdditional(childTag, getID() + toString(childTag) + toString(counter), false) != nullptr) {
-        counter++;
-    }
-    return (getID() + toString(childTag) + toString(counter));
+GNEDemandElement*
+GNEHierarchicalElement::getDemandElementParent() const {
+    return myDemandElementParent;
 }
 
 
@@ -123,9 +119,9 @@ GNEHierarchicalElement::addAdditionalChild(GNEAdditional* additional) {
             sortAdditionalChilds();
         }
         // update additional parent after add additional (note: by default non-implemented)
-        //updateAdditionalParent();
+        updateAdditionalParent();
         // update geometry (for set geometry of lines between Parents and Childs)
-        //updateGeometry(true);
+        updateGeometry(true);
     }
 }
 
@@ -143,9 +139,9 @@ GNEHierarchicalElement::removeAdditionalChild(GNEAdditional* additional) {
             sortAdditionalChilds();
         }
         // update additional parent after add additional (note: by default non-implemented)
-        //updateAdditionalParent();
+        updateAdditionalParent();
         // update geometry (for remove geometry of lines between Parents and Childs)
-        //updateGeometry(true);
+        updateGeometry(true);
     }
 }
 
@@ -276,6 +272,63 @@ GNEHierarchicalElement::checkAdditionalChildsOverlapping() const {
 
 
 void
+GNEHierarchicalElement::addDemandElementChild(GNEDemandElement* demandElement) {
+    // First check that demandElement wasn't already inserted
+    if (std::find(myDemandElementChilds.begin(), myDemandElementChilds.end(), demandElement) != myDemandElementChilds.end()) {
+        throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' was already inserted in " + getTagStr() + " with ID='" + getID() + "'");
+    } else {
+        myDemandElementChilds.push_back(demandElement);
+        // Check if childs has to be sorted automatically
+        if (myTagProperty.canAutomaticSortChilds()) {
+            sortDemandElementChilds();
+        }
+        // update demandElement parent after add demandElement (note: by default non-implemented)
+        updateDemandElementParent();
+        // update geometry (for set geometry of lines between Parents and Childs)
+        updateGeometry(true);
+    }
+}
+
+
+void
+GNEHierarchicalElement::removeDemandElementChild(GNEDemandElement* demandElement) {
+    // First check that demandElement was already inserted
+    auto it = std::find(myDemandElementChilds.begin(), myDemandElementChilds.end(), demandElement);
+    if (it == myDemandElementChilds.end()) {
+        throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' doesn't exist in " + getTagStr() + " with ID='" + getID() + "'");
+    } else {
+        myDemandElementChilds.erase(it);
+        // Check if childs has to be sorted automatically
+        if (myTagProperty.canAutomaticSortChilds()) {
+            sortDemandElementChilds();
+        }
+        // update demandElement parent after add demandElement (note: by default non-implemented)
+        updateDemandElementParent();
+        // update geometry (for remove geometry of lines between Parents and Childs)
+        updateGeometry(true);
+    }
+}
+
+
+const std::vector<GNEDemandElement*>&
+GNEHierarchicalElement::getDemandElementChilds() const {
+    return myDemandElementChilds;
+}
+
+
+void
+GNEHierarchicalElement::sortDemandElementChilds() {
+   // by default empty
+}
+
+
+bool
+GNEHierarchicalElement::checkDemandElementChildsOverlapping() const {
+  return true;
+}
+
+
+void
 GNEHierarchicalElement::addEdgeChild(GNEEdge* edge) {
     // Check that edge is valid and doesn't exist previously
     if (edge == nullptr) {
@@ -339,8 +392,23 @@ GNEHierarchicalElement::getLaneChilds() const {
 }
 
 
-GNEHierarchicalElement::ChildConnections::ChildConnections(GNEHierarchicalElement* additional) :
-    myAdditional(additional) {}
+void
+GNEHierarchicalElement::updateAdditionalParent() {
+    // by default nothing to do
+}
+
+
+void 
+GNEHierarchicalElement::updateDemandElementParent() {
+    // by default nothing to do
+}
+
+// ---------------------------------------------------------------------------
+// GNEHierarchicalElement::ChildConnections - methods
+// ---------------------------------------------------------------------------
+
+GNEHierarchicalElement::ChildConnections::ChildConnections(GNEHierarchicalElement* hierarchicalElement) :
+    myHierarchicalElement(hierarchicalElement) {}
 
 
 void
@@ -350,7 +418,7 @@ GNEHierarchicalElement::ChildConnections::update() {
     symbolsPositionAndRotation.clear();
 
     // calculate position and rotation of every simbol for every edge
-    for (auto i : myAdditional->myEdgeChilds) {
+    for (auto i : myHierarchicalElement->myEdgeChilds) {
         for (auto j : i->getLanes()) {
             std::pair<Position, double> posRot;
             // set position and lenght depending of shape's lengt
@@ -366,7 +434,7 @@ GNEHierarchicalElement::ChildConnections::update() {
     }
 
     // calculate position and rotation of every symbol for every lane
-    for (auto i : myAdditional->myLaneChilds) {
+    for (auto i : myHierarchicalElement->myLaneChilds) {
         std::pair<Position, double> posRot;
         // set position and lenght depending of shape's lengt
         if (i->getShape().length() - 6 > 0) {
@@ -380,71 +448,66 @@ GNEHierarchicalElement::ChildConnections::update() {
     }
 
     // calculate position for every additional child
-    for (auto i : myAdditional->myAdditionalChilds) {
-        /*
+    for (auto i : myHierarchicalElement->myAdditionalChilds) {
         // check that position is different of position
-        if (i->getPositionInView() != myAdditional->getPositionInView()) {
+        if (i->getPositionInView() != myHierarchicalElement->getPositionInView()) {
             std::vector<Position> posConnection;
-            double A = std::abs(i->getPositionInView().x() - myAdditional->getPositionInView().x());
-            double B = std::abs(i->getPositionInView().y() - myAdditional->getPositionInView().y());
+            double A = std::abs(i->getPositionInView().x() - myHierarchicalElement->getPositionInView().x());
+            double B = std::abs(i->getPositionInView().y() - myHierarchicalElement->getPositionInView().y());
             // Set positions of connection's vertex. Connection is build from Entry to E3
             posConnection.push_back(i->getPositionInView());
-            if (myAdditional->getPositionInView().x() > i->getPositionInView().x()) {
-                if (myAdditional->getPositionInView().y() > i->getPositionInView().y()) {
+            if (myHierarchicalElement->getPositionInView().x() > i->getPositionInView().x()) {
+                if (myHierarchicalElement->getPositionInView().y() > i->getPositionInView().y()) {
                     posConnection.push_back(Position(i->getPositionInView().x() + A, i->getPositionInView().y()));
                 } else {
                     posConnection.push_back(Position(i->getPositionInView().x(), i->getPositionInView().y() - B));
                 }
             } else {
-                if (myAdditional->getPositionInView().y() > i->getPositionInView().y()) {
+                if (myHierarchicalElement->getPositionInView().y() > i->getPositionInView().y()) {
                     posConnection.push_back(Position(i->getPositionInView().x(), i->getPositionInView().y() + B));
                 } else {
                     posConnection.push_back(Position(i->getPositionInView().x() - A, i->getPositionInView().y()));
                 }
             }
-            posConnection.push_back(myAdditional->getPositionInView());
+            posConnection.push_back(myHierarchicalElement->getPositionInView());
             connectionPositions.push_back(posConnection);
         }
-        */
     }
 
     // calculate geometry for connections between parent and childs
     for (auto i : symbolsPositionAndRotation) {
-        /*
         std::vector<Position> posConnection;
-        double A = std::abs(i.first.x() - myAdditional->getPositionInView().x());
-        double B = std::abs(i.first.y() - myAdditional->getPositionInView().y());
+        double A = std::abs(i.first.x() - myHierarchicalElement->getPositionInView().x());
+        double B = std::abs(i.first.y() - myHierarchicalElement->getPositionInView().y());
         // Set positions of connection's vertex. Connection is build from Entry to E3
         posConnection.push_back(i.first);
-        if (myAdditional->getPositionInView().x() > i.first.x()) {
-            if (myAdditional->getPositionInView().y() > i.first.y()) {
+        if (myHierarchicalElement->getPositionInView().x() > i.first.x()) {
+            if (myHierarchicalElement->getPositionInView().y() > i.first.y()) {
                 posConnection.push_back(Position(i.first.x() + A, i.first.y()));
             } else {
                 posConnection.push_back(Position(i.first.x(), i.first.y() - B));
             }
         } else {
-            if (myAdditional->getPositionInView().y() > i.first.y()) {
+            if (myHierarchicalElement->getPositionInView().y() > i.first.y()) {
                 posConnection.push_back(Position(i.first.x(), i.first.y() + B));
             } else {
                 posConnection.push_back(Position(i.first.x() - A, i.first.y()));
             }
         }
-        posConnection.push_back(myAdditional->getPositionInView());
+        posConnection.push_back(myHierarchicalElement->getPositionInView());
         connectionPositions.push_back(posConnection);
-        */
     }
 }
 
 
 void
-GNEHierarchicalElement::ChildConnections::draw() const {
-    /*
+GNEHierarchicalElement::ChildConnections::draw(GUIGlObjectType parentType) const {
     // Iterate over myConnectionPositions
     for (auto i : connectionPositions) {
         // Add a draw matrix
         glPushMatrix();
         // traslate in the Z axis
-        glTranslated(0, 0, myAdditional->getType() - 0.01);
+        glTranslated(0, 0, parentType - 0.01);
         // Set color of the base
         GLHelper::setColor(RGBColor(255, 235, 0));
         for (auto j = i.begin(); (j + 1) != i.end(); j++) {
@@ -454,9 +517,11 @@ GNEHierarchicalElement::ChildConnections::draw() const {
         // Pop draw matrix
         glPopMatrix();
     }
-    */
 }
 
+// ---------------------------------------------------------------------------
+// GNEHierarchicalElement - protected methods
+// ---------------------------------------------------------------------------
 
 void
 GNEHierarchicalElement::changeFirstAdditionalParent(GNEAdditional *additionalTobeChanged, const std::string& newAdditionalParentID) {
@@ -485,6 +550,22 @@ GNEHierarchicalElement::changeSecondAdditionalParent(GNEAdditional *additionalTo
         mySecondAdditionalParent = additionalTobeChanged->getViewNet()->getNet()->retrieveAdditional(mySecondAdditionalParent->getTagProperty().getTag(), newAdditionalParentID);
         // add this additional int the childs of parent additional
         mySecondAdditionalParent->addAdditionalChild(additionalTobeChanged);
+        //updateGeometry(true);
+    }
+}
+
+
+void
+GNEHierarchicalElement::changeDemandElementParent(GNEDemandElement *demandElementTobeChanged, const std::string& newAdditionalParentID) {
+    if (myDemandElementParent == nullptr) {
+        throw InvalidArgument(getTagStr() + " with ID '" + getID() + "' doesn't have an additional parent");
+    } else {
+        // remove this additional of the childs of parent additional
+        myDemandElementParent->removeDemandElementChild(demandElementTobeChanged);
+        // set new additional parent
+        myDemandElementParent = demandElementTobeChanged->getViewNet()->getNet()->retrieveDemandElement(myDemandElementParent->getTagProperty().getTag(), newAdditionalParentID);
+        // add this additional int the childs of parent additional
+        myDemandElementParent->addDemandElementChild(demandElementTobeChanged);
         //updateGeometry(true);
     }
 }

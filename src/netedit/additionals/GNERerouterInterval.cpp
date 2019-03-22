@@ -113,7 +113,7 @@ GNERerouterInterval::setAttribute(SumoXMLAttr key, const std::string& value, GNE
             undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
             // Change Ids of all Rerouter childs
             for (auto i : myAdditionalChilds) {
-                i->setAttribute(SUMO_ATTR_ID, generateAdditionalChildID(i->getTagProperty().getTag()), undoList);
+                i->setAttribute(SUMO_ATTR_ID, generateChildID(i->getTagProperty().getTag()), undoList);
             }
             break;
         }
