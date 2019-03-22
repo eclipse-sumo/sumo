@@ -23,7 +23,7 @@
 // ===========================================================================
 #include <config.h>
 
-#include <netedit/GNEAttributeCarrier.h>
+#include <netedit/GNEHierarchicalElement.h>
 #include <utils/common/Parameterised.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/gui/globjects/GUIGlObject.h>
@@ -48,7 +48,7 @@ class GUIGLObjectPopupMenu;
  * @class GNEDemandElement
  * @brief An Element which don't belongs to GNENet but has influency in the simulation
  */
-class GNEDemandElement : public GUIGlObject, public GNEAttributeCarrier, public Parameterised {
+class GNEDemandElement : public GUIGlObject, public GNEHierarchicalElement, public Parameterised {
 
 public:
     /// @brief class used to calculate routes in nets
@@ -94,6 +94,9 @@ public:
 
     /// @brief Destructor
     ~GNEDemandElement();
+
+    /// @brief gererate a new ID for an element child
+    std::string generateChildID(SumoXMLTag childTag);
 
     /// @name members and functions relative to write demand elements into XML
     /// @{
@@ -169,23 +172,6 @@ public:
 
     /// @brief obtain instance of RouteCalculator
     static RouteCalculator* getRouteCalculatorInstance();
-
-    /// @}
-
-    /// @name members and functions relative to demand element's childs
-    /// @{
-
-    /// @brief add demand element child to this demand element
-    void addDemandElementChild(GNEDemandElement* demandElement);
-
-    /// @brief remove demand element child from this demand element
-    void removeDemandElementChild(GNEDemandElement* demandElement);
-
-    /// @brief return vector of demand elements that have as Parent this edge (For example, Calibrators)
-    const std::vector<GNEDemandElement*>& getDemandElementChilds() const;
-
-    /// @brief sort childs
-    void sortDemandElementChilds();
 
     /// @}
 
@@ -282,9 +268,6 @@ public:
      * @param[in] report enable or disable writting warnings if route isn't valid
      */
     static bool isRouteValid(const std::vector<GNEEdge*>& edges, bool report);
-
-    /// @brief update parent after add or remove a child (can be reimplemented, for example used for stadistics)
-    virtual void updateDemandElementParent();
 
 protected:
     /// @brief struct for pack all variables related with geometry of elemement

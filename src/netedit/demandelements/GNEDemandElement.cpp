@@ -150,9 +150,19 @@ GNEDemandElement::RouteCalculator::areEdgesConsecutives(SUMOVehicleClass vClass,
 
 GNEDemandElement::GNEDemandElement(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag) :
     GUIGlObject(type, id),
-    GNEAttributeCarrier(tag),
+    GNEHierarchicalElement(tag),
     Parameterised(),
     myViewNet(viewNet) {
+}
+
+
+std::string 
+GNEDemandElement::generateChildID(SumoXMLTag childTag) {
+    int counter = 0;
+    while (myViewNet->getNet()->retrieveDemandElement(childTag, getID() + toString(childTag) + toString(counter), false) != nullptr) {
+        counter++;
+    }
+    return (getID() + toString(childTag) + toString(counter));
 }
 
 
@@ -280,57 +290,6 @@ GNEDemandElement::getRouteCalculatorInstance() {
 }
 
 
-void
-GNEDemandElement::addDemandElementChild(GNEDemandElement* demandElementName) {
-    // First check that demand element wasn't already inserted
-    if (std::find(myDemandElementChilds.begin(), myDemandElementChilds.end(), demandElementName) != myDemandElementChilds.end()) {
-        throw ProcessError(demandElementName->getTagStr() + " with ID='" + demandElementName->getID() + "' was already inserted in " + getTagStr() + " with ID='" + getID() + "'");
-    } else {
-        myDemandElementChilds.push_back(demandElementName);
-        // Check if childs has to be sorted automatically
-        if (myTagProperty.canAutomaticSortChilds()) {
-            sortDemandElementChilds();
-        }
-        // update demand element parent after add demand element (note: by default non-implemented)
-        updateDemandElementParent();
-        // update geometry (for set geometry of lines between Parents and Childs)
-        updateGeometry(true);
-    }
-}
-
-
-void
-GNEDemandElement::removeDemandElementChild(GNEDemandElement* demandElementName) {
-    // First check that demand element was already inserted
-    auto it = std::find(myDemandElementChilds.begin(), myDemandElementChilds.end(), demandElementName);
-    if (it == myDemandElementChilds.end()) {
-        throw ProcessError(demandElementName->getTagStr() + " with ID='" + demandElementName->getID() + "' doesn't exist in " + getTagStr() + " with ID='" + getID() + "'");
-    } else {
-        myDemandElementChilds.erase(it);
-        // Check if childs has to be sorted automatically
-        if (myTagProperty.canAutomaticSortChilds()) {
-            sortDemandElementChilds();
-        }
-        // update demand element parent after add demand element (note: by default non-implemented)
-        updateDemandElementParent();
-        // update geometry (for remove geometry of lines between Parents and Childs)
-        updateGeometry(true);
-    }
-}
-
-
-const std::vector<GNEDemandElement*>&
-GNEDemandElement::getDemandElementChilds() const {
-    return myDemandElementChilds;
-}
-
-
-void
-GNEDemandElement::sortDemandElementChilds() {
-    //
-}
-
-
 GUIGLObjectPopupMenu*
 GNEDemandElement::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
@@ -422,12 +381,6 @@ GNEDemandElement::isRouteValid(const std::vector<GNEEdge*>& edges, bool report) 
         }
     }
     return true;
-}
-
-
-void
-GNEDemandElement::updateDemandElementParent() {
-    // by default nothing to do
 }
 
 
