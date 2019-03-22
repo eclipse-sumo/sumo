@@ -89,6 +89,9 @@ public:
     /// @brief Destructor
     ~GNEPOI();
 
+    /// @brief gererate a new ID for an element child
+    std::string generateChildID(SumoXMLTag childTag);
+
     /// @name functions for edit geometry
     /// @{
     /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)

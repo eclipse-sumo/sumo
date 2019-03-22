@@ -24,14 +24,14 @@
 #include <config.h>
 
 
-#include <netedit/GNEAttributeCarrier.h>
+#include <netedit/GNEHierarchicalElement.h>
 
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNEShape : public GNEAttributeCarrier {
+class GNEShape : public GNEHierarchicalElement {
 public:
     /**@brief Constructor.
      * @param[in] net The net to inform about gui updates
@@ -42,6 +42,9 @@ public:
 
     /// @brief Destructor
     ~GNEShape();
+
+    /// @brief gererate a new ID for an element child
+    virtual std::string generateChildID(SumoXMLTag childTag) = 0;
 
     /**@brief update pre-computed geometry information
     * @note: must be called when geometry changes (i.e. lane moved) and implemented in ALL childrens

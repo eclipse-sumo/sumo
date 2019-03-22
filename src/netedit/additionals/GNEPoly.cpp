@@ -68,6 +68,16 @@ GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, co
 GNEPoly::~GNEPoly() {}
 
 
+std::string 
+GNEPoly::generateChildID(SumoXMLTag childTag) {
+    int counter = 0;
+    while (myNet->retrievePolygon(getID() + toString(childTag) + toString(counter), false) != nullptr) {
+        counter++;
+    }
+    return (getID() + toString(childTag) + toString(counter));
+}
+
+
 void
 GNEPoly::startGeometryMoving() {
     // save current centering boundary

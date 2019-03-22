@@ -65,6 +65,16 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
 GNEPOI::~GNEPOI() {}
 
 
+std::string 
+GNEPOI::generateChildID(SumoXMLTag childTag) {
+    int counter = 0;
+    while (myNet->retrievePOI(getID() + toString(childTag) + toString(counter), false) != nullptr) {
+        counter++;
+    }
+    return (getID() + toString(childTag) + toString(counter));
+}
+
+
 void
 GNEPOI::startGeometryMoving() {
     // always save original position over view
