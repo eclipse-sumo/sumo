@@ -117,6 +117,9 @@ public:
         /// @brief The available lanes to which connections shall be built
         std::vector<int> myAvailableLanes;
 
+        /// @brief whether the outgoing edge is exclusively used by bikes
+        bool myIsBikeEdge;
+
     private:
         /// @brief Invalidated assignment operator.
         ApproachingDivider& operator=(const ApproachingDivider&) = delete;

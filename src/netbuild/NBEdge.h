@@ -832,10 +832,12 @@ public:
      * This method goes through "myConnections" and copies those which are
      *  starting at the given lane.
      * @param[in] lane The lane which connections shall be returned
+     * @param[in] to The target Edge (ignore nullptr)
+     * @param[in] toLane The target lane (ignore if > 0)
      * @return The connections from the given lane
      * @see NBEdge::Connection
      */
-    std::vector<Connection> getConnectionsFromLane(int lane) const;
+    std::vector<Connection> getConnectionsFromLane(int lane, NBEdge* to = nullptr, int toLane = -1) const;
 
     /** @brief Returns the specified connection
      * This method goes through "myConnections" and returns the specified one
@@ -899,7 +901,7 @@ public:
     /** @brief Returns the list of lanes that may be used to reach the given edge
      * @return Lanes approaching the given edge
      */
-    std::vector<int> getConnectionLanes(NBEdge* currentOutgoing) const;
+    std::vector<int> getConnectionLanes(NBEdge* currentOutgoing, bool withBikes=true) const;
 
     /// @brief sorts the outgoing connections by their angle relative to their junction
     void sortOutgoingConnectionsByAngle();

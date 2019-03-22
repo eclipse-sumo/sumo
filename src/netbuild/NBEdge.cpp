@@ -47,13 +47,14 @@
 #include "NBTypeCont.h"
 #include "NBEdge.h"
 
+//#define ADDITIONAL_WARNINGS
 //#define DEBUG_CONNECTION_GUESSING
 //#define DEBUG_ANGLES
 //#define DEBUG_NODE_BORDER
 //#define DEBUG_REPLACECONNECTION
-#define DEBUGCOND (getID() == "11279622#0")
+#define DEBUGCOND (getID() == "71746014#2")
 //#define DEBUGCOND (getID() == "22762377#1" || getID() == "146511467")
-#define DEBUGCOND2(obj) ((obj != 0 && (obj)->getID() == "11279622#0"))
+#define DEBUGCOND2(obj) ((obj != 0 && (obj)->getID() == "71746014#2"))
 
 // ===========================================================================
 // static members
@@ -1116,11 +1117,13 @@ NBEdge::setConnection(int lane, NBEdge* destEdge,
 
 
 std::vector<NBEdge::Connection>
-NBEdge::getConnectionsFromLane(int lane) const {
+NBEdge::getConnectionsFromLane(int lane, NBEdge* to, int toLane) const {
     std::vector<NBEdge::Connection> ret;
-    for (std::vector<Connection>::const_iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
-        if ((*i).fromLane == lane) {
-            ret.push_back(*i);
+    for (const Connection& c : myConnections) {
+        if ((lane < 0 || c.fromLane == lane) 
+                && (to == nullptr || to == c.toEdge) 
+                && (toLane < 0 || toLane == c.toLane)) {
+            ret.push_back(c);
         }
     }
     return ret;
@@ -1238,12 +1241,12 @@ NBEdge::getIncomingEdges() const {
 
 
 std::vector<int>
-NBEdge::getConnectionLanes(NBEdge* currentOutgoing) const {
+NBEdge::getConnectionLanes(NBEdge* currentOutgoing, bool withBikes) const {
     std::vector<int> ret;
     if (currentOutgoing != myTurnDestination) {
-        for (std::vector<Connection>::const_iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
-            if ((*i).toEdge == currentOutgoing) {
-                ret.push_back((*i).fromLane);
+        for (const Connection& c : myConnections) {
+            if (c.toEdge == currentOutgoing && (withBikes || getPermissions(c.fromLane) != SVC_BICYCLE)) {
+                ret.push_back(c.fromLane);
             }
         }
     }
@@ -2302,7 +2305,7 @@ NBEdge::recheckLanes() {
         }
     }
     // check for connections with bad access permissions
-    /*
+#ifdef ADDITIONAL_WARNINGS
     for (const Connection& c : myConnections) {
         SVCPermissions fromP = getPermissions(c.fromLane);
         SVCPermissions toP = c.toEdge->getPermissions(c.toLane);
@@ -2320,7 +2323,7 @@ NBEdge::recheckLanes() {
             }
         }
     }
-    */
+#endif
 #ifdef DEBUG_CONNECTION_GUESSING
     if (DEBUGCOND) {
         std::cout << "recheckLanes (final) edge=" << getID() << "\n";
