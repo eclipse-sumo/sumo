@@ -127,7 +127,7 @@ GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNEAdditional* rerouterInte
     }
     // change default header
     std::string typeOfOperation = myUpdatingElement ? "Edit " + myEditedAdditional->getTagStr() + " of " : "Create " + myEditedAdditional->getTagStr() + " for ";
-    changeAdditionalDialogHeader(typeOfOperation + myEditedAdditional->getFirstAdditionalParent()->getTagStr() + " '" + myEditedAdditional->getFirstAdditionalParent()->getID() + "'");
+    changeAdditionalDialogHeader(typeOfOperation + myEditedAdditional->getAdditionalParents().at(0)->getTagStr() + " '" + myEditedAdditional->getAdditionalParents().at(0)->getID() + "'");
 
     // Create auxiliar frames for tables
     FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignUniformHorizontalFrame);
@@ -190,7 +190,7 @@ GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNEAdditional* rerouterInte
     }
 
     // disable add routeProbReroute Button and change label if the rerouter has multiple edges (random routes can only work from one edge)
-    if (rerouterInterval->getFirstAdditionalParent()->getEdgeChilds().size() > 1) {
+    if (rerouterInterval->getAdditionalParents().at(0)->getEdgeChilds().size() > 1) {
         myAddRouteProbReroute->disable();
         routeProbRerouteLabel->setText("Rerouter has more than one edge");
     }
@@ -221,8 +221,8 @@ GNERerouterIntervalDialog::~GNERerouterIntervalDialog() {}
 long
 GNERerouterIntervalDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     // set strings for dialogs
-    std::string errorTitle = "Error" + toString(myUpdatingElement ? "updating" : "creating") + " " + myEditedAdditional->getTagStr() + " of " + myEditedAdditional->getFirstAdditionalParent()->getTagStr();
-    std::string operationType = myEditedAdditional->getFirstAdditionalParent()->getTagStr() + "'s " + myEditedAdditional->getTagStr() + " cannot be " + (myUpdatingElement ? "updated" : "created") + " because ";
+    std::string errorTitle = "Error" + toString(myUpdatingElement ? "updating" : "creating") + " " + myEditedAdditional->getTagStr() + " of " + myEditedAdditional->getAdditionalParents().at(0)->getTagStr();
+    std::string operationType = myEditedAdditional->getAdditionalParents().at(0)->getTagStr() + "'s " + myEditedAdditional->getTagStr() + " cannot be " + (myUpdatingElement ? "updated" : "created") + " because ";
     if (myBeginEndValid == false) {
         // write warning if netedit is running in testing mode
         WRITE_DEBUG("Opening FXMessageBox of type 'warning'");

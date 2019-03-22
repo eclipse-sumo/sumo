@@ -1493,7 +1493,7 @@ GNEAdditionalHandler::parseAndBuildRerouterInterval(GNEViewNet* viewNet, bool al
                 lastInsertedRerouterInterval = viewNet->getNet()->retrieveAdditional(SUMO_TAG_INTERVAL, attrs.get<std::string>(GNE_ATTR_PARENT, "", ok));
             }
             if (lastInsertedRerouterInterval) {
-                rerouter = lastInsertedRerouterInterval->getFirstAdditionalParent();
+                rerouter = lastInsertedRerouterInterval->getAdditionalParents().at(0);
             }
         }
         // check that rerouterInterval can be created

@@ -150,7 +150,7 @@ GNEDetectorEntryExit::updateGeometry(bool updateGrid) {
     }
 
     // update E3 parent Geometry
-    myFirstAdditionalParent->updateGeometry(updateGrid);
+    myAdditionalParents.at(0)->updateGeometry(updateGrid);
 }
 
 
@@ -303,7 +303,7 @@ GNEDetectorEntryExit::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_BLOCK_MOVEMENT:
             return toString(myBlockMovement);
         case GNE_ATTR_PARENT:
-            return myFirstAdditionalParent->getID();
+            return myAdditionalParents.at(0)->getID();
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_GENERIC:

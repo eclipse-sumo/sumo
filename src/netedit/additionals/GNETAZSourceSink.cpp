@@ -33,7 +33,7 @@
 // ===========================================================================
 
 GNETAZSourceSink::GNETAZSourceSink(SumoXMLTag sourceSinkTag, GNEAdditional* TAZParent, GNEEdge* edge, double departWeight) :
-    GNEAdditional(TAZParent, TAZParent->getViewNet(), GLO_TAZ, sourceSinkTag, "", false),
+    GNEAdditional({TAZParent}, TAZParent->getViewNet(), GLO_TAZ, sourceSinkTag, "", false),
     myEdge(edge),
     myDepartWeight(departWeight) {
     //check that this is a TAZ Source OR a TAZ Sink
@@ -68,13 +68,13 @@ GNETAZSourceSink::updateGeometry(bool /*updateGrid*/) {
 
 Position
 GNETAZSourceSink::getPositionInView() const {
-    return myFirstAdditionalParent->getPositionInView();
+    return myAdditionalParents.at(0)->getPositionInView();
 }
 
 
 std::string
 GNETAZSourceSink::getParentName() const {
-    return myFirstAdditionalParent->getID();
+    return myAdditionalParents.at(0)->getID();
 }
 
 
@@ -94,13 +94,13 @@ GNETAZSourceSink::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_WEIGHT:
             return toString(myDepartWeight);
         case GNE_ATTR_PARENT:
-            return myFirstAdditionalParent->getID();
+            return myAdditionalParents.at(0)->getID();
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
         case GNE_ATTR_TAZCOLOR: {
             // obtain max and min weight source
-            double maxWeightSource = parse<double>(myFirstAdditionalParent->getAttribute(GNE_ATTR_MAX_SOURCE));
-            double minWeightSource = parse<double>(myFirstAdditionalParent->getAttribute(GNE_ATTR_MIN_SOURCE));
+            double maxWeightSource = parse<double>(myAdditionalParents.at(0)->getAttribute(GNE_ATTR_MAX_SOURCE));
+            double minWeightSource = parse<double>(myAdditionalParents.at(0)->getAttribute(GNE_ATTR_MIN_SOURCE));
             // avoid division between zero
             if ((maxWeightSource - minWeightSource) == 0) {
                 return "0";
@@ -189,7 +189,7 @@ GNETAZSourceSink::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_WEIGHT:
             myDepartWeight = parse<double>(value);
             // update statictis of TAZ parent
-            myFirstAdditionalParent->updateAdditionalParent();
+            myAdditionalParents.at(0)->updateAdditionalParent();
             break;
         case GNE_ATTR_GENERIC:
             setGenericParametersStr(value);

@@ -35,15 +35,15 @@
 // ===========================================================================
 
 GNEClosingReroute::GNEClosingReroute(GNERerouterIntervalDialog* rerouterIntervalDialog) :
-    GNEAdditional(rerouterIntervalDialog->getEditedAdditional(), rerouterIntervalDialog->getEditedAdditional()->getViewNet(), GLO_CALIBRATOR, SUMO_TAG_CLOSING_REROUTE, "", false),
-    myClosedEdge(rerouterIntervalDialog->getEditedAdditional()->getFirstAdditionalParent()->getEdgeChilds().at(0)) {
+    GNEAdditional({rerouterIntervalDialog->getEditedAdditional()}, rerouterIntervalDialog->getEditedAdditional()->getViewNet(), GLO_CALIBRATOR, SUMO_TAG_CLOSING_REROUTE, "", false),
+    myClosedEdge(rerouterIntervalDialog->getEditedAdditional()->getAdditionalParents().at(0)->getEdgeChilds().at(0)) {
     // fill closing reroute interval with default values
     setDefaultValues();
 }
 
 
 GNEClosingReroute::GNEClosingReroute(GNEAdditional* rerouterIntervalParent, GNEEdge* closedEdge, SVCPermissions permissions) :
-    GNEAdditional(rerouterIntervalParent, rerouterIntervalParent->getViewNet(), GLO_CALIBRATOR, SUMO_TAG_CLOSING_REROUTE, "", false),
+    GNEAdditional({rerouterIntervalParent}, rerouterIntervalParent->getViewNet(), GLO_CALIBRATOR, SUMO_TAG_CLOSING_REROUTE, "", false),
     myClosedEdge(closedEdge),
     myPermissions(permissions) {
 }
@@ -72,13 +72,13 @@ GNEClosingReroute::updateGeometry(bool /*updateGrid*/) {
 
 Position
 GNEClosingReroute::getPositionInView() const {
-    return myFirstAdditionalParent->getPositionInView();
+    return myAdditionalParents.at(0)->getPositionInView();
 }
 
 
 std::string
 GNEClosingReroute::getParentName() const {
-    return myFirstAdditionalParent->getID();
+    return myAdditionalParents.at(0)->getID();
 }
 
 
@@ -100,7 +100,7 @@ GNEClosingReroute::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_DISALLOW:
             return getVehicleClassNames(invertPermissions(myPermissions));
         case GNE_ATTR_PARENT:
-            return myFirstAdditionalParent->getID();
+            return myAdditionalParents.at(0)->getID();
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
         default:

@@ -37,7 +37,7 @@
 // ===========================================================================
 
 GNEAccess::GNEAccess(GNEAdditional* busStop, GNELane* lane, GNEViewNet* viewNet, const std::string& pos, const std::string& length, bool friendlyPos, bool blockMovement) :
-    GNEAdditional(busStop, viewNet, GLO_ACCESS, SUMO_TAG_ACCESS, "", blockMovement),
+    GNEAdditional({busStop}, viewNet, GLO_ACCESS, SUMO_TAG_ACCESS, "", blockMovement),
     myLane(lane),
     myPositionOverLane(pos),
     myLength(length),
@@ -159,7 +159,7 @@ GNEAccess::getEdge() const {
 
 std::string
 GNEAccess::getParentName() const {
-    return myFirstAdditionalParent->getID();
+    return myAdditionalParents.at(0)->getID();
 }
 
 
@@ -211,7 +211,7 @@ GNEAccess::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_BLOCK_MOVEMENT:
             return toString(myBlockMovement);
         case GNE_ATTR_PARENT:
-            return myFirstAdditionalParent->getID();
+            return myAdditionalParents.at(0)->getID();
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_GENERIC:
@@ -253,7 +253,7 @@ GNEAccess::isValid(SumoXMLAttr key, const std::string& value) {
             GNELane* lane = myViewNet->getNet()->retrieveLane(value, false);
             if (lane != nullptr) {
                 if (myLane->getParentEdge().getID() != lane->getParentEdge().getID()) {
-                    return GNEAdditionalHandler::accessCanBeCreated(myFirstAdditionalParent, lane->getParentEdge());
+                    return GNEAdditionalHandler::accessCanBeCreated(myAdditionalParents.at(0), lane->getParentEdge());
                 } else {
                     return true;
                 }

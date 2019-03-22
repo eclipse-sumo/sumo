@@ -35,7 +35,7 @@
 // ===========================================================================
 
 GNEParkingSpace::GNEParkingSpace(GNEViewNet* viewNet, GNEAdditional* parkingAreaParent, const Position& pos, double width, double length, double angle, bool blockMovement) :
-    GNEAdditional(parkingAreaParent, viewNet, GLO_PARKING_SPACE, SUMO_TAG_PARKING_SPACE, "", blockMovement),
+    GNEAdditional({parkingAreaParent}, viewNet, GLO_PARKING_SPACE, SUMO_TAG_PARKING_SPACE, "", blockMovement),
     myPosition(pos),
     myWidth(width),
     myLength(length),
@@ -91,7 +91,7 @@ GNEParkingSpace::getPositionInView() const {
 
 std::string
 GNEParkingSpace::getParentName() const {
-    return myFirstAdditionalParent->getMicrosimID();
+    return myAdditionalParents.at(0)->getMicrosimID();
 }
 
 
@@ -155,7 +155,7 @@ GNEParkingSpace::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_BLOCK_MOVEMENT:
             return toString(myBlockMovement);
         case GNE_ATTR_PARENT:
-            return myFirstAdditionalParent->getID();
+            return myAdditionalParents.at(0)->getID();
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_GENERIC:

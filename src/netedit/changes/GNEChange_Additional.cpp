@@ -42,8 +42,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Additional, GNEChange, nullptr, 0)
 GNEChange_Additional::GNEChange_Additional(GNEAdditional* additional, bool forward) :
     GNEChange(additional->getViewNet()->getNet(), forward),
     myAdditional(additional),
-    myFirstAdditionalParent(myAdditional->getFirstAdditionalParent()),
-    mySecondAdditionalParent(myAdditional->getSecondAdditionalParent()),
+    myAdditionalParents(myAdditional->getAdditionalParents()),
     myEdgeChilds(myAdditional->getEdgeChilds()),
     myLaneChilds(myAdditional->getLaneChilds()) {
     myAdditional->incRef("GNEChange_Additional");
@@ -97,12 +96,12 @@ GNEChange_Additional::undo() {
             i->removeAdditionalChild(myAdditional);
         }
         // 3 - If additional has a first parent, remove it from their additional childs
-        if (myFirstAdditionalParent) {
-            myFirstAdditionalParent->removeAdditionalChild(myAdditional);
+        if (myAdditionalParents.size() == 1) {
+            myAdditionalParents.at(0)->removeAdditionalChild(myAdditional);
         }
         // 4 - If additiona has a second parent, remove it from their additional childs
-        if (mySecondAdditionalParent) {
-            mySecondAdditionalParent->removeAdditionalChild(myAdditional);
+        if (myAdditionalParents.size() == 2) {
+            myAdditionalParents.at(1)->removeAdditionalChild(myAdditional);
         }
         // 5 - if Additional has edge childs, remove it of their additional parents
         for (auto i : myEdgeChilds) {
@@ -128,12 +127,12 @@ GNEChange_Additional::undo() {
             i->addAdditionalChild(myAdditional);
         }
         // 3 - If additional has a parent, add it into additional parent
-        if (myFirstAdditionalParent) {
-            myFirstAdditionalParent->addAdditionalChild(myAdditional);
+        if (myAdditionalParents.size() == 1) {
+            myAdditionalParents.at(0)->addAdditionalChild(myAdditional);
         }
         // 4 - If additional has a parent, add it into additional parent
-        if (mySecondAdditionalParent) {
-            mySecondAdditionalParent->addAdditionalChild(myAdditional);
+        if (myAdditionalParents.size() == 2) {
+            myAdditionalParents.at(1)->addAdditionalChild(myAdditional);
         }
         // 5 - if Additional has edge childs, add id into additional parents
         for (auto i : myEdgeChilds) {
@@ -165,12 +164,12 @@ GNEChange_Additional::redo() {
             i->addAdditionalChild(myAdditional);
         }
         // 3 - If additional has a parent, add it into additional parent
-        if (myFirstAdditionalParent) {
-            myFirstAdditionalParent->addAdditionalChild(myAdditional);
+        if (myAdditionalParents.size() == 1) {
+            myAdditionalParents.at(0)->addAdditionalChild(myAdditional);
         }
         // 4 - If additional has a parent, add it into additional parent
-        if (mySecondAdditionalParent) {
-            mySecondAdditionalParent->addAdditionalChild(myAdditional);
+        if (myAdditionalParents.size() == 2) {
+            myAdditionalParents.at(1)->addAdditionalChild(myAdditional);
         }
         // 5 - if Additional has edge childs, add id into additional parents
         for (auto i : myEdgeChilds) {
@@ -192,12 +191,12 @@ GNEChange_Additional::redo() {
             i->removeAdditionalChild(myAdditional);
         }
         // 3 - If additiona has a first parent, remove it from their additional childs
-        if (myFirstAdditionalParent) {
-            myFirstAdditionalParent->removeAdditionalChild(myAdditional);
+        if (myAdditionalParents.size() == 1) {
+            myAdditionalParents.at(0)->removeAdditionalChild(myAdditional);
         }
         // 4 - If additiona has a second parent, remove it from their additional childs
-        if (mySecondAdditionalParent) {
-            mySecondAdditionalParent->removeAdditionalChild(myAdditional);
+        if (myAdditionalParents.size() == 2) {
+            myAdditionalParents.at(1)->removeAdditionalChild(myAdditional);
         }
         // 5 - if Additional has edge childs, remove it of their additional parents
         for (auto i : myEdgeChilds) {

@@ -56,26 +56,15 @@ public:
      */
     GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement);
 
-    /**@brief Constructor used by Additionals that have another additional as parent
-    * @param[in] singleAdditionalParent pointer to single additional parent
-    * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
-    * @param[in] type GUIGlObjectType of additional
-    * @param[in] tag Type of xml tag that define the additional element (SUMO_TAG_BUS_STOP, SUMO_TAG_REROUTER, etc...)
-    * @param[in] name Additional name
-    * @param[in] block movement enable or disable additional movement
-    */
-    GNEAdditional(GNEAdditional* singleAdditionalParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement);
-
     /**@brief Constructor used by Additionals that have two additionals as parent
-    * @param[in] additionalParent pointer to first additional parent
-    * @param[in] additionalParent pointer to second additional parent
+    * @param[in] additionalParents vector with  pointer to additional parents
     * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
     * @param[in] type GUIGlObjectType of additional
     * @param[in] tag Type of xml tag that define the additional element (SUMO_TAG_BUS_STOP, SUMO_TAG_REROUTER, etc...)
     * @param[in] name Additional name
     * @param[in] block movement enable or disable additional movement
     */
-    GNEAdditional(GNEAdditional* firstAdditionalParent, GNEAdditional* secondAdditionalParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement);
+    GNEAdditional(const std::vector<GNEAdditional*>& additionalParents, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement);
 
     /**@brief Constructor used by Additionals that have Edge childs
     * @param[in] id Gl-id of the additional element (Must be unique)

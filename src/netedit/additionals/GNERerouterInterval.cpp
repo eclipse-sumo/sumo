@@ -32,14 +32,14 @@
 // ===========================================================================
 
 GNERerouterInterval::GNERerouterInterval(GNERerouterDialog* rerouterDialog) :
-    GNEAdditional(rerouterDialog->getEditedAdditional(), rerouterDialog->getEditedAdditional()->getViewNet(), GLO_REROUTER, SUMO_TAG_INTERVAL, "", false) {
+    GNEAdditional({rerouterDialog->getEditedAdditional()}, rerouterDialog->getEditedAdditional()->getViewNet(), GLO_REROUTER, SUMO_TAG_INTERVAL, "", false) {
     // fill reroute interval with default values
     setDefaultValues();
 }
 
 
 GNERerouterInterval::GNERerouterInterval(GNEAdditional* rerouterParent, double begin, double end) :
-    GNEAdditional(rerouterParent, rerouterParent->getViewNet(), GLO_REROUTER, SUMO_TAG_INTERVAL, "", false),
+    GNEAdditional({rerouterParent}, rerouterParent->getViewNet(), GLO_REROUTER, SUMO_TAG_INTERVAL, "", false),
     myBegin(begin),
     myEnd(end) {
 }
@@ -67,13 +67,13 @@ GNERerouterInterval::updateGeometry(bool /*updateGrid*/) {
 
 Position
 GNERerouterInterval::getPositionInView() const {
-    return myFirstAdditionalParent->getPositionInView();
+    return myAdditionalParents.at(0)->getPositionInView();
 }
 
 
 std::string
 GNERerouterInterval::getParentName() const {
-    return myFirstAdditionalParent->getID();
+    return myAdditionalParents.at(0)->getID();
 }
 
 
@@ -93,7 +93,7 @@ GNERerouterInterval::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_END:
             return toString(myEnd);
         case GNE_ATTR_PARENT:
-            return myFirstAdditionalParent->getID();
+            return myAdditionalParents.at(0)->getID();
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
         default:

@@ -33,8 +33,7 @@
 // ===========================================================================
 
 GNEParkingAreaReroute::GNEParkingAreaReroute(GNERerouterIntervalDialog* rerouterIntervalDialog) :
-    GNEAdditional(rerouterIntervalDialog->getEditedAdditional(),
-                  rerouterIntervalDialog->getEditedAdditional()->getViewNet()->getNet()->getAdditionalByType(SUMO_TAG_PARKING_AREA).begin()->second,
+    GNEAdditional(std::vector<GNEAdditional*>({rerouterIntervalDialog->getEditedAdditional(), rerouterIntervalDialog->getEditedAdditional()->getViewNet()->getNet()->getAdditionalByType(SUMO_TAG_PARKING_AREA).begin()->second}),
                   rerouterIntervalDialog->getEditedAdditional()->getViewNet(), GLO_REROUTER, SUMO_TAG_PARKING_ZONE_REROUTE, "", false) {
     // fill route type with default values
     setDefaultValues();
@@ -42,7 +41,7 @@ GNEParkingAreaReroute::GNEParkingAreaReroute(GNERerouterIntervalDialog* rerouter
 
 
 GNEParkingAreaReroute::GNEParkingAreaReroute(GNEAdditional* rerouterIntervalParent, GNEAdditional* newParkingArea, double probability, bool visible):
-    GNEAdditional(rerouterIntervalParent, newParkingArea, rerouterIntervalParent->getViewNet(), GLO_REROUTER, SUMO_TAG_PARKING_ZONE_REROUTE, "", false),
+    GNEAdditional(std::vector<GNEAdditional*>({rerouterIntervalParent, newParkingArea}), rerouterIntervalParent->getViewNet(), GLO_REROUTER, SUMO_TAG_PARKING_ZONE_REROUTE, "", false),
     myProbability(probability),
     myVisible(visible) {
 }
@@ -71,13 +70,13 @@ GNEParkingAreaReroute::updateGeometry(bool /*updateGrid*/) {
 
 Position
 GNEParkingAreaReroute::getPositionInView() const {
-    return myFirstAdditionalParent->getPositionInView();
+    return myAdditionalParents.at(0)->getPositionInView();
 }
 
 
 std::string
 GNEParkingAreaReroute::getParentName() const {
-    return myFirstAdditionalParent->getID();
+    return myAdditionalParents.at(0)->getID();
 }
 
 
@@ -93,13 +92,13 @@ GNEParkingAreaReroute::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getAdditionalID();
         case SUMO_ATTR_PARKING:
-            return mySecondAdditionalParent->getID();
+            return myAdditionalParents.at(1)->getID();
         case SUMO_ATTR_PROB:
             return toString(myProbability);
         case SUMO_ATTR_VISIBLE:
             return toString(myVisible);
         case GNE_ATTR_PARENT:
-            return toString(myFirstAdditionalParent->getID());
+            return toString(myAdditionalParents.at(0)->getID());
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
         default:
@@ -154,7 +153,7 @@ GNEParkingAreaReroute::getPopUpID() const {
 
 std::string
 GNEParkingAreaReroute::getHierarchyName() const {
-    return getTagStr() + ": " + getSecondAdditionalParent()->getID();
+    return getTagStr() + ": " + myAdditionalParents.at(1)->getID();
 }
 
 // ===========================================================================

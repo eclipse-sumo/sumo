@@ -54,16 +54,9 @@ public:
 
     /**@brief Constructor used by Additionals that have another additional as parent
     * @param[in] tag Type of xml tag that define the element (SUMO_TAG_BUS_STOP, SUMO_TAG_JUNCTION, etc...)
-    * @param[in] singleAdditionalParent pointer to single additional parent
+    * @param[in] additionalParents vector of additional parents
     */
-    GNEHierarchicalElement(SumoXMLTag tag, GNEAdditional* singleAdditionalParent);
-
-    /**@brief Constructor
-    * @param[in] tag Type of xml tag that define the element (SUMO_TAG_BUS_STOP, SUMO_TAG_JUNCTION, etc...)
-    * @param[in] firstAdditionalParent pointer to first additional parent
-    * @param[in] secondAdditionalParent pointer to second additional parent
-    */
-    GNEHierarchicalElement(SumoXMLTag tag, GNEAdditional* firstAdditionalParent, GNEAdditional* secondAdditionalParent);
+    GNEHierarchicalElement(SumoXMLTag tag, const std::vector<GNEAdditional*>& additionalParents);
 
     /**@brief Constructor
     * @param[in] tag Type of xml tag that define the element (SUMO_TAG_BUS_STOP, SUMO_TAG_JUNCTION, etc...)
@@ -94,14 +87,14 @@ public:
 
     /// @name members and functions relative to additional parents
     /// @{
-    /// @brief get first additional parent
-    GNEAdditional* getFirstAdditionalParent() const;
+    /// @brief add additional child to this edge
+    void addAdditionalParent(GNEAdditional* additional);
 
-    // @brief get second additional parent
-    GNEAdditional* getSecondAdditionalParent() const;
+    /// @brief remove additional child from this edge
+    void removeAdditionalParent(GNEAdditional* additional);
 
-    /// @brief get demand element parent
-    GNEDemandElement* getDemandElementParent() const;
+    /// @brief return vector of additionals that have as Parameter this edge (For example, Rerouters)
+    const std::vector<GNEAdditional*>& getAdditionalParents() const;
 
     /// @}
 
@@ -122,6 +115,19 @@ public:
     /// @brief check if childs are overlapped (Used by Rerouters)
     bool checkAdditionalChildsOverlapping() const;
     
+    /// @}
+
+    /// @name members and functions relative to demand element parents
+    /// @{
+    /// @brief add demand element child to this edge
+    void addDemandElementParent(GNEDemandElement* demandElement);
+
+    /// @brief remove demand element child from this edge
+    void removeDemandElementParent(GNEDemandElement* demandElement);
+
+    /// @brief return vector of demand element that have as Parameter this edge (For example, Routes)
+    const std::vector<GNEDemandElement*>& getDemandElementParents() const;
+
     /// @}
 
     /// @name members and functions relative to demand element childs
@@ -201,17 +207,14 @@ protected:
         GNEHierarchicalElement* myHierarchicalElement;
     };
 
-    /// @brief pointer to first Additional parent
-    GNEAdditional* myFirstAdditionalParent;
+    /// @brief list of additional parents of this NetElement
+    std::vector<GNEAdditional*> myAdditionalParents;
 
-    /// @brief pointer to second Additional parent
-    GNEAdditional* mySecondAdditionalParent;
-
-    /// @brief pointer to demand element parent
-    GNEDemandElement* myDemandElementParent;
-
-    /// @brief vector with the Additional childs
+    /// @brief vector with the additional childs
     std::vector<GNEAdditional*> myAdditionalChilds;
+
+    /// @brief list of demand elements parents of this NetElement
+    std::vector<GNEDemandElement*> myDemandElementParents;
 
     /// @brief vector with the demand elements childs
     std::vector<GNEDemandElement*> myDemandElementChilds;

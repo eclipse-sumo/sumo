@@ -53,29 +53,16 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlOb
 }
 
 
-GNEAdditional::GNEAdditional(GNEAdditional* singleAdditionalParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement) :
-    GUIGlObject(type, singleAdditionalParent->generateChildID(tag)),
-    GNEHierarchicalElement(tag, singleAdditionalParent),
+GNEAdditional::GNEAdditional(const std::vector<GNEAdditional*>& additionalParents, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement) :
+    GUIGlObject(type, additionalParents.at(0)->generateChildID(tag)),
+    GNEHierarchicalElement(tag, additionalParents),
     Parameterised(),
     myViewNet(viewNet),
     myAdditionalName(additionalName),
     myBlockMovement(blockMovement),
     myBlockIcon(this) {
     // check that additional parent is of expected type
-    assert(singleAdditionalParent->getTagProperty().getTag() == myTagProperty.getParentTag());
-}
-
-
-GNEAdditional::GNEAdditional(GNEAdditional* firstAdditionalParent, GNEAdditional* secondAdditionalParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement) :
-    GUIGlObject(type, firstAdditionalParent->generateChildID(tag)),
-    GNEHierarchicalElement(tag, firstAdditionalParent, secondAdditionalParent),
-    Parameterised(),
-    myViewNet(viewNet),
-    myAdditionalName(additionalName),
-    myBlockMovement(blockMovement),
-    myBlockIcon(this) {
-    // check that additional parent is of expected type
-    assert(firstAdditionalParent->getTagProperty().getTag() == myTagProperty.getParentTag());
+    assert(additionalParents.at(0)->getTagProperty().getTag() == myTagProperty.getParentTag());
 }
 
 
@@ -191,7 +178,7 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
             // save childs in a different filename
             for (auto i : myAdditionalChilds) {
                 // avoid to write two times additionals that haben two parents (Only write as child of first parent)
-                if (i->getSecondAdditionalParent() == nullptr) {
+                if (i->getAdditionalParents().size() < 1) {
                     i->writeAdditional(deviceChilds);
                 } else if (myTagProperty.getTag() == i->getTagProperty().getParentTag()) {
                     i->writeAdditional(deviceChilds);
@@ -201,7 +188,7 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
         } else {
             for (auto i : myAdditionalChilds) {
                 // avoid to write two times additionals that haben two parents (Only write as child of first parent)
-                if (i->getSecondAdditionalParent() == nullptr) {
+                if (i->getAdditionalParents().size() < 2) {
                     i->writeAdditional(device);
                 } else if (myTagProperty.getTag() == i->getTagProperty().getParentTag()) {
                     i->writeAdditional(device);
@@ -382,8 +369,8 @@ GNEAdditional::getCenteringBoundary() const {
         Boundary b = myGeometry.multiShapeUnified.getBoxBoundary();
         b.grow(20);
         return b;
-    } else if (myFirstAdditionalParent) {
-        return myFirstAdditionalParent->getCenteringBoundary();
+    } else if (myAdditionalParents.size() > 0) {
+        return myAdditionalParents.at(0)->getCenteringBoundary();
     } else {
         return Boundary(-0.1, -0.1, 0.1, 0.1);
     }
@@ -617,15 +604,15 @@ GNEAdditional::changeLane(GNELane* oldLane, const std::string& newLaneID) {
 
 void
 GNEAdditional::changeFirstAdditionalParent(const std::string& newAdditionalParentID) {
-    if (myFirstAdditionalParent == nullptr) {
+    if (myAdditionalParents.empty()) {
         throw InvalidArgument(getTagStr() + " with ID '" + getMicrosimID() + "' doesn't have an additional parent");
     } else {
         // remove this additional of the childs of parent additional
-        myFirstAdditionalParent->removeAdditionalChild(this);
+        myAdditionalParents.at(0)->removeAdditionalChild(this);
         // set new additional parent
-        myFirstAdditionalParent = myViewNet->getNet()->retrieveAdditional(myFirstAdditionalParent->getTagProperty().getTag(), newAdditionalParentID);
+        myAdditionalParents.at(0) = myViewNet->getNet()->retrieveAdditional(myAdditionalParents.at(0)->getTagProperty().getTag(), newAdditionalParentID);
         // add this additional int the childs of parent additional
-        myFirstAdditionalParent->addAdditionalChild(this);
+        myAdditionalParents.at(0)->addAdditionalChild(this);
         updateGeometry(true);
     }
 }
@@ -633,15 +620,15 @@ GNEAdditional::changeFirstAdditionalParent(const std::string& newAdditionalParen
 
 void
 GNEAdditional::changeSecondAdditionalParent(const std::string& newAdditionalParentID) {
-    if (mySecondAdditionalParent == nullptr) {
+    if (myAdditionalParents.size() != 2) {
         throw InvalidArgument(getTagStr() + " with ID '" + getMicrosimID() + "' doesn't have an additional parent");
     } else {
         // remove this additional of the childs of parent additional
-        mySecondAdditionalParent->removeAdditionalChild(this);
+        myAdditionalParents.at(1)->removeAdditionalChild(this);
         // set new additional parent
-        mySecondAdditionalParent = myViewNet->getNet()->retrieveAdditional(mySecondAdditionalParent->getTagProperty().getTag(), newAdditionalParentID);
+        myAdditionalParents.at(1) = myViewNet->getNet()->retrieveAdditional(myAdditionalParents.at(1)->getTagProperty().getTag(), newAdditionalParentID);
         // add this additional int the childs of parent additional
-        mySecondAdditionalParent->addAdditionalChild(this);
+        myAdditionalParents.at(1)->addAdditionalChild(this);
         updateGeometry(true);
     }
 }
