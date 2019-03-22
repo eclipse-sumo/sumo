@@ -221,10 +221,14 @@ MSInductLoop::writeXMLOutput(OutputDevice& dev,
     double occupancy = 0.;
     double speedSum = 0.;
     double lengthSum = 0.;
+    // to approximate the space mean speed
+    double inverseSpeedSum = 0.;
     for (std::deque< VehicleData >::const_iterator i = myVehicleDataCont.begin(); i != myVehicleDataCont.end(); ++i) {
         const double timeOnDetDuringInterval = i->leaveTimeM - MAX2(STEPS2TIME(startTime), i->entryTimeM);
         occupancy += MIN2(timeOnDetDuringInterval, t);
         speedSum += i->speedM;
+        assert(i->speedM > 0);
+        inverseSpeedSum += 1./i->speedM;
         lengthSum += i->lengthM;
     }
     for (std::map< SUMOVehicle*, double >::const_iterator i = myVehiclesOnDet.begin(); i != myVehiclesOnDet.end(); ++i) {
@@ -232,10 +236,11 @@ MSInductLoop::writeXMLOutput(OutputDevice& dev,
     }
     occupancy = occupancy / t * (double) 100.;
     const double meanSpeed = myVehicleDataCont.size() != 0 ? speedSum / (double)myVehicleDataCont.size() : -1;
+    const double harmonicMeanSpeed = myVehicleDataCont.size() != 0 ? (double)myVehicleDataCont.size()/inverseSpeedSum : -1;
     const double meanLength = myVehicleDataCont.size() != 0 ? lengthSum / (double)myVehicleDataCont.size() : -1;
     dev.openTag(SUMO_TAG_INTERVAL).writeAttr(SUMO_ATTR_BEGIN, STEPS2TIME(startTime)).writeAttr(SUMO_ATTR_END, STEPS2TIME(stopTime));
     dev.writeAttr(SUMO_ATTR_ID, StringUtils::escapeXML(getID())).writeAttr("nVehContrib", myVehicleDataCont.size());
-    dev.writeAttr("flow", flow).writeAttr("occupancy", occupancy).writeAttr("speed", meanSpeed);
+    dev.writeAttr("flow", flow).writeAttr("occupancy", occupancy).writeAttr("speed", meanSpeed).writeAttr("harmonicMeanSpeed", harmonicMeanSpeed);
     dev.writeAttr("length", meanLength).writeAttr("nVehEntered", myEnteredVehicleNumber).closeTag();
     reset();
 }
