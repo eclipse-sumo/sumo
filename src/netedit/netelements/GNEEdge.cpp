@@ -113,6 +113,13 @@ GNEEdge::~GNEEdge() {
 }
 
 
+std::string 
+GNEEdge::generateChildID(SumoXMLTag /*childTag*/) {
+    // currently unused
+    return "";
+}
+
+
 void
 GNEEdge::updateGeometry(bool updateGrid) {
     // first check if object has to be removed from grid (SUMOTree)
@@ -150,6 +157,13 @@ GNEEdge::updateGeometry(bool updateGrid) {
     if (updateGrid) {
         myNet->addGLObjectIntoGrid(this);
     }
+}
+
+
+Position 
+GNEEdge::getPositionInView() const {
+    // currently unused
+    return Position(0,0);
 }
 
 

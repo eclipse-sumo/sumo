@@ -49,6 +49,13 @@ GNECrossing::GNECrossing(GNEJunction* parentJunction, std::vector<NBEdge*> cross
 GNECrossing::~GNECrossing() {}
 
 
+std::string 
+GNECrossing::generateChildID(SumoXMLTag /*childTag*/) {
+    // currently unused
+    return "";
+}
+
+
 void
 GNECrossing::updateGeometry(bool /*updateGrid*/) {
     // rebuild crossing and walking areas form node parent
@@ -72,6 +79,13 @@ GNECrossing::updateGeometry(bool /*updateGrid*/) {
             }
         }
     }
+}
+
+
+Position 
+GNECrossing::getPositionInView() const {
+    // currently unused
+    return Position(0,0);
 }
 
 

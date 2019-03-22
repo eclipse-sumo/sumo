@@ -65,6 +65,13 @@ GNEConnection::~GNEConnection() {
 }
 
 
+std::string 
+GNEConnection::generateChildID(SumoXMLTag /*childTag*/) {
+    // currently unused
+    return "";
+}
+
+
 void
 GNEConnection::updateGeometry(bool updateGrid) {
     // Get shape of from and to lanes
@@ -149,6 +156,13 @@ GNEConnection::updateGeometry(bool updateGrid) {
             myNet->addGLObjectIntoGrid(this);
         }
     }
+}
+
+
+Position 
+GNEConnection::getPositionInView() const {
+    // currently unused
+    return Position(0,0);
 }
 
 

@@ -60,6 +60,18 @@ public:
     /// @brief Destructor
     ~GNELane();
 
+    /// @brief gererate a new ID for an element child
+    std::string generateChildID(SumoXMLTag childTag);
+
+    /// @name Functions related with geometry of element
+    /// @{
+    /// @brief update pre-computed geometry information
+    void updateGeometry(bool updateGrid);
+
+    /// @brief Returns position of hierarchical element in view
+    Position getPositionInView() const;
+    /// @}
+
     /// @brief Returns underlying parent edge
     GNEEdge& getParentEdge();
 
@@ -127,10 +139,6 @@ public:
 
     /// @brief returns the boundry (including lanes)
     Boundary getBoundary() const;
-
-    /// @brief update pre-computed geometry information
-    //  @note: must be called when geometry changes (i.e. junction moved)
-    void updateGeometry(bool updateGrid);
 
     /// @brief returns the index of the lane
     int getIndex() const;

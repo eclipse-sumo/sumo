@@ -77,6 +77,80 @@ GNELane::GNELane() :
 GNELane::~GNELane() {
 }
 
+std::string 
+GNELane::generateChildID(SumoXMLTag /*childTag*/) {
+    // currently unused
+    return "";
+}
+
+
+void
+GNELane::updateGeometry(bool updateGrid) {
+    // Clear containers
+    myShapeRotations.clear();
+    myShapeLengths.clear();
+    myLaneRestrictedTexturePositions.clear();
+    myLaneRestrictedTextureRotations.clear();
+    //double length = myParentEdge.getLength(); // @todo see ticket #448
+    // may be different from length
+
+    // Obtain lane and shape rotations
+    int segments = (int) getShape().size() - 1;
+    if (segments >= 0) {
+        myShapeRotations.reserve(segments);
+        myShapeLengths.reserve(segments);
+        for (int i = 0; i < segments; ++i) {
+            const Position& f = getShape()[i];
+            const Position& s = getShape()[i + 1];
+            myShapeLengths.push_back(f.distanceTo2D(s));
+            myShapeRotations.push_back((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double)M_PI);
+        }
+    }
+    // update additional childs
+    for (auto i : myAdditionalChilds) {
+        i->updateGeometry(updateGrid);
+    }
+    // update additionals with this lane as chid
+    for (auto i : myAdditionalParents) {
+        i->updateGeometry(updateGrid);
+    }
+    // update POIs associated to this lane
+    for (auto i : myShapes) {
+        i->updateGeometry(updateGrid);
+    }
+    // In Move mode, connections aren't updated
+    if (myNet->getViewNet() && myNet->getViewNet()->getEditModes().networkEditMode != GNE_NMODE_MOVE) {
+        // Update incoming connections of this lane
+        auto incomingConnections = getGNEIncomingConnections();
+        for (auto i : incomingConnections) {
+            i->updateGeometry(updateGrid);
+        }
+        // Update outgoings connections of this lane
+        auto outGoingConnections = getGNEOutcomingConnections();
+        for (auto i : outGoingConnections) {
+            i->updateGeometry(updateGrid);
+        }
+    }
+    // If lane has enought length for show textures of restricted lanes
+    if ((getLaneShapeLength() > 4)) {
+        // if lane is restricted
+        if (isRestricted(SVC_PEDESTRIAN) || isRestricted(SVC_BICYCLE) || isRestricted(SVC_BUS)) {
+            // get values for position and rotation of icons
+            for (int i = 2; i < getLaneShapeLength() - 1; i += 15) {
+                myLaneRestrictedTexturePositions.push_back(getShape().positionAtOffset(i));
+                myLaneRestrictedTextureRotations.push_back(getShape().rotationDegreeAtOffset(i));
+            }
+        }
+    }
+}
+
+
+Position 
+GNELane::getPositionInView() const {
+    // currently unused
+    return Position(0,0);
+}
+
 
 void
 GNELane::drawLinkNo(const GUIVisualizationSettings& s) const {
@@ -693,66 +767,6 @@ GNELane::getBoundary() const {
     }
 }
 
-
-void
-GNELane::updateGeometry(bool updateGrid) {
-    // Clear containers
-    myShapeRotations.clear();
-    myShapeLengths.clear();
-    myLaneRestrictedTexturePositions.clear();
-    myLaneRestrictedTextureRotations.clear();
-    //double length = myParentEdge.getLength(); // @todo see ticket #448
-    // may be different from length
-
-    // Obtain lane and shape rotations
-    int segments = (int) getShape().size() - 1;
-    if (segments >= 0) {
-        myShapeRotations.reserve(segments);
-        myShapeLengths.reserve(segments);
-        for (int i = 0; i < segments; ++i) {
-            const Position& f = getShape()[i];
-            const Position& s = getShape()[i + 1];
-            myShapeLengths.push_back(f.distanceTo2D(s));
-            myShapeRotations.push_back((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double)M_PI);
-        }
-    }
-    // update additional childs
-    for (auto i : myAdditionalChilds) {
-        i->updateGeometry(updateGrid);
-    }
-    // update additionals with this lane as chid
-    for (auto i : myAdditionalParents) {
-        i->updateGeometry(updateGrid);
-    }
-    // update POIs associated to this lane
-    for (auto i : myShapes) {
-        i->updateGeometry(updateGrid);
-    }
-    // In Move mode, connections aren't updated
-    if (myNet->getViewNet() && myNet->getViewNet()->getEditModes().networkEditMode != GNE_NMODE_MOVE) {
-        // Update incoming connections of this lane
-        auto incomingConnections = getGNEIncomingConnections();
-        for (auto i : incomingConnections) {
-            i->updateGeometry(updateGrid);
-        }
-        // Update outgoings connections of this lane
-        auto outGoingConnections = getGNEOutcomingConnections();
-        for (auto i : outGoingConnections) {
-            i->updateGeometry(updateGrid);
-        }
-    }
-    // If lane has enought length for show textures of restricted lanes
-    if ((getLaneShapeLength() > 4)) {
-        // if lane is restricted
-        if (isRestricted(SVC_PEDESTRIAN) || isRestricted(SVC_BICYCLE) || isRestricted(SVC_BUS)) {
-            // get values for position and rotation of icons
-            for (int i = 2; i < getLaneShapeLength() - 1; i += 15) {
-                myLaneRestrictedTexturePositions.push_back(getShape().positionAtOffset(i));
-                myLaneRestrictedTextureRotations.push_back(getShape().rotationDegreeAtOffset(i));
-            }
-        }
-    }
-}
 
 int
 GNELane::getIndex() const {

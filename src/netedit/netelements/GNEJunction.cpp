@@ -88,6 +88,16 @@ GNEJunction::~GNEJunction() {
 }
 
 
+std::string 
+GNEJunction::generateChildID(SumoXMLTag childTag) {
+    int counter = 0;
+    while (myNet->retrieveJunction(getID() + toString(childTag) + toString(counter), false) != nullptr) {
+        counter++;
+    }
+    return (getID() + toString(childTag) + toString(counter));
+}
+
+
 void
 GNEJunction::updateGeometry(bool updateGrid) {
     // first check if object has to be removed from grid (SUMOTree)
@@ -109,6 +119,12 @@ GNEJunction::updateGeometry(bool updateGrid) {
     }
     // rebuild GNECrossings
     rebuildGNECrossings(true);
+}
+
+
+Position
+GNEJunction::getPositionInView() const {
+    return myNBNode.getPosition();
 }
 
 
@@ -353,12 +369,6 @@ GNEJunction::getBoundary() const {
 NBNode*
 GNEJunction::getNBNode() const {
     return &myNBNode;
-}
-
-
-Position
-GNEJunction::getPositionInView() const {
-    return myNBNode.getPosition();
 }
 
 

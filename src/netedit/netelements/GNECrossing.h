@@ -54,8 +54,17 @@ public:
     /// @brief Destructor
     ~GNECrossing();
 
+    /// @brief gererate a new ID for an element child
+    std::string generateChildID(SumoXMLTag childTag);
+
+    /// @name Functions related with geometry of element
+    /// @{
     /// @brief update pre-computed geometry information
     void updateGeometry(bool updateGrid);
+
+    /// @brief Returns position of hierarchical element in view
+    Position getPositionInView() const;
+    /// @}
 
     /// @brief get parent Junction
     GNEJunction* getParentJunction() const;

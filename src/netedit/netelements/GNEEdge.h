@@ -70,10 +70,17 @@ public:
     /// @brief Destructor.
     ~GNEEdge();
 
-    /**@brief update pre-computed geometry information
-     * @note if current editing mode is Move, connection's geometry will not be updated
-     */
+    /// @brief gererate a new ID for an element child
+    std::string generateChildID(SumoXMLTag childTag);
+
+    /// @name Functions related with geometry of element
+    /// @{
+    /// @brief update pre-computed geometry information
     void updateGeometry(bool updateGrid);
+
+    /// @brief Returns position of hierarchical element in view
+    Position getPositionInView() const;
+    /// @}
 
     /// @name functions for edit start and end positions of shapes
     /// @{

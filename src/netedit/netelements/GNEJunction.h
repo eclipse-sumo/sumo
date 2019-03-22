@@ -65,6 +65,18 @@ public:
     /// @brief Destructor
     ~GNEJunction();
 
+    /// @brief gererate a new ID for an element child
+    std::string generateChildID(SumoXMLTag childTag);
+
+    /// @name Functions related with geometry of element
+    /// @{
+    /// @brief update pre-computed geometry information
+    void updateGeometry(bool updateGrid);
+
+    /// @brief Returns position of hierarchical element in view
+    Position getPositionInView() const;
+    /// @}
+
     /// @name inherited from GUIGlObject
     /// @{
     /**@brief Returns an own popup-menu
@@ -95,9 +107,6 @@ public:
 
     /// @brief Return net build node
     NBNode* getNBNode() const;
-
-    /// @brief Return current position
-    Position getPositionInView() const;
 
     /// @brief return GNEJunction neighbours
     std::vector<GNEJunction*> getJunctionNeighbours() const;
@@ -137,9 +146,6 @@ public:
 
     /// @brief notify the junction of being selected in tls-mode. (used to control drawing)
     void selectTLS(bool selected);
-
-    /// @brief Update the boundary of the junction
-    void updateGeometry(bool updateGrid);
 
     /// @name functions related with geometry movement
     /// @{

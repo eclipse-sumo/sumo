@@ -47,9 +47,17 @@ public:
     /// @brief Destructor
     ~GNEConnection();
 
+    /// @brief gererate a new ID for an element child
+    std::string generateChildID(SumoXMLTag childTag);
+
+    /// @name Functions related with geometry of element
+    /// @{
     /// @brief update pre-computed geometry information
-    /// @note: must be called when geometry changes (i.e. lane moved) and implemented in ALL childrens
     void updateGeometry(bool updateGrid);
+
+    /// @brief Returns position of hierarchical element in view
+    Position getPositionInView() const;
+    /// @}
 
     /// Returns the street's geometry
     Boundary getBoundary() const;
