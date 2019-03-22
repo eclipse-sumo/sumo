@@ -48,6 +48,12 @@ GNETAZSourceSink::GNETAZSourceSink(SumoXMLTag sourceSinkTag, GNEAdditional* TAZP
 GNETAZSourceSink::~GNETAZSourceSink() {}
 
 
+double 
+GNETAZSourceSink::getDepartWeight() const {
+    return myDepartWeight;
+}
+
+
 void
 GNETAZSourceSink::moveGeometry(const Position&) {
     // This additional cannot be moved

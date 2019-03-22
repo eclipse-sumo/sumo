@@ -93,7 +93,7 @@ GNEAdditional::~GNEAdditional() {}
 
 std::string 
 GNEAdditional::generateChildID(SumoXMLTag childTag) {
-    int counter = 0;
+    int counter = (int)myAdditionalChilds.size();
     while (myViewNet->getNet()->retrieveAdditional(childTag, getID() + toString(childTag) + toString(counter), false) != nullptr) {
         counter++;
     }

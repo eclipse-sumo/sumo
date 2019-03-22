@@ -23,6 +23,11 @@
 // ===========================================================================
 #include "GNEFrame.h"
 
+// ===========================================================================
+// class definitions
+// ===========================================================================
+
+class GNETAZSourceSink;
 
 // ===========================================================================
 // class definitions
@@ -44,7 +49,7 @@ public:
         /// @brief struct for edges and the source/sink colors
         struct TAZEdge {
             /// @brief constructor
-            TAZEdge(TAZCurrent* TAZCurrentParent, GNEEdge* _edge, GNEAdditional* _TAZSource, GNEAdditional* _TAZSink);
+            TAZEdge(TAZCurrent* TAZCurrentParent, GNEEdge* _edge, GNETAZSourceSink* _TAZSource, GNETAZSourceSink* _TAZSink);
 
             /// @brief destructor (needed because RGBColors has to be deleted)
             ~TAZEdge();
@@ -56,10 +61,10 @@ public:
             GNEEdge* edge;
 
             /// @brief source TAZ
-            GNEAdditional* TAZSource;
+            GNETAZSourceSink* TAZSource;
 
             /// @brif sink TAZ
-            GNEAdditional* TAZSink;
+            GNETAZSourceSink* TAZSink;
 
             /// @brief color by source [0-9]
             int sourceColor;
@@ -107,7 +112,7 @@ public:
 
     protected:
         /// @brief add TAZChild
-        void addTAZChild(GNEAdditional* additional);
+        void addTAZChild(GNETAZSourceSink* additional);
 
     private:
         /// @brief pointer to TAZ Frame

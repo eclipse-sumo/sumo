@@ -82,7 +82,7 @@ FXIMPLEMENT(GNETAZFrame::TAZEdgesGraphic,           FXGroupBox,     TAZEdgesGrap
 // GNETAZFrame::TAZCurrent - methods
 // ---------------------------------------------------------------------------
 
-GNETAZFrame::TAZCurrent::TAZEdge::TAZEdge(TAZCurrent* TAZCurrentParent, GNEEdge* _edge, GNEAdditional* _TAZSource, GNEAdditional* _TAZSink) :
+GNETAZFrame::TAZCurrent::TAZEdge::TAZEdge(TAZCurrent* TAZCurrentParent, GNEEdge* _edge, GNETAZSourceSink* _TAZSource, GNETAZSourceSink* _TAZSink) :
     edge(_edge),
     TAZSource(_TAZSource),
     TAZSink(_TAZSink),
@@ -102,8 +102,7 @@ GNETAZFrame::TAZCurrent::TAZEdge::updateColors() {
     sourceColor = GNEAttributeCarrier::parse<int>(TAZSource->getAttribute(GNE_ATTR_TAZCOLOR));
     sinkColor = GNEAttributeCarrier::parse<int>(TAZSink->getAttribute(GNE_ATTR_TAZCOLOR));
     // Obtain Source+Sink needs more steps. First obtain Source+Sink Weight
-    double sourcePlusSinkWeight = GNEAttributeCarrier::parse<double>(TAZSource->getAttribute(SUMO_ATTR_WEIGHT)) +
-                                  GNEAttributeCarrier::parse<double>(TAZSink->getAttribute(SUMO_ATTR_WEIGHT));
+    double sourcePlusSinkWeight = TAZSource->getDepartWeight() + TAZSink->getDepartWeight();
     // avoid division between zero
     if ((myTAZCurrentParent->myMaxSourcePlusSinkWeight - myTAZCurrentParent->myMinSourcePlusSinkWeight) == 0) {
         sourcePlusSinkColor = 0;
@@ -121,8 +120,7 @@ GNETAZFrame::TAZCurrent::TAZEdge::updateColors() {
         }
     }
     // Obtain Source+Sink needs more steps. First obtain Source-Sink Weight
-    double sourceMinusSinkWeight = GNEAttributeCarrier::parse<double>(TAZSource->getAttribute(SUMO_ATTR_WEIGHT)) -
-                                   GNEAttributeCarrier::parse<double>(TAZSink->getAttribute(SUMO_ATTR_WEIGHT));
+    double sourceMinusSinkWeight =  TAZSource->getDepartWeight() - TAZSink->getDepartWeight();
     // avoid division between zero
     if ((myTAZCurrentParent->myMaxSourceMinusSinkWeight - myTAZCurrentParent->myMinSourceMinusSinkWeight) == 0) {
         sourceMinusSinkColor = 0;
@@ -265,7 +263,7 @@ GNETAZFrame::TAZCurrent::refreshTAZEdges() {
     if (myEditedTAZ) {
         // iterate over additional childs and create TAZEdges
         for (const auto& i : myEditedTAZ->getAdditionalChilds()) {
-            addTAZChild(i);
+            addTAZChild(dynamic_cast<GNETAZSourceSink*>(i));
         }
         // update colors after add all edges
         for (auto& i : myTAZEdges) {
@@ -278,29 +276,29 @@ GNETAZFrame::TAZCurrent::refreshTAZEdges() {
 
 
 void
-GNETAZFrame::TAZCurrent::addTAZChild(GNEAdditional* additional) {
+GNETAZFrame::TAZCurrent::addTAZChild(GNETAZSourceSink* sourceSink) {
     // first make sure that additional is an TAZ Source or Sink
-    if ((additional->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) || (additional->getTagProperty().getTag() == SUMO_TAG_TAZSINK)) {
-        GNEEdge* edge = myTAZFrameParent->myViewNet->getNet()->retrieveEdge(additional->getAttribute(SUMO_ATTR_EDGE));
+    if (sourceSink && ((sourceSink->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) || (sourceSink->getTagProperty().getTag() == SUMO_TAG_TAZSINK))) {
+        GNEEdge* edge = myTAZFrameParent->myViewNet->getNet()->retrieveEdge(sourceSink->getAttribute(SUMO_ATTR_EDGE));
         // first check if TAZEdge has to be created
         bool createTAZEdge = true;
         for (auto& i : myTAZEdges) {
             if (i.edge == edge) {
                 createTAZEdge = false;
                 // update TAZ Source or Sink
-                if (additional->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) {
-                    i.TAZSource = additional;
+                if (sourceSink->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) {
+                    i.TAZSource = sourceSink;
                 } else {
-                    i.TAZSink = additional;
+                    i.TAZSink = sourceSink;
                 }
             }
         }
         // check if additional has to be created
         if (createTAZEdge) {
-            if (additional->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) {
-                myTAZEdges.push_back(TAZEdge(this, edge, additional, nullptr));
+            if (sourceSink->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) {
+                myTAZEdges.push_back(TAZEdge(this, edge, sourceSink, nullptr));
             } else {
-                myTAZEdges.push_back(TAZEdge(this, edge, nullptr, additional));
+                myTAZEdges.push_back(TAZEdge(this, edge, nullptr, sourceSink));
             }
         }
         // recalculate weights
@@ -308,12 +306,11 @@ GNETAZFrame::TAZCurrent::addTAZChild(GNEAdditional* additional) {
         myMinSourcePlusSinkWeight = -1;
         myMaxSourceMinusSinkWeight = 0;
         myMinSourceMinusSinkWeight = -1;
-        for (auto& i : myTAZEdges) {
+        for (const auto& i : myTAZEdges) {
             // make sure that both TAZ Source and Sink exist
             if (i.TAZSource && i.TAZSink) {
                 // obtain source plus sink
-                double sourcePlusSink = GNEAttributeCarrier::parse<double>(i.TAZSource->getAttribute(SUMO_ATTR_WEIGHT)) +
-                                        GNEAttributeCarrier::parse<double>(i.TAZSink->getAttribute(SUMO_ATTR_WEIGHT));
+                double sourcePlusSink = i.TAZSource->getDepartWeight() + i.TAZSink->getDepartWeight();
                 // check myMaxSourcePlusSinkWeight
                 if (sourcePlusSink > myMaxSourcePlusSinkWeight) {
                     myMaxSourcePlusSinkWeight = sourcePlusSink;
@@ -323,8 +320,7 @@ GNETAZFrame::TAZCurrent::addTAZChild(GNEAdditional* additional) {
                     myMinSourcePlusSinkWeight = sourcePlusSink;
                 }
                 // obtain source minus sink
-                double sourceMinusSink = GNEAttributeCarrier::parse<double>(i.TAZSource->getAttribute(SUMO_ATTR_WEIGHT)) -
-                                         GNEAttributeCarrier::parse<double>(i.TAZSink->getAttribute(SUMO_ATTR_WEIGHT));
+                double sourceMinusSink = i.TAZSource->getDepartWeight() - i.TAZSink->getDepartWeight();
                 // use valor absolute
                 if (sourceMinusSink < 0) {
                     sourceMinusSink *= -1;
@@ -1008,7 +1004,7 @@ GNETAZFrame::TAZSelectionStatistics::updateStatistics() {
         // iterate over additional childs
         for (const auto&  i : myEdgeAndTAZChildsSelected) {
             //start with sources
-            weight = GNEAttributeCarrier::parse<double>(i.TAZSource->getAttribute(SUMO_ATTR_WEIGHT));
+            weight = i.TAZSource->getDepartWeight();
             // insert source weight in weightSinkTextField
             weightSourceSet.insert(toString(weight));
             // check max Weight
@@ -1022,7 +1018,7 @@ GNETAZFrame::TAZSelectionStatistics::updateStatistics() {
             // update Average
             averageWeightSource += weight;
             // continue with sinks
-            weight = GNEAttributeCarrier::parse<double>(i.TAZSink->getAttribute(SUMO_ATTR_WEIGHT));
+            weight = i.TAZSink->getDepartWeight();
             // save sink weight in weightSinkTextField
             weightSinkSet.insert(toString(weight));
             // check max Weight
@@ -1266,19 +1262,13 @@ GNETAZFrame::TAZEdgesGraphic::updateEdgeColors() {
         for (const auto j : i.edge->getLanes()) {
             // check what will be painted (source, sink or both)
             if (myColorBySourceWeight->getCheck() == TRUE) {
-                j->setSpecialColor(&myScaleColors.at(i.sourceColor),
-                                   GNEAttributeCarrier::parse<double>(i.TAZSource->getAttribute(SUMO_ATTR_WEIGHT)));
+                j->setSpecialColor(&myScaleColors.at(i.sourceColor), i.TAZSource->getDepartWeight());
             } else if (myColorBySinkWeight->getCheck() == TRUE) {
-                j->setSpecialColor(&myScaleColors.at(i.sinkColor),
-                                   GNEAttributeCarrier::parse<double>(i.TAZSink->getAttribute(SUMO_ATTR_WEIGHT)));
+                j->setSpecialColor(&myScaleColors.at(i.sinkColor), i.TAZSink->getDepartWeight());
             } else if (myColorBySourcePlusSinkWeight->getCheck() == TRUE) {
-                j->setSpecialColor(&myScaleColors.at(i.sourcePlusSinkColor),
-                                   GNEAttributeCarrier::parse<double>(i.TAZSource->getAttribute(SUMO_ATTR_WEIGHT))
-                                   + GNEAttributeCarrier::parse<double>(i.TAZSink->getAttribute(SUMO_ATTR_WEIGHT)));
+                j->setSpecialColor(&myScaleColors.at(i.sourcePlusSinkColor), i.TAZSource->getDepartWeight() + i.TAZSink->getDepartWeight());
             } else {
-                j->setSpecialColor(&myScaleColors.at(i.sourceMinusSinkColor),
-                                   GNEAttributeCarrier::parse<double>(i.TAZSource->getAttribute(SUMO_ATTR_WEIGHT))
-                                   - GNEAttributeCarrier::parse<double>(i.TAZSink->getAttribute(SUMO_ATTR_WEIGHT)));
+                j->setSpecialColor(&myScaleColors.at(i.sourceMinusSinkColor), i.TAZSource->getDepartWeight() - i.TAZSink->getDepartWeight());
             }
         }
     }

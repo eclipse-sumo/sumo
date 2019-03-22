@@ -52,6 +52,9 @@ public:
     /// @brief destructor
     ~GNETAZSourceSink();
 
+    /// @brief get depart weight
+    double getDepartWeight() const;
+
     /// @name Functions related with geometry of element
     /// @{
     /**@brief change the position of the element geometry without saving in undoList

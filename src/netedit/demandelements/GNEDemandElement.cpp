@@ -158,7 +158,7 @@ GNEDemandElement::GNEDemandElement(const std::string& id, GNEViewNet* viewNet, G
 
 std::string 
 GNEDemandElement::generateChildID(SumoXMLTag childTag) {
-    int counter = 0;
+    int counter = (int)myDemandElementChilds.size();
     while (myViewNet->getNet()->retrieveDemandElement(childTag, getID() + toString(childTag) + toString(counter), false) != nullptr) {
         counter++;
     }
