@@ -38,7 +38,19 @@ def gitDescribe(commit="HEAD", gitDir=None):
     command = ["git", "describe", "--long", "--always", commit]
     if gitDir:
         command[1:1] = ["--git-dir=" + gitDir]
-    d = subprocess.check_output(command, universal_newlines=True).strip()
+    try:
+        d = subprocess.check_output(command, universal_newlines=True).strip()
+    except subprocess.CalledProcessError:
+        # try to find the version in the config.h
+        configFile = join(dirname(__file__), '..', '..', 'src', 'config.h.cmake')
+        count = 0
+        if exists(configFile):
+            config = open(configFile).read()
+            if "//#define HAVE_VERSION_H" in config:
+                version = config.find("VERSION_STRING") + 16
+                if version > 16:
+                    return "v" + config[version:config.find('"\n', version)] + "-" + (10 * "0")
+        return UNKNOWN_REVISION
     if "-" in d:
         # remove the "g" in describe output
         d = d.replace("-g", "-")
