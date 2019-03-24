@@ -358,6 +358,19 @@ public:
 
     /// @brief convenience function to avoid the default argument and the template stuff at getOpt<>
     const std::vector<std::string> getOptStringVector(int attr, const char* objectid, bool& ok, bool report = true) const;
+
+    /** @brief Tries to read given attribute assuming it is an int vector
+     *
+     * The behavior is similar to Python's string.split(), so multiple consecutive
+     *  whitespace do not generate empty strings and leading and trailing whitespace is silently omitted.
+     *
+     * @param[in] attr The id of the attribute to read
+     * @return The read value if given and not empty; empty vector if an error occurred
+     */
+    const std::vector<int> getIntVector(int attr) const;
+
+    /// @brief convenience function to avoid the default argument and the template stuff at getOpt<>
+    const std::vector<int> getOptIntVector(int attr, const char* objectid, bool& ok, bool report = true) const;
     //}
 
 
@@ -467,6 +480,11 @@ template<> struct invalid_return<Boundary> {
 
 template<> struct invalid_return<std::vector<std::string> > {
     static const std::vector<std::string> value;
+    static const std::string type;
+};
+
+template<> struct invalid_return<std::vector<int> > {
+    static const std::vector<int> value;
     static const std::string type;
 };
 

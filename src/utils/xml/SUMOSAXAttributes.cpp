@@ -29,6 +29,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/RGBColor.h>
 #include <utils/common/StringTokenizer.h>
+#include <utils/common/StringUtils.h>
 #include <utils/geom/Boundary.h>
 #include <utils/geom/PositionVector.h>
 #include "SUMOSAXAttributes.h"
@@ -124,6 +125,24 @@ SUMOSAXAttributes::getOptStringVector(int attr, const char* objectid, bool& ok, 
     return getOpt<std::vector<std::string> >(attr, objectid, ok, std::vector<std::string>(), report);
 }
 
+const std::vector<int>
+SUMOSAXAttributes::getIntVector(int attr) const {
+    const std::vector<std::string>& tmp = StringTokenizer(getString(attr)).getVector();
+    if (tmp.empty()) {
+        throw EmptyData();
+    }
+    std::vector<int> ret;
+    for (const std::string& s : tmp) {
+        ret.push_back(StringUtils::toInt(s));
+    }
+    return ret;
+}
+
+
+const std::vector<int>
+SUMOSAXAttributes::getOptIntVector(int attr, const char* objectid, bool& ok, bool report) const {
+    return getOpt<std::vector<int> >(attr, objectid, ok, std::vector<int>(), report);
+}
 
 void
 SUMOSAXAttributes::emitUngivenError(const std::string& attrname, const char* objectid) const {
@@ -230,5 +249,12 @@ std::vector<std::string> SUMOSAXAttributes::getInternal(const int attr) const {
     return getStringVector(attr);
 }
 
+
+const std::vector<int> invalid_return<std::vector<int> >::value = std::vector<int>();
+const std::string invalid_return<std::vector<int> >::type = "StringVector";
+template<>
+std::vector<int> SUMOSAXAttributes::getInternal(const int attr) const {
+    return getIntVector(attr);
+}
 
 /****************************************************************************/
