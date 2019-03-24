@@ -262,6 +262,7 @@ public:
     bool wrapStringList(const std::string& objID, const int variable, const std::vector<std::string>& value);
     bool wrapPosition(const std::string& objID, const int variable, const libsumo::TraCIPosition& value);
     bool wrapColor(const std::string& objID, const int variable, const libsumo::TraCIColor& value);
+    bool wrapRoadPosition(const std::string& objID, const int variable, const libsumo::TraCIRoadPosition& value);
     tcpip::Storage& getWrapperStorage();
     /// @}
 

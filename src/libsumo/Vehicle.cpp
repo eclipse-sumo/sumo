@@ -135,11 +135,7 @@ Vehicle::getPosition(const std::string& vehicleID, const bool includeZ) {
     if (isVisible(veh)) {
         return Helper::makeTraCIPosition(veh->getPosition(), includeZ);
     }
-    TraCIPosition pos;
-    pos.x = INVALID_DOUBLE_VALUE;
-    pos.y = INVALID_DOUBLE_VALUE;
-    pos.z = INVALID_DOUBLE_VALUE;
-    return pos;
+    return TraCIPosition();
 }
 
 
@@ -1710,6 +1706,13 @@ LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(Vehicle, VEHICLE)
 
 
 void
+Vehicle::subscribeLeader(const std::string& vehicleID, double /* dist */, double beginTime, double endTime) {
+    // TODO handle dist correctly
+    Vehicle::subscribe(vehicleID, std::vector<int>({libsumo::VAR_LEADER}), beginTime, endTime);
+}
+
+
+void
 Vehicle::storeShape(const std::string& id, PositionVector& shape) {
     shape.push_back(getVehicle(id)->getPosition());
 }
@@ -1810,6 +1813,13 @@ Vehicle::handleVariable(const std::string& objID, const int variable, VariableWr
             return wrapper->wrapDouble(objID, variable, getAcceleration(objID));
         case VAR_LASTACTIONTIME:
             return wrapper->wrapDouble(objID, variable, getLastActionTime(objID));
+        case VAR_LEADER: {
+            const auto& lead = getLeader(objID);
+            TraCIRoadPosition rp;
+            rp.edgeID = lead.first;
+            rp.pos = lead.second;
+            return wrapper->wrapRoadPosition(objID, variable, rp);
+        }
         default:
             return false;
     }

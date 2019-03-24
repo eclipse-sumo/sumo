@@ -191,6 +191,7 @@ public:
         bool wrapStringList(const std::string& objID, const int variable, const std::vector<std::string>& value);
         bool wrapPosition(const std::string& objID, const int variable, const TraCIPosition& value);
         bool wrapColor(const std::string& objID, const int variable, const TraCIColor& value);
+        bool wrapRoadPosition(const std::string& objID, const int variable, const TraCIRoadPosition& value);
     private:
         SubscriptionResults myResults;
         ContextSubscriptionResults myContextResults;

@@ -124,6 +124,7 @@ public:
     virtual bool wrapStringList(const std::string& objID, const int variable, const std::vector<std::string>& value) = 0;
     virtual bool wrapPosition(const std::string& objID, const int variable, const TraCIPosition& value) = 0;
     virtual bool wrapColor(const std::string& objID, const int variable, const TraCIColor& value) = 0;
+    virtual bool wrapRoadPosition(const std::string& objID, const int variable, const TraCIRoadPosition& value) = 0;
 };
 }
 

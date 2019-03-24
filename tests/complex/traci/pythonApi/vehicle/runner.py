@@ -31,6 +31,7 @@ else:
     import traci  # noqa
     traci._vehicle.VehicleDomain.addFull = traci._vehicle.VehicleDomain.add
     traci._vehicle.VehicleDomain.add = traci._vehicle.VehicleDomain.addLegacy
+import traci.constants as tc  # noqa
 import sumolib  # noqa
 
 
@@ -39,6 +40,11 @@ def step():
     traci.simulationStep()
     return s
 
+def posToString(pos):
+    if pos[0] == tc.INVALID_DOUBLE_VALUE:
+        return "invalid"
+    else:
+        return str(pos)
 
 def check(vehID):
     print("vehicles", traci.vehicle.getIDList())
@@ -47,7 +53,8 @@ def check(vehID):
     print("speed", traci.vehicle.getSpeed(vehID))
     print("speed w/o traci", traci.vehicle.getSpeedWithoutTraCI(vehID))
     print("acceleration", traci.vehicle.getAcceleration(vehID))
-    print("pos", traci.vehicle.getPosition(vehID))
+    print("pos", posToString(traci.vehicle.getPosition(vehID)))
+    print("pos3D", posToString(traci.vehicle.getPosition3D(vehID)))
     print("angle", traci.vehicle.getAngle(vehID))
     print("road", traci.vehicle.getRoadID(vehID))
     print("lane", traci.vehicle.getLaneID(vehID))
@@ -115,8 +122,8 @@ def check(vehID):
 def checkOffRoad(vehID):
     print(("veh", vehID,
            "speed", traci.vehicle.getSpeed(vehID),
-           "pos", traci.vehicle.getPosition(vehID),
-           "pos3d", traci.vehicle.getPosition3D(vehID),
+           "pos", posToString(traci.vehicle.getPosition(vehID)),
+           "pos3d", posToString(traci.vehicle.getPosition3D(vehID)),
            "angle", traci.vehicle.getAngle(vehID),
            "road", traci.vehicle.getRoadID(vehID),
            "lane", traci.vehicle.getLaneID(vehID),
@@ -190,7 +197,10 @@ print("set traveltime (default range)", traci.vehicle.getAdaptedTraveltime(vehID
 print("set effort (default range)", traci.vehicle.getEffort(vehID, 0, "1o"))
 try:
     check("bla")
-except traci.TraCIException:
+except traci.TraCIException as e:
+    if traci.isLibsumo():
+        print(e, file=sys.stderr)
+        sys.stderr.flush()
     print("recovering from exception after asking for unknown vehicle")
 traci.vehicle.add("1", "horizontal")
 traci.vehicle.setStop("1", "2fi", pos=50.0, laneIndex=0, duration=1, flags=1)
@@ -214,8 +224,7 @@ print("speedmode", traci.vehicle.getSpeedMode(vehID))
 print("lanechangemode", traci.vehicle.getLaneChangeMode(vehID))
 print("slope", traci.vehicle.getSlope(vehID))
 print("leader", traci.vehicle.getLeader("2"))
-if not traci.isLibsumo():
-    traci.vehicle.subscribeLeader("2")
+traci.vehicle.subscribeLeader("2")
 for i in range(6):
     print("step", step())
     print(traci.vehicle.getSubscriptionResults("2"))
@@ -224,11 +233,14 @@ traci.vehicle.remove("1")
 try:
     traci.vehicle.add("anotherOne", "horizontal", pos=-1)
 except traci.TraCIException as e:
-    print(e)
+    if traci.isLibsumo():
+        print(e, file=sys.stderr)
 try:
     check("anotherOne")
 except traci.TraCIException as e:
-    print(e)
+    if traci.isLibsumo():
+        print(e, file=sys.stderr)
+        sys.stderr.flush()
 traci.vehicle.moveTo(vehID, "1o_0", 40)
 print("step", step())
 print(traci.vehicle.getSubscriptionResults(vehID))
@@ -250,8 +262,7 @@ for i in range(9):
     print("step", step())
     print("vehicles", traci.vehicle.getIDList())
 # XXX this doesn't work. see #1721
-traci.vehicle.add(
-    "departTriggered", "horizontal", "triggered")
+traci.vehicle.add("departTriggered", "horizontal", "triggered")
 print("step", step())
 print("vehicles", traci.vehicle.getIDList())
 # test for setting a route with busstops
@@ -266,35 +277,29 @@ print("vehicle '%s' routeID=%s" %
       (routeTestVeh, traci.vehicle.getRouteID(routeTestVeh)))
 for i in range(14):
     print("step", step())
-    print("vehicle '%s' lane=%s lanePos=%s stopped=%s" % (routeTestVeh,
-                                                          traci.vehicle.getLaneID(
-                                                              routeTestVeh),
-                                                          traci.vehicle.getLanePosition(
-                                                              routeTestVeh),
-                                                          traci.vehicle.isStopped(routeTestVeh)))
+    print("vehicle", routeTestVeh,
+          "lane", traci.vehicle.getLaneID(routeTestVeh),
+          "lanePos", traci.vehicle.getLanePosition(routeTestVeh),
+          "stopped", traci.vehicle.isStopped(routeTestVeh))
 # test for adding a new vehicle with a route with busstop
 routeTestVeh = "routeTest2"
 traci.vehicle.add(routeTestVeh, "withStop")
 for i in range(14):
     print("step", step())
-    print("vehicle '%s' lane=%s lanePos=%s stopped=%s" % (routeTestVeh,
-                                                          traci.vehicle.getLaneID(
-                                                              routeTestVeh),
-                                                          traci.vehicle.getLanePosition(
-                                                              routeTestVeh),
-                                                          traci.vehicle.isStopped(routeTestVeh)))
+    print("vehicle", routeTestVeh,
+          "lane", traci.vehicle.getLaneID(routeTestVeh),
+          "lanePos", traci.vehicle.getLanePosition(routeTestVeh),
+          "stopped", traci.vehicle.isStopped(routeTestVeh))
 # test for adding a veh and a busstop
 busVeh = "bus"
 traci.vehicle.add(busVeh, "horizontal")
 traci.vehicle.setBusStop(busVeh, "busstop1", duration=2)
 for i in range(14):
     print("step", step())
-    print("vehicle '%s' lane=%s lanePos=%s stopped=%s" % (busVeh,
-                                                          traci.vehicle.getLaneID(
-                                                              busVeh),
-                                                          traci.vehicle.getLanePosition(
-                                                              busVeh),
-                                                          traci.vehicle.isStopped(busVeh)))
+    print("vehicle", busVeh,
+          "lane", traci.vehicle.getLaneID(busVeh),
+          "lanePos", traci.vehicle.getLanePosition(busVeh),
+          "stopped", traci.vehicle.isStopped(busVeh))
 # test for adding a trip
 traci.route.add("trip", ["3si"])
 traci.vehicle.add("triptest", "trip")
@@ -425,14 +430,15 @@ try:
 except traci.TraCIException as e:
     if traci.isLibsumo():
         print(e, file=sys.stderr)
-    print("recovering from exception (%s)" % e)
+    print("recovering from exception after asking for unknown device")
 try:
     print(traci.vehicle.getParameter(electricVeh, "device.battery.foobar"))
 except traci.TraCIException as e:
     if traci.isLibsumo():
         print(e, file=sys.stderr)
-    print("recovering from exception (%s)" % e)
+    print("recovering from exception after asking for unknown device parameter")
 
+traci.vehicle.subscribe(electricVeh, [tc.VAR_POSITION, tc.VAR_POSITION3D])
 for i in range(10):
     step()
     print(('%s speed="%s" consumed="%s" charged="%s" cap="%s" maxCap="%s" station="%s" mass=%s emissionClass=%s ' +
@@ -448,6 +454,7 @@ for i in range(10):
         traci.vehicle.getEmissionClass(electricVeh),
         traci.vehicle.getElectricityConsumption(electricVeh),
     ))
+    print(traci.vehicle.getSubscriptionResults(electricVeh))
 # test for adding a trip
 traci.route.add("trip2", ["3si", "4si"])
 traci.vehicle.add("triptest2", "trip2", typeID="reroutingType")

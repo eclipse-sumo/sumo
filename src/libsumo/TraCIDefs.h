@@ -108,7 +108,7 @@ struct TraCIPosition : TraCIResult {
         os << "TraCIPosition(" << x << "," << y << "," << z << ")";
         return os.str();
     }
-    double x = 0., y = 0., z = 0.;
+    double x = INVALID_DOUBLE_VALUE, y = INVALID_DOUBLE_VALUE, z = INVALID_DOUBLE_VALUE;
 };
 
 /** @struct TraCIRoadPosition
@@ -122,7 +122,7 @@ struct TraCIRoadPosition : TraCIResult {
     }
     std::string edgeID;
     double pos;
-    int laneIndex;
+    int laneIndex = INVALID_INT_VALUE;
 };
 
 /** @struct TraCIColor

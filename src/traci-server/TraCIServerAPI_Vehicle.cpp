@@ -264,7 +264,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                     server.getWrapperStorage().writeString(libsumo::Vehicle::getParameter(id, paramName));
                     break;
                 }
-		case libsumo::VAR_NEIGHBORS: {
+                case libsumo::VAR_NEIGHBORS: {
                     int mode;
                     if (!server.readTypeCheckingUnsignedByte(inputStorage, mode)) {
                         return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Retrieval of neighboring vehicles needs bitset to specify mode.", outputStorage);

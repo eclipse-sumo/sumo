@@ -154,7 +154,6 @@ Helper::handleSingleSubscription(const Subscription& s) {
     } else {
         objIDs.insert(s.id);
     }
-    const int numVars = s.contextDomain > 0 && s.variables.size() == 1 && s.variables[0] == libsumo::TRACI_ID_LIST ? 0 : (int)s.variables.size();
     if (myWrapper.empty()) {
         myWrapper[libsumo::CMD_GET_EDGE_VARIABLE] = Edge::makeWrapper();
         myWrapper[libsumo::CMD_GET_INDUCTIONLOOP_VARIABLE] = InductionLoop::makeWrapper();
@@ -177,12 +176,17 @@ Helper::handleSingleSubscription(const Subscription& s) {
     }
     std::shared_ptr<VariableWrapper> handler = wrapper->second;
     for (const std::string& objID : objIDs) {
-        if (numVars > 0) {
+        if (!s.variables.empty()) {
             for (const int variable : s.variables) {
                 handler->handle(objID, variable, handler.get());
             }
         } else {
-            if (!handler->handle(objID, libsumo::LAST_STEP_VEHICLE_NUMBER, handler.get())) {
+            if (s.contextDomain == 0 && getCommandId == libsumo::CMD_GET_VEHICLE_VARIABLE) {
+                // default for vehicles is edge id and lane position
+                handler->handle(objID, VAR_ROAD_ID, handler.get());
+                handler->handle(objID, VAR_LANEPOSITION, handler.get());
+            } else if (s.contextDomain > 0 || !handler->handle(objID, libsumo::LAST_STEP_VEHICLE_NUMBER, handler.get())) {
+                // default for detectors is vehicle number, for all others (and contexts) id list
                 handler->handle(objID, libsumo::TRACI_ID_LIST, handler.get());
             }
         }
@@ -250,7 +254,7 @@ Helper::makeTraCIPosition(const Position& position, const bool includeZ) {
     TraCIPosition p;
     p.x = position.x();
     p.y = position.y();
-    p.z = includeZ ? position.z() : Position::INVALID.z();
+    p.z = includeZ ? position.z() : INVALID_DOUBLE_VALUE;
     return p;
 }
 
@@ -1123,6 +1127,13 @@ Helper::SubscriptionWrapper::wrapPosition(const std::string& objID, const int va
 bool
 Helper::SubscriptionWrapper::wrapColor(const std::string& objID, const int variable, const TraCIColor& value) {
     myActiveResults[objID][variable] = std::make_shared<TraCIColor>(value);
+    return true;
+}
+
+
+bool
+Helper::SubscriptionWrapper::wrapRoadPosition(const std::string& objID, const int variable, const TraCIRoadPosition& value) {
+    myActiveResults[objID][variable] = std::make_shared<TraCIRoadPosition>(value);
     return true;
 }
 

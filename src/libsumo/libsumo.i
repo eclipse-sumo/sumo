@@ -131,13 +131,35 @@ def simulationStep(step=0):
             PyDict_SetItem($result, PyInt_FromLong(theKey), tuple);
             continue;
         }
+        const libsumo::TraCIPosition* const thePosition = dynamic_cast<const libsumo::TraCIPosition*>(theVal);
+        if (thePosition != nullptr) {
+            PyObject* tuple;
+            if (thePosition->z != libsumo::INVALID_DOUBLE_VALUE) {
+                tuple = PyTuple_Pack(3, PyFloat_FromDouble(thePosition->x), PyFloat_FromDouble(thePosition->y), PyFloat_FromDouble(thePosition->z));
+            } else {
+                tuple = PyTuple_Pack(2, PyFloat_FromDouble(thePosition->x), PyFloat_FromDouble(thePosition->y));
+            }
+            PyDict_SetItem($result, PyInt_FromLong(theKey), tuple);
+            continue;
+        }
+        const libsumo::TraCIRoadPosition* const theRoadPosition = dynamic_cast<const libsumo::TraCIRoadPosition*>(theVal);
+        if (theRoadPosition != nullptr) {
+            PyObject* tuple;
+            if (theRoadPosition->laneIndex != libsumo::INVALID_INT_VALUE) {
+                tuple = PyTuple_Pack(3, PyUnicode_FromString(theRoadPosition->edgeID.c_str()), PyFloat_FromDouble(theRoadPosition->pos), PyInt_FromLong(theRoadPosition->laneIndex));
+            } else {
+                tuple = PyTuple_Pack(2, PyUnicode_FromString(theRoadPosition->edgeID.c_str()), PyFloat_FromDouble(theRoadPosition->pos));
+            }
+            PyDict_SetItem($result, PyInt_FromLong(theKey), tuple);
+            continue;
+        }
         PyObject *value = SWIG_NewPointerObj(SWIG_as_voidptr(theVal), SWIGTYPE_p_libsumo__TraCIResult, 0);
         PyDict_SetItem($result, PyInt_FromLong(theKey), value);
     }
 };
 
 %typemap(out) libsumo::TraCIPosition {
-    if ($1.z != - 1024 * 1024 * 1024) { // see Position::INVALID
+    if ($1.z != libsumo::INVALID_DOUBLE_VALUE) {
         $result = PyTuple_Pack(3, PyFloat_FromDouble($1.x), PyFloat_FromDouble($1.y), PyFloat_FromDouble($1.z));
     } else {
         $result = PyTuple_Pack(2, PyFloat_FromDouble($1.x), PyFloat_FromDouble($1.y));
@@ -213,6 +235,19 @@ def simulationStep(step=0):
                                                           PyLong_FromLong(iter->tlIndex),
                                                           PyFloat_FromDouble(iter->dist),
                                                           PyUnicode_FromStringAndSize(&iter->state, 1)));
+    }
+};
+
+%typemap(out) std::vector<libsumo::TraCINextStopData> {
+    $result = PyTuple_New($1.size());
+    int index = 0;
+    for (auto iter = $1.begin(); iter != $1.end(); ++iter) {
+        PyTuple_SetItem($result, index++, PyTuple_Pack(6, PyUnicode_FromString(iter->lane.c_str()),
+                                                          PyFloat_FromDouble(iter->endPos),
+                                                          PyUnicode_FromString(iter->stoppingPlaceID.c_str()),
+                                                          PyLong_FromLong(iter->stopFlags),
+                                                          PyFloat_FromDouble(iter->duration),
+                                                          PyFloat_FromDouble(iter->until)));
     }
 };
 

@@ -168,6 +168,13 @@ TraCIServer::wrapColor(const std::string& /* objID */, const int /* variable */,
 }
 
 
+bool
+TraCIServer::wrapRoadPosition(const std::string& /* objID */, const int /* variable */, const libsumo::TraCIRoadPosition& /* value */) {
+    // this is currently only a placeholder to allow vehicle.subscribeLeader to work with libsumo
+    return false;
+}
+
+
 tcpip::Storage&
 TraCIServer::getWrapperStorage() {
     return myWrapperStorage;

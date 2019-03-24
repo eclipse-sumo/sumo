@@ -185,6 +185,8 @@ public:
 
     LIBSUMO_SUBSCRIPTION_API
 
+    static void subscribeLeader(const std::string& vehicleID, double dist=0., double beginTime=libsumo::INVALID_DOUBLE_VALUE, double endTime=libsumo::INVALID_DOUBLE_VALUE);
+
     /** @brief Saves the shape of the requested object in the given container
     *  @param id The id of the poi to retrieve
     *  @param shape The container to fill
