@@ -847,11 +847,13 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     // check if additionals output must be changed
     if (oc.isSet("additionals-output")) {
         // overwrite "additional-files" with value "additionals-output"
+        oc.resetWritable();
         oc.set("additional-files", oc.getString("additionals-output"));
     }
     // check if demand elements output must be changed
     if (oc.isSet("demandelements-output")) {
         // overwrite "route-files" with value "demandelements-output"
+        oc.resetWritable();
         oc.set("route-files", oc.getString("demandelements-output"));
     }
     // after loading net shouldn't be saved
@@ -1763,6 +1765,7 @@ GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*
                                                 GUIIconSubSys::getIcon(ICON_MODETLS),
                                                 gCurrentFolder).text();
                     // update additional files
+                    oc.resetWritable();
                     oc.set("additional-files", file.text());
                     // set obtanied filename output into additionalsSavePath (can be "")
                     additionalsSavePath = oc.getString("additional-files");
@@ -1817,6 +1820,7 @@ GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*
                                                 GUIIconSubSys::getIcon(ICON_MODETLS),
                                                 gCurrentFolder).text();
                     // update route files
+                    oc.resetWritable();
                     oc.set("route-files", file.text());
                     // set obtanied filename output into demand elementSavePath (can be "")
                     demandElementsSavePath = oc.getString("route-files");
@@ -1954,7 +1958,6 @@ GNEApplicationWindow::onCmdSaveAsPlainXML(FXObject*, FXSelector, void*) {
     OptionsCont& oc = OptionsCont::getOptions();
     bool wasSet = oc.isSet("plain-output-prefix");
     std::string oldPrefix = oc.getString("plain-output-prefix");
-    oc.resetWritable();
     std::string prefix = file.text();
     // if the name of an edg.xml file was given, remove the suffix
     if (StringUtils::endsWith(prefix, ".edg.xml")) {
@@ -1963,6 +1966,7 @@ GNEApplicationWindow::onCmdSaveAsPlainXML(FXObject*, FXSelector, void*) {
     if (StringUtils::endsWith(prefix, ".")) {
         prefix = prefix.substr(0, prefix.size() - 1);
     }
+    oc.resetWritable();
     oc.set("plain-output-prefix", prefix);
     getApp()->beginWaitCursor();
     try {
@@ -2002,8 +2006,8 @@ GNEApplicationWindow::onCmdSaveJoined(FXObject*, FXSelector, void*) {
     OptionsCont& oc = OptionsCont::getOptions();
     bool wasSet = oc.isSet("junctions.join-output");
     std::string oldFile = oc.getString("junctions.join-output");
-    oc.resetWritable();
     std::string filename = file.text();
+    oc.resetWritable();
     oc.set("junctions.join-output", filename);
     getApp()->beginWaitCursor();
     try {
@@ -2115,6 +2119,7 @@ GNEApplicationWindow::onCmdSaveAdditionals(FXObject*, FXSelector, void*) {
                 return 0;
             } else {
                 // change value of "additional-files"
+                oc.resetWritable();
                 oc.set("additional-files", file.text());
             }
         }
@@ -2176,6 +2181,7 @@ GNEApplicationWindow::onCmdSaveTLSPrograms(FXObject*, FXSelector, void*) {
                 return 0;
             } else {
                 // change value of "TLSPrograms-output"
+                oc.resetWritable();
                 oc.set("TLSPrograms-output", file.text());
             }
         }
@@ -2237,6 +2243,7 @@ GNEApplicationWindow::onCmdSaveDemandElements(FXObject*, FXSelector, void*) {
                 return 0;
             } else {
                 // change value of "route-files"
+                oc.resetWritable();
                 oc.set("route-files", file.text());
             }
         }
