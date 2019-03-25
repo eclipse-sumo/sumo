@@ -26,6 +26,7 @@ import it.polito.appeal.traci.protocol.ResponseContainer;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.LinkedList;
+import java.util.ArrayList;
 
 import de.tudresden.sumo.config.Constants;
 import de.tudresden.sumo.subscription.Subscription;
@@ -190,8 +191,12 @@ public class CommandProcessor extends Query{
 						double maxDur = s.readDouble();
 
 						s.readUnsignedByte();
-						int next = s.readInt();
-						
+						int numNext = s.readInt();
+                        ArrayList<Integer> next = new ArrayList<Integer>();
+                        for(int i2=0; i2<numNext; i2++) {
+                            s.readUnsignedByte();
+                            next.add(s.readInt());
+                        }
 						s.readUnsignedByte();
 						String name = s.readStringASCII();
 						
@@ -484,7 +489,12 @@ public class CommandProcessor extends Query{
                         //System.out.println("maxDur=" + maxDur);
 
 						resp.content().readUnsignedByte();
-						int next = resp.content().readInt();
+						int numNext = resp.content().readInt();
+                        ArrayList<Integer> next = new ArrayList<Integer>();
+                        for(int i2=0; i2<numNext; i2++) {
+                            resp.content().readUnsignedByte();
+                            next.add(resp.content().readInt());
+                        }
                         //System.out.println("next=" + next);
 						
 						resp.content().readUnsignedByte();

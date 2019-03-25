@@ -75,8 +75,12 @@ TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inp
                             storage.writeDouble(phase.minDur);
                             storage.writeUnsignedByte(libsumo::TYPE_DOUBLE);
                             storage.writeDouble(phase.maxDur);
-                            storage.writeUnsignedByte(libsumo::TYPE_INTEGER);
-                            storage.writeInt(phase.next);
+                            storage.writeUnsignedByte(libsumo::TYPE_COMPOUND);
+                            storage.writeInt(phase.next.size());
+                            for (int n : phase.next) {
+                                storage.writeUnsignedByte(libsumo::TYPE_INTEGER);
+                                storage.writeInt(n);
+                            }
                             storage.writeUnsignedByte(libsumo::TYPE_STRING);
                             storage.writeString(phase.name);
                         }
@@ -279,7 +283,7 @@ TraCIServerAPI_TrafficLight::processSet(TraCIServer& server, tcpip::Storage& inp
                         return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "A phase compound object requires 5 or 6 items.", outputStorage);
                     }
                     double duration = 0., minDuration = 0., maxDuration = 0.;
-                    int next = -1;
+                    std::vector<int> next;
                     std::string name;
                     if (!server.readTypeCheckingDouble(inputStorage, duration)) {
                         return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "set program: 4.1. parameter (duration) must be a double.", outputStorage);
@@ -294,8 +298,18 @@ TraCIServerAPI_TrafficLight::processSet(TraCIServer& server, tcpip::Storage& inp
                     if (!server.readTypeCheckingDouble(inputStorage, maxDuration)) {
                         return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "set program: 4.4. parameter (max duration) must be a double.", outputStorage);
                     }
-                    if (!server.readTypeCheckingInt(inputStorage, next)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "set program: 4.5. parameter (next) must be an int.", outputStorage);
+                    auto tmp = inputStorage.readUnsignedByte();
+                    if (tmp != libsumo::TYPE_COMPOUND) {
+                        std::cout << " byte:" << tmp << "\n";
+                        return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "set program 4.5 parameter (next) must be a compound (list of ints).", outputStorage);
+                    }
+                    const int numNext = inputStorage.readInt();
+                    for (int k = 0; k < numNext; k++) { 
+                        int tmp;  
+                        if (!server.readTypeCheckingInt(inputStorage, tmp)) {
+                            return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "set program: 4.5. parameter (next) must be a list of int.", outputStorage);
+                        }
+                        next.push_back(tmp);
                     }
                     if (items == 6) {
                         if (!server.readTypeCheckingString(inputStorage, name)) {

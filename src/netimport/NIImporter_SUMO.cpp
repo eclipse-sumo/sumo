@@ -900,10 +900,10 @@ NIImporter_SUMO::addPhase(const SUMOSAXAttributes& attrs, NBLoadedSUMOTLDef* cur
     //  the minimum and maximum durations
     SUMOTime minDuration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MINDURATION, id.c_str(), ok, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
     SUMOTime maxDuration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MAXDURATION, id.c_str(), ok, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
-    int nextPhase = attrs.getOpt<int>(SUMO_ATTR_NEXT, nullptr, ok, -1);
+    std::vector<int> nextPhases = attrs.getOptIntVector(SUMO_ATTR_NEXT, nullptr, ok);
     const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, nullptr, ok, "");
     if (ok) {
-        currentTL->addPhase(duration, state, minDuration, maxDuration, nextPhase, name);
+        currentTL->addPhase(duration, state, minDuration, maxDuration, nextPhases, name);
     }
 }
 

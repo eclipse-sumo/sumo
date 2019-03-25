@@ -122,47 +122,55 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
         std::vector<bool> foundGreen(phases.front()->getState().size(), false);
         for (int i = 0; i < (int)phases.size(); ++i) {
             // warn about unused states
-            const int iNext = phases[i]->nextPhase < 0 ? (i + 1) % phases.size() : phases[i]->nextPhase;
-            if (iNext < 0 || iNext >= (int)phases.size()) {
-                throw ProcessError("Invalid nextPhase " + toString(iNext) + " in tlLogic '" + getID()
-                                   + "', program '" + getProgramID() + "' with " + toString(phases.size()) + " phases");
+            std::vector<int> nextPhases;
+            nextPhases.push_back((i + 1) % phases.size());
+            bool iNextDefault = true;
+            if (phases[i]->nextPhases.size() > 0) {
+                nextPhases = phases[i]->nextPhases;
+                iNextDefault = false;
             }
-            const std::string optionalFrom = phases[i]->nextPhase < 0 ? "" : " from phase " + toString(i);
-            const std::string& state1 = phases[i]->getState();
-            const std::string& state2 = phases[iNext]->getState();
-            assert(state1.size() == state2.size());
-            if (!haveWarnedAboutUnusedStates && state1.size() > myLanes.size() + myIgnoredIndices.size()) {
-                WRITE_WARNING("Unused states in tlLogic '" + getID()
-                              + "', program '" + getProgramID() + "' in phase " + toString(i)
-                              + " after tl-index " + toString((int)myLanes.size() - 1));
-                haveWarnedAboutUnusedStates = true;
-            }
-            // detect illegal states
-            const std::string::size_type illegal = state1.find_first_not_of(SUMOXMLDefinitions::ALLOWED_TLS_LINKSTATES);
-            if (std::string::npos != illegal) {
-                throw ProcessError("Illegal character '" + toString(state1[illegal]) + "' in tlLogic '" + getID()
-                                   + "', program '" + getProgramID() + "' in phase " + toString(i));
-            }
-            // warn about transitions from green to red without intermediate yellow
-            for (int j = 0; j < (int)MIN3(state1.size(), state2.size(), myLanes.size()); ++j) {
-                if ((LinkState)state2[j] == LINKSTATE_TL_RED
-                        && ((LinkState)state1[j] == LINKSTATE_TL_GREEN_MAJOR
-                            || (LinkState)state1[j] == LINKSTATE_TL_GREEN_MINOR)) {
-                    for (LaneVector::const_iterator it = myLanes[j].begin(); it != myLanes[j].end(); ++it) {
-                        if ((*it)->getPermissions() != SVC_PEDESTRIAN) {
-                            WRITE_WARNING("Missing yellow phase in tlLogic '" + getID()
-                                          + "', program '" + getProgramID() + "' for tl-index " + toString(j)
-                                          + " when switching" + optionalFrom + " to phase " + toString(iNext));
-                            return; // one warning per program is enough
+            for (int iNext : nextPhases) {
+                if (iNext < 0 || iNext >= (int)phases.size()) {
+                    throw ProcessError("Invalid nextPhase " + toString(iNext) + " in tlLogic '" + getID()
+                            + "', program '" + getProgramID() + "' with " + toString(phases.size()) + " phases");
+                }
+                const std::string optionalFrom = iNextDefault ? "" : " from phase " + toString(i);
+                const std::string& state1 = phases[i]->getState();
+                const std::string& state2 = phases[iNext]->getState();
+                assert(state1.size() == state2.size());
+                if (!haveWarnedAboutUnusedStates && state1.size() > myLanes.size() + myIgnoredIndices.size()) {
+                    WRITE_WARNING("Unused states in tlLogic '" + getID()
+                            + "', program '" + getProgramID() + "' in phase " + toString(i)
+                            + " after tl-index " + toString((int)myLanes.size() - 1));
+                    haveWarnedAboutUnusedStates = true;
+                }
+                // detect illegal states
+                const std::string::size_type illegal = state1.find_first_not_of(SUMOXMLDefinitions::ALLOWED_TLS_LINKSTATES);
+                if (std::string::npos != illegal) {
+                    throw ProcessError("Illegal character '" + toString(state1[illegal]) + "' in tlLogic '" + getID()
+                            + "', program '" + getProgramID() + "' in phase " + toString(i));
+                }
+                // warn about transitions from green to red without intermediate yellow
+                for (int j = 0; j < (int)MIN3(state1.size(), state2.size(), myLanes.size()); ++j) {
+                    if ((LinkState)state2[j] == LINKSTATE_TL_RED
+                            && ((LinkState)state1[j] == LINKSTATE_TL_GREEN_MAJOR
+                                || (LinkState)state1[j] == LINKSTATE_TL_GREEN_MINOR)) {
+                        for (LaneVector::const_iterator it = myLanes[j].begin(); it != myLanes[j].end(); ++it) {
+                            if ((*it)->getPermissions() != SVC_PEDESTRIAN) {
+                                WRITE_WARNING("Missing yellow phase in tlLogic '" + getID()
+                                        + "', program '" + getProgramID() + "' for tl-index " + toString(j)
+                                        + " when switching" + optionalFrom + " to phase " + toString(iNext));
+                                return; // one warning per program is enough
+                            }
                         }
                     }
                 }
-            }
-            // warn about links that never get the green light
-            for (int j = 0; j < (int)state1.size(); ++j) {
-                LinkState ls = (LinkState)state1[j];
-                if (ls == LINKSTATE_TL_GREEN_MAJOR || ls == LINKSTATE_TL_GREEN_MINOR) {
-                    foundGreen[j] = true;
+                // warn about links that never get the green light
+                for (int j = 0; j < (int)state1.size(); ++j) {
+                    LinkState ls = (LinkState)state1[j];
+                    if (ls == LINKSTATE_TL_GREEN_MAJOR || ls == LINKSTATE_TL_GREEN_MINOR) {
+                        foundGreen[j] = true;
+                    }
                 }
             }
         }

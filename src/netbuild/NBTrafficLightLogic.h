@@ -65,8 +65,8 @@ public:
         /// @brief The state definition
         std::string state;
 
-        /// @brief next phase index or -1
-        int next;
+        /// @brief next phase indices or empty list
+        std::vector<int> next;
         /// @brief option phase name
         std::string name;
 
@@ -74,7 +74,7 @@ public:
          * @param[in] durationArg The duration of the phase
          * @param[in] stateArg Signals per link
          */
-        PhaseDefinition(SUMOTime durationArg, const std::string& stateArg, SUMOTime minDurArg, SUMOTime maxDurArg, int nextArg, const std::string& nameArg) :
+        PhaseDefinition(SUMOTime durationArg, const std::string& stateArg, SUMOTime minDurArg, SUMOTime maxDurArg, const std::vector<int>& nextArg, const std::string& nameArg) :
             duration(durationArg),
             minDur(minDurArg),
             maxDur(maxDurArg),
@@ -135,8 +135,10 @@ public:
      * @note: the length of the state has to match the number of links
      *        and the length given in previous calls to addStep (throws ProcessError)
      */
-    void addStep(SUMOTime duration, const std::string& state, int next = -1, const std::string& name = "", int index = -1);
-    void addStep(SUMOTime duration, const std::string& state, SUMOTime minDur, SUMOTime maxDur, int next = -1, const std::string& name = "", int index = -1);
+    void addStep(SUMOTime duration, const std::string& state, 
+            const std::vector<int>& next = std::vector<int>(), const std::string& name = "", int index = -1);
+    void addStep(SUMOTime duration, const std::string& state, SUMOTime minDur, SUMOTime maxDur, 
+            const std::vector<int>& next = std::vector<int>(), const std::string& name = "", int index = -1);
 
 
     /** @brief Modifies the state for an existing phase (used by NETEDIT)
@@ -153,7 +155,7 @@ public:
     void setPhaseDuration(int phaseIndex, SUMOTime duration);
     void setPhaseMinDuration(int phaseIndex, SUMOTime duration);
     void setPhaseMaxDuration(int phaseIndex, SUMOTime duration);
-    void setPhaseNext(int phaseIndex, int next);
+    void setPhaseNext(int phaseIndex, const std::vector<int>& next);
     void setPhaseName(int phaseIndex, const std::string& name);
 
     /* @brief deletes the phase at the given index

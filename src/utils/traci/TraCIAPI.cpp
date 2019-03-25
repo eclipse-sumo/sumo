@@ -1796,7 +1796,12 @@ TraCIAPI::TrafficLightScope::getCompleteRedYellowGreenDefinition(const std::stri
                 myParent.myInput.readUnsignedByte();
                 const double maxDur = myParent.myInput.readDouble();
                 myParent.myInput.readUnsignedByte();
-                const int next = myParent.myInput.readInt();
+                const int numNext = myParent.myInput.readInt();
+                std::vector<int> next;
+                for (int k = 0; k < numNext; k++) {
+                    myParent.myInput.readUnsignedByte();
+                    next.push_back(myParent.myInput.readInt());
+                }
                 myParent.myInput.readUnsignedByte();
                 const std::string name = myParent.myInput.readString();
                 logic.phases.emplace_back(libsumo::TraCIPhase(duration, state, minDur, maxDur, next, name));
@@ -1942,8 +1947,12 @@ TraCIAPI::TrafficLightScope::setCompleteRedYellowGreenDefinition(const std::stri
         content.writeDouble(p.minDur);
         content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
         content.writeDouble(p.maxDur);
-        content.writeUnsignedByte(libsumo::TYPE_INTEGER);
-        content.writeInt(p.next);
+        content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
+        content.writeInt(p.next.size());
+        for (int n : p.next) {
+            content.writeUnsignedByte(libsumo::TYPE_INTEGER);
+            content.writeInt(n);
+        }
         content.writeUnsignedByte(libsumo::TYPE_STRING);
         content.writeString(p.name);
     }

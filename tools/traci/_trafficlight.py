@@ -22,7 +22,7 @@ from .exceptions import TraCIException
 
 class Phase:
 
-    def __init__(self, duration, state, minDur=-1, maxDur=-1, next=-1, name=""):
+    def __init__(self, duration, state, minDur=-1, maxDur=-1, next=tuple(), name=""):
         self.duration = duration
         self.state = state
         self.minDur = minDur  # minimum duration (only for actuated tls)
@@ -81,7 +81,8 @@ def _readLogics(result):
             state = result.readTypedString()
             minDur = result.readTypedDouble()
             maxDur = result.readTypedDouble()
-            next = result.readTypedInt()
+            numNext = result.readCompound()
+            next = tuple([result.readTypedInt() for ___ in range(numNext)])
             name = result.readTypedString()
             logic.phases.append(Phase(duration, state, minDur, maxDur, next, name))
         numParams = result.readCompound()
@@ -272,7 +273,10 @@ class TrafficLightDomain(Domain):
         length = 1 + 4 + 1 + 4 + \
             len(tls.programID) + 1 + 4 + 1 + 4 + 1 + 4  # tls parameter
         for p in tls.phases:
-            length += 1 + 4 + 1 + 8 + 1 + 4 + len(p.state) + 1 + 8 + 1 + 8 + 1 + 4 + 1 + 4 + len(p.name)
+            length += (1 + 4 + 1 + 8 + 1 + 4 + len(p.state) 
+                    + 1 + 8 + 1 + 8  # minDur, maxDur
+                    + 1 + 4 + len(p.next) * (1 + 4)
+                    + 1 + 4 + len(p.name))
         length += 1 + 4  # subparams
         for k, v in tls.subParameter.items():
             length += 1 + 4 + 4 + len(k) + 4 + len(v)
@@ -286,8 +290,10 @@ class TrafficLightDomain(Domain):
         for p in tls.phases:
             self._connection._string += struct.pack("!BiBd", tc.TYPE_COMPOUND, 6, tc.TYPE_DOUBLE, p.duration)
             self._connection._packString(p.state)
-            self._connection._string += struct.pack("!BdBdBi", tc.TYPE_DOUBLE, p.minDur, tc.TYPE_DOUBLE, p.maxDur,
-                                                    tc.TYPE_INTEGER, p.next)
+            self._connection._string += struct.pack("!BdBd", tc.TYPE_DOUBLE, p.minDur, tc.TYPE_DOUBLE, p.maxDur)
+            self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, len(p.next))
+            for n in p.next:
+                self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, n)
             self._connection._packString(p.name)
         # subparams
         self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, len(tls.subParameter))

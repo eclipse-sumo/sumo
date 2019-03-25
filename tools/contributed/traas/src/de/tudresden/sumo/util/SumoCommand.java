@@ -20,6 +20,7 @@
 package de.tudresden.sumo.util;
 
 import java.util.LinkedList;
+import java.util.Map;
 
 import de.tudresden.sumo.config.Constants;
 import de.tudresden.ws.container.SumoColor;
@@ -323,26 +324,33 @@ public class SumoCommand {
 		
 			SumoTLSProgram stl = (SumoTLSProgram) input;
 			cmd.content().writeUnsignedByte(Constants.TYPE_COMPOUND);
-			cmd.content().writeInt(stl.phases.size());	
+			cmd.content().writeInt(5);	
 		
 			cmd.content().writeUnsignedByte(Constants.TYPE_STRING);
 			cmd.content().writeStringASCII(stl.subID);	
 			
 			cmd.content().writeUnsignedByte(Constants.TYPE_INTEGER);
-			cmd.content().writeInt(0);
-			
-			cmd.content().writeUnsignedByte(Constants.TYPE_COMPOUND);
-			cmd.content().writeInt(0);	
-		
+			cmd.content().writeInt(stl.type);
+
 			cmd.content().writeUnsignedByte(Constants.TYPE_INTEGER);
 			cmd.content().writeInt(stl.currentPhaseIndex);
 			
-			cmd.content().writeUnsignedByte(Constants.TYPE_INTEGER);
-			cmd.content().writeInt(stl.phases.size());
-		
+			cmd.content().writeUnsignedByte(Constants.TYPE_COMPOUND);
+			cmd.content().writeInt(stl.phases.size());	
+
 			for(SumoTLSPhase phase : stl.phases){
 				add_variable(phase);
 			}
+		
+			cmd.content().writeUnsignedByte(Constants.TYPE_COMPOUND);
+			cmd.content().writeInt(stl.params.size());	
+            for (Map.Entry<String, String> entry : stl.params.entrySet()) {
+                SumoStringList keyValue = new SumoStringList();
+                keyValue.add(entry.getKey());
+                keyValue.add(entry.getValue());
+                cmd.content().writeUnsignedByte(Constants.TYPE_STRINGLIST);
+                add_variable(keyValue);
+            }
 			
 		
 		}else{
@@ -503,7 +511,8 @@ public class SumoCommand {
 		}else if(input.getClass().equals(SumoTLSPhase.class)){
 			
 			SumoTLSPhase stp = (SumoTLSPhase) input;
-			
+			this.cmd.content().writeUnsignedByte(Constants.TYPE_COMPOUND);
+			cmd.content().writeInt(6);
 			this.cmd.content().writeUnsignedByte(Constants.TYPE_DOUBLE);
 			cmd.content().writeDouble(stp.duration);
 			this.cmd.content().writeUnsignedByte(Constants.TYPE_STRING);
@@ -512,8 +521,12 @@ public class SumoCommand {
 			cmd.content().writeDouble(stp.minDur);
 			this.cmd.content().writeUnsignedByte(Constants.TYPE_DOUBLE);
 			cmd.content().writeDouble(stp.maxDur);
-			this.cmd.content().writeUnsignedByte(Constants.TYPE_INTEGER);
-			cmd.content().writeInt(stp.next);
+			this.cmd.content().writeUnsignedByte(Constants.TYPE_COMPOUND);
+			cmd.content().writeInt(stp.next.size());
+            for (int n : stp.next) {
+                this.cmd.content().writeUnsignedByte(Constants.TYPE_INTEGER);
+                cmd.content().writeInt(n);
+            }
 			this.cmd.content().writeUnsignedByte(Constants.TYPE_STRING);
 			cmd.content().writeStringASCII(stp.name);
 			

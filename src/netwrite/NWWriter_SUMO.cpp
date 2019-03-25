@@ -907,7 +907,7 @@ NWWriter_SUMO::writeTrafficLights(OutputDevice& into, const NBTrafficLightLogicC
             if (j->name != "") {
                 into.writeAttr(SUMO_ATTR_NAME, j->name);
             }
-            if (j->next != -1) {
+            if (j->next.size() > 0) {
                 into.writeAttr(SUMO_ATTR_NEXT, j->next);
             }
             into.closeTag();

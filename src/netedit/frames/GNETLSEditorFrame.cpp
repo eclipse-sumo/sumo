@@ -504,7 +504,7 @@ GNETLSEditorFrame::onCmdPhaseCreate(FXObject*, FXSelector, void*) {
         }
     }
 
-    myEditedDef->getLogic()->addStep(duration, state, -1, "", newIndex);
+    myEditedDef->getLogic()->addStep(duration, state, std::vector<int>(), "", newIndex);
     myTLSPhases->getPhaseTable()->setCurrentItem(newIndex, 0);
     myTLSPhases->initPhaseTable(newIndex);
     myTLSPhases->getPhaseTable()->setFocus();
@@ -617,20 +617,23 @@ GNETLSEditorFrame::onCmdPhaseEdit(FXObject*, FXSelector, void* ptr) {
         }
     } else if (tp->col == colNext) {
         // next edited
-        if (GNEAttributeCarrier::canParse<int>(value.text())) {
-            int next = GNEAttributeCarrier::parse<int>(value.text());
-            if (next == -1 || next < myTLSPhases->getPhaseTable()->getNumRows()) {
-                myEditedDef->getLogic()->setPhaseNext(tp->row, next);
+        bool ok = true;
+        if (GNEAttributeCarrier::canParse<std::vector<int> >(value.text())) {
+            std::vector<int> next = GNEAttributeCarrier::parse<std::vector<int> >(value.text());
+            for (int n : next) {
+                if (n < 0 || n >= myTLSPhases->getPhaseTable()->getNumRows()) {
+                    ok = false;
+                    break;
+                }
             }
-            myTLSModifications->setHaveModifications(true);
-            return 1;
-        } else if (StringUtils::prune(value.text()).empty()) {
-            myEditedDef->getLogic()->setPhaseNext(tp->row, -1);
-            myTLSModifications->setHaveModifications(true);
-            return 1;
+            if (ok) {
+                myEditedDef->getLogic()->setPhaseNext(tp->row, next);
+                myTLSModifications->setHaveModifications(true);
+                return 1;
+            }
         }
         // input error, reset value
-        myTLSPhases->getPhaseTable()->setItemText(tp->row, colNext, varDurString(getPhases()[tp->row].maxDur).c_str());
+        myTLSPhases->getPhaseTable()->setItemText(tp->row, colNext, "");
     } else if (tp->col == colName) {
         // name edited
         myEditedDef->getLogic()->setPhaseName(tp->row, value.text());
@@ -1072,7 +1075,7 @@ GNETLSEditorFrame::TLSPhases::initPhaseTable(int index) {
                 myPhaseTable->setItemText(row, colMaxDur, varDurString(phases[row].maxDur).c_str());
             }
             myPhaseTable->setItemText(row, colState, phases[row].state.c_str());
-            myPhaseTable->setItemText(row, colNext, phases[row].next >= 0 ? toString(phases[row].next).c_str() : " ");
+            myPhaseTable->setItemText(row, colNext, phases[row].next.size() > 0 ? toString(phases[row].next).c_str() : " ");
             myPhaseTable->setItemText(row, colName, phases[row].name.c_str());
             myPhaseTable->getItem(row, 1)->setJustify(FXTableItem::LEFT);
         }

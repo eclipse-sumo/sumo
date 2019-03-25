@@ -173,7 +173,7 @@ public:
      * @todo min/max is used only by one junction type. Recheck
      * @todo min/max: maybe only one type of a phase definition should be built
      */
-    void addPhase(SUMOTime duration, const std::string& state, int nextPhase,
+    void addPhase(SUMOTime duration, const std::string& state, const std::vector<int>& nextPhases,
                   SUMOTime min, SUMOTime max, const std::string& name);
 
     /** @brief Adds a phase to the currently built traffic lights logic
@@ -186,7 +186,7 @@ public:
      * @param[in] commit Specifies if this is a commit phase
      * @param[in] targetLanes A reference to the vector containing targeted sensor lanes for this phase, given by lane id
      */
-    void addPhase(SUMOTime duration, const std::string& state, int nextPhase, SUMOTime minDuration, SUMOTime maxDuration, const std::string& name, bool transient_notdecisional, bool commit, MSPhaseDefinition::LaneIdVector* targetLanes = nullptr);
+    void addPhase(SUMOTime duration, const std::string& state, const std::vector<int>& nextPhases, SUMOTime minDuration, SUMOTime maxDuration, const std::string& name, bool transient_notdecisional, bool commit, MSPhaseDefinition::LaneIdVector* targetLanes = nullptr);
 
 
     /** @brief Returns a previously build tls logic

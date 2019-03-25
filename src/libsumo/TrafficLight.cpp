@@ -69,7 +69,9 @@ TrafficLight::getCompleteRedYellowGreenDefinition(const std::string& tlsID) {
         TraCILogic l(logic->getProgramID(), (int)logic->getLogicType(), logic->getCurrentPhaseIndex());
         l.subParameter = logic->getParametersMap();
         for (const MSPhaseDefinition* const phase : logic->getPhases()) {
-            l.phases.emplace_back(TraCIPhase(STEPS2TIME(phase->duration), phase->getState(), STEPS2TIME(phase->minDuration), STEPS2TIME(phase->maxDuration), phase->getNextPhase(), phase->getName()));
+            l.phases.emplace_back(TraCIPhase(STEPS2TIME(phase->duration), phase->getState(), 
+                        STEPS2TIME(phase->minDuration), STEPS2TIME(phase->maxDuration), 
+                        phase->getNextPhases(), phase->getName()));
         }
         result.emplace_back(l);
     }

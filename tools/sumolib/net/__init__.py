@@ -88,7 +88,7 @@ class TLS:
 
 class Phase:
 
-    def __init__(self, duration, state, minDur=-1, maxDur=-1, next=-1, name=""):
+    def __init__(self, duration, state, minDur=-1, maxDur=-1, next=[], name=""):
         self.duration = duration
         self.state = state
         self.minDur = minDur  # minimum duration (only for actuated tls)
@@ -98,7 +98,7 @@ class Phase:
 
     def __repr__(self):
         name = "" if self.name == "" else ", name='%s'" % self.name
-        next = "" if self.next == "" else ", next='%s'" % self.next
+        next = "" if len(self.next) == 0 else ", next='%s'" % self.next
         return ("Phase(duration=%s, state='%s', minDur=%s, maxDur=%s%s%s" %
                 (self.duration, self.state, self.minDur, self.maxDur, name, next))
 
@@ -112,7 +112,7 @@ class TLSProgram:
         self._phases = []
         self._params = {}
 
-    def addPhase(self, state, duration, minDur=-1, maxDur=-1, next=-1, name=""):
+    def addPhase(self, state, duration, minDur=-1, maxDur=-1, next=[], name=""):
         self._phases.append(Phase(duration, state, minDur, maxDur, next, name))
 
     def toXML(self, tlsID):
@@ -122,7 +122,7 @@ class TLSProgram:
             minDur = '' if p.minDur < 0 else ' minDur="%s"' % p.minDur
             maxDur = '' if p.maxDur < 0 else ' maxDur="%s"' % p.maxDur
             name = '' if p.name == '' else ' name="%s"' % p.name
-            next = '' if p.next < 0 else ' next="%s"' % p.next
+            next = '' if len(p.next) == 0 else ' next="%s"' % ' '.join(map(str, p.next))
             ret += '    <phase duration="%s" state="%s"%s%s%s%s/>\n' % (
                 p.duration, p.state, minDur, maxDur, name, next)
         ret += '  </tlLogic>\n'
@@ -658,7 +658,7 @@ class NetReader(handler.ContentHandler):
                 attrs['state'], int(attrs['duration']),
                 int(attrs['minDur']) if 'minDur' in attrs else -1,
                 int(attrs['maxDur']) if 'maxDur' in attrs else -1,
-                int(attrs['next']) if 'next' in attrs else -1,
+                map(int, attrs['next'].split()) if 'next' in attrs else [],
                 attrs['name'] if 'name' in attrs else ""
             )
         if name == 'roundabout':

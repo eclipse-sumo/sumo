@@ -67,7 +67,7 @@ NBTrafficLightLogic::NBTrafficLightLogic(const NBTrafficLightLogic* logic) :
 NBTrafficLightLogic::~NBTrafficLightLogic() {}
 
 void
-NBTrafficLightLogic::addStep(SUMOTime duration, const std::string& state, int next, const std::string& name, int index) {
+NBTrafficLightLogic::addStep(SUMOTime duration, const std::string& state, const std::vector<int>& next, const std::string& name, int index) {
     addStep(duration, state,
             NBTrafficLightDefinition::UNSPECIFIED_DURATION,
             NBTrafficLightDefinition::UNSPECIFIED_DURATION,
@@ -75,7 +75,7 @@ NBTrafficLightLogic::addStep(SUMOTime duration, const std::string& state, int ne
 }
 
 void
-NBTrafficLightLogic::addStep(SUMOTime duration, const std::string& state, SUMOTime minDur, SUMOTime maxDur, int next, const std::string& name, int index) {
+NBTrafficLightLogic::addStep(SUMOTime duration, const std::string& state, SUMOTime minDur, SUMOTime maxDur, const std::vector<int>& next, const std::string& name, int index) {
     // check state size
     if (myNumLinks == 0) {
         // initialize
@@ -212,7 +212,7 @@ NBTrafficLightLogic::setPhaseMaxDuration(int phaseIndex, SUMOTime duration) {
 }
 
 void
-NBTrafficLightLogic::setPhaseNext(int phaseIndex, int next) {
+NBTrafficLightLogic::setPhaseNext(int phaseIndex, const std::vector<int>& next) {
     assert(phaseIndex < (int)myPhases.size());
     myPhases[phaseIndex].next = next;
 }

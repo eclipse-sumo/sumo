@@ -18,6 +18,7 @@
 //
 /****************************************************************************/
 package de.tudresden.ws.container;
+import java.util.ArrayList;
 
 /**
  * 
@@ -31,7 +32,7 @@ public class SumoTLSPhase implements SumoObject {
 	public double minDur;
 	public double maxDur;
 	public String phasedef;
-	public int next;
+	public ArrayList<Integer> next;
 	public String name;
 	
 	public SumoTLSPhase(){
@@ -41,11 +42,11 @@ public class SumoTLSPhase implements SumoObject {
 		this.maxDur = 0;
 		this.phasedef = "r";
         this.name = "";
-        this.next = -1;
+        this.next = new ArrayList<Integer>();
 		
 	}
 	
-	public SumoTLSPhase(double duration, double minDur, double maxDur, String phasedef, int next, String name){
+	public SumoTLSPhase(double duration, double minDur, double maxDur, String phasedef, ArrayList<Integer> next, String name){
 		
 		this.duration = duration;
 		this.minDur = minDur;
@@ -63,7 +64,7 @@ public class SumoTLSPhase implements SumoObject {
 		this.maxDur = duration;
 		this.phasedef = phasedef;
         this.name = "";
-        this.next = -1;
+        this.next = new ArrayList<Integer>();
 		
 	}
 	

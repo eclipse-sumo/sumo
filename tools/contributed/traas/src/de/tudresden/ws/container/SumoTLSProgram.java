@@ -19,7 +19,7 @@
 /****************************************************************************/
 package de.tudresden.ws.container;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -33,7 +33,7 @@ public class SumoTLSProgram implements SumoObject {
 	public String subID;
 	public int type;
 	public int currentPhaseIndex;
-	public LinkedList<SumoTLSPhase> phases;
+	public ArrayList<SumoTLSPhase> phases;
     public HashMap<String, String> params;
 		
 	public SumoTLSProgram(){
@@ -41,7 +41,7 @@ public class SumoTLSProgram implements SumoObject {
 		this.subID = "unknown";
 		this.type = -1;
 		this.currentPhaseIndex = -1;
-		this.phases = new LinkedList<SumoTLSPhase>();
+		this.phases = new ArrayList<SumoTLSPhase>();
 		this.params = new HashMap<String, String>();
 	}
 	
@@ -50,7 +50,7 @@ public class SumoTLSProgram implements SumoObject {
 		this.subID = subID;
 		this.type = type;
 		this.currentPhaseIndex = currentPhaseIndex;
-		this.phases = new LinkedList<SumoTLSPhase>();
+		this.phases = new ArrayList<SumoTLSPhase>();
 		this.params = new HashMap<String, String>();
 		
 	}
