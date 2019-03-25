@@ -61,6 +61,9 @@ validate_intermediate
 period_positive
 all_fringe_network
 flows
+
+# create flows for jtrrouter (no to)
+flows_jtrrouter
 flows_binomial
 
 # load the vehicle type to use during routing from an additional file

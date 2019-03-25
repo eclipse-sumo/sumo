@@ -102,6 +102,8 @@ def get_options(args=None):
                          default=0, help="generates the given number of intermediate way points")
     optParser.add_option("--flows", type="int",
                          default=0, help="generates INT flows that together output vehicles with the specified period")
+    optParser.add_option("--jtrrouter", action="store_true",
+                         default=False, help="Create flows without destination as input for jtrrouter")
     optParser.add_option("--maxtries", type="int",
                          default=100, help="number of attemps for finding a trip which meets the distance constraints")
     optParser.add_option("--binomial", type="int", metavar="N",
@@ -137,6 +139,10 @@ def get_options(args=None):
 
     if options.period <= 0:
         print("Error: Period must be positive", file=sys.stderr)
+        sys.exit(1)
+
+    if options.jtrrouter and options.flows <= 0:
+        print("Error: Option --jtrrouter must be used with option --flows", file=sys.stderr)
         sys.exit(1)
 
     if options.vehicle_class:
@@ -428,17 +434,17 @@ def main(options):
                         '        <walk from="%s" to="%s"%s/>\n' % (source_edge.getID(), sink_edge.getID(), otherattrs))
                 fouttrips.write('    </person>\n')
             elif options.flows > 0:
+                to = '' if options.jtrrouter else ' to="%s"' % sink_edge.getID()
                 if options.binomial:
                     for j in range(options.binomial):
                         fouttrips.write(('    <flow id="%s#%s" begin="%s" end="%s" probability="%s" ' +
-                                         'from="%s" to="%s"%s%s/>\n') % (
+                                         'from="%s"%s%s%s/>\n') % (
                             label, j, options.begin, options.end, 1.0 / options.period / options.binomial,
-                            source_edge.getID(), sink_edge.getID(), via, combined_attrs))
+                            source_edge.getID(), to, via, combined_attrs))
                 else:
-                    fouttrips.write(('    <flow id="%s" begin="%s" end="%s" period="%s" from="%s" ' +
-                                     'to="%s"%s%s/>\n') % (
+                    fouttrips.write(('    <flow id="%s" begin="%s" end="%s" period="%s" from="%s"%s%s%s/>\n') % (
                         label, options.begin, options.end, options.period * options.flows, source_edge.getID(),
-                        sink_edge.getID(), via, combined_attrs))
+                        to, via, combined_attrs))
             else:
                 fouttrips.write('    <trip id="%s" depart="%.2f" from="%s" to="%s"%s%s/>\n' % (
                     label, depart, source_edge.getID(), sink_edge.getID(), via, combined_attrs))
