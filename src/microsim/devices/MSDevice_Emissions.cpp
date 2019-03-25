@@ -66,7 +66,7 @@ MSDevice_Emissions::~MSDevice_Emissions() {
 
 
 bool
-MSDevice_Emissions::notifyMove(SUMOVehicle& veh, double /*oldPos*/, double /*newPos*/, double newSpeed) {
+MSDevice_Emissions::notifyMove(SUMOTrafficObject& veh, double /*oldPos*/, double /*newPos*/, double newSpeed) {
     const SUMOEmissionClass c = veh.getVehicleType().getEmissionClass();
     const double a = veh.getAcceleration();
     const double slope = veh.getSlope();

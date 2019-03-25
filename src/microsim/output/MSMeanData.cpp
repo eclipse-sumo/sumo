@@ -70,7 +70,7 @@ MSMeanData::MeanDataValues::~MeanDataValues() {
 
 
 bool
-MSMeanData::MeanDataValues::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane) {
+MSMeanData::MeanDataValues::notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane) {
 #ifdef DEBUG_NOTIFY_ENTER
     std::cout << "\n" << SIMTIME << " MSMeanData_Net::MSLaneMeanDataValues: veh '" << veh.getID() << "' enters lane '" << enteredLane->getID() << "'" << std::endl;
 #else
@@ -82,7 +82,7 @@ MSMeanData::MeanDataValues::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notifi
 
 
 bool
-MSMeanData::MeanDataValues::notifyMove(SUMOVehicle& veh, double oldPos, double newPos, double newSpeed) {
+MSMeanData::MeanDataValues::notifyMove(SUMOTrafficObject& veh, double oldPos, double newPos, double newSpeed) {
     // if the vehicle has arrived, the reminder must be kept so it can be
     // notified of the arrival subsequently
     const double oldSpeed = veh.getPreviousSpeed();
@@ -252,7 +252,7 @@ MSMeanData::MeanDataValues::notifyMove(SUMOVehicle& veh, double oldPos, double n
 
 
 bool
-MSMeanData::MeanDataValues::notifyLeave(SUMOVehicle& /*veh*/, double /*lastPos*/, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
+MSMeanData::MeanDataValues::notifyLeave(SUMOTrafficObject& /*veh*/, double /*lastPos*/, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
     if (MSGlobals::gUseMesoSim) {
         return false; // reminder is re-added on every segment (@recheck for performance)
     }
@@ -297,7 +297,7 @@ MSMeanData::MeanDataValueTracker::~MeanDataValueTracker() {
     // FIXME: myTrackedData may still hold some undeleted TrackerEntries. When to delete those? (Leo), refers to #2251
     // code below fails
 
-//	std::map<SUMOVehicle*, TrackerEntry*>::iterator j;
+//	std::map<SUMOTrafficObject*, TrackerEntry*>::iterator j;
 //	for(j=myTrackedData.begin(); j!=myTrackedData.end();j++){
 //		delete j->second;
 //	}
@@ -323,13 +323,13 @@ MSMeanData::MeanDataValueTracker::addTo(MSMeanData::MeanDataValues& val) const {
 
 
 void
-MSMeanData::MeanDataValueTracker::notifyMoveInternal(const SUMOVehicle& veh, const double frontOnLane, const double timeOnLane, const double meanSpeedFrontOnLane, const double meanSpeedVehicleOnLane, const double travelledDistanceFrontOnLane, const double travelledDistanceVehicleOnLane, const double meanLengthOnLane) {
+MSMeanData::MeanDataValueTracker::notifyMoveInternal(const SUMOTrafficObject& veh, const double frontOnLane, const double timeOnLane, const double meanSpeedFrontOnLane, const double meanSpeedVehicleOnLane, const double travelledDistanceFrontOnLane, const double travelledDistanceVehicleOnLane, const double meanLengthOnLane) {
     myTrackedData[&veh]->myValues->notifyMoveInternal(veh, frontOnLane, timeOnLane, meanSpeedFrontOnLane, meanSpeedVehicleOnLane, travelledDistanceFrontOnLane, travelledDistanceVehicleOnLane, meanLengthOnLane);
 }
 
 
 bool
-MSMeanData::MeanDataValueTracker::notifyLeave(SUMOVehicle& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
+MSMeanData::MeanDataValueTracker::notifyLeave(SUMOTrafficObject& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
     if (myParent == nullptr || reason != MSMoveReminder::NOTIFICATION_SEGMENT) {
         myTrackedData[&veh]->myNumVehicleLeft++;
     }
@@ -338,7 +338,7 @@ MSMeanData::MeanDataValueTracker::notifyLeave(SUMOVehicle& veh, double lastPos, 
 
 
 bool
-MSMeanData::MeanDataValueTracker::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane) {
+MSMeanData::MeanDataValueTracker::notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane) {
 #ifdef DEBUG_NOTIFY_ENTER
     std::cout << "\n" << SIMTIME << " MSMeanData::MeanDataValueTracker: veh '" << veh.getID() << "' enters lane '" << enteredLane->getID() << "'" << std::endl;
 #else

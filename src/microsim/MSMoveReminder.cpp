@@ -41,7 +41,7 @@ MSMoveReminder::MSMoveReminder(const std::string& description, MSLane* const lan
 
 
 void
-MSMoveReminder::updateDetector(SUMOVehicle& veh, double entryPos, double leavePos,
+MSMoveReminder::updateDetector(SUMOTrafficObject& veh, double entryPos, double leavePos,
                                SUMOTime entryTime, SUMOTime currentTime, SUMOTime leaveTime,
                                bool cleanUp) {
     // each vehicle is tracked linearly across its segment. For each vehicle,
@@ -50,7 +50,7 @@ MSMoveReminder::updateDetector(SUMOVehicle& veh, double entryPos, double leavePo
     if (entryTime > currentTime) {
         return; // calibrator may insert vehicles a tiny bit into the future; ignore those
     }
-    std::map<SUMOVehicle*, std::pair<SUMOTime, double> >::iterator j = myLastVehicleUpdateValues.find(&veh);
+    auto j = myLastVehicleUpdateValues.find(&veh);
     if (j != myLastVehicleUpdateValues.end()) {
         // the vehicle already has reported its values before; use these
         // however, if this was called from prepareDetectorForWriting the time
@@ -84,7 +84,7 @@ MSMoveReminder::updateDetector(SUMOVehicle& veh, double entryPos, double leavePo
 
 
 void
-MSMoveReminder::removeFromVehicleUpdateValues(SUMOVehicle& veh) {
+MSMoveReminder::removeFromVehicleUpdateValues(SUMOTrafficObject& veh) {
     myLastVehicleUpdateValues.erase(&veh);
 }
 /****************************************************************************/

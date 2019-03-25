@@ -35,6 +35,7 @@
 // class declarations
 // ===========================================================================
 class SUMOVehicle;
+class SUMOTrafficObject;
 
 
 // ===========================================================================
@@ -94,7 +95,7 @@ public:
      * @see MSMoveReminder::notifyEnter
      * @see MSMoveReminder::Notification
      */
-    bool notifyEnter(SUMOVehicle& veh, Notification reason, const MSLane* enteredLane = 0);
+    bool notifyEnter(SUMOTrafficObject& veh, Notification reason, const MSLane* enteredLane = 0);
 
 
     /** @brief Checks whether the reminder still has to be notified about the vehicle moves
@@ -110,7 +111,7 @@ public:
      *
      * @return True if vehicle hasn't passed the reminder completely.
      */
-    bool notifyMove(SUMOVehicle& veh, double oldPos, double newPos, double newSpeed);
+    bool notifyMove(SUMOTrafficObject& veh, double oldPos, double newPos, double newSpeed);
 
 
     /** @brief Moves (the known) vehicle from running to arrived vehicles' list
@@ -123,7 +124,7 @@ public:
      * @see MSMoveReminder
      * @see MSMoveReminder::notifyLeave
      */
-    bool notifyLeave(SUMOVehicle& veh, double lastPos, Notification reason, const MSLane* enteredLane = 0);
+    bool notifyLeave(SUMOTrafficObject& veh, double lastPos, Notification reason, const MSLane* enteredLane = 0);
     /// @}
 
     /// @brief return the name for this type of device

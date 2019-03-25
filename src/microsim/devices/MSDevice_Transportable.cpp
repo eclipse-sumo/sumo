@@ -60,7 +60,7 @@ MSDevice_Transportable::~MSDevice_Transportable() {
 }
 
 void
-MSDevice_Transportable::notifyMoveInternal(const SUMOVehicle& veh,
+MSDevice_Transportable::notifyMoveInternal(const SUMOTrafficObject& veh,
         const double /* frontOnLane */,
         const double /* timeOnLane*/,
         const double /* meanSpeedFrontOnLane */,
@@ -68,12 +68,12 @@ MSDevice_Transportable::notifyMoveInternal(const SUMOVehicle& veh,
         const double /* travelledDistanceFrontOnLane */,
         const double /* travelledDistanceVehicleOnLane */,
         const double /* meanLengthOnLane */) {
-    notifyMove(const_cast<SUMOVehicle&>(veh), -1, -1, -1);
+    notifyMove(const_cast<SUMOTrafficObject&>(veh), -1, -1, -1);
 }
 
 
 bool
-MSDevice_Transportable::notifyMove(SUMOVehicle& veh, double /*oldPos*/, double /*newPos*/, double /*newSpeed*/) {
+MSDevice_Transportable::notifyMove(SUMOTrafficObject& veh, double /*oldPos*/, double /*newPos*/, double /*newSpeed*/) {
     if (myStopped) {
         if (!veh.isStopped()) {
             for (std::vector<MSTransportable*>::iterator i = myTransportables.begin(); i != myTransportables.end(); ++i) {
@@ -94,10 +94,11 @@ MSDevice_Transportable::notifyMove(SUMOVehicle& veh, double /*oldPos*/, double /
                         }
                     }
                     if (MSStopOut::active()) {
+                        SUMOVehicle* vehicle = dynamic_cast<SUMOVehicle*>(&veh);
                         if (myAmContainer) {
-                            MSStopOut::getInstance()->unloadedContainers(&veh, 1);
+                            MSStopOut::getInstance()->unloadedContainers(vehicle, 1);
                         } else {
-                            MSStopOut::getInstance()->unloadedPersons(&veh, 1);
+                            MSStopOut::getInstance()->unloadedPersons(vehicle, 1);
                         }
                     }
                     i = myTransportables.erase(i);
@@ -113,7 +114,7 @@ MSDevice_Transportable::notifyMove(SUMOVehicle& veh, double /*oldPos*/, double /
 
 
 bool
-MSDevice_Transportable::notifyEnter(SUMOVehicle& /*veh*/, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
+MSDevice_Transportable::notifyEnter(SUMOTrafficObject& /*veh*/, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
     if (reason == MSMoveReminder::NOTIFICATION_DEPARTED) {
         for (std::vector<MSTransportable*>::iterator i = myTransportables.begin(); i != myTransportables.end(); ++i) {
             (*i)->setDeparted(MSNet::getInstance()->getCurrentTimeStep());
@@ -124,7 +125,7 @@ MSDevice_Transportable::notifyEnter(SUMOVehicle& /*veh*/, MSMoveReminder::Notifi
 
 
 bool
-MSDevice_Transportable::notifyLeave(SUMOVehicle& veh, double /*lastPos*/,
+MSDevice_Transportable::notifyLeave(SUMOTrafficObject& veh, double /*lastPos*/,
                                     MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
     if (reason >= MSMoveReminder::NOTIFICATION_ARRIVED) {
         for (std::vector<MSTransportable*>::iterator i = myTransportables.begin(); i != myTransportables.end(); ++i) {

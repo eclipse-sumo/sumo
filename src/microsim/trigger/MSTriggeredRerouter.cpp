@@ -343,21 +343,25 @@ MSTriggeredRerouter::getCurrentReroute(SUMOTime time) const {
 
 
 bool
-MSTriggeredRerouter::notifyMove(SUMOVehicle& veh, double /*oldPos*/,
+MSTriggeredRerouter::notifyMove(SUMOTrafficObject& veh, double /*oldPos*/,
                                 double /*newPos*/, double /*newSpeed*/) {
     return notifyEnter(veh, NOTIFICATION_JUNCTION);
 }
 
 
 bool
-MSTriggeredRerouter::notifyLeave(SUMOVehicle& /*veh*/, double /*lastPos*/,
+MSTriggeredRerouter::notifyLeave(SUMOTrafficObject& /*veh*/, double /*lastPos*/,
                                  MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
     return reason == NOTIFICATION_LANE_CHANGE;
 }
 
 
 bool
-MSTriggeredRerouter::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification /*reason*/, const MSLane* /* enteredLane */) {
+MSTriggeredRerouter::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Notification /*reason*/, const MSLane* /* enteredLane */) {
+    if (!tObject.isVehicle()) {
+        return false;
+    }
+    SUMOVehicle& veh = static_cast<SUMOVehicle&>(tObject);
     if (!vehicleApplies(veh)) {
         return false;
     }

@@ -118,7 +118,7 @@ MSDevice_Bluelight::~MSDevice_Bluelight() {
 
 
 bool
-MSDevice_Bluelight::notifyMove(SUMOVehicle& veh, double /* oldPos */,
+MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
                                double /* newPos */, double newSpeed) {
 #ifdef DEBUG_BLUELIGHT
     std::cout << "device '" << getID() << "' notifyMove: newSpeed=" << newSpeed << "\n";
@@ -193,7 +193,7 @@ MSDevice_Bluelight::notifyMove(SUMOVehicle& veh, double /* oldPos */,
 
 
 bool
-MSDevice_Bluelight::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
+MSDevice_Bluelight::notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
 #ifdef DEBUG_BLUELIGHT
     std::cout << "device '" << getID() << "' notifyEnter: reason=" << reason << " currentEdge=" << veh.getEdge()->getID() << "\n";
 #else
@@ -205,7 +205,7 @@ MSDevice_Bluelight::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification r
 
 
 bool
-MSDevice_Bluelight::notifyLeave(SUMOVehicle& veh, double /*lastPos*/, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
+MSDevice_Bluelight::notifyLeave(SUMOTrafficObject& veh, double /*lastPos*/, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
 #ifdef DEBUG_BLUELIGHT
     std::cout << "device '" << getID() << "' notifyLeave: reason=" << reason << " currentEdge=" << veh.getEdge()->getID() << "\n";
 #else

@@ -597,8 +597,12 @@ MSE2Collector::getLanes() {
 
 
 bool
-MSE2Collector::notifyMove(SUMOVehicle& veh, double oldPos,
+MSE2Collector::notifyMove(SUMOTrafficObject& tObject, double oldPos,
                           double newPos, double newSpeed) {
+    if (!tObject.isVehicle()) {
+        return false;
+    }
+    SUMOVehicle& veh = static_cast<SUMOVehicle&>(tObject);
     VehicleInfoMap::iterator vi = myVehicleInfos.find(veh.getID());
     assert(vi != myVehicleInfos.end()); // all vehicles calling notifyMove() should have called notifyEnter() before
 
@@ -649,8 +653,8 @@ MSE2Collector::notifyMove(SUMOVehicle& veh, double oldPos,
         std::cout << "Vehicle entered lane behind detector." << std::endl;
     }
 #endif
-} else {
-    myMoveNotifications.push_back(makeMoveNotification(veh, oldPos, newPos, newSpeed, vehInfo));
+    } else {
+        myMoveNotifications.push_back(makeMoveNotification(veh, oldPos, newPos, newSpeed, vehInfo));
     }
 
 
@@ -660,8 +664,8 @@ MSE2Collector::notifyMove(SUMOVehicle& veh, double oldPos,
         std::cout << "Vehicle has left the detector longitudinally." << std::endl;
     }
 #endif
-    // Vehicle is beyond the detector, unsubscribe and register removal from myVehicleInfos
-    myLeftVehicles.insert(vehID);
+        // Vehicle is beyond the detector, unsubscribe and register removal from myVehicleInfos
+        myLeftVehicles.insert(vehID);
         return false;
     } else {
         // Receive further notifications
@@ -670,7 +674,7 @@ MSE2Collector::notifyMove(SUMOVehicle& veh, double oldPos,
 }
 
 bool
-MSE2Collector::notifyLeave(SUMOVehicle& veh, double /* lastPos */, MSMoveReminder::Notification reason, const MSLane* enteredLane) {
+MSE2Collector::notifyLeave(SUMOTrafficObject& veh, double /* lastPos */, MSMoveReminder::Notification reason, const MSLane* enteredLane) {
 #ifdef DEBUG_E2_NOTIFY_ENTER_AND_LEAVE
     if DEBUG_COND {
     std::cout << "\n" << SIMTIME << " notifyLeave() (detID = " << myID << "on lane '" << myLane->getID() << "')"
@@ -720,7 +724,11 @@ MSE2Collector::notifyLeave(SUMOVehicle& veh, double /* lastPos */, MSMoveReminde
 
 
 bool
-MSE2Collector::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane) {
+MSE2Collector::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Notification reason, const MSLane* enteredLane) {
+    if (!tObject.isVehicle()) {
+        return false;
+    }
+    SUMOVehicle& veh = static_cast<SUMOVehicle&>(tObject);
 #ifdef DEBUG_E2_NOTIFY_ENTER_AND_LEAVE
     if DEBUG_COND {
     std::cout << std::endl << SIMTIME << " notifyEnter() (detID = " << myID << " on lane '" << myLane->getID() << "')"
@@ -1023,11 +1031,13 @@ MSE2Collector::makeMoveNotification(const SUMOVehicle& veh, double oldPos, doubl
               << " vehInfo.entryOffset = " << vehInfo.entryOffset
               << " distToExit = " << distToExit
               << std::endl;
-}
+    }
 #endif
 
 /* Store new infos */
-return new MoveNotificationInfo(veh.getID(), oldPos, newPos, newSpeed, veh.getAcceleration(), myDetectorLength - (vehInfo.entryOffset + newPos), timeOnDetector, lengthOnDetector, timeLoss, stillOnDetector);
+    return new MoveNotificationInfo(veh.getID(), oldPos, newPos, newSpeed, veh.getAcceleration(),
+            myDetectorLength - (vehInfo.entryOffset + newPos),
+            timeOnDetector, lengthOnDetector, timeLoss, stillOnDetector);
 }
 
 void

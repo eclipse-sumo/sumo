@@ -36,13 +36,14 @@
 #include <microsim/MSMoveReminder.h>
 #include <microsim/output/MSDetectorFileOutput.h>
 #include <utils/common/UtilExceptions.h>
-#include <utils/vehicle/SUMOVehicle.h>
 #include <cassert>
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 class OutputDevice;
+class SUMOVehicle;
+class SUMOTrafficObject;
 
 
 // ===========================================================================
@@ -288,7 +289,7 @@ public:
      * @see MSMoveReminder
      * @see MSMoveReminder::notifyMove
      */
-    virtual bool notifyMove(SUMOVehicle& veh, double oldPos, double newPos,
+    virtual bool notifyMove(SUMOTrafficObject& veh, double oldPos, double newPos,
                             double newSpeed);
 
 
@@ -303,7 +304,7 @@ public:
      * @param[in] isLaneChange whether the vehicle changed from the lane
      * @see MSMoveReminder::notifyLeave
      */
-    virtual bool notifyLeave(SUMOVehicle& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
+    virtual bool notifyLeave(SUMOTrafficObject& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
 
 
     /** @brief Adds the vehicle to known vehicles if not beyond the dector
@@ -318,7 +319,7 @@ public:
      * @see MSMoveReminder::notifyEnter
      * @see MSMoveReminder::Notification
      */
-    virtual bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane);
+    virtual bool notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane);
     /// @}
 
 

@@ -39,7 +39,7 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class SUMOVehicle;
+class SUMOTrafficObject;
 class OutputDevice;
 
 
@@ -83,7 +83,7 @@ public:
          * @return True if vehicle enters the reminder.
          * @see Notification
          */
-        bool notifyEnter(SUMOVehicle& veh, Notification reason, const MSLane* enteredLane);
+        bool notifyEnter(SUMOTrafficObject& veh, Notification reason, const MSLane* enteredLane);
 
         /** @brief Checks whether the vehicle enters
          *
@@ -100,7 +100,7 @@ public:
          * @see MSMoveReminder::notifyMove
          * @see MSE3Collector::enter
          */
-        bool notifyMove(SUMOVehicle& veh, double, double newPos, double);
+        bool notifyMove(SUMOTrafficObject& veh, double, double newPos, double);
 
 
         /** @brief Processes state changes of a vehicle
@@ -113,7 +113,7 @@ public:
         * @param[in] reason The reason for the state change
         * @see MSMoveReminder::notifyLeave
         */
-        bool notifyLeave(SUMOVehicle& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
+        bool notifyLeave(SUMOTrafficObject& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
         /// @}
 
 
@@ -161,7 +161,7 @@ public:
          * @return True if vehicle enters the reminder.
          * @see Notification
          */
-        bool notifyEnter(SUMOVehicle& veh, Notification reason, const MSLane* enteredLane);
+        bool notifyEnter(SUMOTrafficObject& veh, Notification reason, const MSLane* enteredLane);
 
         /** @brief Checks whether the vehicle leaves
          *
@@ -178,7 +178,7 @@ public:
          * @see MSMoveReminder::notifyMove
          * @see MSE3Collector::leave
          */
-        bool notifyMove(SUMOVehicle& veh, double oldPos, double newPos, double);
+        bool notifyMove(SUMOTrafficObject& veh, double oldPos, double newPos, double);
 
         /** @brief Processes state changes of a vehicle
         *
@@ -189,7 +189,7 @@ public:
         * @param[in] reason The reason for the state change
         * @see MSMoveReminder::notifyLeave
         */
-        bool notifyLeave(SUMOVehicle& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
+        bool notifyLeave(SUMOTrafficObject& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
         //@}
 
 
@@ -244,7 +244,7 @@ public:
      *  @param[in] entryTimestep The time in seconds the vehicle entered the area
      *  @param[in] fractionTimeOnDet The interpolated time in seconds the vehicle already spent on the detector
      */
-    void enter(const SUMOVehicle& veh, const double entryTimestep, const double fractionTimeOnDet, MSE3EntryReminder* entryReminder);
+    void enter(const SUMOTrafficObject& veh, const double entryTimestep, const double fractionTimeOnDet, MSE3EntryReminder* entryReminder);
 
 
     /** @brief Called if a vehicle front passes a leave-cross-section.
@@ -252,7 +252,7 @@ public:
     *  @param[in] veh The vehicle that left the area
     *  @param[in] leaveTimestep The time in seconds the vehicle started crossing the line
     */
-    void leaveFront(const SUMOVehicle& veh, const double leaveTimestep);
+    void leaveFront(const SUMOTrafficObject& veh, const double leaveTimestep);
 
 
     /** @brief Called if a vehicle back passes a leave-cross-section.
@@ -263,7 +263,7 @@ public:
     *  @param[in] leaveTimestep The time in seconds the vehicle left the area
     *  @param[in] fractionTimeOnDet The interpolated time in seconds the vehicle still spent on the detector
     */
-    void leave(const SUMOVehicle& veh, const double leaveTimestep, const double fractionTimeOnDet);
+    void leave(const SUMOTrafficObject& veh, const double leaveTimestep, const double fractionTimeOnDet);
 
 
     /// @name Methods returning current values
@@ -395,7 +395,7 @@ protected:
     };
 
     /// @brief Container for vehicles that have entered the area
-    std::map<const SUMOVehicle*, E3Values> myEnteredContainer;
+    std::map<const SUMOTrafficObject*, E3Values> myEnteredContainer;
 
     /// @brief Container for vehicles that have left the area
     std::vector<E3Values> myLeftContainer;

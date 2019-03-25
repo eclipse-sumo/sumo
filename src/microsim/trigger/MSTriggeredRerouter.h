@@ -126,7 +126,7 @@ public:
      * @see MSMoveReminder::notifyEnter
      * @see MSMoveReminder::Notification
      */
-    bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
+    bool notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
 
     /// @name Methods called on vehicle movement / state change, overwriting MSDevice
     /// @{
@@ -139,7 +139,7 @@ public:
      * @param[in] newSpeed Moving speed.
      * @return True (always).
      */
-    bool notifyMove(SUMOVehicle& veh, double oldPos, double newPos, double newSpeed);
+    bool notifyMove(SUMOTrafficObject& veh, double oldPos, double newPos, double newSpeed);
 
     /** @brief Removes the reminder
      *
@@ -149,7 +149,7 @@ public:
      * @param[in] isLaneChange whether the vehicle changed from the lane
      * @return false if the vehicle left th edge
      */
-    bool notifyLeave(SUMOVehicle& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
+    bool notifyLeave(SUMOTrafficObject& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
 
     /// Returns the rerouting definition valid for the given time and vehicle, 0 if none
     const RerouteInterval* getCurrentReroute(SUMOTime time, SUMOVehicle& veh) const;

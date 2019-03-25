@@ -37,6 +37,7 @@
 // class declarations
 // ===========================================================================
 class SUMOVehicle;
+class SUMOTrafficObject;
 
 
 // ===========================================================================
@@ -370,7 +371,7 @@ public:
      *
      * @return Always true to keep the device as it cannot be thrown away
      */
-    bool notifyMove(SUMOVehicle& veh, double oldPos,
+    bool notifyMove(SUMOTrafficObject& veh, double oldPos,
                     double newPos, double newSpeed);
 
 
@@ -383,7 +384,7 @@ public:
      * @see MSMoveReminder::notifyEnter
      * @see MSMoveReminder::Notification
      */
-    bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
+    bool notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
 
 
     /** @brief Called whenever the holder leaves a lane
@@ -394,7 +395,7 @@ public:
      * @param[in] enteredLane The lane entered.
      * @return True if it did not leave the net.
      */
-    bool notifyLeave(SUMOVehicle& veh, double lastPos,
+    bool notifyLeave(SUMOTrafficObject& veh, double lastPos,
                      MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
     /// @}
 

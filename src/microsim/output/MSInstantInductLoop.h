@@ -38,6 +38,7 @@
 class MSLane;
 class MSVehicle;
 class OutputDevice;
+class SUMOTrafficObject;
 
 
 // ===========================================================================
@@ -90,7 +91,7 @@ public:
      * @see enterDetectorByMove
      * @see leaveDetectorByMove
      */
-    bool notifyMove(SUMOVehicle& veh, double oldPos, double newPos, double newSpeed);
+    bool notifyMove(SUMOTrafficObject& veh, double oldPos, double newPos, double newSpeed);
 
 
     /** @brief Dismisses the vehicle if it is on the detector due to a lane change
@@ -107,7 +108,7 @@ public:
      * @see MSMoveReminder
      * @see MSMoveReminder::notifyLeave
      */
-    bool notifyLeave(SUMOVehicle& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
+    bool notifyLeave(SUMOTrafficObject& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
     //@}
 
 
@@ -149,7 +150,7 @@ protected:
      * @param[in] add An optional attribute to report
      * @param[in] addValue The value of the optional attribute
      */
-    void write(const char* state, double t, SUMOVehicle& veh, double speed, const char* add = 0, double addValue = -1);
+    void write(const char* state, double t, SUMOTrafficObject& veh, double speed, const char* add = 0, double addValue = -1);
 
 
 protected:
@@ -163,7 +164,7 @@ protected:
     double myLastExitTime;
 
     /// @brief The last exit time
-    std::map<SUMOVehicle*, double> myEntryTimes;
+    std::map<SUMOTrafficObject*, double> myEntryTimes;
 
 private:
     /// @brief Invalidated copy constructor.

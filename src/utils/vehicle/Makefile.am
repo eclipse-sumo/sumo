@@ -1,6 +1,7 @@
 noinst_LIBRARIES = libvehicle.a
 
 libvehicle_a_SOURCES = SUMOVehicle.h \
+SUMOTrafficObject.h \
 SUMORouteHandler.cpp SUMORouteHandler.h \
 SUMORouteLoader.cpp SUMORouteLoader.h \
 SUMORouteLoaderControl.cpp SUMORouteLoaderControl.h \

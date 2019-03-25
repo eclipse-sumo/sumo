@@ -33,7 +33,7 @@
 #include <utils/common/SUMOTime.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/iodevices/OutputDevice.h>
-#include <utils/vehicle/SUMOVehicle.h>
+#include <utils/vehicle/SUMOTrafficObject.h>
 #include <microsim/MSVehicleType.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSNet.h>
@@ -138,7 +138,7 @@ public:
     * @param[in] veh the vehicle of which the type is checked.
     * @return whether it should be measured
     */
-    bool vehicleApplies(const SUMOVehicle& veh) const {
+    bool vehicleApplies(const SUMOTrafficObject& veh) const {
         if (myVehicleTypes.empty() || myVehicleTypes.count(veh.getVehicleType().getID()) > 0) {
             return true;
         } else {

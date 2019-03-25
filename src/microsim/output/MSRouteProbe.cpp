@@ -68,13 +68,16 @@ MSRouteProbe::~MSRouteProbe() {
 
 
 bool
-MSRouteProbe::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
+MSRouteProbe::notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
     if (!vehicleApplies(veh)) {
         return false;
     }
     if (reason != MSMoveReminder::NOTIFICATION_SEGMENT && reason != MSMoveReminder::NOTIFICATION_LANE_CHANGE) {
-        if (myCurrentRouteDistribution.second->add(&veh.getRoute(), 1.)) {
-            veh.getRoute().addReference();
+        SUMOVehicle* vehicle = dynamic_cast<SUMOVehicle*>(&veh);
+        if (vehicle != nullptr) {
+            if (myCurrentRouteDistribution.second->add(&vehicle->getRoute(), 1.)) {
+                vehicle->getRoute().addReference();
+            }
         }
     }
     return false;

@@ -91,7 +91,11 @@ MSDevice_Battery::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevic
 }
 
 
-bool MSDevice_Battery::notifyMove(SUMOVehicle& veh, double /* oldPos */, double /* newPos */, double /* newSpeed */) {
+bool MSDevice_Battery::notifyMove(SUMOTrafficObject& tObject, double /* oldPos */, double /* newPos */, double /* newSpeed */) {
+    if (!tObject.isVehicle()) {
+        return false;
+    }
+    SUMOVehicle& veh = static_cast<SUMOVehicle&>(tObject);
     // Start vehicleStoppedTimer if the vehicle is stopped. In other case reset timer
     if (veh.getSpeed() < myStoppingTreshold) {
         // Increase vehicle stopped timer

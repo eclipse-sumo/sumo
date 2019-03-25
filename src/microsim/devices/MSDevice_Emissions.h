@@ -95,7 +95,7 @@ public:
         * @see MSMoveReminder::notifyMove
         * @see PollutantsInterface
         */
-    bool notifyMove(SUMOVehicle& veh, double oldPos, double newPos, double newSpeed);
+    bool notifyMove(SUMOTrafficObject& veh, double oldPos, double newPos, double newSpeed);
     /// @}
 
     /// @brief return the name for this type of device

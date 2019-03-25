@@ -510,7 +510,7 @@ public:
      * @param[in] The vehicle to return the adapted speed limit for
      * @return This lane's resulting max. speed
      */
-    inline double getVehicleMaxSpeed(const SUMOVehicle* const veh) const {
+    inline double getVehicleMaxSpeed(const SUMOTrafficObject* const veh) const {
         if (myRestrictions != 0) {
             std::map<SUMOVehicleClass, double>::const_iterator r = myRestrictions->find(veh->getVClass());
             if (r != myRestrictions->end()) {

@@ -59,7 +59,7 @@ MSInstantInductLoop::~MSInstantInductLoop() {
 
 
 bool
-MSInstantInductLoop::notifyMove(SUMOVehicle& veh, double oldPos,
+MSInstantInductLoop::notifyMove(SUMOTrafficObject& veh, double oldPos,
                                 double newPos, double newSpeed) {
     if (!vehicleApplies(veh)) {
         return false;
@@ -86,7 +86,7 @@ MSInstantInductLoop::notifyMove(SUMOVehicle& veh, double oldPos,
     const double newBackPos = newPos - veh.getVehicleType().getLength();
     const double oldBackPos = oldPos - veh.getVehicleType().getLength();
     if (newBackPos > myPosition) {
-        std::map<SUMOVehicle*, double>::iterator i = myEntryTimes.find(&veh);
+        std::map<SUMOTrafficObject*, double>::iterator i = myEntryTimes.find(&veh);
         if (i != myEntryTimes.end()) {
             // vehicle passed the detector
             const double timeBeforeLeave = MSCFModel::passingTime(oldBackPos, myPosition, newBackPos, oldSpeed, newSpeed);
@@ -104,7 +104,7 @@ MSInstantInductLoop::notifyMove(SUMOVehicle& veh, double oldPos,
 
 
 void
-MSInstantInductLoop::write(const char* state, double t, SUMOVehicle& veh, double speed, const char* add, double addValue) {
+MSInstantInductLoop::write(const char* state, double t, SUMOTrafficObject& veh, double speed, const char* add, double addValue) {
     myOutputDevice.openTag("instantOut").writeAttr(
         "id", getID()).writeAttr("time", toString(t)).writeAttr("state", state).writeAttr(
             "vehID", veh.getID()).writeAttr("speed", toString(speed)).writeAttr(
@@ -118,13 +118,13 @@ MSInstantInductLoop::write(const char* state, double t, SUMOVehicle& veh, double
 
 
 bool
-MSInstantInductLoop::notifyLeave(SUMOVehicle& veh, double /* lastPos */, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
+MSInstantInductLoop::notifyLeave(SUMOTrafficObject& veh, double /* lastPos */, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
     if (reason == MSMoveReminder::NOTIFICATION_JUNCTION) {
         // vehicle might have jumped over detector at the end of the lane. we need
         // one more notifyMove to register it
         return true;
     }
-    std::map<SUMOVehicle*, double>::iterator i = myEntryTimes.find(&veh);
+    std::map<SUMOTrafficObject*, double>::iterator i = myEntryTimes.find(&veh);
     if (i != myEntryTimes.end()) {
         write("leave", SIMTIME, veh, veh.getSpeed());
         myEntryTimes.erase(i);

@@ -39,7 +39,7 @@
 class OutputDevice;
 class MSEdge;
 class MSLane;
-class SUMOVehicle;
+class SUMOTrafficObject;
 
 typedef std::vector<MSEdge*> MSEdgeVector;
 
@@ -94,7 +94,7 @@ public:
          * @see MSMoveReminder::notifyEnter
          * @see MSMoveReminder::Notification
          */
-        virtual bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
+        virtual bool notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
 
 
         /** @brief Checks whether the reminder still has to be notified about the vehicle moves
@@ -110,7 +110,7 @@ public:
          *
          * @return True if vehicle hasn't passed the reminder completely.
          */
-        bool notifyMove(SUMOVehicle& veh, double oldPos,
+        bool notifyMove(SUMOTrafficObject& veh, double oldPos,
                         double newPos, double newSpeed);
 
 
@@ -122,7 +122,7 @@ public:
          * @see MSMoveReminder
          * @see MSMoveReminder::notifyLeave
          */
-        virtual bool notifyLeave(SUMOVehicle& veh, double lastPos,
+        virtual bool notifyLeave(SUMOTrafficObject& veh, double lastPos,
                                  MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
 
 
@@ -208,7 +208,7 @@ public:
         /** @brief Internal notification about the vehicle moves
          *  @see MSMoveReminder::notifyMoveInternal().
          */
-        void notifyMoveInternal(const SUMOVehicle& veh, const double frontOnLane, const double timeOnLane, const double meanSpeedFrontOnLane, const double meanSpeedVehicleOnLane, const double travelledDistanceFrontOnLane, const double travelledDistanceVehicleOnLane, const double meanLengthOnLane);
+        void notifyMoveInternal(const SUMOTrafficObject& veh, const double frontOnLane, const double timeOnLane, const double meanSpeedFrontOnLane, const double meanSpeedVehicleOnLane, const double travelledDistanceFrontOnLane, const double travelledDistanceVehicleOnLane, const double meanLengthOnLane);
 
 
         /** @brief Called if the vehicle leaves the reminder's lane
@@ -220,7 +220,7 @@ public:
          * @see MSMoveReminder
          * @see MSMoveReminder::notifyLeave
          */
-        bool notifyLeave(SUMOVehicle& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
+        bool notifyLeave(SUMOTrafficObject& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
 
 
         /** @brief Computes current values and adds them to their sums
@@ -234,7 +234,7 @@ public:
          * @see MSMoveReminder::notifyEnter
          * @return Always true
          */
-        bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
+        bool notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
         //@}
 
         bool isEmpty() const;
@@ -279,7 +279,7 @@ public:
         };
 
         /// @brief The map of vehicles to data entries
-        std::map<const SUMOVehicle*, TrackerEntry*> myTrackedData;
+        std::map<const SUMOTrafficObject*, TrackerEntry*> myTrackedData;
 
         /// @brief The currently active meandata "intervals"
         std::list<TrackerEntry*> myCurrentData;

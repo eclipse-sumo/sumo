@@ -37,6 +37,7 @@
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/geom/Boundary.h>
 #include <utils/vehicle/SUMOVehicle.h>
+#include <utils/vehicle/SUMOTrafficObject.h>
 #include "MSNet.h"
 
 
@@ -589,7 +590,7 @@ public:
      * @caution Only the first lane is considered
      * @return The maximum velocity on this edge for the given vehicle
      */
-    double getVehicleMaxSpeed(const SUMOVehicle* const veh) const;
+    double getVehicleMaxSpeed(const SUMOTrafficObject* const veh) const;
 
 
     virtual void addPerson(MSTransportable* p) const {

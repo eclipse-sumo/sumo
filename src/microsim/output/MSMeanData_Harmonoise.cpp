@@ -75,7 +75,7 @@ MSMeanData_Harmonoise::MSLaneMeanDataValues::update() {
 
 
 void
-MSMeanData_Harmonoise::MSLaneMeanDataValues::notifyMoveInternal(const SUMOVehicle& veh, const double /* frontOnLane */, const double timeOnLane, const double /*meanSpeedFrontOnLane*/, const double meanSpeedVehicleOnLane, const double /*travelledDistanceFrontOnLane*/, const double travelledDistanceVehicleOnLane, const double /* meanLengthOnLane */) {
+MSMeanData_Harmonoise::MSLaneMeanDataValues::notifyMoveInternal(const SUMOTrafficObject& veh, const double /* frontOnLane */, const double timeOnLane, const double /*meanSpeedFrontOnLane*/, const double meanSpeedVehicleOnLane, const double /*travelledDistanceFrontOnLane*/, const double travelledDistanceVehicleOnLane, const double /* meanLengthOnLane */) {
     const double sn = HelpersHarmonoise::computeNoise(veh.getVehicleType().getEmissionClass(),
                       // XXX: recheck, which value to use here for the speed. (Leo) Refs. #2579
                       (double) meanSpeedVehicleOnLane, veh.getAcceleration());

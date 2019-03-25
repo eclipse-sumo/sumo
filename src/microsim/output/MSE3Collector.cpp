@@ -56,7 +56,7 @@ MSE3Collector::MSE3EntryReminder::MSE3EntryReminder(
 
 
 bool
-MSE3Collector::MSE3EntryReminder::notifyEnter(SUMOVehicle& veh, Notification reason, const MSLane* enteredLane) {
+MSE3Collector::MSE3EntryReminder::notifyEnter(SUMOTrafficObject& veh, Notification reason, const MSLane* enteredLane) {
 #ifdef DEBUG_E3_NOTIFY_ENTER
     if (DEBUG_COND(myCollector) && DEBUG_COND_VEH(veh)) {
         std::cout << SIMTIME
@@ -88,7 +88,7 @@ MSE3Collector::MSE3EntryReminder::notifyEnter(SUMOVehicle& veh, Notification rea
 
 
 bool
-MSE3Collector::MSE3EntryReminder::notifyMove(SUMOVehicle& veh, double oldPos,
+MSE3Collector::MSE3EntryReminder::notifyMove(SUMOTrafficObject& veh, double oldPos,
         double newPos, double newSpeed) {
 #ifdef DEBUG_E3_NOTIFY_MOVE
     if (DEBUG_COND(myCollector) && DEBUG_COND_VEH(veh)) {
@@ -129,7 +129,7 @@ MSE3Collector::MSE3EntryReminder::notifyMove(SUMOVehicle& veh, double oldPos,
 
 
 bool
-MSE3Collector::MSE3EntryReminder::notifyLeave(SUMOVehicle& veh, double, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
+MSE3Collector::MSE3EntryReminder::notifyLeave(SUMOTrafficObject& veh, double, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
 #ifdef DEBUG_E3_NOTIFY_LEAVE
     if (DEBUG_COND(myCollector) && DEBUG_COND_VEH(veh)) {
         std::cout << SIMTIME
@@ -159,7 +159,7 @@ MSE3Collector::MSE3LeaveReminder::MSE3LeaveReminder(
 
 
 bool
-MSE3Collector::MSE3LeaveReminder::notifyEnter(SUMOVehicle& veh, Notification reason, const MSLane* enteredLane) {
+MSE3Collector::MSE3LeaveReminder::notifyEnter(SUMOTrafficObject& veh, Notification reason, const MSLane* enteredLane) {
 #ifdef DEBUG_E3_NOTIFY_ENTER
     if (DEBUG_COND(myCollector) && DEBUG_COND_VEH(veh)) {
         std::cout << SIMTIME
@@ -188,7 +188,7 @@ MSE3Collector::MSE3LeaveReminder::notifyEnter(SUMOVehicle& veh, Notification rea
 
 
 bool
-MSE3Collector::MSE3LeaveReminder::notifyMove(SUMOVehicle& veh, double oldPos,
+MSE3Collector::MSE3LeaveReminder::notifyMove(SUMOTrafficObject& veh, double oldPos,
         double newPos, double newSpeed) {
 #ifdef DEBUG_E3_NOTIFY_MOVE
     if (DEBUG_COND(myCollector) && DEBUG_COND_VEH(veh)) {
@@ -238,7 +238,7 @@ MSE3Collector::MSE3LeaveReminder::notifyMove(SUMOVehicle& veh, double oldPos,
 
 
 bool
-MSE3Collector::MSE3LeaveReminder::notifyLeave(SUMOVehicle&  veh, double /* lastPos */, MSMoveReminder::Notification reason, const MSLane* enteredLane) {
+MSE3Collector::MSE3LeaveReminder::notifyLeave(SUMOTrafficObject&  veh, double /* lastPos */, MSMoveReminder::Notification reason, const MSLane* enteredLane) {
 #ifdef DEBUG_E3_NOTIFY_LEAVE
     if (DEBUG_COND(myCollector) && DEBUG_COND_VEH(veh)) {
         std::cout << SIMTIME
@@ -314,7 +314,7 @@ MSE3Collector::reset() {
 
 
 void
-MSE3Collector::enter(const SUMOVehicle& veh, const double entryTimestep, const double fractionTimeOnDet, MSE3EntryReminder* entryReminder) {
+MSE3Collector::enter(const SUMOTrafficObject& veh, const double entryTimestep, const double fractionTimeOnDet, MSE3EntryReminder* entryReminder) {
     if (!vehicleApplies(veh)) {
         return;
     }
@@ -349,7 +349,7 @@ MSE3Collector::enter(const SUMOVehicle& veh, const double entryTimestep, const d
 
 
 void
-MSE3Collector::leaveFront(const SUMOVehicle& veh, const double leaveTimestep) {
+MSE3Collector::leaveFront(const SUMOTrafficObject& veh, const double leaveTimestep) {
     if (!vehicleApplies(veh)) {
         return;
     }
@@ -364,7 +364,7 @@ MSE3Collector::leaveFront(const SUMOVehicle& veh, const double leaveTimestep) {
 
 
 void
-MSE3Collector::leave(const SUMOVehicle& veh, const double leaveTimestep, const double fractionTimeOnDet) {
+MSE3Collector::leave(const SUMOTrafficObject& veh, const double leaveTimestep, const double fractionTimeOnDet) {
     if (!vehicleApplies(veh)) {
         return;
     }
@@ -427,7 +427,7 @@ MSE3Collector::writeXMLOutput(OutputDevice& dev,
     double meanIntervalHaltsPerVehicleWithin = 0.;
     double meanIntervalDurationWithin = 0.;
     double meanTimeLossWithin = 0.;
-    for (std::map<const SUMOVehicle*, E3Values>::iterator i = myEnteredContainer.begin(); i != myEnteredContainer.end(); ++i) {
+    for (std::map<const SUMOTrafficObject*, E3Values>::iterator i = myEnteredContainer.begin(); i != myEnteredContainer.end(); ++i) {
         meanHaltsPerVehicleWithin += (double)(*i).second.haltings;
         meanIntervalHaltsPerVehicleWithin += (double)(*i).second.intervalHaltings;
         const double end = (*i).second.backLeaveTime == 0 ? STEPS2TIME(stopTime) : (*i).second.backLeaveTime;
@@ -489,8 +489,8 @@ void
 MSE3Collector::detectorUpdate(const SUMOTime step) {
     myCurrentMeanSpeed = 0;
     myCurrentHaltingsNumber = 0;
-    for (std::map<const SUMOVehicle*, E3Values>::iterator pair = myEnteredContainer.begin(); pair != myEnteredContainer.end(); ++pair) {
-        const SUMOVehicle* veh = pair->first;
+    for (std::map<const SUMOTrafficObject*, E3Values>::iterator pair = myEnteredContainer.begin(); pair != myEnteredContainer.end(); ++pair) {
+        const SUMOTrafficObject* veh = pair->first;
 #ifdef DEBUG_E3_DETECTORUPDATE
         //if (DEBUG_COND(*this) && DEBUG_COND_VEH(*veh)) {
         if (DEBUG_COND(*this)) {
@@ -547,7 +547,7 @@ MSE3Collector::getVehiclesWithin() const {
 std::vector<std::string>
 MSE3Collector::getCurrentVehicleIDs() const {
     std::vector<std::string> ret;
-    for (std::map<const SUMOVehicle*, E3Values>::const_iterator pair = myEnteredContainer.begin(); pair != myEnteredContainer.end(); ++pair) {
+    for (std::map<const SUMOTrafficObject*, E3Values>::const_iterator pair = myEnteredContainer.begin(); pair != myEnteredContainer.end(); ++pair) {
         ret.push_back((*pair).first->getID());
     }
     std::sort(ret.begin(), ret.end());

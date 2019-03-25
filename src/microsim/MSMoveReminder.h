@@ -36,7 +36,7 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class SUMOVehicle;
+class SUMOTrafficObject;
 class MSLane;
 
 
@@ -125,7 +125,7 @@ public:
      * @return True if vehicle enters the reminder.
      * @see Notification
      */
-    virtual bool notifyEnter(SUMOVehicle& veh, Notification reason, const MSLane* enteredLane) {
+    virtual bool notifyEnter(SUMOTrafficObject& veh, Notification reason, const MSLane* enteredLane) {
         UNUSED_PARAMETER(reason);
         UNUSED_PARAMETER(&veh);
         UNUSED_PARAMETER(&enteredLane);
@@ -146,7 +146,7 @@ public:
      *
      * @return True if vehicle hasn't passed the reminder completely.
      */
-    virtual bool notifyMove(SUMOVehicle& veh,
+    virtual bool notifyMove(SUMOTrafficObject& veh,
                             double oldPos,
                             double newPos,
                             double newSpeed) {
@@ -171,7 +171,7 @@ public:
      *
      * @return True if the reminder wants to receive further info.
      */
-    virtual bool notifyLeave(SUMOVehicle& veh, double lastPos, Notification reason, const MSLane* enteredLane = 0) {
+    virtual bool notifyLeave(SUMOTrafficObject& veh, double lastPos, Notification reason, const MSLane* enteredLane = 0) {
         UNUSED_PARAMETER(&veh);
         UNUSED_PARAMETER(lastPos);
         UNUSED_PARAMETER(reason);
@@ -181,7 +181,7 @@ public:
 
 
     // TODO: Documentation
-    void updateDetector(SUMOVehicle& veh, double entryPos, double leavePos,
+    void updateDetector(SUMOTrafficObject& veh, double entryPos, double leavePos,
                         SUMOTime entryTime, SUMOTime currentTime, SUMOTime leaveTime,
                         bool cleanUp);
 
@@ -203,7 +203,7 @@ public:
      * @param[in] travelledDistanceVehicleOnLane distance travelled while front was on the lane.
      * @param[in] meanLengthOnLane the average length of the vehicle's part on the lane during the last step (==complete length in meso case)
      */
-    virtual void notifyMoveInternal(const SUMOVehicle& veh,
+    virtual void notifyMoveInternal(const SUMOTrafficObject& veh,
                                     const double frontOnLane,
                                     const double timeOnLane,
                                     const double meanSpeedFrontOnLane,
@@ -230,7 +230,7 @@ public:
     }
 
 protected:
-    void removeFromVehicleUpdateValues(SUMOVehicle& veh);
+    void removeFromVehicleUpdateValues(SUMOTrafficObject& veh);
 
 protected:
 
@@ -240,7 +240,7 @@ protected:
     std::string myDescription;
 
 private:
-    std::map<SUMOVehicle*, std::pair<SUMOTime, double> > myLastVehicleUpdateValues;
+    std::map<SUMOTrafficObject*, std::pair<SUMOTime, double> > myLastVehicleUpdateValues;
 
 
 private:

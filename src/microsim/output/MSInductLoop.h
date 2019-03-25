@@ -108,7 +108,7 @@ public:
      * @return True if vehicle enters the induction loop
      * @see Notification
      */
-    bool notifyEnter(SUMOVehicle& veh, Notification reason, const MSLane* enteredLane = 0);
+    bool notifyEnter(SUMOTrafficObject& veh, Notification reason, const MSLane* enteredLane = 0);
 
     /** @brief Checks whether the vehicle shall be counted and/or shall still touch this MSMoveReminder
      *
@@ -126,7 +126,7 @@ public:
      * @see enterDetectorByMove
      * @see leaveDetectorByMove
      */
-    bool notifyMove(SUMOVehicle& veh, double oldPos, double newPos, double newSpeed);
+    bool notifyMove(SUMOTrafficObject& veh, double oldPos, double newPos, double newSpeed);
 
 
     /** @brief Dismisses the vehicle if it is on the detector due to a lane change
@@ -143,7 +143,7 @@ public:
      * @see MSMoveReminder
      * @see MSMoveReminder::notifyLeave
      */
-    bool notifyLeave(SUMOVehicle& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
+    bool notifyLeave(SUMOTrafficObject& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
 
 
     //@}
@@ -294,7 +294,7 @@ protected:
      * @param veh The entering vehicle.
      * @param entryTimestep Timestep (not necessary integer) of entrance.
      */
-    virtual void enterDetectorByMove(SUMOVehicle& veh, double entryTimestep);
+    virtual void enterDetectorByMove(SUMOTrafficObject& veh, double entryTimestep);
 
 
     /** @brief Processes a vehicle that leaves the detector
@@ -305,14 +305,14 @@ protected:
      * @param veh The leaving vehicle.
      * @param leaveTimestep Timestep (not necessary integer) of leaving.
      */
-    virtual void leaveDetectorByMove(SUMOVehicle& veh, double leaveTimestep);
+    virtual void leaveDetectorByMove(SUMOTrafficObject& veh, double leaveTimestep);
 
 
     /** @brief Removes a vehicle from the detector's map myVehiclesOnDet.
      * @param veh The leaving vehicle.
      * @param lastPos The last position of the leaving vehicle.
      */
-    virtual void leaveDetectorByLaneChange(SUMOVehicle& veh, double lastPos);
+    virtual void leaveDetectorByLaneChange(SUMOTrafficObject& veh, double lastPos);
     /// @}
 
 
@@ -358,7 +358,7 @@ protected:
 
     /// @brief Type of myVehiclesOnDet
 
-    typedef std::map< SUMOVehicle*, double > VehicleMap;
+    typedef std::map< SUMOTrafficObject*, double > VehicleMap;
 
     /// @brief Data for vehicles that have entered the detector (vehicle -> enter time)
     VehicleMap myVehiclesOnDet;

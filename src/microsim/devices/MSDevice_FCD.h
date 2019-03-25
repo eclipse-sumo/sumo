@@ -32,6 +32,7 @@
 // class declarations
 // ===========================================================================
 class SUMOVehicle;
+class SUMOTrafficObject;
 
 
 // ===========================================================================
@@ -69,7 +70,7 @@ public:
     /// @brief Destructor.
     ~MSDevice_FCD();
 
-    bool notifyEnter(SUMOVehicle& /*veh*/, MSMoveReminder::Notification /*reason*/, const MSLane* /*enteredLane*/) {
+    bool notifyEnter(SUMOTrafficObject& /*veh*/, MSMoveReminder::Notification /*reason*/, const MSLane* /*enteredLane*/) {
         return false;
     }
 

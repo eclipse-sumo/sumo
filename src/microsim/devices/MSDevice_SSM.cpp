@@ -2298,7 +2298,7 @@ MSDevice_SSM::~MSDevice_SSM() {
 
 
 bool
-MSDevice_SSM::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
+MSDevice_SSM::notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
 #ifdef DEBUG_SSM_NOTIFICATIONS
     std::cout << "device '" << getID() << "' notifyEnter: reason=" << reason << " currentEdge=" << veh.getLane()->getEdge().getID() << "\n";
 #else
@@ -2309,7 +2309,7 @@ MSDevice_SSM::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason,
 }
 
 bool
-MSDevice_SSM::notifyLeave(SUMOVehicle& veh, double /*lastPos*/,
+MSDevice_SSM::notifyLeave(SUMOTrafficObject& veh, double /*lastPos*/,
                           MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
 #ifdef DEBUG_SSM_NOTIFICATIONS
     std::cout << "device '" << getID() << "' notifyLeave: reason=" << reason << " currentEdge=" << veh.getLane()->getEdge().getID() << "\n";
@@ -2321,7 +2321,7 @@ MSDevice_SSM::notifyLeave(SUMOVehicle& veh, double /*lastPos*/,
 }
 
 bool
-MSDevice_SSM::notifyMove(SUMOVehicle& /* veh */, double /* oldPos */,
+MSDevice_SSM::notifyMove(SUMOTrafficObject& /* veh */, double /* oldPos */,
                          double /* newPos */, double newSpeed) {
 #ifdef DEBUG_SSM_NOTIFICATIONS
     std::cout << "device '" << getID() << "' notifyMove: newSpeed=" << newSpeed << "\n";

@@ -73,7 +73,7 @@ MSInductLoop::reset() {
 
 
 bool
-MSInductLoop::notifyEnter(SUMOVehicle& veh, Notification reason, const MSLane* /* enteredLane */) {
+MSInductLoop::notifyEnter(SUMOTrafficObject& veh, Notification reason, const MSLane* /* enteredLane */) {
     if (!vehicleApplies(veh)) {
         return false;
     }
@@ -91,7 +91,7 @@ MSInductLoop::notifyEnter(SUMOVehicle& veh, Notification reason, const MSLane* /
 
 
 bool
-MSInductLoop::notifyMove(SUMOVehicle& veh, double oldPos,
+MSInductLoop::notifyMove(SUMOTrafficObject& veh, double oldPos,
                          double newPos, double newSpeed) {
     if (newPos < myPosition) {
         // detector not reached yet
@@ -134,7 +134,7 @@ MSInductLoop::notifyMove(SUMOVehicle& veh, double oldPos,
 
 
 bool
-MSInductLoop::notifyLeave(SUMOVehicle& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
+MSInductLoop::notifyLeave(SUMOTrafficObject& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
     if (reason != MSMoveReminder::NOTIFICATION_JUNCTION) {
         leaveDetectorByLaneChange(veh, lastPos);
         return false;
@@ -231,7 +231,7 @@ MSInductLoop::writeXMLOutput(OutputDevice& dev,
         inverseSpeedSum += 1./i->speedM;
         lengthSum += i->lengthM;
     }
-    for (std::map< SUMOVehicle*, double >::const_iterator i = myVehiclesOnDet.begin(); i != myVehiclesOnDet.end(); ++i) {
+    for (std::map< SUMOTrafficObject*, double >::const_iterator i = myVehiclesOnDet.begin(); i != myVehiclesOnDet.end(); ++i) {
         occupancy += STEPS2TIME(stopTime) - MAX2(STEPS2TIME(startTime), i->second);
     }
     occupancy = occupancy / t * (double) 100.;
@@ -247,7 +247,7 @@ MSInductLoop::writeXMLOutput(OutputDevice& dev,
 
 
 void
-MSInductLoop::enterDetectorByMove(SUMOVehicle& veh,
+MSInductLoop::enterDetectorByMove(SUMOTrafficObject& veh,
                                   double entryTimestep) {
 //    // Debug (Leo)
 //    std::cout << "enterDetectorByMove(), detector = '"<< myID <<"', veh = '" << veh.getID() << "'\n";
@@ -258,7 +258,7 @@ MSInductLoop::enterDetectorByMove(SUMOVehicle& veh,
 
 
 void
-MSInductLoop::leaveDetectorByMove(SUMOVehicle& veh,
+MSInductLoop::leaveDetectorByMove(SUMOTrafficObject& veh,
                                   double leaveTimestep) {
 
 //    // Debug (Leo)
@@ -278,7 +278,7 @@ MSInductLoop::leaveDetectorByMove(SUMOVehicle& veh,
 
 
 void
-MSInductLoop::leaveDetectorByLaneChange(SUMOVehicle& veh, double /* lastPos */) {
+MSInductLoop::leaveDetectorByLaneChange(SUMOTrafficObject& veh, double /* lastPos */) {
 
 //    // Debug (Leo)
 //    std::cout << "leaveDetectorByLaneChange(), detector = '"<< myID <<"', veh = '" << veh.getID() << "'\n";
@@ -303,7 +303,7 @@ MSInductLoop::collectVehiclesOnDet(SUMOTime tMS, bool leaveTime) const {
         }
     }
     for (VehicleMap::const_iterator i = myVehiclesOnDet.begin(); i != myVehiclesOnDet.end(); ++i) {
-        SUMOVehicle* v = (*i).first;
+        SUMOTrafficObject* v = (*i).first;
         VehicleData d(v->getID(), v->getVehicleType().getLength(), (*i).second, HAS_NOT_LEFT_DETECTOR, v->getVehicleType().getID());
         d.speedM = v->getSpeed();
         ret.push_back(d);

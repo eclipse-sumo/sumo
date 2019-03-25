@@ -117,7 +117,7 @@ MSMeanData_Net::MSLaneMeanDataValues::addTo(MSMeanData::MeanDataValues& val) con
 
 void
 MSMeanData_Net::MSLaneMeanDataValues::notifyMoveInternal(
-    const SUMOVehicle& veh, const double frontOnLane,
+    const SUMOTrafficObject& veh, const double frontOnLane,
     const double timeOnLane, const double /* meanSpeedFrontOnLane */,
     const double meanSpeedVehicleOnLane,
     const double travelledDistanceFrontOnLane,
@@ -166,7 +166,7 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyMoveInternal(
 
 
 bool
-MSMeanData_Net::MSLaneMeanDataValues::notifyLeave(SUMOVehicle& veh, double /*lastPos*/, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
+MSMeanData_Net::MSLaneMeanDataValues::notifyLeave(SUMOTrafficObject& veh, double /*lastPos*/, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
     if ((myParent == nullptr || myParent->vehicleApplies(veh)) && (getLane() == nullptr || getLane() == static_cast<MSVehicle&>(veh).getLane())) {
         if (MSGlobals::gUseMesoSim) {
             removeFromVehicleUpdateValues(veh);
@@ -190,7 +190,7 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyLeave(SUMOVehicle& veh, double /*las
 
 
 bool
-MSMeanData_Net::MSLaneMeanDataValues::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane) {
+MSMeanData_Net::MSLaneMeanDataValues::notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane) {
 #ifdef DEBUG_NOTIFY_ENTER
     std::cout << "\n" << SIMTIME << " MSMeanData_Net::MSLaneMeanDataValues: veh '" << veh.getID() << "' enters lane '" << enteredLane->getID() << "'" << std::endl;
 #else

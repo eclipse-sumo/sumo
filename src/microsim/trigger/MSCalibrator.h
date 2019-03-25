@@ -130,7 +130,7 @@ protected:
          * @see Notification
          */
         //@}
-        virtual bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
+        virtual bool notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
 
         void disable() {
             myParent = 0;
