@@ -332,12 +332,12 @@ GNEVehicleType::getAttribute(SumoXMLAttr key) const {
             }
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
-/*
-VTYPEPARS_PROBABILITY_SET
-VTYPEPARS_HASDRIVERSTATE_SET
-VTYPEPARS_HEIGHT_SET;
-VTYPEPARS_OSGFILE_SET;
-*/
+    /*
+    VTYPEPARS_PROBABILITY_SET
+    VTYPEPARS_HASDRIVERSTATE_SET
+    VTYPEPARS_HEIGHT_SET;
+    VTYPEPARS_OSGFILE_SET;
+    */
     }
 }
 
@@ -864,6 +864,10 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
     // mark parameter as set
     parametersSet |= VTYPEPARS_OSGFILE_SET;
     */
+    // check if updated attribute requieres update geometry
+    if (myTagProperty.hasAttribute(key) && myTagProperty.getAttributeProperties(key).requiereUpdateGeometry()) {
+        updateGeometry(true);
+    }
 }
 
 /****************************************************************************/

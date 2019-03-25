@@ -448,6 +448,12 @@ GNEAttributeCarrier::AttributeProperties::isExtended() const {
     return (myAttributeProperty & ATTRPROPERTY_EXTENDED) != 0;
 }
 
+
+bool 
+GNEAttributeCarrier::AttributeProperties::requiereUpdateGeometry() const {
+    return (myAttributeProperty & ATTRPROPERTY_UPDATEGEOMETRY) != 0;
+}
+
 // ---------------------------------------------------------------------------
 // GNEAttributeCarrier::TagProperties - methods
 // ---------------------------------------------------------------------------
@@ -1363,12 +1369,12 @@ GNEAttributeCarrier::fillNetElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_FROM,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
             "The name of a node within the nodes-file the edge shall start at" );
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_TO,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
             "The name of a node within the nodes-file the edge shall end at");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -1409,12 +1415,12 @@ GNEAttributeCarrier::fillNetElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_SHAPE,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_UPDATEGEOMETRY,
             "If the shape is given it should start and end with the positions of the from-node and to-node");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_LENGTH,
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_UPDATEGEOMETRY,
             "The length of the edge in meter");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -1431,24 +1437,24 @@ GNEAttributeCarrier::fillNetElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_WIDTH,
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_UPDATEGEOMETRY,
             "Lane width for all lanes of this edge in meters (used for visualization)",
             "-1");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_ENDOFFSET,
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_UPDATEGEOMETRY,
             "Move the stop line back from the intersection by the given amount",
             "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(GNE_ATTR_SHAPE_START,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_DEFAULTVALUE, // virtual attribute used to define an endPoint
+            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_UPDATEGEOMETRY, // virtual attribute used to define an endPoint
             "Custom position in which shape start (by default position of junction from)");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(GNE_ATTR_SHAPE_END,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_DEFAULTVALUE, // virtual attribute from to define an endPoint
+            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_UPDATEGEOMETRY, // virtual attribute from to define an endPoint
             "Custom position in which shape end (by default position of junction from)");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -1470,7 +1476,7 @@ GNEAttributeCarrier::fillNetElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_POSITION,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_POSITION, // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_POSITION | ATTRPROPERTY_UPDATEGEOMETRY, // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
             "The x-y-z position of the node on the plane in meters");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -1481,12 +1487,12 @@ GNEAttributeCarrier::fillNetElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_SHAPE,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_UPDATEGEOMETRY,
             "A custom shape for that node");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_RADIUS,
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_UPDATEGEOMETRY,
             "Optional turning radius (for all corners) for that node in meters",
             "1.5");
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -1533,7 +1539,7 @@ GNEAttributeCarrier::fillNetElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_INDEX,
-            ATTRPROPERTY_INT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_NONEDITABLE,
+            ATTRPROPERTY_INT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_NONEDITABLE | ATTRPROPERTY_UPDATEGEOMETRY,
             "The enumeration index of the lane (0 is the rightmost lane, <NUMBER_LANES>-1 is the leftmost one)");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -1557,13 +1563,13 @@ GNEAttributeCarrier::fillNetElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_WIDTH,
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_UPDATEGEOMETRY,
             "Width in meters (used for visualization)",
             "-1");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_ENDOFFSET,
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_UPDATEGEOMETRY,
             "Move the stop line back from the intersection by the given amount",
             "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -1575,7 +1581,7 @@ GNEAttributeCarrier::fillNetElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_CUSTOMSHAPE,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_UNIQUE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
             "If the shape is given it overrides the computation based on edge shape");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
@@ -1590,7 +1596,7 @@ GNEAttributeCarrier::fillNetElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_EDGES,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
             "The (road) edges which are crossed");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -1601,7 +1607,7 @@ GNEAttributeCarrier::fillNetElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_WIDTH,
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_UPDATEGEOMETRY,
             "The width of the crossings",
                 toString(OptionsCont::getOptions().getFloat("default.crossing-width")));
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -1619,7 +1625,7 @@ GNEAttributeCarrier::fillNetElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_CUSTOMSHAPE,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_UPDATEGEOMETRY,
             "Overrids default shape of pedestrian crossing");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
@@ -1629,22 +1635,22 @@ GNEAttributeCarrier::fillNetElements() {
         myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_NETELEMENT, TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_VIEW | TAGPROPERTY_SELECTABLE, ICON_CONNECTION, SUMO_TAG_EDGE);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_FROM,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_NONEDITABLE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_NONEDITABLE | ATTRPROPERTY_UPDATEGEOMETRY,
             "The name of the edge the vehicles leave");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_TO,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_NONEDITABLE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_NONEDITABLE | ATTRPROPERTY_UPDATEGEOMETRY,
             "The name of the edge the vehicles may reach when leaving 'from'");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_FROM_LANE,
-            ATTRPROPERTY_INT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_NONEDITABLE,
+            ATTRPROPERTY_INT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_NONEDITABLE | ATTRPROPERTY_UPDATEGEOMETRY,
             "the lane index of the incoming lane (numbers starting with 0)");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_TO_LANE,
-            ATTRPROPERTY_INT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_NONEDITABLE,
+            ATTRPROPERTY_INT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_NONEDITABLE | ATTRPROPERTY_UPDATEGEOMETRY,
             "the lane index of the outgoing lane (numbers starting with 0)");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -1691,7 +1697,7 @@ GNEAttributeCarrier::fillNetElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_CUSTOMSHAPE,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_UPDATEGEOMETRY,
             "sets custom shape for the connection");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -1724,17 +1730,17 @@ GNEAttributeCarrier::fillAdditionals() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_LANE,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
             "The name of the lane the bus stop shall be located at");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_STARTPOS,
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_UPDATEGEOMETRY,
             "The begin position on the lane (the lower position on the lane) in meters");
 
         myTagProperties[currentTag].addAttribute(attrProperty);
         attrProperty = AttributeProperties(SUMO_ATTR_ENDPOS,
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_UPDATEGEOMETRY,
             "The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -1766,12 +1772,12 @@ GNEAttributeCarrier::fillAdditionals() {
         myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_ADDITIONAL, TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_LANE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_PARENT | TAGPROPERTY_BLOCKMOVEMENT, ICON_ACCESS, SUMO_TAG_BUS_STOP);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_LANE,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
             "The name of the lane the stop access shall be located at");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_POSITION,
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_UPDATEGEOMETRY,
             "The position on the lane (the lower position on the lane) in meters",
             "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -1799,17 +1805,17 @@ GNEAttributeCarrier::fillAdditionals() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_LANE,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
             "The name of the lane the container stop shall be located at");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_STARTPOS,
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_UPDATEGEOMETRY,
             "The begin position on the lane (the lower position on the lane) in meters");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_ENDPOS,
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_UPDATEGEOMETRY,
             "The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -1840,17 +1846,17 @@ GNEAttributeCarrier::fillAdditionals() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_LANE,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
             "Lane of the charging station location");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_STARTPOS,
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_UPDATEGEOMETRY,
             "Begin position in the specified lane");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_ENDPOS,
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_UPDATEGEOMETRY,
             "End position in the specified lane");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -1901,17 +1907,17 @@ GNEAttributeCarrier::fillAdditionals() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_LANE,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
             "The name of the lane the Parking Area shall be located at");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_STARTPOS,
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_UPDATEGEOMETRY,
             "The begin position on the lane (the lower position on the lane) in meters");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_ENDPOS,
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_UPDATEGEOMETRY,
             "The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -1939,18 +1945,18 @@ GNEAttributeCarrier::fillAdditionals() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_WIDTH,
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_UPDATEGEOMETRY,
             "The width of the road-side parking spaces",
             "3.20");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_LENGTH,
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_DEFAULTVALUE,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_UPDATEGEOMETRY,
             "The length of the road-side parking spaces. By default (endPos - startPos) / roadsideCapacity");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_ANGLE,
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_ANGLE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_ANGLE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_UPDATEGEOMETRY,
             "The angle of the road-side parking spaces relative to the lane angle, positive means clockwise",
             "0.00");
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -1962,24 +1968,24 @@ GNEAttributeCarrier::fillAdditionals() {
         myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_ADDITIONAL, TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_VIEW | TAGPROPERTY_MASKXYZPOSITION | TAGPROPERTY_SELECTABLE | TAGPROPERTY_PARENT | TAGPROPERTY_REPARENT | TAGPROPERTY_BLOCKMOVEMENT, ICON_PARKINGSPACE, SUMO_TAG_PARKING_AREA);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_POSITION,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_POSITION, // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_POSITION | ATTRPROPERTY_UPDATEGEOMETRY, // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
             "The x-y-z position of the parking vehicle on the plane");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_WIDTH,
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_UPDATEGEOMETRY,
             "The width of the road-side parking spaces",
             "3.20");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_LENGTH,
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_UPDATEGEOMETRY,
             "The length of the road-side parking spaces",
             "5.00");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_ANGLE,
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_ANGLE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_ANGLE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_UPDATEGEOMETRY,
             "The angle of the road-side parking spaces relative to the lane angle, positive means clockwise",
             "0.00");
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -1996,12 +2002,12 @@ GNEAttributeCarrier::fillAdditionals() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_LANE,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
             "The id of the lane the detector shall be laid on. The lane must be a part of the network used");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_POSITION,
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
             "The position on the lane the detector shall be laid on in meters. The position must be a value between -1*lane's length and the lane's length");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -2046,17 +2052,17 @@ GNEAttributeCarrier::fillAdditionals() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_LANE,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
             "The id of the lane the detector shall be laid on. The lane must be a part of the network used");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_POSITION,
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
             "The position on the lane the detector shall be laid on in meters");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_LENGTH,
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_UPDATEGEOMETRY,
             "The length of the detector in meters",
             "10.00");
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -2119,17 +2125,17 @@ GNEAttributeCarrier::fillAdditionals() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_LANES,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_SECUENCIAL | ATTRPROPERTY_UNIQUE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_SECUENCIAL | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
             "The list of secuencial lane ids in which the detector shall be laid on");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_POSITION,
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
             "The position on the lane the detector shall be laid on in meters");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_ENDPOS,
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
             "The end position on the lane the detector shall be laid on in meters");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -2190,7 +2196,7 @@ GNEAttributeCarrier::fillAdditionals() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_POSITION,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_UPDATEGEOMETRY,
             "X-Y position of detector in editor (Only used in NETEDIT)",
             "0,0"); // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -2239,7 +2245,7 @@ GNEAttributeCarrier::fillAdditionals() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_POSITION,
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
             "The position on the lane the detector shall be laid on in meters");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -2256,12 +2262,12 @@ GNEAttributeCarrier::fillAdditionals() {
         myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_ADDITIONAL | TAGTYPE_DETECTOR, TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_LANE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_PARENT | TAGPROPERTY_REPARENT | TAGPROPERTY_BLOCKMOVEMENT, ICON_E3EXIT, SUMO_TAG_E3DETECTOR);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_LANE,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
             "The id of the lane the detector shall be laid on. The lane must be a part of the network used");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_POSITION,
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
             "The position on the lane the detector shall be laid on in meters");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -2283,12 +2289,12 @@ GNEAttributeCarrier::fillAdditionals() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_LANE,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
             "The id of the lane the detector shall be laid on. The lane must be a part of the network used");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_POSITION,
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
             "The position on the lane the detector shall be laid on in meters. The position must be a value between -1*lane's length and the lane's length");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -2327,13 +2333,13 @@ GNEAttributeCarrier::fillAdditionals() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_POSITION,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_UPDATEGEOMETRY,
             "X-Y position of detector in editor (Only used in NETEDIT)",
             "0,0"); // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_LANES,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_UPDATEGEOMETRY,
             "list of lanes of Variable Speed Sign");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -2369,12 +2375,12 @@ GNEAttributeCarrier::fillAdditionals() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_EDGE,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
             "The id of edge in the simulation network");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_POSITION,
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_UPDATEGEOMETRY,
             "The position of the calibrator on the specified lane",
             "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -2411,12 +2417,12 @@ GNEAttributeCarrier::fillAdditionals() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_LANE,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
             "The id of lane in the simulation network");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_POSITION,
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_UPDATEGEOMETRY,
             "The position of the calibrator on the specified lane",
             "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -2448,13 +2454,13 @@ GNEAttributeCarrier::fillAdditionals() {
         myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_ADDITIONAL, TAGPROPERTY_PARENT | TAGPROPERTY_DISJOINTATTRIBUTES, ICON_FLOW, SUMO_TAG_CALIBRATOR);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_TYPE,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_UPDATEGEOMETRY,
             "The id of the vehicle type to use for this vehicle",
             DEFAULT_VTYPE_ID);
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_ROUTE,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
             "The id of the route the vehicle shall drive along");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -2487,13 +2493,13 @@ GNEAttributeCarrier::fillAdditionals() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_DEPARTLANE,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_UPDATEGEOMETRY,
             "The lane on which the vehicle shall be inserted",
             "first");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_DEPARTPOS,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_UPDATEGEOMETRY,
             "The position at which the vehicle shall enter the net",
             "base");
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -2570,12 +2576,12 @@ GNEAttributeCarrier::fillAdditionals() {
         myTagProperties[currentTag].addAttribute(attrProperty);
         
         attrProperty = AttributeProperties(SUMO_ATTR_EDGES,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
             "An edge id or a list of edge ids where vehicles shall be rerouted");
         myTagProperties[currentTag].addAttribute(attrProperty);
         
         attrProperty = AttributeProperties(SUMO_ATTR_POSITION,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_UPDATEGEOMETRY,
             "X,Y position in editor (Only used in NETEDIT)",
             "0,0"); // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -2636,9 +2642,9 @@ GNEAttributeCarrier::fillAdditionals() {
         myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_ADDITIONAL, TAGPROPERTY_PARENT, ICON_CLOSINGREROUTE, SUMO_TAG_INTERVAL);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_EDGE,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_SYNONYM,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_SYNONYM | ATTRPROPERTY_UPDATEGEOMETRY,
             "Edge ID");
-                attrProperty.setSynonym(SUMO_ATTR_ID);
+            attrProperty.setSynonym(SUMO_ATTR_ID);
         myTagProperties[currentTag].addAttribute(attrProperty);
         
         attrProperty = AttributeProperties(SUMO_ATTR_ALLOW,
@@ -2657,9 +2663,9 @@ GNEAttributeCarrier::fillAdditionals() {
         myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_ADDITIONAL, TAGPROPERTY_PARENT, ICON_CLOSINGLANEREROUTE, SUMO_TAG_INTERVAL);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_LANE,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_SYNONYM,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_SYNONYM | ATTRPROPERTY_UPDATEGEOMETRY,
             "Lane ID");
-                attrProperty.setSynonym(SUMO_ATTR_ID);
+            attrProperty.setSynonym(SUMO_ATTR_ID);
         myTagProperties[currentTag].addAttribute(attrProperty);
         
         attrProperty = AttributeProperties(SUMO_ATTR_ALLOW,
@@ -2678,9 +2684,9 @@ GNEAttributeCarrier::fillAdditionals() {
         myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_ADDITIONAL, TAGPROPERTY_PARENT, ICON_DESTPROBREROUTE, SUMO_TAG_INTERVAL);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_EDGE,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_SYNONYM,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_SYNONYM | ATTRPROPERTY_UPDATEGEOMETRY,
             "Edge ID");
-                attrProperty.setSynonym(SUMO_ATTR_ID);
+            attrProperty.setSynonym(SUMO_ATTR_ID);
         myTagProperties[currentTag].addAttribute(attrProperty);
         
         attrProperty = AttributeProperties(SUMO_ATTR_PROB,
@@ -2718,9 +2724,9 @@ GNEAttributeCarrier::fillAdditionals() {
         myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_ADDITIONAL, TAGPROPERTY_PARENT, ICON_ROUTEPROBREROUTE, SUMO_TAG_INTERVAL);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_ROUTE,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_SYNONYM,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_SYNONYM | ATTRPROPERTY_UPDATEGEOMETRY,
             "Route");
-                attrProperty.setSynonym(SUMO_ATTR_ID);
+            attrProperty.setSynonym(SUMO_ATTR_ID);
         myTagProperties[currentTag].addAttribute(attrProperty);
         
         attrProperty = AttributeProperties(SUMO_ATTR_PROB,
@@ -2740,7 +2746,7 @@ GNEAttributeCarrier::fillAdditionals() {
         myTagProperties[currentTag].addAttribute(attrProperty);
         
         attrProperty = AttributeProperties(SUMO_ATTR_EDGE,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
             "The id of an edge in the simulation network");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -2772,7 +2778,7 @@ GNEAttributeCarrier::fillAdditionals() {
         myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_ADDITIONAL, TAGPROPERTY_DRAWABLE | TAGPROPERTY_PLACEDOVER_EDGE | TAGPROPERTY_SELECTABLE, ICON_VAPORIZER);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_ID,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
             "Edge in which vaporizer is placed");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -2804,7 +2810,7 @@ GNEAttributeCarrier::fillAdditionals() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_SHAPE,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_UPDATEGEOMETRY,
             "The shape of the TAZ");
         myTagProperties[currentTag].addAttribute(attrProperty);
         
@@ -2820,9 +2826,9 @@ GNEAttributeCarrier::fillAdditionals() {
         myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_TAZ, TAGPROPERTY_PARENT, ICON_TAZEDGE, SUMO_TAG_TAZ);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_EDGE,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_NONEDITABLE | ATTRPROPERTY_SYNONYM,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_NONEDITABLE | ATTRPROPERTY_SYNONYM | ATTRPROPERTY_UPDATEGEOMETRY,
             "The id of edge in the simulation network");
-                attrProperty.setSynonym(SUMO_ATTR_ID);
+            attrProperty.setSynonym(SUMO_ATTR_ID);
         myTagProperties[currentTag].addAttribute(attrProperty);
         
         attrProperty = AttributeProperties(SUMO_ATTR_WEIGHT,
@@ -2837,9 +2843,9 @@ GNEAttributeCarrier::fillAdditionals() {
         myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_TAZ, TAGPROPERTY_PARENT, ICON_TAZEDGE, SUMO_TAG_TAZ);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_EDGE,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_NONEDITABLE | ATTRPROPERTY_SYNONYM,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_NONEDITABLE | ATTRPROPERTY_SYNONYM | ATTRPROPERTY_UPDATEGEOMETRY,
             "The id of edge in the simulation network");
-                attrProperty.setSynonym(SUMO_ATTR_ID);
+            attrProperty.setSynonym(SUMO_ATTR_ID);
         myTagProperties[currentTag].addAttribute(attrProperty);
         
         attrProperty = AttributeProperties(SUMO_ATTR_WEIGHT,
@@ -2930,7 +2936,7 @@ GNEAttributeCarrier::fillShapes() {
         myTagProperties[currentTag].addAttribute(attrProperty);
         
         attrProperty = AttributeProperties(SUMO_ATTR_POSITION,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_UNIQUE, // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
+            ATTRPROPERTY_STRING | ATTRPROPERTY_POSITION | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY, // virtual attribute from the combination of the actually attributes SUMO_ATTR_X, SUMO_ATTR_Y
             "The position in view");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -2998,12 +3004,12 @@ GNEAttributeCarrier::fillShapes() {
         myTagProperties[currentTag].addAttribute(attrProperty);
         
         attrProperty = AttributeProperties(SUMO_ATTR_POSITION,
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
             "The position on the named lane or in the net in meters at which the poi is located at");
         myTagProperties[currentTag].addAttribute(attrProperty);
         
         attrProperty = AttributeProperties(SUMO_ATTR_POSITION_LAT,
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_UPDATEGEOMETRY,
             "The lateral offset on the named lane at which the poi is located at",
             "0.00");
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -3082,7 +3088,7 @@ GNEAttributeCarrier::fillDemandElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_EDGES,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
             "The edges the vehicle shall drive along, given as their ids, separated using spaces");
         myTagProperties[currentTag].addAttribute(attrProperty);
         
@@ -3258,7 +3264,7 @@ GNEAttributeCarrier::fillDemandElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
         
         attrProperty = AttributeProperties(SUMO_ATTR_ROUTE,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
             "The id of the route the vehicle shall drive along");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -3364,13 +3370,13 @@ GNEAttributeCarrier::fillDemandElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
         
         attrProperty = AttributeProperties(SUMO_ATTR_TYPE,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_UPDATEGEOMETRY,
             "The id of the vehicle type to use for this vehicle",
                 DEFAULT_VTYPE_ID);
         myTagProperties[currentTag].addAttribute(attrProperty);
         
         attrProperty = AttributeProperties(SUMO_ATTR_ROUTE,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
             "The id of the route the vehicle shall drive along");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -3512,12 +3518,12 @@ GNEAttributeCarrier::fillDemandElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_FROM,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
             "The name of the edge the route starts at; the edge must be a part of the used network");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_TO,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
             "The name of the edge the route ends at; the edge must be a part of the used network");
         myTagProperties[currentTag].addAttribute(attrProperty);
 

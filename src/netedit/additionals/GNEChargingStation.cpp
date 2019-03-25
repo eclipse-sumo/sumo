@@ -350,8 +350,8 @@ GNEChargingStation::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(getTagStr() + "attribute '" + toString(key) + "' not allowed");
     }
-    // Update Geometry after setting a new attribute (but avoided for certain attributes)
-    if ((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
+    // check if updated attribute requieres update geometry
+    if (myTagProperty.hasAttribute(key) && myTagProperty.getAttributeProperties(key).requiereUpdateGeometry()) {
         updateGeometry(true);
     }
 }

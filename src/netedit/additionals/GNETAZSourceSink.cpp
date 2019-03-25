@@ -203,6 +203,10 @@ GNETAZSourceSink::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+    // check if updated attribute requieres update geometry
+    if (myTagProperty.hasAttribute(key) && myTagProperty.getAttributeProperties(key).requiereUpdateGeometry()) {
+        updateGeometry(true);
+    }
 }
 
 

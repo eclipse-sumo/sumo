@@ -966,11 +966,9 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
         // Specific of Trips
         case SUMO_ATTR_FROM:
             myFrom = myViewNet->getNet()->retrieveEdge(value);
-            updateGeometry(true);
             break;
         case SUMO_ATTR_TO:
             myTo = myViewNet->getNet()->retrieveEdge(value);
-            updateGeometry(true);
             break;
         // Specific of flows
         case SUMO_ATTR_BEGIN: {
@@ -1007,6 +1005,10 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+    // check if updated attribute requieres update geometry
+    if (myTagProperty.hasAttribute(key) && myTagProperty.getAttributeProperties(key).requiereUpdateGeometry()) {
+        updateGeometry(true);
     }
 }
 
