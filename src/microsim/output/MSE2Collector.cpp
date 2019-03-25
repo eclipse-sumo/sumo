@@ -743,7 +743,7 @@ MSE2Collector::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason
     // e.g. due to lane change manoeuver
     if (reason != NOTIFICATION_JUNCTION) {
         const double vehBackPos = veh.getBackPositionOnLane(enteredLane);
-        bool vehEnteredBehindDetectorEnd = myEndPos <= vehBackPos;
+        bool vehEnteredBehindDetectorEnd = (enteredLane == myLastLane) && myEndPos <= vehBackPos;
         if (vehEnteredBehindDetectorEnd) {
             // this vehicle cannot influence detector readings, do not subscribe
             // to move notifications
