@@ -1417,11 +1417,16 @@ void
 MSVehicle::setActionStepLength(double actionStepLength, bool resetOffset) {
     SUMOTime actionStepLengthMillisecs = SUMOVehicleParserHelper::processActionStepLength(actionStepLength);
     SUMOTime previousActionStepLength = getActionStepLength();
-    getSingularType().setActionStepLength(actionStepLengthMillisecs, resetOffset);
+    const bool newActionStepLength = actionStepLengthMillisecs != previousActionStepLength;
+    if (newActionStepLength) {
+        getSingularType().setActionStepLength(actionStepLengthMillisecs, resetOffset);
+        if (!resetOffset) {
+            updateActionOffset(previousActionStepLength, actionStepLengthMillisecs);
+        }
+    }
     if (resetOffset) {
         resetActionOffset();
     }
-    updateActionOffset(previousActionStepLength, actionStepLengthMillisecs);
 }
 
 
