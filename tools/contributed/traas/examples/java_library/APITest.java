@@ -34,6 +34,7 @@ import de.tudresden.ws.container.SumoStopFlags;
 import de.tudresden.ws.container.SumoStringList;
 import de.tudresden.ws.container.SumoStage;
 import de.tudresden.ws.container.SumoTLSController;
+import de.tudresden.ws.container.SumoTLSProgram;
 
 public class APITest {
 
@@ -121,6 +122,9 @@ public class APITest {
 
             SumoTLSController tlsc = (SumoTLSController)conn.do_job_get(Trafficlight.getCompleteRedYellowGreenDefinition("gneJ1"));
             System.out.println("Trafficlight.getCompleteRedYellowGreenDefinition: " + tlsc.programs);
+
+            SumoTLSProgram tlsp = (SumoTLSProgram)tlsc.programs.values().toArray()[0];
+            conn.do_job_set(Trafficlight.setCompleteRedYellowGreenDefinition("gneJ1", tlsp));
 
             System.out.println("Trafficlight.getPhaseDuration: " + (double)conn.do_job_get(Trafficlight.getPhaseDuration("gneJ1")));
             System.out.println("Trafficlight.getNextSwitch: " + (double)conn.do_job_get(Trafficlight.getNextSwitch("gneJ1")));
