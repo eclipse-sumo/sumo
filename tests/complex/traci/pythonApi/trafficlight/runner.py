@@ -52,7 +52,7 @@ def check():
 
 
 phases = []
-phases.append(traci.trafficlight.Phase(30, "rrrrGGggrrrrGGgg", 0, 0, -1, "setViaComplete"))
+phases.append(traci.trafficlight.Phase(30, "rrrrGGggrrrrGGgg", 0, 0, [1,2,3], "setViaComplete"))
 phases.append(traci.trafficlight.Phase(10, "rrrrGGggrrrrGGgg", 0, 0))
 phases.append(traci.trafficlight.Phase(40, "rrrrGGggrrrrGGgg", 0, 0))
 phases.append(traci.trafficlight.Phase(20, "rrrrGGggrrrrGGgg", 0, 0))
