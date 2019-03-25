@@ -88,6 +88,8 @@ main(int argc, char** argv) {
             // load options
             window->loadOptionOnStartup();
         }
+        // focus window at startup
+        window->setFocus();
         // Run
         ret = application.run();
 #ifndef _DEBUG
