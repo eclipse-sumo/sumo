@@ -12,5 +12,6 @@
         <param key="device.driverstate.headwayErrorCoefficient" value="4.44"/>
         <param key="device.driverstate.speedDifferenceChangePerceptionThreshold" value="5.55"/>
         <param key="device.driverstate.headwayChangePerceptionThreshold" value="6.66"/>
+        <param key="device.driverstate.maximalReactionTime" value="7.77"/>
     </vehicle>
 </routes>

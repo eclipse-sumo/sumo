@@ -55,6 +55,13 @@ def printParams(vehID, only_dynamic=False):
         vehID, "device.driverstate.speedDifferenceChangePerceptionThreshold")
     headwayChangePerceptionThreshold = traci.vehicle.getParameter(
         vehID, "device.driverstate.headwayChangePerceptionThreshold")
+    maximalReactionTime = traci.vehicle.getParameter(
+        vehID, "device.driverstate.maximalReactionTime")
+    originalReactionTime = traci.vehicle.getParameter(
+        vehID, "device.driverstate.originalReactionTime")
+    actionStepLength = traci.vehicle.getParameter(
+        vehID, "device.driverstate.actionStepLength")
+    actionStepLengthVeh = traci.vehicle.getActionStepLength(vehID)
     traci.vehicle.getSpeed(vehID)
 
     print("time step %s" % traci.simulation.getCurrentTime())
@@ -69,11 +76,15 @@ def printParams(vehID, only_dynamic=False):
         print("  headwayErrorCoefficient = %s" % headwayErrorCoefficient)
         print("  speedDifferenceChangePerceptionThreshold = %s" % speedDifferenceChangePerceptionThreshold)
         print("  headwayChangePerceptionThreshold = %s" % headwayChangePerceptionThreshold)
+        print("  maximalReactionTime = %s" % maximalReactionTime)
+        print("  originalReactionTime = %s" % originalReactionTime)
         print("Dynamic parameters:")
     print("  awareness = %s" % awareness)
     print("  errorNoiseIntensity = %s" % errorNoiseIntensity)
     print("  errorTimeScale = %s" % errorTimeScale)
     print("  errorState = %s" % errorState)
+    print("  actionStepLength(dev) = %s" % actionStepLength)
+    print("  actionStepLength(veh) = %s" % actionStepLengthVeh)
 
 
 def resetParams(vehID):
@@ -154,6 +165,22 @@ def resetParams(vehID):
     traci.vehicle.setParameter(vehID, "device.driverstate.errorTimeScale", str(new_errorTimeScale))
     errorTimeScale = float(traci.vehicle.getParameter(vehID, "device.driverstate.errorTimeScale"))
     print("new errorTimeScale:%s (diff=%s)" % (errorTimeScale, errorTimeScale - new_errorTimeScale))
+
+    new_maximalReactionTime = 5.55
+    traci.vehicle.setParameter(vehID, "device.driverstate.maximalReactionTime", str(new_maximalReactionTime))
+    maximalReactionTime = float(traci.vehicle.getParameter(vehID, "device.driverstate.maximalReactionTime"))
+    print("new maximalReactionTime:%s (diff=%s)" % (maximalReactionTime, maximalReactionTime - new_maximalReactionTime))
+
+    new_actionStepLength = float(traci.vehicle.getParameter(vehID, "device.driverstate.actionStepLength"))
+    print("new actionStepLength:%s" % (new_actionStepLength))
+
+    new_originalReactionTime = 3.0
+    traci.vehicle.setParameter(vehID, "device.driverstate.originalReactionTime", str(new_originalReactionTime))
+    originalReactionTime = float(traci.vehicle.getParameter(vehID, "device.driverstate.originalReactionTime"))
+    print("new originalReactionTime:%s (diff=%s)" % (originalReactionTime, originalReactionTime - new_originalReactionTime))
+
+    new_actionStepLength = float(traci.vehicle.getParameter(vehID, "device.driverstate.actionStepLength"))
+    print("new actionStepLength:%s" % (new_actionStepLength))
 
     print("\n")
 
