@@ -194,7 +194,7 @@ MSSimpleDriverState::updateReactionTime() {
         // Round to multiple of simstep length
         int quotient;
         remquo(myActionStepLength,TS,&quotient);
-        myActionStepLength = TS*quotient;
+        myActionStepLength = TS*MAX2(quotient,1);
     }
 }
 
@@ -211,6 +211,7 @@ MSSimpleDriverState::setAwareness(const double value) {
     if (myAwareness == 1.) {
         myError.setState(0.);
     }
+    updateReactionTime();
 }
 
 

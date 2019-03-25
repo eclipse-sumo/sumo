@@ -157,6 +157,10 @@ public:
         return myMaximalReactionTime;
     }
 
+    inline double getOriginalReactionTime() const {
+        return myOriginalReactionTime;
+    }
+
     inline double getActionStepLength() const {
         return myActionStepLength;
     }
@@ -203,6 +207,12 @@ public:
 
     inline void setMaximalReactionTime(const double value)  {
         myMaximalReactionTime = value;
+        updateReactionTime();
+    }
+
+    inline void setOriginalReactionTime(const double value)  {
+        myOriginalReactionTime = value;
+        updateReactionTime();
     }
 
     void setAwareness(const double value);

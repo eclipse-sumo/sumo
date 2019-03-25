@@ -79,6 +79,8 @@ MSDevice_DriverState::insertOptions(OptionsCont& oc) {
     oc.addDescription("device.driverstate.headwayChangePerceptionThreshold", "Driver State Device", "Base threshold for recognizing changes in the headway (threshold also scales with distance).");
     oc.doRegister("device.driverstate.minAwareness", new Option_Float(DriverStateDefaults::minAwareness));
     oc.addDescription("device.driverstate.minAwareness", "Driver State Device", "Minimal admissible value for the driver's awareness.");
+    oc.doRegister("device.driverstate.maximalReactionTime", new Option_Float(-1.0));
+    oc.addDescription("device.driverstate.maximalReactionTime", "Driver State Device", "Maximal reaction time (~action step length) induced by decreased awareness level (reached for awareness=minAwareness).");
 }
 
 
@@ -95,6 +97,7 @@ MSDevice_DriverState::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleD
         const double speedDifferenceChangePerceptionThreshold = getSpeedDifferenceChangePerceptionThreshold(v, oc);
         const double headwayChangePerceptionThreshold = getHeadwayChangePerceptionThreshold(v, oc);
         const double headwayErrorCoefficient = getHeadwayErrorCoefficient(v, oc);
+        const double maximalReactionTime = getMaximalReactionTime(v, oc);
         // build the device
         MSDevice_DriverState* device = new MSDevice_DriverState(v, "driverstate" + v.getID(),
                 minAwareness,
@@ -104,7 +107,8 @@ MSDevice_DriverState::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleD
                 speedDifferenceErrorCoefficient,
                 speedDifferenceChangePerceptionThreshold,
                 headwayChangePerceptionThreshold,
-                headwayErrorCoefficient);
+                headwayErrorCoefficient,
+                maximalReactionTime);
         into.push_back(device);
     }
 }
@@ -142,6 +146,10 @@ double
 MSDevice_DriverState::getHeadwayErrorCoefficient(const SUMOVehicle& v, const OptionsCont& oc) {
     return getFloatParam(v, oc, "driverstate.headwayErrorCoefficient", DriverStateDefaults::headwayErrorCoefficient, false);
 }
+double
+MSDevice_DriverState::getMaximalReactionTime(const SUMOVehicle& v, const OptionsCont& oc) {
+    return getFloatParam(v, oc, "driverstate.maximalReactionTime", -1.0, false);
+}
 
 
 // ---------------------------------------------------------------------------
@@ -155,7 +163,8 @@ MSDevice_DriverState::MSDevice_DriverState(SUMOVehicle& holder, const std::strin
         double speedDifferenceErrorCoefficient,
         double speedDifferenceChangePerceptionThreshold,
         double headwayChangePerceptionThreshold,
-        double headwayErrorCoefficient) :
+        double headwayErrorCoefficient,
+        double maximalReactionTime) :
     MSVehicleDevice(holder, id),
     myMinAwareness(minAwareness),
     myInitialAwareness(initialAwareness),
@@ -164,7 +173,8 @@ MSDevice_DriverState::MSDevice_DriverState(SUMOVehicle& holder, const std::strin
     mySpeedDifferenceErrorCoefficient(speedDifferenceErrorCoefficient),
     mySpeedDifferenceChangePerceptionThreshold(speedDifferenceChangePerceptionThreshold),
     myHeadwayChangePerceptionThreshold(headwayChangePerceptionThreshold),
-    myHeadwayErrorCoefficient(headwayErrorCoefficient)
+    myHeadwayErrorCoefficient(headwayErrorCoefficient),
+    myMaximalReactionTime(maximalReactionTime)
 {
     // Take care! Holder is currently being constructed. Cast occurs before completion.
     myHolderMS = static_cast<MSVehicle*>(&holder);
@@ -197,6 +207,9 @@ MSDevice_DriverState::initDriverState() {
     myDriverState->setSpeedDifferenceChangePerceptionThreshold(mySpeedDifferenceChangePerceptionThreshold);
     myDriverState->setHeadwayChangePerceptionThreshold(myHeadwayChangePerceptionThreshold);
     myDriverState->setAwareness(myInitialAwareness);
+    if (myMaximalReactionTime > 0) {
+        myDriverState->setMaximalReactionTime(myMaximalReactionTime);
+    }
 }
 
 void
@@ -235,6 +248,12 @@ MSDevice_DriverState::getParameter(const std::string& key) const {
         return toString(myDriverState->getSpeedDifferenceChangePerceptionThreshold());
     } else if (key == "headwayChangePerceptionThreshold") {
         return toString(myDriverState->getHeadwayChangePerceptionThreshold());
+    } else if (key == "maximalReactionTime") {
+        return toString(myDriverState->getMaximalReactionTime());
+    } else if (key == "originalReactionTime") {
+        return toString(myDriverState->getOriginalReactionTime());
+    } else if (key == "actionStepLength") {
+        return toString(myDriverState->getActionStepLength());
     }
     throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
 }
@@ -269,6 +288,10 @@ MSDevice_DriverState::setParameter(const std::string& key, const std::string& va
         myDriverState->setSpeedDifferenceChangePerceptionThreshold(StringUtils::toDouble(value));
     } else if (key == "headwayChangePerceptionThreshold") {
         myDriverState->setHeadwayChangePerceptionThreshold(StringUtils::toDouble(value));
+    } else if (key == "maximalReactionTime") {
+        myDriverState->setMaximalReactionTime(StringUtils::toDouble(value));
+    } else if (key == "originalReactionTime") {
+        myDriverState->setOriginalReactionTime(StringUtils::toDouble(value));
     } else {
         throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
     }
