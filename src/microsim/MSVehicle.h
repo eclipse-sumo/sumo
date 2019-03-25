@@ -702,6 +702,14 @@ public:
     /// @brief Set a custom vehicle angle in rad, optionally updates furtherLanePosLat
     void setAngle(double angle, bool straightenFurther = false);
 
+    /** @brief Sets the action steplength of the vehicle
+     *
+     * @param actionStepLength New value
+     * @param resetActionOffset whether the action offset should be reset to zero,
+     *        i.e., the next action step should follow immediately.
+     */
+    void setActionStepLength(double actionStepLength, bool resetActionOffset = true);
+
     /** Returns true if the two vehicles overlap. */
     static bool overlap(const MSVehicle* veh1, const MSVehicle* veh2) {
         if (veh1->myState.myPos < veh2->myState.myPos) {
@@ -709,7 +717,6 @@ public:
         }
         return veh1->myState.myPos - veh1->getVehicleType().getLengthWithGap() < veh2->myState.myPos;
     }
-
 
     /** Returns true if vehicle's speed is below 60km/h. This is only relevant
         on highways. Overtaking on the right is allowed then. */
