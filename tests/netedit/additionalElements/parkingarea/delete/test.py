@@ -32,19 +32,19 @@ netedit.additionalMode()
 netedit.changeAdditional("parkingArea")
 
 # create parkingArea in mode "reference left"
-netedit.leftClick(referencePosition, 250, 250)
+netedit.leftClick(referencePosition, 250, 280)
 
 # Change to delete
 netedit.deleteMode()
 
 # delete created parkingArea
-netedit.leftClick(referencePosition, 260, 280)
+netedit.leftClick(referencePosition, 220, 250)
 
 # delete first loaded parkingArea
-netedit.leftClick(referencePosition, 450, 280)
+netedit.leftClick(referencePosition, 480, 250)
 
 # delete lane with the second loaded parkingArea
-netedit.leftClick(referencePosition, 200, 200)
+netedit.leftClick(referencePosition, 200, 330)
 
 # Check undo
 netedit.undo(referencePosition, 3)
@@ -56,7 +56,7 @@ netedit.deleteMode()
 netedit.changeAutomaticallyDeleteAdditionals(referencePosition)
 
 # try to delete lane with the second loaded parkingArea (doesn't allowed)
-netedit.leftClick(referencePosition, 200, 200)
+netedit.leftClick(referencePosition, 200, 330)
 
 # wait warning
 netedit.waitAutomaticallyDeleteAdditionalsWarning()

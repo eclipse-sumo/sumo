@@ -3,7 +3,7 @@ Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_0detExit1' in GNEChange_Additional
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
 Debug: Key F5 (Compute) pressed
@@ -917,7 +917,7 @@ Debug: Deleting unreferenced lane 'gneE17_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE17_1' in GNEEdge destructor
 Debug: Deleting unreferenced junction 'gneJ19' in GNEChange_Attribute
 Debug: Deleting NBNode of 'gneJ19' in GNEJunction destructor
-Debug: Deleting unreferenced detExit 'e3Detector_0detExit0'
+Debug: Deleting unreferenced detExit 'e3Detector_0detExit1'
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Deleting unreferenced detEntry 'e3Detector_0detEntry0'

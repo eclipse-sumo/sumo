@@ -10,7 +10,7 @@ Debug: Adding e1Detector 'e1Detector_gneE0_2_0' in GNEChange_Additional
 Debug: Adding e2Detector 'e2Detector_gneE0_1_0' in GNEChange_Additional
 Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Debug: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_0detExit1' in GNEChange_Additional
 Debug: Adding instantInductionLoop 'instantInductionLoop_1' in GNEChange_Additional
 Debug: Adding rerouter 'rerouter_0' in GNEChange_Additional
 Debug: Adding routeProbe 'routeProbe_gneE1_0' in GNEChange_Additional
@@ -41,7 +41,7 @@ Debug: Current saving Status: net saved, additionals unsaved, demand elements sa
 Debug: Deleting unreferenced routeProbe 'routeProbe_gneE1_0'
 Debug: Deleting unreferenced rerouter 'rerouter_0'
 Debug: Deleting unreferenced instantInductionLoop 'instantInductionLoop_1'
-Debug: Deleting unreferenced detExit 'e3Detector_0detExit0'
+Debug: Deleting unreferenced detExit 'e3Detector_0detExit1'
 Debug: Deleting unreferenced detEntry 'e3Detector_0detEntry0'
 Debug: Deleting unreferenced e3Detector 'e3Detector_0'
 Debug: Deleting unreferenced e2Detector 'e2Detector_gneE0_1_0'

@@ -11,7 +11,7 @@ Debug: Adding e1Detector 'e1Detector_gneE0_2_0' in GNEChange_Additional
 Debug: Adding e2Detector 'e2Detector_gneE0_1_0' in GNEChange_Additional
 Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 Debug: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_0detExit1' in GNEChange_Additional
 Debug: Adding instantInductionLoop 'instantInductionLoop_1' in GNEChange_Additional
 Debug: Adding rerouter 'rerouter_0' in GNEChange_Additional
 Debug: Adding routeProbe 'routeProbe_gneE1_0' in GNEChange_Additional
@@ -21,7 +21,7 @@ Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
 Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 2, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 1, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Removing detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
-Debug: Removing detExit 'e3Detector_0detExit0' in GNEChange_Additional
+Debug: Removing detExit 'e3Detector_0detExit1' in GNEChange_Additional
 Debug: Removing e2Detector 'e2Detector_gneE0_1_0' in GNEChange_Additional
 Debug: Removing e1Detector 'e1Detector_gneE0_2_0' in GNEChange_Additional
 Debug: Removing instantInductionLoop 'instantInductionLoop_1' in GNEChange_Additional
@@ -86,7 +86,7 @@ Debug: Created connection 'fromgneE1_2togneE0_2' in retrieveGNEConnection()
 Debug: Adding instantInductionLoop 'instantInductionLoop_1' in GNEChange_Additional
 Debug: Adding e1Detector 'e1Detector_gneE0_2_0' in GNEChange_Additional
 Debug: Adding e2Detector 'e2Detector_gneE0_1_0' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_0detExit0' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_0detExit1' in GNEChange_Additional
 Debug: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 2, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 1, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Opening FXMessageBox 'Force deletion needed'
@@ -100,7 +100,7 @@ Debug: Deleting unreferenced vaporizer 'gneE1'
 Debug: Deleting unreferenced routeProbe 'routeProbe_gneE1_0'
 Debug: Deleting unreferenced rerouter 'rerouter_0'
 Debug: Deleting unreferenced instantInductionLoop 'instantInductionLoop_1'
-Debug: Deleting unreferenced detExit 'e3Detector_0detExit0'
+Debug: Deleting unreferenced detExit 'e3Detector_0detExit1'
 Debug: Deleting unreferenced detEntry 'e3Detector_0detEntry0'
 Debug: Deleting unreferenced e3Detector 'e3Detector_0'
 Debug: Deleting unreferenced e2Detector 'e2Detector_gneE0_1_0'

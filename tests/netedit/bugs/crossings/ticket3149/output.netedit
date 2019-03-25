@@ -1,17 +1,15 @@
 TestFunctions: Netedit opened successfully
 Finding reference
-TestFunctions: 'reference.png' found. Position: 304 - 140
-50
-50
-100
-TestFunctions: Clicked over position 484 - 340
+TestFunctions: 'reference.png' found. Position: 377 - 207
+TestFunctions: Position of 'reference.png' isn't consistent. Check that interface scaling is 100% (See #3746)
+TestFunctions: Clicked over position 577 - 467
 B
-TestFunctions: Clicked over position 484 - 390
+TestFunctions: Clicked over position 577 - 527
 A
-TestFunctions: Clicked over position 754 - 340
+TestFunctions: Clicked over position 877 - 467
 B
-TestFunctions: Clicked over position 754 - 390
+TestFunctions: Clicked over position 877 - 527
 A
-TestFunctions: Clicked over position 304 - 140
-TestFunctions: Clicked over position 304 - 140
+TestFunctions: Clicked over position 377 - 207
+TestFunctions: Clicked over position 377 - 207
 TestFunctions: Netedit closed successfully

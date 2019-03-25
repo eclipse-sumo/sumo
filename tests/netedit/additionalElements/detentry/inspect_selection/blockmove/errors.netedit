@@ -6,13 +6,13 @@ Debug: Adding detEntry 'E3_0detEntry0' in GNEChange_Additional
 Debug: Inserting generic parameter 'KeyA1|valueA1' into additional detEntry.
 Debug: Inserting generic parameter 'KeyA3|valueA2' into additional detEntry.
 Debug: Inserting generic parameter 'KeyA2|valueA3' into additional detEntry.
-Debug: Adding detExit 'E3_0detExit0' in GNEChange_Additional
+Debug: Adding detExit 'E3_0detExit1' in GNEChange_Additional
 Debug: Adding e3Detector 'E3_1' in GNEChange_Additional
 Debug: Adding detEntry 'E3_1detEntry0' in GNEChange_Additional
 Debug: Inserting generic parameter 'KeyB1|valueB1' into additional detEntry.
 Debug: Inserting generic parameter 'KeyB3|valueB2' into additional detEntry.
 Debug: Inserting generic parameter 'KeyB2|valueB3' into additional detEntry.
-Debug: Adding detExit 'E3_1detExit0' in GNEChange_Additional
+Debug: Adding detExit 'E3_1detExit1' in GNEChange_Additional
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
 Debug: Setting new attribute selected 'true' into junction 'gneJ0'
@@ -23,8 +23,8 @@ Debug: Setting new attribute selected 'true' into e3Detector 'E3_0'
 Debug: Setting new attribute selected 'true' into e3Detector 'E3_1'
 Debug: Setting new attribute selected 'true' into detEntry 'E3_0detEntry0'
 Debug: Setting new attribute selected 'true' into detEntry 'E3_1detEntry0'
-Debug: Setting new attribute selected 'true' into detExit 'E3_0detExit0'
-Debug: Setting new attribute selected 'true' into detExit 'E3_1detExit0'
+Debug: Setting new attribute selected 'true' into detExit 'E3_0detExit1'
+Debug: Setting new attribute selected 'true' into detExit 'E3_1detExit1'
 Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 1, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Setting new attribute blockMovement 'true' into detEntry 'E3_0detEntry0'
 Debug: Setting new attribute blockMovement 'true' into detEntry 'E3_1detEntry0'
@@ -33,8 +33,8 @@ Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute blockMovement '0' into detEntry 'E3_1detEntry0'
 Debug: Setting previous attribute blockMovement '0' into detEntry 'E3_0detEntry0'
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute selected '0' into detExit 'E3_1detExit0'
-Debug: Setting previous attribute selected '0' into detExit 'E3_0detExit0'
+Debug: Setting previous attribute selected '0' into detExit 'E3_1detExit1'
+Debug: Setting previous attribute selected '0' into detExit 'E3_0detExit1'
 Debug: Setting previous attribute selected '0' into detEntry 'E3_1detEntry0'
 Debug: Setting previous attribute selected '0' into detEntry 'E3_0detEntry0'
 Debug: Setting previous attribute selected '0' into e3Detector 'E3_1'
@@ -44,11 +44,11 @@ Debug: Setting previous attribute selected '0' into junction 'gneJ1'
 Debug: Setting previous attribute selected '0' into edge 'gneE1'
 Debug: Setting previous attribute selected '0' into junction 'gneJ0'
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Removing detExit 'E3_1detExit0' in GNEChange_Additional
+Debug: Removing detExit 'E3_1detExit1' in GNEChange_Additional
 Debug: Removing detEntry 'E3_1detEntry0' in GNEChange_Additional
 Debug: Removed inspected element from Inspected ACs. 1 ACs remains.
 Debug: Removing e3Detector 'E3_1' in GNEChange_Additional
-Debug: Removing detExit 'E3_0detExit0' in GNEChange_Additional
+Debug: Removing detExit 'E3_0detExit1' in GNEChange_Additional
 Debug: Removing detEntry 'E3_0detEntry0' in GNEChange_Additional
 Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
 Debug: Removing e3Detector 'E3_0' in GNEChange_Additional
@@ -56,10 +56,10 @@ Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Adding e3Detector 'E3_0' in GNEChange_Additional
 Debug: Adding detEntry 'E3_0detEntry0' in GNEChange_Additional
-Debug: Adding detExit 'E3_0detExit0' in GNEChange_Additional
+Debug: Adding detExit 'E3_0detExit1' in GNEChange_Additional
 Debug: Adding e3Detector 'E3_1' in GNEChange_Additional
 Debug: Adding detEntry 'E3_1detEntry0' in GNEChange_Additional
-Debug: Adding detExit 'E3_1detExit0' in GNEChange_Additional
+Debug: Adding detExit 'E3_1detExit1' in GNEChange_Additional
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute selected 'true' into junction 'gneJ0'
 Debug: Setting new attribute selected 'true' into edge 'gneE1'
@@ -69,20 +69,20 @@ Debug: Setting new attribute selected 'true' into e3Detector 'E3_0'
 Debug: Setting new attribute selected 'true' into e3Detector 'E3_1'
 Debug: Setting new attribute selected 'true' into detEntry 'E3_0detEntry0'
 Debug: Setting new attribute selected 'true' into detEntry 'E3_1detEntry0'
-Debug: Setting new attribute selected 'true' into detExit 'E3_0detExit0'
-Debug: Setting new attribute selected 'true' into detExit 'E3_1detExit0'
+Debug: Setting new attribute selected 'true' into detExit 'E3_0detExit1'
+Debug: Setting new attribute selected 'true' into detExit 'E3_1detExit1'
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute blockMovement 'true' into detEntry 'E3_0detEntry0'
 Debug: Setting new attribute blockMovement 'true' into detEntry 'E3_1detEntry0'
 Debug: Additionals saved
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Debug: Deleting unreferenced detExit 'E3_1detExit0'
+Debug: Deleting unreferenced detExit 'E3_1detExit1'
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Deleting unreferenced detEntry 'E3_1detEntry0'
 Debug: Deleting unreferenced e3Detector 'E3_1'
-Debug: Deleting unreferenced detExit 'E3_0detExit0'
+Debug: Deleting unreferenced detExit 'E3_0detExit1'
 Debug: Deleting unreferenced detEntry 'E3_0detEntry0'
 Debug: Deleting unreferenced e3Detector 'E3_0'
 Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor

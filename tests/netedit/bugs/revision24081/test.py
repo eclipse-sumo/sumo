@@ -28,9 +28,6 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # Rebuild network
 netedit.rebuildNetwork()
 
-# zoom in central node
-netedit.setZoom("0", "0", "50")
-
 # set crossing mode
 netedit.inspectMode()
 

@@ -12,26 +12,26 @@ Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1
 Debug: ObjectsUnderCursor: swapped Lanes to edges
 Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 1, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: ObjectsUnderCursor: swapped Lanes to edges
-Debug: Setting new attribute startPos '9.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting new attribute endPos '19.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting new attribute startPos '4.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting new attribute endPos '14.00' into busStop 'busStop_gneE0_0_0'
 Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 1, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: ObjectsUnderCursor: swapped Lanes to edges
 Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 1, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: ObjectsUnderCursor: swapped Lanes to edges
-Debug: Setting new attribute startPos '17.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting new attribute endPos '27.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting new attribute startPos '12.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting new attribute endPos '22.00' into busStop 'busStop_gneE0_0_0'
 Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 1, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: ObjectsUnderCursor: swapped Lanes to edges
 Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 1, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: ObjectsUnderCursor: swapped Lanes to edges
-Debug: Setting new attribute startPos '25.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting new attribute endPos '35.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting new attribute startPos '20.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting new attribute endPos '30.00' into busStop 'busStop_gneE0_0_0'
 Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 1, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: ObjectsUnderCursor: swapped Lanes to edges
 Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 1, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: ObjectsUnderCursor: swapped Lanes to edges
-Debug: Setting new attribute startPos '17.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting new attribute endPos '27.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting new attribute startPos '12.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting new attribute endPos '22.00' into busStop 'busStop_gneE0_0_0'
 Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 1, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: ObjectsUnderCursor: swapped Lanes to edges
 Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 1, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
@@ -67,20 +67,20 @@ Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute endPos '10.00' into busStop 'busStop_gneE0_0_0'
 Debug: Setting previous attribute startPos '0' into busStop 'busStop_gneE0_0_0'
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute endPos '27.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting previous attribute startPos '17.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting previous attribute endPos '22.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting previous attribute startPos '12.00' into busStop 'busStop_gneE0_0_0'
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute endPos '35.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting previous attribute startPos '25.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting previous attribute endPos '30.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting previous attribute startPos '20.00' into busStop 'busStop_gneE0_0_0'
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute endPos '27.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting previous attribute startPos '17.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting previous attribute endPos '22.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting previous attribute startPos '12.00' into busStop 'busStop_gneE0_0_0'
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute endPos '19.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting previous attribute startPos '9.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting previous attribute endPos '14.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting previous attribute startPos '4.00' into busStop 'busStop_gneE0_0_0'
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute endPos '27.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting previous attribute startPos '17.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting previous attribute endPos '22.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting previous attribute startPos '12.00' into busStop 'busStop_gneE0_0_0'
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Removing busStop 'busStop_gneE0_0_0' in GNEChange_Additional
 Debug: Keys Ctrl + Z (Undo) pressed
@@ -88,17 +88,17 @@ Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Adding busStop 'busStop_gneE0_0_0' in GNEChange_Additional
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute startPos '9.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting new attribute endPos '19.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting new attribute startPos '4.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting new attribute endPos '14.00' into busStop 'busStop_gneE0_0_0'
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute startPos '17.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting new attribute endPos '27.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting new attribute startPos '12.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting new attribute endPos '22.00' into busStop 'busStop_gneE0_0_0'
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute startPos '25.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting new attribute endPos '35.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting new attribute startPos '20.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting new attribute endPos '30.00' into busStop 'busStop_gneE0_0_0'
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute startPos '17.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting new attribute endPos '27.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting new attribute startPos '12.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting new attribute endPos '22.00' into busStop 'busStop_gneE0_0_0'
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute startPos '0' into busStop 'busStop_gneE0_0_0'
 Debug: Setting new attribute endPos '10.00' into busStop 'busStop_gneE0_0_0'
