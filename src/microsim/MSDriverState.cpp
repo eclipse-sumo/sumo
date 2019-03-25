@@ -86,7 +86,7 @@ double DriverStateDefaults::speedDifferenceErrorCoefficient = 0.15;
 double DriverStateDefaults::headwayErrorCoefficient = 0.75;
 double DriverStateDefaults::speedDifferenceChangePerceptionThreshold = 0.1;
 double DriverStateDefaults::headwayChangePerceptionThreshold = 0.1;
-double DriverStateDefaults::maximalReactionTimeFactor = 3.0;
+double DriverStateDefaults::maximalReactionTimeFactor = 1.0;
 
 
 // ===========================================================================
