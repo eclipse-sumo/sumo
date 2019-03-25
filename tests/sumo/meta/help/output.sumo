@@ -443,6 +443,10 @@ Driver State Device Options:
                                          (threshold also scales with distance).
   --device.driverstate.minAwareness FLOAT  Minimal admissible value for the
                                          driver's awareness.
+  --device.driverstate.maximalReactionTime FLOAT  Maximal reaction time
+                                         (~action step length) induced by
+                                         decreased awareness level (reached for
+                                         awareness=minAwareness).
 
 Bluelight Device Options:
   --device.bluelight.probability FLOAT  The probability for a vehicle to have a
