@@ -203,12 +203,8 @@ Debug: Deleting TLS from junction 'gneJ0'
 Debug: Adding TLS into junction 'gneJ0'
 Debug: Deleting TLS from junction 'gneJ0'
 Debug: Setting new attribute type 'priority' into junction 'gneJ0'
-GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
-GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
 Debug: Deleting TLS from junction 'gneJ1'
 Debug: Setting new attribute type 'priority' into junction 'gneJ1'
-GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
-GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00,22.00
 Debug: Removing edge 'gneE0' from net
 GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
@@ -216,12 +212,8 @@ Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Adding edge 'gneE0' from net
 GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
 Debug: Setting previous attribute type 'traffic_light' into junction 'gneJ1'
-GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
-GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00,22.00
 Debug: Adding TLS into junction 'gneJ1'
 Debug: Setting previous attribute type 'traffic_light' into junction 'gneJ0'
-GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
-GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
 Debug: Adding TLS into junction 'gneJ0'
 Debug: Removing TLS from junction 'gneJ0'
 Debug: Adding TLS into junction 'gneJ0'
@@ -436,12 +428,8 @@ Debug: Deleting TLS from junction 'gneJ0'
 Debug: Adding TLS into junction 'gneJ0'
 Debug: Deleting TLS from junction 'gneJ0'
 Debug: Setting new attribute type 'priority' into junction 'gneJ0'
-GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
-GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
 Debug: Deleting TLS from junction 'gneJ1'
 Debug: Setting new attribute type 'priority' into junction 'gneJ1'
-GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
-GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00,22.00
 Debug: Removing edge 'gneE0' from net
 GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
 Debug: Key ENTER pressed

@@ -19,32 +19,18 @@ Debug: Current saving Status: net saved, additionals unsaved, demand elements sa
 Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 1, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 1, Polys: 0
 Debug: Value 'dummyColor' for attribute color of poi isn't valid
 Debug: Setting new attribute color '255,255,500' into poi 'POI_0'
-GLDebug: Removed object poi:POI_0 from SUMORTree with boundary -1.00,16.00,5.00,22.00
-GLDebug: Inserted poi:POI_0 into SUMORTree with boundary -1.00,16.00,5.00,22.00
 Debug: Setting new attribute color 'blue' into poi 'POI_0'
-GLDebug: Removed object poi:POI_0 from SUMORTree with boundary -1.00,16.00,5.00,22.00
-GLDebug: Inserted poi:POI_0 into SUMORTree with boundary -1.00,16.00,5.00,22.00
 Debug: Setting new attribute color '125,60,200' into poi 'POI_0'
-GLDebug: Removed object poi:POI_0 from SUMORTree with boundary -1.00,16.00,5.00,22.00
-GLDebug: Inserted poi:POI_0 into SUMORTree with boundary -1.00,16.00,5.00,22.00
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute color 'blue' into poi 'POI_0'
-GLDebug: Removed object poi:POI_0 from SUMORTree with boundary -1.00,16.00,5.00,22.00
-GLDebug: Inserted poi:POI_0 into SUMORTree with boundary -1.00,16.00,5.00,22.00
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute color '255,255,244' into poi 'POI_0'
-GLDebug: Removed object poi:POI_0 from SUMORTree with boundary -1.00,16.00,5.00,22.00
-GLDebug: Inserted poi:POI_0 into SUMORTree with boundary -1.00,16.00,5.00,22.00
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute color 'blue' into poi 'POI_0'
-GLDebug: Removed object poi:POI_0 from SUMORTree with boundary -1.00,16.00,5.00,22.00
-GLDebug: Inserted poi:POI_0 into SUMORTree with boundary -1.00,16.00,5.00,22.00
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute color '125,60,200' into poi 'POI_0'
-GLDebug: Removed object poi:POI_0 from SUMORTree with boundary -1.00,16.00,5.00,22.00
-GLDebug: Inserted poi:POI_0 into SUMORTree with boundary -1.00,16.00,5.00,22.00
 Debug: Additionals saved
 GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
 GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00

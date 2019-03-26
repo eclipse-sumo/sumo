@@ -153,11 +153,7 @@ Debug: Deleting unreferenced crossing in rebuildGNECrossings()
 Debug: Changed flag netBuilder::haveNetworkCrossings from 'true' to 'false'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '2'
 Debug: invalidating (removing) connections of edge '2' due it were guessed
-GLDebug: Removed object edge:2 from SUMORTree with boundary 20.00,20.00,87.40,130.00
-GLDebug: Inserted edge:2 into SUMORTree with boundary 20.00,20.00,87.40,130.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'B'
-GLDebug: Removed object junction:B from SUMORTree with boundary 21.60,78.00,78.40,122.00
-GLDebug: Inserted junction:B into SUMORTree with boundary 21.60,78.00,78.40,122.00
 Debug: Removing connection '6_2->4_2' from edge '6'
 GLDebug: Removed object connection:from6_2to4_2 from SUMORTree with boundary 28.40,28.40,80.40,80.40
 Debug: Deleting unreferenced connection 'from6_2to4_2' in removeConnection()
@@ -180,8 +176,6 @@ GLDebug: Removed object edge:6 from SUMORTree with boundary 12.60,20.00,80.00,13
 GLDebug: Inserted edge:6 into SUMORTree with boundary 12.60,20.00,80.00,130.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '6'
 Debug: invalidating (removing) connections of edge '6' due it were guessed
-GLDebug: Removed object edge:6 from SUMORTree with boundary 12.60,20.00,80.00,130.00
-GLDebug: Inserted edge:6 into SUMORTree with boundary 12.60,20.00,80.00,130.00
 Debug: Removing connection '8_2->1_2' from edge '8'
 GLDebug: Removed object connection:from8_2to1_2 from SUMORTree with boundary 28.40,19.60,80.40,71.60
 Debug: Deleting unreferenced connection 'from8_2to1_2' in removeConnection()
@@ -204,8 +198,6 @@ GLDebug: Removed object edge:8 from SUMORTree with boundary 20.00,20.00,130.00,8
 GLDebug: Inserted edge:8 into SUMORTree with boundary 20.00,20.00,130.00,87.40
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
 Debug: invalidating (removing) connections of edge '8' due it were guessed
-GLDebug: Removed object edge:8 from SUMORTree with boundary 20.00,20.00,130.00,87.40
-GLDebug: Inserted edge:8 into SUMORTree with boundary 20.00,20.00,130.00,87.40
 Debug: Removing connection '5_2->3_2' from edge '5'
 GLDebug: Removed object connection:from5_2to3_2 from SUMORTree with boundary 19.60,19.60,71.60,71.60
 Debug: Deleting unreferenced connection 'from5_2to3_2' in removeConnection()
@@ -228,8 +220,6 @@ GLDebug: Removed object edge:5 from SUMORTree with boundary 20.00,-30.00,87.40,8
 GLDebug: Inserted edge:5 into SUMORTree with boundary 20.00,-30.00,87.40,80.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '5'
 Debug: invalidating (removing) connections of edge '5' due it were guessed
-GLDebug: Removed object edge:5 from SUMORTree with boundary 20.00,-30.00,87.40,80.00
-GLDebug: Inserted edge:5 into SUMORTree with boundary 20.00,-30.00,87.40,80.00
 Debug: Removing connection '7_2->2_2' from edge '7'
 GLDebug: Removed object connection:from7_2to2_2 from SUMORTree with boundary 19.60,28.40,71.60,80.40
 Debug: Deleting unreferenced connection 'from7_2to2_2' in removeConnection()
@@ -252,149 +242,77 @@ GLDebug: Removed object edge:7 from SUMORTree with boundary -30.00,12.60,80.00,8
 GLDebug: Inserted edge:7 into SUMORTree with boundary -30.00,12.60,80.00,80.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Debug: invalidating (removing) connections of edge '7' due it were guessed
-GLDebug: Removed object edge:7 from SUMORTree with boundary -30.00,12.60,80.00,80.00
-GLDebug: Inserted edge:7 into SUMORTree with boundary -30.00,12.60,80.00,80.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
-GLDebug: Removed object junction:Center from SUMORTree with boundary 19.60,19.60,80.40,80.40
-GLDebug: Inserted junction:Center into SUMORTree with boundary 19.60,19.60,80.40,80.40
 Debug: Deleting TLS from junction 'Center'
 Debug: Adding TLS into junction 'Center'
 Debug: Removing edge '6' from net
 GLDebug: Removed object edge:6 from SUMORTree with boundary 12.60,20.00,80.00,130.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
 Debug: invalidating (removing) connections of edge '8' due it were guessed
-GLDebug: Removed object edge:8 from SUMORTree with boundary 20.00,20.00,130.00,87.40
-GLDebug: Inserted edge:8 into SUMORTree with boundary 20.00,20.00,130.00,87.40
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '5'
 Debug: invalidating (removing) connections of edge '5' due it were guessed
-GLDebug: Removed object edge:5 from SUMORTree with boundary 20.00,-30.00,87.40,80.00
-GLDebug: Inserted edge:5 into SUMORTree with boundary 20.00,-30.00,87.40,80.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Debug: invalidating (removing) connections of edge '7' due it were guessed
-GLDebug: Removed object edge:7 from SUMORTree with boundary -30.00,12.60,80.00,80.00
-GLDebug: Inserted edge:7 into SUMORTree with boundary -30.00,12.60,80.00,80.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
-GLDebug: Removed object junction:Center from SUMORTree with boundary 19.60,19.60,80.40,80.40
-GLDebug: Inserted junction:Center into SUMORTree with boundary 19.60,19.60,80.40,80.40
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '2'
 Debug: invalidating (removing) connections of edge '2' due it were guessed
-GLDebug: Removed object edge:2 from SUMORTree with boundary 20.00,20.00,87.40,130.00
-GLDebug: Inserted edge:2 into SUMORTree with boundary 20.00,20.00,87.40,130.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'B'
-GLDebug: Removed object junction:B from SUMORTree with boundary 21.60,78.00,78.40,122.00
-GLDebug: Inserted junction:B into SUMORTree with boundary 21.60,78.00,78.40,122.00
 Debug: Removing edge '2' from net
 GLDebug: Removed object edge:2 from SUMORTree with boundary 20.00,20.00,87.40,130.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '4'
 Debug: invalidating (removing) connections of edge '4' due it were guessed
-GLDebug: Removed object edge:4 from SUMORTree with boundary 20.00,12.60,130.00,80.00
-GLDebug: Inserted edge:4 into SUMORTree with boundary 20.00,12.60,130.00,80.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'D'
-GLDebug: Removed object junction:D from SUMORTree with boundary 78.00,21.60,122.00,78.40
-GLDebug: Inserted junction:D into SUMORTree with boundary 78.00,21.60,122.00,78.40
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
 Debug: invalidating (removing) connections of edge '8' due it were guessed
-GLDebug: Removed object edge:8 from SUMORTree with boundary 20.00,20.00,130.00,87.40
-GLDebug: Inserted edge:8 into SUMORTree with boundary 20.00,20.00,130.00,87.40
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '5'
 Debug: invalidating (removing) connections of edge '5' due it were guessed
-GLDebug: Removed object edge:5 from SUMORTree with boundary 20.00,-30.00,87.40,80.00
-GLDebug: Inserted edge:5 into SUMORTree with boundary 20.00,-30.00,87.40,80.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Debug: invalidating (removing) connections of edge '7' due it were guessed
-GLDebug: Removed object edge:7 from SUMORTree with boundary -30.00,12.60,80.00,80.00
-GLDebug: Inserted edge:7 into SUMORTree with boundary -30.00,12.60,80.00,80.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
-GLDebug: Removed object junction:Center from SUMORTree with boundary 19.60,19.60,80.40,80.40
-GLDebug: Inserted junction:Center into SUMORTree with boundary 19.60,19.60,80.40,80.40
 Debug: Removing edge '8' from net
 GLDebug: Removed object edge:8 from SUMORTree with boundary 20.00,20.00,130.00,87.40
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '5'
 Debug: invalidating (removing) connections of edge '5' due it were guessed
-GLDebug: Removed object edge:5 from SUMORTree with boundary 20.00,-30.00,87.40,80.00
-GLDebug: Inserted edge:5 into SUMORTree with boundary 20.00,-30.00,87.40,80.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Debug: invalidating (removing) connections of edge '7' due it were guessed
-GLDebug: Removed object edge:7 from SUMORTree with boundary -30.00,12.60,80.00,80.00
-GLDebug: Inserted edge:7 into SUMORTree with boundary -30.00,12.60,80.00,80.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
-GLDebug: Removed object junction:Center from SUMORTree with boundary 19.60,19.60,80.40,80.40
-GLDebug: Inserted junction:Center into SUMORTree with boundary 19.60,19.60,80.40,80.40
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '4'
 Debug: invalidating (removing) connections of edge '4' due it were guessed
-GLDebug: Removed object edge:4 from SUMORTree with boundary 20.00,12.60,130.00,80.00
-GLDebug: Inserted edge:4 into SUMORTree with boundary 20.00,12.60,130.00,80.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'D'
-GLDebug: Removed object junction:D from SUMORTree with boundary 78.00,21.60,122.00,78.40
-GLDebug: Inserted junction:D into SUMORTree with boundary 78.00,21.60,122.00,78.40
 Debug: Removing edge '4' from net
 GLDebug: Removed object edge:4 from SUMORTree with boundary 20.00,12.60,130.00,80.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '1'
 Debug: invalidating (removing) connections of edge '1' due it were guessed
-GLDebug: Removed object edge:1 from SUMORTree with boundary 12.60,-30.00,80.00,80.00
-GLDebug: Inserted edge:1 into SUMORTree with boundary 12.60,-30.00,80.00,80.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'A'
-GLDebug: Removed object junction:A from SUMORTree with boundary 21.60,-22.00,78.40,22.00
-GLDebug: Inserted junction:A into SUMORTree with boundary 21.60,-22.00,78.40,22.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '5'
 Debug: invalidating (removing) connections of edge '5' due it were guessed
-GLDebug: Removed object edge:5 from SUMORTree with boundary 20.00,-30.00,87.40,80.00
-GLDebug: Inserted edge:5 into SUMORTree with boundary 20.00,-30.00,87.40,80.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Debug: invalidating (removing) connections of edge '7' due it were guessed
-GLDebug: Removed object edge:7 from SUMORTree with boundary -30.00,12.60,80.00,80.00
-GLDebug: Inserted edge:7 into SUMORTree with boundary -30.00,12.60,80.00,80.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
-GLDebug: Removed object junction:Center from SUMORTree with boundary 19.60,19.60,80.40,80.40
-GLDebug: Inserted junction:Center into SUMORTree with boundary 19.60,19.60,80.40,80.40
 Debug: Removing edge '5' from net
 GLDebug: Removed object edge:5 from SUMORTree with boundary 20.00,-30.00,87.40,80.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Debug: invalidating (removing) connections of edge '7' due it were guessed
-GLDebug: Removed object edge:7 from SUMORTree with boundary -30.00,12.60,80.00,80.00
-GLDebug: Inserted edge:7 into SUMORTree with boundary -30.00,12.60,80.00,80.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
-GLDebug: Removed object junction:Center from SUMORTree with boundary 19.60,19.60,80.40,80.40
-GLDebug: Inserted junction:Center into SUMORTree with boundary 19.60,19.60,80.40,80.40
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '1'
 Debug: invalidating (removing) connections of edge '1' due it were guessed
-GLDebug: Removed object edge:1 from SUMORTree with boundary 12.60,-30.00,80.00,80.00
-GLDebug: Inserted edge:1 into SUMORTree with boundary 12.60,-30.00,80.00,80.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'A'
-GLDebug: Removed object junction:A from SUMORTree with boundary 21.60,-22.00,78.40,22.00
-GLDebug: Inserted junction:A into SUMORTree with boundary 21.60,-22.00,78.40,22.00
 Debug: Removing edge '1' from net
 GLDebug: Removed object edge:1 from SUMORTree with boundary 12.60,-30.00,80.00,80.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '3'
 Debug: invalidating (removing) connections of edge '3' due it were guessed
-GLDebug: Removed object edge:3 from SUMORTree with boundary -30.00,20.00,80.00,87.40
-GLDebug: Inserted edge:3 into SUMORTree with boundary -30.00,20.00,80.00,87.40
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'C'
-GLDebug: Removed object junction:C from SUMORTree with boundary -22.00,21.60,22.00,78.40
-GLDebug: Inserted junction:C into SUMORTree with boundary -22.00,21.60,22.00,78.40
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Debug: invalidating (removing) connections of edge '7' due it were guessed
-GLDebug: Removed object edge:7 from SUMORTree with boundary -30.00,12.60,80.00,80.00
-GLDebug: Inserted edge:7 into SUMORTree with boundary -30.00,12.60,80.00,80.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
-GLDebug: Removed object junction:Center from SUMORTree with boundary 19.60,19.60,80.40,80.40
-GLDebug: Inserted junction:Center into SUMORTree with boundary 19.60,19.60,80.40,80.40
 Debug: Deleting TLS from junction 'Center'
 Debug: Setting new attribute type 'priority' into junction 'Center'
-GLDebug: Removed object junction:Center from SUMORTree with boundary 19.60,19.60,80.40,80.40
-GLDebug: Inserted junction:Center into SUMORTree with boundary 19.60,19.60,80.40,80.40
 Debug: Removing edge '7' from net
 GLDebug: Removed object edge:7 from SUMORTree with boundary -30.00,12.60,80.00,80.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
-GLDebug: Removed object junction:Center from SUMORTree with boundary 19.60,19.60,80.40,80.40
-GLDebug: Inserted junction:Center into SUMORTree with boundary 19.60,19.60,80.40,80.40
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '3'
 Debug: invalidating (removing) connections of edge '3' due it were guessed
-GLDebug: Removed object edge:3 from SUMORTree with boundary -30.00,20.00,80.00,87.40
-GLDebug: Inserted edge:3 into SUMORTree with boundary -30.00,20.00,80.00,87.40
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'C'
-GLDebug: Removed object junction:C from SUMORTree with boundary -22.00,21.60,22.00,78.40
-GLDebug: Inserted junction:C into SUMORTree with boundary -22.00,21.60,22.00,78.40
 Debug: Removing edge '3' from net
 GLDebug: Removed object edge:3 from SUMORTree with boundary -30.00,20.00,80.00,87.40
 Debug: Removing junction 'Center' from net
@@ -425,150 +343,78 @@ GLDebug: Inserted junction:Center into SUMORTree with boundary 19.60,19.60,80.40
 Debug: Adding edge '3' from net
 GLDebug: Inserted edge:3 into SUMORTree with boundary -30.00,20.00,80.00,87.40
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'C'
-GLDebug: Removed object junction:C from SUMORTree with boundary -22.00,28.00,22.00,72.00
-GLDebug: Inserted junction:C into SUMORTree with boundary -22.00,28.00,22.00,72.00
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '3'
 Debug: invalidating (removing) connections of edge '3' due it were guessed
-GLDebug: Removed object edge:3 from SUMORTree with boundary -30.00,20.00,80.00,87.40
-GLDebug: Inserted edge:3 into SUMORTree with boundary -30.00,20.00,80.00,87.40
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
-GLDebug: Removed object junction:Center from SUMORTree with boundary 19.60,19.60,80.40,80.40
-GLDebug: Inserted junction:Center into SUMORTree with boundary 19.60,19.60,80.40,80.40
 Debug: Adding edge '7' from net
 GLDebug: Inserted edge:7 into SUMORTree with boundary -30.00,12.60,80.00,80.00
 Debug: Setting previous attribute type 'traffic_light' into junction 'Center'
-GLDebug: Removed object junction:Center from SUMORTree with boundary 19.60,19.60,80.40,80.40
-GLDebug: Inserted junction:Center into SUMORTree with boundary 19.60,19.60,80.40,80.40
 Debug: Adding TLS into junction 'Center'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
-GLDebug: Removed object junction:Center from SUMORTree with boundary 19.60,19.60,80.40,80.40
-GLDebug: Inserted junction:Center into SUMORTree with boundary 19.60,19.60,80.40,80.40
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Debug: invalidating (removing) connections of edge '7' due it were guessed
-GLDebug: Removed object edge:7 from SUMORTree with boundary -30.00,12.60,80.00,80.00
-GLDebug: Inserted edge:7 into SUMORTree with boundary -30.00,12.60,80.00,80.00
 Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'C'
-GLDebug: Removed object junction:C from SUMORTree with boundary -22.00,28.00,22.00,72.00
-GLDebug: Inserted junction:C into SUMORTree with boundary -22.00,28.00,22.00,72.00
 Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '3'
 Debug: declaring connections of edge '3' as loaded (It will not be removed)
-GLDebug: Removed object edge:3 from SUMORTree with boundary -30.00,20.00,80.00,87.40
-GLDebug: Inserted edge:3 into SUMORTree with boundary -30.00,20.00,80.00,87.40
 Debug: Adding edge '1' from net
 GLDebug: Inserted edge:1 into SUMORTree with boundary 12.60,-30.00,80.00,80.00
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'A'
-GLDebug: Removed object junction:A from SUMORTree with boundary 28.00,-22.00,72.00,22.00
-GLDebug: Inserted junction:A into SUMORTree with boundary 28.00,-22.00,72.00,22.00
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '1'
 Debug: invalidating (removing) connections of edge '1' due it were guessed
-GLDebug: Removed object edge:1 from SUMORTree with boundary 12.60,-30.00,80.00,80.00
-GLDebug: Inserted edge:1 into SUMORTree with boundary 12.60,-30.00,80.00,80.00
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
-GLDebug: Removed object junction:Center from SUMORTree with boundary 19.60,19.60,80.40,80.40
-GLDebug: Inserted junction:Center into SUMORTree with boundary 19.60,19.60,80.40,80.40
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Debug: invalidating (removing) connections of edge '7' due it were guessed
-GLDebug: Removed object edge:7 from SUMORTree with boundary -30.00,12.60,80.00,80.00
-GLDebug: Inserted edge:7 into SUMORTree with boundary -30.00,12.60,80.00,80.00
 Debug: Adding edge '5' from net
 GLDebug: Inserted edge:5 into SUMORTree with boundary 20.00,-30.00,87.40,80.00
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
-GLDebug: Removed object junction:Center from SUMORTree with boundary 19.60,19.60,80.40,80.40
-GLDebug: Inserted junction:Center into SUMORTree with boundary 19.60,19.60,80.40,80.40
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Debug: invalidating (removing) connections of edge '7' due it were guessed
-GLDebug: Removed object edge:7 from SUMORTree with boundary -30.00,12.60,80.00,80.00
-GLDebug: Inserted edge:7 into SUMORTree with boundary -30.00,12.60,80.00,80.00
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '5'
 Debug: invalidating (removing) connections of edge '5' due it were guessed
-GLDebug: Removed object edge:5 from SUMORTree with boundary 20.00,-30.00,87.40,80.00
-GLDebug: Inserted edge:5 into SUMORTree with boundary 20.00,-30.00,87.40,80.00
 Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'A'
-GLDebug: Removed object junction:A from SUMORTree with boundary 28.00,-22.00,72.00,22.00
-GLDebug: Inserted junction:A into SUMORTree with boundary 28.00,-22.00,72.00,22.00
 Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '1'
 Debug: declaring connections of edge '1' as loaded (It will not be removed)
-GLDebug: Removed object edge:1 from SUMORTree with boundary 12.60,-30.00,80.00,80.00
-GLDebug: Inserted edge:1 into SUMORTree with boundary 12.60,-30.00,80.00,80.00
 Debug: Adding edge '4' from net
 GLDebug: Inserted edge:4 into SUMORTree with boundary 20.00,12.60,130.00,80.00
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'D'
-GLDebug: Removed object junction:D from SUMORTree with boundary 78.00,28.00,122.00,72.00
-GLDebug: Inserted junction:D into SUMORTree with boundary 78.00,28.00,122.00,72.00
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '4'
 Debug: invalidating (removing) connections of edge '4' due it were guessed
-GLDebug: Removed object edge:4 from SUMORTree with boundary 20.00,12.60,130.00,80.00
-GLDebug: Inserted edge:4 into SUMORTree with boundary 20.00,12.60,130.00,80.00
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
-GLDebug: Removed object junction:Center from SUMORTree with boundary 19.60,19.60,80.40,80.40
-GLDebug: Inserted junction:Center into SUMORTree with boundary 19.60,19.60,80.40,80.40
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Debug: invalidating (removing) connections of edge '7' due it were guessed
-GLDebug: Removed object edge:7 from SUMORTree with boundary -30.00,12.60,80.00,80.00
-GLDebug: Inserted edge:7 into SUMORTree with boundary -30.00,12.60,80.00,80.00
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '5'
 Debug: invalidating (removing) connections of edge '5' due it were guessed
-GLDebug: Removed object edge:5 from SUMORTree with boundary 20.00,-30.00,87.40,80.00
-GLDebug: Inserted edge:5 into SUMORTree with boundary 20.00,-30.00,87.40,80.00
 Debug: Adding edge '8' from net
 GLDebug: Inserted edge:8 into SUMORTree with boundary 20.00,20.00,130.00,87.40
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
-GLDebug: Removed object junction:Center from SUMORTree with boundary 19.60,19.60,80.40,80.40
-GLDebug: Inserted junction:Center into SUMORTree with boundary 19.60,19.60,80.40,80.40
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Debug: invalidating (removing) connections of edge '7' due it were guessed
-GLDebug: Removed object edge:7 from SUMORTree with boundary -30.00,12.60,80.00,80.00
-GLDebug: Inserted edge:7 into SUMORTree with boundary -30.00,12.60,80.00,80.00
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '5'
 Debug: invalidating (removing) connections of edge '5' due it were guessed
-GLDebug: Removed object edge:5 from SUMORTree with boundary 20.00,-30.00,87.40,80.00
-GLDebug: Inserted edge:5 into SUMORTree with boundary 20.00,-30.00,87.40,80.00
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '8'
 Debug: invalidating (removing) connections of edge '8' due it were guessed
-GLDebug: Removed object edge:8 from SUMORTree with boundary 20.00,20.00,130.00,87.40
-GLDebug: Inserted edge:8 into SUMORTree with boundary 20.00,20.00,130.00,87.40
 Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'D'
-GLDebug: Removed object junction:D from SUMORTree with boundary 78.00,28.00,122.00,72.00
-GLDebug: Inserted junction:D into SUMORTree with boundary 78.00,28.00,122.00,72.00
 Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '4'
 Debug: declaring connections of edge '4' as loaded (It will not be removed)
-GLDebug: Removed object edge:4 from SUMORTree with boundary 20.00,12.60,130.00,80.00
-GLDebug: Inserted edge:4 into SUMORTree with boundary 20.00,12.60,130.00,80.00
 Debug: Adding edge '2' from net
 GLDebug: Inserted edge:2 into SUMORTree with boundary 20.00,20.00,87.40,130.00
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'B'
-GLDebug: Removed object junction:B from SUMORTree with boundary 28.00,78.00,72.00,122.00
-GLDebug: Inserted junction:B into SUMORTree with boundary 28.00,78.00,72.00,122.00
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '2'
 Debug: invalidating (removing) connections of edge '2' due it were guessed
-GLDebug: Removed object edge:2 from SUMORTree with boundary 20.00,20.00,87.40,130.00
-GLDebug: Inserted edge:2 into SUMORTree with boundary 20.00,20.00,87.40,130.00
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
-GLDebug: Removed object junction:Center from SUMORTree with boundary 19.60,19.60,80.40,80.40
-GLDebug: Inserted junction:Center into SUMORTree with boundary 19.60,19.60,80.40,80.40
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Debug: invalidating (removing) connections of edge '7' due it were guessed
-GLDebug: Removed object edge:7 from SUMORTree with boundary -30.00,12.60,80.00,80.00
-GLDebug: Inserted edge:7 into SUMORTree with boundary -30.00,12.60,80.00,80.00
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '5'
 Debug: invalidating (removing) connections of edge '5' due it were guessed
-GLDebug: Removed object edge:5 from SUMORTree with boundary 20.00,-30.00,87.40,80.00
-GLDebug: Inserted edge:5 into SUMORTree with boundary 20.00,-30.00,87.40,80.00
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '8'
 Debug: invalidating (removing) connections of edge '8' due it were guessed
-GLDebug: Removed object edge:8 from SUMORTree with boundary 20.00,20.00,130.00,87.40
-GLDebug: Inserted edge:8 into SUMORTree with boundary 20.00,20.00,130.00,87.40
 Debug: Adding edge '6' from net
 GLDebug: Inserted edge:6 into SUMORTree with boundary 12.60,20.00,80.00,130.00
 Debug: Removing TLS from junction 'Center'
 Debug: Adding TLS into junction 'Center'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'Center'
-GLDebug: Removed object junction:Center from SUMORTree with boundary 19.60,19.60,80.40,80.40
-GLDebug: Inserted junction:Center into SUMORTree with boundary 19.60,19.60,80.40,80.40
 Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '7'
 Debug: declaring connections of edge '7' as loaded (It will not be removed)
-GLDebug: Removed object edge:7 from SUMORTree with boundary -30.00,12.60,80.00,80.00
-GLDebug: Inserted edge:7 into SUMORTree with boundary -30.00,12.60,80.00,80.00
 Debug: Adding connection '7_1->1_1' into edge '7'
 Debug: Created connection 'from7_1to1_1' in retrieveGNEConnection()
 GLDebug: Inserted connection:from7_1to1_1 into SUMORTree with boundary 29.90,29.90,70.10,70.10
@@ -599,8 +445,6 @@ GLDebug: Removed object edge:7 from SUMORTree with boundary -30.00,12.60,80.00,8
 GLDebug: Inserted edge:7 into SUMORTree with boundary -30.00,12.60,80.00,80.00
 Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '5'
 Debug: declaring connections of edge '5' as loaded (It will not be removed)
-GLDebug: Removed object edge:5 from SUMORTree with boundary 20.00,-30.00,87.40,80.00
-GLDebug: Inserted edge:5 into SUMORTree with boundary 20.00,-30.00,87.40,80.00
 Debug: Adding connection '5_1->4_1' into edge '5'
 Debug: Created connection 'from5_1to4_1' in retrieveGNEConnection()
 GLDebug: Inserted connection:from5_1to4_1 into SUMORTree with boundary 29.90,29.90,70.10,70.10
@@ -631,8 +475,6 @@ GLDebug: Removed object edge:5 from SUMORTree with boundary 20.00,-30.00,87.40,8
 GLDebug: Inserted edge:5 into SUMORTree with boundary 20.00,-30.00,87.40,80.00
 Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '8'
 Debug: declaring connections of edge '8' as loaded (It will not be removed)
-GLDebug: Removed object edge:8 from SUMORTree with boundary 20.00,20.00,130.00,87.40
-GLDebug: Inserted edge:8 into SUMORTree with boundary 20.00,20.00,130.00,87.40
 Debug: Adding connection '8_1->2_1' into edge '8'
 Debug: Created connection 'from8_1to2_1' in retrieveGNEConnection()
 GLDebug: Inserted connection:from8_1to2_1 into SUMORTree with boundary 29.90,29.90,70.10,70.10
@@ -663,8 +505,6 @@ GLDebug: Removed object edge:8 from SUMORTree with boundary 20.00,20.00,130.00,8
 GLDebug: Inserted edge:8 into SUMORTree with boundary 20.00,20.00,130.00,87.40
 Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '6'
 Debug: declaring connections of edge '6' as loaded (It will not be removed)
-GLDebug: Removed object edge:6 from SUMORTree with boundary 12.60,20.00,80.00,130.00
-GLDebug: Inserted edge:6 into SUMORTree with boundary 12.60,20.00,80.00,130.00
 Debug: Adding connection '6_1->3_1' into edge '6'
 Debug: Created connection 'from6_1to3_1' in retrieveGNEConnection()
 GLDebug: Inserted connection:from6_1to3_1 into SUMORTree with boundary 29.90,29.90,70.10,70.10
@@ -694,12 +534,8 @@ GLDebug: Inserted connection:from6_2to4_2 into SUMORTree with boundary 28.40,28.
 GLDebug: Removed object edge:6 from SUMORTree with boundary 12.60,20.00,80.00,130.00
 GLDebug: Inserted edge:6 into SUMORTree with boundary 12.60,20.00,80.00,130.00
 Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'B'
-GLDebug: Removed object junction:B from SUMORTree with boundary 28.00,78.00,72.00,122.00
-GLDebug: Inserted junction:B into SUMORTree with boundary 28.00,78.00,72.00,122.00
 Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '2'
 Debug: declaring connections of edge '2' as loaded (It will not be removed)
-GLDebug: Removed object edge:2 from SUMORTree with boundary 20.00,20.00,87.40,130.00
-GLDebug: Inserted edge:2 into SUMORTree with boundary 20.00,20.00,87.40,130.00
 Debug: Adding crossing into junction 'Center'
 Debug: Changed flag netBuilder::haveNetworkCrossings from 'false' to 'true'
 Debug: Created crossing ':Center_c0' in retrieveGNECrossing()
@@ -714,11 +550,7 @@ Debug: Deleting unreferenced crossing in rebuildGNECrossings()
 Debug: Changed flag netBuilder::haveNetworkCrossings from 'true' to 'false'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '2'
 Debug: invalidating (removing) connections of edge '2' due it were guessed
-GLDebug: Removed object edge:2 from SUMORTree with boundary 20.00,20.00,87.40,130.00
-GLDebug: Inserted edge:2 into SUMORTree with boundary 20.00,20.00,87.40,130.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'B'
-GLDebug: Removed object junction:B from SUMORTree with boundary 28.00,78.00,72.00,122.00
-GLDebug: Inserted junction:B into SUMORTree with boundary 28.00,78.00,72.00,122.00
 Debug: Removing connection '6_2->4_2' from edge '6'
 GLDebug: Removed object connection:from6_2to4_2 from SUMORTree with boundary 28.40,28.40,80.40,80.40
 Debug: Deleting unreferenced connection 'from6_2to4_2' in removeConnection()
@@ -741,8 +573,6 @@ GLDebug: Removed object edge:6 from SUMORTree with boundary 12.60,20.00,80.00,13
 GLDebug: Inserted edge:6 into SUMORTree with boundary 12.60,20.00,80.00,130.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '6'
 Debug: invalidating (removing) connections of edge '6' due it were guessed
-GLDebug: Removed object edge:6 from SUMORTree with boundary 12.60,20.00,80.00,130.00
-GLDebug: Inserted edge:6 into SUMORTree with boundary 12.60,20.00,80.00,130.00
 Debug: Removing connection '8_2->1_2' from edge '8'
 GLDebug: Removed object connection:from8_2to1_2 from SUMORTree with boundary 28.40,19.60,80.40,71.60
 Debug: Deleting unreferenced connection 'from8_2to1_2' in removeConnection()
@@ -765,8 +595,6 @@ GLDebug: Removed object edge:8 from SUMORTree with boundary 20.00,20.00,130.00,8
 GLDebug: Inserted edge:8 into SUMORTree with boundary 20.00,20.00,130.00,87.40
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
 Debug: invalidating (removing) connections of edge '8' due it were guessed
-GLDebug: Removed object edge:8 from SUMORTree with boundary 20.00,20.00,130.00,87.40
-GLDebug: Inserted edge:8 into SUMORTree with boundary 20.00,20.00,130.00,87.40
 Debug: Removing connection '5_2->3_2' from edge '5'
 GLDebug: Removed object connection:from5_2to3_2 from SUMORTree with boundary 19.60,19.60,71.60,71.60
 Debug: Deleting unreferenced connection 'from5_2to3_2' in removeConnection()
@@ -789,8 +617,6 @@ GLDebug: Removed object edge:5 from SUMORTree with boundary 20.00,-30.00,87.40,8
 GLDebug: Inserted edge:5 into SUMORTree with boundary 20.00,-30.00,87.40,80.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '5'
 Debug: invalidating (removing) connections of edge '5' due it were guessed
-GLDebug: Removed object edge:5 from SUMORTree with boundary 20.00,-30.00,87.40,80.00
-GLDebug: Inserted edge:5 into SUMORTree with boundary 20.00,-30.00,87.40,80.00
 Debug: Removing connection '7_2->2_2' from edge '7'
 GLDebug: Removed object connection:from7_2to2_2 from SUMORTree with boundary 19.60,28.40,71.60,80.40
 Debug: Deleting unreferenced connection 'from7_2to2_2' in removeConnection()
@@ -813,149 +639,77 @@ GLDebug: Removed object edge:7 from SUMORTree with boundary -30.00,12.60,80.00,8
 GLDebug: Inserted edge:7 into SUMORTree with boundary -30.00,12.60,80.00,80.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Debug: invalidating (removing) connections of edge '7' due it were guessed
-GLDebug: Removed object edge:7 from SUMORTree with boundary -30.00,12.60,80.00,80.00
-GLDebug: Inserted edge:7 into SUMORTree with boundary -30.00,12.60,80.00,80.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
-GLDebug: Removed object junction:Center from SUMORTree with boundary 19.60,19.60,80.40,80.40
-GLDebug: Inserted junction:Center into SUMORTree with boundary 19.60,19.60,80.40,80.40
 Debug: Deleting TLS from junction 'Center'
 Debug: Adding TLS into junction 'Center'
 Debug: Removing edge '6' from net
 GLDebug: Removed object edge:6 from SUMORTree with boundary 12.60,20.00,80.00,130.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
 Debug: invalidating (removing) connections of edge '8' due it were guessed
-GLDebug: Removed object edge:8 from SUMORTree with boundary 20.00,20.00,130.00,87.40
-GLDebug: Inserted edge:8 into SUMORTree with boundary 20.00,20.00,130.00,87.40
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '5'
 Debug: invalidating (removing) connections of edge '5' due it were guessed
-GLDebug: Removed object edge:5 from SUMORTree with boundary 20.00,-30.00,87.40,80.00
-GLDebug: Inserted edge:5 into SUMORTree with boundary 20.00,-30.00,87.40,80.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Debug: invalidating (removing) connections of edge '7' due it were guessed
-GLDebug: Removed object edge:7 from SUMORTree with boundary -30.00,12.60,80.00,80.00
-GLDebug: Inserted edge:7 into SUMORTree with boundary -30.00,12.60,80.00,80.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
-GLDebug: Removed object junction:Center from SUMORTree with boundary 19.60,19.60,80.40,80.40
-GLDebug: Inserted junction:Center into SUMORTree with boundary 19.60,19.60,80.40,80.40
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '2'
 Debug: invalidating (removing) connections of edge '2' due it were guessed
-GLDebug: Removed object edge:2 from SUMORTree with boundary 20.00,20.00,87.40,130.00
-GLDebug: Inserted edge:2 into SUMORTree with boundary 20.00,20.00,87.40,130.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'B'
-GLDebug: Removed object junction:B from SUMORTree with boundary 28.00,78.00,72.00,122.00
-GLDebug: Inserted junction:B into SUMORTree with boundary 28.00,78.00,72.00,122.00
 Debug: Removing edge '2' from net
 GLDebug: Removed object edge:2 from SUMORTree with boundary 20.00,20.00,87.40,130.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '4'
 Debug: invalidating (removing) connections of edge '4' due it were guessed
-GLDebug: Removed object edge:4 from SUMORTree with boundary 20.00,12.60,130.00,80.00
-GLDebug: Inserted edge:4 into SUMORTree with boundary 20.00,12.60,130.00,80.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'D'
-GLDebug: Removed object junction:D from SUMORTree with boundary 78.00,28.00,122.00,72.00
-GLDebug: Inserted junction:D into SUMORTree with boundary 78.00,28.00,122.00,72.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
 Debug: invalidating (removing) connections of edge '8' due it were guessed
-GLDebug: Removed object edge:8 from SUMORTree with boundary 20.00,20.00,130.00,87.40
-GLDebug: Inserted edge:8 into SUMORTree with boundary 20.00,20.00,130.00,87.40
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '5'
 Debug: invalidating (removing) connections of edge '5' due it were guessed
-GLDebug: Removed object edge:5 from SUMORTree with boundary 20.00,-30.00,87.40,80.00
-GLDebug: Inserted edge:5 into SUMORTree with boundary 20.00,-30.00,87.40,80.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Debug: invalidating (removing) connections of edge '7' due it were guessed
-GLDebug: Removed object edge:7 from SUMORTree with boundary -30.00,12.60,80.00,80.00
-GLDebug: Inserted edge:7 into SUMORTree with boundary -30.00,12.60,80.00,80.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
-GLDebug: Removed object junction:Center from SUMORTree with boundary 19.60,19.60,80.40,80.40
-GLDebug: Inserted junction:Center into SUMORTree with boundary 19.60,19.60,80.40,80.40
 Debug: Removing edge '8' from net
 GLDebug: Removed object edge:8 from SUMORTree with boundary 20.00,20.00,130.00,87.40
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '5'
 Debug: invalidating (removing) connections of edge '5' due it were guessed
-GLDebug: Removed object edge:5 from SUMORTree with boundary 20.00,-30.00,87.40,80.00
-GLDebug: Inserted edge:5 into SUMORTree with boundary 20.00,-30.00,87.40,80.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Debug: invalidating (removing) connections of edge '7' due it were guessed
-GLDebug: Removed object edge:7 from SUMORTree with boundary -30.00,12.60,80.00,80.00
-GLDebug: Inserted edge:7 into SUMORTree with boundary -30.00,12.60,80.00,80.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
-GLDebug: Removed object junction:Center from SUMORTree with boundary 19.60,19.60,80.40,80.40
-GLDebug: Inserted junction:Center into SUMORTree with boundary 19.60,19.60,80.40,80.40
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '4'
 Debug: invalidating (removing) connections of edge '4' due it were guessed
-GLDebug: Removed object edge:4 from SUMORTree with boundary 20.00,12.60,130.00,80.00
-GLDebug: Inserted edge:4 into SUMORTree with boundary 20.00,12.60,130.00,80.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'D'
-GLDebug: Removed object junction:D from SUMORTree with boundary 78.00,28.00,122.00,72.00
-GLDebug: Inserted junction:D into SUMORTree with boundary 78.00,28.00,122.00,72.00
 Debug: Removing edge '4' from net
 GLDebug: Removed object edge:4 from SUMORTree with boundary 20.00,12.60,130.00,80.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '1'
 Debug: invalidating (removing) connections of edge '1' due it were guessed
-GLDebug: Removed object edge:1 from SUMORTree with boundary 12.60,-30.00,80.00,80.00
-GLDebug: Inserted edge:1 into SUMORTree with boundary 12.60,-30.00,80.00,80.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'A'
-GLDebug: Removed object junction:A from SUMORTree with boundary 28.00,-22.00,72.00,22.00
-GLDebug: Inserted junction:A into SUMORTree with boundary 28.00,-22.00,72.00,22.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '5'
 Debug: invalidating (removing) connections of edge '5' due it were guessed
-GLDebug: Removed object edge:5 from SUMORTree with boundary 20.00,-30.00,87.40,80.00
-GLDebug: Inserted edge:5 into SUMORTree with boundary 20.00,-30.00,87.40,80.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Debug: invalidating (removing) connections of edge '7' due it were guessed
-GLDebug: Removed object edge:7 from SUMORTree with boundary -30.00,12.60,80.00,80.00
-GLDebug: Inserted edge:7 into SUMORTree with boundary -30.00,12.60,80.00,80.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
-GLDebug: Removed object junction:Center from SUMORTree with boundary 19.60,19.60,80.40,80.40
-GLDebug: Inserted junction:Center into SUMORTree with boundary 19.60,19.60,80.40,80.40
 Debug: Removing edge '5' from net
 GLDebug: Removed object edge:5 from SUMORTree with boundary 20.00,-30.00,87.40,80.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Debug: invalidating (removing) connections of edge '7' due it were guessed
-GLDebug: Removed object edge:7 from SUMORTree with boundary -30.00,12.60,80.00,80.00
-GLDebug: Inserted edge:7 into SUMORTree with boundary -30.00,12.60,80.00,80.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
-GLDebug: Removed object junction:Center from SUMORTree with boundary 19.60,19.60,80.40,80.40
-GLDebug: Inserted junction:Center into SUMORTree with boundary 19.60,19.60,80.40,80.40
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '1'
 Debug: invalidating (removing) connections of edge '1' due it were guessed
-GLDebug: Removed object edge:1 from SUMORTree with boundary 12.60,-30.00,80.00,80.00
-GLDebug: Inserted edge:1 into SUMORTree with boundary 12.60,-30.00,80.00,80.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'A'
-GLDebug: Removed object junction:A from SUMORTree with boundary 28.00,-22.00,72.00,22.00
-GLDebug: Inserted junction:A into SUMORTree with boundary 28.00,-22.00,72.00,22.00
 Debug: Removing edge '1' from net
 GLDebug: Removed object edge:1 from SUMORTree with boundary 12.60,-30.00,80.00,80.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '3'
 Debug: invalidating (removing) connections of edge '3' due it were guessed
-GLDebug: Removed object edge:3 from SUMORTree with boundary -30.00,20.00,80.00,87.40
-GLDebug: Inserted edge:3 into SUMORTree with boundary -30.00,20.00,80.00,87.40
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'C'
-GLDebug: Removed object junction:C from SUMORTree with boundary -22.00,28.00,22.00,72.00
-GLDebug: Inserted junction:C into SUMORTree with boundary -22.00,28.00,22.00,72.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Debug: invalidating (removing) connections of edge '7' due it were guessed
-GLDebug: Removed object edge:7 from SUMORTree with boundary -30.00,12.60,80.00,80.00
-GLDebug: Inserted edge:7 into SUMORTree with boundary -30.00,12.60,80.00,80.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
-GLDebug: Removed object junction:Center from SUMORTree with boundary 19.60,19.60,80.40,80.40
-GLDebug: Inserted junction:Center into SUMORTree with boundary 19.60,19.60,80.40,80.40
 Debug: Deleting TLS from junction 'Center'
 Debug: Setting new attribute type 'priority' into junction 'Center'
-GLDebug: Removed object junction:Center from SUMORTree with boundary 19.60,19.60,80.40,80.40
-GLDebug: Inserted junction:Center into SUMORTree with boundary 19.60,19.60,80.40,80.40
 Debug: Removing edge '7' from net
 GLDebug: Removed object edge:7 from SUMORTree with boundary -30.00,12.60,80.00,80.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
-GLDebug: Removed object junction:Center from SUMORTree with boundary 19.60,19.60,80.40,80.40
-GLDebug: Inserted junction:Center into SUMORTree with boundary 19.60,19.60,80.40,80.40
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '3'
 Debug: invalidating (removing) connections of edge '3' due it were guessed
-GLDebug: Removed object edge:3 from SUMORTree with boundary -30.00,20.00,80.00,87.40
-GLDebug: Inserted edge:3 into SUMORTree with boundary -30.00,20.00,80.00,87.40
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'C'
-GLDebug: Removed object junction:C from SUMORTree with boundary -22.00,28.00,22.00,72.00
-GLDebug: Inserted junction:C into SUMORTree with boundary -22.00,28.00,22.00,72.00
 Debug: Removing edge '3' from net
 GLDebug: Removed object edge:3 from SUMORTree with boundary -30.00,20.00,80.00,87.40
 Debug: Removing junction 'Center' from net

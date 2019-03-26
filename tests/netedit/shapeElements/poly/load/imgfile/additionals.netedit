@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 08.03.2019 13:40:38 by Eclipse SUMO netedit Version v1_1_0+1184-22a37878bd
+<!-- generated on 26.03.2019 14:04:08 by Eclipse SUMO netedit Version v1_1_0+1328-1ffdf7a53c
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Mar091225.2224/netedit.gui/shapeElements/poly/load/imgfile\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Mar081959.2968/netedit.gui/shapeElements/poly/load/imgfile\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Mar091225.2224/netedit.gui/shapeElements/poly/load/imgfile\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Mar081959.2968/netedit.gui/shapeElements/poly/load/imgfile\net.net.xml"/>
     </output>
 
     <processing>
@@ -29,13 +29,14 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Mar091225.2224/netedit.gui/shapeElements/poly/load/imgfile\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Mar091225.2224/netedit.gui/shapeElements/poly/load/imgfile\additionals.xml"/>
-        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Mar091225.2224/netedit.gui/shapeElements/poly/load/imgfile\routes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Mar081959.2968/netedit.gui/shapeElements/poly/load/imgfile\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Mar081959.2968/netedit.gui/shapeElements/poly/load/imgfile\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Mar081959.2968/netedit.gui/shapeElements/poly/load/imgfile\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Mar081959.2968/netedit.gui/shapeElements/poly/load/imgfile\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Mar091225.2224/netedit.gui/shapeElements/poly/load/imgfile\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Mar081959.2968/netedit.gui/shapeElements/poly/load/imgfile\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -45,7 +46,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Mar091225.2224/netedit.gui/shapeElements/poly/load/imgfile\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Mar081959.2968/netedit.gui/shapeElements/poly/load/imgfile\log.txt"/>
     </report>
 
 </configuration>
@@ -55,5 +56,5 @@
     <poly id="poly_0" color="green" fill="1" layer="0.00" shape="-70.000000,-40.000000 -60.000000,-40.000000 -60.000000,-50.000000 -70.000000,-50.000000 -70.000000,-40.000000"/>
     <poly id="poly_1" color="green" fill="1" layer="0.00" shape="-70.000000,-40.000000 -60.000000,-40.000000 -60.000000,-50.000000 -70.000000,-50.000000 -70.000000,-40.000000"/>
     <poly id="poly_2" color="green" fill="1" layer="0.00" shape="50.000000,40.000000 60.000000,40.000000 60.000000,30.000000 50.000000,30.000000 50.000000,40.000000"/>
-    <poly id="poly_3" color="green" fill="1" layer="0.00" shape="60.000000,20.000000 60.000000,20.000000 60.000000,10.000000 50.000000,10.000000 50.000000,20.000000 60.000000,20.000000" imgFile="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Mar091225.2224/netedit.gui/shapeElements/poly/load/imgfile\berlin_icon.ico"/>
+    <poly id="poly_3" color="green" fill="1" layer="0.00" shape="60.000000,20.000000 60.000000,20.000000 60.000000,10.000000 50.000000,10.000000 50.000000,20.000000 60.000000,20.000000" imgFile="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Mar081959.2968/netedit.gui/shapeElements/poly/load/imgfile\berlin_icon.ico"/>
 </additional>

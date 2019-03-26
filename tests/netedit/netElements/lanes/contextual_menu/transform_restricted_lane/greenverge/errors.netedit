@@ -141,8 +141,6 @@ GLDebug: Inserted edge:gneE9 into SUMORTree with boundary -30.00,-30.00,31.60,50
 GLDebug: Removed object edge:gneE9 from SUMORTree with boundary -30.00,-30.00,31.60,50.00
 GLDebug: Inserted edge:gneE9 into SUMORTree with boundary -30.00,-30.00,31.60,50.00
 Debug: Setting new attribute allow 'ignoring' into lane 'gneE2_0'
-GLDebug: Removed object busStop:busStop3 from SUMORTree with boundary 22.79,-3.20,66.80,36.80
-GLDebug: Inserted busStop:busStop3 into SUMORTree with boundary 22.79,-3.20,66.80,36.80
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
 Debug: Key F5 (Compute) pressed
@@ -221,8 +219,6 @@ GLDebug: Inserted edge:gneE9 into SUMORTree with boundary -30.00,-30.00,31.60,50
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute allow 'all' into lane 'gneE2_0'
-GLDebug: Removed object busStop:busStop3 from SUMORTree with boundary 24.29,-3.20,65.30,36.80
-GLDebug: Inserted busStop:busStop3 into SUMORTree with boundary 24.29,-3.20,65.30,36.80
 Debug: Key F5 (Compute) pressed
 GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -23.20,-23.20,23.20,23.20
 GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 26.80,-23.20,73.20,23.20
@@ -299,8 +295,6 @@ GLDebug: Inserted edge:gneE9 into SUMORTree with boundary -30.00,-30.00,31.60,50
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute allow 'ignoring' into lane 'gneE2_0'
-GLDebug: Removed object busStop:busStop3 from SUMORTree with boundary 22.79,-3.20,66.80,36.80
-GLDebug: Inserted busStop:busStop3 into SUMORTree with boundary 22.79,-3.20,66.80,36.80
 Debug: Additionals saved
 GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -23.20,-23.20,23.20,23.20
 GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 26.80,-23.20,73.20,23.20

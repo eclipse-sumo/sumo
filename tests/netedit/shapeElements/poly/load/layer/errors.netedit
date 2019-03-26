@@ -12,7 +12,7 @@ GLDebug: Inserted polygon:poly_0 into SUMORTree with boundary -52.00,8.00,-38.00
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Error: Invalid Number Format '(double) dummyLayer'
-Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Mar093253.2092/netedit.gui/shapeElements/poly/load/layer\input_additionals.add.xml failed.
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Mar081959.2968/netedit.gui/shapeElements/poly/load/layer\input_additionals.add.xml failed.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
 Debug: Additionals saved

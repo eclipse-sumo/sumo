@@ -20,14 +20,10 @@ Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0
 Debug: Setting new attribute lon/lat '3.73,74.30' into poi 'POI_0'
 GLDebug: Removed object poi:POI_0 from SUMORTree with boundary -1.00,16.00,5.00,22.00
 GLDebug: Inserted poi:POI_0 into SUMORTree with boundary 161487.74,8277676.01,161493.74,8277682.01
-GLDebug: Removed object poi:POI_0 from SUMORTree with boundary 161487.74,8277676.01,161493.74,8277682.01
-GLDebug: Inserted poi:POI_0 into SUMORTree with boundary 161487.74,8277676.01,161493.74,8277682.01
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute lon/lat '10.511050,0.000171' into poi 'POI_0'
 GLDebug: Removed object poi:POI_0 from SUMORTree with boundary 161487.74,8277676.01,161493.74,8277682.01
-GLDebug: Inserted poi:POI_0 into SUMORTree with boundary -1.01,15.96,4.99,21.96
-GLDebug: Removed object poi:POI_0 from SUMORTree with boundary -1.01,15.96,4.99,21.96
 GLDebug: Inserted poi:POI_0 into SUMORTree with boundary -1.01,15.96,4.99,21.96
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Removing poi 'POI_0' from viewNet
@@ -40,8 +36,6 @@ GLDebug: Inserted poi:POI_0 into SUMORTree with boundary -1.01,15.96,4.99,21.96
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute lon/lat '3.73,74.30' into poi 'POI_0'
 GLDebug: Removed object poi:POI_0 from SUMORTree with boundary -1.01,15.96,4.99,21.96
-GLDebug: Inserted poi:POI_0 into SUMORTree with boundary 161487.74,8277676.01,161493.74,8277682.01
-GLDebug: Removed object poi:POI_0 from SUMORTree with boundary 161487.74,8277676.01,161493.74,8277682.01
 GLDebug: Inserted poi:POI_0 into SUMORTree with boundary 161487.74,8277676.01,161493.74,8277682.01
 Debug: Additionals saved
 GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00

@@ -23,13 +23,9 @@ Debug: Value '-3' for attribute height of poiLane isn't valid
 Debug: Setting new attribute height '6.5' into poiLane 'POI_0'
 GLDebug: Removed object poi:POI_0 from SUMORTree with boundary 3.00,-1.40,9.00,4.60
 GLDebug: Inserted poi:POI_0 into SUMORTree with boundary 3.00,-1.40,9.00,4.60
-GLDebug: Removed object poi:POI_0 from SUMORTree with boundary 3.00,-1.40,9.00,4.60
-GLDebug: Inserted poi:POI_0 into SUMORTree with boundary 3.00,-1.40,9.00,4.60
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute height '1.00' into poiLane 'POI_0'
-GLDebug: Removed object poi:POI_0 from SUMORTree with boundary 3.00,-1.40,9.00,4.60
-GLDebug: Inserted poi:POI_0 into SUMORTree with boundary 3.00,-1.40,9.00,4.60
 GLDebug: Removed object poi:POI_0 from SUMORTree with boundary 3.00,-1.40,9.00,4.60
 GLDebug: Inserted poi:POI_0 into SUMORTree with boundary 3.00,-1.40,9.00,4.60
 Debug: Keys Ctrl + Z (Undo) pressed
@@ -44,8 +40,6 @@ GLDebug: Removed object poi:POI_0 from SUMORTree with boundary 3.00,-1.40,9.00,4
 GLDebug: Inserted poi:POI_0 into SUMORTree with boundary 3.00,-1.40,9.00,4.60
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute height '6.5' into poiLane 'POI_0'
-GLDebug: Removed object poi:POI_0 from SUMORTree with boundary 3.00,-1.40,9.00,4.60
-GLDebug: Inserted poi:POI_0 into SUMORTree with boundary 3.00,-1.40,9.00,4.60
 GLDebug: Removed object poi:POI_0 from SUMORTree with boundary 3.00,-1.40,9.00,4.60
 GLDebug: Inserted poi:POI_0 into SUMORTree with boundary 3.00,-1.40,9.00,4.60
 Debug: Additionals saved

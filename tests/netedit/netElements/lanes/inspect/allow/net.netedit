@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 24.01.2019 16:13:33 by Eclipse SUMO netedit Version v1_1_0+0076-a16c2aae75
+<!-- generated on 26.03.2019 10:34:09 by Eclipse SUMO netedit Version v1_1_0+1328-1ffdf7a53c
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.24Jan161234.2832/netedit.gui/netElements/lanes/inspect/allow\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Mar082046.2512/netedit.gui/netElements/lanes/inspect/allow\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.24Jan161234.2832/netedit.gui/netElements/lanes/inspect/allow\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Mar082046.2512/netedit.gui/netElements/lanes/inspect/allow\net.net.xml"/>
     </output>
 
     <processing>
@@ -29,13 +29,14 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.24Jan161234.2832/netedit.gui/netElements/lanes/inspect/allow\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.24Jan161234.2832/netedit.gui/netElements/lanes/inspect/allow\additionals.xml"/>
-        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.24Jan161234.2832/netedit.gui/netElements/lanes/inspect/allow\routes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Mar082046.2512/netedit.gui/netElements/lanes/inspect/allow\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Mar082046.2512/netedit.gui/netElements/lanes/inspect/allow\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Mar082046.2512/netedit.gui/netElements/lanes/inspect/allow\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Mar082046.2512/netedit.gui/netElements/lanes/inspect/allow\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.24Jan161234.2832/netedit.gui/netElements/lanes/inspect/allow\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Mar082046.2512/netedit.gui/netElements/lanes/inspect/allow\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -44,7 +45,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.24Jan161234.2832/netedit.gui/netElements/lanes/inspect/allow\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Mar082046.2512/netedit.gui/netElements/lanes/inspect/allow\log.txt"/>
     </report>
 
 </configuration>
@@ -82,13 +83,13 @@
         <lane id=":gneJ2_0_0" index="0" speed="9.32" length="19.63" shape="7.20,24.80 3.35,23.85 0.60,21.00 -1.05,16.25 -1.60,9.60"/>
     </edge>
     <edge id=":gneJ2_1" function="internal">
-        <lane id=":gneJ2_1_0" index="0" allow="authority army vip passenger hov taxi bus coach tram bicycle" speed="3.65" length="4.67" shape="7.20,21.60 6.00,20.80 5.60,20.00 6.00,19.20 7.20,18.40"/>
+        <lane id=":gneJ2_1_0" index="0" disallow="all" speed="3.65" length="4.67" shape="7.20,21.60 6.00,20.80 5.60,20.00 6.00,19.20 7.20,18.40"/>
     </edge>
     <edge id=":gneJ2_2" function="internal">
         <lane id=":gneJ2_2_0" index="0" speed="6.51" length="9.03" shape="1.60,9.60 1.95,12.05 3.00,13.80 4.75,14.85 7.20,15.20"/>
     </edge>
     <edge id=":gneJ2_3" function="internal">
-        <lane id=":gneJ2_3_0" index="0" allow="authority army vip passenger hov taxi bus coach tram bicycle" speed="7.33" length="11.73" shape="1.60,9.60 1.95,13.45 3.00,16.20 4.75,17.85 7.20,18.40"/>
+        <lane id=":gneJ2_3_0" index="0" disallow="all" speed="7.33" length="11.73" shape="1.60,9.60 1.95,13.45 3.00,16.20 4.75,17.85 7.20,18.40"/>
     </edge>
     <edge id=":gneJ3_0" function="internal">
         <lane id=":gneJ3_0_0" index="0" speed="9.32" length="19.63" shape="51.60,9.60 51.05,16.25 49.40,21.00 46.65,23.85 42.80,24.80"/>
@@ -111,7 +112,7 @@
     </edge>
     <edge id="gneE2" from="gneJ2" to="gneJ3" priority="1">
         <lane id="gneE2_0" index="0" speed="13.89" length="35.60" shape="7.20,15.20 42.80,15.20"/>
-        <lane id="gneE2_1" index="1" allow="authority army vip passenger hov taxi bus coach tram bicycle" speed="13.89" length="35.60" shape="7.20,18.40 42.80,18.40"/>
+        <lane id="gneE2_1" index="1" disallow="all" speed="13.89" length="35.60" shape="7.20,18.40 42.80,18.40"/>
     </edge>
     <edge id="gneE3" from="gneJ3" to="gneJ2" priority="1">
         <lane id="gneE3_0" index="0" speed="13.89" length="35.60" shape="42.80,24.80 7.20,24.80"/>
@@ -142,12 +143,12 @@
     </junction>
     <junction id="gneJ2" type="priority" x="0.00" y="20.00" incLanes="gneE3_0 gneE3_1 gneE9_0" intLanes=":gneJ2_0_0 :gneJ2_1_0 :gneJ2_2_0 :gneJ2_3_0" shape="7.20,26.40 7.20,13.60 4.98,13.16 4.20,12.60 3.64,11.82 3.31,10.82 3.20,9.60 -3.20,9.60 -2.91,14.73 -2.04,18.93 -0.60,22.20 1.42,24.53 4.02,25.93">
         <request index="0" response="0000" foes="0000" cont="0"/>
-        <request index="1" response="1100" foes="1100" cont="0"/>
-        <request index="2" response="0000" foes="0010" cont="0"/>
+        <request index="1" response="1000" foes="1000" cont="0"/>
+        <request index="2" response="0000" foes="0000" cont="0"/>
         <request index="3" response="0000" foes="0010" cont="0"/>
     </junction>
     <junction id="gneJ3" type="priority" x="50.00" y="20.00" incLanes="gneE5_0 gneE2_0 gneE2_1" intLanes=":gneJ3_0_0 :gneJ3_1_0 :gneJ3_2_0 :gneJ3_3_0" shape="53.20,9.60 46.80,9.60 46.36,11.82 45.80,12.60 45.02,13.16 44.02,13.49 42.80,13.60 42.80,26.40 45.98,25.93 48.58,24.53 50.60,22.20 52.04,18.93 52.91,14.73">
-        <request index="0" response="0000" foes="1000" cont="0"/>
+        <request index="0" response="0000" foes="0000" cont="0"/>
         <request index="1" response="0000" foes="1000" cont="0"/>
         <request index="2" response="0000" foes="0000" cont="0"/>
         <request index="3" response="0011" foes="0011" cont="0"/>
