@@ -171,14 +171,16 @@ enum SumoXMLTag {
     SUMO_TAG_DELETE,
     /// @brief stop for vehicles
     SUMO_TAG_STOP,
+    /// @brief stop placed over a lane (used in netedit)
+    SUMO_TAG_STOP_LANE,
     /// @brief stop placed over a busStop (used in netedit)
     SUMO_TAG_STOP_BUSSTOP,
     /// @brief stop placed over a containerStop (used in netedit)
     SUMO_TAG_STOP_CONTAINERSTOP,
     /// @brief stop placed over a charging station (used in netedit)
     SUMO_TAG_STOP_CHARGINGSTATION,
-    /// @brief stop placed over a lane (used in netedit)
-    SUMO_TAG_STOP_LANE,
+    /// @brief stop placed over a parking area (used in netedit)
+    SUMO_TAG_STOP_PARKINGAREA,
     /// @brief probability of destiny of a reroute
     SUMO_TAG_DEST_PROB_REROUTE,
     /// @brief reroute of type closing
