@@ -69,12 +69,12 @@ NWFrame::fillOptions(bool forNetgen) {
     oc.doRegister("prefix", new Option_String(""));
     oc.addDescription("prefix", "Output", "Defines a prefix for edge and junction names");
 
-#ifdef HAVE_PROJ
+#ifdef PROJ_API_FILE
     if (!forNetgen) {
         oc.doRegister("proj.plain-geo", new Option_Bool(false));
         oc.addDescription("proj.plain-geo", "Projection", "Write geo coordinates in plain-xml");
     }
-#endif // HAVE_PROJ
+#endif // PROJ_API_FILE
 
     oc.doRegister("amitran-output", new Option_FileName());
     oc.addDescription("amitran-output", "Output", "The generated net will be written to FILE using Amitran format");

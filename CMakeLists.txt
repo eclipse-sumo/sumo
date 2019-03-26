@@ -211,7 +211,6 @@ endif (XercesC_FOUND)
 find_package(Proj)
 if (PROJ_FOUND)
     include_directories(${PROJ_INCLUDE_DIR})
-    set(HAVE_PROJ 1)
     set(ENABLED_FEATURES "${ENABLED_FEATURES} Proj")
 endif (PROJ_FOUND)
 

@@ -30,8 +30,8 @@
 #include <utils/geom/Position.h>
 #include <utils/geom/Boundary.h>
 
-#ifdef HAVE_PROJ
-#include <proj_api.h>
+#ifdef PROJ_API_FILE
+#include PROJ_API_FILE
 #endif
 
 
@@ -173,7 +173,7 @@ private:
     /// @brief A proj options string describing the proj.4-projection to use
     std::string myProjString;
 
-#ifdef HAVE_PROJ
+#ifdef PROJ_API_FILE
     /// @brief The proj.4-projection to use
     projPJ myProjection;
 

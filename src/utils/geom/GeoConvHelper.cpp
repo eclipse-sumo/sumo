@@ -51,7 +51,7 @@ int GeoConvHelper::myNumLoaded = 0;
 GeoConvHelper::GeoConvHelper(const std::string& proj, const Position& offset,
                              const Boundary& orig, const Boundary& conv, double scale, double rot, bool inverse, bool flatten):
     myProjString(proj),
-#ifdef HAVE_PROJ
+#ifdef PROJ_API_FILE
     myProjection(nullptr),
     myInverseProjection(nullptr),
     myGeoProjection(nullptr),
@@ -75,7 +75,7 @@ GeoConvHelper::GeoConvHelper(const std::string& proj, const Position& offset,
         myProjectionMethod = DHDN;
     } else if (proj == "DHDN_UTM") {
         myProjectionMethod = DHDN_UTM;
-#ifdef HAVE_PROJ
+#ifdef PROJ_API_FILE
     } else {
         myProjectionMethod = PROJ;
         myProjection = pj_init_plus(proj.c_str());
@@ -89,7 +89,7 @@ GeoConvHelper::GeoConvHelper(const std::string& proj, const Position& offset,
 
 
 GeoConvHelper::~GeoConvHelper() {
-#ifdef HAVE_PROJ
+#ifdef PROJ_API_FILE
     if (myProjection != nullptr) {
         pj_free(myProjection);
     }
@@ -130,7 +130,7 @@ GeoConvHelper::operator=(const GeoConvHelper& orig) {
     mySin = orig.mySin;
     myUseInverseProjection = orig.myUseInverseProjection;
     myFlatten = orig.myFlatten;
-#ifdef HAVE_PROJ
+#ifdef PROJ_API_FILE
     if (myProjection != nullptr) {
         pj_free(myProjection);
         myProjection = nullptr;
@@ -170,7 +170,7 @@ GeoConvHelper::init(OptionsCont& oc) {
         proj = "-";
     }
 
-#ifdef HAVE_PROJ
+#ifdef PROJ_API_FILE
     if (oc.getBool("proj.inverse") && oc.getString("proj") == "!") {
         WRITE_ERROR("Inverse projection works only with explicit proj parameters.");
         return false;
@@ -219,7 +219,7 @@ GeoConvHelper::addProjectionOptions(OptionsCont& oc) {
     oc.doRegister("proj.rotate", new Option_Float(0.0));
     oc.addDescription("proj.rotate", "Projection", "Rotation (clockwise degrees) for input coordinates");
 
-#ifdef HAVE_PROJ
+#ifdef PROJ_API_FILE
     oc.doRegister("proj.utm", new Option_Bool(false));
     oc.addDescription("proj.utm", "Projection", "Determine the UTM zone (for a universal transversal mercator projection based on the WGS84 ellipsoid)");
 
@@ -234,7 +234,7 @@ GeoConvHelper::addProjectionOptions(OptionsCont& oc) {
 
     oc.doRegister("proj.dhdnutm", new Option_Bool(false));
     oc.addDescription("proj.dhdnutm", "Projection", "Convert from Gauss-Krueger to UTM");
-#endif // HAVE_PROJ
+#endif // PROJ_API_FILE
 }
 
 
@@ -262,7 +262,7 @@ GeoConvHelper::cartesian2geo(Position& cartesian) const {
         cartesian.set(x, y);
         return;
     }
-#ifdef HAVE_PROJ
+#ifdef PROJ_API_FILE
     projUV p;
     p.u = cartesian.x();
     p.v = cartesian.y();
@@ -281,7 +281,7 @@ GeoConvHelper::x2cartesian(Position& from, bool includeInBoundary) {
         myOrigBoundary.add(from);
     }
     // init projection parameter on first use
-#ifdef HAVE_PROJ
+#ifdef PROJ_API_FILE
     if (myProjection == nullptr) {
         double x = from.x() * myGeoScale;
         switch (myProjectionMethod) {
@@ -364,7 +364,7 @@ GeoConvHelper::x2cartesian_const(Position& from) const {
             WRITE_WARNING("Invalid latitude " + toString(y));
             return false;
         }
-#ifdef HAVE_PROJ
+#ifdef PROJ_API_FILE
         if (myProjection != nullptr) {
             projUV p;
             p.u = x * DEG_TO_RAD;

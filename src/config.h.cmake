@@ -42,8 +42,8 @@
 /* defined if osg is available */
 #cmakedefine HAVE_OSG
 
-/* defined if PROJ is available */
-#cmakedefine HAVE_PROJ
+/* set to proj.h, proj_api.h or empty depending on which proj is available */
+#cmakedefine PROJ_API_FILE "@PROJ_API_FILE@"
 
 /* defined if python is available */
 #cmakedefine HAVE_PYTHON

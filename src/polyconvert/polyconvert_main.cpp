@@ -239,7 +239,7 @@ main(int argc, char** argv) {
         }
         if (!oc.isSet("net")) {
             // from the given options
-#ifdef HAVE_PROJ
+#ifdef PROJ_API_FILE
             unsigned numProjections = oc.getBool("simple-projection") + oc.getBool("proj.utm") + oc.getBool("proj.dhdn") + (oc.getString("proj").length() > 1);
             if ((oc.isSet("osm-files") || oc.isSet("dlr-navteq-poly-files") || oc.isSet("dlr-navteq-poi-files")) && numProjections == 0) {
                 oc.set("proj.utm", "true");

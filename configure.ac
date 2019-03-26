@@ -208,7 +208,7 @@ else
 fi
 fi
 if test x"$with_proj_includes" != x && test x"$PROJ_LDFLAGS" != x; then
-   AC_DEFINE([HAVE_PROJ], [1], [defined if PROJ is available])
+   AC_DEFINE([PROJ_API_FILE], ["proj_api.h"], [defined if PROJ is available])
    ac_enabled="$ac_enabled PROJ"
 else
    ac_disabled="$ac_disabled PROJ"

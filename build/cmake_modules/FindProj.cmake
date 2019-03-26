@@ -34,6 +34,7 @@
 # If it's found it sets PROJ_FOUND to TRUE
 # and following variables are set:
 #    PROJ_INCLUDE_DIR
+#    PROJ_API_FILE
 #    PROJ_LIBRARY
 
 # FIND_PATH and FIND_LIBRARY normally search standard locations
@@ -61,7 +62,7 @@ IF (APPLE)
   ENDIF ()
 ENDIF (APPLE)
 
-FIND_PATH(PROJ_INCLUDE_DIR proj_api.h
+FIND_PATH(PROJ_INCLUDE_DIR NAMES proj.h proj_api.h PATHS
   "$ENV{INCLUDE}"
   "$ENV{LIB_DIR}/include"
   "$ENV{GDAL_DIR}/include"
@@ -75,6 +76,11 @@ FIND_LIBRARY(PROJ_LIBRARY NAMES proj_i proj PATHS
 
 IF (PROJ_INCLUDE_DIR AND PROJ_LIBRARY)
   SET(PROJ_FOUND TRUE)
+  IF (EXISTS "${PROJ_INCLUDE_DIR}/proj.h")
+    SET(PROJ_API_FILE "proj.h")
+  ELSE ()
+    SET(PROJ_API_FILE "proj_api.h")
+  ENDIF ()
   IF (NOT PROJ_FIND_QUIETLY)
     MESSAGE(STATUS "Found Proj: ${PROJ_LIBRARY}")
   ENDIF (NOT PROJ_FIND_QUIETLY)
