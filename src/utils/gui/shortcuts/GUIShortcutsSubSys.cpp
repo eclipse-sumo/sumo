@@ -104,8 +104,8 @@ GUIShortcutsSubSys::buildNETEDITAccelerators(GNEApplicationWindow *GNEApp) {
 
     // initialize single hotkeys using upper and lower Keys (to avoid problems in Linux)
 
-    GNEApp->getAccelTable()->addAccel(parseKey(KEY_a), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_A_ADDITIONALMODE));
-    GNEApp->getAccelTable()->addAccel(parseKey(KEY_A), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_A_ADDITIONALMODE));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_a), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_A_ADDITIONALMODE_STOPMODE));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_A), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_A_ADDITIONALMODE_STOPMODE));
 
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_c), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_C_CONNECTMODE));
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_C), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_C_CONNECTMODE));

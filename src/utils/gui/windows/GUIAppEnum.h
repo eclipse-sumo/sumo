@@ -42,8 +42,8 @@ enum {
 
     /// @name hotkeys
     /// @{
-    /// @brief hotkey for mode editing additional
-    MID_HOTKEY_A_ADDITIONALMODE,
+    /// @brief hotkey for mode editing additionals AND stops
+    MID_HOTKEY_A_ADDITIONALMODE_STOPMODE,
     /// @brief hotkey for mode connecting lanes
     MID_HOTKEY_C_CONNECTMODE,
     /// @brief hotkey for mode deleting things

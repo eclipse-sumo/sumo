@@ -220,6 +220,7 @@ enum GUIIcon {
     ICON_MODEROUTE,
     ICON_MODEVEHICLE,
     ICON_MODEVEHICLETYPE,
+    ICON_MODESTOP,
     /// @}
 
     /// @name NETEDIT processing icons
