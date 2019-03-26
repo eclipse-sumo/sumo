@@ -78,7 +78,11 @@ GeoConvHelper::GeoConvHelper(const std::string& proj, const Position& offset,
 #ifdef PROJ_API_FILE
     } else {
         myProjectionMethod = PROJ;
+#ifdef PROJ_VERSION_MAJOR
+        myProjection = proj_create(PJ_DEFAULT_CTX, proj.c_str());
+#else
         myProjection = pj_init_plus(proj.c_str());
+#endif
         if (myProjection == nullptr) {
             // !!! check pj_errno
             throw ProcessError("Could not build projection!");
@@ -91,13 +95,25 @@ GeoConvHelper::GeoConvHelper(const std::string& proj, const Position& offset,
 GeoConvHelper::~GeoConvHelper() {
 #ifdef PROJ_API_FILE
     if (myProjection != nullptr) {
+#ifdef PROJ_VERSION_MAJOR
+        proj_destroy(myProjection);
+#else
         pj_free(myProjection);
+#endif
     }
     if (myInverseProjection != nullptr) {
+#ifdef PROJ_VERSION_MAJOR
+        proj_destroy(myInverseProjection);
+#else
         pj_free(myInverseProjection);
+#endif
     }
     if (myGeoProjection != nullptr) {
-        pj_free(myInverseProjection);
+#ifdef PROJ_VERSION_MAJOR
+        proj_destroy(myGeoProjection);
+#else
+        pj_free(myGeoProjection);
+#endif
     }
 #endif
 }
@@ -132,25 +148,49 @@ GeoConvHelper::operator=(const GeoConvHelper& orig) {
     myFlatten = orig.myFlatten;
 #ifdef PROJ_API_FILE
     if (myProjection != nullptr) {
+#ifdef PROJ_VERSION_MAJOR
+        proj_destroy(myProjection);
+#else
         pj_free(myProjection);
+#endif
         myProjection = nullptr;
     }
     if (myInverseProjection != nullptr) {
+#ifdef PROJ_VERSION_MAJOR
+        proj_destroy(myInverseProjection);
+#else
         pj_free(myInverseProjection);
+#endif
         myInverseProjection = nullptr;
     }
     if (myGeoProjection != nullptr) {
+#ifdef PROJ_VERSION_MAJOR
+        proj_destroy(myGeoProjection);
+#else
         pj_free(myGeoProjection);
+#endif
         myGeoProjection = nullptr;
     }
     if (orig.myProjection != nullptr) {
+#ifdef PROJ_VERSION_MAJOR
+        myProjection = proj_create(PJ_DEFAULT_CTX, orig.myProjString.c_str());
+#else
         myProjection = pj_init_plus(orig.myProjString.c_str());
+#endif
     }
     if (orig.myInverseProjection != nullptr) {
+#ifdef PROJ_VERSION_MAJOR
+        myInverseProjection = proj_create(PJ_DEFAULT_CTX, orig.myProjString.c_str());
+#else
         myInverseProjection = pj_init_plus(pj_get_def(orig.myInverseProjection, 0));
+#endif
     }
     if (orig.myGeoProjection != nullptr) {
+#ifdef PROJ_VERSION_MAJOR
+        myGeoProjection = proj_create(PJ_DEFAULT_CTX, orig.myProjString.c_str());
+#else
         myGeoProjection = pj_init_plus(pj_get_def(orig.myGeoProjection, 0));
+#endif
     }
 #endif
     return *this;
@@ -263,6 +303,13 @@ GeoConvHelper::cartesian2geo(Position& cartesian) const {
         return;
     }
 #ifdef PROJ_API_FILE
+#ifdef PROJ_VERSION_MAJOR
+    PJ_COORD c;
+    c.xy.x = cartesian.x();
+    c.xy.y = cartesian.y();
+    c = proj_trans(myProjection, PJ_INV, c);
+    cartesian.set(proj_torad(c.lp.phi), proj_torad(c.lp.lam));
+#else
     projUV p;
     p.u = cartesian.x();
     p.v = cartesian.y();
@@ -271,6 +318,7 @@ GeoConvHelper::cartesian2geo(Position& cartesian) const {
     p.u *= RAD_TO_DEG;
     p.v *= RAD_TO_DEG;
     cartesian.set((double) p.u, (double) p.v);
+#endif
 #endif
 }
 
@@ -294,8 +342,11 @@ GeoConvHelper::x2cartesian(Position& from, bool includeInBoundary) {
                 myProjString = "+proj=tmerc +lat_0=0 +lon_0=" + toString(3 * zone) +
                                " +k=1 +x_0=" + toString(zone * 1000000 + 500000) +
                                " +y_0=0 +ellps=bessel +datum=potsdam +units=m +no_defs";
+#ifdef PROJ_VERSION_MAJOR
+#else
                 myInverseProjection = pj_init_plus(myProjString.c_str());
                 myGeoProjection = pj_init_plus("+proj=latlong +datum=WGS84");
+#endif
                 //!!! check pj_errno
                 x = ((x - 500000.) / 1000000.) * 3; // continues with UTM
             }
@@ -304,7 +355,10 @@ GeoConvHelper::x2cartesian(Position& from, bool includeInBoundary) {
                 int zone = (int)(x + 180) / 6 + 1;
                 myProjString = "+proj=utm +zone=" + toString(zone) +
                                " +ellps=WGS84 +datum=WGS84 +units=m +no_defs";
+#ifdef PROJ_VERSION_MAJOR
+#else
                 myProjection = pj_init_plus(myProjString.c_str());
+#endif
                 //!!! check pj_errno
             }
             break;
@@ -317,7 +371,10 @@ GeoConvHelper::x2cartesian(Position& from, bool includeInBoundary) {
                 myProjString = "+proj=tmerc +lat_0=0 +lon_0=" + toString(3 * zone) +
                                " +k=1 +x_0=" + toString(zone * 1000000 + 500000) +
                                " +y_0=0 +ellps=bessel +datum=potsdam +units=m +no_defs";
+#ifdef PROJ_VERSION_MAJOR
+#else
                 myProjection = pj_init_plus(myProjString.c_str());
+#endif
                 //!!! check pj_errno
             }
             break;
@@ -326,12 +383,15 @@ GeoConvHelper::x2cartesian(Position& from, bool includeInBoundary) {
         }
     }
     if (myInverseProjection != nullptr) {
+#ifdef PROJ_VERSION_MAJOR
+#else
         double x = from.x();
         double y = from.y();
         if (pj_transform(myInverseProjection, myGeoProjection, 1, 1, &x, &y, nullptr)) {
             WRITE_WARNING("Could not transform (" + toString(x) + "," + toString(y) + ")");
         }
         from.set(double(x * RAD_TO_DEG), double(y * RAD_TO_DEG));
+#endif
     }
 #endif
     // perform conversion
@@ -366,6 +426,15 @@ GeoConvHelper::x2cartesian_const(Position& from) const {
         }
 #ifdef PROJ_API_FILE
         if (myProjection != nullptr) {
+#ifdef PROJ_VERSION_MAJOR
+            PJ_COORD c;
+            c.lp.phi = proj_torad(x);
+            c.lp.lam = proj_torad(y);
+            c = proj_trans(myProjection, PJ_FWD, c);
+            //!!! check pj_errno
+            x = c.xy.x;
+            y = c.xy.y;
+#else
             projUV p;
             p.u = x * DEG_TO_RAD;
             p.v = y * DEG_TO_RAD;
@@ -373,6 +442,7 @@ GeoConvHelper::x2cartesian_const(Position& from) const {
             //!!! check pj_errno
             x = p.u;
             y = p.v;
+#endif
         }
 #endif
         if (myProjectionMethod == SIMPLE) {

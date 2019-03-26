@@ -32,6 +32,9 @@
 
 #ifdef PROJ_API_FILE
 #include PROJ_API_FILE
+#ifdef PROJ_VERSION_MAJOR
+typedef PJ* projPJ;
+#endif
 #endif
 
 
