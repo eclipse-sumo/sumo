@@ -278,6 +278,7 @@ public:
         TAGTYPE_DETECTOR =      1 << 6,   // Detectors (E1, E2...)
         TAGTYPE_VEHICLE =       1 << 7,   // Vehicles (Flows, trips...)
         TAGTYPE_ROUTEELEMENT =  1 << 8,   // VTypes, Vehicles, Flows...
+        TAGTYPE_STOP =          1 << 8,   // Stops
     };
 
     enum TAGProperty {
@@ -391,6 +392,9 @@ public:
 
         /// @brief return true if tag correspond to a vehicle element
         bool isVehicle() const;
+
+        /// @brief return true if tag correspond to a stop element
+        bool isStop() const;
 
         /// @brief return true if tag correspond to a drawable element
         bool isDrawable() const;

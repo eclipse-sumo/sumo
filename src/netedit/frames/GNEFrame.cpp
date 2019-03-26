@@ -151,6 +151,9 @@ GNEFrame::ItemSelector::ItemSelector(GNEFrame* frameParent, GNEAttributeCarrier:
         case GNEAttributeCarrier::TagType::TAGTYPE_VEHICLE:
             setText("Vehicle");
             break;
+        case GNEAttributeCarrier::TagType::TAGTYPE_STOP:
+            setText("Stop");
+            break;
         default:
             throw ProcessError("invalid tag property");
     }

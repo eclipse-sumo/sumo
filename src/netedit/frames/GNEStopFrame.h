@@ -130,9 +130,6 @@ public:
      */
     bool addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
 
-    /// @brief get TripRouteCreator modul
-    TripRouteCreator* getTripRouteCreator() const;
-
 protected:
     /// @brief enable moduls depending of item selected in ItemSelector
     void enableModuls(const GNEAttributeCarrier::TagProperties& tagProperties);
@@ -149,9 +146,6 @@ private:
 
     /// @brief internal Stop attributes
     AttributesCreator* myStopAttributes;
-
-    /// @brief TripRouteCreator
-    TripRouteCreator* myTripRouteCreator;
 
     /// @brief Help creation
     HelpCreation* myHelpCreation;

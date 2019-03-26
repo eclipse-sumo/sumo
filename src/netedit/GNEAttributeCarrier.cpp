@@ -721,6 +721,12 @@ GNEAttributeCarrier::TagProperties::isVehicle() const {
 
 
 bool
+GNEAttributeCarrier::TagProperties::isStop() const {
+    return (myTagType & TAGTYPE_STOP) != 0;
+}
+
+
+bool
 GNEAttributeCarrier::TagProperties::isDrawable() const {
     return (myTagProperty & TAGPROPERTY_DRAWABLE) != 0;
 }
@@ -1204,7 +1210,7 @@ GNEAttributeCarrier::allowedTags(bool onlyDrawables) {
 
 std::vector<SumoXMLTag>
 GNEAttributeCarrier::allowedTagsByCategory(int tagPropertyCategory, bool onlyDrawables) {
-    std::vector<SumoXMLTag> netElementTags;
+    std::vector<SumoXMLTag> allowedTags;
     // define on first access
     if (myTagProperties.size() == 0) {
         fillAttributeCarriers();
@@ -1214,7 +1220,7 @@ GNEAttributeCarrier::allowedTagsByCategory(int tagPropertyCategory, bool onlyDra
             // fill netElements tags
             for (const auto& i : myTagProperties) {
                 if (i.second.isNetElement() && (!onlyDrawables || i.second.isDrawable())) {
-                    netElementTags.push_back(i.first);
+                    allowedTags.push_back(i.first);
                 }
             }
             break;
@@ -1222,7 +1228,7 @@ GNEAttributeCarrier::allowedTagsByCategory(int tagPropertyCategory, bool onlyDra
             // fill additional tags
             for (const auto& i : myTagProperties) {
                 if (i.second.isAdditional() && (!onlyDrawables || i.second.isDrawable())) {
-                    netElementTags.push_back(i.first);
+                    allowedTags.push_back(i.first);
                 }
             }
             break;
@@ -1230,7 +1236,7 @@ GNEAttributeCarrier::allowedTagsByCategory(int tagPropertyCategory, bool onlyDra
             // fill shape tags
             for (const auto& i : myTagProperties) {
                 if (i.second.isShape() && (!onlyDrawables || i.second.isDrawable())) {
-                    netElementTags.push_back(i.first);
+                    allowedTags.push_back(i.first);
                 }
             }
             break;
@@ -1238,7 +1244,7 @@ GNEAttributeCarrier::allowedTagsByCategory(int tagPropertyCategory, bool onlyDra
             // fill taz tags
             for (const auto& i : myTagProperties) {
                 if (i.second.isTAZ() && (!onlyDrawables || i.second.isDrawable())) {
-                    netElementTags.push_back(i.first);
+                    allowedTags.push_back(i.first);
                 }
             }
             break;
@@ -1246,7 +1252,7 @@ GNEAttributeCarrier::allowedTagsByCategory(int tagPropertyCategory, bool onlyDra
             // fill demand tags
             for (const auto& i : myTagProperties) {
                 if (i.second.isDemandElement() && (!onlyDrawables || i.second.isDrawable())) {
-                    netElementTags.push_back(i.first);
+                    allowedTags.push_back(i.first);
                 }
             }
             break;
@@ -1254,14 +1260,22 @@ GNEAttributeCarrier::allowedTagsByCategory(int tagPropertyCategory, bool onlyDra
             // fill demand tags
             for (const auto& i : myTagProperties) {
                 if (i.second.isVehicle() && (!onlyDrawables || i.second.isDrawable())) {
-                    netElementTags.push_back(i.first);
+                    allowedTags.push_back(i.first);
+                }
+            }
+            break;
+        case TAGTYPE_STOP:
+            // fill demand tags
+            for (const auto& i : myTagProperties) {
+                if (i.second.isStop() && (!onlyDrawables || i.second.isDrawable())) {
+                    allowedTags.push_back(i.first);
                 }
             }
             break;
         default:
             throw ProcessError("Category isn't defined");
     }
-    return netElementTags;
+    return allowedTags;
 }
 
 

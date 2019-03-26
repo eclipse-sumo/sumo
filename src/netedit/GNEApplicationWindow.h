@@ -596,6 +596,9 @@ private:
         /// @brief menu command for vehicle type mode
         FXMenuCommand* vehicleTypeMode;
 
+        /// @brief menu command for stop mode
+        FXMenuCommand* stopMode;
+
     private:
         /// @brief pointer to current GNEApplicationWindows
         GNEApplicationWindow* myGNEApp;

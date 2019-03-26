@@ -1662,7 +1662,7 @@ GNEViewNetHelper::NetworkCheckableButtons::buildNetworkCheckableButtons() {
     trafficLightButton->create();
 
     additionalButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes, "\tset additional mode\tMode for adding additional elements.",
-        GUIIconSubSys::getIcon(ICON_MODEADDITIONAL), myViewNet, MID_HOTKEY_A_ADDITIONALMODE, GUIDesignButtonToolbarCheckable);
+        GUIIconSubSys::getIcon(ICON_MODEADDITIONAL), myViewNet, MID_HOTKEY_A_ADDITIONALMODE_STOPMODE, GUIDesignButtonToolbarCheckable);
     additionalButton->create();
 
     crossingButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes, "\tset crossing mode\tMode for creating crossings between edges.",
@@ -1761,6 +1761,10 @@ GNEViewNetHelper::DemandCheckableButtons::buildDemandCheckableButtons() {
             GUIIconSubSys::getIcon(ICON_MODEVEHICLETYPE), myViewNet, MID_HOTKEY_T_TLSMODE_VTYPEMODE, GUIDesignButtonToolbarCheckable);
     vehicleTypeButton->create();
 
+    stopButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes, "\tcreate stop mode\tMode for creating stops.",
+            GUIIconSubSys::getIcon(ICON_MODESTOP), myViewNet, MID_HOTKEY_A_ADDITIONALMODE_STOPMODE, GUIDesignButtonToolbarCheckable);
+    stopButton->create();
+
     // always recalc after creating new elements
     myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes->recalc();
 }
@@ -1771,6 +1775,7 @@ GNEViewNetHelper::DemandCheckableButtons::showDemandCheckableButtons() {
     routeButton->show();
     vehicleButton->show();
     vehicleTypeButton->show();
+    stopButton->show();
 }
 
 
@@ -1779,6 +1784,7 @@ GNEViewNetHelper::DemandCheckableButtons::hideDemandCheckableButtons() {
     routeButton->hide();
     vehicleButton->hide();
     vehicleTypeButton->hide();
+    stopButton->hide();
 }
 
 
@@ -1787,6 +1793,7 @@ GNEViewNetHelper::DemandCheckableButtons::disableDemandCheckableButtons() {
     routeButton->setChecked(false);
     vehicleButton->setChecked(false);
     vehicleTypeButton->setChecked(false);
+    stopButton->setChecked(false);
 }
 
 
@@ -1795,6 +1802,7 @@ GNEViewNetHelper::DemandCheckableButtons::updateDemandCheckableButtons() {
     routeButton->update();
     vehicleButton->update();
     vehicleTypeButton->update();
+    stopButton->update();
 }
 
 /****************************************************************************/

@@ -38,6 +38,7 @@
 #include <netedit/frames/GNETLSEditorFrame.h>
 #include <netedit/frames/GNEVehicleFrame.h>
 #include <netedit/frames/GNEVehicleTypeFrame.h>
+#include <netedit/frames/GNEStopFrame.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNEJunction.h>
 #include <utils/foxtools/MFXUtils.h>
@@ -131,6 +132,7 @@ GNEViewParent::GNEViewParent(FXMDIClient* p, FXMDIMenu* mdimenu, const FXString&
     myFrames.routeFrame = new GNERouteFrame(myFramesArea, viewNet);
     myFrames.vehicleFrame = new GNEVehicleFrame(myFramesArea, viewNet);
     myFrames.vehicleTypeFrame = new GNEVehicleTypeFrame(myFramesArea, viewNet);
+    myFrames.stopFrame = new GNEStopFrame(myFramesArea, viewNet);
 
     // Update frame areas after creation
     onCmdUpdateFrameAreaWidth(nullptr, 0, nullptr);
@@ -247,6 +249,12 @@ GNEViewParent::getVehicleFrame() const {
 GNEVehicleTypeFrame*
 GNEViewParent::getVehicleTypeFrame() const {
     return myFrames.vehicleTypeFrame;
+}
+
+
+GNEStopFrame* 
+GNEViewParent::getStopFrame() const {
+    return myFrames.stopFrame;
 }
 
 
@@ -491,7 +499,8 @@ GNEViewParent::Frames::Frames() :
     createEdgeFrame(nullptr),
     routeFrame(nullptr),
     vehicleFrame(nullptr),
-    vehicleTypeFrame(nullptr) {
+    vehicleTypeFrame(nullptr),
+    stopFrame(nullptr) {
 }
 
 
@@ -513,6 +522,7 @@ GNEViewParent::Frames::hideFrames() {
     routeFrame->hide();
     vehicleFrame->hide();
     vehicleTypeFrame->hide();
+    stopFrame->hide();
 }
 
 
@@ -535,6 +545,7 @@ GNEViewParent::Frames::setWidth(int frameWidth) {
     routeFrame->setFrameWidth(frameWidth);
     vehicleFrame->setFrameWidth(frameWidth);
     vehicleTypeFrame->setFrameWidth(frameWidth);
+    stopFrame->setFrameWidth(frameWidth);
 }
 
 
@@ -570,6 +581,8 @@ GNEViewParent::Frames::isFrameShown() const {
     } else if (vehicleFrame->shown()) {
         return true;
     } else if (vehicleTypeFrame->shown()) {
+        return true;
+    } else if (stopFrame->shown()) {
         return true;
     } else {
         return false;
@@ -610,6 +623,8 @@ GNEViewParent::Frames::getCurrentShownFrame() const {
         return vehicleFrame;
     } else if (vehicleTypeFrame->shown()) {
         return vehicleTypeFrame;
+    } else if (stopFrame->shown()) {
+        return stopFrame;
     } else {
         return nullptr;
     }

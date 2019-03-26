@@ -94,7 +94,9 @@ enum DemandEditMode {
     ///@brief Mode for editing vehicles
     GNE_DMODE_VEHICLES,
     ///@brief Mode for editing vehicle types
-    GNE_DMODE_VEHICLETYPES
+    GNE_DMODE_VEHICLETYPES,
+    ///@brief Mode for editing stops
+    GNE_DMODE_STOP
 };
 
 // ===========================================================================
@@ -760,6 +762,9 @@ struct GNEViewNetHelper {
 
         /// @brief chekable button for edit mode create vehicle type
         MFXCheckableButton* vehicleTypeButton;
+
+        /// @brief chekable button for edit mode create stops
+        MFXCheckableButton* stopButton;
 
     private:
         /// @brief pointer to viewNet

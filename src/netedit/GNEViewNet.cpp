@@ -39,6 +39,7 @@
 #include <netedit/frames/GNETLSEditorFrame.h>
 #include <netedit/frames/GNEVehicleFrame.h>
 #include <netedit/frames/GNEVehicleTypeFrame.h>
+#include <netedit/frames/GNEStopFrame.h>
 #include <netedit/netelements/GNEConnection.h>
 #include <netedit/netelements/GNECrossing.h>
 #include <netedit/netelements/GNEEdge.h>
@@ -82,7 +83,7 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_S_SELECTMODE,                 GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_C_CONNECTMODE,                GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_T_TLSMODE_VTYPEMODE,          GNEViewNet::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_A_ADDITIONALMODE,             GNEViewNet::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_A_ADDITIONALMODE_STOPMODE,    GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_R_CROSSINGMODE_ROUTEMODE,     GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_Z_TAZMODE,                    GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_P_POLYGONMODE,                GNEViewNet::onCmdSetMode),
@@ -1081,7 +1082,7 @@ GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
             case MID_HOTKEY_T_TLSMODE_VTYPEMODE:
                 myEditModes.setNetworkEditMode(GNE_NMODE_TLS);
                 break;
-            case MID_HOTKEY_A_ADDITIONALMODE:
+            case MID_HOTKEY_A_ADDITIONALMODE_STOPMODE:
                 myEditModes.setNetworkEditMode(GNE_NMODE_ADDITIONAL);
                 break;
             case MID_HOTKEY_R_CROSSINGMODE_ROUTEMODE:
@@ -1119,6 +1120,9 @@ GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
                 break;
             case MID_HOTKEY_T_TLSMODE_VTYPEMODE:
                 myEditModes.setDemandEditMode(GNE_DMODE_VEHICLETYPES);
+                break;
+            case MID_HOTKEY_A_ADDITIONALMODE_STOPMODE:
+                myEditModes.setDemandEditMode(GNE_DMODE_STOP);
                 break;
             default:
                 break;
@@ -2330,6 +2334,14 @@ GNEViewNet::updateDemandModeSpecificControls() {
             myViewParent->getVehicleTypeFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getVehicleTypeFrame();
             myDemandCheckableButtons.vehicleTypeButton->setChecked(true);
+            // hide toolbar grip of view options
+            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->hide();
+            break;
+        case GNE_DMODE_STOP:
+            myViewParent->getStopFrame()->show();
+            myViewParent->getStopFrame()->focusUpperElement();
+            myCurrentFrame = myViewParent->getStopFrame();
+            myDemandCheckableButtons.stopButton->setChecked(true);
             // hide toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->hide();
             break;
