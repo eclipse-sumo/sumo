@@ -33,7 +33,6 @@
 // class declarations
 // ===========================================================================
 class MSVehicleType;
-class MSVehicleDevice;
 class MSEdge;
 class MSLane;
 class Position;
@@ -131,14 +130,6 @@ public:
      * @see myLane
      */
     virtual Position getPosition(const double offset = 0) const = 0;
-
-    /** @brief Returns this vehicle's devices
-     * @return This vehicle's devices
-     */
-    virtual const std::vector<MSVehicleDevice*>& getDevices() const = 0;
-
-    /// @brief Returns a device of the given type if it exists or 0
-    virtual MSVehicleDevice* getDevice(const std::type_info& type) const = 0;
 
     /** @brief Returns whether this vehicle has arrived
      */

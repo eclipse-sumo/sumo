@@ -45,6 +45,7 @@ class MSPerson;
 class MSTransportable;
 class MSParkingArea;
 class MSStoppingPlace;
+class MSVehicleDevice;
 class SUMOSAXAttributes;
 
 typedef std::vector<const MSEdge*> ConstMSEdgeVector;
@@ -298,6 +299,14 @@ public:
 
     /// @brief Returns this vehicles impatience
     virtual double getImpatience() const = 0;
+
+    /** @brief Returns this vehicle's devices
+     * @return This vehicle's devices
+     */
+    virtual const std::vector<MSVehicleDevice*>& getDevices() const = 0;
+
+    /// @brief Returns a device of the given type if it exists or 0
+    virtual MSVehicleDevice* getDevice(const std::type_info& type) const = 0;
 
     /// @brief whether this vehicle is selected in the GUI
     virtual bool isSelected() const = 0;

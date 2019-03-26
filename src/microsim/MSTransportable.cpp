@@ -876,6 +876,27 @@ MSTransportable::getDevice(const std::type_info& type) const {
     return nullptr;
 }
 
+double
+MSTransportable::getSlope() const {
+    const MSEdge* edge = getEdge();
+    const double ep = getEdgePos();
+    const double gp = edge->getLanes()[0]->interpolateLanePosToGeometryPos(ep);
+    return edge->getLanes()[0]->getShape().slopeDegreeAtOffset(gp);
+}
 
+SUMOTime
+MSTransportable::getWaitingTime() const {
+    return (*myStep)->getWaitingTime(MSNet::getInstance()->getCurrentTimeStep());
+}
+
+double
+MSTransportable::getMaxSpeed() const {
+    return getVehicleType().getMaxSpeed(); 
+}
+
+SUMOVehicleClass
+MSTransportable::getVClass() const {
+    return getVehicleType().getVehicleClass(); 
+}
 
 /****************************************************************************/

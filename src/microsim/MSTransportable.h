@@ -30,6 +30,7 @@
 #include <utils/geom/PositionVector.h>
 #include <utils/geom/Boundary.h>
 #include <utils/router/SUMOAbstractRouter.h>
+#include <utils/vehicle/SUMOTrafficObject.h>
 
 
 // ===========================================================================
@@ -55,7 +56,7 @@ typedef std::vector<const MSEdge*> ConstMSEdgeVector;
   *
   * The class holds a simulated moveable object
   */
-class MSTransportable {
+class MSTransportable : public SUMOTrafficObject {
 public:
     enum StageType {
         WAITING_FOR_DEPART = 0,
@@ -508,6 +509,33 @@ public:
         Stage_Driving& operator=(const Stage_Driving&);
 
     };
+
+    /// @name inherited from SUMOTrafficObject
+    /// @{
+    bool isVehicle() const { return false; }
+
+    bool isStopped() const { return getCurrentStageType() == WAITING; }
+
+ 	double getSlope() const;
+
+ 	double getChosenSpeedFactor() const { return 1.0; }
+
+ 	SUMOVehicleClass getVClass() const;
+
+    double getMaxSpeed() const;
+
+    SUMOTime getWaitingTime() const;
+
+	double getPreviousSpeed() const { return getSpeed(); }
+
+	double getAcceleration() const { return 0.0; }
+
+	double getPositionOnLane() const { return getEdgePos(); }
+
+	double getBackPositionOnLane(const MSLane* /*lane*/) const { return getEdgePos(); }
+
+	Position getPosition(const double /*offset*/) const { return getPosition(); }
+    /// @}
 
     /// the structure holding the plan of a transportable
     typedef std::vector<MSTransportable::Stage*> MSTransportablePlan;
