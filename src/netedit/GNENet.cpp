@@ -99,8 +99,9 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
     myAdditionalsSaved(true),
     myTLSProgramsSaved(true),
     myDemandElementsSaved(true),
-    myAllowUndoShapes(true),
-    myUpdateGeometryEnabled(true) {
+    myUpdateGeometryEnabled(true),
+    myAllowUndoShapes(true)
+{
     // set net in gIDStorage
     GUIGlObjectStorage::gIDStorage.setNetObject(this);
 
