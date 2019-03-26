@@ -127,12 +127,12 @@ NIXMLConnectionsHandler::myStartElement(int element,
             myErrorMsgHandler->inform("The connection-destination edge '" + to + "' is not known.");
             return;
         }
-        fromEdge->getToNode()->invalidateTLS(myTLLogicCont, true, false);
         // parse optional lane information
         if (attrs.hasAttribute(SUMO_ATTR_LANE) || attrs.hasAttribute(SUMO_ATTR_FROM_LANE) || attrs.hasAttribute(SUMO_ATTR_TO_LANE)) {
             parseLaneBound(attrs, fromEdge, toEdge);
         } else {
             fromEdge->addEdge2EdgeConnection(toEdge);
+            fromEdge->getToNode()->invalidateTLS(myTLLogicCont, true, false);
         }
     }
     if (element == SUMO_TAG_PROHIBITION) {
@@ -234,6 +234,8 @@ NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes& attrs, NBEdge* 
                 defaultCon = existing.front();
                 // remove the original so we can insert the replacement
                 from->removeFromConnections(defaultCon);
+            } else {
+                from->getToNode()->invalidateTLS(myTLLogicCont, true, false);
             }
         }
         const bool mayDefinitelyPass = attrs.getOpt<bool>(SUMO_ATTR_PASS, nullptr, ok, defaultCon.mayDefinitelyPass);
