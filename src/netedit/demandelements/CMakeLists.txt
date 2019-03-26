@@ -9,6 +9,8 @@ set(netedit_demandelements_SRCS
    GNEVehicleType.cpp
    GNEVehicle.h
    GNEVehicle.cpp
+   GNEStop.h
+   GNEStop.cpp
    )
 
 add_library(netedit_demandelements STATIC ${netedit_demandelements_SRCS})
