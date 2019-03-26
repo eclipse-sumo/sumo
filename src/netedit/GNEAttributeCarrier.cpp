@@ -497,12 +497,12 @@ GNEAttributeCarrier::TagProperties::getTagStr() const {
 void
 GNEAttributeCarrier::TagProperties::checkTagIntegrity() const {
     // check that element must ist at least netElement, Additional, or shape
-    if (!isNetElement() && !isAdditional() && !isShape() && !isTAZ() && !isDemandElement()) {
-        throw ProcessError("element must be at leas netElement, Additional, shape or demandElement");
+    if (!isNetElement() && !isAdditional() && !isShape() && !isTAZ() && !isDemandElement() && !isStop()) {
+        throw ProcessError("element must be at leas netElement, additional, TAZ, shape, demandElement or stop");
     }
     // check that element only is netElement, Additional, or shape at the same time
-    if ((isNetElement() + isAdditional() + isShape() + isTAZ() + isDemandElement()) > 1) {
-        throw ProcessError("element can be only a netElement, Additional, shape or demandElement at the same time");
+    if ((isNetElement() + isAdditional() + isShape() + isTAZ() + isDemandElement() + isStop()) > 1) {
+        throw ProcessError("element can be only a netElement, additional, shape, demandElement or stop at the same time");
     }
     // If element is drawable, chek that at least one placeover is defined
     if (isDrawable() && !(canBePlacedOverView() || canBePlacedOverEdge() || canBePlacedOverLane() || canBePlacedOverJunction() || canBePlacedOverEdges() || canBePlacedOverLanes() || canBePlacedOverRoute())) {
@@ -3658,6 +3658,246 @@ GNEAttributeCarrier::fillDemandElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
     */
+    currentTag = SUMO_TAG_STOP_BUSSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_STOP, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_PLACEDOVER_VIEW, ICON_ROUTE);
+        // set values of attributes
+        attrProperty = AttributeProperties(SUMO_ATTR_BUS_STOP,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
+            "BusStop associated with this stop");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+       
+        attrProperty = AttributeProperties(SUMO_ATTR_DURATION,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUE,
+            "Minimum duration for stopping",
+            "0");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_UNTIL,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUE,
+            "The time step at which the route continues",
+            "0");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_INDEX,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "Where to insert the stop in the vehicle's list of stops",
+            "end");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_TRIGGERED,
+            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "Whether a person may end the stop",
+            "false");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_EXPECTED,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "List of persons that must board the vehicle before it may continue");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_EXPECTED_CONTAINERS,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "List of containers that must be loaded onto the vehicle before it may continue");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_PARKING,
+            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "whether the vehicle stops on the road or beside ",
+            "false");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_ACTTYPE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "Activity displayed for stopped person in GUI and output files ",
+            "waiting");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
+    currentTag = SUMO_TAG_STOP_CONTAINERSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_STOP, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_PLACEDOVER_VIEW, ICON_ROUTE);
+        // set values of attributes
+        attrProperty = AttributeProperties(SUMO_ATTR_CONTAINER_STOP,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
+            "ContainerStop associated with this stop");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_DURATION,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUE,
+            "Minimum duration for stopping",
+            "0");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_UNTIL,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUE,
+            "The time step at which the route continues",
+            "0");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_INDEX,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "Where to insert the stop in the vehicle's list of stops",
+            "end");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_TRIGGERED,
+            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "Whether a person may end the stop",
+            "false");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_EXPECTED,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "List of persons that must board the vehicle before it may continue");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_EXPECTED_CONTAINERS,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "List of containers that must be loaded onto the vehicle before it may continue");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_PARKING,
+            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "whether the vehicle stops on the road or beside ",
+            "false");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_ACTTYPE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "Activity displayed for stopped person in GUI and output files ",
+            "waiting");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
+    currentTag = SUMO_TAG_STOP_CHARGINGSTATION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_STOP, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_PLACEDOVER_VIEW, ICON_ROUTE);
+        // set values of attributes
+        attrProperty = AttributeProperties(SUMO_ATTR_CHARGING_STATION,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
+            "ChargingStation associated with this stop");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_DURATION,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUE,
+            "Minimum duration for stopping",
+            "0");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_UNTIL,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUE,
+            "The time step at which the route continues",
+            "0");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_INDEX,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "Where to insert the stop in the vehicle's list of stops",
+            "end");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_TRIGGERED,
+            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "Whether a person may end the stop",
+            "false");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_EXPECTED,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "List of persons that must board the vehicle before it may continue");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_EXPECTED_CONTAINERS,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "List of containers that must be loaded onto the vehicle before it may continue");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_PARKING,
+            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "whether the vehicle stops on the road or beside ",
+            "false");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_ACTTYPE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "Activity displayed for stopped person in GUI and output files ",
+            "waiting");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
+    currentTag = SUMO_TAG_STOP_LANE;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_STOP, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_PLACEDOVER_VIEW, ICON_ROUTE);
+        // set values of attributes
+         attrProperty = AttributeProperties(SUMO_ATTR_LANE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
+            "The name of the lane the stop shall be located at");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_STARTPOS,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_UPDATEGEOMETRY,
+            "The begin position on the lane (the lower position on the lane) in meters");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_ENDPOS,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_UPDATEGEOMETRY,
+            "The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_FRIENDLY_POS,
+            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "If set, no error will be reported if element is placed behind the lane. Instead,it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1",
+            "0");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_DURATION,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUE,
+            "Minimum duration for stopping",
+            "0");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_UNTIL,
+            ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUE,
+            "The time step at which the route continues",
+            "0");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_INDEX,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "Where to insert the stop in the vehicle's list of stops",
+            "end");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_TRIGGERED,
+            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "Whether a person may end the stop",
+            "false");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_EXPECTED,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "List of persons that must board the vehicle before it may continue");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_EXPECTED_CONTAINERS,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "List of containers that must be loaded onto the vehicle before it may continue");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_PARKING,
+            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "whether the vehicle stops on the road or beside ",
+            "false");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_ACTTYPE,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "Activity displayed for stopped person in GUI and output files ",
+            "waiting");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
 }
 
 
