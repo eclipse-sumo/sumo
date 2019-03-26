@@ -208,6 +208,7 @@ public:
      * @param[in] printDefaults Information whether defaults for empty lanes/edges shall be written
      * @param[in] withInternal Information whether internal lanes/edges shall be written
      * @param[in] trackVehicles Information whether vehicles shall be tracked
+     * @param[in] detectPedestrians Whether pedestrians shall be detected instead of vehicles
      * @param[in] maxTravelTime the maximum travel time to output
      * @param[in] minSamples the minimum number of sample seconds before the values are valid
      * @param[in] haltSpeed the maximum speed to consider a vehicle waiting
@@ -216,7 +217,7 @@ public:
     MSMeanData_Net(const std::string& id,
                    const SUMOTime dumpBegin, const SUMOTime dumpEnd,
                    const bool useLanes, const bool withEmpty, const bool printDefaults,
-                   const bool withInternal, const bool trackVehicles,
+                   const bool withInternal, const bool trackVehicles, const bool detectPedestrians,
                    const double maxTravelTime, const double minSamples,
                    const double haltSpeed, const std::string& vTypes);
 

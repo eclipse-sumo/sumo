@@ -189,6 +189,9 @@ public:
         /// the time the person is walking
         SUMOTime myWalkingTime;
 
+        /// the time the person entered the edge
+        SUMOTime myLastEdgeEntryTime;
+
         /// @brief The route of the person
         ConstMSEdgeVector myRoute;
 

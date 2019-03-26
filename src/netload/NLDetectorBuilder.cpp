@@ -453,7 +453,7 @@ void
 NLDetectorBuilder::createEdgeLaneMeanData(const std::string& id, SUMOTime frequency,
         SUMOTime begin, SUMOTime end, const std::string& type,
         const bool useLanes, const bool withEmpty, const bool printDefaults,
-        const bool withInternal, const bool trackVehicles,
+        const bool withInternal, const bool trackVehicles, const bool detectPedestrians,
         const double maxTravelTime, const double minSamples,
         const double haltSpeed, const std::string& vTypes,
         const std::string& device) {
@@ -469,7 +469,7 @@ NLDetectorBuilder::createEdgeLaneMeanData(const std::string& id, SUMOTime freque
     MSMeanData* det = nullptr;
     if (type == "" || type == "performance" || type == "traffic") {
         det = new MSMeanData_Net(id, begin, end, useLanes, withEmpty,
-                                 printDefaults, withInternal, trackVehicles, maxTravelTime, minSamples, haltSpeed, vTypes);
+                                 printDefaults, withInternal, trackVehicles, detectPedestrians, maxTravelTime, minSamples, haltSpeed, vTypes);
     } else if (type == "emissions" || type == "hbefa") {
         if (type == "hbefa") {
             WRITE_WARNING("The netstate type 'hbefa' is deprecated. Please use the type 'emissions' instead.");
@@ -481,7 +481,7 @@ NLDetectorBuilder::createEdgeLaneMeanData(const std::string& id, SUMOTime freque
                                         printDefaults, withInternal, trackVehicles, maxTravelTime, minSamples, vTypes);
     } else if (type == "amitran") {
         det = new MSMeanData_Amitran(id, begin, end, useLanes, withEmpty,
-                                     printDefaults, withInternal, trackVehicles, maxTravelTime, minSamples, haltSpeed, vTypes);
+                                     printDefaults, withInternal, trackVehicles, detectPedestrians, maxTravelTime, minSamples, haltSpeed, vTypes);
     } else {
         throw InvalidArgument("Invalid type '" + type + "' for meandata dump '" + id + "'.");
     }

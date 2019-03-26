@@ -140,6 +140,7 @@ void
 MSPerson::MSPersonStage_Walking::proceed(MSNet* net, MSTransportable* person, SUMOTime now, Stage* previous) {
     myDeparted = now;
     myRouteStep = myRoute.begin();
+    myLastEdgeEntryTime = now;
     if (myWalkingTime == 0) {
         if (!person->proceed(net, now)) {
             MSNet::getInstance()->getPersonControl().erase(person);
@@ -157,7 +158,14 @@ MSPerson::MSPersonStage_Walking::proceed(MSNet* net, MSTransportable* person, SU
         MSNet::getInstance()->getPersonControl().erase(person);
         return;
     }
-    (*myRouteStep)->addPerson(person);
+    const MSEdge* edge = *myRouteStep;
+    const MSLane* lane = getSidewalk<MSEdge, MSLane>(getEdge());
+    if (lane != nullptr) {
+        for (MSMoveReminder* rem : lane->getMoveReminders()) {
+            rem->notifyEnter(*person, MSMoveReminder::NOTIFICATION_DEPARTED, lane);
+        }
+    }
+    edge->addPerson(person);
 }
 
 
@@ -314,8 +322,19 @@ MSPerson::MSPersonStage_Walking::endEventOutput(const MSTransportable& p, SUMOTi
 bool
 MSPerson::MSPersonStage_Walking::moveToNextEdge(MSPerson* person, SUMOTime currentTime, MSEdge* nextInternal) {
     ((MSEdge*)getEdge())->removePerson(person);
+    const MSLane* lane = getSidewalk<MSEdge, MSLane>(getEdge());
+    const bool arrived = myRouteStep == myRoute.end() - 1;
+    if (lane != nullptr) {
+        for (MSMoveReminder* rem : lane->getMoveReminders()) {
+            rem->updateDetector(*person, 0.0, lane->getLength(), myLastEdgeEntryTime, currentTime, currentTime, true);
+            rem->notifyLeave(*person, 
+                    arrived ? getArrivalPos() : lane->getLength(), 
+                    arrived ? MSMoveReminder::NOTIFICATION_ARRIVED : MSMoveReminder::NOTIFICATION_JUNCTION);
+        }
+    }
+    myLastEdgeEntryTime = currentTime;
     //std::cout << SIMTIME << " moveToNextEdge person=" << person->getID() << "\n";
-    if (myRouteStep == myRoute.end() - 1) {
+    if (arrived) {
         if (myDestinationStop != nullptr) {
             myDestinationStop->addTransportable(person);
         }
@@ -330,6 +349,12 @@ MSPerson::MSPersonStage_Walking::moveToNextEdge(MSPerson* person, SUMOTime curre
             myCurrentInternalEdge = nullptr;
         } else {
             myCurrentInternalEdge = nextInternal;
+        }
+        const MSLane* nextLane = getSidewalk<MSEdge, MSLane>(getEdge());
+        if (nextLane != nullptr) {
+            for (MSMoveReminder* rem : nextLane->getMoveReminders()) {
+                rem->notifyEnter(*person, MSMoveReminder::NOTIFICATION_JUNCTION, nextLane);
+            }
         }
         ((MSEdge*) getEdge())->addPerson(person);
         return false;

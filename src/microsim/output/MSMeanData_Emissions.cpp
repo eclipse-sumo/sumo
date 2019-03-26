@@ -144,7 +144,7 @@ MSMeanData_Emissions::MSMeanData_Emissions(const std::string& id,
         const double minSamples,
         const std::string& vTypes)
     : MSMeanData(id, dumpBegin, dumpEnd, useLanes, withEmpty, printDefaults,
-                 withInternal, trackVehicles, maxTravelTime, minSamples, vTypes) {
+                 withInternal, trackVehicles, false, maxTravelTime, minSamples, vTypes) {
 }
 
 

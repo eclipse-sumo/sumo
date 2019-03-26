@@ -64,16 +64,18 @@ enum DetectorUsage {
 class MSDetectorFileOutput : public Named {
 public:
     /// @brief Constructor
-    MSDetectorFileOutput(const std::string& id, const std::string& vTypes)
-        : Named(id) {
+    MSDetectorFileOutput(const std::string& id, const std::string& vTypes, const bool detectPedestrians=false) : 
+        Named(id),
+        myDetectPedestrians(detectPedestrians)
+    {
         const std::vector<std::string> vt = StringTokenizer(vTypes).getVector();
         myVehicleTypes.insert(vt.begin(), vt.end());
     }
 
     /// @brief Constructor
-    MSDetectorFileOutput(const std::string& id, const std::set<std::string>& vTypes)
-        : Named(id), myVehicleTypes(vTypes) {
-    }
+    MSDetectorFileOutput(const std::string& id, const std::set<std::string>& vTypes, const bool detectPedestrians=false)
+        : Named(id), myVehicleTypes(vTypes), myDetectPedestrians(detectPedestrians) 
+    { }
 
 
     /// @brief (virtual) destructor
@@ -139,7 +141,9 @@ public:
     * @return whether it should be measured
     */
     bool vehicleApplies(const SUMOTrafficObject& veh) const {
-        if (myVehicleTypes.empty() || myVehicleTypes.count(veh.getVehicleType().getID()) > 0) {
+        if (veh.isVehicle() == myDetectPedestrians) {
+            return false;
+        } else if (myVehicleTypes.empty() || myVehicleTypes.count(veh.getVehicleType().getID()) > 0) {
             return true;
         } else {
             std::set<std::string> vTypeDists = MSNet::getInstance()->getVehicleControl().getVTypeDistributionMembership(veh.getVehicleType().getID());
@@ -161,10 +165,12 @@ public:
         return !myVehicleTypes.empty();
     }
 
-
 protected:
     /// @brief The vehicle types to look for (empty means all)
     std::set<std::string> myVehicleTypes;
+
+    /// @brief Whether pedestrians shall be detected instead of vehicles
+    const bool myDetectPedestrians;
 
 private:
     /// @brief Invalidated copy constructor.

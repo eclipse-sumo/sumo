@@ -329,6 +329,7 @@ public:
      * @param[in] withEmpty Information whether empty lanes/edges shall be written
      * @param[in] withInternal Information whether internal lanes/edges shall be written
      * @param[in] trackVehicles Information whether information shall be collected per vehicle
+     * @param[in] detectPedestrians Whether pedestrians shall be detected instead of vehicles
      * @param[in] maxTravelTime the maximum travel time to output
      * @param[in] minSamples the minimum number of sample seconds before the values are valid
      * @param[in] haltSpeed the maximum speed to consider a vehicle waiting
@@ -338,7 +339,7 @@ public:
     void createEdgeLaneMeanData(const std::string& id, SUMOTime frequency,
                                 SUMOTime begin, SUMOTime end, const std::string& type,
                                 const bool useLanes, const bool withEmpty, const bool printDefaults,
-                                const bool withInternal, const bool trackVehicles,
+                                const bool withInternal, const bool trackVehicles, const bool detectPedestrians,
                                 const double maxTravelTime, const double minSamples,
                                 const double haltSpeed, const std::string& vTypes,
                                 const std::string& device);

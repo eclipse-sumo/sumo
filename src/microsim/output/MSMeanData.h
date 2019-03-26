@@ -297,6 +297,7 @@ public:
      * @param[in] withEmpty Information whether empty lanes/edges shall be written
      * @param[in] withInternal Information whether internal lanes/edges shall be written
      * @param[in] trackVehicles Information whether vehicles shall be tracked
+     * @param[in] detectPedestrians Whether pedestrians shall be detected instead of vehicles
      * @param[in] maxTravelTime the maximum travel time to use when calculating per vehicle output
      * @param[in] defaultEffort the value to use when calculating defaults
      * @param[in] minSamples the minimum number of sample seconds before the values are valid
@@ -306,7 +307,8 @@ public:
                const SUMOTime dumpBegin, const SUMOTime dumpEnd,
                const bool useLanes, const bool withEmpty,
                const bool printDefaults, const bool withInternal,
-               const bool trackVehicles, const double minSamples,
+               const bool trackVehicles, const bool detectPedestrians,
+               const double minSamples,
                const double maxTravelTime,
                const std::string& vTypes);
 
