@@ -35,51 +35,51 @@ class GNEStopFrame : public GNEFrame {
 public:
 
     // ===========================================================================
-    // class StopSelector
+    // class RouteSelector
     // ===========================================================================
 
-    class StopSelector : protected FXGroupBox {
+    class RouteSelector : protected FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNEStopFrame::StopSelector)
+        FXDECLARE(GNEStopFrame::RouteSelector)
 
     public:
         /// @brief constructor
-        StopSelector(GNEStopFrame* StopFrameParent);
+        RouteSelector(GNEStopFrame* StopFrameParent);
 
         /// @brief destructor
-        ~StopSelector();
+        ~RouteSelector();
 
-        /// @brief get current type tag
-        const GNEDemandElement* getCurrentStopType() const;
+        /// @brief get current route
+        const GNEDemandElement* getCurrentRoute() const;
 
         /// @brief show VType selector
-        void showStopSelector(const GNEAttributeCarrier::TagProperties& tagProperties);
+        void showRouteSelector(const GNEAttributeCarrier::TagProperties& tagProperties);
 
         /// @brief hide VType selector
-        void hideStopSelector();
+        void hideRouteSelector();
 
         /// @brief refresh VType selector
-        void refreshStopSelector();
+        void refreshRouteSelector();
 
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when the user select another element in ComboBox
-        long onCmdSelectVType(FXObject*, FXSelector, void*);
+        long onCmdSelectRoute(FXObject*, FXSelector, void*);
         /// @}
 
     protected:
         /// @brief FOX needs this
-        StopSelector() {}
+        RouteSelector() {}
 
     private:
         /// @brief pointer to Stop Frame Parent
         GNEStopFrame* myStopFrameParent;
 
-        /// @brief comboBox with the list of elements type
-        FXComboBox* myTypeMatchBox;
+        /// @brief comboBox with the list of routes
+        FXComboBox* myRouteMatchBox;
 
-        /// @brief current Stop type
-        GNEDemandElement* myCurrentStopType;
+        /// @brief current route
+        GNEDemandElement* myCurrentRoute;
     };
 
     // ===========================================================================
@@ -142,7 +142,7 @@ private:
     ItemSelector* myItemSelector;
 
     /// @brief Stop Type selectors
-    StopSelector* myStopSelector;
+    RouteSelector* myRouteSelector;
 
     /// @brief internal Stop attributes
     AttributesCreator* myStopAttributes;
