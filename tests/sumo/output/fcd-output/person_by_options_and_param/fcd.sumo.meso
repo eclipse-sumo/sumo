@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue Mar 26 20:59:01 2019 by Eclipse SUMO Version v1_1_0+0435-678c69824b
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <fcd-output value="fcd.xml"/>
+    </output>
+
+    <time>
+        <end value="2"/>
+    </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+        <pedestrian.model value="nonInteracting"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <fcd_device>
+        <person-device.fcd.probability value="0"/>
+    </fcd_device>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
+    <timestep time="0.00">
+        <person id="noFCDByTypeEnableViaParam" x="395.25" y="401.65" angle="270.00" speed="1.39" pos="0.00" edge="1/1to0/1" slope="0.00"/>
+    </timestep>
+    <timestep time="1.00">
+        <person id="noFCDByTypeEnableViaParam" x="393.87" y="401.65" angle="270.00" speed="1.39" pos="1.38" edge="1/1to0/1" slope="0.00"/>
+    </timestep>
+</fcd-export>

@@ -1,0 +1,2 @@
+Warning: Traffic light type 'actuated' cannot be used in mesoscopic simulation. Using 'static' as fallback
+Warning: Unused states in tlLogic '0', program '0' in phase 0 after tl-index 14
