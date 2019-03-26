@@ -432,15 +432,13 @@ class Net:
 
     def getGeoProj(self):
         import pyproj
-        p1 = self._location["projParameter"].split()
-        params = {}
-        for p in p1:
-            ps = p.split("=")
-            if len(ps) == 2:
-                params[ps[0]] = ps[1]
-            else:
-                params[ps[0]] = True
-        return pyproj.Proj(projparams=params)
+        try:
+            return pyproj.Proj(projparams=self._location["projParameter"])
+        except RuntimeError:
+            if hasattr(pyproj.datadir, 'set_data_dir'):
+                pyproj.datadir.set_data_dir('/usr/share/proj')
+                return pyproj.Proj(projparams=self._location["projParameter"])
+            raise
 
     def getLocationOffset(self):
         """ offset to be added after converting from geo-coordinates to UTM"""
