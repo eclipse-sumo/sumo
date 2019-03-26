@@ -340,6 +340,9 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
                     sortedOut[c->begin] += od.getString();
                 } else {
                     for (std::map<SUMOTime, std::vector<std::string> >::const_iterator deps = c->departures.begin(); deps != c->departures.end(); ++deps) {
+                        if (c->pathsVector.size() == 0 || c->pathsVector.front()->getEdgeVector().size() == 0) {
+                            continue;
+                        }
                         const std::string routeDistId = c->origin + "_" + c->destination + "_" + time2string(c->begin) + "_" + time2string(c->end);
                         for (std::vector<std::string>::const_iterator id = deps->second.begin(); id != deps->second.end(); ++id) {
                             OutputDevice_String od(dev->isBinary(), 1);
