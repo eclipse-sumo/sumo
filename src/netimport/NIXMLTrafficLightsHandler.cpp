@@ -241,7 +241,7 @@ NIXMLTrafficLightsHandler::addTlConnection(const SUMOSAXAttributes& attrs) {
     std::string tlID = attrs.getOpt<std::string>(SUMO_ATTR_TLID, nullptr, ok, "");
     if (tlID == "") {
         // we are updating an existing tl-controlled connection
-        tlID = c.tlID;
+        tlID = (*(from->getToNode()->getControllingTLS().begin()))->getID();
         assert(tlID != "");
     }
     int tlIndex = attrs.getOpt<int>(SUMO_ATTR_TLLINKINDEX, nullptr, ok, -1);
