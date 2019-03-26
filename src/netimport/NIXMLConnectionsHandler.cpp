@@ -249,10 +249,6 @@ NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes& attrs, NBEdge* 
         if (!ok) {
             return;
         }
-
-        if (from->getID() == "190083618#0" && to->getID() == "239335494" && fromLane==3) {
-            std::cout << "DEBUG\n";
-        }
         if (!from->addLane2LaneConnection(fromLane, to, toLane, NBEdge::L2L_USER, true, mayDefinitelyPass,
                     keepClear, contPos, visibility, speed, customShape, uncontrolled)) {
             if (OptionsCont::getOptions().getBool("show-errors.connections-first-try")) {
