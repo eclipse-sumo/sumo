@@ -581,7 +581,7 @@ GNEHierarchicalElement::ChildConnections::draw(GUIGlObjectType parentType) const
 
 void
 GNEHierarchicalElement::changeAdditionalParent(GNEAdditional *additionalTobeChanged, const std::string& newAdditionalParentID, int additionalParentIndex) {
-    if (myAdditionalParents.size() < additionalParentIndex) {
+    if ((int)myAdditionalParents.size() < additionalParentIndex) {
         throw InvalidArgument(getTagStr() + " with ID '" + getID() + "' doesn't have " + toString(additionalParentIndex) + " additional parents");
     } else {
         // remove this additional of the childs of parent additional
@@ -597,7 +597,7 @@ GNEHierarchicalElement::changeAdditionalParent(GNEAdditional *additionalTobeChan
 
 void
 GNEHierarchicalElement::changeDemandElementParent(GNEDemandElement *demandElementTobeChanged, const std::string& newAdditionalParentID, int demandElementParentIndex) {
-    if (myDemandElementParents.size() < demandElementParentIndex) {
+    if ((int)myDemandElementParents.size() < demandElementParentIndex) {
         throw InvalidArgument(getTagStr() + " with ID '" + getID() + "' doesn't have " + toString(demandElementParentIndex) + " demand element parents");
     } else {
         // remove this additional of the childs of parent additional
