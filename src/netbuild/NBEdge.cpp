@@ -2699,8 +2699,8 @@ NBEdge::appendTurnaround(bool noTLSControlled, bool onlyDeadends, bool noGeometr
         return;
     }
     if (onlyDeadends) {
+        int allowedOutgoing = 0;
         for (NBEdge* out : myTo->getOutgoingEdges()) {
-            int allowedOutgoing = 0;
             if ((out->getPermissions() & SVC_PASSENGER) != 0 || out->getPermissions() == getPermissions()) {
                 allowedOutgoing++;
                 if (allowedOutgoing > 1) {
