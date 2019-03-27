@@ -1,10 +1,6 @@
 Warning: Lane 'gneE4_0' is not connected from any incoming edge at junction 'gneJ3'.
 Warning: Invalid pedestrian topology: crossing ':gneJ2_c0' across 'gneE8 gneE9' has no target.
 Warning: Invalid pedestrian topology: crossing ':gneJ3_c0' across 'gneE4 gneE5' has no target.
-Warning: Invalid pedestrian topology: crossing ':gneJ3_c0' across 'gneE4 gneE5' has no target.
-Warning: Invalid pedestrian topology: crossing ':gneJ2_c0' across 'gneE8 gneE9' has no target.
-Warning: Invalid pedestrian topology: crossing ':gneJ2_c0' across 'gneE8 gneE9' has no target.
-Warning: Invalid pedestrian topology: crossing ':gneJ3_c0' across 'gneE4 gneE5' has no target.
 Warning: Invalid pedestrian topology: crossing ':gneJ2_c0' across 'gneE8 gneE9' has no target.
 Warning: Invalid pedestrian topology: crossing ':gneJ3_c0' across 'gneE4 gneE5' has no target.
 Warning: Invalid pedestrian topology: crossing ':gneJ2_c0' across 'gneE8 gneE9' has no target.
@@ -12,8 +8,6 @@ Warning: Invalid pedestrian topology: crossing ':gneJ3_c0' across 'gneE4 gneE5' 
 Warning: Lane 'gneE4_0' is not connected from any incoming edge at junction 'gneJ3'.
 Warning: Invalid pedestrian topology: crossing ':gneJ2_c0' across 'gneE8 gneE9' has no target.
 Warning: Invalid pedestrian topology: crossing ':gneJ3_c0' across 'gneE4 gneE5' has no target.
-Warning: Invalid pedestrian topology: crossing ':gneJ3_c0' across 'gneE4 gneE5' has no target.
-Warning: Invalid pedestrian topology: crossing ':gneJ2_c0' across 'gneE8 gneE9' has no target.
 Warning: Invalid pedestrian topology: crossing ':gneJ2_c0' across 'gneE8 gneE9' has no target.
 Warning: Invalid pedestrian topology: crossing ':gneJ3_c0' across 'gneE4 gneE5' has no target.
 Warning: Invalid pedestrian topology: crossing ':gneJ2_c0' across 'gneE8 gneE9' has no target.
