@@ -65,8 +65,6 @@ GNEStopFrame::StopParentSelector::StopParentSelector(GNEStopFrame* StopFramePare
     myCurrentStopParent(nullptr) {
     // Create FXComboBox
     myStopParentMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
-    // refresh myStopParentMatchBox
-    refreshStopParentSelector();
     // StopParentSelector is always shown
     show();
 }
@@ -88,7 +86,7 @@ GNEStopFrame::StopParentSelector::setStopParent(GNEDemandElement *stopParent) {
 
 
 void 
-GNEStopFrame::StopParentSelector::showStopParentSelector(const GNEAttributeCarrier::TagProperties& tagProperties) {
+GNEStopFrame::StopParentSelector::showStopParentSelector() {
     // refresh stop parent selector
     refreshStopParentSelector();
     // show VType selector
@@ -149,10 +147,14 @@ GNEStopFrame::StopParentSelector::refreshStopParentSelector() {
         }
     }
     if (!found) {
+        // disable combo box and moduls if there isn't candidate stop parents in net
         if (myStopParentCandidates.size() > 0) {
             myStopParentMatchBox->setCurrentItem(0);
         } else {
             myStopParentMatchBox->hide();
+            myStopFrameParent->myStopTypeSelector->hideItemSelector();
+            myStopFrameParent->myStopAttributes->hideAttributesCreatorModul();
+            myStopFrameParent->myHelpCreation->hideHelpCreation();
         }
     }
 }
@@ -274,6 +276,9 @@ GNEStopFrame::GNEStopFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet*
     
     // Create Help Creation Modul
     myHelpCreation = new HelpCreation(this);
+
+    // refresh myStopParentMatchBox
+    myStopParentSelector->refreshStopParentSelector();
 }
 
 
@@ -293,27 +298,27 @@ GNEStopFrame::show() {
 
 bool
 GNEStopFrame::addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
+    // now check if stop parent selector is valid
+    if (myStopParentSelector->getCurrentStopParent() == nullptr) {
+        myViewNet->setStatusBarText("Current selected Stop parent isn't valid.");
+        return false;
+    }
+
     // obtain tag (only for improve code legibility)
     SumoXMLTag StopTag = myStopTypeSelector->getCurrentTagProperties().getTag();
 
     // first check that current selected Stop is valid
     if (StopTag == SUMO_TAG_NOTHING) {
-        myViewNet->setStatusBarText("Current selected Stop isn't valid.");
-        return false;
-    }
-
-    // now check if VType is valid
-    if (myStopParentSelector->getCurrentStopParent() == nullptr) {
         myViewNet->setStatusBarText("Current selected Stop type isn't valid.");
         return false;
     }
 
     // Declare map to keep attributes from Frames from Frame
     std::map<SumoXMLAttr, std::string> valuesMap = myStopAttributes->getAttributesAndValues(false);
-
+    /*
     // add ID
     valuesMap[SUMO_ATTR_ID] = myViewNet->getNet()->generateDemandElementID(StopTag);
-/*
+
     // add VType
     valuesMap[SUMO_ATTR_TYPE] = myStopParentSelector->getCurrentStopParent()->getID();
 

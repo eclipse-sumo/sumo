@@ -56,7 +56,7 @@ public:
         void setStopParent(GNEDemandElement *stopParent);
 
         /// @brief show VType selector
-        void showStopParentSelector(const GNEAttributeCarrier::TagProperties& tagProperties);
+        void showStopParentSelector();
 
         /// @brief hide VType selector
         void hideStopParentSelector();
