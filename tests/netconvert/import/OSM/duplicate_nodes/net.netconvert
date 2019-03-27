@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Feb 27 16:01:49 2019 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Wed Mar 27 12:59:25 2019 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -56,33 +56,33 @@ SPDX-License-Identifier: EPL-2.0
     <type id="highway.cycleway" priority="1" numLanes="1" speed="8.33" allow="bicycle" oneway="0" width="1.00"/>
     <type id="highway.footway" priority="1" numLanes="1" speed="2.78" allow="pedestrian" oneway="1" width="2.00"/>
     <type id="highway.ford" priority="1" numLanes="1" speed="2.78" allow="army" oneway="0"/>
-    <type id="highway.living_street" priority="3" numLanes="1" speed="2.78" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
-    <type id="highway.motorway" priority="13" numLanes="2" speed="44.44" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" oneway="1"/>
-    <type id="highway.motorway_link" priority="12" numLanes="1" speed="22.22" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" oneway="1"/>
+    <type id="highway.living_street" priority="2" numLanes="1" speed="2.78" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
+    <type id="highway.motorway" priority="14" numLanes="2" speed="44.44" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" oneway="1"/>
+    <type id="highway.motorway_link" priority="9" numLanes="1" speed="22.22" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" oneway="1"/>
     <type id="highway.path" priority="1" numLanes="1" speed="2.78" allow="bicycle pedestrian" oneway="1" width="2.00"/>
     <type id="highway.pedestrian" priority="1" numLanes="1" speed="2.78" allow="pedestrian" oneway="1" width="2.00"/>
-    <type id="highway.primary" priority="9" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
-    <type id="highway.primary_link" priority="8" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
-    <type id="highway.raceway" priority="14" numLanes="2" speed="83.33" allow="vip" oneway="0"/>
-    <type id="highway.residential" priority="4" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
-    <type id="highway.secondary" priority="7" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
+    <type id="highway.primary" priority="12" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
+    <type id="highway.primary_link" priority="7" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
+    <type id="highway.raceway" priority="15" numLanes="2" speed="83.33" allow="vip" oneway="0"/>
+    <type id="highway.residential" priority="3" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
+    <type id="highway.secondary" priority="11" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
     <type id="highway.secondary_link" priority="6" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
-    <type id="highway.service" priority="2" numLanes="1" speed="5.56" allow="delivery bicycle pedestrian" oneway="0"/>
+    <type id="highway.service" priority="1" numLanes="1" speed="5.56" allow="delivery bicycle pedestrian" oneway="0"/>
     <type id="highway.stairs" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1" width="2.00"/>
     <type id="highway.step" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1" width="2.00"/>
     <type id="highway.steps" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1" width="2.00"/>
-    <type id="highway.tertiary" priority="6" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
+    <type id="highway.tertiary" priority="10" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
     <type id="highway.tertiary_link" priority="5" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
     <type id="highway.track" priority="1" numLanes="1" speed="5.56" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
-    <type id="highway.trunk" priority="11" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" oneway="0"/>
-    <type id="highway.trunk_link" priority="10" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" oneway="0"/>
-    <type id="highway.unclassified" priority="5" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
+    <type id="highway.trunk" priority="13" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" oneway="0"/>
+    <type id="highway.trunk_link" priority="8" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" oneway="0"/>
+    <type id="highway.unclassified" priority="4" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
     <type id="highway.unsurfaced" priority="1" numLanes="1" speed="8.33" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
-    <type id="railway.light_rail" priority="18" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
-    <type id="railway.preserved" priority="15" numLanes="1" speed="27.78" allow="rail" oneway="1"/>
-    <type id="railway.rail" priority="19" numLanes="1" speed="83.33" allow="rail rail_electric" oneway="1"/>
-    <type id="railway.subway" priority="17" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
-    <type id="railway.tram" priority="16" numLanes="1" speed="13.89" allow="tram" oneway="1"/>
+    <type id="railway.light_rail" priority="19" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
+    <type id="railway.preserved" priority="16" numLanes="1" speed="27.78" allow="rail" oneway="1"/>
+    <type id="railway.rail" priority="20" numLanes="1" speed="83.33" allow="rail rail_electric" oneway="1"/>
+    <type id="railway.subway" priority="18" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
+    <type id="railway.tram" priority="17" numLanes="1" speed="13.89" allow="tram" oneway="1"/>
 
     <edge id=":-14_0" function="internal">
         <lane id=":-14_0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="7.29" shape="348.17,697.39 346.85,698.64 345.91,700.11 345.33,701.81 345.11,703.72"/>
@@ -251,25 +251,25 @@ SPDX-License-Identifier: EPL-2.0
     <edge id="--32" from="-4" to="-14" priority="1" type="highway.track">
         <lane id="--32_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="8.92" shape="341.78,712.60 341.91,703.68"/>
     </edge>
-    <edge id="--33#0" from="-15" to="-2" name="Ingolstädter Straße" priority="9" type="highway.primary" shape="303.59,681.82 133.00,767.08 0.26,803.09">
+    <edge id="--33#0" from="-15" to="-2" name="Ingolstädter Straße" priority="12" type="highway.primary" shape="303.59,681.82 133.00,767.08 0.26,803.09">
         <lane id="--33#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="324.72" shape="302.01,687.97 134.72,771.59 1.52,807.72"/>
         <lane id="--33#0_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="324.72" shape="300.58,685.11 133.57,768.59 0.68,804.63"/>
     </edge>
-    <edge id="--33#1" from="-26" to="-15" name="Ingolstädter Straße" priority="9" type="highway.primary" shape="493.51,389.18 473.55,489.66 426.27,564.99 339.53,661.49 303.59,681.82">
+    <edge id="--33#1" from="-26" to="-15" name="Ingolstädter Straße" priority="12" type="highway.primary" shape="493.51,389.18 473.55,489.66 426.27,564.99 339.53,661.49 303.59,681.82">
         <lane id="--33#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="351.46" shape="498.05,390.92 478.08,491.46 430.11,567.90 342.58,665.29 317.20,679.63"/>
         <lane id="--33#1_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="351.46" shape="494.92,390.29 475.06,490.26 427.55,565.96 340.54,662.76 315.63,676.85"/>
     </edge>
-    <edge id="--33#2" from="-29" to="-26" name="Ingolstädter Straße" priority="9" type="highway.primary" shape="491.92,0.00 476.29,98.06 493.51,389.18">
+    <edge id="--33#2" from="-29" to="-26" name="Ingolstädter Straße" priority="12" type="highway.primary" shape="491.92,0.00 476.29,98.06 493.51,389.18">
         <lane id="--33#2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="389.40" shape="496.66,0.76 481.11,98.30 498.25,388.07"/>
         <lane id="--33#2_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="389.40" shape="493.50,0.25 477.89,98.14 495.06,388.26"/>
     </edge>
-    <edge id="--35#1" from="-4" to="-30" priority="5" type="highway.unclassified" shape="343.27,720.74 315.71,730.44 0.00,837.32">
+    <edge id="--35#1" from="-4" to="-30" priority="4" type="highway.unclassified" shape="343.27,720.74 315.71,730.44 0.00,837.32">
         <lane id="--35#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="355.25" shape="336.92,724.67 316.23,731.95 0.51,838.84"/>
     </edge>
-    <edge id="--37#0" from="-4" to="-19" priority="5" type="highway.unclassified" shape="343.27,720.74 581.12,663.63 814.81,653.18 1048.06,663.40">
+    <edge id="--37#0" from="-4" to="-19" priority="4" type="highway.unclassified" shape="343.27,720.74 581.12,663.63 814.81,653.18 1048.06,663.40">
         <lane id="--37#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="697.10" shape="350.79,717.29 580.90,662.04 814.81,651.58 1040.89,661.49"/>
     </edge>
-    <edge id="--37#1" from="-9" to="-4" priority="5" type="highway.unclassified">
+    <edge id="--37#1" from="-9" to="-4" priority="4" type="highway.unclassified">
         <lane id="--37#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="183.22" shape="399.66,902.88 344.00,728.32"/>
     </edge>
     <edge id="--38#0" from="-14" to="-19" priority="1" type="highway.track" shape="343.58,698.87 395.74,659.13 595.11,616.74 870.97,635.93 1022.71,632.97 1048.06,663.40">
@@ -281,25 +281,25 @@ SPDX-License-Identifier: EPL-2.0
     <edge id="-32" from="-14" to="-4" priority="1" type="highway.track">
         <lane id="-32_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="8.92" shape="345.11,703.72 344.98,712.65"/>
     </edge>
-    <edge id="-33#0" from="-2" to="-15" name="Ingolstädter Straße" priority="9" type="highway.primary" shape="0.26,803.09 133.00,767.08 303.59,681.82">
+    <edge id="-33#0" from="-2" to="-15" name="Ingolstädter Straße" priority="12" type="highway.primary" shape="0.26,803.09 133.00,767.08 303.59,681.82">
         <lane id="-33#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="323.44" shape="-0.99,798.46 131.28,762.58 297.72,679.38"/>
         <lane id="-33#0_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="323.44" shape="-0.16,801.54 132.43,765.58 299.15,682.25"/>
     </edge>
-    <edge id="-33#1" from="-15" to="-26" name="Ingolstädter Straße" priority="9" type="highway.primary" shape="303.59,681.82 339.53,661.49 426.27,564.99 473.55,489.66 493.51,389.18">
+    <edge id="-33#1" from="-15" to="-26" name="Ingolstädter Straße" priority="12" type="highway.primary" shape="303.59,681.82 339.53,661.49 426.27,564.99 473.55,489.66 493.51,389.18">
         <lane id="-33#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="345.91" shape="312.48,671.27 336.48,657.70 422.42,562.09 469.01,487.86 488.64,389.05"/>
         <lane id="-33#1_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="345.91" shape="314.05,674.06 338.51,660.23 424.99,564.03 472.03,489.06 491.78,389.67"/>
     </edge>
-    <edge id="-33#2" from="-26" to="-29" name="Ingolstädter Straße" priority="9" type="highway.primary" shape="493.51,389.18 476.29,98.06 491.92,0.00">
+    <edge id="-33#2" from="-26" to="-29" name="Ingolstädter Straße" priority="12" type="highway.primary" shape="493.51,389.18 476.29,98.06 491.92,0.00">
         <lane id="-33#2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="390.80" shape="488.67,388.64 471.46,97.82 487.18,-0.76"/>
         <lane id="-33#2_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="390.80" shape="491.86,388.45 474.68,97.98 490.34,-0.25"/>
     </edge>
-    <edge id="-35#0" from="-30" to="-4" priority="5" type="highway.unclassified" shape="0.00,837.32 315.71,730.44 343.27,720.74">
+    <edge id="-35#0" from="-30" to="-4" priority="4" type="highway.unclassified" shape="0.00,837.32 315.71,730.44 343.27,720.74">
         <lane id="-35#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="355.21" shape="-0.51,835.81 315.19,728.93 335.85,721.65"/>
     </edge>
-    <edge id="-37#0" from="-19" to="-4" priority="5" type="highway.unclassified" shape="1048.06,663.40 814.81,653.18 581.12,663.63 343.27,720.74">
+    <edge id="-37#0" from="-19" to="-4" priority="4" type="highway.unclassified" shape="1048.06,663.40 814.81,653.18 581.12,663.63 343.27,720.74">
         <lane id="-37#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="696.20" shape="1040.75,664.68 814.81,654.78 581.35,665.22 351.54,720.40"/>
     </edge>
-    <edge id="-37#1" from="-4" to="-9" priority="5" type="highway.unclassified">
+    <edge id="-37#1" from="-4" to="-9" priority="4" type="highway.unclassified">
         <lane id="-37#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="183.22" shape="347.05,727.35 402.71,901.91"/>
     </edge>
     <edge id="-38#0" from="-19" to="-14" priority="1" type="highway.track" shape="1048.06,663.40 1022.71,632.97 870.97,635.93 595.11,616.74 395.74,659.13 343.58,698.87">

@@ -11,9 +11,9 @@ done.
    335 edges loaded.
 Proj projection parameters used: '+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
 Removing self-loops... done (0ms).
-Joining junction clusters... done (1ms).
+Joining junction clusters... done (2ms).
  Joined 9 junction cluster(s).
-Removing empty nodes and geometry nodes... done (0ms).
+Removing empty nodes and geometry nodes... done (1ms).
    50 nodes removed.
 Moving network to origin... done (1ms).
 Computing turning directions... done (0ms).
@@ -21,8 +21,8 @@ Assigning nodes to traffic lights... done (0ms).
 Guessing and setting on-/off-ramps... done (1ms).
 Remapped 162 edge IDs and 10 node IDs.
 Sorting nodes' edges... done (0ms).
-Computing node shapes... done (4ms).
-Computing edge shapes... done (3ms).
+Computing node shapes... done (5ms).
+Computing edge shapes... done (4ms).
 Computing node types... done (0ms).
 Computing priorities... done (1ms).
 Computing approached edges... done (0ms).
@@ -42,13 +42,13 @@ Summary:
  Node type statistics:
   Unregulated junctions       : 0
   Dead-end junctions          : 24
-  Priority junctions          : 81
-  Right-before-left junctions : 24
+  Priority junctions          : 80
+  Right-before-left junctions : 25
  Network boundaries:
   Original boundary  : 13.45,52.42,13.58,52.46
   Applied offset     : -398348.81,-5809187.02
   Converted boundary : 0.00,0.00,2075.68,948.77
 -----------------------------------------------------
 Writing network... 
-done (83ms).
+done (73ms).
 Success.
