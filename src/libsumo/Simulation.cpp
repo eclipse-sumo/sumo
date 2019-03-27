@@ -486,19 +486,21 @@ Simulation::findIntermodalRoute(const std::string& from, const std::string& to,
     }
     for (StringTokenizer st(modes); st.hasNext();) {
         const std::string mode = st.next();
-        if (mode == "car") {
+        if (mode == toString(PERSONMODE_CAR)) {
             pars.push_back(new SUMOVehicleParameter());
             pars.back()->vtypeid = DEFAULT_VTYPE_ID;
             pars.back()->id = mode;
             modeSet |= SVC_PASSENGER;
-        } else if (mode == "bicycle") {
+        } else if (mode == toString(PERSONMODE_BICYCLE)) {
             pars.push_back(new SUMOVehicleParameter());
             pars.back()->vtypeid = DEFAULT_BIKETYPE_ID;
             pars.back()->id = mode;
             modeSet |= SVC_BICYCLE;
-        } else if (mode == "public") {
+        } else if (mode == toString(PERSONMODE_PUBLIC)) {
             pars.push_back(nullptr);
             modeSet |= SVC_BUS;
+        } else if (mode == toString(PERSONMODE_WALK)) {
+            // do nothing
         } else {
             throw TraCIException("Unknown person mode '" + mode + "'.");
         }

@@ -525,7 +525,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "excludeEmpty",           SUMO_ATTR_EXCLUDE_EMPTY },
     { "withInternal",           SUMO_ATTR_WITH_INTERNAL },
     { "trackVehicles",          SUMO_ATTR_TRACK_VEHICLES },
-    { "detectPedestrians",      SUMO_ATTR_DETECT_PEDESTRIANS },
+    { "detectPersons",          SUMO_ATTR_DETECT_PERSONS },
     { "maxTraveltime",          SUMO_ATTR_MAX_TRAVELTIME },
     { "minSamples",             SUMO_ATTR_MIN_SAMPLES },
 
@@ -721,6 +721,14 @@ StringBijection<FringeType>::Entry SUMOXMLDefinitions::fringeTypeValuesInitializ
     {"default", FRINGE_TYPE_DEFAULT } // default (must be the last one)
 };
 
+StringBijection<PersonMode>::Entry SUMOXMLDefinitions::personModeValuesInitializer[] = {
+    {"walk",    PERSONMODE_WALK},
+    {"bicycle", PERSONMODE_BICYCLE },
+    {"car",     PERSONMODE_CAR },
+    {"public",  PERSONMODE_PUBLIC},
+    {"none",    PERSONMODE_NONE} // (must be the last one)
+};
+
 StringBijection<LinkState>::Entry SUMOXMLDefinitions::linkStateValues[] = {
     { "G", LINKSTATE_TL_GREEN_MAJOR },
     { "g", LINKSTATE_TL_GREEN_MINOR },
@@ -871,6 +879,9 @@ StringBijection<RightOfWay> SUMOXMLDefinitions::RightOfWayValues(
 
 StringBijection<FringeType> SUMOXMLDefinitions::FringeTypeValues(
     SUMOXMLDefinitions::fringeTypeValuesInitializer, FRINGE_TYPE_DEFAULT);
+
+StringBijection<PersonMode> SUMOXMLDefinitions::PersonModeValues(
+    SUMOXMLDefinitions::personModeValuesInitializer, PERSONMODE_WALK);
 
 StringBijection<LinkState> SUMOXMLDefinitions::LinkStates(
     SUMOXMLDefinitions::linkStateValues, LINKSTATE_DEADEND);

@@ -217,7 +217,7 @@
         </xsd:attribute>
         <xsd:attribute name="withInternal" type="boolType" use="optional"/>
         <xsd:attribute name="trackVehicles" type="boolType" use="optional"/>
-        <xsd:attribute name="detectPedestrians" type="boolType" use="optional"/>
+        <xsd:attribute name="detectPersons" type="xsd:string" use="optional"/>
         <xsd:attribute name="vTypes" type="xsd:string" use="optional"/>
     </xsd:complexType>
 

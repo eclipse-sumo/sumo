@@ -407,11 +407,11 @@ MSMeanData::MSMeanData(const std::string& id,
                        const bool useLanes, const bool withEmpty,
                        const bool printDefaults, const bool withInternal, 
                        const bool trackVehicles,
-                       const bool detectPedestrians,
+                       const int detectPersons,
                        const double maxTravelTime,
                        const double minSamples,
                        const std::string& vTypes) :
-    MSDetectorFileOutput(id, vTypes, detectPedestrians),
+    MSDetectorFileOutput(id, vTypes, detectPersons),
     myMinSamples(minSamples),
     myMaxTravelTime(maxTravelTime),
     myDumpEmpty(withEmpty),
@@ -430,7 +430,7 @@ MSMeanData::init() {
     const MSEdgeVector& edges = MSNet::getInstance()->getEdgeControl().getEdges();
     for (MSEdgeVector::const_iterator e = edges.begin(); e != edges.end(); ++e) {
         if ((myDumpInternal || !(*e)->isInternal()) && 
-                ((myDetectPedestrians && myDumpInternal) || (!(*e)->isCrossing() && !(*e)->isWalkingArea()))) {
+                ((detectPersons() && myDumpInternal) || (!(*e)->isCrossing() && !(*e)->isWalkingArea()))) {
             myEdges.push_back(*e);
             myMeasures.push_back(std::vector<MeanDataValues*>());
             const std::vector<MSLane*>& lanes = (*e)->getLanes();

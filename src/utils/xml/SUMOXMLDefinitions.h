@@ -772,7 +772,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_EXCLUDE_EMPTY,
     SUMO_ATTR_WITH_INTERNAL,
     SUMO_ATTR_TRACK_VEHICLES,
-    SUMO_ATTR_DETECT_PEDESTRIANS,
+    SUMO_ATTR_DETECT_PERSONS,
     SUMO_ATTR_MAX_TRAVELTIME,
     SUMO_ATTR_MIN_SAMPLES,
 
@@ -1057,6 +1057,15 @@ enum FringeType {
     FRINGE_TYPE_DEFAULT
 };
 
+/// @brief travel modes for persons
+enum PersonMode {
+    PERSONMODE_WALK = 1,
+    PERSONMODE_BICYCLE = 2,
+    PERSONMODE_CAR = 3,
+    PERSONMODE_PUBLIC = 4,
+    PERSONMODE_NONE = 0
+};
+
 /**
  * @enum LinkState
  * @brief The right-of-way state of a link between two lanes
@@ -1314,6 +1323,9 @@ public:
     /// @brief fringe types 
     static StringBijection<FringeType> FringeTypeValues;
 
+    /// @brief person modes
+    static StringBijection<PersonMode> PersonModeValues;
+
     /// @brief link states
     static StringBijection<LinkState> LinkStates;
 
@@ -1402,6 +1414,9 @@ private:
 
     /// @brief lane spread function values
     static StringBijection<FringeType>::Entry fringeTypeValuesInitializer[];
+
+    /// @brief person mode values
+    static StringBijection<PersonMode>::Entry personModeValuesInitializer[];
 
     /// @brief link state values
     static StringBijection<LinkState>::Entry linkStateValues[];

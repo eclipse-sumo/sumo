@@ -64,17 +64,17 @@ enum DetectorUsage {
 class MSDetectorFileOutput : public Named {
 public:
     /// @brief Constructor
-    MSDetectorFileOutput(const std::string& id, const std::string& vTypes, const bool detectPedestrians=false) : 
+    MSDetectorFileOutput(const std::string& id, const std::string& vTypes, const int detectPersons=false) : 
         Named(id),
-        myDetectPedestrians(detectPedestrians)
+        myDetectPersons(detectPersons)
     {
         const std::vector<std::string> vt = StringTokenizer(vTypes).getVector();
         myVehicleTypes.insert(vt.begin(), vt.end());
     }
 
     /// @brief Constructor
-    MSDetectorFileOutput(const std::string& id, const std::set<std::string>& vTypes, const bool detectPedestrians=false)
-        : Named(id), myVehicleTypes(vTypes), myDetectPedestrians(detectPedestrians) 
+    MSDetectorFileOutput(const std::string& id, const std::set<std::string>& vTypes, const int detectPersons=false)
+        : Named(id), myVehicleTypes(vTypes), myDetectPersons(detectPersons) 
     { }
 
 
@@ -141,7 +141,7 @@ public:
     * @return whether it should be measured
     */
     bool vehicleApplies(const SUMOTrafficObject& veh) const {
-        if (veh.isVehicle() == myDetectPedestrians) {
+        if (veh.isVehicle() == detectPersons()) {
             return false;
         } else if (myVehicleTypes.empty() || myVehicleTypes.count(veh.getVehicleType().getID()) > 0) {
             return true;
@@ -165,12 +165,16 @@ public:
         return !myVehicleTypes.empty();
     }
 
+    inline bool detectPersons() const {
+        return myDetectPersons != 0;
+    }
+
 protected:
     /// @brief The vehicle types to look for (empty means all)
     std::set<std::string> myVehicleTypes;
 
     /// @brief Whether pedestrians shall be detected instead of vehicles
-    const bool myDetectPedestrians;
+    const int myDetectPersons;
 
 private:
     /// @brief Invalidated copy constructor.
