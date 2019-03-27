@@ -308,6 +308,7 @@ RODFDetector::writeEmitterDefinition(const std::string& file,
         return false;
     }
     // insertions
+    int vehicleIndex = 0;
     if (insertionsOnly || flows.knows(myID)) {
         // get the flows for this detector
         const std::vector<FlowDef>& mflows = flows.getFlowDefs(myID);
@@ -367,11 +368,7 @@ RODFDetector::writeEmitterDefinition(const std::string& file,
 
                 // write
                 out.openTag(SUMO_TAG_VEHICLE);
-                if (getType() == SOURCE_DETECTOR) {
-                    out.writeAttr(SUMO_ATTR_ID, "emitter_" + myID + "_" + toString(ctime));
-                } else {
-                    out.writeAttr(SUMO_ATTR_ID, "calibrator_" + myID + "_" + toString(ctime));
-                }
+                out.writeAttr(SUMO_ATTR_ID, myID + "." + toString(vehicleIndex));
                 if (oc.getBool("vtype")) {
                     out.writeAttr(SUMO_ATTR_TYPE, vtype);
                 }
@@ -422,6 +419,7 @@ RODFDetector::writeEmitterDefinition(const std::string& file,
                 }
                 out.closeTag();
                 srcFD.isLKW += srcFD.fLKW;
+                vehicleIndex++;
             }
         }
     }
