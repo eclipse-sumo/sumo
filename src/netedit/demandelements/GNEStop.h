@@ -32,20 +32,11 @@
 /**
  * @class GNEStop
  */
-class GNEStop : public GNEDemandElement, public SUMOVehicleParameter {
+class GNEStop : public GNEDemandElement, public SUMOVehicleParameter::Stop {
 
 public:
-   /// @brief constructor for stops and flows
-    GNEStop(SumoXMLTag tag, GNEViewNet* viewNet, const std::string &stopID, GNEDemandElement* stopType, GNEDemandElement* route);
-
-    /// @brief constructor for stops
-    GNEStop(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehicleParameter &stopParameter, GNEDemandElement* stopType, GNEDemandElement* route);
-
-    /// @brief constructor for Trips
-    GNEStop(GNEViewNet* viewNet, const std::string &tripID, GNEDemandElement* stopType, GNEEdge* from, GNEEdge* to, std::vector<GNEEdge*> viaEdges);
-
-    /// @brief parameter constructor for Trips
-    GNEStop(GNEViewNet* viewNet, const SUMOVehicleParameter &tripParameter, GNEDemandElement* stopType, GNEEdge* from, GNEEdge* to, std::vector<GNEEdge*> viaEdges);
+    /// @brief constructor
+    GNEStop(SumoXMLTag tag, const std::string &id, GNEViewNet* viewNet, const SUMOVehicleParameter::Stop &stopParameter, GNEAdditional* stoppingPlace);
 
     /// @brief destructor
     ~GNEStop();
@@ -146,23 +137,7 @@ public:
     /// @}
 
 protected:
-    /// @brief Vehicle type
-    GNEDemandElement* myVehicleType;
-
-    /// @brief route in which this stop or flow is used
-    GNEDemandElement* myRoute;
-
-    /// @brief from edge (used by Trips)
-    GNEEdge* myFrom;
-
-    /// @brief to edge (used by Trips)
-    GNEEdge* myTo;
-
-    /// @brief list of VIA edges (used by Trips)
-    std::vector<GNEEdge*> myVia;
-
-    /// @brief vector with temporal route edges (only used for Trip visualization)
-    std::vector<const NBEdge*> myTemporalRoute;
+    GNELane *myLane;
 
 private:
     /// @brief method for setting the attribute and nothing else

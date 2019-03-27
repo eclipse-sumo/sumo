@@ -156,6 +156,14 @@ GNEDemandElement::GNEDemandElement(const std::string& id, GNEViewNet* viewNet, G
 }
 
 
+GNEDemandElement::GNEDemandElement(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, GNEAdditional *additionalParent) :
+    GUIGlObject(type, id),
+    GNEHierarchicalElement(tag, {additionalParent}),
+    Parameterised(),
+    myViewNet(viewNet) {
+}
+
+
 std::string 
 GNEDemandElement::generateChildID(SumoXMLTag childTag) {
     int counter = (int)myDemandElementChilds.size();

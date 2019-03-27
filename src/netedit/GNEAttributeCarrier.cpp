@@ -1008,6 +1008,17 @@ GNEAttributeCarrier::parse(const std::string& string) {
 }
 
 
+template<> std::set<std::string>
+GNEAttributeCarrier::parse(const std::string& string) {
+    std::vector<std::string> vectorString = StringTokenizer(string).getVector();
+    std::set<std::string> solution;
+    for (const auto &i : vectorString) {
+        solution.insert(i);
+    }
+    return solution;
+}
+
+
 template<> std::vector<int>
 GNEAttributeCarrier::parse(const std::string& string) {
     std::vector<std::string> parsedValues = parse<std::vector<std::string> >(string);
