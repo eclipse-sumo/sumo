@@ -79,13 +79,14 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     {"polygon",             GLO_POLYGON},
     {"poi",                 GLO_POI},
     {"routeElement",        GLO_ROUTEELEMENT},
-    {"vehicle",             GLO_VEHICLE},
-    {"person",              GLO_PERSON},
-    {"container",           GLO_CONTAINER},
     {"route",               GLO_ROUTE},
+    {"vehicle",             GLO_VEHICLE},
     {"vType",               GLO_VTYPE},
     {"flow",                GLO_FLOW},
     {"trip",                GLO_TRIP},
+    {"person",              GLO_PERSON},
+    {"container",           GLO_CONTAINER},
+    {"stop",                GLO_STOP},
     {"undefined",           GLO_MAX}
 };
 

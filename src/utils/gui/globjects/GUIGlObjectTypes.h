@@ -118,6 +118,8 @@ enum GUIGlObjectType {
     GLO_PERSON = 306,
     /// @brief a container
     GLO_CONTAINER = 307,
+    /// @brief a stop
+    GLO_STOP = 308,
     /// @brief empty max
     GLO_MAX = 2048
 };
