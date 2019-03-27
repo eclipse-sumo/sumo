@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Wed Mar 13 14:57:50 2019
+TraCITestClient output file. Date: Wed Mar 27 08:12:22 2019
 
 
 -> Command sent: <SetOrder>:
@@ -99,14 +99,14 @@ testAPI:
     getIDList: det1
     getVehicleData:
   simulation:
-    convert2D: TraCIPosition(2508.05,491.75,0)
-    convert2DGeo: TraCIPosition(12.0501,48.0917,0)
+    convert2D: TraCIPosition(2508.05,491.75,-1.07374e+09)
+    convert2DGeo: TraCIPosition(12.0501,48.0917,-1.07374e+09)
     convert3D: TraCIPosition(2508.05,491.75,0)
     convert3DGeo: TraCIPosition(12.0501,48.0917,0)
     convertRoad: TraCIRoadPosition(:n_m5_0_1,2.44971)
     convertRoadBus: TraCIRoadPosition(:n_m5_0_1,2.44971)
-    convertGeo: TraCIPosition(12.05,48.0917,0)
-    convertCartesian: TraCIPosition(16227.4,435082,0)
+    convertGeo: TraCIPosition(12.05,48.0917,-1.07374e+09)
+    convertCartesian: TraCIPosition(16227.4,435082,-1.07374e+09)
     getDistance2D_air: 500.00
     getDistance2D_driving: 3368.41
     getDistanceRoad_air: 500.00
@@ -136,7 +136,7 @@ testAPI:
     getAngle: 90.00
     getSlope: 0.00
     getLanePosition: 0.00
-    getLength: 0.22
+    getLength: 0.21
     getColor: TraCIColor(255,255,0,128)
     param: bar
     getSpeed: 2.47
