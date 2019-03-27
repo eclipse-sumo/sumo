@@ -64,6 +64,9 @@ abort_impossible_ride
 # test whether a chain of walks rides and stops works
 trip_chain
 
+# test whether a chain of walks rides and stops works (specify for charging stations, see #5384)
+trip_chain_chargingstations
+
 # tests if a person leaves a vehicle not only if the destination edge is reached but also if the vehicle that is transporting the person reached its current destination stop (plus minos some tolerance)
 leaving_vehicle_at_stop
 
