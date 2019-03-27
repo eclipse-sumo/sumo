@@ -379,7 +379,7 @@ GNEDetectorEntryExit::setAttribute(SumoXMLAttr key, const std::string& value) {
             myBlockMovement = parse<bool>(value);
             break;
         case GNE_ATTR_PARENT:
-            changeFirstAdditionalParent(value);
+            changeAdditionalParent(this, value, 0);
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {

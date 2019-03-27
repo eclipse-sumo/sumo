@@ -443,16 +443,6 @@ GNEDemandElement::isValidDemandElementID(const std::string& newID) const {
 }
 
 
-bool
-GNEDemandElement::isValidDetectorID(const std::string& newID) const {
-    if (SUMOXMLDefinitions::isValidDetectorID(newID) && (myViewNet->getNet()->retrieveDemandElement(myTagProperty.getTag(), newID, false) == nullptr)) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
 void
 GNEDemandElement::changeDemandElementID(const std::string& newID) {
     if (myViewNet->getNet()->retrieveDemandElement(myTagProperty.getTag(), newID, false) != nullptr) {

@@ -339,9 +339,6 @@ protected:
     /// @brief check if a new demand element ID is valid
     bool isValidDemandElementID(const std::string& newID) const;
 
-    /// @brief check if a new detector ID is valid
-    bool isValidDetectorID(const std::string& newID) const;
-
     /**@brief change ID of demand element
     * @throw exception if exist already an demand element whith the same ID
     * @throw exception if ID isn't valid

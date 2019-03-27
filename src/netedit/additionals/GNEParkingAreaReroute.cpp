@@ -167,7 +167,7 @@ GNEParkingAreaReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeAdditionalID(value);
             break;
         case SUMO_ATTR_PARKING:
-            changeSecondAdditionalParent(value);
+            changeAdditionalParent(this, value, 1);
             break;
         case SUMO_ATTR_PROB:
             myProbability = parse<double>(value);

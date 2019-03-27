@@ -603,38 +603,6 @@ GNEAdditional::changeLane(GNELane* oldLane, const std::string& newLaneID) {
 
 
 void
-GNEAdditional::changeFirstAdditionalParent(const std::string& newAdditionalParentID) {
-    if (myAdditionalParents.empty()) {
-        throw InvalidArgument(getTagStr() + " with ID '" + getMicrosimID() + "' doesn't have an additional parent");
-    } else {
-        // remove this additional of the childs of parent additional
-        myAdditionalParents.at(0)->removeAdditionalChild(this);
-        // set new additional parent
-        myAdditionalParents.at(0) = myViewNet->getNet()->retrieveAdditional(myAdditionalParents.at(0)->getTagProperty().getTag(), newAdditionalParentID);
-        // add this additional int the childs of parent additional
-        myAdditionalParents.at(0)->addAdditionalChild(this);
-        updateGeometry(true);
-    }
-}
-
-
-void
-GNEAdditional::changeSecondAdditionalParent(const std::string& newAdditionalParentID) {
-    if (myAdditionalParents.size() != 2) {
-        throw InvalidArgument(getTagStr() + " with ID '" + getMicrosimID() + "' doesn't have an additional parent");
-    } else {
-        // remove this additional of the childs of parent additional
-        myAdditionalParents.at(1)->removeAdditionalChild(this);
-        // set new additional parent
-        myAdditionalParents.at(1) = myViewNet->getNet()->retrieveAdditional(myAdditionalParents.at(1)->getTagProperty().getTag(), newAdditionalParentID);
-        // add this additional int the childs of parent additional
-        myAdditionalParents.at(1)->addAdditionalChild(this);
-        updateGeometry(true);
-    }
-}
-
-
-void
 GNEAdditional::selectAttributeCarrier(bool changeFlag) {
     if (!myViewNet) {
         throw ProcessError("ViewNet cannot be nullptr");

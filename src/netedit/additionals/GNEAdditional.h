@@ -376,17 +376,6 @@ protected:
     */
     GNELane* changeLane(GNELane* oldLane, const std::string& newLaneID);
 
-    /**@brief change first additional parent of additional
-    * @throw exception if this additional doesn't have previously a defined Additional parent
-    * @throw exception if additional with ID newAdditionalParentID doesn't exist
-    */
-    void changeFirstAdditionalParent(const std::string& newAdditionalParentID);
-
-    /**@brief change second additional parent of additional
-    * @throw exception if this additional doesn't have previously a defined Additional parent
-    * @throw exception if additional with ID newAdditionalParentID doesn't exist
-    */
-    void changeSecondAdditionalParent(const std::string& newAdditionalParentID);
     /// @}
 
 private:

@@ -230,23 +230,17 @@ protected:
 
     /// @name members and functions relative to changing parents
     /// @{
-    /**@brief change first additional parent of additional
-    * @throw exception if this additional doesn't have previously a defined Additional parent
-    * @throw exception if additional with ID newAdditionalParentID doesn't exist
-    */
-    void changeFirstAdditionalParent(GNEAdditional *additionalTobeChanged, const std::string& newAdditionalParentID);
-
-    /**@brief change second additional parent of additional
-    * @throw exception if this additional doesn't have previously a defined Additional parent
-    * @throw exception if additional with ID newAdditionalParentID doesn't exist
-    */
-    void changeSecondAdditionalParent(GNEAdditional *additionalTobeChanged, const std::string& newAdditionalParentID);
+    /**@brief change additional parent of an additional
+     * @throw exception if this additional doesn't have previously a defined Additional parent
+     * @throw exception if additional with ID newAdditionalParentID doesn't exist
+     */
+    void changeAdditionalParent(GNEAdditional *additionalTobeChanged, const std::string& newAdditionalParentID, int additionalParentIndex);
 
     /**@brief change first demand element parent of demandElement
-    * @throw exception if this demand element doesn't have previously a defined DemandElement parent
-    * @throw exception if demand element with ID newDemandElementParentID doesn't exist
-    */
-    void changeDemandElementParent(GNEDemandElement *demandElementTobeChanged, const std::string& newDemandElementParentID);
+     * @throw exception if this demand element doesn't have previously a defined DemandElement parent
+     * @throw exception if demand element with ID newDemandElementParentID doesn't exist
+     */
+    void changeDemandElementParent(GNEDemandElement *demandElementTobeChanged, const std::string& newDemandElementParentID, int demandElementParentIndex);
 
     /// @}
 
