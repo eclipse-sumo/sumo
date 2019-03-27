@@ -439,13 +439,13 @@ on("ready", function(){
             var width = cor.right - cor.left;
             var height = cor.bottom - cor.top;
             data.coords = [
-                cor.top + height * canvasRect[3],
                 cor.left + width * canvasRect[0],
-                cor.top + height * canvasRect[1],
-                cor.left + width * canvasRect[2]
+                cor.top + height * canvasRect[3],
+                cor.left + width * canvasRect[2],
+                cor.top + height * canvasRect[1]
             ];
         } else
-            data.coords = [cor.bottom, cor.left, cor.top, cor.right];
+            data.coords = [cor.left, cor.bottom, cor.right, cor.top];
 
         vehicleClasses.forEach(function(vehicleClass){
             var result = vehicleClass.toJSON();
