@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jul 28 08:35:34 2016 by SUMO dfrouter Version dev-SVN-r21246
+<!-- generated on Wed Mar 27 10:37:16 2019 by Eclipse SUMO dfrouter Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,6 +15,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <routes-output value="routes.rou.xml"/>
         <emitters-output value="emitters.add.xml"/>
         <vtype value="true"/>
@@ -33,14 +34,14 @@ SPDX-License-Identifier: EPL-2.0
     <routeDistribution id="MQ_beg">
         <route refId="beg_to_end" probability="1.00"/>
     </routeDistribution>
-    <vehicle id="emitter_MQ_beg_0" type="PKW" depart="0.00" departLane="0" departPos="5.00" departSpeed="22.22" route="beg_to_end"/>
-    <vehicle id="emitter_MQ_beg_6000" type="PKW" depart="6.00" departLane="0" departPos="5.00" departSpeed="22.22" route="beg_to_end"/>
-    <vehicle id="emitter_MQ_beg_12000" type="LKW" depart="12.00" departLane="0" departPos="5.00" departSpeed="13.89" route="beg_to_end"/>
-    <vehicle id="emitter_MQ_beg_18000" type="PKW" depart="18.00" departLane="0" departPos="5.00" departSpeed="22.22" route="beg_to_end"/>
-    <vehicle id="emitter_MQ_beg_24000" type="LKW" depart="24.00" departLane="0" departPos="5.00" departSpeed="13.89" route="beg_to_end"/>
-    <vehicle id="emitter_MQ_beg_30000" type="PKW" depart="30.00" departLane="0" departPos="5.00" departSpeed="22.22" route="beg_to_end"/>
-    <vehicle id="emitter_MQ_beg_36000" type="LKW" depart="36.00" departLane="0" departPos="5.00" departSpeed="13.89" route="beg_to_end"/>
-    <vehicle id="emitter_MQ_beg_42000" type="PKW" depart="42.00" departLane="0" departPos="5.00" departSpeed="22.22" route="beg_to_end"/>
-    <vehicle id="emitter_MQ_beg_48000" type="LKW" depart="48.00" departLane="0" departPos="5.00" departSpeed="13.89" route="beg_to_end"/>
-    <vehicle id="emitter_MQ_beg_54000" type="PKW" depart="54.00" departLane="0" departPos="5.00" departSpeed="22.22" route="beg_to_end"/>
+    <vehicle id="MQ_beg.0" type="PKW" depart="0.00" departLane="0" departPos="5.00" departSpeed="22.22" route="beg_to_end"/>
+    <vehicle id="MQ_beg.1" type="PKW" depart="6.00" departLane="0" departPos="5.00" departSpeed="22.22" route="beg_to_end"/>
+    <vehicle id="MQ_beg.2" type="LKW" depart="12.00" departLane="0" departPos="5.00" departSpeed="13.89" route="beg_to_end"/>
+    <vehicle id="MQ_beg.3" type="PKW" depart="18.00" departLane="0" departPos="5.00" departSpeed="22.22" route="beg_to_end"/>
+    <vehicle id="MQ_beg.4" type="LKW" depart="24.00" departLane="0" departPos="5.00" departSpeed="13.89" route="beg_to_end"/>
+    <vehicle id="MQ_beg.5" type="PKW" depart="30.00" departLane="0" departPos="5.00" departSpeed="22.22" route="beg_to_end"/>
+    <vehicle id="MQ_beg.6" type="LKW" depart="36.00" departLane="0" departPos="5.00" departSpeed="13.89" route="beg_to_end"/>
+    <vehicle id="MQ_beg.7" type="PKW" depart="42.00" departLane="0" departPos="5.00" departSpeed="22.22" route="beg_to_end"/>
+    <vehicle id="MQ_beg.8" type="LKW" depart="48.00" departLane="0" departPos="5.00" departSpeed="13.89" route="beg_to_end"/>
+    <vehicle id="MQ_beg.9" type="PKW" depart="54.00" departLane="0" departPos="5.00" departSpeed="22.22" route="beg_to_end"/>
 </additional>
