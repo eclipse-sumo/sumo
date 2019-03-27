@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Nov 29 15:36:50 2018 by Eclipse SUMO Version v1_0_1+0645-93703db
+<!-- generated on Wed Mar 27 09:52:50 2019 by Eclipse SUMO Version v1_1_0+0433-16c2ffa
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -39,6 +39,4 @@ SPDX-License-Identifier: EPL-2.0
 <stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
     <stopinfo id="v0" type="DEFAULT_VEHTYPE" edge="links" pos="0.00" parking="0" started="18.00" ended="18.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
     <stopinfo id="v0" type="DEFAULT_VEHTYPE" edge="links" pos="97.95" parking="0" started="35.00" ended="35.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
-    <stopinfo id="v0" type="DEFAULT_VEHTYPE" edge="links" pos="0.00" parking="0" started="94.00" ended="94.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
-    <stopinfo id="v0" type="DEFAULT_VEHTYPE" edge="links" pos="97.95" parking="0" started="111.00" ended="111.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
 </stops>
