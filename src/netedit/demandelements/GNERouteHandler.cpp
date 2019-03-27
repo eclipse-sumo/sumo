@@ -21,12 +21,17 @@
 #include <config.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
 #include <netedit/netelements/GNEEdge.h>
+#include <netedit/netelements/GNELane.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNENet.h>
 #include <utils/router/DijkstraRouter.h>
 #include <netbuild/NBNetBuilder.h>
 #include <netbuild/NBVehicle.h>
+#include <netedit/additionals/GNEBusStop.h>
+#include <netedit/additionals/GNEContainerStop.h>
+#include <netedit/additionals/GNEParkingArea.h>
+#include <netedit/additionals/GNEChargingStation.h>
 
 #include "GNERouteHandler.h"
 #include "GNERoute.h"
@@ -307,8 +312,92 @@ GNERouteHandler::closeTrip() {
 
 
 void 
-GNERouteHandler::addStop(const SUMOSAXAttributes& /*attrs*/) {
-    // currently unused
+GNERouteHandler::addStop(const SUMOSAXAttributes& attrs) {
+    std::string errorSuffix;
+    if (myVehicleParameter != nullptr) {
+        errorSuffix = " in vehicle '" + myVehicleParameter->id + "'.";
+    } else {
+        errorSuffix = " in route '" + myActiveRouteID + "'.";
+    }
+    SUMOVehicleParameter::Stop stop;
+    bool ok = parseStop(stop, attrs, errorSuffix, MsgHandler::getErrorInstance());
+    if (!ok) {
+        return;
+    }
+    GNEAdditional* toStop = nullptr;
+    // try to parse the assigned bus stop
+    if (stop.busstop != "") {
+        // ok, we have a bus stop
+        GNEBusStop* bs = dynamic_cast<GNEBusStop*>(myViewNet->getNet()->retrieveAdditional(SUMO_TAG_BUS_STOP, stop.busstop, false));
+        if (bs == nullptr) {
+            WRITE_ERROR("The busStop '" + stop.busstop + "' is not known" + errorSuffix);
+            return;
+        }
+        toStop = bs;
+        // obtain lane
+        stop.lane = bs->getAttribute(SUMO_ATTR_LANE);
+    } //try to parse the assigned container stop
+    else if (stop.containerstop != "") {
+        // ok, we have obviously a container stop
+        GNEAdditional* cs = myViewNet->getNet()->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, stop.busstop, false);
+        if (cs == nullptr) {
+            WRITE_ERROR("The containerStop '" + stop.containerstop + "' is not known" + errorSuffix);
+            return;
+        }
+        toStop = cs;
+        stop.lane = cs->getAttribute(SUMO_ATTR_LANE);
+    } //try to parse the assigned parking area
+    else if (stop.parkingarea != "") {
+        // ok, we have obviously a parking area
+        GNEAdditional* pa = myViewNet->getNet()->retrieveAdditional(SUMO_TAG_PARKING_AREA, stop.busstop, false);
+        if (pa == nullptr) {
+            WRITE_ERROR("The parkingArea '" + stop.parkingarea + "' is not known" + errorSuffix);
+            return;
+        }
+        toStop = pa;
+        stop.lane = pa->getAttribute(SUMO_ATTR_LANE);
+    } else if (stop.chargingStation != "") {
+        // ok, we have a charging station
+        GNEAdditional* cs = myViewNet->getNet()->retrieveAdditional(SUMO_TAG_CHARGING_STATION, stop.busstop, false);
+        if (cs == nullptr) {
+            WRITE_ERROR("The chargingStation '" + stop.chargingStation + "' is not known" + errorSuffix);
+            return;
+        }
+        stop.lane = cs->getAttribute(SUMO_ATTR_LANE);
+        toStop = cs;
+    } else {
+        // no, the lane and the position should be given
+        // get the lane
+        stop.lane = attrs.getOpt<std::string>(SUMO_ATTR_LANE, nullptr, ok, "");
+        GNELane* lane = myViewNet->getNet()->retrieveLane(stop.lane, false);
+        // check if lane is valid
+        if (ok && stop.lane != "") {
+            if (lane == nullptr) {
+                WRITE_ERROR("The lane '" + stop.lane + "' for a stop is not known" + errorSuffix);
+                return;
+            }
+        } else {
+            WRITE_ERROR("A stop must be placed on a busStop, a chargingStation, a containerStop a parkingArea or a lane" + errorSuffix);
+            return;
+        }
+        // calculate start and end position
+        stop.endPos = attrs.getOpt<double>(SUMO_ATTR_ENDPOS, nullptr, ok, lane->getLaneParametricLength());
+        if (attrs.hasAttribute(SUMO_ATTR_POSITION)) {
+            WRITE_WARNING("Deprecated attribute 'pos' in description of stop" + errorSuffix);
+            stop.endPos = attrs.getOpt<double>(SUMO_ATTR_POSITION, nullptr, ok, stop.endPos);
+        }
+        stop.startPos = attrs.getOpt<double>(SUMO_ATTR_STARTPOS, nullptr, ok, MAX2(0., stop.endPos - 2 * POSITION_EPS));
+        const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, nullptr, ok, false);
+        if (!ok || !checkStopPos(stop.startPos, stop.endPos, lane->getLaneParametricLength(), POSITION_EPS, friendlyPos)) {
+            WRITE_ERROR("Invalid start or end position for stop on lane '" + stop.lane + "'" + errorSuffix);
+            return;
+        }
+    }
+    if (myVehicleParameter != nullptr) {
+        myVehicleParameter->stops.push_back(stop);
+    } else {
+        myActiveRouteStops.push_back(stop);
+    }
 }
 
 
