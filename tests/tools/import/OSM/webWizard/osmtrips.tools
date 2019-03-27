@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<<<<<<< HEAD
-<!-- generated on 2019-03-22 12:25:54.186588 by $Id$
+<!-- generated on 2019-03-27 08:18:01.773639 by $Id$
   options: <doubleminus>test-output test
 -->
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/routes_file.xsd">
