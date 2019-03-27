@@ -57,6 +57,13 @@ GNEHierarchicalElement::GNEHierarchicalElement(SumoXMLTag tag, const std::vector
 }
 
 
+GNEHierarchicalElement::GNEHierarchicalElement(SumoXMLTag tag, const std::vector<GNEDemandElement*>& demandElementParents) :
+    GNEAttributeCarrier(tag),
+    myDemandElementParents(demandElementParents),
+    myChildConnections(this) {
+}
+
+
 GNEHierarchicalElement::GNEHierarchicalElement(SumoXMLTag tag, const std::vector<GNEEdge*> &edgeChilds) :
     GNEAttributeCarrier(tag),
     myEdgeChilds(edgeChilds),

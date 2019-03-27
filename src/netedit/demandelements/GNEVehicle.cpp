@@ -43,10 +43,8 @@
 // ===========================================================================
 
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const std::string &vehicleID, GNEDemandElement* vehicleType, GNEDemandElement* route) :
-    GNEDemandElement(vehicleID, viewNet, (tag == SUMO_TAG_FLOW)? GLO_FLOW : GLO_VEHICLE, tag),
+    GNEDemandElement(vehicleID, viewNet, (tag == SUMO_TAG_FLOW)? GLO_FLOW : GLO_VEHICLE, tag, std::vector<GNEDemandElement*>{vehicleType, route}),
     SUMOVehicleParameter(),
-    myVehicleType(vehicleType),
-    myRoute(route),
     myFrom(nullptr),
     myTo(nullptr) {
     // SUMOVehicleParameter ID has to be set manually
@@ -57,10 +55,8 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const std::string &v
 
 
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehicleParameter &vehicleParameter, GNEDemandElement* vehicleType, GNEDemandElement* route) :
-    GNEDemandElement(vehicleParameter.id, viewNet, (tag == SUMO_TAG_FLOW)? GLO_FLOW : GLO_VEHICLE, tag),
+    GNEDemandElement(vehicleParameter.id, viewNet, (tag == SUMO_TAG_FLOW)? GLO_FLOW : GLO_VEHICLE, tag, std::vector<GNEDemandElement*>{vehicleType, route}),
     SUMOVehicleParameter(vehicleParameter),
-    myVehicleType(vehicleType),
-    myRoute(route),
     myFrom(nullptr),
     myTo(nullptr) {
     // SUMOVehicleParameter ID has to be set manually
@@ -71,10 +67,8 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehiclePar
 
 
 GNEVehicle::GNEVehicle(GNEViewNet* viewNet, const std::string &tripID, GNEDemandElement* vehicleType, GNEEdge* from, GNEEdge* to, std::vector<GNEEdge*> viaEdges) : 
-    GNEDemandElement(tripID, viewNet, GLO_TRIP, SUMO_TAG_TRIP),
+    GNEDemandElement(tripID, viewNet, GLO_TRIP, SUMO_TAG_TRIP, {vehicleType}),
     SUMOVehicleParameter(),
-    myVehicleType(vehicleType),
-    myRoute(nullptr),
     myFrom(from),
     myTo(to),
     myVia(viaEdges) {
@@ -82,10 +76,8 @@ GNEVehicle::GNEVehicle(GNEViewNet* viewNet, const std::string &tripID, GNEDemand
 
 
 GNEVehicle::GNEVehicle(GNEViewNet* viewNet, const SUMOVehicleParameter &tripParameter, GNEDemandElement* vehicleType, GNEEdge* from, GNEEdge* to, std::vector<GNEEdge*> viaEdges) :
-    GNEDemandElement(tripParameter.id, viewNet, GLO_TRIP, SUMO_TAG_TRIP),
+    GNEDemandElement(tripParameter.id, viewNet, GLO_TRIP, SUMO_TAG_TRIP, {vehicleType}),
     SUMOVehicleParameter(tripParameter),
-    myVehicleType(vehicleType),
-    myRoute(nullptr),
     myFrom(from),
     myTo(to),
     myVia(viaEdges) {
@@ -126,7 +118,7 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
     // write specific attribute depeding of vehicle type
     if (myTagProperty.getTag() == SUMO_TAG_VEHICLE) {
         // write manually route
-        device.writeAttr(SUMO_ATTR_ROUTE, myRoute->getID());
+        device.writeAttr(SUMO_ATTR_ROUTE, myDemandElementParents.at(1)->getID());
     } else if (myTagProperty.getTag() == SUMO_TAG_FLOW) {
         // write flow values depending if it was set
         if (isDisjointAttributeSet(SUMO_ATTR_END)) {
@@ -180,15 +172,16 @@ GNEVehicle::updateGeometry(bool updateGrid) {
     }
 
     // obtain lenght
-    const double length = parse<double>(myVehicleType->getAttribute(SUMO_ATTR_LENGTH)) ;
+    const double length = parse<double>(myDemandElementParents.at(0)->getAttribute(SUMO_ATTR_LENGTH)) ;
 
     // Clear geometry container
     myGeometry.clearGeometry();
 
     // get lanes of edge
     GNELane* vehicleLane;
-    if (myRoute) {
-        vehicleLane = myRoute->getGNEEdges().at(0)->getLanes().at(0);
+    // check if vehicle is defined over a route
+    if (myDemandElementParents.size() == 2) {
+        vehicleLane = myDemandElementParents.at(1)->getGNEEdges().at(0)->getLanes().at(0);
     } else if (myFrom) {
         vehicleLane = myFrom->getLanes().at(0);
     } else {
@@ -205,7 +198,7 @@ GNEVehicle::updateGeometry(bool updateGrid) {
     // calculate route for trip
     if (myTagProperty.getTag() == SUMO_TAG_TRIP) {
         // update temporal route
-        myTemporalRoute = getRouteCalculatorInstance()->calculateDijkstraRoute(parse<SUMOVehicleClass>(myVehicleType->getAttribute(SUMO_ATTR_VCLASS)), myFrom, myTo, myVia);
+        myTemporalRoute = getRouteCalculatorInstance()->calculateDijkstraRoute(parse<SUMOVehicleClass>(myDemandElementParents.at(0)->getAttribute(SUMO_ATTR_VCLASS)), myFrom, myTo, myVia);
 
         if (myTemporalRoute.size() > 1) {
             // declare a vector of shapes
@@ -247,8 +240,8 @@ Position
 GNEVehicle::getPositionInView() const {
     // obtain lane depending of edited vehicle type
     GNELane *lane = nullptr;
-    if (myRoute) {
-        lane = myRoute->getGNEEdges().at(0)->getLanes().front();
+    if (myDemandElementParents.size() == 2) {
+        lane = myDemandElementParents.at(1)->getGNEEdges().at(0)->getLanes().front();
     } else if (myFrom) {
         lane = myFrom->getLanes().front();
     } else {
@@ -268,9 +261,9 @@ GNEVehicle::getPositionInView() const {
 std::string
 GNEVehicle::getParentName() const {
     if (myTagProperty.getTag() == SUMO_TAG_VEHICLE) {
-        return myRoute->getID();
+        return myDemandElementParents.at(1)->getID();
     } else if (myTagProperty.getTag() == SUMO_TAG_FLOW) {
-        return myRoute->getID();
+        return myDemandElementParents.at(1)->getID();
     } else if (myTagProperty.getTag() == SUMO_TAG_TRIP) {
         return myFrom->getID();
     } else {
@@ -284,9 +277,9 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
     // only drawn in super mode demand
     if (myViewNet->getViewOptions().showDemandElements()) {
         // declare common attributes
-        const double width = parse<double>(myVehicleType->getAttribute(SUMO_ATTR_WIDTH));
-        const double length = parse<double>(myVehicleType->getAttribute(SUMO_ATTR_LENGTH));
-        SUMOVehicleShape shape = getVehicleShapeID(myVehicleType->getAttribute(SUMO_ATTR_GUISHAPE));
+        const double width = parse<double>(myDemandElementParents.at(0)->getAttribute(SUMO_ATTR_WIDTH));
+        const double length = parse<double>(myDemandElementParents.at(0)->getAttribute(SUMO_ATTR_LENGTH));
+        SUMOVehicleShape shape = getVehicleShapeID(myDemandElementParents.at(0)->getAttribute(SUMO_ATTR_GUISHAPE));
         // first push name
         glPushName(getGlID());
         // push draw matrix
@@ -325,7 +318,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
             }
             // check if min gap has to be drawn
             if (s.drawMinGap) {
-                const double minGap = -1 * parse<double>(myVehicleType->getAttribute(SUMO_ATTR_MINGAP));
+                const double minGap = -1 * parse<double>(myDemandElementParents.at(0)->getAttribute(SUMO_ATTR_MINGAP));
                 glColor3d(0., 1., 0.);
                 glBegin(GL_LINES);
                 glVertex2d(0., 0);
@@ -338,7 +331,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
             glTranslated(0, MIN2(length / 2, double(5)), -getType());
             glScaled(1 / upscale, 1 / upscaleLength, 1);
             glRotated(-1 * myGeometry.shapeRotations.front(), 0, 0, 1);
-            drawName(Position(0, 0), s.scale, myVehicleType->getAttribute(SUMO_ATTR_GUISHAPE) == "pedestrian" ? s.personName : s.vehicleName, s.angle);
+            drawName(Position(0, 0), s.scale, myDemandElementParents.at(0)->getAttribute(SUMO_ATTR_GUISHAPE) == "pedestrian" ? s.personName : s.vehicleName, s.angle);
             // draw line
             if (s.vehicleName.show && line != "") {
                 glTranslated(0, 0.6 * s.vehicleName.scaledSize(s.scale), 0);
@@ -435,7 +428,7 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getDemandElementID();
         case SUMO_ATTR_TYPE:
-            return myVehicleType->getID();
+            return myDemandElementParents.at(0)->getID();
         case SUMO_ATTR_COLOR:
             return toString(color);
         case SUMO_ATTR_DEPARTLANE:
@@ -468,7 +461,7 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_DEPART:
             return toString(depart);
         case SUMO_ATTR_ROUTE:
-            return myRoute->getID();
+            return myDemandElementParents.at(1)->getID();
         // Specific of Trips
         case SUMO_ATTR_FROM:
             return myFrom->getID();
@@ -798,17 +791,17 @@ GNEVehicle::setColor(const GUIVisualizationSettings& s) const {
     switch (c.getActive()) {
         case 0: {
             //test for emergency vehicle
-            if (myVehicleType->getAttribute(SUMO_ATTR_GUISHAPE) == "emergency") {
+            if (myDemandElementParents.at(0)->getAttribute(SUMO_ATTR_GUISHAPE) == "emergency") {
                 GLHelper::setColor(RGBColor::WHITE);
                 break;
             }
             //test for firebrigade
-            if (myVehicleType->getAttribute(SUMO_ATTR_GUISHAPE) == "firebrigade") {
+            if (myDemandElementParents.at(0)->getAttribute(SUMO_ATTR_GUISHAPE) == "firebrigade") {
                 GLHelper::setColor(RGBColor::RED);
                 break;
             }
             //test for police car
-            if (myVehicleType->getAttribute(SUMO_ATTR_GUISHAPE) == "police") {
+            if (myDemandElementParents.at(0)->getAttribute(SUMO_ATTR_GUISHAPE) == "police") {
                 GLHelper::setColor(RGBColor::BLUE);
                 break;
             }
@@ -816,12 +809,12 @@ GNEVehicle::setColor(const GUIVisualizationSettings& s) const {
                 GLHelper::setColor(color);
                 break;
             }
-            if (myVehicleType->isDisjointAttributeSet(SUMO_ATTR_COLOR)) {
-                GLHelper::setColor(myVehicleType->getColor());
+            if (myDemandElementParents.at(0)->isDisjointAttributeSet(SUMO_ATTR_COLOR)) {
+                GLHelper::setColor(myDemandElementParents.at(0)->getColor());
                 break;
             }
-            if (&(myRoute->getColor()) != &RGBColor::DEFAULT_COLOR) {
-                GLHelper::setColor(myRoute->getColor());
+            if (&(myDemandElementParents.at(1)->getColor()) != &RGBColor::DEFAULT_COLOR) {
+                GLHelper::setColor(myDemandElementParents.at(1)->getColor());
             } else {
                 GLHelper::setColor(c.getScheme().getColor(0));
             }
@@ -836,23 +829,23 @@ GNEVehicle::setColor(const GUIVisualizationSettings& s) const {
             break;
         }
         case 3: {
-            if (myVehicleType->isDisjointAttributeSet(SUMO_ATTR_COLOR)) {
-                GLHelper::setColor(myVehicleType->getColor());
+            if (myDemandElementParents.at(0)->isDisjointAttributeSet(SUMO_ATTR_COLOR)) {
+                GLHelper::setColor(myDemandElementParents.at(0)->getColor());
             } else {
                 GLHelper::setColor(c.getScheme().getColor(0));
             }
             break;
         }
         case 4: {
-            if (myRoute->getColor() != RGBColor::DEFAULT_COLOR) {
-                GLHelper::setColor(myRoute->getColor());
+            if (myDemandElementParents.at(1)->getColor() != RGBColor::DEFAULT_COLOR) {
+                GLHelper::setColor(myDemandElementParents.at(1)->getColor());
             } else {
                 GLHelper::setColor(c.getScheme().getColor(0));
             }
             break;
         }
         case 5: {
-            Position p = myRoute->getGNEEdges().at(0)->getLanes().at(0)->getShape()[0];
+            Position p = myDemandElementParents.at(1)->getGNEEdges().at(0)->getLanes().at(0)->getShape()[0];
             const Boundary& b = myViewNet->getNet()->getBoundary();
             Position center = b.getCenter();
             double hue = 180. + atan2(center.x() - p.x(), center.y() - p.y()) * 180. / M_PI;
@@ -861,7 +854,7 @@ GNEVehicle::setColor(const GUIVisualizationSettings& s) const {
             break;
         }
         case 6: {
-            Position p = myRoute->getGNEEdges().back()->getLanes().at(0)->getShape()[-1];
+            Position p = myDemandElementParents.at(1)->getGNEEdges().back()->getLanes().at(0)->getShape()[-1];
             const Boundary& b = myViewNet->getNet()->getBoundary();
             Position center = b.getCenter();
             double hue = 180. + atan2(center.x() - p.x(), center.y() - p.y()) * 180. / M_PI;
@@ -870,8 +863,8 @@ GNEVehicle::setColor(const GUIVisualizationSettings& s) const {
             break;
         }
         case 7: {
-            Position pb = myRoute->getGNEEdges().at(0)->getLanes().at(0)->getShape()[0];
-            Position pe = myRoute->getGNEEdges().back()->getLanes().at(0)->getShape()[-1];
+            Position pb = myDemandElementParents.at(1)->getGNEEdges().at(0)->getLanes().at(0)->getShape()[0];
+            Position pe = myDemandElementParents.at(1)->getGNEEdges().back()->getLanes().at(0)->getShape()[-1];
             const Boundary& b = myViewNet->getNet()->getBoundary();
             double hue = 180. + atan2(pb.x() - pe.x(), pb.y() - pe.y()) * 180. / M_PI;
             Position minp(b.xmin(), b.ymin());
@@ -906,7 +899,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeDemandElementID(value);
             break;
         case SUMO_ATTR_TYPE:
-            myVehicleType = myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, value);
+            changeDemandElementParent(this, value, 0);
             // set manually vtypeID (needed for saving)
             vtypeid = value;
             break;
@@ -945,7 +938,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_VIA:
             myVia = parse<std::vector<GNEEdge*> >(myViewNet->getNet(), value);
-            myTemporalRoute = getRouteCalculatorInstance()->calculateDijkstraRoute(parse<SUMOVehicleClass>(myVehicleType->getAttribute(SUMO_ATTR_VCLASS)), myFrom, myTo, myVia);
+            myTemporalRoute = getRouteCalculatorInstance()->calculateDijkstraRoute(parse<SUMOVehicleClass>(myDemandElementParents.at(0)->getAttribute(SUMO_ATTR_VCLASS)), myFrom, myTo, myVia);
             break;
         case SUMO_ATTR_DEPARTPOS_LAT:
             parseDepartPosLat(value, toString(SUMO_TAG_VEHICLE), id, departPosLat, departPosLatProcedure, error);
@@ -961,7 +954,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         }
         case SUMO_ATTR_ROUTE:
-            myRoute = myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_ROUTE, value);
+            changeDemandElementParent(this, value, 1);
             break;
         // Specific of Trips
         case SUMO_ATTR_FROM:

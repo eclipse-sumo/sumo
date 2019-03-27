@@ -97,9 +97,18 @@ public:
      * @param[in] viewNet pointer to GNEViewNet of this demand element element belongs
      * @param[in] type GUIGlObjectType of demand element
      * @param[in] tag Type of xml tag that define the demand element element (SUMO_TAG_BUS_STOP, SUMO_TAG_REROUTER, etc...)
-     * @param[in] additionalParent additional parent of this demand element
+     * @param[in] additionalParents additional parent's vectore sof this demand element
      */
-    GNEDemandElement(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, GNEAdditional *additionalParent);
+    GNEDemandElement(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, const std::vector<GNEAdditional*> &additionalParents);
+
+    /**@brief Constructor
+     * @param[in] id Gl-id of the demand element element (Must be unique)
+     * @param[in] viewNet pointer to GNEViewNet of this demand element element belongs
+     * @param[in] type GUIGlObjectType of demand element
+     * @param[in] tag Type of xml tag that define the demand element element (SUMO_TAG_BUS_STOP, SUMO_TAG_REROUTER, etc...)
+     * @param[in] demandElementParents demand element parent's vectore sof this demand element
+     */
+    GNEDemandElement(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, const std::vector<GNEDemandElement*> &demandElementParents);
 
     /// @brief Destructor
     ~GNEDemandElement();

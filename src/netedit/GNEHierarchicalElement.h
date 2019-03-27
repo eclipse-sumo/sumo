@@ -47,27 +47,33 @@ class GNEHierarchicalElement : public GNEAttributeCarrier {
 
 public:
     /**@brief Default constructor
-    * @param[in] tag Type of xml tag that define the element (SUMO_TAG_BUS_STOP, SUMO_TAG_JUNCTION, etc...)
-    * @param[in] singleAdditionalParent pointer to single additional parent
-    */
+     * @param[in] tag Type of xml tag that define the element (SUMO_TAG_BUS_STOP, SUMO_TAG_JUNCTION, etc...)
+     * @param[in] singleAdditionalParent pointer to single additional parent
+     */
     GNEHierarchicalElement(SumoXMLTag tag);
 
-    /**@brief Constructor used by Additionals that have another additional as parent
-    * @param[in] tag Type of xml tag that define the element (SUMO_TAG_BUS_STOP, SUMO_TAG_JUNCTION, etc...)
-    * @param[in] additionalParents vector of additional parents
-    */
+    /**@brief Constructor used by elements that have another additionals as parent
+     * @param[in] tag Type of xml tag that define the element (SUMO_TAG_BUS_STOP, SUMO_TAG_JUNCTION, etc...)
+     * @param[in] additionalParents vector of additional parents
+     */
     GNEHierarchicalElement(SumoXMLTag tag, const std::vector<GNEAdditional*>& additionalParents);
 
+    /**@brief Constructor used by elements that have another demand as parent
+     * @param[in] tag Type of xml tag that define the element (SUMO_TAG_BUS_STOP, SUMO_TAG_JUNCTION, etc...)
+     * @param[in] demandElementParents vector of demand element parents
+     */
+    GNEHierarchicalElement(SumoXMLTag tag, const std::vector<GNEDemandElement*>& demandElementParents);
+
     /**@brief Constructor
-    * @param[in] tag Type of xml tag that define the element (SUMO_TAG_BUS_STOP, SUMO_TAG_JUNCTION, etc...)
-    * @param[in] edgeChilds vector of edge childs
-    */
+     * @param[in] tag Type of xml tag that define the element (SUMO_TAG_BUS_STOP, SUMO_TAG_JUNCTION, etc...)
+     * @param[in] edgeChilds vector of edge childs
+     */
     GNEHierarchicalElement(SumoXMLTag tag, const std::vector<GNEEdge*> &edgeChilds);
 
     /**@brief Constructor
-    * @param[in] tag Type of xml tag that define the element (SUMO_TAG_BUS_STOP, SUMO_TAG_JUNCTION, etc...)
-    * @param[in] laneChilds vector of lane childs
-    */
+     * @param[in] tag Type of xml tag that define the element (SUMO_TAG_BUS_STOP, SUMO_TAG_JUNCTION, etc...)
+     * @param[in] laneChilds vector of lane childs
+     */
     GNEHierarchicalElement(SumoXMLTag tag, const std::vector<GNELane*> &laneChilds);
 
     /// @brief Destructor

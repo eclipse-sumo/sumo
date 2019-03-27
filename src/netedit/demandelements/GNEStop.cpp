@@ -44,7 +44,7 @@
 // ===========================================================================
 
 GNEStop::GNEStop(SumoXMLTag tag, const std::string &id, GNEViewNet* viewNet, const SUMOVehicleParameter::Stop &stopParameter, GNEAdditional* stoppingPlace) :
-    GNEDemandElement(id, viewNet, GLO_STOP, tag, stoppingPlace),
+    GNEDemandElement(id, viewNet, GLO_STOP, tag, {stoppingPlace}),
     SUMOVehicleParameter::Stop(stopParameter) {
 }
 

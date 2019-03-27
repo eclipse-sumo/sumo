@@ -146,12 +146,6 @@ public:
     /// @}
 
 protected:
-    /// @brief Vehicle type
-    GNEDemandElement* myVehicleType;
-
-    /// @brief route in which this vehicle or flow is used
-    GNEDemandElement* myRoute;
-
     /// @brief from edge (used by Trips)
     GNEEdge* myFrom;
 
