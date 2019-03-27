@@ -27,6 +27,7 @@
 #include <netedit/netelements/GNELane.h>
 #include <netedit/netelements/GNEConnection.h>
 #include <netedit/demandelements/GNERouteHandler.h>
+#include <netedit/demandelements/GNEDemandElement.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
@@ -43,113 +44,148 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(GNEStopFrame::RouteSelector) RouteSelectorMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_TYPE,    GNEStopFrame::RouteSelector::onCmdSelectRoute),
+FXDEFMAP(GNEStopFrame::StopParentSelector) StopParentSelectorMap[] = {
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_TYPE,    GNEStopFrame::StopParentSelector::onCmdSelectStopParent),
 };
 
 // Object implementation
-FXIMPLEMENT(GNEStopFrame::RouteSelector,     FXGroupBox, RouteSelectorMap,       ARRAYNUMBER(RouteSelectorMap))
+FXIMPLEMENT(GNEStopFrame::StopParentSelector,     FXGroupBox, StopParentSelectorMap,       ARRAYNUMBER(StopParentSelectorMap))
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 
 // ---------------------------------------------------------------------------
-// GNEStopFrame::RouteSelector - methods
+// GNEStopFrame::StopParentSelector - methods
 // ---------------------------------------------------------------------------
 
-GNEStopFrame::RouteSelector::RouteSelector(GNEStopFrame* StopFrameParent) :
-    FXGroupBox(StopFrameParent->myContentFrame, "Stop Type", GUIDesignGroupBoxFrame),
+GNEStopFrame::StopParentSelector::StopParentSelector(GNEStopFrame* StopFrameParent) :
+    FXGroupBox(StopFrameParent->myContentFrame, "Stop parent", GUIDesignGroupBoxFrame),
     myStopFrameParent(StopFrameParent),
-    myCurrentRoute(nullptr) {
+    myCurrentStopParent(nullptr) {
     // Create FXComboBox
-    myRouteMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
-    // refresh myRouteMatchBox
-    refreshRouteSelector();
-    // RouteSelector is always shown
+    myStopParentMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+    // refresh myStopParentMatchBox
+    refreshStopParentSelector();
+    // StopParentSelector is always shown
     show();
 }
 
 
-GNEStopFrame::RouteSelector::~RouteSelector() {}
+GNEStopFrame::StopParentSelector::~StopParentSelector() {}
 
 
 const GNEDemandElement*
-GNEStopFrame::RouteSelector::getCurrentRoute() const {
-    return myCurrentRoute;
+GNEStopFrame::StopParentSelector::getCurrentStopParent() const {
+    return myCurrentStopParent;
 }
 
 
 void 
-GNEStopFrame::RouteSelector::showRouteSelector(const GNEAttributeCarrier::TagProperties& tagProperties) {
-    // if current selected item isn't valid, set DEFAULT_VEHTYPE
-    if (myCurrentRoute) {
-        // show Stop attributes modul
-        myStopFrameParent->myStopAttributes->showAttributesCreatorModul(tagProperties);
-        // show help creation
-        myStopFrameParent->myHelpCreation->showHelpCreation();
-    } else {
-        // set DEFAULT_VTYPE as current VType
-        myRouteMatchBox->setText(DEFAULT_VTYPE_ID.c_str());
-        // call manually onCmdSelectRoute to update comboBox
-        onCmdSelectRoute(nullptr, 0, nullptr);
-    }
+GNEStopFrame::StopParentSelector::setStopParent(GNEDemandElement *stopParent) {
+
+}
+
+
+void 
+GNEStopFrame::StopParentSelector::showStopParentSelector(const GNEAttributeCarrier::TagProperties& tagProperties) {
+    // refresh stop parent selector
+    refreshStopParentSelector();
     // show VType selector
     show();
 }
 
 
 void 
-GNEStopFrame::RouteSelector::hideRouteSelector() {
+GNEStopFrame::StopParentSelector::hideStopParentSelector() {
     hide();
 }
 
 
 void 
-GNEStopFrame::RouteSelector::refreshRouteSelector() {
-    // clear comboBox
-    myRouteMatchBox->clearItems();
-    // get list of Routes
-    const auto &routes = myStopFrameParent->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_ROUTE);
-    // fill myRouteMatchBox with list of tags
-    for (const auto& i : routes) {
-        myRouteMatchBox->appendItem(i.first.c_str());
+GNEStopFrame::StopParentSelector::refreshStopParentSelector() {
+    // clear comboBox and show
+    myStopParentMatchBox->clearItems();
+    myStopParentMatchBox->show();
+    myStopParentCandidates.clear();
+    // reserve stop parent cantidadtes
+    myStopParentCandidates.reserve(
+        myStopFrameParent->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_ROUTE).size() +
+        myStopFrameParent->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_VEHICLE).size() +
+        myStopFrameParent->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_FLOW).size() +
+        myStopFrameParent->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_TRIP).size());
+    // fill myStopParentMatchBox with list of routes
+    for (const auto& i : myStopFrameParent->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_ROUTE)) {
+        myStopParentMatchBox->appendItem(i.first.c_str());
+        myStopParentCandidates.push_back(i.second);
+    }
+    // fill myStopParentMatchBox with list of vehicles
+    for (const auto& i : myStopFrameParent->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_VEHICLE)) {
+        myStopParentMatchBox->appendItem(i.first.c_str());
+        myStopParentCandidates.push_back(i.second);
+    }
+    // fill myStopParentMatchBox with list of flows
+    for (const auto& i : myStopFrameParent->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_FLOW)) {
+        myStopParentMatchBox->appendItem(i.first.c_str());
+        myStopParentCandidates.push_back(i.second);
+    }
+    // fill myStopParentMatchBox with list of trips
+    for (const auto& i : myStopFrameParent->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_TRIP)) {
+        myStopParentMatchBox->appendItem(i.first.c_str());
+        myStopParentCandidates.push_back(i.second);
     }
     // Set visible items
-    myRouteMatchBox->setNumVisible((int)myRouteMatchBox->getNumItems());
+    if ((int)myStopParentMatchBox->getNumItems() < 20) {
+        myStopParentMatchBox->setNumVisible((int)myStopParentMatchBox->getNumItems());
+    } else {
+        myStopParentMatchBox->setNumVisible(20);
+    }
+    // check if myCurrentStopParent exists
+    bool found = false;
+    for (int i = 0; i < myStopParentCandidates.size(); i++) {
+        if (myStopParentCandidates.at(i) == myCurrentStopParent) {
+            myStopParentMatchBox->setCurrentItem(i);
+            found = true;
+        }
+    }
+    if (!found) {
+        if (myStopParentCandidates.size() > 0) {
+            myStopParentMatchBox->setCurrentItem(0);
+        } else {
+            myStopParentMatchBox->hide();
+        }
+    }
 }
 
 
 long
-GNEStopFrame::RouteSelector::onCmdSelectRoute(FXObject*, FXSelector, void*) {
-    // get list of VTypes
-    const auto &vTypes = myStopFrameParent->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_VTYPE);
-    // Check if value of myRouteMatchBox correspond to a VType
-    for (const auto& i : vTypes) {
-        if (i.first == myRouteMatchBox->getText().text()) {
-            // set color of myRouteMatchBox to black (valid)
-            myRouteMatchBox->setTextColor(FXRGB(0, 0, 0));
+GNEStopFrame::StopParentSelector::onCmdSelectStopParent(FXObject*, FXSelector, void*) {
+    // Check if value of myStopParentMatchBox correspond to a existent stop parent candidate
+    for (int i = 0; i < myStopParentCandidates.size(); i++) {
+        if (myStopParentCandidates.at(i)->getID() == myStopParentMatchBox->getText().text()) {
+            // set color of myStopParentMatchBox to black (valid)
+            myStopParentMatchBox->setTextColor(FXRGB(0, 0, 0));
             // Set new current VType
-            myCurrentRoute = i.second;
-            // show Stop attributes modul
-            myStopFrameParent->myStopAttributes->showAttributesCreatorModul(myStopFrameParent->myItemSelector->getCurrentTagProperties());
-            // show help creation
+            myCurrentStopParent = myStopParentCandidates.at(i);
+            // show Stop selector, attributes and help creation moduls
+            myStopFrameParent->myStopTypeSelector->showItemSelector();
+            myStopFrameParent->myStopAttributes->showAttributesCreatorModul(myStopFrameParent->myStopTypeSelector->getCurrentTagProperties());
             myStopFrameParent->myHelpCreation->showHelpCreation();
             // Write Warning in console if we're in testing mode
-            WRITE_DEBUG(("Selected item '" + myRouteMatchBox->getText() + "' in RouteSelector").text());
+            WRITE_DEBUG(("Selected item '" + myStopParentMatchBox->getText() + "' in StopParentSelector").text());
             return 1;
         }
     }
     // if VType selecte is invalid, select
-    myCurrentRoute = nullptr;
+    myCurrentStopParent = nullptr;
     // hide all moduls if selected item isn't valid
+    myStopFrameParent->myStopTypeSelector->hideItemSelector();
     myStopFrameParent->myStopAttributes->hideAttributesCreatorModul();
-    // hide help creation
     myStopFrameParent->myHelpCreation->hideHelpCreation();
-    // set color of myRouteMatchBox to red (invalid)
-    myRouteMatchBox->setTextColor(FXRGB(255, 0, 0));
+    // set color of myStopParentMatchBox to red (invalid)
+    myStopParentMatchBox->setTextColor(FXRGB(255, 0, 0));
     // Write Warning in console if we're in testing mode
-    WRITE_DEBUG("Selected invalid item in RouteSelector");
+    WRITE_DEBUG("Selected invalid item in StopParentSelector");
     return 1;
 }
 
@@ -181,32 +217,41 @@ GNEStopFrame::HelpCreation::hideHelpCreation() {
     hide();
 }
 
+
 void 
 GNEStopFrame::HelpCreation::updateHelpCreation() {
     // create information label
     std::ostringstream information;
     // set text depending of selected Stop type
-    /*
-    switch (myStopFrameParent->myItemSelector->getCurrentTagProperties().getTag()) {
-        case SUMO_TAG_Stop:
+    switch (myStopFrameParent->myStopTypeSelector->getCurrentTagProperties().getTag()) {
+        case SUMO_TAG_STOP_BUSSTOP:
             information
-                << "- Click over a route to\n"
-                << "  create a Stop.";
+                << "- Click over a bus stop\n"
+                << "  to create a stop.";
             break;
-        case SUMO_TAG_FLOW:
+        case SUMO_TAG_STOP_CONTAINERSTOP:
             information
-                << "- Click over a route to\n"
-                << "  create a flow.";
+                << "- Click over a container stop\n"
+                << "  to create a stop.";
             break;
-        case SUMO_TAG_TRIP:
+        case SUMO_TAG_STOP_CHARGINGSTATION:
             information
-                << "- Select two edges to\n"
-                << "  create a Trip.";
+                << "- Click over a charging \n"
+                << "  station to create a stop.";
+            break;
+        case SUMO_TAG_STOP_PARKINGAREA:
+            information
+                << "- Click over a parking area\n"
+                << "  to create a stop.";
+            break;
+        case SUMO_TAG_STOP_LANE:
+            information
+                << "- Click over a lane to\n"
+                << "  create a stop.";
             break;
         default:
             break;
     }
-    */
     // set information label
     myInformationLabel->setText(information.str().c_str());
 }
@@ -218,11 +263,11 @@ GNEStopFrame::HelpCreation::updateHelpCreation() {
 GNEStopFrame::GNEStopFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
     GNEFrame(horizontalFrameParent, viewNet, "Stops") {
 
-    // Create item Selector modul for Stops
-    myItemSelector = new ItemSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_STOP);
+    // Create Stop parent selector
+    myStopParentSelector = new StopParentSelector(this);
 
-    // Create Stop type selector
-    myRouteSelector = new RouteSelector(this);
+    // Create item Selector modul for Stops
+    myStopTypeSelector = new ItemSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_STOP);
 
     // Create Stop parameters
     myStopAttributes = new AttributesCreator(this);
@@ -237,10 +282,10 @@ GNEStopFrame::~GNEStopFrame() {}
 
 void
 GNEStopFrame::show() {
-    // refresh item selector
-    myItemSelector->refreshTagProperties();
     // refresh vType selector
-    myRouteSelector->refreshRouteSelector();
+    myStopParentSelector->refreshStopParentSelector();
+    // refresh item selector
+    myStopTypeSelector->refreshTagProperties();
     // show frame
     GNEFrame::show();
 }
@@ -249,7 +294,7 @@ GNEStopFrame::show() {
 bool
 GNEStopFrame::addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
     // obtain tag (only for improve code legibility)
-    SumoXMLTag StopTag = myItemSelector->getCurrentTagProperties().getTag();
+    SumoXMLTag StopTag = myStopTypeSelector->getCurrentTagProperties().getTag();
 
     // first check that current selected Stop is valid
     if (StopTag == SUMO_TAG_NOTHING) {
@@ -258,7 +303,7 @@ GNEStopFrame::addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCu
     }
 
     // now check if VType is valid
-    if (myRouteSelector->getCurrentRoute() == nullptr) {
+    if (myStopParentSelector->getCurrentStopParent() == nullptr) {
         myViewNet->setStatusBarText("Current selected Stop type isn't valid.");
         return false;
     }
@@ -270,7 +315,7 @@ GNEStopFrame::addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCu
     valuesMap[SUMO_ATTR_ID] = myViewNet->getNet()->generateDemandElementID(StopTag);
 /*
     // add VType
-    valuesMap[SUMO_ATTR_TYPE] = myRouteSelector->getCurrentRoute()->getID();
+    valuesMap[SUMO_ATTR_TYPE] = myStopParentSelector->getCurrentStopParent()->getID();
 
     // set route or edges depending of Stop type
     if ((StopTag == SUMO_TAG_Stop || StopTag == SUMO_TAG_FLOW)) {
@@ -324,14 +369,14 @@ GNEStopFrame::addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCu
 void
 GNEStopFrame::enableModuls(const GNEAttributeCarrier::TagProperties& tagProperties) {
     // show Stop type selector modul
-    myRouteSelector->showRouteSelector(tagProperties);
+    myStopAttributes->showAttributesCreatorModul(tagProperties);
+    myHelpCreation->showHelpCreation();
 }
 
 
 void
 GNEStopFrame::disableModuls() {
     // hide all moduls if Stop isn't valid
-    myRouteSelector->hideRouteSelector();
     myStopAttributes->hideAttributesCreatorModul();
     myHelpCreation->hideHelpCreation();
 }

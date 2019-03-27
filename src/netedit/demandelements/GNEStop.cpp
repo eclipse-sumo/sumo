@@ -141,11 +141,11 @@ GNEStop::getPositionInView() const {
 std::string
 GNEStop::getParentName() const {
     if (myDemandElementParents.size() > 0) {
-        myDemandElementParents.front()->getID();
+        return myDemandElementParents.front()->getID();
     } else if (myAdditionalParents.size() > 0) {
-        myAdditionalParents.front()->getID();
+        return myAdditionalParents.front()->getID();
     } else if (myLane) {
-        myLane->getID();
+        return myLane->getID();
     } else {
         throw ProcessError("Invalid parent");
     }

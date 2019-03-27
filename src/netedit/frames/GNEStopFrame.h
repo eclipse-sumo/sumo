@@ -35,51 +35,57 @@ class GNEStopFrame : public GNEFrame {
 public:
 
     // ===========================================================================
-    // class RouteSelector
+    // class StopParentSelector
     // ===========================================================================
 
-    class RouteSelector : protected FXGroupBox {
+    class StopParentSelector : protected FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNEStopFrame::RouteSelector)
+        FXDECLARE(GNEStopFrame::StopParentSelector)
 
     public:
         /// @brief constructor
-        RouteSelector(GNEStopFrame* StopFrameParent);
+        StopParentSelector(GNEStopFrame* StopFrameParent);
 
         /// @brief destructor
-        ~RouteSelector();
+        ~StopParentSelector();
 
         /// @brief get current route
-        const GNEDemandElement* getCurrentRoute() const;
+        const GNEDemandElement* getCurrentStopParent() const;
+
+        /// @brief select StopParent manually
+        void setStopParent(GNEDemandElement *stopParent);
 
         /// @brief show VType selector
-        void showRouteSelector(const GNEAttributeCarrier::TagProperties& tagProperties);
+        void showStopParentSelector(const GNEAttributeCarrier::TagProperties& tagProperties);
 
         /// @brief hide VType selector
-        void hideRouteSelector();
+        void hideStopParentSelector();
 
         /// @brief refresh VType selector
-        void refreshRouteSelector();
+        void refreshStopParentSelector();
 
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when the user select another element in ComboBox
-        long onCmdSelectRoute(FXObject*, FXSelector, void*);
+        long onCmdSelectStopParent(FXObject*, FXSelector, void*);
         /// @}
 
     protected:
         /// @brief FOX needs this
-        RouteSelector() {}
+        StopParentSelector() {}
 
     private:
         /// @brief pointer to Stop Frame Parent
         GNEStopFrame* myStopFrameParent;
 
         /// @brief comboBox with the list of routes
-        FXComboBox* myRouteMatchBox;
+        FXComboBox* myStopParentMatchBox;
 
-        /// @brief current route
-        GNEDemandElement* myCurrentRoute;
+        /// @brief current stop parent 
+        GNEDemandElement* myCurrentStopParent;
+
+        /// @brief list of posible candidates
+        std::vector<GNEDemandElement*> myStopParentCandidates;
     };
 
     // ===========================================================================
@@ -138,11 +144,11 @@ protected:
     void disableModuls();
 
 private:
-    /// @brief item selector (used to select diffent kind of Stops)
-    ItemSelector* myItemSelector;
+    /// @brief Stop parent selectors
+    StopParentSelector* myStopParentSelector;
 
-    /// @brief Stop Type selectors
-    RouteSelector* myRouteSelector;
+    /// @brief item selector (used to select diffent kind of Stops)
+    ItemSelector* myStopTypeSelector;
 
     /// @brief internal Stop attributes
     AttributesCreator* myStopAttributes;

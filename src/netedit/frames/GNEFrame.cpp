@@ -175,6 +175,18 @@ GNEFrame::ItemSelector::ItemSelector(GNEFrame* frameParent, GNEAttributeCarrier:
 GNEFrame::ItemSelector::~ItemSelector() {}
 
 
+void 
+GNEFrame::ItemSelector::showItemSelector() {
+    show();
+}
+
+
+void 
+GNEFrame::ItemSelector::hideItemSelector() {
+    hide();
+}
+
+
 const GNEAttributeCarrier::TagProperties&
 GNEFrame::ItemSelector::getCurrentTagProperties() const {
     return myCurrentTagProperties;

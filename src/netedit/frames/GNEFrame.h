@@ -54,6 +54,12 @@ public:
         /// @brief destructor
         ~ItemSelector();
 
+        /// @brief show item selector
+        void showItemSelector();
+
+        /// @brief hide item selector
+        void hideItemSelector();
+
         /// @brief get current type tag
         const GNEAttributeCarrier::TagProperties& getCurrentTagProperties() const;
 
