@@ -44,8 +44,10 @@
 
 GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement) :
     GUIGlObject(type, id),
-    GNEHierarchicalElement(tag),
+    GNEAttributeCarrier(tag),
     Parameterised(),
+    GNEHierarchicalElementParents(this),
+    GNEHierarchicalElementChilds(this),
     myViewNet(viewNet),
     myAdditionalName(additionalName),
     myBlockMovement(blockMovement),
@@ -55,8 +57,10 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlOb
 
 GNEAdditional::GNEAdditional(const std::vector<GNEAdditional*>& additionalParents, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement) :
     GUIGlObject(type, additionalParents.at(0)->generateChildID(tag)),
-    GNEHierarchicalElement(tag, additionalParents),
+    GNEAttributeCarrier(tag),
     Parameterised(),
+    GNEHierarchicalElementParents(this, additionalParents, {}),
+    GNEHierarchicalElementChilds(this),
     myViewNet(viewNet),
     myAdditionalName(additionalName),
     myBlockMovement(blockMovement),
@@ -68,8 +72,10 @@ GNEAdditional::GNEAdditional(const std::vector<GNEAdditional*>& additionalParent
 
 GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement, std::vector<GNEEdge*> edgeChilds) :
     GUIGlObject(type, id),
-    GNEHierarchicalElement(tag, edgeChilds),
+    GNEAttributeCarrier(tag),
     Parameterised(),
+    GNEHierarchicalElementParents(this),
+    GNEHierarchicalElementChilds(this, edgeChilds, {}),
     myViewNet(viewNet),
     myAdditionalName(additionalName),
     myBlockMovement(blockMovement),
@@ -79,8 +85,10 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlOb
 
 GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement, std::vector<GNELane*> laneChilds) :
     GUIGlObject(type, id),
-    GNEHierarchicalElement(tag, laneChilds),
+    GNEAttributeCarrier(tag),
     Parameterised(),
+    GNEHierarchicalElementParents(this),
+    GNEHierarchicalElementChilds(this, {}, laneChilds),
     myViewNet(viewNet),
     myAdditionalName(additionalName),
     myBlockMovement(blockMovement),

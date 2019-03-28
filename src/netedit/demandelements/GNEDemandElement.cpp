@@ -150,40 +150,50 @@ GNEDemandElement::RouteCalculator::areEdgesConsecutives(SUMOVehicleClass vClass,
 
 GNEDemandElement::GNEDemandElement(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag) :
     GUIGlObject(type, id),
-    GNEHierarchicalElement(tag),
+    GNEAttributeCarrier(tag),
     Parameterised(),
+    GNEHierarchicalElementParents(this),
+    GNEHierarchicalElementChilds(this),
     myViewNet(viewNet) {
 }
 
 
 GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag) :
     GUIGlObject(type, demandElementParent->generateChildID(tag)),
-    GNEHierarchicalElement(tag),
+    GNEAttributeCarrier(tag),
     Parameterised(),
+    GNEHierarchicalElementParents(this),
+    GNEHierarchicalElementChilds(this),
     myViewNet(viewNet) {
 }
 
 
 GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, const std::vector<GNEAdditional*> &additionalParents) :
     GUIGlObject(type, demandElementParent->generateChildID(tag)),
-    GNEHierarchicalElement(tag, additionalParents),
+    GNEAttributeCarrier(tag),
     Parameterised(),
+    GNEHierarchicalElementParents(this, additionalParents, {}),
+    GNEHierarchicalElementChilds(this),
     myViewNet(viewNet) {
 }
 
 
 GNEDemandElement::GNEDemandElement(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, const std::vector<GNEAdditional*> &additionalParents) :
     GUIGlObject(type, id),
-    GNEHierarchicalElement(tag, additionalParents),
+    GNEAttributeCarrier(tag),
     Parameterised(),
+    GNEHierarchicalElementParents(this, additionalParents, {}),
+    GNEHierarchicalElementChilds(this),
     myViewNet(viewNet) {
 }
 
 
 GNEDemandElement::GNEDemandElement(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, const std::vector<GNEDemandElement*> &demandElementParents) :
     GUIGlObject(type, id),
-    GNEHierarchicalElement(tag, demandElementParents),
+    GNEAttributeCarrier(tag),
     Parameterised(),
+    GNEHierarchicalElementParents(this, {}, demandElementParents),
+    GNEHierarchicalElementChilds(this),
     myViewNet(viewNet) {
 }
 

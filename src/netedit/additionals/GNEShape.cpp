@@ -37,7 +37,9 @@
 // ===========================================================================
 
 GNEShape::GNEShape(GNENet* net, SumoXMLTag tag, bool movementBlocked) :
-    GNEHierarchicalElement(tag),
+    GNEAttributeCarrier(tag),
+    GNEHierarchicalElementParents(this),
+    GNEHierarchicalElementChilds(this),
     myNet(net),
     myBlockMovement(movementBlocked) {
 }

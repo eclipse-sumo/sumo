@@ -23,7 +23,8 @@
 // ===========================================================================
 #include <config.h>
 
-#include <netedit/GNEHierarchicalElement.h>
+#include <netedit/GNEHierarchicalElementParents.h>
+#include <netedit/GNEHierarchicalElementChilds.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 
 // ===========================================================================
@@ -37,7 +38,7 @@ class GNEDemandElement;
 // class definitions
 // ===========================================================================
 
-class GNENetElement : public GUIGlObject, public GNEHierarchicalElement {
+class GNENetElement : public GUIGlObject, public GNEAttributeCarrier, public GNEHierarchicalElementParents, public GNEHierarchicalElementChilds {
 
 public:
     /**@brief Constructor.

@@ -24,14 +24,15 @@
 #include <config.h>
 
 
-#include <netedit/GNEHierarchicalElement.h>
+#include <netedit/GNEHierarchicalElementParents.h>
+#include <netedit/GNEHierarchicalElementChilds.h>
 
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNEShape : public GNEHierarchicalElement {
+class GNEShape : public GNEAttributeCarrier, public GNEHierarchicalElementParents, public GNEHierarchicalElementChilds {
 public:
     /**@brief Constructor.
      * @param[in] net The net to inform about gui updates

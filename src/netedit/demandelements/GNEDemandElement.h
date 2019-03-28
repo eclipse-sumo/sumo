@@ -23,7 +23,8 @@
 // ===========================================================================
 #include <config.h>
 
-#include <netedit/GNEHierarchicalElement.h>
+#include <netedit/GNEHierarchicalElementParents.h>
+#include <netedit/GNEHierarchicalElementChilds.h>
 #include <utils/common/Parameterised.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/gui/globjects/GUIGlObject.h>
@@ -48,7 +49,7 @@ class GUIGLObjectPopupMenu;
  * @class GNEDemandElement
  * @brief An Element which don't belongs to GNENet but has influency in the simulation
  */
-class GNEDemandElement : public GUIGlObject, public GNEHierarchicalElement, public Parameterised {
+class GNEDemandElement : public GUIGlObject, public GNEAttributeCarrier, public Parameterised, public GNEHierarchicalElementParents, public GNEHierarchicalElementChilds {
 
 public:
     /// @brief class used to calculate routes in nets

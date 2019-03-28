@@ -18,7 +18,8 @@ GNEViewNetHelper.cpp GNEViewNetHelper.h \
 GNEViewParent.cpp GNEViewParent.h \
 GNEUndoList.cpp GNEUndoList.h \
 GNEAttributeCarrier.cpp GNEAttributeCarrier.h \
-GNEHierarchicalElement.cpp GNEHierarchicalElement.h \
+GNEHierarchicalElementParents.cpp GNEHierarchicalElementParents.h \
+GNEHierarchicalElementChilds.cpp GNEHierarchicalElementChilds.h \
 GNEReferenceCounter.h \
 GNEEvent_NetworkLoaded.h
 

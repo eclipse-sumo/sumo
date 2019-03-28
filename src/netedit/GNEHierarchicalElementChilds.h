@@ -7,15 +7,15 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    GNEHierarchicalElement.h
+/// @file    GNEHierarchicalElementChilds.h
 /// @author  Pablo Alvarez Lopez
 /// @date    March 2019
 /// @version $Id$
 ///
 // A abstract class for representation of Hierarchical Elements
 /****************************************************************************/
-#ifndef GNEHierarchicalElement_h
-#define GNEHierarchicalElement_h
+#ifndef GNEHierarchicalElementChilds_h
+#define GNEHierarchicalElementChilds_h
 
 // ===========================================================================
 // included modules
@@ -40,44 +40,25 @@ class GNEShape;
 // ===========================================================================
 
 /**
- * @class GNEHierarchicalElement
+ * @class GNEHierarchicalElementChilds
  * @brief An special type of Attribute carrier that owns hierarchical elements
  */
-class GNEHierarchicalElement : public GNEAttributeCarrier {
+class GNEHierarchicalElementChilds {
 
 public:
-    /**@brief Default constructor
-     * @param[in] tag Type of xml tag that define the element (SUMO_TAG_BUS_STOP, SUMO_TAG_JUNCTION, etc...)
-     * @param[in] singleAdditionalParent pointer to single additional parent
-     */
-    GNEHierarchicalElement(SumoXMLTag tag);
+    /// @brief Default constructor
+    GNEHierarchicalElementChilds(GNEAttributeCarrier* AC);
 
     /**@brief Constructor used by elements that have another additionals as parent
-     * @param[in] tag Type of xml tag that define the element (SUMO_TAG_BUS_STOP, SUMO_TAG_JUNCTION, etc...)
-     * @param[in] additionalParents vector of additional parents
-     */
-    GNEHierarchicalElement(SumoXMLTag tag, const std::vector<GNEAdditional*>& additionalParents);
-
-    /**@brief Constructor used by elements that have another demand as parent
-     * @param[in] tag Type of xml tag that define the element (SUMO_TAG_BUS_STOP, SUMO_TAG_JUNCTION, etc...)
-     * @param[in] demandElementParents vector of demand element parents
-     */
-    GNEHierarchicalElement(SumoXMLTag tag, const std::vector<GNEDemandElement*>& demandElementParents);
-
-    /**@brief Constructor
-     * @param[in] tag Type of xml tag that define the element (SUMO_TAG_BUS_STOP, SUMO_TAG_JUNCTION, etc...)
      * @param[in] edgeChilds vector of edge childs
-     */
-    GNEHierarchicalElement(SumoXMLTag tag, const std::vector<GNEEdge*> &edgeChilds);
-
-    /**@brief Constructor
-     * @param[in] tag Type of xml tag that define the element (SUMO_TAG_BUS_STOP, SUMO_TAG_JUNCTION, etc...)
      * @param[in] laneChilds vector of lane childs
      */
-    GNEHierarchicalElement(SumoXMLTag tag, const std::vector<GNELane*> &laneChilds);
+    GNEHierarchicalElementChilds(GNEAttributeCarrier* AC,
+        const std::vector<GNEEdge*> &edgeChilds,
+        const std::vector<GNELane*> &laneChilds);
 
     /// @brief Destructor
-    ~GNEHierarchicalElement();
+    ~GNEHierarchicalElementChilds();
 
     /// @brief gererate a new ID for an element child
     virtual std::string generateChildID(SumoXMLTag childTag) = 0;
@@ -89,19 +70,6 @@ public:
 
     /// @brief Returns position of hierarchical element in view
     virtual Position getPositionInView() const = 0;
-    /// @}
-
-    /// @name members and functions relative to additional parents
-    /// @{
-    /// @brief add additional child to this edge
-    void addAdditionalParent(GNEAdditional* additional);
-
-    /// @brief remove additional child from this edge
-    void removeAdditionalParent(GNEAdditional* additional);
-
-    /// @brief return vector of additionals that have as Parameter this edge (For example, Rerouters)
-    const std::vector<GNEAdditional*>& getAdditionalParents() const;
-
     /// @}
 
     /// @name members and functions relative to additional childs
@@ -121,19 +89,6 @@ public:
     /// @brief check if childs are overlapped (Used by Rerouters)
     bool checkAdditionalChildsOverlapping() const;
     
-    /// @}
-
-    /// @name members and functions relative to demand element parents
-    /// @{
-    /// @brief add demand element child to this edge
-    void addDemandElementParent(GNEDemandElement* demandElement);
-
-    /// @brief remove demand element child from this edge
-    void removeDemandElementParent(GNEDemandElement* demandElement);
-
-    /// @brief return vector of demand element that have as Parameter this edge (For example, Routes)
-    const std::vector<GNEDemandElement*>& getDemandElementParents() const;
-
     /// @}
 
     /// @name members and functions relative to demand element childs
@@ -194,7 +149,7 @@ protected:
     /// @brief struct for pack all variables and functions relative to connections between hierarchical element and their childs
     struct ChildConnections {
         /// @brief constructor
-        ChildConnections(GNEHierarchicalElement* hierarchicalElement);
+        ChildConnections(GNEHierarchicalElementChilds* hierarchicalElement);
 
         /// @brief update Connection's geometry
         void update();
@@ -210,17 +165,11 @@ protected:
 
     private:
         /// @brief pointer to hierarchical element parent
-        GNEHierarchicalElement* myHierarchicalElement;
+        GNEHierarchicalElementChilds* myHierarchicalElement;
     };
-
-    /// @brief list of additional parents of this NetElement
-    std::vector<GNEAdditional*> myAdditionalParents;
 
     /// @brief vector with the additional childs
     std::vector<GNEAdditional*> myAdditionalChilds;
-
-    /// @brief list of demand elements parents of this NetElement
-    std::vector<GNEDemandElement*> myDemandElementParents;
 
     /// @brief vector with the demand elements childs
     std::vector<GNEDemandElement*> myDemandElementChilds;
@@ -234,28 +183,15 @@ protected:
     /// @brief variable ChildConnections
     ChildConnections myChildConnections;
 
-    /// @name members and functions relative to changing parents
-    /// @{
-    /**@brief change additional parent of an additional
-     * @throw exception if this additional doesn't have previously a defined Additional parent
-     * @throw exception if additional with ID newAdditionalParentID doesn't exist
-     */
-    void changeAdditionalParent(GNEAdditional *additionalTobeChanged, const std::string& newAdditionalParentID, int additionalParentIndex);
-
-    /**@brief change first demand element parent of demandElement
-     * @throw exception if this demand element doesn't have previously a defined DemandElement parent
-     * @throw exception if demand element with ID newDemandElementParentID doesn't exist
-     */
-    void changeDemandElementParent(GNEDemandElement *demandElementTobeChanged, const std::string& newDemandElementParentID, int demandElementParentIndex);
-
-    /// @}
-
 private:
+    /// @brief pointer to AC (needed to avoid “diamond problem”)
+    GNEAttributeCarrier* myAC;
+
     /// @brief Invalidated copy constructor.
-    GNEHierarchicalElement(const GNEHierarchicalElement&) = delete;
+    GNEHierarchicalElementChilds(const GNEHierarchicalElementChilds&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNEHierarchicalElement& operator=(const GNEHierarchicalElement&) = delete;
+    GNEHierarchicalElementChilds& operator=(const GNEHierarchicalElementChilds&) = delete;
 };
 
 #endif
