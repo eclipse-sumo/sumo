@@ -180,14 +180,14 @@ GeoConvHelper::operator=(const GeoConvHelper& orig) {
     }
     if (orig.myInverseProjection != nullptr) {
 #ifdef PROJ_VERSION_MAJOR
-        myInverseProjection = proj_create(PJ_DEFAULT_CTX, orig.myProjString.c_str());
+        myInverseProjection = orig.myInverseProjection;
 #else
         myInverseProjection = pj_init_plus(pj_get_def(orig.myInverseProjection, 0));
 #endif
     }
     if (orig.myGeoProjection != nullptr) {
 #ifdef PROJ_VERSION_MAJOR
-        myGeoProjection = proj_create(PJ_DEFAULT_CTX, orig.myProjString.c_str());
+        myGeoProjection = orig.myGeoProjection;
 #else
         myGeoProjection = pj_init_plus(pj_get_def(orig.myGeoProjection, 0));
 #endif
@@ -308,7 +308,7 @@ GeoConvHelper::cartesian2geo(Position& cartesian) const {
     c.xy.x = cartesian.x();
     c.xy.y = cartesian.y();
     c = proj_trans(myProjection, PJ_INV, c);
-    cartesian.set(proj_torad(c.lp.phi), proj_torad(c.lp.lam));
+    cartesian.set(proj_todeg(c.lp.lam), proj_todeg(c.lp.phi));
 #else
     projUV p;
     p.u = cartesian.x();
@@ -343,6 +343,8 @@ GeoConvHelper::x2cartesian(Position& from, bool includeInBoundary) {
                                " +k=1 +x_0=" + toString(zone * 1000000 + 500000) +
                                " +y_0=0 +ellps=bessel +datum=potsdam +units=m +no_defs";
 #ifdef PROJ_VERSION_MAJOR
+                myInverseProjection = proj_create(PJ_DEFAULT_CTX, myProjString.c_str());
+                myGeoProjection = proj_create(PJ_DEFAULT_CTX, "+proj=latlong +datum=WGS84");
 #else
                 myInverseProjection = pj_init_plus(myProjString.c_str());
                 myGeoProjection = pj_init_plus("+proj=latlong +datum=WGS84");
@@ -356,6 +358,7 @@ GeoConvHelper::x2cartesian(Position& from, bool includeInBoundary) {
                 myProjString = "+proj=utm +zone=" + toString(zone) +
                                " +ellps=WGS84 +datum=WGS84 +units=m +no_defs";
 #ifdef PROJ_VERSION_MAJOR
+                myProjection = proj_create(PJ_DEFAULT_CTX, myProjString.c_str());
 #else
                 myProjection = pj_init_plus(myProjString.c_str());
 #endif
@@ -372,6 +375,7 @@ GeoConvHelper::x2cartesian(Position& from, bool includeInBoundary) {
                                " +k=1 +x_0=" + toString(zone * 1000000 + 500000) +
                                " +y_0=0 +ellps=bessel +datum=potsdam +units=m +no_defs";
 #ifdef PROJ_VERSION_MAJOR
+                myProjection = proj_create(PJ_DEFAULT_CTX, myProjString.c_str());
 #else
                 myProjection = pj_init_plus(myProjString.c_str());
 #endif
@@ -384,6 +388,11 @@ GeoConvHelper::x2cartesian(Position& from, bool includeInBoundary) {
     }
     if (myInverseProjection != nullptr) {
 #ifdef PROJ_VERSION_MAJOR
+        PJ_COORD c;
+        c.xy.x = from.x();
+        c.xy.y = from.y();
+        c = proj_trans(myInverseProjection, PJ_INV, c);
+        from.set(proj_todeg(c.lp.lam), proj_todeg(c.lp.phi));
 #else
         double x = from.x();
         double y = from.y();
@@ -428,8 +437,8 @@ GeoConvHelper::x2cartesian_const(Position& from) const {
         if (myProjection != nullptr) {
 #ifdef PROJ_VERSION_MAJOR
             PJ_COORD c;
-            c.lp.phi = proj_torad(x);
-            c.lp.lam = proj_torad(y);
+            c.lp.lam = proj_torad(x);
+            c.lp.phi = proj_torad(y);
             c = proj_trans(myProjection, PJ_FWD, c);
             //!!! check pj_errno
             x = c.xy.x;
@@ -562,6 +571,4 @@ GeoConvHelper::writeLocation(OutputDevice& into) {
 }
 
 
-
 /****************************************************************************/
-
