@@ -45,6 +45,7 @@
 // ===========================================================================
 
 GNEHierarchicalElementParents::GNEHierarchicalElementParents(GNEAttributeCarrier* AC) :
+    myAC(AC),
     myParentConnections(this) {
 }
 
@@ -52,6 +53,7 @@ GNEHierarchicalElementParents::GNEHierarchicalElementParents(GNEAttributeCarrier
 GNEHierarchicalElementParents::GNEHierarchicalElementParents(GNEAttributeCarrier* AC,
         const std::vector<GNEAdditional*>& additionalParents, 
         const std::vector<GNEDemandElement*>& demandElementParents) :
+    myAC(AC),
     myAdditionalParents(additionalParents),
     myDemandElementParents(demandElementParents),
     myParentConnections(this) {

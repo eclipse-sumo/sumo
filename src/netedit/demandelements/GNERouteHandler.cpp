@@ -175,7 +175,7 @@ GNERouteHandler::buildStop(GNEViewNet* viewNet, bool undoDemandElements, const S
     // declare pointers to stopping place  and lane and obtain it
     GNEAdditional* stoppingPlace = nullptr;
     GNELane* lane = nullptr;
-    SumoXMLTag stopTagType;
+    SumoXMLTag stopTagType = SUMO_TAG_NOTHING;
     if (stopParameters.busstop.size() > 0) {
         stoppingPlace = viewNet->getNet()->retrieveAdditional(SUMO_TAG_BUS_STOP, stopParameters.busstop, false);
         stopTagType = SUMO_TAG_STOP_BUSSTOP;
