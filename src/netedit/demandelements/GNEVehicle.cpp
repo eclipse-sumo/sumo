@@ -43,7 +43,8 @@
 // ===========================================================================
 
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const std::string &vehicleID, GNEDemandElement* vehicleType, GNEDemandElement* route) :
-    GNEDemandElement(vehicleID, viewNet, (tag == SUMO_TAG_FLOW)? GLO_FLOW : GLO_VEHICLE, tag, std::vector<GNEDemandElement*>{vehicleType, route}),
+    GNEDemandElement(vehicleID, viewNet, (tag == SUMO_TAG_FLOW)? GLO_FLOW : GLO_VEHICLE, tag, 
+                     {}, {}, {}, {vehicleType, route}, {}, {}, {}, {}),
     SUMOVehicleParameter(),
     myFrom(nullptr),
     myTo(nullptr) {
@@ -55,7 +56,8 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const std::string &v
 
 
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehicleParameter &vehicleParameter, GNEDemandElement* vehicleType, GNEDemandElement* route) :
-    GNEDemandElement(vehicleParameter.id, viewNet, (tag == SUMO_TAG_FLOW)? GLO_FLOW : GLO_VEHICLE, tag, std::vector<GNEDemandElement*>{vehicleType, route}),
+    GNEDemandElement(vehicleParameter.id, viewNet, (tag == SUMO_TAG_FLOW)? GLO_FLOW : GLO_VEHICLE, tag,
+                     {}, {}, {}, {vehicleType, route}, {}, {}, {}, {}),
     SUMOVehicleParameter(vehicleParameter),
     myFrom(nullptr),
     myTo(nullptr) {
@@ -67,7 +69,8 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehiclePar
 
 
 GNEVehicle::GNEVehicle(GNEViewNet* viewNet, const std::string &tripID, GNEDemandElement* vehicleType, GNEEdge* from, GNEEdge* to, std::vector<GNEEdge*> viaEdges) : 
-    GNEDemandElement(tripID, viewNet, GLO_TRIP, SUMO_TAG_TRIP, {vehicleType}),
+    GNEDemandElement(tripID, viewNet, GLO_TRIP, SUMO_TAG_TRIP,
+                     {}, {}, {}, {vehicleType}, {}, {}, {}, {}),
     SUMOVehicleParameter(),
     myFrom(from),
     myTo(to),
@@ -76,7 +79,8 @@ GNEVehicle::GNEVehicle(GNEViewNet* viewNet, const std::string &tripID, GNEDemand
 
 
 GNEVehicle::GNEVehicle(GNEViewNet* viewNet, const SUMOVehicleParameter &tripParameter, GNEDemandElement* vehicleType, GNEEdge* from, GNEEdge* to, std::vector<GNEEdge*> viaEdges) :
-    GNEDemandElement(tripParameter.id, viewNet, GLO_TRIP, SUMO_TAG_TRIP, {vehicleType}),
+    GNEDemandElement(tripParameter.id, viewNet, GLO_TRIP, SUMO_TAG_TRIP,
+                     {}, {}, {}, {vehicleType}, {}, {}, {}, {}),
     SUMOVehicleParameter(tripParameter),
     myFrom(from),
     myTo(to),

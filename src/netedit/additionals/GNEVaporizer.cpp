@@ -37,7 +37,7 @@
 // ===========================================================================
 
 GNEVaporizer::GNEVaporizer(GNEViewNet* viewNet, GNEEdge* edge, double begin, double end, const std::string& name) :
-    GNEAdditional(edge->getID(), viewNet, GLO_VAPORIZER, SUMO_TAG_VAPORIZER, name, false),
+    GNEAdditional(edge->getID(), viewNet, GLO_VAPORIZER, SUMO_TAG_VAPORIZER, name, false, {}, {}, {}, {}, {}, {}, {}, {}),
     myEdge(edge),
     myBegin(begin),
     myEnd(end) {

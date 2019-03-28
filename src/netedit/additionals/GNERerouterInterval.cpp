@@ -32,14 +32,16 @@
 // ===========================================================================
 
 GNERerouterInterval::GNERerouterInterval(GNERerouterDialog* rerouterDialog) :
-    GNEAdditional({rerouterDialog->getEditedAdditional()}, rerouterDialog->getEditedAdditional()->getViewNet(), GLO_REROUTER, SUMO_TAG_INTERVAL, "", false) {
+    GNEAdditional(rerouterDialog->getEditedAdditional(), rerouterDialog->getEditedAdditional()->getViewNet(), GLO_REROUTER, SUMO_TAG_INTERVAL, "", false, 
+                  {}, {}, {rerouterDialog->getEditedAdditional()}, {}, {}, {}, {}, {}) {
     // fill reroute interval with default values
     setDefaultValues();
 }
 
 
 GNERerouterInterval::GNERerouterInterval(GNEAdditional* rerouterParent, double begin, double end) :
-    GNEAdditional({rerouterParent}, rerouterParent->getViewNet(), GLO_REROUTER, SUMO_TAG_INTERVAL, "", false),
+    GNEAdditional(rerouterParent, rerouterParent->getViewNet(), GLO_REROUTER, SUMO_TAG_INTERVAL, "", false, 
+                  {}, {}, {rerouterParent}, {}, {}, {}, {}, {}),
     myBegin(begin),
     myEnd(end) {
 }

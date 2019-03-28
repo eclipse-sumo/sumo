@@ -42,12 +42,20 @@
 // member method definitions
 // ===========================================================================
 
-GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement) :
+GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement,
+        const std::vector<GNEEdge*> &/*edgeParents*/, 
+        const std::vector<GNELane*> &/*laneParents*/, 
+        const std::vector<GNEAdditional*>& additionalParents, 
+        const std::vector<GNEDemandElement*>& demandElementParents,
+        const std::vector<GNEEdge*> &edgeChilds, 
+        const std::vector<GNELane*> &laneChilds, 
+        const std::vector<GNEAdditional*>& additionalChilds, 
+        const std::vector<GNEDemandElement*>& demandElementChilds) :
     GUIGlObject(type, id),
     GNEAttributeCarrier(tag),
     Parameterised(),
-    GNEHierarchicalElementParents(this),
-    GNEHierarchicalElementChilds(this),
+    GNEHierarchicalElementParents(this, additionalParents, demandElementParents),
+    GNEHierarchicalElementChilds(this, edgeChilds, laneChilds, additionalChilds, demandElementChilds),
     myViewNet(viewNet),
     myAdditionalName(additionalName),
     myBlockMovement(blockMovement),
@@ -55,44 +63,26 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlOb
 }
 
 
-GNEAdditional::GNEAdditional(const std::vector<GNEAdditional*>& additionalParents, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement) :
-    GUIGlObject(type, additionalParents.at(0)->generateChildID(tag)),
+GNEAdditional::GNEAdditional(GNEAdditional* additionalParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement,
+        const std::vector<GNEEdge*> &/*edgeParents*/, 
+        const std::vector<GNELane*> &/*laneParents*/, 
+        const std::vector<GNEAdditional*>& additionalParents, 
+        const std::vector<GNEDemandElement*>& demandElementParents,
+        const std::vector<GNEEdge*> &edgeChilds, 
+        const std::vector<GNELane*> &laneChilds, 
+        const std::vector<GNEAdditional*>& additionalChilds, 
+        const std::vector<GNEDemandElement*>& demandElementChilds) :
+    GUIGlObject(type, additionalParent->generateChildID(tag)),
     GNEAttributeCarrier(tag),
     Parameterised(),
-    GNEHierarchicalElementParents(this, additionalParents, {}),
-    GNEHierarchicalElementChilds(this),
+    GNEHierarchicalElementParents(this, additionalParents, demandElementParents),
+    GNEHierarchicalElementChilds(this, edgeChilds, laneChilds, additionalChilds, demandElementChilds),
     myViewNet(viewNet),
     myAdditionalName(additionalName),
     myBlockMovement(blockMovement),
     myBlockIcon(this) {
     // check that additional parent is of expected type
-    assert(additionalParents.at(0)->getTagProperty().getTag() == myTagProperty.getParentTag());
-}
-
-
-GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement, std::vector<GNEEdge*> edgeChilds) :
-    GUIGlObject(type, id),
-    GNEAttributeCarrier(tag),
-    Parameterised(),
-    GNEHierarchicalElementParents(this),
-    GNEHierarchicalElementChilds(this, edgeChilds, {}),
-    myViewNet(viewNet),
-    myAdditionalName(additionalName),
-    myBlockMovement(blockMovement),
-    myBlockIcon(this) {
-}
-
-
-GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement, std::vector<GNELane*> laneChilds) :
-    GUIGlObject(type, id),
-    GNEAttributeCarrier(tag),
-    Parameterised(),
-    GNEHierarchicalElementParents(this),
-    GNEHierarchicalElementChilds(this, {}, laneChilds),
-    myViewNet(viewNet),
-    myAdditionalName(additionalName),
-    myBlockMovement(blockMovement),
-    myBlockIcon(this) {
+    assert(additionalParent->getTagProperty().getTag() == myTagProperty.getParentTag());
 }
 
 

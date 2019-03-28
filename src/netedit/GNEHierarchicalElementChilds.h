@@ -46,16 +46,18 @@ class GNEShape;
 class GNEHierarchicalElementChilds {
 
 public:
-    /// @brief Default constructor
+    /// @brief Default Constructor
     GNEHierarchicalElementChilds(GNEAttributeCarrier* AC);
 
-    /**@brief Constructor used by elements that have another additionals as parent
+    /**@brief Parameter Constructor
      * @param[in] edgeChilds vector of edge childs
      * @param[in] laneChilds vector of lane childs
      */
     GNEHierarchicalElementChilds(GNEAttributeCarrier* AC,
         const std::vector<GNEEdge*> &edgeChilds,
-        const std::vector<GNELane*> &laneChilds);
+        const std::vector<GNELane*> &laneChilds,
+        const std::vector<GNEAdditional*> &additionalChilds,
+        const std::vector<GNEDemandElement*> &demandElementChilds);
 
     /// @brief Destructor
     ~GNEHierarchicalElementChilds();

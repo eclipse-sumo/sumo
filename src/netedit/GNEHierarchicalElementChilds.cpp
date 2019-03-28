@@ -52,10 +52,14 @@ GNEHierarchicalElementChilds::GNEHierarchicalElementChilds(GNEAttributeCarrier* 
 
 GNEHierarchicalElementChilds::GNEHierarchicalElementChilds(GNEAttributeCarrier* AC,
         const std::vector<GNEEdge*> &edgeChilds,
-        const std::vector<GNELane*> &laneChilds) :
+        const std::vector<GNELane*> &laneChilds,
+        const std::vector<GNEAdditional*> &additionalChilds,
+        const std::vector<GNEDemandElement*> &demandElementChilds) :
     myAC(AC),
     myEdgeChilds(edgeChilds),
     myLaneChilds(laneChilds),
+    myAdditionalChilds(additionalChilds),
+    myDemandElementChilds(demandElementChilds),
     myChildConnections(this) {
 }
 
