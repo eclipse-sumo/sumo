@@ -50,7 +50,7 @@ GNEStop::GNEStop(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehicleParameter
 
 
 GNEStop::GNEStop(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehicleParameter::Stop &stopParameter, GNELane* lane, GNEDemandElement* stopParent) :
-    GNEDemandElement(stopParent, viewNet, GLO_STOP, tag, {}, {}, {}, {stopParent}, {}, {}, {}, {}),
+    GNEDemandElement(stopParent, viewNet, GLO_STOP, tag, {}, {lane}, {}, {stopParent}, {}, {}, {}, {}),
     SUMOVehicleParameter::Stop(stopParameter),
     myLane(lane) {
 }

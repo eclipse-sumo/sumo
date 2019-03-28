@@ -43,8 +43,8 @@
 // ===========================================================================
 
 GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement,
-        const std::vector<GNEEdge*> &/*edgeParents*/, 
-        const std::vector<GNELane*> &/*laneParents*/, 
+        const std::vector<GNEEdge*> &edgeParents, 
+        const std::vector<GNELane*> &laneParents, 
         const std::vector<GNEAdditional*>& additionalParents, 
         const std::vector<GNEDemandElement*>& demandElementParents,
         const std::vector<GNEEdge*> &edgeChilds, 
@@ -54,7 +54,7 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlOb
     GUIGlObject(type, id),
     GNEAttributeCarrier(tag),
     Parameterised(),
-    GNEHierarchicalElementParents(this, additionalParents, demandElementParents),
+    GNEHierarchicalElementParents(this, edgeParents, laneParents, additionalParents, demandElementParents),
     GNEHierarchicalElementChilds(this, edgeChilds, laneChilds, additionalChilds, demandElementChilds),
     myViewNet(viewNet),
     myAdditionalName(additionalName),
@@ -64,8 +64,8 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlOb
 
 
 GNEAdditional::GNEAdditional(GNEAdditional* additionalParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement,
-        const std::vector<GNEEdge*> &/*edgeParents*/, 
-        const std::vector<GNELane*> &/*laneParents*/, 
+        const std::vector<GNEEdge*> &edgeParents, 
+        const std::vector<GNELane*> &laneParents, 
         const std::vector<GNEAdditional*>& additionalParents, 
         const std::vector<GNEDemandElement*>& demandElementParents,
         const std::vector<GNEEdge*> &edgeChilds, 
@@ -75,14 +75,12 @@ GNEAdditional::GNEAdditional(GNEAdditional* additionalParent, GNEViewNet* viewNe
     GUIGlObject(type, additionalParent->generateChildID(tag)),
     GNEAttributeCarrier(tag),
     Parameterised(),
-    GNEHierarchicalElementParents(this, additionalParents, demandElementParents),
+    GNEHierarchicalElementParents(this, edgeParents, laneParents, additionalParents, demandElementParents),
     GNEHierarchicalElementChilds(this, edgeChilds, laneChilds, additionalChilds, demandElementChilds),
     myViewNet(viewNet),
     myAdditionalName(additionalName),
     myBlockMovement(blockMovement),
     myBlockIcon(this) {
-    // check that additional parent is of expected type
-    assert(additionalParent->getTagProperty().getTag() == myTagProperty.getParentTag());
 }
 
 

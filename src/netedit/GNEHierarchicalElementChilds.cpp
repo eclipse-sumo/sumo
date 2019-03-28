@@ -44,12 +44,6 @@
 // member method definitions
 // ===========================================================================
 
-GNEHierarchicalElementChilds::GNEHierarchicalElementChilds(GNEAttributeCarrier* AC) :
-    myAC(AC),
-    myChildConnections(this) {
-}
-
-
 GNEHierarchicalElementChilds::GNEHierarchicalElementChilds(GNEAttributeCarrier* AC,
         const std::vector<GNEEdge*> &edgeChilds,
         const std::vector<GNELane*> &laneChilds,

@@ -44,16 +44,14 @@
 // member method definitions
 // ===========================================================================
 
-GNEHierarchicalElementParents::GNEHierarchicalElementParents(GNEAttributeCarrier* AC) :
-    myAC(AC),
-    myParentConnections(this) {
-}
-
-
 GNEHierarchicalElementParents::GNEHierarchicalElementParents(GNEAttributeCarrier* AC,
+        const std::vector<GNEEdge*>& edgeParents,
+        const std::vector<GNELane*>& laneParents,
         const std::vector<GNEAdditional*>& additionalParents, 
         const std::vector<GNEDemandElement*>& demandElementParents) :
     myAC(AC),
+    myEdgeParents(edgeParents),
+    myLaneParents(laneParents),
     myAdditionalParents(additionalParents),
     myDemandElementParents(demandElementParents),
     myParentConnections(this) {
@@ -70,7 +68,7 @@ GNEHierarchicalElementParents::addAdditionalParent(GNEAdditional* additional) {
         throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' was already inserted in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
     } else {
         myAdditionalParents.push_back(additional);
-        // update geometry is needed for stacked additionals (routeProbes and Vaporicers)
+        // only execute post operations if update geometry is enabled
         if (additional->getViewNet()->getNet()->isUpdateGeometryEnabled()) {
             updateGeometry(true);
         }
@@ -86,7 +84,7 @@ GNEHierarchicalElementParents::removeAdditionalParent(GNEAdditional* additional)
         throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' doesn't exist in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
     } else {
         myAdditionalParents.erase(it);
-        // update geometry is needed for stacked additionals (routeProbes and Vaporizers)
+        // only execute post operations if update geometry is enabled
         if (additional->getViewNet()->getNet()->isUpdateGeometryEnabled()) {
             updateGeometry(true);
         }
@@ -102,12 +100,12 @@ GNEHierarchicalElementParents::getAdditionalParents() const {
 
 void
 GNEHierarchicalElementParents::addDemandElementParent(GNEDemandElement* demandElement) {
-    // First check that demand element wasn't already inserted
+    // First check that demandElement wasn't already inserted
     if (std::find(myDemandElementParents.begin(), myDemandElementParents.end(), demandElement) != myDemandElementParents.end()) {
         throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' was already inserted in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
     } else {
         myDemandElementParents.push_back(demandElement);
-        // update geometry is needed for stacked demandElements (routeProbes and Vaporicers)
+        // update geometry (for set geometry of lines between Parents and Parents)
         if (demandElement->getViewNet()->getNet()->isUpdateGeometryEnabled()) {
             updateGeometry(true);
         }
@@ -117,13 +115,13 @@ GNEHierarchicalElementParents::addDemandElementParent(GNEDemandElement* demandEl
 
 void
 GNEHierarchicalElementParents::removeDemandElementParent(GNEDemandElement* demandElement) {
-    // First check that demand element was already inserted
+    // First check that demandElement was already inserted
     auto it = std::find(myDemandElementParents.begin(), myDemandElementParents.end(), demandElement);
     if (it == myDemandElementParents.end()) {
         throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' doesn't exist in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
     } else {
         myDemandElementParents.erase(it);
-        // update geometry is needed for stacked demandElements (routeProbes and Vaporizers)
+        // update geometry (for remove geometry of lines between Parents and Parents)
         if (demandElement->getViewNet()->getNet()->isUpdateGeometryEnabled()) {
             updateGeometry(true);
         }
@@ -134,6 +132,70 @@ GNEHierarchicalElementParents::removeDemandElementParent(GNEDemandElement* deman
 const std::vector<GNEDemandElement*>&
 GNEHierarchicalElementParents::getDemandElementParents() const {
     return myDemandElementParents;
+}
+
+
+void
+GNEHierarchicalElementParents::addEdgeParent(GNEEdge* edge) {
+    // Check that edge is valid and doesn't exist previously
+    if (edge == nullptr) {
+        throw InvalidArgument("Trying to add an empty " + toString(SUMO_TAG_EDGE) + " parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+    } else if (std::find(myEdgeParents.begin(), myEdgeParents.end(), edge) != myEdgeParents.end()) {
+        throw InvalidArgument("Trying to add a duplicate " + toString(SUMO_TAG_EDGE) + " parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+    } else {
+        myEdgeParents.push_back(edge);
+    }
+}
+
+
+void
+GNEHierarchicalElementParents::removeEdgeParent(GNEEdge* edge) {
+    // Check that edge is valid and exist previously
+    if (edge == nullptr) {
+        throw InvalidArgument("Trying to remove an empty " + toString(SUMO_TAG_EDGE) + " parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+    } else if (std::find(myEdgeParents.begin(), myEdgeParents.end(), edge) == myEdgeParents.end()) {
+        throw InvalidArgument("Trying to remove a non previously inserted " + toString(SUMO_TAG_EDGE) + " parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+    } else {
+        myEdgeParents.erase(std::find(myEdgeParents.begin(), myEdgeParents.end(), edge));
+    }
+}
+
+
+const std::vector<GNEEdge*>&
+GNEHierarchicalElementParents::getEdgeParents() const {
+    return myEdgeParents;
+}
+
+
+void
+GNEHierarchicalElementParents::addLaneParent(GNELane* lane) {
+    // Check that lane is valid and doesn't exist previously
+    if (lane == nullptr) {
+        throw InvalidArgument("Trying to add an empty " + toString(SUMO_TAG_EDGE) + " parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+    } else if (std::find(myLaneParents.begin(), myLaneParents.end(), lane) != myLaneParents.end()) {
+        throw InvalidArgument("Trying to add a duplicate " + toString(SUMO_TAG_EDGE) + " parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+    } else {
+        myLaneParents.push_back(lane);
+    }
+}
+
+
+void
+GNEHierarchicalElementParents::removeLaneParent(GNELane* lane) {
+    // Check that lane is valid and exist previously
+    if (lane == nullptr) {
+        throw InvalidArgument("Trying to remove an empty " + toString(SUMO_TAG_EDGE) + " parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+    } else if (std::find(myLaneParents.begin(), myLaneParents.end(), lane) == myLaneParents.end()) {
+        throw InvalidArgument("Trying to remove a non previously inserted " + toString(SUMO_TAG_EDGE) + " parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+    } else {
+        myLaneParents.erase(std::find(myLaneParents.begin(), myLaneParents.end(), lane));
+    }
+}
+
+
+const std::vector<GNELane*>&
+GNEHierarchicalElementParents::getLaneParents() const {
+    return myLaneParents;
 }
 
 
@@ -150,9 +212,9 @@ GNEHierarchicalElementParents::ParentConnections::update() {
     // first clear connection positions
     connectionPositions.clear();
     symbolsPositionAndRotation.clear();
-    /*
+
     // calculate position and rotation of every simbol for every edge
-    for (auto i : myHierarchicalElement->myEdgeChilds) {
+    for (auto i : myHierarchicalElement->myEdgeParents) {
         for (auto j : i->getLanes()) {
             std::pair<Position, double> posRot;
             // set position and lenght depending of shape's lengt
@@ -168,7 +230,7 @@ GNEHierarchicalElementParents::ParentConnections::update() {
     }
 
     // calculate position and rotation of every symbol for every lane
-    for (auto i : myHierarchicalElement->myLaneChilds) {
+    for (auto i : myHierarchicalElement->myLaneParents) {
         std::pair<Position, double> posRot;
         // set position and lenght depending of shape's lengt
         if (i->getShape().length() - 6 > 0) {
@@ -181,8 +243,8 @@ GNEHierarchicalElementParents::ParentConnections::update() {
         symbolsPositionAndRotation.push_back(posRot);
     }
 
-    // calculate position for every additional child
-    for (auto i : myHierarchicalElement->myAdditionalChilds) {
+    // calculate position for every additional parent
+    for (auto i : myHierarchicalElement->myAdditionalParents) {
         // check that position is different of position
         if (i->getPositionInView() != myHierarchicalElement->getPositionInView()) {
             std::vector<Position> posConnection;
@@ -208,7 +270,7 @@ GNEHierarchicalElementParents::ParentConnections::update() {
         }
     }
 
-    // calculate geometry for connections between parent and childs
+    // calculate geometry for connections between parent and parents
     for (auto i : symbolsPositionAndRotation) {
         std::vector<Position> posConnection;
         double A = std::abs(i.first.x() - myHierarchicalElement->getPositionInView().x());
@@ -231,7 +293,7 @@ GNEHierarchicalElementParents::ParentConnections::update() {
         posConnection.push_back(myHierarchicalElement->getPositionInView());
         connectionPositions.push_back(posConnection);
     }
-    */
+
 }
 
 

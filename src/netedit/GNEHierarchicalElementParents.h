@@ -46,15 +46,16 @@ class GNEShape;
 class GNEHierarchicalElementParents {
 
 public:
-    /// @brief Default constructor
-    GNEHierarchicalElementParents(GNEAttributeCarrier* AC);
-
     /**@brief Constructor used by elements that have another additionals as parent
      * @param[in] tag Type of xml tag that define the element (SUMO_TAG_BUS_STOP, SUMO_TAG_JUNCTION, etc...)
+     * @param[in] edgeParents vector of edge parents
+     * @param[in] laneParents vector of lane parents
      * @param[in] additionalParents vector of additional parents
      * @param[in] demandElementParents vector of demand element parents
      */
     GNEHierarchicalElementParents(GNEAttributeCarrier* AC,
+        const std::vector<GNEEdge*>& edgeParents,
+        const std::vector<GNELane*>& laneParents,
         const std::vector<GNEAdditional*>& additionalParents,
         const std::vector<GNEDemandElement*>& demandElementParents);
 
@@ -70,30 +71,56 @@ public:
     virtual Position getPositionInView() const = 0;
     /// @}
 
-    /// @name members and functions relative to additional parents
+    /// @name members and functions related to edge parents
     /// @{
-    /// @brief add additional child to this edge
-    void addAdditionalParent(GNEAdditional* additional);
+    /// @brief add edge parent
+    void addEdgeParent(GNEEdge* edge);
 
-    /// @brief remove additional child from this edge
-    void removeAdditionalParent(GNEAdditional* additional);
+    /// @brief remove edge parent
+    void removeEdgeParent(GNEEdge* edge);
 
-    /// @brief return vector of additionals that have as Parameter this edge (For example, Rerouters)
-    const std::vector<GNEAdditional*>& getAdditionalParents() const;
+    /// @brief get edge chidls
+    const std::vector<GNEEdge*>& getEdgeParents() const;
 
     /// @}
 
-    /// @name members and functions relative to demand element parents
+    /// @name members and functions related to lane parents
     /// @{
-    /// @brief add demand element child to this edge
+    /// @brief add lane parent
+    void addLaneParent(GNELane* lane);
+
+    /// @brief remove lane parent
+    void removeLaneParent(GNELane* lane);
+
+    /// @brief get lanes of VSS
+    const std::vector<GNELane*>& getLaneParents() const;
+
+    /// @}
+
+    /// @name members and functions related to additional parents
+    /// @{
+    /// @brief add additional parent to this additional
+    void addAdditionalParent(GNEAdditional* additional);
+
+    /// @brief remove additional parent from this additional
+    void removeAdditionalParent(GNEAdditional* additional);
+
+    /// @brief return vector of additionals that have as Parent this edge (For example, Calibrators)
+    const std::vector<GNEAdditional*>& getAdditionalParents() const;
+    
+    /// @}
+
+    /// @name members and functions related to demand element parents
+    /// @{
+    /// @brief add demand element parent to this demand element
     void addDemandElementParent(GNEDemandElement* demandElement);
 
-    /// @brief remove demand element child from this edge
+    /// @brief remove demand element parent from this demand element
     void removeDemandElementParent(GNEDemandElement* demandElement);
 
-    /// @brief return vector of demand element that have as Parameter this edge (For example, Routes)
+    /// @brief return vector of demand elements that have as Parent this edge (For example, Calibrators)
     const std::vector<GNEDemandElement*>& getDemandElementParents() const;
-
+    
     /// @}
 
 protected:
@@ -120,10 +147,16 @@ protected:
         GNEHierarchicalElementParents* myHierarchicalElement;
     };
 
-    /// @brief list of additional parents of this NetElement
+    /// @brief list of edge parents of this element
+    std::vector<GNEEdge*> myEdgeParents;
+    
+    /// @brief list of lane parents of this element
+    std::vector<GNELane*> myLaneParents;
+
+    /// @brief list of additional parents of this element
     std::vector<GNEAdditional*> myAdditionalParents;
 
-    /// @brief list of demand elements parents of this NetElement
+    /// @brief list of demand elements parents of this element
     std::vector<GNEDemandElement*> myDemandElementParents;
 
     /// @brief variable ParentConnections

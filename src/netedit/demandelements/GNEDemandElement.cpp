@@ -149,8 +149,8 @@ GNEDemandElement::RouteCalculator::areEdgesConsecutives(SUMOVehicleClass vClass,
 // ---------------------------------------------------------------------------
 
 GNEDemandElement::GNEDemandElement(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag,
-        const std::vector<GNEEdge*> &/*edgeParents*/, 
-        const std::vector<GNELane*> &/*laneParents*/, 
+        const std::vector<GNEEdge*> &edgeParents, 
+        const std::vector<GNELane*> &laneParents, 
         const std::vector<GNEAdditional*>& additionalParents, 
         const std::vector<GNEDemandElement*>& demandElementParents,
         const std::vector<GNEEdge*> &edgeChilds, 
@@ -160,15 +160,15 @@ GNEDemandElement::GNEDemandElement(const std::string& id, GNEViewNet* viewNet, G
     GUIGlObject(type, id),
     GNEAttributeCarrier(tag),
     Parameterised(),
-    GNEHierarchicalElementParents(this, additionalParents, demandElementParents),
+    GNEHierarchicalElementParents(this, edgeParents, laneParents, additionalParents, demandElementParents),
     GNEHierarchicalElementChilds(this, edgeChilds, laneChilds, additionalChilds, demandElementChilds),
     myViewNet(viewNet) {
 }
 
 
 GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag,
-        const std::vector<GNEEdge*> &/*edgeParents*/, 
-        const std::vector<GNELane*> &/*laneParents*/, 
+        const std::vector<GNEEdge*> &edgeParents, 
+        const std::vector<GNELane*> &laneParents, 
         const std::vector<GNEAdditional*>& additionalParents, 
         const std::vector<GNEDemandElement*>& demandElementParents,
         const std::vector<GNEEdge*> &edgeChilds, 
@@ -178,7 +178,7 @@ GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, GNEVie
     GUIGlObject(type, demandElementParent->generateChildID(tag)),
     GNEAttributeCarrier(tag),
     Parameterised(),
-    GNEHierarchicalElementParents(this, additionalParents, demandElementParents),
+    GNEHierarchicalElementParents(this, edgeParents, laneParents, additionalParents, demandElementParents),
     GNEHierarchicalElementChilds(this, edgeChilds, laneChilds, additionalChilds, demandElementChilds),
     myViewNet(viewNet) {
 }

@@ -46,12 +46,11 @@ class GNEShape;
 class GNEHierarchicalElementChilds {
 
 public:
-    /// @brief Default Constructor
-    GNEHierarchicalElementChilds(GNEAttributeCarrier* AC);
-
     /**@brief Parameter Constructor
      * @param[in] edgeChilds vector of edge childs
      * @param[in] laneChilds vector of lane childs
+     * @param[in] additionalChilds vector of additional childs
+     * @param[in] demandElementChilds vector of demand element childs
      */
     GNEHierarchicalElementChilds(GNEAttributeCarrier* AC,
         const std::vector<GNEEdge*> &edgeChilds,
@@ -74,7 +73,33 @@ public:
     virtual Position getPositionInView() const = 0;
     /// @}
 
-    /// @name members and functions relative to additional childs
+    /// @name members and functions related to edge childs
+    /// @{
+    /// @brief add edge child
+    void addEdgeChild(GNEEdge* edge);
+
+    /// @brief remove edge child
+    void removeEdgeChild(GNEEdge* edge);
+
+    /// @brief get edge chidls
+    const std::vector<GNEEdge*>& getEdgeChilds() const;
+
+    /// @}
+
+    /// @name members and functions related to lane childs
+    /// @{
+    /// @brief add lane child
+    void addLaneChild(GNELane* lane);
+
+    /// @brief remove lane child
+    void removeLaneChild(GNELane* lane);
+
+    /// @brief get lanes of VSS
+    const std::vector<GNELane*>& getLaneChilds() const;
+
+    /// @}
+
+    /// @name members and functions related to additional childs
     /// @{
     /// @brief add additional child to this additional
     void addAdditionalChild(GNEAdditional* additional);
@@ -93,7 +118,7 @@ public:
     
     /// @}
 
-    /// @name members and functions relative to demand element childs
+    /// @name members and functions related to demand element childs
     /// @{
     /// @brief add demand element child to this demand element
     void addDemandElementChild(GNEDemandElement* demandElement);
@@ -110,34 +135,6 @@ public:
     /// @brief check if childs are overlapped (Used by Rerouters)
     bool checkDemandElementChildsOverlapping() const;
     
-    /// @}
-
-    /// @name members and functions relative to edge childs
-    /// @{
-
-    /// @brief add edge child
-    void addEdgeChild(GNEEdge* edge);
-
-    /// @brief remove edge child
-    void removeEdgeChild(GNEEdge* edge);
-
-    /// @brief get edge chidls
-    const std::vector<GNEEdge*>& getEdgeChilds() const;
-
-    /// @}
-
-    /// @name members and functions relative to edge childs
-    /// @{
-
-    /// @brief add lane child
-    void addLaneChild(GNELane* lane);
-
-    /// @brief remove lane child
-    void removeLaneChild(GNELane* lane);
-
-    /// @brief get lanes of VSS
-    const std::vector<GNELane*>& getLaneChilds() const;
-
     /// @}
 
     /// @brief update parent after add or remove a child (can be reimplemented, for example used for statistics)
