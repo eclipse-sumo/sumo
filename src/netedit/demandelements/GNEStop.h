@@ -35,8 +35,11 @@
 class GNEStop : public GNEDemandElement, public SUMOVehicleParameter::Stop {
 
 public:
-    /// @brief constructor
-    GNEStop(SumoXMLTag tag, const std::string &id, GNEViewNet* viewNet, const SUMOVehicleParameter::Stop &stopParameter, GNEAdditional* stoppingPlace);
+    /// @brief constructor used for stops in stoppingPlaces
+    GNEStop(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehicleParameter::Stop &stopParameter, GNEAdditional* stoppingPlace, GNEDemandElement* stopParent);
+
+    /// @brief constructor used for stops in lanes
+    GNEStop(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehicleParameter::Stop &stopParameter, GNELane* lane, GNEDemandElement* stopParent);
 
     /// @brief destructor
     ~GNEStop();

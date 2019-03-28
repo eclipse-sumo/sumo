@@ -156,6 +156,22 @@ GNEDemandElement::GNEDemandElement(const std::string& id, GNEViewNet* viewNet, G
 }
 
 
+GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag) :
+    GUIGlObject(type, demandElementParent->generateChildID(tag)),
+    GNEHierarchicalElement(tag),
+    Parameterised(),
+    myViewNet(viewNet) {
+}
+
+
+GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, const std::vector<GNEAdditional*> &additionalParents) :
+    GUIGlObject(type, demandElementParent->generateChildID(tag)),
+    GNEHierarchicalElement(tag, additionalParents),
+    Parameterised(),
+    myViewNet(viewNet) {
+}
+
+
 GNEDemandElement::GNEDemandElement(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, const std::vector<GNEAdditional*> &additionalParents) :
     GUIGlObject(type, id),
     GNEHierarchicalElement(tag, additionalParents),

@@ -62,6 +62,9 @@ public:
     /// @brief build trip
     static void buildTrip(GNEViewNet* viewNet, bool undoDemandElements, SUMOVehicleParameter* tripParameters, GNEEdge* from, GNEEdge* to, const std::vector<GNEEdge*> &via);
 
+    /// @brief build stop
+    static void buildStop(GNEViewNet* viewNet, bool undoDemandElements, const SUMOVehicleParameter::Stop &stopParameters, GNEDemandElement *stopParent);
+
 protected:
     /// @brief opens a type distribution for reading
     void openVehicleTypeDistribution(const SUMOSAXAttributes& attrs);

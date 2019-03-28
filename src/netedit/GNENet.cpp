@@ -128,6 +128,10 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
     for (auto i : listOfTags) {
         myAttributeCarriers.demandElements.insert(std::make_pair(i, std::map<std::string, GNEDemandElement*>()));
     }
+    listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TagType::TAGTYPE_STOP, false);
+    for (auto i : listOfTags) {
+        myAttributeCarriers.demandElements.insert(std::make_pair(i, std::map<std::string, GNEDemandElement*>()));
+    }
 }
 
 
@@ -1455,6 +1459,10 @@ GNENet::computeEverything(GNEApplicationWindow* window, bool force, bool volatil
     if (demandPath != "") {
         // fill demandElements with tags
         auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TagType::TAGTYPE_DEMANDELEMENT, false);
+        for (auto i : listOfTags) {
+            myAttributeCarriers.demandElements.insert(std::make_pair(i, std::map<std::string, GNEDemandElement*>()));
+        }
+        listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TagType::TAGTYPE_STOP, false);
         for (auto i : listOfTags) {
             myAttributeCarriers.demandElements.insert(std::make_pair(i, std::map<std::string, GNEDemandElement*>()));
         }
@@ -3009,6 +3017,10 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
         myAttributeCarriers.additionals.clear();
         // fill demand elements with tags
         listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TagType::TAGTYPE_DEMANDELEMENT, false);
+        for (auto i : listOfTags) {
+            myAttributeCarriers.demandElements.insert(std::make_pair(i, std::map<std::string, GNEDemandElement*>()));
+        }
+        listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TagType::TAGTYPE_STOP, false);
         for (auto i : listOfTags) {
             myAttributeCarriers.demandElements.insert(std::make_pair(i, std::map<std::string, GNEDemandElement*>()));
         }

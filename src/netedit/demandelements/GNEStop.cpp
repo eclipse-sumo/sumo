@@ -43,9 +43,16 @@
 // member method definitions
 // ===========================================================================
 
-GNEStop::GNEStop(SumoXMLTag tag, const std::string &id, GNEViewNet* viewNet, const SUMOVehicleParameter::Stop &stopParameter, GNEAdditional* stoppingPlace) :
-    GNEDemandElement(id, viewNet, GLO_STOP, tag, {stoppingPlace}),
+GNEStop::GNEStop(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehicleParameter::Stop &stopParameter, GNEAdditional* stoppingPlace, GNEDemandElement* stopParent) :
+    GNEDemandElement(stopParent, viewNet, GLO_STOP, tag, {stoppingPlace}),
     SUMOVehicleParameter::Stop(stopParameter) {
+}
+
+
+GNEStop::GNEStop(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehicleParameter::Stop &stopParameter, GNELane* lane, GNEDemandElement* stopParent) :
+    GNEDemandElement(stopParent, viewNet, GLO_STOP, tag),
+    SUMOVehicleParameter::Stop(stopParameter),
+    myLane(lane) {
 }
 
 

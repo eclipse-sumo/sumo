@@ -19,24 +19,25 @@
 // included modules
 // ===========================================================================
 #include <config.h>
+#include <netbuild/NBNetBuilder.h>
+#include <netbuild/NBVehicle.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/additionals/GNEBusStop.h>
+#include <netedit/additionals/GNEChargingStation.h>
+#include <netedit/additionals/GNEContainerStop.h>
+#include <netedit/additionals/GNEParkingArea.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNELane.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/GNEUndoList.h>
-#include <netedit/GNENet.h>
 #include <utils/router/DijkstraRouter.h>
-#include <netbuild/NBNetBuilder.h>
-#include <netbuild/NBVehicle.h>
-#include <netedit/additionals/GNEBusStop.h>
-#include <netedit/additionals/GNEContainerStop.h>
-#include <netedit/additionals/GNEParkingArea.h>
-#include <netedit/additionals/GNEChargingStation.h>
 
 #include "GNERouteHandler.h"
 #include "GNERoute.h"
-#include "GNEVehicleType.h"
+#include "GNEStop.h"
 #include "GNEVehicle.h"
+#include "GNEVehicleType.h"
 
 // ===========================================================================
 // member method definitions
@@ -74,10 +75,18 @@ GNERouteHandler::buildVehicle(GNEViewNet* viewNet, bool undoDemandElements, SUMO
                     viewNet->getUndoList()->p_begin("add " + vehicle->getTagStr());
                     viewNet->getUndoList()->add(new GNEChange_DemandElement(vehicle, true), true);
                     viewNet->getUndoList()->p_end();
+                    // iterate over stops of vehicleParameters and create stops associated with it
+                    for (const auto &i : vehicleParameters->stops) {
+                        buildStop(viewNet, true, i, vehicle);
+                    }
                 } else {
                     viewNet->getNet()->insertDemandElement(vehicle);
                     vType->addDemandElementChild(vehicle);
                     vehicle->incRef("buildVehicle");
+                    // iterate over stops of vehicleParameters and create stops associated with it
+                    for (const auto &i : vehicleParameters->stops) {
+                        buildStop(viewNet, false, i, vehicle);
+                    }
                 }
             }
         }
@@ -156,6 +165,65 @@ GNERouteHandler::buildTrip(GNEViewNet* viewNet, bool undoDemandElements, SUMOVeh
                     trip->incRef("buildTrip");
                 }
             }
+        }
+    }
+}
+
+
+void 
+GNERouteHandler::buildStop(GNEViewNet* viewNet, bool undoDemandElements, const SUMOVehicleParameter::Stop &stopParameters, GNEDemandElement *stopParent) {
+    // declare pointers to stopping place  and lane and obtain it
+    GNEAdditional* stoppingPlace = nullptr;
+    GNELane* lane = nullptr;
+    SumoXMLTag stopTagType;
+    if (stopParameters.busstop.size() > 0) {
+        stoppingPlace = viewNet->getNet()->retrieveAdditional(SUMO_TAG_BUS_STOP, stopParameters.busstop, false);
+        stopTagType = SUMO_TAG_STOP_BUSSTOP;
+    } else if (stopParameters.containerstop.size() > 0) {
+        stoppingPlace = viewNet->getNet()->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, stopParameters.containerstop, false);
+        stopTagType = SUMO_TAG_STOP_CONTAINERSTOP;
+    } else if (stopParameters.chargingStation.size() > 0) {
+        stoppingPlace = viewNet->getNet()->retrieveAdditional(SUMO_TAG_CHARGING_STATION, stopParameters.chargingStation, false);
+        stopTagType = SUMO_TAG_STOP_CHARGINGSTATION;
+    } else if (stopParameters.parkingarea.size() > 0) {
+        stoppingPlace = viewNet->getNet()->retrieveAdditional(SUMO_TAG_PARKING_AREA, stopParameters.parkingarea, false);
+        stopTagType = SUMO_TAG_STOP_PARKINGAREA;
+    } else if (stopParameters.lane.size() > 0) {
+        lane = viewNet->getNet()->retrieveLane(stopParameters.lane, false);
+        stopTagType = SUMO_TAG_STOP_LANE;
+    }
+    // check if values are correct
+    if (stoppingPlace && lane) {
+        WRITE_WARNING("A stop must be defined either over a stoppingPlace or over a lane");
+    } else if (!stoppingPlace && !lane) {
+        WRITE_WARNING("A stop requires a stoppingPlace or a lane");
+    } else if (stoppingPlace) {
+        // create stop using stopParameters and stoppingPlace
+        GNEStop* stop = new GNEStop(stopTagType, viewNet, stopParameters, stoppingPlace, stopParent);
+        // add it depending of undoDemandElements
+        if (undoDemandElements) {
+            viewNet->getUndoList()->p_begin("add " + stop->getTagStr());
+            viewNet->getUndoList()->add(new GNEChange_DemandElement(stop, true), true);
+            viewNet->getUndoList()->p_end();
+        } else {
+            viewNet->getNet()->insertDemandElement(stop);
+            stoppingPlace->addDemandElementChild(stop);
+            stopParent->addDemandElementChild(stop);
+            stop->incRef("buildStoppingPlaceStop");
+        }
+    } else {
+        // create stop using stopParameters and lane
+        GNEStop* stop = new GNEStop(stopTagType, viewNet, stopParameters, lane, stopParent);
+        // add it depending of undoDemandElements
+        if (undoDemandElements) {
+            viewNet->getUndoList()->p_begin("add " + stop->getTagStr());
+            viewNet->getUndoList()->add(new GNEChange_DemandElement(stop, true), true);
+            viewNet->getUndoList()->p_end();
+        } else {
+            viewNet->getNet()->insertDemandElement(stop);
+            lane->addDemandElementChild(stop);
+            stopParent->addDemandElementChild(stop);
+            stop->incRef("buildLaneStop");
         }
     }
 }
