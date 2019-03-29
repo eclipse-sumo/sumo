@@ -73,11 +73,8 @@ private:
      */
     GNEDemandElement* myDemandElement;
 
-    /// @brief pointer to route parent
-    GNEDemandElement* myRouteParent;
-
-    /// @brief pointer to vehicle type parent
-    GNEDemandElement* myVehicletypeParent;
+    /// @brief pointer to demand element parents (used by demand elements with parents)
+    std::vector<GNEDemandElement*> myDemandElementParents;
 
     /// @brief pointer to edge parents (used by demandElements with edge parents)
     std::vector<GNEEdge*> myEdgeParents;

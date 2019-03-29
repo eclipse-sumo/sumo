@@ -43,23 +43,11 @@ FXIMPLEMENT_ABSTRACT(GNEChange_DemandElement, GNEChange, nullptr, 0)
 GNEChange_DemandElement::GNEChange_DemandElement(GNEDemandElement* demandElement, bool forward) :
     GNEChange(demandElement->getViewNet()->getNet(), forward),
     myDemandElement(demandElement),
-    myRouteParent(nullptr),
-    myVehicletypeParent(nullptr),
+    myEdgeParents(demandElement->getEdgeParents()),
+    myDemandElementParents(demandElement->getDemandElementParents()),
     myFromEdge(nullptr),
     myToEdge(nullptr) {
     myDemandElement->incRef("GNEChange_DemandElement");
-    // Obtain route parent (ej: Vehicles)
-    if (demandElement->getTagProperty().canBePlacedOverRoute()) {
-        myRouteParent = demandElement->getViewNet()->getNet()->retrieveDemandElement(SUMO_TAG_ROUTE, myDemandElement->getAttribute(SUMO_ATTR_ROUTE));
-    }
-    // Obtain VType (ej: Vehicles)
-    if (demandElement->getTagProperty().isVehicle()) {
-        myVehicletypeParent = demandElement->getViewNet()->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, myDemandElement->getAttribute(SUMO_ATTR_TYPE));
-    }
-    // obtain edge parents (used by routes)
-    if (demandElement->getTagProperty().canBePlacedOverEdges()) {
-        myEdgeParents = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(demandElement->getViewNet()->getNet(), myDemandElement->getAttribute(SUMO_ATTR_EDGES));
-    }
     // obtain from and to edges (used by Edges)
     if (demandElement->getTagProperty().getTag() == SUMO_TAG_TRIP) {
         myFromEdge = demandElement->getViewNet()->getNet()->retrieveEdge(myDemandElement->getAttribute(SUMO_ATTR_FROM));
@@ -92,13 +80,9 @@ GNEChange_DemandElement::undo() {
         for (auto i : myEdgeParents) {
             i->removeDemandElementChild(myDemandElement);
         }
-        // If demand element has a VType, remove it from VType parent
-        if (myVehicletypeParent) {
-            myVehicletypeParent->removeDemandElementChild(myDemandElement);
-        }
-        // If demand element has a Route, remove it from Route parent
-        if (myRouteParent) {
-            myRouteParent->removeDemandElementChild(myDemandElement);
+        // 3 - If demand element has parents, remove it from their demand element childs
+        for (auto i : myDemandElementParents) {
+            i->removeDemandElementChild(myDemandElement);
         }
         // If demand element is a trip, remove it from From Edge
         if (myFromEdge) {
@@ -127,13 +111,9 @@ GNEChange_DemandElement::undo() {
         for (auto i : myEdgeParents) {
             i->addDemandElementChild(myDemandElement);
         }
-        // If demand element has a VType, add it into VType parent
-        if (myVehicletypeParent) {
-            myVehicletypeParent->addDemandElementChild(myDemandElement);
-        }
-        // If demand element has a Route, add it into Route parent
-        if (myRouteParent) {
-            myRouteParent->addDemandElementChild(myDemandElement);
+        // 3 - If demand element has parents, add it into demand element childs
+        for (auto i : myDemandElementParents) {
+            i->addDemandElementChild(myDemandElement);
         }
         // If demand element is a trip, add it into From Edge
         if (myFromEdge) {
@@ -164,13 +144,9 @@ GNEChange_DemandElement::redo() {
         for (auto i : myEdgeParents) {
             i->addDemandElementChild(myDemandElement);
         }
-        // If demand element has a VType, add it into VType parent
-        if (myVehicletypeParent) {
-            myVehicletypeParent->addDemandElementChild(myDemandElement);
-        }
-        // If demand element has a Route, add it into Route parent
-        if (myRouteParent) {
-            myRouteParent->addDemandElementChild(myDemandElement);
+        // 3 - If demand element has parents, add it into demand element childs
+        for (auto i : myDemandElementParents) {
+            i->addDemandElementChild(myDemandElement);
         }
         // If demand element is a trip, add it into From Edge
         if (myFromEdge) {
@@ -187,13 +163,9 @@ GNEChange_DemandElement::redo() {
         for (auto i : myEdgeParents) {
             i->removeDemandElementChild(myDemandElement);
         }
-        // If demand element has a VType, remove it from VType parent
-        if (myVehicletypeParent) {
-            myVehicletypeParent->removeDemandElementChild(myDemandElement);
-        }
-        // If demand element has a Route, remove it from Route parent
-        if (myRouteParent) {
-            myRouteParent->removeDemandElementChild(myDemandElement);
+        // 3 - If demand element has parents, remove it from their demand element childs
+        for (auto i : myDemandElementParents) {
+            i->removeDemandElementChild(myDemandElement);
         }
         // If demand element is a trip, remove it from From Edge
         if (myFromEdge) {

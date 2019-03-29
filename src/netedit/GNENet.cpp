@@ -2076,9 +2076,9 @@ GNENet::saveAdditionals(const std::string& filename) {
     for (auto i : myAttributeCarriers.additionals) {
         for (auto j : i.second) {
             // check if has to be fixed
-            if (j.second->getTagProperty().canBePlacedOverLane() && !j.second->isAdditionalValid()) {
+            if (j.second->getTagProperty().hasAttribute(SUMO_ATTR_LANE) && !j.second->isAdditionalValid()) {
                 invalidSingleLaneAdditionals.push_back(j.second);
-            } else if (j.second->getTagProperty().canBePlacedOverLanes() && !j.second->isAdditionalValid()) {
+            } else if (j.second->getTagProperty().hasAttribute(SUMO_ATTR_LANES) && !j.second->isAdditionalValid()) {
                 invalidMultiLaneAdditionals.push_back(j.second);
             }
         }

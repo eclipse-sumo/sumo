@@ -232,7 +232,7 @@ GNEDemandElement::startGeometryMoving() {
     // always save original position over view
     myMove.originalViewPosition = getPositionInView();
     // check if position over lane or lanes has to be saved
-    if (myTagProperty.canBePlacedOverLane()) {
+    if (myTagProperty.hasAttribute(SUMO_ATTR_LANE)) {
         if (myTagProperty.canMaskStartEndPos()) {
             // obtain start and end position
             myMove.firstOriginalLanePosition = getAttribute(SUMO_ATTR_STARTPOS);
@@ -241,7 +241,7 @@ GNEDemandElement::startGeometryMoving() {
             // obtain position attribute
             myMove.firstOriginalLanePosition = getAttribute(SUMO_ATTR_POSITION);
         }
-    } else if (myTagProperty.canBePlacedOverLanes()) {
+    } else if (myTagProperty.hasAttribute(SUMO_ATTR_LANES)) {
         // obtain start and end position
         myMove.firstOriginalLanePosition = getAttribute(SUMO_ATTR_POSITION);
         myMove.secondOriginalPosition = getAttribute(SUMO_ATTR_ENDPOS);

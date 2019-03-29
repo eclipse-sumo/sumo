@@ -753,11 +753,11 @@ GNEAdditionalFrame::addAdditional(const GNEViewNetHelper::ObjectsUnderCursor& ob
         return false;
     }
     // If consecutive Lane Selector is enabled, it means that either we're selecting lanes or we're finished or we'rent started
-    if (tagValues.canBePlacedOverEdge()) {
+    if (tagValues.hasAttribute(SUMO_ATTR_EDGE)) {
         return buildAdditionalOverEdge(valuesMap, objectsUnderCursor.getLaneFront(), tagValues);
-    } else if (tagValues.canBePlacedOverLane()) {
+    } else if (tagValues.hasAttribute(SUMO_ATTR_LANE)) {
         return buildAdditionalOverLane(valuesMap, objectsUnderCursor.getLaneFront(), tagValues);
-    } else if (tagValues.canBePlacedOverLanes()) {
+    } else if (tagValues.hasAttribute(SUMO_ATTR_LANES)) {
         return buildAdditionalOverLanes(valuesMap, objectsUnderCursor.getLaneFront(), tagValues);
     } else {
         return buildAdditionalOverView(valuesMap, tagValues);
@@ -894,7 +894,7 @@ GNEAdditionalFrame::buildAdditionalCommonAttributes(std::map<SumoXMLAttr, std::s
         }
     }
     // If element own a list of SelectorEdgeChilds as attribute
-    if (tagValues.hasAttribute(SUMO_ATTR_EDGES) && !tagValues.canBePlacedOverEdges()) {
+    if (tagValues.hasAttribute(SUMO_ATTR_EDGES) && valuesMap[SUMO_ATTR_EDGES].empty()) {
         // obtain edge IDs
         valuesMap[SUMO_ATTR_EDGES] = mySelectorEdgeChilds->getEdgeIdsSelected();
         // check if attribute has at least one edge
@@ -904,7 +904,7 @@ GNEAdditionalFrame::buildAdditionalCommonAttributes(std::map<SumoXMLAttr, std::s
         }
     }
     // get values of mySelectorLaneChilds, if tag correspond to an element that has lanes as childs
-    if (tagValues.hasAttribute(SUMO_ATTR_LANES) && !tagValues.canBePlacedOverLanes()) {
+    if (tagValues.hasAttribute(SUMO_ATTR_LANES) && valuesMap[SUMO_ATTR_LANES].empty()) {
         // obtain lane IDs
         valuesMap[SUMO_ATTR_LANES] = mySelectorLaneChilds->getLaneIdsSelected();
         // check if attribute has at least a lane

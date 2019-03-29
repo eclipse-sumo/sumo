@@ -298,15 +298,8 @@ public:
         TAGPROPERTY_MASKSTARTENDPOS =     1 << 13,  // Element mask attributes StartPos and EndPos as "lenght" (Only used in the appropiate GNEFrame)
         TAGPROPERTY_MASKXYZPOSITION =     1 << 14,  // Element mask attributes X, Y and Z as "Position"
         TAGPROPERTY_WRITECHILDSSEPARATE = 1 << 15,  // Element writes their childs in a separated filename
-        TAGPROPERTY_PLACEDOVER_VIEW =     1 << 16,  // Element will be placed in view
-        TAGPROPERTY_PLACEDOVER_EDGE =     1 << 17,  // Element will be placed over an edge
-        TAGPROPERTY_PLACEDOVER_LANE =     1 << 18,  // Element will be placed over a lane
-        TAGPROPERTY_PLACEDOVER_JUNCTION = 1 << 19,  // Element will be placed over a junction
-        TAGPROPERTY_PLACEDOVER_EDGES =    1 << 20,  // Element will be placed over a list of edges
-        TAGPROPERTY_PLACEDOVER_LANES =    1 << 21,  // Element will be placed over a list of lanes
-        TAGPROPERTY_PLACEDOVER_ROUTE =    1 << 22,  // Element will be placed over a route
-        TAGPROPERTY_NOGENERICPARAMETERS = 1 << 23,  // Element doesn't accept Generic Parameters (by default all tags supports generic parameters)
-        TAGPROPERTY_DISJOINTATTRIBUTES =  1 << 24,  // Element owns attributes that cannot be defined together
+        TAGPROPERTY_NOGENERICPARAMETERS = 1 << 16,  // Element doesn't accept Generic Parameters (by default all tags supports generic parameters)
+        TAGPROPERTY_DISJOINTATTRIBUTES =  1 << 17,  // Element owns attributes that cannot be defined together
     };
 
     /// @brief struct with the attribute Properties
@@ -443,27 +436,6 @@ public:
 
         /// @brief return true if tag correspond to an element that can sort their childs automatic
         bool canWriteChildsSeparate() const;
-
-        /// @brief return true if tag correspond to an element that can be placed over the view
-        bool canBePlacedOverView() const;
-
-        /// @brief return true if tag correspond to an element that can be placed over an edge
-        bool canBePlacedOverEdge() const;
-
-        /// @brief return true if tag correspond to an element that can be placed over a lane
-        bool canBePlacedOverLane() const;
-
-        /// @brief return true if tag correspond to an element that can be placed over a junction
-        bool canBePlacedOverJunction() const;
-
-        /// @brief return true if tag correspond to an element that can be placed over a list of edges
-        bool canBePlacedOverEdges() const;
-
-        /// @brief return true if tag correspond to that can be placed over a list of lanes
-        bool canBePlacedOverLanes() const;
-
-        /// @brief return true if tag correspond to an elemeent that can be placed over an route
-        bool canBePlacedOverRoute() const;
 
         /// @brief return true if tag correspond to an element that can mask the attributes "start" and "end" position as attribute "lenght"
         bool canMaskStartEndPos() const;
