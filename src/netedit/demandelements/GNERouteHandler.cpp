@@ -213,7 +213,7 @@ GNERouteHandler::buildStop(GNEViewNet* viewNet, bool undoDemandElements, const S
         }
     } else {
         // create stop using stopParameters and lane
-        GNEStop* stop = new GNEStop(stopTagType, viewNet, stopParameters, lane, stopParent);
+        GNEStop* stop = new GNEStop(viewNet, stopParameters, lane, "5", "6", true, stopParent);
         // add it depending of undoDemandElements
         if (undoDemandElements) {
             viewNet->getUndoList()->p_begin("add " + stop->getTagStr());

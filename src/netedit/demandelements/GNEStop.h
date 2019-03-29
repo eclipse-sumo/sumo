@@ -35,11 +35,11 @@
 class GNEStop : public GNEDemandElement, public SUMOVehicleParameter::Stop {
 
 public:
-    /// @brief constructor used for stops in stoppingPlaces
+    /// @brief constructor used for stops over stoppingPlaces
     GNEStop(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehicleParameter::Stop &stopParameter, GNEAdditional* stoppingPlace, GNEDemandElement* stopParent);
 
-    /// @brief constructor used for stops in lanes
-    GNEStop(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehicleParameter::Stop &stopParameter, GNELane* lane, GNEDemandElement* stopParent);
+    /// @brief constructor used for stops over lanes
+    GNEStop(GNEViewNet* viewNet, const SUMOVehicleParameter::Stop &stopParameter, GNELane* lane, const std::string &startPosition, const std::string &endPosition, bool friendlyPosition, GNEDemandElement* stopParent);
 
     /// @brief destructor
     ~GNEStop();
@@ -138,6 +138,22 @@ public:
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
     std::string getHierarchyName() const;
     /// @}
+
+    /// @brief get start position over lane that is applicable to the shape
+    double getStartGeometryPositionOverLane() const;
+
+    /// @brief get end position over lane that is applicable to the shape
+    double getEndGeometryPositionOverLane() const;
+
+protected:
+    /// @brief The relative start position this stop is located at (optional, if empty takes 0)
+    std::string  myStartPosition;
+
+    /// @brief The  position this stop is located at (optional, if empty takes the lane lenght)
+    std::string myEndPosition;
+
+    /// @brief Flag for friendly position
+    bool myFriendlyPosition;
 
 private:
     /// @brief method for setting the attribute and nothing else
