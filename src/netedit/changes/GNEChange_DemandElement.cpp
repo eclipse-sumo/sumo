@@ -44,15 +44,8 @@ GNEChange_DemandElement::GNEChange_DemandElement(GNEDemandElement* demandElement
     GNEChange(demandElement->getViewNet()->getNet(), forward),
     myDemandElement(demandElement),
     myEdgeParents(demandElement->getEdgeParents()),
-    myDemandElementParents(demandElement->getDemandElementParents()),
-    myFromEdge(nullptr),
-    myToEdge(nullptr) {
+    myDemandElementParents(demandElement->getDemandElementParents()) {
     myDemandElement->incRef("GNEChange_DemandElement");
-    // obtain from and to edges (used by Edges)
-    if (demandElement->getTagProperty().getTag() == SUMO_TAG_TRIP) {
-        myFromEdge = demandElement->getViewNet()->getNet()->retrieveEdge(myDemandElement->getAttribute(SUMO_ATTR_FROM));
-        myToEdge = demandElement->getViewNet()->getNet()->retrieveEdge(myDemandElement->getAttribute(SUMO_ATTR_TO));
-    }
 }
 
 
@@ -84,14 +77,6 @@ GNEChange_DemandElement::undo() {
         for (auto i : myDemandElementParents) {
             i->removeDemandElementChild(myDemandElement);
         }
-        // If demand element is a trip, remove it from From Edge
-        if (myFromEdge) {
-            myFromEdge->removeDemandElementChild(myDemandElement);
-        }
-        // If demand element is a trip, remove it from To Edge
-        if (myToEdge) {
-            myToEdge->removeDemandElementChild(myDemandElement);
-        }
         // delete demand element of net
         myNet->deleteDemandElement(myDemandElement, false);
         // update vehicle type frame if it's shown
@@ -114,14 +99,6 @@ GNEChange_DemandElement::undo() {
         // 3 - If demand element has parents, add it into demand element childs
         for (auto i : myDemandElementParents) {
             i->addDemandElementChild(myDemandElement);
-        }
-        // If demand element is a trip, add it into From Edge
-        if (myFromEdge) {
-            myFromEdge->addDemandElementChild(myDemandElement);
-        }
-        // If demand element is a trip, add it into To Edge
-        if (myToEdge) {
-            myToEdge->addDemandElementChild(myDemandElement);
         }
     }
     // Requiere always save demandElements
@@ -148,14 +125,6 @@ GNEChange_DemandElement::redo() {
         for (auto i : myDemandElementParents) {
             i->addDemandElementChild(myDemandElement);
         }
-        // If demand element is a trip, add it into From Edge
-        if (myFromEdge) {
-            myFromEdge->addDemandElementChild(myDemandElement);
-        }
-        // If demand element is a trip, add it into To Edge
-        if (myToEdge) {
-            myToEdge->addDemandElementChild(myDemandElement);
-        }
     } else {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "' in GNEChange_DemandElement");
@@ -166,14 +135,6 @@ GNEChange_DemandElement::redo() {
         // 3 - If demand element has parents, remove it from their demand element childs
         for (auto i : myDemandElementParents) {
             i->removeDemandElementChild(myDemandElement);
-        }
-        // If demand element is a trip, remove it from From Edge
-        if (myFromEdge) {
-            myFromEdge->removeDemandElementChild(myDemandElement);
-        }
-        // If demand element is a trip, remove it from To Edge
-        if (myToEdge) {
-            myToEdge->removeDemandElementChild(myDemandElement);
         }
         // delete demand element of net
         myNet->deleteDemandElement(myDemandElement, false);

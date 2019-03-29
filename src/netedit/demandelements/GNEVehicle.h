@@ -41,11 +41,11 @@ public:
     /// @brief constructor for vehicles
     GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehicleParameter &vehicleParameter, GNEDemandElement* vehicleType, GNEDemandElement* route);
 
-    /// @brief constructor for Trips
-    GNEVehicle(GNEViewNet* viewNet, const std::string &tripID, GNEDemandElement* vehicleType, GNEEdge* from, GNEEdge* to, std::vector<GNEEdge*> viaEdges);
+    /// @brief constructor for Trips (note: Edges : from + via + to)
+    GNEVehicle(GNEViewNet* viewNet, const std::string &tripID, GNEDemandElement* vehicleType, const std::vector<GNEEdge*> &edges);
 
-    /// @brief parameter constructor for Trips
-    GNEVehicle(GNEViewNet* viewNet, const SUMOVehicleParameter &tripParameter, GNEDemandElement* vehicleType, GNEEdge* from, GNEEdge* to, std::vector<GNEEdge*> viaEdges);
+    /// @brief parameter constructor for Trips (note: Edges : from + via + to)
+    GNEVehicle(GNEViewNet* viewNet, const SUMOVehicleParameter &tripParameter, GNEDemandElement* vehicleType, const std::vector<GNEEdge*> &edges);
 
     /// @brief destructor
     ~GNEVehicle();
@@ -146,15 +146,6 @@ public:
     /// @}
 
 protected:
-    /// @brief from edge (used by Trips)
-    GNEEdge* myFrom;
-
-    /// @brief to edge (used by Trips)
-    GNEEdge* myTo;
-
-    /// @brief list of VIA edges (used by Trips)
-    std::vector<GNEEdge*> myVia;
-
     /// @brief vector with temporal route edges (only used for Trip visualization)
     std::vector<const NBEdge*> myTemporalRoute;
 

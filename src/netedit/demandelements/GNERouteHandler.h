@@ -60,7 +60,7 @@ public:
     static void buildFlow(GNEViewNet* viewNet, bool undoDemandElements, SUMOVehicleParameter* flowParameters);
 
     /// @brief build trip
-    static void buildTrip(GNEViewNet* viewNet, bool undoDemandElements, SUMOVehicleParameter* tripParameters, GNEEdge* from, GNEEdge* to, const std::vector<GNEEdge*> &via);
+    static void buildTrip(GNEViewNet* viewNet, bool undoDemandElements, SUMOVehicleParameter* tripParameters, const std::vector<GNEEdge*> &edges);
 
     /// @brief build stop
     static void buildStop(GNEViewNet* viewNet, bool undoDemandElements, const SUMOVehicleParameter::Stop &stopParameters, GNEDemandElement *stopParent);

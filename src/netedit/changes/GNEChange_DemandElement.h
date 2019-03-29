@@ -78,12 +78,6 @@ private:
 
     /// @brief pointer to edge parents (used by demandElements with edge parents)
     std::vector<GNEEdge*> myEdgeParents;
-
-    /// @brief from edge (used  by Trips)
-    GNEEdge* myFromEdge;
-
-    /// @brief to edge (used  by Trips)
-    GNEEdge* myToEdge;
 };
 
 #endif

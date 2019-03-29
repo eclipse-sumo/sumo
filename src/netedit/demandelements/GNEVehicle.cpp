@@ -45,9 +45,7 @@
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const std::string &vehicleID, GNEDemandElement* vehicleType, GNEDemandElement* route) :
     GNEDemandElement(vehicleID, viewNet, (tag == SUMO_TAG_FLOW)? GLO_FLOW : GLO_VEHICLE, tag, 
                      {}, {}, {}, {vehicleType, route}, {}, {}, {}, {}),
-    SUMOVehicleParameter(),
-    myFrom(nullptr),
-    myTo(nullptr) {
+    SUMOVehicleParameter() {
     // SUMOVehicleParameter ID has to be set manually
     id = vehicleID;
     // set manually vtypeID (needed for saving)
@@ -58,9 +56,7 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const std::string &v
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehicleParameter &vehicleParameter, GNEDemandElement* vehicleType, GNEDemandElement* route) :
     GNEDemandElement(vehicleParameter.id, viewNet, (tag == SUMO_TAG_FLOW)? GLO_FLOW : GLO_VEHICLE, tag,
                      {}, {}, {}, {vehicleType, route}, {}, {}, {}, {}),
-    SUMOVehicleParameter(vehicleParameter),
-    myFrom(nullptr),
-    myTo(nullptr) {
+    SUMOVehicleParameter(vehicleParameter) {
     // SUMOVehicleParameter ID has to be set manually
     id = vehicleParameter.id;
     // set manually vtypeID (needed for saving)
@@ -68,23 +64,17 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehiclePar
 }
 
 
-GNEVehicle::GNEVehicle(GNEViewNet* viewNet, const std::string &tripID, GNEDemandElement* vehicleType, GNEEdge* from, GNEEdge* to, std::vector<GNEEdge*> viaEdges) : 
+GNEVehicle::GNEVehicle(GNEViewNet* viewNet, const std::string &tripID, GNEDemandElement* vehicleType, const std::vector<GNEEdge*> &edges) : 
     GNEDemandElement(tripID, viewNet, GLO_TRIP, SUMO_TAG_TRIP,
-                     {}, {}, {}, {vehicleType}, {}, {}, {}, {}),
-    SUMOVehicleParameter(),
-    myFrom(from),
-    myTo(to),
-    myVia(viaEdges) {
+                     {edges}, {}, {}, {vehicleType}, {}, {}, {}, {}),
+    SUMOVehicleParameter() {
 }
 
 
-GNEVehicle::GNEVehicle(GNEViewNet* viewNet, const SUMOVehicleParameter &tripParameter, GNEDemandElement* vehicleType, GNEEdge* from, GNEEdge* to, std::vector<GNEEdge*> viaEdges) :
+GNEVehicle::GNEVehicle(GNEViewNet* viewNet, const SUMOVehicleParameter &tripParameter, GNEDemandElement* vehicleType, const std::vector<GNEEdge*> &edges) :
     GNEDemandElement(tripParameter.id, viewNet, GLO_TRIP, SUMO_TAG_TRIP,
-                     {}, {}, {}, {vehicleType}, {}, {}, {}, {}),
-    SUMOVehicleParameter(tripParameter),
-    myFrom(from),
-    myTo(to),
-    myVia(viaEdges) {
+                     {edges}, {}, {}, {vehicleType}, {}, {}, {}, {}),
+    SUMOVehicleParameter(tripParameter) {
 }
 
 
@@ -142,11 +132,15 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
         }
     } else if (myTagProperty.getTag() == SUMO_TAG_TRIP) {
         // write manually from/to edges
-        device.writeAttr(SUMO_ATTR_FROM, myFrom->getID());
-        device.writeAttr(SUMO_ATTR_TO, myTo->getID());
-        // write via only if there is edges
-        if(myVia.size() > 0) {
-            device.writeAttr(SUMO_ATTR_VIA, toString(myVia));
+        device.writeAttr(SUMO_ATTR_FROM, myEdgeParents.front());
+        device.writeAttr(SUMO_ATTR_TO, myEdgeParents.back());
+        // write via only if there is more than two edges
+        if(myEdgeParents.size() > 2) {
+            std::vector<GNEEdge*> viaEdges;
+            for (int i = 1; i < (int)myEdgeParents.size() - 1; i++) {
+                viaEdges.push_back(myEdgeParents.at(i));
+            }
+            device.writeAttr(SUMO_ATTR_VIA, toString(viaEdges));
         }
     } else {
         throw ProcessError("Invalid vehicle tag");
@@ -186,8 +180,8 @@ GNEVehicle::updateGeometry(bool updateGrid) {
     // check if vehicle is defined over a route
     if (myDemandElementParents.size() == 2) {
         vehicleLane = myDemandElementParents.at(1)->getEdgeParents().at(0)->getLanes().at(0);
-    } else if (myFrom) {
-        vehicleLane = myFrom->getLanes().at(0);
+    } else if (myEdgeParents.size() > 0) {
+        vehicleLane = myEdgeParents.front()->getLanes().at(0);
     } else {
         throw ProcessError("Invalid vehicle tag");
     }
@@ -202,7 +196,7 @@ GNEVehicle::updateGeometry(bool updateGrid) {
     // calculate route for trip
     if (myTagProperty.getTag() == SUMO_TAG_TRIP) {
         // update temporal route
-        myTemporalRoute = getRouteCalculatorInstance()->calculateDijkstraRoute(parse<SUMOVehicleClass>(myDemandElementParents.at(0)->getAttribute(SUMO_ATTR_VCLASS)), myFrom, myTo, myVia);
+        myTemporalRoute = getRouteCalculatorInstance()->calculateDijkstraRoute(parse<SUMOVehicleClass>(myDemandElementParents.at(0)->getAttribute(SUMO_ATTR_VCLASS)), myEdgeParents);
 
         if (myTemporalRoute.size() > 1) {
             // declare a vector of shapes
@@ -246,8 +240,8 @@ GNEVehicle::getPositionInView() const {
     GNELane *lane = nullptr;
     if (myDemandElementParents.size() == 2) {
         lane = myDemandElementParents.at(1)->getEdgeParents().at(0)->getLanes().front();
-    } else if (myFrom) {
-        lane = myFrom->getLanes().front();
+    } else if (myEdgeParents.size() > 0) {
+        lane = myEdgeParents.front()->getLanes().front();
     } else {
         throw ProcessError("Invalid vehicle tag");
     }
@@ -269,7 +263,7 @@ GNEVehicle::getParentName() const {
     } else if (myTagProperty.getTag() == SUMO_TAG_FLOW) {
         return myDemandElementParents.at(1)->getID();
     } else if (myTagProperty.getTag() == SUMO_TAG_TRIP) {
-        return myFrom->getID();
+        return myEdgeParents.front()->getID();
     } else {
         throw ProcessError("Invalid vehicle tag");
     }
@@ -381,7 +375,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                     // set line width
                     glLineWidth(5);
                     // draw first line
-                    GLHelper::drawLine(myFrom->getNBEdge()->getLanes().front().shape.front(), myTo->getNBEdge()->getLanes().front().shape.back());
+                    GLHelper::drawLine(myEdgeParents.front()->getNBEdge()->getLanes().front().shape.front(), myEdgeParents.back()->getNBEdge()->getLanes().front().shape.back());
                     // Pop last matrix
                     glPopMatrix();
                 }
@@ -455,8 +449,17 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
             return toString(containerNumber);
         case SUMO_ATTR_REROUTE:
             return toString("false"); // check
-        case SUMO_ATTR_VIA:
-            return parseIDs(myVia);
+        case SUMO_ATTR_VIA: {
+            std::vector<GNEEdge*> viaEdges;
+            for (int i = 1; i < (int)myEdgeParents.size() - 1; i++) {
+                viaEdges.push_back(myEdgeParents.at(i));
+            }
+            if (viaEdges.size() > 0) {
+                return parseIDs(viaEdges);
+            } else {
+                return "";
+            }
+        }
         case SUMO_ATTR_DEPARTPOS_LAT:
             return getDepartPosLat();
         case SUMO_ATTR_ARRIVALPOS_LAT:
@@ -468,9 +471,9 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
             return myDemandElementParents.at(1)->getID();
         // Specific of Trips
         case SUMO_ATTR_FROM:
-            return myFrom->getID();
+            return myEdgeParents.front()->getID();
         case SUMO_ATTR_TO:
-            return myTo->getID();
+            return myEdgeParents.back()->getID();
         // Specific of flows
         case SUMO_ATTR_BEGIN:
             return toString(depart);
@@ -941,8 +944,10 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             // check
             break;
         case SUMO_ATTR_VIA:
-            myVia = parse<std::vector<GNEEdge*> >(myViewNet->getNet(), value);
-            myTemporalRoute = getRouteCalculatorInstance()->calculateDijkstraRoute(parse<SUMOVehicleClass>(myDemandElementParents.at(0)->getAttribute(SUMO_ATTR_VCLASS)), myFrom, myTo, myVia);
+            // change edge parents
+            changeEdgeParents(this, myEdgeParents.front()->getID() + " " + value + " " + myEdgeParents.back()->getID());
+            // recalculate temporal route
+            myTemporalRoute = getRouteCalculatorInstance()->calculateDijkstraRoute(parse<SUMOVehicleClass>(myDemandElementParents.at(0)->getAttribute(SUMO_ATTR_VCLASS)), myEdgeParents);
             break;
         case SUMO_ATTR_DEPARTPOS_LAT:
             parseDepartPosLat(value, toString(SUMO_TAG_VEHICLE), id, departPosLat, departPosLatProcedure, error);
@@ -961,12 +966,30 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeDemandElementParent(this, value, 1);
             break;
         // Specific of Trips
-        case SUMO_ATTR_FROM:
-            myFrom = myViewNet->getNet()->retrieveEdge(value);
+        case SUMO_ATTR_FROM: {
+            std::vector<std::string> newEdges;
+            newEdges.push_back(value);
+            for (int i = 1; i < (int)myEdgeParents.size(); i++) {
+                newEdges.push_back(myEdgeParents.at(i)->getID());
+            }
+            // change edge parents
+            changeEdgeParents(this, toString(newEdges));
+            // recalculate temporal route
+            myTemporalRoute = getRouteCalculatorInstance()->calculateDijkstraRoute(parse<SUMOVehicleClass>(myDemandElementParents.at(0)->getAttribute(SUMO_ATTR_VCLASS)), myEdgeParents);
             break;
-        case SUMO_ATTR_TO:
-            myTo = myViewNet->getNet()->retrieveEdge(value);
+        }
+        case SUMO_ATTR_TO: {
+            std::vector<std::string> newEdges;
+            for (int i = 0; i < (int)myEdgeParents.size()-1; i++) {
+                newEdges.push_back(myEdgeParents.at(i)->getID());
+            }
+            newEdges.push_back(value);
+            // change edge parents
+            changeEdgeParents(this, toString(newEdges));
+            // recalculate temporal route
+            myTemporalRoute = getRouteCalculatorInstance()->calculateDijkstraRoute(parse<SUMOVehicleClass>(myDemandElementParents.at(0)->getAttribute(SUMO_ATTR_VCLASS)), myEdgeParents);
             break;
+        }
         // Specific of flows
         case SUMO_ATTR_BEGIN: {
             std::string oldBegin = getBegin();

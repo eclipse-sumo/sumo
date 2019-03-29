@@ -93,20 +93,6 @@ GNEDemandElement::RouteCalculator::calculateDijkstraRoute(SUMOVehicleClass vClas
 }
 
 
-std::vector<const NBEdge*> 
-GNEDemandElement::RouteCalculator::calculateDijkstraRoute(SUMOVehicleClass vClass, GNEEdge* from, GNEEdge*to , const std::vector<GNEEdge*> &edges) const {
-    // create a full vector with from, via and to ({from, <via>, to})
-    std::vector<GNEEdge*> fullVector;
-    fullVector.reserve(2 + edges.size());
-    fullVector.push_back(from);
-    for (const auto &i : edges) {
-        fullVector.push_back(i);
-    }
-    fullVector.push_back(to);
-    return calculateDijkstraRoute(vClass, fullVector);
-}
-
-
 std::vector<std::vector<const NBEdge*> >
 GNEDemandElement::RouteCalculator::calculateDijkstraPartialRoute(SUMOVehicleClass vClass, const std::vector<GNEEdge*> &edges) const {
     // declare a solution matrix

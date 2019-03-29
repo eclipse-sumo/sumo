@@ -377,12 +377,6 @@ GNEVehicleFrame::TripRouteCreator::onCmdFinishRouteCreation(FXObject*, FXSelecto
             valuesMap[SUMO_ATTR_DEPART] = "0";
         }
 
-        // obtain "via" parameter
-        std::vector<GNEEdge*> viaEdges;
-        // obtain IDs of VIA Edges
-        for (int i = 1; i < (int)(mySelectedEdges.size()-1); i++) {
-            viaEdges.push_back(mySelectedEdges.at(i));
-        }
 
         // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
         SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, myVehicleFrameParent->getPredefinedTagsMML(), toString(vehicleTag));
@@ -391,7 +385,7 @@ GNEVehicleFrame::TripRouteCreator::onCmdFinishRouteCreation(FXObject*, FXSelecto
         SUMOVehicleParameter* tripParameters = SUMOVehicleParserHelper::parseVehicleAttributes(SUMOSAXAttrs);
 
         // create it in RouteFrame
-        GNERouteHandler::buildTrip(myVehicleFrameParent->myViewNet, true, tripParameters, mySelectedEdges.front(), mySelectedEdges.back(), viaEdges);
+        GNERouteHandler::buildTrip(myVehicleFrameParent->myViewNet, true, tripParameters, mySelectedEdges);
     
         // delete tripParameters
         delete tripParameters;

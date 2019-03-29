@@ -128,7 +128,7 @@ GNERouteHandler::buildFlow(GNEViewNet* viewNet, bool undoDemandElements, SUMOVeh
 
 
 void 
-GNERouteHandler::buildTrip(GNEViewNet* viewNet, bool undoDemandElements, SUMOVehicleParameter* tripParameters, GNEEdge* from, GNEEdge* to, const std::vector<GNEEdge*> &via) {
+GNERouteHandler::buildTrip(GNEViewNet* viewNet, bool undoDemandElements, SUMOVehicleParameter* tripParameters, const std::vector<GNEEdge*> &edges) {
     // first check if trip parameter was sucesfulyl created
     if(tripParameters) {
         // now check if exist another trip with the same ID
@@ -148,13 +148,13 @@ GNERouteHandler::buildTrip(GNEViewNet* viewNet, bool undoDemandElements, SUMOVeh
                 route = new DijkstraRouter<NBEdge, NBVehicle, SUMOAbstractRouter<NBEdge, NBVehicle> >(
                     viewNet->getNet()->getNetBuilder()->getEdgeCont().getAllEdges(), true, &NBEdge::getTravelTimeStatic, nullptr, true);
                 // check if route is valid
-                if (!route->compute(from->getNBEdge(), to->getNBEdge(), &tmpVehicle, 10, routeEdges)) {
-                    WRITE_WARNING("There isn't a route bewteen edges '" + from->getID() + "' and '" + to->getID() + "'.");
+                if (!route->compute(edges.front()->getNBEdge(), edges.back()->getNBEdge(), &tmpVehicle, 10, routeEdges)) {
+                    WRITE_WARNING("There isn't a route bewteen edges '" + edges.front()->getID() + "' and '" + edges.back()->getID() + "'.");
                 }
                 // delete route
                 delete route;
                 // create trip using tripParameters 
-                GNEVehicle* trip = new GNEVehicle(viewNet, *tripParameters, vType, from, to, via);
+                GNEVehicle* trip = new GNEVehicle(viewNet, *tripParameters, vType, edges);
                 if (undoDemandElements) {
                     viewNet->getUndoList()->p_begin("add " + trip->getTagStr());
                     viewNet->getUndoList()->add(new GNEChange_DemandElement(trip, true), true);
@@ -373,8 +373,17 @@ GNERouteHandler::closeTrip() {
     } else if (!GNEAttributeCarrier::canParse<std::vector<GNEEdge*> >(myViewNet->getNet(), myEdgeIDs, false)) {
         WRITE_WARNING("Invalid 'via' edges used in trip '" + myVehicleParameter->vtypeid + "'.");
     } else {
+        // obtain via
+        std::vector<GNEEdge*> via = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(myViewNet->getNet(), myEdgeIDs);
+        // build edges (from - via - to)
+        std::vector<GNEEdge*> edges;
+        edges.push_back(from);
+        for (const auto &i : via) {
+            edges.push_back(i);
+        }
+        edges.push_back(to);
         // build trips
-        buildTrip(myViewNet, true, myVehicleParameter, from, to, GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(myViewNet->getNet(), myEdgeIDs)); 
+        buildTrip(myViewNet, true, myVehicleParameter, edges); 
     }
 }
 
