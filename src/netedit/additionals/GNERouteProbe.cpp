@@ -38,8 +38,7 @@
 // ===========================================================================
 
 GNERouteProbe::GNERouteProbe(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, const std::string& frequency, const std::string& name, const std::string& filename, double begin) :
-    GNEAdditional(id, viewNet, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE, name, false, {}, {}, {}, {}, {}, {}, {}, {}),
-    myEdge(edge),
+    GNEAdditional(id, viewNet, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE, name, false, {edge}, {}, {}, {}, {}, {}, {}, {}),
     myFrequency(frequency),
     myFilename(filename),
     myBegin(begin),
@@ -62,10 +61,10 @@ GNERouteProbe::updateGeometry(bool updateGrid) {
     myGeometry.clearGeometry();
 
     // obtain relative position of routeProbe in edge
-    myRelativePositionY = 2 * myEdge->getRouteProbeRelativePosition(this);
+    myRelativePositionY = 2 * myEdgeParents.front()->getRouteProbeRelativePosition(this);
 
     // get lanes of edge
-    GNELane* firstLane = myEdge->getLanes().at(0);
+    GNELane* firstLane = myEdgeParents.front()->getLanes().at(0);
 
     // Get shape of lane parent
     double offset = firstLane->getShape().length() < 0.5 ? firstLane->getShape().length() : 0.5;
@@ -92,11 +91,11 @@ GNERouteProbe::updateGeometry(bool updateGrid) {
 
 Position
 GNERouteProbe::getPositionInView() const {
-    if (myEdge->getLanes().front()->getShape().length() < 0.5) {
-        return myEdge->getLanes().front()->getShape().front();
+    if (myEdgeParents.front()->getLanes().front()->getShape().length() < 0.5) {
+        return myEdgeParents.front()->getLanes().front()->getShape().front();
     } else {
-        Position A = myEdge->getLanes().front()->getShape().positionAtOffset(0.5);
-        Position B = myEdge->getLanes().back()->getShape().positionAtOffset(0.5);
+        Position A = myEdgeParents.front()->getLanes().front()->getShape().positionAtOffset(0.5);
+        Position B = myEdgeParents.front()->getLanes().back()->getShape().positionAtOffset(0.5);
 
         // return Middle point
         return Position((A.x() + B.x()) / 2, (A.y() + B.y()) / 2);
@@ -118,7 +117,7 @@ GNERouteProbe::commitGeometryMoving(GNEUndoList*) {
 
 std::string
 GNERouteProbe::getParentName() const {
-    return myEdge->getMicrosimID();
+    return myEdgeParents.front()->getMicrosimID();
 }
 
 
@@ -129,7 +128,7 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
     double width = (double) 2.0 * s.scale;
     glLineWidth(1.0);
     const double exaggeration = s.addSize.getExaggeration(s, this);
-    const int numberOfLanes = int(myEdge->getLanes().size());
+    const int numberOfLanes = int(myEdgeParents.front()->getLanes().size());
 
     // set color
     if (drawUsingSelectColor()) {
@@ -222,7 +221,7 @@ GNERouteProbe::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getAdditionalID();
         case SUMO_ATTR_EDGE:
-            return myEdge->getID();
+            return myEdgeParents.front()->getID();
         case SUMO_ATTR_NAME:
             return myAdditionalName;
         case SUMO_ATTR_FILE:
@@ -318,7 +317,7 @@ GNERouteProbe::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeAdditionalID(value);
             break;
         case SUMO_ATTR_EDGE:
-            myEdge = changeEdge(myEdge, value);
+            changeEdgeParents(this, value);
             break;
         case SUMO_ATTR_NAME:
             myAdditionalName = value;

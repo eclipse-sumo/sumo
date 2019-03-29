@@ -46,8 +46,10 @@ public:
      * @param[in] name detector name
      * @param[in] friendlyPos enable or disable friendly positions
      * @param[in] block movement enable or disable additional movement
+     * @param[in] laneParents vector of lane parents
      */
-    GNEDetector(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, double pos, double freq, const std::string& filename, const std::string& vehicleTypes, const std::string& name, bool friendlyPos, bool blockMovement);
+    GNEDetector(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, double pos, double freq, const std::string& filename, 
+                const std::string& vehicleTypes, const std::string& name, bool friendlyPos, bool blockMovement, const std::vector<GNELane*> &laneParents);
 
     /**@brief Constructor.
      * @param[in] additionalParent additional parent of this detector (ID will be generated automatically)
@@ -60,8 +62,10 @@ public:
      * @param[in] name detector name
      * @param[in] friendlyPos enable or disable friendly positions
      * @param[in] block movement enable or disable additional movement
+     * @param[in] laneParents vector of lane parents
      */
-    GNEDetector(GNEAdditional* additionalParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, double pos, double freq, const std::string& filename, const std::string& name, bool friendlyPos, bool blockMovement);
+    GNEDetector(GNEAdditional* additionalParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, double pos, double freq, const std::string& filename, 
+                const std::string& name, bool friendlyPos, bool blockMovement, const std::vector<GNELane*> &laneParents);
 
     /// @brief Destructor
     ~GNEDetector();
@@ -79,7 +83,7 @@ public:
     /// @}
 
     /// @brief get lane
-    virtual GNELane* getLane() const = 0;
+    GNELane* getLane() const;
 
     /// @brief get position over lane
     double getPositionOverLane() const;

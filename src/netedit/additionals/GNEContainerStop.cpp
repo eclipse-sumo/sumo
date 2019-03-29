@@ -56,7 +56,7 @@ GNEContainerStop::updateGeometry(bool updateGrid) {
     double offsetSign = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
 
     // Update common geometry of stopping place
-    setStoppingPlaceGeometry(myLane->getParentEdge().getNBEdge()->getLaneWidth(myLane->getIndex()) / 2);
+    setStoppingPlaceGeometry(myLaneParents.front()->getParentEdge().getNBEdge()->getLaneWidth(myLaneParents.front()->getIndex()) / 2);
 
     // Obtain a copy of the shape
     PositionVector tmpShape = myGeometry.shape;
@@ -71,7 +71,7 @@ GNEContainerStop::updateGeometry(bool updateGrid) {
     myBlockIcon.position = myGeometry.shape.getLineCenter();
 
     // Set block icon rotation, and using their rotation for sign
-    myBlockIcon.setRotation(myLane);
+    myBlockIcon.setRotation(myLaneParents.front());
 
     // last step is to check if object has to be added into grid (SUMOTree) again
     if (updateGrid) {
@@ -192,7 +192,7 @@ GNEContainerStop::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getAdditionalID();
         case SUMO_ATTR_LANE:
-            return myLane->getID();
+            return myLaneParents.front()->getID();
         case SUMO_ATTR_STARTPOS:
             return toString(myStartPosition);
         case SUMO_ATTR_ENDPOS:
@@ -254,7 +254,7 @@ GNEContainerStop::isValid(SumoXMLAttr key, const std::string& value) {
             if (value.empty()) {
                 return true;
             } else if (canParse<double>(value)) {
-                return checkStoppinPlacePosition(value, myEndPosition, myLane->getParentEdge().getNBEdge()->getFinalLength(), myFriendlyPosition);
+                return checkStoppinPlacePosition(value, myEndPosition, myLaneParents.front()->getParentEdge().getNBEdge()->getFinalLength(), myFriendlyPosition);
             } else {
                 return false;
             }
@@ -262,7 +262,7 @@ GNEContainerStop::isValid(SumoXMLAttr key, const std::string& value) {
             if (value.empty()) {
                 return true;
             } else if (canParse<double>(value)) {
-                return checkStoppinPlacePosition(myStartPosition, value, myLane->getParentEdge().getNBEdge()->getFinalLength(), myFriendlyPosition);
+                return checkStoppinPlacePosition(myStartPosition, value, myLaneParents.front()->getParentEdge().getNBEdge()->getFinalLength(), myFriendlyPosition);
             } else {
                 return false;
             }
@@ -294,7 +294,7 @@ GNEContainerStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeAdditionalID(value);
             break;
         case SUMO_ATTR_LANE:
-            myLane = changeLane(myLane, value);
+            changeLaneParents(this, value);
             break;
         case SUMO_ATTR_STARTPOS:
             myStartPosition = value;

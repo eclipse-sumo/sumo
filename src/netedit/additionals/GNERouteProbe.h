@@ -111,9 +111,6 @@ public:
     /// @}
 
 protected:
-    /// @brief The edge in which this RouteProbe is placed
-    GNEEdge* myEdge;
-
     /// @brief Frequency of RouteProbe
     std::string myFrequency;
 

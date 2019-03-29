@@ -94,12 +94,6 @@ public:
     /// @brief check if E2 is valid (all of their lanes are connected, it must called after every operation which involves lane's connections)
     void checkE2MultilaneIntegrity();
 
-    /// @name inherited from GNEDetector
-    /// @{
-    /// @brief get lane
-    GNELane* getLane() const;
-    /// @}
-
     /// @name Functions related with geometry of element
     /// @{
     /**@brief change the position of the element geometry without saving in undoList
@@ -149,9 +143,6 @@ public:
     /// @}
 
 protected:
-    /// @brief E2 lanes (Single lanes uses only the first lane)
-    std::vector<GNELane*> myLanes;
-
     /// @brief E2 detector length
     double myLength;
 

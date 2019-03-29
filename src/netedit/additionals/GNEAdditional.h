@@ -375,18 +375,6 @@ protected:
     */
     void changeAdditionalID(const std::string& newID);
 
-    /**@brief change edge of additional
-    * @throw exception if oldEdge doesn't belong to an edge
-    * @throw exception if edge with ID newEdgeID doesn't exist
-    */
-    GNEEdge* changeEdge(GNEEdge* oldEdge, const std::string& newEdgeID);
-
-    /**@brief change lane of additional
-    * @throw exception if oldLane doesn't belong to an edge
-    * @throw exception if lane with ID newLaneID doesn't exist
-    */
-    GNELane* changeLane(GNELane* oldLane, const std::string& newLaneID);
-
     /// @}
 
 private:

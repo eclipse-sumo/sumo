@@ -570,34 +570,6 @@ GNEAdditional::changeAdditionalID(const std::string& newID) {
 }
 
 
-GNEEdge*
-GNEAdditional::changeEdge(GNEEdge* oldEdge, const std::string& newEdgeID) {
-    if (oldEdge == nullptr) {
-        throw InvalidArgument(getTagStr() + " with ID '" + getMicrosimID() + "' doesn't belong to an " + toString(SUMO_TAG_EDGE));
-    } else {
-        oldEdge->removeAdditionalChild(this);
-        GNEEdge* newEdge = myViewNet->getNet()->retrieveEdge(newEdgeID);
-        newEdge->addAdditionalChild(this);
-        updateGeometry(true);
-        return newEdge;
-    }
-}
-
-
-GNELane*
-GNEAdditional::changeLane(GNELane* oldLane, const std::string& newLaneID) {
-    if (oldLane == nullptr) {
-        throw InvalidArgument(getTagStr() + " with ID '" + getMicrosimID() + "' doesn't belong to a " + toString(SUMO_TAG_LANE));
-    } else {
-        oldLane->removeAdditionalChild(this);
-        GNELane* newLane = myViewNet->getNet()->retrieveLane(newLaneID);
-        newLane->addAdditionalChild(this);
-        updateGeometry(true);
-        return newLane;
-    }
-}
-
-
 void
 GNEAdditional::selectAttributeCarrier(bool changeFlag) {
     if (!myViewNet) {

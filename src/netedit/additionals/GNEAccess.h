@@ -122,9 +122,6 @@ public:
     /// @}
 
 protected:
-    /// @brief lane in which this Access is placed
-    GNELane* myLane;
-
     /// @brief position over lane
     std::string myPositionOverLane;
 

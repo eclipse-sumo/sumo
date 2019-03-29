@@ -32,8 +32,9 @@
 // ===========================================================================
 
 GNEDetector::GNEDetector(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag,
-                         double pos, double freq, const std::string& filename, const std::string& vehicleTypes, const std::string& name, bool friendlyPos, bool blockMovement) :
-    GNEAdditional(id, viewNet, type, tag, name, blockMovement, {}, {}, {}, {}, {}, {}, {}, {}),
+                         double pos, double freq, const std::string& filename, const std::string& vehicleTypes, 
+                         const std::string& name, bool friendlyPos, bool blockMovement, const std::vector<GNELane*> &laneParents) :
+    GNEAdditional(id, viewNet, type, tag, name, blockMovement, {}, laneParents, {}, {}, {}, {}, {}, {}),
     myPositionOverLane(pos),
     myFreq(freq),
     myFilename(filename),
@@ -43,9 +44,10 @@ GNEDetector::GNEDetector(const std::string& id, GNEViewNet* viewNet, GUIGlObject
 
 
 GNEDetector::GNEDetector(GNEAdditional* additionalParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag,
-                         double pos, double freq, const std::string& filename, const std::string& name, bool friendlyPos, bool blockMovement) :
+                         double pos, double freq, const std::string& filename, 
+                         const std::string& name, bool friendlyPos, bool blockMovement, const std::vector<GNELane*> &laneParents) :
     GNEAdditional(additionalParent, viewNet, type, tag, name, blockMovement, 
-                  {}, {}, {additionalParent}, {}, {}, {}, {}, {}),
+                  {}, laneParents, {additionalParent}, {}, {}, {}, {}, {}),
     myPositionOverLane(pos),
     myFreq(freq),
     myFilename(filename),
@@ -59,6 +61,12 @@ GNEDetector::~GNEDetector() {}
 double
 GNEDetector::getPositionOverLane() const {
     return myPositionOverLane;
+}
+
+
+GNELane* 
+GNEDetector::getLane() const {
+    return myLaneParents.front();
 }
 
 

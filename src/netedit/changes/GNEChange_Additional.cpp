@@ -42,28 +42,12 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Additional, GNEChange, nullptr, 0)
 GNEChange_Additional::GNEChange_Additional(GNEAdditional* additional, bool forward) :
     GNEChange(additional->getViewNet()->getNet(), forward),
     myAdditional(additional),
+    myEdgeParents(myAdditional->getEdgeParents()),
+    myLaneParents(myAdditional->getLaneParents()),
     myAdditionalParents(myAdditional->getAdditionalParents()),
     myEdgeChilds(myAdditional->getEdgeChilds()),
     myLaneChilds(myAdditional->getLaneChilds()) {
     myAdditional->incRef("GNEChange_Additional");
-    // handle additionals with lane parent
-    if (additional->getTagProperty().canBePlacedOverLane()) {
-        myLaneParents.push_back(myNet->retrieveLane(myAdditional->getAttribute(SUMO_ATTR_LANE)));
-    }
-    if (additional->getTagProperty().canBePlacedOverLanes()) {
-        myLaneParents = GNEAttributeCarrier::parse<std::vector<GNELane*> >(additional->getViewNet()->getNet(), myAdditional->getAttribute(SUMO_ATTR_LANES));
-    }
-    // handle additionals with edge parent (with an exception)
-    if (additional->getTagProperty().canBePlacedOverEdge() && (additional->getTagProperty().getTag() != SUMO_TAG_VAPORIZER)) {
-        myEdgeParents.push_back(myNet->retrieveEdge(myAdditional->getAttribute(SUMO_ATTR_EDGE)));
-    }
-    if (additional->getTagProperty().canBePlacedOverEdges()) {
-        myEdgeParents = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(additional->getViewNet()->getNet(), myAdditional->getAttribute(SUMO_ATTR_EDGES));
-    }
-    // special case for Vaporizers
-    if (myAdditional->getTagProperty().getTag() == SUMO_TAG_VAPORIZER) {
-        myEdgeParents.push_back(myNet->retrieveEdge(myAdditional->getAttribute(SUMO_ATTR_ID)));
-    }
 }
 
 
@@ -87,27 +71,23 @@ GNEChange_Additional::undo() {
     if (myForward) {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myAdditional->getTagStr() + " '" + myAdditional->getID() + "' in GNEChange_Additional");
-        // 1 - If additional own a lane parent, remove it from lane
+        // 1 - If additional own lane parents, remove it from lane
         for (auto i : myLaneParents) {
             i->removeAdditionalChild(myAdditional);
         }
-        // 2 - If additional own a edge parent, remove it from edge
+        // 2 - If additional own edge parents, remove it from edge
         for (auto i : myEdgeParents) {
             i->removeAdditionalChild(myAdditional);
         }
-        // 3 - If additional has a first parent, remove it from their additional childs
-        if (myAdditionalParents.size() == 1) {
-            myAdditionalParents.at(0)->removeAdditionalChild(myAdditional);
+        // 3 - If additional has parents, remove it from their additional childs
+        for (auto i : myAdditionalParents) {
+            i->removeAdditionalChild(myAdditional);
         }
-        // 4 - If additiona has a second parent, remove it from their additional childs
-        if (myAdditionalParents.size() == 2) {
-            myAdditionalParents.at(1)->removeAdditionalChild(myAdditional);
-        }
-        // 5 - if Additional has edge childs, remove it of their additional parents
+        // 4 - if Additional has edge childs, remove it of their additional parents
         for (auto i : myEdgeChilds) {
             i->removeAdditionalParent(myAdditional);
         }
-        // 6 - if Additional has lane childs, remove it of their additional parents
+        // 5 - if Additional has lane childs, remove it of their additional parents
         for (auto i : myLaneChilds) {
             i->removeAdditionalParent(myAdditional);
         }
@@ -118,27 +98,23 @@ GNEChange_Additional::undo() {
         WRITE_DEBUG("Adding " + myAdditional->getTagStr() + " '" + myAdditional->getID() + "' in GNEChange_Additional");
         // insert additional into net
         myNet->insertAdditional(myAdditional);
-        // 1 - If additional own a Lane parent, add it to lane
+        // 1 - If additional own lane parents, add it into lanes
         for (auto i : myLaneParents) {
             i->addAdditionalChild(myAdditional);
         }
-        // 2 - If additional own a edge parent, add it to edge
+        // 2 - If additional own edge parents, add it into edges
         for (auto i : myEdgeParents) {
             i->addAdditionalChild(myAdditional);
         }
-        // 3 - If additional has a parent, add it into additional parent
-        if (myAdditionalParents.size() == 1) {
-            myAdditionalParents.at(0)->addAdditionalChild(myAdditional);
+        // 3 - If additional has a parent, add it into additional parents
+        for (auto i : myAdditionalParents) {
+            i->addAdditionalChild(myAdditional);
         }
-        // 4 - If additional has a parent, add it into additional parent
-        if (myAdditionalParents.size() == 2) {
-            myAdditionalParents.at(1)->addAdditionalChild(myAdditional);
-        }
-        // 5 - if Additional has edge childs, add id into additional parents
+        // 4 - if Additional has edge childs, add id into additional parents
         for (auto i : myEdgeChilds) {
             i->addAdditionalParent(myAdditional);
         }
-        // 6 - if Additional has lane childs, add id into additional parents
+        // 5 - if Additional has lane childs, add id into additional parents
         for (auto i : myLaneChilds) {
             i->addAdditionalParent(myAdditional);
         }
@@ -155,54 +131,46 @@ GNEChange_Additional::redo() {
         WRITE_DEBUG("Adding " + myAdditional->getTagStr() + " '" + myAdditional->getID() + "' in GNEChange_Additional");
         // insert additional into net
         myNet->insertAdditional(myAdditional);
-        // 1 - If additional own a Lane parent, add it to lane
+        // 1 - If additional own lane parents, add it into lanes
         for (auto i : myLaneParents) {
             i->addAdditionalChild(myAdditional);
         }
-        // 2 - If additional own a edge parent, add it to edge
+        // 2 - If additional own edge parents, add it into edges
         for (auto i : myEdgeParents) {
             i->addAdditionalChild(myAdditional);
         }
-        // 3 - If additional has a parent, add it into additional parent
-        if (myAdditionalParents.size() == 1) {
-            myAdditionalParents.at(0)->addAdditionalChild(myAdditional);
+        // 3 - If additional has a parent, add it into additional parents
+        for (auto i : myAdditionalParents) {
+            i->addAdditionalChild(myAdditional);
         }
-        // 4 - If additional has a parent, add it into additional parent
-        if (myAdditionalParents.size() == 2) {
-            myAdditionalParents.at(1)->addAdditionalChild(myAdditional);
-        }
-        // 5 - if Additional has edge childs, add id into additional parents
+        // 4 - if Additional has edge childs, add id into additional parents
         for (auto i : myEdgeChilds) {
             i->addAdditionalParent(myAdditional);
         }
-        // 6 - if Additional has lane childs, add id into additional parents
+        // 5 - if Additional has lane childs, add id into additional parents
         for (auto i : myLaneChilds) {
             i->addAdditionalParent(myAdditional);
         }
     } else {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myAdditional->getTagStr() + " '" + myAdditional->getID() + "' in GNEChange_Additional");
-        // 1 - If additional own a lane parent, remove it from lane
+        // 1 - If additional own lane parents, remove it from lane
         for (auto i : myLaneParents) {
             i->removeAdditionalChild(myAdditional);
         }
-        // 2 - If additional own a edge parent, remove it from edge
+        // 2 - If additional own edge parents, remove it from edge
         for (auto i : myEdgeParents) {
             i->removeAdditionalChild(myAdditional);
         }
-        // 3 - If additiona has a first parent, remove it from their additional childs
-        if (myAdditionalParents.size() == 1) {
-            myAdditionalParents.at(0)->removeAdditionalChild(myAdditional);
+        // 3 - If additional has parents, remove it from their additional childs
+        for (auto i : myAdditionalParents) {
+            i->removeAdditionalChild(myAdditional);
         }
-        // 4 - If additiona has a second parent, remove it from their additional childs
-        if (myAdditionalParents.size() == 2) {
-            myAdditionalParents.at(1)->removeAdditionalChild(myAdditional);
-        }
-        // 5 - if Additional has edge childs, remove it of their additional parents
+        // 4 - if Additional has edge childs, remove it of their additional parents
         for (auto i : myEdgeChilds) {
             i->removeAdditionalParent(myAdditional);
         }
-        // 6 - if Additional has lane childs, remove it of their additional parents
+        // 5 - if Additional has lane childs, remove it of their additional parents
         for (auto i : myLaneChilds) {
             i->removeAdditionalParent(myAdditional);
         }

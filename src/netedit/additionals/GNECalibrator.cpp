@@ -37,9 +37,7 @@
 // ===========================================================================
 
 GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, double pos, double frequency, const std::string& name, const std::string& output, const std::string& routeprobe) :
-    GNEAdditional(id, viewNet, GLO_CALIBRATOR, SUMO_TAG_CALIBRATOR, name, false, {}, {}, {}, {}, {}, {}, {}, {}),
-    myEdge(edge),
-    myLane(nullptr),
+    GNEAdditional(id, viewNet, GLO_CALIBRATOR, SUMO_TAG_CALIBRATOR, name, false, {edge}, {}, {}, {}, {}, {}, {}, {}),
     myPositionOverLane(pos),
     myFrequency(frequency),
     myOutput(output),
@@ -48,9 +46,7 @@ GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNEEdge
 
 
 GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNELane* lane, double pos, double frequency, const std::string& name, const std::string& output, const std::string& routeprobe) :
-    GNEAdditional(id, viewNet, GLO_CALIBRATOR, SUMO_TAG_LANECALIBRATOR, name, false, {}, {}, {}, {}, {}, {}, {}, {}),
-    myEdge(nullptr),
-    myLane(lane),
+    GNEAdditional(id, viewNet, GLO_CALIBRATOR, SUMO_TAG_LANECALIBRATOR, name, false, {}, {lane}, {}, {}, {}, {}, {}, {}),
     myPositionOverLane(pos),
     myFrequency(frequency),
     myOutput(output),
@@ -84,17 +80,17 @@ GNECalibrator::updateGeometry(bool updateGrid) {
     myGeometry.clearGeometry();
 
     // get shape depending of we have a edge or a lane
-    if (myLane) {
+    if (myLaneParents.size() > 0) {
         // Get shape of lane parent
-        myGeometry.shape.push_back(myLane->getShape().positionAtOffset(myPositionOverLane));
+        myGeometry.shape.push_back(myLaneParents.front()->getShape().positionAtOffset(myPositionOverLane));
         // Save rotation (angle) of the vector constructed by points f and s
-        myGeometry.shapeRotations.push_back(myLane->getShape().rotationDegreeAtOffset(myPositionOverLane) * -1);
-    } else if (myEdge) {
-        for (auto i : myEdge->getLanes()) {
+        myGeometry.shapeRotations.push_back(myLaneParents.front()->getShape().rotationDegreeAtOffset(myPositionOverLane) * -1);
+    } else if (myEdgeParents.size() > 0) {
+        for (auto i : myEdgeParents.front()->getLanes()) {
             // Get shape of lane parent
             myGeometry.shape.push_back(i->getShape().positionAtOffset(myPositionOverLane));
             // Save rotation (angle) of the vector constructed by points f and s
-            myGeometry.shapeRotations.push_back(myEdge->getLanes().at(0)->getShape().rotationDegreeAtOffset(myPositionOverLane) * -1);
+            myGeometry.shapeRotations.push_back(myEdgeParents.front()->getLanes().at(0)->getShape().rotationDegreeAtOffset(myPositionOverLane) * -1);
         }
     } else {
         throw ProcessError("Both myEdge and myLane aren't defined");
@@ -109,7 +105,7 @@ GNECalibrator::updateGeometry(bool updateGrid) {
 
 Position
 GNECalibrator::getPositionInView() const {
-    PositionVector shape = myLane ? myLane->getShape() : myEdge->getLanes().at(0)->getShape();
+    PositionVector shape = (myLaneParents.size() > 0) ? myLaneParents.front()->getShape() : myEdgeParents.front()->getLanes().at(0)->getShape();
     if (myPositionOverLane < 0) {
         return shape.front();
     } else if (myPositionOverLane > shape.length()) {
@@ -123,10 +119,10 @@ GNECalibrator::getPositionInView() const {
 std::string
 GNECalibrator::getParentName() const {
     // get parent name depending of we have a edge or a lane
-    if (myLane) {
-        return myLane->getMicrosimID();
-    } else if (myEdge) {
-        return myEdge->getLanes().at(0)->getMicrosimID();
+    if (myLaneParents.size() > 0) {
+        return myLaneParents.front()->getMicrosimID();
+    } else if (myEdgeParents.size() > 0) {
+        return myEdgeParents.front()->getLanes().at(0)->getMicrosimID();
     } else {
         throw ProcessError("Both myEdge and myLane aren't defined");
     }
@@ -173,9 +169,9 @@ GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
             // draw "C"
             GLHelper::drawText("C", Position(0, 1.5), 0.1, 3, textColor, 180);
             // draw "edge" or "lane "
-            if (myLane) {
+            if (myLaneParents.size() > 0) {
                 GLHelper::drawText("lane", Position(0, 3), .1, 1, textColor, 180);
-            } else if (myEdge) {
+            } else if (myEdgeParents.size() > 0) {
                 GLHelper::drawText("edge", Position(0, 3), .1, 1, textColor, 180);
             } else {
                 throw ProcessError("Both myEdge and myLane aren't defined");
@@ -208,9 +204,9 @@ GNECalibrator::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getAdditionalID();
         case SUMO_ATTR_EDGE:
-            return myEdge->getID();
+            return myEdgeParents.front()->getID();
         case SUMO_ATTR_LANE:
-            return myLane->getID();
+            return myLaneParents.front()->getID();
         case SUMO_ATTR_POSITION:
             return toString(myPositionOverLane);
         case SUMO_ATTR_FREQUENCY:
@@ -277,7 +273,7 @@ GNECalibrator::isValid(SumoXMLAttr key, const std::string& value) {
             if (canParse<double>(value)) {
                 // obtain position and check if is valid
                 double newPosition = parse<double>(value);
-                PositionVector shape = myLane ? myLane->getShape() : myEdge->getLanes().at(0)->getShape();
+                PositionVector shape = (myLaneParents.size() > 0) ? myLaneParents.front()->getShape() : myEdgeParents.front()->getLanes().at(0)->getShape();
                 if ((newPosition < 0) || (newPosition > shape.length())) {
                     return false;
                 } else {
@@ -326,10 +322,10 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeAdditionalID(value);
             break;
         case SUMO_ATTR_EDGE:
-            myEdge = changeEdge(myEdge, value);
+            changeEdgeParents(this, value);
             break;
         case SUMO_ATTR_LANE:
-            myLane = changeLane(myLane, value);
+            changeLaneParents(this, value);
             break;
         case SUMO_ATTR_POSITION:
             myPositionOverLane = parse<double>(value);

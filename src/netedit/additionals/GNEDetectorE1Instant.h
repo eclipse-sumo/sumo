@@ -120,10 +120,6 @@ public:
     bool isValid(SumoXMLAttr key, const std::string& value);
     /// @}
 
-protected:
-    /// @brief The lane in which this detector is placed
-    GNELane* myLane;
-
 private:
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);

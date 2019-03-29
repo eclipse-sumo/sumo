@@ -37,8 +37,7 @@
 // ===========================================================================
 
 GNEVaporizer::GNEVaporizer(GNEViewNet* viewNet, GNEEdge* edge, double begin, double end, const std::string& name) :
-    GNEAdditional(edge->getID(), viewNet, GLO_VAPORIZER, SUMO_TAG_VAPORIZER, name, false, {}, {}, {}, {}, {}, {}, {}, {}),
-    myEdge(edge),
+    GNEAdditional(edge->getID(), viewNet, GLO_VAPORIZER, SUMO_TAG_VAPORIZER, name, false, {edge}, {}, {}, {}, {}, {}, {}, {}),
     myBegin(begin),
     myEnd(end) {
 }
@@ -59,7 +58,7 @@ GNEVaporizer::updateGeometry(bool updateGrid) {
     myGeometry.clearGeometry();
 
     // get lanes of edge
-    GNELane* firstLane = myEdge->getLanes().at(0);
+    GNELane* firstLane = myEdgeParents.front()->getLanes().at(0);
 
     // Get shape of lane parent
     double offset = firstLane->getShape().length() < 2.5 ? firstLane->getShape().length() : 2.5;
@@ -86,11 +85,11 @@ GNEVaporizer::updateGeometry(bool updateGrid) {
 
 Position
 GNEVaporizer::getPositionInView() const {
-    if (myEdge->getLanes().front()->getShape().length() < 2.5) {
-        return myEdge->getLanes().front()->getShape().front();
+    if (myEdgeParents.front()->getLanes().front()->getShape().length() < 2.5) {
+        return myEdgeParents.front()->getLanes().front()->getShape().front();
     } else {
-        Position A = myEdge->getLanes().front()->getShape().positionAtOffset(2.5);
-        Position B = myEdge->getLanes().back()->getShape().positionAtOffset(2.5);
+        Position A = myEdgeParents.front()->getLanes().front()->getShape().positionAtOffset(2.5);
+        Position B = myEdgeParents.front()->getLanes().back()->getShape().positionAtOffset(2.5);
 
         // return Middle point
         return Position((A.x() + B.x()) / 2, (A.y() + B.y()) / 2);
@@ -112,7 +111,7 @@ GNEVaporizer::commitGeometryMoving(GNEUndoList*) {
 
 std::string
 GNEVaporizer::getParentName() const {
-    return myEdge->getMicrosimID();
+    return myEdgeParents.front()->getMicrosimID();
 }
 
 
@@ -123,7 +122,7 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
     double width = (double) 2.0 * s.scale;
     glLineWidth(1.0);
     const double exaggeration = s.addSize.getExaggeration(s, this);
-    const int numberOfLanes = int(myEdge->getLanes().size());
+    const int numberOfLanes = int(myEdgeParents.front()->getLanes().size());
 
     // set color
     if (drawUsingSelectColor()) {
@@ -307,7 +306,7 @@ GNEVaporizer::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
         case SUMO_ATTR_EDGE:
             changeAdditionalID(value);
-            myEdge = changeEdge(myEdge, value);
+            changeEdgeParents(this, value);
             break;
         case SUMO_ATTR_BEGIN:
             myBegin = parse<double>(value);

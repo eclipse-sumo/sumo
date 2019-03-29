@@ -164,6 +164,19 @@ protected:
 
     /// @name members and functions relative to changing parents
     /// @{
+    
+    /// @brief change edge parents of an additional
+    void changeEdgeParents(GNEAdditional *elementChild, const std::string& newEdgeIDs);
+
+    /// @brief change edge parents of a demandElement
+    void changeEdgeParents(GNEDemandElement *elementChild, const std::string& newEdgeIDs);
+
+    /// @brief change edge parents of an additional
+    void changeLaneParents(GNEAdditional *elementChild, const std::string& newLaneIDs);
+
+    /// @brief change edge parents of a demandElement
+    void changeLaneParents(GNEDemandElement *elementChild, const std::string& newLaneIDs);
+
     /**@brief change additional parent of an additional
      * @throw exception if this additional doesn't have previously a defined Additional parent
      * @throw exception if additional with ID newAdditionalParentID doesn't exist

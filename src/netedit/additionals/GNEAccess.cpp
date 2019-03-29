@@ -38,8 +38,7 @@
 
 GNEAccess::GNEAccess(GNEAdditional* busStop, GNELane* lane, GNEViewNet* viewNet, const std::string& pos, const std::string& length, bool friendlyPos, bool blockMovement) :
     GNEAdditional(busStop, viewNet, GLO_ACCESS, SUMO_TAG_ACCESS, "", blockMovement, 
-                  {}, {}, {busStop}, {}, {}, {}, {}, {}),
-    myLane(lane),
+                  {}, {lane}, {busStop}, {}, {}, {}, {}, {}),
     myPositionOverLane(pos),
     myLength(length),
     myFriendlyPosition(friendlyPos) {
@@ -57,7 +56,7 @@ GNEAccess::moveGeometry(const Position& offset) {
     newPosition.add(offset);
     // filtern position using snap to active grid
     newPosition = myViewNet->snapToActiveGrid(newPosition);
-    myPositionOverLane = toString(myLane->getShape().nearest_offset_to_point2D(newPosition, false));
+    myPositionOverLane = toString(myLaneParents.front()->getShape().nearest_offset_to_point2D(newPosition, false));
     // Update geometry
     updateGeometry(false);
 }
@@ -85,24 +84,24 @@ GNEAccess::updateGeometry(bool updateGrid) {
     myGeometry.clearGeometry();
 
     // Get shape of lane parent
-    myGeometry.shape = myLane->getShape();
+    myGeometry.shape = myLaneParents.front()->getShape();
 
     // set start position
     double fixedPositionOverLane;
     if (!canParse<double>(myPositionOverLane)) {
-        fixedPositionOverLane = myLane->getParentEdge().getNBEdge()->getFinalLength();
+        fixedPositionOverLane = myLaneParents.front()->getParentEdge().getNBEdge()->getFinalLength();
     } else if (parse<double>(myPositionOverLane) < 0) {
         fixedPositionOverLane = 0;
-    } else if (parse<double>(myPositionOverLane) > myLane->getParentEdge().getNBEdge()->getFinalLength()) {
-        fixedPositionOverLane = myLane->getParentEdge().getNBEdge()->getFinalLength();
+    } else if (parse<double>(myPositionOverLane) > myLaneParents.front()->getParentEdge().getNBEdge()->getFinalLength()) {
+        fixedPositionOverLane = myLaneParents.front()->getParentEdge().getNBEdge()->getFinalLength();
     } else {
         fixedPositionOverLane = parse<double>(myPositionOverLane);
     }
     // obtain position
-    myGeometry.shape[0] = myLane->getShape().positionAtOffset(fixedPositionOverLane * myLane->getLengthGeometryFactor());
+    myGeometry.shape[0] = myLaneParents.front()->getShape().positionAtOffset(fixedPositionOverLane * myLaneParents.front()->getLengthGeometryFactor());
 
     // Save rotation (angle) of the vector constructed by points f and s
-    myGeometry.shapeRotations.push_back(myLane->getShape().rotationDegreeAtOffset(fixedPositionOverLane) * -1);
+    myGeometry.shapeRotations.push_back(myLaneParents.front()->getShape().rotationDegreeAtOffset(fixedPositionOverLane) * -1);
 
     // Set block icon position
     myBlockIcon.position = myGeometry.shape.getLineCenter();
@@ -111,7 +110,7 @@ GNEAccess::updateGeometry(bool updateGrid) {
     myBlockIcon.offset = Position(-1, 0);
 
     // Set block icon rotation, and using their rotation for logo
-    myBlockIcon.setRotation(myLane);
+    myBlockIcon.setRotation(myLaneParents.front());
 
     // last step is to check if object has to be added into grid (SUMOTree) again
     if (updateGrid) {
@@ -123,15 +122,15 @@ GNEAccess::updateGeometry(bool updateGrid) {
 Position
 GNEAccess::getPositionInView() const {
     if (!canParse<double>(myPositionOverLane)) {
-        return myLane->getShape().front();
+        return myLaneParents.front()->getShape().front();
     } else {
         double posOverLane = parse<double>(myPositionOverLane);
         if (posOverLane < 0) {
-            return myLane->getShape().front();
-        } else if (posOverLane > myLane->getShape().length()) {
-            return myLane->getShape().back();
+            return myLaneParents.front()->getShape().front();
+        } else if (posOverLane > myLaneParents.front()->getShape().length()) {
+            return myLaneParents.front()->getShape().back();
         } else {
-            return myLane->getShape().positionAtOffset(posOverLane);
+            return myLaneParents.front()->getShape().positionAtOffset(posOverLane);
         }
     }
 }
@@ -144,7 +143,7 @@ GNEAccess::isAccessPositionFixed() const {
         return true;
     } else {
         if (canParse<double>(myPositionOverLane)) {
-            return (parse<double>(myPositionOverLane) >= 0) && ((parse<double>(myPositionOverLane)) <= myLane->getParentEdge().getNBEdge()->getFinalLength());
+            return (parse<double>(myPositionOverLane) >= 0) && ((parse<double>(myPositionOverLane)) <= myLaneParents.front()->getParentEdge().getNBEdge()->getFinalLength());
         } else {
             return false;
         }
@@ -154,7 +153,7 @@ GNEAccess::isAccessPositionFixed() const {
 
 GNEEdge&
 GNEAccess::getEdge() const {
-    return myLane->getParentEdge();
+    return myLaneParents.front()->getParentEdge();
 }
 
 
@@ -202,7 +201,7 @@ GNEAccess::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getAdditionalID();
         case SUMO_ATTR_LANE:
-            return myLane->getID();
+            return myLaneParents.front()->getID();
         case SUMO_ATTR_POSITION:
             return toString(myPositionOverLane);
         case SUMO_ATTR_LENGTH:
@@ -253,7 +252,7 @@ GNEAccess::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_LANE: {
             GNELane* lane = myViewNet->getNet()->retrieveLane(value, false);
             if (lane != nullptr) {
-                if (myLane->getParentEdge().getID() != lane->getParentEdge().getID()) {
+                if (myLaneParents.front()->getParentEdge().getID() != lane->getParentEdge().getID()) {
                     return GNEAdditionalHandler::accessCanBeCreated(myAdditionalParents.at(0), lane->getParentEdge());
                 } else {
                     return true;
@@ -296,7 +295,7 @@ GNEAccess::getPopUpID() const {
 
 std::string
 GNEAccess::getHierarchyName() const {
-    return getTagStr() + ": " + myLane->getParentEdge().getID();
+    return getTagStr() + ": " + myLaneParents.front()->getParentEdge().getID();
 }
 
 // ===========================================================================
@@ -310,7 +309,7 @@ GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeAdditionalID(value);
             break;
         case SUMO_ATTR_LANE:
-            myLane = changeLane(myLane, value);
+            changeLaneParents(this, value);
             break;
         case SUMO_ATTR_POSITION:
             myPositionOverLane = value;

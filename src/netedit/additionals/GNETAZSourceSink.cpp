@@ -34,8 +34,7 @@
 
 GNETAZSourceSink::GNETAZSourceSink(SumoXMLTag sourceSinkTag, GNEAdditional* TAZParent, GNEEdge* edge, double departWeight) :
     GNEAdditional(TAZParent, TAZParent->getViewNet(), GLO_TAZ, sourceSinkTag, "", false, 
-                  {}, {}, {TAZParent}, {}, {}, {}, {}, {}),
-    myEdge(edge),
+                  {edge}, {}, {TAZParent}, {}, {}, {}, {}, {}),
     myDepartWeight(departWeight) {
     //check that this is a TAZ Source OR a TAZ Sink
     if ((sourceSinkTag != SUMO_TAG_TAZSOURCE) && (sourceSinkTag != SUMO_TAG_TAZSINK)) {
@@ -97,7 +96,7 @@ GNETAZSourceSink::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getAdditionalID();
         case SUMO_ATTR_EDGE:
-            return myEdge->getID();
+            return myEdgeParents.front()->getID();
         case SUMO_ATTR_WEIGHT:
             return toString(myDepartWeight);
         case GNE_ATTR_PARENT:
@@ -180,7 +179,7 @@ GNETAZSourceSink::getHierarchyName() const {
 
 Boundary
 GNETAZSourceSink::getCenteringBoundary() const {
-    return myEdge->getNBEdge()->getGeometry().getBoxBoundary();
+    return myEdgeParents.front()->getNBEdge()->getGeometry().getBoxBoundary();
 }
 
 // ===========================================================================

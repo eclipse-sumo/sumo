@@ -65,12 +65,6 @@ public:
     void fixAdditionalProblem();
     /// @}
 
-    /// @name inherited from GNEDetector
-    /// @{
-    /// @brief get lane
-    GNELane* getLane() const;
-    /// @}
-
     /// @name Functions related with geometry of element
     /// @{
     /**@brief change the position of the element geometry without saving in undoList
@@ -118,10 +112,6 @@ public:
      */
     bool isValid(SumoXMLAttr key, const std::string& value);
     /// @}
-
-protected:
-    /// @brief The lane in which this detector is placed
-    GNELane* myLane;
 
 private:
     /// @brief set attribute after validation
