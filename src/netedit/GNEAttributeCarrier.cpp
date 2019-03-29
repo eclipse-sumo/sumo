@@ -1180,65 +1180,61 @@ GNEAttributeCarrier::allowedTagsByCategory(int tagPropertyCategory, bool onlyDra
     if (myTagProperties.size() == 0) {
         fillAttributeCarriers();
     }
-    switch (tagPropertyCategory) {
-        case TAGTYPE_NETELEMENT:
-            // fill netElements tags
-            for (const auto& i : myTagProperties) {
-                if (i.second.isNetElement() && (!onlyDrawables || i.second.isDrawable())) {
-                    allowedTags.push_back(i.first);
-                }
+    if (tagPropertyCategory & TAGTYPE_NETELEMENT) {
+        // fill netElements tags
+        for (const auto& i : myTagProperties) {
+            if (i.second.isNetElement() && (!onlyDrawables || i.second.isDrawable())) {
+                allowedTags.push_back(i.first);
             }
-            break;
-        case TAGTYPE_ADDITIONAL:
-            // fill additional tags
-            for (const auto& i : myTagProperties) {
-                if (i.second.isAdditional() && (!onlyDrawables || i.second.isDrawable())) {
-                    allowedTags.push_back(i.first);
-                }
+        }
+    }
+    if (tagPropertyCategory & TAGTYPE_ADDITIONAL) {
+        // fill additional tags
+        for (const auto& i : myTagProperties) {
+            if (i.second.isAdditional() && (!onlyDrawables || i.second.isDrawable())) {
+                allowedTags.push_back(i.first);
             }
-            break;
-        case TAGTYPE_SHAPE:
-            // fill shape tags
-            for (const auto& i : myTagProperties) {
-                if (i.second.isShape() && (!onlyDrawables || i.second.isDrawable())) {
-                    allowedTags.push_back(i.first);
-                }
+        }
+    }
+    if (tagPropertyCategory & TAGTYPE_SHAPE) {
+        // fill shape tags
+        for (const auto& i : myTagProperties) {
+            if (i.second.isShape() && (!onlyDrawables || i.second.isDrawable())) {
+                allowedTags.push_back(i.first);
             }
-            break;
-        case TAGTYPE_TAZ:
-            // fill taz tags
-            for (const auto& i : myTagProperties) {
-                if (i.second.isTAZ() && (!onlyDrawables || i.second.isDrawable())) {
-                    allowedTags.push_back(i.first);
-                }
+        }
+    }
+    if (tagPropertyCategory & TAGTYPE_TAZ) {
+        // fill taz tags
+        for (const auto& i : myTagProperties) {
+            if (i.second.isTAZ() && (!onlyDrawables || i.second.isDrawable())) {
+                allowedTags.push_back(i.first);
             }
-            break;
-        case TAGTYPE_DEMANDELEMENT:
-            // fill demand tags
-            for (const auto& i : myTagProperties) {
-                if (i.second.isDemandElement() && (!onlyDrawables || i.second.isDrawable())) {
-                    allowedTags.push_back(i.first);
-                }
+        }
+    }
+    if (tagPropertyCategory & TAGTYPE_DEMANDELEMENT) {
+        // fill demand tags
+        for (const auto& i : myTagProperties) {
+            if (i.second.isDemandElement() && (!onlyDrawables || i.second.isDrawable())) {
+                allowedTags.push_back(i.first);
             }
-            break;
-        case TAGTYPE_VEHICLE:
-            // fill demand tags
-            for (const auto& i : myTagProperties) {
-                if (i.second.isVehicle() && (!onlyDrawables || i.second.isDrawable())) {
-                    allowedTags.push_back(i.first);
-                }
+        }
+    }
+    if (tagPropertyCategory & TAGTYPE_VEHICLE) {
+        // fill demand tags
+        for (const auto& i : myTagProperties) {
+            if (i.second.isVehicle() && (!onlyDrawables || i.second.isDrawable())) {
+                allowedTags.push_back(i.first);
             }
-            break;
-        case TAGTYPE_STOP:
-            // fill demand tags
-            for (const auto& i : myTagProperties) {
-                if (i.second.isStop() && (!onlyDrawables || i.second.isDrawable())) {
-                    allowedTags.push_back(i.first);
-                }
+        }
+    }
+    if (tagPropertyCategory & TAGTYPE_STOP) {
+        // fill demand tags
+        for (const auto& i : myTagProperties) {
+            if (i.second.isStop() && (!onlyDrawables || i.second.isDrawable())) {
+                allowedTags.push_back(i.first);
             }
-            break;
-        default:
-            throw ProcessError("Category isn't defined");
+        }
     }
     return allowedTags;
 }

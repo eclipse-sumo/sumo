@@ -1338,12 +1338,12 @@ GNENet::retrieveAttributeCarriers(SumoXMLTag type) {
                 result.push_back(j.second);
             }
         }
-    } else if (GNEAttributeCarrier::getTagProperties(type).isAdditional()) {
+    } else if (GNEAttributeCarrier::getTagProperties(type).isAdditional() || GNEAttributeCarrier::getTagProperties(type).isTAZ()) {
         // only returns additionals of a certain type.
         for (auto i : myAttributeCarriers.additionals.at(type)) {
             result.push_back(i.second);
         }
-    } else if (GNEAttributeCarrier::getTagProperties(type).isDemandElement()) {
+    } else if (GNEAttributeCarrier::getTagProperties(type).isDemandElement() || GNEAttributeCarrier::getTagProperties(type).isStop()) {
         // only returns demand elements of a certain type.
         for (auto i : myAttributeCarriers.demandElements.at(type)) {
             result.push_back(i.second);
