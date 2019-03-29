@@ -167,23 +167,23 @@ protected:
         GNEHierarchicalElementChilds* myHierarchicalElement;
     };
 
-    /// @brief vector with the additional childs
-    std::vector<GNEAdditional*> myAdditionalChilds;
-
-    /// @brief vector with the demand elements childs
-    std::vector<GNEDemandElement*> myDemandElementChilds;
-
     /// @brief vector with the edge childs of this additional
     std::vector<GNEEdge*> myEdgeChilds;
 
     /// @brief vector with the lane childs of this additional
     std::vector<GNELane*> myLaneChilds;
 
+    /// @brief vector with the additional childs
+    std::vector<GNEAdditional*> myAdditionalChilds;
+
+    /// @brief vector with the demand elements childs
+    std::vector<GNEDemandElement*> myDemandElementChilds;
+
     /// @brief variable ChildConnections
     ChildConnections myChildConnections;
 
 private:
-    /// @brief pointer to AC (needed to avoid “diamond problem”)
+    /// @brief pointer to AC (needed to avoid diamond problem)
     GNEAttributeCarrier* myAC;
 
     /// @brief Invalidated copy constructor.

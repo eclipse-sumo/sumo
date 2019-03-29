@@ -401,7 +401,6 @@ GNERouteHandler::addStop(const SUMOSAXAttributes& attrs) {
     if (!ok) {
         return;
     }
-    GNEAdditional* toStop = nullptr;
     // try to parse the assigned bus stop
     if (stop.busstop != "") {
         // ok, we have a bus stop
@@ -410,7 +409,6 @@ GNERouteHandler::addStop(const SUMOSAXAttributes& attrs) {
             WRITE_ERROR("The busStop '" + stop.busstop + "' is not known" + errorSuffix);
             return;
         }
-        toStop = bs;
         // obtain lane
         stop.lane = bs->getAttribute(SUMO_ATTR_LANE);
     } //try to parse the assigned container stop
@@ -421,7 +419,6 @@ GNERouteHandler::addStop(const SUMOSAXAttributes& attrs) {
             WRITE_ERROR("The containerStop '" + stop.containerstop + "' is not known" + errorSuffix);
             return;
         }
-        toStop = cs;
         stop.lane = cs->getAttribute(SUMO_ATTR_LANE);
     } //try to parse the assigned parking area
     else if (stop.parkingarea != "") {
@@ -431,7 +428,6 @@ GNERouteHandler::addStop(const SUMOSAXAttributes& attrs) {
             WRITE_ERROR("The parkingArea '" + stop.parkingarea + "' is not known" + errorSuffix);
             return;
         }
-        toStop = pa;
         stop.lane = pa->getAttribute(SUMO_ATTR_LANE);
     } else if (stop.chargingStation != "") {
         // ok, we have a charging station
@@ -441,7 +437,6 @@ GNERouteHandler::addStop(const SUMOSAXAttributes& attrs) {
             return;
         }
         stop.lane = cs->getAttribute(SUMO_ATTR_LANE);
-        toStop = cs;
     } else {
         // no, the lane and the position should be given
         // get the lane

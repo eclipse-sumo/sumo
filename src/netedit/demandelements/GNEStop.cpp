@@ -105,9 +105,6 @@ GNEStop::updateGeometry(bool updateGrid) {
         // Clear all containers
         myGeometry.clearGeometry();
 
-        // Get value of option "lefthand"
-        double offsetSign = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
-
         // Cut shape using as delimitators fixed start position and fixed end position
         myGeometry.shape = myLaneParents.front()->getShape().getSubpart(getStartGeometryPositionOverLane(), getEndGeometryPositionOverLane());
 
@@ -156,7 +153,7 @@ GNEStop::getParentName() const {
 
 
 void
-GNEStop::drawGL(const GUIVisualizationSettings& s) const {
+GNEStop::drawGL(const GUIVisualizationSettings& /* s */) const {
     // only drawn in super mode demand
     if (myViewNet->getViewOptions().showDemandElements()) {
        

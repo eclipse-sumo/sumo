@@ -28,7 +28,6 @@
 // class declarations
 // ===========================================================================
 class GNEAdditional;
-class GNEDemandElement;
 class GNEViewNet;
 class GNELane;
 class GNEEdge;
@@ -74,17 +73,14 @@ private:
      */
     GNEAdditional* myAdditional;
 
-    /// @brief pointer to additional parents (used by additionals with parents)
-    std::vector<GNEAdditional*> myAdditionalParents;
-
-    /// @brief pointer to demand element parents (used by additionals with parents)
-    std::vector<GNEDemandElement*> myDemandElementParents;
+    /// @brief pointer to edge parents (used by additionals with edge parents)
+    std::vector<GNEEdge*> myEdgeParents;
 
     /// @brief pointer to lane parents (used by additionals with lane parent)
     std::vector<GNELane*> myLaneParents;
 
-    /// @brief pointer to edge parents (used by additionals with edge parents)
-    std::vector<GNEEdge*> myEdgeParents;
+    /// @brief pointer to additional parents (used by additionals with parents)
+    std::vector<GNEAdditional*> myAdditionalParents;
 
     /// @brief list of Edge childs (used by Rerouters)
     std::vector<GNEEdge*> myEdgeChilds;

@@ -79,9 +79,9 @@ GNEStopFrame::StopParentSelector::getCurrentStopParent() const {
 }
 
 
-void 
+void
 GNEStopFrame::StopParentSelector::setStopParent(GNEDemandElement *stopParent) {
-
+    myCurrentStopParent = stopParent;
 }
 
 
@@ -140,7 +140,7 @@ GNEStopFrame::StopParentSelector::refreshStopParentSelector() {
     }
     // check if myCurrentStopParent exists
     bool found = false;
-    for (int i = 0; i < myStopParentCandidates.size(); i++) {
+    for (int i = 0; i < (int)myStopParentCandidates.size(); i++) {
         if (myStopParentCandidates.at(i) == myCurrentStopParent) {
             myStopParentMatchBox->setCurrentItem(i);
             found = true;
@@ -163,7 +163,7 @@ GNEStopFrame::StopParentSelector::refreshStopParentSelector() {
 long
 GNEStopFrame::StopParentSelector::onCmdSelectStopParent(FXObject*, FXSelector, void*) {
     // Check if value of myStopParentMatchBox correspond to a existent stop parent candidate
-    for (int i = 0; i < myStopParentCandidates.size(); i++) {
+    for (int i = 0; i < (int)myStopParentCandidates.size(); i++) {
         if (myStopParentCandidates.at(i)->getID() == myStopParentMatchBox->getText().text()) {
             // set color of myStopParentMatchBox to black (valid)
             myStopParentMatchBox->setTextColor(FXRGB(0, 0, 0));
@@ -297,7 +297,7 @@ GNEStopFrame::show() {
 
 
 bool
-GNEStopFrame::addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
+GNEStopFrame::addStop(const GNEViewNetHelper::ObjectsUnderCursor& /* objectsUnderCursor */) {
     // now check if stop parent selector is valid
     if (myStopParentSelector->getCurrentStopParent() == nullptr) {
         myViewNet->setStatusBarText("Current selected Stop parent isn't valid.");

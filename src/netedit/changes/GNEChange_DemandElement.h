@@ -73,11 +73,11 @@ private:
      */
     GNEDemandElement* myDemandElement;
 
-    /// @brief pointer to demand element parents (used by demand elements with parents)
-    std::vector<GNEDemandElement*> myDemandElementParents;
-
     /// @brief pointer to edge parents (used by demandElements with edge parents)
     std::vector<GNEEdge*> myEdgeParents;
+
+    /// @brief pointer to demand element parents (used by demand elements with parents)
+    std::vector<GNEDemandElement*> myDemandElementParents;
 };
 
 #endif

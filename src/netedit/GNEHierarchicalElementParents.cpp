@@ -49,12 +49,12 @@ GNEHierarchicalElementParents::GNEHierarchicalElementParents(GNEAttributeCarrier
         const std::vector<GNELane*>& laneParents,
         const std::vector<GNEAdditional*>& additionalParents, 
         const std::vector<GNEDemandElement*>& demandElementParents) :
-    myAC(AC),
     myEdgeParents(edgeParents),
     myLaneParents(laneParents),
     myAdditionalParents(additionalParents),
     myDemandElementParents(demandElementParents),
-    myParentConnections(this) {
+    myParentConnections(this),
+    myAC(AC) {
 }
 
 
@@ -403,7 +403,7 @@ GNEHierarchicalElementParents::changeLaneParents(GNEDemandElement *elementChild,
 
 void
 GNEHierarchicalElementParents::changeAdditionalParent(GNEAdditional *additionalTobeChanged, const std::string& newAdditionalParentID, int additionalParentIndex) {
-    if (myAdditionalParents.size() < additionalParentIndex) {
+    if ((int)myAdditionalParents.size() < additionalParentIndex) {
         throw InvalidArgument(myAC->getTagStr() + " with ID '" + myAC->getID() + "' doesn't have " + toString(additionalParentIndex) + " additional parents");
     } else {
         // remove this additional of the childs of parent additional
@@ -420,7 +420,7 @@ GNEHierarchicalElementParents::changeAdditionalParent(GNEAdditional *additionalT
 
 void
 GNEHierarchicalElementParents::changeDemandElementParent(GNEDemandElement *demandElementTobeChanged, const std::string& newAdditionalParentID, int demandElementParentIndex) {
-    if (myDemandElementParents.size() < demandElementParentIndex) {
+    if ((int)myDemandElementParents.size() < demandElementParentIndex) {
         throw InvalidArgument(myAC->getTagStr() + " with ID '" + myAC->getID() + "' doesn't have " + toString(demandElementParentIndex) + " demand element parents");
     } else {
         // remove this additional of the childs of parent additional
@@ -433,5 +433,6 @@ GNEHierarchicalElementParents::changeDemandElementParent(GNEDemandElement *deman
         updateGeometry(true);
     }
 }
+
 
 /****************************************************************************/
