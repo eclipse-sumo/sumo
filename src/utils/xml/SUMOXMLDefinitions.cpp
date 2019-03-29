@@ -722,11 +722,11 @@ StringBijection<FringeType>::Entry SUMOXMLDefinitions::fringeTypeValuesInitializ
 };
 
 StringBijection<PersonMode>::Entry SUMOXMLDefinitions::personModeValuesInitializer[] = {
+    {"none",    PERSONMODE_NONE},
     {"walk",    PERSONMODE_WALK},
     {"bicycle", PERSONMODE_BICYCLE },
     {"car",     PERSONMODE_CAR },
-    {"public",  PERSONMODE_PUBLIC},
-    {"none",    PERSONMODE_NONE} // (must be the last one)
+    {"public",  PERSONMODE_PUBLIC} // (must be the last one)
 };
 
 StringBijection<LinkState>::Entry SUMOXMLDefinitions::linkStateValues[] = {
@@ -881,7 +881,7 @@ StringBijection<FringeType> SUMOXMLDefinitions::FringeTypeValues(
     SUMOXMLDefinitions::fringeTypeValuesInitializer, FRINGE_TYPE_DEFAULT);
 
 StringBijection<PersonMode> SUMOXMLDefinitions::PersonModeValues(
-    SUMOXMLDefinitions::personModeValuesInitializer, PERSONMODE_WALK);
+    SUMOXMLDefinitions::personModeValuesInitializer, PERSONMODE_PUBLIC);
 
 StringBijection<LinkState> SUMOXMLDefinitions::LinkStates(
     SUMOXMLDefinitions::linkStateValues, LINKSTATE_DEADEND);

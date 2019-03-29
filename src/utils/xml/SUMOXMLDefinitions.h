@@ -1059,11 +1059,11 @@ enum FringeType {
 
 /// @brief travel modes for persons
 enum PersonMode {
+    PERSONMODE_NONE = 0,
     PERSONMODE_WALK = 1,
     PERSONMODE_BICYCLE = 2,
-    PERSONMODE_CAR = 3,
-    PERSONMODE_PUBLIC = 4,
-    PERSONMODE_NONE = 0
+    PERSONMODE_CAR = 4,
+    PERSONMODE_PUBLIC = 8
 };
 
 /**
