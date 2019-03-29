@@ -139,9 +139,6 @@ public:
     std::string getHierarchyName() const;
     /// @}
 
-protected:
-    GNELane *myLane;
-
 private:
     /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value);

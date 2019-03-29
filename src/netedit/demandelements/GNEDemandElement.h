@@ -196,9 +196,6 @@ public:
     /// @brief Returns a pointer to GNEViewNet in which demand element element is located
     GNEViewNet* getViewNet() const;
 
-    /// @brief get GNEEdges
-    const std::vector<GNEEdge*>& getGNEEdges() const;
-
     /// @brief get color
     virtual const RGBColor &getColor() const = 0;
     
@@ -359,9 +356,6 @@ protected:
     /// @brief vector with the DemandElement childs
     std::vector<GNEDemandElement*> myDemandElementChilds;
 
-    /// @brief Routes used in certain Demand Elements
-    std::vector<GNEEdge*> myEdges;
-
     /// @name Functions relative to change values in setAttribute(...)
     /// @{
 
@@ -377,17 +371,6 @@ protected:
     */
     void changeDemandElementID(const std::string& newID);
 
-    /**@brief change edge of demand element
-    * @throw exception if oldEdge doesn't belong to an edge
-    * @throw exception if edge with ID newEdgeID doesn't exist
-    */
-    GNEEdge* changeEdge(GNEEdge* oldEdge, const std::string& newEdgeID);
-
-    /**@brief change lane of demand element
-    * @throw exception if oldLane doesn't belong to an edge
-    * @throw exception if lane with ID newLaneID doesn't exist
-    */
-    GNELane* changeLane(GNELane* oldLane, const std::string& newLaneID);
     /// @}
 
 private:

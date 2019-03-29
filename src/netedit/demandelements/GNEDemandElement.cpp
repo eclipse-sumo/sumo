@@ -281,12 +281,6 @@ GNEDemandElement::getViewNet() const {
 }
 
 
-const std::vector<GNEEdge*>& 
-GNEDemandElement::getGNEEdges() const {
-    return myEdges;
-}
-
-
 void 
 GNEDemandElement::createRouteCalculatorInstance(GNENet *net) {
     if(myRouteCalculatorInstance == nullptr) {
@@ -474,34 +468,6 @@ GNEDemandElement::changeDemandElementID(const std::string& newID) {
         setMicrosimID(newID);
         // update demand element ID in the container of net
         myViewNet->getNet()->updateDemandElementID(oldID, this);
-    }
-}
-
-
-GNEEdge*
-GNEDemandElement::changeEdge(GNEEdge* oldEdge, const std::string& newEdgeID) {
-    if (oldEdge == nullptr) {
-        throw InvalidArgument(getTagStr() + " with ID '" + getMicrosimID() + "' doesn't belong to an " + toString(SUMO_TAG_EDGE));
-    } else {
-        oldEdge->removeDemandElementChild(this);
-        GNEEdge* newEdge = myViewNet->getNet()->retrieveEdge(newEdgeID);
-        newEdge->addDemandElementChild(this);
-        updateGeometry(true);
-        return newEdge;
-    }
-}
-
-
-GNELane*
-GNEDemandElement::changeLane(GNELane* oldLane, const std::string& newLaneID) {
-    if (oldLane == nullptr) {
-        throw InvalidArgument(getTagStr() + " with ID '" + getMicrosimID() + "' doesn't belong to a " + toString(SUMO_TAG_LANE));
-    } else {
-        oldLane->removeDemandElementChild(this);
-        GNELane* newLane = myViewNet->getNet()->retrieveLane(newLaneID);
-        newLane->addDemandElementChild(this);
-        updateGeometry(true);
-        return newLane;
     }
 }
 

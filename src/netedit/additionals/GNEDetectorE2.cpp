@@ -648,7 +648,7 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_LANE:
         case SUMO_ATTR_LANES:
-            myLaneParents = parse<std::vector<GNELane*> >(myViewNet->getNet(), value);
+            changeLaneParents(this, value);
             checkE2MultilaneIntegrity();
             break;
         case SUMO_ATTR_POSITION:

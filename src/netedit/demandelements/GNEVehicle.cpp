@@ -185,7 +185,7 @@ GNEVehicle::updateGeometry(bool updateGrid) {
     GNELane* vehicleLane;
     // check if vehicle is defined over a route
     if (myDemandElementParents.size() == 2) {
-        vehicleLane = myDemandElementParents.at(1)->getGNEEdges().at(0)->getLanes().at(0);
+        vehicleLane = myDemandElementParents.at(1)->getEdgeParents().at(0)->getLanes().at(0);
     } else if (myFrom) {
         vehicleLane = myFrom->getLanes().at(0);
     } else {
@@ -245,7 +245,7 @@ GNEVehicle::getPositionInView() const {
     // obtain lane depending of edited vehicle type
     GNELane *lane = nullptr;
     if (myDemandElementParents.size() == 2) {
-        lane = myDemandElementParents.at(1)->getGNEEdges().at(0)->getLanes().front();
+        lane = myDemandElementParents.at(1)->getEdgeParents().at(0)->getLanes().front();
     } else if (myFrom) {
         lane = myFrom->getLanes().front();
     } else {
@@ -849,7 +849,7 @@ GNEVehicle::setColor(const GUIVisualizationSettings& s) const {
             break;
         }
         case 5: {
-            Position p = myDemandElementParents.at(1)->getGNEEdges().at(0)->getLanes().at(0)->getShape()[0];
+            Position p = myDemandElementParents.at(1)->getEdgeParents().at(0)->getLanes().at(0)->getShape()[0];
             const Boundary& b = myViewNet->getNet()->getBoundary();
             Position center = b.getCenter();
             double hue = 180. + atan2(center.x() - p.x(), center.y() - p.y()) * 180. / M_PI;
@@ -858,7 +858,7 @@ GNEVehicle::setColor(const GUIVisualizationSettings& s) const {
             break;
         }
         case 6: {
-            Position p = myDemandElementParents.at(1)->getGNEEdges().back()->getLanes().at(0)->getShape()[-1];
+            Position p = myDemandElementParents.at(1)->getEdgeParents().back()->getLanes().at(0)->getShape()[-1];
             const Boundary& b = myViewNet->getNet()->getBoundary();
             Position center = b.getCenter();
             double hue = 180. + atan2(center.x() - p.x(), center.y() - p.y()) * 180. / M_PI;
@@ -867,8 +867,8 @@ GNEVehicle::setColor(const GUIVisualizationSettings& s) const {
             break;
         }
         case 7: {
-            Position pb = myDemandElementParents.at(1)->getGNEEdges().at(0)->getLanes().at(0)->getShape()[0];
-            Position pe = myDemandElementParents.at(1)->getGNEEdges().back()->getLanes().at(0)->getShape()[-1];
+            Position pb = myDemandElementParents.at(1)->getEdgeParents().at(0)->getLanes().at(0)->getShape()[0];
+            Position pe = myDemandElementParents.at(1)->getEdgeParents().back()->getLanes().at(0)->getShape()[-1];
             const Boundary& b = myViewNet->getNet()->getBoundary();
             double hue = 180. + atan2(pb.x() - pe.x(), pb.y() - pe.y()) * 180. / M_PI;
             Position minp(b.xmin(), b.ymin());

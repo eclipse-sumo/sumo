@@ -51,8 +51,7 @@ GNEStop::GNEStop(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehicleParameter
 
 GNEStop::GNEStop(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehicleParameter::Stop &stopParameter, GNELane* lane, GNEDemandElement* stopParent) :
     GNEDemandElement(stopParent, viewNet, GLO_STOP, tag, {}, {lane}, {}, {stopParent}, {}, {}, {}, {}),
-    SUMOVehicleParameter::Stop(stopParameter),
-    myLane(lane) {
+    SUMOVehicleParameter::Stop(stopParameter) {
 }
 
 
@@ -128,12 +127,12 @@ GNEStop::updateGeometry(bool updateGrid) {
 
 Position
 GNEStop::getPositionInView() const {
-    if (myLane) {
-        if (myLane->getShape().length() < 2.5) {
-            return myLane->getShape().front();
+    if (myLaneParents.size() > 0) {
+        if (myLaneParents.front()->getShape().length() < 2.5) {
+            return myLaneParents.front()->getShape().front();
         } else {
-            Position A = myLane->getShape().positionAtOffset(2.5);
-            Position B = myLane->getShape().positionAtOffset(2.5);
+            Position A = myLaneParents.front()->getShape().positionAtOffset(2.5);
+            Position B = myLaneParents.front()->getShape().positionAtOffset(2.5);
             // return Middle point
             return Position((A.x() + B.x()) / 2, (A.y() + B.y()) / 2);
         }
@@ -151,8 +150,8 @@ GNEStop::getParentName() const {
         return myDemandElementParents.front()->getID();
     } else if (myAdditionalParents.size() > 0) {
         return myAdditionalParents.front()->getID();
-    } else if (myLane) {
-        return myLane->getID();
+    } else if (myLaneParents.size() > 0) {
+        return myLaneParents.front()->getID();
     } else {
         throw ProcessError("Invalid parent");
     }

@@ -38,7 +38,7 @@ class GNERoute : public GNEDemandElement {
 public:
     /** default constructor
      * @param[in] viewNet view in which this Route is placed
-    **/
+     */
     GNERoute(GNEViewNet* viewNet);
 
     /** parameter constructor
@@ -46,7 +46,7 @@ public:
      * @param[in] routeID unique route ID
      * @param[in] edges list of consecutive edges of this route
      * @param[in] color RGBColor of this route
-    **/
+     */
     GNERoute(GNEViewNet* viewNet, const std::string& routeID, const std::vector<GNEEdge*>& edges, const RGBColor& color);
 
     /// @brief destructor

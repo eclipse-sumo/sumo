@@ -48,9 +48,8 @@ GNERoute::GNERoute(GNEViewNet* viewNet) :
 
 
 GNERoute::GNERoute(GNEViewNet* viewNet, const std::string& routeID, const std::vector<GNEEdge*>& edges, const RGBColor& color) :
-    GNEDemandElement(routeID, viewNet, GLO_ROUTE, SUMO_TAG_ROUTE, {}, {}, {}, {}, {}, {}, {}, {}),
+    GNEDemandElement(routeID, viewNet, GLO_ROUTE, SUMO_TAG_ROUTE, edges, {}, {}, {}, {}, {}, {}, {}),
     myColor(color) {
-    myEdges = edges;
 }
 
 
@@ -67,7 +66,7 @@ void
 GNERoute::writeDemandElement(OutputDevice& device) const {
     device.openTag(SUMO_TAG_ROUTE);
     device.writeAttr(SUMO_ATTR_ID, getDemandElementID());
-    device.writeAttr(SUMO_ATTR_EDGES, parseIDs(myEdges));
+    device.writeAttr(SUMO_ATTR_EDGES, parseIDs(myEdgeParents));
     device.writeAttr(SUMO_ATTR_COLOR, toString(myColor));
     device.closeTag();
 }
@@ -75,14 +74,14 @@ GNERoute::writeDemandElement(OutputDevice& device) const {
 
 bool 
 GNERoute::isDemandElementValid() const {
-    if (myEdges.size() == 0) {
+    if (myEdgeParents.size() == 0) {
         return false;
-    } else if (myEdges.size() == 1) {
+    } else if (myEdgeParents.size() == 1) {
         return true;
     } else {            
         // check if exist at least a connection between every edge
-        for (int i = 1; i < (int)myEdges.size(); i++) {
-            if (getRouteCalculatorInstance()->areEdgesConsecutives(SVC_PASSENGER, myEdges.at(i-1), myEdges.at(i)) == false) {
+        for (int i = 1; i < (int)myEdgeParents.size(); i++) {
+            if (getRouteCalculatorInstance()->areEdgesConsecutives(SVC_PASSENGER, myEdgeParents.at(i-1), myEdgeParents.at(i)) == false) {
                 return false;
             }
         }
@@ -115,44 +114,44 @@ GNERoute::updateGeometry(bool updateGrid) {
     myGeometry.clearGeometry();
 
     // calculate start and end positions depending of number of lanes
-    if (myEdges.size() == 1) {
+    if (myEdgeParents.size() == 1) {
         // append shape
-        myGeometry.shape = myEdges.back()->getLanes().front()->getShape();
+        myGeometry.shape = myEdgeParents.back()->getLanes().front()->getShape();
 
         // calculate multi shape rotation and lengths
         myGeometry.calculateShapeRotationsAndLengths();
 
-    } else if (myEdges.size() > 1) {
+    } else if (myEdgeParents.size() > 1) {
         // declare a vector of shapes
         std::vector<PositionVector> multiShape;
 
         // start with the first lane shape
-        multiShape.push_back(myEdges.front()->getLanes().front()->getShape());
+        multiShape.push_back(myEdgeParents.front()->getLanes().front()->getShape());
 
         // add first shape connection (if exist, in other case leave it empty)
-        multiShape.push_back(PositionVector{myEdges.at(0)->getLanes().front()->getShape().back(), myEdges.at(1)->getLanes().front()->getShape().front()});
-        for (auto j : myEdges.at(0)->getGNEConnections()) {
-            if (j->getLaneTo() == myEdges.at(1)->getLanes().front()) {
+        multiShape.push_back(PositionVector{myEdgeParents.at(0)->getLanes().front()->getShape().back(), myEdgeParents.at(1)->getLanes().front()->getShape().front()});
+        for (auto j : myEdgeParents.at(0)->getGNEConnections()) {
+            if (j->getLaneTo() == myEdgeParents.at(1)->getLanes().front()) {
                 multiShape.back() = j->getShape();
             }
         }
 
         // append shapes of intermediate lanes AND connections (if exist)
-        for (int i = 1; i < ((int)myEdges.size() - 1); i++) {
+        for (int i = 1; i < ((int)myEdgeParents.size() - 1); i++) {
             // add lane shape
-            multiShape.push_back(myEdges.at(i)->getLanes().front()->getShape());
+            multiShape.push_back(myEdgeParents.at(i)->getLanes().front()->getShape());
             // add empty shape for connection
-            multiShape.push_back(PositionVector{myEdges.at(i)->getLanes().front()->getShape().back(), myEdges.at(i + 1)->getLanes().front()->getShape().front()});
+            multiShape.push_back(PositionVector{myEdgeParents.at(i)->getLanes().front()->getShape().back(), myEdgeParents.at(i + 1)->getLanes().front()->getShape().front()});
             // set connection shape (if exist). In other case, insert an empty shape
-            for (auto j : myEdges.at(i)->getGNEConnections()) {
-                if (j->getLaneTo() == myEdges.at(i + 1)->getLanes().front()) {
+            for (auto j : myEdgeParents.at(i)->getGNEConnections()) {
+                if (j->getLaneTo() == myEdgeParents.at(i + 1)->getLanes().front()) {
                     multiShape.back() = j->getShape();
                 }
             }
         }
 
         // append last shape
-        multiShape.push_back(myEdges.back()->getLanes().front()->getShape());
+        multiShape.push_back(myEdgeParents.back()->getLanes().front()->getShape());
 
         // calculate unified shape
         for (auto i : multiShape) {
@@ -270,7 +269,7 @@ GNERoute::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getDemandElementID();
         case SUMO_ATTR_EDGES:
-            return parseIDs(myEdges);
+            return parseIDs(myEdgeParents);
         case SUMO_ATTR_COLOR:
             return toString(myColor);
         case GNE_ATTR_SELECTED:
@@ -348,7 +347,7 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeDemandElementID(value);
             break;
         case SUMO_ATTR_EDGES:
-            myEdges = parse<std::vector<GNEEdge*> >(myViewNet->getNet(), value);
+            changeEdgeParents(this, value);
             break;
         case SUMO_ATTR_COLOR:
             myColor = parse<RGBColor>(value);
