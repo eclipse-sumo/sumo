@@ -543,7 +543,7 @@ GUIVehicle::getColorValue(int activeScheme) const {
         case 28:
             return getTimeLossSeconds();
         case 29:
-            return getLaneChangeModel().getSpeedLat();getTimeLossSeconds();
+            return getLaneChangeModel().getSpeedLat();
     }
     return 0;
 }

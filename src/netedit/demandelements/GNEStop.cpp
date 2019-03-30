@@ -285,9 +285,9 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidDemandElementID(value);
         case SUMO_ATTR_DURATION:
-            return canParse<double>(value);
+            return canParse<SUMOTime>(value);
         case SUMO_ATTR_UNTIL:
-            return canParse<double>(value);
+            return canParse<SUMOTime>(value);
         case SUMO_ATTR_INDEX:
             return canParse<int>(value);
         case SUMO_ATTR_TRIGGERED:
@@ -482,10 +482,10 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeDemandElementID(value);
             break;
         case SUMO_ATTR_DURATION:
-            duration = parse<double>(value);
+            duration = parse<SUMOTime>(value);
             break;
         case SUMO_ATTR_UNTIL:
-            until = parse<double>(value);
+            until = parse<SUMOTime>(value);
             break;
         case SUMO_ATTR_INDEX:
             index = parse<int>(value);

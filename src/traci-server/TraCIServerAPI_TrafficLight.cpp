@@ -76,7 +76,7 @@ TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inp
                             storage.writeUnsignedByte(libsumo::TYPE_DOUBLE);
                             storage.writeDouble(phase.maxDur);
                             storage.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-                            storage.writeInt(phase.next.size());
+                            storage.writeInt((int)phase.next.size());
                             for (int n : phase.next) {
                                 storage.writeUnsignedByte(libsumo::TYPE_INTEGER);
                                 storage.writeInt(n);

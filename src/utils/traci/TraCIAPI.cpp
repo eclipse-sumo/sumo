@@ -1948,7 +1948,7 @@ TraCIAPI::TrafficLightScope::setCompleteRedYellowGreenDefinition(const std::stri
         content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
         content.writeDouble(p.maxDur);
         content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-        content.writeInt(p.next.size());
+        content.writeInt((int)p.next.size());
         for (int n : p.next) {
             content.writeUnsignedByte(libsumo::TYPE_INTEGER);
             content.writeInt(n);
