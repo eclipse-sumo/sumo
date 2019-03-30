@@ -7,7 +7,7 @@
 # http://www.eclipse.org/legal/epl-v20.html
 # SPDX-License-Identifier: EPL-2.0
 
-# @file    runInternalTests.py
+# @file    runExtraTests.py
 # @author  Michael Behrisch
 # @date    2012-03-29
 # @version $Id$
@@ -24,7 +24,7 @@ except ImportError:
     haveTextTestLib = False
 
 
-def runInternal(suffix, args, out=sys.stdout, guiTests=False, console=False, chrouter=True):
+def run(suffix, args, out=sys.stdout, guiTests=False, console=False, chrouter=True):
     if type(args) is list:
         args = " ".join(args)
     if os.name != "posix":
@@ -55,7 +55,7 @@ def runInternal(suffix, args, out=sys.stdout, guiTests=False, console=False, chr
     env["MAROUTER_BINARY"] = os.path.join(
         root, "..", "bin", "marouter" + suffix)
     apps = "sumo.meso,sumo.ballistic,sumo.idm,sumo.sublanes,sumo.astar,sumo.parallel,netconvert.gdal,polyconvert.gdal"
-    apps += ",complex.meso,complex.libsumo,duarouter.astar"
+    apps += ",complex.meso,duarouter.astar"
     if chrouter:
         apps += ",duarouter.chrouter"
     ttBin = 'texttest.py'
@@ -69,7 +69,7 @@ def runInternal(suffix, args, out=sys.stdout, guiTests=False, console=False, chr
             ttBin += "w"
     try:
         subprocess.call(['python3', '-V'])
-        apps += ',complex.python3,tools.python3'
+        apps += ',complex.python3,tools.python3,complex.libsumo.python3'
     except Exception:
         pass
     if guiTests:
@@ -87,5 +87,5 @@ if __name__ == "__main__":
     optParser.add_option("-c", "--console", default=False,
                          action="store_true", help="run texttest console interface")
     (options, args) = optParser.parse_args()
-    runInternal(options.suffix, ["-" + a for a in args],
-                guiTests=options.gui, console=options.console)
+    run(options.suffix, ["-" + a for a in args],
+        guiTests=options.gui, console=options.console)

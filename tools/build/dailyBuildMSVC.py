@@ -84,8 +84,7 @@ def runTests(options, env, gitrev, withNetedit, debugSuffix=""):
                (date.today().strftime("%d%b%y"), gitrev)]
     ttBin = "texttestc.py"
     if options.suffix == "extra":
-        runInternalTests.runInternal(
-            debugSuffix, fullOpt, log, True, True, debugSuffix == "")
+        runExtraTests.run(debugSuffix, fullOpt, log, True, True, debugSuffix == "")
     else:
         subprocess.call([ttBin] + fullOpt, env=env,
                         stdout=log, stderr=subprocess.STDOUT, shell=True)
@@ -139,7 +138,7 @@ optParser.add_option("-p", "--python", help="path to python interpreter to use")
 (options, args) = optParser.parse_args()
 
 sys.path.append(os.path.join(options.rootDir, options.testsDir))
-import runInternalTests  # noqa
+import runExtraTests  # noqa
 
 env = os.environ
 if "SUMO_HOME" not in env:

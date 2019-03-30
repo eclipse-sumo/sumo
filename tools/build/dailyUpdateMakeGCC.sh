@@ -60,7 +60,7 @@ if test -e $SUMO_BINDIR/sumo -a $SUMO_BINDIR/sumo -nt $PREFIX/sumo/configure; th
   TESTLABEL=`LANG=C date +%d%b%y`r$GITREV
   rm -rf $TEXTTEST_TMP/*
   if test ${FILEPREFIX::6} == "extra_"; then
-    tests/runInternalTests.py --gui "b $FILEPREFIX" &> $TESTLOG
+    tests/runExtraTests.py --gui "b $FILEPREFIX" &> $TESTLOG
   else
     tests/runTests.sh -b $FILEPREFIX -name $TESTLABEL &> $TESTLOG
     if which Xvfb &>/dev/null; then
@@ -74,7 +74,7 @@ fi
 
 if test -e $PREFIX/sumo/src/sumo_main.gcda; then
   date >> $TESTLOG
-  tests/runInternalTests.py --gui "b $FILEPREFIX" >> $TESTLOG 2>&1
+  tests/runExtraTests.py --gui "b $FILEPREFIX" >> $TESTLOG 2>&1
   $SIP_HOME/tests/runTests.sh -b $FILEPREFIX >> $TESTLOG 2>&1
   make lcov >> $TESTLOG 2>&1 || (echo "make lcov failed"; tail -10 $TESTLOG)
   date >> $TESTLOG
