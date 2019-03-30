@@ -1322,6 +1322,9 @@ Vehicle::setRoute(const std::string& vehicleID, const std::vector<std::string>& 
     ConstMSEdgeVector edges;
     try {
         MSEdge::parseEdgesList(edgeIDs, edges, "<unknown>");
+        if (edges.size() > 0 && edges.back()->isInternal()) {
+            edges.push_back(edges.back()->getLanes()[0]->getNextNormal());
+        }
     } catch (ProcessError& e) {
         throw TraCIException("Invalid edge list for vehicle '" + veh->getID() + "' (" + e.what() + ")");
     }
