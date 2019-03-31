@@ -1,0 +1,3 @@
+Error: No connection between edge 'end' and edge 'beg' found.
+Error: No route for trip in person 'p1'.
+Quitting (on error).
