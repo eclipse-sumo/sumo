@@ -74,3 +74,6 @@ ticket5114
 
 # invalid lane change when moving to a new edge
 ticket5309
+
+# crash when calling setRoute with a single internal edge
+ticket5390
