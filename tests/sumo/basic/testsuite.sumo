@@ -21,5 +21,8 @@ simple_nets
 
 # Tests related to person and plan parsing
 person
+
+# Tests related to personFlow 
+personFlow
 container
 stops

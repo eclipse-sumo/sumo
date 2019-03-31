@@ -1,0 +1,6 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="DEFAULT_PEDTYPE" speedDev="0"/>
+    <personFlow id="p1" begin="0" end="36" personsPerHour="1000">
+        <walk edges="beg end"/>
+    </personFlow>
+</routes>
