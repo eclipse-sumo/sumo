@@ -780,7 +780,9 @@ MSRouteHandler::addFlowPerson(SUMOTime depart, MSVehicleType* type, const std::s
     myVehicleParameter->depart = depart;
     MSTransportable* person = MSNet::getInstance()->getPersonControl().buildPerson(myVehicleParameter, type, myActivePlan, &myParsingRNG);
     if (MSNet::getInstance()->getPersonControl().add(person)) {
-        registerLastDepart();
+        if (i == 0) {
+            registerLastDepart();
+        }
     } else {
         ProcessError error("Another person with the id '" + myVehicleParameter->id + "' exists.");
         delete person;

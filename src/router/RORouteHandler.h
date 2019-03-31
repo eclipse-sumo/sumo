@@ -146,6 +146,9 @@ protected:
     /// @brief Processing of a person
     void addPerson(const SUMOSAXAttributes& attrs);
 
+    /// @brief Processing of a person from a personFlow
+    void addFlowPerson(SUMOTime depart, const std::string& baseID, int i); 
+
     /// @brief Processing of a container
     void addContainer(const SUMOSAXAttributes& attrs);
 

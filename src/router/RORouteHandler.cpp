@@ -149,7 +149,9 @@ RORouteHandler::myStartElement(int element,
                                const SUMOSAXAttributes& attrs) {
     SUMORouteHandler::myStartElement(element, attrs);
     switch (element) {
-        case SUMO_TAG_PERSON: {
+        case SUMO_TAG_PERSON:
+        case SUMO_TAG_PERSONFLOW:
+            {
             SUMOVTypeParameter* type = myNet.getVehicleTypeSecure(myVehicleParameter->vtypeid);
             if (type == nullptr) {
                 myErrorOutput->inform("The vehicle type '" + myVehicleParameter->vtypeid + "' for person '" + myVehicleParameter->id + "' is not known.");
@@ -529,8 +531,25 @@ RORouteHandler::closePersonFlow() {
     if (myActivePerson->getPlan().empty()) {
         WRITE_WARNING("Discarding person '" + myVehicleParameter->id + "' because it's plan is empty");
     } else {
-        if (myNet.addPerson(myActivePerson)) {
-            registerLastDepart();
+        // instantiate all persons of this flow
+        int i = 0;
+        std::string baseID = myVehicleParameter->id;
+        if (myVehicleParameter->repetitionProbability > 0) {
+            if (myVehicleParameter->repetitionEnd == SUMOTime_MAX) {
+                throw ProcessError("probabilistic personFlow '" + myVehicleParameter->id + "' must specify end time");
+            } else {
+                for (SUMOTime t = myVehicleParameter->depart; t < myVehicleParameter->repetitionEnd; t += TIME2STEPS(1)) {
+                    if (RandHelper::rand() < myVehicleParameter->repetitionProbability) {
+                        addFlowPerson(t, baseID, i++);
+                    }
+                }
+            }
+        } else {
+            SUMOTime depart = myVehicleParameter->depart;
+            for (; i < myVehicleParameter->repetitionNumber; i++) {
+                depart += myVehicleParameter->repetitionOffset;
+                addFlowPerson(depart, baseID, i);
+            }
         }
     }
     delete myVehicleParameter;
@@ -538,6 +557,26 @@ RORouteHandler::closePersonFlow() {
     myActivePerson = nullptr;
 }
 
+
+void
+RORouteHandler::addFlowPerson(SUMOTime depart, const std::string& baseID, int i) {
+    SUMOVehicleParameter pars = myActivePerson->getParameter();
+    pars.id = baseID + "." + toString(i);
+    pars.depart = depart;
+    ROPerson* copyPerson = new ROPerson(pars, myActivePerson->getType());
+    for (ROPerson::PlanItem* item : myActivePerson->getPlan()) {
+        copyPerson->getPlan().push_back(item->clone());
+    }
+    if (i == 0) {
+        delete myActivePerson;
+    }
+    myActivePerson = copyPerson;
+    if (myNet.addPerson(myActivePerson)) {
+        if (i == 0) {
+            registerLastDepart();
+        }
+    }
+}
 
 void
 RORouteHandler::closeContainer() {

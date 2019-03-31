@@ -177,6 +177,14 @@ ROPerson::Walk::saveAsXML(OutputDevice& os, const bool extended) const {
     os.closeTag(comment);
 }
 
+ROPerson::PlanItem*
+ROPerson::PersonTrip::clone() const {
+    PersonTrip* result = new PersonTrip(from, to, modes, dep, arr, stopDest, walkFactor);
+    for (auto* item : myTripItems) {
+        result->myTripItems.push_back(item->clone());
+    }
+    return result;
+}
 
 void
 ROPerson::PersonTrip::saveVehicles(OutputDevice& os, OutputDevice* const typeos, bool asAlternatives, OptionsCont& options) const {

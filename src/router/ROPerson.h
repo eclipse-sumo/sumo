@@ -82,6 +82,8 @@ public:
         /// @brief Destructor
         virtual ~PlanItem() {}
 
+        virtual PlanItem* clone() const = 0;
+
         virtual void addTripItem(TripItem* /* tripIt */) {
             throw ProcessError();
         }
@@ -108,6 +110,11 @@ public:
     public:
         Stop(const SUMOVehicleParameter::Stop& stop, const ROEdge* const stopEdge)
             : stopDesc(stop), edge(stopEdge) {}
+
+        PlanItem* clone() const {
+            return new Stop(stopDesc, edge);
+        }
+
         const ROEdge* getOrigin() const {
             return edge;
         }
@@ -149,6 +156,8 @@ public:
         /// @brief Destructor
         virtual ~TripItem() {}
 
+        virtual TripItem* clone() const = 0;
+
         virtual const ROEdge* getOrigin() const = 0;
         virtual const ROEdge* getDestination() const = 0;
         virtual double getDestinationPos() const = 0;
@@ -176,6 +185,10 @@ public:
             intended(_intended),
             depart(_depart),
             arr(arrivalPos) {
+        }
+
+        TripItem* clone() const {
+            return new Ride(from, to, lines, cost, arr, destStop, intended, depart);
         }
 
         const ROEdge* getOrigin() const {
@@ -218,6 +231,11 @@ public:
         Walk(const ConstROEdgeVector& edges, const double _cost, const double duration, const double speed,
              const double departPos, const double arrivalPos, const std::string& _destStop)
             : TripItem(_cost), edges(edges), dur(duration), v(speed), dep(departPos), arr(arrivalPos), destStop(_destStop) {}
+
+        TripItem* clone() const {
+            return new Walk(edges, cost, dep, arr, destStop);
+        }
+
         const ROEdge* getOrigin() const {
             return edges.front();
         }
@@ -261,6 +279,8 @@ public:
                 delete *it;
             }
         }
+
+        PlanItem* clone() const;
 
         virtual void addTripItem(TripItem* tripIt) {
             myTripItems.push_back(tripIt);
