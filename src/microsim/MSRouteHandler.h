@@ -123,6 +123,9 @@ protected:
     /// @brief Ends the processing of a person
     void closePerson();
 
+    /// @brief Ends the processing of a personFlow
+    void closePersonFlow();
+
     /// @brief Ends the processing of a container
     void closeContainer();
 
@@ -196,6 +199,9 @@ protected:
 private:
     /// @brief delete already created MSTransportablePlans if error occurs before handing over responsibility to a MSTransportable.
     void deleteActivePlans();
+
+    /// @brief delete already created MSTransportablePlans if error occurs before handing over responsibility to a MSTransportable.
+    void addFlowPerson(SUMOTime depart, MSVehicleType* type, const std::string& baseID, int i);
 
     /// @brief Invalidated copy constructor
     MSRouteHandler(const MSRouteHandler& s) = delete;

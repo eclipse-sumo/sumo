@@ -195,6 +195,8 @@ public:
          */
         virtual void endEventOutput(const MSTransportable& transportable, SUMOTime t, OutputDevice& os) const = 0;
 
+        virtual Stage* clone() const = 0;
+
     protected:
         /// the next edge to reach by getting transported
         const MSEdge* myDestination;
@@ -237,6 +239,8 @@ public:
 
         /// destructor
         virtual ~Stage_Trip();
+
+        Stage* clone() const;
 
         const MSEdge* getEdge() const;
 
@@ -344,6 +348,8 @@ public:
 
         /// destructor
         virtual ~Stage_Waiting();
+
+        Stage* clone() const;
 
         /// abort this stage (TraCI)
         void abort(MSTransportable*);

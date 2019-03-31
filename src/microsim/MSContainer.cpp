@@ -56,6 +56,10 @@ MSContainer::MSContainerStage_Driving::MSContainerStage_Driving(const MSEdge* de
 
 MSContainer::MSContainerStage_Driving::~MSContainerStage_Driving() {}
 
+MSTransportable::Stage*
+MSContainer::MSContainerStage_Driving::clone() const {
+    return new MSContainerStage_Driving(myDestination, myDestinationStop, myArrivalPos, std::vector<std::string>(myLines.begin(), myLines.end()));
+}
 
 void
 MSContainer::MSContainerStage_Driving::proceed(MSNet* net, MSTransportable* container, SUMOTime now, Stage* previous) {
@@ -139,6 +143,11 @@ MSContainer::MSContainerStage_Tranship::MSContainerStage_Tranship(const std::vec
 }
 
 MSContainer::MSContainerStage_Tranship::~MSContainerStage_Tranship() {
+}
+
+MSTransportable::Stage*
+MSContainer::MSContainerStage_Tranship::clone() const {
+    return new MSContainerStage_Tranship(myRoute, myDestinationStop, mySpeed, myDepartPos, myArrivalPos);
 }
 
 void

@@ -156,6 +156,7 @@ MSRouteHandler::myStartElement(int element,
     try {
         switch (element) {
             case SUMO_TAG_PERSON:
+            case SUMO_TAG_PERSONFLOW:
                 if (!MSNet::getInstance()->getVehicleControl().hasVType(myVehicleParameter->vtypeid)) {
                     const std::string error = "The type '" + myVehicleParameter->vtypeid + "' for person '" + myVehicleParameter->id + "' is not known.";
                     delete myVehicleParameter;
@@ -717,6 +718,75 @@ MSRouteHandler::closePerson() {
     myActivePlan = nullptr;
 }
 
+
+void
+MSRouteHandler::closePersonFlow() {
+    if (myActivePlan->size() == 0) {
+        const std::string error = "personFlow '" + myVehicleParameter->id + "' has no plan.";
+        delete myVehicleParameter;
+        myVehicleParameter = nullptr;
+        deleteActivePlans();
+        throw ProcessError(error);
+    }
+    // let's check whether this person had to depart before the simulation starts
+    if (!(myAddVehiclesDirectly || checkLastDepart())
+            || (myVehicleParameter->depart < string2time(OptionsCont::getOptions().getString("begin")) && !myAmLoadingState)) {
+        delete myVehicleParameter;
+        myVehicleParameter = nullptr;
+        deleteActivePlans();
+        return;
+    }
+    // type existence has been checked on opening
+    MSVehicleType* type = MSNet::getInstance()->getVehicleControl().getVType(myVehicleParameter->vtypeid, &myParsingRNG);
+    // instantiate all persons of this flow
+    int i = 0;
+    std::string baseID = myVehicleParameter->id;
+    if (myVehicleParameter->repetitionProbability > 0) {
+        if (myVehicleParameter->repetitionEnd == SUMOTime_MAX) {
+            throw ProcessError("probabilistic personFlow '" + myVehicleParameter->id + "' must specify end time");
+        } else {
+            for (SUMOTime t = myVehicleParameter->depart; t < myVehicleParameter->repetitionEnd; t += TIME2STEPS(1)) {
+                if (RandHelper::rand(&myParsingRNG) < myVehicleParameter->repetitionProbability) {
+                    addFlowPerson(t, type, baseID, i++);
+                }
+            }
+        }
+    } else {
+        SUMOTime depart = myVehicleParameter->depart;
+        for (; i < myVehicleParameter->repetitionNumber; i++) {
+            depart += myVehicleParameter->repetitionOffset;
+            addFlowPerson(depart, type, baseID, i);
+        }
+    }
+
+    myVehicleParameter = nullptr;
+    myActivePlan = nullptr;
+}
+
+void
+MSRouteHandler::addFlowPerson(SUMOTime depart, MSVehicleType* type, const std::string& baseID, int i) {
+    if (i > 0) {
+        // copy parameter and plan because the person takes over responsibility
+        SUMOVehicleParameter* copyParam = new SUMOVehicleParameter();
+        *copyParam = *myVehicleParameter;
+        myVehicleParameter = copyParam;
+        MSTransportable::MSTransportablePlan* copyPlan = new MSTransportable::MSTransportablePlan();
+        for (MSTransportable::Stage* s : *myActivePlan) {
+            copyPlan->push_back(s->clone());
+        }
+        myActivePlan = copyPlan;
+    }
+    myVehicleParameter->id = baseID + "." + toString(i);
+    myVehicleParameter->depart = depart;
+    MSTransportable* person = MSNet::getInstance()->getPersonControl().buildPerson(myVehicleParameter, type, myActivePlan, &myParsingRNG);
+    if (MSNet::getInstance()->getPersonControl().add(person)) {
+        registerLastDepart();
+    } else {
+        ProcessError error("Another person with the id '" + myVehicleParameter->id + "' exists.");
+        delete person;
+        throw error;
+    }
+}
 
 void
 MSRouteHandler::closeVType() {

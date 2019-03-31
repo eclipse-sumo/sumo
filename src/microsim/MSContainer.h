@@ -76,6 +76,8 @@ public:
         /// destructor
         ~MSContainerStage_Driving();
 
+        Stage* clone() const;
+
         /// proceeds to the next step
         virtual void proceed(MSNet* net, MSTransportable* container, SUMOTime now, Stage* previous);
 
@@ -112,6 +114,8 @@ public:
 
         /// destructor
         ~MSContainerStage_Tranship();
+
+        Stage* clone() const;
 
         /// proceeds to the next step
         virtual void proceed(MSNet* net, MSTransportable* container, SUMOTime now, Stage* previous);

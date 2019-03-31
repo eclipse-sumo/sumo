@@ -344,6 +344,10 @@ GNERouteHandler::closePerson() {
     // currently unused
 }
 
+void 
+GNERouteHandler::closePersonFlow() {
+    // currently unused
+}
 
 void 
 GNERouteHandler::closeContainer() {

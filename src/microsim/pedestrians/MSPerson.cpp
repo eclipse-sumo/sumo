@@ -83,6 +83,10 @@ MSPerson::MSPersonStage_Walking::~MSPersonStage_Walking() {
     }
 }
 
+MSTransportable::Stage*
+MSPerson::MSPersonStage_Walking::clone() const {
+    return new MSPersonStage_Walking("dummyID", myRoute, myDestinationStop, myWalkingTime, mySpeed, myDepartPos, myArrivalPos, myDepartPosLat);
+}
 
 const MSEdge*
 MSPerson::MSPersonStage_Walking::getEdge() const {
@@ -401,6 +405,11 @@ MSPerson::MSPersonStage_Driving::MSPersonStage_Driving(const MSEdge* destination
 
 MSPerson::MSPersonStage_Driving::~MSPersonStage_Driving() {}
 
+MSTransportable::Stage*
+MSPerson::MSPersonStage_Driving::clone() const {
+    return new MSPersonStage_Driving(myDestination, myDestinationStop, myArrivalPos, std::vector<std::string>(myLines.begin(), myLines.end()),
+           myIntendedVehicleID, myIntendedDepart);
+}
 
 void
 MSPerson::MSPersonStage_Driving::proceed(MSNet* net, MSTransportable* person, SUMOTime now, Stage* previous) {
@@ -516,6 +525,10 @@ MSPerson::MSPersonStage_Access::MSPersonStage_Access(const MSEdge* destination, 
 
 MSPerson::MSPersonStage_Access::~MSPersonStage_Access() {}
 
+MSTransportable::Stage*
+MSPerson::MSPersonStage_Access::clone() const {
+    return new MSPersonStage_Access(myDestination, myDestinationStop, myArrivalPos, myDist, myAmExit);
+}
 
 void
 MSPerson::MSPersonStage_Access::proceed(MSNet* net, MSTransportable* person, SUMOTime now, Stage* /* previous */) {

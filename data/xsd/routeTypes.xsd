@@ -606,6 +606,27 @@
     </xsd:complexType>
 
     <xsd:complexType name="personType">
+        <xsd:complexContent>
+            <xsd:extension base="personBaseType">
+                <xsd:attribute name="depart" type="timeType" use="required"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="personFlowType">
+        <xsd:complexContent>
+            <xsd:extension base="personBaseType">
+                <xsd:attribute name="begin" type="timeType"/>
+                <xsd:attribute name="end" type="timeType"/>
+                <xsd:attribute name="period" type="timeType"/>
+                <xsd:attribute name="personsPerHour" type="nonNegativeFloatType"/>
+                <xsd:attribute name="probability" type="nonNegativeFloatType"/>
+                <xsd:attribute name="number" type="xsd:int"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="personBaseType">
         <xsd:choice maxOccurs="unbounded">
             <xsd:element name="personTrip">
                 <xsd:complexType>
@@ -652,7 +673,6 @@
             <xsd:element name="param" type="paramType"/>
         </xsd:choice>
         <xsd:attribute name="id" type="idType" use="required"/>
-        <xsd:attribute name="depart" type="timeType" use="required"/>
         <xsd:attribute name="arrival" type="timeType"/>
         <xsd:attribute name="type" type="xsd:string"/>
         <xsd:attribute name="departPos" type="departPosType"/>

@@ -77,6 +77,8 @@ public:
         /// destructor
         ~MSPersonStage_Walking();
 
+        Stage* clone() const;
+
         /// proceeds to the next step
         virtual void proceed(MSNet* net, MSTransportable* person, SUMOTime now, Stage* previous);
 
@@ -246,6 +248,8 @@ public:
         /// destructor
         ~MSPersonStage_Driving();
 
+        Stage* clone() const;
+
         /// proceeds to the next step
         virtual void proceed(MSNet* net, MSTransportable* person, SUMOTime now, Stage* previous);
 
@@ -282,6 +286,8 @@ public:
 
         /// destructor
         ~MSPersonStage_Access();
+
+        Stage* clone() const;
 
         /// proceeds to the next step
         virtual void proceed(MSNet* net, MSTransportable* person, SUMOTime now, Stage* previous);

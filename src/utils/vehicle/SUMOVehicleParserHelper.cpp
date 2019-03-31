@@ -49,7 +49,7 @@ std::set<SumoXMLAttr> SUMOVehicleParserHelper::allowedJMAttrs;
 // method definitions
 // ===========================================================================
 SUMOVehicleParameter*
-SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, const SUMOTime beginDefault, const SUMOTime endDefault) {
+SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, const SUMOTime beginDefault, const SUMOTime endDefault, bool isPerson) {
     bool ok = true;
     std::string id = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
     if (!SUMOXMLDefinitions::isValidVehicleID(id)) {
@@ -70,7 +70,8 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, con
                            "' and '" + attrs.getName(SUMO_ATTR_VEHSPERHOUR) +
                            "' has to be given in the definition of flow '" + id + "'.");
     }
-    if (attrs.hasAttribute(SUMO_ATTR_PERIOD) || attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR) || attrs.hasAttribute(SUMO_ATTR_PROB)) {
+    if (attrs.hasAttribute(SUMO_ATTR_PERIOD) || attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR) 
+            || attrs.hasAttribute(SUMO_ATTR_PERSONSPERHOUR) || attrs.hasAttribute(SUMO_ATTR_PROB)) {
         if (attrs.hasAttribute(SUMO_ATTR_END) && attrs.hasAttribute(SUMO_ATTR_NUMBER)) {
             throw ProcessError("If '" + attrs.getName(SUMO_ATTR_PERIOD) +
                                "', '" + attrs.getName(SUMO_ATTR_VEHSPERHOUR) +
@@ -90,6 +91,9 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, con
     }
     SUMOVehicleParameter* ret = new SUMOVehicleParameter();
     ret->id = id;
+    if (isPerson) {
+        ret->vtypeid = DEFAULT_PEDTYPE_ID;
+    }
     try {
         parseCommonAttributes(attrs, ret, "flow");
     } catch (ProcessError&) {
@@ -108,6 +112,17 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, con
         if (ok && vph <= 0) {
             delete ret;
             throw ProcessError("Invalid repetition rate in the definition of flow '" + id + "'.");
+        }
+        if (ok && vph != 0) {
+            ret->repetitionOffset = TIME2STEPS(3600. / vph);
+        }
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_PERSONSPERHOUR)) {
+        ret->parametersSet |= VEHPARS_VPH_SET;
+        const double vph = attrs.get<double>(SUMO_ATTR_PERSONSPERHOUR, id.c_str(), ok);
+        if (ok && vph <= 0) {
+            delete ret;
+            throw ProcessError("Invalid repetition rate in the definition of personFlow '" + id + "'.");
         }
         if (ok && vph != 0) {
             ret->repetitionOffset = TIME2STEPS(3600. / vph);

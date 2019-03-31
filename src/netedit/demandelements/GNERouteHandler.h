@@ -101,6 +101,9 @@ protected:
     /// @brief Ends the processing of a person
     void closePerson();
 
+    /// @brief Ends the processing of a personFlow
+    void closePersonFlow();
+
     /// @brief Ends the processing of a container
     void closeContainer();
 

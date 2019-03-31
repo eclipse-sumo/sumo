@@ -16,6 +16,7 @@
             <xsd:element name="flow" type="flowType" minOccurs="0"/>
             <xsd:element name="trip" type="tripType" minOccurs="0"/>
             <xsd:element name="person" type="personType" minOccurs="0"/>
+            <xsd:element name="personFlow" type="personFlowType" minOccurs="0"/>
             <xsd:element name="container" type="containerType" minOccurs="0"/>
             <xsd:element name="include" minOccurs="0">
                 <xsd:complexType>

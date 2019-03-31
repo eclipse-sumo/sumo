@@ -133,6 +133,9 @@ protected:
     /// @brief Ends the processing of a person
     virtual void closePerson() = 0;
 
+    /// @brief Ends the processing of a person
+    virtual void closePersonFlow() = 0;
+
     /// @brief Ends the processing of a container
     virtual void closeContainer() = 0;
 

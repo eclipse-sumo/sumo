@@ -170,6 +170,13 @@ MSTransportable::Stage_Trip::Stage_Trip(const MSEdge* origin, MSStoppingPlace* f
 
 MSTransportable::Stage_Trip::~Stage_Trip() {}
 
+MSTransportable::Stage*
+MSTransportable::Stage_Trip::clone() const {
+    return new Stage_Trip(myOrigin, const_cast<MSStoppingPlace*>(myOriginStop), 
+            myDestination, myDestinationStop, myDuration, 
+            myModeSet, myVTypes, mySpeed, myWalkFactor, myDepartPosLat, myHaveArrivalPos, myArrivalPos);
+}
+
 
 Position
 MSTransportable::Stage_Trip::getPosition(SUMOTime /* now */) const {
@@ -340,6 +347,7 @@ MSTransportable::Stage_Trip::getStageSummary() const {
 }
 
 
+
 /* -------------------------------------------------------------------------
 * MSTransportable::Stage_Waiting - methods
 * ----------------------------------------------------------------------- */
@@ -357,6 +365,10 @@ MSTransportable::Stage_Waiting::Stage_Waiting(const MSEdge* destination, MSStopp
 
 MSTransportable::Stage_Waiting::~Stage_Waiting() {}
 
+MSTransportable::Stage*
+MSTransportable::Stage_Waiting::clone() const {
+    return new Stage_Waiting(myDestination, myDestinationStop, myWaitingDuration, myWaitingUntil, myArrivalPos, myActType, myType == WAITING_FOR_DEPART);
+}
 
 SUMOTime
 MSTransportable::Stage_Waiting::getUntil() const {

@@ -525,6 +525,21 @@ RORouteHandler::closePerson() {
 
 
 void
+RORouteHandler::closePersonFlow() {
+    if (myActivePerson->getPlan().empty()) {
+        WRITE_WARNING("Discarding person '" + myVehicleParameter->id + "' because it's plan is empty");
+    } else {
+        if (myNet.addPerson(myActivePerson)) {
+            registerLastDepart();
+        }
+    }
+    delete myVehicleParameter;
+    myVehicleParameter = nullptr;
+    myActivePerson = nullptr;
+}
+
+
+void
 RORouteHandler::closeContainer() {
     myActiveContainerPlan->closeTag();
     if (myActiveContainerPlanSize > 0) {

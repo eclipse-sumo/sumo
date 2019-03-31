@@ -114,6 +114,10 @@ SUMORouteHandler::myStartElement(int element,
             delete myVehicleParameter;
             myVehicleParameter = SUMOVehicleParserHelper::parseFlowAttributes(attrs, myBeginDefault, myEndDefault);
             break;
+        case SUMO_TAG_PERSONFLOW:
+            delete myVehicleParameter;
+            myVehicleParameter = SUMOVehicleParserHelper::parseFlowAttributes(attrs, myBeginDefault, myEndDefault, true);
+            break;
         case SUMO_TAG_VTYPE:
             // XXX: Where is this deleted? Delegated to subclasses?! MSRouteHandler takes care of this, in case of RORouteHandler this is not obvious. Consider introduction of a shared_ptr
             myCurrentVType = SUMOVehicleParserHelper::beginVTypeParsing(attrs, getFileName());
@@ -190,6 +194,11 @@ SUMORouteHandler::myEndElement(int element) {
             break;
         case SUMO_TAG_PERSON:
             closePerson();
+            delete myVehicleParameter;
+            myVehicleParameter = nullptr;
+            break;
+        case SUMO_TAG_PERSONFLOW:
+            closePersonFlow();
             delete myVehicleParameter;
             myVehicleParameter = nullptr;
             break;
