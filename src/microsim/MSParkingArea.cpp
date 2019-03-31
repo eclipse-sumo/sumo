@@ -143,12 +143,11 @@ MSParkingArea::getVehicleAngle(const SUMOVehicle& forVehicle) const {
 
 void
 MSParkingArea::enter(SUMOVehicle* what, double beg, double end) {
-    if (myLastFreeLot >= 0) {
-        assert(myLastFreeLot < (int)mySpaceOccupancies.size());
-        mySpaceOccupancies[myLastFreeLot].vehicle = what;
-        myEndPositions[what] = std::pair<double, double>(beg, end);
-        computeLastFreePos();
-    }
+    assert(myLastFreePos >= 0);
+    assert(myLastFreeLot < (int)mySpaceOccupancies.size());
+    mySpaceOccupancies[myLastFreeLot].vehicle = what;
+    myEndPositions[what] = std::pair<double, double>(beg, end);
+    computeLastFreePos();
 }
 
 

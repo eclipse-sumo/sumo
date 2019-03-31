@@ -1925,7 +1925,7 @@ MSVehicle::processNextStop(double currentVelocity) {
             // if the stop is a parking area we check if there is a free position on the area
             if (stop.parkingarea != nullptr) {
                 fitsOnStoppingPlace &= myState.myPos > stop.parkingarea->getBeginLanePosition();
-                if (stop.parkingarea->getOccupancy() == stop.parkingarea->getCapacity()) {
+                if (stop.parkingarea->getOccupancy() >= stop.parkingarea->getCapacity()) {
                     fitsOnStoppingPlace = false;
                     // trigger potential parkingZoneReroute
                     for (std::vector< MSMoveReminder* >::const_iterator rem = myLane->getMoveReminders().begin(); rem != myLane->getMoveReminders().end(); ++rem) {
