@@ -122,7 +122,7 @@ decel 5.1
 emergencyDecel 5.2
 apparentDecel 5.3
 actionStepLength 1.0
-lastActionTime 6.0
+lastActionTime 5.0
 imperfection 0.1
 tau 1.1
 vClass bicycle
