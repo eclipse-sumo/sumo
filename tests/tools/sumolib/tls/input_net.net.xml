@@ -153,6 +153,7 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="4"  state="rrrrryyggrrrrryygg"/>
         <phase duration="6"  state="rrrrrrrGGrrrrrrrGG" name="leftTurnPhase4"/>
         <phase duration="4"  state="rrrrrrryyrrrrrrryy" next="0"/>
+        <param key="show-detectors" value="true"/>
     </tlLogic>
 
     <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 EC_0 EC_1 SC_0 SC_1 WC_0 WC_1" intLanes=":C_0_0 :C_1_0 :C_1_1 :C_18_0 :C_19_0 :C_5_0 :C_6_0 :C_20_0 :C_21_0 :C_9_0 :C_10_0 :C_10_1 :C_22_0 :C_23_0 :C_14_0 :C_15_0 :C_24_0 :C_25_0" shape="93.45,108.05 106.55,108.05 108.05,106.55 108.05,93.45 106.55,91.95 93.45,91.95 91.95,93.45 91.95,106.55">

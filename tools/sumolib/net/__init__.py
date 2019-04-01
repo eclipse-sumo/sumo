@@ -125,6 +125,8 @@ class TLSProgram:
             next = '' if len(p.next) == 0 else ' next="%s"' % ' '.join(map(str, p.next))
             ret += '    <phase duration="%s" state="%s"%s%s%s%s/>\n' % (
                 p.duration, p.state, minDur, maxDur, name, next)
+        for k,v in self._params.items():
+            ret += '    <param key="%s" value="%s"/>\n' % (k,v)
         ret += '  </tlLogic>\n'
         return ret
 
