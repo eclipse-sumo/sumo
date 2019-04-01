@@ -50,7 +50,7 @@ public:
         ~StopParentSelector();
 
         /// @brief get current route
-        const GNEDemandElement* getCurrentStopParent() const;
+        GNEDemandElement* getCurrentStopParent() const;
 
         /// @brief select StopParent manually
         void setStopParent(GNEDemandElement *stopParent);
@@ -152,6 +152,9 @@ private:
 
     /// @brief internal Stop attributes
     AttributesCreator* myStopAttributes;
+
+    /// @brief Netedit parameter
+    NeteditAttributes* myNeteditAttributes;
 
     /// @brief Help creation
     HelpCreation* myHelpCreation;
