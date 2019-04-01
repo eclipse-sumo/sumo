@@ -25,6 +25,9 @@ connected_lanes
 # only some lanes of an edge have definitions, the rest must be guessed
 connected_lanes_partial
 
+# only some lanes of an edge have definitions, the rest must be guessed and all this at a junction cluster that is joined (#5400)
+connected_lanes_partial_join
+
 # tests for input data generated with gdfExtractor version 3.1
 version_3.1
 
