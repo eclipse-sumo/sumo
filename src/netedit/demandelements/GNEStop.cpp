@@ -139,26 +139,27 @@ GNEStop::commitGeometryMoving(GNEUndoList* undoList) {
 
 void
 GNEStop::updateGeometry(bool updateGrid) {
+    // first check if object has to be removed from grid (SUMOTree)
+    if (updateGrid) {
+        myViewNet->getNet()->removeGLObjectFromGrid(this);
+    }
+    // Clear all containers
+    myGeometry.clearGeometry();
     //only update Stops over lanes, because other uses the geometry of stopping place parent
     if (myLaneParents.size() > 0) {
-        // first check if object has to be removed from grid (SUMOTree)
-        if (updateGrid) {
-            myViewNet->getNet()->removeGLObjectFromGrid(this);
-        }
-        
-        // Clear all containers
-        myGeometry.clearGeometry();
-
         // Cut shape using as delimitators fixed start position and fixed end position
         myGeometry.shape = myLaneParents.front()->getShape().getSubpart(getStartGeometryPositionOverLane(), getEndGeometryPositionOverLane());
-
         // Get calculate lenghts and rotations
         myGeometry.calculateShapeRotationsAndLengths();
-
-        // last step is to check if object has to be added into grid (SUMOTree) again
-        if (updateGrid) {
-            myViewNet->getNet()->addGLObjectIntoGrid(this);
-        }
+    } else if (myAdditionalParents.size() > 0) {
+        // copy geometry of additional
+        myGeometry.shape = myAdditionalParents.at(0)->getAdditionalGeometry().shape;
+        myGeometry.shapeLengths = myAdditionalParents.at(0)->getAdditionalGeometry().shapeLengths;
+        myGeometry.shapeRotations = myAdditionalParents.at(0)->getAdditionalGeometry().shapeRotations;
+    }
+    // last step is to check if object has to be added into grid (SUMOTree) again
+    if (updateGrid) {
+        myViewNet->getNet()->addGLObjectIntoGrid(this);
     }
 }
 
@@ -215,7 +216,7 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::setColor(s.SUMO_color_stops);
         }
         // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-        GLHelper::drawBoxLines(myGeometry.shape, myGeometry.shapeRotations, myGeometry.shapeLengths, exaggeration);
+        GLHelper::drawBoxLines(myGeometry.shape, myGeometry.shapeRotations, myGeometry.shapeLengths, exaggeration*0.6);
         // pop draw matrix
         glPopMatrix();
         // Draw name if isn't being drawn for selecting
