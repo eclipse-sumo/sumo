@@ -3621,7 +3621,7 @@ GNEAttributeCarrier::fillDemandElements() {
     currentTag = SUMO_TAG_STOP_LANE;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_STOP, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE, ICON_ROUTE);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_STOP, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_MASKSTARTENDPOS, ICON_ROUTE);
         // set values of attributes
          attrProperty = AttributeProperties(SUMO_ATTR_LANE,
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
@@ -3665,6 +3665,12 @@ GNEAttributeCarrier::fillDemandElements() {
         attrProperty = AttributeProperties(SUMO_ATTR_TRIGGERED,
             ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "Whether a person may end the stop",
+            "false");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_CONTAINER_TRIGGERED,
+            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "Whether a container may end the stop",
             "false");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -3724,6 +3730,12 @@ GNEAttributeCarrier::fillDemandElements() {
             "false");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
+        attrProperty = AttributeProperties(SUMO_ATTR_CONTAINER_TRIGGERED,
+            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "Whether a container may end the stop",
+            "false");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
         attrProperty = AttributeProperties(SUMO_ATTR_EXPECTED,
             ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "List of persons that must board the vehicle before it may continue");
@@ -3777,6 +3789,12 @@ GNEAttributeCarrier::fillDemandElements() {
         attrProperty = AttributeProperties(SUMO_ATTR_TRIGGERED,
             ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "Whether a person may end the stop",
+            "false");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_CONTAINER_TRIGGERED,
+            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "Whether a container may end the stop",
             "false");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -3836,6 +3854,12 @@ GNEAttributeCarrier::fillDemandElements() {
             "false");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
+        attrProperty = AttributeProperties(SUMO_ATTR_CONTAINER_TRIGGERED,
+            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "Whether a container may end the stop",
+            "false");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
         attrProperty = AttributeProperties(SUMO_ATTR_EXPECTED,
             ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "List of persons that must board the vehicle before it may continue");
@@ -3889,6 +3913,12 @@ GNEAttributeCarrier::fillDemandElements() {
         attrProperty = AttributeProperties(SUMO_ATTR_TRIGGERED,
             ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "Whether a person may end the stop",
+            "false");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_CONTAINER_TRIGGERED,
+            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "Whether a container may end the stop",
             "false");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
