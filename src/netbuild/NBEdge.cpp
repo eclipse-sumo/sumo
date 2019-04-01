@@ -2698,16 +2698,17 @@ NBEdge::appendTurnaround(bool noTLSControlled, bool onlyDeadends, bool noGeometr
     if (noTLSControlled && myTo->isTLControlled()) {
         return;
     }
-    if (onlyDeadends) {
-        int allowedOutgoing = 0;
-        for (NBEdge* out : myTo->getOutgoingEdges()) {
-            if ((out->getPermissions() & SVC_PASSENGER) != 0 || out->getPermissions() == getPermissions()) {
-                allowedOutgoing++;
-                if (allowedOutgoing > 1) {
-                    return;
-                }
+    int allowedOutgoing = 0;
+    for (NBEdge* out : myTo->getOutgoingEdges()) {
+        if ((out->getPermissions() & SVC_PASSENGER) != 0 || out->getPermissions() == getPermissions()) {
+            allowedOutgoing++;
+            if (allowedOutgoing > 1) {
+                break;
             }
         }
+    }
+    if (onlyDeadends && allowedOutgoing > 1) {
+        return;
     }
     const int fromLane = (int)myLanes.size() - 1;
     const int toLane = (int)myTurnDestination->getNumLanes() - 1;
@@ -2735,7 +2736,7 @@ NBEdge::appendTurnaround(bool noTLSControlled, bool onlyDeadends, bool noGeometr
             return;
         }
     };
-    if (noGeometryLike && myTo->geometryLike() && myTo->getOutgoingEdges().size() > 1) {
+    if (noGeometryLike && myTo->geometryLike() && allowedOutgoing > 1) {
         return;
     }
     setConnection(fromLane, myTurnDestination, toLane, L2L_VALIDATED);
