@@ -27,10 +27,12 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class GNEAdditional;
+
 class GNEViewNet;
-class GNELane;
 class GNEEdge;
+class GNELane;
+class GNEAdditional;
+class GNEDemandElement;
 
 // ===========================================================================
 // class definitions
@@ -73,20 +75,29 @@ private:
      */
     GNEAdditional* myAdditional;
 
-    /// @brief pointer to edge parents (used by additionals with edge parents)
-    std::vector<GNEEdge*> myEdgeParents;
+    /// @brief reference to vector of edge parents
+    const std::vector<GNEEdge*> &myEdgeParents;
 
-    /// @brief pointer to lane parents (used by additionals with lane parent)
-    std::vector<GNELane*> myLaneParents;
+    /// @brief reference to vector of lane parents
+    const std::vector<GNELane*> &myLaneParents;
 
-    /// @brief pointer to additional parents (used by additionals with parents)
-    std::vector<GNEAdditional*> myAdditionalParents;
+    /// @brief reference to vector of additional parents
+    const std::vector<GNEAdditional*> &myAdditionalParents;
 
-    /// @brief list of Edge childs (used by Rerouters)
-    std::vector<GNEEdge*> myEdgeChilds;
+    /// @brief reference to vector of demand element parents
+    const std::vector<GNEDemandElement*> &myDemandElementParents;
 
-    /// @brief list of Edge childs (used by VSS)
-    std::vector<GNELane*> myLaneChilds;
+    /// @brief reference to vector of edge childs
+    const std::vector<GNEEdge*> &myEdgeChilds;
+
+    /// @brief reference to vector of lane childs
+    const std::vector<GNELane*> &myLaneChilds;
+
+    /// @brief reference to vector of additional childs
+    const std::vector<GNEAdditional*> &myAdditionalChilds;
+
+    /// @brief reference to vector of demand element childs
+    const std::vector<GNEDemandElement*> &myDemandElementChilds;
 };
 
 #endif

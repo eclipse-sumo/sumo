@@ -769,7 +769,7 @@ protected:
     /// @{
 
     /// @brief return true if additional exist (use pointer instead ID)
-    bool additionalExist(GNEAdditional* additional);
+    bool additionalExist(GNEAdditional* additional) const;
 
     /**@brief Insert a additional element int GNENet container.
      * @throw processError if route was already inserted
@@ -787,7 +787,7 @@ protected:
     /// @{
 
     /// @brief return true if demand element exist (use pointer instead ID)
-    bool demandElementExist(GNEDemandElement* demandElement);
+    bool demandElementExist(GNEDemandElement* demandElement) const;
 
     /**@brief Insert a demand element element int GNENet container.
      * @throw processError if route was already inserted

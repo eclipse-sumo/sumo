@@ -2490,16 +2490,11 @@ GNENet::isUpdateGeometryEnabled() const {
 // ---------------------------------------------------------------------------
 
 bool
-GNENet::additionalExist(GNEAdditional* additional) {
+GNENet::additionalExist(GNEAdditional* additional) const {
     // first check that additional pointer is valid
     if (additional) {
-        // iterate over additionals to ifnd it
-        for (const auto& i : myAttributeCarriers.additionals.at(additional->getTagProperty().getTag())) {
-            if (i.second == additional) {
-                return true;
-            }
-        }
-        return false;
+        return myAttributeCarriers.additionals.at(additional->getTagProperty().getTag()).find(additional->getID()) !=
+               myAttributeCarriers.additionals.at(additional->getTagProperty().getTag()).end();
     } else {
         throw ProcessError("Invalid additional pointer");
     }
@@ -2534,35 +2529,28 @@ GNENet::insertAdditional(GNEAdditional* additional) {
 bool
 GNENet::deleteAdditional(GNEAdditional* additional, bool updateViewAfterDeleting) {
     // first check that additional pointer is valid
-    if (additional) {
-        // iterate over additionals to find it
-        for (auto i = myAttributeCarriers.additionals.at(additional->getTagProperty().getTag()).begin();
-                i != myAttributeCarriers.additionals.at(additional->getTagProperty().getTag()).end(); i++) {
-            if (i->second == additional) {
-                // remove it from Inspector Frame
-                myViewNet->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(additional);
-                // Remove from container
-                myAttributeCarriers.additionals.at(additional->getTagProperty().getTag()).erase(i);
-                // only remove drawable elements of grid
-                if (additional->getTagProperty().isDrawable()) {
-                    myGrid.removeAdditionalGLObject(additional);
-                }
-                // check if additional is selected
-                if (additional->isAttributeCarrierSelected()) {
-                    additional->unselectAttributeCarrier(false);
-                }
-                // check if view has to be updated
-                if(updateViewAfterDeleting) {
-                    myViewNet->update();
-                }
-                // additionals has to be saved
-                requiereSaveAdditionals(true);
-                // additional removed, then return true
-                return true;
-            }
+    if (additionalExist(additional)) {
+        // obtain demand element and erase it from container
+        auto it = myAttributeCarriers.additionals.at(additional->getTagProperty().getTag()).find(additional->getID());
+        myAttributeCarriers.additionals.at(additional->getTagProperty().getTag()).erase(it);
+        // remove it from Inspector Frame
+        myViewNet->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(additional);
+        // only remove drawable elements of grid
+        if (additional->getTagProperty().isDrawable()) {
+            myGrid.removeAdditionalGLObject(additional);
         }
-        // if additional wasn't found, throw exception
-        throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' doesn't exist");
+        // check if additional is selected
+        if (additional->isAttributeCarrierSelected()) {
+            additional->unselectAttributeCarrier(false);
+        }
+        // check if view has to be updated
+        if(updateViewAfterDeleting) {
+            myViewNet->update();
+        }
+        // additionals has to be saved
+        requiereSaveAdditionals(true);
+        // additional removed, then return true
+        return true;
     } else {
         throw ProcessError("Invalid additional pointer");
     }
@@ -2570,16 +2558,11 @@ GNENet::deleteAdditional(GNEAdditional* additional, bool updateViewAfterDeleting
 
 
 bool
-GNENet::demandElementExist(GNEDemandElement* demandElement) {
+GNENet::demandElementExist(GNEDemandElement* demandElement) const {
     // first check that demandElement pointer is valid
     if (demandElement) {
-        // iterate over demandElements to ifnd it
-        for (const auto& i : myAttributeCarriers.demandElements.at(demandElement->getTagProperty().getTag())) {
-            if (i.second == demandElement) {
-                return true;
-            }
-        }
-        return false;
+        return myAttributeCarriers.demandElements.at(demandElement->getTagProperty().getTag()).find(demandElement->getID()) !=
+               myAttributeCarriers.demandElements.at(demandElement->getTagProperty().getTag()).end();
     } else {
         throw ProcessError("Invalid demandElement pointer");
     }
@@ -2623,43 +2606,36 @@ GNENet::insertDemandElement(GNEDemandElement* demandElement) {
 bool
 GNENet::deleteDemandElement(GNEDemandElement* demandElement, bool updateViewAfterDeleting) {
     // first check that demandElement pointer is valid
-    if (demandElement) {
-        // iterate over demandElements to find it
-        for (auto i = myAttributeCarriers.demandElements.at(demandElement->getTagProperty().getTag()).begin();
-                i != myAttributeCarriers.demandElements.at(demandElement->getTagProperty().getTag()).end(); i++) {
-            if (i->second == demandElement) {
-                // remove it from Inspector Frame
-                myViewNet->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(demandElement);
-                // Remove from container
-                myAttributeCarriers.demandElements.at(demandElement->getTagProperty().getTag()).erase(i);
-                // also remove fromvehicleDepartures container
-                if (demandElement->getTagProperty().isVehicle()) {
-                    if (myAttributeCarriers.vehicleDepartures.count(demandElement->getBegin() + "_" + demandElement->getID()) == 0) {
-                        throw ProcessError(demandElement->getTagStr() + " with departure ='" + demandElement->getBegin() + "_" + demandElement->getID() + "' doesn't exist");
-                    } else {
-                        myAttributeCarriers.vehicleDepartures.erase(demandElement->getBegin() + "_" + demandElement->getID());
-                    }
-                }
-                // only remove drawable elements of grid
-                if (demandElement->getTagProperty().isDrawable()) {
-                    myGrid.removeAdditionalGLObject(demandElement);
-                }
-                // check if demandElement is selected
-                if (demandElement->isAttributeCarrierSelected()) {
-                    demandElement->unselectAttributeCarrier(false);
-                }
-                // check if view has to be updated
-                if(updateViewAfterDeleting) {
-                    myViewNet->update();
-                }
-                // demandElements has to be saved
-                requiereSaveDemandElements(true);
-                // demandElement removed, then return true
-                return true;
+    if (demandElementExist(demandElement)) {
+        // obtain demand element and erase it from container
+        auto it = myAttributeCarriers.demandElements.at(demandElement->getTagProperty().getTag()).find(demandElement->getID());
+        myAttributeCarriers.demandElements.at(demandElement->getTagProperty().getTag()).erase(it);
+        // remove it from Inspector Frame
+        myViewNet->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(demandElement);
+        // also remove fromvehicleDepartures container
+        if (demandElement->getTagProperty().isVehicle()) {
+            if (myAttributeCarriers.vehicleDepartures.count(demandElement->getBegin() + "_" + demandElement->getID()) == 0) {
+                throw ProcessError(demandElement->getTagStr() + " with departure ='" + demandElement->getBegin() + "_" + demandElement->getID() + "' doesn't exist");
+            } else {
+                myAttributeCarriers.vehicleDepartures.erase(demandElement->getBegin() + "_" + demandElement->getID());
             }
         }
-        // if demandElement wasn't found, throw exception
-        throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' doesn't exist");
+        // only remove drawable elements of grid
+        if (demandElement->getTagProperty().isDrawable()) {
+            myGrid.removeAdditionalGLObject(demandElement);
+        }
+        // check if demandElement is selected
+        if (demandElement->isAttributeCarrierSelected()) {
+            demandElement->unselectAttributeCarrier(false);
+        }
+        // check if view has to be updated
+        if(updateViewAfterDeleting) {
+            myViewNet->update();
+        }
+        // demandElements has to be saved
+        requiereSaveDemandElements(true);
+        // demandElement removed, then return true
+        return true;
     } else {
         throw ProcessError("Invalid demandElement pointer");
     }

@@ -36,10 +36,11 @@
 // class declarations
 // ===========================================================================
 
+class GNEViewNet;
 class GNEEdge;
 class GNELane;
-class GNEViewNet;
-class GUIGLObjectPopupMenu;
+class GNEAdditional;
+class GNEDemandElement;
 
 // ===========================================================================
 // class definitions
