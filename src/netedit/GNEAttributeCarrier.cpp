@@ -497,12 +497,12 @@ GNEAttributeCarrier::TagProperties::getTagStr() const {
 void
 GNEAttributeCarrier::TagProperties::checkTagIntegrity() const {
     // check that element must ist at least netElement, Additional, or shape
-    if (!isNetElement() && !isAdditional() && !isShape() && !isTAZ() && !isDemandElement() && !isStop()) {
-        throw ProcessError("element must be at leas netElement, additional, TAZ, shape, demandElement or stop");
+    if (!isNetElement() && !isAdditional() && !isShape() && !isTAZ() && !isDemandElement()) {
+        throw ProcessError("element must be at leas netElement, additional, TAZ, shape or demandElement");
     }
     // check that element only is netElement, Additional, or shape at the same time
-    if ((isNetElement() + isAdditional() + isShape() + isTAZ() + isDemandElement() + isStop()) > 1) {
-        throw ProcessError("element can be only a netElement, additional, shape, demandElement or stop at the same time");
+    if ((isNetElement() + isAdditional() + isShape() + isTAZ() + isDemandElement()) > 1) {
+        throw ProcessError("element can be only a netElement, additional, shape or demandElement at the same time");
     }
     // if element can mask the start and end position, check that bot attributes exist
     if (canMaskStartEndPos() && (!hasAttribute(SUMO_ATTR_STARTPOS) || !hasAttribute(SUMO_ATTR_ENDPOS))) {
@@ -3621,7 +3621,7 @@ GNEAttributeCarrier::fillDemandElements() {
     currentTag = SUMO_TAG_STOP_LANE;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_STOP, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_MASKSTARTENDPOS, ICON_ROUTE);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_STOP, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_MASKSTARTENDPOS, ICON_ROUTE);
         // set values of attributes
          attrProperty = AttributeProperties(SUMO_ATTR_LANE,
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
@@ -3699,7 +3699,7 @@ GNEAttributeCarrier::fillDemandElements() {
     currentTag = SUMO_TAG_STOP_BUSSTOP;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_STOP, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE, ICON_ROUTE);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_STOP, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE, ICON_ROUTE);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_BUS_STOP,
             ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
@@ -3761,7 +3761,7 @@ GNEAttributeCarrier::fillDemandElements() {
     currentTag = SUMO_TAG_STOP_CONTAINERSTOP;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_STOP, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE, ICON_ROUTE);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_STOP, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE, ICON_ROUTE);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_CONTAINER_STOP,
             ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
@@ -3823,7 +3823,7 @@ GNEAttributeCarrier::fillDemandElements() {
     currentTag = SUMO_TAG_STOP_CHARGINGSTATION;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_STOP, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE, ICON_ROUTE);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_STOP, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE, ICON_ROUTE);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_CHARGING_STATION,
             ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
@@ -3885,7 +3885,7 @@ GNEAttributeCarrier::fillDemandElements() {
     currentTag = SUMO_TAG_STOP_PARKINGAREA;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_STOP, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE, ICON_ROUTE);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_STOP, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE, ICON_ROUTE);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_PARKING_AREA,
             ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,

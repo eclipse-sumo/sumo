@@ -54,8 +54,6 @@ GNEStop::GNEStop(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehicleParameter
 GNEStop::GNEStop(GNEViewNet* viewNet, const SUMOVehicleParameter::Stop &stopParameter, GNELane* lane, const std::string &startPosition, const std::string &endPosition, bool friendlyPosition, GNEDemandElement* stopParent) :
     GNEDemandElement(stopParent, viewNet, GLO_STOP, SUMO_TAG_STOP_LANE, {}, {lane}, {}, {stopParent}, {}, {}, {}, {}),
     SUMOVehicleParameter::Stop(stopParameter),
-    myStartPosition(startPosition),
-    myEndPosition(endPosition), 
     myFriendlyPosition(friendlyPosition) { 
 }
 
@@ -82,14 +80,60 @@ GNEStop::writeDemandElement(OutputDevice& device) const {
 
 
 void
-GNEStop::moveGeometry(const Position&) {
-    // This demand element cannot be moved
+GNEStop::moveGeometry(const Position& offset) {
+    // only move if at leats start or end positions is defined
+    if ((myLaneParents.size() > 0) && ((parametersSet |= STOP_START_SET) || (parametersSet |= STOP_END_SET))) {
+        // Calculate new position using old position
+        Position newPosition = myMove.originalViewPosition;
+        newPosition.add(offset);
+        // filtern position using snap to active grid
+        newPosition = myViewNet->snapToActiveGrid(newPosition);
+        double offsetLane = myLaneParents.front()->getShape().nearest_offset_to_point2D(newPosition, false) - myLaneParents.front()->getShape().nearest_offset_to_point2D(myMove.originalViewPosition, false);
+        // check if both position has to be moved
+        if ((parametersSet |= STOP_START_SET) && (parametersSet |= STOP_END_SET)) {
+            // calculate stoppingPlace lenght and lane lenght (After apply geometry factor)
+            double stoppingPlaceLenght = fabs(parse<double>(myMove.secondOriginalPosition) - parse<double>(myMove.firstOriginalLanePosition));
+            double laneLengt = myLaneParents.front()->getParentEdge().getNBEdge()->getFinalLength() * myLaneParents.front()->getLengthGeometryFactor();
+            // avoid changing stopping place's lenght
+            if ((parse<double>(myMove.firstOriginalLanePosition) + offsetLane) < 0) {
+                startPos = 0;
+                endPos = stoppingPlaceLenght;
+            } else if ((parse<double>(myMove.secondOriginalPosition) + offsetLane) > laneLengt) {
+                startPos = laneLengt - stoppingPlaceLenght;
+                endPos = laneLengt;
+            } else {
+                startPos = parse<double>(myMove.firstOriginalLanePosition) + offsetLane;
+                endPos = parse<double>(myMove.secondOriginalPosition) + offsetLane;
+            }
+        } else {
+            // check if start position must be moved
+            if ((parametersSet |= STOP_START_SET)) {
+                startPos = parse<double>(myMove.firstOriginalLanePosition) + offsetLane;
+            }
+            // check if start position must be moved
+            if ((parametersSet |= STOP_END_SET)) {
+                endPos = parse<double>(myMove.secondOriginalPosition) + offsetLane;
+            }
+        }
+        // Update geometry
+        updateGeometry(false);
+    }
 }
 
 
 void
-GNEStop::commitGeometryMoving(GNEUndoList*) {
-    // This demand element cannot be moved
+GNEStop::commitGeometryMoving(GNEUndoList* undoList) {
+    // only commit geometry moving if at leats start or end positions is defined
+    if ((myLaneParents.size() > 0) && ((parametersSet |= STOP_START_SET) || (parametersSet |= STOP_END_SET))) {
+        undoList->p_begin("position of " + getTagStr());
+        if (parametersSet |= STOP_START_SET) {
+            undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), SUMO_ATTR_STARTPOS, toString(startPos), true, myMove.firstOriginalLanePosition));
+        }
+        if (parametersSet |= STOP_END_SET) {
+            undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), SUMO_ATTR_ENDPOS, toString(endPos), true, myMove.secondOriginalPosition));
+        }
+        undoList->p_end();
+    }
 }
 
 
@@ -153,10 +197,35 @@ GNEStop::getParentName() const {
 
 
 void
-GNEStop::drawGL(const GUIVisualizationSettings& /* s */) const {
+GNEStop::drawGL(const GUIVisualizationSettings& s) const {
     // only drawn in super mode demand
     if (myViewNet->getViewOptions().showDemandElements()) {
-       
+        // Obtain exaggeration of the draw
+        const double exaggeration = s.addSize.getExaggeration(s, this);
+        // Start drawing adding an gl identificator
+        glPushName(getGlID());
+        // Add a draw matrix
+        glPushMatrix();
+        // Start with the drawing of the area traslating matrix to origin
+        glTranslated(0, 0, getType());
+        // Set color of the base
+        if (drawUsingSelectColor()) {
+            GLHelper::setColor(s.selectedAdditionalColor);
+        } else {
+            GLHelper::setColor(s.SUMO_color_stops);
+        }
+        // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
+        GLHelper::drawBoxLines(myGeometry.shape, myGeometry.shapeRotations, myGeometry.shapeLengths, exaggeration);
+        // pop draw matrix
+        glPopMatrix();
+        // Draw name if isn't being drawn for selecting
+        drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+        // check if dotted contour has to be drawn
+        if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
+            GLHelper::drawShapeDottedContour(getType(), myGeometry.shape, exaggeration);
+        }
+        // Pop name
+        glPopName();
     }
 }
 
@@ -207,6 +276,8 @@ GNEStop::getAttribute(SumoXMLAttr key) const {
             return toString(index);
         case SUMO_ATTR_TRIGGERED:
             return toString(triggered);
+        case SUMO_ATTR_CONTAINER_TRIGGERED:
+            return toString(containerTriggered);
         case SUMO_ATTR_EXPECTED:
             return toString(awaitedPersons);
         case SUMO_ATTR_EXPECTED_CONTAINERS:
@@ -225,9 +296,17 @@ GNEStop::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_LANE:
             return myLaneParents.front()->getID();
         case SUMO_ATTR_STARTPOS:
-            return myStartPosition;
+            if (parametersSet & STOP_START_SET) {
+                return toString(startPos);
+            } else {
+                return "";
+            }
         case SUMO_ATTR_ENDPOS:
-            return myEndPosition;
+            if (parametersSet & STOP_END_SET) {
+                return toString(endPos);
+            } else {
+                return "";
+            }
         case SUMO_ATTR_FRIENDLY_POS:
             return toString(myFriendlyPosition);
         //
@@ -252,6 +331,7 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_UNTIL:
         case SUMO_ATTR_INDEX:
         case SUMO_ATTR_TRIGGERED:
+        case SUMO_ATTR_CONTAINER_TRIGGERED:
         case SUMO_ATTR_EXPECTED:
         case SUMO_ATTR_EXPECTED_CONTAINERS:
         case SUMO_ATTR_PARKING:
@@ -292,6 +372,8 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<int>(value);
         case SUMO_ATTR_TRIGGERED:
             return canParse<bool>(value);
+        case SUMO_ATTR_CONTAINER_TRIGGERED:
+            return canParse<bool>(value);
         case SUMO_ATTR_EXPECTED:
         case SUMO_ATTR_EXPECTED_CONTAINERS:
             if (value.empty()) {
@@ -323,7 +405,7 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
             if (value.empty()) {
                 return true;
             } else if (canParse<double>(value)) {
-                return GNEStoppingPlace::checkStoppinPlacePosition(value, myEndPosition, myLaneParents.front()->getParentEdge().getNBEdge()->getFinalLength(), myFriendlyPosition);
+                return GNEStoppingPlace::checkStoppinPlacePosition(value, toString(endPos), myLaneParents.front()->getParentEdge().getNBEdge()->getFinalLength(), myFriendlyPosition);
             } else {
                 return false;
             }
@@ -331,7 +413,7 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
             if (value.empty()) {
                 return true;
             } else if (canParse<double>(value)) {
-                return GNEStoppingPlace::checkStoppinPlacePosition(myStartPosition, value, myLaneParents.front()->getParentEdge().getNBEdge()->getFinalLength(), myFriendlyPosition);
+                return GNEStoppingPlace::checkStoppinPlacePosition(toString(startPos), value, myLaneParents.front()->getParentEdge().getNBEdge()->getFinalLength(), myFriendlyPosition);
             } else {
                 return false;
             }
@@ -442,30 +524,30 @@ GNEStop::getHierarchyName() const {
 
 double
 GNEStop::getStartGeometryPositionOverLane() const {
-    if (myStartPosition.empty()) {
-        return 0;
-    } else {
-        double fixedPos = parse<double>(myStartPosition);
+    if (parametersSet & STOP_START_SET) {
+        double fixedPos = endPos;
         const double len = myLaneParents.front()->getParentEdge().getNBEdge()->getFinalLength();
         if (fixedPos < 0) {
             fixedPos += len;
         }
         return fixedPos * myLaneParents.front()->getLengthGeometryFactor();
+    } else {
+        return 0;
     }
 }
 
 
 double
 GNEStop::getEndGeometryPositionOverLane() const {
-    if (myEndPosition.empty()) {
-        return myLaneParents.front()->getParentEdge().getNBEdge()->getFinalLength();
-    } else {
-        double fixedPos = parse<double>(myEndPosition);
+    if (parametersSet & STOP_END_SET) {
+        double fixedPos = startPos;
         const double len = myLaneParents.front()->getParentEdge().getNBEdge()->getFinalLength();
         if (fixedPos < 0) {
             fixedPos += len;
         }
         return fixedPos * myLaneParents.front()->getLengthGeometryFactor();
+    } else {
+        return 0;
     }
 }
 
@@ -493,6 +575,9 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_TRIGGERED:
             triggered = parse<bool>(value);
             break;
+        case SUMO_ATTR_CONTAINER_TRIGGERED:
+            containerTriggered = parse<bool>(value);
+            break;
         case SUMO_ATTR_EXPECTED:
             awaitedPersons = parse<std::set<std::string> >(value);
             break;
@@ -506,25 +591,31 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             // CHECK
             break;
         // specific of Stops over stoppingPlaces
-        /*
         case SUMO_ATTR_BUS_STOP:
-            return (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_BUS_STOP, value, false) != nullptr);
         case SUMO_ATTR_CONTAINER_STOP:
-            return (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, value, false) != nullptr);
         case SUMO_ATTR_CHARGING_STATION:
-            return (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_CHARGING_STATION, value, false) != nullptr);
         case SUMO_ATTR_PARKING_AREA:
-            return (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_PARKING_AREA, value, false) != nullptr);
-        */
+            changeAdditionalParent(this, value, 0);
+            break;
         // specific of Stops over lanes
         case SUMO_ATTR_LANE:
             changeLaneParents(this, value);
             break;
         case SUMO_ATTR_STARTPOS:
-            myStartPosition = value;
+            if (value.empty()) {
+                parametersSet &= ~STOP_START_SET;
+            } else {
+                startPos = parse<double>(value);
+                parametersSet |= STOP_START_SET;
+            }
             break;
         case SUMO_ATTR_ENDPOS:
-            myEndPosition = value;
+            if (value.empty()) {
+                parametersSet &= ~STOP_END_SET;
+            } else {
+                endPos = parse<double>(value);
+                parametersSet |= STOP_END_SET;
+            }
             break;
         case SUMO_ATTR_FRIENDLY_POS:
             myFriendlyPosition = parse<bool>(value);

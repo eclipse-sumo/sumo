@@ -316,7 +316,6 @@ GNEStopFrame::addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCu
     const int STOP_INDEX_END = -1;
     const int STOP_INDEX_FIT = -2;
 
-    const int STOP_END_SET = 1;
     const int STOP_START_SET = 2;
     const int STOP_TRIGGER_SET = 2 << 1;
     const int STOP_PARKING_SET = 2 << 2;
@@ -339,7 +338,9 @@ GNEStopFrame::addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCu
     } else if (stopTag == SUMO_TAG_STOP_LANE) {
         if(objectsUnderCursor.getLaneFront()) {
             stopParameter.lane = objectsUnderCursor.getLaneFront()->getID();
-             stopParameter.parametersSet;
+            // set parameter for start and end position
+            stopParameter.parametersSet |= STOP_START_SET;
+            stopParameter.parametersSet |= STOP_END_SET;
         } else {
             WRITE_WARNING("Click over a lane to create a stop placed in a lane");
             return false;

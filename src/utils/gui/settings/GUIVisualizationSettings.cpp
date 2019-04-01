@@ -69,6 +69,7 @@ const RGBColor GUIVisualizationSettings::SUMO_color_E1Instant(255, 0, 255);
 const RGBColor GUIVisualizationSettings::SUMO_color_E2(0, 204, 204);
 const RGBColor GUIVisualizationSettings::SUMO_color_E3Entry(0, 92, 64);
 const RGBColor GUIVisualizationSettings::SUMO_color_E3Exit(92, 0, 0);
+const RGBColor GUIVisualizationSettings::SUMO_color_stops(220, 20, 30);
 
 const std::string GUIVisualizationSettings::SCHEME_NAME_EDGE_PARAM_NUMERICAL("by param (numerical, streetwise)");
 const std::string GUIVisualizationSettings::SCHEME_NAME_LANE_PARAM_NUMERICAL("by param (numerical, lanewise)");

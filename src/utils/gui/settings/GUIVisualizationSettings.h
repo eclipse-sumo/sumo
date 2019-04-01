@@ -409,6 +409,9 @@ public:
     /// @brief color for Exits
     static const RGBColor SUMO_color_E3Exit;
 
+    /// @brief color for Stops
+    static const RGBColor SUMO_color_stops;
+
     static const std::string SCHEME_NAME_EDGE_PARAM_NUMERICAL;
     static const std::string SCHEME_NAME_LANE_PARAM_NUMERICAL;
     static const std::string SCHEME_NAME_EDGEDATA_NUMERICAL;

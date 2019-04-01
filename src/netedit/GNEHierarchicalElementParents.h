@@ -168,6 +168,18 @@ protected:
      */
     void changeAdditionalParent(GNEAdditional *additionalTobeChanged, const std::string& newAdditionalParentID, int additionalParentIndex);
 
+    /**@brief change additional parent of ademand element
+     * @throw exception if this additional doesn't have previously a defined Additional parent
+     * @throw exception if additional with ID newAdditionalParentID doesn't exist
+     */
+    void changeAdditionalParent(GNEDemandElement *demandElementTobeChanged, const std::string& newAdditionalParentID, int additionalParentIndex);
+
+    /**@brief change first demand element parent of demandElement
+     * @throw exception if this demand element doesn't have previously a defined DemandElement parent
+     * @throw exception if demand element with ID newDemandElementParentID doesn't exist
+     */
+    void changeDemandElementParent(GNEAdditional *additionalTobeChanged, const std::string& newDemandElementParentID, int demandElementParentIndex);
+
     /**@brief change first demand element parent of demandElement
      * @throw exception if this demand element doesn't have previously a defined DemandElement parent
      * @throw exception if demand element with ID newDemandElementParentID doesn't exist

@@ -146,12 +146,6 @@ public:
     double getEndGeometryPositionOverLane() const;
 
 protected:
-    /// @brief The relative start position this stop is located at (optional, if empty takes 0)
-    std::string  myStartPosition;
-
-    /// @brief The  position this stop is located at (optional, if empty takes the lane lenght)
-    std::string myEndPosition;
-
     /// @brief Flag for friendly position
     bool myFriendlyPosition;
 
