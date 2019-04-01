@@ -3695,6 +3695,11 @@ GNEAttributeCarrier::fillDemandElements() {
             "Activity displayed for stopped person in GUI and output files ",
             "waiting");
         myTagProperties[currentTag].addAttribute(attrProperty);
+        
+        attrProperty = AttributeProperties(SUMO_ATTR_TRIP_ID,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "Value used for trips that uses this stop");
+        myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = SUMO_TAG_STOP_BUSSTOP;
     {
@@ -3756,6 +3761,11 @@ GNEAttributeCarrier::fillDemandElements() {
             ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "Activity displayed for stopped person in GUI and output files ",
             "waiting");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_TRIP_ID,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "Value used for trips that uses this stop");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = SUMO_TAG_STOP_CONTAINERSTOP;
@@ -3819,6 +3829,11 @@ GNEAttributeCarrier::fillDemandElements() {
             "Activity displayed for stopped person in GUI and output files ",
             "waiting");
         myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_TRIP_ID,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "Value used for trips that uses this stop");
+        myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = SUMO_TAG_STOP_CHARGINGSTATION;
     {
@@ -3881,6 +3896,11 @@ GNEAttributeCarrier::fillDemandElements() {
             "Activity displayed for stopped person in GUI and output files ",
             "waiting");
         myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_TRIP_ID,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "Value used for trips that uses this stop");
+        myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = SUMO_TAG_STOP_PARKINGAREA;
     {
@@ -3942,6 +3962,11 @@ GNEAttributeCarrier::fillDemandElements() {
             ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "Activity displayed for stopped person in GUI and output files ",
             "waiting");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_TRIP_ID,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "Value used for trips that uses this stop");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
 }

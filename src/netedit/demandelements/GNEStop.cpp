@@ -287,6 +287,8 @@ GNEStop::getAttribute(SumoXMLAttr key) const {
             return toString(parking);
         case SUMO_ATTR_ACTTYPE:
             return "";  // CHECK
+        case SUMO_ATTR_TRIP_ID:
+            return tripId;
         // specific of Stops over stoppingPlaces
         case SUMO_ATTR_BUS_STOP:
         case SUMO_ATTR_CONTAINER_STOP:
@@ -337,6 +339,7 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_EXPECTED_CONTAINERS:
         case SUMO_ATTR_PARKING:
         case SUMO_ATTR_ACTTYPE:
+        case SUMO_ATTR_TRIP_ID:
         // specific of Stops over stoppingPlaces
         case SUMO_ATTR_BUS_STOP:
         case SUMO_ATTR_CONTAINER_STOP:
@@ -386,6 +389,8 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<bool>(value);
         case SUMO_ATTR_ACTTYPE:
             return false;  // CHECK
+        case SUMO_ATTR_TRIP_ID:
+            return SUMOXMLDefinitions::isValidAttribute(value);
         // specific of Stops over stoppingPlaces
         case SUMO_ATTR_BUS_STOP:
             return (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_BUS_STOP, value, false) != nullptr);
@@ -590,6 +595,9 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_ACTTYPE:
             // CHECK
+            break;
+        case SUMO_ATTR_TRIP_ID:
+            tripId = value;
             break;
         // specific of Stops over stoppingPlaces
         case SUMO_ATTR_BUS_STOP:
