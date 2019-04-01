@@ -671,7 +671,7 @@ class NetReader(handler.ContentHandler):
                 self._currentEdge.setParam(attrs['key'], attrs['value'])
             elif self._currentNode is not None:
                 self._currentNode.setParam(attrs['key'], attrs['value'])
-            elif self._currentProgram is not None:
+            elif self._withPhases and self._currentProgram is not None:
                 self._currentProgram.setParam(attrs['key'], attrs['value'])
 
     def endElement(self, name):

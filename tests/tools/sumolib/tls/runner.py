@@ -30,3 +30,6 @@ net = sumolib.net.readNet(sys.argv[1], withInternal=True,
 tls = net.getTLS('C')
 program = tls.getPrograms()['0']
 print(program.toXML(tls.getID()))
+
+# test reading with default options
+net2 = sumolib.net.readNet(sys.argv[1])
