@@ -44,11 +44,10 @@
  
 //#define DEBUG_STREAM_ORDERING
 //#define DEBUG_PHASES
-//#define DEBUGCOND true
 //#define DEBUGCOND (getID() == "cluster_251050941_280598736_280598739_28902891_3142549227_3142550438")
 //#define DEBUGEDGE(edge) (edge->getID() == "23209153#1" || edge->getID() == "319583927#0")
-#define DEBUGCOND (true)
-#define DEBUGEDGE(edge) (true)
+//#define DEBUGCOND (true)
+//#define DEBUGEDGE(edge) (true)
 
 // ===========================================================================
 // member method definitions
@@ -387,6 +386,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
 #endif
         // plain straight movers
         double maxSpeed = 0;
+        bool haveGreen = false;
         for (int i1 = 0; i1 < (int) incoming.size(); ++i1) {
             NBEdge* fromEdge = incoming[i1];
             const bool inChosen = fromEdge == chosen.first || fromEdge == chosen.second; //chosen.find(fromEdge)!=chosen.end();
@@ -399,6 +399,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
                     }
                     if (inChosen) {
                         state[pos] = 'G';
+                        haveGreen = true;
                         maxSpeed = MAX2(maxSpeed, fromEdge->getSpeed());
                     } else {
                         state[pos] = 'r';
@@ -406,6 +407,9 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
                     ++pos;
                 }
             }
+        }
+        if (!haveGreen) {
+            continue;
         }
         // 5s at 50km/h, 10s at 80km/h, rounded to full seconds
         const double minDurBySpeed = maxSpeed * 3.6 / 6 - 3.3;
