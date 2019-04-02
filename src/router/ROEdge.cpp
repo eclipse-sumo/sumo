@@ -77,6 +77,7 @@ ROEdge::ROEdge(const std::string& id, RONode* from, RONode* to, int index, const
         myBoundary.add(from->getPosition());
         myBoundary.add(to->getPosition());
     }
+    // we cannot calculate the boundary here, the position for the nodes is not valid yet
 }
 
 
@@ -111,12 +112,12 @@ ROEdge::addSuccessor(ROEdge* s, ROEdge* via, std::string) {
     if (find(myFollowingEdges.begin(), myFollowingEdges.end(), s) == myFollowingEdges.end()) {
         myFollowingEdges.push_back(s);
         myFollowingViaEdges.push_back(std::make_pair(s, via));
-        if (isTazConnector()) {
+        if (isTazConnector()) {//s->getFromJunction() != nullptr) {
             myBoundary.add(s->getFromJunction()->getPosition());
         }
         if (!isInternal()) {
             s->myApproachingEdges.push_back(this);
-            if (s->isTazConnector()) {
+            if (s->isTazConnector()) {//getToJunction() != nullptr) {
                 s->myBoundary.add(getToJunction()->getPosition());
             }
             if (via != nullptr) {
@@ -155,6 +156,7 @@ ROEdge::getEffort(const ROVehicle* const veh, double time) const {
 
 double
 ROEdge::getDistanceTo(const ROEdge* other, const bool doBoundaryEstimate) const {
+    assert(this != other);
     if (doBoundaryEstimate) {
         return myBoundary.distanceTo2D(other->myBoundary);
     }
@@ -167,7 +169,8 @@ ROEdge::getDistanceTo(const ROEdge* other, const bool doBoundaryEstimate) const 
     if (other->isTazConnector()) {
         return other->myBoundary.distanceTo2D(getToJunction()->getPosition());
     }
-    return getToJunction()->getPosition().distanceTo2D(other->getFromJunction()->getPosition());
+    return getLanes()[0]->getShape()[-1].distanceTo2D(other->getLanes()[0]->getShape()[0]);
+    //return getToJunction()->getPosition().distanceTo2D(other->getFromJunction()->getPosition());
 }
 
 
@@ -311,6 +314,16 @@ ROEdge::buildTimeLines(const std::string& measure, const bool boundariesOverride
     }
 }
 
+
+double
+ROEdge::getLengthGeometryFactor() const {
+    /* if (myFromJunction != 0 && myToJunction != 0) {
+        return MAX2(1.0, myFromJunction->getPosition().distanceTo(myToJunction->getPosition()) / myLength);
+    } else {
+        return 1.0;
+    }*/
+    return myLanes.empty() ? 1. : myLanes[0]->getShape().length() / myLanes[0]->getLength();
+}
 
 bool
 ROEdge::allFollowersProhibit(const ROVehicle* const vehicle) const {

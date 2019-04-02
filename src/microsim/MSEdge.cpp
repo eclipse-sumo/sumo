@@ -888,6 +888,7 @@ MSEdge::parseEdgesList(const std::vector<std::string>& desc, ConstMSEdgeVector& 
 
 double
 MSEdge::getDistanceTo(const MSEdge* other, const bool doBoundaryEstimate) const {
+    assert(this != other);
     if (doBoundaryEstimate) {
         return myBoundary.distanceTo2D(other->myBoundary);
     }

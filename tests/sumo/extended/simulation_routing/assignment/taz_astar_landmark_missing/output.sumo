@@ -1,25 +1,25 @@
-Loading net-file from 'net.net.xml'... done (287ms).
+Loading net-file from 'net.net.xml'... done (174ms).
 Loading additional-files from 'input_districts.taz.xml'... done (0ms).
 Loading done.
-Simulation version v1_0_1+1015-8e01b2d started with time: 0.00
+Simulation version v1_1_0+1379-f2e706eba2 started with time: 0.00
 Building Contraction Hierarchy for vClass='passenger' and time=0.00 (2052 edges)
 ... 
 Created 4553 shortcuts.
 Recomputed priority 2510 times.
-done (152ms).
+done (109ms).
 done.
 CHRouter answered 1444 queries and explored 90.98 edges on average.
-CHRouter spent 87ms answering queries (0.06ms on average).
+CHRouter spent 75ms answering queries (0.05ms on average).
 Simulation ended at time: 67.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 257ms
- Real time factor: 260.7
- UPS: 256.809339
+ Duration: 233ms
+ Real time factor: 287.554
+ UPS: 283.261803
 Vehicles: 
  Inserted: 1
  Running: 0
  Waiting: 0
 
-AStarRouter answered 1 queries and explored 51.00 edges on average.
-AStarRouter spent 0ms answering queries (0.00ms on average).
+AStarRouter answered 1 queries and explored 138.00 edges on average.
+AStarRouter spent 1ms answering queries (1.00ms on average).

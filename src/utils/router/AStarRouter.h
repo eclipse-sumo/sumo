@@ -101,9 +101,9 @@ public:
         BASE("AStarRouter", unbuildIsWarning, operation),
         myLookupTable(lookup),
         myMaxSpeed(NUMERICAL_EPS) {
-        for (typename std::vector<E*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
-            myEdgeInfos.push_back(typename BASE::EdgeInfo(*i));
-            myMaxSpeed = MAX2(myMaxSpeed, (*i)->getSpeedLimit() * MAX2(1.0, (*i)->getLengthGeometryFactor()));
+        for (const E* const edge : edges) {
+            myEdgeInfos.push_back(typename BASE::EdgeInfo(edge));
+            myMaxSpeed = MAX2(myMaxSpeed, edge->getSpeedLimit() * MAX2(1.0, edge->getLengthGeometryFactor()));
         }
     }
 
@@ -172,6 +172,7 @@ public:
             // add begin node
             auto* const fromInfo = &(myEdgeInfos[from->getNumericalID()]);
             fromInfo->effort = 0.;
+            fromInfo->heuristicEffort = 0.;
             fromInfo->prev = nullptr;
             fromInfo->leaveTime = STEPS2TIME(msTime);
             myFrontierList.push_back(fromInfo);
@@ -211,12 +212,12 @@ public:
             minimumInfo->visited = true;
 #ifdef ASTAR_DEBUG_QUERY
             std::cout << "DEBUG: hit=" << minEdge->getID()
-                      << " TT=" << minimumInfo->traveltime
-                      << " EF=" << this->getEffort(minEdge, vehicle, time + minimumInfo->traveltime)
-                      << " HT=" << minimumInfo->heuristicTime
+                << " TT=" << minimumInfo->effort
+                << " EF=" << this->getEffort(minEdge, vehicle, minimumInfo->leaveTime)
+                << " HT=" << minimumInfo->heuristicEffort
                       << " Q(TT,HT,Edge)=";
             for (typename std::vector<EdgeInfo*>::iterator it = myFrontierList.begin(); it != myFrontierList.end(); it++) {
-                std::cout << (*it)->traveltime << "," << (*it)->heuristicTime << "," << (*it)->edge->getID() << " ";
+                std::cout << (*it)->effort << "," << (*it)->heuristicEffort << "," << (*it)->edge->getID() << " ";
             }
             std::cout << "\n";
 #endif
@@ -225,10 +226,12 @@ public:
 
             // admissible A* heuristic: straight line distance at maximum speed
             const double heuristic_remaining = (myLookupTable == nullptr ? minEdge->getDistanceTo(to) / speed :
-                                                myLookupTable->lowerBound(minEdge, to, speed, vehicle->getChosenSpeedFactor(), minEdge->getMinimumTravelTime(0), to->getMinimumTravelTime(0)));
+                                                myLookupTable->lowerBound(minEdge, to, speed, vehicle->getChosenSpeedFactor(),
+                                                                          minEdge->getMinimumTravelTime(nullptr), to->getMinimumTravelTime(nullptr)));
             if (heuristic_remaining == UNREACHABLE) {
                 continue;
             }
+            const double heuristicEffort = minimumInfo->effort + effortDelta + heuristic_remaining;
             // check all ways from the node with the minimal length
             for (const std::pair<const E*, const E*>& follower : minEdge->getViaSuccessors(vClass)) {
                 auto* const followerInfo = &(myEdgeInfos[follower.first->getNumericalID()]);
@@ -242,22 +245,14 @@ public:
                 const double oldEffort = followerInfo->effort;
                 if ((!followerInfo->visited || mayRevisit) && effort < oldEffort) {
                     followerInfo->effort = effort;
-                    followerInfo->heuristicEffort = effort + heuristic_remaining;
+                    // if we use the effort including the via effort below we would count the via twice as shown by the ticket676 test
+                    followerInfo->heuristicEffort = MIN2(heuristicEffort, followerInfo->heuristicEffort);
                     followerInfo->leaveTime = time;
                     followerInfo->prev = minimumInfo;
-                    /* the code below results in fewer edges being looked up but is more costly due to the effort
-                       calculations. Overall it resulted in a slowdown in the Berlin tests but could be made configurable someday.
-                    followerInfo->heuristicTime = traveltime;
-                    if (follower != to) {
-                        if (myLookupTable == 0) {
-                            // admissible A* heuristic: straight line distance at maximum speed
-                            followerInfo->heuristicTime += this->getEffort(follower, vehicle, time + traveltime) + follower->getDistanceTo(to) / speed;
-                        } else {
-                            followerInfo->heuristicTime += this->getEffort(follower, vehicle, time + traveltime) + (*myLookupTable)[follower->getNumericalID()][to->getNumericalID()] / vehicle->getChosenSpeedFactor();
-                        }
-                    }*/
 #ifdef ASTAR_DEBUG_QUERY_FOLLOWERS
-                    std::cout << "   follower=" << followerInfo->edge->getID() << " OEF=" << oldEffort << " TT=" << traveltime << " HR=" << heuristic_remaining << " HT=" << followerInfo->heuristicTime << "\n";
+                    std::cout << "   follower=" << followerInfo->edge->getID() 
+                        << " OEF=" << (oldEffort == std::numeric_limits<double>::max() ? "inf" : toString(oldEffort))
+                        << " TT=" << effort << " HR=" << heuristic_remaining << " HT=" << followerInfo->heuristicEffort << "\n";
 #endif
                     if (oldEffort == std::numeric_limits<double>::max()) {
                         myFrontierList.push_back(followerInfo);
@@ -277,7 +272,7 @@ public:
         }
         this->endQuery(num_visited);
 #ifdef ASTAR_DEBUG_QUERY_PERF
-        std::cout << "visited " + toString(num_visited) + " edges (unsuccesful path length: " + toString(into.size()) + ")\n";
+        std::cout << "visited " + toString(num_visited) + " edges (unsuccessful path length: " + toString(into.size()) + ")\n";
 #endif
         if (!silent) {
             this->myErrorMsgHandler->inform("No connection between edge '" + from->getID() + "' and edge '" + to->getID() + "' found.");
