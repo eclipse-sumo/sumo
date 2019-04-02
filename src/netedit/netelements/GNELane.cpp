@@ -114,6 +114,14 @@ GNELane::updateGeometry(bool updateGrid) {
     for (auto i : myAdditionalParents) {
         i->updateGeometry(updateGrid);
     }
+    // update demand elements parentsassociated with this lane
+    for (auto i : myDemandElementParents) {
+        i->updateGeometry(updateGrid);
+    }
+     // update demand elements childs associated with this lane
+    for (auto i : myDemandElementChilds) {
+        i->updateGeometry(updateGrid);
+    }
     // update POIs associated to this lane
     for (auto i : myShapes) {
         i->updateGeometry(updateGrid);
@@ -1383,6 +1391,14 @@ GNELane::startGeometryMoving() {
     for (auto i : myAdditionalParents) {
         i->startGeometryMoving();
     }
+    // Save current centering boundary of demand element childs
+    for (auto i : myDemandElementChilds) {
+        i->startGeometryMoving();
+    }
+    // Save current centering boundary of demand element with this lane as chid
+    for (auto i : myDemandElementParents) {
+        i->startGeometryMoving();
+    }
     // Save current centering boundary of POIs associated to this lane
     for (auto i : myShapes) {
         i->startGeometryMoving();
@@ -1399,6 +1415,14 @@ GNELane::endGeometryMoving() {
     }
     // Restore centering boundary of additionals with this lane as chid
     for (auto i : myAdditionalParents) {
+        i->endGeometryMoving();
+    }
+    // Restore centering boundary of demand elements with this lane as chid
+    for (auto i : myDemandElementChilds) {
+        i->endGeometryMoving();
+    }
+    // Restore centering boundary of demand elements with this lane as chid
+    for (auto i : myDemandElementParents) {
         i->endGeometryMoving();
     }
     // Restore centering boundary of POIs associated to this lane
