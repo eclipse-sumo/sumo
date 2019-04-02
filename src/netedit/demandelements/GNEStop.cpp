@@ -327,8 +327,6 @@ GNEStop::unselectAttributeCarrier(bool changeFlag) {
 
 std::string
 GNEStop::getAttribute(SumoXMLAttr key) const {
-    // declare string error
-    std::string error;
     switch (key) {
         case SUMO_ATTR_ID:
             return getDemandElementID();
@@ -339,19 +337,43 @@ GNEStop::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_INDEX:
             return toString(index);
         case SUMO_ATTR_TRIGGERED:
-            return toString(triggered);
+            if (parametersSet & STOP_TRIGGER_SET) {
+                return toString(triggered);
+            } else {
+                return "";
+            }
         case SUMO_ATTR_CONTAINER_TRIGGERED:
-            return toString(containerTriggered);
+            if (parametersSet & STOP_CONTAINER_TRIGGER_SET) {
+                return toString(containerTriggered);
+            } else {
+                return "";
+            }
         case SUMO_ATTR_EXPECTED:
-            return toString(awaitedPersons);
+            if (parametersSet & STOP_EXPECTED_SET) {
+                return toString(awaitedPersons);
+            } else {
+                return "";
+            }
         case SUMO_ATTR_EXPECTED_CONTAINERS:
-            return toString(awaitedContainers);
+            if (parametersSet & STOP_EXPECTED_CONTAINERS_SET) {
+                return toString(awaitedContainers);
+            } else {
+                return "";
+            }
         case SUMO_ATTR_PARKING:
-            return toString(parking);
+            if (parametersSet & STOP_PARKING_SET) {
+                return toString(parking);
+            } else {
+                return "";
+            }
         case SUMO_ATTR_ACTTYPE:
             return "";  // CHECK
         case SUMO_ATTR_TRIP_ID:
-            return tripId;
+            if (parametersSet & STOP_TRIP_ID_SET) {
+                return tripId;
+            } else {
+                return "";
+            }
         // specific of Stops over stoppingPlaces
         case SUMO_ATTR_BUS_STOP:
         case SUMO_ATTR_CONTAINER_STOP:
@@ -626,8 +648,6 @@ GNEStop::getEndGeometryPositionOverLane() const {
 
 void
 GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
-    // declare string error
-    std::string error;
     switch (key) {
         case SUMO_ATTR_ID:
             changeDemandElementID(value);
@@ -642,25 +662,49 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             index = parse<int>(value);
             break;
         case SUMO_ATTR_TRIGGERED:
-            triggered = parse<bool>(value);
-            break;
+            if (value.empty()) {
+                parametersSet &= ~STOP_TRIGGER_SET;
+            } else {
+                triggered = parse<bool>(value);
+                break;
+            }
         case SUMO_ATTR_CONTAINER_TRIGGERED:
-            containerTriggered = parse<bool>(value);
+            if (value.empty()) {
+                parametersSet &= ~STOP_CONTAINER_TRIGGER_SET;
+            } else {
+                containerTriggered = parse<bool>(value);
+            }
             break;
         case SUMO_ATTR_EXPECTED:
-            awaitedPersons = parse<std::set<std::string> >(value);
+            if (value.empty()) {
+                parametersSet &= ~STOP_EXPECTED_SET;
+            } else {
+                awaitedPersons = parse<std::set<std::string> >(value);
+            }
             break;
         case SUMO_ATTR_EXPECTED_CONTAINERS:
-            awaitedContainers = parse<std::set<std::string> >(value);
+            if (value.empty()) {
+                parametersSet &= ~STOP_EXPECTED_CONTAINERS_SET;
+            } else {
+                awaitedContainers = parse<std::set<std::string> >(value);
+            }
             break;
         case SUMO_ATTR_PARKING:
-            parking = parse<bool>(value);
+            if (value.empty()) {
+                parametersSet &= ~STOP_PARKING_SET;
+            } else {
+                parking = parse<bool>(value);
+            }
             break;
         case SUMO_ATTR_ACTTYPE:
             // CHECK
             break;
         case SUMO_ATTR_TRIP_ID:
-            tripId = value;
+            if (value.empty()) {
+                parametersSet &= ~STOP_TRIP_ID_SET;
+            } else {
+                tripId = value;
+            }
             break;
         // specific of Stops over stoppingPlaces
         case SUMO_ATTR_BUS_STOP:
