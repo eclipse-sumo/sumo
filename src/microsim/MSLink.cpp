@@ -199,6 +199,10 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                     // lane width affects the crossing point
                     intersections1.back() -= (*it_lane)->getWidth() / 2;
                     intersections2.back() -= lane->getWidth() / 2;
+                    // ensure negative offset for weird geometries
+                    intersections1.back() = MAX2(0.0, intersections1.back());
+                    intersections2.back() = MAX2(0.0, intersections2.back());
+
                     // also length/geometry factor. (XXX: Why subtract width/2 *before* converting geometric position to lane pos? refs #3031)
                     intersections1.back() = lane->interpolateGeometryPosToLanePos(intersections1.back());
                     intersections2.back() = (*it_lane)->interpolateGeometryPosToLanePos(intersections2.back());
