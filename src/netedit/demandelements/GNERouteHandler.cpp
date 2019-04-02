@@ -77,7 +77,7 @@ GNERouteHandler::buildVehicle(GNEViewNet* viewNet, bool undoDemandElements, SUMO
                     viewNet->getUndoList()->p_end();
                     // iterate over stops of vehicleParameters and create stops associated with it
                     for (const auto &i : vehicleParameters->stops) {
-                        buildStop(viewNet, true, i, vehicle);
+                        buildStop(viewNet, true, i, vehicle, false);
                     }
                 } else {
                     viewNet->getNet()->insertDemandElement(vehicle);
@@ -85,7 +85,7 @@ GNERouteHandler::buildVehicle(GNEViewNet* viewNet, bool undoDemandElements, SUMO
                     vehicle->incRef("buildVehicle");
                     // iterate over stops of vehicleParameters and create stops associated with it
                     for (const auto &i : vehicleParameters->stops) {
-                        buildStop(viewNet, false, i, vehicle);
+                        buildStop(viewNet, false, i, vehicle, false);
                     }
                 }
             }
@@ -171,7 +171,7 @@ GNERouteHandler::buildTrip(GNEViewNet* viewNet, bool undoDemandElements, SUMOVeh
 
 
 void 
-GNERouteHandler::buildStop(GNEViewNet* viewNet, bool undoDemandElements, const SUMOVehicleParameter::Stop &stopParameters, GNEDemandElement *stopParent) {
+GNERouteHandler::buildStop(GNEViewNet* viewNet, bool undoDemandElements, const SUMOVehicleParameter::Stop &stopParameters, GNEDemandElement *stopParent, bool friendlyPosition) {
     // declare pointers to stopping place  and lane and obtain it
     GNEAdditional* stoppingPlace = nullptr;
     GNELane* lane = nullptr;
@@ -213,7 +213,7 @@ GNERouteHandler::buildStop(GNEViewNet* viewNet, bool undoDemandElements, const S
         }
     } else {
         // create stop using stopParameters and lane
-        GNEStop* stop = new GNEStop(viewNet, stopParameters, lane, true, stopParent);
+        GNEStop* stop = new GNEStop(viewNet, stopParameters, lane, friendlyPosition, stopParent);
         // add it depending of undoDemandElements
         if (undoDemandElements) {
             viewNet->getUndoList()->p_begin("add " + stop->getTagStr());

@@ -830,8 +830,12 @@ GNEFrame::AttributesEditor::RowEditor::showRow(const GNEAttributeCarrier::Attrib
     if (myACAttr.isBool()) {
         // first we need to check if all boolean values are equal
         bool allBooleanValuesEqual = true;
-        // obtain boolean vector
-        auto booleanVector = GNEAttributeCarrier::parse<std::vector<bool> >(value);
+        // declare  boolean vector
+        std::vector<bool> booleanVector;
+        // check if value can be parsed to a boolean vector
+        if (GNEAttributeCarrier::canParse<std::vector<bool> >(value)) {
+            GNEAttributeCarrier::parse<std::vector<bool> >(value);
+        }
         // iterate over pased booleans comparing all element with the first
         for (const auto& i : booleanVector) {
             if (i != booleanVector.front()) {
@@ -841,7 +845,7 @@ GNEFrame::AttributesEditor::RowEditor::showRow(const GNEAttributeCarrier::Attrib
         // use checkbox or textfield depending if all booleans are equal
         if (allBooleanValuesEqual) {
             // set check button
-            if (booleanVector.front()) {
+            if ((booleanVector.size() > 0) && booleanVector.front()) {
                 myBoolCheckButton->setCheck(true);
                 myBoolCheckButton->setText("true");
             } else {
