@@ -1174,7 +1174,7 @@ NBNodeCont::joinNodeCluster(NodeSet cluster, NBDistrictCont& dc, NBEdgeCont& ec,
                 continue;
             }
             const auto& cons = cur->getConnections();
-            if (cons.size() == 0 || ec.hasPostProcessConnection(cur->getID())) {
+            if (cons.size() == 0 || ec.hasPostProcessConnection(cur->getID()) || cur->getStep() == NBEdge::INIT) {
                 // check permissions to determine reachability
                 for (NBEdge* out : cur->getToNode()->getOutgoingEdges()) {
                     if (seen.count(out) == 0
