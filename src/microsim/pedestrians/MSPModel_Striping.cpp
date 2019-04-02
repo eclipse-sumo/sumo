@@ -954,7 +954,7 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
             Obstacles closedLink(stripes, Obstacle(p.myRelX + dir * (dist + NUMERICAL_EPS), 0, OBSTACLE_LINKCLOSED, "closedLink_" + link->getViaLaneOrLane()->getID(), 0));
             p.mergeObstacles(currentObs, closedLink);
             if DEBUGCOND(p) {
-                std::cout << SIMTIME << " ped=" << p.myPerson->getID() << "  obsWitTLS=";
+                std::cout << SIMTIME << " ped=" << p.myPerson->getID() << "  obsWithTLS=";
                 DEBUG_PRINT(currentObs);
             }
             // consider rerouting over another crossing
@@ -1560,7 +1560,13 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
     }
     // compute speed components along both axes
     const int next = (chosen == current ? current : (chosen < current ? current - 1 : current + 1));
-    const double xDist = MIN3(distance[current], distance[other], distance[next]);
+    double xDist = MIN3(distance[current], distance[other], distance[next]);
+    if (next != chosen) {
+        // ensure that we do not collide with an obstacle in the stripe beyond
+        // next as this might become the 'other' stripe in the next step
+        const int nextOther = chosen < current ? current - 2 : current + 2;
+        xDist = MIN2(xDist, distance[nextOther]);
+    }
     // XXX preferred gap differs between approaching a standing obstacle or a moving obstacle
     const double preferredGap = NUMERICAL_EPS;
     double xSpeed = MIN2(vMax, MAX2(0., DIST2SPEED(xDist - preferredGap)));
@@ -1817,12 +1823,12 @@ void
 MSPModel_Striping::PState::mergeObstacles(Obstacles& into, const Obstacles& obs2) {
     for (int i = 0; i < (int)into.size(); ++i) {
         if (gDebugFlag1) {
-            std::cout << "     i=" << i
-                      << " into=" << into[i].description << " iDist=" << distanceTo(into[i])
-                      << " obs2=" << obs2[i].description << " oDist=" << distanceTo(obs2[i]) << "\n";
+            std::cout << "     i=" << i << " maxX=" << getMaxX(true) << " minX=" << getMinX(true)
+                      << " into=" << into[i].description << " iDist=" << distanceTo(into[i], into[i].type == OBSTACLE_PED)
+                      << " obs2=" << obs2[i].description << " oDist=" << distanceTo(obs2[i], obs2[i].type == OBSTACLE_PED) << "\n";
         }
-        const double dO = distanceTo(obs2[i]);
-        const double dI = distanceTo(into[i]);
+        const double dO = distanceTo(obs2[i], obs2[i].type == OBSTACLE_PED);
+        const double dI = distanceTo(into[i], into[i].type == OBSTACLE_PED);
         if (dO < dI) {
             into[i] = obs2[i];
         } else if (dO == dI
