@@ -331,7 +331,9 @@ GNEAdditional::startGeometryMoving() {
                 // obtain position attribute
                 myMove.firstOriginalLanePosition = getAttribute(SUMO_ATTR_POSITION);
             }
-        } else if (myTagProperty.hasAttribute(SUMO_ATTR_LANES)) {
+        } else if (myTagProperty.hasAttribute(SUMO_ATTR_LANES) && 
+                   myTagProperty.hasAttribute(SUMO_ATTR_POSITION) &&
+                   myTagProperty.hasAttribute(SUMO_ATTR_ENDPOS)) {
             // obtain start and end position
             myMove.firstOriginalLanePosition = getAttribute(SUMO_ATTR_POSITION);
             myMove.secondOriginalPosition = getAttribute(SUMO_ATTR_ENDPOS);

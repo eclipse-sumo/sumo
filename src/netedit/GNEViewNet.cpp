@@ -1070,11 +1070,11 @@ GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
             case MID_HOTKEY_S_SELECTMODE:
                 myEditModes.setNetworkEditMode(GNE_NMODE_SELECT);
                 break;
-            case MID_HOTKEY_E_EDGEMODE:
-                myEditModes.setNetworkEditMode(GNE_NMODE_CREATE_EDGE);
-                break;
             case MID_HOTKEY_M_MOVEMODE:
                 myEditModes.setNetworkEditMode(GNE_NMODE_MOVE);
+                break;
+            case MID_HOTKEY_E_EDGEMODE:
+                myEditModes.setNetworkEditMode(GNE_NMODE_CREATE_EDGE);
                 break;
             case MID_HOTKEY_C_CONNECTMODE:
                 myEditModes.setNetworkEditMode(GNE_NMODE_CONNECT);
@@ -1111,6 +1111,9 @@ GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
                 break;
             case MID_HOTKEY_S_SELECTMODE:
                 myEditModes.setDemandEditMode(GNE_DMODE_SELECT);
+                break;
+            case MID_HOTKEY_M_MOVEMODE:
+                myEditModes.setDemandEditMode(GNE_DMODE_MOVE);
                 break;
             case MID_HOTKEY_R_CROSSINGMODE_ROUTEMODE:
                 myEditModes.setDemandEditMode(GNE_DMODE_ROUTES);
@@ -2179,7 +2182,7 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             myMoveOptions.warnAboutMerge->show();
             myMoveOptions.showJunctionBubble->show();
             myMoveOptions.moveElevation->show();
-            myNetworkCheckableButtons.moveButton->setChecked(true);
+            myCommonCheckableButtons.moveButton->setChecked(true);
             // show view options
             myViewOptions.menuCheckShowGrid->show();
             // show toolbar grip of view options
@@ -2311,6 +2314,13 @@ GNEViewNet::updateDemandModeSpecificControls() {
             myCommonCheckableButtons.selectButton->setChecked(true);
             // hide toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->hide();
+            break;
+        case GNE_DMODE_MOVE:
+            myCommonCheckableButtons.moveButton->setChecked(true);
+            // show view options
+            myViewOptions.menuCheckShowGrid->show();
+            // show toolbar grip of view options
+            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
         // specific modes
         case GNE_DMODE_ROUTES:
@@ -2776,13 +2786,19 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             if (myObjectsUnderCursor.getLaneFront()) {
                 myObjectsUnderCursor.swapLane2Edge();
             }
-            // check if we're moving a set of selected items
-            if (myObjectsUnderCursor.getAttributeCarrierFront() && myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
-                // move selected ACs
-                myMoveMultipleElementValues.beginMoveSelection(myObjectsUnderCursor.getAttributeCarrierFront());
-                // update view
-                update();
-            } else if (!myMoveSingleElementValues.beginMoveSingleElement()) {
+            // check that AC under cursor isn't a demand element
+            if (myObjectsUnderCursor.getAttributeCarrierFront() && !myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isDemandElement()) {
+                // check if we're moving a set of selected items
+                if( myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
+                    // move selected ACs
+                    myMoveMultipleElementValues.beginMoveSelection(myObjectsUnderCursor.getAttributeCarrierFront());
+                    // update view
+                    update();
+                } else if (!myMoveSingleElementValues.beginMoveSingleElementNetworkMode()) {
+                    // process click  if there isn't movable elements (to move camera using drag an drop)
+                    processClick(eventData);
+                }
+            } else {
                 // process click  if there isn't movable elements (to move camera using drag an drop)
                 processClick(eventData);
             }
@@ -2964,7 +2980,7 @@ GNEViewNet::processMoveMouseNetwork() {
 
 void
 GNEViewNet::processLeftButtonPressDemand(void* eventData) {
-// decide what to do based on mode
+    // decide what to do based on mode
     switch (myEditModes.demandEditMode) {
         case GNE_DMODE_INSPECT: {
             // process left click in Inspector Frame
@@ -3016,6 +3032,26 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
                 }
             }
             break;
+        case GNE_DMODE_MOVE: {
+            // check that AC under cursor is a demand element
+            if (myObjectsUnderCursor.getAttributeCarrierFront() && 
+                myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isDemandElement()) {
+                // check if we're moving a set of selected items
+                if (myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
+                    // move selected ACs
+                    myMoveMultipleElementValues.beginMoveSelection(myObjectsUnderCursor.getAttributeCarrierFront());
+                    // update view
+                    update();
+                } else if (!myMoveSingleElementValues.beginMoveSingleElementDemandMode()) {
+                    // process click  if there isn't movable elements (to move camera using drag an drop)
+                    processClick(eventData);
+                }
+            } else {
+                // process click  if there isn't movable elements (to move camera using drag an drop)
+                processClick(eventData);
+            }
+            break;
+        }
         case GNE_DMODE_ROUTES: {
             // check if we clicked over a lane
             if (myObjectsUnderCursor.getLaneFront()) {
@@ -3050,14 +3086,19 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
 
 void
 GNEViewNet::processLeftButtonReleaseDemand() {
-    if (mySelectingArea.selectingUsingRectangle) {
+    // check moved items
+    if (myMoveMultipleElementValues.isMovingSelection()) {
+        myMoveMultipleElementValues.finishMoveSelection();
+    } else if (mySelectingArea.selectingUsingRectangle) {
         // check if we're creating a rectangle selection or we want only to select a lane
         if (mySelectingArea.startDrawing) {
-            // process rectangle selection
             mySelectingArea.processRectangleSelection();
-            // finish rectangle selection
-            mySelectingArea.finishRectangleSelection();
         }
+        // finish selection
+        mySelectingArea.finishRectangleSelection();
+    } else {
+        // finish moving of single elements
+        myMoveSingleElementValues.finishMoveSingleElement();
     }
 }
 
@@ -3067,6 +3108,9 @@ GNEViewNet::processMoveMouseDemand() {
     if (mySelectingArea.selectingUsingRectangle) {
         // update selection corner of selecting area
         mySelectingArea.moveRectangleSelection();
+    } else {
+        // move single elements
+        myMoveSingleElementValues.moveSingleElement();
     }
 }
 

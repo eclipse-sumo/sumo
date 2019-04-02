@@ -59,10 +59,10 @@ enum NetworkEditMode {
     GNE_NMODE_DELETE,
     ///@brief mode for selecting network elements
     GNE_NMODE_SELECT,
-    ///@brief mode for creating new edges
-    GNE_NMODE_CREATE_EDGE,
     ///@brief mode for moving network elements
     GNE_NMODE_MOVE,
+    ///@brief mode for creating new edges
+    GNE_NMODE_CREATE_EDGE,
     ///@brief mode for connecting lanes
     GNE_NMODE_CONNECT,
     ///@brief mode for editing tls
@@ -89,6 +89,8 @@ enum DemandEditMode {
     GNE_DMODE_DELETE,
     ///@brief mode for selecting demand elements
     GNE_DMODE_SELECT,
+    ///@brief mode for moving demand elements
+    GNE_DMODE_MOVE,
     ///@brief Mode for editing routes
     GNE_DMODE_ROUTES,
     ///@brief Mode for editing vehicles
@@ -417,13 +419,16 @@ struct GNEViewNetHelper {
         /// @brief constructor
         MoveSingleElementValues(GNEViewNet* viewNet);
 
-        /// @brief begin move single element
-        bool beginMoveSingleElement();
+        /// @brief begin move single element in Network mode
+        bool beginMoveSingleElementNetworkMode();
 
-        /// @brief move single element
+        /// @brief begin move single element in Demand mode
+        bool beginMoveSingleElementDemandMode();
+
+        /// @brief move single element in Network AND Demand mode
         void moveSingleElement();
 
-        /// @brief finish moving single elements
+        /// @brief finish moving single elements in Network AND Demand mode
         void finishMoveSingleElement();
 
         /// @brief original shape of element before start moving (used by polygons, edges, etc., needed for commmit position changes)
@@ -471,6 +476,9 @@ struct GNEViewNetHelper {
 
         /// @brief the additional element which position is being moved
         GNEAdditional* myAdditionalToMove;
+
+        /// @brief the demand element which position is being moved
+        GNEDemandElement* myDemandElementToMove;
 
         /// @brief the TAZ element which their Shape is being moved (it's the only additional with a shape instead a position)
         GNETAZ* myTAZToMove;
@@ -675,6 +683,9 @@ struct GNEViewNetHelper {
         /// @brief chekable button for edit mode select
         MFXCheckableButton* selectButton;
 
+        /// @brief chekable button for edit mode move
+        MFXCheckableButton* moveButton;
+
     private:
         /// @brief pointer to viewNet
         GNEViewNet* myViewNet;
@@ -703,9 +714,6 @@ struct GNEViewNetHelper {
 
         /// @brief chekable button for edit mode create edge
         MFXCheckableButton* createEdgeButton;
-
-        /// @brief chekable button for edit mode move
-        MFXCheckableButton* moveButton;
 
         /// @brief chekable button for edit mode connection
         MFXCheckableButton* connectionButton;
