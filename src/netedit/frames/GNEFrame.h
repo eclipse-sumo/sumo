@@ -55,7 +55,7 @@ public:
         ~ItemSelector();
 
         /// @brief show item selector
-        void showItemSelector();
+        void showItemSelector(bool enableModuls);
 
         /// @brief hide item selector
         void hideItemSelector();

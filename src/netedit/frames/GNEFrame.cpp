@@ -176,14 +176,19 @@ GNEFrame::ItemSelector::~ItemSelector() {}
 
 
 void 
-GNEFrame::ItemSelector::showItemSelector() {
+GNEFrame::ItemSelector::showItemSelector(bool enableModuls) {
     show();
+    // check if parent moduls has to be enabled
+    if (enableModuls && (myCurrentTagProperties.getTag() != SUMO_TAG_NOTHING)) {
+        myFrameParent->enableModuls(myCurrentTagProperties);
+    }
 }
 
 
 void 
 GNEFrame::ItemSelector::hideItemSelector() {
     hide();
+    myFrameParent->disableModuls();
 }
 
 
@@ -195,6 +200,8 @@ GNEFrame::ItemSelector::getCurrentTagProperties() const {
 
 void
 GNEFrame::ItemSelector::setCurrentTypeTag(SumoXMLTag typeTag) {
+    // set empty tag properties
+    myCurrentTagProperties = GNEAttributeCarrier::TagProperties();
     // make sure that tag is in myTypeMatchBox
     for (int i = 0; i < (int)myTypeMatchBox->getNumItems(); i++) {
         if (myTypeMatchBox->getItem(i).text() == toString(typeTag)) {

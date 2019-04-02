@@ -132,9 +132,10 @@ public:
 
     /**@brief add Stop element
      * @param objectsUnderCursor collection of objects under cursor after click over view
+     * @param shiftPressed flag to check if during clicking shift key was pressed
      * @return true if Stop was sucesfully added
      */
-    bool addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
+    bool addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, bool shiftPressed);
 
 protected:
     /// @brief enable moduls depending of item selected in ItemSelector

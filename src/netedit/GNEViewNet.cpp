@@ -3071,7 +3071,7 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
         }
         case GNE_DMODE_STOP: {
             // Handle click
-            myViewParent->getStopFrame()->addStop(myObjectsUnderCursor);
+            myViewParent->getStopFrame()->addStop(myObjectsUnderCursor, myKeyPressed.shiftKeyPressed());
             // process click
             processClick(eventData);
             break;
