@@ -51,7 +51,7 @@ GNEStop::GNEStop(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehicleParameter
 }
 
 
-GNEStop::GNEStop(GNEViewNet* viewNet, const SUMOVehicleParameter::Stop &stopParameter, GNELane* lane, const std::string &startPosition, const std::string &endPosition, bool friendlyPosition, GNEDemandElement* stopParent) :
+GNEStop::GNEStop(GNEViewNet* viewNet, const SUMOVehicleParameter::Stop &stopParameter, GNELane* lane, bool friendlyPosition, GNEDemandElement* stopParent) :
     GNEDemandElement(stopParent, viewNet, GLO_STOP, SUMO_TAG_STOP_LANE, {}, {lane}, {}, {stopParent}, {}, {}, {}, {}),
     SUMOVehicleParameter::Stop(stopParameter),
     myFriendlyPosition(friendlyPosition) { 
@@ -82,7 +82,7 @@ GNEStop::writeDemandElement(OutputDevice& device) const {
 void
 GNEStop::moveGeometry(const Position& offset) {
     // only move if at leats start or end positions is defined
-    if ((myLaneParents.size() > 0) && ((parametersSet |= STOP_START_SET) || (parametersSet |= STOP_END_SET))) {
+    if ((myLaneParents.size() > 0) && ((parametersSet & STOP_START_SET) || (parametersSet & STOP_END_SET))) {
         // Calculate new position using old position
         Position newPosition = myMove.originalViewPosition;
         newPosition.add(offset);
@@ -90,7 +90,7 @@ GNEStop::moveGeometry(const Position& offset) {
         newPosition = myViewNet->snapToActiveGrid(newPosition);
         double offsetLane = myLaneParents.front()->getShape().nearest_offset_to_point2D(newPosition, false) - myLaneParents.front()->getShape().nearest_offset_to_point2D(myMove.originalViewPosition, false);
         // check if both position has to be moved
-        if ((parametersSet |= STOP_START_SET) && (parametersSet |= STOP_END_SET)) {
+        if ((parametersSet & STOP_START_SET) && (parametersSet & STOP_END_SET)) {
             // calculate stoppingPlace lenght and lane lenght (After apply geometry factor)
             double stoppingPlaceLenght = fabs(parse<double>(myMove.secondOriginalPosition) - parse<double>(myMove.firstOriginalLanePosition));
             double laneLengt = myLaneParents.front()->getParentEdge().getNBEdge()->getFinalLength() * myLaneParents.front()->getLengthGeometryFactor();
@@ -98,20 +98,23 @@ GNEStop::moveGeometry(const Position& offset) {
             if ((parse<double>(myMove.firstOriginalLanePosition) + offsetLane) < 0) {
                 startPos = 0;
                 endPos = stoppingPlaceLenght;
+                std::cout << "A" << std::endl;
             } else if ((parse<double>(myMove.secondOriginalPosition) + offsetLane) > laneLengt) {
                 startPos = laneLengt - stoppingPlaceLenght;
                 endPos = laneLengt;
+                std::cout << "B" << std::endl;
             } else {
                 startPos = parse<double>(myMove.firstOriginalLanePosition) + offsetLane;
                 endPos = parse<double>(myMove.secondOriginalPosition) + offsetLane;
+                std::cout << toString(offsetLane) << " | " << toString (startPos) << " " << toString(endPos) << std::endl;
             }
         } else {
             // check if start position must be moved
-            if ((parametersSet |= STOP_START_SET)) {
+            if ((parametersSet & STOP_START_SET)) {
                 startPos = parse<double>(myMove.firstOriginalLanePosition) + offsetLane;
             }
             // check if start position must be moved
-            if ((parametersSet |= STOP_END_SET)) {
+            if ((parametersSet & STOP_END_SET)) {
                 endPos = parse<double>(myMove.secondOriginalPosition) + offsetLane;
             }
         }
@@ -167,13 +170,18 @@ GNEStop::updateGeometry(bool updateGrid) {
 Position
 GNEStop::getPositionInView() const {
     if (myLaneParents.size() > 0) {
-        if (myLaneParents.front()->getShape().length() < 2.5) {
-            return myLaneParents.front()->getShape().front();
+        // calculate start and end positions as absolute values
+        double start = fabs(parametersSet & STOP_START_SET ? startPos : 0);
+        double end = fabs(parametersSet & STOP_END_SET ? endPos : myLaneParents.front()->getParentEdge().getNBEdge()->getFinalLength());
+        // obtain position in view depending if both positions are defined
+        if (!(parametersSet & STOP_START_SET) && !(parametersSet & STOP_END_SET)) {
+            return myLaneParents.front()->getShape().positionAtOffset(myLaneParents.front()->getShape().length() / 2);
+        } else if (!(parametersSet & STOP_START_SET)) {
+            return myLaneParents.front()->getShape().positionAtOffset(end);
+        } else if (!(parametersSet & STOP_END_SET)) {
+            return myLaneParents.front()->getShape().positionAtOffset(start);
         } else {
-            Position A = myLaneParents.front()->getShape().positionAtOffset(2.5);
-            Position B = myLaneParents.front()->getShape().positionAtOffset(2.5);
-            // return Middle point
-            return Position((A.x() + B.x()) / 2, (A.y() + B.y()) / 2);
+            return myLaneParents.front()->getShape().positionAtOffset((start + end) / 2.0);
         }
     } else if (myDemandElementParents.size() > 0) {
         return myDemandElementParents.front()->getPositionInView();
@@ -215,15 +223,70 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
         } else {
             GLHelper::setColor(s.SUMO_color_stops);
         }
-        // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-        GLHelper::drawBoxLines(myGeometry.shape, myGeometry.shapeRotations, myGeometry.shapeLengths, exaggeration*0.6);
+        // draw lines depending if it's placed over a lane or over a stoppingPlace
+        if (myLaneParents.size() > 0) {
+            // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
+            GLHelper::drawBoxLines(myGeometry.shape, myGeometry.shapeRotations, myGeometry.shapeLengths, exaggeration*0.1, 0, 
+                                   myLaneParents.front()->getParentEdge().getNBEdge()->getLaneWidth(myLaneParents.front()->getIndex()) * 0.5);
+            GLHelper::drawBoxLines(myGeometry.shape, myGeometry.shapeRotations, myGeometry.shapeLengths, exaggeration*0.1, 0, 
+                                   myLaneParents.front()->getParentEdge().getNBEdge()->getLaneWidth(myLaneParents.front()->getIndex()) * -0.5);
+        } else {
+            // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
+            GLHelper::drawBoxLines(myGeometry.shape, myGeometry.shapeRotations, myGeometry.shapeLengths, exaggeration*0.1, 0, exaggeration * -1);
+            GLHelper::drawBoxLines(myGeometry.shape, myGeometry.shapeRotations, myGeometry.shapeLengths, exaggeration*0.1, 0, exaggeration);
+        }
+        // pop draw matrix
+        glPopMatrix();
+        // Add a draw matrix
+        glPushMatrix();
+        // move to geometry front
+        glTranslated(myGeometry.shape.back().x(), myGeometry.shape.back().y(), getType());
+        glRotated(myGeometry.shapeRotations.back(), 0, 0, 1);
+        // draw front of Stop depending if it's placed over a lane or over a stoppingPlace
+        if (myLaneParents.size() > 0) {
+            // draw front of Stop
+            GLHelper::drawBoxLine(Position(0, 0), 0, exaggeration * 0.5, 
+                                  myLaneParents.front()->getParentEdge().getNBEdge()->getLaneWidth(myLaneParents.front()->getIndex()) * 0.5);
+        } else {
+            // draw front of Stop
+            GLHelper::drawBoxLine(Position(0, 0), 0, exaggeration * 0.5, exaggeration);
+        }
+        // move to "S" position
+        glTranslated(0, 1, 0);
+        // draw "S" symbol
+        GLHelper::drawText("S", Position(), .1, 2.8, s.SUMO_color_stops);
+        // move to subtitle positin
+        glTranslated(0, 1.4, 0);
+        // draw subtitle depending of tag
+        if (myTagProperty.getTag() == SUMO_TAG_STOP_BUSSTOP) {
+            GLHelper::drawText("busStop", Position(), .1, .5, s.SUMO_color_stops, 180);
+        } else if (myTagProperty.getTag() == SUMO_TAG_STOP_CONTAINERSTOP) {
+            GLHelper::drawText("container", Position(), .1, .5, s.SUMO_color_stops, 180);
+            glTranslated(0, 0.5, 0);
+            GLHelper::drawText("Stop", Position(), .1, .5, s.SUMO_color_stops, 180);
+        } else if (myTagProperty.getTag() == SUMO_TAG_STOP_CHARGINGSTATION) {
+            GLHelper::drawText("charging", Position(), .1, .5, s.SUMO_color_stops, 180);
+            glTranslated(0, 0.5, 0);
+            GLHelper::drawText("Station", Position(), .1, .5, s.SUMO_color_stops, 180);
+        } else if (myTagProperty.getTag() == SUMO_TAG_STOP_PARKINGAREA) {
+            GLHelper::drawText("parking", Position(), .1, .5, s.SUMO_color_stops, 180);
+            glTranslated(0, 0.5, 0);
+            GLHelper::drawText("Area", Position(), .1, .5, s.SUMO_color_stops, 180);
+        } else if (myTagProperty.getTag() == SUMO_TAG_STOP_LANE) {
+            GLHelper::drawText("lane", Position(), .1, 1, s.SUMO_color_stops, 180);
+        }
         // pop draw matrix
         glPopMatrix();
         // Draw name if isn't being drawn for selecting
         drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
         // check if dotted contour has to be drawn
         if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
-            GLHelper::drawShapeDottedContour(getType(), myGeometry.shape, exaggeration);
+            // draw dooted contour depending if it's placed over a lane or over a stoppingPlace
+            if (myLaneParents.size() > 0) {
+                GLHelper::drawShapeDottedContour(getType(), myGeometry.shape, myLaneParents.front()->getParentEdge().getNBEdge()->getLaneWidth(myLaneParents.front()->getIndex())*0.5);
+            } else {
+                GLHelper::drawShapeDottedContour(getType(), myGeometry.shape, exaggeration);
+            }
         }
         // Pop name
         glPopName();

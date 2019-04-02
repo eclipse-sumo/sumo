@@ -27,6 +27,7 @@
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNEJunction.h>
 #include <netedit/netelements/GNELane.h>
+#include <netedit/demandelements/GNEDemandElement.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
@@ -340,6 +341,10 @@ GNEAdditional::startGeometryMoving() {
         }
         // save current centering boundary
         myMove.movingGeometryBoundary = getCenteringBoundary();
+        // start geometry in all childs
+        for (const auto &i : myDemandElementChilds) {
+            i->startGeometryMoving();
+        }
     }
 }
 
@@ -356,6 +361,10 @@ GNEAdditional::endGeometryMoving() {
         updateGeometry(false);
         // add object into grid again (using the new centering boundary)
         myViewNet->getNet()->addGLObjectIntoGrid(this);
+        // start geometry in all childs
+        for (const auto &i : myDemandElementChilds) {
+            i->endGeometryMoving();
+        }
     }
 }
 

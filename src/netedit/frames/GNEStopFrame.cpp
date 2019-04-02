@@ -369,7 +369,7 @@ GNEStopFrame::addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCu
                 WRITE_WARNING("Invalid clicked stopping place to create a stop placed in a chargingStation");
                 return false;
             } else {
-                stopParameter.containerstop = objectsUnderCursor.getAdditionalFront()->getID();
+                stopParameter.chargingStation = objectsUnderCursor.getAdditionalFront()->getID();
                 stopParameter.startPos = 0;
                 stopParameter.endPos = 0;
             }

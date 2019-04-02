@@ -39,7 +39,7 @@ public:
     GNEStop(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehicleParameter::Stop &stopParameter, GNEAdditional* stoppingPlace, GNEDemandElement* stopParent);
 
     /// @brief constructor used for stops over lanes
-    GNEStop(GNEViewNet* viewNet, const SUMOVehicleParameter::Stop &stopParameter, GNELane* lane, const std::string &startPosition, const std::string &endPosition, bool friendlyPosition, GNEDemandElement* stopParent);
+    GNEStop(GNEViewNet* viewNet, const SUMOVehicleParameter::Stop &stopParameter, GNELane* lane, bool friendlyPosition, GNEDemandElement* stopParent);
 
     /// @brief destructor
     ~GNEStop();

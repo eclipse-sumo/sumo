@@ -24,6 +24,7 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/demandelements/GNEDemandElement.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNELane.h>
 #include <utils/options/OptionsCont.h>
@@ -77,6 +78,11 @@ GNEBusStop::updateGeometry(bool updateGrid) {
 
     // Set block icon rotation, and using their rotation for sign
     myBlockIcon.setRotation(myLaneParents.front());
+
+    // update demand element childs (GNEStops)
+    for (const auto &i : myDemandElementChilds) {
+        i->updateGeometry(updateGrid);
+    }
 
     // last step is to check if object has to be added into grid (SUMOTree) again
     if (updateGrid) {
