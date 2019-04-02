@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Apr  1 23:12:30 2019 by Eclipse SUMO netconvert Version v1_0_0+0026-c9a2754
+<!-- generated on Tue Apr  2 08:36:27 2019 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <dlr-navteq-prefix value="debug"/>
+        <dlr-navteq-prefix value="elmar"/>
     </input>
 
     <output>
-        <output-file value="110_1273.net.xml"/>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
     </output>
 
     <projection>
@@ -21,8 +27,13 @@
     </processing>
 
     <junctions>
+        <no-internal-links value="true"/>
         <junctions.join value="true"/>
     </junctions>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
 
 </configuration>
 -->
@@ -31,313 +42,127 @@
 
     <location netOffset="-406053.41,-5802746.30" convBoundary="0.00,0.00,310.15,145.59" origBoundary="1362016.870000,5236695.590000,1362470.650000,5236825.640000" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
-    <edge id=":20_0" function="internal">
-        <lane id=":20_0_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="3.65" length="4.67" shape="-0.29,45.53 -1.33,44.53 -1.57,43.67 -1.03,42.95 0.29,42.38"/>
-    </edge>
-    <edge id=":22_0" function="internal">
-        <lane id=":22_0_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="3.70" length="4.66" shape="310.50,100.19 311.56,101.16 311.83,102.01 311.32,102.73 310.01,103.34"/>
-    </edge>
-    <edge id=":cluster_24_25_26_27_0" function="internal">
-        <lane id=":cluster_24_25_26_27_0_0" index="0" speed="8.66" length="14.96" shape="153.19,88.65 149.10,88.29 145.74,89.20 143.10,91.39 141.18,94.84"/>
-    </edge>
-    <edge id=":cluster_24_25_26_27_1" function="internal">
-        <lane id=":cluster_24_25_26_27_1_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="13.89" length="41.41" shape="153.19,88.65 112.95,78.59"/>
-        <lane id=":cluster_24_25_26_27_1_1" index="1" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="13.89" length="41.41" shape="153.86,85.52 113.75,75.49"/>
-    </edge>
-    <edge id=":cluster_24_25_26_27_3" function="internal">
-        <lane id=":cluster_24_25_26_27_3_0" index="0" speed="10.39" length="6.13" shape="154.52,82.39 149.35,82.17 148.47,82.52"/>
-    </edge>
-    <edge id=":cluster_24_25_26_27_4" function="internal">
-        <lane id=":cluster_24_25_26_27_4_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="13.89" length="41.21" shape="154.52,82.39 114.54,72.39"/>
-    </edge>
-    <edge id=":cluster_24_25_26_27_5" function="internal">
-        <lane id=":cluster_24_25_26_27_5_0" index="0" speed="13.66" length="38.82" shape="154.52,82.39 146.60,77.23 137.80,67.11 131.08,55.76 130.56,53.05"/>
-    </edge>
-    <edge id=":cluster_24_25_26_27_6" function="internal">
-        <lane id=":cluster_24_25_26_27_6_0" index="0" speed="13.31" length="36.22" shape="154.52,82.39 147.08,77.36 139.34,67.54 133.68,56.49 133.36,54.20"/>
-    </edge>
-    <edge id=":cluster_24_25_26_27_7" function="internal">
-        <lane id=":cluster_24_25_26_27_7_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="8.14" length="20.12" shape="154.52,82.39 147.56,75.25 146.01,69.27 149.87,64.43 151.43,63.81"/>
-        <lane id=":cluster_24_25_26_27_7_1" index="1" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="7.57" length="20.12" shape="154.52,82.39 148.57,76.28 147.24,71.16 150.54,67.03 155.90,64.90"/>
-        <lane id=":cluster_24_25_26_27_7_2" index="2" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="6.96" length="20.12" shape="154.52,82.39 149.58,77.32 148.47,73.06"/>
-    </edge>
-    <edge id=":cluster_24_25_26_27_36" function="internal">
-        <lane id=":cluster_24_25_26_27_36_0" index="0" speed="10.39" length="15.80" shape="148.47,82.52 144.90,83.98 141.18,87.82 138.19,93.70"/>
-    </edge>
-    <edge id=":cluster_24_25_26_27_37" function="internal">
-        <lane id=":cluster_24_25_26_27_37_0" index="0" speed="13.66" length="6.29" shape="130.56,53.05 129.38,46.87"/>
-    </edge>
-    <edge id=":cluster_24_25_26_27_38" function="internal">
-        <lane id=":cluster_24_25_26_27_38_0" index="0" speed="13.31" length="6.52" shape="133.36,54.20 132.46,47.73"/>
-    </edge>
-    <edge id=":cluster_24_25_26_27_39" function="internal">
-        <lane id=":cluster_24_25_26_27_39_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="8.14" length="8.29" shape="151.43,63.81 159.14,60.75"/>
-    </edge>
-    <edge id=":cluster_24_25_26_27_40" function="internal">
-        <lane id=":cluster_24_25_26_27_40_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="7.57" length="2.76" shape="155.90,64.90 158.47,63.88"/>
-    </edge>
-    <edge id=":cluster_24_25_26_27_41" function="internal">
-        <lane id=":cluster_24_25_26_27_41_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="6.96" length="11.48" shape="148.47,73.06 151.22,69.63 157.80,67.01"/>
-    </edge>
-    <edge id=":cluster_24_25_26_27_10" function="internal">
-        <lane id=":cluster_24_25_26_27_10_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="6.33" length="9.02" shape="155.16,54.09 154.80,56.56 155.34,58.49 156.79,59.89 159.14,60.75"/>
-    </edge>
-    <edge id=":cluster_24_25_26_27_11" function="internal">
-        <lane id=":cluster_24_25_26_27_11_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="7.85" length="14.44" shape="152.08,53.23 151.50,57.17 152.37,60.26 154.70,62.50 158.47,63.88"/>
-    </edge>
-    <edge id=":cluster_24_25_26_27_12" function="internal">
-        <lane id=":cluster_24_25_26_27_12_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="8.52" length="17.24" shape="152.08,53.23 151.12,58.52 151.75,62.58 153.98,65.41 157.80,67.01"/>
-    </edge>
-    <edge id=":cluster_24_25_26_27_13" function="internal">
-        <lane id=":cluster_24_25_26_27_13_0" index="0" speed="13.89" length="42.90" shape="152.08,53.23 141.18,94.84"/>
-        <lane id=":cluster_24_25_26_27_13_1" index="1" speed="13.89" length="42.90" shape="152.08,53.23 138.19,93.70"/>
-    </edge>
-    <edge id=":cluster_24_25_26_27_15" function="internal">
-        <lane id=":cluster_24_25_26_27_15_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="13.89" length="47.96" shape="152.08,53.23 146.07,61.09 134.71,69.91 122.24,76.73 112.95,78.59"/>
-    </edge>
-    <edge id=":cluster_24_25_26_27_16" function="internal">
-        <lane id=":cluster_24_25_26_27_16_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="13.89" length="45.75" shape="152.08,53.23 146.23,60.61 135.19,68.38 123.01,74.14 113.75,75.49"/>
-    </edge>
-    <edge id=":cluster_24_25_26_27_17" function="internal">
-        <lane id=":cluster_24_25_26_27_17_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="13.89" length="43.62" shape="152.08,53.23 146.36,60.10 135.59,66.81 123.69,71.52 114.54,72.39"/>
-    </edge>
-    <edge id=":cluster_24_25_26_27_18" function="internal">
-        <lane id=":cluster_24_25_26_27_18_0" index="0" speed="8.40" length="32.09" shape="152.08,53.23 144.02,60.15 137.55,61.40 132.67,56.97 129.38,46.87"/>
-        <lane id=":cluster_24_25_26_27_18_1" index="1" speed="7.85" length="32.09" shape="152.08,53.23 145.12,59.21 139.53,60.29 135.31,56.47 132.46,47.73"/>
-    </edge>
-    <edge id=":cluster_24_25_26_27_20" function="internal">
-        <lane id=":cluster_24_25_26_27_20_0" index="0" speed="7.39" length="11.69" shape="119.98,51.20 123.44,51.64 126.16,51.07 128.14,49.48 129.38,46.87"/>
-    </edge>
-    <edge id=":cluster_24_25_26_27_21" function="internal">
-        <lane id=":cluster_24_25_26_27_21_0" index="0" speed="8.14" length="14.39" shape="119.98,51.20 124.80,51.98 128.48,51.67 131.04,50.25 132.46,47.73"/>
-    </edge>
-    <edge id=":cluster_24_25_26_27_22" function="internal">
-        <lane id=":cluster_24_25_26_27_22_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="13.89" length="40.44" shape="119.18,54.30 158.47,63.88"/>
-    </edge>
-    <edge id=":cluster_24_25_26_27_23" function="internal">
-        <lane id=":cluster_24_25_26_27_23_0" index="0" speed="13.71" length="38.54" shape="119.18,54.30 126.70,60.37 134.60,72.26 140.29,85.30 140.33,85.67"/>
-    </edge>
-    <edge id=":cluster_24_25_26_27_24" function="internal">
-        <lane id=":cluster_24_25_26_27_24_0" index="0" speed="13.05" length="33.04" shape="118.39,57.40 125.57,62.80 132.71,73.24 137.18,83.73"/>
-    </edge>
-    <edge id=":cluster_24_25_26_27_25" function="internal">
-        <lane id=":cluster_24_25_26_27_25_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="5.83" length="13.88" shape="118.39,57.40 114.94,70.84"/>
-    </edge>
-    <edge id=":cluster_24_25_26_27_42" function="internal">
-        <lane id=":cluster_24_25_26_27_42_0" index="0" speed="13.71" length="9.21" shape="140.33,85.67 141.18,94.84"/>
-    </edge>
-    <edge id=":cluster_24_25_26_27_43" function="internal">
-        <lane id=":cluster_24_25_26_27_43_0" index="0" speed="13.05" length="10.08" shape="137.18,83.73 137.65,84.82 138.19,93.70"/>
-    </edge>
-    <edge id=":cluster_24_25_26_27_44" function="internal">
-        <lane id=":cluster_24_25_26_27_44_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="5.83" length="1.60" shape="114.94,70.84 114.54,72.39"/>
-    </edge>
-    <edge id=":cluster_24_25_26_27_26" function="internal">
-        <lane id=":cluster_24_25_26_27_26_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="6.33" length="9.07" shape="116.59,85.47 117.09,82.99 116.65,81.02 115.27,79.55 112.95,78.59"/>
-    </edge>
-    <edge id=":cluster_24_25_26_27_27" function="internal">
-        <lane id=":cluster_24_25_26_27_27_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="7.87" length="14.63" shape="119.58,86.61 120.39,82.61 119.69,79.42 117.48,77.05 113.75,75.49"/>
-    </edge>
-    <edge id=":cluster_24_25_26_27_28" function="internal">
-        <lane id=":cluster_24_25_26_27_28_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="8.54" length="17.46" shape="119.58,86.61 120.84,81.28 120.43,77.13 118.33,74.17 114.54,72.39"/>
-    </edge>
-    <edge id=":cluster_24_25_26_27_29" function="internal">
-        <lane id=":cluster_24_25_26_27_29_0" index="0" speed="13.89" length="40.95" shape="119.58,86.61 122.14,77.78 124.73,66.82 127.18,55.82 129.38,46.87"/>
-        <lane id=":cluster_24_25_26_27_29_1" index="1" speed="13.89" length="40.95" shape="119.58,86.61 132.46,47.73"/>
-    </edge>
-    <edge id=":cluster_24_25_26_27_31" function="internal">
-        <lane id=":cluster_24_25_26_27_31_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="13.89" length="48.38" shape="119.58,86.61 125.90,78.80 137.49,69.90 150.02,62.90 159.14,60.75"/>
-    </edge>
-    <edge id=":cluster_24_25_26_27_32" function="internal">
-        <lane id=":cluster_24_25_26_27_32_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="13.89" length="46.28" shape="119.58,86.61 125.72,79.27 136.96,71.43 149.24,65.49 158.47,63.88"/>
-    </edge>
-    <edge id=":cluster_24_25_26_27_33" function="internal">
-        <lane id=":cluster_24_25_26_27_33_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="13.89" length="44.22" shape="119.58,86.61 125.53,79.91 136.50,73.11 148.56,68.17 157.80,67.01"/>
-    </edge>
-    <edge id=":cluster_24_25_26_27_34" function="internal">
-        <lane id=":cluster_24_25_26_27_34_0" index="0" speed="8.33" length="31.43" shape="119.58,86.61 128.07,80.57 134.50,79.92 138.87,84.68 141.18,94.84"/>
-        <lane id=":cluster_24_25_26_27_34_1" index="1" speed="7.77" length="31.43" shape="119.58,86.61 126.89,81.40 132.43,80.85 136.20,84.95 138.19,93.70"/>
-    </edge>
-
     <edge id="-11" from="cluster_24_25_26_27" to="20" priority="-3" shape="125.89,73.65 82.38,62.49 69.79,56.87 0.00,43.96">
-        <lane id="-11_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="13.89" length="118.05" shape="112.95,78.59 79.74,70.07 67.40,64.56 -1.46,51.82"/>
-        <lane id="-11_1" index="1" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="13.89" length="118.05" shape="113.75,75.49 80.80,67.04 68.35,61.48 -0.87,48.68"/>
-        <lane id="-11_2" index="2" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="13.89" length="118.05" shape="114.54,72.39 81.85,64.01 69.31,58.41 -0.29,45.53"/>
+        <lane id="-11_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="13.89" length="139.70" shape="112.95,78.59 79.74,70.07 67.40,64.56 -1.46,51.82"/>
+        <lane id="-11_1" index="1" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="13.89" length="139.70" shape="113.75,75.49 80.80,67.04 68.35,61.48 -0.87,48.68"/>
+        <lane id="-11_2" index="2" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="13.89" length="139.70" shape="114.54,72.39 81.85,64.01 69.31,58.41 -0.29,45.53"/>
     </edge>
     <edge id="-12" from="22" to="cluster_24_25_26_27" priority="-3" shape="310.15,101.75 208.44,92.81 142.44,78.05">
-        <lane id="-12_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="13.89" length="157.60" shape="309.45,109.72 207.22,100.74 153.19,88.65"/>
-        <lane id="-12_1" index="1" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="13.89" length="157.60" shape="309.73,106.53 207.71,97.57 153.86,85.52"/>
-        <lane id="-12_2" index="2" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="13.89" length="157.60" shape="310.01,103.34 208.20,94.40 154.52,82.39"/>
+        <lane id="-12_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="13.89" length="178.55" shape="309.45,109.72 207.22,100.74 153.19,88.65"/>
+        <lane id="-12_1" index="1" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="13.89" length="178.55" shape="309.73,106.53 207.71,97.57 153.86,85.52"/>
+        <lane id="-12_2" index="2" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="13.89" length="178.55" shape="310.01,103.34 208.20,94.40 154.52,82.39"/>
     </edge>
     <edge id="-13" from="23" to="cluster_24_25_26_27" priority="-3" shape="111.18,145.59 106.52,128.09 125.89,73.65">
-        <lane id="-13_0" index="0" speed="13.89" length="63.59" shape="106.54,146.83 101.49,127.88 116.59,85.47"/>
-        <lane id="-13_1" index="1" speed="13.89" length="63.59" shape="109.63,146.00 104.84,128.02 119.58,86.61"/>
+        <lane id="-13_0" index="0" speed="13.89" length="84.48" shape="106.54,146.83 101.49,127.88 116.59,85.47"/>
+        <lane id="-13_1" index="1" speed="13.89" length="84.48" shape="109.63,146.00 104.84,128.02 119.58,86.61"/>
     </edge>
     <edge id="-14" from="28" to="cluster_24_25_26_27" priority="-3" shape="158.09,0.00 160.97,17.91 146.52,66.24">
-        <lane id="-14_0" index="0" speed="13.89" length="55.96" shape="162.83,-0.76 165.89,18.24 155.16,54.09"/>
-        <lane id="-14_1" index="1" speed="13.89" length="55.96" shape="159.67,-0.25 162.61,18.02 152.08,53.23"/>
+        <lane id="-14_0" index="0" speed="13.89" length="76.90" shape="162.83,-0.76 165.89,18.24 155.16,54.09"/>
+        <lane id="-14_1" index="1" speed="13.89" length="76.90" shape="159.67,-0.25 162.61,18.02 152.08,53.23"/>
     </edge>
     <edge id="10" from="20" to="cluster_24_25_26_27" priority="-3" shape="0.00,43.96 69.79,56.87 91.90,52.47 130.14,61.96">
-        <lane id="10_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="13.89" length="120.74" shape="1.46,36.09 69.74,48.72 92.10,44.28 119.98,51.20"/>
-        <lane id="10_1" index="1" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="13.89" length="120.74" shape="0.87,39.24 69.76,51.98 92.02,47.56 119.18,54.30"/>
-        <lane id="10_2" index="2" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="13.89" length="120.74" shape="0.29,42.38 69.78,55.24 91.94,50.84 118.39,57.40"/>
+        <lane id="10_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="13.89" length="141.73" shape="1.46,36.09 69.74,48.72 92.10,44.28 119.98,51.20"/>
+        <lane id="10_1" index="1" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="13.89" length="141.73" shape="0.87,39.24 69.76,51.98 92.02,47.56 119.18,54.30"/>
+        <lane id="10_2" index="2" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="13.89" length="141.73" shape="0.29,42.38 69.78,55.24 91.94,50.84 118.39,57.40"/>
     </edge>
     <edge id="12" from="cluster_24_25_26_27" to="22" priority="-3" shape="146.52,66.24 215.22,80.89 310.15,101.75">
-        <lane id="12_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="13.89" length="156.28" shape="159.14,60.75 216.91,73.07 311.87,93.93"/>
-        <lane id="12_1" index="1" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="13.89" length="156.28" shape="158.47,63.88 216.23,76.20 311.18,97.06"/>
-        <lane id="12_2" index="2" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="13.89" length="156.28" shape="157.80,67.01 215.56,79.33 310.50,100.19"/>
+        <lane id="12_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="13.89" length="177.51" shape="159.14,60.75 216.91,73.07 311.87,93.93"/>
+        <lane id="12_1" index="1" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="13.89" length="177.51" shape="158.47,63.88 216.23,76.20 311.18,97.06"/>
+        <lane id="12_2" index="2" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="13.89" length="177.51" shape="157.80,67.01 215.56,79.33 310.50,100.19"/>
     </edge>
     <edge id="13" from="cluster_24_25_26_27" to="23" priority="-3" shape="142.44,78.05 122.67,129.96 111.18,145.59">
-        <lane id="13_0" index="0" speed="13.89" length="59.68" shape="141.18,94.84 126.92,132.28 115.05,148.43"/>
-        <lane id="13_1" index="1" speed="13.89" length="59.68" shape="138.19,93.70 124.09,130.73 112.47,146.54"/>
+        <lane id="13_0" index="0" speed="13.89" length="81.97" shape="141.18,94.84 126.92,132.28 115.05,148.43"/>
+        <lane id="13_1" index="1" speed="13.89" length="81.97" shape="138.19,93.70 124.09,130.73 112.47,146.54"/>
     </edge>
     <edge id="14" from="cluster_24_25_26_27" to="28" priority="-3" shape="130.14,61.96 143.74,13.37 158.09,0.00">
-        <lane id="14_0" index="0" speed="13.89" length="57.54" shape="129.38,46.87 139.48,10.78 154.82,-3.51"/>
-        <lane id="14_1" index="1" speed="13.89" length="57.54" shape="132.46,47.73 142.32,12.50 157.00,-1.17"/>
+        <lane id="14_0" index="0" speed="13.89" length="77.67" shape="129.38,46.87 139.48,10.78 154.82,-3.51"/>
+        <lane id="14_1" index="1" speed="13.89" length="77.67" shape="132.46,47.73 142.32,12.50 157.00,-1.17"/>
     </edge>
 
-    <junction id="20" type="priority" x="0.00" y="43.96" incLanes="-11_0 -11_1 -11_2" intLanes=":20_0_0" shape="-0.00,43.96 -1.75,53.40 -0.00,43.96">
-        <request index="0" response="0" foes="0" cont="0"/>
+    <junction id="20" type="priority" x="0.00" y="43.96" incLanes="-11_0 -11_1 -11_2" intLanes="" shape="-0.00,43.96 -1.75,53.40 0.00,43.96">
+        <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="22" type="priority" x="310.15" y="101.75" incLanes="12_0 12_1 12_2" intLanes=":22_0_0" shape="310.15,101.75 309.31,111.31 312.21,92.37">
-        <request index="0" response="0" foes="0" cont="0"/>
+    <junction id="22" type="priority" x="310.15" y="101.75" incLanes="12_0 12_1 12_2" intLanes="" shape="310.15,101.75 309.31,111.31 312.21,92.37">
+        <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="23" type="dead_end" x="111.18" y="145.59" incLanes="13_0 13_1" intLanes="" shape="111.18,145.59 105.00,147.24 116.34,149.38"/>
-    <junction id="28" type="dead_end" x="158.09" y="0.00" incLanes="14_0 14_1" intLanes="" shape="158.09,-0.00 164.41,-1.02 153.73,-4.68"/>
-    <junction id="cluster_24_25_26_27" type="priority" x="136.25" y="69.97" incLanes="-12_0 -12_1 -12_2 -14_0 -14_1 10_0 10_1 10_2 -13_0 -13_1" intLanes=":cluster_24_25_26_27_0_0 :cluster_24_25_26_27_1_0 :cluster_24_25_26_27_1_1 :cluster_24_25_26_27_36_0 :cluster_24_25_26_27_4_0 :cluster_24_25_26_27_37_0 :cluster_24_25_26_27_38_0 :cluster_24_25_26_27_39_0 :cluster_24_25_26_27_40_0 :cluster_24_25_26_27_41_0 :cluster_24_25_26_27_10_0 :cluster_24_25_26_27_11_0 :cluster_24_25_26_27_12_0 :cluster_24_25_26_27_13_0 :cluster_24_25_26_27_13_1 :cluster_24_25_26_27_15_0 :cluster_24_25_26_27_16_0 :cluster_24_25_26_27_17_0 :cluster_24_25_26_27_18_0 :cluster_24_25_26_27_18_1 :cluster_24_25_26_27_20_0 :cluster_24_25_26_27_21_0 :cluster_24_25_26_27_22_0 :cluster_24_25_26_27_42_0 :cluster_24_25_26_27_43_0 :cluster_24_25_26_27_44_0 :cluster_24_25_26_27_26_0 :cluster_24_25_26_27_27_0 :cluster_24_25_26_27_28_0 :cluster_24_25_26_27_29_0 :cluster_24_25_26_27_29_1 :cluster_24_25_26_27_31_0 :cluster_24_25_26_27_32_0 :cluster_24_25_26_27_33_0 :cluster_24_25_26_27_34_0 :cluster_24_25_26_27_34_1" shape="152.86,90.21 159.47,59.19 157.43,58.30 156.82,57.61 156.50,56.74 156.46,55.72 156.71,54.52 127.84,46.44 126.42,48.90 125.31,49.61 123.93,49.97 122.29,49.98 120.37,49.65 112.56,80.14 114.56,81.11 115.13,81.83 115.41,82.70 115.39,83.72 115.09,84.90 142.68,95.41 143.69,93.35 144.97,91.77 146.53,90.67 148.37,90.04 150.47,89.89">
-        <request index="0"  response="000000000000000000000000000000000000" foes="110000000001100000000110000000000000" cont="0"/>
-        <request index="1"  response="000000000000000000000000000000000000" foes="001111111111100000111110000000001000" cont="0"/>
-        <request index="2"  response="000000000000000000000000000000000000" foes="001111111111100000111110000000001000" cont="0"/>
-        <request index="3"  response="000000000000000000000000000000000110" foes="110000000001100000000110000000000110" cont="1"/>
-        <request index="4"  response="000000000000000000000000000000000000" foes="001111111111100000111110000000000000" cont="0"/>
-        <request index="5"  response="000000000000011100000000000000000000" foes="001111100000011111111110000000000000" cont="1"/>
-        <request index="6"  response="000000000000011100000000000000000000" foes="001111100000011111111110000000000000" cont="1"/>
-        <request index="7"  response="001110000000010000000001110000000000" foes="001110000000010000000001110000000000" cont="1"/>
-        <request index="8"  response="001110000000010000000001110000000000" foes="001110000000010000000001110000000000" cont="1"/>
-        <request index="9"  response="001110000000010000000001110000000000" foes="001110000000010000000001110000000000" cont="1"/>
-        <request index="10" response="000000000000010000000000000000000000" foes="001110000000010000000000001110000000" cont="0"/>
-        <request index="11" response="000000000000010000000000000000000000" foes="001110000000010000000000001110000000" cont="0"/>
-        <request index="12" response="000000000000010000000000000000000000" foes="001110000000010000000000001110000000" cont="0"/>
-        <request index="13" response="000000000001110000000000000001111111" foes="111110000001110000000000000001111111" cont="0"/>
-        <request index="14" response="000000000001110000000000000001111111" foes="111110000001110000000000000001111111" cont="0"/>
-        <request index="15" response="000001111101110000000000000001110110" foes="000001111111110000000000000001110110" cont="0"/>
-        <request index="16" response="000001111101110000000000000001110110" foes="000001111111110000000000000001110110" cont="0"/>
-        <request index="17" response="000001111101110000000000000001110110" foes="000001111111110000000000000001110110" cont="0"/>
-        <request index="18" response="000001100000001100000000000001100000" foes="000001100000001100000000000001100000" cont="0"/>
-        <request index="19" response="000001100000001100000000000001100000" foes="000001100000001100000000000001100000" cont="0"/>
-        <request index="20" response="000000000000000000000000000000000000" foes="000001100000000011000000000001100000" cont="0"/>
-        <request index="21" response="000000000000000000000000000000000000" foes="000001100000000011000000000001100000" cont="0"/>
-        <request index="22" response="000000000000000000000000000000000000" foes="001111100000000000111111111111100000" cont="0"/>
-        <request index="23" response="000000000000000000000000000000011111" foes="111111100000000000111110000000011111" cont="1"/>
-        <request index="24" response="000000000000000000000000000000011111" foes="111111100000000000111110000000011111" cont="1"/>
-        <request index="25" response="000000011100000000111000000000010110" foes="000000011100000000111000000000010110" cont="1"/>
-        <request index="26" response="000000000000000000000000000000010110" foes="000000000010000000111000000000010110" cont="0"/>
-        <request index="27" response="000000000000000000000000000000010110" foes="000000000010000000111000000000010110" cont="0"/>
-        <request index="28" response="000000000000000000000000000000010110" foes="000000000010000000111000000000010110" cont="0"/>
-        <request index="29" response="000000000001111100000000000001110110" foes="000000000001111111111000000001110110" cont="0"/>
-        <request index="30" response="000000000001111100000000000001110110" foes="000000000001111111111000000001110110" cont="0"/>
-        <request index="31" response="000000000001110000000111110001110110" foes="000000000001110000000111111111110110" cont="0"/>
-        <request index="32" response="000000000001110000000111110001110110" foes="000000000001110000000111111111110110" cont="0"/>
-        <request index="33" response="000000000001110000000111110001110110" foes="000000000001110000000111111111110110" cont="0"/>
-        <request index="34" response="000000000001100000000110000000001001" foes="000000000001100000000110000000001001" cont="0"/>
-        <request index="35" response="000000000001100000000110000000001001" foes="000000000001100000000110000000001001" cont="0"/>
+    <junction id="23" type="priority" x="111.18" y="145.59" incLanes="13_0 13_1" intLanes="" shape="111.18,145.59 105.00,147.24 116.34,149.38">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="28" type="priority" x="158.09" y="0.00" incLanes="14_0 14_1" intLanes="" shape="158.09,0.00 164.41,-1.02 153.73,-4.68">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="cluster_24_25_26_27" type="priority" x="136.25" y="69.97" incLanes="-12_0 -12_1 -12_2 -14_0 -14_1 10_0 10_1 10_2 -13_0 -13_1" intLanes="" shape="152.86,90.21 159.47,59.19 157.43,58.30 156.82,57.61 156.50,56.74 156.46,55.72 156.71,54.52 127.84,46.44 126.42,48.90 125.31,49.61 123.93,49.97 122.29,49.98 120.37,49.65 112.56,80.14 114.56,81.11 115.13,81.83 115.41,82.70 115.39,83.72 115.09,84.90 142.68,95.41 143.69,93.35 144.97,91.77 146.53,90.67 148.37,90.04 150.47,89.89">
+        <request index="0"  response="000000000000000000000000000000000" foes="110000000011000000001100000000000"/>
+        <request index="1"  response="000000000000000000000000000000000" foes="001111111111000001111100000000000"/>
+        <request index="2"  response="000000000000000000000000000000000" foes="001111111111000001111100000000000"/>
+        <request index="3"  response="000000000000000000000000000000000" foes="001111111111000001111100000000000"/>
+        <request index="4"  response="000000000000111000000000000000000" foes="001111100000111111111100000000000"/>
+        <request index="5"  response="000000000000111000000000000000000" foes="001111100000111111111100000000000"/>
+        <request index="6"  response="001110000000100000000011000000000" foes="001110000000100000000011000000000"/>
+        <request index="7"  response="001110000000100000000011000000000" foes="001110000000100000000011000000000"/>
+        <request index="8"  response="001110000000100000000011000000000" foes="001110000000100000000011000000000"/>
+        <request index="9"  response="000000000000100000000000000000000" foes="001110000000100000000000111000000"/>
+        <request index="10" response="000000000000100000000000000000000" foes="001110000000100000000000111000000"/>
+        <request index="11" response="000000000011100000000000000111111" foes="111110000011100000000000000111111"/>
+        <request index="12" response="000000000011100000000000000111111" foes="111110000011100000000000000111111"/>
+        <request index="13" response="000001111011100000000000000111110" foes="000001111111100000000000000111110"/>
+        <request index="14" response="000001111011100000000000000111110" foes="000001111111100000000000000111110"/>
+        <request index="15" response="000001111011100000000000000111110" foes="000001111111100000000000000111110"/>
+        <request index="16" response="000001100000011000000000000110000" foes="000001100000011000000000000110000"/>
+        <request index="17" response="000001100000011000000000000110000" foes="000001100000011000000000000110000"/>
+        <request index="18" response="000000000000000000000000000000000" foes="000001100000000110000000000110000"/>
+        <request index="19" response="000000000000000000000000000000000" foes="000001100000000110000000000110000"/>
+        <request index="20" response="000000000000000000000000000000000" foes="001111100000000001111111111110000"/>
+        <request index="21" response="000000000000000000000000000001111" foes="111111100000000001111100000001111"/>
+        <request index="22" response="000000000000000000000000000001111" foes="111111100000000001111100000001111"/>
+        <request index="23" response="000000000000000001110000000001110" foes="000000000000000001110000000001110"/>
+        <request index="24" response="000000000000000000000000000001110" foes="000000000000000001110000000001110"/>
+        <request index="25" response="000000000000000000000000000001110" foes="000000000000000001110000000001110"/>
+        <request index="26" response="000000000011111000000000000111110" foes="000000000011111111110000000111110"/>
+        <request index="27" response="000000000011111000000000000111110" foes="000000000011111111110000000111110"/>
+        <request index="28" response="000000000011100000001111000111110" foes="000000000011100000001111111111110"/>
+        <request index="29" response="000000000011100000001111000111110" foes="000000000011100000001111111111110"/>
+        <request index="30" response="000000000011100000001111000111110" foes="000000000011100000001111111111110"/>
+        <request index="31" response="000000000011000000001100000000001" foes="000000000011000000001100000000001"/>
+        <request index="32" response="000000000011000000001100000000001" foes="000000000011000000001100000000001"/>
     </junction>
 
-    <junction id=":cluster_24_25_26_27_36_0" type="internal" x="148.47" y="82.52" incLanes=":cluster_24_25_26_27_3_0 -12_0 -12_1" intLanes=":cluster_24_25_26_27_1_0 :cluster_24_25_26_27_1_1 :cluster_24_25_26_27_13_0 :cluster_24_25_26_27_13_1 :cluster_24_25_26_27_23_0 :cluster_24_25_26_27_24_0 :cluster_24_25_26_27_34_0 :cluster_24_25_26_27_34_1"/>
-    <junction id=":cluster_24_25_26_27_37_0" type="internal" x="130.56" y="53.05" incLanes=":cluster_24_25_26_27_5_0 10_0 10_1" intLanes=":cluster_24_25_26_27_13_0 :cluster_24_25_26_27_13_1 :cluster_24_25_26_27_15_0 :cluster_24_25_26_27_16_0 :cluster_24_25_26_27_17_0 :cluster_24_25_26_27_18_0 :cluster_24_25_26_27_18_1 :cluster_24_25_26_27_20_0 :cluster_24_25_26_27_21_0 :cluster_24_25_26_27_22_0 :cluster_24_25_26_27_29_0 :cluster_24_25_26_27_29_1 :cluster_24_25_26_27_31_0 :cluster_24_25_26_27_32_0 :cluster_24_25_26_27_33_0"/>
-    <junction id=":cluster_24_25_26_27_38_0" type="internal" x="133.36" y="54.20" incLanes=":cluster_24_25_26_27_6_0 10_0 10_1" intLanes=":cluster_24_25_26_27_13_0 :cluster_24_25_26_27_13_1 :cluster_24_25_26_27_15_0 :cluster_24_25_26_27_16_0 :cluster_24_25_26_27_17_0 :cluster_24_25_26_27_18_0 :cluster_24_25_26_27_18_1 :cluster_24_25_26_27_20_0 :cluster_24_25_26_27_21_0 :cluster_24_25_26_27_22_0 :cluster_24_25_26_27_29_0 :cluster_24_25_26_27_29_1 :cluster_24_25_26_27_31_0 :cluster_24_25_26_27_32_0 :cluster_24_25_26_27_33_0"/>
-    <junction id=":cluster_24_25_26_27_39_0" type="internal" x="151.43" y="63.81" incLanes=":cluster_24_25_26_27_7_0 -13_1 -14_0 -14_1 10_1" intLanes=":cluster_24_25_26_27_10_0 :cluster_24_25_26_27_11_0 :cluster_24_25_26_27_12_0 :cluster_24_25_26_27_22_0 :cluster_24_25_26_27_31_0 :cluster_24_25_26_27_32_0 :cluster_24_25_26_27_33_0"/>
-    <junction id=":cluster_24_25_26_27_40_0" type="internal" x="155.90" y="64.90" incLanes=":cluster_24_25_26_27_7_1 -13_1 -14_0 -14_1 10_1" intLanes=":cluster_24_25_26_27_10_0 :cluster_24_25_26_27_11_0 :cluster_24_25_26_27_12_0 :cluster_24_25_26_27_22_0 :cluster_24_25_26_27_31_0 :cluster_24_25_26_27_32_0 :cluster_24_25_26_27_33_0"/>
-    <junction id=":cluster_24_25_26_27_41_0" type="internal" x="148.47" y="73.06" incLanes=":cluster_24_25_26_27_7_2 -13_1 -14_0 -14_1 10_1" intLanes=":cluster_24_25_26_27_10_0 :cluster_24_25_26_27_11_0 :cluster_24_25_26_27_12_0 :cluster_24_25_26_27_22_0 :cluster_24_25_26_27_31_0 :cluster_24_25_26_27_32_0 :cluster_24_25_26_27_33_0"/>
-    <junction id=":cluster_24_25_26_27_42_0" type="internal" x="140.33" y="85.67" incLanes=":cluster_24_25_26_27_23_0 -12_0 -12_1 -12_2" intLanes=":cluster_24_25_26_27_0_0 :cluster_24_25_26_27_1_0 :cluster_24_25_26_27_1_1 :cluster_24_25_26_27_3_0 :cluster_24_25_26_27_4_0 :cluster_24_25_26_27_13_0 :cluster_24_25_26_27_13_1 :cluster_24_25_26_27_15_0 :cluster_24_25_26_27_16_0 :cluster_24_25_26_27_17_0 :cluster_24_25_26_27_29_0 :cluster_24_25_26_27_29_1 :cluster_24_25_26_27_31_0 :cluster_24_25_26_27_32_0 :cluster_24_25_26_27_33_0 :cluster_24_25_26_27_34_0 :cluster_24_25_26_27_34_1"/>
-    <junction id=":cluster_24_25_26_27_43_0" type="internal" x="137.18" y="83.73" incLanes=":cluster_24_25_26_27_24_0 -12_0 -12_1 -12_2" intLanes=":cluster_24_25_26_27_0_0 :cluster_24_25_26_27_1_0 :cluster_24_25_26_27_1_1 :cluster_24_25_26_27_3_0 :cluster_24_25_26_27_4_0 :cluster_24_25_26_27_13_0 :cluster_24_25_26_27_13_1 :cluster_24_25_26_27_15_0 :cluster_24_25_26_27_16_0 :cluster_24_25_26_27_17_0 :cluster_24_25_26_27_29_0 :cluster_24_25_26_27_29_1 :cluster_24_25_26_27_31_0 :cluster_24_25_26_27_32_0 :cluster_24_25_26_27_33_0 :cluster_24_25_26_27_34_0 :cluster_24_25_26_27_34_1"/>
-    <junction id=":cluster_24_25_26_27_44_0" type="internal" x="114.94" y="70.84" incLanes=":cluster_24_25_26_27_25_0 -12_0 -12_1 -12_2 -13_0 -13_1 -14_1" intLanes=":cluster_24_25_26_27_1_0 :cluster_24_25_26_27_1_1 :cluster_24_25_26_27_4_0 :cluster_24_25_26_27_15_0 :cluster_24_25_26_27_16_0 :cluster_24_25_26_27_17_0 :cluster_24_25_26_27_26_0 :cluster_24_25_26_27_27_0 :cluster_24_25_26_27_28_0"/>
-
-    <connection from="-11" to="10" fromLane="2" toLane="2" via=":20_0_0" dir="t" state="M"/>
-    <connection from="-12" to="13" fromLane="0" toLane="0" via=":cluster_24_25_26_27_0_0" dir="r" state="M"/>
-    <connection from="-12" to="-11" fromLane="0" toLane="0" via=":cluster_24_25_26_27_1_0" dir="s" state="M"/>
-    <connection from="-12" to="-11" fromLane="1" toLane="1" via=":cluster_24_25_26_27_1_1" dir="s" state="M"/>
-    <connection from="-12" to="13" fromLane="2" toLane="1" via=":cluster_24_25_26_27_3_0" dir="r" state="m"/>
-    <connection from="-12" to="-11" fromLane="2" toLane="2" via=":cluster_24_25_26_27_4_0" dir="s" state="M"/>
-    <connection from="-12" to="14" fromLane="2" toLane="0" via=":cluster_24_25_26_27_5_0" dir="l" state="m"/>
-    <connection from="-12" to="14" fromLane="2" toLane="1" via=":cluster_24_25_26_27_6_0" dir="l" state="m"/>
-    <connection from="-12" to="12" fromLane="2" toLane="0" via=":cluster_24_25_26_27_7_0" dir="t" state="m"/>
-    <connection from="-12" to="12" fromLane="2" toLane="1" via=":cluster_24_25_26_27_7_1" dir="t" state="m"/>
-    <connection from="-12" to="12" fromLane="2" toLane="2" via=":cluster_24_25_26_27_7_2" dir="t" state="m"/>
-    <connection from="-13" to="-11" fromLane="0" toLane="0" via=":cluster_24_25_26_27_26_0" dir="r" state="m"/>
-    <connection from="-13" to="-11" fromLane="1" toLane="1" via=":cluster_24_25_26_27_27_0" dir="r" state="m"/>
-    <connection from="-13" to="-11" fromLane="1" toLane="2" via=":cluster_24_25_26_27_28_0" dir="r" state="m"/>
-    <connection from="-13" to="14" fromLane="1" toLane="0" via=":cluster_24_25_26_27_29_0" dir="s" state="m"/>
-    <connection from="-13" to="14" fromLane="1" toLane="1" via=":cluster_24_25_26_27_29_1" dir="s" state="m"/>
-    <connection from="-13" to="12" fromLane="1" toLane="0" via=":cluster_24_25_26_27_31_0" dir="l" state="m"/>
-    <connection from="-13" to="12" fromLane="1" toLane="1" via=":cluster_24_25_26_27_32_0" dir="l" state="m"/>
-    <connection from="-13" to="12" fromLane="1" toLane="2" via=":cluster_24_25_26_27_33_0" dir="l" state="m"/>
-    <connection from="-13" to="13" fromLane="1" toLane="0" via=":cluster_24_25_26_27_34_0" dir="t" state="m"/>
-    <connection from="-13" to="13" fromLane="1" toLane="1" via=":cluster_24_25_26_27_34_1" dir="t" state="m"/>
-    <connection from="-14" to="12" fromLane="0" toLane="0" via=":cluster_24_25_26_27_10_0" dir="r" state="m"/>
-    <connection from="-14" to="12" fromLane="1" toLane="1" via=":cluster_24_25_26_27_11_0" dir="r" state="m"/>
-    <connection from="-14" to="12" fromLane="1" toLane="2" via=":cluster_24_25_26_27_12_0" dir="r" state="m"/>
-    <connection from="-14" to="13" fromLane="1" toLane="0" via=":cluster_24_25_26_27_13_0" dir="s" state="m"/>
-    <connection from="-14" to="13" fromLane="1" toLane="1" via=":cluster_24_25_26_27_13_1" dir="s" state="m"/>
-    <connection from="-14" to="-11" fromLane="1" toLane="0" via=":cluster_24_25_26_27_15_0" dir="l" state="m"/>
-    <connection from="-14" to="-11" fromLane="1" toLane="1" via=":cluster_24_25_26_27_16_0" dir="l" state="m"/>
-    <connection from="-14" to="-11" fromLane="1" toLane="2" via=":cluster_24_25_26_27_17_0" dir="l" state="m"/>
-    <connection from="-14" to="14" fromLane="1" toLane="0" via=":cluster_24_25_26_27_18_0" dir="t" state="m"/>
-    <connection from="-14" to="14" fromLane="1" toLane="1" via=":cluster_24_25_26_27_18_1" dir="t" state="m"/>
-    <connection from="10" to="14" fromLane="0" toLane="0" via=":cluster_24_25_26_27_20_0" dir="r" state="M"/>
-    <connection from="10" to="14" fromLane="0" toLane="1" via=":cluster_24_25_26_27_21_0" dir="r" state="M"/>
-    <connection from="10" to="12" fromLane="1" toLane="1" via=":cluster_24_25_26_27_22_0" dir="s" state="M"/>
-    <connection from="10" to="13" fromLane="1" toLane="0" via=":cluster_24_25_26_27_23_0" dir="l" state="m"/>
-    <connection from="10" to="13" fromLane="2" toLane="1" via=":cluster_24_25_26_27_24_0" dir="l" state="m"/>
-    <connection from="10" to="-11" fromLane="2" toLane="2" via=":cluster_24_25_26_27_25_0" dir="t" state="m"/>
-    <connection from="12" to="-12" fromLane="2" toLane="2" via=":22_0_0" dir="t" state="M"/>
-
-    <connection from=":20_0" to="10" fromLane="0" toLane="2" dir="t" state="M"/>
-    <connection from=":22_0" to="-12" fromLane="0" toLane="2" dir="t" state="M"/>
-    <connection from=":cluster_24_25_26_27_0" to="13" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from=":cluster_24_25_26_27_1" to="-11" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":cluster_24_25_26_27_1" to="-11" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from=":cluster_24_25_26_27_3" to="13" fromLane="0" toLane="1" via=":cluster_24_25_26_27_36_0" dir="r" state="m"/>
-    <connection from=":cluster_24_25_26_27_36" to="13" fromLane="0" toLane="1" dir="r" state="M"/>
-    <connection from=":cluster_24_25_26_27_4" to="-11" fromLane="0" toLane="2" dir="s" state="M"/>
-    <connection from=":cluster_24_25_26_27_5" to="14" fromLane="0" toLane="0" via=":cluster_24_25_26_27_37_0" dir="l" state="m"/>
-    <connection from=":cluster_24_25_26_27_37" to="14" fromLane="0" toLane="0" dir="l" state="M"/>
-    <connection from=":cluster_24_25_26_27_6" to="14" fromLane="0" toLane="1" via=":cluster_24_25_26_27_38_0" dir="l" state="m"/>
-    <connection from=":cluster_24_25_26_27_38" to="14" fromLane="0" toLane="1" dir="l" state="M"/>
-    <connection from=":cluster_24_25_26_27_7" to="12" fromLane="0" toLane="0" via=":cluster_24_25_26_27_39_0" dir="t" state="m"/>
-    <connection from=":cluster_24_25_26_27_39" to="12" fromLane="0" toLane="0" dir="t" state="M"/>
-    <connection from=":cluster_24_25_26_27_7" to="12" fromLane="1" toLane="1" via=":cluster_24_25_26_27_40_0" dir="t" state="m"/>
-    <connection from=":cluster_24_25_26_27_40" to="12" fromLane="0" toLane="1" dir="t" state="M"/>
-    <connection from=":cluster_24_25_26_27_7" to="12" fromLane="2" toLane="2" via=":cluster_24_25_26_27_41_0" dir="t" state="m"/>
-    <connection from=":cluster_24_25_26_27_41" to="12" fromLane="0" toLane="2" dir="t" state="M"/>
-    <connection from=":cluster_24_25_26_27_10" to="12" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from=":cluster_24_25_26_27_11" to="12" fromLane="0" toLane="1" dir="r" state="M"/>
-    <connection from=":cluster_24_25_26_27_12" to="12" fromLane="0" toLane="2" dir="r" state="M"/>
-    <connection from=":cluster_24_25_26_27_13" to="13" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":cluster_24_25_26_27_13" to="13" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from=":cluster_24_25_26_27_15" to="-11" fromLane="0" toLane="0" dir="l" state="M"/>
-    <connection from=":cluster_24_25_26_27_16" to="-11" fromLane="0" toLane="1" dir="l" state="M"/>
-    <connection from=":cluster_24_25_26_27_17" to="-11" fromLane="0" toLane="2" dir="l" state="M"/>
-    <connection from=":cluster_24_25_26_27_18" to="14" fromLane="0" toLane="0" dir="t" state="M"/>
-    <connection from=":cluster_24_25_26_27_18" to="14" fromLane="1" toLane="1" dir="t" state="M"/>
-    <connection from=":cluster_24_25_26_27_20" to="14" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from=":cluster_24_25_26_27_21" to="14" fromLane="0" toLane="1" dir="r" state="M"/>
-    <connection from=":cluster_24_25_26_27_22" to="12" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":cluster_24_25_26_27_23" to="13" fromLane="0" toLane="0" via=":cluster_24_25_26_27_42_0" dir="l" state="m"/>
-    <connection from=":cluster_24_25_26_27_42" to="13" fromLane="0" toLane="0" dir="l" state="M"/>
-    <connection from=":cluster_24_25_26_27_24" to="13" fromLane="0" toLane="1" via=":cluster_24_25_26_27_43_0" dir="l" state="m"/>
-    <connection from=":cluster_24_25_26_27_43" to="13" fromLane="0" toLane="1" dir="l" state="M"/>
-    <connection from=":cluster_24_25_26_27_25" to="-11" fromLane="0" toLane="2" via=":cluster_24_25_26_27_44_0" dir="t" state="m"/>
-    <connection from=":cluster_24_25_26_27_44" to="-11" fromLane="0" toLane="2" dir="t" state="M"/>
-    <connection from=":cluster_24_25_26_27_26" to="-11" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from=":cluster_24_25_26_27_27" to="-11" fromLane="0" toLane="1" dir="r" state="M"/>
-    <connection from=":cluster_24_25_26_27_28" to="-11" fromLane="0" toLane="2" dir="r" state="M"/>
-    <connection from=":cluster_24_25_26_27_29" to="14" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":cluster_24_25_26_27_29" to="14" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from=":cluster_24_25_26_27_31" to="12" fromLane="0" toLane="0" dir="l" state="M"/>
-    <connection from=":cluster_24_25_26_27_32" to="12" fromLane="0" toLane="1" dir="l" state="M"/>
-    <connection from=":cluster_24_25_26_27_33" to="12" fromLane="0" toLane="2" dir="l" state="M"/>
-    <connection from=":cluster_24_25_26_27_34" to="13" fromLane="0" toLane="0" dir="t" state="M"/>
-    <connection from=":cluster_24_25_26_27_34" to="13" fromLane="1" toLane="1" dir="t" state="M"/>
+    <connection from="-11" to="10" fromLane="2" toLane="2" dir="t" state="M"/>
+    <connection from="-12" to="13" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="-12" to="-11" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="-12" to="-11" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="-12" to="-11" fromLane="2" toLane="2" dir="s" state="M"/>
+    <connection from="-12" to="14" fromLane="2" toLane="0" dir="l" state="m"/>
+    <connection from="-12" to="14" fromLane="2" toLane="1" dir="l" state="m"/>
+    <connection from="-12" to="12" fromLane="2" toLane="0" dir="t" state="m"/>
+    <connection from="-12" to="12" fromLane="2" toLane="1" dir="t" state="m"/>
+    <connection from="-12" to="12" fromLane="2" toLane="2" dir="t" state="m"/>
+    <connection from="-13" to="-11" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="-13" to="-11" fromLane="1" toLane="1" dir="r" state="m"/>
+    <connection from="-13" to="14" fromLane="1" toLane="0" dir="s" state="m"/>
+    <connection from="-13" to="14" fromLane="1" toLane="1" dir="s" state="m"/>
+    <connection from="-13" to="12" fromLane="1" toLane="0" dir="l" state="m"/>
+    <connection from="-13" to="12" fromLane="1" toLane="1" dir="l" state="m"/>
+    <connection from="-13" to="12" fromLane="1" toLane="2" dir="l" state="m"/>
+    <connection from="-13" to="13" fromLane="1" toLane="0" dir="t" state="m"/>
+    <connection from="-13" to="13" fromLane="1" toLane="1" dir="t" state="m"/>
+    <connection from="-14" to="12" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="-14" to="12" fromLane="1" toLane="1" dir="r" state="m"/>
+    <connection from="-14" to="13" fromLane="1" toLane="0" dir="s" state="m"/>
+    <connection from="-14" to="13" fromLane="1" toLane="1" dir="s" state="m"/>
+    <connection from="-14" to="-11" fromLane="1" toLane="0" dir="l" state="m"/>
+    <connection from="-14" to="-11" fromLane="1" toLane="1" dir="l" state="m"/>
+    <connection from="-14" to="-11" fromLane="1" toLane="2" dir="l" state="m"/>
+    <connection from="-14" to="14" fromLane="1" toLane="0" dir="t" state="m"/>
+    <connection from="-14" to="14" fromLane="1" toLane="1" dir="t" state="m"/>
+    <connection from="10" to="14" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="10" to="14" fromLane="0" toLane="1" dir="r" state="M"/>
+    <connection from="10" to="12" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="10" to="13" fromLane="1" toLane="0" dir="l" state="m"/>
+    <connection from="10" to="13" fromLane="2" toLane="1" dir="l" state="m"/>
+    <connection from="10" to="-11" fromLane="2" toLane="2" dir="t" state="m"/>
+    <connection from="12" to="-12" fromLane="2" toLane="2" dir="t" state="M"/>
+    <connection from="13" to="-13" fromLane="1" toLane="1" dir="t" state="M"/>
+    <connection from="14" to="-14" fromLane="1" toLane="1" dir="t" state="M"/>
 
 </net>
