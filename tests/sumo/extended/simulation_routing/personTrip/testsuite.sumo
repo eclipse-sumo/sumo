@@ -127,4 +127,7 @@ ride_from_stop
 
 # arrive with a ride at a busStop and continue with a trip
 ride_trip
+
+# randomize paths in a grid network
+randomized_weights
 errors
