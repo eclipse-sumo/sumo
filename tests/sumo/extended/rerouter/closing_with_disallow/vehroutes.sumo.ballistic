@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Sep 13 12:06:43 2016 by SUMO Version dev-SVN-r21424
+<!-- generated on Wed Apr  3 11:02:37 2019 by Eclipse SUMO Version v1_1_0+0417-c407ef5
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,6 +15,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <vehroute-output value="vehroutes.xml"/>
     </output>
 
@@ -25,6 +26,7 @@ SPDX-License-Identifier: EPL-2.0
     <processing>
         <step-method.ballistic value="true"/>
         <ignore-route-errors value="true"/>
+        <default.speeddev value="0"/>
     </processing>
 
     <report>
@@ -81,23 +83,11 @@ SPDX-License-Identifier: EPL-2.0
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="flow_maybe_detour.10" depart="100.00" arrival="196.00">
-        <route edges="beg middle end rend"/>
-    </vehicle>
-
-    <vehicle id="flow_maybe_detour.12" depart="120.00" arrival="216.00">
-        <route edges="beg middle end rend"/>
-    </vehicle>
-
     <vehicle id="flow_maybe_detour.14" depart="140.00" arrival="236.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="flow_maybe_detour.15" depart="150.00" arrival="246.00">
-        <route edges="beg middle end rend"/>
-    </vehicle>
-
-    <vehicle id="flow_maybe_detour.17" depart="170.00" arrival="266.00">
+    <vehicle id="flow_maybe_detour.16" depart="160.00" arrival="256.00">
         <route edges="beg middle end rend"/>
     </vehicle>
 
@@ -109,23 +99,44 @@ SPDX-License-Identifier: EPL-2.0
         <route edges="beg middle end rend"/>
     </vehicle>
 
+    <vehicle id="flow_maybe_detour.10" depart="100.00" arrival="310.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="100.00" probability="0" edges="beg middle end rend"/>
+            <route edges="beg beg2right right right2end end rend"/>
+        </routeDistribution>
+    </vehicle>
+
     <vehicle id="flow_maybe_detour.11" depart="110.00" arrival="320.00">
         <routeDistribution>
-            <route replacedOnEdge="beg" replacedAtTime="110.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="110.00" probability="0" edges="beg middle end rend"/>
+            <route edges="beg beg2right right right2end end rend"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow_maybe_detour.12" depart="120.00" arrival="330.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="120.00" probability="0" edges="beg middle end rend"/>
             <route edges="beg beg2right right right2end end rend"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="flow_maybe_detour.13" depart="130.00" arrival="340.00">
         <routeDistribution>
-            <route replacedOnEdge="beg" replacedAtTime="130.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="130.00" probability="0" edges="beg middle end rend"/>
             <route edges="beg beg2right right right2end end rend"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="flow_maybe_detour.16" depart="160.00" arrival="370.00">
+    <vehicle id="flow_maybe_detour.15" depart="150.00" arrival="360.00">
         <routeDistribution>
-            <route replacedOnEdge="beg" replacedAtTime="160.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="150.00" probability="0" edges="beg middle end rend"/>
+            <route edges="beg beg2right right right2end end rend"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow_maybe_detour.17" depart="170.00" arrival="380.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="170.00" probability="0" edges="beg middle end rend"/>
             <route edges="beg beg2right right right2end end rend"/>
         </routeDistribution>
     </vehicle>

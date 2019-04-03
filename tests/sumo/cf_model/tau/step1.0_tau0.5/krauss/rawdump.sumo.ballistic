@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Sep 19 21:56:04 2016 by SUMO Version dev-SVN-r21424
+<!-- generated on Wed Apr  3 11:03:07 2019 by Eclipse SUMO Version v1_1_0+0417-c407ef5
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,6 +15,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <netstate-dump value="rawdump.xml"/>
     </output>
 
@@ -24,6 +25,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <processing>
         <step-method.ballistic value="true"/>
+        <default.speeddev value="0"/>
     </processing>
 
     <report>
@@ -31,6 +33,10 @@ SPDX-License-Identifier: EPL-2.0
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
+
+    <gui_only>
+        <tracker-interval value="1"/>
+    </gui_only>
 
 </configuration>
 -->
@@ -353,7 +359,7 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="39.00">
         <edge id="middle">
             <lane id="middle_0">
-                <vehicle id="follower" pos="183.54" speed="11.44"/>
+                <vehicle id="follower" pos="182.57" speed="9.50"/>
                 <vehicle id="leader" pos="192.26" speed="8.34"/>
             </lane>
         </edge>
@@ -361,7 +367,7 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="40.00">
         <edge id="middle">
             <lane id="middle_0">
-                <vehicle id="follower" pos="192.73" speed="6.94"/>
+                <vehicle id="follower" pos="191.03" speed="7.40"/>
                 <vehicle id="leader" pos="198.36" speed="3.84"/>
             </lane>
         </edge>
@@ -369,6 +375,7 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="41.00">
         <edge id="middle">
             <lane id="middle_0">
+                <vehicle id="follower" pos="194.44" speed="0.00"/>
                 <vehicle id="leader" pos="200.00" speed="0.00"/>
             </lane>
         </edge>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Oct 20 19:05:40 2017 by SUMO Version svn
+<!-- generated on Wed Apr  3 11:03:16 2019 by Eclipse SUMO Version v1_1_0+0417-c407ef5
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,11 +14,13 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <lanechange-output value="lanechanges.xml"/>
     </output>
 
     <processing>
         <step-method.ballistic value="true"/>
+        <default.speeddev value="0"/>
     </processing>
 
     <report>
@@ -30,6 +32,6 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <lanechanges>
-    <change id="overtaking" type="emergency" time="67.00" from="VODUGES_beg_0" to="-VODUGES_beg_0" dir="1" speed="11.40" pos="828.01" reason="" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="16.97" origLeaderSecureGap="25.85"/>
-    <change id="overtaking" type="emergency" time="86.00" from="-VODUGES_beg_0" to="VODUGES_beg_0" dir="-1" speed="13.03" pos="920.37" reason="" leaderGap="None" leaderSecureGap="None" followerGap="73.13" followerSecureGap="0.00" origLeaderGap="None" origLeaderSecureGap="None"/>
+    <change id="overtaking" type="emergency" time="63.00" from="VODUGES_beg_0" to="-VODUGES_beg_0" dir="1" speed="13.11" pos="823.39" reason="speedGain" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="21.59" origLeaderSecureGap="32.19"/>
+    <change id="overtaking" type="emergency" time="81.00" from="-VODUGES_beg_0" to="VODUGES_beg_0" dir="-1" speed="13.89" pos="926.98" reason="keepRight" leaderGap="None" leaderSecureGap="None" followerGap="66.52" followerSecureGap="0.00" origLeaderGap="None" origLeaderSecureGap="None"/>
 </lanechanges>

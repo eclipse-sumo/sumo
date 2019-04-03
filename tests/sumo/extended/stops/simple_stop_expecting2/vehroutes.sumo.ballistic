@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Oct 20 19:12:06 2017 by SUMO Version svn
+<!-- generated on Wed Apr  3 11:02:39 2019 by Eclipse SUMO Version v1_1_0+0417-c407ef5
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,11 +14,13 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <vehroute-output value="vehroutes.xml"/>
     </output>
 
     <processing>
         <step-method.ballistic value="true"/>
+        <default.speeddev value="0"/>
     </processing>
 
     <report>
@@ -35,17 +37,17 @@ SPDX-License-Identifier: EPL-2.0
         <route edges="1to2 out"/>
     </vehicle>
 
-    <person id="p1" depart="100.00" departPos="4.00" arrival="204.00">
+    <person id="p1" depart="100.00" departPos="4.00" arrival="203.00">
         <ride from="1to2" to="out" lines="veh0"/>
     </person>
 
-    <person id="p2" depart="200.00" departPos="4.00" arrival="204.00">
+    <person id="p2" depart="200.00" departPos="4.00" arrival="203.00">
         <ride from="1to2" to="out" lines="veh0"/>
     </person>
 
-    <vehicle id="veh0" type="Car" depart="1.00" departPos="0.00" arrival="204.00">
+    <vehicle id="veh0" type="Car" depart="1.00" departPos="0.00" arrival="203.00">
         <route edges="1to2 out"/>
-        <stop lane="1to2_0" endPos="4.00" triggered="1" expected="p1 p2"/>
+        <stop lane="1to2_0" endPos="4.00" duration="10.00" expected="p1 p2"/>
     </vehicle>
 
 </routes>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed May 30 09:19:35 2018 by Eclipse SUMO Version baab8c4
+<!-- generated on Wed Apr  3 11:03:22 2019 by Eclipse SUMO Version v1_1_0+0417-c407ef5
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -21,6 +21,7 @@ SPDX-License-Identifier: EPL-2.0
     <processing>
         <step-method.ballistic value="true"/>
         <lateral-resolution value="0.8"/>
+        <default.speeddev value="0"/>
     </processing>
 
     <report>
@@ -4020,7 +4021,7 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="3si">
             <lane id="3si_0">
                 <vehicle id="late.2" pos="186.36" speed="13.89" posLat="0.00"/>
-                <vehicle id="late.1" pos="223.00" speed="0.00" posLat="0.00"/>
+                <vehicle id="late.1" pos="222.99" speed="0.00" posLat="0.00"/>
                 <vehicle id="late.0" pos="229.90" speed="0.80" posLat="0.00"/>
                 <vehicle id="early.2" pos="237.60" speed="1.60" posLat="0.70"/>
                 <vehicle id="early.1" pos="246.10" speed="2.40" posLat="-0.70"/>
@@ -4091,7 +4092,7 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="3si">
             <lane id="3si_0">
                 <vehicle id="late.2" pos="199.49" speed="12.37" posLat="0.00"/>
-                <vehicle id="late.1" pos="223.40" speed="0.80" posLat="0.00"/>
+                <vehicle id="late.1" pos="223.39" speed="0.80" posLat="0.00"/>
                 <vehicle id="late.0" pos="231.10" speed="1.60" posLat="0.00"/>
                 <vehicle id="early.2" pos="239.60" speed="2.40" posLat="0.70"/>
                 <vehicle id="early.1" pos="248.90" speed="3.20" posLat="-0.70"/>
@@ -5952,7 +5953,7 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Wout">
             <lane id="Wout_0">
-                <vehicle id="late.10" pos="3.56" speed="9.39" posLat="0.00"/>
+                <vehicle id="late.10" pos="4.42" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.2" pos="192.99" speed="11.11" posLat="0.00"/>
                 <vehicle id="early.2" pos="264.33" speed="11.11" posLat="0.00"/>
                 <vehicle id="early.10" pos="299.55" speed="11.11" posLat="0.00"/>
@@ -6007,7 +6008,7 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Wout">
             <lane id="Wout_0">
-                <vehicle id="late.10" pos="13.35" speed="10.19" posLat="0.00"/>
+                <vehicle id="late.10" pos="15.53" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.2" pos="204.10" speed="11.11" posLat="0.00"/>
                 <vehicle id="early.2" pos="275.44" speed="11.11" posLat="0.00"/>
                 <vehicle id="early.10" pos="310.66" speed="11.11" posLat="0.00"/>
@@ -6062,7 +6063,7 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Wout">
             <lane id="Wout_0">
-                <vehicle id="late.10" pos="23.94" speed="10.99" posLat="0.00"/>
+                <vehicle id="late.10" pos="26.64" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.2" pos="215.21" speed="11.11" posLat="0.00"/>
                 <vehicle id="early.2" pos="286.55" speed="11.11" posLat="0.00"/>
                 <vehicle id="early.10" pos="321.77" speed="11.11" posLat="0.00"/>
@@ -6116,7 +6117,7 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Wout">
             <lane id="Wout_0">
-                <vehicle id="late.10" pos="34.99" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.10" pos="37.75" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.2" pos="226.32" speed="11.11" posLat="0.00"/>
                 <vehicle id="early.2" pos="297.66" speed="11.11" posLat="0.00"/>
                 <vehicle id="early.10" pos="332.88" speed="11.11" posLat="0.00"/>
@@ -6170,7 +6171,7 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Wout">
             <lane id="Wout_0">
-                <vehicle id="late.10" pos="46.10" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.10" pos="48.86" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.2" pos="237.43" speed="11.11" posLat="0.00"/>
                 <vehicle id="early.2" pos="308.77" speed="11.11" posLat="0.00"/>
                 <vehicle id="early.10" pos="343.99" speed="11.11" posLat="0.00"/>
@@ -6224,7 +6225,7 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Wout">
             <lane id="Wout_0">
-                <vehicle id="late.10" pos="57.21" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.10" pos="59.97" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.2" pos="248.54" speed="11.11" posLat="0.00"/>
                 <vehicle id="early.2" pos="319.88" speed="11.11" posLat="0.00"/>
                 <vehicle id="early.10" pos="355.10" speed="11.11" posLat="0.00"/>
@@ -6278,7 +6279,7 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Wout">
             <lane id="Wout_0">
-                <vehicle id="late.10" pos="68.32" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.10" pos="71.08" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.2" pos="259.65" speed="11.11" posLat="0.00"/>
                 <vehicle id="early.2" pos="330.99" speed="11.11" posLat="0.00"/>
                 <vehicle id="early.10" pos="366.21" speed="11.11" posLat="0.00"/>
@@ -6332,7 +6333,7 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Wout">
             <lane id="Wout_0">
-                <vehicle id="late.10" pos="79.43" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.10" pos="82.19" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.2" pos="270.76" speed="11.11" posLat="0.00"/>
                 <vehicle id="early.2" pos="342.10" speed="11.11" posLat="0.00"/>
                 <vehicle id="early.10" pos="377.32" speed="11.11" posLat="0.00"/>
@@ -6386,7 +6387,7 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Wout">
             <lane id="Wout_0">
-                <vehicle id="late.10" pos="90.54" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.10" pos="93.30" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.2" pos="281.87" speed="11.11" posLat="0.00"/>
                 <vehicle id="early.2" pos="353.21" speed="11.11" posLat="0.00"/>
                 <vehicle id="early.10" pos="388.43" speed="11.11" posLat="0.00"/>
@@ -6440,7 +6441,7 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Wout">
             <lane id="Wout_0">
-                <vehicle id="late.10" pos="101.65" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.10" pos="104.41" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.2" pos="292.98" speed="11.11" posLat="0.00"/>
                 <vehicle id="early.2" pos="364.32" speed="11.11" posLat="0.00"/>
                 <vehicle id="early.10" pos="399.54" speed="11.11" posLat="0.00"/>
@@ -6494,7 +6495,7 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Wout">
             <lane id="Wout_0">
-                <vehicle id="late.10" pos="112.76" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.10" pos="115.52" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.2" pos="304.09" speed="11.11" posLat="0.00"/>
                 <vehicle id="early.2" pos="375.43" speed="11.11" posLat="0.00"/>
                 <vehicle id="early.10" pos="410.65" speed="11.11" posLat="0.00"/>
@@ -6548,7 +6549,7 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Wout">
             <lane id="Wout_0">
-                <vehicle id="late.10" pos="123.87" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.10" pos="126.63" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.2" pos="315.20" speed="11.11" posLat="0.00"/>
                 <vehicle id="early.2" pos="386.54" speed="11.11" posLat="0.00"/>
                 <vehicle id="early.10" pos="421.76" speed="11.11" posLat="0.00"/>
@@ -6602,7 +6603,7 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Wout">
             <lane id="Wout_0">
-                <vehicle id="late.10" pos="134.98" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.10" pos="137.74" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.2" pos="326.31" speed="11.11" posLat="0.00"/>
                 <vehicle id="early.2" pos="397.65" speed="11.11" posLat="0.00"/>
                 <vehicle id="early.10" pos="432.87" speed="11.11" posLat="0.00"/>
@@ -6655,7 +6656,7 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Wout">
             <lane id="Wout_0">
-                <vehicle id="late.10" pos="146.09" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.10" pos="148.85" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.2" pos="337.42" speed="11.11" posLat="0.00"/>
                 <vehicle id="early.2" pos="408.76" speed="11.11" posLat="0.00"/>
                 <vehicle id="early.10" pos="443.98" speed="11.11" posLat="0.00"/>
@@ -6675,7 +6676,7 @@ SPDX-License-Identifier: EPL-2.0
                 <vehicle id="late.7" pos="244.10" speed="1.60" posLat="0.00"/>
             </lane>
             <lane id="2si_1">
-                <vehicle id="late.8" pos="249.99" speed="0.00" posLat="0.00"/>
+                <vehicle id="late.8" pos="249.90" speed="0.00" posLat="0.00"/>
             </lane>
         </edge>
         <edge id="4si">
@@ -6708,7 +6709,7 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Wout">
             <lane id="Wout_0">
-                <vehicle id="late.10" pos="157.20" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.10" pos="159.96" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.2" pos="348.53" speed="11.11" posLat="0.00"/>
                 <vehicle id="early.2" pos="419.87" speed="11.11" posLat="0.00"/>
                 <vehicle id="early.10" pos="455.09" speed="11.11" posLat="0.00"/>
@@ -6728,7 +6729,7 @@ SPDX-License-Identifier: EPL-2.0
                 <vehicle id="late.7" pos="246.10" speed="2.40" posLat="0.00"/>
             </lane>
             <lane id="2si_1">
-                <vehicle id="late.8" pos="249.99" speed="0.00" posLat="0.00"/>
+                <vehicle id="late.8" pos="249.90" speed="0.00" posLat="0.00"/>
             </lane>
         </edge>
         <edge id="4si">
@@ -6761,7 +6762,7 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Wout">
             <lane id="Wout_0">
-                <vehicle id="late.10" pos="168.31" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.10" pos="171.07" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.2" pos="359.64" speed="11.11" posLat="0.00"/>
                 <vehicle id="early.2" pos="430.98" speed="11.11" posLat="0.00"/>
                 <vehicle id="early.10" pos="466.20" speed="11.11" posLat="0.00"/>
@@ -6781,7 +6782,7 @@ SPDX-License-Identifier: EPL-2.0
                 <vehicle id="late.7" pos="248.90" speed="3.20" posLat="0.00"/>
             </lane>
             <lane id="2si_1">
-                <vehicle id="late.8" pos="249.99" speed="0.00" posLat="0.00"/>
+                <vehicle id="late.8" pos="249.90" speed="0.00" posLat="0.00"/>
             </lane>
         </edge>
         <edge id="4si">
@@ -6814,7 +6815,7 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Wout">
             <lane id="Wout_0">
-                <vehicle id="late.10" pos="179.42" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.10" pos="182.18" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.2" pos="370.75" speed="11.11" posLat="0.00"/>
                 <vehicle id="early.2" pos="442.09" speed="11.11" posLat="0.00"/>
                 <vehicle id="early.10" pos="477.31" speed="11.11" posLat="0.00"/>
@@ -6853,7 +6854,7 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Sout">
             <lane id="Sout_0">
-                <vehicle id="late.8" pos="0.39" speed="0.80" posLat="0.00"/>
+                <vehicle id="late.8" pos="0.30" speed="0.80" posLat="0.00"/>
                 <vehicle id="late.5" pos="13.40" speed="4.80" posLat="0.00"/>
                 <vehicle id="early.11" pos="491.93" speed="11.11" posLat="0.00"/>
             </lane>
@@ -6861,7 +6862,7 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="Wout">
             <lane id="Wout_0">
                 <vehicle id="late.7" pos="2.50" speed="4.00" posLat="0.00"/>
-                <vehicle id="late.10" pos="190.53" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.10" pos="193.29" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.2" pos="381.86" speed="11.11" posLat="0.00"/>
                 <vehicle id="early.2" pos="453.20" speed="11.11" posLat="0.00"/>
                 <vehicle id="early.10" pos="488.42" speed="11.11" posLat="0.00"/>
@@ -6900,14 +6901,14 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Sout">
             <lane id="Sout_0">
-                <vehicle id="late.8" pos="1.59" speed="1.60" posLat="0.00"/>
+                <vehicle id="late.8" pos="1.50" speed="1.60" posLat="0.00"/>
                 <vehicle id="late.5" pos="18.60" speed="5.60" posLat="0.00"/>
             </lane>
         </edge>
         <edge id="Wout">
             <lane id="Wout_0">
                 <vehicle id="late.7" pos="6.90" speed="4.80" posLat="0.00"/>
-                <vehicle id="late.10" pos="201.64" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.10" pos="204.40" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.2" pos="392.97" speed="11.11" posLat="0.00"/>
                 <vehicle id="early.2" pos="464.31" speed="11.11" posLat="0.00"/>
                 <vehicle id="early.10" pos="499.53" speed="11.11" posLat="0.00"/>
@@ -6945,14 +6946,14 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Sout">
             <lane id="Sout_0">
-                <vehicle id="late.8" pos="3.59" speed="2.40" posLat="0.00"/>
+                <vehicle id="late.8" pos="3.50" speed="2.40" posLat="0.00"/>
                 <vehicle id="late.5" pos="24.60" speed="6.40" posLat="0.00"/>
             </lane>
         </edge>
         <edge id="Wout">
             <lane id="Wout_0">
                 <vehicle id="late.7" pos="12.10" speed="5.60" posLat="0.00"/>
-                <vehicle id="late.10" pos="212.75" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.10" pos="215.51" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.2" pos="404.08" speed="11.11" posLat="0.00"/>
                 <vehicle id="early.2" pos="475.42" speed="11.11" posLat="0.00"/>
             </lane>
@@ -6988,14 +6989,14 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Sout">
             <lane id="Sout_0">
-                <vehicle id="late.8" pos="6.39" speed="3.20" posLat="0.00"/>
+                <vehicle id="late.8" pos="6.30" speed="3.20" posLat="0.00"/>
                 <vehicle id="late.5" pos="31.40" speed="7.20" posLat="0.00"/>
             </lane>
         </edge>
         <edge id="Wout">
             <lane id="Wout_0">
                 <vehicle id="late.7" pos="18.10" speed="6.40" posLat="0.00"/>
-                <vehicle id="late.10" pos="223.86" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.10" pos="226.62" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.2" pos="415.19" speed="11.11" posLat="0.00"/>
                 <vehicle id="early.2" pos="486.53" speed="11.11" posLat="0.00"/>
             </lane>
@@ -7031,14 +7032,14 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Sout">
             <lane id="Sout_0">
-                <vehicle id="late.8" pos="9.99" speed="4.00" posLat="0.00"/>
+                <vehicle id="late.8" pos="9.90" speed="4.00" posLat="0.00"/>
                 <vehicle id="late.5" pos="39.00" speed="8.00" posLat="0.00"/>
             </lane>
         </edge>
         <edge id="Wout">
             <lane id="Wout_0">
                 <vehicle id="late.7" pos="24.90" speed="7.20" posLat="0.00"/>
-                <vehicle id="late.10" pos="234.97" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.10" pos="237.73" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.2" pos="426.30" speed="11.11" posLat="0.00"/>
                 <vehicle id="early.2" pos="497.64" speed="11.11" posLat="0.00"/>
             </lane>
@@ -7074,14 +7075,14 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Sout">
             <lane id="Sout_0">
-                <vehicle id="late.8" pos="14.39" speed="4.80" posLat="0.00"/>
+                <vehicle id="late.8" pos="14.30" speed="4.80" posLat="0.00"/>
                 <vehicle id="late.5" pos="47.40" speed="8.80" posLat="0.00"/>
             </lane>
         </edge>
         <edge id="Wout">
             <lane id="Wout_0">
                 <vehicle id="late.7" pos="32.50" speed="8.00" posLat="0.00"/>
-                <vehicle id="late.10" pos="246.08" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.10" pos="248.84" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.2" pos="437.41" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
@@ -7110,14 +7111,14 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Sout">
             <lane id="Sout_0">
-                <vehicle id="late.8" pos="19.59" speed="5.60" posLat="0.00"/>
+                <vehicle id="late.8" pos="19.50" speed="5.60" posLat="0.00"/>
                 <vehicle id="late.5" pos="56.60" speed="9.60" posLat="0.00"/>
             </lane>
         </edge>
         <edge id="Wout">
             <lane id="Wout_0">
                 <vehicle id="late.7" pos="40.90" speed="8.80" posLat="0.00"/>
-                <vehicle id="late.10" pos="257.19" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.10" pos="259.95" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.2" pos="448.52" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
@@ -7146,14 +7147,14 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Sout">
             <lane id="Sout_0">
-                <vehicle id="late.8" pos="25.59" speed="6.40" posLat="0.00"/>
+                <vehicle id="late.8" pos="25.50" speed="6.40" posLat="0.00"/>
                 <vehicle id="late.5" pos="66.60" speed="10.40" posLat="0.00"/>
             </lane>
         </edge>
         <edge id="Wout">
             <lane id="Wout_0">
                 <vehicle id="late.7" pos="50.10" speed="9.60" posLat="0.00"/>
-                <vehicle id="late.10" pos="268.30" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.10" pos="271.06" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.2" pos="459.63" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
@@ -7181,14 +7182,14 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Sout">
             <lane id="Sout_0">
-                <vehicle id="late.8" pos="32.39" speed="7.20" posLat="0.00"/>
+                <vehicle id="late.8" pos="32.30" speed="7.20" posLat="0.00"/>
                 <vehicle id="late.5" pos="77.35" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
         <edge id="Wout">
             <lane id="Wout_0">
                 <vehicle id="late.7" pos="60.10" speed="10.40" posLat="0.00"/>
-                <vehicle id="late.10" pos="279.41" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.10" pos="282.17" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.2" pos="470.74" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
@@ -7216,14 +7217,14 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Sout">
             <lane id="Sout_0">
-                <vehicle id="late.8" pos="39.99" speed="8.00" posLat="0.00"/>
+                <vehicle id="late.8" pos="39.90" speed="8.00" posLat="0.00"/>
                 <vehicle id="late.5" pos="88.46" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
         <edge id="Wout">
             <lane id="Wout_0">
                 <vehicle id="late.7" pos="70.85" speed="11.11" posLat="0.00"/>
-                <vehicle id="late.10" pos="290.52" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.10" pos="293.28" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.2" pos="481.85" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
@@ -7251,14 +7252,14 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Sout">
             <lane id="Sout_0">
-                <vehicle id="late.8" pos="48.39" speed="8.80" posLat="0.00"/>
+                <vehicle id="late.8" pos="48.30" speed="8.80" posLat="0.00"/>
                 <vehicle id="late.5" pos="99.57" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
         <edge id="Wout">
             <lane id="Wout_0">
                 <vehicle id="late.7" pos="81.96" speed="11.11" posLat="0.00"/>
-                <vehicle id="late.10" pos="301.63" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.10" pos="304.39" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.2" pos="492.96" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
@@ -7286,14 +7287,14 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Sout">
             <lane id="Sout_0">
-                <vehicle id="late.8" pos="57.59" speed="9.60" posLat="0.00"/>
+                <vehicle id="late.8" pos="57.50" speed="9.60" posLat="0.00"/>
                 <vehicle id="late.5" pos="110.68" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
         <edge id="Wout">
             <lane id="Wout_0">
                 <vehicle id="late.7" pos="93.07" speed="11.11" posLat="0.00"/>
-                <vehicle id="late.10" pos="312.74" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.10" pos="315.50" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
     </timestep>
@@ -7320,14 +7321,14 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Sout">
             <lane id="Sout_0">
-                <vehicle id="late.8" pos="67.59" speed="10.40" posLat="0.00"/>
+                <vehicle id="late.8" pos="67.50" speed="10.40" posLat="0.00"/>
                 <vehicle id="late.5" pos="121.79" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
         <edge id="Wout">
             <lane id="Wout_0">
                 <vehicle id="late.7" pos="104.18" speed="11.11" posLat="0.00"/>
-                <vehicle id="late.10" pos="323.85" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.10" pos="326.61" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
     </timestep>
@@ -7354,14 +7355,14 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Sout">
             <lane id="Sout_0">
-                <vehicle id="late.8" pos="78.35" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.8" pos="78.25" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.5" pos="132.90" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
         <edge id="Wout">
             <lane id="Wout_0">
                 <vehicle id="late.7" pos="115.29" speed="11.11" posLat="0.00"/>
-                <vehicle id="late.10" pos="334.96" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.10" pos="337.72" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
     </timestep>
@@ -7388,14 +7389,14 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Sout">
             <lane id="Sout_0">
-                <vehicle id="late.8" pos="89.46" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.8" pos="89.36" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.5" pos="144.01" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
         <edge id="Wout">
             <lane id="Wout_0">
                 <vehicle id="late.7" pos="126.40" speed="11.11" posLat="0.00"/>
-                <vehicle id="late.10" pos="346.07" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.10" pos="348.83" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
     </timestep>
@@ -7421,14 +7422,14 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Sout">
             <lane id="Sout_0">
-                <vehicle id="late.8" pos="100.57" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.8" pos="100.47" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.5" pos="155.12" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
         <edge id="Wout">
             <lane id="Wout_0">
                 <vehicle id="late.7" pos="137.51" speed="11.11" posLat="0.00"/>
-                <vehicle id="late.10" pos="357.18" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.10" pos="359.94" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
     </timestep>
@@ -7454,14 +7455,14 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Sout">
             <lane id="Sout_0">
-                <vehicle id="late.8" pos="111.68" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.8" pos="111.58" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.5" pos="166.23" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
         <edge id="Wout">
             <lane id="Wout_0">
                 <vehicle id="late.7" pos="148.62" speed="11.11" posLat="0.00"/>
-                <vehicle id="late.10" pos="368.29" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.10" pos="371.05" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
     </timestep>
@@ -7487,14 +7488,14 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Sout">
             <lane id="Sout_0">
-                <vehicle id="late.8" pos="122.79" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.8" pos="122.69" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.5" pos="177.34" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
         <edge id="Wout">
             <lane id="Wout_0">
                 <vehicle id="late.7" pos="159.73" speed="11.11" posLat="0.00"/>
-                <vehicle id="late.10" pos="379.40" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.10" pos="382.16" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
     </timestep>
@@ -7520,14 +7521,14 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Sout">
             <lane id="Sout_0">
-                <vehicle id="late.8" pos="133.90" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.8" pos="133.80" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.5" pos="188.45" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
         <edge id="Wout">
             <lane id="Wout_0">
                 <vehicle id="late.7" pos="170.84" speed="11.11" posLat="0.00"/>
-                <vehicle id="late.10" pos="390.51" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.10" pos="393.27" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
     </timestep>
@@ -7553,14 +7554,14 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Sout">
             <lane id="Sout_0">
-                <vehicle id="late.8" pos="145.01" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.8" pos="144.91" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.5" pos="199.56" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
         <edge id="Wout">
             <lane id="Wout_0">
                 <vehicle id="late.7" pos="181.95" speed="11.11" posLat="0.00"/>
-                <vehicle id="late.10" pos="401.62" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.10" pos="404.38" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
     </timestep>
@@ -7586,14 +7587,14 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Sout">
             <lane id="Sout_0">
-                <vehicle id="late.8" pos="156.12" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.8" pos="156.02" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.5" pos="210.67" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
         <edge id="Wout">
             <lane id="Wout_0">
                 <vehicle id="late.7" pos="193.06" speed="11.11" posLat="0.00"/>
-                <vehicle id="late.10" pos="412.73" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.10" pos="415.49" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
     </timestep>
@@ -7619,14 +7620,14 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Sout">
             <lane id="Sout_0">
-                <vehicle id="late.8" pos="167.23" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.8" pos="167.13" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.5" pos="221.78" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
         <edge id="Wout">
             <lane id="Wout_0">
                 <vehicle id="late.7" pos="204.17" speed="11.11" posLat="0.00"/>
-                <vehicle id="late.10" pos="423.84" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.10" pos="426.60" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
     </timestep>
@@ -7652,14 +7653,14 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Sout">
             <lane id="Sout_0">
-                <vehicle id="late.8" pos="178.34" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.8" pos="178.24" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.5" pos="232.89" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
         <edge id="Wout">
             <lane id="Wout_0">
                 <vehicle id="late.7" pos="215.28" speed="11.11" posLat="0.00"/>
-                <vehicle id="late.10" pos="434.95" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.10" pos="437.71" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
     </timestep>
@@ -7685,14 +7686,14 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Sout">
             <lane id="Sout_0">
-                <vehicle id="late.8" pos="189.45" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.8" pos="189.35" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.5" pos="244.00" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
         <edge id="Wout">
             <lane id="Wout_0">
                 <vehicle id="late.7" pos="226.39" speed="11.11" posLat="0.00"/>
-                <vehicle id="late.10" pos="446.06" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.10" pos="448.82" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
     </timestep>
@@ -7718,14 +7719,14 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Sout">
             <lane id="Sout_0">
-                <vehicle id="late.8" pos="200.56" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.8" pos="200.46" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.5" pos="255.11" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
         <edge id="Wout">
             <lane id="Wout_0">
                 <vehicle id="late.7" pos="237.50" speed="11.11" posLat="0.00"/>
-                <vehicle id="late.10" pos="457.17" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.10" pos="459.93" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
     </timestep>
@@ -7751,14 +7752,14 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Sout">
             <lane id="Sout_0">
-                <vehicle id="late.8" pos="211.67" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.8" pos="211.57" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.5" pos="266.22" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
         <edge id="Wout">
             <lane id="Wout_0">
                 <vehicle id="late.7" pos="248.61" speed="11.11" posLat="0.00"/>
-                <vehicle id="late.10" pos="468.28" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.10" pos="471.04" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
     </timestep>
@@ -7783,14 +7784,14 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Sout">
             <lane id="Sout_0">
-                <vehicle id="late.8" pos="222.78" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.8" pos="222.68" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.5" pos="277.33" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
         <edge id="Wout">
             <lane id="Wout_0">
                 <vehicle id="late.7" pos="259.72" speed="11.11" posLat="0.00"/>
-                <vehicle id="late.10" pos="479.39" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.10" pos="482.15" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
     </timestep>
@@ -7815,14 +7816,14 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Sout">
             <lane id="Sout_0">
-                <vehicle id="late.8" pos="233.89" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.8" pos="233.79" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.5" pos="288.44" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
         <edge id="Wout">
             <lane id="Wout_0">
                 <vehicle id="late.7" pos="270.83" speed="11.11" posLat="0.00"/>
-                <vehicle id="late.10" pos="490.50" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.10" pos="493.26" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
     </timestep>
@@ -7847,7 +7848,7 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Sout">
             <lane id="Sout_0">
-                <vehicle id="late.8" pos="245.00" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.8" pos="244.90" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.5" pos="299.55" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
@@ -7878,7 +7879,7 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Sout">
             <lane id="Sout_0">
-                <vehicle id="late.8" pos="256.11" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.8" pos="256.01" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.5" pos="310.66" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
@@ -7909,7 +7910,7 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Sout">
             <lane id="Sout_0">
-                <vehicle id="late.8" pos="267.22" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.8" pos="267.12" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.5" pos="321.77" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
@@ -7940,7 +7941,7 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Sout">
             <lane id="Sout_0">
-                <vehicle id="late.8" pos="278.33" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.8" pos="278.23" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.5" pos="332.88" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
@@ -7971,7 +7972,7 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Sout">
             <lane id="Sout_0">
-                <vehicle id="late.8" pos="289.44" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.8" pos="289.34" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.5" pos="343.99" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
@@ -8002,7 +8003,7 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Sout">
             <lane id="Sout_0">
-                <vehicle id="late.8" pos="300.55" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.8" pos="300.45" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.5" pos="355.10" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
@@ -8033,7 +8034,7 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Sout">
             <lane id="Sout_0">
-                <vehicle id="late.8" pos="311.66" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.8" pos="311.56" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.5" pos="366.21" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
@@ -8064,7 +8065,7 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Sout">
             <lane id="Sout_0">
-                <vehicle id="late.8" pos="322.77" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.8" pos="322.67" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.5" pos="377.32" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
@@ -8095,7 +8096,7 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Sout">
             <lane id="Sout_0">
-                <vehicle id="late.8" pos="333.88" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.8" pos="333.78" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.5" pos="388.43" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
@@ -8126,7 +8127,7 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Sout">
             <lane id="Sout_0">
-                <vehicle id="late.8" pos="344.99" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.8" pos="344.89" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.5" pos="399.54" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
@@ -8157,7 +8158,7 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Sout">
             <lane id="Sout_0">
-                <vehicle id="late.8" pos="356.10" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.8" pos="356.00" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.5" pos="410.65" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
@@ -8188,7 +8189,7 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Sout">
             <lane id="Sout_0">
-                <vehicle id="late.8" pos="367.21" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.8" pos="367.11" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.5" pos="421.76" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
@@ -8219,7 +8220,7 @@ SPDX-License-Identifier: EPL-2.0
         </edge>
         <edge id="Sout">
             <lane id="Sout_0">
-                <vehicle id="late.8" pos="378.32" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.8" pos="378.22" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.5" pos="432.87" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
@@ -8244,7 +8245,7 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="Sout">
             <lane id="Sout_0">
                 <vehicle id="late.11" pos="0.60" speed="1.60" posLat="0.00"/>
-                <vehicle id="late.8" pos="389.43" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.8" pos="389.33" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.5" pos="443.98" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
@@ -8269,7 +8270,7 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="Sout">
             <lane id="Sout_0">
                 <vehicle id="late.11" pos="2.60" speed="2.40" posLat="0.00"/>
-                <vehicle id="late.8" pos="400.54" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.8" pos="400.44" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.5" pos="455.09" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
@@ -8294,7 +8295,7 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="Sout">
             <lane id="Sout_0">
                 <vehicle id="late.11" pos="5.40" speed="3.20" posLat="0.00"/>
-                <vehicle id="late.8" pos="411.65" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.8" pos="411.55" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.5" pos="466.20" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
@@ -8319,7 +8320,7 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="Sout">
             <lane id="Sout_0">
                 <vehicle id="late.11" pos="9.00" speed="4.00" posLat="0.00"/>
-                <vehicle id="late.8" pos="422.76" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.8" pos="422.66" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.5" pos="477.31" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
@@ -8344,7 +8345,7 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="Sout">
             <lane id="Sout_0">
                 <vehicle id="late.11" pos="13.40" speed="4.80" posLat="0.00"/>
-                <vehicle id="late.8" pos="433.87" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.8" pos="433.77" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.5" pos="488.42" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
@@ -8369,7 +8370,7 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="Sout">
             <lane id="Sout_0">
                 <vehicle id="late.11" pos="18.60" speed="5.60" posLat="0.00"/>
-                <vehicle id="late.8" pos="444.98" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.8" pos="444.88" speed="11.11" posLat="0.00"/>
                 <vehicle id="late.5" pos="499.53" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
@@ -8393,7 +8394,7 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="Sout">
             <lane id="Sout_0">
                 <vehicle id="late.11" pos="24.60" speed="6.40" posLat="0.00"/>
-                <vehicle id="late.8" pos="456.09" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.8" pos="455.99" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
         <edge id="Wout">
@@ -8416,7 +8417,7 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="Sout">
             <lane id="Sout_0">
                 <vehicle id="late.11" pos="31.40" speed="7.20" posLat="0.00"/>
-                <vehicle id="late.8" pos="467.20" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.8" pos="467.10" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
     </timestep>
@@ -8434,7 +8435,7 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="Sout">
             <lane id="Sout_0">
                 <vehicle id="late.11" pos="39.00" speed="8.00" posLat="0.00"/>
-                <vehicle id="late.8" pos="478.31" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.8" pos="478.21" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
     </timestep>
@@ -8452,7 +8453,7 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="Sout">
             <lane id="Sout_0">
                 <vehicle id="late.11" pos="47.40" speed="8.80" posLat="0.00"/>
-                <vehicle id="late.8" pos="489.42" speed="11.11" posLat="0.00"/>
+                <vehicle id="late.8" pos="489.32" speed="11.11" posLat="0.00"/>
             </lane>
         </edge>
     </timestep>
