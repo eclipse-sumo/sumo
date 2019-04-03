@@ -1,4 +1,4 @@
-Eclipse SUMO duarouter Version v1_1_0+0435-678c69824b
+Eclipse SUMO duarouter Version v1_0_1+0645-93703db
  Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Shortest path router and DUE computer for the microscopic, multi-modal traffic
   simulation SUMO.
@@ -86,6 +86,9 @@ Processing Options:
                                         used for routing
   --weights.expand                    Expand weights behind the simulation's
                                         end
+  --weights.random-factor FLOAT       Edge weights for routing are dynamically
+                                        disturbed by a random factor drawn
+                                        uniformly from [1,FLOAT)
   --routing-algorithm STR             Select among routing algorithms
                                         ['dijkstra', 'astar', 'CH', 'CHWrapper']
   --weight-period TIME                Aggregation period for the given weight
