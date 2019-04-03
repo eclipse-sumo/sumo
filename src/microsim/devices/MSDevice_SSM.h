@@ -501,8 +501,10 @@ private:
     void flushGlobalMeasures();
 
     /** @brief Updates the encounter (adds a new trajectory point) and deletes the foeInfo.
+     *  @return Returns false for new encounters, which should not be kept (if one vehicle has
+     *          already left the conflict zone at encounter creation). True, otherwise.
      */
-    void updateEncounter(Encounter* e, FoeInfo* foeInfo);
+    bool updateEncounter(Encounter* e, FoeInfo* foeInfo);
 
     /** @brief Updates an encounter, which was classified as ENCOUNTER_TYPE_NOCONFLICT_AHEAD
      *         this may be the case because the foe is out of the detection range but the encounter

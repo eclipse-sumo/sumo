@@ -501,13 +501,16 @@ MSDevice_SSM::createEncounters(FoeInfoMap& foes) {
 
     for (FoeInfoMap::const_iterator foe = foes.begin(); foe != foes.end(); ++foe) {
         Encounter* e = new Encounter(myHolderMS, foe->first, SIMTIME, myExtraTime);
-        updateEncounter(e, foe->second); // deletes foe->second
-        if (myOldestActiveEncounterBegin == INVALID) {
-            assert(myActiveEncounters.empty());
-            myOldestActiveEncounterBegin = e->begin;
+        if (updateEncounter(e, foe->second)) { // deletes foe->second
+            if (myOldestActiveEncounterBegin == INVALID) {
+                assert(myActiveEncounters.empty());
+                myOldestActiveEncounterBegin = e->begin;
+            }
+            assert(myOldestActiveEncounterBegin <= e->begin);
+            myActiveEncounters.push_back(e);
+        } else {
+            // Discard encounters, where one vehicle already left the conflict area
         }
-        assert(myOldestActiveEncounterBegin <= e->begin);
-        myActiveEncounters.push_back(e);
     }
 }
 
@@ -651,7 +654,7 @@ MSDevice_SSM::closeEncounter(Encounter* e) {
 }
 
 
-void
+bool
 MSDevice_SSM::updateEncounter(Encounter* e, FoeInfo* foeInfo) {
 #ifdef DEBUG_SSM
     if (DEBUG_COND1(myHolderMS))
@@ -668,8 +671,18 @@ MSDevice_SSM::updateEncounter(Encounter* e, FoeInfo* foeInfo) {
     // More details on follower/lead relation are determined in a second step below, see estimateConflictTimes()
     // If a crossing situation is ongoing (i.e. one of the vehicles entered the conflict area already in the last step,
     // this is handled by passedEncounter by only tracing the vehicle's movements)
-    // The further developement of the encounter type is done in checkConflictEntryAndExit()
+    // The further development of the encounter type is done in checkConflictEntryAndExit()
     eInfo.type = classifyEncounter(foeInfo, eInfo);
+
+    // Discard new encounters, where one vehicle has already left the conflict area
+    if (eInfo.encounter->size() == 0) {
+        if(eInfo.type == ENCOUNTER_TYPE_EGO_LEFT_CONFLICT_AREA
+                || eInfo.type == ENCOUNTER_TYPE_FOE_LEFT_CONFLICT_AREA) {
+            delete foeInfo;
+            // Signalize to discard
+            return false;
+        }
+    }
 
     if (eInfo.type == ENCOUNTER_TYPE_NOCONFLICT_AHEAD) {
         // At this state, eInfo.type == ENCOUNTER_TYPE_NOCONFLICT_AHEAD implies that the foe
@@ -720,7 +733,8 @@ MSDevice_SSM::updateEncounter(Encounter* e, FoeInfo* foeInfo) {
 
     // free foeInfo
     delete foeInfo;
-
+    // Keep encounter
+    return true;
 }
 
 
@@ -739,17 +753,19 @@ MSDevice_SSM::determineConflictPoint(EncounterApproachInfo& eInfo) {
     const Encounter* e = eInfo.encounter;
     if (type == ENCOUNTER_TYPE_BOTH_LEFT_CONFLICT_AREA
             || type == ENCOUNTER_TYPE_BOTH_ENTERED_CONFLICT_AREA
-            || type == ENCOUNTER_TYPE_EGO_LEFT_CONFLICT_AREA
-            || type == ENCOUNTER_TYPE_FOE_LEFT_CONFLICT_AREA
             || type == ENCOUNTER_TYPE_COLLISION) {
+        // Both vehicles have already past the conflict entry.
+        assert(e->size() > 0); // A new encounter should not be created if both vehicles already entered the conflict area
         eInfo.conflictPoint = e->conflictPointSpan.back();
     } else if (type == ENCOUNTER_TYPE_CROSSING_FOLLOWER
                || type == ENCOUNTER_TYPE_MERGING_FOLLOWER
-               || type == ENCOUNTER_TYPE_FOE_ENTERED_CONFLICT_AREA) {
+               || type == ENCOUNTER_TYPE_FOE_ENTERED_CONFLICT_AREA
+               || type == ENCOUNTER_TYPE_FOE_LEFT_CONFLICT_AREA) {
         eInfo.conflictPoint = e->ego->getPositionAlongBestLanes(eInfo.egoConflictEntryDist);
     } else if (type == ENCOUNTER_TYPE_CROSSING_LEADER
                || type == ENCOUNTER_TYPE_MERGING_LEADER
-               || type == ENCOUNTER_TYPE_EGO_ENTERED_CONFLICT_AREA) {
+               || type == ENCOUNTER_TYPE_EGO_ENTERED_CONFLICT_AREA
+               || type == ENCOUNTER_TYPE_EGO_LEFT_CONFLICT_AREA) {
         eInfo.conflictPoint = e->foe->getPositionAlongBestLanes(eInfo.foeConflictEntryDist);
     } else if (type == ENCOUNTER_TYPE_FOLLOWING_FOLLOWER) {
         eInfo.conflictPoint = e->foe->getPosition(-e->foe->getLength());
@@ -1002,20 +1018,17 @@ MSDevice_SSM::determinePET(EncounterApproachInfo& eInfo) const {
 #endif
 
         // But both have passed the conflict area
-        assert(e->foeConflictExitTime != INVALID && e->egoConflictExitTime != INVALID);
+        assert(e->egoConflictEntryTime != INVALID || e->foeConflictEntryTime != INVALID);
 
         // Both have left the conflict region
         // (Conflict may have started as one was already within the conflict area - thus the check for INVALID entry times)
-        if (e->foeConflictEntryTime == INVALID || e->egoConflictEntryTime > e->foeConflictExitTime) {
-            assert(e->egoConflictEntryTime != INVALID);
+        if (e->foeConflictEntryTime == INVALID || (e->egoConflictEntryTime != INVALID && e->egoConflictEntryTime > e->foeConflictExitTime)) {
             pet.first = e->egoConflictEntryTime;
             pet.second = e->egoConflictEntryTime - e->foeConflictExitTime;
-        } else if (e->egoConflictEntryTime == INVALID || e->foeConflictEntryTime > e->egoConflictExitTime) {
-            assert(e->foeConflictEntryTime != INVALID);
+        } else if (e->egoConflictEntryTime == INVALID || (e->egoConflictEntryTime != INVALID && e->foeConflictEntryTime > e->egoConflictExitTime)) {
             pet.first = e->foeConflictEntryTime;
             pet.second = e->foeConflictEntryTime - e->egoConflictExitTime;
         } else {
-
 #ifdef DEBUG_SSM
             if (DEBUG_COND1(myHolderMS))
             std::cout << "Unexpected branch in determinePET: Both passed conflict area in the same step."
@@ -1388,6 +1401,48 @@ MSDevice_SSM::checkConflictEntryAndExit(EncounterApproachInfo& eInfo) {
     std::cout << SIMTIME << " checkConflictEntryAndExit() for encounter of vehicles '" << e->egoID << "' and '" << e->foeID << "'" << std::endl;
 #endif
 
+    const bool foePastConflictEntry = eInfo.foeConflictEntryDist < 0.0;
+    const bool egoPastConflictEntry = eInfo.egoConflictEntryDist < 0.0;
+    const bool foePastConflictExit = eInfo.foeConflictEntryDist < 0.0;
+    const bool egoPastConflictExit = eInfo.egoConflictEntryDist < 0.0;
+
+
+    if (e->size() == 0) {
+        // This is a new conflict
+
+        // An encounter should be created earlier than when both already entered the conflict area.
+        // TODO: Check! If this does not fail, the case distinctions can be simplified to a large degree!
+        assert(!foePastConflictEntry || !egoPastConflictEntry);
+
+        if(egoPastConflictExit) {
+            if (foePastConflictExit) {
+                eInfo.type = ENCOUNTER_TYPE_BOTH_LEFT_CONFLICT_AREA;
+            } else if (foePastConflictEntry) {
+                eInfo.type = ENCOUNTER_TYPE_BOTH_ENTERED_CONFLICT_AREA;
+            } else {
+                eInfo.type = ENCOUNTER_TYPE_EGO_LEFT_CONFLICT_AREA;
+            }
+        } else if (foePastConflictExit) {
+            if (egoPastConflictEntry) {
+                eInfo.type = ENCOUNTER_TYPE_BOTH_ENTERED_CONFLICT_AREA;
+            } else {
+                eInfo.type = ENCOUNTER_TYPE_FOE_LEFT_CONFLICT_AREA;
+            }
+        } else {
+            // No one left conflict area
+            if(egoPastConflictEntry) {
+                if (foePastConflictEntry) {
+                    eInfo.type = ENCOUNTER_TYPE_COLLISION;
+                } else {
+                    eInfo.type = ENCOUNTER_TYPE_EGO_ENTERED_CONFLICT_AREA;
+                }
+            } else if (foePastConflictEntry) {
+                eInfo.type = ENCOUNTER_TYPE_FOE_ENTERED_CONFLICT_AREA;
+            }
+        }
+        return;
+    }
+
     // Distances to conflict area boundaries in previous step
     double prevEgoConflictEntryDist = eInfo.egoConflictEntryDist + e->ego->getLastStepDist();
     double prevFoeConflictEntryDist = eInfo.foeConflictEntryDist + e->foe->getLastStepDist();
@@ -1395,18 +1450,8 @@ MSDevice_SSM::checkConflictEntryAndExit(EncounterApproachInfo& eInfo) {
     double prevFoeConflictExitDist = prevFoeConflictEntryDist + eInfo.foeConflictAreaLength + e->foe->getLength();
     EncounterType prevType = e->currentType;
 
-    if (e->timeSpan.size() == 0) {
-        // Encounter has just been created, no data points yet.
-        // If a vehicle was already beyond conflict area boundary in last step, we set the passing time to the previous time step
-        prevEgoConflictEntryDist = MAX2(prevEgoConflictEntryDist, 0.);
-        prevFoeConflictEntryDist = MAX2(prevFoeConflictEntryDist, 0.);
-        prevEgoConflictExitDist = MAX2(prevEgoConflictExitDist, 0.);
-        prevFoeConflictExitDist = MAX2(prevFoeConflictExitDist, 0.);
-    }
-
-
     // Check if ego entered in last step
-    if (e->egoConflictEntryTime == INVALID && eInfo.egoConflictEntryDist < 0 && prevEgoConflictEntryDist >= 0) {
+    if (e->egoConflictEntryTime == INVALID && egoPastConflictEntry && prevEgoConflictEntryDist >= 0) {
         // ego must have entered the conflict in the last step. Determine exact entry time
         e->egoConflictEntryTime = SIMTIME - TS + MSCFModel::passingTime(-prevEgoConflictEntryDist, 0., -eInfo.egoConflictEntryDist, e->ego->getPreviousSpeed(), e->ego->getSpeed());
 #ifdef DEBUG_SSM
@@ -1421,7 +1466,7 @@ MSDevice_SSM::checkConflictEntryAndExit(EncounterApproachInfo& eInfo) {
     }
 
     // Check if foe entered in last step
-    if (e->foeConflictEntryTime == INVALID && eInfo.foeConflictEntryDist < 0. && prevFoeConflictEntryDist >= 0) {
+    if (e->foeConflictEntryTime == INVALID && foePastConflictEntry && prevFoeConflictEntryDist >= 0) {
         // foe must have entered the conflict in the last step. Determine exact entry time
         e->foeConflictEntryTime = SIMTIME - TS + MSCFModel::passingTime(-prevFoeConflictEntryDist, 0., -eInfo.foeConflictEntryDist, e->foe->getPreviousSpeed(), e->foe->getSpeed());
 #ifdef DEBUG_SSM
