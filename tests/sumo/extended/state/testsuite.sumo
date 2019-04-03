@@ -32,6 +32,9 @@ save_with_internal_links
 # save loaded flow
 save_flow
 
+# save in a network with taz
+save_taz
+
 # the input is taken from test save_flow/state.sumo
 load_flow
 
