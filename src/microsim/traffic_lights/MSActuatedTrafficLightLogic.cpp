@@ -129,7 +129,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
             double speed = lane->getSpeedLimit();
             double inductLoopPosition = MIN2(
                     myDetectorGap * speed,
-                    (STEPS2TIME(minDur) - 1) * DEFAULT_LENGTH_WITH_GAP);
+                    MAX2(1.0, (STEPS2TIME(minDur) - 1)) * DEFAULT_LENGTH_WITH_GAP);
 
             // check whether the lane is long enough
             double ilpos = length - inductLoopPosition;
