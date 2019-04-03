@@ -131,9 +131,9 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
             device.writeAttr(SUMO_ATTR_PROB, repetitionProbability);
         }
     } else if (myTagProperty.getTag() == SUMO_TAG_TRIP) {
-        // write manually from/to edges
-        device.writeAttr(SUMO_ATTR_FROM, myEdgeParents.front());
-        device.writeAttr(SUMO_ATTR_TO, myEdgeParents.back());
+        // write manually from/to edges (it correspond to fron and back edge parents)
+        device.writeAttr(SUMO_ATTR_FROM, myEdgeParents.front()->getID());
+        device.writeAttr(SUMO_ATTR_TO, myEdgeParents.back()->getID());
         // write via only if there is more than two edges
         if(myEdgeParents.size() > 2) {
             std::vector<GNEEdge*> viaEdges;
