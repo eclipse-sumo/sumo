@@ -24,7 +24,7 @@ package_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 setup(
     name='sumolib',
     version=SUMO_VERSION,
-    url='http://sumo.dlr.de/wiki/Tools/Sumolib',
+    url='https://sumo.dlr.de/wiki/Tools/Sumolib',
     author='DLR and contributors',
     author_email='sumo@dlr.de',
     license='EPL-2.0',

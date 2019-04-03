@@ -17,7 +17,7 @@ def write(name, elements):
     fdo = open(name, "w")
     fdo.write(
         '<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ' +
-        'xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">\n')
+        'xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/additional_file.xsd">\n')
     for e in elements:
         fdo.write("%s\n" % e.toXML())
     fdo.write("</additional>\n")

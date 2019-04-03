@@ -346,7 +346,7 @@ def main(options):
         busStops = codecs.open(options.stops_output, 'w', encoding='utf8')
         busStops.write(
             '<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ' +
-            'xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">\n')
+            'xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/additional_file.xsd">\n')
     if options.additional_input:
         num_busstops = 0
         kept_busstops = 0
@@ -388,7 +388,7 @@ def main(options):
                 (os.path.basename(__file__), options.network, options.routeFiles))
         f.write(
             ('<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ' +
-             'xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">\n'))
+             'xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/routes_file.xsd">\n'))
         num_routeRefs = 0
         num_vehicles = 0
         for _, v in vehicles:

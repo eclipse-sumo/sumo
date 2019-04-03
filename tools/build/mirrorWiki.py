@@ -43,14 +43,14 @@ from optparse import OptionParser
 
 def getAllPages(args):
     if len(args) == 0:
-        f = urlopen("http://sumo.dlr.de/w/api.php?action=query&list=allpages&aplimit=500&format=json")
+        f = urlopen("https://sumo.dlr.de/w/api.php?action=query&list=allpages&aplimit=500&format=json")
         result = json.loads(f.read().decode('utf8'))
         return [entry["title"].replace(" ", "_") for entry in result["query"]["allpages"]]
     return [a.replace(" ", "_") for a in args]
 
 
 def readParsePage(page):
-    f = urlopen("http://sumo.dlr.de/wiki/%s" % page)
+    f = urlopen("https://sumo.dlr.de/wiki/%s" % page)
     c = f.read().decode('utf8')
     b = c.find("This page was last modified on")
     e = c.find("<", b)
@@ -66,7 +66,7 @@ def readParsePage(page):
 
 def readParseEditPage(page):
     f = urlopen(
-        "http://sumo.dlr.de/w/index.php?title=%s&action=edit" % page)
+        "https://sumo.dlr.de/w/index.php?title=%s&action=edit" % page)
     c = f.read().decode('utf8')
     b = c.find("wpTextbox1")
     b = c.find('>', b) + 1
@@ -123,7 +123,7 @@ if __name__ == "__main__":
             b = c.find("<div class=\"fullImageLink\" id=\"file\">")
             b = c.find("href=", b) + 6
             e = c.find("\"", b + 1)
-            f = urlopen("http://sumo.dlr.de/%s" % c[b:e])
+            f = urlopen("https://sumo.dlr.de/%s" % c[b:e])
             i = i[i.find(":") + 1:]
         else:
             f = urlopen("https://sumo.dlr.de/%s" % i)

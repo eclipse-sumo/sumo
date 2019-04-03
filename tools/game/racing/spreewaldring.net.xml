@@ -3,7 +3,7 @@
 <!-- generated on Tue Jun 13 09:34:00 2017 by SUMO netconvert Version dev-SVN-r24637
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <node-files value="racing/spreewaldring.nod.xml"/>
@@ -33,7 +33,7 @@
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-409583.46,-5761440.67" convBoundary="0.00,0.00,522.14,466.23" origBoundary="13.682992,51.996270,13.691020,52.002149" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 

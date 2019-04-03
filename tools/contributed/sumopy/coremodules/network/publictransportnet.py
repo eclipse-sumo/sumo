@@ -335,7 +335,7 @@ class PtStops(am.ArrayObjman):
         #xmltag, xmltag_item, attrname_id = self.xmltag
         fd.write('<?xml version="1.0" encoding="%s"?>\n' % encoding)
         indent = 0
-        #fd.write(xm.begin('routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd"',indent))
+        #fd.write(xm.begin('routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.sf.net/xsd/routes_file.xsd"',indent))
 
         fd.write(xm.begin('additional', indent))
 

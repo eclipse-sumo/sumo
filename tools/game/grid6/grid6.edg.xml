@@ -3,7 +3,7 @@
 <!-- generated on Wed May 27 15:37:58 2015 by SUMO netconvert Version dev-SVN-r18449I
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <sumo-net-file value="grid6.net.xml"/>
@@ -21,7 +21,7 @@
 </configuration>
 -->
 
-<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/edges_file.xsd">
     <edge id="0/0to0/1" from="0/0" to="0/1" priority="-1" numLanes="1" speed="13.90"/>
     <edge id="0/0to1/0" from="0/0" to="1/0" priority="-1" numLanes="1" speed="13.90"/>
     <edge id="0/0tobottom0" from="0/0" to="bottom0" priority="-1" numLanes="1" speed="13.90"/>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- generated on Sun Jun 10 09:09:23 2018 by Eclipse SUMO netconvert Version e445ac1
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <sumo-net-file value="corridor.net.xml"/>
@@ -27,7 +27,7 @@
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="-400.00,-160.00,400.00,160.00" origBoundary="0.00,0.00,2000.00,1004.95" projParameter="!"/>
 

@@ -144,7 +144,7 @@ def main(options):
                 (os.path.basename(__file__), options.network, options.routeFiles))
         f.write(
             ('<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ' +
-             'xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">\n'))
+             'xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/routes_file.xsd">\n'))
         num_trips = 0
         num_persons = 0
         for _, v in vehicles:

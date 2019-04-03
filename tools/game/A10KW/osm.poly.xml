@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- generated on Wed Jun  6 11:22:55 2018 by Eclipse SUMO polyconvert Version 7cf86d2
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/polyconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/polyconvertConfiguration.xsd">
 
     <input>
         <net-file value="/scr2/debug/002_osmWebWizard/2018-06-06-11-22-53/osm.net.xml"/>
@@ -25,7 +25,7 @@
 </configuration>
 -->
 
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/additional_file.xsd">
     <location netOffset="-402990.32,-5794389.48" convBoundary="-30390.24,-2650.47,4557.01,12323.21" origBoundary="13.127582,52.262905,13.643947,52.395814" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <poly id="139596694" type="amenity.parking" color="184,184,179" fill="1" layer="-1.00" shape="2169.97,2748.37 2236.86,2717.02 2212.84,2666.02 2145.96,2697.36 2156.33,2719.40 2169.97,2748.37"/>

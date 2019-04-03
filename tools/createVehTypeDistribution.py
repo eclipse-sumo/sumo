@@ -281,7 +281,7 @@ def main(options):
         additionalNode.setAttribute(
             "xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance")
         additionalNode.setAttribute(
-            "xsi:noNamespaceSchemaLocation", "http://sumo.dlr.de/xsd/additional_file.xsd")
+            "xsi:noNamespaceSchemaLocation", "https://sumo.dlr.de/xsd/additional_file.xsd")
         additionalNode.appendChild(vTypeDistNode)
         domTree.appendChild(additionalNode)
     fileHandle = open(options.outputFile, "w")

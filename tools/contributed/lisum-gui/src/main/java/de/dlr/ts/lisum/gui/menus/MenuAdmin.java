@@ -338,7 +338,7 @@ public class MenuAdmin
         {
             try
             {
-                Desktop.getDesktop().browse(new URI("http://sumo.dlr.de/wiki/Tools/LISASUMO"));
+                Desktop.getDesktop().browse(new URI("https://sumo.dlr.de/wiki/Tools/LISASUMO"));
             } catch (IOException | URISyntaxException ex)
             {
                 ex.printStackTrace(System.out);

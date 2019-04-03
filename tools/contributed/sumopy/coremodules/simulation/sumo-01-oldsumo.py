@@ -96,7 +96,7 @@ def write_netconfig(filename_netconfig, filename_net,
 
     simfile.write(
         """<?xml version="1.0"?>
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/sumoConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.sf.net/xsd/sumoConfiguration.xsd">
 <input>\n""")
 
     simfile.write('  <net-file value="%s"/>\n' % filename_net)

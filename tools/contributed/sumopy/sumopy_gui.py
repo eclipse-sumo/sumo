@@ -123,7 +123,7 @@ class MyApp(wx.App):
         info.SetVersion(__version__)
         info.SetDescription(__doc__)
         info.SetCopyright(__copyright__)
-        info.SetWebSite('http://sumo-sim.org/')
+        info.SetWebSite('https://sumo-sim.org/')
         # info.SetWebSite('http://distart041.ing.unibo.it/~mait/projects/sim/users_guide/users_guide.html')
         info.SetLicence(__licence__)
         info.AddDeveloper(__author__)

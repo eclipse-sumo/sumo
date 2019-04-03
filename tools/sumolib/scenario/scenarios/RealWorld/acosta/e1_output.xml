@@ -3,7 +3,7 @@
 <!-- generated on 07.07.2014 13:54:18 by SUMO gui Version dev-SVN-r16537
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/sumo-gui.exeConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo-sim.org/xsd/sumo-gui.exeConfiguration.xsd">
 
     <input>
         <net-file value="W:\projects\x_EU_COLOMBO_318622\svn\trunk\scenarios\iTETRIS_acosta\acosta_buslanes.net.xml"/>
@@ -30,5 +30,5 @@
 </configuration>
 -->
 
-<detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/det_e1_file.xsd">
+<detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo-sim.org/xsd/det_e1_file.xsd">
 </detector>
