@@ -699,8 +699,8 @@ MSCFModel::speedAfterTime(const double t, const double v0, const double dist) {
 double
 MSCFModel::estimateSpeedAfterDistance(const double dist, const double v, const double accel) const {
     // dist=v*t + 0.5*accel*t^2, solve for t and use v1 = v + accel*t
-    return MAX2(0., MIN2(myType->getMaxSpeed(),
-                         (double)sqrt(2 * dist * accel + v * v)));
+    return MIN2(myType->getMaxSpeed(),
+            (double)sqrt(MAX2(0., 2 * dist * accel + v * v)));
 }
 
 
