@@ -411,13 +411,6 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
         if (!haveGreen) {
             continue;
         }
-        // 5s at 50km/h, 10s at 80km/h, rounded to full seconds
-        const double minDurBySpeed = maxSpeed * 3.6 / 6 - 3.3;
-        SUMOTime minDur = MAX2(minMinDur, TIME2STEPS(floor(minDurBySpeed + 0.5)));
-        if (chosen.first->getPermissions() == SVC_TRAM && (chosen.second == nullptr || chosen.second->getPermissions() == SVC_TRAM)) {
-            // one tram per actuated phase 
-            minDur = TIME2STEPS(1);
-        }
 
 #ifdef DEBUG_PHASES
     if (DEBUGCOND) {
@@ -500,6 +493,29 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
 
         const std::string vehicleState = state; // backup state before pedestrian modifications
         greenPhases.push_back((int)logic->getPhases().size());
+
+        // 5s at 50km/h, 10s at 80km/h, rounded to full seconds
+        const double minDurBySpeed = maxSpeed * 3.6 / 6 - 3.3;
+        SUMOTime minDur = MAX2(minMinDur, TIME2STEPS(floor(minDurBySpeed + 0.5)));
+        if (chosen.first->getPermissions() == SVC_TRAM && (chosen.second == nullptr || chosen.second->getPermissions() == SVC_TRAM)) {
+            // shorter minDuration for tram phase (only if the phase is
+            // exclusively for tram)
+            bool tramExclusive = true;
+            for (int i1 = 0; i1 < (int)fromEdges.size(); ++i1) {
+                if (state[i1] == 'G') {
+                    SVCPermissions linkPerm = (fromEdges[i1]->getPermissions() & toEdges[i1]->getPermissions());
+                    if (linkPerm != SVC_TRAM) {
+                        tramExclusive = false;
+                        break;
+                    }
+                }
+            }
+            if (tramExclusive) {
+                // one tram per actuated phase 
+                minDur = TIME2STEPS(1);
+            }
+        }
+
         state = addPedestrianPhases(logic, greenTime, minDur, maxDur, state, crossings, fromEdges, toEdges);
         // pedestrians have 'r' from here on
         for (int i1 = pos; i1 < pos + (int)crossings.size(); ++i1) {

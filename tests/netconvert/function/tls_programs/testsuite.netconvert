@@ -24,3 +24,6 @@ multimodal_rw
 
 # junction from acosta scenarion (#5393)
 joined_with_uncontrolled
+
+# minimum phase duration for tram phase
+multimodal_actuated_tram
