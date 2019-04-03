@@ -12,3 +12,10 @@ search_file:output
 ignore_other_errors:1
 full_description:#4861
 brief_description:#4861
+
+[Reported by leo at 03Apr14:42:20]
+search_string:emergency braking
+trigger_on_absence:1
+search_file:errors
+full_description:#5413
+brief_description:#5413

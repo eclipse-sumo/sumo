@@ -1,0 +1,8 @@
+Warning: Missing yellow phase in tlLogic 'K0001', program '0' for tl-index 3 when switching to phase 0
+Warning: Vehicle 'type05.0' left e3Detector 'tt_fc09' without entering it.
+Warning: Vehicle 'type05.0' left e3Detector 'tt_fc09' without entering it.
+Warning: Vehicle 'type01.0' left e3Detector 'tt_fc09' without entering it.
+Warning: Vehicle 'type01.0' left e3Detector 'tt_fc09' without entering it.
+Warning: Vehicle 'type07.0' arrived inside e3Detector 'tt_fc09'.
+Warning: Vehicle 'type08.0' arrived inside e3Detector 'tt_fc09'.
+Warning: Vehicle 'type08m.0' arrived inside e3Detector 'tt_fc09'.
