@@ -6,7 +6,7 @@ are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
 SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
 
     <input>
         <sumo-net-file value="net_no_turnarounds/net.scenario"/>
@@ -25,7 +25,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/edges_file.xsd">
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
     <edge id="-554721084" from="617530560" to="RE" priority="-3" numLanes="1" speed="8.33" shape="14846.37,9251.09 14838.98,9245.36 14818.05,9233.78 14786.91,9220.86 14777.40,9218.42"/>
     <edge id="RNRW" from="RN" to="RW" priority="-2" numLanes="1" speed="8.33" shape="14755.23,9232.40 14760.26,9221.39 14763.18,9212.55"/>
     <edge id="-554721086" from="617530570" to="RN" priority="-3" numLanes="1" speed="8.33" shape="14559.24,9229.24 14579.53,9238.58 14589.70,9242.14 14601.28,9243.51 14755.23,9232.40"/>

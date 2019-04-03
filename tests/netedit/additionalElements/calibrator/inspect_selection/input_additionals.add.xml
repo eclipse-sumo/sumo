@@ -1,4 +1,4 @@
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/additional_file.xsd">
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
 	<!-- calibrator A -->
     <calibrator id="calibratorA" edge="gneE2" pos="20" freq="30" name="NameA" routeProbe="RouteProbeA" output="fileA.txt">
 		<param key="KeyA1" value="valueA1"/>

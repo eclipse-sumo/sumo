@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/additional_file.xsd">
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <parkingArea id="parkingArea_A0A1_1_17" lane="A0A1_1" friendlyPos="1" roadsideCapacity="50" startPos="25.0" endPos="450.0"/>
     <parkingArea id="parkingArea_A0B0_1_9"  lane="A0B0_1" friendlyPos="1" roadsideCapacity="50" startPos="25.0" endPos="450.0"/>
     <parkingArea id="parkingArea_A1A0_1_16" lane="A1A0_1" friendlyPos="1" roadsideCapacity="50" startPos="25.0" endPos="450.0"/>

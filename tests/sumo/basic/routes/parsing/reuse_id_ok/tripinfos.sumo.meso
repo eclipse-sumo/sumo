@@ -6,7 +6,7 @@ are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
 SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -35,7 +35,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/tripinfo_file.xsd">
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <tripinfo id="0" depart="0.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="126.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="27.80" duration="126.00" routeLength="2500.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="vehroute_0 tripinfo_0" vType="KRAUSS_DEFAULT" speedFactor="1.00" vaporized=""/>
     <tripinfo id="1" depart="1.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="128.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="27.80" duration="127.00" routeLength="2500.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.49" rerouteNo="0" devices="vehroute_1 tripinfo_1" vType="KRAUSS_DEFAULT" speedFactor="1.00" vaporized=""/>
     <tripinfo id="2" depart="2.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="129.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="27.80" duration="127.00" routeLength="2500.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.98" rerouteNo="0" devices="vehroute_2 tripinfo_2" vType="KRAUSS_DEFAULT" speedFactor="1.00" vaporized=""/>

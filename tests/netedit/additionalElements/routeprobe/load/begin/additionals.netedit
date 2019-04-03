@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- generated on 11.03.2019 13:33:36 by Eclipse SUMO netedit Version v1_1_0+1177-ae4e665b46
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.11Mar133250.11216/netedit.gui/additionalElements/routeprobe/load/begin\input_net.net.xml"/>
@@ -51,7 +51,7 @@
 </configuration>
 -->
 
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/additional_file.xsd">
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <routeProbe id="routeProbe_0" edge="gneE1" freq="100.00" file="myOwnFile.txt" begin="0.00"/>
     <routeProbe id="routeProbe_1" edge="gneE1" freq="100.00" file="myOwnFile.txt" begin="0.00"/>
     <routeProbe id="routeProbe_2" edge="gneE1" freq="100.00" file="myOwnFile.txt" begin="0.00"/>

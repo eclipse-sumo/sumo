@@ -1,4 +1,4 @@
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/routes_file.xsd">
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="t" sigma="0" speedDev="0.1"/>
 	<trip id="0" type="t" depart="0" from="beg" to="rend"/>
 	<trip id="1" type="t" depart="10" from="beg" to="rend"/>

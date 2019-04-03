@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- generated on Thu 14 Mar 2019 07:27:28 AM CET by Eclipse SUMO netedit Version v1_1_0+0435-678c69824b
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <sumo-net-file value="net.net.xml"/>
@@ -32,7 +32,7 @@
 </configuration>
 -->
 
-<edges version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/edges_file.xsd">
+<edges version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
     <edge id="-gneE4" from="C2" to="S" priority="-1" numLanes="1" speed="13.89" allow="passenger"/>
     <edge id="-gneE5" from="C1" to="C2" priority="-1" numLanes="1" speed="13.89" allow="passenger"/>
     <edge id="-gneE6" from="N" to="C1" priority="-1" numLanes="1" speed="13.89" allow="passenger"/>

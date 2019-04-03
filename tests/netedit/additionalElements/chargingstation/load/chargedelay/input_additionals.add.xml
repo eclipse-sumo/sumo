@@ -1,4 +1,4 @@
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/additional_file.xsd">
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
 
     <!-- non valid charge delay 1 (missing) -->
     <chargingStation id="chargingStation_0" lane="gneE1_0" startPos="36" endPos="38" power="22000.00" efficiency="0.95" chargeInTransit="0" name="chargingStation" friendlyPos="false"/>

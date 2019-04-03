@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- generated on Wed 13 Feb 2019 03:38:03 PM CET by Eclipse SUMO netedit Version v1_0_1+0645-93703db
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <sumo-net-file value="bs_miv_detail.net.xml"/>
@@ -37,7 +37,7 @@
 </configuration>
 -->
 
-<edges version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/edges_file.xsd">
+<edges version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
     <edge id="23620034#0" from="27978463" to="1360995279" name="Münchenstraße" priority="7" type="highway.secondary" numLanes="2" speed="13.89" shape="3327.03,6975.33 3305.45,6952.00 3279.21,6924.99 3254.72,6900.62 3230.53,6876.07 3190.47,6835.49 3172.16,6818.04 3148.52,6795.53" spreadType="center" disallow="tram rail_urban rail rail_electric ship">
         <lane index="0">
             <param key="origId" value="23620034"/>

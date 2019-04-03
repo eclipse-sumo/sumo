@@ -3,7 +3,7 @@
 <!-- generated on Sat 01 Jul 2017 01:01:24 PM CEST by Netedit Version dev-SVN-r22662
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <sumo-net-file value="cross.net.xml"/>
@@ -30,7 +30,7 @@
 </configuration>
 -->
 
-<edges version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/edges_file.xsd">
+<edges version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
     <edge id="1fi" from="1" to="m1" priority="46" numLanes="1" speed="13.89"/>
     <edge id="1fo" from="m1" to="1" priority="46" numLanes="1" speed="13.89"/>
     <edge id="1o" from="0" to="m1" priority="46" numLanes="1" speed="13.89" shape="183.42,202.98 41.58,191.77"/>

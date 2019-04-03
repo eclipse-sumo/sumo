@@ -2,7 +2,7 @@
 <!-- generated on 2019-03-26 20:22:14.052072 by $Id$
   options: -n net3.net.xml -e 300 <doubleminus>pedestrians -p 10 -o input_routes2.rou.xml
 -->
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/routes_file.xsd">
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <person id="0" depart="0.00">
         <walk from="CS" to="CW"/>
     </person>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- generated on 22.06.2018 13:50:28 by Eclipse SUMO netedit Version 7725fee923
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_22Jun095901.348/netedit.gui/additionalElements/chargingstation/load\input_additionals.add.xml"/>
@@ -39,7 +39,7 @@
 </configuration>
 -->
 
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/additional_file.xsd">
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <chargingStation id="chargingStation_0" lane="gneE0_0" startPos="5.00" endPos="10.00"/>
     <chargingStation id="chargingStation_11" name="chargingStation" lane="gneE1_0" startPos="0.00" endPos="2.00"/>
     <chargingStation id="chargingStation_12" name="chargingStation" lane="gneE1_0" startPos="4.00" endPos="6.00"/>

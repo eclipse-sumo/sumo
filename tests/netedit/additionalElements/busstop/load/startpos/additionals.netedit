@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- generated on 23.01.2019 09:31:34 by Eclipse SUMO netedit Version v1_1_0+0076-a16c2aae75
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.4_from_23Jan091720.3012/netedit.gui/additionalElements/busstop/load/startpos\input_net.net.xml"/>
@@ -51,7 +51,7 @@
 </configuration>
 -->
 
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/additional_file.xsd">
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <busStop id="busStop_01" name="busStop" lane="gneE0_0" lines="line1 line2" endPos="30"/>
     <busStop id="busStop_02" name="busStop" lane="gneE0_0" lines="line1 line2" endPos="25"/>
     <busStop id="busStop_05" name="busStop" lane="gneE0_0" lines="line1 line2" startPos="10" endPos="25"/>

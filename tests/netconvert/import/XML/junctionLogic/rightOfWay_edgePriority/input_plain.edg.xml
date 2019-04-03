@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- generated on Fri Nov 23 22:36:47 2018 by Eclipse SUMO netconvert Version eeef47f
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <sumo-net-file value="test.net.xml"/>
@@ -30,7 +30,7 @@
 </configuration>
 -->
 
-<edges version="1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/edges_file.xsd">
+<edges version="1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
     <edge id="-F_K2_0" from="F" to="2075862255" priority="6" type="highway.residential" numLanes="1" speed="13.89" shape="1367.33,1689.65 1404.59,1723.85 1415.38,1731.16 1430.75,1738.56 1471.06,1750.35" disallow="tram rail_urban rail rail_electric pedestrian ship"/>
     <edge id="-F_K3_0" from="F" to="G" priority="7" type="highway.secondary" numLanes="2" speed="13.89" shape="1360.27,1671.11 1381.96,1646.70" spreadType="center">
         <lane index="0" allow="pedestrian" width="2.00"/>

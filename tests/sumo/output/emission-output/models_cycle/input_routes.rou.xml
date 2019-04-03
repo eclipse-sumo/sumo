@@ -1,4 +1,4 @@
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/routes_file.xsd">
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="HBEFA2/P_7_7" emissionClass="HBEFA2/P_7_7"/>
     <vType id="HBEFA3/PC_G_EU4" emissionClass="HBEFA3/PC_G_EU4"/>
     <vType id="PHEMlight/PC_G_EU4" emissionClass="PHEMlight/PC_G_EU4"/>

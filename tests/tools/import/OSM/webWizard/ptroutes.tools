@@ -2,7 +2,7 @@
 <!-- generated on 2019-04-03 10:45:21.284719 by $Id$
   options: <doubleminus>test-output test
 -->
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/routes_file.xsd">
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="pt_bus" vClass="bus"/>
     <vType id="pt_tram" vClass="tram"/>
     <vType id="pt_train" vClass="rail"/>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- generated on 24.01.2019 10:34:24 by Eclipse SUMO netedit Version v1_1_0+0076-a16c2aae75
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.24Jan102809.484/netedit.gui/shapeElements/poly/create/angle\input_net.net.xml"/>
@@ -50,7 +50,7 @@
 </configuration>
 -->
 
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/additional_file.xsd">
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <poly id="poly_0" color="red" fill="0" layer="128.00" shape="12.000000,19.000000 12.000000,24.000000 7.000000,24.000000 7.000000,19.000000 12.000000,19.000000" angle="365.00"/>
     <poly id="poly_1" color="red" fill="0" layer="128.00" shape="22.000000,19.000000 22.000000,24.000000 17.000000,24.000000 17.000000,19.000000 22.000000,19.000000" angle="-5.00"/>
     <poly id="poly_2" color="red" fill="0" layer="128.00" shape="32.000000,19.000000 32.000000,24.000000 27.000000,24.000000 27.000000,19.000000 32.000000,19.000000" angle="5.00"/>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/additional_file.xsd">
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <busStop id="busStop_gneE0_0_0" lane="gneE0_1" startPos="19.75" endPos="29.75"/>
     <busStop id="busStop_gneE1_0_1" lane="gneE1_1" startPos="28.41" endPos="38.41"/>
     <busStop id="busStop_gneE2_0_7" lane="gneE2_1" startPos="16.48" endPos="26.48"/>

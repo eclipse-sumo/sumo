@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- generated on Tue 18 Sep 2018 03:19:40 PM CEST by Eclipse SUMO netedit Version 5345f89a38
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <sumo-net-file value="/home/drone/EURECOM/Projects/GITLAB/PTW-virtual-lane/highway/small.net.xml"/>
@@ -30,7 +30,7 @@
 </configuration>
 -->
 
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/additional_file.xsd">
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <parkingArea id="parkingArea_gneE24_0_0" lane="gneE24_0" friendlyPos="1" roadsideCapacity="10" startPos="20.00" endPos="25.00"/>
     <!-- <parkingArea id="parkingArea_gneE25_0_2" lane="gneE25_0" friendlyPos="1" roadsideCapacity="10" startPos="20.00" endPos="80.00"/> -->
     <parkingArea id="parkingArea_gneE27_0_1" lane="gneE27_0" friendlyPos="1" roadsideCapacity="10" startPos="40.00" endPos="45.00"/>

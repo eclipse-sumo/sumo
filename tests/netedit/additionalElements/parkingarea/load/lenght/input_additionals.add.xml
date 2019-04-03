@@ -1,4 +1,4 @@
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/additional_file.xsd">
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     
 	<!-- non valid length (missing) -->
     <parkingArea id="parkingArea_0" lane="gneE1_0" startPos="17" endPos="22" roadsideCapacity="4" width="12.00" angle="0.00" name="parkingArea" friendlyPos="true"/>

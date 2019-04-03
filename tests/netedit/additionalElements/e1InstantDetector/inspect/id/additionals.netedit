@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- generated on 08.03.2019 13:29:19 by Eclipse SUMO netedit Version v1_1_0+1177-ae4e665b46
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.1_from_08Mar132247.5740/netedit.gui/additionalElements/e1InstantDetector/inspect/id\input_net.net.xml"/>
@@ -49,7 +49,7 @@
 </configuration>
 -->
 
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/additional_file.xsd">
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <instantInductionLoop id="correctID" lane="gneE3_1" pos="33.00" file="instantInductionLoop_gneE3_1_0.xml"/>
     <instantInductionLoop id="instantInductionLoop_gneE3_1_1" lane="gneE3_1" pos="13.00" file="instantInductionLoop_gneE3_1_1.xml"/>
 </additional>

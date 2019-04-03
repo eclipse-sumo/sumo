@@ -3,7 +3,7 @@
 <!-- generated on Tue Feb 19 09:11:27 2019 by Eclipse SUMO netconvert Version v1_1_0+0919-80296dbfce
 -->
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <node-files value="input_net.nod.xml"/>

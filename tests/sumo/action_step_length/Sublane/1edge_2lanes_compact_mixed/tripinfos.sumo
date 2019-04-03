@@ -6,7 +6,7 @@ are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
 SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -43,7 +43,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/tripinfo_file.xsd">
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <tripinfo id="mixed.11" depart="12.80" departLane="beg_1" departPos="5.10" departPosLat="0.55" departSpeed="0.00" departDelay="1.80" arrival="218.20" arrivalLane="end_1" arrivalPos="200.00" arrivalPosLat="-1.38" arrivalSpeed="14.40" duration="205.40" routeLength="494.90" waitingTime="159.20" waitingCount="2" stopTime="0.00" timeLoss="172.45" rerouteNo="0" devices="tripinfo_mixed.11" vType="car" speedFactor="1.08" vaporized=""/>
     <tripinfo id="mixed.5" depart="6.50" departLane="beg_1" departPos="5.10" departPosLat="0.46" departSpeed="0.00" departDelay="1.50" arrival="218.70" arrivalLane="end_0" arrivalPos="200.00" arrivalPosLat="-0.70" arrivalSpeed="13.45" duration="212.20" routeLength="494.90" waitingTime="163.10" waitingCount="2" stopTime="0.00" timeLoss="177.36" rerouteNo="0" devices="tripinfo_mixed.5" vType="car" speedFactor="1.03" vaporized=""/>
     <tripinfo id="mixed.6" depart="7.40" departLane="beg_0" departPos="2.20" departPosLat="-0.90" departSpeed="0.00" departDelay="1.40" arrival="223.40" arrivalLane="end_0" arrivalPos="200.00" arrivalPosLat="0.82" arrivalSpeed="16.29" duration="216.00" routeLength="497.80" waitingTime="158.20" waitingCount="2" stopTime="0.00" timeLoss="186.05" rerouteNo="0" devices="tripinfo_mixed.6" vType="moped" speedFactor="1.36" vaporized=""/>

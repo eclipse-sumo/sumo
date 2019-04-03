@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- generated on 09.07.2018 15:41:03 by Eclipse SUMO netedit Version 88bb7b0b92
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.4_from_09Jul145648.2644/netedit.gui/bugs/additionals/ticket3879\input_additionals.add.xml"/>
@@ -41,7 +41,7 @@
 </configuration>
 -->
 
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/additional_file.xsd">
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <busStop id="busStop_gneE1_0_0" lane="gneE1_1" friendlyPos="1" startPos="42.01" endPos="50.00"/>
     <containerStop id="containerStop_gneE1_0_0" lane="gneE1_1" friendlyPos="1" startPos="31.87" endPos="41.87"/>
     <parkingArea id="parkingArea_gneE1_0_0" length="5.00" lane="gneE1_1" startPos="11.84" endPos="21.84">

@@ -1,5 +1,5 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/additional_file.xsd">
+	xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <trainStop id="beg2left" lane="train_0" startPos="230" endPos="250">
         <access lane="beg_0" pos="10000" friendlyPos="true"/>
         <access lane="beg_0" pos="0"/>

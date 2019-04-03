@@ -1,5 +1,5 @@
 <!-- generated on 2015-12-01 08:10:34.657000 by "pedestrianFlow.py flow.xml -r AB BC CD DE -p 1 -e 300" -->
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/routes_file.xsd">
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="p0" vClass="pedestrian" width="0.7" length="0.5" minGap="0.2" maxSpeed="1.2" guiShape="pedestrian"/>
     <person id="p0" type="p0" depart="0" departPos="0">
         <walk edges="AB BC CD DE" arrivalPos="-1"/>

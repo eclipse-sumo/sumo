@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/additional_file.xsd">
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <chargingStation id="chargingStation_gneE0_0_0" lane="gneE0_1" startPos="18.21" endPos="28.21"/>
     <chargingStation id="chargingStation_gneE1_0_1" lane="gneE1_1" startPos="29.73" endPos="39.73"/>
     <chargingStation id="chargingStation_gneE2_0_7" lane="gneE2_1" startPos="9.46" endPos="19.46"/>

@@ -1,4 +1,4 @@
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/routes_file.xsd">
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     
    <vType id="late" accel="0.8" decel="4.5" sigma="0" length="4.5" minGap="2" maxSpeed="70" lcTurnAlignmentDistance="15"/> 
    <vType id="early" accel="0.8" decel="4.5" sigma="0" length="4.5" minGap="2" maxSpeed="70" lcTurnAlignmentDistance="100" color="green"/>

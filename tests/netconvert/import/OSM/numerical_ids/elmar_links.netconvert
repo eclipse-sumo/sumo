@@ -9,7 +9,7 @@
 # SPDX-License-Identifier: EPL-2.0
 # -->
 # 
-# <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+# <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 # 
 #     <input>
 #         <osm-files value="osm.xml"/>

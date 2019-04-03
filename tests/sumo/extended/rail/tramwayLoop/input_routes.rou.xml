@@ -4,7 +4,7 @@
   T1_0 ==      ====  > T9_0
         \ T11_0 /
 -->
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/routes_file.xsd">
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
   <vType id="RB628" vClass="rail" carFollowModel="Rail" trainType="RB628" color="red"/>
 
   <trip id="tram1" depart="01" departLane="best" departSpeed="max" from="Tdepot_1" to="Tdepot_1" type="RB628">

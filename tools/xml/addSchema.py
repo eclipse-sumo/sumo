@@ -23,11 +23,11 @@ import glob
 schema = 'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"'
 
 proc = {
-    "*.rou.xml": '<routes %s xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/routes_file.xsd"' % schema,
-    "*.edg.xml": '<edges %s xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/edges_file.xsd"' % schema,
-    "*.nod.xml": '<nodes %s xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/nodes_file.xsd"' % schema,
-    "*.typ.xml": '<types %s xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/types_file.xsd"' % schema,
-    "*.con.xml": '<connections %s xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/connections_file.xsd"' % schema
+    "*.rou.xml": '<routes %s xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd"' % schema,
+    "*.edg.xml": '<edges %s xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd"' % schema,
+    "*.nod.xml": '<nodes %s xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd"' % schema,
+    "*.typ.xml": '<types %s xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/types_file.xsd"' % schema,
+    "*.con.xml": '<connections %s xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd"' % schema
 }
 
 srcRoot = os.path.join(os.path.dirname(__file__), "..", "..")

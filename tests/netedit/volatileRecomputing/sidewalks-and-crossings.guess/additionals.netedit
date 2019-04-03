@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- generated on 24.06.2018 19:13:04 by Eclipse SUMO netedit Version 7725fee923
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/volatileRecomputing/sidewalks-and-crossings.guess\input_additionals.add.xml"/>
@@ -41,7 +41,7 @@
 </configuration>
 -->
 
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/additional_file.xsd">
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <busStop id="busStop_-gneE3_0_1" lane="-gneE3_1" startPos="2.50" endPos="7.50"/>
     <busStop id="busStop_-gneE4_0_2" lane="-gneE4_1" startPos="2.50" endPos="7.50"/>
     <busStop id="busStop_-gneE5_0_3" lane="-gneE5_1" startPos="2.50" endPos="7.50"/>

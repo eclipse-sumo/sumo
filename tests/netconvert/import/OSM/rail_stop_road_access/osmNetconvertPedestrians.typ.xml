@@ -1,4 +1,4 @@
-<types xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/types_file.xsd">
+<types xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/types_file.xsd">
     <type id="highway.primary"        sidewalkWidth="3" disallow="pedestrian rail rail_urban rail_electric tram ship"/>
     <type id="highway.primary_link"   sidewalkWidth="3" disallow="pedestrian rail rail_urban rail_electric tram ship"/>
     <type id="highway.secondary"      sidewalkWidth="3" disallow="pedestrian rail rail_urban rail_electric tram ship"/>

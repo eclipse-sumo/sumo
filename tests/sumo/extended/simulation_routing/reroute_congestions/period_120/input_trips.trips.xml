@@ -2,7 +2,7 @@
 <!-- generated on 2018-10-06 23:49:31.431994 by $Id$
   options: -n net.net.xml <doubleminus>min-distance 2000 <doubleminus>period 4
 -->
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/routes_file.xsd">
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <trip id="0" depart="0.00" from="1617" to="-1458"/>
     <trip id="1" depart="4.00" from="-2614" to="951"/>
     <trip id="2" depart="8.00" from="-21" to="1903"/>

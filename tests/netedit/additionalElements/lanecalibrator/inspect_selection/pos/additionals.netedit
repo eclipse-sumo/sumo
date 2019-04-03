@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- generated on 12.12.2018 15:59:36 by Eclipse SUMO netedit Version v1_0_0+1333-2fb8438a8e
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Dec155639.2992/netedit.gui/additionalElements/lanecalibrator/inspect_selection/pos\input_net.net.xml"/>
@@ -51,7 +51,7 @@
 </configuration>
 -->
 
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/additional_file.xsd">
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <routeProbe id="RouteProbeA" edge="gneE0" freq="3600" file="RouteProbeA.xml" begin="0.00"/>
     <routeProbe id="RouteProbeB" edge="gneE0" freq="3600" file="RouteProbeB.xml" begin="0.00"/>
     <routeProbe id="customRouteProbeName" edge="gneE0" freq="3600" file="RouteProbeB.xml" begin="0.00"/>

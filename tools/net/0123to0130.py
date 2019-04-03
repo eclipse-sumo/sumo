@@ -191,7 +191,7 @@ class NetConverter(handler.ContentHandler):
         if name == "net":
             self.checkWrite(
                 ' version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ' +
-                'xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/net_file.xsd"')
+                'xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd"')
         else:
             if name in a:
                 for key in a[name]:

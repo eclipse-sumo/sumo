@@ -132,7 +132,7 @@ def setAddOutputFiles(DATA_DIR, outputDirName, freq, i, j, k, l, t, closedLaneFi
     fd = open(addfile, 'w')
     print("""
     <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" \
-xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/additional_file.xsd">
+xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
         <edgeData id="edge_%s" freq="%s" file="%s" excludeEmpty="true"/>
         <edgeData id="edge_%s" type= "emissions" freq="%s" file="%s" excludeEmpty="true"/>
         <laneData id="lane_%s" freq="%s" file="%s" excludeEmpty="true"/>

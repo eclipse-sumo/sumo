@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- generated on Thu Jun  7 17:05:37 2018 by Eclipse SUMO duarouter Version bd2c4bd
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
 
     <input>
         <net-file value="osm.net.xml"/>
@@ -30,7 +30,7 @@
 </configuration>
 -->
 
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/routes_file.xsd">
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="veh_mw_passenger" speedFactor="normc(1.00,0.10,0.20,2.00)" vClass="passenger" sigma="0.8"/>
     <vehicle id="veh_mw0" type="veh_mw_passenger" depart="0.00" departLane="free" departPos="last" departSpeed="max">
         <route edges="290296351 240042212 151495040 264308374 399250313 264308373"/>

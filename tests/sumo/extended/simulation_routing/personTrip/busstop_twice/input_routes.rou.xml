@@ -1,5 +1,5 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/routes_file.xsd">
+	xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <trip id="bus" from="beg" to="end" line="bus" depart="1000">
        <stop busStop="beg_0" until="1010"/>
        <stop busStop="left_0" until="1060"/>

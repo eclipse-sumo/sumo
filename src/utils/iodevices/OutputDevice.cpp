@@ -230,7 +230,7 @@ OutputDevice::writeXMLHeader(const std::string& rootElement,
                              std::map<SumoXMLAttr, std::string> attrs) {
     if (schemaFile != "") {
         attrs[SUMO_ATTR_XMLNS] = "http://www.w3.org/2001/XMLSchema-instance";
-        attrs[SUMO_ATTR_SCHEMA_LOCATION] = "https://sumo.dlr.de/xsd/" + schemaFile;
+        attrs[SUMO_ATTR_SCHEMA_LOCATION] = "http://sumo.dlr.de/xsd/" + schemaFile;
     }
     return myFormatter->writeXMLHeader(getOStream(), rootElement, attrs);
 }

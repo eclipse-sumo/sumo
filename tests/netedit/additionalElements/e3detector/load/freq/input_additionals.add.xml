@@ -1,4 +1,4 @@
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/additional_file.xsd">
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
 	<!-- non valid freq (Dummy freq) -->
 	<e3Detector id="e3Detector_0" freq="dummyFreq" file="fileA.txt" timeThreshold="1.00" speedThreshold="1.39" pos="6,10">
 		<detEntry lane="gneE1_0" pos="10" friendlyPos="0"/>

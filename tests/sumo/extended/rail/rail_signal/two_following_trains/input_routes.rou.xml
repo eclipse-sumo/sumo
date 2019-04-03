@@ -1,4 +1,4 @@
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/routes_file.xsd">
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="railFast" vClass="rail" minGap="10" length="15" maxSpeed="70" accel="5"/>
     <vType id="railSlow" vClass="rail" minGap="10" length="15" maxSpeed="5" accel="1"/>
     <vehicle id="rail1" type="railSlow" depart="0">

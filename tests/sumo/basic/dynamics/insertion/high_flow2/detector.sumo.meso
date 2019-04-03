@@ -6,7 +6,7 @@ are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
 SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="motorway.net.xml"/>
@@ -34,7 +34,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/det_e1meso_file.xsd">
+<detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e1meso_file.xsd">
     <interval begin="0.00" end="900.00" id="beg2_0" sampledSeconds="4112.35" density="47.26" occupancy="11.82" waitingTime="0.00" speed="23.97" departed="35" arrived="0" entered="995" left="1010"/>
     <interval begin="0.00" end="900.00" id="beg2_1" sampledSeconds="4112.35" density="47.26" occupancy="11.82" waitingTime="0.00" speed="23.97" departed="35" arrived="0" entered="995" left="1010"/>
     <interval begin="900.00" end="1800.00" id="beg2_0" sampledSeconds="14929.58" density="171.59" occupancy="42.90" waitingTime="0.00" speed="8.35" departed="64" arrived="0" entered="1227" left="1289"/>

@@ -6,7 +6,7 @@ are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
 SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="motorway.net.xml"/>
@@ -31,7 +31,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/tripinfo_file.xsd">
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <tripinfo id="2" depart="0.00" departLane="onRamp_0" departPos="298.84" departSpeed="28.27" departDelay="0.00" arrival="10.00" arrivalLane="end_0" arrivalPos="197.00" arrivalSpeed="34.81" duration="10.00" routeLength="303.39" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.65" rerouteNo="0" devices="tripinfo_2" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
     <tripinfo id="1" depart="0.00" departLane="beg_2" departPos="2898.50" departSpeed="27.79" departDelay="0.00" arrival="89.00" arrivalLane="beg2_0" arrivalPos="2997.00" arrivalSpeed="35.77" duration="89.00" routeLength="3100.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="2.38" rerouteNo="0" devices="tripinfo_1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
 </tripinfos>

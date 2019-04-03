@@ -24,7 +24,7 @@ Epoch:          2
 Summary:        Eclipse Simulation of Urban Mobility - A Microscopic Traffic Simulation
 License:        EPL-2.0
 Group:          Productivity/Scientific/Other
-URL:            http://sumo.dlr.de/
+URL:            https://sumo.dlr.de/
 Source0:        sumo-src-%{version}.tar.gz
 Source1:        sumo-doc-%{version}.zip
 Source2:        %{name}.xml

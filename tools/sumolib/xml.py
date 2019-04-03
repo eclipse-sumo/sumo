@@ -237,7 +237,7 @@ def create_document(root_element_name, attrs=None, schema=None):
         attrs = {}
     if schema is None:
         attrs["xmlns:xsi"] = "http://www.w3.org/2001/XMLSchema-instance"
-        attrs["xsi:noNamespaceSchemaLocation"] = "https://sumo.dlr.de/xsd/" + root_element_name + "_file.xsd"
+        attrs["xsi:noNamespaceSchemaLocation"] = "http://sumo.dlr.de/xsd/" + root_element_name + "_file.xsd"
     clazz = compound_object(root_element_name, sorted(attrs.keys()))
     return clazz([attrs.get(a) for a in sorted(attrs.keys())], OrderedDict())
 
@@ -325,7 +325,7 @@ def writeHeader(outf, script, root=None, schemaPath=None):
         if schemaPath is None:
             schemaPath = root + "_file.xsd"
         outf.write(('<%s xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ' +
-                    'xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/%s">\n') % (root, schemaPath))
+                    'xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/%s">\n') % (root, schemaPath))
 
 
 def quoteattr(val):

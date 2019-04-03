@@ -1,4 +1,4 @@
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/routes_file.xsd">
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <route id="r0" edges="E0" />
 	<vType id="leader" decel="1" length="5"  maxSpeed="6" sigma="0"/>
 	<vType id="follower" decel="1" emergencyDecel="4" minGap="2" sigma="0"/>

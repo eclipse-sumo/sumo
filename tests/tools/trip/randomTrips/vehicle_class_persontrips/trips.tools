@@ -2,7 +2,7 @@
 <!-- generated on 2019-03-21 09:58:39.748118 by $Id: randomTrips.py v1_0_1+0098-8affe8886f jakob.erdmann@dlr.de 2018-08-29 20:55:11 +0200 $
   options: -n net.net.xml -e 10 -s 42 <doubleminus>vclass pedestrian <doubleminus>vehicle-class pedestrian <doubleminus>trip-attributes color="blue" maxSpeed="3" departPos="random" speedDev="0.1" <doubleminus>persontrips
 -->
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/routes_file.xsd">
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="pedestrian" vClass="pedestrian" color="blue" maxSpeed="3" speedDev="0.1"/>
     <person id="0" depart="0.00" departPos="random" type="pedestrian">
         <personTrip from="3si" to="2fi"/>

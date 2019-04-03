@@ -55,4 +55,4 @@ Warning: Minor green from edge '-24214694' to edge '24214693#0' exceeds 19.44m/s
 +    <node id="cluster_38919652_38919808" x="610.52" y="562.52" type="traffic_light" tl="joinedS_0" controlledInner="5784950#1 5784950#2"/>
      <node id="cluster_56231598_56242441" x="615.26" y="422.75" type="priority"/>
  </nodes>
- <edges version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/edges_file.xsd">
+ <edges version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">

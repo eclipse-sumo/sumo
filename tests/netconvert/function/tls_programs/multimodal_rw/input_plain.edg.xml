@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- generated on Fri 15 Feb 2019 11:24:41 AM CET by Eclipse SUMO netedit Version v1_0_1+0645-93703db
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <sumo-net-file value="bs_miv_detail.net.xml"/>
@@ -37,7 +37,7 @@
 </configuration>
 -->
 
-<edges version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/edges_file.xsd">
+<edges version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
     <edge id="23209153#1" from="251050939" to="cluster_251050941_280598736_280598739_28902891_3142549227_3142550438" name="Waisenhausdamm" priority="4" type="highway.residential" numLanes="1" speed="13.89" shape="5316.27,7955.54 5361.40,7964.51 5366.42,7965.39 5415.34,7973.49 5425.39,7973.17 5430.33,7971.89 5434.48,7969.76 5436.66,7967.89 5439.94,7965.09 5443.63,7959.66" spreadType="center" disallow="tram rail_urban rail rail_electric ship"/>
     <edge id="25730280#0" from="cluster_251050941_280598736_280598739_28902891_3142549227_3142550438" to="196317724" name="Stobenstraße" priority="7" type="highway.secondary" numLanes="2" speed="8.33" shape="5443.63,7959.66 5443.32,7957.22 5443.16,7956.08 5442.76,7949.45 5442.73,7948.86 5442.77,7942.67 5442.90,7930.20 5443.38,7905.54 5443.04,7880.80 5442.69,7856.08" spreadType="center" disallow="tram rail_urban rail rail_electric ship"/>
     <edge id="26812730#0" from="273459765" to="3142550434" priority="15" type="railway.tram" numLanes="1" speed="13.89" shape="5423.86,7978.74 5430.78,7979.45 5435.16,7980.01 5436.48,7980.16" spreadType="center" allow="tram">
