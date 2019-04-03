@@ -48,9 +48,10 @@ std::map<const ROEdge* const, double> ROMAAssignments::myPenalties;
 // ===========================================================================
 
 ROMAAssignments::ROMAAssignments(const SUMOTime begin, const SUMOTime end, const bool additiveTraffic,
-                                 const double adaptionFactor, RONet& net, ODMatrix& matrix,
+                                 const double adaptionFactor, const int maxAlternatives, RONet& net, ODMatrix& matrix,
                                  SUMOAbstractRouter<ROEdge, ROVehicle>& router)
-    : myBegin(begin), myEnd(end), myAdditiveTraffic(additiveTraffic), myAdaptionFactor(adaptionFactor), myNet(net), myMatrix(matrix), myRouter(router) {
+    : myBegin(begin), myEnd(end), myAdditiveTraffic(additiveTraffic), myAdaptionFactor(adaptionFactor),
+    myMaxAlternatives(maxAlternatives), myNet(net), myMatrix(matrix), myRouter(router) {
     myDefaultVehicle = new ROVehicle(SUMOVehicleParameter(), nullptr, net.getVehicleTypeSecure(DEFAULT_VTYPE_ID), &net);
 }
 
@@ -183,7 +184,7 @@ ROMAAssignments::addRoute(const ConstROEdgeVector& edges, std::vector<RORoute*>&
 
 
 const ConstROEdgeVector
-ROMAAssignments::computePath(const ODCell* cell, const SUMOTime time, SUMOAbstractRouter<ROEdge, ROVehicle>* router) {
+ROMAAssignments::computePath(ODCell* cell, const SUMOTime time, const double probability, SUMOAbstractRouter<ROEdge, ROVehicle>* router) {
     const ROEdge* const from = myNet.getEdge(cell->origin + (cell->originIsEdge ? "" : "-source"));
     if (from == nullptr) {
         throw ProcessError("Unknown origin '" + cell->origin + "'.");
@@ -196,8 +197,24 @@ ROMAAssignments::computePath(const ODCell* cell, const SUMOTime time, SUMOAbstra
     if (router == nullptr) {
         router = &myRouter;
     }
-    router->compute(from, to, myDefaultVehicle, time, edges);
-    return edges;
+    if (myMaxAlternatives > 0 && (int)cell->pathsVector.size() < myMaxAlternatives) {
+        router->compute(from, to, myDefaultVehicle, time, edges);
+        if (addRoute(edges, cell->pathsVector, cell->origin + cell->destination + toString(cell->pathsVector.size()), probability)) {
+            return edges;
+        }
+    } else {
+        double minCost = std::numeric_limits<double>::max();
+        RORoute* minRoute = nullptr;
+        for (RORoute* const p : cell->pathsVector) {
+            const double cost = router->recomputeCosts(edges, myDefaultVehicle, time);
+            if (cost < minCost) {
+                minCost = cost;
+                minRoute = p;
+            }
+        }
+        minRoute->addProbability(probability);
+    }
+    return ConstROEdgeVector();
 }
 
 
@@ -206,11 +223,9 @@ ROMAAssignments::getKPaths(const int kPaths, const double penalty) {
     for (ODCell* const c : myMatrix.getCells()) {
         myPenalties.clear();
         for (int k = 0; k < kPaths; k++) {
-            ConstROEdgeVector edges = computePath(c);
-            for (ConstROEdgeVector::iterator e = edges.begin(); e != edges.end(); e++) {
-                myPenalties[*e] = penalty;
+            for (const ROEdge* const e : computePath(c)) {
+                myPenalties[e] += penalty;
             }
-            addRoute(edges, c->pathsVector, c->origin + c->destination + toString(c->pathsVector.size()), 0);
         }
     }
     myPenalties.clear();
@@ -288,9 +303,8 @@ ROMAAssignments::incremental(const int numIter, const bool verbose) {
                     myRouter.setBulkMode(false);
                     lastOrigin = c->origin;
                 }
-                const ConstROEdgeVector& edges = computePath(c, begin);
+                const ConstROEdgeVector& edges = computePath(c, begin, linkFlow);
                 myRouter.setBulkMode(true);
-                addRoute(edges, c->pathsVector, c->origin + c->destination + toString(c->pathsVector.size()), linkFlow);
             }
 #ifdef HAVE_FOX
             if (myNet.getThreadPool().size() > 0) {
@@ -402,8 +416,7 @@ ROMAAssignments::sue(const int maxOuterIteration, const int maxInnerIteration, c
         // several modifications about when a route is new and when to break are in the original script
         bool newRoute = false;
         for (ODCell* const c : myMatrix.getCells()) {
-            const ConstROEdgeVector& edges = computePath(c);
-            newRoute |= addRoute(edges, c->pathsVector, c->origin + c->destination + toString(c->pathsVector.size()), 0);
+            newRoute |= !computePath(c).empty();
         }
         if (!newRoute) {
             break;
@@ -453,7 +466,6 @@ ROMAAssignments::getTravelTime(const ROEdge* const e, const ROVehicle* const v, 
 // ---------------------------------------------------------------------------
 void
 ROMAAssignments::RoutingTask::run(FXWorkerThread* context) {
-    const ConstROEdgeVector& edges = myAssign.computePath(myCell, myBegin, &static_cast<RONet::WorkerThread*>(context)->getVehicleRouter());
-    myAssign.addRoute(edges, myCell->pathsVector, myCell->origin + myCell->destination + toString(myCell->pathsVector.size()), myLinkFlow);
+    myAssign.computePath(myCell, myBegin, myLinkFlow, &static_cast<RONet::WorkerThread*>(context)->getVehicleRouter());
 }
 #endif

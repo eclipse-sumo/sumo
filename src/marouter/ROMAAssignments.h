@@ -52,7 +52,8 @@ class ROMAAssignments {
 public:
     /// Constructor
     ROMAAssignments(const SUMOTime begin, const SUMOTime end, const bool additiveTraffic,
-                    const double adaptionFactor, RONet& net, ODMatrix& matrix, SUMOAbstractRouter<ROEdge, ROVehicle>& router);
+                    const double adaptionFactor, const int maxAlternatives,
+                    RONet& net, ODMatrix& matrix, SUMOAbstractRouter<ROEdge, ROVehicle>& router);
 
     /// Destructor
     ~ROMAAssignments();
@@ -122,7 +123,7 @@ private:
     /// @brief add a route and check for duplicates
     bool addRoute(const ConstROEdgeVector& edges, std::vector<RORoute*>& paths, std::string routeId, double prob);
 
-    const ConstROEdgeVector computePath(const ODCell* cell, const SUMOTime time = 0, SUMOAbstractRouter<ROEdge, ROVehicle>* router = nullptr);
+    const ConstROEdgeVector computePath(ODCell* cell, const SUMOTime time = 0, const double probability=0., SUMOAbstractRouter<ROEdge, ROVehicle>* router = nullptr);
 
     /// @brief get the k shortest paths
     void getKPaths(const int kPaths, const double penalty);
@@ -132,6 +133,7 @@ private:
     const SUMOTime myEnd;
     const bool myAdditiveTraffic;
     const double myAdaptionFactor;
+    const int myMaxAlternatives;
     RONet& myNet;
     ODMatrix& myMatrix;
     SUMOAbstractRouter<ROEdge, ROVehicle>& myRouter;

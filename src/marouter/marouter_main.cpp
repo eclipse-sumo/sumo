@@ -286,7 +286,7 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
         }
         matrix.sortByBeginTime();
         ROVehicle defaultVehicle(SUMOVehicleParameter(), nullptr, net.getVehicleTypeSecure(DEFAULT_VTYPE_ID), &net);
-        ROMAAssignments a(begin, end, oc.getBool("additive-traffic"), oc.getFloat("weight-adaption"), net, matrix, *router);
+        ROMAAssignments a(begin, end, oc.getBool("additive-traffic"), oc.getFloat("weight-adaption"), oc.getInt("max-alternatives"), net, matrix, *router);
         a.resetFlows();
 #ifdef HAVE_FOX
         const int maxNumThreads = oc.getInt("routing-threads");
@@ -316,8 +316,11 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
             std::map<SUMOTime, std::string> sortedOut;
             SUMOTime lastEnd = -1;
             int num = 0;
-            for (std::vector<ODCell*>::const_iterator i = matrix.getCells().begin(); i != matrix.getCells().end(); ++i) {
-                const ODCell* const c = *i;
+            for (const ODCell* const c : matrix.getCells()) {
+                if (c->begin >= end || c->end <= begin ||
+                    c->pathsVector.empty() || c->pathsVector.front()->getEdgeVector().empty()) {
+                    continue;
+                }
                 if (lastEnd >= 0 && lastEnd <= c->begin) {
                     for (std::map<SUMOTime, std::string>::const_iterator desc = sortedOut.begin(); desc != sortedOut.end(); ++desc) {
                         dev->writePreformattedTag(desc->second);
@@ -325,33 +328,36 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
                     sortedOut.clear();
                 }
                 if (c->departures.empty()) {
+                    const SUMOTime b = MAX2(begin, c->begin);
+                    const SUMOTime e = MIN2(end, c->end);
+                    const int numVehs = int(c->vehicleNumber * (e - b) / (c->end - c->begin));
                     OutputDevice_String od(dev->isBinary(), 1);
                     od.openTag(SUMO_TAG_FLOW).writeAttr(SUMO_ATTR_ID, oc.getString("prefix") + toString(num++));
-                    od.writeAttr(SUMO_ATTR_BEGIN, time2string(c->begin)).writeAttr(SUMO_ATTR_END, time2string(c->end));
-                    od.writeAttr(SUMO_ATTR_NUMBER, int(c->vehicleNumber));
+                    od.writeAttr(SUMO_ATTR_BEGIN, time2string(b)).writeAttr(SUMO_ATTR_END, time2string(e));
+                    od.writeAttr(SUMO_ATTR_NUMBER, numVehs);
                     matrix.writeDefaultAttrs(od, oc.getBool("ignore-vehicle-type"), c);
                     od.openTag(SUMO_TAG_ROUTE_DISTRIBUTION);
-                    for (std::vector<RORoute*>::const_iterator j = c->pathsVector.begin(); j != c->pathsVector.end(); ++j) {
-                        (*j)->setCosts(router->recomputeCosts((*j)->getEdgeVector(), &defaultVehicle, string2time(oc.getString("begin"))));
-                        (*j)->writeXMLDefinition(od, nullptr, true, false);
+                    for (RORoute* const r : c->pathsVector) {
+                        r->setCosts(router->recomputeCosts(r->getEdgeVector(), &defaultVehicle, begin));
+                        r->writeXMLDefinition(od, nullptr, true, false);
                     }
                     od.closeTag();
                     od.closeTag();
                     sortedOut[c->begin] += od.getString();
                 } else {
                     for (std::map<SUMOTime, std::vector<std::string> >::const_iterator deps = c->departures.begin(); deps != c->departures.end(); ++deps) {
-                        if (c->pathsVector.size() == 0 || c->pathsVector.front()->getEdgeVector().size() == 0) {
+                        if (deps->first >= end || deps->first < begin) {
                             continue;
                         }
                         const std::string routeDistId = c->origin + "_" + c->destination + "_" + time2string(c->begin) + "_" + time2string(c->end);
-                        for (std::vector<std::string>::const_iterator id = deps->second.begin(); id != deps->second.end(); ++id) {
+                        for (const std::string& id : deps->second) {
                             OutputDevice_String od(dev->isBinary(), 1);
-                            od.openTag(SUMO_TAG_VEHICLE).writeAttr(SUMO_ATTR_ID, *id).writeAttr(SUMO_ATTR_DEPART, time2string(deps->first));
+                            od.openTag(SUMO_TAG_VEHICLE).writeAttr(SUMO_ATTR_ID, id).writeAttr(SUMO_ATTR_DEPART, time2string(deps->first));
                             matrix.writeDefaultAttrs(od, oc.getBool("ignore-vehicle-type"), c);
                             od.openTag(SUMO_TAG_ROUTE_DISTRIBUTION);
-                            for (std::vector<RORoute*>::const_iterator j = c->pathsVector.begin(); j != c->pathsVector.end(); ++j) {
-                                (*j)->setCosts(router->recomputeCosts((*j)->getEdgeVector(), &defaultVehicle, string2time(oc.getString("begin"))));
-                                (*j)->writeXMLDefinition(od, nullptr, true, false);
+                            for (RORoute* const r : c->pathsVector) {
+                                r->setCosts(router->recomputeCosts(r->getEdgeVector(), &defaultVehicle, begin));
+                                r->writeXMLDefinition(od, nullptr, true, false);
                             }
                             od.closeTag();
                             if (!tazParamKeys.empty()) {
