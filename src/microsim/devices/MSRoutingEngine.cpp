@@ -57,7 +57,6 @@ SUMOTime MSRoutingEngine::myLastAdaptation = -1;
 bool MSRoutingEngine::myWithTaz;
 SUMOAbstractRouter<MSEdge, SUMOVehicle>* MSRoutingEngine::myRouter = nullptr;
 AStarRouter<MSEdge, SUMOVehicle, SUMOAbstractRouterPermissions<MSEdge, SUMOVehicle> >* MSRoutingEngine::myRouterWithProhibited = nullptr;
-double MSRoutingEngine::myRandomizeWeightsFactor = 0;
 std::map<std::pair<const MSEdge*, const MSEdge*>, const MSRoute*> MSRoutingEngine::myCachedRoutes;
 #ifdef HAVE_FOX
 FXWorkerThread::Pool MSRoutingEngine::myThreadPool;
@@ -122,7 +121,6 @@ MSRoutingEngine::initEdgeWeights() {
             }
         }
         myLastAdaptation = MSNet::getInstance()->getCurrentTimeStep();
-        myRandomizeWeightsFactor = oc.getFloat("weights.random-factor");
     }
 }
 
@@ -132,8 +130,8 @@ MSRoutingEngine::getEffort(const MSEdge* const e, const SUMOVehicle* const v, do
     const int id = e->getNumericalID();
     if (id < (int)myEdgeSpeeds.size()) {
         double effort = MAX2(e->getLength() / MAX2(myEdgeSpeeds[id], NUMERICAL_EPS), e->getMinimumTravelTime(v));
-        if (myRandomizeWeightsFactor != 1.) {
-            effort *= RandHelper::rand(1., myRandomizeWeightsFactor);
+        if (gWeightsRandomFactor != 1.) {
+            effort *= RandHelper::rand(1., gWeightsRandomFactor);
         }
         return effort;
     }

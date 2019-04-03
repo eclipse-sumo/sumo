@@ -36,6 +36,7 @@
 #include <utils/common/StdDefs.h>
 #include <utils/common/ValueTimeLine.h>
 #include <utils/common/SUMOVehicleClass.h>
+#include <utils/common/RandHelper.h>
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/geom/Boundary.h>
 #ifdef HAVE_FOX
@@ -394,6 +395,10 @@ public:
      */
     static inline double getTravelTimeStatic(const ROEdge* const edge, const ROVehicle* const veh, double time) {
         return edge->getTravelTime(veh, time);
+    }
+
+    static inline double getTravelTimeStaticRandomized(const ROEdge* const edge, const ROVehicle* const veh, double time) {
+        return edge->getTravelTime(veh, time) * RandHelper::rand(1., gWeightsRandomFactor);
     }
 
 

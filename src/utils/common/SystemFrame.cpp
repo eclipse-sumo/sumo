@@ -120,6 +120,9 @@ SystemFrame::checkOptions() {
     gPrecision = oc.getInt("precision");
     gPrecisionGeo = oc.getInt("precision.geo");
     gHumanReadableTime = oc.getBool("human-readable-time");
+    if (oc.exists("weights.random-factor")) {
+        gWeightsRandomFactor = oc.getFloat("weights.random-factor");
+    }
     return true;
 }
 

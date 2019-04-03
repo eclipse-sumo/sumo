@@ -226,9 +226,6 @@ private:
     /// @brief The router to use by rerouter elements
     static AStarRouter<MSEdge, SUMOVehicle, SUMOAbstractRouterPermissions<MSEdge, SUMOVehicle> >* myRouterWithProhibited;
 
-    /// @brief Whether to disturb edge weights dynamically
-    static double myRandomizeWeightsFactor;
-
     /// @brief The container of pre-calculated routes
     static std::map<std::pair<const MSEdge*, const MSEdge*>, const MSRoute*> myCachedRoutes;
 
