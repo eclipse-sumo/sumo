@@ -513,6 +513,35 @@ private:
         GNEApplicationWindow* myGNEApp;
     };
 
+    /// @brief struct for supermode commands
+    struct SupermodeCommands {
+
+        /// @brief constructor
+        SupermodeCommands(GNEApplicationWindow* GNEApp);
+
+        /// @brief build menu commands
+        void buildSupermodeCommands(FXMenuPane* editMenu);
+
+        /// @brief show all menu commands
+        void showSupermodeCommands();
+
+        /// @brief hide all menu commands
+        void hideSupermodeCommands();
+        
+        /// @brief FXMenuCommand for network supermode
+        FXMenuCommand* networkMode;
+
+        /// @brief FXMenuCommand for demand supermode
+        FXMenuCommand* demandMode;
+
+    private:
+        /// @brief pointer to current GNEApplicationWindows
+        GNEApplicationWindow* myGNEApp;
+
+        /// @brief separator between sets of FXMenuCommand
+        FXMenuSeparator* myHorizontalSeparator;
+    };
+
     /// @brief struct for network menu commands
     struct NetworkMenuCommands {
 
@@ -618,6 +647,9 @@ private:
 
     /// @brief Edit Menu Commands
     EditMenuCommands myEditMenuCommands;
+
+    /// @brief Supermode Commands
+    SupermodeCommands mySupermodeCommands;
 
     /// @brief Network Menu Commands
     NetworkMenuCommands myNetworkMenuCommands;

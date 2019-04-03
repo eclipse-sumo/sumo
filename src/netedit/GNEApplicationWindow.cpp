@@ -130,7 +130,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_S_SELECTMODE,                    GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_C_CONNECTMODE,                   GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_T_TLSMODE_VTYPEMODE,             GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_A_ADDITIONALMODE_STOPMODE,                GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_A_ADDITIONALMODE_STOPMODE,       GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_R_CROSSINGMODE_ROUTEMODE,        GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_Z_TAZMODE,                       GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_P_POLYGONMODE,                   GNEApplicationWindow::onCmdSetMode),
@@ -301,6 +301,7 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     myMenuBarFile(this),
     myFileMenuCommands(this),
     myEditMenuCommands(this),
+    mySupermodeCommands(this),
     myNetworkMenuCommands(this),
     myDemandMenuCommands(this),
     myViewNet(nullptr),
@@ -674,7 +675,8 @@ GNEApplicationWindow::onCmdClose(FXObject*, FXSelector, void*) {
         // disable save additionals and TLS menu
         disableSaveAdditionalsMenu();
         myFileMenuCommands.saveTLSPrograms->disable();
-        // hide all Network and demand commands
+        // hide all Supermode, Network and demand commands
+        mySupermodeCommands.hideSupermodeCommands();
         myNetworkMenuCommands.hideNetworkMenuCommands();
         myDemandMenuCommands.hideDemandMenuCommands();
     }
@@ -1028,6 +1030,9 @@ GNEApplicationWindow::EditMenuCommands::buildEditMenuCommands(FXMenuPane* fileMe
                                        GUIIconSubSys::getIcon(ICON_REDO), myGNEApp, MID_HOTKEY_CTRL_Y_REDO);
     // build separator
     new FXMenuSeparator(fileMenu);
+    // build Supermode commands and hide it
+    myGNEApp->mySupermodeCommands.buildSupermodeCommands(fileMenu);
+    myGNEApp->mySupermodeCommands.hideSupermodeCommands();
     // build Network modes commands and hide it
     myGNEApp->myNetworkMenuCommands.buildNetworkMenuCommands(fileMenu);
     myGNEApp->myNetworkMenuCommands.hideNetworkMenuCommands();
@@ -1047,6 +1052,46 @@ GNEApplicationWindow::EditMenuCommands::buildEditMenuCommands(FXMenuPane* fileMe
     openInSUMOGUI = new FXMenuCommand(fileMenu,
                                       "Open in SUMO GUI\tCtrl+T\tOpens the SUMO GUI application with the current network.",
                                       GUIIconSubSys::getIcon(ICON_SUMO_MINI), myGNEApp, MID_HOTKEY_CTRL_T_OPENSUMONETEDIT);
+}
+
+// ---------------------------------------------------------------------------
+// GNEViewNet::NetworkCheckableButtons - methods
+// ---------------------------------------------------------------------------
+
+GNEApplicationWindow::SupermodeCommands::SupermodeCommands(GNEApplicationWindow* GNEApp) :
+    networkMode(nullptr),
+    demandMode(nullptr),
+    myGNEApp(GNEApp) {
+}
+
+
+void
+GNEApplicationWindow::SupermodeCommands::showSupermodeCommands() {
+    networkMode->show();
+    demandMode->show();
+    // also show separator
+    myHorizontalSeparator->show();
+}
+
+
+void
+GNEApplicationWindow::SupermodeCommands::hideSupermodeCommands() {
+    networkMode->hide();
+    demandMode->hide();
+    // also hide separator
+    myHorizontalSeparator->hide();
+}
+
+
+void
+GNEApplicationWindow::SupermodeCommands::buildSupermodeCommands(FXMenuPane* editMenu) {
+    // build supermode menu commands
+    networkMode = new FXMenuCommand(editMenu, "&Network mode\tF3\tSelect network mode.",
+                                    GUIIconSubSys::getIcon(ICON_SUPERMODENETWORK), myGNEApp, MID_HOTKEY_F3_SUPERMODE_NETWORK);
+    demandMode = new FXMenuCommand(editMenu, "&Demand mode\tF4\tSelect demand mode.",
+                                    GUIIconSubSys::getIcon(ICON_SUPERMODEDEMAND), myGNEApp, MID_HOTKEY_F4_SUPERMODE_DEMAND);
+    // build separator
+    myHorizontalSeparator = new FXMenuSeparator(editMenu);
 }
 
 // ---------------------------------------------------------------------------
@@ -1314,7 +1359,9 @@ GNEApplicationWindow::loadConfigOrNet(const std::string file, bool isNet, bool i
         myLoadThread->loadConfigOrNet(file, isNet, useStartupOptions, newNet);
         setStatusBarText("Loading '" + file + "'.");
     }
-    // show Network command menus
+    // show supermode commands menu
+    mySupermodeCommands.showSupermodeCommands();
+    // show Network command menus (because Network is the default supermode)
     myNetworkMenuCommands.showNetworkMenuCommands();
     // update window
     update();
@@ -2462,6 +2509,7 @@ GNEApplicationWindow::GNEApplicationWindow() :
     myMenuBarFile(this),
     myFileMenuCommands(this),
     myEditMenuCommands(this),
+    mySupermodeCommands(this),
     myNetworkMenuCommands(this),
     myDemandMenuCommands(this) {
 }
