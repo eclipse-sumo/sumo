@@ -331,11 +331,17 @@ GNEStop::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getDemandElementID();
         case SUMO_ATTR_DURATION:
-            return toString(duration);
+            return time2string(duration);
         case SUMO_ATTR_UNTIL:
-            return toString(until);
+            return time2string(until);
         case SUMO_ATTR_INDEX:
-            return toString(index);
+            if (index == STOP_INDEX_END) {
+                return "end";
+            } else if (index == STOP_INDEX_FIT) {
+                return "fit";
+            } else {
+                return toString(index);
+            }
         case SUMO_ATTR_TRIGGERED:
             if (parametersSet & STOP_TRIGGER_SET) {
                 return toString(triggered);
@@ -458,7 +464,13 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_UNTIL:
             return canParse<SUMOTime>(value);
         case SUMO_ATTR_INDEX:
-            return canParse<int>(value);
+            if ((value == "fit") || (value == "end")) {
+                return true;
+            } else if (canParse<int>(value)) {
+                return (parse<int>(value) >= 0);
+            } else {
+                return false;
+            }
         case SUMO_ATTR_TRIGGERED:
             return canParse<bool>(value);
         case SUMO_ATTR_CONTAINER_TRIGGERED:
@@ -653,13 +665,19 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeDemandElementID(value);
             break;
         case SUMO_ATTR_DURATION:
-            duration = parse<SUMOTime>(value);
+            duration = string2time(value);
             break;
         case SUMO_ATTR_UNTIL:
-            until = parse<SUMOTime>(value);
+            until = string2time(value);
             break;
         case SUMO_ATTR_INDEX:
-            index = parse<int>(value);
+            if (value == "fit") {
+                index = STOP_INDEX_FIT;
+            } else if (value == "end") {
+                index = STOP_INDEX_END;
+            } else {
+                index = parse<int>(value);
+            }
             break;
         case SUMO_ATTR_TRIGGERED:
             if (value.empty()) {

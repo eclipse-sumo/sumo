@@ -322,11 +322,6 @@ GNEStopFrame::addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCu
             return false;
         }
 
-        /*
-        const int STOP_INDEX_END = -1;
-        const int STOP_INDEX_FIT = -2;
-        */
-
         // obtain tag (only for improve code legibility)
         SumoXMLTag stopTag = myStopTypeSelector->getCurrentTagProperties().getTag();
 
@@ -398,6 +393,12 @@ GNEStopFrame::addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCu
             }
         }
 
+        // check if stop attributes are valid
+        if (!myStopAttributes->areValuesValid()) {
+            myStopAttributes->showWarningMessage();
+            return false;
+        }
+
         // declare map to keep attributes from Frames from Frame
         std::map<SumoXMLAttr, std::string> valuesMap = myStopAttributes->getAttributesAndValues(false);
 
@@ -421,14 +422,18 @@ GNEStopFrame::addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCu
         // obtain friendly position
         bool friendlyPosition = false;
         if (valuesMap.count(SUMO_ATTR_FRIENDLY_POS) > 0) {
-                friendlyPosition = GNEAttributeCarrier::parse<bool>(valuesMap.at(SUMO_ATTR_FRIENDLY_POS));
+            friendlyPosition = GNEAttributeCarrier::parse<bool>(valuesMap.at(SUMO_ATTR_FRIENDLY_POS));
         }
         // fill rest of parameters depending if it was edited
         if (valuesMap.count(SUMO_ATTR_DURATION) > 0) {
             stopParameter.duration = string2time(valuesMap.at(SUMO_ATTR_DURATION));
+        } else {
+            stopParameter.duration = string2time(GNEAttributeCarrier::getTagProperties(stopTag).getAttributeProperties(SUMO_ATTR_DURATION).getDefaultValue());
         }
         if (valuesMap.count(SUMO_ATTR_UNTIL) > 0) {
             stopParameter.until = string2time(valuesMap[SUMO_ATTR_UNTIL]);
+        } else {
+            stopParameter.until = string2time(GNEAttributeCarrier::getTagProperties(stopTag).getAttributeProperties(SUMO_ATTR_UNTIL).getDefaultValue());
         }
         if (valuesMap.count(SUMO_ATTR_TRIGGERED) > 0) {
             stopParameter.triggered = GNEAttributeCarrier::parse<bool>(valuesMap.at(SUMO_ATTR_TRIGGERED));
@@ -455,12 +460,17 @@ GNEStopFrame::addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCu
             stopParameter.parametersSet |= STOP_TRIP_ID_SET;
         }
         if (valuesMap.count(SUMO_ATTR_INDEX) > 0) {
-            stopParameter.index = GNEAttributeCarrier::parse<int>(valuesMap[SUMO_ATTR_EXPECTED_CONTAINERS]);
+            if (valuesMap[SUMO_ATTR_INDEX] == "fit") {
+                stopParameter.index = STOP_INDEX_FIT;
+            } else if (valuesMap[SUMO_ATTR_INDEX] == "end") {
+                stopParameter.index = STOP_INDEX_END;
+            } else {
+                stopParameter.index = GNEAttributeCarrier::parse<int>(valuesMap[SUMO_ATTR_INDEX]);
+            }
+        } else {
+            stopParameter.index = STOP_INDEX_END;
         }
-        /*
-        stopParameter.accessPos);
-        */
-   
+
         // create it in RouteFrame
         GNERouteHandler::buildStop(myViewNet, true, stopParameter, myStopParentSelector->getCurrentStopParent(), friendlyPosition);
 

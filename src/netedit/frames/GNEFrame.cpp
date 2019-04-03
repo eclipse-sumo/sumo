@@ -704,6 +704,14 @@ GNEFrame::AttributesCreator::RowCreator::onCmdSetAttribute(FXObject*, FXSelector
         if (!name.empty() && !SUMOXMLDefinitions::isValidListOfTypeID(name)) {
             myInvalidValue = "list of IDs contains invalid characters";
         }
+    } else if (myAttrProperties.getAttr() == SUMO_ATTR_INDEX) {
+        // special case for stop indx
+        std::string index = myTextFieldStrings->getText().text();
+        if ((index != "fit") && (index != "end") && !GNEAttributeCarrier::canParse<int>(index)) {
+             myInvalidValue = "index isn't either 'fit' or 'end' or a valid positive int";
+        } else if (GNEAttributeCarrier::parse<int>(index) < 0) {
+             myInvalidValue = "index cannot be negative";
+        }
     }
     // change color of text field depending of myCurrentValueValid
     if (myInvalidValue.size() == 0) {
