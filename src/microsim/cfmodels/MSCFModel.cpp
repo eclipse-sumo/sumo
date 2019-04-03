@@ -812,7 +812,7 @@ MSCFModel::maximumSafeStopSpeedBallistic(double g /*gap*/, double v /*currentSpe
     // such that starting to break after accelerating with a for the time tau=headway
     // still allows us to stop in time.
 
-    const double tau = headway;
+    const double tau = headway == 0 ? TS : headway;
     const double v0 = MAX2(0., v);
     // We first consider the case that a stop has to take place within time tau
     if (v0 * tau >= 2 * g) {
