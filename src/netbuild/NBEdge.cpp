@@ -2744,7 +2744,12 @@ NBEdge::appendTurnaround(bool noTLSControlled, bool onlyDeadends, bool noGeometr
         }
     };
     if (noGeometryLike && myTo->geometryLike() && out0 != nullptr) {
-        return;
+        // make sure the turnDestination has other incoming edges
+        EdgeVector turnIncoming = myTurnDestination->getIncomingEdges();
+        if (turnIncoming.size() > 1) {
+            // this edge is always part of incoming
+            return;
+        }
     }
     setConnection(fromLane, myTurnDestination, toLane, L2L_VALIDATED);
 }
