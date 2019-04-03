@@ -20,4 +20,5 @@ SysUtils.h SysUtils.cpp \
 ToString.h UtilExceptions.h \
 ValueRetriever.h ValueSource.h \
 ValueTimeLine.h VectorHelper.h \
-WrappingCommand.h SwarmDebug.h
+WrappingCommand.h ParametrisedWrappingCommand.h \
+SwarmDebug.h

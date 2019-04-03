@@ -284,6 +284,9 @@ MSNet::~MSNet() {
         delete myContainerControl;
     }
     delete myVehicleControl; // must happen after deleting transportables
+    for (auto& p : myPolygonRemovalCommands) {
+        p.second->deschedule();
+    }
     // delete events late so that vehicles can get rid of references first
     delete myBeginOfTimestepEvents;
     myBeginOfTimestepEvents = nullptr;
@@ -804,6 +807,25 @@ MSNet::getContainerControl() {
         myContainerControl = new MSTransportableControl();
     }
     return *myContainerControl;
+}
+
+
+void
+MSNet::schedulePolygonRemoval(SUMOTime t, const std::string& id) {
+    auto cmd = new ParametrisedWrappingCommand<MSNet, std::string>(this, id, &MSNet::polygonRemovalOperation);
+    myPolygonRemovalCommands.insert(std::make_pair(id, cmd));
+    myBeginOfTimestepEvents->addEvent(cmd, t);
+}
+
+
+SUMOTime
+MSNet::polygonRemovalOperation(SUMOTime /*t*/, std::string id) {
+    myShapeContainer->removePolygon(id);
+    auto i = myPolygonRemovalCommands.find(id);
+    if (i != myPolygonRemovalCommands.end()) {
+        myPolygonRemovalCommands.erase(i);
+    }
+    return 0;
 }
 
 

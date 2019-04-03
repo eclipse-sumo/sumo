@@ -41,6 +41,7 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/NamedObjectCont.h>
 #include <utils/common/NamedRTree.h>
+#include <utils/common/ParametrisedWrappingCommand.h>
 #include <utils/router/SUMOAbstractRouter.h>
 #include <microsim/trigger/MSChargingStation.h>
 #include "MSJunction.h"
@@ -437,6 +438,21 @@ public:
     }
 
 
+    /** @brief Schedules the removal and deletion of the given polygon
+     *         from the shape container at the given time
+    * @param[in] t  The time at which the removal shall be scheduled
+    * @param[in] id The id of the polygon
+    */
+    virtual void schedulePolygonRemoval(SUMOTime t, const std::string& id);
+
+
+    /** @brief Callback to be referenced from the event control at scheduled removal
+    * @param[in] t  The time at which the removal is called
+    * @param[in] id The id of the polygon
+    */
+    virtual SUMOTime polygonRemovalOperation(SUMOTime t, std::string id);
+
+
     /** @brief Returns the shapes container
      * @return The shapes container
      * @see ShapeContainer
@@ -445,6 +461,7 @@ public:
     ShapeContainer& getShapeContainer() {
         return *myShapeContainer;
     }
+
 
     /** @brief Returns the net's internal edge travel times/efforts container
      *
@@ -781,6 +798,8 @@ protected:
     mutable MSPedestrianRouter* myPedestrianRouter;
     mutable std::map<int, MSIntermodalRouter*> myIntermodalRouter;
 
+    /// @brief Command pointers for scheduled polygon removal. Maps PolyID->Command
+    std::map<std::string, ParametrisedWrappingCommand<MSNet, std::string>* > myPolygonRemovalCommands;
 
     /// @brief An RTree structure holding lane IDs
     mutable std::pair<bool, NamedRTree> myLanesRTree;
