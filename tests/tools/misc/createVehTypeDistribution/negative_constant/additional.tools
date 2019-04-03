@@ -1,4 +1,4 @@
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/additional_file.xsd">
     <vTypeDistribution id="exampleDist">
         <vType class="passenger" id="exampleDist0" lcImpatience="-0.500" lcMinGapLat="0.700"/>
         <vType class="passenger" id="exampleDist1" lcImpatience="-0.500" lcMinGapLat="0.700"/>

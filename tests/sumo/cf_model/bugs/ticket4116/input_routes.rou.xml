@@ -1,4 +1,4 @@
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="braker" emergencyDecel="8.5"/>
     <vehicle id="brakingVeh" type="braker" depart="0" departLane="0" departSpeed="13" arrivalPos="30">
         <route edges="gneE0" />

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- generated on Do 28 Jun 2018 21:26:34 CEST by Eclipse SUMO netedit Version ce0d7cd
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <sumo-net-file value="/home/kobo/dlr/sumo/tests/netconvert/inner_lanes/changeWidth_split_bikelane/net.netconvert"/>
@@ -25,7 +25,7 @@
 </configuration>
 -->
 
-<connections version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+<connections version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/connections_file.xsd">
     <connection from="CE" to="EC" fromLane="4" toLane="4"/>
 
     <connection from="CN" to="NC" fromLane="4" toLane="4"/>

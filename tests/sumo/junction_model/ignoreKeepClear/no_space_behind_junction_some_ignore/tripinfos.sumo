@@ -6,7 +6,7 @@ are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
 SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -31,7 +31,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <tripinfo id="across.0" depart="0.00" departLane="across1_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="11.00" arrivalLane="across2_0" arrivalPos="4.00" arrivalSpeed="12.96" duration="11.00" routeLength="100.35" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="3.07" rerouteNo="0" devices="tripinfo_across.0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
     <tripinfo id="blocker.0" depart="0.00" departLane="middle_0" departPos="8.00" departSpeed="0.00" departDelay="0.00" arrival="12.00" arrivalLane="middle_0" arrivalPos="20.00" arrivalSpeed="7.80" duration="12.00" routeLength="12.00" waitingTime="0.00" waitingCount="0" stopTime="9.00" timeLoss="1.88" rerouteNo="0" devices="tripinfo_blocker.0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
     <tripinfo id="ego.0" depart="4.00" departLane="beg_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="15.00" arrivalLane="middle_0" arrivalPos="20.00" arrivalSpeed="11.30" duration="11.00" routeLength="39.65" waitingTime="3.00" waitingCount="1" stopTime="0.00" timeLoss="7.91" rerouteNo="0" devices="tripinfo_ego.0" vType="egoType" speedFactor="1.00" vaporized=""/>

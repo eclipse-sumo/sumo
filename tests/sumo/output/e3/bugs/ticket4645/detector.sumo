@@ -6,7 +6,7 @@ are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
 SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -40,6 +40,6 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<e3Detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e3_file.xsd">
+<e3Detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/det_e3_file.xsd">
    <interval begin="0.00" end="100.00" id="tt_fc09" meanTravelTime="42.61" meanOverlapTravelTime="43.01" meanSpeed="11.03" meanHaltsPerVehicle="0.50" meanTimeLoss="9.07" vehicleSum="4" meanSpeedWithin="10.00" meanHaltsPerVehicleWithin="0.50" meanDurationWithin="33.75" vehicleSumWithin="14" meanIntervalSpeedWithin="10.00" meanIntervalHaltsPerVehicleWithin="0.50" meanIntervalDurationWithin="33.75" meanTimeLossWithin="12.35"/>
 </e3Detector>

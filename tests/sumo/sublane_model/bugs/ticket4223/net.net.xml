@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<net xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="0.27" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="0.27" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/net_file.xsd">
 
     <location convBoundary="0.00,0.00,457.34,322.64" netOffset="-690199.34,-5335442.75" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!" />
 

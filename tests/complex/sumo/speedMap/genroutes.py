@@ -34,7 +34,7 @@ cfg = open("test.sumocfg", 'w')
 cfg.write('''<?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation=\
-"http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+"https://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>
@@ -61,7 +61,7 @@ for model in ["Krauss", "KraussPS", "KraussOrig1", "BKerner", "SmartSK", "IDM", 
               "Wiedemann"]:
     routes = open(routeFile, 'w')
     routes.write('''<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation=\
-"http://sumo.dlr.de/xsd/routes_file.xsd">
+"https://sumo.dlr.de/xsd/routes_file.xsd">
         <vType id="leader" maxSpeed="13.88" color="red" carFollowModel="%s"/>
         <vType id="follower" color="green" carFollowModel="%s"/>
         <route id="r0" edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1 6/1to7/1"/>

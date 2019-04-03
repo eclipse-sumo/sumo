@@ -6,7 +6,7 @@ are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
 SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <type-files value="osmNetconvert.typ.xml,osmNetconvertUrbanDe.typ.xml,osmNetconvertPedestrians.typ.xml"/>
@@ -39,7 +39,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/additional_file.xsd">
     <busStop id="-1965562507" name="Krankenhaus Köpenick/Besuchereingang" lane="-10781127#4_1" startPos="5.41" endPos="21.55" friendlyPos="true"/>
     <busStop id="-1965562529" name="Krankenhaus Köpenick/Besuchereingang" lane="-37850032#1_1" startPos="17.53" endPos="28.51" friendlyPos="true"/>
     <busStop id="-2241193473" name="Krankenhaus Köpenick/Südseite" lane="-431551344#0_1" startPos="7.60" endPos="23.63" friendlyPos="true"/>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- generated on 19.11.2018 11:10:08 by Eclipse SUMO netedit Version v1_0_0+0979-5758048824
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.19Nov110858.5612/netedit.gui/additionalElements/e1detector/inspect/name\input_net.net.xml"/>
@@ -48,6 +48,6 @@
 </configuration>
 -->
 
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/additional_file.xsd">
     <e1Detector id="e1Detector_gneE2_1_0" name="customName" lane="gneE2_1" pos="17.00" freq="900.00" file="e1Detector_gneE2_1_0.xml"/>
 </additional>

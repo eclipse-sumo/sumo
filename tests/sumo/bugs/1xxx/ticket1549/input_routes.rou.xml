@@ -1,4 +1,4 @@
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="ta" sigma="0" length="10" minGap="2" maxSpeed="10" accel="1.0" decel="0.1"/>
     <vType id="tb" sigma="0" length="10" minGap="0" maxSpeed="15" accel="5"/>
     <vType id="tc" sigma="0" length="10" minGap="2" maxSpeed="15" accel="5"/>

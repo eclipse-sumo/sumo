@@ -3,7 +3,7 @@
 <!-- generated on 05/24/17 12:37:32 by SUMO duarouter Version dev-SVN-r24439
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>
@@ -22,7 +22,7 @@
 </configuration>
 -->
 
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="KRAUSS_DEFAULT" length="3.00" minGap="2.00" maxSpeed="70.00" color="yellow" accel="2.6" decel="4.5" sigma="0.5"/>
     <vehicle id="0" type="KRAUSS_DEFAULT" depart="0.00">
         <route edges="beg middle end rend"/>

@@ -86,8 +86,6 @@
  *  subtopic the option belongs to must be given to OptionsCont. This is
  *  done using addDescription(<OPTION_NAME>, <SUBTOPIC>, <DESCRIPTION>).
  * @see addDescription
- *
- * @see http://sumo.dlr.de/wiki/index.php/OptionsSubSystem
  */
 class OptionsCont {
 public:

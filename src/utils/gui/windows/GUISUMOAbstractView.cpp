@@ -1016,7 +1016,7 @@ GUISUMOAbstractView::makeSnapshot(const std::string& destFile, const int width, 
         glGetIntegerv(GL_VIEWPORT, viewport);
         while (state == GL2PS_OVERFLOW) {
             buffsize += 1024 * 1024;
-            gl2psBeginPage(destFile.c_str(), "sumo-gui; http://sumo.dlr.de", viewport, format, GL2PS_SIMPLE_SORT,
+            gl2psBeginPage(destFile.c_str(), "sumo-gui; https://sumo.dlr.de", viewport, format, GL2PS_SIMPLE_SORT,
                            GL2PS_DRAW_BACKGROUND | GL2PS_USE_CURRENT_VIEWPORT,
                            GL_RGBA, 0, NULL, 0, 0, 0, buffsize, fp, "out.eps");
             glMatrixMode(GL_MODELVIEW);

@@ -778,7 +778,7 @@ GUIApplicationWindow::onCmdEditViewScheme(FXObject*, FXSelector, void*) {
 
 long
 GUIApplicationWindow::onCmdHelp(FXObject*, FXSelector, void*) {
-    FXLinkLabel::fxexecute("http://sumo.dlr.de/wiki/SUMO-GUI");
+    FXLinkLabel::fxexecute("https://sumo.dlr.de/wiki/SUMO-GUI");
     return 1;
 }
 

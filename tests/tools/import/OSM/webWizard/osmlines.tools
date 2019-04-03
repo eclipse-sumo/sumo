@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- generated on Tue Mar 19 15:06:00 2019 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <type-files value="/scr1/sumo/data/typemap/osmNetconvert.typ.xml,/scr1/sumo/data/typemap/osmNetconvertUrbanDe.typ.xml,/scr1/sumo/data/typemap/osmNetconvertPedestrians.typ.xml,/scr1/sumo/data/typemap/osmNetconvertShips.typ.xml,/scr1/sumo/data/typemap/osmNetconvertBicycle.typ.xml"/>
@@ -56,7 +56,7 @@
 </configuration>
 -->
 
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/additional_file.xsd">
     <ptLine id="156479" name="RE2: Cottbus =&gt; Wismar" line="RE2" type="train" period="3600" completeness="0.05">
         <route edges="32590440 72984396 32590489 32590490 32590491 32590492 32590643 32590644 24492833 32590637 32590650 32590651#0 32590651#1 32590891 32590892 32590899 32590900#0 32590900#1 29384709 25946664 25946665 25946666#0 25946666#1 25946666#2 25946667 25946668"/>
         <busStop id="3419694885" name="Berlin Alexanderplatz"/>

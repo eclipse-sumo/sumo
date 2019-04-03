@@ -1,4 +1,4 @@
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/routes_file.xsd">
    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
    <vType id="truck" sigma="0" length="25" containerCapacity="1"/>
     <container id="container0" depart="0">

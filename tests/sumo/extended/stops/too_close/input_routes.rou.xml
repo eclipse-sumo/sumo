@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/additional_file.xsd">
   <vType id="Car" sigma="0" emergencyDecel="8" speedFactor="2"/>
   <route id="route0" edges="SC"/>
 

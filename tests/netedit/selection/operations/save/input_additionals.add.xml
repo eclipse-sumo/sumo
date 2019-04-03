@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- generated on 03.12.2018 13:26:25 by Eclipse SUMO netedit Version v1_0_0+1208-d42a3cd999
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <sumo-net-file value="D:\sumo\tests\netedit\selection\operations\load\input_net.net.xml"/>
@@ -30,7 +30,7 @@
 </configuration>
 -->
 
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/additional_file.xsd">
     <busStop id="busStop_gneE0_0_1" lane="gneE0_0" startPos="31.90" endPos="41.90"/>
     <busStop id="busStop_gneE1_0_0" lane="gneE1_0" startPos="35.59" endPos="45.59"/>
 	<poly id="poly_0" color="green" fill="1" layer="0.00" shape="10.00,20.00 0.00,20.00 0.00,10.00 10.00,10.00 10.00,20.00"/>

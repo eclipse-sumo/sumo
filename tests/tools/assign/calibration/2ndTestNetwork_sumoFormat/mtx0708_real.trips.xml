@@ -21,7 +21,7 @@
 </configuration>
 -->
 
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/routes_file.xsd">
     <trip id="213" depart="25201.00" from="D1" to="D3" fromTaz="91" toTaz="93" departLane="free" departSpeed="max"/>
     <trip id="723" depart="25203.00" from="D1" to="D3" fromTaz="91" toTaz="93" departLane="free" departSpeed="max"/>
     <trip id="933" depart="25206.00" from="D2" to="D3" fromTaz="92" toTaz="93" departLane="free" departSpeed="max"/>

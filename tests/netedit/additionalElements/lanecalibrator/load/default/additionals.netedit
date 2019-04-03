@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- generated on 28.11.2018 14:27:07 by Eclipse SUMO netedit Version v1_0_0+1123-7e66fbd65e
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.28Nov142137.9884/netedit.gui/additionalElements/lanecalibrator/load/default\input_net.net.xml"/>
@@ -50,6 +50,6 @@
 </configuration>
 -->
 
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/additional_file.xsd">
     <calibrator id="calibrator01" lane="gneE0_0" pos="0.00" output="calibrator01.txt"/>
 </additional>

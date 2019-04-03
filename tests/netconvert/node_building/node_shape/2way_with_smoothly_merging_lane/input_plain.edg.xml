@@ -6,7 +6,7 @@ are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
 SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
 
     <input>
         <sumo-net-file value="net6.net.xml"/>
@@ -25,7 +25,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/edges_file.xsd">
     <edge id="CE" from="C" to="E" priority="-2" numLanes="2" speed="19.44" shape="166.22,50.99 206.73,42.87 247.96,32.55 286.51,19.95"/>
     <edge id="CW" from="C" to="W" priority="-2" numLanes="3" speed="27.78" shape="166.22,50.99 96.97,59.65 87.38,60.58 54.56,59.94 0.00,52.21"/>
     <edge id="EC" from="E" to="C" priority="-2" numLanes="2" speed="19.44" shape="286.51,19.95 247.96,32.55 206.73,42.87 166.22,50.99"/>

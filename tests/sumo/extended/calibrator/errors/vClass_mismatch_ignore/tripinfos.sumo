@@ -6,7 +6,7 @@ are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
 SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -35,7 +35,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <tripinfo id="cali.0.0" depart="8.00" departLane="middle_0" departPos="5.10" departSpeed="13.89" departDelay="0.00" arrival="23.00" arrivalLane="end_0" arrivalPos="100.00" arrivalSpeed="13.27" duration="15.00" routeLength="294.90" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.73" rerouteNo="0" devices="tripinfo_cali.0.0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
     <tripinfo id="cali.0.1" depart="10.00" departLane="middle_0" departPos="5.10" departSpeed="13.89" departDelay="0.00" arrival="25.00" arrivalLane="end_0" arrivalPos="100.00" arrivalSpeed="13.19" duration="15.00" routeLength="294.90" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.78" rerouteNo="0" devices="tripinfo_cali.0.1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
     <tripinfo id="cali.0.2" depart="13.00" departLane="middle_0" departPos="5.10" departSpeed="13.89" departDelay="0.00" arrival="28.00" arrivalLane="end_0" arrivalPos="100.00" arrivalSpeed="13.35" duration="15.00" routeLength="294.90" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.86" rerouteNo="0" devices="tripinfo_cali.0.2" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>

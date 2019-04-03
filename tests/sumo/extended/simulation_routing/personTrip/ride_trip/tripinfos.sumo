@@ -6,7 +6,7 @@ are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
 SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net2.net.xml"/>
@@ -32,7 +32,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <tripinfo id="trainAB.0" depart="315.00" departLane="railSN_0" departPos="135.10" departSpeed="0.00" departDelay="0.00" arrival="546.00" arrivalLane="railSN_0" arrivalPos="1200.00" arrivalSpeed="11.25" duration="231.00" routeLength="1064.90" waitingTime="0.00" waitingCount="0" stopTime="63.00" timeLoss="90.70" rerouteNo="0" devices="tripinfo_trainAB.0" vType="train" speedFactor="1.00" vaporized=""/>
     <tripinfo id="busABCD.0" depart="5.00" departLane="A1A0_1" departPos="12.10" departSpeed="0.00" departDelay="0.00" arrival="548.00" arrivalLane="B0B1_1" arrivalPos="487.60" arrivalSpeed="4.10" duration="543.00" routeLength="4975.02" waitingTime="1.00" waitingCount="1" stopTime="131.00" timeLoss="53.64" rerouteNo="0" devices="tripinfo_busABCD.0" vType="bus" speedFactor="1.00" vaporized=""/>
     <tripinfo id="trainBA.0" depart="362.00" departLane="railNS_0" departPos="135.10" departSpeed="0.00" departDelay="0.00" arrival="592.00" arrivalLane="railNS_0" arrivalPos="1200.00" arrivalSpeed="13.25" duration="230.00" routeLength="1064.90" waitingTime="0.00" waitingCount="0" stopTime="63.00" timeLoss="89.78" rerouteNo="0" devices="tripinfo_trainBA.0 person_trainBA.0" vType="train" speedFactor="1.00" vaporized=""/>

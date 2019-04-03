@@ -530,7 +530,7 @@ GNEApplicationWindow::onCmdOpenForeign(FXObject*, FXSelector, void*) {
         GNELoadThread::fillOptions(oc);
         if (osmPattern.contains(opendialog.getPattern())) {
             // recommended osm options
-            // http://sumo.dlr.de/wiki/Networks/Import/OpenStreetMap#Recommended_NETCONVERT_Options
+            // https://sumo.dlr.de/wiki/Networks/Import/OpenStreetMap#Recommended_NETCONVERT_Options
             oc.set("osm-files", file);
             oc.set("geometry.remove", "true");
             oc.set("ramps.guess", "true");
@@ -1751,7 +1751,7 @@ GNEApplicationWindow::onCmdToogleTwoWay(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdHelp(FXObject*, FXSelector, void*) {
-    FXLinkLabel::fxexecute("http://sumo.dlr.de/wiki/NETEDIT");
+    FXLinkLabel::fxexecute("https://sumo.dlr.de/wiki/NETEDIT");
     return 1;
 }
 

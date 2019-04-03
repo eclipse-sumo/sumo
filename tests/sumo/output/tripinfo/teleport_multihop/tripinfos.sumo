@@ -6,7 +6,7 @@ are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
 SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -27,7 +27,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <tripinfo id="2" depart="160.00" departLane="4/1to3/1_0" departPos="100.00" departSpeed="10.00" departDelay="0.00" arrival="973.00" arrivalLane="1/1to0/1_0" arrivalPos="400.00" arrivalSpeed="0.00" duration="813.00" routeLength="1500.00" waitingTime="301.00" waitingCount="1" stopTime="0.00" timeLoss="302.10" rerouteNo="0" devices="tripinfo_2" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
     <tripinfo id="0" depart="0.00" departLane="4/1to3/1_0" departPos="100.00" departSpeed="10.00" departDelay="0.00" arrival="1153.00" arrivalLane="1/1to0/1_0" arrivalPos="400.00" arrivalSpeed="2.60" duration="1153.00" routeLength="1500.00" waitingTime="0.00" waitingCount="0" stopTime="1001.00" timeLoss="1.74" rerouteNo="0" devices="tripinfo_0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
     <tripinfo id="1.0" depart="5.00" departLane="4/1to3/1_0" departPos="100.00" departSpeed="0.00" departDelay="0.00" arrival="1153.00" arrivalLane="1/1to0/1_0" arrivalPos="400.00" arrivalSpeed="0.00" duration="1148.00" routeLength="1500.00" waitingTime="996.00" waitingCount="1" stopTime="0.00" timeLoss="998.75" rerouteNo="0" devices="tripinfo_1.0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>

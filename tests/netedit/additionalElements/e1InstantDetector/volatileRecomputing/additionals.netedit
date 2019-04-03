@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- generated on 21.11.2018 08:48:07 by Eclipse SUMO netedit Version v1_0_0+1004-1c7613c4e7
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.21Nov084718.4800/netedit.gui/additionalElements/e1InstantDetector/volatileRecomputing\input_net.net.xml"/>
@@ -52,7 +52,7 @@
 </configuration>
 -->
 
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/additional_file.xsd">
     <instantInductionLoop id="instantInductionLoop_gneE0_0_7" lane="gneE0_1" pos="14.77" file="instantInductionLoop_gneE0_0_7.txt"/>
     <instantInductionLoop id="instantInductionLoop_gneE1_0_6" lane="gneE1_1" pos="41.50" file="instantInductionLoop_gneE1_0_6.txt"/>
     <instantInductionLoop id="instantInductionLoop_gneE2_0_0" lane="gneE2_1" pos="19.94" file="instantInductionLoop_gneE2_0_0.txt"/>

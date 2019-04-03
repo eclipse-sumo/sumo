@@ -1,4 +1,4 @@
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/routes_file.xsd">
    <route id="1to2detour" edges="1si 3o 2fi"/>
    <route id="2to3" edges="2si 3o"/>
    <vehicle id="rerouted" route="1to2detour" depart="0"/>

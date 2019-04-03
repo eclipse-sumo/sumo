@@ -6,7 +6,7 @@ are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
 SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
 
     <input>
         <sumo-net-file value="osm.net.xml"/>
@@ -26,7 +26,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/edges_file.xsd">
     <edge id="177338975" from="492500988" to="cluster_1907731754_338287766" priority="4" type="highway.residential" numLanes="1" speed="13.89" shape="6331.58,4422.57 6321.60,4426.16 6306.20,4515.47 6303.45,4526.60" spreadType="center" disallow="tram rail_urban rail rail_electric ship"/>
     <edge id="177338976" from="cluster_1877878502_1907731767" to="335691182" priority="4" type="highway.residential" numLanes="1" speed="13.89" shape="6275.72,4521.61 6293.08,4423.65 6287.82,4418.72 6283.37,4414.68" spreadType="center" disallow="tram rail_urban rail rail_electric ship"/>
     <edge id="205013609#0" from="335691176" to="2844510655" priority="5" type="highway.unclassified" numLanes="1" speed="13.89" shape="6292.85,4361.98 6297.69,4355.10 6300.32,4349.85 6302.54,4342.60 6303.73,4339.15 6306.52,4322.99 6309.31,4299.13 6309.07,4289.91" spreadType="center" disallow="tram rail_urban rail rail_electric ship"/>

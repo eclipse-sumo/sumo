@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- generated on 08.03.2019 12:47:24 by Eclipse SUMO netedit Version v1_1_0+1177-ae4e665b46
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.2_from_08Mar123431.3296/netedit.gui/additionalElements/detentry/inspect/blockmove\input_net.net.xml"/>
@@ -49,7 +49,7 @@
 </configuration>
 -->
 
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/additional_file.xsd">
     <e3Detector id="e3Detector_0" pos="22.00,30.00" freq="900.00" file="e3Detector_0.xml">
         <detEntry lane="gneE3_0" pos="30.00"/>
         <detExit lane="gneE3_0" pos="22.00"/>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- generated on Fri 28 Sep 2018 01:54:32 PM CEST by Eclipse SUMO netedit Version v1_0_1+0110-05ad9f8
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <sumo-net-file value="net.net.xml"/>
@@ -35,7 +35,7 @@
 </configuration>
 -->
 
-<edges version="1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+<edges version="1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/edges_file.xsd">
     <edge id="--60036" from="20508" to="B" priority="7" type="highway.secondary_tunnel" numLanes="2" speed="27.78" shape="113.29,104.77,21.35 105.98,121.94,21.40 95.86,144.72,21.40" disallow="tram rail_urban rail rail_electric pedestrian ship"/>
     <edge id="-210" from="25270" to="C" priority="6" type="highway.tertiary_tunnel" numLanes="1" speed="22.22" shape="190.20,390.26,19.70 171.77,336.73,14.25 146.54,253.12,14.25 126.31,213.25,14.25 107.61,190.52,14.25 95.17,166.87,14.25" disallow="tram rail_urban rail rail_electric pedestrian ship"/>
     <edge id="-60036" from="B" to="20508" priority="7" type="highway.secondary_tunnel" numLanes="2" speed="27.78" shape="95.86,144.72,21.40 105.98,121.94,21.40 113.29,104.77,21.35" disallow="tram rail_urban rail rail_electric pedestrian ship"/>

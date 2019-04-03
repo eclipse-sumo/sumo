@@ -51,7 +51,7 @@ def runInstance(elem, attrSet, childSet, depart):
     sys.stdout.flush()
     with open("routes.xml", "w") as routes:
         routes.write('''<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" \
-xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/routes_file.xsd">
     <route id="a" edges="1fi 1si 2o 2fi 2si"/>
     <%s id="v" %s''' % (elem, depart))
         for idx, attr in enumerate(attrs):

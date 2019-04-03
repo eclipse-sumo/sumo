@@ -6,7 +6,7 @@ are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
 SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/od2tripsConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/od2tripsConfiguration.xsd">
 
     <input>
         <net-file value="input_taz.taz.xml"/>
@@ -26,7 +26,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/routes_file.xsd">
     <trip id="10" depart="18.13" from="right0to2/0" to="2/2toright2" fromTaz="3" toTaz="5" departLane="free" departSpeed="max"/>
     <trip id="3" depart="18.39" from="top1to2/1" to="0/0toleft0" fromTaz="1" toTaz="9" departLane="free" departSpeed="max"/>
     <trip id="11" depart="158.69" from="right2to2/2" to="0/0toleft0" fromTaz="5" toTaz="9" departLane="free" departSpeed="max"/>

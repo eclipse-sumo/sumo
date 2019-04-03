@@ -1,4 +1,4 @@
-<types xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/types_file.xsd">
+<types xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/types_file.xsd">
     <type id="highway.motorway"       numLanes="2" speed="44.44" priority="13" oneway="true"  disallow="pedestrian bicycle moped rail rail_urban rail_electric tram ship"/>
     <type id="highway.motorway_link"  numLanes="1" speed="22.22" priority="12" oneway="true"  disallow="pedestrian bicycle moped rail rail_urban rail_electric tram ship"/>
     <type id="highway.trunk"          numLanes="2" speed="27.78" priority="11" oneway="false" disallow="pedestrian bicycle rail rail_urban rail_electric tram ship"/>

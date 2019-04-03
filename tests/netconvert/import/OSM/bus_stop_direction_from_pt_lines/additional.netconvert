@@ -6,7 +6,7 @@ are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
 SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <type-files value="input_types.typ.xml"/>
@@ -35,7 +35,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/additional_file.xsd">
     <busStop id="-3959807201" name="Dudenstraße/Katzbachstraße" lane="-391493954#3_1" startPos="16.22" endPos="31.22" friendlyPos="true" lines="104"/>
     <busStop id="-3959807220" name="Kolonnenbrücke" lane="-110450334#1_1" startPos="7.08" endPos="22.08" friendlyPos="true" lines="104 N42"/>
     <busStop id="-4032629820" name="Monumentenstraße" lane="-53356539#0_1" startPos="32.27" endPos="47.27" friendlyPos="true" lines="140"/>

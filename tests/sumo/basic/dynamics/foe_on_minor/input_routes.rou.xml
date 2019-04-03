@@ -1,4 +1,4 @@
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/routes_file.xsd">
    <route id="horizontal" edges="2i 1o 1i 2o 2i"/>
    <route id="vertical" edges="3i 4o 4i 3o 3i"/>
    <vehicle id="h1" route="horizontal" depart="0" departSpeed="max" departPos="-50"/>

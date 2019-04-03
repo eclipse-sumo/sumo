@@ -6,7 +6,7 @@ are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
 SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -33,7 +33,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <tripinfo id="bus.0" depart="0.00" departLane="beg_0" departPos="5.10" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="211.00" arrivalLane="end_0" arrivalPos="500.00" arrivalPosLat="0.00" arrivalSpeed="1.46" duration="211.00" routeLength="3007.22" waitingTime="5.00" waitingCount="2" stopTime="64.00" timeLoss="38.78" rerouteNo="1" devices="vehroute_bus.0 tripinfo_bus.0 routing_bus.0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
     <tripinfo id="bus.1" depart="300.00" departLane="beg_0" departPos="5.10" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="511.00" arrivalLane="end_0" arrivalPos="500.00" arrivalPosLat="0.00" arrivalSpeed="1.47" duration="211.00" routeLength="3007.22" waitingTime="5.00" waitingCount="2" stopTime="62.00" timeLoss="40.78" rerouteNo="1" devices="vehroute_bus.1 tripinfo_bus.1 routing_bus.1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
     <tripinfo id="bus.2" depart="600.00" departLane="beg_0" departPos="5.10" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="811.00" arrivalLane="end_0" arrivalPos="500.00" arrivalPosLat="0.00" arrivalSpeed="1.38" duration="211.00" routeLength="3007.22" waitingTime="5.00" waitingCount="3" stopTime="61.00" timeLoss="41.78" rerouteNo="1" devices="vehroute_bus.2 tripinfo_bus.2 routing_bus.2" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>

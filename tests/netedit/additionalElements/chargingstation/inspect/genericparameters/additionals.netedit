@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- generated on 16.11.2018 15:09:45 by Eclipse SUMO netedit Version v1_0_0+0907-4934d005c3
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.16Nov150914.5988/netedit.gui/additionalElements/chargingstation/inspect/genericparameters\input_net.net.xml"/>
@@ -49,7 +49,7 @@
 </configuration>
 -->
 
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/additional_file.xsd">
     <chargingStation id="chargingStation_gneE2_1_0" lane="gneE2_1" startPos="12.00" endPos="22.00">
         <param key="keyFinal1" value="value1"/>
         <param key="keyFinal2" value="value2"/>

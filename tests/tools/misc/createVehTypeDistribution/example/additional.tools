@@ -1,4 +1,4 @@
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/additional_file.xsd">
     <vTypeDistribution id="exampleDist">
         <vType carFollowModel="Krauss" class="passenger" id="exampleDist0" length="4.801" sigma="0.751" tau="0.825"/>
         <vType carFollowModel="Krauss" class="passenger" id="exampleDist1" length="4.705" sigma="0.613" tau="0.786"/>

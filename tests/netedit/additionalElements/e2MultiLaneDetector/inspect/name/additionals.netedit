@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- generated on 02.10.2018 14:58:31 by Eclipse SUMO netedit Version v1_0_0+0003-85a2829977
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.02Oct145720.9472/netedit.gui/additionalElements/e2MultiLaneDetector/inspect/name\input_net.net.xml"/>
@@ -49,6 +49,6 @@
 </configuration>
 -->
 
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/additional_file.xsd">
     <e2Detector id="e2MultilaneDetector_0" name="customName" lanes="gneE2_0 gneE3_0" pos="11.00" freq="900.00" file="e2MultilaneDetector_0.xml" endPos="11.00"/>
 </additional>

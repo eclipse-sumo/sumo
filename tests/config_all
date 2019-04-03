@@ -26,5 +26,5 @@ shapes:imgFile=\"(.*?)paris.ico\"{REPLACE imgFile="paris.ico"}
 cfg:<!-- generated on{[->]}-->
 
 [bug_system_location]
-trac:http://sumo.dlr.de/trac.wsgi/
+trac:https://sumo.dlr.de/trac.wsgi/
 

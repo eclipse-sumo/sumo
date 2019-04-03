@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- generated on 12.12.2018 15:38:15 by Eclipse SUMO netedit Version v1_0_0+1333-2fb8438a8e
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Dec153812.10844/netedit.gui/additionalElements/calibrator/load/routeProbe\input_net.net.xml"/>
@@ -51,7 +51,7 @@
 </configuration>
 -->
 
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/additional_file.xsd">
     <routeProbe id="myRouteProbe" edge="gneE0" freq="3600" file="RouteProbeA.xml" begin="0.00"/>
     <calibrator id="calibrator01" edge="gneE0" pos="26.00" freq="120.00" routeProbe="%%$%$$$" output="calibrator01.txt"/>
     <calibrator id="calibrator02" edge="gneE0" pos="26.00" freq="120.00" output="calibrator02.txt"/>

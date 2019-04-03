@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- generated on Wed 13 Feb 2019 10:22:51 AM CET by Eclipse SUMO netedit Version v1_0_1+0645-93703db
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <node-files value="input_plain.nod.xml"/>
@@ -19,7 +19,7 @@
 </configuration>
 -->
 
-<edges version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+<edges version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/edges_file.xsd">
     <edge id="-27488602#1" from="2292787678" to="gneJ0" priority="4" type="highway.residential" numLanes="1" speed="8.33"/>
     <edge id="-27488602#1.9" from="gneJ0" to="cluster_2292787672_259083790" priority="4" type="highway.residential" numLanes="1" speed="8.33" shape="153.95,167.47 161.64,161.39"/>
     <edge id="-27488602#2" from="310541110" to="2292787678" priority="4" type="highway.residential" numLanes="1" speed="8.33"/>

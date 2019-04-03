@@ -44,7 +44,7 @@ Traceback (most recent call last):
   File "src/lxml/parser.pxi", line 598, in lxml.etree._ParserContext._handleParseResultDoc
   File "src/lxml/parser.pxi", line 709, in lxml.etree._handleParseResult
   File "src/lxml/parser.pxi", line 636, in lxml.etree._raiseParseError
-IOError: Error reading file 'http://sumo.dlr.de/xsd/blub_file.xsd': failed to load external entity "http://sumo.dlr.de/xsd/blub_file.xsd"
+IOError: Error reading file 'https://sumo.dlr.de/xsd/blub_file.xsd': failed to load external entity "https://sumo.dlr.de/xsd/blub_file.xsd"
 sumo/basic/routes/parsing/nested_ref/input_routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'route', attribute 'id': The attribute 'id' is not allowed.
 sumo/basic/person/walk_0/input_routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_MINEXCLUSIVE_VALID: Element 'walk', attribute 'duration': [facet 'minExclusive'] The value '0' must be greater than '0'.
 sumo/basic/person/walk_0/input_routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'walk', attribute 'duration': '0' is not a valid value of the atomic type 'positiveFloatType'.

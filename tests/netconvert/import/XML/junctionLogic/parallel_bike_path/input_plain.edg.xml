@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- generated on Di 27 Feb 2018 09:25:13 CET by Netedit Version v0_32_0+0547-32395b7
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <sumo-net-file value="/home/kobo/dlr/sumo/tests/netconvert/import/XML/junctionLogic/parallel_bike_path/net.netconvert"/>
@@ -24,7 +24,7 @@
 </configuration>
 -->
 
-<edges version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+<edges version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/edges_file.xsd">
     <edge id="-CNb" from="gneJ3" to="cluster_C_gneJ2_gneJ4" priority="2" numLanes="1" speed="13.89" shape="107.91,200.34 107.70,110.32" width="1.00" allow="bicycle"/>
     <edge id="-SCb" from="cluster_C_gneJ2_gneJ4" to="gneJ1" priority="2" numLanes="1" speed="13.89" shape="107.91,93.54 107.89,-0.35" width="1.00" allow="bicycle"/>
     <edge id="CE" from="cluster_C_gneJ2_gneJ4" to="E" priority="2" numLanes="2" speed="13.89" shape="100.00,100.00 200.00,100.00" disallow="bicycle"/>

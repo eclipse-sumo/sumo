@@ -1,4 +1,4 @@
-<types xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/types_file.xsd">
+<types xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/types_file.xsd">
     <type id="highway.motorway"       speed="27.78"/>
     <type id="highway.motorway_link"  speed="16.67"/>
     <type id="highway.trunk"          speed="13.89"/>

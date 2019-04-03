@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/edges_file.xsd">
     <edge from="1" id="b" to="2">
         <lane index="0" speed="9.90"/>
     </edge>

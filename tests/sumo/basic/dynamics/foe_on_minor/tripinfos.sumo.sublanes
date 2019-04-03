@@ -6,7 +6,7 @@ are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
 SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -30,7 +30,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <tripinfo id="v1" depart="6.00" departLane="3i_0" departPos="493.25" departPosLat="0.00" departSpeed="10.50" departDelay="1.00" arrival="158.00" arrivalLane="3i_0" arrivalPos="495.25" arrivalPosLat="0.00" arrivalSpeed="18.90" duration="152.00" routeLength="2011.64" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="9.15" rerouteNo="0" devices="tripinfo_v1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
     <tripinfo id="h1" depart="0.00" departLane="2i_0" departPos="445.25" departPosLat="0.00" departSpeed="19.00" departDelay="0.00" arrival="161.00" arrivalLane="2i_0" arrivalPos="495.25" arrivalPosLat="0.00" arrivalSpeed="18.16" duration="161.00" routeLength="2059.64" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="16.43" rerouteNo="0" devices="tripinfo_h1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
     <tripinfo id="v2" depart="106.00" departLane="3i_0" departPos="488.25" departPosLat="0.00" departSpeed="10.50" departDelay="1.00" arrival="259.00" arrivalLane="3i_0" arrivalPos="495.25" arrivalPosLat="0.00" arrivalSpeed="18.66" duration="153.00" routeLength="2016.64" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="10.49" rerouteNo="0" devices="tripinfo_v2" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>

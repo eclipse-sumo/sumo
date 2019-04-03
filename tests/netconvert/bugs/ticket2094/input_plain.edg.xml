@@ -6,7 +6,7 @@ are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
 SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
 
     <input>
         <sumo-net-file value="Ahof_patched_Stp2.net.xml"/>
@@ -32,7 +32,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<edges version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+<edges version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/edges_file.xsd">
     <edge id="-26815091#2" from="597703133" to="cluster_294152029_560899595_593898177" name="Olmweg" priority="4" type="highway.residential" numLanes="1" speed="13.89" shape="6887.42,6821.30 6878.86,6867.27 6867.14,6894.22 6845.79,6915.43" disallow="tram rail_urban rail rail_electric ship"/>
     <edge id="26814968#1" from="1656195449" to="cluster_294152029_560899595_593898177" name="Glienicker Straße" priority="7" type="highway.secondary" numLanes="2" speed="13.89" shape="6790.31,6855.22 6842.69,6918.36" spreadType="center" disallow="tram rail_urban rail rail_electric ship"/>
     <edge id="26815091#2" from="cluster_294152029_560899595_593898177" to="597703133" name="Olmweg" priority="4" type="highway.residential" numLanes="1" speed="13.89" shape="6845.79,6915.43 6867.14,6894.22 6878.86,6867.27 6887.42,6821.30" disallow="tram rail_urban rail rail_electric ship"/>

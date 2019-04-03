@@ -6,7 +6,7 @@ are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
 SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/polyconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/polyconvertConfiguration.xsd">
 
     <input>
         <osm-files value="osm.xml"/>
@@ -36,7 +36,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/additional_file.xsd">
     <location netOffset="0.00,0.00" convBoundary="399466.14,5809386.88,401148.73,5810735.08" origBoundary="13.521259,52.425725,13.546188,52.437711" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <poly id="114033003" type="amenity.parking" color="184,184,179" fill="1" layer="-1.00" shape="400062.20,5809717.58 400056.61,5809712.91 400051.88,5809708.98 400074.05,5809682.51 400078.88,5809686.53 400084.37,5809691.10 400062.20,5809717.58">

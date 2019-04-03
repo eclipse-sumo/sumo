@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- generated on 10.12.2018 12:39:30 by Eclipse SUMO netedit Version v1_0_0+1208-d42a3cd999
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.10Dec123754.8076/netedit.gui/additionalElements/parkingarea/load/angle\input_net.net.xml"/>
@@ -51,7 +51,7 @@
 </configuration>
 -->
 
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/additional_file.xsd">
     <parkingArea id="parkingArea_0" name="parkingArea" width="12.00" length="5.00" lane="gneE1_0" friendlyPos="1" roadsideCapacity="4" startPos="25.00" endPos="30.00"/>
     <parkingArea id="parkingArea_1" name="parkingArea" width="12.00" length="5.00" lane="gneE1_0" friendlyPos="1" roadsideCapacity="4" startPos="27.00" endPos="32.00"/>
     <parkingArea id="parkingArea_2" name="parkingArea" width="12.00" length="5.00" lane="gneE1_0" friendlyPos="1" roadsideCapacity="4" angle="-12.00" startPos="29.00" endPos="34.00"/>

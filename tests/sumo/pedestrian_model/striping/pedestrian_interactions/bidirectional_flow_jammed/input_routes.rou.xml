@@ -1,6 +1,6 @@
 <!-- generated on 2015-11-30 22:36:14.212000 by "pedestrianFlow.py flow.xml -r EC -p .4 -n fwd" -->
 <!-- generated on 2015-11-30 22:36:09.654000 by "pedestrianFlow.py flow2.xml -r EC -p .4 -n bwd -d -1 -a 0" -->
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/routes_file.xsd">
     <person id="jam" depart="0" color="red" departPos="49">
         <walk edges="EC" arrivalPos="-1" speed="0.11"/>
     </person>

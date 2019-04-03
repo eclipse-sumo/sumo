@@ -6,7 +6,7 @@ are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
 SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -29,7 +29,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <tripinfo id="veh.0" depart="0.00" departLane="beg_0" departPos="91.40" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="7.00" arrivalLane="beg_0" arrivalPos="100.00" arrivalPosLat="-2.09" arrivalSpeed="7.81" duration="7.00" routeLength="8.60" waitSteps="4" timeLoss="5.98" rerouteNo="0" devices="tripinfo_veh.0" vType="t0" speedFactor="1.12" vaporized=""/>
     <tripinfo id="veh.1" depart="0.00" departLane="beg_0" departPos="83.80" departPosLat="0.00" departSpeed="0.00" departDelay="-0.10" arrival="9.00" arrivalLane="beg_0" arrivalPos="100.00" arrivalPosLat="3.00" arrivalSpeed="9.91" duration="9.00" routeLength="16.20" waitSteps="5" timeLoss="6.96" rerouteNo="0" devices="tripinfo_veh.1" vType="t0" speedFactor="0.88" vaporized=""/>
     <tripinfo id="veh.5" depart="0.00" departLane="beg_0" departPos="53.40" departPosLat="0.00" departSpeed="0.00" departDelay="-0.50" arrival="11.00" arrivalLane="beg_0" arrivalPos="100.00" arrivalPosLat="3.22" arrivalSpeed="9.20" duration="11.00" routeLength="46.60" waitSteps="4" timeLoss="5.23" rerouteNo="0" devices="tripinfo_veh.5" vType="t0" speedFactor="0.66" vaporized=""/>

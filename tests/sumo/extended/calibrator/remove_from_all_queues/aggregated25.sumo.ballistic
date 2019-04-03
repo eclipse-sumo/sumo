@@ -6,7 +6,7 @@ are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
 SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -35,7 +35,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
+<meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/meandata_file.xsd">
     <interval begin="0.00" end="243.00" id="expect10vehs">
         <edge id="beg" sampledSeconds="657.61" traveltime="9.00" overlapTraveltime="9.22" density="27.06" occupancy="6.68" waitingTime="0.00" speed="11.39" departed="75" arrived="0" entered="0" left="75" laneChangedFrom="50" laneChangedTo="50"/>
         <edge id="end" sampledSeconds="485.83" traveltime="5.22" overlapTraveltime="5.40" density="14.28" occupancy="6.89" waitingTime="0.00" speed="26.84" departed="0" arrived="90" entered="90" left="0" laneChangedFrom="0" laneChangedTo="0"/>

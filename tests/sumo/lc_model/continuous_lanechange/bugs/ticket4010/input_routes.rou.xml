@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/routes_file.xsd">
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo-sim.org/xsd/routes_file.xsd">
     <vType id="type1" length="4" maxSpeed="30" carFollowModel="Krauss" accel="4" decel="4" sigma="0" />
 	    <route id="route01" edges="1 2 3 4 "/>
 	<vehicle depart="10" id="A" route="route01" type="type1" /> 

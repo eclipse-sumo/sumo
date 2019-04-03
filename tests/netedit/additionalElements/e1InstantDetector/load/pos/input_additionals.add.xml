@@ -1,4 +1,4 @@
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/additional_file.xsd">
     
     <!-- non valid position (dummy) -->
     <instantInductionLoop id="E1_02" lane="gneE0_0" pos="dummyPosition" file="fileA.txt" vTypes="type1 type2 type3" friendlyPos="0"/>

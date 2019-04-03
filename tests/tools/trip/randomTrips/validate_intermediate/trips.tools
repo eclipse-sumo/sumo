@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- generated on Sun Dec 23 21:46:26 2018 by Eclipse SUMO duarouter Version v1_0_1+1015-8e01b2d
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -27,7 +27,7 @@
 </configuration>
 -->
 
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/routes_file.xsd">
     <trip id="0" depart="0.00" from="3si" to="1si" via="1si 2si"/>
     <trip id="1" depart="1.00" from="3si" to="1o" via="3si 4si"/>
     <trip id="2" depart="2.00" from="2si" to="3o" via="1si 1si"/>

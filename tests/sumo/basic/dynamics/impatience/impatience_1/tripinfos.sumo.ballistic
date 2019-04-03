@@ -6,7 +6,7 @@ are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
 SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="three_split.net.xml"/>
@@ -36,7 +36,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <tripinfo id="priority.0" depart="0.00" departLane="middle_0" departPos="800.00" departSpeed="31.13" departDelay="0.00" arrival="23.00" arrivalLane="end_0" arrivalPos="500.00" arrivalSpeed="31.13" duration="23.00" routeLength="700.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_priority.0" vType="tflow" speedFactor="1.12" vaporized=""/>
     <tripinfo id="priority.1" depart="2.00" departLane="middle_0" departPos="800.00" departSpeed="24.37" departDelay="-0.30" arrival="31.00" arrivalLane="end_0" arrivalPos="500.00" arrivalSpeed="24.37" duration="29.00" routeLength="700.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_priority.1" vType="tflow" speedFactor="0.88" vaporized=""/>
     <tripinfo id="priority.2" depart="4.00" departLane="middle_0" departPos="800.00" departSpeed="26.89" departDelay="-0.60" arrival="32.00" arrivalLane="end_0" arrivalPos="500.00" arrivalSpeed="26.99" duration="28.00" routeLength="700.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="3.32" rerouteNo="0" devices="tripinfo_priority.2" vType="tflow" speedFactor="1.02" vaporized=""/>

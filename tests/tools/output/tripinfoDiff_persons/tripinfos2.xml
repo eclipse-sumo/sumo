@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <personinfo id="ped35" depart="152.98" type="ped_pedestrian">
         <walk depart="153.00" departPos="0.00" arrival="240.00" arrivalPos="42.95" duration="87.00" routeLength="105.35" timeLoss="12.19" maxSpeed="1.41"/>
         <access stop="963600646" duration="6.00" routeLength="9.49"/>

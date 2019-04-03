@@ -1,5 +1,5 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+	xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="bus" vClass="bus"/>
     <flow id="bus" type="bus" line="bus" from="beg" to="end" begin="0" end="500" period="100">
         <stop busStop="beg_0" until="0"/>

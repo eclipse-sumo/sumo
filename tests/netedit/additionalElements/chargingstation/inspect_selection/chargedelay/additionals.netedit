@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- generated on 25.03.2019 15:57:22 by Eclipse SUMO netedit Version v1_1_0+1328-1ffdf7a53c
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.5_from_25Mar093253.1884/netedit.gui/additionalElements/chargingstation/inspect_selection/chargedelay\input_net.net.xml"/>
@@ -51,7 +51,7 @@
 </configuration>
 -->
 
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/additional_file.xsd">
     <chargingStation id="chargingStationA" name="chargingStation" chargeDelay="6.30" lane="gneE0_0" startPos="5" endPos="10">
         <param key="KeyA1" value="valueA1"/>
         <param key="KeyA2" value="valueA3"/>

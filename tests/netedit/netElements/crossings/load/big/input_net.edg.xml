@@ -6,7 +6,7 @@ are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
 SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <sumo-net-file value="C:\Proyectos\Sumo_Trunk\tests\netedit\netElements\crossings\load_big\input_net.net.xml"/>
@@ -30,7 +30,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<edges version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+<edges version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/edges_file.xsd">
     <edge id="-100944802#0" from="1166137172" to="1166137168" name="Alexanderstraße" priority="2" type="highway.service" numLanes="1" speed="8.33" shape="3952.93,2519.47 4087.13,2416.63 4062.24,2385.42" allow="delivery bicycle pedestrian"/>
     <edge id="-100944802#1" from="1273546310" to="1166137172" name="Alexanderstraße" priority="2" type="highway.service" numLanes="1" speed="8.33" allow="delivery bicycle pedestrian"/>
     <edge id="-102408133#0" from="1182601208" to="1182601207" priority="2" type="highway.service" numLanes="1" speed="5.56" shape="3918.43,1727.16 3906.38,1723.96 3890.74,1730.35 3879.07,1734.12 3861.91,1733.52" allow="delivery bicycle pedestrian"/>

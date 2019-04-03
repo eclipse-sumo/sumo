@@ -2,7 +2,7 @@
 <!-- generated on 2019-01-15 10:11:11.417125 by $Id$ via randomTrips.py
   options:
 -->
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="rail_rail" vClass="rail">
     </vType>
     <trip id="rail1" depart="10" departLane="best" departSpeed="max" from="T7_0" to="T18_0" type="rail_rail"/>

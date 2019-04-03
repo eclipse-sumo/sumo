@@ -6,7 +6,7 @@ are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
 SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="motorway.net.xml"/>
@@ -31,7 +31,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <tripinfo id="overtaking" depart="0.00" departLane="beg_0" departPos="2968.50" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="20.00" arrivalLane="beg2_0" arrivalPos="10.00" arrivalPosLat="1.00" arrivalSpeed="13.00" duration="20.00" routeLength="43.00" waitingTime="12.00" waitingCount="1" stopTime="0.00" timeLoss="18.57" rerouteNo="0" devices="tripinfo_overtaking" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
     <tripinfo id="overtaking2" depart="10.00" departLane="beg_0" departPos="2848.50" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="41.00" arrivalLane="beg2_0" arrivalPos="10.00" arrivalPosLat="1.00" arrivalSpeed="13.00" duration="31.00" routeLength="163.00" waitingTime="14.00" waitingCount="1" stopTime="0.00" timeLoss="26.24" rerouteNo="0" devices="tripinfo_overtaking2" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
     <tripinfo id="overtaking3" depart="20.00" departLane="beg_1" departPos="2848.50" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="64.00" arrivalLane="beg2_0" arrivalPos="10.00" arrivalPosLat="1.20" arrivalSpeed="13.00" duration="44.00" routeLength="163.00" waitingTime="23.00" waitingCount="3" stopTime="0.00" timeLoss="39.16" rerouteNo="0" devices="tripinfo_overtaking3" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>

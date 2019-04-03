@@ -6,7 +6,7 @@ are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
 SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -35,7 +35,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <tripinfo id="0" depart="0.00" departLane="" departPos="0.00" departSpeed="27.81" departDelay="0.00" arrival="126.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="27.80" duration="126.00" routeLength="2487.60" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_0" vType="t2" speedFactor="1.00" vaporized=""/>
     <tripinfo id="1" depart="10.00" departLane="" departPos="0.00" departSpeed="27.81" departDelay="0.00" arrival="136.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="27.80" duration="126.00" routeLength="2487.60" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_1" vType="t2" speedFactor="1.00" vaporized=""/>
     <tripinfo id="2" depart="20.00" departLane="" departPos="0.00" departSpeed="27.81" departDelay="0.00" arrival="146.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="27.80" duration="126.00" routeLength="2487.60" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_2" vType="t2" speedFactor="1.00" vaporized=""/>

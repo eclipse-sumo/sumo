@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- generated on 11.03.2019 08:25:02 by Eclipse SUMO netedit Version v1_1_0+1177-ae4e665b46
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.11Mar081741.2404/netedit.gui/additionalElements/containerstop/inspect_selection/lines\input_net.net.xml"/>
@@ -50,7 +50,7 @@
 </configuration>
 -->
 
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/additional_file.xsd">
     <containerStop id="containerStopA" name="containerStop" lane="gneE0_0" friendlyPos="1" lines="commonLine1 commonLine2" startPos="5" endPos="10">
         <param key="KeyA1" value="valueA1"/>
         <param key="KeyA2" value="valueA3"/>

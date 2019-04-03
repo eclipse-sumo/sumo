@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- generated on Thu 19 Apr 2018 08:02:46 AM CEST by Eclipse SUMO netedit Version 8c9a02c
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <sumo-net-file value="nojoin.net.xml"/>
@@ -30,7 +30,7 @@
 </configuration>
 -->
 
-<types version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/types_file.xsd">
+<types version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/types_file.xsd">
     <type id="cycleway.lane" allow="bicycle" bikeLaneWidth="1.00"/>
     <type id="cycleway.lane|highway.primary" priority="9" numLanes="2" speed="13.90" disallow="tram rail_urban rail rail_electric pedestrian ship" oneway="0" sidewalkWidth="3.00" bikeLaneWidth="1.00"/>
     <type id="cycleway.lane|highway.residential" priority="4" numLanes="1" speed="13.90" disallow="tram rail_urban rail rail_electric pedestrian ship" oneway="0" sidewalkWidth="2.00" bikeLaneWidth="1.00"/>

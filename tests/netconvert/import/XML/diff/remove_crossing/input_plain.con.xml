@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<connections version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+<connections version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/connections_file.xsd">
     <!-- Deleted Elements -->
     <delete from="206889079#10" fromLane="0" to="206889079#11" toLane="0"/>
     <crossing edges="220198808#2 206889079#10" node="C" discard="true"/>

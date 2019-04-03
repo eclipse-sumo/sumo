@@ -62,7 +62,7 @@ OptionsCont::getOptions() {
 
 OptionsCont::OptionsCont()
     : myAddresses(), myValues(), myDeprecatedSynonymes(), myHaveInformedAboutDeprecatedDivider(false) {
-    myCopyrightNotices.push_back("Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; http://sumo.dlr.de");
+    myCopyrightNotices.push_back("Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de");
 }
 
 
@@ -782,7 +782,7 @@ OptionsCont::writeConfiguration(std::ostream& os, const bool filled,
     if (!inComment) {
         writeXMLHeader(os, false);
     }
-    os << "<configuration xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.dlr.de/xsd/";
+    os << "<configuration xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"https://sumo.dlr.de/xsd/";
     if (myAppName == "sumo-gui") {
         os << "sumo";
     } else if (myAppName == "netedit") {

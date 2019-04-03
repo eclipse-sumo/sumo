@@ -1,4 +1,4 @@
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/additional_file.xsd">
     <busStop id="busStop_gneE1_0_0" lane="gneE1_0" startPos="42.01" endPos="50.00" friendlyPos="1" blockMovement="1"/>
     <chargingStation id="chargingStation_gneE1_0_0" lane="gneE1_0" startPos="21.94" endPos="31.94" friendlyPos="1" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="0.00" blockMovement="1"/>
     <containerStop id="containerStop_gneE1_0_0" lane="gneE1_0" startPos="31.87" endPos="41.87" friendlyPos="1" blockMovement="1"/>

@@ -6,7 +6,7 @@ are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
 SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
 
     <input>
         <sumo-net-file value="SC4.net.xml"/>
@@ -26,7 +26,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+<edges version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/edges_file.xsd">
     <edge id="237107504#2" from="cluster_2515519354_2515519360_254853488_254905633_9801927" to="cluster_502188736_9805207" priority="11" type="highway.trunk" numLanes="2" speed="13.41" shape="148431.87,243582.45 148415.45,243590.00 148404.54,243596.77 148397.07,243602.15 148385.05,243611.94 148368.41,243627.04 148353.23,243641.62 148344.48,243648.88 148333.43,243655.61" spreadType="center"/>
     <edge id="4049871#1" from="cluster_2093621882_502188926_9805204" to="cluster_502188736_9805207" priority="11" type="highway.trunk" numLanes="2" speed="13.41" shape="148344.03,243684.78 148345.03,243681.47 148345.53,243678.05 148345.54,243674.59 148345.04,243671.16 148344.04,243667.85" spreadType="center"/>
     <edge id="4049871#3" from="cluster_502188736_9805207" to="cluster_9805200_9805210" priority="11" type="highway.trunk" numLanes="2" speed="13.41" shape="148333.43,243655.61 148328.40,243653.52 148323.03,243652.63 148317.59,243652.98 148312.38,243654.57" spreadType="center"/>

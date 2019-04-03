@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- generated on 26.01.2019 11:26:52 by Eclipse SUMO netedit Version v1_1_0+0076-a16c2aae75
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan165051.364/netedit.gui/additionalElements/e3detector/create/file\input_net.net.xml"/>
@@ -49,7 +49,7 @@
 </configuration>
 -->
 
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/additional_file.xsd">
     <e3Detector id="e3Detector_0" pos="17.00,5.00" freq="900.00" file="myOwnFile.txt">
         <detEntry lane="gneE0_6" pos="24.00"/>
         <detExit lane="gneE0_5" pos="24.00"/>

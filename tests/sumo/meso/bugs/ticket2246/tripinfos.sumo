@@ -6,7 +6,7 @@ are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
 SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -37,7 +37,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <tripinfo id="flow.0" depart="0.00" departLane="" departPos="0.00" departSpeed="13.89" departDelay="0.00" arrival="206.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="13.89" duration="206.00" routeLength="1500.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="97.52" rerouteNo="0" devices="tripinfo_flow.0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
     <tripinfo id="flow.1" depart="1.00" departLane="" departPos="0.00" departSpeed="12.71" departDelay="0.00" arrival="212.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="13.89" duration="211.00" routeLength="1500.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="102.96" rerouteNo="0" devices="tripinfo_flow.1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
     <tripinfo id="flow.2" depart="2.00" departLane="" departPos="0.00" departSpeed="11.71" departDelay="0.00" arrival="219.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="13.89" duration="217.00" routeLength="1500.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="108.41" rerouteNo="0" devices="tripinfo_flow.2" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>

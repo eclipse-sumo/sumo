@@ -1,4 +1,4 @@
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- custom type is defined in input_additional2.add.xml for each test case -->
     <vType id="fast" sigma="0.5" speedFactor="normc(1,0.2,0.5,2)" />
     <vType id="slow" sigma="0.5" speedFactor="normc(0.8,0.1,0.5,1.5)" guiShape="passenger/van"/>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- generated on Sat Mar  2 10:08:47 2019 by Eclipse SUMO Version v1_1_0+0435-678c69824b
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>
@@ -22,7 +22,7 @@
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_1_0+0435-678c69824b" time="500.00">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/state_file.xsd" version="v1_1_0+0435-678c69824b" time="500.00">
     <route id="!veh100" state="0" edges="gneE0 gneE3"/>
     <route id="!veh100!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
     <route id="!veh100!var#2" state="0" edges="gneE0 gneE1 gneE2 gneE3"/>

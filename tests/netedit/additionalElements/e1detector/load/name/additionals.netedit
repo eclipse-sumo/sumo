@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- generated on 19.11.2018 12:56:56 by Eclipse SUMO netedit Version v1_0_0+0979-5758048824
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.19Nov125621.5932/netedit.gui/additionalElements/e1detector/load/name\input_net.net.xml"/>
@@ -50,7 +50,7 @@
 </configuration>
 -->
 
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/additional_file.xsd">
     <e1Detector id="E1_01" vTypes="taxi bus" lane="gneE1_0" pos="12.00" freq="120.00" file="fileA.txt" friendlyPos="1"/>
     <e1Detector id="E1_02" name="custom Name" vTypes="taxi bus" lane="gneE1_0" pos="15.00" freq="120.00" file="fileA.txt" friendlyPos="1"/>
 </additional>

@@ -6,7 +6,7 @@ are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
 SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -41,7 +41,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <tripinfo id="tram3" depart="10.00" departLane="TrightLoop_1_0" departPos="46.10" departSpeed="21.21" departDelay="0.00" arrival="610.00" arrivalLane="TleftLoop_1_0" arrivalPos="400.00" arrivalSpeed="16.02" duration="600.00" routeLength="10295.68" waitingTime="30.00" waitingCount="3" stopTime="0.00" timeLoss="290.26" rerouteNo="1" devices="vehroute_tram3 tripinfo_tram3 routing_tram3" vType="RB628" speedFactor="1.00" vaporized=""/>
     <tripinfo id="tram8" depart="210.00" departLane="Tdepot_1_0" departPos="46.10" departSpeed="9.68" departDelay="0.00" arrival="2173.00" arrivalLane="Tdepot_1_0" arrivalPos="150.00" arrivalSpeed="7.35" duration="1963.00" routeLength="31008.35" waitingTime="156.00" waitingCount="8" stopTime="63.00" timeLoss="962.93" rerouteNo="18" devices="vehroute_tram8 tripinfo_tram8 routing_tram8" vType="RB628" speedFactor="1.00" vaporized=""/>
     <tripinfo id="tram5" depart="100.00" departLane="Tdepot_1_0" departPos="46.10" departSpeed="12.38" departDelay="0.00" arrival="2567.00" arrivalLane="Tdepot_1_0" arrivalPos="150.00" arrivalSpeed="7.35" duration="2467.00" routeLength="40247.98" waitingTime="54.00" waitingCount="9" stopTime="84.00" timeLoss="1159.20" rerouteNo="22" devices="vehroute_tram5 tripinfo_tram5 routing_tram5" vType="RB628" speedFactor="1.00" vaporized=""/>

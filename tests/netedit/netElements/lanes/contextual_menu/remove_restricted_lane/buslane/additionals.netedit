@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- generated on 11.03.2019 08:53:43 by Eclipse SUMO netedit Version v1_1_0+1184-22a37878bd
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.5_from_08Mar091225.804/netedit.gui/netElements/lanes/contextual_menu/remove_restricted_lane/buslane\input_net.net.xml"/>
@@ -51,7 +51,7 @@
 </configuration>
 -->
 
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/additional_file.xsd">
     <busStop id="busStop1" lane="gneE0_0" friendlyPos="1" startPos="23.78" endPos="30.38"/>
     <busStop id="busStop2" lane="gneE1_0" friendlyPos="1" startPos="20.63" endPos="30.63"/>
     <busStop id="busStop_-gneE2_0_3" lane="-gneE2_0" friendlyPos="1" startPos="38.60" endPos="48.60"/>

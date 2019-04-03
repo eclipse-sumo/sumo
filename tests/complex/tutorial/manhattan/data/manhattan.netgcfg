@@ -3,7 +3,7 @@
 <!-- generated on Mon Mar 25 08:13:01 2019 by Eclipse SUMO netgenerate Version v1_0_1+0645-93703db
 -->
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
 
     <grid_network>
         <grid value="true"/>

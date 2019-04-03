@@ -1,4 +1,4 @@
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/routes_file.xsd">
 
 <vType id="bicycle" vClass="bicycle" laneChangeModel="SL2015" lcAssertive="1" lcImpatience="1" lcTimeToImpatience="1" accel="0.5" decel="1.0" latAlignment="center" lcTurnAlignmentDistance="10" sigma="0" length="2" minGap="0.4" maxSpeed="6" speedFactor="1.44" color="0,1,0"/>
 <vType id="truck" vClass="truck" laneChangeModel="SL2015" lcTurnAlignmentDistance="25" accel="0.8" decel="5.0" sigma="0.5" tau="1.5" length="10" minGap="3.0" maxSpeed="20" speedFactor="0.81" />

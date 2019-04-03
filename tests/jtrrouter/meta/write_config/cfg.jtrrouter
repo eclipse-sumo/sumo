@@ -3,7 +3,7 @@
 <!-- generated on Wed Aug 15 14:27:01 2018 by Eclipse SUMO jtrrouter Version 7cc56db
 -->
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/jtrrouterConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/jtrrouterConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>

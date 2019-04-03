@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- generated on Tue 19 Jun 2018 09:29:14 PM CEST by Eclipse SUMO netedit Version 5755134
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <sumo-net-file value="net.net.xml"/>
@@ -23,7 +23,7 @@
 </configuration>
 -->
 
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/additional_file.xsd">
     <parkingArea id="parkC0C1" lane="C0C1_0" startPos="35" endPos="55" roadsideCapacity="1" width="2.00" length="5"/>
     <parkingArea id="parkA2A3" lane="A2A3_0" startPos="35" endPos="55" roadsideCapacity="1" width="2.00" length="5"/>
     <parkingArea id="parkA1A2" lane="A1A2_0" startPos="35" endPos="55" roadsideCapacity="1" width="2.00" length="5"/>

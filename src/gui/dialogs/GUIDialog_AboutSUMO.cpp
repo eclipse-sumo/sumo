@@ -61,7 +61,7 @@ GUIDialog_AboutSUMO::GUIDialog_AboutSUMO(FXWindow* parent) :
     (new FXLinkLabel(this, "SPDX-License-Identifier: EPL-2.0", nullptr, GUIDesignLabelAboutInfo))->setTipText("http://www.eclipse.org/legal/epl-v20.html");
 
     // link to homepage
-    (new FXLinkLabel(this, "http://sumo.dlr.de", nullptr, GUIDesignLabelCenter))->setTipText("http://sumo.dlr.de");
+    (new FXLinkLabel(this, "https://sumo.dlr.de", nullptr, GUIDesignLabelCenter))->setTipText("https://sumo.dlr.de");
 
     // centered ok-button
     FXHorizontalFrame* buttonFrame = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
