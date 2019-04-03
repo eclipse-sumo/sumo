@@ -281,6 +281,9 @@ MELoop::buildSegmentsFor(const MSEdge& e, const OptionsCont& oc) {
 
 MESegment*
 MELoop::getSegmentForEdge(const MSEdge& e, double pos) {
+    if (e.getNumericalID() >= (int)myEdges2FirstSegments.size()) {
+        return nullptr;
+    }
     MESegment* s = myEdges2FirstSegments[e.getNumericalID()];
     if (pos > 0) {
         double cpos = 0;
