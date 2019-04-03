@@ -1053,7 +1053,11 @@ GNEFrame::AttributesEditor::RowEditor::refreshRow(const std::string& value, bool
             myChoicesCombo->disable();
         }
     } else if (myBoolCheckButton->shown()) {
-        myBoolCheckButton->setCheck(GNEAttributeCarrier::parse<bool>(value));
+        if (GNEAttributeCarrier::canParse<bool>(value)) {
+            myBoolCheckButton->setCheck(GNEAttributeCarrier::parse<bool>(value));
+        } else {
+            myBoolCheckButton->setCheck(false);
+        }
         // disable depending of disjointAttributeEnabled
         if (disjointAttributeEnabled) {
             myBoolCheckButton->enable();
