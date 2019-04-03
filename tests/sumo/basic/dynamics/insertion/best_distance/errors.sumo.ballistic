@@ -1,0 +1,4 @@
+Warning: Teleporting vehicle 'f.33'; waited too long (wrong lane), lane='end_1', time=425.00.
+Warning: Vehicle 'f.33' ends teleporting on edge 'end2', time 425.00.
+Warning: Teleporting vehicle 'f.35'; waited too long (wrong lane), lane='end_1', time=426.00.
+Warning: Vehicle 'f.35' ends teleporting on edge 'end2', time 430.00.
