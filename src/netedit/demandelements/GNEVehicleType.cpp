@@ -539,6 +539,164 @@ GNEVehicleType::getHierarchyName() const {
     return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID) ;
 }
 
+
+void 
+GNEVehicleType::overwriteVType(GNEDemandElement *vType, SUMOVTypeParameter* newVTypeParameter, GNEUndoList* undoList) {
+    // open undo list
+    undoList->p_begin("update default " + vType->getTagStr() + " '" + DEFAULT_VTYPE_ID + "'");
+    // overwritte all values of default VType
+    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_ACCEL, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_ACCEL, toString(newVTypeParameter->getCFParam(SUMO_ATTR_ACCEL, 0)), undoList);
+    }
+    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_DECEL, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_DECEL, toString(newVTypeParameter->getCFParam(SUMO_ATTR_DECEL, 0)), undoList);
+    }
+    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_APPARENTDECEL, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_APPARENTDECEL, toString(newVTypeParameter->getCFParam(SUMO_ATTR_APPARENTDECEL, 0)), undoList);
+    }
+    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_EMERGENCYDECEL, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_EMERGENCYDECEL, toString(newVTypeParameter->getCFParam(SUMO_ATTR_EMERGENCYDECEL, 0)), undoList);
+    }
+    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_SIGMA, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_SIGMA, toString(newVTypeParameter->getCFParam(SUMO_ATTR_SIGMA, 0)), undoList);
+    }
+    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_TAU, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_TAU, toString(newVTypeParameter->getCFParam(SUMO_ATTR_TAU, 0)), undoList);
+    }
+    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_COLLISION_MINGAP_FACTOR, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_COLLISION_MINGAP_FACTOR, toString(newVTypeParameter->getCFParam(SUMO_ATTR_COLLISION_MINGAP_FACTOR, 0)), undoList);
+    }
+    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_TMP1, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_TMP1, toString(newVTypeParameter->getCFParam(SUMO_ATTR_TMP1, 0)), undoList);
+    }
+    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_TMP2, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_TMP2, toString(newVTypeParameter->getCFParam(SUMO_ATTR_TMP2, 0)), undoList);
+    }
+    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_TMP3, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_TMP3, toString(newVTypeParameter->getCFParam(SUMO_ATTR_TMP3, 0)), undoList);
+    }
+    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_TMP4, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_TMP4, toString(newVTypeParameter->getCFParam(SUMO_ATTR_TMP4, 0)), undoList);
+    }
+    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_TMP5, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_TMP5, toString(newVTypeParameter->getCFParam(SUMO_ATTR_TMP5, 0)), undoList);
+    }
+    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_CF_PWAGNER2009_TAULAST, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_PWAGNER2009_TAULAST, toString(newVTypeParameter->getCFParam(SUMO_ATTR_CF_PWAGNER2009_TAULAST, 0)), undoList);
+    }
+    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_CF_PWAGNER2009_APPROB, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_PWAGNER2009_APPROB, toString(newVTypeParameter->getCFParam(SUMO_ATTR_CF_PWAGNER2009_APPROB, 0)), undoList);
+    }
+    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_CF_IDMM_ADAPT_FACTOR, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_IDMM_ADAPT_FACTOR, toString(newVTypeParameter->getCFParam(SUMO_ATTR_CF_IDMM_ADAPT_FACTOR, 0)), undoList);
+    }
+    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_CF_IDMM_ADAPT_TIME, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_IDMM_ADAPT_TIME, toString(newVTypeParameter->getCFParam(SUMO_ATTR_CF_IDMM_ADAPT_TIME, 0)), undoList);
+    }
+    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_CF_WIEDEMANN_SECURITY, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_WIEDEMANN_SECURITY, toString(newVTypeParameter->getCFParam(SUMO_ATTR_CF_WIEDEMANN_SECURITY, 0)), undoList);
+    }
+    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_CF_WIEDEMANN_ESTIMATION, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_WIEDEMANN_ESTIMATION, toString(newVTypeParameter->getCFParam(SUMO_ATTR_CF_WIEDEMANN_ESTIMATION, 0)), undoList);
+    }
+    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_TRAIN_TYPE, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_TRAIN_TYPE, toString(newVTypeParameter->getCFParam(SUMO_ATTR_TRAIN_TYPE, 0)), undoList);
+    }
+    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_K, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_K, toString(newVTypeParameter->getCFParam(SUMO_ATTR_K, 0)), undoList);
+    }
+    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_CF_KERNER_PHI, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_KERNER_PHI, toString(newVTypeParameter->getCFParam(SUMO_ATTR_CF_KERNER_PHI, 0)), undoList);
+    }
+    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_CF_IDM_DELTA, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_IDM_DELTA, toString(newVTypeParameter->getCFParam(SUMO_ATTR_CF_IDM_DELTA, 0)), undoList);
+    }
+    if (!newVTypeParameter->getCFParamString(SUMO_ATTR_CF_IDM_STEPPING, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_IDM_STEPPING, toString(newVTypeParameter->getCFParam(SUMO_ATTR_CF_IDM_STEPPING, 0)), undoList);
+    }
+    if (newVTypeParameter->wasSet(VTYPEPARS_LENGTH_SET)) {
+        vType->setAttribute(SUMO_ATTR_LENGTH, toString(newVTypeParameter->length), undoList);
+    }
+    if (newVTypeParameter->wasSet(VTYPEPARS_MINGAP_SET)) {
+        vType->setAttribute(SUMO_ATTR_MINGAP, toString(newVTypeParameter->minGap), undoList);
+    }
+    if (newVTypeParameter->wasSet(VTYPEPARS_MAXSPEED_SET)) {
+        vType->setAttribute(SUMO_ATTR_MAXSPEED, toString(newVTypeParameter->maxSpeed), undoList);
+    }
+    if (newVTypeParameter->wasSet(VTYPEPARS_SPEEDFACTOR_SET)) {
+        vType->setAttribute(SUMO_ATTR_SPEEDFACTOR, toString(newVTypeParameter->speedFactor.getParameter()[0]), undoList);
+    }
+    if (newVTypeParameter->wasSet(VTYPEPARS_SPEEDFACTOR_SET)) {
+        vType->setAttribute(SUMO_ATTR_SPEEDDEV, toString(newVTypeParameter->speedFactor.getParameter()[1]), undoList);
+    }
+    if (newVTypeParameter->wasSet(VTYPEPARS_COLOR_SET)) {
+        vType->setAttribute(SUMO_ATTR_COLOR, toString(newVTypeParameter->color), undoList);
+    }
+    if (newVTypeParameter->wasSet(VTYPEPARS_EMISSIONCLASS_SET)) {
+        vType->setAttribute(SUMO_ATTR_EMISSIONCLASS, PollutantsInterface::getName(newVTypeParameter->emissionClass), undoList);
+    }
+    if (newVTypeParameter->wasSet(VTYPEPARS_SHAPE_SET)) {
+        vType->setAttribute(SUMO_ATTR_GUISHAPE, getVehicleShapeName(newVTypeParameter->shape), undoList);
+    }
+    if (newVTypeParameter->wasSet(VTYPEPARS_WIDTH_SET)) {
+        vType->setAttribute(SUMO_ATTR_WIDTH, toString(newVTypeParameter->width), undoList);
+    }
+    if (newVTypeParameter->wasSet(VTYPEPARS_HEIGHT_SET)) {
+        vType->setAttribute(SUMO_ATTR_HEIGHT, toString(newVTypeParameter->height), undoList);
+    }
+    if (newVTypeParameter->wasSet(VTYPEPARS_IMGFILE_SET)) {
+        vType->setAttribute(SUMO_ATTR_IMGFILE, toString(newVTypeParameter->imgFile), undoList);
+    }
+    if (newVTypeParameter->wasSet(VTYPEPARS_IMPATIENCE_SET)) {
+        vType->setAttribute(SUMO_ATTR_IMPATIENCE, toString(newVTypeParameter->impatience), undoList);
+    }
+    if (newVTypeParameter->wasSet(VTYPEPARS_LANE_CHANGE_MODEL_SET)) {
+        vType->setAttribute(SUMO_ATTR_LANE_CHANGE_MODEL, SUMOXMLDefinitions::LaneChangeModels.getString(newVTypeParameter->lcModel), undoList);
+    }
+    if (newVTypeParameter->wasSet(VTYPEPARS_CAR_FOLLOW_MODEL)) {
+        vType->setAttribute(SUMO_ATTR_CAR_FOLLOW_MODEL, SUMOXMLDefinitions::CarFollowModels.getString(newVTypeParameter->cfModel), undoList);
+    }
+    if (newVTypeParameter->wasSet(VTYPEPARS_PERSON_CAPACITY)) {
+        vType->setAttribute(SUMO_ATTR_PERSON_CAPACITY, toString(newVTypeParameter->personCapacity), undoList);
+    }
+    if (newVTypeParameter->wasSet(VTYPEPARS_CONTAINER_CAPACITY)) {
+        vType->setAttribute(SUMO_ATTR_CONTAINER_CAPACITY, toString(newVTypeParameter->containerCapacity), undoList);
+    }
+    if (newVTypeParameter->wasSet(VTYPEPARS_BOARDING_DURATION)) {
+        vType->setAttribute(SUMO_ATTR_BOARDING_DURATION, toString(newVTypeParameter->boardingDuration), undoList);
+    }
+    if (newVTypeParameter->wasSet(VTYPEPARS_LOADING_DURATION)) {
+        vType->setAttribute(SUMO_ATTR_LOADING_DURATION, toString(newVTypeParameter->loadingDuration), undoList);
+    }
+    if (newVTypeParameter->wasSet(VTYPEPARS_LATALIGNMENT_SET)) {
+        vType->setAttribute(SUMO_ATTR_LATALIGNMENT, toString(newVTypeParameter->latAlignment), undoList);
+    }
+    if (newVTypeParameter->wasSet(VTYPEPARS_MINGAP_LAT_SET)) {
+        vType->setAttribute(SUMO_ATTR_MINGAP_LAT, toString(newVTypeParameter->minGapLat), undoList);
+    }
+    if (newVTypeParameter->wasSet(VTYPEPARS_MAXSPEED_LAT_SET)) {
+        vType->setAttribute(SUMO_ATTR_MAXSPEED_LAT, toString(newVTypeParameter->maxSpeedLat), undoList);
+    }
+    if (newVTypeParameter->wasSet(VTYPEPARS_ACTIONSTEPLENGTH_SET)) {
+        vType->setAttribute(SUMO_ATTR_ACTIONSTEPLENGTH, toString(newVTypeParameter->actionStepLength), undoList);
+    }
+    // parse generic parameters
+    std::string genericParametersStr;
+    // Generate an string using the following structure: "key1=value1|key2=value2|...
+    for (auto i : newVTypeParameter->getParametersMap()) {
+        genericParametersStr += i.first + "=" + i.second + "|";
+    }
+    // remove the last "|"
+    if (!genericParametersStr.empty()) {
+        genericParametersStr.pop_back();
+    }
+    if (genericParametersStr != vType->getGenericParametersStr()) {
+        vType->setAttribute(GNE_ATTR_GENERIC, genericParametersStr, undoList);
+    }
+    // close undo list
+    undoList->p_end();
+}
+
 // ===========================================================================
 // private
 // ===========================================================================
