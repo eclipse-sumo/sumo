@@ -144,6 +144,10 @@ GNEStopFrame::StopParentSelector::refreshStopParentSelector() {
     } else {
         myStopParentMatchBox->setNumVisible(20);
     }
+    // if myCurrentStopParent is nullptr but there ist myStopParentCandidates, set the first candidate as myCurrentStopParent
+    if ((myCurrentStopParent == nullptr) && (myStopParentCandidates.size() > 0)) {
+        myCurrentStopParent = myStopParentCandidates.front();
+    }
     // check if myCurrentStopParent exists
     bool found = false;
     for (int i = 0; i < (int)myStopParentCandidates.size(); i++) {
@@ -152,6 +156,7 @@ GNEStopFrame::StopParentSelector::refreshStopParentSelector() {
             found = true;
         }
     }
+    // show moduls depending of found
     if (found) {
         myStopFrameParent->myStopTypeSelector->showItemSelector(true);
     } else {
@@ -419,11 +424,13 @@ GNEStopFrame::addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCu
                 stopParameter.parametersSet |= STOP_END_SET;
             }
         }
+
         // obtain friendly position
         bool friendlyPosition = false;
         if (valuesMap.count(SUMO_ATTR_FRIENDLY_POS) > 0) {
             friendlyPosition = GNEAttributeCarrier::parse<bool>(valuesMap.at(SUMO_ATTR_FRIENDLY_POS));
         }
+
         // fill rest of parameters depending if it was edited
         if (valuesMap.count(SUMO_ATTR_DURATION) > 0) {
             stopParameter.duration = string2time(valuesMap.at(SUMO_ATTR_DURATION));
@@ -473,9 +480,9 @@ GNEStopFrame::addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCu
 
         // create it in RouteFrame
         GNERouteHandler::buildStop(myViewNet, true, stopParameter, myStopParentSelector->getCurrentStopParent(), friendlyPosition);
-
-    // stop sucesfully created, then return true
-    return true;
+        
+        // stop sucesfully created, then return true
+        return true;
     }
 }
 
