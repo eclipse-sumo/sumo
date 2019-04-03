@@ -106,8 +106,8 @@ RODUAFrame::addImportOptions() {
     oc.addSynonyme("weights.expand", "expand-weights", true);
     oc.addDescription("weights.expand", "Processing", "Expand weights behind the simulation's end");
 
-    oc.doRegister("weights.random-factor", new Option_Float(1.));
-    oc.addDescription("weights.random-factor", "Routing", "Edge weights for routing are dynamically disturbed by a random factor drawn uniformly from [1,FLOAT)");
+    //oc.doRegister("weights.random-factor", new Option_Float(1.));
+    //oc.addDescription("weights.random-factor", "Routing", "Edge weights for routing are dynamically disturbed by a random factor drawn uniformly from [1,FLOAT)");
 
     oc.doRegister("routing-algorithm", new Option_String("dijkstra"));
     oc.addDescription("routing-algorithm", "Processing", "Select among routing algorithms ['dijkstra', 'astar', 'CH', 'CHWrapper']");
