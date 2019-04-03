@@ -217,26 +217,22 @@ SUMOSAXReader::getSAXReader() {
 XERCES_CPP_NAMESPACE::InputSource*
 SUMOSAXReader::LocalSchemaResolver::resolveEntity(const XMLCh* const /* publicId */, const XMLCh* const systemId) {
     const std::string url = StringUtils::transcode(systemId);
-    const std::string::size_type pos = url.rfind("/");
+    const std::string::size_type pos = url.find("/xsd/");
     if (pos != std::string::npos) {
-        const std::string dir = url.substr(0, pos);
-        if (dir == "http://sumo.dlr.de/xsd" || dir == "http://sumo.dlr.de/xsd/amitran" ||
-                dir == "http://sumo.dlr.de/xsd" || dir == "http://sumo.dlr.de/xsd/amitran") {
-            myHandler->setSchemaSeen();
-            const char* sumoPath = std::getenv("SUMO_HOME");
-            if (sumoPath == nullptr) {
-                WRITE_WARNING("Environment variable SUMO_HOME is not set, schema resolution will use slow website lookups.");
-                return nullptr;
-            }
-            const std::string file = sumoPath + std::string("/data/xsd") + url.substr(url.find("/xsd/") + 4);
-            if (FileHelpers::isReadable(file)) {
-                XMLCh* t = XERCES_CPP_NAMESPACE::XMLString::transcode(file.c_str());
-                XERCES_CPP_NAMESPACE::InputSource* const result = new XERCES_CPP_NAMESPACE::LocalFileInputSource(t);
-                XERCES_CPP_NAMESPACE::XMLString::release(&t);
-                return result;
-            } else {
-                WRITE_WARNING("Cannot find local schema '" + file + "', will try website lookup.");
-            }
+        myHandler->setSchemaSeen();
+        const char* sumoPath = std::getenv("SUMO_HOME");
+        if (sumoPath == nullptr) {
+            WRITE_WARNING("Environment variable SUMO_HOME is not set, schema resolution will use slow website lookups.");
+            return nullptr;
+        }
+        const std::string file = sumoPath + std::string("/data") + url.substr(pos);
+        if (FileHelpers::isReadable(file)) {
+            XMLCh* t = XERCES_CPP_NAMESPACE::XMLString::transcode(file.c_str());
+            XERCES_CPP_NAMESPACE::InputSource* const result = new XERCES_CPP_NAMESPACE::LocalFileInputSource(t);
+            XERCES_CPP_NAMESPACE::XMLString::release(&t);
+            return result;
+        } else {
+            WRITE_WARNING("Cannot read local schema '" + file + "', will try website lookup.");
         }
     }
     return nullptr;
