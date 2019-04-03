@@ -14,3 +14,6 @@ plain_net_plain_sim
 
 # test correct object positioning in lefthand network
 lefthand
+
+# parsing a network with taz information
+net_with_taz
