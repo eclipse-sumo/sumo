@@ -812,7 +812,10 @@ MSVehicle::Influencer::postProcessRemoteControl(MSVehicle* v) {
         myRemotePos = myRemoteLane->getLength();
     }
     if (myRemoteLane != nullptr && fabs(myRemotePosLat) < 0.5 * (myRemoteLane->getWidth() + v->getVehicleType().getWidth())) {
-        myRemoteLane->forceVehicleInsertion(v, myRemotePos, MSMoveReminder::NOTIFICATION_TELEPORT, myRemotePosLat);
+        MSMoveReminder::Notification notify = v->getDeparture() == NOT_YET_DEPARTED
+            ? MSMoveReminder::NOTIFICATION_DEPARTED
+            : MSMoveReminder::NOTIFICATION_TELEPORT_ARRIVED;
+        myRemoteLane->forceVehicleInsertion(v, myRemotePos, notify, myRemotePosLat);
         v->updateBestLanes();
         if (!wasOnRoad) {
             v->drawOutsideNetwork(false);
