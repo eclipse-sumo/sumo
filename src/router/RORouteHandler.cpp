@@ -547,8 +547,8 @@ RORouteHandler::closePersonFlow() {
         } else {
             SUMOTime depart = myVehicleParameter->depart;
             for (; i < myVehicleParameter->repetitionNumber; i++) {
-                depart += myVehicleParameter->repetitionOffset;
                 addFlowPerson(depart, baseID, i);
+                depart += myVehicleParameter->repetitionOffset;
             }
         }
     }
