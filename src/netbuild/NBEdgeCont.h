@@ -566,6 +566,9 @@ public:
     /// @brief add user specified roundabout
     void addRoundabout(const EdgeSet& roundabout);
 
+    /// @brief remove roundabout that contains the given node
+    void removeRoundabout(const NBNode* node);
+
     /// @brief mark edge priorities and prohibit turn-arounds for all roundabout edges
     void markRoundabouts();
 

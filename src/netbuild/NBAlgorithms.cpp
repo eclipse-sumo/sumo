@@ -161,6 +161,7 @@ NBNodeTypeComputer::computeNodeTypes(NBNodeCont& nc, NBTrafficLightLogicCont& tl
         NBNode* n = (*i).second;
         // the type may already be set from the data
         if (n->myType != NODETYPE_UNKNOWN && n->myType != NODETYPE_DEAD_END) {
+            n->myTypeWasGuessed = false;
             continue;
         }
         // check whether the node is a waterway node. Set to unregulated by default
@@ -208,6 +209,7 @@ NBNodeTypeComputer::computeNodeTypes(NBNodeCont& nc, NBTrafficLightLogicCont& tl
         }
         // save type
         n->myType = type;
+        n->myTypeWasGuessed = true;
     }
 }
 

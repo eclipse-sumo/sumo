@@ -1148,6 +1148,10 @@ NBEdgeCont::guessRoundabouts() {
         do {
             visited.insert(e);
             const EdgeVector& edges = e->getToNode()->getEdges();
+            if (e->getToNode()->getType() == NODETYPE_RIGHT_BEFORE_LEFT && !e->getToNode()->typeWasGuessed()) {
+                doLoop = false;
+                break;
+            }
             if (edges.size() < 2) {
                 doLoop = false;
                 break;
@@ -1234,6 +1238,18 @@ NBEdgeCont::addRoundabout(const EdgeSet& roundabout) {
             WRITE_WARNING("Ignoring duplicate roundabout: " + toString(roundabout));
         } else {
             myRoundabouts.insert(roundabout);
+        }
+    }
+}
+
+void
+NBEdgeCont::removeRoundabout(const NBNode* node) {
+    for (auto it = myRoundabouts.begin(); it != myRoundabouts.end(); ++it) {
+        for (NBEdge* e : *it) {
+            if (e->getToNode() == node) {
+                myRoundabouts.erase(it);
+                return;
+            }
         }
     }
 }

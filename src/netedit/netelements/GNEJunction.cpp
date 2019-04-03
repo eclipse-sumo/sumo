@@ -1219,7 +1219,11 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         }
         case SUMO_ATTR_TYPE: {
-            myNBNode.reinit(myNBNode.getPosition(), SUMOXMLDefinitions::NodeTypes.get(value));
+            SumoXMLNodeType type = SUMOXMLDefinitions::NodeTypes.get(value);
+            if (myNBNode.getType() == NODETYPE_PRIORITY && type == NODETYPE_RIGHT_BEFORE_LEFT) {
+                myNet->getNetBuilder()->getEdgeCont().removeRoundabout(&myNBNode);
+            }
+            myNBNode.reinit(myNBNode.getPosition(), type);
             break;
         }
         case SUMO_ATTR_POSITION: {

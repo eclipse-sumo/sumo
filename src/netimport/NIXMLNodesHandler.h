@@ -61,7 +61,7 @@ public:
      * @todo Options are only given to determine whether "flip-y" is set; maybe this should be done by giving a bool
      * @todo Why are options not const?
      */
-    NIXMLNodesHandler(NBNodeCont& nc, NBTrafficLightLogicCont& tlc,
+    NIXMLNodesHandler(NBNodeCont& nc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc,
                       OptionsCont& options);
 
 
@@ -72,7 +72,8 @@ public:
      */
     static NBNode* processNodeType(const SUMOSAXAttributes& attrs, NBNode* node, const std::string& nodeID, const Position& position,
                                    bool updateEdgeGeometries,
-                                   NBNodeCont& nc, NBTrafficLightLogicCont& tlc);
+                                   NBNodeCont& nc, NBEdgeCont& ec, 
+                                   NBTrafficLightLogicCont& tlc);
 
 protected:
     /// @name inherited from GenericSAXHandler
@@ -146,6 +147,9 @@ private:
 
     /// @brief The node container to add built nodes to
     NBNodeCont& myNodeCont;
+
+    /// @brief The node container to add built nodes to
+    NBEdgeCont& myEdgeCont;
 
     /// @brief The traffic lights container to add built tls to
     NBTrafficLightLogicCont& myTLLogicCont;

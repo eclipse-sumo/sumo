@@ -150,7 +150,7 @@ NILoader::load(OptionsCont& oc) {
 void
 NILoader::loadXML(OptionsCont& oc) {
     // load nodes
-    loadXMLType(new NIXMLNodesHandler(myNetBuilder.getNodeCont(),
+    loadXMLType(new NIXMLNodesHandler(myNetBuilder.getNodeCont(), myNetBuilder.getEdgeCont(),
                                       myNetBuilder.getTLLogicCont(), oc),
                 oc.getStringVector("node-files"), "nodes");
     // load the edges

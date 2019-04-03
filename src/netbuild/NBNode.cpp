@@ -263,7 +263,9 @@ NBNode::NBNode(const std::string& id, const Position& position,
     myDiscardAllCrossings(false),
     myCrossingsLoadedFromSumoNet(0),
     myDisplacementError(0),
-    myIsBentPriority(false) {
+    myIsBentPriority(false),
+    myTypeWasGuessed(false)
+{
     if (!SUMOXMLDefinitions::isValidNetID(myID)) {
         throw ProcessError("Invalid node id '" + myID + "'.");
     }
@@ -284,7 +286,9 @@ NBNode::NBNode(const std::string& id, const Position& position, NBDistrict* dist
     myDiscardAllCrossings(false),
     myCrossingsLoadedFromSumoNet(0),
     myDisplacementError(0),
-    myIsBentPriority(false) {
+    myIsBentPriority(false),
+    myTypeWasGuessed(false)
+{
     if (!SUMOXMLDefinitions::isValidNetID(myID)) {
         throw ProcessError("Invalid node id '" + myID + "'.");
     }

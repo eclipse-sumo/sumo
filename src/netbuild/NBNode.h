@@ -759,8 +759,13 @@ public:
     }
 
     /// @brief return whether a priority road turns at this node
-    bool isBentPriority() {
+    bool isBentPriority() const {
         return myIsBentPriority;
+    }
+
+    /// @brief return whether a priority road turns at this node
+    bool typeWasGuessed() const {
+        return myTypeWasGuessed;
     }
 
     /// @brief detects whether a given junction splits or merges lanes while keeping constant road width
@@ -869,6 +874,9 @@ private:
      * @note see NBEdgePriorityComputer
      */
     bool myIsBentPriority;
+
+    /// @brief whether the node type was guessed rather than loaded
+    bool myTypeWasGuessed;
 
 
 private:

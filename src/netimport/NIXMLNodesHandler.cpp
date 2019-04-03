@@ -49,12 +49,13 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NIXMLNodesHandler::NIXMLNodesHandler(NBNodeCont& nc,
+NIXMLNodesHandler::NIXMLNodesHandler(NBNodeCont& nc, NBEdgeCont& ec,
                                      NBTrafficLightLogicCont& tlc,
                                      OptionsCont& options) :
     SUMOSAXHandler("xml-nodes - file"),
     myOptions(options),
     myNodeCont(nc),
+    myEdgeCont(ec),
     myTLLogicCont(tlc),
     myLocation(nullptr),
     myLastParameterised(nullptr) {
@@ -156,7 +157,7 @@ NIXMLNodesHandler::addNode(const SUMOSAXAttributes& attrs) {
     if (myOptions.getBool("flip-y-axis")) {
         myPosition.mul(1.0, -1.0);
     }
-    node = processNodeType(attrs, node, myID, myPosition, updateEdgeGeometries, myNodeCont, myTLLogicCont);
+    node = processNodeType(attrs, node, myID, myPosition, updateEdgeGeometries, myNodeCont, myEdgeCont, myTLLogicCont);
     myLastParameterised = node;
 }
 
@@ -164,7 +165,7 @@ NIXMLNodesHandler::addNode(const SUMOSAXAttributes& attrs) {
 NBNode*
 NIXMLNodesHandler::processNodeType(const SUMOSAXAttributes& attrs, NBNode* node, const std::string& nodeID, const Position& position,
                                    bool updateEdgeGeometries,
-                                   NBNodeCont& nc, NBTrafficLightLogicCont& tlc) {
+                                   NBNodeCont& nc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc) {
     bool ok = true;
     // get the type
     SumoXMLNodeType type = NODETYPE_UNKNOWN;
@@ -190,6 +191,9 @@ NIXMLNodesHandler::processNodeType(const SUMOSAXAttributes& attrs, NBNode* node,
     } else {
         // patch information
         oldTLS = node->getControllingTLS();
+        if (node->getType() == NODETYPE_PRIORITY && type == NODETYPE_RIGHT_BEFORE_LEFT) {
+            ec.removeRoundabout(node);
+        }
         node->reinit(position, type, updateEdgeGeometries);
     }
     // process traffic light definition
@@ -276,7 +280,7 @@ NIXMLNodesHandler::addJoinCluster(const SUMOSAXAttributes& attrs) {
         myPosition.setz(attrs.get<double>(SUMO_ATTR_Z, myID.c_str(), ok));
     }
 
-    NBNode* node = processNodeType(attrs, nullptr, myID, myPosition, false, myNodeCont, myTLLogicCont);
+    NBNode* node = processNodeType(attrs, nullptr, myID, myPosition, false, myNodeCont, myEdgeCont, myTLLogicCont);
     if (ok) {
         myNodeCont.addCluster2Join(std::set<std::string>(ids.begin(), ids.end()), node);
     }

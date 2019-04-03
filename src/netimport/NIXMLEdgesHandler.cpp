@@ -450,7 +450,7 @@ void NIXMLEdgesHandler::addSplit(const SUMOSAXAttributes& attrs) {
             e.node = new NBNode(nodeID, myCurrentEdge->getGeometry().positionAtOffset(e.pos));
         }
         NIXMLNodesHandler::processNodeType(attrs, e.node, e.node->getID(), e.node->getPosition(), false,
-                                           myNodeCont, myTLLogicCont);
+                                           myNodeCont, myEdgeCont, myTLLogicCont);
         mySplits.push_back(e);
     }
 }
