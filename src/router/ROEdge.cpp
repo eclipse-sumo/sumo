@@ -74,10 +74,10 @@ ROEdge::ROEdge(const std::string& id, RONode* from, RONode* to, int index, const
         // TAZ edge, no lanes
         myCombinedPermissions = SVCAll;
     } else {
+        // TODO we should not calculate the boundary here, the position for the nodes is not valid yet
         myBoundary.add(from->getPosition());
         myBoundary.add(to->getPosition());
     }
-    // we cannot calculate the boundary here, the position for the nodes is not valid yet
 }
 
 
@@ -317,13 +317,9 @@ ROEdge::buildTimeLines(const std::string& measure, const bool boundariesOverride
 
 double
 ROEdge::getLengthGeometryFactor() const {
-    /* if (myFromJunction != 0 && myToJunction != 0) {
-        return MAX2(1.0, myFromJunction->getPosition().distanceTo(myToJunction->getPosition()) / myLength);
-    } else {
-        return 1.0;
-    }*/
     return myLanes.empty() ? 1. : myLanes[0]->getShape().length() / myLanes[0]->getLength();
 }
+
 
 bool
 ROEdge::allFollowersProhibit(const ROVehicle* const vehicle) const {
