@@ -4,3 +4,9 @@ search_string:<lane id="middle_1">
 search_file:rawdump
 full_description:vehicle changes to late
 brief_description:see #359
+
+[Reported by leo at 03Apr14:43:52]
+search_string:emergency braking
+search_file:errors
+full_description:#5413
+brief_description:#5413
