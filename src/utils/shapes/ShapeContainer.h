@@ -126,11 +126,13 @@ public:
         return myPOIs;
     }
 
-protected:
+//protected:
     /// @brief add polygon
+    /// @note  Responsibility for deletion is transferred to ShapeContainer
     virtual bool add(SUMOPolygon* poly, bool ignorePruning = false);
 
     /// @brief add poi
+    /// @note  Responsibility for deletion is transferred to ShapeContainer
     virtual bool add(PointOfInterest* poi, bool ignorePruning = false);
 
 protected:

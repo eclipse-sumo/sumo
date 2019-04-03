@@ -1541,6 +1541,16 @@ TraCIServer::readTypeCheckingStringList(tcpip::Storage& inputStorage, std::vecto
 
 
 bool
+TraCIServer::readTypeCheckingDoubleList(tcpip::Storage& inputStorage, std::vector<double>& into) {
+    if (inputStorage.readUnsignedByte() != libsumo::TYPE_DOUBLELIST) {
+        return false;
+    }
+    into = inputStorage.readDoubleList();
+    return true;
+}
+
+
+bool
 TraCIServer::readTypeCheckingColor(tcpip::Storage& inputStorage, libsumo::TraCIColor& into) {
     if (inputStorage.readUnsignedByte() != libsumo::TYPE_COLOR) {
         return false;

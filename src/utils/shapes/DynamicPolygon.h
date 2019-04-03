@@ -21,6 +21,7 @@
 
 #include <memory>
 #include "SUMOPolygon.h"
+#include "utils/common/WrappingCommand.h"
 
 class SUMOTrafficObject;
 

@@ -340,6 +340,8 @@ TRACI_CONST int TYPE_STRING = 0x0C;
 TRACI_CONST int TYPE_STRINGLIST = 0x0E;
 // compound object
 TRACI_CONST int TYPE_COMPOUND = 0x0F;
+// list of strings
+TRACI_CONST int TYPE_DOUBLELIST = 0x10;
 // color (four ubytes)
 TRACI_CONST int TYPE_COLOR = 0x11;
 
@@ -706,7 +708,7 @@ TRACI_CONST int VAR_CURRENT_TRAVELTIME = 0x5a;
 // signals state (get/set: vehicle)
 TRACI_CONST int VAR_SIGNALS = 0x5b;
 
-// new lane/position along (set: vehicle)
+// vehicle: new lane/position along (set: vehicle), polygon: add dynamics (set: polygon)
 TRACI_CONST int VAR_MOVE_TO = 0x5c;
 
 // driver imperfection (set: vehicle)

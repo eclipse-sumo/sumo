@@ -199,6 +199,15 @@ public:
     bool readTypeCheckingStringList(tcpip::Storage& inputStorage, std::vector<std::string>& into);
 
 
+    /** @brief Reads the value type and a double list, verifying the type
+     *
+     * @param[in, changed] inputStorage The storage to read from
+     * @param[out] into Holder of the read value
+     * @return Whether a double value was given (by data type)
+     */
+    bool readTypeCheckingDoubleList(tcpip::Storage& inputStorage, std::vector<double>& into);
+
+
     /** @brief Reads the value type and a color, verifying the type
      *
      * @param[in, changed] inputStorage The storage to read from

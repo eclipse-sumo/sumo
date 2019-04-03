@@ -198,37 +198,70 @@ namespace tcpip
 	}
 
 
-	// -----------------------------------------------------------------------
-	/**
-	* Reads a string list form the array
-	* @return The read string
-	*/
-	std::vector<std::string> Storage::readStringList()
-	{
-		std::vector<std::string> tmp;
-		const int len = readInt();
-		tmp.reserve(len);
-		for (int i = 0; i < len; i++)
-		{
-			tmp.push_back(readString());
-		}
-		return tmp;
-	}
-
-
-	// ----------------------------------------------------------------------
-	/**
-	* Writes a string into the array;
-	* @param s		The string to be written
-	*/
-	void Storage::writeStringList(const std::vector<std::string> &s)
-	{
-		writeInt(static_cast<int>(s.size()));
-        for (std::vector<std::string>::const_iterator it = s.begin(); it!=s.end() ; it++)
-		{
-			writeString(*it);
+    // -----------------------------------------------------------------------
+    /**
+    * Reads a string list form the array
+    * @return The read string
+    */
+    std::vector<std::string> Storage::readStringList()
+    {
+        std::vector<std::string> tmp;
+        const int len = readInt();
+        tmp.reserve(len);
+        for (int i = 0; i < len; i++)
+        {
+            tmp.push_back(readString());
         }
-	}
+        return tmp;
+    }
+
+
+    // -----------------------------------------------------------------------
+    /**
+    * Reads a double list from the array
+    * @return The read double list
+    */
+    std::vector<double> Storage::readDoubleList()
+    {
+        std::vector<double> tmp;
+        const int len = readInt();
+        tmp.reserve(len);
+        for (int i = 0; i < len; i++)
+        {
+            tmp.push_back(readDouble());
+        }
+        return tmp;
+    }
+
+
+    // ----------------------------------------------------------------------
+    /**
+    * Writes a string into the array;
+    * @param s      The string to be written
+    */
+    void Storage::writeStringList(const std::vector<std::string> &s)
+    {
+        writeInt(static_cast<int>(s.size()));
+        for (std::vector<std::string>::const_iterator it = s.begin(); it!=s.end() ; it++)
+        {
+            writeString(*it);
+        }
+    }
+
+
+    // ----------------------------------------------------------------------
+    /**
+    * Writes a double list into the array;
+    * @param s      The double list  to be written
+    */
+    void Storage::writeDoubleList(const std::vector<double> &s)
+    {
+        writeInt(static_cast<int>(s.size()));
+        for (std::vector<double>::const_iterator it = s.begin(); it!=s.end() ; it++)
+        {
+            writeDouble(*it);
+        }
+    }
 
 
 	// ----------------------------------------------------------------------

@@ -20,8 +20,11 @@
 // included modules
 // ===========================================================================
 #include <microsim/MSNet.h>
+#include <microsim/MSVehicleControl.h>
+#include <microsim/MSTransportableControl.h>
 #include <libsumo/TraCIConstants.h>
 #include <utils/shapes/SUMOPolygon.h>
+#include <utils/shapes/DynamicPolygon.h>
 #include <utils/shapes/ShapeContainer.h>
 
 #include "Polygon.h"
@@ -124,6 +127,35 @@ Polygon::add(const std::string& polygonID, const TraCIPositionVector& shape, con
 
 
 void
+Polygon::addDynamics(const std::string& polygonID, const TraCIPosition& pos, const std::string& trackedID, const std::vector<double>& timeSpan, const std::vector<double>& alphaSpan) {
+
+    if (timeSpan.size() == 1) {
+        throw TraCIException("Could not add polygon dynamics for polygon '" + polygonID + "': time span cannot have length one.");
+    } else if (timeSpan[0] != 0.0) {
+        throw TraCIException("Could not add polygon dynamics for polygon '" + polygonID + "': first element of time span must be zero.");
+    }
+    if (timeSpan.size() != alphaSpan.size() && alphaSpan.size() != 0) {
+        throw TraCIException("Could not add polygon dynamics for polygon '" + polygonID + "': alpha span must have length zero or equal to time span length.");
+    }
+    if (timeSpan.size() >= 2) {
+        for (unsigned int i = 1; i < timeSpan.size(); ++i) {
+            if(timeSpan[i-1] > timeSpan[i]) {
+                throw TraCIException("Could not add polygon dynamics for polygon '" + polygonID + "': entries of time span must be ordered ascendingly.");
+            }
+        }
+    }
+
+    auto position = std::make_shared<Position>(pos.x, pos.y, pos.z);
+    SUMOTrafficObject* obj = getTrafficObject(trackedID);
+    auto tSpan = timeSpan.size() == 0 ? nullptr : std::make_shared<std::vector<double> >(timeSpan);
+    auto aSpan = alphaSpan.size() == 0 ? nullptr : std::make_shared<std::vector<double> >(alphaSpan);
+    DynamicPolygon* p = new DynamicPolygon(getPolygon(polygonID), position, obj, tSpan, aSpan);
+    ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
+    shapeCont.add(p);
+}
+
+
+void
 Polygon::remove(const std::string& polygonID, int /* layer */) {
     // !!! layer not used yet (shouldn't the id be enough?)
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
@@ -153,6 +185,26 @@ Polygon::getPolygon(const std::string& id) {
         throw TraCIException("Polygon '" + id + "' is not known");
     }
     return p;
+}
+
+
+SUMOTrafficObject*
+Polygon::getTrafficObject(const std::string& id) {
+    if(id == "") {
+        return nullptr;
+    }
+    MSNet* net = MSNet::getInstance();
+    // First try to find a vehicle with the given id
+    SUMOVehicle* sumoVehicle = net->getVehicleControl().getVehicle(id);
+    if (sumoVehicle != nullptr) {
+        return static_cast<SUMOTrafficObject*>(sumoVehicle);
+    }
+    MSTransportable* transportable = net->getPersonControl().get(id);
+    if (transportable != nullptr) {
+        return static_cast<SUMOTrafficObject*>(transportable);
+    } else {
+        throw TraCIException("Traffic object '" + id + "' is not known");
+    }
 }
 
 

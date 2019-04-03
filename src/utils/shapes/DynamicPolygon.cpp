@@ -143,6 +143,5 @@ DynamicPolygon::scheduleUpdate() {
 
 void
 DynamicPolygon::scheduleRemoval() {
-    ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
-    shapeCont.schedulePolygonRemoval(SIMSTEP + DELTA_T, getID());
+    MSNet::getInstance()->schedulePolygonRemoval(SIMSTEP + DELTA_T, getID());
 }
