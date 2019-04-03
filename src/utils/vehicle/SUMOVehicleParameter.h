@@ -567,7 +567,7 @@ public:
         std::set<std::string> awaitedContainers;
         /// @brief id of the trip within a cyclical public transport route
         std::string tripId;
-        /// @brief lanes and positions connected to this stop
+        /// @brief lanes and positions connected to this stop (only used by duarouter where Stop is used to store stopping places)
         std::vector<std::tuple<std::string, double, double> > accessPos;
         /// @brief at which position in the stops list
         int index;
