@@ -456,6 +456,7 @@ Warning: Vehicle '70_bus_N6:1' is not allowed to stop on lane '388702041#11_0'.
 Warning: Vehicle '70_bus_N6:1' is not allowed on destination edge '388702041#11'.
 Warning: busStop '3869306764' for vehicle '70_bus_N6:1' on lane '4402228_1' is not downstream the current route.
 Warning: Vehicle '70_bus_N6:1' is not allowed to stop on lane '388702041#11_0'.
+Warning: Vehicle '38_bus_147:1' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=581.00.
 Warning: At actuated tlLogic 'cluster_21432801_2938442114_295705005_3139140896_3178759584_735967920_735967921_735967926_961816249_961816257', actuated phase 5 has no controlling detector
 Warning: At actuated tlLogic 'cluster_21432801_2938442114_295705005_3139140896_3178759584_735967920_735967921_735967926_961816249_961816257', linkIndex 18 has no controlling detector
 Warning: At actuated tlLogic 'cluster_21432801_2938442114_295705005_3139140896_3178759584_735967920_735967921_735967926_961816249_961816257', linkIndex 19 has no controlling detector
@@ -481,5 +482,5 @@ Warning: Vehicle 'pt_tram_M2:0.1' teleports beyond arrival edge '148458500#1', t
 Warning: Vehicle 'pt_tram_M2:0.1' skips stop on lane '148458500#1_0' time=513.00.
 Warning: Teleporting vehicle 'pt_tram_M2:0.2'; frontal collision with vehicle 'pt_tram_M2:2.2', lane='148458500#0_0', gap=-1.00, time=747.00 stage=move.
 Warning: Vehicle 'pt_tram_M2:0.2' ends teleporting on edge '148458500#1', time 751.00.
-Warning: Person 'ped105' aborted waiting for S7:0 at busStop '2603331695'.
+Warning: Person 'ped99' aborted waiting for S9:0 at busStop '2603331695'.
 Warning: Person 'ped191' aborted waiting for S3:1 at busStop '27411240'.
