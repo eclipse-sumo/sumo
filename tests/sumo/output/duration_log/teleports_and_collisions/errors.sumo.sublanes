@@ -77,5 +77,5 @@ Warning: Vehicle 'always_right.18' teleports beyond arrival edge '2o', time 99.0
 Warning: Vehicle 'horizontal.18' teleports beyond arrival edge '2o', time 99.00.
 Warning: Teleporting vehicle 'horizontal.19'; waited too long (yield), lane='1si_1', time=404.00.
 Warning: Teleporting vehicle 'always_right.19'; waited too long (yield), lane='3si_0', time=404.00.
-Warning: Vehicle 'horizontal.19' ends teleporting on edge '2o', time 404.00.
 Warning: Vehicle 'always_right.19' ends teleporting on edge '2o', time 404.00.
+Warning: Vehicle 'horizontal.19' ends teleporting on edge '2o', time 404.00.
