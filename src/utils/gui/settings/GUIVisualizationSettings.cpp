@@ -366,7 +366,7 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::YELLOW, (double)75);
     scheme.addColor(RGBColor::RED, (double)100);
     vehicleColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by time since lane change", RGBColor(179, 179, 179, 255), "0", true, 0, COL_SCHEME_DYNAMIC);
+    scheme = GUIColorScheme("by time since lane change", RGBColor(179, 179, 179, 255), "0", false, 0, COL_SCHEME_DYNAMIC);
     scheme.addColor(RGBColor(189, 189, 179, 255), -180);
     scheme.addColor(RGBColor(255, 255, 0, 255), -20);
     scheme.addColor(RGBColor(255,   0, 0, 255), -0.001);
