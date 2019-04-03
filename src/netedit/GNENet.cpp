@@ -2336,7 +2336,7 @@ void
 GNENet::saveDemandElementsConfirmed(const std::string& filename) {
     OutputDevice& device = OutputDevice::getDevice(filename);
     device.writeXMLHeader("routes", "routes_file.xsd");
-    // first write all routes
+    // first write all routes (and their associated stops)
     for (auto i : myAttributeCarriers.demandElements) {
         if (i.first == SUMO_TAG_ROUTE) {
             for (auto j : i.second) {
@@ -2352,7 +2352,7 @@ GNENet::saveDemandElementsConfirmed(const std::string& filename) {
             }
         }
     }
-    // finally write all vehicles sorted by depart time
+    // finally write all vehicles sorted by depart time (and their associated stops)
     for (auto i : myAttributeCarriers.vehicleDepartures) {
         i.second->writeDemandElement(device);
     }

@@ -351,9 +351,6 @@ protected:
     /// @brief variable DemandElementMove
     DemandElementMove myMove;
 
-    /// @brief vector with the DemandElement childs
-    std::vector<GNEDemandElement*> myDemandElementChilds;
-
     /// @name Functions relative to change values in setAttribute(...)
     /// @{
 

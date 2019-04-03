@@ -145,6 +145,10 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
     } else {
         throw ProcessError("Invalid vehicle tag");
     }
+    // write stops associated to this vehicle
+    for (const auto &i : myDemandElementChilds) {
+        i->writeDemandElement(device);
+    }
     // close vehicle tag
     device.closeTag();
 }
