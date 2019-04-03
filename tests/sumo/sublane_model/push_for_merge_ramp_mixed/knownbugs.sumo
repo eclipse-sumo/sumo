@@ -12,3 +12,9 @@ ignore_other_errors:1
 bug_id:sublane ballistic issue
 full_description:sublane ballistic issue
 brief_description:sublane ballistic issue
+
+[Reported by leo at 03Apr14:00:25]
+search_string:.
+search_file:errors
+full_description:#5079
+brief_description:#5079

@@ -1,0 +1,3 @@
+Warning: Given action step length 1 for vehicle type 'follower' is larger than its parameter tau (=0.5)! This may lead to collisions. (This warning is only issued once per vehicle type).
+Warning: Teleporting vehicle 'follower'; collision with vehicle 'leader', lane='middle_0', gap=-0.17, time=45.90 stage=move.
+Warning: Vehicle 'follower' teleports beyond arrival edge 'middle', time 45.90.
