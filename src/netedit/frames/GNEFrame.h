@@ -165,6 +165,12 @@ public:
             /// @brief enable or disable radio button for disjoint attributes
             void setRadioButtonCheck(bool value);
 
+            /// @brief enable row
+            void enableRow();
+
+            /// @brief disable row
+            void disableRow();
+
             /// @brief check if row is enabled
             bool isRowEnabled() const;
 

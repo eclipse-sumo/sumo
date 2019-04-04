@@ -537,80 +537,13 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
 bool 
 GNEStop::isDisjointAttributeSet(const SumoXMLAttr attr) const {
     switch (attr) {
-        case SUMO_ATTR_END:
-            return (parametersSet & VEHPARS_END_SET) != 0;
-        case SUMO_ATTR_NUMBER:
-            return (parametersSet & VEHPARS_NUMBER_SET) != 0;
-        case SUMO_ATTR_VEHSPERHOUR:
-            return (parametersSet & VEHPARS_VPH_SET) != 0;
-        case SUMO_ATTR_PERIOD:
-            return (parametersSet & VEHPARS_PERIOD_SET) != 0;
-        case SUMO_ATTR_PROB:
-            return (parametersSet & VEHPARS_PROB_SET) != 0;
+        case SUMO_ATTR_EXPECTED:
+            return triggered;
+        case SUMO_ATTR_EXPECTED_CONTAINERS:
+            return containerTriggered;
         default:
             return true;
     };
-}
-
-
-void 
-GNEStop::setDisjointAttribute(const SumoXMLAttr attr, GNEUndoList* undoList) {
-    // obtain a copy of parameter sets
-    int parametersSetCopy = parametersSet;
-    // modify parametersSetCopy depending of attr
-    switch (attr) {
-        case SUMO_ATTR_END: {
-            // give more priority to end
-            parametersSetCopy = VEHPARS_END_SET | VEHPARS_NUMBER_SET;
-            break;
-        }
-        case SUMO_ATTR_NUMBER:
-            parametersSetCopy ^= VEHPARS_END_SET;
-            parametersSetCopy |= VEHPARS_NUMBER_SET;
-            break;
-        case SUMO_ATTR_VEHSPERHOUR: {
-            // give more priority to end
-            if ((parametersSetCopy & VEHPARS_END_SET) && (parametersSetCopy & VEHPARS_NUMBER_SET)) {
-                parametersSetCopy = VEHPARS_END_SET;
-            } else if (parametersSetCopy & VEHPARS_END_SET) {
-                parametersSetCopy = VEHPARS_END_SET;
-            } else if (parametersSetCopy & VEHPARS_NUMBER_SET) {
-                parametersSetCopy = VEHPARS_NUMBER_SET;
-            }
-            // set VehsPerHour
-            parametersSetCopy |= VEHPARS_VPH_SET;
-            break;
-        }
-        case SUMO_ATTR_PERIOD: {
-            // give more priority to end
-            if ((parametersSetCopy & VEHPARS_END_SET) && (parametersSetCopy & VEHPARS_NUMBER_SET)) {
-                parametersSetCopy = VEHPARS_END_SET;
-            } else if (parametersSetCopy & VEHPARS_END_SET) {
-                parametersSetCopy = VEHPARS_END_SET;
-            } else if (parametersSetCopy & VEHPARS_NUMBER_SET) {
-                parametersSetCopy = VEHPARS_NUMBER_SET;
-            }
-            // set period
-            parametersSetCopy |= VEHPARS_PERIOD_SET;
-            break;
-        }
-        case SUMO_ATTR_PROB: {
-            // give more priority to end
-            if ((parametersSetCopy & VEHPARS_END_SET) && (parametersSetCopy & VEHPARS_NUMBER_SET)) {
-                parametersSetCopy = VEHPARS_END_SET;
-            } else if (parametersSetCopy & VEHPARS_END_SET) {
-                parametersSetCopy = VEHPARS_END_SET;
-            } else if (parametersSetCopy & VEHPARS_NUMBER_SET) {
-                parametersSetCopy = VEHPARS_NUMBER_SET;
-            }
-            // set probability
-            parametersSetCopy |= VEHPARS_PROB_SET;
-            break;
-        }
-        default:
-            break;
-    }
-    undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), parametersSet, parametersSetCopy));
 }
 
 
@@ -685,13 +618,15 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
                 parametersSet &= ~STOP_TRIGGER_SET;
             } else {
                 triggered = parse<bool>(value);
-                break;
+                parametersSet |= STOP_TRIGGER_SET;
             }
+            break;
         case SUMO_ATTR_CONTAINER_TRIGGERED:
             if (value.empty()) {
                 parametersSet &= ~STOP_CONTAINER_TRIGGER_SET;
             } else {
                 containerTriggered = parse<bool>(value);
+                parametersSet |= STOP_CONTAINER_TRIGGER_SET;
             }
             break;
         case SUMO_ATTR_EXPECTED:
@@ -699,6 +634,7 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
                 parametersSet &= ~STOP_EXPECTED_SET;
             } else {
                 awaitedPersons = parse<std::set<std::string> >(value);
+                parametersSet |= STOP_EXPECTED_SET;
             }
             break;
         case SUMO_ATTR_EXPECTED_CONTAINERS:
@@ -706,6 +642,7 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
                 parametersSet &= ~STOP_EXPECTED_CONTAINERS_SET;
             } else {
                 awaitedContainers = parse<std::set<std::string> >(value);
+                parametersSet |= STOP_EXPECTED_CONTAINERS_SET;
             }
             break;
         case SUMO_ATTR_PARKING:
@@ -713,6 +650,7 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
                 parametersSet &= ~STOP_PARKING_SET;
             } else {
                 parking = parse<bool>(value);
+                parametersSet |= STOP_PARKING_SET;
             }
             break;
         case SUMO_ATTR_ACTTYPE:
@@ -723,6 +661,7 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
                 parametersSet &= ~STOP_TRIP_ID_SET;
             } else {
                 tripId = value;
+                parametersSet |= STOP_TRIP_ID_SET;
             }
             break;
         // specific of Stops over stoppingPlaces

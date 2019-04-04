@@ -970,7 +970,7 @@ template<> std::vector<int>
 GNEAttributeCarrier::parse(const std::string& string) {
     std::vector<std::string> parsedValues = parse<std::vector<std::string> >(string);
     std::vector<int> parsedIntValues;
-    for (auto i : parsedValues) {
+    for (const auto &i : parsedValues) {
         parsedIntValues.push_back(parse<int>(i));
     }
     return parsedIntValues;
@@ -981,7 +981,7 @@ template<> std::vector<double>
 GNEAttributeCarrier::parse(const std::string& string) {
     std::vector<std::string> parsedValues = parse<std::vector<std::string> >(string);
     std::vector<double> parsedDoubleValues;
-    for (auto i : parsedValues) {
+    for (const auto &i : parsedValues) {
         parsedDoubleValues.push_back(parse<double>(i));
     }
     return parsedDoubleValues;
@@ -992,7 +992,7 @@ template<> std::vector<bool>
 GNEAttributeCarrier::parse(const std::string& string) {
     std::vector<std::string> parsedValues = parse<std::vector<std::string> >(string);
     std::vector<bool> parsedBoolValues;
-    for (auto i : parsedValues) {
+    for (const auto &i : parsedValues) {
         parsedBoolValues.push_back(parse<bool>(i));
     }
     return parsedBoolValues;
@@ -1005,7 +1005,7 @@ GNEAttributeCarrier::parse(GNENet* net, const std::string& value) {
     std::vector<std::string> edgeIds = GNEAttributeCarrier::parse<std::vector<std::string> > (value);
     std::vector<GNEEdge*> parsedEdges;
     // Iterate over edges IDs, retrieve Edges and add it into parsedEdges
-    for (auto i : edgeIds) {
+    for (const auto &i : edgeIds) {
         GNEEdge* retrievedEdge = net->retrieveEdge(i, false);
         if (retrievedEdge) {
             parsedEdges.push_back(net->retrieveEdge(i));
@@ -1023,7 +1023,7 @@ GNEAttributeCarrier::parse(GNENet* net, const std::string& value) {
     std::vector<std::string> laneIds = GNEAttributeCarrier::parse<std::vector<std::string> > (value);
     std::vector<GNELane*> parsedLanes;
     // Iterate over lanes IDs, retrieve Lanes and add it into parsedLanes
-    for (auto i : laneIds) {
+    for (const auto &i : laneIds) {
         GNELane* retrievedLane = net->retrieveLane(i, false);
         if (retrievedLane) {
             parsedLanes.push_back(net->retrieveLane(i));
@@ -1039,7 +1039,7 @@ template<> std::string
 GNEAttributeCarrier::parseIDs(const std::vector<GNEEdge*>& ACs) {
     // obtain ID's of edges and return their join
     std::vector<std::string> edgeIDs;
-    for (auto i : ACs) {
+    for (const auto &i : ACs) {
         edgeIDs.push_back(i->getID());
     }
     return joinToString(edgeIDs, " ");
@@ -1050,7 +1050,7 @@ template<> std::string
 GNEAttributeCarrier::parseIDs(const std::vector<GNELane*>& ACs) {
     // obtain ID's of lanes and return their join
     std::vector<std::string> laneIDs;
-    for (auto i : ACs) {
+    for (const auto &i : ACs) {
         laneIDs.push_back(i->getID());
     }
     return joinToString(laneIDs, " ");
@@ -1093,12 +1093,6 @@ GNEAttributeCarrier::getAttributeForSelection(SumoXMLAttr key) const {
     return getAttribute(key);
 }
 
-/*
-SumoXMLTag
-GNEAttributeCarrier::getTag() const {
-    return myTagProperty.getTag();
-}
-*/
 
 const std::string&
 GNEAttributeCarrier::getTagStr() const {
@@ -3662,15 +3656,15 @@ GNEAttributeCarrier::fillDemandElements() {
             "false");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
+        attrProperty = AttributeProperties(SUMO_ATTR_EXPECTED,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "List of persons that must board the vehicle before it may continue");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
         attrProperty = AttributeProperties(SUMO_ATTR_CONTAINER_TRIGGERED,
             ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "Whether a container may end the stop",
             "false");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_EXPECTED,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
-            "List of persons that must board the vehicle before it may continue");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_EXPECTED_CONTAINERS,
@@ -3729,15 +3723,15 @@ GNEAttributeCarrier::fillDemandElements() {
             "false");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
+        attrProperty = AttributeProperties(SUMO_ATTR_EXPECTED,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "List of persons that must board the vehicle before it may continue");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
         attrProperty = AttributeProperties(SUMO_ATTR_CONTAINER_TRIGGERED,
             ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "Whether a container may end the stop",
             "false");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_EXPECTED,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
-            "List of persons that must board the vehicle before it may continue");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_EXPECTED_CONTAINERS,
@@ -3796,15 +3790,15 @@ GNEAttributeCarrier::fillDemandElements() {
             "false");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
+        attrProperty = AttributeProperties(SUMO_ATTR_EXPECTED,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "List of persons that must board the vehicle before it may continue");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
         attrProperty = AttributeProperties(SUMO_ATTR_CONTAINER_TRIGGERED,
             ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "Whether a container may end the stop",
             "false");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_EXPECTED,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
-            "List of persons that must board the vehicle before it may continue");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_EXPECTED_CONTAINERS,
@@ -3863,15 +3857,15 @@ GNEAttributeCarrier::fillDemandElements() {
             "false");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
+        attrProperty = AttributeProperties(SUMO_ATTR_EXPECTED,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "List of persons that must board the vehicle before it may continue");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
         attrProperty = AttributeProperties(SUMO_ATTR_CONTAINER_TRIGGERED,
             ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "Whether a container may end the stop",
             "false");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_EXPECTED,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
-            "List of persons that must board the vehicle before it may continue");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_EXPECTED_CONTAINERS,
@@ -3930,15 +3924,15 @@ GNEAttributeCarrier::fillDemandElements() {
             "false");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
+        attrProperty = AttributeProperties(SUMO_ATTR_EXPECTED,
+            ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
+            "List of persons that must board the vehicle before it may continue");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
         attrProperty = AttributeProperties(SUMO_ATTR_CONTAINER_TRIGGERED,
             ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
             "Whether a container may end the stop",
             "false");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_EXPECTED,
-            ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL,
-            "List of persons that must board the vehicle before it may continue");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_EXPECTED_CONTAINERS,

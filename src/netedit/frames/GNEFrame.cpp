@@ -435,6 +435,19 @@ GNEFrame::AttributesCreator::updateDisjointAttributes(AttributesCreator::RowCrea
                     break;
             }
         }
+    } else if (myTagProperties.isStop()) {
+        // check if expected has to be enabled or disabled
+        if (myRows[myTagProperties.getAttributeProperties(SUMO_ATTR_TRIGGERED).getPositionListed()]->getValue() == "1") {
+            myRows[myTagProperties.getAttributeProperties(SUMO_ATTR_EXPECTED).getPositionListed()]->enableRow();
+        } else {
+            myRows[myTagProperties.getAttributeProperties(SUMO_ATTR_EXPECTED).getPositionListed()]->disableRow();
+        }
+        // check if expected contaienrs has to be enabled or disabled
+        if (myRows[myTagProperties.getAttributeProperties(SUMO_ATTR_CONTAINER_TRIGGERED).getPositionListed()]->getValue() == "1") {
+            myRows[myTagProperties.getAttributeProperties(SUMO_ATTR_EXPECTED_CONTAINERS).getPositionListed()]->enableRow();
+        } else {
+            myRows[myTagProperties.getAttributeProperties(SUMO_ATTR_EXPECTED_CONTAINERS).getPositionListed()]->disableRow();
+        }
     }
 }
 
@@ -600,17 +613,55 @@ GNEFrame::AttributesCreator::RowCreator::setRadioButtonCheck(bool value) {
 }
 
 
-bool 
+void
+GNEFrame::AttributesCreator::RowCreator::enableRow() {
+    if (myAttrProperties.isBool()) {
+        return myBoolCheckButton->enable();
+    }
+    else if (myAttrProperties.isInt()) {
+        return myTextFieldInt->enable();
+    }
+    else if (myAttrProperties.isFloat() || myAttrProperties.isTime()) {
+        return myTextFieldReal->enable();
+    }
+    else {
+        return myTextFieldStrings->enable();
+    }
+}
+
+
+void
+GNEFrame::AttributesCreator::RowCreator::disableRow() {
+    if (myAttrProperties.isBool()) {
+        return myBoolCheckButton->disable();
+    }
+    else if (myAttrProperties.isInt()) {
+        return myTextFieldInt->disable();
+    }
+    else if (myAttrProperties.isFloat() || myAttrProperties.isTime()) {
+        return myTextFieldReal->disable();
+    }
+    else {
+        return myTextFieldStrings->disable();
+    }
+}
+
+
+bool
 GNEFrame::AttributesCreator::RowCreator::isRowEnabled() const {
     if (!shown()) {
         return false;
-    } else if (myAttrProperties.isBool()) {
+    }
+    else if (myAttrProperties.isBool()) {
         return myBoolCheckButton->isEnabled();
-    } else if (myAttrProperties.isInt()) {
+    }
+    else if (myAttrProperties.isInt()) {
         return myTextFieldInt->isEnabled();
-    } else if (myAttrProperties.isFloat() || myAttrProperties.isTime()) {
+    }
+    else if (myAttrProperties.isFloat() || myAttrProperties.isTime()) {
         return myTextFieldReal->isEnabled();
-    } else {
+    }
+    else {
         return myTextFieldStrings->isEnabled();
     }
 }
@@ -740,6 +791,8 @@ GNEFrame::AttributesCreator::RowCreator::onCmdSetBooleanAttribute(FXObject*, FXS
     } else {
         myBoolCheckButton->setText("false");
     }
+    // update disjoint attribute
+    myAttributesCreatorParent->updateDisjointAttributes(nullptr);
     return 0;
 }
 
@@ -849,7 +902,7 @@ GNEFrame::AttributesEditor::RowEditor::showRow(const GNEAttributeCarrier::Attrib
         std::vector<bool> booleanVector;
         // check if value can be parsed to a boolean vector
         if (GNEAttributeCarrier::canParse<std::vector<bool> >(value)) {
-            GNEAttributeCarrier::parse<std::vector<bool> >(value);
+            booleanVector = GNEAttributeCarrier::parse<std::vector<bool> >(value);
         }
         // iterate over pased booleans comparing all element with the first
         for (const auto& i : booleanVector) {
