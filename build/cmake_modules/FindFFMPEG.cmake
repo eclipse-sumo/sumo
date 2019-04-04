@@ -216,25 +216,33 @@ if(FFMPEG_INCLUDE_DIR)
   if(FFMPEG_avformat_LIBRARY)
     if(FFMPEG_avcodec_LIBRARY)
       if(FFMPEG_avutil_LIBRARY)
-        set(FFMPEG_FOUND "YES")
-        set(FFMPEG_LIBRARIES ${FFMPEG_avformat_LIBRARY}
-                             ${FFMPEG_avcodec_LIBRARY}
-                             ${FFMPEG_avutil_LIBRARY}
-          )
-        if(FFMPEG_swscale_LIBRARY)
-          set(FFMPEG_LIBRARIES ${FFMPEG_LIBRARIES}
-                               ${FFMPEG_swscale_LIBRARY}
-          )
-        endif()
-        if(FFMPEG_avdevice_LIBRARY)
-          set(FFMPEG_LIBRARIES ${FFMPEG_LIBRARIES}
-                               ${FFMPEG_avdevice_LIBRARY}
-          )
-        endif()
-        if(_FFMPEG_z_LIBRARY_)
-          set( FFMPEG_LIBRARIES ${FFMPEG_LIBRARIES}
-                                ${_FFMPEG_z_LIBRARY_}
-          )
+        file(STRINGS ${FFMPEG_INCLUDE_DIR2}/libavutil/ffversion.h _version_line REGEX "^[ \t]*#define FFMPEG_VERSION.*")
+        if(_version_line)
+          string(REGEX REPLACE ".*#define FFMPEG_VERSION[ \t]+\"([0-9\.]+).*" "\\1" FFMPEG_VERSION "${_version_line}")
+          if("${FFMPEG_VERSION}" VERSION_LESS "3.4")
+            message(WARNING "Unsuitable FFmpeg version found ${FFMPEG_VERSION}")
+          else()
+            set(FFMPEG_FOUND "YES")
+            set(FFMPEG_LIBRARIES ${FFMPEG_avformat_LIBRARY}
+                                 ${FFMPEG_avcodec_LIBRARY}
+                                 ${FFMPEG_avutil_LIBRARY}
+              )
+            if(FFMPEG_swscale_LIBRARY)
+              set(FFMPEG_LIBRARIES ${FFMPEG_LIBRARIES}
+                                   ${FFMPEG_swscale_LIBRARY}
+              )
+            endif()
+            if(FFMPEG_avdevice_LIBRARY)
+              set(FFMPEG_LIBRARIES ${FFMPEG_LIBRARIES}
+                                   ${FFMPEG_avdevice_LIBRARY}
+              )
+            endif()
+            if(_FFMPEG_z_LIBRARY_)
+              set( FFMPEG_LIBRARIES ${FFMPEG_LIBRARIES}
+                                    ${_FFMPEG_z_LIBRARY_}
+              )
+            endif()
+          endif()
         endif()
       endif()
     endif()
