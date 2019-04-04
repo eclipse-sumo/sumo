@@ -88,10 +88,10 @@ public:
     void removeSelectedAttributeCarriers();
 
     /**@brief remove attribute carrier (element)
-     * @param ac Attribute Carrier to remove
+     * @param objectsUnderCursor objects under cursors
      * @param ignoreOptions ignore delete options and ALWAYS remove AC
      */
-    void removeAttributeCarrier(GNEAttributeCarrier* ac, bool ignoreOptions = false);
+    void removeAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, bool ignoreOptions = false);
 
     /// @brief get delete options
     DeleteOptions* getDeleteOptions() const;
