@@ -56,6 +56,7 @@ filesave.xpm \
 flow.xpm \
 vehicle.xpm \
 trip.xpm \
+stopelement.xpm \
 green_edge.xpm \
 green_person.xpm \
 green_vehicle.xpm \

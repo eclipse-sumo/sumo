@@ -3609,7 +3609,7 @@ GNEAttributeCarrier::fillDemandElements() {
     currentTag = SUMO_TAG_STOP_LANE;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_STOP, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_MASKSTARTENDPOS, ICON_ROUTE);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_STOP, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_MASKSTARTENDPOS, ICON_STOPELEMENT);
         // set values of attributes
          attrProperty = AttributeProperties(SUMO_ATTR_LANE,
             ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
@@ -3692,7 +3692,7 @@ GNEAttributeCarrier::fillDemandElements() {
     currentTag = SUMO_TAG_STOP_BUSSTOP;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_STOP, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE, ICON_ROUTE);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_STOP, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE, ICON_STOPELEMENT);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_BUS_STOP,
             ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
@@ -3759,7 +3759,7 @@ GNEAttributeCarrier::fillDemandElements() {
     currentTag = SUMO_TAG_STOP_CONTAINERSTOP;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_STOP, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE, ICON_ROUTE);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_STOP, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE, ICON_STOPELEMENT);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_CONTAINER_STOP,
             ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
@@ -3826,7 +3826,7 @@ GNEAttributeCarrier::fillDemandElements() {
     currentTag = SUMO_TAG_STOP_CHARGINGSTATION;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_STOP, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE, ICON_ROUTE);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_STOP, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE, ICON_STOPELEMENT);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_CHARGING_STATION,
             ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
@@ -3893,7 +3893,7 @@ GNEAttributeCarrier::fillDemandElements() {
     currentTag = SUMO_TAG_STOP_PARKINGAREA;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_STOP, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE, ICON_ROUTE);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_STOP, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE, ICON_STOPELEMENT);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_PARKING_AREA,
             ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,

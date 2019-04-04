@@ -555,7 +555,11 @@ GNEStop::getPopUpID() const {
 
 std::string
 GNEStop::getHierarchyName() const {
-    return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID) ;
+    if (myAdditionalParents.size() > 0) {
+        return "stop: " + myAdditionalParents.front()->getTagStr();
+    } else {
+        return "stop: lane";
+    }
 }
 
 

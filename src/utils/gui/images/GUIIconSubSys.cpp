@@ -195,6 +195,7 @@
 #include "vtype.xpm"
 #include "vehicle.xpm"
 #include "trip.xpm"
+#include "stopelement.xpm"
 
 #include "vclass_ignoring.xpm"
 #include "vclass_private.xpm"
@@ -446,6 +447,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[ICON_VTYPE] = new FXXPMIcon(a, vtype_xpm);
     myIcons[ICON_VEHICLE] = new FXXPMIcon(a, vehicle_xpm);
     myIcons[ICON_TRIP] = new FXXPMIcon(a, trip_xpm);
+    myIcons[ICON_STOPELEMENT] = new FXXPMIcon(a, stopelement_xpm);
 
     myIcons[ICON_VCLASS_IGNORING] = new FXXPMIcon(a, vclass_ignoring_xpm);
     myIcons[ICON_VCLASS_PRIVATE] = new FXXPMIcon(a, vclass_private_xpm);

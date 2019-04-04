@@ -278,6 +278,7 @@ enum GUIIcon {
     ICON_VTYPE,
     ICON_VEHICLE,
     ICON_TRIP,
+    ICON_STOPELEMENT,
     /// @}
 
     /// @name vehicle Class icons
