@@ -1078,7 +1078,7 @@ NBEdge::setConnection(int lane, NBEdge* destEdge,
     }
     if ((int)myLanes.size() <= lane || destEdge->getNumLanes() <= (int)destLane) {
         // problem might be corrigible in post-processing
-        WRITE_WARNING("Could not set connection from '" + getLaneIDInsecure(lane) + "' to '" + destEdge->getLaneIDInsecure(destLane) + "'.");
+        WRITE_WARNING("Could not set connection from '" + getLaneID(lane) + "' to '" + destEdge->getLaneID(destLane) + "'.");
         return false;
     }
     for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end();) {
@@ -3084,12 +3084,6 @@ NBEdge::getTurnDestination(bool possibleDestination) const {
 
 std::string
 NBEdge::getLaneID(int lane) const {
-    return myID + "_" + toString(lane);
-}
-
-
-std::string
-NBEdge::getLaneIDInsecure(int lane) const {
     return myID + "_" + toString(lane);
 }
 

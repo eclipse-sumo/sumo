@@ -1109,11 +1109,8 @@ public:
      */
     NBEdge* getTurnDestination(bool possibleDestination = false) const;
 
-    /// @brief get Lane ID (Secure)
+    /// @brief get lane ID
     std::string getLaneID(int lane) const;
-
-    /// @brief get Lane ID (Insecure)
-    std::string getLaneIDInsecure(int lane) const;
 
     /// @brief get lane speed
     double getLaneSpeed(int lane) const;
