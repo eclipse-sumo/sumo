@@ -3203,7 +3203,6 @@ MSLCM_SL2015::commitFollowSpeed(double speed, double latDist, double secondsToLe
 #endif
                 if (overlap(rightVehSideDest, leftVehSideDest, foeRight, foeLeft)) {
                     // case 1
-                    assert(vehDist.second >= 0);
                     const double vSafe = myVehicle.getCarFollowModel().followSpeed(
                                              &myVehicle, speed, vehDist.second, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
                     speed = MIN2(speed, vSafe);
