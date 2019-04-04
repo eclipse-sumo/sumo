@@ -303,7 +303,7 @@ ROMAAssignments::incremental(const int numIter, const bool verbose) {
                     myRouter.setBulkMode(false);
                     lastOrigin = c->origin;
                 }
-                const ConstROEdgeVector& edges = computePath(c, begin, linkFlow);
+                computePath(c, begin, linkFlow);
                 myRouter.setBulkMode(true);
             }
 #ifdef HAVE_FOX
