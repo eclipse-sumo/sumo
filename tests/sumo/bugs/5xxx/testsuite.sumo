@@ -6,3 +6,6 @@ ticket5013
 
 # deadlock on junction
 ticket5021
+
+# triggered vehicle is discarded due to max-depart-delay
+ticket5420

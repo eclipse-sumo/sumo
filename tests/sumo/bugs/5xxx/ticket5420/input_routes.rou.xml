@@ -1,0 +1,8 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="DEFAULT_VEHTYPE" sigma="0" length="50"/>
+    <trip id="blocker" depart="0" departPos="0" from="SC" to="CN"/>
+    <trip id="v1" depart="triggered" departPos="0" from="SC" to="CN"/>
+    <person id="p1" depart="0">
+        <ride from="SC" to="CN" lines="v1"/>
+    </person>
+</routes>
