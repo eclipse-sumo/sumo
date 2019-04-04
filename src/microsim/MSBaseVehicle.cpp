@@ -591,10 +591,12 @@ MSBaseVehicle::getContainerNumber() const {
 
 void
 MSBaseVehicle::removeTransportable(MSTransportable* t) {
-    const bool isPerson = dynamic_cast<MSPerson*>(t) != nullptr;
-    MSDevice_Transportable* device = isPerson ? myPersonDevice : myContainerDevice;
-    if (device != nullptr) {
-        device->removeTransportable(t);
+    // this might be called from the MSTransportable destructor so we cannot do a dynamic cast to determine the type
+    if (myPersonDevice != nullptr) {
+        myPersonDevice->removeTransportable(t);
+    }
+    if (myContainerDevice != nullptr) {
+        myContainerDevice->removeTransportable(t);
     }
 }
 

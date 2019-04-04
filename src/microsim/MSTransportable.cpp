@@ -657,6 +657,12 @@ MSTransportable::MSTransportable(const SUMOVehicleParameter* pars, MSVehicleType
 
 
 MSTransportable::~MSTransportable() {
+    if (myStep != myPlan->end() && getCurrentStageType() == DRIVING) {
+        Stage_Driving* const stage = dynamic_cast<Stage_Driving*>(*myStep);
+        if (stage->getVehicle() != nullptr) {
+            stage->getVehicle()->removeTransportable(this);
+        }
+    }
     if (myPlan != nullptr) {
         for (MSTransportablePlan::const_iterator i = myPlan->begin(); i != myPlan->end(); ++i) {
             delete *i;
