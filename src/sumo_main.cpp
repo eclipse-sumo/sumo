@@ -96,6 +96,7 @@ main(int argc, char** argv) {
     oc.setApplicationName("sumo", "Eclipse SUMO Version " VERSION_STRING);
     gSimulation = true;
     int ret = 0;
+    MSNet* net = nullptr;
     try {
         // initialise subsystems
         XMLSubSys::init();
@@ -103,7 +104,7 @@ main(int argc, char** argv) {
         // load the net
         MSNet::SimulationState state = MSNet::SIMSTATE_LOADING;
         while (state == MSNet::SIMSTATE_LOADING) {
-            MSNet* net = NLBuilder::init();
+            net = NLBuilder::init();
             if (net != nullptr) {
                 state = net->simulate(string2time(oc.getString("begin")), string2time(oc.getString("end")));
                 delete net;
@@ -116,6 +117,8 @@ main(int argc, char** argv) {
             WRITE_ERROR(e.what());
         }
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
+        // we need to delete the network explicitly to trigger the cleanup in the correct order
+        delete net;
         ret = 1;
 #ifndef _DEBUG
     } catch (const std::exception& e) {

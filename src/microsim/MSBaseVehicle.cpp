@@ -93,12 +93,6 @@ MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
     if ((*myRoute->begin())->isTazConnector() || myRoute->getLastEdge()->isTazConnector()) {
         pars->parametersSet |= VEHPARS_FORCE_REROUTE;
     }
-    // init devices
-    MSDevice::buildVehicleDevices(*this, myDevices);
-    //
-    for (MSVehicleDevice* dev : myDevices) {
-        myMoveReminders.push_back(std::make_pair(dev, 0.));
-    }
     myRoute->addReference();
     if (!pars->wasSet(VEHPARS_FORCE_REROUTE)) {
         calculateArrivalParams();
@@ -108,6 +102,11 @@ MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
                 throw ProcessError("Vehicle '" + pars->id + "' has no valid route. " + msg);
             }
         }
+    }
+    // init devices
+    MSDevice::buildVehicleDevices(*this, myDevices);
+    for (MSVehicleDevice* dev : myDevices) {
+        myMoveReminders.push_back(std::make_pair(dev, 0.));
     }
 }
 

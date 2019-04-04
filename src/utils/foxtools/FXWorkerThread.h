@@ -36,6 +36,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #endif
+#include <utils/common/UtilExceptions.h>
 
 
 // ===========================================================================
@@ -93,7 +94,7 @@ public:
          *
          * @param[in] numThreads the number of threads to create
          */
-        Pool(int numThreads = 0) : myPoolMutex(true), myRunningIndex(0)
+        Pool(int numThreads = 0) : myPoolMutex(true), myRunningIndex(0), myException(nullptr)
 #ifdef WORKLOAD_PROFILING
             , myNumBatches(0), myTotalMaxLoad(0.), myTotalSpread(0.)
 #endif
@@ -173,6 +174,14 @@ public:
             myMutex.unlock();
         }
 
+        void setException(ProcessError& e) {
+            myMutex.lock();
+            if (myException == nullptr) {
+                myException = new ProcessError(e);
+            }
+            myMutex.unlock();
+        }
+
         /// @brief waits for all tasks to be finished
         void waitAll(const bool deleteFinished = true) {
             myMutex.lock();
@@ -207,9 +216,14 @@ public:
                     delete task;
                 }
             }
+            ProcessError* toRaise = myException;
+            myException = nullptr;
             myFinishedTasks.clear();
             myRunningIndex = 0;
             myMutex.unlock();
+            if (toRaise != nullptr) {
+                throw *toRaise;
+            }
         }
 
         /** @brief Checks whether there are currently more pending tasks than threads.
@@ -254,6 +268,8 @@ public:
         std::list<Task*> myFinishedTasks;
         /// @brief the running index for the next task
         int myRunningIndex;
+        /// @brief the exception from a child thread
+        ProcessError* myException;
 #ifdef WORKLOAD_PROFILING
         /// @brief the number of finished batch runs
         int myNumBatches;
@@ -325,16 +341,20 @@ public:
             }
             myCurrentTasks.splice(myCurrentTasks.end(), myTasks);
             myMutex.unlock();
-            for (Task* const t : myCurrentTasks) {
+            try {
+                for (Task* const t : myCurrentTasks) {
 #ifdef WORKLOAD_PROFILING
-                const auto before = std::chrono::high_resolution_clock::now();
+                    const auto before = std::chrono::high_resolution_clock::now();
 #endif
-                t->run(this);
+                    t->run(this);
 #ifdef WORKLOAD_PROFILING
-                const auto after = std::chrono::high_resolution_clock::now();
-                myBusyTime += std::chrono::duration_cast<std::chrono::microseconds>(after - before).count();
-                myCounter++;
+                    const auto after = std::chrono::high_resolution_clock::now();
+                    myBusyTime += std::chrono::duration_cast<std::chrono::microseconds>(after - before).count();
+                    myCounter++;
 #endif
+                }
+            } catch (ProcessError& e) {
+                myPool.setException(e);
             }
             myPool.addFinished(myCurrentTasks);
         }
