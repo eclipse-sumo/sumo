@@ -67,19 +67,19 @@ GUIInductLoop::reset() {
 
 
 void
-GUIInductLoop::enterDetectorByMove(SUMOVehicle& veh, double entryTimestep) {
+GUIInductLoop::enterDetectorByMove(SUMOTrafficObject& veh, double entryTimestep) {
     FXMutexLock locker(myLock);
     MSInductLoop::enterDetectorByMove(veh, entryTimestep);
 }
 
 void
-GUIInductLoop::leaveDetectorByMove(SUMOVehicle& veh, double leaveTimestep) {
+GUIInductLoop::leaveDetectorByMove(SUMOTrafficObject& veh, double leaveTimestep) {
     FXMutexLock locker(myLock);
     MSInductLoop::leaveDetectorByMove(veh, leaveTimestep);
 }
 
 void
-GUIInductLoop::leaveDetectorByLaneChange(SUMOVehicle& veh, double lastPos) {
+GUIInductLoop::leaveDetectorByLaneChange(SUMOTrafficObject& veh, double lastPos) {
     FXMutexLock locker(myLock);
     MSInductLoop::leaveDetectorByLaneChange(veh, lastPos);
 }

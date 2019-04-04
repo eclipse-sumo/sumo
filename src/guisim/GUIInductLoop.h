@@ -103,7 +103,7 @@ protected:
      * @param entryTimestep Timestep (not necessary integer) of entrance.
      * @see MSInductLoop::enterDetectorByMove()
      */
-    void enterDetectorByMove(SUMOVehicle& veh, double entryTimestep);
+    void enterDetectorByMove(SUMOTrafficObject& veh, double entryTimestep);
 
 
     /** @brief Processes a vehicle that leaves the detector
@@ -114,7 +114,7 @@ protected:
      * @param leaveTimestep Timestep (not necessary integer) of leaving.
      * @see MSInductLoop::leaveDetectorByMove()
      */
-    void leaveDetectorByMove(SUMOVehicle& veh, double leaveTimestep);
+    void leaveDetectorByMove(SUMOTrafficObject& veh, double leaveTimestep);
 
 
     /** @brief Removes a vehicle from the detector's map myVehiclesOnDet.
@@ -124,7 +124,7 @@ protected:
      * @param veh The leaving vehicle.
      * @param lastPos The last position of the leaving vehicle.
      */
-    void leaveDetectorByLaneChange(SUMOVehicle& veh, double lastPos);
+    void leaveDetectorByLaneChange(SUMOTrafficObject& veh, double lastPos);
     /// @}
 
 

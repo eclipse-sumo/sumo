@@ -142,7 +142,7 @@ GUILane::planMovements(const SUMOTime t) {
 }
 
 void
-GUILane::setJunctionApproaches(const SUMOTime t) {
+GUILane::setJunctionApproaches(const SUMOTime t) const {
     FXMutexLock locker(myLock);
     MSLane::setJunctionApproaches(t);
 }
