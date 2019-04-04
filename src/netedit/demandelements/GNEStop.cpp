@@ -127,12 +127,12 @@ GNEStop::moveGeometry(const Position& offset) {
 void
 GNEStop::commitGeometryMoving(GNEUndoList* undoList) {
     // only commit geometry moving if at leats start or end positions is defined
-    if ((myLaneParents.size() > 0) && ((parametersSet |= STOP_START_SET) || (parametersSet |= STOP_END_SET))) {
+    if ((myLaneParents.size() > 0) && ((parametersSet & STOP_START_SET) || (parametersSet & STOP_END_SET))) {
         undoList->p_begin("position of " + getTagStr());
-        if (parametersSet |= STOP_START_SET) {
+        if (parametersSet & STOP_START_SET) {
             undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), SUMO_ATTR_STARTPOS, toString(startPos), true, myMove.firstOriginalLanePosition));
         }
-        if (parametersSet |= STOP_END_SET) {
+        if (parametersSet & STOP_END_SET) {
             undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), SUMO_ATTR_ENDPOS, toString(endPos), true, myMove.secondOriginalPosition));
         }
         undoList->p_end();
