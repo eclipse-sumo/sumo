@@ -220,7 +220,7 @@ if(FFMPEG_INCLUDE_DIR)
         if(_version_line)
           string(REGEX REPLACE ".*#define FFMPEG_VERSION[ \t]+\"([0-9\.]+).*" "\\1" FFMPEG_VERSION "${_version_line}")
           if("${FFMPEG_VERSION}" VERSION_LESS "3.4")
-            message(WARNING "Unsuitable FFmpeg version found ${FFMPEG_VERSION}")
+            message(STATUS "Unsuitable FFmpeg version found ${FFMPEG_VERSION}")
           else()
             set(FFMPEG_FOUND "YES")
             set(FFMPEG_LIBRARIES ${FFMPEG_avformat_LIBRARY}
@@ -247,6 +247,9 @@ if(FFMPEG_INCLUDE_DIR)
       endif()
     endif()
   endif()
+endif()
+if (NOT FFMPEG_FOUND)
+  message(STATUS "Could NOT find suitable FFmpeg.")
 endif()
 
 mark_as_advanced(
