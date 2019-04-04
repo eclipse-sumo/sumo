@@ -457,10 +457,10 @@ MSCFModel::estimateArrivalTime(double dist, double initialSpeed, double arrivalS
 
 
 double
-MSCFModel::avoidArrivalAccel(double dist, double time, double speed) {
+MSCFModel::avoidArrivalAccel(double dist, double time, double speed, double maxDecel) {
     assert(time > 0 || dist == 0);
     if (dist <= 0) {
-        return -std::numeric_limits<double>::max();
+        return -maxDecel;
     } else if (time * speed > 2 * dist) {
         // stop before dist is necessary. We need
         //            d = v*v/(2*a)
@@ -819,7 +819,7 @@ MSCFModel::maximumSafeStopSpeedBallistic(double g /*gap*/, double v /*currentSpe
         if (g == 0.) {
             if (v0 > 0.) {
                 // indicate to brake as hard as possible
-                return -std::numeric_limits<double>::max();
+                return -ACCEL2SPEED(myEmergencyDecel);
             } else {
                 // stay stopped
                 return 0.;
@@ -961,7 +961,7 @@ MSCFModel::calculateEmergencyDeceleration(double gap, double egoSpeed, double pr
     // Case 2) applies
     assert(gap < 0 || predSpeed < egoSpeed);
     if (gap <= 0.) {
-        return - std::numeric_limits<double>::max();
+        return -ACCEL2SPEED(myEmergencyDecel);
     }
     // Required deceleration according to case 2)
     const double b2 = 0.5 * (egoSpeed * egoSpeed - predSpeed * predSpeed) / gap;

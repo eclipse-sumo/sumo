@@ -3113,7 +3113,8 @@ MSLCM_SL2015::commitManoeuvre(int blocked, int blockedFully,
                 assert(myVehicle.getAcceleration() < 0.);
                 nextLeftSpace = myLeftSpace + (myVehicle.getSpeed() * myVehicle.getSpeed() / myVehicle.getAcceleration()) * 0.5;
             }
-            const double avoidArrivalSpeed = nextActionStepSpeed + TS * MSCFModel::avoidArrivalAccel(nextLeftSpace, secondsToLeaveLane - timeTillActionStep, nextActionStepSpeed);
+            const double avoidArrivalSpeed = nextActionStepSpeed + ACCEL2SPEED(MSCFModel::avoidArrivalAccel(
+                        nextLeftSpace, secondsToLeaveLane - timeTillActionStep, nextActionStepSpeed, myVehicle.getCarFollowModel().getEmergencyDecel()));
 
             myCommittedSpeed = MIN3(avoidArrivalSpeed,
                                     myVehicle.getSpeed() + myVehicle.getCarFollowModel().getMaxAccel() * myVehicle.getActionStepLengthSecs(),

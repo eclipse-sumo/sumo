@@ -382,7 +382,7 @@ public:
      * @param[in] speed - the current speed
      * @return Returns the acceleration which would ensure an arrival at distance dist earliest for the given time
      */
-    static double avoidArrivalAccel(double dist, double time, double speed);
+    static double avoidArrivalAccel(double dist, double time, double speed, double maxDecel);
 
 
     /** @brief Computes the minimal possible arrival speed after covering a given distance
