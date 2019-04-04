@@ -6,3 +6,6 @@ stop_exact
 
 # test speeds when stopping at exact position
 stop_exact_subsecond
+
+# test insertion with maximum vehicle speed
+insert_with_maximum_speed
