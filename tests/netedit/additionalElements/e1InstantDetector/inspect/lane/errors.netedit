@@ -32,49 +32,37 @@ Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1
 Debug: Value 'dummy lane' for attribute lane of instantInductionLoop isn't valid
 Debug: Setting new attribute lane 'gneE0_0' into instantInductionLoop 'instantInductionLoop_gneE3_1_0'
 GLDebug: Removed object e1DetectorInstant:instantInductionLoop_gneE3_1_0 from SUMORTree with boundary -3.00,1.60,37.00,41.60
-GLDebug: Inserted e1DetectorInstant:instantInductionLoop_gneE3_1_0 into SUMORTree with boundary -3.00,1.60,37.00,41.60
-GLDebug: Removed object e1DetectorInstant:instantInductionLoop_gneE3_1_0 from SUMORTree with boundary -3.00,1.60,37.00,41.60
-GLDebug: Inserted e1DetectorInstant:instantInductionLoop_gneE3_1_0 into SUMORTree with boundary -3.00,1.60,37.00,41.60
-GLDebug: Removed object e1DetectorInstant:instantInductionLoop_gneE3_1_0 from SUMORTree with boundary -3.00,1.60,37.00,41.60
+GLDebug: Inserted e1DetectorInstant:instantInductionLoop_gneE3_1_0 into SUMORTree with boundary 13.00,-21.60,53.00,18.40
+GLDebug: Removed object e1DetectorInstant:instantInductionLoop_gneE3_1_0 from SUMORTree with boundary 13.00,-21.60,53.00,18.40
 GLDebug: Inserted e1DetectorInstant:instantInductionLoop_gneE3_1_0 into SUMORTree with boundary 13.00,-21.60,53.00,18.40
 Debug: Setting new attribute lane 'gneE2_1' into instantInductionLoop 'instantInductionLoop_gneE3_1_0'
 GLDebug: Removed object e1DetectorInstant:instantInductionLoop_gneE3_1_0 from SUMORTree with boundary 13.00,-21.60,53.00,18.40
-GLDebug: Inserted e1DetectorInstant:instantInductionLoop_gneE3_1_0 into SUMORTree with boundary 13.00,-21.60,53.00,18.40
-GLDebug: Removed object e1DetectorInstant:instantInductionLoop_gneE3_1_0 from SUMORTree with boundary 13.00,-21.60,53.00,18.40
-GLDebug: Inserted e1DetectorInstant:instantInductionLoop_gneE3_1_0 into SUMORTree with boundary 13.00,-21.60,53.00,18.40
-GLDebug: Removed object e1DetectorInstant:instantInductionLoop_gneE3_1_0 from SUMORTree with boundary 13.00,-21.60,53.00,18.40
+GLDebug: Inserted e1DetectorInstant:instantInductionLoop_gneE3_1_0 into SUMORTree with boundary 13.00,-1.60,53.00,38.40
+GLDebug: Removed object e1DetectorInstant:instantInductionLoop_gneE3_1_0 from SUMORTree with boundary 13.00,-1.60,53.00,38.40
 GLDebug: Inserted e1DetectorInstant:instantInductionLoop_gneE3_1_0 into SUMORTree with boundary 13.00,-1.60,53.00,38.40
 Debug: Setting new attribute lane 'gneE2_0' into instantInductionLoop 'instantInductionLoop_gneE3_1_0'
 GLDebug: Removed object e1DetectorInstant:instantInductionLoop_gneE3_1_0 from SUMORTree with boundary 13.00,-1.60,53.00,38.40
-GLDebug: Inserted e1DetectorInstant:instantInductionLoop_gneE3_1_0 into SUMORTree with boundary 13.00,-1.60,53.00,38.40
-GLDebug: Removed object e1DetectorInstant:instantInductionLoop_gneE3_1_0 from SUMORTree with boundary 13.00,-1.60,53.00,38.40
-GLDebug: Inserted e1DetectorInstant:instantInductionLoop_gneE3_1_0 into SUMORTree with boundary 13.00,-1.60,53.00,38.40
-GLDebug: Removed object e1DetectorInstant:instantInductionLoop_gneE3_1_0 from SUMORTree with boundary 13.00,-1.60,53.00,38.40
+GLDebug: Inserted e1DetectorInstant:instantInductionLoop_gneE3_1_0 into SUMORTree with boundary 13.00,-4.80,53.00,35.20
+GLDebug: Removed object e1DetectorInstant:instantInductionLoop_gneE3_1_0 from SUMORTree with boundary 13.00,-4.80,53.00,35.20
 GLDebug: Inserted e1DetectorInstant:instantInductionLoop_gneE3_1_0 into SUMORTree with boundary 13.00,-4.80,53.00,35.20
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute lane 'gneE2_1' into instantInductionLoop 'instantInductionLoop_gneE3_1_0'
 GLDebug: Removed object e1DetectorInstant:instantInductionLoop_gneE3_1_0 from SUMORTree with boundary 13.00,-4.80,53.00,35.20
-GLDebug: Inserted e1DetectorInstant:instantInductionLoop_gneE3_1_0 into SUMORTree with boundary 13.00,-4.80,53.00,35.20
-GLDebug: Removed object e1DetectorInstant:instantInductionLoop_gneE3_1_0 from SUMORTree with boundary 13.00,-4.80,53.00,35.20
-GLDebug: Inserted e1DetectorInstant:instantInductionLoop_gneE3_1_0 into SUMORTree with boundary 13.00,-4.80,53.00,35.20
-GLDebug: Removed object e1DetectorInstant:instantInductionLoop_gneE3_1_0 from SUMORTree with boundary 13.00,-4.80,53.00,35.20
+GLDebug: Inserted e1DetectorInstant:instantInductionLoop_gneE3_1_0 into SUMORTree with boundary 13.00,-1.60,53.00,38.40
+GLDebug: Removed object e1DetectorInstant:instantInductionLoop_gneE3_1_0 from SUMORTree with boundary 13.00,-1.60,53.00,38.40
 GLDebug: Inserted e1DetectorInstant:instantInductionLoop_gneE3_1_0 into SUMORTree with boundary 13.00,-1.60,53.00,38.40
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute lane 'gneE0_0' into instantInductionLoop 'instantInductionLoop_gneE3_1_0'
 GLDebug: Removed object e1DetectorInstant:instantInductionLoop_gneE3_1_0 from SUMORTree with boundary 13.00,-1.60,53.00,38.40
-GLDebug: Inserted e1DetectorInstant:instantInductionLoop_gneE3_1_0 into SUMORTree with boundary 13.00,-1.60,53.00,38.40
-GLDebug: Removed object e1DetectorInstant:instantInductionLoop_gneE3_1_0 from SUMORTree with boundary 13.00,-1.60,53.00,38.40
-GLDebug: Inserted e1DetectorInstant:instantInductionLoop_gneE3_1_0 into SUMORTree with boundary 13.00,-1.60,53.00,38.40
-GLDebug: Removed object e1DetectorInstant:instantInductionLoop_gneE3_1_0 from SUMORTree with boundary 13.00,-1.60,53.00,38.40
+GLDebug: Inserted e1DetectorInstant:instantInductionLoop_gneE3_1_0 into SUMORTree with boundary 13.00,-21.60,53.00,18.40
+GLDebug: Removed object e1DetectorInstant:instantInductionLoop_gneE3_1_0 from SUMORTree with boundary 13.00,-21.60,53.00,18.40
 GLDebug: Inserted e1DetectorInstant:instantInductionLoop_gneE3_1_0 into SUMORTree with boundary 13.00,-21.60,53.00,18.40
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute lane 'gneE3_1' into instantInductionLoop 'instantInductionLoop_gneE3_1_0'
 GLDebug: Removed object e1DetectorInstant:instantInductionLoop_gneE3_1_0 from SUMORTree with boundary 13.00,-21.60,53.00,18.40
-GLDebug: Inserted e1DetectorInstant:instantInductionLoop_gneE3_1_0 into SUMORTree with boundary 13.00,-21.60,53.00,18.40
-GLDebug: Removed object e1DetectorInstant:instantInductionLoop_gneE3_1_0 from SUMORTree with boundary 13.00,-21.60,53.00,18.40
-GLDebug: Inserted e1DetectorInstant:instantInductionLoop_gneE3_1_0 into SUMORTree with boundary 13.00,-21.60,53.00,18.40
-GLDebug: Removed object e1DetectorInstant:instantInductionLoop_gneE3_1_0 from SUMORTree with boundary 13.00,-21.60,53.00,18.40
+GLDebug: Inserted e1DetectorInstant:instantInductionLoop_gneE3_1_0 into SUMORTree with boundary -3.00,1.60,37.00,41.60
+GLDebug: Removed object e1DetectorInstant:instantInductionLoop_gneE3_1_0 from SUMORTree with boundary -3.00,1.60,37.00,41.60
 GLDebug: Inserted e1DetectorInstant:instantInductionLoop_gneE3_1_0 into SUMORTree with boundary -3.00,1.60,37.00,41.60
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Removing instantInductionLoop 'instantInductionLoop_gneE3_1_0' in GNEChange_Additional
@@ -91,26 +79,20 @@ GLDebug: Inserted e1DetectorInstant:instantInductionLoop_gneE3_1_0 into SUMORTre
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute lane 'gneE0_0' into instantInductionLoop 'instantInductionLoop_gneE3_1_0'
 GLDebug: Removed object e1DetectorInstant:instantInductionLoop_gneE3_1_0 from SUMORTree with boundary -3.00,1.60,37.00,41.60
-GLDebug: Inserted e1DetectorInstant:instantInductionLoop_gneE3_1_0 into SUMORTree with boundary -3.00,1.60,37.00,41.60
-GLDebug: Removed object e1DetectorInstant:instantInductionLoop_gneE3_1_0 from SUMORTree with boundary -3.00,1.60,37.00,41.60
-GLDebug: Inserted e1DetectorInstant:instantInductionLoop_gneE3_1_0 into SUMORTree with boundary -3.00,1.60,37.00,41.60
-GLDebug: Removed object e1DetectorInstant:instantInductionLoop_gneE3_1_0 from SUMORTree with boundary -3.00,1.60,37.00,41.60
+GLDebug: Inserted e1DetectorInstant:instantInductionLoop_gneE3_1_0 into SUMORTree with boundary 13.00,-21.60,53.00,18.40
+GLDebug: Removed object e1DetectorInstant:instantInductionLoop_gneE3_1_0 from SUMORTree with boundary 13.00,-21.60,53.00,18.40
 GLDebug: Inserted e1DetectorInstant:instantInductionLoop_gneE3_1_0 into SUMORTree with boundary 13.00,-21.60,53.00,18.40
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute lane 'gneE2_1' into instantInductionLoop 'instantInductionLoop_gneE3_1_0'
 GLDebug: Removed object e1DetectorInstant:instantInductionLoop_gneE3_1_0 from SUMORTree with boundary 13.00,-21.60,53.00,18.40
-GLDebug: Inserted e1DetectorInstant:instantInductionLoop_gneE3_1_0 into SUMORTree with boundary 13.00,-21.60,53.00,18.40
-GLDebug: Removed object e1DetectorInstant:instantInductionLoop_gneE3_1_0 from SUMORTree with boundary 13.00,-21.60,53.00,18.40
-GLDebug: Inserted e1DetectorInstant:instantInductionLoop_gneE3_1_0 into SUMORTree with boundary 13.00,-21.60,53.00,18.40
-GLDebug: Removed object e1DetectorInstant:instantInductionLoop_gneE3_1_0 from SUMORTree with boundary 13.00,-21.60,53.00,18.40
+GLDebug: Inserted e1DetectorInstant:instantInductionLoop_gneE3_1_0 into SUMORTree with boundary 13.00,-1.60,53.00,38.40
+GLDebug: Removed object e1DetectorInstant:instantInductionLoop_gneE3_1_0 from SUMORTree with boundary 13.00,-1.60,53.00,38.40
 GLDebug: Inserted e1DetectorInstant:instantInductionLoop_gneE3_1_0 into SUMORTree with boundary 13.00,-1.60,53.00,38.40
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute lane 'gneE2_0' into instantInductionLoop 'instantInductionLoop_gneE3_1_0'
 GLDebug: Removed object e1DetectorInstant:instantInductionLoop_gneE3_1_0 from SUMORTree with boundary 13.00,-1.60,53.00,38.40
-GLDebug: Inserted e1DetectorInstant:instantInductionLoop_gneE3_1_0 into SUMORTree with boundary 13.00,-1.60,53.00,38.40
-GLDebug: Removed object e1DetectorInstant:instantInductionLoop_gneE3_1_0 from SUMORTree with boundary 13.00,-1.60,53.00,38.40
-GLDebug: Inserted e1DetectorInstant:instantInductionLoop_gneE3_1_0 into SUMORTree with boundary 13.00,-1.60,53.00,38.40
-GLDebug: Removed object e1DetectorInstant:instantInductionLoop_gneE3_1_0 from SUMORTree with boundary 13.00,-1.60,53.00,38.40
+GLDebug: Inserted e1DetectorInstant:instantInductionLoop_gneE3_1_0 into SUMORTree with boundary 13.00,-4.80,53.00,35.20
+GLDebug: Removed object e1DetectorInstant:instantInductionLoop_gneE3_1_0 from SUMORTree with boundary 13.00,-4.80,53.00,35.20
 GLDebug: Inserted e1DetectorInstant:instantInductionLoop_gneE3_1_0 into SUMORTree with boundary 13.00,-4.80,53.00,35.20
 Debug: Additionals saved
 GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00

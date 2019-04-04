@@ -32,49 +32,37 @@ Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1
 Debug: Value 'dummy lane' for attribute lane of containerStop isn't valid
 Debug: Setting new attribute lane 'gneE0_0' into containerStop 'containerStop_gneE2_1_0'
 GLDebug: Removed object containerStop:containerStop_gneE2_1_0 from SUMORTree with boundary -8.00,-3.20,42.00,36.80
-GLDebug: Inserted containerStop:containerStop_gneE2_1_0 into SUMORTree with boundary -8.00,-3.20,42.00,36.80
-GLDebug: Removed object containerStop:containerStop_gneE2_1_0 from SUMORTree with boundary -8.00,-3.20,42.00,36.80
-GLDebug: Inserted containerStop:containerStop_gneE2_1_0 into SUMORTree with boundary -8.00,-3.20,42.00,36.80
-GLDebug: Removed object containerStop:containerStop_gneE2_1_0 from SUMORTree with boundary -8.00,-3.20,42.00,36.80
+GLDebug: Inserted containerStop:containerStop_gneE2_1_0 into SUMORTree with boundary -8.00,-23.20,42.00,16.80
+GLDebug: Removed object containerStop:containerStop_gneE2_1_0 from SUMORTree with boundary -8.00,-23.20,42.00,16.80
 GLDebug: Inserted containerStop:containerStop_gneE2_1_0 into SUMORTree with boundary -8.00,-23.20,42.00,16.80
 Debug: Setting new attribute lane 'gneE2_1' into containerStop 'containerStop_gneE2_1_0'
 GLDebug: Removed object containerStop:containerStop_gneE2_1_0 from SUMORTree with boundary -8.00,-23.20,42.00,16.80
-GLDebug: Inserted containerStop:containerStop_gneE2_1_0 into SUMORTree with boundary -8.00,-23.20,42.00,16.80
-GLDebug: Removed object containerStop:containerStop_gneE2_1_0 from SUMORTree with boundary -8.00,-23.20,42.00,16.80
-GLDebug: Inserted containerStop:containerStop_gneE2_1_0 into SUMORTree with boundary -8.00,-23.20,42.00,16.80
-GLDebug: Removed object containerStop:containerStop_gneE2_1_0 from SUMORTree with boundary -8.00,-23.20,42.00,16.80
+GLDebug: Inserted containerStop:containerStop_gneE2_1_0 into SUMORTree with boundary -8.00,-3.20,42.00,36.80
+GLDebug: Removed object containerStop:containerStop_gneE2_1_0 from SUMORTree with boundary -8.00,-3.20,42.00,36.80
 GLDebug: Inserted containerStop:containerStop_gneE2_1_0 into SUMORTree with boundary -8.00,-3.20,42.00,36.80
 Debug: Setting new attribute lane 'gneE2_0' into containerStop 'containerStop_gneE2_1_0'
 GLDebug: Removed object containerStop:containerStop_gneE2_1_0 from SUMORTree with boundary -8.00,-3.20,42.00,36.80
-GLDebug: Inserted containerStop:containerStop_gneE2_1_0 into SUMORTree with boundary -8.00,-3.20,42.00,36.80
-GLDebug: Removed object containerStop:containerStop_gneE2_1_0 from SUMORTree with boundary -8.00,-3.20,42.00,36.80
-GLDebug: Inserted containerStop:containerStop_gneE2_1_0 into SUMORTree with boundary -8.00,-3.20,42.00,36.80
-GLDebug: Removed object containerStop:containerStop_gneE2_1_0 from SUMORTree with boundary -8.00,-3.20,42.00,36.80
+GLDebug: Inserted containerStop:containerStop_gneE2_1_0 into SUMORTree with boundary -8.00,-6.40,42.00,33.60
+GLDebug: Removed object containerStop:containerStop_gneE2_1_0 from SUMORTree with boundary -8.00,-6.40,42.00,33.60
 GLDebug: Inserted containerStop:containerStop_gneE2_1_0 into SUMORTree with boundary -8.00,-6.40,42.00,33.60
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute lane 'gneE2_1' into containerStop 'containerStop_gneE2_1_0'
 GLDebug: Removed object containerStop:containerStop_gneE2_1_0 from SUMORTree with boundary -8.00,-6.40,42.00,33.60
-GLDebug: Inserted containerStop:containerStop_gneE2_1_0 into SUMORTree with boundary -8.00,-6.40,42.00,33.60
-GLDebug: Removed object containerStop:containerStop_gneE2_1_0 from SUMORTree with boundary -8.00,-6.40,42.00,33.60
-GLDebug: Inserted containerStop:containerStop_gneE2_1_0 into SUMORTree with boundary -8.00,-6.40,42.00,33.60
-GLDebug: Removed object containerStop:containerStop_gneE2_1_0 from SUMORTree with boundary -8.00,-6.40,42.00,33.60
+GLDebug: Inserted containerStop:containerStop_gneE2_1_0 into SUMORTree with boundary -8.00,-3.20,42.00,36.80
+GLDebug: Removed object containerStop:containerStop_gneE2_1_0 from SUMORTree with boundary -8.00,-3.20,42.00,36.80
 GLDebug: Inserted containerStop:containerStop_gneE2_1_0 into SUMORTree with boundary -8.00,-3.20,42.00,36.80
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute lane 'gneE0_0' into containerStop 'containerStop_gneE2_1_0'
 GLDebug: Removed object containerStop:containerStop_gneE2_1_0 from SUMORTree with boundary -8.00,-3.20,42.00,36.80
-GLDebug: Inserted containerStop:containerStop_gneE2_1_0 into SUMORTree with boundary -8.00,-3.20,42.00,36.80
-GLDebug: Removed object containerStop:containerStop_gneE2_1_0 from SUMORTree with boundary -8.00,-3.20,42.00,36.80
-GLDebug: Inserted containerStop:containerStop_gneE2_1_0 into SUMORTree with boundary -8.00,-3.20,42.00,36.80
-GLDebug: Removed object containerStop:containerStop_gneE2_1_0 from SUMORTree with boundary -8.00,-3.20,42.00,36.80
+GLDebug: Inserted containerStop:containerStop_gneE2_1_0 into SUMORTree with boundary -8.00,-23.20,42.00,16.80
+GLDebug: Removed object containerStop:containerStop_gneE2_1_0 from SUMORTree with boundary -8.00,-23.20,42.00,16.80
 GLDebug: Inserted containerStop:containerStop_gneE2_1_0 into SUMORTree with boundary -8.00,-23.20,42.00,16.80
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute lane 'gneE2_1' into containerStop 'containerStop_gneE2_1_0'
 GLDebug: Removed object containerStop:containerStop_gneE2_1_0 from SUMORTree with boundary -8.00,-23.20,42.00,16.80
-GLDebug: Inserted containerStop:containerStop_gneE2_1_0 into SUMORTree with boundary -8.00,-23.20,42.00,16.80
-GLDebug: Removed object containerStop:containerStop_gneE2_1_0 from SUMORTree with boundary -8.00,-23.20,42.00,16.80
-GLDebug: Inserted containerStop:containerStop_gneE2_1_0 into SUMORTree with boundary -8.00,-23.20,42.00,16.80
-GLDebug: Removed object containerStop:containerStop_gneE2_1_0 from SUMORTree with boundary -8.00,-23.20,42.00,16.80
+GLDebug: Inserted containerStop:containerStop_gneE2_1_0 into SUMORTree with boundary -8.00,-3.20,42.00,36.80
+GLDebug: Removed object containerStop:containerStop_gneE2_1_0 from SUMORTree with boundary -8.00,-3.20,42.00,36.80
 GLDebug: Inserted containerStop:containerStop_gneE2_1_0 into SUMORTree with boundary -8.00,-3.20,42.00,36.80
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Removing containerStop 'containerStop_gneE2_1_0' in GNEChange_Additional
@@ -91,26 +79,20 @@ GLDebug: Inserted containerStop:containerStop_gneE2_1_0 into SUMORTree with boun
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute lane 'gneE0_0' into containerStop 'containerStop_gneE2_1_0'
 GLDebug: Removed object containerStop:containerStop_gneE2_1_0 from SUMORTree with boundary -8.00,-3.20,42.00,36.80
-GLDebug: Inserted containerStop:containerStop_gneE2_1_0 into SUMORTree with boundary -8.00,-3.20,42.00,36.80
-GLDebug: Removed object containerStop:containerStop_gneE2_1_0 from SUMORTree with boundary -8.00,-3.20,42.00,36.80
-GLDebug: Inserted containerStop:containerStop_gneE2_1_0 into SUMORTree with boundary -8.00,-3.20,42.00,36.80
-GLDebug: Removed object containerStop:containerStop_gneE2_1_0 from SUMORTree with boundary -8.00,-3.20,42.00,36.80
+GLDebug: Inserted containerStop:containerStop_gneE2_1_0 into SUMORTree with boundary -8.00,-23.20,42.00,16.80
+GLDebug: Removed object containerStop:containerStop_gneE2_1_0 from SUMORTree with boundary -8.00,-23.20,42.00,16.80
 GLDebug: Inserted containerStop:containerStop_gneE2_1_0 into SUMORTree with boundary -8.00,-23.20,42.00,16.80
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute lane 'gneE2_1' into containerStop 'containerStop_gneE2_1_0'
 GLDebug: Removed object containerStop:containerStop_gneE2_1_0 from SUMORTree with boundary -8.00,-23.20,42.00,16.80
-GLDebug: Inserted containerStop:containerStop_gneE2_1_0 into SUMORTree with boundary -8.00,-23.20,42.00,16.80
-GLDebug: Removed object containerStop:containerStop_gneE2_1_0 from SUMORTree with boundary -8.00,-23.20,42.00,16.80
-GLDebug: Inserted containerStop:containerStop_gneE2_1_0 into SUMORTree with boundary -8.00,-23.20,42.00,16.80
-GLDebug: Removed object containerStop:containerStop_gneE2_1_0 from SUMORTree with boundary -8.00,-23.20,42.00,16.80
+GLDebug: Inserted containerStop:containerStop_gneE2_1_0 into SUMORTree with boundary -8.00,-3.20,42.00,36.80
+GLDebug: Removed object containerStop:containerStop_gneE2_1_0 from SUMORTree with boundary -8.00,-3.20,42.00,36.80
 GLDebug: Inserted containerStop:containerStop_gneE2_1_0 into SUMORTree with boundary -8.00,-3.20,42.00,36.80
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute lane 'gneE2_0' into containerStop 'containerStop_gneE2_1_0'
 GLDebug: Removed object containerStop:containerStop_gneE2_1_0 from SUMORTree with boundary -8.00,-3.20,42.00,36.80
-GLDebug: Inserted containerStop:containerStop_gneE2_1_0 into SUMORTree with boundary -8.00,-3.20,42.00,36.80
-GLDebug: Removed object containerStop:containerStop_gneE2_1_0 from SUMORTree with boundary -8.00,-3.20,42.00,36.80
-GLDebug: Inserted containerStop:containerStop_gneE2_1_0 into SUMORTree with boundary -8.00,-3.20,42.00,36.80
-GLDebug: Removed object containerStop:containerStop_gneE2_1_0 from SUMORTree with boundary -8.00,-3.20,42.00,36.80
+GLDebug: Inserted containerStop:containerStop_gneE2_1_0 into SUMORTree with boundary -8.00,-6.40,42.00,33.60
+GLDebug: Removed object containerStop:containerStop_gneE2_1_0 from SUMORTree with boundary -8.00,-6.40,42.00,33.60
 GLDebug: Inserted containerStop:containerStop_gneE2_1_0 into SUMORTree with boundary -8.00,-6.40,42.00,33.60
 Debug: Additionals saved
 GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
