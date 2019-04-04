@@ -982,7 +982,7 @@ MSLCM_LC2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
             double secureGap = nv->getCarFollowModel().getSecureGap(nv->getSpeed(), anticipatedSpeed, myCarFollowModel.getMaxDecel());
 
             // propose follower speed corresponding to first estimation of gap
-            double vsafe = nv->getCarFollowModel().followSpeed(
+            vsafe = nv->getCarFollowModel().followSpeed(
                                nv, nv->getSpeed(), anticipatedGap, plannedSpeed, myCarFollowModel.getMaxDecel());
             double helpAccel = SPEED2ACCEL(vsafe - nv->getSpeed()) / anticipationTime;
 
