@@ -24,3 +24,9 @@ stops
 
 # handle input errors
 errors
+
+# parallel execution with faulty routes
+parallel_disconnected
+
+# faulty routes
+disconnected
