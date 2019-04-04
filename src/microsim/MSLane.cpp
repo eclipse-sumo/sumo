@@ -2241,9 +2241,10 @@ MSLane::getMaximumBrakeDist() const {
     const MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
     const double maxSpeed = getSpeedLimit() * vc.getMaxSpeedFactor();
     // NOTE: For the euler update this is an upper bound on the actual braking distance (see ticket #860)
-    return maxSpeed * maxSpeed * 0.5 / vc.getMinDeceleration();
+    // impose a hard bound due to visibiilty / common sense to avoid unnecessary computation if there are strange vehicles in the fleet
+    return MIN2(maxSpeed * maxSpeed * 0.5 / vc.getMinDeceleration(), 
+            myPermissions == SVC_SHIP ? 10000.0 : 1000.0);
 }
-
 
 
 std::pair<MSVehicle* const, double>
