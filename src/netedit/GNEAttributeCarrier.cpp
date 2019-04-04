@@ -868,6 +868,11 @@ GNEAttributeCarrier::parse(const std::string& string) {
     return StringUtils::toInt(string);
 }
 
+template<> long long
+GNEAttributeCarrier::parse(const std::string& string) {
+    return StringUtils::toLong(string);
+}
+
 
 template<> double
 GNEAttributeCarrier::parse(const std::string& string) {
