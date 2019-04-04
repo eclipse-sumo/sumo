@@ -460,9 +460,10 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidDemandElementID(value);
         case SUMO_ATTR_DURATION:
-            return canParse<SUMOTime>(value);
         case SUMO_ATTR_UNTIL:
-            return canParse<SUMOTime>(value);
+            if (canParse<double>(value)) {
+                return parse<double>(value) >= 0;
+            }
         case SUMO_ATTR_INDEX:
             if ((value == "fit") || (value == "end")) {
                 return true;

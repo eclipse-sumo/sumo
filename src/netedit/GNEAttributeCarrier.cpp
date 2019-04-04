@@ -875,12 +875,6 @@ GNEAttributeCarrier::parse(const std::string& string) {
 }
 
 
-template<> SUMOTime
-GNEAttributeCarrier::parse(const std::string& string) {
-    return string2time(string);
-}
-
-
 template<> bool
 GNEAttributeCarrier::parse(const std::string& string) {
     return StringUtils::toBool(string);

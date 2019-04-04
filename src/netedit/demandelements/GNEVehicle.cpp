@@ -480,13 +480,13 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
             return myEdgeParents.back()->getID();
         // Specific of flows
         case SUMO_ATTR_BEGIN:
-            return toString(depart);
+            return time2string(depart);
         case SUMO_ATTR_END:
-            return toString(repetitionEnd);
+            return time2string(repetitionEnd);
         case SUMO_ATTR_VEHSPERHOUR:
-            return toString(repetitionOffset);
+            return time2string(repetitionOffset);
         case SUMO_ATTR_PERIOD:
-            return toString(repetitionOffset);
+            return time2string(repetitionOffset);
         case SUMO_ATTR_PROB:
             return toString(repetitionProbability);
         case SUMO_ATTR_NUMBER:
@@ -997,18 +997,18 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
         // Specific of flows
         case SUMO_ATTR_BEGIN: {
             std::string oldBegin = getBegin();
-            depart = parse<SUMOTime>(value);
+            depart = string2time(value);
             myViewNet->getNet()->updateDemandElementBegin(oldBegin, this);
             break;
         }
         case SUMO_ATTR_END:
-            repetitionEnd = parse<SUMOTime>(value);
+            repetitionEnd = string2time(value);
             break;
         case SUMO_ATTR_VEHSPERHOUR:
-            repetitionOffset = parse<SUMOTime>(value);
+            repetitionOffset = string2time(value);
             break;
         case SUMO_ATTR_PERIOD:
-            repetitionOffset = parse<SUMOTime>(value);
+            repetitionOffset = string2time(value);
             break;
         case SUMO_ATTR_PROB:
             repetitionProbability = parse<double>(value);
