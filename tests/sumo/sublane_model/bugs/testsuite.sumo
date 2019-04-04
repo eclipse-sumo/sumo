@@ -47,3 +47,6 @@ ticket4168
 
 # Bicycle wrongly recognizes vehicle as leader
 ticket4223
+
+# test lookback
+ticket5416
