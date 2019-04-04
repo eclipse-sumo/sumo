@@ -311,7 +311,7 @@ GNEDeleteFrame::removeAttributeCarrier(GNEAttributeCarrier* ac, bool ignoreOptio
             default: {
                 // obtain tag property (only for improve code legibility)
                 const auto& tagValue = ac->getTagProperty();
-                if (tagValue.isAdditional()) {
+                if (tagValue.isAdditional() || tagValue.isTAZ()) {
                     GNEAdditional* additional = dynamic_cast<GNEAdditional*>(ac);
                     assert(additional);
                     myViewNet->getNet()->deleteAdditional(additional, myViewNet->getUndoList());
