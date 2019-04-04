@@ -3083,9 +3083,13 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
         // deceleration of potential follower vehicles
         if (searchDist == -1) {
             searchDist = getMaximumBrakeDist() - backOffset;
+#ifdef DEBUG_CONTEXT
+            if (DEBUG_COND2(ego)) std::cout << "   computed searchDist=" << searchDist << "\n";
+#endif
         }
 
-        std::set<MSLane*> visited;
+        // avoid loops
+        std::set<const MSLane*> visited(myEdge->getLanes().begin(), myEdge->getLanes().end());
         std::vector<MSLane::IncomingLaneInfo> newFound;
         std::vector<MSLane::IncomingLaneInfo> toExamine = myIncomingLanes;
         while (toExamine.size() != 0) {
