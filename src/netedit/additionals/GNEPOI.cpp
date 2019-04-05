@@ -85,7 +85,7 @@ GNEPOI::startGeometryMoving() {
 void
 GNEPOI::endGeometryMoving() {
     // check that endGeometryMoving was called only once
-    if ((myLaneParents.size() > 0) && myMovingGeometryBoundary.isInitialised()) {
+    if ((getLaneParents().size() > 0) && myMovingGeometryBoundary.isInitialised()) {
         // Remove object from net
         myNet->removeGLObjectFromGrid(this);
         // reset myMovingGeometryBoundary
@@ -100,11 +100,11 @@ GNEPOI::endGeometryMoving() {
 
 void
 GNEPOI::writeShape(OutputDevice& device) {
-    if (myLaneParents.size() > 0) {
+    if (getLaneParents().size() > 0) {
         // obtain fixed position over lane
-        double fixedPositionOverLane = myPosOverLane > myLaneParents.at(0)->getShape().length() ? myLaneParents.at(0)->getShape().length() : myPosOverLane < 0 ? 0 : myPosOverLane;
+        double fixedPositionOverLane = myPosOverLane > getLaneParents().at(0)->getShape().length() ? getLaneParents().at(0)->getShape().length() : myPosOverLane < 0 ? 0 : myPosOverLane;
         // write POILane using POI::writeXML
-        writeXML(device, false, 0, myLaneParents.at(0)->getID(), fixedPositionOverLane, myPosLat);
+        writeXML(device, false, 0, getLaneParents().at(0)->getID(), fixedPositionOverLane, myPosLat);
     } else {
         writeXML(device, myGeo);
     }
@@ -120,8 +120,8 @@ GNEPOI::moveGeometry(const Position& oldPos, const Position& offset) {
         // filtern position using snap to active grid
         newPosition = myNet->getViewNet()->snapToActiveGrid(newPosition);
         // set position depending of POI Type
-        if (myLaneParents.size() > 0) {
-            myPosOverLane = myLaneParents.at(0)->getShape().nearest_offset_to_point2D(newPosition, false);
+        if (getLaneParents().size() > 0) {
+            myPosOverLane = getLaneParents().at(0)->getShape().nearest_offset_to_point2D(newPosition, false);
         } else {
             set(newPosition);
         }
@@ -138,9 +138,9 @@ GNEPOI::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
         Position myNewPosition(*this);
         set(oldPos);
         // commit new position allowing undo/redo
-        if (myLaneParents.size() > 0) {
+        if (getLaneParents().size() > 0) {
             // restore old position before commit new position
-            double originalPosOverLane = myLaneParents.at(0)->getShape().nearest_offset_to_point2D(oldPos, false);
+            double originalPosOverLane = getLaneParents().at(0)->getShape().nearest_offset_to_point2D(oldPos, false);
             undoList->p_begin("position of " + getTagStr());
             undoList->p_add(new GNEChange_Attribute(this, myNet, SUMO_ATTR_POSITION, toString(myPosOverLane), true, toString(originalPosOverLane)));
             undoList->p_end();
@@ -159,11 +159,11 @@ GNEPOI::updateGeometry(bool updateGrid) {
     if (updateGrid) {
         myNet->removeGLObjectFromGrid(this);
     }
-    if (myLaneParents.size() > 0) {
+    if (getLaneParents().size() > 0) {
         // obtain fixed position over lane
-        double fixedPositionOverLane = myPosOverLane > myLaneParents.at(0)->getLaneShapeLength() ? myLaneParents.at(0)->getLaneShapeLength() : myPosOverLane < 0 ? 0 : myPosOverLane;
+        double fixedPositionOverLane = myPosOverLane > getLaneParents().at(0)->getLaneShapeLength() ? getLaneParents().at(0)->getLaneShapeLength() : myPosOverLane < 0 ? 0 : myPosOverLane;
         // set new position regarding to lane
-        set(myLaneParents.at(0)->getShape().positionAtOffset(fixedPositionOverLane * myLaneParents.at(0)->getLengthGeometryFactor(), -myPosLat));
+        set(getLaneParents().at(0)->getShape().positionAtOffset(fixedPositionOverLane * getLaneParents().at(0)->getLengthGeometryFactor(), -myPosLat));
     }
     // last step is to check if object has to be added into grid (SUMOTree) again
     if (updateGrid) {
@@ -199,7 +199,7 @@ GNEPOI::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     // build selection and show parameters menu
     myNet->getViewNet()->buildSelectionACPopupEntry(ret, this);
     buildShowParamsPopupEntry(ret);
-    if (myLaneParents.size() > 0) {
+    if (getLaneParents().size() > 0) {
         // build shape header
         buildShapePopupOptions(app, ret, getShapeType());
         // add option for convert to GNEPOI
@@ -279,7 +279,7 @@ GNEPOI::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_LANE:
             return myLane;
         case SUMO_ATTR_POSITION:
-            if (myLaneParents.size() > 0) {
+            if (getLaneParents().size() > 0) {
                 return toString(myPosOverLane);
             } else {
                 return toString(*this);
@@ -361,7 +361,7 @@ GNEPOI::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_LANE:
             return (myNet->retrieveLane(value, false) != nullptr);
         case SUMO_ATTR_POSITION:
-            if (myLaneParents.size() > 0) {
+            if (getLaneParents().size() > 0) {
                 return canParse<double>(value);
             } else {
                 return canParse<Position>(value);
@@ -482,7 +482,7 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_POSITION: {
             // first remove object from grid due position is used for boundary
             myNet->removeGLObjectFromGrid(this);
-            if (myLaneParents.size() > 0) {
+            if (getLaneParents().size() > 0) {
                 myPosOverLane = parse<double>(value);
             } else {
                 set(parse<Position>(value));

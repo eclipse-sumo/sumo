@@ -80,17 +80,17 @@ GNECalibrator::updateGeometry(bool updateGrid) {
     myGeometry.clearGeometry();
 
     // get shape depending of we have a edge or a lane
-    if (myLaneParents.size() > 0) {
+    if (getLaneParents().size() > 0) {
         // Get shape of lane parent
-        myGeometry.shape.push_back(myLaneParents.front()->getShape().positionAtOffset(myPositionOverLane));
+        myGeometry.shape.push_back(getLaneParents().front()->getShape().positionAtOffset(myPositionOverLane));
         // Save rotation (angle) of the vector constructed by points f and s
-        myGeometry.shapeRotations.push_back(myLaneParents.front()->getShape().rotationDegreeAtOffset(myPositionOverLane) * -1);
-    } else if (myEdgeParents.size() > 0) {
-        for (auto i : myEdgeParents.front()->getLanes()) {
+        myGeometry.shapeRotations.push_back(getLaneParents().front()->getShape().rotationDegreeAtOffset(myPositionOverLane) * -1);
+    } else if (getEdgeParents().size() > 0) {
+        for (auto i : getEdgeParents().front()->getLanes()) {
             // Get shape of lane parent
             myGeometry.shape.push_back(i->getShape().positionAtOffset(myPositionOverLane));
             // Save rotation (angle) of the vector constructed by points f and s
-            myGeometry.shapeRotations.push_back(myEdgeParents.front()->getLanes().at(0)->getShape().rotationDegreeAtOffset(myPositionOverLane) * -1);
+            myGeometry.shapeRotations.push_back(getEdgeParents().front()->getLanes().at(0)->getShape().rotationDegreeAtOffset(myPositionOverLane) * -1);
         }
     } else {
         throw ProcessError("Both myEdge and myLane aren't defined");
@@ -105,7 +105,7 @@ GNECalibrator::updateGeometry(bool updateGrid) {
 
 Position
 GNECalibrator::getPositionInView() const {
-    PositionVector shape = (myLaneParents.size() > 0) ? myLaneParents.front()->getShape() : myEdgeParents.front()->getLanes().at(0)->getShape();
+    PositionVector shape = (getLaneParents().size() > 0) ? getLaneParents().front()->getShape() : getEdgeParents().front()->getLanes().at(0)->getShape();
     if (myPositionOverLane < 0) {
         return shape.front();
     } else if (myPositionOverLane > shape.length()) {
@@ -119,10 +119,10 @@ GNECalibrator::getPositionInView() const {
 std::string
 GNECalibrator::getParentName() const {
     // get parent name depending of we have a edge or a lane
-    if (myLaneParents.size() > 0) {
-        return myLaneParents.front()->getMicrosimID();
-    } else if (myEdgeParents.size() > 0) {
-        return myEdgeParents.front()->getLanes().at(0)->getMicrosimID();
+    if (getLaneParents().size() > 0) {
+        return getLaneParents().front()->getMicrosimID();
+    } else if (getEdgeParents().size() > 0) {
+        return getEdgeParents().front()->getLanes().at(0)->getMicrosimID();
     } else {
         throw ProcessError("Both myEdge and myLane aren't defined");
     }
@@ -169,9 +169,9 @@ GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
             // draw "C"
             GLHelper::drawText("C", Position(0, 1.5), 0.1, 3, textColor, 180);
             // draw "edge" or "lane "
-            if (myLaneParents.size() > 0) {
+            if (getLaneParents().size() > 0) {
                 GLHelper::drawText("lane", Position(0, 3), .1, 1, textColor, 180);
-            } else if (myEdgeParents.size() > 0) {
+            } else if (getEdgeParents().size() > 0) {
                 GLHelper::drawText("edge", Position(0, 3), .1, 1, textColor, 180);
             } else {
                 throw ProcessError("Both myEdge and myLane aren't defined");
@@ -204,9 +204,9 @@ GNECalibrator::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getAdditionalID();
         case SUMO_ATTR_EDGE:
-            return myEdgeParents.front()->getID();
+            return getEdgeParents().front()->getID();
         case SUMO_ATTR_LANE:
-            return myLaneParents.front()->getID();
+            return getLaneParents().front()->getID();
         case SUMO_ATTR_POSITION:
             return toString(myPositionOverLane);
         case SUMO_ATTR_FREQUENCY:
@@ -273,7 +273,7 @@ GNECalibrator::isValid(SumoXMLAttr key, const std::string& value) {
             if (canParse<double>(value)) {
                 // obtain position and check if is valid
                 double newPosition = parse<double>(value);
-                PositionVector shape = (myLaneParents.size() > 0) ? myLaneParents.front()->getShape() : myEdgeParents.front()->getLanes().at(0)->getShape();
+                PositionVector shape = (getLaneParents().size() > 0) ? getLaneParents().front()->getShape() : getEdgeParents().front()->getLanes().at(0)->getShape();
                 if ((newPosition < 0) || (newPosition > shape.length())) {
                     return false;
                 } else {

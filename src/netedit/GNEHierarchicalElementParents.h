@@ -220,6 +220,10 @@ protected:
 
     /// @}
 
+    /// @brief variable ParentConnections
+    ParentConnections myParentConnections;
+
+private:
     /// @brief list of edge parents of this element
     std::vector<GNEEdge*> myEdgeParents;
     
@@ -235,10 +239,6 @@ protected:
     /// @brief list of demand elements parents of this element
     std::vector<GNEDemandElement*> myDemandElementParents;
 
-    /// @brief variable ParentConnections
-    ParentConnections myParentConnections;
-
-private:
     /// @brief pointer to AC (needed to avoid diamond problem)
     GNEAttributeCarrier* myAC;
 

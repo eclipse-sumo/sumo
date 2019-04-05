@@ -69,13 +69,13 @@ GNERerouterInterval::updateGeometry(bool /*updateGrid*/) {
 
 Position
 GNERerouterInterval::getPositionInView() const {
-    return myAdditionalParents.at(0)->getPositionInView();
+    return getAdditionalParents().at(0)->getPositionInView();
 }
 
 
 std::string
 GNERerouterInterval::getParentName() const {
-    return myAdditionalParents.at(0)->getID();
+    return getAdditionalParents().at(0)->getID();
 }
 
 
@@ -95,7 +95,7 @@ GNERerouterInterval::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_END:
             return toString(myEnd);
         case GNE_ATTR_PARENT:
-            return myAdditionalParents.at(0)->getID();
+            return getAdditionalParents().at(0)->getID();
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
         default:
@@ -114,7 +114,7 @@ GNERerouterInterval::setAttribute(SumoXMLAttr key, const std::string& value, GNE
             // change ID of Rerouter Interval
             undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
             // Change Ids of all Rerouter childs
-            for (auto i : myAdditionalChilds) {
+            for (auto i : getAdditionalChilds()) {
                 i->setAttribute(SUMO_ATTR_ID, generateChildID(i->getTagProperty().getTag()), undoList);
             }
             break;

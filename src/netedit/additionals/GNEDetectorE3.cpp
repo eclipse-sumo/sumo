@@ -203,7 +203,7 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
             // change ID of Entry
             undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
             // Change Ids of all Entry/Exits childs
-            for (auto i : myAdditionalChilds) {
+            for (auto i : getAdditionalChilds()) {
                 i->setAttribute(SUMO_ATTR_ID, generateChildID(i->getTagProperty().getTag()), undoList);
             }
             break;
@@ -266,7 +266,7 @@ GNEDetectorE3::checkAdditionalChildRestriction() const {
     int numEntrys = 0;
     int numExits = 0;
     // iterate over additional chidls and obtain number of entrys and exits
-    for (auto i : myAdditionalChilds) {
+    for (auto i : getAdditionalChilds()) {
         if (i->getTagProperty().getTag() == SUMO_TAG_DET_ENTRY) {
             numEntrys++;
         } else if (i->getTagProperty().getTag() == SUMO_TAG_DET_EXIT) {

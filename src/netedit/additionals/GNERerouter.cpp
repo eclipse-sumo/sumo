@@ -221,7 +221,7 @@ GNERerouter::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getAdditionalID();
         case SUMO_ATTR_EDGES:
-            return parseIDs(myEdgeChilds);
+            return parseIDs(getEdgeChilds());
         case SUMO_ATTR_POSITION:
             return toString(myPosition);
         case SUMO_ATTR_NAME:
@@ -258,7 +258,7 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
             // change ID of Rerouter Interval
             undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
             // Change Ids of all Rerouter interval childs
-            for (auto i : myAdditionalChilds) {
+            for (auto i : getAdditionalChilds()) {
                 i->setAttribute(SUMO_ATTR_ID, generateChildID(SUMO_TAG_INTERVAL), undoList);
             }
             break;

@@ -54,7 +54,7 @@ GNEDetectorEntryExit::isAdditionalValid() const {
     if (myFriendlyPosition) {
         return true;
     } else {
-        return fabs(myPositionOverLane) <= myLaneParents.front()->getParentEdge().getNBEdge()->getFinalLength();
+        return fabs(myPositionOverLane) <= getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength();
     }
 }
 
@@ -63,7 +63,7 @@ std::string
 GNEDetectorEntryExit::getAdditionalProblem() const {
     // declare variable for error position
     std::string errorPosition;
-    const double len = myLaneParents.front()->getParentEdge().getNBEdge()->getFinalLength();
+    const double len = getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength();
     // check positions over lane
     if (myPositionOverLane < -len) {
         errorPosition = (toString(SUMO_ATTR_POSITION) + " < 0");
@@ -80,7 +80,7 @@ GNEDetectorEntryExit::fixAdditionalProblem() {
     // declare new position
     double newPositionOverLane = myPositionOverLane;
     // fix pos and lenght  checkAndFixDetectorPosition
-    GNEAdditionalHandler::checkAndFixDetectorPosition(newPositionOverLane, myLaneParents.front()->getParentEdge().getNBEdge()->getFinalLength(), true);
+    GNEAdditionalHandler::checkAndFixDetectorPosition(newPositionOverLane, getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength(), true);
     // set new position
     setAttribute(SUMO_ATTR_POSITION, toString(newPositionOverLane), myViewNet->getUndoList());
 }
@@ -94,9 +94,9 @@ GNEDetectorEntryExit::moveGeometry(const Position& offset) {
     // filtern position using snap to active grid
     newPosition = myViewNet->snapToActiveGrid(newPosition);
     const bool storeNegative = myPositionOverLane < 0;
-    myPositionOverLane = myLaneParents.front()->getShape().nearest_offset_to_point2D(newPosition, false);
+    myPositionOverLane = getLaneParents().front()->getShape().nearest_offset_to_point2D(newPosition, false);
     if (storeNegative) {
-        myPositionOverLane -= myLaneParents.front()->getParentEdge().getNBEdge()->getFinalLength();
+        myPositionOverLane -= getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength();
     }
     // Update geometry
     updateGeometry(false);
@@ -132,7 +132,7 @@ GNEDetectorEntryExit::updateGeometry(bool updateGrid) {
     Position s = myGeometry.shape[0] + Position(1, 0);
 
     // Save rotation (angle) of the vector constructed by points f and s
-    myGeometry.shapeRotations.push_back(myLaneParents.front()->getShape().rotationDegreeAtOffset(getGeometryPositionOverLane()) * -1);
+    myGeometry.shapeRotations.push_back(getLaneParents().front()->getShape().rotationDegreeAtOffset(getGeometryPositionOverLane()) * -1);
 
     // Set block icon position
     myBlockIcon.position = myGeometry.shape.getLineCenter();
@@ -141,7 +141,7 @@ GNEDetectorEntryExit::updateGeometry(bool updateGrid) {
     myBlockIcon.offset = Position(-1, 0);
 
     // Set block icon rotation, and using their rotation for logo
-    myBlockIcon.setRotation(myLaneParents.front());
+    myBlockIcon.setRotation(getLaneParents().front());
 
     // last step is to check if object has to be added into grid (SUMOTree) again
     if (updateGrid) {
@@ -149,7 +149,7 @@ GNEDetectorEntryExit::updateGeometry(bool updateGrid) {
     }
 
     // update E3 parent Geometry
-    myAdditionalParents.at(0)->updateGeometry(updateGrid);
+    getAdditionalParents().at(0)->updateGeometry(updateGrid);
 }
 
 
@@ -288,7 +288,7 @@ GNEDetectorEntryExit::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getAdditionalID();
         case SUMO_ATTR_LANE:
-            return myLaneParents.front()->getID();
+            return getLaneParents().front()->getID();
         case SUMO_ATTR_POSITION:
             return toString(myPositionOverLane);
         case SUMO_ATTR_FRIENDLY_POS:
@@ -296,7 +296,7 @@ GNEDetectorEntryExit::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_BLOCK_MOVEMENT:
             return toString(myBlockMovement);
         case GNE_ATTR_PARENT:
-            return myAdditionalParents.at(0)->getID();
+            return getAdditionalParents().at(0)->getID();
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_GENERIC:
@@ -337,7 +337,7 @@ GNEDetectorEntryExit::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_LANE:
             return (myViewNet->getNet()->retrieveLane(value, false) != nullptr);
         case SUMO_ATTR_POSITION:
-            return canParse<double>(value) && fabs(parse<double>(value)) < myLaneParents.front()->getParentEdge().getNBEdge()->getFinalLength();
+            return canParse<double>(value) && fabs(parse<double>(value)) < getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength();
         case SUMO_ATTR_FRIENDLY_POS:
             return canParse<bool>(value);
         case GNE_ATTR_BLOCK_MOVEMENT:

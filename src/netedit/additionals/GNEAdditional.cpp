@@ -180,7 +180,7 @@ GNEAdditional::~GNEAdditional() {}
 
 std::string 
 GNEAdditional::generateChildID(SumoXMLTag childTag) {
-    int counter = (int)myAdditionalChilds.size();
+    int counter = (int)getAdditionalChilds().size();
     while (myViewNet->getNet()->retrieveAdditional(childTag, getID() + toString(childTag) + toString(counter), false) != nullptr) {
         counter++;
     }
@@ -269,7 +269,7 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
             OutputDevice& deviceChilds = OutputDevice::getDevice(FileHelpers::getFilePath(OptionsCont::getOptions().getString("additional-files")) + getAttribute(SUMO_ATTR_FILE));
             deviceChilds.writeXMLHeader("rerouterValue", "additional_file.xsd");
             // save childs in a different filename
-            for (auto i : myAdditionalChilds) {
+            for (auto i : getAdditionalChilds()) {
                 // avoid to write two times additionals that haben two parents (Only write as child of first parent)
                 if (i->getAdditionalParents().size() < 1) {
                     i->writeAdditional(deviceChilds);
@@ -279,7 +279,7 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
             }
             deviceChilds.close();
         } else {
-            for (auto i : myAdditionalChilds) {
+            for (auto i : getAdditionalChilds()) {
                 // avoid to write two times additionals that haben two parents (Only write as child of first parent)
                 if (i->getAdditionalParents().size() < 2) {
                     i->writeAdditional(device);
@@ -346,7 +346,7 @@ GNEAdditional::startGeometryMoving() {
         // save current centering boundary
         myMove.movingGeometryBoundary = getCenteringBoundary();
         // start geometry in all childs
-        for (const auto &i : myDemandElementChilds) {
+        for (const auto &i : getDemandElementChilds()) {
             i->startGeometryMoving();
         }
     }
@@ -366,7 +366,7 @@ GNEAdditional::endGeometryMoving() {
         // add object into grid again (using the new centering boundary)
         myViewNet->getNet()->addGLObjectIntoGrid(this);
         // start geometry in all childs
-        for (const auto &i : myDemandElementChilds) {
+        for (const auto &i : getDemandElementChilds()) {
             i->endGeometryMoving();
         }
     }
@@ -472,8 +472,8 @@ GNEAdditional::getCenteringBoundary() const {
         Boundary b = myGeometry.multiShapeUnified.getBoxBoundary();
         b.grow(20);
         return b;
-    } else if (myAdditionalParents.size() > 0) {
-        return myAdditionalParents.at(0)->getCenteringBoundary();
+    } else if (getAdditionalParents().size() > 0) {
+        return getAdditionalParents().at(0)->getCenteringBoundary();
     } else {
         return Boundary(-0.1, -0.1, 0.1, 0.1);
     }

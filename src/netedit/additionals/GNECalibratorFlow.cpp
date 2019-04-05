@@ -94,13 +94,13 @@ GNECalibratorFlow::updateGeometry(bool /*updateGrid*/) {
 
 Position
 GNECalibratorFlow::getPositionInView() const {
-    return myAdditionalParents.at(0)->getPositionInView();
+    return getAdditionalParents().at(0)->getPositionInView();
 }
 
 
 std::string
 GNECalibratorFlow::getParentName() const {
-    return myAdditionalParents.at(0)->getID();
+    return getAdditionalParents().at(0)->getID();
 }
 
 
@@ -154,7 +154,7 @@ GNECalibratorFlow::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ARRIVALPOS_LAT:
             return myArrivalPosLat;
         case GNE_ATTR_PARENT:
-            return myAdditionalParents.at(0)->getID();
+            return getAdditionalParents().at(0)->getID();
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
         default:

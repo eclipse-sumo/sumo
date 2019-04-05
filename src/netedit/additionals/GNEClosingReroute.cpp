@@ -74,13 +74,13 @@ GNEClosingReroute::updateGeometry(bool /*updateGrid*/) {
 
 Position
 GNEClosingReroute::getPositionInView() const {
-    return myAdditionalParents.at(0)->getPositionInView();
+    return getAdditionalParents().at(0)->getPositionInView();
 }
 
 
 std::string
 GNEClosingReroute::getParentName() const {
-    return myAdditionalParents.at(0)->getID();
+    return getAdditionalParents().at(0)->getID();
 }
 
 
@@ -102,7 +102,7 @@ GNEClosingReroute::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_DISALLOW:
             return getVehicleClassNames(invertPermissions(myPermissions));
         case GNE_ATTR_PARENT:
-            return myAdditionalParents.at(0)->getID();
+            return getAdditionalParents().at(0)->getID();
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
         default:

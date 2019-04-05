@@ -107,27 +107,27 @@ GNELane::updateGeometry(bool updateGrid) {
         }
     }
     // update shapes parents associated with this lane
-    for (auto i : myShapeParents) {
+    for (auto i : getShapeParents()) {
         i->updateGeometry(updateGrid);
     }
     // update shape childs associated with this lane
-    for (auto i : myShapeChilds) {
+    for (auto i : getShapeChilds()) {
         i->updateGeometry(updateGrid);
     }
     // update additionals parents associated with this lane
-    for (auto i : myAdditionalChilds) {
+    for (auto i : getAdditionalChilds()) {
         i->updateGeometry(updateGrid);
     }
     // update additionals childs associated with this lane
-    for (auto i : myAdditionalParents) {
+    for (auto i : getAdditionalParents()) {
         i->updateGeometry(updateGrid);
     }
     // update demand elements parents associated with this lane
-    for (auto i : myDemandElementParents) {
+    for (auto i : getDemandElementParents()) {
         i->updateGeometry(updateGrid);
     }
      // update demand elements childs associated with this lane
-    for (auto i : myDemandElementChilds) {
+    for (auto i : getDemandElementChilds()) {
         i->updateGeometry(updateGrid);
     }
     // In Move mode, connections aren't updated
@@ -1298,27 +1298,27 @@ void
 GNELane::startGeometryMoving() {
     // Lanes don't need to save the current Centering Boundary, due they are parts of an Edge
     // Save current centering boundary of shape childs
-    for (auto i : myShapeChilds) {
+    for (auto i : getShapeChilds()) {
         i->startGeometryMoving();
     }
     // Save current centering boundary of shapes with this lane as chid
-    for (auto i : myShapeParents) {
+    for (auto i : getShapeParents()) {
         i->startGeometryMoving();
     }
     // Save current centering boundary of additional childs
-    for (auto i : myAdditionalChilds) {
+    for (auto i : getAdditionalChilds()) {
         i->startGeometryMoving();
     }
     // Save current centering boundary of additionals with this lane as chid
-    for (auto i : myAdditionalParents) {
+    for (auto i : getAdditionalParents()) {
         i->startGeometryMoving();
     }
     // Save current centering boundary of demand element childs
-    for (auto i : myDemandElementChilds) {
+    for (auto i : getDemandElementChilds()) {
         i->startGeometryMoving();
     }
     // Save current centering boundary of demand element with this lane as chid
-    for (auto i : myDemandElementParents) {
+    for (auto i : getDemandElementParents()) {
         i->startGeometryMoving();
     }
 }
@@ -1328,27 +1328,27 @@ void
 GNELane::endGeometryMoving() {
     // Lanes don't need to save the current Centering Boundary, due they are parts of an Edge
     // Restore centering boundary of shapes with this lane as chid
-    for (auto i : myShapeChilds) {
+    for (auto i : getShapeChilds()) {
         i->endGeometryMoving();
     }
     // Restore centering boundary of shapes with this lane as chid
-    for (auto i : myShapeParents) {
+    for (auto i : getShapeParents()) {
         i->endGeometryMoving();
     }
     // Restore centering boundary of additionals with this lane as chid
-    for (auto i : myAdditionalChilds) {
+    for (auto i : getAdditionalChilds()) {
         i->endGeometryMoving();
     }
     // Restore centering boundary of additionals with this lane as chid
-    for (auto i : myAdditionalParents) {
+    for (auto i : getAdditionalParents()) {
         i->endGeometryMoving();
     }
     // Restore centering boundary of demand elements with this lane as chid
-    for (auto i : myDemandElementChilds) {
+    for (auto i : getDemandElementChilds()) {
         i->endGeometryMoving();
     }
     // Restore centering boundary of demand elements with this lane as chid
-    for (auto i : myDemandElementParents) {
+    for (auto i : getDemandElementParents()) {
         i->endGeometryMoving();
     }
 }

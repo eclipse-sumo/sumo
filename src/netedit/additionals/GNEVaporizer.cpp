@@ -58,7 +58,7 @@ GNEVaporizer::updateGeometry(bool updateGrid) {
     myGeometry.clearGeometry();
 
     // get lanes of edge
-    GNELane* firstLane = myEdgeParents.front()->getLanes().at(0);
+    GNELane* firstLane = getEdgeParents().front()->getLanes().at(0);
 
     // Get shape of lane parent
     double offset = firstLane->getShape().length() < 2.5 ? firstLane->getShape().length() : 2.5;
@@ -85,11 +85,11 @@ GNEVaporizer::updateGeometry(bool updateGrid) {
 
 Position
 GNEVaporizer::getPositionInView() const {
-    if (myEdgeParents.front()->getLanes().front()->getShape().length() < 2.5) {
-        return myEdgeParents.front()->getLanes().front()->getShape().front();
+    if (getEdgeParents().front()->getLanes().front()->getShape().length() < 2.5) {
+        return getEdgeParents().front()->getLanes().front()->getShape().front();
     } else {
-        Position A = myEdgeParents.front()->getLanes().front()->getShape().positionAtOffset(2.5);
-        Position B = myEdgeParents.front()->getLanes().back()->getShape().positionAtOffset(2.5);
+        Position A = getEdgeParents().front()->getLanes().front()->getShape().positionAtOffset(2.5);
+        Position B = getEdgeParents().front()->getLanes().back()->getShape().positionAtOffset(2.5);
 
         // return Middle point
         return Position((A.x() + B.x()) / 2, (A.y() + B.y()) / 2);
@@ -111,7 +111,7 @@ GNEVaporizer::commitGeometryMoving(GNEUndoList*) {
 
 std::string
 GNEVaporizer::getParentName() const {
-    return myEdgeParents.front()->getMicrosimID();
+    return getEdgeParents().front()->getMicrosimID();
 }
 
 
@@ -122,7 +122,7 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
     double width = (double) 2.0 * s.scale;
     glLineWidth(1.0);
     const double exaggeration = s.addSize.getExaggeration(s, this);
-    const int numberOfLanes = int(myEdgeParents.front()->getLanes().size());
+    const int numberOfLanes = int(getEdgeParents().front()->getLanes().size());
 
     // set color
     if (drawUsingSelectColor()) {

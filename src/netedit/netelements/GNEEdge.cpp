@@ -138,19 +138,19 @@ GNEEdge::updateGeometry(bool updateGrid) {
         }
     }
     // Update geometry of additionals childs vinculated to this edge
-    for (auto i : myAdditionalChilds) {
+    for (auto i : getAdditionalChilds()) {
         i->updateGeometry(updateGrid);
     }
     // Update geometry of additional parents that have this edge as parent
-    for (auto i : myAdditionalParents) {
+    for (auto i : getAdditionalParents()) {
         i->updateGeometry(updateGrid);
     }
     // Update geometry of demand elements childs vinculated to this edge
-    for (auto i : myDemandElementChilds) {
+    for (auto i : getDemandElementChilds()) {
         i->updateGeometry(updateGrid);
     }
     // Update geometry of demand elements parents that have this edge as parent
-    for (auto i : myDemandElementParents) {
+    for (auto i : getDemandElementParents()) {
         i->updateGeometry(updateGrid);
     }
     // last step is to check if object has to be added into grid (SUMOTree) again
@@ -254,19 +254,19 @@ GNEEdge::startGeometryMoving() {
         i->startGeometryMoving();
     }
     // Save current centering boundary of additionals childs vinculated to this edge
-    for (auto i : myAdditionalChilds) {
+    for (auto i : getAdditionalChilds()) {
         i->startGeometryMoving();
     }
     // Save current centering boundary of additional parents that have this edge as parent
-    for (auto i : myAdditionalParents) {
+    for (auto i : getAdditionalParents()) {
         i->startGeometryMoving();
     }
     // Save current centering boundary of demand elements childs vinculated to this edge
-    for (auto i : myDemandElementChilds) {
+    for (auto i : getDemandElementChilds()) {
         i->startGeometryMoving();
     }
     // Save current centering boundary of demand elements parents that have this edge as parent
-    for (auto i : myDemandElementParents) {
+    for (auto i : getDemandElementParents()) {
         i->startGeometryMoving();
     }
 }
@@ -287,19 +287,19 @@ GNEEdge::endGeometryMoving() {
             i->endGeometryMoving();
         }
         // Restore centering boundary of additionals childs vinculated to this edge
-        for (auto i : myAdditionalChilds) {
+        for (auto i : getAdditionalChilds()) {
             i->endGeometryMoving();
         }
         // Restore centering boundary of additional parents that have this edge as parent
-        for (auto i : myAdditionalParents) {
+        for (auto i : getAdditionalParents()) {
             i->endGeometryMoving();
         }
         // Restore centering boundary of demand elements childs vinculated to this edge
-        for (auto i : myDemandElementChilds) {
+        for (auto i : getDemandElementChilds()) {
             i->endGeometryMoving();
         }
         // Restore centering boundary of demand elements parents that have this edge as parent
-        for (auto i : myDemandElementParents) {
+        for (auto i : getDemandElementParents()) {
             i->endGeometryMoving();
         }
         // add object into grid again (using the new centering boundary)
@@ -822,7 +822,7 @@ GNEEdge::clearGNEConnections() {
 int
 GNEEdge::getRouteProbeRelativePosition(GNERouteProbe* routeProbe) const {
     std::vector<GNEAdditional*> routeProbes;
-    for (auto i : myAdditionalChilds) {
+    for (auto i : getAdditionalChilds()) {
         if (i->getTagProperty().getTag() == routeProbe->getTagProperty().getTag()) {
             routeProbes.push_back(i);
         }

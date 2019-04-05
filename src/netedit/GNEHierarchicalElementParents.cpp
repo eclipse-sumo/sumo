@@ -23,6 +23,9 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
+#include <netedit/additionals/GNEAdditional.h>
+#include <netedit/additionals/GNEShape.h>
+#include <netedit/demandelements/GNEDemandElement.h>
 #include <netedit/frames/GNESelectorFrame.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNEJunction.h>
@@ -31,13 +34,10 @@
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
+#include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/images/GUITextureSubSys.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/gui/globjects/GLIncludes.h>
-#include <netedit/additionals/GNEAdditional.h>
-#include <netedit/demandelements/GNEDemandElement.h>
-#include <netedit/additionals/GNEShape.h>
 
 #include "GNEHierarchicalElementParents.h"
 

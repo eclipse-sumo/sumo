@@ -72,13 +72,13 @@ GNETAZSourceSink::updateGeometry(bool /*updateGrid*/) {
 
 Position
 GNETAZSourceSink::getPositionInView() const {
-    return myAdditionalParents.at(0)->getPositionInView();
+    return getAdditionalParents().at(0)->getPositionInView();
 }
 
 
 std::string
 GNETAZSourceSink::getParentName() const {
-    return myAdditionalParents.at(0)->getID();
+    return getAdditionalParents().at(0)->getID();
 }
 
 
@@ -94,17 +94,17 @@ GNETAZSourceSink::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getAdditionalID();
         case SUMO_ATTR_EDGE:
-            return myEdgeParents.front()->getID();
+            return getEdgeParents().front()->getID();
         case SUMO_ATTR_WEIGHT:
             return toString(myDepartWeight);
         case GNE_ATTR_PARENT:
-            return myAdditionalParents.at(0)->getID();
+            return getAdditionalParents().at(0)->getID();
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
         case GNE_ATTR_TAZCOLOR: {
             // obtain max and min weight source
-            double maxWeightSource = parse<double>(myAdditionalParents.at(0)->getAttribute(GNE_ATTR_MAX_SOURCE));
-            double minWeightSource = parse<double>(myAdditionalParents.at(0)->getAttribute(GNE_ATTR_MIN_SOURCE));
+            double maxWeightSource = parse<double>(getAdditionalParents().at(0)->getAttribute(GNE_ATTR_MAX_SOURCE));
+            double minWeightSource = parse<double>(getAdditionalParents().at(0)->getAttribute(GNE_ATTR_MIN_SOURCE));
             // avoid division between zero
             if ((maxWeightSource - minWeightSource) == 0) {
                 return "0";
@@ -177,7 +177,7 @@ GNETAZSourceSink::getHierarchyName() const {
 
 Boundary
 GNETAZSourceSink::getCenteringBoundary() const {
-    return myEdgeParents.front()->getNBEdge()->getGeometry().getBoxBoundary();
+    return getEdgeParents().front()->getNBEdge()->getGeometry().getBoxBoundary();
 }
 
 // ===========================================================================
@@ -193,7 +193,7 @@ GNETAZSourceSink::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_WEIGHT:
             myDepartWeight = parse<double>(value);
             // update statictis of TAZ parent
-            myAdditionalParents.at(0)->updateAdditionalParent();
+            getAdditionalParents().at(0)->updateAdditionalParent();
             break;
         case GNE_ATTR_GENERIC:
             setGenericParametersStr(value);

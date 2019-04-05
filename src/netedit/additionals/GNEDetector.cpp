@@ -66,7 +66,7 @@ GNEDetector::getPositionOverLane() const {
 
 GNELane* 
 GNEDetector::getLane() const {
-    return myLaneParents.front();
+    return getLaneParents().front();
 }
 
 

@@ -71,13 +71,13 @@ GNEParkingAreaReroute::updateGeometry(bool /*updateGrid*/) {
 
 Position
 GNEParkingAreaReroute::getPositionInView() const {
-    return myAdditionalParents.at(0)->getPositionInView();
+    return getAdditionalParents().at(0)->getPositionInView();
 }
 
 
 std::string
 GNEParkingAreaReroute::getParentName() const {
-    return myAdditionalParents.at(0)->getID();
+    return getAdditionalParents().at(0)->getID();
 }
 
 
@@ -93,13 +93,13 @@ GNEParkingAreaReroute::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getAdditionalID();
         case SUMO_ATTR_PARKING:
-            return myAdditionalParents.at(1)->getID();
+            return getAdditionalParents().at(1)->getID();
         case SUMO_ATTR_PROB:
             return toString(myProbability);
         case SUMO_ATTR_VISIBLE:
             return toString(myVisible);
         case GNE_ATTR_PARENT:
-            return toString(myAdditionalParents.at(0)->getID());
+            return toString(getAdditionalParents().at(0)->getID());
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
         default:
@@ -154,7 +154,7 @@ GNEParkingAreaReroute::getPopUpID() const {
 
 std::string
 GNEParkingAreaReroute::getHierarchyName() const {
-    return getTagStr() + ": " + myAdditionalParents.at(1)->getID();
+    return getTagStr() + ": " + getAdditionalParents().at(1)->getID();
 }
 
 // ===========================================================================

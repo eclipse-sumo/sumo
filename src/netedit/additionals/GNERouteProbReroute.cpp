@@ -75,13 +75,13 @@ GNERouteProbReroute::updateGeometry(bool /*updateGrid*/) {
 
 Position
 GNERouteProbReroute::getPositionInView() const {
-    return myAdditionalParents.at(0)->getPositionInView();
+    return getAdditionalParents().at(0)->getPositionInView();
 }
 
 
 std::string
 GNERouteProbReroute::getParentName() const {
-    return myAdditionalParents.at(0)->getID();
+    return getAdditionalParents().at(0)->getID();
 }
 
 
@@ -101,7 +101,7 @@ GNERouteProbReroute::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_PROB:
             return toString(myProbability);
         case GNE_ATTR_PARENT:
-            return myAdditionalParents.at(0)->getID();
+            return getAdditionalParents().at(0)->getID();
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
         default:

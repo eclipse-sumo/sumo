@@ -188,6 +188,10 @@ protected:
     /// @brief change edge childs of an additional
     void changeLaneChilds(GNEAdditional *elementChild, const std::string& newEdgeIDs);
 
+    /// @brief variable ChildConnections
+    ChildConnections myChildConnections;
+
+private:
     /// @brief vector with the edge childs of this element
     std::vector<GNEEdge*> myEdgeChilds;
 
@@ -203,10 +207,6 @@ protected:
     /// @brief vector with the demand elements childs
     std::vector<GNEDemandElement*> myDemandElementChilds;
 
-    /// @brief variable ChildConnections
-    ChildConnections myChildConnections;
-
-private:
     /// @brief pointer to AC (needed to avoid diamond problem)
     GNEAttributeCarrier* myAC;
 

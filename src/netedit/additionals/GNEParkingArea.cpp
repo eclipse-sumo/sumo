@@ -61,7 +61,7 @@ GNEParkingArea::updateGeometry(bool updateGrid) {
     double offsetSign = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
 
     // Update common geometry of stopping place
-    setStoppingPlaceGeometry(myLaneParents.front()->getParentEdge().getNBEdge()->getLaneWidth(myLaneParents.front()->getIndex()) / 2 + myWidth);
+    setStoppingPlaceGeometry(getLaneParents().front()->getParentEdge().getNBEdge()->getLaneWidth(getLaneParents().front()->getIndex()) / 2 + myWidth);
 
     // Obtain a copy of the shape
     PositionVector tmpShape = myGeometry.shape;
@@ -76,7 +76,7 @@ GNEParkingArea::updateGeometry(bool updateGrid) {
     myBlockIcon.position = myGeometry.shape.getLineCenter();
 
     // Set block icon rotation, and using their rotation for sign
-    myBlockIcon.setRotation(myLaneParents.front());
+    myBlockIcon.setRotation(getLaneParents().front());
 
     // last step is to check if object has to be added into grid (SUMOTree) again
     if (updateGrid) {
@@ -182,7 +182,7 @@ GNEParkingArea::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getAdditionalID();
         case SUMO_ATTR_LANE:
-            return myLaneParents.front()->getID();
+            return getLaneParents().front()->getID();
         case SUMO_ATTR_STARTPOS:
             return toString(myStartPosition);
         case SUMO_ATTR_ENDPOS:
@@ -223,7 +223,7 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
             // change ID of Entry
             undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
             // Change Ids of all Parking Spaces
-            for (auto i : myAdditionalChilds) {
+            for (auto i : getAdditionalChilds()) {
                 i->setAttribute(SUMO_ATTR_ID, generateChildID(SUMO_TAG_PARKING_SPACE), undoList);
             }
             break;
@@ -264,7 +264,7 @@ GNEParkingArea::isValid(SumoXMLAttr key, const std::string& value) {
             if (value.empty()) {
                 return true;
             } else if (canParse<double>(value)) {
-                return checkStoppinPlacePosition(value, myEndPosition, myLaneParents.front()->getParentEdge().getNBEdge()->getFinalLength(), myFriendlyPosition);
+                return checkStoppinPlacePosition(value, myEndPosition, getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength(), myFriendlyPosition);
             } else {
                 return false;
             }
@@ -272,7 +272,7 @@ GNEParkingArea::isValid(SumoXMLAttr key, const std::string& value) {
             if (value.empty()) {
                 return true;
             } else if (canParse<double>(value)) {
-                return checkStoppinPlacePosition(myStartPosition, value, myLaneParents.front()->getParentEdge().getNBEdge()->getFinalLength(), myFriendlyPosition);
+                return checkStoppinPlacePosition(myStartPosition, value, getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength(), myFriendlyPosition);
             } else {
                 return false;
             }

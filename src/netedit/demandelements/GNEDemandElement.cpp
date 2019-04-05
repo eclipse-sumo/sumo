@@ -176,7 +176,7 @@ GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, GNEVie
 
 std::string 
 GNEDemandElement::generateChildID(SumoXMLTag childTag) {
-    int counter = (int)myDemandElementChilds.size();
+    int counter = (int)getDemandElementChilds().size();
     while (myViewNet->getNet()->retrieveDemandElement(childTag, getID() + toString(childTag) + toString(counter), false) != nullptr) {
         counter++;
     }
@@ -239,7 +239,7 @@ GNEDemandElement::startGeometryMoving() {
     // save current centering boundary
     myMove.movingGeometryBoundary = getCenteringBoundary();
     // Iterate over demand element childs and start geometry moving
-    for (auto i : myDemandElementChilds) {
+    for (auto i : getDemandElementChilds()) {
         i->startGeometryMoving();
     }
 }
@@ -256,7 +256,7 @@ GNEDemandElement::endGeometryMoving() {
         // update geometry without updating grid
         updateGeometry(false);
         // Iterate over demand element childs and end geometry moving
-        for (auto i : myDemandElementChilds) {
+        for (auto i : getDemandElementChilds()) {
             i->endGeometryMoving();
         }
         // add object into grid again (using the new centering boundary)
