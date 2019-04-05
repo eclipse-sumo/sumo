@@ -28,6 +28,36 @@ from keyword import iskeyword
 from functools import reduce
 import xml.sax.saxutils
 
+DEFAULT_ATTR_CONVERSIONS = { 
+  # shape-like
+  'shape' : lambda coords : map(lambda xy : map(float, xy.split(',')), coords.split()),
+  # float
+  'speed' : float,
+  'length' : float,
+  'width' : float,
+  'angle' : float,
+  'endOffset' : float,
+  'radius' : float,
+  'contPos' : float,
+  'visibility' : float,
+  'startPos' : float,
+  'endPos' : float,
+  'position' : float,
+  'x' : float,
+  'y' : float,
+  'lon' : float,
+  'lat' : float,
+  'freq' : float,
+  # int
+  'priority' : int,
+  'numLanes' : int,
+  'index' : int,
+  'linkIndex' : int,
+  'linkIndex2' : int,
+  'fromLane' : int,
+  'toLane' : int,
+  }
+
 
 def _prefix_keyword(name, warn=False):
     result = name
@@ -140,16 +170,16 @@ def compound_object(element_name, attrnames, warn=False):
                       # see #3454
                       '{' not in self._original_fields[i]]
             if not self._child_dict and self._text is None:
-                return "%s<%s %s/>\n" % (initialIndent, element_name, " ".join(fields))
+                return "%s<%s %s/>\n" % (initialIndent, self.name, " ".join(fields))
             else:
                 s = "%s<%s %s>\n" % (
-                    initialIndent, element_name, " ".join(fields))
+                    initialIndent, self.name, " ".join(fields))
                 for l in self._child_dict.values():
                     for c in l:
                         s += c.toXML(initialIndent + indent)
                 if self._text is not None:
                     s += self._text.strip()
-                return s + "%s</%s>\n" % (initialIndent, element_name)
+                return s + "%s</%s>\n" % (initialIndent, self.name)
 
         def __repr__(self):
             return str(self)
