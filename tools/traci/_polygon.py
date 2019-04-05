@@ -134,6 +134,19 @@ class PolygonDomain(Domain):
         self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, lineWidth)
         self._connection._sendExact()
 
+    def addDynamics(self, polygonID, trackedObjectID="", timeSpan=(), alphaSpan=()):
+        """
+        """
+        msg_length = 1 + 4 \
+                   + 1 + 4 + len(trackedObjectID) \
+                   + 1 + 4 + len(timeSpan)*8 \
+                   + 1 + 4 + len(alphaSpan)*8
+        self._connection._beginMessage(tc.CMD_SET_POLYGON_VARIABLE, tc.VAR_MOVE_TO, polygonID, msg_length)
+        self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 3)
+        self._connection._packString(trackedObjectID)
+        self._connection._packDoubleList(timeSpan)
+        self._connection._packDoubleList(alphaSpan)        
+
     def remove(self, polygonID, layer=0):
         self._connection._beginMessage(
             tc.CMD_SET_POLYGON_VARIABLE, tc.REMOVE, polygonID, 1 + 4)

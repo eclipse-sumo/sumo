@@ -67,6 +67,11 @@ class Connection:
         for s in l:
             self._string += struct.pack("!i", len(s)) + s.encode("latin1")
 
+    def _packDoubleList(self, l):
+        self._string += struct.pack("!Bi", tc.TYPE_DOUBLELIST, len(l))
+        for x in l:
+            self._string += struct.pack("!d", x)
+
     def _recvExact(self):
         try:
             result = bytes()
