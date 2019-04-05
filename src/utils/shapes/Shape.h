@@ -131,6 +131,13 @@ public:
         myColor = col;
     }
 
+    /** @brief Sets a new alpha value
+     * @param[in] alpha The new value to use
+     */
+    inline void setShapeAlpha(unsigned char alpha) {
+        myColor.setAlpha(alpha);
+    }
+
     /** @brief Sets a new layer
      * @param[in] layer The new layer to use
      */

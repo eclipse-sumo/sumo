@@ -35,8 +35,9 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/ToString.h>
 #include <utils/common/StdDefs.h>
-#include "ShapeContainer.h"
+#include <utils/common/ParametrisedWrappingCommand.h>
 #include "PolygonDynamics.h"
+#include "ShapeContainer.h"
 
 
 // ===========================================================================
@@ -44,7 +45,18 @@
 // ===========================================================================
 ShapeContainer::ShapeContainer() {}
 
-ShapeContainer::~ShapeContainer() {}
+ShapeContainer::~ShapeContainer() {
+    for (auto& p : myPolygonUpdateCommands) {
+        p.second->deschedule();
+    }
+    myPolygonUpdateCommands.clear();
+
+    for (auto& p : myPolygonDynamics) {
+        delete p.second;
+    }
+    myPolygonDynamics.clear();
+
+}
 
 bool
 ShapeContainer::addPolygon(const std::string& id, const std::string& type,
@@ -56,7 +68,8 @@ ShapeContainer::addPolygon(const std::string& id, const std::string& type,
 
 
 PolygonDynamics*
-ShapeContainer::addPolygonDynamics(std::string polyID,
+ShapeContainer::addPolygonDynamics(double simtime,
+        std::string polyID,
         SUMOTrafficObject* trackedObject,
         std::shared_ptr<std::vector<double> > timeSpan,
         std::shared_ptr<std::vector<double> > alphaSpan) {
@@ -69,7 +82,10 @@ ShapeContainer::addPolygonDynamics(std::string polyID,
         delete d->second;
         myPolygonDynamics.erase(d);
     }
-    PolygonDynamics* pd = new PolygonDynamics(p, trackedObject, timeSpan, alphaSpan);
+    // Clear existing polygon dynamics commands before adding new dynamics
+    cleanupPolygonDynamics(polyID);
+    // Add new dynamics
+    PolygonDynamics* pd = new PolygonDynamics(simtime, p, trackedObject, timeSpan, alphaSpan);
     myPolygonDynamics.insert(std::make_pair(polyID, pd));
     return pd;
 }
@@ -88,6 +104,7 @@ ShapeContainer::removePolygon(const std::string& id) {
     if (d != myPolygonDynamics.end()) {
         delete d->second;
         myPolygonDynamics.erase(d);
+        cleanupPolygonDynamics(id);
     }
     return myPolygons.remove(id);
 }
@@ -136,6 +153,32 @@ ShapeContainer::add(PointOfInterest* poi, bool /* ignorePruning */) {
     return true;
 }
 
+
+void
+ShapeContainer::cleanupPolygonDynamics(const std::string& id) {
+    auto j = myPolygonUpdateCommands.find(id);
+    if (j != myPolygonUpdateCommands.end()) {
+        myPolygonUpdateCommands.erase(j);
+    }
+}
+
+
+SUMOTime
+ShapeContainer::polygonDynamicsUpdate(SUMOTime t, PolygonDynamics* pd) {
+    SUMOTime next = pd->update(t);
+    if (next == 0) {
+        // Dynamics have expired => remove polygon
+        myPolygonUpdateCommands[pd->getPolygonID()]->deschedule();
+        removePolygon(pd->getPolygonID());
+    }
+    return next;
+}
+
+
+void
+ShapeContainer::addPolygonUpdateCommand(std::string polyID, ParametrisedWrappingCommand<ShapeContainer, PolygonDynamics*>* cmd){
+    myPolygonUpdateCommands.insert(std::make_pair(polyID, cmd));
+}
 
 /****************************************************************************/
 

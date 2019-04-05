@@ -20,12 +20,14 @@
 // included modules
 // ===========================================================================
 #include <microsim/MSNet.h>
+#include <microsim/MSEventControl.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSTransportableControl.h>
 #include <libsumo/TraCIConstants.h>
 #include <utils/shapes/SUMOPolygon.h>
 #include <utils/shapes/PolygonDynamics.h>
 #include <utils/shapes/ShapeContainer.h>
+#include <utils/common/ParametrisedWrappingCommand.h>
 
 #include "Polygon.h"
 #include "Helper.h"
@@ -151,12 +153,14 @@ Polygon::addDynamics(const std::string& polygonID, const std::string& trackedID,
     auto tSpan = timeSpan.size() == 0 ? nullptr : std::make_shared<std::vector<double> >(timeSpan);
     auto aSpan = alphaSpan.size() == 0 ? nullptr : std::make_shared<std::vector<double> >(alphaSpan);
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
-    PolygonDynamics* pd = shapeCont.addPolygonDynamics(polygonID, obj, tSpan, aSpan);
+    PolygonDynamics* pd = shapeCont.addPolygonDynamics(SIMTIME, polygonID, obj, tSpan, aSpan);
     if (pd == nullptr) {
         throw TraCIException("Could not add polygon dynamics for polygon '" + polygonID + "': polygon doesn't exist.");
     }
-    MSNet::getInstance()->cleanupPolygonCommands(polygonID);
-    MSNet::getInstance()->schedulePolygonUpdate(pd);
+    // Schedule the regular polygon update
+    auto cmd = new ParametrisedWrappingCommand<ShapeContainer, PolygonDynamics*>(&shapeCont, pd, &ShapeContainer::polygonDynamicsUpdate);
+    shapeCont.addPolygonUpdateCommand(pd->getPolygonID(), cmd);
+    MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(cmd, SIMSTEP + DELTA_T);
 }
 
 

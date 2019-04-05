@@ -37,6 +37,8 @@
 // ===========================================================================
 class PolygonDynamics;
 class SUMOTrafficObject;
+template <class T, class S>
+class ParametrisedWrappingCommand;
 
 // ===========================================================================
 // class definitions
@@ -84,7 +86,8 @@ public:
      * @return true if the operation was successful, false if not.
      * @see PolygonDynamics()
      */
-    virtual PolygonDynamics* addPolygonDynamics(std::string polyID,
+    virtual PolygonDynamics* addPolygonDynamics(double simtime,
+            std::string polyID,
             SUMOTrafficObject* trackedObject,
             std::shared_ptr<std::vector<double> > timeSpan,
             std::shared_ptr<std::vector<double> > alphaSpan);
@@ -145,12 +148,27 @@ public:
         return myPOIs;
     }
 
+    /** @brief Regular update event for updating polygon dynamics
+    * @param[in] t  The time at which the update is called
+    * @param[in] pd The dynamics to be updated
+    * @returns zero If dynamics has expired, next update time otherwise
+    */
+    virtual SUMOTime polygonDynamicsUpdate(SUMOTime t, PolygonDynamics* pd);
+
+    /// @brief Register update command (for descheduling at removal)
+    virtual void addPolygonUpdateCommand(std::string polyID, ParametrisedWrappingCommand<ShapeContainer, PolygonDynamics*>* cmd);
+
 protected:
     /// @brief add polygon
     virtual bool add(SUMOPolygon* poly, bool ignorePruning = false);
 
     /// @brief add poi
     virtual bool add(PointOfInterest* poi, bool ignorePruning = false);
+
+    /** @brief Unschedules the removal and update commands of the given polygon.
+    * @param[in] id The id of the polygon
+    */
+    virtual void cleanupPolygonDynamics(const std::string& id);
 
 protected:
     /// @brief stored Polygons
@@ -161,6 +179,10 @@ protected:
 
     /// @brief stored POIs
     POIs myPOIs;
+
+private:
+    /// @brief Command pointers for scheduled polygon update. Maps PolyID->Command
+    std::map<std::string, ParametrisedWrappingCommand<ShapeContainer, PolygonDynamics*>*> myPolygonUpdateCommands;
 };
 
 

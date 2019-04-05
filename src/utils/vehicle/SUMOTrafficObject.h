@@ -27,6 +27,7 @@
 #include <typeinfo>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/Named.h>
+#include <utils/common/SUMOVehicleClass.h>
 
 
 // ===========================================================================

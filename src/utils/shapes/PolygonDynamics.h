@@ -21,7 +21,7 @@
 
 #include <memory>
 #include "SUMOPolygon.h"
-#include "utils/common/WrappingCommand.h"
+#include "utils/common/SUMOTime.h"
 
 class SUMOTrafficObject;
 class ShapeContainer;
@@ -38,7 +38,8 @@ public:
      *        If no animation is desired, give timeSpan == nullptr
      * @param ...Span property timelines (assumed to be either nullptr, or of size equal to timeSpan (in case of animated poly))
      */
-    PolygonDynamics(SUMOPolygon* p,
+    PolygonDynamics(double creationTime,
+            SUMOPolygon* p,
             SUMOTrafficObject* trackedObject,
             std::shared_ptr<std::vector<double> > timeSpan,
             std::shared_ptr<std::vector<double> > alphaSpan);
@@ -58,21 +59,17 @@ private:
     /// @brief Sets the alpha value for the shape's color
     void setAlpha(double alpha);
 
-    /// @brief An object tracked by the shape, deletion by caller
-    /// @todo  Ensure deletion of the polygon as soon as the pointer looses validity
-    SUMOTrafficObject* myTrackedObject;
-
     /// @brief Previously known position for the tracked object
     std::shared_ptr<Position> myTrackedPos;
+
+    /// @brief The polygon this dynamics acts upon.
+    SUMOPolygon* myPolygon;
 
     /// @brief Current time
     double myCurrentTime;
 
     /// @brief The last time the animation has been updated
-    SUMOTime myLastUpdateTime;
-
-    /// @brief The polygon this dynamics acts upon.
-    SUMOPolygon* myPolygon;
+    double myLastUpdateTime;
 
     /// @brief Whether this polygon is animated, i.e., whether
     ///        timelines should be used to control properties.
@@ -80,6 +77,10 @@ private:
 
     /// @brief Whether this polygon tracks an object
     bool tracking;
+
+    /// @brief An object tracked by the shape, deletion by caller
+    /// @todo  Ensure deletion of the polygon as soon as the pointer looses validity
+    SUMOTrafficObject* myTrackedObject;
 
     /// @brief Time points corresponding to the anchor values of the dynamic properties
     /// @note  Assumed to have a size >= 2, and start at timeSpan[0]=0, such that timeSpan[i+1] >= timeSpan[i]

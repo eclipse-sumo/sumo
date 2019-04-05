@@ -145,7 +145,8 @@ class PolygonDomain(Domain):
         self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 3)
         self._connection._packString(trackedObjectID)
         self._connection._packDoubleList(timeSpan)
-        self._connection._packDoubleList(alphaSpan)        
+        self._connection._packDoubleList(alphaSpan)  
+        self._connection._sendExact()      
 
     def remove(self, polygonID, layer=0):
         self._connection._beginMessage(

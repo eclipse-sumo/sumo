@@ -92,6 +92,14 @@ public:
      */
     void set(unsigned char r, unsigned char g, unsigned char b, unsigned char a);
 
+    /** @brief Sets a new alpha value
+     * @param[in] alpha The new value to use
+     */
+    inline void setAlpha(unsigned char alpha) {
+        myAlpha = alpha;
+    }
+
+
     /** @brief Returns a new color with altered brightness
      * @param[in] change The absolute change applied to all channels (within bounds)
      * @param[in] change The number of colors to change

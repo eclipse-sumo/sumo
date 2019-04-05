@@ -58,7 +58,6 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsIO.h>
 #include <utils/shapes/ShapeContainer.h>
-#include <utils/shapes/PolygonDynamics.h>
 #include <utils/router/DijkstraRouter.h>
 #include <utils/router/AStarRouter.h>
 #include <utils/router/IntermodalRouter.h>
@@ -285,9 +284,6 @@ MSNet::~MSNet() {
         delete myContainerControl;
     }
     delete myVehicleControl; // must happen after deleting transportables
-    for (auto& p : myPolygonRemovalCommands) {
-        p.second->deschedule();
-    }
     // delete events late so that vehicles can get rid of references first
     delete myBeginOfTimestepEvents;
     myBeginOfTimestepEvents = nullptr;
@@ -808,54 +804,6 @@ MSNet::getContainerControl() {
         myContainerControl = new MSTransportableControl();
     }
     return *myContainerControl;
-}
-
-
-void
-MSNet::schedulePolygonRemoval(SUMOTime t, const std::string& id) {
-    auto cmd = new ParametrisedWrappingCommand<MSNet, std::string>(this, id, &MSNet::polygonRemovalOperation);
-    myPolygonRemovalCommands.insert(std::make_pair(id, cmd));
-    myBeginOfTimestepEvents->addEvent(cmd, t);
-}
-
-
-void
-MSNet::cleanupPolygonCommands(const std::string& id) {
-    auto i = myPolygonRemovalCommands.find(id);
-    if (i != myPolygonRemovalCommands.end()) {
-        myPolygonRemovalCommands.erase(i);
-    }
-    auto j = myPolygonUpdateCommands.find(id);
-    if (j != myPolygonUpdateCommands.end()) {
-        myPolygonUpdateCommands.erase(j);
-    }
-}
-
-
-SUMOTime
-MSNet::polygonRemovalOperation(SUMOTime /*t*/, std::string id) {
-    myShapeContainer->removePolygon(id);
-    cleanupPolygonCommands(id);
-    return 0;
-}
-
-
-void
-MSNet::schedulePolygonUpdate(PolygonDynamics* pd) {
-    auto cmd = new ParametrisedWrappingCommand<MSNet, PolygonDynamics*>(this, pd, &MSNet::polygonUpdateOperation);
-    myPolygonUpdateCommands.insert(std::make_pair(pd->getPolygonID(), cmd));
-    myBeginOfTimestepEvents->addEvent(cmd, SIMSTEP + DELTA_T);
-}
-
-
-SUMOTime
-MSNet::polygonUpdateOperation(SUMOTime t, PolygonDynamics* pd) {
-    SUMOTime next = pd->update(t);
-    if (next == 0) {
-        // Dynamics have expired => remove polygon
-        schedulePolygonRemoval(SIMSTEP + DELTA_T, pd->getPolygonID());
-    }
-    return next;
 }
 
 

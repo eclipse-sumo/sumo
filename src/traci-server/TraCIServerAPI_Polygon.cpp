@@ -195,9 +195,7 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
                         return server.writeErrorStatusCmd(libsumo::CMD_SET_POLYGON_VARIABLE, "The third parameter for adding polygon dynamics must be the alphaSpanStr of the animation (length=0 to disregard alpha animation).", outputStorage);
                     }
                 }
-
                 libsumo::Polygon::addDynamics(id, trackedID, timeSpan, alphaSpan);
-
             }
             break;
             case libsumo::REMOVE: {

@@ -19,37 +19,35 @@
 #include "PolygonDynamics.h"
 
 #include <assert.h>
-#include "MSNet.h"
-#include "MSEventControl.h"
-#include "SUMOTrafficObject.h"
-#include "WrappingCommand.h"
-
+#include "utils/vehicle/SUMOTrafficObject.h"
+#include "utils/common/SUMOTime.h"
 
 
 #define DEBUG_DYNAMIC_SHAPES
 
-PolygonDynamics::PolygonDynamics(SUMOPolygon* p,
+PolygonDynamics::PolygonDynamics(double creationTime,
+        SUMOPolygon* p,
         SUMOTrafficObject* trackedObject,
         std::shared_ptr<std::vector<double> > timeSpan,
         std::shared_ptr<std::vector<double> > alphaSpan) :
     myPolygon(p),
-    animated(timeSpan != nullptr),
-    myTrackedObject(trackedObject),
-    tracking(trackedObject != nullptr),
-    myTimeSpan(timeSpan),
-    myAlphaSpan(alphaSpan),
     myCurrentTime(0),
-    myLastUpdateTime(SIMTIME)
+    myLastUpdateTime(creationTime),
+    animated(timeSpan != nullptr),
+    tracking(trackedObject != nullptr),
+    myTrackedObject(trackedObject),
+    myTimeSpan(timeSpan),
+    myAlphaSpan(alphaSpan)
 {
     // Check for consistency (TODO: add analogous checks in libsumo)
     if (animated) {
         assert(myTimeSpan->size() >= 2);
-        assert(myTimeSpan[0] == 0.0);
+        assert((*myTimeSpan)[0] == 0.0);
         assert(myAlphaSpan == nullptr || myAlphaSpan->size() == myTimeSpan->size());
 #ifdef DEBUG_DYNAMIC_SHAPES
         if (myTimeSpan->size() >= 2) {
-            for (int i = 1; i < myTimeSpan->size(); ++i) {
-                assert(myTimeSpan[i-1] <= myTimeSpan[i]);
+            for (unsigned int i = 1; i < myTimeSpan->size(); ++i) {
+                assert((*myTimeSpan)[i-1] <= (*myTimeSpan)[i]);
             }
         }
 #endif
@@ -58,10 +56,11 @@ PolygonDynamics::PolygonDynamics(SUMOPolygon* p,
     else  {
         assert(myAlphaSpan == nullptr);
     }
+#endif
     if (tracking) {
         myTrackedPos = std::make_shared<Position>(myTrackedObject->getPosition());
     } else {
-        myTrackedPos(nullptr);
+        myTrackedPos = nullptr;
     }
 }
 
@@ -71,7 +70,9 @@ PolygonDynamics::~PolygonDynamics()
 
 SUMOTime
 PolygonDynamics::update(SUMOTime t) {
-    double dt = STEPS2TIME(myLastUpdateTime - t);
+    const double simtime = STEPS2TIME(t);
+    myLastUpdateTime = simtime;
+    const double dt = myLastUpdateTime - simtime;
     assert(dt > 0);
 
     SUMOTime ret = DELTA_T;
@@ -120,8 +121,9 @@ PolygonDynamics::update(SUMOTime t) {
 
 void
 PolygonDynamics::setAlpha(double alpha) {
-    myPolygon->myColor.myAlpha = (unsigned char)(alpha*(double)std::numeric_limits<unsigned char>::max());
+    unsigned char a = (unsigned char)(alpha*(double)std::numeric_limits<unsigned char>::max());
+    myPolygon->setShapeAlpha(a);
 #ifdef DEBUG_DYNAMIC_SHAPES
-    std::cout << "DynamicPolygon::setAlpha() Converted alpha=" << alpha << " into myAlpha="<<myPolygon->myColor.myAlpha << std::endl;
+    std::cout << "DynamicPolygon::setAlpha() Converted alpha=" << alpha << " into myAlpha=" << a << std::endl;
 #endif
 }
