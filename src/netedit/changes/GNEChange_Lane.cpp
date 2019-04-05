@@ -192,8 +192,6 @@ GNEChange_Lane::redo() {
         } else {
             WRITE_DEBUG("Removing nullptr " + toString(SUMO_TAG_LANE) + " from " + toString(SUMO_TAG_EDGE));
         }
-        // remove lane from edge
-        myEdge->removeLane(myLane, myRecomputeConnections);
         // Remove lane from parent elements
         for (const auto &i : myShapeParents) {
             i->removeLaneChild(myLane);
@@ -214,6 +212,8 @@ GNEChange_Lane::redo() {
         for (const auto &i : myDemandElementChilds) {
             i->removeLaneParent(myLane);
         }
+        // remove lane from edge
+        myEdge->removeLane(myLane, myRecomputeConnections);
     }
     // enable save netElements
     myNet->requiereSaveNet(true);

@@ -207,12 +207,6 @@ public:
     /// @brief return value for lane coloring according to the given scheme
     double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const;
 
-    /// @brief remove lane of demand parent
-    void removeLaneOfAdditionalParents(GNEUndoList* undoList, bool allowEmpty);
-
-    /// @brief remove lane of demand parent
-    void removeLaneOfDemandElementParents(GNEUndoList* undoList, bool allowEmpty);
-
     /// @brief whether to draw this lane as a railway
     bool drawAsRailway(const GUIVisualizationSettings& s) const;
 

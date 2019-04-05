@@ -1174,65 +1174,6 @@ GNELane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) cons
 }
 
 
-void
-GNELane::removeLaneOfAdditionalParents(GNEUndoList* undoList, bool allowEmpty) {
-    // iterate over all additional parents of lane
-    for (auto i : myAdditionalParents) {
-        // Obtain attribute LANES of additional
-        std::vector<std::string>  laneIDs = parse<std::vector<std::string> >(i->getAttribute(SUMO_ATTR_LANES));
-        // check that at least there is an lane
-        if (laneIDs.empty()) {
-            throw ProcessError("Additional lane childs is empty");
-        } else if ((laneIDs.size() == 1) && (allowEmpty == false)) {
-            // remove entire Additional if SUMO_ATTR_LANES cannot be empty
-            if (laneIDs.front() == getID()) {
-                undoList->add(new GNEChange_Additional(i, false), true);
-            } else {
-                throw ProcessError("lane ID wasnt' found in Additional");
-            }
-        } else {
-            auto it = std::find(laneIDs.begin(), laneIDs.end(), getID());
-            if (it != laneIDs.end()) {
-                // set new attribute in Additional
-                laneIDs.erase(it);
-                i->setAttribute(SUMO_ATTR_LANES, toString(laneIDs), undoList);
-            } else {
-                throw ProcessError("lane ID wasnt' found in Additional");
-            }
-        }
-    }
-}
-
-
-void
-GNELane::removeLaneOfDemandElementParents(GNEUndoList* undoList, bool allowEmpty) {
-    // iterate over all additional parents of lane
-    for (auto i : myDemandElementParents) {
-        // Obtain attribute LANES of additional
-        std::vector<std::string>  laneIDs = parse<std::vector<std::string> >(i->getAttribute(SUMO_ATTR_LANES));
-        // check that at least there is an lane
-        if (laneIDs.empty()) {
-            throw ProcessError("DemandElement lane childs is empty");
-        } else if ((laneIDs.size() == 1) && (allowEmpty == false)) {
-            // remove entire DemandElement if SUMO_ATTR_LANES cannot be empty
-            if (laneIDs.front() == getID()) {
-                undoList->add(new GNEChange_DemandElement(i, false), true);
-            } else {
-                throw ProcessError("lane ID wasnt' found in DemandElement");
-            }
-        } else {
-            auto it = std::find(laneIDs.begin(), laneIDs.end(), getID());
-            if (it != laneIDs.end()) {
-                // set new attribute in DemandElement
-                laneIDs.erase(it);
-                i->setAttribute(SUMO_ATTR_LANES, toString(laneIDs), undoList);
-            } else {
-                throw ProcessError("lane ID wasnt' found in DemandElement");
-            }
-        }
-    }
-}
-
 bool
 GNELane::drawAsRailway(const GUIVisualizationSettings& s) const {
     return isRailway(myParentEdge.getNBEdge()->getPermissions(myIndex)) && s.showRails && (!s.drawForSelecting || s.spreadSuperposed);

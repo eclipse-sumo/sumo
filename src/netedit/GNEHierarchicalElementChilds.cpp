@@ -418,7 +418,7 @@ GNEHierarchicalElementChilds::ChildConnections::update() {
     symbolsPositionAndRotation.clear();
 
     // calculate position and rotation of every simbol for every edge
-    for (auto i : myHierarchicalElement->myEdgeChilds) {
+    for (const auto &i : myHierarchicalElement->myEdgeChilds) {
         for (auto j : i->getLanes()) {
             std::pair<Position, double> posRot;
             // set position and lenght depending of shape's lengt
@@ -434,7 +434,7 @@ GNEHierarchicalElementChilds::ChildConnections::update() {
     }
 
     // calculate position and rotation of every symbol for every lane
-    for (auto i : myHierarchicalElement->myLaneChilds) {
+    for (const auto &i : myHierarchicalElement->myLaneChilds) {
         std::pair<Position, double> posRot;
         // set position and lenght depending of shape's lengt
         if (i->getShape().length() - 6 > 0) {
@@ -448,7 +448,7 @@ GNEHierarchicalElementChilds::ChildConnections::update() {
     }
 
     // calculate position for every additional child
-    for (auto i : myHierarchicalElement->myAdditionalChilds) {
+    for (const auto &i : myHierarchicalElement->myAdditionalChilds) {
         // check that position is different of position
         if (i->getPositionInView() != myHierarchicalElement->getPositionInView()) {
             std::vector<Position> posConnection;
@@ -475,7 +475,7 @@ GNEHierarchicalElementChilds::ChildConnections::update() {
     }
 
     // calculate geometry for connections between parent and childs
-    for (auto i : symbolsPositionAndRotation) {
+    for (const auto &i : symbolsPositionAndRotation) {
         std::vector<Position> posConnection;
         double A = std::abs(i.first.x() - myHierarchicalElement->getPositionInView().x());
         double B = std::abs(i.first.y() - myHierarchicalElement->getPositionInView().y());
@@ -503,7 +503,7 @@ GNEHierarchicalElementChilds::ChildConnections::update() {
 void
 GNEHierarchicalElementChilds::ChildConnections::draw(GUIGlObjectType parentType) const {
     // Iterate over myConnectionPositions
-    for (auto i : connectionPositions) {
+    for (const auto &i : connectionPositions) {
         // Add a draw matrix
         glPushMatrix();
         // traslate in the Z axis

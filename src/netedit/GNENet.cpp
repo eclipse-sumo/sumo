@@ -432,16 +432,22 @@ GNENet::deleteJunction(GNEJunction* junction, GNEUndoList* undoList) {
 void
 GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList, bool recomputeConnections) {
     undoList->p_begin("delete " + toString(SUMO_TAG_EDGE));
-    // remove edge of additional parents (For example, Rerouters)
-    edge->removeEdgeOfAdditionalParents(undoList);
+    // delete all shapes childs of edge
+    while (edge->getShapeChilds().size() > 0) {
+        deleteShape(edge->getShapeChilds().front(), undoList);
+    }
+    // delete all shapes childs of lane
+    for (auto i : edge->getLanes()) {
+        while (i->getShapeChilds().size() > 0) {
+            deleteShape(i->getShapeChilds().front(), undoList);
+        }
+    }
     // delete all additionals childs of edge
     while (edge->getAdditionalChilds().size() > 0) {
         deleteAdditional(edge->getAdditionalChilds().front(), undoList);
     }
     // delete all additionals childs of lane
     for (auto i : edge->getLanes()) {
-        // remove lane of additional parents (For example, VSS)
-        i->removeLaneOfAdditionalParents(undoList, false);
         while (i->getAdditionalChilds().size() > 0) {
             deleteAdditional(i->getAdditionalChilds().front(), undoList);
         }
@@ -452,17 +458,8 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList, bool recomputeConnectio
     }
     // delete all demand element childs of lane
     for (auto i : edge->getLanes()) {
-        // remove lane of additional parents (For example, VSS)
-        i->removeLaneOfDemandElementParents(undoList, false);
         while (i->getDemandElementChilds().size() > 0) {
             deleteDemandElement(i->getDemandElementChilds().front(), undoList);
-        }
-    }
-    // delete shapes childs of lane
-    for (auto i : edge->getLanes()) {
-        std::vector<GNEShape*> copyOfLaneShapes = i->getShapeChilds();
-        for (auto j : copyOfLaneShapes) {
-            undoList->add(new GNEChange_Shape(j, false), true);
         }
     }
     // remove edge from crossings related with this edge
@@ -557,8 +554,6 @@ GNENet::deleteLane(GNELane* lane, GNEUndoList* undoList, bool recomputeConnectio
         deleteEdge(edge, undoList, recomputeConnections);
     } else {
         undoList->p_begin("delete " + toString(SUMO_TAG_LANE));
-        // remove lane of additional parents (For example, VSS)
-        lane->removeLaneOfAdditionalParents(undoList, false);
         // delete additionals childs of lane
         while (lane->getAdditionalChilds().size() > 0) {
             deleteAdditional(lane->getAdditionalChilds().front(), undoList);

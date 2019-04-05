@@ -855,41 +855,6 @@ GNEEdge::getGNECrossings() {
 
 
 void
-GNEEdge::removeEdgeOfAdditionalParents(GNEUndoList* undoList) {
-    // iterate over all additional parents of edge
-    while (myAdditionalParents.size() > 0) {
-        // Obtain attribute Edge or Edges of additional
-        std::vector<std::string> edgeIDs;
-        if (myAdditionalParents.front()->getTagProperty().hasAttribute(SUMO_ATTR_EDGES)) {
-            edgeIDs = parse<std::vector<std::string> >(myAdditionalParents.front()->getAttribute(SUMO_ATTR_EDGES));
-        } else {
-            edgeIDs.push_back(myAdditionalParents.front()->getAttribute(SUMO_ATTR_EDGE));
-        }
-        // check that at least there is an Edge
-        if (edgeIDs.empty()) {
-            throw ProcessError("Additional edge childs is empty");
-        } else if (edgeIDs.size() == 1) {
-            // remove entire Additional if SUMO_ATTR_EDGES cannot be empty
-            if (edgeIDs.front() == getID()) {
-                undoList->add(new GNEChange_Additional(myAdditionalParents.front(), false), true);
-            } else {
-                throw ProcessError("Edge ID wasnt' found in Additional");
-            }
-        } else {
-            auto it = std::find(edgeIDs.begin(), edgeIDs.end(), getID());
-            if (it != edgeIDs.end()) {
-                // set new attribute in Additional
-                edgeIDs.erase(it);
-                myAdditionalParents.front()->setAttribute(SUMO_ATTR_EDGES, toString(edgeIDs), undoList);
-            } else {
-                throw ProcessError("Edge ID wasnt' found in Additional");
-            }
-        }
-    }
-}
-
-
-void
 GNEEdge::copyTemplate(GNEEdge* tpl, GNEUndoList* undoList) {
     undoList->p_begin("copy template");
     setAttribute(SUMO_ATTR_NUMLANES,   tpl->getAttribute(SUMO_ATTR_NUMLANES),  undoList);

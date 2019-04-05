@@ -295,9 +295,6 @@ public:
     /// @brief get GNECrossings vinculated with this Edge
     std::vector<GNECrossing*> getGNECrossings();
 
-    /// @brief remove Edge of Additional Parent
-    void removeEdgeOfAdditionalParents(GNEUndoList* undoList);
-
     /// @brief make geometry smooth
     void smooth(GNEUndoList* undoList);
 
