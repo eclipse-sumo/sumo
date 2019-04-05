@@ -1731,35 +1731,6 @@ GNEFrame::ACHierarchy::showAttributeCarrierParents() {
                     return nullptr;
                 }
             }
-            case SUMO_TAG_POILANE: {
-                // Obtain POILane
-                GNEPOI* POILane = myFrameParent->getViewNet()->getNet()->retrievePOI(myAC->getID(), false);
-                if (POILane) {
-                    // obtain lane parent
-                    GNELane* lane = myFrameParent->getViewNet()->getNet()->retrieveLane(POILane->getLaneParents().at(0)->getID());
-                    // obtain edge parent
-                    GNEEdge* edge = myFrameParent->getViewNet()->getNet()->retrieveEdge(lane->getParentEdge().getID());
-                    //inser Junctions of lane of edge in tree (Pararell because a edge has always two Junctions)
-                    FXTreeItem* junctionSourceItem = myTreelist->insertItem(nullptr, nullptr, (edge->getGNEJunctionSource()->getHierarchyName() + " origin").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
-                    FXTreeItem* junctionDestinyItem = myTreelist->insertItem(nullptr, nullptr, (edge->getGNEJunctionSource()->getHierarchyName() + " destiny").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
-                    junctionDestinyItem->setExpanded(true);
-                    // Create edge item
-                    FXTreeItem* edgeItem = myTreelist->insertItem(nullptr, junctionDestinyItem, edge->getHierarchyName().c_str(), edge->getIcon(), edge->getIcon());
-                    edgeItem->setExpanded(true);
-                    // Create lane item
-                    FXTreeItem* laneItem = myTreelist->insertItem(nullptr, edgeItem, lane->getHierarchyName().c_str(), lane->getIcon(), lane->getIcon());
-                    laneItem->setExpanded(true);
-                    // Save items in myTreeItemToACMap
-                    myTreeItemToACMap[junctionSourceItem] = edge->getGNEJunctionSource();
-                    myTreeItemToACMap[junctionDestinyItem] = edge->getGNEJunctionDestiny();
-                    myTreeItemToACMap[edgeItem] = edge;
-                    myTreeItemToACMap[laneItem] = lane;
-                    // return Lane item
-                    return laneItem;
-                } else {
-                    return nullptr;
-                }
-            }
             case SUMO_TAG_CROSSING: {
                 // obtain Crossing
                 GNECrossing* crossing = myFrameParent->getViewNet()->getNet()->retrieveCrossing(myAC->getID(), false);
@@ -1802,6 +1773,34 @@ GNEFrame::ACHierarchy::showAttributeCarrierParents() {
             }
             default: 
                 break;
+        }
+    } else if (myAC->getTagProperty().getTag() == SUMO_TAG_POILANE) {
+        // Obtain POILane
+        GNEPOI* POILane = myFrameParent->getViewNet()->getNet()->retrievePOI(myAC->getID(), false);
+        if (POILane) {
+            // obtain lane parent
+            GNELane* lane = myFrameParent->getViewNet()->getNet()->retrieveLane(POILane->getLaneParents().at(0)->getID());
+            // obtain edge parent
+            GNEEdge* edge = myFrameParent->getViewNet()->getNet()->retrieveEdge(lane->getParentEdge().getID());
+            //inser Junctions of lane of edge in tree (Pararell because a edge has always two Junctions)
+            FXTreeItem* junctionSourceItem = myTreelist->insertItem(nullptr, nullptr, (edge->getGNEJunctionSource()->getHierarchyName() + " origin").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
+            FXTreeItem* junctionDestinyItem = myTreelist->insertItem(nullptr, nullptr, (edge->getGNEJunctionSource()->getHierarchyName() + " destiny").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
+            junctionDestinyItem->setExpanded(true);
+            // Create edge item
+            FXTreeItem* edgeItem = myTreelist->insertItem(nullptr, junctionDestinyItem, edge->getHierarchyName().c_str(), edge->getIcon(), edge->getIcon());
+            edgeItem->setExpanded(true);
+            // Create lane item
+            FXTreeItem* laneItem = myTreelist->insertItem(nullptr, edgeItem, lane->getHierarchyName().c_str(), lane->getIcon(), lane->getIcon());
+            laneItem->setExpanded(true);
+            // Save items in myTreeItemToACMap
+            myTreeItemToACMap[junctionSourceItem] = edge->getGNEJunctionSource();
+            myTreeItemToACMap[junctionDestinyItem] = edge->getGNEJunctionDestiny();
+            myTreeItemToACMap[edgeItem] = edge;
+            myTreeItemToACMap[laneItem] = lane;
+            // return Lane item
+            return laneItem;
+        } else {
+            return nullptr;
         }
     } else if (myAC->getTagProperty().isAdditional() || myAC->getTagProperty().isTAZ()) {
         // Obtain Additional
@@ -1971,11 +1970,15 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier* AC, FXTre
                     for (const auto &i : edge->getLanes()) {
                         showAttributeCarrierChilds(i, edgeItem);
                     }
-                    // insert additionals of edge
+                    // insert shape childs
+                    for (const auto &i : edge->getShapeChilds()) {
+                        showAttributeCarrierChilds(i, edgeItem);
+                    }
+                    // insert additional childs
                     for (const auto &i : edge->getAdditionalChilds()) {
                         showAttributeCarrierChilds(i, edgeItem);
                     }
-                    // insert demand elements of edge
+                    // insert demand elements childs
                     for (const auto &i : edge->getDemandElementChilds()) {
                         showAttributeCarrierChilds(i, edgeItem);
                     }
@@ -1988,11 +1991,15 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier* AC, FXTre
                 if (lane) {
                     // insert lane item
                     FXTreeItem* laneItem = addListItem(AC, itemParent);
-                    // insert additionals of lanes
+                    // insert shape childs
+                    for (const auto &i : lane->getShapeChilds()) {
+                        showAttributeCarrierChilds(i, laneItem);
+                    }
+                    // insert additional childs
                     for (const auto &i : lane->getAdditionalChilds()) {
                         showAttributeCarrierChilds(i, laneItem);
                     }
-                    // insert demand elements of lane
+                    // insert demand elements childs
                     for (const auto &i : lane->getDemandElementChilds()) {
                         showAttributeCarrierChilds(i, laneItem);
                     }
@@ -2019,8 +2026,6 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier* AC, FXTre
                 }
                 break;
             }
-            case SUMO_TAG_POI:
-            case SUMO_TAG_POLY:
             case SUMO_TAG_CROSSING:
             case SUMO_TAG_CONNECTION: {
                 // insert connection item
@@ -2030,6 +2035,9 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier* AC, FXTre
             default: 
                 break;
         }
+    } else if (AC->getTagProperty().isShape()) {
+        // insert shape item
+        addListItem(AC, itemParent);
     } else if (AC->getTagProperty().isAdditional() || AC->getTagProperty().isTAZ()) {
         // retrieve additional
         GNEAdditional* additional = myFrameParent->getViewNet()->getNet()->retrieveAdditional(AC->getTagProperty().getTag(), AC->getID(), false);
@@ -2042,6 +2050,10 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier* AC, FXTre
             }
             // insert lane childs
             for (const auto &i : additional->getLaneChilds()) {
+                showAttributeCarrierChilds(i, additionalItem);
+            }
+            // insert shape childs
+            for (const auto &i : additional->getShapeChilds()) {
                 showAttributeCarrierChilds(i, additionalItem);
             }
             // insert additionals childs
@@ -2065,6 +2077,10 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier* AC, FXTre
             }
             // insert lane childs
             for (const auto &i : demandElement->getLaneChilds()) {
+                showAttributeCarrierChilds(i, demandElementItem);
+            }
+            // insert shape childs
+            for (const auto &i : demandElement->getShapeChilds()) {
                 showAttributeCarrierChilds(i, demandElementItem);
             }
             // insert additionals childs
