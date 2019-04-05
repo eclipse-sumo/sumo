@@ -55,6 +55,9 @@ poi
 # Tests the polygon API
 polygon
 
+# Tests adding polygon dynamics
+polygon_dynamics
+
 # Tests the stop resume
 resume
 
