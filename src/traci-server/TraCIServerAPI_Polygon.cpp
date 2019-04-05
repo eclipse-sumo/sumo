@@ -175,33 +175,28 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_POLYGON_VARIABLE, "A compound object is needed for adding dynamics to a polygon.", outputStorage);
                 }
                 int itemNo = inputStorage.readInt();
-                if (itemNo != 3 && itemNo != 4) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Adding polygon dynamics needs four to five parameters.", outputStorage);
-                }
-
-                libsumo::TraCIPosition pos;
-                if (!server.readTypeCheckingPosition2D(inputStorage, pos)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_POLYGON_VARIABLE, "The first parameter for adding polygon dynamics must be the initial position.", outputStorage);
+                if (itemNo != 2 && itemNo != 3) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Adding polygon dynamics needs two or three parameters.", outputStorage);
                 }
 
                 std::string trackedID;
                 if (!server.readTypeCheckingString(inputStorage, trackedID)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_POLYGON_VARIABLE, "The second parameter for adding polygon dynamics must be ID of the tracked object as a string ('' to disregard tracking).", outputStorage);
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_POLYGON_VARIABLE, "The first parameter for adding polygon dynamics must be ID of the tracked object as a string ('' to disregard tracking).", outputStorage);
                 }
 
                 std::vector<double> timeSpan;
                 if (!server.readTypeCheckingDoubleList(inputStorage, timeSpan)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_POLYGON_VARIABLE, "The third parameter for adding polygon dynamics must be the timespan of the animation (length=0 to disregard animation).", outputStorage);
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_POLYGON_VARIABLE, "The second parameter for adding polygon dynamics must be the timespan of the animation (length=0 to disregard animation).", outputStorage);
                 }
 
                 std::vector<double> alphaSpan;
-                if (itemNo == 4) {
+                if (itemNo == 3) {
                     if (!server.readTypeCheckingDoubleList(inputStorage, alphaSpan)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_POLYGON_VARIABLE, "The fourth parameter for adding polygon dynamics must be the alphaSpanStr of the animation (length=0 to disregard alpha animation).", outputStorage);
+                        return server.writeErrorStatusCmd(libsumo::CMD_SET_POLYGON_VARIABLE, "The third parameter for adding polygon dynamics must be the alphaSpanStr of the animation (length=0 to disregard alpha animation).", outputStorage);
                     }
                 }
 
-                libsumo::Polygon::addDynamics(id, pos, trackedID, timeSpan, alphaSpan);
+                libsumo::Polygon::addDynamics(id, trackedID, timeSpan, alphaSpan);
 
             }
             break;

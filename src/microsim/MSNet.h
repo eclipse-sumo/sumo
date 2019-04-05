@@ -65,6 +65,7 @@ class MSTLLogicControl;
 class MSTrafficLightLogic;
 class MSDetectorControl;
 class ShapeContainer;
+class PolygonDynamics;
 class BinaryInputDevice;
 class MSEdgeWeightsStorage;
 class SUMOVehicle;
@@ -437,7 +438,8 @@ public:
         return myInsertionEvents;
     }
 
-
+    /// @name Polygon management in context of dynamic polygons
+    /// @{
     /** @brief Schedules the removal and deletion of the given polygon
      *         from the shape container at the given time
     * @param[in] t  The time at which the removal shall be scheduled
@@ -446,12 +448,36 @@ public:
     virtual void schedulePolygonRemoval(SUMOTime t, const std::string& id);
 
 
+    /** @brief Unschedules the removal and update commands of the given polygon.
+    * @param[in] id The id of the polygon
+    */
+    virtual void cleanupPolygonCommands(const std::string& id);
+
+
     /** @brief Callback to be referenced from the event control at scheduled removal
     * @param[in] t  The time at which the removal is called
     * @param[in] id The id of the polygon
+    * @returns  zero (one time event)
     */
     virtual SUMOTime polygonRemovalOperation(SUMOTime t, std::string id);
 
+
+    /** @brief Starts the update scheduling of the given polygon
+     *         from the shape container at the given time
+    * @param[in] t  The time at which the removal shall be scheduled
+    * @param[in] id The id of the polygon
+    */
+    virtual void schedulePolygonUpdate(PolygonDynamics* pd);
+
+
+    /** @brief Regular update event for updating polygon dynamics
+    * @param[in] t  The time at which the update is called
+    * @param[in] pd The dynamics to be updated
+    * @returns zero If dynamics has expired, next update time otherwise
+    */
+    virtual SUMOTime polygonUpdateOperation(SUMOTime t, PolygonDynamics* pd);
+
+    ///@}
 
     /** @brief Returns the shapes container
      * @return The shapes container
@@ -800,6 +826,9 @@ protected:
 
     /// @brief Command pointers for scheduled polygon removal. Maps PolyID->Command
     std::map<std::string, ParametrisedWrappingCommand<MSNet, std::string>* > myPolygonRemovalCommands;
+
+    /// @brief Command pointers for scheduled polygon update. Maps PolyID->Command
+    std::map<std::string, ParametrisedWrappingCommand<MSNet, PolygonDynamics*>* > myPolygonUpdateCommands;
 
     /// @brief An RTree structure holding lane IDs
     mutable std::pair<bool, NamedRTree> myLanesRTree;

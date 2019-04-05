@@ -16,58 +16,47 @@
 /****************************************************************************/
 
 
-#ifndef UTILS_SHAPES_DYNAMICPOLYGON_H_
-#define UTILS_SHAPES_DYNAMICPOLYGON_H_
+#ifndef UTILS_SHAPES_POLYGONDYNAMICS_H_
+#define UTILS_SHAPES_POLYGONDYNAMICS_H_
 
 #include <memory>
 #include "SUMOPolygon.h"
 #include "utils/common/WrappingCommand.h"
 
 class SUMOTrafficObject;
+class ShapeContainer;
 
-class DynamicPolygon: public SUMOPolygon {
+class PolygonDynamics {
 public:
     /**
      * @brief Constructor that takes a SUMOPolygon and adds timelines for the properties to be modified dynamically.
      * @param p Polygon to be modified
-     * @param pos Initial position of the polygon
-     * @param trackedObject A tracked object
+     * @param trackedObject A tracked object (nullptr indicates that no tracking is desired)
      * @param timeSpan Anchor time points
      *        For animated polygons: assumed to have a size >= 2, and start at timeSpan[0]=0,
      *        such that timeSpan[i+1] >= timeSpan[i])
      *        If no animation is desired, give timeSpan == nullptr
      * @param ...Span property timelines (assumed to be either nullptr, or of size equal to timeSpan (in case of animated poly))
      */
-    DynamicPolygon(SUMOPolygon* p, std::shared_ptr<Position> pos,
+    PolygonDynamics(SUMOPolygon* p,
             SUMOTrafficObject* trackedObject,
             std::shared_ptr<std::vector<double> > timeSpan,
             std::shared_ptr<std::vector<double> > alphaSpan);
-    virtual ~DynamicPolygon();
+    virtual ~PolygonDynamics();
 
+    const std::string& getPolygonID() const {
+        return myPolygon->getID();
+    }
 
-//    /**
-//     * @brief Moves the polygon to the given coordinates
-//     * @param pos New position of the Polygon
-//     * @note The movement is executed in a relative fashion, i.e.,
-//     *       by updating the shape's position by the increment between
-//     *       the given and the previously stored position of the polygon.
-//     */
-//    void moveTo(const Position& pos);
+    /// @brief Updates the polygon according to its timeSpan and follows the tracked object
+    /// @param t Current sumo time step (in ms.) when this is called
+    /// @returns Next desired update time.
+   SUMOTime update(SUMOTime t);
 
 private:
 
-     /// @brief Updates the polygon according to its timeSpan and follows the tracked object
-     /// @param t Current sumo time step (in ms.) when this is called
-    SUMOTime update(SUMOTime t);
-
     /// @brief Sets the alpha value for the shape's color
     void setAlpha(double alpha);
-
-    /// @brief Schedules the next update for this instance in TS seconds
-    void scheduleUpdate();
-
-    /// @brief Schedules the removal of this instance
-    void scheduleRemoval();
 
     /// @brief An object tracked by the shape, deletion by caller
     /// @todo  Ensure deletion of the polygon as soon as the pointer looses validity
@@ -81,6 +70,9 @@ private:
 
     /// @brief The last time the animation has been updated
     SUMOTime myLastUpdateTime;
+
+    /// @brief The polygon this dynamics acts upon.
+    SUMOPolygon* myPolygon;
 
     /// @brief Whether this polygon is animated, i.e., whether
     ///        timelines should be used to control properties.
@@ -103,14 +95,6 @@ private:
     std::vector<double>::const_iterator myPrevAlpha;
     std::vector<double>::const_iterator myNextAlpha;
 
-
-    /// @name Commands sent to the EventControl (used for cleanup)
-    /// @{
-    /// @brief Command scheduled for regular updates of the animation
-    /// @note  Must be descheduled in destructor (or at removal)
-    WrappingCommand<DynamicPolygon>* myUpdateCommand;
-    /// @}
-
 };
 
-#endif /* UTILS_SHAPES_DYNAMICPOLYGON_H_ */
+#endif /* UTILS_SHAPES_POLYGONDYNAMICS_H_ */

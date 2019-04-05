@@ -16,31 +16,30 @@
 /****************************************************************************/
 
 
+#include "PolygonDynamics.h"
+
 #include <assert.h>
 #include "MSNet.h"
 #include "MSEventControl.h"
 #include "SUMOTrafficObject.h"
 #include "WrappingCommand.h"
-#include "DynamicPolygon.h"
 
 
 
 #define DEBUG_DYNAMIC_SHAPES
 
-DynamicPolygon::DynamicPolygon(SUMOPolygon* p, std::shared_ptr<Position> pos,
+PolygonDynamics::PolygonDynamics(SUMOPolygon* p,
         SUMOTrafficObject* trackedObject,
         std::shared_ptr<std::vector<double> > timeSpan,
         std::shared_ptr<std::vector<double> > alphaSpan) :
-    SUMOPolygon(*p),
+    myPolygon(p),
     animated(timeSpan != nullptr),
-    myTrackedPos(pos),
     myTrackedObject(trackedObject),
     tracking(trackedObject != nullptr),
     myTimeSpan(timeSpan),
     myAlphaSpan(alphaSpan),
     myCurrentTime(0),
-    myLastUpdateTime(SIMTIME),
-    myUpdateCommand(nullptr)
+    myLastUpdateTime(SIMTIME)
 {
     // Check for consistency (TODO: add analogous checks in libsumo)
     if (animated) {
@@ -59,21 +58,19 @@ DynamicPolygon::DynamicPolygon(SUMOPolygon* p, std::shared_ptr<Position> pos,
     else  {
         assert(myAlphaSpan == nullptr);
     }
-
-    // Start updating
-    scheduleUpdate();;
-}
-
-DynamicPolygon::~DynamicPolygon()
-{
-    if (myUpdateCommand != nullptr) {
-        myUpdateCommand->deschedule();
+    if (tracking) {
+        myTrackedPos = std::make_shared<Position>(myTrackedObject->getPosition());
+    } else {
+        myTrackedPos(nullptr);
     }
 }
 
+PolygonDynamics::~PolygonDynamics()
+{}
+
 
 SUMOTime
-DynamicPolygon::update(SUMOTime t) {
+PolygonDynamics::update(SUMOTime t) {
     double dt = STEPS2TIME(myLastUpdateTime - t);
     assert(dt > 0);
 
@@ -81,8 +78,8 @@ DynamicPolygon::update(SUMOTime t) {
 
     if (tracking) {
         // Update shape position according to the movement of the tracked object
-        myShape.add(myTrackedObject->getPosition() - *myTrackedPos);
-        myTrackedPos = myTrackedObject->getPosition();
+        myPolygon->myShape.add(myTrackedObject->getPosition() - *myTrackedPos);
+        myTrackedPos->set(myTrackedObject->getPosition());
     }
 
     if (animated) {
@@ -105,12 +102,9 @@ DynamicPolygon::update(SUMOTime t) {
         // Linear interpolation factor between previous and next time
         double theta = 1.0;
         if (myCurrentTime >= *myNextTime) {
-            // Reached the end of the dynamics => schedule removal
+            // Reached the end of the dynamics, indicate expiration by returning zero
             // and set all properties to the final state (theta remains one)
-            scheduleRemoval();
-            // Indicate descheduling of updates to EventControl
             ret = 0;
-            myUpdateCommand = nullptr;
         } else {
             // Animation is still going on, schedule next update
             if (*myNextTime - *myPrevTime != 0) {
@@ -125,23 +119,9 @@ DynamicPolygon::update(SUMOTime t) {
 
 
 void
-DynamicPolygon::setAlpha(double alpha) {
-    myColor.myAlpha = (unsigned char)(alpha*(double)std::numeric_limits<unsigned char>::max());
+PolygonDynamics::setAlpha(double alpha) {
+    myPolygon->myColor.myAlpha = (unsigned char)(alpha*(double)std::numeric_limits<unsigned char>::max());
 #ifdef DEBUG_DYNAMIC_SHAPES
-    std::cout << "DynamicPolygon::setAlpha() Converted alpha=" << alpha << " into myAlpha="<<myColor.myAlpha << std::endl;
+    std::cout << "DynamicPolygon::setAlpha() Converted alpha=" << alpha << " into myAlpha="<<myPolygon->myColor.myAlpha << std::endl;
 #endif
-}
-
-
-void
-DynamicPolygon::scheduleUpdate() {
-    myUpdateCommand = new WrappingCommand<DynamicPolygon>(this, &DynamicPolygon::update);
-    MSEventControl* eventControl = MSNet::getInstance()->getBeginOfTimestepEvents();
-    eventControl->addEvent(myUpdateCommand, SIMSTEP + DELTA_T);
-}
-
-
-void
-DynamicPolygon::scheduleRemoval() {
-    MSNet::getInstance()->schedulePolygonRemoval(SIMSTEP + DELTA_T, getID());
 }

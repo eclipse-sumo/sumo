@@ -36,6 +36,7 @@
 #include <utils/common/ToString.h>
 #include <utils/common/StdDefs.h>
 #include "ShapeContainer.h"
+#include "PolygonDynamics.h"
 
 
 // ===========================================================================
@@ -54,6 +55,25 @@ ShapeContainer::addPolygon(const std::string& id, const std::string& type,
 }
 
 
+PolygonDynamics*
+ShapeContainer::addPolygonDynamics(std::string polyID,
+        SUMOTrafficObject* trackedObject,
+        std::shared_ptr<std::vector<double> > timeSpan,
+        std::shared_ptr<std::vector<double> > alphaSpan) {
+    SUMOPolygon* p = myPolygons.get(polyID);
+    if (p == nullptr) {
+        return nullptr;
+    }
+    auto d = myPolygonDynamics.find(polyID);
+    if (d != myPolygonDynamics.end()) {
+        delete d->second;
+        myPolygonDynamics.erase(d);
+    }
+    PolygonDynamics* pd = new PolygonDynamics(p, trackedObject, timeSpan, alphaSpan);
+    myPolygonDynamics.insert(std::make_pair(polyID, pd));
+    return pd;
+}
+
 bool
 ShapeContainer::addPOI(const std::string& id, const std::string& type, const RGBColor& color, const Position& pos, bool geo,
                        const std::string& lane, double posOverLane, double posLat, double layer, double angle,
@@ -64,6 +84,11 @@ ShapeContainer::addPOI(const std::string& id, const std::string& type, const RGB
 
 bool
 ShapeContainer::removePolygon(const std::string& id) {
+    auto d = myPolygonDynamics.find(id);
+    if (d != myPolygonDynamics.end()) {
+        delete d->second;
+        myPolygonDynamics.erase(d);
+    }
     return myPolygons.remove(id);
 }
 

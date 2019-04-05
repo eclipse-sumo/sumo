@@ -26,10 +26,17 @@
 #include <config.h>
 
 #include <string>
+#include <map>
+#include <memory>
 #include <utils/common/NamedObjectCont.h>
 #include "PointOfInterest.h"
 #include "SUMOPolygon.h"
 
+// ===========================================================================
+// class declarations
+// ===========================================================================
+class PolygonDynamics;
+class SUMOTrafficObject;
 
 // ===========================================================================
 // class definitions
@@ -70,6 +77,18 @@ public:
                             double angle, const std::string& imgFile,
                             bool relativePath, const PositionVector& shape, bool geo,
                             bool fill, double lineWidth, bool ignorePruning = false);
+
+    /**
+     * @brief Adds dynamics (animation / tracking) to the given polygon
+     * @param polyID ID of the polygon which should become dynamic
+     * @return true if the operation was successful, false if not.
+     * @see PolygonDynamics()
+     */
+    virtual PolygonDynamics* addPolygonDynamics(std::string polyID,
+            SUMOTrafficObject* trackedObject,
+            std::shared_ptr<std::vector<double> > timeSpan,
+            std::shared_ptr<std::vector<double> > alphaSpan);
+
 
     /** @brief Builds a POI using the given values and adds it to the container
      * @param[in] id The name of the POI
@@ -126,18 +145,19 @@ public:
         return myPOIs;
     }
 
-//protected:
+protected:
     /// @brief add polygon
-    /// @note  Responsibility for deletion is transferred to ShapeContainer
     virtual bool add(SUMOPolygon* poly, bool ignorePruning = false);
 
     /// @brief add poi
-    /// @note  Responsibility for deletion is transferred to ShapeContainer
     virtual bool add(PointOfInterest* poi, bool ignorePruning = false);
 
 protected:
     /// @brief stored Polygons
     Polygons myPolygons;
+
+    /// @brief stored PolygonDynamics
+    std::map<std::string, PolygonDynamics*> myPolygonDynamics;
 
     /// @brief stored POIs
     POIs myPOIs;

@@ -24,7 +24,7 @@
 #include <microsim/MSTransportableControl.h>
 #include <libsumo/TraCIConstants.h>
 #include <utils/shapes/SUMOPolygon.h>
-#include <utils/shapes/DynamicPolygon.h>
+#include <utils/shapes/PolygonDynamics.h>
 #include <utils/shapes/ShapeContainer.h>
 
 #include "Polygon.h"
@@ -127,8 +127,10 @@ Polygon::add(const std::string& polygonID, const TraCIPositionVector& shape, con
 
 
 void
-Polygon::addDynamics(const std::string& polygonID, const TraCIPosition& pos, const std::string& trackedID, const std::vector<double>& timeSpan, const std::vector<double>& alphaSpan) {
-
+Polygon::addDynamics(const std::string& polygonID, const std::string& trackedID, const std::vector<double>& timeSpan, const std::vector<double>& alphaSpan) {
+    if(timeSpan.empty() && trackedID == "") {
+        throw TraCIException("Could not add polygon dynamics for polygon '" + polygonID + "': dynamics underspecified (either a tracked object ID or a time span have to be provided).");
+    }
     if (timeSpan.size() == 1) {
         throw TraCIException("Could not add polygon dynamics for polygon '" + polygonID + "': time span cannot have length one.");
     } else if (timeSpan[0] != 0.0) {
@@ -145,13 +147,16 @@ Polygon::addDynamics(const std::string& polygonID, const TraCIPosition& pos, con
         }
     }
 
-    auto position = std::make_shared<Position>(pos.x, pos.y, pos.z);
     SUMOTrafficObject* obj = getTrafficObject(trackedID);
     auto tSpan = timeSpan.size() == 0 ? nullptr : std::make_shared<std::vector<double> >(timeSpan);
     auto aSpan = alphaSpan.size() == 0 ? nullptr : std::make_shared<std::vector<double> >(alphaSpan);
-    DynamicPolygon* p = new DynamicPolygon(getPolygon(polygonID), position, obj, tSpan, aSpan);
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
-    shapeCont.add(p);
+    PolygonDynamics* pd = shapeCont.addPolygonDynamics(polygonID, obj, tSpan, aSpan);
+    if (pd == nullptr) {
+        throw TraCIException("Could not add polygon dynamics for polygon '" + polygonID + "': polygon doesn't exist.");
+    }
+    MSNet::getInstance()->cleanupPolygonCommands(polygonID);
+    MSNet::getInstance()->schedulePolygonUpdate(pd);
 }
 
 
