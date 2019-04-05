@@ -36,6 +36,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <netedit/additionals/GNEAdditional.h>
+#include <netedit/additionals/GNEShape.h>
 #include <netedit/demandelements/GNEDemandElement.h>
 
 #include "GNEHierarchicalElementChilds.h"
@@ -301,6 +302,10 @@ GNEHierarchicalElementChilds::addEdgeChild(GNEEdge* edge) {
         throw InvalidArgument("Trying to add a duplicate " + toString(SUMO_TAG_EDGE) + " child in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
     } else {
         myEdgeChilds.push_back(edge);
+        // only execute post operations if update geometry is enabled
+        if (edge->getNet()->isUpdateGeometryEnabled()) {
+            updateGeometry(true);
+        }
     }
 }
 
@@ -314,6 +319,8 @@ GNEHierarchicalElementChilds::removeEdgeChild(GNEEdge* edge) {
         throw InvalidArgument("Trying to remove a non previously inserted " + toString(SUMO_TAG_EDGE) + " child in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
     } else {
         myEdgeChilds.erase(std::find(myEdgeChilds.begin(), myEdgeChilds.end(), edge));
+        // update connections geometry
+        myChildConnections.update();
     }
 }
 
@@ -333,6 +340,8 @@ GNEHierarchicalElementChilds::addLaneChild(GNELane* lane) {
         throw InvalidArgument("Trying to add a duplicate " + toString(SUMO_TAG_EDGE) + " child in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
     } else {
         myLaneChilds.push_back(lane);
+        // update connections geometry
+        myChildConnections.update();
     }
 }
 
@@ -346,6 +355,8 @@ GNEHierarchicalElementChilds::removeLaneChild(GNELane* lane) {
         throw InvalidArgument("Trying to remove a non previously inserted " + toString(SUMO_TAG_EDGE) + " child in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
     } else {
         myLaneChilds.erase(std::find(myLaneChilds.begin(), myLaneChilds.end(), lane));
+        // update connections geometry
+        myChildConnections.update();
     }
 }
 
@@ -367,6 +378,8 @@ GNEHierarchicalElementChilds::addShapeChild(GNEShape* shape) {
     }
     else {
         myShapeChilds.push_back(shape);
+        // update connections geometry
+        myChildConnections.update();
     }
 }
 
@@ -382,6 +395,8 @@ GNEHierarchicalElementChilds::removeShapeChild(GNEShape* shape) {
     }
     else {
         myShapeChilds.erase(std::find(myShapeChilds.begin(), myShapeChilds.end(), shape));
+        // update connections geometry
+        myChildConnections.update();
     }
 }
 
@@ -401,6 +416,40 @@ GNEHierarchicalElementChilds::updateAdditionalParent() {
 void 
 GNEHierarchicalElementChilds::updateDemandElementParent() {
     // by default nothing to do
+}
+
+
+void
+GNEHierarchicalElementChilds::changeEdgeChilds(GNEAdditional *elementChild, const std::string& newEdgeIDs) {
+    // remove demandElement of edge childs
+    for (const auto &i : myEdgeChilds) {
+        i->removeAdditionalParent(elementChild);
+    }
+    // obtain new child edges (note: it can be empty)
+    myEdgeChilds = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(elementChild->getViewNet()->getNet(), newEdgeIDs);
+    // add demandElement into edge parents
+    for (const auto &i : myEdgeChilds) {
+        i->addAdditionalParent(elementChild);
+    }
+    // update connections geometry
+    myChildConnections.update();
+}
+
+
+void
+GNEHierarchicalElementChilds::changeLaneChilds(GNEAdditional *elementChild, const std::string& newLaneIDs) {
+    // remove demandElement of lane childs
+    for (const auto &i : myLaneChilds) {
+        i->removeAdditionalParent(elementChild);
+    }
+    // obtain new child lanes (note: it can be empty)
+    myLaneChilds = GNEAttributeCarrier::parse<std::vector<GNELane*> >(elementChild->getViewNet()->getNet(), newLaneIDs);
+    // add demandElement into lane parents
+    for (const auto &i : myLaneChilds) {
+        i->addAdditionalParent(elementChild);
+    }
+    // update connections geometry
+    myChildConnections.update();
 }
 
 // ---------------------------------------------------------------------------

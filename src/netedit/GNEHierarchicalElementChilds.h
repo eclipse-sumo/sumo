@@ -182,6 +182,12 @@ protected:
         GNEHierarchicalElementChilds* myHierarchicalElement;
     };
 
+    /// @brief change edge childs of an additional
+    void changeEdgeChilds(GNEAdditional *elementChild, const std::string& newEdgeIDs);
+
+    /// @brief change edge childs of an additional
+    void changeLaneChilds(GNEAdditional *elementChild, const std::string& newEdgeIDs);
+
     /// @brief vector with the edge childs of this element
     std::vector<GNEEdge*> myEdgeChilds;
 

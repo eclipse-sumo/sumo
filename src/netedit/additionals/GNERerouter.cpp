@@ -344,19 +344,9 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             changeAdditionalID(value);
             break;
-        case SUMO_ATTR_EDGES: {
-            // remove references of this rerouter in all edge childs
-            for (auto i : myEdgeChilds) {
-                i->removeAdditionalParent(this);
-            }
-            // set new edges
-            myEdgeChilds = parse<std::vector<GNEEdge*> >(myViewNet->getNet(), value);
-            // add references to this rerouter in all newedge childs
-            for (auto i : myEdgeChilds) {
-                i->addAdditionalParent(this);
-            }
+        case SUMO_ATTR_EDGES:
+            changeEdgeChilds(this, value);
             break;
-        }
         case SUMO_ATTR_POSITION:
             myPosition = parse<Position>(value);
             break;

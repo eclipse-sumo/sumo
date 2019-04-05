@@ -317,7 +317,7 @@ GNEVariableSpeedSign::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeAdditionalID(value);
             break;
         case SUMO_ATTR_LANES:
-            myLaneChilds = parse<std::vector<GNELane*> >(myViewNet->getNet(), value);
+            changeLaneChilds(this, value);
             break;
         case SUMO_ATTR_POSITION:
             myPosition = parse<Position>(value);
