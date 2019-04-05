@@ -18,6 +18,18 @@ from __future__ import absolute_import
 from xml.sax import handler, parse
 from .. import color
 
+def getBoundingBox(shape):
+    xmin = shape[0][0]
+    xmax = shape[0][0]
+    ymin = shape[0][1]
+    ymax = shape[0][1]
+    for p in shape[1:]:
+        xmin = min(xmin, p[0])
+        xmax = max(xmax, p[0])
+        ymin = min(ymin, p[1])
+        ymax = max(ymax, p[1])
+    assert(xmin != xmax or ymin != ymax)
+    return xmin, ymin, xmax, ymax
 
 class Polygon:
 
@@ -31,17 +43,7 @@ class Polygon:
         self.attributes = {}
 
     def getBoundingBox(self):
-        xmin = self.shape[0][0]
-        xmax = self.shape[0][0]
-        ymin = self.shape[0][1]
-        ymax = self.shape[0][1]
-        for p in self.shape[1:]:
-            xmin = min(xmin, p[0])
-            xmax = max(xmax, p[0])
-            ymin = min(ymin, p[1])
-            ymax = max(ymax, p[1])
-        assert(xmin != xmax or ymin != ymax)
-        return xmin, ymin, xmax, ymax
+        return getBoundingBox(self.shape)
 
     def getShapeString(self):
         return " ".join([",".join(map(str, e)) for e in self.shape])
