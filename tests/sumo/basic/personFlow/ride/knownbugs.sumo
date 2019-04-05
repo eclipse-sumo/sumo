@@ -1,0 +1,7 @@
+
+[Reported by erdm_ja at 05Apr09:39:08]
+search_string:p1.2
+trigger_on_absence:1
+search_file:tripinfos
+full_description:later passengers are ignored
+brief_description:see #5424
