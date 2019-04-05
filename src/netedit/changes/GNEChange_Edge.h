@@ -81,26 +81,41 @@ private:
      */
     GNEEdge* myEdge;
 
-    /// @brief number of lane's edge
-    int myNumLanes;
-
-    /// @brief reference to vector of shape parents
-    std::vector<std::vector<GNEShape*> > myShapeParents;
+    /// @brief reference to vector of shape parents 
+    const std::vector<GNEShape*>& myEdgeShapeParents;
 
     /// @brief reference to vector of additional parents
-    std::vector<std::vector<GNEAdditional*> > myAdditionalParents;
+    const std::vector<GNEAdditional*> & myEdgeAdditionalParents;
 
     /// @brief reference to vector of demand element parents
-    std::vector<std::vector<GNEDemandElement*> > myDemandElementParents;
+    const std::vector<GNEDemandElement*>& myEdgeDemandElementParents;
     
     /// @brief reference to vector of shape childs
-    std::vector<std::vector<GNEShape*> > myShapeChilds;
+    const std::vector<GNEShape*>& myEdgeShapeChilds;
 
     /// @brief reference to vector of additional childs
-    std::vector<std::vector<GNEAdditional*> > myAdditionalChilds;
+    const std::vector<GNEAdditional*> & myEdgeAdditionalChilds;
 
-    /// @brief reference to vector of demand element childs
-    std::vector<std::vector<GNEDemandElement*> > myDemandElementChilds;
+    /// @brief vector of references to vector of demand element childs (used by lanes)
+    const std::vector<GNEDemandElement*>& myEdgeDemandElementChilds;
+
+    /// @brief vector of references to vector of shape parents (used by lanes)
+    std::vector<std::vector<GNEShape*> > myLaneShapeParents;
+
+    /// @brief vector of references to vector of additional parents (used by lanes)
+    std::vector<std::vector<GNEAdditional*> > myLaneAdditionalParents;
+
+    /// @brief vector of references to vector of demand element parents (used by lanes)
+    std::vector<std::vector<GNEDemandElement*> > myLaneDemandElementParents;
+    
+    /// @brief vector of references to vector of shape childs (used by lanes)
+    std::vector<std::vector<GNEShape*> > myLaneShapeChilds;
+
+    /// @brief vector of references to vector of additional childs (used by lanes)
+    std::vector<std::vector<GNEAdditional*> > myLaneAdditionalChilds;
+
+    /// @brief vector of references to vector of demand element childs (used by lanes)
+    std::vector<std::vector<GNEDemandElement*> > myLaneDemandElementChilds;
 };
 
 #endif
