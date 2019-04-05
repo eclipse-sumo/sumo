@@ -47,7 +47,7 @@ const double GNEPoly::myHintSize = 0.8;
 GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, const PositionVector& shape, bool geo, bool fill, double lineWidth,
                  const RGBColor& color, double layer, double angle, const std::string& imgFile, bool relativePath, bool movementBlocked, bool shapeBlocked) :
     GUIPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath),
-    GNEShape(net, SUMO_TAG_POLY, movementBlocked),
+    GNEShape(net, SUMO_TAG_POLY, movementBlocked, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
     myNetElementShapeEdited(nullptr),
     myBlockShape(shapeBlocked),
     myClosedShape(shape.front() == shape.back()),

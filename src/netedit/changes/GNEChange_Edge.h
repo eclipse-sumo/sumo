@@ -80,6 +80,24 @@ private:
      * @note we assume shared responsibility for the pointer (via reference counting)
      */
     GNEEdge* myEdge;
+
+    /// @brief reference to vector of shape parents
+    const std::vector<GNEShape*> &myShapeParents;
+
+    /// @brief reference to vector of additional parents
+    const std::vector<GNEAdditional*> &myAdditionalParents;
+
+    /// @brief reference to vector of demand element parents
+    const std::vector<GNEDemandElement*> &myDemandElementParents;
+    
+    /// @brief reference to vector of shape childs
+    const std::vector<GNEShape*> &myShapeChilds;
+
+    /// @brief reference to vector of additional childs
+    const std::vector<GNEAdditional*> &myAdditionalChilds;
+
+    /// @brief reference to vector of demand element childs
+    const std::vector<GNEDemandElement*> &myDemandElementChilds;
 };
 
 #endif

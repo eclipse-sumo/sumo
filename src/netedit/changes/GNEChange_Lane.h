@@ -86,17 +86,26 @@ private:
     /// @brief we need to preserve the attributes explicitly because they are not contained withing GNELane itself
     const NBEdge::Lane myLaneAttrs;
 
-    /// @brief we need to preserve the list of additionals vinculated with this lane
-    std::vector<GNEAdditional*> myAdditionalChilds;
-
-    /// @brief we need to preserve the list of shapes vinculated with this lane
-    std::vector<GNEShape*> myShapeChilds;
-
-    /// @brief we need to preserve the list of additional sets in which this lane is a child
-    std::vector<GNEAdditional*> myFirstAdditionalParents;
-
     /// @bried whether to recompute connection when adding a new lane
     bool myRecomputeConnections;
+
+    /// @brief vector of shape parents
+    std::vector<GNEShape*> myShapeParents;
+
+    /// @brief vector of additional parents
+    std::vector<GNEAdditional*> myAdditionalParents;
+
+    /// @brief vector of demand element parents
+    std::vector<GNEDemandElement*> myDemandElementParents;
+    
+    /// @brief vector of shape childs
+    std::vector<GNEShape*> myShapeChilds;
+
+    /// @brief vector of additional childs
+    std::vector<GNEAdditional*> myAdditionalChilds;
+
+    /// @brief vector of demand element childs
+    std::vector<GNEDemandElement*> myDemandElementChilds;
 };
 
 #endif

@@ -41,8 +41,8 @@
 GNENetElement::GNENetElement(GNENet* net, const std::string& id, GUIGlObjectType type, SumoXMLTag tag) :
     GUIGlObject(type, id),
     GNEAttributeCarrier(tag),
-    GNEHierarchicalElementParents(this, {}, {}, {}, {}),
-    GNEHierarchicalElementChilds(this, {}, {}, {}, {}),
+    GNEHierarchicalElementParents(this, {}, {}, {}, {}, {}),
+    GNEHierarchicalElementChilds(this, {}, {}, {}, {}, {}),
     myNet(net),
     myMovingGeometryBoundary() {}
 

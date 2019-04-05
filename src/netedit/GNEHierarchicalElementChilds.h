@@ -49,12 +49,14 @@ public:
     /**@brief Parameter Constructor
      * @param[in] edgeChilds vector of edge childs
      * @param[in] laneChilds vector of lane childs
+     * @param[in] shapeChilds vector of shape childs
      * @param[in] additionalChilds vector of additional childs
      * @param[in] demandElementChilds vector of demand element childs
      */
     GNEHierarchicalElementChilds(GNEAttributeCarrier* AC,
         const std::vector<GNEEdge*> &edgeChilds,
         const std::vector<GNELane*> &laneChilds,
+        const std::vector<GNEShape*> &shapeChilds,
         const std::vector<GNEAdditional*> &additionalChilds,
         const std::vector<GNEDemandElement*> &demandElementChilds);
 
@@ -96,6 +98,19 @@ public:
 
     /// @brief get lanes of VSS
     const std::vector<GNELane*>& getLaneChilds() const;
+
+    /// @}
+
+    /// @name members and functions related to shape childs
+    /// @{
+    /// @brief add shape child
+    void addShapeChild(GNEShape* shape);
+
+    /// @brief remove shape child
+    void removeShapeChild(GNEShape* shape);
+
+    /// @brief get shapes of VSS
+    const std::vector<GNEShape*>& getShapeChilds() const;
 
     /// @}
 
@@ -167,11 +182,14 @@ protected:
         GNEHierarchicalElementChilds* myHierarchicalElement;
     };
 
-    /// @brief vector with the edge childs of this additional
+    /// @brief vector with the edge childs of this element
     std::vector<GNEEdge*> myEdgeChilds;
 
-    /// @brief vector with the lane childs of this additional
+    /// @brief vector with the lane childs of this element
     std::vector<GNELane*> myLaneChilds;
+
+    /// @brief vector with the lane childs of this element
+    std::vector<GNEShape*> myShapeChilds;
 
     /// @brief vector with the additional childs
     std::vector<GNEAdditional*> myAdditionalChilds;

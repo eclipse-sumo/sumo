@@ -2802,10 +2802,6 @@ GNENet::insertShape(GNEShape* shape, bool updateViewAfterDeleting) {
     if (shape->isAttributeCarrierSelected()) {
         shape->selectAttributeCarrier(false);
     }
-    // POILanes has to be added from lane
-    if (shape->getTagProperty().getTag() == SUMO_TAG_POILANE) {
-        retrieveLane(shape->getAttribute(SUMO_ATTR_LANE))->addShapeChild(shape);
-    }
     // insert shape requieres always save additionals
     requiereSaveAdditionals(true);
     // check if view has to be updated
@@ -2831,10 +2827,6 @@ GNENet::removeShape(GNEShape* shape, bool updateViewAfterDeleting) {
     // check if shape has to be unselected
     if (shape->isAttributeCarrierSelected()) {
         shape->unselectAttributeCarrier(false);
-    }
-    // POILanes has to be removed from lane
-    if (shape->getTagProperty().getTag() == SUMO_TAG_POILANE) {
-        retrieveLane(shape->getAttribute(SUMO_ATTR_LANE))->removeShapeChild(shape);
     }
     // remove shape requires always save additionals
     requiereSaveAdditionals(true);

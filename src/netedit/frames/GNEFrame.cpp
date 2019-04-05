@@ -1736,7 +1736,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierParents() {
                 GNEPOI* POILane = myFrameParent->getViewNet()->getNet()->retrievePOI(myAC->getID(), false);
                 if (POILane) {
                     // obtain lane parent
-                    GNELane* lane = myFrameParent->getViewNet()->getNet()->retrieveLane(POILane->getLane()->getID());
+                    GNELane* lane = myFrameParent->getViewNet()->getNet()->retrieveLane(POILane->getLaneParents().at(0)->getID());
                     // obtain edge parent
                     GNEEdge* edge = myFrameParent->getViewNet()->getNet()->retrieveEdge(lane->getParentEdge().getID());
                     //inser Junctions of lane of edge in tree (Pararell because a edge has always two Junctions)

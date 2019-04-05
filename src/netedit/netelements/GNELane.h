@@ -34,7 +34,6 @@ class GNETLSEditorFrame;
 class GNEEdge;
 class GNENet;
 class GNEConnection;
-class GNEShape;
 
 // ===========================================================================
 // class definitions
@@ -159,15 +158,6 @@ public:
     /// @brief returns the length of the lane's shape
     double getLaneShapeLength() const;
 
-    /// @brief add shape child to this lane
-    void addShapeChild(GNEShape* shape);
-
-    /// @brief remove shape child of this lane
-    void removeShapeChild(GNEShape* shape);
-
-    /// @brief get shape childs of lane
-    const std::vector<GNEShape*>& getShapeChilds() const;
-
     /// @brief check if this lane is restricted
     bool isRestricted(SUMOVehicleClass vclass) const;
 
@@ -255,11 +245,9 @@ protected:
     std::vector<double> myLaneRestrictedTextureRotations;
     /// @}
 
-    /// @brief list with the shapes vinculated with this lane
-    std::vector<GNEShape*> myShapes;
-
     /// @brief optional special color
     const RGBColor* mySpecialColor;
+
     /// @brief optional value that corresponds to which the special color corresponds
     double mySpecialColorValue;
 

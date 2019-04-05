@@ -50,12 +50,14 @@ public:
      * @param[in] tag Type of xml tag that define the element (SUMO_TAG_BUS_STOP, SUMO_TAG_JUNCTION, etc...)
      * @param[in] edgeParents vector of edge parents
      * @param[in] laneParents vector of lane parents
+     * @param[in] shapeParents vector of shape parents
      * @param[in] additionalParents vector of additional parents
      * @param[in] demandElementParents vector of demand element parents
      */
     GNEHierarchicalElementParents(GNEAttributeCarrier* AC,
         const std::vector<GNEEdge*>& edgeParents,
         const std::vector<GNELane*>& laneParents,
+        const std::vector<GNEShape*>& shapeParents,
         const std::vector<GNEAdditional*>& additionalParents,
         const std::vector<GNEDemandElement*>& demandElementParents);
 
@@ -97,6 +99,19 @@ public:
 
     /// @}
 
+    /// @name members and functions related to shape parents
+    /// @{
+    /// @brief add shape parent
+    void addShapeParent(GNEShape* shape);
+
+    /// @brief remove shape parent
+    void removeShapeParent(GNEShape* shape);
+
+    /// @brief get shapes of VSS
+    const std::vector<GNEShape*>& getShapeParents() const;
+
+    /// @}
+
     /// @name members and functions related to additional parents
     /// @{
     /// @brief add additional parent to this additional
@@ -124,7 +139,6 @@ public:
     /// @}
 
 protected:
-  
     /// @brief struct for pack all variables and functions relative to connections between hierarchical element and their childs
     struct ParentConnections {
         /// @brief constructor
@@ -150,11 +164,17 @@ protected:
     /// @name members and functions relative to changing parents
     /// @{
     
+    /// @brief change edge parents of a shape
+    void changeEdgeParents(GNEShape *elementChild, const std::string& newEdgeIDs);
+
     /// @brief change edge parents of an additional
     void changeEdgeParents(GNEAdditional *elementChild, const std::string& newEdgeIDs);
 
     /// @brief change edge parents of a demandElement
     void changeEdgeParents(GNEDemandElement *elementChild, const std::string& newEdgeIDs);
+
+    /// @brief change edge parents of a shape
+    void changeLaneParents(GNEShape *elementChild, const std::string& newLaneIDs);
 
     /// @brief change edge parents of an additional
     void changeLaneParents(GNEAdditional *elementChild, const std::string& newLaneIDs);
@@ -162,19 +182,31 @@ protected:
     /// @brief change edge parents of a demandElement
     void changeLaneParents(GNEDemandElement *elementChild, const std::string& newLaneIDs);
 
+    /**@brief change additional parent of a shape
+     * @throw exception if this shape doesn't have previously a defined Additional parent
+     * @throw exception if shape with ID newAdditionalParentID doesn't exist
+     */
+    void changeAdditionalParent(GNEShape *shapeTobeChanged, const std::string& newAdditionalParentID, int additionalParentIndex);
+
     /**@brief change additional parent of an additional
      * @throw exception if this additional doesn't have previously a defined Additional parent
      * @throw exception if additional with ID newAdditionalParentID doesn't exist
      */
     void changeAdditionalParent(GNEAdditional *additionalTobeChanged, const std::string& newAdditionalParentID, int additionalParentIndex);
 
-    /**@brief change additional parent of ademand element
+    /**@brief change additional parent of a demand element
      * @throw exception if this additional doesn't have previously a defined Additional parent
      * @throw exception if additional with ID newAdditionalParentID doesn't exist
      */
     void changeAdditionalParent(GNEDemandElement *demandElementTobeChanged, const std::string& newAdditionalParentID, int additionalParentIndex);
 
-    /**@brief change first demand element parent of demandElement
+    /**@brief change first demand element parent of a shape
+     * @throw exception if this demand element doesn't have previously a defined DemandElement parent
+     * @throw exception if demand element with ID newDemandElementParentID doesn't exist
+     */
+    void changeDemandElementParent(GNEShape *shapeTobeChanged, const std::string& newDemandElementParentID, int demandElementParentIndex);
+
+    /**@brief change first demand element parent of an additional
      * @throw exception if this demand element doesn't have previously a defined DemandElement parent
      * @throw exception if demand element with ID newDemandElementParentID doesn't exist
      */
@@ -193,6 +225,9 @@ protected:
     
     /// @brief list of lane parents of this element
     std::vector<GNELane*> myLaneParents;
+
+    /// @brief list of shape parents of this element
+    std::vector<GNEShape*> myShapeParents;
 
     /// @brief list of additional parents of this element
     std::vector<GNEAdditional*> myAdditionalParents;

@@ -130,9 +130,6 @@ public:
     GUIGlID getGlID() const;
     /// @}
 
-    /// @brief get GNELane
-    GNELane* getLane() const;
-
     /// @name inherited from GUIGlObject
     /// @{
     /**@brief Returns the name of the parent object
@@ -208,9 +205,6 @@ public:
 protected:
     /// @brief Position of POI in GEO coordinates (Only used by POIs that aren't placed over lanes)
     Position myGEOPosition;
-
-    /// @brief GNElane in which this POILane is placed (Only used by POIs placed over lanes)
-    GNELane* myGNELane;
 
 private:
     /// @brief position used for move POILanes

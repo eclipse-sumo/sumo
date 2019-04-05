@@ -38,7 +38,7 @@
 // ===========================================================================
 
 GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNEViewNet* viewNet, const Position& pos, const std::vector<GNELane*>& lanes, const std::string& name, bool blockMovement) :
-    GNEAdditional(id, viewNet, GLO_VSS, SUMO_TAG_VSS, name, blockMovement, {}, {}, {}, {}, {}, lanes, {}, {}),
+    GNEAdditional(id, viewNet, GLO_VSS, SUMO_TAG_VSS, name, blockMovement, {}, {}, {}, {}, {}, {}, lanes, {}, {}, {}),
     myPosition(pos) {
 }
 

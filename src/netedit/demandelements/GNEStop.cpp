@@ -45,14 +45,14 @@
 // ===========================================================================
 
 GNEStop::GNEStop(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehicleParameter::Stop &stopParameter, GNEAdditional* stoppingPlace, GNEDemandElement* stopParent) :
-    GNEDemandElement(stopParent, viewNet, GLO_STOP, tag, {}, {}, {stoppingPlace}, {stopParent}, {}, {}, {}, {}),
+    GNEDemandElement(stopParent, viewNet, GLO_STOP, tag, {}, {}, {}, {stoppingPlace}, {stopParent}, {}, {}, {}, {}, {}),
     SUMOVehicleParameter::Stop(stopParameter),
     myFriendlyPosition(false) {
 }
 
 
 GNEStop::GNEStop(GNEViewNet* viewNet, const SUMOVehicleParameter::Stop &stopParameter, GNELane* lane, bool friendlyPosition, GNEDemandElement* stopParent) :
-    GNEDemandElement(stopParent, viewNet, GLO_STOP, SUMO_TAG_STOP_LANE, {}, {lane}, {}, {stopParent}, {}, {}, {}, {}),
+    GNEDemandElement(stopParent, viewNet, GLO_STOP, SUMO_TAG_STOP_LANE, {}, {lane}, {}, {}, {stopParent}, {}, {}, {}, {}, {}),
     SUMOVehicleParameter::Stop(stopParameter),
     myFriendlyPosition(friendlyPosition) { 
 }

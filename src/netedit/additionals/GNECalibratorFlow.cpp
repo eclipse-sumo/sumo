@@ -35,7 +35,7 @@
 
 GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent) :
     GNEAdditional(calibratorParent, calibratorParent->getViewNet(), GLO_CALIBRATOR, SUMO_TAG_CALIBRATORFLOW, "", false, 
-                  {}, {}, {calibratorParent}, {}, {}, {}, {}, {}),
+                  {}, {}, {}, {calibratorParent}, {}, {}, {}, {}, {}, {}),
     myVehicleType(calibratorParent->getViewNet()->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_VTYPE_ID)),
     myRoute(calibratorParent->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_ROUTE).begin()->second) {
     // fill calibrator flows with default values
@@ -48,7 +48,7 @@ GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandE
                                      const std::string& arrivalPos, const std::string& arrivalSpeed, const std::string& line, int personNumber, int containerNumber, bool reroute,
                                      const std::string& departPosLat, const std::string& arrivalPosLat, double begin, double end) :
     GNEAdditional(calibratorParent, calibratorParent->getViewNet(), GLO_CALIBRATOR, SUMO_TAG_CALIBRATORFLOW, "", false, 
-                  {}, {}, {calibratorParent}, {}, {}, {}, {}, {}),
+                  {}, {}, {}, {calibratorParent}, {}, {}, {}, {}, {}, {}),
     myVehicleType(vehicleType),
     myRoute(route),
     myVehsPerHour(vehsPerHour),

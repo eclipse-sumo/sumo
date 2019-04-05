@@ -23,6 +23,7 @@
 #include <netedit/GNENet.h>
 #include <netedit/netelements/GNELane.h>
 #include <netedit/netelements/GNEEdge.h>
+#include <netedit/additionals/GNEShape.h>
 #include <netedit/additionals/GNEAdditional.h>
 #include <netedit/demandelements/GNEDemandElement.h>
 #include <netedit/frames/GNEFrame.h>
@@ -45,10 +46,12 @@ GNEChange_Additional::GNEChange_Additional(GNEAdditional* additional, bool forwa
     myAdditional(additional),
     myEdgeParents(myAdditional->getEdgeParents()),
     myLaneParents(myAdditional->getLaneParents()),
+    myShapeParents(myAdditional->getShapeParents()),
     myAdditionalParents(myAdditional->getAdditionalParents()),
     myDemandElementParents(myAdditional->getDemandElementParents()),
     myEdgeChilds(myAdditional->getEdgeChilds()),
     myLaneChilds(myAdditional->getLaneChilds()),
+    myShapeChilds(myAdditional->getShapeChilds()),
     myAdditionalChilds(myAdditional->getAdditionalChilds()),
     myDemandElementChilds(myAdditional->getDemandElementChilds()) {
     myAdditional->incRef("GNEChange_Additional");
@@ -75,11 +78,16 @@ GNEChange_Additional::undo() {
     if (myForward) {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myAdditional->getTagStr() + " '" + myAdditional->getID() + "' in GNEChange_Additional");
+        // delete additional from net
+        myNet->deleteAdditional(myAdditional, false);
         // Remove additional from parent elements
         for (const auto &i : myEdgeParents) {
             i->removeAdditionalChild(myAdditional);
         }
         for (const auto &i : myLaneParents) {
+            i->removeAdditionalChild(myAdditional);
+        }
+        for (const auto &i : myShapeParents) {
             i->removeAdditionalChild(myAdditional);
         }
         for (const auto &i : myAdditionalParents) {
@@ -95,14 +103,15 @@ GNEChange_Additional::undo() {
         for (const auto &i : myLaneChilds) {
             i->removeAdditionalParent(myAdditional);
         }
+        for (const auto &i : myShapeChilds) {
+            i->removeAdditionalChild(myAdditional);
+        }
         for (const auto &i : myAdditionalChilds) {
             i->removeAdditionalParent(myAdditional);
         }
         for (const auto &i : myDemandElementChilds) {
             i->removeAdditionalParent(myAdditional);
         }
-        // delete additional from net
-        myNet->deleteAdditional(myAdditional, false);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myAdditional->getTagStr() + " '" + myAdditional->getID() + "' in GNEChange_Additional");
@@ -113,6 +122,9 @@ GNEChange_Additional::undo() {
             i->addAdditionalChild(myAdditional);
         }
         for (const auto &i : myLaneParents) {
+            i->addAdditionalChild(myAdditional);
+        }
+        for (const auto &i : myShapeParents) {
             i->addAdditionalChild(myAdditional);
         }
         for (const auto &i : myAdditionalParents) {
@@ -127,6 +139,9 @@ GNEChange_Additional::undo() {
         }
         for (const auto &i : myLaneChilds) {
             i->addAdditionalParent(myAdditional);
+        }
+        for (const auto &i : myShapeChilds) {
+            i->addAdditionalChild(myAdditional);
         }
         for (const auto &i : myAdditionalChilds) {
             i->addAdditionalParent(myAdditional);
@@ -154,6 +169,9 @@ GNEChange_Additional::redo() {
         for (const auto &i : myLaneParents) {
             i->addAdditionalChild(myAdditional);
         }
+        for (const auto &i : myShapeParents) {
+            i->addAdditionalChild(myAdditional);
+        }
         for (const auto &i : myAdditionalParents) {
             i->addAdditionalChild(myAdditional);
         }
@@ -167,6 +185,9 @@ GNEChange_Additional::redo() {
         for (const auto &i : myLaneChilds) {
             i->addAdditionalParent(myAdditional);
         }
+        for (const auto &i : myShapeChilds) {
+            i->addAdditionalChild(myAdditional);
+        }
         for (const auto &i : myAdditionalChilds) {
             i->addAdditionalParent(myAdditional);
         }
@@ -176,11 +197,16 @@ GNEChange_Additional::redo() {
     } else {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myAdditional->getTagStr() + " '" + myAdditional->getID() + "' in GNEChange_Additional");
+        // delete additional from net
+        myNet->deleteAdditional(myAdditional, false);
         // Remove additional from parent elements
         for (const auto &i : myEdgeParents) {
             i->removeAdditionalChild(myAdditional);
         }
         for (const auto &i : myLaneParents) {
+            i->removeAdditionalChild(myAdditional);
+        }
+        for (const auto &i : myShapeParents) {
             i->removeAdditionalChild(myAdditional);
         }
         for (const auto &i : myAdditionalParents) {
@@ -196,14 +222,15 @@ GNEChange_Additional::redo() {
         for (const auto &i : myLaneChilds) {
             i->removeAdditionalParent(myAdditional);
         }
+        for (const auto &i : myShapeChilds) {
+            i->removeAdditionalChild(myAdditional);
+        }
         for (const auto &i : myAdditionalChilds) {
             i->removeAdditionalParent(myAdditional);
         }
         for (const auto &i : myDemandElementChilds) {
             i->removeAdditionalParent(myAdditional);
         }
-        // delete additional from net
-        myNet->deleteAdditional(myAdditional, false);
     }
     // Requiere always save additionals
     myNet->requiereSaveAdditionals(true);

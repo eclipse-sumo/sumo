@@ -106,24 +106,28 @@ GNELane::updateGeometry(bool updateGrid) {
             myShapeRotations.push_back((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double)M_PI);
         }
     }
-    // update additional childs
+    // update shapes parents associated with this lane
+    for (auto i : myShapeParents) {
+        i->updateGeometry(updateGrid);
+    }
+    // update shape childs associated with this lane
+    for (auto i : myShapeChilds) {
+        i->updateGeometry(updateGrid);
+    }
+    // update additionals parents associated with this lane
     for (auto i : myAdditionalChilds) {
         i->updateGeometry(updateGrid);
     }
-    // update additionals with this lane as chid
+    // update additionals childs associated with this lane
     for (auto i : myAdditionalParents) {
         i->updateGeometry(updateGrid);
     }
-    // update demand elements parentsassociated with this lane
+    // update demand elements parents associated with this lane
     for (auto i : myDemandElementParents) {
         i->updateGeometry(updateGrid);
     }
      // update demand elements childs associated with this lane
     for (auto i : myDemandElementChilds) {
-        i->updateGeometry(updateGrid);
-    }
-    // update POIs associated to this lane
-    for (auto i : myShapes) {
         i->updateGeometry(updateGrid);
     }
     // In Move mode, connections aren't updated
@@ -811,37 +815,6 @@ GNELane::getLaneShapeLength() const {
 }
 
 
-void
-GNELane::addShapeChild(GNEShape* shape) {
-    // Check if Shape exist before remove
-    if (std::find(myShapes.begin(), myShapes.end(), shape) == myShapes.end()) {
-        myShapes.push_back(shape);
-        // update Geometry of shape after add
-        shape->updateGeometry(true);
-    } else {
-        throw ProcessError(shape->getTagStr() + " with ID='" + shape->getID() + "' was already inserted in lane with ID='" + getID() + "'");
-    }
-}
-
-
-void
-GNELane::removeShapeChild(GNEShape* shape) {
-    auto it = std::find(myShapes.begin(), myShapes.end(), shape);
-    // Check if Shape exist before remove
-    if (it != myShapes.end()) {
-        myShapes.erase(it);
-    } else {
-        throw ProcessError(shape->getTagStr() + " with ID='" + shape->getID() + "' doesn't exist in lane with ID='" + getID() + "'");
-    }
-}
-
-
-const std::vector<GNEShape*>&
-GNELane::getShapeChilds() const {
-    return myShapes;
-}
-
-
 bool
 GNELane::isRestricted(SUMOVehicleClass vclass) const {
     return myParentEdge.getNBEdge()->getPermissions(myIndex) == vclass;
@@ -1383,6 +1356,14 @@ GNELane::getLengthGeometryFactor() const {
 void
 GNELane::startGeometryMoving() {
     // Lanes don't need to save the current Centering Boundary, due they are parts of an Edge
+    // Save current centering boundary of shape childs
+    for (auto i : myShapeChilds) {
+        i->startGeometryMoving();
+    }
+    // Save current centering boundary of shapes with this lane as chid
+    for (auto i : myShapeParents) {
+        i->startGeometryMoving();
+    }
     // Save current centering boundary of additional childs
     for (auto i : myAdditionalChilds) {
         i->startGeometryMoving();
@@ -1399,16 +1380,20 @@ GNELane::startGeometryMoving() {
     for (auto i : myDemandElementParents) {
         i->startGeometryMoving();
     }
-    // Save current centering boundary of POIs associated to this lane
-    for (auto i : myShapes) {
-        i->startGeometryMoving();
-    }
 }
 
 
 void
 GNELane::endGeometryMoving() {
     // Lanes don't need to save the current Centering Boundary, due they are parts of an Edge
+    // Restore centering boundary of shapes with this lane as chid
+    for (auto i : myShapeChilds) {
+        i->endGeometryMoving();
+    }
+    // Restore centering boundary of shapes with this lane as chid
+    for (auto i : myShapeParents) {
+        i->endGeometryMoving();
+    }
     // Restore centering boundary of additionals with this lane as chid
     for (auto i : myAdditionalChilds) {
         i->endGeometryMoving();
@@ -1423,10 +1408,6 @@ GNELane::endGeometryMoving() {
     }
     // Restore centering boundary of demand elements with this lane as chid
     for (auto i : myDemandElementParents) {
-        i->endGeometryMoving();
-    }
-    // Restore centering boundary of POIs associated to this lane
-    for (auto i : myShapes) {
         i->endGeometryMoving();
     }
 }

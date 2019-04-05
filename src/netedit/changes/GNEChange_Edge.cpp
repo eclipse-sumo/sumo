@@ -22,9 +22,13 @@
 
 #include <netedit/GNENet.h>
 #include <netedit/netelements/GNEEdge.h>
+#include <netedit/additionals/GNEShape.h>
+#include <netedit/additionals/GNEAdditional.h>
+#include <netedit/demandelements/GNEdemandElement.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/frames/GNEFrame.h>
+
 
 #include "GNEChange_Edge.h"
 
@@ -41,8 +45,13 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Edge, GNEChange, nullptr, 0)
 /// @brief constructor for creating an edge
 GNEChange_Edge::GNEChange_Edge(GNEEdge* edge, bool forward):
     GNEChange(edge->getNet(), forward),
-    myEdge(edge) {
-    assert(myNet);
+    myEdge(edge),
+    myShapeParents(edge->getShapeParents()),
+    myAdditionalParents(edge->getAdditionalParents()),
+    myDemandElementParents(edge->getDemandElementParents()),
+    myShapeChilds(edge->getShapeChilds()),
+    myAdditionalChilds(edge->getAdditionalChilds()),
+    myDemandElementChilds(edge->getDemandElementChilds()) {
     edge->incRef("GNEChange_Edge");
 }
 
@@ -65,11 +74,51 @@ GNEChange_Edge::undo() {
         WRITE_DEBUG("Removing " + myEdge->getTagStr() + " '" + myEdge->getID() + "' from " + toString(SUMO_TAG_NET));
         // delete edge from net
         myNet->deleteSingleEdge(myEdge, false);
+        // Remove edge from parent elements
+        for (const auto &i : myShapeParents) {
+            i->removeEdgeChild(myEdge);
+        }
+        for (const auto &i : myAdditionalParents) {
+            i->removeEdgeChild(myEdge);
+        }
+        for (const auto &i : myDemandElementParents) {
+            i->removeEdgeChild(myEdge);
+        }
+        // Remove edge from child elements
+        for (const auto &i : myShapeChilds) {
+            i->removeEdgeParent(myEdge);
+        }
+        for (const auto &i : myAdditionalChilds) {
+            i->removeEdgeParent(myEdge);
+        }
+        for (const auto &i : myDemandElementChilds) {
+            i->removeEdgeParent(myEdge);
+        }
     } else {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myEdge->getTagStr() + " '" + myEdge->getID() + "' from " + toString(SUMO_TAG_NET));
         // insert edge into net
         myNet->insertEdge(myEdge);
+        // add edge in parent elements
+        for (const auto &i : myShapeParents) {
+            i->addEdgeChild(myEdge);
+        }
+        for (const auto &i : myAdditionalParents) {
+            i->addEdgeChild(myEdge);
+        }
+        for (const auto &i : myDemandElementParents) {
+            i->addEdgeChild(myEdge);
+        }
+        // add edge in child elements
+        for (const auto &i : myShapeChilds) {
+            i->addEdgeParent(myEdge);
+        }
+        for (const auto &i : myAdditionalChilds) {
+            i->addEdgeParent(myEdge);
+        }
+        for (const auto &i : myDemandElementChilds) {
+            i->addEdgeParent(myEdge);
+        }
     }
     // enable save netElements
     myNet->requiereSaveNet(true);
@@ -83,11 +132,51 @@ GNEChange_Edge::redo() {
         WRITE_DEBUG("Adding " + myEdge->getTagStr() + " '" + myEdge->getID() + "' from " + toString(SUMO_TAG_NET));
         // insert edge into net
         myNet->insertEdge(myEdge);
+        // add edge in parent elements
+        for (const auto &i : myShapeParents) {
+            i->addEdgeChild(myEdge);
+        }
+        for (const auto &i : myAdditionalParents) {
+            i->addEdgeChild(myEdge);
+        }
+        for (const auto &i : myDemandElementParents) {
+            i->addEdgeChild(myEdge);
+        }
+        // add edge in child elements
+        for (const auto &i : myShapeChilds) {
+            i->addEdgeParent(myEdge);
+        }
+        for (const auto &i : myAdditionalChilds) {
+            i->addEdgeParent(myEdge);
+        }
+        for (const auto &i : myDemandElementChilds) {
+            i->addEdgeParent(myEdge);
+        }
     } else {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myEdge->getTagStr() + " '" + myEdge->getID() + "' from " + toString(SUMO_TAG_NET));
-        // delte edge from net
+        // delete edge from net
         myNet->deleteSingleEdge(myEdge, false);
+        // Remove edge from parent elements
+        for (const auto &i : myShapeParents) {
+            i->removeEdgeChild(myEdge);
+        }
+        for (const auto &i : myAdditionalParents) {
+            i->removeEdgeChild(myEdge);
+        }
+        for (const auto &i : myDemandElementParents) {
+            i->removeEdgeChild(myEdge);
+        }
+        // Remove edge from child elements
+        for (const auto &i : myShapeChilds) {
+            i->removeEdgeParent(myEdge);
+        }
+        for (const auto &i : myAdditionalChilds) {
+            i->removeEdgeParent(myEdge);
+        }
+        for (const auto &i : myDemandElementChilds) {
+            i->removeEdgeParent(myEdge);
+        }
     }
     // enable save netElements
     myNet->requiereSaveNet(true);

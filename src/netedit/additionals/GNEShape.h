@@ -38,8 +38,28 @@ public:
      * @param[in] net The net to inform about gui updates
      * @param[in] tag sumo xml tag of the element
      * @param[in] movementBlocked if movement of POI is blocked
+     * @param[in] edgeParents vector of edge parents
+     * @param[in] laneParents vector of lane parents
+     * @param[in] shapeParents vector of shape parents
+     * @param[in] additionalParents vector of additional parents
+     * @param[in] demandElementChilds vector of demandElement parents
+     * @param[in] edgeChilds vector of edge childs
+     * @param[in] laneChilds vector of lane childs
+     * @param[in] shapeChilds vector of shape childs
+     * @param[in] additionalChilds vector of additional childs
+     * @param[in] demandElementChilds vector of demandElement childs
      */
-    GNEShape(GNENet* net, SumoXMLTag tag, bool movementBlocked);
+    GNEShape(GNENet* net, SumoXMLTag tag, bool movementBlocked,
+        const std::vector<GNEEdge*> &edgeParents, 
+        const std::vector<GNELane*> &laneParents, 
+        const std::vector<GNEShape*> &shapeParents, 
+        const std::vector<GNEAdditional*>& additionalParents, 
+        const std::vector<GNEDemandElement*>& demandElementParents,
+        const std::vector<GNEEdge*> &edgeChilds, 
+        const std::vector<GNELane*> &laneChilds, 
+        const std::vector<GNEShape*> &shapeChilds, 
+        const std::vector<GNEAdditional*>& additionalChilds, 
+        const std::vector<GNEDemandElement*>& demandElementChilds);
 
     /// @brief Destructor
     ~GNEShape();

@@ -23,6 +23,7 @@
 #include <netedit/GNENet.h>
 #include <netedit/netelements/GNELane.h>
 #include <netedit/netelements/GNEEdge.h>
+#include <netedit/additionals/GNEShape.h>
 #include <netedit/additionals/GNEAdditional.h>
 #include <netedit/demandelements/GNEDemandElement.h>
 #include <netedit/frames/GNEFrame.h>
@@ -43,14 +44,16 @@ FXIMPLEMENT_ABSTRACT(GNEChange_DemandElement, GNEChange, nullptr, 0)
 GNEChange_DemandElement::GNEChange_DemandElement(GNEDemandElement* demandElement, bool forward) :
     GNEChange(demandElement->getViewNet()->getNet(), forward),
     myDemandElement(demandElement),
-    myEdgeParents(myDemandElement->getEdgeParents()),
-    myLaneParents(myDemandElement->getLaneParents()),
-    myAdditionalParents(myDemandElement->getAdditionalParents()),
-    myDemandElementParents(myDemandElement->getDemandElementParents()),
-    myEdgeChilds(myDemandElement->getEdgeChilds()),
-    myLaneChilds(myDemandElement->getLaneChilds()),
-    myAdditionalChilds(myDemandElement->getAdditionalChilds()),
-    myDemandElementChilds(myDemandElement->getDemandElementChilds()) {
+    myEdgeParents(demandElement->getEdgeParents()),
+    myLaneParents(demandElement->getLaneParents()),
+    myShapeParents(demandElement->getShapeParents()),
+    myAdditionalParents(demandElement->getAdditionalParents()),
+    myDemandElementParents(demandElement->getDemandElementParents()),
+    myEdgeChilds(demandElement->getEdgeChilds()),
+    myLaneChilds(demandElement->getLaneChilds()),
+    myShapeChilds(demandElement->getShapeChilds()),
+    myAdditionalChilds(demandElement->getAdditionalChilds()),
+    myDemandElementChilds(demandElement->getDemandElementChilds()) {
     myDemandElement->incRef("GNEChange_DemandElement");
 }
 
@@ -75,11 +78,16 @@ GNEChange_DemandElement::undo() {
     if (myForward) {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "' in GNEChange_DemandElement");
+        // delete demand element from net
+        myNet->deleteDemandElement(myDemandElement, false);
         // Remove element from parent elements
         for (const auto &i : myEdgeParents) {
             i->removeDemandElementChild(myDemandElement);
         }
         for (const auto &i : myLaneParents) {
+            i->removeDemandElementChild(myDemandElement);
+        }
+        for (const auto &i : myShapeParents) {
             i->removeDemandElementChild(myDemandElement);
         }
         for (const auto &i : myAdditionalParents) {
@@ -95,24 +103,28 @@ GNEChange_DemandElement::undo() {
         for (const auto &i : myLaneChilds) {
             i->removeDemandElementParent(myDemandElement);
         }
+        for (const auto &i : myShapeChilds) {
+            i->removeDemandElementParent(myDemandElement);
+        }
         for (const auto &i : myAdditionalChilds) {
             i->removeDemandElementParent(myDemandElement);
         }
         for (const auto &i : myDemandElementChilds) {
             i->removeDemandElementParent(myDemandElement);
         }
-        // delete demand element from net
-        myNet->deleteDemandElement(myDemandElement, false);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "' in GNEChange_DemandElement");
         // insert demand element into net
         myNet->insertDemandElement(myDemandElement);
-        // add demand element in parent elements
+        // add element in parent elements
         for (const auto &i : myEdgeParents) {
             i->addDemandElementChild(myDemandElement);
         }
         for (const auto &i : myLaneParents) {
+            i->addDemandElementChild(myDemandElement);
+        }
+        for (const auto &i : myShapeParents) {
             i->addDemandElementChild(myDemandElement);
         }
         for (const auto &i : myAdditionalParents) {
@@ -126,6 +138,9 @@ GNEChange_DemandElement::undo() {
             i->addDemandElementParent(myDemandElement);
         }
         for (const auto &i : myLaneChilds) {
+            i->addDemandElementParent(myDemandElement);
+        }
+        for (const auto &i : myShapeChilds) {
             i->addDemandElementParent(myDemandElement);
         }
         for (const auto &i : myAdditionalChilds) {
@@ -154,6 +169,9 @@ GNEChange_DemandElement::redo() {
         for (const auto &i : myLaneParents) {
             i->addDemandElementChild(myDemandElement);
         }
+        for (const auto &i : myShapeParents) {
+            i->addDemandElementChild(myDemandElement);
+        }
         for (const auto &i : myAdditionalParents) {
             i->addDemandElementChild(myDemandElement);
         }
@@ -167,6 +185,9 @@ GNEChange_DemandElement::redo() {
         for (const auto &i : myLaneChilds) {
             i->addDemandElementParent(myDemandElement);
         }
+        for (const auto &i : myShapeChilds) {
+            i->addDemandElementParent(myDemandElement);
+        }
         for (const auto &i : myAdditionalChilds) {
             i->addDemandElementParent(myDemandElement);
         }
@@ -176,11 +197,16 @@ GNEChange_DemandElement::redo() {
     } else {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "' in GNEChange_DemandElement");
+        // delete demand element from net
+        myNet->deleteDemandElement(myDemandElement, false);
         // Remove element from parent elements
         for (const auto &i : myEdgeParents) {
             i->removeDemandElementChild(myDemandElement);
         }
         for (const auto &i : myLaneParents) {
+            i->removeDemandElementChild(myDemandElement);
+        }
+        for (const auto &i : myShapeParents) {
             i->removeDemandElementChild(myDemandElement);
         }
         for (const auto &i : myAdditionalParents) {
@@ -196,14 +222,15 @@ GNEChange_DemandElement::redo() {
         for (const auto &i : myLaneChilds) {
             i->removeDemandElementParent(myDemandElement);
         }
+        for (const auto &i : myShapeChilds) {
+            i->removeDemandElementParent(myDemandElement);
+        }
         for (const auto &i : myAdditionalChilds) {
             i->removeDemandElementParent(myDemandElement);
         }
         for (const auto &i : myDemandElementChilds) {
             i->removeDemandElementParent(myDemandElement);
         }
-        // delete demand element from net
-        myNet->deleteDemandElement(myDemandElement, false);
     }
     // Requiere always save elements
     myNet->requiereSaveDemandElements(true);

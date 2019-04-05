@@ -47,10 +47,12 @@
 GNEHierarchicalElementChilds::GNEHierarchicalElementChilds(GNEAttributeCarrier* AC,
         const std::vector<GNEEdge*> &edgeChilds,
         const std::vector<GNELane*> &laneChilds,
+        const std::vector<GNEShape*> &shapeChilds,
         const std::vector<GNEAdditional*> &additionalChilds,
         const std::vector<GNEDemandElement*> &demandElementChilds) :
     myEdgeChilds(edgeChilds),
     myLaneChilds(laneChilds),
+    myShapeChilds(shapeChilds),
     myAdditionalChilds(additionalChilds),
     myDemandElementChilds(demandElementChilds),
     myChildConnections(this),
@@ -351,6 +353,42 @@ GNEHierarchicalElementChilds::removeLaneChild(GNELane* lane) {
 const std::vector<GNELane*>&
 GNEHierarchicalElementChilds::getLaneChilds() const {
     return myLaneChilds;
+}
+
+
+void
+GNEHierarchicalElementChilds::addShapeChild(GNEShape* shape) {
+    // Check that shape is valid and doesn't exist previously
+    if (shape == nullptr) {
+        throw InvalidArgument("Trying to add an empty " + toString(SUMO_TAG_EDGE) + " child in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+    }
+    else if (std::find(myShapeChilds.begin(), myShapeChilds.end(), shape) != myShapeChilds.end()) {
+        throw InvalidArgument("Trying to add a duplicate " + toString(SUMO_TAG_EDGE) + " child in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+    }
+    else {
+        myShapeChilds.push_back(shape);
+    }
+}
+
+
+void
+GNEHierarchicalElementChilds::removeShapeChild(GNEShape* shape) {
+    // Check that shape is valid and exist previously
+    if (shape == nullptr) {
+        throw InvalidArgument("Trying to remove an empty " + toString(SUMO_TAG_EDGE) + " child in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+    }
+    else if (std::find(myShapeChilds.begin(), myShapeChilds.end(), shape) == myShapeChilds.end()) {
+        throw InvalidArgument("Trying to remove a non previously inserted " + toString(SUMO_TAG_EDGE) + " child in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+    }
+    else {
+        myShapeChilds.erase(std::find(myShapeChilds.begin(), myShapeChilds.end(), shape));
+    }
+}
+
+
+const std::vector<GNEShape*>&
+GNEHierarchicalElementChilds::getShapeChilds() const {
+    return myShapeChilds;
 }
 
 
