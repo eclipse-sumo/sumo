@@ -35,7 +35,7 @@ def examine(polygonID):
     print("color", traci.polygon.getColor(polygonID))
     print("filled", traci.polygon.getFilled(polygonID))
 
-traci.start([sumolib.checkBinary('sumo-gui'), "-c", "sumo.sumocfg"])
+traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"])
 for step in range(3):
     print("step", step)
     traci.simulationStep()
@@ -54,14 +54,37 @@ for step in range(3, 6):
     traci.simulationStep()
     
 # Add empty polygon dynamics
-print ("Adding underspecified dynamics")
-traci.polygon.addDynamics(polygonID)
+print ("Adding underspecified dynamics...")
+try:
+    traci.polygon.addDynamics(polygonID)
+except traci.exceptions.TraCIException as e:
+    print("Caught TraCIException")
+    pass
+    
+print ("Adding malformed dynamics 1 ...")
+try:
+    traci.polygon.addDynamics(polygonID, "", [0,1,2,4,3])
+except traci.exceptions.TraCIException as e:
+    print("Caught TraCIException")
+    pass
+    
+print ("Adding malformed dynamics 2 ...")
+try:
+    traci.polygon.addDynamics(polygonID, "", [1,2,3,4], [200,20,2,1])
+except traci.exceptions.TraCIException as e:
+    print("Caught TraCIException")
+    pass
+    
+print ("Adding malformed dynamics 3 ...")
+try:
+    traci.polygon.addDynamics(polygonID, "", [0,1,2,3], [200,20,2])
+except traci.exceptions.TraCIException as e:
+    print("Caught TraCIException")
+    pass
 
-#~ polygonID2 = "poly2"
-#~ traci.polygon.add(
-    #~ polygonID2, ((1, 1), (1, 10), (10, 10)), (1, 2, 3, 4), True, "test", lineWidth=3)
-#~ print("new polygon lineWidth", traci.polygon.getLineWidth(polygonID2))
-#~ traci.polygon.setLineWidth(polygonID2, 0.5)
-#~ print("lineWidth modified", traci.polygon.getLineWidth(polygonID2))
 
+for step in range(6, 9):
+    print("step", step)
+    traci.simulationStep()
+    
 traci.close()
