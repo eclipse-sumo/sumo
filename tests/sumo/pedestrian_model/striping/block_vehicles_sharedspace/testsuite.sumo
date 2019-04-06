@@ -9,3 +9,7 @@ walkingarea
 
 # not all vehicles should be blocked by pedestrians on an upcoming walkingarea
 walkingarea_noconflict
+
+# vehicles moving across a walkingarea when leaving the intersection
+# 
+walkingarea_exit
