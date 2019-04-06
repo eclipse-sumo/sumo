@@ -165,14 +165,22 @@ public:
                                const std::vector<MSLink*>& foeLinks, const std::vector<MSLane*>& foeLanes,
                                MSLane* internalLaneBefore = 0);
 
-    /// @brief add walkingarea as foe
+    /// @brief add walkingarea as foe (when entering the junction)
     void addWalkingAreaFoe(const MSLane* lane) {
         myWalkingAreaFoe = lane;
     }
 
-    /// @brief get walkingarea as foe
+    /// @brief add walkingarea as foe (when leaving the junction)
+    void addWalkingAreaFoeExit(const MSLane* lane) {
+        myWalkingAreaFoeExit = lane;
+    }
+
+    /// @brief get walkingarea as foes
     const MSLane* getWalkingAreaFoe() {
         return myWalkingAreaFoe;
+    }
+    const MSLane* getWalkingAreaFoeExit() {
+        return myWalkingAreaFoeExit;
     }
 
     /** @brief Sets the information about an approaching vehicle
@@ -427,6 +435,9 @@ public:
      */
     LinkLeaders getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPerson*>* collectBlockers = 0, bool isShadowLink = false) const;
 
+    /// @brief check for persons on walkingarea in the path of ego vehicle
+    void checkWalkingAreaFoe(const MSVehicle* ego, const MSLane* foeLane, std::vector<const MSPerson*>* collectBlockers, LinkLeaders& result) const; 
+
     /// @brief return the speed at which ego vehicle must approach the zipper link
     double getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,
                           SUMOTime arrivalTime,
@@ -614,7 +625,11 @@ private:
     // TODO: documentation
     std::vector<MSLink*> myFoeLinks;
     std::vector<const MSLane*> myFoeLanes;
+
+    /// @brief walkingArea that must be checked when entering the intersection
     const MSLane* myWalkingAreaFoe;
+    /// @brief walkingArea that must be checked when leaving the intersection
+    const MSLane* myWalkingAreaFoeExit;
 
     /// @brief whether on of myFoeLanes is a crossing
     bool myHavePedestrianCrossingFoe;

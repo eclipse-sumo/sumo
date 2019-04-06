@@ -91,6 +91,7 @@ MSLink::MSLink(MSLane* predLane, MSLane* succLane, MSLane* via, LinkDirection di
     myGreenFraction(1),
     myLateralShift(0),
     myWalkingAreaFoe(nullptr),
+    myWalkingAreaFoeExit(nullptr),
     myHavePedestrianCrossingFoe(false),
     myParallelRight(nullptr),
     myParallelLeft(nullptr),
@@ -1080,21 +1081,9 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
         }
 
         //std::cout << SIMTIME << " ego=" << Named::getIDSecure(ego) << " link=" << getViaLaneOrLane()->getID() << " myWalkingAreaFoe=" << Named::getIDSecure(myWalkingAreaFoe) << "\n";
-        if (ego != nullptr && myWalkingAreaFoe != nullptr && myWalkingAreaFoe->getEdge().getPersons().size() > 0) {
-            // pedestrians may be on an arbitrary path across this
-            // walkingarea. make sure to keep enough distance.
-            // This is a simple but conservative solution that could be improved
-            // by ignoring pedestrians that are "obviously" not on a collision course
-            double distToPeds = std::numeric_limits<double>::max();
-            const std::set<MSTransportable*>& persons = myWalkingAreaFoe->getEdge().getPersons();
-            for (std::set<MSTransportable*>::const_iterator it = persons.begin(); it != persons.end(); ++it) {
-                MSPerson* p = dynamic_cast<MSPerson*>(*it);
-                distToPeds = MIN2(distToPeds, ego->getPosition().distanceTo2D(p->getPosition()) - p->getVehicleType().getLength() - MSPModel::SAFETY_GAP);
-                if (collectBlockers != nullptr) {
-                    collectBlockers->push_back(p);
-                }
-            }
-            result.push_back(LinkLeader((MSVehicle*)nullptr, -1, distToPeds));
+        if (ego != nullptr) {
+            checkWalkingAreaFoe(ego, myWalkingAreaFoe, collectBlockers, result);
+            checkWalkingAreaFoe(ego, myWalkingAreaFoeExit, collectBlockers, result);
         }
 
         if (MSGlobals::gLateralResolution > 0 && ego != nullptr && !isShadowLink) {
@@ -1144,6 +1133,26 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
         }
     }
     return result;
+}
+
+
+void
+MSLink::checkWalkingAreaFoe(const MSVehicle* ego, const MSLane* foeLane, std::vector<const MSPerson*>* collectBlockers, LinkLeaders& result) const {
+    if (foeLane != nullptr && foeLane->getEdge().getPersons().size() > 0) {
+        // pedestrians may be on an arbitrary path across this
+        // walkingarea. make sure to keep enough distance.
+        // This is a simple but conservative solution that could be improved
+        // by ignoring pedestrians that are "obviously" not on a collision course
+        double distToPeds = std::numeric_limits<double>::max();
+        for (MSTransportable* t : foeLane->getEdge().getPersons()) {
+            MSPerson* p = static_cast<MSPerson*>(t);
+            distToPeds = MIN2(distToPeds, ego->getPosition().distanceTo2D(p->getPosition()) - p->getVehicleType().getLength() - MSPModel::SAFETY_GAP);
+            if (collectBlockers != nullptr) {
+                collectBlockers->push_back(p);
+            }
+        }
+        result.push_back(LinkLeader((MSVehicle*)nullptr, -1, distToPeds));
+    }
 }
 
 

@@ -109,6 +109,12 @@ MSInternalJunction::postloadInit() {
     MSLink* exitLink = thisLink->getViaLane()->getLinkCont()[0];
     exitLink->setRequestInformation(ownLinkIndex, false, false, std::vector<MSLink*>(),
                                     myInternalLaneFoes, thisLink->getViaLane());
+    for (const auto& ili : exitLink->getLane()->getIncomingLanes()) {
+        if (ili.lane->getEdge().isWalkingArea()) {
+            exitLink->addWalkingAreaFoeExit(ili.lane);
+            break;
+        }
+    }
     for (std::vector<MSLink*>::const_iterator k = myInternalLinkFoes.begin(); k != myInternalLinkFoes.end(); ++k) {
         thisLink->addBlockedLink(*k);
         (*k)->addBlockedLink(thisLink);

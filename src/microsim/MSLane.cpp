@@ -1317,6 +1317,9 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
             if (myLinks.front()->getWalkingAreaFoe() != nullptr) {
                 detectPedestrianJunctionCollision(collider, colliderBoundary, myLinks.front()->getWalkingAreaFoe(), timestep, stage);
             }
+            if (myLinks.front()->getWalkingAreaFoeExit() != nullptr) {
+                detectPedestrianJunctionCollision(collider, colliderBoundary, myLinks.front()->getWalkingAreaFoeExit(), timestep, stage);
+            }
         }
     }
 
