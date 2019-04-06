@@ -280,6 +280,7 @@ protected:
 
         PState(MSPerson* person, MSPerson::MSPersonStage_Walking* stage, const MSLane* lane);
 
+
         ~PState() {};
         MSPerson* myPerson;
         MSPerson::MSPersonStage_Walking* myStage;
@@ -309,10 +310,10 @@ protected:
         mutable double myAngle;
 
         /// @brief return the minimum position on the lane
-        double getMinX(const bool includeMinGap = true) const;
+        virtual double getMinX(const bool includeMinGap = true) const;
 
         /// @brief return the maximum position on the lane
-        double getMaxX(const bool includeMinGap = true) const;
+        virtual double getMaxX(const bool includeMinGap = true) const;
 
         /// @brief return the length of the pedestrian
         double getLength() const;
@@ -354,7 +355,29 @@ protected:
 
         /// @brief whether the pedestrian may ignore a red light
         bool ignoreRed(const MSLink* link) const;
+
+        /// @brief return the person id
+        virtual const std::string& getID() const;
+
+        /// @brief return the person width
+        virtual double getWidth() const;
+
+    protected:
+        /// @brief constructor for PStateVehicle
+        PState();
     };
+
+    class PStateVehicle : public PState {
+    public:
+        PStateVehicle(const MSVehicle* veh, const MSLane* walkingarea, double relX, double relY);
+        const std::string& getID() const;
+        double getMinX(const bool includeMinGap = true) const;
+        double getMaxX(const bool includeMinGap = true) const;
+        double getWidth() const;
+    private:
+        const MSVehicle* myVehicle;
+    };
+
 
     class MovePedestrians : public Command {
     public:
@@ -380,7 +403,7 @@ protected:
             if (p1->myRelX != p2->myRelX) {
                 return myDir * p1->myRelX > myDir * p2->myRelX;
             }
-            return p1->myPerson->getID() < p2->myPerson->getID();
+            return p1->getID() < p2->getID();
         }
 
     private:
@@ -454,6 +477,9 @@ private:
     static Obstacles getVehicleObstacles(const MSLane* lane, int dir, PState* ped = 0);
 
     static bool usingInternalLanesStatic();
+
+    static bool addVehicleFoe(const MSVehicle* veh, const MSLane* walkingarea, const Position& relPos, double lateral_offset,
+            double minY, double maxY, Pedestrians& toDelete, Pedestrians& transformedPeds);
 private:
     /// @brief the total number of active pedestrians
     int myNumActivePedestrians;
@@ -466,6 +492,7 @@ private:
 
     /// @brief store for walkinArea elements
     static WalkingAreaPaths myWalkingAreaPaths;
+    static std::map<const MSEdge*, std::vector<const MSLane*> > myWalkingAreaFoes;
     static MinNextLengths myMinNextLengths;
 
     /// @brief empty pedestrian vector

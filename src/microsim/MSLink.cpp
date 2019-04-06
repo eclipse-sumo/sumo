@@ -1146,9 +1146,12 @@ MSLink::checkWalkingAreaFoe(const MSVehicle* ego, const MSLane* foeLane, std::ve
         double distToPeds = std::numeric_limits<double>::max();
         for (MSTransportable* t : foeLane->getEdge().getPersons()) {
             MSPerson* p = static_cast<MSPerson*>(t);
-            distToPeds = MIN2(distToPeds, ego->getPosition().distanceTo2D(p->getPosition()) - p->getVehicleType().getLength() - MSPModel::SAFETY_GAP);
-            if (collectBlockers != nullptr) {
-                collectBlockers->push_back(p);
+            const double dist = ego->getPosition().distanceTo2D(p->getPosition()) - p->getVehicleType().getLength();
+            if (p->getSpeed() > 0 || dist < MSPModel::SAFETY_GAP / 2) {
+                distToPeds = MIN2(distToPeds, dist - MSPModel::SAFETY_GAP);
+                if (collectBlockers != nullptr) {
+                    collectBlockers->push_back(p);
+                }
             }
         }
         result.push_back(LinkLeader((MSVehicle*)nullptr, -1, distToPeds));

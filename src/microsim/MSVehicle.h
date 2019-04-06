@@ -1705,6 +1705,9 @@ public:
     /// @brief whether the given vehicle must be followed at the given junction
     bool isLeader(const MSLink* link, const MSVehicle* veh) const;
 
+    // @brief get the position of the back bumper;
+    const Position getBackPosition() const;
+
     /// @name state io
     //@{
 
@@ -2048,9 +2051,6 @@ protected:
 
     // @brief return the lane on which the back of this vehicle resides
     const MSLane* getBackLane() const;
-
-    // @brief get the position of the back bumper;
-    const Position getBackPosition() const;
 
     /** @brief updates the vehicles state, given a next value for its speed.
      *         This value can be negative in case of the ballistic update to indicate
