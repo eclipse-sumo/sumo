@@ -3,3 +3,6 @@ basic
 
 # Tests for <SUMO_DIST>/tools/showDepartsAndArrivalsPerEdge.py
 subpart
+
+# Tests for <SUMO_DIST>/tools/showDepartsAndArrivalsPerEdge.py
+intermediate

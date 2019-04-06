@@ -25,6 +25,8 @@ def parse_args():
     optParser = OptionParser()
     optParser.add_option("-o", "--output-file",
                          dest="outfile", help="name of output file")
+    optParser.add_option("-i", "--intermediate", action="store_true",
+                         default=False, help="count all edges of a route")
     optParser.add_option(
         "--subpart", help="Restrict counts to routes that contain the given consecutive edge sequence")
     options, args = optParser.parse_args()
@@ -57,12 +59,21 @@ def main():
             continue
         departCounts[edges[0]] += 1
         arrivalCounts[edges[-1]] += 1
+        if options.intermediate:
+            for e in edges[1:-1]:
+                departCounts[e] += 1
+                arrivalCounts[e] += 1
+
     for walk in parse_fast(options.routefile, 'walk', ['edges']):
         edges = walk.edges.split()
         if options.subpart is not None and not hasSubpart(edges, options.subpart):
             continue
         departCounts[edges[0]] += 1
         arrivalCounts[edges[-1]] += 1
+        if options.intermediate:
+            for e in edges[1:-1]:
+                departCounts[e] += 1
+                arrivalCounts[e] += 1
 
     # warn about potentially missing edges
     for trip in parse_fast(options.routefile, 'trip', ['id', 'fromTaz', 'toTaz']):
