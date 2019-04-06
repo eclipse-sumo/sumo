@@ -1,11 +1,11 @@
 <edgedata>
    <interval begin="0" end="10000" id="routeStats">
-      <edge id="a" departed="1" arrived="0" delta="-1"/>
-      <edge id="b" departed="1" arrived="1" delta="0"/>
-      <edge id="c" departed="2" arrived="1" delta="-1"/>
-      <edge id="d" departed="0" arrived="1" delta="1"/>
-      <edge id="e" departed="1" arrived="1" delta="0"/>
-      <edge id="f" departed="1" arrived="1" delta="0"/>
-      <edge id="g" departed="0" arrived="1" delta="1"/>
+      <edge id="a" departed="1" arrived="0" delta="-1" intermediate="1"/>
+      <edge id="b" departed="0" arrived="0" delta="0" intermediate="1"/>
+      <edge id="c" departed="1" arrived="0" delta="-1" intermediate="2"/>
+      <edge id="d" departed="0" arrived="1" delta="1" intermediate="1"/>
+      <edge id="e" departed="0" arrived="0" delta="0" intermediate="1"/>
+      <edge id="f" departed="0" arrived="0" delta="0" intermediate="1"/>
+      <edge id="g" departed="0" arrived="1" delta="1" intermediate="1"/>
    </interval>
 </edgedata>

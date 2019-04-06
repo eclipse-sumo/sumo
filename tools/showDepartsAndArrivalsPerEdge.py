@@ -25,10 +25,10 @@ def parse_args():
     optParser = OptionParser()
     optParser.add_option("-o", "--output-file",
                          dest="outfile", help="name of output file")
-    optParser.add_option("-i", "--intermediate", action="store_true",
-                         default=False, help="count all edges of a route")
     optParser.add_option(
         "--subpart", help="Restrict counts to routes that contain the given consecutive edge sequence")
+    optParser.add_option("-i", "--intermediate", action="store_true",
+                         default=False, help="count all edges of a route")
     options, args = optParser.parse_args()
     try:
         options.routefile, = args
@@ -52,6 +52,7 @@ def main():
     options = parse_args()
     departCounts = defaultdict(lambda: 0)
     arrivalCounts = defaultdict(lambda: 0)
+    intermediateCounts = defaultdict(lambda: 0)
 
     for route in parse_fast(options.routefile, 'route', ['edges']):
         edges = route.edges.split()
@@ -59,10 +60,8 @@ def main():
             continue
         departCounts[edges[0]] += 1
         arrivalCounts[edges[-1]] += 1
-        if options.intermediate:
-            for e in edges[1:-1]:
-                departCounts[e] += 1
-                arrivalCounts[e] += 1
+        for e in edges:
+            intermediateCounts[e] += 1
 
     for walk in parse_fast(options.routefile, 'walk', ['edges']):
         edges = walk.edges.split()
@@ -70,10 +69,8 @@ def main():
             continue
         departCounts[edges[0]] += 1
         arrivalCounts[edges[-1]] += 1
-        if options.intermediate:
-            for e in edges[1:-1]:
-                departCounts[e] += 1
-                arrivalCounts[e] += 1
+        for e in edges:
+            intermediateCounts[e] += 1
 
     # warn about potentially missing edges
     for trip in parse_fast(options.routefile, 'trip', ['id', 'fromTaz', 'toTaz']):
@@ -91,21 +88,31 @@ def main():
 
     departStats = Statistics("departEdges")
     arrivalStats = Statistics("arrivalEdges")
+    intermediateStats = Statistics("intermediateEdges")
     for e in sorted(departCounts.keys()):
         departStats.add(departCounts[e], e)
     for e in sorted(arrivalCounts.keys()):
         arrivalStats.add(arrivalCounts[e], e)
     print(departStats)
     print(arrivalStats)
+    if options.intermediate:
+        for e in sorted(intermediateCounts.keys()):
+            intermediateStats.add(intermediateCounts[e], e)
+        print(intermediateStats)
 
     with open(options.outfile, 'w') as outf:
         outf.write("<edgedata>\n")
         outf.write('   <interval begin="0" end="10000" id="routeStats">\n')
         allEdges = set(departCounts.keys())
         allEdges.update(arrivalCounts.keys())
+        if options.intermediate:
+            allEdges.update(intermediateCounts.keys())
         for e in sorted(allEdges):
-            outf.write('      <edge id="%s" departed="%s" arrived="%s" delta="%s"/>\n' %
-                       (e, departCounts[e], arrivalCounts[e], arrivalCounts[e] - departCounts[e]))
+            intermediate = ' intermediate="%s"' % intermediateCounts[e] if options.intermediate else ''
+            if options.intermediate:
+                allEdges.update(intermediateCounts.keys())
+            outf.write('      <edge id="%s" departed="%s" arrived="%s" delta="%s"%s/>\n' %
+                       (e, departCounts[e], arrivalCounts[e], arrivalCounts[e] - departCounts[e], intermediate))
         outf.write("   </interval>\n")
         outf.write("</edgedata>\n")
 
