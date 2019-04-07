@@ -1545,6 +1545,11 @@ MSLane::detectCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
             // synchroneous lane change maneuver
             return false;
         }
+#ifdef DEBUG_COLLISIONS
+        if (DEBUG_COND && (DEBUG_COND2(collider) || DEBUG_COND2(victim))) {
+            std::cout << SIMTIME << " detectedCollision gap=" << gap << " latGap=" << latGap << "\n";
+        }
+#endif
         handleCollisionBetween(timestep, stage, collider, victim, gap, latGap, toRemove, toTeleport);
         return true;
     }
@@ -3108,7 +3113,9 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
                     gDebugFlag1 = true; // for calling getLeaderInfo
                 }
 #endif
-                if (backOffset + (*it).length - next->getLength() < 0) {
+                if (backOffset + (*it).length - next->getLength() < 0
+                        //&& std::find(ego->getFurtherLanes().begin(), ego->getFurtherLanes().end(), next) != ego->getFurtherLanes().end()
+                        )  {
                     // check for junction foes that would interfere with lane changing
                     const MSLink::LinkLeaders linkLeaders = (*it).viaLink->getLeaderInfo(ego, -backOffset);
                     for (const auto& ll : linkLeaders) {

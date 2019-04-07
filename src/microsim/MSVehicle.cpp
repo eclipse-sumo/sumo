@@ -89,7 +89,8 @@
 //#define DEBUG_PLAN_MOVE_LEADERINFO
 //#define DEBUG_CHECKREWINDLINKLANES
 //#define DEBUG_EXEC_MOVE
-//#define DEBUG_FURTHER
+#define DEBUG_FURTHER
+#define DEBUG_SETFURTHER
 //#define DEBUG_TARGET_LANE
 //#define DEBUG_STOPS
 //#define DEBUG_BESTLANES
@@ -1110,7 +1111,7 @@ MSVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info, bool o
         // recheck old stops
         MSRouteIterator searchStart = myCurrEdge;
         double lastPos = getPositionOnLane();
-        if (myLane != nullptr && myLane->isInternal() 
+        if (myLane != nullptr && myLane->isInternal()
                 && myStops.size() > 0 && !myStops.front().lane->isInternal()) {
             // searchStart is still incoming to the intersection so lastPos
             // relative to that edge must be adapted
@@ -1487,6 +1488,11 @@ MSVehicle::getBackPosition() const {
     } else {
         if (getLaneChangeModel().isChangingLanes() && myFurtherLanes.size() > 0 && getLaneChangeModel().getShadowLane(myFurtherLanes.back()) == nullptr) {
             // special case where the target lane has no predecessor
+#ifdef DEBUG_FURTHER
+            if (DEBUG_COND) {
+                std::cout << "    getBackPosition veh=" << getID() << " specialCase using myLane=" << myLane->getID() << " pos=0 posLat=" << myState.myPosLat << " result=" << myLane->geometryPositionAtOffset(0, posLat) << "\n";
+            }
+#endif
             return myLane->geometryPositionAtOffset(0, posLat);
         } else {
 #ifdef DEBUG_FURTHER
@@ -1661,7 +1667,7 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& error
         }
     }
     myStops.insert(iter, stop);
-    //std::cout << " added stop " << errorMsgStart << " totalStops=" << myStops.size() << " searchStart=" << (*searchStart - myRoute->begin()) 
+    //std::cout << " added stop " << errorMsgStart << " totalStops=" << myStops.size() << " searchStart=" << (*searchStart - myRoute->begin())
     //    << " routeIndex=" << (stop.edge - myRoute->begin())
     //    << " route=" << toString(myRoute->getEdges())  << "\n";
     return true;
@@ -1671,7 +1677,7 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& error
 bool
 MSVehicle::replaceParkingArea(MSParkingArea* parkingArea, std::string& errorMsg) {
     // Check if there is a parking area to be replaced
-    if (parkingArea == 0) { 
+    if (parkingArea == 0) {
         errorMsg = "new parkingArea is NULL";
         return false;
     }
@@ -2005,7 +2011,7 @@ MSVehicle::getStopEdges(double& firstPos, double& lastPos) const {
             continue;
         }
         const double stopPos = stop.getEndPos(*this);
-        if (prev == nullptr 
+        if (prev == nullptr
                 || prev->edge != stop.edge
                 || prev->getEndPos(*this) > stopPos) {
             result.push_back(*stop.edge);
@@ -2038,7 +2044,7 @@ MSVehicle::stopsAt(MSStoppingPlace* stop) const {
         return false;
     }
     for (const Stop& s : myStops) {
-        if (s.busstop == stop 
+        if (s.busstop == stop
                 || s.containerstop == stop
                 || s.parkingarea == stop
                 || s.chargingStation == stop) {
@@ -3443,7 +3449,7 @@ MSVehicle::updateTimeLoss(double vNext) {
 bool
 MSVehicle::canReverse(double speedThreshold) const {
 #ifdef DEBUG_REVERSE_BIDI
-    if (DEBUG_COND) std::cout << SIMTIME  << " canReverse lane=" << myLane->getID() 
+    if (DEBUG_COND) std::cout << SIMTIME  << " canReverse lane=" << myLane->getID()
         << " pos=" << myState.myPos
         << " speed=" << std::setprecision(6) << getPreviousSpeed() << std::setprecision(gPrecision)
         << " isRail=" << ((getVClass() & SVC_RAIL_CLASSES) != 0)
@@ -3891,8 +3897,8 @@ MSVehicle::getBackLane() const {
 double
 MSVehicle::updateFurtherLanes(std::vector<MSLane*>& furtherLanes, std::vector<double>& furtherLanesPosLat,
                               const std::vector<MSLane*>& passedLanes) {
-#ifdef DEBUG_FURTHER
-    if (DEBUG_COND) std::cout << SIMTIME
+#ifdef DEBUG_SETFURTHER
+    if (DEBUG_COND) std::cout << SIMTIME << " veh=" << getID()
                                   << " updateFurtherLanes oldFurther=" << toString(furtherLanes)
                                   << " oldFurtherPosLat=" << toString(furtherLanesPosLat)
                                   << " passed=" << toString(passedLanes)
@@ -3934,7 +3940,7 @@ MSVehicle::updateFurtherLanes(std::vector<MSLane*>& furtherLanes, std::vector<do
                     newFurtherPosLat.push_back(newFurtherPosLat.back());
                 }
             }
-#ifdef DEBUG_FURTHER
+#ifdef DEBUG_SETFURTHER
             if (DEBUG_COND) {
                 std::cout << SIMTIME << " updateFurtherLanes \n"
                           << "    further lane '" << (*pi)->getID() << "' backPosOnPreviousLane=" << backPosOnPreviousLane
@@ -3948,7 +3954,7 @@ MSVehicle::updateFurtherLanes(std::vector<MSLane*>& furtherLanes, std::vector<do
         furtherLanes.clear();
         furtherLanesPosLat.clear();
     }
-#ifdef DEBUG_FURTHER
+#ifdef DEBUG_SETFURTHER
     if (DEBUG_COND) std::cout
                 << " newFurther=" << toString(furtherLanes)
                 << " newFurtherPosLat=" << toString(furtherLanesPosLat)
@@ -4429,7 +4435,7 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane) {
             lane = lane->getLogicalPredecessorLane(myFurtherLanes[i]->getEdge());
         }
         if (lane != nullptr) {
-#ifdef DEBUG_FURTHER
+#ifdef DEBUG_SETFURTHER
             if (DEBUG_COND) {
                 std::cout << SIMTIME << " enterLaneAtLaneChange \n";
             }
@@ -4437,7 +4443,7 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane) {
             myFurtherLanes[i]->resetPartialOccupation(this);
             myFurtherLanes[i] = lane;
             myFurtherLanesPosLat[i] = myState.myPosLat;
-#ifdef DEBUG_FURTHER
+#ifdef DEBUG_SETFURTHER
             if (DEBUG_COND) {
                 std::cout << SIMTIME << " enterLaneAtLaneChange \n";
             }
@@ -4450,9 +4456,10 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane) {
             }
         }
     }
-#ifdef DEBUG_FURTHER
+#ifdef DEBUG_SETFURTHER
     if (DEBUG_COND) {
-        std::cout << SIMTIME << " enterLaneAtLaneChange new furtherLanes=" << toString(myFurtherLanes) << "\n";
+        std::cout << SIMTIME << " enterLaneAtLaneChange new furtherLanes=" << toString(myFurtherLanes)
+            << " furterLanesPosLat=" << toString(myFurtherLanesPosLat) << "\n";
     }
 #endif
     myAngle = computeAngle();
@@ -6018,14 +6025,14 @@ MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     // no need to reset myCachedPosition here since state loading happens directly after creation
 }
 
-bool 
+bool
 MSVehicle::haveValidStopEdges() const {
     MSRouteIterator start = myCurrEdge;
     const std::string err = "for vehicle '" + getID() + "' at time " + time2string(MSNet::getInstance()->getCurrentTimeStep());
     int i = 0;
     bool ok = true;
     double lastPos = getPositionOnLane();
-    if (myLane != nullptr && myLane->isInternal() 
+    if (myLane != nullptr && myLane->isInternal()
             && myStops.size() > 0 && !myStops.front().lane->isInternal()) {
         // start edge is still incoming to the intersection so lastPos
         // relative to that edge must be adapted
@@ -6054,7 +6061,7 @@ MSVehicle::haveValidStopEdges() const {
                 ok = false;
             } else {
                 if (it != stop.edge && endPos >= lastPos) {
-                    WRITE_WARNING(prefix + "is used in " + toString(stop.edge - myCurrEdge) + " edges but first encounter is in " 
+                    WRITE_WARNING(prefix + "is used in " + toString(stop.edge - myCurrEdge) + " edges but first encounter is in "
                             + toString(it - myCurrEdge) + " edges " + err);
                 }
                 start = stop.edge;
