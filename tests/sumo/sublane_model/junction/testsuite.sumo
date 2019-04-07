@@ -1,0 +1,36 @@
+# a lane has two follower lanes on the next edge and vehicle paths might cross
+lane_split_conflict
+
+# configuring assymetry in strategic left-right lookahead
+lcLookaheadLeft
+
+# when checking for linkleaders, vehicles on a sibling lane should only affect ego if there is lateral overlap (see ticket3573)
+junction_leader_sibling_pass
+
+# when checking for linkleaders, vehicles on a sibling lane should only affect ego if there is lateral overlap (see ticket3573)
+junction_leader_sibling_block
+
+# when checking for linkleaders, vehicles on a sibling lane should only affect ego if there is lateral overlap (see ticket3573)
+# ego is blocked before entering the internal edge
+junction_leader_sibling_block2
+
+# handling of sibling internal lanes with different widths
+junction_leader_sibling_diffWidth
+
+# a wide lane splits into three turning lanes
+wide_lane_split
+
+# a wide lane splits into two lanes
+wide_lane_split2
+
+# 2 lanes merge into a wide lane
+wide_lane_merge2
+
+# 2 lanes merge into a wide lane
+wide_lane_merge2_unregulated
+
+# 2 lanes merge into a wide lane
+wide_lane_merge2_zipper
+
+# This tests the effect of the attribute lcTurnAlignmentDistance. Left- and right-turning vehicles should align at the corresponding side of the turn lane from the given distance on.
+turnAlignment
