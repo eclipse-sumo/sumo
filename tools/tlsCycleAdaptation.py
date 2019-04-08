@@ -135,6 +135,8 @@ def getFlows(net, routeFiles, tlsList, begin, verbose):
 def getEffectiveTlsList(tlsList, connFlowsMap, verbose):
     effectiveTlsList = []
     for tl in tlsList:
+        if len(tl.getPrograms()) == 0:
+            continue
         valid = True
         for program in tl.getPrograms().values():
             for phase in program.getPhases():

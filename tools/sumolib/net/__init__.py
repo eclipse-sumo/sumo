@@ -133,6 +133,9 @@ class TLSProgram:
     def getPhases(self):
         return self._phases
 
+    def getType(self):
+        return self._type
+
     def setParam(self, key, value):
         self._params[key] = value
 
