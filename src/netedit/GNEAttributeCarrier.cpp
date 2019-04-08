@@ -3141,13 +3141,7 @@ GNEAttributeCarrier::fillDemandElements() {
             ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_EXTENDED,
             "Image file for rendering vehicles of this type (should be grayscale to allow functional coloring)");
         myTagProperties[currentTag].addAttribute(attrProperty);
-        
-        attrProperty = AttributeProperties(SUMO_ATTR_IMPATIENCE,
-            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_EXTENDED,
-            "Willingess of drivers to impede vehicles with higher priority",
-            "0.00");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-        
+
         attrProperty = AttributeProperties(SUMO_ATTR_LANE_CHANGE_MODEL,
             ATTRPROPERTY_STRING | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_EXTENDED,
             "The model used for changing lanes",
@@ -3213,6 +3207,8 @@ GNEAttributeCarrier::fillDemandElements() {
 
         // fill Car Following Model Values (implemented in a separated function to improve code legibility)
         fillCarFollowingModelAttributes();
+        // fill Junction Model Parameters (implemented in a separated function to improve code legibility)
+        fillJunctionModelAttributes();
     }
     currentTag = SUMO_TAG_VEHICLE;
     {
@@ -4108,6 +4104,66 @@ GNEAttributeCarrier::fillCarFollowingModelAttributes() {
         "Train Types",
         "NGT400");
         attrProperty.setDiscreteValues(SUMOXMLDefinitions::TrainTypes.getStrings());
+    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+}
+
+
+void 
+GNEAttributeCarrier::fillJunctionModelAttributes() {
+    // declare empty AttributeProperties
+    AttributeProperties attrProperty;
+    attrProperty = AttributeProperties(SUMO_ATTR_JM_CROSSING_GAP,
+        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_EXTENDED,
+        "Minimum distance to pedestrians that are walking towards the conflict point with the ego vehicle.",
+        "10");
+    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME,
+        ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_EXTENDED,
+        "The accumulated waiting time after which a vehicle will drive onto an intersection even though this might cause jamming.",
+        "-1");
+    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME,
+        ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_EXTENDED,
+        "This value causes vehicles to violate a red light if the duration of the red phase is lower than the given threshold.",
+        "-1");
+    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_JM_DRIVE_RED_SPEED,
+        ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_EXTENDED,
+        "This value causes vehicles affected by jmDriveAfterRedTime to slow down when violating a red light.",
+        "maxSpeed");
+    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_JM_IGNORE_FOE_PROB,
+        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_EXTENDED,
+        "This value causes vehicles to ignore foe vehicles that have right-of-way with the given probability.",
+        "0");
+    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_JM_IGNORE_FOE_SPEED,
+        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_EXTENDED,
+        "This value is used in conjunction with jmIgnoreFoeProb. Only vehicles with a speed below or equal to the given value may be ignored.",
+        "0");
+    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_JM_SIGMA_MINOR,
+        ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_EXTENDED,
+        "This value configures driving imperfection (dawdling) while passing a minor link.",
+        "sigma");
+    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+
+    attrProperty = AttributeProperties(SUMO_ATTR_JM_TIMEGAP_MINOR,
+        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_EXTENDED,
+        "This value defines the minimum time gap when passing ahead of a prioritized vehicle. ",
+        "1");
+    myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
+    
+    attrProperty = AttributeProperties(SUMO_ATTR_IMPATIENCE,
+        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_EXTENDED,
+        "Willingess of drivers to impede vehicles with higher priority",
+        "0.00");
     myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
 }
 

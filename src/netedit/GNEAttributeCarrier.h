@@ -789,6 +789,9 @@ private:
     /// @brief fill Car Following Model of Vehicle Types
     static void fillCarFollowingModelAttributes();
 
+    /// @brief fill Junction Model Attronites of Vehicle Types
+    static void fillJunctionModelAttributes();
+
     /// @brief parse and check attribute (note: This function is only to improve legilibility)
     static bool checkParsedAttribute(const TagProperties& tagProperties, const AttributeProperties& attrProperties, const SumoXMLAttr attribute, 
                                      std::string &defaultValue, std::string &parsedAttribute, std::string &warningMessage);
