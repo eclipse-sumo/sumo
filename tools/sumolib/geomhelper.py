@@ -205,7 +205,10 @@ def narrow(fromPos, pos, toPos, amount):
     a = sub(toPos, pos)
     b = sub(pos, fromPos)
     c = add(a, b)
-    x = dotProduct(a, a) * length(c) / dotProduct(a, c)
+    dPac = dotProduct(a, c)
+    if dPac == 0:
+        return True
+    x = dotProduct(a, a) * length(c) / dPac
     return x < amount
 
 
