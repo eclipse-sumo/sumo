@@ -814,36 +814,45 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     myMessageWindow->registerMsgHandlers();
     // check if additionals/shapes has to be loaded at start
     if (oc.isSet("additional-files") && !oc.getString("additional-files").empty() && myNet) {
-        // obtain additional files (only for improve legibility)
-        std::string additionalFile = oc.getString("additional-files");
-        WRITE_MESSAGE("Loading additionals and shapes from '" + additionalFile + "'");
-        GNEAdditionalHandler additionalHandler(additionalFile, myNet->getViewNet());
-        // disable validation for additionals
-        XMLSubSys::setValidation("never", "auto");
-        // Run parser
-        myUndoList->p_begin("Loading additionals and shapes from '" + additionalFile + "'");
-        if (!XMLSubSys::runParser(additionalHandler, additionalFile, false)) {
-            WRITE_ERROR("Loading of " + additionalFile + " failed.");
+        // obtain vector of additional files
+        std::vector<std::string> additionalFiles = oc.getStringVector("additional-files");
+        // begin undolist
+        myUndoList->p_begin("Loading additionals and shapes from '" + toString(additionalFiles) + "'");
+        // iterate over every additional file
+        for (const auto &additionalFile : additionalFiles) {
+            WRITE_MESSAGE("Loading additionals and shapes from '" + additionalFile + "'");
+            GNEAdditionalHandler additionalHandler(additionalFile, myNet->getViewNet());
+            // disable validation for additionals
+            XMLSubSys::setValidation("never", "auto");
+            // Run parser
+            if (!XMLSubSys::runParser(additionalHandler, additionalFile, false)) {
+                WRITE_ERROR("Loading of " + additionalFile + " failed.");
+            }
+            // disable validation for additionals
+            XMLSubSys::setValidation("auto", "auto");
         }
-        // disable validation for additionals
-        XMLSubSys::setValidation("auto", "auto");
+
         myUndoList->p_end();
     }
     // check if demand elements has to be loaded at start
     if (oc.isSet("route-files") && !oc.getString("route-files").empty() && myNet) {
-        // obtain additional files (only for improve legibility)
-        std::string demandElementsFile = oc.getString("route-files");
-        WRITE_MESSAGE("Loading demand elements from '" + demandElementsFile + "'");
-        GNERouteHandler routeHandler(demandElementsFile, myNet->getViewNet());
-        // disable validation for demand elements
-        XMLSubSys::setValidation("never", "auto");
-        // Run parser
-        myUndoList->p_begin("Loading demand elements from '" + demandElementsFile + "'");
-        if (!XMLSubSys::runParser(routeHandler, demandElementsFile, false)) {
-            WRITE_ERROR("Loading of " + demandElementsFile + " failed.");
+        // obtain vector of route files
+        std::vector<std::string> demandElementsFiles = oc.getStringVector("route-files");
+        // begin undolist
+        myUndoList->p_begin("Loading demand elements from '" + toString(demandElementsFiles) + "'");
+        // iterate over every route file
+        for (const auto &demandElementsFile : demandElementsFiles) {
+            WRITE_MESSAGE("Loading demand elements from '" + demandElementsFile + "'");
+            GNERouteHandler routeHandler(demandElementsFile, myNet->getViewNet());
+            // disable validation for demand elements
+            XMLSubSys::setValidation("never", "auto");
+            if (!XMLSubSys::runParser(routeHandler, demandElementsFile, false)) {
+                WRITE_ERROR("Loading of " + demandElementsFile + " failed.");
+            }
+            // disable validation for demand elements
+            XMLSubSys::setValidation("auto", "auto");
         }
-        // disable validation for demand elements
-        XMLSubSys::setValidation("auto", "auto");
+
         myUndoList->p_end();
     }
     // check if additionals output must be changed
