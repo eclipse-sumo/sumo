@@ -101,6 +101,8 @@ ShapeContainer::addPolygonDynamics(double simtime,
         auto i = myTrackingPolygons.find(pd->getTrackedObjectID());
         if (i == myTrackingPolygons.end()) {
             myTrackingPolygons.insert(std::make_pair(pd->getTrackedObjectID(), std::set<const SUMOPolygon*>({p})));
+        } else {
+            i->second.insert(p);
         }
     }
     return pd;
@@ -123,6 +125,7 @@ ShapeContainer::removePolygonDynamics(const std::string& polyID) {
             // Remove tracking information
             auto i = myTrackingPolygons.find(trackedObjID);
             assert (i != myTrackingPolygons.end());
+            assert (i->second.find(p) != i->second.end());
             i->second.erase(p);
         }
         delete d->second;

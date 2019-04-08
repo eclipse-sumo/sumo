@@ -95,6 +95,7 @@
 #include "MSEdgeControl.h"
 #include "MSJunctionControl.h"
 #include "MSInsertionControl.h"
+#include "MSDynamicShapeUpdater.h"
 #include "MSEventControl.h"
 #include "MSEdge.h"
 #include "MSJunction.h"
@@ -198,7 +199,8 @@ MSNet::MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
     myEdgeDataEndTime(-1),
     myRouterTT(nullptr),
     myRouterEffort(nullptr),
-    myPedestrianRouter(nullptr) {
+    myPedestrianRouter(nullptr),
+    myDynamicShapeUpdater(nullptr) {
     if (myInstance != nullptr) {
         throw ProcessError("A network was already constructed.");
     }
@@ -806,6 +808,11 @@ MSNet::getContainerControl() {
     return *myContainerControl;
 }
 
+MSDynamicShapeUpdater*
+MSNet::makeDynamicShapeUpdater() {
+    myDynamicShapeUpdater = std::unique_ptr<MSDynamicShapeUpdater> (new MSDynamicShapeUpdater(MSNet::getInstance()->getShapeContainer()));
+    return myDynamicShapeUpdater.get();
+}
 
 MSEdgeWeightsStorage&
 MSNet::getWeightsStorage() {

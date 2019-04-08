@@ -15,6 +15,7 @@
 /// @author  Eric Nicolay
 /// @author  Clemens Honomichl
 /// @author  Michael Behrisch
+/// @author  Leonhard Luecken
 /// @date    Mon, 12 Mar 2001
 /// @version $Id$
 ///
@@ -37,6 +38,7 @@
 #include <iostream>
 #include <cmath>
 #include <iomanip>
+#include <memory>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/NamedObjectCont.h>
@@ -64,6 +66,7 @@ class MSTLLogicControl;
 class MSTrafficLightLogic;
 class MSDetectorControl;
 class ShapeContainer;
+class MSDynamicShapeUpdater;
 class PolygonDynamics;
 class BinaryInputDevice;
 class MSEdgeWeightsStorage;
@@ -454,6 +457,17 @@ public:
         return *myShapeContainer;
     }
 
+    /** @brief Returns the dynamic shapes updater
+     * @see PolygonDynamics
+     */
+    MSDynamicShapeUpdater* getDynamicShapeUpdater() {
+        return myDynamicShapeUpdater.get();
+    }
+
+    /** @brief Creates and returns a dynamic shapes updater
+     * @see PolygonDynamics
+     */
+    MSDynamicShapeUpdater* makeDynamicShapeUpdater();
 
     /** @brief Returns the net's internal edge travel times/efforts container
      *
@@ -792,6 +806,11 @@ protected:
 
     /// @brief An RTree structure holding lane IDs
     mutable std::pair<bool, NamedRTree> myLanesRTree;
+
+    /// @brief Updater for dynamic shapes that are tracking traffic objects
+    ///        (ensures removal of shape dynamics when the objects are removed)
+    /// @see utils/shapes/PolygonDynamics
+    std::unique_ptr<MSDynamicShapeUpdater> myDynamicShapeUpdater;
 
 
     /// @brief string constants for simstep stages

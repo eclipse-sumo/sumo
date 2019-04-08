@@ -23,6 +23,7 @@
 #include <microsim/MSEventControl.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSTransportableControl.h>
+#include <microsim/MSDynamicShapeUpdater.h>
 #include <libsumo/TraCIConstants.h>
 #include <utils/shapes/SUMOPolygon.h>
 #include <utils/shapes/PolygonDynamics.h>
@@ -160,6 +161,12 @@ Polygon::addDynamics(const std::string& polygonID, const std::string& trackedID,
     if (pd == nullptr) {
         throw TraCIException("Could not add polygon dynamics for polygon '" + polygonID + "': polygon doesn't exist.");
     }
+    // Ensure existence of a DynamicShapeUpdater
+    if (MSNet::getInstance()->getDynamicShapeUpdater() == nullptr) {
+        MSNet::VehicleStateListener* listener = dynamic_cast<MSNet::VehicleStateListener*>(MSNet::getInstance()->makeDynamicShapeUpdater());
+        MSNet::getInstance()->addVehicleStateListener(listener);
+    }
+
     // Schedule the regular polygon update
     auto cmd = new ParametrisedWrappingCommand<ShapeContainer, PolygonDynamics*>(&shapeCont, pd, &ShapeContainer::polygonDynamicsUpdate);
     shapeCont.addPolygonUpdateCommand(pd->getPolygonID(), cmd);
