@@ -159,8 +159,7 @@ GNEVehicleType::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getDemandElementID();
-        /// @brief CFM Values
-        /// @{
+        // CFM Values
         case SUMO_ATTR_ACCEL:
         case SUMO_ATTR_DECEL:
         case SUMO_ATTR_APPARENTDECEL:
@@ -169,6 +168,24 @@ GNEVehicleType::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_TAU:
             // this CFM has default values
             return getCFParamString(key, myTagProperty.getDefaultValue(key));
+        // JM Values
+        case SUMO_ATTR_JM_CROSSING_GAP:
+        case SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME:
+        case SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME:
+        case SUMO_ATTR_JM_DRIVE_RED_SPEED:
+        case SUMO_ATTR_JM_IGNORE_FOE_PROB:
+        case SUMO_ATTR_JM_IGNORE_FOE_SPEED:
+        case SUMO_ATTR_JM_SIGMA_MINOR:
+        case SUMO_ATTR_JM_TIMEGAP_MINOR:
+            // this JM has default values
+            return getJMParamString(key, myTagProperty.getDefaultValue(key));
+        case SUMO_ATTR_IMPATIENCE:
+            if (wasSet(VTYPEPARS_IMPATIENCE_SET)) {
+                return toString(impatience);
+            } else {
+                return myTagProperty.getDefaultValue(SUMO_ATTR_IMPATIENCE);
+            }   
+        //
         case SUMO_ATTR_COLLISION_MINGAP_FACTOR:
         case SUMO_ATTR_TMP1:
         case SUMO_ATTR_TMP2:
@@ -254,13 +271,7 @@ GNEVehicleType::getAttribute(SumoXMLAttr key) const {
                 return imgFile;
             } else {
                 return myTagProperty.getDefaultValue(SUMO_ATTR_IMGFILE);
-            }            
-        case SUMO_ATTR_IMPATIENCE:
-            if (wasSet(VTYPEPARS_IMPATIENCE_SET)) {
-                return toString(impatience);
-            } else {
-                return myTagProperty.getDefaultValue(SUMO_ATTR_IMPATIENCE);
-            }             
+            }                      
         case SUMO_ATTR_LANE_CHANGE_MODEL:
             if (wasSet(VTYPEPARS_LANE_CHANGE_MODEL_SET)) {
                 return SUMOXMLDefinitions::LaneChangeModels.getString(lcModel);
@@ -351,8 +362,7 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
         case SUMO_ATTR_ID:
             undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
             break;
-        /// @brief CFM Values
-        /// @{
+        /// CFM Values
         case SUMO_ATTR_ACCEL:
         case SUMO_ATTR_DECEL:
         case SUMO_ATTR_APPARENTDECEL:
@@ -376,7 +386,17 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
         case SUMO_ATTR_CF_KERNER_PHI:
         case SUMO_ATTR_CF_IDM_DELTA:
         case SUMO_ATTR_CF_IDM_STEPPING:
-        /// @}
+        // JM Values
+        case SUMO_ATTR_JM_CROSSING_GAP:
+        case SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME:
+        case SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME:
+        case SUMO_ATTR_JM_DRIVE_RED_SPEED:
+        case SUMO_ATTR_JM_IGNORE_FOE_PROB:
+        case SUMO_ATTR_JM_IGNORE_FOE_SPEED:
+        case SUMO_ATTR_JM_SIGMA_MINOR:
+        case SUMO_ATTR_JM_TIMEGAP_MINOR:
+        case SUMO_ATTR_IMPATIENCE:
+        //
         case SUMO_ATTR_LENGTH:
         case SUMO_ATTR_MINGAP:
         case SUMO_ATTR_MAXSPEED:
@@ -388,7 +408,6 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
         case SUMO_ATTR_GUISHAPE:
         case SUMO_ATTR_WIDTH:
         case SUMO_ATTR_IMGFILE:
-        case SUMO_ATTR_IMPATIENCE:
         case SUMO_ATTR_LANE_CHANGE_MODEL:
         case SUMO_ATTR_CAR_FOLLOW_MODEL:
         case SUMO_ATTR_PERSON_CAPACITY:
@@ -425,8 +444,7 @@ GNEVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             return isValidDemandElementID(value);
-        /// @brief CFM Values
-        /// @{
+        // CFM Values
         case SUMO_ATTR_SIGMA:
             return canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) <= 1);
         case SUMO_ATTR_ACCEL:
@@ -451,10 +469,37 @@ GNEVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_CF_IDM_DELTA:
         case SUMO_ATTR_CF_IDM_STEPPING:
             return canParse<double>(value);
-            // rail string
         case SUMO_ATTR_TRAIN_TYPE:
+            // rail string
             return SUMOXMLDefinitions::TrainTypes.hasString(value);
-        /// @}
+        // JM Values
+        case SUMO_ATTR_JM_CROSSING_GAP:
+            return canParse<double>(value) && (parse<double>(value) >= 0);
+        case SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME:
+            return canParse<double>(value) && (parse<double>(value) >= -1);
+        case SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME:
+            return canParse<double>(value) && (parse<double>(value) >= -1);
+        case SUMO_ATTR_JM_DRIVE_RED_SPEED:
+            if (value == "maxSpeed") {
+                return true;
+            } else {
+                return canParse<double>(value) && (parse<double>(value) > 0);
+            }
+        case SUMO_ATTR_JM_IGNORE_FOE_PROB:
+            return canParse<double>(value) && (parse<double>(value) >= 0);
+        case SUMO_ATTR_JM_IGNORE_FOE_SPEED:
+            return canParse<double>(value) && (parse<double>(value) >= 0);
+        case SUMO_ATTR_JM_SIGMA_MINOR:
+            if (value == "sigma") {
+                return true;
+            } else {
+                return canParse<double>(value) && (parse<double>(value) > 0);
+            }
+        case SUMO_ATTR_JM_TIMEGAP_MINOR:
+            return canParse<double>(value) && (parse<double>(value) >= 0);
+        case SUMO_ATTR_IMPATIENCE:
+            return canParse<double>(value) && (parse<double>(value) >= 0);
+        //
         case SUMO_ATTR_LENGTH:
             return canParse<double>(value) && (parse<double>(value) > 0);
         case SUMO_ATTR_MINGAP:
@@ -486,8 +531,6 @@ GNEVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<double>(value);
         case SUMO_ATTR_IMGFILE:
             return SUMOXMLDefinitions::isValidFilename(value);
-        case SUMO_ATTR_IMPATIENCE:
-            return canParse<double>(value);
         case SUMO_ATTR_LANE_CHANGE_MODEL:
             return SUMOXMLDefinitions::LaneChangeModels.hasString(value);
         case SUMO_ATTR_CAR_FOLLOW_MODEL:
@@ -542,9 +585,9 @@ GNEVehicleType::getHierarchyName() const {
 
 void 
 GNEVehicleType::overwriteVType(GNEDemandElement *vType, SUMOVTypeParameter* newVTypeParameter, GNEUndoList* undoList) {
-    // open undo list
+    // open undo list and overwritte all values of default VType
     undoList->p_begin("update default " + vType->getTagStr() + " '" + DEFAULT_VTYPE_ID + "'");
-    // overwritte all values of default VType
+    // CFM values
     if (!newVTypeParameter->getCFParamString(SUMO_ATTR_ACCEL, "").empty()) {
         vType->setAttribute(SUMO_ATTR_ACCEL, toString(newVTypeParameter->getCFParam(SUMO_ATTR_ACCEL, 0)), undoList);
     }
@@ -614,6 +657,35 @@ GNEVehicleType::overwriteVType(GNEDemandElement *vType, SUMOVTypeParameter* newV
     if (!newVTypeParameter->getCFParamString(SUMO_ATTR_CF_IDM_STEPPING, "").empty()) {
         vType->setAttribute(SUMO_ATTR_CF_IDM_STEPPING, toString(newVTypeParameter->getCFParam(SUMO_ATTR_CF_IDM_STEPPING, 0)), undoList);
     }
+    // JM values
+    if (!newVTypeParameter->getJMParamString(SUMO_ATTR_JM_CROSSING_GAP, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_JM_CROSSING_GAP, toString(newVTypeParameter->getCFParam(SUMO_ATTR_JM_CROSSING_GAP, 0)), undoList);
+    }
+    if (!newVTypeParameter->getJMParamString(SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME, toString(newVTypeParameter->getCFParam(SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME, 0)), undoList);
+    }
+    if (!newVTypeParameter->getJMParamString(SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME, toString(newVTypeParameter->getCFParam(SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME, 0)), undoList);
+    }
+    if (!newVTypeParameter->getJMParamString(SUMO_ATTR_JM_DRIVE_RED_SPEED, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_JM_DRIVE_RED_SPEED, toString(newVTypeParameter->getCFParam(SUMO_ATTR_JM_DRIVE_RED_SPEED, 0)), undoList);
+    }
+    if (!newVTypeParameter->getJMParamString(SUMO_ATTR_JM_IGNORE_FOE_PROB, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_JM_IGNORE_FOE_PROB, toString(newVTypeParameter->getCFParam(SUMO_ATTR_JM_IGNORE_FOE_PROB, 0)), undoList);
+    }
+    if (!newVTypeParameter->getJMParamString(SUMO_ATTR_JM_IGNORE_FOE_SPEED, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_JM_IGNORE_FOE_SPEED, toString(newVTypeParameter->getCFParam(SUMO_ATTR_JM_IGNORE_FOE_SPEED, 0)), undoList);
+    }
+    if (!newVTypeParameter->getJMParamString(SUMO_ATTR_JM_SIGMA_MINOR, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_JM_SIGMA_MINOR, toString(newVTypeParameter->getCFParam(SUMO_ATTR_JM_SIGMA_MINOR, 0)), undoList);
+    }
+    if (!newVTypeParameter->getJMParamString(SUMO_ATTR_JM_TIMEGAP_MINOR, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_JM_TIMEGAP_MINOR, toString(newVTypeParameter->getCFParam(SUMO_ATTR_JM_TIMEGAP_MINOR, 0)), undoList);
+    }
+    if (newVTypeParameter->wasSet(VTYPEPARS_IMPATIENCE_SET)) {
+        vType->setAttribute(SUMO_ATTR_IMPATIENCE, toString(newVTypeParameter->impatience), undoList);
+    }
+    //
     if (newVTypeParameter->wasSet(VTYPEPARS_LENGTH_SET)) {
         vType->setAttribute(SUMO_ATTR_LENGTH, toString(newVTypeParameter->length), undoList);
     }
@@ -646,9 +718,6 @@ GNEVehicleType::overwriteVType(GNEDemandElement *vType, SUMOVTypeParameter* newV
     }
     if (newVTypeParameter->wasSet(VTYPEPARS_IMGFILE_SET)) {
         vType->setAttribute(SUMO_ATTR_IMGFILE, toString(newVTypeParameter->imgFile), undoList);
-    }
-    if (newVTypeParameter->wasSet(VTYPEPARS_IMPATIENCE_SET)) {
-        vType->setAttribute(SUMO_ATTR_IMPATIENCE, toString(newVTypeParameter->impatience), undoList);
     }
     if (newVTypeParameter->wasSet(VTYPEPARS_LANE_CHANGE_MODEL_SET)) {
         vType->setAttribute(SUMO_ATTR_LANE_CHANGE_MODEL, SUMOXMLDefinitions::LaneChangeModels.getString(newVTypeParameter->lcModel), undoList);
@@ -707,8 +776,7 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             changeDemandElementID(value);
             break;
-        /// @brief CFM Values
-        /// @{
+        // CFM Values
         case SUMO_ATTR_ACCEL:
         case SUMO_ATTR_DECEL:
         case SUMO_ATTR_APPARENTDECEL:
@@ -742,7 +810,38 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
                 cfParameter[key] = value;
             }
             break;
-        /// @}
+        // JM Values
+        case SUMO_ATTR_JM_CROSSING_GAP:
+        case SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME:
+        case SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME:
+        case SUMO_ATTR_JM_DRIVE_RED_SPEED:
+        case SUMO_ATTR_JM_IGNORE_FOE_PROB:
+        case SUMO_ATTR_JM_IGNORE_FOE_SPEED:
+        case SUMO_ATTR_JM_SIGMA_MINOR:
+        case SUMO_ATTR_JM_TIMEGAP_MINOR:
+            // empty values means that value isnt't set
+            if (value.empty()) {
+                const auto it = jmParameter.find(key);
+                if (it != jmParameter.end()) {
+                    jmParameter.erase(it);
+                }
+            } else {
+                jmParameter[key] = value;
+            }
+            break;
+        case SUMO_ATTR_IMPATIENCE:
+            if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
+                impatience = parse<double>(value);
+                // mark parameter as set
+                parametersSet |= VTYPEPARS_IMPATIENCE_SET;
+            } else {
+                // set default value
+                impatience = parse<double>(myTagProperty.getDefaultValue(key));
+                // unset parameter
+                parametersSet &= ~VTYPEPARS_IMPATIENCE_SET;
+            }                
+            break;
+        //
         case SUMO_ATTR_LENGTH:
             if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
                 length = parse<double>(value);
@@ -869,18 +968,6 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
                 imgFile = myTagProperty.getDefaultValue(key);
                 // unset parameter
                 parametersSet &= ~VTYPEPARS_IMGFILE_SET;
-            }                
-            break;
-        case SUMO_ATTR_IMPATIENCE:
-            if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
-                impatience = parse<double>(value);
-                // mark parameter as set
-                parametersSet |= VTYPEPARS_IMPATIENCE_SET;
-            } else {
-                // set default value
-                impatience = parse<double>(myTagProperty.getDefaultValue(key));
-                // unset parameter
-                parametersSet &= ~VTYPEPARS_IMPATIENCE_SET;
             }                
             break;
         case SUMO_ATTR_LANE_CHANGE_MODEL:

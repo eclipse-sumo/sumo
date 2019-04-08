@@ -106,10 +106,8 @@ public:
      */
     void write(OutputDevice& dev) const;
 
-    /** @brief Validates stored car-following parameter
-     */
+    /// @brief Validates stored car-following parameter
     void validateCFParameter() const;
-
 
     /** @brief Returns the named value from the map, or the default if it is not contained there
      * @param[in] attr The corresponding xml attribute
@@ -145,6 +143,12 @@ public:
      */
     double getJMParam(const SumoXMLAttr attr, const double defaultValue) const;
 
+    /** @brief Returns the named value from the map, or the default if it is not contained there
+     * @param[in] attr The corresponding xml attribute
+     * @param[in] defaultValue The value to return if the given map does not contain the named variable
+     * @return The named value from the map or the default if it does not exist there
+     */
+    std::string getJMParamString(const SumoXMLAttr attr, const std::string defaultValue) const;
 
     /// @brief The vehicle type's id
     std::string id;

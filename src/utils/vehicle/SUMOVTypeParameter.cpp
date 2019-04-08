@@ -391,6 +391,17 @@ SUMOVTypeParameter::getJMParam(const SumoXMLAttr attr, const double defaultValue
     }
 }
 
+
+std::string
+SUMOVTypeParameter::getJMParamString(const SumoXMLAttr attr, const std::string defaultValue) const {
+    if (jmParameter.count(attr)) {
+        return jmParameter.find(attr)->second;
+    } else {
+        return defaultValue;
+    }
+}
+
+
 double
 SUMOVTypeParameter::getDefaultAccel(const SUMOVehicleClass vc) {
     switch (vc) {
