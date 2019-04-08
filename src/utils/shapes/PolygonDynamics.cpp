@@ -21,6 +21,7 @@
 #include <assert.h>
 #include "utils/vehicle/SUMOTrafficObject.h"
 #include "utils/common/SUMOTime.h"
+#include "foreign/rtree/SUMORTree.h"
 
 
 #define DEBUG_DYNAMIC_SHAPES
@@ -28,22 +29,29 @@
 PolygonDynamics::PolygonDynamics(double creationTime,
         SUMOPolygon* p,
         SUMOTrafficObject* trackedObject,
-        std::shared_ptr<std::vector<double> > timeSpan,
-        std::shared_ptr<std::vector<double> > alphaSpan) :
+        const std::vector<double>& timeSpan,
+        const std::vector<double>& alphaSpan,
+        bool looped) :
     myPolygon(p),
     myCurrentTime(0),
     myLastUpdateTime(creationTime),
-    animated(timeSpan != nullptr),
+    animated(!timeSpan.empty()),
+    looped(looped),
     tracking(trackedObject != nullptr),
     myTrackedObject(trackedObject),
-    myTimeSpan(timeSpan),
-    myAlphaSpan(alphaSpan)
+    myTrackedObjectID(""),
+    myTrackedObjectsInitialPositon(nullptr),
+    myOriginalShape(nullptr),
+    myTimeSpan(nullptr),
+    myAlphaSpan(nullptr),
+    myVis(nullptr)
 {
-    // Check for consistency (TODO: add analogous checks in libsumo)
+    // Check for consistency
     if (animated) {
+        myTimeSpan = std::unique_ptr<std::vector<double> >(new std::vector<double>(timeSpan));
         assert(myTimeSpan->size() >= 2);
         assert((*myTimeSpan)[0] == 0.0);
-        assert(myAlphaSpan == nullptr || myAlphaSpan->size() == myTimeSpan->size());
+        assert(myAlphaSpan == nullptr || myAlphaSpan->size() >= 2);
 #ifdef DEBUG_DYNAMIC_SHAPES
         if (myTimeSpan->size() >= 2) {
             for (unsigned int i = 1; i < myTimeSpan->size(); ++i) {
@@ -51,16 +59,29 @@ PolygonDynamics::PolygonDynamics(double creationTime,
             }
         }
 #endif
+        myPrevTime = myTimeSpan->begin();
+        myNextTime = ++myTimeSpan->begin();
     }
 #ifdef DEBUG_DYNAMIC_SHAPES
     else  {
         assert(myAlphaSpan == nullptr);
     }
 #endif
+
+    myOriginalShape = std::unique_ptr<PositionVector>(new PositionVector(p->getShape()));
+
     if (tracking) {
-        myTrackedPos = std::make_shared<Position>(myTrackedObject->getPosition());
-    } else {
-        myTrackedPos = nullptr;
+        // Try initializing the tracked position (depends on whether object is already on the road)
+        initTrackedPosition();
+        myTrackedObjectID = myTrackedObject->getID();
+    }
+
+    if (!alphaSpan.empty()) {
+        myAlphaSpan = std::unique_ptr<std::vector<double> >(new std::vector<double>(alphaSpan));
+        assert(myAlphaSpan->size() >= 2);
+        assert(myAlphaSpan->size() == myTimeSpan->size());
+        myPrevAlpha = myAlphaSpan->begin();
+        myNextAlpha = ++myAlphaSpan->begin();
     }
 }
 
@@ -70,17 +91,57 @@ PolygonDynamics::~PolygonDynamics()
 
 SUMOTime
 PolygonDynamics::update(SUMOTime t) {
+#ifdef DEBUG_DYNAMIC_SHAPES
+    std::cout << t << " PolygonDynamics::update() for polygon '" << myPolygon->getID() << "'" << std::endl;
+#endif
     const double simtime = STEPS2TIME(t);
+    const double dt = simtime - myLastUpdateTime;
     myLastUpdateTime = simtime;
-    const double dt = myLastUpdateTime - simtime;
     assert(dt > 0);
 
     SUMOTime ret = DELTA_T;
 
     if (tracking) {
-        // Update shape position according to the movement of the tracked object
-        myPolygon->myShape.add(myTrackedObject->getPosition() - *myTrackedPos);
-        myTrackedPos->set(myTrackedObject->getPosition());
+        if (myTrackedObjectsInitialPositon == nullptr) {
+            // Tracked object hasn't entered the network, until now.
+            // Continuously try to obtain its initial position
+            initTrackedPosition();
+        }
+        if (myTrackedObjectsInitialPositon != nullptr) {
+            // Initial position was initialized, relative tracking is possible
+            const Position& objPos = myTrackedObject->getPosition();
+            const bool onRoad = objPos != Position::INVALID;
+            if (onRoad) {
+#ifdef DEBUG_DYNAMIC_SHAPES
+                std::cout << " Tracked object '" << myTrackedObject->getID() << "' is on the road. Tracked position=" << objPos << std::endl;
+#endif
+                // Relative offset to initial position
+                const Position relOffset = objPos - *myTrackedObjectsInitialPositon;
+                // Update polygon position
+                myPolygon->myShape = myOriginalShape->added(relOffset);
+#ifdef DEBUG_DYNAMIC_SHAPES
+                std::cout << " Relative offset to original position: " << relOffset << std::endl;
+#endif
+//                if (myVis != nullptr) {
+//                    // TODO Update RTree in case of GUI simulation (should be locked by GUIShapeContainer)
+//                    GUIGlObject * o = dynamic_cast<GUIGlObject*> (myPolygon);
+//                    myVis->removeAdditionalGLObject(o);
+//                    myVis->addAdditionalGLObject(o);
+//                }
+            }
+#ifdef DEBUG_DYNAMIC_SHAPES
+            else {
+                // tracked object is off road
+                std::cout << " Tracked object '" << myTrackedObject->getID() << "' is off road." << std::endl;
+            }
+#endif
+        }
+#ifdef DEBUG_DYNAMIC_SHAPES
+        else {
+            // Initial position was not initialized, yet
+            std::cout << " Tracked object '" << myTrackedObject->getID() << "' hasn't entered the network since tracking was started." << std::endl;
+        }
+#endif
     }
 
     if (animated) {
@@ -89,41 +150,93 @@ PolygonDynamics::update(SUMOTime t) {
         while (myCurrentTime >= *myNextTime) {
             // step forward along time lines to appropriate anchor points
             ++myPrevTime; ++myNextTime;
-            if (myNextTime != myTimeSpan->end()) {
+            if (myNextTime == myTimeSpan->end()) {
                 // Set iterators back to point to valid positions
                 --myPrevTime; --myNextTime;
                 break;
-            }
-            // Forward corresponding iterators for property time lines
-            if (myAlphaSpan != nullptr) {
-                ++myPrevAlpha; ++myNextAlpha;
+            } else {
+                // Forward corresponding iterators for property time lines
+                if (myAlphaSpan != nullptr) {
+                    ++myPrevAlpha; ++myNextAlpha;
+                }
             }
         }
 
         // Linear interpolation factor between previous and next time
         double theta = 1.0;
+#ifdef DEBUG_DYNAMIC_SHAPES
+        std::cout << " animation: dt=" << dt
+                << ", current animation time: " << myCurrentTime
+                << ", previous anchor time: " << *myPrevTime
+                << ", next anchor time: " << *myNextTime;
+#endif
+        if (looped) {
+            const bool resetAnimation = myCurrentTime >= *myNextTime;
+#ifdef DEBUG_DYNAMIC_SHAPES
+            if (resetAnimation) {
+                std::cout << " (resetting animation!)";
+            }
+#endif
+            if (resetAnimation) {
+                // Reset animation time line to start, if appropriate
+                while (myCurrentTime >= *myNextTime) {
+                    myCurrentTime -= *myNextTime;
+                }
+                myCurrentTime = MAX2(myCurrentTime, 0.0);
+                myPrevTime = myTimeSpan->begin();
+                myNextTime = ++myTimeSpan->begin();
+                if (myAlphaSpan != nullptr) {
+                    myPrevAlpha = myAlphaSpan->begin();
+                    myNextAlpha = ++myAlphaSpan->begin();
+                }
+            }
+        }
         if (myCurrentTime >= *myNextTime) {
+            assert(!looped);
             // Reached the end of the dynamics, indicate expiration by returning zero
             // and set all properties to the final state (theta remains one)
             ret = 0;
+#ifdef DEBUG_DYNAMIC_SHAPES
+            std::cout << " (animation elapsed!)";
+#endif
         } else {
             // Animation is still going on, schedule next update
             if (*myNextTime - *myPrevTime != 0) {
                 theta = (myCurrentTime - *myPrevTime) / (*myNextTime - *myPrevTime);
             }
         }
-        // Interpolate values of properties
-        setAlpha(*myPrevAlpha + theta*(*myNextAlpha - *myPrevAlpha));
+        if (myAlphaSpan != nullptr) {
+            // Interpolate values of properties
+            setAlpha(*myPrevAlpha + theta*(*myNextAlpha - *myPrevAlpha));
+#ifdef DEBUG_DYNAMIC_SHAPES
+        std::cout << ", previous anchor alpha: " << *myPrevAlpha
+                << ", next anchor alpha: " << *myNextAlpha;
+#endif
+        }
+#ifdef DEBUG_DYNAMIC_SHAPES
+        std::cout << ", theta="<< theta<< std::endl;
+#endif
     }
     return ret;
 }
 
+void
+PolygonDynamics::initTrackedPosition() {
+    const Position& objPos = myTrackedObject->getPosition();
+    if (objPos != Position::INVALID) {
+        // Initialize Position of tracked object
+        myTrackedObjectsInitialPositon = std::unique_ptr<Position>(new Position(objPos));
+#ifdef DEBUG_DYNAMIC_SHAPES
+        std::cout << " Tracking object '" << myTrackedObject->getID() << "' at initial positon: " << *myTrackedObjectsInitialPositon << std::endl;
+#endif
+    }
+}
 
 void
 PolygonDynamics::setAlpha(double alpha) {
-    unsigned char a = (unsigned char)(alpha*(double)std::numeric_limits<unsigned char>::max());
-    myPolygon->setShapeAlpha(a);
+    int a = (int) alpha;
+    myPolygon->setShapeAlpha((unsigned char) a);
 #ifdef DEBUG_DYNAMIC_SHAPES
-    std::cout << "DynamicPolygon::setAlpha() Converted alpha=" << alpha << " into myAlpha=" << a << std::endl;
+    std::cout << "\n   DynamicPolygon::setAlpha() Converted alpha=" << alpha << " into myAlpha=" << a << std::endl;
 #endif
 }

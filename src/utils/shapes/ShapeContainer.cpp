@@ -40,6 +40,9 @@
 #include "ShapeContainer.h"
 
 
+// Debug defines
+#define DEBUG_DYNAMIC_SHAPES
+
 // ===========================================================================
 // method definitions
 // ===========================================================================
@@ -71,24 +74,67 @@ PolygonDynamics*
 ShapeContainer::addPolygonDynamics(double simtime,
         std::string polyID,
         SUMOTrafficObject* trackedObject,
-        std::shared_ptr<std::vector<double> > timeSpan,
-        std::shared_ptr<std::vector<double> > alphaSpan) {
+        const std::vector<double>& timeSpan,
+        const std::vector<double>& alphaSpan,
+        bool looped) {
+
+#ifdef DEBUG_DYNAMIC_SHAPES
+    std::cout << "ShapeContainer::addPolygonDynamics() called for polygon '" << polyID << "'" << std::endl;
+#endif
+
     SUMOPolygon* p = myPolygons.get(polyID);
     if (p == nullptr) {
+#ifdef DEBUG_DYNAMIC_SHAPES
+    std::cout << "   polygon '" << polyID << "' doesn't exist!" << std::endl;
+#endif
         return nullptr;
+    }
+    // remove eventually existent previously assigne dynamics
+    removePolygonDynamics(polyID);
+
+    // Add new dynamics
+    PolygonDynamics* pd = new PolygonDynamics(simtime, p, trackedObject, timeSpan, alphaSpan, looped);
+    myPolygonDynamics.insert(std::make_pair(polyID, pd));
+
+    // Add tracking information
+    if (trackedObject != nullptr) {
+        auto i = myTrackingPolygons.find(pd->getTrackedObjectID());
+        if (i == myTrackingPolygons.end()) {
+            myTrackingPolygons.insert(std::make_pair(pd->getTrackedObjectID(), std::set<const SUMOPolygon*>({p})));
+        }
+    }
+    return pd;
+}
+
+
+bool
+ShapeContainer::removePolygonDynamics(const std::string& polyID) {
+    SUMOPolygon * p = myPolygons.get(polyID);
+    if (p == nullptr) {
+        return false;
     }
     auto d = myPolygonDynamics.find(polyID);
     if (d != myPolygonDynamics.end()) {
+#ifdef DEBUG_DYNAMIC_SHAPES
+    std::cout << "   Removing dynamics of polygon '" << polyID << "'" << std::endl;
+#endif
+        const std::string& trackedObjID = d->second->getTrackedObjectID();
+        if (trackedObjID != "") {
+            // Remove tracking information
+            auto i = myTrackingPolygons.find(trackedObjID);
+            assert (i != myTrackingPolygons.end());
+            i->second.erase(p);
+        }
         delete d->second;
         myPolygonDynamics.erase(d);
+        // Clear existing polygon dynamics commands before adding new dynamics
+        cleanupPolygonDynamics(polyID);
+        return true;
+    } else {
+        return false;
     }
-    // Clear existing polygon dynamics commands before adding new dynamics
-    cleanupPolygonDynamics(polyID);
-    // Add new dynamics
-    PolygonDynamics* pd = new PolygonDynamics(simtime, p, trackedObject, timeSpan, alphaSpan);
-    myPolygonDynamics.insert(std::make_pair(polyID, pd));
-    return pd;
 }
+
 
 bool
 ShapeContainer::addPOI(const std::string& id, const std::string& type, const RGBColor& color, const Position& pos, bool geo,
@@ -99,13 +145,12 @@ ShapeContainer::addPOI(const std::string& id, const std::string& type, const RGB
 
 
 bool
-ShapeContainer::removePolygon(const std::string& id) {
-    auto d = myPolygonDynamics.find(id);
-    if (d != myPolygonDynamics.end()) {
-        delete d->second;
-        myPolygonDynamics.erase(d);
-        cleanupPolygonDynamics(id);
-    }
+ShapeContainer::removePolygon(const std::string& id, bool /* useLock */) {
+
+#ifdef DEBUG_DYNAMIC_SHAPES
+    std::cout << "ShapeContainer: Removing Polygon '" << id << "' (PolygonDynamics elapsed)" << std::endl;
+#endif
+    removePolygonDynamics(id);
     return myPolygons.remove(id);
 }
 
@@ -158,6 +203,7 @@ void
 ShapeContainer::cleanupPolygonDynamics(const std::string& id) {
     auto j = myPolygonUpdateCommands.find(id);
     if (j != myPolygonUpdateCommands.end()) {
+        j->second->deschedule();
         myPolygonUpdateCommands.erase(j);
     }
 }
@@ -169,7 +215,8 @@ ShapeContainer::polygonDynamicsUpdate(SUMOTime t, PolygonDynamics* pd) {
     if (next == 0) {
         // Dynamics have expired => remove polygon
         myPolygonUpdateCommands[pd->getPolygonID()]->deschedule();
-        removePolygon(pd->getPolygonID());
+        // Don't aquire lock (in GUI case GUIShapeContainer::polygonDynamicsUpdate() does this)
+        removePolygon(pd->getPolygonID(), false);
     }
     return next;
 }
@@ -178,6 +225,21 @@ ShapeContainer::polygonDynamicsUpdate(SUMOTime t, PolygonDynamics* pd) {
 void
 ShapeContainer::addPolygonUpdateCommand(std::string polyID, ParametrisedWrappingCommand<ShapeContainer, PolygonDynamics*>* cmd){
     myPolygonUpdateCommands.insert(std::make_pair(polyID, cmd));
+}
+
+
+void
+ShapeContainer::removeTrackers(std::string objectID) {
+    auto i = myTrackingPolygons.find(objectID);
+    if (i != myTrackingPolygons.end()) {
+#ifdef DEBUG_DYNAMIC_SHAPES
+        std::cout << " Removing tracking polygons for object '" << objectID << "'" << std::endl;
+#endif
+        for (const SUMOPolygon* p : i->second) {
+            removePolygon(p->getID());
+        }
+        myTrackingPolygons.erase(i);
+    }
 }
 
 /****************************************************************************/

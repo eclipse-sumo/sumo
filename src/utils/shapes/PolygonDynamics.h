@@ -25,6 +25,7 @@
 
 class SUMOTrafficObject;
 class ShapeContainer;
+class SUMORTree;
 
 class PolygonDynamics {
 public:
@@ -37,16 +38,28 @@ public:
      *        such that timeSpan[i+1] >= timeSpan[i])
      *        If no animation is desired, give timeSpan == nullptr
      * @param ...Span property timelines (assumed to be either nullptr, or of size equal to timeSpan (in case of animated poly))
+     * @param looped Whether the animation should restart when the last keyframe is reached. In that case
+                     the animation jumps to the first keyframe as soon as the last is reached.
+                     If looped==false, the controlled polygon is removed as soon as the timeSpan elapses.
      */
     PolygonDynamics(double creationTime,
             SUMOPolygon* p,
             SUMOTrafficObject* trackedObject,
-            std::shared_ptr<std::vector<double> > timeSpan,
-            std::shared_ptr<std::vector<double> > alphaSpan);
+            const std::vector<double>& timeSpan,
+            const std::vector<double>& alphaSpan,
+            bool looped);
     virtual ~PolygonDynamics();
 
     const std::string& getPolygonID() const {
         return myPolygon->getID();
+    }
+
+    SUMOPolygon* getPolygon() const {
+        return myPolygon;
+    }
+
+    inline const std::string& getTrackedObjectID() const {
+        return myTrackedObjectID;
     }
 
     /// @brief Updates the polygon according to its timeSpan and follows the tracked object
@@ -54,13 +67,18 @@ public:
     /// @returns Next desired update time.
    SUMOTime update(SUMOTime t);
 
+   /// @brief Set the RTree
+   void setRTree(SUMORTree* rtree) {
+       myVis = rtree;
+   }
+
 private:
 
     /// @brief Sets the alpha value for the shape's color
     void setAlpha(double alpha);
 
-    /// @brief Previously known position for the tracked object
-    std::shared_ptr<Position> myTrackedPos;
+    /// @brief Initialize the object's position
+    void initTrackedPosition();
 
     /// @brief The polygon this dynamics acts upon.
     SUMOPolygon* myPolygon;
@@ -75,26 +93,40 @@ private:
     ///        timelines should be used to control properties.
     bool animated;
 
+    /// @brief Whether animation should be looped.
+    bool looped;
+
     /// @brief Whether this polygon tracks an object
     bool tracking;
 
     /// @brief An object tracked by the shape, deletion by caller
-    /// @todo  Ensure deletion of the polygon as soon as the pointer looses validity
     SUMOTrafficObject* myTrackedObject;
+    std::string myTrackedObjectID;
+
+    /// @brief Initial position of the tracked object
+    std::unique_ptr<Position> myTrackedObjectsInitialPositon;
+
+    /// @brief the original shape of the polygon
+    std::unique_ptr<PositionVector> myOriginalShape;
 
     /// @brief Time points corresponding to the anchor values of the dynamic properties
     /// @note  Assumed to have a size >= 2, and start at timeSpan[0]=0, such that timeSpan[i+1] >= timeSpan[i]
-    std::shared_ptr<std::vector<double>> myTimeSpan;
+    std::unique_ptr<std::vector<double> > myTimeSpan;
 
     /// @brief Pointer to the next time points in timeSpan
+    /// @note  These iterators are only valid if timeSpan != nullptr
     std::vector<double>::const_iterator myPrevTime;
     std::vector<double>::const_iterator myNextTime;
 
     /// @brief Alpha values corresponding to
-    std::shared_ptr<std::vector<double>> myAlphaSpan;
+    std::unique_ptr<std::vector<double> > myAlphaSpan;
     /// @brief Pointer to the next alpha points in alphaSpan
+    /// @note  These iterators are only valid if alphaSpan != nullptr
     std::vector<double>::const_iterator myPrevAlpha;
     std::vector<double>::const_iterator myNextAlpha;
+
+    /// @brief RTree will be supplied in case of GUI simulation to be updated on move
+    SUMORTree* myVis;
 
 };
 

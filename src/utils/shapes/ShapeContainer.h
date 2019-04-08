@@ -89,9 +89,16 @@ public:
     virtual PolygonDynamics* addPolygonDynamics(double simtime,
             std::string polyID,
             SUMOTrafficObject* trackedObject,
-            std::shared_ptr<std::vector<double> > timeSpan,
-            std::shared_ptr<std::vector<double> > alphaSpan);
+            const std::vector<double>& timeSpan,
+            const std::vector<double>& alphaSpan,
+            bool looped);
 
+    /**
+     * @brief Remove dynamics (animation / tracking) for the given polygon
+     * @param polyID ID of the polygon for which dynamics shall be removed
+     * @return true if the operation was successful (dynamics existed for the polygon), false if not.
+     */
+    virtual bool removePolygonDynamics(const std::string& polyID);
 
     /** @brief Builds a POI using the given values and adds it to the container
      * @param[in] id The name of the POI
@@ -118,7 +125,7 @@ public:
      * @param[in] id The id of the polygon
      * @return Whether the polygon could be removed
      */
-    virtual bool removePolygon(const std::string& id);
+    virtual bool removePolygon(const std::string& id, bool useLock = true);
 
     /** @brief Removes a PoI from the container
      * @param[in] id The id of the PoI
@@ -158,6 +165,9 @@ public:
     /// @brief Register update command (for descheduling at removal)
     virtual void addPolygonUpdateCommand(std::string polyID, ParametrisedWrappingCommand<ShapeContainer, PolygonDynamics*>* cmd);
 
+    /// @brief Remove all tracking polygons for the given object
+    virtual void removeTrackers(std::string objectID);
+
 protected:
     /// @brief add polygon
     virtual bool add(SUMOPolygon* poly, bool ignorePruning = false);
@@ -177,12 +187,18 @@ protected:
     /// @brief stored PolygonDynamics
     std::map<std::string, PolygonDynamics*> myPolygonDynamics;
 
+    /// @brief Information about tracked objects
+    /// @note  Maps tracked object IDs to set of polygons, which are tracking the object.
+    ///        Needed at object removal to cancel tacking (i.e. remove tracking poly).
+    std::map<const std::string, std::set<const SUMOPolygon*> > myTrackingPolygons;
+
     /// @brief stored POIs
     POIs myPOIs;
 
 private:
     /// @brief Command pointers for scheduled polygon update. Maps PolyID->Command
-    std::map<std::string, ParametrisedWrappingCommand<ShapeContainer, PolygonDynamics*>*> myPolygonUpdateCommands;
+    std::map<const std::string, ParametrisedWrappingCommand<ShapeContainer, PolygonDynamics*>*> myPolygonUpdateCommands;
+
 };
 
 
