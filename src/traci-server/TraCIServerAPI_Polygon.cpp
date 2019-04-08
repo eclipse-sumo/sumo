@@ -175,8 +175,8 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_POLYGON_VARIABLE, "A compound object is needed for adding dynamics to a polygon.", outputStorage);
                 }
                 int itemNo = inputStorage.readInt();
-                if (itemNo != 2 && itemNo != 3) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Adding polygon dynamics needs two or three parameters.", outputStorage);
+                if (itemNo != 4) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Adding polygon dynamics needs four parameters.", outputStorage);
                 }
 
                 std::string trackedID;
@@ -190,12 +190,17 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 }
 
                 std::vector<double> alphaSpan;
-                if (itemNo == 3) {
-                    if (!server.readTypeCheckingDoubleList(inputStorage, alphaSpan)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_POLYGON_VARIABLE, "The third parameter for adding polygon dynamics must be the alphaSpanStr of the animation (length=0 to disregard alpha animation).", outputStorage);
-                    }
+                if (!server.readTypeCheckingDoubleList(inputStorage, alphaSpan)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_POLYGON_VARIABLE, "The third parameter for adding polygon dynamics must be the alphaSpanStr of the animation (length=0 to disregard alpha animation).", outputStorage);
                 }
-                libsumo::Polygon::addDynamics(id, trackedID, timeSpan, alphaSpan);
+
+                int looped;
+                if (!server.readTypeCheckingUnsignedByte(inputStorage, looped)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_POLYGON_VARIABLE, "The third parameter for adding polygon dynamics must be the alphaSpanStr of the animation (length=0 to disregard alpha animation).", outputStorage);
+                }
+
+
+                libsumo::Polygon::addDynamics(id, trackedID, timeSpan, alphaSpan, (bool) looped);
             }
             break;
             case libsumo::REMOVE: {

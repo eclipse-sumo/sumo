@@ -129,13 +129,18 @@ Polygon::add(const std::string& polygonID, const TraCIPositionVector& shape, con
 
 
 void
-Polygon::addDynamics(const std::string& polygonID, const std::string& trackedID, const std::vector<double>& timeSpan, const std::vector<double>& alphaSpan) {
-    if(timeSpan.empty() && trackedID == "") {
-        throw TraCIException("Could not add polygon dynamics for polygon '" + polygonID + "': dynamics underspecified (either a tracked object ID or a time span have to be provided).");
+Polygon::addDynamics(const std::string& polygonID, const std::string& trackedID, const std::vector<double>& timeSpan, const std::vector<double>& alphaSpan, bool looped) {
+    if(timeSpan.empty()) {
+        if (trackedID == "") {
+            throw TraCIException("Could not add polygon dynamics for polygon '" + polygonID + "': dynamics underspecified (either a tracked object ID or a time span have to be provided).");
+        }
+        if (looped) {
+            throw TraCIException("Could not add polygon dynamics for polygon '" + polygonID + "': looped==true requires time line of positive length.");
+        }
     }
     if (timeSpan.size() == 1) {
         throw TraCIException("Could not add polygon dynamics for polygon '" + polygonID + "': time span cannot have length one.");
-    } else if (timeSpan[0] != 0.0) {
+    } else if (timeSpan.size() > 0 && timeSpan[0] != 0.0) {
         throw TraCIException("Could not add polygon dynamics for polygon '" + polygonID + "': first element of time span must be zero.");
     }
     if (timeSpan.size() != alphaSpan.size() && alphaSpan.size() != 0) {
@@ -150,17 +155,15 @@ Polygon::addDynamics(const std::string& polygonID, const std::string& trackedID,
     }
 
     SUMOTrafficObject* obj = getTrafficObject(trackedID);
-    auto tSpan = timeSpan.size() == 0 ? nullptr : std::make_shared<std::vector<double> >(timeSpan);
-    auto aSpan = alphaSpan.size() == 0 ? nullptr : std::make_shared<std::vector<double> >(alphaSpan);
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
-    PolygonDynamics* pd = shapeCont.addPolygonDynamics(SIMTIME, polygonID, obj, tSpan, aSpan);
+    PolygonDynamics* pd = shapeCont.addPolygonDynamics(SIMTIME, polygonID, obj, timeSpan, alphaSpan, looped);
     if (pd == nullptr) {
         throw TraCIException("Could not add polygon dynamics for polygon '" + polygonID + "': polygon doesn't exist.");
     }
     // Schedule the regular polygon update
     auto cmd = new ParametrisedWrappingCommand<ShapeContainer, PolygonDynamics*>(&shapeCont, pd, &ShapeContainer::polygonDynamicsUpdate);
     shapeCont.addPolygonUpdateCommand(pd->getPolygonID(), cmd);
-    MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(cmd, SIMSTEP + DELTA_T);
+    MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(cmd, SIMSTEP + DELTA_T);
 }
 
 
