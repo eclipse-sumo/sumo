@@ -619,6 +619,16 @@ PositionVector::add(const Position& offset) {
 }
 
 
+PositionVector
+PositionVector::added(const Position& offset) const {
+    PositionVector pv;
+    for (auto i1 = begin(); i1 != end(); ++i1) {
+        pv.push_back(*i1 + offset);
+    }
+    return pv;
+}
+
+
 void
 PositionVector::mirrorX() {
     for (int i = 0; i < (int)size(); i++) {
