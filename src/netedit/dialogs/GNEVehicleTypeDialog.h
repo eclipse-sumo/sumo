@@ -264,7 +264,7 @@ public:
         VTypeAttributeRow* myJMTimeGapMinor;
 
         /// @brief VTypeAttributeRow for Impatience
-        VTypeAttributeRow* myImpatience;
+        VTypeAttributeRow* myJMImpatience;
 
         /// @}
 
