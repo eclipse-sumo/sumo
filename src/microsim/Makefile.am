@@ -31,7 +31,8 @@ MSVehicleType.cpp MSVehicleType.h \
 MSStateHandler.h MSStateHandler.cpp \
 MSDriverState.h MSDriverState.cpp \
 MSTransportable.h MSTransportable.cpp \
-MSTransportableControl.h MSTransportableControl.cpp
+MSTransportableControl.h MSTransportableControl.cpp \
+MSDynamicShapeUpdater.h MSDynamicShapeUpdater.cpp
 
 SUBDIRS = actions cfmodels devices engine lcmodels logging output pedestrians \
 traffic_lights trigger

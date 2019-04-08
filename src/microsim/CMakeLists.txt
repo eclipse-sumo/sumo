@@ -25,6 +25,8 @@ set(microsim_STAT_SRCS
    MSEdgeWeightsStorage.h
    MSEventControl.cpp
    MSEventControl.h
+   MSDynamicShapeUpdater.cpp
+   MSDynamicShapeUpdater.h
    MSFrame.cpp
    MSFrame.h
    MSGlobals.cpp
