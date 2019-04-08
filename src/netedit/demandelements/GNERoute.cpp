@@ -72,7 +72,9 @@ GNERoute::writeDemandElement(OutputDevice& device) const {
     device.writeAttr(SUMO_ATTR_COLOR, toString(myColor));
     // write stops associated to this route
     for (const auto &i : getDemandElementChilds()) {
-        i->writeDemandElement(device);
+        if (i->getTagProperty().isStop()) {
+            i->writeDemandElement(device);
+        }
     }
     device.closeTag();
 }
