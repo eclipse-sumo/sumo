@@ -3,25 +3,210 @@ Loading configuration... done.
 step 0
 step 1
 step 2
-adding 0
-polygons ('0',)
+adding poly0
+polygons ('poly0',)
 polygon count 1
-examining 0
-shape ((0.0, 50.0), (0.0, 50.0), (50.0, 50.0))
+# examining poly0
+shape ((960.0, 510.0), (960.0, 550.0), (1000.0, 550.0), (1000.0, 510.0))
 type test
 color (100, 200, 0, 255)
 filled True
 step 3
 step 4
 step 5
-Adding underspecified dynamics...
+# (1) Adding underspecified dynamics...
 Caught TraCIException
-Adding malformed dynamics 1 ...
+# (2) Adding malformed dynamics 1 ...
 Caught TraCIException
-Adding malformed dynamics 2 ...
+# (3) Adding malformed dynamics 2 ...
 Caught TraCIException
-Adding malformed dynamics 3 ...
+# (4) Adding malformed dynamics 3 ...
 Caught TraCIException
+# (5) Adding malformed dynamics 4 ...
+Caught TraCIException
+# (6) Adding malformed dynamics 5 ...
+Caught TraCIException
+# examining poly0
+shape ((960.0, 510.0), (960.0, 550.0), (1000.0, 550.0), (1000.0, 510.0))
+type test
+color (100, 200, 0, 255)
+filled True
 step 6
 step 7
 step 8
+# (1) No tracking with alpha animation
+step 9
+# examining poly0
+shape ((960.0, 510.0), (960.0, 550.0), (1000.0, 550.0), (1000.0, 510.0))
+type test
+color (100, 200, 0, 255)
+filled True
+step 10
+# examining poly0
+shape ((960.0, 510.0), (960.0, 550.0), (1000.0, 550.0), (1000.0, 510.0))
+type test
+color (100, 200, 0, 200)
+filled True
+step 11
+# examining poly0
+shape ((960.0, 510.0), (960.0, 550.0), (1000.0, 550.0), (1000.0, 510.0))
+type test
+color (100, 200, 0, 100)
+filled True
+polygons ('poly0',)
+polygon count 1
+vehicles ('horiz',)
+vehicle count 1
+step 12
+step 13
+step 14
+polygons ()
+polygon count 0
+adding poly1
+polygons ('poly1',)
+polygon count 1
+# (2) No tracking with time line but no animation (removal after time line expired)
+step 15
+step 16
+step 17
+polygons ('poly1',)
+polygon count 1
+adding poly2
+adding veh0
+vehicles ('horiz',)
+vehicle count 1
+# (3) Tracking without time line
+step 18
+step 19
+step 20
+# (4) Tracking existing vehicle with time line
+polygons ('poly2', 'poly3')
+polygon count 2
+step 21
+step 22
+step 23
+step 24
+# (5) replacing tracking dynamics
+polygons ('poly2', 'poly3')
+polygon count 2
+step 25
+step 26
+step 27
+step 28
+step 29
+step 30
+step 31
+step 32
+step 33
+step 34
+polygons ('poly2',)
+polygon count 1
+# (6) Tracking with alpha animation
+step 35
+step 36
+step 37
+step 38
+step 39
+# (7) Add a second tracking polygon
+polygons ('poly2', 'poly4', 'poly5')
+polygon count 3
+step 40
+step 41
+step 42
+step 43
+step 44
+polygons ('poly2', 'poly4', 'poly5')
+polygon count 3
+# (8) Parking vehicle and renew dynamics
+step 45
+step 46
+step 47
+step 48
+step 49
+step 50
+step 51
+step 52
+step 53
+step 54
+step 55
+step 56
+step 57
+step 58
+step 59
+step 60
+step 61
+step 62
+step 63
+step 64
+polygons ('poly2', 'poly5')
+polygon count 2
+step 65
+step 66
+step 67
+step 68
+step 69
+step 70
+step 71
+step 72
+step 73
+step 74
+step 75
+step 76
+step 77
+step 78
+step 79
+step 80
+step 81
+step 82
+step 83
+step 84
+step 85
+step 86
+step 87
+step 88
+step 89
+step 90
+step 91
+step 92
+step 93
+step 94
+step 95
+step 96
+step 97
+step 98
+step 99
+step 100
+step 101
+step 102
+step 103
+step 104
+step 105
+step 106
+step 107
+step 108
+step 109
+# (9) transfer tracking dynamics to different vehicle and redefine as looped animation
+polygons ('poly5',)
+polygon count 1
+vehicles ('horiz', 'veh0')
+vehicle count 2
+step 110
+step 111
+step 112
+step 113
+step 114
+step 115
+step 116
+step 117
+step 118
+step 119
+# (10) Tracked vehicle 'veh0' arrives
+step 120
+step 121
+step 122
+step 123
+step 124
+polygons ()
+polygon count 0
+vehicles ('horiz',)
+vehicle count 1
