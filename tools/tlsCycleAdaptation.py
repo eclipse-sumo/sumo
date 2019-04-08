@@ -67,6 +67,8 @@ def get_options(args=None):
                          default=120, help=" maximal cycle length")
     optParser.add_option("-e", "--existing-cycle", dest="existcycle", action="store_true",
                          default=False, help=" use the existing cycle length")
+    optParser.add_option("--write-critical-flows", dest="write_critical_flows", action="store_true",
+                         default=False, help="print critical flows for each tls and phase")
     optParser.add_option("-p", "--program", dest="program",
                          default="a", help="save new definitions with this program id")
     optParser.add_option("-H", "--saturation-headway", dest="satheadway", type="float",
@@ -191,7 +193,7 @@ def identityCheck(e1, incomingLinks, identical):
     return identical
 
 
-def getLaneGroupFlows(tl, connFlowsMap, phases):
+def getLaneGroupFlows(tl, connFlowsMap, phases, minGreen):
     connsList = tl.getConnections()
     groupFlowsMap = {}  # i(phase): duration, laneGroup1, laneGroup2, ...
     connsList = sorted(connsList, key=lambda connsList: connsList[2])
@@ -208,7 +210,7 @@ def getLaneGroupFlows(tl, connFlowsMap, phases):
     phaseLaneIndexMap = collections.defaultdict(list)
     for i, p in enumerate(phases):
         currentLength += p.duration
-        if 'G' in p.state:
+        if 'G' in p.state and not 'y' in p.state and p.duration >= minGreen:
             greenTime += p.duration
             groupFlowsMap[i] = [p.duration]
             groupFlows = 0
@@ -288,7 +290,7 @@ def getMaxOptimizedCycle(groupFlowsMap, phaseLaneIndexMap, currentLength, cycleL
     return cycleList
 
 
-def optimizeGreenTime(groupFlowsMap, phaseLaneIndexMap, currentLength, options):
+def optimizeGreenTime(tl, groupFlowsMap, phaseLaneIndexMap, currentLength, options):
     lostTime = len(groupFlowsMap) * options.losttime + options.allred
     satFlows = 3600. / options.satheadway
     # calculate the critical flow ratios and the respective sum
@@ -306,6 +308,8 @@ def optimizeGreenTime(groupFlowsMap, phaseLaneIndexMap, currentLength, options):
         else:
             critialFlowRateMap[i] = 0.
     sumCritialFlows = sum(critialFlowRateMap.values())
+    if options.write_critical_flows:
+        print(tl.getID(), critialFlowRateMap)
 
     if options.existcycle:
         optCycle = currentLength
@@ -411,10 +415,10 @@ def main(options):
                     phases = programs[pro].getPhases()
 
                     # get the connection flows and group flows
-                    groupFlowsMap, phaseLaneIndexMap, currentLength = getLaneGroupFlows(tl, connFlowsMap, phases)
+                    groupFlowsMap, phaseLaneIndexMap, currentLength = getLaneGroupFlows(tl, connFlowsMap, phases, options.mingreen)
 
                     # optimize the cycle length and calculate the respective green splits
-                    groupFlowsMap = optimizeGreenTime(groupFlowsMap, phaseLaneIndexMap, currentLength, options)
+                    groupFlowsMap = optimizeGreenTime(tl, groupFlowsMap, phaseLaneIndexMap, currentLength, options)
 
                 # write output
                 outf.write('    <tlLogic id="%s" type="%s" programID="%s" offset="%i">\n' %
