@@ -388,7 +388,10 @@ GNERouteHandler::closeTrip() {
         for (const auto &i : via) {
             edges.push_back(i);
         }
-        edges.push_back(to);
+        // check that from and to edge are different
+        if (from != to) {
+            edges.push_back(to);
+        }
         // build trips
         buildTrip(myViewNet, true, myVehicleParameter, edges); 
     }

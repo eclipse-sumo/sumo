@@ -454,11 +454,11 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_REROUTE:
             return toString("false"); // check
         case SUMO_ATTR_VIA: {
-            std::vector<GNEEdge*> viaEdges;
-            for (int i = 1; i < (int)getEdgeParents().size() - 1; i++) {
-                viaEdges.push_back(getEdgeParents().at(i));
-            }
-            if (viaEdges.size() > 0) {
+            if (getEdgeParents().size() > 2) {
+                std::vector<GNEEdge*> viaEdges;
+                for (int i = 1; i < (int)getEdgeParents().size() - 1; i++) {
+                    viaEdges.push_back(getEdgeParents().at(i));
+                }
                 return parseIDs(viaEdges);
             } else {
                 return "";
