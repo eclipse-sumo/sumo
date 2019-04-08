@@ -71,6 +71,18 @@ public:
                             double angle, const std::string& imgFile, bool relativePath, const PositionVector& shape, bool geo,
                             bool fill, double lineWidth, bool ignorePruning = false);
 
+    /// @brief Adds dynamics to the given Polygon, @see ShapeContainer addPolygonDynamics
+    /// @note  Supplies the visualisation RTree to the dynamics for updating the object when moving
+    PolygonDynamics * addPolygonDynamics(double simtime,
+            std::string polyID,
+            SUMOTrafficObject* trackedObject,
+            const std::vector<double>& timeSpan,
+            const std::vector<double>& alphaSpan,
+            bool looped) override;
+
+    /// @brief Update PolygonDynamics, @see ShapeContainer
+    /// @note  Locks the visualisation RTree
+    SUMOTime polygonDynamicsUpdate(SUMOTime t, PolygonDynamics* pd) override;
 
     /** @brief Builds a POI using the given values and adds it to the container
      * @param[in] id The name of the POI
@@ -99,7 +111,7 @@ public:
      * @param[in] id The id of the polygon
      * @return Whether the polygon could be removed
      */
-    virtual bool removePolygon(const std::string& id);
+    virtual bool removePolygon(const std::string& id, bool useLock = true) override;
 
 
     /** @brief Removes a PoI from the container

@@ -25,6 +25,7 @@
 
 #include "GUIShapeContainer.h"
 #include <utils/common/MsgHandler.h>
+#include <utils/shapes/PolygonDynamics.h>
 #include <foreign/rtree/SUMORTree.h>
 #include <utils/gui/globjects/GUIPolygon.h>
 #include <utils/gui/globjects/GUIPointOfInterest.h>
@@ -89,15 +90,50 @@ GUIShapeContainer::addPolygon(const std::string& id, const std::string& type,
 }
 
 
-bool
-GUIShapeContainer::removePolygon(const std::string& id) {
+PolygonDynamics*
+GUIShapeContainer::addPolygonDynamics(double simtime,
+        std::string polyID,
+        SUMOTrafficObject* trackedObject,
+        const std::vector<double>& timeSpan,
+        const std::vector<double>& alphaSpan,
+        bool looped) {
+    PolygonDynamics* pd = ShapeContainer::addPolygonDynamics(simtime, polyID, trackedObject, timeSpan, alphaSpan, looped);
+    if (pd != nullptr) {
+        pd->setRTree(&myVis);
+    }
+    return pd;
+}
+
+
+SUMOTime
+GUIShapeContainer::polygonDynamicsUpdate(SUMOTime t, PolygonDynamics* pd) {
     FXMutexLock locker(myLock);
+    SUMOTime next = ShapeContainer::polygonDynamicsUpdate(t, pd);
+    if (next != 0) {
+        // Update polygon position in RTree
+        GUIPolygon * p = dynamic_cast<GUIPolygon*>(pd->getPolygon());
+        assert(p != nullptr);
+        myVis.removeAdditionalGLObject(p);
+        myVis.addAdditionalGLObject(p);
+    }
+    return next;
+}
+
+
+bool
+GUIShapeContainer::removePolygon(const std::string& id, bool useLock) {
+    FXMutexLock * locker = nullptr;
+    if (useLock) {
+        locker = new FXMutexLock(myLock);
+    }
     GUIPolygon* p = dynamic_cast<GUIPolygon*>(myPolygons.get(id));
     if (p == nullptr) {
         return false;
     }
     myVis.removeAdditionalGLObject(p);
-    return myPolygons.remove(id);
+    bool succ = ShapeContainer::removePolygon(id);
+    delete locker;
+    return succ;
 }
 
 
