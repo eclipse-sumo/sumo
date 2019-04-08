@@ -58,6 +58,9 @@ polygon
 # Tests adding polygon dynamics
 polygon_dynamics
 
+# Tests adding polygon dynamics with gui enabled
+polygon_dynamics_gui
+
 # Tests the stop resume
 resume
 
