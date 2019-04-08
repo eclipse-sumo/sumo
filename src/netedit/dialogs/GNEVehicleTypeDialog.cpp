@@ -51,8 +51,8 @@ FXDEFMAP(GNEVehicleTypeDialog::CarFollowingModelParameters) CarFollowingModelPar
 };
 
 // Object implementation
-FXIMPLEMENT(GNEVehicleTypeDialog::VTypeAtributes,               FXGroupBox,     VTypeAtributesMap,              ARRAYNUMBER(VTypeAtributesMap))
-FXIMPLEMENT(GNEVehicleTypeDialog::CarFollowingModelParameters,  FXGroupBox,     CarFollowingModelParametersMap, ARRAYNUMBER(CarFollowingModelParametersMap))
+FXIMPLEMENT(GNEVehicleTypeDialog::VTypeAtributes,               FXVerticalFrame,    VTypeAtributesMap,              ARRAYNUMBER(VTypeAtributesMap))
+FXIMPLEMENT(GNEVehicleTypeDialog::CarFollowingModelParameters,  FXGroupBox,         CarFollowingModelParametersMap, ARRAYNUMBER(CarFollowingModelParametersMap))
 
 // ===========================================================================
 // member method definitions
@@ -436,14 +436,24 @@ GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::updateValue() {
 // ---------------------------------------------------------------------------
 
 GNEVehicleTypeDialog::VTypeAtributes::VTypeAtributes(GNEVehicleTypeDialog* vehicleTypeDialog, FXHorizontalFrame* column) :
-    FXGroupBox(column, "Vehicle Type attributes", GUIDesignGroupBoxFrame),
+    FXVerticalFrame(column, GUIDesignAuxiliarVerticalFrame),
     myVehicleTypeDialog(vehicleTypeDialog) {
-    // create two columns
-    FXHorizontalFrame* columnsCommonVTypes = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    // create attributes for common attributes
+    FXGroupBox *commonAttributes = new FXGroupBox(this, "Vehicle Type attributes", GUIDesignGroupBoxFrame);
+    // create horizontal frame for columns of attributes
+    FXHorizontalFrame* columnsCommonVTypeAttributes = new FXHorizontalFrame(commonAttributes, GUIDesignAuxiliarHorizontalFrame);
     // build left attributes
-    buildAttributesA(new FXVerticalFrame(columnsCommonVTypes, GUIDesignAuxiliarFrame));
+    buildAttributesA(new FXVerticalFrame(columnsCommonVTypeAttributes, GUIDesignAuxiliarFrame));
     // build right attributes
-    buildAttributesB(new FXVerticalFrame(columnsCommonVTypes, GUIDesignAuxiliarFrame));
+    buildAttributesB(new FXVerticalFrame(columnsCommonVTypeAttributes, GUIDesignAuxiliarFrame));
+    // create attribute for Junction Model Attributes
+    FXGroupBox *JMAttributes = new FXGroupBox(this, "Junction Model attributes", GUIDesignGroupBoxFrame);
+    // create horizontal frame for columns of Junction Model attributes
+    FXHorizontalFrame* columnsJMVTypeAttributes = new FXHorizontalFrame(JMAttributes, GUIDesignAuxiliarHorizontalFrame);
+    // build left attributes
+    buildJunctionModelAttributesA(new FXVerticalFrame(columnsJMVTypeAttributes, GUIDesignAuxiliarFrame));
+    // build right attributes
+    buildJunctionModelAttributesB(new FXVerticalFrame(columnsJMVTypeAttributes, GUIDesignAuxiliarFrame));
 }
 
 
@@ -493,37 +503,68 @@ GNEVehicleTypeDialog::VTypeAtributes::buildAttributesB(FXVerticalFrame* column) 
     // 01 Create VShapeRow
     myVShapeRow = new VShapeRow(this, column);
 
-    // 02 create VTypeAttributeRow and Label for Impatience
-    myImpatience = new VTypeAttributeRow(this, column, SUMO_ATTR_IMPATIENCE, 1);
-
-    // 03 create VTypeAttributeRow and Label for LaneChangeModel
+    // 02 create VTypeAttributeRow and Label for LaneChangeModel
     myLaneChangeModel = new VTypeAttributeRow(this, column, SUMO_ATTR_LANE_CHANGE_MODEL, SUMOXMLDefinitions::LaneChangeModels.getStrings());
 
-    // 04 create VTypeAttributeRow and Label for PersonCapacity
+    // 03 create VTypeAttributeRow and Label for PersonCapacity
     myPersonCapacity = new VTypeAttributeRow(this, column, SUMO_ATTR_PERSON_CAPACITY, 0);
 
-    // 05 create VTypeAttributeRow and Label for ContainerCapacity
+    // 04 create VTypeAttributeRow and Label for ContainerCapacity
     myContainerCapacity = new VTypeAttributeRow(this, column, SUMO_ATTR_CONTAINER_CAPACITY, 0);
 
-    // 06 create VTypeAttributeRow and Label for BoardingDuration
+    // 05 create VTypeAttributeRow and Label for BoardingDuration
     myBoardingDuration = new VTypeAttributeRow(this, column, SUMO_ATTR_BOARDING_DURATION, 1);
 
-    // 07 create VTypeAttributeRow and Label for LoadingDuration
+    // 06 create VTypeAttributeRow and Label for LoadingDuration
     myLoadingDuration = new VTypeAttributeRow(this, column, SUMO_ATTR_LOADING_DURATION, 1);
 
-    // 08 create ComboBox and Label for LatAlignment
+    // 07 create ComboBox and Label for LatAlignment
     myLatAlignment = new VTypeAttributeRow(this, column, SUMO_ATTR_LATALIGNMENT, SUMOXMLDefinitions::LateralAlignments.getStrings());
 
-    // 09 create VTypeAttributeRow and Label for MinGapLat
+    // 08 create VTypeAttributeRow and Label for MinGapLat
     myMinGapLat = new VTypeAttributeRow(this, column, SUMO_ATTR_MINGAP_LAT, 1);
 
-    // 10 create VTypeAttributeRow and Label for MaxSpeedLat
+    // 09 create VTypeAttributeRow and Label for MaxSpeedLat
     myMaxSpeedLat = new VTypeAttributeRow(this, column, SUMO_ATTR_MAXSPEED_LAT, 1);
 
-    // 11 create VTypeAttributeRow and Label for ActionStepLenght
+    // 10 create VTypeAttributeRow and Label for ActionStepLenght
     myActionStepLenght = new VTypeAttributeRow(this, column, SUMO_ATTR_ACTIONSTEPLENGTH, 1);
 }
 
+
+void 
+GNEVehicleTypeDialog::VTypeAtributes::buildJunctionModelAttributesA(FXVerticalFrame* column) {
+    // 01 create VTypeAttributeRow and Label for JMCrossingGap
+    myJMCrossingGap = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_CROSSING_GAP, 1);
+            
+    // 02 create VTypeAttributeRow and Label for JMIgnoreKeepclearTime
+    myJMIgnoreKeepclearTime = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME, 1);
+
+    // 03 create VTypeAttributeRow and Label for JMDriveAfterRedTime
+    myJMDriveAfterRedTime = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME, 1);
+            
+    // 04 create VTypeAttributeRow and Label for JMDriveRedSpeed
+    myJMDriveRedSpeed = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_DRIVE_RED_SPEED, 2);
+
+    // 05 create VTypeAttributeRow and Label for JMIgnoreFoeProb
+    myJMIgnoreFoeProb = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_IGNORE_FOE_PROB, 1);
+}
+
+
+void 
+GNEVehicleTypeDialog::VTypeAtributes::buildJunctionModelAttributesB(FXVerticalFrame* column) {
+    // 01 create VTypeAttributeRow and Label for JMIgnoreFoeSpeed
+    myJMIgnoreFoeSpeed = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_IGNORE_FOE_SPEED, 1);
+
+    // 02 create VTypeAttributeRow and Label for JMSigmaMinor
+    myJMSigmaMinor = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_SIGMA_MINOR, 2);
+
+    // 03 create VTypeAttributeRow and Label for JMTimeGapMinor
+    myJMTimeGapMinor = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_TIMEGAP_MINOR, 1);
+
+    // 04 create VTypeAttributeRow and Label for Impatience
+    myImpatience = new VTypeAttributeRow(this, column, SUMO_ATTR_IMPATIENCE, 1);
+}
 
 void 
 GNEVehicleTypeDialog::VTypeAtributes::updateValues() {
@@ -986,12 +1027,12 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::onCmdSetVariable(FXObject*, F
 // ---------------------------------------------------------------------------
 
 GNEVehicleTypeDialog::GNEVehicleTypeDialog(GNEDemandElement* editedVehicleType, bool updatingElement) :
-    GNEDemandElementDialog(editedVehicleType, updatingElement, 1022, 356),
+    GNEDemandElementDialog(editedVehicleType, updatingElement, 1022, /*356*/506),
     myVehicleTypeValid(true),
     myInvalidAttr(SUMO_ATTR_NOTHING) {
 
     // change default header
-    changeDemandElementDialogHeader(updatingElement ? "Edit " + myEditedDemandElement->getTagStr() + " of " : "Create " + myEditedDemandElement->getTagStr());
+    changeDemandElementDialogHeader(updatingElement ? "Edit " + myEditedDemandElement->getTagStr() : "Create " + myEditedDemandElement->getTagStr());
     
     // Create auxiliar frames for values
     FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);

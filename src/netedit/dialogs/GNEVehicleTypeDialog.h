@@ -44,7 +44,7 @@ class GNEVehicleTypeDialog : public GNEDemandElementDialog {
 
 public:
     /// @brief class for VClasses
-    class VTypeAtributes : protected FXGroupBox {
+    class VTypeAtributes : protected FXVerticalFrame {
         /// @brief FOX-declaration
         FXDECLARE(GNEVehicleTypeDialog::VTypeAtributes)
 
@@ -143,6 +143,12 @@ public:
         /// @brief build commmon attributes (B)
         void buildAttributesB(FXVerticalFrame* column);
 
+        /// @brief build JunctionModel attributes (A)
+        void buildJunctionModelAttributesA(FXVerticalFrame* column);
+
+        /// @brief build JunctionModel attributes (B)
+        void buildJunctionModelAttributesB(FXVerticalFrame* column);
+
         /// @brief update values
         void updateValues();
 
@@ -161,6 +167,9 @@ public:
 
         /// @brief FXTextfield for vehicleTypeID
         FXTextField* myTextFieldVehicleTypeID;
+
+        /// @name Common Attributes
+        /// @{
 
         /// @brief vehicle class row
         VClassRow* myVClassRow;
@@ -198,9 +207,6 @@ public:
         /// @brief VTypeAttributeRow for Filename
         VTypeAttributeRow* myFilename;
 
-        /// @brief VTypeAttributeRow for Impatience
-        VTypeAttributeRow* myImpatience;
-
         /// @brief VTypeAttributeRow for LaneChangeModel
         VTypeAttributeRow* myLaneChangeModel;
 
@@ -227,6 +233,40 @@ public:
 
         /// @brief VTypeAttributeRow for ActionStepLenght
         VTypeAttributeRow* myActionStepLenght;
+        
+        /// @}
+
+        /// @name JM Attributes
+        /// @{
+
+        /// @brief VTypeAttributeRow for Crossing Gap
+        VTypeAttributeRow* myJMCrossingGap;
+            
+        /// @brief VTypeAttributeRow for Ignore Keep Clear Time
+        VTypeAttributeRow* myJMIgnoreKeepclearTime;
+
+        /// @brief VTypeAttributeRow for Drive After Red Time
+        VTypeAttributeRow* myJMDriveAfterRedTime;
+            
+        /// @brief VTypeAttributeRow for Drive Red Speed
+        VTypeAttributeRow* myJMDriveRedSpeed;
+
+        /// @brief VTypeAttributeRow for Ignore FOE Probability
+        VTypeAttributeRow* myJMIgnoreFoeProb;
+
+        /// @brief VTypeAttributeRow for Ignore FOE Speed
+        VTypeAttributeRow* myJMIgnoreFoeSpeed;
+
+        /// @brief VTypeAttributeRow for Sigma Minor
+        VTypeAttributeRow* myJMSigmaMinor;
+
+        /// @brief VTypeAttributeRow for Time GAP Minor
+        VTypeAttributeRow* myJMTimeGapMinor;
+
+        /// @brief VTypeAttributeRow for Impatience
+        VTypeAttributeRow* myImpatience;
+
+        /// @}
 
     private:
         /// @brief pointer to Vehicle Type dialog parent
