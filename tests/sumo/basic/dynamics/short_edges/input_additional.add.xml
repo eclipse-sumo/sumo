@@ -1,0 +1,6 @@
+<add>
+    <edgeData id="ed_default" begin="0"     end="1000"  freq="1000" file="aggregated_900.xml"/>
+    <edgeData id="ed_L10"     begin="10000" end="11000" freq="1000" file="aggregated_900.xml"/>
+    <edgeData id="ed_L15"     begin="20000" end="21000" freq="1000" file="aggregated_900.xml"/>
+    <edgeData id="ed_L110"    begin="30000" end="31000" freq="1000" file="aggregated_900.xml"/>
+</add>

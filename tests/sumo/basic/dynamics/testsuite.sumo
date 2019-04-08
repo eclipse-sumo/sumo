@@ -39,3 +39,6 @@ approach_slow_subsecond
 
 # foe on minor hindering insertion
 foe_on_minor
+
+# test edges of various lengths with vehicles of various lengths
+short_edges

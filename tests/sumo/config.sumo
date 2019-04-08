@@ -6,6 +6,7 @@ copy_test_path:net3.net.xml
 copy_test_path:three_split.net.xml
 copy_test_path:motorway.net.xml
 copy_test_path:input_routes.rou.xml
+copy_test_path:input_routes2.rou.xml
 copy_test_path:input_additional.add.xml
 copy_test_path:input_additional2.add.xml
 copy_test_path:input_definition.def.xml

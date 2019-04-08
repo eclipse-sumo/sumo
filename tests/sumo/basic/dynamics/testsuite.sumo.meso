@@ -7,6 +7,9 @@ impatience
 # test behavior when vehicles cannot drive
 deadlock
 
+# tests for vehicle insertion (especially for high flows)
+insertion
+
 # tests for dynamics at ramps leading to and from motorways
 #ramps
 
@@ -31,5 +34,5 @@ approach_slow_lane_dawdle
 # one vehicle approaching a lane with a lower max speed and step-length 0.1
 approach_slow_subsecond
 
-# tests for vehicle insertion (especially for high flows)
-insertion
+# test edges of various lengths with vehicles of various lengths
+short_edges
