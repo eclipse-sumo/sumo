@@ -264,9 +264,4 @@ print("polygon count", traci.polygon.getIDCount())
 print("vehicles", traci.vehicle.getIDList())
 print("vehicle count", traci.vehicle.getIDCount())
 
-        
-# // TODO: check if repeated on/off road (parking) adds offset
-# // TODO: test with containers, walking persons, riding persons
-# // TODO: Add flag loop
-    
 traci.close()
