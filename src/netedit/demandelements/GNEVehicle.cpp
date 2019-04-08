@@ -643,7 +643,7 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
         // Specific of Trips
         case SUMO_ATTR_FROM:
         case SUMO_ATTR_TO:
-            return SUMOXMLDefinitions::isValidNetID(value) && (myViewNet->getNet()->retrieveEdge(value, false) != nullptr);
+            return SUMOXMLDefinitions::isValidVehicleID(value) && (myViewNet->getNet()->retrieveEdge(value, false) != nullptr);
         // Specific of flows
         case SUMO_ATTR_BEGIN:
             if (canParse<double>(value)) {

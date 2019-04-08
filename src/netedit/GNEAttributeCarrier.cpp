@@ -4183,6 +4183,11 @@ GNEAttributeCarrier::checkParsedAttribute(const TagProperties& tagProperties,
             if (SUMOXMLDefinitions::isValidDetectorID(parsedAttribute) == false) {
                 errorFormat = "Detector ID contains invalid characters; ";
             }
+        } else if (tagProperties.isDemandElement()) {
+            // special case for detectors (because in this case empty spaces are allowed)
+            if (SUMOXMLDefinitions::isValidVehicleID(parsedAttribute) == false) {
+                errorFormat = "Demand Element ID contains invalid characters; ";
+            }
         } else if (SUMOXMLDefinitions::isValidNetID(parsedAttribute) == false) {
             errorFormat = "ID contains invalid characters; ";
         }
