@@ -563,7 +563,7 @@ GNEVehicleTypeDialog::VTypeAtributes::buildJunctionModelAttributesB(FXVerticalFr
     myJMTimeGapMinor = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_TIMEGAP_MINOR, 1);
 
     // 04 create VTypeAttributeRow and Label for Impatience
-    myImpatience = new VTypeAttributeRow(this, column, SUMO_ATTR_IMPATIENCE, 1);
+    myJMImpatience = new VTypeAttributeRow(this, column, SUMO_ATTR_IMPATIENCE, 1);
 }
 
 void 
@@ -592,13 +592,22 @@ GNEVehicleTypeDialog::VTypeAtributes::updateValues() {
     myEmissionClass->updateValue();
     myWidth->updateValue();
     myFilename->updateValue();
-    myImpatience->updateValue();
     myPersonCapacity->updateValue();
     myContainerCapacity->updateValue();
     myBoardingDuration->updateValue();
     myLoadingDuration->updateValue();
     myMinGapLat->updateValue();
     myMaxSpeedLat->updateValue();
+    // JM Parameters
+    myJMCrossingGap->updateValue();
+    myJMIgnoreKeepclearTime->updateValue();
+    myJMDriveAfterRedTime->updateValue();
+    myJMDriveRedSpeed->updateValue();
+    myJMIgnoreFoeProb->updateValue();
+    myJMIgnoreFoeSpeed->updateValue();
+    myJMSigmaMinor->updateValue();
+    myJMTimeGapMinor->updateValue();
+    myJMImpatience->updateValue();
 }
 
 
@@ -647,13 +656,22 @@ GNEVehicleTypeDialog::VTypeAtributes::onCmdSetVariable(FXObject*, FXSelector, vo
     myEmissionClass->setVariable();
     myWidth->setVariable();
     myFilename->setVariable();
-    myImpatience->setVariable();
     myPersonCapacity->setVariable();
     myContainerCapacity->setVariable();
     myBoardingDuration->setVariable();
     myLoadingDuration->setVariable();
     myMinGapLat->setVariable();
     myMaxSpeedLat->setVariable();
+    // JM Variables
+    myJMCrossingGap->setVariable();
+    myJMIgnoreKeepclearTime->setVariable();
+    myJMDriveAfterRedTime->setVariable();
+    myJMDriveRedSpeed->setVariable();
+    myJMIgnoreFoeProb->setVariable();
+    myJMIgnoreFoeSpeed->setVariable();
+    myJMSigmaMinor->setVariable();
+    myJMTimeGapMinor->setVariable();
+    myJMImpatience->setVariable();
     return true;
 }
 
@@ -1027,7 +1045,7 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::onCmdSetVariable(FXObject*, F
 // ---------------------------------------------------------------------------
 
 GNEVehicleTypeDialog::GNEVehicleTypeDialog(GNEDemandElement* editedVehicleType, bool updatingElement) :
-    GNEDemandElementDialog(editedVehicleType, updatingElement, 1022, /*356*/506),
+    GNEDemandElementDialog(editedVehicleType, updatingElement, 1022, 506),
     myVehicleTypeValid(true),
     myInvalidAttr(SUMO_ATTR_NOTHING) {
 
