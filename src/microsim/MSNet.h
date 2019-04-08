@@ -117,6 +117,13 @@ public:
      */
     static MSNet* getInstance();
 
+    /**
+     * @brief Returns whether this is a GUI Net
+     */
+    virtual bool isGUINet() const {
+        return false;
+    }
+
     /// @brief Place for static initializations of simulation components (called after successful net build)
     static void initStatic();
 

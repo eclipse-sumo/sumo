@@ -101,6 +101,13 @@ public:
     ~GUINet();
 
 
+    /**
+     * @brief Returns whether this is a GUI Net
+     */
+    bool isGUINet() const override {
+        return true;
+    }
+
 
     /// @name inherited from GUIGlObject
     //@{
