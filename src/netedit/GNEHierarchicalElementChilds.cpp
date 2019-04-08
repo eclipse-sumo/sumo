@@ -51,12 +51,12 @@ GNEHierarchicalElementChilds::GNEHierarchicalElementChilds(GNEAttributeCarrier* 
         const std::vector<GNEShape*> &shapeChilds,
         const std::vector<GNEAdditional*> &additionalChilds,
         const std::vector<GNEDemandElement*> &demandElementChilds) :
+    myChildConnections(this),
     myEdgeChilds(edgeChilds),
     myLaneChilds(laneChilds),
     myShapeChilds(shapeChilds),
     myAdditionalChilds(additionalChilds),
     myDemandElementChilds(demandElementChilds),
-    myChildConnections(this),
     myAC(AC) {
 }
 
