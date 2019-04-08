@@ -11,8 +11,6 @@
 #include "MSNet.h"
 #include "utils/shapes/ShapeContainer.h"
 
-#define DEBUG_DYNAMIC_SHAPES
-
 /** @class DynamicShapeUpdater
  * @brief Ensures that dynamic shapes tracking traffic objects are removed when the objects are removed.
  */

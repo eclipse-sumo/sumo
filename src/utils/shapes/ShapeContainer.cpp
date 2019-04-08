@@ -41,7 +41,7 @@
 
 
 // Debug defines
-#define DEBUG_DYNAMIC_SHAPES
+//#define DEBUG_DYNAMIC_SHAPES
 
 // ===========================================================================
 // method definitions

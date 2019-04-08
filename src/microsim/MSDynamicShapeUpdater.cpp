@@ -8,6 +8,8 @@
 #include "MSDynamicShapeUpdater.h"
 #include "utils/vehicle/SUMOVehicle.h"
 
+//#define DEBUG_DYNAMIC_SHAPES
+
 void
 MSDynamicShapeUpdater::vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet::VehicleState to, const std::string& /* info */) {
 

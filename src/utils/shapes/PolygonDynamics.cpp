@@ -24,7 +24,7 @@
 #include "foreign/rtree/SUMORTree.h"
 
 
-#define DEBUG_DYNAMIC_SHAPES
+//#define DEBUG_DYNAMIC_SHAPES
 
 PolygonDynamics::PolygonDynamics(double creationTime,
         SUMOPolygon* p,
