@@ -141,7 +141,8 @@ def getEffectiveTlsList(tlsList, connFlowsMap, verbose):
         for program in tl.getPrograms().values():
             for phase in program.getPhases():
                 if len(phase.state) > len(tl.getConnections()):
-                    print("Skipping TLS '%s' due to unused states" % tl.getID())
+                    print("Skipping TLS '%s' due to unused states (%s states, %s connections)" % (
+                        tl.getID(), len(phase.state), len(tl.getConnections())))
                     valid = False
                     break
         if valid:
@@ -359,7 +360,7 @@ def optimizeGreenTime(groupFlowsMap, phaseLaneIndexMap, currentLength, options):
 
 
 def main(options):
-    net = sumolib.net.readNet(options.netfile, withPrograms=True)
+    net = sumolib.net.readNet(options.netfile, withPrograms=True, withPedestrianConnections=True)
     tlsList = net.getTrafficLights()
 
     if options.verbose:
