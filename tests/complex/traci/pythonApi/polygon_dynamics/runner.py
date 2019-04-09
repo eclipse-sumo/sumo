@@ -251,6 +251,9 @@ traci.vehicle.highlight(vehID, (0,255,0), 200, 4)
 print("polygons", traci.polygon.getIDList())
 print("polygon count", traci.polygon.getIDCount())
 
+for pID in traci.polygon.getIDList():
+    examine(pID)
+        
 print("vehicles", traci.vehicle.getIDList())
 print("vehicle count", traci.vehicle.getIDCount())
 
