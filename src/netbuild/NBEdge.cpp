@@ -2699,19 +2699,13 @@ NBEdge::appendTurnaround(bool noTLSControlled, bool onlyDeadends, bool noGeometr
         return;
     }
     bool isDeadEnd = true;
-    NBEdge* out0 = nullptr;
     for (const Connection& c : myConnections) {
         if ((c.toEdge->getPermissions(c.toLane) 
                     & getPermissions(c.fromLane) 
                     & SVC_PASSENGER) != 0 
                 || (c.toEdge->getPermissions() & getPermissions()) == getPermissions()) {
-            if (out0 == nullptr || c.toEdge == out0) {
-                out0 = c.toEdge;
-            } else {
-                // found another connected outgoing edge
-                isDeadEnd = false;
-                break;
-            }
+            isDeadEnd = false;
+            break;
         }
     }
     if (onlyDeadends && !isDeadEnd) {
@@ -2743,7 +2737,7 @@ NBEdge::appendTurnaround(bool noTLSControlled, bool onlyDeadends, bool noGeometr
             return;
         }
     };
-    if (noGeometryLike && myTo->geometryLike() && out0 != nullptr) {
+    if (noGeometryLike && myTo->geometryLike() && !isDeadEnd) {
         // make sure the turnDestination has other incoming edges
         EdgeVector turnIncoming = myTurnDestination->getIncomingEdges();
         if (turnIncoming.size() > 1) {
