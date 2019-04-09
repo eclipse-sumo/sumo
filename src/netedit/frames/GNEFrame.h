@@ -302,12 +302,6 @@ public:
 
             /// @brief removed invalid spaces of Positions and shapes
             std::string stripWhitespaceAfterComma(const std::string& stringValue);
-            
-            /// @brief enable row elements
-            void enableRowElements();
-
-            /// @brief disable row elements
-            void disableRowElements();
 
         private:
             /// @brief pointer to AttributesEditor parent

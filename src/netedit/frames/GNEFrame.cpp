@@ -878,8 +878,6 @@ GNEFrame::AttributesEditor::RowEditor::showRow(const GNEAttributeCarrier::Attrib
     myACAttr = ACAttr;
     // set multiple
     myMultiple = GNEAttributeCarrier::parse<std::vector<std::string>>(value).size() > 1;
-    // enable all input values
-    enableRowElements();
     if (myACAttr.isColor()) {
         myColorEditor->setTextColor(FXRGB(0, 0, 0));
         myColorEditor->setText(myACAttr.getAttrStr().c_str());
@@ -1047,7 +1045,16 @@ GNEFrame::AttributesEditor::RowEditor::hideRow() {
 
 
 void
-GNEFrame::AttributesEditor::RowEditor::refreshRow(const std::string& value, bool forceRefresh, bool disjointAttributeEnabled) {    
+GNEFrame::AttributesEditor::RowEditor::refreshRow(const std::string& value, bool forceRefresh, bool disjointAttributeEnabled) {
+    // start enabling all elements
+    myTextFieldInt->enable();
+    myTextFieldReal->enable();
+    myTextFieldStrings->enable();
+    myChoicesCombo->enable();
+    myBoolCheckButton->enable();
+    myButtonCombinableChoices->enable();
+    myColorEditor->enable();
+    myRadioButton->enable();
     // set radio buton
     if (myRadioButton->shown()) {
         myRadioButton->setCheck(disjointAttributeEnabled);
@@ -1059,9 +1066,7 @@ GNEFrame::AttributesEditor::RowEditor::refreshRow(const std::string& value, bool
             myTextFieldInt->setTextColor(FXRGB(0, 0, 0));
         }
         // disable depending of disjointAttributeEnabled
-        if (disjointAttributeEnabled) {
-            myTextFieldInt->enable();
-        } else {
+        if (myACAttr.isNonEditable() || !disjointAttributeEnabled) {
             myTextFieldInt->disable();
         }
     } else if (myTextFieldReal->shown()) {
@@ -1071,9 +1076,7 @@ GNEFrame::AttributesEditor::RowEditor::refreshRow(const std::string& value, bool
             myTextFieldReal->setTextColor(FXRGB(0, 0, 0));
         }
         // disable depending of disjointAttributeEnabled
-        if (disjointAttributeEnabled) {
-            myTextFieldReal->enable();
-        } else {
+        if (myACAttr.isNonEditable() || !disjointAttributeEnabled) {
             myTextFieldReal->disable();
         }
     } else if (myTextFieldStrings->shown()) {
@@ -1083,9 +1086,7 @@ GNEFrame::AttributesEditor::RowEditor::refreshRow(const std::string& value, bool
             myTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
         }
         // disable depending of disjointAttributeEnabled
-        if (disjointAttributeEnabled) {
-            myTextFieldStrings->enable();
-        } else {
+        if (myACAttr.isNonEditable() || !disjointAttributeEnabled) {
             myTextFieldStrings->disable();
         }
     } else if (myChoicesCombo->shown()) {
@@ -1100,9 +1101,7 @@ GNEFrame::AttributesEditor::RowEditor::refreshRow(const std::string& value, bool
         myChoicesCombo->setTextColor(FXRGB(0, 0, 0));
         myChoicesCombo->show();
         // disable depending of disjointAttributeEnabled
-        if (disjointAttributeEnabled) {
-            myChoicesCombo->enable();
-        } else {
+        if (myACAttr.isNonEditable() || !disjointAttributeEnabled) {
             myChoicesCombo->disable();
         }
     } else if (myBoolCheckButton->shown()) {
@@ -1112,11 +1111,26 @@ GNEFrame::AttributesEditor::RowEditor::refreshRow(const std::string& value, bool
             myBoolCheckButton->setCheck(false);
         }
         // disable depending of disjointAttributeEnabled
-        if (disjointAttributeEnabled) {
-            myBoolCheckButton->enable();
-        } else {
+        if (myACAttr.isNonEditable() || !disjointAttributeEnabled) {
             myBoolCheckButton->disable();
         }
+    }
+    // if Tag correspond to an network element but we're in demand mode (or vice versa), disable all elements
+    if (((myAttributesEditorParent->myFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && myACAttr.getTagPropertyParent().isDemandElement()) ||
+        ((myAttributesEditorParent->myFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myACAttr.getTagPropertyParent().isDemandElement())) {
+        myColorEditor->disable();
+        myRadioButton->disable();
+        myTextFieldInt->disable();
+        myTextFieldReal->disable();
+        myTextFieldStrings->disable();
+        myChoicesCombo->disable();
+        myBoolCheckButton->disable();
+        myButtonCombinableChoices->disable();
+    }
+    // special case for Default vehicle types (ID cannot be edited)
+    if ((myACAttr.getTagPropertyParent().getTag() == SUMO_TAG_VTYPE) && (myACAttr.getAttr() == SUMO_ATTR_ID) &&
+        ((value == DEFAULT_VTYPE_ID) || (value == DEFAULT_PEDTYPE_ID) || (value == DEFAULT_BIKETYPE_ID))) {
+         myTextFieldStrings->disable();
     }
 }
 
@@ -1335,26 +1349,6 @@ GNEFrame::AttributesEditor::RowEditor::stripWhitespaceAfterComma(const std::stri
         result = StringUtils::replace(result, ", ", ",");
     }
     return result;
-}
-
-
-void
-GNEFrame::AttributesEditor::RowEditor::enableRowElements() {
-    myTextFieldInt->enable();
-    myTextFieldReal->enable();
-    myTextFieldStrings->enable();
-    myChoicesCombo->enable();
-    myBoolCheckButton->enable();
-}
-
-
-void
-GNEFrame::AttributesEditor::RowEditor::disableRowElements() {
-    myTextFieldInt->disable();
-    myTextFieldReal->disable();
-    myTextFieldStrings->disable();
-    myChoicesCombo->disable();
-    myBoolCheckButton->disable();
 }
 
 // ---------------------------------------------------------------------------
