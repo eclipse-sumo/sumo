@@ -169,7 +169,7 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
 
             }
             break;
-            case libsumo::VAR_MOVE_TO : {
+            case libsumo::VAR_ADD_DYNAMICS : {
                 // Add dynamics to polygon.
                 if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_POLYGON_VARIABLE, "A compound object is needed for adding dynamics to a polygon.", outputStorage);
@@ -198,7 +198,6 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 if (!server.readTypeCheckingUnsignedByte(inputStorage, looped)) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_POLYGON_VARIABLE, "The third parameter for adding polygon dynamics must be the alphaSpanStr of the animation (length=0 to disregard alpha animation).", outputStorage);
                 }
-
 
                 libsumo::Polygon::addDynamics(id, trackedID, timeSpan, alphaSpan, (bool) looped);
             }

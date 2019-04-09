@@ -711,6 +711,12 @@ TRACI_CONST int VAR_SIGNALS = 0x5b;
 // vehicle: new lane/position along (set: vehicle), polygon: add dynamics (set: polygon)
 TRACI_CONST int VAR_MOVE_TO = 0x5c;
 
+// polygon: add dynamics (set: polygon)
+TRACI_CONST int VAR_ADD_DYNAMICS = 0x5c;
+
+// vehicle: highlight (set: vehicle)
+TRACI_CONST int VAR_HIGHLIGHT = 0x6c;
+
 // driver imperfection (set: vehicle)
 TRACI_CONST int VAR_IMPERFECTION = 0x5d;
 
