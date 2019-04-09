@@ -815,8 +815,8 @@ NIImporter_OpenStreetMap::EdgesHandler::EdgesHandler(
     myEdgeMap(toFill),
     myPlatformShapesMap(platformShapes) {
     mySpeedMap["signals"] = MAXSPEED_UNGIVEN;
-    mySpeedMap["none"] = 300.;
-    mySpeedMap["no"] = 300.;
+    mySpeedMap["none"] = 142.; // Auswirkungen eines allgemeinen Tempolimits auf Autobahnen im Land Brandeburg (2007)
+    mySpeedMap["no"] = 142.;
     mySpeedMap["walk"] = 5.;
     mySpeedMap["DE:rural"] = 100.;
     mySpeedMap["DE:urban"] = 50.;
