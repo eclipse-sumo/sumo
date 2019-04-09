@@ -3411,10 +3411,10 @@ MSVehicle::setBrakingSignals(double vNext) {
     double pseudoFriction = (0.05 +  0.005 * getSpeed()) * getSpeed();
     bool brakelightsOn = vNext < getSpeed() - ACCEL2SPEED(pseudoFriction);
 
-    if (vNext <= SUMO_const_haltingSpeed && !isStopped()) {
+    if (vNext <= SUMO_const_haltingSpeed) {
         brakelightsOn = true;
     }
-    if (brakelightsOn) {
+    if (brakelightsOn && !isStopped()) {
         switchOnSignal(VEH_SIGNAL_BRAKELIGHT);
     } else {
         switchOffSignal(VEH_SIGNAL_BRAKELIGHT);
