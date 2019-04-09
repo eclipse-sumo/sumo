@@ -66,10 +66,11 @@ GNEHierarchicalElementChilds::~GNEHierarchicalElementChilds() {}
 
 void
 GNEHierarchicalElementChilds::addAdditionalChild(GNEAdditional* additional) {
-    // First check that additional wasn't already inserted
-    if (std::find(myAdditionalChilds.begin(), myAdditionalChilds.end(), additional) != myAdditionalChilds.end()) {
-        throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' was already inserted in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+    // Check if additional is valid
+    if (additional == nullptr) {
+        throw InvalidArgument("Trying to add an empty additional child in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
     } else {
+        // add it in additional childs container
         myAdditionalChilds.push_back(additional);
         // only execute post operations if update geometry is enabled
         if (additional->getViewNet()->getNet()->isUpdateGeometryEnabled()) {
@@ -234,10 +235,11 @@ GNEHierarchicalElementChilds::checkAdditionalChildsOverlapping() const {
 
 void
 GNEHierarchicalElementChilds::addDemandElementChild(GNEDemandElement* demandElement) {
-    // First check that demandElement wasn't already inserted
-    if (std::find(myDemandElementChilds.begin(), myDemandElementChilds.end(), demandElement) != myDemandElementChilds.end()) {
-        throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' was already inserted in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+    // Check if demand element is valid
+    if (demandElement == nullptr) {
+        throw InvalidArgument("Trying to add an empty demand element child in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
     } else {
+        // add it in demandElement child container
         myDemandElementChilds.push_back(demandElement);
         // Check if childs has to be sorted automatically
         if (myAC->getTagProperty().canAutomaticSortChilds()) {
@@ -297,9 +299,7 @@ void
 GNEHierarchicalElementChilds::addEdgeChild(GNEEdge* edge) {
     // Check that edge is valid and doesn't exist previously
     if (edge == nullptr) {
-        throw InvalidArgument("Trying to add an empty " + toString(SUMO_TAG_EDGE) + " child in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
-    } else if (std::find(myEdgeChilds.begin(), myEdgeChilds.end(), edge) != myEdgeChilds.end()) {
-        throw InvalidArgument("Trying to add a duplicate " + toString(SUMO_TAG_EDGE) + " child in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+        throw InvalidArgument("Trying to add an empty edge child in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
     } else {
         myEdgeChilds.push_back(edge);
         // only execute post operations if update geometry is enabled
@@ -314,9 +314,9 @@ void
 GNEHierarchicalElementChilds::removeEdgeChild(GNEEdge* edge) {
     // Check that edge is valid and exist previously
     if (edge == nullptr) {
-        throw InvalidArgument("Trying to remove an empty " + toString(SUMO_TAG_EDGE) + " child in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+        throw InvalidArgument("Trying to remove an empty edge child in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
     } else if (std::find(myEdgeChilds.begin(), myEdgeChilds.end(), edge) == myEdgeChilds.end()) {
-        throw InvalidArgument("Trying to remove a non previously inserted " + toString(SUMO_TAG_EDGE) + " child in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+        throw InvalidArgument("Trying to remove a non previously inserted edge child in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
     } else {
         myEdgeChilds.erase(std::find(myEdgeChilds.begin(), myEdgeChilds.end(), edge));
         // update connections geometry
@@ -333,11 +333,9 @@ GNEHierarchicalElementChilds::getEdgeChilds() const {
 
 void
 GNEHierarchicalElementChilds::addLaneChild(GNELane* lane) {
-    // Check that lane is valid and doesn't exist previously
+    // Check if lane is valid
     if (lane == nullptr) {
-        throw InvalidArgument("Trying to add an empty " + toString(SUMO_TAG_EDGE) + " child in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
-    } else if (std::find(myLaneChilds.begin(), myLaneChilds.end(), lane) != myLaneChilds.end()) {
-        throw InvalidArgument("Trying to add a duplicate " + toString(SUMO_TAG_EDGE) + " child in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+        throw InvalidArgument("Trying to add an empty lane child in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
     } else {
         myLaneChilds.push_back(lane);
         // update connections geometry
@@ -348,11 +346,9 @@ GNEHierarchicalElementChilds::addLaneChild(GNELane* lane) {
 
 void
 GNEHierarchicalElementChilds::removeLaneChild(GNELane* lane) {
-    // Check that lane is valid and exist previously
+    // Check if lane is valid
     if (lane == nullptr) {
-        throw InvalidArgument("Trying to remove an empty " + toString(SUMO_TAG_EDGE) + " child in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
-    } else if (std::find(myLaneChilds.begin(), myLaneChilds.end(), lane) == myLaneChilds.end()) {
-        throw InvalidArgument("Trying to remove a non previously inserted " + toString(SUMO_TAG_EDGE) + " child in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+        throw InvalidArgument("Trying to remove an empty lane child in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
     } else {
         myLaneChilds.erase(std::find(myLaneChilds.begin(), myLaneChilds.end(), lane));
         // update connections geometry
@@ -371,10 +367,10 @@ void
 GNEHierarchicalElementChilds::addShapeChild(GNEShape* shape) {
     // Check that shape is valid and doesn't exist previously
     if (shape == nullptr) {
-        throw InvalidArgument("Trying to add an empty " + toString(SUMO_TAG_EDGE) + " child in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+        throw InvalidArgument("Trying to add an empty shape child in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
     }
     else if (std::find(myShapeChilds.begin(), myShapeChilds.end(), shape) != myShapeChilds.end()) {
-        throw InvalidArgument("Trying to add a duplicate " + toString(SUMO_TAG_EDGE) + " child in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+        throw InvalidArgument("Trying to add a duplicate shape child in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
     }
     else {
         myShapeChilds.push_back(shape);
@@ -388,10 +384,10 @@ void
 GNEHierarchicalElementChilds::removeShapeChild(GNEShape* shape) {
     // Check that shape is valid and exist previously
     if (shape == nullptr) {
-        throw InvalidArgument("Trying to remove an empty " + toString(SUMO_TAG_EDGE) + " child in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+        throw InvalidArgument("Trying to remove an empty shape child in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
     }
     else if (std::find(myShapeChilds.begin(), myShapeChilds.end(), shape) == myShapeChilds.end()) {
-        throw InvalidArgument("Trying to remove a non previously inserted " + toString(SUMO_TAG_EDGE) + " child in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+        throw InvalidArgument("Trying to remove a non previously inserted shape child in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
     }
     else {
         myShapeChilds.erase(std::find(myShapeChilds.begin(), myShapeChilds.end(), shape));
