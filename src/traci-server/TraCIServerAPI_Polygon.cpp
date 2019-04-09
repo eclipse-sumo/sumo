@@ -175,7 +175,7 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_POLYGON_VARIABLE, "A compound object is needed for adding dynamics to a polygon.", outputStorage);
                 }
                 int itemNo = inputStorage.readInt();
-                if (itemNo != 4) {
+                if (itemNo != 5) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Adding polygon dynamics needs four parameters.", outputStorage);
                 }
 
@@ -196,10 +196,15 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
 
                 int looped;
                 if (!server.readTypeCheckingUnsignedByte(inputStorage, looped)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_POLYGON_VARIABLE, "The third parameter for adding polygon dynamics must be the alphaSpanStr of the animation (length=0 to disregard alpha animation).", outputStorage);
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_POLYGON_VARIABLE, "The fourth parameter for adding polygon dynamics must be boolean indicating whether the animation should be looped.", outputStorage);
                 }
 
-                libsumo::Polygon::addDynamics(id, trackedID, timeSpan, alphaSpan, (bool) looped);
+                int rotate;
+                if (!server.readTypeCheckingUnsignedByte(inputStorage, rotate)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_POLYGON_VARIABLE, "The fifth parameter for adding polygon dynamics must be boolean indicating whether the tracking polygon should be rotated.", outputStorage);
+                }
+
+                libsumo::Polygon::addDynamics(id, trackedID, timeSpan, alphaSpan, (bool) looped, (bool) rotate);
             }
             break;
             case libsumo::REMOVE: {

@@ -91,7 +91,8 @@ public:
             SUMOTrafficObject* trackedObject,
             const std::vector<double>& timeSpan,
             const std::vector<double>& alphaSpan,
-            bool looped);
+            bool looped,
+            bool rotate);
 
     /**
      * @brief Remove dynamics (animation / tracking) for the given polygon

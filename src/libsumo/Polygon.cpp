@@ -130,7 +130,7 @@ Polygon::add(const std::string& polygonID, const TraCIPositionVector& shape, con
 
 
 void
-Polygon::addDynamics(const std::string& polygonID, const std::string& trackedID, const std::vector<double>& timeSpan, const std::vector<double>& alphaSpan, bool looped) {
+Polygon::addDynamics(const std::string& polygonID, const std::string& trackedID, const std::vector<double>& timeSpan, const std::vector<double>& alphaSpan, bool looped, bool rotate) {
     if(timeSpan.empty()) {
         if (trackedID == "") {
             throw TraCIException("Could not add polygon dynamics for polygon '" + polygonID + "': dynamics underspecified (either a tracked object ID or a time span have to be provided).");
@@ -157,7 +157,7 @@ Polygon::addDynamics(const std::string& polygonID, const std::string& trackedID,
 
     SUMOTrafficObject* obj = getTrafficObject(trackedID);
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
-    PolygonDynamics* pd = shapeCont.addPolygonDynamics(SIMTIME, polygonID, obj, timeSpan, alphaSpan, looped);
+    PolygonDynamics* pd = shapeCont.addPolygonDynamics(SIMTIME, polygonID, obj, timeSpan, alphaSpan, looped, rotate);
     if (pd == nullptr) {
         throw TraCIException("Could not add polygon dynamics for polygon '" + polygonID + "': polygon doesn't exist.");
     }

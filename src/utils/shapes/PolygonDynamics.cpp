@@ -31,16 +31,19 @@ PolygonDynamics::PolygonDynamics(double creationTime,
         SUMOTrafficObject* trackedObject,
         const std::vector<double>& timeSpan,
         const std::vector<double>& alphaSpan,
-        bool looped) :
+        bool looped,
+        bool rotate) :
     myPolygon(p),
     myCurrentTime(0),
     myLastUpdateTime(creationTime),
     animated(!timeSpan.empty()),
     looped(looped),
     tracking(trackedObject != nullptr),
+    rotate(rotate),
     myTrackedObject(trackedObject),
     myTrackedObjectID(""),
     myTrackedObjectsInitialPositon(nullptr),
+    myTrackedObjectsInitialAngle(-1),
     myOriginalShape(nullptr),
     myTimeSpan(nullptr),
     myAlphaSpan(nullptr),
@@ -115,19 +118,17 @@ PolygonDynamics::update(SUMOTime t) {
 #ifdef DEBUG_DYNAMIC_SHAPES
                 std::cout << " Tracked object '" << myTrackedObject->getID() << "' is on the road. Tracked position=" << objPos << std::endl;
 #endif
-                // Relative offset to initial position
-                const Position relOffset = objPos - *myTrackedObjectsInitialPositon;
-                // Update polygon position
-                myPolygon->myShape = myOriginalShape->added(relOffset);
+                // Update polygon's shape
+                myPolygon->myShape = *myOriginalShape;
+                if (rotate) {
+                    const double relRotation = myTrackedObject->getAngle() - myTrackedObjectsInitialAngle;
+                    myPolygon->myShape.rotate2D(relRotation);
+                }
+                myPolygon->myShape.add(objPos);
 #ifdef DEBUG_DYNAMIC_SHAPES
                 std::cout << " Relative offset to original position: " << relOffset << std::endl;
 #endif
-//                if (myVis != nullptr) {
-//                    // TODO Update RTree in case of GUI simulation (should be locked by GUIShapeContainer)
-//                    GUIGlObject * o = dynamic_cast<GUIGlObject*> (myPolygon);
-//                    myVis->removeAdditionalGLObject(o);
-//                    myVis->addAdditionalGLObject(o);
-//                }
+
             }
 #ifdef DEBUG_DYNAMIC_SHAPES
             else {
@@ -226,6 +227,9 @@ PolygonDynamics::initTrackedPosition() {
     if (objPos != Position::INVALID) {
         // Initialize Position of tracked object
         myTrackedObjectsInitialPositon = std::unique_ptr<Position>(new Position(objPos));
+        myTrackedObjectsInitialAngle = myTrackedObject->getAngle();
+        // Store original polygon shape relative to the tracked object's original position
+        myOriginalShape->sub(*myTrackedObjectsInitialPositon);
 #ifdef DEBUG_DYNAMIC_SHAPES
         std::cout << " Tracking object '" << myTrackedObject->getID() << "' at initial positon: " << *myTrackedObjectsInitialPositon << std::endl;
 #endif

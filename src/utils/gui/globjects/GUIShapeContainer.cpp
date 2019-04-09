@@ -96,8 +96,9 @@ GUIShapeContainer::addPolygonDynamics(double simtime,
         SUMOTrafficObject* trackedObject,
         const std::vector<double>& timeSpan,
         const std::vector<double>& alphaSpan,
-        bool looped) {
-    PolygonDynamics* pd = ShapeContainer::addPolygonDynamics(simtime, polyID, trackedObject, timeSpan, alphaSpan, looped);
+        bool looped,
+        bool rotate) {
+    PolygonDynamics* pd = ShapeContainer::addPolygonDynamics(simtime, polyID, trackedObject, timeSpan, alphaSpan, looped, rotate);
     if (pd != nullptr) {
         pd->setRTree(&myVis);
     }

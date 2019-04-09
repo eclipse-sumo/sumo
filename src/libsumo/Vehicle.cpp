@@ -1704,13 +1704,13 @@ void
 Vehicle::highlight(const std::string& vehicleID, const TraCIColor& col, const double alphaMax, const double duration) {
     MSVehicle * veh = getVehicle(vehicleID);
 
-    // Size of the highlight circle
-//    double size = veh->getLength()*0.7;
-    double size = 1.5;
     // Center of the highlight circle
     Position center = veh->getPosition();
-// TODO: Adjust center (this would require to rotate polygon with vehicle while tracking...)
-
+    const double l2 = veh->getLength()*0.5;
+    center.sub(cos(veh->getAngle())*l2, sin(veh->getAngle())*l2);
+    // Size of the highlight circle
+    double size = veh->getLength()*0.7;
+    //    double size = 1.5;
     // Make polygon shape
     const unsigned int nPoints = 34;
     const PositionVector circlePV = GeomHelper::makeRing(size, size+1., center, nPoints);
@@ -1744,7 +1744,7 @@ Vehicle::highlight(const std::string& vehicleID, const TraCIColor& col, const do
         alphaSpan = {0., alphaMax, alphaMax/3., 0.};
     }
     // Attach dynamics
-    Polygon::addDynamics(polyID, vehicleID, timeSpan, alphaSpan, false);
+    Polygon::addDynamics(polyID, vehicleID, timeSpan, alphaSpan, false, true);
 }
 
 

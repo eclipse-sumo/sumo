@@ -39,15 +39,17 @@ public:
      *        If no animation is desired, give timeSpan == nullptr
      * @param ...Span property timelines (assumed to be either nullptr, or of size equal to timeSpan (in case of animated poly))
      * @param looped Whether the animation should restart when the last keyframe is reached. In that case
-                     the animation jumps to the first keyframe as soon as the last is reached.
-                     If looped==false, the controlled polygon is removed as soon as the timeSpan elapses.
+     *               the animation jumps to the first keyframe as soon as the last is reached.
+     *               If looped==false, the controlled polygon is removed as soon as the timeSpan elapses.
+     * @param rotate Whether the polygon shall be rotated with the tracked object.
      */
     PolygonDynamics(double creationTime,
             SUMOPolygon* p,
             SUMOTrafficObject* trackedObject,
             const std::vector<double>& timeSpan,
             const std::vector<double>& alphaSpan,
-            bool looped);
+            bool looped,
+            bool rotate);
     virtual ~PolygonDynamics();
 
     const std::string& getPolygonID() const {
@@ -99,6 +101,9 @@ private:
     /// @brief Whether this polygon tracks an object
     bool tracking;
 
+    /// @brief Whether this polygon should be rotated with the tracked object
+    bool rotate;
+
     /// @brief An object tracked by the shape, deletion by caller
     SUMOTrafficObject* myTrackedObject;
     std::string myTrackedObjectID;
@@ -106,7 +111,12 @@ private:
     /// @brief Initial position of the tracked object
     std::unique_ptr<Position> myTrackedObjectsInitialPositon;
 
+    /// @brief Initial angle of the tracked object
+    double myTrackedObjectsInitialAngle;
+
     /// @brief the original shape of the polygon
+    /// (in case of tracking another object, this is converted to relative
+    ///  coords wrt to the other objects initial position as origin)
     std::unique_ptr<PositionVector> myOriginalShape;
 
     /// @brief Time points corresponding to the anchor values of the dynamic properties

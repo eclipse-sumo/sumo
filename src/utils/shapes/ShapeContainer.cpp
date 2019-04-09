@@ -76,7 +76,8 @@ ShapeContainer::addPolygonDynamics(double simtime,
         SUMOTrafficObject* trackedObject,
         const std::vector<double>& timeSpan,
         const std::vector<double>& alphaSpan,
-        bool looped) {
+        bool looped,
+        bool rotate) {
 
 #ifdef DEBUG_DYNAMIC_SHAPES
     std::cout << simtime << " ShapeContainer::addPolygonDynamics() called for polygon '" << polyID << "'" << std::endl;
@@ -93,7 +94,7 @@ ShapeContainer::addPolygonDynamics(double simtime,
     removePolygonDynamics(polyID);
 
     // Add new dynamics
-    PolygonDynamics* pd = new PolygonDynamics(simtime, p, trackedObject, timeSpan, alphaSpan, looped);
+    PolygonDynamics* pd = new PolygonDynamics(simtime, p, trackedObject, timeSpan, alphaSpan, looped, rotate);
     myPolygonDynamics.insert(std::make_pair(polyID, pd));
 
     // Add tracking information

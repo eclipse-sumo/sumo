@@ -78,7 +78,8 @@ public:
             SUMOTrafficObject* trackedObject,
             const std::vector<double>& timeSpan,
             const std::vector<double>& alphaSpan,
-            bool looped) override;
+            bool looped,
+            bool rotate) override;
 
     /// @brief Update PolygonDynamics, @see ShapeContainer
     /// @note  Locks the visualisation RTree

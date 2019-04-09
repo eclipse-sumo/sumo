@@ -132,6 +132,10 @@ public:
      */
     virtual Position getPosition(const double offset = 0) const = 0;
 
+    /** @brief Returns the objects angle in degrees
+     */
+    virtual double getAngle() const = 0;
+
     /** @brief Returns whether this vehicle has arrived
      */
     virtual bool hasArrived() const = 0;
