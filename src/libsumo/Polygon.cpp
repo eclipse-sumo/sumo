@@ -284,6 +284,12 @@ Polygon::handleVariable(const std::string& objID, const int variable, VariableWr
 }
 
 
+bool
+Polygon::exists(std::string polyID) {
+    SUMOPolygon * p = MSNet::getInstance()->getShapeContainer().getPolygons().get(polyID);
+    return p != nullptr;
+}
+
 }
 
 

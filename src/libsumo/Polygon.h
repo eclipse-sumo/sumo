@@ -82,6 +82,9 @@ public:
 
     static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
 
+    /// Checks if a polygon of the given name exists already in the simulation
+    static bool exists(std::string polyID);
+
 private:
     static SUMOPolygon* getPolygon(const std::string& id);
     /// @brief Obtain a traffic object with the given id if one exists
