@@ -1438,6 +1438,39 @@ class VehicleDomain(Domain):
         self._connection._sendDoubleCmd(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_ACTIONSTEPLENGTH, vehID, actionStepLength)
 
+    def highlight(self, vehID, color=(255,0,0,255), alphaMax=-1, duration=-1):
+        """ highlightObject(string, Color, float, float)
+            Adds a circle of the given color tracking the specified traffic object (only tested for vehicles, so far)
+            If alphaMax and duration are positive, the circle fades in and out within the given duration,
+            otherwise it permanently follows the vehicle.
+        """
+        msg_length = 1 + 4
+        if color:
+            length = 1
+            msg_length += 1 + 4
+        else:
+            length = 0
+        if (alphaMax <= 0 and duration > 0):
+            raise traci.TraCIException("polygon.highlightObject(): duration>0 requires alphaMax>0")
+        if (alphaMax > 0 and duration <= 0):
+            raise traci.TraCIException("polygon.highlightObject(): alphaMax>0 requires duration>0")
+        if alphaMax > 0:
+            assert(duration>0)
+            length = 3
+            if color is None:
+                msg_length += 1 + 4
+                color = (255,0,0,255)                
+            msg_length += 1 + 8 \
+                   + 1 + 8
+        self._connection._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_HIGHLIGHT, vehID, msg_length)
+        self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, length)
+        if (length >= 1):
+            self._connection._string += struct.pack("!BBBBB", tc.TYPE_COLOR, int(color[0]), int(color[1]), int(color[2]),
+                                                int(color[3]) if len(color) > 3 else 255)
+        if (length >= 3):
+            self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, alphaMax)
+            self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, duration)
+
     def setImperfection(self, vehID, imperfection):
         """setImperfection(string, double) -> None
 

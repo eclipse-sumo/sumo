@@ -322,6 +322,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             && variable != libsumo::VAR_MINGAP_LAT
             && variable != libsumo::VAR_LINE
             && variable != libsumo::VAR_VIA
+            && variable != libsumo::VAR_HIGHLIGHT
             && variable != libsumo::MOVE_TO_XY && variable != libsumo::VAR_PARAMETER/* && variable != libsumo::VAR_SPEED_TIME_LINE && variable != libsumo::VAR_LANE_TIME_LINE*/
        ) {
         return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Change Vehicle State: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
@@ -1001,6 +1002,36 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 } catch (libsumo::TraCIException& e) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, e.what(), outputStorage);
                 }
+            }
+            break;
+            case libsumo::VAR_HIGHLIGHT: {
+                // Highlight the vehicle by adding a tracking polygon.
+                if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "A compound object is needed for highlighting an object.", outputStorage);
+                }
+                int itemNo = inputStorage.readInt();
+                if (itemNo > 3) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Highlighting an object needs zero to four parameters.", outputStorage);
+                }
+                libsumo::TraCIColor col = libsumo::TraCIColor(255,0,0);
+                if (itemNo > 0) {
+                    if (!server.readTypeCheckingColor(inputStorage, col)) {
+                        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The first parameter for highlighting must be the highlight color.", outputStorage);
+                    }
+                }
+                double alphaMax = -1;
+                if (itemNo > 1) {
+                    if (!server.readTypeCheckingDouble(inputStorage, alphaMax)) {
+                        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The second parameter for highlighting must be maximal alpha.", outputStorage);
+                    }
+                }
+                double duration = -1;
+                if (itemNo > 2) {
+                    if (!server.readTypeCheckingDouble(inputStorage, duration)) {
+                        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The third parameter for highlighting must be the highlight duration.", outputStorage);
+                    }
+                }
+                libsumo::Vehicle::highlight(id, col, alphaMax, duration);
             }
             break;
             case libsumo::VAR_ACTIONSTEPLENGTH: {

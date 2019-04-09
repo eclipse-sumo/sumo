@@ -42,6 +42,7 @@
 #include <libsumo/TraCIConstants.h>
 #include "Helper.h"
 #include "Route.h"
+#include "Polygon.h"
 #include "Vehicle.h"
 
 
@@ -49,6 +50,7 @@
 // debug defines
 // ===========================================================================
 //#define DEBUG_NEIGHBORS
+//#define DEBUG_DYNAMIC_SHAPES
 #define DEBUG_COND (veh->isSelected())
 
 
@@ -1695,6 +1697,54 @@ Vehicle::setParameter(const std::string& vehicleID, const std::string& key, cons
     } else {
         ((SUMOVehicleParameter&)veh->getParameter()).setParameter(key, value);
     }
+}
+
+
+void
+Vehicle::highlight(const std::string& vehicleID, const TraCIColor& col, const double alphaMax, const double duration) {
+    MSVehicle * veh = getVehicle(vehicleID);
+
+    // Size of the highlight circle
+//    double size = veh->getLength()*0.7;
+    double size = 1.5;
+    // Center of the highlight circle
+    Position center = veh->getPosition();
+// TODO: Adjust center (this would require to rotate polygon with vehicle while tracking...)
+
+    // Make polygon shape
+    const unsigned int nPoints = 34;
+    const PositionVector circlePV = GeomHelper::makeRing(size, size+1., center, nPoints);
+    TraCIPositionVector circle = Helper::makeTraCIPositionVector(circlePV);
+
+#ifdef DEBUG_DYNAMIC_SHAPES
+    std::cout << SIMTIME << " Vehicle::highlight() for vehicle '" << vehicleID << "'\n"
+            << " circle: " << circlePV << std::endl;
+#endif
+
+    // Find a free polygon id
+    unsigned int i = 0;
+    std::string polyID = veh->getID() + "_poly" + toString(i);
+    while (Polygon::exists(polyID)) {
+        std::string polyID = veh->getID() + "_poly" + toString(++i);
+    }
+    // Line width
+    double lw = 0;
+    // Make Polygon
+    Polygon::add(polyID, circle, col, true, lw, "highlight", 1000);
+
+    // Animation time line
+    double maxAttack = 1.0; // maximal fad-in time
+    std::vector<double> timeSpan;
+    if (duration > 0.) {
+        timeSpan = {0, MIN2(maxAttack, duration/3.), 2.*duration/3., duration};
+    }
+    // Alpha time line
+    std::vector<double> alphaSpan;
+    if (alphaMax > 0.) {
+        alphaSpan = {0., alphaMax, alphaMax/3., 0.};
+    }
+    // Attach dynamics
+    Polygon::addDynamics(polyID, vehicleID, timeSpan, alphaSpan, false);
 }
 
 
