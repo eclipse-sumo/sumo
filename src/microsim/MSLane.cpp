@@ -3114,7 +3114,7 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
                 }
 #endif
                 if (backOffset + (*it).length - next->getLength() < 0
-                        //&& std::find(ego->getFurtherLanes().begin(), ego->getFurtherLanes().end(), next) != ego->getFurtherLanes().end()
+                        && std::find(ego->getFurtherLanes().begin(), ego->getFurtherLanes().end(), next) != ego->getFurtherLanes().end()
                         )  {
                     // check for junction foes that would interfere with lane changing
                     const MSLink::LinkLeaders linkLeaders = (*it).viaLink->getLeaderInfo(ego, -backOffset);

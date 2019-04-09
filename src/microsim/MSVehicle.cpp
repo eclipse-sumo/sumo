@@ -1411,8 +1411,17 @@ MSVehicle::setAngle(double angle, bool straightenFurther) {
     }
 #endif
     myAngle = angle;
+    MSLane* next = myLane;
     if (straightenFurther && myFurtherLanesPosLat.size() > 0) {
-        myFurtherLanesPosLat[myFurtherLanesPosLat.size() - 1] = getLateralPositionOnLane();
+        for (int i = 0; i < (int)myFurtherLanes.size(); i++) { 
+            MSLane* further = myFurtherLanes[i];
+            if (further->getLinkTo(next) != nullptr) {
+                myFurtherLanesPosLat[i] = getLateralPositionOnLane();
+                next = further;
+            } else {
+                break;
+            }
+        }
     }
 }
 
