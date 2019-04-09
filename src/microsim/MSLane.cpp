@@ -3100,6 +3100,11 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
         for (MSLane* further : ego->getFurtherLanes()) {
             egoFurther.insert(&further->getEdge());
         }
+        if (ego->getPositionOnLane() < ego->getVehicleType().getLength() && egoFurther.size() == 0
+                && ego->getLane()->getLogicalPredecessorLane() != nullptr) {
+            // on insertion
+            egoFurther.insert(&ego->getLane()->getLogicalPredecessorLane()->getEdge());
+        }
 
         // avoid loops
         std::set<const MSLane*> visited(myEdge->getLanes().begin(), myEdge->getLanes().end());
