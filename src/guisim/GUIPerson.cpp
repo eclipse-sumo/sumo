@@ -505,7 +505,7 @@ GUIPerson::drawAction_drawAsTriangle(const GUIVisualizationSettings& /* s */) co
 void
 GUIPerson::drawAction_drawAsCircle(const GUIVisualizationSettings& /* s */) const {
     glScaled(getVehicleType().getLength(), getVehicleType().getLength(), 1);
-    GLHelper::drawFilledCircle(0.5);
+    GLHelper::drawFilledCircle(0.8);
 }
 
 
