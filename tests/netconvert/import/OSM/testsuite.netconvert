@@ -108,4 +108,7 @@ bypass
 
 # creating opposite-direction edge due to sidewalk information
 sidewalks
+
+# motorway without speed limit
+motorway
 bugs
