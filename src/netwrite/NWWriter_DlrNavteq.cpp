@@ -131,7 +131,8 @@ NWWriter_DlrNavteq::writeNodesUnsplitted(const OptionsCont& oc, NBNodeCont& nc, 
     std::set<std::string> reservedNodeIDs;
     const bool numericalIDs = oc.getBool("numerical-ids");
     if (oc.isSet("reserved-ids")) {
-        NBHelpers::loadPrefixedIDsFomFile(oc.getString("reserved-ids"), "node:", reservedNodeIDs);
+        NBHelpers::loadPrefixedIDsFomFile(oc.getString("reserved-ids"), "node:", reservedNodeIDs); // backward compatibility
+        NBHelpers::loadPrefixedIDsFomFile(oc.getString("reserved-ids"), "junction:", reservedNodeIDs); // selection format
     }
     if (numericalIDs) {
         avoid = nc.getAllNames();

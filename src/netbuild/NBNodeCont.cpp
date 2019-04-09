@@ -1850,7 +1850,8 @@ NBNodeCont::remapIDs(bool numericaIDs, bool reservedIDs, const std::string& pref
     std::vector<std::string> avoid = getAllNames();
     std::set<std::string> reserve;
     if (reservedIDs) {
-        NBHelpers::loadPrefixedIDsFomFile(OptionsCont::getOptions().getString("reserved-ids"), "node:", reserve);
+        NBHelpers::loadPrefixedIDsFomFile(OptionsCont::getOptions().getString("reserved-ids"), "node:", reserve); // backward compatibility
+        NBHelpers::loadPrefixedIDsFomFile(OptionsCont::getOptions().getString("reserved-ids"), "junction:", reserve); // selection format
         avoid.insert(avoid.end(), reserve.begin(), reserve.end());
     }
     IDSupplier idSupplier("", avoid);
