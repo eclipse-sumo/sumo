@@ -223,8 +223,14 @@ public:
     //// @brief add a position
     void add(double xoff, double yoff, double zoff);
 
-    //// @brief add a position
+    //// @brief substract a position
     void add(const Position& offset);
+
+    //// @brief add a position
+    void sub(double xoff, double yoff, double zoff);
+
+    //// @brief substract a position
+    void sub(const Position& offset);
 
     //// @brief adds a position without modifying the vector itself but returning the result
     PositionVector added(const Position& offset) const;

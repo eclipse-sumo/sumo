@@ -614,6 +614,20 @@ PositionVector::add(double xoff, double yoff, double zoff) {
 
 
 void
+PositionVector::sub(const Position& offset) {
+    sub(offset.x(), offset.y(), offset.z());
+}
+
+
+void
+PositionVector::sub(double xoff, double yoff, double zoff) {
+    for (int i = 0; i < (int)size(); i++) {
+        (*this)[i].add(-xoff, -yoff, -zoff);
+    }
+}
+
+
+void
 PositionVector::add(const Position& offset) {
     add(offset.x(), offset.y(), offset.z());
 }
