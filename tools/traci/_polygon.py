@@ -152,7 +152,7 @@ class PolygonDomain(Domain):
                    + 1 + 4 + len(timeSpan)*8 \
                    + 1 + 4 + len(alphaSpan)*8 \
                    + 1 + 1
-        self._connection._beginMessage(tc.CMD_SET_POLYGON_VARIABLE, tc.VAR_MOVE_TO, polygonID, msg_length)
+        self._connection._beginMessage(tc.CMD_SET_POLYGON_VARIABLE, tc.VAR_ADD_DYNAMICS, polygonID, msg_length)
         self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 4)
         self._connection._packString(trackedObjectID)
         self._connection._packDoubleList(timeSpan)
