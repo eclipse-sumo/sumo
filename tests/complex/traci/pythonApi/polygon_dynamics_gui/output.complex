@@ -86,9 +86,9 @@ step 21
 step 22
 step 23
 step 24
-# (5) replacing tracking dynamics
-polygons ('poly2', 'poly3')
-polygon count 2
+# (5) replacing tracking dynamics and highlighting vehicle permanently
+polygons ('poly2', 'poly3', 'veh0_poly0')
+polygon count 3
 step 25
 step 26
 step 27
@@ -99,8 +99,8 @@ step 31
 step 32
 step 33
 step 34
-polygons ('poly2',)
-polygon count 1
+polygons ('poly2', 'veh0_poly0')
+polygon count 2
 # (6) Tracking with alpha animation
 step 35
 step 36
@@ -108,15 +108,15 @@ step 37
 step 38
 step 39
 # (7) Add a second tracking polygon
-polygons ('poly2', 'poly4', 'poly5')
-polygon count 3
+polygons ('poly2', 'poly4', 'poly5', 'veh0_poly0')
+polygon count 4
 step 40
 step 41
 step 42
 step 43
 step 44
-polygons ('poly2', 'poly4', 'poly5')
-polygon count 3
+polygons ('poly2', 'poly4', 'poly5', 'veh0_poly0')
+polygon count 4
 # (8) Parking vehicle and renew dynamics
 step 45
 step 46
@@ -138,8 +138,8 @@ step 61
 step 62
 step 63
 step 64
-polygons ('poly2', 'poly5')
-polygon count 2
+polygons ('poly2', 'poly5', 'veh0_poly0')
+polygon count 3
 step 65
 step 66
 step 67
@@ -185,9 +185,10 @@ step 106
 step 107
 step 108
 step 109
-# (9) transfer tracking dynamics to different vehicle and redefine as looped animation
-polygons ('poly5',)
-polygon count 1
+# (9) transfer tracking dynamics from vehicle 'horiz' to 'veh0' and redefine as looped animation
+# (10) Highlight vehicle 'horiz' for limited duration
+polygons ('horiz_poly0', 'poly5', 'veh0_poly0')
+polygon count 3
 vehicles ('horiz', 'veh0')
 vehicle count 2
 step 110
@@ -200,7 +201,7 @@ step 116
 step 117
 step 118
 step 119
-# (10) Tracked vehicle 'veh0' arrives
+# (11) Tracked vehicle 'veh0' arrives
 step 120
 step 121
 step 122
