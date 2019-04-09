@@ -197,8 +197,8 @@ GNEVehicle::updateGeometry(bool updateGrid) {
     // Save rotation (angle)
     myGeometry.shapeRotations.push_back(vehicleLane->getShape().rotationDegreeAtOffset(offset) * -1);
 
-    // calculate route for trip
-    if (myTagProperty.getTag() == SUMO_TAG_TRIP) {
+    // calculate route for trip (Only in Demand mode)
+    if ((myTagProperty.getTag() == SUMO_TAG_TRIP) && (myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND)) {
         // update temporal route
         myTemporalRoute = getRouteCalculatorInstance()->calculateDijkstraRoute(parse<SUMOVehicleClass>(getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_VCLASS)), getEdgeParents());
 
@@ -966,8 +966,10 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_VIA:
             // change edge parents
             changeEdgeParents(this, getEdgeParents().front()->getID() + " " + value + " " + getEdgeParents().back()->getID());
-            // recalculate temporal route
-            myTemporalRoute = getRouteCalculatorInstance()->calculateDijkstraRoute(parse<SUMOVehicleClass>(getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_VCLASS)), getEdgeParents());
+            // recalculate temporal route (Only in Demand mode)
+            if (myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) {
+                myTemporalRoute = getRouteCalculatorInstance()->calculateDijkstraRoute(parse<SUMOVehicleClass>(getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_VCLASS)), getEdgeParents());
+            }
             break;
         case SUMO_ATTR_DEPARTPOS_LAT:
             parseDepartPosLat(value, toString(SUMO_TAG_VEHICLE), id, departPosLat, departPosLatProcedure, error);
@@ -994,8 +996,10 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             // change edge parents
             changeEdgeParents(this, toString(newEdges));
-            // recalculate temporal route
-            myTemporalRoute = getRouteCalculatorInstance()->calculateDijkstraRoute(parse<SUMOVehicleClass>(getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_VCLASS)), getEdgeParents());
+            // recalculate temporal route (Only in Demand mode)
+            if (myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) {
+                myTemporalRoute = getRouteCalculatorInstance()->calculateDijkstraRoute(parse<SUMOVehicleClass>(getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_VCLASS)), getEdgeParents());
+            }
             break;
         }
         case SUMO_ATTR_TO: {
