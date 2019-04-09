@@ -13,6 +13,7 @@
 3_arm_1_opposite_sidewalk_3_crossings
 3_arm_sharp_angle
 3_arm_with_oneway
+3_arm_noturnaround_deadend
 
 # 4 arm junction with crossings on all sides
 4_arm_complete
