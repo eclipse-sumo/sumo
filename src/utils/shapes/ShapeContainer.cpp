@@ -79,7 +79,7 @@ ShapeContainer::addPolygonDynamics(double simtime,
         bool looped) {
 
 #ifdef DEBUG_DYNAMIC_SHAPES
-    std::cout << "ShapeContainer::addPolygonDynamics() called for polygon '" << polyID << "'" << std::endl;
+    std::cout << simtime << " ShapeContainer::addPolygonDynamics() called for polygon '" << polyID << "'" << std::endl;
 #endif
 
     SUMOPolygon* p = myPolygons.get(polyID);
@@ -151,7 +151,7 @@ bool
 ShapeContainer::removePolygon(const std::string& id, bool /* useLock */) {
 
 #ifdef DEBUG_DYNAMIC_SHAPES
-    std::cout << "ShapeContainer: Removing Polygon '" << id << "' (PolygonDynamics elapsed)" << std::endl;
+    std::cout << "ShapeContainer: Removing Polygon '" << id << "'" << std::endl;
 #endif
     removePolygonDynamics(id);
     return myPolygons.remove(id);
