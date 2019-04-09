@@ -2799,6 +2799,8 @@ GNENet::insertShape(GNEShape* shape, bool updateViewAfterDeleting) {
     }
     // insert shape requieres always save additionals
     requiereSaveAdditionals(true);
+    // after inserting, update geometry (needed for POILanes
+    shape->updateGeometry(true);
     // check if view has to be updated
     if(updateViewAfterDeleting) {
         myViewNet->update();
