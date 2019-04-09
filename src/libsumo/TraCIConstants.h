@@ -708,7 +708,7 @@ TRACI_CONST int VAR_CURRENT_TRAVELTIME = 0x5a;
 // signals state (get/set: vehicle)
 TRACI_CONST int VAR_SIGNALS = 0x5b;
 
-// vehicle: new lane/position along (set: vehicle), polygon: add dynamics (set: polygon)
+// vehicle: new lane/position along (set: vehicle)
 TRACI_CONST int VAR_MOVE_TO = 0x5c;
 
 // polygon: add dynamics (set: polygon)
