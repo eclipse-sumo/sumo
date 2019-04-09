@@ -140,6 +140,14 @@ public:
      */
     static double legacyDegree(const double angle, const bool positive = false);
 
+    /** Creates a circular polygon
+     * @param[in] radius Radius of the circle
+     * @param[in] center Position of the circle's center
+     * @param[in] nPoints Number of points of the circle (Polygon's shape will have noPoints+1 points), must be >=3
+     * @return the polygon approximating the circle
+     */
+    static PositionVector makeCircle(const double radius, const Position& center, unsigned int nPoints);
+
 };
 
 

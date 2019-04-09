@@ -30,6 +30,7 @@
 #include <iostream>
 #include <utils/common/StdDefs.h>
 #include <utils/common/ToString.h>
+#include <utils/common/MsgHandler.h>
 #include "Boundary.h"
 #include "GeomHelper.h"
 
@@ -233,6 +234,21 @@ GeomHelper::legacyDegree(const double angle, const bool positive) {
     return degree;
 }
 
+PositionVector
+GeomHelper::makeCircle(const double radius, const Position& center, unsigned int nPoints) {
+    if (nPoints < 3) {
+        WRITE_ERROR("GeomHelper::makeCircle() requires nPoints>=3");
+    }
+    PositionVector circle;
+    circle.push_back({radius, 0});
+    for (unsigned int i = 1; i < nPoints; ++i) {
+        const double a = 2.0*M_PI*(double)i/(double) nPoints;
+        circle.push_back({radius*cos(a), sin(a)});
+    }
+    circle.push_back({radius, 0});
+    circle.add(center);
+    return circle;
+}
 
 /****************************************************************************/
 
