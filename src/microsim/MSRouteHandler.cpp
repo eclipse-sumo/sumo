@@ -740,6 +740,7 @@ MSRouteHandler::closePersonFlow() {
     MSVehicleType* type = MSNet::getInstance()->getVehicleControl().getVType(myVehicleParameter->vtypeid, &myParsingRNG);
     // instantiate all persons of this flow
     int i = 0;
+    registerLastDepart();
     std::string baseID = myVehicleParameter->id;
     if (myVehicleParameter->repetitionProbability > 0) {
         if (myVehicleParameter->repetitionEnd == SUMOTime_MAX) {
@@ -779,11 +780,7 @@ MSRouteHandler::addFlowPerson(SUMOTime depart, MSVehicleType* type, const std::s
     myVehicleParameter->id = baseID + "." + toString(i);
     myVehicleParameter->depart = depart;
     MSTransportable* person = MSNet::getInstance()->getPersonControl().buildPerson(myVehicleParameter, type, myActivePlan, &myParsingRNG);
-    if (MSNet::getInstance()->getPersonControl().add(person)) {
-        if (i == 0) {
-            registerLastDepart();
-        }
-    } else {
+    if (!MSNet::getInstance()->getPersonControl().add(person)) {
         ProcessError error("Another person with the id '" + myVehicleParameter->id + "' exists.");
         delete person;
         throw error;
