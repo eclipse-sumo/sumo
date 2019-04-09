@@ -3096,6 +3096,10 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
             if (DEBUG_COND2(ego)) std::cout << "   computed searchDist=" << searchDist << "\n";
 #endif
         }
+        std::set<const MSEdge*> egoFurther;
+        for (MSLane* further : ego->getFurtherLanes()) {
+            egoFurther.insert(&further->getEdge());
+        }
 
         // avoid loops
         std::set<const MSLane*> visited(myEdge->getLanes().begin(), myEdge->getLanes().end());
@@ -3114,7 +3118,7 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
                 }
 #endif
                 if (backOffset + (*it).length - next->getLength() < 0
-                        && std::find(ego->getFurtherLanes().begin(), ego->getFurtherLanes().end(), next) != ego->getFurtherLanes().end()
+                        && egoFurther.count(&next->getEdge()) != 0
                         )  {
                     // check for junction foes that would interfere with lane changing
                     const MSLink::LinkLeaders linkLeaders = (*it).viaLink->getLeaderInfo(ego, -backOffset);
