@@ -35,7 +35,7 @@ def examine(polygonID):
     print("color", traci.polygon.getColor(polygonID))
     print("filled", traci.polygon.getFilled(polygonID))
 
-traci.start([sumolib.checkBinary('sumo-gui'), "-c", "sumo.sumocfg"]) #, "-S", "-Q"])
+traci.start([sumolib.checkBinary('sumo-gui'), "-c", "sumo.sumocfg", "-S", "-Q"])
 #~ traci.init(port=12345) # debug
 for step in range(3):
     print("step", step)

@@ -177,10 +177,11 @@ for step in range(21, 25):
     print("step", step)
     traci.simulationStep()
     
-print("# (5) replacing tracking dynamics")
+print("# (5) replacing tracking dynamics and highlighting vehicle permanently")
 polygonID = "poly2"
 vehID = "veh0"
 traci.polygon.addDynamics(polygonID, vehID, [0,2,4,6,8,10,12,14,16,18,20], [50,200,50,200,50,200,50,200,50,200,50])
+traci.vehicle.highlight(vehID)
 
 print("polygons", traci.polygon.getIDList())
 print("polygon count", traci.polygon.getIDCount())
@@ -238,10 +239,14 @@ for step in range(65, 110):
     print("step", step)
     traci.simulationStep()
     
-print("# (9) transfer tracking dynamics to different vehicle and redefine as looped animation")
+print("# (9) transfer tracking dynamics from vehicle 'horiz' to 'veh0' and redefine as looped animation")
 vehID = "veh0"
 polygonID="poly5"
 traci.polygon.addDynamics(polygonID, vehID, [0,2,4], [50,200,50], True)
+
+print("# (10) Highlight vehicle 'horiz' for limited duration")
+vehID = "horiz"
+traci.vehicle.highlight(vehID, (0,255,0), 200, 4)
 
 print("polygons", traci.polygon.getIDList())
 print("polygon count", traci.polygon.getIDCount())
@@ -253,7 +258,7 @@ for step in range(110, 120):
     print("step", step)
     traci.simulationStep()
     
-print("# (10) Tracked vehicle 'veh0' arrives")    
+print("# (11) Tracked vehicle 'veh0' arrives")    
 for step in range(120, 125):
     print("step", step)
     traci.simulationStep()
