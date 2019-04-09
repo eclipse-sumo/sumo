@@ -9,10 +9,10 @@ GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31
 Debug: Selected item 'DEFAULT_VEHTYPE' in VTypeSelector
 Debug: Adding poiLane 'POI_0' into viewNet
 GLDebug: Inserted poi:POI_0 into SUMORTree with boundary -3.00,-3.00,3.00,3.00
-GLDebug: Removed object poi:POI_0 from SUMORTree with boundary -3.00,-3.00,3.00,3.00
-GLDebug: Inserted poi:POI_0 into SUMORTree with boundary 27.00,-1.40,33.00,4.60
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+GLDebug: Removed object poi:POI_0 from SUMORTree with boundary -3.00,-3.00,3.00,3.00
+GLDebug: Inserted poi:POI_0 into SUMORTree with boundary 27.00,-1.40,33.00,4.60
 Debug: Format of optional positive optional float attribute 'height' of poi with ID 'POI_1' is invalid; Cannot be parsed to float; Default value will be used.
 Debug: Adding poiLane 'POI_1' into viewNet
 GLDebug: Inserted poi:POI_1 into SUMORTree with boundary -3.00,-3.00,3.00,3.00

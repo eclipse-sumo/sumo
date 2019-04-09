@@ -57,22 +57,14 @@ GLDebug: Removed object parkingArea:parkingArea_gneE1_0_2 from SUMORTree with bo
 GLDebug: Inserted parkingArea:parkingArea_gneE1_0_2 into SUMORTree with boundary -18.00,-13.60,32.00,26.40
 Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 1, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Removing space 'parkingArea_gneE1_0_2space0' in GNEChange_Additional
-GLDebug: Removed object parkingArea:parkingArea_gneE1_0_2 from SUMORTree with boundary -18.00,-13.60,32.00,26.40
-GLDebug: Inserted parkingArea:parkingArea_gneE1_0_2 into SUMORTree with boundary -18.00,-13.60,32.00,26.40
 GLDebug: Removed object parkingSpace:parkingArea_gneE1_0_2space0 from SUMORTree with boundary -3.00,-11.00,37.00,29.00
 Debug: Removing parkingArea 'parkingArea_gneE1_0_2' in GNEChange_Additional
-GLDebug: Removed object parkingArea:parkingAreaLoaded_B from SUMORTree with boundary 13.00,-13.60,63.00,26.40
-GLDebug: Inserted parkingArea:parkingAreaLoaded_B into SUMORTree with boundary 13.00,-13.60,63.00,26.40
 GLDebug: Removed object parkingArea:parkingArea_gneE1_0_2 from SUMORTree with boundary -18.00,-13.60,32.00,26.40
 Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 1, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Removing space 'parkingAreaLoaded_Bspace0' in GNEChange_Additional
-GLDebug: Removed object parkingArea:parkingAreaLoaded_B from SUMORTree with boundary 13.00,-13.60,63.00,26.40
-GLDebug: Inserted parkingArea:parkingAreaLoaded_B into SUMORTree with boundary 13.00,-13.60,63.00,26.40
 GLDebug: Removed object parkingSpace:parkingAreaLoaded_Bspace0 from SUMORTree with boundary 8.00,-13.00,48.00,27.00
 Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 0, Additionals: 1, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Removing space 'parkingAreaLoaded_Aspace0' in GNEChange_Additional
-GLDebug: Removed object parkingArea:parkingAreaLoaded_A from SUMORTree with boundary 13.00,-26.40,63.00,13.60
-GLDebug: Inserted parkingArea:parkingAreaLoaded_A into SUMORTree with boundary 13.00,-26.40,63.00,13.60
 GLDebug: Removed object parkingSpace:parkingAreaLoaded_Aspace0 from SUMORTree with boundary 8.00,-32.00,48.00,8.00
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Z (Undo) pressed
@@ -111,23 +103,23 @@ Debug: Closed FXMessageBox 'Force deletion needed' with 'OK'
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Removing space 'parkingArea_gneE1_0_2space0' in GNEChange_Additional
+GLDebug: Removed object parkingSpace:parkingArea_gneE1_0_2space0 from SUMORTree with boundary -3.00,-11.00,37.00,29.00
 GLDebug: Removed object parkingArea:parkingArea_gneE1_0_2 from SUMORTree with boundary -18.00,-13.60,32.00,26.40
 GLDebug: Inserted parkingArea:parkingArea_gneE1_0_2 into SUMORTree with boundary -18.00,-13.60,32.00,26.40
-GLDebug: Removed object parkingSpace:parkingArea_gneE1_0_2space0 from SUMORTree with boundary -3.00,-11.00,37.00,29.00
 Debug: Removing parkingArea 'parkingArea_gneE1_0_2' in GNEChange_Additional
+GLDebug: Removed object parkingArea:parkingArea_gneE1_0_2 from SUMORTree with boundary -18.00,-13.60,32.00,26.40
 GLDebug: Removed object parkingArea:parkingAreaLoaded_B from SUMORTree with boundary 13.00,-13.60,63.00,26.40
 GLDebug: Inserted parkingArea:parkingAreaLoaded_B into SUMORTree with boundary 13.00,-13.60,63.00,26.40
-GLDebug: Removed object parkingArea:parkingArea_gneE1_0_2 from SUMORTree with boundary -18.00,-13.60,32.00,26.40
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Removing space 'parkingAreaLoaded_Bspace0' in GNEChange_Additional
+GLDebug: Removed object parkingSpace:parkingAreaLoaded_Bspace0 from SUMORTree with boundary 8.00,-13.00,48.00,27.00
 GLDebug: Removed object parkingArea:parkingAreaLoaded_B from SUMORTree with boundary 13.00,-13.60,63.00,26.40
 GLDebug: Inserted parkingArea:parkingAreaLoaded_B into SUMORTree with boundary 13.00,-13.60,63.00,26.40
-GLDebug: Removed object parkingSpace:parkingAreaLoaded_Bspace0 from SUMORTree with boundary 8.00,-13.00,48.00,27.00
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Removing space 'parkingAreaLoaded_Aspace0' in GNEChange_Additional
+GLDebug: Removed object parkingSpace:parkingAreaLoaded_Aspace0 from SUMORTree with boundary 8.00,-32.00,48.00,8.00
 GLDebug: Removed object parkingArea:parkingAreaLoaded_A from SUMORTree with boundary 13.00,-26.40,63.00,13.60
 GLDebug: Inserted parkingArea:parkingAreaLoaded_A into SUMORTree with boundary 13.00,-26.40,63.00,13.60
-GLDebug: Removed object parkingSpace:parkingAreaLoaded_Aspace0 from SUMORTree with boundary 8.00,-32.00,48.00,8.00
 Debug: Additionals saved
 GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
 GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00

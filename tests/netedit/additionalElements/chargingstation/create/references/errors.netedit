@@ -43,16 +43,16 @@ GLDebug: Inserted chargingStation:chargingStation_gneE0_0_2 into SUMORTree with 
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Removing chargingStation 'chargingStation_gneE0_0_2' in GNEChange_Additional
+GLDebug: Removed object chargingStation:chargingStation_gneE0_0_2 from SUMORTree with boundary 10.00,-21.60,60.00,18.40
 GLDebug: Removed object chargingStation:chargingStation_gneE0_0_0 from SUMORTree with boundary -4.00,-21.60,46.00,18.40
 GLDebug: Inserted chargingStation:chargingStation_gneE0_0_0 into SUMORTree with boundary -4.00,-21.60,46.00,18.40
 GLDebug: Removed object chargingStation:chargingStation_gneE0_0_1 from SUMORTree with boundary -15.00,-21.60,35.00,18.40
 GLDebug: Inserted chargingStation:chargingStation_gneE0_0_1 into SUMORTree with boundary -15.00,-21.60,35.00,18.40
-GLDebug: Removed object chargingStation:chargingStation_gneE0_0_2 from SUMORTree with boundary 10.00,-21.60,60.00,18.40
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Removing chargingStation 'chargingStation_gneE0_0_1' in GNEChange_Additional
+GLDebug: Removed object chargingStation:chargingStation_gneE0_0_1 from SUMORTree with boundary -15.00,-21.60,35.00,18.40
 GLDebug: Removed object chargingStation:chargingStation_gneE0_0_0 from SUMORTree with boundary -4.00,-21.60,46.00,18.40
 GLDebug: Inserted chargingStation:chargingStation_gneE0_0_0 into SUMORTree with boundary -4.00,-21.60,46.00,18.40
-GLDebug: Removed object chargingStation:chargingStation_gneE0_0_1 from SUMORTree with boundary -15.00,-21.60,35.00,18.40
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Removing chargingStation 'chargingStation_gneE0_0_0' in GNEChange_Additional
 GLDebug: Removed object chargingStation:chargingStation_gneE0_0_0 from SUMORTree with boundary -4.00,-21.60,46.00,18.40

@@ -67,9 +67,9 @@ Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute blockMovement '0' into access 'busStop_gneE0_0_0access0'
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Removing access 'busStop_gneE0_0_0access0' in GNEChange_Additional
+GLDebug: Removed object access:busStop_gneE0_0_0access0 from SUMORTree with boundary -20.00,-18.40,35.00,21.60
 GLDebug: Removed object busStop:busStop_gneE0_0_0 from SUMORTree with boundary 3.00,-23.20,53.00,16.80
 GLDebug: Inserted busStop:busStop_gneE0_0_0 into SUMORTree with boundary 3.00,-23.20,53.00,16.80
-GLDebug: Removed object access:busStop_gneE0_0_0access0 from SUMORTree with boundary -20.00,-18.40,35.00,21.60
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Removing busStop 'busStop_gneE0_0_0' in GNEChange_Additional
 GLDebug: Removed object busStop:busStop_gneE0_0_0 from SUMORTree with boundary 3.00,-23.20,53.00,16.80

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 16.12.2018 11:33:01 by Eclipse SUMO netedit Version v1_0_1+1100-f932f3b896
+<!-- generated on 09.04.2019 14:13:55 by Eclipse SUMO netedit Version v1_1_0+1621-29b0959910
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Dec110150.1300/netedit.gui/netElements/crossings/inspect_sidewalks/linkindex\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.5_from_08Apr094756.2612/netedit.gui/netElements/crossings/inspect_sidewalks/linkindex\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Dec110150.1300/netedit.gui/netElements/crossings/inspect_sidewalks/linkindex\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.5_from_08Apr094756.2612/netedit.gui/netElements/crossings/inspect_sidewalks/linkindex\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,12 +30,14 @@
     </pedestrian>
 
     <netedit>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Dec110150.1300/netedit.gui/netElements/crossings/inspect_sidewalks/linkindex\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Dec110150.1300/netedit.gui/netElements/crossings/inspect_sidewalks/linkindex\shapes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.5_from_08Apr094756.2612/netedit.gui/netElements/crossings/inspect_sidewalks/linkindex\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.5_from_08Apr094756.2612/netedit.gui/netElements/crossings/inspect_sidewalks/linkindex\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.5_from_08Apr094756.2612/netedit.gui/netElements/crossings/inspect_sidewalks/linkindex\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.5_from_08Apr094756.2612/netedit.gui/netElements/crossings/inspect_sidewalks/linkindex\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Dec110150.1300/netedit.gui/netElements/crossings/inspect_sidewalks/linkindex\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.5_from_08Apr094756.2612/netedit.gui/netElements/crossings/inspect_sidewalks/linkindex\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -44,7 +46,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Dec110150.1300/netedit.gui/netElements/crossings/inspect_sidewalks/linkindex\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.5_from_08Apr094756.2612/netedit.gui/netElements/crossings/inspect_sidewalks/linkindex\log.txt"/>
     </report>
 
 </configuration>

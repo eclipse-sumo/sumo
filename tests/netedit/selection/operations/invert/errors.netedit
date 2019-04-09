@@ -333,8 +333,8 @@ Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edg
 Debug: invalidating (removing) connections of edge '7' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Debug: Removing edge '7' from net
-Debug: Removing detExit 'e3Detector_0detExit1' in GNEChange_Additional
 Debug: Removing poiLane 'POI_5' from viewNet
+Debug: Removing detExit 'e3Detector_0detExit1' in GNEChange_Additional
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
 Debug: invalidating (removing) connections of edge '8' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
@@ -393,8 +393,8 @@ Debug: invalidating (removing) connections of edge '3' due it were guessed
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '8'
 Debug: invalidating (removing) connections of edge '8' due it were guessed
-Debug: Adding poiLane 'POI_5' into viewNet
 Debug: Adding detExit 'e3Detector_0detExit1' in GNEChange_Additional
+Debug: Adding poiLane 'POI_5' into viewNet
 Debug: Adding edge '7' from net
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '7'
@@ -845,8 +845,8 @@ Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edg
 Debug: invalidating (removing) connections of edge '7' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Debug: Removing edge '7' from net
-Debug: Removing detExit 'e3Detector_0detExit1' in GNEChange_Additional
 Debug: Removing poiLane 'POI_5' from viewNet
+Debug: Removing detExit 'e3Detector_0detExit1' in GNEChange_Additional
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
 Debug: invalidating (removing) connections of edge '8' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'

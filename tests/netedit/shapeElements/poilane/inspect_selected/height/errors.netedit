@@ -9,10 +9,10 @@ GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31
 Debug: Selected item 'DEFAULT_VEHTYPE' in VTypeSelector
 Debug: Adding poiLane 'POI_1' into viewNet
 GLDebug: Inserted poi:POI_1 into SUMORTree with boundary -3.00,-3.00,3.00,3.00
-GLDebug: Removed object poi:POI_1 from SUMORTree with boundary -3.00,-3.00,3.00,3.00
-GLDebug: Inserted poi:POI_1 into SUMORTree with boundary 9.00,-1.40,15.00,4.60
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+GLDebug: Removed object poi:POI_1 from SUMORTree with boundary -3.00,-3.00,3.00,3.00
+GLDebug: Inserted poi:POI_1 into SUMORTree with boundary 9.00,-1.40,15.00,4.60
 Debug: Adding poiLane 'POI_2' into viewNet
 GLDebug: Inserted poi:POI_2 into SUMORTree with boundary -3.00,-3.00,3.00,3.00
 GLDebug: Removed object poi:POI_2 from SUMORTree with boundary -3.00,-3.00,3.00,3.00

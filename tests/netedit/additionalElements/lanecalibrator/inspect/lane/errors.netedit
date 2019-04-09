@@ -33,19 +33,15 @@ Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1
 Debug: Value 'dummylane' for attribute lane of laneCalibrator isn't valid
 Debug: Setting new attribute lane 'gneE3_0' into laneCalibrator 'laneCalibrator_gneE2_1_0'
 GLDebug: Removed object calibrator:laneCalibrator_gneE2_1_0 from SUMORTree with boundary -3.00,-1.60,37.00,38.40
-GLDebug: Inserted calibrator:laneCalibrator_gneE2_1_0 into SUMORTree with boundary -3.00,-1.60,37.00,38.40
-GLDebug: Removed object calibrator:laneCalibrator_gneE2_1_0 from SUMORTree with boundary -3.00,-1.60,37.00,38.40
-GLDebug: Inserted calibrator:laneCalibrator_gneE2_1_0 into SUMORTree with boundary -3.00,-1.60,37.00,38.40
-GLDebug: Removed object calibrator:laneCalibrator_gneE2_1_0 from SUMORTree with boundary -3.00,-1.60,37.00,38.40
+GLDebug: Inserted calibrator:laneCalibrator_gneE2_1_0 into SUMORTree with boundary 13.00,4.80,53.00,44.80
+GLDebug: Removed object calibrator:laneCalibrator_gneE2_1_0 from SUMORTree with boundary 13.00,4.80,53.00,44.80
 GLDebug: Inserted calibrator:laneCalibrator_gneE2_1_0 into SUMORTree with boundary 13.00,4.80,53.00,44.80
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute lane 'gneE2_1' into laneCalibrator 'laneCalibrator_gneE2_1_0'
 GLDebug: Removed object calibrator:laneCalibrator_gneE2_1_0 from SUMORTree with boundary 13.00,4.80,53.00,44.80
-GLDebug: Inserted calibrator:laneCalibrator_gneE2_1_0 into SUMORTree with boundary 13.00,4.80,53.00,44.80
-GLDebug: Removed object calibrator:laneCalibrator_gneE2_1_0 from SUMORTree with boundary 13.00,4.80,53.00,44.80
-GLDebug: Inserted calibrator:laneCalibrator_gneE2_1_0 into SUMORTree with boundary 13.00,4.80,53.00,44.80
-GLDebug: Removed object calibrator:laneCalibrator_gneE2_1_0 from SUMORTree with boundary 13.00,4.80,53.00,44.80
+GLDebug: Inserted calibrator:laneCalibrator_gneE2_1_0 into SUMORTree with boundary -3.00,-1.60,37.00,38.40
+GLDebug: Removed object calibrator:laneCalibrator_gneE2_1_0 from SUMORTree with boundary -3.00,-1.60,37.00,38.40
 GLDebug: Inserted calibrator:laneCalibrator_gneE2_1_0 into SUMORTree with boundary -3.00,-1.60,37.00,38.40
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Removing laneCalibrator 'laneCalibrator_gneE2_1_0' in GNEChange_Additional
@@ -62,10 +58,8 @@ GLDebug: Inserted calibrator:laneCalibrator_gneE2_1_0 into SUMORTree with bounda
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute lane 'gneE3_0' into laneCalibrator 'laneCalibrator_gneE2_1_0'
 GLDebug: Removed object calibrator:laneCalibrator_gneE2_1_0 from SUMORTree with boundary -3.00,-1.60,37.00,38.40
-GLDebug: Inserted calibrator:laneCalibrator_gneE2_1_0 into SUMORTree with boundary -3.00,-1.60,37.00,38.40
-GLDebug: Removed object calibrator:laneCalibrator_gneE2_1_0 from SUMORTree with boundary -3.00,-1.60,37.00,38.40
-GLDebug: Inserted calibrator:laneCalibrator_gneE2_1_0 into SUMORTree with boundary -3.00,-1.60,37.00,38.40
-GLDebug: Removed object calibrator:laneCalibrator_gneE2_1_0 from SUMORTree with boundary -3.00,-1.60,37.00,38.40
+GLDebug: Inserted calibrator:laneCalibrator_gneE2_1_0 into SUMORTree with boundary 13.00,4.80,53.00,44.80
+GLDebug: Removed object calibrator:laneCalibrator_gneE2_1_0 from SUMORTree with boundary 13.00,4.80,53.00,44.80
 GLDebug: Inserted calibrator:laneCalibrator_gneE2_1_0 into SUMORTree with boundary 13.00,4.80,53.00,44.80
 Debug: Additionals saved
 GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00

@@ -106,21 +106,21 @@ Debug: Setting previous attribute selected '0' into edge 'gneE1'
 Debug: Setting previous attribute selected '0' into junction 'gneJ0'
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Removing access 'busStopBaccess0' in GNEChange_Additional
-GLDebug: Removed object busStop:busStopB from SUMORTree with boundary 3.00,-23.20,53.00,16.80
-GLDebug: Inserted busStop:busStopB into SUMORTree with boundary 3.00,-23.20,53.00,16.80
-GLDebug: Removed object busStop:busStopB from SUMORTree with boundary 3.00,-23.20,53.00,16.80
-GLDebug: Inserted busStop:busStopB into SUMORTree with boundary 3.00,-23.20,53.00,16.80
 Debug: Removed inspected element from Inspected ACs. 1 ACs remains.
 GLDebug: Removed object access:busStopBaccess0 from SUMORTree with boundary 0.00,-21.60,70.00,18.40
+GLDebug: Removed object busStop:busStopB from SUMORTree with boundary 3.00,-23.20,53.00,16.80
+GLDebug: Inserted busStop:busStopB into SUMORTree with boundary 3.00,-23.20,53.00,16.80
+GLDebug: Removed object busStop:busStopB from SUMORTree with boundary 3.00,-23.20,53.00,16.80
+GLDebug: Inserted busStop:busStopB into SUMORTree with boundary 3.00,-23.20,53.00,16.80
 Debug: Removing busStop 'busStopB' in GNEChange_Additional
 GLDebug: Removed object busStop:busStopB from SUMORTree with boundary 3.00,-23.20,53.00,16.80
 Debug: Removing access 'busStopAaccess0' in GNEChange_Additional
-GLDebug: Removed object busStop:busStopA from SUMORTree with boundary -3.00,-16.80,47.00,23.20
-GLDebug: Inserted busStop:busStopA into SUMORTree with boundary -3.00,-16.80,47.00,23.20
-GLDebug: Removed object busStop:busStopA from SUMORTree with boundary -3.00,-16.80,47.00,23.20
-GLDebug: Inserted busStop:busStopA into SUMORTree with boundary -3.00,-16.80,47.00,23.20
 Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
 GLDebug: Removed object access:busStopAaccess0 from SUMORTree with boundary -20.00,-18.40,60.00,21.60
+GLDebug: Removed object busStop:busStopA from SUMORTree with boundary -3.00,-16.80,47.00,23.20
+GLDebug: Inserted busStop:busStopA into SUMORTree with boundary -3.00,-16.80,47.00,23.20
+GLDebug: Removed object busStop:busStopA from SUMORTree with boundary -3.00,-16.80,47.00,23.20
+GLDebug: Inserted busStop:busStopA into SUMORTree with boundary -3.00,-16.80,47.00,23.20
 Debug: Removing busStop 'busStopA' in GNEChange_Additional
 GLDebug: Removed object busStop:busStopA from SUMORTree with boundary -3.00,-16.80,47.00,23.20
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0

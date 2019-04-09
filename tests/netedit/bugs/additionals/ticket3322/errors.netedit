@@ -36,14 +36,11 @@ Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edg
 Debug: invalidating (removing) connections of edge 'gneE0' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
 Debug: Removing edge 'gneE0' from net
-Debug: Removing rerouter 'rerouter_0' in GNEChange_Additional
 Debug: Removing calibrator 'calibrator_gneE1_2' in GNEChange_Additional
 Debug: Removing routeProbe 'routeProbe_gneE1_0' in GNEChange_Additional
 Debug: Removing vaporizer 'gneE1' in GNEChange_Additional
-Debug: Setting new attribute lanes 'gneE1_1' into variableSpeedSign 'variableSpeedSign_0'
 Debug: Removing busStop 'busStop_gneE1_0_0' in GNEChange_Additional
 Debug: Removing laneCalibrator 'calibrator_gneE1_0_0' in GNEChange_Additional
-Debug: Removing variableSpeedSign 'variableSpeedSign_0' in GNEChange_Additional
 Debug: Removing laneCalibrator 'calibrator_gneE1_1_1' in GNEChange_Additional
 Debug: Removing containerStop 'containerStop_gneE1_1_0' in GNEChange_Additional
 Debug: Removing chargingStation 'chargingStation_gneE1_2_0' in GNEChange_Additional
@@ -64,14 +61,11 @@ Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' int
 Debug: Adding chargingStation 'chargingStation_gneE1_2_0' in GNEChange_Additional
 Debug: Adding containerStop 'containerStop_gneE1_1_0' in GNEChange_Additional
 Debug: Adding laneCalibrator 'calibrator_gneE1_1_1' in GNEChange_Additional
-Debug: Adding variableSpeedSign 'variableSpeedSign_0' in GNEChange_Additional
 Debug: Adding laneCalibrator 'calibrator_gneE1_0_0' in GNEChange_Additional
 Debug: Adding busStop 'busStop_gneE1_0_0' in GNEChange_Additional
-Debug: Setting previous attribute lanes 'gneE1_0 gneE1_1' into variableSpeedSign 'variableSpeedSign_0'
 Debug: Adding vaporizer 'gneE1' in GNEChange_Additional
 Debug: Adding routeProbe 'routeProbe_gneE1_0' in GNEChange_Additional
 Debug: Adding calibrator 'calibrator_gneE1_2' in GNEChange_Additional
-Debug: Adding rerouter 'rerouter_0' in GNEChange_Additional
 Debug: Adding edge 'gneE0' from net
 Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'gneJ1'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE0'

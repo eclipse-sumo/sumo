@@ -62,10 +62,10 @@ GLDebug: Removed object parkingSpace:parkingArea_gneE2_1_0space0 from SUMORTree 
 GLDebug: Inserted parkingSpace:parkingArea_gneE2_1_0space0 into SUMORTree with boundary -3.00,-16.00,37.00,24.00
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Removing space 'parkingArea_gneE2_1_0space0' in GNEChange_Additional
-GLDebug: Removed object parkingArea:parkingArea_gneE2_1_0 from SUMORTree with boundary -3.00,-6.40,47.00,33.60
-GLDebug: Inserted parkingArea:parkingArea_gneE2_1_0 into SUMORTree with boundary -3.00,-6.40,47.00,33.60
 Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
 GLDebug: Removed object parkingSpace:parkingArea_gneE2_1_0space0 from SUMORTree with boundary -3.00,-16.00,37.00,24.00
+GLDebug: Removed object parkingArea:parkingArea_gneE2_1_0 from SUMORTree with boundary -3.00,-6.40,47.00,33.60
+GLDebug: Inserted parkingArea:parkingArea_gneE2_1_0 into SUMORTree with boundary -3.00,-6.40,47.00,33.60
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Removing parkingArea 'parkingArea_gneE2_1_0' in GNEChange_Additional
 GLDebug: Removed object parkingArea:parkingArea_gneE2_1_0 from SUMORTree with boundary -3.00,-6.40,47.00,33.60

@@ -10,10 +10,10 @@ Debug: Selected item 'DEFAULT_VEHTYPE' in VTypeSelector
 Debug: Format of optional optional angle[0, 360] attribute 'angle' of poi with ID 'POI_0' is invalid; Cannot be parsed to float; Default value will be used.
 Debug: Adding poiLane 'POI_0' into viewNet
 GLDebug: Inserted poi:POI_0 into SUMORTree with boundary -2.50,-2.50,2.50,2.50
-GLDebug: Removed object poi:POI_0 from SUMORTree with boundary -2.50,-2.50,2.50,2.50
-GLDebug: Inserted poi:POI_0 into SUMORTree with boundary 27.50,-0.90,32.50,4.10
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+GLDebug: Removed object poi:POI_0 from SUMORTree with boundary -2.50,-2.50,2.50,2.50
+GLDebug: Inserted poi:POI_0 into SUMORTree with boundary 27.50,-0.90,32.50,4.10
 Debug: Adding poiLane 'POI_1' into viewNet
 GLDebug: Inserted poi:POI_1 into SUMORTree with boundary -2.50,-2.50,2.50,2.50
 GLDebug: Removed object poi:POI_1 from SUMORTree with boundary -2.50,-2.50,2.50,2.50
