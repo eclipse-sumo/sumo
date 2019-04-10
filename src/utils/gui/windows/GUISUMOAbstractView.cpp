@@ -1489,8 +1489,8 @@ GUISUMOAbstractView::applyGLTransform(bool fixRatio) {
         rotBound.add(Position(bound.xmax(), bound.ymin()).rotateAround2D(rad, bound.getCenter()));
         rotBound.add(Position(bound.xmax(), bound.ymax()).rotateAround2D(rad, bound.getCenter()));
         bound = rotBound;
-        myVisualizationSettings->angle = myChanger->getRotation();
     }
+    myVisualizationSettings->angle = myChanger->getRotation();
     return bound;
 }
 
