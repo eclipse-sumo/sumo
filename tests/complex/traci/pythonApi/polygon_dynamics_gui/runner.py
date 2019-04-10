@@ -273,7 +273,7 @@ print("polygon count", traci.polygon.getIDCount())
 print("vehicles", traci.vehicle.getIDList())
 print("vehicle count", traci.vehicle.getIDCount())
 
-print("# (12) Adding and highlighting POIs (twice for the same)")
+print("# (12) Adding and highlighting POIs (two highlights for the same must specify highlight type)")
 
 print("pois", traci.poi.getIDList())
 print("poi count", traci.poi.getIDCount())

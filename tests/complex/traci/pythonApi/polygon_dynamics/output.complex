@@ -231,7 +231,7 @@ polygons ()
 polygon count 0
 vehicles ('horiz',)
 vehicle count 1
-# (12) Adding and highlighting POIs (twice for the same)
+# (12) Adding and highlighting POIs (two highlights for the same must specify highlight type)
 pois ('poi1', 'poi2')
 poi count 2
 polygons ()

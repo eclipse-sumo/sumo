@@ -273,7 +273,7 @@ print("polygon count", traci.polygon.getIDCount())
 print("vehicles", traci.vehicle.getIDList())
 print("vehicle count", traci.vehicle.getIDCount())
 
-print("# (12) Adding and highlighting POIs (twice for the same)")
+print("# (12) Adding and highlighting POIs (two highlights for the same must specify highlight type)")
 
 print("pois", traci.poi.getIDList())
 print("poi count", traci.poi.getIDCount())
@@ -292,7 +292,7 @@ traci.poi.add(poiID, 370, 510, (255, 255, 255, 255), "test", 0, "img.jpeg")
 traci.poi.highlight(poiID, (0,0,255), -1, 200, 4)
 
 poiID = "myPOI0"
-traci.poi.highlight(poiID, (55,55,100), 20, 200, 4)
+traci.poi.highlight(poiID, (55,55,100), 20, 200, 4, 1)
 
 print("pois", traci.poi.getIDList())
 print("poi count", traci.poi.getIDCount())
