@@ -34,6 +34,7 @@
 #include <microsim/MSEdge.h>
 #include <microsim/MSJunction.h>
 #include <utils/geom/Position.h>
+#include <utils/geom/GeomHelper.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSInternalJunction.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
@@ -176,8 +177,8 @@ GUIJunctionWrapper::drawGL(const GUIVisualizationSettings& s) const {
             const std::string& name = active->getCurrentPhaseDef().getName();
             GLHelper::drawTextSettings(s.tlsPhaseIndex, toString(index), myJunction.getPosition(), s.scale, s.angle);
             if (name != "") {
-                const Position lower = myJunction.getPosition() - Position(0, 0.8 * s.tlsPhaseIndex.scaledSize(s.scale));
-                GLHelper::drawTextSettings(s.tlsPhaseIndex, name, lower, s.scale, s.angle);
+                const Position offset = Position(0, 0.8 * s.tlsPhaseIndex.scaledSize(s.scale)).rotateAround2D(DEG2RAD(-s.angle), Position(0,0));
+                GLHelper::drawTextSettings(s.tlsPhaseIndex, name, myJunction.getPosition() - offset, s.scale, s.angle);
             }
         }
     }
