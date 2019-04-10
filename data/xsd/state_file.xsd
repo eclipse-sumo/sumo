@@ -19,7 +19,7 @@
                 <xsd:element name="vehicleTransfer" type="vehicleTransferType" minOccurs="0"/>
             </xsd:choice>
             <xsd:attribute name="version" type="xsd:string"/>
-            <xsd:attribute name="time" type="nonNegativeFloatType"/>
+            <xsd:attribute name="time" type="timeType"/>
         </xsd:complexType>
     </xsd:element>
 
