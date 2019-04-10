@@ -1701,7 +1701,7 @@ Vehicle::setParameter(const std::string& vehicleID, const std::string& key, cons
 
 
 void
-Vehicle::highlight(const std::string& vehicleID, const TraCIColor& col, double size, const int alphaMax, const double duration) {
+Vehicle::highlight(const std::string& vehicleID, const TraCIColor& col, double size, const int alphaMax, const double duration, const int type) {
     // NOTE: Code is duplicated in large parts in POI.cpp
     MSVehicle * veh = getVehicle(vehicleID);
 
@@ -1734,10 +1734,11 @@ Vehicle::highlight(const std::string& vehicleID, const TraCIColor& col, double s
     // Layer
     int lyr = 0;
     if (MSNet::getInstance()->isGUINet()) {
-        lyr = GLO_VEHICLE + 0.5;
+        lyr = GLO_VEHICLE + 0.01;
+        lyr += ((double) type + 1)/257.;
     }
     // Make Polygon
-    Polygon::add(polyID, circle, col, true, lw, "highlight", lyr);
+    Polygon::addHighlightPolygon(vehicleID, type, polyID, circle, col, true, lw, "highlight", lyr);
 
     // Animation time line
     double maxAttack = 1.0; // maximal fade-in time

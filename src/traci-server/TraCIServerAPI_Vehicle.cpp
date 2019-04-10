@@ -1010,8 +1010,8 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "A compound object is needed for highlighting an object.", outputStorage);
                 }
                 int itemNo = inputStorage.readUnsignedByte();
-                if (itemNo > 4) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Highlighting an object needs zero to four parameters.", outputStorage);
+                if (itemNo > 5) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Highlighting an object needs zero to five parameters.", outputStorage);
                 }
                 libsumo::TraCIColor col = libsumo::TraCIColor(255,0,0);
                 if (itemNo > 0) {
@@ -1037,7 +1037,13 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                         return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The fourth parameter for highlighting must be the highlight duration.", outputStorage);
                     }
                 }
-                libsumo::Vehicle::highlight(id, col, size, alphaMax, duration);
+                int type = 0;
+                if (itemNo > 4) {
+                    if (!server.readTypeCheckingUnsignedByte(inputStorage, type)) {
+                        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The fifth parameter for highlighting must be the highlight type id as ubyte.", outputStorage);
+                    }
+                }
+                libsumo::Vehicle::highlight(id, col, size, alphaMax, duration, type);
             }
             break;
             case libsumo::VAR_ACTIONSTEPLENGTH: {

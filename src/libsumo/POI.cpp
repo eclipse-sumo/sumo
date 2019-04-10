@@ -173,7 +173,7 @@ POI::remove(const std::string& poiID, int /* layer */) {
 
 
 void
-POI::highlight(const std::string& poiID, const TraCIColor& col, double size, const int alphaMax, const double duration) {
+POI::highlight(const std::string& poiID, const TraCIColor& col, double size, const int alphaMax, const double duration, const int type) {
     // NOTE: Code is duplicated in large parts in Vehicle.cpp
     PointOfInterest* poi = getPoI(poiID);
 
@@ -205,9 +205,10 @@ POI::highlight(const std::string& poiID, const TraCIColor& col, double size, con
     int lyr = 0;
     if (MSNet::getInstance()->isGUINet()) {
         lyr = poi->getShapeLayer();
+        lyr += ((double) type + 1)/257.;
     }
     // Make Polygon
-    Polygon::add(polyID, circle, col, true, lw, "highlight", lyr);
+    Polygon::addHighlightPolygon(poiID, type, polyID, circle, col, true, lw, "highlight", lyr);
 
     // Animation time line
     double maxAttack = 1.0; // maximal fade-in time

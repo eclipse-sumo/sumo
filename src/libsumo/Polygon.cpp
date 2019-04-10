@@ -128,6 +128,11 @@ Polygon::add(const std::string& polygonID, const TraCIPositionVector& shape, con
     }
 }
 
+void
+Polygon::addHighlightPolygon(const std::string& objectID, const int type, const std::string& polygonID, const TraCIPositionVector& shape, const TraCIColor& color, bool fill, double lineWidth, const std::string& polygonType, int layer) {
+    MSNet::getInstance()->getShapeContainer().registerHighlight(objectID, type, polygonID);
+    add(polygonID, shape, color, fill, lineWidth, polygonType, layer);
+}
 
 void
 Polygon::addDynamics(const std::string& polygonID, const std::string& trackedID, const std::vector<double>& timeSpan, const std::vector<double>& alphaSpan, bool looped, bool rotate) {

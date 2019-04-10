@@ -169,6 +169,9 @@ public:
     /// @brief Remove all tracking polygons for the given object
     virtual void removeTrackers(std::string objectID);
 
+    /// @brief register highlight of the specified type if the given id
+    virtual void registerHighlight(const std::string& objectID, const int type, const std::string& polygonID);
+
 protected:
     /// @brief add polygon
     virtual bool add(SUMOPolygon* poly, bool ignorePruning = false);
@@ -181,12 +184,28 @@ protected:
     */
     virtual void cleanupPolygonDynamics(const std::string& id);
 
+    /// @name Management of highlights. For each type, only one highlight can be active,
+    /// @see myHighlightPolygons, myHighlightedObjects
+    /// @{
+    /// @brief Remove any previously added highlight polygon of the specified type
+    /// @param[out] toRemove will hold the id of any polygon that was highlighting the given object
+    virtual void clearHighlight(const std::string& objectID, const int type, std::string& toRemove);
+    /// @brief Clears all highlight information from the maps when the object leaves the net
+    ///        (Highlight polygons and dynamics are removed via removeTrackers())
+    virtual void clearHighlights(const std::string& objectID);
+    /// @}
+
 protected:
     /// @brief stored Polygons
     Polygons myPolygons;
 
     /// @brief stored PolygonDynamics
     std::map<std::string, PolygonDynamics*> myPolygonDynamics;
+
+    /// @brief maps objects to a map of highlight types to highlighting polygons
+    std::map<std::string, std::map<int, std::string> > myHighlightPolygons;
+    /// @brief inverse map to myHighlightPolygons saves the highlighted object for each polygon
+    std::map<std::string, std::string> myHighlightedObjects;
 
     /// @brief Information about tracked objects
     /// @note  Maps tracked object IDs to set of polygons, which are tracking the object.

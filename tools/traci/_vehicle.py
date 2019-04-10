@@ -1438,7 +1438,7 @@ class VehicleDomain(Domain):
         self._connection._sendDoubleCmd(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_ACTIONSTEPLENGTH, vehID, actionStepLength)
 
-    def highlight(self, vehID, color=(255,0,0,255), size=-1, alphaMax=-1, duration=-1):
+    def highlight(self, vehID, color=(255,0,0,255), size=-1, alphaMax=-1, duration=-1, type=0):
         """ highlight(string, color, float, ubyte) -> void
             Adds a circle of the given color tracking the vehicle.
             If a positive size [in m] is given the size of the highlight is chosen accordingly,
@@ -1446,6 +1446,8 @@ class VehicleDomain(Domain):
             If alphaMax and duration are positive, the circle fades in and out within the given duration,
             otherwise it permanently follows the vehicle.
         """
+        if (type > 255) :
+            raise traci.TraCIException("poi.highlight(): maximal value for type is 255")
         if (alphaMax > 255) :
             raise traci.TraCIException("vehicle.highlight(): maximal value for alphaMax is 255")
         if (alphaMax <= 0 and duration > 0):
@@ -1453,7 +1455,9 @@ class VehicleDomain(Domain):
         if (alphaMax > 0 and duration <= 0):
             raise traci.TraCIException("vehicle.highlight(): alphaMax>0 requires duration>0")
                    
-        if (alphaMax > 0):
+        if (type > 0):
+            compoundLength = 5;
+        elif (alphaMax > 0):
             compoundLength = 4;
         elif (size > 0):
             compoundLength = 2;
@@ -1468,7 +1472,9 @@ class VehicleDomain(Domain):
         if compoundLength >= 2:
             msg_length += 1 + 8
         if compoundLength >= 3:
-            msg_length += 1 + 8 + 1 +1
+            msg_length += 1 + 8 + 1 + 1
+        if compoundLength >= 5:
+            msg_length += 1 + 1
         if not color:
             # Send red as highlight standard
             color = (255,0,0,255)
@@ -1483,6 +1489,8 @@ class VehicleDomain(Domain):
         if (compoundLength >= 3):
             self._connection._string += struct.pack("!BB", tc.TYPE_UBYTE, alphaMax)
             self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, duration)
+        if (compoundLength >= 5):
+            self._connection._string += struct.pack("!BB", tc.TYPE_UBYTE, type)
         self._connection._sendExact()
 
     def setImperfection(self, vehID, imperfection):

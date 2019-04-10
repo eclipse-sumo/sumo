@@ -128,6 +128,8 @@ ShapeContainer::removePolygonDynamics(const std::string& polyID) {
             assert (i != myTrackingPolygons.end());
             assert (i->second.find(p) != i->second.end());
             i->second.erase(p);
+            // Remove highlighting information
+            clearHighlights(trackedObjID);
         }
         delete d->second;
         myPolygonDynamics.erase(d);
@@ -150,7 +152,6 @@ ShapeContainer::addPOI(const std::string& id, const std::string& type, const RGB
 
 bool
 ShapeContainer::removePolygon(const std::string& id, bool /* useLock */) {
-
 #ifdef DEBUG_DYNAMIC_SHAPES
     std::cout << "ShapeContainer: Removing Polygon '" << id << "'" << std::endl;
 #endif
@@ -225,6 +226,45 @@ ShapeContainer::polygonDynamicsUpdate(SUMOTime t, PolygonDynamics* pd) {
     return next;
 }
 
+void
+ShapeContainer::registerHighlight(const std::string& objectID, const int type, const std::string& polygonID) {
+    std::string toRemove="";
+    clearHighlight(objectID, type, toRemove);
+    if (toRemove != "") {
+        removePolygon(toRemove);
+    }
+    auto i = myHighlightPolygons.find(objectID);
+    if (i == myHighlightPolygons.end()) {
+        myHighlightPolygons.insert(std::make_pair(objectID, std::map<int,std::string>({std::make_pair(type, polygonID)})));
+    } else {
+        i->second.insert(std::make_pair(type, polygonID));
+    }
+    myHighlightedObjects.insert(std::make_pair(polygonID, objectID));
+}
+
+void
+ShapeContainer::clearHighlight(const std::string& objectID, const int type, std::string& toRemove) {
+    auto i = myHighlightPolygons.find(objectID);
+    if (i != myHighlightPolygons.end()) {
+        auto j = i->second.find(type);
+        if (j != i->second.end()) {
+            toRemove = j->second;
+            myHighlightedObjects.erase(toRemove);
+            i->second.erase(j);
+            if (i->second.empty()) {
+                myHighlightPolygons.erase(i);
+            }
+        }
+    }
+}
+
+void
+ShapeContainer::clearHighlights(const std::string& objectID) {
+    auto i = myHighlightPolygons.find(objectID);
+    if (i != myHighlightPolygons.end()) {
+        myHighlightPolygons.erase(i);
+    }
+}
 
 void
 ShapeContainer::addPolygonUpdateCommand(std::string polyID, ParametrisedWrappingCommand<ShapeContainer, PolygonDynamics*>* cmd){
