@@ -272,4 +272,27 @@ print("polygon count", traci.polygon.getIDCount())
 print("vehicles", traci.vehicle.getIDList())
 print("vehicle count", traci.vehicle.getIDCount())
 
+print("# (12) Adding and highlighting POI")
+poiID = "myPOI"
+print("adding", poiID)
+traci.poi.add(poiID, 350, 510, (255, 255, 255, 255), "test", 0, "img.jpeg")
+
+print("pois", traci.poi.getIDList())
+print("poi count", traci.poi.getIDCount())
+
+traci.poi.highlight(poiID, (0,0,255), 200, 4)
+
+print("polygons", traci.polygon.getIDList())
+print("polygon count", traci.polygon.getIDCount())
+
+for step in range(125, 130):
+    print("step", step)
+    traci.simulationStep()
+
+print("pois", traci.poi.getIDList())
+print("poi count", traci.poi.getIDCount())
+
+print("polygons", traci.polygon.getIDList())
+print("polygon count", traci.polygon.getIDCount())
+
 traci.close()

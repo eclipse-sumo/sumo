@@ -226,3 +226,18 @@ polygons ()
 polygon count 0
 vehicles ('horiz',)
 vehicle count 1
+# (12) Adding and highlighting POI
+adding myPOI
+pois ('myPOI', 'poi1', 'poi2')
+poi count 3
+polygons ('myPOI_poly0',)
+polygon count 1
+step 125
+step 126
+step 127
+step 128
+step 129
+pois ('myPOI', 'poi1', 'poi2')
+poi count 3
+polygons ()
+polygon count 0

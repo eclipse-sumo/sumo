@@ -41,6 +41,7 @@ copy_test_path:simpla.cfg.xml
 copy_test_path:vtype.map
 copy_test_path:vtype2.map
 copy_test_path:vtype3.map
+copy_test_path:img.jpeg
 test_data_ignore:.svn
 
 [collate_file]
