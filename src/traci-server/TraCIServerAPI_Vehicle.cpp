@@ -1009,7 +1009,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "A compound object is needed for highlighting an object.", outputStorage);
                 }
-                int itemNo = inputStorage.readInt();
+                int itemNo = inputStorage.readUnsignedByte();
                 if (itemNo > 3) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Highlighting an object needs zero to four parameters.", outputStorage);
                 }

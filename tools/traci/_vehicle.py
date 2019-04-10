@@ -1444,7 +1444,7 @@ class VehicleDomain(Domain):
             If alphaMax and duration are positive, the circle fades in and out within the given duration,
             otherwise it permanently follows the vehicle.
         """
-        msg_length = 1 + 4
+        msg_length = 1 + 1
         if color:
             length = 1
             msg_length += 1 + 4
@@ -1463,7 +1463,7 @@ class VehicleDomain(Domain):
             msg_length += 1 + 8 \
                    + 1 + 8
         self._connection._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_HIGHLIGHT, vehID, msg_length)
-        self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, length)
+        self._connection._string += struct.pack("!BB", tc.TYPE_COMPOUND, length)
         if (length >= 1):
             self._connection._string += struct.pack("!BBBBB", tc.TYPE_COLOR, int(color[0]), int(color[1]), int(color[2]),
                                                 int(color[3]) if len(color) > 3 else 255)
