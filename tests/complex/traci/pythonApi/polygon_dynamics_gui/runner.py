@@ -247,7 +247,7 @@ traci.polygon.addDynamics(polygonID, vehID, [0,2,4], [50,200,50], True)
 
 print("# (10) Highlight vehicle 'horiz' for limited duration")
 vehID = "horiz"
-traci.vehicle.highlight(vehID, (0,255,0), 200, 4)
+traci.vehicle.highlight(vehID, (0,255,0), -1, 200, 4)
 
 print("polygons", traci.polygon.getIDList())
 print("polygon count", traci.polygon.getIDCount())
@@ -273,7 +273,7 @@ print("polygon count", traci.polygon.getIDCount())
 print("vehicles", traci.vehicle.getIDList())
 print("vehicle count", traci.vehicle.getIDCount())
 
-print("# (12) Adding and highlighting POIs")
+print("# (12) Adding and highlighting POIs (twice for the same)")
 
 print("pois", traci.poi.getIDList())
 print("poi count", traci.poi.getIDCount())
@@ -284,15 +284,15 @@ print("polygon count", traci.polygon.getIDCount())
 poiID = "myPOI0"
 print("adding", poiID)
 traci.poi.add(poiID, 350, 510, (255, 255, 255, 255), "test", 0, "img.jpeg")
-traci.poi.highlight(poiID, (0,0,255), 200, 4)
+traci.poi.highlight(poiID, (0,0,255), -1, 200, 4)
 
 poiID = "myPOI1"
 print("adding", poiID)
 traci.poi.add(poiID, 370, 510, (255, 255, 255, 255), "test", 0, "img.jpeg")
-traci.poi.highlight(poiID, (0,0,255), 200, 4)
+traci.poi.highlight(poiID, (0,0,255), -1, 200, 4)
 
 poiID = "myPOI0"
-traci.poi.highlight(poiID, (55,55,100), 200, 4)
+traci.poi.highlight(poiID, (55,55,100), 20, 200, 4)
 
 print("pois", traci.poi.getIDList())
 print("poi count", traci.poi.getIDCount())
@@ -300,6 +300,9 @@ print("poi count", traci.poi.getIDCount())
 print("polygons", traci.polygon.getIDList())
 print("polygon count", traci.polygon.getIDCount())
 
+for pID in traci.polygon.getIDList():
+    examine(pID)
+    
 for step in range(125, 130):
     print("step", step)
     traci.simulationStep()
@@ -310,4 +313,7 @@ print("poi count", traci.poi.getIDCount())
 print("polygons", traci.polygon.getIDList())
 print("polygon count", traci.polygon.getIDCount())
 
+for pID in traci.polygon.getIDList():
+    examine(pID)
+    
 traci.close()
