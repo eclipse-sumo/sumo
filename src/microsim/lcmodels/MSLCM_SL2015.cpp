@@ -90,6 +90,7 @@
 //#define DEBUG_STATE
 //#define DEBUG_SURROUNDING
 //#define DEBUG_MANEUVER
+//#define DEBUG_COMMITTED_SPEED
 //#define DEBUG_PATCHSPEED
 //#define DEBUG_INFORM
 //#define DEBUG_ROUNDABOUTS
@@ -2489,6 +2490,7 @@ MSLCM_SL2015::checkStrategicChange(int ret,
                   << " best.length=" << best.length
                   << " maxJam=" << maxJam
                   << " neighLeftPlace=" << neighLeftPlace
+                  << " myLeftSpace=" << myLeftSpace
                   << "\n";
     }
 #endif
@@ -2587,6 +2589,11 @@ MSLCM_SL2015::checkStrategicChange(int ret,
                 break;
             }
             currentShadowDist += shadow->getLength();
+#ifdef DEBUG_STRATEGIC_CHANGE
+            if (gDebugFlag2) {
+                std::cout << "    shadow=" << shadow->getID() << " currentShadowDist=" << currentShadowDist << "\n";
+            }
+#endif
         }
 #ifdef DEBUG_STRATEGIC_CHANGE
         if (gDebugFlag2) {
@@ -3093,6 +3100,11 @@ MSLCM_SL2015::commitManoeuvre(int blocked, int blockedFully,
             myCommittedSpeed = MIN3(myLeftSpace / secondsToLeaveLane,
                                     myVehicle.getCarFollowModel().maxNextSpeed(myVehicle.getSpeed(), &myVehicle),
                                     myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle));
+#if defined(DEBUG_MANEUVER) || defined(DEBUG_COMMITTED_SPEED)
+            if (debugVehicle()) {
+                std::cout << SIMTIME << " veh=" << myVehicle.getID() << " myCommittedSpeed=" << myCommittedSpeed << " leftSpace=" << myLeftSpace << " secondsToLeave=" << secondsToLeaveLane << "\n";
+            }
+#endif
         } else {
 
             // Calculate seconds needed for leaving lane assuming start from lateral speed zero, and lat.accel == -lat.decel
@@ -3120,7 +3132,7 @@ MSLCM_SL2015::commitManoeuvre(int blocked, int blockedFully,
                                     myVehicle.getSpeed() + myVehicle.getCarFollowModel().getMaxAccel() * myVehicle.getActionStepLengthSecs(),
                                     myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle));
 
-#ifdef DEBUG_MANEUVER
+#if defined(DEBUG_MANEUVER) || defined(DEBUG_COMMITTED_SPEED)
             if (gDebugFlag2) {
                 std::cout << SIMTIME
                           << " veh=" << myVehicle.getID()
@@ -3128,7 +3140,7 @@ MSLCM_SL2015::commitManoeuvre(int blocked, int blockedFully,
                           << " currentSpeed=" << myVehicle.getSpeed()
                           << " myLeftSpace=" << myLeftSpace
                           << "\n             nextLeftSpace=" << nextLeftSpace
-                          << " nextLeftSpace=" << nextActionStepSpeed
+                          << " nextActionStepSpeed=" << nextActionStepSpeed
                           << " nextActionStepRemainingSeconds=" << secondsToLeaveLane - timeTillActionStep
                           << "\n";
             }
@@ -3139,7 +3151,7 @@ MSLCM_SL2015::commitManoeuvre(int blocked, int blockedFully,
         if (myCommittedSpeed < myVehicle.getCarFollowModel().minNextSpeed(myVehicle.getSpeed(), &myVehicle)) {
             myCommittedSpeed = 0;
         }
-#ifdef DEBUG_MANEUVER
+#if defined(DEBUG_MANEUVER) || defined(DEBUG_COMMITTED_SPEED)
         if (gDebugFlag2) {
             std::cout << SIMTIME
                       << " veh=" << myVehicle.getID()
@@ -3170,7 +3182,7 @@ MSLCM_SL2015::commitFollowSpeed(double speed, double latDist, double secondsToLe
         const double leftVehSide = rightVehSide + vehWidth;
         const double rightVehSideDest = rightVehSide + latDist;
         const double leftVehSideDest = leftVehSide + latDist;
-#ifdef DEBUG_MANEUVER
+#if defined(DEBUG_MANEUVER) || defined(DEBUG_COMMITTED_SPEED)
         if (gDebugFlag2) {
             std::cout << "  commitFollowSpeed"
                       << " latDist=" << latDist
@@ -3189,7 +3201,7 @@ MSLCM_SL2015::commitFollowSpeed(double speed, double latDist, double secondsToLe
                 // only check the current stripe occuped by foe (transform into edge-coordinates)
                 double foeRight, foeLeft;
                 leaders.getSublaneBorders(i, foeOffset, foeRight, foeLeft);
-#ifdef DEBUG_MANEUVER
+#if defined(DEBUG_MANEUVER) || defined(DEBUG_COMMITTED_SPEED)
                 if (gDebugFlag2) {
                     std::cout << "   foe=" << vehDist.first->getID()
                               << " gap=" << vehDist.second
@@ -3206,7 +3218,7 @@ MSLCM_SL2015::commitFollowSpeed(double speed, double latDist, double secondsToLe
                     const double vSafe = myVehicle.getCarFollowModel().followSpeed(
                                              &myVehicle, speed, vehDist.second, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
                     speed = MIN2(speed, vSafe);
-#ifdef DEBUG_MANEUVER
+#if defined(DEBUG_MANEUVER) || defined(DEBUG_COMMITTED_SPEED)
                     if (gDebugFlag2) {
                         std::cout << "     case1 vsafe=" << vSafe << " speed=" << speed << "\n";
                     }
@@ -3217,7 +3229,7 @@ MSLCM_SL2015::commitFollowSpeed(double speed, double latDist, double secondsToLe
                                              secondsToLeaveLane,
                                              &myVehicle, speed, vehDist.second, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
                     speed = MIN2(speed, vSafe);
-#ifdef DEBUG_MANEUVER
+#if defined(DEBUG_MANEUVER) || defined(DEBUG_COMMITTED_SPEED)
                     if (gDebugFlag2) {
                         std::cout << "     case2 vsafe=" << vSafe << " speed=" << speed << "\n";
                     }
