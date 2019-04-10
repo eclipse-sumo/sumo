@@ -23,7 +23,7 @@
 #include <utils/geom/GeomHelper.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/StringUtils.h>
-#include <utils/common/StringUtils.h>
+#include <utils/gui/globjects/GUIGlObjectTypes.h>
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/vehicle/SUMOVehicleParserHelper.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
@@ -1701,7 +1701,8 @@ Vehicle::setParameter(const std::string& vehicleID, const std::string& key, cons
 
 
 void
-Vehicle::highlight(const std::string& vehicleID, const TraCIColor& col, const double alphaMax, const double duration) {
+Vehicle::highlight(const std::string& vehicleID, const TraCIColor& col, const int alphaMax, const double duration) {
+    // NOTE: Code is duplicated in large parts in POI.cpp
     MSVehicle * veh = getVehicle(vehicleID);
 
     // Center of the highlight circle
@@ -1729,11 +1730,16 @@ Vehicle::highlight(const std::string& vehicleID, const TraCIColor& col, const do
     }
     // Line width
     double lw = 0;
+    // Layer
+    int lyr = 0;
+    if (MSNet::getInstance()->isGUINet()) {
+        lyr = GLO_VEHICLE + 0.5;
+    }
     // Make Polygon
-    Polygon::add(polyID, circle, col, true, lw, "highlight", 1000);
+    Polygon::add(polyID, circle, col, true, lw, "highlight", lyr);
 
     // Animation time line
-    double maxAttack = 1.0; // maximal fad-in time
+    double maxAttack = 1.0; // maximal fade-in time
     std::vector<double> timeSpan;
     if (duration > 0.) {
         timeSpan = {0, MIN2(maxAttack, duration/3.), 2.*duration/3., duration};
@@ -1741,7 +1747,7 @@ Vehicle::highlight(const std::string& vehicleID, const TraCIColor& col, const do
     // Alpha time line
     std::vector<double> alphaSpan;
     if (alphaMax > 0.) {
-        alphaSpan = {0., alphaMax, alphaMax/3., 0.};
+        alphaSpan = {0., (double) alphaMax, (double) (alphaMax)/3., 0.};
     }
     // Attach dynamics
     Polygon::addDynamics(polyID, vehicleID, timeSpan, alphaSpan, false, true);

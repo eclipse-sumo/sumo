@@ -1005,7 +1005,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             }
             break;
             case libsumo::VAR_HIGHLIGHT: {
-                // Highlight the vehicle by adding a tracking polygon.
+                // Highlight the vehicle by adding a tracking polygon. (NOTE: duplicated code exists for POI domain)
                 if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "A compound object is needed for highlighting an object.", outputStorage);
                 }
@@ -1019,9 +1019,9 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                         return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The first parameter for highlighting must be the highlight color.", outputStorage);
                     }
                 }
-                double alphaMax = -1;
+                int alphaMax = -1;
                 if (itemNo > 1) {
-                    if (!server.readTypeCheckingDouble(inputStorage, alphaMax)) {
+                    if (!server.readTypeCheckingUnsignedByte(inputStorage, alphaMax)) {
                         return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The second parameter for highlighting must be maximal alpha.", outputStorage);
                     }
                 }
