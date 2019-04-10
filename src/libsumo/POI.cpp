@@ -194,9 +194,9 @@ POI::highlight(const std::string& poiID, const TraCIColor& col, const int alphaM
 
     // Find a free polygon id
     unsigned int i = 0;
-    std::string polyID = poi->getID() + "_poly" + toString(i);
+    std::string polyID = poi->getID() + "_hl" + toString(i);
     while (Polygon::exists(polyID)) {
-        std::string polyID = poi->getID() + "_poly" + toString(++i);
+        polyID = poi->getID() + "_hl" + toString(++i);
     }
     // Line width
     double lw = 0;

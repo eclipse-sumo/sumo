@@ -1724,9 +1724,9 @@ Vehicle::highlight(const std::string& vehicleID, const TraCIColor& col, const in
 
     // Find a free polygon id
     unsigned int i = 0;
-    std::string polyID = veh->getID() + "_poly" + toString(i);
+    std::string polyID = veh->getID() + "_hl" + toString(i);
     while (Polygon::exists(polyID)) {
-        std::string polyID = veh->getID() + "_poly" + toString(++i);
+        polyID = veh->getID() + "_hl" + toString(++i);
     }
     // Line width
     double lw = 0;
