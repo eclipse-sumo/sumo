@@ -2580,6 +2580,7 @@ MSLCM_SL2015::checkStrategicChange(int ret,
         //const double requiredDist = MAX2(2 * myVehicle.getLateralOverlap(), getSublaneWidth()) / SUMO_const_laneWidth * laDist;
         const double requiredDist = 2 * myVehicle.getLateralOverlap() / SUMO_const_laneWidth * laDist;
         double currentShadowDist = -myVehicle.getPositionOnLane();
+        MSLane* shadowPrev = nullptr;
         for (std::vector<MSLane*>::const_iterator it = curr.bestContinuations.begin(); it != curr.bestContinuations.end(); ++it) {
             if (*it == nullptr) {
                 continue;
@@ -2588,7 +2589,11 @@ MSLCM_SL2015::checkStrategicChange(int ret,
             if (shadow == nullptr || currentShadowDist >= requiredDist) {
                 break;
             }
+            if (shadowPrev != nullptr) {
+                currentShadowDist += shadowPrev->getEdge().getInternalFollowingLengthTo(&shadow->getEdge());
+            }
             currentShadowDist += shadow->getLength();
+            shadowPrev = shadow;
 #ifdef DEBUG_STRATEGIC_CHANGE
             if (gDebugFlag2) {
                 std::cout << "    shadow=" << shadow->getID() << " currentShadowDist=" << currentShadowDist << "\n";
