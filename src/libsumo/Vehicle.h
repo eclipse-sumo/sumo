@@ -179,7 +179,7 @@ public:
     static void setLine(const std::string& vehicleID, const std::string& line);
     static void setVia(const std::string& vehicleID, const std::vector<std::string>& via);
     static void setParameter(const std::string& vehicleID, const std::string& key, const std::string& value);
-    static void highlight(const std::string& vehicleID, const TraCIColor& col, const int alphaMax, const double duration);
+    static void highlight(const std::string& vehicleID, const TraCIColor& col, double size, const int alphaMax, const double duration);
     /// @}
 
     LIBSUMO_VEHICLE_TYPE_SETTER

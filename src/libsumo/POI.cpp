@@ -173,15 +173,16 @@ POI::remove(const std::string& poiID, int /* layer */) {
 
 
 void
-POI::highlight(const std::string& poiID, const TraCIColor& col, const int alphaMax, const double duration) {
+POI::highlight(const std::string& poiID, const TraCIColor& col, double size, const int alphaMax, const double duration) {
     // NOTE: Code is duplicated in large parts in Vehicle.cpp
     PointOfInterest* poi = getPoI(poiID);
 
     // Center of the highlight circle
     Position* center = dynamic_cast<Position*> (poi);
     // Size of the highlight circle
-    const double size = sqrt(poi->getHeight()*poi->getHeight() + poi->getWidth()*poi->getWidth())*0.7;
-    //    double size = 1.5;
+    if (size <= 0) {
+        size = sqrt(poi->getHeight()*poi->getHeight() + poi->getWidth()*poi->getWidth())*0.7;
+    }
     // Make polygon shape
     const unsigned int nPoints = 34;
     const PositionVector circlePV = GeomHelper::makeRing(size, size+1., *center, nPoints);

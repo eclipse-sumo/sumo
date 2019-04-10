@@ -153,7 +153,7 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "A compound object is needed for highlighting an object.", outputStorage);
                 }
                 int itemNo = inputStorage.readUnsignedByte();
-                if (itemNo > 3) {
+                if (itemNo > 4) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "Highlighting an object needs zero to four parameters.", outputStorage);
                 }
                 libsumo::TraCIColor col = libsumo::TraCIColor(255,0,0);
@@ -162,19 +162,25 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
                         return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The first parameter for highlighting must be the highlight color.", outputStorage);
                     }
                 }
-                int alphaMax = -1;
+                double size = -1;
                 if (itemNo > 1) {
+                    if (!server.readTypeCheckingDouble(inputStorage, size)) {
+                        return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The second parameter for highlighting must be the highlight size.", outputStorage);
+                    }
+                }
+                int alphaMax = -1;
+                if (itemNo > 2) {
                     if (!server.readTypeCheckingUnsignedByte(inputStorage, alphaMax)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The second parameter for highlighting must be maximal alpha.", outputStorage);
+                        return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The third parameter for highlighting must be maximal alpha.", outputStorage);
                     }
                 }
                 double duration = -1;
-                if (itemNo > 2) {
+                if (itemNo > 3) {
                     if (!server.readTypeCheckingDouble(inputStorage, duration)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The third parameter for highlighting must be the highlight duration.", outputStorage);
+                        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The fourthe parameter for highlighting must be the highlight duration.", outputStorage);
                     }
                 }
-                libsumo::POI::highlight(id, col, alphaMax, duration);
+                libsumo::POI::highlight(id, col, size, alphaMax, duration);
             }
             break;
             case libsumo::ADD: {

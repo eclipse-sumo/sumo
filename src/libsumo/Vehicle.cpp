@@ -1701,7 +1701,7 @@ Vehicle::setParameter(const std::string& vehicleID, const std::string& key, cons
 
 
 void
-Vehicle::highlight(const std::string& vehicleID, const TraCIColor& col, const int alphaMax, const double duration) {
+Vehicle::highlight(const std::string& vehicleID, const TraCIColor& col, double size, const int alphaMax, const double duration) {
     // NOTE: Code is duplicated in large parts in POI.cpp
     MSVehicle * veh = getVehicle(vehicleID);
 
@@ -1710,8 +1710,9 @@ Vehicle::highlight(const std::string& vehicleID, const TraCIColor& col, const in
     const double l2 = veh->getLength()*0.5;
     center.sub(cos(veh->getAngle())*l2, sin(veh->getAngle())*l2);
     // Size of the highlight circle
-    double size = veh->getLength()*0.7;
-    //    double size = 1.5;
+    if (size <= 0) {
+        size = veh->getLength()*0.7;
+    }
     // Make polygon shape
     const unsigned int nPoints = 34;
     const PositionVector circlePV = GeomHelper::makeRing(size, size+1., center, nPoints);
