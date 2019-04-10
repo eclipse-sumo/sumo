@@ -1,4 +1,6 @@
-Error: send failed: Software caused tcpip::Socket abort
+Error: send failed: Connection reset by peer
 Quitting (on error).
 Error: Error on closing output devices.
-Error: send failed: Software caused tcpip::Socket abort
+Error: send failed: Broken pipe
+Error: Error on closing output devices.
+Error: send failed: Broken pipe
