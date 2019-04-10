@@ -95,6 +95,11 @@ public:
     inline double getHeight() const {
         return myHalfImgHeight * 2.0;
     }
+
+    /// @brief Returns the image center of the POI
+    Position getCenter() const {
+        return {x() + myHalfImgWidth, y() + myHalfImgHeight};
+    }
     /// @}
 
 

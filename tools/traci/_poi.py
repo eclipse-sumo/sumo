@@ -178,5 +178,39 @@ class PoiDomain(Domain):
         self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, layer)
         self._connection._sendExact()
 
+    def highlight(self, poiID, color=(255,0,0,255), alphaMax=-1, duration=-1):
+        """ highlight(string, color, float, ubyte) -> void
+            Adds a circle of the given color highlighting the poi.
+            If alphaMax and duration are positive, the circle fades in and out within the given duration,
+            otherwise it is permanently added on top of the poi.
+        """
+        msg_length = 1 + 1
+        if color:
+            length = 1
+            msg_length += 1 + 4
+        else:
+            length = 0
+        if (alphaMax > 255) :
+            raise traci.TraCIException("polygon.highlightObject(): maximal value for alphaMax is 255")
+        if (alphaMax <= 0 and duration > 0):
+            raise traci.TraCIException("polygon.highlightObject(): duration>0 requires alphaMax>0")
+        if (alphaMax > 0 and duration <= 0):
+            raise traci.TraCIException("polygon.highlightObject(): alphaMax>0 requires duration>0")
+        if alphaMax > 0:
+            assert(duration>0)
+            length = 3
+            if color is None:
+                msg_length += 1 + 4
+                color = (255,0,0,255)                
+            msg_length += 1 + 8 \
+                   + 1 + 1
+        self._connection._beginMessage(tc.CMD_SET_POI_VARIABLE, tc.VAR_HIGHLIGHT, poiID, msg_length)
+        self._connection._string += struct.pack("!BB", tc.TYPE_COMPOUND, length)
+        if (length >= 1):
+            self._connection._string += struct.pack("!BBBBB", tc.TYPE_COLOR, int(color[0]), int(color[1]), int(color[2]),
+                                                int(color[3]) if len(color) > 3 else 255)
+        if (length >= 3):
+            self._connection._string += struct.pack("!BB", tc.TYPE_UBYTE, alphaMax)
+            self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, duration)
 
 PoiDomain()

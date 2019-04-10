@@ -81,7 +81,8 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
 			variable != libsumo::VAR_WIDTH &&
 			variable != libsumo::VAR_HEIGHT &&
 			variable != libsumo::VAR_ANGLE &&
-			variable != libsumo::VAR_IMAGEFILE &&
+            variable != libsumo::VAR_IMAGEFILE &&
+            variable != libsumo::VAR_HIGHLIGHT &&
             variable != libsumo::ADD &&
             variable != libsumo::REMOVE &&
             variable != libsumo::VAR_PARAMETER) {
@@ -144,6 +145,36 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The type must be given as a string.", outputStorage);
                 }
                 libsumo::POI::setImageFile(id, imageFile);
+            }
+            break;
+            case libsumo::VAR_HIGHLIGHT: {
+                // Highlight the POI by adding a polygon (NOTE: duplicated code exists for vehicle domain)
+                if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "A compound object is needed for highlighting an object.", outputStorage);
+                }
+                int itemNo = inputStorage.readUnsignedByte();
+                if (itemNo > 3) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "Highlighting an object needs zero to four parameters.", outputStorage);
+                }
+                libsumo::TraCIColor col = libsumo::TraCIColor(255,0,0);
+                if (itemNo > 0) {
+                    if (!server.readTypeCheckingColor(inputStorage, col)) {
+                        return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The first parameter for highlighting must be the highlight color.", outputStorage);
+                    }
+                }
+                int alphaMax = -1;
+                if (itemNo > 1) {
+                    if (!server.readTypeCheckingUnsignedByte(inputStorage, alphaMax)) {
+                        return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The second parameter for highlighting must be maximal alpha.", outputStorage);
+                    }
+                }
+                double duration = -1;
+                if (itemNo > 2) {
+                    if (!server.readTypeCheckingDouble(inputStorage, duration)) {
+                        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The third parameter for highlighting must be the highlight duration.", outputStorage);
+                    }
+                }
+                libsumo::POI::highlight(id, col, alphaMax, duration);
             }
             break;
             case libsumo::ADD: {

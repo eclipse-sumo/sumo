@@ -27,8 +27,10 @@
 
 #include <utils/shapes/PointOfInterest.h>
 #include <utils/shapes/ShapeContainer.h>
+#include <utils/geom/GeomHelper.h>
 #include <microsim/MSNet.h>
 #include <libsumo/TraCIConstants.h>
+#include "Polygon.h"
 #include "POI.h"
 #include "Helper.h"
 
@@ -171,10 +173,63 @@ POI::remove(const std::string& poiID, int /* layer */) {
 
 
 void
+POI::highlight(const std::string& poiID, const TraCIColor& col, const int alphaMax, const double duration) {
+    // NOTE: Code is duplicated in large parts in Vehicle.cpp
+    PointOfInterest* poi = getPoI(poiID);
+
+    // Center of the highlight circle
+    Position* center = dynamic_cast<Position*> (poi);
+    // Size of the highlight circle
+    const double size = sqrt(poi->getHeight()*poi->getHeight() + poi->getWidth()*poi->getWidth())*0.7;
+    //    double size = 1.5;
+    // Make polygon shape
+    const unsigned int nPoints = 34;
+    const PositionVector circlePV = GeomHelper::makeRing(size, size+1., *center, nPoints);
+    TraCIPositionVector circle = Helper::makeTraCIPositionVector(circlePV);
+
+#ifdef DEBUG_DYNAMIC_SHAPES
+    std::cout << SIMTIME << " Vehicle::highlight() for vehicle '" << vehicleID << "'\n"
+            << " circle: " << circlePV << std::endl;
+#endif
+
+    // Find a free polygon id
+    unsigned int i = 0;
+    std::string polyID = poi->getID() + "_poly" + toString(i);
+    while (Polygon::exists(polyID)) {
+        std::string polyID = poi->getID() + "_poly" + toString(++i);
+    }
+    // Line width
+    double lw = 0;
+    // Layer
+    int lyr = 0;
+    if (MSNet::getInstance()->isGUINet()) {
+        lyr = poi->getShapeLayer();
+    }
+    // Make Polygon
+    Polygon::add(polyID, circle, col, true, lw, "highlight", lyr);
+
+    // Animation time line
+    double maxAttack = 1.0; // maximal fade-in time
+    std::vector<double> timeSpan;
+    if (duration > 0.) {
+        timeSpan = {0, MIN2(maxAttack, duration/3.), 2.*duration/3., duration};
+    }
+    // Alpha time line
+    std::vector<double> alphaSpan;
+    if (alphaMax > 0.) {
+        alphaSpan = {0., (double) alphaMax, ((double) alphaMax)/3., 0.};
+    }
+    // Attach dynamics
+    Polygon::addDynamics(polyID, "", timeSpan, alphaSpan, false, false);
+}
+
+
+void
 POI::setParameter(const std::string& poiID, const std::string& key, const std::string& value) {
     PointOfInterest* p = getPoI(poiID);
     p->setParameter(key, value);
 }
+
 
 
 LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(POI, POI)

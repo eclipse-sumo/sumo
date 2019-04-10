@@ -72,6 +72,7 @@ public:
     static void setImageFile(const std::string& poiID, const std::string& imageFile);
     static bool add(const std::string& poiID, double x, double y, const TraCIColor& color, const std::string& poiType = "", int layer = 0, const std::string& imgFile = Shape::DEFAULT_IMG_FILE, double width = Shape::DEFAULT_IMG_WIDTH, double height = Shape::DEFAULT_IMG_HEIGHT, double angle = Shape::DEFAULT_ANGLE);
     static bool remove(const std::string& poiID, int layer = 0);
+    static void highlight(const std::string& poiID, const TraCIColor& col, const int alphaMax, const double duration);
 
     static void setParameter(const std::string& poiID, const std::string& key, const std::string& value);
 
