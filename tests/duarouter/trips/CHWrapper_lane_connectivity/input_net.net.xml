@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed 10 Apr 2019 10:51:58 PM CEST by Eclipse SUMO netedit Version v1_1_0+0435-678c69824b
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <new value="true"/>
+    </input>
+
+</configuration>
+-->
+
+<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="20.72,-29.43" convBoundary="0.00,0.00,138.52,5.08" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
+
+    <edge id=":gneJ1_0" function="internal">
+        <lane id=":gneJ1_0_0" index="0" allow="bus" speed="13.89" length="0.16" shape="73.44,-3.26 73.60,-3.25"/>
+    </edge>
+
+    <edge id="1" from="gneJ0" to="gneJ1" priority="-1">
+        <lane id="1_0" index="0" allow="bus" speed="13.89" length="73.36" shape="0.10,-4.80 73.44,-3.26"/>
+        <lane id="1_1" index="1" speed="13.89" length="73.36" shape="0.03,-1.60 73.38,-0.06"/>
+    </edge>
+    <edge id="2" from="gneJ1" to="gneJ2" priority="-1">
+        <lane id="2_0" index="0" allow="bus" speed="13.89" length="65.27" shape="73.60,-3.25 138.78,0.29"/>
+        <lane id="2_1" index="1" speed="13.89" length="65.27" shape="73.43,-0.06 138.61,3.49"/>
+    </edge>
+
+    <junction id="gneJ0" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="-0.00,-0.00 0.13,-6.40"/>
+    <junction id="gneJ1" type="priority" x="73.34" y="1.54" incLanes="1_0 1_1" intLanes=":gneJ1_0_0" shape="73.41,1.54 73.76,-4.85 73.41,-4.86 73.27,1.54">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="gneJ2" type="dead_end" x="138.52" y="5.08" incLanes="2_0 2_1" intLanes="" shape="138.87,-1.31 138.52,5.08"/>
+
+    <connection from="1" to="2" fromLane="0" toLane="0" via=":gneJ1_0_0" dir="s" state="M"/>
+
+    <connection from=":gneJ1_0" to="2" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>
