@@ -23,12 +23,14 @@ from sumolib.miscutils import Statistics
 def parse_args():
     USAGE = "Usage: " + sys.argv[0] + " <routefile> [options]"
     optParser = OptionParser()
-    optParser.add_option("-o", "--output-file",
-                         dest="outfile", help="name of output file")
-    optParser.add_option(
-        "--subpart", help="Restrict counts to routes that contain the given consecutive edge sequence")
-    optParser.add_option("-i", "--intermediate", action="store_true",
-                         default=False, help="count all edges of a route")
+    optParser.add_option("-o", "--output-file", dest="outfile", 
+            help="name of output file")
+    optParser.add_option("--subpart",
+            help="Restrict counts to routes that contain the given consecutive edge sequence")
+    optParser.add_option( "--subpart-file", dest="subpart_file",
+            help="Restrict counts to routes that one of the consecutive edge sequence in the given input file (one sequence per line)")
+    optParser.add_option("-i", "--intermediate", action="store_true", default=False, 
+            help="count all edges of a route")
     options, args = optParser.parse_args()
     try:
         options.routefile, = args
@@ -36,15 +38,24 @@ def parse_args():
         sys.exit(USAGE)
     if options.outfile is None:
         options.outfile = options.routefile + ".departsAndArrivals.xml"
+
+    options.subparts = []
     if options.subpart is not None:
-        options.subpart = options.subpart.split(',')
+        options.subparts.append(options.subpart.split(','))
+    if options.subpart_file is not None:
+        for line in open(options.subpart_file):
+            options.subparts.append(line.strip().split(','))
+
     return options
 
 
-def hasSubpart(edges, subpart):
-    for i in range(len(edges)):
-        if edges[i:i + len(subpart)] == subpart:
-            return True
+def hasSubpart(edges, subparts):
+    if not subparts:
+        return True
+    for subpart in subparts:
+        for i in range(len(edges)):
+            if edges[i:i + len(subpart)] == subpart:
+                return True
     return False
 
 
@@ -56,7 +67,7 @@ def main():
 
     for route in parse_fast(options.routefile, 'route', ['edges']):
         edges = route.edges.split()
-        if options.subpart is not None and not hasSubpart(edges, options.subpart):
+        if not hasSubpart(edges, options.subparts):
             continue
         departCounts[edges[0]] += 1
         arrivalCounts[edges[-1]] += 1
@@ -65,7 +76,7 @@ def main():
 
     for walk in parse_fast(options.routefile, 'walk', ['edges']):
         edges = walk.edges.split()
-        if options.subpart is not None and not hasSubpart(edges, options.subpart):
+        if not hasSubpart(edges, options.subparts):
             continue
         departCounts[edges[0]] += 1
         arrivalCounts[edges[-1]] += 1
@@ -74,13 +85,13 @@ def main():
 
     # warn about potentially missing edges
     for trip in parse_fast(options.routefile, 'trip', ['id', 'fromTaz', 'toTaz']):
-        if options.subpart is not None:
+        if options.subparts:
             sys.stderr.print("Warning: Ignoring trips when using --subpart")
             break
         departCounts[trip.fromTaz] += 1
         arrivalCounts[trip.toTaz] += 1
     for walk in parse_fast(options.routefile, 'walk', ['from', 'to']):
-        if options.subpart is not None:
+        if options.subparts:
             sys.stderr.print("Warning: Ignoring trips when using --subpart")
             break
         departCounts[walk.attr_from] += 1
