@@ -120,8 +120,6 @@ def main():
             allEdges.update(intermediateCounts.keys())
         for e in sorted(allEdges):
             intermediate = ' intermediate="%s"' % intermediateCounts[e] if options.intermediate else ''
-            if options.intermediate:
-                allEdges.update(intermediateCounts.keys())
             outf.write('      <edge id="%s" departed="%s" arrived="%s" delta="%s"%s/>\n' %
                        (e, departCounts[e], arrivalCounts[e], arrivalCounts[e] - departCounts[e], intermediate))
         outf.write("   </interval>\n")
