@@ -1724,21 +1724,21 @@ Vehicle::highlight(const std::string& vehicleID, const TraCIColor& col, double s
 #endif
 
     // Find a free polygon id
-    unsigned int i = 0;
+    int i = 0;
     std::string polyID = veh->getID() + "_hl" + toString(i);
     while (Polygon::exists(polyID)) {
         polyID = veh->getID() + "_hl" + toString(++i);
     }
     // Line width
-    double lw = 0;
+    double lw = 0.;
     // Layer
-    int lyr = 0;
+    double lyr = 0.;
     if (MSNet::getInstance()->isGUINet()) {
         lyr = GLO_VEHICLE + 0.01;
-        lyr += ((double) type + 1)/257.;
+        lyr += (type + 1)/257.;
     }
     // Make Polygon
-    Polygon::addHighlightPolygon(vehicleID, type, polyID, circle, col, true, lw, "highlight", lyr);
+    Polygon::addHighlightPolygon(vehicleID, type, polyID, circle, col, true, lw, "highlight", (int)lyr);
 
     // Animation time line
     double maxAttack = 1.0; // maximal fade-in time

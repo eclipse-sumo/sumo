@@ -204,7 +204,7 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_POLYGON_VARIABLE, "The fifth parameter for adding polygon dynamics must be boolean indicating whether the tracking polygon should be rotated.", outputStorage);
                 }
 
-                libsumo::Polygon::addDynamics(id, trackedID, timeSpan, alphaSpan, (bool) looped, (bool) rotate);
+                libsumo::Polygon::addDynamics(id, trackedID, timeSpan, alphaSpan, looped != 0, rotate != 0);
             }
             break;
             case libsumo::REMOVE: {

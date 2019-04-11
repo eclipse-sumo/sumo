@@ -194,21 +194,21 @@ POI::highlight(const std::string& poiID, const TraCIColor& col, double size, con
 #endif
 
     // Find a free polygon id
-    unsigned int i = 0;
+    int i = 0;
     std::string polyID = poi->getID() + "_hl" + toString(i);
     while (Polygon::exists(polyID)) {
         polyID = poi->getID() + "_hl" + toString(++i);
     }
     // Line width
-    double lw = 0;
+    double lw = 0.;
     // Layer
-    int lyr = 0;
+    double lyr = 0.;
     if (MSNet::getInstance()->isGUINet()) {
         lyr = poi->getShapeLayer();
-        lyr += ((double) type + 1)/257.;
+        lyr += (type + 1)/257.;
     }
     // Make Polygon
-    Polygon::addHighlightPolygon(poiID, type, polyID, circle, col, true, lw, "highlight", lyr);
+    Polygon::addHighlightPolygon(poiID, type, polyID, circle, col, true, lw, "highlight", (int)lyr);
 
     // Animation time line
     double maxAttack = 1.0; // maximal fade-in time
