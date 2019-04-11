@@ -5,4 +5,4 @@ basic
 subpart
 
 # Tests for <SUMO_DIST>/tools/showDepartsAndArrivalsPerEdge.py
-intermediate
+subpart_file
