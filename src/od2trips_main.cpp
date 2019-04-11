@@ -187,8 +187,8 @@ checkOptions() {
         WRITE_ERROR("No input specified.");
         ok = false;
     }
-    if (!oc.isSet("output-file")) {
-        WRITE_ERROR("No trip table output file (-o) specified.");
+    if (!oc.isSet("output-file") && !oc.isSet("flow-output")) {
+        WRITE_ERROR("No trip table output file (-o) or flow-output is specified.");
         ok = false;
     }
     if (oc.getBool("pedestrians") && oc.getBool("persontrips")) {
