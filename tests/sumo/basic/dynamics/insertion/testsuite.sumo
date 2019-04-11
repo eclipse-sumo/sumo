@@ -19,3 +19,6 @@ high_flow1_extreme
 
 # insertion is blocked on one lane but still working on another
 backlog_lanewise
+
+# insertion at fixed speed despite undercutting safe speed by using --ignore-route-errors
+force_unsafe_followspeed
