@@ -267,7 +267,10 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
                 double value = (MSGlobals::gUseMesoSim
                                 ? getColorValue(s, activeScheme)
                                 : lane2->getColorValue(s, activeScheme));
-                GLHelper::drawTextSettings(s.edgeValue, toString(value), p, s.scale, angle);
+                const RGBColor color = (MSGlobals::gUseMesoSim ? s.edgeColorer : s.laneColorer).getScheme().getColor(value);
+                if (color.alpha() != 0) {
+                    GLHelper::drawTextSettings(s.edgeValue, toString(value), p, s.scale, angle);
+                }
             }
         }
     }
