@@ -103,6 +103,7 @@ initNet(RONet& net, ROLoader& loader, OptionsCont& oc) {
     }
 }
 
+
 double
 getTravelTime(const ROEdge* const edge, const ROVehicle* const /* veh */, double /* time */) {
     return edge->getLength() / edge->getSpeedLimit();
@@ -468,14 +469,14 @@ main(int argc, char** argv) {
         matrix.loadMatrix(oc);
         ROMARouteHandler handler(matrix);
         matrix.loadRoutes(oc, handler);
-        if (matrix.getNumLoaded() == 0) {
-            throw ProcessError("No vehicles loaded.");
+        if (matrix.getNumLoaded() == matrix.getNumDiscarded()) {
+            throw ProcessError("No valid vehicles loaded.");
         }
         if (MsgHandler::getErrorInstance()->wasInformed() && !oc.getBool("ignore-errors")) {
             throw ProcessError("Loading failed.");
         }
         MsgHandler::getErrorInstance()->clear();
-        WRITE_MESSAGE(toString(matrix.getNumLoaded()) + " vehicles loaded.");
+        WRITE_MESSAGE(toString(matrix.getNumLoaded() - matrix.getNumDiscarded()) + " valid vehicles loaded (total seen: " + toString(matrix.getNumLoaded()) + ").");
 
         // build routes and parse the incremental rates if the incremental method is choosen.
         try {

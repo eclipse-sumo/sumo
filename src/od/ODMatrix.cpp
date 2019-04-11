@@ -67,6 +67,7 @@ ODMatrix::add(double vehicleNumber, SUMOTime begin,
     myNumLoaded += vehicleNumber;
     if (!originIsEdge && !destinationIsEdge && myDistricts.get(origin) == nullptr && myDistricts.get(destination) == nullptr) {
         WRITE_WARNING("Missing origin '" + origin + "' and destination '" + destination + "' (" + toString(vehicleNumber) + " vehicles).");
+        myNumDiscarded += vehicleNumber;
         myMissingDistricts.insert(origin);
         myMissingDistricts.insert(destination);
         return false;
