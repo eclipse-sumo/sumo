@@ -156,6 +156,8 @@ public:
      * @param[in] noVtype Whether vtype information shall not be written
      * @param[in] prefix A prefix for the vehicle names
      * @param[in] stepLog Whether processed time shall be written
+     * @param[in] pedestrians Writes trips for pedestrians
+     * @param[in] persontrips Writes trips for persontrips
      */
     void write(SUMOTime begin, const SUMOTime end,
                OutputDevice& dev, const bool uniform,
@@ -172,11 +174,13 @@ public:
      * @param[in] noVtype Whether vtype information shall not be written
      * @param[in] prefix A prefix for the flow names
      * @param[in] asProbability Write probability to spawn per second instead of number of vehicles
+     * @param[in] pedestrians Writes flows for pedestrians
+     * @param[in] persontrips Writes flows for persontrips
      */
     void writeFlows(const SUMOTime begin, const SUMOTime end,
                     OutputDevice& dev, const bool noVtype,
                     const std::string& prefix,
-                    bool asProbability = false);
+                    bool asProbability = false, bool pedestrians= false, bool persontrips= false);
 
 
     /** @brief Returns the number of loaded vehicles
