@@ -24,3 +24,6 @@ rerouting
 
 # flow saved and loaded
 flow
+
+# multique saved and loaded, tests also human readable time
+multique

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 04/10/19 12:57:47 by Eclipse SUMO Version v1_1_0+1379-f2e706eba2
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <load-state value="state.xml"/>
+    </input>
+
+    <output>
+        <human-readable-time value="true"/>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="0.4" type="DEFAULT_VEHTYPE" depart="00:00:40" arrival="00:01:40">
+        <route edges="SC CW"/>
+    </vehicle>
+
+    <vehicle id="0.5" depart="00:00:50" arrival="00:01:42">
+        <route edges="SC CW"/>
+    </vehicle>
+
+    <vehicle id="0.6" depart="00:01:00" arrival="00:01:44">
+        <route edges="SC CW"/>
+    </vehicle>
+
+    <vehicle id="0.7" depart="00:01:10" arrival="00:01:45">
+        <route edges="SC CW"/>
+    </vehicle>
+
+    <vehicle id="0.8" depart="00:01:20" arrival="00:01:48">
+        <route edges="SC CW"/>
+    </vehicle>
+
+    <vehicle id="0.9" depart="00:01:30" arrival="00:01:52">
+        <route edges="SC CW"/>
+    </vehicle>
+
+</routes>

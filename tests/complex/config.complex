@@ -48,6 +48,7 @@ test_data_ignore:.svn
 vehroutes:vehroutes.xml
 vehroutes2:vehroutes2.xml
 state:state.xml
+state2:state2.xml
 tripinfo:tripinfo.xml
 net:net.net.xml
 vss:vss.xml
