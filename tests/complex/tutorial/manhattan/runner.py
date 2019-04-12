@@ -32,7 +32,7 @@ except ImportError:
 netgenBinary = checkBinary('netgenerate')
 jtrrouterBinary = checkBinary('jtrrouter')
 sumoBinary = checkBinary('sumo')
-import randomTrips
+import randomTrips  # noqa
 
 call([netgenBinary, '-c', 'data/manhattan.netgcfg'])
 randomTrips.main(randomTrips.get_options([

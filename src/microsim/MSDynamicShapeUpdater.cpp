@@ -7,7 +7,7 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    DynamicShapeUpdater.cpp
+/// @file    MSDynamicShapeUpdater.cpp
 /// @author  Leonhard Luecken
 /// @date    08 Apr 2019
 /// @version $Id$

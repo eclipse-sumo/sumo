@@ -66,10 +66,9 @@ for line in fd:
         if me is None:
             print("Not found " + line)
         else:
-            l = str(me._id) + "_0"
-            p = str(me._length * float(vals[6]))
-            fdo.write('   <poi id="' + id + '" type="' + vals[
-                      7] + '" lane="' + l + '" pos="' + p + '" color="0,1,0" values="' + rest + '" layer="1"/>\n')
+            p = me._length * float(vals[6])
+            fdo.write('    <poi id="%s" type="%s" lane="%s_0" pos="%s" color="0,1,0" values="%s" layer="1"/>\n' %
+                      (id, vals[7], me._id, p, rest))
 
     if line.find("$ZAEHLSTELLE") == 0:
         parsingCounts = True

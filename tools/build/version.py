@@ -43,7 +43,6 @@ def gitDescribe(commit="HEAD", gitDir=None):
     except subprocess.CalledProcessError:
         # try to find the version in the config.h
         configFile = join(dirname(__file__), '..', '..', 'src', 'config.h.cmake')
-        count = 0
         if exists(configFile):
             config = open(configFile).read()
             if "//#define HAVE_VERSION_H" in config:

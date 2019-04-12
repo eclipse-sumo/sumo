@@ -63,7 +63,8 @@ PLAIN_TYPES = [
 #     parsing in netconvert becomes tedious
 # CAVEAT5 - phases must maintain their order
 # CAVEAT6 - identical phases may occur multiple times, thus OrderedMultiSet
-# CAVEAT7 - changing edge type triggers 'type override' (all attributes defined for the edge type are applied. This must be avoided)
+# CAVEAT7 - changing edge type triggers 'type override'
+#     (all attributes defined for the edge type are applied. This must be avoided)
 # CAVEAT8 - TAG_TLL must always be written before TAG_CONNECTION
 
 TAG_TLL = 'tlLogic'
@@ -320,7 +321,7 @@ class AttributeStore:
     def writeCreated(self, file, whiteList=None, blackList=None):
         self.write_tagids(file, self.filterTags(self.ids_created, whiteList, blackList), True)
         for tag, value_set in self.idless_created.items():
-            if ((whiteList is not None and not tag in whiteList)
+            if ((whiteList is not None and tag not in whiteList)
                     or (blackList is not None and tag in blackList)):
                 continue
             self.write_idless(file, value_set, tag)

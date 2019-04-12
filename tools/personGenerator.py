@@ -1,3 +1,16 @@
+#!/usr/bin/env python
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Copyright (C) 2019-2019 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials
+# are made available under the terms of the Eclipse Public License v2.0
+# which accompanies this distribution, and is available at
+# http://www.eclipse.org/legal/epl-v20.html
+# SPDX-License-Identifier: EPL-2.0
+
+# @file    personGenerator.py
+# @author  tarek chouaki
+# @date    2019-03-22
+# @version $Id$
 """
 This tool allows to generate flows of persons for a SUMO simulation which is currently not possible in SUMO route files.
 It does so by converting an xml file (usually having the ``.pflow.xml`` extension) to a sumo route file
@@ -98,7 +111,8 @@ class PersonGenerationElement(object):
     @classmethod
     def wrap_elements(cls, elements, *args, **kwargs):
         """
-        Replaces xml elements with the appropriate tag (the one definied in get_xml_tag) with an object of the current class
+        Replaces xml elements with the appropriate tag (the one defined in get_xml_tag)
+        with an object of the current class.
         The given list is modified, be careful
         :param elements: a list of xml elements
         :type elements: list
@@ -296,12 +310,15 @@ class PersonFlowElement(PersonGenerationElement):
     - id
     - begin : the time at which the flow starts
     - end : the time at which the flow ends. Not mandatory, default is 3600.
-    - period : The time (in seconds) between two consecutive waves. Not mandatory, if not given, number will be used
+    - period : The time (in seconds) between two consecutive waves.
+      Not mandatory, if not given, number will be used
     - number : the number of waves. Only meaningful when period is not specified
     - perWave : the number of persons in each wave. Not mandatory, default is 1
-    - route : the id of the route that the persons will follow. Not mandatory If not given, uses the children of the <personFlow> element
+    - route : the id of the route that the persons will follow
+      Not mandatory, if not given, uses the children of the <personFlow> element
 
-    The id of generated persons will be `<id>_<person_index>` where `<person_index>` is the index of the person in the flow (starting from 0)
+    The id of generated persons will be `<id>_<person_index>` where `<person_index>` is the index
+    of the person in the flow (starting from 0)
     """
     default_end = 3600
     id_attribute_key = "id"
