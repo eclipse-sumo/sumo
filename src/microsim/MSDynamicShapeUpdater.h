@@ -33,6 +33,10 @@ public:
 
 private:
     ShapeContainer& myShapeContainer;
+
+private:
+    /// @brief invalidated assignment operator
+    MSDynamicShapeUpdater& operator=(const MSDynamicShapeUpdater& s) = delete;
 };
 
 #endif /* MICROSIM_MSDYNAMICSHAPEUPDATER_H_ */

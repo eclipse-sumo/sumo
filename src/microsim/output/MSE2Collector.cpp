@@ -244,7 +244,6 @@ MSE2Collector::checkPositioning(bool posGiven, double desiredLength) {
 
 
     assert((myStartPos >= POSITION_EPS  || myStartPos == 0) && myStartPos < myFirstLane->getLength());
-    assert(myEndPos >= POSITION_EPS || myEndPos == myLastLane->getLength());
     assert(myEndPos <= myLastLane->getLength() - POSITION_EPS || myEndPos == myLastLane->getLength());
     assert(myFirstLane != myLastLane || myEndPos - myStartPos > 0);
 }
