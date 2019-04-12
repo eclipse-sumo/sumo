@@ -155,7 +155,9 @@ Person::getEdges(const std::string& personID, int nextStageIndex) {
     }
     std::vector<std::string> edgeIDs;
     for (auto& e : p->getEdges(nextStageIndex)) {
-        edgeIDs.push_back(e->getID());
+        if (e != nullptr) {
+            edgeIDs.push_back(e->getID());
+        }
     }
     return edgeIDs;
 }
