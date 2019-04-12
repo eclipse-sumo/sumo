@@ -123,13 +123,13 @@ GUIShapeContainer::polygonDynamicsUpdate(SUMOTime t, PolygonDynamics* pd) {
 
 bool
 GUIShapeContainer::removePolygon(const std::string& id, bool useLock) {
-    FXMutexLock * locker = nullptr;
-    if (useLock) {
-        locker = new FXMutexLock(myLock);
-    }
     GUIPolygon* p = dynamic_cast<GUIPolygon*>(myPolygons.get(id));
     if (p == nullptr) {
         return false;
+    }
+    FXMutexLock * locker = nullptr;
+    if (useLock) {
+        locker = new FXMutexLock(myLock);
     }
     myVis.removeAdditionalGLObject(p);
     bool succ = ShapeContainer::removePolygon(id);
