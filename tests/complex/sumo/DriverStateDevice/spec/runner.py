@@ -177,7 +177,8 @@ def resetParams(vehID):
     new_originalReactionTime = 3.0
     traci.vehicle.setParameter(vehID, "device.driverstate.originalReactionTime", str(new_originalReactionTime))
     originalReactionTime = float(traci.vehicle.getParameter(vehID, "device.driverstate.originalReactionTime"))
-    print("new originalReactionTime:%s (diff=%s)" % (originalReactionTime, originalReactionTime - new_originalReactionTime))
+    print("new originalReactionTime:%s (diff=%s)" %
+          (originalReactionTime, originalReactionTime - new_originalReactionTime))
 
     new_actionStepLength = float(traci.vehicle.getParameter(vehID, "device.driverstate.actionStepLength"))
     print("new actionStepLength:%s" % (new_actionStepLength))

@@ -415,7 +415,8 @@ def main(options):
                     phases = programs[pro].getPhases()
 
                     # get the connection flows and group flows
-                    groupFlowsMap, phaseLaneIndexMap, currentLength = getLaneGroupFlows(tl, connFlowsMap, phases, options.mingreen)
+                    groupFlowsMap, phaseLaneIndexMap, currentLength = getLaneGroupFlows(
+                        tl, connFlowsMap, phases, options.mingreen)
 
                     # optimize the cycle length and calculate the respective green splits
                     groupFlowsMap = optimizeGreenTime(tl, groupFlowsMap, phaseLaneIndexMap, currentLength, options)

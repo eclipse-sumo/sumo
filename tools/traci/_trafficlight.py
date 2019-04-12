@@ -273,10 +273,10 @@ class TrafficLightDomain(Domain):
         length = 1 + 4 + 1 + 4 + \
             len(tls.programID) + 1 + 4 + 1 + 4 + 1 + 4  # tls parameter
         for p in tls.phases:
-            length += (1 + 4 + 1 + 8 + 1 + 4 + len(p.state) 
-                    + 1 + 8 + 1 + 8  # minDur, maxDur
-                    + 1 + 4 + len(p.next) * (1 + 4)
-                    + 1 + 4 + len(p.name))
+            length += (1 + 4 + 1 + 8 + 1 + 4 + len(p.state)
+                       + 1 + 8 + 1 + 8  # minDur, maxDur
+                       + 1 + 4 + len(p.next) * (1 + 4)
+                       + 1 + 4 + len(p.name))
         length += 1 + 4  # subparams
         for k, v in tls.subParameter.items():
             length += 1 + 4 + 4 + len(k) + 4 + len(v)

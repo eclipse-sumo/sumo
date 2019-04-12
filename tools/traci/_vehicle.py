@@ -1438,7 +1438,7 @@ class VehicleDomain(Domain):
         self._connection._sendDoubleCmd(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_ACTIONSTEPLENGTH, vehID, actionStepLength)
 
-    def highlight(self, vehID, color=(255,0,0,255), size=-1, alphaMax=-1, duration=-1, type=0):
+    def highlight(self, vehID, color=(255, 0, 0, 255), size=-1, alphaMax=-1, duration=-1, type=0):
         """ highlight(string, color, float, ubyte) -> void
             Adds a circle of the given color tracking the vehicle.
             If a positive size [in m] is given the size of the highlight is chosen accordingly,
@@ -1446,26 +1446,26 @@ class VehicleDomain(Domain):
             If alphaMax and duration are positive, the circle fades in and out within the given duration,
             otherwise it permanently follows the vehicle.
         """
-        if (type > 255) :
+        if (type > 255):
             raise traci.TraCIException("poi.highlight(): maximal value for type is 255")
-        if (alphaMax > 255) :
+        if (alphaMax > 255):
             raise traci.TraCIException("vehicle.highlight(): maximal value for alphaMax is 255")
         if (alphaMax <= 0 and duration > 0):
             raise traci.TraCIException("vehicle.highlight(): duration>0 requires alphaMax>0")
         if (alphaMax > 0 and duration <= 0):
             raise traci.TraCIException("vehicle.highlight(): alphaMax>0 requires duration>0")
-                   
+
         if (type > 0):
-            compoundLength = 5;
+            compoundLength = 5
         elif (alphaMax > 0):
-            compoundLength = 4;
+            compoundLength = 4
         elif (size > 0):
-            compoundLength = 2;
+            compoundLength = 2
         elif color:
-            compoundLength = 1;
+            compoundLength = 1
         else:
-            compoundLength = 0;
-            
+            compoundLength = 0
+
         msg_length = 1 + 1
         if compoundLength >= 1:
             msg_length += 1 + 4
@@ -1477,13 +1477,13 @@ class VehicleDomain(Domain):
             msg_length += 1 + 1
         if not color:
             # Send red as highlight standard
-            color = (255,0,0,255)
-            
+            color = (255, 0, 0, 255)
+
         self._connection._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_HIGHLIGHT, vehID, msg_length)
         self._connection._string += struct.pack("!BB", tc.TYPE_COMPOUND, compoundLength)
         if (compoundLength >= 1):
             self._connection._string += struct.pack("!BBBBB", tc.TYPE_COLOR, int(color[0]), int(color[1]), int(color[2]),
-                                                int(color[3]) if len(color) > 3 else 255)
+                                                    int(color[3]) if len(color) > 3 else 255)
         if (compoundLength >= 2):
             self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, size)
         if (compoundLength >= 3):

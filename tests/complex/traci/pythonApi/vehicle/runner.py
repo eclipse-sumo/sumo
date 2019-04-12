@@ -40,11 +40,13 @@ def step():
     traci.simulationStep()
     return s
 
+
 def posToString(pos):
     if pos[0] == tc.INVALID_DOUBLE_VALUE:
         return "invalid"
     else:
         return str(pos)
+
 
 def check(vehID):
     print("vehicles", traci.vehicle.getIDList())

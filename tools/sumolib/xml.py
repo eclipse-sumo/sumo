@@ -28,35 +28,35 @@ from keyword import iskeyword
 from functools import reduce
 import xml.sax.saxutils
 
-DEFAULT_ATTR_CONVERSIONS = { 
-  # shape-like
-  'shape' : lambda coords : map(lambda xy : map(float, xy.split(',')), coords.split()),
-  # float
-  'speed' : float,
-  'length' : float,
-  'width' : float,
-  'angle' : float,
-  'endOffset' : float,
-  'radius' : float,
-  'contPos' : float,
-  'visibility' : float,
-  'startPos' : float,
-  'endPos' : float,
-  'position' : float,
-  'x' : float,
-  'y' : float,
-  'lon' : float,
-  'lat' : float,
-  'freq' : float,
-  # int
-  'priority' : int,
-  'numLanes' : int,
-  'index' : int,
-  'linkIndex' : int,
-  'linkIndex2' : int,
-  'fromLane' : int,
-  'toLane' : int,
-  }
+DEFAULT_ATTR_CONVERSIONS = {
+    # shape-like
+    'shape': lambda coords: map(lambda xy: map(float, xy.split(',')), coords.split()),
+    # float
+    'speed': float,
+    'length': float,
+    'width': float,
+    'angle': float,
+    'endOffset': float,
+    'radius': float,
+    'contPos': float,
+    'visibility': float,
+    'startPos': float,
+    'endPos': float,
+    'position': float,
+    'x': float,
+    'y': float,
+    'lon': float,
+    'lat': float,
+    'freq': float,
+    # int
+    'priority': int,
+    'numLanes': int,
+    'index': int,
+    'linkIndex': int,
+    'linkIndex2': int,
+    'fromLane': int,
+    'toLane': int,
+}
 
 
 def _prefix_keyword(name, warn=False):

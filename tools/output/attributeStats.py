@@ -58,8 +58,9 @@ def get_options():
 def main():
     options = get_options()
     attribute_retriever = None
+
     def attribute_retriever(tripinfo):
-        return 
+        return
 
     vals = {}
     stats = Statistics("%s %ss" % (options.element, options.attribute), histogram=True, scale=options.binwidth)

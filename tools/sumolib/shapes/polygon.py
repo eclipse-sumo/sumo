@@ -18,6 +18,7 @@ from __future__ import absolute_import
 from xml.sax import handler, parse
 from .. import color
 
+
 def getBoundingBox(shape):
     xmin = shape[0][0]
     xmax = shape[0][0]
@@ -30,6 +31,7 @@ def getBoundingBox(shape):
         ymax = max(ymax, p[1])
     assert(xmin != xmax or ymin != ymax)
     return xmin, ymin, xmax, ymax
+
 
 class Polygon:
 

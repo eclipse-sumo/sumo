@@ -7,7 +7,7 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    DynamicPolygon.cpp
+/// @file    PolygonDynamics.cpp
 /// @author  Leonhard Luecken
 /// @date    Apr 2019
 /// @version $Id$

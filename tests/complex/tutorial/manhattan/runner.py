@@ -41,7 +41,7 @@ randomTrips.main(randomTrips.get_options([
     '-e', '1',
     '-n', 'data/net.net.xml',
     '-o', 'data/flows.xml',
-    '--jtrrouter', 
+    '--jtrrouter',
     '--trip-attributes', 'departPos="random" departSpeed="max"']))
 call([jtrrouterBinary, '-c', 'data/manhattan.jtrrcfg'])
 call([sumoBinary, '-c', 'data/manhattan.sumocfg', '--duration-log.statistics', '-e' '1000'])

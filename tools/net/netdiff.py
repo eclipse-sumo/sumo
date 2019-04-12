@@ -259,7 +259,7 @@ class AttributeStore:
             return names, values, dchildren
 
     def diff(self, tag, name, sourceValue, destValue):
-        if (sourceValue == destValue or 
+        if (sourceValue == destValue or
                 # CAVEAT7
                 (tag == TAG_EDGE and name == "type")):
             return None
@@ -329,7 +329,7 @@ class AttributeStore:
         return self.ids_copied - (self.ids_deleted | self.ids_created)
 
     def writeChanged(self, file, whiteList=None, blackList=None):
-        tagids_changed = self.getTagidsChanged() 
+        tagids_changed = self.getTagidsChanged()
         self.write_tagids(file, self.filterTags(tagids_changed, whiteList, blackList), False)
 
     def writeCopies(self, file, copy_tags):
@@ -387,11 +387,11 @@ class AttributeStore:
             return tagids
 
     def reorderTLL(self):
-        for tag,id in self.ids_created:
+        for tag, id in self.ids_created:
             if tag == TAG_CONNECTION:
-                for tag2,id2 in self.getTagidsChanged():
+                for tag2, id2 in self.getTagidsChanged():
                     if tag2 == TAG_TLL:
-                        return True;
+                        return True
                 return False
         return False
 

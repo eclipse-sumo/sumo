@@ -28,12 +28,14 @@ else:
     import traci  # noqa
 import sumolib  # noqa
 
+
 def examine(polygonID):
     print("# examining", polygonID)
     print("shape", traci.polygon.getShape(polygonID))
     print("type", traci.polygon.getType(polygonID))
     print("color", traci.polygon.getColor(polygonID))
     print("filled", traci.polygon.getFilled(polygonID))
+
 
 traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"])
 #~ traci.init(port=12345) # debug
@@ -53,35 +55,35 @@ for step in range(3, 6):
     print("step", step)
     traci.simulationStep()
 
-## Failing specification tests    
+# Failing specification tests
 print ("# (1) Adding underspecified dynamics...")
 try:
     traci.polygon.addDynamics(polygonID)
 except traci.exceptions.TraCIException as e:
     print("Caught TraCIException")
     pass
-    
+
 print ("# (2) Adding malformed dynamics 1 ...")
 try:
-    traci.polygon.addDynamics(polygonID, "", [0,1,2,4,3])
+    traci.polygon.addDynamics(polygonID, "", [0, 1, 2, 4, 3])
 except traci.exceptions.TraCIException as e:
     print("Caught TraCIException")
     pass
-    
+
 print ("# (3) Adding malformed dynamics 2 ...")
 try:
-    traci.polygon.addDynamics(polygonID, "", [1,2,3,4], [200,20,2,1])
+    traci.polygon.addDynamics(polygonID, "", [1, 2, 3, 4], [200, 20, 2, 1])
 except traci.exceptions.TraCIException as e:
     print("Caught TraCIException")
     pass
-    
+
 print ("# (4) Adding malformed dynamics 3 ...")
 try:
-    traci.polygon.addDynamics(polygonID, "", [0,1,2,3], [200,20,2])
+    traci.polygon.addDynamics(polygonID, "", [0, 1, 2, 3], [200, 20, 2])
 except traci.exceptions.TraCIException as e:
     print("Caught TraCIException")
     pass
-    
+
 print ("# (5) Adding malformed dynamics 4 ...")
 try:
     traci.polygon.addDynamics(polygonID, "", [0], [200])
@@ -101,17 +103,17 @@ examine(polygonID)
 for step in range(6, 9):
     print("step", step)
     traci.simulationStep()
-    
-## Successfull specifications
+
+# Successfull specifications
 
 print("# (1) No tracking with alpha animation")
-traci.polygon.addDynamics(polygonID, "", [0,1,2,5], [0,200,100,0])
+traci.polygon.addDynamics(polygonID, "", [0, 1, 2, 5], [0, 200, 100, 0])
 
 for step in range(9, 12):
     print("step", step)
     traci.simulationStep()
     examine(polygonID)
-    
+
 print("polygons", traci.polygon.getIDList())
 print("polygon count", traci.polygon.getIDCount())
 
@@ -121,7 +123,7 @@ print("vehicle count", traci.vehicle.getIDCount())
 for step in range(12, 15):
     print("step", step)
     traci.simulationStep()
-    
+
 print("polygons", traci.polygon.getIDList())
 print("polygon count", traci.polygon.getIDCount())
 
@@ -134,7 +136,7 @@ print("polygons", traci.polygon.getIDList())
 print("polygon count", traci.polygon.getIDCount())
 
 print("# (2) No tracking with time line but no animation (removal after time line expired)")
-traci.polygon.addDynamics(polygonID, "", [0,1,2,3])
+traci.polygon.addDynamics(polygonID, "", [0, 1, 2, 3])
 
 for step in range(15, 18):
     print("step", step)
@@ -162,7 +164,7 @@ traci.polygon.addDynamics(polygonID, vehID)
 for step in range(18, 21):
     print("step", step)
     traci.simulationStep()
-    
+
 print("# (4) Tracking existing vehicle with time line")
 polygonID = "poly3"
 vehID = "horiz"
@@ -176,11 +178,12 @@ print("polygon count", traci.polygon.getIDCount())
 for step in range(21, 25):
     print("step", step)
     traci.simulationStep()
-    
+
 print("# (5) replacing tracking dynamics and highlighting vehicle permanently")
 polygonID = "poly2"
 vehID = "veh0"
-traci.polygon.addDynamics(polygonID, vehID, [0,2,4,6,8,10,12,14,16,18,20], [50,200,50,200,50,200,50,200,50,200,50])
+traci.polygon.addDynamics(polygonID, vehID, [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20], [
+                          50, 200, 50, 200, 50, 200, 50, 200, 50, 200, 50])
 traci.vehicle.highlight(vehID)
 
 print("polygons", traci.polygon.getIDList())
@@ -196,10 +199,11 @@ print("polygon count", traci.polygon.getIDCount())
 
 print("# (6) Tracking with alpha animation")
 vehID = "horiz"
-polygonID="poly4"
+polygonID = "poly4"
 traci.polygon.add(
     polygonID, ((550, 510), (550, 550), (590, 550), (590, 510)), (20, 20, 200, 255), True, "test")
-traci.polygon.addDynamics(polygonID, vehID, [0,2,4,6,8,10,12,14,16,18,20], [50,200,50,200,50,200,50,200,50,200,50])
+traci.polygon.addDynamics(polygonID, vehID, [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20], [
+                          50, 200, 50, 200, 50, 200, 50, 200, 50, 200, 50])
 
 for step in range(35, 40):
     print("step", step)
@@ -207,7 +211,7 @@ for step in range(35, 40):
 
 print("# (7) Add a second tracking polygon")
 vehID = "horiz"
-polygonID="poly5"
+polygonID = "poly5"
 traci.polygon.add(
     polygonID, ((350, 490), (350, 450), (390, 450), (390, 490)), (200, 20, 20, 255), True, "test")
 traci.polygon.addDynamics(polygonID, vehID)
@@ -218,36 +222,37 @@ print("polygon count", traci.polygon.getIDCount())
 for step in range(40, 45):
     print("step", step)
     traci.simulationStep()
-    
+
 print("polygons", traci.polygon.getIDList())
 print("polygon count", traci.polygon.getIDCount())
 
 print("# (8) Parking vehicle and renew dynamics and highlight")
 vehID = "veh0"
-polygonID="poly2"
+polygonID = "poly2"
 traci.vehicle.setStop(vehID, "2si", 100, 1, 5, 1)
-traci.polygon.addDynamics(polygonID, vehID, [0,2,4,6,8,10,12,14,16,18,20], [50,200,50,200,50,200,50,200,50,200,50])
-traci.vehicle.highlight(vehID, (0,100,100,100))
+traci.polygon.addDynamics(polygonID, vehID, [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20], [
+                          50, 200, 50, 200, 50, 200, 50, 200, 50, 200, 50])
+traci.vehicle.highlight(vehID, (0, 100, 100, 100))
 
 for step in range(45, 65):
     print("step", step)
     traci.simulationStep()
-    
+
 print("polygons", traci.polygon.getIDList())
 print("polygon count", traci.polygon.getIDCount())
 
 for step in range(65, 110):
     print("step", step)
     traci.simulationStep()
-    
+
 print("# (9) transfer tracking dynamics from vehicle 'horiz' to 'veh0' and redefine as looped animation")
 vehID = "veh0"
-polygonID="poly5"
-traci.polygon.addDynamics(polygonID, vehID, [0,2,4], [50,200,50], True)
+polygonID = "poly5"
+traci.polygon.addDynamics(polygonID, vehID, [0, 2, 4], [50, 200, 50], True)
 
 print("# (10) Highlight vehicle 'horiz' for limited duration")
 vehID = "horiz"
-traci.vehicle.highlight(vehID, (0,255,0), -1, 200, 4)
+traci.vehicle.highlight(vehID, (0, 255, 0), -1, 200, 4)
 
 print("polygons", traci.polygon.getIDList())
 print("polygon count", traci.polygon.getIDCount())
@@ -261,8 +266,8 @@ print("vehicle count", traci.vehicle.getIDCount())
 for step in range(110, 120):
     print("step", step)
     traci.simulationStep()
-    
-print("# (11) Tracked vehicle 'veh0' arrives")    
+
+print("# (11) Tracked vehicle 'veh0' arrives")
 for step in range(120, 125):
     print("step", step)
     traci.simulationStep()
@@ -284,15 +289,15 @@ print("polygon count", traci.polygon.getIDCount())
 poiID = "myPOI0"
 print("adding", poiID)
 traci.poi.add(poiID, 350, 510, (255, 255, 255, 255), "test", 0, "img.jpeg")
-traci.poi.highlight(poiID, (0,0,255), -1, 200, 4)
+traci.poi.highlight(poiID, (0, 0, 255), -1, 200, 4)
 
 poiID = "myPOI1"
 print("adding", poiID)
 traci.poi.add(poiID, 370, 510, (255, 255, 255, 255), "test", 0, "img.jpeg")
-traci.poi.highlight(poiID, (0,0,255), -1, 200, 4)
+traci.poi.highlight(poiID, (0, 0, 255), -1, 200, 4)
 
 poiID = "myPOI0"
-traci.poi.highlight(poiID, (55,55,100), 20, 200, 4, 1)
+traci.poi.highlight(poiID, (55, 55, 100), 20, 200, 4, 1)
 
 print("pois", traci.poi.getIDList())
 print("poi count", traci.poi.getIDCount())
@@ -302,7 +307,7 @@ print("polygon count", traci.polygon.getIDCount())
 
 for pID in traci.polygon.getIDList():
     examine(pID)
-    
+
 for step in range(125, 130):
     print("step", step)
     traci.simulationStep()
@@ -315,5 +320,5 @@ print("polygon count", traci.polygon.getIDCount())
 
 for pID in traci.polygon.getIDList():
     examine(pID)
-    
+
 traci.close()

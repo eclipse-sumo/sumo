@@ -150,11 +150,11 @@ class PolygonDomain(Domain):
                      The center of rotation is the object's position.
         """
         msg_length = 1 + 4 \
-                   + 1 + 4 + len(trackedObjectID) \
-                   + 1 + 4 + len(timeSpan)*8 \
-                   + 1 + 4 + len(alphaSpan)*8 \
-                   + 1 + 1 \
-                   + 1 + 1
+            + 1 + 4 + len(trackedObjectID) \
+            + 1 + 4 + len(timeSpan)*8 \
+            + 1 + 4 + len(alphaSpan)*8 \
+            + 1 + 1 \
+            + 1 + 1
         self._connection._beginMessage(tc.CMD_SET_POLYGON_VARIABLE, tc.VAR_ADD_DYNAMICS, polygonID, msg_length)
         self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 5)
         self._connection._packString(trackedObjectID)
@@ -162,7 +162,7 @@ class PolygonDomain(Domain):
         self._connection._packDoubleList(alphaSpan)
         self._connection._string += struct.pack("!BB", tc.TYPE_UBYTE, looped)
         self._connection._string += struct.pack("!BB", tc.TYPE_UBYTE, rotate)
-        self._connection._sendExact()      
+        self._connection._sendExact()
 
     def remove(self, polygonID, layer=0):
         self._connection._beginMessage(

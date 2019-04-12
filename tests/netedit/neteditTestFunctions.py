@@ -539,6 +539,7 @@ def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
             # print debug information
             print("TestFunctions: Error closing Netedit")
 
+
 """
             # return a subprocess with Netedit
             sumoGuiProcess = subprocess.Popen(SumoGuiCall, env=os.environ, stdout=sys.stdout, stderr=sys.stderr)

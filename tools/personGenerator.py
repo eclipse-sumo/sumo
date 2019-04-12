@@ -435,4 +435,3 @@ if __name__ == "__main__":
     parser.add_argument("destination")
     source, destination = parser.parse_args()
     generate_persons(source, destination)
-
