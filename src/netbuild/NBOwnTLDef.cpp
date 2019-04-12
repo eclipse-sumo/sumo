@@ -252,36 +252,28 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
     std::vector<bool> hasTurnLane;
     std::vector<int> fromLanes;
     std::vector<int> toLanes;
-    int noLanesAll = 0;
     int noLinksAll = 0;
-    for (int i1 = 0; i1 < (int)incoming.size(); i1++) {
-        int noLanes = incoming[i1]->getNumLanes();
-        noLanesAll += noLanes;
-        for (int i2 = 0; i2 < noLanes; i2++) {
-            NBEdge* fromEdge = incoming[i1];
-            std::vector<NBEdge::Connection> approached = fromEdge->getConnectionsFromLane(i2);
-            noLinksAll += (int) approached.size();
+    for (NBEdge* const fromEdge : incoming) {
+        const int numLanes = fromEdge->getNumLanes();
+        for (int i2 = 0; i2 < numLanes; i2++) {
             bool hasLeft = false;
             bool hasStraight = false;
             bool hasRight = false;
             bool hasTurnaround = false;
-            for (int i3 = 0; i3 < (int)approached.size(); i3++) {
-                if (!fromEdge->mayBeTLSControlled(i2, approached[i3].toEdge, approached[i3].toLane)) {
-                    --noLinksAll;
+            for (const NBEdge::Connection& approached : fromEdge->getConnectionsFromLane(i2)) {
+                if (!fromEdge->mayBeTLSControlled(i2, approached.toEdge, approached.toLane)) {
                     continue;
                 }
-                assert(i3 < (int)approached.size());
-                NBEdge* toEdge = approached[i3].toEdge;
                 fromEdges.push_back(fromEdge);
                 fromLanes.push_back(i2);
-                toLanes.push_back(approached[i3].toLane);
-                toEdges.push_back(toEdge);
-                if (toEdge != nullptr) {
-                    isTurnaround.push_back(fromEdge->isTurningDirectionAt(toEdge));
+                toLanes.push_back(approached.toLane);
+                toEdges.push_back(approached.toEdge);
+                if (approached.toEdge != nullptr) {
+                    isTurnaround.push_back(fromEdge->isTurningDirectionAt(approached.toEdge));
                 } else {
                     isTurnaround.push_back(true);
                 }
-                LinkDirection dir = fromEdge->getToNode()->getDirection(fromEdge, toEdge);
+                LinkDirection dir = fromEdge->getToNode()->getDirection(fromEdge, approached.toEdge);
                 if (dir == LINKDIR_STRAIGHT) {
                     hasStraight = true;
                 } else if (dir == LINKDIR_RIGHT || dir == LINKDIR_PARTRIGHT) {
@@ -291,9 +283,10 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
                 } else if (dir == LINKDIR_TURN) {
                     hasTurnaround = true;
                 }
+                noLinksAll++;
             }
-            for (int i3 = 0; i3 < (int)approached.size(); i3++) {
-                if (!fromEdge->mayBeTLSControlled(i2, approached[i3].toEdge, approached[i3].toLane)) {
+            for (const NBEdge::Connection& approached : fromEdge->getConnectionsFromLane(i2)) {
+                if (!fromEdge->mayBeTLSControlled(i2, approached.toEdge, approached.toLane)) {
                     continue;
                 }
                 hasTurnLane.push_back(
@@ -305,11 +298,11 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
     }
     // collect crossings
     std::vector<NBNode::Crossing*> crossings;
-    for (std::vector<NBNode*>::iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
-        const std::vector<NBNode::Crossing*>& c = (*i)->getCrossings();
+    for (NBNode* const node : myControlledNodes) {
+        const std::vector<NBNode::Crossing*>& c = node->getCrossings();
         if (!onlyConts) {
             // set tl indices for crossings
-            (*i)->setCrossingTLIndices(getID(), noLinksAll);
+            node->setCrossingTLIndices(getID(), noLinksAll);
         }
         copy(c.begin(), c.end(), std::back_inserter(crossings));
         noLinksAll += (int)c.size();
@@ -387,14 +380,12 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
         // plain straight movers
         double maxSpeed = 0;
         bool haveGreen = false;
-        for (int i1 = 0; i1 < (int) incoming.size(); ++i1) {
-            NBEdge* fromEdge = incoming[i1];
+        for (const NBEdge* const fromEdge : incoming) {
             const bool inChosen = fromEdge == chosen.first || fromEdge == chosen.second; //chosen.find(fromEdge)!=chosen.end();
             const int numLanes = fromEdge->getNumLanes();
             for (int i2 = 0; i2 < numLanes; i2++) {
-                std::vector<NBEdge::Connection> approached = fromEdge->getConnectionsFromLane(i2);
-                for (int i3 = 0; i3 < (int)approached.size(); ++i3) {
-                    if (!fromEdge->mayBeTLSControlled(i2, approached[i3].toEdge, approached[i3].toLane)) {
+                for (const NBEdge::Connection& approached : fromEdge->getConnectionsFromLane(i2)) {
+                    if (!fromEdge->mayBeTLSControlled(i2, approached.toEdge, approached.toLane)) {
                         continue;
                     }
                     if (inChosen) {
@@ -799,26 +790,30 @@ NBOwnTLDef::getConnectedOuterEdges(const EdgeVector& incoming) {
 
 std::string
 NBOwnTLDef::allowCompatible(std::string state, const EdgeVector& fromEdges, const EdgeVector& toEdges,
-            const std::vector<int>& fromLanes, const std::vector<int>& toLanes) 
-{
+            const std::vector<int>& fromLanes, const std::vector<int>& toLanes) {
     state = allowSingleEdge(state, fromEdges);
     state = allowFollowers(state, fromEdges, toEdges);
     state = allowPredecessors(state, fromEdges, toEdges, fromLanes, toLanes);
     return state;
 }
 
+
 std::string 
 NBOwnTLDef::allowSingleEdge(std::string state, const EdgeVector& fromEdges) {
     // if only one edge has green, ensure sure that all connections from that edge are green
-    std::set<NBEdge*> greenEdges;
-    for (int i1 = 0; i1 < (int)state.size(); ++i1) {
+    const int size = (int)fromEdges.size();
+    NBEdge* greenEdge = nullptr;
+    for (int i1 = 0; i1 < size; ++i1) {
         if (state[i1] == 'G') {
-            greenEdges.insert(fromEdges[i1]);
+            if (greenEdge == nullptr) {
+                greenEdge = fromEdges[i1];
+            } else if (greenEdge != fromEdges[i1]) {
+                return state;
+            }
         }
     }
-    if (greenEdges.size() == 1) {
-        NBEdge* greenEdge = *greenEdges.begin();
-        for (int i1 = 0; i1 < (int)state.size(); ++i1) {
+    if (greenEdge != nullptr) {
+        for (int i1 = 0; i1 < size; ++i1) {
             if (fromEdges[i1] == greenEdge) {
                 state[i1] = 'G';
             }
@@ -826,6 +821,7 @@ NBOwnTLDef::allowSingleEdge(std::string state, const EdgeVector& fromEdges) {
     }
     return state;
 }
+
 
 std::string 
 NBOwnTLDef::allowFollowers(std::string state, const EdgeVector& fromEdges, const EdgeVector& toEdges) {
@@ -888,6 +884,7 @@ NBOwnTLDef::allowPredecessors(std::string state, const EdgeVector& fromEdges, co
     }
     return state;
 }
+
 
 std::string 
 NBOwnTLDef::allowUnrelated(std::string state, const EdgeVector& fromEdges, const EdgeVector& toEdges, 

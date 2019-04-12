@@ -2418,7 +2418,7 @@ NBNode::buildCrossingsAndWalkingAreas() {
 std::vector<NBNode::Crossing*>
 NBNode::getCrossings() const {
     std::vector<Crossing*> result;
-    for (auto c : myCrossings) {
+    for (Crossing* const c : myCrossings) {
         if (c->valid) {
             result.push_back(c);
         }
