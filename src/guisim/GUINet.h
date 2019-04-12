@@ -119,8 +119,7 @@ public:
      * @return The built popup-menu
      * @see GUIGlObject::getPopUpMenu
      */
-    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app,
-                                       GUISUMOAbstractView& parent);
+    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) override;
 
 
     /** @brief Returns an own parameter window
@@ -130,8 +129,7 @@ public:
      * @return The built parameter window
      * @see GUIGlObject::getParameterWindow
      */
-    GUIParameterTableWindow* getParameterWindow(
-        GUIMainWindow& app, GUISUMOAbstractView& parent);
+    GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) override;
 
 
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
@@ -139,14 +137,14 @@ public:
      * @return The boundary the object is within
      * @see GUIGlObject::getCenteringBoundary
      */
-    Boundary getCenteringBoundary() const;
+    Boundary getCenteringBoundary() const override;
 
 
     /** @brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
      */
-    void drawGL(const GUIVisualizationSettings& s) const;
+    void drawGL(const GUIVisualizationSettings& s) const override;
     //@}
 
 
@@ -245,7 +243,7 @@ public:
      * @see MSPersonControl
      * @see myPersonControl
      */
-    MSTransportableControl& getPersonControl();
+    MSTransportableControl& getPersonControl() override;
 
 
     /** @brief Returns the container control
@@ -256,7 +254,7 @@ public:
      * @see MSContainerControl
      * @see myContainerControl
      */
-    MSTransportableControl& getContainerControl();
+    MSTransportableControl& getContainerControl() override;
 
 
     /** Returns the gl-id of the traffic light that controls the given link
@@ -341,10 +339,10 @@ public:
     static GUINet* getGUIInstance();
 
     /// @brief creates a wrapper for the given logic
-    void createTLWrapper(MSTrafficLightLogic* tll);
+    void createTLWrapper(MSTrafficLightLogic* tll) override;
 
     /// @brief return wheter the given logic (or rather it's wrapper) is selected in the GUI
-    bool isSelected(const MSTrafficLightLogic* tll) const;
+    bool isSelected(const MSTrafficLightLogic* tll) const override;
 
 private:
     /// @brief Initialises the tl-logic map and wrappers
