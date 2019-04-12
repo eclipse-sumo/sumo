@@ -175,6 +175,8 @@ class PersonDomain(Domain):
           1 for waiting
           2 for walking
           3 for driving
+          4 for access to busStop or trainStop
+          5 for personTrip
         nextStageIndex 0 retrieves value for the current stage.
         nextStageIndex must be lower then value of getRemainingStages(personID)
         """
