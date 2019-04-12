@@ -27,7 +27,7 @@ import traci
 def _logs():
     """ Log init. """
     stdout_handler = logging.StreamHandler(sys.stdout)
-    logging.basicConfig(handlers=[stdout_handler], level=logging.DEBUG,
+    logging.basicConfig(handlers=[stdout_handler], level=logging.WARNING,
                         format='[%(asctime)s] %(levelname)s: %(message)s',
                         datefmt='%m/%d/%Y %I:%M:%S %p')
 
@@ -161,7 +161,8 @@ class ReroutersGeneration(object):
         <interval begin="0.0" end="86400">
             <!-- in order of distance --> {parkings}
         </interval>
-    </rerouter>"""
+    </rerouter>
+"""
 
     _RR_PARKING = """
             <parkingAreaReroute id="{pid}" visible="{visible}"/> <!-- dist: {dist} -->"""
@@ -172,6 +173,7 @@ class ReroutersGeneration(object):
         logging.info("Creation of %s", filename)
         with open(filename, 'w') as outfile:
             sumolib.xml.writeHeader(outfile, "additional")
+            outfile.write("<additional>\n")
             for rerouter in self._sumo_rerouters.values():
                 alternatives = ''
                 for alt, dist in rerouter['rerouters']:
