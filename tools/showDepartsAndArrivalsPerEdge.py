@@ -31,6 +31,8 @@ def parse_args():
             help="Restrict counts to routes that one of the consecutive edge sequence in the given input file (one sequence per line)")
     optParser.add_option("-i", "--intermediate", action="store_true", default=False, 
             help="count all edges of a route")
+    optParser.add_option("--taz", action="store_true", default=False, 
+            help="use fromTaz and toTaz instead of from and to")
     options, args = optParser.parse_args()
     try:
         options.routefile, = args
@@ -84,15 +86,16 @@ def main():
             intermediateCounts[e] += 1
 
     # warn about potentially missing edges
-    for trip in parse_fast(options.routefile, 'trip', ['id', 'fromTaz', 'toTaz']):
+    fromAttr, toAttr = ('fromTaz', 'toTaz') if options.taz else ('from', 'to')
+    for trip in parse_fast(options.routefile, 'trip', ['id', fromAttr, toAttr]):
         if options.subparts:
-            sys.stderr.print("Warning: Ignoring trips when using --subpart")
+            sys.stderr.write("Warning: Ignoring trips when using --subpart\n")
             break
-        departCounts[trip.fromTaz] += 1
-        arrivalCounts[trip.toTaz] += 1
+        departCounts[trip[1]] += 1
+        arrivalCounts[trip[2]] += 1
     for walk in parse_fast(options.routefile, 'walk', ['from', 'to']):
         if options.subparts:
-            sys.stderr.print("Warning: Ignoring trips when using --subpart")
+            sys.stderr.write("Warning: Ignoring trips when using --subpart\n")
             break
         departCounts[walk.attr_from] += 1
         arrivalCounts[walk.to] += 1

@@ -7,5 +7,7 @@
       <edge id="e" departed="0" arrived="0" delta="0" intermediate="1"/>
       <edge id="f" departed="0" arrived="0" delta="0" intermediate="1"/>
       <edge id="g" departed="0" arrived="1" delta="1" intermediate="1"/>
+      <edge id="h" departed="1" arrived="0" delta="-1" intermediate="0"/>
+      <edge id="j" departed="0" arrived="1" delta="1" intermediate="0"/>
    </interval>
 </edgedata>
