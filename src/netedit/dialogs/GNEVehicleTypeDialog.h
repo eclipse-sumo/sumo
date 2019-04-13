@@ -244,7 +244,10 @@ public:
             
         /// @brief VTypeAttributeRow for Ignore Keep Clear Time
         VTypeAttributeRow* myJMIgnoreKeepclearTime;
-
+        
+        /// @brief VTypeAttributeRow for Drive After Yellow Time
+        VTypeAttributeRow* myJMDriveAfterYellowTime;
+        
         /// @brief VTypeAttributeRow for Drive After Red Time
         VTypeAttributeRow* myJMDriveAfterRedTime;
             
