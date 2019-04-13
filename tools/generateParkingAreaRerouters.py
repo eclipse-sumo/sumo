@@ -102,7 +102,7 @@ class ReroutersGeneration(object):
     def _generate_rerouters(self):
         """ Compute the rerouters for each parking lot for SUMO. """
 
-        traci.start(['sumo', '-n', self._sumo_net])
+        traci.start([sumolib.checkBinary('sumo'), '--no-step-log', '-n', self._sumo_net])
 
         distances = collections.defaultdict(dict)
         for parking_a in self._parking_areas.values():
