@@ -604,6 +604,7 @@ GNEVehicleTypeDialog::VTypeAtributes::updateValues() {
     // JM Parameters
     myJMCrossingGap->updateValue();
     myJMIgnoreKeepclearTime->updateValue();
+    myJMDriveAfterYellowTime->updateValue();
     myJMDriveAfterRedTime->updateValue();
     myJMDriveRedSpeed->updateValue();
     myJMIgnoreFoeProb->updateValue();
@@ -668,6 +669,7 @@ GNEVehicleTypeDialog::VTypeAtributes::onCmdSetVariable(FXObject*, FXSelector, vo
     // JM Variables
     myJMCrossingGap->setVariable();
     myJMIgnoreKeepclearTime->setVariable();
+    myJMDriveAfterYellowTime->setVariable();
     myJMDriveAfterRedTime->setVariable();
     myJMDriveRedSpeed->setVariable();
     myJMIgnoreFoeProb->setVariable();

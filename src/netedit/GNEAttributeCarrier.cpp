@@ -4125,7 +4125,7 @@ GNEAttributeCarrier::fillJunctionModelAttributes() {
     myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
 
     attrProperty = AttributeProperties(SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME,
-        ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_EXTENDED,
+        ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_EXTENDED,
         "This value causes vehicles to violate a yellow light if the duration of the yellow phase is lower than the given threshold.",
         "0");
     myTagProperties[SUMO_TAG_VTYPE].addAttribute(attrProperty);
