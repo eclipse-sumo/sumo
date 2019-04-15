@@ -1116,21 +1116,23 @@ GNEFrame::AttributesEditor::RowEditor::refreshRow(const std::string& value, bool
         }
     }
     // if Tag correspond to an network element but we're in demand mode (or vice versa), disable all elements
-    if (((myAttributesEditorParent->myFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && myACAttr.getTagPropertyParent().isDemandElement()) ||
-        ((myAttributesEditorParent->myFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myACAttr.getTagPropertyParent().isDemandElement())) {
-        myColorEditor->disable();
-        myRadioButton->disable();
-        myTextFieldInt->disable();
-        myTextFieldReal->disable();
-        myTextFieldStrings->disable();
-        myChoicesCombo->disable();
-        myBoolCheckButton->disable();
-        myButtonCombinableChoices->disable();
-    }
-    // special case for Default vehicle types (ID cannot be edited)
-    if ((myACAttr.getTagPropertyParent().getTag() == SUMO_TAG_VTYPE) && (myACAttr.getAttr() == SUMO_ATTR_ID) &&
-        ((value == DEFAULT_VTYPE_ID) || (value == DEFAULT_PEDTYPE_ID) || (value == DEFAULT_BIKETYPE_ID))) {
-         myTextFieldStrings->disable();
+    if (myACAttr.getAttr() != SUMO_ATTR_NOTHING) {
+        if (((myAttributesEditorParent->myFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && myACAttr.getTagPropertyParent().isDemandElement()) ||
+            ((myAttributesEditorParent->myFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myACAttr.getTagPropertyParent().isDemandElement())) {
+            myColorEditor->disable();
+            myRadioButton->disable();
+            myTextFieldInt->disable();
+            myTextFieldReal->disable();
+            myTextFieldStrings->disable();
+            myChoicesCombo->disable();
+            myBoolCheckButton->disable();
+            myButtonCombinableChoices->disable();
+        }
+        // special case for Default vehicle types (ID cannot be edited)
+        if ((myACAttr.getTagPropertyParent().getTag() == SUMO_TAG_VTYPE) && (myACAttr.getAttr() == SUMO_ATTR_ID) &&
+            ((value == DEFAULT_VTYPE_ID) || (value == DEFAULT_PEDTYPE_ID) || (value == DEFAULT_BIKETYPE_ID))) {
+             myTextFieldStrings->disable();
+        }
     }
 }
 
