@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Sep  3 18:20:14 2018 by Eclipse SUMO jtrrouter Version 854346cdd7
+<!-- generated on Mon Apr 15 15:26:44 2019 by Eclipse SUMO jtrrouter Version 1.2.0
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -55,6 +55,7 @@
             <xsd:element name="repair.from" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="repair.to" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="weights.interpolate" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="weights.minor-penalty" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="with-taz" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="bulk-routing" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="routing-threads" type="intOptionType" minOccurs="0"/>
