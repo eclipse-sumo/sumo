@@ -405,7 +405,7 @@ MSMeanData::MeanDataValueTracker::getSamples() const {
 MSMeanData::MSMeanData(const std::string& id,
                        const SUMOTime dumpBegin, const SUMOTime dumpEnd,
                        const bool useLanes, const bool withEmpty,
-                       const bool printDefaults, const bool withInternal, 
+                       const bool printDefaults, const bool withInternal,
                        const bool trackVehicles,
                        const int detectPersons,
                        const double maxTravelTime,
@@ -420,8 +420,7 @@ MSMeanData::MSMeanData(const std::string& id,
     myDumpEnd(dumpEnd),
     myPrintDefaults(printDefaults),
     myDumpInternal(withInternal),
-    myTrackVehicles(trackVehicles)
-{
+    myTrackVehicles(trackVehicles) {
 }
 
 
@@ -429,7 +428,7 @@ void
 MSMeanData::init() {
     const MSEdgeVector& edges = MSNet::getInstance()->getEdgeControl().getEdges();
     for (MSEdgeVector::const_iterator e = edges.begin(); e != edges.end(); ++e) {
-        if ((myDumpInternal || !(*e)->isInternal()) && 
+        if ((myDumpInternal || !(*e)->isInternal()) &&
                 ((detectPersons() && myDumpInternal) || (!(*e)->isCrossing() && !(*e)->isWalkingArea()))) {
             myEdges.push_back(*e);
             myMeasures.push_back(std::vector<MeanDataValues*>());

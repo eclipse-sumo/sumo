@@ -916,7 +916,7 @@ MSNet::getStoppingPlaceID(const MSLane* lane, const double pos, const SumoXMLTag
 }
 
 
-const NamedObjectCont<MSStoppingPlace*>& 
+const NamedObjectCont<MSStoppingPlace*>&
 MSNet::getStoppingPlaces(SumoXMLTag category) const {
     auto it = myStoppingPlaces.find(category);
     if (it != myStoppingPlaces.end()) {

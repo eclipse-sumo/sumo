@@ -154,7 +154,7 @@ public:
             void hideParameter();
 
             /// @brief return Attr
-            const GNEAttributeCarrier::AttributeProperties &getAttrProperties() const;
+            const GNEAttributeCarrier::AttributeProperties& getAttrProperties() const;
 
             /// @brief return value
             std::string getValue() const;
@@ -232,7 +232,7 @@ public:
         };
 
         /// @brief update disjoint attributes
-        void updateDisjointAttributes(RowCreator *row);
+        void updateDisjointAttributes(RowCreator* row);
 
     protected:
         /// @brief FOX needs this
@@ -272,7 +272,7 @@ public:
             RowEditor(GNEFrame::AttributesEditor* attributeEditorParent);
 
             /// @brief show row attribute
-            void showRow(const GNEAttributeCarrier::AttributeProperties &ACAttr, const std::string& value, bool disjointAttributeEnabled);
+            void showRow(const GNEAttributeCarrier::AttributeProperties& ACAttr, const std::string& value, bool disjointAttributeEnabled);
 
             /// @brief show row attribute
             void hideRow();
@@ -354,7 +354,7 @@ public:
         void refreshAttributeEditor(bool forceRefreshShape, bool forceRefreshPosition);
 
         /// @brief get current edited ACs
-        const std::vector<GNEAttributeCarrier*> &getEditedACs() const;
+        const std::vector<GNEAttributeCarrier*>& getEditedACs() const;
 
         /// @brief remove edited ACs
         void removeEditedAC(GNEAttributeCarrier* AC);
@@ -478,7 +478,7 @@ public:
         FXTreeItem* addListItem(GNEAttributeCarrier* AC, FXTreeItem* itemParent = nullptr, std::string prefix = "", std::string sufix = "");
 
         /// @brief add item into list
-        FXTreeItem* addListItem(FXTreeItem* itemParent, const std::string &text, FXIcon* icon, bool expanded);
+        FXTreeItem* addListItem(FXTreeItem* itemParent, const std::string& text, FXIcon* icon, bool expanded);
     private:
         /// @brief Frame Parent
         GNEFrame* myFrameParent;
@@ -809,9 +809,9 @@ protected:
 
     /// @brief get selected color
     const RGBColor& getEdgeCandidateSelectedColor() const;
-    
+
     /// @brief get predefinedTagsMML
-    const std::map<int, std::string> &getPredefinedTagsMML() const;
+    const std::map<int, std::string>& getPredefinedTagsMML() const;
 
     /// @brief View Net for changes
     GNEViewNet* myViewNet;

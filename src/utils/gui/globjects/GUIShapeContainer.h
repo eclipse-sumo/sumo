@@ -73,13 +73,13 @@ public:
 
     /// @brief Adds dynamics to the given Polygon, @see ShapeContainer addPolygonDynamics
     /// @note  Supplies the visualisation RTree to the dynamics for updating the object when moving
-    PolygonDynamics * addPolygonDynamics(double simtime,
-            std::string polyID,
-            SUMOTrafficObject* trackedObject,
-            const std::vector<double>& timeSpan,
-            const std::vector<double>& alphaSpan,
-            bool looped,
-            bool rotate) override;
+    PolygonDynamics* addPolygonDynamics(double simtime,
+                                        std::string polyID,
+                                        SUMOTrafficObject* trackedObject,
+                                        const std::vector<double>& timeSpan,
+                                        const std::vector<double>& alphaSpan,
+                                        bool looped,
+                                        bool rotate) override;
 
     /// @brief Update PolygonDynamics, @see ShapeContainer
     /// @note  Locks the visualisation RTree

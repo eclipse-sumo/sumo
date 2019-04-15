@@ -330,7 +330,7 @@ public:
         }
 
         /// @brief return duration sum of all trip items
-        SUMOTime getDuration() const; 
+        SUMOTime getDuration() const;
 
     private:
         const ROEdge* from;
@@ -382,8 +382,8 @@ public:
     }
 
 private:
-    bool computeIntermodal(SUMOTime time, const RORouterProvider& provider, 
-            PersonTrip* const trip, const ROVehicle* const veh, MsgHandler* const errorHandler);
+    bool computeIntermodal(SUMOTime time, const RORouterProvider& provider,
+                           PersonTrip* const trip, const ROVehicle* const veh, MsgHandler* const errorHandler);
 
 private:
     /**

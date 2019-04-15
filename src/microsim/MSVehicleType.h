@@ -558,7 +558,7 @@ public:
 protected:
 
     // init further param values
-    void initParameters(); 
+    void initParameters();
 
 private:
     /// @brief the parameter container

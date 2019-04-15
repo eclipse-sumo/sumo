@@ -232,10 +232,10 @@ public:
     public:
         /// constructor
         Stage_Trip(const MSEdge* origin, MSStoppingPlace* fromStop,
-                const MSEdge* destination, MSStoppingPlace* toStop,
-                const SUMOTime duration, const SVCPermissions modeSet,
-                const std::string& vTypes, const double speed, const double walkFactor,
-                const double departPosLat, const bool hasArrivalPos, const double arrivalPos);
+                   const MSEdge* destination, MSStoppingPlace* toStop,
+                   const SUMOTime duration, const SVCPermissions modeSet,
+                   const std::string& vTypes, const double speed, const double walkFactor,
+                   const double departPosLat, const bool hasArrivalPos, const double arrivalPos);
 
         /// destructor
         virtual ~Stage_Trip();
@@ -518,29 +518,45 @@ public:
 
     /// @name inherited from SUMOTrafficObject
     /// @{
-    bool isVehicle() const { return false; }
+    bool isVehicle() const {
+        return false;
+    }
 
-    bool isStopped() const { return getCurrentStageType() == WAITING; }
+    bool isStopped() const {
+        return getCurrentStageType() == WAITING;
+    }
 
- 	double getSlope() const;
+    double getSlope() const;
 
- 	double getChosenSpeedFactor() const { return 1.0; }
+    double getChosenSpeedFactor() const {
+        return 1.0;
+    }
 
- 	SUMOVehicleClass getVClass() const;
+    SUMOVehicleClass getVClass() const;
 
     double getMaxSpeed() const;
 
     SUMOTime getWaitingTime() const;
 
-	double getPreviousSpeed() const { return getSpeed(); }
+    double getPreviousSpeed() const {
+        return getSpeed();
+    }
 
-	double getAcceleration() const { return 0.0; }
+    double getAcceleration() const {
+        return 0.0;
+    }
 
-	double getPositionOnLane() const { return getEdgePos(); }
+    double getPositionOnLane() const {
+        return getEdgePos();
+    }
 
-	double getBackPositionOnLane(const MSLane* /*lane*/) const { return getEdgePos(); }
+    double getBackPositionOnLane(const MSLane* /*lane*/) const {
+        return getEdgePos();
+    }
 
-	Position getPosition(const double /*offset*/) const { return getPosition(); }
+    Position getPosition(const double /*offset*/) const {
+        return getPosition();
+    }
     /// @}
 
     /// the structure holding the plan of a transportable

@@ -141,7 +141,7 @@ MSCFModel_ACC::insertionFollowSpeed(const MSVehicle* const v, double speed, doub
     while (n_iter < max_iter) {
         // proposed acceleration
         const double a = SPEED2ACCEL(followSpeed(v, res, gap2pred, predSpeed, predMaxDecel, nullptr) - res);
-        res = res + damping*a;
+        res = res + damping * a;
 //#ifdef DEBUG_ACC
 //        std::cout << "   n_iter=" << n_iter << ", a=" << a << ", res=" << res << std::endl;
 //#endif
@@ -229,11 +229,11 @@ MSCFModel_ACC::_v(const MSVehicle* const veh, const double gap2pred, const doubl
 
 #ifdef DEBUG_ACC
         if DEBUG_COND {
-            std::cout << "        applying speedControl" << std::endl;
-        }
+        std::cout << "        applying speedControl" << std::endl;
+    }
 #endif
-        // Find acceleration - Speed control law
-        accelACC = accelSpeedControl(vErr);
+    // Find acceleration - Speed control law
+    accelACC = accelSpeedControl(vErr);
         // Set cl to vehicle parameters
         if (setControlMode) {
             vars->ACC_ControlMode = 0;

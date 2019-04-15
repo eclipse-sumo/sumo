@@ -42,15 +42,15 @@ GNENetElement::GNENetElement(GNENet* net, const std::string& id, GUIGlObjectType
     GUIGlObject(type, id),
     GNEAttributeCarrier(tag),
     GNEHierarchicalElementParents(this, {}, {}, {}, {}, {}),
-    GNEHierarchicalElementChilds(this, {}, {}, {}, {}, {}),
-    myNet(net),
-    myMovingGeometryBoundary() {}
+                              GNEHierarchicalElementChilds(this, {}, {}, {}, {}, {}),
+                              myNet(net),
+myMovingGeometryBoundary() {}
 
 
 GNENetElement::~GNENetElement() {}
 
 
-std::string 
+std::string
 GNENetElement::generateChildID(SumoXMLTag /*childTag*/) {
     return "";
 }

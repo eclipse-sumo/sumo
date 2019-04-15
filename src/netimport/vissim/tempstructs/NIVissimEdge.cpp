@@ -106,18 +106,18 @@ NIVissimEdge::connection_cluster_position_sorter::operator()(
 
 
 NIVissimEdge::NIVissimEdge(int id, const std::string& name,
-                           const std::string& type, 
-                           std::vector<double> laneWidths, 
+                           const std::string& type,
+                           std::vector<double> laneWidths,
                            double zuschlag1, double zuschlag2,
                            double /*length*/, const PositionVector& geom,
-                           const NIVissimClosedLanesVector& clv) : 
+                           const NIVissimClosedLanesVector& clv) :
     NIVissimAbstractEdge(id, geom),
     myName(name), myType(type), myNoLanes((int)laneWidths.size()),
     myLaneWidths(laneWidths),
     myZuschlag1(zuschlag1), myZuschlag2(zuschlag2),
-    myClosedLanes(clv), 
+    myClosedLanes(clv),
     myLaneSpeeds(myNoLanes, -1),
-    myAmWithinJunction(false) 
+    myAmWithinJunction(false)
     //, mySpeed(-1)
 {
     assert(myNoLanes >= 0);
@@ -141,8 +141,8 @@ NIVissimEdge::dictionary(int id, const std::string& name,
                          double zuschlag1, double zuschlag2, double length,
                          const PositionVector& geom,
                          const NIVissimClosedLanesVector& clv) {
-    NIVissimEdge* o = new NIVissimEdge(id, name, type, std::vector<double>(noLanes, NBEdge::UNSPECIFIED_WIDTH), 
-            zuschlag1, zuschlag2, length, geom, clv);
+    NIVissimEdge* o = new NIVissimEdge(id, name, type, std::vector<double>(noLanes, NBEdge::UNSPECIFIED_WIDTH),
+                                       zuschlag1, zuschlag2, length, geom, clv);
     if (!dictionary(id, o)) {
         delete o;
         return false;

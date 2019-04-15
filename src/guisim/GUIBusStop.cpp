@@ -57,8 +57,7 @@ GUIBusStop::GUIBusStop(const std::string& id, const std::vector<std::string>& li
                        double frompos, double topos, const std::string name, int personCapacity) :
     MSStoppingPlace(id, lines, lane, frompos, topos, name, personCapacity),
     GUIGlObject_AbstractAdd(GLO_BUS_STOP, id),
-    myPersonExaggeration(1)
-{
+    myPersonExaggeration(1) {
     const double offsetSign = MSNet::getInstance()->lefthand() ? -1 : 1;
     myWidth = MAX2(1.0, ceil(personCapacity / getPersonsAbreast()) * SUMO_const_waitingPersonDepth);
     myFGShape = lane.getShape();
@@ -209,8 +208,8 @@ Position
 GUIBusStop::getWaitPosition(MSTransportable* t) const {
     Position result = MSStoppingPlace::getWaitPosition(t);
     if (myPersonExaggeration > 1) {
-        Position ref = myLane.getShape().positionAtOffset(myLane.interpolateLanePosToGeometryPos((myBegPos + myEndPos) / 2), 
-                myLane.getWidth() / 2);
+        Position ref = myLane.getShape().positionAtOffset(myLane.interpolateLanePosToGeometryPos((myBegPos + myEndPos) / 2),
+                       myLane.getWidth() / 2);
         result = ref + (result - ref) * myPersonExaggeration;
     }
     return result;

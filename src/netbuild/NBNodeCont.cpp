@@ -600,7 +600,7 @@ NBNodeCont::addCluster2Join(std::set<std::string> cluster, NBNode* node) {
                         NBNode* node = retrieve(nID);
                         if (node != nullptr) {
                             validCluster.insert(nID);
-                        } else{
+                        } else {
                             WRITE_ERROR("Unknown junction '" + nodeID + "' in join-cluster (componentID)");
                         }
                     }
@@ -793,9 +793,9 @@ NBNodeCont::pruneClusterFringe(NodeSet& cluster) const {
             for (NBEdge* e : n->getEdges()) {
                 NBNode* neighbor = e->getFromNode() == n ? e->getToNode() : e->getFromNode();
                 if (cluster.count(neighbor) == 0) {
-                    if ((e->getPermissions() & SVC_PASSENGER) != 0 
+                    if ((e->getPermissions() & SVC_PASSENGER) != 0
                             || isRailway(e->getPermissions()) // join railway crossings
-                            || clusterDist <= pedestrianFringeThreshold 
+                            || clusterDist <= pedestrianFringeThreshold
                             || touchingCluster) {
                         outsideNeighbors.insert(neighbor);
                     }
@@ -1154,8 +1154,8 @@ NBNodeCont::joinNodeCluster(NodeSet cluster, NBDistrictCont& dc, NBEdgeCont& ec,
     }
 #ifdef DEBUG_JOINJUNCTIONS
     std::cout << "joining cluster " << joinNamedToString(cluster, ' ') << "\n"
-        << "  incoming=" << toString(clusterIncoming) << "\n"
-        << "  inside=" << toString(inside) << "\n";
+              << "  incoming=" << toString(clusterIncoming) << "\n"
+              << "  inside=" << toString(inside) << "\n";
 #endif
 
     // determine possible connectivity from outside edges
@@ -1340,7 +1340,7 @@ NBNodeCont::shouldBeTLSControlled(const NodeSet& c, double laneSpeedThreshold) c
 
 bool
 NBNodeCont::onlyCrossings(const NodeSet& c) const {
-    // check whether all component nodes are solely pedestrian crossings 
+    // check whether all component nodes are solely pedestrian crossings
     // (these work fine without joining)
     for (NBNode* node : c) {
         EdgeVector nonPedIncoming;
@@ -1373,7 +1373,7 @@ NBNodeCont::customTLID(const NodeSet& c) const {
     for (NBNode* node : c) {
         if (node->isTLControlled()) {
             const std::string tlID = (*node->getControllingTLS().begin())->getID();
-            if (tlID != node->getID() 
+            if (tlID != node->getID()
                     && !StringUtils::startsWith(tlID, "joinedS_")
                     && !StringUtils::startsWith(tlID, "joinedG_")
                     && !StringUtils::startsWith(tlID, "GS")) {
@@ -1461,8 +1461,8 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
             }
             const EdgeVector& incoming = node->getIncomingEdges();
             const EdgeVector& outgoing = node->getOutgoingEdges();
-            if (!node->isTLControlled() && incoming.size() > 1 && !node->geometryLike() 
-                    && !NBNodeTypeComputer::isRailwayNode(node) 
+            if (!node->isTLControlled() && incoming.size() > 1 && !node->geometryLike()
+                    && !NBNodeTypeComputer::isRailwayNode(node)
                     && node->getType() != NODETYPE_RAIL_CROSSING) {
                 std::vector<NBNode*> signals;
                 bool isTLS = true;

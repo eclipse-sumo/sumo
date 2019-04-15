@@ -250,7 +250,7 @@ GNEViewNet::buildViewToolBars(GUIGlChildWindow& cw) {
 }
 
 
-void 
+void
 GNEViewNet::update() const {
     // this call is only used for breakpoints (to check when view is updated)
     GUISUMOAbstractView::update();
@@ -375,7 +375,7 @@ GNEViewNet::getViewOptions() const {
 }
 
 
-const GNEViewNetHelper::CreateEdgeOptions& 
+const GNEViewNetHelper::CreateEdgeOptions&
 GNEViewNet::getCreateEdgeOptions() const {
     return myCreateEdgeOptions;
 }
@@ -753,7 +753,7 @@ GNEViewNet::abortOperation(bool clearSelection) {
         } else if (myEditModes.demandEditMode == GNE_DMODE_ROUTES) {
             myViewParent->getRouteFrame()->hotKeyEsc();
         } else if (myEditModes.demandEditMode == GNE_DMODE_VEHICLES) {
-            myViewParent->getVehicleFrame()->getTripRouteCreator()->onCmdAbortRouteCreation(0,0,0);
+            myViewParent->getVehicleFrame()->getTripRouteCreator()->onCmdAbortRouteCreation(0, 0, 0);
         }
     }
     // abort undo list
@@ -843,7 +843,7 @@ GNEViewNet::hotkeyEnter() {
         if (myEditModes.demandEditMode == GNE_DMODE_ROUTES) {
             myViewParent->getRouteFrame()->hotKeyEnter();
         } else if (myEditModes.demandEditMode == GNE_DMODE_VEHICLES) {
-            myViewParent->getVehicleFrame()->getTripRouteCreator()->onCmdFinishRouteCreation(0,0,0);
+            myViewParent->getVehicleFrame()->getTripRouteCreator()->onCmdFinishRouteCreation(0, 0, 0);
         }
     }
 }
@@ -2789,7 +2789,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             // check that AC under cursor isn't a demand element
             if (myObjectsUnderCursor.getAttributeCarrierFront() && !myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isDemandElement()) {
                 // check if we're moving a set of selected items
-                if( myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
+                if (myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
                     // move selected ACs
                     myMoveMultipleElementValues.beginMoveSelection(myObjectsUnderCursor.getAttributeCarrierFront());
                     // update view
@@ -3034,8 +3034,8 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
             break;
         case GNE_DMODE_MOVE: {
             // check that AC under cursor is a demand element
-            if (myObjectsUnderCursor.getAttributeCarrierFront() && 
-                myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isDemandElement()) {
+            if (myObjectsUnderCursor.getAttributeCarrierFront() &&
+                    myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isDemandElement()) {
                 // check if we're moving a set of selected items
                 if (myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
                     // move selected ACs

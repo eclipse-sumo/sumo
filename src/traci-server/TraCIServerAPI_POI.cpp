@@ -78,9 +78,9 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
     if (variable != libsumo::VAR_TYPE &&
             variable != libsumo::VAR_COLOR &&
             variable != libsumo::VAR_POSITION &&
-			variable != libsumo::VAR_WIDTH &&
-			variable != libsumo::VAR_HEIGHT &&
-			variable != libsumo::VAR_ANGLE &&
+            variable != libsumo::VAR_WIDTH &&
+            variable != libsumo::VAR_HEIGHT &&
+            variable != libsumo::VAR_ANGLE &&
             variable != libsumo::VAR_IMAGEFILE &&
             variable != libsumo::VAR_HIGHLIGHT &&
             variable != libsumo::ADD &&
@@ -115,30 +115,30 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
                 libsumo::POI::setPosition(id, pos.x, pos.y);
             }
             break;
-			case libsumo::VAR_WIDTH: {
-				double width;
-				if (!server.readTypeCheckingDouble(inputStorage, width)) {
-					return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The width must be given using an according type.", outputStorage);
-				}
-				libsumo::POI::setWidth(id, width);
-			}
-			break;
-			case libsumo::VAR_HEIGHT: {
-				double height;
-				if (!server.readTypeCheckingDouble(inputStorage, height)) {
-					return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The height must be given using an according type.", outputStorage);
-				}
-				libsumo::POI::setHeight(id, height);
-			}
-			break;
-			case libsumo::VAR_ANGLE: {
-				double angle;
-				if (!server.readTypeCheckingDouble(inputStorage, angle)) {
-					return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The angle must be given using an according type.", outputStorage);
-				}
-				libsumo::POI::setAngle(id, angle);
-			}
-			break;
+            case libsumo::VAR_WIDTH: {
+                double width;
+                if (!server.readTypeCheckingDouble(inputStorage, width)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The width must be given using an according type.", outputStorage);
+                }
+                libsumo::POI::setWidth(id, width);
+            }
+            break;
+            case libsumo::VAR_HEIGHT: {
+                double height;
+                if (!server.readTypeCheckingDouble(inputStorage, height)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The height must be given using an according type.", outputStorage);
+                }
+                libsumo::POI::setHeight(id, height);
+            }
+            break;
+            case libsumo::VAR_ANGLE: {
+                double angle;
+                if (!server.readTypeCheckingDouble(inputStorage, angle)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The angle must be given using an according type.", outputStorage);
+                }
+                libsumo::POI::setAngle(id, angle);
+            }
+            break;
             case libsumo::VAR_IMAGEFILE: {
                 std::string imageFile;
                 if (!server.readTypeCheckingString(inputStorage, imageFile)) {
@@ -156,7 +156,7 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
                 if (itemNo > 5) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "Highlighting an object needs zero to five parameters.", outputStorage);
                 }
-                libsumo::TraCIColor col = libsumo::TraCIColor(255,0,0);
+                libsumo::TraCIColor col = libsumo::TraCIColor(255, 0, 0);
                 if (itemNo > 0) {
                     if (!server.readTypeCheckingColor(inputStorage, col)) {
                         return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The first parameter for highlighting must be the highlight color.", outputStorage);
@@ -215,8 +215,7 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
                     if (!libsumo::POI::add(id, pos.x, pos.y, col, type, layer)) {
                         return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "Could not add PoI.", outputStorage);
                     }
-                }
-                else if (parameterCount == 8) {
+                } else if (parameterCount == 8) {
                     std::string imgFile;
                     if (!server.readTypeCheckingString(inputStorage, imgFile)) {
                         return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "The fifth PoI parameter must be the imgFile encoded as a string.", outputStorage);
@@ -237,11 +236,10 @@ TraCIServerAPI_POI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
                     if (!libsumo::POI::add(id, pos.x, pos.y, col, type, layer, imgFile, width, height, angle)) {
                         return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE, "Could not add PoI.", outputStorage);
                     }
-                }
-                else {
+                } else {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_POI_VARIABLE,
-                        "Adding a PoI requires either only type, color, layer and position parameters or these and imageFile, width, height and angle parameters.",
-                        outputStorage);
+                                                      "Adding a PoI requires either only type, color, layer and position parameters or these and imageFile, width, height and angle parameters.",
+                                                      outputStorage);
                 }
             }
             break;

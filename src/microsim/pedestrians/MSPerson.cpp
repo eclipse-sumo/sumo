@@ -331,9 +331,9 @@ MSPerson::MSPersonStage_Walking::moveToNextEdge(MSPerson* person, SUMOTime curre
     if (lane != nullptr) {
         for (MSMoveReminder* rem : lane->getMoveReminders()) {
             rem->updateDetector(*person, 0.0, lane->getLength(), myLastEdgeEntryTime, currentTime, currentTime, true);
-            rem->notifyLeave(*person, 
-                    arrived ? getArrivalPos() : lane->getLength(), 
-                    arrived ? MSMoveReminder::NOTIFICATION_ARRIVED : MSMoveReminder::NOTIFICATION_JUNCTION);
+            rem->notifyLeave(*person,
+                             arrived ? getArrivalPos() : lane->getLength(),
+                             arrived ? MSMoveReminder::NOTIFICATION_ARRIVED : MSMoveReminder::NOTIFICATION_JUNCTION);
         }
     }
     myLastEdgeEntryTime = currentTime;
@@ -408,14 +408,14 @@ MSPerson::MSPersonStage_Driving::~MSPersonStage_Driving() {}
 MSTransportable::Stage*
 MSPerson::MSPersonStage_Driving::clone() const {
     return new MSPersonStage_Driving(myDestination, myDestinationStop, myArrivalPos, std::vector<std::string>(myLines.begin(), myLines.end()),
-           myIntendedVehicleID, myIntendedDepart);
+                                     myIntendedVehicleID, myIntendedDepart);
 }
 
 void
 MSPerson::MSPersonStage_Driving::proceed(MSNet* net, MSTransportable* person, SUMOTime now, Stage* previous) {
     const MSStoppingPlace* start = (previous->getStageType() == TRIP
-            ? previous->getOriginStop()
-            : previous->getDestinationStop());
+                                    ? previous->getOriginStop()
+                                    : previous->getDestinationStop());
 
     if (start != nullptr) {
         // the arrival stop may have an access point

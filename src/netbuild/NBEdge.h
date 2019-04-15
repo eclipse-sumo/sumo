@@ -901,7 +901,7 @@ public:
     /** @brief Returns the list of lanes that may be used to reach the given edge
      * @return Lanes approaching the given edge
      */
-    std::vector<int> getConnectionLanes(NBEdge* currentOutgoing, bool withBikes=true) const;
+    std::vector<int> getConnectionLanes(NBEdge* currentOutgoing, bool withBikes = true) const;
 
     /// @brief sorts the outgoing connections by their angle relative to their junction
     void sortOutgoingConnectionsByAngle();

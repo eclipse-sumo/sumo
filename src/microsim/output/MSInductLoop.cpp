@@ -228,7 +228,7 @@ MSInductLoop::writeXMLOutput(OutputDevice& dev,
         occupancy += MIN2(timeOnDetDuringInterval, t);
         speedSum += i->speedM;
         assert(i->speedM > 0);
-        inverseSpeedSum += 1./i->speedM;
+        inverseSpeedSum += 1. / i->speedM;
         lengthSum += i->lengthM;
     }
     for (std::map< SUMOTrafficObject*, double >::const_iterator i = myVehiclesOnDet.begin(); i != myVehiclesOnDet.end(); ++i) {
@@ -236,7 +236,7 @@ MSInductLoop::writeXMLOutput(OutputDevice& dev,
     }
     occupancy = occupancy / t * (double) 100.;
     const double meanSpeed = myVehicleDataCont.size() != 0 ? speedSum / (double)myVehicleDataCont.size() : -1;
-    const double harmonicMeanSpeed = myVehicleDataCont.size() != 0 ? (double)myVehicleDataCont.size()/inverseSpeedSum : -1;
+    const double harmonicMeanSpeed = myVehicleDataCont.size() != 0 ? (double)myVehicleDataCont.size() / inverseSpeedSum : -1;
     const double meanLength = myVehicleDataCont.size() != 0 ? lengthSum / (double)myVehicleDataCont.size() : -1;
     dev.openTag(SUMO_TAG_INTERVAL).writeAttr(SUMO_ATTR_BEGIN, STEPS2TIME(startTime)).writeAttr(SUMO_ATTR_END, STEPS2TIME(stopTime));
     dev.writeAttr(SUMO_ATTR_ID, StringUtils::escapeXML(getID())).writeAttr("nVehContrib", myVehicleDataCont.size());

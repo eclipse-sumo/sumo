@@ -89,7 +89,7 @@ public:
 
 
     /// @brief sets special caller for myWrapper
-    void setSpecialColor(const RGBColor* color); 
+    void setSpecialColor(const RGBColor* color);
 
 protected:
     /// @name Methods that add and remove vehicles from internal container

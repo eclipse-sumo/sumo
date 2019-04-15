@@ -68,8 +68,7 @@ RORouteHandler::RORouteHandler(RONet& net, const std::string& file,
     myKeepVTypeDist(OptionsCont::getOptions().getBool("keep-vtype-distributions")),
     myCurrentVTypeDistribution(nullptr),
     myCurrentAlternatives(nullptr),
-    myLaneTree(nullptr)
-{
+    myLaneTree(nullptr) {
     myActiveRoute.reserve(100);
 }
 
@@ -98,9 +97,9 @@ RORouteHandler::parseFromViaTo(std::string element,
         } else {
             myActiveRoute.push_back(fromTaz);
         }
-    } else if (attrs.hasAttribute(SUMO_ATTR_FROMXY)){
+    } else if (attrs.hasAttribute(SUMO_ATTR_FROMXY)) {
         parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_FROMXY, myVehicleParameter->id.c_str(), ok, true), false, myActiveRoute, rid);
-    } else if (attrs.hasAttribute(SUMO_ATTR_FROMLONLAT)){
+    } else if (attrs.hasAttribute(SUMO_ATTR_FROMLONLAT)) {
         parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_FROMLONLAT, myVehicleParameter->id.c_str(), ok, true), true, myActiveRoute, rid);
     } else {
         parseEdges(attrs.getOpt<std::string>(SUMO_ATTR_FROM, myVehicleParameter->id.c_str(), ok, "", true), myActiveRoute, rid);
@@ -109,9 +108,9 @@ RORouteHandler::parseFromViaTo(std::string element,
         myInsertStopEdgesAt = (int)myActiveRoute.size();
     }
     ConstROEdgeVector viaEdges;
-    if (attrs.hasAttribute(SUMO_ATTR_VIAXY)){
+    if (attrs.hasAttribute(SUMO_ATTR_VIAXY)) {
         parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_VIAXY, myVehicleParameter->id.c_str(), ok, true), false, viaEdges, rid);
-    } else if (attrs.hasAttribute(SUMO_ATTR_VIALONLAT)){
+    } else if (attrs.hasAttribute(SUMO_ATTR_VIALONLAT)) {
         parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_VIALONLAT, myVehicleParameter->id.c_str(), ok, true), true, viaEdges, rid);
     } else {
         parseEdges(attrs.getOpt<std::string>(SUMO_ATTR_VIA, myVehicleParameter->id.c_str(), ok, "", true), viaEdges, rid);
@@ -130,9 +129,9 @@ RORouteHandler::parseFromViaTo(std::string element,
         } else {
             myActiveRoute.push_back(toTaz);
         }
-    } else if (attrs.hasAttribute(SUMO_ATTR_TOXY)){
+    } else if (attrs.hasAttribute(SUMO_ATTR_TOXY)) {
         parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_TOXY, myVehicleParameter->id.c_str(), ok, true), false, myActiveRoute, rid);
-    } else if (attrs.hasAttribute(SUMO_ATTR_TOLONLAT)){
+    } else if (attrs.hasAttribute(SUMO_ATTR_TOLONLAT)) {
         parseGeoEdges(attrs.get<PositionVector>(SUMO_ATTR_TOLONLAT, myVehicleParameter->id.c_str(), ok, true), true, myActiveRoute, rid);
     } else {
         parseEdges(attrs.getOpt<std::string>(SUMO_ATTR_TO, myVehicleParameter->id.c_str(), ok, "", true), myActiveRoute, rid);
@@ -150,8 +149,7 @@ RORouteHandler::myStartElement(int element,
     SUMORouteHandler::myStartElement(element, attrs);
     switch (element) {
         case SUMO_TAG_PERSON:
-        case SUMO_TAG_PERSONFLOW:
-            {
+        case SUMO_TAG_PERSONFLOW: {
             SUMOVTypeParameter* type = myNet.getVehicleTypeSecure(myVehicleParameter->vtypeid);
             if (type == nullptr) {
                 myErrorOutput->inform("The vehicle type '" + myVehicleParameter->vtypeid + "' for person '" + myVehicleParameter->id + "' is not known.");
@@ -330,7 +328,7 @@ RORouteHandler::openRoute(const SUMOSAXAttributes& attrs) {
 }
 
 
-void 
+void
 RORouteHandler::openTrip(const SUMOSAXAttributes& /*attrs*/) {
 }
 
@@ -500,7 +498,7 @@ RORouteHandler::closeVehicle() {
 }
 
 
-void 
+void
 RORouteHandler::closeVType() {
     if (myNet.addVehicleType(myCurrentVType)) {
         if (myCurrentVTypeDistribution != nullptr) {
@@ -641,7 +639,7 @@ RORouteHandler::closeFlow() {
 }
 
 
-void 
+void
 RORouteHandler::closeTrip() {
     closeRoute(true);
     closeVehicle();
@@ -737,27 +735,27 @@ RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
 }
 
 
-void 
+void
 RORouteHandler::addPerson(const SUMOSAXAttributes& /*attrs*/) {
 }
 
 
-void 
+void
 RORouteHandler::addContainer(const SUMOSAXAttributes& /*attrs*/) {
 }
 
 
-void 
+void
 RORouteHandler::addRide(const SUMOSAXAttributes& /*attrs*/) {
 }
 
 
-void 
+void
 RORouteHandler::addTransport(const SUMOSAXAttributes& /*attrs*/) {
 }
 
 
-void 
+void
 RORouteHandler::addTranship(const SUMOSAXAttributes& /*attrs*/) {
 }
 
@@ -783,9 +781,9 @@ RORouteHandler::parseEdges(const std::string& desc, ConstROEdgeVector& into,
     }
 }
 
-void 
-RORouteHandler::parseGeoEdges(const PositionVector& positions, bool geo, 
-        ConstROEdgeVector& into, const std::string& rid) {
+void
+RORouteHandler::parseGeoEdges(const PositionVector& positions, bool geo,
+                              ConstROEdgeVector& into, const std::string& rid) {
     const double range = 100;
     NamedRTree* t = getLaneTree();
     if (geo && !GeoConvHelper::getFinal().usingGeoProjection()) {
@@ -952,7 +950,7 @@ RORouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
 }
 
 
-NamedRTree* 
+NamedRTree*
 RORouteHandler::getLaneTree() {
     if (myLaneTree == nullptr) {
         myLaneTree = new NamedRTree();

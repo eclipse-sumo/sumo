@@ -36,10 +36,10 @@ class GNEStop : public GNEDemandElement, public SUMOVehicleParameter::Stop {
 
 public:
     /// @brief constructor used for stops over stoppingPlaces
-    GNEStop(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehicleParameter::Stop &stopParameter, GNEAdditional* stoppingPlace, GNEDemandElement* stopParent);
+    GNEStop(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehicleParameter::Stop& stopParameter, GNEAdditional* stoppingPlace, GNEDemandElement* stopParent);
 
     /// @brief constructor used for stops over lanes
-    GNEStop(GNEViewNet* viewNet, const SUMOVehicleParameter::Stop &stopParameter, GNELane* lane, bool friendlyPosition, GNEDemandElement* stopParent);
+    GNEStop(GNEViewNet* viewNet, const SUMOVehicleParameter::Stop& stopParameter, GNELane* lane, bool friendlyPosition, GNEDemandElement* stopParent);
 
     /// @brief destructor
     ~GNEStop();
@@ -51,7 +51,7 @@ public:
     std::string getBegin() const;
 
     /// @brief get color
-    const RGBColor &getColor() const;
+    const RGBColor& getColor() const;
 
     /**@brief writte demand element element into a xml file
      * @param[in] device device in which write parameters of demand element element

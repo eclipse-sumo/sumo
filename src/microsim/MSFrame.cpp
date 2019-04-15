@@ -204,7 +204,7 @@ MSFrame::fillOptions() {
 
     oc.doRegister("link-output", new Option_FileName());
     oc.addDescription("link-output", "Output", "Save links states into FILE");
-    
+
     oc.doRegister("railsignal-block-output", new Option_FileName());
     oc.addDescription("railsignal-block-output", "Output", "Save railsignal-blocks into FILE");
 

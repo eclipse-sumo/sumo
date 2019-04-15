@@ -32,11 +32,11 @@
 // ===========================================================================
 
 
-void 
-GUIShortcutsSubSys::buildSUMOAccelerators(GUIApplicationWindow *GUIApp) {
+void
+GUIShortcutsSubSys::buildSUMOAccelerators(GUIApplicationWindow* GUIApp) {
 
     // initialize Ctrl hotkeys with Caps Lock enabled using decimal code (to avoid problems in Linux)
-    
+
     GUIApp->getAccelTable()->addAccel(parseKey(KEY_a, KEYMODIFIER_CONTROL), GUIApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS));
     GUIApp->getAccelTable()->addAccel(parseKey(KEY_A, KEYMODIFIER_CONTROL), GUIApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS));
 
@@ -69,12 +69,12 @@ GUIShortcutsSubSys::buildSUMOAccelerators(GUIApplicationWindow *GUIApp) {
 
     GUIApp->getAccelTable()->addAccel(parseKey(KEY_s, KEYMODIFIER_CONTROL), GUIApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK));
     GUIApp->getAccelTable()->addAccel(parseKey(KEY_S, KEYMODIFIER_CONTROL), GUIApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK));
-    
+
     GUIApp->getAccelTable()->addAccel(parseKey(KEY_w, KEYMODIFIER_CONTROL), GUIApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_W_CLOSESIMULATION));
     GUIApp->getAccelTable()->addAccel(parseKey(KEY_W, KEYMODIFIER_CONTROL), GUIApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_W_CLOSESIMULATION));
 
     // Shift Keys
-    
+
     GUIApp->getAccelTable()->addAccel(parseKey(KEY_j, KEYMODIFIER_SHIFT), GUIApp, FXSEL(SEL_COMMAND, MID_LOCATEJUNCTION));
     GUIApp->getAccelTable()->addAccel(parseKey(KEY_J, KEYMODIFIER_SHIFT), GUIApp, FXSEL(SEL_COMMAND, MID_LOCATEJUNCTION));
 
@@ -99,8 +99,8 @@ GUIShortcutsSubSys::buildSUMOAccelerators(GUIApplicationWindow *GUIApp) {
 }
 
 
-void 
-GUIShortcutsSubSys::buildNETEDITAccelerators(GNEApplicationWindow *GNEApp) {
+void
+GUIShortcutsSubSys::buildNETEDITAccelerators(GNEApplicationWindow* GNEApp) {
 
     // initialize single hotkeys using upper and lower Keys (to avoid problems in Linux)
 
@@ -124,7 +124,7 @@ GUIShortcutsSubSys::buildNETEDITAccelerators(GNEApplicationWindow *GNEApp) {
 
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_p), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_P_POLYGONMODE));
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_P), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_P_POLYGONMODE));
-        
+
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_r), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_R_CROSSINGMODE_ROUTEMODE));
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_R), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_R_CROSSINGMODE_ROUTEMODE));
 
@@ -165,7 +165,7 @@ GUIShortcutsSubSys::buildNETEDITAccelerators(GNEApplicationWindow *GNEApp) {
 
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_s, KEYMODIFIER_CONTROL), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK));
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_S, KEYMODIFIER_CONTROL), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK));
-    
+
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_l, KEYMODIFIER_CONTROL), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_L_SAVEASPLAINXML));
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_L, KEYMODIFIER_CONTROL), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_L_SAVEASPLAINXML));
 
@@ -197,7 +197,7 @@ GUIShortcutsSubSys::buildNETEDITAccelerators(GNEApplicationWindow *GNEApp) {
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_T, KEYMODIFIER_CONTROL), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_T_OPENSUMONETEDIT));
 
     // Shift Keys
-    
+
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_j, KEYMODIFIER_SHIFT), GNEApp, FXSEL(SEL_COMMAND, MID_LOCATEJUNCTION));
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_J, KEYMODIFIER_SHIFT), GNEApp, FXSEL(SEL_COMMAND, MID_LOCATEJUNCTION));
 
@@ -266,7 +266,7 @@ GUIShortcutsSubSys::buildNETEDITAccelerators(GNEApplicationWindow *GNEApp) {
 }
 
 
-int 
+int
 GUIShortcutsSubSys::parseKey(GUIShortcut key) {
     if ((key >= KEY_a) &&  key <= KEY_z) {
         return (key + 97);// 97 is 'a' in ASCII
@@ -286,7 +286,7 @@ GUIShortcutsSubSys::parseKey(GUIShortcut key) {
 }
 
 
-int 
+int
 GUIShortcutsSubSys::parseKey(GUIShortcut key, GUIShortcutModifier firstModifier) {
     int keyCode = parseKey(key);
     // add first modifier
@@ -301,7 +301,7 @@ GUIShortcutsSubSys::parseKey(GUIShortcut key, GUIShortcutModifier firstModifier)
 }
 
 
-int 
+int
 GUIShortcutsSubSys::parseKey(GUIShortcut key, GUIShortcutModifier firstModifier, GUIShortcutModifier secondModifier) {
     int keyCode = parseKey(key, firstModifier);
     // add second modifier

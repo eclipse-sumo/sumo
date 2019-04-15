@@ -621,7 +621,7 @@ protected:
      */
     static void computeShapes(std::map<std::string, OpenDriveEdge*>& edges);
 
-    static bool hasNonLinearElevation(OpenDriveEdge& e); 
+    static bool hasNonLinearElevation(OpenDriveEdge& e);
 
     /** @brief Rechecks lane sections of the given edges
      *

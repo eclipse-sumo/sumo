@@ -212,9 +212,9 @@ public:
             minimumInfo->visited = true;
 #ifdef ASTAR_DEBUG_QUERY
             std::cout << "DEBUG: hit=" << minEdge->getID()
-                << " TT=" << minimumInfo->effort
-                << " EF=" << this->getEffort(minEdge, vehicle, minimumInfo->leaveTime)
-                << " HT=" << minimumInfo->heuristicEffort
+                      << " TT=" << minimumInfo->effort
+                      << " EF=" << this->getEffort(minEdge, vehicle, minimumInfo->leaveTime)
+                      << " HT=" << minimumInfo->heuristicEffort
                       << " Q(TT,HT,Edge)=";
             for (typename std::vector<EdgeInfo*>::iterator it = myFrontierList.begin(); it != myFrontierList.end(); it++) {
                 std::cout << (*it)->effort << "," << (*it)->heuristicEffort << "," << (*it)->edge->getID() << " ";
@@ -227,7 +227,7 @@ public:
             // admissible A* heuristic: straight line distance at maximum speed
             const double heuristic_remaining = (myLookupTable == nullptr ? minEdge->getDistanceTo(to) / speed :
                                                 myLookupTable->lowerBound(minEdge, to, speed, vehicle->getChosenSpeedFactor(),
-                                                                          minEdge->getMinimumTravelTime(nullptr), to->getMinimumTravelTime(nullptr)));
+                                                        minEdge->getMinimumTravelTime(nullptr), to->getMinimumTravelTime(nullptr)));
             if (heuristic_remaining == UNREACHABLE) {
                 continue;
             }
@@ -250,9 +250,9 @@ public:
                     followerInfo->leaveTime = time;
                     followerInfo->prev = minimumInfo;
 #ifdef ASTAR_DEBUG_QUERY_FOLLOWERS
-                    std::cout << "   follower=" << followerInfo->edge->getID() 
-                        << " OEF=" << (oldEffort == std::numeric_limits<double>::max() ? "inf" : toString(oldEffort))
-                        << " TT=" << effort << " HR=" << heuristic_remaining << " HT=" << followerInfo->heuristicEffort << "\n";
+                    std::cout << "   follower=" << followerInfo->edge->getID()
+                              << " OEF=" << (oldEffort == std::numeric_limits<double>::max() ? "inf" : toString(oldEffort))
+                              << " TT=" << effort << " HR=" << heuristic_remaining << " HT=" << followerInfo->heuristicEffort << "\n";
 #endif
                     if (oldEffort == std::numeric_limits<double>::max()) {
                         myFrontierList.push_back(followerInfo);

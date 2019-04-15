@@ -148,13 +148,13 @@ protected:
     FXVerticalFrame* myMainFrame;
 
     /// @brief list with the demand elements
-    DemandList *myDemandList;
+    DemandList* myDemandList;
 
     /// @brief fix route options
-    FixRouteOptions *myFixRouteOptions;
+    FixRouteOptions* myFixRouteOptions;
 
     /// @brief fix vehicle options
-    FixVehicleOptions *myFixVehicleOptions;
+    FixVehicleOptions* myFixVehicleOptions;
 
     /// @brief accept button
     FXButton* myAcceptButton;

@@ -136,7 +136,7 @@ Polygon::addHighlightPolygon(const std::string& objectID, const int type, const 
 
 void
 Polygon::addDynamics(const std::string& polygonID, const std::string& trackedID, const std::vector<double>& timeSpan, const std::vector<double>& alphaSpan, bool looped, bool rotate) {
-    if(timeSpan.empty()) {
+    if (timeSpan.empty()) {
         if (trackedID == "") {
             throw TraCIException("Could not add polygon dynamics for polygon '" + polygonID + "': dynamics underspecified (either a tracked object ID or a time span have to be provided).");
         }
@@ -154,7 +154,7 @@ Polygon::addDynamics(const std::string& polygonID, const std::string& trackedID,
     }
     if (timeSpan.size() >= 2) {
         for (unsigned int i = 1; i < timeSpan.size(); ++i) {
-            if(timeSpan[i-1] > timeSpan[i]) {
+            if (timeSpan[i - 1] > timeSpan[i]) {
                 throw TraCIException("Could not add polygon dynamics for polygon '" + polygonID + "': entries of time span must be ordered ascendingly.");
             }
         }
@@ -214,7 +214,7 @@ Polygon::getPolygon(const std::string& id) {
 
 SUMOTrafficObject*
 Polygon::getTrafficObject(const std::string& id) {
-    if(id == "") {
+    if (id == "") {
         return nullptr;
     }
     MSNet* net = MSNet::getInstance();
@@ -291,7 +291,7 @@ Polygon::handleVariable(const std::string& objID, const int variable, VariableWr
 
 bool
 Polygon::exists(std::string polyID) {
-    SUMOPolygon * p = MSNet::getInstance()->getShapeContainer().getPolygons().get(polyID);
+    SUMOPolygon* p = MSNet::getInstance()->getShapeContainer().getPolygons().get(polyID);
     return p != nullptr;
 }
 

@@ -1322,7 +1322,7 @@ public:
     /// @brief righ of way algorithms
     static StringBijection<RightOfWay> RightOfWayValues;
 
-    /// @brief fringe types 
+    /// @brief fringe types
     static StringBijection<FringeType> FringeTypeValues;
 
     /// @brief person modes

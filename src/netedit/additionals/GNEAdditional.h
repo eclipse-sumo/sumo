@@ -106,16 +106,16 @@ public:
      * @param[in] demandElementChilds vector of demandElement childs
      */
     GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement,
-        const std::vector<GNEEdge*> &edgeParents, 
-        const std::vector<GNELane*> &laneParents, 
-        const std::vector<GNEShape*> &shapeParents, 
-        const std::vector<GNEAdditional*>& additionalParents, 
-        const std::vector<GNEDemandElement*>& demandElementParents,
-        const std::vector<GNEEdge*> &edgeChilds, 
-        const std::vector<GNELane*> &laneChilds, 
-        const std::vector<GNEShape*> &shapeChilds, 
-        const std::vector<GNEAdditional*>& additionalChilds, 
-        const std::vector<GNEDemandElement*>& demandElementChilds);
+                  const std::vector<GNEEdge*>& edgeParents,
+                  const std::vector<GNELane*>& laneParents,
+                  const std::vector<GNEShape*>& shapeParents,
+                  const std::vector<GNEAdditional*>& additionalParents,
+                  const std::vector<GNEDemandElement*>& demandElementParents,
+                  const std::vector<GNEEdge*>& edgeChilds,
+                  const std::vector<GNELane*>& laneChilds,
+                  const std::vector<GNEShape*>& shapeChilds,
+                  const std::vector<GNEAdditional*>& additionalChilds,
+                  const std::vector<GNEDemandElement*>& demandElementChilds);
 
     /**@brief Constructor used by Additionals that have two additionals as parent
      * @param[in] additionalParent pointer to additional parent pointer (used to generate an ID)
@@ -136,16 +136,16 @@ public:
      * @param[in] demandElementChilds vector of demandElement childs
     */
     GNEAdditional(GNEAdditional* additionalParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement,
-        const std::vector<GNEEdge*> &edgeParents, 
-        const std::vector<GNELane*> &laneParents, 
-        const std::vector<GNEShape*> &shapeParents, 
-        const std::vector<GNEAdditional*>& additionalParents, 
-        const std::vector<GNEDemandElement*>& demandElementParents,
-        const std::vector<GNEEdge*> &edgeChilds, 
-        const std::vector<GNELane*> &laneChilds, 
-        const std::vector<GNEShape*> &shapeChilds, 
-        const std::vector<GNEAdditional*>& additionalChilds, 
-        const std::vector<GNEDemandElement*>& demandElementChilds);
+                  const std::vector<GNEEdge*>& edgeParents,
+                  const std::vector<GNELane*>& laneParents,
+                  const std::vector<GNEShape*>& shapeParents,
+                  const std::vector<GNEAdditional*>& additionalParents,
+                  const std::vector<GNEDemandElement*>& demandElementParents,
+                  const std::vector<GNEEdge*>& edgeChilds,
+                  const std::vector<GNELane*>& laneChilds,
+                  const std::vector<GNEShape*>& shapeChilds,
+                  const std::vector<GNEAdditional*>& additionalChilds,
+                  const std::vector<GNEDemandElement*>& demandElementChilds);
 
     /// @brief Destructor
     ~GNEAdditional();
@@ -154,7 +154,7 @@ public:
     std::string generateChildID(SumoXMLTag childTag);
 
     /// @brief obtain AdditionalGeometry
-    const AdditionalGeometry &getAdditionalGeometry() const;
+    const AdditionalGeometry& getAdditionalGeometry() const;
 
     /// @name members and functions relative to write additionals into XML
     /// @{

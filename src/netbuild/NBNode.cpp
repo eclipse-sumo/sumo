@@ -95,10 +95,9 @@ const int NBNode::AVOID_INTERSECTING_LEFT_TURNS(8);
  * ----------------------------------------------------------------------- */
 NBNode::ApproachingDivider::ApproachingDivider(
     const EdgeVector& approaching, NBEdge* currentOutgoing) :
-    myApproaching(approaching), 
+    myApproaching(approaching),
     myCurrentOutgoing(currentOutgoing),
-    myIsBikeEdge(currentOutgoing->getPermissions() == SVC_BICYCLE)
-{
+    myIsBikeEdge(currentOutgoing->getPermissions() == SVC_BICYCLE) {
     // collect lanes which are expliclity targeted
     std::set<int> approachedLanes;
     for (const NBEdge* const approachingEdge : myApproaching) {
@@ -114,8 +113,8 @@ NBNode::ApproachingDivider::ApproachingDivider(
     // to make it available anyway
     for (int i = 0; i < currentOutgoing->getNumLanes(); ++i) {
         if ((currentOutgoing->getPermissions(i) == SVC_PEDESTRIAN
-                    // don't consider bicycle lanes as targets unless the target
-                    // edge is exclusively for bicycles
+                // don't consider bicycle lanes as targets unless the target
+                // edge is exclusively for bicycles
                 || (currentOutgoing->getPermissions(i) == SVC_BICYCLE && !myIsBikeEdge)
                 || isForbidden(currentOutgoing->getPermissions(i)))
                 && approachedLanes.count(i) == 0) {
@@ -145,7 +144,9 @@ NBNode::ApproachingDivider::execute(const int src, const int dest) {
         return;
     }
 #ifdef DEBUG_CONNECTION_GUESSING
-    if (DEBUGCOND2(incomingEdge->getToNode())) std::cout << "Bre:ex src=" << src << " dest=" << dest << " in=" << incomingEdge->getID() << " apLanes=" << toString(approachingLanes) << "\n";
+    if (DEBUGCOND2(incomingEdge->getToNode())) {
+        std::cout << "Bre:ex src=" << src << " dest=" << dest << " in=" << incomingEdge->getID() << " apLanes=" << toString(approachingLanes) << "\n";
+    }
 
 #endif
     std::deque<int>* approachedLanes = spread(approachingLanes, dest);
@@ -264,8 +265,7 @@ NBNode::NBNode(const std::string& id, const Position& position,
     myCrossingsLoadedFromSumoNet(0),
     myDisplacementError(0),
     myIsBentPriority(false),
-    myTypeWasGuessed(false)
-{
+    myTypeWasGuessed(false) {
     if (!SUMOXMLDefinitions::isValidNetID(myID)) {
         throw ProcessError("Invalid node id '" + myID + "'.");
     }
@@ -287,8 +287,7 @@ NBNode::NBNode(const std::string& id, const Position& position, NBDistrict* dist
     myCrossingsLoadedFromSumoNet(0),
     myDisplacementError(0),
     myIsBentPriority(false),
-    myTypeWasGuessed(false)
-{
+    myTypeWasGuessed(false) {
     if (!SUMOXMLDefinitions::isValidNetID(myID)) {
         throw ProcessError("Invalid node id '" + myID + "'.");
     }
@@ -643,15 +642,15 @@ NBNode::bezierControlPoints(
                     init.push_back(begShapeEndLineRev.positionAtOffset2D(100 - minControlLength));
                     init.push_back(endShapeBegLine.positionAtOffset2D(100 - minControlLength));
                 } else if ((shapeFlag & AVOID_WIDE_LEFT_TURN) != 0
-                        // there are two reasons for enabling special geometry rules:
-                        // 1) sharp edge angles which could cause overshoot
-                        // 2) junction geometries with a large displacement between opposite left turns
-                        //    which would cause the default geometry to overlap
-                        && ((shapeFlag & AVOID_INTERSECTING_LEFT_TURNS) != 0
-                            || (angle > DEG2RAD(95) && (distBeg > 20 || distEnd > 20)))) {
+                           // there are two reasons for enabling special geometry rules:
+                           // 1) sharp edge angles which could cause overshoot
+                           // 2) junction geometries with a large displacement between opposite left turns
+                           //    which would cause the default geometry to overlap
+                           && ((shapeFlag & AVOID_INTERSECTING_LEFT_TURNS) != 0
+                               || (angle > DEG2RAD(95) && (distBeg > 20 || distEnd > 20)))) {
                     //std::cout << "   bezierControlPoints intersect=" << intersect << " dist=" << dist << " distBeg=" << distBeg <<  " distEnd=" << distEnd << " angle=" << RAD2DEG(angle) << " flag=" << shapeFlag << "\n";
-                    const double factor = ((shapeFlag & AVOID_INTERSECTING_LEFT_TURNS) == 0 ? 1 
-                        : MIN2(0.6, 16 / dist));
+                    const double factor = ((shapeFlag & AVOID_INTERSECTING_LEFT_TURNS) == 0 ? 1
+                                           : MIN2(0.6, 16 / dist));
                     init.push_back(begShapeEndLineRev.positionAtOffset2D(100 - MIN2(distBeg * factor / 1.2, dist * factor / 1.8)));
                     init.push_back(endShapeBegLine.positionAtOffset2D(100 - MIN2(distEnd * factor / 1.2, dist * factor / 1.8)));
                 } else if ((shapeFlag & AVOID_WIDE_RIGHT_TURN) != 0 && angle < DEG2RAD(-95) && (distBeg > 20 || distEnd > 20)) {
@@ -1025,7 +1024,9 @@ NBNode::computeLanes2Lanes() {
             return;
         }
 #ifdef DEBUG_CONNECTION_GUESSING
-        if (DEBUGCOND) std::cout << "l2l node=" << getID() << " specialCase a\n";
+        if (DEBUGCOND) {
+            std::cout << "l2l node=" << getID() << " specialCase a\n";
+        }
 #endif
         const int inOffset = MAX2(0, in->getFirstNonPedestrianLaneIndex(FORWARD, true));
         const int outOffset = MAX2(0, out->getFirstNonPedestrianLaneIndex(FORWARD, true));
@@ -1062,7 +1063,9 @@ NBNode::computeLanes2Lanes() {
                 && out->getSpecialLane(SVC_BICYCLE) == -1
                 && isLongEnough(out, MIN_WEAVE_LENGTH)) {
 #ifdef DEBUG_CONNECTION_GUESSING
-            if (DEBUGCOND) std::cout << "l2l node=" << getID() << " specialCase b\n";
+            if (DEBUGCOND) {
+                std::cout << "l2l node=" << getID() << " specialCase b\n";
+            }
 #endif
             // for internal: check which one is the rightmost
             double a1 = in1->getAngleAtNode(this);
@@ -1099,7 +1102,9 @@ NBNode::computeLanes2Lanes() {
                 && !in->isTurningDirectionAt(out2)
            ) {
 #ifdef DEBUG_CONNECTION_GUESSING
-            if (DEBUGCOND) std::cout << "l2l node=" << getID() << " specialCase c\n";
+            if (DEBUGCOND) {
+                std::cout << "l2l node=" << getID() << " specialCase c\n";
+            }
 #endif
             // for internal: check which one is the rightmost
             if (NBContHelper::relative_outgoing_edge_sorter(in)(out2, out1)) {
@@ -1122,7 +1127,9 @@ NBNode::computeLanes2Lanes() {
             return;
         }
 #ifdef DEBUG_CONNECTION_GUESSING
-        if (DEBUGCOND) std::cout << "l2l node=" << getID() << " specialCase d\n";
+        if (DEBUGCOND) {
+            std::cout << "l2l node=" << getID() << " specialCase d\n";
+        }
 #endif
         const int inOffset = MAX2(0, in->getFirstNonPedestrianLaneIndex(FORWARD, true));
         const int outOffset = MAX2(0, out->getFirstNonPedestrianLaneIndex(FORWARD, true));
@@ -1147,7 +1154,9 @@ NBNode::computeLanes2Lanes() {
             return;
         }
 #ifdef DEBUG_CONNECTION_GUESSING
-        if (DEBUGCOND) std::cout << "l2l node=" << getID() << " specialCase f\n";
+        if (DEBUGCOND) {
+            std::cout << "l2l node=" << getID() << " specialCase f\n";
+        }
 #endif
         int inOffset = MAX2(0, in->getFirstNonPedestrianLaneIndex(FORWARD, true));
         const int outOffset = MAX2(0, out->getFirstNonPedestrianLaneIndex(FORWARD, true));
@@ -1171,7 +1180,7 @@ NBNode::computeLanes2Lanes() {
     //  incoming edges on this edge when approaching this edge
     // the incoming edges' steps will then also be marked as LANE2LANE_RECHECK...
     EdgeVector approaching;
-    for (NBEdge* currentOutgoing: myOutgoingEdges) {
+    for (NBEdge* currentOutgoing : myOutgoingEdges) {
         // get the information about edges that do approach this edge
         getEdgesThatApproach(currentOutgoing, approaching);
         const int numApproaching = (int)approaching.size();
@@ -1246,11 +1255,11 @@ NBNode::computeLanes2Lanes() {
             // assume that left-turns and turn-arounds are better satisfied from lanes to the left
             LinkDirection dir = getDirection(incoming, currentOutgoing);
             if (incoming->getStep() <= NBEdge::LANES2LANES_DONE
-                    && ((bikeLaneTarget >= 0 && dir != LINKDIR_TURN) 
+                    && ((bikeLaneTarget >= 0 && dir != LINKDIR_TURN)
                         || dir == LINKDIR_RIGHT || dir == LINKDIR_PARTRIGHT || dir == LINKDIR_STRAIGHT)) {
                 bool builtConnection = false;
                 for (int i = 0; i < (int)incoming->getNumLanes(); i++) {
-                    if (incoming->getPermissions(i) == SVC_BICYCLE 
+                    if (incoming->getPermissions(i) == SVC_BICYCLE
                             && incoming->getConnectionsFromLane(i, currentOutgoing).size() == 0) {
                         // find a dedicated bike lane as target
                         if (bikeLaneTarget >= 0) {
@@ -1270,7 +1279,7 @@ NBNode::computeLanes2Lanes() {
                         }
                     }
                 }
-                if (!builtConnection && bikeLaneTarget >= 0 
+                if (!builtConnection && bikeLaneTarget >= 0
                         && incoming->getConnectionsFromLane(-1, currentOutgoing, bikeLaneTarget).size() == 0) {
                     // find origin lane that allows bicycles
                     int start = 0;

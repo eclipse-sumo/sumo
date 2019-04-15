@@ -145,17 +145,17 @@ protected:
     /// @brief view net
     GNEViewNet* myViewNet;
 
-    /// @brief main 
+    /// @brief main
     FXVerticalFrame* myMainFrame;
 
     /// @brief Additional List
-    AdditionalList *myAdditionalList;
+    AdditionalList* myAdditionalList;
 
     /// @brief position options
-    PositionOptions *myPositionOptions;
+    PositionOptions* myPositionOptions;
 
     /// @brief consecutive lane options
-    ConsecutiveLaneOptions *myConsecutiveLaneOptions;
+    ConsecutiveLaneOptions* myConsecutiveLaneOptions;
 
     /// @brief accept button
     FXButton* myAcceptButton;

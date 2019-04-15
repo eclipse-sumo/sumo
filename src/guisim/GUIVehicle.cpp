@@ -361,11 +361,11 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
         glTranslated(front.x(), front.y(), getType());
         glRotated(angle, 0, 0, 1);
         if (!asImage || !GUIBaseVehicleHelper::drawAction_drawVehicleAsImage(s, getVType().getImgFile(), this, getVType().getWidth(), curCLength)) {
-            switch(getVType().getGuiShape()) {
+            switch (getVType().getGuiShape()) {
                 case SVS_TRUCK_SEMITRAILER:
                 case SVS_TRUCK_1TRAILER:
                     if (i == 0) {
-                        GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(s, getVType().getGuiShape(), getVType().getWidth() * exaggeration, curCLength, i); 
+                        GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(s, getVType().getGuiShape(), getVType().getWidth() * exaggeration, curCLength, i);
                     } else {
                         GLHelper::setColor(current);
                         GLHelper::drawBoxLine(Position(0, 0), 180, curCLength, halfWidth);
@@ -832,8 +832,8 @@ GUIVehicle::getManeuverDist() const {
 
 void
 GUIVehicle::rerouteDRTStop(MSStoppingPlace* busStop) {
-    SUMOTime intermediateDuration=TIME2STEPS(20);
-    SUMOTime finalDuration=SUMOTime_MAX;
+    SUMOTime intermediateDuration = TIME2STEPS(20);
+    SUMOTime finalDuration = SUMOTime_MAX;
     if (myParameter->stops.size() >= 2) {
         // copy durations from the original stops
         intermediateDuration = myParameter->stops.front().duration;
@@ -875,7 +875,7 @@ GUIVehicle::rerouteDRTStop(MSStoppingPlace* busStop) {
         stopPar.parking = false;
         stopPar.index = STOP_INDEX_FIT;
         stopPar.parametersSet = STOP_START_SET | STOP_END_SET;
-        // clean up prior route to improve visualisation, ensure that the stop can be added immediately 
+        // clean up prior route to improve visualisation, ensure that the stop can be added immediately
         ConstMSEdgeVector edges = myRoute->getEdges();
         edges.erase(edges.begin(), edges.begin() + getRoutePosition());
         edges.push_back(&busStop->getLane().getEdge());
@@ -886,8 +886,8 @@ GUIVehicle::rerouteDRTStop(MSStoppingPlace* busStop) {
     }
     const bool hasReroutingDevice = getDevice(typeid(MSDevice_Routing)) != nullptr;
     SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = hasReroutingDevice
-        ? MSRoutingEngine::getRouterTT()
-        : MSNet::getInstance()->getRouterTT();
+            ? MSRoutingEngine::getRouterTT()
+            : MSNet::getInstance()->getRouterTT();
     // reroute to ensure the new stop is reached
     reroute(MSNet::getInstance()->getCurrentTimeStep(), "DRT", router);
     myParameter->line = line;

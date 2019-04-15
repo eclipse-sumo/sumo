@@ -56,7 +56,7 @@ SUMOSAXAttributesImpl_Cached::SUMOSAXAttributesImpl_Cached(
     SUMOSAXAttributes(objectType),
     myPredefinedTagsMML(predefinedTagsMML) {
     // parse <SumoXMLAttr, string> to <string, string>
-    for (const auto &i : attrs) {
+    for (const auto& i : attrs) {
         myAttrs[toString(i.first)] = i.second;
     }
 }

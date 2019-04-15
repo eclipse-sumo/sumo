@@ -47,7 +47,7 @@ class GNEDemandElement;
 /// @brief Builds additional objects for GNENet (busStops, chargingStations, detectors, etc..)
 class GNEAdditionalHandler : public ShapeHandler {
 public:
-    
+
     /// @brief Stack used to save the last inserted element
     struct HierarchyInsertedAdditionals {
 
@@ -114,7 +114,7 @@ public:
      * @param[in] HierarchyInsertedAdditionals pointer to HierarchyInsertedAdditionals (can be null)
      * @return true if was sucesfully created, false in other case
      */
-    static bool buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, SumoXMLTag tag, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals *insertedAdditionals);
+    static bool buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, SumoXMLTag tag, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
 
     /**@brief Builds a bus stop
      * @param[in] viewNet viewNet in which element will be inserted
@@ -372,11 +372,11 @@ public:
     /**@brief builds a calibrator flow
     * @param[in] viewNet viewNet in which element will be inserted
     * @param[in] allowUndoRedo enable or disable remove created additional with ctrl + Z / ctrl + Y
-    * @param[in] type The id of the vehicle's flow type to use for this vehicle's flow. 
-    * @param[in] route The id of the route the vehicle's flow shall drive along 
-    * @param[in] vehsPerHour number of vehicles per hour, equally spaced (not together with period or probability) 
+    * @param[in] type The id of the vehicle's flow type to use for this vehicle's flow.
+    * @param[in] route The id of the route the vehicle's flow shall drive along
+    * @param[in] vehsPerHour number of vehicles per hour, equally spaced (not together with period or probability)
     * @param[in] speed 	The speed with which the vehicles shall enter the network. NOTE: this attribute is exclusive of CalibratorFlows!
-    * @param[in] color This vehicle's flow's color 
+    * @param[in] color This vehicle's flow's color
     * @param[in] departLane The lane on which the vehicle's flow shall be inserted; see #departLane. default: "first"
     * @param[in] departPos The position at which the vehicle's flow shall enter the net; see #departPos. default: "base"
     * @param[in] departSpeed The speed with which the vehicle's flow shall enter the network; see #departSpeed. default: 0
@@ -386,12 +386,12 @@ public:
     * @param[in] line A string specifying the id of a public transport line which can be used when specifying person rides
     * @param[in] personNumber The number of occupied seats when the vehicle's flow is inserted. default: 0
     * @param[in] containerNumber The number of occupied container places when the vehicle's flow is inserted. default: 0
-    * @param[in] reroute List of intermediate edges that shall be passed on rerouting. 
-    * @param[in] via List of intermediate edges that shall be passed on rerouting. 
+    * @param[in] reroute List of intermediate edges that shall be passed on rerouting.
+    * @param[in] via List of intermediate edges that shall be passed on rerouting.
     * @param[in] departPosLat The lateral position on the departure lane at which the vehicle's flow shall enter the net; see Simulation/SublaneModel. default: "center"
-    * @param[in] arrivalPosLat The lateral position on the arrival lane at which the vehicle's flow shall arrive; see Simulation/SublaneModel. by default the vehicle's flow does not care about lateral arrival position 
-    * @param[in] begin first vehicle's flow departure time 
-    * @param[in] end end of departure interval (if undefined, defaults to 24 hours) 
+    * @param[in] arrivalPosLat The lateral position on the arrival lane at which the vehicle's flow shall arrive; see Simulation/SublaneModel. by default the vehicle's flow does not care about lateral arrival position
+    * @param[in] begin first vehicle's flow departure time
+    * @param[in] end end of departure interval (if undefined, defaults to 24 hours)
     * @return true if was sucesfully created, false in other case
     */
     static GNEAdditional* buildCalibratorFlow(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional* calibratorParent, GNEDemandElement* route, GNEDemandElement* vType,
@@ -573,144 +573,144 @@ protected:
     /**@brief Builds a Vaporizer
      * @param[in] attrs SAX-attributes which define the vaporizer
      */
-    static bool parseAndBuildVaporizer(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals *insertedAdditionals);
+    static bool parseAndBuildVaporizer(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
 
     /**@brief Builds a TAZ
      * @param[in] attrs SAX-attributes which define the vaporizer
      */
-    static bool parseAndBuildTAZ(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals *insertedAdditionals);
+    static bool parseAndBuildTAZ(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
 
     /**@brief Builds a TAZ Source
      * @param[in] attrs SAX-attributes which define the vaporizer
      */
-    static bool parseAndBuildTAZSource(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals *insertedAdditionals);
+    static bool parseAndBuildTAZSource(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
 
     /**@brief Builds a TAZ Sink
      * @param[in] attrs SAX-attributes which define the vaporizer
      */
-    static bool parseAndBuildTAZSink(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals *insertedAdditionals);
+    static bool parseAndBuildTAZSink(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
 
     /**@brief Parses his values and builds a Variable Speed Signal (GNEViewNet* viewNet, bool allowUndoRedo, lane speed additional)
      * @param[in] attrs SAX-attributes which define the additional
      */
-    static bool parseAndBuildVariableSpeedSign(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals *insertedAdditionals);
+    static bool parseAndBuildVariableSpeedSign(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
 
     /**@brief Parses his values and builds a Variable Speed Signal Step
     * @param[in] attrs SAX-attributes which define the additional
     */
-    static bool parseAndBuildVariableSpeedSignStep(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals *insertedAdditionals);
+    static bool parseAndBuildVariableSpeedSignStep(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
 
     /**@brief Parses his values and builds a rerouter
      * @param[in] attrs SAX-attributes which define the additional
      */
-    static bool parseAndBuildRerouter(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals *insertedAdditionals);
+    static bool parseAndBuildRerouter(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
 
     /**@brief Parses his values and builds a Rerouter Interval
     * @param[in] attrs SAX-attributes which define the additional
     */
-    static bool parseAndBuildRerouterInterval(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals *insertedAdditionals);
+    static bool parseAndBuildRerouterInterval(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
 
     /**@brief Parses his values and builds a Closing Lane reroute
     * @param[in] attrs SAX-attributes which define the additional
     */
-    static bool parseAndBuildRerouterClosingLaneReroute(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals *insertedAdditionals);
+    static bool parseAndBuildRerouterClosingLaneReroute(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
 
     /**@brief Parses his values and builds a Closing Reroute
     * @param[in] attrs SAX-attributes which define the additional
     */
-    static bool parseAndBuildRerouterClosingReroute(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals *insertedAdditionals);
+    static bool parseAndBuildRerouterClosingReroute(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
 
     /**@brief Parses his values and builds a Destiny Prob Reroute
     * @param[in] attrs SAX-attributes which define the additional
     */
-    static bool parseAndBuildRerouterDestProbReroute(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals *insertedAdditionals);
+    static bool parseAndBuildRerouterDestProbReroute(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
 
     /**@brief Parses his values and builds a parkingAreaReroute
     * @param[in] attrs SAX-attributes which define the additional
     */
-    static bool parseAndBuildRerouterParkingAreaReroute(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals *insertedAdditionals);
+    static bool parseAndBuildRerouterParkingAreaReroute(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
 
     /**@brief Parses his values and builds a Route Prob Reroute
     * @param[in] attrs SAX-attributes which define the additional
     */
-    static bool parseAndBuildRerouterRouteProbReroute(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals *insertedAdditionals);
+    static bool parseAndBuildRerouterRouteProbReroute(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
 
     /**@brief Parses his values and builds a bus stop
      * @param[in] attrs SAX-attributes which define the additional
      */
-    static bool parseAndBuildBusStop(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals *insertedAdditionals);
+    static bool parseAndBuildBusStop(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
 
     /**@brief Parses values and adds access to the current bus stop
      * @param[in] attrs SAX-attributes which define the additional
      */
-    static bool parseAndBuildAccess(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals *insertedAdditionals);
+    static bool parseAndBuildAccess(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
 
     /**@brief Parses his values and builds a container stop
      * @param[in] attrs SAX-attributes which define the additional
      */
-    static bool parseAndBuildContainerStop(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals *insertedAdditionals);
+    static bool parseAndBuildContainerStop(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
 
     /**@brief Parses his values and builds a charging station
      * @param[in] attrs SAXattributes which define the additional
      */
-    static bool parseAndBuildChargingStation(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals *insertedAdditionals);
+    static bool parseAndBuildChargingStation(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
 
     /**@brief Parses his values and builds a parking area
      * @param[in] attrs SAXattributes which define the additional
      */
-    static bool parseAndBuildParkingArea(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals *insertedAdditionals);
+    static bool parseAndBuildParkingArea(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
 
     /**@brief Parses his values and builds a parking space
      * @param[in] attrs SAXattributes which define the additional
      * @param[in] tag of the additional
      */
-    static bool parseAndBuildParkingSpace(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals *insertedAdditionals);
+    static bool parseAndBuildParkingSpace(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
 
     /**@brief Parses his values and builds a mesoscopic or microscopic calibrator
      * @param[in] attrs SAX-attributes which define the additional
      * @param[in] tag of the additional
      */
-    static bool parseAndBuildCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals *insertedAdditionals);
+    static bool parseAndBuildCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
 
     /**@brief Parses his values and builds a induction loop detector (GNEViewNet* viewNet, bool allowUndoRedo, E1)
      * @param[in] attrs SAX-attributes which define the additional
      */
-    static bool parseAndBuildDetectorE1(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals *insertedAdditionals);
+    static bool parseAndBuildDetectorE1(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
 
     /**@brief Parses his values and builds a lane area detector (GNEViewNet* viewNet, bool allowUndoRedo, E2)
      * @param[in] attrs SAX-attributes which define the additional
      */
-    static bool parseAndBuildDetectorE2(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals *insertedAdditionals);
+    static bool parseAndBuildDetectorE2(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
 
     /**@brief Parses his values and builds a multi entry exit detector (GNEViewNet* viewNet, bool allowUndoRedo, E3)
      * @param[in] attrs SAX-attributes which define the additional
      */
-    static bool parseAndBuildDetectorE3(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals *insertedAdditionals);
+    static bool parseAndBuildDetectorE3(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
 
     /**@brief Parses his values and builds a Entry detector
      * @param[in] attrs SAX-attributes which define the additional
      */
-    static bool parseAndBuildDetectorEntry(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals *insertedAdditionals);
+    static bool parseAndBuildDetectorEntry(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
 
     /**@brief Parses his values and builds a Exit detector
      * @param[in] attrs SAX-attributes which define the additional
      */
-    static bool parseAndBuildDetectorExit(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals *insertedAdditionals);
+    static bool parseAndBuildDetectorExit(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
 
     /**@brief Parses his values and builds a Instant induction loop detector (GNEViewNet* viewNet, bool allowUndoRedo, E1Instant)
      * @param[in] attrs SAX-attributes which define the additional
      */
-    static bool parseAndBuildDetectorE1Instant(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals *insertedAdditionals);
+    static bool parseAndBuildDetectorE1Instant(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
 
     /**@brief Parses his values and builds routeProbe
      * @param[in] attrs SAX-attributes which define the additional
      */
-    static bool parseAndBuildRouteProbe(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals *insertedAdditionals);
+    static bool parseAndBuildRouteProbe(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
 
     /**@brief Parses flow values of Calibrators
      * @param[in] attrs SAX-attributes which define the flows
      */
-    static bool parseAndBuildCalibratorFlow(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals *insertedAdditionals);
+    static bool parseAndBuildCalibratorFlow(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
 
     /// @}
 

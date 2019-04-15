@@ -222,7 +222,7 @@ public:
             myRunningIndex = 0;
             myMutex.unlock();
             if (toRaise != nullptr) {
-                throw *toRaise;
+                throw* toRaise;
             }
         }
 

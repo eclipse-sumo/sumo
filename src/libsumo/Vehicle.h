@@ -107,10 +107,10 @@ public:
     static double getLastActionTime(const std::string& vehicleID);
     static std::string getParameter(const std::string& vehicleID, const std::string& key);
     static std::map<const MSVehicle*, double> getNeighbors(const std::string& vehicleID, const int mode);
-    static std::map<const MSVehicle*, double> getRightFollowers(const std::string& vehicleID, bool blockingOnly=false);
-    static std::map<const MSVehicle*, double> getRightLeaders(const std::string& vehicleID, bool blockingOnly=false);
-    static std::map<const MSVehicle*, double> getLeftFollowers(const std::string& vehicleID, bool blockingOnly=false);
-    static std::map<const MSVehicle*, double> getLeftLeaders(const std::string& vehicleID, bool blockingOnly=false);
+    static std::map<const MSVehicle*, double> getRightFollowers(const std::string& vehicleID, bool blockingOnly = false);
+    static std::map<const MSVehicle*, double> getRightLeaders(const std::string& vehicleID, bool blockingOnly = false);
+    static std::map<const MSVehicle*, double> getLeftFollowers(const std::string& vehicleID, bool blockingOnly = false);
+    static std::map<const MSVehicle*, double> getLeftLeaders(const std::string& vehicleID, bool blockingOnly = false);
     static const MSVehicleType& getVehicleType(const std::string& vehicleID);
     /// @}
 
@@ -155,7 +155,7 @@ public:
     static void changeSublane(const std::string& vehicleID, double latDist);
 
     static void slowDown(const std::string& vehicleID, double speed, double duration);
-    static void openGap(const std::string& vehicleID, double newTimeHeadway, double newSpaceHeadway, double duration, double changeRate, double maxDecel, const std::string& referenceVehID="");
+    static void openGap(const std::string& vehicleID, double newTimeHeadway, double newSpaceHeadway, double duration, double changeRate, double maxDecel, const std::string& referenceVehID = "");
     static void deactivateGapControl(const std::string& vehicleID);
     static void requestToC(const std::string& vehID, double leadTime);
     static void setSpeed(const std::string& vehicleID, double speed);
@@ -186,7 +186,7 @@ public:
 
     LIBSUMO_SUBSCRIPTION_API
 
-    static void subscribeLeader(const std::string& vehicleID, double dist=0., double beginTime=libsumo::INVALID_DOUBLE_VALUE, double endTime=libsumo::INVALID_DOUBLE_VALUE);
+    static void subscribeLeader(const std::string& vehicleID, double dist = 0., double beginTime = libsumo::INVALID_DOUBLE_VALUE, double endTime = libsumo::INVALID_DOUBLE_VALUE);
 
     /** @brief Saves the shape of the requested object in the given container
     *  @param id The id of the poi to retrieve

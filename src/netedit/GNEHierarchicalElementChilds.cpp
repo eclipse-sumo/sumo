@@ -46,11 +46,11 @@
 // ===========================================================================
 
 GNEHierarchicalElementChilds::GNEHierarchicalElementChilds(GNEAttributeCarrier* AC,
-        const std::vector<GNEEdge*> &edgeChilds,
-        const std::vector<GNELane*> &laneChilds,
-        const std::vector<GNEShape*> &shapeChilds,
-        const std::vector<GNEAdditional*> &additionalChilds,
-        const std::vector<GNEDemandElement*> &demandElementChilds) :
+        const std::vector<GNEEdge*>& edgeChilds,
+        const std::vector<GNELane*>& laneChilds,
+        const std::vector<GNEShape*>& shapeChilds,
+        const std::vector<GNEAdditional*>& additionalChilds,
+        const std::vector<GNEDemandElement*>& demandElementChilds) :
     myChildConnections(this),
     myEdgeChilds(edgeChilds),
     myLaneChilds(laneChilds),
@@ -285,13 +285,13 @@ GNEHierarchicalElementChilds::getDemandElementChilds() const {
 
 void
 GNEHierarchicalElementChilds::sortDemandElementChilds() {
-   // by default empty
+    // by default empty
 }
 
 
 bool
 GNEHierarchicalElementChilds::checkDemandElementChildsOverlapping() const {
-  return true;
+    return true;
 }
 
 
@@ -368,11 +368,9 @@ GNEHierarchicalElementChilds::addShapeChild(GNEShape* shape) {
     // Check that shape is valid and doesn't exist previously
     if (shape == nullptr) {
         throw InvalidArgument("Trying to add an empty shape child in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
-    }
-    else if (std::find(myShapeChilds.begin(), myShapeChilds.end(), shape) != myShapeChilds.end()) {
+    } else if (std::find(myShapeChilds.begin(), myShapeChilds.end(), shape) != myShapeChilds.end()) {
         throw InvalidArgument("Trying to add a duplicate shape child in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
-    }
-    else {
+    } else {
         myShapeChilds.push_back(shape);
         // update connections geometry
         myChildConnections.update();
@@ -385,11 +383,9 @@ GNEHierarchicalElementChilds::removeShapeChild(GNEShape* shape) {
     // Check that shape is valid and exist previously
     if (shape == nullptr) {
         throw InvalidArgument("Trying to remove an empty shape child in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
-    }
-    else if (std::find(myShapeChilds.begin(), myShapeChilds.end(), shape) == myShapeChilds.end()) {
+    } else if (std::find(myShapeChilds.begin(), myShapeChilds.end(), shape) == myShapeChilds.end()) {
         throw InvalidArgument("Trying to remove a non previously inserted shape child in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
-    }
-    else {
+    } else {
         myShapeChilds.erase(std::find(myShapeChilds.begin(), myShapeChilds.end(), shape));
         // update connections geometry
         myChildConnections.update();
@@ -409,22 +405,22 @@ GNEHierarchicalElementChilds::updateAdditionalParent() {
 }
 
 
-void 
+void
 GNEHierarchicalElementChilds::updateDemandElementParent() {
     // by default nothing to do
 }
 
 
 void
-GNEHierarchicalElementChilds::changeEdgeChilds(GNEAdditional *elementChild, const std::string& newEdgeIDs) {
+GNEHierarchicalElementChilds::changeEdgeChilds(GNEAdditional* elementChild, const std::string& newEdgeIDs) {
     // remove demandElement of edge childs
-    for (const auto &i : myEdgeChilds) {
+    for (const auto& i : myEdgeChilds) {
         i->removeAdditionalParent(elementChild);
     }
     // obtain new child edges (note: it can be empty)
     myEdgeChilds = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(elementChild->getViewNet()->getNet(), newEdgeIDs);
     // add demandElement into edge parents
-    for (const auto &i : myEdgeChilds) {
+    for (const auto& i : myEdgeChilds) {
         i->addAdditionalParent(elementChild);
     }
     // update connections geometry
@@ -433,15 +429,15 @@ GNEHierarchicalElementChilds::changeEdgeChilds(GNEAdditional *elementChild, cons
 
 
 void
-GNEHierarchicalElementChilds::changeLaneChilds(GNEAdditional *elementChild, const std::string& newLaneIDs) {
+GNEHierarchicalElementChilds::changeLaneChilds(GNEAdditional* elementChild, const std::string& newLaneIDs) {
     // remove demandElement of lane childs
-    for (const auto &i : myLaneChilds) {
+    for (const auto& i : myLaneChilds) {
         i->removeAdditionalParent(elementChild);
     }
     // obtain new child lanes (note: it can be empty)
     myLaneChilds = GNEAttributeCarrier::parse<std::vector<GNELane*> >(elementChild->getViewNet()->getNet(), newLaneIDs);
     // add demandElement into lane parents
-    for (const auto &i : myLaneChilds) {
+    for (const auto& i : myLaneChilds) {
         i->addAdditionalParent(elementChild);
     }
     // update connections geometry
@@ -463,7 +459,7 @@ GNEHierarchicalElementChilds::ChildConnections::update() {
     symbolsPositionAndRotation.clear();
 
     // calculate position and rotation of every simbol for every edge
-    for (const auto &i : myHierarchicalElement->myEdgeChilds) {
+    for (const auto& i : myHierarchicalElement->myEdgeChilds) {
         for (auto j : i->getLanes()) {
             std::pair<Position, double> posRot;
             // set position and lenght depending of shape's lengt
@@ -479,7 +475,7 @@ GNEHierarchicalElementChilds::ChildConnections::update() {
     }
 
     // calculate position and rotation of every symbol for every lane
-    for (const auto &i : myHierarchicalElement->myLaneChilds) {
+    for (const auto& i : myHierarchicalElement->myLaneChilds) {
         std::pair<Position, double> posRot;
         // set position and lenght depending of shape's lengt
         if (i->getShape().length() - 6 > 0) {
@@ -493,7 +489,7 @@ GNEHierarchicalElementChilds::ChildConnections::update() {
     }
 
     // calculate position for every additional child
-    for (const auto &i : myHierarchicalElement->myAdditionalChilds) {
+    for (const auto& i : myHierarchicalElement->myAdditionalChilds) {
         // check that position is different of position
         if (i->getPositionInView() != myHierarchicalElement->getPositionInView()) {
             std::vector<Position> posConnection;
@@ -520,7 +516,7 @@ GNEHierarchicalElementChilds::ChildConnections::update() {
     }
 
     // calculate geometry for connections between parent and childs
-    for (const auto &i : symbolsPositionAndRotation) {
+    for (const auto& i : symbolsPositionAndRotation) {
         std::vector<Position> posConnection;
         double A = std::abs(i.first.x() - myHierarchicalElement->getPositionInView().x());
         double B = std::abs(i.first.y() - myHierarchicalElement->getPositionInView().y());
@@ -548,7 +544,7 @@ GNEHierarchicalElementChilds::ChildConnections::update() {
 void
 GNEHierarchicalElementChilds::ChildConnections::draw(GUIGlObjectType parentType) const {
     // Iterate over myConnectionPositions
-    for (const auto &i : connectionPositions) {
+    for (const auto& i : connectionPositions) {
         // Add a draw matrix
         glPushMatrix();
         // traslate in the Z axis

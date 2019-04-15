@@ -304,8 +304,8 @@ TraCIServerAPI_TrafficLight::processSet(TraCIServer& server, tcpip::Storage& inp
                         return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "set program 4.5 parameter (next) must be a compound (list of ints).", outputStorage);
                     }
                     const int numNext = inputStorage.readInt();
-                    for (int k = 0; k < numNext; k++) { 
-                        int tmp;  
+                    for (int k = 0; k < numNext; k++) {
+                        int tmp;
                         if (!server.readTypeCheckingInt(inputStorage, tmp)) {
                             return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "set program: 4.5. parameter (next) must be a list of int.", outputStorage);
                         }

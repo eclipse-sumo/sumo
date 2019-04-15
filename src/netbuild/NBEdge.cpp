@@ -337,8 +337,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to, const NBEdge* tp
     myAmMacroscopicConnector(false),
     myStreetName(tpl->getStreetName()),
     mySignalOffset(to == tpl->myTo ? tpl->mySignalOffset : UNSPECIFIED_SIGNAL_OFFSET),
-    mySignalNode(to == tpl->myTo ? tpl->mySignalNode : nullptr)
-{
+    mySignalNode(to == tpl->myTo ? tpl->mySignalNode : nullptr) {
     init(numLanes > 0 ? numLanes : tpl->getNumLanes(), myGeom.size() > 0, "");
     for (int i = 0; i < getNumLanes(); i++) {
         const int tplIndex = MIN2(i, tpl->getNumLanes() - 1);
@@ -1120,8 +1119,8 @@ std::vector<NBEdge::Connection>
 NBEdge::getConnectionsFromLane(int lane, NBEdge* to, int toLane) const {
     std::vector<NBEdge::Connection> ret;
     for (const Connection& c : myConnections) {
-        if ((lane < 0 || c.fromLane == lane) 
-                && (to == nullptr || to == c.toEdge) 
+        if ((lane < 0 || c.fromLane == lane)
+                && (to == nullptr || to == c.toEdge)
                 && (toLane < 0 || toLane == c.toLane)) {
             ret.push_back(c);
         }
@@ -1284,7 +1283,7 @@ NBEdge::remapConnections(const EdgeVector& incoming) {
 
 void
 NBEdge::removeFromConnections(NBEdge* toEdge, int fromLane, int toLane, bool tryLater, const bool adaptToLaneRemoval,
-        const bool keepPossibleTurns) {
+                              const bool keepPossibleTurns) {
     // remove from "myConnections"
     const int fromLaneRemoved = adaptToLaneRemoval && fromLane >= 0 ? fromLane : -1;
     const int toLaneRemoved = adaptToLaneRemoval && toLane >= 0 ? toLane : -1;
@@ -1412,8 +1411,8 @@ NBEdge::replaceInConnections(NBEdge* which, const std::vector<NBEdge::Connection
                 || std::find(origTargets.begin(), origTargets.end(), (*i).toEdge) != origTargets.end()) {
 #ifdef DEBUG_REPLACECONNECTION
             if (DEBUGCOND) {
-                std::cout << " replaceInConnections edge=" << getID() << " which=" << which->getID() 
-                    << " origTargets=" << toString(origTargets) << " newTarget=" << i->toEdge->getID() << " skipped\n";
+                std::cout << " replaceInConnections edge=" << getID() << " which=" << which->getID()
+                          << " origTargets=" << toString(origTargets) << " newTarget=" << i->toEdge->getID() << " skipped\n";
             }
 #endif
             continue;
@@ -1452,9 +1451,9 @@ NBEdge::replaceInConnections(NBEdge* which, const std::vector<NBEdge::Connection
         }
 #ifdef DEBUG_REPLACECONNECTION
         if (DEBUGCOND) {
-            std::cout  << " replaceInConnections edge=" << getID() << " which=" << which->getID() << " origTargets=" << toString(origTargets) 
-                << " origFrom=" << fromLane << " laneMap=" << joinToString(laneMap, ":", ",") << " minLane=" << minLane << " maxLane=" << maxLane 
-                << " newTarget=" << i->toEdge->getID() << " fromLane=" << toUse << " toLane=" << i->toLane << "\n";
+            std::cout  << " replaceInConnections edge=" << getID() << " which=" << which->getID() << " origTargets=" << toString(origTargets)
+                       << " origFrom=" << fromLane << " laneMap=" << joinToString(laneMap, ":", ",") << " minLane=" << minLane << " maxLane=" << maxLane
+                       << " newTarget=" << i->toEdge->getID() << " fromLane=" << toUse << " toLane=" << i->toLane << "\n";
         }
 #endif
         setConnection(toUse, i->toEdge, i->toLane, L2L_COMPUTED, false, i->mayDefinitelyPass, i->keepClear,
@@ -1584,7 +1583,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                         SVCPermissions warn = SVCAll & ~(SVC_PEDESTRIAN | SVC_BICYCLE | SVC_DELIVERY);
                         if (oppositeLeftIntersect
                                 && (((*i2)->getPermissions((*k2).fromLane) & warn) != 0
-                                && ((*k2).toEdge->getPermissions((*k2).toLane) & warn) != 0)) {
+                                    && ((*k2).toEdge->getPermissions((*k2).toLane) & warn) != 0)) {
                             // recompute with different curve parameters (unless
                             // the other connection is "unimportant"
                             shapeFlag = NBNode::AVOID_INTERSECTING_LEFT_TURNS;
@@ -2309,7 +2308,7 @@ NBEdge::recheckLanes() {
     for (const Connection& c : myConnections) {
         SVCPermissions fromP = getPermissions(c.fromLane);
         SVCPermissions toP = c.toEdge->getPermissions(c.toLane);
-        if ((fromP & SVC_PASSENGER) != 0 
+        if ((fromP & SVC_PASSENGER) != 0
                 && toP == SVC_BICYCLE) {
             bool hasAlternative = false;
             for (const Connection& c2 : myConnections) {
@@ -2700,9 +2699,9 @@ NBEdge::appendTurnaround(bool noTLSControlled, bool onlyDeadends, bool noGeometr
     }
     bool isDeadEnd = true;
     for (const Connection& c : myConnections) {
-        if ((c.toEdge->getPermissions(c.toLane) 
-                    & getPermissions(c.fromLane) 
-                    & SVC_PASSENGER) != 0 
+        if ((c.toEdge->getPermissions(c.toLane)
+                & getPermissions(c.fromLane)
+                & SVC_PASSENGER) != 0
                 || (c.toEdge->getPermissions() & getPermissions()) == getPermissions()) {
             isDeadEnd = false;
             break;
@@ -3678,7 +3677,7 @@ NBEdge::getSuccessors(SUMOVehicleClass vClass) const {
     for (const Connection& con : myConnections) {
         if (con.fromLane >= 0 && con.toLane >= 0 && con.toEdge != nullptr &&
                 (vClass == SVC_IGNORING || (getPermissions(con.fromLane)
-                 & con.toEdge->getPermissions(con.toLane) & vClass) != 0)
+                                            & con.toEdge->getPermissions(con.toLane) & vClass) != 0)
                 && std::find(mySuccessors.begin(), mySuccessors.end(), con.toEdge) == mySuccessors.end()) {
             mySuccessors.push_back(con.toEdge);
             //std::cout << "   succ=" << con.toEdge->getID() << "\n";

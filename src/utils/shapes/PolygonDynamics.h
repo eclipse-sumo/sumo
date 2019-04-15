@@ -44,12 +44,12 @@ public:
      * @param rotate Whether the polygon shall be rotated with the tracked object.
      */
     PolygonDynamics(double creationTime,
-            SUMOPolygon* p,
-            SUMOTrafficObject* trackedObject,
-            const std::vector<double>& timeSpan,
-            const std::vector<double>& alphaSpan,
-            bool looped,
-            bool rotate);
+                    SUMOPolygon* p,
+                    SUMOTrafficObject* trackedObject,
+                    const std::vector<double>& timeSpan,
+                    const std::vector<double>& alphaSpan,
+                    bool looped,
+                    bool rotate);
     virtual ~PolygonDynamics();
 
     const std::string& getPolygonID() const {
@@ -67,12 +67,12 @@ public:
     /// @brief Updates the polygon according to its timeSpan and follows the tracked object
     /// @param t Current sumo time step (in ms.) when this is called
     /// @returns Next desired update time.
-   SUMOTime update(SUMOTime t);
+    SUMOTime update(SUMOTime t);
 
-   /// @brief Set the RTree
-   void setRTree(SUMORTree* rtree) {
-       myVis = rtree;
-   }
+    /// @brief Set the RTree
+    void setRTree(SUMORTree* rtree) {
+        myVis = rtree;
+    }
 
 private:
 

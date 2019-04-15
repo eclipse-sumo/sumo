@@ -92,12 +92,12 @@ GUIShapeContainer::addPolygon(const std::string& id, const std::string& type,
 
 PolygonDynamics*
 GUIShapeContainer::addPolygonDynamics(double simtime,
-        std::string polyID,
-        SUMOTrafficObject* trackedObject,
-        const std::vector<double>& timeSpan,
-        const std::vector<double>& alphaSpan,
-        bool looped,
-        bool rotate) {
+                                      std::string polyID,
+                                      SUMOTrafficObject* trackedObject,
+                                      const std::vector<double>& timeSpan,
+                                      const std::vector<double>& alphaSpan,
+                                      bool looped,
+                                      bool rotate) {
     PolygonDynamics* pd = ShapeContainer::addPolygonDynamics(simtime, polyID, trackedObject, timeSpan, alphaSpan, looped, rotate);
     if (pd != nullptr) {
         pd->setRTree(&myVis);
@@ -112,7 +112,7 @@ GUIShapeContainer::polygonDynamicsUpdate(SUMOTime t, PolygonDynamics* pd) {
     SUMOTime next = ShapeContainer::polygonDynamicsUpdate(t, pd);
     if (next != 0) {
         // Update polygon position in RTree
-        GUIPolygon * p = dynamic_cast<GUIPolygon*>(pd->getPolygon());
+        GUIPolygon* p = dynamic_cast<GUIPolygon*>(pd->getPolygon());
         assert(p != nullptr);
         myVis.removeAdditionalGLObject(p);
         myVis.addAdditionalGLObject(p);
@@ -127,7 +127,7 @@ GUIShapeContainer::removePolygon(const std::string& id, bool useLock) {
     if (p == nullptr) {
         return false;
     }
-    FXMutexLock * locker = nullptr;
+    FXMutexLock* locker = nullptr;
     if (useLock) {
         locker = new FXMutexLock(myLock);
     }

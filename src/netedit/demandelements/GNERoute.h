@@ -53,7 +53,7 @@ public:
     ~GNERoute();
 
     /// @brief get color
-    const RGBColor &getColor() const;
+    const RGBColor& getColor() const;
 
     /**@brief writte demand element element into a xml file
      * @param[in] device device in which write parameters of demand element element

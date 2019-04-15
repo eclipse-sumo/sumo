@@ -60,7 +60,7 @@ MSDevice_Transportable::~MSDevice_Transportable() {
     // flush any unfortunate riders still remaining
     for (MSTransportable* transportable : myTransportables) {
         WRITE_WARNING((myAmContainer ? "Removing container '" : "Removing person '") + transportable->getID() +
-                "' at removal of vehicle '" + myHolder.getID() + "'");
+                      "' at removal of vehicle '" + myHolder.getID() + "'");
         if (myAmContainer) {
             MSNet::getInstance()->getContainerControl().erase(transportable);
         } else {

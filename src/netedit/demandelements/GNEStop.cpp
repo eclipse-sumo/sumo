@@ -44,36 +44,36 @@
 // member method definitions
 // ===========================================================================
 
-GNEStop::GNEStop(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehicleParameter::Stop &stopParameter, GNEAdditional* stoppingPlace, GNEDemandElement* stopParent) :
+GNEStop::GNEStop(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehicleParameter::Stop& stopParameter, GNEAdditional* stoppingPlace, GNEDemandElement* stopParent) :
     GNEDemandElement(stopParent, viewNet, GLO_STOP, tag, {}, {}, {}, {stoppingPlace}, {stopParent}, {}, {}, {}, {}, {}),
-    SUMOVehicleParameter::Stop(stopParameter),
-    myFriendlyPosition(false) {
+                 SUMOVehicleParameter::Stop(stopParameter),
+myFriendlyPosition(false) {
 }
 
 
-GNEStop::GNEStop(GNEViewNet* viewNet, const SUMOVehicleParameter::Stop &stopParameter, GNELane* lane, bool friendlyPosition, GNEDemandElement* stopParent) :
+GNEStop::GNEStop(GNEViewNet* viewNet, const SUMOVehicleParameter::Stop& stopParameter, GNELane* lane, bool friendlyPosition, GNEDemandElement* stopParent) :
     GNEDemandElement(stopParent, viewNet, GLO_STOP, SUMO_TAG_STOP_LANE, {}, {lane}, {}, {}, {stopParent}, {}, {}, {}, {}, {}),
-    SUMOVehicleParameter::Stop(stopParameter),
-    myFriendlyPosition(friendlyPosition) { 
+SUMOVehicleParameter::Stop(stopParameter),
+myFriendlyPosition(friendlyPosition) {
 }
 
 
 GNEStop::~GNEStop() {}
 
 
-std::string 
+std::string
 GNEStop::getBegin() const {
     return "";
 }
 
 
-const RGBColor &
+const RGBColor&
 GNEStop::getColor() const {
     return RGBColor::BLACK;
 }
 
 
-void 
+void
 GNEStop::writeDemandElement(OutputDevice& device) const {
     write(device);
 }
@@ -106,7 +106,7 @@ GNEStop::moveGeometry(const Position& offset) {
             } else {
                 startPos = parse<double>(myMove.firstOriginalLanePosition) + offsetLane;
                 endPos = parse<double>(myMove.secondOriginalPosition) + offsetLane;
-                std::cout << toString(offsetLane) << " | " << toString (startPos) << " " << toString(endPos) << std::endl;
+                std::cout << toString(offsetLane) << " | " << toString(startPos) << " " << toString(endPos) << std::endl;
             }
         } else {
             // check if start position must be moved
@@ -226,14 +226,14 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
         // draw lines depending if it's placed over a lane or over a stoppingPlace
         if (getLaneParents().size() > 0) {
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-            GLHelper::drawBoxLines(myGeometry.shape, myGeometry.shapeRotations, myGeometry.shapeLengths, exaggeration*0.1, 0, 
+            GLHelper::drawBoxLines(myGeometry.shape, myGeometry.shapeRotations, myGeometry.shapeLengths, exaggeration * 0.1, 0,
                                    getLaneParents().front()->getParentEdge().getNBEdge()->getLaneWidth(getLaneParents().front()->getIndex()) * 0.5);
-            GLHelper::drawBoxLines(myGeometry.shape, myGeometry.shapeRotations, myGeometry.shapeLengths, exaggeration*0.1, 0, 
+            GLHelper::drawBoxLines(myGeometry.shape, myGeometry.shapeRotations, myGeometry.shapeLengths, exaggeration * 0.1, 0,
                                    getLaneParents().front()->getParentEdge().getNBEdge()->getLaneWidth(getLaneParents().front()->getIndex()) * -0.5);
         } else {
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-            GLHelper::drawBoxLines(myGeometry.shape, myGeometry.shapeRotations, myGeometry.shapeLengths, exaggeration*0.1, 0, exaggeration * -1);
-            GLHelper::drawBoxLines(myGeometry.shape, myGeometry.shapeRotations, myGeometry.shapeLengths, exaggeration*0.1, 0, exaggeration);
+            GLHelper::drawBoxLines(myGeometry.shape, myGeometry.shapeRotations, myGeometry.shapeLengths, exaggeration * 0.1, 0, exaggeration * -1);
+            GLHelper::drawBoxLines(myGeometry.shape, myGeometry.shapeRotations, myGeometry.shapeLengths, exaggeration * 0.1, 0, exaggeration);
         }
         // pop draw matrix
         glPopMatrix();
@@ -245,7 +245,7 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
         // draw front of Stop depending if it's placed over a lane or over a stoppingPlace
         if (getLaneParents().size() > 0) {
             // draw front of Stop
-            GLHelper::drawBoxLine(Position(0, 0), 0, exaggeration * 0.5, 
+            GLHelper::drawBoxLine(Position(0, 0), 0, exaggeration * 0.5,
                                   getLaneParents().front()->getParentEdge().getNBEdge()->getLaneWidth(getLaneParents().front()->getIndex()) * 0.5);
         } else {
             // draw front of Stop
@@ -283,7 +283,7 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
         if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
             // draw dooted contour depending if it's placed over a lane or over a stoppingPlace
             if (getLaneParents().size() > 0) {
-                GLHelper::drawShapeDottedContour(getType(), myGeometry.shape, getLaneParents().front()->getParentEdge().getNBEdge()->getLaneWidth(getLaneParents().front()->getIndex())*0.5);
+                GLHelper::drawShapeDottedContour(getType(), myGeometry.shape, getLaneParents().front()->getParentEdge().getNBEdge()->getLaneWidth(getLaneParents().front()->getIndex()) * 0.5);
             } else {
                 GLHelper::drawShapeDottedContour(getType(), myGeometry.shape, exaggeration);
             }
@@ -536,7 +536,7 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-bool 
+bool
 GNEStop::isDisjointAttributeSet(const SumoXMLAttr attr) const {
     switch (attr) {
         case SUMO_ATTR_EXPECTED:

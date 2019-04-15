@@ -120,7 +120,7 @@ GNERouteFrame::RouteModeSelector::setCurrentRouteMode(RouteMode routemode) {
             myRouteFrameParent->myConsecutiveEdges->hideConsecutiveEdgesModul();
             myRouteFrameParent->myNonConsecutiveEdges->showNonConsecutiveEdgesModul();
         }
-        
+
     } else {
         // hide all moduls if route mode isnt' valid
         myRouteFrameParent->myConsecutiveEdges->hideConsecutiveEdgesModul();

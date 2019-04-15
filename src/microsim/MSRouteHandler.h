@@ -104,7 +104,7 @@ protected:
      * @note Afterwards no edges may be added to it;
      *       this method may throw exceptions when
      *       a) the route is empty or
-     *       b) another route with the same id already exists 
+     *       b) another route with the same id already exists
      */
     void closeRoute(const bool mayBeDisconnected = false);
 

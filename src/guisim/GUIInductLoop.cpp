@@ -42,7 +42,7 @@
  * GUIInductLoop-methods
  * ----------------------------------------------------------------------- */
 GUIInductLoop::GUIInductLoop(const std::string& id, MSLane* const lane,
-                             double position, const std::string& vTypes) : 
+                             double position, const std::string& vTypes) :
     MSInductLoop(id, lane, position, vTypes),
     myWrapper(nullptr)
 {}
@@ -92,7 +92,7 @@ GUIInductLoop::collectVehiclesOnDet(SUMOTime t, bool leaveTime) const {
 }
 
 
-void 
+void
 GUIInductLoop::setSpecialColor(const RGBColor* color) {
     if (myWrapper != nullptr) {
         myWrapper->setSpecialColor(color);
@@ -107,8 +107,7 @@ GUIInductLoop::setSpecialColor(const RGBColor* color) {
 GUIInductLoop::MyWrapper::MyWrapper(GUIInductLoop& detector, double pos) :
     GUIDetectorWrapper(GLO_E1DETECTOR, detector.getID()),
     myDetector(detector), myPosition(pos),
-    mySpecialColor(nullptr)
-{
+    mySpecialColor(nullptr) {
     myFGPosition = detector.getLane()->geometryPositionAtOffset(pos);
     myBoundary.add(myFGPosition.x() + (double) 5.5, myFGPosition.y() + (double) 5.5);
     myBoundary.add(myFGPosition.x() - (double) 5.5, myFGPosition.y() - (double) 5.5);

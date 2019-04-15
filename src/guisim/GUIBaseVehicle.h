@@ -314,7 +314,7 @@ public:
      * @param[in] routeNo The route to show (0: the current, >0: prior)
      * @param[in] darken The amount to darken the route by
      */
-    void drawRoute(const GUIVisualizationSettings& s, int routeNo, double darken, bool future=false) const;
+    void drawRoute(const GUIVisualizationSettings& s, int routeNo, double darken, bool future = false) const;
 
 
     /// @}
@@ -337,7 +337,7 @@ protected:
     }
 
     /// @brief draw vehicle body and return whether carriages are being drawn
-    bool drawAction_drawVehicleAsPolyWithCarriagges(const GUIVisualizationSettings& s, bool asImage=false) const;
+    bool drawAction_drawVehicleAsPolyWithCarriagges(const GUIVisualizationSettings& s, bool asImage = false) const;
 
     /// @brief add seats to mySeatPositions and update requiredSeats
     void computeSeats(const Position& front, const Position& back, int maxSeats, double exaggeration, int& requiredSeats) const;

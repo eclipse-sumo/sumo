@@ -54,11 +54,11 @@ public:
      * @param[in] demandElementChilds vector of demand element childs
      */
     GNEHierarchicalElementChilds(GNEAttributeCarrier* AC,
-        const std::vector<GNEEdge*> &edgeChilds,
-        const std::vector<GNELane*> &laneChilds,
-        const std::vector<GNEShape*> &shapeChilds,
-        const std::vector<GNEAdditional*> &additionalChilds,
-        const std::vector<GNEDemandElement*> &demandElementChilds);
+                                 const std::vector<GNEEdge*>& edgeChilds,
+                                 const std::vector<GNELane*>& laneChilds,
+                                 const std::vector<GNEShape*>& shapeChilds,
+                                 const std::vector<GNEAdditional*>& additionalChilds,
+                                 const std::vector<GNEDemandElement*>& demandElementChilds);
 
     /// @brief Destructor
     ~GNEHierarchicalElementChilds();
@@ -130,7 +130,7 @@ public:
 
     /// @brief check if childs are overlapped (Used by Rerouters)
     bool checkAdditionalChildsOverlapping() const;
-    
+
     /// @}
 
     /// @name members and functions related to demand element childs
@@ -149,7 +149,7 @@ public:
 
     /// @brief check if childs are overlapped (Used by Rerouters)
     bool checkDemandElementChildsOverlapping() const;
-    
+
     /// @}
 
     /// @brief update parent after add or remove a child (can be reimplemented, for example used for statistics)
@@ -159,7 +159,7 @@ public:
     virtual void updateDemandElementParent();
 
 protected:
-  
+
     /// @brief struct for pack all variables and functions relative to connections between hierarchical element and their childs
     struct ChildConnections {
         /// @brief constructor
@@ -183,10 +183,10 @@ protected:
     };
 
     /// @brief change edge childs of an additional
-    void changeEdgeChilds(GNEAdditional *elementChild, const std::string& newEdgeIDs);
+    void changeEdgeChilds(GNEAdditional* elementChild, const std::string& newEdgeIDs);
 
     /// @brief change edge childs of an additional
-    void changeLaneChilds(GNEAdditional *elementChild, const std::string& newEdgeIDs);
+    void changeLaneChilds(GNEAdditional* elementChild, const std::string& newEdgeIDs);
 
     /// @brief variable ChildConnections
     ChildConnections myChildConnections;

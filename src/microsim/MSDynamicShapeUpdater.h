@@ -26,7 +26,7 @@
 class MSDynamicShapeUpdater: public MSNet::VehicleStateListener {
 public:
     /// @brief Constructor
-    MSDynamicShapeUpdater(ShapeContainer& shapeContainer) : myShapeContainer(shapeContainer){};
+    MSDynamicShapeUpdater(ShapeContainer& shapeContainer) : myShapeContainer(shapeContainer) {};
 
     /// @brief Constructor
     void vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet::VehicleState to, const std::string& info = "") override;

@@ -42,10 +42,10 @@
 // member method definitions
 // ===========================================================================
 
-GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const std::string &vehicleID, GNEDemandElement* vehicleType, GNEDemandElement* route) :
-    GNEDemandElement(vehicleID, viewNet, (tag == SUMO_TAG_FLOW)? GLO_FLOW : GLO_VEHICLE, tag, 
-                     {}, {}, {}, {}, {vehicleType, route}, {}, {}, {}, {}, {}),
-    SUMOVehicleParameter() {
+GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const std::string& vehicleID, GNEDemandElement* vehicleType, GNEDemandElement* route) :
+    GNEDemandElement(vehicleID, viewNet, (tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_VEHICLE, tag,
+{}, {}, {}, {}, {vehicleType, route}, {}, {}, {}, {}, {}),
+SUMOVehicleParameter() {
     // SUMOVehicleParameter ID has to be set manually
     id = vehicleID;
     // set manually vtypeID (needed for saving)
@@ -53,10 +53,10 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const std::string &v
 }
 
 
-GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehicleParameter &vehicleParameter, GNEDemandElement* vehicleType, GNEDemandElement* route) :
-    GNEDemandElement(vehicleParameter.id, viewNet, (tag == SUMO_TAG_FLOW)? GLO_FLOW : GLO_VEHICLE, tag,
-                     {}, {}, {}, {}, {vehicleType, route}, {}, {}, {}, {}, {}),
-    SUMOVehicleParameter(vehicleParameter) {
+GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehicleParameter& vehicleParameter, GNEDemandElement* vehicleType, GNEDemandElement* route) :
+    GNEDemandElement(vehicleParameter.id, viewNet, (tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_VEHICLE, tag,
+{}, {}, {}, {}, {vehicleType, route}, {}, {}, {}, {}, {}),
+SUMOVehicleParameter(vehicleParameter) {
     // SUMOVehicleParameter ID has to be set manually
     id = vehicleParameter.id;
     // set manually vtypeID (needed for saving)
@@ -64,24 +64,26 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehiclePar
 }
 
 
-GNEVehicle::GNEVehicle(GNEViewNet* viewNet, const std::string &tripID, GNEDemandElement* vehicleType, const std::vector<GNEEdge*> &edges) : 
-    GNEDemandElement(tripID, viewNet, GLO_TRIP, SUMO_TAG_TRIP,
-                     {edges}, {}, {}, {}, {vehicleType}, {}, {}, {}, {}, {}),
-    SUMOVehicleParameter() {
+GNEVehicle::GNEVehicle(GNEViewNet* viewNet, const std::string& tripID, GNEDemandElement* vehicleType, const std::vector<GNEEdge*>& edges) :
+    GNEDemandElement(tripID, viewNet, GLO_TRIP, SUMO_TAG_TRIP, {
+    edges
+}, {}, {}, {}, {vehicleType}, {}, {}, {}, {}, {}),
+SUMOVehicleParameter() {
 }
 
 
-GNEVehicle::GNEVehicle(GNEViewNet* viewNet, const SUMOVehicleParameter &tripParameter, GNEDemandElement* vehicleType, const std::vector<GNEEdge*> &edges) :
-    GNEDemandElement(tripParameter.id, viewNet, GLO_TRIP, SUMO_TAG_TRIP,
-                     {edges}, {}, {}, {}, {vehicleType}, {}, {}, {}, {}, {}),
-    SUMOVehicleParameter(tripParameter) {
+GNEVehicle::GNEVehicle(GNEViewNet* viewNet, const SUMOVehicleParameter& tripParameter, GNEDemandElement* vehicleType, const std::vector<GNEEdge*>& edges) :
+    GNEDemandElement(tripParameter.id, viewNet, GLO_TRIP, SUMO_TAG_TRIP, {
+    edges
+}, {}, {}, {}, {vehicleType}, {}, {}, {}, {}, {}),
+SUMOVehicleParameter(tripParameter) {
 }
 
 
 GNEVehicle::~GNEVehicle() {}
 
 
-std::string 
+std::string
 GNEVehicle::getBegin() const {
     // obtain depart depending if is a Vehicle, trip or flow
     std::string departStr;
@@ -100,13 +102,13 @@ GNEVehicle::getBegin() const {
 }
 
 
-const RGBColor &
+const RGBColor&
 GNEVehicle::getColor() const {
     return color;
 }
 
 
-void 
+void
 GNEVehicle::writeDemandElement(OutputDevice& device) const {
     write(device, OptionsCont::getOptions(), myTagProperty.getTag());
     // write specific attribute depeding of vehicle type
@@ -119,7 +121,7 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
             device.writeAttr(SUMO_ATTR_END,  time2string(repetitionEnd));
         }
         if (isDisjointAttributeSet(SUMO_ATTR_NUMBER)) {
-            device.writeAttr(SUMO_ATTR_NUMBER , repetitionNumber);
+            device.writeAttr(SUMO_ATTR_NUMBER, repetitionNumber);
         }
         if (isDisjointAttributeSet(SUMO_ATTR_VEHSPERHOUR)) {
             device.writeAttr(SUMO_ATTR_VEHSPERHOUR, 3600. / STEPS2TIME(repetitionOffset));
@@ -135,7 +137,7 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
         device.writeAttr(SUMO_ATTR_FROM, getEdgeParents().front()->getID());
         device.writeAttr(SUMO_ATTR_TO, getEdgeParents().back()->getID());
         // write via only if there is more than two edges
-        if(getEdgeParents().size() > 2) {
+        if (getEdgeParents().size() > 2) {
             std::vector<GNEEdge*> viaEdges;
             for (int i = 1; i < (int)getEdgeParents().size() - 1; i++) {
                 viaEdges.push_back(getEdgeParents().at(i));
@@ -146,7 +148,7 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
         throw ProcessError("Invalid vehicle tag");
     }
     // write stops associated to this vehicle
-    for (const auto &i : getDemandElementChilds()) {
+    for (const auto& i : getDemandElementChilds()) {
         i->writeDemandElement(device);
     }
     // close vehicle tag
@@ -241,7 +243,7 @@ GNEVehicle::updateGeometry(bool updateGrid) {
 Position
 GNEVehicle::getPositionInView() const {
     // obtain lane depending of edited vehicle type
-    GNELane *lane = nullptr;
+    GNELane* lane = nullptr;
     if (getDemandElementParents().size() == 2) {
         lane = getDemandElementParents().at(1)->getEdgeParents().at(0)->getLanes().front();
     } else if (getEdgeParents().size() > 0) {
@@ -344,7 +346,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                     glVertex2d(.5, minGap);
                     glEnd();
                 }
-                 // drawing name at GLO_MAX fails unless translating z
+                // drawing name at GLO_MAX fails unless translating z
                 glTranslated(0, MIN2(length / 2, double(5)), -getType());
                 glScaled(1 / upscale, 1 / upscaleLength, 1);
                 glRotated(-1 * myGeometry.shapeRotations.front(), 0, 0, 1);
@@ -360,7 +362,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
 
             // check if dotted contour has to be drawn
             if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
-                GLHelper::drawShapeDottedContour(getType(), myGeometry.shape.front(), width, length, myGeometry.shapeRotations.front(), 0, length/2);
+                GLHelper::drawShapeDottedContour(getType(), myGeometry.shape.front(), width, length, myGeometry.shapeRotations.front(), 0, length / 2);
                 // check if draw temporal route must be drawed (only for Tags
                 if (myTagProperty.getTag() == SUMO_TAG_TRIP) {
                     if (myTemporalRoute.size() > 1) {
@@ -373,14 +375,14 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                         // set line width
                         glLineWidth(5);
                         // draw first line
-                        GLHelper::drawLine(myTemporalRoute.at(0)->getLanes().front().shape.front(), 
-                                            myTemporalRoute.at(0)->getLanes().front().shape.back());
+                        GLHelper::drawLine(myTemporalRoute.at(0)->getLanes().front().shape.front(),
+                                           myTemporalRoute.at(0)->getLanes().front().shape.back());
                         // draw rest of lines
                         for (int i = 1; i < (int)myTemporalRoute.size(); i++) {
-                            GLHelper::drawLine(myTemporalRoute.at(i-1)->getLanes().front().shape.back(), 
-                                                myTemporalRoute.at(i)->getLanes().front().shape.front());
-                            GLHelper::drawLine(myTemporalRoute.at(i)->getLanes().front().shape.front(), 
-                                                myTemporalRoute.at(i)->getLanes().front().shape.back());
+                            GLHelper::drawLine(myTemporalRoute.at(i - 1)->getLanes().front().shape.back(),
+                                               myTemporalRoute.at(i)->getLanes().front().shape.front());
+                            GLHelper::drawLine(myTemporalRoute.at(i)->getLanes().front().shape.front(),
+                                               myTemporalRoute.at(i)->getLanes().front().shape.back());
                         }
                         // Pop last matrix
                         glPopMatrix();
@@ -579,7 +581,7 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_DEPARTLANE: {
             int dummyDepartLane;
             DepartLaneDefinition dummyDepartLaneProcedure;
-            parseDepartLane(value, toString(SUMO_TAG_VEHICLE), id, dummyDepartLane, dummyDepartLaneProcedure, error); 
+            parseDepartLane(value, toString(SUMO_TAG_VEHICLE), id, dummyDepartLane, dummyDepartLaneProcedure, error);
             // if error is empty, given value is valid
             return error.empty();
         }
@@ -700,7 +702,7 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_NUMBER:
-             if (canParse<int>(value)) {
+            if (canParse<int>(value)) {
                 return (parse<int>(value) >= 0);
             } else {
                 return false;
@@ -716,7 +718,7 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-bool 
+bool
 GNEVehicle::isDisjointAttributeSet(const SumoXMLAttr attr) const {
     switch (attr) {
         case SUMO_ATTR_END:
@@ -735,7 +737,7 @@ GNEVehicle::isDisjointAttributeSet(const SumoXMLAttr attr) const {
 }
 
 
-void 
+void
 GNEVehicle::setDisjointAttribute(const SumoXMLAttr attr, GNEUndoList* undoList) {
     // obtain a copy of parameter sets
     int parametersSetCopy = parametersSet;
@@ -932,10 +934,10 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_COLOR:
             color = parse<RGBColor>(value);
-            break;  
+            break;
         case SUMO_ATTR_DEPARTLANE:
-            parseDepartLane(value, toString(SUMO_TAG_VEHICLE), id, departLane, departLaneProcedure, error); 
-            break;       
+            parseDepartLane(value, toString(SUMO_TAG_VEHICLE), id, departLane, departLaneProcedure, error);
+            break;
         case SUMO_ATTR_DEPARTPOS:
             parseDepartPos(value, toString(SUMO_TAG_VEHICLE), id, departPos, departPosProcedure, error);
             break;
@@ -1004,7 +1006,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
         }
         case SUMO_ATTR_TO: {
             std::vector<std::string> newEdges;
-            for (int i = 0; i < (int)getEdgeParents().size()-1; i++) {
+            for (int i = 0; i < (int)getEdgeParents().size() - 1; i++) {
                 newEdges.push_back(getEdgeParents().at(i)->getID());
             }
             newEdges.push_back(value);

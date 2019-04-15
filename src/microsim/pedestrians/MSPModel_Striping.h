@@ -479,7 +479,7 @@ private:
     static bool usingInternalLanesStatic();
 
     static bool addVehicleFoe(const MSVehicle* veh, const MSLane* walkingarea, const Position& relPos, double lateral_offset,
-            double minY, double maxY, Pedestrians& toDelete, Pedestrians& transformedPeds);
+                              double minY, double maxY, Pedestrians& toDelete, Pedestrians& transformedPeds);
 private:
     /// @brief the total number of active pedestrians
     int myNumActivePedestrians;

@@ -38,10 +38,10 @@ class GUIApplicationWindow;
 class GUIShortcutsSubSys {
 public:
     /// @brief build SUMO Accelerators
-    static void buildSUMOAccelerators(GUIApplicationWindow *GUIApp);
+    static void buildSUMOAccelerators(GUIApplicationWindow* GUIApp);
 
     /// @brief build NETEDIT Accelerators
-    static void buildNETEDITAccelerators(GNEApplicationWindow *GNEApp);
+    static void buildNETEDITAccelerators(GNEApplicationWindow* GNEApp);
 
 private:
     // @brief parse GUIShortcut to int

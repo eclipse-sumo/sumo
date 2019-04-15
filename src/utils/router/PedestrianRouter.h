@@ -58,14 +58,14 @@ public:
         SUMOAbstractRouter<E, _IntermodalTrip>("PedestrianRouter", true), myAmClone(false) {
         myPedNet = new _IntermodalNetwork(E::getAllEdges(), true);
         myInternalRouter = new _InternalRouter(myPedNet->getAllEdges(), true,
-                gWeightsRandomFactor > 1 ? &_IntermodalEdge::getTravelTimeStaticRandomized : &_IntermodalEdge::getTravelTimeStatic);
+                                               gWeightsRandomFactor > 1 ? &_IntermodalEdge::getTravelTimeStaticRandomized : &_IntermodalEdge::getTravelTimeStatic);
     }
 
     PedestrianRouter(_IntermodalNetwork* net):
         SUMOAbstractRouter<E, _IntermodalTrip>("PedestrianRouterClone", true), myAmClone(true) {
         myPedNet = net;
         myInternalRouter = new _InternalRouter(myPedNet->getAllEdges(), true,
-                gWeightsRandomFactor > 1 ? &_IntermodalEdge::getTravelTimeStaticRandomized : &_IntermodalEdge::getTravelTimeStatic);
+                                               gWeightsRandomFactor > 1 ? &_IntermodalEdge::getTravelTimeStaticRandomized : &_IntermodalEdge::getTravelTimeStatic);
     }
 
     /// Destructor

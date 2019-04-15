@@ -174,8 +174,7 @@ MSDevice_DriverState::MSDevice_DriverState(SUMOVehicle& holder, const std::strin
     mySpeedDifferenceChangePerceptionThreshold(speedDifferenceChangePerceptionThreshold),
     myHeadwayChangePerceptionThreshold(headwayChangePerceptionThreshold),
     myHeadwayErrorCoefficient(headwayErrorCoefficient),
-    myMaximalReactionTime(maximalReactionTime)
-{
+    myMaximalReactionTime(maximalReactionTime) {
     // Take care! Holder is currently being constructed. Cast occurs before completion.
     myHolderMS = static_cast<MSVehicle*>(&holder);
     initDriverState();

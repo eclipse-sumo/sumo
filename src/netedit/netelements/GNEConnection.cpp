@@ -65,7 +65,7 @@ GNEConnection::~GNEConnection() {
 }
 
 
-std::string 
+std::string
 GNEConnection::generateChildID(SumoXMLTag /*childTag*/) {
     // currently unused
     return "";
@@ -159,10 +159,10 @@ GNEConnection::updateGeometry(bool updateGrid) {
 }
 
 
-Position 
+Position
 GNEConnection::getPositionInView() const {
     // currently unused
-    return Position(0,0);
+    return Position(0, 0);
 }
 
 
@@ -390,10 +390,10 @@ GNEConnection::getAttribute(SumoXMLAttr key) const {
             return toString(nbCon.speed);
         case SUMO_ATTR_DIR:
             return toString(getEdgeFrom()->getNBEdge()->getToNode()->getDirection(
-                        getEdgeFrom()->getNBEdge(), nbCon.toEdge, OptionsCont::getOptions().getBool("lefthand")));
+                                getEdgeFrom()->getNBEdge(), nbCon.toEdge, OptionsCont::getOptions().getBool("lefthand")));
         case SUMO_ATTR_STATE:
             return toString(getEdgeFrom()->getNBEdge()->getToNode()->getLinkState(
-                        getEdgeFrom()->getNBEdge(), nbCon.toEdge, nbCon.fromLane, nbCon.toLane, nbCon.mayDefinitelyPass, nbCon.tlID));
+                                getEdgeFrom()->getNBEdge(), nbCon.toEdge, nbCon.fromLane, nbCon.toLane, nbCon.mayDefinitelyPass, nbCon.tlID));
         case SUMO_ATTR_CUSTOMSHAPE:
             return toString(nbCon.customShape);
         case GNE_ATTR_SELECTED:

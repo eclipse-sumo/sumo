@@ -97,7 +97,7 @@ private:
 
     /// @brief vector of demand element parents
     std::vector<GNEDemandElement*> myDemandElementParents;
-    
+
     /// @brief vector of shape childs
     std::vector<GNEShape*> myShapeChilds;
 

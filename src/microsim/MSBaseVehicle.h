@@ -76,7 +76,9 @@ public:
     /// @brief Destructor
     virtual ~MSBaseVehicle();
 
-    bool isVehicle() const { return true; }
+    bool isVehicle() const {
+        return true;
+    }
 
     /// Returns the name of the vehicle
     const std::string& getID() const;

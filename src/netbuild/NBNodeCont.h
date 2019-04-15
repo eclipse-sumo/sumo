@@ -240,7 +240,7 @@ public:
      */
     void setAsTLControlled(NBNode* node, NBTrafficLightLogicCont& tlc, TrafficLightType type, std::string id = "");
     /// @}
-    
+
     /** @brief Returns whether the node with the id was deleted explicitly
      */
     bool wasRemoved(std::string id) const {
@@ -350,10 +350,10 @@ private:
     bool shouldBeTLSControlled(const NodeSet& c, double laneSpeedThreshold) const;
 
     /// @brief check wheter the set of nodes only contains pedestrian crossings
-    bool onlyCrossings(const NodeSet& c) const; 
+    bool onlyCrossings(const NodeSet& c) const;
 
     /// @brief check wheter the set of nodes contains traffic lights with custom id
-    bool customTLID(const NodeSet& c) const; 
+    bool customTLID(const NodeSet& c) const;
     /// @}
 
 

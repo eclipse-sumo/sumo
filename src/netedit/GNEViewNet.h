@@ -43,7 +43,7 @@
 class GNEViewNet : public GUISUMOAbstractView {
     /// @brief FOX-declaration
     FXDECLARE(GNEViewNet)
-    
+
     /// @brief declare GNEViewNetHelper as friend struct
     friend struct GNEViewNetHelper;
 
@@ -333,7 +333,7 @@ private:
     /// @brief variable use to save all pointers to objects under cursor after a click
     GNEViewNetHelper::ObjectsUnderCursor myObjectsUnderCursor;
     /// @}
-    
+
     /// @name structs related with checkable buttons
     /// @{
 
@@ -346,7 +346,7 @@ private:
     /// @brief variable used to save checkable buttons for Supermode Demand
     GNEViewNetHelper::DemandCheckableButtons myDemandCheckableButtons;
     /// @}
-    
+
     /// @name structs related with Common options
     /// @{
     /// @brief variable used to save variables related with selecting areas
@@ -355,7 +355,7 @@ private:
     /// @brief variable used to save variables related with view options
     GNEViewNetHelper::ViewOptions myViewOptions;
     /// @}
-    
+
     /// @name structs related with Network options
     /// @{
     /// @brief variable used to save all elements related to creation of Edges

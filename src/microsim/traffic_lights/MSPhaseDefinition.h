@@ -108,7 +108,7 @@ private:
     LaneIdVector targetLaneSet;
 
     void init(SUMOTime durationArg, const std::string& stateArg, SUMOTime minDurationArg, SUMOTime maxDurationArg,
-            const std::vector<int> nextPhases, const std::string& name) {
+              const std::vector<int> nextPhases, const std::string& name) {
         this->duration = durationArg;
         this->state = stateArg;
         this->minDuration = minDurationArg < 0 ? durationArg : minDurationArg;
@@ -122,7 +122,7 @@ private:
     }
 
     void init(SUMOTime durationArg, SUMOTime minDurationArg, SUMOTime maxDurationArg, const std::string& stateArg,
-            const std::vector<int>& nextPhases, const std::string& name, LaneIdVector* targetLaneSetArg) {
+              const std::vector<int>& nextPhases, const std::string& name, LaneIdVector* targetLaneSetArg) {
         init(durationArg, stateArg, minDurationArg, maxDurationArg, nextPhases, name);
         //For SOTL target phases
         if (targetLaneSetArg != nullptr) {
@@ -157,8 +157,8 @@ public:
      * @param[in] minDurationArg The minimum duration of the phase
      * @param[in] maxDurationArg The maximum duration of the phase
      */
-    MSPhaseDefinition(SUMOTime durationArg, const std::string& stateArg, SUMOTime minDurationArg = -1, SUMOTime maxDurationArg = -1, 
-            const std::vector<int>& nextPhases = std::vector<int>(), const std::string& name = "") {
+    MSPhaseDefinition(SUMOTime durationArg, const std::string& stateArg, SUMOTime minDurationArg = -1, SUMOTime maxDurationArg = -1,
+                      const std::vector<int>& nextPhases = std::vector<int>(), const std::string& name = "") {
         //PhaseType phaseType;
         phaseType = PhaseType();
         phaseType[UNDEFINED_BIT] = 1;
@@ -175,8 +175,8 @@ public:
      * @param[in] targetLaneSet If not null, specifies this MSPhaseDefinition is a target step
      * @see MSPhaseDefinition::PhaseType
      */
-    MSPhaseDefinition(SUMOTime durationArg, const std::string& stateArg, SUMOTime minDurationArg, SUMOTime maxDurationArg, 
-            const std::vector<int>& nextPhases, const std::string& name, bool transient_notdecisional, bool commit, LaneIdVector* targetLaneSetArg = nullptr) {
+    MSPhaseDefinition(SUMOTime durationArg, const std::string& stateArg, SUMOTime minDurationArg, SUMOTime maxDurationArg,
+                      const std::vector<int>& nextPhases, const std::string& name, bool transient_notdecisional, bool commit, LaneIdVector* targetLaneSetArg = nullptr) {
         if (targetLaneSetArg != nullptr && targetLaneSetArg->size() == 0) {
             MsgHandler::getErrorInstance()->inform("MSPhaseDefinition::MSPhaseDefinition -> targetLaneSetArg cannot be empty for a target phase");
         }

@@ -1013,7 +1013,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 if (itemNo > 5) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Highlighting an object needs zero to five parameters.", outputStorage);
                 }
-                libsumo::TraCIColor col = libsumo::TraCIColor(255,0,0);
+                libsumo::TraCIColor col = libsumo::TraCIColor(255, 0, 0);
                 if (itemNo > 0) {
                     if (!server.readTypeCheckingColor(inputStorage, col)) {
                         return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The first parameter for highlighting must be the highlight color.", outputStorage);

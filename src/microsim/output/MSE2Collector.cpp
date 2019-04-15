@@ -652,8 +652,8 @@ MSE2Collector::notifyMove(SUMOTrafficObject& tObject, double oldPos,
         std::cout << "Vehicle entered lane behind detector." << std::endl;
     }
 #endif
-    } else {
-        myMoveNotifications.push_back(makeMoveNotification(veh, oldPos, newPos, newSpeed, vehInfo));
+} else {
+    myMoveNotifications.push_back(makeMoveNotification(veh, oldPos, newPos, newSpeed, vehInfo));
     }
 
 
@@ -663,8 +663,8 @@ MSE2Collector::notifyMove(SUMOTrafficObject& tObject, double oldPos,
         std::cout << "Vehicle has left the detector longitudinally." << std::endl;
     }
 #endif
-        // Vehicle is beyond the detector, unsubscribe and register removal from myVehicleInfos
-        myLeftVehicles.insert(vehID);
+    // Vehicle is beyond the detector, unsubscribe and register removal from myVehicleInfos
+    myLeftVehicles.insert(vehID);
         return false;
     } else {
         // Receive further notifications
@@ -1030,13 +1030,13 @@ MSE2Collector::makeMoveNotification(const SUMOVehicle& veh, double oldPos, doubl
               << " vehInfo.entryOffset = " << vehInfo.entryOffset
               << " distToExit = " << distToExit
               << std::endl;
-    }
+}
 #endif
 
 /* Store new infos */
-    return new MoveNotificationInfo(veh.getID(), oldPos, newPos, newSpeed, veh.getAcceleration(),
-            myDetectorLength - (vehInfo.entryOffset + newPos),
-            timeOnDetector, lengthOnDetector, timeLoss, stillOnDetector);
+return new MoveNotificationInfo(veh.getID(), oldPos, newPos, newSpeed, veh.getAcceleration(),
+                                myDetectorLength - (vehInfo.entryOffset + newPos),
+                                timeOnDetector, lengthOnDetector, timeLoss, stillOnDetector);
 }
 
 void
