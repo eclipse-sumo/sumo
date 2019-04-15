@@ -11,27 +11,51 @@ Debug: Adding poi 'POI_0' into viewNet
 GLDebug: Inserted poi:POI_0 into SUMORTree with boundary -3.00,7.00,3.00,13.00
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+GLDebug: Removed object poi:POI_0 from SUMORTree with boundary -3.00,7.00,3.00,13.00
+GLDebug: Inserted poi:POI_0 into SUMORTree with boundary -3.00,7.00,3.00,13.00
 Debug: Adding poi 'POI_1' into viewNet
+GLDebug: Inserted poi:POI_1 into SUMORTree with boundary 7.00,7.00,13.00,13.00
+GLDebug: Removed object poi:POI_1 from SUMORTree with boundary 7.00,7.00,13.00,13.00
 GLDebug: Inserted poi:POI_1 into SUMORTree with boundary 7.00,7.00,13.00,13.00
 Debug: Adding poi 'POI_10' into viewNet
 GLDebug: Inserted poi:POI_10 into SUMORTree with boundary 7.00,-13.00,13.00,-7.00
+GLDebug: Removed object poi:POI_10 from SUMORTree with boundary 7.00,-13.00,13.00,-7.00
+GLDebug: Inserted poi:POI_10 into SUMORTree with boundary 7.00,-13.00,13.00,-7.00
 Debug: Adding poi 'POI_11' into viewNet
+GLDebug: Inserted poi:POI_11 into SUMORTree with boundary -3.00,-13.00,3.00,-7.00
+GLDebug: Removed object poi:POI_11 from SUMORTree with boundary -3.00,-13.00,3.00,-7.00
 GLDebug: Inserted poi:POI_11 into SUMORTree with boundary -3.00,-13.00,3.00,-7.00
 Debug: Adding poi 'POI_2' into viewNet
 GLDebug: Inserted poi:POI_2 into SUMORTree with boundary 17.00,7.00,23.00,13.00
+GLDebug: Removed object poi:POI_2 from SUMORTree with boundary 17.00,7.00,23.00,13.00
+GLDebug: Inserted poi:POI_2 into SUMORTree with boundary 17.00,7.00,23.00,13.00
 Debug: Adding poi 'POI_3' into viewNet
+GLDebug: Inserted poi:POI_3 into SUMORTree with boundary 27.00,7.00,33.00,13.00
+GLDebug: Removed object poi:POI_3 from SUMORTree with boundary 27.00,7.00,33.00,13.00
 GLDebug: Inserted poi:POI_3 into SUMORTree with boundary 27.00,7.00,33.00,13.00
 Debug: Adding poi 'POI_4' into viewNet
 GLDebug: Inserted poi:POI_4 into SUMORTree with boundary 37.00,7.00,43.00,13.00
+GLDebug: Removed object poi:POI_4 from SUMORTree with boundary 37.00,7.00,43.00,13.00
+GLDebug: Inserted poi:POI_4 into SUMORTree with boundary 37.00,7.00,43.00,13.00
 Debug: Adding poi 'POI_5' into viewNet
+GLDebug: Inserted poi:POI_5 into SUMORTree with boundary 47.00,7.00,53.00,13.00
+GLDebug: Removed object poi:POI_5 from SUMORTree with boundary 47.00,7.00,53.00,13.00
 GLDebug: Inserted poi:POI_5 into SUMORTree with boundary 47.00,7.00,53.00,13.00
 Debug: Adding poi 'POI_6' into viewNet
 GLDebug: Inserted poi:POI_6 into SUMORTree with boundary 47.00,-13.00,53.00,-7.00
+GLDebug: Removed object poi:POI_6 from SUMORTree with boundary 47.00,-13.00,53.00,-7.00
+GLDebug: Inserted poi:POI_6 into SUMORTree with boundary 47.00,-13.00,53.00,-7.00
 Debug: Adding poi 'POI_7' into viewNet
+GLDebug: Inserted poi:POI_7 into SUMORTree with boundary 37.00,-13.00,43.00,-7.00
+GLDebug: Removed object poi:POI_7 from SUMORTree with boundary 37.00,-13.00,43.00,-7.00
 GLDebug: Inserted poi:POI_7 into SUMORTree with boundary 37.00,-13.00,43.00,-7.00
 Debug: Adding poi 'POI_8' into viewNet
 GLDebug: Inserted poi:POI_8 into SUMORTree with boundary 27.00,-13.00,33.00,-7.00
+GLDebug: Removed object poi:POI_8 from SUMORTree with boundary 27.00,-13.00,33.00,-7.00
+GLDebug: Inserted poi:POI_8 into SUMORTree with boundary 27.00,-13.00,33.00,-7.00
 Debug: Adding poi 'POI_9' into viewNet
+GLDebug: Inserted poi:POI_9 into SUMORTree with boundary 17.00,-13.00,23.00,-7.00
+GLDebug: Removed object poi:POI_9 from SUMORTree with boundary 17.00,-13.00,23.00,-7.00
 GLDebug: Inserted poi:POI_9 into SUMORTree with boundary 17.00,-13.00,23.00,-7.00
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
