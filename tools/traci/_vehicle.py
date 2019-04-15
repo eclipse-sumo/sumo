@@ -25,7 +25,7 @@ import warnings
 from .domain import Domain
 from .storage import Storage
 from . import constants as tc
-from . import exceptions
+from .exceptions import TraCIException
 
 
 def _readBestLanes(result):
@@ -1431,7 +1431,7 @@ class VehicleDomain(Domain):
         is smaller than the time since the last action point, the next action follows immediately.
         """
         if actionStepLength < 0:
-            raise exceptions.TraCIException("Invalid value for actionStepLength. Given value must be non-negative.")
+            raise TraCIException("Invalid value for actionStepLength. Given value must be non-negative.")
         # Use negative value to indicate resetActionOffset == False
         if not resetActionOffset:
             actionStepLength *= -1
@@ -1447,13 +1447,13 @@ class VehicleDomain(Domain):
             otherwise it permanently follows the vehicle.
         """
         if (type > 255):
-            raise traci.TraCIException("poi.highlight(): maximal value for type is 255")
+            raise TraCIException("poi.highlight(): maximal value for type is 255")
         if (alphaMax > 255):
-            raise traci.TraCIException("vehicle.highlight(): maximal value for alphaMax is 255")
+            raise TraCIException("vehicle.highlight(): maximal value for alphaMax is 255")
         if (alphaMax <= 0 and duration > 0):
-            raise traci.TraCIException("vehicle.highlight(): duration>0 requires alphaMax>0")
+            raise TraCIException("vehicle.highlight(): duration>0 requires alphaMax>0")
         if (alphaMax > 0 and duration <= 0):
-            raise traci.TraCIException("vehicle.highlight(): alphaMax>0 requires duration>0")
+            raise TraCIException("vehicle.highlight(): alphaMax>0 requires duration>0")
 
         if (type > 0):
             compoundLength = 5
@@ -1482,8 +1482,8 @@ class VehicleDomain(Domain):
         self._connection._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_HIGHLIGHT, vehID, msg_length)
         self._connection._string += struct.pack("!BB", tc.TYPE_COMPOUND, compoundLength)
         if (compoundLength >= 1):
-            self._connection._string += struct.pack("!BBBBB", tc.TYPE_COLOR, int(color[0]), int(color[1]), int(color[2]),
-                                                    int(color[3]) if len(color) > 3 else 255)
+            self._connection._string += struct.pack("!BBBBB", tc.TYPE_COLOR, int(color[0]), int(color[1]),
+                                                    int(color[2]), int(color[3]) if len(color) > 3 else 255)
         if (compoundLength >= 2):
             self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, size)
         if (compoundLength >= 3):

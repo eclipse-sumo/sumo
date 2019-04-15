@@ -18,6 +18,7 @@ import struct
 from .domain import Domain
 from .storage import Storage
 from . import constants as tc
+from .exceptions import TraCIException
 
 _RETURN_VALUE_FUNC = {tc.TRACI_ID_LIST: Storage.readStringList,
                       tc.ID_COUNT: Storage.readInt,
@@ -187,13 +188,13 @@ class PoiDomain(Domain):
             otherwise it is permanently added on top of the poi.
         """
         if type > 255:
-            raise traci.TraCIException("poi.highlight(): maximal value for type is 255")
+            raise TraCIException("poi.highlight(): maximal value for type is 255")
         if alphaMax > 255:
-            raise traci.TraCIException("poi.highlight(): maximal value for alphaMax is 255")
+            raise TraCIException("poi.highlight(): maximal value for alphaMax is 255")
         if alphaMax <= 0 and duration > 0:
-            raise traci.TraCIException("poi.highlight(): duration>0 requires alphaMax>0")
+            raise TraCIException("poi.highlight(): duration>0 requires alphaMax>0")
         if alphaMax > 0 and duration <= 0:
-            raise traci.TraCIException("poi.highlight(): alphaMax>0 requires duration>0")
+            raise TraCIException("poi.highlight(): alphaMax>0 requires duration>0")
 
         if type > 0:
             compoundLength = 5
@@ -222,8 +223,8 @@ class PoiDomain(Domain):
         self._connection._beginMessage(tc.CMD_SET_POI_VARIABLE, tc.VAR_HIGHLIGHT, poiID, msg_length)
         self._connection._string += struct.pack("!BB", tc.TYPE_COMPOUND, compoundLength)
         if compoundLength >= 1:
-            self._connection._string += struct.pack("!BBBBB", tc.TYPE_COLOR, int(color[0]), int(color[1]), int(color[2]),
-                                                    int(color[3]) if len(color) > 3 else 255)
+            self._connection._string += struct.pack("!BBBBB", tc.TYPE_COLOR, int(color[0]), int(color[1]),
+                                                    int(color[2]), int(color[3]) if len(color) > 3 else 255)
         if compoundLength >= 2:
             self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, size)
         if compoundLength >= 3:
