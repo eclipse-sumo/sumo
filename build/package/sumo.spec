@@ -26,8 +26,8 @@ Epoch:          2
 Summary:        Eclipse Simulation of Urban Mobility - A Microscopic Traffic Simulation
 License:        EPL-2.0
 Group:          Productivity/Scientific/Other
-URL:            http://sumo.dlr.de/
-Source0:        sumo-all-%{version}.tar.gz
+URL:            https://sumo.dlr.de/
+Source0:        https://sumo.dlr.de/daily/sumo-all-%{version}.tar.gz
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  python
@@ -75,17 +75,27 @@ find . -name "*.py" -o -name "*.pyw" | xargs sed -i 's,^#!%{_bindir}/env python$
 %endif
 
 %build
+%if 0%{?centos_version} || 0%{?scientificlinux_version}
+autoreconf -i
+%configure
+%else
 mkdir cmake-build
 cd cmake-build
 cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr ..
+%endif
 make %{?_smp_mflags}
 make %{?_smp_mflags} man
 
 %install
+%if 0%{?centos_version} || 0%{?scientificlinux_version}
+%make_install
+%else
 cd cmake-build
 %make_install
+cd ..
+%endif
 mkdir -p %{buildroot}%{_datadir}/sumo
-cp -a ../tools ../data %{buildroot}%{_datadir}/sumo
+cp -a tools data %{buildroot}%{_datadir}/sumo
 mkdir -p %{buildroot}%{_bindir}
 ln -s %{_bindir} %{buildroot}%{_datadir}/sumo/bin
 ln -s %{_datadir}/sumo/tools/assign/duaIterate.py %{buildroot}%{_bindir}/duaIterate.py
@@ -93,16 +103,16 @@ ln -s %{_datadir}/sumo/tools/osmWebWizard.py %{buildroot}%{_bindir}/osmWebWizard
 ln -s %{_datadir}/sumo/tools/randomTrips.py %{buildroot}%{_bindir}/randomTrips.py
 ln -s %{_datadir}/sumo/tools/traceExporter.py %{buildroot}%{_bindir}/traceExporter.py
 install -d -m 755 %{buildroot}%{_mandir}/man1
-install -p -m 644 ../docs/man/*.1 %{buildroot}%{_mandir}/man1
+install -p -m 644 docs/man/*.1 %{buildroot}%{_mandir}/man1
 install -d -m 755 %{buildroot}%{_sysconfdir}/profile.d
-install -p -m 644 ../build/package/*sh %{buildroot}%{_sysconfdir}/profile.d
+install -p -m 644 build/package/*sh %{buildroot}%{_sysconfdir}/profile.d
 install -d -m 755 %{buildroot}%{_datadir}/applications
-install -p -m 644 ../build/package/%{name}.desktop %{buildroot}%{_datadir}/applications
+install -p -m 644 build/package/%{name}.desktop %{buildroot}%{_datadir}/applications
 install -d -m 755 %{buildroot}%{_datadir}/pixmaps
-install -p -m 644 ../build/package/%{name}.png %{buildroot}%{_datadir}/pixmaps
+install -p -m 644 build/package/%{name}.png %{buildroot}%{_datadir}/pixmaps
 %if 0%{?suse_version}
 install -d -m 755 %{buildroot}%{_datadir}/mime/application
-install -p -m 644 ../build/package/%{name}.xml %{buildroot}%{_datadir}/mime/application/%{name}.xml
+install -p -m 644 build/package/%{name}.xml %{buildroot}%{_datadir}/mime/application/%{name}.xml
 %fdupes -s docs
 %fdupes %{buildroot}
 %endif
