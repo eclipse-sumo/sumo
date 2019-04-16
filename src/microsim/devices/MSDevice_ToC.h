@@ -124,6 +124,7 @@ private:
     static double getLCAbstinence(const SUMOVehicle& v, const OptionsCont& oc);
     static double getInitialAwareness(const SUMOVehicle& v, const OptionsCont& oc);
     static double getMRMDecel(const SUMOVehicle& v, const OptionsCont& oc);
+    static double getDynamicToCThreshold(const SUMOVehicle& v, const OptionsCont& oc);
     static bool useColorScheme(const SUMOVehicle& v, const OptionsCont& oc);
     static std::string getOutputFilename(const SUMOVehicle& v, const OptionsCont& oc);
     static OpenGapParams getOpenGapParams(const SUMOVehicle& v, const OptionsCont& oc);
@@ -142,11 +143,17 @@ public:
         return "toc";
     }
 
+    /// @brief Return value indicates whether the device still wants to be notified about the vehicle movement
+    bool notifyMove(SUMOTrafficObject& veh,
+                            double oldPos,
+                            double newPos,
+                            double newSpeed) override;
+
     /// @brief try to retrieve the given parameter from this device. Throw exception for unsupported key
-    std::string getParameter(const std::string& key) const;
+    std::string getParameter(const std::string& key) const override;
 
     /// @brief try to set the given parameter for this device. Throw exception for unsupported key
-    void setParameter(const std::string& key, const std::string& value);
+    void setParameter(const std::string& key, const std::string& value) override;
 
 
     /// @brief Trigger execution of an MRM
@@ -193,7 +200,8 @@ private:
      */
     MSDevice_ToC(SUMOVehicle& holder, const std::string& id, const std::string& outputFilename,
                  std::string manualType, std::string automatedType, SUMOTime responseTime, double recoveryRate,
-                 double lcAbstinence, double initialAwareness, double mrmDecel, bool useColorScheme, OpenGapParams ogp);
+                 double lcAbstinence, double initialAwareness, double mrmDecel,
+				 bool dynamicToCThreshold, bool useColorScheme, OpenGapParams ogp);
 
     /** @brief Initialize vehicle colors for different states
      *  @note  For MANUAL and AUTOMATED, the color of the given types are used,
@@ -243,6 +251,11 @@ private:
     bool isManuallyDriven();
     /// @brief Whether the current operation mode is automated
     bool isAutomated();
+
+    /// @brief Check if the vehicle should induce a ToC due to
+    ///        internal reasons. That is, if the route cannot be followed
+    ///        for more time than a given threshold, @see myDynamicToCThreshold
+    bool checkDynamicToC();
 
 private:
     /// @name private state members of the ToC device
@@ -306,6 +319,12 @@ private:
 
     /// @brief Parameters for the openGap mechanism applied during ToC preparation phase
     OpenGapParams myOpenGapParams;
+
+    /// @brief Duration in s. for which the vehicle needs to be able to follow its route without a lane change
+    ///        to continue in automated mode (only has effect if dynamic ToCs are activated, @see myDynamicToCActive)
+    double myDynamicToCThreshold;
+    /// @brief Switch for considering dynamic ToCs, @see myDynamicToCThreshold
+    bool myDynamicToCActive;
 
 private:
     /// @brief Invalidated copy constructor.

@@ -60,6 +60,8 @@
 #define DEFAULT_INITIAL_AWARENESS 0.5
 // The default value for the deceleration rate applied during a 'minimum risk maneuver'
 #define DEFAULT_MRM_DECEL 1.5
+// The default value for the dynamic ToC threshold indicates that the dynamic ToCs are deactivated
+#define DEFAULT_TOC_THRESHOLD 0.0
 
 // The default values for the openGap parameters applied for gap creation in preparation for a ToC
 #define DEFAULT_OPENGAP_TIMEGAP -1.0
@@ -106,6 +108,8 @@ MSDevice_ToC::insertOptions(OptionsCont& oc) {
     oc.addDescription("device.toc.initialAwareness", "ToC Device", "Average awareness a driver has initially after a ToC (value in [0,1]).");
     oc.doRegister("device.toc.mrmDecel", new Option_Float(DEFAULT_MRM_DECEL));
     oc.addDescription("device.toc.mrmDecel", "ToC Device", "Deceleration rate applied during a 'minimum risk maneuver'.");
+    oc.doRegister("device.toc.dynamicToCThreshold", new Option_Float(DEFAULT_TOC_THRESHOLD));
+    oc.addDescription("device.toc.dynamicToCThreshold", "ToC Device", "Time, which the vehicle requires to have ahead to continue in automated mode. The default value of 0 indicates no dynamic triggering of ToCs.");
     oc.doRegister("device.toc.ogNewTimeHeadway", new Option_Float(-1.0));
     oc.addDescription("device.toc.ogNewTimeHeadway", "ToC Device", "Timegap for ToC preparation phase.");
     oc.doRegister("device.toc.ogNewSpaceHeadway", new Option_Float(-1.0));
@@ -136,10 +140,12 @@ MSDevice_ToC::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>&
         std::string deviceID = "toc_" + v.getID();
         std::string file = getOutputFilename(v, oc);
         OpenGapParams ogp = getOpenGapParams(v, oc);
+        double dynamicToCThreshold = getDynamicToCThreshold(v, oc);
         // build the device
         MSDevice_ToC* device = new MSDevice_ToC(v, deviceID, file,
                                                 manualType, automatedType, responseTime, recoveryRate,
-                                                lcAbstinence, initialAwareness, mrmDecel, useColoring, ogp);
+                                                lcAbstinence, initialAwareness, mrmDecel, dynamicToCThreshold,
+												useColoring, ogp);
         into.push_back(device);
     }
 }
@@ -202,6 +208,11 @@ MSDevice_ToC::getMRMDecel(const SUMOVehicle& v, const OptionsCont& oc) {
     return getFloatParam(v, oc, "toc.mrmDecel", DEFAULT_MRM_DECEL, false);
 }
 
+double
+MSDevice_ToC::getDynamicToCThreshold(const SUMOVehicle& v, const OptionsCont& oc) {
+    return getFloatParam(v, oc, "toc.dynamicToCThreshold", DEFAULT_TOC_THRESHOLD, false);
+}
+
 bool
 MSDevice_ToC::useColorScheme(const SUMOVehicle& v, const OptionsCont& oc) {
     return getBoolParam(v, oc, "toc.useColorScheme", "false", false);
@@ -257,7 +268,8 @@ MSDevice_ToC::getOpenGapParams(const SUMOVehicle& v, const OptionsCont& oc) {
 // ---------------------------------------------------------------------------
 MSDevice_ToC::MSDevice_ToC(SUMOVehicle& holder, const std::string& id, const std::string& outputFilename,
                            std::string manualType, std::string automatedType, SUMOTime responseTime, double recoveryRate,
-                           double lcAbstinence, double initialAwareness, double mrmDecel, bool useColoring, OpenGapParams ogp) :
+                           double lcAbstinence, double initialAwareness, double mrmDecel,
+						   bool dynamicToCThreshold, bool useColoring, OpenGapParams ogp) :
     MSVehicleDevice(holder, id),
     myManualTypeID(manualType),
     myAutomatedTypeID(automatedType),
@@ -276,7 +288,9 @@ MSDevice_ToC::MSDevice_ToC(SUMOVehicle& holder, const std::string& id, const std
     myOutputFile(nullptr),
     myEvents(),
     myPreviousLCMode(-1),
-    myOpenGapParams(ogp) {
+    myOpenGapParams(ogp),
+    myDynamicToCThreshold(dynamicToCThreshold),
+    myDynamicToCActive(dynamicToCThreshold > 0) {
     // Take care! Holder is currently being constructed. Cast occurs before completion.
     myHolderMS = static_cast<MSVehicle*>(&holder);
 
@@ -705,6 +719,14 @@ MSDevice_ToC::awarenessRecoveryStep(SUMOTime /* t */) {
     return DELTA_T;
 }
 
+bool
+MSDevice_ToC::notifyMove(SUMOTrafficObject& /*veh*/,
+                        double /*oldPos*/,
+                        double /*newPos*/,
+                        double /*newSpeed*/) {
+	checkDynamicToC();
+	return true;
+}
 
 std::string
 MSDevice_ToC::getParameter(const std::string& key) const {
@@ -728,6 +750,10 @@ MSDevice_ToC::getParameter(const std::string& key) const {
         return _2string(myState);
     } else if (key == "holder") {
         return myHolder.getID();
+    } else if (key == "hasDynamicToC") {
+        return toString(myDynamicToCActive);
+    } else if (key == "dynamicToCThreshold") {
+        return toString(myDynamicToCThreshold);
     }
     throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
 }
@@ -779,8 +805,18 @@ MSDevice_ToC::setParameter(const std::string& key, const std::string& value) {
     } else if (key == "awareness") {
         // setting this magic parameter gives the interface for setting the driverstate's awareness
         setAwareness(StringUtils::toDouble(value));
+    } else if (key == "dynamicToCThreshold") {
+    	const double newValue = StringUtils::toDouble(value);
+    	if (newValue < 0) {
+    		WRITE_WARNING("Value of dynamicToCThreshold must be non-negative. (Given value " + value + " for vehicle " + myHolderMS->getID() + " is ignored)");
+    	} else if (newValue == 0) {
+    		myDynamicToCThreshold = newValue;
+    		myDynamicToCActive = false;
+    	} else {
+    		myDynamicToCThreshold = newValue;
+    	}
     } else {
-        throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
+    	throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
     }
 }
 
@@ -887,6 +923,41 @@ MSDevice_ToC::isManuallyDriven() {
 bool
 MSDevice_ToC::isAutomated() {
     return (myState == AUTOMATED || myState == PREPARING_TOC || myState == MRM);
+}
+
+bool
+MSDevice_ToC::checkDynamicToC() {
+
+	std::cout << SIMTIME << " # MSDevice_ToC::checkDynamicToC() for veh '" << myHolder.getID() << "'" << std::endl;
+
+	if (!myDynamicToCActive) {
+		return false;
+	}
+
+	// Length for which the current route can be followed
+	const std::vector<MSVehicle::LaneQ>& bestLanes = myHolderMS->getBestLanes();
+	const MSVehicle::LaneQ * currentLaneQ;
+	for (auto& i : bestLanes) {
+		if (myHolderMS->getLane() == i.lane) {
+			currentLaneQ = &i;
+			break;
+		}
+	}
+	const double distAlongBest = currentLaneQ->length;
+	const double assumedSpeed = MAX2(0.1, myHolderMS->getSpeed());
+	const double timeAlongBest = distAlongBest/assumedSpeed;
+
+	std::cout << "  distAlongBest=" << distAlongBest
+			<< ", timeAlongBest=" << timeAlongBest
+						<< std::endl;
+
+	if (timeAlongBest < myDynamicToCThreshold) {
+		// TODO: Make this more sophisticated in dealing with low speeds/stops and route ends
+		std::cout << SIMTIME << "  * timeAlongBest is below threshold! *" << std::endl;
+		return true;
+	}
+
+	return false;
 }
 
 /****************************************************************************/
