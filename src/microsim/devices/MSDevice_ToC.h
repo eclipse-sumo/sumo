@@ -201,7 +201,7 @@ private:
     MSDevice_ToC(SUMOVehicle& holder, const std::string& id, const std::string& outputFilename,
                  std::string manualType, std::string automatedType, SUMOTime responseTime, double recoveryRate,
                  double lcAbstinence, double initialAwareness, double mrmDecel,
-				 bool dynamicToCThreshold, bool useColorScheme, OpenGapParams ogp);
+				 double dynamicToCThreshold, bool useColorScheme, OpenGapParams ogp);
 
     /** @brief Initialize vehicle colors for different states
      *  @note  For MANUAL and AUTOMATED, the color of the given types are used,
@@ -325,6 +325,10 @@ private:
     double myDynamicToCThreshold;
     /// @brief Switch for considering dynamic ToCs, @see myDynamicToCThreshold
     bool myDynamicToCActive;
+    /// @brief Flag to indicate that a dynamically triggered ToC is in preparation
+    bool myIssuedDynamicToC;
+    /// @brief Lane, on which the ongoing dynamic ToC was issued. It can only be aborted if the lane was changed.
+    int myDynamicToCLane;
 
 private:
     /// @brief Invalidated copy constructor.
