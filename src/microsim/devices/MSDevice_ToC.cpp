@@ -64,7 +64,7 @@
 #define DEFAULT_DYNAMIC_TOC_THRESHOLD 0.0
 
 // The factor by which the dynamic ToC threshold time is multiplied to yield the lead time given for the corresponding ToC
-#define DYNAMIC_TOC_LEADTIME_FACTOR 1.0
+#define DYNAMIC_TOC_LEADTIME_FACTOR 0.75
 // A factor applied to the check for the dynamic ToC condition to resist aborting an ongoing dynamic ToC (and prevent oscillations)
 #define DYNAMIC_TOC_ABORT_RESISTANCE_FACTOR 2.0
 
