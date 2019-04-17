@@ -62,6 +62,7 @@ cadytslog:cadySumo-log.txt
 png:out.png
 png2:out2.png
 detector:detector.xml
+tocs:tocs.xml
 
 [run_dependent_text]
 output:<!--{[->]}-->

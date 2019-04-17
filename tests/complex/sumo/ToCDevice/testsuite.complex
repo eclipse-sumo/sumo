@@ -35,6 +35,15 @@ complete_MRM
 # This also tests that the vehicle is controllable during the PREPARE_TOC phase
 LC_during_MRM
 
+# Test internal triggering of TORs if route cannot be pursued
+dynamic_ToC
+
+# Test internal triggering of TORs if route cannot be pursued and abort if vehicle re-enters route during preparation
+dynamic_ToC_aborted
+
+# Test that no dynamic ToC is triggered if a stop lies on the vehicle's current lane continuation.
+dynamic_ToC_stop
+
 # see test LC_during_MRM. Here only the lcAbstinence is set to 1.0 which should result in preventing lane changes during the RECOVERY phase.
 LC_during_MRM_with_lcAbstinence
 
