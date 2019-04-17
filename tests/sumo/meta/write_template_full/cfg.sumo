@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Mar 26 00:17:08 2019 by Eclipse SUMO Version v1_1_0+0435-678c69824b
+<!-- generated on Wed Apr 17 10:54:46 2019 by Eclipse SUMO Version UNKNOWN
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -66,6 +66,8 @@
         <lanechange-output.started value="false" type="BOOL" help="Record start of lane change manoeuvres"/>
         <lanechange-output.ended value="false" type="BOOL" help="Record end of lane change manoeuvres"/>
         <stop-output value="" type="FILE" help="Record stops and loading/unloading of passenger and containers for all vehicles into FILE"/>
+        <movereminder-output value="" type="FILE" help="Save movereminder states of selected vehicles into FILE"/>
+        <movereminder-output.vehicles value="" type="STR" help="List of vehicle ids which shall save their movereminder states"/>
         <save-state.times value="" type="INT[]" help="Use INT[] as times at which a network state written"/>
         <save-state.period value="-1" type="TIME" help="save state repeatedly after TIME period"/>
         <save-state.prefix value="state" type="FILE" help="Prefix for network states"/>
@@ -218,6 +220,7 @@
         <device.toc.lcAbstinence value="0" type="FLOAT" help="Attention level below which a driver restrains from performing lane changes (value in [0,1])."/>
         <device.toc.initialAwareness value="0.5" type="FLOAT" help="Average awareness a driver has initially after a ToC (value in [0,1])."/>
         <device.toc.mrmDecel value="1.5" type="FLOAT" help="Deceleration rate applied during a &apos;minimum risk maneuver&apos;."/>
+        <device.toc.dynamicToCThreshold value="0" type="FLOAT" help="Time, which the vehicle requires to have ahead to continue in automated mode. The default value of 0 indicates no dynamic triggering of ToCs."/>
         <device.toc.ogNewTimeHeadway value="-1" type="FLOAT" help="Timegap for ToC preparation phase."/>
         <device.toc.ogNewSpaceHeadway value="-1" type="FLOAT" help="Additional spacing for ToC preparation phase."/>
         <device.toc.ogMaxDecel value="-1" type="FLOAT" help="Maximal deceleration applied for establishing increased gap in ToC preparation phase."/>
@@ -301,7 +304,6 @@
         <window-size value="" type="STR" help="Create initial window with the given x,y size"/>
         <window-pos value="" type="STR" help="Create initial window at the given x,y position"/>
         <tracker-interval value="1" type="FLOAT" help="The aggregation period for value tracker windows"/>
-        <osg-view value="false" type="BOOL" help="Start with an OpenSceneGraph view instead of the regular 2D view"/>
         <gui-testing value="false" type="BOOL" help="Enable ovelay for screen recognition"/>
         <gui-testing-debug value="false" type="BOOL" help="Enable output messages during GUI-Testing"/>
     </gui_only>

@@ -1,4 +1,4 @@
-Eclipse SUMO Version v1_1_0+0435-678c69824b
+Eclipse SUMO Version UNKNOWN
  Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -99,6 +99,10 @@ Output Options:
   --stop-output FILE                   Record stops and loading/unloading of
                                          passenger and containers for all
                                          vehicles into FILE
+  --movereminder-output FILE           Save movereminder states of selected
+                                         vehicles into FILE
+  --movereminder-output.vehicles STR   List of vehicle ids which shall save
+                                         their movereminder states
   --save-state.times INT[]             Use INT[] as times at which a network
                                          state written
   --save-state.period TIME             save state repeatedly after TIME period
@@ -399,6 +403,10 @@ ToC Device Options:
                                          after a ToC (value in [0,1]).
   --device.toc.mrmDecel FLOAT          Deceleration rate applied during a
                                          'minimum risk maneuver'.
+  --device.toc.dynamicToCThreshold FLOAT  Time, which the vehicle requires to
+                                         have ahead to continue in automated
+                                         mode. The default value of 0 indicates
+                                         no dynamic triggering of ToCs.
   --device.toc.ogNewTimeHeadway FLOAT  Timegap for ToC preparation phase.
   --device.toc.ogNewSpaceHeadway FLOAT  Additional spacing for ToC preparation
                                          phase.
@@ -545,8 +553,6 @@ GUI Only Options:
                                          position
   --tracker-interval FLOAT             The aggregation period for value tracker
                                          windows
-  --osg-view                           Start with an OpenSceneGraph view
-                                         instead of the regular 2D view
   --gui-testing                        Enable ovelay for screen recognition
   --gui-testing-debug                  Enable output messages during
                                          GUI-Testing
