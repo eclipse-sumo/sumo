@@ -17,7 +17,7 @@ pedestrians_flow
 persontrips
 
 # test exporting persontrips flows
-persontrips _flow
+persontrips_flow
 
 # tests for what happens if an error occures
 errors
