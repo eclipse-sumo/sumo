@@ -183,7 +183,7 @@ class PoiDomain(Domain):
         """ highlight(string, color, float, ubyte) -> void
             Adds a circle of the given color highlighting the poi.
             If a positive size [in m] is given the size of the highlight is chosen accordingly,
-            otherwise the image size of the poi is used as reference. 
+            otherwise the image size of the poi is used as reference.
             If alphaMax and duration are positive, the circle fades in and out within the given duration,
             otherwise it is permanently added on top of the poi.
         """

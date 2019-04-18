@@ -53,14 +53,14 @@ def run():
         t = traci.simulation.getTime()
         print("Time %s: Current lane of veh '%s': %s" % (t, ToC_vehicle, traci.vehicle.getLaneID(ToC_vehicle)))
         printToCParams(ToC_vehicle, True)
-        if t==65:
+        if t == 65:
             traci.vehicle.setLaneChangeMode(ToC_vehicle, origLCMode)
             print("Induce abort of dynamic ToC: Allowing LCs!")
-            restoredLCMode=True
-        if (not restoredLCMode  and traci.vehicle.getParameter(ToC_vehicle, "device.toc.state") == "RECOVERING"):
+            restoredLCMode = True
+        if not restoredLCMode and traci.vehicle.getParameter(ToC_vehicle, "device.toc.state") == "RECOVERING":
             traci.vehicle.setLaneChangeMode(ToC_vehicle, origLCMode)
             print("Switched to manual mode: Allowing LCs!")
-            restoredLCMode=True
+            restoredLCMode = True
         sys.stdout.flush()
         step += 1
         traci.simulationStep()
