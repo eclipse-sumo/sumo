@@ -168,6 +168,15 @@ MSStoppingPlace::getStoppingPosition(const SUMOVehicle* veh) const {
     }
 }
 
+std::vector<MSTransportable*>
+MSStoppingPlace::getTransportables() const {
+    std::vector<MSTransportable*> result;
+    for(std::map<MSTransportable*, int>::const_iterator it = myWaitingTransportables.begin(); it!=myWaitingTransportables.end(); it++){
+        result.push_back(it->first);
+    }
+    return result;
+}
+
 bool
 MSStoppingPlace::hasSpaceForTransportable() const {
     return myWaitingSpots.size() > 0;
