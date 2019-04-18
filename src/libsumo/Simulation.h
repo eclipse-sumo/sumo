@@ -86,6 +86,10 @@ public:
 
     static int getBusStopWaiting(const std::string& id);
 
+    /** @brief Returns the IDs of the transportables on a given bus stop.
+     */
+    static std::vector<std::string> getBusStopWaitingIDList(const std::string& id);
+
     static double getDeltaT();
 
     static TraCIPositionVector getNetBoundary();
