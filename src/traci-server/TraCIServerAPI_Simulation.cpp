@@ -138,6 +138,11 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
                 server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_INTEGER);
                 server.getWrapperStorage().writeInt(libsumo::Simulation::getBusStopWaiting(id));
                 break;
+
+            case libsumo::VAR_BUS_STOP_WAITING_IDS:
+                server.wrapStringList(id, variable, libsumo::Simulation::getBusStopWaitingIDList(id));
+                break;
+
             case libsumo::VAR_NET_BOUNDING_BOX: {
                 server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_POLYGON);
                 libsumo::TraCIPositionVector tb = libsumo::Simulation::getNetBoundary();
