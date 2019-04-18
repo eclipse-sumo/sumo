@@ -802,6 +802,9 @@ TRACI_CONST int VAR_PERSON_NUMBER = 0x67;
 // number of persons waiting at a defined bus stop (get: simulation)
 TRACI_CONST int VAR_BUS_STOP_WAITING = 0x67;
 
+// ids of persons waiting at a defined bus stop (get: simulation)
+TRACI_CONST int VAR_BUS_STOP_WAITING_IDS = 0xef;
+
 // current leader together with gap (get: vehicle)
 TRACI_CONST int VAR_LEADER = 0x68;
 
