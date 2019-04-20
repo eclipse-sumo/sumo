@@ -69,8 +69,8 @@ GNEVehicleTypeDialog::VTypeAtributes::VClassRow::VClassRow(VTypeAtributes* VType
     FXVerticalFrame* verticalFrameLabelAndComboBox = new FXVerticalFrame(this, GUIDesignAuxiliarVerticalFrame);
     // create FXComboBox for VClass
     new FXLabel(verticalFrameLabelAndComboBox, toString(SUMO_ATTR_VCLASS).c_str(), nullptr, GUIDesignLabelAttribute150);
-    myComboBoxVClass = new FXComboBox(verticalFrameLabelAndComboBox, GUIDesignComboBoxNCol, 
-        VTypeAtributesParent, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBox);
+    myComboBoxVClass = new FXComboBox(verticalFrameLabelAndComboBox, GUIDesignComboBoxNCol,
+                                      VTypeAtributesParent, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBox);
     myComboBoxVClassLabelImage = new FXLabel(this, "", nullptr, GUIDesignLabelTickedIcon180x46);
     myComboBoxVClassLabelImage->setBackColor(FXRGBA(255, 255, 255, 255));
     // fill combo Box with all VClass
@@ -85,14 +85,14 @@ GNEVehicleTypeDialog::VTypeAtributes::VClassRow::VClassRow(VTypeAtributes* VType
 }
 
 
-void 
+void
 GNEVehicleTypeDialog::VTypeAtributes::VClassRow::setVariable() {
     // set color of myComboBoxVClass, depending if current value is valid or not
     myComboBoxVClass->setTextColor(FXRGB(0, 0, 0));
     if (myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isValid(SUMO_ATTR_VCLASS, myComboBoxVClass->getText().text())) {
         myComboBoxVClass->setTextColor(FXRGB(0, 0, 0));
-        myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_VCLASS, myComboBoxVClass->getText().text(), 
-            myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
+        myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_VCLASS, myComboBoxVClass->getText().text(),
+                myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
         setVClassLabelImage();
     } else {
         myComboBoxVClass->setTextColor(FXRGB(255, 0, 0));
@@ -102,7 +102,7 @@ GNEVehicleTypeDialog::VTypeAtributes::VClassRow::setVariable() {
 }
 
 
-void 
+void
 GNEVehicleTypeDialog::VTypeAtributes::VClassRow::updateValues() {
     myComboBoxVClass->setText(myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_VCLASS).c_str());
     setVClassLabelImage();
@@ -210,8 +210,8 @@ GNEVehicleTypeDialog::VTypeAtributes::VShapeRow::VShapeRow(VTypeAtributes* VType
     FXVerticalFrame* verticalFrameLabelAndComboBox = new FXVerticalFrame(this, GUIDesignAuxiliarVerticalFrame);
     // create combo for for vehicle shapes
     new FXLabel(verticalFrameLabelAndComboBox, toString(SUMO_ATTR_GUISHAPE).c_str(), nullptr, GUIDesignLabelAttribute150);
-    myComboBoxShape = new FXComboBox(verticalFrameLabelAndComboBox, GUIDesignComboBoxNCol, 
-        VTypeAtributesParent, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBox);
+    myComboBoxShape = new FXComboBox(verticalFrameLabelAndComboBox, GUIDesignComboBoxNCol,
+                                     VTypeAtributesParent, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBox);
     myComboBoxShapeLabelImage = new FXLabel(this, "", nullptr, GUIDesignLabelTickedIcon180x46);
     myComboBoxShapeLabelImage->setBackColor(FXRGBA(255, 255, 255, 255));
     // fill combo Box with all vehicle shapes
@@ -226,13 +226,13 @@ GNEVehicleTypeDialog::VTypeAtributes::VShapeRow::VShapeRow(VTypeAtributes* VType
 }
 
 
-void 
+void
 GNEVehicleTypeDialog::VTypeAtributes::VShapeRow::setVariable() {
     // set color of myComboBoxShape, depending if current value is valid or not
     if (myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isValid(SUMO_ATTR_GUISHAPE, myComboBoxShape->getText().text())) {
         myComboBoxShape->setTextColor(FXRGB(0, 0, 0));
-        myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_GUISHAPE, myComboBoxShape->getText().text(), 
-            myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
+        myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_GUISHAPE, myComboBoxShape->getText().text(),
+                myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
         setVShapeLabelImage();
     } else {
         myComboBoxShape->setTextColor(FXRGB(255, 0, 0));
@@ -242,7 +242,7 @@ GNEVehicleTypeDialog::VTypeAtributes::VShapeRow::setVariable() {
 }
 
 
-void 
+void
 GNEVehicleTypeDialog::VTypeAtributes::VShapeRow::updateValues() {
     myComboBoxShape->setText(myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_GUISHAPE).c_str());
     setVShapeLabelImage();
@@ -345,7 +345,7 @@ GNEVehicleTypeDialog::VTypeAtributes::VShapeRow::setVShapeLabelImage() {
 // GNEVehicleTypeDialog::VTypeAtributes - methods
 // ---------------------------------------------------------------------------
 
-GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::VTypeAttributeRow(VTypeAtributes *VTypeAtributesParent, FXVerticalFrame* verticalFrame, SumoXMLAttr attr, int type) :
+GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::VTypeAttributeRow(VTypeAtributes* VTypeAtributesParent, FXVerticalFrame* verticalFrame, SumoXMLAttr attr, int type) :
     FXHorizontalFrame(verticalFrame, GUIDesignAuxiliarHorizontalFrame),
     myVTypeAtributesParent(VTypeAtributesParent),
     myAttr(attr),
@@ -361,7 +361,7 @@ GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::VTypeAttributeRow(VType
 }
 
 
-GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::VTypeAttributeRow(VTypeAtributes *VTypeAtributesParent, FXVerticalFrame* verticalFrame, SumoXMLAttr attr, const  std::vector<std::string>& values) :
+GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::VTypeAttributeRow(VTypeAtributes* VTypeAtributesParent, FXVerticalFrame* verticalFrame, SumoXMLAttr attr, const  std::vector<std::string>& values) :
     FXHorizontalFrame(verticalFrame, GUIDesignAuxiliarHorizontalFrame),
     myVTypeAtributesParent(VTypeAtributesParent),
     myAttr(attr),
@@ -376,13 +376,13 @@ GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::VTypeAttributeRow(VType
 }
 
 
-void 
+void
 GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::setVariable() {
     if (myComboBox) {
         // set color of myComboBox, depending if current value is valid or not
         if (myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isValid(myAttr, myComboBox->getText().text())) {
-            myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->setAttribute(myAttr, myComboBox->getText().text(), 
-            myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
+            myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->setAttribute(myAttr, myComboBox->getText().text(),
+                    myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
             // update value after setting it
             updateValue();
         } else {
@@ -394,8 +394,8 @@ GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::setVariable() {
     } else {
         // set color of textField, depending if current value is valid or not
         if (myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isValid(myAttr, myTextField->getText().text())) {
-            myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->setAttribute(myAttr, myTextField->getText().text(), 
-            myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
+            myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->setAttribute(myAttr, myTextField->getText().text(),
+                    myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
             // update value after setting it
             updateValue();
         } else {
@@ -408,7 +408,7 @@ GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::setVariable() {
 }
 
 
-void 
+void
 GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::updateValue() {
     if (myComboBox) {
         // set text of myComboBox using current value of VType
@@ -439,7 +439,7 @@ GNEVehicleTypeDialog::VTypeAtributes::VTypeAtributes(GNEVehicleTypeDialog* vehic
     FXVerticalFrame(column, GUIDesignAuxiliarVerticalFrame),
     myVehicleTypeDialog(vehicleTypeDialog) {
     // create attributes for common attributes
-    FXGroupBox *commonAttributes = new FXGroupBox(this, "Vehicle Type attributes", GUIDesignGroupBoxFrame);
+    FXGroupBox* commonAttributes = new FXGroupBox(this, "Vehicle Type attributes", GUIDesignGroupBoxFrame);
     // create horizontal frame for columns of attributes
     FXHorizontalFrame* columnsCommonVTypeAttributes = new FXHorizontalFrame(commonAttributes, GUIDesignAuxiliarHorizontalFrame);
     // build left attributes
@@ -447,7 +447,7 @@ GNEVehicleTypeDialog::VTypeAtributes::VTypeAtributes(GNEVehicleTypeDialog* vehic
     // build right attributes
     buildAttributesB(new FXVerticalFrame(columnsCommonVTypeAttributes, GUIDesignAuxiliarFrame));
     // create attribute for Junction Model Attributes
-    FXGroupBox *JMAttributes = new FXGroupBox(this, "Junction Model attributes", GUIDesignGroupBoxFrame);
+    FXGroupBox* JMAttributes = new FXGroupBox(this, "Junction Model attributes", GUIDesignGroupBoxFrame);
     // create horizontal frame for columns of Junction Model attributes
     FXHorizontalFrame* columnsJMVTypeAttributes = new FXHorizontalFrame(JMAttributes, GUIDesignAuxiliarHorizontalFrame);
     // build left attributes
@@ -457,7 +457,7 @@ GNEVehicleTypeDialog::VTypeAtributes::VTypeAtributes(GNEVehicleTypeDialog* vehic
 }
 
 
-void 
+void
 GNEVehicleTypeDialog::VTypeAtributes::buildAttributesA(FXVerticalFrame* column) {
     // 01 Create VClassRow
     myVClassRow = new VClassRow(this, column);
@@ -498,7 +498,7 @@ GNEVehicleTypeDialog::VTypeAtributes::buildAttributesA(FXVerticalFrame* column) 
 }
 
 
-void 
+void
 GNEVehicleTypeDialog::VTypeAtributes::buildAttributesB(FXVerticalFrame* column) {
     // 01 Create VShapeRow
     myVShapeRow = new VShapeRow(this, column);
@@ -532,11 +532,11 @@ GNEVehicleTypeDialog::VTypeAtributes::buildAttributesB(FXVerticalFrame* column) 
 }
 
 
-void 
+void
 GNEVehicleTypeDialog::VTypeAtributes::buildJunctionModelAttributesA(FXVerticalFrame* column) {
     // 01 create VTypeAttributeRow and Label for JMCrossingGap
     myJMCrossingGap = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_CROSSING_GAP, 1);
-            
+
     // 02 create VTypeAttributeRow and Label for JMIgnoreKeepclearTime
     myJMIgnoreKeepclearTime = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME, 1);
 
@@ -551,7 +551,7 @@ GNEVehicleTypeDialog::VTypeAtributes::buildJunctionModelAttributesA(FXVerticalFr
 }
 
 
-void 
+void
 GNEVehicleTypeDialog::VTypeAtributes::buildJunctionModelAttributesB(FXVerticalFrame* column) {
     // 01 create VTypeAttributeRow and Label for JMIgnoreFoeProb
     myJMIgnoreFoeProb = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_IGNORE_FOE_PROB, 1);
@@ -569,7 +569,7 @@ GNEVehicleTypeDialog::VTypeAtributes::buildJunctionModelAttributesB(FXVerticalFr
     myJMImpatience = new VTypeAttributeRow(this, column, SUMO_ATTR_IMPATIENCE, 1);
 }
 
-void 
+void
 GNEVehicleTypeDialog::VTypeAtributes::updateValues() {
     //set values of myEditedDemandElement into fields
     myTextFieldVehicleTypeID->setText(myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_ID).c_str());
@@ -615,7 +615,7 @@ GNEVehicleTypeDialog::VTypeAtributes::updateValues() {
 }
 
 
-long 
+long
 GNEVehicleTypeDialog::VTypeAtributes::onCmdSetVariable(FXObject*, FXSelector, void*) {
     // At start we assumed, that all values are valid
     myVehicleTypeDialog->myVehicleTypeValid = true;
@@ -681,7 +681,7 @@ GNEVehicleTypeDialog::VTypeAtributes::onCmdSetVariable(FXObject*, FXSelector, vo
 }
 
 
-long 
+long
 GNEVehicleTypeDialog::VTypeAtributes::onCmdSetColor(FXObject*, FXSelector, void*) {
     // create FXColorDialog
     FXColorDialog colordialog(this, tr("Color Dialog"));
@@ -721,7 +721,7 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::CarFollowingModelParameters(G
     FXHorizontalFrame* row = new FXHorizontalFrame(myVerticalFrameRows, GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(row, "Algorithm", nullptr, GUIDesignLabelAttribute150);
     myComboBoxCarFollowModel = new FXComboBox(row, GUIDesignComboBoxNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBox);
-    
+
     // fill combo Box with all Car following models
     std::vector<std::string> CFModels = SUMOXMLDefinitions::CarFollowModels.getStrings();
     for (auto i : CFModels) {
@@ -830,10 +830,10 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::CarFollowingModelParameters(G
 }
 
 
-void 
+void
 GNEVehicleTypeDialog::CarFollowingModelParameters::refreshCFMFields() {
     // start hidding all rows
-    for (const auto &i : myRows) {
+    for (const auto& i : myRows) {
         i->hide();
     }
     // hide myLabelIncompleteAttribute
@@ -915,7 +915,7 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::refreshCFMFields() {
                 myTauRow->show();
                 myAccelRow->show();
                 myDecelRow->show();
-                myEmergencyDecelRow->show();  
+                myEmergencyDecelRow->show();
                 myMinGapFactorRow->show();
                 mySecurityRow->show();
                 myEstimationRow->show();
@@ -1005,7 +1005,7 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::refreshCFMFields() {
 }
 
 
-void 
+void
 GNEVehicleTypeDialog::CarFollowingModelParameters::updateValues() {
     //set values of myEditedDemandElement into fields
     if (myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_CAR_FOLLOW_MODEL).empty()) {
@@ -1016,18 +1016,18 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::updateValues() {
     // refresh fields
     refreshCFMFields();
     // update value in all Rows
-    for (const auto &i : myRows) {
+    for (const auto& i : myRows) {
         i->updateValue();
     }
 }
 
 
-long 
+long
 GNEVehicleTypeDialog::CarFollowingModelParameters::onCmdSetVariable(FXObject*, FXSelector, void*) {
     // At start we assumed, that all values are valid
     myVehicleTypeDialog->myVehicleTypeValid = true;
     myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_NOTHING;
-     // set color of myTextFieldCarFollowModel, depending if current value is valid or not
+    // set color of myTextFieldCarFollowModel, depending if current value is valid or not
     if (myVehicleTypeDialog->myEditedDemandElement->isValid(SUMO_ATTR_CAR_FOLLOW_MODEL, myComboBoxCarFollowModel->getText().text())) {
         myComboBoxCarFollowModel->setTextColor(FXRGB(0, 0, 0));
         myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_CAR_FOLLOW_MODEL, myComboBoxCarFollowModel->getText().text(), myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
@@ -1037,7 +1037,7 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::onCmdSetVariable(FXObject*, F
         myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_CAR_FOLLOW_MODEL;
     }
     // set variable in all Rows
-    for (const auto &i : myRows) {
+    for (const auto& i : myRows) {
         i->setVariable();
     }
     // refresh fields
@@ -1056,7 +1056,7 @@ GNEVehicleTypeDialog::GNEVehicleTypeDialog(GNEDemandElement* editedVehicleType, 
 
     // change default header
     changeDemandElementDialogHeader(updatingElement ? "Edit " + myEditedDemandElement->getTagStr() : "Create " + myEditedDemandElement->getTagStr());
-    
+
     // Create auxiliar frames for values
     FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
 
@@ -1140,7 +1140,7 @@ GNEVehicleTypeDialog::onCmdReset(FXObject*, FXSelector, void*) {
 // GNEVehicleTypeDialog - private methods
 // ---------------------------------------------------------------------------
 
-GNEVehicleTypeDialog::CarFollowingModelParameters::CarFollowingModelRow::CarFollowingModelRow(CarFollowingModelParameters *carFollowingModelParametersParent, FXVerticalFrame* verticalFrame, SumoXMLAttr attr) :
+GNEVehicleTypeDialog::CarFollowingModelParameters::CarFollowingModelRow::CarFollowingModelRow(CarFollowingModelParameters* carFollowingModelParametersParent, FXVerticalFrame* verticalFrame, SumoXMLAttr attr) :
     FXHorizontalFrame(verticalFrame, GUIDesignAuxiliarHorizontalFrame),
     myCarFollowingModelParametersParent(carFollowingModelParametersParent),
     myAttr(attr) {
@@ -1149,7 +1149,7 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::CarFollowingModelRow::CarFoll
 }
 
 
-void 
+void
 GNEVehicleTypeDialog::CarFollowingModelParameters::CarFollowingModelRow::setVariable() {
     // set color of textField, depending if current value is valid or not
     if (myCarFollowingModelParametersParent->myVehicleTypeDialog->myEditedDemandElement->isValid(myAttr, textField->getText().text())) {
@@ -1159,8 +1159,8 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::CarFollowingModelRow::setVari
         } else {
             textField->setTextColor(FXRGB(195, 195, 195));
         }
-        myCarFollowingModelParametersParent->myVehicleTypeDialog->myEditedDemandElement->setAttribute(myAttr, textField->getText().text(), 
-        myCarFollowingModelParametersParent->myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
+        myCarFollowingModelParametersParent->myVehicleTypeDialog->myEditedDemandElement->setAttribute(myAttr, textField->getText().text(),
+                myCarFollowingModelParametersParent->myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
         // update value after setting it
         updateValue();
     } else {
@@ -1172,7 +1172,7 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::CarFollowingModelRow::setVari
 }
 
 
-void 
+void
 GNEVehicleTypeDialog::CarFollowingModelParameters::CarFollowingModelRow::updateValue() {
     // set text of myTextField using current value of VType
     textField->setText(myCarFollowingModelParametersParent->myVehicleTypeDialog->myEditedDemandElement->getAttribute(myAttr).c_str());

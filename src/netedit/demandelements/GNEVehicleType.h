@@ -38,19 +38,19 @@ class GNEVehicleType : public GNEDemandElement, public SUMOVTypeParameter {
 
 public:
     /// @brief constructor for default VTypes
-    GNEVehicleType(GNEViewNet* viewNet, const std::string &vTypeID, SUMOVehicleClass defaultVClass);
+    GNEVehicleType(GNEViewNet* viewNet, const std::string& vTypeID, SUMOVehicleClass defaultVClass);
 
     /// @brief constructor
-    GNEVehicleType(GNEViewNet* viewNet, const SUMOVTypeParameter &vTypeParameter);
+    GNEVehicleType(GNEViewNet* viewNet, const SUMOVTypeParameter& vTypeParameter);
 
     /// @brief copy constructor
-    GNEVehicleType(GNEViewNet* viewNet, const std::string &vTypeID, GNEVehicleType *vTypeOriginal);
+    GNEVehicleType(GNEViewNet* viewNet, const std::string& vTypeID, GNEVehicleType* vTypeOriginal);
 
     /// @brief destructor
     ~GNEVehicleType();
 
     /// @brief get color
-    const RGBColor &getColor() const;
+    const RGBColor& getColor() const;
 
     /**@brief writte demand element element into a xml file
      * @param[in] device device in which write parameters of demand element element
@@ -133,7 +133,7 @@ public:
     /// @}
 
     /// @brief overwrite all values of GNEVehicleType with a SUMOVTypeParameter
-    static void overwriteVType(GNEDemandElement *vType, SUMOVTypeParameter* newVTypeParameter, GNEUndoList* undoList);
+    static void overwriteVType(GNEDemandElement* vType, SUMOVTypeParameter* newVTypeParameter, GNEUndoList* undoList);
 
 protected:
     /// @brief flag to check if this GNEVehicleType is a default vehicle Type (For Vehicles, Pedestrians...)

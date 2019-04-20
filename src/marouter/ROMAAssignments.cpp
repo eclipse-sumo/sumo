@@ -51,7 +51,7 @@ ROMAAssignments::ROMAAssignments(const SUMOTime begin, const SUMOTime end, const
                                  const double adaptionFactor, const int maxAlternatives, RONet& net, ODMatrix& matrix,
                                  SUMOAbstractRouter<ROEdge, ROVehicle>& router)
     : myBegin(begin), myEnd(end), myAdditiveTraffic(additiveTraffic), myAdaptionFactor(adaptionFactor),
-    myMaxAlternatives(maxAlternatives), myNet(net), myMatrix(matrix), myRouter(router) {
+      myMaxAlternatives(maxAlternatives), myNet(net), myMatrix(matrix), myRouter(router) {
     myDefaultVehicle = new ROVehicle(SUMOVehicleParameter(), nullptr, net.getVehicleTypeSecure(DEFAULT_VTYPE_ID), &net);
 }
 

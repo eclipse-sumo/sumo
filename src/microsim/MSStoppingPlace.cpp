@@ -39,12 +39,11 @@ MSStoppingPlace::MSStoppingPlace(const std::string& id,
                                  const std::vector<std::string>& lines,
                                  MSLane& lane,
                                  double begPos, double endPos, const std::string name,
-                                 int capacity) : 
+                                 int capacity) :
     Named(id), myLines(lines), myLane(lane),
     myBegPos(begPos), myEndPos(endPos), myLastFreePos(endPos),
     myName(name),
-    myTransportableCapacity(capacity)
-{
+    myTransportableCapacity(capacity) {
     computeLastFreePos();
     for (int i = 0; i < capacity; i++) {
         myWaitingSpots.insert(i);

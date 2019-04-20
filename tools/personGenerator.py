@@ -11,6 +11,7 @@
 # @author  tarek chouaki
 # @date    2019-03-22
 # @version $Id$
+
 """
 This tool allows to generate flows of persons for a SUMO simulation which is currently not possible in SUMO route files.
 It does so by converting an xml file (usually having the ``.pflow.xml`` extension) to a sumo route file
@@ -78,6 +79,7 @@ You can import the classes and methods in this module and use them in your own p
 
 See the documentation below for more details.
 """
+
 from lxml import etree
 import argparse
 import random

@@ -49,7 +49,7 @@ GNEHierarchicalElementParents::GNEHierarchicalElementParents(GNEAttributeCarrier
         const std::vector<GNEEdge*>& edgeParents,
         const std::vector<GNELane*>& laneParents,
         const std::vector<GNEShape*>& shapeParents,
-        const std::vector<GNEAdditional*>& additionalParents, 
+        const std::vector<GNEAdditional*>& additionalParents,
         const std::vector<GNEDemandElement*>& demandElementParents) :
     myParentConnections(this),
     myEdgeParents(edgeParents),
@@ -175,11 +175,9 @@ GNEHierarchicalElementParents::addLaneParent(GNELane* lane) {
     // Check that lane is valid and doesn't exist previously
     if (lane == nullptr) {
         throw InvalidArgument("Trying to add an empty " + toString(SUMO_TAG_EDGE) + " parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
-    }
-    else if (std::find(myLaneParents.begin(), myLaneParents.end(), lane) != myLaneParents.end()) {
+    } else if (std::find(myLaneParents.begin(), myLaneParents.end(), lane) != myLaneParents.end()) {
         throw InvalidArgument("Trying to add a duplicate " + toString(SUMO_TAG_EDGE) + " parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
-    }
-    else {
+    } else {
         myLaneParents.push_back(lane);
     }
 }
@@ -190,11 +188,9 @@ GNEHierarchicalElementParents::removeLaneParent(GNELane* lane) {
     // Check that lane is valid and exist previously
     if (lane == nullptr) {
         throw InvalidArgument("Trying to remove an empty " + toString(SUMO_TAG_EDGE) + " parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
-    }
-    else if (std::find(myLaneParents.begin(), myLaneParents.end(), lane) == myLaneParents.end()) {
+    } else if (std::find(myLaneParents.begin(), myLaneParents.end(), lane) == myLaneParents.end()) {
         throw InvalidArgument("Trying to remove a non previously inserted " + toString(SUMO_TAG_EDGE) + " parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
-    }
-    else {
+    } else {
         myLaneParents.erase(std::find(myLaneParents.begin(), myLaneParents.end(), lane));
     }
 }
@@ -211,11 +207,9 @@ GNEHierarchicalElementParents::addShapeParent(GNEShape* shape) {
     // Check that shape is valid and doesn't exist previously
     if (shape == nullptr) {
         throw InvalidArgument("Trying to add an empty " + toString(SUMO_TAG_EDGE) + " parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
-    }
-    else if (std::find(myShapeParents.begin(), myShapeParents.end(), shape) != myShapeParents.end()) {
+    } else if (std::find(myShapeParents.begin(), myShapeParents.end(), shape) != myShapeParents.end()) {
         throw InvalidArgument("Trying to add a duplicate " + toString(SUMO_TAG_EDGE) + " parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
-    }
-    else {
+    } else {
         myShapeParents.push_back(shape);
     }
 }
@@ -226,11 +220,9 @@ GNEHierarchicalElementParents::removeShapeParent(GNEShape* shape) {
     // Check that shape is valid and exist previously
     if (shape == nullptr) {
         throw InvalidArgument("Trying to remove an empty " + toString(SUMO_TAG_EDGE) + " parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
-    }
-    else if (std::find(myShapeParents.begin(), myShapeParents.end(), shape) == myShapeParents.end()) {
+    } else if (std::find(myShapeParents.begin(), myShapeParents.end(), shape) == myShapeParents.end()) {
         throw InvalidArgument("Trying to remove a non previously inserted " + toString(SUMO_TAG_EDGE) + " parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
-    }
-    else {
+    } else {
         myShapeParents.erase(std::find(myShapeParents.begin(), myShapeParents.end(), shape));
     }
 }
@@ -364,9 +356,9 @@ GNEHierarchicalElementParents::ParentConnections::draw(GUIGlObjectType parentTyp
 
 
 void
-GNEHierarchicalElementParents::changeEdgeParents(GNEShape *elementChild, const std::string& newEdgeIDs) {
+GNEHierarchicalElementParents::changeEdgeParents(GNEShape* elementChild, const std::string& newEdgeIDs) {
     // remove additional of edge parents
-    for (const auto &i : myEdgeParents) {
+    for (const auto& i : myEdgeParents) {
         i->removeShapeChild(elementChild);
     }
     // obtain new parent edges
@@ -374,10 +366,9 @@ GNEHierarchicalElementParents::changeEdgeParents(GNEShape *elementChild, const s
     // check that lane parets aren't empty
     if (myEdgeParents.empty()) {
         throw InvalidArgument("New list of edge parents cannot be empty");
-    }
-    else {
+    } else {
         // add additional into edge parents
-        for (const auto &i : myEdgeParents) {
+        for (const auto& i : myEdgeParents) {
             i->addShapeChild(elementChild);
         }
     }
@@ -385,9 +376,9 @@ GNEHierarchicalElementParents::changeEdgeParents(GNEShape *elementChild, const s
 
 
 void
-GNEHierarchicalElementParents::changeEdgeParents(GNEAdditional *elementChild, const std::string& newEdgeIDs) {
+GNEHierarchicalElementParents::changeEdgeParents(GNEAdditional* elementChild, const std::string& newEdgeIDs) {
     // remove additional of edge parents
-    for (const auto &i : myEdgeParents) {
+    for (const auto& i : myEdgeParents) {
         i->removeAdditionalChild(elementChild);
     }
     // obtain new parent edges
@@ -395,10 +386,9 @@ GNEHierarchicalElementParents::changeEdgeParents(GNEAdditional *elementChild, co
     // check that lane parets aren't empty
     if (myEdgeParents.empty()) {
         throw InvalidArgument("New list of edge parents cannot be empty");
-    }
-    else {
+    } else {
         // add additional into edge parents
-        for (const auto &i : myEdgeParents) {
+        for (const auto& i : myEdgeParents) {
             i->addAdditionalChild(elementChild);
         }
     }
@@ -406,9 +396,9 @@ GNEHierarchicalElementParents::changeEdgeParents(GNEAdditional *elementChild, co
 
 
 void
-GNEHierarchicalElementParents::changeEdgeParents(GNEDemandElement *elementChild, const std::string& newEdgeIDs) {
+GNEHierarchicalElementParents::changeEdgeParents(GNEDemandElement* elementChild, const std::string& newEdgeIDs) {
     // remove demandElement of edge parents
-    for (const auto &i : myEdgeParents) {
+    for (const auto& i : myEdgeParents) {
         i->removeDemandElementChild(elementChild);
     }
     // obtain new parent edges
@@ -416,10 +406,9 @@ GNEHierarchicalElementParents::changeEdgeParents(GNEDemandElement *elementChild,
     // check that lane parets aren't empty
     if (myEdgeParents.empty()) {
         throw InvalidArgument("New list of edge parents cannot be empty");
-    }
-    else {
+    } else {
         // add demandElement into edge parents
-        for (const auto &i : myEdgeParents) {
+        for (const auto& i : myEdgeParents) {
             i->addDemandElementChild(elementChild);
         }
     }
@@ -427,9 +416,9 @@ GNEHierarchicalElementParents::changeEdgeParents(GNEDemandElement *elementChild,
 
 
 void
-GNEHierarchicalElementParents::changeLaneParents(GNEAdditional *elementChild, const std::string& newLaneIDs) {
+GNEHierarchicalElementParents::changeLaneParents(GNEAdditional* elementChild, const std::string& newLaneIDs) {
     // remove additional of edge parents
-    for (const auto &i : myLaneParents) {
+    for (const auto& i : myLaneParents) {
         i->removeAdditionalChild(elementChild);
     }
     // obtain new parent edges
@@ -439,7 +428,7 @@ GNEHierarchicalElementParents::changeLaneParents(GNEAdditional *elementChild, co
         throw InvalidArgument("New list of lane parents cannot be empty");
     } else {
         // add additional into edge parents
-        for (const auto &i : myLaneParents) {
+        for (const auto& i : myLaneParents) {
             i->addAdditionalChild(elementChild);
         }
     }
@@ -447,19 +436,19 @@ GNEHierarchicalElementParents::changeLaneParents(GNEAdditional *elementChild, co
 
 
 void
-GNEHierarchicalElementParents::changeLaneParents(GNEDemandElement *elementChild, const std::string& newLaneIDs) {
+GNEHierarchicalElementParents::changeLaneParents(GNEDemandElement* elementChild, const std::string& newLaneIDs) {
     // remove demandElement of edge parents
-    for (const auto &i : myLaneParents) {
+    for (const auto& i : myLaneParents) {
         i->removeDemandElementChild(elementChild);
     }
     // obtain new parent edges
     myLaneParents = GNEAttributeCarrier::parse<std::vector<GNELane*> >(elementChild->getViewNet()->getNet(), newLaneIDs);
-        // check that lane parets aren't empty
+    // check that lane parets aren't empty
     if (myLaneParents.empty()) {
         throw InvalidArgument("New list of lane parents cannot be empty");
     } else {
         // add demandElement into edge parents
-        for (const auto &i : myLaneParents) {
+        for (const auto& i : myLaneParents) {
             i->addDemandElementChild(elementChild);
         }
     }
@@ -467,9 +456,9 @@ GNEHierarchicalElementParents::changeLaneParents(GNEDemandElement *elementChild,
 
 
 void
-GNEHierarchicalElementParents::changeLaneParents(GNEShape *elementChild, const std::string& newLaneIDs) {
+GNEHierarchicalElementParents::changeLaneParents(GNEShape* elementChild, const std::string& newLaneIDs) {
     // remove demandElement of edge parents
-    for (const auto &i : myLaneParents) {
+    for (const auto& i : myLaneParents) {
         i->removeShapeChild(elementChild);
     }
     // obtain new parent edges
@@ -479,7 +468,7 @@ GNEHierarchicalElementParents::changeLaneParents(GNEShape *elementChild, const s
         throw InvalidArgument("New list of lane parents cannot be empty");
     } else {
         // add demandElement into edge parents
-        for (const auto &i : myLaneParents) {
+        for (const auto& i : myLaneParents) {
             i->addShapeChild(elementChild);
         }
     }
@@ -487,7 +476,7 @@ GNEHierarchicalElementParents::changeLaneParents(GNEShape *elementChild, const s
 
 
 void
-GNEHierarchicalElementParents::changeAdditionalParent(GNEShape *shapeTobeChanged, const std::string& newAdditionalParentID, int additionalParentIndex) {
+GNEHierarchicalElementParents::changeAdditionalParent(GNEShape* shapeTobeChanged, const std::string& newAdditionalParentID, int additionalParentIndex) {
     if ((int)myAdditionalParents.size() < additionalParentIndex) {
         throw InvalidArgument(myAC->getTagStr() + " with ID '" + myAC->getID() + "' doesn't have " + toString(additionalParentIndex) + " additional parents");
     } else {
@@ -504,7 +493,7 @@ GNEHierarchicalElementParents::changeAdditionalParent(GNEShape *shapeTobeChanged
 
 
 void
-GNEHierarchicalElementParents::changeAdditionalParent(GNEAdditional *additionalTobeChanged, const std::string& newAdditionalParentID, int additionalParentIndex) {
+GNEHierarchicalElementParents::changeAdditionalParent(GNEAdditional* additionalTobeChanged, const std::string& newAdditionalParentID, int additionalParentIndex) {
     if ((int)myAdditionalParents.size() < additionalParentIndex) {
         throw InvalidArgument(myAC->getTagStr() + " with ID '" + myAC->getID() + "' doesn't have " + toString(additionalParentIndex) + " additional parents");
     } else {
@@ -521,7 +510,7 @@ GNEHierarchicalElementParents::changeAdditionalParent(GNEAdditional *additionalT
 
 
 void
-GNEHierarchicalElementParents::changeAdditionalParent(GNEDemandElement *demandElementTobeChanged, const std::string& newAdditionalParentID, int additionalParentIndex) {
+GNEHierarchicalElementParents::changeAdditionalParent(GNEDemandElement* demandElementTobeChanged, const std::string& newAdditionalParentID, int additionalParentIndex) {
     if ((int)myAdditionalParents.size() < additionalParentIndex) {
         throw InvalidArgument(myAC->getTagStr() + " with ID '" + myAC->getID() + "' doesn't have " + toString(additionalParentIndex) + " additional parents");
     } else {
@@ -538,7 +527,7 @@ GNEHierarchicalElementParents::changeAdditionalParent(GNEDemandElement *demandEl
 
 
 void
-GNEHierarchicalElementParents::changeDemandElementParent(GNEShape *shapeTobeChanged, const std::string& newDemandElementParentID, int demandElementParentIndex) {
+GNEHierarchicalElementParents::changeDemandElementParent(GNEShape* shapeTobeChanged, const std::string& newDemandElementParentID, int demandElementParentIndex) {
     if ((int)myDemandElementParents.size() < demandElementParentIndex) {
         throw InvalidArgument(myAC->getTagStr() + " with ID '" + myAC->getID() + "' doesn't have " + toString(demandElementParentIndex) + " demand element parents");
     } else {
@@ -555,7 +544,7 @@ GNEHierarchicalElementParents::changeDemandElementParent(GNEShape *shapeTobeChan
 
 
 void
-GNEHierarchicalElementParents::changeDemandElementParent(GNEAdditional *additionalTobeChanged, const std::string& newDemandElementParentID, int demandElementParentIndex) {
+GNEHierarchicalElementParents::changeDemandElementParent(GNEAdditional* additionalTobeChanged, const std::string& newDemandElementParentID, int demandElementParentIndex) {
     if ((int)myDemandElementParents.size() < demandElementParentIndex) {
         throw InvalidArgument(myAC->getTagStr() + " with ID '" + myAC->getID() + "' doesn't have " + toString(demandElementParentIndex) + " demand element parents");
     } else {
@@ -572,7 +561,7 @@ GNEHierarchicalElementParents::changeDemandElementParent(GNEAdditional *addition
 
 
 void
-GNEHierarchicalElementParents::changeDemandElementParent(GNEDemandElement *demandElementTobeChanged, const std::string& newDemandElementParentID, int demandElementParentIndex) {
+GNEHierarchicalElementParents::changeDemandElementParent(GNEDemandElement* demandElementTobeChanged, const std::string& newDemandElementParentID, int demandElementParentIndex) {
     if ((int)myDemandElementParents.size() < demandElementParentIndex) {
         throw InvalidArgument(myAC->getTagStr() + " with ID '" + myAC->getID() + "' doesn't have " + toString(demandElementParentIndex) + " demand element parents");
     } else {

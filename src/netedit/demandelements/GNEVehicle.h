@@ -35,17 +35,17 @@
 class GNEVehicle : public GNEDemandElement, public SUMOVehicleParameter {
 
 public:
-   /// @brief constructor for vehicles and flows
-    GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const std::string &vehicleID, GNEDemandElement* vehicleType, GNEDemandElement* route);
+    /// @brief constructor for vehicles and flows
+    GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const std::string& vehicleID, GNEDemandElement* vehicleType, GNEDemandElement* route);
 
     /// @brief constructor for vehicles
-    GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehicleParameter &vehicleParameter, GNEDemandElement* vehicleType, GNEDemandElement* route);
+    GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehicleParameter& vehicleParameter, GNEDemandElement* vehicleType, GNEDemandElement* route);
 
     /// @brief constructor for Trips (note: Edges : from + via + to)
-    GNEVehicle(GNEViewNet* viewNet, const std::string &tripID, GNEDemandElement* vehicleType, const std::vector<GNEEdge*> &edges);
+    GNEVehicle(GNEViewNet* viewNet, const std::string& tripID, GNEDemandElement* vehicleType, const std::vector<GNEEdge*>& edges);
 
     /// @brief parameter constructor for Trips (note: Edges : from + via + to)
-    GNEVehicle(GNEViewNet* viewNet, const SUMOVehicleParameter &tripParameter, GNEDemandElement* vehicleType, const std::vector<GNEEdge*> &edges);
+    GNEVehicle(GNEViewNet* viewNet, const SUMOVehicleParameter& tripParameter, GNEDemandElement* vehicleType, const std::vector<GNEEdge*>& edges);
 
     /// @brief destructor
     ~GNEVehicle();
@@ -57,7 +57,7 @@ public:
     std::string getBegin() const;
 
     /// @brief get color
-    const RGBColor &getColor() const;
+    const RGBColor& getColor() const;
 
     /**@brief writte demand element element into a xml file
      * @param[in] device device in which write parameters of demand element element

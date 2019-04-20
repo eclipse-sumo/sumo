@@ -158,9 +158,9 @@ MSTransportableControl::boardAnyWaiting(MSEdge* edge, SUMOVehicle* vehicle, cons
         SUMOTime currentTime =  MSNet::getInstance()->getCurrentTimeStep();
         for (TransportableVector::iterator i = wait.begin(); i != wait.end();) {
             if ((*i)->isWaitingFor(vehicle)
-                    && vehicle->getVehicleType().getPersonCapacity() > vehicle->getPersonNumber() 
-                    && timeToBoardNextPerson <= currentTime 
-                    && stop.startPos <= (*i)->getEdgePos() 
+                    && vehicle->getVehicleType().getPersonCapacity() > vehicle->getPersonNumber()
+                    && timeToBoardNextPerson <= currentTime
+                    && stop.startPos <= (*i)->getEdgePos()
                     && (*i)->getEdgePos() <= stop.endPos) {
                 edge->removePerson(*i);
                 vehicle->addPerson(*i);
@@ -200,10 +200,10 @@ MSTransportableControl::loadAnyWaiting(MSEdge* edge, SUMOVehicle* vehicle, const
         TransportableVector& waitContainers = myWaiting4Vehicle[edge];
         for (TransportableVector::iterator i = waitContainers.begin(); i != waitContainers.end();) {
             SUMOTime currentTime = MSNet::getInstance()->getCurrentTimeStep();
-            if ((*i)->isWaitingFor(vehicle) 
+            if ((*i)->isWaitingFor(vehicle)
                     && vehicle->getVehicleType().getContainerCapacity() > vehicle->getContainerNumber()
                     && timeToLoadNextContainer <= currentTime
-                    && stop.startPos <= (*i)->getEdgePos() 
+                    && stop.startPos <= (*i)->getEdgePos()
                     && (*i)->getEdgePos() <= stop.endPos) {
                 edge->removeContainer(*i);
                 vehicle->addContainer(*i);

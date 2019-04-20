@@ -162,7 +162,7 @@ GNEViewParent::hideAllFrames() {
 }
 
 
-GNEFrame* 
+GNEFrame*
 GNEViewParent::getCurrentShownFrame() const {
     return myFrames.getCurrentShownFrame();
 }
@@ -252,7 +252,7 @@ GNEViewParent::getVehicleTypeFrame() const {
 }
 
 
-GNEStopFrame* 
+GNEStopFrame*
 GNEViewParent::getStopFrame() const {
     return myFrames.stopFrame;
 }
@@ -590,7 +590,7 @@ GNEViewParent::Frames::isFrameShown() const {
 }
 
 
-GNEFrame* 
+GNEFrame*
 GNEViewParent::Frames::getCurrentShownFrame() const {
     // check all frames
     if (inspectorFrame->shown()) {

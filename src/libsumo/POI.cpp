@@ -81,23 +81,23 @@ POI::getPosition(const std::string& poiID, const bool includeZ) {
 
 double
 POI::getWidth(const std::string& poiID) {
-	return getPoI(poiID)->getWidth();
+    return getPoI(poiID)->getWidth();
 }
 
 
 double
 POI::getHeight(const std::string& poiID) {
-	return getPoI(poiID)->getHeight();
+    return getPoI(poiID)->getHeight();
 }
 
 
 double
 POI::getAngle(const std::string& poiID) {
-	return getPoI(poiID)->getShapeNaviDegree();
+    return getPoI(poiID)->getShapeNaviDegree();
 }
 
 
-std::string 
+std::string
 POI::getImageFile(const std::string& poiID) {
     return getPoI(poiID)->getShapeImgFile();
 }
@@ -131,23 +131,23 @@ POI::setColor(const std::string& poiID, const TraCIColor& c) {
 
 void
 POI::setWidth(const std::string& poiID, double width) {
-	getPoI(poiID)->setWidth(width);
+    getPoI(poiID)->setWidth(width);
 }
 
 
 void
 POI::setHeight(const std::string& poiID, double height) {
-	getPoI(poiID)->setHeight(height);
+    getPoI(poiID)->setHeight(height);
 }
 
 
 void
 POI::setAngle(const std::string& poiID, double angle) {
-	getPoI(poiID)->setShapeNaviDegree(angle);
+    getPoI(poiID)->setShapeNaviDegree(angle);
 }
 
 
-void 
+void
 POI::setImageFile(const std::string& poiID, const std::string& imageFile) {
     getPoI(poiID)->setShapeImgFile(imageFile);
 }
@@ -178,19 +178,19 @@ POI::highlight(const std::string& poiID, const TraCIColor& col, double size, con
     PointOfInterest* poi = getPoI(poiID);
 
     // Center of the highlight circle
-    Position* center = dynamic_cast<Position*> (poi);
+    Position* center = dynamic_cast<Position*>(poi);
     // Size of the highlight circle
     if (size <= 0) {
-        size = sqrt(poi->getHeight()*poi->getHeight() + poi->getWidth()*poi->getWidth())*0.7;
+        size = sqrt(poi->getHeight() * poi->getHeight() + poi->getWidth() * poi->getWidth()) * 0.7;
     }
     // Make polygon shape
     const unsigned int nPoints = 34;
-    const PositionVector circlePV = GeomHelper::makeRing(size, size+1., *center, nPoints);
+    const PositionVector circlePV = GeomHelper::makeRing(size, size + 1., *center, nPoints);
     TraCIPositionVector circle = Helper::makeTraCIPositionVector(circlePV);
 
 #ifdef DEBUG_DYNAMIC_SHAPES
     std::cout << SIMTIME << " Vehicle::highlight() for vehicle '" << vehicleID << "'\n"
-            << " circle: " << circlePV << std::endl;
+              << " circle: " << circlePV << std::endl;
 #endif
 
     // Find a free polygon id
@@ -205,7 +205,7 @@ POI::highlight(const std::string& poiID, const TraCIColor& col, double size, con
     double lyr = 0.;
     if (MSNet::getInstance()->isGUINet()) {
         lyr = poi->getShapeLayer();
-        lyr += (type + 1)/257.;
+        lyr += (type + 1) / 257.;
     }
     // Make Polygon
     Polygon::addHighlightPolygon(poiID, type, polyID, circle, col, true, lw, "highlight", (int)lyr);
@@ -214,12 +214,12 @@ POI::highlight(const std::string& poiID, const TraCIColor& col, double size, con
     double maxAttack = 1.0; // maximal fade-in time
     std::vector<double> timeSpan;
     if (duration > 0.) {
-        timeSpan = {0, MIN2(maxAttack, duration/3.), 2.*duration/3., duration};
+        timeSpan = {0, MIN2(maxAttack, duration / 3.), 2.*duration / 3., duration};
     }
     // Alpha time line
     std::vector<double> alphaSpan;
     if (alphaMax > 0.) {
-        alphaSpan = {0., (double) alphaMax, ((double) alphaMax)/3., 0.};
+        alphaSpan = {0., (double) alphaMax, ((double) alphaMax) / 3., 0.};
     }
     // Attach dynamics
     Polygon::addDynamics(polyID, "", timeSpan, alphaSpan, false, false);
@@ -287,12 +287,12 @@ POI::handleVariable(const std::string& objID, const int variable, VariableWrappe
             return wrapper->wrapPosition(objID, variable, getPosition(objID));
         case VAR_POSITION3D:
             return wrapper->wrapPosition(objID, variable, getPosition(objID, true));
-		case VAR_WIDTH:
-			return wrapper->wrapDouble(objID, variable, getWidth(objID));
-		case VAR_HEIGHT:
-			return wrapper->wrapDouble(objID, variable, getHeight(objID));
-		case VAR_ANGLE:
-			return wrapper->wrapDouble(objID, variable, getAngle(objID));
+        case VAR_WIDTH:
+            return wrapper->wrapDouble(objID, variable, getWidth(objID));
+        case VAR_HEIGHT:
+            return wrapper->wrapDouble(objID, variable, getHeight(objID));
+        case VAR_ANGLE:
+            return wrapper->wrapDouble(objID, variable, getAngle(objID));
         case VAR_IMAGEFILE:
             return wrapper->wrapString(objID, variable, getImageFile(objID));
         default:

@@ -70,7 +70,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, con
                            "' and '" + attrs.getName(SUMO_ATTR_VEHSPERHOUR) +
                            "' has to be given in the definition of flow '" + id + "'.");
     }
-    if (attrs.hasAttribute(SUMO_ATTR_PERIOD) || attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR) 
+    if (attrs.hasAttribute(SUMO_ATTR_PERIOD) || attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR)
             || attrs.hasAttribute(SUMO_ATTR_PERSONSPERHOUR) || attrs.hasAttribute(SUMO_ATTR_PROB)) {
         if (attrs.hasAttribute(SUMO_ATTR_END) && attrs.hasAttribute(SUMO_ATTR_NUMBER)) {
             throw ProcessError("If '" + attrs.getName(SUMO_ATTR_PERIOD) +

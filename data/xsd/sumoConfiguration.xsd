@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 17 21:45:29 2018 by Eclipse SUMO Version v1_0_1+0643-17d95030ed
+<!-- generated on Mon Apr 15 15:26:44 2019 by Eclipse SUMO Version 1.2.0
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -82,6 +82,7 @@
             <xsd:element name="vehroute-output.write-unfinished" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="vehroute-output.skip-ptlines" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="link-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="railsignal-block-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="bt-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="lanechange-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="lanechange-output.started" type="boolOptionType" minOccurs="0"/>
@@ -106,6 +107,7 @@
     <xsd:complexType name="processingTopicType">
         <xsd:all>
             <xsd:element name="step-method.ballistic" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="threads" type="intOptionType" minOccurs="0"/>
             <xsd:element name="lateral-resolution" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="route-steps" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="no-internal-links" type="boolOptionType" minOccurs="0"/>
@@ -129,6 +131,7 @@
             <xsd:element name="lanechange.duration" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="lanechange.overtake-right" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="tls.all-off" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="tls.actuated.show-detectors" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="time-to-impatience" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="default.action-step-length" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="default.carfollowmodel" type="strOptionType" minOccurs="0"/>
@@ -147,6 +150,7 @@
         <xsd:all>
             <xsd:element name="routing-algorithm" type="strOptionType" minOccurs="0"/>
             <xsd:element name="weights.random-factor" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="weights.minor-penalty" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="astar.all-distances" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="astar.landmark-distances" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="persontrip.walkfactor" type="floatOptionType" minOccurs="0"/>
@@ -164,6 +168,10 @@
             <xsd:element name="device.rerouting.threads" type="intOptionType" minOccurs="0"/>
             <xsd:element name="device.rerouting.synchronize" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="device.rerouting.output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="person-device.rerouting.probability" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="person-device.rerouting.explicit" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="person-device.rerouting.deterministic" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="person-device.rerouting.period" type="timeOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
@@ -274,6 +282,7 @@
             <xsd:element name="device.driverstate.speedDifferenceChangePerceptionThreshold" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.driverstate.headwayChangePerceptionThreshold" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.driverstate.minAwareness" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="device.driverstate.maximalReactionTime" type="floatOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
@@ -292,6 +301,10 @@
             <xsd:element name="device.fcd.explicit" type="strOptionType" minOccurs="0"/>
             <xsd:element name="device.fcd.deterministic" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="device.fcd.period" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="person-device.fcd.probability" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="person-device.fcd.explicit" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="person-device.fcd.deterministic" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="person-device.fcd.period" type="strOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
@@ -325,6 +338,7 @@
         <xsd:all>
             <xsd:element name="random" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="seed" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="thread-rngs" type="intOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
@@ -333,8 +347,10 @@
             <xsd:element name="gui-settings-file" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="quit-on-end" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="game" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="game.mode" type="strOptionType" minOccurs="0"/>
             <xsd:element name="start" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="breakpoints" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="edgedata-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="demo" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="disable-textures" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="registry-viewport" type="boolOptionType" minOccurs="0"/>

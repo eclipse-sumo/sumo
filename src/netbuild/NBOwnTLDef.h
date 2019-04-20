@@ -171,7 +171,7 @@ protected:
 
     /// @brief test whether a joined tls with layout 'opposites' would be built without dedicated left-turn phase
     bool corridorLike() const;
-        
+
     /** @brief Returns the weight of a stream given its direction
      * @param[in] dir The direction of the stream
      * @return This stream's weight
@@ -221,18 +221,18 @@ protected:
 
     /// @brief allow connections that are compatible with the chosen edges
     std::string allowCompatible(std::string state, const EdgeVector& fromEdges, const EdgeVector& toEdges,
-            const std::vector<int>& fromLanes, const std::vector<int>& toLanes);
+                                const std::vector<int>& fromLanes, const std::vector<int>& toLanes);
 
     std::string allowSingleEdge(std::string state, const EdgeVector& fromEdges);
 
     std::string allowFollowers(std::string state, const EdgeVector& fromEdges, const EdgeVector& toEdges);
-            
+
     std::string allowPredecessors(std::string state, const EdgeVector& fromEdges, const EdgeVector& toEdges,
-            const std::vector<int>& fromLanes, const std::vector<int>& toLanes);
+                                  const std::vector<int>& fromLanes, const std::vector<int>& toLanes);
 
     std::string allowUnrelated(std::string state, const EdgeVector& fromEdges, const EdgeVector& toEdges,
-            const std::vector<bool>& isTurnaround,
-            const std::vector<NBNode::Crossing*>& crossings);
+                               const std::vector<bool>& isTurnaround,
+                               const std::vector<NBNode::Crossing*>& crossings);
 
     std::string allowByVClass(std::string state, const EdgeVector& fromEdges, const EdgeVector& toEdges, SVCPermissions perm);
 

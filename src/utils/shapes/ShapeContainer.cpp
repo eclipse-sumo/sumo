@@ -72,12 +72,12 @@ ShapeContainer::addPolygon(const std::string& id, const std::string& type,
 
 PolygonDynamics*
 ShapeContainer::addPolygonDynamics(double simtime,
-        std::string polyID,
-        SUMOTrafficObject* trackedObject,
-        const std::vector<double>& timeSpan,
-        const std::vector<double>& alphaSpan,
-        bool looped,
-        bool rotate) {
+                                   std::string polyID,
+                                   SUMOTrafficObject* trackedObject,
+                                   const std::vector<double>& timeSpan,
+                                   const std::vector<double>& alphaSpan,
+                                   bool looped,
+                                   bool rotate) {
 
 #ifdef DEBUG_DYNAMIC_SHAPES
     std::cout << simtime << " ShapeContainer::addPolygonDynamics() called for polygon '" << polyID << "'" << std::endl;
@@ -86,7 +86,7 @@ ShapeContainer::addPolygonDynamics(double simtime,
     SUMOPolygon* p = myPolygons.get(polyID);
     if (p == nullptr) {
 #ifdef DEBUG_DYNAMIC_SHAPES
-    std::cout << "   polygon '" << polyID << "' doesn't exist!" << std::endl;
+        std::cout << "   polygon '" << polyID << "' doesn't exist!" << std::endl;
 #endif
         return nullptr;
     }
@@ -112,21 +112,21 @@ ShapeContainer::addPolygonDynamics(double simtime,
 
 bool
 ShapeContainer::removePolygonDynamics(const std::string& polyID) {
-    SUMOPolygon * p = myPolygons.get(polyID);
+    SUMOPolygon* p = myPolygons.get(polyID);
     if (p == nullptr) {
         return false;
     }
     auto d = myPolygonDynamics.find(polyID);
     if (d != myPolygonDynamics.end()) {
 #ifdef DEBUG_DYNAMIC_SHAPES
-    std::cout << "   Removing dynamics of polygon '" << polyID << "'" << std::endl;
+        std::cout << "   Removing dynamics of polygon '" << polyID << "'" << std::endl;
 #endif
         const std::string& trackedObjID = d->second->getTrackedObjectID();
         if (trackedObjID != "") {
             // Remove tracking information
             auto i = myTrackingPolygons.find(trackedObjID);
-            assert (i != myTrackingPolygons.end());
-            assert (i->second.find(p) != i->second.end());
+            assert(i != myTrackingPolygons.end());
+            assert(i->second.find(p) != i->second.end());
             i->second.erase(p);
             // Remove highlighting information
             clearHighlights(trackedObjID);
@@ -228,14 +228,14 @@ ShapeContainer::polygonDynamicsUpdate(SUMOTime t, PolygonDynamics* pd) {
 
 void
 ShapeContainer::registerHighlight(const std::string& objectID, const int type, const std::string& polygonID) {
-    std::string toRemove="";
+    std::string toRemove = "";
     clearHighlight(objectID, type, toRemove);
     if (toRemove != "") {
         removePolygon(toRemove);
     }
     auto i = myHighlightPolygons.find(objectID);
     if (i == myHighlightPolygons.end()) {
-        myHighlightPolygons.insert(std::make_pair(objectID, std::map<int,std::string>({std::make_pair(type, polygonID)})));
+        myHighlightPolygons.insert(std::make_pair(objectID, std::map<int, std::string>({std::make_pair(type, polygonID)})));
     } else {
         i->second.insert(std::make_pair(type, polygonID));
     }
@@ -267,7 +267,7 @@ ShapeContainer::clearHighlights(const std::string& objectID) {
 }
 
 void
-ShapeContainer::addPolygonUpdateCommand(std::string polyID, ParametrisedWrappingCommand<ShapeContainer, PolygonDynamics*>* cmd){
+ShapeContainer::addPolygonUpdateCommand(std::string polyID, ParametrisedWrappingCommand<ShapeContainer, PolygonDynamics*>* cmd) {
     myPolygonUpdateCommands.insert(std::make_pair(polyID, cmd));
 }
 

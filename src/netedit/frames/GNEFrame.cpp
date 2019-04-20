@@ -175,7 +175,7 @@ GNEFrame::ItemSelector::ItemSelector(GNEFrame* frameParent, GNEAttributeCarrier:
 GNEFrame::ItemSelector::~ItemSelector() {}
 
 
-void 
+void
 GNEFrame::ItemSelector::showItemSelector(bool enableModuls) {
     show();
     // check if parent moduls has to be enabled
@@ -185,7 +185,7 @@ GNEFrame::ItemSelector::showItemSelector(bool enableModuls) {
 }
 
 
-void 
+void
 GNEFrame::ItemSelector::hideItemSelector() {
     hide();
     myFrameParent->disableModuls();
@@ -312,7 +312,7 @@ GNEFrame::AttributesCreator::getAttributesAndValues(bool includeAll) const {
         if (myRows.at(i)->getAttrProperties().getAttr() != SUMO_ATTR_NOTHING) {
             // ignore default values (except for disjont attributes, that has to be always writted)
             if (myRows.at(i)->isRowEnabled() &&
-               (includeAll || myTagProperties.isDisjointAttributes(myRows.at(i)->getAttrProperties().getAttr()) || !myRows.at(i)->getAttrProperties().hasDefaultValue() || (myRows.at(i)->getAttrProperties().getDefaultValue() != myRows.at(i)->getValue()))) {
+                    (includeAll || myTagProperties.isDisjointAttributes(myRows.at(i)->getAttrProperties().getAttr()) || !myRows.at(i)->getAttrProperties().hasDefaultValue() || (myRows.at(i)->getAttrProperties().getDefaultValue() != myRows.at(i)->getValue()))) {
                 values[myRows.at(i)->getAttrProperties().getAttr()] = myRows.at(i)->getValue();
             }
         }
@@ -361,8 +361,8 @@ GNEFrame::AttributesCreator::areValuesValid() const {
 }
 
 
-void 
-GNEFrame::AttributesCreator::updateDisjointAttributes(AttributesCreator::RowCreator *row) {
+void
+GNEFrame::AttributesCreator::updateDisjointAttributes(AttributesCreator::RowCreator* row) {
     // currently only Flows supports disjoint attributes
     if (myTagProperties.getTag() == SUMO_TAG_FLOW) {
         // obtain all rows (to improve code legibility)
@@ -371,7 +371,7 @@ GNEFrame::AttributesCreator::updateDisjointAttributes(AttributesCreator::RowCrea
         RowCreator* vehsperhourRow = myRows[myTagProperties.getAttributeProperties(SUMO_ATTR_VEHSPERHOUR).getPositionListed()];
         RowCreator* periodRow = myRows[myTagProperties.getAttributeProperties(SUMO_ATTR_PERIOD).getPositionListed()];
         RowCreator* probabilityRow = myRows[myTagProperties.getAttributeProperties(SUMO_ATTR_PROB).getPositionListed()];
-        if(row == nullptr) {
+        if (row == nullptr) {
             // by default flows uses end and number
             endRow->setRadioButtonCheck(true);
             numberRow->setRadioButtonCheck(true);
@@ -501,7 +501,7 @@ GNEFrame::AttributesCreator::RowCreator::showParameter(const GNEAttributeCarrier
         myTextFieldInt->setText(attrProperties.getDefaultValue().c_str());
         myTextFieldInt->show();
         // if it's associated to a radio button and is disabled, then disabled myTextFieldInt
-        if(myRadioButton->shown() && (myRadioButton->getCheck() == FALSE)) {
+        if (myRadioButton->shown() && (myRadioButton->getCheck() == FALSE)) {
             myTextFieldInt->disable();
         }
     } else if (myAttrProperties.isFloat()) {
@@ -509,7 +509,7 @@ GNEFrame::AttributesCreator::RowCreator::showParameter(const GNEAttributeCarrier
         myTextFieldReal->setText(attrProperties.getDefaultValue().c_str());
         myTextFieldReal->show();
         // if it's associated to a radio button and is disabled, then disable myTextFieldReal
-        if(myRadioButton->shown() && (myRadioButton->getCheck() == FALSE)) {
+        if (myRadioButton->shown() && (myRadioButton->getCheck() == FALSE)) {
             myTextFieldReal->disable();
         }
     } else if (myAttrProperties.isBool()) {
@@ -522,7 +522,7 @@ GNEFrame::AttributesCreator::RowCreator::showParameter(const GNEAttributeCarrier
         }
         myBoolCheckButton->show();
         // if it's associated to a radio button and is disabled, then disable myBoolCheckButton
-        if(myRadioButton->shown() && (myRadioButton->getCheck() == FALSE)) {
+        if (myRadioButton->shown() && (myRadioButton->getCheck() == FALSE)) {
             myBoolCheckButton->disable();
         }
     } else {
@@ -530,7 +530,7 @@ GNEFrame::AttributesCreator::RowCreator::showParameter(const GNEAttributeCarrier
         myTextFieldStrings->setText(attrProperties.getDefaultValue().c_str());
         myTextFieldStrings->show();
         // if it's associated to a radio button and is disabled, then disable myTextFieldStrings
-        if(myRadioButton->shown() && (myRadioButton->getCheck() == FALSE)) {
+        if (myRadioButton->shown() && (myRadioButton->getCheck() == FALSE)) {
             myTextFieldStrings->disable();
         }
     }
@@ -552,7 +552,7 @@ GNEFrame::AttributesCreator::RowCreator::hideParameter() {
 }
 
 
-const GNEAttributeCarrier::AttributeProperties &
+const GNEAttributeCarrier::AttributeProperties&
 GNEFrame::AttributesCreator::RowCreator::getAttrProperties() const {
     return myAttrProperties;
 }
@@ -617,14 +617,11 @@ void
 GNEFrame::AttributesCreator::RowCreator::enableRow() {
     if (myAttrProperties.isBool()) {
         return myBoolCheckButton->enable();
-    }
-    else if (myAttrProperties.isInt()) {
+    } else if (myAttrProperties.isInt()) {
         return myTextFieldInt->enable();
-    }
-    else if (myAttrProperties.isFloat() || myAttrProperties.isTime()) {
+    } else if (myAttrProperties.isFloat() || myAttrProperties.isTime()) {
         return myTextFieldReal->enable();
-    }
-    else {
+    } else {
         return myTextFieldStrings->enable();
     }
 }
@@ -634,14 +631,11 @@ void
 GNEFrame::AttributesCreator::RowCreator::disableRow() {
     if (myAttrProperties.isBool()) {
         return myBoolCheckButton->disable();
-    }
-    else if (myAttrProperties.isInt()) {
+    } else if (myAttrProperties.isInt()) {
         return myTextFieldInt->disable();
-    }
-    else if (myAttrProperties.isFloat() || myAttrProperties.isTime()) {
+    } else if (myAttrProperties.isFloat() || myAttrProperties.isTime()) {
         return myTextFieldReal->disable();
-    }
-    else {
+    } else {
         return myTextFieldStrings->disable();
     }
 }
@@ -651,17 +645,13 @@ bool
 GNEFrame::AttributesCreator::RowCreator::isRowEnabled() const {
     if (!shown()) {
         return false;
-    }
-    else if (myAttrProperties.isBool()) {
+    } else if (myAttrProperties.isBool()) {
         return myBoolCheckButton->isEnabled();
-    }
-    else if (myAttrProperties.isInt()) {
+    } else if (myAttrProperties.isInt()) {
         return myTextFieldInt->isEnabled();
-    }
-    else if (myAttrProperties.isFloat() || myAttrProperties.isTime()) {
+    } else if (myAttrProperties.isFloat() || myAttrProperties.isTime()) {
         return myTextFieldReal->isEnabled();
-    }
-    else {
+    } else {
         return myTextFieldStrings->isEnabled();
     }
 }
@@ -759,9 +749,9 @@ GNEFrame::AttributesCreator::RowCreator::onCmdSetAttribute(FXObject*, FXSelector
         // special case for stop indx
         std::string index = myTextFieldStrings->getText().text();
         if ((index != "fit") && (index != "end") && !GNEAttributeCarrier::canParse<int>(index)) {
-             myInvalidValue = "index isn't either 'fit' or 'end' or a valid positive int";
+            myInvalidValue = "index isn't either 'fit' or 'end' or a valid positive int";
         } else if (GNEAttributeCarrier::parse<int>(index) < 0) {
-             myInvalidValue = "index cannot be negative";
+            myInvalidValue = "index cannot be negative";
         }
     }
     // change color of text field depending of myCurrentValueValid
@@ -797,7 +787,7 @@ GNEFrame::AttributesCreator::RowCreator::onCmdSetBooleanAttribute(FXObject*, FXS
 }
 
 
-long 
+long
 GNEFrame::AttributesCreator::RowCreator::onCmdSetColorAttribute(FXObject*, FXSelector, void*) {
     // create FXColorDialog
     FXColorDialog colordialog(this, tr("Color Dialog"));
@@ -816,7 +806,7 @@ GNEFrame::AttributesCreator::RowCreator::onCmdSetColorAttribute(FXObject*, FXSel
     return 0;
 }
 
-long 
+long
 GNEFrame::AttributesCreator::RowCreator::onCmdSelectRadioButton(FXObject*, FXSelector, void*) {
     // write debug (for Netedit tests)
     WRITE_DEBUG("Selected radio button for attribute '" + myAttrProperties.getAttrStr() + "'");
@@ -864,7 +854,7 @@ GNEFrame::AttributesEditor::RowEditor::RowEditor(GNEFrame::AttributesEditor* att
 
 
 void
-GNEFrame::AttributesEditor::RowEditor::showRow(const GNEAttributeCarrier::AttributeProperties &ACAttr, const std::string& value, bool disjointAttributeEnabled) {
+GNEFrame::AttributesEditor::RowEditor::showRow(const GNEAttributeCarrier::AttributeProperties& ACAttr, const std::string& value, bool disjointAttributeEnabled) {
     // start enabling all elements
     myTextFieldInt->enable();
     myTextFieldReal->enable();
@@ -1005,7 +995,7 @@ GNEFrame::AttributesEditor::RowEditor::showRow(const GNEAttributeCarrier::Attrib
     }
     // if Tag correspond to an network element but we're in demand mode (or vice versa), disable all elements
     if (((myAttributesEditorParent->myFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && myACAttr.getTagPropertyParent().isDemandElement()) ||
-        ((myAttributesEditorParent->myFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myACAttr.getTagPropertyParent().isDemandElement())) {
+            ((myAttributesEditorParent->myFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myACAttr.getTagPropertyParent().isDemandElement())) {
         myColorEditor->disable();
         myRadioButton->disable();
         myTextFieldInt->disable();
@@ -1017,8 +1007,8 @@ GNEFrame::AttributesEditor::RowEditor::showRow(const GNEAttributeCarrier::Attrib
     }
     // special case for Default vehicle types (ID cannot be edited)
     if ((ACAttr.getTagPropertyParent().getTag() == SUMO_TAG_VTYPE) && (ACAttr.getAttr() == SUMO_ATTR_ID) &&
-        ((value == DEFAULT_VTYPE_ID) || (value == DEFAULT_PEDTYPE_ID) || (value == DEFAULT_BIKETYPE_ID))) {
-         myTextFieldStrings->disable();
+            ((value == DEFAULT_VTYPE_ID) || (value == DEFAULT_PEDTYPE_ID) || (value == DEFAULT_BIKETYPE_ID))) {
+        myTextFieldStrings->disable();
     }
     // Show Row
     show();
@@ -1116,21 +1106,23 @@ GNEFrame::AttributesEditor::RowEditor::refreshRow(const std::string& value, bool
         }
     }
     // if Tag correspond to an network element but we're in demand mode (or vice versa), disable all elements
-    if (((myAttributesEditorParent->myFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && myACAttr.getTagPropertyParent().isDemandElement()) ||
-        ((myAttributesEditorParent->myFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myACAttr.getTagPropertyParent().isDemandElement())) {
-        myColorEditor->disable();
-        myRadioButton->disable();
-        myTextFieldInt->disable();
-        myTextFieldReal->disable();
-        myTextFieldStrings->disable();
-        myChoicesCombo->disable();
-        myBoolCheckButton->disable();
-        myButtonCombinableChoices->disable();
-    }
-    // special case for Default vehicle types (ID cannot be edited)
-    if ((myACAttr.getTagPropertyParent().getTag() == SUMO_TAG_VTYPE) && (myACAttr.getAttr() == SUMO_ATTR_ID) &&
-        ((value == DEFAULT_VTYPE_ID) || (value == DEFAULT_PEDTYPE_ID) || (value == DEFAULT_BIKETYPE_ID))) {
-         myTextFieldStrings->disable();
+    if (myACAttr.getAttr() != SUMO_ATTR_NOTHING) {
+        if (((myAttributesEditorParent->myFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && myACAttr.getTagPropertyParent().isDemandElement()) ||
+                ((myAttributesEditorParent->myFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myACAttr.getTagPropertyParent().isDemandElement())) {
+            myColorEditor->disable();
+            myRadioButton->disable();
+            myTextFieldInt->disable();
+            myTextFieldReal->disable();
+            myTextFieldStrings->disable();
+            myChoicesCombo->disable();
+            myBoolCheckButton->disable();
+            myButtonCombinableChoices->disable();
+        }
+        // special case for Default vehicle types (ID cannot be edited)
+        if ((myACAttr.getTagPropertyParent().getTag() == SUMO_TAG_VTYPE) && (myACAttr.getAttr() == SUMO_ATTR_ID) &&
+                ((value == DEFAULT_VTYPE_ID) || (value == DEFAULT_PEDTYPE_ID) || (value == DEFAULT_BIKETYPE_ID))) {
+            myTextFieldStrings->disable();
+        }
     }
 }
 
@@ -1151,7 +1143,7 @@ GNEFrame::AttributesEditor::RowEditor::onCmdOpenAttributeDialog(FXObject* obj, F
         // If previous attribute wasn't correct, set black as default color
         if (GNEAttributeCarrier::canParse<RGBColor>(myTextFieldStrings->getText().text())) {
             colordialog.setRGBA(MFXUtils::getFXColor(RGBColor::parseColor(myTextFieldStrings->getText().text())));
-        } else if (!myACAttr.getDefaultValue().empty()){
+        } else if (!myACAttr.getDefaultValue().empty()) {
             colordialog.setRGBA(MFXUtils::getFXColor(RGBColor::parseColor(myACAttr.getDefaultValue())));
         } else {
             colordialog.setRGBA(MFXUtils::getFXColor(RGBColor::BLACK));
@@ -1329,13 +1321,13 @@ GNEFrame::AttributesEditor::RowEditor::onCmdSetAttribute(FXObject*, FXSelector, 
 }
 
 
-long 
+long
 GNEFrame::AttributesEditor::RowEditor::onCmdSetDisjointAttribute(FXObject*, FXSelector, void*) {
     // write debug (for Netedit tests)
     WRITE_DEBUG("Selected radio button for attribute '" + myACAttr.getAttrStr() + "'");
     // change disjoint attribute with undo/redo
     myAttributesEditorParent->myEditedACs.front()->setDisjointAttribute(myACAttr.getAttr(),
-        myAttributesEditorParent->myFrameParent->myViewNet->getUndoList());
+            myAttributesEditorParent->myFrameParent->myViewNet->getUndoList());
     // refresh Attributes edito parent
     myAttributesEditorParent->refreshAttributeEditor(false, false);
     return 0;
@@ -1403,8 +1395,8 @@ GNEFrame::AttributesEditor::showAttributeEditorModul(const std::vector<GNEAttrib
                 oss << *it_val;
             }
             std::string value = oss.str();
-            if ((myEditedACs.front()->getTagProperty().getTag() == SUMO_TAG_CONNECTION) && 
-                (i.first == SUMO_ATTR_TLLINKINDEX)
+            if ((myEditedACs.front()->getTagProperty().getTag() == SUMO_TAG_CONNECTION) &&
+                    (i.first == SUMO_ATTR_TLLINKINDEX)
                     && value == toString(NBConnection::InvalidTlIndex)) {
                 // possibly the connections are newly created (allow assigning
                 // tlIndex if the junction(s) have a traffic light
@@ -1416,8 +1408,8 @@ GNEFrame::AttributesEditor::showAttributeEditorModul(const std::vector<GNEAttrib
                 }
             }
             // Show attribute
-            if ((disableTLSinJunctions && (myEditedACs.front()->getTagProperty().getTag() == SUMO_TAG_JUNCTION) && 
-                ((i.first == SUMO_ATTR_TLTYPE) || (i.first == SUMO_ATTR_TLID))) == false) {
+            if ((disableTLSinJunctions && (myEditedACs.front()->getTagProperty().getTag() == SUMO_TAG_JUNCTION) &&
+                    ((i.first == SUMO_ATTR_TLTYPE) || (i.first == SUMO_ATTR_TLID))) == false) {
                 // first show AttributesEditor
                 show();
                 // show attribute
@@ -1466,8 +1458,8 @@ GNEFrame::AttributesEditor::refreshAttributeEditor(bool forceRefreshShape, bool 
                 oss << *it_val;
             }
             // Show attribute
-            if ((disableTLSinJunctions && (myEditedACs.front()->getTagProperty().getTag() == SUMO_TAG_JUNCTION) && 
-                ((i.first == SUMO_ATTR_TLTYPE) || (i.first == SUMO_ATTR_TLID))) == false) {
+            if ((disableTLSinJunctions && (myEditedACs.front()->getTagProperty().getTag() == SUMO_TAG_JUNCTION) &&
+                    ((i.first == SUMO_ATTR_TLTYPE) || (i.first == SUMO_ATTR_TLID))) == false) {
                 // check if is a disjoint attribute
                 bool disjointAttributeSet = myEditedACs.front()->isDisjointAttributeSet(i.first);
                 // Check if refresh of Position or Shape has to be forced
@@ -1486,7 +1478,7 @@ GNEFrame::AttributesEditor::refreshAttributeEditor(bool forceRefreshShape, bool 
 }
 
 
-const std::vector<GNEAttributeCarrier*> &
+const std::vector<GNEAttributeCarrier*>&
 GNEFrame::AttributesEditor::getEditedACs() const {
     return myEditedACs;
 }
@@ -1536,19 +1528,19 @@ GNEFrame::AttributesEditorExtended::AttributesEditorExtended(GNEFrame* framePare
 GNEFrame::AttributesEditorExtended::~AttributesEditorExtended() {}
 
 
-void 
+void
 GNEFrame::AttributesEditorExtended::showAttributesEditorExtendedModul() {
     show();
 }
 
 
-void 
+void
 GNEFrame::AttributesEditorExtended::hideAttributesEditorExtendedModul() {
     hide();
 }
 
 
-long 
+long
 GNEFrame::AttributesEditorExtended::onCmdOpenDialog(FXObject*, FXSelector, void*) {
     // open AttributesCreator extended dialog
     myFrameParent->openAttributesEditorExtendedDialog();
@@ -1765,7 +1757,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierParents() {
                     return nullptr;
                 }
             }
-            default: 
+            default:
                 break;
         }
     } else if (myAC->getTagProperty().getTag() == SUMO_TAG_POILANE) {
@@ -1800,7 +1792,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierParents() {
         // Obtain Additional
         GNEAdditional* additional = myFrameParent->getViewNet()->getNet()->retrieveAdditional(myAC->getTagProperty().getTag(), myAC->getID(), false);
         if (additional) {
-            // declare auxiliar FXTreeItem, due a demand element can have multiple "roots" 
+            // declare auxiliar FXTreeItem, due a demand element can have multiple "roots"
             FXTreeItem* root = nullptr;
             // check if there is demand elements parents
             if (additional->getAdditionalParents().size() > 0) {
@@ -1865,7 +1857,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierParents() {
         // Obtain DemandElement
         GNEDemandElement* demandElement = myFrameParent->getViewNet()->getNet()->retrieveDemandElement(myAC->getTagProperty().getTag(), myAC->getID(), false);
         if (demandElement) {
-            // declare auxiliar FXTreeItem, due a demand element can have multiple "roots" 
+            // declare auxiliar FXTreeItem, due a demand element can have multiple "roots"
             FXTreeItem* root = nullptr;
             // check if there is demand elements parents
             if (demandElement->getAdditionalParents().size() > 0) {
@@ -1961,19 +1953,19 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier* AC, FXTre
                     // insert edge item
                     FXTreeItem* edgeItem = addListItem(AC, itemParent);
                     // insert lanes
-                    for (const auto &i : edge->getLanes()) {
+                    for (const auto& i : edge->getLanes()) {
                         showAttributeCarrierChilds(i, edgeItem);
                     }
                     // insert shape childs
-                    for (const auto &i : edge->getShapeChilds()) {
+                    for (const auto& i : edge->getShapeChilds()) {
                         showAttributeCarrierChilds(i, edgeItem);
                     }
                     // insert additional childs
-                    for (const auto &i : edge->getAdditionalChilds()) {
+                    for (const auto& i : edge->getAdditionalChilds()) {
                         showAttributeCarrierChilds(i, edgeItem);
                     }
                     // insert demand elements childs
-                    for (const auto &i : edge->getDemandElementChilds()) {
+                    for (const auto& i : edge->getDemandElementChilds()) {
                         showAttributeCarrierChilds(i, edgeItem);
                     }
                 }
@@ -1986,15 +1978,15 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier* AC, FXTre
                     // insert lane item
                     FXTreeItem* laneItem = addListItem(AC, itemParent);
                     // insert shape childs
-                    for (const auto &i : lane->getShapeChilds()) {
+                    for (const auto& i : lane->getShapeChilds()) {
                         showAttributeCarrierChilds(i, laneItem);
                     }
                     // insert additional childs
-                    for (const auto &i : lane->getAdditionalChilds()) {
+                    for (const auto& i : lane->getAdditionalChilds()) {
                         showAttributeCarrierChilds(i, laneItem);
                     }
                     // insert demand elements childs
-                    for (const auto &i : lane->getDemandElementChilds()) {
+                    for (const auto& i : lane->getDemandElementChilds()) {
                         showAttributeCarrierChilds(i, laneItem);
                     }
                     // insert incoming connections of lanes (by default isn't expanded)
@@ -2026,7 +2018,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier* AC, FXTre
                 addListItem(AC, itemParent);
                 break;
             }
-            default: 
+            default:
                 break;
         }
     } else if (AC->getTagProperty().isShape()) {
@@ -2039,23 +2031,23 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier* AC, FXTre
             // insert additional item
             FXTreeItem* additionalItem = addListItem(AC, itemParent);
             // insert edge childs
-            for (const auto &i : additional->getEdgeChilds()) {
+            for (const auto& i : additional->getEdgeChilds()) {
                 showAttributeCarrierChilds(i, additionalItem);
             }
             // insert lane childs
-            for (const auto &i : additional->getLaneChilds()) {
+            for (const auto& i : additional->getLaneChilds()) {
                 showAttributeCarrierChilds(i, additionalItem);
             }
             // insert shape childs
-            for (const auto &i : additional->getShapeChilds()) {
+            for (const auto& i : additional->getShapeChilds()) {
                 showAttributeCarrierChilds(i, additionalItem);
             }
             // insert additionals childs
-            for (const auto &i : additional->getAdditionalChilds()) {
+            for (const auto& i : additional->getAdditionalChilds()) {
                 showAttributeCarrierChilds(i, additionalItem);
             }
             // insert demand element childs
-            for (const auto &i : additional->getDemandElementChilds()) {
+            for (const auto& i : additional->getDemandElementChilds()) {
                 showAttributeCarrierChilds(i, additionalItem);
             }
         }
@@ -2066,23 +2058,23 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier* AC, FXTre
             // insert demandElement item
             FXTreeItem* demandElementItem = addListItem(AC, itemParent);
             // insert edge childs
-            for (const auto &i : demandElement->getEdgeChilds()) {
+            for (const auto& i : demandElement->getEdgeChilds()) {
                 showAttributeCarrierChilds(i, demandElementItem);
             }
             // insert lane childs
-            for (const auto &i : demandElement->getLaneChilds()) {
+            for (const auto& i : demandElement->getLaneChilds()) {
                 showAttributeCarrierChilds(i, demandElementItem);
             }
             // insert shape childs
-            for (const auto &i : demandElement->getShapeChilds()) {
+            for (const auto& i : demandElement->getShapeChilds()) {
                 showAttributeCarrierChilds(i, demandElementItem);
             }
             // insert additionals childs
-            for (const auto &i : demandElement->getAdditionalChilds()) {
+            for (const auto& i : demandElement->getAdditionalChilds()) {
                 showAttributeCarrierChilds(i, demandElementItem);
             }
             // insert demand element childs
-            for (const auto &i : demandElement->getDemandElementChilds()) {
+            for (const auto& i : demandElement->getDemandElementChilds()) {
                 showAttributeCarrierChilds(i, demandElementItem);
             }
         }
@@ -2102,8 +2094,8 @@ GNEFrame::ACHierarchy::addListItem(GNEAttributeCarrier* AC, FXTreeItem* itemPare
 }
 
 
-FXTreeItem* 
-GNEFrame::ACHierarchy::addListItem(FXTreeItem* itemParent, const std::string &text, FXIcon* icon, bool expanded) {
+FXTreeItem*
+GNEFrame::ACHierarchy::addListItem(FXTreeItem* itemParent, const std::string& text, FXIcon* icon, bool expanded) {
     // insert item in Tree list
     FXTreeItem* item = myTreelist->insertItem(nullptr, itemParent, text.c_str(), icon, icon);
     // set exapnded
@@ -2193,7 +2185,7 @@ GNEFrame::GenericParametersEditor::refreshGenericParametersEditor() {
         myTextFieldGenericParameter->setTextColor(FXRGB(0, 0, 0));
         // disable myTextFieldGenericParameter if Tag correspond to an network element but we're in demand mode (or vice versa), disable all elements
         if (((myFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && myAC->getTagProperty().isDemandElement()) ||
-            ((myFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myAC->getTagProperty().isDemandElement())) {
+                ((myFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myAC->getTagProperty().isDemandElement())) {
             myTextFieldGenericParameter->disable();
             myEditGenericParameterButton->disable();
         } else {
@@ -2213,7 +2205,7 @@ GNEFrame::GenericParametersEditor::refreshGenericParametersEditor() {
         myTextFieldGenericParameter->setTextColor(FXRGB(0, 0, 0));
         // disable myTextFieldGenericParameter if we're in demand mode and inspected AC isn't a demand element (or viceversa)
         if (((myFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && myACs.front()->getTagProperty().isDemandElement()) ||
-            ((myFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myACs.front()->getTagProperty().isDemandElement())) {
+                ((myFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myACs.front()->getTagProperty().isDemandElement())) {
             myTextFieldGenericParameter->disable();
             myEditGenericParameterButton->disable();
         } else {
@@ -2801,7 +2793,7 @@ GNEFrame::GNEFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet
     }
 
     // Create font only one time
-    if(myFrameHeaderFont == nullptr) {
+    if (myFrameHeaderFont == nullptr) {
         myFrameHeaderFont = new FXFont(getApp(), "Arial", 14, FXFont::Bold);
     }
 
@@ -2838,7 +2830,7 @@ GNEFrame::GNEFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet
 
 GNEFrame::~GNEFrame() {
     // delete frame header only one time
-    if(myFrameHeaderFont) {
+    if (myFrameHeaderFont) {
         delete myFrameHeaderFont;
         myFrameHeaderFont = nullptr;
     }
@@ -2894,7 +2886,7 @@ GNEFrame::getFrameHeaderFont() const {
 }
 
 
-void 
+void
 GNEFrame::updateFrameAfterUndoRedo() {
     // this function has to be reimplemente in all child frames that needs to draw a polygon (for example, GNEFrame or GNETAZFrame)
 }
@@ -2922,7 +2914,7 @@ GNEFrame::disableModuls() {
 }
 
 
-void 
+void
 GNEFrame::updateFrameAfterChangeAttribute() {
     // this function has to be reimplemente in all child frames that uses a ItemSelector modul
 }
@@ -3012,7 +3004,7 @@ GNEFrame::getEdgeCandidateSelectedColor() const {
 }
 
 
-const std::map<int, std::string> &
+const std::map<int, std::string>&
 GNEFrame::getPredefinedTagsMML() const {
     return myPredefinedTagsMML;
 }

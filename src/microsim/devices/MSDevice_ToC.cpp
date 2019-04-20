@@ -43,7 +43,7 @@
 // debug constants
 // ===========================================================================
 //#define DEBUG_TOC
-
+//#define DEBUG_DYNAMIC_TOC
 
 // ===========================================================================
 // parameter defaults
@@ -60,6 +60,14 @@
 #define DEFAULT_INITIAL_AWARENESS 0.5
 // The default value for the deceleration rate applied during a 'minimum risk maneuver'
 #define DEFAULT_MRM_DECEL 1.5
+// The default value for the dynamic ToC threshold indicates that the dynamic ToCs are deactivated
+#define DEFAULT_DYNAMIC_TOC_THRESHOLD 0.0
+
+// The factor by which the dynamic ToC threshold time is multiplied to yield the lead time given for the corresponding ToC
+#define DYNAMIC_TOC_LEADTIME_FACTOR 0.75
+// A factor applied to the check for the dynamic ToC condition to resist aborting an ongoing dynamic ToC (and prevent oscillations)
+#define DYNAMIC_TOC_ABORT_RESISTANCE_FACTOR 2.0
+
 
 // The default values for the openGap parameters applied for gap creation in preparation for a ToC
 #define DEFAULT_OPENGAP_TIMEGAP -1.0
@@ -106,6 +114,8 @@ MSDevice_ToC::insertOptions(OptionsCont& oc) {
     oc.addDescription("device.toc.initialAwareness", "ToC Device", "Average awareness a driver has initially after a ToC (value in [0,1]).");
     oc.doRegister("device.toc.mrmDecel", new Option_Float(DEFAULT_MRM_DECEL));
     oc.addDescription("device.toc.mrmDecel", "ToC Device", "Deceleration rate applied during a 'minimum risk maneuver'.");
+    oc.doRegister("device.toc.dynamicToCThreshold", new Option_Float(DEFAULT_DYNAMIC_TOC_THRESHOLD));
+    oc.addDescription("device.toc.dynamicToCThreshold", "ToC Device", "Time, which the vehicle requires to have ahead to continue in automated mode. The default value of 0 indicates no dynamic triggering of ToCs.");
     oc.doRegister("device.toc.ogNewTimeHeadway", new Option_Float(-1.0));
     oc.addDescription("device.toc.ogNewTimeHeadway", "ToC Device", "Timegap for ToC preparation phase.");
     oc.doRegister("device.toc.ogNewSpaceHeadway", new Option_Float(-1.0));
@@ -136,10 +146,12 @@ MSDevice_ToC::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>&
         std::string deviceID = "toc_" + v.getID();
         std::string file = getOutputFilename(v, oc);
         OpenGapParams ogp = getOpenGapParams(v, oc);
+        const double dynamicToCThreshold = getDynamicToCThreshold(v, oc);
         // build the device
         MSDevice_ToC* device = new MSDevice_ToC(v, deviceID, file,
                                                 manualType, automatedType, responseTime, recoveryRate,
-                                                lcAbstinence, initialAwareness, mrmDecel, useColoring, ogp);
+                                                lcAbstinence, initialAwareness, mrmDecel, dynamicToCThreshold,
+												useColoring, ogp);
         into.push_back(device);
     }
 }
@@ -202,6 +214,11 @@ MSDevice_ToC::getMRMDecel(const SUMOVehicle& v, const OptionsCont& oc) {
     return getFloatParam(v, oc, "toc.mrmDecel", DEFAULT_MRM_DECEL, false);
 }
 
+double
+MSDevice_ToC::getDynamicToCThreshold(const SUMOVehicle& v, const OptionsCont& oc) {
+    return getFloatParam(v, oc, "toc.dynamicToCThreshold", DEFAULT_DYNAMIC_TOC_THRESHOLD, false);
+}
+
 bool
 MSDevice_ToC::useColorScheme(const SUMOVehicle& v, const OptionsCont& oc) {
     return getBoolParam(v, oc, "toc.useColorScheme", "false", false);
@@ -257,7 +274,8 @@ MSDevice_ToC::getOpenGapParams(const SUMOVehicle& v, const OptionsCont& oc) {
 // ---------------------------------------------------------------------------
 MSDevice_ToC::MSDevice_ToC(SUMOVehicle& holder, const std::string& id, const std::string& outputFilename,
                            std::string manualType, std::string automatedType, SUMOTime responseTime, double recoveryRate,
-                           double lcAbstinence, double initialAwareness, double mrmDecel, bool useColoring, OpenGapParams ogp) :
+                           double lcAbstinence, double initialAwareness, double mrmDecel,
+						   double dynamicToCThreshold, bool useColoring, OpenGapParams ogp) :
     MSVehicleDevice(holder, id),
     myManualTypeID(manualType),
     myAutomatedTypeID(automatedType),
@@ -276,7 +294,10 @@ MSDevice_ToC::MSDevice_ToC(SUMOVehicle& holder, const std::string& id, const std
     myOutputFile(nullptr),
     myEvents(),
     myPreviousLCMode(-1),
-    myOpenGapParams(ogp) {
+    myOpenGapParams(ogp),
+    myDynamicToCThreshold(dynamicToCThreshold),
+    myDynamicToCActive(dynamicToCThreshold > 0),
+	myDynamicToCLane(-1) {
     // Take care! Holder is currently being constructed. Cast occurs before completion.
     myHolderMS = static_cast<MSVehicle*>(&holder);
 
@@ -410,6 +431,12 @@ MSDevice_ToC::setState(ToCState state) {
     if (myOpenGapParams.active && myState == PREPARING_TOC && state != PREPARING_TOC) {
         // Deactivate gap control at preparation phase end
         myHolderMS->getInfluencer().deactivateGapController();
+    }
+
+    if (myIssuedDynamicToC) {
+    	// Reset dynamic ToC flag
+    	// TODO: Reset response time if appropriate
+    	myIssuedDynamicToC = false;
     }
 
     myState = state;
@@ -637,8 +664,7 @@ MSDevice_ToC::ToCPreparationStep(SUMOTime /* t */) {
 #ifdef DEBUG_TOC
     std::cout << SIMTIME << " ToC preparation step for vehicle '" << myHolder.getID() << "'" << std::endl;
 #endif
-    // TODO: Devise preparation of ToC (still needs discussion). At least: do not overtake. Perhaps, increase gap to leader.
-
+    // TODO: Prevent overtaking (lc to left). Gap increase to leader is controlled otherwise, now (see openGap)
     if (myState == PREPARING_TOC) {
         return DELTA_T;
     } else {
@@ -705,6 +731,35 @@ MSDevice_ToC::awarenessRecoveryStep(SUMOTime /* t */) {
     return DELTA_T;
 }
 
+bool
+MSDevice_ToC::notifyMove(SUMOTrafficObject& /*veh*/,
+                        double /*oldPos*/,
+                        double /*newPos*/,
+                        double /*newSpeed*/) {
+	if (myState == AUTOMATED && checkDynamicToC()) {
+		// Initiate a ToC
+        // Record event
+        if (generatesOutput()) {
+            myEvents.push(std::make_pair(SIMSTEP, "DYNTOR"));
+        }
+		// Leadtime for dynamic ToC is proportional to the time assumed for the dynamic ToC threshold
+        const double leadTime = myDynamicToCThreshold*1000*DYNAMIC_TOC_LEADTIME_FACTOR;
+		requestToC((SUMOTime) leadTime);
+		// TODO: Alter the response time according to the given lead time. Consider re-sampling it at each call of requestToC(). (Conditional to whether a non-negative response time was given in the configuration)
+		myIssuedDynamicToC = true;
+		myDynamicToCLane = myHolderMS->getLane()->getNumericalID();
+	} else if (myIssuedDynamicToC && myState == PREPARING_TOC && !checkDynamicToC()) {
+		// Abort dynamic ToC, FIXME: This could abort an externally requested ToC in rare occasions... (needs test)
+        // Record event
+        if (generatesOutput()) {
+            myEvents.push(std::make_pair(SIMSTEP, "~DYNTOR"));
+        }
+		// NOTE: This should not occur if lane changing is prevented during ToC preparation...
+		// TODO: Reset response time to the original value (unnecessary if re-sampling for each call to requestToC)
+		triggerUpwardToC(0);
+	}
+	return true;
+}
 
 std::string
 MSDevice_ToC::getParameter(const std::string& key) const {
@@ -728,6 +783,10 @@ MSDevice_ToC::getParameter(const std::string& key) const {
         return _2string(myState);
     } else if (key == "holder") {
         return myHolder.getID();
+    } else if (key == "hasDynamicToC") {
+        return toString(myDynamicToCActive);
+    } else if (key == "dynamicToCThreshold") {
+        return toString(myDynamicToCThreshold);
     }
     throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
 }
@@ -779,8 +838,18 @@ MSDevice_ToC::setParameter(const std::string& key, const std::string& value) {
     } else if (key == "awareness") {
         // setting this magic parameter gives the interface for setting the driverstate's awareness
         setAwareness(StringUtils::toDouble(value));
+    } else if (key == "dynamicToCThreshold") {
+    	const double newValue = StringUtils::toDouble(value);
+    	if (newValue < 0) {
+    		WRITE_WARNING("Value of dynamicToCThreshold must be non-negative. (Given value " + value + " for vehicle " + myHolderMS->getID() + " is ignored)");
+    	} else if (newValue == 0) {
+    		myDynamicToCThreshold = newValue;
+    		myDynamicToCActive = false;
+    	} else {
+    		myDynamicToCThreshold = newValue;
+    	}
     } else {
-        throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
+    	throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
     }
 }
 
@@ -887,6 +956,93 @@ MSDevice_ToC::isManuallyDriven() {
 bool
 MSDevice_ToC::isAutomated() {
     return (myState == AUTOMATED || myState == PREPARING_TOC || myState == MRM);
+}
+
+bool
+MSDevice_ToC::checkDynamicToC() {
+#ifdef DEBUG_DYNAMIC_TOC
+	std::cout << SIMTIME << " # MSDevice_ToC::checkDynamicToC() for veh '" << myHolder.getID() << "'" << std::endl;
+#endif
+	if (!myDynamicToCActive) {
+		return false;
+	}
+	// The vehicle's current lane
+	const MSLane * currentLane = myHolderMS->getLane();
+
+	if (currentLane->isInternal()) {
+		// Don't start or abort dynamic ToCs on internal lanes
+		return myIssuedDynamicToC;
+	}
+
+	if (myIssuedDynamicToC) {
+#ifdef DEBUG_DYNAMIC_TOC
+		std::cout << SIMTIME << " Dynamic ToC is ongoing." << std::endl;
+#endif
+		// Dynamic ToC in progress. Resist to aborting it if lane was not changed.
+		if (myDynamicToCLane == currentLane->getNumericalID()){
+			return true;
+		}
+	}
+	// Length for which the current route can be followed
+	const std::vector<MSVehicle::LaneQ>& bestLanes = myHolderMS->getBestLanes();
+	// Maximal distance for route continuation without LCs over the possible start lanes
+	double maximalContinuationDistance = 0;
+	// Distance for route continuation without LCs from the vehicle's current lane
+	double continuationDistanceOnCurrent = 0;
+	// Lane of the next stop
+	const MSLane * nextStopLane = nullptr;
+
+	if (myHolderMS->hasStops()) {
+		nextStopLane = myHolderMS->getNextStop().lane;
+	}
+	for (auto& i : bestLanes) {
+		maximalContinuationDistance = MAX2(maximalContinuationDistance, i.length);
+		if (currentLane == i.lane) {
+			if (myHolderMS->hasStops()) {
+				// Check if the next stop lies on the route continuation from the current lane
+				for (MSLane* l : i.bestContinuations) {
+					if (l == nextStopLane) {
+#ifdef DEBUG_DYNAMIC_TOC
+						std::cout << SIMTIME << " Stop found on the route continuation from the current lane. => No ToC" << std::endl;
+#endif
+						// Stop found on the route continuation from the current lane => no ToC necessary
+						return false;
+					}
+				}
+			}
+			continuationDistanceOnCurrent = i.length;
+		}
+	}
+	if (continuationDistanceOnCurrent == maximalContinuationDistance) {
+		// There is no better lane than the current, hence no desire to change lanes,
+		// which the driver could pursue better than the automation => no reason for ToC.
+		return false;
+	}
+	const double distFromCurrent = continuationDistanceOnCurrent - myHolderMS->getPositionOnLane();
+	double distThreshold = myHolderMS->getSpeed()*myDynamicToCThreshold;
+#ifdef DEBUG_DYNAMIC_TOC
+	std::cout << "  speed=" << myHolderMS->getSpeed()
+					<< ", distFromCurrent=" << distFromCurrent
+					<< ", maximal dist=" << maximalContinuationDistance - myHolderMS->getPositionOnLane()
+			<< ", distThreshold=" << distThreshold
+						<< std::endl;
+#endif
+
+	if (myIssuedDynamicToC) {
+		// In case of an ongoing ToC, add an additional resistance to abort it.
+		// (The lane-check above does not capture lanes subsequent to the dynamic ToC lane)
+		distThreshold *= DYNAMIC_TOC_ABORT_RESISTANCE_FACTOR;
+	}
+
+	if (distFromCurrent < distThreshold) {
+		// TODO: Make this more sophisticated in dealing with low speeds/stops and route ends
+#ifdef DEBUG_DYNAMIC_TOC
+		std::cout << SIMTIME << "  * distAlongBest is below threshold! *" << std::endl;
+#endif
+		return true;
+	}
+
+	return false;
 }
 
 /****************************************************************************/

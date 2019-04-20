@@ -452,7 +452,7 @@ SUMOVehicleParameter::interpretEdgePos(double pos, double maximumValue, SumoXMLA
 }
 
 
-std::string 
+std::string
 SUMOVehicleParameter::getDepart() const {
     if (departProcedure == DEPART_TRIGGERED) {
         return "triggered";
@@ -464,7 +464,7 @@ SUMOVehicleParameter::getDepart() const {
 }
 
 
-std::string 
+std::string
 SUMOVehicleParameter::getDepartLane() const {
     std::string val;
     switch (departLaneProcedure) {
@@ -494,7 +494,7 @@ SUMOVehicleParameter::getDepartLane() const {
 }
 
 
-std::string 
+std::string
 SUMOVehicleParameter::getDepartPos() const {
     std::string val;
     switch (departPosProcedure) {
@@ -524,7 +524,7 @@ SUMOVehicleParameter::getDepartPos() const {
 }
 
 
-std::string 
+std::string
 SUMOVehicleParameter::getDepartPosLat() const {
     std::string val;
     switch (departPosLatProcedure) {
@@ -557,7 +557,7 @@ SUMOVehicleParameter::getDepartPosLat() const {
 }
 
 
-std::string 
+std::string
 SUMOVehicleParameter::getDepartSpeed() const {
     std::string val;
     switch (departSpeedProcedure) {
@@ -578,7 +578,7 @@ SUMOVehicleParameter::getDepartSpeed() const {
 }
 
 
-std::string 
+std::string
 SUMOVehicleParameter::getArrivalLane() const {
     std::string val;
     switch (arrivalLaneProcedure) {
@@ -596,7 +596,7 @@ SUMOVehicleParameter::getArrivalLane() const {
 }
 
 
-std::string 
+std::string
 SUMOVehicleParameter::getArrivalPos() const {
     std::string val;
     switch (arrivalPosProcedure) {
@@ -620,7 +620,7 @@ SUMOVehicleParameter::getArrivalPos() const {
 }
 
 
-std::string 
+std::string
 SUMOVehicleParameter::getArrivalPosLat() const {
     std::string val;
     switch (arrivalPosLatProcedure) {
@@ -644,7 +644,7 @@ SUMOVehicleParameter::getArrivalPosLat() const {
 }
 
 
-std::string 
+std::string
 SUMOVehicleParameter::getArrivalSpeed() const {
     std::string val;
     switch (arrivalSpeedProcedure) {

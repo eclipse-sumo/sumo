@@ -252,7 +252,7 @@ NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes& attrs, NBEdge* 
             return;
         }
         if (!from->addLane2LaneConnection(fromLane, to, toLane, NBEdge::L2L_USER, true, mayDefinitelyPass,
-                    keepClear, contPos, visibility, speed, customShape, uncontrolled)) {
+                                          keepClear, contPos, visibility, speed, customShape, uncontrolled)) {
             if (OptionsCont::getOptions().getBool("show-errors.connections-first-try")) {
                 WRITE_WARNING("Could not set loaded connection from '" + from->getLaneID(fromLane) + "' to '" + to->getLaneID(toLane) + "'.");
             }

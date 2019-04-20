@@ -375,13 +375,13 @@ public:
     void updateSuperModeMenuCommands(int supermode);
 
     /// @brief disable undo-redo giving a string with the reason
-    void disableUndoRedo(const std::string &reason);
+    void disableUndoRedo(const std::string& reason);
 
     /// @brief disable undo-redo
     void enableUndoRedo();
 
     /// @brief check if undo-redo is enabled
-    const std::string &isUndoRedoEnabled() const;
+    const std::string& isUndoRedoEnabled() const;
 
 protected:
     /// @brief FOX needs this for static members
@@ -527,7 +527,7 @@ private:
 
         /// @brief hide all menu commands
         void hideSupermodeCommands();
-        
+
         /// @brief FXMenuCommand for network supermode
         FXMenuCommand* networkMode;
 

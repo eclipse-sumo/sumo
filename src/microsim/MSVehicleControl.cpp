@@ -415,8 +415,8 @@ MSVehicleControl::getWaitingVehicle(MSTransportable* transportable, const MSEdge
             }
         }
         for (SUMOVehicle* vehicle : waitingTooFarAway) {
-            WRITE_WARNING(transportable->getID() + " at edge '" + edge->getID() + "' position " + toString(position) + " cannot use waiting vehicle '" 
-                + vehicle->getID() + "' at position " + toString(vehicle->getPositionOnLane()) + " because it is too far away.");
+            WRITE_WARNING(transportable->getID() + " at edge '" + edge->getID() + "' position " + toString(position) + " cannot use waiting vehicle '"
+                          + vehicle->getID() + "' at position " + toString(vehicle->getPositionOnLane()) + " because it is too far away.");
         }
     }
     return nullptr;

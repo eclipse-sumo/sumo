@@ -53,7 +53,7 @@ public:
         GNEDemandElement* getCurrentStopParent() const;
 
         /// @brief select StopParent manually
-        void setStopParent(GNEDemandElement *stopParent);
+        void setStopParent(GNEDemandElement* stopParent);
 
         /// @brief show VType selector
         void showStopParentSelector();
@@ -81,7 +81,7 @@ public:
         /// @brief comboBox with the list of routes
         FXComboBox* myStopParentMatchBox;
 
-        /// @brief current stop parent 
+        /// @brief current stop parent
         GNEDemandElement* myCurrentStopParent;
 
         /// @brief list of posible candidates

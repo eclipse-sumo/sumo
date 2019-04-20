@@ -49,7 +49,7 @@ GNECrossing::GNECrossing(GNEJunction* parentJunction, std::vector<NBEdge*> cross
 GNECrossing::~GNECrossing() {}
 
 
-std::string 
+std::string
 GNECrossing::generateChildID(SumoXMLTag /*childTag*/) {
     // currently unused
     return "";
@@ -82,10 +82,10 @@ GNECrossing::updateGeometry(bool /*updateGrid*/) {
 }
 
 
-Position 
+Position
 GNECrossing::getPositionInView() const {
     // currently unused
-    return Position(0,0);
+    return Position(0, 0);
 }
 
 

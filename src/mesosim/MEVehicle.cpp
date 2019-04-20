@@ -224,9 +224,9 @@ MEVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& /*err
     assert(edge != 0);
     MESegment* stopSeg = MSGlobals::gMesoNet->getSegmentForEdge(*edge, stopPar.endPos);
     std::vector<SUMOVehicleParameter::Stop>& segmentStops = myStops[stopSeg];
-    bool cyclicRoute = (myStopEdges.size() > 0 && myStopEdges.back() == edge 
-            && segmentStops.size() > 0 && segmentStops.back().endPos > stopPar.endPos
-            && stopPar.index != STOP_INDEX_FIT); 
+    bool cyclicRoute = (myStopEdges.size() > 0 && myStopEdges.back() == edge
+                        && segmentStops.size() > 0 && segmentStops.back().endPos > stopPar.endPos
+                        && stopPar.index != STOP_INDEX_FIT);
     segmentStops.push_back(stopPar);
     if (segmentStops.back().until >= 0) {
         segmentStops.back().until += untilOffset;
@@ -311,7 +311,7 @@ MEVehicle::processStop() {
     auto segStopsIt = myStops.find(mySegment);
     std::vector<SUMOVehicleParameter::Stop>& stops = segStopsIt->second;
     double lastPos = 0;
-    for (auto it = stops.begin(); it != stops.end(); ) {
+    for (auto it = stops.begin(); it != stops.end();) {
         SUMOVehicleParameter::Stop stop = *it;
         if (stop.endPos <= lastPos) {
             break;

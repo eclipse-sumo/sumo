@@ -77,7 +77,7 @@ GNELane::GNELane() :
 GNELane::~GNELane() {
 }
 
-std::string 
+std::string
 GNELane::generateChildID(SumoXMLTag /*childTag*/) {
     // currently unused
     return "";
@@ -126,7 +126,7 @@ GNELane::updateGeometry(bool updateGrid) {
     for (auto i : getDemandElementParents()) {
         i->updateGeometry(updateGrid);
     }
-     // update demand elements childs associated with this lane
+    // update demand elements childs associated with this lane
     for (auto i : getDemandElementChilds()) {
         i->updateGeometry(updateGrid);
     }
@@ -157,10 +157,10 @@ GNELane::updateGeometry(bool updateGrid) {
 }
 
 
-Position 
+Position
 GNELane::getPositionInView() const {
     // currently unused
-    return Position(0,0);
+    return Position(0, 0);
 }
 
 

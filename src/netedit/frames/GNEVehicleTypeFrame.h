@@ -58,7 +58,7 @@ public:
         GNEDemandElement* getCurrentVehicleType() const;
 
         /// @brief set current Vehicle Type
-        void setCurrentVehicleType(GNEDemandElement *vType);
+        void setCurrentVehicleType(GNEDemandElement* vType);
 
         /// @brief refresh vehicle type
         void refreshVehicleTypeSelector();
@@ -158,7 +158,7 @@ public:
 
 protected:
     /// @brief enable moduls depending of item selected in VehicleTypeSelector
-    void enableModuls(GNEDemandElement *vType);
+    void enableModuls(GNEDemandElement* vType);
 
     /// @brief disable moduls if element selected in itemSelector isn't valid
     void disableModuls();

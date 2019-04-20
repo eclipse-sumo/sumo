@@ -64,17 +64,16 @@ enum DetectorUsage {
 class MSDetectorFileOutput : public Named {
 public:
     /// @brief Constructor
-    MSDetectorFileOutput(const std::string& id, const std::string& vTypes, const int detectPersons=false) : 
+    MSDetectorFileOutput(const std::string& id, const std::string& vTypes, const int detectPersons = false) :
         Named(id),
-        myDetectPersons(detectPersons)
-    {
+        myDetectPersons(detectPersons) {
         const std::vector<std::string> vt = StringTokenizer(vTypes).getVector();
         myVehicleTypes.insert(vt.begin(), vt.end());
     }
 
     /// @brief Constructor
-    MSDetectorFileOutput(const std::string& id, const std::set<std::string>& vTypes, const int detectPersons=false)
-        : Named(id), myVehicleTypes(vTypes), myDetectPersons(detectPersons) 
+    MSDetectorFileOutput(const std::string& id, const std::set<std::string>& vTypes, const int detectPersons = false)
+        : Named(id), myVehicleTypes(vTypes), myDetectPersons(detectPersons)
     { }
 
 

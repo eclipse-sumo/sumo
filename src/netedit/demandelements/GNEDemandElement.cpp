@@ -51,7 +51,7 @@ GNEDemandElement::RouteCalculator* GNEDemandElement::myRouteCalculatorInstance =
 GNEDemandElement::RouteCalculator::RouteCalculator(GNENet* net) :
     myNet(net) {
     myDijkstraRouter = new DijkstraRouter<NBEdge, NBVehicle, SUMOAbstractRouter<NBEdge, NBVehicle> >(
-        myNet->getNetBuilder()->getEdgeCont().getAllEdges(), 
+        myNet->getNetBuilder()->getEdgeCont().getAllEdges(),
         true, &NBEdge::getTravelTimeStatic, nullptr, true);
 }
 
@@ -61,20 +61,20 @@ GNEDemandElement::RouteCalculator::~RouteCalculator() {
 }
 
 
-void 
+void
 GNEDemandElement::RouteCalculator::updateDijkstraRouter() {
     // simply delete and create myDijkstraRouter again
-    if(myDijkstraRouter) {
+    if (myDijkstraRouter) {
         delete myDijkstraRouter;
     }
     myDijkstraRouter = new DijkstraRouter<NBEdge, NBVehicle, SUMOAbstractRouter<NBEdge, NBVehicle> >(
-        myNet->getNetBuilder()->getEdgeCont().getAllEdges(), 
+        myNet->getNetBuilder()->getEdgeCont().getAllEdges(),
         true, &NBEdge::getTravelTimeStatic, nullptr, true);
 }
 
 
-std::vector<const NBEdge*> 
-GNEDemandElement::RouteCalculator::calculateDijkstraRoute(SUMOVehicleClass vClass, const std::vector<GNEEdge*> &edges) const {
+std::vector<const NBEdge*>
+GNEDemandElement::RouteCalculator::calculateDijkstraRoute(SUMOVehicleClass vClass, const std::vector<GNEEdge*>& edges) const {
     // declare a solution vector
     std::vector<const NBEdge*> solution;
     // declare temporal vehicle
@@ -83,9 +83,9 @@ GNEDemandElement::RouteCalculator::calculateDijkstraRoute(SUMOVehicleClass vClas
     for (int i = 1; i < (int)edges.size(); i++) {
         // declare a temporal route in which save route between two last edges
         std::vector<const NBEdge*> partialRoute;
-        myDijkstraRouter->compute(edges.at(i-1)->getNBEdge(), edges.at(i)->getNBEdge(), &tmpVehicle, 10, partialRoute);
+        myDijkstraRouter->compute(edges.at(i - 1)->getNBEdge(), edges.at(i)->getNBEdge(), &tmpVehicle, 10, partialRoute);
         // save partial route in solution
-        for (const auto &j : partialRoute) {
+        for (const auto& j : partialRoute) {
             solution.push_back(j);
         }
     }
@@ -94,7 +94,7 @@ GNEDemandElement::RouteCalculator::calculateDijkstraRoute(SUMOVehicleClass vClas
 
 
 std::vector<std::vector<const NBEdge*> >
-GNEDemandElement::RouteCalculator::calculateDijkstraPartialRoute(SUMOVehicleClass vClass, const std::vector<GNEEdge*> &edges) const {
+GNEDemandElement::RouteCalculator::calculateDijkstraPartialRoute(SUMOVehicleClass vClass, const std::vector<GNEEdge*>& edges) const {
     // declare a solution matrix
     std::vector<std::vector<const NBEdge*> > solution;
     // declare temporal vehicle
@@ -103,15 +103,15 @@ GNEDemandElement::RouteCalculator::calculateDijkstraPartialRoute(SUMOVehicleClas
     for (int i = 1; i < (int)edges.size(); i++) {
         // add a temporal route in which save route between two last edges
         solution.push_back(std::vector<const NBEdge*>());
-        myDijkstraRouter->compute(edges.at(i-1)->getNBEdge(), edges.at(i)->getNBEdge(), &tmpVehicle, 10, solution.back());
+        myDijkstraRouter->compute(edges.at(i - 1)->getNBEdge(), edges.at(i)->getNBEdge(), &tmpVehicle, 10, solution.back());
     }
     // return matrix solution
     return solution;
 }
 
 
-bool 
-GNEDemandElement::RouteCalculator::areEdgesConsecutives(SUMOVehicleClass vClass, GNEEdge* from, GNEEdge*to) const {
+bool
+GNEDemandElement::RouteCalculator::areEdgesConsecutives(SUMOVehicleClass vClass, GNEEdge* from, GNEEdge* to) const {
     // first calculate a route between from and to edge
     std::vector<const NBEdge*> route = calculateDijkstraRoute(vClass, {from, to});
     // if route is empty, return false
@@ -120,9 +120,9 @@ GNEDemandElement::RouteCalculator::areEdgesConsecutives(SUMOVehicleClass vClass,
     } else {
         // iterate over route and check if from and to edge are consecutives
         for (int i = 0; i < (int)route.size(); i++) {
-            if ((route.at(i)->getID() == from->getID()) && 
-                ((i+1) < (int)route.size()) &&
-                (route.at(i+1)->getID() == to->getID())) {
+            if ((route.at(i)->getID() == from->getID()) &&
+                    ((i + 1) < (int)route.size()) &&
+                    (route.at(i + 1)->getID() == to->getID())) {
                 return true;
             }
         }
@@ -135,16 +135,16 @@ GNEDemandElement::RouteCalculator::areEdgesConsecutives(SUMOVehicleClass vClass,
 // ---------------------------------------------------------------------------
 
 GNEDemandElement::GNEDemandElement(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag,
-        const std::vector<GNEEdge*> &edgeParents, 
-        const std::vector<GNELane*> &laneParents, 
-        const std::vector<GNEShape*> &shapeParents, 
-        const std::vector<GNEAdditional*>& additionalParents, 
-        const std::vector<GNEDemandElement*>& demandElementParents,
-        const std::vector<GNEEdge*> &edgeChilds, 
-        const std::vector<GNELane*> &laneChilds, 
-        const std::vector<GNEShape*> &shapeChilds, 
-        const std::vector<GNEAdditional*>& additionalChilds, 
-        const std::vector<GNEDemandElement*>& demandElementChilds) :
+                                   const std::vector<GNEEdge*>& edgeParents,
+                                   const std::vector<GNELane*>& laneParents,
+                                   const std::vector<GNEShape*>& shapeParents,
+                                   const std::vector<GNEAdditional*>& additionalParents,
+                                   const std::vector<GNEDemandElement*>& demandElementParents,
+                                   const std::vector<GNEEdge*>& edgeChilds,
+                                   const std::vector<GNELane*>& laneChilds,
+                                   const std::vector<GNEShape*>& shapeChilds,
+                                   const std::vector<GNEAdditional*>& additionalChilds,
+                                   const std::vector<GNEDemandElement*>& demandElementChilds) :
     GUIGlObject(type, id),
     GNEAttributeCarrier(tag),
     Parameterised(),
@@ -155,16 +155,16 @@ GNEDemandElement::GNEDemandElement(const std::string& id, GNEViewNet* viewNet, G
 
 
 GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag,
-        const std::vector<GNEEdge*> &edgeParents, 
-        const std::vector<GNELane*> &laneParents, 
-        const std::vector<GNEShape*> &shapeParents, 
-        const std::vector<GNEAdditional*>& additionalParents, 
-        const std::vector<GNEDemandElement*>& demandElementParents,
-        const std::vector<GNEEdge*> &edgeChilds, 
-        const std::vector<GNELane*> &laneChilds, 
-        const std::vector<GNEShape*> &shapeChilds, 
-        const std::vector<GNEAdditional*>& additionalChilds, 
-        const std::vector<GNEDemandElement*>& demandElementChilds) :
+                                   const std::vector<GNEEdge*>& edgeParents,
+                                   const std::vector<GNELane*>& laneParents,
+                                   const std::vector<GNEShape*>& shapeParents,
+                                   const std::vector<GNEAdditional*>& additionalParents,
+                                   const std::vector<GNEDemandElement*>& demandElementParents,
+                                   const std::vector<GNEEdge*>& edgeChilds,
+                                   const std::vector<GNELane*>& laneChilds,
+                                   const std::vector<GNEShape*>& shapeChilds,
+                                   const std::vector<GNEAdditional*>& additionalChilds,
+                                   const std::vector<GNEDemandElement*>& demandElementChilds) :
     GUIGlObject(type, demandElementParent->generateChildID(tag)),
     GNEAttributeCarrier(tag),
     Parameterised(),
@@ -174,7 +174,7 @@ GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, GNEVie
 }
 
 
-std::string 
+std::string
 GNEDemandElement::generateChildID(SumoXMLTag childTag) {
     int counter = (int)getDemandElementChilds().size();
     while (myViewNet->getNet()->retrieveDemandElement(childTag, getID() + toString(childTag) + toString(counter), false) != nullptr) {
@@ -211,7 +211,7 @@ GNEDemandElement::openDemandElementDialog() {
 }
 
 
-std::string 
+std::string
 GNEDemandElement::getBegin() const {
     throw InvalidArgument(getTagStr() + " doesn't have an begin time");
 }
@@ -271,9 +271,9 @@ GNEDemandElement::getViewNet() const {
 }
 
 
-void 
-GNEDemandElement::createRouteCalculatorInstance(GNENet *net) {
-    if(myRouteCalculatorInstance == nullptr) {
+void
+GNEDemandElement::createRouteCalculatorInstance(GNENet* net) {
+    if (myRouteCalculatorInstance == nullptr) {
         myRouteCalculatorInstance = new RouteCalculator(net);
     } else {
         throw ProcessError("Instance already created");
@@ -281,9 +281,9 @@ GNEDemandElement::createRouteCalculatorInstance(GNENet *net) {
 }
 
 
-void 
+void
 GNEDemandElement::deleteRouteCalculatorInstance() {
-    if(myRouteCalculatorInstance) {
+    if (myRouteCalculatorInstance) {
         delete myRouteCalculatorInstance;
         myRouteCalculatorInstance = nullptr;
     } else {
@@ -292,9 +292,9 @@ GNEDemandElement::deleteRouteCalculatorInstance() {
 }
 
 
-GNEDemandElement::RouteCalculator* 
+GNEDemandElement::RouteCalculator*
 GNEDemandElement::getRouteCalculatorInstance() {
-    if(myRouteCalculatorInstance) {
+    if (myRouteCalculatorInstance) {
         return myRouteCalculatorInstance;
     } else {
         throw ProcessError("Instance wasn't created");

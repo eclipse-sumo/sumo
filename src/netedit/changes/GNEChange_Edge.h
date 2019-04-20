@@ -81,20 +81,20 @@ private:
      */
     GNEEdge* myEdge;
 
-    /// @brief reference to vector of shape parents 
+    /// @brief reference to vector of shape parents
     const std::vector<GNEShape*>& myEdgeShapeParents;
 
     /// @brief reference to vector of additional parents
-    const std::vector<GNEAdditional*> & myEdgeAdditionalParents;
+    const std::vector<GNEAdditional*>& myEdgeAdditionalParents;
 
     /// @brief reference to vector of demand element parents
     const std::vector<GNEDemandElement*>& myEdgeDemandElementParents;
-    
+
     /// @brief reference to vector of shape childs
     const std::vector<GNEShape*>& myEdgeShapeChilds;
 
     /// @brief reference to vector of additional childs
-    const std::vector<GNEAdditional*> & myEdgeAdditionalChilds;
+    const std::vector<GNEAdditional*>& myEdgeAdditionalChilds;
 
     /// @brief vector of references to vector of demand element childs (used by lanes)
     const std::vector<GNEDemandElement*>& myEdgeDemandElementChilds;
@@ -107,7 +107,7 @@ private:
 
     /// @brief vector of references to vector of demand element parents (used by lanes)
     std::vector<std::vector<GNEDemandElement*> > myLaneDemandElementParents;
-    
+
     /// @brief vector of references to vector of shape childs (used by lanes)
     std::vector<std::vector<GNEShape*> > myLaneShapeChilds;
 

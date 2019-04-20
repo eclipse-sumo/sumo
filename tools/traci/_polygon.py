@@ -140,11 +140,11 @@ class PolygonDomain(Domain):
             trackedObjectID - ID of a SUMO traffic object, which shall be tracked by the polygon
             timeSpan - list of time points for timing the animation keyframes (must start with element zero)
                        If it has length zero, no animation is taken into account.
-            alphaSpan - list of alpha values to be attained at keyframes intermediate values are 
+            alphaSpan - list of alpha values to be attained at keyframes intermediate values are
                         obtained by linear interpolation. Must have length equal to timeSpan, or zero
                         if no alpha animation is desired.
             looped - Whether the animation should restart when the last keyframe is reached. In that case
-                     the animation jumps to the first keyframe as soon as the last is reached. 
+                     the animation jumps to the first keyframe as soon as the last is reached.
                      If looped==false, the controlled polygon is removed as soon as the timeSpan elapses.
             rotate - Whether, the polygon should be rotated with the tracked object (only applies when such is given)
                      The center of rotation is the object's position.

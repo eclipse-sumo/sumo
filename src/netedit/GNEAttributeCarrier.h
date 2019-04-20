@@ -57,7 +57,7 @@ class GNEAttributeCarrier : public GNEReferenceCounter {
     friend class GNEChange_Attribute;
 
 public:
-    
+
     // @brief declare class TagProperties
     class TagProperties;
 
@@ -108,7 +108,7 @@ public:
 
         /// @brief set discrete values
         void setDiscreteValues(const std::vector<std::string>& discreteValues);
-            
+
         /// @brief set synonim
         void setSynonym(const SumoXMLAttr synonym);
 
@@ -119,7 +119,7 @@ public:
         void setPositionListed(const int positionListed);
 
         /// @brief set tag property parent
-        void setTagPropertyParent(TagProperties *tagPropertyParent);
+        void setTagPropertyParent(TagProperties* tagPropertyParent);
 
         /// @brief get XML Attribute
         SumoXMLAttr getAttr() const;
@@ -128,7 +128,7 @@ public:
         const std::string& getAttrStr() const;
 
         /// @brief get reference to tagProperty parent
-        const TagProperties &getTagPropertyParent() const;
+        const TagProperties& getTagPropertyParent() const;
 
         /// @brief get position in list (used in frames for listing attributes with certain sort)
         int getPositionListed() const;
@@ -233,11 +233,11 @@ public:
         bool requiereUpdateGeometry() const;
 
     private:
-        /// @brief XML Attribute 
+        /// @brief XML Attribute
         SumoXMLAttr myAttribute;
 
         /// @brief pointer to tagProperty parent
-        TagProperties *myTagPropertyParent;
+        TagProperties* myTagPropertyParent;
 
         /// @brief string with the Attribute in text format (to avoid unnecesaries toStrings(...) calls)
         std::string myAttrStr;
@@ -267,7 +267,7 @@ public:
         double myMaximumRange;
     };
 
-    
+
     enum TagType {
         TAGTYPE_NETELEMENT =    1 << 0,   // Edges, Junctions, Lanes...
         TAGTYPE_ADDITIONAL =    1 << 1,   // Bus Stops, Charging Stations, Detectors...
@@ -324,7 +324,7 @@ public:
         void checkTagIntegrity() const;
 
         /// @brief add attribute (duplicated attributed aren't allowed)
-        void addAttribute(const AttributeProperties &attributeProperty);
+        void addAttribute(const AttributeProperties& attributeProperty);
 
         /// @brief add deprecated Attribute
         void addDeprecatedAttribute(SumoXMLAttr attr);
@@ -354,7 +354,7 @@ public:
         SumoXMLTag getTagSynonym() const;
 
         /// @brief set disjoint attributes
-        void setDisjointAttributes(const std::vector<SumoXMLAttr> &attrs);
+        void setDisjointAttributes(const std::vector<SumoXMLAttr>& attrs);
 
         /// @brief check if given attribute is a disjoint attribute
         bool isDisjointAttributes(SumoXMLAttr attr) const;
@@ -476,7 +476,7 @@ public:
 
         /// @brief List of disjoint attributes
         std::vector<SumoXMLAttr> myDisjointAttrs;
-        
+
         /// @brief list of valid combinations of disjoint attributes
         std::vector<std::pair<SumoXMLAttr, SumoXMLAttr> > myDisjointAttrsCombinations;
     };
@@ -673,7 +673,7 @@ public:
         }
         // check if we're parsing block movement
         if (attribute == GNE_ATTR_BLOCK_MOVEMENT) {
-            // first check if we can parse 
+            // first check if we can parse
             if (tagProperties.canBlockMovement()) {
                 // First check if attribute can be parsed to bool
                 parsedAttribute = attrs.get<std::string>(attribute, objectID.c_str(), parsedOk, false);
@@ -699,7 +699,7 @@ public:
                 // check that sucesfully parsed attribute can be converted to type double
                 if (!canParse<double>(parsedAttribute)) {
                     WRITE_WARNING("Format of GEO attribute '" + toString(attribute) + "' of " +
-                    warningMessage + " is invalid; Cannot be parsed to float; " + tagProperties.getTagStr() + " cannot be created");
+                                  warningMessage + " is invalid; Cannot be parsed to float; " + tagProperties.getTagStr() + " cannot be created");
                     // return default value
                     return parse<T>("0");
                 } else {
@@ -782,7 +782,7 @@ private:
 
     /// @brief fill Shapes
     static void fillShapes();
-        
+
     /// @brief fill DemandElements
     static void fillDemandElements();
 
@@ -793,12 +793,12 @@ private:
     static void fillJunctionModelAttributes();
 
     /// @brief parse and check attribute (note: This function is only to improve legilibility)
-    static bool checkParsedAttribute(const TagProperties& tagProperties, const AttributeProperties& attrProperties, const SumoXMLAttr attribute, 
-                                     std::string &defaultValue, std::string &parsedAttribute, std::string &warningMessage);
+    static bool checkParsedAttribute(const TagProperties& tagProperties, const AttributeProperties& attrProperties, const SumoXMLAttr attribute,
+                                     std::string& defaultValue, std::string& parsedAttribute, std::string& warningMessage);
 
     /// @brief parse and check masked  (note: This function is only to improve legilibility)
-    static bool parseMaskedPositionAttribute(const SUMOSAXAttributes& attrs, const std::string& objectID, const TagProperties& tagProperties, 
-                                             const AttributeProperties& attrProperties, std::string &parsedAttribute, std::string &warningMessage);
+    static bool parseMaskedPositionAttribute(const SUMOSAXAttributes& attrs, const std::string& objectID, const TagProperties& tagProperties,
+            const AttributeProperties& attrProperties, std::string& parsedAttribute, std::string& warningMessage);
 
     /// @brief map with the tags properties
     static std::map<SumoXMLTag, TagProperties> myTagProperties;

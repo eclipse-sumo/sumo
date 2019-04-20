@@ -27,12 +27,12 @@
 //#define DEBUG_DYNAMIC_SHAPES
 
 PolygonDynamics::PolygonDynamics(double creationTime,
-        SUMOPolygon* p,
-        SUMOTrafficObject* trackedObject,
-        const std::vector<double>& timeSpan,
-        const std::vector<double>& alphaSpan,
-        bool looped,
-        bool rotate) :
+                                 SUMOPolygon* p,
+                                 SUMOTrafficObject* trackedObject,
+                                 const std::vector<double>& timeSpan,
+                                 const std::vector<double>& alphaSpan,
+                                 bool looped,
+                                 bool rotate) :
     myPolygon(p),
     myCurrentTime(0),
     myLastUpdateTime(creationTime),
@@ -47,8 +47,7 @@ PolygonDynamics::PolygonDynamics(double creationTime,
     myOriginalShape(nullptr),
     myTimeSpan(nullptr),
     myAlphaSpan(nullptr),
-    myVis(nullptr)
-{
+    myVis(nullptr) {
     // Check for consistency
     if (animated) {
         myTimeSpan = std::unique_ptr<std::vector<double> >(new std::vector<double>(timeSpan));
@@ -58,7 +57,7 @@ PolygonDynamics::PolygonDynamics(double creationTime,
 #ifdef DEBUG_DYNAMIC_SHAPES
         if (myTimeSpan->size() >= 2) {
             for (unsigned int i = 1; i < myTimeSpan->size(); ++i) {
-                assert((*myTimeSpan)[i-1] <= (*myTimeSpan)[i]);
+                assert((*myTimeSpan)[i - 1] <= (*myTimeSpan)[i]);
             }
         }
 #endif
@@ -150,15 +149,18 @@ PolygonDynamics::update(SUMOTime t) {
         myCurrentTime += dt;
         while (myCurrentTime >= *myNextTime) {
             // step forward along time lines to appropriate anchor points
-            ++myPrevTime; ++myNextTime;
+            ++myPrevTime;
+            ++myNextTime;
             if (myNextTime == myTimeSpan->end()) {
                 // Set iterators back to point to valid positions
-                --myPrevTime; --myNextTime;
+                --myPrevTime;
+                --myNextTime;
                 break;
             } else {
                 // Forward corresponding iterators for property time lines
                 if (myAlphaSpan != nullptr) {
-                    ++myPrevAlpha; ++myNextAlpha;
+                    ++myPrevAlpha;
+                    ++myNextAlpha;
                 }
             }
         }
@@ -167,9 +169,9 @@ PolygonDynamics::update(SUMOTime t) {
         double theta = 1.0;
 #ifdef DEBUG_DYNAMIC_SHAPES
         std::cout << " animation: dt=" << dt
-                << ", current animation time: " << myCurrentTime
-                << ", previous anchor time: " << *myPrevTime
-                << ", next anchor time: " << *myNextTime;
+                  << ", current animation time: " << myCurrentTime
+                  << ", previous anchor time: " << *myPrevTime
+                  << ", next anchor time: " << *myNextTime;
 #endif
         if (looped) {
             const bool resetAnimation = myCurrentTime >= *myNextTime;
@@ -208,14 +210,14 @@ PolygonDynamics::update(SUMOTime t) {
         }
         if (myAlphaSpan != nullptr) {
             // Interpolate values of properties
-            setAlpha(*myPrevAlpha + theta*(*myNextAlpha - *myPrevAlpha));
+            setAlpha(*myPrevAlpha + theta * (*myNextAlpha - *myPrevAlpha));
 #ifdef DEBUG_DYNAMIC_SHAPES
-        std::cout << ", previous anchor alpha: " << *myPrevAlpha
-                << ", next anchor alpha: " << *myNextAlpha;
+            std::cout << ", previous anchor alpha: " << *myPrevAlpha
+                      << ", next anchor alpha: " << *myNextAlpha;
 #endif
         }
 #ifdef DEBUG_DYNAMIC_SHAPES
-        std::cout << ", theta="<< theta<< std::endl;
+        std::cout << ", theta=" << theta << std::endl;
 #endif
     }
     return ret;

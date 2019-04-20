@@ -1,2 +1,2 @@
-Error: No trip table output file (-o) specified.
+Error: No trip table output file (-o) or flow-output is specified.
 Quitting (on error).

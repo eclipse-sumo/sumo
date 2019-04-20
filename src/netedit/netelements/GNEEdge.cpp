@@ -113,7 +113,7 @@ GNEEdge::~GNEEdge() {
 }
 
 
-std::string 
+std::string
 GNEEdge::generateChildID(SumoXMLTag /*childTag*/) {
     // currently unused
     return "";
@@ -160,10 +160,10 @@ GNEEdge::updateGeometry(bool updateGrid) {
 }
 
 
-Position 
+Position
 GNEEdge::getPositionInView() const {
     // currently unused
-    return Position(0,0);
+    return Position(0, 0);
 }
 
 

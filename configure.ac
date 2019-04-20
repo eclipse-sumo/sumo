@@ -11,7 +11,7 @@ AM_INIT_AUTOMAKE([foreign dist-zip tar-ustar])
 
 AC_LANG([C++])
 
-# avoiding warnings on ubuntu 16.04, there seem to be two variants of the ARFLAGS, one for automake, one for libttol
+# avoiding warnings on ubuntu 16.04, there seem to be two variants of the ARFLAGS, one for automake, one for libtool
 ARFLAGS=cr
 AC_SUBST(ARFLAGS)
 AR_FLAGS=cr
@@ -532,3 +532,5 @@ AC_MSG_RESULT([Optional features summary])
 AC_MSG_RESULT([-------------------------])
 AC_MSG_RESULT([Enabled:$ac_enabled])
 AC_MSG_RESULT([Disabled:$ac_disabled])
+AC_MSG_WARN([Please note that using the autotools process (configure && make) is considered deprecated and does not support the libsumo build.])
+AC_MSG_WARN([You should strongly consider using cmake.])

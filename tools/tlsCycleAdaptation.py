@@ -75,8 +75,8 @@ def get_options(args=None):
                          default=2, help=" saturation headway in seconds for calcuating hourly saturation flows")
     optParser.add_option("-R", "--restrict-cyclelength", dest="restrict", action="store_true",
                          default=False, help=" restrict the max. cycle length as the given one")
-    optParser.add_option("-u", "--unified-cycle", dest="unicycle", action="store_true",
-                         default=False, help=" use the calculated max cycle length as the cycle length for all intersections")
+    optParser.add_option("-u", "--unified-cycle", dest="unicycle", action="store_true", default=False,
+                         help=" use the calculated max cycle length as the cycle length for all intersections")
     optParser.add_option("-v", "--verbose", dest="verbose", action="store_true",
                          default=False, help="tell me what you are doing")
     (options, args) = optParser.parse_args(args=args)
@@ -210,7 +210,7 @@ def getLaneGroupFlows(tl, connFlowsMap, phases, minGreen):
     phaseLaneIndexMap = collections.defaultdict(list)
     for i, p in enumerate(phases):
         currentLength += p.duration
-        if 'G' in p.state and not 'y' in p.state and p.duration >= minGreen:
+        if 'G' in p.state and 'y' not in p.state and p.duration >= minGreen:
             greenTime += p.duration
             groupFlowsMap[i] = [p.duration]
             groupFlows = 0
@@ -403,8 +403,8 @@ def main(options):
                 options.mincycle = max(cycleList)
                 options.restrict = True
                 if options.verbose:
-                    print("The maximal optimized cycle length is %s, which will be used for calculating the green splits for all intersections." % (
-                        max(cycleList)))
+                    print("The maximal optimized cycle length is %s." %  max(cycleList))
+                    print(" It will be used for calculating the green splits for all intersections.")
 
             # calculate the green splits; the optimal length will be also calculate if options.unicycle is set as false.
             for tl in effectiveTlsList:

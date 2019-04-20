@@ -95,7 +95,7 @@ public:
     /// @brief check that connection's Geometry has to be updated
     void markConnectionGeometryDeprecated();
 
-    /// @brief check if connection is protected (i.e. There is a Demand Element that can use 
+    /// @brief check if connection is protected (i.e. There is a Demand Element that can use
     void isConnectionProtected();
 
     /// @brief update internal ID of Connection

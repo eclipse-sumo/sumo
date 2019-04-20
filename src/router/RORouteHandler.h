@@ -109,7 +109,7 @@ protected:
      * @note Afterwards no edges may be added to it;
      *       this method may throw exceptions when
      *       a) the route is empty or
-     *       b) another route with the same id already exists 
+     *       b) another route with the same id already exists
      */
     void closeRoute(const bool mayBeDisconnected = false);
 
@@ -147,7 +147,7 @@ protected:
     void addPerson(const SUMOSAXAttributes& attrs);
 
     /// @brief Processing of a person from a personFlow
-    void addFlowPerson(SUMOTime depart, const std::string& baseID, int i); 
+    void addFlowPerson(SUMOTime depart, const std::string& baseID, int i);
 
     /// @brief Processing of a container
     void addContainer(const SUMOSAXAttributes& attrs);
@@ -167,7 +167,7 @@ protected:
 
     /// @brief Parse edges from coordinates
     void parseGeoEdges(const PositionVector& positions, bool geo,
-            ConstROEdgeVector& into, const std::string& rid);
+                       ConstROEdgeVector& into, const std::string& rid);
 
     /// @brief add a routing request for a walking or intermodal person
     void addPersonTrip(const SUMOSAXAttributes& attrs);

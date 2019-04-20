@@ -40,7 +40,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Attribute, GNEChange, nullptr, 0)
 // member method definitions
 // ===========================================================================
 
-GNEChange_Attribute::GNEChange_Attribute(GNEAttributeCarrier *ac, GNENet* net, 
+GNEChange_Attribute::GNEChange_Attribute(GNEAttributeCarrier* ac, GNENet* net,
         SumoXMLAttr key, const std::string& value,
         bool customOrigValue, const std::string& origValue) :
     GNEChange(net, true),
@@ -55,7 +55,7 @@ GNEChange_Attribute::GNEChange_Attribute(GNEAttributeCarrier *ac, GNENet* net,
 }
 
 
-GNEChange_Attribute::GNEChange_Attribute(GNEAttributeCarrier *ac, GNENet* net, 
+GNEChange_Attribute::GNEChange_Attribute(GNEAttributeCarrier* ac, GNENet* net,
         bool forceChange, SumoXMLAttr key, const std::string& value) :
     GNEChange(net, true),
     myAC(ac),
@@ -69,7 +69,7 @@ GNEChange_Attribute::GNEChange_Attribute(GNEAttributeCarrier *ac, GNENet* net,
 }
 
 
-GNEChange_Attribute::GNEChange_Attribute(GNEAttributeCarrier *ac,
+GNEChange_Attribute::GNEChange_Attribute(GNEAttributeCarrier* ac,
         GNENet* net, const int oldParametersSet, const int newParametersSet) :
     GNEChange(net, true),
     myAC(ac),
@@ -83,7 +83,7 @@ GNEChange_Attribute::GNEChange_Attribute(GNEAttributeCarrier *ac,
 
 GNEChange_Attribute::~GNEChange_Attribute() {
     // check if we're editing the value of an attribute or changing a disjoint attribute
-    if(myKey != SUMO_ATTR_NOTHING) {
+    if (myKey != SUMO_ATTR_NOTHING) {
         myAC->decRef("GNEChange_Attribute " + toString(myKey));
     } else {
         myAC->decRef("GNEChange_Attribute parameterSet " + toString(myNewParametersSet));
@@ -110,14 +110,14 @@ GNEChange_Attribute::~GNEChange_Attribute() {
 void
 GNEChange_Attribute::undo() {
     // check if we're editing the value of an attribute or changing a disjoint attribute
-    if(myKey == SUMO_ATTR_NOTHING) {
+    if (myKey == SUMO_ATTR_NOTHING) {
         // show extra information for tests
         WRITE_DEBUG("Setting previous parameterSet '" + toString(myNewParametersSet) + "' into " + myAC->getTagStr() + " '" + myAC->getID() + "'");
         // set original disjoint attribute
         myAC->setDisjointAttribute(myOldParametersSet);
     } else {
         // show extra information for tests
-         WRITE_DEBUG("Setting previous attribute " + toString(myKey) + " '" + myOrigValue + "' into " + myAC->getTagStr() + " '" + myAC->getID() + "'");
+        WRITE_DEBUG("Setting previous attribute " + toString(myKey) + " '" + myOrigValue + "' into " + myAC->getTagStr() + " '" + myAC->getID() + "'");
         // set original value
         myAC->setAttribute(myKey, myOrigValue);
         // check if netElements, additional or shapes has to be saved (only if key isn't GNE_ATTR_SELECTED)
@@ -137,7 +137,7 @@ GNEChange_Attribute::undo() {
 void
 GNEChange_Attribute::redo() {
     // check if we're editing the value of an attribute or changing a disjoint attribute
-    if(myKey == SUMO_ATTR_NOTHING) {
+    if (myKey == SUMO_ATTR_NOTHING) {
         // show extra information for tests
         WRITE_DEBUG("Setting new parameterSet '" + toString(myNewParametersSet) + "' into " + myAC->getTagStr() + " '" + myAC->getID() + "'");
         // set original disjoint attribute
@@ -165,7 +165,7 @@ GNEChange_Attribute::redo() {
 bool
 GNEChange_Attribute::trueChange() {
     // check if we're editing the value of an attribute or changing a disjoint attribute
-    if(myForceChange) {
+    if (myForceChange) {
         return true;
     } else if (myKey == SUMO_ATTR_NOTHING) {
         return (myOldParametersSet != myNewParametersSet);

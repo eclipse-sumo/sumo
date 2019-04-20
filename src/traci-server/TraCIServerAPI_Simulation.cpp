@@ -373,8 +373,8 @@ TraCIServerAPI_Simulation::writeStage(tcpip::Storage& outputStorage, const libsu
 
 bool
 TraCIServerAPI_Simulation::commandPositionConversion(TraCIServer& server, tcpip::Storage& inputStorage,
-                                                     const int compoundSize, tcpip::Storage& outputStorage,
-                                                     const int commandId) {
+        const int compoundSize, tcpip::Storage& outputStorage,
+        const int commandId) {
     std::pair<MSLane*, double> roadPos;
     Position cartesianPos;
     Position geoPos;

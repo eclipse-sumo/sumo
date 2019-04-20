@@ -191,7 +191,7 @@ GNEDeleteFrame::removeAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCurso
             if (objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_JUNCTION) {
                 // obtain number of additionals of junction's childs
                 int numberOfAdditionals = 0;
-                for (const auto &i : objectsUnderCursor.getJunctionFront()->getGNEEdges()) {
+                for (const auto& i : objectsUnderCursor.getJunctionFront()->getGNEEdges()) {
                     numberOfAdditionals += (int)i->getAdditionalChilds().size();
                     for (auto j : i->getLanes()) {
                         UNUSED_PARAMETER(j);
@@ -208,8 +208,8 @@ GNEDeleteFrame::removeAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCurso
                         std::string plural = numberOfAdditionals > 1 ? "s" : "";
                         // Open warning DialogBox
                         FXMessageBox::warning(getViewNet()->getApp(), MBOX_OK, ("Problem deleting " + objectsUnderCursor.getJunctionFront()->getTagStr()).c_str(), "%s",
-                                                (objectsUnderCursor.getJunctionFront()->getTagStr() + " '" + objectsUnderCursor.getJunctionFront()->getID() + "' cannot be deleted because owns " +
-                                                toString(numberOfAdditionals) + " additional child" + plural + ".\n Check 'Force deletion of additionals' to force deletion.").c_str());
+                                              (objectsUnderCursor.getJunctionFront()->getTagStr() + " '" + objectsUnderCursor.getJunctionFront()->getID() + "' cannot be deleted because owns " +
+                                               toString(numberOfAdditionals) + " additional child" + plural + ".\n Check 'Force deletion of additionals' to force deletion.").c_str());
                         // write warning if netedit is running in testing mode
                         WRITE_DEBUG("Closed FXMessageBox 'Force deletion needed' with 'OK'");
                     } else {
@@ -225,7 +225,7 @@ GNEDeleteFrame::removeAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCurso
                     int numberOfAdditionalChilds = (int)objectsUnderCursor.getEdgeFront()->getAdditionalChilds().size();
                     int numberOfAdditionalParents = (int)objectsUnderCursor.getEdgeFront()->getAdditionalParents().size();
                     // Iterate over lanes and obtain total number of additional childs
-                    for (const auto &i : objectsUnderCursor.getEdgeFront()->getLanes()) {
+                    for (const auto& i : objectsUnderCursor.getEdgeFront()->getLanes()) {
                         numberOfAdditionalChilds += (int)i->getAdditionalChilds().size();
                         numberOfAdditionalParents = (int)i->getAdditionalParents().size();
                     }
@@ -233,7 +233,7 @@ GNEDeleteFrame::removeAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCurso
                     int numberOfDemandElementChilds = (int)objectsUnderCursor.getEdgeFront()->getDemandElementChilds().size();
                     int numberOfDemandElementParents = (int)objectsUnderCursor.getEdgeFront()->getDemandElementParents().size();
                     // Iterate over lanes and obtain total number of demand elements childs
-                    for (const auto &i : objectsUnderCursor.getEdgeFront()->getLanes()) {
+                    for (const auto& i : objectsUnderCursor.getEdgeFront()->getLanes()) {
                         numberOfDemandElementChilds += (int)i->getDemandElementChilds().size();
                         numberOfDemandElementParents = (int)i->getDemandElementParents().size();
                     }
@@ -252,8 +252,8 @@ GNEDeleteFrame::removeAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCurso
                             std::string plural = numberOfAdditionalChilds > 1 ? "s" : "";
                             // Open warning DialogBox
                             FXMessageBox::warning(getViewNet()->getApp(), MBOX_OK, ("Problem deleting " + tagstr).c_str(), "%s",
-                                (tagstr + " '" + id + "' cannot be deleted because owns " + toString(numberOfAdditionalChilds) + " additional" + plural + 
-                                 ".\n Check 'Force deletion of additionals' to force deletion.").c_str());
+                                                  (tagstr + " '" + id + "' cannot be deleted because owns " + toString(numberOfAdditionalChilds) + " additional" + plural +
+                                                   ".\n Check 'Force deletion of additionals' to force deletion.").c_str());
                             // write warning if netedit is running in testing mode
                             WRITE_DEBUG("Closed FXMessageBox 'Force deletion needed' with 'OK'");
                         } else if ((numberOfAdditionalChilds > 0) && !myDeleteOptions->forceDeleteAdditionals()) {
@@ -262,8 +262,8 @@ GNEDeleteFrame::removeAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCurso
                             std::string plural = numberOfAdditionalParents > 1 ? "s" : "";
                             // Open warning DialogBox
                             FXMessageBox::warning(getViewNet()->getApp(), MBOX_OK, ("Problem deleting " + tagstr).c_str(), "%s",
-                                (tagstr + " '" + id + "' cannot be deleted because is part of " + toString(numberOfAdditionalParents) + " additional" + plural + 
-                                 ".\n Check 'Force deletion of additionals' to force deletion.").c_str());
+                                                  (tagstr + " '" + id + "' cannot be deleted because is part of " + toString(numberOfAdditionalParents) + " additional" + plural +
+                                                   ".\n Check 'Force deletion of additionals' to force deletion.").c_str());
                             // write warning if netedit is running in testing mode
                             WRITE_DEBUG("Closed FXMessageBox 'Force deletion needed' with 'OK'");
                         } else if ((numberOfDemandElementChilds > 0) && myDeleteOptions->protectDemandElements()) {
@@ -272,8 +272,8 @@ GNEDeleteFrame::removeAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCurso
                             std::string plural = numberOfDemandElementChilds > 1 ? "s" : "";
                             // Open warning DialogBox
                             FXMessageBox::warning(getViewNet()->getApp(), MBOX_OK, ("Problem deleting " + tagstr).c_str(), "%s",
-                                (tagstr + " '" + id + "' cannot be deleted because owns " + toString(numberOfDemandElementChilds) + " demand element" + plural + 
-                                 ".\n Uncheck 'Protect demand elements' to force deletion.").c_str());
+                                                  (tagstr + " '" + id + "' cannot be deleted because owns " + toString(numberOfDemandElementChilds) + " demand element" + plural +
+                                                   ".\n Uncheck 'Protect demand elements' to force deletion.").c_str());
                             // write warning if netedit is running in testing mode
                             WRITE_DEBUG("Closed FXMessageBox 'Unprotect demand elements' with 'OK'");
                         } else if ((numberOfDemandElementParents > 0) && myDeleteOptions->protectDemandElements()) {
@@ -282,8 +282,8 @@ GNEDeleteFrame::removeAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCurso
                             std::string plural = numberOfDemandElementParents > 1 ? "s" : "";
                             // Open warning DialogBox
                             FXMessageBox::warning(getViewNet()->getApp(), MBOX_OK, ("Problem deleting " + tagstr).c_str(), "%s",
-                                (tagstr + " '" + id + "' cannot be deleted because is part of " + toString(numberOfDemandElementParents) + " demand element" + plural + 
-                                 ".\n Uncheck 'Protect demand elements' to force deletion.").c_str());
+                                                  (tagstr + " '" + id + "' cannot be deleted because is part of " + toString(numberOfDemandElementParents) + " demand element" + plural +
+                                                   ".\n Uncheck 'Protect demand elements' to force deletion.").c_str());
                             // write warning if netedit is running in testing mode
                             WRITE_DEBUG("Closed FXMessageBox 'Unprotect demand elements' with 'OK'");
                         } else {
@@ -291,7 +291,7 @@ GNEDeleteFrame::removeAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCurso
                             myViewNet->getNet()->deleteEdge(objectsUnderCursor.getEdgeFront(), myViewNet->getUndoList(), false);
                         }
                     }
-                } 
+                }
             } else if (objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_LANE) {
                 // obtain additional childs and parents
                 int numberOfAdditionalChilds = (int)objectsUnderCursor.getLaneFront()->getAdditionalChilds().size();
@@ -303,8 +303,7 @@ GNEDeleteFrame::removeAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCurso
                 if ((myDeleteOptions->forceDeleteAdditionals() && !myDeleteOptions->protectDemandElements()) || ignoreOptions) {
                     // when deleting a single lane, keep all unaffected connections as they were
                     myViewNet->getNet()->deleteLane(objectsUnderCursor.getLaneFront(), myViewNet->getUndoList(), false);
-                }
-                else {
+                } else {
                     // declare strings to save certain messages used in FXMessageBox to improve code legilibly
                     std::string tagstr = objectsUnderCursor.getLaneFront()->getTagStr();
                     std::string id = objectsUnderCursor.getLaneFront()->getID();
@@ -315,45 +314,41 @@ GNEDeleteFrame::removeAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCurso
                         std::string plural = numberOfAdditionalChilds > 1 ? "s" : "";
                         // Open warning DialogBox
                         FXMessageBox::warning(getViewNet()->getApp(), MBOX_OK, ("Problem deleting " + tagstr).c_str(), "%s",
-                            (tagstr + " '" + id + "' cannot be deleted because owns " + toString(numberOfAdditionalChilds) + " additional" + plural +
-                             ".\n Check 'Force deletion of additionals' to force deletion.").c_str());
+                                              (tagstr + " '" + id + "' cannot be deleted because owns " + toString(numberOfAdditionalChilds) + " additional" + plural +
+                                               ".\n Check 'Force deletion of additionals' to force deletion.").c_str());
                         // write warning if netedit is running in testing mode
                         WRITE_DEBUG("Closed FXMessageBox 'Force deletion needed' with 'OK'");
-                    }
-                    else if ((numberOfAdditionalChilds > 0) && !myDeleteOptions->forceDeleteAdditionals()) {
+                    } else if ((numberOfAdditionalChilds > 0) && !myDeleteOptions->forceDeleteAdditionals()) {
                         // write warning if netedit is running in testing mode
                         WRITE_DEBUG("Opening FXMessageBox 'Force deletion needed'");
                         std::string plural = numberOfAdditionalParents > 1 ? "s" : "";
                         // Open warning DialogBox
                         FXMessageBox::warning(getViewNet()->getApp(), MBOX_OK, ("Problem deleting " + tagstr).c_str(), "%s",
-                            (tagstr + " '" + id + "' cannot be deleted because is part of " + toString(numberOfAdditionalParents) + " additional" + plural +
-                             ".\n Check 'Force deletion of additionals' to force deletion.").c_str());
+                                              (tagstr + " '" + id + "' cannot be deleted because is part of " + toString(numberOfAdditionalParents) + " additional" + plural +
+                                               ".\n Check 'Force deletion of additionals' to force deletion.").c_str());
                         // write warning if netedit is running in testing mode
                         WRITE_DEBUG("Closed FXMessageBox 'Force deletion needed' with 'OK'");
-                    }
-                    else if ((numberOfDemandElementChilds > 0) && myDeleteOptions->protectDemandElements()) {
+                    } else if ((numberOfDemandElementChilds > 0) && myDeleteOptions->protectDemandElements()) {
                         // write warning if netedit is running in testing mode
                         WRITE_DEBUG("Opening FXMessageBox 'Unprotect demand elements'");
                         std::string plural = numberOfDemandElementChilds > 1 ? "s" : "";
                         // Open warning DialogBox
                         FXMessageBox::warning(getViewNet()->getApp(), MBOX_OK, ("Problem deleting " + tagstr).c_str(), "%s",
-                            (tagstr + " '" + id + "' cannot be deleted because owns " + toString(numberOfDemandElementChilds) + " demand element" + plural +
-                             ".\n Uncheck 'Protect demand elements' to force deletion.").c_str());
+                                              (tagstr + " '" + id + "' cannot be deleted because owns " + toString(numberOfDemandElementChilds) + " demand element" + plural +
+                                               ".\n Uncheck 'Protect demand elements' to force deletion.").c_str());
                         // write warning if netedit is running in testing mode
                         WRITE_DEBUG("Closed FXMessageBox 'Unprotect demand elements' with 'OK'");
-                    }
-                    else if ((numberOfDemandElementParents > 0) && myDeleteOptions->protectDemandElements()) {
+                    } else if ((numberOfDemandElementParents > 0) && myDeleteOptions->protectDemandElements()) {
                         // write warning if netedit is running in testing mode
                         WRITE_DEBUG("Opening FXMessageBox 'Unprotect demand elements'");
                         std::string plural = numberOfDemandElementParents > 1 ? "s" : "";
                         // Open warning DialogBox
                         FXMessageBox::warning(getViewNet()->getApp(), MBOX_OK, ("Problem deleting " + tagstr).c_str(), "%s",
-                            (tagstr + " '" + id + "' cannot be deleted because is part of " + toString(numberOfDemandElementParents) + " demand element" + plural +
-                             ".\n Uncheck 'Protect demand elements' to force deletion.").c_str());
+                                              (tagstr + " '" + id + "' cannot be deleted because is part of " + toString(numberOfDemandElementParents) + " demand element" + plural +
+                                               ".\n Uncheck 'Protect demand elements' to force deletion.").c_str());
                         // write warning if netedit is running in testing mode
                         WRITE_DEBUG("Closed FXMessageBox 'Unprotect demand elements' with 'OK'");
-                    }
-                    else {
+                    } else {
                         // if all ok, then delete lane
                         myViewNet->getNet()->deleteLane(objectsUnderCursor.getLaneFront(), myViewNet->getUndoList(), false);
                     }

@@ -735,14 +735,13 @@ GUIBaseVehicle::drawAction_drawPersonsAndContainers(const GUIVisualizationSettin
 }
 
 
-bool 
-GUIBaseVehicle::drawAction_drawVehicleAsPolyWithCarriagges(const GUIVisualizationSettings& s, bool asImage) const 
-{
+bool
+GUIBaseVehicle::drawAction_drawVehicleAsPolyWithCarriagges(const GUIVisualizationSettings& s, bool asImage) const {
     if (getVType().getParameter().carriageLength > 0) {
         drawAction_drawCarriageClass(s, asImage);
         return true;
     } else {
-        if (asImage && 
+        if (asImage &&
                 GUIBaseVehicleHelper::drawAction_drawVehicleAsImage(s, getVType().getImgFile(), this, getVType().getWidth())) {
             return false;
         }
@@ -787,8 +786,8 @@ GUIBaseVehicle::computeSeats(const Position& front, const Position& back, int ma
         if (seat == 0) {
             rowPos += rowOffset;
         }
-        mySeatPositions.push_back(PositionVector::positionAtOffset2D(front, back, rowPos, 
-                    seat * seatOffset - sideOffset));
+        mySeatPositions.push_back(PositionVector::positionAtOffset2D(front, back, rowPos,
+                                  seat * seatOffset - sideOffset));
         requiredSeats--;
     }
 }

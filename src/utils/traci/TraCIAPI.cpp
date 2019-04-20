@@ -1258,19 +1258,19 @@ TraCIAPI::POIScope::getColor(const std::string& poiID) const {
     return myParent.getColor(libsumo::CMD_GET_POI_VARIABLE, libsumo::VAR_COLOR, poiID);
 }
 
-double 
+double
 TraCIAPI::POIScope::getWidth(const std::string& poiID) const {
-	return myParent.getDouble(libsumo::CMD_GET_POI_VARIABLE, libsumo::VAR_WIDTH, poiID);
+    return myParent.getDouble(libsumo::CMD_GET_POI_VARIABLE, libsumo::VAR_WIDTH, poiID);
 }
 
-double 
+double
 TraCIAPI::POIScope::getHeight(const std::string& poiID) const {
-	return myParent.getDouble(libsumo::CMD_GET_POI_VARIABLE, libsumo::VAR_HEIGHT, poiID);
+    return myParent.getDouble(libsumo::CMD_GET_POI_VARIABLE, libsumo::VAR_HEIGHT, poiID);
 }
 
-double 
+double
 TraCIAPI::POIScope::getAngle(const std::string& poiID) const {
-	return myParent.getDouble(libsumo::CMD_GET_POI_VARIABLE, libsumo::VAR_ANGLE, poiID);
+    return myParent.getDouble(libsumo::CMD_GET_POI_VARIABLE, libsumo::VAR_ANGLE, poiID);
 }
 
 std::string
@@ -1313,37 +1313,37 @@ TraCIAPI::POIScope::setColor(const std::string& poiID, const libsumo::TraCIColor
 }
 
 
-void 
+void
 TraCIAPI::POIScope::setWidth(const std::string& poiID, double width) const {
-	tcpip::Storage content;
-	content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-	content.writeDouble(width);
-	myParent.createCommand(libsumo::CMD_SET_POI_VARIABLE, libsumo::VAR_WIDTH, poiID, &content);
-	myParent.processSet(libsumo::CMD_SET_POI_VARIABLE);
+    tcpip::Storage content;
+    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
+    content.writeDouble(width);
+    myParent.createCommand(libsumo::CMD_SET_POI_VARIABLE, libsumo::VAR_WIDTH, poiID, &content);
+    myParent.processSet(libsumo::CMD_SET_POI_VARIABLE);
 }
 
 
-void 
+void
 TraCIAPI::POIScope::setHeight(const std::string& poiID, double height) const {
-	tcpip::Storage content;
-	content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-	content.writeDouble(height);
-	myParent.createCommand(libsumo::CMD_SET_POI_VARIABLE, libsumo::VAR_HEIGHT, poiID, &content);
-	myParent.processSet(libsumo::CMD_SET_POI_VARIABLE);
+    tcpip::Storage content;
+    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
+    content.writeDouble(height);
+    myParent.createCommand(libsumo::CMD_SET_POI_VARIABLE, libsumo::VAR_HEIGHT, poiID, &content);
+    myParent.processSet(libsumo::CMD_SET_POI_VARIABLE);
 }
 
 
-void 
+void
 TraCIAPI::POIScope::setAngle(const std::string& poiID, double angle) const {
-	tcpip::Storage content;
-	content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-	content.writeDouble(angle);
-	myParent.createCommand(libsumo::CMD_SET_POI_VARIABLE, libsumo::VAR_ANGLE, poiID, &content);
-	myParent.processSet(libsumo::CMD_SET_POI_VARIABLE);
+    tcpip::Storage content;
+    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
+    content.writeDouble(angle);
+    myParent.createCommand(libsumo::CMD_SET_POI_VARIABLE, libsumo::VAR_ANGLE, poiID, &content);
+    myParent.processSet(libsumo::CMD_SET_POI_VARIABLE);
 }
 
 
-void 
+void
 TraCIAPI::POIScope::setImageFile(const std::string& poiID, const std::string& imageFile) const {
     tcpip::Storage content;
     content.writeUnsignedByte(libsumo::TYPE_STRING);

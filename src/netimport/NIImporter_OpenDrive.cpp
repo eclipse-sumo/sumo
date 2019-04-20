@@ -521,7 +521,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         // optionally write road objects
         if (oc.isSet("polygon-output")) {
             const bool writeGeo = GeoConvHelper::getLoaded().usingGeoProjection() && (
-                    oc.isDefault("proj.plain-geo") || oc.getBool("proj.plain-geo"));
+                                      oc.isDefault("proj.plain-geo") || oc.getBool("proj.plain-geo"));
             OutputDevice& dev = OutputDevice::getDevice(oc.getString("polygon-output"));
             dev.writeXMLHeader("additional", "additional_file.xsd");
             //SUMOPolygon poly("road_" + e->id, "road", RGBColor::BLUE, e->geom, true, false);
@@ -795,7 +795,9 @@ NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c, const std::ma
     for (std::set<Connection>::const_iterator i = conts.begin(); i != conts.end(); ++i) {
         auto innerEdgesIt = innerEdges.find((*i).toEdge);
 #ifdef DEBUG_CONNECTIONS
-        if (DEBUG_COND3(c.fromEdge)) std::cout << "      toInner=" << (innerEdgesIt != innerEdges.end()) << " destCon " << (*i).getDescription() << "\n";
+        if (DEBUG_COND3(c.fromEdge)) {
+            std::cout << "      toInner=" << (innerEdgesIt != innerEdges.end()) << " destCon " << (*i).getDescription() << "\n";
+        }
 #endif
         if (innerEdgesIt != innerEdges.end()) {
             std::vector<Connection> t;
@@ -899,7 +901,9 @@ NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c, const std::ma
                     }
                 }
 #ifdef DEBUG_CONNECTIONS
-                if (DEBUG_COND3(c.fromEdge)) std::cout << "        added connection\n";
+                if (DEBUG_COND3(c.fromEdge)) {
+                    std::cout << "        added connection\n";
+                }
 #endif
                 into.push_back(cn);
             }

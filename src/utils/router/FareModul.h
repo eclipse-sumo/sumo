@@ -299,14 +299,14 @@ private:
 
         FareState const&   my = myFareStates[edge];
         std::stringstream msg;
-/*
-        msg << "Final fare state at edge of type: " << myEdges[edge] << std::endl;
-        msg << "Faretoken" << FareUtil::tokenToString(my.myFareToken) << std::endl;
-        msg << "Price:" << computePrice(my) << std::endl;
-        msg << "Zones " << my.myCounter.numZones() << std::endl;
-        msg << "Stations: " << my.myVisistedStops << std::endl;
-        msg << "Distance:" << my.myTravelledDistance << std::endl;
-*/
+        /*
+                msg << "Final fare state at edge of type: " << myEdges[edge] << std::endl;
+                msg << "Faretoken" << FareUtil::tokenToString(my.myFareToken) << std::endl;
+                msg << "Price:" << computePrice(my) << std::endl;
+                msg << "Zones " << my.myCounter.numZones() << std::endl;
+                msg << "Stations: " << my.myVisistedStops << std::endl;
+                msg << "Distance:" << my.myTravelledDistance << std::endl;
+        */
         msg << FareUtil::tokenToTicket(my.myFareToken) << " ";
         if (my.myFareToken == FareToken::Z) {
             msg << my.myCounter.numZones() << " ";

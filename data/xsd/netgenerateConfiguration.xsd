@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 17 21:45:29 2018 by Eclipse SUMO netgenerate Version v1_0_1+0643-17d95030ed
+<!-- generated on Mon Apr 15 15:26:44 2019 by Eclipse SUMO netgenerate Version 1.2.0
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -190,6 +190,7 @@
             <xsd:element name="no-internal-links" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="no-turnarounds" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="no-turnarounds.tls" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="no-turnarounds.geometry" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="no-turnarounds.except-deadend" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="no-left-connections" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="junctions.join" type="boolOptionType" minOccurs="0"/>

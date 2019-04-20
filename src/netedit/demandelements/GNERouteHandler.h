@@ -52,7 +52,7 @@ public:
 
     /// @brief Destructor
     ~GNERouteHandler();
-    
+
     /// @brief build vehicle
     static void buildVehicle(GNEViewNet* viewNet, bool undoDemandElements, SUMOVehicleParameter* vehicleParameters);
 
@@ -60,10 +60,10 @@ public:
     static void buildFlow(GNEViewNet* viewNet, bool undoDemandElements, SUMOVehicleParameter* flowParameters);
 
     /// @brief build trip
-    static void buildTrip(GNEViewNet* viewNet, bool undoDemandElements, SUMOVehicleParameter* tripParameters, const std::vector<GNEEdge*> &edges);
+    static void buildTrip(GNEViewNet* viewNet, bool undoDemandElements, SUMOVehicleParameter* tripParameters, const std::vector<GNEEdge*>& edges);
 
     /// @brief build stop
-    static void buildStop(GNEViewNet* viewNet, bool undoDemandElements, const SUMOVehicleParameter::Stop &stopParameters, GNEDemandElement *stopParent, bool friendlyPosition);
+    static void buildStop(GNEViewNet* viewNet, bool undoDemandElements, const SUMOVehicleParameter::Stop& stopParameters, GNEDemandElement* stopParent, bool friendlyPosition);
 
 protected:
     /// @brief opens a type distribution for reading
@@ -82,7 +82,7 @@ protected:
      * Afterwards no edges may be added to it;
      * this method may throw exceptions when
      * a) the route is empty or
-     * b) another route with the same id already exists 
+     * b) another route with the same id already exists
      */
     void closeRoute(const bool mayBeDisconnected = false);
 

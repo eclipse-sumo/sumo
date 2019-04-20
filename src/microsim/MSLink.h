@@ -436,7 +436,7 @@ public:
     LinkLeaders getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPerson*>* collectBlockers = 0, bool isShadowLink = false) const;
 
     /// @brief check for persons on walkingarea in the path of ego vehicle
-    void checkWalkingAreaFoe(const MSVehicle* ego, const MSLane* foeLane, std::vector<const MSPerson*>* collectBlockers, LinkLeaders& result) const; 
+    void checkWalkingAreaFoe(const MSVehicle* ego, const MSLane* foeLane, std::vector<const MSPerson*>* collectBlockers, LinkLeaders& result) const;
 
     /// @brief return the speed at which ego vehicle must approach the zipper link
     double getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,

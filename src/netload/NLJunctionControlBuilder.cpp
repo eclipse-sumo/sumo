@@ -486,9 +486,8 @@ NLJunctionControlBuilder::getActiveSubKey() const {
 
 void
 NLJunctionControlBuilder::postLoadInitialization() {
-    for (std::vector<MSTrafficLightLogic*>::const_iterator it = myLogics2PostLoadInit.begin();
-            it != myLogics2PostLoadInit.end(); ++it) {
-        (*it)->init(myDetectorBuilder);
+    for (MSTrafficLightLogic* const logic : myLogics2PostLoadInit) {
+        logic->init(myDetectorBuilder);
     }
     myNetIsLoaded = true;
 }

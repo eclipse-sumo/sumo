@@ -215,8 +215,7 @@ GUIApplicationWindow::GUIApplicationWindow(FXApp* a, const std::string& configPa
     myPreviousCollisionNumber(0),
     myWaitingTime(0),
     myTimeLoss(0),
-    myTotalDistance(0)
-{
+    myTotalDistance(0) {
     // init icons
     GUIIconSubSys::initIcons(a);
     // init cursors

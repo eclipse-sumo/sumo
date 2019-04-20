@@ -42,36 +42,36 @@
 // ===========================================================================
 
 GNERoute::GNERoute(GNEViewNet* viewNet) :
-    GNEDemandElement(viewNet->getNet()->generateDemandElementID(SUMO_TAG_ROUTE), viewNet, GLO_ROUTE, SUMO_TAG_ROUTE, 
-        {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-    myColor(RGBColor::YELLOW) {
+    GNEDemandElement(viewNet->getNet()->generateDemandElementID(SUMO_TAG_ROUTE), viewNet, GLO_ROUTE, SUMO_TAG_ROUTE,
+{}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
+myColor(RGBColor::YELLOW) {
 }
 
 
 GNERoute::GNERoute(GNEViewNet* viewNet, const std::string& routeID, const std::vector<GNEEdge*>& edges, const RGBColor& color) :
-    GNEDemandElement(routeID, viewNet, GLO_ROUTE, SUMO_TAG_ROUTE, 
-        edges, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-    myColor(color) {
+    GNEDemandElement(routeID, viewNet, GLO_ROUTE, SUMO_TAG_ROUTE,
+                     edges, {}, {}, {}, {}, {}, {}, {}, {}, {}),
+myColor(color) {
 }
 
 
 GNERoute::~GNERoute() {}
 
 
-const RGBColor &
+const RGBColor&
 GNERoute::getColor() const {
     return myColor;
 }
 
 
-void 
+void
 GNERoute::writeDemandElement(OutputDevice& device) const {
     device.openTag(SUMO_TAG_ROUTE);
     device.writeAttr(SUMO_ATTR_ID, getDemandElementID());
     device.writeAttr(SUMO_ATTR_EDGES, parseIDs(getEdgeParents()));
     device.writeAttr(SUMO_ATTR_COLOR, toString(myColor));
     // write stops associated to this route
-    for (const auto &i : getDemandElementChilds()) {
+    for (const auto& i : getDemandElementChilds()) {
         if (i->getTagProperty().isStop()) {
             i->writeDemandElement(device);
         }
@@ -80,20 +80,20 @@ GNERoute::writeDemandElement(OutputDevice& device) const {
 }
 
 
-bool 
+bool
 GNERoute::isDemandElementValid() const {
     if (getEdgeParents().size() == 0) {
         return false;
     } else if (getEdgeParents().size() == 1) {
         return true;
-    } else {            
+    } else {
         // check if exist at least a connection between every edge
         for (int i = 1; i < (int)getEdgeParents().size(); i++) {
-            if (getRouteCalculatorInstance()->areEdgesConsecutives(SVC_PASSENGER, getEdgeParents().at(i-1), getEdgeParents().at(i)) == false) {
+            if (getRouteCalculatorInstance()->areEdgesConsecutives(SVC_PASSENGER, getEdgeParents().at(i - 1), getEdgeParents().at(i)) == false) {
                 return false;
             }
         }
-        // there is connections bewteen all edges, then return true 
+        // there is connections bewteen all edges, then return true
         return true;
     }
 }
@@ -177,7 +177,7 @@ GNERoute::updateGeometry(bool updateGrid) {
     }
 
     // update demand element childs
-    for (const auto &i : getDemandElementChilds()) {
+    for (const auto& i : getDemandElementChilds()) {
         i->updateGeometry(updateGrid);
     }
 }

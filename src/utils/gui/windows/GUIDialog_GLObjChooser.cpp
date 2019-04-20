@@ -62,8 +62,7 @@ FXIMPLEMENT(GUIDialog_GLObjChooser, FXMainWindow, GUIDialog_GLObjChooserMap, ARR
 GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(GUIGlChildWindow* parent, FXIcon* icon, const FXString& title, const std::vector<GUIGlID>& ids, GUIGlObjectStorage& /*glStorage*/) :
     FXMainWindow(parent->getApp(), title, icon, nullptr, GUIDesignChooserDialog),
     myParent(parent),
-    myLocateByName(false)
-{
+    myLocateByName(false) {
     FXHorizontalFrame* hbox = new FXHorizontalFrame(this, GUIDesignAuxiliarFrame);
     // build the list
     FXVerticalFrame* layoutLeft = new FXVerticalFrame(hbox, GUIDesignChooserLayoutLeft);

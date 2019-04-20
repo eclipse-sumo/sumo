@@ -55,8 +55,8 @@ class NIVissimEdge
 public:
     /// Constructor
     NIVissimEdge(int id, const std::string& name,
-                 const std::string& type, 
-                 std::vector<double> laneWidths, 
+                 const std::string& type,
+                 std::vector<double> laneWidths,
                  double zuschlag1,
                  double zuschlag2, double length,
                  const PositionVector& geom,

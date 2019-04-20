@@ -1041,7 +1041,7 @@ NBEdgeCont::recheckPostProcessConnections() {
             NBEdge* to = retrievePossiblySplit((*i).to, false);
             if (from == nullptr || to == nullptr ||
                     !from->addLane2LaneConnection((*i).fromLane, to, (*i).toLane, NBEdge::L2L_USER, true, (*i).mayDefinitelyPass,
-                        (*i).keepClear, (*i).contPos, (*i).visibility, (*i).speed, (*i).customShape, (*i).uncontrolled)) {
+                                                  (*i).keepClear, (*i).contPos, (*i).visibility, (*i).speed, (*i).customShape, (*i).uncontrolled)) {
                 const std::string msg = "Could not insert connection between '" + (*i).from + "' and '" + (*i).to + "' after build.";
                 if (warnOnly || (*i).warnOnly) {
                     WRITE_WARNING(msg);

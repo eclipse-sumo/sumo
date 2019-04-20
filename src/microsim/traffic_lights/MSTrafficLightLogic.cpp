@@ -132,7 +132,7 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
             for (int iNext : nextPhases) {
                 if (iNext < 0 || iNext >= (int)phases.size()) {
                     throw ProcessError("Invalid nextPhase " + toString(iNext) + " in tlLogic '" + getID()
-                            + "', program '" + getProgramID() + "' with " + toString(phases.size()) + " phases");
+                                       + "', program '" + getProgramID() + "' with " + toString(phases.size()) + " phases");
                 }
                 const std::string optionalFrom = iNextDefault ? "" : " from phase " + toString(i);
                 const std::string& state1 = phases[i]->getState();
@@ -140,15 +140,15 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
                 assert(state1.size() == state2.size());
                 if (!haveWarnedAboutUnusedStates && state1.size() > myLanes.size() + myIgnoredIndices.size()) {
                     WRITE_WARNING("Unused states in tlLogic '" + getID()
-                            + "', program '" + getProgramID() + "' in phase " + toString(i)
-                            + " after tl-index " + toString((int)myLanes.size() - 1));
+                                  + "', program '" + getProgramID() + "' in phase " + toString(i)
+                                  + " after tl-index " + toString((int)myLanes.size() - 1));
                     haveWarnedAboutUnusedStates = true;
                 }
                 // detect illegal states
                 const std::string::size_type illegal = state1.find_first_not_of(SUMOXMLDefinitions::ALLOWED_TLS_LINKSTATES);
                 if (std::string::npos != illegal) {
                     throw ProcessError("Illegal character '" + toString(state1[illegal]) + "' in tlLogic '" + getID()
-                            + "', program '" + getProgramID() + "' in phase " + toString(i));
+                                       + "', program '" + getProgramID() + "' in phase " + toString(i));
                 }
                 // warn about transitions from green to red without intermediate yellow
                 for (int j = 0; j < (int)MIN3(state1.size(), state2.size(), myLanes.size()); ++j) {
@@ -158,8 +158,8 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
                         for (LaneVector::const_iterator it = myLanes[j].begin(); it != myLanes[j].end(); ++it) {
                             if ((*it)->getPermissions() != SVC_PEDESTRIAN) {
                                 WRITE_WARNING("Missing yellow phase in tlLogic '" + getID()
-                                        + "', program '" + getProgramID() + "' for tl-index " + toString(j)
-                                        + " when switching" + optionalFrom + " to phase " + toString(iNext));
+                                              + "', program '" + getProgramID() + "' for tl-index " + toString(j)
+                                              + " when switching" + optionalFrom + " to phase " + toString(iNext));
                                 return; // one warning per program is enough
                             }
                         }
@@ -368,7 +368,7 @@ MSTrafficLightLogic::ignoreLinkIndex(int pos) {
 }
 
 
-bool 
+bool
 MSTrafficLightLogic::isSelected() const {
     return MSNet::getInstance()->isSelected(this);
 }

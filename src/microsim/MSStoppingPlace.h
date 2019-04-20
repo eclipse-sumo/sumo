@@ -70,7 +70,7 @@ public:
      */
     MSStoppingPlace(const std::string& id,
                     const std::vector<std::string>& lines, MSLane& lane,
-                    double begPos, double endPos, const std::string name = "", 
+                    double begPos, double endPos, const std::string name = "",
                     int capacity = 0);
 
 
@@ -145,7 +145,7 @@ public:
      *
      * @return The waiting position along the stop lane
      */
-    double getWaitingPositionOnLane(MSTransportable* t) const; 
+    double getWaitingPositionOnLane(MSTransportable* t) const;
 
 
     /** @brief For vehicles at the stop this gives the the actual stopping

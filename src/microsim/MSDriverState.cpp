@@ -132,7 +132,7 @@ MSSimpleDriverState::MSSimpleDriverState(MSVehicle* veh) :
     myHeadwayChangePerceptionThreshold(DriverStateDefaults::headwayChangePerceptionThreshold),
     mySpeedDifferenceChangePerceptionThreshold(DriverStateDefaults::speedDifferenceChangePerceptionThreshold),
     myOriginalReactionTime(veh->getActionStepLengthSecs()),
-    myMaximalReactionTime(DriverStateDefaults::maximalReactionTimeFactor*myOriginalReactionTime),
+    myMaximalReactionTime(DriverStateDefaults::maximalReactionTimeFactor * myOriginalReactionTime),
 //    myActionStepLength(TS),
     myStepDuration(TS),
     myLastUpdateTime(SIMTIME - TS),
@@ -189,12 +189,12 @@ MSSimpleDriverState::updateReactionTime() {
     if (myAwareness == 1.0 || myAwareness == 0.0) {
         myActionStepLength = myOriginalReactionTime;
     } else {
-        const double theta = (myAwareness - myMinAwareness)/(1.0 - myMinAwareness);
-        myActionStepLength = myOriginalReactionTime + theta*(myMaximalReactionTime - myOriginalReactionTime);
+        const double theta = (myAwareness - myMinAwareness) / (1.0 - myMinAwareness);
+        myActionStepLength = myOriginalReactionTime + theta * (myMaximalReactionTime - myOriginalReactionTime);
         // Round to multiple of simstep length
         int quotient;
-        remquo(myActionStepLength,TS,&quotient);
-        myActionStepLength = TS*MAX2(quotient,1);
+        remquo(myActionStepLength, TS, &quotient);
+        myActionStepLength = TS * MAX2(quotient, 1);
     }
 }
 

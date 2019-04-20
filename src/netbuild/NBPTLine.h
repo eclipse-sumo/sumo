@@ -34,8 +34,8 @@ class NBEdgeCont;
 class NBPTLine {
 
 public:
-    explicit NBPTLine(const std::string& id, const std::string& name, 
-            const std::string& type, const std::string& ref, int interval, const std::string& nightService);
+    explicit NBPTLine(const std::string& id, const std::string& name,
+                      const std::string& type, const std::string& ref, int interval, const std::string& nightService);
 
     void addPTStop(NBPTStop* pStop);
 

@@ -1014,9 +1014,9 @@ public:
 
     /// @brief Returns the remaining stop duration for a stopped vehicle or 0
     SUMOTime remainingStopDuration() const;
-    
+
     /** @brief Returns whether the vehicle stops at the given stopping place */
-    bool stopsAt(MSStoppingPlace* stop) const; 
+    bool stopsAt(MSStoppingPlace* stop) const;
 
     /** @brief Returns whether the vehicle will stop on the current edge
      */
@@ -1443,7 +1443,7 @@ public:
 
         /** @brief Activates the gap control with the given parameters, @see GapControlState
          */
-        void activateGapController(double originalTau, double newTimeHeadway, double newSpaceHeadway, double duration, double changeRate, double maxDecel, MSVehicle* refVeh=nullptr);
+        void activateGapController(double originalTau, double newTimeHeadway, double newSpaceHeadway, double duration, double changeRate, double maxDecel, MSVehicle* refVeh = nullptr);
 
         /** @brief Deactivates the gap control
          */
@@ -1810,8 +1810,8 @@ protected:
     /// updates LaneQ::nextOccupation and myCurrentLaneInBestLanes
     void updateOccupancyAndCurrentBestLane(const MSLane* startLane);
 
-    /** @brief Returns the list of still pending stop edges 
-     * also returns the first and last stop position 
+    /** @brief Returns the list of still pending stop edges
+     * also returns the first and last stop position
      */
     const ConstMSEdgeVector getStopEdges(double& firstPos, double& lastPos) const;
 

@@ -68,7 +68,7 @@ public:
 
             /// @brief FXComboBox for VClass
             FXComboBox* myComboBoxVClass;
-        
+
             /// @brief label with image of VClass
             FXLabel* myComboBoxVClassLabelImage;
 
@@ -79,7 +79,7 @@ public:
 
         /// @brief class for VShapeRow
         class VShapeRow : protected FXHorizontalFrame {
-        
+
         public:
             /// @brief constructor
             VShapeRow(VTypeAtributes* VTypeAtributesParent, FXVerticalFrame* column);
@@ -109,10 +109,10 @@ public:
         class VTypeAttributeRow : protected FXHorizontalFrame {
         public:
             /// @brief constructor fox TextFields (type: 0 -> int, 1 -> float, other: string)
-            VTypeAttributeRow(VTypeAtributes *VTypeAtributesParent, FXVerticalFrame* verticalFrame, SumoXMLAttr attr, int type);
-            
+            VTypeAttributeRow(VTypeAtributes* VTypeAtributesParent, FXVerticalFrame* verticalFrame, SumoXMLAttr attr, int type);
+
             /// @brief constructor for comboBox
-            VTypeAttributeRow(VTypeAtributes *VTypeAtributesParent, FXVerticalFrame* verticalFrame, SumoXMLAttr attr, const std::vector<std::string>& values);
+            VTypeAttributeRow(VTypeAtributes* VTypeAtributesParent, FXVerticalFrame* verticalFrame, SumoXMLAttr attr, const std::vector<std::string>& values);
 
             /// @brief set Variablen in VehicleType
             void setVariable();
@@ -122,7 +122,7 @@ public:
 
         private:
             /// @brief pointer to VTypeAttributeParameters parent
-            VTypeAtributes *myVTypeAtributesParent;
+            VTypeAtributes* myVTypeAtributesParent;
 
             /// @brief edited attribute
             SumoXMLAttr myAttr;
@@ -233,7 +233,7 @@ public:
 
         /// @brief VTypeAttributeRow for ActionStepLenght
         VTypeAttributeRow* myActionStepLenght;
-        
+
         /// @}
 
         /// @name JM Attributes
@@ -241,7 +241,7 @@ public:
 
         /// @brief VTypeAttributeRow for Crossing Gap
         VTypeAttributeRow* myJMCrossingGap;
-            
+
         /// @brief VTypeAttributeRow for Ignore Keep Clear Time
         VTypeAttributeRow* myJMIgnoreKeepclearTime;
         
@@ -250,7 +250,7 @@ public:
         
         /// @brief VTypeAttributeRow for Drive After Red Time
         VTypeAttributeRow* myJMDriveAfterRedTime;
-            
+
         /// @brief VTypeAttributeRow for Drive Red Speed
         VTypeAttributeRow* myJMDriveRedSpeed;
 
@@ -296,7 +296,7 @@ public:
         /// @event called after change a CFM variable
         long onCmdSetVariable(FXObject*, FXSelector, void*);
         /// @}
-        
+
     protected:
         /// @brief fox need this
         CarFollowingModelParameters() {}
@@ -305,8 +305,8 @@ public:
         class CarFollowingModelRow : public FXHorizontalFrame {
         public:
             /// @brief constructor
-            CarFollowingModelRow(CarFollowingModelParameters *carFollowingModelParametersParent, FXVerticalFrame* verticalFrame, SumoXMLAttr attr);
-            
+            CarFollowingModelRow(CarFollowingModelParameters* carFollowingModelParametersParent, FXVerticalFrame* verticalFrame, SumoXMLAttr attr);
+
             /// @brief set Variablen in VehicleType
             void setVariable();
 
@@ -315,7 +315,7 @@ public:
 
         private:
             /// @brief pointer to CarFollowingModelParameters parent
-            CarFollowingModelParameters *myCarFollowingModelParametersParent;
+            CarFollowingModelParameters* myCarFollowingModelParametersParent;
 
             /// @brief edited attribute
             SumoXMLAttr myAttr;
@@ -324,13 +324,13 @@ public:
             FXTextField* textField;
 
             /// @label Label with the Row attribute
-            FXLabel *myLabel;
+            FXLabel* myLabel;
         };
-        
+
     private:
         /// @brief pointer to Vehicle Type dialog parent
         GNEVehicleTypeDialog* myVehicleTypeDialog;
-                
+
         /// @brief vector with the Car Following Model Row
         std::vector<CarFollowingModelRow*> myRows;
 
@@ -338,7 +338,7 @@ public:
         FXComboBox* myComboBoxCarFollowModel;
 
         /// @brief Vertical Frame for CarFollowingModelRow
-        FXVerticalFrame *myVerticalFrameRows;
+        FXVerticalFrame* myVerticalFrameRows;
 
         /// @brief Row for Accel
         CarFollowingModelRow* myAccelRow;
@@ -348,7 +348,7 @@ public:
 
         /// @brief Row for aparent Decel
         CarFollowingModelRow* myApparentDecelRow;
-    
+
         /// @brief Row for emergency Decel
         CarFollowingModelRow* myEmergencyDecelRow;
 
@@ -410,7 +410,7 @@ public:
         CarFollowingModelRow* myAdaptTimeRow;
 
         /// @brief temporal label for incomplete attributes
-        FXLabel *myLabelIncompleteAttribute;
+        FXLabel* myLabelIncompleteAttribute;
     };
 
     /// @brief constructor

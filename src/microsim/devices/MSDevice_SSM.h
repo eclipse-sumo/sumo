@@ -117,30 +117,51 @@ public:
     };
 
     static std::string toString(EncounterType type) {
-        switch (type){
-        case(ENCOUNTER_TYPE_NOCONFLICT_AHEAD): return("NOCONFLICT_AHEAD");
-        case(ENCOUNTER_TYPE_FOLLOWING): return("FOLLOWING");
-        case(ENCOUNTER_TYPE_FOLLOWING_FOLLOWER): return("FOLLOWING_FOLLOWER");
-        case(ENCOUNTER_TYPE_FOLLOWING_LEADER): return("FOLLOWING_LEADER");
-        case(ENCOUNTER_TYPE_ON_ADJACENT_LANES): return("ON_ADJACENT_LANES");
-        case(ENCOUNTER_TYPE_MERGING): return("MERGING");
-        case(ENCOUNTER_TYPE_MERGING_LEADER): return("MERGING_LEADER");
-        case(ENCOUNTER_TYPE_MERGING_FOLLOWER): return("MERGING_FOLLOWER");
-        case(ENCOUNTER_TYPE_MERGING_ADJACENT): return("MERGING_ADJACENT");
-        case(ENCOUNTER_TYPE_CROSSING): return("CROSSING");
-        case(ENCOUNTER_TYPE_CROSSING_LEADER): return("CROSSING_LEADER");
-        case(ENCOUNTER_TYPE_CROSSING_FOLLOWER): return("CROSSING_FOLLOWER");
-        case(ENCOUNTER_TYPE_EGO_ENTERED_CONFLICT_AREA): return("EGO_ENTERED_CONFLICT_AREA");
-        case(ENCOUNTER_TYPE_FOE_ENTERED_CONFLICT_AREA): return("FOE_ENTERED_CONFLICT_AREA");
-        case(ENCOUNTER_TYPE_EGO_LEFT_CONFLICT_AREA): return("EGO_LEFT_CONFLICT_AREA");
-        case(ENCOUNTER_TYPE_FOE_LEFT_CONFLICT_AREA): return("FOE_LEFT_CONFLICT_AREA");
-        case(ENCOUNTER_TYPE_BOTH_ENTERED_CONFLICT_AREA): return("BOTH_ENTERED_CONFLICT_AREA");
-        case(ENCOUNTER_TYPE_BOTH_LEFT_CONFLICT_AREA): return("BOTH_LEFT_CONFLICT_AREA");
-        case(ENCOUNTER_TYPE_FOLLOWING_PASSED): return("FOLLOWING_PASSED");
-        case(ENCOUNTER_TYPE_MERGING_PASSED): return("MERGING_PASSED");
-        case(ENCOUNTER_TYPE_COLLISION): return("COLLISION");
+        switch (type) {
+            case (ENCOUNTER_TYPE_NOCONFLICT_AHEAD):
+                return ("NOCONFLICT_AHEAD");
+            case (ENCOUNTER_TYPE_FOLLOWING):
+                return ("FOLLOWING");
+            case (ENCOUNTER_TYPE_FOLLOWING_FOLLOWER):
+                return ("FOLLOWING_FOLLOWER");
+            case (ENCOUNTER_TYPE_FOLLOWING_LEADER):
+                return ("FOLLOWING_LEADER");
+            case (ENCOUNTER_TYPE_ON_ADJACENT_LANES):
+                return ("ON_ADJACENT_LANES");
+            case (ENCOUNTER_TYPE_MERGING):
+                return ("MERGING");
+            case (ENCOUNTER_TYPE_MERGING_LEADER):
+                return ("MERGING_LEADER");
+            case (ENCOUNTER_TYPE_MERGING_FOLLOWER):
+                return ("MERGING_FOLLOWER");
+            case (ENCOUNTER_TYPE_MERGING_ADJACENT):
+                return ("MERGING_ADJACENT");
+            case (ENCOUNTER_TYPE_CROSSING):
+                return ("CROSSING");
+            case (ENCOUNTER_TYPE_CROSSING_LEADER):
+                return ("CROSSING_LEADER");
+            case (ENCOUNTER_TYPE_CROSSING_FOLLOWER):
+                return ("CROSSING_FOLLOWER");
+            case (ENCOUNTER_TYPE_EGO_ENTERED_CONFLICT_AREA):
+                return ("EGO_ENTERED_CONFLICT_AREA");
+            case (ENCOUNTER_TYPE_FOE_ENTERED_CONFLICT_AREA):
+                return ("FOE_ENTERED_CONFLICT_AREA");
+            case (ENCOUNTER_TYPE_EGO_LEFT_CONFLICT_AREA):
+                return ("EGO_LEFT_CONFLICT_AREA");
+            case (ENCOUNTER_TYPE_FOE_LEFT_CONFLICT_AREA):
+                return ("FOE_LEFT_CONFLICT_AREA");
+            case (ENCOUNTER_TYPE_BOTH_ENTERED_CONFLICT_AREA):
+                return ("BOTH_ENTERED_CONFLICT_AREA");
+            case (ENCOUNTER_TYPE_BOTH_LEFT_CONFLICT_AREA):
+                return ("BOTH_LEFT_CONFLICT_AREA");
+            case (ENCOUNTER_TYPE_FOLLOWING_PASSED):
+                return ("FOLLOWING_PASSED");
+            case (ENCOUNTER_TYPE_MERGING_PASSED):
+                return ("MERGING_PASSED");
+            case (ENCOUNTER_TYPE_COLLISION):
+                return ("COLLISION");
         }
-        return("UNKNOWN");
+        return ("UNKNOWN");
     };
 
 private:

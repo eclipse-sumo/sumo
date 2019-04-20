@@ -132,11 +132,11 @@ GNEConnectorFrame::ConnectionModifications::onCmdSaveModifications(FXObject*, FX
     if (myConnectorFrameParent->myCurrentEditedLane != 0) {
         // check if routes has to be protected
         if (myProtectRoutesCheckBox->isEnabled() && (myProtectRoutesCheckBox->getCheck() == TRUE)) {
-            for (const auto &i : myConnectorFrameParent->myCurrentEditedLane->getParentEdge().getDemandElementChilds()) {
+            for (const auto& i : myConnectorFrameParent->myCurrentEditedLane->getParentEdge().getDemandElementChilds()) {
                 if (!i->isDemandElementValid()) {
                     FXMessageBox::warning(getApp(), MBOX_OK,
-                                  "Error saving connection operations", "%s",
-                                  ("Connection edition  cannot be saved because route '" + i->getID() + "' is broken.").c_str());
+                                          "Error saving connection operations", "%s",
+                                          ("Connection edition  cannot be saved because route '" + i->getID() + "' is broken.").c_str());
                     return 1;
                 }
             }

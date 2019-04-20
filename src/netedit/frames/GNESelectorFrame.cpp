@@ -726,43 +726,43 @@ GNESelectorFrame::MatchAttribute::onCmdSelMBAttribute(FXObject*, FXSelector, voi
     const auto& tagValue = GNEAttributeCarrier::getTagProperties(myCurrentTag);
     // add an extra AttributeValues to allow select ACs using as criterium "generic parameters"
     GNEAttributeCarrier::AttributeProperties extraAttrProperty;
-    extraAttrProperty = GNEAttributeCarrier::AttributeProperties(GNE_ATTR_GENERIC, 
-        GNEAttributeCarrier::AttrProperty::ATTRPROPERTY_STRING, 
-        "Generic Parameters");
+    extraAttrProperty = GNEAttributeCarrier::AttributeProperties(GNE_ATTR_GENERIC,
+                        GNEAttributeCarrier::AttrProperty::ATTRPROPERTY_STRING,
+                        "Generic Parameters");
     tagPropertiesCopy.addAttribute(extraAttrProperty);
     // add extra attribute if item can block movement
     if (tagValue.canBlockMovement()) {
         // add an extra AttributeValues to allow select ACs using as criterium "block movement"
-        extraAttrProperty = GNEAttributeCarrier::AttributeProperties(GNE_ATTR_BLOCK_MOVEMENT, 
-            GNEAttributeCarrier::AttrProperty::ATTRPROPERTY_BOOL | GNEAttributeCarrier::AttrProperty::ATTRPROPERTY_DEFAULTVALUE, 
-            "Block movement", 
-            "false");
+        extraAttrProperty = GNEAttributeCarrier::AttributeProperties(GNE_ATTR_BLOCK_MOVEMENT,
+                            GNEAttributeCarrier::AttrProperty::ATTRPROPERTY_BOOL | GNEAttributeCarrier::AttrProperty::ATTRPROPERTY_DEFAULTVALUE,
+                            "Block movement",
+                            "false");
         tagPropertiesCopy.addAttribute(extraAttrProperty);
     }
     // add extra attribute if item can block shape
     if (tagValue.canBlockShape()) {
         // add an extra AttributeValues to allow select ACs using as criterium "block shape"
-        extraAttrProperty = GNEAttributeCarrier::AttributeProperties(GNE_ATTR_BLOCK_SHAPE, 
-            GNEAttributeCarrier::AttrProperty::ATTRPROPERTY_BOOL | GNEAttributeCarrier::AttrProperty::ATTRPROPERTY_DEFAULTVALUE, 
-            "Block shape", 
-            "false");
+        extraAttrProperty = GNEAttributeCarrier::AttributeProperties(GNE_ATTR_BLOCK_SHAPE,
+                            GNEAttributeCarrier::AttrProperty::ATTRPROPERTY_BOOL | GNEAttributeCarrier::AttrProperty::ATTRPROPERTY_DEFAULTVALUE,
+                            "Block shape",
+                            "false");
         tagPropertiesCopy.addAttribute(extraAttrProperty);
     }
     // add extra attribute if item can close shape
     if (tagValue.canCloseShape()) {
         // add an extra AttributeValues to allow select ACs using as criterium "close shape"
-        extraAttrProperty = GNEAttributeCarrier::AttributeProperties(GNE_ATTR_CLOSE_SHAPE, 
-            GNEAttributeCarrier::AttrProperty::ATTRPROPERTY_BOOL | GNEAttributeCarrier::AttrProperty::ATTRPROPERTY_DEFAULTVALUE, 
-            "Close shape", 
-            "true");
+        extraAttrProperty = GNEAttributeCarrier::AttributeProperties(GNE_ATTR_CLOSE_SHAPE,
+                            GNEAttributeCarrier::AttrProperty::ATTRPROPERTY_BOOL | GNEAttributeCarrier::AttrProperty::ATTRPROPERTY_DEFAULTVALUE,
+                            "Close shape",
+                            "true");
         tagPropertiesCopy.addAttribute(extraAttrProperty);
     }
     // add extra attribute if item can have parent
     if (tagValue.hasParent()) {
         // add an extra AttributeValues to allow select ACs using as criterium "parent"
-        extraAttrProperty = GNEAttributeCarrier::AttributeProperties(GNE_ATTR_PARENT, 
-            GNEAttributeCarrier::AttrProperty::ATTRPROPERTY_STRING, 
-            "Parent element");
+        extraAttrProperty = GNEAttributeCarrier::AttributeProperties(GNE_ATTR_PARENT,
+                            GNEAttributeCarrier::AttrProperty::ATTRPROPERTY_STRING,
+                            "Parent element");
         tagPropertiesCopy.addAttribute(extraAttrProperty);
     }
     // set current selected attribute

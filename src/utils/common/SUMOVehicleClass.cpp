@@ -268,7 +268,7 @@ canParseVehicleClasses(const std::string& classes) {
 }
 
 
-SVCPermissions 
+SVCPermissions
 parseVehicleClasses(const std::string& allowedS, const std::string& disallowedS) {
     if (allowedS.size() == 0 && disallowedS.size() == 0) {
         return SVCAll;
@@ -350,7 +350,7 @@ getVehicleShapeID(const std::string& name) {
 }
 
 
-bool 
+bool
 canParseVehicleShape(const std::string& shape) {
     return SumoVehicleShapeStrings.hasString(shape);
 }
@@ -367,25 +367,25 @@ bool isRailway(SVCPermissions permissions) {
 }
 
 
-bool 
+bool
 isWaterway(SVCPermissions permissions) {
     return permissions == SVC_SHIP;
 }
 
 
-bool 
+bool
 isForbidden(SVCPermissions permissions) {
     return (permissions & SVCAll) == 0;
 }
 
 
-bool 
+bool
 isSidewalk(SVCPermissions permissions) {
     return (permissions & SVCAll) == SVC_PEDESTRIAN;
 }
 
 
-bool 
+bool
 noVehicles(SVCPermissions permissions) {
     return isForbidden(permissions) || isSidewalk(permissions);
 }

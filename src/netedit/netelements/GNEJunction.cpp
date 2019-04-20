@@ -88,7 +88,7 @@ GNEJunction::~GNEJunction() {
 }
 
 
-std::string 
+std::string
 GNEJunction::generateChildID(SumoXMLTag childTag) {
     int counter = 0;
     while (myNet->retrieveJunction(getID() + toString(childTag) + toString(counter), false) != nullptr) {
@@ -174,13 +174,13 @@ GNEJunction::rebuildGNECrossings(bool rebuildNBNodeCrossings) {
     }
 }
 
-void 
+void
 GNEJunction::mirrorXLeftHand() {
     if (OptionsCont::getOptions().getBool("lefthand")) {
         myNBNode.mirrorX();
         for (NBEdge* e : myNBNode.getEdges()) {
             e->mirrorX();
-            
+
         }
     }
 }
@@ -1299,7 +1299,7 @@ GNEJunction::getColorValue(const GUIVisualizationSettings& s, bool bubble) const
             if (bubble
                     // ensure visibility of red connections
                     && !(s.editMode == GNE_NMODE_TLS && myNBNode.isTLControlled())
-                ) {
+               ) {
                 return 1;
             } else {
                 return 0;

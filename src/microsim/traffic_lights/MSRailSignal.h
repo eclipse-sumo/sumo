@@ -237,11 +237,11 @@ protected:
     void collectBidiBlock(MSLane* toLane, double length, bool foundSwitch, std::vector<MSLane*>& bidiBlock, LaneSet& visited);
 
     /// @brief collect additional conflict lanes and conflict links in step 3
-    void collectConflictLinks(MSLane* toLane, double length, 
-            std::vector<MSLane*>& backwardBlock,
-            std::vector<MSLink*>& conflictLinks,
-            LaneSet& visited,
-            bool checkFoes = false);
+    void collectConflictLinks(MSLane* toLane, double length,
+                              std::vector<MSLane*>& backwardBlock,
+                              std::vector<MSLink*>& conflictLinks,
+                              LaneSet& visited,
+                              bool checkFoes = false);
 
     /// @brief whether there are other controlled links from the same incoming lane
     static bool hasAlternativeTrack(MSLink* link);

@@ -43,8 +43,7 @@
 GNEBusStop::GNEBusStop(const std::string& id, GNELane* lane, GNEViewNet* viewNet, const std::string& startPos, const std::string& endPos, const std::string& name, const std::vector<std::string>& lines, int personCapacity, bool friendlyPosition, bool blockMovement) :
     GNEStoppingPlace(id, viewNet, GLO_BUS_STOP, SUMO_TAG_BUS_STOP, lane, startPos, endPos, name, friendlyPosition, blockMovement),
     myLines(lines),
-    myPersonCapacity(personCapacity)
-{
+    myPersonCapacity(personCapacity) {
 }
 
 
@@ -80,7 +79,7 @@ GNEBusStop::updateGeometry(bool updateGrid) {
     myBlockIcon.setRotation(getLaneParents().front());
 
     // update demand element childs (GNEStops)
-    for (const auto &i : getDemandElementChilds()) {
+    for (const auto& i : getDemandElementChilds()) {
         i->updateGeometry(updateGrid);
     }
 

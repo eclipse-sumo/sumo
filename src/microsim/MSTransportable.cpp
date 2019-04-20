@@ -151,10 +151,10 @@ MSTransportable::Stage::setDestination(const MSEdge* newDestination, MSStoppingP
 * MSTransportable::Stage_Trip - methods
 * ----------------------------------------------------------------------- */
 MSTransportable::Stage_Trip::Stage_Trip(const MSEdge* origin, MSStoppingPlace* fromStop,
-                const MSEdge* destination, MSStoppingPlace* toStop,
-                const SUMOTime duration, const SVCPermissions modeSet,
-                const std::string& vTypes, const double speed, const double walkFactor,
-                const double departPosLat, const bool hasArrivalPos, const double arrivalPos):
+                                        const MSEdge* destination, MSStoppingPlace* toStop,
+                                        const SUMOTime duration, const SVCPermissions modeSet,
+                                        const std::string& vTypes, const double speed, const double walkFactor,
+                                        const double departPosLat, const bool hasArrivalPos, const double arrivalPos):
     MSTransportable::Stage(destination, toStop, arrivalPos, TRIP),
     myOrigin(origin),
     myOriginStop(fromStop),
@@ -172,9 +172,9 @@ MSTransportable::Stage_Trip::~Stage_Trip() {}
 
 MSTransportable::Stage*
 MSTransportable::Stage_Trip::clone() const {
-    return new Stage_Trip(myOrigin, const_cast<MSStoppingPlace*>(myOriginStop), 
-            myDestination, myDestinationStop, myDuration, 
-            myModeSet, myVTypes, mySpeed, myWalkFactor, myDepartPosLat, myHaveArrivalPos, myArrivalPos);
+    return new Stage_Trip(myOrigin, const_cast<MSStoppingPlace*>(myOriginStop),
+                          myDestination, myDestinationStop, myDuration,
+                          myModeSet, myVTypes, mySpeed, myWalkFactor, myDepartPosLat, myHaveArrivalPos, myArrivalPos);
 }
 
 
@@ -555,8 +555,8 @@ MSTransportable::Stage_Driving::getAngle(SUMOTime /* now */) const {
 bool
 MSTransportable::Stage_Driving::isWaitingFor(const SUMOVehicle* vehicle) const {
     return (myLines.count(vehicle->getID()) > 0
-                || myLines.count(vehicle->getParameter().line) > 0
-                || (myLines.count("ANY") > 0 && vehicle->stopsAt(myDestinationStop)));
+            || myLines.count(vehicle->getParameter().line) > 0
+            || (myLines.count("ANY") > 0 && vehicle->stopsAt(myDestinationStop)));
 }
 
 
@@ -854,7 +854,7 @@ MSTransportable::rerouteParkingArea(MSStoppingPlace* orig, MSStoppingPlace* repl
             dynamic_cast<MSTransportable::Stage_Trip*>(nextStage)->setOrigin(stage->getDestination());
         } else if (nextStage->getStageType() == MOVING_WITHOUT_VEHICLE) {
             Stage_Trip* newStage = new Stage_Trip(stage->getDestination(), nullptr, nextStage->getDestination(),
-                    nextStage->getDestinationStop(), -1, 0, "", -1, 1, 0, true, nextStage->getArrivalPos());
+                                                  nextStage->getDestinationStop(), -1, 0, "", -1, 1, 0, true, nextStage->getArrivalPos());
             removeStage(1);
             appendStage(newStage, 1);
         }
@@ -872,7 +872,7 @@ MSTransportable::rerouteParkingArea(MSStoppingPlace* orig, MSStoppingPlace* repl
                         dynamic_cast<MSTransportable::Stage_Trip*>(prevStage)->setDestination(stage->getDestination(), replacement);
                     } else if (prevStage->getStageType() == MOVING_WITHOUT_VEHICLE) {
                         Stage_Trip* newStage = new Stage_Trip(prevStage->getFromEdge(), nullptr, stage->getDestination(),
-                                replacement, -1, 0, "", -1, 1, 0, true, stage->getArrivalPos());
+                                                              replacement, -1, 0, "", -1, 1, 0, true, stage->getArrivalPos());
                         int prevStageRelIndex = (int)(it - 1 - myStep);
                         removeStage(prevStageRelIndex);
                         appendStage(newStage, prevStageRelIndex);
@@ -909,12 +909,12 @@ MSTransportable::getWaitingTime() const {
 
 double
 MSTransportable::getMaxSpeed() const {
-    return getVehicleType().getMaxSpeed(); 
+    return getVehicleType().getMaxSpeed();
 }
 
 SUMOVehicleClass
 MSTransportable::getVClass() const {
-    return getVehicleType().getVehicleClass(); 
+    return getVehicleType().getVehicleClass();
 }
 
 /****************************************************************************/

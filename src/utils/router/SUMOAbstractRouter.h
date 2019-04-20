@@ -123,7 +123,7 @@ public:
     /** @brief Builds the route between the given edges using the minimum effort at the given time
      * if from == to, return the shortest looped route */
     bool computeLooped(const E* from, const E* to, const V* const vehicle,
-                         SUMOTime msTime, std::vector<const E*>& into, bool silent = false) {
+                       SUMOTime msTime, std::vector<const E*>& into, bool silent = false) {
         if (from != to) {
             return compute(from, to, vehicle, msTime, into, silent);
         }
@@ -258,8 +258,8 @@ template<class E, class V>
 class SUMOAbstractRouterPermissions : public SUMOAbstractRouter<E, V> {
 public:
     /// Constructor
-    SUMOAbstractRouterPermissions(const std::string& type, bool unbuildIsWarning, 
-            typename SUMOAbstractRouter<E, V>::Operation operation = nullptr, typename SUMOAbstractRouter<E, V>::Operation ttOperation = nullptr) :
+    SUMOAbstractRouterPermissions(const std::string& type, bool unbuildIsWarning,
+                                  typename SUMOAbstractRouter<E, V>::Operation operation = nullptr, typename SUMOAbstractRouter<E, V>::Operation ttOperation = nullptr) :
         SUMOAbstractRouter<E, V>(type, unbuildIsWarning, operation, ttOperation) {
     }
 

@@ -187,12 +187,12 @@ checkOptions() {
         WRITE_ERROR("No input specified.");
         ok = false;
     }
-    if (!oc.isSet("output-file")) {
-        WRITE_ERROR("No trip table output file (-o) specified.");
+    if (!oc.isSet("output-file") && !oc.isSet("flow-output")) {
+        WRITE_ERROR("No trip table output file (-o) or flow-output is specified.");
         ok = false;
     }
     if (oc.getBool("pedestrians") && oc.getBool("persontrips")) {
-        WRITE_ERROR("Only of the the options 'pedestrians' and 'persontrips' may be set.");
+        WRITE_ERROR("Only one of the the options 'pedestrians' and 'persontrips' may be set.");
         ok = false;
     }
     //
@@ -296,7 +296,8 @@ main(int argc, char** argv) {
             matrix.writeFlows(string2time(oc.getString("begin")), string2time(oc.getString("end")),
                               OutputDevice::getDeviceByOption("flow-output"),
                               oc.getBool("ignore-vehicle-type"), oc.getString("prefix"),
-                              oc.getBool("flow-output.probability"));
+                              oc.getBool("flow-output.probability"), oc.getBool("pedestrians"),
+                              oc.getBool("persontrips"));
             haveOutput = true;
         }
         if (!haveOutput) {

@@ -307,7 +307,7 @@ GUISUMOAbstractView::paintGL() {
         displayLegend();
     }
     const long end = SysUtils::getCurrentMillis();
-    myFrameDrawTime = end - start; 
+    myFrameDrawTime = end - start;
     if (myVisualizationSettings->fps) {
         drawFPS();
     }
@@ -622,7 +622,7 @@ GUISUMOAbstractView::displayLegend() {
 
 double
 GUISUMOAbstractView::getFPS() const {
-    return 1000.0 / MAX2((long)1,myFrameDrawTime);
+    return 1000.0 / MAX2((long)1, myFrameDrawTime);
 }
 
 void
@@ -694,9 +694,9 @@ GUISUMOAbstractView::allowRotation() const
 }
 */
 
-Position 
+Position
 GUISUMOAbstractView::getWindowCursorPosition() const {
-	return Position(myWindowCursorPositionX, myWindowCursorPositionY);
+    return Position(myWindowCursorPositionX, myWindowCursorPositionY);
 }
 
 

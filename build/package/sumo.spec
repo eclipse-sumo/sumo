@@ -2,7 +2,7 @@
 # spec file for package sumo
 #
 # Copyright (c) 2018 SUSE LINUX GmbH, Nuernberg, Germany.
-# Copyright (c) 2001-2018 DLR (http://www.dlr.de/) and contributors
+# Copyright (c) 2001-2019 DLR (http://www.dlr.de/) and contributors
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -20,15 +20,17 @@
 Name:           sumo
 Version:        git
 Release:        0
+# The Epoch line makes sure the nightly build is always considered newer than a release build.
+# It should be removed for release builds.
 Epoch:          2
 Summary:        Eclipse Simulation of Urban Mobility - A Microscopic Traffic Simulation
 License:        EPL-2.0
 Group:          Productivity/Scientific/Other
 URL:            https://sumo.dlr.de/
-Source0:        sumo-src-%{version}.tar.gz
-Source1:        sumo-doc-%{version}.zip
-Source2:        %{name}.xml
+Source0:        https://sumo.dlr.de/daily/sumo-all-%{version}.tar.gz
 BuildRequires:  gcc-c++
+BuildRequires:  cmake
+BuildRequires:  python
 BuildRequires:  help2man
 BuildRequires:  pkgconfig
 BuildRequires:  unzip
@@ -59,10 +61,12 @@ BuildRequires:  pkgconfig(xrandr)
 highly portable, microscopic traffic simulation package
 designed to handle large road networks.
 
+%if 0%{?fedora_version}
+%global debug_package %{nil}
+%endif
+
 %prep
 %setup -q
-unzip -o %{SOURCE1} -d ..
-mv docs/tutorial docs/examples
 # Use real shebang
 %if 0%{?fedora_version} > 28
 find . -name "*.py" -o -name "*.pyw" | xargs sed -i 's,^#!%{_bindir}/env python$,#!%{_bindir}/python2,'
@@ -71,12 +75,25 @@ find . -name "*.py" -o -name "*.pyw" | xargs sed -i 's,^#!%{_bindir}/env python$
 %endif
 
 %build
+%if 0%{?centos_version} || 0%{?scientificlinux_version}
+autoreconf -i
 %configure
+%else
+mkdir cmake-build
+cd cmake-build
+cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr ..
+%endif
 make %{?_smp_mflags}
 make %{?_smp_mflags} man
 
 %install
+%if 0%{?centos_version} || 0%{?scientificlinux_version}
 %make_install
+%else
+cd cmake-build
+%make_install
+cd ..
+%endif
 mkdir -p %{buildroot}%{_datadir}/sumo
 cp -a tools data %{buildroot}%{_datadir}/sumo
 mkdir -p %{buildroot}%{_bindir}
@@ -94,7 +111,8 @@ install -p -m 644 build/package/%{name}.desktop %{buildroot}%{_datadir}/applicat
 install -d -m 755 %{buildroot}%{_datadir}/pixmaps
 install -p -m 644 build/package/%{name}.png %{buildroot}%{_datadir}/pixmaps
 %if 0%{?suse_version}
-install -Dm644 %{SOURCE2} %{buildroot}%{_datadir}/mime/application/%{name}.xml
+install -d -m 755 %{buildroot}%{_datadir}/mime/application
+install -p -m 644 build/package/%{name}.xml %{buildroot}%{_datadir}/mime/application/%{name}.xml
 %fdupes -s docs
 %fdupes %{buildroot}
 %endif
@@ -103,7 +121,12 @@ install -Dm644 %{SOURCE2} %{buildroot}%{_datadir}/mime/application/%{name}.xml
 %defattr(-,root,root)
 %{_bindir}/*
 %{_datadir}/sumo
-%doc AUTHORS LICENSE README.md ChangeLog CONTRIBUTING.md NOTICE.md docs/pydoc docs/userdoc docs/examples
+%doc AUTHORS README.md ChangeLog CONTRIBUTING.md NOTICE.md docs/pydoc docs/userdoc docs/examples docs/tutorial
+%if 0%{?suse_version} < 1500
+%doc LICENSE
+%else
+%license LICENSE
+%endif
 %{_mandir}/man1/*
 %{_sysconfdir}/profile.d/%{name}.*sh
 %{_datadir}/applications/%{name}.desktop

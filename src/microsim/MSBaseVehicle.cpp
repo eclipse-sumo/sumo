@@ -186,10 +186,10 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
             const bool skipFirst = stops.front() == source && sourcePos < firstPos;
             const bool skipLast = stops.back() == sink && myArrivalPos > lastPos;
 #ifdef DEBUG_REROUTE
-            if (DEBUG_COND) { 
-                std::cout << SIMTIME << " reroute " << info << " veh=" << getID() << " lane=" << getLane()->getID() 
-                    << " source=" << source->getID() << " sourcePos=" << sourcePos << " firstPos=" << firstPos << " arrivalPos=" << myArrivalPos << " lastPos=" << lastPos 
-                    << " route=" << toString(myRoute->getEdges()) << " stopEdges=" << toString(stops) << " skipFirst=" << skipFirst << " skipLast=" << skipLast << "\n";
+            if (DEBUG_COND) {
+                std::cout << SIMTIME << " reroute " << info << " veh=" << getID() << " lane=" << getLane()->getID()
+                          << " source=" << source->getID() << " sourcePos=" << sourcePos << " firstPos=" << firstPos << " arrivalPos=" << myArrivalPos << " lastPos=" << lastPos
+                          << " route=" << toString(myRoute->getEdges()) << " stopEdges=" << toString(stops) << " skipFirst=" << skipFirst << " skipLast=" << skipLast << "\n";
             }
 #endif
             if (stops.size() == 1 && (skipFirst || skipLast)) {

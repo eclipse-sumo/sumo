@@ -114,7 +114,7 @@ protected:
      * Afterwards no edges may be added to it;
      * this method may throw exceptions when
      * a) the route is empty or
-     * b) another route with the same id already exists 
+     * b) another route with the same id already exists
      */
     virtual void closeRoute(const bool mayBeDisconnected = false) = 0;
 
@@ -126,7 +126,7 @@ protected:
 
     /// @brief Ends the processing of a vehicle
     virtual void closeVehicle() = 0;
-    
+
     /// @brief Ends the processing of a vehicle type
     virtual void closeVType() = 0;
 

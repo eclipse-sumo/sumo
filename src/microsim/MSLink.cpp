@@ -1227,17 +1227,17 @@ MSLink::getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,
     if (secondsToArrival > ZIPPER_ADAPT_TIME && dist > ZIPPER_ADAPT_DIST) {
 #ifdef DEBUG_ZIPPER
         if (DEBUG_COND_ZIPPER) std::cout << SIMTIME << " getZipperSpeed ego=" << ego->getID()
-            << " dist=" << dist << " ignoring foes (arrival in " << STEPS2TIME(arrivalTime - now) << ")\n";
+                                             << " dist=" << dist << " ignoring foes (arrival in " << STEPS2TIME(arrivalTime - now) << ")\n";
 #endif
         return vSafe;
     }
 #ifdef DEBUG_ZIPPER
     if (DEBUG_COND_ZIPPER) std::cout << SIMTIME << " getZipperSpeed ego=" << ego->getID()
-        << " egoAT=" << arrivalTime
-        << " dist=" << dist
-        << " vSafe=" << vSafe
-        << " numFoes=" << collectFoes->size()
-        << "\n";
+                                         << " egoAT=" << arrivalTime
+                                         << " dist=" << dist
+                                         << " vSafe=" << vSafe
+                                         << " numFoes=" << collectFoes->size()
+                                         << "\n";
 #endif
     MSLink* foeLink = myFoeLinks[0];
     for (std::vector<const SUMOVehicle*>::const_iterator i = collectFoes->begin(); i != collectFoes->end(); ++i) {
@@ -1252,14 +1252,14 @@ MSLink::getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,
             (avi.arrivalTime == arrivalTime && avi.dist == dist && ego->getLane()->getIndex() < foe->getLane()->getIndex())) {
 #ifdef DEBUG_ZIPPER
             if (DEBUG_COND_ZIPPER) std::cout
-                << "    ignoring foe=" << foe->getID()
-                << " foeAT=" << avi.arrivalTime
-                << " foeDist=" << avi.dist
-                << " foeSpeed=" << foe->getSpeed()
-                << " egoSpeed=" << ego->getSpeed()
-                << " deltaDist=" << avi.dist - dist
-                << " delteSpeed=" << foe->getSpeed() - foe->getCarFollowModel().getMaxDecel() - ego->getSpeed()
-                << "\n";
+                        << "    ignoring foe=" << foe->getID()
+                        << " foeAT=" << avi.arrivalTime
+                        << " foeDist=" << avi.dist
+                        << " foeSpeed=" << foe->getSpeed()
+                        << " egoSpeed=" << ego->getSpeed()
+                        << " deltaDist=" << avi.dist - dist
+                        << " delteSpeed=" << foe->getSpeed() - foe->getCarFollowModel().getMaxDecel() - ego->getSpeed()
+                        << "\n";
 #endif
             continue;
         }
@@ -1272,19 +1272,19 @@ MSLink::getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,
         //    safeGap is subject to estimation errors of future speeds
         // 3) deceleration can be spread out over the time until true
         //    car-following happens, at the start of speed adaptions, smaller
-        //    decelerations should be sufficient  
+        //    decelerations should be sufficient
 
         // we cannot trust avi.arrivalSpeed if the foe has leader vehicles that are accelerating
         // lets try to extrapolate
         const double uMax = foe->getLane()->getVehicleMaxSpeed(foe);
-        const double uAccel = foe->getCarFollowModel().estimateSpeedAfterDistance( avi.dist, foe->getSpeed(), foe->getCarFollowModel().getMaxAccel());
+        const double uAccel = foe->getCarFollowModel().estimateSpeedAfterDistance(avi.dist, foe->getSpeed(), foe->getCarFollowModel().getMaxAccel());
         const double uEnd = MIN2(uMax, uAccel);
         const double uAvg = (foe->getSpeed() + uEnd) / 2;
         const double tf0 = avi.dist / MAX2(NUMERICAL_EPS, uAvg);
         const double tf = MAX2(1.0, ceil((tf0) / TS) * TS);
 
         const double vMax = ego->getLane()->getVehicleMaxSpeed(ego);
-        const double vAccel = ego->getCarFollowModel().estimateSpeedAfterDistance( dist, ego->getSpeed(), ego->getCarFollowModel().getMaxAccel());
+        const double vAccel = ego->getCarFollowModel().estimateSpeedAfterDistance(dist, ego->getSpeed(), ego->getCarFollowModel().getMaxAccel());
         const double vEnd = MIN3(vMax, vAccel, uEnd);
         const double vAvg = (ego->getSpeed() + vEnd) / 2;
         const double te0 = dist / MAX2(NUMERICAL_EPS, vAvg);
@@ -1299,7 +1299,7 @@ MSLink::getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,
         const double a = 2 * deltaGap / (tf * tf);
         const double vSafeGap = ego->getSpeed() + ACCEL2SPEED(a);
         const double vFollow = ego->getCarFollowModel().followSpeed(
-                ego, ego->getSpeed(), gap, foe->getSpeed(), foe->getCarFollowModel().getMaxDecel(), foe);
+                                   ego, ego->getSpeed(), gap, foe->getSpeed(), foe->getCarFollowModel().getMaxDecel(), foe);
 
         // scale behavior based on ego time to link (te)
         const double w = MIN2(1.0, te / 10);
@@ -1309,31 +1309,31 @@ MSLink::getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,
         vSafe = MIN2(vSafe, vZipper);
 #ifdef DEBUG_ZIPPER
         if (DEBUG_COND_ZIPPER) std::cout << "    adapting to foe=" << foe->getID()
-            << " foeDist=" << avi.dist
-            << " foeSpeed=" << foe->getSpeed()
-            << " foeAS=" << avi.arrivalSpeed
-            << " egoSpeed=" << ego->getSpeed()
-            << " uMax=" << uMax
-            << " uAccel=" << uAccel
-            << " uEnd=" << uEnd
-            << " uAvg=" << uAvg
-            << " gap=" << gap
-            << " safeGap=" << safeGap
-            << "\n      "
-            << " tf=" << tf
-            << " te=" << te
-            << " dg=" << deltaGap
-            << " aSafeGap=" << a
-            << " vMax=" << vMax
-            << " vAccel=" << vAccel
-            << " vEnd=" << vEnd
-            << " vSafeGap=" << vSafeGap
-            << " vFollow=" << vFollow
-            << " w=" << w
-            << " maxDecel=" << maxDecel
-            << " vZipper=" << vZipper
-            << " vSafe=" << vSafe
-            << "\n";
+                                             << " foeDist=" << avi.dist
+                                             << " foeSpeed=" << foe->getSpeed()
+                                             << " foeAS=" << avi.arrivalSpeed
+                                             << " egoSpeed=" << ego->getSpeed()
+                                             << " uMax=" << uMax
+                                             << " uAccel=" << uAccel
+                                             << " uEnd=" << uEnd
+                                             << " uAvg=" << uAvg
+                                             << " gap=" << gap
+                                             << " safeGap=" << safeGap
+                                             << "\n      "
+                                             << " tf=" << tf
+                                             << " te=" << te
+                                             << " dg=" << deltaGap
+                                             << " aSafeGap=" << a
+                                             << " vMax=" << vMax
+                                             << " vAccel=" << vAccel
+                                             << " vEnd=" << vEnd
+                                             << " vSafeGap=" << vSafeGap
+                                             << " vFollow=" << vFollow
+                                             << " w=" << w
+                                             << " maxDecel=" << maxDecel
+                                             << " vZipper=" << vZipper
+                                             << " vSafe=" << vSafe
+                                             << "\n";
 #endif
     }
     return vSafe;

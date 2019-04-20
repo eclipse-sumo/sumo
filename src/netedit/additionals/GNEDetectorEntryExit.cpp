@@ -37,7 +37,9 @@
 // ===========================================================================
 
 GNEDetectorEntryExit::GNEDetectorEntryExit(SumoXMLTag entryExitTag, GNEViewNet* viewNet, GNEAdditional* parent, GNELane* lane, double pos, bool friendlyPos, bool blockMovement) :
-    GNEDetector(parent, viewNet, GLO_DET_ENTRY, entryExitTag, pos, 0, "", "", friendlyPos, blockMovement, {lane}) {
+    GNEDetector(parent, viewNet, GLO_DET_ENTRY, entryExitTag, pos, 0, "", "", friendlyPos, blockMovement, {
+    lane
+}) {
     //check that this is a TAZ Source OR a TAZ Sink
     if ((entryExitTag != SUMO_TAG_DET_ENTRY) && (entryExitTag != SUMO_TAG_DET_EXIT)) {
         throw InvalidArgument("Invalid E3 Child Tag");

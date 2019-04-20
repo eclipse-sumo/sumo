@@ -67,13 +67,13 @@ public:
         void updateDijkstraRouter();
 
         /// @brief calculate Dijkstra route (and save it in a single vector
-        std::vector<const NBEdge*> calculateDijkstraRoute(SUMOVehicleClass vClass, const std::vector<GNEEdge*> &edges) const;
+        std::vector<const NBEdge*> calculateDijkstraRoute(SUMOVehicleClass vClass, const std::vector<GNEEdge*>& edges) const;
 
         /// @brief calculate partial Dijkstra route (and save it in a Matrix vector)
-        std::vector<std::vector<const NBEdge*> > calculateDijkstraPartialRoute(SUMOVehicleClass vClass, const std::vector<GNEEdge*> &edges) const;
+        std::vector<std::vector<const NBEdge*> > calculateDijkstraPartialRoute(SUMOVehicleClass vClass, const std::vector<GNEEdge*>& edges) const;
 
         /// @ brief check if exist a route between the two given consecutives edges
-        bool areEdgesConsecutives(SUMOVehicleClass vClass, GNEEdge* from, GNEEdge*to) const;
+        bool areEdgesConsecutives(SUMOVehicleClass vClass, GNEEdge* from, GNEEdge* to) const;
 
     private:
         /// @brief pointer to net
@@ -100,16 +100,16 @@ public:
      * @param[in] demandElementChilds vector of demandElement childs
      */
     GNEDemandElement(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag,
-        const std::vector<GNEEdge*> &edgeParents, 
-        const std::vector<GNELane*> &laneParents, 
-        const std::vector<GNEShape*> &shapeParents, 
-        const std::vector<GNEAdditional*>& additionalParents, 
-        const std::vector<GNEDemandElement*>& demandElementParents,
-        const std::vector<GNEEdge*> &edgeChilds, 
-        const std::vector<GNELane*> &laneChilds, 
-        const std::vector<GNEShape*> &shapeChilds, 
-        const std::vector<GNEAdditional*>& additionalChilds, 
-        const std::vector<GNEDemandElement*>& demandElementChilds);
+                     const std::vector<GNEEdge*>& edgeParents,
+                     const std::vector<GNELane*>& laneParents,
+                     const std::vector<GNEShape*>& shapeParents,
+                     const std::vector<GNEAdditional*>& additionalParents,
+                     const std::vector<GNEDemandElement*>& demandElementParents,
+                     const std::vector<GNEEdge*>& edgeChilds,
+                     const std::vector<GNELane*>& laneChilds,
+                     const std::vector<GNEShape*>& shapeChilds,
+                     const std::vector<GNEAdditional*>& additionalChilds,
+                     const std::vector<GNEDemandElement*>& demandElementChilds);
 
     /**@brief Constructor
      * @param[in] demandElementParent pointer to demand element parent pointer (used to generate an ID)
@@ -128,16 +128,16 @@ public:
      * @param[in] demandElementChilds vector of demandElement childs
      */
     GNEDemandElement(GNEDemandElement* demandElementParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag,
-        const std::vector<GNEEdge*> &edgeParents, 
-        const std::vector<GNELane*> &laneParents, 
-        const std::vector<GNEShape*> &shapeParents, 
-        const std::vector<GNEAdditional*>& additionalParents, 
-        const std::vector<GNEDemandElement*>& demandElementParents,
-        const std::vector<GNEEdge*> &edgeChilds, 
-        const std::vector<GNELane*> &laneChilds, 
-        const std::vector<GNEShape*> &shapeChilds, 
-        const std::vector<GNEAdditional*>& additionalChilds, 
-        const std::vector<GNEDemandElement*>& demandElementChilds);
+                     const std::vector<GNEEdge*>& edgeParents,
+                     const std::vector<GNELane*>& laneParents,
+                     const std::vector<GNEShape*>& shapeParents,
+                     const std::vector<GNEAdditional*>& additionalParents,
+                     const std::vector<GNEDemandElement*>& demandElementParents,
+                     const std::vector<GNEEdge*>& edgeChilds,
+                     const std::vector<GNELane*>& laneChilds,
+                     const std::vector<GNEShape*>& shapeChilds,
+                     const std::vector<GNEAdditional*>& additionalChilds,
+                     const std::vector<GNEDemandElement*>& demandElementChilds);
 
     /// @brief Destructor
     ~GNEDemandElement();
@@ -203,13 +203,13 @@ public:
     GNEViewNet* getViewNet() const;
 
     /// @brief get color
-    virtual const RGBColor &getColor() const = 0;
-    
+    virtual const RGBColor& getColor() const = 0;
+
     /// @name members and functions relative to RouteCalculator isntance
     /// @{
 
     /// @brief create instance of RouteCalculator
-    static void createRouteCalculatorInstance(GNENet *net);
+    static void createRouteCalculatorInstance(GNENet* net);
 
     /// @brief delete instance of RouteCalculator
     static void deleteRouteCalculatorInstance();

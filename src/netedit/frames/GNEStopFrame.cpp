@@ -84,14 +84,14 @@ GNEStopFrame::StopParentSelector::getCurrentStopParent() const {
 
 
 void
-GNEStopFrame::StopParentSelector::setStopParent(GNEDemandElement *stopParent) {
+GNEStopFrame::StopParentSelector::setStopParent(GNEDemandElement* stopParent) {
     // update stopParentMatchBox
     myStopParentMatchBox->setText(stopParent->getID().c_str());
     onCmdSelectStopParent(nullptr, 0, nullptr);
 }
 
 
-void 
+void
 GNEStopFrame::StopParentSelector::showStopParentSelector() {
     // refresh stop parent selector
     refreshStopParentSelector();
@@ -100,13 +100,13 @@ GNEStopFrame::StopParentSelector::showStopParentSelector() {
 }
 
 
-void 
+void
 GNEStopFrame::StopParentSelector::hideStopParentSelector() {
     hide();
 }
 
 
-void 
+void
 GNEStopFrame::StopParentSelector::refreshStopParentSelector() {
     // clear comboBox and show
     myStopParentMatchBox->clearItems();
@@ -212,7 +212,7 @@ GNEStopFrame::HelpCreation::HelpCreation(GNEStopFrame* StopFrameParent) :
 GNEStopFrame::HelpCreation::~HelpCreation() {}
 
 
-void 
+void
 GNEStopFrame::HelpCreation::showHelpCreation() {
     // first update help cration
     updateHelpCreation();
@@ -221,13 +221,13 @@ GNEStopFrame::HelpCreation::showHelpCreation() {
 }
 
 
-void 
+void
 GNEStopFrame::HelpCreation::hideHelpCreation() {
     hide();
 }
 
 
-void 
+void
 GNEStopFrame::HelpCreation::updateHelpCreation() {
     // create information label
     std::ostringstream information;
@@ -235,28 +235,28 @@ GNEStopFrame::HelpCreation::updateHelpCreation() {
     switch (myStopFrameParent->myStopTypeSelector->getCurrentTagProperties().getTag()) {
         case SUMO_TAG_STOP_BUSSTOP:
             information
-                << "- Click over a bus stop\n"
-                << "  to create a stop.";
+                    << "- Click over a bus stop\n"
+                    << "  to create a stop.";
             break;
         case SUMO_TAG_STOP_CONTAINERSTOP:
             information
-                << "- Click over a container stop\n"
-                << "  to create a stop.";
+                    << "- Click over a container stop\n"
+                    << "  to create a stop.";
             break;
         case SUMO_TAG_STOP_CHARGINGSTATION:
             information
-                << "- Click over a charging \n"
-                << "  station to create a stop.";
+                    << "- Click over a charging \n"
+                    << "  station to create a stop.";
             break;
         case SUMO_TAG_STOP_PARKINGAREA:
             information
-                << "- Click over a parking area\n"
-                << "  to create a stop.";
+                    << "- Click over a parking area\n"
+                    << "  to create a stop.";
             break;
         case SUMO_TAG_STOP_LANE:
             information
-                << "- Click over a lane to\n"
-                << "  create a stop.";
+                    << "- Click over a lane to\n"
+                    << "  create a stop.";
             break;
         default:
             break;
@@ -280,7 +280,7 @@ GNEStopFrame::GNEStopFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet*
 
     // Create Stop parameters
     myStopAttributes = new AttributesCreator(this);
-    
+
     // Create Netedit parameter
     myNeteditAttributes = new NeteditAttributes(this);
 
@@ -310,8 +310,8 @@ bool
 GNEStopFrame::addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, bool shiftPressed) {
     // check if we're selecting a new stop parent
     if (shiftPressed) {
-        if (objectsUnderCursor.getDemandElementFront() && 
-            (objectsUnderCursor.getDemandElementFront()->getTagProperty().isVehicle() || objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE)) {
+        if (objectsUnderCursor.getDemandElementFront() &&
+                (objectsUnderCursor.getDemandElementFront()->getTagProperty().isVehicle() || objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE)) {
             myStopParentSelector->setStopParent(objectsUnderCursor.getDemandElementFront());
             WRITE_WARNING("Selected " + objectsUnderCursor.getDemandElementFront()->getTagStr() + " '" + objectsUnderCursor.getDemandElementFront()->getID() + "' as stop parent.");
             return true;
@@ -338,7 +338,7 @@ GNEStopFrame::addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCu
             WRITE_WARNING("Current selected Stop type isn't valid.");
             return false;
         } else if (stopTag == SUMO_TAG_STOP_LANE) {
-            if(objectsUnderCursor.getLaneFront()) {
+            if (objectsUnderCursor.getLaneFront()) {
                 stopParameter.lane = objectsUnderCursor.getLaneFront()->getID();
             } else {
                 WRITE_WARNING("Click over a lane to create a stop placed in a lane");
@@ -480,7 +480,7 @@ GNEStopFrame::addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCu
 
         // create it in RouteFrame
         GNERouteHandler::buildStop(myViewNet, true, stopParameter, myStopParentSelector->getCurrentStopParent(), friendlyPosition);
-        
+
         // stop sucesfully created, then return true
         return true;
     }

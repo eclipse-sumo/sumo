@@ -253,23 +253,22 @@ void
 MSVehicle::Influencer::GapControlVehStateListener::vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet::VehicleState to, const std::string& /*info*/) {
 //    std::cout << "GapControlVehStateListener::vehicleStateChanged() vehicle=" << vehicle->getID() << ", to=" << to << std::endl;
     switch (to) {
-    case MSNet::VEHICLE_STATE_STARTING_TELEPORT:
-    case MSNet::VEHICLE_STATE_ARRIVED:
-    case MSNet::VEHICLE_STATE_STARTING_PARKING:
-    {
-        // Vehicle left road
+        case MSNet::VEHICLE_STATE_STARTING_TELEPORT:
+        case MSNet::VEHICLE_STATE_ARRIVED:
+        case MSNet::VEHICLE_STATE_STARTING_PARKING: {
+            // Vehicle left road
 //         Look up reference vehicle in refVehMap and in case deactivate corresponding gap control
-        const MSVehicle* msVeh = static_cast<const MSVehicle*>(vehicle);
+            const MSVehicle* msVeh = static_cast<const MSVehicle*>(vehicle);
 //        std::cout << "GapControlVehStateListener::vehicleStateChanged() vehicle=" << vehicle->getID() << " left the road." << std::endl;
-        if (GapControlState::refVehMap.find(msVeh) != end(GapControlState::refVehMap)) {
+            if (GapControlState::refVehMap.find(msVeh) != end(GapControlState::refVehMap)) {
 //            std::cout << "GapControlVehStateListener::deactivating ref vehicle=" << vehicle->getID() << std::endl;
-            GapControlState::refVehMap[msVeh]->deactivate();
+                GapControlState::refVehMap[msVeh]->deactivate();
+            }
         }
-    }
         break;
-    default:
-    {};
-        // do nothing, vehicle still on road
+        default:
+        {};
+            // do nothing, vehicle still on road
     }
 }
 
@@ -292,7 +291,7 @@ MSVehicle::Influencer::GapControlState::~GapControlState() {
 void
 MSVehicle::Influencer::GapControlState::init() {
 //    std::cout << "GapControlState::init()" << std::endl;
-    if (MSNet::hasInstance()){
+    if (MSNet::hasInstance()) {
         MSNet::VehicleStateListener* vsl = dynamic_cast<MSNet::VehicleStateListener*>(&vehStateListener);
         MSNet::getInstance()->addVehicleStateListener(vsl);
     } else {
@@ -340,7 +339,7 @@ void
 MSVehicle::Influencer::GapControlState::deactivate() {
     active = false;
     if (referenceVeh != nullptr) {
-    // Remove corresponding refVehMapEntry if appropriate
+        // Remove corresponding refVehMapEntry if appropriate
         GapControlState::refVehMap.erase(referenceVeh);
         referenceVeh = nullptr;
     }
@@ -815,8 +814,8 @@ MSVehicle::Influencer::postProcessRemoteControl(MSVehicle* v) {
     }
     if (myRemoteLane != nullptr && fabs(myRemotePosLat) < 0.5 * (myRemoteLane->getWidth() + v->getVehicleType().getWidth())) {
         MSMoveReminder::Notification notify = v->getDeparture() == NOT_YET_DEPARTED
-            ? MSMoveReminder::NOTIFICATION_DEPARTED
-            : MSMoveReminder::NOTIFICATION_TELEPORT_ARRIVED;
+                                              ? MSMoveReminder::NOTIFICATION_DEPARTED
+                                              : MSMoveReminder::NOTIFICATION_TELEPORT_ARRIVED;
         myRemoteLane->forceVehicleInsertion(v, myRemotePos, notify, myRemotePosLat);
         v->updateBestLanes();
         if (!wasOnRoad) {
@@ -862,12 +861,12 @@ MSVehicle::Influencer::implicitSpeedRemote(const MSVehicle* veh, double oldSpeed
     }
     //std::cout << SIMTIME << " veh=" << veh->getID() << " oldPos=" << veh->getPosition() << " traciPos=" << myRemoteXYPos << " dist=" << dist << "\n";
     const double minSpeed = myConsiderMaxDeceleration ?
-        veh->getCarFollowModel().minNextSpeedEmergency(oldSpeed, veh) : 0;
+                            veh->getCarFollowModel().minNextSpeedEmergency(oldSpeed, veh) : 0;
     const double maxSpeed = (myRemoteLane != nullptr
-        ? myRemoteLane->getVehicleMaxSpeed(veh)
-        : (veh->getLane() != nullptr
-                ? veh->getLane()->getVehicleMaxSpeed(veh)
-                : veh->getVehicleType().getMaxSpeed()));
+                             ? myRemoteLane->getVehicleMaxSpeed(veh)
+                             : (veh->getLane() != nullptr
+                                ? veh->getLane()->getVehicleMaxSpeed(veh)
+                                : veh->getVehicleType().getMaxSpeed()));
     return MIN2(maxSpeed, MAX2(minSpeed, DIST2SPEED(dist)));
 }
 
@@ -1119,12 +1118,16 @@ MSVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info, bool o
             lastPos += (*myCurrEdge)->getLength();
         }
 #ifdef DEBUG_REPLACE_ROUTE
-        if (DEBUG_COND) std::cout << "  replaceRoute on " << (*myCurrEdge)->getID() << " lane=" << myLane->getID() << "\n";
+        if (DEBUG_COND) {
+            std::cout << "  replaceRoute on " << (*myCurrEdge)->getID() << " lane=" << myLane->getID() << "\n";
+        }
 #endif
         for (std::list<Stop>::iterator iter = myStops.begin(); iter != myStops.end();) {
             double endPos = iter->getEndPos(*this);
 #ifdef DEBUG_REPLACE_ROUTE
-            if (DEBUG_COND) std::cout << "     stopEdge=" << iter->lane->getEdge().getID() << " start=" << (searchStart - myCurrEdge) << " endPos=" << endPos << " lastPos=" << lastPos << "\n";
+            if (DEBUG_COND) {
+                std::cout << "     stopEdge=" << iter->lane->getEdge().getID() << " start=" << (searchStart - myCurrEdge) << " endPos=" << endPos << " lastPos=" << lastPos << "\n";
+            }
 #endif
             if (*searchStart != &iter->lane->getEdge()
                     || endPos < lastPos) {
@@ -1136,7 +1139,9 @@ MSVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info, bool o
 
             iter->edge = std::find(searchStart, edges.end(), &iter->lane->getEdge());
 #ifdef DEBUG_REPLACE_ROUTE
-            if (DEBUG_COND) std::cout << "        foundIndex=" << (iter->edge - myCurrEdge) << " end=" << (edges.end() - myCurrEdge) << "\n";
+            if (DEBUG_COND) {
+                std::cout << "        foundIndex=" << (iter->edge - myCurrEdge) << " end=" << (edges.end() - myCurrEdge) << "\n";
+            }
 #endif
             if (iter->edge == edges.end()) {
                 if (removeStops) {
@@ -1414,7 +1419,7 @@ MSVehicle::setAngle(double angle, bool straightenFurther) {
     myAngle = angle;
     MSLane* next = myLane;
     if (straightenFurther && myFurtherLanesPosLat.size() > 0) {
-        for (int i = 0; i < (int)myFurtherLanes.size(); i++) { 
+        for (int i = 0; i < (int)myFurtherLanes.size(); i++) {
             MSLane* further = myFurtherLanes[i];
             if (further->getLinkTo(next) != nullptr) {
                 myFurtherLanesPosLat[i] = getLateralPositionOnLane();
@@ -2042,8 +2047,8 @@ MSVehicle::getStopIndices() const {
     std::vector<std::pair<int, double> > result;
     for (std::list<Stop>::const_iterator iter = myStops.begin(); iter != myStops.end(); ++iter) {
         result.push_back(std::make_pair(
-                    (int)(iter->edge - myRoute->begin()),
-                    iter->getEndPos(*this)));
+                             (int)(iter->edge - myRoute->begin()),
+                             iter->getEndPos(*this)));
     }
     return result;
 }
@@ -2397,8 +2402,8 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             }
 #ifdef DEBUG_PLAN_MOVE
             if (DEBUG_COND) {
-                std::cout << "   braking for link end lane=" << lane->getID() << " seen=" << seen 
-                    << " overlap=" << getLateralOverlap() << " va=" << va << " committed=" << getLaneChangeModel().getCommittedSpeed() << " v=" << v << "\n";
+                std::cout << "   braking for link end lane=" << lane->getID() << " seen=" << seen
+                          << " overlap=" << getLateralOverlap() << " va=" << va << " committed=" << getLaneChangeModel().getCommittedSpeed() << " v=" << v << "\n";
 
             }
 #endif
@@ -3461,16 +3466,16 @@ bool
 MSVehicle::canReverse(double speedThreshold) const {
 #ifdef DEBUG_REVERSE_BIDI
     if (DEBUG_COND) std::cout << SIMTIME  << " canReverse lane=" << myLane->getID()
-        << " pos=" << myState.myPos
-        << " speed=" << std::setprecision(6) << getPreviousSpeed() << std::setprecision(gPrecision)
-        << " isRail=" << ((getVClass() & SVC_RAIL_CLASSES) != 0)
-        << " speedOk=" << (getPreviousSpeed() <= speedThreshold)
-        << " posOK=" << (myState.myPos <= myLane->getLength())
-        << " normal=" << !myLane->isInternal()
-        << " routeOK=" << ((myCurrEdge + 1) != myRoute->end())
-        << " bidi=" << (myLane->getEdge().getBidiEdge() == *(myCurrEdge + 1))
-        << " stopOk=" << (myStops.empty() || myStops.front().edge != myCurrEdge)
-        << "\n";
+                                  << " pos=" << myState.myPos
+                                  << " speed=" << std::setprecision(6) << getPreviousSpeed() << std::setprecision(gPrecision)
+                                  << " isRail=" << ((getVClass() & SVC_RAIL_CLASSES) != 0)
+                                  << " speedOk=" << (getPreviousSpeed() <= speedThreshold)
+                                  << " posOK=" << (myState.myPos <= myLane->getLength())
+                                  << " normal=" << !myLane->isInternal()
+                                  << " routeOK=" << ((myCurrEdge + 1) != myRoute->end())
+                                  << " bidi=" << (myLane->getEdge().getBidiEdge() == *(myCurrEdge + 1))
+                                  << " stopOk=" << (myStops.empty() || myStops.front().edge != myCurrEdge)
+                                  << "\n";
 #endif
     if ((getVClass() & SVC_RAIL_CLASSES) != 0
             && getPreviousSpeed() <= speedThreshold
@@ -4470,7 +4475,7 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane) {
 #ifdef DEBUG_SETFURTHER
     if (DEBUG_COND) {
         std::cout << SIMTIME << " enterLaneAtLaneChange new furtherLanes=" << toString(myFurtherLanes)
-            << " furterLanesPosLat=" << toString(myFurtherLanesPosLat) << "\n";
+                  << " furterLanesPosLat=" << toString(myFurtherLanesPosLat) << "\n";
     }
 #endif
     myAngle = computeAngle();
@@ -6080,7 +6085,7 @@ MSVehicle::haveValidStopEdges() const {
             } else {
                 if (it != stop.edge && endPos >= lastPos) {
                     WRITE_WARNING(prefix + "is used in " + toString(stop.edge - myCurrEdge) + " edges but first encounter is in "
-                            + toString(it - myCurrEdge) + " edges " + err);
+                                  + toString(it - myCurrEdge) + " edges " + err);
                 }
                 start = stop.edge;
             }

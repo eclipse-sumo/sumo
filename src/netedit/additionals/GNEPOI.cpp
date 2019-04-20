@@ -63,7 +63,7 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
 GNEPOI::~GNEPOI() {}
 
 
-std::string 
+std::string
 GNEPOI::generateChildID(SumoXMLTag childTag) {
     int counter = myNet->getPOIs().size();
     while (myNet->retrievePOI(getID() + toString(childTag) + toString(counter), false) != nullptr) {

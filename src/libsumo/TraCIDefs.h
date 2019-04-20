@@ -203,10 +203,10 @@ typedef std::map<std::string, SubscriptionResults> ContextSubscriptionResults;
 class TraCIPhase {
 public:
     TraCIPhase() {}
-    TraCIPhase(const double _duration, const std::string& _state, const double _minDur = libsumo::INVALID_DOUBLE_VALUE, 
-            const double _maxDur = libsumo::INVALID_DOUBLE_VALUE, 
-            const std::vector<int>& _next = std::vector<int>(), 
-            const std::string& _name = "") : 
+    TraCIPhase(const double _duration, const std::string& _state, const double _minDur = libsumo::INVALID_DOUBLE_VALUE,
+               const double _maxDur = libsumo::INVALID_DOUBLE_VALUE,
+               const std::vector<int>& _next = std::vector<int>(),
+               const std::string& _name = "") :
         duration(_duration), state(_state), minDur(_minDur), maxDur(_maxDur), next(_next), name(_name) {}
     ~TraCIPhase() {}
 

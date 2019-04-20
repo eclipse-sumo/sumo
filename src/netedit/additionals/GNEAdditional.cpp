@@ -130,16 +130,16 @@ GNEAdditional::AdditionalGeometry::calculateMultiShapeRotationsAndLengths() {
 // ---------------------------------------------------------------------------
 
 GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement,
-        const std::vector<GNEEdge*> &edgeParents, 
-        const std::vector<GNELane*> &laneParents, 
-        const std::vector<GNEShape*> &shapeParents, 
-        const std::vector<GNEAdditional*>& additionalParents, 
-        const std::vector<GNEDemandElement*>& demandElementParents,
-        const std::vector<GNEEdge*> &edgeChilds, 
-        const std::vector<GNELane*> &laneChilds, 
-        const std::vector<GNEShape*> &shapeChilds, 
-        const std::vector<GNEAdditional*>& additionalChilds, 
-        const std::vector<GNEDemandElement*>& demandElementChilds) :
+                             const std::vector<GNEEdge*>& edgeParents,
+                             const std::vector<GNELane*>& laneParents,
+                             const std::vector<GNEShape*>& shapeParents,
+                             const std::vector<GNEAdditional*>& additionalParents,
+                             const std::vector<GNEDemandElement*>& demandElementParents,
+                             const std::vector<GNEEdge*>& edgeChilds,
+                             const std::vector<GNELane*>& laneChilds,
+                             const std::vector<GNEShape*>& shapeChilds,
+                             const std::vector<GNEAdditional*>& additionalChilds,
+                             const std::vector<GNEDemandElement*>& demandElementChilds) :
     GUIGlObject(type, id),
     GNEAttributeCarrier(tag),
     Parameterised(),
@@ -153,16 +153,16 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlOb
 
 
 GNEAdditional::GNEAdditional(GNEAdditional* additionalParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement,
-        const std::vector<GNEEdge*> &edgeParents, 
-        const std::vector<GNELane*> &laneParents, 
-        const std::vector<GNEShape*> &shapeParents, 
-        const std::vector<GNEAdditional*>& additionalParents, 
-        const std::vector<GNEDemandElement*>& demandElementParents,
-        const std::vector<GNEEdge*> &edgeChilds, 
-        const std::vector<GNELane*> &laneChilds, 
-        const std::vector<GNEShape*> &shapeChilds, 
-        const std::vector<GNEAdditional*>& additionalChilds, 
-        const std::vector<GNEDemandElement*>& demandElementChilds) :
+                             const std::vector<GNEEdge*>& edgeParents,
+                             const std::vector<GNELane*>& laneParents,
+                             const std::vector<GNEShape*>& shapeParents,
+                             const std::vector<GNEAdditional*>& additionalParents,
+                             const std::vector<GNEDemandElement*>& demandElementParents,
+                             const std::vector<GNEEdge*>& edgeChilds,
+                             const std::vector<GNELane*>& laneChilds,
+                             const std::vector<GNEShape*>& shapeChilds,
+                             const std::vector<GNEAdditional*>& additionalChilds,
+                             const std::vector<GNEDemandElement*>& demandElementChilds) :
     GUIGlObject(type, additionalParent->generateChildID(tag)),
     GNEAttributeCarrier(tag),
     Parameterised(),
@@ -178,7 +178,7 @@ GNEAdditional::GNEAdditional(GNEAdditional* additionalParent, GNEViewNet* viewNe
 GNEAdditional::~GNEAdditional() {}
 
 
-std::string 
+std::string
 GNEAdditional::generateChildID(SumoXMLTag childTag) {
     int counter = (int)getAdditionalChilds().size();
     while (myViewNet->getNet()->retrieveAdditional(childTag, getID() + toString(childTag) + toString(counter), false) != nullptr) {
@@ -323,7 +323,7 @@ GNEAdditional::openAdditionalDialog() {
 void
 GNEAdditional::startGeometryMoving() {
     // only move if additional is drawable
-    if(myTagProperty.isDrawable()) {
+    if (myTagProperty.isDrawable()) {
         // always save original position over view
         myMove.originalViewPosition = getPositionInView();
         // check if position over lane or lanes has to be saved
@@ -336,7 +336,7 @@ GNEAdditional::startGeometryMoving() {
                 // obtain position attribute
                 myMove.firstOriginalLanePosition = getAttribute(SUMO_ATTR_POSITION);
             }
-        } else if (myTagProperty.hasAttribute(SUMO_ATTR_LANES) && 
+        } else if (myTagProperty.hasAttribute(SUMO_ATTR_LANES) &&
                    myTagProperty.hasAttribute(SUMO_ATTR_POSITION) &&
                    myTagProperty.hasAttribute(SUMO_ATTR_ENDPOS)) {
             // obtain start and end position
@@ -346,7 +346,7 @@ GNEAdditional::startGeometryMoving() {
         // save current centering boundary
         myMove.movingGeometryBoundary = getCenteringBoundary();
         // start geometry in all childs
-        for (const auto &i : getDemandElementChilds()) {
+        for (const auto& i : getDemandElementChilds()) {
             i->startGeometryMoving();
         }
     }
@@ -366,7 +366,7 @@ GNEAdditional::endGeometryMoving() {
         // add object into grid again (using the new centering boundary)
         myViewNet->getNet()->addGLObjectIntoGrid(this);
         // start geometry in all childs
-        for (const auto &i : getDemandElementChilds()) {
+        for (const auto& i : getDemandElementChilds()) {
             i->endGeometryMoving();
         }
     }

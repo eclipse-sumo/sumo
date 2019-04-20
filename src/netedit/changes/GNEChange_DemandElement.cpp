@@ -81,35 +81,35 @@ GNEChange_DemandElement::undo() {
         // delete demand element from net
         myNet->deleteDemandElement(myDemandElement, false);
         // Remove element from parent elements
-        for (const auto &i : myEdgeParents) {
+        for (const auto& i : myEdgeParents) {
             i->removeDemandElementChild(myDemandElement);
         }
-        for (const auto &i : myLaneParents) {
+        for (const auto& i : myLaneParents) {
             i->removeDemandElementChild(myDemandElement);
         }
-        for (const auto &i : myShapeParents) {
+        for (const auto& i : myShapeParents) {
             i->removeDemandElementChild(myDemandElement);
         }
-        for (const auto &i : myAdditionalParents) {
+        for (const auto& i : myAdditionalParents) {
             i->removeDemandElementChild(myDemandElement);
         }
-        for (const auto &i : myDemandElementParents) {
+        for (const auto& i : myDemandElementParents) {
             i->removeDemandElementChild(myDemandElement);
         }
         // Remove element from child elements
-        for (const auto &i : myEdgeChilds) {
+        for (const auto& i : myEdgeChilds) {
             i->removeDemandElementParent(myDemandElement);
         }
-        for (const auto &i : myLaneChilds) {
+        for (const auto& i : myLaneChilds) {
             i->removeDemandElementParent(myDemandElement);
         }
-        for (const auto &i : myShapeChilds) {
+        for (const auto& i : myShapeChilds) {
             i->removeDemandElementParent(myDemandElement);
         }
-        for (const auto &i : myAdditionalChilds) {
+        for (const auto& i : myAdditionalChilds) {
             i->removeDemandElementParent(myDemandElement);
         }
-        for (const auto &i : myDemandElementChilds) {
+        for (const auto& i : myDemandElementChilds) {
             i->removeDemandElementParent(myDemandElement);
         }
     } else {
@@ -118,35 +118,35 @@ GNEChange_DemandElement::undo() {
         // insert demand element into net
         myNet->insertDemandElement(myDemandElement);
         // add element in parent elements
-        for (const auto &i : myEdgeParents) {
+        for (const auto& i : myEdgeParents) {
             i->addDemandElementChild(myDemandElement);
         }
-        for (const auto &i : myLaneParents) {
+        for (const auto& i : myLaneParents) {
             i->addDemandElementChild(myDemandElement);
         }
-        for (const auto &i : myShapeParents) {
+        for (const auto& i : myShapeParents) {
             i->addDemandElementChild(myDemandElement);
         }
-        for (const auto &i : myAdditionalParents) {
+        for (const auto& i : myAdditionalParents) {
             i->addDemandElementChild(myDemandElement);
         }
-        for (const auto &i : myDemandElementParents) {
+        for (const auto& i : myDemandElementParents) {
             i->addDemandElementChild(myDemandElement);
         }
         // add element in child elements
-        for (const auto &i : myEdgeChilds) {
+        for (const auto& i : myEdgeChilds) {
             i->addDemandElementParent(myDemandElement);
         }
-        for (const auto &i : myLaneChilds) {
+        for (const auto& i : myLaneChilds) {
             i->addDemandElementParent(myDemandElement);
         }
-        for (const auto &i : myShapeChilds) {
+        for (const auto& i : myShapeChilds) {
             i->addDemandElementParent(myDemandElement);
         }
-        for (const auto &i : myAdditionalChilds) {
+        for (const auto& i : myAdditionalChilds) {
             i->addDemandElementParent(myDemandElement);
         }
-        for (const auto &i : myDemandElementChilds) {
+        for (const auto& i : myDemandElementChilds) {
             i->addDemandElementParent(myDemandElement);
         }
     }
@@ -163,35 +163,35 @@ GNEChange_DemandElement::redo() {
         // insert demand element into net
         myNet->insertDemandElement(myDemandElement);
         // add element in parent elements
-        for (const auto &i : myEdgeParents) {
+        for (const auto& i : myEdgeParents) {
             i->addDemandElementChild(myDemandElement);
         }
-        for (const auto &i : myLaneParents) {
+        for (const auto& i : myLaneParents) {
             i->addDemandElementChild(myDemandElement);
         }
-        for (const auto &i : myShapeParents) {
+        for (const auto& i : myShapeParents) {
             i->addDemandElementChild(myDemandElement);
         }
-        for (const auto &i : myAdditionalParents) {
+        for (const auto& i : myAdditionalParents) {
             i->addDemandElementChild(myDemandElement);
         }
-        for (const auto &i : myDemandElementParents) {
+        for (const auto& i : myDemandElementParents) {
             i->addDemandElementChild(myDemandElement);
         }
         // add element in child elements
-        for (const auto &i : myEdgeChilds) {
+        for (const auto& i : myEdgeChilds) {
             i->addDemandElementParent(myDemandElement);
         }
-        for (const auto &i : myLaneChilds) {
+        for (const auto& i : myLaneChilds) {
             i->addDemandElementParent(myDemandElement);
         }
-        for (const auto &i : myShapeChilds) {
+        for (const auto& i : myShapeChilds) {
             i->addDemandElementParent(myDemandElement);
         }
-        for (const auto &i : myAdditionalChilds) {
+        for (const auto& i : myAdditionalChilds) {
             i->addDemandElementParent(myDemandElement);
         }
-        for (const auto &i : myDemandElementChilds) {
+        for (const auto& i : myDemandElementChilds) {
             i->addDemandElementParent(myDemandElement);
         }
     } else {
@@ -200,35 +200,35 @@ GNEChange_DemandElement::redo() {
         // delete demand element from net
         myNet->deleteDemandElement(myDemandElement, false);
         // Remove element from parent elements
-        for (const auto &i : myEdgeParents) {
+        for (const auto& i : myEdgeParents) {
             i->removeDemandElementChild(myDemandElement);
         }
-        for (const auto &i : myLaneParents) {
+        for (const auto& i : myLaneParents) {
             i->removeDemandElementChild(myDemandElement);
         }
-        for (const auto &i : myShapeParents) {
+        for (const auto& i : myShapeParents) {
             i->removeDemandElementChild(myDemandElement);
         }
-        for (const auto &i : myAdditionalParents) {
+        for (const auto& i : myAdditionalParents) {
             i->removeDemandElementChild(myDemandElement);
         }
-        for (const auto &i : myDemandElementParents) {
+        for (const auto& i : myDemandElementParents) {
             i->removeDemandElementChild(myDemandElement);
         }
         // Remove element from child elements
-        for (const auto &i : myEdgeChilds) {
+        for (const auto& i : myEdgeChilds) {
             i->removeDemandElementParent(myDemandElement);
         }
-        for (const auto &i : myLaneChilds) {
+        for (const auto& i : myLaneChilds) {
             i->removeDemandElementParent(myDemandElement);
         }
-        for (const auto &i : myShapeChilds) {
+        for (const auto& i : myShapeChilds) {
             i->removeDemandElementParent(myDemandElement);
         }
-        for (const auto &i : myAdditionalChilds) {
+        for (const auto& i : myAdditionalChilds) {
             i->removeDemandElementParent(myDemandElement);
         }
-        for (const auto &i : myDemandElementChilds) {
+        for (const auto& i : myDemandElementChilds) {
             i->removeDemandElementParent(myDemandElement);
         }
     }

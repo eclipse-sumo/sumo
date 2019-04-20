@@ -244,7 +244,7 @@ private:
                      const int routingMode, EffortCalculator* calc) :
         SUMOAbstractRouter<E, _IntermodalTrip>("IntermodalRouterClone", true), myAmClone(true),
         myInternalRouter(new _InternalDijkstra(net->getAllEdges(), true,
-                    gWeightsRandomFactor > 1 ? &_IntermodalEdge::getTravelTimeStaticRandomized : &_IntermodalEdge::getTravelTimeStatic)),
+                                               gWeightsRandomFactor > 1 ? & _IntermodalEdge::getTravelTimeStaticRandomized : & _IntermodalEdge::getTravelTimeStatic)),
         myIntermodalNet(net), myCarWalkTransfer(carWalkTransfer), myRoutingAlgorithm(routingAlgorithm), myRoutingMode(routingMode), myExternalEffort(calc) {}
 
     static inline double getEffortAggregated(const _IntermodalEdge* const edge, const _IntermodalTrip* const trip, double time) {
@@ -264,7 +264,7 @@ private:
                 case 0:
                     if (myRoutingAlgorithm == "astar") {
                         myInternalRouter = new _InternalAStar(myIntermodalNet->getAllEdges(), true,
-                                gWeightsRandomFactor > 1 ? &_IntermodalEdge::getTravelTimeStaticRandomized : &_IntermodalEdge::getTravelTimeStatic);
+                                                              gWeightsRandomFactor > 1 ? &_IntermodalEdge::getTravelTimeStaticRandomized : &_IntermodalEdge::getTravelTimeStatic);
                     } else {
                         myInternalRouter = new _InternalDijkstra(myIntermodalNet->getAllEdges(), true,
                                 gWeightsRandomFactor > 1 ? &_IntermodalEdge::getTravelTimeStaticRandomized : &_IntermodalEdge::getTravelTimeStatic);

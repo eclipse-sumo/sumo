@@ -100,8 +100,7 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
     myTLSProgramsSaved(true),
     myDemandElementsSaved(true),
     myUpdateGeometryEnabled(true),
-    myAllowUndoShapes(true)
-{
+    myAllowUndoShapes(true) {
     // set net in gIDStorage
     GUIGlObjectStorage::gIDStorage.setNetObject(this);
 
@@ -1478,10 +1477,10 @@ GNENet::computeEverything(GNEApplicationWindow* window, bool force, bool volatil
 }
 
 
-void 
+void
 GNENet::updateGeometryDemandElements() {
-    for (const auto &i : myAttributeCarriers.demandElements) {
-        for (const auto &j : i.second) {
+    for (const auto& i : myAttributeCarriers.demandElements) {
+        for (const auto& j : i.second) {
             j.second->updateGeometry(true);
         }
     }
@@ -2101,7 +2100,7 @@ GNENet::saveAdditionals(const std::string& filename) {
 }
 
 
-bool 
+bool
 GNENet::isAdditionalsSaved() const {
     return myAdditionalsSaved;
 }
@@ -2254,7 +2253,7 @@ GNENet::saveDemandElements(const std::string& filename) {
 }
 
 
-bool 
+bool
 GNENet::isDemandElementsSaved() const {
     return myDemandElementsSaved;
 }
@@ -2463,19 +2462,19 @@ GNENet::getNumberOfTLSPrograms() const {
     return -1;
 }
 
-void 
+void
 GNENet::enableUpdateGeometry() {
     myUpdateGeometryEnabled = true;
 }
 
 
-void 
+void
 GNENet::disableUpdateGeometry() {
     myUpdateGeometryEnabled = false;
 }
 
 
-bool 
+bool
 GNENet::isUpdateGeometryEnabled() const {
     return myUpdateGeometryEnabled;
 }
@@ -2510,7 +2509,7 @@ GNENet::insertAdditional(GNEAdditional* additional) {
             additional->selectAttributeCarrier(false);
         }
         // update geometry after insertion of additionals if myUpdateGeometryEnabled is enabled
-        if(myUpdateGeometryEnabled) {
+        if (myUpdateGeometryEnabled) {
             additional->updateGeometry(true);
         }
         // additionals has to be saved
@@ -2539,7 +2538,7 @@ GNENet::deleteAdditional(GNEAdditional* additional, bool updateViewAfterDeleting
             additional->unselectAttributeCarrier(false);
         }
         // check if view has to be updated
-        if(updateViewAfterDeleting) {
+        if (updateViewAfterDeleting) {
             myViewNet->update();
         }
         // additionals has to be saved
@@ -2624,7 +2623,7 @@ GNENet::deleteDemandElement(GNEDemandElement* demandElement, bool updateViewAfte
             demandElement->unselectAttributeCarrier(false);
         }
         // check if view has to be updated
-        if(updateViewAfterDeleting) {
+        if (updateViewAfterDeleting) {
             myViewNet->update();
         }
         // demandElements has to be saved
@@ -2749,7 +2748,7 @@ GNENet::deleteSingleJunction(GNEJunction* junction, bool updateViewAfterDeleting
     junction->decRef("GNENet::deleteSingleJunction");
     junction->setResponsible(true);
     // check if view has to be updated
-    if(updateViewAfterDeleting) {
+    if (updateViewAfterDeleting) {
         myViewNet->update();
     }
 }
@@ -2774,7 +2773,7 @@ GNENet::deleteSingleEdge(GNEEdge* edge, bool updateViewAfterDeleting) {
     edge->getGNEJunctionSource()->removeOutgoingGNEEdge(edge);
     edge->getGNEJunctionDestiny()->removeIncomingGNEEdge(edge);
     // check if view has to be updated
-    if(updateViewAfterDeleting) {
+    if (updateViewAfterDeleting) {
         myViewNet->update();
     }
 }
@@ -2802,7 +2801,7 @@ GNENet::insertShape(GNEShape* shape, bool updateViewAfterDeleting) {
     // after inserting, update geometry (needed for POILanes
     shape->updateGeometry(true);
     // check if view has to be updated
-    if(updateViewAfterDeleting) {
+    if (updateViewAfterDeleting) {
         myViewNet->update();
     }
 }
@@ -2828,7 +2827,7 @@ GNENet::removeShape(GNEShape* shape, bool updateViewAfterDeleting) {
     // remove shape requires always save additionals
     requiereSaveAdditionals(true);
     // check if view has to be updated
-    if(updateViewAfterDeleting) {
+    if (updateViewAfterDeleting) {
         myViewNet->update();
     }
 }

@@ -412,8 +412,8 @@ MSTriggeredRerouter::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Not
             }
 
             SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = hasReroutingDevice
-                ? MSRoutingEngine::getRouterTT(rerouteDef->closed)
-                : MSNet::getInstance()->getRouterTT(rerouteDef->closed);
+                    ? MSRoutingEngine::getRouterTT(rerouteDef->closed)
+                    : MSNet::getInstance()->getRouterTT(rerouteDef->closed);
             const double routeCost = router.recomputeCosts(newRoute, &veh, MSNet::getInstance()->getCurrentTimeStep());
             ConstMSEdgeVector prevEdges(veh.getCurrentRouteEdge(), veh.getRoute().end());
             const double previousCost = router.recomputeCosts(prevEdges, &veh, MSNet::getInstance()->getCurrentTimeStep());

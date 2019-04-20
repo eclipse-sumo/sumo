@@ -104,7 +104,7 @@ Distribution_Parameterized::toStr(std::streamsize accuracy) const {
         // only write simple speedFactor
         return toString(myParameter[0]);
     } else {
-        return (myParameter[1] == 0. 
+        return (myParameter[1] == 0.
                 ? myID + "(" + toString(myParameter[0], accuracy) + "," + toString(myParameter[1], accuracy) + ")"
                 : myID + "(" + joinToString(myParameter, ",", accuracy) + ")");
     }

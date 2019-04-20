@@ -64,7 +64,7 @@ GNEDialog_FixDemandElements::GNEDialog_FixDemandElements(GNEViewNet* viewNet, co
     setIcon(GUIIconSubSys::getIcon(ICON_ROUTE));
     // create main frame
     myMainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
-    // create demand list 
+    // create demand list
     myDemandList = new DemandList(this, invalidDemandElements);
     // create fix route options
     myFixRouteOptions = new FixRouteOptions(this);
@@ -189,7 +189,7 @@ GNEDialog_FixDemandElements::DemandList::DemandList(GNEDialog_FixDemandElements*
     myTable->setSelTextColor(FXRGBA(0, 0, 0, 255));
     myTable->setEditable(false);
     // separate demand elements in two groups
-    for (const auto &i : invalidDemandElements) {
+    for (const auto& i : invalidDemandElements) {
         if (i->getTagProperty().isVehicle()) {
             myInvalidVehicles.push_back(i);
         } else {

@@ -242,8 +242,8 @@ GeomHelper::makeCircle(const double radius, const Position& center, unsigned int
     PositionVector circle;
     circle.push_back({radius, 0});
     for (unsigned int i = 1; i < nPoints; ++i) {
-        const double a = 2.0*M_PI*(double)i/(double) nPoints;
-        circle.push_back({radius*cos(a), radius*sin(a)});
+        const double a = 2.0 * M_PI * (double)i / (double) nPoints;
+        circle.push_back({radius * cos(a), radius * sin(a)});
     }
     circle.push_back({radius, 0});
     circle.add(center);
@@ -263,14 +263,14 @@ GeomHelper::makeRing(const double radius1, const double radius2, const Position&
     ring.push_back({radius1, 0});
     ring.push_back({radius2, 0});
     for (unsigned int i = 1; i < nPoints; ++i) {
-        const double a = 2.0*M_PI*(double)i/(double) nPoints;
-        ring.push_back({radius2*cos(a), radius2*sin(a)});
+        const double a = 2.0 * M_PI * (double)i / (double) nPoints;
+        ring.push_back({radius2 * cos(a), radius2 * sin(a)});
     }
     ring.push_back({radius2, 0});
     ring.push_back({radius1, 0});
     for (unsigned int i = 1; i < nPoints; ++i) {
-        const double a = -2.0*M_PI*(double)i/(double) nPoints;
-        ring.push_back({radius1*cos(a), radius1*sin(a)});
+        const double a = -2.0 * M_PI * (double)i / (double) nPoints;
+        ring.push_back({radius1 * cos(a), radius1 * sin(a)});
     }
     ring.push_back({radius1, 0});
     ring.add(center);

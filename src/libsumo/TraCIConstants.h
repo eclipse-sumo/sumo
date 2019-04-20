@@ -332,7 +332,7 @@ TRACI_CONST int TYPE_UBYTE = 0x07;
 TRACI_CONST int TYPE_BYTE = 0x08;
 // 32 bit signed integer
 TRACI_CONST int TYPE_INTEGER = 0x09;
-// double
+// double precision float
 TRACI_CONST int TYPE_DOUBLE = 0x0B;
 // 8 bit ASCII string
 TRACI_CONST int TYPE_STRING = 0x0C;
@@ -340,7 +340,7 @@ TRACI_CONST int TYPE_STRING = 0x0C;
 TRACI_CONST int TYPE_STRINGLIST = 0x0E;
 // compound object
 TRACI_CONST int TYPE_COMPOUND = 0x0F;
-// list of strings
+// list of double precision floats
 TRACI_CONST int TYPE_DOUBLELIST = 0x10;
 // color (four ubytes)
 TRACI_CONST int TYPE_COLOR = 0x11;
@@ -484,10 +484,6 @@ TRACI_CONST int FILTER_TYPE_VCLASS = 0x08;
 
 // Only return vehicles of the given vType in context subscription result
 TRACI_CONST int FILTER_TYPE_VTYPE = 0x09;
-
-
-
-
 
 // ****************************************
 // VARIABLE TYPES (for CMD_GET_*_VARIABLE)

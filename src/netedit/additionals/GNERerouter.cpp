@@ -39,14 +39,14 @@
 // ===========================================================================
 
 GNERerouter::GNERerouter(const std::string& id, GNEViewNet* viewNet, const Position& pos, const std::vector<GNEEdge*>& edges, const std::string& name, const std::string& filename, double probability, bool off, double timeThreshold, const std::string& vTypes, bool blockMovement) :
-    GNEAdditional(id, viewNet, GLO_REROUTER, SUMO_TAG_REROUTER, name, blockMovement, 
-                  {}, {}, {}, {}, {}, edges, {}, {}, {}, {}),
-    myPosition(pos),
-    myFilename(filename),
-    myProbability(probability),
-    myOff(off),
-    myTimeThreshold(timeThreshold),
-    myVTypes(vTypes) {
+    GNEAdditional(id, viewNet, GLO_REROUTER, SUMO_TAG_REROUTER, name, blockMovement,
+{}, {}, {}, {}, {}, edges, {}, {}, {}, {}),
+myPosition(pos),
+myFilename(filename),
+myProbability(probability),
+myOff(off),
+myTimeThreshold(timeThreshold),
+myVTypes(vTypes) {
 }
 
 

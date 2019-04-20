@@ -72,7 +72,7 @@ public:
      */
     static NBNode* processNodeType(const SUMOSAXAttributes& attrs, NBNode* node, const std::string& nodeID, const Position& position,
                                    bool updateEdgeGeometries,
-                                   NBNodeCont& nc, NBEdgeCont& ec, 
+                                   NBNodeCont& nc, NBEdgeCont& ec,
                                    NBTrafficLightLogicCont& tlc);
 
 protected:

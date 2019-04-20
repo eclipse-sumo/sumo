@@ -9,6 +9,7 @@ Static parameters:
   recoveryRate = 0.10
   initialAwareness = 0.50
   mrmDecel = 1.50
+  dynamicToCThreshold = 0.00
 Dynamic parameters:
   currentAwareness = 1.00
   currentSpeed = 0.0

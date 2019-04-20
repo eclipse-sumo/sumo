@@ -319,7 +319,7 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
             int num = 0;
             for (const ODCell* const c : matrix.getCells()) {
                 if (c->begin >= end || c->end <= begin ||
-                    c->pathsVector.empty() || c->pathsVector.front()->getEdgeVector().empty()) {
+                        c->pathsVector.empty() || c->pathsVector.front()->getEdgeVector().empty()) {
                     continue;
                 }
                 if (lastEnd >= 0 && lastEnd <= c->begin) {

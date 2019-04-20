@@ -502,9 +502,9 @@ MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, con
                               << "\n";
                 }
                 WRITE_WARNING("Person '" + ped.myPerson->getID() + "' could not find route across junction '" + junction->getID()
-                        + "' from walkingArea '" + currentEdge->getID()
-                        + "' to edge '" + nextRouteEdge->getID() + "', time=" +
-                        time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+                              + "' from walkingArea '" + currentEdge->getID()
+                              + "' to edge '" + nextRouteEdge->getID() + "', time=" +
+                              time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
                 // error indicated by nextDir == UNDEFINED_DIRECTION
                 nextLane = nextRouteLane;
             }
@@ -892,8 +892,8 @@ MSPModel_Striping::moveInDirection(SUMOTime currentTime, std::set<MSPerson*>& ch
 
 
 bool
-MSPModel_Striping::addVehicleFoe(const MSVehicle* veh, const MSLane* walkingarea, const Position& relPos, double lateral_offset, 
-        double minY, double maxY, Pedestrians& toDelete, Pedestrians& transformedPeds) {
+MSPModel_Striping::addVehicleFoe(const MSVehicle* veh, const MSLane* walkingarea, const Position& relPos, double lateral_offset,
+                                 double minY, double maxY, Pedestrians& toDelete, Pedestrians& transformedPeds) {
     if (relPos != Position::INVALID) {
         const double newY = relPos.y() + lateral_offset;
         if (newY >= minY && newY <= maxY) {
@@ -1973,8 +1973,7 @@ MSPModel_Striping::PState::getWidth() const {
 // ===========================================================================
 
 MSPModel_Striping::PStateVehicle::PStateVehicle(const MSVehicle* veh, const MSLane* walkingarea, double relX, double relY):
-    myVehicle(veh)
-{
+    myVehicle(veh) {
     myLane = walkingarea; // to ensure correct limits when calling otherStripe()
     myRelX = relX;
     myRelY = relY;

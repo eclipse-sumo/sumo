@@ -177,7 +177,7 @@ GUIJunctionWrapper::drawGL(const GUIVisualizationSettings& s) const {
             const std::string& name = active->getCurrentPhaseDef().getName();
             GLHelper::drawTextSettings(s.tlsPhaseIndex, toString(index), myJunction.getPosition(), s.scale, s.angle);
             if (name != "") {
-                const Position offset = Position(0, 0.8 * s.tlsPhaseIndex.scaledSize(s.scale)).rotateAround2D(DEG2RAD(-s.angle), Position(0,0));
+                const Position offset = Position(0, 0.8 * s.tlsPhaseIndex.scaledSize(s.scale)).rotateAround2D(DEG2RAD(-s.angle), Position(0, 0));
                 GLHelper::drawTextSettings(s.tlsPhaseIndex, name, myJunction.getPosition() - offset, s.scale, s.angle);
             }
         }

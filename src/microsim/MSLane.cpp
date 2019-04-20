@@ -1562,8 +1562,8 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
                                double gap, double latGap, std::set<const MSVehicle*, ComparatorNumericalIdLess>& toRemove,
                                std::set<const MSVehicle*>& toTeleport) const {
     std::string collisionType = ((collider->getLaneChangeModel().isOpposite() != victim->getLaneChangeModel().isOpposite()
-                || (&collider->getLane()->getEdge() == victim->getLane()->getEdge().getBidiEdge())) 
-            ?  "frontal collision" : "collision");
+                                  || (&collider->getLane()->getEdge() == victim->getLane()->getEdge().getBidiEdge()))
+                                 ?  "frontal collision" : "collision");
     // in frontal collisions the opposite vehicle is the collider
     if (victim->getLaneChangeModel().isOpposite() && !collider->getLaneChangeModel().isOpposite()) {
         std::swap(collider, victim);
@@ -1956,14 +1956,14 @@ MSLane::sortManeuverReservations() {
     if (myManeuverReservations.size() > 1) {
 #ifdef DEBUG_CONTEXT
         if (DEBUG_COND) {
-        std::cout << "sortManeuverReservations on lane " << getID()
+            std::cout << "sortManeuverReservations on lane " << getID()
                       << "\nBefore sort: " << toString(myManeuverReservations) << std::endl;
         }
 #endif
         sort(myManeuverReservations.begin(), myManeuverReservations.end(), vehicle_natural_position_sorter(this));
 #ifdef DEBUG_CONTEXT
         if (DEBUG_COND) {
-        std::cout << "After sort: " << toString(myManeuverReservations) << std::endl;
+            std::cout << "After sort: " << toString(myManeuverReservations) << std::endl;
         }
 #endif
     }
@@ -2250,8 +2250,8 @@ MSLane::getMaximumBrakeDist() const {
     const double maxSpeed = getSpeedLimit() * vc.getMaxSpeedFactor();
     // NOTE: For the euler update this is an upper bound on the actual braking distance (see ticket #860)
     // impose a hard bound due to visibiilty / common sense to avoid unnecessary computation if there are strange vehicles in the fleet
-    return MIN2(maxSpeed * maxSpeed * 0.5 / vc.getMinDeceleration(), 
-            myPermissions == SVC_SHIP ? 10000.0 : 1000.0);
+    return MIN2(maxSpeed * maxSpeed * 0.5 / vc.getMinDeceleration(),
+                myPermissions == SVC_SHIP ? 10000.0 : 1000.0);
 }
 
 
@@ -2544,7 +2544,7 @@ MSLane::getLogicalPredecessorLane() const {
 }
 
 
-const MSLane* 
+const MSLane*
 MSLane::getNormalPredecessorLane() const {
     if (isInternal()) {
         return getLogicalPredecessorLane()->getNormalPredecessorLane();
@@ -3093,7 +3093,9 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
         if (searchDist == -1) {
             searchDist = getMaximumBrakeDist() - backOffset;
 #ifdef DEBUG_CONTEXT
-            if (DEBUG_COND2(ego)) std::cout << "   computed searchDist=" << searchDist << "\n";
+            if (DEBUG_COND2(ego)) {
+                std::cout << "   computed searchDist=" << searchDist << "\n";
+            }
 #endif
         }
         std::set<const MSEdge*> egoFurther;
@@ -3124,7 +3126,7 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
 #endif
                 if (backOffset + (*it).length - next->getLength() < 0
                         && egoFurther.count(&next->getEdge()) != 0
-                        )  {
+                   )  {
                     // check for junction foes that would interfere with lane changing
                     const MSLink::LinkLeaders linkLeaders = (*it).viaLink->getLeaderInfo(ego, -backOffset);
                     for (const auto& ll : linkLeaders) {
@@ -3667,7 +3669,7 @@ MSLane::initRNGs(const OptionsCont& oc) {
     }
 }
 
-MSLane* 
+MSLane*
 MSLane::getBidiLane() const {
     const MSEdge* bidiEdge = myEdge->getBidiEdge();
     if (bidiEdge == nullptr) {

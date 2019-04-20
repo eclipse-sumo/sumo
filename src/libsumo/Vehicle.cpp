@@ -473,7 +473,7 @@ Vehicle::getStopState(const std::string& vehicleID) {
     int result = 0;
     if (veh->isStopped()) {
         const MSVehicle::Stop& stop = veh->getNextStop();
-        result = ((stop.reached ? 1 : 0) + 
+        result = ((stop.reached ? 1 : 0) +
                   (stop.pars.parking ? 2 : 0) +
                   (stop.pars.triggered ? 4 : 0) +
                   (stop.pars.containerTriggered ? 8 : 0) +
@@ -651,15 +651,15 @@ Vehicle::getNeighbors(const std::string& vehicleID, const int mode) {
 
 #ifdef DEBUG_NEIGHBORS
     if DEBUG_COND {
-        std::cout << "getNeighbors() for veh '" << vehicleID << "': dir=" << dir
-                << ", queryLeaders=" << queryLeaders
-                << ", blockersOnly=" << blockersOnly << std::endl;
-    }
+    std::cout << "getNeighbors() for veh '" << vehicleID << "': dir=" << dir
+              << ", queryLeaders=" << queryLeaders
+              << ", blockersOnly=" << blockersOnly << std::endl;
+}
 #endif
 
 
 
-    if (blockersOnly) {
+if (blockersOnly) {
         // Check if a blocking neigh exists in the given direction
         bool blocked = false;
         if (dir == -1) {
@@ -677,12 +677,12 @@ Vehicle::getNeighbors(const std::string& vehicleID, const int mode) {
         }
 
 #ifdef DEBUG_NEIGHBORS
-    if DEBUG_COND {
+        if DEBUG_COND {
         std::cout << " blocked=" << blocked << std::endl;
     }
 #endif
 
-        if (!blocked) {
+    if (!blocked) {
             // Not blocked => return empty vector
             return neighs;
         }
@@ -1703,24 +1703,24 @@ Vehicle::setParameter(const std::string& vehicleID, const std::string& key, cons
 void
 Vehicle::highlight(const std::string& vehicleID, const TraCIColor& col, double size, const int alphaMax, const double duration, const int type) {
     // NOTE: Code is duplicated in large parts in POI.cpp
-    MSVehicle * veh = getVehicle(vehicleID);
+    MSVehicle* veh = getVehicle(vehicleID);
 
     // Center of the highlight circle
     Position center = veh->getPosition();
-    const double l2 = veh->getLength()*0.5;
+    const double l2 = veh->getLength() * 0.5;
     center.sub(cos(veh->getAngle())*l2, sin(veh->getAngle())*l2);
     // Size of the highlight circle
     if (size <= 0) {
-        size = veh->getLength()*0.7;
+        size = veh->getLength() * 0.7;
     }
     // Make polygon shape
     const unsigned int nPoints = 34;
-    const PositionVector circlePV = GeomHelper::makeRing(size, size+1., center, nPoints);
+    const PositionVector circlePV = GeomHelper::makeRing(size, size + 1., center, nPoints);
     TraCIPositionVector circle = Helper::makeTraCIPositionVector(circlePV);
 
 #ifdef DEBUG_DYNAMIC_SHAPES
     std::cout << SIMTIME << " Vehicle::highlight() for vehicle '" << vehicleID << "'\n"
-            << " circle: " << circlePV << std::endl;
+              << " circle: " << circlePV << std::endl;
 #endif
 
     // Find a free polygon id
@@ -1735,7 +1735,7 @@ Vehicle::highlight(const std::string& vehicleID, const TraCIColor& col, double s
     double lyr = 0.;
     if (MSNet::getInstance()->isGUINet()) {
         lyr = GLO_VEHICLE + 0.01;
-        lyr += (type + 1)/257.;
+        lyr += (type + 1) / 257.;
     }
     // Make Polygon
     Polygon::addHighlightPolygon(vehicleID, type, polyID, circle, col, true, lw, "highlight", (int)lyr);
@@ -1744,12 +1744,12 @@ Vehicle::highlight(const std::string& vehicleID, const TraCIColor& col, double s
     double maxAttack = 1.0; // maximal fade-in time
     std::vector<double> timeSpan;
     if (duration > 0.) {
-        timeSpan = {0, MIN2(maxAttack, duration/3.), 2.*duration/3., duration};
+        timeSpan = {0, MIN2(maxAttack, duration / 3.), 2.*duration / 3., duration};
     }
     // Alpha time line
     std::vector<double> alphaSpan;
     if (alphaMax > 0.) {
-        alphaSpan = {0., (double) alphaMax, (double) (alphaMax)/3., 0.};
+        alphaSpan = {0., (double) alphaMax, (double)(alphaMax) / 3., 0.};
     }
     // Attach dynamics
     Polygon::addDynamics(polyID, vehicleID, timeSpan, alphaSpan, false, true);

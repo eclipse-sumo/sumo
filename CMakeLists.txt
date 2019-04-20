@@ -429,10 +429,10 @@ if (GIT_FOUND)
         COMMAND rm -rf sumo-${PACKAGE_VERSION} sumo-${PACKAGE_VERSION}.zip sumo-src-${PACKAGE_VERSION}.tar.gz sumo-src-${PACKAGE_VERSION}.zip sumo-all-${PACKAGE_VERSION}.tar.gz sumo-all-${PACKAGE_VERSION}.zip
         COMMAND ${GIT_EXECUTABLE} archive --prefix sumo-${PACKAGE_VERSION}/ -o sumo-${PACKAGE_VERSION}.zip HEAD
         COMMAND unzip sumo-${PACKAGE_VERSION}.zip
-        COMMAND cp -a docs/tutorial docs/examples docs/userdoc docs/pydoc docs/javadoc docs/man sumo-${PACKAGE_VERSION}/docs
+        COMMAND cp -a docs/tutorial docs/examples sumo-${PACKAGE_VERSION}/docs
         COMMAND zip -r sumo-src-${PACKAGE_VERSION}.zip sumo-${PACKAGE_VERSION}
         COMMAND tar czf sumo-src-${PACKAGE_VERSION}.tar.gz sumo-${PACKAGE_VERSION}
-        COMMAND cp -a docs/doxygen sumo-${PACKAGE_VERSION}/docs
+        COMMAND cp -a docs/userdoc docs/pydoc docs/javadoc docs/man docs/doxygen sumo-${PACKAGE_VERSION}/docs
         COMMAND cp bin/*.jar bin/*.bat sumo-${PACKAGE_VERSION}/bin
         COMMAND cp -a tests sumo-${PACKAGE_VERSION}
         COMMAND zip -r sumo-all-${PACKAGE_VERSION}.zip sumo-${PACKAGE_VERSION}

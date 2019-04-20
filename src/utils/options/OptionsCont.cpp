@@ -702,7 +702,7 @@ OptionsCont::printHelp(std::ostream& os) {
                 foundTopic = true;
                 printHelpOnTopic(topic, tooLarge, maxSize, os);
             }
-        } 
+        }
         if (!foundTopic) {
             // print topic list
             os << "Help Topics:"  << std::endl;
