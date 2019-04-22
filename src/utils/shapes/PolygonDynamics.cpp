@@ -19,9 +19,9 @@
 #include "PolygonDynamics.h"
 
 #include <assert.h>
-#include "utils/vehicle/SUMOTrafficObject.h"
+#include "utils/common/StdDefs.h"
 #include "utils/common/SUMOTime.h"
-#include "foreign/rtree/SUMORTree.h"
+#include "utils/vehicle/SUMOTrafficObject.h"
 
 
 //#define DEBUG_DYNAMIC_SHAPES
