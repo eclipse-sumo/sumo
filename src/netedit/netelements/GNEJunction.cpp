@@ -354,8 +354,14 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
         // name must be removed from selection stack before drawing crossings
         glPopName();
         // draw crossings
-        for (auto it : myGNECrossings) {
-            it->drawGL(s);
+        for (const auto &i : myGNECrossings) {
+            i->drawGL(s);
+        }
+        // draw connections (Only for incoming edges)
+        for (const auto &i : myGNEIncomingEdges) {
+            for (const auto &j : i->getGNEConnections()) {
+                j->drawGL(s);
+            }
         }
     }
 }

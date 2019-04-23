@@ -531,10 +531,6 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     for (auto i : myLanes) {
         i->drawGL(s);
     }
-    // draw connections
-    for (auto i : myGNEConnections) {
-        i->drawGL(s);
-    }
     // draw childs
     for (const auto &i : getAdditionalChilds()) {
         i->drawGL(s);
