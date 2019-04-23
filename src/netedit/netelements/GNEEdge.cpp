@@ -531,6 +531,13 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     for (auto i : myLanes) {
         i->drawGL(s);
     }
+    // draw childs
+    for (const auto &i : getAdditionalChilds()) {
+        i->drawGL(s);
+    }
+    for (const auto &i : getDemandElementChilds()) {
+        i->drawGL(s);
+    }
     // draw geometry points if isnt's too small
     if (s.scale > 8.0) {
         RGBColor color = s.junctionColorer.getSchemes()[0].getColor(2);

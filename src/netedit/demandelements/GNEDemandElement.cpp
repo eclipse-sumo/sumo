@@ -249,8 +249,11 @@ void
 GNEDemandElement::endGeometryMoving() {
     // check that endGeometryMoving was called only once
     if (myMove.movingGeometryBoundary.isInitialised()) {
-        // Remove object from net
-        myViewNet->getNet()->removeGLObjectFromGrid(this);
+        // check if object must be placed in RTREE
+        if (myTagProperty.isPlacedInRTree()) {
+            // Remove object from net
+            myViewNet->getNet()->removeGLObjectFromGrid(this);
+        }
         // reset myMovingGeometryBoundary
         myMove.movingGeometryBoundary.reset();
         // update geometry without updating grid
@@ -259,8 +262,11 @@ GNEDemandElement::endGeometryMoving() {
         for (auto i : getDemandElementChilds()) {
             i->endGeometryMoving();
         }
-        // add object into grid again (using the new centering boundary)
-        myViewNet->getNet()->addGLObjectIntoGrid(this);
+        // check if object must be placed in RTREE
+        if (myTagProperty.isPlacedInRTree()) {
+            // add object into grid again (using the new centering boundary)
+            myViewNet->getNet()->addGLObjectIntoGrid(this);
+        }
     }
 }
 

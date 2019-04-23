@@ -355,6 +355,8 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
     if (color.alpha() == 0 || (s.scale * exaggeration < s.laneMinSize)) {
         // Pop draw matrix 1
         glPopMatrix();
+        // Pop Name
+        glPopName();
     } else if (s.scale * exaggeration < 1.) {
         // draw as lines, depending of myShapeColors
         if (myShapeColors.size() > 0) {
@@ -364,6 +366,8 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         }
         // Pop draw matrix 1
         glPopMatrix();
+        // Pop Name
+        glPopName();
     } else {
         // we draw the lanes with reduced width so that the lane markings below are visible
         // (this avoids artifacts at geometry corners without having to
@@ -520,9 +524,17 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::drawLine(customShape.back(), myParentEdge.getGNEJunctionDestiny()->getPositionInView());
             glPopMatrix();
         }
+        // Pop Name
+        glPopName();
+        // draw childs
+        for (const auto &i : getAdditionalChilds()) {
+            i->drawGL(s);
+        }
+        for (const auto &i : getDemandElementChilds()) {
+            i->drawGL(s);
+        }
     }
-    // Pop Name
-    glPopName();
+
 }
 
 
