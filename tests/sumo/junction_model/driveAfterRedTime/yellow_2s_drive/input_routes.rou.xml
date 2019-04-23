@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+   <vType id="egoType" sigma="0" jmDriveAfterYellowTime="2"/>
+   <vehicle id="ego" type="egoType" depart="25" departSpeed="2" arrivalPos="4">
+       <route edges="SC CN"/>
+   </vehicle>
+</routes>
