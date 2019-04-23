@@ -523,10 +523,12 @@ NBEdge::mirrorX() {
     myGeom.mirrorX();
     for (int i = 0; i < (int)myLanes.size(); i++) {
         myLanes[i].shape.mirrorX();
+        myLanes[i].customShape.mirrorX();
     }
-    for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
-        (*i).shape.mirrorX();
-        (*i).viaShape.mirrorX();
+    for (Connection& c : myConnections) {
+        c.shape.mirrorX();
+        c.viaShape.mirrorX();
+        c.customShape.mirrorX();
     }
     computeAngle(); // update angles because they are numerically sensitive (especially where based on centroids)
 }
