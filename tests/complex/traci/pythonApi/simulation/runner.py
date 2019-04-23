@@ -126,6 +126,7 @@ except traci.TraCIException as e:
         print(e, file=sys.stderr)
 
 print("getBusStopWaiting", traci.simulation.getBusStopWaiting("bs"))
+print("getBusStopWaitingIDList", traci.simulation.getBusStopWaitingIDList("bs"))
 
 try:
     print("findRoute", traci.simulation.findRoute("foo", "fup"))
