@@ -524,6 +524,9 @@ public:
         libsumo::TraCIPositionVector getNetBoundary() const;
         int getMinExpectedNumber() const;
 
+        int getBusStopWaiting(const std::string& stopID) const;
+        std::vector<std::string> getBusStopWaitingIDList(const std::string& stopID) const;
+
         libsumo::TraCIPosition convert2D(const std::string& edgeID, double pos, int laneIndex = 0, bool toGeo = false) const;
         libsumo::TraCIPosition convert3D(const std::string& edgeID, double pos, int laneIndex = 0, bool toGeo = false) const;
         libsumo::TraCIRoadPosition convertRoad(double x, double y, bool isGeo = false, const std::string& vClass = "ignoring") const;

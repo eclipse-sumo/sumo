@@ -2,6 +2,7 @@
 
    <e1Detector id="det1" lane="e_m3_0" pos="138" freq="1" file="detector.xml"/>
    <parkingArea id="park1" lane="e_u1_0" startPos="200" endPos="250" roadsideCapacity="5"/>
+   <busStop id="bs1" lane="e_m4_0" startPos="200" endPos="250"/>
    <poi id="poi0" x="1000" y="100" color="green"/>
    <poi id="poi1" x="1100" y="100" color="blue"/>
    <poly id="poly0" shape="800,1000 1200,1000 1200,900 800,900" color="cyan" fill="true"/>

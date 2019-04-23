@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Wed Mar 27 08:12:22 2019
+TraCITestClient output file. Date: Tue Apr 23 16:22:22 2019
 
 
 -> Command sent: <SetOrder>:
@@ -114,6 +114,8 @@ testAPI:
     getCurrentTime: 7000
     getDeltaT: 1.00
     parkingArea param: 5
+    busStopWaiting: 1
+    busStopWaitingIDs: pWaiting
     subscribe to road and pos of vehicle '1':
     subscription results:
       roadID=e_u1 pos=7.34774
@@ -122,7 +124,7 @@ testAPI:
       vehicle=1 pos=11.4581
       vehicle=2 pos=16.3564
   person:
-    getIDList: p0
+    getIDList: p0 pWaiting
     getRoadID: e_m3
     getTypeID: stilts
     getWaitingTime: 0.00

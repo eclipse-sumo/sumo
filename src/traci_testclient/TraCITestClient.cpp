@@ -861,6 +861,8 @@ TraCITestClient::testAPI() {
     answerLog << "    getCurrentTime: " << simulation.getCurrentTime() << "\n";
     answerLog << "    getDeltaT: " << simulation.getDeltaT() << "\n";
     answerLog << "    parkingArea param: " << simulation.getParameter("park1", "parkingArea.capacity") << "\n";
+    answerLog << "    busStopWaiting: " << simulation.getBusStopWaiting("bs1") << "\n";
+    answerLog << "    busStopWaitingIDs: " << joinToString(simulation.getBusStopWaitingIDList("bs1"), " ") << "\n";
     answerLog << "    subscribe to road and pos of vehicle '1':\n";
     std::vector<int> vars;
     vars.push_back(libsumo::VAR_ROAD_ID);
@@ -982,6 +984,8 @@ TraCITestClient::testAPI() {
     args.push_back("net.net.xml");
     args.push_back("-r");
     args.push_back("input_routes.rou.xml");
+    args.push_back("-a");
+    args.push_back("input_additional.add.xml");
     args.push_back("--no-step-log");
     load(args);
     simulationStep();

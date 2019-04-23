@@ -1616,6 +1616,16 @@ TraCIAPI::SimulationScope::getMinExpectedNumber() const {
     return myParent.getInt(libsumo::CMD_GET_SIM_VARIABLE, libsumo::VAR_MIN_EXPECTED_VEHICLES, "");
 }
 
+int
+TraCIAPI::SimulationScope::getBusStopWaiting(const std::string& stopID) const {
+    return (int) myParent.getInt(libsumo::CMD_GET_SIM_VARIABLE, libsumo::VAR_BUS_STOP_WAITING, stopID);
+}
+
+std::vector<std::string>
+TraCIAPI::SimulationScope::getBusStopWaitingIDList(const std::string& stopID) const {
+    return myParent.getStringVector(libsumo::CMD_GET_SIM_VARIABLE, libsumo::VAR_BUS_STOP_WAITING_IDS, stopID);
+}
+
 
 libsumo::TraCIPosition
 TraCIAPI::SimulationScope::convert2D(const std::string& edgeID, double pos, int laneIndex, bool toGeo) const {
