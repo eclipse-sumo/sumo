@@ -99,7 +99,6 @@ PolygonDynamics::update(SUMOTime t) {
     const double simtime = STEPS2TIME(t);
     const double dt = simtime - myLastUpdateTime;
     myLastUpdateTime = simtime;
-    assert(dt > 0);
 
     SUMOTime ret = DELTA_T;
 
@@ -120,14 +119,13 @@ PolygonDynamics::update(SUMOTime t) {
                 // Update polygon's shape
                 myPolygon->myShape = *myOriginalShape;
                 if (rotate) {
-                    const double relRotation = myTrackedObject->getAngle() - myTrackedObjectsInitialAngle;
-                    myPolygon->myShape.rotate2D(relRotation);
+                	const double relRotation = myTrackedObject->getAngle() - myTrackedObjectsInitialAngle;
+                	myPolygon->myShape.rotate2D(relRotation);
+#ifdef DEBUG_DYNAMIC_SHAPES
+                	std::cout << " Relative rotation wrt original rotation: " << relRotation << std::endl;
+#endif
                 }
                 myPolygon->myShape.add(objPos);
-#ifdef DEBUG_DYNAMIC_SHAPES
-                std::cout << " Relative offset to original position: " << relOffset << std::endl;
-#endif
-
             }
 #ifdef DEBUG_DYNAMIC_SHAPES
             else {

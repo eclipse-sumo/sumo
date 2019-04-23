@@ -175,7 +175,7 @@ Polygon::addDynamics(const std::string& polygonID, const std::string& trackedID,
     // Schedule the regular polygon update
     auto cmd = new ParametrisedWrappingCommand<ShapeContainer, PolygonDynamics*>(&shapeCont, pd, &ShapeContainer::polygonDynamicsUpdate);
     shapeCont.addPolygonUpdateCommand(pd->getPolygonID(), cmd);
-    MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(cmd, SIMSTEP + DELTA_T);
+    MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(cmd, SIMSTEP);
 }
 
 
