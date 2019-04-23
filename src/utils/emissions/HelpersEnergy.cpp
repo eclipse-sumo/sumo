@@ -34,15 +34,17 @@
 HelpersEnergy::HelpersEnergy() : PollutantsInterface::Helper("Energy") {
     myEmissionClassStrings.insert("zero", PollutantsInterface::ZERO_EMISSIONS);
     myEmissionClassStrings.insert("unknown", ENERGY_BASE);
+    // default values from 
+    // Kurczveil, T., López, P.Á., & Schnieder, E. (2014). Implementation of an Energy Model and a Charging Infrastructure in SUMO.
     myDefaultParameter[SUMO_ATTR_VEHICLEMASS] = 1000.;
-    myDefaultParameter[SUMO_ATTR_FRONTSURFACEAREA] = 2.;
-    myDefaultParameter[SUMO_ATTR_AIRDRAGCOEFFICIENT] = 0.4;
-    myDefaultParameter[SUMO_ATTR_INTERNALMOMENTOFINERTIA] = 10.;
-    myDefaultParameter[SUMO_ATTR_RADIALDRAGCOEFFICIENT] = 1.;
-    myDefaultParameter[SUMO_ATTR_ROLLDRAGCOEFFICIENT] = 0.5;
-    myDefaultParameter[SUMO_ATTR_CONSTANTPOWERINTAKE] = 10.;
-    myDefaultParameter[SUMO_ATTR_PROPULSIONEFFICIENCY] = 0.5;
-    myDefaultParameter[SUMO_ATTR_RECUPERATIONEFFICIENCY] = 0.;
+    myDefaultParameter[SUMO_ATTR_FRONTSURFACEAREA] = 5.;
+    myDefaultParameter[SUMO_ATTR_AIRDRAGCOEFFICIENT] = 0.6;
+    myDefaultParameter[SUMO_ATTR_INTERNALMOMENTOFINERTIA] = 0.01;
+    myDefaultParameter[SUMO_ATTR_RADIALDRAGCOEFFICIENT] = 0.5;
+    myDefaultParameter[SUMO_ATTR_ROLLDRAGCOEFFICIENT] = 0.01;
+    myDefaultParameter[SUMO_ATTR_CONSTANTPOWERINTAKE] = 100.;
+    myDefaultParameter[SUMO_ATTR_PROPULSIONEFFICIENCY] = 0.9;
+    myDefaultParameter[SUMO_ATTR_RECUPERATIONEFFICIENCY] = 0.8;
     myDefaultParameter[SUMO_ATTR_ANGLE] = 0.;
 }
 
