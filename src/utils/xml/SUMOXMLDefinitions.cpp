@@ -380,6 +380,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "lcExperimental1",        SUMO_ATTR_LCA_EXPERIMENTAL1 },
 
     { "jmCrossingGap",          SUMO_ATTR_JM_CROSSING_GAP },
+    { "jmDriveAfterYellowTime", SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME },
     { "jmDriveAfterRedTime",    SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME },
     { "jmDriveRedSpeed",        SUMO_ATTR_JM_DRIVE_RED_SPEED },
     { "jmIgnoreKeepClearTime",  SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME },

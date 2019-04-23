@@ -78,6 +78,7 @@
         <xsd:attribute name="hasDriverState" type="boolType"/>
         <xsd:attribute name="minGapLat" type="positiveFloatType"/>
         <xsd:attribute name="jmCrossingGap" type="nonNegativeFloatType"/>
+        <xsd:attribute name="jmDriveAfterYellowTime" type="nonNegativeFloatType"/>
         <xsd:attribute name="jmDriveAfterRedTime" type="nonNegativeFloatTypeWithErrorValue"/>
         <xsd:attribute name="jmDriveRedSpeed" type="nonNegativeFloatType"/>
         <xsd:attribute name="jmIgnoreKeepClearTime" type="nonNegativeFloatTypeWithErrorValue"/>

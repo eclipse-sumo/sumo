@@ -802,6 +802,7 @@ SUMOVehicleParserHelper::parseJMParams(SUMOVTypeParameter& into, const SUMOSAXAt
     if (allowedJMAttrs.size() == 0) {
         // init static set (there is only one model)
         allowedJMAttrs.insert(SUMO_ATTR_JM_CROSSING_GAP);
+        allowedJMAttrs.insert(SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME);
         allowedJMAttrs.insert(SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME);
         allowedJMAttrs.insert(SUMO_ATTR_JM_DRIVE_RED_SPEED);
         allowedJMAttrs.insert(SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME);

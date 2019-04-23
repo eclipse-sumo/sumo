@@ -21,6 +21,7 @@
 /// @author  Christoph Sommer
 /// @author  Leonhard Luecken
 /// @author  Lara Codeca
+/// @author  Mirko Barthauer
 /// @date    Mon, 05 Mar 2001
 /// @version $Id$
 ///
@@ -5869,11 +5870,18 @@ MSVehicle::ignoreRed(const MSLink* link, bool canBrake) const {
         std::cout << SIMTIME << " veh=" << getID() << " link=" << link->getViaLaneOrLane()->getID() << " state=" << toString(link->getState()) << "\n";
     }
 #endif
-    if (ignoreRedTime < 0) {
-        return false;
+     if (ignoreRedTime < 0) {
+        const double ignoreYellowTime = getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME, 0);
+        if (ignoreYellowTime > 0 && link->haveYellow()) {
+            assert(link->getTLLogic() != 0);
+            const double yellowDuration = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep() - link->getLastStateChange());
+            // when activating ignoreYellow behavior, vehicles will drive if they cannot brake
+            return !canBrake || ignoreYellowTime > yellowDuration;
+        } else {
+            return false;
+        }
     } else if (link->haveYellow()) {
-        // always drive at yellow when ignoring red
-        return true;
+        return false;
     } else if (link->haveRed()) {
         assert(link->getTLLogic() != 0);
         const double redDuration = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep() - link->getLastStateChange());

@@ -171,6 +171,7 @@ GNEVehicleType::getAttribute(SumoXMLAttr key) const {
         // JM Values
         case SUMO_ATTR_JM_CROSSING_GAP:
         case SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME:
+        case SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME:
         case SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME:
         case SUMO_ATTR_JM_DRIVE_RED_SPEED:
         case SUMO_ATTR_JM_IGNORE_FOE_PROB:
@@ -389,6 +390,7 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
         // JM Values
         case SUMO_ATTR_JM_CROSSING_GAP:
         case SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME:
+        case SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME:
         case SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME:
         case SUMO_ATTR_JM_DRIVE_RED_SPEED:
         case SUMO_ATTR_JM_IGNORE_FOE_PROB:
@@ -477,6 +479,8 @@ GNEVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME:
             return canParse<double>(value) && (parse<double>(value) >= -1);
+        case SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME:
+            return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME:
             return canParse<double>(value) && (parse<double>(value) >= -1);
         case SUMO_ATTR_JM_DRIVE_RED_SPEED:
@@ -664,6 +668,9 @@ GNEVehicleType::overwriteVType(GNEDemandElement* vType, SUMOVTypeParameter* newV
     if (!newVTypeParameter->getJMParamString(SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME, "").empty()) {
         vType->setAttribute(SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME, toString(newVTypeParameter->getCFParam(SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME, 0)), undoList);
     }
+    if (!newVTypeParameter->getJMParamString(SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME, toString(newVTypeParameter->getCFParam(SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME, 0)), undoList);
+    }
     if (!newVTypeParameter->getJMParamString(SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME, "").empty()) {
         vType->setAttribute(SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME, toString(newVTypeParameter->getCFParam(SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME, 0)), undoList);
     }
@@ -813,6 +820,7 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
         // JM Values
         case SUMO_ATTR_JM_CROSSING_GAP:
         case SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME:
+        case SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME:
         case SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME:
         case SUMO_ATTR_JM_DRIVE_RED_SPEED:
         case SUMO_ATTR_JM_IGNORE_FOE_PROB:

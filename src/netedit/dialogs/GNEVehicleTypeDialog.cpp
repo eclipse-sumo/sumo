@@ -540,29 +540,32 @@ GNEVehicleTypeDialog::VTypeAtributes::buildJunctionModelAttributesA(FXVerticalFr
     // 02 create VTypeAttributeRow and Label for JMIgnoreKeepclearTime
     myJMIgnoreKeepclearTime = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME, 1);
 
-    // 03 create VTypeAttributeRow and Label for JMDriveAfterRedTime
+    // 03 create VTypeAttributeRow and Label for JMDriveAfterYellowTime
+    myJMDriveAfterYellowTime = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_DRIVE_AFTER_YELLOW_TIME, 1);
+    
+    // 04 create VTypeAttributeRow and Label for JMDriveAfterRedTime
     myJMDriveAfterRedTime = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME, 1);
-
-    // 04 create VTypeAttributeRow and Label for JMDriveRedSpeed
+            
+    // 05 create VTypeAttributeRow and Label for JMDriveRedSpeed
     myJMDriveRedSpeed = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_DRIVE_RED_SPEED, 2);
-
-    // 05 create VTypeAttributeRow and Label for JMIgnoreFoeProb
-    myJMIgnoreFoeProb = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_IGNORE_FOE_PROB, 1);
 }
 
 
 void
 GNEVehicleTypeDialog::VTypeAtributes::buildJunctionModelAttributesB(FXVerticalFrame* column) {
-    // 01 create VTypeAttributeRow and Label for JMIgnoreFoeSpeed
+    // 01 create VTypeAttributeRow and Label for JMIgnoreFoeProb
+    myJMIgnoreFoeProb = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_IGNORE_FOE_PROB, 1);
+    
+    // 02 create VTypeAttributeRow and Label for JMIgnoreFoeSpeed
     myJMIgnoreFoeSpeed = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_IGNORE_FOE_SPEED, 1);
 
-    // 02 create VTypeAttributeRow and Label for JMSigmaMinor
+    // 03 create VTypeAttributeRow and Label for JMSigmaMinor
     myJMSigmaMinor = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_SIGMA_MINOR, 2);
 
-    // 03 create VTypeAttributeRow and Label for JMTimeGapMinor
+    // 04 create VTypeAttributeRow and Label for JMTimeGapMinor
     myJMTimeGapMinor = new VTypeAttributeRow(this, column, SUMO_ATTR_JM_TIMEGAP_MINOR, 1);
 
-    // 04 create VTypeAttributeRow and Label for Impatience
+    // 05 create VTypeAttributeRow and Label for Impatience
     myJMImpatience = new VTypeAttributeRow(this, column, SUMO_ATTR_IMPATIENCE, 1);
 }
 
@@ -601,6 +604,7 @@ GNEVehicleTypeDialog::VTypeAtributes::updateValues() {
     // JM Parameters
     myJMCrossingGap->updateValue();
     myJMIgnoreKeepclearTime->updateValue();
+    myJMDriveAfterYellowTime->updateValue();
     myJMDriveAfterRedTime->updateValue();
     myJMDriveRedSpeed->updateValue();
     myJMIgnoreFoeProb->updateValue();
@@ -665,6 +669,7 @@ GNEVehicleTypeDialog::VTypeAtributes::onCmdSetVariable(FXObject*, FXSelector, vo
     // JM Variables
     myJMCrossingGap->setVariable();
     myJMIgnoreKeepclearTime->setVariable();
+    myJMDriveAfterYellowTime->setVariable();
     myJMDriveAfterRedTime->setVariable();
     myJMDriveRedSpeed->setVariable();
     myJMIgnoreFoeProb->setVariable();
