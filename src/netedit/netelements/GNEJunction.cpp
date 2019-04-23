@@ -265,6 +265,10 @@ GNEJunction::getCenteringBoundary() const {
 
 void
 GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
+    // check if boundary has to be drawn
+    if(s.drawBoundaries) {
+        GLHelper::drawBoundary(getBoundary());
+    }
     // declare variables
     double exaggeration = isAttributeCarrierSelected() ? s.selectionScale : 1;
     exaggeration *= s.junctionSize.getExaggeration(s, this, 4);
@@ -328,7 +332,8 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             }
         }
         // draw TLS icon if isn't being drawn for selecting
-        if ((s.editMode == GNE_NMODE_TLS) && (myNBNode.isTLControlled()) && !myAmTLSSelected && !s.drawForSelecting) {
+        if ((myNet->getViewNet()->getEditModes().networkEditMode == GNE_NMODE_TLS) && 
+            (myNBNode.isTLControlled()) && !myAmTLSSelected && !s.drawForSelecting) {
             glPushMatrix();
             Position pos = myNBNode.getPosition();
             glTranslated(pos.x(), pos.y(), getType() + 0.1);
@@ -1302,10 +1307,8 @@ double
 GNEJunction::getColorValue(const GUIVisualizationSettings& s, bool bubble) const {
     switch (s.junctionColorer.getActive()) {
         case 0:
-            if (bubble
-                    // ensure visibility of red connections
-                    && !(s.editMode == GNE_NMODE_TLS && myNBNode.isTLControlled())
-               ) {
+            // ensure visibility of red connections
+            if (bubble && !(myNet->getViewNet()->getEditModes().networkEditMode == GNE_NMODE_TLS && myNBNode.isTLControlled())) {
                 return 1;
             } else {
                 return 0;

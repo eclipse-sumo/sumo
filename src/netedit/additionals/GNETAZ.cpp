@@ -239,6 +239,10 @@ GNETAZ::getParentName() const {
 
 void
 GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
+    // check if boundary has to be drawn
+    if(s.drawBoundaries) {
+        GLHelper::drawBoundary(getCenteringBoundary());
+    }
     if (s.polySize.getExaggeration(s, this) == 0) {
         return;
     }

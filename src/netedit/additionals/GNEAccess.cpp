@@ -155,6 +155,10 @@ GNEAccess::getParentName() const {
 
 void
 GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
+    // check if boundary has to be drawn
+    if(s.drawBoundaries) {
+        GLHelper::drawBoundary(getCenteringBoundary());
+    }
     // Obtain exaggeration of the draw
     const double exaggeration = s.addSize.getExaggeration(s, this);
     // Start drawing adding an gl identificator

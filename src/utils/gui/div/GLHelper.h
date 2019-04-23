@@ -341,6 +341,9 @@ public:
     /// @brief draw vertex numbers for the given shape (in a random color)
     static void debugVertices(const PositionVector& shape, double size, double layer = 256);
 
+    /// @brief Draw a boundary (used for debugging)
+    static void drawBoundary(const Boundary& b);
+
     /// @brief to be called when the font context is invalidated
     static void resetFont();
 

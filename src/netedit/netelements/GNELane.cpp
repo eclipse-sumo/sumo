@@ -338,6 +338,10 @@ GNELane::drawLane2LaneConnections() const {
 
 void
 GNELane::drawGL(const GUIVisualizationSettings& s) const {
+    // check if boundary has to be drawn
+    if(s.drawBoundaries) {
+        GLHelper::drawBoundary(getBoundary());
+    }
     // Push draw matrix 1
     glPushMatrix();
     // Push name
@@ -582,7 +586,7 @@ GNELane::drawMarkings(const GUIVisualizationSettings& /* s */, double scale) con
 GUIGLObjectPopupMenu*
 GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     // first obtain edit mode (needed because certain Commands depend of current edit mode)
-    const int editMode = parent.getVisualisationSettings()->editMode;
+    const NetworkEditMode editMode = myNet->getViewNet()->getEditModes().networkEditMode;
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);

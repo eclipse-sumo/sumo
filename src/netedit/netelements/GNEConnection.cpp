@@ -295,6 +295,10 @@ void
 GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
     // Check if connection must be drawed
     if (!myShapeDeprecated && (myNet->getViewNet()->getViewOptions().showConnections() || (myNet->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND))) {
+        // check if boundary has to be drawn
+        if(s.drawBoundaries) {
+            GLHelper::drawBoundary(getBoundary());
+        }
         // Push draw matrix 1
         glPushMatrix();
         // Push name

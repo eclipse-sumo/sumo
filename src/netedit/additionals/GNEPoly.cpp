@@ -277,6 +277,10 @@ GNEPoly::getCenteringBoundary() const {
 
 void
 GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
+    // check if boundary has to be drawn
+    if(s.drawBoundaries) {
+        GLHelper::drawBoundary(getCenteringBoundary());
+    }
     // push name (needed for getGUIGlObjectsUnderCursor(...)
     glPushName(getGlID());
     // first check if inner polygon can be drawn

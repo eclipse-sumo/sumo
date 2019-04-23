@@ -115,7 +115,11 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
             (myShapeLengths.size() > 0) &&
             (s.scale > 3.0)) {
         auto crossing = myParentJunction->getNBNode()->getCrossing(myCrossingEdges);
-        if (s.editMode != GNE_NMODE_TLS) {
+        if (myNet->getViewNet()->getEditModes().networkEditMode != GNE_NMODE_TLS) {
+            // check if boundary has to be drawn
+            if(s.drawBoundaries) {
+                GLHelper::drawBoundary(getCenteringBoundary());
+            }
             // push first draw matrix
             glPushMatrix();
             // push name

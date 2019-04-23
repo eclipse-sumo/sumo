@@ -76,6 +76,10 @@ GNEChargingStation::updateGeometry(bool updateGrid) {
 
 void
 GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
+    // check if boundary has to be drawn
+    if(s.drawBoundaries) {
+        GLHelper::drawBoundary(getCenteringBoundary());
+    }
     // obtain circle resolution
     int circleResolution = getCircleResolution(s);
     // Get exaggeration

@@ -390,6 +390,10 @@ GNEDetectorE2::checkE2MultilaneIntegrity() {
 
 void
 GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
+    // check if boundary has to be drawn
+    if(s.drawBoundaries) {
+        GLHelper::drawBoundary(getCenteringBoundary());
+    }
     // Start drawing adding an gl identificator
     glPushName(getGlID());
 

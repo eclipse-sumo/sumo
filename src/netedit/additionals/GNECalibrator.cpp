@@ -123,6 +123,10 @@ GNECalibrator::getParentName() const {
 
 void
 GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
+    // check if boundary has to be drawn
+    if(s.drawBoundaries) {
+        GLHelper::drawBoundary(getCenteringBoundary());
+    }
     // get values
     glPushName(getGlID());
     glLineWidth(1.0);

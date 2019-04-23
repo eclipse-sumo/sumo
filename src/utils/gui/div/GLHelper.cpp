@@ -41,6 +41,8 @@
 #include <utils/gui/settings/GUIVisualizationSettings.h>
 #define GLFONTSTASH_IMPLEMENTATION // Expands implementation
 #include <foreign/fontstash/glfontstash.h>
+#include <utils/geom/Boundary.h>
+
 #include "Roboto.h"
 #include "GLHelper.h"
 
@@ -741,6 +743,19 @@ GLHelper::debugVertices(const PositionVector& shape, double size, double layer) 
     }
 }
 
+
+void 
+GLHelper::drawBoundary(const Boundary& b) {
+    glPushMatrix();
+    GLHelper::setColor(RGBColor::MAGENTA);
+    // draw on top
+    glTranslated(0, 0, 1024);
+    drawLine(Position(b.xmin(),b.ymax()), Position(b.xmax(),b.ymax()));
+    drawLine(Position(b.xmax(),b.ymax()), Position(b.xmax(),b.ymin()));
+    drawLine(Position(b.xmax(),b.ymin()), Position(b.xmin(),b.ymin()));
+    drawLine(Position(b.xmin(),b.ymin()), Position(b.xmin(),b.ymax()));
+    glPopMatrix();
+}
 
 /****************************************************************************/
 

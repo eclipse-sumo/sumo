@@ -115,6 +115,10 @@ GNERouteProbe::getParentName() const {
 
 void
 GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
+    // check if boundary has to be drawn
+    if(s.drawBoundaries) {
+        GLHelper::drawBoundary(getCenteringBoundary());
+    }
     // get values
     glPushName(getGlID());
     double width = (double) 2.0 * s.scale;

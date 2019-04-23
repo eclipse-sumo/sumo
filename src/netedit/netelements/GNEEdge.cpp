@@ -519,10 +519,10 @@ GNEEdge::getOppositeEdge() const {
 
 void
 GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
-    /* do something different for connectors?
-    if (myNBEdge.isMacroscopicConnector()) {
+    // check if boundary has to be drawn
+    if(s.drawBoundaries) {
+        GLHelper::drawBoundary(getBoundary());
     }
-    */
     // obtain circle width
     double circleWidth = SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration);
     double circleWidthSquared = circleWidth * circleWidth;
@@ -538,6 +538,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     for (const auto &i : getDemandElementChilds()) {
         i->drawGL(s);
     }
+    GLHelper::drawBoundary(getBoundary());
     // draw geometry points if isnt's too small
     if (s.scale > 8.0) {
         RGBColor color = s.junctionColorer.getSchemes()[0].getColor(2);

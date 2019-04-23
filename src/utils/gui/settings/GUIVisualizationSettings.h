@@ -319,18 +319,15 @@ public:
     /// @brief whether the application is in gaming mode or not
     bool gaming;
 
-    /// @brief the current NETEDIT mode (temporary)
-    int editMode;
-
-    /// @brief the current NETEDIT additional mode (temporary)
-    int editAdditionalMode;
-
     /// @brief NETEDIT special colors
     RGBColor selectionColor;
     RGBColor selectedEdgeColor;
     RGBColor selectedLaneColor;
     RGBColor selectedConnectionColor;
     RGBColor selectedAdditionalColor;
+    
+    /// @brief enable or disable draw boundaries
+    bool drawBoundaries;
 
     /// @brief the current selection scaling in NETEDIT (temporary)
     double selectionScale;

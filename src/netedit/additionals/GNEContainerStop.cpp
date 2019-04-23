@@ -72,6 +72,10 @@ GNEContainerStop::updateGeometry(bool updateGrid) {
 
 void
 GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
+    // check if boundary has to be drawn
+    if(s.drawBoundaries) {
+        GLHelper::drawBoundary(getCenteringBoundary());
+    }
     // obtain circle resolution
     int circleResolution = getCircleResolution(s);
     // Obtain exaggeration of the draw

@@ -511,6 +511,8 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     // init view settings
     // (uncomment the next line to check select mode)
     // myVisualizationSettings->drawForSelecting = true;
+    // (uncomment the next line to check boundaries)
+    // myVisualizationSettings->drawBoundaries = true;
     glRenderMode(mode);
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
@@ -555,7 +557,6 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     myVisualizationSettings->scale = lw;
     glEnable(GL_POLYGON_OFFSET_FILL);
     glEnable(GL_POLYGON_OFFSET_LINE);
-    myVisualizationSettings->editMode = myEditModes.networkEditMode;
     int hits2 = myGrid->Search(minB, maxB, *myVisualizationSettings);
 
     glTranslated(0, 0, GLO_ADDITIONAL);

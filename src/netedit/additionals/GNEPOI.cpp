@@ -234,6 +234,10 @@ GNEPOI::getCenteringBoundary() const {
 
 void
 GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
+    // check if boundary has to be drawn
+    if(s.drawBoundaries) {
+        GLHelper::drawBoundary(getCenteringBoundary());
+    }
     // first clear vertices
     myPOIVertices.clear();
     // check if POI can be drawn

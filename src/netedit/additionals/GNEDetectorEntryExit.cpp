@@ -147,6 +147,10 @@ GNEDetectorEntryExit::updateGeometry(bool updateGrid) {
 
 void
 GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
+    // check if boundary has to be drawn
+    if(s.drawBoundaries) {
+        GLHelper::drawBoundary(getCenteringBoundary());
+    }
     // Start drawing adding gl identificator
     glPushName(getGlID());
 

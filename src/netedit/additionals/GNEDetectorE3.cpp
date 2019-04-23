@@ -116,6 +116,10 @@ GNEDetectorE3::getParentName() const {
 
 void
 GNEDetectorE3::drawGL(const GUIVisualizationSettings& s) const {
+    // check if boundary has to be drawn
+    if(s.drawBoundaries) {
+        GLHelper::drawBoundary(getCenteringBoundary());
+    }
     // Start drawing adding an gl identificator
     glPushName(getGlID());
 

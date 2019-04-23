@@ -98,6 +98,10 @@ GNEParkingSpace::getParentName() const {
 
 void
 GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
+    // check if boundary has to be drawn
+    if(s.drawBoundaries) {
+        GLHelper::drawBoundary(getCenteringBoundary());
+    }
     // push name and matrix
     glPushName(getGlID());
     glPushMatrix();
