@@ -77,7 +77,7 @@ public:
     void commitGeometryMoving(GNEUndoList* undoList);
 
     /// @brief update pre-computed geometry information
-    void updateGeometry(bool updateGrid);
+    void updateGeometry();
     /// @}
 
     /// @name inherited from GUIGlObject

@@ -87,7 +87,7 @@ GNECalibratorFlow::commitGeometryMoving(GNEUndoList*) {
 
 
 void
-GNECalibratorFlow::updateGeometry(bool /*updateGrid*/) {
+GNECalibratorFlow::updateGeometry() {
     // Currently this additional doesn't own a Geometry
 }
 
@@ -381,7 +381,7 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
     // check if updated attribute requieres update geometry
     if (myTagProperty.hasAttribute(key) && myTagProperty.getAttributeProperties(key).requiereUpdateGeometry()) {
-        updateGeometry(true);
+        updateGeometry();
     }
 }
 

@@ -57,7 +57,7 @@ GNECrossing::generateChildID(SumoXMLTag /*childTag*/) {
 
 
 void
-GNECrossing::updateGeometry(bool /*updateGrid*/) {
+GNECrossing::updateGeometry() {
     // rebuild crossing and walking areas form node parent
     auto crossing = myParentJunction->getNBNode()->getCrossing(myCrossingEdges);
     // obtain shape
@@ -458,7 +458,7 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
             // change myCrossingEdges by the new edges
             myCrossingEdges = crossing->edges;
             // update geometry of parent junction
-            myParentJunction->updateGeometry(true);
+            myParentJunction->updateGeometry();
             break;
         }
         case SUMO_ATTR_WIDTH:
@@ -498,7 +498,7 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
     // Crossing are a special case and we need ot update geometry of junction instead of crossing
     if ((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
-        myParentJunction->updateGeometry(true);
+        myParentJunction->updateGeometry();
     }
 }
 

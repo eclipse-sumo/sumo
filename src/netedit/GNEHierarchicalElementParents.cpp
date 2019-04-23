@@ -73,7 +73,7 @@ GNEHierarchicalElementParents::addAdditionalParent(GNEAdditional* additional) {
         myAdditionalParents.push_back(additional);
         // only execute post operations if update geometry is enabled
         if (additional->getViewNet()->getNet()->isUpdateGeometryEnabled()) {
-            updateGeometry(true);
+            updateGeometry();
         }
     }
 }
@@ -89,7 +89,7 @@ GNEHierarchicalElementParents::removeAdditionalParent(GNEAdditional* additional)
         myAdditionalParents.erase(it);
         // only execute post operations if update geometry is enabled
         if (additional->getViewNet()->getNet()->isUpdateGeometryEnabled()) {
-            updateGeometry(true);
+            updateGeometry();
         }
     }
 }
@@ -110,7 +110,7 @@ GNEHierarchicalElementParents::addDemandElementParent(GNEDemandElement* demandEl
         myDemandElementParents.push_back(demandElement);
         // update geometry (for set geometry of lines between Parents and Parents)
         if (demandElement->getViewNet()->getNet()->isUpdateGeometryEnabled()) {
-            updateGeometry(true);
+            updateGeometry();
         }
     }
 }
@@ -126,7 +126,7 @@ GNEHierarchicalElementParents::removeDemandElementParent(GNEDemandElement* deman
         myDemandElementParents.erase(it);
         // update geometry (for remove geometry of lines between Parents and Parents)
         if (demandElement->getViewNet()->getNet()->isUpdateGeometryEnabled()) {
-            updateGeometry(true);
+            updateGeometry();
         }
     }
 }
@@ -487,7 +487,7 @@ GNEHierarchicalElementParents::changeAdditionalParent(GNEShape* shapeTobeChanged
         // add additional int the childs of parent additional
         myAdditionalParents.at(additionalParentIndex)->addShapeChild(shapeTobeChanged);
         // update geometry after inserting
-        updateGeometry(true);
+        updateGeometry();
     }
 }
 
@@ -504,7 +504,7 @@ GNEHierarchicalElementParents::changeAdditionalParent(GNEAdditional* additionalT
         // add additional int the childs of parent additional
         myAdditionalParents.at(additionalParentIndex)->addAdditionalChild(additionalTobeChanged);
         // update geometry after inserting
-        updateGeometry(true);
+        updateGeometry();
     }
 }
 
@@ -521,7 +521,7 @@ GNEHierarchicalElementParents::changeAdditionalParent(GNEDemandElement* demandEl
         // add demand element int the childs of parent additional
         myAdditionalParents.at(additionalParentIndex)->removeDemandElementChild(demandElementTobeChanged);
         // update geometry after inserting
-        updateGeometry(true);
+        updateGeometry();
     }
 }
 
@@ -538,7 +538,7 @@ GNEHierarchicalElementParents::changeDemandElementParent(GNEShape* shapeTobeChan
         // add demand element int the childs of parent additional
         myDemandElementParents.at(demandElementParentIndex)->addShapeChild(shapeTobeChanged);
         // update geometry after inserting
-        updateGeometry(true);
+        updateGeometry();
     }
 }
 
@@ -555,7 +555,7 @@ GNEHierarchicalElementParents::changeDemandElementParent(GNEAdditional* addition
         // add demand element int the childs of parent additional
         myDemandElementParents.at(demandElementParentIndex)->addAdditionalChild(additionalTobeChanged);
         // update geometry after inserting
-        updateGeometry(true);
+        updateGeometry();
     }
 }
 
@@ -572,7 +572,7 @@ GNEHierarchicalElementParents::changeDemandElementParent(GNEDemandElement* deman
         // add additional int the childs of parent additional
         myDemandElementParents.at(demandElementParentIndex)->addDemandElementChild(demandElementTobeChanged);
         // update geometry after inserting
-        updateGeometry(true);
+        updateGeometry();
     }
 }
 

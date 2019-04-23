@@ -262,7 +262,7 @@ GNEStoppingPlace::moveGeometry(const Position& offset) {
             }
         }
         // Update geometry
-        updateGeometry(false);
+        updateGeometry();
     }
 }
 

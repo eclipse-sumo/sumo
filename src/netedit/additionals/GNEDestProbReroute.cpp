@@ -65,7 +65,7 @@ GNEDestProbReroute::commitGeometryMoving(GNEUndoList*) {
 }
 
 void
-GNEDestProbReroute::updateGeometry(bool /*updateGrid*/) {
+GNEDestProbReroute::updateGeometry() {
     // Currently this additional doesn't own a Geometry
 }
 
@@ -177,7 +177,7 @@ GNEDestProbReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
     // check if updated attribute requieres update geometry
     if (myTagProperty.hasAttribute(key) && myTagProperty.getAttributeProperties(key).requiereUpdateGeometry()) {
-        updateGeometry(true);
+        updateGeometry();
     }
 }
 

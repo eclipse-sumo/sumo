@@ -54,7 +54,7 @@ GNEParkingSpace::moveGeometry(const Position& offset) {
     myPosition.add(offset);
     // filtern position using snap to active grid
     myPosition = myViewNet->snapToActiveGrid(myPosition);
-    updateGeometry(false);
+    updateGeometry();
 }
 
 
@@ -68,9 +68,9 @@ GNEParkingSpace::commitGeometryMoving(GNEUndoList* undoList) {
 
 
 void
-GNEParkingSpace::updateGeometry(bool updateGrid) {
+GNEParkingSpace::updateGeometry() {
     // first check if object has to be removed from grid (SUMOTree)
-    if (updateGrid) {
+    if (!myMove.movingGeometryBoundary.isInitialised()) {
         myViewNet->getNet()->removeGLObjectFromGrid(this);
     }
     // Clear all containers
@@ -78,7 +78,7 @@ GNEParkingSpace::updateGeometry(bool updateGrid) {
     // set new position
     myGeometry.shape.push_back(myPosition);
     // last step is to check if object has to be added into grid (SUMOTree) again
-    if (updateGrid) {
+    if (!myMove.movingGeometryBoundary.isInitialised()) {
         myViewNet->getNet()->addGLObjectIntoGrid(this);
     }
 }
@@ -275,7 +275,7 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
     // check if updated attribute requieres update geometry
     if (myTagProperty.hasAttribute(key) && myTagProperty.getAttributeProperties(key).requiereUpdateGeometry()) {
-        updateGeometry(true);
+        updateGeometry();
     }
 }
 

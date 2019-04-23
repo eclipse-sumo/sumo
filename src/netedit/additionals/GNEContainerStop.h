@@ -54,7 +54,7 @@ public:
     /// @name Functions related with geometry of element
     /// @{
     /// @brief update pre-computed geometry information
-    void updateGeometry(bool updateGrid);
+    void updateGeometry();
     /// @}
 
     /// @name inherited from GUIGlObject

@@ -85,7 +85,7 @@ GNELane::generateChildID(SumoXMLTag /*childTag*/) {
 
 
 void
-GNELane::updateGeometry(bool updateGrid) {
+GNELane::updateGeometry() {
     // Clear containers
     myShapeRotations.clear();
     myShapeLengths.clear();
@@ -108,39 +108,39 @@ GNELane::updateGeometry(bool updateGrid) {
     }
     // update shapes parents associated with this lane
     for (auto i : getShapeParents()) {
-        i->updateGeometry(updateGrid);
+        i->updateGeometry();
     }
     // update shape childs associated with this lane
     for (auto i : getShapeChilds()) {
-        i->updateGeometry(updateGrid);
+        i->updateGeometry();
     }
     // update additionals parents associated with this lane
     for (auto i : getAdditionalChilds()) {
-        i->updateGeometry(updateGrid);
+        i->updateGeometry();
     }
     // update additionals childs associated with this lane
     for (auto i : getAdditionalParents()) {
-        i->updateGeometry(updateGrid);
+        i->updateGeometry();
     }
     // update demand elements parents associated with this lane
     for (auto i : getDemandElementParents()) {
-        i->updateGeometry(updateGrid);
+        i->updateGeometry();
     }
     // update demand elements childs associated with this lane
     for (auto i : getDemandElementChilds()) {
-        i->updateGeometry(updateGrid);
+        i->updateGeometry();
     }
     // In Move mode, connections aren't updated
     if (myNet->getViewNet() && myNet->getViewNet()->getEditModes().networkEditMode != GNE_NMODE_MOVE) {
         // Update incoming connections of this lane
         auto incomingConnections = getGNEIncomingConnections();
         for (auto i : incomingConnections) {
-            i->updateGeometry(updateGrid);
+            i->updateGeometry();
         }
         // Update outgoings connections of this lane
         auto outGoingConnections = getGNEOutcomingConnections();
         for (auto i : outGoingConnections) {
-            i->updateGeometry(updateGrid);
+            i->updateGeometry();
         }
     }
     // If lane has enought length for show textures of restricted lanes
@@ -531,6 +531,9 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         // Pop Name
         glPopName();
         // draw childs
+        for (const auto &i : getShapeChilds()) {
+            i->drawGL(s);
+        }
         for (const auto &i : getAdditionalChilds()) {
             i->drawGL(s);
         }
@@ -1048,7 +1051,7 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
     // check if updated attribute requieres update geometry
     if (myTagProperty.hasAttribute(key) && myTagProperty.getAttributeProperties(key).requiereUpdateGeometry()) {
-        updateGeometry(true);
+        updateGeometry();
     }
 }
 

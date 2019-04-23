@@ -99,9 +99,9 @@ GNEJunction::generateChildID(SumoXMLTag childTag) {
 
 
 void
-GNEJunction::updateGeometry(bool updateGrid) {
+GNEJunction::updateGeometry() {
     // first check if object has to be removed from grid (SUMOTree)
-    if (updateGrid) {
+    if (!myMovingGeometryBoundary.isInitialised()) {
         myNet->removeGLObjectFromGrid(this);
     }
     // calculate boundary using EXTENT as size
@@ -114,7 +114,7 @@ GNEJunction::updateGeometry(bool updateGrid) {
     }
     myMaxSize = MAX2(myJunctionBoundary.getWidth(), myJunctionBoundary.getHeight());
     // last step is to check if object has to be added into grid (SUMOTree) again
-    if (updateGrid) {
+    if (!myMovingGeometryBoundary.isInitialised()) {
         myNet->addGLObjectIntoGrid(this);
     }
     // rebuild GNECrossings
@@ -150,7 +150,7 @@ GNEJunction::rebuildGNECrossings(bool rebuildNBNodeCrossings) {
             if (retrievedExists != myGNECrossings.end()) {
                 myGNECrossings.erase(retrievedExists);
                 // update geometry of retrieved crossing
-                retrievedGNECrossing->updateGeometry(true);
+                retrievedGNECrossing->updateGeometry();
             } else {
                 // include reference to created GNECrossing
                 retrievedGNECrossing->incRef();
@@ -554,7 +554,7 @@ GNEJunction::endGeometryMoving(bool extendToNeighbors) {
     // reset myMovingGeometryBoundary
     myMovingGeometryBoundary.reset();
     // update geometry without updating grid
-    updateGeometry(false);
+    updateGeometry();
     // First declare three sets with all affected GNEJunctions, GNEEdges and GNEConnections
     std::set<GNEJunction*> affectedJunctions;
     std::set<GNEEdge*> affectedEdges;
@@ -649,16 +649,16 @@ GNEJunction::updateShapesAndGeometries(bool updateGrid) {
     if (updateGrid) {
         for (auto i : affectedJunctions) {
             // Update geometry of Junction
-            i->updateGeometry(updateGrid);
+            i->updateGeometry();
         }
     }
     // Iterate over affected Edges
     for (auto i : affectedEdges) {
         // Update edge geometry
-        i->updateGeometry(updateGrid);
+        i->updateGeometry();
     }
     // Finally update geometry of this junction
-    updateGeometry(updateGrid);
+    updateGeometry();
     // Update view to show the new shapes
     if (myNet->getViewNet()) {
         myNet->getViewNet()->update();
@@ -928,7 +928,7 @@ GNEJunction::retrieveGNECrossing(NBNode::Crossing* crossing, bool createIfNoExis
         // show extra information for tests
         WRITE_DEBUG("Created " + createdGNECrossing->getTagStr() + " '" + createdGNECrossing->getID() + "' in retrieveGNECrossing()");
         // update geometry after creating
-        createdGNECrossing->updateGeometry(true);
+        createdGNECrossing->updateGeometry();
         return createdGNECrossing;
     } else {
         return nullptr;
@@ -1298,7 +1298,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
     // check if updated attribute requieres update geometry
     if (myTagProperty.hasAttribute(key) && myTagProperty.getAttributeProperties(key).requiereUpdateGeometry()) {
-        updateGeometry(true);
+        updateGeometry();
     }
 }
 

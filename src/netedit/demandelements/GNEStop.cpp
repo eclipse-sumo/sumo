@@ -119,7 +119,7 @@ GNEStop::moveGeometry(const Position& offset) {
             }
         }
         // Update geometry
-        updateGeometry(false);
+        updateGeometry();
     }
 }
 
@@ -141,7 +141,7 @@ GNEStop::commitGeometryMoving(GNEUndoList* undoList) {
 
 
 void
-GNEStop::updateGeometry(bool updateGrid) {
+GNEStop::updateGeometry() {
     // Clear all containers
     myGeometry.clearGeometry();
     //only update Stops over lanes, because other uses the geometry of stopping place parent
@@ -708,7 +708,7 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
     // check if updated attribute requieres update geometry
     if (myTagProperty.hasAttribute(key) && myTagProperty.getAttributeProperties(key).requiereUpdateGeometry()) {
-        updateGeometry(true);
+        updateGeometry();
     }
 }
 

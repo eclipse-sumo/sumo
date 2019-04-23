@@ -112,7 +112,7 @@ GNERoute::commitGeometryMoving(GNEUndoList*) {
 
 
 void
-GNERoute::updateGeometry(bool updateGrid) {
+GNERoute::updateGeometry() {
     // Clear all containers
     myGeometry.clearGeometry();
 
@@ -168,7 +168,7 @@ GNERoute::updateGeometry(bool updateGrid) {
 
     // update demand element childs
     for (const auto& i : getDemandElementChilds()) {
-        i->updateGeometry(updateGrid);
+        i->updateGeometry();
     }
 }
 
@@ -365,7 +365,7 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
     // check if updated attribute requieres update geometry
     if (myTagProperty.hasAttribute(key) && myTagProperty.getAttributeProperties(key).requiereUpdateGeometry()) {
-        updateGeometry(true);
+        updateGeometry();
     }
 }
 

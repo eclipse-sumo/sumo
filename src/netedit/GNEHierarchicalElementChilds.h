@@ -63,13 +63,16 @@ public:
     /// @brief Destructor
     ~GNEHierarchicalElementChilds();
 
+    /// @brief update child connections
+    void updateChildConnections();
+
     /// @brief gererate a new ID for an element child
     virtual std::string generateChildID(SumoXMLTag childTag) = 0;
 
     /// @name Functions related with geometry of element
     /// @{
     /// @brief update pre-computed geometry information
-    virtual void updateGeometry(bool updateGrid) = 0;
+    virtual void updateGeometry() = 0;
 
     /// @brief Returns position of hierarchical element in view
     virtual Position getPositionInView() const = 0;

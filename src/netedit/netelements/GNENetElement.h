@@ -58,7 +58,7 @@ public:
     /// @name Functions related with geometry of element
     /// @{
     /// @brief update pre-computed geometry information
-    virtual void updateGeometry(bool updateGrid) = 0;
+    virtual void updateGeometry() = 0;
 
     /// @brief Returns position of hierarchical element in view
     virtual Position getPositionInView() const = 0;

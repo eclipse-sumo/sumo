@@ -70,7 +70,7 @@ public:
     /**@brief update pre-computed geometry information
     * @note: must be called when geometry changes (i.e. lane moved) and implemented in ALL childrens
     */
-    virtual void updateGeometry(bool updateGrid) = 0;
+    virtual void updateGeometry() = 0;
 
     /**@brief writte shape element into a xml file
     * @param[in] device device in which write parameters of additional element

@@ -101,7 +101,7 @@ GNEDetectorEntryExit::moveGeometry(const Position& offset) {
         myPositionOverLane -= getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength();
     }
     // Update geometry
-    updateGeometry(false);
+    updateGeometry();
 }
 
 
@@ -115,7 +115,7 @@ GNEDetectorEntryExit::commitGeometryMoving(GNEUndoList* undoList) {
 
 
 void
-GNEDetectorEntryExit::updateGeometry(bool updateGrid) {
+GNEDetectorEntryExit::updateGeometry() {
     // Clear all containers
     myGeometry.clearGeometry();
 
@@ -140,8 +140,8 @@ GNEDetectorEntryExit::updateGeometry(bool updateGrid) {
     // Set block icon rotation, and using their rotation for logo
     myBlockIcon.setRotation(getLaneParents().front());
 
-    // update E3 parent Geometry
-    getAdditionalParents().at(0)->updateGeometry(updateGrid);
+    // update E3 parent childs
+    getAdditionalParents().at(0)->updateChildConnections();
 }
 
 
@@ -385,7 +385,7 @@ GNEDetectorEntryExit::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
     // check if updated attribute requieres update geometry
     if (myTagProperty.hasAttribute(key) && myTagProperty.getAttributeProperties(key).requiereUpdateGeometry()) {
-        updateGeometry(true);
+        updateGeometry();
     }
 }
 

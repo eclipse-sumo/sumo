@@ -53,7 +53,7 @@ GNERouteProbe::~GNERouteProbe() {
 
 
 void
-GNERouteProbe::updateGeometry(bool updateGrid) {
+GNERouteProbe::updateGeometry() {
     // Clear all containers
     myGeometry.clearGeometry();
 
@@ -342,7 +342,7 @@ GNERouteProbe::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
     // check if updated attribute requieres update geometry
     if (myTagProperty.hasAttribute(key) && myTagProperty.getAttributeProperties(key).requiereUpdateGeometry()) {
-        updateGeometry(true);
+        updateGeometry();
     }
 }
 

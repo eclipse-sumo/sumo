@@ -65,6 +65,12 @@ GNEHierarchicalElementChilds::~GNEHierarchicalElementChilds() {}
 
 
 void
+GNEHierarchicalElementChilds::updateChildConnections() {
+    myChildConnections.update();
+}
+
+
+void
 GNEHierarchicalElementChilds::addAdditionalChild(GNEAdditional* additional) {
     // Check if additional is valid
     if (additional == nullptr) {
@@ -80,7 +86,7 @@ GNEHierarchicalElementChilds::addAdditionalChild(GNEAdditional* additional) {
             }
             // update additional parent after add additional (note: by default non-implemented)
             updateAdditionalParent();
-            updateGeometry(true);
+            updateGeometry();
         }
     }
 }
@@ -102,7 +108,7 @@ GNEHierarchicalElementChilds::removeAdditionalChild(GNEAdditional* additional) {
             }
             // update additional parent after add additional (note: by default non-implemented)
             updateAdditionalParent();
-            updateGeometry(true);
+            updateGeometry();
         }
     }
 }
@@ -249,7 +255,7 @@ GNEHierarchicalElementChilds::addDemandElementChild(GNEDemandElement* demandElem
         updateDemandElementParent();
         // update geometry (for set geometry of lines between Parents and Childs)
         if (demandElement->getViewNet()->getNet()->isUpdateGeometryEnabled()) {
-            updateGeometry(true);
+            updateGeometry();
         }
     }
 }
@@ -271,7 +277,7 @@ GNEHierarchicalElementChilds::removeDemandElementChild(GNEDemandElement* demandE
         updateDemandElementParent();
         // update geometry (for remove geometry of lines between Parents and Childs)
         if (demandElement->getViewNet()->getNet()->isUpdateGeometryEnabled()) {
-            updateGeometry(true);
+            updateGeometry();
         }
     }
 }
@@ -304,7 +310,7 @@ GNEHierarchicalElementChilds::addEdgeChild(GNEEdge* edge) {
         myEdgeChilds.push_back(edge);
         // only execute post operations if update geometry is enabled
         if (edge->getNet()->isUpdateGeometryEnabled()) {
-            updateGeometry(true);
+            updateGeometry();
         }
     }
 }

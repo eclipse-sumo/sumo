@@ -58,7 +58,7 @@ GNEAccess::moveGeometry(const Position& offset) {
     newPosition = myViewNet->snapToActiveGrid(newPosition);
     myPositionOverLane = toString(getLaneParents().front()->getShape().nearest_offset_to_point2D(newPosition, false));
     // Update geometry
-    updateGeometry(false);
+    updateGeometry();
 }
 
 
@@ -74,7 +74,7 @@ GNEAccess::commitGeometryMoving(GNEUndoList* undoList) {
 
 
 void
-GNEAccess::updateGeometry(bool updateGrid) {
+GNEAccess::updateGeometry() {
     // Clear all containers
     myGeometry.clearGeometry();
 
@@ -332,7 +332,7 @@ GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
     // check if updated attribute requieres update geometry
     if (myTagProperty.hasAttribute(key) && myTagProperty.getAttributeProperties(key).requiereUpdateGeometry()) {
-        updateGeometry(true);
+        updateGeometry();
     }
 }
 

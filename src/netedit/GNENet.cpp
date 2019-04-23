@@ -1481,7 +1481,7 @@ void
 GNENet::updateGeometryDemandElements() {
     for (const auto& i : myAttributeCarriers.demandElements) {
         for (const auto& j : i.second) {
-            j.second->updateGeometry(true);
+            j.second->updateGeometry();
         }
     }
 }
@@ -2510,7 +2510,7 @@ GNENet::insertAdditional(GNEAdditional* additional) {
         }
         // update geometry after insertion of additionals if myUpdateGeometryEnabled is enabled
         if (myUpdateGeometryEnabled) {
-            additional->updateGeometry(true);
+            additional->updateGeometry();
         }
         // additionals has to be saved
         requiereSaveAdditionals(true);
@@ -2587,7 +2587,7 @@ GNENet::insertDemandElement(GNEDemandElement* demandElement) {
         }
         // update geometry after insertion of demandElements if myUpdateGeometryEnabled is enabled
         if (myUpdateGeometryEnabled) {
-            demandElement->updateGeometry(true);
+            demandElement->updateGeometry();
         }
         // demandElements has to be saved
         requiereSaveDemandElements(true);
@@ -2696,7 +2696,7 @@ GNENet::registerJunction(GNEJunction* junction) {
     myGrid.add(junction->getBoundary());
     myGrid.addAdditionalGLObject(junction);
     // update geometry
-    junction->updateGeometry(true);
+    junction->updateGeometry();
     // check if junction is selected
     if (junction->isAttributeCarrierSelected()) {
         junction->selectAttributeCarrier(false);
@@ -2784,11 +2784,15 @@ GNENet::insertShape(GNEShape* shape, bool updateViewAfterDeleting) {
     // add shape depending of their type and if is selected
     if (shape->getTagProperty().getTag() == SUMO_TAG_POLY) {
         GUIPolygon* poly = dynamic_cast<GUIPolygon*>(shape);
+        // all polys are placed over RTree
         myGrid.addAdditionalGLObject(poly);
         myPolygons.add(shape->getID(), poly);
     } else {
         GUIPointOfInterest* poi = dynamic_cast<GUIPointOfInterest*>(shape);
-        myGrid.addAdditionalGLObject(poi);
+        // Only certain POIs are placed in RTrees
+        if (shape->getTagProperty().isPlacedInRTree()) {
+            myGrid.addAdditionalGLObject(poi);
+        }
         myPOIs.add(shape->getID(), poi);
 
     }
@@ -2799,7 +2803,7 @@ GNENet::insertShape(GNEShape* shape, bool updateViewAfterDeleting) {
     // insert shape requieres always save additionals
     requiereSaveAdditionals(true);
     // after inserting, update geometry (needed for POILanes
-    shape->updateGeometry(true);
+    shape->updateGeometry();
     // check if view has to be updated
     if (updateViewAfterDeleting) {
         myViewNet->update();
@@ -2860,7 +2864,7 @@ GNENet::initGNEConnections() {
         i.second->remakeGNEConnections();
         // update geometry of connections
         for (const auto& j : i.second->getGNEConnections()) {
-            j->updateGeometry(true);
+            j->updateGeometry();
         }
     }
 }
@@ -2907,7 +2911,7 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
     if (!oc.getBool("offset.disable-normalization")) {
         for (auto it : myAttributeCarriers.edges) {
             // refresh edge geometry
-            it.second->updateGeometry(true);
+            it.second->updateGeometry();
         }
     }
     // Clear current inspected ACs in inspectorFrame if a previous net was loaded
@@ -3005,7 +3009,7 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
             // insert junction in grid again
             myGrid.addAdditionalGLObject(it.second);
             // updated geometry
-            it.second->updateGeometry(true);
+            it.second->updateGeometry();
         }
 
         // iterate over all edges of net
@@ -3013,7 +3017,7 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
             // insert edge in grid again
             myGrid.addAdditionalGLObject(it.second);
             // update geometry
-            it.second->updateGeometry(true);
+            it.second->updateGeometry();
         }
     }
 

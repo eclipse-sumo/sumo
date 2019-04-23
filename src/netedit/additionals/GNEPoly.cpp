@@ -94,7 +94,7 @@ GNEPoly::endGeometryMoving() {
         // reset myMovingGeometryBoundary
         myMovingGeometryBoundary.reset();
         // update geometry without updating grid
-        updateGeometry(false);
+        updateGeometry();
         // add object into grid again (using the new centering boundary)
         myNet->addGLObjectIntoGrid(this);
     }
@@ -147,7 +147,7 @@ GNEPoly::moveEntireShape(const PositionVector& oldShape, const Position& offset)
             i.add(offset);
         }
         // update Geometry after moving
-        updateGeometry(true);
+        updateGeometry();
     }
 }
 
@@ -186,7 +186,7 @@ GNEPoly::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList
 
 
 void
-GNEPoly::updateGeometry(bool /*updateGrid*/) {
+GNEPoly::updateGeometry() {
     // nothing to do
 }
 
@@ -476,7 +476,7 @@ GNEPoly::openPolygon(bool allowUndo) {
             // disable simplified shape flag
             mySimplifiedShape = false;
             // update geometry to avoid grabbing Problems
-            updateGeometry(true);
+            updateGeometry();
         }
     } else {
         WRITE_WARNING("Polygon already opened")
@@ -498,7 +498,7 @@ GNEPoly::closePolygon(bool allowUndo) {
             // disable simplified shape flag
             mySimplifiedShape = false;
             // update geometry to avoid grabbing Problems
-            updateGeometry(true);
+            updateGeometry();
         }
     } else {
         WRITE_WARNING("Polygon already closed")
@@ -542,7 +542,7 @@ GNEPoly::changeFirstGeometryPoint(int oldIndex, bool allowUndo) {
             // disable simplified shape flag
             mySimplifiedShape = false;
             // update geometry to avoid grabbing Problems
-            updateGeometry(true);
+            updateGeometry();
         }
     }
 }
@@ -576,7 +576,7 @@ GNEPoly::simplifyShape(bool allowUndo) {
             // Check if new shape is closed
             myClosedShape = (myShape.front() == myShape.back());
             // update geometry to avoid grabbing Problems
-            updateGeometry(true);
+            updateGeometry();
         }
         // change flag after setting simplified shape
         mySimplifiedShape = true;
@@ -815,7 +815,7 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             mySimplifiedShape = false;
             // update geometry of shape edited element
             if (myNetElementShapeEdited) {
-                myNetElementShapeEdited->updateGeometry(true);
+                myNetElementShapeEdited->updateGeometry();
             }
             break;
         }
@@ -833,7 +833,7 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             mySimplifiedShape = false;
             // update geometry of shape edited element
             if (myNetElementShapeEdited) {
-                myNetElementShapeEdited->updateGeometry(true);
+                myNetElementShapeEdited->updateGeometry();
             }
             break;
         }

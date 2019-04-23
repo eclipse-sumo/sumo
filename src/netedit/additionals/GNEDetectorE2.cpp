@@ -224,7 +224,7 @@ GNEDetectorE2::moveGeometry(const Position& offset) {
         }
     }
     // Update geometry
-    updateGeometry(false);
+    updateGeometry();
 }
 
 
@@ -246,7 +246,7 @@ GNEDetectorE2::commitGeometryMoving(GNEUndoList* undoList) {
 
 
 void
-GNEDetectorE2::updateGeometry(bool updateGrid) {
+GNEDetectorE2::updateGeometry() {
     // Clear all containers
     myGeometry.clearGeometry();
 
@@ -698,7 +698,7 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
     // check if updated attribute requieres update geometry
     if (myTagProperty.hasAttribute(key) && myTagProperty.getAttributeProperties(key).requiereUpdateGeometry()) {
-        updateGeometry(true);
+        updateGeometry();
     }
 }
 

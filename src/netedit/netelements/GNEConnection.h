@@ -53,7 +53,7 @@ public:
     /// @name Functions related with geometry of element
     /// @{
     /// @brief update pre-computed geometry information
-    void updateGeometry(bool updateGrid);
+    void updateGeometry();
 
     /// @brief Returns position of hierarchical element in view
     Position getPositionInView() const;
@@ -89,7 +89,7 @@ public:
     /// @brief get LinkState
     LinkState getLinkState() const;
 
-    /// @brief get Position vector calculated in updateGeometry(bool updateGrid)
+    /// @brief get Position vector calculated in updateGeometry()
     const PositionVector& getShape() const;
 
     /// @brief check that connection's Geometry has to be updated
@@ -189,7 +189,7 @@ protected:
     /// @brief flag to indicate that connection's shape has to be updated
     bool myShapeDeprecated;
 
-    /// @name computed only once (for performance) in updateGeometry(bool updateGrid)
+    /// @name computed only once (for performance) in updateGeometry()
     /// @{
     /// @brief The rotations of the shape parts
     std::vector<double> myShapeRotations;

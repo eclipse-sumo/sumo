@@ -837,7 +837,7 @@ GNEAdditionalHandler::buildTAZ(GNEViewNet* viewNet, bool allowUndoRedo, const st
     // enable updating geometry again and update geometry of TAZ
     viewNet->getNet()->enableUpdateGeometry();
     // update TAZ Frame
-    TAZ->updateGeometry(true);
+    TAZ->updateGeometry();
     TAZ->updateAdditionalParent();
     return TAZ;
 }

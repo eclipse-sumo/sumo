@@ -169,7 +169,7 @@ GNEVehicle::commitGeometryMoving(GNEUndoList*) {
 
 
 void
-GNEVehicle::updateGeometry(bool updateGrid) {
+GNEVehicle::updateGeometry() {
     // obtain lenght
     const double length = parse<double>(getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_LENGTH)) ;
 
@@ -1044,7 +1044,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
     // check if updated attribute requieres update geometry
     if (myTagProperty.hasAttribute(key) && myTagProperty.getAttributeProperties(key).requiereUpdateGeometry()) {
-        updateGeometry(true);
+        updateGeometry();
     }
 }
 

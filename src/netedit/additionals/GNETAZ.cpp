@@ -62,7 +62,7 @@ GNETAZ::~GNETAZ() {}
 
 
 void
-GNETAZ::updateGeometry(bool /*updateGrid*/) {
+GNETAZ::updateGeometry() {
     // Nothing to do
 }
 
@@ -80,7 +80,7 @@ GNETAZ::moveGeometry(const Position& offset) {
     myGeometry.shape[0].add(offset);
     // filtern position using snap to active grid
     myGeometry.shape[0] = myViewNet->snapToActiveGrid(myGeometry.shape[0]);
-    updateGeometry(false);
+    updateGeometry();
 }
 
 
@@ -139,7 +139,7 @@ GNETAZ::moveEntireShape(const PositionVector& oldShape, const Position& offset) 
             i.add(offset);
         }
         // update Geometry after moving
-        updateGeometry(true);
+        updateGeometry();
     }
 }
 
@@ -522,7 +522,7 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
     // check if updated attribute requieres update geometry
     if (myTagProperty.hasAttribute(key) && myTagProperty.getAttributeProperties(key).requiereUpdateGeometry()) {
-        updateGeometry(true);
+        updateGeometry();
     }
 }
 

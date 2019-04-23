@@ -68,7 +68,7 @@ GNEClosingLaneReroute::commitGeometryMoving(GNEUndoList*) {
 
 
 void
-GNEClosingLaneReroute::updateGeometry(bool /*updateGrid*/) {
+GNEClosingLaneReroute::updateGeometry() {
     // Currently this additional doesn't own a Geometry
 }
 
@@ -187,7 +187,7 @@ GNEClosingLaneReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
     // check if updated attribute requieres update geometry
     if (myTagProperty.hasAttribute(key) && myTagProperty.getAttributeProperties(key).requiereUpdateGeometry()) {
-        updateGeometry(true);
+        updateGeometry();
     }
 }
 

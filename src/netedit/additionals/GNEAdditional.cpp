@@ -365,7 +365,7 @@ GNEAdditional::endGeometryMoving() {
         // reset myMovingGeometryBoundary
         myMove.movingGeometryBoundary.reset();
         // update geometry without updating grid
-        updateGeometry(false);
+        updateGeometry();
         // check if object must be placed in RTREE
         if (myTagProperty.isPlacedInRTree()) {
             // add object into grid again (using the new centering boundary)

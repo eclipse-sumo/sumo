@@ -50,7 +50,7 @@ GNEChargingStation::~GNEChargingStation() {}
 
 
 void
-GNEChargingStation::updateGeometry(bool updateGrid) {
+GNEChargingStation::updateGeometry() {
     // Get value of option "lefthand"
     double offsetSign = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
 
@@ -346,7 +346,7 @@ GNEChargingStation::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
     // check if updated attribute requieres update geometry
     if (myTagProperty.hasAttribute(key) && myTagProperty.getAttributeProperties(key).requiereUpdateGeometry()) {
-        updateGeometry(true);
+        updateGeometry();
     }
 }
 

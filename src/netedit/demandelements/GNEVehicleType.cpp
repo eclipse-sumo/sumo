@@ -100,7 +100,7 @@ GNEVehicleType::commitGeometryMoving(GNEUndoList*) {
 
 
 void
-GNEVehicleType::updateGeometry(bool /*updateGrid*/) {
+GNEVehicleType::updateGeometry() {
     // Currently this additional doesn't own a Geometry
 }
 
@@ -1119,7 +1119,7 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
     */
     // check if updated attribute requieres update geometry
     if (myTagProperty.hasAttribute(key) && myTagProperty.getAttributeProperties(key).requiereUpdateGeometry()) {
-        updateGeometry(true);
+        updateGeometry();
     }
 }
 

@@ -50,9 +50,9 @@ GNEDetectorE3::~GNEDetectorE3() {}
 
 
 void
-GNEDetectorE3::updateGeometry(bool updateGrid) {
+GNEDetectorE3::updateGeometry() {
     // first check if object has to be removed from grid (SUMOTree)
-    if (updateGrid) {
+    if (!myMove.movingGeometryBoundary.isInitialised()) {
         myViewNet->getNet()->removeGLObjectFromGrid(this);
     }
 
@@ -75,7 +75,7 @@ GNEDetectorE3::updateGeometry(bool updateGrid) {
     myChildConnections.update();
 
     // last step is to check if object has to be added into grid (SUMOTree) again
-    if (updateGrid) {
+    if (!myMove.movingGeometryBoundary.isInitialised()) {
         myViewNet->getNet()->addGLObjectIntoGrid(this);
     }
 }
@@ -95,7 +95,7 @@ GNEDetectorE3::moveGeometry(const Position& offset) {
     // filtern position using snap to active grid
     // filtern position using snap to active grid
     myPosition = myViewNet->snapToActiveGrid(myPosition);
-    updateGeometry(false);
+    updateGeometry();
 }
 
 
@@ -349,7 +349,7 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
     // check if updated attribute requieres update geometry
     if (myTagProperty.hasAttribute(key) && myTagProperty.getAttributeProperties(key).requiereUpdateGeometry()) {
-        updateGeometry(true);
+        updateGeometry();
     }
 }
 

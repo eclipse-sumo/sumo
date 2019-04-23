@@ -98,7 +98,7 @@ GNEDetectorE1Instant::moveGeometry(const Position& offset) {
         myPositionOverLane -= getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength();
     }
     // Update geometry
-    updateGeometry(false);
+    updateGeometry();
 }
 
 
@@ -112,7 +112,7 @@ GNEDetectorE1Instant::commitGeometryMoving(GNEUndoList* undoList) {
 
 
 void
-GNEDetectorE1Instant::updateGeometry(bool updateGrid) {
+GNEDetectorE1Instant::updateGeometry() {
 
     // Clear all containers
     myGeometry.clearGeometry();
@@ -384,7 +384,7 @@ GNEDetectorE1Instant::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
     // check if updated attribute requieres update geometry
     if (myTagProperty.hasAttribute(key) && myTagProperty.getAttributeProperties(key).requiereUpdateGeometry()) {
-        updateGeometry(true);
+        updateGeometry();
     }
 }
 

@@ -64,7 +64,7 @@ GNEParkingAreaReroute::commitGeometryMoving(GNEUndoList*) {
 
 
 void
-GNEParkingAreaReroute::updateGeometry(bool /*updateGrid*/) {
+GNEParkingAreaReroute::updateGeometry() {
     // Currently this additional doesn't own a Geometry
 }
 
@@ -184,7 +184,7 @@ GNEParkingAreaReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
     // check if updated attribute requieres update geometry
     if (myTagProperty.hasAttribute(key) && myTagProperty.getAttributeProperties(key).requiereUpdateGeometry()) {
-        updateGeometry(true);
+        updateGeometry();
     }
 }
 

@@ -60,7 +60,7 @@ public:
     /// @name Functions related with geometry of element
     /// @{
     /// @brief update pre-computed geometry information
-    void updateGeometry(bool updateGrid);
+    void updateGeometry();
 
     /// @brief Returns position of hierarchical element in view
     Position getPositionInView() const;
@@ -153,7 +153,7 @@ protected:
     /// @brief crossingShape
     PositionVector myShape;
 
-    /// @name computed only once (for performance) in updateGeometry(bool updateGrid)
+    /// @name computed only once (for performance) in updateGeometry()
     /// @{
     /// The rotations of the shape parts
     std::vector<double> myShapeRotations;

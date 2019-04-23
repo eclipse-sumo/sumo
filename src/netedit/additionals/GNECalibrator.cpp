@@ -72,7 +72,7 @@ GNECalibrator::commitGeometryMoving(GNEUndoList*) {
 
 
 void
-GNECalibrator::updateGeometry(bool updateGrid) {
+GNECalibrator::updateGeometry() {
     // Clear all containers
     myGeometry.clearGeometry();
 
@@ -353,7 +353,7 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
     // check if updated attribute requieres update geometry
     if (myTagProperty.hasAttribute(key) && myTagProperty.getAttributeProperties(key).requiereUpdateGeometry()) {
-        updateGeometry(true);
+        updateGeometry();
     }
 }
 

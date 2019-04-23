@@ -51,7 +51,7 @@ GNEBusStop::~GNEBusStop() {}
 
 
 void
-GNEBusStop::updateGeometry(bool updateGrid) {
+GNEBusStop::updateGeometry() {
     // Get value of option "lefthand"
     double offsetSign = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
 
@@ -75,7 +75,7 @@ GNEBusStop::updateGeometry(bool updateGrid) {
 
     // update demand element childs (GNEStops)
     for (const auto& i : getDemandElementChilds()) {
-        i->updateGeometry(updateGrid);
+        i->updateGeometry();
     }
 }
 
@@ -354,7 +354,7 @@ GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
     // check if updated attribute requieres update geometry
     if (myTagProperty.hasAttribute(key) && myTagProperty.getAttributeProperties(key).requiereUpdateGeometry()) {
-        updateGeometry(true);
+        updateGeometry();
     }
 }
 

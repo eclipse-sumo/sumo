@@ -75,26 +75,11 @@ GNEPOI::generateChildID(SumoXMLTag childTag) {
 
 void
 GNEPOI::startGeometryMoving() {
-    // always save original position over view
-    myOriginalViewPosition = getPositionInView();
-    // save current centering boundary
-    myMovingGeometryBoundary = getCenteringBoundary();
 }
 
 
 void
 GNEPOI::endGeometryMoving() {
-    // check that endGeometryMoving was called only once
-    if ((getLaneParents().size() > 0) && myMovingGeometryBoundary.isInitialised()) {
-        // Remove object from net
-        myNet->removeGLObjectFromGrid(this);
-        // reset myMovingGeometryBoundary
-        myMovingGeometryBoundary.reset();
-        // update geometry without updating grid
-        updateGeometry(false);
-        // add object into grid again (using the new centering boundary)
-        myNet->addGLObjectIntoGrid(this);
-    }
 }
 
 
@@ -126,7 +111,7 @@ GNEPOI::moveGeometry(const Position& oldPos, const Position& offset) {
             set(newPosition);
         }
         // Update geometry
-        updateGeometry(false);
+        updateGeometry();
     }
 }
 
@@ -154,20 +139,12 @@ GNEPOI::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
 
 
 void
-GNEPOI::updateGeometry(bool updateGrid) {
-    // first check if object has to be removed from grid (SUMOTree)
-    if (updateGrid) {
-        myNet->removeGLObjectFromGrid(this);
-    }
+GNEPOI::updateGeometry() {
     if (getLaneParents().size() > 0) {
         // obtain fixed position over lane
         double fixedPositionOverLane = myPosOverLane > getLaneParents().at(0)->getLaneShapeLength() ? getLaneParents().at(0)->getLaneShapeLength() : myPosOverLane < 0 ? 0 : myPosOverLane;
         // set new position regarding to lane
         set(getLaneParents().at(0)->getShape().positionAtOffset(fixedPositionOverLane * getLaneParents().at(0)->getLengthGeometryFactor(), -myPosLat));
-    }
-    // last step is to check if object has to be added into grid (SUMOTree) again
-    if (updateGrid) {
-        myNet->addGLObjectIntoGrid(this);
     }
 }
 
@@ -484,18 +461,20 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeLaneParents(this, value);
             break;
         case SUMO_ATTR_POSITION: {
-            // first remove object from grid due position is used for boundary
-            myNet->removeGLObjectFromGrid(this);
+
             if (getLaneParents().size() > 0) {
                 myPosOverLane = parse<double>(value);
             } else {
+                // first remove object from grid due position is used for boundary
+                myNet->removeGLObjectFromGrid(this);
+                // set position
                 set(parse<Position>(value));
                 // set GEO Position
                 myGEOPosition = *this;
                 GeoConvHelper::getFinal().cartesian2geo(myGEOPosition);
+                // add object into grid again
+                myNet->addGLObjectIntoGrid(this);
             }
-            // add object into grid again
-            myNet->addGLObjectIntoGrid(this);
             break;
         }
         case SUMO_ATTR_POSITION_LAT:
@@ -576,7 +555,7 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
     // check if updated attribute requieres update geometry
     if (myTagProperty.hasAttribute(key) && myTagProperty.getAttributeProperties(key).requiereUpdateGeometry()) {
-        updateGeometry(true);
+        updateGeometry();
     }
 }
 

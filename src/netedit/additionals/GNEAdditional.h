@@ -198,7 +198,7 @@ public:
     virtual void commitGeometryMoving(GNEUndoList* undoList) = 0;
 
     /// @brief update pre-computed geometry information
-    virtual void updateGeometry(bool updateGrid) = 0;
+    virtual void updateGeometry() = 0;
 
     /// @brief Returns position of additional in view
     virtual Position getPositionInView() const = 0;
@@ -328,7 +328,7 @@ protected:
         /// @brief constructor
         BlockIcon(GNEAdditional* additional);
 
-        /// @brief set Rotation of block Icon (must be called in updateGeometry(bool updateGrid) function)
+        /// @brief set Rotation of block Icon (must be called in updateGeometry() function)
         void setRotation(GNELane* additionalLane = nullptr);
 
         /// @brief draw lock icon

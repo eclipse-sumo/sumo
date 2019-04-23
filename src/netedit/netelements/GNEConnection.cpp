@@ -73,7 +73,7 @@ GNEConnection::generateChildID(SumoXMLTag /*childTag*/) {
 
 
 void
-GNEConnection::updateGeometry(bool updateGrid) {
+GNEConnection::updateGeometry() {
     // Get shape of from and to lanes
     NBEdge::Connection& nbCon = getNBEdgeConnection();
     if (myShapeDeprecated) {
@@ -604,9 +604,8 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
     // Update Geometry after setting a new attribute (but avoided for certain attributes)
     if ((key != SUMO_ATTR_ID) && (key != GNE_ATTR_GENERIC) && (key != GNE_ATTR_SELECTED)) {
-        const bool init = (myShape.size() == 0);
         markConnectionGeometryDeprecated();
-        updateGeometry(!init);
+        updateGeometry();
     }
 }
 

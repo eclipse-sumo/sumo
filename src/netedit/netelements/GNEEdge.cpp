@@ -79,7 +79,7 @@ GNEEdge::GNEEdge(NBEdge& nbe, GNENet* net, bool wasSplit, bool loaded):
     }
     // update Lane geometries
     for (auto i : myLanes) {
-        i->updateGeometry(true);
+        i->updateGeometry();
     }
 }
 
@@ -121,40 +121,40 @@ GNEEdge::generateChildID(SumoXMLTag /*childTag*/) {
 
 
 void
-GNEEdge::updateGeometry(bool updateGrid) {
+GNEEdge::updateGeometry() {
     // first check if object has to be removed from grid (SUMOTree)
-    if (updateGrid) {
+    if (!myMovingGeometryBoundary.isInitialised()) {
         myNet->removeGLObjectFromGrid(this);
     }
     // Update geometry of lanes
     for (auto i : myLanes) {
-        i->updateGeometry(updateGrid);
+        i->updateGeometry();
     }
     // Update geometry of connections (Only if updateGrid is enabled, because in move mode connections are hidden
     // (note: only the previous marked as deprecated will be updated)
-    if (updateGrid) {
+    if (!myMovingGeometryBoundary.isInitialised()) {
         for (auto i : myGNEConnections) {
-            i->updateGeometry(updateGrid);
+            i->updateGeometry();
         }
     }
     // Update geometry of additionals childs vinculated to this edge
     for (auto i : getAdditionalChilds()) {
-        i->updateGeometry(updateGrid);
+        i->updateGeometry();
     }
     // Update geometry of additional parents that have this edge as parent
     for (auto i : getAdditionalParents()) {
-        i->updateGeometry(updateGrid);
+        i->updateGeometry();
     }
     // Update geometry of demand elements childs vinculated to this edge
     for (auto i : getDemandElementChilds()) {
-        i->updateGeometry(updateGrid);
+        i->updateGeometry();
     }
     // Update geometry of demand elements parents that have this edge as parent
     for (auto i : getDemandElementParents()) {
-        i->updateGeometry(updateGrid);
+        i->updateGeometry();
     }
     // last step is to check if object has to be added into grid (SUMOTree) again
-    if (updateGrid) {
+    if (!myMovingGeometryBoundary.isInitialised()) {
         myNet->addGLObjectIntoGrid(this);
     }
 }
@@ -198,7 +198,7 @@ GNEEdge::moveShapeStart(const Position& oldPos, const Position& offset) {
     if (shapeStartEdited != myNBEdge.getGeometry().back()) {
         // set shape start position without updating grid
         setShapeStartPos(shapeStartEdited, false);
-        updateGeometry(false);
+        updateGeometry();
     }
 }
 
@@ -214,7 +214,7 @@ GNEEdge::moveShapeEnd(const Position& oldPos, const Position& offset) {
     if (shapeEndEdited != myNBEdge.getGeometry().front()) {
         // set shape end position without updating grid
         setShapeEndPos(shapeEndEdited, false);
-        updateGeometry(false);
+        updateGeometry();
     }
 }
 
@@ -281,7 +281,7 @@ GNEEdge::endGeometryMoving() {
         // reset myMovingGeometryBoundary
         myMovingGeometryBoundary.reset();
         // update geometry without updating grid
-        updateGeometry(false);
+        updateGeometry();
         // Restore centering boundary of lanes (and their childs)
         for (auto i : myLanes) {
             i->endGeometryMoving();
@@ -410,7 +410,7 @@ GNEEdge::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList
     }
     // finish geometry moving
     endGeometryMoving();
-    updateGeometry(false);
+    updateGeometry();
     // restore old geometry to allow change attribute (And restore shape if during movement a new point was created
     setGeometry(oldShape, true, true);
     // commit new shape
@@ -538,7 +538,6 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     for (const auto &i : getDemandElementChilds()) {
         i->drawGL(s);
     }
-    GLHelper::drawBoundary(getBoundary());
     // draw geometry points if isnt's too small
     if (s.scale > 8.0) {
         RGBColor color = s.junctionColorer.getSchemes()[0].getColor(2);
@@ -759,7 +758,7 @@ GNEEdge::setGeometry(PositionVector geom, bool inner, bool updateGrid) {
         // add object into net again
         myNet->addGLObjectIntoGrid(this);
     }
-    updateGeometry(updateGrid);
+    updateGeometry();
     myGNEJunctionSource->invalidateShape();
     myGNEJunctionDestiny->invalidateShape();
 }
@@ -1025,9 +1024,9 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
             myGNEJunctionSource->invalidateShape();
             undoList->p_end();
             // update geometries of all implicated junctions
-            oldGNEJunctionSource->updateGeometry(true);
-            myGNEJunctionSource->updateGeometry(true);
-            myGNEJunctionDestiny->updateGeometry(true);
+            oldGNEJunctionSource->updateGeometry();
+            myGNEJunctionSource->updateGeometry();
+            myGNEJunctionDestiny->updateGeometry();
             break;
         }
         case SUMO_ATTR_TO: {
@@ -1044,9 +1043,9 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
             myGNEJunctionDestiny->invalidateShape();
             undoList->p_end();
             // update geometries of all implicated junctions
-            oldGNEJunctionDestiny->updateGeometry(true);
-            myGNEJunctionDestiny->updateGeometry(true);
-            myGNEJunctionSource->updateGeometry(true);
+            oldGNEJunctionDestiny->updateGeometry();
+            myGNEJunctionDestiny->updateGeometry();
+            myGNEJunctionSource->updateGeometry();
             break;
         }
         case SUMO_ATTR_ID:
@@ -1351,7 +1350,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
     // check if updated attribute requieres update geometry
     if (myTagProperty.hasAttribute(key) && myTagProperty.getAttributeProperties(key).requiereUpdateGeometry()) {
-        updateGeometry(true);
+        updateGeometry();
     }
 }
 
@@ -1425,7 +1424,7 @@ GNEEdge::addLane(GNELane* lane, const NBEdge::Lane& laneAttrs, bool recomputeCon
     // add object again
     myNet->addGLObjectIntoGrid(this);
     // Update geometry with the new lane
-    updateGeometry(true);
+    updateGeometry();
 }
 
 
@@ -1475,7 +1474,7 @@ GNEEdge::removeLane(GNELane* lane, bool recomputeConnections) {
     // add object again
     myNet->addGLObjectIntoGrid(this);
     // Update element
-    updateGeometry(true);
+    updateGeometry();
 }
 
 
@@ -1496,7 +1495,7 @@ GNEEdge::addConnection(NBEdge::Connection nbCon, bool selectAfterCreation) {
             con->selectAttributeCarrier();
         }
         // update geometry
-        con->updateGeometry(true);
+        con->updateGeometry();
         // iterate over all additionals from "from" lane and check E2 multilane integrity
         for (auto i : con->getLaneFrom()->getAdditionalChilds()) {
             if (i->getTagProperty().getTag() == SUMO_TAG_E2DETECTOR_MULTILANE) {
@@ -1511,7 +1510,7 @@ GNEEdge::addConnection(NBEdge::Connection nbCon, bool selectAfterCreation) {
         }
     }
     // actually we only do this to force a redraw
-    updateGeometry(true);
+    updateGeometry();
 }
 
 
@@ -1551,7 +1550,7 @@ GNEEdge::removeConnection(NBEdge::Connection nbCon) {
             WRITE_DEBUG("Deleting unreferenced " + con->getTagStr() + " '" + con->getID() + "' in removeConnection()");
             delete con;
             // actually we only do this to force a redraw
-            updateGeometry(true);
+            updateGeometry();
         }
     }
 }

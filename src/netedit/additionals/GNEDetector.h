@@ -104,7 +104,7 @@ public:
     virtual void commitGeometryMoving(GNEUndoList* undoList) = 0;
 
     /// @brief update pre-computed geometry information
-    virtual void updateGeometry(bool updateGrid) = 0;
+    virtual void updateGeometry() = 0;
 
     /// @brief Returns position of additional in view
     Position getPositionInView() const;
