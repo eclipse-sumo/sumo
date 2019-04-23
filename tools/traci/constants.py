@@ -779,6 +779,9 @@ VAR_PERSON_NUMBER = 0x67
 #  number of persons waiting at a defined bus stop (get: simulation)
 VAR_BUS_STOP_WAITING = 0x67
 
+#  IDs of persons waiting at a defined bus stop (get: simulation)
+VAR_BUS_STOP_WAITING_IDS = 0xef
+
 #  current leader together with gap (get: vehicle)
 VAR_LEADER = 0x68
 

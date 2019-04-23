@@ -270,6 +270,17 @@ Simulation::getBusStopWaiting(const std::string& id) {
     return s->getTransportableNumber();
 }
 
+std::vector<std::string>
+Simulation::getBusStopWaitingIDList(const std::string& id){
+    MSStoppingPlace* s = MSNet::getInstance()->getStoppingPlace(id, SUMO_TAG_BUS_STOP);
+    std::vector<MSTransportable*> transportables = s->getTransportables();
+    std::vector<std::string> result;
+    for(std::vector<MSTransportable*>::iterator it = transportables.begin(); it != transportables.end(); it++){
+        result.push_back((*it)->getID());
+    }
+    return result;
+}
+
 
 double
 Simulation::getDeltaT() {

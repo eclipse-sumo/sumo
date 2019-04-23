@@ -160,6 +160,10 @@ public:
         return (int)myWaitingTransportables.size();
     }
 
+    /** @brief Returns the tranportables waiting on this stop
+     */
+    std::vector<MSTransportable*> getTransportables() const;
+
     /** @brief Returns the number of stopped vehicles waiting on this stop
     */
     int getStoppedVehicleNumber() const {
