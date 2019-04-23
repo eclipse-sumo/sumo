@@ -655,6 +655,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                 }
                 // make sure link rules are drawn so tls can be selected via right-click
                 if (s.showLinkRules && (drawDetails || s.drawForSelecting)
+                        && !isWalkingArea
                         && (!myEdge->isInternal() || getLinkCont()[0]->isInternalJunctionLink())) {
                     drawLinkRules(s, *net);
                 }
