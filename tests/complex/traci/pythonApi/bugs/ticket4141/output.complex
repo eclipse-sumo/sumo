@@ -1,10 +1,10 @@
  Retrying in 1 seconds
 shortcut via trainStop:
-  Stage(stageType=2, vType='', line='', destStop='trainstop1', edges=('beg2left',), travelTime=240.00192, cost=240.00192, length=2218.22, intended='', depart=-1.0, departPos=0.0, arrivalPos=250.0, description='')
-  Stage(stageType=2, vType='', line='', destStop='', edges=('beg2left2',), travelTime=95.61120000000003, cost=95.61120000000003, length=398.3800000000001, intended='', depart=-1.0, departPos=0.0, arrivalPos=199.19, description='')
+  Stage(type=2, vType='', line='', destStop='trainstop1', edges=('beg2left',), travelTime=240.00192, cost=240.00192, length=2218.22, intended='', depart=-1.0, departPos=0.0, arrivalPos=250.0, description='')
+  Stage(type=2, vType='', line='', destStop='', edges=('beg2left2',), travelTime=95.61120000000003, cost=95.61120000000003, length=398.3800000000001, intended='', depart=-1.0, departPos=0.0, arrivalPos=199.19, description='')
 
 train ride
-  Stage(stageType=2, vType='', line='', destStop='trainstop1', edges=('beg2left',), travelTime=240.00096000000002, cost=240.00096000000002, length=2019.0299999999997, intended='', depart=-1.0, departPos=0.0, arrivalPos=250.0, description='')
-  Stage(stageType=3, vType='', line='train', destStop='trainstop2', edges=('gneE0',), travelTime=89.99995999999999, cost=89.99995999999999, length=2519.1871925646074, intended='train.0', depart=300.0, departPos=0.0, arrivalPos=1009.9971925646075, description='')
-  Stage(stageType=2, vType='', line='', destStop='', edges=('left2end',), travelTime=0.38880000000000337, cost=0.38880000000000337, length=500.0, intended='', depart=-1.0, departPos=250.0, arrivalPos=0.0, description='')
+  Stage(type=2, vType='', line='', destStop='trainstop1', edges=('beg2left',), travelTime=240.00096000000002, cost=240.00096000000002, length=2019.0299999999997, intended='', depart=-1.0, departPos=0.0, arrivalPos=250.0, description='')
+  Stage(type=3, vType='', line='train', destStop='trainstop2', edges=('gneE0',), travelTime=89.99995999999999, cost=89.99995999999999, length=2519.1871925646074, intended='train.0', depart=300.0, departPos=0.0, arrivalPos=1009.9971925646075, description='')
+  Stage(type=2, vType='', line='', destStop='', edges=('left2end',), travelTime=0.38880000000000337, cost=0.38880000000000337, length=500.0, intended='', depart=-1.0, departPos=250.0, arrivalPos=0.0, description='')
 
