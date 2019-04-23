@@ -300,6 +300,7 @@ public:
         TAGPROPERTY_WRITECHILDSSEPARATE = 1 << 15,  // Element writes their childs in a separated filename
         TAGPROPERTY_NOGENERICPARAMETERS = 1 << 16,  // Element doesn't accept Generic Parameters (by default all tags supports generic parameters)
         TAGPROPERTY_DISJOINTATTRIBUTES =  1 << 17,  // Element owns attributes that cannot be defined together
+        TAGPROPERTY_RTREE =               1 << 18,  // Element is placed in RTREE
     };
 
     /// @brief struct with the attribute Properties
@@ -427,6 +428,9 @@ public:
 
         /// @brief return true if Tag correspond to an element that has disjoint attributes
         bool hasDisjointAttributes() const;
+
+        /// @brief return true if Tag correspond to an element that has has to be placed in RTREE
+        bool isPlacedInRTree() const;
 
         /// @brief return true if tag correspond to an element that can be reparent
         bool canBeReparent() const;

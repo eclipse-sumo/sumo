@@ -113,11 +113,6 @@ GNERoute::commitGeometryMoving(GNEUndoList*) {
 
 void
 GNERoute::updateGeometry(bool updateGrid) {
-    // first check if object has to be removed from grid (SUMOTree)
-    if (updateGrid) {
-        myViewNet->getNet()->removeGLObjectFromGrid(this);
-    }
-
     // Clear all containers
     myGeometry.clearGeometry();
 
@@ -169,11 +164,6 @@ GNERoute::updateGeometry(bool updateGrid) {
 
         // calculate multi shape rotation and lengths
         myGeometry.calculateShapeRotationsAndLengths();
-    }
-
-    // last step is to check if object has to be added into grid (SUMOTree) again
-    if (updateGrid) {
-        myViewNet->getNet()->addGLObjectIntoGrid(this);
     }
 
     // update demand element childs

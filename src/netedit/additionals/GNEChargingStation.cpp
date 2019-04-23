@@ -51,11 +51,6 @@ GNEChargingStation::~GNEChargingStation() {}
 
 void
 GNEChargingStation::updateGeometry(bool updateGrid) {
-    // first check if object has to be removed from grid (SUMOTree)
-    if (updateGrid) {
-        myViewNet->getNet()->removeGLObjectFromGrid(this);
-    }
-
     // Get value of option "lefthand"
     double offsetSign = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
 
@@ -76,11 +71,6 @@ GNEChargingStation::updateGeometry(bool updateGrid) {
 
     // Set block icon rotation, and using their rotation for sign
     myBlockIcon.setRotation(getLaneParents().front());
-
-    // last step is to check if object has to be added into grid (SUMOTree) again
-    if (updateGrid) {
-        myViewNet->getNet()->addGLObjectIntoGrid(this);
-    }
 }
 
 

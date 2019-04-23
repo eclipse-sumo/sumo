@@ -2501,7 +2501,7 @@ GNENet::insertAdditional(GNEAdditional* additional) {
     if (!additionalExist(additional)) {
         myAttributeCarriers.additionals.at(additional->getTagProperty().getTag()).insert(std::make_pair(additional->getID(), additional));
         // only add drawable elements in grid
-        if (additional->getTagProperty().isDrawable()) {
+        if (additional->getTagProperty().isDrawable() && additional->getTagProperty().isPlacedInRTree()) {
             myGrid.addAdditionalGLObject(additional);
         }
         // check if additional is selected
@@ -2578,7 +2578,7 @@ GNENet::insertDemandElement(GNEDemandElement* demandElement) {
             }
         }
         // only add drawable elements in grid
-        if (demandElement->getTagProperty().isDrawable()) {
+        if (demandElement->getTagProperty().isDrawable() && demandElement->getTagProperty().isPlacedInRTree()) {
             myGrid.addAdditionalGLObject(demandElement);
         }
         // check if demandElement is selected

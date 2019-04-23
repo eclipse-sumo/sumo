@@ -475,12 +475,8 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
             crossing->tlLinkIndex2 = crossing->customTLIndex2;
             break;
         case SUMO_ATTR_CUSTOMSHAPE: {
-            // first remove object from grid
-            myNet->removeGLObjectFromGrid(this);
             // set custom shape
             crossing->customShape = parse<PositionVector>(value);
-            // insert object in grid again
-            myNet->removeGLObjectFromGrid(this);
             break;
         }
         case GNE_ATTR_SELECTED:

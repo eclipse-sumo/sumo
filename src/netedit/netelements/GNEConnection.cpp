@@ -77,10 +77,6 @@ GNEConnection::updateGeometry(bool updateGrid) {
     // Get shape of from and to lanes
     NBEdge::Connection& nbCon = getNBEdgeConnection();
     if (myShapeDeprecated) {
-        // first check if object has to be removed from grid (SUMOTree)
-        if (updateGrid) {
-            myNet->removeGLObjectFromGrid(this);
-        }
         // Clear containers
         myShape.clear();
         myShapeRotations.clear();
@@ -150,11 +146,6 @@ GNEConnection::updateGeometry(bool updateGrid) {
 
         // mark connection as non-deprecated
         myShapeDeprecated = false;
-
-        // last step is to check if object has to be added into grid (SUMOTree) again
-        if (updateGrid) {
-            myNet->addGLObjectIntoGrid(this);
-        }
     }
 }
 

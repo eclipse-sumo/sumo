@@ -170,11 +170,6 @@ GNEVehicle::commitGeometryMoving(GNEUndoList*) {
 
 void
 GNEVehicle::updateGeometry(bool updateGrid) {
-    // first check if object has to be removed from grid (SUMOTree)
-    if (updateGrid) {
-        myViewNet->getNet()->removeGLObjectFromGrid(this);
-    }
-
     // obtain lenght
     const double length = parse<double>(getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_LENGTH)) ;
 
@@ -231,11 +226,6 @@ GNEVehicle::updateGeometry(bool updateGrid) {
             }
             myGeometry.shape.removeDoublePoints();
         }
-    }
-
-    // last step is to check if object has to be added into grid (SUMOTree) again
-    if (updateGrid) {
-        myViewNet->getNet()->addGLObjectIntoGrid(this);
     }
 }
 

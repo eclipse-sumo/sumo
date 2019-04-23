@@ -142,10 +142,6 @@ GNEStop::commitGeometryMoving(GNEUndoList* undoList) {
 
 void
 GNEStop::updateGeometry(bool updateGrid) {
-    // first check if object has to be removed from grid (SUMOTree)
-    if (updateGrid) {
-        myViewNet->getNet()->removeGLObjectFromGrid(this);
-    }
     // Clear all containers
     myGeometry.clearGeometry();
     //only update Stops over lanes, because other uses the geometry of stopping place parent
@@ -159,10 +155,6 @@ GNEStop::updateGeometry(bool updateGrid) {
         myGeometry.shape = getAdditionalParents().at(0)->getAdditionalGeometry().shape;
         myGeometry.shapeLengths = getAdditionalParents().at(0)->getAdditionalGeometry().shapeLengths;
         myGeometry.shapeRotations = getAdditionalParents().at(0)->getAdditionalGeometry().shapeRotations;
-    }
-    // last step is to check if object has to be added into grid (SUMOTree) again
-    if (updateGrid) {
-        myViewNet->getNet()->addGLObjectIntoGrid(this);
     }
 }
 

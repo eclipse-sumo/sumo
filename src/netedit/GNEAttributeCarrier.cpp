@@ -802,6 +802,12 @@ GNEAttributeCarrier::TagProperties::hasDisjointAttributes() const {
 }
 
 
+bool 
+GNEAttributeCarrier::TagProperties::isPlacedInRTree() const {
+    return (myTagProperty & TAGPROPERTY_RTREE) != 0;
+}
+
+
 bool
 GNEAttributeCarrier::TagProperties::canBeReparent() const {
     return (myTagProperty & TAGPROPERTY_REPARENT) != 0;
