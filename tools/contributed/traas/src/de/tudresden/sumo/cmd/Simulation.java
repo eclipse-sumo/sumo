@@ -88,9 +88,13 @@ public class Simulation {
 	 * @param y y
 	 * @param isGeo geo
 	 */
-	public static SumoCommand convertRoad(double x, double y, String isGeo){
-		Object[] array = new Object[]{y, isGeo};
-		return new SumoCommand(Constants.CMD_GET_SIM_VARIABLE, Constants.VAR_POSITION, x, array, Constants.RESPONSE_GET_SIM_VARIABLE, Constants.POSITION_2D);
+	public static SumoCommand convertRoad(double x, double y, boolean isGeo, String vClass){
+        byte fromType = Constants.POSITION_2D;
+        if (isGeo) {
+            fromType = Constants.POSITION_LON_LAT;
+        }
+		Object[] array = new Object[]{fromType, x, y, Constants.POSITION_ROADMAP, vClass};
+		return new SumoCommand(Constants.CMD_GET_SIM_VARIABLE, Constants.POSITION_CONVERSION, "", array, Constants.RESPONSE_GET_SIM_VARIABLE, Constants.POSITION_ROADMAP);
 	}
 
 	/**

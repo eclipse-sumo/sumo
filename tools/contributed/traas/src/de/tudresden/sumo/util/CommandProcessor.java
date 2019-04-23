@@ -49,6 +49,7 @@ import de.uniluebeck.itm.tcpip.Storage;
 import de.tudresden.ws.container.SumoTLSPhase;
 import de.tudresden.ws.container.SumoTLSController;
 import de.tudresden.ws.container.SumoStage;
+import de.tudresden.ws.container.SumoRoadPosition;
 
 /**
  * 
@@ -365,7 +366,7 @@ public class CommandProcessor extends Query{
 	
 		verifyGetVarResponse(resp, sc.response, sc.input2, sc.input3);
 		verify("", sc.output_type, (int)resp.content().readUnsignedByte());
-		
+
 		if(sc.output_type == Constants.TYPE_INTEGER){output = resp.content().readInt();
 		}else if(sc.output_type == Constants.TYPE_DOUBLE){output = resp.content().readDouble();
 		}else if(sc.output_type == Constants.TYPE_STRING){output = resp.content().readStringUTF8();
@@ -378,6 +379,12 @@ public class CommandProcessor extends Query{
 			double y = resp.content().readDouble();
 			double z = resp.content().readDouble();
 			output = new SumoPosition3D(x,y,z);
+		}else if(sc.output_type == Constants.POSITION_ROADMAP){
+			SumoRoadPosition roadPos = new SumoRoadPosition();
+            roadPos.edgeID = resp.content().readStringASCII();
+            roadPos.pos = resp.content().readDouble();
+            roadPos.laneIndex = resp.content().readByte();
+			output = roadPos;
 		}else if(sc.output_type == Constants.TYPE_STRINGLIST){
 			
 			SumoStringList ssl = new SumoStringList();
