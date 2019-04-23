@@ -527,8 +527,12 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     double circleWidth = SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration);
     double circleWidthSquared = circleWidth * circleWidth;
     int circleResolution = GNEAttributeCarrier::getCircleResolution(s);
-    // draw the lanes
+    // draw lanes
     for (auto i : myLanes) {
+        i->drawGL(s);
+    }
+    // draw connections
+    for (auto i : myGNEConnections) {
         i->drawGL(s);
     }
     // draw childs
@@ -789,9 +793,9 @@ GNEEdge::remakeGNEConnections() {
     }
     // delete non retrieved GNEConnections
     for (auto it : myGNEConnections) {
-        // remove it from Tree
-        myNet->removeGLObjectFromGrid(it);
+        // decrease reference
         it->decRef();
+        // delete GNEConnection if is unreferenced
         if (it->unreferenced()) {
             // show extra information for tests
             WRITE_DEBUG("Deleting unreferenced " + it->getTagStr() + " '" + it->getID() + "' in rebuildGNEConnections()");
@@ -1568,8 +1572,6 @@ GNEEdge::retrieveGNEConnection(int fromLane, NBEdge* to, int toLane, bool create
         GNEConnection* createdConnection = new GNEConnection(myLanes[fromLane], myNet->retrieveEdge(to->getID())->getLanes()[toLane]);
         // show extra information for tests
         WRITE_DEBUG("Created " + createdConnection->getTagStr() + " '" + createdConnection->getID() + "' in retrieveGNEConnection()");
-        // insert it in Tree
-        myNet->addGLObjectIntoGrid(createdConnection);
         // iterate over all additionals from "from" lane and check E2 multilane integrity
         for (auto i : createdConnection->getLaneFrom()->getAdditionalChilds()) {
             if (i->getTagProperty().getTag() == SUMO_TAG_E2DETECTOR_MULTILANE) {
