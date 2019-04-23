@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Di 23 Apr 2019 20:27:19 CEST by Eclipse SUMO netedit Version v1_2_0+0022-5179cc2293
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/home/kobo/dlr/sumo/tests/sumo/net3.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/home/kobo/dlr/sumo/tests/sumo/net3.net.xml"/>
+        <plain-output-prefix value="/home/kobo/dlr/sumo/tests/netconvert/function/lefthand/custom_shapes/input_plain"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="-1"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<connections version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+
+    <connection from="NC" to="CE" fromLane="4" toLane="4" shape="101.65,116.94 113.30,101.75"/>
+    <crossing node="C" edges="CN NC" priority="1" width="4.50" linkIndex="24"/>
+    <crossing node="C" edges="CE EC" priority="1" width="4.50" linkIndex="25"/>
+    <crossing node="C" edges="CS SC" priority="1" width="4.50" linkIndex="26" shape="107.40,89.60 100.12,85.58 92.60,89.60"/>
+    <crossing node="C" edges="CW WC" priority="1" width="4.50" linkIndex="27"/>
+    <walkingArea node="C" edges="SC" shape="86.58,90.85 86.58,87.56 90.99,87.38"/> 
+</connections>

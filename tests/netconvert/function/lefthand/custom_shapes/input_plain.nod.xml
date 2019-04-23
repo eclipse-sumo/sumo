@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Di 23 Apr 2019 20:27:19 CEST by Eclipse SUMO netedit Version v1_2_0+0022-5179cc2293
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/home/kobo/dlr/sumo/tests/sumo/net3.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/home/kobo/dlr/sumo/tests/sumo/net3.net.xml"/>
+        <plain-output-prefix value="/home/kobo/dlr/sumo/tests/netconvert/function/lefthand/custom_shapes/input_plain"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="-1"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<nodes version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="100.00,100.00" convBoundary="0.00,0.00,200.00,200.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <node id="C" x="100.00" y="100.00" type="traffic_light" tl="C" shape="88.10,112.65 100.15,112.67 100.15,117.09 106.50,117.03 106.62,112.43 111.90,112.65 112.07,111.40 112.57,110.65 113.40,110.40 113.40,87.35 112.57,87.18 111.94,86.31 88.10,85.85 87.93,87.10 87.43,87.85 86.60,88.10 86.60,111.15 87.43,111.32 88.10,112.65"/>
+    <node id="E" x="200.00" y="100.00" type="priority"/>
+    <node id="N" x="100.00" y="200.00" type="priority"/>
+    <node id="S" x="100.00" y="0.00" type="priority"/>
+    <node id="W" x="0.00" y="100.00" type="priority"/>
+</nodes>
