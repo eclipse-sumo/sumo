@@ -39,7 +39,7 @@ step 9
 # examining poly0
 shape ((960.0, 510.0), (960.0, 550.0), (1000.0, 550.0), (1000.0, 510.0))
 type test
-color (100, 200, 0, 255)
+color (100, 200, 0, 0)
 filled True
 step 10
 # examining poly0
