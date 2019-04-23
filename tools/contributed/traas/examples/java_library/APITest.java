@@ -33,6 +33,7 @@ import de.tudresden.ws.container.SumoVehicleData;
 import de.tudresden.ws.container.SumoStopFlags;
 import de.tudresden.ws.container.SumoStringList;
 import de.tudresden.ws.container.SumoStage;
+import de.tudresden.ws.container.SumoRoadPosition;
 import de.tudresden.ws.container.SumoTLSController;
 import de.tudresden.ws.container.SumoTLSProgram;
 
@@ -46,6 +47,12 @@ public class APITest {
 	
 		
 		try{
+            if (args.length > 0) {
+                sumo_bin = args[0];
+            }
+            if (args.length > 1) {
+                config_file = args[1];
+            }
 			
 			SumoTraciConnection conn = new SumoTraciConnection(sumo_bin, config_file);
 			conn.addOption("step-length", step_length+"");
@@ -128,6 +135,9 @@ public class APITest {
 
             System.out.println("Trafficlight.getPhaseDuration: " + (double)conn.do_job_get(Trafficlight.getPhaseDuration("gneJ1")));
             System.out.println("Trafficlight.getNextSwitch: " + (double)conn.do_job_get(Trafficlight.getNextSwitch("gneJ1")));
+
+            SumoRoadPosition roadPos = (SumoRoadPosition)conn.do_job_get(Simulation.convertRoad(505.38,-42.08, false, "passenger"));
+            System.out.println("Simulation.convertRoad: " + roadPos.edgeID + ", " + roadPos.pos + ", " + roadPos.laneIndex);
 
 			conn.close();
 			
