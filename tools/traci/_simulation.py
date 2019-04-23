@@ -22,7 +22,7 @@ from . import constants as tc
 from .domain import Domain
 from .storage import Storage
 
-Stage = collections.namedtuple('Stage', ['stageType', 'vType', 'line', 'destStop', 'edges', 'travelTime', 'cost',
+Stage = collections.namedtuple('Stage', ['type', 'vType', 'line', 'destStop', 'edges', 'travelTime', 'cost',
                                          'length', 'intended', 'depart', 'departPos', 'arrivalPos', 'description'])
 
 
