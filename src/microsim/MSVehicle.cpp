@@ -5943,6 +5943,8 @@ MSVehicle::isLeader(const MSLink* link, const MSVehicle* veh) const {
                 const MSLink* foeLink = foeLane->getIncomingLanes()[0].viaLink;
                 const MSJunctionLogic* logic = link->getJunction()->getLogic();
                 assert(logic != nullptr);
+                const bool response = logic->getResponseFor(link->getIndex()).test(foeLink->getIndex());
+                const bool response2 = logic->getResponseFor(foeLink->getIndex()).test(link->getIndex());
 #ifdef DEBUG_PLAN_MOVE_LEADERINFO
                 if (DEBUG_COND) {
                     std::cout << SIMTIME
@@ -5950,13 +5952,18 @@ MSVehicle::isLeader(const MSLink* link, const MSVehicle* veh) const {
                               << " foeLink=" << foeLink->getViaLaneOrLane()->getID()
                               << " linkIndex=" << link->getIndex()
                               << " foeLinkIndex=" << foeLink->getIndex()
-                              << " response=" << logic->getResponseFor(link->getIndex()).test(foeLink->getIndex())
+                              << " response=" << response
+                              << " response2=" << response2
                               << "\n";
                 }
 #endif
-                if (!logic->getResponseFor(link->getIndex()).test(foeLink->getIndex())) {
+                if (!response) {
                     // if we have right of way over the foe, entryTime does not matter
                     foeET = veh->myJunctionConflictEntryTime;
+                    egoET = myJunctionEntryTime;
+                } else if (response && response2) {
+                    // in a mutual conflict scenario, use entry time to avoid deadlock
+                    foeET = veh->myJunctionEntryTime;
                     egoET = myJunctionEntryTime;
                 }
             }
