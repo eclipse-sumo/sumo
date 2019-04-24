@@ -52,6 +52,11 @@ GNEParkingArea::~GNEParkingArea() {}
 
 void
 GNEParkingArea::updateGeometry() {
+    // first check if object has to be removed from grid (SUMOTree)
+    if (!myMove.movingGeometryBoundary.isInitialised()) {
+        myViewNet->getNet()->removeGLObjectFromGrid(this);
+    }
+
     // Get value of option "lefthand"
     double offsetSign = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
 
@@ -72,6 +77,11 @@ GNEParkingArea::updateGeometry() {
 
     // Set block icon rotation, and using their rotation for sign
     myBlockIcon.setRotation(getLaneParents().front());
+
+    // last step is to check if object has to be added into grid (SUMOTree) again
+    if (!myMove.movingGeometryBoundary.isInitialised()) {
+        myViewNet->getNet()->addGLObjectIntoGrid(this);
+    }
 }
 
 

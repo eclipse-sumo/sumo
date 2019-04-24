@@ -535,10 +535,14 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
             i->drawGL(s);
         }
         for (const auto &i : getAdditionalChilds()) {
-            i->drawGL(s);
+            if (!i->getTagProperty().isPlacedInRTree()) {
+                i->drawGL(s);
+            }
         }
         for (const auto &i : getDemandElementChilds()) {
-            i->drawGL(s);
+            if (!i->getTagProperty().isPlacedInRTree()) {
+                i->drawGL(s);
+            }
         }
     }
 
