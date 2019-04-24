@@ -1916,19 +1916,29 @@ NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing,
         // check whether there is a straighter edge
         EdgeVector::const_iterator i =
             std::find(myOutgoingEdges.begin(), myOutgoingEdges.end(), outgoing);
-        if (leftHand) {
-            NBContHelper::nextCCW(myOutgoingEdges, i);
-        } else {
-            NBContHelper::nextCW(myOutgoingEdges, i);
-        }
-        const double angle2 = NBHelpers::normRelAngle(incoming->getAngleAtNode(this), (*i)->getAngleAtNode(this));
-        if (fabs(angle2) < fabs(angle) && fabs(angle2 - angle) > 5.) {
-            if (angle2 > angle) {
-                return LINKDIR_PARTLEFT;
+        while (true) {
+            if (leftHand) {
+                NBContHelper::nextCCW(myOutgoingEdges, i);
             } else {
-                return LINKDIR_PARTRIGHT;
+                NBContHelper::nextCW(myOutgoingEdges, i);
             }
-        } else {
+            const double angle2 = NBHelpers::normRelAngle(incoming->getAngleAtNode(this), (*i)->getAngleAtNode(this));
+            const SVCPermissions perms = (*i)->getPermissions();
+            if (fabs(angle2) < fabs(angle)) {
+                if (fabs(angle2 - angle) > 5) {
+                    // ignore straighter edges that are not relevant for traffic from the incoming edge
+                    if ((perms & SVC_PASSENGER) != 0 || perms == incoming->getPermissions()) {
+                        if (angle2 > angle) {
+                            return LINKDIR_PARTLEFT;
+                        } else {
+                            return LINKDIR_PARTRIGHT;
+                        }
+                    } else {
+                        // check for another straighter edge
+                        continue;
+                    }
+                }
+            }
             return LINKDIR_STRAIGHT;
         }
     }
