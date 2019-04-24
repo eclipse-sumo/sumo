@@ -31,6 +31,7 @@ import de.tudresden.ws.container.SumoGeometry;
 import de.tudresden.ws.container.SumoLinkList;
 import de.tudresden.ws.container.SumoPosition2D;
 import de.tudresden.ws.container.SumoPosition3D;
+import de.tudresden.ws.container.SumoRoadPosition;
 import de.tudresden.ws.container.SumoStringList;
 import de.tudresden.ws.container.SumoTLSProgram;
 import de.tudresden.ws.container.SumoTLSController;
@@ -175,6 +176,22 @@ public class ConvertHelper {
 		try {
 			if (obj.getClass().equals(SumoPosition3D.class)) {
 				output = (SumoPosition3D) obj;
+			}
+		} catch (Exception ex) {
+			this.logger.write(ex.getStackTrace());
+		}
+
+		return output;
+
+	}
+
+	public SumoRoadPosition getRoadPosition(Object obj) {
+
+		SumoRoadPosition output = new SumoRoadPosition();
+
+		try {
+			if (obj.getClass().equals(SumoRoadPosition.class)) {
+				output = (SumoRoadPosition) obj;
 			}
 		} catch (Exception ex) {
 			this.logger.write(ex.getStackTrace());

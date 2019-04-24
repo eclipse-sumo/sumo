@@ -43,6 +43,7 @@ import de.tudresden.ws.container.SumoGeometry;
 import de.tudresden.ws.container.SumoLinkList;
 import de.tudresden.ws.container.SumoPosition2D;
 import de.tudresden.ws.container.SumoPosition3D;
+import de.tudresden.ws.container.SumoRoadPosition;
 import de.tudresden.ws.container.SumoStopFlags;
 import de.tudresden.ws.container.SumoStringList;
 import de.tudresden.ws.container.SumoTLSProgram;
@@ -949,8 +950,8 @@ public class Traci{
 	}
 
 	@WebMethod(action="Simulation: convertRoad")
-	public SumoPosition2D Simulation_convertRoad(@WebParam(name = "x") double x, @WebParam(name = "y") double y, @WebParam(name = "isGeo") String isGeo){
-		return this.helper.getPosition2D(this.sumo.get_cmd(Simulation.convertRoad(x, y, isGeo)));
+	public SumoRoadPosition Simulation_convertRoad(@WebParam(name = "x") double x, @WebParam(name = "y") double y, @WebParam(name = "isGeo") boolean isGeo, @WebParam(name = "vClass") String vClass){
+		return this.helper.getRoadPosition(this.sumo.get_cmd(Simulation.convertRoad(x, y, isGeo, vClass)));
 	}
 
 	@WebMethod(action="Simulation: getArrivedIDList")
