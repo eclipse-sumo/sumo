@@ -283,7 +283,6 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
         return;
     }
     const double defaultLength = getVehicleType().getParameter().carriageLength * upscaleLength;
-    const int firstPassengerCarriage = defaultLength == locomotiveLength ? 0 : 1;
     const double carriageGap = getVehicleType().getParameter().carriageGap * upscaleLength;
     const double length = totalLength * upscaleLength;
     const double halfWidth = getVehicleType().getWidth() / 2.0 * exaggeration;
@@ -301,6 +300,7 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
         carriageLengthWithGap = (length - locomotiveLength) / (numCarriages - 1);
         carriageLength = carriageLengthWithGap - carriageGap;
     }
+    const int firstPassengerCarriage = defaultLength == locomotiveLength || numCarriages == 1 ? 0 : 1;
     const int totalSeats = getVType().getPersonCapacity() + getVType().getContainerCapacity();
     const int seatsPerCarriage = (int)ceil(totalSeats / (numCarriages - firstPassengerCarriage));
     // lane on which the carriage front is situated
