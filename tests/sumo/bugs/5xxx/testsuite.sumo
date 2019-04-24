@@ -9,3 +9,9 @@ ticket5021
 
 # triggered vehicle is discarded due to max-depart-delay
 ticket5420
+
+# deadlock on junction
+# - vehicle could not leave junction before the foe green phase starts
+# - vehicle and foes both have a turning connection with an internal junction (due to crossing)
+# - link leader resolution fails, causing deadlock
+ticket5487

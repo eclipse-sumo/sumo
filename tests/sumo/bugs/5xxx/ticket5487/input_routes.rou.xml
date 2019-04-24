@@ -1,0 +1,9 @@
+<routes>
+    <vType id="DEFAULT_VEHTYPE" sigma="0" maxSpeed="3"/>
+    <flow id="v0" begin="85" period="5" number="10" departPos="-0.1">
+        <route edges="SC CE"/>
+    </flow>
+    <flow id="v1" begin="85" period="5" number="10" departPos="-0.1">
+        <route edges="WC CE"/>
+    </flow>
+</routes>
