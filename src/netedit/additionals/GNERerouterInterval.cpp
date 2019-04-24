@@ -73,6 +73,12 @@ GNERerouterInterval::getPositionInView() const {
 }
 
 
+Boundary
+GNERerouterInterval::getCenteringBoundary() const {
+    throw ProcessError("This additional doesn't have a boundary");
+}
+
+
 std::string
 GNERerouterInterval::getParentName() const {
     return getAdditionalParents().at(0)->getID();

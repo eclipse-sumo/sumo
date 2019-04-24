@@ -77,6 +77,12 @@ GNETAZSourceSink::getPositionInView() const {
 }
 
 
+Boundary
+GNETAZSourceSink::getCenteringBoundary() const {
+    throw ProcessError("This additional doesn't have a boundary");
+}
+
+
 std::string
 GNETAZSourceSink::getParentName() const {
     return getAdditionalParents().at(0)->getID();
@@ -174,11 +180,6 @@ GNETAZSourceSink::getPopUpID() const {
 std::string
 GNETAZSourceSink::getHierarchyName() const {
     return getTagStr() + ": " + getAttribute(SUMO_ATTR_WEIGHT);
-}
-
-Boundary
-GNETAZSourceSink::getCenteringBoundary() const {
-    return getEdgeParents().front()->getNBEdge()->getGeometry().getBoxBoundary();
 }
 
 // ===========================================================================

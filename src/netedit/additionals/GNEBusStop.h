@@ -55,6 +55,9 @@ public:
     /// @{
     /// @brief update pre-computed geometry information
     void updateGeometry();
+
+    /// @brief Returns the boundary to which the view shall be centered in order to show the object
+    Boundary getCenteringBoundary() const;
     /// @}
 
     /// @name inherited from GUIGlObject

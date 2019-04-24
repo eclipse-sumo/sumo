@@ -87,6 +87,12 @@ GNEVariableSpeedSignStep::getPositionInView() const {
 }
 
 
+Boundary
+GNEVariableSpeedSignStep::getCenteringBoundary() const {
+    throw ProcessError("This additional doesn't have a boundary");
+}
+
+
 std::string
 GNEVariableSpeedSignStep::getParentName() const {
     return getAdditionalParents().at(0)->getID();

@@ -343,8 +343,10 @@ GNEAdditional::startGeometryMoving() {
             myMove.firstOriginalLanePosition = getAttribute(SUMO_ATTR_POSITION);
             myMove.secondOriginalPosition = getAttribute(SUMO_ATTR_ENDPOS);
         }
-        // save current centering boundary
-        myMove.movingGeometryBoundary = getCenteringBoundary();
+        // save current centering boundary if element is placed in RTree
+        if (myTagProperty.isPlacedInRTree()) {
+            myMove.movingGeometryBoundary = getCenteringBoundary();
+        }
         // start geometry in all childs
         for (const auto& i : getDemandElementChilds()) {
             i->startGeometryMoving();
@@ -356,22 +358,17 @@ GNEAdditional::startGeometryMoving() {
 void
 GNEAdditional::endGeometryMoving() {
     // check that endGeometryMoving was called only once
-    if (myTagProperty.isDrawable() && myMove.movingGeometryBoundary.isInitialised()) {
+    if (myTagProperty.isDrawable()) {
         // check if object must be placed in RTREE
         if (myTagProperty.isPlacedInRTree()) {
             // Remove object from net
             myViewNet->getNet()->removeGLObjectFromGrid(this);
-        }
-        // reset myMovingGeometryBoundary
-        myMove.movingGeometryBoundary.reset();
-        // update geometry without updating grid
-        updateGeometry();
-        // check if object must be placed in RTREE
-        if (myTagProperty.isPlacedInRTree()) {
+            // reset myMovingGeometryBoundary
+            myMove.movingGeometryBoundary.reset();
             // add object into grid again (using the new centering boundary)
             myViewNet->getNet()->addGLObjectIntoGrid(this);
         }
-        // start geometry in all childs
+        // end geometry in all childs
         for (const auto& i : getDemandElementChilds()) {
             i->endGeometryMoving();
         }
@@ -463,7 +460,7 @@ GNEAdditional::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     return ret;
 }
 
-
+/*
 Boundary
 GNEAdditional::getCenteringBoundary() const {
     // Return Boundary depending if myMovingGeometryBoundary is initialised (important for move geometry)
@@ -484,7 +481,7 @@ GNEAdditional::getCenteringBoundary() const {
         return Boundary(-0.1, -0.1, 0.1, 0.1);
     }
 }
-
+*/
 // ---------------------------------------------------------------------------
 // GNEAdditional::BlockIcon - methods
 // ---------------------------------------------------------------------------

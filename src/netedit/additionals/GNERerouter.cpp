@@ -56,14 +56,6 @@ GNERerouter::~GNERerouter() {
 
 void
 GNERerouter::updateGeometry() {
-    // first check if object has to be removed from grid (SUMOTree)
-    if (!myMove.movingGeometryBoundary.isInitialised()) {
-        myViewNet->getNet()->removeGLObjectFromGrid(this);
-    }
-
-    // Clear shape
-    myGeometry.shape.clear();
-
     // Set block icon position
     myBlockIcon.position = myPosition;
 
@@ -73,22 +65,28 @@ GNERerouter::updateGeometry() {
     // Set block icon rotation, and using their rotation for draw logo
     myBlockIcon.setRotation();
 
-    // Set position
-    myGeometry.shape.push_back(myPosition);
-
     // update connection positions
     myChildConnections.update();
-
-    // last step is to check if object has to be added into grid (SUMOTree) again
-    if (!myMove.movingGeometryBoundary.isInitialised()) {
-        myViewNet->getNet()->addGLObjectIntoGrid(this);
-    }
 }
 
 
 Position
 GNERerouter::getPositionInView() const {
     return myPosition;
+}
+
+
+Boundary
+GNERerouter::getCenteringBoundary() const {
+    // Return Boundary depending if myMovingGeometryBoundary is initialised (important for move geometry)
+    if (myMove.movingGeometryBoundary.isInitialised()) {
+        return myMove.movingGeometryBoundary;
+    } else {
+        Boundary b;
+        b.add(myPosition);
+        b.grow(5);
+        return b;
+    }
 }
 
 
@@ -136,8 +134,7 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
 
     // Add a draw matrix for drawing logo
     glPushMatrix();
-    glTranslated(myGeometry.shape[0].x(), myGeometry.shape[0].y(), getType());
-
+    glTranslated(myPosition.x(), myPosition.y(), getType());
 
     // Draw icon depending of detector is selected and if isn't being drawn for selecting
     if (s.drawForSelecting) {
@@ -212,7 +209,7 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
     }
 
     // Draw name
-    drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+    drawName(getPositionInView(), s.scale, s.addName);
 
     // Pop name
     glPopName();
@@ -352,7 +349,9 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeEdgeChilds(this, value);
             break;
         case SUMO_ATTR_POSITION:
+            myViewNet->getNet()->removeGLObjectFromGrid(this);
             myPosition = parse<Position>(value);
+            myViewNet->getNet()->addGLObjectIntoGrid(this);
             break;
         case SUMO_ATTR_NAME:
             myAdditionalName = value;

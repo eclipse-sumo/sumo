@@ -94,6 +94,14 @@ public:
      */
     virtual void centerTo(GUIGlID id, bool applyZoom, double zoomDist = 20);
 
+    /** @brief centers to the chosen position
+     * @param[in] pos Position to center view
+     * @param[in] applyZoom Whether to zoom in
+     * @param[in] zoomDist The distance in m to use for the zoom, values < 0 means: use the centeringBoundary
+     * @note caller is responsible for calling update
+     */
+    virtual void centerTo(const Position &pos, bool applyZoom, double zoomDist = 20);
+
     /// @brief centers to the chosen artifact
     void centerTo(const Boundary& bound);
 

@@ -85,6 +85,22 @@ GNEParkingArea::updateGeometry() {
 }
 
 
+Boundary
+GNEParkingArea::getCenteringBoundary() const {
+    // Return Boundary depending if myMovingGeometryBoundary is initialised (important for move geometry)
+    if (myMove.movingGeometryBoundary.isInitialised()) {
+        return myMove.movingGeometryBoundary;
+    } else if (myGeometry.shape.size() > 0) {
+        Boundary b = myGeometry.shape.getBoxBoundary();
+        b.growWidth(myWidth);
+        b.grow(1);
+        return b;
+    } else {
+        return Boundary(-0.1, -0.1, 0.1, 0.1);
+    }
+}
+
+
 void
 GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
     // check if boundary has to be drawn
@@ -167,7 +183,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
     // Pop base matrix
     glPopMatrix();
     // Draw name if isn't being drawn for selecting
-    drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+    drawName(getPositionInView(), s.scale, s.addName);
     if (s.addFullName.show && (myAdditionalName != "") && !s.drawForSelecting) {
         GLHelper::drawText(myAdditionalName, mySignPos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, myBlockIcon.rotation);
     }
@@ -341,7 +357,9 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
             myOnRoad = parse<bool>(value);
             break;
         case SUMO_ATTR_WIDTH:
+            myViewNet->getNet()->removeGLObjectFromGrid(this);
             myWidth = parse<double>(value);
+            myViewNet->getNet()->removeGLObjectFromGrid(this);
             break;
         case SUMO_ATTR_LENGTH:
             myLength = value;

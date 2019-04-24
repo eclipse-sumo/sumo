@@ -141,10 +141,6 @@ GNEDetectorE1::updateGeometry() {
 
 void
 GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
-    // check if boundary has to be drawn
-    if(s.drawBoundaries) {
-        GLHelper::drawBoundary(getCenteringBoundary());
-    }
     // get values
     glPushName(getGlID());
     double width = (double) 2.0 * s.scale;
@@ -235,7 +231,7 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
 
     // Finish draw if isn't being drawn for selecting
     if (!s.drawForSelecting) {
-        drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+        drawName(getPositionInView(), s.scale, s.addName);
     }
 
     // check if dotted contour has to be drawn

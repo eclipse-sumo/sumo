@@ -73,6 +73,21 @@ GNETAZ::getPositionInView() const {
 }
 
 
+Boundary
+GNETAZ::getCenteringBoundary() const {
+    // Return Boundary depending if myMovingGeometryBoundary is initialised (important for move geometry)
+    if (myMove.movingGeometryBoundary.isInitialised()) {
+        return myMove.movingGeometryBoundary;
+    } else if (myGeometry.shape.size() > 0) {
+        Boundary b = myGeometry.shape.getBoxBoundary();
+        b.grow(20);
+        return b;
+    } else {
+        return Boundary(-0.1, -0.1, 0.1, 0.1);
+    }
+}
+
+
 void
 GNETAZ::moveGeometry(const Position& offset) {
     // restore old position, apply offset and update Geometry

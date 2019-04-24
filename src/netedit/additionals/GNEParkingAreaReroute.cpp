@@ -75,6 +75,12 @@ GNEParkingAreaReroute::getPositionInView() const {
 }
 
 
+Boundary
+GNEParkingAreaReroute::getCenteringBoundary() const {
+    throw ProcessError("This additional doesn't have a boundary");
+}
+
+
 std::string
 GNEParkingAreaReroute::getParentName() const {
     return getAdditionalParents().at(0)->getID();

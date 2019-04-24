@@ -521,7 +521,7 @@ GNEAdditionalHandler::buildCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, c
             viewNet->getUndoList()->add(new GNEChange_Additional(calibrator, true), true);
             viewNet->getUndoList()->p_end();
             // center after creation
-            viewNet->centerTo(calibrator->getGlID(), false);
+            viewNet->centerTo(calibrator->getPositionInView(), false);
         } else {
             viewNet->getNet()->insertAdditional(calibrator);
             lane->addAdditionalChild(calibrator);
@@ -543,7 +543,7 @@ GNEAdditionalHandler::buildCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, c
             viewNet->getUndoList()->add(new GNEChange_Additional(calibrator, true), true);
             viewNet->getUndoList()->p_end();
             // center after creation
-            viewNet->centerTo(calibrator->getGlID(), false);
+            viewNet->centerTo(calibrator->getPositionInView(), false);
         } else {
             viewNet->getNet()->insertAdditional(calibrator);
             edge->addAdditionalChild(calibrator);
@@ -731,7 +731,7 @@ GNEAdditionalHandler::buildRouteProbe(GNEViewNet* viewNet, bool allowUndoRedo, c
             viewNet->getUndoList()->add(new GNEChange_Additional(routeProbe, true), true);
             viewNet->getUndoList()->p_end();
             // center after creation
-            viewNet->centerTo(routeProbe->getGlID(), false);
+            viewNet->centerTo(routeProbe->getPositionInView(), false);
         } else {
             viewNet->getNet()->insertAdditional(routeProbe);
             edge->addAdditionalChild(routeProbe);
@@ -792,7 +792,7 @@ GNEAdditionalHandler::buildVaporizer(GNEViewNet* viewNet, bool allowUndoRedo, GN
         viewNet->getUndoList()->add(new GNEChange_Additional(vaporizer, true), true);
         viewNet->getUndoList()->p_end();
         // center after creation
-        viewNet->centerTo(vaporizer->getGlID(), false);
+        viewNet->centerTo(vaporizer->getPositionInView(), false);
     } else {
         viewNet->getNet()->insertAdditional(vaporizer);
         edge->addAdditionalChild(vaporizer);

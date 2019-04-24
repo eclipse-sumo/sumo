@@ -338,10 +338,10 @@ GNELane::drawLane2LaneConnections() const {
 
 void
 GNELane::drawGL(const GUIVisualizationSettings& s) const {
-    // check if boundary has to be drawn
-    if(s.drawBoundaries) {
-        GLHelper::drawBoundary(getBoundary());
-    }
+    // check if boundary has to be drawn (currently disabled)
+    //if(s.drawBoundaries) {
+    //    GLHelper::drawBoundary(getBoundary());
+    //}
     // Push draw matrix 1
     glPushMatrix();
     // Push name

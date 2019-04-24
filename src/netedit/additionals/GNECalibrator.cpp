@@ -108,6 +108,12 @@ GNECalibrator::getPositionInView() const {
 }
 
 
+Boundary
+GNECalibrator::getCenteringBoundary() const {
+    throw ProcessError("This additional doesn't have a boundary");
+}
+
+
 std::string
 GNECalibrator::getParentName() const {
     // get parent name depending of we have a edge or a lane
@@ -123,10 +129,6 @@ GNECalibrator::getParentName() const {
 
 void
 GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
-    // check if boundary has to be drawn
-    if(s.drawBoundaries) {
-        GLHelper::drawBoundary(getCenteringBoundary());
-    }
     // get values
     glPushName(getGlID());
     glLineWidth(1.0);
@@ -180,7 +182,7 @@ GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
         }
     }
     // draw name
-    drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+    drawName(getPositionInView(), s.scale, s.addName);
 
     // pop name
     glPopName();

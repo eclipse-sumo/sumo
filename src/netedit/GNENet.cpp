@@ -2530,7 +2530,7 @@ GNENet::deleteAdditional(GNEAdditional* additional, bool updateViewAfterDeleting
         // remove it from Inspector Frame
         myViewNet->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(additional);
         // only remove drawable elements of grid
-        if (additional->getTagProperty().isDrawable()) {
+        if (additional->getTagProperty().isDrawable() && additional->getTagProperty().isPlacedInRTree()) {
             myGrid.removeAdditionalGLObject(additional);
         }
         // check if additional is selected

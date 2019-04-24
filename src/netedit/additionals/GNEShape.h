@@ -67,18 +67,10 @@ public:
     /// @brief gererate a new ID for an element child
     virtual std::string generateChildID(SumoXMLTag childTag) = 0;
 
-    /**@brief update pre-computed geometry information
-    * @note: must be called when geometry changes (i.e. lane moved) and implemented in ALL childrens
-    */
-    virtual void updateGeometry() = 0;
-
     /**@brief writte shape element into a xml file
     * @param[in] device device in which write parameters of additional element
     */
     virtual void writeShape(OutputDevice& device) = 0;
-
-    /// @brief Returns position of additional in view
-    virtual Position getPositionInView() const = 0;
 
     /// @brief Returns the numerical id of the object
     virtual GUIGlID getGlID() const = 0;
@@ -99,6 +91,18 @@ public:
 
     /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
     virtual void endGeometryMoving() = 0;
+    
+    /**@brief update pre-computed geometry information
+    * @note: must be called when geometry changes (i.e. lane moved) and implemented in ALL childrens
+    */
+    virtual void updateGeometry() = 0;
+    
+    /// @brief Returns position of additional in view
+    virtual Position getPositionInView() const = 0;
+
+    /// @brief Returns the boundary to which the view shall be centered in order to show the object
+    virtual Boundary getCenteringBoundary() const = 0;
+
     /// @}
 
     /// @name inherited from GUIPolygon/GUIPointOfInterest
@@ -121,9 +125,6 @@ public:
      * @see GUIGlObject::getParameterWindow
      */
     virtual GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) = 0;
-
-    /// @brief Returns the boundary to which the view shall be centered in order to show the object
-    virtual Boundary getCenteringBoundary() const = 0;
 
     /**@brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)

@@ -51,14 +51,6 @@ GNEDetectorE3::~GNEDetectorE3() {}
 
 void
 GNEDetectorE3::updateGeometry() {
-    // first check if object has to be removed from grid (SUMOTree)
-    if (!myMove.movingGeometryBoundary.isInitialised()) {
-        myViewNet->getNet()->removeGLObjectFromGrid(this);
-    }
-
-    // Clear shape
-    myGeometry.shape.clear();
-
     // Set block icon position
     myBlockIcon.position = myPosition;
 
@@ -68,22 +60,28 @@ GNEDetectorE3::updateGeometry() {
     // Set block icon rotation, and using their rotation for draw logo
     myBlockIcon.setRotation();
 
-    // Set position
-    myGeometry.shape.push_back(myPosition);
-
     // Update connection's geometry
     myChildConnections.update();
-
-    // last step is to check if object has to be added into grid (SUMOTree) again
-    if (!myMove.movingGeometryBoundary.isInitialised()) {
-        myViewNet->getNet()->addGLObjectIntoGrid(this);
-    }
 }
 
 
 Position
 GNEDetectorE3::getPositionInView() const {
     return myPosition;
+}
+
+
+Boundary
+GNEDetectorE3::getCenteringBoundary() const {
+    // Return Boundary depending if myMovingGeometryBoundary is initialised (important for move geometry)
+    if (myMove.movingGeometryBoundary.isInitialised()) {
+        return myMove.movingGeometryBoundary;
+    } else {
+        Boundary b;
+        b.add(myPosition);
+        b.grow(5);
+        return b;
+    }
 }
 
 
@@ -125,7 +123,7 @@ GNEDetectorE3::drawGL(const GUIVisualizationSettings& s) const {
 
     // Add a draw matrix for drawing logo
     glPushMatrix();
-    glTranslated(myGeometry.shape[0].x(), myGeometry.shape[0].y(), getType());
+    glTranslated(myPosition.x(), myPosition.y(), getType());
 
     // Draw icon depending of detector is selected and if isn't being drawn for selecting
     if (s.drawForSelecting) {
@@ -151,7 +149,7 @@ GNEDetectorE3::drawGL(const GUIVisualizationSettings& s) const {
     }
     // Draw name if isn't being drawn for selecting
     if (!s.drawForSelecting) {
-        drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+        drawName(getPositionInView(), s.scale, s.addName);
     }
     // check if dotted contour has to be drawn
     if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
@@ -172,7 +170,7 @@ GNEDetectorE3::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getAdditionalID();
         case SUMO_ATTR_POSITION:
-            return toString(myPosition);
+            return toString(myPosition);            
         case SUMO_ATTR_FREQUENCY:
             return toString(myFreq);
         case SUMO_ATTR_NAME:
@@ -311,7 +309,9 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeAdditionalID(value);
             break;
         case SUMO_ATTR_POSITION:
+            myViewNet->getNet()->removeGLObjectFromGrid(this);
             myPosition = parse<Position>(value);
+            myViewNet->getNet()->addGLObjectIntoGrid(this);
             break;
         case SUMO_ATTR_FREQUENCY:
             myFreq = parse<double>(value);

@@ -70,12 +70,14 @@ GNEContainerStop::updateGeometry() {
 }
 
 
+Boundary
+GNEContainerStop::getCenteringBoundary() const {
+    throw ProcessError("This additional doesn't have a boundary");
+}
+
+
 void
 GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
-    // check if boundary has to be drawn
-    if(s.drawBoundaries) {
-        GLHelper::drawBoundary(getCenteringBoundary());
-    }
     // obtain circle resolution
     int circleResolution = getCircleResolution(s);
     // Obtain exaggeration of the draw
@@ -169,7 +171,7 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
     glPopMatrix();
     // Draw name if isn't being drawn for selecting
     if (!s.drawForSelecting) {
-        drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+        drawName(getPositionInView(), s.scale, s.addName);
     }
     // check if dotted contour has to be drawn
     if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {

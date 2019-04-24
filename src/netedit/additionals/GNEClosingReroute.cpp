@@ -78,6 +78,12 @@ GNEClosingReroute::getPositionInView() const {
 }
 
 
+Boundary
+GNEClosingReroute::getCenteringBoundary() const {
+    throw ProcessError("This additional doesn't have a boundary");
+}
+
+
 std::string
 GNEClosingReroute::getParentName() const {
     return getAdditionalParents().at(0)->getID();

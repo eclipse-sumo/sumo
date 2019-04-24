@@ -69,24 +69,36 @@ GNEParkingSpace::commitGeometryMoving(GNEUndoList* undoList) {
 
 void
 GNEParkingSpace::updateGeometry() {
-    // first check if object has to be removed from grid (SUMOTree)
-    if (!myMove.movingGeometryBoundary.isInitialised()) {
-        myViewNet->getNet()->removeGLObjectFromGrid(this);
-    }
-    // Clear all containers
-    myGeometry.clearGeometry();
-    // set new position
-    myGeometry.shape.push_back(myPosition);
-    // last step is to check if object has to be added into grid (SUMOTree) again
-    if (!myMove.movingGeometryBoundary.isInitialised()) {
-        myViewNet->getNet()->addGLObjectIntoGrid(this);
-    }
+    // Nothing to update
 }
 
 
 Position
 GNEParkingSpace::getPositionInView() const {
     return myPosition;
+}
+
+
+Boundary
+GNEParkingSpace::getCenteringBoundary() const {
+    // Return Boundary depending if myMovingGeometryBoundary is initialised (important for move geometry)
+    if (myMove.movingGeometryBoundary.isInitialised()) {
+        return myMove.movingGeometryBoundary;
+    } else {
+        // calculate shape using a Position vector as reference
+        PositionVector boundaryShape({
+            {-(myWidth / 2), 0},
+            { (myWidth / 2), 0},
+            { (myWidth / 2), myLength},
+            {-(myWidth / 2), myLength},
+        });
+        // rotate position vector (note: convert from degree to rads
+        boundaryShape.rotate2D(myAngle*PI/180.0);
+        // move to space position
+        boundaryShape.add(myPosition);
+        // return boundary associated to boundaryShape
+        return boundaryShape.getBoxBoundary().grow(5);
+    }
 }
 
 
@@ -243,16 +255,24 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeAdditionalID(value);
             break;
         case SUMO_ATTR_POSITION:
+            myViewNet->getNet()->removeGLObjectFromGrid(this);
             myPosition = parse<Position>(value);
+            myViewNet->getNet()->addGLObjectIntoGrid(this);
             break;
         case SUMO_ATTR_WIDTH:
+            myViewNet->getNet()->removeGLObjectFromGrid(this);
             myWidth = parse<double>(value);
+            myViewNet->getNet()->addGLObjectIntoGrid(this);
             break;
         case SUMO_ATTR_LENGTH:
+            myViewNet->getNet()->removeGLObjectFromGrid(this);
             myLength = parse<double>(value);
+            myViewNet->getNet()->addGLObjectIntoGrid(this);
             break;
         case SUMO_ATTR_ANGLE:
+            myViewNet->getNet()->removeGLObjectFromGrid(this);
             myAngle = parse<double>(value);
+            myViewNet->getNet()->addGLObjectIntoGrid(this);
             break;
         case GNE_ATTR_BLOCK_MOVEMENT:
             myBlockMovement = parse<bool>(value);
@@ -272,10 +292,6 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
-    }
-    // check if updated attribute requieres update geometry
-    if (myTagProperty.hasAttribute(key) && myTagProperty.getAttributeProperties(key).requiereUpdateGeometry()) {
-        updateGeometry();
     }
 }
 

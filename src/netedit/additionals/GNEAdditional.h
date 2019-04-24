@@ -202,6 +202,9 @@ public:
 
     /// @brief Returns position of additional in view
     virtual Position getPositionInView() const = 0;
+
+    /// @brief Returns the boundary to which the view shall be centered in order to show the object
+    virtual Boundary getCenteringBoundary() const = 0;
     /// @}
 
     /// @brief Returns a pointer to GNEViewNet in which additional element is located
@@ -233,11 +236,6 @@ public:
      * @see GUIGlObject::getParameterWindow
      */
     GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
-
-    /**@brief Returns the boundary to which the view shall be centered in order to show the object
-     * @return The boundary the object is within
-     */
-    Boundary getCenteringBoundary() const;
 
     /// @brief Returns the additional name
     const std::string getOptionalName() const {

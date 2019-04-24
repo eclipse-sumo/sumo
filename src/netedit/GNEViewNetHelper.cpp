@@ -598,12 +598,12 @@ GNEViewNetHelper::MoveSingleElementValues::finishMoveSingleElement() {
         }
         myEdgeToMove = nullptr;
     } else if (myAdditionalToMove) {
-        myAdditionalToMove->endGeometryMoving();
         myAdditionalToMove->commitGeometryMoving(myViewNet->getUndoList());
+        myAdditionalToMove->endGeometryMoving();
         myAdditionalToMove = nullptr;
     } else if (myDemandElementToMove) {
-        myDemandElementToMove->endGeometryMoving();
         myDemandElementToMove->commitGeometryMoving(myViewNet->getUndoList());
+        myDemandElementToMove->endGeometryMoving();
         myDemandElementToMove = nullptr;
     } else if (myTAZToMove) {
         myTAZToMove->commitShapeChange(originalShapeBeforeMoving, myViewNet->getUndoList());

@@ -107,6 +107,9 @@ public:
     /// @brief update pre-computed geometry information
     void updateGeometry();
 
+    /// @brief Returns the boundary to which the view shall be centered in order to show the object
+    Boundary getCenteringBoundary() const;
+
     /**@brief writte shape element into a xml file
     * @param[in] device device in which write parameters of additional element
     */
@@ -143,9 +146,6 @@ public:
      * @see GUIGlObject::getParameterWindow
      */
     GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
-
-    /// @brief Returns the boundary to which the view shall be centered in order to show the object
-    Boundary getCenteringBoundary() const;
 
     /**@brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)

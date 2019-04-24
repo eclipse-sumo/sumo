@@ -76,6 +76,12 @@ GNEDetector::getPositionInView() const {
 }
 
 
+Boundary
+GNEDetector::getCenteringBoundary() const {
+    throw ProcessError("This additional doesn't have a boundary");
+}
+
+
 double
 GNEDetector::getGeometryPositionOverLane() const {
     double fixedPos = myPositionOverLane;

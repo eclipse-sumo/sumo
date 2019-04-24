@@ -89,6 +89,12 @@ GNEVaporizer::getPositionInView() const {
 }
 
 
+Boundary
+GNEVaporizer::getCenteringBoundary() const {
+    throw ProcessError("This additional doesn't have a boundary");
+}
+
+
 void
 GNEVaporizer::moveGeometry(const Position&) {
     // This additional cannot be moved
@@ -109,10 +115,6 @@ GNEVaporizer::getParentName() const {
 
 void
 GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
-    // check if boundary has to be drawn
-    if(s.drawBoundaries) {
-        GLHelper::drawBoundary(getCenteringBoundary());
-    }
     // get values
     glPushName(getGlID());
     double width = (double) 2.0 * s.scale;
@@ -192,7 +194,7 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
     }
 
     // draw name
-    drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+    drawName(getPositionInView(), s.scale, s.addName);
 
     // check if dotted contour has to be drawn
     if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {

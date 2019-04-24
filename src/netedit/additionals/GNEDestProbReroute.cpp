@@ -76,6 +76,12 @@ GNEDestProbReroute::getPositionInView() const {
 }
 
 
+Boundary
+GNEDestProbReroute::getCenteringBoundary() const {
+    throw ProcessError("This additional doesn't have a boundary");
+}
+
+
 std::string
 GNEDestProbReroute::getParentName() const {
     return getAdditionalParents().at(0)->getID();

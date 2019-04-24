@@ -95,6 +95,12 @@ GNERouteProbe::getPositionInView() const {
 }
 
 
+Boundary
+GNERouteProbe::getCenteringBoundary() const {
+    throw ProcessError("This additional doesn't have a boundary");
+}
+
+
 void
 GNERouteProbe::moveGeometry(const Position&) {
     // This additional cannot be moved
@@ -115,10 +121,6 @@ GNERouteProbe::getParentName() const {
 
 void
 GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
-    // check if boundary has to be drawn
-    if(s.drawBoundaries) {
-        GLHelper::drawBoundary(getCenteringBoundary());
-    }
     // get values
     glPushName(getGlID());
     double width = (double) 2.0 * s.scale;
@@ -199,7 +201,7 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
     }
 
     // draw name
-    drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+    drawName(getPositionInView(), s.scale, s.addName);
 
     // check if dotted contour has to be drawn
     if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {

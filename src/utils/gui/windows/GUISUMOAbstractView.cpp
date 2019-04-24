@@ -681,6 +681,14 @@ GUISUMOAbstractView::centerTo(GUIGlID id, bool applyZoom, double zoomDist) {
 
 
 void
+GUISUMOAbstractView::centerTo(const Position &pos, bool applyZoom, double zoomDist) {
+    // called during tracking. update is triggered somewhere else
+    myChanger->centerTo(pos, zoomDist, applyZoom);
+    updatePositionInformation();
+}
+
+
+void
 GUISUMOAbstractView::centerTo(const Boundary& bound) {
     myChanger->setViewport(bound);
     update();

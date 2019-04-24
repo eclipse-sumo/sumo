@@ -126,6 +126,12 @@ GNEAccess::getPositionInView() const {
 }
 
 
+Boundary
+GNEAccess::getCenteringBoundary() const {
+    throw ProcessError("This additional doesn't have a boundary");
+}
+
+
 bool
 GNEAccess::isAccessPositionFixed() const {
     // with friendly position enabled position are "always fixed"
@@ -155,10 +161,6 @@ GNEAccess::getParentName() const {
 
 void
 GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
-    // check if boundary has to be drawn
-    if(s.drawBoundaries) {
-        GLHelper::drawBoundary(getCenteringBoundary());
-    }
     // Obtain exaggeration of the draw
     const double exaggeration = s.addSize.getExaggeration(s, this);
     // Start drawing adding an gl identificator

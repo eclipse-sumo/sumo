@@ -155,6 +155,17 @@ GNEPOI::getPositionInView() const {
 }
 
 
+Boundary
+GNEPOI::getCenteringBoundary() const {
+    // Return Boundary depending if myMovingGeometryBoundary is initialised (important for move geometry)
+    if (myMovingGeometryBoundary.isInitialised()) {
+        return myMovingGeometryBoundary;
+    }  else {
+        return GUIPointOfInterest::getCenteringBoundary();
+    }
+}
+
+
 GUIGlID
 GNEPOI::getGlID() const {
     return GUIPointOfInterest::getGlID();
@@ -195,17 +206,6 @@ GNEPOI::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 GUIParameterTableWindow*
 GNEPOI::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     return GUIPointOfInterest::getParameterWindow(app, parent);
-}
-
-
-Boundary
-GNEPOI::getCenteringBoundary() const {
-    // Return Boundary depending if myMovingGeometryBoundary is initialised (important for move geometry)
-    if (myMovingGeometryBoundary.isInitialised()) {
-        return myMovingGeometryBoundary;
-    }  else {
-        return GUIPointOfInterest::getCenteringBoundary();
-    }
 }
 
 

@@ -80,12 +80,14 @@ GNEBusStop::updateGeometry() {
 }
 
 
+Boundary
+GNEBusStop::getCenteringBoundary() const {
+    throw ProcessError("This additional doesn't have a boundary");
+}
+
+
 void
 GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
-    // check if boundary has to be drawn
-    if(s.drawBoundaries) {
-        GLHelper::drawBoundary(getCenteringBoundary());
-    }
     // obtain circle resolution
     int circleResolution = getCircleResolution(s);
     // Obtain exaggeration of the draw
@@ -182,7 +184,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
     // pop draw matrix
     glPopMatrix();
     // Draw name if isn't being drawn for selecting
-    drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+    drawName(getPositionInView(), s.scale, s.addName);
     if (s.addFullName.show && (myAdditionalName != "") && !s.drawForSelecting) {
         GLHelper::drawText(myAdditionalName, mySignPos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, myBlockIcon.rotation);
     }

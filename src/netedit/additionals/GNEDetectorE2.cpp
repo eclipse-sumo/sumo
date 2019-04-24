@@ -390,10 +390,6 @@ GNEDetectorE2::checkE2MultilaneIntegrity() {
 
 void
 GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
-    // check if boundary has to be drawn
-    if(s.drawBoundaries) {
-        GLHelper::drawBoundary(getCenteringBoundary());
-    }
     // Start drawing adding an gl identificator
     glPushName(getGlID());
 
@@ -487,7 +483,7 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
 
     // Draw name if isn't being drawn for selecting
     if (!s.drawForSelecting) {
-        drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+        drawName(getPositionInView(), s.scale, s.addName);
     }
     // check if dotted contour has to be drawn
     if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {

@@ -98,6 +98,12 @@ GNECalibratorFlow::getPositionInView() const {
 }
 
 
+Boundary
+GNECalibratorFlow::getCenteringBoundary() const {
+    throw ProcessError("This additional doesn't have a boundary");
+}
+
+
 std::string
 GNECalibratorFlow::getParentName() const {
     return getAdditionalParents().at(0)->getID();

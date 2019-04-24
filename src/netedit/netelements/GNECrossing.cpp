@@ -116,10 +116,6 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
             (s.scale > 3.0)) {
         auto crossing = myParentJunction->getNBNode()->getCrossing(myCrossingEdges);
         if (myNet->getViewNet()->getEditModes().networkEditMode != GNE_NMODE_TLS) {
-            // check if boundary has to be drawn
-            if(s.drawBoundaries) {
-                GLHelper::drawBoundary(getCenteringBoundary());
-            }
             // push first draw matrix
             glPushMatrix();
             // push name
@@ -236,17 +232,7 @@ GNECrossing::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 Boundary
 GNECrossing::getCenteringBoundary() const {
-    // make sure that shape isn't empty
-    if (myShape.size() == 0) {
-        // we need to use the center of junction parent as boundary if shape is empty
-        return Boundary(myParentJunction->getPositionInView().x() - 0.1, myParentJunction->getPositionInView().y() - 0.1,
-                        myParentJunction->getPositionInView().x() + 0.1, myParentJunction->getPositionInView().x() + 0.1);
-    } else {
-        // use crossing boundary
-        Boundary b = myShape.getBoxBoundary();
-        b.grow(10);
-        return b;
-    }
+    throw ProcessError("Crossings doesn't have a boundary");
 }
 
 
