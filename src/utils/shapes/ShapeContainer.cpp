@@ -90,7 +90,7 @@ ShapeContainer::addPolygonDynamics(double simtime,
 #endif
         return nullptr;
     }
-    // remove eventually existent previously assigne dynamics
+    // remove eventually existent previously
     removePolygonDynamics(polyID);
 
     // Add new dynamics
@@ -129,7 +129,7 @@ ShapeContainer::removePolygonDynamics(const std::string& polyID) {
             assert(i->second.find(p) != i->second.end());
             i->second.erase(p);
             // Remove highlighting information
-            clearHighlights(trackedObjID);
+            clearHighlights(trackedObjID, p);
         }
         delete d->second;
         myPolygonDynamics.erase(d);
@@ -259,10 +259,21 @@ ShapeContainer::clearHighlight(const std::string& objectID, const int type, std:
 }
 
 void
-ShapeContainer::clearHighlights(const std::string& objectID) {
+ShapeContainer::clearHighlights(const std::string& objectID, SUMOPolygon* p) {
     auto i = myHighlightPolygons.find(objectID);
     if (i != myHighlightPolygons.end()) {
-        myHighlightPolygons.erase(i);
+    	auto j = i->second.begin();
+    	while (j != i->second.end()) {
+    		if (j->second == p->getID()) {
+    			i->second.erase(j);
+				break;
+    		} else {
+    			++j;
+    		}
+    	}
+    	if (i->second.empty()) {
+    		myHighlightPolygons.erase(i);
+    	}
     }
 }
 

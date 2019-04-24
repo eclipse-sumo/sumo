@@ -192,7 +192,7 @@ protected:
     virtual void clearHighlight(const std::string& objectID, const int type, std::string& toRemove);
     /// @brief Clears all highlight information from the maps when the object leaves the net
     ///        (Highlight polygons and dynamics are removed via removeTrackers())
-    virtual void clearHighlights(const std::string& objectID);
+    virtual void clearHighlights(const std::string& objectID, SUMOPolygon* p);
     /// @}
 
 protected:
