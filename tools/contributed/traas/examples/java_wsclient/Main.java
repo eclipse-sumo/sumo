@@ -17,14 +17,13 @@
 //
 /****************************************************************************/
 import de.tudresden.ws.ServiceImpl;
-import de.tudresden.ws.SumoWebservice;
 import de.tudresden.ws.TraasWS;
 
 public class Main {
 
-	static String sumo_bin = "f:/Programme/sumo/sumo-svn/bin/sumo.exe";
-	static String config_file = "benchmark/config.sumo.cfg";
-	static double step_length = 0.01;		
+	static String sumo_bin = "sumo-gui";
+	static String config_file = "simulation/config.sumo.cfg";
+	static double step_length = 1.0;		
 
 	public static void main(String[] args) {
 		
@@ -43,7 +42,7 @@ public class Main {
 		for(int i=0; i<3600; i++){
 				
 			ws.doTimestep();
-			ws.vehicleAdd("v"+i, "car", "r1", 0, 0, 13.8, (byte) 1);
+			ws.Vehicle_add("v"+i, "car", "r1", 0, 0, 13.8, (byte) 1);
 		}
 			
 		ws.stop("user");
