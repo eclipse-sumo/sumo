@@ -43,15 +43,15 @@
 
 GNERoute::GNERoute(GNEViewNet* viewNet) :
     GNEDemandElement(viewNet->getNet()->generateDemandElementID(SUMO_TAG_ROUTE), viewNet, GLO_ROUTE, SUMO_TAG_ROUTE,
-{}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-myColor(RGBColor::YELLOW) {
+                     {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
+    myColor(RGBColor::YELLOW) {
 }
 
 
 GNERoute::GNERoute(GNEViewNet* viewNet, const std::string& routeID, const std::vector<GNEEdge*>& edges, const RGBColor& color) :
     GNEDemandElement(routeID, viewNet, GLO_ROUTE, SUMO_TAG_ROUTE,
                      edges, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-myColor(color) {
+    myColor(color) {
 }
 
 

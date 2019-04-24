@@ -177,7 +177,8 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myNet(net),
     myCurrentFrame(nullptr),
     myUndoList(undoList),
-    myEditShapePoly(nullptr) {
+    myEditShapePoly(nullptr),
+    myDrawFlag(true) {
     // view must be the final member of actualParent
     reparent(actualParent);
     // Build edit modes
@@ -489,6 +490,15 @@ GNEViewNet::stopEditCustomShape() {
 }
 
 
+bool 
+GNEViewNet::getDrawFlag() const {
+    return myDrawFlag;
+}
+
+// ===========================================================================
+// protected
+// ===========================================================================
+
 GNEViewNet::GNEViewNet() :
     myEditModes(this),
     myTestingMode(this),
@@ -512,7 +522,7 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     // (uncomment the next line to check select mode)
     // myVisualizationSettings->drawForSelecting = true;
     // (uncomment the next line to check boundaries)
-     myVisualizationSettings->drawBoundaries = true;
+    // myVisualizationSettings->drawBoundaries = true;
     glRenderMode(mode);
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
@@ -521,6 +531,15 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glEnable(GL_DEPTH_TEST);
+
+    // first check if flag has to be changed
+    if(mode != GL_SELECT) {
+        if (myDrawFlag) {
+            myDrawFlag = false;
+        } else {
+            myDrawFlag = true;
+        }
+    }
 
     // visualize rectangular selection
     mySelectingArea.drawRectangleSelection(myVisualizationSettings->selectionColor);

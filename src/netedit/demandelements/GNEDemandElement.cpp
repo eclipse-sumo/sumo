@@ -402,6 +402,19 @@ GNEDemandElement::isRouteValid(const std::vector<GNEEdge*>& edges, bool report) 
 }
 
 
+bool 
+GNEDemandElement::getDrawFlag() const {
+    return myDrawFlag;
+}
+
+
+
+void  
+GNEDemandElement::setDrawFlag(bool value) {
+    myDrawFlag = value;
+}
+
+
 GNEDemandElement::DemandElementGeometry::DemandElementGeometry() {}
 
 

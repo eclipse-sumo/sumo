@@ -313,6 +313,12 @@ public:
      */
     static bool isRouteValid(const std::vector<GNEEdge*>& edges, bool report);
 
+    /// @brief get draw flag
+    bool getDrawFlag() const;
+
+    /// @brief set draw flag
+    void  setDrawFlag(bool value);
+
 protected:
     /// @brief struct for pack all variables related with geometry of elemement
     struct DemandElementGeometry {
@@ -358,6 +364,9 @@ protected:
 
     /// @brief variable DemandElementMove
     DemandElementMove myMove;
+
+    /// @brief draw flag (used to avoid drawing the same element multiple times
+    bool myDrawFlag;
 
     /// @name Functions relative to change values in setAttribute(...)
     /// @{
