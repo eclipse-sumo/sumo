@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Feb 15 14:05:21 2019 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Thu Apr 25 14:41:02 2019 by Eclipse SUMO netconvert Version v1_2_0+0026-b74d136
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -313,7 +313,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="308958254#0" to="308958258#0" fromLane="0" toLane="0" via=":273459765_0_0" dir="R" state="M"/>
     <connection from="308958254#0" to="26812730#0" fromLane="0" toLane="0" via=":273459765_1_0" dir="s" state="M"/>
     <connection from="308958255#0" to="308956942" fromLane="0" toLane="0" via=":3142528930_0_0" dir="s" state="M"/>
-    <connection from="308958256#0" to="308958256#2" fromLane="0" toLane="0" via=":cluster_251050941_280598736_280598739_28902891_3142549227_3142550438_3_0" tl="cluster_251050941_280598736_280598739_28902891_3142549227_3142550438" linkIndex="3" dir="R" state="o"/>
+    <connection from="308958256#0" to="308958256#2" fromLane="0" toLane="0" via=":cluster_251050941_280598736_280598739_28902891_3142549227_3142550438_3_0" tl="cluster_251050941_280598736_280598739_28902891_3142549227_3142550438" linkIndex="3" dir="s" state="o"/>
     <connection from="308958256#0" to="308958259#4" fromLane="0" toLane="0" via=":cluster_251050941_280598736_280598739_28902891_3142549227_3142550438_4_0" tl="cluster_251050941_280598736_280598739_28902891_3142549227_3142550438" linkIndex="4" dir="R" state="o"/>
     <connection from="308958256#2" to="308958253#0" fromLane="0" toLane="0" via=":3142550435_0_0" dir="s" state="M"/>
     <connection from="308958257#0" to="308958257#2" fromLane="0" toLane="0" via=":3142550441_0_0" dir="s" state="M"/>
@@ -329,7 +329,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="308958259#6" to="308958253#0" fromLane="0" toLane="0" via=":3142550435_1_0" dir="s" state="M"/>
     <connection from="317682099#0" to="308958255#0" fromLane="0" toLane="0" via=":50917718_0_0" dir="R" state="M"/>
     <connection from="317682099#0" to="308958259#0" fromLane="0" toLane="0" via=":50917718_1_0" dir="s" state="M"/>
-    <connection from="319583927#0" to="6279146" fromLane="0" toLane="0" via=":cluster_251050941_280598736_280598739_28902891_3142549227_3142550438_0_0" tl="cluster_251050941_280598736_280598739_28902891_3142549227_3142550438" linkIndex="0" dir="s" state="o"/>
+    <connection from="319583927#0" to="6279146" fromLane="0" toLane="0" via=":cluster_251050941_280598736_280598739_28902891_3142549227_3142550438_0_0" tl="cluster_251050941_280598736_280598739_28902891_3142549227_3142550438" linkIndex="0" dir="R" state="o"/>
     <connection from="319583927#0" to="25730280#0" fromLane="1" toLane="0" via=":cluster_251050941_280598736_280598739_28902891_3142549227_3142550438_1_0" tl="cluster_251050941_280598736_280598739_28902891_3142549227_3142550438" linkIndex="1" dir="s" state="o"/>
     <connection from="319583927#0" to="25730280#0" fromLane="2" toLane="1" via=":cluster_251050941_280598736_280598739_28902891_3142549227_3142550438_1_1" tl="cluster_251050941_280598736_280598739_28902891_3142549227_3142550438" linkIndex="2" dir="s" state="o"/>
     <connection from="6148678#0" to="308958256#0" fromLane="0" toLane="0" via=":52768448_0_0" dir="R" state="M"/>
@@ -353,10 +353,10 @@ SPDX-License-Identifier: EPL-2.0
     <connection from=":50917718_1" to="308958259#0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":52768448_0" to="308958256#0" fromLane="0" toLane="0" dir="R" state="M"/>
     <connection from=":52768448_1" to="308958257#0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":cluster_251050941_280598736_280598739_28902891_3142549227_3142550438_0" to="6279146" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":cluster_251050941_280598736_280598739_28902891_3142549227_3142550438_0" to="6279146" fromLane="0" toLane="0" dir="R" state="M"/>
     <connection from=":cluster_251050941_280598736_280598739_28902891_3142549227_3142550438_1" to="25730280#0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":cluster_251050941_280598736_280598739_28902891_3142549227_3142550438_1" to="25730280#0" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from=":cluster_251050941_280598736_280598739_28902891_3142549227_3142550438_3" to="308958256#2" fromLane="0" toLane="0" dir="R" state="M"/>
+    <connection from=":cluster_251050941_280598736_280598739_28902891_3142549227_3142550438_3" to="308958256#2" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":cluster_251050941_280598736_280598739_28902891_3142549227_3142550438_4" to="308958259#4" fromLane="0" toLane="0" dir="R" state="M"/>
     <connection from=":cluster_251050941_280598736_280598739_28902891_3142549227_3142550438_5" to="308958256#2" fromLane="0" toLane="0" dir="L" state="M"/>
     <connection from=":cluster_251050941_280598736_280598739_28902891_3142549227_3142550438_6" to="308958259#4" fromLane="0" toLane="0" dir="s" state="M"/>

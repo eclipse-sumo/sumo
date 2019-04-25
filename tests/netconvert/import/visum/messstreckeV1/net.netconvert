@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:27:46 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Thu Apr 25 14:34:38 2019 by Eclipse SUMO netconvert Version v1_2_0+0026-b74d136
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -734,7 +734,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="-10" to="22" fromLane="0" toLane="1" via=":2_7_0" dir="l" state="m"/>
     <connection from="-13" to="23" fromLane="0" toLane="0" via=":4_6_0" dir="r" state="m"/>
     <connection from="-13" to="4" fromLane="0" toLane="1" via=":4_7_0" dir="l" state="m"/>
-    <connection from="-14" to="17" fromLane="0" toLane="0" via=":15_2_0" dir="s" state="M"/>
+    <connection from="-14" to="17" fromLane="0" toLane="0" via=":15_2_0" dir="R" state="M"/>
     <connection from="-14" to="16" fromLane="0" toLane="0" via=":15_3_0" dir="s" state="M"/>
     <connection from="-15" to="-16" fromLane="0" toLane="0" via=":16_0_0" dir="r" state="M"/>
     <connection from="-16" to="14" fromLane="0" toLane="0" via=":15_0_0" dir="s" state="M"/>
@@ -836,7 +836,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from=":15_0" to="14" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":15_1" to="17" fromLane="0" toLane="1" via=":15_4_0" dir="l" state="m"/>
     <connection from=":15_4" to="17" fromLane="0" toLane="1" dir="l" state="M"/>
-    <connection from=":15_2" to="17" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":15_2" to="17" fromLane="0" toLane="0" dir="R" state="M"/>
     <connection from=":15_3" to="16" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":16_0" to="-16" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":16_1" to="15" fromLane="0" toLane="0" dir="s" state="M"/>
