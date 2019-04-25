@@ -96,6 +96,7 @@ public:
      * @param[in] block movement enable or disable additional movement
      * @param[in] edgeParents vector of edge parents
      * @param[in] laneParents vector of lane parents
+     * @param[in] connectionParents vector of connection parents
      * @param[in] shapeParents vector of shape parents
      * @param[in] additionalParents vector of additional parents
      * @param[in] demandElementChilds vector of demandElement parents
@@ -108,6 +109,7 @@ public:
     GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement,
                   const std::vector<GNEEdge*>& edgeParents,
                   const std::vector<GNELane*>& laneParents,
+                  const std::vector<GNEConnection*>& connectionParents,
                   const std::vector<GNEShape*>& shapeParents,
                   const std::vector<GNEAdditional*>& additionalParents,
                   const std::vector<GNEDemandElement*>& demandElementParents,
@@ -131,6 +133,7 @@ public:
      * @param[in] demandElementChilds vector of demandElement parents
      * @param[in] edgeChilds vector of edge childs
      * @param[in] laneChilds vector of lane childs
+     * @param[in] connectionParents vector of connection parents
      * @param[in] shapeChilds vector of shape childs
      * @param[in] additionalChilds vector of additional childs
      * @param[in] demandElementChilds vector of demandElement childs
@@ -138,6 +141,7 @@ public:
     GNEAdditional(GNEAdditional* additionalParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement,
                   const std::vector<GNEEdge*>& edgeParents,
                   const std::vector<GNELane*>& laneParents,
+                  const std::vector<GNEConnection*>& connectionParents,
                   const std::vector<GNEShape*>& shapeParents,
                   const std::vector<GNEAdditional*>& additionalParents,
                   const std::vector<GNEDemandElement*>& demandElementParents,

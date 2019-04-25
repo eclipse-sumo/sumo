@@ -31,6 +31,7 @@
 class GNEViewNet;
 class GNEEdge;
 class GNELane;
+class GNEConnection;
 class GNEShape;
 class GNEAdditional;
 class GNEDemandElement;
@@ -81,6 +82,9 @@ private:
 
     /// @brief reference to vector of lane parents
     const std::vector<GNELane*>& myLaneParents;
+
+    /// @brief reference to vector of connection parents
+    const std::vector<GNEConnection*>& myConnectionParents;
 
     /// @brief reference to vector of shape parents
     const std::vector<GNEShape*>& myShapeParents;

@@ -50,6 +50,7 @@ public:
      * @param[in] tag Type of xml tag that define the element (SUMO_TAG_BUS_STOP, SUMO_TAG_JUNCTION, etc...)
      * @param[in] edgeParents vector of edge parents
      * @param[in] laneParents vector of lane parents
+     * @param[in] connectionParents vector of connection parents
      * @param[in] shapeParents vector of shape parents
      * @param[in] additionalParents vector of additional parents
      * @param[in] demandElementParents vector of demand element parents
@@ -57,6 +58,7 @@ public:
     GNEHierarchicalElementParents(GNEAttributeCarrier* AC,
                                   const std::vector<GNEEdge*>& edgeParents,
                                   const std::vector<GNELane*>& laneParents,
+                                  const std::vector<GNEConnection*>& connectionParents,
                                   const std::vector<GNEShape*>& shapeParents,
                                   const std::vector<GNEAdditional*>& additionalParents,
                                   const std::vector<GNEDemandElement*>& demandElementParents);
@@ -96,6 +98,19 @@ public:
 
     /// @brief get lanes of VSS
     const std::vector<GNELane*>& getLaneParents() const;
+
+    /// @}
+
+    /// @name members and functions related to connection parents
+    /// @{
+    /// @brief add Connection parent
+    void addConnectionParent(GNEConnection* connection);
+
+    /// @brief remove Connection parent
+    void removeConnectionParent(GNEConnection* connection);
+
+    /// @brief get Connections of VSS
+    const std::vector<GNEConnection*>& getConnectionParents() const;
 
     /// @}
 
@@ -173,14 +188,23 @@ protected:
     /// @brief change edge parents of a demandElement
     void changeEdgeParents(GNEDemandElement* elementChild, const std::string& newEdgeIDs);
 
-    /// @brief change edge parents of a shape
+    /// @brief change lane parents of a shape
     void changeLaneParents(GNEShape* elementChild, const std::string& newLaneIDs);
 
-    /// @brief change edge parents of an additional
+    /// @brief change lane parents of an additional
     void changeLaneParents(GNEAdditional* elementChild, const std::string& newLaneIDs);
 
-    /// @brief change edge parents of a demandElement
+    /// @brief change lane parents of a demandElement
     void changeLaneParents(GNEDemandElement* elementChild, const std::string& newLaneIDs);
+
+    /// @brief change connection parents of a shape
+    void changeConnectionParents(GNEShape* elementChild, const std::string& newConnectionIDs);
+
+    /// @brief change connection parents of an additional
+    void changeConnectionParents(GNEAdditional* elementChild, const std::string& newConnectionIDs);
+
+    /// @brief change connection parents of a demandElement
+    void changeConnectionParents(GNEDemandElement* elementChild, const std::string& newConnectionIDs);
 
     /**@brief change additional parent of a shape
      * @throw exception if this shape doesn't have previously a defined Additional parent
@@ -229,6 +253,9 @@ private:
 
     /// @brief list of lane parents of this element
     std::vector<GNELane*> myLaneParents;
+
+    /// @brief list of connection parents of this element
+    std::vector<GNEConnection*> myConnectionParents;
 
     /// @brief list of shape parents of this element
     std::vector<GNEShape*> myShapeParents;

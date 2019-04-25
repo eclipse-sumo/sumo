@@ -30,6 +30,7 @@
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNEJunction.h>
 #include <netedit/netelements/GNELane.h>
+#include <netedit/netelements/GNEConnection.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
@@ -48,12 +49,14 @@
 GNEHierarchicalElementParents::GNEHierarchicalElementParents(GNEAttributeCarrier* AC,
         const std::vector<GNEEdge*>& edgeParents,
         const std::vector<GNELane*>& laneParents,
+        const std::vector<GNEConnection*>& connectionParents,
         const std::vector<GNEShape*>& shapeParents,
         const std::vector<GNEAdditional*>& additionalParents,
         const std::vector<GNEDemandElement*>& demandElementParents) :
     myParentConnections(this),
     myEdgeParents(edgeParents),
     myLaneParents(laneParents),
+    myConnectionParents(connectionParents),
     myShapeParents(shapeParents),
     myAdditionalParents(additionalParents),
     myDemandElementParents(demandElementParents),
@@ -174,9 +177,9 @@ void
 GNEHierarchicalElementParents::addLaneParent(GNELane* lane) {
     // Check that lane is valid and doesn't exist previously
     if (lane == nullptr) {
-        throw InvalidArgument("Trying to add an empty " + toString(SUMO_TAG_EDGE) + " parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+        throw InvalidArgument("Trying to add an empty " + toString(SUMO_TAG_LANE) + " parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
     } else if (std::find(myLaneParents.begin(), myLaneParents.end(), lane) != myLaneParents.end()) {
-        throw InvalidArgument("Trying to add a duplicate " + toString(SUMO_TAG_EDGE) + " parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+        throw InvalidArgument("Trying to add a duplicate " + toString(SUMO_TAG_LANE) + " parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
     } else {
         myLaneParents.push_back(lane);
     }
@@ -187,9 +190,9 @@ void
 GNEHierarchicalElementParents::removeLaneParent(GNELane* lane) {
     // Check that lane is valid and exist previously
     if (lane == nullptr) {
-        throw InvalidArgument("Trying to remove an empty " + toString(SUMO_TAG_EDGE) + " parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+        throw InvalidArgument("Trying to remove an empty " + toString(SUMO_TAG_LANE) + " parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
     } else if (std::find(myLaneParents.begin(), myLaneParents.end(), lane) == myLaneParents.end()) {
-        throw InvalidArgument("Trying to remove a non previously inserted " + toString(SUMO_TAG_EDGE) + " parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+        throw InvalidArgument("Trying to remove a non previously inserted " + toString(SUMO_TAG_LANE) + " parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
     } else {
         myLaneParents.erase(std::find(myLaneParents.begin(), myLaneParents.end(), lane));
     }
@@ -199,6 +202,38 @@ GNEHierarchicalElementParents::removeLaneParent(GNELane* lane) {
 const std::vector<GNELane*>&
 GNEHierarchicalElementParents::getLaneParents() const {
     return myLaneParents;
+}
+
+
+void
+GNEHierarchicalElementParents::addConnectionParent(GNEConnection* connection) {
+    // Check that connection is valid and doesn't exist previously
+    if (connection == nullptr) {
+        throw InvalidArgument("Trying to add an empty " + toString(SUMO_TAG_CONNECTION) + " parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+    } else if (std::find(myConnectionParents.begin(), myConnectionParents.end(), connection) != myConnectionParents.end()) {
+        throw InvalidArgument("Trying to add a duplicate " + toString(SUMO_TAG_CONNECTION) + " parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+    } else {
+        myConnectionParents.push_back(connection);
+    }
+}
+
+
+void
+GNEHierarchicalElementParents::removeConnectionParent(GNEConnection* connection) {
+    // Check that connection is valid and exist previously
+    if (connection == nullptr) {
+        throw InvalidArgument("Trying to remove an empty " + toString(SUMO_TAG_CONNECTION) + " parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+    } else if (std::find(myConnectionParents.begin(), myConnectionParents.end(), connection) == myConnectionParents.end()) {
+        throw InvalidArgument("Trying to remove a non previously inserted " + toString(SUMO_TAG_CONNECTION) + " parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+    } else {
+        myConnectionParents.erase(std::find(myConnectionParents.begin(), myConnectionParents.end(), connection));
+    }
+}
+
+
+const std::vector<GNEConnection*>&
+GNEHierarchicalElementParents::getConnectionParents() const {
+    return myConnectionParents;
 }
 
 
@@ -354,7 +389,6 @@ GNEHierarchicalElementParents::ParentConnections::draw(GUIGlObjectType parentTyp
 // GNEHierarchicalElementParents - protected methods
 // ---------------------------------------------------------------------------
 
-
 void
 GNEHierarchicalElementParents::changeEdgeParents(GNEShape* elementChild, const std::string& newEdgeIDs) {
     // remove additional of edge parents
@@ -457,18 +491,78 @@ GNEHierarchicalElementParents::changeLaneParents(GNEDemandElement* elementChild,
 
 void
 GNEHierarchicalElementParents::changeLaneParents(GNEShape* elementChild, const std::string& newLaneIDs) {
-    // remove demandElement of edge parents
+    // remove demandElement of lane parents
     for (const auto& i : myLaneParents) {
         i->removeShapeChild(elementChild);
     }
-    // obtain new parent edges
+    // obtain new parent lanes
     myLaneParents = GNEAttributeCarrier::parse<std::vector<GNELane*> >(elementChild->getNet(), newLaneIDs);
-    // check that lane parets aren't empty
+    // check that lane parents aren't empty
     if (myLaneParents.empty()) {
         throw InvalidArgument("New list of lane parents cannot be empty");
     } else {
         // add demandElement into edge parents
         for (const auto& i : myLaneParents) {
+            i->addShapeChild(elementChild);
+        }
+    }
+}
+
+
+void
+GNEHierarchicalElementParents::changeConnectionParents(GNEAdditional* elementChild, const std::string& newConnectionIDs) {
+    // remove additional of connection parents
+    for (const auto& i : myConnectionParents) {
+        i->removeAdditionalChild(elementChild);
+    }
+    // obtain new parent connections
+    myConnectionParents = GNEAttributeCarrier::parse<std::vector<GNEConnection*> >(elementChild->getViewNet()->getNet(), newConnectionIDs);
+    // check that connection parents aren't empty
+    if (myConnectionParents.empty()) {
+        throw InvalidArgument("New list of Connection parents cannot be empty");
+    } else {
+        // add additional into edge parents
+        for (const auto& i : myConnectionParents) {
+            i->addAdditionalChild(elementChild);
+        }
+    }
+}
+
+
+void
+GNEHierarchicalElementParents::changeConnectionParents(GNEDemandElement* elementChild, const std::string& newConnectionIDs) {
+    // remove demandElement of edge parents
+    for (const auto& i : myConnectionParents) {
+        i->removeDemandElementChild(elementChild);
+    }
+    // obtain new parent edges
+    myConnectionParents = GNEAttributeCarrier::parse<std::vector<GNEConnection*> >(elementChild->getViewNet()->getNet(), newConnectionIDs);
+    // check that Connection parets aren't empty
+    if (myConnectionParents.empty()) {
+        throw InvalidArgument("New list of Connection parents cannot be empty");
+    } else {
+        // add demandElement into edge parents
+        for (const auto& i : myConnectionParents) {
+            i->addDemandElementChild(elementChild);
+        }
+    }
+}
+
+
+void
+GNEHierarchicalElementParents::changeConnectionParents(GNEShape* elementChild, const std::string& newConnectionIDs) {
+    // remove demandElement of edge parents
+    for (const auto& i : myConnectionParents) {
+        i->removeShapeChild(elementChild);
+    }
+    // obtain new parent edges
+    myConnectionParents = GNEAttributeCarrier::parse<std::vector<GNEConnection*> >(elementChild->getNet(), newConnectionIDs);
+    // check that Connection parets aren't empty
+    if (myConnectionParents.empty()) {
+        throw InvalidArgument("New list of Connection parents cannot be empty");
+    } else {
+        // add demandElement into edge parents
+        for (const auto& i : myConnectionParents) {
             i->addShapeChild(elementChild);
         }
     }

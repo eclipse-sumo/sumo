@@ -41,6 +41,7 @@ class GNENet;
 class GNEUndoList;
 class GNELane;
 class GNEEdge;
+class GNEConnection;
 
 // ===========================================================================
 // class definitions
