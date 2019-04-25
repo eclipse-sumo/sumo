@@ -9,3 +9,6 @@ ticket2790
 
 # joining a cluster with multiple intermediate edges
 ticket3981
+
+# invalid tls link index in output network
+ticket5513
