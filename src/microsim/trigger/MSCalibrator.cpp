@@ -63,9 +63,11 @@ MSCalibrator::MSCalibrator(const std::string& id,
                            const std::string& outputFilename,
                            const SUMOTime freq, const double length,
                            const MSRouteProbe* probe,
+                           const std::string& vTypes,
                            bool addLaneMeanData) :
     MSTrigger(id),
     MSRouteHandler(aXMLFilename, true),
+    MSDetectorFileOutput(id, vTypes, false), // detecting persons not yet supported
     myEdge(edge),
     myLane(lane),
     myPos(pos), myProbe(probe),
@@ -79,7 +81,7 @@ MSCalibrator::MSCalibrator(const std::string& id,
     myAmActive(false) {
     if (outputFilename != "") {
         myOutput = &OutputDevice::getDevice(outputFilename);
-        myOutput->writeXMLHeader("calibratorstats", "calibratorstats_file.xsd");
+        writeXMLDetectorProlog(*myOutput);
     }
     if (aXMLFilename != "") {
         XMLSubSys::runParser(*this, aXMLFilename);
@@ -115,7 +117,7 @@ MSCalibrator::init() {
         // calibration should happen after regular insertions have taken place
         MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(new CalibratorCommand(this));
     } else {
-        WRITE_WARNING("No flow intervals in calibrator '" + myID + "'.");
+        WRITE_WARNING("No flow intervals in calibrator '" + getID() + "'.");
     }
     myDidInit = true;
 }
@@ -123,7 +125,7 @@ MSCalibrator::init() {
 
 MSCalibrator::~MSCalibrator() {
     if (myCurrentStateInterval != myIntervals.end()) {
-        writeXMLOutput();
+        intervalEnd();
     }
     for (std::vector<VehicleRemover*>::iterator it = myVehicleRemovers.begin(); it != myVehicleRemovers.end(); ++it) {
         (*it)->disable();
@@ -147,11 +149,11 @@ MSCalibrator::myStartElement(int element,
             bool ok = true;
             state.q = attrs.getOpt<double>(SUMO_ATTR_VEHSPERHOUR, nullptr, ok, -1.);
             state.v = attrs.getOpt<double>(SUMO_ATTR_SPEED, nullptr, ok, -1.);
-            state.begin = attrs.getSUMOTimeReporting(SUMO_ATTR_BEGIN, myID.c_str(), ok);
+            state.begin = attrs.getSUMOTimeReporting(SUMO_ATTR_BEGIN, getID().c_str(), ok);
             if (state.begin < lastEnd) {
-                WRITE_ERROR("Overlapping or unsorted intervals in calibrator '" + myID + "'.");
+                WRITE_ERROR("Overlapping or unsorted intervals in calibrator '" + getID() + "'.");
             }
-            state.end = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, myID.c_str(), ok, -1);
+            state.end = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, getID().c_str(), ok, -1);
             state.vehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs, true, true);
             LeftoverVehicleParameters.push_back(state.vehicleParameter);
             // vehicles should be inserted with max speed unless stated otherwise
@@ -173,15 +175,15 @@ MSCalibrator::myStartElement(int element,
             }
             if (state.vehicleParameter->vtypeid != DEFAULT_VTYPE_ID &&
                     MSNet::getInstance()->getVehicleControl().getVType(state.vehicleParameter->vtypeid) == nullptr) {
-                WRITE_ERROR("Unknown vehicle type '" + state.vehicleParameter->vtypeid + "' in calibrator '" + myID + "'.");
+                WRITE_ERROR("Unknown vehicle type '" + state.vehicleParameter->vtypeid + "' in calibrator '" + getID() + "'.");
             }
         } catch (EmptyData&) {
-            WRITE_ERROR("Mandatory attribute missing in definition of calibrator '" + myID + "'.");
+            WRITE_ERROR("Mandatory attribute missing in definition of calibrator '" + getID() + "'.");
         } catch (NumberFormatException&) {
-            WRITE_ERROR("Non-numeric value for numeric attribute in definition of calibrator '" + myID + "'.");
+            WRITE_ERROR("Non-numeric value for numeric attribute in definition of calibrator '" + getID() + "'.");
         }
         if (state.q < 0 && state.v < 0) {
-            WRITE_ERROR("Either 'vehsPerHour' or 'speed' has to be given in flow definition of calibrator '" + myID + "'.");
+            WRITE_ERROR("Either 'vehsPerHour' or 'speed' has to be given in flow definition of calibrator '" + getID() + "'.");
         }
         if (myIntervals.size() > 0 && myIntervals.back().end == -1) {
             myIntervals.back().end = state.begin;
@@ -207,28 +209,9 @@ MSCalibrator::myEndElement(int element) {
 
 
 void
-MSCalibrator::writeXMLOutput() {
+MSCalibrator::intervalEnd() {
     if (myOutput != nullptr) {
-        updateMeanData();
-        const int p = passed();
-        // meandata will be off if vehicles are removed on the next edge instead of this one
-        const int discrepancy = myEdgeMeanData.nVehEntered + myEdgeMeanData.nVehDeparted - myEdgeMeanData.nVehVaporized - passed();
-        assert(discrepancy >= 0);
-        const std::string ds = (discrepancy > 0 ? "\" vaporizedOnNextEdge=\"" + toString(discrepancy) : "");
-        const double durationSeconds = STEPS2TIME(myCurrentStateInterval->end - myCurrentStateInterval->begin);
-        (*myOutput) << "    <interval begin=\"" << time2string(myCurrentStateInterval->begin) <<
-                    "\" end=\"" << time2string(myCurrentStateInterval->end) <<
-                    "\" id=\"" << myID <<
-                    "\" nVehContrib=\"" << p <<
-                    "\" removed=\"" << myRemoved <<
-                    "\" inserted=\"" << myInserted <<
-                    "\" cleared=\"" << myClearedInJam <<
-                    "\" flow=\"" << p * 3600.0 / durationSeconds <<
-                    "\" aspiredFlow=\"" << myCurrentStateInterval->q <<
-                    "\" speed=\"" << myEdgeMeanData.getTravelledDistance() / myEdgeMeanData.getSamples() <<
-                    "\" aspiredSpeed=\"" << myCurrentStateInterval->v <<
-                    ds << //optional
-                    "\"/>\n";
+        writeXMLOutput(*myOutput, myCurrentStateInterval->begin, myCurrentStateInterval->end);
     }
     myDidSpeedAdaption = false;
     myInserted = 0;
@@ -342,7 +325,7 @@ MSCalibrator::execute(SUMOTime currentTime) {
     const int totalWishedNum = totalWished();
     int adaptedNum = passed() + myClearedInJam;
 #ifdef MSCalibrator_DEBUG
-    std::cout << time2string(currentTime) << " " << myID
+    std::cout << time2string(currentTime) << " " << getID()
               << " q=" << myCurrentStateInterval->q
               << " totalWished=" << totalWishedNum
               << " adapted=" << adaptedNum
@@ -379,11 +362,11 @@ MSCalibrator::execute(SUMOTime currentTime) {
                 route = MSRoute::dictionary(pars->routeid);
             }
             if (route == nullptr) {
-                WRITE_WARNING("No valid routes in calibrator '" + myID + "'.");
+                WRITE_WARNING("No valid routes in calibrator '" + getID() + "'.");
                 break;
             }
             if (!route->contains(myEdge)) {
-                WRITE_WARNING("Route '" + route->getID() + "' in calibrator '" + myID + "' does not contain edge '" + myEdge->getID() + "'.");
+                WRITE_WARNING("Route '" + route->getID() + "' in calibrator '" + getID() + "' does not contain edge '" + myEdge->getID() + "'.");
                 break;
             }
             const int routeIndex = (int)std::distance(route->begin(),
@@ -392,7 +375,7 @@ MSCalibrator::execute(SUMOTime currentTime) {
             assert(route != 0 && vtype != 0);
             // build the vehicle
             SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*pars);
-            newPars->id = myID + "." + toString((int)STEPS2TIME(myCurrentStateInterval->begin)) + "." + toString(myInserted);
+            newPars->id = getID() + "." + toString((int)STEPS2TIME(myCurrentStateInterval->begin)) + "." + toString(myInserted);
             newPars->depart = currentTime;
             newPars->routeid = route->getID();
             MSVehicle* vehicle;
@@ -432,7 +415,7 @@ MSCalibrator::execute(SUMOTime currentTime) {
         }
     }
     if (myCurrentStateInterval->end <= currentTime + myFrequency) {
-        writeXMLOutput();
+        intervalEnd();
     }
     return myFrequency;
 }
@@ -541,7 +524,7 @@ bool MSCalibrator::VehicleRemover::notifyEnter(SUMOTrafficObject& veh, Notificat
                       << " vaporizing " << vehicle->getID() << " to clear jam\n";
 #endif
             if (!myParent->myHaveWarnedAboutClearingJam) {
-                WRITE_WARNING("Clearing jam at calibrator '" + myParent->myID + "' at time "
+                WRITE_WARNING("Clearing jam at calibrator '" + myParent->getID() + "' at time "
                               + time2string(MSNet::getInstance()->getCurrentTimeStep()));
                 myParent->myHaveWarnedAboutClearingJam = true;
             }
@@ -553,6 +536,34 @@ bool MSCalibrator::VehicleRemover::notifyEnter(SUMOTrafficObject& veh, Notificat
     return true;
 }
 
+void
+MSCalibrator::writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime stopTime) {
+    updateMeanData();
+    const int p = passed();
+    // meandata will be off if vehicles are removed on the next edge instead of this one
+    const int discrepancy = myEdgeMeanData.nVehEntered + myEdgeMeanData.nVehDeparted - myEdgeMeanData.nVehVaporized - passed();
+    assert(discrepancy >= 0);
+    const std::string ds = (discrepancy > 0 ? "\" vaporizedOnNextEdge=\"" + toString(discrepancy) : "");
+    const double durationSeconds = STEPS2TIME(stopTime - startTime);
+    dev << "    <interval begin=\"" << time2string(startTime) <<
+                "\" end=\"" << time2string(stopTime) <<
+                "\" id=\"" << getID() <<
+                "\" nVehContrib=\"" << p <<
+                "\" removed=\"" << myRemoved <<
+                "\" inserted=\"" << myInserted <<
+                "\" cleared=\"" << myClearedInJam <<
+                "\" flow=\"" << p * 3600.0 / durationSeconds <<
+                "\" aspiredFlow=\"" << myCurrentStateInterval->q <<
+                "\" speed=\"" << myEdgeMeanData.getTravelledDistance() / myEdgeMeanData.getSamples() <<
+                "\" aspiredSpeed=\"" << myCurrentStateInterval->v <<
+                ds << //optional
+                "\"/>\n";
+}
+
+void
+MSCalibrator::writeXMLDetectorProlog(OutputDevice& dev) const {
+    dev.writeXMLHeader("calibratorstats", "calibratorstats_file.xsd");
+}
 
 
 /****************************************************************************/

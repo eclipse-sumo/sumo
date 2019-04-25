@@ -122,8 +122,9 @@ GUITriggerBuilder::buildCalibrator(MSNet& net, const std::string& id,
                                    const std::string& file,
                                    const std::string& outfile,
                                    const SUMOTime freq,
-                                   const MSRouteProbe* probe) {
-    GUICalibrator* cali = new GUICalibrator(id, edge, lane, pos, file, outfile, freq, probe);
+                                   const MSRouteProbe* probe,
+                                   const std::string& vTypes) {
+    GUICalibrator* cali = new GUICalibrator(id, edge, lane, pos, file, outfile, freq, probe, vTypes);
     static_cast<GUINet&>(net).getVisualisationSpeedUp().addAdditionalGLObject(cali);
     return cali;
 }

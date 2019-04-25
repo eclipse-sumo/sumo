@@ -312,7 +312,9 @@ protected:
     virtual MSCalibrator* buildCalibrator(MSNet& net,
                                           const std::string& id, MSEdge* edge, MSLane* lane, double pos,
                                           const std::string& file, const std::string& outfile,
-                                          const SUMOTime freq, const MSRouteProbe* probe);
+                                          const SUMOTime freq,
+                                          const std::string& vTypes,
+                                          const MSRouteProbe* probe);
 
     /** @brief builds a mesoscopic calibrator
      *
@@ -328,7 +330,9 @@ protected:
     virtual METriggeredCalibrator* buildMECalibrator(MSNet& net,
             const std::string& id, const MSEdge* edge, double pos,
             const std::string& file, const std::string& outfile,
-            const SUMOTime freq, MSRouteProbe* probe);
+            const SUMOTime freq,
+            const std::string& vTypes,
+            MSRouteProbe* probe);
 
 
     /** @brief builds an rerouter

@@ -54,8 +54,9 @@ METriggeredCalibrator::METriggeredCalibrator(const std::string& id,
         const std::string& aXMLFilename,
         const std::string& outputFilename,
         const SUMOTime freq, const double length,
-        const MSRouteProbe* probe) :
-    MSCalibrator(id, edge, (MSLane*)nullptr, pos, aXMLFilename, outputFilename, freq, length, probe, false),
+        const MSRouteProbe* probe,
+        const std::string& vTypes) :
+    MSCalibrator(id, edge, (MSLane*)nullptr, pos, aXMLFilename, outputFilename, freq, length, probe, vTypes, false),
     mySegment(MSGlobals::gMesoNet->getSegmentForEdge(*edge, pos)) {
     myEdgeMeanData.setDescription("meandata_calibrator_" + getID());
     mySegment->addDetector(&myEdgeMeanData);
@@ -65,7 +66,7 @@ METriggeredCalibrator::METriggeredCalibrator(const std::string& id,
 METriggeredCalibrator::~METriggeredCalibrator() {
     if (myCurrentStateInterval != myIntervals.end()) {
         // need to do it here and not in MSCalibrator because otherwise meandata is gone
-        writeXMLOutput();
+        intervalEnd();
         // but avoid to call it again in MSCalibrator
         myCurrentStateInterval = myIntervals.end();
     }
@@ -129,7 +130,7 @@ METriggeredCalibrator::execute(SUMOTime currentTime) {
     while (invalidJam()) {
         hadInvalidJam = true;
         if (!myHaveWarnedAboutClearingJam) {
-            WRITE_WARNING("Clearing jam at calibrator '" + myID + "' at time " + time2string(currentTime));
+            WRITE_WARNING("Clearing jam at calibrator '" + getID() + "' at time " + time2string(currentTime));
         }
         // remove one vehicle currently on the segment
         if (mySegment->vaporizeAnyCar(currentTime)) {
@@ -137,7 +138,7 @@ METriggeredCalibrator::execute(SUMOTime currentTime) {
         } else {
             if (!myHaveWarnedAboutClearingJam) {
                 // this frequenly happens for very short edges
-                WRITE_WARNING("Could not clear jam at calibrator '" + myID + "' at time " + time2string(currentTime));
+                WRITE_WARNING("Could not clear jam at calibrator '" + getID() + "' at time " + time2string(currentTime));
             }
             break;
         }
@@ -168,11 +169,11 @@ METriggeredCalibrator::execute(SUMOTime currentTime) {
                     route = MSRoute::dictionary(pars->routeid);
                 }
                 if (route == nullptr) {
-                    WRITE_WARNING("No valid routes in calibrator '" + myID + "'.");
+                    WRITE_WARNING("No valid routes in calibrator '" + getID() + "'.");
                     break;
                 }
                 if (!route->contains(myEdge)) {
-                    WRITE_WARNING("Route '" + route->getID() + "' in calibrator '" + myID + "' does not contain edge '" + myEdge->getID() + "'.");
+                    WRITE_WARNING("Route '" + route->getID() + "' in calibrator '" + getID() + "' does not contain edge '" + myEdge->getID() + "'.");
                     break;
                 }
                 MSVehicleType* vtype = MSNet::getInstance()->getVehicleControl().getVType(pars->vtypeid);
@@ -180,7 +181,7 @@ METriggeredCalibrator::execute(SUMOTime currentTime) {
                 // build the vehicle
                 const SUMOTime depart = mySegment->getNextInsertionTime(currentTime);
                 SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*pars);
-                newPars->id = myID + "." + toString(depart) + "." + toString(myInserted);
+                newPars->id = getID() + "." + toString(depart) + "." + toString(myInserted);
                 newPars->depart = depart;
                 newPars->routeid = route->getID();
                 MEVehicle* vehicle;
@@ -228,7 +229,7 @@ METriggeredCalibrator::execute(SUMOTime currentTime) {
         }
     }
     if (myCurrentStateInterval->end <= currentTime + myFrequency) {
-        writeXMLOutput();
+        intervalEnd();
     }
     assert(!invalidJam());
     return myFrequency;

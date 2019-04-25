@@ -57,7 +57,9 @@ public:
                   const std::string& aXMLFilename,
                   const std::string& outputFilename,
                   const SUMOTime freq,
-                  const MSRouteProbe* probe);
+                  const MSRouteProbe* probe,
+                  const std::string& vTypes,
+                  bool addLaneMeanData = true);
 
 
     /** destructor */

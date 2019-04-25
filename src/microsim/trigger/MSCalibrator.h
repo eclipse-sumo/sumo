@@ -30,6 +30,7 @@
 #include <utils/common/Command.h>
 #include <microsim/MSRouteHandler.h>
 #include <microsim/output/MSMeanData_Net.h>
+#include <microsim/output/MSDetectorFileOutput.h>
 #include <microsim/trigger/MSTrigger.h>
 
 
@@ -47,7 +48,7 @@ class MSRouteProbe;
  * @class MSCalibrator
  * @brief Calibrates the flow on a segment to a specified one
  */
-class MSCalibrator : public MSTrigger, public MSRouteHandler, public Command {
+class MSCalibrator : public MSTrigger, public MSRouteHandler, public Command, public MSDetectorFileOutput {
 public:
     /** constructor */
     MSCalibrator(const std::string& id,
@@ -58,15 +59,39 @@ public:
                  const std::string& outputFilename,
                  const SUMOTime freq, const double length,
                  const MSRouteProbe* probe,
+                 const std::string& vTypes,
                  bool addLaneMeanData = true);
 
     /** destructor */
     virtual ~MSCalibrator();
 
+    /** @brief Write the generated output to the given device
+     * @param[in] dev The output device to write the data into
+     * @param[in] startTime First time step the data were gathered
+     * @param[in] stopTime Last time step the data were gathered
+     * @exception IOError If an error on writing occurs
+     */
+    void writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime stopTime);
+
+
+    /** @brief Open the XML-output
+     *
+     * The implementing function should open an xml element using
+     *  OutputDevice::writeXMLHeader.
+     *
+     * @param[in] dev The output device to write the root into
+     * @exception IOError If an error on writing occurs
+     */
+    void writeXMLDetectorProlog(OutputDevice& dev) const;
 
     /** the implementation of the MSTrigger / Command interface.
         Calibrating takes place here. */
     virtual SUMOTime execute(SUMOTime currentTime);
+
+    const std::string& getID() const {
+        /// @note: nedded to resolve ambiguity between MStrigger::getID() and MSDetectorFileOutput::getID()
+        return MSTrigger::getID();
+    }
 
     /// @brief cleanup remaining data structures
     static void cleanup();
@@ -158,7 +183,7 @@ protected:
         SUMOVehicleParameter* vehicleParameter;
     };
 
-    void writeXMLOutput();
+    void intervalEnd();
 
     bool isCurrentStateActive(SUMOTime time);
 
