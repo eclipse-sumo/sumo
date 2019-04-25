@@ -256,13 +256,13 @@ public:
     void copyTemplate(GNEEdge* tpl, GNEUndoList* undolist);
 
     /// @brief returns GLIDs of all lanes
-    std::set<GUIGlID> getLaneGlIDs();
+    std::set<GUIGlID> getLaneGlIDs() const;
 
     /// @brief returns a reference to the lane vector
-    const std::vector<GNELane*>& getLanes();
+    const std::vector<GNELane*>& getLanes() const;
 
     /// @brief returns a reference to the GNEConnection vector
-    const std::vector<GNEConnection*>& getGNEConnections();
+    const std::vector<GNEConnection*>& getGNEConnections() const;
 
     /// @brief get GNEConnection if exist, and if not create it if create is enabled
     GNEConnection* retrieveGNEConnection(int fromLane, NBEdge* to, int toLane, bool createIfNoExist = true);

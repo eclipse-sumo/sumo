@@ -28,7 +28,7 @@
 // class declarations
 // ===========================================================================
 class GNEEdge;
-
+class GNEConnection;
 
 // ===========================================================================
 // class definitions
@@ -54,6 +54,12 @@ public:
 
     /// @brief get color
     const RGBColor& getColor() const;
+
+    /// @brief get next connection of the given edge (or NULL if not exist)
+    GNEConnection* getNextConnection(const GNEEdge* edgeFrom) const;
+
+    /// @brief get next shape of the given edge
+    PositionVector getNextShape(const GNEEdge* edgeFrom) const;
 
     /**@brief writte demand element element into a xml file
      * @param[in] device device in which write parameters of demand element element

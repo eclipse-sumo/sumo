@@ -34,6 +34,7 @@
 #include <netedit/additionals/GNERouteProbe.h>
 #include <netedit/additionals/GNEDetectorE2.h>
 #include <netedit/demandelements/GNEDemandElement.h>
+#include <netedit/demandelements/GNERoute.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/gui/globjects/GLIncludes.h>
 
@@ -535,49 +536,67 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     for (const auto &i : getAdditionalChilds()) {
         i->drawGL(s);
     }
-    for (const auto &i : getDemandElementChilds()) {
-        if (i->getTagProperty().getTag() == SUMO_TAG_ROUTE) {
-            // calculate route width
-            double routeWidth = s.addSize.getExaggeration(s, this) * 0.66;
+    if (myNet->getViewNet()->getViewOptions().showDemandElements()) {
+        for (const auto &i : getDemandElementChilds()) {
+            if (i->getTagProperty().getTag() == SUMO_TAG_ROUTE) {
 
-            // Start drawing adding an gl identificator
-            glPushName(i->getGlID());
+                GNERoute *route = dynamic_cast<GNERoute*> (i);
+                if (route) {
+                    // calculate route width
+                    double routeWidth = s.addSize.getExaggeration(s, this) * 0.66;
 
-            // Add a draw matrix
-            glPushMatrix();
+                    // Start drawing adding an gl identificator
+                    glPushName(route->getGlID());
 
-            // Start with the drawing of the area traslating matrix to origin
-            glTranslated(0, 0, i->getType());
+                    // Add a draw matrix
+                    glPushMatrix();
 
-            // Set color of the base
-            if (drawUsingSelectColor()) {
-                GLHelper::setColor(s.selectedAdditionalColor);
-            } else {
-                GLHelper::setColor(i->getColor());
-            }
+                    // Start with the drawing of the area traslating matrix to origin
+                    glTranslated(0, 0, route->getType());
 
-            // draw route
-            GLHelper::drawBoxLines(myLanes.front()->getShape(), myLanes.front()->myShapeRotations, myLanes.front()->myShapeLengths, routeWidth);
+                    // Set color of the base
+                    if (drawUsingSelectColor()) {
+                        GLHelper::setColor(s.selectedAdditionalColor);
+                    } else {
+                        GLHelper::setColor(route->getColor());
+                    }
 
-            // Pop last matrix
-            glPopMatrix();
+                    // draw route
+                    GLHelper::drawBoxLines(myLanes.front()->getShape(), myLanes.front()->myShapeRotations, myLanes.front()->myShapeLengths, routeWidth);
 
-            // Draw name if isn't being drawn for selecting
-            if (!s.drawForSelecting) {
-                drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
-            }
+                    // check if route has a connectio between this and the next edge
+                    GNEConnection *nextConnection = route->getNextConnection(this);
+
+                    if (nextConnection) {
+                        GLHelper::drawBoxLines(nextConnection->myShape, nextConnection->myShapeRotations, nextConnection->myShapeLengths, routeWidth);
+                    } else {
+                        PositionVector line = route->getNextShape(this);
+                        // Add a draw matrix
+                        glLineWidth(3);
+                        GLHelper::drawLine(line.front(), line.back());
+                    }
+
+                    // Pop last matrix
+                    glPopMatrix();
+
+                    // Draw name if isn't being drawn for selecting
+                    if (!s.drawForSelecting) {
+                        drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+                    }
             
-            // check if dotted contour has to be drawn
-            if (!s.drawForSelecting && (myNet->getViewNet()->getDottedAC() == i)) {
-                GLHelper::drawShapeDottedContour(getType(), i->myGeometry.shape, routeWidth);
-            }
+                    // check if dotted contour has to be drawn
+                    if (!s.drawForSelecting && (myNet->getViewNet()->getDottedAC() == i)) {
+                        GLHelper::drawShapeDottedContour(getType(), route->myGeometry.shape, routeWidth);
+                    }
             
-            // Pop name
-            glPopName();
+                    // Pop name
+                    glPopName();
 
-            // draw route childs
-            for (const auto &j : i->getDemandElementChilds()) {
-                j->drawGL(s);
+                    // draw route childs
+                    for (const auto &j : route->getDemandElementChilds()) {
+                        j->drawGL(s);
+                    }
+                }
             }
         }
     }
@@ -927,7 +946,7 @@ GNEEdge::copyTemplate(GNEEdge* tpl, GNEUndoList* undoList) {
 
 
 std::set<GUIGlID>
-GNEEdge::getLaneGlIDs() {
+GNEEdge::getLaneGlIDs() const {
     std::set<GUIGlID> result;
     for (auto i : myLanes) {
         result.insert(i->getGlID());
@@ -937,13 +956,13 @@ GNEEdge::getLaneGlIDs() {
 
 
 const std::vector<GNELane*>&
-GNEEdge::getLanes() {
+GNEEdge::getLanes() const {
     return myLanes;
 }
 
 
 const std::vector<GNEConnection*>&
-GNEEdge::getGNEConnections() {
+GNEEdge::getGNEConnections() const {
     return myGNEConnections;
 }
 

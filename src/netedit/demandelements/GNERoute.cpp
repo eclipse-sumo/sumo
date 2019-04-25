@@ -64,6 +64,41 @@ GNERoute::getColor() const {
 }
 
 
+GNEConnection* 
+GNERoute::getNextConnection(const GNEEdge* edgeFrom) const {
+    for (int i = 0; i < (int)getEdgeParents().size(); i++) {
+        if (getEdgeParents().at(i) == edgeFrom) {
+            // check if current edge is the last edge
+            if (i < (getEdgeParents().size()-1)) {
+                // search a common connection between edgeFrom and their next edge
+                for (const auto &j : getEdgeParents().at(i)->getGNEConnections()) {
+                    for (const auto &k : getEdgeParents().at(i+1)->getLanes()) {
+                        if (j->getLaneTo() == k) {
+                            return j; 
+                        }
+                    }
+                }
+            } else {
+                return nullptr;
+            }
+        }
+    }
+    return nullptr;
+}
+
+
+PositionVector 
+GNERoute::getNextShape(const GNEEdge* edgeFrom) const {
+    PositionVector solution;
+    solution.push_back(edgeFrom->getLanes().front()->getShape().back());
+    for (int i = 0; i < (int)getEdgeParents().size(); i++) {
+        if ((getEdgeParents().at(i) == edgeFrom) && i < (getEdgeParents().size()-1)) {
+            solution.push_back(getEdgeParents().at(i+1)->getLanes().front()->getShape().front());
+        }
+    }
+    return solution;
+}
+
 void
 GNERoute::writeDemandElement(OutputDevice& device) const {
     device.openTag(SUMO_TAG_ROUTE);

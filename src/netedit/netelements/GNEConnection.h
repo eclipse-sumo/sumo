@@ -170,7 +170,7 @@ public:
 
     /// @}
 
-protected:
+public: // check this
     /// @brief incoming lane of this connection
     GNELane* myFromLane;
 
