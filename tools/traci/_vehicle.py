@@ -123,6 +123,7 @@ _RETURN_VALUE_FUNC = {tc.VAR_SPEED: Storage.readDouble,
                       tc.VAR_FUELCONSUMPTION: Storage.readDouble,
                       tc.VAR_NOISEEMISSION: Storage.readDouble,
                       tc.VAR_ELECTRICITYCONSUMPTION: Storage.readDouble,
+                      tc.VAR_PERSON_CAPACITY: Storage.readInt,
                       tc.VAR_PERSON_NUMBER: Storage.readInt,
                       tc.LAST_STEP_PERSON_ID_LIST: Storage.readStringList,
                       tc.VAR_EDGE_TRAVELTIME: Storage.readDouble,
@@ -359,6 +360,13 @@ class VehicleDomain(Domain):
         Returns the electricity consumption in Wh for the last time step.
         """
         return self._getUniversal(tc.VAR_ELECTRICITYCONSUMPTION, vehID)
+
+    def getPersonCapacity(self, vehID):
+        """getPersonCapacity(string) -> int
+
+        Returns the Person Capacity of the vehicle
+        """
+        return self._getUniversal(tc.VAR_PERSON_CAPACITY, vehID)
 
     def getPersonNumber(self, vehID):
         """getPersonNumber(string) -> integer

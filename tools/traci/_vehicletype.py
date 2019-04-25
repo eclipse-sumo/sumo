@@ -40,6 +40,7 @@ _RETURN_VALUE_FUNC = {tc.VAR_LENGTH: Storage.readDouble,
                       tc.VAR_MAXSPEED_LAT: Storage.readDouble,
                       tc.VAR_MINGAP_LAT: Storage.readDouble,
                       tc.VAR_LATALIGNMENT: Storage.readString,
+                      tc.VAR_PERSON_CAPACITY: Storage.readInt,
                       tc.VAR_COLOR: lambda result: result.read("!BBBB")}
 
 
@@ -197,6 +198,13 @@ class VehicleTypeDomain(Domain):
         Returns The desired lateral gap of this type at 50km/h in m
         """
         return self._getUniversal(tc.VAR_MINGAP_LAT, vehID)
+
+    def getPersonCapacity(self, typeID):
+        """getPersonCapacity(string) -> int
+
+        Returns the person capacity of this type
+        """
+        return self._getUniversal(tc.VAR_PERSON_CAPACITY, typeID)
 
     def setLength(self, typeID, length):
         """setLength(string, double) -> None
