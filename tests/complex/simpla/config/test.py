@@ -83,7 +83,7 @@ catchupFollower="catchupFollowerVTypeID" /><verbosity value="200" ></verbosity>
 
     def connectToSumo(self, sumo_cfg):
         # Set up a running sumo instance
-        SUMO_BINARY = os.path.join(os.environ["SUMO_HOME"], "bin/sumo")
+        SUMO_BINARY = sumolib.checkBinary('sumo')
         PORT = sumolib.miscutils.getFreeSocketPort()
         # print("PORT=",PORT)
         sumoCall = [SUMO_BINARY, "-c", sumo_cfg, "--remote-port", str(PORT), "-S"]

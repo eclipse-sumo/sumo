@@ -106,7 +106,7 @@ catchup="connected_pCatchup" catchupFollower="connected_pCatchupFollower" />
 
     def connectToSumo(self, sumo_cfg):
         # Set up a running sumo instance
-        SUMO_BINARY = os.path.join(os.environ["SUMO_HOME"], "bin/sumo")
+        SUMO_BINARY = sumolib.checkBinary('sumo')
         PORT = sumolib.miscutils.getFreeSocketPort()
         sumoCall = "%s -c %s --remote-port %s" % (SUMO_BINARY, sumo_cfg, PORT)
         # print("sumoCall = '%s'"%sumoCall)
