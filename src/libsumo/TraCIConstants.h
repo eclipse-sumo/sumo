@@ -795,6 +795,9 @@ TRACI_CONST int VAR_NOISEEMISSION = 0x66;
 // current person number (get: vehicle)
 TRACI_CONST int VAR_PERSON_NUMBER = 0x67;
 
+// person capacity (vehicle , vehicle type)
+TRACI_CONST int VAR_PERSON_CAPACITY = 0x38;
+
 // number of persons waiting at a defined bus stop (get: simulation)
 TRACI_CONST int VAR_BUS_STOP_WAITING = 0x67;
 

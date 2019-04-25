@@ -776,6 +776,9 @@ VAR_NOISEEMISSION = 0x66
 #  current person number (get: vehicle)
 VAR_PERSON_NUMBER = 0x67
 
+#  person capacity (get: vehicle, vehicle type)
+VAR_PERSON_CAPACITY = 0x38
+
 #  number of persons waiting at a defined bus stop (get: simulation)
 VAR_BUS_STOP_WAITING = 0x67
 
