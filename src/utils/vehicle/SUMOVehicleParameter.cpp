@@ -192,6 +192,9 @@ SUMOVehicleParameter::Stop::write(OutputDevice& dev) const {
     if ((parametersSet & STOP_TRIP_ID_SET) != 0) {
         dev.writeAttr(SUMO_ATTR_TRIP_ID, tripId);
     }
+    if ((parametersSet & STOP_LINE_SET) != 0) {
+        dev.writeAttr(SUMO_ATTR_LINE, line);
+    }
     dev.closeTag();
 }
 

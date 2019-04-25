@@ -578,6 +578,7 @@
         <xsd:attribute name="expected" type="xsd:string"/>
         <xsd:attribute name="actType" type="xsd:string"/>
         <xsd:attribute name="tripId" type="xsd:string"/>
+        <xsd:attribute name="line" type="xsd:string"/>
     </xsd:complexType>
 
     <xsd:complexType name="vTypeDistributionType">

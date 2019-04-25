@@ -322,6 +322,9 @@ SUMORouteHandler::parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttri
     if (attrs.hasAttribute(SUMO_ATTR_TRIP_ID)) {
         stop.parametersSet |= STOP_TRIP_ID_SET;
     }
+    if (attrs.hasAttribute(SUMO_ATTR_LINE)) {
+        stop.parametersSet |= STOP_LINE_SET;
+    }
     bool ok = true;
     stop.busstop = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, nullptr, ok, "");
     stop.chargingStation = attrs.getOpt<std::string>(SUMO_ATTR_CHARGING_STATION, nullptr, ok, "");
@@ -389,6 +392,7 @@ SUMORouteHandler::parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttri
     }
     // public transport trip id
     stop.tripId = attrs.getOpt<std::string>(SUMO_ATTR_TRIP_ID, nullptr, ok, "");
+    stop.line = attrs.getOpt<std::string>(SUMO_ATTR_LINE, nullptr, ok, "");
 
     const std::string idx = attrs.getOpt<std::string>(SUMO_ATTR_INDEX, nullptr, ok, "end");
     if (idx == "end") {

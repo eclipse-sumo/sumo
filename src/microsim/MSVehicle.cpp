@@ -2009,6 +2009,9 @@ MSVehicle::processNextStop(double currentVelocity) {
                 if (stop.pars.tripId != "") {
                     ((SUMOVehicleParameter&)getParameter()).setParameter("tripId", stop.pars.tripId);
                 }
+                if (stop.pars.line != "") {
+                    ((SUMOVehicleParameter&)getParameter()).line = stop.pars.line;
+                }
             }
         }
     }
