@@ -222,6 +222,7 @@ METriggeredCalibrator::execute(SUMOTime currentTime) {
         while (totalWishedNum < adaptedNum) {
             if (!mySegment->vaporizeAnyCar(currentTime)) {
                 // @bug: short edges may be jumped in a single step, giving us no chance to remove a vehicle
+                // @bug2: vehicleApplies() must be considered (#3082)
                 break;
             }
             myRemoved++;
