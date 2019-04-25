@@ -1895,6 +1895,31 @@ NBNode::remapRemoved(NBTrafficLightLogicCont& tc,
     tc.remapRemoved(removed, incoming, outgoing);
 }
 
+NBEdge*
+NBNode::getNextCompatibleOutgoing(const NBEdge* incoming, SVCPermissions vehPerm, EdgeVector::const_iterator itOut, bool clockwise) const {
+    EdgeVector::const_iterator i = itOut;
+    while (true) {
+        if (clockwise) {
+            NBContHelper::nextCW(myAllEdges, i);
+        } else {
+            NBContHelper::nextCCW(myAllEdges, i);
+        }
+        if (*i == incoming) {
+            return nullptr;
+        }
+        if ((*i)->getFromNode() != this) {
+            // only look for outgoing edges
+            // @note we use myAllEdges to stop at the incoming edge
+            continue;
+        }
+        if (incoming->isTurningDirectionAt(*i)) {
+            return nullptr;
+        }
+        if ((vehPerm & (*i)->getPermissions()) != 0) {
+            return *i;
+        }
+    }
+}
 
 LinkDirection
 NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing, bool leftHand) const {
@@ -1912,88 +1937,59 @@ NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing,
     // get the angle between incoming/outgoing at the junction
     const double angle = NBHelpers::normRelAngle(incoming->getAngleAtNode(this), outgoing->getAngleAtNode(this));
     // ok, should be a straight connection
-    if (abs((int) angle) + 1 < 45) {
-        // check whether there is a straighter edge
-        EdgeVector::const_iterator i =
-            std::find(myOutgoingEdges.begin(), myOutgoingEdges.end(), outgoing);
-        while (true) {
-            if (leftHand) {
-                NBContHelper::nextCCW(myOutgoingEdges, i);
-            } else {
-                NBContHelper::nextCW(myOutgoingEdges, i);
-            }
-            const double angle2 = NBHelpers::normRelAngle(incoming->getAngleAtNode(this), (*i)->getAngleAtNode(this));
-            const SVCPermissions perms = (*i)->getPermissions();
-            if (fabs(angle2) < fabs(angle)) {
-                if (fabs(angle2 - angle) > 5) {
-                    // ignore straighter edges that are not relevant for traffic from the incoming edge
-                    if ((perms & SVC_PASSENGER) != 0 || perms == incoming->getPermissions()) {
-                        if (angle2 > angle) {
-                            return LINKDIR_PARTLEFT;
-                        } else {
-                            return LINKDIR_PARTRIGHT;
-                        }
-                    } else {
-                        // check for another straighter edge
-                        continue;
-                    }
-                }
-            }
-            return LINKDIR_STRAIGHT;
-        }
-    }
-
-    // check for left and right, first
+    EdgeVector::const_iterator itOut = std::find(myAllEdges.begin(), myAllEdges.end(), outgoing);
     SVCPermissions vehPerm = incoming->getPermissions() & outgoing->getPermissions();
     if (vehPerm != SVC_PEDESTRIAN) {
         vehPerm &= ~SVC_PEDESTRIAN;
     }
+    if (abs((int) angle) + 1 < 45) {
+        // check whether there is a straighter edge
+        NBEdge* outCW = getNextCompatibleOutgoing(incoming, vehPerm, itOut, true);
+        if (outCW != nullptr) {
+            const double angle2 = NBHelpers::normRelAngle(incoming->getAngleAtNode(this), outCW->getAngleAtNode(this));
+            if (fabs(angle2) < fabs(angle)) {
+                if (fabs(angle2 - angle) > 5) {
+                    if (angle2 > angle) {
+                        return LINKDIR_PARTLEFT;
+                    } else {
+                        return LINKDIR_PARTRIGHT;
+                    }
+                }
+            }
+        }
+        NBEdge* outCCW = getNextCompatibleOutgoing(incoming, vehPerm, itOut, false);
+        if (outCCW != nullptr) {
+            const double angle2 = NBHelpers::normRelAngle(incoming->getAngleAtNode(this), outCCW->getAngleAtNode(this));
+            if (fabs(angle2) < fabs(angle)) {
+                if (fabs(angle2 - angle) > 5) {
+                    if (angle2 > angle) {
+                        return LINKDIR_PARTLEFT;
+                    } else {
+                        return LINKDIR_PARTRIGHT;
+                    }
+                }
+            }
+        }
+        return LINKDIR_STRAIGHT;
+    }
+
     if (angle > 0) {
         // check whether any other edge goes further to the right
-        EdgeVector::const_iterator i =
-            std::find(myAllEdges.begin(), myAllEdges.end(), outgoing);
-        if (leftHand) {
-            NBContHelper::nextCCW(myAllEdges, i);
+        NBEdge* outCW = getNextCompatibleOutgoing(incoming, vehPerm, itOut, !leftHand);
+        if (outCW != nullptr) {
+            return LINKDIR_PARTRIGHT;
         } else {
-            NBContHelper::nextCW(myAllEdges, i);
+            return LINKDIR_RIGHT;
         }
-        while ((*i) != incoming) {
-            if ((*i)->getFromNode() == this
-                    && !incoming->isTurningDirectionAt(*i)
-                    && (vehPerm & (*i)->getPermissions()) != 0) {
-                //std::cout << incoming->getID() << " -> " << outgoing->getID() << " partRight because auf " << (*i)->getID() << "\n";
-                return LINKDIR_PARTRIGHT;
-            }
-            if (leftHand) {
-                NBContHelper::nextCCW(myAllEdges, i);
-            } else {
-                NBContHelper::nextCW(myAllEdges, i);
-            }
-        }
-        return LINKDIR_RIGHT;
-    }
-    // check whether any other edge goes further to the left
-    EdgeVector::const_iterator i =
-        std::find(myAllEdges.begin(), myAllEdges.end(), outgoing);
-    if (leftHand) {
-        NBContHelper::nextCW(myAllEdges, i);
     } else {
-        NBContHelper::nextCCW(myAllEdges, i);
-    }
-    while ((*i) != incoming) {
-        if ((*i)->getFromNode() == this
-                && !incoming->isTurningDirectionAt(*i)
-                && (vehPerm & (*i)->getPermissions()) != 0) {
-            //std::cout << incoming->getID() << " -> " << outgoing->getID() << " partLeft because auf " << (*i)->getID() << " turn=" << incoming->getTurnDestination(true) << "\n";
+        // check whether any other edge goes further to the left
+        NBEdge* outCCW = getNextCompatibleOutgoing(incoming, vehPerm, itOut, leftHand);
+        if (outCCW != nullptr) {
             return LINKDIR_PARTLEFT;
-        }
-        if (leftHand) {
-            NBContHelper::nextCW(myAllEdges, i);
         } else {
-            NBContHelper::nextCCW(myAllEdges, i);
+            return LINKDIR_LEFT;
         }
     }
-    return LINKDIR_LEFT;
 }
 
 

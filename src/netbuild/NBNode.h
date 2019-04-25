@@ -806,6 +806,8 @@ private:
     static bool includes(const std::set<NBEdge*, ComparatorIdLess>& super,
                          const std::set<const NBEdge*, ComparatorIdLess>& sub);
 
+    NBEdge* getNextCompatibleOutgoing(const NBEdge* incoming, SVCPermissions vehPerm, EdgeVector::const_iterator start, bool clockwise) const;
+
 private:
     /// @brief The position the node lies at
     Position myPosition;
