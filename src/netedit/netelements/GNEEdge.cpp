@@ -536,14 +536,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
         i->drawGL(s);
     }
     for (const auto &i : getDemandElementChilds()) {
-        // check that element is drawn only once (In selecting always)
-        if (s.drawForSelecting) {
-            i->drawGL(s);
-        } else if (i->getDrawFlag() != myNet->getViewNet()->getDrawFlag()) {
-            i->drawGL(s);
-            // update draw flag
-            i->setDrawFlag(myNet->getViewNet()->getDrawFlag());
-        }
+        i->drawGL(s);
     }
     // draw geometry points if isnt's too small
     if (s.scale > 8.0) {

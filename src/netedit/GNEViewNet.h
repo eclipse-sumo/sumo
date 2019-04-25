@@ -302,9 +302,6 @@ public:
 
     /// @brief edit edit shape
     void stopEditCustomShape();
-    
-    /// @brief get draw flag
-    bool getDrawFlag() const;
 
 protected:
     /// @brief FOX needs this
@@ -395,9 +392,6 @@ private:
 
     /// @brief a reference to the undolist maintained in the application
     GNEUndoList* myUndoList;
-
-    /// @brief draw flag (it changes in every doPainGL() iteration
-    bool myDrawFlag;
 
     /**@brief current AttributeCarrier that is drawn using with a dotted contour
      * note: it's constant because is edited from constant functions (example: drawGL(...) const)
