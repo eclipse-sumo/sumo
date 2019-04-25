@@ -1975,6 +1975,9 @@ NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing,
 
     if (angle > 0) {
         // check whether any other edge goes further to the right
+        if (angle > 90) {
+            return LINKDIR_RIGHT;
+        }
         NBEdge* outCW = getNextCompatibleOutgoing(incoming, vehPerm, itOut, !leftHand);
         if (outCW != nullptr) {
             return LINKDIR_PARTRIGHT;
@@ -1983,6 +1986,9 @@ NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing,
         }
     } else {
         // check whether any other edge goes further to the left
+        if (angle < -90) {
+            return LINKDIR_LEFT;
+        }
         NBEdge* outCCW = getNextCompatibleOutgoing(incoming, vehPerm, itOut, leftHand);
         if (outCCW != nullptr) {
             return LINKDIR_PARTLEFT;
