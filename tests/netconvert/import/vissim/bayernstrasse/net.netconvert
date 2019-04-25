@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 25 14:40:57 2019 by Eclipse SUMO netconvert Version v1_2_0+0026-b74d136
+<!-- generated on Thu Apr 25 22:44:20 2019 by Eclipse SUMO netconvert Version v1_2_0+0022-5179cc2293
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -1417,8 +1417,8 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="3[0]" to="69" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="3[1][0]" to="3[1][1][0]" fromLane="0" toLane="0" dir="s" state="m"/>
     <connection from="3[1][0]" to="20004" fromLane="0" toLane="0" dir="L" state="m"/>
-    <connection from="3[1][0]" to="68" fromLane="0" toLane="0" dir="R" state="m"/>
-    <connection from="3[1][0]" to="68" fromLane="0" toLane="1" dir="R" state="m"/>
+    <connection from="3[1][0]" to="68" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="3[1][0]" to="68" fromLane="0" toLane="1" dir="r" state="m"/>
     <connection from="3[1][0]" to="3[1][1][0]" fromLane="1" toLane="1" dir="s" state="m"/>
     <connection from="3[1][1][0]" to="3[1][1][1][0]" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="3[1][1][0]" to="3[1][1][1][0]" fromLane="1" toLane="1" dir="s" state="M"/>
@@ -1510,7 +1510,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="71" to="6[1][1][1][1][1][1][1][1]" fromLane="0" toLane="1" dir="R" state="M"/>
     <connection from="71" to="68" fromLane="1" toLane="0" dir="s" state="M"/>
     <connection from="71" to="68" fromLane="2" toLane="1" dir="s" state="M"/>
-    <connection from="71" to="3[1][1][0]" fromLane="3" toLane="0" dir="L" state="m"/>
+    <connection from="71" to="3[1][1][0]" fromLane="3" toLane="0" dir="l" state="m"/>
     <connection from="71" to="65[1][1][0]" fromLane="3" toLane="0" dir="t" state="m"/>
     <connection from="71" to="65[1][1][0]" fromLane="3" toLane="1" dir="t" state="m"/>
     <connection from="72" to="68" fromLane="0" toLane="0" dir="L" state="m"/>

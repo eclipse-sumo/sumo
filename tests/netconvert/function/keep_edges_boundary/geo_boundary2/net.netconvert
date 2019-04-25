@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 25 14:41:02 2019 by Eclipse SUMO netconvert Version v1_2_0+0026-b74d136
+<!-- generated on Thu Apr 25 23:00:22 2019 by Eclipse SUMO netconvert Version v1_2_0+0022-5179cc2293
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -832,7 +832,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="-26004861#2" to="-26004966#2" fromLane="0" toLane="0" dir="l" state="="/>
     <connection from="-26004861#2" to="26004861#2" fromLane="0" toLane="0" dir="t" state="="/>
     <connection from="-26004868#0" to="26004787#0" fromLane="0" toLane="0" dir="r" state="m"/>
-    <connection from="-26004868#0" to="-5198585#7" fromLane="0" toLane="0" dir="R" state="m"/>
+    <connection from="-26004868#0" to="-5198585#7" fromLane="0" toLane="0" dir="r" state="m"/>
     <connection from="-26004868#0" to="5198585#8" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="-26004868#0" to="26004868#0" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="-26004868#1" to="26004861#0" fromLane="0" toLane="0" dir="r" state="="/>
@@ -1056,7 +1056,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="5198585#6" to="-26004966#3" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="5198585#6" to="-5198585#6" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="5198585#7" to="5198585#8" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="5198585#7" to="26004868#0" fromLane="0" toLane="0" dir="L" state="m"/>
+    <connection from="5198585#7" to="26004868#0" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="5198585#7" to="26004787#0" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="5198585#7" to="-5198585#7" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="5198585#8" to="-5198585#8" fromLane="0" toLane="0" dir="t" state="M"/>

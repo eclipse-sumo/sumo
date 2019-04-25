@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Feb 15 12:50:56 2019 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Thu Apr 25 22:44:13 2019 by Eclipse SUMO netconvert Version v1_2_0+0022-5179cc2293
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -119,8 +119,8 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="22" state="gGGGGrrrrG"/>
         <phase duration="5"  state="gGGGGrrrrr"/>
         <phase duration="3"  state="yyyyyrrrrr"/>
-        <phase duration="22" state="rrrrrGrrGr"/>
-        <phase duration="5"  state="rrrrrGrrrr"/>
+        <phase duration="22" state="rrrrrgrrGG"/>
+        <phase duration="5"  state="rrrrrgrrrr"/>
         <phase duration="3"  state="rrrrryrrrr"/>
         <phase duration="22" state="rrrrrrGgGr"/>
         <phase duration="5"  state="rrrrrrGgrr"/>
@@ -156,7 +156,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="-786367651" to="51812052" fromLane="1" toLane="1" via=":54536753_0_0" tl="K048" linkIndex="0" dir="r" state="o"/>
     <connection from="-786367651" to="-51811895a" fromLane="1" toLane="1" via=":54536753_1_0" tl="K048" linkIndex="1" dir="s" state="o"/>
     <connection from="-786367651" to="-51811895a" fromLane="2" toLane="2" via=":54536753_1_1" tl="K048" linkIndex="2" dir="s" state="o"/>
-    <connection from="51811895a" to="51812052" fromLane="0" toLane="1" contPos="2.44" via=":54536753_5_0" tl="K048" linkIndex="5" dir="L" state="o"/>
+    <connection from="51811895a" to="51812052" fromLane="0" toLane="1" contPos="2.44" via=":54536753_5_0" tl="K048" linkIndex="5" dir="l" state="o"/>
     <connection from="51811895b" to="786367652" fromLane="1" toLane="1" via=":54536753_3_0" tl="K048" linkIndex="3" dir="s" state="o"/>
     <connection from="51811895b" to="786367652" fromLane="2" toLane="2" via=":54536753_3_1" tl="K048" linkIndex="4" dir="s" state="o"/>
     <connection from="51812052" to="-51812052" fromLane="1" toLane="2" via=":54536750_0_0" dir="t" state="M"/>
@@ -168,8 +168,8 @@ SPDX-License-Identifier: EPL-2.0
     <connection from=":54536753_1" to="-51811895a" fromLane="1" toLane="2" dir="s" state="M"/>
     <connection from=":54536753_3" to="786367652" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":54536753_3" to="786367652" fromLane="1" toLane="2" dir="s" state="M"/>
-    <connection from=":54536753_5" to="51812052" fromLane="0" toLane="1" via=":54536753_9_0" dir="L" state="m"/>
-    <connection from=":54536753_9" to="51812052" fromLane="0" toLane="1" dir="L" state="M"/>
+    <connection from=":54536753_5" to="51812052" fromLane="0" toLane="1" via=":54536753_9_0" dir="l" state="m"/>
+    <connection from=":54536753_9" to="51812052" fromLane="0" toLane="1" dir="l" state="M"/>
     <connection from=":54536753_6" to="-51811895a" fromLane="0" toLane="1" dir="r" state="M"/>
     <connection from=":54536753_7" to="786367652" fromLane="0" toLane="2" via=":54536753_10_0" dir="l" state="m"/>
     <connection from=":54536753_10" to="786367652" fromLane="0" toLane="2" dir="l" state="M"/>

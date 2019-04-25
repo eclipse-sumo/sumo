@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Mar  8 10:17:06 2019 by Eclipse SUMO netgenerate Version v1_1_0+0435-678c69824b
+<!-- generated on Thu Apr 25 22:17:21 2019 by Eclipse SUMO netgenerate Version v1_2_0+0022-5179cc2293
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -372,7 +372,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="B3B2" to="B2A1" fromLane="0" toLane="0" via=":B2_6_0" dir="r" state="M"/>
     <connection from="B3B2" to="B2B1" fromLane="0" toLane="0" via=":B2_7_0" dir="R" state="M"/>
     <connection from="B3B2" to="B2B3" fromLane="0" toLane="0" via=":B2_8_0" dir="t" state="m"/>
-    <connection from="B3B4" to="B4B1" fromLane="0" toLane="0" via=":B4_6_0" dir="L" state="M"/>
+    <connection from="B3B4" to="B4B1" fromLane="0" toLane="0" via=":B4_6_0" dir="l" state="M"/>
     <connection from="B3B4" to="B4A1" fromLane="0" toLane="0" via=":B4_7_0" dir="l" state="m"/>
     <connection from="B3B4" to="B4B3" fromLane="0" toLane="0" via=":B4_8_0" dir="t" state="m"/>
     <connection from="B4A1" to="A1B1" fromLane="0" toLane="0" via=":A1_8_0" dir="r" state="M"/>
@@ -445,7 +445,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from=":B4_4" to="B4B3" fromLane="0" toLane="0" dir="R" state="M"/>
     <connection from=":B4_5" to="B4B1" fromLane="0" toLane="0" via=":B4_9_0" dir="t" state="m"/>
     <connection from=":B4_9" to="B4B1" fromLane="0" toLane="0" dir="t" state="M"/>
-    <connection from=":B4_6" to="B4B1" fromLane="0" toLane="0" dir="L" state="M"/>
+    <connection from=":B4_6" to="B4B1" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from=":B4_7" to="B4A1" fromLane="0" toLane="0" via=":B4_10_0" dir="l" state="m"/>
     <connection from=":B4_10" to="B4A1" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from=":B4_8" to="B4B3" fromLane="0" toLane="0" via=":B4_11_0" dir="t" state="m"/>

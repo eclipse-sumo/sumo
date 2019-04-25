@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 25 14:34:49 2019 by Eclipse SUMO netconvert Version v1_2_0+0026-b74d136
+<!-- generated on Thu Apr 25 22:44:37 2019 by Eclipse SUMO netconvert Version v1_2_0+0022-5179cc2293
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -536,12 +536,12 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="cluster_1865620626_3314305185" type="right_before_left" x="181.63" y="514.68" incLanes="181738145#0_0 181738145#0_1 175999132#0_0 175999132#0_1 175999132#0_2 :cluster_1865620626_3314305185_w0_0 :cluster_1865620626_3314305185_w2_0 :cluster_1865620626_3314305185_w3_0" intLanes=":cluster_1865620626_3314305185_0_0 :cluster_1865620626_3314305185_1_0 :cluster_1865620626_3314305185_2_0 :cluster_1865620626_3314305185_3_0 :cluster_1865620626_3314305185_4_0 :cluster_1865620626_3314305185_5_0 :cluster_1865620626_3314305185_6_0 :cluster_1865620626_3314305185_c0_0 :cluster_1865620626_3314305185_c1_0 :cluster_1865620626_3314305185_c2_0" shape="164.98,502.45 169.94,495.68 168.71,494.94 162.39,500.46 168.78,508.17 168.03,514.45 195.17,536.50 203.57,536.63 205.52,533.84 205.67,528.34">
         <request index="0" response="0100000000" foes="1100110000" cont="0"/>
         <request index="1" response="0000000000" foes="1001110000" cont="0"/>
-        <request index="2" response="0000000000" foes="1010000000" cont="0"/>
+        <request index="2" response="0010000000" foes="1010000000" cont="0"/>
         <request index="3" response="0000000000" foes="0010000000" cont="0"/>
         <request index="4" response="0000000011" foes="0100000011" cont="0"/>
         <request index="5" response="0000000011" foes="0100000011" cont="0"/>
         <request index="6" response="0000000010" foes="0000000010" cont="0"/>
-        <request index="7" response="0000001100" foes="0000001100" cont="0"/>
+        <request index="7" response="0000001000" foes="0000001100" cont="0"/>
         <request index="8" response="0000110000" foes="0000110001" cont="0"/>
         <request index="9" response="0000000111" foes="0000000111" cont="0"/>
     </junction>
@@ -581,7 +581,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="180762426" to="-180762426" fromLane="1" toLane="1" via=":338535930_0_0" dir="t" state="M"/>
     <connection from="181738145#0" to="175999132#2" fromLane="1" toLane="1" via=":cluster_1865620626_3314305185_0_0" dir="r" state="="/>
     <connection from="181738145#0" to="181738145#1" fromLane="1" toLane="1" via=":cluster_1865620626_3314305185_1_0" dir="s" state="="/>
-    <connection from="181738145#0" to="175999143#0" fromLane="1" toLane="2" via=":cluster_1865620626_3314305185_2_0" dir="R" state="="/>
+    <connection from="181738145#0" to="175999143#0" fromLane="1" toLane="2" via=":cluster_1865620626_3314305185_2_0" dir="r" state="="/>
     <connection from="181738145#1" to="176906141#1" fromLane="1" toLane="2" via=":1921719395_2_0" dir="s" state="m"/>
     <connection from="181961188" to="175999152" fromLane="1" toLane="1" via=":1865620718_0_0" dir="R" state="M"/>
     <connection from="181961188" to="175999132#0" fromLane="1" toLane="1" via=":1865620718_1_0" dir="s" state="M"/>
@@ -641,7 +641,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from=":3526736114_10" to="324751734#1" fromLane="0" toLane="1" dir="t" state="M"/>
     <connection from=":cluster_1865620626_3314305185_0" to="175999132#2" fromLane="0" toLane="1" dir="r" state="M"/>
     <connection from=":cluster_1865620626_3314305185_1" to="181738145#1" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":cluster_1865620626_3314305185_2" to="175999143#0" fromLane="0" toLane="2" dir="R" state="M"/>
+    <connection from=":cluster_1865620626_3314305185_2" to="175999143#0" fromLane="0" toLane="2" dir="r" state="M"/>
     <connection from=":cluster_1865620626_3314305185_3" to="175999143#0" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":cluster_1865620626_3314305185_4" to="175999132#2" fromLane="0" toLane="1" dir="L" state="M"/>
     <connection from=":cluster_1865620626_3314305185_5" to="175999132#2" fromLane="0" toLane="2" dir="L" state="M"/>

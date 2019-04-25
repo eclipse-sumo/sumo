@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:27:46 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Thu Apr 25 22:44:20 2019 by Eclipse SUMO netconvert Version v1_2_0+0022-5179cc2293
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -819,7 +819,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="100" to="35" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="100" to="99" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="1000700" to="89" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="1000701" to="1000709" fromLane="0" toLane="0" tl="1" linkIndex="8" dir="L" state="O"/>
+    <connection from="1000701" to="1000709" fromLane="0" toLane="0" tl="1" linkIndex="8" dir="l" state="O"/>
     <connection from="1000702[0]" to="1000702[1]" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="1000702[0]" to="1000701" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="1000702[1]" to="1000703" fromLane="0" toLane="0" tl="1" linkIndex="6" dir="r" state="o"/>
@@ -837,7 +837,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="1000708[1]" to="1000709" fromLane="0" toLane="0" tl="1" linkIndex="2" dir="r" state="o"/>
     <connection from="1000708[1]" to="1000700" fromLane="0" toLane="0" tl="1" linkIndex="0" dir="s" state="o"/>
     <connection from="1000709" to="96" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="1000710" to="1000706" fromLane="0" toLane="0" tl="1" linkIndex="11" dir="L" state="o"/>
+    <connection from="1000710" to="1000706" fromLane="0" toLane="0" tl="1" linkIndex="11" dir="l" state="o"/>
     <connection from="1000711[0]" to="1000711[1]" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="1000711[0]" to="1000710" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="1000711[1]" to="1000700" fromLane="0" toLane="0" tl="1" linkIndex="9" dir="r" state="o"/>
