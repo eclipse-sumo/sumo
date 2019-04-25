@@ -226,12 +226,13 @@ protected:
 
     /// @name computed only once (for performance) in updateGeometry()
     /// @{
+public: // temporal
     /// @brief The rotations of the shape parts
     std::vector<double> myShapeRotations;
 
     /// @brief The lengths of the shape parts
     std::vector<double> myShapeLengths;
-
+protected:
     /// @brief Position of textures of restricted lanes
     std::vector<Position> myLaneRestrictedTexturePositions;
 

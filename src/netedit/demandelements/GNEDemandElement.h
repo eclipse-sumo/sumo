@@ -352,10 +352,10 @@ protected:
 
     /// @brief The GNEViewNet this demand element element belongs
     GNEViewNet* myViewNet;
-
+public:
     /// @brief geometry to be precomputed in updateGeometry(...)
     DemandElementGeometry myGeometry;
-
+protected:
     /// @brief variable DemandElementMove
     DemandElementMove myMove;
 

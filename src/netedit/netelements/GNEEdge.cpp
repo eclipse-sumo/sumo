@@ -536,7 +536,50 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
         i->drawGL(s);
     }
     for (const auto &i : getDemandElementChilds()) {
-        i->drawGL(s);
+        if (i->getTagProperty().getTag() == SUMO_TAG_ROUTE) {
+            // calculate route width
+            double routeWidth = s.addSize.getExaggeration(s, this) * 0.66;
+
+            // Start drawing adding an gl identificator
+            glPushName(i->getGlID());
+
+            // Add a draw matrix
+            glPushMatrix();
+
+            // Start with the drawing of the area traslating matrix to origin
+            glTranslated(0, 0, i->getType());
+
+            // Set color of the base
+            if (drawUsingSelectColor()) {
+                GLHelper::setColor(s.selectedAdditionalColor);
+            } else {
+                GLHelper::setColor(i->getColor());
+            }
+
+            // draw route
+            GLHelper::drawBoxLines(myLanes.front()->getShape(), myLanes.front()->myShapeRotations, myLanes.front()->myShapeLengths, routeWidth);
+
+            // Pop last matrix
+            glPopMatrix();
+
+            // Draw name if isn't being drawn for selecting
+            if (!s.drawForSelecting) {
+                drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+            }
+            
+            // check if dotted contour has to be drawn
+            if (!s.drawForSelecting && (myNet->getViewNet()->getDottedAC() == i)) {
+                GLHelper::drawShapeDottedContour(getType(), i->myGeometry.shape, routeWidth);
+            }
+            
+            // Pop name
+            glPopName();
+
+            // draw route childs
+            for (const auto &j : i->getDemandElementChilds()) {
+                j->drawGL(s);
+            }
+        }
     }
     // draw geometry points if isnt's too small
     if (s.scale > 8.0) {

@@ -186,47 +186,8 @@ GNERoute::getParentName() const {
 
 
 void
-GNERoute::drawGL(const GUIVisualizationSettings& s) const {
-    // only drawn in super mode demand
-    if (myViewNet->getViewOptions().showDemandElements()) {
-        // calculate route width
-        double routeWidth = s.addSize.getExaggeration(s, this) * 0.66;
-
-        // Start drawing adding an gl identificator
-        glPushName(getGlID());
-
-        // Add a draw matrix
-        glPushMatrix();
-
-        // Start with the drawing of the area traslating matrix to origin
-        glTranslated(0, 0, getType());
-
-        // Set color of the base
-        if (drawUsingSelectColor()) {
-            GLHelper::setColor(s.selectedAdditionalColor);
-        } else {
-            GLHelper::setColor(myColor);
-        }
-
-        // draw route
-        GLHelper::drawBoxLines(myGeometry.shape, myGeometry.shapeRotations, myGeometry.shapeLengths, routeWidth);
-
-        // Pop last matrix
-        glPopMatrix();
-
-        // Draw name if isn't being drawn for selecting
-        if (!s.drawForSelecting) {
-            drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
-        }
-
-        // check if dotted contour has to be drawn
-        if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
-            GLHelper::drawShapeDottedContour(getType(), myGeometry.shape, routeWidth);
-        }
-
-        // Pop name
-        glPopName();
-    }
+GNERoute::drawGL(const GUIVisualizationSettings& /*s*/) const {
+    // Routes are drawn in GNEEdges
 }
 
 
