@@ -146,10 +146,10 @@ NGFrame::fillOptions() {
     oc.addSynonyme("rand.min-distance", "min-dist");
     oc.addDescription("rand.min-distance", "Random Network", "The minimum distance for each edge");
 
-    oc.doRegister("rand.min-angle", new Option_Float(DEG2RAD(45.0)));
+    oc.doRegister("rand.min-angle", new Option_Float(45.0));
     oc.addSynonyme("rand.min-angle", "rand-min-anglee", true);
     oc.addSynonyme("rand.min-angle", "min-angle");
-    oc.addDescription("rand.min-angle", "Random Network", "The minimum angle for each pair of (bidirectional) roads");
+    oc.addDescription("rand.min-angle", "Random Network", "The minimum angle for each pair of (bidirectional) roads in DEGREES");
 
     oc.doRegister("rand.num-tries", new Option_Integer(50));
     oc.addSynonyme("rand.num-tries", "rand-num-tries", true);
