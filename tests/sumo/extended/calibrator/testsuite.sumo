@@ -56,4 +56,7 @@ remove_from_all_queues
 
 # calibrate 2 lanes of an edge with 2 separate calibrators
 2lanes_calibrate2
+
+# only calibrate a specific vehicle type
+vTypes
 errors
