@@ -21,9 +21,8 @@
 #include <config.h>
 
 #include <netedit/GNENet.h>
-#include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNELane.h>
-#include <netedit/netelements/GNEConnection.h>
+#include <netedit/netelements/GNEEdge.h>
 #include <netedit/additionals/GNEShape.h>
 #include <netedit/additionals/GNEAdditional.h>
 #include <netedit/demandelements/GNEDemandElement.h>
@@ -47,7 +46,6 @@ GNEChange_DemandElement::GNEChange_DemandElement(GNEDemandElement* demandElement
     myDemandElement(demandElement),
     myEdgeParents(demandElement->getEdgeParents()),
     myLaneParents(demandElement->getLaneParents()),
-    myConnectionParents(demandElement->getConnectionParents()),
     myShapeParents(demandElement->getShapeParents()),
     myAdditionalParents(demandElement->getAdditionalParents()),
     myDemandElementParents(demandElement->getDemandElementParents()),
@@ -89,9 +87,6 @@ GNEChange_DemandElement::undo() {
         for (const auto& i : myLaneParents) {
             i->removeDemandElementChild(myDemandElement);
         }
-        for (const auto& i : myConnectionParents) {
-            i->removeDemandElementChild(myDemandElement);
-        }
         for (const auto& i : myShapeParents) {
             i->removeDemandElementChild(myDemandElement);
         }
@@ -127,9 +122,6 @@ GNEChange_DemandElement::undo() {
             i->addDemandElementChild(myDemandElement);
         }
         for (const auto& i : myLaneParents) {
-            i->addDemandElementChild(myDemandElement);
-        }
-        for (const auto& i : myConnectionParents) {
             i->addDemandElementChild(myDemandElement);
         }
         for (const auto& i : myShapeParents) {
@@ -177,9 +169,6 @@ GNEChange_DemandElement::redo() {
         for (const auto& i : myLaneParents) {
             i->addDemandElementChild(myDemandElement);
         }
-        for (const auto& i : myConnectionParents) {
-            i->addDemandElementChild(myDemandElement);
-        }
         for (const auto& i : myShapeParents) {
             i->addDemandElementChild(myDemandElement);
         }
@@ -215,9 +204,6 @@ GNEChange_DemandElement::redo() {
             i->removeDemandElementChild(myDemandElement);
         }
         for (const auto& i : myLaneParents) {
-            i->removeDemandElementChild(myDemandElement);
-        }
-        for (const auto& i : myConnectionParents) {
             i->removeDemandElementChild(myDemandElement);
         }
         for (const auto& i : myShapeParents) {

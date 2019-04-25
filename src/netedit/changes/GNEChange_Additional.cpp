@@ -21,9 +21,8 @@
 #include <config.h>
 
 #include <netedit/GNENet.h>
-#include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNELane.h>
-#include <netedit/netelements/GNEConnection.h>
+#include <netedit/netelements/GNEEdge.h>
 #include <netedit/additionals/GNEShape.h>
 #include <netedit/additionals/GNEAdditional.h>
 #include <netedit/demandelements/GNEDemandElement.h>
@@ -47,7 +46,6 @@ GNEChange_Additional::GNEChange_Additional(GNEAdditional* additional, bool forwa
     myAdditional(additional),
     myEdgeParents(myAdditional->getEdgeParents()),
     myLaneParents(myAdditional->getLaneParents()),
-    myConnectionParents(myAdditional->getConnectionParents()),
     myShapeParents(myAdditional->getShapeParents()),
     myAdditionalParents(myAdditional->getAdditionalParents()),
     myDemandElementParents(myAdditional->getDemandElementParents()),
@@ -89,9 +87,6 @@ GNEChange_Additional::undo() {
         for (const auto& i : myLaneParents) {
             i->removeAdditionalChild(myAdditional);
         }
-        for (const auto& i : myConnectionParents) {
-            i->removeAdditionalChild(myAdditional);
-        }
         for (const auto& i : myShapeParents) {
             i->removeAdditionalChild(myAdditional);
         }
@@ -127,9 +122,6 @@ GNEChange_Additional::undo() {
             i->addAdditionalChild(myAdditional);
         }
         for (const auto& i : myLaneParents) {
-            i->addAdditionalChild(myAdditional);
-        }
-        for (const auto& i : myConnectionParents) {
             i->addAdditionalChild(myAdditional);
         }
         for (const auto& i : myShapeParents) {
@@ -177,9 +169,6 @@ GNEChange_Additional::redo() {
         for (const auto& i : myLaneParents) {
             i->addAdditionalChild(myAdditional);
         }
-        for (const auto& i : myConnectionParents) {
-            i->addAdditionalChild(myAdditional);
-        }
         for (const auto& i : myShapeParents) {
             i->addAdditionalChild(myAdditional);
         }
@@ -215,9 +204,6 @@ GNEChange_Additional::redo() {
             i->removeAdditionalChild(myAdditional);
         }
         for (const auto& i : myLaneParents) {
-            i->removeAdditionalChild(myAdditional);
-        }
-        for (const auto& i : myConnectionParents) {
             i->removeAdditionalChild(myAdditional);
         }
         for (const auto& i : myShapeParents) {

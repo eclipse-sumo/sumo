@@ -1021,7 +1021,7 @@ GNEAttributeCarrier::parse(GNENet* net, const std::string& value) {
         if (retrievedEdge) {
             parsedEdges.push_back(net->retrieveEdge(i));
         } else {
-            throw FormatException("Error parsing edges. " + toString(SUMO_TAG_EDGE) + " '" + i + "' doesn't exist");
+            throw FormatException("Error parsing parameter " + toString(SUMO_ATTR_EDGES) + ". " + toString(SUMO_TAG_EDGE) + " '" + i + "' doesn't exist");
         }
     }
     return parsedEdges;
@@ -1039,28 +1039,10 @@ GNEAttributeCarrier::parse(GNENet* net, const std::string& value) {
         if (retrievedLane) {
             parsedLanes.push_back(net->retrieveLane(i));
         } else {
-            throw FormatException("Error parsing lanes. " + toString(SUMO_TAG_LANE) + " '" + i + "'  doesn't exist");
+            throw FormatException("Error parsing parameter " + toString(SUMO_ATTR_LANES) + ". " + toString(SUMO_TAG_LANE) + " '" + i + "'  doesn't exist");
         }
     }
     return parsedLanes;
-}
-
-
-template<> std::vector<GNEConnection*>
-GNEAttributeCarrier::parse(GNENet* net, const std::string& value) {
-    // Declare string vector
-    std::vector<std::string> connectionIds = GNEAttributeCarrier::parse<std::vector<std::string> > (value);
-    std::vector<GNEConnection*> parsedConnections;
-    // Iterate over connections IDs, retrieve Connections and add it into parsedConnections
-    for (const auto& i : connectionIds) {
-        GNEConnection* retrievedConnection = net->retrieveConnection(i, false);
-        if (retrievedConnection) {
-            parsedConnections.push_back(net->retrieveConnection(i));
-        } else {
-            throw FormatException("Error parsing connections. " + toString(SUMO_TAG_CONNECTION) + " '" + i + "'  doesn't exist");
-        }
-    }
-    return parsedConnections;
 }
 
 
