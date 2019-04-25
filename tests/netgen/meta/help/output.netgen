@@ -1,4 +1,4 @@
-Eclipse SUMO netgenerate Version v1_1_0+0435-678c69824b
+Eclipse SUMO netgenerate Version v1_2_0+0022-5179cc2293
  Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Synthetic network generator for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -50,7 +50,7 @@ Random Network Options:
   --rand.max-distance FLOAT            The maximum distance for each edge
   --rand.min-distance FLOAT            The minimum distance for each edge
   --rand.min-angle FLOAT               The minimum angle for each pair of
-                                         (bidirectional) roads
+                                         (bidirectional) roads in DEGREES
   --rand.num-tries INT                 The number of tries for creating each
                                          node
   --rand.connectivity FLOAT            Probability for roads to continue at

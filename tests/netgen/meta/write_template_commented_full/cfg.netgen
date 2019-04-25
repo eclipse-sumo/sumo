@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Mar 14 15:50:38 2019 by Eclipse SUMO netgenerate Version v1_1_0+0435-678c69824b
+<!-- generated on Thu Apr 25 21:45:44 2019 by Eclipse SUMO netgenerate Version v1_2_0+0022-5179cc2293
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -84,8 +84,8 @@
         <!-- The minimum distance for each edge -->
         <rand.min-distance value="100" synonymes="min-dist rand-min-distance" type="FLOAT"/>
 
-        <!-- The minimum angle for each pair of (bidirectional) roads -->
-        <rand.min-angle value="0.785398" synonymes="min-angle rand-min-anglee" type="FLOAT"/>
+        <!-- The minimum angle for each pair of (bidirectional) roads in DEGREES -->
+        <rand.min-angle value="45" synonymes="min-angle rand-min-anglee" type="FLOAT"/>
 
         <!-- The number of tries for creating each node -->
         <rand.num-tries value="50" synonymes="num-tries rand-num-tries" type="INT"/>
