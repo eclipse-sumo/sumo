@@ -260,6 +260,9 @@ protected:
     std::vector<MSMeanData_Net::MSLaneMeanDataValues*> myLaneMeanData;
     /// @brief accumlated data for the whole edge
     MSMeanData_Net::MSLaneMeanDataValues myEdgeMeanData;
+    /// @brief dummy parent to retrieve vType filter
+    MSMeanData_Net myMeanDataParent;
+
     /// @brief List of adaptation intervals
     std::vector<AspiredState> myIntervals;
     /// @brief Iterator pointing to the current interval

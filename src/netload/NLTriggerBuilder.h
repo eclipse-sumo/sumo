@@ -313,8 +313,8 @@ protected:
                                           const std::string& id, MSEdge* edge, MSLane* lane, double pos,
                                           const std::string& file, const std::string& outfile,
                                           const SUMOTime freq,
-                                          const std::string& vTypes,
-                                          const MSRouteProbe* probe);
+                                          const MSRouteProbe* probe,
+                                          const std::string& vTypes);
 
     /** @brief builds a mesoscopic calibrator
      *
@@ -331,8 +331,8 @@ protected:
             const std::string& id, const MSEdge* edge, double pos,
             const std::string& file, const std::string& outfile,
             const SUMOTime freq,
-            const std::string& vTypes,
-            MSRouteProbe* probe);
+            MSRouteProbe* probe,
+            const std::string& vTypes);
 
 
     /** @brief builds an rerouter

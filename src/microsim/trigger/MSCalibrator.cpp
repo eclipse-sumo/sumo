@@ -72,6 +72,7 @@ MSCalibrator::MSCalibrator(const std::string& id,
     myLane(lane),
     myPos(pos), myProbe(probe),
     myEdgeMeanData(nullptr, length, false, nullptr),
+    myMeanDataParent(id + "_dummyMeanData", 0, 0, false, false, false, false, false, false, 1, 0, 0, vTypes),
     myCurrentStateInterval(myIntervals.begin()),
     myOutput(nullptr), myFrequency(freq), myRemoved(0),
     myInserted(0), myClearedInJam(0),
@@ -95,7 +96,7 @@ MSCalibrator::MSCalibrator(const std::string& id,
             MSLane* lane = myEdge->getLanes()[i];
             if (myLane == nullptr || myLane == lane) {
                 //std::cout << " cali=" << getID() << " myLane=" << Named::getIDSecure(myLane) << " checkLane=" << i << "\n";
-                MSMeanData_Net::MSLaneMeanDataValues* laneData = new MSMeanData_Net::MSLaneMeanDataValues(lane, lane->getLength(), true, nullptr);
+                MSMeanData_Net::MSLaneMeanDataValues* laneData = new MSMeanData_Net::MSLaneMeanDataValues(lane, lane->getLength(), true, &myMeanDataParent);
                 laneData->setDescription("meandata_calibrator_" + lane->getID());
                 LeftoverReminders.push_back(laneData);
                 myLaneMeanData.push_back(laneData);
@@ -502,6 +503,9 @@ MSCalibrator::updateMeanData() {
 
 bool MSCalibrator::VehicleRemover::notifyEnter(SUMOTrafficObject& veh, Notification /* reason */, const MSLane* /* enteredLane */) {
     if (myParent == nullptr) {
+        return false;
+    }
+    if (!myParent->vehicleApplies(veh)) {
         return false;
     }
     if (myParent->isActive()) {

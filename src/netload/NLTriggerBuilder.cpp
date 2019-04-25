@@ -324,12 +324,12 @@ NLTriggerBuilder::parseAndBuildCalibrator(MSNet& net, const SUMOSAXAttributes& a
                           + "' defined for lane '" + lane->getID()
                           + "' will collect data for all lanes of edge '" + edge->getID() + "'.");
         }
-        METriggeredCalibrator* trigger = buildMECalibrator(net, id, edge, pos, file, outfile, freq, vTypes, probe);
+        METriggeredCalibrator* trigger = buildMECalibrator(net, id, edge, pos, file, outfile, freq, probe, vTypes);
         if (file == "") {
             trigger->registerParent(SUMO_TAG_CALIBRATOR, myHandler);
         }
     } else {
-        MSCalibrator* trigger = buildCalibrator(net, id, edge, lane, pos, file, outfile, freq, vTypes, probe);
+        MSCalibrator* trigger = buildCalibrator(net, id, edge, lane, pos, file, outfile, freq, probe, vTypes);
         if (file == "") {
             trigger->registerParent(SUMO_TAG_CALIBRATOR, myHandler);
         }
@@ -396,9 +396,9 @@ NLTriggerBuilder::buildMECalibrator(MSNet& /*net*/, const std::string& id,
                                     double pos,
                                     const std::string& file,
                                     const std::string& outfile,
-                                    const SUMOTime freq, 
-                                    const std::string& vTypes,
-                                    MSRouteProbe* probe) {
+                                    const SUMOTime freq,
+                                    MSRouteProbe* probe, 
+                                    const std::string& vTypes) {
     return new METriggeredCalibrator(id, edge, pos, file, outfile, freq, MSGlobals::gMesoNet->getSegmentForEdge(*edge, pos)->getLength(), probe, vTypes);
 }
 
@@ -411,8 +411,8 @@ NLTriggerBuilder::buildCalibrator(MSNet& /*net*/, const std::string& id,
                                   const std::string& file,
                                   const std::string& outfile,
                                   const SUMOTime freq,
-                                  const std::string& vTypes,
-                                  const MSRouteProbe* probe) {
+                                  const MSRouteProbe* probe,
+                                  const std::string& vTypes) {
     return new MSCalibrator(id, edge, lane, pos, file, outfile, freq, edge->getLength(), probe, vTypes);
 }
 
