@@ -111,4 +111,7 @@ sidewalks
 
 # motorway without speed limit
 motorway
+
+# import high speed railway line
+rail_highspeed
 bugs

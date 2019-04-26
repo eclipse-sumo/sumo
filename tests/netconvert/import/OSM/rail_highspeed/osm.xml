@@ -1,0 +1,658 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="Overpass API 0.7.55.6 486819c8">
+<note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
+<meta osm_base="2019-04-26T19:41:02Z"/>
+
+  <node id="21302173" lat="52.5396597" lon="13.1157031"/>
+  <node id="21302174" lat="52.5413898" lon="13.0915700"/>
+  <node id="21302175" lat="52.5438857" lon="13.0571164"/>
+  <node id="21302176" lat="52.5459886" lon="13.0258937"/>
+  <node id="21302177" lat="52.5472496" lon="13.0076088"/>
+  <node id="21302179" lat="52.5498387" lon="12.9801187"/>
+  <node id="30231030" lat="52.5450883" lon="13.0367826"/>
+  <node id="31059661" lat="52.5482675" lon="13.0386608"/>
+  <node id="31059662" lat="52.5478566" lon="13.0382695"/>
+  <node id="33003482" lat="52.5444670" lon="13.0368859"/>
+  <node id="33003483" lat="52.5461709" lon="13.0372351"/>
+  <node id="33003484" lat="52.5471012" lon="13.0377816"/>
+  <node id="141813083" lat="52.5416045" lon="13.0867965"/>
+  <node id="141813089" lat="52.5437016" lon="13.0580604">
+    <tag k="name" v="Dallgow-Döberitz"/>
+    <tag k="operator" v="Deutsche Bahn"/>
+    <tag k="public_transport" v="stop_position"/>
+    <tag k="railway" v="halt"/>
+    <tag k="railway:ref" v="BDL"/>
+    <tag k="train" v="yes"/>
+    <tag k="wheelchair" v="yes"/>
+  </node>
+  <node id="141813091" lat="52.5437345" lon="13.0576764"/>
+  <node id="141817273" lat="52.5448067" lon="13.0369300"/>
+  <node id="141817274" lat="52.5454651" lon="13.0370512"/>
+  <node id="246636728" lat="52.5422900" lon="13.0473669"/>
+  <node id="246636729" lat="52.5422684" lon="13.0443927"/>
+  <node id="253898107" lat="52.5447046" lon="13.0453633"/>
+  <node id="253898108" lat="52.5450639" lon="13.0423875"/>
+  <node id="254567311" lat="52.5399908" lon="13.1118949"/>
+  <node id="297861041" lat="52.5483613" lon="13.0389251"/>
+  <node id="297861042" lat="52.5498331" lon="13.0404100"/>
+  <node id="297861059" lat="52.5452393" lon="13.0396891"/>
+  <node id="297861060" lat="52.5467720" lon="13.0399130"/>
+  <node id="297861062" lat="52.5469223" lon="13.0379987"/>
+  <node id="297861553" lat="52.5481578" lon="13.0382814"/>
+  <node id="297861554" lat="52.5461535" lon="13.0363416"/>
+  <node id="297861555" lat="52.5455063" lon="13.0364275"/>
+  <node id="297862200" lat="52.5501424" lon="13.0403185"/>
+  <node id="297867183" lat="52.5460576" lon="13.0366259"/>
+  <node id="297867185" lat="52.5476530" lon="13.0377360"/>
+  <node id="297867220" lat="52.5454868" lon="13.0366889"/>
+  <node id="297867221" lat="52.5474470" lon="13.0377669"/>
+  <node id="297867222" lat="52.5482787" lon="13.0384124"/>
+  <node id="297867489" lat="52.5448329" lon="13.0294494"/>
+  <node id="297867491" lat="52.5450887" lon="13.0330629"/>
+  <node id="297867493" lat="52.5451096" lon="13.0341272"/>
+  <node id="297867495" lat="52.5449634" lon="13.0363931"/>
+  <node id="297867528" lat="52.5450715" lon="13.0347182"/>
+  <node id="321794392" lat="52.5396082" lon="13.1156955"/>
+  <node id="321794393" lat="52.5413435" lon="13.0915597"/>
+  <node id="321794394" lat="52.5438459" lon="13.0571200"/>
+  <node id="387505102" lat="52.5491822" lon="12.9863109"/>
+  <node id="387505103" lat="52.5495472" lon="12.9832645"/>
+  <node id="387505108" lat="52.5497955" lon="12.9801522"/>
+  <node id="387505109" lat="52.5495040" lon="12.9832443"/>
+  <node id="387505110" lat="52.5491355" lon="12.9863160"/>
+  <node id="387505111" lat="52.5482921" lon="12.9935280"/>
+  <node id="387505131" lat="52.5483338" lon="12.9935455"/>
+  <node id="387505134" lat="52.5477682" lon="12.9994292"/>
+  <node id="387505135" lat="52.5478458" lon="12.9991591">
+    <tag k="note" v="Hängt am ersten Oberleitungsmasten östlich der angrenzenden Brücke"/>
+    <tag k="railway" v="milestone"/>
+    <tag k="railway:milestone:catenary_mast" v="yes"/>
+    <tag k="railway:milestone:emergency_brake_override" v="no"/>
+    <tag k="railway:position" v="126.4"/>
+    <tag k="source" v="bing; extrapolation; survey"/>
+  </node>
+  <node id="387505136" lat="52.5472070" lon="13.0076019"/>
+  <node id="387505174" lat="52.5459488" lon="13.0258913"/>
+  <node id="387505175" lat="52.5451928" lon="13.0367955"/>
+  <node id="387766203" lat="52.5454405" lon="13.0364138"/>
+  <node id="387766204" lat="52.5456379" lon="13.0329775"/>
+  <node id="387766205" lat="52.5456665" lon="13.0318627"/>
+  <node id="387766206" lat="52.5449500" lon="13.0410696"/>
+  <node id="387766207" lat="52.5452442" lon="13.0366315">
+    <tag k="note" v="Hängt am ersten Oberleitungsmasten westlich der angrenzenden Brücke"/>
+    <tag k="railway" v="milestone"/>
+    <tag k="railway:milestone:catenary_mast" v="yes"/>
+    <tag k="railway:milestone:emergency_brake_override" v="no"/>
+    <tag k="railway:position" v="123.8"/>
+    <tag k="source" v="bing; extrapolation; survey"/>
+  </node>
+  <node id="387766208" lat="52.5449049" lon="13.0410771"/>
+  <node id="387766209" lat="52.5451353" lon="13.0367868"/>
+  <node id="387766211" lat="52.5447904" lon="13.0410543"/>
+  <node id="387766212" lat="52.5436283" lon="13.0576476"/>
+  <node id="387766213" lat="52.5435761" lon="13.0583765"/>
+  <node id="387766214" lat="52.5415605" lon="13.0867832"/>
+  <node id="387766215" lat="52.5416854" lon="13.0868144"/>
+  <node id="387766216" lat="52.5417313" lon="13.0868247"/>
+  <node id="387766217" lat="52.5411992" lon="13.0914919"/>
+  <node id="395285858" lat="52.5452896" lon="13.0337129">
+    <tag k="railway" v="switch"/>
+  </node>
+  <node id="650455224" lat="52.5437861" lon="13.0368249"/>
+  <node id="670470847" lat="52.5442129" lon="13.0308484"/>
+  <node id="670470857" lat="52.5452040" lon="13.0350678">
+    <tag k="railway" v="switch"/>
+    <tag k="railway:switch" v="default"/>
+    <tag k="railway:turnout_side" v="left"/>
+  </node>
+  <node id="670470875" lat="52.5454871" lon="13.0307710">
+    <tag k="railway" v="switch"/>
+    <tag k="railway:switch" v="default"/>
+    <tag k="railway:turnout_side" v="left"/>
+  </node>
+  <node id="670470880" lat="52.5440261" lon="13.0344076"/>
+  <node id="670470893" lat="52.5451677" lon="13.0363043">
+    <tag k="railway" v="switch"/>
+    <tag k="railway:switch" v="default"/>
+    <tag k="railway:turnout_side" v="left"/>
+  </node>
+  <node id="670470943" lat="52.5447980" lon="13.0293398"/>
+  <node id="672294435" lat="52.5455149" lon="13.0309931"/>
+  <node id="672294468" lat="52.5455908" lon="13.0310119"/>
+  <node id="672294527" lat="52.5456323" lon="13.0310119"/>
+  <node id="672405730" lat="52.5436917" lon="13.0563202"/>
+  <node id="675037137" lat="52.5480571" lon="12.9963855"/>
+  <node id="675037151" lat="52.5480110" lon="12.9963722"/>
+  <node id="675087866" lat="52.5493641" lon="12.9847823"/>
+  <node id="675087867" lat="52.5496431" lon="12.9818231"/>
+  <node id="675087870" lat="52.5493255" lon="12.9847727"/>
+  <node id="675087871" lat="52.5496867" lon="12.9818338"/>
+  <node id="675091810" lat="52.5464458" lon="13.0187623"/>
+  <node id="675091813" lat="52.5464896" lon="13.0187622"/>
+  <node id="676504846" lat="52.5450402" lon="13.0331706"/>
+  <node id="676504851" lat="52.5450592" lon="13.0338489"/>
+  <node id="676504857" lat="52.5451248" lon="13.0318451"/>
+  <node id="676504858" lat="52.5450347" lon="13.0346095"/>
+  <node id="676504862" lat="52.5449086" lon="13.0363381"/>
+  <node id="676504866" lat="52.5439204" lon="13.0364591"/>
+  <node id="704719487" lat="52.5448380" lon="13.0291326"/>
+  <node id="1225840210" lat="52.5434565" lon="13.0601429">
+    <tag k="name" v="Dallgow-Döberitz"/>
+    <tag k="public_transport" v="stop_position"/>
+    <tag k="train" v="yes"/>
+  </node>
+  <node id="1379305259" lat="52.5481847" lon="12.9945552"/>
+  <node id="1379305262" lat="52.5482301" lon="12.9945611"/>
+  <node id="1422511250" lat="52.5439202" lon="13.0368289">
+    <tag k="traffic_calming" v="table"/>
+  </node>
+  <node id="1422511253" lat="52.5441516" lon="13.0368476"/>
+  <node id="1690884294" lat="52.5466279" lon="13.0374861"/>
+  <node id="1800380758" lat="52.5433839" lon="13.0605847"/>
+  <node id="1800380763" lat="52.5436526" lon="13.0569842"/>
+  <node id="1800380767" lat="52.5432644" lon="13.0623653"/>
+  <node id="1800418004" lat="52.5423218" lon="13.0433062"/>
+  <node id="1800418021" lat="52.5438064" lon="13.0426098"/>
+  <node id="2329265007" lat="52.5456388" lon="13.0331688"/>
+  <node id="2329265011" lat="52.5458888" lon="13.0289751"/>
+  <node id="2329265015" lat="52.5462512" lon="13.0240801"/>
+  <node id="2329265019" lat="52.5465175" lon="13.0194830"/>
+  <node id="2329265022" lat="52.5468096" lon="13.0153662"/>
+  <node id="2329265023" lat="52.5470019" lon="13.0128366"/>
+  <node id="2329265026" lat="52.5475270" lon="13.0130433"/>
+  <node id="2329353127" lat="52.5499124" lon="13.0400945"/>
+  <node id="2599996809" lat="52.5410134" lon="13.0944528">
+    <tag k="railway" v="switch"/>
+  </node>
+  <node id="2599996811" lat="52.5410302" lon="13.0936008">
+    <tag k="railway" v="switch"/>
+  </node>
+  <node id="2692675368" lat="52.5414992" lon="13.0880917">
+    <tag k="note" v="Hängt an einem Oberleitungsmasten westlich der angrenzenden Straßenbrücke"/>
+    <tag k="operator" v="DB Netz"/>
+    <tag k="railway" v="milestone"/>
+    <tag k="railway:milestone:catenary_mast" v="yes"/>
+    <tag k="railway:milestone:emergency_brake_override" v="no"/>
+    <tag k="railway:position" v="20.2"/>
+    <tag k="source" v="bing; extrapolation; survey"/>
+  </node>
+  <node id="2938625270" lat="52.5405278" lon="13.1026935"/>
+  <node id="2938625271" lat="52.5405685" lon="13.1027088"/>
+  <node id="2938625274" lat="52.5421883" lon="13.0784962"/>
+  <node id="2938625275" lat="52.5422416" lon="13.0784885"/>
+  <node id="2938625276" lat="52.5423156" lon="13.0785017"/>
+  <node id="2938625277" lat="52.5423601" lon="13.0785175"/>
+  <node id="2938625278" lat="52.5425988" lon="13.0725595"/>
+  <node id="2938625279" lat="52.5426991" lon="13.0725703"/>
+  <node id="2938625280" lat="52.5427677" lon="13.0725918"/>
+  <node id="2938625281" lat="52.5428150" lon="13.0725592">
+    <tag k="description" v="LZB-Blockkennzeichen in westlicher Richtung"/>
+    <tag k="operator" v="DB Netz"/>
+    <tag k="railway" v="signal"/>
+    <tag k="railway:signal:catenary_mast" v="yes"/>
+    <tag k="railway:signal:direction" v="forward"/>
+    <tag k="railway:signal:position" v="right"/>
+    <tag k="railway:signal:train_protection" v="DE-ESO:blockkennzeichen"/>
+    <tag k="railway:signal:train_protection:form" v="sign"/>
+    <tag k="railway:signal:train_protection:type" v="block_marker"/>
+    <tag k="source" v="bing; estimation; survey"/>
+  </node>
+  <node id="2938625282" lat="52.5439918" lon="13.0531304"/>
+  <node id="2938625283" lat="52.5440715" lon="13.0531647"/>
+  <node id="2938625284" lat="52.5441186" lon="13.0531629"/>
+  <node id="3012289906" lat="52.5398481" lon="13.1130092">
+    <tag k="operator" v="DB Netz"/>
+    <tag k="railway" v="milestone"/>
+    <tag k="railway:milestone:catenary_mast" v="yes"/>
+    <tag k="railway:milestone:emergency_brake_override" v="no"/>
+    <tag k="railway:position" v="118.6"/>
+    <tag k="source" v="bing; extrapolation; survey"/>
+  </node>
+  <node id="3012289919" lat="52.5415273" lon="13.0896595">
+    <tag k="note" v="Hängt am zweiten Oberleitungsmasten östlich der angrenzenden Brücke"/>
+    <tag k="operator" v="DB Netz"/>
+    <tag k="railway" v="milestone"/>
+    <tag k="railway:milestone:catenary_mast" v="yes"/>
+    <tag k="railway:milestone:emergency_brake_override" v="no"/>
+    <tag k="railway:position" v="120.2"/>
+    <tag k="source" v="bing; extrapolation; survey"/>
+  </node>
+  <node id="3075691298" lat="52.5434878" lon="13.0628548">
+    <tag k="note" v="Hängt am ersten Oberleitungsmasten westlich der angrenzenden Brücke"/>
+    <tag k="operator" v="DB Netz"/>
+    <tag k="railway" v="milestone"/>
+    <tag k="railway:milestone:catenary_mast" v="yes"/>
+    <tag k="railway:milestone:emergency_brake_override" v="no"/>
+    <tag k="railway:position" v="122.0"/>
+    <tag k="source" v="bing; extrapolation; survey"/>
+  </node>
+  <node id="3075691299" lat="52.5466888" lon="13.0158382">
+    <tag k="description" v="LZB-Blockkennzeichen in westlicher Richtung"/>
+    <tag k="operator" v="DB Netz"/>
+    <tag k="railway" v="signal"/>
+    <tag k="railway:signal:catenary_mast" v="yes"/>
+    <tag k="railway:signal:direction" v="forward"/>
+    <tag k="railway:signal:position" v="right"/>
+    <tag k="railway:signal:train_protection" v="DE-ESO:blockkennzeichen"/>
+    <tag k="railway:signal:train_protection:form" v="sign"/>
+    <tag k="railway:signal:train_protection:type" v="block_marker"/>
+    <tag k="source" v="bing; estimation; survey"/>
+  </node>
+  <node id="3256154150" lat="52.5450415" lon="13.0368940"/>
+  <node id="3256154151" lat="52.5450982" lon="13.0396702"/>
+  <node id="3256154152" lat="52.5452081" lon="13.0336342"/>
+  <node id="3256154153" lat="52.5452537" lon="13.0337670"/>
+  <node id="3256154154" lat="52.5452753" lon="13.0369392"/>
+  <node id="3256154155" lat="52.5455422" lon="13.0331688"/>
+  <node id="3256154156" lat="52.5457201" lon="13.0370962"/>
+  <node id="3256154159" lat="52.5459596" lon="13.0371592"/>
+  <node id="3256154169" lat="52.5463770" lon="13.0373332"/>
+  <node id="3256154241" lat="52.5479206" lon="13.0380229"/>
+  <node id="3256154256" lat="52.5480391" lon="13.0381753"/>
+  <node id="3256154271" lat="52.5481780" lon="13.0382849"/>
+  <node id="3261414667" lat="52.5432235" lon="13.0627859"/>
+  <node id="3261414676" lat="52.5434931" lon="13.0591574"/>
+  <node id="3261414679" lat="52.5435715" lon="13.0579035"/>
+  <node id="3261414691" lat="52.5439050" lon="13.0532433"/>
+  <node id="3674101751" lat="52.5414720" lon="13.0879369">
+    <tag k="description" v="KS-Mehrabschnittssignal in südöstlicher Richtung"/>
+    <tag k="operator" v="DB Netz"/>
+    <tag k="railway" v="signal"/>
+    <tag k="railway:signal:combined" v="DE-ESO:ks"/>
+    <tag k="railway:signal:combined:form" v="light"/>
+    <tag k="railway:signal:combined:height" v="normal"/>
+    <tag k="railway:signal:direction" v="forward"/>
+    <tag k="railway:signal:position" v="right"/>
+    <tag k="source" v="bing; estimation; survey"/>
+  </node>
+  <node id="3674101754" lat="52.5415109" lon="13.0879478">
+    <tag k="description" v="KS-Mehrabschnittssignal in südöstlicher Richtung"/>
+    <tag k="operator" v="DB Netz"/>
+    <tag k="railway" v="signal"/>
+    <tag k="railway:signal:combined" v="DE-ESO:ks"/>
+    <tag k="railway:signal:combined:form" v="light"/>
+    <tag k="railway:signal:combined:height" v="normal"/>
+    <tag k="railway:signal:direction" v="backward"/>
+    <tag k="source" v="bing; estimation; survey"/>
+  </node>
+  <node id="3706364011" lat="52.5396076" lon="13.1121895"/>
+  <node id="3810274104" lat="52.5451960" lon="13.0381615"/>
+  <node id="3810274105" lat="52.5448405" lon="13.0396730"/>
+  <node id="3810274106" lat="52.5446235" lon="13.0428085"/>
+  <node id="3810274107" lat="52.5443625" lon="13.0465207"/>
+  <node id="3810274108" lat="52.5440559" lon="13.0509356"/>
+  <node id="3810274109" lat="52.5430559" lon="13.0652103"/>
+  <node id="3810274110" lat="52.5428145" lon="13.0686972"/>
+  <node id="3810274111" lat="52.5426807" lon="13.0704299"/>
+  <node id="3810274112" lat="52.5425339" lon="13.0725891"/>
+  <node id="3810274113" lat="52.5423659" lon="13.0750084"/>
+  <node id="3810274114" lat="52.5422387" lon="13.0767545"/>
+  <node id="3810274115" lat="52.5421180" lon="13.0785865"/>
+  <node id="3810274116" lat="52.5420511" lon="13.0794689"/>
+  <node id="3810274117" lat="52.5416645" lon="13.0849192"/>
+  <node id="3810274118" lat="52.5416400" lon="13.0849889"/>
+  <node id="3810274119" lat="52.5415715" lon="13.0857775"/>
+  <node id="3810274120" lat="52.5414377" lon="13.0876416"/>
+  <node id="3810274121" lat="52.5413953" lon="13.0882183"/>
+  <node id="3810274122" lat="52.5413920" lon="13.0884409"/>
+  <node id="3810274123" lat="52.5411180" lon="13.0918473"/>
+  <node id="3810274124" lat="52.5407917" lon="13.0960047"/>
+  <node id="3810274125" lat="52.5404932" lon="13.1001193"/>
+  <node id="3810274126" lat="52.5402338" lon="13.1037885"/>
+  <node id="3810274127" lat="52.5399761" lon="13.1074631"/>
+  <node id="3810274128" lat="52.5398129" lon="13.1096679"/>
+  <node id="3810274129" lat="52.5397444" lon="13.1100729"/>
+  <node id="3810274130" lat="52.5397102" lon="13.1104753"/>
+  <node id="3810274131" lat="52.5400903" lon="13.1103546"/>
+  <node id="3810274132" lat="52.5403660" lon="13.1063339"/>
+  <node id="3810274133" lat="52.5404279" lon="13.1061381"/>
+  <node id="3810274134" lat="52.5404051" lon="13.1058109"/>
+  <node id="3810274135" lat="52.5406612" lon="13.1021282"/>
+  <node id="3810274136" lat="52.5408537" lon="13.0994272"/>
+  <node id="3810274137" lat="52.5410870" lon="13.0961013"/>
+  <node id="3810274138" lat="52.5411392" lon="13.0959243"/>
+  <node id="3810274139" lat="52.5411457" lon="13.0958358"/>
+  <node id="3810274140" lat="52.5411098" lon="13.0957741"/>
+  <node id="3810274141" lat="52.5413904" lon="13.0918581"/>
+  <node id="3810274142" lat="52.5415960" lon="13.0891007"/>
+  <node id="3810274143" lat="52.5416530" lon="13.0883041"/>
+  <node id="3810274144" lat="52.5417787" lon="13.0865151"/>
+  <node id="3810274145" lat="52.5419499" lon="13.0843291"/>
+  <node id="3810274146" lat="52.5421685" lon="13.0812848"/>
+  <node id="3810274147" lat="52.5424507" lon="13.0776423"/>
+  <node id="3810274148" lat="52.5428488" lon="13.0725703"/>
+  <node id="3810274149" lat="52.5430380" lon="13.0699793"/>
+  <node id="3810274150" lat="52.5433104" lon="13.0661437"/>
+  <node id="3810274151" lat="52.5434507" lon="13.0639979"/>
+  <node id="3810274152" lat="52.5435290" lon="13.0628365"/>
+  <node id="3810274153" lat="52.5437215" lon="13.0602509"/>
+  <node id="3810274154" lat="52.5438503" lon="13.0584216"/>
+  <node id="3810274155" lat="52.5439350" lon="13.0584280"/>
+  <node id="3810275057" lat="52.5439051" lon="13.0576354"/>
+  <node id="3810275058" lat="52.5440640" lon="13.0548838"/>
+  <node id="3810275059" lat="52.5442108" lon="13.0523893"/>
+  <node id="3810275060" lat="52.5444131" lon="13.0493343"/>
+  <node id="3810275061" lat="52.5446056" lon="13.0465234"/>
+  <node id="3810275062" lat="52.5450460" lon="13.0404252"/>
+  <node id="4126829581" lat="52.5407069" lon="13.1008107">
+    <tag k="railway" v="milestone"/>
+    <tag k="railway:milestone:catenary_mast" v="yes"/>
+    <tag k="railway:position" v="119.4"/>
+  </node>
+  <node id="4126829612" lat="52.5436982" lon="13.0563793"/>
+  <node id="4126829613" lat="52.5437272" lon="13.0559662"/>
+  <node id="4126829614" lat="52.5438161" lon="13.0546077"/>
+  <node id="4126829616" lat="52.5440567" lon="13.0510222"/>
+  <node id="4126829617" lat="52.5443360" lon="13.0470465"/>
+  <node id="4126829618" lat="52.5445236" lon="13.0443328">
+    <tag k="description" v="Notausgang Lärmschutzwand"/>
+    <tag k="entrance" v="emergency"/>
+    <tag k="railway:position" v="23.2"/>
+  </node>
+  <node id="4126829620" lat="52.5447006" lon="13.0417760"/>
+  <node id="4126829621" lat="52.5447516" lon="13.0410578"/>
+  <node id="4126829624" lat="52.5448788" lon="13.0392882"/>
+  <node id="4126829625" lat="52.5450146" lon="13.0381503">
+    <tag k="railway" v="milestone"/>
+    <tag k="railway:milestone:catenary_mast" v="yes"/>
+    <tag k="railway:position" v="23.6"/>
+  </node>
+  <node id="4126829626" lat="52.5451585" lon="13.0352250"/>
+  <node id="4126829627" lat="52.5452067" lon="13.0330779"/>
+  <node id="4126829628" lat="52.5452173" lon="13.0336063"/>
+  <node id="4126829629" lat="52.5452319" lon="13.0324597"/>
+  <node id="4126829630" lat="52.5452613" lon="13.0337686"/>
+  <node id="4202135646" lat="52.5439308" lon="13.0571900"/>
+  <node id="4202135653" lat="52.5435298" lon="13.0629513"/>
+  <node id="4202135659" lat="52.5439814" lon="13.0576446"/>
+  <node id="4214151973" lat="52.5406676" lon="13.1008034">
+    <tag k="railway" v="milestone"/>
+    <tag k="railway:milestone:catenary_mast" v="yes"/>
+    <tag k="railway:position" v="119.4"/>
+  </node>
+  <node id="4401175290" lat="52.5426321" lon="13.0475575"/>
+  <node id="4401175306" lat="52.5432217" lon="13.0426123"/>
+  <node id="4401175308" lat="52.5432707" lon="13.0432351"/>
+  <node id="4401175309" lat="52.5433522" lon="13.0429293"/>
+  <node id="4401175310" lat="52.5433881" lon="13.0429293"/>
+  <node id="4401175311" lat="52.5433914" lon="13.0434175"/>
+  <node id="4401175312" lat="52.5434118" lon="13.0473375"/>
+  <node id="4401175313" lat="52.5434305" lon="13.0440505"/>
+  <node id="4401175314" lat="52.5434534" lon="13.0435730"/>
+  <node id="4401175315" lat="52.5434925" lon="13.0431922"/>
+  <node id="4401175316" lat="52.5435741" lon="13.0474140"/>
+  <node id="4401175317" lat="52.5435969" lon="13.0386700"/>
+  <node id="4401175318" lat="52.5436459" lon="13.0431653"/>
+  <node id="4401175319" lat="52.5436589" lon="13.0382462"/>
+  <node id="4401175320" lat="52.5436589" lon="13.0439539"/>
+  <node id="4401175321" lat="52.5436720" lon="13.0392064"/>
+  <node id="4401175322" lat="52.5437176" lon="13.0447157"/>
+  <node id="4401175323" lat="52.5437339" lon="13.0474301"/>
+  <node id="4401175324" lat="52.5437441" lon="13.0411168"/>
+  <node id="4401175325" lat="52.5437535" lon="13.0396195"/>
+  <node id="4401175326" lat="52.5437731" lon="13.0461748"/>
+  <node id="4401175327" lat="52.5438318" lon="13.0464591"/>
+  <node id="4401175328" lat="52.5438449" lon="13.0451663"/>
+  <node id="4401175329" lat="52.5438514" lon="13.0470760"/>
+  <node id="4401175330" lat="52.5438547" lon="13.0380101"/>
+  <node id="4401175331" lat="52.5438808" lon="13.0466522"/>
+  <node id="4401175332" lat="52.5439166" lon="13.0428059"/>
+  <node id="4401175333" lat="52.5439949" lon="13.0414648"/>
+  <node id="4401175334" lat="52.5440373" lon="13.0422641"/>
+  <node id="4401175335" lat="52.5440406" lon="13.0398340"/>
+  <node id="4401175336" lat="52.5440406" lon="13.0417545"/>
+  <node id="4401175337" lat="52.5440863" lon="13.0382247"/>
+  <node id="4401175338" lat="52.5440961" lon="13.0419691"/>
+  <node id="4401175339" lat="52.5441091" lon="13.0425913"/>
+  <node id="4401175340" lat="52.5441483" lon="13.0428381"/>
+  <node id="4401175341" lat="52.5441972" lon="13.0412181"/>
+  <node id="4401175342" lat="52.5442168" lon="13.0403061"/>
+  <node id="4401175343" lat="52.5442200" lon="13.0416418"/>
+  <node id="4401175344" lat="52.5442298" lon="13.0392010"/>
+  <node id="4401175345" lat="52.5442363" lon="13.0388202"/>
+  <node id="4401175346" lat="52.5442494" lon="13.0394210"/>
+  <node id="4401175347" lat="52.5442494" lon="13.0417974"/>
+  <node id="4401175348" lat="52.5442592" lon="13.0406226"/>
+  <node id="4401175349" lat="52.5442592" lon="13.0426504"/>
+  <node id="4401175350" lat="52.5442624" lon="13.0398501"/>
+  <node id="4401175351" lat="52.5442755" lon="13.0421407"/>
+  <node id="4401175352" lat="52.5442918" lon="13.0410357"/>
+  <node id="4401175353" lat="52.5443571" lon="13.0414165"/>
+  <node id="4401175354" lat="52.5443766" lon="13.0422212"/>
+  <node id="4401175355" lat="52.5443864" lon="13.0418725"/>
+  <node id="4401175356" lat="52.5444125" lon="13.0410893"/>
+  <node id="4401175357" lat="52.5444223" lon="13.0399038"/>
+  <node id="4401175358" lat="52.5444321" lon="13.0394532"/>
+  <node id="4401175359" lat="52.5444615" lon="13.0415882"/>
+  <node id="4401175360" lat="52.5444843" lon="13.0406494"/>
+  <node id="4401175361" lat="52.5445169" lon="13.0404080"/>
+  <node id="4401175362" lat="52.5445528" lon="13.0400754"/>
+  <node id="4401175363" lat="52.5445593" lon="13.0412878"/>
+  <node id="4401175364" lat="52.5445985" lon="13.0412824"/>
+  <node id="4401175365" lat="52.5446148" lon="13.0422641"/>
+  <node id="4401175366" lat="52.5446180" lon="13.0394746"/>
+  <node id="4401175367" lat="52.5446409" lon="13.0401183"/>
+  <node id="4401175368" lat="52.5446539" lon="13.0407299"/>
+  <node id="4401175369" lat="52.5446963" lon="13.0397858"/>
+  <node id="4401175370" lat="52.5446996" lon="13.0400540"/>
+  <node id="4401175371" lat="52.5448366" lon="13.0373342"/>
+  <node id="4401175372" lat="52.5448856" lon="13.0373020"/>
+  <node id="4401175373" lat="52.5449704" lon="13.0373718"/>
+  <node id="4439254402" lat="52.5476552" lon="13.0381308"/>
+  <node id="4439254403" lat="52.5480903" lon="13.0384734"/>
+  <node id="4439254404" lat="52.5454420" lon="13.0365514"/>
+  <node id="4439254405" lat="52.5454496" lon="13.0366239"/>
+  <node id="4439254406" lat="52.5454625" lon="13.0366696"/>
+  <node id="4439254407" lat="52.5456936" lon="13.0366436"/>
+  <node id="4439254408" lat="52.5455891" lon="13.0366851"/>
+  <node id="4439254409" lat="52.5455300" lon="13.0367077"/>
+  <node id="4439254410" lat="52.5458208" lon="13.0366084"/>
+  <node id="4439254411" lat="52.5459518" lon="13.0366021"/>
+  <node id="4439254412" lat="52.5461517" lon="13.0366779"/>
+  <node id="4439254413" lat="52.5466486" lon="13.0371312"/>
+  <node id="4439254414" lat="52.5470495" lon="13.0374932"/>
+  <node id="4439254415" lat="52.5472465" lon="13.0376535"/>
+  <node id="4439254416" lat="52.5475986" lon="13.0376848"/>
+  <node id="4439254417" lat="52.5475610" lon="13.0376667"/>
+  <node id="4439254418" lat="52.5475331" lon="13.0376839"/>
+  <node id="4439254419" lat="52.5474781" lon="13.0377433"/>
+  <node id="4439254420" lat="52.5473970" lon="13.0377609"/>
+  <node id="4439254421" lat="52.5473229" lon="13.0377204"/>
+  <way id="5000772">
+    <nd ref="387505108"/>
+    <nd ref="675087867"/>
+    <nd ref="387505109"/>
+    <nd ref="675087870"/>
+    <nd ref="387505110"/>
+    <nd ref="387505111"/>
+    <nd ref="1379305259"/>
+    <nd ref="675037151"/>
+    <nd ref="387505134"/>
+    <nd ref="387505136"/>
+    <nd ref="675091810"/>
+    <nd ref="387505174"/>
+    <nd ref="672294468"/>
+    <nd ref="387505175"/>
+    <nd ref="387766208"/>
+    <nd ref="2938625283"/>
+    <nd ref="321794394"/>
+    <nd ref="2938625280"/>
+    <nd ref="2938625276"/>
+    <nd ref="387766215"/>
+    <nd ref="321794393"/>
+    <nd ref="4214151973"/>
+    <nd ref="2938625270"/>
+    <nd ref="321794392"/>
+    <tag k="detail" v="track"/>
+    <tag k="electrified" v="contact_line"/>
+    <tag k="frequency" v="16.7"/>
+    <tag k="gauge" v="1435"/>
+    <tag k="highspeed" v="yes"/>
+    <tag k="maxspeed" v="250"/>
+    <tag k="name" v="SFS Oebisfelde–Spandau"/>
+    <tag k="operator" v="DB Netz AG"/>
+    <tag k="passenger_lines" v="2"/>
+    <tag k="railway" v="rail"/>
+    <tag k="railway:etcs" v="no"/>
+    <tag k="railway:lzb" v="yes"/>
+    <tag k="railway:pzb" v="yes"/>
+    <tag k="railway:traffic_mode" v="passenger"/>
+    <tag k="ref" v="6185"/>
+    <tag k="usage" v="main"/>
+    <tag k="voltage" v="15000"/>
+    <tag k="workrules" v="DE:EBO"/>
+  </way>
+  <way id="52893619">
+    <nd ref="670470857"/>
+    <nd ref="670470893"/>
+    <tag k="electrified" v="contact_line"/>
+    <tag k="frequency" v="16.7"/>
+    <tag k="gauge" v="1435"/>
+    <tag k="railway" v="rail"/>
+    <tag k="service" v="crossover"/>
+    <tag k="voltage" v="15000"/>
+  </way>
+  <way id="224092806">
+    <nd ref="297861555"/>
+    <nd ref="2329265007"/>
+  </way>
+  <way id="224092811">
+    <nd ref="676504857"/>
+    <nd ref="3256154152"/>
+    <nd ref="3256154153"/>
+    <nd ref="3256154150"/>
+    <nd ref="3256154154"/>
+    <nd ref="3256154155"/>
+    <nd ref="2329265007"/>
+  </way>
+  <way id="224102567">
+    <nd ref="297862200"/>
+    <nd ref="2329353127"/>
+    <nd ref="297861553"/>
+    <nd ref="3256154256"/>
+    <nd ref="297861554"/>
+    <nd ref="297861555"/>
+  </way>
+  <way id="254196862">
+    <nd ref="670470875"/>
+    <nd ref="395285858"/>
+    <nd ref="670470857"/>
+    <nd ref="30231030"/>
+    <nd ref="387766211"/>
+    <nd ref="387766212"/>
+    <nd ref="387766213"/>
+    <nd ref="1225840210"/>
+    <nd ref="2938625278"/>
+    <nd ref="2938625274"/>
+    <nd ref="387766214"/>
+    <nd ref="3674101751"/>
+    <nd ref="387766217"/>
+    <nd ref="2599996811"/>
+    <tag k="electrified" v="contact_line"/>
+    <tag k="frequency" v="16.7"/>
+    <tag k="gauge" v="1435"/>
+    <tag k="railway" v="rail"/>
+    <tag k="ref" v="6179"/>
+    <tag k="usage" v="main"/>
+    <tag k="voltage" v="15000"/>
+  </way>
+  <way id="254196868">
+    <nd ref="2599996809"/>
+    <nd ref="2692675368"/>
+    <nd ref="3674101754"/>
+    <nd ref="141813083"/>
+    <nd ref="2938625275"/>
+    <nd ref="2938625279"/>
+    <nd ref="141813089"/>
+    <nd ref="141813091"/>
+    <nd ref="2938625282"/>
+    <nd ref="387766209"/>
+    <tag k="electrified" v="contact_line"/>
+    <tag k="frequency" v="16.7"/>
+    <tag k="gauge" v="1435"/>
+    <tag k="highspeed" v="no"/>
+    <tag k="operator" v="DB Netz AG"/>
+    <tag k="railway" v="rail"/>
+    <tag k="railway:bidirectional" v="regular"/>
+    <tag k="railway:etcs" v="no"/>
+    <tag k="railway:gnt" v="no"/>
+    <tag k="railway:pzb" v="yes"/>
+    <tag k="railway:radio" v="gsm-r"/>
+    <tag k="railway:tilting" v="no"/>
+    <tag k="ref" v="6179"/>
+    <tag k="usage" v="main"/>
+    <tag k="voltage" v="15000"/>
+  </way>
+  <way id="297354243">
+    <nd ref="21302173"/>
+    <nd ref="3012289906"/>
+    <nd ref="2938625271"/>
+    <nd ref="4126829581"/>
+    <nd ref="21302174"/>
+    <nd ref="3012289919"/>
+    <nd ref="387766216"/>
+    <nd ref="2938625277"/>
+    <nd ref="2938625281"/>
+    <nd ref="3075691298"/>
+    <nd ref="21302175"/>
+    <nd ref="2938625284"/>
+    <nd ref="387766206"/>
+    <nd ref="387766207"/>
+    <nd ref="672294527"/>
+    <nd ref="21302176"/>
+    <nd ref="675091813"/>
+    <nd ref="3075691299"/>
+    <nd ref="21302177"/>
+    <nd ref="387505135"/>
+    <nd ref="675037137"/>
+    <nd ref="1379305262"/>
+    <nd ref="387505131"/>
+    <nd ref="387505102"/>
+    <nd ref="675087866"/>
+    <nd ref="387505103"/>
+    <nd ref="675087871"/>
+    <nd ref="21302179"/>
+    <tag k="detail" v="track"/>
+    <tag k="electrified" v="contact_line"/>
+    <tag k="frequency" v="16.7"/>
+    <tag k="gauge" v="1435"/>
+    <tag k="highspeed" v="yes"/>
+    <tag k="maxspeed" v="250"/>
+    <tag k="name" v="SFS Oebisfelde–Spandau"/>
+    <tag k="operator" v="DB Netz AG"/>
+    <tag k="passenger_lines" v="2"/>
+    <tag k="railway" v="rail"/>
+    <tag k="railway:etcs" v="no"/>
+    <tag k="railway:lzb" v="yes"/>
+    <tag k="railway:pzb" v="yes"/>
+    <tag k="railway:traffic_mode" v="passenger"/>
+    <tag k="ref" v="6185"/>
+    <tag k="usage" v="main"/>
+    <tag k="voltage" v="15000"/>
+    <tag k="workrules" v="DE:EBO"/>
+  </way>
+  <way id="482129448">
+    <nd ref="387766209"/>
+    <nd ref="670470893"/>
+    <nd ref="672294435"/>
+    <tag k="electrified" v="contact_line"/>
+    <tag k="frequency" v="16.7"/>
+    <tag k="gauge" v="1435"/>
+    <tag k="loading_gauge" v="G2"/>
+    <tag k="maxspeed" v="160"/>
+    <tag k="name" v="Lehrter Bahn"/>
+    <tag k="operator" v="DB Netz AG"/>
+    <tag k="railway" v="rail"/>
+    <tag k="railway:bidirectional" v="regular"/>
+    <tag k="railway:etcs" v="no"/>
+    <tag k="railway:gnt" v="no"/>
+    <tag k="railway:pzb" v="yes"/>
+    <tag k="railway:radio" v="gsm-r"/>
+    <tag k="railway:tilting" v="no"/>
+    <tag k="railway:track_class" v="D4"/>
+    <tag k="ref" v="6179"/>
+    <tag k="usage" v="main"/>
+    <tag k="voltage" v="15000"/>
+  </way>
+
+</osm>
