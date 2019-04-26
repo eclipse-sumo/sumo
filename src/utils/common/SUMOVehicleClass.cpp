@@ -66,7 +66,7 @@ StringBijection<SUMOVehicleClass>::Entry sumoVehicleClassStringInitializer[] = {
     {"rail_urban",        SVC_RAIL_URBAN},
     {"rail_slow",         SVC_RAIL}, // !!! deprecated
     {"rail",              SVC_RAIL},
-    {"rail_fast",         SVC_RAIL_ELECTRIC}, // !!! deprecated
+    {"rail_fast",         SVC_RAIL_FAST},
     {"rail_electric",     SVC_RAIL_ELECTRIC},
     {"motorcycle",        SVC_MOTORCYCLE},
     {"moped",             SVC_MOPED},

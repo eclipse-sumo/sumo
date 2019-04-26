@@ -95,11 +95,12 @@ GNEDialog_AllowDisallow::GNEDialog_AllowDisallow(GNEViewNet* viewNet, GNEAttribu
     buildVClass(myContentCenterFrame, SVC_PEDESTRIAN, ICON_VCLASS_PEDESTRIAN, "Person traveling on foot");
     buildVClass(myContentCenterFrame, SVC_TRAM, ICON_VCLASS_TRAM, "Rail vehicle which runs on tracks");
     buildVClass(myContentCenterFrame, SVC_RAIL_ELECTRIC, ICON_VCLASS_RAIL_ELECTRIC, "Rail electric vehicle");
+    buildVClass(myContentCenterFrame, SVC_RAIL_FAST, ICON_VCLASS_RAIL_ELECTRIC, "High-speed rail vehicle");
     buildVClass(myContentCenterFrame, SVC_RAIL_URBAN, ICON_VCLASS_RAIL_URBAN, "Heavier than tram");
-    buildVClass(myContentCenterFrame, SVC_RAIL, ICON_VCLASS_RAIL, "Heavy rail vehicle (ICE)");
-    buildVClass(myContentCenterFrame, SVC_E_VEHICLE, ICON_VCLASS_EVEHICLE, "Future electric mobility vehicles");
+    buildVClass(myContentCenterFrame, SVC_RAIL, ICON_VCLASS_RAIL, "Heavy rail vehicle");
     // create right frame and fill it  (8 vehicles)
     FXVerticalFrame* myContentRightFrame = new FXVerticalFrame(myVehiclesFrame, GUIDesignAuxiliarFrame);
+    buildVClass(myContentRightFrame, SVC_E_VEHICLE, ICON_VCLASS_EVEHICLE, "Future electric mobility vehicles");
     buildVClass(myContentRightFrame, SVC_ARMY, ICON_VCLASS_ARMY, "Vehicle designed for military forces");
     buildVClass(myContentRightFrame, SVC_SHIP, ICON_VCLASS_SHIP, "Basic class for navigating waterway");
     buildVClass(myContentRightFrame, SVC_AUTHORITY, ICON_VCLASS_AUTHORITY, "Vehicle of a governmental security agency");

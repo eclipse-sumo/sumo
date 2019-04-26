@@ -168,6 +168,9 @@ GNEVehicleTypeDialog::VTypeAtributes::VClassRow::setVClassLabelImage() {
             case SVC_RAIL_ELECTRIC:
                 myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VCLASS_RAIL_ELECTRIC));
                 break;
+            case SVC_RAIL_FAST:
+                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VCLASS_RAIL_ELECTRIC));
+                break;
             case SVC_MOTORCYCLE:
                 myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VCLASS_MOTORCYCLE));
                 break;

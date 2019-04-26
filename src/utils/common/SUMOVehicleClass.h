@@ -175,9 +175,8 @@ enum SUMOVehicleClass {
     SVC_RAIL_URBAN = 1 << 14,
     /// @brief vehicle is a not electrified rail
     SVC_RAIL = 1 << 15,
-    /// @brief vehicle is a (possibly fast moving) electric rail
+    /// @brief rail vehicle that requires electrified tracks
     SVC_RAIL_ELECTRIC = 1 << 16,
-
     /// @brief vehicle is a motorcycle
     SVC_MOTORCYCLE = 1 << 17,
     /// @brief vehicle is a moped
@@ -196,10 +195,12 @@ enum SUMOVehicleClass {
     SVC_CUSTOM2 = 1 << 24,
     /// @brief is an automated car (ACC/CACC capable)
     SVC_AUTOMATED = 1 << 25,
+    /// @brief vehicle that is allowed to drive on high-speed rail tracks
+    SVC_RAIL_FAST = 1 << 26,
     //@}
 
     /// @brief classes which drive on tracks
-    SVC_RAIL_CLASSES = SVC_RAIL_ELECTRIC | SVC_RAIL | SVC_RAIL_URBAN | SVC_TRAM,
+    SVC_RAIL_CLASSES = SVC_RAIL_ELECTRIC | SVC_RAIL_FAST | SVC_RAIL | SVC_RAIL_URBAN | SVC_TRAM,
     /// @brief classes which (normally) do not drive on normal roads
     SVC_NON_ROAD = SVC_RAIL_CLASSES | SVC_SHIP
 };
