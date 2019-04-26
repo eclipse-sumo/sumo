@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Apr 26 17:00:23 2019 by Eclipse SUMO netconvert Version v1_2_0+0096-85458c5
+<!-- generated on Fri Apr 26 23:30:07 2019 by Eclipse SUMO netconvert Version v1_2_0+0022-5179cc2293
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -54,13 +54,13 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
     <edge id=":node_right_0" function="internal">
         <lane id=":node_right_0_0" index="0" allow="bus" speed="13.90" length="13.95" shape="140.00,-208.00 146.54,-206.71 149.66,-204.00 149.36,-199.88 145.66,-194.34"/>
-        <lane id=":node_right_0_1" index="1" disallow="bicycle rail_fast" speed="13.90" length="13.95" shape="137.00,-204.80 140.00,-204.80 143.92,-204.02 145.79,-202.40 145.62,-199.93 143.39,-196.61"/>
+        <lane id=":node_right_0_1" index="1" disallow="bicycle" speed="13.90" length="13.95" shape="137.00,-204.80 140.00,-204.80 143.92,-204.02 145.79,-202.40 145.62,-199.93 143.39,-196.61"/>
         <lane id=":node_right_0_2" index="2" speed="13.90" length="13.95" shape="140.00,-201.60 141.31,-201.34 141.93,-200.80 141.87,-199.98 141.13,-198.87"/>
     </edge>
 
     <edge id="edge_with_shape" from="node_right" to="node_left" priority="-1" type="testType" shape="140.00,-200.00 120.00,-180.00 100.00,-200.00">
         <lane id="edge_with_shape_0" index="0" allow="bus" speed="13.90" length="66.17" shape="145.66,-194.34 120.00,-168.69 94.34,-194.34"/>
-        <lane id="edge_with_shape_1" index="1" disallow="bicycle rail_fast" speed="13.90" length="66.17" shape="143.39,-196.61 120.00,-173.21 96.61,-196.61"/>
+        <lane id="edge_with_shape_1" index="1" disallow="bicycle" speed="13.90" length="66.17" shape="143.39,-196.61 120.00,-173.21 96.61,-196.61"/>
         <lane id="edge_with_shape_2" index="2" speed="13.90" length="66.17" shape="141.13,-198.87 120.00,-177.74 98.87,-198.87"/>
     </edge>
     <edge id="reverse_edge" from="node_left" to="node_right" priority="-1">

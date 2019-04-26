@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr  3 08:26:27 2019 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Fri Apr 26 23:30:02 2019 by Eclipse SUMO netconvert Version v1_2_0+0022-5179cc2293
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -245,13 +245,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="-905002551_1" index="1" allow="passenger truck bicycle" speed="13.89" length="277.83" shape="1055.20,2470.93 1133.60,2544.84 1221.12,2628.36 1243.31,2650.55 1247.22,2658.36"/>
     </edge>
     <edge id="-905002586" from="605000010" to="100668229" priority="-1" type="82">
-        <lane id="-905002586_0" index="0" allow="passenger truck bicycle pedestrian" speed="11.11" length="474.91" shape="2739.60,719.96 3021.64,349.15"/>
+        <lane id="-905002586_0" index="0" allow="pedestrian passenger truck bicycle" speed="11.11" length="474.91" shape="2739.60,719.96 3021.64,349.15"/>
     </edge>
     <edge id="-905005462" from="1612" to="1610" priority="-1" type="83">
         <lane id="-905005462_0" index="0" allow="passenger truck bicycle" speed="13.89" length="105.95" shape="3378.47,2787.02 3408.12,2693.44"/>
     </edge>
     <edge id="-905005617" from="605000010" to="1561" priority="-1" type="83">
-        <lane id="-905005617_0" index="0" allow="passenger truck bicycle pedestrian" speed="13.89" length="424.90" shape="2733.11,733.84 2483.69,1065.26"/>
+        <lane id="-905005617_0" index="0" allow="pedestrian passenger truck bicycle" speed="13.89" length="424.90" shape="2733.11,733.84 2483.69,1065.26"/>
     </edge>
     <edge id="-905005621" from="1661" to="1649" priority="-1" type="83" shape="2984.22,2291.20 3117.50,2401.50 3172.50,2447.50 3200.00,2487.50">
         <lane id="-905005621_0" index="0" allow="passenger truck bicycle" speed="13.89" length="293.24" shape="2990.86,2294.62 3118.52,2400.27 3173.69,2446.41 3200.98,2486.11"/>
@@ -270,17 +270,17 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="-905006038_0" index="0" allow="passenger truck bicycle" speed="8.33" length="242.32" shape="3398.88,1936.76 3404.00,1926.92 3454.97,1734.02 3464.73,1707.52"/>
     </edge>
     <edge id="-905006039" from="605000010" to="1663" priority="-1" type="81">
-        <lane id="-905006039_0" index="0" allow="passenger truck bicycle pedestrian" speed="8.33" length="292.87" shape="2744.51,728.55 3020.23,795.91"/>
+        <lane id="-905006039_0" index="0" allow="pedestrian passenger truck bicycle" speed="8.33" length="292.87" shape="2744.51,728.55 3020.23,795.91"/>
     </edge>
     <edge id="-905006040" from="1664" to="1663" priority="-1" type="81">
-        <lane id="-905006040_0" index="0" allow="passenger truck bicycle pedestrian" speed="8.33" length="343.66" shape="3358.27,848.86 3019.92,799.10"/>
+        <lane id="-905006040_0" index="0" allow="pedestrian passenger truck bicycle" speed="8.33" length="343.66" shape="3358.27,848.86 3019.92,799.10"/>
     </edge>
     <edge id="-905006041" from="100668282" to="1664" priority="-1" type="81">
-        <lane id="-905006041_0" index="0" allow="passenger truck bicycle pedestrian" speed="8.33" length="348.49" shape="3537.63,1147.32 3359.41,849.62"/>
+        <lane id="-905006041_0" index="0" allow="pedestrian passenger truck bicycle" speed="8.33" length="348.49" shape="3537.63,1147.32 3359.41,849.62"/>
     </edge>
     <edge id="-905006042" from="1561" to="1560" priority="-1" type="83">
-        <lane id="-905006042_0" index="0" allow="passenger truck bicycle pedestrian" speed="13.89" length="672.01" shape="2481.48,1073.57 2090.10,1601.93"/>
-        <lane id="-905006042_1" index="1" allow="passenger truck bicycle pedestrian" speed="13.89" length="672.01" shape="2478.91,1071.67 2087.53,1600.03"/>
+        <lane id="-905006042_0" index="0" allow="pedestrian passenger truck bicycle" speed="13.89" length="672.01" shape="2481.48,1073.57 2090.10,1601.93"/>
+        <lane id="-905006042_1" index="1" allow="pedestrian passenger truck bicycle" speed="13.89" length="672.01" shape="2478.91,1071.67 2087.53,1600.03"/>
     </edge>
     <edge id="-905006117" from="100674916" to="1659" priority="-1" type="86">
         <lane id="-905006117_0" index="0" allow="passenger truck bicycle" speed="22.22" length="133.46" shape="3931.80,3107.55 4021.19,3206.43"/>
@@ -402,13 +402,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="905002551_1" index="1" allow="passenger truck bicycle" speed="13.89" length="277.83" shape="1244.36,2659.80 1240.69,2652.45 1218.88,2630.64 1131.40,2547.16 1053.01,2473.26"/>
     </edge>
     <edge id="905002586" from="100668229" to="605000010" priority="-1" type="82">
-        <lane id="905002586_0" index="0" allow="passenger truck bicycle pedestrian" speed="11.11" length="474.91" shape="3024.18,351.09 2742.15,721.90"/>
+        <lane id="905002586_0" index="0" allow="pedestrian passenger truck bicycle" speed="11.11" length="474.91" shape="3024.18,351.09 2742.15,721.90"/>
     </edge>
     <edge id="905005462" from="1610" to="1612" priority="-1" type="83">
         <lane id="905005462_0" index="0" allow="passenger truck bicycle" speed="13.89" length="105.95" shape="3411.17,2694.41 3381.53,2787.98"/>
     </edge>
     <edge id="905005617" from="1561" to="605000010" priority="-1" type="83">
-        <lane id="905005617_0" index="0" allow="passenger truck bicycle pedestrian" speed="13.89" length="424.90" shape="2481.13,1063.34 2730.55,731.92"/>
+        <lane id="905005617_0" index="0" allow="pedestrian passenger truck bicycle" speed="13.89" length="424.90" shape="2481.13,1063.34 2730.55,731.92"/>
     </edge>
     <edge id="905005621" from="1649" to="1661" priority="-1" type="83" shape="3200.00,2487.50 3172.50,2447.50 3117.50,2401.50 2984.22,2291.20">
         <lane id="905005621_0" index="0" allow="passenger truck bicycle" speed="13.89" length="293.24" shape="3198.35,2487.92 3171.31,2448.59 3116.48,2402.73 2988.82,2297.08"/>
@@ -427,16 +427,16 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="905006038_0" index="0" allow="passenger truck bicycle" speed="8.33" length="242.32" shape="3467.73,1708.62 3458.03,1734.98 3407.00,1928.08 3401.72,1938.23"/>
     </edge>
     <edge id="905006039" from="1663" to="605000010" priority="-1" type="81">
-        <lane id="905006039_0" index="0" allow="passenger truck bicycle pedestrian" speed="8.33" length="292.87" shape="3019.47,799.02 2743.75,731.66"/>
+        <lane id="905006039_0" index="0" allow="pedestrian passenger truck bicycle" speed="8.33" length="292.87" shape="3019.47,799.02 2743.75,731.66"/>
     </edge>
     <edge id="905006040" from="1663" to="1664" priority="-1" type="81">
-        <lane id="905006040_0" index="0" allow="passenger truck bicycle pedestrian" speed="8.33" length="343.66" shape="3020.38,795.94 3358.73,845.70"/>
+        <lane id="905006040_0" index="0" allow="pedestrian passenger truck bicycle" speed="8.33" length="343.66" shape="3020.38,795.94 3358.73,845.70"/>
     </edge>
     <edge id="905006041" from="1664" to="100668282" priority="-1" type="81">
-        <lane id="905006041_0" index="0" allow="passenger truck bicycle pedestrian" speed="8.33" length="348.49" shape="3362.15,847.98 3540.37,1145.68"/>
+        <lane id="905006041_0" index="0" allow="pedestrian passenger truck bicycle" speed="8.33" length="348.49" shape="3362.15,847.98 3540.37,1145.68"/>
     </edge>
     <edge id="905006042" from="1560" to="1561" priority="-1" type="83">
-        <lane id="905006042_0" index="0" allow="passenger truck bicycle pedestrian" speed="13.89" length="672.01" shape="2084.95,1598.12 2476.33,1069.76"/>
+        <lane id="905006042_0" index="0" allow="pedestrian passenger truck bicycle" speed="13.89" length="672.01" shape="2084.95,1598.12 2476.33,1069.76"/>
     </edge>
     <edge id="905006117" from="1659" to="100674916" priority="-1" type="86">
         <lane id="905006117_0" index="0" allow="passenger truck bicycle" speed="22.22" length="133.46" shape="4018.81,3208.57 3929.42,3109.69"/>

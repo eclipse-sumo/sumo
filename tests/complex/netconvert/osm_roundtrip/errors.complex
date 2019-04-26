@@ -11,16 +11,16 @@ Warning: Minor green from edge '7727483#1' to edge '-7216737#3' exceeds 19.44m/s
 Warning: Minor green from edge '-24214694' to edge '24214693#0' exceeds 19.44m/s. Maybe a left-turn lane is missing.
 --- 
 +++ 
-@@ -218,7 +218,7 @@
-         <lane id="-7216737#3_1" index="1" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="27.78" length="162.74" shape="486.04,118.77 633.84,105.16"/>
+@@ -219,7 +219,7 @@
+         <lane id="-7216737#3_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="162.74" shape="486.04,118.77 633.84,105.16"/>
      </edge>
      <edge id="-7727483#0" from="294169342" to="38920501" priority="10" type="highway.tertiary">
--        <lane id="-7727483#0_0" index="0" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="22.22" length="4.46" shape="496.86,309.53 496.88,309.73"/>
-+        <lane id="-7727483#0_0" index="0" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="22.22" length="4.46" shape="497.05,311.65 497.06,311.85"/>
+-        <lane id="-7727483#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="4.46" shape="496.86,309.53 496.88,309.73"/>
++        <lane id="-7727483#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="4.46" shape="497.05,311.65 497.06,311.85"/>
      </edge>
      <edge id="-7727483#3" from="32266935" to="294169342" priority="10" type="highway.tertiary" shape="478.98,121.02 482.98,167.40 484.69,187.19 488.69,233.50 492.80,281.09 495.08,307.55">
-         <lane id="-7727483#3_0" index="0" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="22.22" length="187.22" shape="481.48,131.37 484.58,167.26 486.29,187.05 490.29,233.36 494.40,280.95 496.27,302.68"/>
-@@ -980,7 +980,7 @@
+         <lane id="-7727483#3_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="187.22" shape="481.48,131.37 484.58,167.26 486.29,187.05 490.29,233.36 494.40,280.95 496.27,302.68"/>
+@@ -981,7 +981,7 @@
      <junction id="38919927" type="priority" x="297.39" y="446.01" incLanes="-6137233#0_0" intLanes="" shape="297.39,446.01 296.76,449.15 297.39,446.01">
          <request index="0" response="0" foes="0"/>
      </junction>
@@ -29,7 +29,7 @@ Warning: Minor green from edge '-24214694' to edge '24214693#0' exceeds 19.44m/s
          <request index="0" response="00" foes="00"/>
          <request index="1" response="00" foes="00"/>
      </junction>
-@@ -1501,7 +1501,7 @@
+@@ -1502,7 +1502,7 @@
      <node id="261599791" x="33.97" y="176.57" type="traffic_light" tl="261599791"/>
      <node id="261636677" x="1119.89" y="114.18" type="priority"/>
      <node id="261636678" x="1115.15" y="53.12" type="priority"/>
@@ -38,7 +38,7 @@ Warning: Minor green from edge '-24214694' to edge '24214693#0' exceeds 19.44m/s
      <node id="283018841" x="520.23" y="532.83" type="dead_end"/>
      <node id="283018842" x="480.89" y="521.99" type="dead_end"/>
      <node id="283018844" x="402.53" y="486.32" type="dead_end"/>
-@@ -1551,7 +1551,7 @@
+@@ -1552,7 +1552,7 @@
      <node id="38919605" x="782.81" y="575.88" type="priority"/>
      <node id="38919668" x="685.82" y="466.03" type="priority"/>
      <node id="38919703" x="664.49" y="450.74" type="priority"/>
@@ -47,7 +47,7 @@ Warning: Minor green from edge '-24214694' to edge '24214693#0' exceeds 19.44m/s
      <node id="38919797" x="525.69" y="749.30" type="dead_end"/>
      <node id="38919841" x="502.24" y="560.98" type="priority"/>
      <node id="38919854" x="387.44" y="504.33" type="priority"/>
-@@ -1570,7 +1570,7 @@
+@@ -1571,7 +1571,7 @@
      <node id="cluster_294168098_294169338" x="562.43" y="315.09" type="right_before_left"/>
      <node id="cluster_301292612_38919945_56231397_59993001" x="492.35" y="390.75" type="priority"/>
      <node id="cluster_306982585_36268398_38920778" x="897.77" y="599.27" type="priority"/>

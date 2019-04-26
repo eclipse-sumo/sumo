@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Apr 26 17:00:20 2019 by Eclipse SUMO netconvert Version v1_2_0+0096-85458c5
+<!-- generated on Fri Apr 26 23:30:02 2019 by Eclipse SUMO netconvert Version v1_2_0+0022-5179cc2293
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -39,38 +39,38 @@ SPDX-License-Identifier: EPL-2.0
     <edge id="-156364570#0" from="275525455" to="614674365" name="Anna-Louisa-Karsch-Straße" priority="6" type="cycleway.lane|highway.tertiary">
         <lane id="-156364570#0_0" index="0" allow="pedestrian" speed="13.89" length="18.22" width="3.00" shape="91.42,39.82 97.48,42.97"/>
         <lane id="-156364570#0_1" index="1" allow="bicycle" speed="13.89" length="18.22" width="1.00" shape="90.50,41.59 96.56,44.75"/>
-        <lane id="-156364570#0_2" index="2" disallow="pedestrian rail_fast" speed="13.89" length="18.22" shape="89.53,43.46 95.59,46.61"/>
+        <lane id="-156364570#0_2" index="2" disallow="pedestrian" speed="13.89" length="18.22" shape="89.53,43.46 95.59,46.61"/>
     </edge>
     <edge id="-156364570#1" from="cluster_160503146_2314394457_27411250" to="275525455" name="Anna-Louisa-Karsch-Straße" priority="6" type="cycleway.lane|highway.tertiary" shape="12.44,6.14 35.62,18.12 80.71,40.67">
         <lane id="-156364570#1_0" index="0" allow="pedestrian" speed="13.89" length="90.63" width="3.00" shape="2.74,-5.29 38.20,13.04 79.09,33.49"/>
         <lane id="-156364570#1_1" index="1" allow="bicycle" speed="13.89" length="90.63" width="1.00" shape="1.82,-3.52 37.30,14.82 78.20,35.28"/>
-        <lane id="-156364570#1_2" index="2" disallow="pedestrian rail_fast" speed="13.89" length="90.63" shape="0.85,-1.65 36.35,16.69 77.26,37.16"/>
+        <lane id="-156364570#1_2" index="2" disallow="pedestrian" speed="13.89" length="90.63" shape="0.85,-1.65 36.35,16.69 77.26,37.16"/>
     </edge>
     <edge id="-25294729#0" from="cluster_1288008787_275525457" to="275525455" name="Rosenstraße" priority="4" type="highway.residential" shape="114.37,6.18 80.71,40.67">
         <lane id="-25294729#0_0" index="0" allow="pedestrian" speed="8.33" length="51.98" width="2.00" shape="117.62,8.86 91.11,36.02"/>
-        <lane id="-25294729#0_1" index="1" disallow="tram rail_urban rail rail_electric pedestrian ship rail_fast" speed="8.33" length="51.98" shape="115.76,7.04 89.25,34.21"/>
+        <lane id="-25294729#0_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric ship" speed="8.33" length="51.98" shape="115.76,7.04 89.25,34.21"/>
     </edge>
     <edge id="-77348147" from="614674365" to="2796688606" name="An der Spandauer Brücke" priority="6" type="highway.tertiary" shape="93.56,47.36 97.84,51.25 100.04,55.52">
         <lane id="-77348147_0" index="0" allow="pedestrian" speed="13.89" length="6.92" width="3.00" shape="101.29,48.04 101.63,48.34 104.22,53.37"/>
-        <lane id="-77348147_1" index="1" disallow="tram rail_urban rail rail_electric pedestrian ship rail_fast" speed="13.89" length="6.92" shape="99.17,50.34 101.46,54.79"/>
+        <lane id="-77348147_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric ship" speed="13.89" length="6.92" shape="99.17,50.34 101.46,54.79"/>
     </edge>
     <edge id="156364570#0" from="614674365" to="275525455" name="Anna-Louisa-Karsch-Straße" priority="6" type="cycleway.lane|highway.tertiary">
         <lane id="156364570#0_0" index="0" allow="pedestrian" speed="13.89" length="18.22" width="3.00" shape="92.22,53.09 86.15,49.93"/>
         <lane id="156364570#0_1" index="1" allow="bicycle" speed="13.89" length="18.22" width="1.00" shape="93.14,51.31 87.08,48.16"/>
-        <lane id="156364570#0_2" index="2" disallow="pedestrian rail_fast" speed="13.89" length="18.22" shape="94.11,49.45 88.05,46.29"/>
+        <lane id="156364570#0_2" index="2" disallow="pedestrian" speed="13.89" length="18.22" shape="94.11,49.45 88.05,46.29"/>
     </edge>
     <edge id="156364570#1" from="275525455" to="cluster_160503146_2314394457_27411250" name="Anna-Louisa-Karsch-Straße" priority="6" type="cycleway.lane|highway.tertiary" shape="80.71,40.67 35.62,18.12 12.44,6.14">
         <lane id="156364570#1_0" index="0" allow="pedestrian" speed="13.89" length="90.63" width="3.00" shape="74.00,43.68 33.04,23.20 -2.50,4.84"/>
         <lane id="156364570#1_1" index="1" allow="bicycle" speed="13.89" length="90.63" width="1.00" shape="74.89,41.90 33.94,21.42 -1.58,3.06"/>
-        <lane id="156364570#1_2" index="2" disallow="bicycle pedestrian rail_fast" speed="13.89" length="90.63" shape="75.83,40.02 34.89,19.55 -0.62,1.19"/>
+        <lane id="156364570#1_2" index="2" disallow="pedestrian bicycle" speed="13.89" length="90.63" shape="75.83,40.02 34.89,19.55 -0.62,1.19"/>
     </edge>
     <edge id="25294729#0" from="275525455" to="cluster_1288008787_275525457" name="Rosenstraße" priority="4" type="highway.residential" shape="80.71,40.67 114.37,6.18">
         <lane id="25294729#0_0" index="0" allow="pedestrian" speed="8.33" length="51.98" width="2.00" shape="85.10,30.16 111.61,2.99"/>
-        <lane id="25294729#0_1" index="1" disallow="tram rail_urban rail rail_electric pedestrian ship rail_fast" speed="8.33" length="51.98" shape="86.96,31.97 113.47,4.81"/>
+        <lane id="25294729#0_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric ship" speed="8.33" length="51.98" shape="86.96,31.97 113.47,4.81"/>
     </edge>
     <edge id="77348147" from="2796688606" to="614674365" name="An der Spandauer Brücke" priority="6" type="highway.tertiary" shape="100.04,55.52 97.84,51.25 93.56,47.36">
         <lane id="77348147_0" index="0" allow="pedestrian" speed="13.89" length="6.92" width="3.00" shape="95.86,57.67 94.62,55.27"/>
-        <lane id="77348147_1" index="1" disallow="tram rail_urban rail rail_electric pedestrian ship rail_fast" speed="13.89" length="6.92" shape="98.62,56.25 96.86,52.84"/>
+        <lane id="77348147_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric ship" speed="13.89" length="6.92" shape="98.62,56.25 96.86,52.84"/>
     </edge>
 
     <junction id="275525455" type="priority" x="80.71" y="40.67" incLanes="156364570#0_0 156364570#0_1 156364570#0_2 -25294729#0_0 -25294729#0_1 -156364570#1_0 -156364570#1_1 -156364570#1_2" intLanes="" shape="85.46,51.26 92.11,38.49 91.49,37.98 91.38,37.70 91.39,37.40 91.55,37.07 91.83,36.72 84.39,29.46 82.42,31.25 81.59,31.81 80.87,32.15 80.27,32.26 79.77,32.15 73.32,45.03">

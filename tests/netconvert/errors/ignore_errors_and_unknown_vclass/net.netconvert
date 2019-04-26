@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Apr 26 17:00:35 2019 by Eclipse SUMO netconvert Version v1_2_0+0096-85458c5
+<!-- generated on Fri Apr 26 23:30:28 2019 by Eclipse SUMO netconvert Version v1_2_0+0022-5179cc2293
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -41,7 +41,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="1_0" index="0" allow="bus" speed="13.89" length="10.00" shape="10.00,-1.60 20.00,-1.60"/>
     </edge>
     <edge id="2" from="2" to="3" priority="-1">
-        <lane id="2_0" index="0" disallow="bus rail_fast" speed="13.89" length="10.00" shape="20.00,-1.60 30.00,-1.60"/>
+        <lane id="2_0" index="0" disallow="bus" speed="13.89" length="10.00" shape="20.00,-1.60 30.00,-1.60"/>
     </edge>
     <edge id="3" from="0" to="3" priority="-1">
         <lane id="3_0" index="0" speed="13.89" length="30.00" shape="0.00,-1.60 30.00,-1.60"/>

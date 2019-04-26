@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 25 22:44:20 2019 by Eclipse SUMO netconvert Version v1_2_0+0022-5179cc2293
+<!-- generated on Fri Apr 26 23:30:04 2019 by Eclipse SUMO netconvert Version v1_2_0+0022-5179cc2293
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -63,9 +63,9 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="-4_2" index="2" allow="emergency passenger hov taxi bus coach delivery truck trailer" speed="55.56" length="13412.28" shape="17005.32,13392.20 16586.65,0.05"/>
     </edge>
     <edge id="1" from="1" to="0" priority="0">
-        <lane id="1_0" index="0" allow="bicycle pedestrian" speed="55.56" length="22852.39" shape="39850.37,12751.84 17021.19,13413.33"/>
-        <lane id="1_1" index="1" allow="bicycle pedestrian" speed="55.56" length="22852.39" shape="39850.28,12748.64 17021.10,13410.13"/>
-        <lane id="1_2" index="2" allow="bicycle pedestrian" speed="55.56" length="22852.39" shape="39850.19,12745.44 17021.00,13406.93"/>
+        <lane id="1_0" index="0" allow="pedestrian bicycle" speed="55.56" length="22852.39" shape="39850.37,12751.84 17021.19,13413.33"/>
+        <lane id="1_1" index="1" allow="pedestrian bicycle" speed="55.56" length="22852.39" shape="39850.28,12748.64 17021.10,13410.13"/>
+        <lane id="1_2" index="2" allow="pedestrian bicycle" speed="55.56" length="22852.39" shape="39850.19,12745.44 17021.00,13406.93"/>
     </edge>
     <edge id="2" from="2" to="0" priority="0">
         <lane id="2_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer" speed="55.56" length="17016.60" shape="-0.26,13959.12 16993.50,13398.18"/>

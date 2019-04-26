@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Apr 26 17:00:18 2019 by Eclipse SUMO netconvert Version v1_2_0+0096-85458c5
+<!-- generated on Fri Apr 26 23:29:58 2019 by Eclipse SUMO netconvert Version v1_2_0+0022-5179cc2293
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -53,7 +53,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":gneJ1_0_0" index="0" speed="13.89" length="9.03" shape="-40.00,32.80 -39.65,35.25 -38.60,37.00 -36.85,38.05 -34.40,38.40"/>
     </edge>
     <edge id=":node_C_0" function="internal">
-        <lane id=":node_C_0_0" index="0" disallow="bus rail_fast" speed="12.50" length="13.70" shape="-1.60,18.94 -2.04,15.32 -3.37,12.34 -5.59,9.98 -8.70,8.24"/>
+        <lane id=":node_C_0_0" index="0" disallow="bus" speed="12.50" length="13.70" shape="-1.60,18.94 -2.04,15.32 -3.37,12.34 -5.59,9.98 -8.70,8.24"/>
     </edge>
     <edge id=":node_C_1" function="internal">
         <lane id=":node_C_1_0" index="0" speed="14.50" length="17.66" shape="-1.60,18.94 -1.60,1.27"/>
@@ -129,7 +129,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="edge_C2D_0" index="0" speed="15.00" length="11.27" shape="-1.60,1.27 -1.60,-10.00"/>
     </edge>
     <edge id="edge_C2L" from="node_C" to="node_L" priority="2" spreadType="center" shape="0.00,10.00 -15.00,4.00 -40.00,0.00">
-        <lane id="edge_C2L_0" index="0" disallow="bus rail_fast" speed="11.00" length="26.61" shape="-8.70,8.24 -15.43,5.55 -34.20,2.55"/>
+        <lane id="edge_C2L_0" index="0" disallow="bus" speed="11.00" length="26.61" shape="-8.70,8.24 -15.43,5.55 -34.20,2.55"/>
         <lane id="edge_C2L_1" index="1" speed="11.00" length="26.61" shape="-7.51,5.27 -14.57,2.45 -33.69,-0.61"/>
     </edge>
     <edge id="edge_C2R" from="node_C" to="node_R" priority="2" shape="10.00,9.00 29.00,-0.20">

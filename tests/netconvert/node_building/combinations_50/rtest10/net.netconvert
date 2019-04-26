@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Apr 26 17:00:12 2019 by Eclipse SUMO netconvert Version v1_2_0+0096-85458c5
+<!-- generated on Fri Apr 26 23:29:49 2019 by Eclipse SUMO netconvert Version v1_2_0+0022-5179cc2293
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -31,39 +31,39 @@ SPDX-License-Identifier: EPL-2.0
     <location netOffset="-392670.92,-5820431.99" convBoundary="0.00,0.00,109.53,135.58" origBoundary="1275890.000000,5218519.000000,1383308.000000,5282609.000000" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id=":61057980_0" function="internal">
-        <lane id=":61057980_0_0" index="0" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="6.73" length="9.02" shape="61.71,57.72 60.14,59.59 59.48,61.55 59.74,63.61 60.92,65.75"/>
+        <lane id=":61057980_0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="6.73" length="9.02" shape="61.71,57.72 60.14,59.59 59.48,61.55 59.74,63.61 60.92,65.75"/>
     </edge>
     <edge id=":61057980_1" function="internal">
-        <lane id=":61057980_1_0" index="0" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="9.21" length="21.22" shape="43.83,43.99 48.82,50.66 53.11,54.77 56.69,56.34 59.56,55.34"/>
+        <lane id=":61057980_1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="9.21" length="21.22" shape="43.83,43.99 48.82,50.66 53.11,54.77 56.69,56.34 59.56,55.34"/>
     </edge>
     <edge id=":61057980_2" function="internal">
-        <lane id=":61057980_2_0" index="0" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="13.89" length="27.67" shape="43.83,43.99 60.92,65.75"/>
+        <lane id=":61057980_2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="27.67" shape="43.83,43.99 60.92,65.75"/>
     </edge>
     <edge id=":61057980_3" function="internal">
-        <lane id=":61057980_3_0" index="0" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="13.89" length="27.47" shape="40.68,46.37 45.27,51.12 49.07,55.51 53.10,60.65 58.35,67.66"/>
-        <lane id=":61057980_3_1" index="1" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="13.89" length="27.47" shape="38.42,48.63 42.98,53.35 46.71,57.66 50.64,62.70 55.78,69.57"/>
+        <lane id=":61057980_3_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="27.47" shape="40.68,46.37 45.27,51.12 49.07,55.51 53.10,60.65 58.35,67.66"/>
+        <lane id=":61057980_3_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="27.47" shape="38.42,48.63 42.98,53.35 46.71,57.66 50.64,62.70 55.78,69.57"/>
     </edge>
     <edge id=":61057981_0" function="internal">
-        <lane id=":61057981_0_0" index="0" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="3.65" length="4.67" shape="65.88,49.64 67.30,49.43 68.14,49.76 68.38,50.62 68.02,52.02"/>
+        <lane id=":61057981_0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="3.65" length="4.67" shape="65.88,49.64 67.30,49.43 68.14,49.76 68.38,50.62 68.02,52.02"/>
     </edge>
 
     <edge id="-53595346" from="61057980" to="61057981" name="Otto-Braun-Strasse" priority="-5">
-        <lane id="-53595346_0" index="0" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="13.89" length="8.51" shape="59.56,55.34 65.88,49.64"/>
+        <lane id="-53595346_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="8.51" shape="59.56,55.34 65.88,49.64"/>
     </edge>
     <edge id="53595343" from="61057974" to="61057980" name="B2 / Otto-Braun-Strasse" priority="-1" spreadType="center" shape="26.20,18.34 28.28,20.52 33.20,28.20 47.23,49.04 54.31,62.24">
-        <lane id="53595343_0" index="0" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="13.89" length="31.16" shape="26.20,18.34 28.28,20.52 33.20,28.20 43.83,43.99"/>
+        <lane id="53595343_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="31.16" shape="26.20,18.34 28.28,20.52 33.20,28.20 43.83,43.99"/>
     </edge>
     <edge id="53595346" from="61057981" to="61057980" name="Otto-Braun-Strasse" priority="-5">
-        <lane id="53595346_0" index="0" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="13.89" length="8.51" shape="68.02,52.02 61.71,57.72"/>
+        <lane id="53595346_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="8.51" shape="68.02,52.02 61.71,57.72"/>
     </edge>
     <edge id="764250195" from="gneJ0" to="61057980" name="Tunnel Alexanderplatz" priority="-1" spreadType="center" shape="0.00,0.00 20.96,27.36 39.04,46.99 54.31,62.24">
         <lane id="764250195_0" index="0" allow="emergency vip passenger hov taxi bus coach delivery truck trailer custom1" speed="13.89" length="61.88" shape="1.27,-0.97 22.19,26.33 40.19,45.88 40.68,46.37"/>
         <lane id="764250195_1" index="1" allow="emergency vip passenger hov taxi bus coach delivery truck trailer custom1" speed="13.89" length="61.88" shape="-1.27,0.97 19.73,28.39 37.89,48.10 38.42,48.63"/>
     </edge>
     <edge id="857669950" from="61057980" to="817135714" name="B2 / Otto-Braun-Strasse" priority="-1" spreadType="center" shape="54.31,62.24 64.10,75.38 109.53,135.58">
-        <lane id="857669950_0" index="0" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="13.89" length="85.04" shape="60.92,65.75 66.66,73.46 112.08,133.65"/>
-        <lane id="857669950_1" index="1" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="13.89" length="85.04" shape="58.35,67.66 64.10,75.38 109.53,135.58"/>
-        <lane id="857669950_2" index="2" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="13.89" length="85.04" shape="55.78,69.57 61.54,77.30 106.98,137.51"/>
+        <lane id="857669950_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="85.04" shape="60.92,65.75 66.66,73.46 112.08,133.65"/>
+        <lane id="857669950_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="85.04" shape="58.35,67.66 64.10,75.38 109.53,135.58"/>
+        <lane id="857669950_2" index="2" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="85.04" shape="55.78,69.57 61.54,77.30 106.98,137.51"/>
     </edge>
 
     <junction id="61057974" type="dead_end" x="26.20" y="18.34" incLanes="" intLanes="" shape="25.04,19.44 27.36,17.24"/>
