@@ -539,63 +539,58 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     if (myNet->getViewNet()->getViewOptions().showDemandElements()) {
         for (const auto &i : getDemandElementChilds()) {
             if (i->getTagProperty().getTag() == SUMO_TAG_ROUTE) {
+                // calculate route width
+                double routeWidth = s.addSize.getExaggeration(s, this) * 0.66;
 
-                GNERoute *route = dynamic_cast<GNERoute*> (i);
-                if (route) {
-                    // calculate route width
-                    double routeWidth = s.addSize.getExaggeration(s, this) * 0.66;
+                // Start drawing adding an gl identificator
+                glPushName(i->getGlID());
 
-                    // Start drawing adding an gl identificator
-                    glPushName(route->getGlID());
+                // Add a draw matrix
+                glPushMatrix();
 
-                    // Add a draw matrix
-                    glPushMatrix();
+                // Start with the drawing of the area traslating matrix to origin
+                glTranslated(0, 0, i->getType());
 
-                    // Start with the drawing of the area traslating matrix to origin
-                    glTranslated(0, 0, route->getType());
+                // Set color of the base
+                if (drawUsingSelectColor()) {
+                    GLHelper::setColor(s.selectedAdditionalColor);
+                } else {
+                    GLHelper::setColor(i->getColor());
+                }
 
-                    // Set color of the base
-                    if (drawUsingSelectColor()) {
-                        GLHelper::setColor(s.selectedAdditionalColor);
-                    } else {
-                        GLHelper::setColor(route->getColor());
-                    }
+                // draw route
+                GLHelper::drawBoxLines(myLanes.front()->getGeometry().shape, myLanes.front()->getGeometry().shapeRotations, myLanes.front()->getGeometry().shapeLengths, routeWidth);
 
-                    // draw route
-                    GLHelper::drawBoxLines(myLanes.front()->getGeometry().shape, myLanes.front()->getGeometry().shapeRotations, myLanes.front()->getGeometry().shapeLengths, routeWidth);
+                // check if route has a connectio between this and the next edge
+                GNEConnection *nextConnection = i->getNextConnection(this);
 
-                    // check if route has a connectio between this and the next edge
-                    GNEConnection *nextConnection = route->getNextConnection(this);
+                if (nextConnection && (nextConnection->getEdgeFrom()->getGNEJunctionDestiny()->getNBNode()->getShape().size() > 0)) {
+                    GLHelper::drawBoxLines(nextConnection->getGeometry().shape, nextConnection->getGeometry().shapeRotations, nextConnection->getGeometry().shapeLengths, routeWidth);
+                } else {
+                    // calculate line between this and the next edge
+                    GNEHierarchicalElementParents::LineGeometry lineGeometry = i->getLinetoNextEdge(this);
+                    GLHelper::drawBoxLine(lineGeometry.firstPoint, lineGeometry.rotation, lineGeometry.lenght, routeWidth);
+                }
 
-                    if (nextConnection) {
-                        GLHelper::drawBoxLines(nextConnection->getGeometry().shape, nextConnection->getGeometry().shapeRotations, nextConnection->getGeometry().shapeLengths, routeWidth);
-                    } else {
-                        PositionVector line = route->getNextShape(this);
-                        // Add a draw matrix
-                        glLineWidth(3);
-                        GLHelper::drawLine(line.front(), line.back());
-                    }
+                // Pop last matrix
+                glPopMatrix();
 
-                    // Pop last matrix
-                    glPopMatrix();
-
-                    // Draw name if isn't being drawn for selecting
-                    if (!s.drawForSelecting) {
-                        drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
-                    }
+                // Draw name if isn't being drawn for selecting
+                if (!s.drawForSelecting) {
+                    drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+                }
             
-                    // check if dotted contour has to be drawn
-                    if (!s.drawForSelecting && (myNet->getViewNet()->getDottedAC() == i)) {
-                        GLHelper::drawShapeDottedContour(getType(), route->myGeometry.shape, routeWidth);
-                    }
+                // check if dotted contour has to be drawn
+                if (!s.drawForSelecting && (myNet->getViewNet()->getDottedAC() == i)) {
+                    GLHelper::drawShapeDottedContour(getType(), i->myGeometry.shape, routeWidth);
+                }
             
-                    // Pop name
-                    glPopName();
+                // Pop name
+                glPopName();
 
-                    // draw route childs
-                    for (const auto &j : route->getDemandElementChilds()) {
-                        j->drawGL(s);
-                    }
+                // draw route childs
+                for (const auto &j : i->getDemandElementChilds()) {
+                    j->drawGL(s);
                 }
             }
         }

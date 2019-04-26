@@ -24,6 +24,7 @@
 #include <config.h>
 
 #include <utils/gui/globjects/GUIGlObjectTypes.h>
+#include <utils/geom/Position.h>
 
 #include "GNEAttributeCarrier.h"
 
@@ -34,6 +35,7 @@
 class GNEAdditional;
 class GNEDemandElement;
 class GNEShape;
+class GNEConnection;
 
 // ===========================================================================
 // class definitions
@@ -46,6 +48,27 @@ class GNEShape;
 class GNEHierarchicalElementParents {
 
 public:
+    /// @brief struct for pack geometry between two points
+    struct LineGeometry {
+        /// @brief constructor
+        LineGeometry(const Position &_firstPoint);
+
+        /// @brief calculate rotation and lenght to the given second point
+        void calculateRotationsAndLength(const Position &secondPoint);
+
+        /// @brieff first point
+        Position firstPoint;
+
+        /// @brief line rotation
+        double rotation;
+
+        /// @brief line lenghtlenght
+        double lenght;
+    private:
+        /// @brief default constructor
+        LineGeometry();
+    };
+
     /**@brief Constructor used by elements that have another additionals as parent
      * @param[in] tag Type of xml tag that define the element (SUMO_TAG_BUS_STOP, SUMO_TAG_JUNCTION, etc...)
      * @param[in] edgeParents vector of edge parents
@@ -83,6 +106,12 @@ public:
 
     /// @brief get edge chidls
     const std::vector<GNEEdge*>& getEdgeParents() const;
+
+    /// @brief get next connection of the given edge (or NULL if not exist)
+    GNEConnection* getNextConnection(const GNEEdge* edgeFrom) const;
+
+    /// @brief get next LineGeometry to the next consecutive edge of the given edge
+    LineGeometry getLinetoNextEdge(const GNEEdge* edgeFrom) const;
 
     /// @}
 

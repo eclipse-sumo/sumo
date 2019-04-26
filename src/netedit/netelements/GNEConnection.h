@@ -57,6 +57,7 @@ public:
 
     /// @brief Returns position of hierarchical element in view
     Position getPositionInView() const;
+
     /// @}
 
     /// Returns the street's geometry

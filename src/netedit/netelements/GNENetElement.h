@@ -42,7 +42,6 @@ class GNEDemandElement;
 class GNENetElement : public GUIGlObject, public GNEAttributeCarrier, public GNEHierarchicalElementParents, public GNEHierarchicalElementChilds {
 
 public:
-
     /// @brief struct for pack all variables related with geometry of elemement
     struct NetElementGeometry {
         /// @brief constructor

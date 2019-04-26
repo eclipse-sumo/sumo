@@ -30,6 +30,7 @@
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNEJunction.h>
 #include <netedit/netelements/GNELane.h>
+#include <netedit/netelements/GNEConnection.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
@@ -44,6 +45,32 @@
 // ===========================================================================
 // member method definitions
 // ===========================================================================
+
+// ---------------------------------------------------------------------------
+// GNEHierarchicalElementParents::LineGeometry - methods
+// ---------------------------------------------------------------------------
+
+GNEHierarchicalElementParents::LineGeometry::LineGeometry(const Position &_firstPoint) :
+    firstPoint(_firstPoint),
+    rotation(0),
+    lenght(0) {
+}
+
+
+void
+GNEHierarchicalElementParents::LineGeometry::calculateRotationsAndLength(const Position &secondPoint) {
+    // only calculate both values if first and second point are different
+    if (firstPoint != secondPoint) {
+        // Save distance between position into myShapeLengths
+        lenght = firstPoint.distanceTo(secondPoint);
+        // Save rotation (angle) of the vector constructed by points f and s
+        rotation = (double)atan2((secondPoint.x() - firstPoint.x()), (firstPoint.y() - secondPoint.y())) * (double) 180.0 / (double)M_PI;
+    }
+}
+
+// ---------------------------------------------------------------------------
+// GNEHierarchicalElementParents - methods
+// ---------------------------------------------------------------------------
 
 GNEHierarchicalElementParents::GNEHierarchicalElementParents(GNEAttributeCarrier* AC,
         const std::vector<GNEEdge*>& edgeParents,
@@ -167,6 +194,44 @@ GNEHierarchicalElementParents::removeEdgeParent(GNEEdge* edge) {
 const std::vector<GNEEdge*>&
 GNEHierarchicalElementParents::getEdgeParents() const {
     return myEdgeParents;
+}
+
+
+GNEConnection* 
+GNEHierarchicalElementParents::getNextConnection(const GNEEdge* edgeFrom) const {
+    for (int i = 0; i < (int)getEdgeParents().size(); i++) {
+        if (getEdgeParents().at(i) == edgeFrom) {
+            // check if current edge is the last edge
+            if (i < (getEdgeParents().size()-1)) {
+                // search a common connection between edgeFrom and their next edge
+                for (const auto &j : getEdgeParents().at(i)->getGNEConnections()) {
+                    for (const auto &k : getEdgeParents().at(i+1)->getLanes()) {
+                        if (j->getLaneTo() == k) {
+                            return j; 
+                        }
+                    }
+                }
+            } else {
+                return nullptr;
+            }
+        }
+    }
+    return nullptr;
+}
+
+
+GNEHierarchicalElementParents::LineGeometry
+GNEHierarchicalElementParents::getLinetoNextEdge(const GNEEdge* edgeFrom) const {
+    // declare a LineGeometry
+    LineGeometry geometry(edgeFrom->getLanes().front()->getGeometry().shape.back());
+    for (int i = 0; i < (int)getEdgeParents().size(); i++) {
+        if ((getEdgeParents().at(i) == edgeFrom) && i < (getEdgeParents().size()-1)) {
+            // update second point
+            // calculate rotation and lenght
+            geometry.calculateRotationsAndLength(getEdgeParents().at(i+1)->getLanes().front()->getGeometry().shape.front());
+        }
+    }
+    return geometry;
 }
 
 
