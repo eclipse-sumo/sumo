@@ -951,7 +951,7 @@ enum {
     /// @brief unselect all vehicles
     MID_GNE_ALLOWDISALLOW_UNSELECTALL,
     /// @brief select only non road vehicles
-    MID_GNE_ALLOWDISALLOW_SELECTONLYNONROAD,
+    MID_GNE_ALLOWDISALLOW_SELECTONLYROAD,
     /// @}
 
 

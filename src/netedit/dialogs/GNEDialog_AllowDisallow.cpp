@@ -41,7 +41,7 @@ FXDEFMAP(GNEDialog_AllowDisallow) GNEDialog_AllowDisallowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ALLOWDISALLOW_CHANGE,               GNEDialog_AllowDisallow::onCmdValueChanged),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ALLOWDISALLOW_SELECTALL,            GNEDialog_AllowDisallow::onCmdSelectAll),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ALLOWDISALLOW_UNSELECTALL,          GNEDialog_AllowDisallow::onCmdUnselectAll),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ALLOWDISALLOW_SELECTONLYNONROAD,    GNEDialog_AllowDisallow::onCmdSelectOnlyNonRoad),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ALLOWDISALLOW_SELECTONLYROAD,       GNEDialog_AllowDisallow::onCmdSelectOnlyRoad),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALDIALOG_BUTTONACCEPT,      GNEDialog_AllowDisallow::onCmdAccept),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALDIALOG_BUTTONCANCEL,      GNEDialog_AllowDisallow::onCmdCancel),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALDIALOG_BUTTONRESET,       GNEDialog_AllowDisallow::onCmdReset),
@@ -68,8 +68,8 @@ GNEDialog_AllowDisallow::GNEDialog_AllowDisallow(GNEViewNet* viewNet, GNEAttribu
     FXHorizontalFrame* myOptionsFrame = new FXHorizontalFrame(myGroupBoxOptions, GUIDesignAuxiliarHorizontalFrame);
     mySelectAllVClassButton = new FXButton(myOptionsFrame, "", GUIIconSubSys::getIcon(ICON_OK), this, MID_GNE_ALLOWDISALLOW_SELECTALL, GUIDesignButtonIcon);
     new FXLabel(myOptionsFrame, "Allow all vehicles", nullptr, GUIDesignLabelLeftThick);
-    mySelectOnlyNonRoadVClassButton = new FXButton(myOptionsFrame, "", GUIIconSubSys::getIcon(ICON_OK), this, MID_GNE_ALLOWDISALLOW_SELECTONLYNONROAD, GUIDesignButtonIcon);
-    new FXLabel(myOptionsFrame, "Allow only non-road vehicles", nullptr, GUIDesignLabelLeftThick);
+    mySelectOnlyRoadVClassButton = new FXButton(myOptionsFrame, "", GUIIconSubSys::getIcon(ICON_OK), this, MID_GNE_ALLOWDISALLOW_SELECTONLYROAD, GUIDesignButtonIcon);
+    new FXLabel(myOptionsFrame, "Allow only road vehicles", nullptr, GUIDesignLabelLeftThick);
     myUnselectAllVClassButton = new FXButton(myOptionsFrame, "", GUIIconSubSys::getIcon(ICON_CANCEL), this, MID_GNE_ALLOWDISALLOW_UNSELECTALL, GUIDesignButtonIcon);
     new FXLabel(myOptionsFrame, "Disallow all vehicles", nullptr, GUIDesignLabelLeftThick);
     // create groupbox for vehicles
@@ -162,10 +162,10 @@ GNEDialog_AllowDisallow::onCmdUnselectAll(FXObject*, FXSelector, void*) {
 
 
 long
-GNEDialog_AllowDisallow::onCmdSelectOnlyNonRoad(FXObject*, FXSelector, void*) {
+GNEDialog_AllowDisallow::onCmdSelectOnlyRoad(FXObject*, FXSelector, void*) {
     // change all non-road icons to disallow, and allow for the rest
     for (auto i : myVClassMap) {
-        if ((i.first == SVC_TRAM) || (i.first == SVC_RAIL) || (i.first == SVC_RAIL_URBAN) || (i.first == SVC_RAIL_ELECTRIC) || (i.first == SVC_SHIP)) {
+        if ((i.first & (SVC_PEDESTRIAN | SVC_NON_ROAD)) == 0) {
             i.second.first->setIcon(GUIIconSubSys::getIcon(ICON_ACCEPT));
         } else {
             i.second.first->setIcon(GUIIconSubSys::getIcon(ICON_CANCEL));

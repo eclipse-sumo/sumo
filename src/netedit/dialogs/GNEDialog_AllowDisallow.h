@@ -62,8 +62,8 @@ public:
     /// @brief event when user press unselect all VClasses button
     long onCmdUnselectAll(FXObject*, FXSelector, void*);
 
-    /// @brief event when user press select only non road button
-    long onCmdSelectOnlyNonRoad(FXObject*, FXSelector, void*);
+    /// @brief event when user press select only road button
+    long onCmdSelectOnlyRoad(FXObject*, FXSelector, void*);
 
     /// @brief event after press accept button
     long onCmdAccept(FXObject*, FXSelector, void*);
@@ -91,8 +91,8 @@ protected:
     /// @brief unselect all VCLass
     FXButton* myUnselectAllVClassButton;
 
-    /// @brief select only non-road vehicles
-    FXButton* mySelectOnlyNonRoadVClassButton;
+    /// @brief select only road vehicles
+    FXButton* mySelectOnlyRoadVClassButton;
 
     /// @brief accept button
     FXButton* myAcceptButton;
