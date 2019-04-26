@@ -1335,6 +1335,7 @@ NBNodeCont::shouldBeTLSControlled(const NodeSet& c, double laneSpeedThreshold) c
             }
         }
     }
+    //std::cout << " c=" << joinNamedToString(c, ' ') << " f=" << f << " size=" << c.size() << " thresh=" << laneSpeedThreshold << "\n";
     return !tooFast && f >= laneSpeedThreshold && c.size() != 0;
 }
 
@@ -1535,7 +1536,8 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
                 }
             }
             // check whether the cluster should be controlled
-            if (!shouldBeTLSControlled(c, laneSpeedThreshold)) {
+            // to avoid gigantic clusters, assume that at most 4 nodes should be needed for a guessed-joined-tls
+            if (c.size() == 0 || !shouldBeTLSControlled(c, laneSpeedThreshold * c.size() / 4)) {
                 i = cands.erase(i);
             } else {
                 ++i;
