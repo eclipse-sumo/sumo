@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:27:58 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Fri Apr 26 17:00:33 2019 by Eclipse SUMO netconvert Version v1_2_0+0096-85458c5
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -31,22 +31,22 @@ SPDX-License-Identifier: EPL-2.0
     <location netOffset="100.00,50.00" convBoundary="0.00,0.00,200.00,100.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id=":C_0" function="internal">
-        <lane id=":C_0_0" index="0" disallow="pedestrian" speed="13.89" length="6.00" shape="103.00,51.60 97.00,51.60"/>
+        <lane id=":C_0_0" index="0" disallow="pedestrian rail_fast" speed="13.89" length="6.00" shape="103.00,51.60 97.00,51.60"/>
     </edge>
     <edge id=":C_1" function="internal">
-        <lane id=":C_1_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="103.00,51.60 101.80,50.80 101.40,50.00"/>
+        <lane id=":C_1_0" index="0" disallow="pedestrian rail_fast" speed="3.65" length="2.34" shape="103.00,51.60 101.80,50.80 101.40,50.00"/>
     </edge>
     <edge id=":C_4" function="internal">
-        <lane id=":C_4_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="101.40,50.00 101.80,49.20 103.00,48.40"/>
+        <lane id=":C_4_0" index="0" disallow="pedestrian rail_fast" speed="3.65" length="2.34" shape="101.40,50.00 101.80,49.20 103.00,48.40"/>
     </edge>
     <edge id=":C_2" function="internal">
-        <lane id=":C_2_0" index="0" disallow="pedestrian" speed="13.89" length="6.00" shape="97.00,48.40 103.00,48.40"/>
+        <lane id=":C_2_0" index="0" disallow="pedestrian rail_fast" speed="13.89" length="6.00" shape="97.00,48.40 103.00,48.40"/>
     </edge>
     <edge id=":C_3" function="internal">
-        <lane id=":C_3_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="97.00,48.40 98.20,49.20 98.60,50.00"/>
+        <lane id=":C_3_0" index="0" disallow="pedestrian rail_fast" speed="3.65" length="2.34" shape="97.00,48.40 98.20,49.20 98.60,50.00"/>
     </edge>
     <edge id=":C_5" function="internal">
-        <lane id=":C_5_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" shape="98.60,50.00 98.20,50.80 97.00,51.60"/>
+        <lane id=":C_5_0" index="0" disallow="pedestrian rail_fast" speed="3.65" length="2.34" shape="98.60,50.00 98.20,50.80 97.00,51.60"/>
     </edge>
     <edge id=":C_c0" function="crossing" crossingEdges="CE EC">
         <lane id=":C_c0_0" index="0" allow="pedestrian" speed="1.00" length="6.40" width="4.00" shape="101.00,46.80 101.00,53.20"/>
@@ -61,13 +61,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C_w1_0" index="0" allow="pedestrian" speed="1.00" length="3.58" width="4.00" shape="99.00,46.80 103.00,46.80 103.00,44.80 101.50,43.30 98.50,43.30 97.00,44.80 97.00,46.80 101.00,46.80"/>
     </edge>
     <edge id=":E_0" function="internal">
-        <lane id=":E_0_0" index="0" disallow="pedestrian" speed="3.65" length="4.67" shape="200.00,48.40 201.20,49.20 201.60,50.00 201.20,50.80 200.00,51.60"/>
+        <lane id=":E_0_0" index="0" disallow="pedestrian rail_fast" speed="3.65" length="4.67" shape="200.00,48.40 201.20,49.20 201.60,50.00 201.20,50.80 200.00,51.60"/>
     </edge>
     <edge id=":E_w0" function="walkingarea">
         <lane id=":E_w0_0" index="0" allow="pedestrian" speed="1.00" length="8.40" width="2.00" shape="200.00,53.20 200.00,55.20 200.00,44.80 200.00,46.80"/>
     </edge>
     <edge id=":W_0" function="internal">
-        <lane id=":W_0_0" index="0" disallow="pedestrian" speed="3.65" length="4.67" shape="0.00,51.60 -1.20,50.80 -1.60,50.00 -1.20,49.20 0.00,48.40"/>
+        <lane id=":W_0_0" index="0" disallow="pedestrian rail_fast" speed="3.65" length="4.67" shape="0.00,51.60 -1.20,50.80 -1.60,50.00 -1.20,49.20 0.00,48.40"/>
     </edge>
     <edge id=":W_w0" function="walkingarea">
         <lane id=":W_w0_0" index="0" allow="pedestrian" speed="1.00" length="8.40" width="2.00" shape="0.00,46.80 0.00,44.80 0.00,55.20 0.00,53.20"/>
@@ -75,25 +75,25 @@ SPDX-License-Identifier: EPL-2.0
 
     <edge id="CE" from="C" to="E" priority="1">
         <lane id="CE_0" index="0" allow="pedestrian" speed="13.89" length="97.00" width="2.00" shape="103.00,45.80 200.00,45.80"/>
-        <lane id="CE_1" index="1" disallow="pedestrian" speed="13.89" length="97.00" shape="103.00,48.40 200.00,48.40"/>
+        <lane id="CE_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="97.00" shape="103.00,48.40 200.00,48.40"/>
     </edge>
     <edge id="CS" from="C" to="S" priority="1" spreadType="center">
         <lane id="CS_0" index="0" allow="pedestrian" speed="5.00" length="43.30" width="3.00" shape="100.00,43.30 100.00,0.00"/>
     </edge>
     <edge id="CW" from="C" to="W" priority="1">
         <lane id="CW_0" index="0" allow="pedestrian" speed="13.89" length="97.00" width="2.00" shape="97.00,54.20 0.00,54.20"/>
-        <lane id="CW_1" index="1" disallow="pedestrian" speed="13.89" length="97.00" shape="97.00,51.60 0.00,51.60"/>
+        <lane id="CW_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="97.00" shape="97.00,51.60 0.00,51.60"/>
     </edge>
     <edge id="EC" from="E" to="C" priority="1">
         <lane id="EC_0" index="0" allow="pedestrian" speed="13.89" length="97.00" width="2.00" shape="200.00,54.20 103.00,54.20"/>
-        <lane id="EC_1" index="1" disallow="pedestrian" speed="13.89" length="97.00" shape="200.00,51.60 103.00,51.60"/>
+        <lane id="EC_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="97.00" shape="200.00,51.60 103.00,51.60"/>
     </edge>
     <edge id="NC" from="N" to="C" priority="1" spreadType="center">
         <lane id="NC_0" index="0" allow="pedestrian" speed="5.00" length="43.30" width="3.00" shape="100.00,100.00 100.00,56.70"/>
     </edge>
     <edge id="WC" from="W" to="C" priority="1">
         <lane id="WC_0" index="0" allow="pedestrian" speed="13.89" length="97.00" width="2.00" shape="0.00,45.80 97.00,45.80"/>
-        <lane id="WC_1" index="1" disallow="pedestrian" speed="13.89" length="97.00" shape="0.00,48.40 97.00,48.40"/>
+        <lane id="WC_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="97.00" shape="0.00,48.40 97.00,48.40"/>
     </edge>
 
     <junction id="C" type="priority" x="100.00" y="50.00" incLanes="NC_0 EC_0 EC_1 WC_0 WC_1 :C_w1_0 :C_w0_0" intLanes=":C_0_0 :C_4_0 :C_2_0 :C_5_0 :C_c0_0 :C_c1_0" shape="98.50,56.70 101.50,56.70 101.67,55.87 101.88,55.58 102.17,55.37 102.54,55.24 103.00,55.20 103.00,44.80 102.17,44.63 101.88,44.42 101.67,44.13 101.54,43.76 101.50,43.30 98.50,43.30 98.33,44.13 98.12,44.42 97.83,44.63 97.46,44.76 97.00,44.80 97.00,55.20 97.83,55.37 98.12,55.58 98.33,55.87 98.46,56.24">

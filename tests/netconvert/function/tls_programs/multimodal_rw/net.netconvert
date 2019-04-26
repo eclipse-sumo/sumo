@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 25 14:41:02 2019 by Eclipse SUMO netconvert Version v1_2_0+0026-b74d136
+<!-- generated on Fri Apr 26 17:00:29 2019 by Eclipse SUMO netconvert Version v1_2_0+0096-85458c5
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -86,11 +86,11 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":52768448_1_0" index="0" allow="tram" speed="13.89" length="16.19" shape="428.04,392.45 424.36,376.68"/>
     </edge>
     <edge id=":cluster_251050941_280598736_280598739_28902891_3142549227_3142550438_0" function="internal">
-        <lane id=":cluster_251050941_280598736_280598739_28902891_3142549227_3142550438_0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="10.11" length="8.87" shape="413.67,389.29 413.08,386.76 412.34,385.08 411.10,383.72 409.02,382.16"/>
+        <lane id=":cluster_251050941_280598736_280598739_28902891_3142549227_3142550438_0_0" index="0" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="10.11" length="8.87" shape="413.67,389.29 413.08,386.76 412.34,385.08 411.10,383.72 409.02,382.16"/>
     </edge>
     <edge id=":cluster_251050941_280598736_280598739_28902891_3142549227_3142550438_1" function="internal">
-        <lane id=":cluster_251050941_280598736_280598739_28902891_3142549227_3142550438_1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="8.33" length="47.26" shape="416.81,388.66 406.86,342.33"/>
-        <lane id=":cluster_251050941_280598736_280598739_28902891_3142549227_3142550438_1_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="8.33" length="47.26" shape="419.95,388.02 410.04,341.93"/>
+        <lane id=":cluster_251050941_280598736_280598739_28902891_3142549227_3142550438_1_0" index="0" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="8.33" length="47.26" shape="416.81,388.66 406.86,342.33"/>
+        <lane id=":cluster_251050941_280598736_280598739_28902891_3142549227_3142550438_1_1" index="1" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="8.33" length="47.26" shape="419.95,388.02 410.04,341.93"/>
     </edge>
     <edge id=":cluster_251050941_280598736_280598739_28902891_3142549227_3142550438_3" function="internal">
         <lane id=":cluster_251050941_280598736_280598739_28902891_3142549227_3142550438_3_0" index="0" allow="tram" speed="13.89" length="21.80" shape="420.72,377.24 416.92,374.34 411.53,371.49 405.85,369.23 401.17,368.10"/>
@@ -114,10 +114,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":cluster_251050941_280598736_280598739_28902891_3142549227_3142550438_13_0" index="0" allow="tram" speed="13.06" length="17.64" shape="407.14,360.80 412.23,365.17 417.58,370.01 420.32,372.51"/>
     </edge>
     <edge id=":cluster_251050941_280598736_280598739_28902891_3142549227_3142550438_9" function="internal">
-        <lane id=":cluster_251050941_280598736_280598739_28902891_3142549227_3142550438_9_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="9.87" length="16.26" shape="397.95,354.70 402.20,352.03 405.10,349.08 406.65,345.85 406.86,342.33"/>
+        <lane id=":cluster_251050941_280598736_280598739_28902891_3142549227_3142550438_9_0" index="0" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="9.87" length="16.26" shape="397.95,354.70 402.20,352.03 405.10,349.08 406.65,345.85 406.86,342.33"/>
     </edge>
     <edge id=":cluster_251050941_280598736_280598739_28902891_3142549227_3142550438_10" function="internal">
-        <lane id=":cluster_251050941_280598736_280598739_28902891_3142549227_3142550438_10_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="9.76" length="29.61" shape="397.95,354.70 409.02,382.16"/>
+        <lane id=":cluster_251050941_280598736_280598739_28902891_3142549227_3142550438_10_0" index="0" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="9.76" length="29.61" shape="397.95,354.70 409.02,382.16"/>
     </edge>
     <edge id=":cluster_251050941_280598736_280598739_28902891_3142549227_3142550438_11" function="internal">
         <lane id=":cluster_251050941_280598736_280598739_28902891_3142549227_3142550438_11_0" index="0" allow="tram" speed="11.20" length="22.19" shape="406.03,364.97 408.24,364.14 410.35,360.60 412.34,354.35 414.22,345.39"/>
@@ -127,11 +127,11 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <edge id="23209153#1" from="251050939" to="cluster_251050941_280598736_280598739_28902891_3142549227_3142550438" name="Waisenhausdamm" priority="4" type="highway.residential" spreadType="center" shape="281.30,339.68 326.43,348.65 331.45,349.53 380.37,357.63 390.42,357.31 395.36,356.03 399.51,353.90 401.69,352.03 404.97,349.23 408.66,343.80">
-        <lane id="23209153#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="118.77" shape="281.30,339.68 326.43,348.65 331.45,349.53 380.37,357.63 390.42,357.31 395.36,356.03 397.95,354.70"/>
+        <lane id="23209153#1_0" index="0" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="13.89" length="118.77" shape="281.30,339.68 326.43,348.65 331.45,349.53 380.37,357.63 390.42,357.31 395.36,356.03 397.95,354.70"/>
     </edge>
     <edge id="25730280#0" from="cluster_251050941_280598736_280598739_28902891_3142549227_3142550438" to="196317724" name="Stobenstraße" priority="7" type="highway.secondary" spreadType="center" shape="408.66,343.80 408.35,341.36 408.19,340.22 407.79,333.59 407.76,333.00 407.80,326.81 407.93,314.34 408.41,289.68 408.07,264.94 407.72,240.22">
-        <lane id="25730280#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="8.33" length="101.95" shape="406.86,342.33 406.76,341.57 406.60,340.38 406.19,333.69 406.16,333.04 406.20,326.80 406.33,314.32 406.81,289.68 406.47,264.96 406.12,240.24"/>
-        <lane id="25730280#0_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="8.33" length="101.95" shape="410.04,341.93 409.94,341.15 409.78,340.06 409.39,333.49 409.36,332.96 409.40,326.82 409.53,314.36 410.01,289.68 409.67,264.92 409.32,240.20"/>
+        <lane id="25730280#0_0" index="0" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="8.33" length="101.95" shape="406.86,342.33 406.76,341.57 406.60,340.38 406.19,333.69 406.16,333.04 406.20,326.80 406.33,314.32 406.81,289.68 406.47,264.96 406.12,240.24"/>
+        <lane id="25730280#0_1" index="1" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="8.33" length="101.95" shape="410.04,341.93 409.94,341.15 409.78,340.06 409.39,333.49 409.36,332.96 409.40,326.82 409.53,314.36 410.01,289.68 409.67,264.92 409.32,240.20"/>
     </edge>
     <edge id="26812730#0" from="273459765" to="3142550434" priority="15" type="railway.tram" spreadType="center" shape="388.89,362.88 395.81,363.59 400.19,364.15 401.51,364.30">
         <lane id="26812730#0_0" index="0" allow="tram" speed="13.89" length="0.20" shape="396.71,363.75 396.91,363.78"/>
@@ -218,16 +218,16 @@ SPDX-License-Identifier: EPL-2.0
         <param key="railway:preferred_direction" value="forward"/>
     </edge>
     <edge id="319583927#0" from="660683315" to="cluster_251050941_280598736_280598739_28902891_3142549227_3142550438" name="Bohlweg" priority="7" type="highway.secondary" spreadType="center" shape="428.10,444.80 427.45,441.53 416.57,387.46">
-        <lane id="319583927#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="8.33" length="57.27" shape="424.96,445.42 424.31,442.16 413.67,389.29"/>
-        <lane id="319583927#0_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="8.33" length="57.27" shape="428.10,444.80 427.45,441.53 416.81,388.66"/>
-        <lane id="319583927#0_2" index="2" disallow="tram rail_urban rail rail_electric ship" speed="8.33" length="57.27" shape="431.24,444.18 430.59,440.90 419.95,388.02"/>
+        <lane id="319583927#0_0" index="0" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="8.33" length="57.27" shape="424.96,445.42 424.31,442.16 413.67,389.29"/>
+        <lane id="319583927#0_1" index="1" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="8.33" length="57.27" shape="428.10,444.80 427.45,441.53 416.81,388.66"/>
+        <lane id="319583927#0_2" index="2" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="8.33" length="57.27" shape="431.24,444.18 430.59,440.90 419.95,388.02"/>
     </edge>
     <edge id="6148678#0" from="50917835" to="52768448" priority="15" type="railway.tram" spreadType="center" shape="436.91,440.20 436.79,439.53 428.63,396.01 427.77,390.78">
         <lane id="6148678#0_0" index="0" allow="tram" speed="13.89" length="48.57" shape="436.91,440.20 436.79,439.53 428.63,396.01 428.04,392.45"/>
         <param key="railway:preferred_direction" value="forward"/>
     </edge>
     <edge id="6279146" from="cluster_251050941_280598736_280598739_28902891_3142549227_3142550438" to="5501433500" name="Waisenhausdamm" priority="4" type="highway.residential" spreadType="center" shape="416.57,387.46 408.57,381.85 404.93,378.90 401.06,377.01 396.40,374.73 387.44,371.69 347.05,362.62 290.13,350.05 270.56,346.56 265.75,346.69 262.20,348.53 260.31,351.38 260.13,354.38 260.07,355.76">
-        <lane id="6279146_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="160.37" shape="409.02,382.16 408.57,381.85 404.93,378.90 401.06,377.01 396.40,374.73 387.44,371.69 347.05,362.62 290.13,350.05 270.56,346.56 265.75,346.69 262.20,348.53 260.31,351.38 260.13,354.38 260.07,355.76"/>
+        <lane id="6279146_0" index="0" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="13.89" length="160.37" shape="409.02,382.16 408.57,381.85 404.93,378.90 401.06,377.01 396.40,374.73 387.44,371.69 347.05,362.62 290.13,350.05 270.56,346.56 265.75,346.69 262.20,348.53 260.31,351.38 260.13,354.38 260.07,355.76"/>
     </edge>
 
     <tlLogic id="cluster_251050941_280598736_280598739_28902891_3142549227_3142550438" type="static" programID="0" offset="0">

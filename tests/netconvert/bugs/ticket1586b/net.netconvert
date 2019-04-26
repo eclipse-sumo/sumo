@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:28:01 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Fri Apr 26 17:00:36 2019 by Eclipse SUMO netconvert Version v1_2_0+0096-85458c5
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -29,47 +29,47 @@ SPDX-License-Identifier: EPL-2.0
     <location netOffset="43.24,-44.37" convBoundary="0.00,0.00,299.61,35.08" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id=":gneJ0_0" function="internal">
-        <lane id=":gneJ0_0_0" index="0" disallow="rail" speed="6.54" length="8.08" shape="168.51,15.98 167.87,13.90 166.73,12.42 165.09,11.54 162.93,11.26"/>
+        <lane id=":gneJ0_0_0" index="0" disallow="rail rail_fast" speed="6.54" length="8.08" shape="168.51,15.98 167.87,13.90 166.73,12.42 165.09,11.54 162.93,11.26"/>
     </edge>
     <edge id=":gneJ0_1" function="internal">
-        <lane id=":gneJ0_1_0" index="0" disallow="rail" speed="8.04" length="12.70" shape="171.67,15.48 170.67,12.21 168.88,9.89 166.29,8.50 162.91,8.06"/>
+        <lane id=":gneJ0_1_0" index="0" disallow="rail rail_fast" speed="8.04" length="12.70" shape="171.67,15.48 170.67,12.21 168.88,9.89 166.29,8.50 162.91,8.06"/>
     </edge>
     <edge id=":gneJ0_2" function="internal">
-        <lane id=":gneJ0_2_0" index="0" disallow="rail" speed="13.89" length="12.47" shape="175.31,4.89 162.88,4.86"/>
-        <lane id=":gneJ0_2_1" index="1" disallow="rail" speed="13.89" length="12.47" shape="175.38,1.69 162.86,1.66"/>
+        <lane id=":gneJ0_2_0" index="0" disallow="rail rail_fast" speed="13.89" length="12.47" shape="175.31,4.89 162.88,4.86"/>
+        <lane id=":gneJ0_2_1" index="1" disallow="rail rail_fast" speed="13.89" length="12.47" shape="175.38,1.69 162.86,1.66"/>
     </edge>
     <edge id=":gneJ1_0" function="internal">
-        <lane id=":gneJ1_0_0" index="0" disallow="rail" speed="6.68" length="6.41" shape="83.99,11.88 82.33,12.10 80.93,12.72 79.80,13.75 78.93,15.18"/>
+        <lane id=":gneJ1_0_0" index="0" disallow="rail rail_fast" speed="6.68" length="6.41" shape="83.99,11.88 82.33,12.10 80.93,12.72 79.80,13.75 78.93,15.18"/>
     </edge>
     <edge id=":gneJ1_1" function="internal">
-        <lane id=":gneJ1_1_0" index="0" disallow="rail" speed="8.22" length="10.07" shape="83.97,8.68 81.36,9.02 79.16,10.00 77.38,11.61 76.01,13.86"/>
+        <lane id=":gneJ1_1_0" index="0" disallow="rail rail_fast" speed="8.22" length="10.07" shape="83.97,8.68 81.36,9.02 79.16,10.00 77.38,11.61 76.01,13.86"/>
     </edge>
     <edge id=":gneJ1_2" function="internal">
-        <lane id=":gneJ1_2_0" index="0" disallow="rail" speed="13.89" length="9.26" shape="83.94,5.48 74.69,5.60"/>
-        <lane id=":gneJ1_2_1" index="1" disallow="rail" speed="13.89" length="9.26" shape="83.92,2.28 74.64,2.40"/>
+        <lane id=":gneJ1_2_0" index="0" disallow="rail rail_fast" speed="13.89" length="9.26" shape="83.94,5.48 74.69,5.60"/>
+        <lane id=":gneJ1_2_1" index="1" disallow="rail rail_fast" speed="13.89" length="9.26" shape="83.92,2.28 74.64,2.40"/>
     </edge>
 
     <edge id="beg" from="gneJ4" to="gneJ0" priority="1">
-        <lane id="beg_0" index="0" disallow="rail" speed="13.89" length="124.23" shape="299.52,7.28 175.31,4.89"/>
-        <lane id="beg_1" index="1" disallow="rail" speed="13.89" length="124.23" shape="299.58,4.08 175.38,1.69"/>
+        <lane id="beg_0" index="0" disallow="rail rail_fast" speed="13.89" length="124.23" shape="299.52,7.28 175.31,4.89"/>
+        <lane id="beg_1" index="1" disallow="rail rail_fast" speed="13.89" length="124.23" shape="299.58,4.08 175.38,1.69"/>
     </edge>
     <edge id="beg2" from="gneJ5" to="gneJ0" priority="1" shape="294.58,35.08 173.87,19.13 170.82,0.00">
-        <lane id="beg2_0" index="0" disallow="rail" speed="13.89" length="130.49" shape="293.95,39.84 169.69,23.42 168.51,15.98"/>
-        <lane id="beg2_1" index="1" disallow="rail" speed="13.89" length="130.49" shape="294.37,36.67 172.48,20.56 171.67,15.48"/>
+        <lane id="beg2_0" index="0" disallow="rail rail_fast" speed="13.89" length="130.49" shape="293.95,39.84 169.69,23.42 168.51,15.98"/>
+        <lane id="beg2_1" index="1" disallow="rail rail_fast" speed="13.89" length="130.49" shape="294.37,36.67 172.48,20.56 171.67,15.48"/>
     </edge>
     <edge id="end" from="gneJ1" to="gneJ2" priority="1">
-        <lane id="end_0" index="0" disallow="rail" speed="13.89" length="74.39" shape="74.69,5.60 0.32,6.81"/>
-        <lane id="end_1" index="1" disallow="rail" speed="13.89" length="74.39" shape="74.64,2.40 0.27,3.61"/>
+        <lane id="end_0" index="0" disallow="rail rail_fast" speed="13.89" length="74.39" shape="74.69,5.60 0.32,6.81"/>
+        <lane id="end_1" index="1" disallow="rail rail_fast" speed="13.89" length="74.39" shape="74.64,2.40 0.27,3.61"/>
     </edge>
     <edge id="end2" from="gneJ1" to="gneJ3" priority="1" shape="80.19,0.71 68.21,27.28 0.00,30.01">
-        <lane id="end2_0" index="0" disallow="rail" speed="13.89" length="87.66" shape="78.93,15.18 71.37,31.96 0.19,34.81"/>
-        <lane id="end2_1" index="1" disallow="rail" speed="13.89" length="87.66" shape="76.01,13.86 69.26,28.84 0.06,31.61"/>
+        <lane id="end2_0" index="0" disallow="rail rail_fast" speed="13.89" length="87.66" shape="78.93,15.18 71.37,31.96 0.19,34.81"/>
+        <lane id="end2_1" index="1" disallow="rail rail_fast" speed="13.89" length="87.66" shape="76.01,13.86 69.26,28.84 0.06,31.61"/>
     </edge>
     <edge id="middle" from="gneJ0" to="gneJ1" priority="1">
-        <lane id="middle_0" index="0" disallow="rail" speed="13.89" length="78.94" shape="162.93,11.26 83.99,11.88"/>
-        <lane id="middle_1" index="1" disallow="rail" speed="13.89" length="78.94" shape="162.91,8.06 83.97,8.68"/>
-        <lane id="middle_2" index="2" disallow="rail" speed="13.89" length="78.94" shape="162.88,4.86 83.94,5.48"/>
-        <lane id="middle_3" index="3" disallow="rail" speed="13.89" length="78.94" shape="162.86,1.66 83.92,2.28"/>
+        <lane id="middle_0" index="0" disallow="rail rail_fast" speed="13.89" length="78.94" shape="162.93,11.26 83.99,11.88"/>
+        <lane id="middle_1" index="1" disallow="rail rail_fast" speed="13.89" length="78.94" shape="162.91,8.06 83.97,8.68"/>
+        <lane id="middle_2" index="2" disallow="rail rail_fast" speed="13.89" length="78.94" shape="162.88,4.86 83.94,5.48"/>
+        <lane id="middle_3" index="3" disallow="rail rail_fast" speed="13.89" length="78.94" shape="162.86,1.66 83.92,2.28"/>
     </edge>
 
     <junction id="gneJ0" type="unregulated" x="170.82" y="0.00" incLanes="beg2_0 beg2_1 beg_0 beg_1" intLanes=":gneJ0_0_0 :gneJ0_1_0 :gneJ0_2_0 :gneJ0_2_1" shape="166.93,16.23 173.25,15.22 172.91,12.54 172.85,10.34 173.05,8.64 173.53,7.43 174.27,6.71 175.28,6.49 175.41,0.09 162.85,0.06 162.95,12.86 164.92,13.22 165.66,13.69 166.24,14.35 166.67,15.19"/>

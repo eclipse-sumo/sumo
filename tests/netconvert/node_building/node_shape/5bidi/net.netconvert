@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 25 14:33:34 2019 by Eclipse SUMO netconvert Version v1_2_0+0026-b74d136
+<!-- generated on Fri Apr 26 17:00:13 2019 by Eclipse SUMO netconvert Version v1_2_0+0096-85458c5
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -34,28 +34,28 @@ SPDX-License-Identifier: EPL-2.0
     <location netOffset="-4586.25,3488.92" convBoundary="0.00,0.00,174.26,153.47" origBoundary="-516.87,-4897.89,5594.65,1679.30" projParameter="!"/>
 
     <edge id="-1" from="C" to="A" priority="1" shape="5.46,80.50 4.56,83.93 3.86,86.57">
-        <lane id="-1_0" index="0" disallow="pedestrian" speed="13.89" length="27.00" width="3.25" shape="7.03,80.91 6.13,84.34 3.74,93.37"/>
+        <lane id="-1_0" index="0" disallow="pedestrian rail_fast" speed="13.89" length="27.00" width="3.25" shape="7.03,80.91 6.13,84.34 3.74,93.37"/>
     </edge>
     <edge id="-2" from="C" to="1422" priority="1" shape="20.63,80.45 24.66,113.93 28.71,147.52">
-        <lane id="-2_0" index="0" disallow="pedestrian" speed="8.33" length="84.15" width="3.00" shape="22.24,81.27 26.15,113.75 30.95,153.61"/>
+        <lane id="-2_0" index="0" disallow="pedestrian rail_fast" speed="8.33" length="84.15" width="3.00" shape="22.24,81.27 26.15,113.75 30.95,153.61"/>
     </edge>
     <edge id="-3" from="C" to="1426" priority="1" shape="25.90,73.79 149.24,59.44 151.15,59.23 152.14,59.12 153.14,59.02 154.29,58.93 156.20,58.80 157.20,58.74 158.20,58.69 168.28,58.16">
-        <lane id="-3_0" index="0" disallow="pedestrian" speed="8.33" length="159.65" width="3.00" shape="26.70,72.19 149.07,57.95 150.99,57.74 151.98,57.63 153.01,57.53 154.18,57.43 156.10,57.30 157.12,57.24 158.12,57.19 174.35,56.34"/>
+        <lane id="-3_0" index="0" disallow="pedestrian rail_fast" speed="8.33" length="159.65" width="3.00" shape="26.70,72.19 149.07,57.95 150.99,57.74 151.98,57.63 153.01,57.53 154.18,57.43 156.10,57.30 157.12,57.24 158.12,57.19 174.35,56.34"/>
     </edge>
     <edge id="-4" from="C" to="1436" priority="1" shape="8.91,68.40 18.21,37.35 27.70,5.75">
-        <lane id="-4_0" index="0" disallow="pedestrian" speed="13.89" length="82.78" width="3.25" shape="7.55,67.26 16.65,36.88 28.05,-1.06"/>
+        <lane id="-4_0" index="0" disallow="pedestrian rail_fast" speed="13.89" length="82.78" width="3.25" shape="7.55,67.26 16.65,36.88 28.05,-1.06"/>
     </edge>
     <edge id="1" from="A" to="C" priority="1" shape="3.86,86.57 4.56,83.93 5.46,80.50">
-        <lane id="1_0" index="0" disallow="pedestrian" speed="13.89" length="27.00" width="3.25" shape="0.60,92.54 2.99,83.52 3.89,80.09"/>
+        <lane id="1_0" index="0" disallow="pedestrian rail_fast" speed="13.89" length="27.00" width="3.25" shape="0.60,92.54 2.99,83.52 3.89,80.09"/>
     </edge>
     <edge id="2" from="1422" to="C" priority="1" shape="28.71,147.52 24.66,113.93 20.63,80.45">
-        <lane id="2_0" index="0" disallow="pedestrian" speed="8.33" length="84.15" width="3.00" shape="27.98,153.97 23.17,114.11 19.26,81.63"/>
+        <lane id="2_0" index="0" disallow="pedestrian rail_fast" speed="8.33" length="84.15" width="3.00" shape="27.98,153.97 23.17,114.11 19.26,81.63"/>
     </edge>
     <edge id="3" from="1426" to="C" priority="1" shape="168.28,58.16 158.20,58.69 157.20,58.74 156.20,58.80 154.29,58.93 153.14,59.02 152.14,59.12 151.15,59.23 149.24,59.44 25.90,73.79">
-        <lane id="3_0" index="0" disallow="pedestrian" speed="8.33" length="159.65" width="3.00" shape="174.50,59.33 158.28,60.19 157.28,60.24 156.30,60.30 154.40,60.43 153.27,60.51 152.30,60.61 151.31,60.72 149.41,60.93 27.05,75.17"/>
+        <lane id="3_0" index="0" disallow="pedestrian rail_fast" speed="8.33" length="159.65" width="3.00" shape="174.50,59.33 158.28,60.19 157.28,60.24 156.30,60.30 154.40,60.43 153.27,60.51 152.30,60.61 151.31,60.72 149.41,60.93 27.05,75.17"/>
     </edge>
     <edge id="4" from="1436" to="C" priority="1" shape="27.70,5.75 18.21,37.35 8.91,68.40">
-        <lane id="4_0" index="0" disallow="pedestrian" speed="13.89" length="82.78" width="3.25" shape="31.16,-0.12 19.77,37.82 10.67,68.20"/>
+        <lane id="4_0" index="0" disallow="pedestrian rail_fast" speed="13.89" length="82.78" width="3.25" shape="31.16,-0.12 19.77,37.82 10.67,68.20"/>
     </edge>
 
     <junction id="1422" type="dead_end" x="32.09" y="153.47" incLanes="-2_0" intLanes="" shape="29.47,153.79 32.44,153.43 29.47,153.79"/>

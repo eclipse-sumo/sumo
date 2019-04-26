@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:27:55 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Fri Apr 26 17:00:30 2019 by Eclipse SUMO netconvert Version v1_2_0+0096-85458c5
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -40,62 +40,62 @@ SPDX-License-Identifier: EPL-2.0
     <location netOffset="-457861.70,-3113414.12" convBoundary="0.00,0.00,1081.10,724.10" origBoundary="-15.485060,28.109214,-15.398371,28.170442" projParameter="+proj=utm +zone=28 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id="177338975" from="492500988" to="cluster_1907731754_338287766" priority="4" type="highway.residential" spreadType="center" shape="836.31,378.60 826.33,382.19 810.93,471.50 808.18,482.63">
-        <lane id="177338975_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="122.58" shape="832.62,379.93 826.33,382.19 810.93,471.50 806.65,488.80"/>
+        <lane id="177338975_0" index="0" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="13.89" length="122.58" shape="832.62,379.93 826.33,382.19 810.93,471.50 806.65,488.80"/>
     </edge>
     <edge id="177338976" from="cluster_1877878502_1907731767" to="335691182" priority="4" type="highway.residential" spreadType="center" shape="780.45,477.64 797.81,379.68 792.55,374.75 788.10,370.71">
-        <lane id="177338976_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="121.35" shape="779.38,483.68 797.81,379.68 792.62,374.81"/>
+        <lane id="177338976_0" index="0" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="13.89" length="121.35" shape="779.38,483.68 797.81,379.68 792.62,374.81"/>
     </edge>
     <edge id="205013609#0" from="335691176" to="2844510655" priority="5" type="highway.unclassified" spreadType="center" shape="797.58,318.01 802.42,311.13 805.05,305.88 807.27,298.63 808.46,295.18 811.25,279.02 814.04,255.16 813.80,245.94">
-        <lane id="205013609#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="75.12" shape="804.82,306.34 805.05,305.88 807.27,298.63 808.46,295.18 811.25,279.02 814.04,255.16 813.80,245.94"/>
+        <lane id="205013609#0_0" index="0" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="13.89" length="75.12" shape="804.82,306.34 805.05,305.88 807.27,298.63 808.46,295.18 811.25,279.02 814.04,255.16 813.80,245.94"/>
     </edge>
     <edge id="205013617#1" from="2149919303" to="335691178" priority="5" type="highway.unclassified" spreadType="center" shape="844.87,251.32 841.99,278.81 839.97,298.08 840.12,304.51 840.68,312.90 843.40,324.47">
-        <lane id="205013617#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="73.73" shape="844.87,251.32 841.99,278.81 839.97,298.08 840.12,304.51 840.62,312.05"/>
+        <lane id="205013617#1_0" index="0" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="13.89" length="73.73" shape="844.87,251.32 841.99,278.81 839.97,298.08 840.12,304.51 840.62,312.05"/>
     </edge>
     <edge id="205013618#0" from="492500994" to="205013618#0-AddedOffRampNode" priority="11" type="highway.trunk" spreadType="center" shape="780.51,358.55 778.02,347.51 767.47,342.38 765.37,342.04 744.57,338.57">
-        <lane id="205013618#0_0" index="0" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="22.22" length="48.01" shape="777.62,352.99 776.63,348.61 766.98,343.92 765.11,343.62 744.31,340.15"/>
-        <lane id="205013618#0_1" index="1" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="22.22" length="48.01" shape="780.74,352.29 779.41,346.41 767.96,340.84 765.63,340.46 744.83,336.99"/>
+        <lane id="205013618#0_0" index="0" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship rail_fast" speed="22.22" length="48.01" shape="777.62,352.99 776.63,348.61 766.98,343.92 765.11,343.62 744.31,340.15"/>
+        <lane id="205013618#0_1" index="1" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship rail_fast" speed="22.22" length="48.01" shape="780.74,352.29 779.41,346.41 767.96,340.84 765.63,340.46 744.83,336.99"/>
     </edge>
     <edge id="30417941#1" from="335691176" to="335691178" name="Plaza de Belén María" priority="6" type="highway.tertiary" spreadType="center" shape="797.58,318.01 806.62,313.28 816.69,311.55 826.80,312.96 836.00,317.41 843.40,324.47">
-        <lane id="30417941#1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="50.91" shape="807.72,309.84 816.64,308.31 827.74,309.86 836.89,314.29"/>
-        <lane id="30417941#1_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="50.91" shape="809.25,312.83 816.69,311.55 826.80,312.96 834.60,316.73"/>
-        <lane id="30417941#1_2" index="2" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="50.91" shape="810.79,315.81 816.74,314.79 825.86,316.06 832.30,319.17"/>
+        <lane id="30417941#1_0" index="0" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="22.22" length="50.91" shape="807.72,309.84 816.64,308.31 827.74,309.86 836.89,314.29"/>
+        <lane id="30417941#1_1" index="1" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="22.22" length="50.91" shape="809.25,312.83 816.69,311.55 826.80,312.96 834.60,316.73"/>
+        <lane id="30417941#1_2" index="2" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="22.22" length="50.91" shape="810.79,315.81 816.74,314.79 825.86,316.06 832.30,319.17"/>
     </edge>
     <edge id="30417941#2" from="335691178" to="2149919279" name="Plaza de Belén María" priority="6" type="highway.tertiary" spreadType="center" shape="843.40,324.47 847.79,332.23 849.92,340.89 849.62,349.81 846.90,358.33 841.95,365.80 835.16,371.67">
-        <lane id="30417941#2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="53.49" shape="852.32,337.25 853.13,340.56 852.80,350.36 849.81,359.73 844.37,367.93 840.59,371.21"/>
-        <lane id="30417941#2_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="53.49" shape="849.42,338.87 849.92,340.89 849.62,349.81 846.90,358.33 841.95,365.80 838.49,368.79"/>
-        <lane id="30417941#2_2" index="2" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="53.49" shape="846.53,340.49 846.71,341.22 846.44,349.26 843.99,356.93 839.53,363.67 836.40,366.37"/>
+        <lane id="30417941#2_0" index="0" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="22.22" length="53.49" shape="852.32,337.25 853.13,340.56 852.80,350.36 849.81,359.73 844.37,367.93 840.59,371.21"/>
+        <lane id="30417941#2_1" index="1" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="22.22" length="53.49" shape="849.42,338.87 849.92,340.89 849.62,349.81 846.90,358.33 841.95,365.80 838.49,368.79"/>
+        <lane id="30417941#2_2" index="2" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="22.22" length="53.49" shape="846.53,340.49 846.71,341.22 846.44,349.26 843.99,356.93 839.53,363.67 836.40,366.37"/>
     </edge>
     <edge id="30417941#3" from="2149919279" to="492500988" name="Plaza de Belén María" priority="6" type="highway.tertiary" spreadType="center" shape="835.98,373.05 833.79,374.34">
-        <lane id="30417941#3_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="4.17" shape="837.49,377.73 837.32,377.83"/>
-        <lane id="30417941#3_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="4.17" shape="835.83,375.00 835.65,375.10"/>
-        <lane id="30417941#3_2" index="2" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="4.17" shape="834.25,372.21 834.07,372.32"/>
-        <lane id="30417941#3_3" index="3" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="4.17" shape="832.58,369.48 832.41,369.58"/>
+        <lane id="30417941#3_0" index="0" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="22.22" length="4.17" shape="837.49,377.73 837.32,377.83"/>
+        <lane id="30417941#3_1" index="1" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="22.22" length="4.17" shape="835.83,375.00 835.65,375.10"/>
+        <lane id="30417941#3_2" index="2" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="22.22" length="4.17" shape="834.25,372.21 834.07,372.32"/>
+        <lane id="30417941#3_3" index="3" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="22.22" length="4.17" shape="832.58,369.48 832.41,369.58"/>
     </edge>
     <edge id="30417941#4" from="492500988" to="335691182" name="Plaza de Belén María" priority="6" type="highway.tertiary" spreadType="center" shape="832.98,372.96 824.93,376.05 816.36,376.95 807.84,375.61 799.97,372.11 793.28,366.71">
-        <lane id="30417941#4_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="43.08" shape="831.55,376.94 825.68,379.19 816.28,380.18 806.93,378.71 798.29,374.86 794.83,372.07"/>
-        <lane id="30417941#4_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="43.08" shape="830.46,373.93 824.93,376.05 816.36,376.95 807.84,375.61 799.97,372.11 796.84,369.58"/>
-        <lane id="30417941#4_2" index="2" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="43.08" shape="829.38,370.91 824.18,372.91 816.44,373.72 808.75,372.51 801.65,369.36 798.85,367.10"/>
+        <lane id="30417941#4_0" index="0" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="22.22" length="43.08" shape="831.55,376.94 825.68,379.19 816.28,380.18 806.93,378.71 798.29,374.86 794.83,372.07"/>
+        <lane id="30417941#4_1" index="1" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="22.22" length="43.08" shape="830.46,373.93 824.93,376.05 816.36,376.95 807.84,375.61 799.97,372.11 796.84,369.58"/>
+        <lane id="30417941#4_2" index="2" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="22.22" length="43.08" shape="829.38,370.91 824.18,372.91 816.44,373.72 808.75,372.51 801.65,369.36 798.85,367.10"/>
     </edge>
     <edge id="30417941#5" from="335691182" to="492500994" name="Plaza de Belén María" priority="6" type="highway.tertiary" spreadType="center" shape="792.02,367.69 787.91,362.37 784.95,356.36">
-        <lane id="30417941#5_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="13.96" shape="785.44,367.02 783.82,364.92 782.68,362.62"/>
-        <lane id="30417941#5_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="13.96" shape="787.97,365.06 786.55,363.22 785.55,361.21"/>
-        <lane id="30417941#5_2" index="2" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="13.96" shape="790.50,363.11 789.27,361.52 788.42,359.79"/>
-        <lane id="30417941#5_3" index="3" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="13.96" shape="793.03,361.15 792.00,359.82 791.29,358.38"/>
+        <lane id="30417941#5_0" index="0" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="22.22" length="13.96" shape="785.44,367.02 783.82,364.92 782.68,362.62"/>
+        <lane id="30417941#5_1" index="1" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="22.22" length="13.96" shape="787.97,365.06 786.55,363.22 785.55,361.21"/>
+        <lane id="30417941#5_2" index="2" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="22.22" length="13.96" shape="790.50,363.11 789.27,361.52 788.42,359.79"/>
+        <lane id="30417941#5_3" index="3" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="22.22" length="13.96" shape="793.03,361.15 792.00,359.82 791.29,358.38"/>
     </edge>
     <edge id="30417941#6" from="492500994" to="335691176" name="Plaza de Belén María" priority="6" type="highway.tertiary" spreadType="center" shape="786.38,355.65 784.34,345.35 785.68,334.95 790.25,325.53 797.58,318.01">
-        <lane id="30417941#6_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="41.77" shape="782.38,351.92 781.10,345.46 782.57,334.02 785.33,328.34"/>
-        <lane id="30417941#6_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="41.77" shape="785.50,351.22 784.34,345.35 785.68,334.95 787.76,330.67"/>
-        <lane id="30417941#6_2" index="2" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="41.77" shape="788.62,350.51 787.58,345.24 788.79,335.88 790.18,333.00"/>
+        <lane id="30417941#6_0" index="0" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="22.22" length="41.77" shape="782.38,351.92 781.10,345.46 782.57,334.02 785.33,328.34"/>
+        <lane id="30417941#6_1" index="1" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="22.22" length="41.77" shape="785.50,351.22 784.34,345.35 785.68,334.95 787.76,330.67"/>
+        <lane id="30417941#6_2" index="2" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="22.22" length="41.77" shape="788.62,350.51 787.58,345.24 788.79,335.88 790.18,333.00"/>
     </edge>
     <edge id="30534383#2" from="1877878467" to="335691176" priority="11" type="highway.trunk" spreadType="center" shape="0.00,0.00 11.38,42.57 27.62,92.47 40.97,118.27 54.48,137.73 68.40,155.28 84.40,171.64 99.57,184.95 125.91,203.04 159.30,218.67 196.60,230.76 228.98,237.24 536.45,287.30 767.71,324.89 770.32,325.31 781.88,323.44 797.58,318.01">
-        <lane id="30534383#2_0" index="0" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="22.22" length="932.58" shape="1.55,-0.41 12.91,42.12 29.10,91.85 42.34,117.44 55.77,136.78 69.60,154.22 85.50,170.48 100.55,183.68 126.71,201.65 159.89,217.18 197.01,229.21 229.27,235.67 536.71,285.72 767.97,323.31 770.32,323.69 781.49,321.88 781.78,321.78"/>
-        <lane id="30534383#2_1" index="1" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" speed="22.22" length="932.58" shape="-1.55,0.41 9.85,43.02 26.14,93.09 39.60,119.10 53.19,138.68 67.20,156.34 83.30,172.80 98.59,186.22 125.11,204.43 158.71,220.16 196.19,232.31 228.69,238.81 536.19,288.88 767.45,326.47 770.32,326.93 782.27,325.00 782.83,324.80"/>
+        <lane id="30534383#2_0" index="0" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship rail_fast" speed="22.22" length="932.58" shape="1.55,-0.41 12.91,42.12 29.10,91.85 42.34,117.44 55.77,136.78 69.60,154.22 85.50,170.48 100.55,183.68 126.71,201.65 159.89,217.18 197.01,229.21 229.27,235.67 536.71,285.72 767.97,323.31 770.32,323.69 781.49,321.88 781.78,321.78"/>
+        <lane id="30534383#2_1" index="1" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship rail_fast" speed="22.22" length="932.58" shape="-1.55,0.41 9.85,43.02 26.14,93.09 39.60,119.10 53.19,138.68 67.20,156.34 83.30,172.80 98.59,186.22 125.11,204.43 158.71,220.16 196.19,232.31 228.69,238.81 536.19,288.88 767.45,326.47 770.32,326.93 782.27,325.00 782.83,324.80"/>
     </edge>
     <edge id="324041278#5" from="324041278#5-AddedOnRampNode" to="2149919279" name="Calle Doctor Juan Domínguez Pérez" priority="6" type="highway.tertiary" spreadType="center" shape="890.73,382.98 882.12,375.54 861.08,367.68 852.59,367.42 838.50,377.31">
-        <lane id="324041278#5_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="62.15" shape="890.73,382.98 882.12,375.54 861.08,367.68 852.59,367.42 843.26,373.97"/>
+        <lane id="324041278#5_0" index="0" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="22.22" length="62.15" shape="890.73,382.98 882.12,375.54 861.08,367.68 852.59,367.42 843.26,373.97"/>
     </edge>
     <edge id="38922730#0" from="335691178" to="38922730#0-AddedOffRampNode" name="Calle Doctor Juan Domínguez Pérez" priority="6" type="highway.tertiary" spreadType="center" shape="843.40,324.47 867.28,344.57 883.71,358.45 919.24,398.58 958.98,435.32 1019.21,467.64 1052.51,497.13 1068.46,518.39 1076.04,536.52 1081.10,558.92 1079.78,591.19 1075.94,620.93 1065.29,671.37 1060.47,709.68 1063.08,724.10">
-        <lane id="38922730#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="509.57" shape="855.59,334.73 867.28,344.57 883.71,358.45 919.24,398.58 958.98,435.32 1019.21,467.64 1052.51,497.13 1068.46,518.39 1076.04,536.52 1081.10,558.92 1079.78,591.19 1075.94,620.93 1065.29,671.37 1060.47,709.68 1063.08,724.10"/>
+        <lane id="38922730#0_0" index="0" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="22.22" length="509.57" shape="855.59,334.73 867.28,344.57 883.71,358.45 919.24,398.58 958.98,435.32 1019.21,467.64 1052.51,497.13 1068.46,518.39 1076.04,536.52 1081.10,558.92 1079.78,591.19 1075.94,620.93 1065.29,671.37 1060.47,709.68 1063.08,724.10"/>
     </edge>
 
     <junction id="1877878467" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="-3.09,0.83 3.09,-0.83"/>

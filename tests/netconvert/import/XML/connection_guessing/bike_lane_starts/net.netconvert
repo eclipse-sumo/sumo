@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Mar 22 12:17:45 2019 by Eclipse SUMO netconvert Version v1_1_0+0433-16c2ffa
+<!-- generated on Fri Apr 26 17:00:20 2019 by Eclipse SUMO netconvert Version v1_2_0+0096-85458c5
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -38,31 +38,31 @@ SPDX-License-Identifier: EPL-2.0
 
     <edge id="-4612968#4" from="2882261426" to="540764864" name="Jüdenstraße" priority="4" type="highway.residential" shape="27.18,100.64 23.31,113.12 25.34,125.80 25.64,140.71">
         <lane id="-4612968#4_0" index="0" allow="pedestrian" speed="8.33" length="40.56" width="2.00" shape="28.25,117.44 29.53,125.42 29.84,140.63"/>
-        <lane id="-4612968#4_1" index="1" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="8.33" length="40.56" shape="25.49,116.65 26.94,125.66 27.24,140.68"/>
+        <lane id="-4612968#4_1" index="1" disallow="tram rail_urban rail rail_electric pedestrian ship rail_fast" speed="8.33" length="40.56" shape="25.49,116.65 26.94,125.66 27.24,140.68"/>
     </edge>
     <edge id="24992424#0" from="28373972" to="2882261426" name="Stralauer Straße" priority="7" type="cycleway.lane|highway.secondary">
         <lane id="24992424#0_0" index="0" allow="pedestrian" speed="13.89" length="27.73" width="3.00" shape="-1.77,97.42 12.74,94.48"/>
         <lane id="24992424#0_1" index="1" allow="bicycle" speed="13.89" length="27.73" width="1.00" shape="-1.37,99.38 13.14,96.44"/>
-        <lane id="24992424#0_2" index="2" disallow="pedestrian" speed="13.89" length="27.73" shape="-0.95,101.44 13.56,98.50"/>
-        <lane id="24992424#0_3" index="3" disallow="pedestrian" speed="13.89" length="27.73" shape="-0.32,104.57 14.19,101.64"/>
+        <lane id="24992424#0_2" index="2" disallow="pedestrian rail_fast" speed="13.89" length="27.73" shape="-0.95,101.44 13.56,98.50"/>
+        <lane id="24992424#0_3" index="3" disallow="pedestrian rail_fast" speed="13.89" length="27.73" shape="-0.32,104.57 14.19,101.64"/>
     </edge>
     <edge id="43159545#0" from="2882261426" to="540698418" name="Neue Jüdenstraße" priority="4" type="highway.residential" shape="27.18,100.64 23.17,79.41 8.83,0.00">
         <lane id="43159545#0_0" index="0" allow="pedestrian" speed="13.89" length="102.30" width="2.00" shape="20.86,89.79 19.04,80.17 4.70,0.75"/>
-        <lane id="43159545#0_1" index="1" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.89" length="102.30" shape="23.41,89.31 21.60,79.70 7.26,0.28"/>
+        <lane id="43159545#0_1" index="1" disallow="tram rail_urban rail rail_electric pedestrian ship rail_fast" speed="13.89" length="102.30" shape="23.41,89.31 21.60,79.70 7.26,0.28"/>
     </edge>
     <edge id="4612968#4" from="540764864" to="2882261426" name="Jüdenstraße" priority="4" type="highway.residential" shape="25.64,140.71 25.34,125.80 23.31,113.12 27.18,100.64">
         <lane id="4612968#4_0" index="0" allow="pedestrian" speed="8.33" length="40.56" width="2.00" shape="21.44,140.79 21.15,126.18 19.34,114.89"/>
-        <lane id="4612968#4_1" index="1" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="8.33" length="40.56" shape="24.04,140.74 23.74,125.94 22.10,115.67"/>
+        <lane id="4612968#4_1" index="1" disallow="tram rail_urban rail rail_electric pedestrian ship rail_fast" speed="8.33" length="40.56" shape="24.04,140.74 23.74,125.94 22.10,115.67"/>
     </edge>
     <edge id="beg" from="540698418" to="2882261426" name="Neue Jüdenstraße" priority="4" type="highway.residential" shape="8.83,0.00 23.17,79.41 27.18,100.64">
         <lane id="beg_0" index="0" allow="pedestrian" speed="13.89" length="102.30" width="2.00" shape="12.96,-0.75 27.30,78.65 29.11,88.23"/>
-        <lane id="beg_1" index="1" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="13.89" length="102.30" shape="10.40,-0.28 24.74,79.12 26.56,88.72"/>
+        <lane id="beg_1" index="1" disallow="tram rail_urban rail rail_electric pedestrian ship rail_fast" speed="13.89" length="102.30" shape="10.40,-0.28 24.74,79.12 26.56,88.72"/>
     </edge>
     <edge id="end" from="2882261426" to="28373972" name="Stralauer Straße" priority="7" type="cycleway.lane|highway.secondary">
         <lane id="end_0" index="0" allow="pedestrian" speed="13.89" length="27.73" width="3.00" shape="16.27,111.93 1.77,114.86"/>
         <lane id="end_1" index="1" allow="bicycle" speed="13.89" length="27.73" width="1.00" shape="15.88,109.97 1.37,112.90"/>
-        <lane id="end_2" index="2" disallow="bicycle pedestrian" speed="13.89" length="27.73" shape="15.46,107.91 0.95,110.84"/>
-        <lane id="end_3" index="3" disallow="bicycle pedestrian" speed="13.89" length="27.73" shape="14.83,104.77 0.32,107.71"/>
+        <lane id="end_2" index="2" disallow="bicycle pedestrian rail_fast" speed="13.89" length="27.73" shape="15.46,107.91 0.95,110.84"/>
+        <lane id="end_3" index="3" disallow="bicycle pedestrian rail_fast" speed="13.89" length="27.73" shape="14.83,104.77 0.32,107.71"/>
     </edge>
 
     <junction id="28373972" type="dead_end" x="0.00" y="106.14" incLanes="end_0 end_1 end_2 end_3" intLanes="" shape="-0.00,106.14 2.06,116.33 -0.00,106.14"/>

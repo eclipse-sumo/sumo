@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:27:48 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Fri Apr 26 17:00:21 2019 by Eclipse SUMO netconvert Version v1_2_0+0096-85458c5
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -43,7 +43,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="-53519003_1" index="1" speed="13.89" length="188.31" shape="294.75,115.01 223.89,97.58 193.08,91.52 150.69,85.69 121.24,83.62"/>
     </edge>
     <edge id="-53519004" from="61070105" to="61070104" priority="-6">
-        <lane id="-53519004_0" index="0" disallow="passenger" speed="8.33" length="87.29" shape="104.40,171.50 111.50,91.79"/>
+        <lane id="-53519004_0" index="0" disallow="passenger rail_fast" speed="8.33" length="87.29" shape="104.40,171.50 111.50,91.79"/>
     </edge>
     <edge id="-551731979" from="61070136" to="618975401" priority="-3">
         <lane id="-551731979_0" index="0" speed="13.89" length="10.57" shape="298.38,113.48 298.44,113.29"/>
@@ -66,7 +66,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="-820948253_0" index="0" speed="13.89" length="95.14" shape="301.67,100.11 304.01,87.25 305.07,72.93 304.57,48.59 301.13,13.12"/>
     </edge>
     <edge id="53519004" from="61070104" to="61070105" priority="-6">
-        <lane id="53519004_0" index="0" disallow="passenger" speed="8.33" length="87.29" shape="114.69,92.08 107.59,171.78"/>
+        <lane id="53519004_0" index="0" disallow="passenger rail_fast" speed="8.33" length="87.29" shape="114.69,92.08 107.59,171.78"/>
     </edge>
     <edge id="551731979" from="618975401" to="61070136" priority="-3">
         <lane id="551731979_0" index="0" speed="13.89" length="10.57" shape="301.49,114.26 301.43,114.45"/>
