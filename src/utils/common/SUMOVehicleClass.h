@@ -193,8 +193,6 @@ enum SUMOVehicleClass {
     SVC_CUSTOM1 = 1 << 23,
     /// @brief is a user-defined type
     SVC_CUSTOM2 = 1 << 24,
-    /// @brief is an automated car (ACC/CACC capable)
-    SVC_AUTOMATED = 1 << 25,
     /// @brief vehicle that is allowed to drive on high-speed rail tracks
     SVC_RAIL_FAST = 1 << 26,
     //@}
