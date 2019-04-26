@@ -202,7 +202,7 @@ GNEHierarchicalElementParents::getNextConnection(const GNEEdge* edgeFrom) const 
     for (int i = 0; i < (int)getEdgeParents().size(); i++) {
         if (getEdgeParents().at(i) == edgeFrom) {
             // check if current edge is the last edge
-            if (i < (getEdgeParents().size()-1)) {
+            if (i < ((int)getEdgeParents().size()-1)) {
                 // search a common connection between edgeFrom and their next edge
                 for (const auto &j : getEdgeParents().at(i)->getGNEConnections()) {
                     for (const auto &k : getEdgeParents().at(i+1)->getLanes()) {
@@ -225,7 +225,7 @@ GNEHierarchicalElementParents::getLinetoNextEdge(const GNEEdge* edgeFrom) const 
     // declare a LineGeometry
     LineGeometry geometry(edgeFrom->getLanes().front()->getGeometry().shape.back());
     for (int i = 0; i < (int)getEdgeParents().size(); i++) {
-        if ((getEdgeParents().at(i) == edgeFrom) && i < (getEdgeParents().size()-1)) {
+        if ((getEdgeParents().at(i) == edgeFrom) && i < ((int)getEdgeParents().size()-1)) {
             // update second point
             // calculate rotation and lenght
             geometry.calculateRotationsAndLength(getEdgeParents().at(i+1)->getLanes().front()->getGeometry().shape.front());
