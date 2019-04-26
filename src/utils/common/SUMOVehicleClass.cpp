@@ -362,7 +362,7 @@ getVehicleShapeName(SUMOVehicleShape id) {
 
 
 bool isRailway(SVCPermissions permissions) {
-    return (permissions & SVC_RAIL_CLASSES) > 0 && (permissions & SVC_PASSENGER) == 0;
+    return (permissions & SVC_RAIL_CLASSES) > 0 && (permissions & SVC_ROAD_CLASSES) == 0;
 }
 
 

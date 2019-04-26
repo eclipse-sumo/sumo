@@ -152,53 +152,59 @@ enum SUMOVehicleClass {
 
     /// @name vehicle size
     //@{
+    /// @brief pedestrian
+    SVC_PEDESTRIAN = 1 << 5,
 
     /// @brief vehicle is a passenger car (a "normal" car)
-    SVC_PASSENGER = 1 << 5,
+    SVC_PASSENGER = 1 << 6,
     /// @brief vehicle is a HOV
-    SVC_HOV = 1 << 6,
+    SVC_HOV = 1 << 7,
     /// @brief vehicle is a taxi
-    SVC_TAXI = 1 << 7,
+    SVC_TAXI = 1 << 8,
     /// @brief vehicle is a bus
-    SVC_BUS = 1 << 8,
+    SVC_BUS = 1 << 9,
     /// @brief vehicle is a coach
-    SVC_COACH = 1 << 9,
+    SVC_COACH = 1 << 10,
     /// @brief vehicle is a small delivery vehicle
-    SVC_DELIVERY = 1 << 10,
+    SVC_DELIVERY = 1 << 11,
     /// @brief vehicle is a large transport vehicle
-    SVC_TRUCK = 1 << 11,
+    SVC_TRUCK = 1 << 12,
     /// @brief vehicle is a large transport vehicle
-    SVC_TRAILER = 1 << 12,
-    /// @brief vehicle is a light rail
-    SVC_TRAM = 1 << 13,
-    /// @brief vehicle is a city rail
-    SVC_RAIL_URBAN = 1 << 14,
-    /// @brief vehicle is a not electrified rail
-    SVC_RAIL = 1 << 15,
-    /// @brief rail vehicle that requires electrified tracks
-    SVC_RAIL_ELECTRIC = 1 << 16,
+    SVC_TRAILER = 1 << 13,
     /// @brief vehicle is a motorcycle
-    SVC_MOTORCYCLE = 1 << 17,
+    SVC_MOTORCYCLE = 1 << 14,
     /// @brief vehicle is a moped
-    SVC_MOPED = 1 << 18,
+    SVC_MOPED = 1 << 15,
     /// @brief vehicle is a bicycle
-    SVC_BICYCLE = 1 << 19,
-    /// @brief is a pedestrian
-    SVC_PEDESTRIAN = 1 << 20,
+    SVC_BICYCLE = 1 << 16,
     /// @brief is an electric vehicle
-    SVC_E_VEHICLE = 1 << 21,
-    /// @brief is an arbitrary ship
-    SVC_SHIP = 1 << 22,
-    /// @brief is a user-defined type
-    SVC_CUSTOM1 = 1 << 23,
-    /// @brief is a user-defined type
-    SVC_CUSTOM2 = 1 << 24,
+    SVC_E_VEHICLE = 1 << 17,
+
+    /// @brief vehicle is a light rail
+    SVC_TRAM = 1 << 18,
+    /// @brief vehicle is a city rail
+    SVC_RAIL_URBAN = 1 << 19,
+    /// @brief vehicle is a not electrified rail
+    SVC_RAIL = 1 << 20,
+    /// @brief rail vehicle that requires electrified tracks
+    SVC_RAIL_ELECTRIC = 1 << 21,
     /// @brief vehicle that is allowed to drive on high-speed rail tracks
-    SVC_RAIL_FAST = 1 << 26,
+    SVC_RAIL_FAST = 1 << 22,
+
+    /// @brief is an arbitrary ship
+    SVC_SHIP = 1 << 23,
+
+    /// @brief is a user-defined type
+    SVC_CUSTOM1 = 1 << 24,
+    /// @brief is a user-defined type
+    SVC_CUSTOM2 = 1 << 25,
     //@}
 
     /// @brief classes which drive on tracks
     SVC_RAIL_CLASSES = SVC_RAIL_ELECTRIC | SVC_RAIL_FAST | SVC_RAIL | SVC_RAIL_URBAN | SVC_TRAM,
+    /// @brief classes which drive on roads
+    SVC_ROAD_CLASSES = (SVC_PEDESTRIAN | SVC_PASSENGER | SVC_HOV | SVC_TAXI | SVC_BUS | SVC_COACH | SVC_DELIVERY 
+            | SVC_TRUCK | SVC_TRAILER | SVC_MOTORCYCLE | SVC_MOPED | SVC_BICYCLE | SVC_E_VEHICLE), 
     /// @brief classes which (normally) do not drive on normal roads
     SVC_NON_ROAD = SVC_RAIL_CLASSES | SVC_SHIP
 };
