@@ -316,6 +316,10 @@ Person::getHeight(const std::string& personID) {
 }
 
 
+int
+Person::getPersonCapacity(const std::string& personID) {
+    return getPerson(personID)->getVehicleType().getPersonCapacity();
+}
 
 
 void
