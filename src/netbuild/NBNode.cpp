@@ -1915,7 +1915,7 @@ NBNode::getNextCompatibleOutgoing(const NBEdge* incoming, SVCPermissions vehPerm
         if (incoming->isTurningDirectionAt(*i)) {
             return nullptr;
         }
-        if ((vehPerm & (*i)->getPermissions()) != 0) {
+        if ((vehPerm & (*i)->getPermissions()) != 0 || vehPerm == 0) {
             return *i;
         }
     }
