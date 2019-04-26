@@ -199,29 +199,9 @@ Warning: Reducing junction cluster 3513423870,3513423873,3513423879,3513423880,3
 Warning: Ambiguous node type for node cluster 'cluster_1673527224_1673527227_21487161_303436603_3781110311_3781110312_3918673901_3918673903_3918673904_4603453181_4603453187_51974030' (rail_crossing,unknown) set to 'priority'
 Warning: Ambiguity in turnarounds computation at junction '1206481791'.
 Warning: Ambiguity in turnarounds computation at junction '1206481808'.
-Warning: Ambiguity in turnarounds computation at junction '1661927045'.
 Warning: Ambiguity in turnarounds computation at junction '196721246'.
-Warning: Ambiguity in turnarounds computation at junction '258017933'.
-Warning: Ambiguity in turnarounds computation at junction '27411257'.
-Warning: Ambiguity in turnarounds computation at junction '5116771739'.
 Warning: Ambiguity in turnarounds computation at junction '5527777343'.
-Warning: Ambiguity in turnarounds computation at junction '588181255'.
-Warning: Ambiguity in turnarounds computation at junction '588181256'.
 Warning: Ambiguity in turnarounds computation at junction '740379739'.
-Warning: Ambiguity in turnarounds computation at junction 'cluster_1769589073_4603453626'.
-Warning: Ambiguity in turnarounds computation at junction 'cluster_1876468341_25665883_29219439_5747234980_961875299_961984568_961984577_961984592'.
-Warning: Ambiguity in turnarounds computation at junction 'cluster_1876479331_2882261439'.
-Warning: Ambiguity in turnarounds computation at junction 'cluster_25661397_3767874536_3767874549'.
-Warning: Ambiguity in turnarounds computation at junction 'cluster_25662562_3767875478_3767875479'.
-Warning: Ambiguity in turnarounds computation at junction 'cluster_25665679_4590472037_4590472042_4590472043'.
-Warning: Ambiguity in turnarounds computation at junction 'cluster_258485791_27411258_2796846632_30731464'.
-Warning: Ambiguity in turnarounds computation at junction 'cluster_258485805_588181279'.
-Warning: Ambiguity in turnarounds computation at junction 'cluster_262469634_29219441_961875301_961875308_961875311_961984606'.
-Warning: Ambiguity in turnarounds computation at junction 'cluster_26701256_3590535061'.
-Warning: Ambiguity in turnarounds computation at junction 'cluster_29192960_3590535063'.
-Warning: Ambiguity in turnarounds computation at junction 'cluster_30731510_588181257_588181258_588181259'.
-Warning: Ambiguity in turnarounds computation at junction 'cluster_4121410266_4590472026_4590472036'.
-Warning: Ambiguity in turnarounds computation at junction 'cluster_5527777338_5716766315'.
 Warning: Found sharp turn with radius 8.20 at the start of edge '-409507435#2'.
 Warning: Found sharp turn with radius 6.39 at the start of edge '-52348720#0'.
 Warning: Found sharp turn with radius 6.85 at the start of edge '100113532'.
@@ -423,21 +403,18 @@ Warning: Could not build program '0' for traffic light '4363312288'
 Warning: Connection '101699692#1_0->101694131#0_0' is only 0.08 short.
 Warning: Connection '101699692#1_0->153522302#0_0' is only 0.08 short.
 Warning: Intersecting left turns at junction '1769589042' from lane '4610472#2_1' and lane '-34848160#0_1'. (increase junction radius to avoid this)
-Warning: Intersecting left turns at junction 'cluster_1673527224_1673527227_21487161_303436603_3781110311_3781110312_3918673901_3918673903_3918673904_4603453181_4603453187_51974030' from lane '42103020_3' and lane '388702047#4_1'. (increase junction radius to avoid this)
 Warning: skipping line '300432' (train_RB21) because it has too few stops
 Warning: skipping line '6593330' (train_RB21) because it has too few stops
 Warning: skipping line '6593454' (train_RB22) because it has too few stops
 Warning: skipping line '6593455' (train_RB22) because it has too few stops
 Warning: skipping line '6784107' (bus_265) because it has too few stops
 Warning: At actuated tlLogic 'cluster_21432801_2938442114_295705005_3139140896_3178759584_735967920_735967921_735967926_961816249_961816257', actuated phase 5 has no controlling detector
-Warning: At actuated tlLogic 'cluster_21432801_2938442114_295705005_3139140896_3178759584_735967920_735967921_735967926_961816249_961816257', linkIndex 18 has no controlling detector
-Warning: At actuated tlLogic 'cluster_21432801_2938442114_295705005_3139140896_3178759584_735967920_735967921_735967926_961816249_961816257', linkIndex 19 has no controlling detector
-Warning: At actuated tlLogic 'joinedS_0', linkIndex 15 has no controlling detector
 Warning: At actuated tlLogic 'joinedS_0', linkIndex 16 has no controlling detector
-Warning: At actuated tlLogic 'joinedS_0', linkIndex 21 has no controlling detector
-Warning: At actuated tlLogic 'joinedS_0', linkIndex 22 has no controlling detector
-Warning: At actuated tlLogic 'joinedS_0', linkIndex 29 has no controlling detector
-Warning: At actuated tlLogic 'joinedS_0', linkIndex 30 has no controlling detector
+Warning: At actuated tlLogic 'joinedS_0', linkIndex 17 has no controlling detector
+Warning: At actuated tlLogic 'joinedS_0', linkIndex 23 has no controlling detector
+Warning: At actuated tlLogic 'joinedS_2', linkIndex 26 has no controlling detector
+Warning: At actuated tlLogic 'joinedS_2', linkIndex 27 has no controlling detector
+Warning: At actuated tlLogic 'joinedS_2', linkIndex 28 has no controlling detector
 Warning: busStop '1827996414' on lane '72157174#1_1' is too short for vehicle '3_bus_TXL:0'.
 Warning: busStop '1827996417' on lane '24914992#1_1' is too short for vehicle '4_bus_TXL:1'.
 Warning: busStop '1633759766' on lane '421641064_0' is too short for vehicle '14_tram_M4:0'.
@@ -456,16 +433,13 @@ Warning: Vehicle '70_bus_N6:1' is not allowed to stop on lane '388702041#11_0'.
 Warning: Vehicle '70_bus_N6:1' is not allowed on destination edge '388702041#11'.
 Warning: busStop '3869306764' for vehicle '70_bus_N6:1' on lane '4402228_1' is not downstream the current route.
 Warning: Vehicle '70_bus_N6:1' is not allowed to stop on lane '388702041#11_0'.
-Warning: Vehicle '38_bus_147:1' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=581.00.
 Warning: At actuated tlLogic 'cluster_21432801_2938442114_295705005_3139140896_3178759584_735967920_735967921_735967926_961816249_961816257', actuated phase 5 has no controlling detector
-Warning: At actuated tlLogic 'cluster_21432801_2938442114_295705005_3139140896_3178759584_735967920_735967921_735967926_961816249_961816257', linkIndex 18 has no controlling detector
-Warning: At actuated tlLogic 'cluster_21432801_2938442114_295705005_3139140896_3178759584_735967920_735967921_735967926_961816249_961816257', linkIndex 19 has no controlling detector
-Warning: At actuated tlLogic 'joinedS_0', linkIndex 15 has no controlling detector
 Warning: At actuated tlLogic 'joinedS_0', linkIndex 16 has no controlling detector
-Warning: At actuated tlLogic 'joinedS_0', linkIndex 21 has no controlling detector
-Warning: At actuated tlLogic 'joinedS_0', linkIndex 22 has no controlling detector
-Warning: At actuated tlLogic 'joinedS_0', linkIndex 29 has no controlling detector
-Warning: At actuated tlLogic 'joinedS_0', linkIndex 30 has no controlling detector
+Warning: At actuated tlLogic 'joinedS_0', linkIndex 17 has no controlling detector
+Warning: At actuated tlLogic 'joinedS_0', linkIndex 23 has no controlling detector
+Warning: At actuated tlLogic 'joinedS_2', linkIndex 26 has no controlling detector
+Warning: At actuated tlLogic 'joinedS_2', linkIndex 27 has no controlling detector
+Warning: At actuated tlLogic 'joinedS_2', linkIndex 28 has no controlling detector
 Warning: busStop '1827996414' on lane '72157174#1_1' is too short for vehicle 'pt_bus_TXL:0.0'.
 Warning: busStop '1827996417' on lane '24914992#1_1' is too short for vehicle 'pt_bus_TXL:1.0'.
 Warning: busStop '1633759766' on lane '421641064_0' is too short for vehicle 'pt_tram_M4:0.0'.
@@ -482,5 +456,5 @@ Warning: Vehicle 'pt_tram_M2:0.1' teleports beyond arrival edge '148458500#1', t
 Warning: Vehicle 'pt_tram_M2:0.1' skips stop on lane '148458500#1_0' time=513.00.
 Warning: Teleporting vehicle 'pt_tram_M2:0.2'; frontal collision with vehicle 'pt_tram_M2:2.2', lane='148458500#0_0', gap=-1.00, time=747.00 stage=move.
 Warning: Vehicle 'pt_tram_M2:0.2' ends teleporting on edge '148458500#1', time 751.00.
-Warning: Person 'ped99' aborted waiting for S9:0 at busStop '2603331695'.
+Warning: Person 'ped69' aborted waiting for S7:0 at busStop '2603331695'.
 Warning: Person 'ped191' aborted waiting for S3:1 at busStop '27411240'.
