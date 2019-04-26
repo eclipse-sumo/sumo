@@ -55,6 +55,7 @@ print("shape", traci.vehicletype.getShapeClass(typeID))
 print("MinGap", traci.vehicletype.getMinGap(typeID))
 print("width", traci.vehicletype.getWidth(typeID))
 print("color", traci.vehicletype.getColor(typeID))
+print("personCapacity", traci.vehicletype.getPersonCapacity(typeID))
 traci.vehicletype.subscribe(typeID)
 print(traci.vehicletype.getSubscriptionResults(typeID))
 for step in range(3, 6):

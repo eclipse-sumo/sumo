@@ -618,6 +618,7 @@ public:
         double getMinGapLat(const std::string& typeID) const;
         double getMaxSpeedLat(const std::string& typeID) const;
         std::string getLateralAlignment(const std::string& typeID) const;
+        int getPersonCapacity(const std::string& typeID) const;
 
         void setLength(const std::string& typeID, double length) const;
         void setMaxSpeed(const std::string& typeID, double speed) const;
@@ -745,6 +746,7 @@ public:
         double getHeight(const std::string& veihcleID) const;
         double getMaxSpeedLat(const std::string& vehicleID) const;
         double getMinGapLat(const std::string& vehicleID) const;
+        int getPersonCapacity(const std::string& vehicleID) const;
         std::string getVehicleClass(const std::string& vehicleID) const;
         std::string getEmissionClass(const std::string& vehicleID) const;
         std::string getShapeClass(const std::string& vehicleID) const;

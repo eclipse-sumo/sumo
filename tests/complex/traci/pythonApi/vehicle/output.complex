@@ -61,6 +61,7 @@ minGapLat 0.6
 lateralAlignment center
 lanePosLat 0.0
 person number 0
+personCapacity 4
 waiting time 0.0
 accumulated waiting time 0.0
 driving dist 2991.4328065
@@ -139,6 +140,7 @@ minGapLat 0.5
 lateralAlignment arbitrary
 lanePosLat 0.0
 person number 0
+personCapacity 4
 waiting time 0.0
 accumulated waiting time 0.0
 driving dist 2966.04808174
@@ -217,6 +219,7 @@ minGapLat 0.6
 lateralAlignment center
 lanePosLat -1073741824.0
 person number 0
+personCapacity 4
 waiting time 0.0
 accumulated waiting time 0.0
 driving dist -1073741824.0
@@ -303,6 +306,7 @@ minGapLat 0.6
 lateralAlignment center
 lanePosLat 0.0
 person number 0
+personCapacity 4
 waiting time 0.0
 accumulated waiting time 0.0
 driving dist 2991.26796685
@@ -613,6 +617,7 @@ minGapLat 0.6
 lateralAlignment center
 lanePosLat 0.0
 person number 0
+personCapacity 4
 waiting time 0.0
 accumulated waiting time 0.0
 driving dist -1073741824.0
@@ -743,6 +748,7 @@ minGapLat 0.6
 lateralAlignment center
 lanePosLat -1073741824.0
 person number 0
+personCapacity 4
 waiting time 0.0
 accumulated waiting time 0.0
 driving dist -1073741824.0
@@ -813,6 +819,7 @@ minGapLat 0.6
 lateralAlignment center
 lanePosLat -1073741824.0
 person number 0
+personCapacity 4
 waiting time 0.0
 accumulated waiting time 0.0
 driving dist -1073741824.0
@@ -883,6 +890,7 @@ minGapLat 0.6
 lateralAlignment center
 lanePosLat -1073741824.0
 person number 0
+personCapacity 4
 waiting time 0.0
 accumulated waiting time 0.0
 driving dist -1073741824.0
@@ -953,6 +961,7 @@ minGapLat 0.6
 lateralAlignment center
 lanePosLat -1073741824.0
 person number 0
+personCapacity 4
 waiting time 0.0
 accumulated waiting time 0.0
 driving dist -1073741824.0

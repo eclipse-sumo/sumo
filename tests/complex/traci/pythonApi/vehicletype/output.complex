@@ -23,6 +23,7 @@ shape passenger
 MinGap 2.5
 width 1.8
 color (255, 255, 0, 255)
+personCapacity 4
 {0: ('DEFAULT_BIKETYPE', 'DEFAULT_PEDTYPE', 'DEFAULT_VEHTYPE')}
 step 3
 {0: ('DEFAULT_BIKETYPE', 'DEFAULT_PEDTYPE', 'DEFAULT_VEHTYPE')}

@@ -107,6 +107,7 @@ def check(vehID):
     print("lateralAlignment", traci.vehicle.getLateralAlignment(vehID))
     print("lanePosLat", traci.vehicle.getLateralLanePosition(vehID))
     print("person number", traci.vehicle.getPersonNumber(vehID))
+    print("personCapacity", traci.vehicle.getPersonCapacity(vehID))
     print("waiting time", traci.vehicle.getWaitingTime(vehID))
     print("accumulated waiting time", traci.vehicle.getAccumulatedWaitingTime(vehID))
     print("driving dist", traci.vehicle.getDrivingDistance(vehID, "4fi", 2.))

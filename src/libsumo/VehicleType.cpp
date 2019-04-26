@@ -187,6 +187,10 @@ VehicleType::getParameter(const std::string& typeID, const std::string& key) {
     return getVType(typeID)->getParameter().getParameter(key, "");
 }
 
+int
+VehicleType::getPersonCapacity(const std::string& typeID) {
+    return getVType(typeID)->getPersonCapacity();
+}
 
 void
 VehicleType::setLength(const std::string& typeID, double length)  {
@@ -407,6 +411,8 @@ VehicleType::handleVariable(const std::string& objID, const int variable, Variab
             return wrapper->wrapDouble(objID, variable, getMaxSpeedLat(objID));
         case VAR_LATALIGNMENT:
             return wrapper->wrapString(objID, variable, getLateralAlignment(objID));
+        case VAR_PERSON_CAPACITY:
+            return wrapper->wrapInt(objID, variable, getPersonCapacity(objID));
         default:
             return false;
     }

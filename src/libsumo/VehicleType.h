@@ -48,7 +48,8 @@ static double getHeight(const std::string& typeID); \
 static TraCIColor getColor(const std::string& typeID); \
 static double getMinGapLat(const std::string& typeID); \
 static double getMaxSpeedLat(const std::string& typeID); \
-static std::string getLateralAlignment(const std::string& typeID);
+static std::string getLateralAlignment(const std::string& typeID); \
+static int getPersonCapacity(const std::string& typeID);
 
 #define LIBSUMO_VEHICLE_TYPE_SETTER \
 static void setLength(const std::string& typeID, double length); \

@@ -749,6 +749,7 @@ TraCITestClient::testAPI() {
     answerLog << "    setMaxSpeedLat: " << vehicletype.getMaxSpeedLat("t1") << "\n";
     vehicletype.setLateralAlignment("t1", "compact");
     answerLog << "    getLateralAlignment: " << vehicletype.getLateralAlignment("t1") << "\n";
+    answerLog << "    getPersonCapacity: " << vehicletype.getPersonCapacity("t1") << "\n";
     answerLog << "    copy type 't1' to 't1_copy' and set accel to 100.\n";
     vehicletype.copy("t1", "t1_copy");
     answerLog << "    getIDList: " << joinToString(vehicletype.getIDList(), " ") << "\n";
@@ -775,6 +776,7 @@ TraCITestClient::testAPI() {
     answerLog << "    getSlope: " << vehicle.getSlope("0") << "\n";
     answerLog << "    getLine: " << vehicle.getLine("0") << "\n";
     answerLog << "    getVia: " << joinToString(vehicle.getVia("0"), ",") << "\n";
+    answerLog << "    getPersonCapacity: " << vehicle.getPersonCapacity("0") << "\n";
     vehicle.setMaxSpeed("0", 30);
     answerLog << "    getMaxSpeed: " << vehicle.getMaxSpeed("0") << "\n";
     answerLog << "    isRouteValid: " << vehicle.isRouteValid("0") << "\n";

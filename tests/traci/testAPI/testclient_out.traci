@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Tue Apr 23 16:22:22 2019
+TraCITestClient output file. Date: Fri Apr 26 11:19:59 2019
 
 
 -> Command sent: <SetOrder>:
@@ -53,6 +53,7 @@ testAPI:
     setMinGapLat: 1.50
     setMaxSpeedLat: 1.20
     getLateralAlignment: compact
+    getPersonCapacity: 4
     copy type 't1' to 't1_copy' and set accel to 100.
     getIDList: DEFAULT_BIKETYPE DEFAULT_PEDTYPE DEFAULT_VEHTYPE stilts t1 t1_copy
     getAccel('t1'): 0.80
@@ -70,6 +71,7 @@ testAPI:
     getSlope: 0.00
     getLine: S42
     getVia: e_shape1
+    getPersonCapacity: 4
     getMaxSpeed: 30.00
     isRouteValid: 1
     getStopState: 0

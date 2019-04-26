@@ -2072,6 +2072,11 @@ TraCIAPI::VehicleTypeScope::getLateralAlignment(const std::string& typeID) const
     return myParent.getString(libsumo::CMD_GET_VEHICLETYPE_VARIABLE, libsumo::VAR_LATALIGNMENT, typeID);
 }
 
+int
+TraCIAPI::VehicleTypeScope::getPersonCapacity(const std::string& typeID) const {
+    return myParent.getInt(libsumo::CMD_GET_VEHICLETYPE_VARIABLE, libsumo::VAR_PERSON_CAPACITY, typeID);
+}
+
 double
 TraCIAPI::VehicleTypeScope::getWidth(const std::string& typeID) const {
     return myParent.getDouble(libsumo::CMD_GET_VEHICLETYPE_VARIABLE, libsumo::VAR_WIDTH, typeID);
@@ -2647,6 +2652,11 @@ TraCIAPI::VehicleScope::getAllowedSpeed(const std::string& vehicleID) const {
 int
 TraCIAPI::VehicleScope::getPersonNumber(const std::string& vehicleID) const {
     return myParent.getInt(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_PERSON_NUMBER, vehicleID);
+}
+
+int
+TraCIAPI::VehicleScope::getPersonCapacity(const std::string& vehicleID) const {
+    return myParent.getInt(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_PERSON_CAPACITY, vehicleID);
 }
 
 std::vector<std::string>
