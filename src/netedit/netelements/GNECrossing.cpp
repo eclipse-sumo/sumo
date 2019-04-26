@@ -56,23 +56,17 @@ GNECrossing::generateChildID(SumoXMLTag /*childTag*/) {
 }
 
 
-const GNENetElement::NetElementGeometry &
-GNECrossing::getGeometry() const {
-    return myCrossingGeometry;
-}
-
-
 void
 GNECrossing::updateGeometry() {
     // first clear geometry
-    myCrossingGeometry.clearGeometry();
+    myGeometry.clearGeometry();
     // rebuild crossing and walking areas form node parent
     auto crossing = myParentJunction->getNBNode()->getCrossing(myCrossingEdges);
     // obtain shape
-    myCrossingGeometry.shape = crossing->customShape.size() > 0 ?  crossing->customShape : crossing->shape;
+    myGeometry.shape = crossing->customShape.size() > 0 ?  crossing->customShape : crossing->shape;
     // only rebuild shape if junction's shape isn't in Buuble mode
     if (myParentJunction->getNBNode()->getShape().size() > 0) {
-        myCrossingGeometry.calculateShapeRotationsAndLengths();
+        myGeometry.calculateShapeRotationsAndLengths();
     }
 }
 
@@ -106,8 +100,8 @@ void
 GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
     // only draw if option drawCrossingsAndWalkingareas is enabled and size of shape is greather than 0 and zoom is close enough
     if (s.drawCrossingsAndWalkingareas &&
-            (myCrossingGeometry.shapeRotations.size() > 0) &&
-            (myCrossingGeometry.shapeLengths.size() > 0) &&
+            (myGeometry.shapeRotations.size() > 0) &&
+            (myGeometry.shapeLengths.size() > 0) &&
             (s.scale > 3.0)) {
         auto crossing = myParentJunction->getNBNode()->getCrossing(myCrossingEdges);
         if (myNet->getViewNet()->getEditModes().networkEditMode != GNE_NMODE_TLS) {
@@ -137,15 +131,15 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
             glPushMatrix();
             // draw on top of of the white area between the rails
             glTranslated(0, 0, 0.1);
-            for (int i = 0; i < (int)myCrossingGeometry.shape.size() - 1; ++i) {
+            for (int i = 0; i < (int)myGeometry.shape.size() - 1; ++i) {
                 // push three draw matrix
                 glPushMatrix();
                 // translate and rotate
-                glTranslated(myCrossingGeometry.shape[i].x(), myCrossingGeometry.shape[i].y(), 0.0);
-                glRotated(myCrossingGeometry.shapeRotations[i], 0, 0, 1);
+                glTranslated(myGeometry.shape[i].x(), myGeometry.shape[i].y(), 0.0);
+                glRotated(myGeometry.shapeRotations[i], 0, 0, 1);
                 // draw crossing depending if isn't being drawn for selecting
                 if (!s.drawForSelecting) {
-                    for (double t = 0; t < myCrossingGeometry.shapeLengths[i]; t += spacing) {
+                    for (double t = 0; t < myGeometry.shapeLengths[i]; t += spacing) {
                         glBegin(GL_QUADS);
                         glVertex2d(-halfWidth, -t);
                         glVertex2d(-halfWidth, -t - length);
@@ -157,8 +151,8 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
                     // only draw a single rectangle if it's being drawn only for selecting
                     glBegin(GL_QUADS);
                     glVertex2d(-halfWidth, 0);
-                    glVertex2d(-halfWidth, -myCrossingGeometry.shapeLengths.back());
-                    glVertex2d(halfWidth, -myCrossingGeometry.shapeLengths.back());
+                    glVertex2d(-halfWidth, -myGeometry.shapeLengths.back());
+                    glVertex2d(halfWidth, -myGeometry.shapeLengths.back());
                     glVertex2d(halfWidth, 0);
                     glEnd();
                 }
@@ -181,7 +175,7 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
         }
         // check if dotted contour has to be drawn
         if (!s.drawForSelecting && (myNet->getViewNet()->getDottedAC() == this)) {
-            GLHelper::drawShapeDottedContour(getType(), myCrossingGeometry.shape, crossing->width * 0.5);
+            GLHelper::drawShapeDottedContour(getType(), myGeometry.shape, crossing->width * 0.5);
         }
     }
 }

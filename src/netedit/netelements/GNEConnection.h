@@ -52,9 +52,6 @@ public:
 
     /// @name Functions related with geometry of element
     /// @{
-    /// @brief get NetElementGeometry
-    const NetElementGeometry &getGeometry() const;
-
     /// @brief update pre-computed geometry information
     void updateGeometry();
 
@@ -185,9 +182,6 @@ protected:
 
     /// @brief flag to indicate that connection's shape has to be updated
     bool myShapeDeprecated;
-
-    /// @brief connection geometry
-    NetElementGeometry myConnectionGeometry;
 
     /// @brief waiting position for internal junction
     PositionVector myInternalJunctionMarker;

@@ -64,9 +64,6 @@ public:
 
     /// @name Functions related with geometry of element
     /// @{
-    /// @brief get NetElementGeometry
-    const NetElementGeometry &getGeometry() const;
-
     /// @brief update pre-computed geometry information
     void updateGeometry();
 
@@ -217,9 +214,6 @@ protected:
 
     /// @brief The index of this lane
     int myIndex;
-
-    /// @brief lane geometry
-    NetElementGeometry myLaneGeometry;
 
     /// @name computed only once (for performance) in updateGeometry()
     /// @{

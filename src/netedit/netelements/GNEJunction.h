@@ -70,9 +70,6 @@ public:
 
     /// @name Functions related with geometry of element
     /// @{
-    /// @brief get NetElementGeometry
-    const NetElementGeometry &getGeometry() const;
-
     /// @brief update pre-computed geometry information
     void updateGeometry();
 
@@ -266,9 +263,6 @@ private:
 
     /// @brief junction boundary
     Boundary myJunctionBoundary;
-
-    /// @brief junction geometry (currently unused)
-    NetElementGeometry myJunctionGeometry;
 
     /// @brief vector with the GNEEdges vinculated with this junction
     std::vector<GNEEdge*> myGNEEdges;

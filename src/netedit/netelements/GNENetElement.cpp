@@ -93,6 +93,12 @@ GNENetElement::GNENetElement(GNENet* net, const std::string& id, GUIGlObjectType
 GNENetElement::~GNENetElement() {}
 
 
+const GNENetElement::NetElementGeometry &
+GNENetElement::getGeometry() const {
+    return myGeometry;
+}
+
+
 std::string
 GNENetElement::generateChildID(SumoXMLTag /*childTag*/) {
     return "";

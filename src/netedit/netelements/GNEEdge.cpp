@@ -121,12 +121,6 @@ GNEEdge::generateChildID(SumoXMLTag /*childTag*/) {
 }
 
 
-const GNENetElement::NetElementGeometry &
-GNEEdge::getGeometry() const {
-    return myEdgeGeometry;
-}
-
-
 void
 GNEEdge::updateGeometry() {
     // first check if object has to be removed from grid (SUMOTree)
