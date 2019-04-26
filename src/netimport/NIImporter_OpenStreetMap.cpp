@@ -909,6 +909,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
                 && key != "route"
                 && key != "sidewalk"
                 && key != "ref"
+                && key != "highspeed"
                 && !StringUtils::startsWith(key, "parking")
                 && key != "postal_code" && key != "railway:preferred_direction" && key != "public_transport") {
             return;
@@ -916,7 +917,9 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
         std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myCurrentEdge->id).c_str(), ok, false);
 
         if ((key == "highway" && value != "platform") || key == "railway" || key == "waterway" || key == "cycleway"
-                || key == "busway" || key == "route" || key == "sidewalk") {
+                || key == "busway" || key == "route" || key == "sidewalk" || key == "highspeed") {
+            // build type id
+            std::string singleTypeID = key + "." + value;
             myCurrentEdge->myCurrentIsRoad = true;
             // special cycleway stuff
             if (key == "cycleway") {
@@ -956,9 +959,17 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
                 // no need to extend the type id
                 return;
             }
-            // build type id
-            const std::string singleTypeID = key + "." + value;
-            if (!myCurrentEdge->myHighWayType.empty()) {
+            if (key == "highspeed") {
+                if (value == "no") {
+                    return;
+                }
+                singleTypeID = "railway.highspeed";
+            }
+            // special case: never build compound type for highspeed rail
+            if (!myCurrentEdge->myHighWayType.empty() && singleTypeID != "railway.highspeed") {
+                if (myCurrentEdge->myHighWayType == "railway.highspeed") {
+                    return;
+                }
                 // osm-ways may be used by more than one mode (eg railway.tram + highway.residential. this is relevant for multimodal traffic)
                 // we create a new type for this kind of situation which must then be resolved in insertEdge()
                 std::vector<std::string> types = StringTokenizer(myCurrentEdge->myHighWayType,
