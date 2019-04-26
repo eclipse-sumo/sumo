@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Apr 26 17:00:25 2019 by Eclipse SUMO netconvert Version v1_2_0+0096-85458c5
+<!-- generated on Fri Apr 26 22:14:20 2019 by Eclipse SUMO netconvert Version v1_2_0+0022-5179cc2293
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -9,7 +9,7 @@ SPDX-License-Identifier: EPL-2.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <type-files value="/scr1/sumo/data/typemap/osmNetconvert.typ.xml,input_types.typ.xml"/>
+        <type-files value="/home/kobo/dlr/sumo/data/typemap/osmNetconvert.typ.xml,input_types.typ.xml"/>
         <osm-files value="osm.xml"/>
     </input>
 
@@ -68,6 +68,7 @@ SPDX-License-Identifier: EPL-2.0
     <type id="highway.trunk_link" priority="10" numLanes="1" speed="24.60" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship rail_fast" oneway="0"/>
     <type id="highway.unclassified" priority="5" numLanes="1" speed="13.40" disallow="tram rail_urban rail rail_electric ship rail_fast" oneway="0"/>
     <type id="highway.unsurfaced" priority="1" numLanes="1" speed="8.33" disallow="tram rail_urban rail rail_electric ship rail_fast" oneway="0"/>
+    <type id="railway.highspeed" priority="21" numLanes="1" speed="69.44" disallow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer tram rail_urban rail rail_electric motorcycle moped bicycle pedestrian evehicle ship custom1 custom2" oneway="1"/>
     <type id="railway.light_rail" priority="19" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
     <type id="railway.preserved" priority="16" numLanes="1" speed="27.78" allow="rail" oneway="1"/>
     <type id="railway.rail" priority="20" numLanes="1" speed="83.33" allow="rail rail_electric" oneway="1"/>
@@ -163,7 +164,7 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
     <edge id="-14" from="49613186" to="450601528" name="I-95" priority="13" type="highway.motorway" spreadType="center" shape="597.21,0.00 753.26,562.29 910.51,1234.66 912.43,1289.41 785.32,1883.05 740.12,2070.54 711.18,2193.95 671.91,2360.71 639.99,2492.82 619.23,2590.99">
         <lane id="-14_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="29.10" length="2662.99" shape="600.29,-0.86 756.36,561.50 913.70,1234.24 915.64,1289.69 788.44,1883.76 743.23,2071.28 714.29,2194.68 675.03,2361.45 643.11,2493.52 622.39,2591.51"/>
-        <lane id="-14_1" index="1" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="29.10" length="2662.99" shape="597.21,-0.00 753.26,562.29 910.51,1234.66 912.43,1289.41 785.32,1883.05 740.12,2070.54 711.18,2193.95 671.91,2360.71 639.99,2492.82 619.26,2590.85"/>
+        <lane id="-14_1" index="1" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="29.10" length="2662.99" shape="597.21,0.00 753.26,562.29 910.51,1234.66 912.43,1289.41 785.32,1883.05 740.12,2070.54 711.18,2193.95 671.91,2360.71 639.99,2492.82 619.26,2590.85"/>
         <lane id="-14_2" index="2" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="29.10" length="2662.99" shape="594.13,0.86 750.16,563.08 907.32,1235.09 909.22,1289.12 782.20,1882.34 737.01,2069.80 708.06,2193.22 668.80,2359.96 636.87,2492.11 616.13,2590.19"/>
     </edge>
     <edge id="-6033364#0" from="49613631" to="49613629" name="Dock St" priority="4" type="highway.residential">

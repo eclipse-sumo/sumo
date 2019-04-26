@@ -1,4 +1,4 @@
-Parsing types from '/scr1/sumo/data/typemap/osmNetconvert.typ.xml'... done.
+Parsing types from '/home/kobo/dlr/sumo/data/typemap/osmNetconvert.typ.xml'... done.
 Parsing types from 'input_types.typ.xml'... done.
 Parsing nodes from osm-file 'osm.xml'... done.
 Parsing edges from osm-file 'osm.xml'... done.
@@ -8,34 +8,34 @@ done.
  Removed 30 traffic lights before loading plain-XML
  Import done:
    466 nodes loaded.
-   33 types loaded.
+   34 types loaded.
    882 edges loaded.
 Proj projection parameters used: '+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
 Removing self-loops... done (0ms).
 Joining junction clusters... 
 done (3ms).
  Joined 20 junction cluster(s).
-Removing empty nodes and geometry nodes... done (1ms).
+Removing empty nodes and geometry nodes... done (2ms).
    79 nodes removed.
-Moving network to origin... done (3ms).
-Computing turning directions... done (1ms).
-Assigning nodes to traffic lights... done (0ms).
+Moving network to origin... done (4ms).
+Computing turning directions... done (0ms).
+Assigning nodes to traffic lights... done (1ms).
 Sorting nodes' edges... done (1ms).
 Computing node shapes... done (18ms).
-Computing edge shapes... done (11ms).
+Computing edge shapes... done (14ms).
 Computing node types... done (1ms).
-Computing priorities... done (0ms).
-Computing approached edges... done (1ms).
+Computing priorities... done (1ms).
+Computing approached edges... done (0ms).
 Guessing and setting roundabouts... 
  Guessed 1 roundabout(s).
 done (0ms).
-Computing approaching lanes... done (4ms).
-Dividing of lanes on approached lanes... done (2ms).
+Computing approaching lanes... done (5ms).
+Dividing of lanes on approached lanes... done (3ms).
 Processing turnarounds... done (0ms).
-Rechecking of lane endings... done (1ms).
+Rechecking of lane endings... done (0ms).
 Computing traffic light control information... done (0ms).
-Computing node logics... done (8ms).
-Computing traffic light logics... done (1ms).
+Computing node logics... done (10ms).
+Computing traffic light logics... done (0ms).
  3 traffic light(s) computed.
 -----------------------------------------------------
 Summary:
@@ -71,5 +71,5 @@ could not find edge for parkingArea '143308542#2'
 could not find edge for parkingArea '143308546#7'
 could not find edge for parkingArea '143308562#4'
 could not find edge for parkingArea '-143308562#4'
-done (106ms).
+done (100ms).
 Success.

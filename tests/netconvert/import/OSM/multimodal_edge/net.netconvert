@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Apr 26 17:00:25 2019 by Eclipse SUMO netconvert Version v1_2_0+0096-85458c5
+<!-- generated on Fri Apr 26 22:14:20 2019 by Eclipse SUMO netconvert Version v1_2_0+0022-5179cc2293
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -63,6 +63,7 @@ SPDX-License-Identifier: EPL-2.0
     <type id="highway.trunk_link" priority="8" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship rail_fast" oneway="0"/>
     <type id="highway.unclassified" priority="4" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric ship rail_fast" oneway="0"/>
     <type id="highway.unsurfaced" priority="1" numLanes="1" speed="8.33" disallow="tram rail_urban rail rail_electric ship rail_fast" oneway="0"/>
+    <type id="railway.highspeed" priority="21" numLanes="1" speed="69.44" disallow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer tram rail_urban rail rail_electric motorcycle moped bicycle pedestrian evehicle ship custom1 custom2" oneway="1"/>
     <type id="railway.light_rail" priority="19" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
     <type id="railway.preserved" priority="16" numLanes="1" speed="27.78" allow="rail" oneway="1"/>
     <type id="railway.rail" priority="20" numLanes="1" speed="83.33" allow="rail rail_electric" oneway="1"/>
@@ -99,7 +100,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="10860203_0" index="0" allow="tram" speed="13.89" length="13599.93" shape="663.01,350.49 14260.81,109.28"/>
     </edge>
 
-    <junction id="1" type="priority" x="0.00" y="0.00" incLanes="-10860201_0 -10860201_1 -10860201_2" intLanes=":1_0_0" shape="-0.00,-0.00 -4.00,7.39 -0.00,-0.00">
+    <junction id="1" type="priority" x="0.00" y="0.00" incLanes="-10860201_0 -10860201_1 -10860201_2" intLanes=":1_0_0" shape="-0.00,0.00 -4.00,7.39 -0.00,0.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="2" type="priority" x="647.27" y="350.76" incLanes="10860201_0 10860201_1 10860201_2" intLanes=":2_0_0 :2_1_0 :2_2_0" shape="663.04,352.07 662.99,348.89 661.89,348.87 661.51,348.81 661.14,348.69 660.72,348.49 660.17,348.20 652.16,362.97 654.78,363.44 656.28,361.81 657.26,358.95 658.31,355.78 660.03,353.19">

@@ -1,4 +1,4 @@
-Parsing types from '/scr1/sumo/data/typemap/osmNetconvert.typ.xml'... done.
+Parsing types from '/home/kobo/dlr/sumo/data/typemap/osmNetconvert.typ.xml'... done.
 Parsing nodes from osm-file 'osm.xml'... 
 Found duplicate nodes. Substituting -7 with -4
 done.
@@ -7,7 +7,7 @@ Removing duplicate edges... done.
 Parsing relations from osm-file 'osm.xml'... done.
  Import done:
    14 nodes loaded.
-   32 types loaded.
+   33 types loaded.
    26 edges loaded.
 Proj projection parameters used: '+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
 Removing self-loops... done (0ms).
@@ -20,9 +20,9 @@ Computing turning directions... done (0ms).
 Assigning nodes to traffic lights... done (0ms).
 Guessing and setting on-/off-ramps... done (0ms).
 Sorting nodes' edges... done (0ms).
-Computing node shapes... done (1ms).
+Computing node shapes... done (0ms).
 Computing edge shapes... done (0ms).
-Computing node types... done (0ms).
+Computing node types... done (1ms).
 Computing priorities... done (0ms).
 Computing approached edges... done (0ms).
 Guessing and setting roundabouts... done (0ms).
@@ -32,7 +32,7 @@ Processing turnarounds... done (0ms).
 Rechecking of lane endings... done (0ms).
 Joining traffic light nodes... done (0ms).
 Computing traffic light control information... done (0ms).
-Computing node logics... done (1ms).
+Computing node logics... done (0ms).
 Computing traffic light logics... done (0ms).
  3 traffic light(s) computed.
 Building inner edges... done (1ms).
@@ -47,5 +47,5 @@ Summary:
   Applied offset     : -662333.88,-5415139.00
   Converted boundary : 0.00,0.00,1048.06,902.40
 -----------------------------------------------------
-Writing network... done (8ms).
+Writing network... done (7ms).
 Success.

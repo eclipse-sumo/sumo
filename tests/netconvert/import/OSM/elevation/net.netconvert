@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Apr 26 17:00:26 2019 by Eclipse SUMO netconvert Version v1_2_0+0096-85458c5
+<!-- generated on Fri Apr 26 22:14:20 2019 by Eclipse SUMO netconvert Version v1_2_0+0022-5179cc2293
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -71,6 +71,7 @@ SPDX-License-Identifier: EPL-2.0
     <type id="highway.trunk_link" priority="8" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship rail_fast" oneway="0"/>
     <type id="highway.unclassified" priority="4" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric ship rail_fast" oneway="0"/>
     <type id="highway.unsurfaced" priority="1" numLanes="1" speed="8.33" disallow="tram rail_urban rail rail_electric ship rail_fast" oneway="0"/>
+    <type id="railway.highspeed" priority="21" numLanes="1" speed="69.44" disallow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer tram rail_urban rail rail_electric motorcycle moped bicycle pedestrian evehicle ship custom1 custom2" oneway="1"/>
     <type id="railway.light_rail" priority="19" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
     <type id="railway.preserved" priority="16" numLanes="1" speed="27.78" allow="rail" oneway="1"/>
     <type id="railway.rail" priority="20" numLanes="1" speed="83.33" allow="rail rail_electric" oneway="1"/>
@@ -600,7 +601,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="24214694#1_0" index="0" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="13.89" length="16.21" shape="491.15,741.13,36.31 490.70,736.46,35.54"/>
     </edge>
     <edge id="24214694#2" from="1560223635" to="1787023433" priority="11" type="highway.secondary">
-        <lane id="24214694#2_0" index="0" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="13.89" length="7.59" shape="489.33,722.23,35.54 489.33,722.23,35.17"/>
+        <lane id="24214694#2_0" index="0" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="13.89" length="7.59" shape="489.45,723.49,35.17 489.43,723.30,35.17"/>
     </edge>
     <edge id="24214694#3" from="1787023433" to="1292264830" priority="11" type="highway.secondary">
         <lane id="24214694#3_0" index="0" disallow="tram rail_urban rail rail_electric ship rail_fast" speed="13.89" length="30.18" shape="489.06,719.47,35.17 486.87,696.78,33.68"/>

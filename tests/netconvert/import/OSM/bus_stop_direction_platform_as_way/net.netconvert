@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Apr 26 17:00:25 2019 by Eclipse SUMO netconvert Version v1_2_0+0096-85458c5
+<!-- generated on Fri Apr 26 22:14:19 2019 by Eclipse SUMO netconvert Version v1_2_0+0022-5179cc2293
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -64,6 +64,7 @@ SPDX-License-Identifier: EPL-2.0
     <type id="highway.trunk_link" priority="8" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship rail_fast" oneway="0"/>
     <type id="highway.unclassified" priority="4" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric ship rail_fast" oneway="0"/>
     <type id="highway.unsurfaced" priority="1" numLanes="1" speed="8.33" disallow="tram rail_urban rail rail_electric ship rail_fast" oneway="0"/>
+    <type id="railway.highspeed" priority="21" numLanes="1" speed="69.44" disallow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer tram rail_urban rail rail_electric motorcycle moped bicycle pedestrian evehicle ship custom1 custom2" oneway="1"/>
     <type id="railway.light_rail" priority="19" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
     <type id="railway.preserved" priority="16" numLanes="1" speed="27.78" allow="rail" oneway="1"/>
     <type id="railway.rail" priority="20" numLanes="1" speed="83.33" allow="rail rail_electric" oneway="1"/>
@@ -335,7 +336,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="1553912623" type="priority" x="410.17" y="157.87" incLanes="-141968830#0_0" intLanes=":1553912623_0_0" shape="410.17,157.87 410.97,160.97 410.17,157.87">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="301292499" type="priority" x="930.86" y="0.00" incLanes="141968853#1_0" intLanes=":301292499_0_0" shape="930.86,0.00 929.92,-3.06 930.86,0.00">
+    <junction id="301292499" type="priority" x="930.86" y="0.00" incLanes="141968853#1_0" intLanes=":301292499_0_0" shape="930.86,-0.00 929.92,-3.06 930.86,-0.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="3647000397" type="dead_end" x="848.53" y="137.29" incLanes="360099557_0" intLanes="" shape="848.25,136.33 848.82,138.25"/>
@@ -357,7 +358,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
-    <junction id="539796470" type="priority" x="0.00" y="944.31" incLanes="-152447118_0" intLanes=":539796470_0_0" shape="-0.00,944.31 2.80,945.86 0.00,944.31">
+    <junction id="539796470" type="priority" x="0.00" y="944.31" incLanes="-152447118_0" intLanes=":539796470_0_0" shape="0.00,944.31 2.80,945.86 -0.00,944.31">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="588394574" type="priority" x="606.68" y="110.99" incLanes="141968844#3_0" intLanes=":588394574_0_0 :588394574_1_0" shape="605.45,115.23 608.64,114.94 608.40,113.08 608.36,112.39 608.46,111.75 608.77,111.06 609.36,110.24 606.88,108.21 605.45,109.77 604.85,110.22 604.20,110.61 603.39,111.04 602.31,111.62 603.89,114.41 604.69,114.14 604.99,114.21 605.22,114.42 605.37,114.76">
