@@ -151,7 +151,7 @@ MSVehicleControl::vehicleDeparted(const SUMOVehicle& v) {
     myTotalDepartureDelay += STEPS2TIME(v.getDeparture() - STEPFLOOR(v.getParameter().depart));
     MSNet::getInstance()->informVehicleStateListener(&v, MSNet::VEHICLE_STATE_DEPARTED);
     myMaxSpeedFactor = MAX2(myMaxSpeedFactor, v.getChosenSpeedFactor());
-    if ((v.getVClass() & (SVC_SHIP | SVC_PEDESTRIAN | SVC_RAIL | SVC_RAIL_ELECTRIC | SVC_RAIL_URBAN)) == 0) {
+    if ((v.getVClass() & (SVC_PEDESTRIAN | SVC_NON_ROAD)) == 0) {
         // only  worry about deceleration of road users
         myMinDeceleration = MIN2(myMinDeceleration, v.getVehicleType().getCarFollowModel().getMaxDecel());
     }
