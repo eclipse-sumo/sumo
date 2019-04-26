@@ -139,12 +139,12 @@ GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) :
     polyType(false, 60, RGBColor(255, 0, 128, 255)),
     showSizeLegend(true),
     gaming(false),
-    drawBoundaries(false),
     selectionColor(0, 0, 204, 255),
     selectedEdgeColor(0, 0, 204, 255),
     selectedLaneColor(0, 0, 128, 255),
     selectedConnectionColor(0, 0, 100, 255),
     selectedAdditionalColor(0, 0, 150, 255),
+    drawBoundaries(false),
     selectionScale(1.),
     drawForSelecting(false) {
 
