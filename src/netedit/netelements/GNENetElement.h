@@ -26,6 +26,7 @@
 #include <netedit/GNEHierarchicalElementParents.h>
 #include <netedit/GNEHierarchicalElementChilds.h>
 #include <utils/gui/globjects/GUIGlObject.h>
+#include <utils/geom/PositionVector.h>
 
 // ===========================================================================
 // class declarations
@@ -41,6 +42,28 @@ class GNEDemandElement;
 class GNENetElement : public GUIGlObject, public GNEAttributeCarrier, public GNEHierarchicalElementParents, public GNEHierarchicalElementChilds {
 
 public:
+
+    /// @brief struct for pack all variables related with geometry of elemement
+    struct NetElementGeometry {
+        /// @brief constructor
+        NetElementGeometry();
+
+        /// @brief reset geometry
+        void clearGeometry();
+
+        /// @brief calculate shape rotations and lenghts
+        void calculateShapeRotationsAndLengths();
+
+        /// @brief The shape of the netElement element
+        PositionVector shape;
+
+        /// @brief The rotations of the single shape parts
+        std::vector<double> shapeRotations;
+
+        /// @brief The lengths of the single shape parts
+        std::vector<double> shapeLengths;
+    };
+
     /**@brief Constructor.
      * @param[in] net The net to inform about gui updates
      * @param[in] id of the element
@@ -57,6 +80,9 @@ public:
 
     /// @name Functions related with geometry of element
     /// @{
+    /// @brief get NetElementGeometry
+    virtual const NetElementGeometry &getGeometry() const = 0;
+
     /// @brief update pre-computed geometry information
     virtual void updateGeometry() = 0;
 

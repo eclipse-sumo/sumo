@@ -56,7 +56,7 @@ GNEAccess::moveGeometry(const Position& offset) {
     newPosition.add(offset);
     // filtern position using snap to active grid
     newPosition = myViewNet->snapToActiveGrid(newPosition);
-    myPositionOverLane = toString(getLaneParents().front()->getShape().nearest_offset_to_point2D(newPosition, false));
+    myPositionOverLane = toString(getLaneParents().front()->getGeometry().shape.nearest_offset_to_point2D(newPosition, false));
     // Update geometry
     updateGeometry();
 }
@@ -79,7 +79,7 @@ GNEAccess::updateGeometry() {
     myGeometry.clearGeometry();
 
     // Get shape of lane parent
-    myGeometry.shape = getLaneParents().front()->getShape();
+    myGeometry.shape = getLaneParents().front()->getGeometry().shape;
 
     // set start position
     double fixedPositionOverLane;
@@ -93,10 +93,10 @@ GNEAccess::updateGeometry() {
         fixedPositionOverLane = parse<double>(myPositionOverLane);
     }
     // obtain position
-    myGeometry.shape[0] = getLaneParents().front()->getShape().positionAtOffset(fixedPositionOverLane * getLaneParents().front()->getLengthGeometryFactor());
+    myGeometry.shape[0] = getLaneParents().front()->getGeometry().shape.positionAtOffset(fixedPositionOverLane * getLaneParents().front()->getLengthGeometryFactor());
 
     // Save rotation (angle) of the vector constructed by points f and s
-    myGeometry.shapeRotations.push_back(getLaneParents().front()->getShape().rotationDegreeAtOffset(fixedPositionOverLane) * -1);
+    myGeometry.shapeRotations.push_back(getLaneParents().front()->getGeometry().shape.rotationDegreeAtOffset(fixedPositionOverLane) * -1);
 
     // Set block icon position
     myBlockIcon.position = myGeometry.shape.getLineCenter();
@@ -112,15 +112,15 @@ GNEAccess::updateGeometry() {
 Position
 GNEAccess::getPositionInView() const {
     if (!canParse<double>(myPositionOverLane)) {
-        return getLaneParents().front()->getShape().front();
+        return getLaneParents().front()->getGeometry().shape.front();
     } else {
         double posOverLane = parse<double>(myPositionOverLane);
         if (posOverLane < 0) {
-            return getLaneParents().front()->getShape().front();
-        } else if (posOverLane > getLaneParents().front()->getShape().length()) {
-            return getLaneParents().front()->getShape().back();
+            return getLaneParents().front()->getGeometry().shape.front();
+        } else if (posOverLane > getLaneParents().front()->getGeometry().shape.length()) {
+            return getLaneParents().front()->getGeometry().shape.back();
         } else {
-            return getLaneParents().front()->getShape().positionAtOffset(posOverLane);
+            return getLaneParents().front()->getGeometry().shape.positionAtOffset(posOverLane);
         }
     }
 }

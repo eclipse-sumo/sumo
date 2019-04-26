@@ -98,6 +98,12 @@ GNEJunction::generateChildID(SumoXMLTag childTag) {
 }
 
 
+const GNENetElement::NetElementGeometry &
+GNEJunction::getGeometry() const {
+    return myJunctionGeometry;
+}
+
+
 void
 GNEJunction::updateGeometry() {
     // first check if object has to be removed from grid (SUMOTree)

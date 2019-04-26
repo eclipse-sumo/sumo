@@ -88,7 +88,7 @@ GNEStop::moveGeometry(const Position& offset) {
         newPosition.add(offset);
         // filtern position using snap to active grid
         newPosition = myViewNet->snapToActiveGrid(newPosition);
-        double offsetLane = getLaneParents().front()->getShape().nearest_offset_to_point2D(newPosition, false) - getLaneParents().front()->getShape().nearest_offset_to_point2D(myMove.originalViewPosition, false);
+        double offsetLane = getLaneParents().front()->getGeometry().shape.nearest_offset_to_point2D(newPosition, false) - getLaneParents().front()->getGeometry().shape.nearest_offset_to_point2D(myMove.originalViewPosition, false);
         // check if both position has to be moved
         if ((parametersSet & STOP_START_SET) && (parametersSet & STOP_END_SET)) {
             // calculate stoppingPlace lenght and lane lenght (After apply geometry factor)
@@ -147,7 +147,7 @@ GNEStop::updateGeometry() {
     //only update Stops over lanes, because other uses the geometry of stopping place parent
     if (getLaneParents().size() > 0) {
         // Cut shape using as delimitators fixed start position and fixed end position
-        myGeometry.shape = getLaneParents().front()->getShape().getSubpart(getStartGeometryPositionOverLane(), getEndGeometryPositionOverLane());
+        myGeometry.shape = getLaneParents().front()->getGeometry().shape.getSubpart(getStartGeometryPositionOverLane(), getEndGeometryPositionOverLane());
         // Get calculate lenghts and rotations
         myGeometry.calculateShapeRotationsAndLengths();
     } else if (getAdditionalParents().size() > 0) {
@@ -167,13 +167,13 @@ GNEStop::getPositionInView() const {
         double end = fabs(parametersSet & STOP_END_SET ? endPos : getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength());
         // obtain position in view depending if both positions are defined
         if (!(parametersSet & STOP_START_SET) && !(parametersSet & STOP_END_SET)) {
-            return getLaneParents().front()->getShape().positionAtOffset(getLaneParents().front()->getShape().length() / 2);
+            return getLaneParents().front()->getGeometry().shape.positionAtOffset(getLaneParents().front()->getGeometry().shape.length() / 2);
         } else if (!(parametersSet & STOP_START_SET)) {
-            return getLaneParents().front()->getShape().positionAtOffset(end);
+            return getLaneParents().front()->getGeometry().shape.positionAtOffset(end);
         } else if (!(parametersSet & STOP_END_SET)) {
-            return getLaneParents().front()->getShape().positionAtOffset(start);
+            return getLaneParents().front()->getGeometry().shape.positionAtOffset(start);
         } else {
-            return getLaneParents().front()->getShape().positionAtOffset((start + end) / 2.0);
+            return getLaneParents().front()->getGeometry().shape.positionAtOffset((start + end) / 2.0);
         }
     } else if (getDemandElementParents().size() > 0) {
         return getDemandElementParents().front()->getPositionInView();

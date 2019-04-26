@@ -58,11 +58,11 @@ GNEVaporizer::updateGeometry() {
     GNELane* firstLane = getEdgeParents().front()->getLanes().at(0);
 
     // Get shape of lane parent
-    double offset = firstLane->getShape().length() < 2.5 ? firstLane->getShape().length() : 2.5;
-    myGeometry.shape.push_back(firstLane->getShape().positionAtOffset(offset));
+    double offset = firstLane->getGeometry().shape.length() < 2.5 ? firstLane->getGeometry().shape.length() : 2.5;
+    myGeometry.shape.push_back(firstLane->getGeometry().shape.positionAtOffset(offset));
 
     // Save rotation (angle) of the vector constructed by points f and s
-    myGeometry.shapeRotations.push_back(firstLane->getShape().rotationDegreeAtOffset(0) * -1);
+    myGeometry.shapeRotations.push_back(firstLane->getGeometry().shape.rotationDegreeAtOffset(0) * -1);
 
     // Set block icon position
     myBlockIcon.position = myGeometry.shape.getLineCenter();
@@ -77,11 +77,11 @@ GNEVaporizer::updateGeometry() {
 
 Position
 GNEVaporizer::getPositionInView() const {
-    if (getEdgeParents().front()->getLanes().front()->getShape().length() < 2.5) {
-        return getEdgeParents().front()->getLanes().front()->getShape().front();
+    if (getEdgeParents().front()->getLanes().front()->getGeometry().shape.length() < 2.5) {
+        return getEdgeParents().front()->getLanes().front()->getGeometry().shape.front();
     } else {
-        Position A = getEdgeParents().front()->getLanes().front()->getShape().positionAtOffset(2.5);
-        Position B = getEdgeParents().front()->getLanes().back()->getShape().positionAtOffset(2.5);
+        Position A = getEdgeParents().front()->getLanes().front()->getGeometry().shape.positionAtOffset(2.5);
+        Position B = getEdgeParents().front()->getLanes().back()->getGeometry().shape.positionAtOffset(2.5);
 
         // return Middle point
         return Position((A.x() + B.x()) / 2, (A.y() + B.y()) / 2);

@@ -198,7 +198,7 @@ GNEDetectorE2::moveGeometry(const Position& offset) {
     newPosition.add(offset);
     // filtern position using snap to active grid
     newPosition = myViewNet->snapToActiveGrid(newPosition);
-    double offsetLane = getLaneParents().front()->getShape().nearest_offset_to_point2D(newPosition, false) - getLaneParents().front()->getShape().nearest_offset_to_point2D(myMove.originalViewPosition, false);
+    double offsetLane = getLaneParents().front()->getGeometry().shape.nearest_offset_to_point2D(newPosition, false) - getLaneParents().front()->getGeometry().shape.nearest_offset_to_point2D(myMove.originalViewPosition, false);
     // move geometry depending of number of lanes
     if (getLaneParents().size() == 1) {
         // calculate new position over lane
@@ -256,7 +256,7 @@ GNEDetectorE2::updateGeometry() {
     // calculate start and end positions dependin of number of lanes
     if (getLaneParents().size() == 1) {
         // set shape lane as detector shape
-        myGeometry.shape = getLaneParents().front()->getShape();
+        myGeometry.shape = getLaneParents().front()->getGeometry().shape;
 
         // set start position
         if (myPositionOverLane < 0) {
@@ -287,7 +287,7 @@ GNEDetectorE2::updateGeometry() {
 
     } else if (getLaneParents().size() > 1) {
         // start with the first lane shape
-        myGeometry.multiShape.push_back(getLaneParents().front()->getShape());
+        myGeometry.multiShape.push_back(getLaneParents().front()->getGeometry().shape);
 
         // set start position
         if (myPositionOverLane < 0) {
@@ -301,7 +301,7 @@ GNEDetectorE2::updateGeometry() {
         myGeometry.multiShape[0] = myGeometry.multiShape[0].getSubpart(startPosFixed * getLaneParents().front()->getLengthGeometryFactor(), getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength());
 
         // declare last shape
-        PositionVector lastShape = getLaneParents().back()->getShape();
+        PositionVector lastShape = getLaneParents().back()->getGeometry().shape;
 
         // set end position
         if (myEndPositionOverLane < 0) {
@@ -316,23 +316,23 @@ GNEDetectorE2::updateGeometry() {
         lastShape = lastShape.getSubpart(0, endPosFixed * getLaneParents().back()->getLengthGeometryFactor());
 
         // add first shape connection (if exist, in other case leave it empty)
-        myGeometry.multiShape.push_back(PositionVector{getLaneParents().at(0)->getShape().back(), getLaneParents().at(1)->getShape().front()});
+        myGeometry.multiShape.push_back(PositionVector{getLaneParents().at(0)->getGeometry().shape.back(), getLaneParents().at(1)->getGeometry().shape.front()});
         for (auto j : getLaneParents().at(0)->getParentEdge().getGNEConnections()) {
             if (j->getLaneTo() == getLaneParents().at(1)) {
-                myGeometry.multiShape.back() = j->getShape();
+                myGeometry.multiShape.back() = j->getGeometry().shape;
             }
         }
 
         // append shapes of intermediate lanes AND connections (if exist)
         for (int i = 1; i < ((int)getLaneParents().size() - 1); i++) {
             // add lane shape
-            myGeometry.multiShape.push_back(getLaneParents().at(i)->getShape());
+            myGeometry.multiShape.push_back(getLaneParents().at(i)->getGeometry().shape);
             // add empty shape for connection
-            myGeometry.multiShape.push_back(PositionVector{getLaneParents().at(i)->getShape().back(), getLaneParents().at(i + 1)->getShape().front()});
+            myGeometry.multiShape.push_back(PositionVector{getLaneParents().at(i)->getGeometry().shape.back(), getLaneParents().at(i + 1)->getGeometry().shape.front()});
             // set connection shape (if exist). In other case, insert an empty shape
             for (auto j : getLaneParents().at(i)->getParentEdge().getGNEConnections()) {
                 if (j->getLaneTo() == getLaneParents().at(i + 1)) {
-                    myGeometry.multiShape.back() = j->getShape();
+                    myGeometry.multiShape.back() = j->getGeometry().shape;
                 }
             }
         }

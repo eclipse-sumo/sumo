@@ -72,7 +72,7 @@ GNEDetector::getLane() const {
 
 Position
 GNEDetector::getPositionInView() const {
-    return getLane()->getShape().positionAtOffset(getGeometryPositionOverLane());
+    return getLane()->getGeometry().shape.positionAtOffset(getGeometryPositionOverLane());
 }
 
 

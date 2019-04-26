@@ -121,6 +121,12 @@ GNEEdge::generateChildID(SumoXMLTag /*childTag*/) {
 }
 
 
+const GNENetElement::NetElementGeometry &
+GNEEdge::getGeometry() const {
+    return myEdgeGeometry;
+}
+
+
 void
 GNEEdge::updateGeometry() {
     // first check if object has to be removed from grid (SUMOTree)
@@ -562,13 +568,13 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
                     }
 
                     // draw route
-                    GLHelper::drawBoxLines(myLanes.front()->getShape(), myLanes.front()->myShapeRotations, myLanes.front()->myShapeLengths, routeWidth);
+                    GLHelper::drawBoxLines(myLanes.front()->getGeometry().shape, myLanes.front()->getGeometry().shapeRotations, myLanes.front()->getGeometry().shapeLengths, routeWidth);
 
                     // check if route has a connectio between this and the next edge
                     GNEConnection *nextConnection = route->getNextConnection(this);
 
                     if (nextConnection) {
-                        GLHelper::drawBoxLines(nextConnection->myShape, nextConnection->myShapeRotations, nextConnection->myShapeLengths, routeWidth);
+                        GLHelper::drawBoxLines(nextConnection->getGeometry().shape, nextConnection->getGeometry().shapeRotations, nextConnection->getGeometry().shapeLengths, routeWidth);
                     } else {
                         PositionVector line = route->getNextShape(this);
                         // Add a draw matrix
@@ -693,17 +699,17 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
         glPushName(getGlID());
         GNELane* lane1 = myLanes[0];
         GNELane* lane2 = myLanes[myLanes.size() - 1];
-        Position p = lane1->getShape().positionAtOffset(lane1->getShape().length() / (double) 2.);
-        p.add(lane2->getShape().positionAtOffset(lane2->getShape().length() / (double) 2.));
+        Position p = lane1->getGeometry().shape.positionAtOffset(lane1->getGeometry().shape.length() / (double) 2.);
+        p.add(lane2->getGeometry().shape.positionAtOffset(lane2->getGeometry().shape.length() / (double) 2.));
         p.mul(.5);
         if (spreadSuperposed) {
             // move name to the right of the edge and towards its beginning
             const double dist = 0.6 * s.edgeName.scaledSize(s.scale);
-            const double shiftA = lane1->getShape().rotationAtOffset(lane1->getShape().length() / (double) 2.) - DEG2RAD(135);
+            const double shiftA = lane1->getGeometry().shape.rotationAtOffset(lane1->getGeometry().shape.length() / (double) 2.) - DEG2RAD(135);
             Position shift(dist * cos(shiftA), dist * sin(shiftA));
             p.add(shift);
         }
-        double angle = lane1->getShape().rotationDegreeAtOffset(lane1->getShape().length() / (double) 2.);
+        double angle = lane1->getGeometry().shape.rotationDegreeAtOffset(lane1->getGeometry().shape.length() / (double) 2.);
         angle += 90;
         if (angle > 90 && angle < 270) {
             angle -= 180;
@@ -724,7 +730,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
         // draw dotted contor around the first and last lane
         const double myHalfLaneWidthFront = myNBEdge.getLaneWidth(myLanes.front()->getIndex()) / 2;
         const double myHalfLaneWidthBack = spreadSuperposed ? 0 : myNBEdge.getLaneWidth(myLanes.back()->getIndex()) / 2;
-        GLHelper::drawShapeDottedContour(GLO_JUNCTION, myLanes.front()->getShape(), myHalfLaneWidthFront, myLanes.back()->getShape(), -1 * myHalfLaneWidthBack);
+        GLHelper::drawShapeDottedContour(GLO_JUNCTION, myLanes.front()->getGeometry().shape, myHalfLaneWidthFront, myLanes.back()->getGeometry().shape, -1 * myHalfLaneWidthBack);
     }
     glPopMatrix();
 }

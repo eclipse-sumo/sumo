@@ -75,6 +75,9 @@ public:
 
     /// @name Functions related with geometry of element
     /// @{
+    /// @brief get NetElementGeometry
+    const NetElementGeometry &getGeometry() const;
+
     /// @brief update pre-computed geometry information
     void updateGeometry();
 
@@ -314,6 +317,9 @@ protected:
     /// @brief variable used to save shape bevore moving (used to avoid inconsistences in GL Tree)
     PositionVector myMovingShape;
 
+    /// @brief edge geometry (currently unused)
+    NetElementGeometry myEdgeGeometry;
+
     /// @brief pointer to GNEJunction source
     GNEJunction* myGNEJunctionSource;
 
@@ -376,7 +382,6 @@ private:
 
     /// @brief constructor for dummy edge
     GNEEdge();
-
 };
 
 

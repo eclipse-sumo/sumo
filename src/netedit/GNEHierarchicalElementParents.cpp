@@ -252,12 +252,12 @@ GNEHierarchicalElementParents::ParentConnections::update() {
         for (auto j : i->getLanes()) {
             std::pair<Position, double> posRot;
             // set position and lenght depending of shape's lengt
-            if (j->getShape().length() - 6 > 0) {
-                posRot.first = j->getShape().positionAtOffset(j->getShape().length() - 6);
-                posRot.second = j->getShape().rotationDegreeAtOffset(j->getShape().length() - 6);
+            if (j->getGeometry().shape.length() - 6 > 0) {
+                posRot.first = j->getGeometry().shape.positionAtOffset(j->getGeometry().shape.length() - 6);
+                posRot.second = j->getGeometry().shape.rotationDegreeAtOffset(j->getGeometry().shape.length() - 6);
             } else {
-                posRot.first = j->getShape().positionAtOffset(j->getShape().length());
-                posRot.second = j->getShape().rotationDegreeAtOffset(j->getShape().length());
+                posRot.first = j->getGeometry().shape.positionAtOffset(j->getGeometry().shape.length());
+                posRot.second = j->getGeometry().shape.rotationDegreeAtOffset(j->getGeometry().shape.length());
             }
             symbolsPositionAndRotation.push_back(posRot);
         }
@@ -267,12 +267,12 @@ GNEHierarchicalElementParents::ParentConnections::update() {
     for (auto i : myHierarchicalElement->myLaneParents) {
         std::pair<Position, double> posRot;
         // set position and lenght depending of shape's lengt
-        if (i->getShape().length() - 6 > 0) {
-            posRot.first = i->getShape().positionAtOffset(i->getShape().length() - 6);
-            posRot.second = i->getShape().rotationDegreeAtOffset(i->getShape().length() - 6);
+        if (i->getGeometry().shape.length() - 6 > 0) {
+            posRot.first = i->getGeometry().shape.positionAtOffset(i->getGeometry().shape.length() - 6);
+            posRot.second = i->getGeometry().shape.rotationDegreeAtOffset(i->getGeometry().shape.length() - 6);
         } else {
-            posRot.first = i->getShape().positionAtOffset(i->getShape().length());
-            posRot.second = i->getShape().rotationDegreeAtOffset(i->getShape().length());
+            posRot.first = i->getGeometry().shape.positionAtOffset(i->getGeometry().shape.length());
+            posRot.second = i->getGeometry().shape.rotationDegreeAtOffset(i->getGeometry().shape.length());
         }
         symbolsPositionAndRotation.push_back(posRot);
     }

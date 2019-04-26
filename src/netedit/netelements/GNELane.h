@@ -64,6 +64,9 @@ public:
 
     /// @name Functions related with geometry of element
     /// @{
+    /// @brief get NetElementGeometry
+    const NetElementGeometry &getGeometry() const;
+
     /// @brief update pre-computed geometry information
     void updateGeometry();
 
@@ -126,15 +129,6 @@ public:
      */
     void drawGL(const GUIVisualizationSettings& s) const;
     /// @}
-
-    /// @brief returns the shape of the lane
-    const PositionVector& getShape() const;
-
-    /// @brief returns the vector with the shape rotations
-    const std::vector<double>& getShapeRotations() const;
-
-    /// @brief returns the vector with the shape lengths
-    const std::vector<double>& getShapeLengths() const;
 
     /// @brief returns the boundry (including lanes)
     Boundary getBoundary() const;
@@ -224,15 +218,12 @@ protected:
     /// @brief The index of this lane
     int myIndex;
 
+    /// @brief lane geometry
+    NetElementGeometry myLaneGeometry;
+
     /// @name computed only once (for performance) in updateGeometry()
     /// @{
-public: // temporal
-    /// @brief The rotations of the shape parts
-    std::vector<double> myShapeRotations;
 
-    /// @brief The lengths of the shape parts
-    std::vector<double> myShapeLengths;
-protected:
     /// @brief Position of textures of restricted lanes
     std::vector<Position> myLaneRestrictedTexturePositions;
 

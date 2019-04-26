@@ -90,10 +90,10 @@ GNERoute::getNextConnection(const GNEEdge* edgeFrom) const {
 PositionVector 
 GNERoute::getNextShape(const GNEEdge* edgeFrom) const {
     PositionVector solution;
-    solution.push_back(edgeFrom->getLanes().front()->getShape().back());
+    solution.push_back(edgeFrom->getLanes().front()->getGeometry().shape.back());
     for (int i = 0; i < (int)getEdgeParents().size(); i++) {
         if ((getEdgeParents().at(i) == edgeFrom) && i < (getEdgeParents().size()-1)) {
-            solution.push_back(getEdgeParents().at(i+1)->getLanes().front()->getShape().front());
+            solution.push_back(getEdgeParents().at(i+1)->getLanes().front()->getGeometry().shape.front());
         }
     }
     return solution;
@@ -154,7 +154,7 @@ GNERoute::updateGeometry() {
     // calculate start and end positions depending of number of lanes
     if (getEdgeParents().size() == 1) {
         // append shape
-        myGeometry.shape = getEdgeParents().back()->getLanes().front()->getShape();
+        myGeometry.shape = getEdgeParents().back()->getLanes().front()->getGeometry().shape;
 
         // calculate multi shape rotation and lengths
         myGeometry.calculateShapeRotationsAndLengths();
@@ -164,32 +164,32 @@ GNERoute::updateGeometry() {
         std::vector<PositionVector> multiShape;
 
         // start with the first lane shape
-        multiShape.push_back(getEdgeParents().front()->getLanes().front()->getShape());
+        multiShape.push_back(getEdgeParents().front()->getLanes().front()->getGeometry().shape);
 
         // add first shape connection (if exist, in other case leave it empty)
-        multiShape.push_back(PositionVector{getEdgeParents().at(0)->getLanes().front()->getShape().back(), getEdgeParents().at(1)->getLanes().front()->getShape().front()});
+        multiShape.push_back(PositionVector{getEdgeParents().at(0)->getLanes().front()->getGeometry().shape.back(), getEdgeParents().at(1)->getLanes().front()->getGeometry().shape.front()});
         for (auto j : getEdgeParents().at(0)->getGNEConnections()) {
             if (j->getLaneTo() == getEdgeParents().at(1)->getLanes().front()) {
-                multiShape.back() = j->getShape();
+                multiShape.back() = j->getGeometry().shape;
             }
         }
 
         // append shapes of intermediate lanes AND connections (if exist)
         for (int i = 1; i < ((int)getEdgeParents().size() - 1); i++) {
             // add lane shape
-            multiShape.push_back(getEdgeParents().at(i)->getLanes().front()->getShape());
+            multiShape.push_back(getEdgeParents().at(i)->getLanes().front()->getGeometry().shape);
             // add empty shape for connection
-            multiShape.push_back(PositionVector{getEdgeParents().at(i)->getLanes().front()->getShape().back(), getEdgeParents().at(i + 1)->getLanes().front()->getShape().front()});
+            multiShape.push_back(PositionVector{getEdgeParents().at(i)->getLanes().front()->getGeometry().shape.back(), getEdgeParents().at(i + 1)->getLanes().front()->getGeometry().shape.front()});
             // set connection shape (if exist). In other case, insert an empty shape
             for (auto j : getEdgeParents().at(i)->getGNEConnections()) {
                 if (j->getLaneTo() == getEdgeParents().at(i + 1)->getLanes().front()) {
-                    multiShape.back() = j->getShape();
+                    multiShape.back() = j->getGeometry().shape;
                 }
             }
         }
 
         // append last shape
-        multiShape.push_back(getEdgeParents().back()->getLanes().front()->getShape());
+        multiShape.push_back(getEdgeParents().back()->getLanes().front()->getGeometry().shape);
 
         // calculate unified shape
         for (auto i : multiShape) {

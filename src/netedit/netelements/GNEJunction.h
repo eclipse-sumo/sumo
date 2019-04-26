@@ -70,6 +70,9 @@ public:
 
     /// @name Functions related with geometry of element
     /// @{
+    /// @brief get NetElementGeometry
+    const NetElementGeometry &getGeometry() const;
+
     /// @brief update pre-computed geometry information
     void updateGeometry();
 
@@ -264,6 +267,9 @@ private:
     /// @brief junction boundary
     Boundary myJunctionBoundary;
 
+    /// @brief junction geometry (currently unused)
+    NetElementGeometry myJunctionGeometry;
+
     /// @brief vector with the GNEEdges vinculated with this junction
     std::vector<GNEEdge*> myGNEEdges;
 
@@ -272,6 +278,9 @@ private:
 
     /// @brief vector with the outgoings GNEEdges vinculated with this junction
     std::vector<GNEEdge*> myGNEOutgoingEdges;
+
+    /// @brief the built crossing objects
+    std::vector<GNECrossing*> myGNECrossings;
 
     /// @brief The maximum size (in either x-, or y-dimension) for determining whether to draw or not
     double myMaxSize;
@@ -291,9 +300,6 @@ private:
 
     /// @brief whether this junction is selected in tls-mode
     bool myAmTLSSelected;
-
-    /// @brief the built crossing objects
-    std::vector<GNECrossing*> myGNECrossings;
 
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     void setAttribute(SumoXMLAttr key, const std::string& value);

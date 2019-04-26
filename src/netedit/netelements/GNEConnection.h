@@ -52,6 +52,9 @@ public:
 
     /// @name Functions related with geometry of element
     /// @{
+    /// @brief get NetElementGeometry
+    const NetElementGeometry &getGeometry() const;
+
     /// @brief update pre-computed geometry information
     void updateGeometry();
 
@@ -94,9 +97,6 @@ public:
 
     /// @brief check that connection's Geometry has to be updated
     void markConnectionGeometryDeprecated();
-
-    /// @brief check if connection is protected (i.e. There is a Demand Element that can use
-    void isConnectionProtected();
 
     /// @brief update internal ID of Connection
     void updateID();
@@ -170,7 +170,7 @@ public:
 
     /// @}
 
-public: // check this
+protected:
     /// @brief incoming lane of this connection
     GNELane* myFromLane;
 
@@ -183,23 +183,14 @@ public: // check this
     /// @brief optional special color
     const RGBColor* mySpecialColor;
 
-    /// @brief the shape of the connection
-    PositionVector myShape;
-
     /// @brief flag to indicate that connection's shape has to be updated
     bool myShapeDeprecated;
 
-    /// @name computed only once (for performance) in updateGeometry()
-    /// @{
-    /// @brief The rotations of the shape parts
-    std::vector<double> myShapeRotations;
-
-    /// @brief The lengths of the shape parts
-    std::vector<double> myShapeLengths;
+    /// @brief connection geometry
+    NetElementGeometry myConnectionGeometry;
 
     /// @brief waiting position for internal junction
     PositionVector myInternalJunctionMarker;
-    /// @}
 
 private:
     /// @brief set attribute after validation

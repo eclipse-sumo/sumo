@@ -188,11 +188,11 @@ GNEVehicle::updateGeometry() {
     }
 
     // Get shape of lane parent
-    double offset = vehicleLane->getShape().length() < length ? vehicleLane->getShape().length() : length;
-    myGeometry.shape.push_back(vehicleLane->getShape().positionAtOffset(offset));
+    double offset = vehicleLane->getGeometry().shape.length() < length ? vehicleLane->getGeometry().shape.length() : length;
+    myGeometry.shape.push_back(vehicleLane->getGeometry().shape.positionAtOffset(offset));
 
     // Save rotation (angle)
-    myGeometry.shapeRotations.push_back(vehicleLane->getShape().rotationDegreeAtOffset(offset) * -1);
+    myGeometry.shapeRotations.push_back(vehicleLane->getGeometry().shape.rotationDegreeAtOffset(offset) * -1);
 
     // calculate route for trip (Only in Demand mode)
     if ((myTagProperty.getTag() == SUMO_TAG_TRIP) && (myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND)) {
@@ -241,11 +241,11 @@ GNEVehicle::getPositionInView() const {
     } else {
         throw ProcessError("Invalid vehicle tag");
     }
-    if (lane->getShape().length() < 2.5) {
-        return lane->getShape().front();
+    if (lane->getGeometry().shape.length() < 2.5) {
+        return lane->getGeometry().shape.front();
     } else {
-        Position A = lane->getShape().positionAtOffset(2.5);
-        Position B = lane->getShape().positionAtOffset(2.5);
+        Position A = lane->getGeometry().shape.positionAtOffset(2.5);
+        Position B = lane->getGeometry().shape.positionAtOffset(2.5);
         // return Middle point
         return Position((A.x() + B.x()) / 2, (A.y() + B.y()) / 2);
     }
@@ -864,7 +864,7 @@ GNEVehicle::setColor(const GUIVisualizationSettings& s) const {
             break;
         }
         case 5: {
-            Position p = getDemandElementParents().at(1)->getEdgeParents().at(0)->getLanes().at(0)->getShape()[0];
+            Position p = getDemandElementParents().at(1)->getEdgeParents().at(0)->getLanes().at(0)->getGeometry().shape[0];
             const Boundary& b = myViewNet->getNet()->getBoundary();
             Position center = b.getCenter();
             double hue = 180. + atan2(center.x() - p.x(), center.y() - p.y()) * 180. / M_PI;
@@ -873,7 +873,7 @@ GNEVehicle::setColor(const GUIVisualizationSettings& s) const {
             break;
         }
         case 6: {
-            Position p = getDemandElementParents().at(1)->getEdgeParents().back()->getLanes().at(0)->getShape()[-1];
+            Position p = getDemandElementParents().at(1)->getEdgeParents().back()->getLanes().at(0)->getGeometry().shape[-1];
             const Boundary& b = myViewNet->getNet()->getBoundary();
             Position center = b.getCenter();
             double hue = 180. + atan2(center.x() - p.x(), center.y() - p.y()) * 180. / M_PI;
@@ -882,8 +882,8 @@ GNEVehicle::setColor(const GUIVisualizationSettings& s) const {
             break;
         }
         case 7: {
-            Position pb = getDemandElementParents().at(1)->getEdgeParents().at(0)->getLanes().at(0)->getShape()[0];
-            Position pe = getDemandElementParents().at(1)->getEdgeParents().back()->getLanes().at(0)->getShape()[-1];
+            Position pb = getDemandElementParents().at(1)->getEdgeParents().at(0)->getLanes().at(0)->getGeometry().shape[0];
+            Position pe = getDemandElementParents().at(1)->getEdgeParents().back()->getLanes().at(0)->getGeometry().shape[-1];
             const Boundary& b = myViewNet->getNet()->getBoundary();
             double hue = 180. + atan2(pb.x() - pe.x(), pb.y() - pe.y()) * 180. / M_PI;
             Position minp(b.xmin(), b.ymin());

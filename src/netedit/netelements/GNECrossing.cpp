@@ -56,28 +56,23 @@ GNECrossing::generateChildID(SumoXMLTag /*childTag*/) {
 }
 
 
+const GNENetElement::NetElementGeometry &
+GNECrossing::getGeometry() const {
+    return myCrossingGeometry;
+}
+
+
 void
 GNECrossing::updateGeometry() {
+    // first clear geometry
+    myCrossingGeometry.clearGeometry();
     // rebuild crossing and walking areas form node parent
     auto crossing = myParentJunction->getNBNode()->getCrossing(myCrossingEdges);
     // obtain shape
-    myShape = crossing->customShape.size() > 0 ?  crossing->customShape : crossing->shape;
-    // Clear Shape rotations and segments
-    myShapeRotations.clear();
-    myShapeLengths.clear();
+    myCrossingGeometry.shape = crossing->customShape.size() > 0 ?  crossing->customShape : crossing->shape;
     // only rebuild shape if junction's shape isn't in Buuble mode
     if (myParentJunction->getNBNode()->getShape().size() > 0) {
-        int segments = (int)myShape.size() - 1;
-        if (segments >= 0) {
-            myShapeRotations.reserve(segments);
-            myShapeLengths.reserve(segments);
-            for (int i = 0; i < segments; ++i) {
-                const Position& f = myShape[i];
-                const Position& s = myShape[i + 1];
-                myShapeLengths.push_back(f.distanceTo2D(s));
-                myShapeRotations.push_back((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double)M_PI);
-            }
-        }
+        myCrossingGeometry.calculateShapeRotationsAndLengths();
     }
 }
 
@@ -111,8 +106,8 @@ void
 GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
     // only draw if option drawCrossingsAndWalkingareas is enabled and size of shape is greather than 0 and zoom is close enough
     if (s.drawCrossingsAndWalkingareas &&
-            (myShapeRotations.size() > 0) &&
-            (myShapeLengths.size() > 0) &&
+            (myCrossingGeometry.shapeRotations.size() > 0) &&
+            (myCrossingGeometry.shapeLengths.size() > 0) &&
             (s.scale > 3.0)) {
         auto crossing = myParentJunction->getNBNode()->getCrossing(myCrossingEdges);
         if (myNet->getViewNet()->getEditModes().networkEditMode != GNE_NMODE_TLS) {
@@ -142,15 +137,15 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
             glPushMatrix();
             // draw on top of of the white area between the rails
             glTranslated(0, 0, 0.1);
-            for (int i = 0; i < (int)myShape.size() - 1; ++i) {
+            for (int i = 0; i < (int)myCrossingGeometry.shape.size() - 1; ++i) {
                 // push three draw matrix
                 glPushMatrix();
                 // translate and rotate
-                glTranslated(myShape[i].x(), myShape[i].y(), 0.0);
-                glRotated(myShapeRotations[i], 0, 0, 1);
+                glTranslated(myCrossingGeometry.shape[i].x(), myCrossingGeometry.shape[i].y(), 0.0);
+                glRotated(myCrossingGeometry.shapeRotations[i], 0, 0, 1);
                 // draw crossing depending if isn't being drawn for selecting
                 if (!s.drawForSelecting) {
-                    for (double t = 0; t < myShapeLengths[i]; t += spacing) {
+                    for (double t = 0; t < myCrossingGeometry.shapeLengths[i]; t += spacing) {
                         glBegin(GL_QUADS);
                         glVertex2d(-halfWidth, -t);
                         glVertex2d(-halfWidth, -t - length);
@@ -162,8 +157,8 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
                     // only draw a single rectangle if it's being drawn only for selecting
                     glBegin(GL_QUADS);
                     glVertex2d(-halfWidth, 0);
-                    glVertex2d(-halfWidth, -myShapeLengths.back());
-                    glVertex2d(halfWidth, -myShapeLengths.back());
+                    glVertex2d(-halfWidth, -myCrossingGeometry.shapeLengths.back());
+                    glVertex2d(halfWidth, -myCrossingGeometry.shapeLengths.back());
                     glVertex2d(halfWidth, 0);
                     glEnd();
                 }
@@ -186,7 +181,7 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
         }
         // check if dotted contour has to be drawn
         if (!s.drawForSelecting && (myNet->getViewNet()->getDottedAC() == this)) {
-            GLHelper::drawShapeDottedContour(getType(), myShape, crossing->width * 0.5);
+            GLHelper::drawShapeDottedContour(getType(), myCrossingGeometry.shape, crossing->width * 0.5);
         }
     }
 }

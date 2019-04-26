@@ -295,7 +295,7 @@ GNEPolygonFrame::processClick(const Position& clickedPosition, const GNEViewNetH
         // obtain Lane
         valuesOfElement[SUMO_ATTR_LANE] = objectsUnderCursor.getLaneFront()->getID();
         // obtain position over lane
-        valuesOfElement[SUMO_ATTR_POSITION] = toString(objectsUnderCursor.getLaneFront()->getShape().nearest_offset_to_point2D(clickedPosition));
+        valuesOfElement[SUMO_ATTR_POSITION] = toString(objectsUnderCursor.getLaneFront()->getGeometry().shape.nearest_offset_to_point2D(clickedPosition));
         // return ADDSHAPE_SUCCESS if POI was sucesfully created
         if (addPOILane(valuesOfElement)) {
             return ADDSHAPE_SUCCESS;

@@ -47,7 +47,6 @@ class GUIGLObjectPopupMenu;
 class GNEAdditional : public GUIGlObject, public GNEAttributeCarrier, public Parameterised, public GNEHierarchicalElementParents, public GNEHierarchicalElementChilds  {
 
 public:
-
     /// @brief struct for pack all variables related with geometry of elemement
     struct AdditionalGeometry {
         /// @brief constructor
