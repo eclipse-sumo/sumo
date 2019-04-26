@@ -117,6 +117,7 @@ GUISettingsHandler::myStartElement(int element,
         case SUMO_TAG_VIEWSETTINGS_OPENGL:
             mySettings.dither = StringUtils::toBool(attrs.getStringSecure("dither", toString(mySettings.dither)));
             mySettings.fps = StringUtils::toBool(attrs.getStringSecure("fps", toString(mySettings.fps)));
+            mySettings.drawBoundaries = StringUtils::toBool(attrs.getStringSecure("drawBoundaries", toString(mySettings.drawBoundaries)));
             break;
         case SUMO_TAG_VIEWSETTINGS_BACKGROUND: {
             bool ok = true;

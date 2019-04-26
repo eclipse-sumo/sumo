@@ -946,6 +946,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.openTag(SUMO_TAG_VIEWSETTINGS_OPENGL);
     dev.writeAttr("dither", dither);
     dev.writeAttr("fps", fps);
+    dev.writeAttr("drawBoundaries", drawBoundaries);
     dev.closeTag();
     dev.openTag(SUMO_TAG_VIEWSETTINGS_BACKGROUND);
     dev.writeAttr("backgroundColor", backgroundColor);
@@ -1091,6 +1092,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (fps != v2.fps) {
+        return false;
+    }
+    if (drawBoundaries != v2.drawBoundaries) {
         return false;
     }
     if (backgroundColor != v2.backgroundColor) {
