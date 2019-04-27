@@ -117,4 +117,7 @@ rail_highspeed
 
 # test import of preferred_direction values
 rail_preferred_direction
+
+# test import of local track numbering
+railway_track_ref
 bugs

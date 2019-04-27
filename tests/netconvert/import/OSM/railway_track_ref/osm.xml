@@ -1,0 +1,1009 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="Overpass API 0.7.55.6 486819c8">
+<note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
+<meta osm_base="2019-04-27T10:22:02Z"/>
+
+  <node id="29921550" lat="52.4545564" lon="13.5099724">
+    <tag k="description" v="S Berlin-Schöneweide, Gleis 3"/>
+    <tag k="light_rail" v="yes"/>
+    <tag k="local_ref" v="3"/>
+    <tag k="name" v="S Schöneweide"/>
+    <tag k="operator" v="DB Station&amp;Service AG"/>
+    <tag k="public_transport" v="stop_position"/>
+    <tag k="railway" v="stop"/>
+    <tag k="ref" v="3"/>
+    <tag k="train" v="yes"/>
+    <tag k="wheelchair" v="yes"/>
+  </node>
+  <node id="60660089" lat="52.4547562" lon="13.5095747"/>
+  <node id="246759515" lat="52.4542912" lon="13.5107603"/>
+  <node id="246759516" lat="52.4541472" lon="13.5105237"/>
+  <node id="261019864" lat="52.4549717" lon="13.5099639"/>
+  <node id="261019865" lat="52.4557753" lon="13.5087241"/>
+  <node id="261744710" lat="52.4554730" lon="13.5085532"/>
+  <node id="261744785" lat="52.4548102" lon="13.5099465"/>
+  <node id="261744786" lat="52.4553601" lon="13.5090923">
+    <tag k="light_rail" v="yes"/>
+    <tag k="local_ref" v="5"/>
+    <tag k="name" v="S Schöneweide"/>
+    <tag k="operator" v="DB Station&amp;Service AG"/>
+    <tag k="public_transport" v="stop_position"/>
+    <tag k="railway" v="stop"/>
+    <tag k="ref" v="5"/>
+    <tag k="train" v="yes"/>
+    <tag k="wheelchair" v="yes"/>
+  </node>
+  <node id="261744930" lat="52.4543735" lon="13.5109018"/>
+  <node id="261745121" lat="52.4542592" lon="13.5107086"/>
+  <node id="261745123" lat="52.4554766" lon="13.5088250"/>
+  <node id="262354024" lat="52.4556003" lon="13.5091233"/>
+  <node id="262354025" lat="52.4558935" lon="13.5096249"/>
+  <node id="262354027" lat="52.4560406" lon="13.5096651"/>
+  <node id="262354029" lat="52.4556304" lon="13.5103060"/>
+  <node id="262354031" lat="52.4556306" lon="13.5100191"/>
+  <node id="326320601" lat="52.4541770" lon="13.5105741"/>
+  <node id="483617007" lat="52.4544148" lon="13.5105891"/>
+  <node id="483617010" lat="52.4544485" lon="13.5106496">
+    <tag k="level" v="1"/>
+  </node>
+  <node id="483617147" lat="52.4543098" lon="13.5103898"/>
+  <node id="483617155" lat="52.4543446" lon="13.5104470">
+    <tag k="level" v="1"/>
+  </node>
+  <node id="483617260" lat="52.4553266" lon="13.5084411"/>
+  <node id="483617263" lat="52.4542439" lon="13.5102812">
+    <tag k="level" v="1"/>
+  </node>
+  <node id="690277210" lat="52.4552670" lon="13.5102450"/>
+  <node id="690277211" lat="52.4545254" lon="13.5113845"/>
+  <node id="690277212" lat="52.4544990" lon="13.5114251"/>
+  <node id="717643260" lat="52.4545777" lon="13.5113052"/>
+  <node id="906419824" lat="52.4558554" lon="13.5099534">
+    <tag k="entrance" v="yes"/>
+    <tag k="entrance_marker:s-train" v="yes"/>
+  </node>
+  <node id="906425372" lat="52.4552572" lon="13.5093981"/>
+  <node id="967776859" lat="52.4867021" lon="13.4593874"/>
+  <node id="967776860" lat="52.4716277" lon="13.4824379">
+    <tag k="power" v="transformer"/>
+    <tag k="source" v="Bing"/>
+    <tag k="voltage-high" v="30000"/>
+    <tag k="voltage-low" v="750"/>
+  </node>
+  <node id="1095078217" lat="52.4554627" lon="13.5092147">
+    <tag k="description" v="S Berlin-Schöneweide, Gleis 6"/>
+    <tag k="light_rail" v="yes"/>
+    <tag k="local_ref" v="6"/>
+    <tag k="name" v="S Schöneweide"/>
+    <tag k="operator" v="DB Station&amp;Service AG"/>
+    <tag k="public_transport" v="stop_position"/>
+    <tag k="railway" v="stop"/>
+    <tag k="ref" v="6"/>
+    <tag k="train" v="yes"/>
+    <tag k="wheelchair" v="yes"/>
+  </node>
+  <node id="1095078277" lat="52.4546526" lon="13.5100967">
+    <tag k="description" v="S Berlin-Schöneweide, Gleis 4"/>
+    <tag k="light_rail" v="yes"/>
+    <tag k="local_ref" v="4"/>
+    <tag k="name" v="S Schöneweide"/>
+    <tag k="operator" v="DB Station&amp;Service AG"/>
+    <tag k="public_transport" v="stop_position"/>
+    <tag k="railway" v="stop"/>
+    <tag k="ref" v="4"/>
+    <tag k="train" v="yes"/>
+    <tag k="wheelchair" v="yes"/>
+  </node>
+  <node id="1095078286" lat="52.4543748" lon="13.5104965"/>
+  <node id="1095078305" lat="52.4544781" lon="13.5107009"/>
+  <node id="1499711590" lat="52.4554008" lon="13.5085907"/>
+  <node id="1499711591" lat="52.4556073" lon="13.5083547"/>
+  <node id="1499711610" lat="52.4556702" lon="13.5085130"/>
+  <node id="1499711612" lat="52.4557124" lon="13.5085708"/>
+  <node id="1571680226" lat="52.4602856" lon="13.5013771"/>
+  <node id="1979179603" lat="52.4549107" lon="13.5112596"/>
+  <node id="1979179604" lat="52.4552128" lon="13.5104439"/>
+  <node id="1979179605" lat="52.4553250" lon="13.5106244"/>
+  <node id="1979179606" lat="52.4553271" lon="13.5106283"/>
+  <node id="1979179607" lat="52.4551725" lon="13.5109097"/>
+  <node id="1979179608" lat="52.4551270" lon="13.5109624"/>
+  <node id="1979179609" lat="52.4552122" lon="13.5104447"/>
+  <node id="1979179610" lat="52.4551802" lon="13.5104937"/>
+  <node id="1979179612" lat="52.4552890" lon="13.5107321"/>
+  <node id="1979179613" lat="52.4555808" lon="13.5102255"/>
+  <node id="1979179614" lat="52.4548012" lon="13.5110719"/>
+  <node id="1979181506" lat="52.4544502" lon="13.5102907">
+    <tag k="amenity" v="vending_machine"/>
+    <tag k="covered" v="yes"/>
+    <tag k="operator" v="S-Bahn Berlin GmbH"/>
+    <tag k="vending" v="public_transport_tickets"/>
+  </node>
+  <node id="1979181546" lat="52.4552045" lon="13.5094891">
+    <tag k="amenity" v="vending_machine"/>
+    <tag k="operator" v="S-Bahn Berlin GmbH"/>
+    <tag k="vending" v="public_transport_tickets"/>
+  </node>
+  <node id="1979181627" lat="52.4550894" lon="13.5092922">
+    <tag k="amenity" v="vending_machine"/>
+    <tag k="operator" v="S-Bahn Berlin GmbH"/>
+    <tag k="vending" v="public_transport_tickets"/>
+  </node>
+  <node id="2297959301" lat="52.4545471" lon="13.5113515"/>
+  <node id="2451257734" lat="52.4551188" lon="13.5086383"/>
+  <node id="2467964366" lat="52.4556039" lon="13.5091054"/>
+  <node id="2467964369" lat="52.4595351" lon="13.5025154"/>
+  <node id="2467964371" lat="52.4603311" lon="13.5012754"/>
+  <node id="2467964373" lat="52.4605339" lon="13.5009665"/>
+  <node id="2467964401" lat="52.4783428" lon="13.4737423"/>
+  <node id="2467964403" lat="52.4830179" lon="13.4666572"/>
+  <node id="2467964406" lat="52.4869391" lon="13.4606357"/>
+  <node id="2808255228" lat="52.4543930" lon="13.5097615"/>
+  <node id="2808255229" lat="52.4545000" lon="13.5095784"/>
+  <node id="2808255230" lat="52.4549528" lon="13.5088507"/>
+  <node id="2808255231" lat="52.4554626" lon="13.5080309"/>
+  <node id="2808255232" lat="52.4559903" lon="13.5071722"/>
+  <node id="2808255233" lat="52.4561918" lon="13.5068451"/>
+  <node id="2808255234" lat="52.4566947" lon="13.5060449"/>
+  <node id="2808255235" lat="52.4570800" lon="13.5054054"/>
+  <node id="2808255236" lat="52.4572675" lon="13.5051218"/>
+  <node id="2808255237" lat="52.4575247" lon="13.5048471"/>
+  <node id="2808255238" lat="52.4577258" lon="13.5046606"/>
+  <node id="2808255239" lat="52.4578923" lon="13.5045520"/>
+  <node id="2936370177" lat="52.4547091" lon="13.5111568"/>
+  <node id="2936370178" lat="52.4544257" lon="13.5108848"/>
+  <node id="2936370179" lat="52.4545179" lon="13.5107913"/>
+  <node id="2936370180" lat="52.4553306" lon="13.5095020"/>
+  <node id="3257842678" lat="52.4715658" lon="13.4825355">
+    <tag k="power" v="transformer"/>
+    <tag k="source" v="Bing"/>
+    <tag k="voltage-high" v="30000"/>
+    <tag k="voltage-low" v="750"/>
+  </node>
+  <node id="3270637423" lat="52.4719121" lon="13.4831509"/>
+  <node id="3277339252" lat="52.4692324" lon="13.4872843"/>
+  <node id="3277339254" lat="52.4691933" lon="13.4873895"/>
+  <node id="3277339258" lat="52.4838244" lon="13.4654786"/>
+  <node id="3277339661" lat="52.4766203" lon="13.4760928"/>
+  <node id="3277339662" lat="52.4689253" lon="13.4877840"/>
+  <node id="3277339666" lat="52.4820129" lon="13.4681332"/>
+  <node id="3277339686" lat="52.4849396" lon="13.4637903"/>
+  <node id="3277339691" lat="52.4715950" lon="13.4824894">
+    <tag k="power" v="transformer"/>
+    <tag k="source" v="Bing"/>
+    <tag k="voltage-high" v="30000"/>
+    <tag k="voltage-low" v="750"/>
+  </node>
+  <node id="3277339692" lat="52.4798177" lon="13.4714032"/>
+  <node id="3277339695" lat="52.4719728" lon="13.4830566"/>
+  <node id="3277339699" lat="52.4690183" lon="13.4876879"/>
+  <node id="3277339700" lat="52.4682080" lon="13.4889611"/>
+  <node id="3277339704" lat="52.4807944" lon="13.4699337"/>
+  <node id="3277339708" lat="52.4870844" lon="13.4601154"/>
+  <node id="3277339710" lat="52.4759227" lon="13.4770257"/>
+  <node id="3277339711" lat="52.4747826" lon="13.4786610"/>
+  <node id="3277339714" lat="52.4790906" lon="13.4726530"/>
+  <node id="3277339721" lat="52.4703217" lon="13.4856550"/>
+  <node id="3277339731" lat="52.4726619" lon="13.4819133"/>
+  <node id="3277339733" lat="52.4715197" lon="13.4837932"/>
+  <node id="3277339734" lat="52.4860657" lon="13.4621467"/>
+  <node id="3277339740" lat="52.4736879" lon="13.4802826"/>
+  <node id="3277339742" lat="52.4730555" lon="13.4812421"/>
+  <node id="3278111233" lat="52.4583425" lon="13.5044541"/>
+  <node id="3278111239" lat="52.4585344" lon="13.5040924"/>
+  <node id="3278111240" lat="52.4568729" lon="13.5069623"/>
+  <node id="3508654673" lat="52.4548760" lon="13.5093866">
+    <tag k="description" v="S Berlin-Schöneweide, Gleis 2"/>
+    <tag k="local_ref" v="2"/>
+    <tag k="name" v="Berlin-Schöneweide"/>
+    <tag k="public_transport" v="stop_position"/>
+    <tag k="rail" v="no"/>
+    <tag k="ref" v="2"/>
+    <tag k="train" v="yes"/>
+  </node>
+  <node id="3508654680" lat="52.4549058" lon="13.5097653">
+    <tag k="alt_name" v="Berlin-Schöneweide S-Bahn"/>
+    <tag k="contact:phone" v="+49 30 297 43333"/>
+    <tag k="contact:website" v="http://www.s-bahn-berlin.de/fahrplanundnetz/bahnhof/schoeneweide/133"/>
+    <tag k="internet_access" v="no"/>
+    <tag k="light_rail" v="yes"/>
+    <tag k="name" v="S Schöneweide"/>
+    <tag k="network" v="Verkehrsverbund Berlin-Brandenburg"/>
+    <tag k="network:short" v="VBB"/>
+    <tag k="official_name" v="Berlin-Schöneweide S-Bahn"/>
+    <tag k="operator" v="DB Netz AG"/>
+    <tag k="public_transport" v="station"/>
+    <tag k="railway" v="station"/>
+    <tag k="railway:ref" v="BSW"/>
+    <tag k="railway:station_category" v="3"/>
+    <tag k="station" v="light_rail"/>
+    <tag k="uic_name" v="Berlin-Schöneweide (S)"/>
+    <tag k="uic_ref" v="8089168"/>
+    <tag k="wheelchair" v="yes"/>
+    <tag k="wikidata" v="Q540899"/>
+    <tag k="wikipedia" v="de:Bahnhof Berlin-Schöneweide"/>
+  </node>
+  <node id="3508661418" lat="52.4541921" lon="13.5101871"/>
+  <node id="3508661419" lat="52.4542577" lon="13.5103041"/>
+  <node id="3508661420" lat="52.4545656" lon="13.5099962"/>
+  <node id="3508661421" lat="52.4546071" lon="13.5095348"/>
+  <node id="3508661422" lat="52.4546435" lon="13.5100782"/>
+  <node id="3508661423" lat="52.4546758" lon="13.5096597"/>
+  <node id="3508661424" lat="52.4546719" lon="13.5101884"/>
+  <node id="3508661425" lat="52.4547367" lon="13.5102965"/>
+  <node id="3508661426" lat="52.4549926" lon="13.5089390"/>
+  <node id="3508661428" lat="52.4550281" lon="13.5089605"/>
+  <node id="3508661429" lat="52.4550623" lon="13.5090650"/>
+  <node id="3508661430" lat="52.4550609" lon="13.5090177"/>
+  <node id="3508661432" lat="52.4551146" lon="13.5091386"/>
+  <node id="3508661434" lat="52.4551457" lon="13.5091581"/>
+  <node id="3508661435" lat="52.4551504" lon="13.5087722"/>
+  <node id="3508661436" lat="52.4551765" lon="13.5092125"/>
+  <node id="3508661437" lat="52.4551790" lon="13.5092512"/>
+  <node id="3508661438" lat="52.4551836" lon="13.5088290"/>
+  <node id="3508661440" lat="52.4552229" lon="13.5093364"/>
+  <node id="3508661442" lat="52.4552555" lon="13.5093476"/>
+  <node id="3508661443" lat="52.4552668" lon="13.5089717"/>
+  <node id="3508661444" lat="52.4552893" lon="13.5094534"/>
+  <node id="3508661445" lat="52.4552871" lon="13.5094035"/>
+  <node id="3508661447" lat="52.4553043" lon="13.5094305"/>
+  <node id="3508661449" lat="52.4553952" lon="13.5089167"/>
+  <node id="3508661450" lat="52.4553769" lon="13.5091603"/>
+  <node id="3508661451" lat="52.4554092" lon="13.5092156"/>
+  <node id="3508661452" lat="52.4554415" lon="13.5089982"/>
+  <node id="3508661454" lat="52.4555981" lon="13.5084033"/>
+  <node id="3508661455" lat="52.4556571" lon="13.5085022"/>
+  <node id="3508661456" lat="52.4557073" lon="13.5086085"/>
+  <node id="3508661457" lat="52.4557659" lon="13.5087063"/>
+  <node id="3508661458" lat="52.4553929" lon="13.5085569"/>
+  <node id="3540728190" lat="52.4560014" lon="13.5095976"/>
+  <node id="3540729002" lat="52.4555813" lon="13.5099347"/>
+  <node id="3540729011" lat="52.4556860" lon="13.5097698"/>
+  <node id="3540729093" lat="52.4560846" lon="13.5094675"/>
+  <node id="3865071200" lat="52.4544403" lon="13.5103061">
+    <tag k="amenity" v="vending_machine"/>
+    <tag k="vending" v="ticket_validator"/>
+  </node>
+  <node id="3865071201" lat="52.4544939" lon="13.5102160">
+    <tag k="amenity" v="bench"/>
+    <tag k="backrest" v="yes"/>
+    <tag k="colour" v="black"/>
+    <tag k="covered" v="yes"/>
+    <tag k="material" v="metal"/>
+    <tag k="seats" v="8"/>
+  </node>
+  <node id="3865071202" lat="52.4545091" lon="13.5101870">
+    <tag k="amenity" v="waste_basket"/>
+  </node>
+  <node id="3865071205" lat="52.4546034" lon="13.5104076">
+    <tag k="amenity" v="bench"/>
+    <tag k="backrest" v="yes"/>
+    <tag k="colour" v="black"/>
+    <tag k="covered" v="yes"/>
+    <tag k="material" v="metal"/>
+    <tag k="seats" v="8"/>
+  </node>
+  <node id="3865071207" lat="52.4546168" lon="13.5103948">
+    <tag k="amenity" v="waste_basket"/>
+  </node>
+  <node id="3865071212" lat="52.4547378" lon="13.5098715">
+    <tag k="amenity" v="clock"/>
+    <tag k="display" v="analog"/>
+    <tag k="support" v="wall_mounted"/>
+    <tag k="visibility" v="house"/>
+  </node>
+  <node id="3865071214" lat="52.4547203" lon="13.5098628">
+    <tag k="amenity" v="waste_basket"/>
+  </node>
+  <node id="3865071216" lat="52.4547373" lon="13.5098370">
+    <tag k="amenity" v="bench"/>
+    <tag k="backrest" v="yes"/>
+    <tag k="colour" v="black"/>
+    <tag k="material" v="metal"/>
+    <tag k="seats" v="8"/>
+  </node>
+  <node id="3865071219" lat="52.4548426" lon="13.5100732">
+    <tag k="amenity" v="clock"/>
+    <tag k="display" v="analog"/>
+    <tag k="support" v="wall_mounted"/>
+    <tag k="visibility" v="house"/>
+  </node>
+  <node id="3865071221" lat="52.4548199" lon="13.5097039">
+    <tag k="amenity" v="bench"/>
+    <tag k="backrest" v="yes"/>
+    <tag k="colour" v="black"/>
+    <tag k="material" v="metal"/>
+    <tag k="seats" v="8"/>
+  </node>
+  <node id="3865071223" lat="52.4548365" lon="13.5100468">
+    <tag k="amenity" v="waste_basket"/>
+  </node>
+  <node id="3865071224" lat="52.4548378" lon="13.5096767">
+    <tag k="amenity" v="waste_basket"/>
+  </node>
+  <node id="3865071226" lat="52.4548534" lon="13.5100210">
+    <tag k="amenity" v="bench"/>
+    <tag k="backrest" v="yes"/>
+    <tag k="colour" v="black"/>
+    <tag k="material" v="metal"/>
+    <tag k="seats" v="8"/>
+  </node>
+  <node id="3865071230" lat="52.4549424" lon="13.5098872">
+    <tag k="amenity" v="bench"/>
+    <tag k="backrest" v="yes"/>
+    <tag k="colour" v="black"/>
+    <tag k="material" v="metal"/>
+    <tag k="seats" v="8"/>
+  </node>
+  <node id="3865071232" lat="52.4549630" lon="13.5094878">
+    <tag k="amenity" v="bench"/>
+    <tag k="backrest" v="yes"/>
+    <tag k="colour" v="black"/>
+    <tag k="material" v="metal"/>
+    <tag k="seats" v="8"/>
+  </node>
+  <node id="3865071233" lat="52.4549602" lon="13.5098599">
+    <tag k="amenity" v="waste_basket"/>
+  </node>
+  <node id="3865071235" lat="52.4550025" lon="13.5094261">
+    <tag k="amenity" v="bench"/>
+    <tag k="backrest" v="yes"/>
+    <tag k="colour" v="black"/>
+    <tag k="material" v="metal"/>
+    <tag k="seats" v="8"/>
+  </node>
+  <node id="3865071237" lat="52.4550510" lon="13.5093508">
+    <tag k="amenity" v="vending_machine"/>
+    <tag k="vending" v="drinks;food"/>
+  </node>
+  <node id="3865071238" lat="52.4550713" lon="13.5093198">
+    <tag k="amenity" v="vending_machine"/>
+    <tag k="vending" v="ticket_validator"/>
+  </node>
+  <node id="3865071240" lat="52.4550871" lon="13.5093616">
+    <tag k="amenity" v="clock"/>
+    <tag k="display" v="analog"/>
+    <tag k="support" v="wall_mounted"/>
+    <tag k="visibility" v="house"/>
+  </node>
+  <node id="3865071243" lat="52.4551094" lon="13.5096335">
+    <tag k="amenity" v="vending_machine"/>
+    <tag k="vending" v="drinks;food"/>
+  </node>
+  <node id="3865071244" lat="52.4551440" lon="13.5095814">
+    <tag k="amenity" v="bench"/>
+    <tag k="backrest" v="yes"/>
+    <tag k="colour" v="black"/>
+    <tag k="material" v="metal"/>
+    <tag k="seats" v="8"/>
+  </node>
+  <node id="3865071245" lat="52.4551865" lon="13.5095166">
+    <tag k="amenity" v="vending_machine"/>
+    <tag k="vending" v="ticket_validator"/>
+  </node>
+  <node id="3865071246" lat="52.4551920" lon="13.5095633">
+    <tag k="amenity" v="clock"/>
+    <tag k="display" v="analog"/>
+    <tag k="support" v="wall_mounted"/>
+    <tag k="visibility" v="house"/>
+  </node>
+  <node id="3865071247" lat="52.4552229" lon="13.5094611">
+    <tag k="amenity" v="waste_basket"/>
+  </node>
+  <node id="3865071253" lat="52.4555597" lon="13.5091872"/>
+  <node id="3865078861" lat="52.4558310" lon="13.5097035"/>
+  <node id="3865078862" lat="52.4558370" lon="13.5097138"/>
+  <node id="3887682529" lat="52.4542100" lon="13.5106144"/>
+  <node id="3887682531" lat="52.4542295" lon="13.5106317">
+    <tag k="level" v="0"/>
+  </node>
+  <node id="3887682533" lat="52.4542399" lon="13.5106655"/>
+  <node id="3887682538" lat="52.4543338" lon="13.5104199"/>
+  <node id="3887682540" lat="52.4543466" lon="13.5105729"/>
+  <node id="3887682542" lat="52.4543637" lon="13.5104710"/>
+  <node id="3887682543" lat="52.4543654" lon="13.5102682"/>
+  <node id="3887682544" lat="52.4544043" lon="13.5105736"/>
+  <node id="3887682545" lat="52.4544310" lon="13.5100611"/>
+  <node id="3887682548" lat="52.4544881" lon="13.5107178"/>
+  <node id="3887682549" lat="52.4545333" lon="13.5102829"/>
+  <node id="3887682550" lat="52.4545483" lon="13.5103474"/>
+  <node id="3887682551" lat="52.4545672" lon="13.5099973"/>
+  <node id="3887682552" lat="52.4546106" lon="13.5095467"/>
+  <node id="3887682553" lat="52.4546336" lon="13.5101129"/>
+  <node id="3887682554" lat="52.4546706" lon="13.5104328"/>
+  <node id="3887682555" lat="52.4546734" lon="13.5096566"/>
+  <node id="3887682556" lat="52.4546746" lon="13.5101902"/>
+  <node id="3887682557" lat="52.4547321" lon="13.5102917"/>
+  <node id="3887682558" lat="52.4547932" lon="13.5096118"/>
+  <node id="3887682559" lat="52.4547986" lon="13.5092403"/>
+  <node id="3887682560" lat="52.4548186" lon="13.5101984"/>
+  <node id="3887682561" lat="52.4548975" lon="13.5090861"/>
+  <node id="3887682563" lat="52.4550108" lon="13.5089309"/>
+  <node id="3887682564" lat="52.4550209" lon="13.5092477"/>
+  <node id="3887682565" lat="52.4550284" lon="13.5089617"/>
+  <node id="3887682569" lat="52.4550736" lon="13.5090407"/>
+  <node id="3887682570" lat="52.4551225" lon="13.5091201"/>
+  <node id="3887682571" lat="52.4551479" lon="13.5091619"/>
+  <node id="3887682574" lat="52.4551787" lon="13.5092163"/>
+  <node id="3887682575" lat="52.4551936" lon="13.5092425"/>
+  <node id="3887682576" lat="52.4552169" lon="13.5089808"/>
+  <node id="3887682577" lat="52.4552269" lon="13.5093475"/>
+  <node id="3887682578" lat="52.4552422" lon="13.5093242"/>
+  <node id="3887682579" lat="52.4552518" lon="13.5093411"/>
+  <node id="3887682581" lat="52.4552929" lon="13.5093417">
+    <tag k="level" v="1"/>
+  </node>
+  <node id="3887682583" lat="52.4552834" lon="13.5093970"/>
+  <node id="3887682584" lat="52.4552847" lon="13.5094486"/>
+  <node id="3887682585" lat="52.4553284" lon="13.5088060"/>
+  <node id="3887682586" lat="52.4552997" lon="13.5094257"/>
+  <node id="3887682596" lat="52.4553846" lon="13.5092002"/>
+  <node id="3887682604" lat="52.4555052" lon="13.5091122"/>
+  <node id="3887682607" lat="52.4554840" lon="13.5085721"/>
+  <node id="3887682608" lat="52.4555344" lon="13.5088245"/>
+  <node id="3887682609" lat="52.4555439" lon="13.5088415"/>
+  <node id="4114975443" lat="52.4553727" lon="13.5094815"/>
+  <node id="4114975444" lat="52.4554492" lon="13.5093612"/>
+  <node id="4114975445" lat="52.4554689" lon="13.5096459"/>
+  <node id="4114975446" lat="52.4555253" lon="13.5095570"/>
+  <node id="4114975447" lat="52.4556070" lon="13.5096966"/>
+  <node id="4114975448" lat="52.4556259" lon="13.5096669"/>
+  <node id="4326543236" lat="52.4544752" lon="13.5098335"/>
+  <node id="4326543237" lat="52.4544941" lon="13.5098671"/>
+  <node id="4326543238" lat="52.4545246" lon="13.5097584"/>
+  <node id="4326543239" lat="52.4545435" lon="13.5097919"/>
+  <node id="4326543240" lat="52.4545887" lon="13.5100310"/>
+  <node id="4326543241" lat="52.4546076" lon="13.5100645"/>
+  <node id="4326543242" lat="52.4546130" lon="13.5096502">
+    <tag k="amenity" v="bench"/>
+    <tag k="backrest" v="yes"/>
+    <tag k="colour" v="black"/>
+    <tag k="covered" v="yes"/>
+    <tag k="material" v="metal"/>
+    <tag k="seats" v="5"/>
+  </node>
+  <node id="4326543243" lat="52.4546381" lon="13.5099558"/>
+  <node id="4326543244" lat="52.4546570" lon="13.5099894"/>
+  <node id="4326543245" lat="52.4546776" lon="13.5095492">
+    <tag k="amenity" v="bench"/>
+    <tag k="backrest" v="yes"/>
+    <tag k="colour" v="black"/>
+    <tag k="material" v="metal"/>
+    <tag k="seats" v="8"/>
+  </node>
+  <node id="4326543246" lat="52.4546977" lon="13.5102292"/>
+  <node id="4326543247" lat="52.4547166" lon="13.5102627"/>
+  <node id="4326543248" lat="52.4547414" lon="13.5094124"/>
+  <node id="4326543249" lat="52.4547471" lon="13.5101541"/>
+  <node id="4326543250" lat="52.4547641" lon="13.5094523"/>
+  <node id="4326543251" lat="52.4547660" lon="13.5101876"/>
+  <node id="4326543252" lat="52.4548004" lon="13.5093218"/>
+  <node id="4326543253" lat="52.4548117" lon="13.5093411"/>
+  <node id="4326543254" lat="52.4548231" lon="13.5093617"/>
+  <node id="4326543255" lat="52.4548303" lon="13.5093135">
+    <tag k="amenity" v="bench"/>
+    <tag k="backrest" v="yes"/>
+    <tag k="colour" v="black"/>
+    <tag k="material" v="metal"/>
+    <tag k="seats" v="8"/>
+  </node>
+  <node id="4326543256" lat="52.4548619" lon="13.5096081"/>
+  <node id="4326543257" lat="52.4548809" lon="13.5096415"/>
+  <node id="4326543259" lat="52.4549113" lon="13.5095328"/>
+  <node id="4326543260" lat="52.4549302" lon="13.5095662"/>
+  <node id="4326543261" lat="52.4549747" lon="13.5098076"/>
+  <node id="4326543262" lat="52.4549937" lon="13.5098411"/>
+  <node id="4326543263" lat="52.4550241" lon="13.5097323"/>
+  <node id="4326543264" lat="52.4550306" lon="13.5093801">
+    <tag k="amenity" v="vending_machine"/>
+    <tag k="vending" v="drinks;food"/>
+  </node>
+  <node id="4326543265" lat="52.4550430" lon="13.5097658"/>
+  <node id="4326543266" lat="52.4550445" lon="13.5089891"/>
+  <node id="4326543267" lat="52.4550902" lon="13.5096641">
+    <tag k="amenity" v="vending_machine"/>
+    <tag k="vending" v="drinks;food"/>
+  </node>
+  <node id="4326543269" lat="52.4554326" lon="13.5090959"/>
+  <node id="4326543270" lat="52.4554537" lon="13.5091321"/>
+  <node id="4326661410" lat="52.4551074" lon="13.5086561"/>
+  <node id="4326661411" lat="52.4551301" lon="13.5086204"/>
+  <node id="4326661412" lat="52.4551633" lon="13.5087519"/>
+  <node id="4326661413" lat="52.4551667" lon="13.5088003"/>
+  <node id="4326661414" lat="52.4551860" lon="13.5087162"/>
+  <node id="4326661415" lat="52.4551990" lon="13.5086958"/>
+  <node id="4326661416" lat="52.4552061" lon="13.5087078"/>
+  <node id="4326661417" lat="52.4552166" lon="13.5087259"/>
+  <node id="4326661418" lat="52.4552272" lon="13.5087441"/>
+  <node id="4326661421" lat="52.4553202" lon="13.5089034"/>
+  <node id="4326661422" lat="52.4553414" lon="13.5089396"/>
+  <node id="4326661425" lat="52.4554683" lon="13.5093647"/>
+  <node id="4326661426" lat="52.4554829" lon="13.5093417"/>
+  <node id="4326661427" lat="52.4555315" lon="13.5092653"/>
+  <node id="4326661428" lat="52.4555462" lon="13.5092422"/>
+  <node id="4326661429" lat="52.4557852" lon="13.5097585"/>
+  <node id="4326661430" lat="52.4558177" lon="13.5097074"/>
+  <node id="4326661431" lat="52.4558327" lon="13.5099891"/>
+  <node id="4326661432" lat="52.4558782" lon="13.5099176"/>
+  <node id="4326688243" lat="52.4555651" lon="13.5095306"/>
+  <node id="4326688246" lat="52.4556062" lon="13.5096009"/>
+  <node id="4326688251" lat="52.4557046" lon="13.5095137"/>
+  <node id="4326688255" lat="52.4557594" lon="13.5098634"/>
+  <node id="4326688256" lat="52.4557936" lon="13.5099220"/>
+  <node id="4381117542" lat="52.4553461" lon="13.5095025"/>
+  <node id="4381117543" lat="52.4557768" lon="13.5088402"/>
+  <node id="4381117544" lat="52.4559159" lon="13.5086208"/>
+  <node id="4381117545" lat="52.4559454" lon="13.5085367"/>
+  <node id="4958734431" lat="52.4554037" lon="13.5105387"/>
+  <node id="4958734436" lat="52.4553798" lon="13.5105923"/>
+  <node id="6431843846" lat="52.4553270" lon="13.5105979"/>
+  <node id="6431843847" lat="52.4552125" lon="13.5104180"/>
+  <node id="6431843848" lat="52.4553686" lon="13.5105785"/>
+  <node id="6431843849" lat="52.4555683" lon="13.5101990"/>
+  <node id="6431843850" lat="52.4557585" lon="13.5088385"/>
+  <way id="22917273">
+    <nd ref="246759516"/>
+    <nd ref="3887682545"/>
+    <nd ref="60660089"/>
+    <nd ref="3508654673"/>
+    <nd ref="1499711590"/>
+    <tag k="construction" v="rail"/>
+    <tag k="construction:railway" v="rail"/>
+    <tag k="detail" v="track"/>
+    <tag k="electrified" v="contact_line"/>
+    <tag k="frequency" v="16.7"/>
+    <tag k="gauge" v="1435"/>
+    <tag k="level" v="1"/>
+    <tag k="name" v="Bahnstrecke Berlin–Görlitz"/>
+    <tag k="operator" v="DB Netz AG"/>
+    <tag k="railway" v="construction"/>
+    <tag k="railway:pzb" v="yes"/>
+    <tag k="railway:track_ref" v="2"/>
+    <tag k="ref" v="6142"/>
+    <tag k="usage" v="main"/>
+    <tag k="voltage" v="15000"/>
+    <tag k="workrules" v="DE:EBO"/>
+  </way>
+  <way id="24165419">
+    <nd ref="246759515"/>
+    <nd ref="3887682544"/>
+    <nd ref="3887682550"/>
+    <nd ref="261744785"/>
+    <nd ref="261744786"/>
+    <nd ref="3887682608"/>
+    <nd ref="1499711612"/>
+    <tag k="description" v="Bln-Schöneweide - Spindlersfld"/>
+    <tag k="electrified" v="rail"/>
+    <tag k="frequency" v="0"/>
+    <tag k="gauge" v="1435"/>
+    <tag k="level" v="1"/>
+    <tag k="operator" v="DB Netz AG"/>
+    <tag k="railway" v="light_rail"/>
+    <tag k="railway:track_ref" v="50/5"/>
+    <tag k="ref" v="6143"/>
+    <tag k="usage" v="main"/>
+    <tag k="voltage" v="750"/>
+  </way>
+  <way id="24230433">
+    <nd ref="262354031"/>
+    <nd ref="3540729002"/>
+    <nd ref="3540729011"/>
+    <nd ref="4114975448"/>
+    <nd ref="4114975447"/>
+    <nd ref="4114975446"/>
+    <nd ref="4114975445"/>
+    <nd ref="4114975443"/>
+    <nd ref="4114975444"/>
+    <nd ref="3865071253"/>
+    <nd ref="262354024"/>
+    <nd ref="262354025"/>
+    <nd ref="3865078862"/>
+    <nd ref="3865078861"/>
+    <nd ref="262354031"/>
+    <tag k="building" v="railway"/>
+    <tag k="layer" v="-1"/>
+    <tag k="roof:shape" v="flat"/>
+  </way>
+  <way id="40162650">
+    <nd ref="483617010"/>
+    <nd ref="483617007"/>
+    <nd ref="3508661424"/>
+    <nd ref="3508661440"/>
+    <nd ref="3508661452"/>
+    <nd ref="3887682609"/>
+    <nd ref="3508661456"/>
+    <nd ref="3508661457"/>
+    <nd ref="3887682604"/>
+    <nd ref="3508661447"/>
+    <nd ref="3508661444"/>
+    <nd ref="3508661425"/>
+    <nd ref="1095078305"/>
+    <nd ref="483617010"/>
+    <tag k="area" v="yes"/>
+    <tag k="description" v="S Berlin-Schöneweide S8 S9 S45 S 46 S85 Bahnsteig"/>
+    <tag k="level" v="1"/>
+    <tag k="light_rail" v="yes"/>
+    <tag k="name" v="S Schöneweide"/>
+    <tag k="public_transport" v="platform"/>
+    <tag k="railway" v="platform"/>
+    <tag k="ref" v="5;6"/>
+    <tag k="train" v="yes"/>
+    <tag k="wheelchair" v="yes"/>
+  </way>
+  <way id="40162657">
+    <nd ref="483617263"/>
+    <nd ref="3508661418"/>
+    <nd ref="3508661421"/>
+    <nd ref="3887682559"/>
+    <nd ref="3887682561"/>
+    <nd ref="3508661426"/>
+    <nd ref="483617260"/>
+    <nd ref="3508661458"/>
+    <nd ref="3508661429"/>
+    <nd ref="3508661423"/>
+    <nd ref="3508661419"/>
+    <nd ref="483617263"/>
+    <tag k="area" v="yes"/>
+    <tag k="description" v="Berlin-Schöneweide Bahnsteig"/>
+    <tag k="level" v="1"/>
+    <tag k="name" v="Berlin-Schöneweide"/>
+    <tag k="public_transport" v="platform"/>
+    <tag k="railway" v="platform"/>
+    <tag k="ref" v="1;2"/>
+    <tag k="train" v="yes"/>
+    <tag k="wheelchair" v="no"/>
+  </way>
+  <way id="40162662">
+    <nd ref="483617155"/>
+    <nd ref="3887682531"/>
+    <tag k="highway" v="steps"/>
+    <tag k="incline" v="down"/>
+    <tag k="indoor" v="yes"/>
+    <tag k="level" v="0;1"/>
+    <tag k="lit" v="yes"/>
+    <tag k="surface" v="paving_stones"/>
+  </way>
+  <way id="76964140">
+    <nd ref="906425372"/>
+    <nd ref="3887682581"/>
+    <tag k="highway" v="footway"/>
+    <tag k="level" v="1"/>
+  </way>
+  <way id="94232963">
+    <nd ref="1095078286"/>
+    <nd ref="483617155"/>
+    <nd ref="483617147"/>
+    <nd ref="3508661420"/>
+    <nd ref="3508661432"/>
+    <nd ref="3887682576"/>
+    <nd ref="3887682585"/>
+    <nd ref="3887682607"/>
+    <nd ref="3508661454"/>
+    <nd ref="3508661455"/>
+    <nd ref="3508661449"/>
+    <nd ref="3508661437"/>
+    <nd ref="3508661422"/>
+    <nd ref="1095078286"/>
+    <tag k="area" v="yes"/>
+    <tag k="description" v="S Berlin-Schöneweide S47 Bahnsteig"/>
+    <tag k="level" v="1"/>
+    <tag k="light_rail" v="yes"/>
+    <tag k="name" v="S Schöneweide"/>
+    <tag k="public_transport" v="platform"/>
+    <tag k="railway" v="platform"/>
+    <tag k="ref" v="3;4"/>
+    <tag k="train" v="yes"/>
+    <tag k="wheelchair" v="yes"/>
+  </way>
+  <way id="136703829">
+    <nd ref="1499711591"/>
+    <nd ref="261744710"/>
+    <nd ref="3887682564"/>
+    <nd ref="3887682558"/>
+    <nd ref="29921550"/>
+    <nd ref="3887682543"/>
+    <nd ref="326320601"/>
+    <tag k="description" v="Warschauer Str - Königs Wuster"/>
+    <tag k="electrified" v="rail"/>
+    <tag k="frequency" v="0"/>
+    <tag k="gauge" v="1435"/>
+    <tag k="level" v="1"/>
+    <tag k="operator" v="DB Netz AG"/>
+    <tag k="railway" v="light_rail"/>
+    <tag k="railway:track_ref" v="3"/>
+    <tag k="ref" v="6007"/>
+    <tag k="usage" v="main"/>
+    <tag k="voltage" v="750"/>
+  </way>
+  <way id="136703832">
+    <nd ref="1499711610"/>
+    <nd ref="261745123"/>
+    <nd ref="1095078277"/>
+    <nd ref="3887682549"/>
+    <nd ref="3887682540"/>
+    <nd ref="261745121"/>
+    <tag k="description" v="Bln-Schöneweide - Spindlersfld"/>
+    <tag k="electrified" v="rail"/>
+    <tag k="frequency" v="0"/>
+    <tag k="gauge" v="1435"/>
+    <tag k="level" v="1"/>
+    <tag k="operator" v="DB Netz AG"/>
+    <tag k="railway" v="light_rail"/>
+    <tag k="railway:track_ref" v="4/51"/>
+    <tag k="ref" v="6143"/>
+    <tag k="usage" v="main"/>
+    <tag k="voltage" v="750"/>
+  </way>
+  <way id="276204062">
+    <nd ref="2808255228"/>
+    <nd ref="2808255229"/>
+    <nd ref="2808255230"/>
+    <nd ref="2808255231"/>
+    <nd ref="2808255232"/>
+    <nd ref="2808255233"/>
+    <nd ref="2808255234"/>
+    <nd ref="2808255235"/>
+    <nd ref="2808255236"/>
+    <nd ref="2808255237"/>
+    <nd ref="2808255238"/>
+    <nd ref="2808255239"/>
+    <tag k="alt_name" v="Bullenbahn"/>
+    <tag k="electrified" v="razed"/>
+    <tag k="end_date" v="1996"/>
+    <tag k="frequency" v="16.7"/>
+    <tag k="gauge" v="1435"/>
+    <tag k="historic" v="railway"/>
+    <tag k="old_name" v="Industriebahn Oberschöneweide"/>
+    <tag k="railway" v="abandoned"/>
+    <tag k="service" v="spur"/>
+    <tag k="tracks" v="1"/>
+    <tag k="voltage" v="15000"/>
+  </way>
+  <way id="320020255">
+    <nd ref="261744930"/>
+    <nd ref="3887682548"/>
+    <nd ref="3887682554"/>
+    <nd ref="3887682560"/>
+    <nd ref="261019864"/>
+    <nd ref="1095078217"/>
+    <nd ref="261019865"/>
+    <tag k="description" v="Warschauer Str - Königs Wuster"/>
+    <tag k="electrified" v="rail"/>
+    <tag k="frequency" v="0"/>
+    <tag k="gauge" v="1435"/>
+    <tag k="level" v="1"/>
+    <tag k="operator" v="DB Netz AG"/>
+    <tag k="railway" v="light_rail"/>
+    <tag k="railway:track_ref" v="6"/>
+    <tag k="ref" v="6007"/>
+    <tag k="usage" v="main"/>
+    <tag k="voltage" v="750"/>
+  </way>
+  <way id="320505053">
+    <nd ref="967776859"/>
+    <nd ref="3277339708"/>
+    <nd ref="2467964406"/>
+    <nd ref="3277339734"/>
+    <nd ref="3277339686"/>
+    <nd ref="3277339258"/>
+    <nd ref="2467964403"/>
+    <nd ref="3277339666"/>
+    <nd ref="3277339704"/>
+    <nd ref="3277339692"/>
+    <nd ref="3277339714"/>
+    <nd ref="2467964401"/>
+    <nd ref="3277339661"/>
+    <nd ref="3277339710"/>
+    <nd ref="3277339711"/>
+    <nd ref="3277339740"/>
+    <nd ref="3277339742"/>
+    <nd ref="3277339731"/>
+    <nd ref="3277339695"/>
+    <nd ref="967776860"/>
+    <nd ref="3277339691"/>
+    <nd ref="3257842678"/>
+    <nd ref="3270637423"/>
+    <nd ref="3277339733"/>
+    <nd ref="3277339721"/>
+    <nd ref="3277339252"/>
+    <nd ref="3277339254"/>
+    <nd ref="3277339699"/>
+    <nd ref="3277339662"/>
+    <nd ref="3277339700"/>
+    <nd ref="2467964373"/>
+    <nd ref="2467964371"/>
+    <nd ref="1571680226"/>
+    <nd ref="2467964369"/>
+    <nd ref="3278111239"/>
+    <nd ref="3278111233"/>
+    <nd ref="3278111240"/>
+    <nd ref="4381117545"/>
+    <nd ref="4381117544"/>
+    <nd ref="4381117543"/>
+    <nd ref="2467964366"/>
+    <nd ref="4381117542"/>
+    <nd ref="2936370178"/>
+    <tag k="frequency" v="50"/>
+    <tag k="layer" v="-1"/>
+    <tag k="location" v="underground"/>
+    <tag k="operator" v="DB Energie GmbH"/>
+    <tag k="power" v="cable"/>
+    <tag k="voltage" v="30000"/>
+  </way>
+  <way id="344108426">
+    <nd ref="3887682574"/>
+    <nd ref="3887682575"/>
+    <nd ref="3887682553"/>
+    <nd ref="3887682551"/>
+    <nd ref="3887682570"/>
+    <nd ref="3508661434"/>
+    <nd ref="3887682571"/>
+    <nd ref="3508661436"/>
+    <nd ref="3887682574"/>
+    <tag k="building" v="roof"/>
+    <tag k="layer" v="1"/>
+    <tag k="roof:shape" v="flat"/>
+  </way>
+  <way id="344108427">
+    <nd ref="3887682583"/>
+    <nd ref="3508661445"/>
+    <nd ref="3887682586"/>
+    <nd ref="3887682584"/>
+    <nd ref="3887682557"/>
+    <nd ref="3887682556"/>
+    <nd ref="3887682577"/>
+    <nd ref="3887682578"/>
+    <nd ref="3887682579"/>
+    <nd ref="3508661442"/>
+    <nd ref="3887682583"/>
+    <tag k="building" v="roof"/>
+    <tag k="layer" v="1"/>
+    <tag k="roof:shape" v="flat"/>
+  </way>
+  <way id="344108428">
+    <nd ref="3887682565"/>
+    <nd ref="3887682563"/>
+    <nd ref="3887682552"/>
+    <nd ref="3887682555"/>
+    <nd ref="3887682569"/>
+    <nd ref="3508661430"/>
+    <nd ref="4326543266"/>
+    <nd ref="3508661428"/>
+    <nd ref="3887682565"/>
+    <tag k="building" v="roof"/>
+    <tag k="layer" v="1"/>
+    <tag k="roof:shape" v="flat"/>
+  </way>
+  <way id="344108439">
+    <nd ref="3508661440"/>
+    <nd ref="906425372"/>
+    <nd ref="3508661444"/>
+    <tag k="highway" v="footway"/>
+    <tag k="level" v="1"/>
+  </way>
+  <way id="383273374">
+    <nd ref="3508661442"/>
+    <nd ref="3508661450"/>
+    <nd ref="3508661451"/>
+    <nd ref="3508661445"/>
+    <nd ref="3508661442"/>
+    <tag k="building" v="roof"/>
+    <tag k="layer" v="1"/>
+    <tag k="roof:shape" v="gabled"/>
+  </way>
+  <way id="385422017">
+    <nd ref="3887682538"/>
+    <nd ref="3887682542"/>
+    <nd ref="3887682533"/>
+    <nd ref="3887682529"/>
+    <nd ref="3887682538"/>
+    <tag k="building" v="roof"/>
+    <tag k="layer" v="2"/>
+  </way>
+  <way id="385422026">
+    <nd ref="3887682581"/>
+    <nd ref="3887682596"/>
+    <tag k="highway" v="steps"/>
+    <tag k="incline" v="down"/>
+    <tag k="indoor" v="yes"/>
+    <tag k="layer" v="-1"/>
+    <tag k="level" v="0;1"/>
+  </way>
+  <way id="434709674">
+    <nd ref="4326543265"/>
+    <nd ref="4326543262"/>
+    <nd ref="4326543261"/>
+    <nd ref="4326543263"/>
+    <nd ref="4326543265"/>
+    <tag k="building:part" v="yes"/>
+    <tag k="level" v="1"/>
+  </way>
+  <way id="434709675">
+    <nd ref="4326543240"/>
+    <nd ref="4326543243"/>
+    <nd ref="4326543244"/>
+    <nd ref="4326543241"/>
+    <nd ref="4326543240"/>
+    <tag k="building:part" v="yes"/>
+    <tag k="level" v="1"/>
+  </way>
+  <way id="434709676">
+    <nd ref="4326543236"/>
+    <nd ref="4326543238"/>
+    <nd ref="4326543239"/>
+    <nd ref="4326543237"/>
+    <nd ref="4326543236"/>
+    <tag k="building:part" v="yes"/>
+    <tag k="level" v="1"/>
+  </way>
+  <way id="434709678">
+    <nd ref="4326543260"/>
+    <nd ref="4326543257"/>
+    <nd ref="4326543256"/>
+    <nd ref="4326543259"/>
+    <nd ref="4326543260"/>
+    <tag k="building:part" v="yes"/>
+    <tag k="level" v="1"/>
+  </way>
+  <way id="434709679">
+    <nd ref="4326543252"/>
+    <nd ref="4326543253"/>
+    <nd ref="4326543254"/>
+    <nd ref="4326543250"/>
+    <nd ref="4326543248"/>
+    <nd ref="4326543252"/>
+    <tag k="building:part" v="yes"/>
+    <tag k="level" v="1"/>
+  </way>
+  <way id="434709680">
+    <nd ref="4326543246"/>
+    <nd ref="4326543249"/>
+    <nd ref="4326543251"/>
+    <nd ref="4326543247"/>
+    <nd ref="4326543246"/>
+    <tag k="building:part" v="yes"/>
+    <tag k="level" v="1"/>
+    <tag k="name" v="Kiosk"/>
+    <tag k="note" v="Zigaretten, Getränke, auf dem Bahnsteig"/>
+    <tag k="shop" v="kiosk"/>
+  </way>
+  <way id="434723160">
+    <nd ref="4326661431"/>
+    <nd ref="906419824"/>
+    <nd ref="4326661432"/>
+    <nd ref="4326661429"/>
+    <nd ref="4326661430"/>
+    <nd ref="4326688251"/>
+    <nd ref="4326661428"/>
+    <nd ref="4326661427"/>
+    <nd ref="4326543270"/>
+    <nd ref="4326543269"/>
+    <nd ref="4326661422"/>
+    <nd ref="4326661421"/>
+    <nd ref="4326661418"/>
+    <nd ref="4326661417"/>
+    <nd ref="4326661416"/>
+    <nd ref="4326661415"/>
+    <nd ref="4326661414"/>
+    <nd ref="4326661411"/>
+    <nd ref="2451257734"/>
+    <nd ref="4326661410"/>
+    <nd ref="4326661412"/>
+    <nd ref="3508661435"/>
+    <nd ref="4326661413"/>
+    <nd ref="3508661438"/>
+    <nd ref="3508661443"/>
+    <nd ref="4326661426"/>
+    <nd ref="4326661425"/>
+    <nd ref="4326688243"/>
+    <nd ref="4326688246"/>
+    <nd ref="4326688255"/>
+    <nd ref="4326688256"/>
+    <nd ref="4326661431"/>
+    <tag k="area" v="yes"/>
+    <tag k="building:part" v="yes"/>
+    <tag k="indoor" v="yes"/>
+    <tag k="level" v="0"/>
+    <tag k="wheelchair" v="yes"/>
+  </way>
+
+</osm>
