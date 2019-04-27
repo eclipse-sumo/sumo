@@ -1437,6 +1437,11 @@ GNEAttributeCarrier::fillNetElements() {
                                            "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
+        attrProperty = AttributeProperties(SUMO_ATTR_DISTANCE,
+                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_UNIQUE,
+                                           "0");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
     }
     currentTag = SUMO_TAG_JUNCTION;
     {

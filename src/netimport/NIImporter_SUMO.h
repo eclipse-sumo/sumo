@@ -261,6 +261,8 @@ private:
         LaneSpreadFunction lsf;
         /// @brief This edge's vehicle specific stop offsets (used for lanes, that do not have a specified stopOffset)
         std::map<SVCPermissions, double> stopOffsets;
+        /// @brief The position at the start of this edge (kilometrage/mileage)
+        double distance;
     };
 
 

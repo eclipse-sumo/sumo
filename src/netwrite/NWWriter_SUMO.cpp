@@ -429,6 +429,9 @@ NWWriter_SUMO::writeEdge(OutputDevice& into, const NBEdge& e, bool noNames) {
     if (e.isBidiRail()) {
         into.writeAttr(SUMO_ATTR_BIDI, e.getTurnDestination(true)->getID());
     }
+    if (e.getDistance() != 0) {
+        into.writeAttr(SUMO_ATTR_DISTANCE, e.getDistance());
+    }
 
     // write the lanes
     const std::vector<NBEdge::Lane>& lanes = e.getLanes();

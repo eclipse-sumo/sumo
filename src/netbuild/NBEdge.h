@@ -556,6 +556,10 @@ public:
         return myEndOffset;
     }
 
+    double getDistance() const {
+        return myDistance;
+    }
+
     /** @brief Returns the stopOffset to the end of the edge
      * @return The offset to the end of the edge
      */
@@ -1204,6 +1208,11 @@ public:
     /// @brief set origID for all lanes
     void setOrigID(const std::string origID);
 
+    /// @brief set lane specific speed (negative lane implies set for all lanes)
+    void setDistance(double distance) {
+        myDistance = distance;
+    }
+
     /// @brief disable connections for TLS
     void disableConnection4TLS(int fromLane, NBEdge* toEdge, int toLane);
 
@@ -1478,6 +1487,9 @@ private:
 
     /// @brief The maximal speed
     double mySpeed;
+
+    /// @brief The mileage/kilometrage at the start of this edge in a linear coordination system
+    double myDistance;
 
     /** @brief List of connections to following edges
      * @see Connection

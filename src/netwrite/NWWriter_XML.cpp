@@ -240,6 +240,9 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
         if (!e->hasLaneSpecificStopOffsets() && e->getStopOffsets().size() != 0) {
             NWWriter_SUMO::writeStopOffsets(edevice, e->getStopOffsets());
         }
+        if (e->getDistance() != 0) {
+            edevice.writeAttr(SUMO_ATTR_DISTANCE, e->getDistance());
+        }
         if (e->needsLaneSpecificOutput()) {
             for (int i = 0; i < (int)e->getLanes().size(); ++i) {
                 const NBEdge::Lane& lane = e->getLanes()[i];
