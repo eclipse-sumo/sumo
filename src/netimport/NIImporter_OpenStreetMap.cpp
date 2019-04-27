@@ -915,13 +915,15 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
                 && key != "railway:preferred_direction"
                 && key != "railway:bidirectional"
                 && key != "railway:track_ref"
+                && key != "usage"
                 && key != "public_transport") {
             return;
         }
         std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myCurrentEdge->id).c_str(), ok, false);
 
         if ((key == "highway" && value != "platform") || key == "railway" || key == "waterway" || key == "cycleway"
-                || key == "busway" || key == "route" || key == "sidewalk" || key == "highspeed") {
+                || key == "busway" || key == "route" || key == "sidewalk" || key == "highspeed"
+                || key == "usage") {
             // build type id
             std::string singleTypeID = key + "." + value;
             myCurrentEdge->myCurrentIsRoad = true;
