@@ -1,3 +1,5 @@
+Warning: Discarding unknown compound 'usage.main' in type 'railway.rail|usage.main' (first occurence for edge '-67388').
+Warning: Discarding unknown compound 'usage.industrial' in type 'railway.rail|usage.industrial' (first occurence for edge '39029310#0').
 Warning: Discarding unusable type 'railway.loading_ramp' (first occurence for edge '311795142#0').
 Warning: No way found for reference '70516819' in relation '5474070'
 Warning: Ignoring restriction relation '5474070' with unknown from-way.

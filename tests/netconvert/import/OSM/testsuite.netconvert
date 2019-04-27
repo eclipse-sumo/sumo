@@ -120,4 +120,7 @@ rail_preferred_direction
 
 # test import of local track numbering
 railway_track_ref
+
+# test import of railway usage typemap
+railway_usage
 bugs
