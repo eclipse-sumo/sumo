@@ -75,6 +75,9 @@ node_radius
 
 # set a non-default node-radius
 node_radius_default
+
+# import edge distance from plain xml
+distance
 connection_guessing
 
 # import params from plain xml

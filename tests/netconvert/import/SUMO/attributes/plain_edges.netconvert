@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Apr 26 23:30:07 2019 by Eclipse SUMO netconvert Version v1_2_0+0022-5179cc2293
+<!-- generated on Sat Apr 27 23:46:56 2019 by Eclipse SUMO netconvert Version v1_2_0+0022-5179cc2293
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -48,7 +48,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane index="1" disallow="bicycle"/>
         <lane index="2"/>
     </edge>
-    <edge id="reverse_edge" from="node_left" to="node_right" priority="-1" numLanes="3" speed="13.90">
+    <edge id="reverse_edge" from="node_left" to="node_right" priority="-1" numLanes="3" speed="13.90" distance="42.00">
         <lane index="0"/>
         <lane index="1" endOffset="3.00"/>
         <lane index="2"/>

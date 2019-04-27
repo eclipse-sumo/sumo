@@ -1,83 +1,85 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Mar 29 15:59:05 2011 by SUMO netconvert Version dev-SVN-r10012
-
+<!-- generated on Sa 27 Apr 2019 23:46:30 CEST by Eclipse SUMO netedit Version v1_2_0+0022-5179cc2293
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <xml-node-files value="shape.nod.xml"/>
-        <xml-edge-files value="shape.edg.xml"/>
+        <sumo-net-file value="/home/kobo/dlr/sumo/tests/netconvert/import/SUMO/attributes/input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="shape.net.xml"/>
-        <plain-output value="shape_direct"/>
+        <output-file value="/home/kobo/dlr/sumo/tests/netconvert/import/SUMO/attributes/input_net.net.xml"/>
     </output>
 
-    <report>
-        <verbose value="true"/>
-    </report>
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="-1"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
 
 </configuration>
 -->
 
-<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="0.00,0.00,40.00,20.00" origBoundary="0.00,0.00,40.00,20.00" projParameter="!"/>
 
     <edge id=":node_left_0" function="internal">
-        <lane id=":node_left_0_0" index="0" speed="13.90" length="24.67" shape="-5.83,5.83 -10.75,-0.33 -11.42,-4.73 -7.83,-7.37 0.00,-8.25"/>
-    </edge>
-    <edge id=":node_left_1" function="internal">
-        <lane id=":node_left_1_0" index="0" speed="13.90" length="14.80" shape="-3.50,3.50 -6.45,-0.20 -6.85,-2.84 -4.70,-4.42 0.00,-4.95"/>
-    </edge>
-    <edge id=":node_left_2" function="internal">
-        <lane id=":node_left_2_0" index="0" speed="13.90" length="4.93" shape="-1.17,1.17 -2.15,-0.07 -2.28,-0.95 -1.57,-1.47 0.00,-1.65"/>
+        <lane id=":node_left_0_0" index="0" speed="13.90" length="12.95" shape="-5.66,5.66 -9.36,0.12 -9.66,-4.00 -6.54,-6.71 0.00,-8.00"/>
+        <lane id=":node_left_0_1" index="1" speed="13.90" length="12.95" shape="-3.39,3.39 -5.62,0.07 -5.79,-2.40 -3.92,-4.02 0.00,-4.80"/>
+        <lane id=":node_left_0_2" index="2" speed="13.90" length="12.95" shape="-1.13,1.13 -1.87,0.02 -1.93,-0.80 -1.31,-1.34 0.00,-1.60"/>
     </edge>
     <edge id=":node_right_0" function="internal">
-        <lane id=":node_right_0_0" index="0" speed="13.90" length="24.67" shape="40.00,-8.25 47.83,-7.37 51.42,-4.73 50.75,-0.33 45.83,5.83"/>
-    </edge>
-    <edge id=":node_right_1" function="internal">
-        <lane id=":node_right_1_0" index="0" speed="13.90" length="14.80" shape="40.00,-4.95 44.70,-4.42 46.85,-2.84 46.45,-0.20 43.50,3.50"/>
-    </edge>
-    <edge id=":node_right_2" function="internal">
-        <lane id=":node_right_2_0" index="0" speed="13.90" length="4.93" shape="40.00,-1.65 41.57,-1.47 42.28,-0.95 42.15,-0.07 41.17,1.17"/>
+        <lane id=":node_right_0_0" index="0" allow="bus" speed="13.90" length="13.95" shape="40.00,-8.00 46.54,-6.71 49.66,-4.00 49.36,0.12 45.66,5.66"/>
+        <lane id=":node_right_0_1" index="1" disallow="bicycle" speed="13.90" length="13.95" shape="37.00,-4.80 40.00,-4.80 43.92,-4.02 45.79,-2.40 45.62,0.07 43.39,3.39"/>
+        <lane id=":node_right_0_2" index="2" speed="13.90" length="13.95" shape="40.00,-1.60 41.31,-1.34 41.93,-0.80 41.87,0.02 41.13,1.13"/>
     </edge>
 
     <edge id="edge_with_shape" from="node_right" to="node_left" priority="-1" type="testType" shape="40.00,0.00 20.00,20.00 0.00,0.00">
-        <lane id="edge_with_shape_0" index="0" allow="bus" speed="13.90" length="66.47" shape="45.83,5.83 20.00,31.67 -5.83,5.83"/>
-        <lane id="edge_with_shape_1" index="1" disallow="bicycle" speed="13.90" length="66.47" shape="43.50,3.50 20.00,27.00 -3.50,3.50"/>
-        <lane id="edge_with_shape_2" index="2" speed="13.90" length="66.47" shape="41.17,1.17 20.00,22.33 -1.17,1.17"/>
+        <lane id="edge_with_shape_0" index="0" allow="bus" speed="13.90" length="66.17" shape="45.66,5.66 20.00,31.31 -5.66,5.66"/>
+        <lane id="edge_with_shape_1" index="1" disallow="bicycle" speed="13.90" length="66.17" shape="43.39,3.39 20.00,26.79 -3.39,3.39"/>
+        <lane id="edge_with_shape_2" index="2" speed="13.90" length="66.17" shape="41.13,1.13 20.00,22.26 -1.13,1.13"/>
     </edge>
-    <edge id="reverse_edge" from="node_left" to="node_right" priority="-1">
-        <lane id="reverse_edge_0" index="0" speed="13.90" length="40.00" shape="0.00,-8.25 40.00,-8.25"/>
-        <lane id="reverse_edge_1" index="1" speed="13.90" length="40.00" endOffset="3" shape="0.00,-4.95 40.00,-4.95"/>
-        <lane id="reverse_edge_2" index="2" speed="13.90" length="40.00" shape="0.00,-1.65 40.00,-1.65"/>
+    <edge id="reverse_edge" from="node_left" to="node_right" priority="-1" distance="42.00">
+        <lane id="reverse_edge_0" index="0" speed="13.90" length="39.00" shape="0.00,-8.00 40.00,-8.00"/>
+        <lane id="reverse_edge_1" index="1" speed="13.90" length="39.00" endOffset="3.00" shape="0.00,-4.80 37.00,-4.80"/>
+        <lane id="reverse_edge_2" index="2" speed="13.90" length="39.00" shape="0.00,-1.60 40.00,-1.60"/>
     </edge>
 
-    <junction id="node_left" type="priority" x="0.00" y="0.00" incLanes="edge_with_shape_0 edge_with_shape_1 edge_with_shape_2" intLanes=":node_left_0_0 :node_left_1_0 :node_left_2_0" shape="0.00,-0.05 0.00,-9.85 -6.97,6.97 -0.04,0.04">
+    <junction id="node_left" type="priority" x="0.00" y="0.00" incLanes="edge_with_shape_0 edge_with_shape_1 edge_with_shape_2" intLanes=":node_left_0_0 :node_left_0_1 :node_left_0_2" shape="0.00,0.00 0.00,-9.60 -6.79,6.79">
         <request index="0" response="000" foes="000" cont="0"/>
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
-    <junction id="node_right" type="priority" x="40.00" y="0.00" incLanes="reverse_edge_0 reverse_edge_1 reverse_edge_2" intLanes=":node_right_0_0 :node_right_1_0 :node_right_2_0" shape="40.04,0.04 46.97,6.97 40.00,-9.85 40.00,-0.05">
+    <junction id="node_right" type="priority" x="40.00" y="0.00" incLanes="reverse_edge_0 reverse_edge_1 reverse_edge_2" intLanes=":node_right_0_0 :node_right_0_1 :node_right_0_2" shape="40.00,-0.00 46.79,6.79 40.00,-9.60">
         <request index="0" response="000" foes="000" cont="0"/>
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
 
     <connection from="edge_with_shape" to="reverse_edge" fromLane="0" toLane="0" via=":node_left_0_0" dir="t" state="M"/>
-    <connection from="edge_with_shape" to="reverse_edge" fromLane="1" toLane="1" via=":node_left_1_0" dir="t" state="M"/>
-    <connection from="edge_with_shape" to="reverse_edge" fromLane="2" toLane="2" via=":node_left_2_0" dir="t" state="M"/>
+    <connection from="edge_with_shape" to="reverse_edge" fromLane="1" toLane="1" via=":node_left_0_1" dir="t" state="M"/>
+    <connection from="edge_with_shape" to="reverse_edge" fromLane="2" toLane="2" via=":node_left_0_2" dir="t" state="M"/>
     <connection from="reverse_edge" to="edge_with_shape" fromLane="0" toLane="0" via=":node_right_0_0" dir="t" state="M"/>
-    <connection from="reverse_edge" to="edge_with_shape" fromLane="1" toLane="1" via=":node_right_1_0" dir="t" state="M"/>
-    <connection from="reverse_edge" to="edge_with_shape" fromLane="2" toLane="2" via=":node_right_2_0" dir="t" state="M"/>
+    <connection from="reverse_edge" to="edge_with_shape" fromLane="1" toLane="1" via=":node_right_0_1" dir="t" state="M"/>
+    <connection from="reverse_edge" to="edge_with_shape" fromLane="2" toLane="2" via=":node_right_0_2" dir="t" state="M"/>
 
-    <connection from=":node_left_0" to="reverse_edge" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":node_left_1" to="reverse_edge" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":node_left_2" to="reverse_edge" fromLane="0" toLane="2" dir="s" state="M"/>
-    <connection from=":node_right_0" to="edge_with_shape" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":node_right_1" to="edge_with_shape" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":node_right_2" to="edge_with_shape" fromLane="0" toLane="2" dir="s" state="M"/>
+    <connection from=":node_left_0" to="reverse_edge" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":node_left_0" to="reverse_edge" fromLane="1" toLane="1" dir="t" state="M"/>
+    <connection from=":node_left_0" to="reverse_edge" fromLane="2" toLane="2" dir="t" state="M"/>
+    <connection from=":node_right_0" to="edge_with_shape" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":node_right_0" to="edge_with_shape" fromLane="1" toLane="1" dir="t" state="M"/>
+    <connection from=":node_right_0" to="edge_with_shape" fromLane="2" toLane="2" dir="t" state="M"/>
 
 </net>
