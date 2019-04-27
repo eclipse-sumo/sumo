@@ -914,6 +914,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
                 && key != "postal_code"
                 && key != "railway:preferred_direction"
                 && key != "railway:bidirectional"
+                && key != "railway:track_ref"
                 && key != "public_transport") {
             return;
         }
@@ -1086,6 +1087,8 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
             if (value == "regular") {
                 myCurrentEdge->myRailDirection = WAY_BOTH;
             }
+        } else if (key == "railway:track_ref") {
+            myCurrentEdge->setParameter(key, value);
         } else if (key == "public_transport" && value == "platform") {
             myCurrentEdge->myCurrentIsPlatform = true;
         } else if (key == "parking:lane:both" && !StringUtils::startsWith(value, "no")) {
