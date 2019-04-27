@@ -483,7 +483,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
                 e->myRailDirection != WAY_BOTH)) {
         addBackward = false;
     }
-    if (e->myIsOneWay == "-1" || e->myIsOneWay == "reverse") {
+    if (e->myIsOneWay == "-1" || e->myIsOneWay == "reverse" || e->myRailDirection == WAY_BACKWARD) {
         // one-way in reversed direction of way
         addForward = false;
         addBackward = true;
@@ -579,7 +579,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     const std::string origID = OptionsCont::getOptions().getBool("output.original-names") ? toString(e->id) : "";
     if (ok) {
         LaneSpreadFunction lsf = (addBackward || OptionsCont::getOptions().getBool("osm.oneway-spread-right")) &&
-                                 e->myRailDirection != WAY_BOTH ? LANESPREAD_RIGHT : LANESPREAD_CENTER;
+                                 e->myRailDirection == WAY_UNKNOWN ? LANESPREAD_RIGHT : LANESPREAD_CENTER;
 
         id = StringUtils::escapeXML(id);
         const std::string reverseID = "-" + id;
@@ -1079,6 +1079,8 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
         } else if (key == "railway:preferred_direction") {
             if (value == "both") {
                 myCurrentEdge->myRailDirection = WAY_BOTH;
+            } else if (value == "backward") {
+                myCurrentEdge->myRailDirection = WAY_BACKWARD;
             }
         } else if (key == "railway:bidirectional") {
             if (value == "regular") {
