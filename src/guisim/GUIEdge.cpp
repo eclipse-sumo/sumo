@@ -65,8 +65,9 @@
 // ===========================================================================
 GUIEdge::GUIEdge(const std::string& id, int numericalID,
                  const SumoXMLEdgeFunc function,
-                 const std::string& streetName, const std::string& edgeType, int priority)
-    : MSEdge(id, numericalID, function, streetName, edgeType, priority),
+                 const std::string& streetName, const std::string& edgeType, int priority,
+                 double distance)
+    : MSEdge(id, numericalID, function, streetName, edgeType, priority, distance),
       GUIGlObject(GLO_EDGE, id) {}
 
 

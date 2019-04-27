@@ -95,7 +95,8 @@ public:
      * @param[in] streetName The street name for that edge
      */
     MSEdge(const std::string& id, int numericalID, const SumoXMLEdgeFunc function,
-           const std::string& streetName, const std::string& edgeType, int priority);
+           const std::string& streetName, const std::string& edgeType, int priority,
+           double distance);
 
 
     /// @brief Destructor.
@@ -274,6 +275,12 @@ public:
      */
     int getPriority() const {
         return myPriority;
+    }
+
+    /** @brief Returns the kilometrage/mileage at the start of the edge
+     */
+    int getDistance() const {
+        return myDistance;
     }
     /// @}
 
@@ -816,6 +823,9 @@ protected:
 
     /// @brief the priority of the edge (used during network creation)
     const int myPriority;
+
+    /// @brief the kilometrage/mileage at the start of the edge
+    const double myDistance;
 
     /// Edge width [m]
     double myWidth;

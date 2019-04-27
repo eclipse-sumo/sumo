@@ -851,7 +851,7 @@ GUILane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 GUIParameterTableWindow*
 GUILane::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
-    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, 16 + (int)myEdge->getParametersMap().size());
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, 17 + (int)myEdge->getParametersMap().size());
     // add items
     ret->mkItem("maxspeed [m/s]", false, getSpeedLimit());
     ret->mkItem("length [m]", false, myLength);
@@ -865,6 +865,7 @@ GUILane::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     ret->mkItem("pending insertions [#]", true, new FunctionBinding<GUILane, double>(this, &GUILane::getPendingEmits));
     ret->mkItem("edge type", false, myEdge->getEdgeType());
     ret->mkItem("priority", false, myEdge->getPriority());
+    ret->mkItem("distance [km]", false, myEdge->getDistance());
     ret->mkItem("allowed vehicle class", false, getVehicleClassNames(myPermissions));
     ret->mkItem("disallowed vehicle class", false, getVehicleClassNames(~myPermissions));
     ret->mkItem("permission code", false, myPermissions);

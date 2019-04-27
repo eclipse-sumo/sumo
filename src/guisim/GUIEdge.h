@@ -59,7 +59,8 @@ public:
      */
     GUIEdge(const std::string& id, int numericalID,
             const SumoXMLEdgeFunc function,
-            const std::string& streetName, const std::string& edgeType, int priority);
+            const std::string& streetName, const std::string& edgeType, int priority,
+            double distance);
 
 
     /// @brief Destructor.

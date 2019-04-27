@@ -57,7 +57,7 @@
 // ===========================================================================
 // static member defintion
 // ===========================================================================
-MSEdge MESegment::myDummyParent("MESegmentDummyParent", -1, EDGEFUNC_UNKNOWN, "", "", -1);
+MSEdge MESegment::myDummyParent("MESegmentDummyParent", -1, EDGEFUNC_UNKNOWN, "", "", -1, 0);
 MESegment MESegment::myVaporizationTarget("vaporizationTarget");
 const double MESegment::DO_NOT_PATCH_JAM_THRESHOLD(std::numeric_limits<double>::max());
 

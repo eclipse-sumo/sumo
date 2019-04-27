@@ -370,13 +370,15 @@ NLHandler::beginEdgeParsing(const SUMOSAXAttributes& attrs) {
     const int priority = attrs.getOpt<int>(SUMO_ATTR_PRIORITY, id.c_str(), ok, -1); // default taken from netbuild/NBFrame option 'default.priority'
     // get the bidi-edge
     const std::string bidi = attrs.getOpt<std::string>(SUMO_ATTR_BIDI, id.c_str(), ok, "");
+    // get the kilometrage/mileage (for visualization and output)
+    const double distance = attrs.getOpt<double>(SUMO_ATTR_DISTANCE, id.c_str(), ok, 0);
     if (!ok) {
         myCurrentIsBroken = true;
         return;
     }
     //
     try {
-        myEdgeControlBuilder.beginEdgeParsing(id, func, streetName, edgeType, priority, bidi);
+        myEdgeControlBuilder.beginEdgeParsing(id, func, streetName, edgeType, priority, bidi, distance);
     } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
         myCurrentIsBroken = true;
@@ -1333,13 +1335,13 @@ NLHandler::addDistrict(const SUMOSAXAttributes& attrs) {
         return;
     }
     try {
-        MSEdge* sink = myEdgeControlBuilder.buildEdge(myCurrentDistrictID + "-sink", EDGEFUNC_CONNECTOR, "", "", -1);
+        MSEdge* sink = myEdgeControlBuilder.buildEdge(myCurrentDistrictID + "-sink", EDGEFUNC_CONNECTOR, "", "", -1, 0);
         if (!MSEdge::dictionary(myCurrentDistrictID + "-sink", sink)) {
             delete sink;
             throw InvalidArgument("Another edge with the id '" + myCurrentDistrictID + "-sink' exists.");
         }
         sink->initialize(new std::vector<MSLane*>());
-        MSEdge* source = myEdgeControlBuilder.buildEdge(myCurrentDistrictID + "-source", EDGEFUNC_CONNECTOR, "", "", -1);
+        MSEdge* source = myEdgeControlBuilder.buildEdge(myCurrentDistrictID + "-source", EDGEFUNC_CONNECTOR, "", "", -1, 0);
         if (!MSEdge::dictionary(myCurrentDistrictID + "-source", source)) {
             delete source;
             throw InvalidArgument("Another edge with the id '" + myCurrentDistrictID + "-source' exists.");
