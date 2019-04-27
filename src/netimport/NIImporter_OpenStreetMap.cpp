@@ -480,7 +480,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     bool addBackward = true;
     if (e->myIsOneWay == "true" || e->myIsOneWay == "yes" || e->myIsOneWay == "1"
             || (defaultsToOneWay && e->myIsOneWay != "no" && e->myIsOneWay != "false" && e->myIsOneWay != "0" &&
-                e->getParameter("railway:preferred_direction", "") != "both")) {
+                e->myRailDirection != WAY_BOTH)) {
         addBackward = false;
     }
     if (e->myIsOneWay == "-1" || e->myIsOneWay == "reverse") {
@@ -579,7 +579,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     const std::string origID = OptionsCont::getOptions().getBool("output.original-names") ? toString(e->id) : "";
     if (ok) {
         LaneSpreadFunction lsf = (addBackward || OptionsCont::getOptions().getBool("osm.oneway-spread-right")) &&
-                                 e->getParameter("railway:preferred_direction", "") != "both" ? LANESPREAD_RIGHT : LANESPREAD_CENTER;
+                                 e->myRailDirection != WAY_BOTH ? LANESPREAD_RIGHT : LANESPREAD_CENTER;
 
         id = StringUtils::escapeXML(id);
         const std::string reverseID = "-" + id;
@@ -1074,8 +1074,9 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
         } else if (myAllAttributes && key == "postal_code") {
             myCurrentEdge->setParameter(key, value);
         } else if (key == "railway:preferred_direction") {
-            // this param is special because it influences network building (duplicate rail edges)
-            myCurrentEdge->setParameter(key, value);
+            if (value == "both") {
+                myCurrentEdge->myRailDirection = WAY_BOTH;
+            }
         } else if (key == "public_transport" && value == "platform") {
             myCurrentEdge->myCurrentIsPlatform = true;
         } else if (key == "parking:lane:both" && !StringUtils::startsWith(value, "no")) {
