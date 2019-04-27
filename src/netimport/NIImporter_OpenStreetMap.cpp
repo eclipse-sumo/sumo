@@ -468,8 +468,12 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     int numLanesBackward = tc.getNumLanes(type);
     double speed = tc.getSpeed(type);
     bool defaultsToOneWay = tc.getIsOneWay(type);
-    SVCPermissions forwardPermissions = tc.getPermissions(type);
-    SVCPermissions backwardPermissions = tc.getPermissions(type);
+    SVCPermissions permissions = tc.getPermissions(type);
+    if (e->myCurrentIsElectrified && (permissions & SVC_RAIL) != 0) {
+        permissions |= SVC_RAIL_ELECTRIC;
+    }
+    SVCPermissions forwardPermissions = permissions;
+    SVCPermissions backwardPermissions = permissions;
     const std::string streetName = isRailway(forwardPermissions) && e->ref != "" ? e->ref : e->streetName;
     double forwardWidth = tc.getWidth(type);
     double backwardWidth = tc.getWidth(type);
@@ -916,6 +920,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
                 && key != "railway:bidirectional"
                 && key != "railway:track_ref"
                 && key != "usage"
+                && key != "electrified"
                 && key != "public_transport") {
             return;
         }
@@ -1088,6 +1093,10 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
         } else if (key == "railway:bidirectional") {
             if (value == "regular") {
                 myCurrentEdge->myRailDirection = WAY_BOTH;
+            }
+        } else if (key == "electrified") {
+            if (value != "no") {
+                myCurrentEdge->myCurrentIsElectrified = true;
             }
         } else if (key == "railway:track_ref") {
             myCurrentEdge->setParameter(key, value);

@@ -158,7 +158,9 @@ protected:
             myParkingType(PARKING_NONE), // parking areas exported optionally
             myLayer(0), // layer is non-zero only in conflict areas
             myCurrentIsRoad(false),
-            myCurrentIsPlatform(false) { }
+            myCurrentIsPlatform(false),
+            myCurrentIsElectrified(false)
+        { }
 
 
         /// @brief The edge's id
@@ -195,6 +197,8 @@ protected:
         bool myCurrentIsRoad;
         /// @brief Information whether this is a pt platform
         bool myCurrentIsPlatform;
+        /// @brief Information whether this is railway is electrified
+        bool myCurrentIsElectrified;
 
     private:
         /// invalidated assignment operator
