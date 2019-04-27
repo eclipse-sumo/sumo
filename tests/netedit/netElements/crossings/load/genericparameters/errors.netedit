@@ -39,45 +39,25 @@ GLDebug: Removed object edge:NC from SUMORTree with boundary 65.20,70.00,130.00,
 GLDebug: Removed object edge:SC from SUMORTree with boundary 70.00,-30.00,134.80,130.00
 GLDebug: Removed object edge:WC from SUMORTree with boundary -30.00,65.20,130.00,130.00
 Debug: Created connection 'fromCE_1toEC_1' in retrieveGNEConnection()
-GLDebug: Inserted connection:fromCE_1toEC_1 into SUMORTree with boundary 179.90,79.90,220.10,220.10
 Debug: Created connection 'fromCN_1toNC_1' in retrieveGNEConnection()
-GLDebug: Inserted connection:fromCN_1toNC_1 into SUMORTree with boundary 79.90,80.10,120.10,219.90
 Debug: Created connection 'fromCS_1toSC_1' in retrieveGNEConnection()
-GLDebug: Inserted connection:fromCS_1toSC_1 into SUMORTree with boundary 79.90,-20.10,120.10,120.10
 Debug: Created connection 'fromCW_1toWC_1' in retrieveGNEConnection()
-GLDebug: Inserted connection:fromCW_1toWC_1 into SUMORTree with boundary -20.10,-19.90,20.10,119.90
 Debug: Created connection 'fromEC_0toCN_0' in retrieveGNEConnection()
-GLDebug: Inserted connection:fromEC_0toCN_0 into SUMORTree with boundary 79.90,79.90,120.10,120.10
 Debug: Created connection 'fromEC_0toCW_0' in retrieveGNEConnection()
-GLDebug: Inserted connection:fromEC_0toCW_0 into SUMORTree with boundary 79.90,79.90,120.10,120.10
 Debug: Created connection 'fromEC_1toCW_1' in retrieveGNEConnection()
-GLDebug: Inserted connection:fromEC_1toCW_1 into SUMORTree with boundary 79.90,79.90,120.10,120.10
 Debug: Created connection 'fromEC_1toCS_1' in retrieveGNEConnection()
-GLDebug: Inserted connection:fromEC_1toCS_1 into SUMORTree with boundary 79.90,79.90,120.10,120.10
 Debug: Created connection 'fromNC_0toCW_0' in retrieveGNEConnection()
-GLDebug: Inserted connection:fromNC_0toCW_0 into SUMORTree with boundary 79.90,79.90,120.10,120.10
 Debug: Created connection 'fromNC_0toCS_0' in retrieveGNEConnection()
-GLDebug: Inserted connection:fromNC_0toCS_0 into SUMORTree with boundary 79.90,79.90,120.10,120.10
 Debug: Created connection 'fromNC_1toCS_1' in retrieveGNEConnection()
-GLDebug: Inserted connection:fromNC_1toCS_1 into SUMORTree with boundary 79.90,79.90,120.10,120.10
 Debug: Created connection 'fromNC_1toCE_1' in retrieveGNEConnection()
-GLDebug: Inserted connection:fromNC_1toCE_1 into SUMORTree with boundary 79.90,79.90,120.10,120.10
 Debug: Created connection 'fromSC_0toCE_0' in retrieveGNEConnection()
-GLDebug: Inserted connection:fromSC_0toCE_0 into SUMORTree with boundary 79.90,79.90,120.10,120.10
 Debug: Created connection 'fromSC_0toCN_0' in retrieveGNEConnection()
-GLDebug: Inserted connection:fromSC_0toCN_0 into SUMORTree with boundary 79.90,79.90,120.10,120.10
 Debug: Created connection 'fromSC_1toCN_1' in retrieveGNEConnection()
-GLDebug: Inserted connection:fromSC_1toCN_1 into SUMORTree with boundary 79.90,79.90,120.10,120.10
 Debug: Created connection 'fromSC_1toCW_1' in retrieveGNEConnection()
-GLDebug: Inserted connection:fromSC_1toCW_1 into SUMORTree with boundary 79.90,79.90,120.10,120.10
 Debug: Created connection 'fromWC_0toCS_0' in retrieveGNEConnection()
-GLDebug: Inserted connection:fromWC_0toCS_0 into SUMORTree with boundary 79.90,79.90,120.10,120.10
 Debug: Created connection 'fromWC_0toCE_0' in retrieveGNEConnection()
-GLDebug: Inserted connection:fromWC_0toCE_0 into SUMORTree with boundary 79.90,79.90,120.10,120.10
 Debug: Created connection 'fromWC_1toCE_1' in retrieveGNEConnection()
-GLDebug: Inserted connection:fromWC_1toCE_1 into SUMORTree with boundary 79.90,79.90,120.10,120.10
 Debug: Created connection 'fromWC_1toCN_1' in retrieveGNEConnection()
-GLDebug: Inserted connection:fromWC_1toCN_1 into SUMORTree with boundary 79.90,79.90,120.10,120.10
 Debug: Created crossing ':C_c0' in retrieveGNECrossing()
 Debug: Created crossing ':C_c1' in retrieveGNECrossing()
 Debug: Created crossing ':C_c2' in retrieveGNECrossing()
@@ -99,55 +79,15 @@ GLDebug: Removed object junction:W from SUMORTree with boundary -22.00,78.00,22.
 GLDebug: Inserted junction:W into SUMORTree with boundary -22.00,73.60,22.00,126.40
 GLDebug: Inserted edge:CE into SUMORTree with boundary 70.00,65.20,230.00,130.00
 GLDebug: Removed object edge:CE from SUMORTree with boundary 70.00,65.20,230.00,130.00
-GLDebug: Removed object connection:fromEC_0toCN_0 from SUMORTree with boundary 79.90,79.90,120.10,120.10
-GLDebug: Inserted connection:fromEC_0toCN_0 into SUMORTree with boundary 84.80,84.80,130.40,130.40
-GLDebug: Removed object connection:fromEC_0toCW_0 from SUMORTree with boundary 79.90,79.90,120.10,120.10
-GLDebug: Inserted connection:fromEC_0toCW_0 into SUMORTree with boundary 69.60,84.80,130.40,124.80
-GLDebug: Removed object connection:fromNC_0toCW_0 from SUMORTree with boundary 79.90,79.90,120.10,120.10
-GLDebug: Inserted connection:fromNC_0toCW_0 into SUMORTree with boundary 69.60,84.80,115.20,130.40
-GLDebug: Removed object connection:fromNC_0toCS_0 from SUMORTree with boundary 79.90,79.90,120.10,120.10
-GLDebug: Inserted connection:fromNC_0toCS_0 into SUMORTree with boundary 75.20,69.60,115.20,130.40
-GLDebug: Removed object connection:fromSC_0toCE_0 from SUMORTree with boundary 79.90,79.90,120.10,120.10
-GLDebug: Inserted connection:fromSC_0toCE_0 into SUMORTree with boundary 84.80,69.60,130.40,115.20
-GLDebug: Removed object connection:fromSC_0toCN_0 from SUMORTree with boundary 79.90,79.90,120.10,120.10
-GLDebug: Inserted connection:fromSC_0toCN_0 into SUMORTree with boundary 84.80,69.60,124.80,130.40
-GLDebug: Removed object connection:fromWC_0toCS_0 from SUMORTree with boundary 79.90,79.90,120.10,120.10
-GLDebug: Inserted connection:fromWC_0toCS_0 into SUMORTree with boundary 69.60,69.60,115.20,115.20
-GLDebug: Removed object connection:fromWC_0toCE_0 from SUMORTree with boundary 79.90,79.90,120.10,120.10
-GLDebug: Inserted connection:fromWC_0toCE_0 into SUMORTree with boundary 69.60,75.20,130.40,115.20
-GLDebug: Removed object connection:fromEC_1toCW_1 from SUMORTree with boundary 79.90,79.90,120.10,120.10
-GLDebug: Inserted connection:fromEC_1toCW_1 into SUMORTree with boundary 69.60,81.60,130.40,121.60
-GLDebug: Removed object connection:fromEC_1toCS_1 from SUMORTree with boundary 79.90,79.90,120.10,120.10
-GLDebug: Inserted connection:fromEC_1toCS_1 into SUMORTree with boundary 78.40,69.60,130.40,121.60
-GLDebug: Removed object connection:fromNC_1toCS_1 from SUMORTree with boundary 79.90,79.90,120.10,120.10
-GLDebug: Inserted connection:fromNC_1toCS_1 into SUMORTree with boundary 78.40,69.60,118.40,130.40
-GLDebug: Removed object connection:fromNC_1toCE_1 from SUMORTree with boundary 79.90,79.90,120.10,120.10
-GLDebug: Inserted connection:fromNC_1toCE_1 into SUMORTree with boundary 78.40,78.40,130.40,130.40
-GLDebug: Removed object connection:fromSC_1toCN_1 from SUMORTree with boundary 79.90,79.90,120.10,120.10
-GLDebug: Inserted connection:fromSC_1toCN_1 into SUMORTree with boundary 81.60,69.60,121.60,130.40
-GLDebug: Removed object connection:fromSC_1toCW_1 from SUMORTree with boundary 79.90,79.90,120.10,120.10
-GLDebug: Inserted connection:fromSC_1toCW_1 into SUMORTree with boundary 69.60,69.60,121.60,121.60
-GLDebug: Removed object connection:fromWC_1toCE_1 from SUMORTree with boundary 79.90,79.90,120.10,120.10
-GLDebug: Inserted connection:fromWC_1toCE_1 into SUMORTree with boundary 69.60,78.40,130.40,118.40
-GLDebug: Removed object connection:fromWC_1toCN_1 from SUMORTree with boundary 79.90,79.90,120.10,120.10
-GLDebug: Inserted connection:fromWC_1toCN_1 into SUMORTree with boundary 69.60,78.40,121.60,130.40
-GLDebug: Removed object connection:fromCE_1toEC_1 from SUMORTree with boundary 179.90,79.90,220.10,220.10
-GLDebug: Inserted connection:fromCE_1toEC_1 into SUMORTree with boundary 179.00,78.40,219.00,121.60
 GLDebug: Inserted edge:CE into SUMORTree with boundary 70.00,65.20,230.00,130.00
 GLDebug: Inserted edge:CN into SUMORTree with boundary 70.00,70.00,134.80,230.00
 GLDebug: Removed object edge:CN from SUMORTree with boundary 70.00,70.00,134.80,230.00
-GLDebug: Removed object connection:fromCN_1toNC_1 from SUMORTree with boundary 79.90,80.10,120.10,219.90
-GLDebug: Inserted connection:fromCN_1toNC_1 into SUMORTree with boundary 78.40,179.00,121.60,219.00
 GLDebug: Inserted edge:CN into SUMORTree with boundary 70.00,70.00,134.80,230.00
 GLDebug: Inserted edge:CS into SUMORTree with boundary 65.20,-30.00,130.00,130.00
 GLDebug: Removed object edge:CS from SUMORTree with boundary 65.20,-30.00,130.00,130.00
-GLDebug: Removed object connection:fromCS_1toSC_1 from SUMORTree with boundary 79.90,-20.10,120.10,120.10
-GLDebug: Inserted connection:fromCS_1toSC_1 into SUMORTree with boundary 78.40,-19.00,121.60,21.00
 GLDebug: Inserted edge:CS into SUMORTree with boundary 65.20,-30.00,130.00,130.00
 GLDebug: Inserted edge:CW into SUMORTree with boundary -30.00,70.00,130.00,134.80
 GLDebug: Removed object edge:CW from SUMORTree with boundary -30.00,70.00,130.00,134.80
-GLDebug: Removed object connection:fromCW_1toWC_1 from SUMORTree with boundary -20.10,-19.90,20.10,119.90
-GLDebug: Inserted connection:fromCW_1toWC_1 into SUMORTree with boundary -19.00,78.40,21.00,121.60
 GLDebug: Inserted edge:CW into SUMORTree with boundary -30.00,70.00,130.00,134.80
 GLDebug: Inserted edge:EC into SUMORTree with boundary 70.00,70.00,230.00,134.80
 GLDebug: Removed object edge:EC from SUMORTree with boundary 70.00,70.00,230.00,134.80
@@ -191,55 +131,15 @@ GLDebug: Removed object junction:W from SUMORTree with boundary -22.00,73.60,22.
 GLDebug: Inserted junction:W into SUMORTree with boundary -22.00,73.60,22.00,126.40
 GLDebug: Inserted edge:CE into SUMORTree with boundary 70.00,65.20,230.00,130.00
 GLDebug: Removed object edge:CE from SUMORTree with boundary 70.00,65.20,230.00,130.00
-GLDebug: Removed object connection:fromEC_0toCN_0 from SUMORTree with boundary 84.80,84.80,130.40,130.40
-GLDebug: Inserted connection:fromEC_0toCN_0 into SUMORTree with boundary 84.80,84.80,130.40,130.40
-GLDebug: Removed object connection:fromEC_0toCW_0 from SUMORTree with boundary 69.60,84.80,130.40,124.80
-GLDebug: Inserted connection:fromEC_0toCW_0 into SUMORTree with boundary 69.60,84.80,130.40,124.80
-GLDebug: Removed object connection:fromNC_0toCW_0 from SUMORTree with boundary 69.60,84.80,115.20,130.40
-GLDebug: Inserted connection:fromNC_0toCW_0 into SUMORTree with boundary 69.60,84.80,115.20,130.40
-GLDebug: Removed object connection:fromNC_0toCS_0 from SUMORTree with boundary 75.20,69.60,115.20,130.40
-GLDebug: Inserted connection:fromNC_0toCS_0 into SUMORTree with boundary 75.20,69.60,115.20,130.40
-GLDebug: Removed object connection:fromSC_0toCE_0 from SUMORTree with boundary 84.80,69.60,130.40,115.20
-GLDebug: Inserted connection:fromSC_0toCE_0 into SUMORTree with boundary 84.80,69.60,130.40,115.20
-GLDebug: Removed object connection:fromSC_0toCN_0 from SUMORTree with boundary 84.80,69.60,124.80,130.40
-GLDebug: Inserted connection:fromSC_0toCN_0 into SUMORTree with boundary 84.80,69.60,124.80,130.40
-GLDebug: Removed object connection:fromWC_0toCS_0 from SUMORTree with boundary 69.60,69.60,115.20,115.20
-GLDebug: Inserted connection:fromWC_0toCS_0 into SUMORTree with boundary 69.60,69.60,115.20,115.20
-GLDebug: Removed object connection:fromWC_0toCE_0 from SUMORTree with boundary 69.60,75.20,130.40,115.20
-GLDebug: Inserted connection:fromWC_0toCE_0 into SUMORTree with boundary 69.60,75.20,130.40,115.20
-GLDebug: Removed object connection:fromEC_1toCW_1 from SUMORTree with boundary 69.60,81.60,130.40,121.60
-GLDebug: Inserted connection:fromEC_1toCW_1 into SUMORTree with boundary 69.60,81.60,130.40,121.60
-GLDebug: Removed object connection:fromEC_1toCS_1 from SUMORTree with boundary 78.40,69.60,130.40,121.60
-GLDebug: Inserted connection:fromEC_1toCS_1 into SUMORTree with boundary 78.40,69.60,130.40,121.60
-GLDebug: Removed object connection:fromNC_1toCS_1 from SUMORTree with boundary 78.40,69.60,118.40,130.40
-GLDebug: Inserted connection:fromNC_1toCS_1 into SUMORTree with boundary 78.40,69.60,118.40,130.40
-GLDebug: Removed object connection:fromNC_1toCE_1 from SUMORTree with boundary 78.40,78.40,130.40,130.40
-GLDebug: Inserted connection:fromNC_1toCE_1 into SUMORTree with boundary 78.40,78.40,130.40,130.40
-GLDebug: Removed object connection:fromSC_1toCN_1 from SUMORTree with boundary 81.60,69.60,121.60,130.40
-GLDebug: Inserted connection:fromSC_1toCN_1 into SUMORTree with boundary 81.60,69.60,121.60,130.40
-GLDebug: Removed object connection:fromSC_1toCW_1 from SUMORTree with boundary 69.60,69.60,121.60,121.60
-GLDebug: Inserted connection:fromSC_1toCW_1 into SUMORTree with boundary 69.60,69.60,121.60,121.60
-GLDebug: Removed object connection:fromWC_1toCE_1 from SUMORTree with boundary 69.60,78.40,130.40,118.40
-GLDebug: Inserted connection:fromWC_1toCE_1 into SUMORTree with boundary 69.60,78.40,130.40,118.40
-GLDebug: Removed object connection:fromWC_1toCN_1 from SUMORTree with boundary 69.60,78.40,121.60,130.40
-GLDebug: Inserted connection:fromWC_1toCN_1 into SUMORTree with boundary 69.60,78.40,121.60,130.40
-GLDebug: Removed object connection:fromCE_1toEC_1 from SUMORTree with boundary 179.00,78.40,219.00,121.60
-GLDebug: Inserted connection:fromCE_1toEC_1 into SUMORTree with boundary 179.00,78.40,219.00,121.60
 GLDebug: Inserted edge:CE into SUMORTree with boundary 70.00,65.20,230.00,130.00
 GLDebug: Inserted edge:CN into SUMORTree with boundary 70.00,70.00,134.80,230.00
 GLDebug: Removed object edge:CN from SUMORTree with boundary 70.00,70.00,134.80,230.00
-GLDebug: Removed object connection:fromCN_1toNC_1 from SUMORTree with boundary 78.40,179.00,121.60,219.00
-GLDebug: Inserted connection:fromCN_1toNC_1 into SUMORTree with boundary 78.40,179.00,121.60,219.00
 GLDebug: Inserted edge:CN into SUMORTree with boundary 70.00,70.00,134.80,230.00
 GLDebug: Inserted edge:CS into SUMORTree with boundary 65.20,-30.00,130.00,130.00
 GLDebug: Removed object edge:CS from SUMORTree with boundary 65.20,-30.00,130.00,130.00
-GLDebug: Removed object connection:fromCS_1toSC_1 from SUMORTree with boundary 78.40,-19.00,121.60,21.00
-GLDebug: Inserted connection:fromCS_1toSC_1 into SUMORTree with boundary 78.40,-19.00,121.60,21.00
 GLDebug: Inserted edge:CS into SUMORTree with boundary 65.20,-30.00,130.00,130.00
 GLDebug: Inserted edge:CW into SUMORTree with boundary -30.00,70.00,130.00,134.80
 GLDebug: Removed object edge:CW from SUMORTree with boundary -30.00,70.00,130.00,134.80
-GLDebug: Removed object connection:fromCW_1toWC_1 from SUMORTree with boundary -19.00,78.40,21.00,121.60
-GLDebug: Inserted connection:fromCW_1toWC_1 into SUMORTree with boundary -19.00,78.40,21.00,121.60
 GLDebug: Inserted edge:CW into SUMORTree with boundary -30.00,70.00,130.00,134.80
 GLDebug: Inserted edge:EC into SUMORTree with boundary 70.00,70.00,230.00,134.80
 GLDebug: Removed object edge:EC from SUMORTree with boundary 70.00,70.00,230.00,134.80
@@ -310,4 +210,4 @@ Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_PEDTYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting net builder in GNENet destructor
-GLDebug: Number of objects in SUMORTree during call of the destructor: 33
+GLDebug: Number of objects in SUMORTree during call of the destructor: 13

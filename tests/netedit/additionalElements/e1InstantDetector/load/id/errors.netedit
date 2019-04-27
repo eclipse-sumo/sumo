@@ -8,31 +8,10 @@ GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
 Debug: Selected item 'DEFAULT_VEHTYPE' in VTypeSelector
 Debug: Adding instantInductionLoop 'E1_01' in GNEChange_Additional
-GLDebug: Inserted e1DetectorInstant:E1_01 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
-GLDebug: Removed object e1DetectorInstant:E1_01 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
-GLDebug: Inserted e1DetectorInstant:E1_01 into SUMORTree with boundary -17.00,-21.60,23.00,18.40
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
-GLDebug: Removed object e1DetectorInstant:E1_01 from SUMORTree with boundary -17.00,-21.60,23.00,18.40
-GLDebug: Inserted e1DetectorInstant:E1_01 into SUMORTree with boundary -17.00,-21.60,23.00,18.40
 Debug: Adding instantInductionLoop 'ID with spaces' in GNEChange_Additional
-GLDebug: Inserted e1DetectorInstant:ID with spaces into SUMORTree with boundary -0.10,-0.10,0.10,0.10
-GLDebug: Removed object e1DetectorInstant:ID with spaces from SUMORTree with boundary -0.10,-0.10,0.10,0.10
-GLDebug: Inserted e1DetectorInstant:ID with spaces into SUMORTree with boundary -14.00,-21.60,26.00,18.40
-GLDebug: Removed object e1DetectorInstant:E1_01 from SUMORTree with boundary -17.00,-21.60,23.00,18.40
-GLDebug: Inserted e1DetectorInstant:E1_01 into SUMORTree with boundary -17.00,-21.60,23.00,18.40
-GLDebug: Removed object e1DetectorInstant:ID with spaces from SUMORTree with boundary -14.00,-21.60,26.00,18.40
-GLDebug: Inserted e1DetectorInstant:ID with spaces into SUMORTree with boundary -14.00,-21.60,26.00,18.40
 Debug: Adding instantInductionLoop 'validID' in GNEChange_Additional
-GLDebug: Inserted e1DetectorInstant:validID into SUMORTree with boundary -0.10,-0.10,0.10,0.10
-GLDebug: Removed object e1DetectorInstant:validID from SUMORTree with boundary -0.10,-0.10,0.10,0.10
-GLDebug: Inserted e1DetectorInstant:validID into SUMORTree with boundary -14.00,-21.60,26.00,18.40
-GLDebug: Removed object e1DetectorInstant:E1_01 from SUMORTree with boundary -17.00,-21.60,23.00,18.40
-GLDebug: Inserted e1DetectorInstant:E1_01 into SUMORTree with boundary -17.00,-21.60,23.00,18.40
-GLDebug: Removed object e1DetectorInstant:ID with spaces from SUMORTree with boundary -14.00,-21.60,26.00,18.40
-GLDebug: Inserted e1DetectorInstant:ID with spaces into SUMORTree with boundary -14.00,-21.60,26.00,18.40
-GLDebug: Removed object e1DetectorInstant:validID from SUMORTree with boundary -14.00,-21.60,26.00,18.40
-GLDebug: Inserted e1DetectorInstant:validID into SUMORTree with boundary -14.00,-21.60,26.00,18.40
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
 Debug: Additionals saved
@@ -41,9 +20,7 @@ GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00
 GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
 GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,31.60
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
-GLDebug: Inserted connection:fromgneE0_0togneE1_0 into SUMORTree with boundary 29.90,-20.10,70.10,70.10
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-GLDebug: Inserted connection:fromgneE1_0togneE0_0 into SUMORTree with boundary -20.10,-20.10,20.10,20.10
 GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
 GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
 GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-23.20,22.00,23.20
@@ -52,28 +29,15 @@ GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00
 GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-23.20,72.00,23.20
 GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
 GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
-GLDebug: Removed object e1DetectorInstant:E1_01 from SUMORTree with boundary -17.00,-21.60,23.00,18.40
-GLDebug: Inserted e1DetectorInstant:E1_01 into SUMORTree with boundary -17.00,-21.60,23.00,18.40
-GLDebug: Removed object e1DetectorInstant:ID with spaces from SUMORTree with boundary -14.00,-21.60,26.00,18.40
-GLDebug: Inserted e1DetectorInstant:ID with spaces into SUMORTree with boundary -14.00,-21.60,26.00,18.40
-GLDebug: Removed object e1DetectorInstant:validID from SUMORTree with boundary -14.00,-21.60,26.00,18.40
-GLDebug: Inserted e1DetectorInstant:validID into SUMORTree with boundary -14.00,-21.60,26.00,18.40
-GLDebug: Removed object connection:fromgneE1_0togneE0_0 from SUMORTree with boundary -20.10,-20.10,20.10,20.10
-GLDebug: Inserted connection:fromgneE1_0togneE0_0 into SUMORTree with boundary -19.00,-21.60,21.00,21.60
-GLDebug: Removed object connection:fromgneE0_0togneE1_0 from SUMORTree with boundary 29.90,-20.10,70.10,70.10
-GLDebug: Inserted connection:fromgneE0_0togneE1_0 into SUMORTree with boundary 29.00,-21.60,69.00,21.60
 GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
 GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,31.60
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
 Debug: Deleting unreferenced instantInductionLoop 'validID'
-GLDebug: Removed object e1DetectorInstant:validID from SUMORTree with boundary -14.00,-21.60,26.00,18.40
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Deleting unreferenced instantInductionLoop 'ID with spaces'
-GLDebug: Removed object e1DetectorInstant:ID with spaces from SUMORTree with boundary -14.00,-21.60,26.00,18.40
 Debug: Deleting unreferenced instantInductionLoop 'E1_01'
-GLDebug: Removed object e1DetectorInstant:E1_01 from SUMORTree with boundary -17.00,-21.60,23.00,18.40
 Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
@@ -86,4 +50,4 @@ Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_PEDTYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting net builder in GNENet destructor
-GLDebug: Number of objects in SUMORTree during call of the destructor: 6
+GLDebug: Number of objects in SUMORTree during call of the destructor: 4

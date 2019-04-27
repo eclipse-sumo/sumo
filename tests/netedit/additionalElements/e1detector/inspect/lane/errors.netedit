@@ -21,79 +21,32 @@ Debug: Selected item 'busStop' in ItemSelector
 Debug: Selected item 'e1Detector' in ItemSelector
 Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Adding e1Detector 'e1Detector_gneE2_1_0' in GNEChange_Additional
-GLDebug: Inserted e1Detector:e1Detector_gneE2_1_0 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
-GLDebug: Removed object e1Detector:e1Detector_gneE2_1_0 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
-GLDebug: Inserted e1Detector:e1Detector_gneE2_1_0 into SUMORTree with boundary -3.00,-1.60,37.00,38.40
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
-GLDebug: Removed object e1Detector:e1Detector_gneE2_1_0 from SUMORTree with boundary -3.00,-1.60,37.00,38.40
-GLDebug: Inserted e1Detector:e1Detector_gneE2_1_0 into SUMORTree with boundary -3.00,-1.60,37.00,38.40
 Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 1, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Value 'dummy lane' for attribute lane of e1Detector isn't valid
 Debug: Setting new attribute lane 'gneE0_0' into e1Detector 'e1Detector_gneE2_1_0'
-GLDebug: Removed object e1Detector:e1Detector_gneE2_1_0 from SUMORTree with boundary -3.00,-1.60,37.00,38.40
-GLDebug: Inserted e1Detector:e1Detector_gneE2_1_0 into SUMORTree with boundary -3.00,-21.60,37.00,18.40
-GLDebug: Removed object e1Detector:e1Detector_gneE2_1_0 from SUMORTree with boundary -3.00,-21.60,37.00,18.40
-GLDebug: Inserted e1Detector:e1Detector_gneE2_1_0 into SUMORTree with boundary -3.00,-21.60,37.00,18.40
 Debug: Setting new attribute lane 'gneE2_1' into e1Detector 'e1Detector_gneE2_1_0'
-GLDebug: Removed object e1Detector:e1Detector_gneE2_1_0 from SUMORTree with boundary -3.00,-21.60,37.00,18.40
-GLDebug: Inserted e1Detector:e1Detector_gneE2_1_0 into SUMORTree with boundary -3.00,-1.60,37.00,38.40
-GLDebug: Removed object e1Detector:e1Detector_gneE2_1_0 from SUMORTree with boundary -3.00,-1.60,37.00,38.40
-GLDebug: Inserted e1Detector:e1Detector_gneE2_1_0 into SUMORTree with boundary -3.00,-1.60,37.00,38.40
 Debug: Setting new attribute lane 'gneE2_0' into e1Detector 'e1Detector_gneE2_1_0'
-GLDebug: Removed object e1Detector:e1Detector_gneE2_1_0 from SUMORTree with boundary -3.00,-1.60,37.00,38.40
-GLDebug: Inserted e1Detector:e1Detector_gneE2_1_0 into SUMORTree with boundary -3.00,-4.80,37.00,35.20
-GLDebug: Removed object e1Detector:e1Detector_gneE2_1_0 from SUMORTree with boundary -3.00,-4.80,37.00,35.20
-GLDebug: Inserted e1Detector:e1Detector_gneE2_1_0 into SUMORTree with boundary -3.00,-4.80,37.00,35.20
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute lane 'gneE2_1' into e1Detector 'e1Detector_gneE2_1_0'
-GLDebug: Removed object e1Detector:e1Detector_gneE2_1_0 from SUMORTree with boundary -3.00,-4.80,37.00,35.20
-GLDebug: Inserted e1Detector:e1Detector_gneE2_1_0 into SUMORTree with boundary -3.00,-1.60,37.00,38.40
-GLDebug: Removed object e1Detector:e1Detector_gneE2_1_0 from SUMORTree with boundary -3.00,-1.60,37.00,38.40
-GLDebug: Inserted e1Detector:e1Detector_gneE2_1_0 into SUMORTree with boundary -3.00,-1.60,37.00,38.40
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute lane 'gneE0_0' into e1Detector 'e1Detector_gneE2_1_0'
-GLDebug: Removed object e1Detector:e1Detector_gneE2_1_0 from SUMORTree with boundary -3.00,-1.60,37.00,38.40
-GLDebug: Inserted e1Detector:e1Detector_gneE2_1_0 into SUMORTree with boundary -3.00,-21.60,37.00,18.40
-GLDebug: Removed object e1Detector:e1Detector_gneE2_1_0 from SUMORTree with boundary -3.00,-21.60,37.00,18.40
-GLDebug: Inserted e1Detector:e1Detector_gneE2_1_0 into SUMORTree with boundary -3.00,-21.60,37.00,18.40
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute lane 'gneE2_1' into e1Detector 'e1Detector_gneE2_1_0'
-GLDebug: Removed object e1Detector:e1Detector_gneE2_1_0 from SUMORTree with boundary -3.00,-21.60,37.00,18.40
-GLDebug: Inserted e1Detector:e1Detector_gneE2_1_0 into SUMORTree with boundary -3.00,-1.60,37.00,38.40
-GLDebug: Removed object e1Detector:e1Detector_gneE2_1_0 from SUMORTree with boundary -3.00,-1.60,37.00,38.40
-GLDebug: Inserted e1Detector:e1Detector_gneE2_1_0 into SUMORTree with boundary -3.00,-1.60,37.00,38.40
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Removing e1Detector 'e1Detector_gneE2_1_0' in GNEChange_Additional
 Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
-GLDebug: Removed object e1Detector:e1Detector_gneE2_1_0 from SUMORTree with boundary -3.00,-1.60,37.00,38.40
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Adding e1Detector 'e1Detector_gneE2_1_0' in GNEChange_Additional
-GLDebug: Inserted e1Detector:e1Detector_gneE2_1_0 into SUMORTree with boundary -3.00,-1.60,37.00,38.40
-GLDebug: Removed object e1Detector:e1Detector_gneE2_1_0 from SUMORTree with boundary -3.00,-1.60,37.00,38.40
-GLDebug: Inserted e1Detector:e1Detector_gneE2_1_0 into SUMORTree with boundary -3.00,-1.60,37.00,38.40
-GLDebug: Removed object e1Detector:e1Detector_gneE2_1_0 from SUMORTree with boundary -3.00,-1.60,37.00,38.40
-GLDebug: Inserted e1Detector:e1Detector_gneE2_1_0 into SUMORTree with boundary -3.00,-1.60,37.00,38.40
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute lane 'gneE0_0' into e1Detector 'e1Detector_gneE2_1_0'
-GLDebug: Removed object e1Detector:e1Detector_gneE2_1_0 from SUMORTree with boundary -3.00,-1.60,37.00,38.40
-GLDebug: Inserted e1Detector:e1Detector_gneE2_1_0 into SUMORTree with boundary -3.00,-21.60,37.00,18.40
-GLDebug: Removed object e1Detector:e1Detector_gneE2_1_0 from SUMORTree with boundary -3.00,-21.60,37.00,18.40
-GLDebug: Inserted e1Detector:e1Detector_gneE2_1_0 into SUMORTree with boundary -3.00,-21.60,37.00,18.40
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute lane 'gneE2_1' into e1Detector 'e1Detector_gneE2_1_0'
-GLDebug: Removed object e1Detector:e1Detector_gneE2_1_0 from SUMORTree with boundary -3.00,-21.60,37.00,18.40
-GLDebug: Inserted e1Detector:e1Detector_gneE2_1_0 into SUMORTree with boundary -3.00,-1.60,37.00,38.40
-GLDebug: Removed object e1Detector:e1Detector_gneE2_1_0 from SUMORTree with boundary -3.00,-1.60,37.00,38.40
-GLDebug: Inserted e1Detector:e1Detector_gneE2_1_0 into SUMORTree with boundary -3.00,-1.60,37.00,38.40
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute lane 'gneE2_0' into e1Detector 'e1Detector_gneE2_1_0'
-GLDebug: Removed object e1Detector:e1Detector_gneE2_1_0 from SUMORTree with boundary -3.00,-1.60,37.00,38.40
-GLDebug: Inserted e1Detector:e1Detector_gneE2_1_0 into SUMORTree with boundary -3.00,-4.80,37.00,35.20
-GLDebug: Removed object e1Detector:e1Detector_gneE2_1_0 from SUMORTree with boundary -3.00,-4.80,37.00,35.20
-GLDebug: Inserted e1Detector:e1Detector_gneE2_1_0 into SUMORTree with boundary -3.00,-4.80,37.00,35.20
 Debug: Additionals saved
 GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
 GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
@@ -104,13 +57,9 @@ GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80
 GLDebug: Removed object edge:gneE2 from SUMORTree with boundary -30.00,-14.80,80.00,50.00
 GLDebug: Removed object edge:gneE3 from SUMORTree with boundary -30.00,-10.00,80.00,54.80
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
-GLDebug: Inserted connection:fromgneE0_0togneE1_0 into SUMORTree with boundary 29.90,-20.10,70.10,70.10
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-GLDebug: Inserted connection:fromgneE1_0togneE0_0 into SUMORTree with boundary -20.10,-20.10,20.10,20.10
 Debug: Created connection 'fromgneE2_1togneE3_1' in retrieveGNEConnection()
-GLDebug: Inserted connection:fromgneE2_1togneE3_1 into SUMORTree with boundary 29.90,-0.10,70.10,70.10
 Debug: Created connection 'fromgneE3_1togneE2_1' in retrieveGNEConnection()
-GLDebug: Inserted connection:fromgneE3_1togneE2_1 into SUMORTree with boundary -20.10,-19.90,20.10,39.90
 Debug: Created crossing ':gneJ0_c0' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ0_c1' in retrieveGNECrossing()
 GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
@@ -129,28 +78,17 @@ GLDebug: Removed object junction:gneJ3 from SUMORTree with boundary 28.00,-2.00,
 GLDebug: Inserted junction:gneJ3 into SUMORTree with boundary 28.00,-6.40,72.00,46.40
 GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
 GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
-GLDebug: Removed object connection:fromgneE1_0togneE0_0 from SUMORTree with boundary -20.10,-20.10,20.10,20.10
-GLDebug: Inserted connection:fromgneE1_0togneE0_0 into SUMORTree with boundary -19.00,-21.60,21.00,21.60
-GLDebug: Removed object connection:fromgneE0_0togneE1_0 from SUMORTree with boundary 29.90,-20.10,70.10,70.10
-GLDebug: Inserted connection:fromgneE0_0togneE1_0 into SUMORTree with boundary 29.00,-21.60,69.00,21.60
 GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
 GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,31.60
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
 GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -30.00,-14.80,80.00,50.00
 GLDebug: Removed object edge:gneE2 from SUMORTree with boundary -30.00,-14.80,80.00,50.00
-GLDebug: Removed object e1Detector:e1Detector_gneE2_1_0 from SUMORTree with boundary -3.00,-4.80,37.00,35.20
-GLDebug: Inserted e1Detector:e1Detector_gneE2_1_0 into SUMORTree with boundary -3.00,-4.80,37.00,35.20
-GLDebug: Removed object connection:fromgneE3_1togneE2_1 from SUMORTree with boundary -20.10,-19.90,20.10,39.90
-GLDebug: Inserted connection:fromgneE3_1togneE2_1 into SUMORTree with boundary -19.00,-1.60,21.00,41.60
-GLDebug: Removed object connection:fromgneE2_1togneE3_1 from SUMORTree with boundary 29.90,-0.10,70.10,70.10
-GLDebug: Inserted connection:fromgneE2_1togneE3_1 into SUMORTree with boundary 29.00,-1.60,69.00,41.60
 GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -30.00,-14.80,80.00,50.00
 GLDebug: Inserted edge:gneE3 into SUMORTree with boundary -30.00,-10.00,80.00,54.80
 GLDebug: Removed object edge:gneE3 from SUMORTree with boundary -30.00,-10.00,80.00,54.80
 GLDebug: Inserted edge:gneE3 into SUMORTree with boundary -30.00,-10.00,80.00,54.80
 Debug: Deleting unreferenced e1Detector 'e1Detector_gneE2_1_0'
-GLDebug: Removed object e1Detector:e1Detector_gneE2_1_0 from SUMORTree with boundary -3.00,-4.80,37.00,35.20
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
@@ -179,4 +117,4 @@ Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_PEDTYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting net builder in GNENet destructor
-GLDebug: Number of objects in SUMORTree during call of the destructor: 12
+GLDebug: Number of objects in SUMORTree during call of the destructor: 8

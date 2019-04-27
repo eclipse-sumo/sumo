@@ -10,11 +10,11 @@ Debug: Selected item 'DEFAULT_VEHTYPE' in VTypeSelector
 Debug: Adding parkingArea 'parkingArea_0' in GNEChange_Additional
 GLDebug: Inserted parkingArea:parkingArea_0 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Removed object parkingArea:parkingArea_0 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
-GLDebug: Inserted parkingArea:parkingArea_0 into SUMORTree with boundary -15.00,-35.20,30.00,4.80
+GLDebug: Inserted parkingArea:parkingArea_0 into SUMORTree with boundary -8.00,-16.20,23.00,-14.20
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
-GLDebug: Removed object parkingArea:parkingArea_0 from SUMORTree with boundary -15.00,-35.20,30.00,4.80
-GLDebug: Inserted parkingArea:parkingArea_0 into SUMORTree with boundary -15.00,-35.20,30.00,4.80
+GLDebug: Removed object parkingArea:parkingArea_0 from SUMORTree with boundary -8.00,-16.20,23.00,-14.20
+GLDebug: Inserted parkingArea:parkingArea_0 into SUMORTree with boundary -8.00,-16.20,23.00,-14.20
 Debug: Inserting generic parameter 'key1|value1' into additional parkingArea.
 Debug: Inserting generic parameter 'key1|value4' into additional parkingArea.
 Debug: Inserting generic parameter 'key2|' into additional parkingArea.
@@ -27,9 +27,7 @@ GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00
 GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
 GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,31.60
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
-GLDebug: Inserted connection:fromgneE0_0togneE1_0 into SUMORTree with boundary 29.90,-20.10,70.10,70.10
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-GLDebug: Inserted connection:fromgneE1_0togneE0_0 into SUMORTree with boundary -20.10,-20.10,20.10,20.10
 GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
 GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
 GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-23.20,22.00,23.20
@@ -38,18 +36,14 @@ GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00
 GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-23.20,72.00,23.20
 GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
 GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
-GLDebug: Removed object parkingArea:parkingArea_0 from SUMORTree with boundary -15.00,-35.20,30.00,4.80
-GLDebug: Inserted parkingArea:parkingArea_0 into SUMORTree with boundary -15.00,-35.20,30.00,4.80
-GLDebug: Removed object connection:fromgneE1_0togneE0_0 from SUMORTree with boundary -20.10,-20.10,20.10,20.10
-GLDebug: Inserted connection:fromgneE1_0togneE0_0 into SUMORTree with boundary -19.00,-21.60,21.00,21.60
-GLDebug: Removed object connection:fromgneE0_0togneE1_0 from SUMORTree with boundary 29.90,-20.10,70.10,70.10
-GLDebug: Inserted connection:fromgneE0_0togneE1_0 into SUMORTree with boundary 29.00,-21.60,69.00,21.60
+GLDebug: Removed object parkingArea:parkingArea_0 from SUMORTree with boundary -8.00,-16.20,23.00,-14.20
+GLDebug: Inserted parkingArea:parkingArea_0 into SUMORTree with boundary -8.00,-16.20,23.00,-14.20
 GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
 GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,31.60
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
 Debug: Deleting unreferenced parkingArea 'parkingArea_0'
-GLDebug: Removed object parkingArea:parkingArea_0 from SUMORTree with boundary -15.00,-35.20,30.00,4.80
+GLDebug: Removed object parkingArea:parkingArea_0 from SUMORTree with boundary -8.00,-16.20,23.00,-14.20
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
@@ -64,4 +58,4 @@ Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_PEDTYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting net builder in GNENet destructor
-GLDebug: Number of objects in SUMORTree during call of the destructor: 6
+GLDebug: Number of objects in SUMORTree during call of the destructor: 4

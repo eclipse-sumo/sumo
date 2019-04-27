@@ -1,23 +1,11 @@
 Warning: Ambiguity in turnarounds computation at junction '1130114721'.
 Warning: Ambiguity in turnarounds computation at junction '1206481791'.
 Warning: Ambiguity in turnarounds computation at junction '1206481808'.
-Warning: Ambiguity in turnarounds computation at junction '1349696695'.
-Warning: Ambiguity in turnarounds computation at junction '1350637319'.
-Warning: Ambiguity in turnarounds computation at junction '1365292207'.
-Warning: Ambiguity in turnarounds computation at junction '1635318761'.
-Warning: Ambiguity in turnarounds computation at junction '1635318763'.
-Warning: Ambiguity in turnarounds computation at junction '1635318765'.
-Warning: Ambiguity in turnarounds computation at junction '1635318767'.
 Warning: Ambiguity in turnarounds computation at junction '196721246'.
-Warning: Ambiguity in turnarounds computation at junction '247616302'.
 Warning: Ambiguity in turnarounds computation at junction '2739143296'.
 Warning: Ambiguity in turnarounds computation at junction '2739143307'.
 Warning: Ambiguity in turnarounds computation at junction '2739143323'.
-Warning: Ambiguity in turnarounds computation at junction '348454857'.
-Warning: Ambiguity in turnarounds computation at junction '540971896'.
 Warning: Ambiguity in turnarounds computation at junction '740379739'.
-Warning: Ambiguity in turnarounds computation at junction 'cluster_1264074482_1876468344_25665883_29219439_961875299_961984568_961984577_961984592'.
-Warning: Ambiguity in turnarounds computation at junction 'cluster_262469634_29219441_961875301_961875308_961875311_961984606'.
 Warning: Found angle of 121.15 degrees at edge '-194073678#1', segment 0
 Warning: Found sharp turn with radius 7.15 at the end of edge '-194167259#1'.
 Warning: Found sharp turn with radius 3.53 at the start of edge '-195071823'.
@@ -331,23 +319,11 @@ Warning: Speed of turning connection '199425798_0->252254904#36_0' reduced by 24
 Warning: Ambiguity in turnarounds computation at junction '1130114721'.
 Warning: Ambiguity in turnarounds computation at junction '1206481791'.
 Warning: Ambiguity in turnarounds computation at junction '1206481808'.
-Warning: Ambiguity in turnarounds computation at junction '1349696695'.
-Warning: Ambiguity in turnarounds computation at junction '1350637319'.
-Warning: Ambiguity in turnarounds computation at junction '1365292207'.
-Warning: Ambiguity in turnarounds computation at junction '1635318761'.
-Warning: Ambiguity in turnarounds computation at junction '1635318763'.
-Warning: Ambiguity in turnarounds computation at junction '1635318765'.
-Warning: Ambiguity in turnarounds computation at junction '1635318767'.
 Warning: Ambiguity in turnarounds computation at junction '196721246'.
-Warning: Ambiguity in turnarounds computation at junction '247616302'.
 Warning: Ambiguity in turnarounds computation at junction '2739143296'.
 Warning: Ambiguity in turnarounds computation at junction '2739143307'.
 Warning: Ambiguity in turnarounds computation at junction '2739143323'.
-Warning: Ambiguity in turnarounds computation at junction '348454857'.
-Warning: Ambiguity in turnarounds computation at junction '540971896'.
 Warning: Ambiguity in turnarounds computation at junction '740379739'.
-Warning: Ambiguity in turnarounds computation at junction 'cluster_1264074482_1876468344_25665883_29219439_961875299_961984568_961984577_961984592'.
-Warning: Ambiguity in turnarounds computation at junction 'cluster_262469634_29219441_961875301_961875308_961875311_961984606'.
 Warning: Found angle of 121.15 degrees at edge '-194073678#1', segment 0
 Warning: Found sharp turn with radius 7.15 at the end of edge '-194167259#1'.
 Warning: Found sharp turn with radius 3.53 at the start of edge '-195071823'.

@@ -16,155 +16,22 @@ GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -30.00,-10.00,80.00,64
 GLDebug: Inserted edge:gneE4 into SUMORTree with boundary -30.00,-11.60,80.00,50.00
 Debug: Selected item 'DEFAULT_VEHTYPE' in VTypeSelector
 Debug: Adding busStop 'busStop_gneE1_0_2' in GNEChange_Additional
-GLDebug: Inserted busStop:busStop_gneE1_0_2 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
-GLDebug: Removed object busStop:busStop_gneE1_0_2 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
-GLDebug: Inserted busStop:busStop_gneE1_0_2 into SUMORTree with boundary -5.63,-16.80,44.37,23.20
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
-GLDebug: Removed object busStop:busStop_gneE1_0_2 from SUMORTree with boundary -5.63,-16.80,44.37,23.20
-GLDebug: Inserted busStop:busStop_gneE1_0_2 into SUMORTree with boundary -5.63,-16.80,44.37,23.20
 Debug: Adding access 'busStop_gneE1_0_2access0' in GNEChange_Additional
-GLDebug: Inserted access:busStop_gneE1_0_2access0 into SUMORTree with boundary -5.63,-16.80,44.37,23.20
-GLDebug: Removed object access:busStop_gneE1_0_2access0 from SUMORTree with boundary -5.63,-16.80,44.37,23.20
-GLDebug: Inserted access:busStop_gneE1_0_2access0 into SUMORTree with boundary -20.00,14.40,37.57,54.40
-GLDebug: Removed object access:busStop_gneE1_0_2access0 from SUMORTree with boundary -20.00,14.40,37.57,54.40
-GLDebug: Inserted access:busStop_gneE1_0_2access0 into SUMORTree with boundary -20.00,14.40,37.57,54.40
-GLDebug: Removed object busStop:busStop_gneE1_0_2 from SUMORTree with boundary -5.63,-16.80,44.37,23.20
-GLDebug: Inserted busStop:busStop_gneE1_0_2 into SUMORTree with boundary -5.63,-16.80,44.37,23.20
 Debug: Adding access 'busStop_gneE1_0_2access1' in GNEChange_Additional
-GLDebug: Inserted access:busStop_gneE1_0_2access1 into SUMORTree with boundary -5.63,-16.80,44.37,23.20
-GLDebug: Removed object access:busStop_gneE1_0_2access1 from SUMORTree with boundary -5.63,-16.80,44.37,23.20
-GLDebug: Inserted access:busStop_gneE1_0_2access1 into SUMORTree with boundary -9.33,-1.60,70.00,38.40
-GLDebug: Removed object access:busStop_gneE1_0_2access1 from SUMORTree with boundary -9.33,-1.60,70.00,38.40
-GLDebug: Inserted access:busStop_gneE1_0_2access1 into SUMORTree with boundary -9.33,-1.60,70.00,38.40
-GLDebug: Removed object busStop:busStop_gneE1_0_2 from SUMORTree with boundary -5.63,-16.80,44.37,23.20
-GLDebug: Inserted busStop:busStop_gneE1_0_2 into SUMORTree with boundary -5.63,-16.80,44.37,23.20
 Debug: Adding access 'busStop_gneE1_0_2access2' in GNEChange_Additional
-GLDebug: Inserted access:busStop_gneE1_0_2access2 into SUMORTree with boundary -5.63,-16.80,44.37,23.20
-GLDebug: Removed object access:busStop_gneE1_0_2access2 from SUMORTree with boundary -5.63,-16.80,44.37,23.20
-GLDebug: Inserted access:busStop_gneE1_0_2access2 into SUMORTree with boundary -20.00,-18.40,28.63,21.60
-GLDebug: Removed object busStop:busStop_gneE1_0_2 from SUMORTree with boundary -5.63,-16.80,44.37,23.20
-GLDebug: Inserted busStop:busStop_gneE1_0_2 into SUMORTree with boundary -5.63,-16.80,44.37,23.20
-GLDebug: Removed object access:busStop_gneE1_0_2access2 from SUMORTree with boundary -20.00,-18.40,28.63,21.60
-GLDebug: Inserted access:busStop_gneE1_0_2access2 into SUMORTree with boundary -20.00,-18.40,28.63,21.60
-GLDebug: Removed object busStop:busStop_gneE1_0_2 from SUMORTree with boundary -5.63,-16.80,44.37,23.20
-GLDebug: Inserted busStop:busStop_gneE1_0_2 into SUMORTree with boundary -5.63,-16.80,44.37,23.20
 Debug: Adding access 'busStop_gneE1_0_2access3' in GNEChange_Additional
-GLDebug: Inserted access:busStop_gneE1_0_2access3 into SUMORTree with boundary -5.63,-16.80,44.37,23.20
-GLDebug: Removed object access:busStop_gneE1_0_2access3 from SUMORTree with boundary -5.63,-16.80,44.37,23.20
-GLDebug: Inserted access:busStop_gneE1_0_2access3 into SUMORTree with boundary -8.94,-21.60,70.00,18.40
-GLDebug: Removed object access:busStop_gneE1_0_2access3 from SUMORTree with boundary -8.94,-21.60,70.00,18.40
-GLDebug: Inserted access:busStop_gneE1_0_2access3 into SUMORTree with boundary -8.94,-21.60,70.00,18.40
-GLDebug: Removed object busStop:busStop_gneE1_0_2 from SUMORTree with boundary -5.63,-16.80,44.37,23.20
-GLDebug: Inserted busStop:busStop_gneE1_0_2 into SUMORTree with boundary -5.63,-16.80,44.37,23.20
 Debug: Adding busStop 'busStop_gneE2_0_5' in GNEChange_Additional
-GLDebug: Inserted busStop:busStop_gneE2_0_5 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
-GLDebug: Removed object busStop:busStop_gneE2_0_5 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
-GLDebug: Inserted busStop:busStop_gneE2_0_5 into SUMORTree with boundary 1.89,16.00,51.89,56.00
-GLDebug: Removed object access:busStop_gneE1_0_2access0 from SUMORTree with boundary -20.00,14.40,37.57,54.40
-GLDebug: Inserted access:busStop_gneE1_0_2access0 into SUMORTree with boundary -20.00,14.40,37.57,54.40
-GLDebug: Removed object busStop:busStop_gneE2_0_5 from SUMORTree with boundary 1.89,16.00,51.89,56.00
-GLDebug: Inserted busStop:busStop_gneE2_0_5 into SUMORTree with boundary 1.89,16.00,51.89,56.00
 Debug: Adding access 'busStop_gneE2_0_5access0' in GNEChange_Additional
-GLDebug: Inserted access:busStop_gneE2_0_5access0 into SUMORTree with boundary 1.89,16.00,51.89,56.00
-GLDebug: Removed object access:busStop_gneE2_0_5access0 from SUMORTree with boundary 1.89,16.00,51.89,56.00
-GLDebug: Inserted access:busStop_gneE2_0_5access0 into SUMORTree with boundary -20.00,8.00,54.48,48.00
-GLDebug: Removed object access:busStop_gneE2_0_5access0 from SUMORTree with boundary -20.00,8.00,54.48,48.00
-GLDebug: Inserted access:busStop_gneE2_0_5access0 into SUMORTree with boundary -20.00,8.00,54.48,48.00
-GLDebug: Removed object busStop:busStop_gneE2_0_5 from SUMORTree with boundary 1.89,16.00,51.89,56.00
-GLDebug: Inserted busStop:busStop_gneE2_0_5 into SUMORTree with boundary 1.89,16.00,51.89,56.00
 Debug: Adding access 'busStop_gneE2_0_5access1' in GNEChange_Additional
-GLDebug: Inserted access:busStop_gneE2_0_5access1 into SUMORTree with boundary 1.89,16.00,51.89,56.00
-GLDebug: Removed object access:busStop_gneE2_0_5access1 from SUMORTree with boundary 1.89,16.00,51.89,56.00
-GLDebug: Inserted access:busStop_gneE2_0_5access1 into SUMORTree with boundary 15.45,-1.60,70.00,38.40
-GLDebug: Removed object access:busStop_gneE1_0_2access1 from SUMORTree with boundary -9.33,-1.60,70.00,38.40
-GLDebug: Inserted access:busStop_gneE1_0_2access1 into SUMORTree with boundary -9.33,-1.60,70.00,38.40
-GLDebug: Removed object access:busStop_gneE2_0_5access1 from SUMORTree with boundary 15.45,-1.60,70.00,38.40
-GLDebug: Inserted access:busStop_gneE2_0_5access1 into SUMORTree with boundary 15.45,-1.60,70.00,38.40
-GLDebug: Removed object busStop:busStop_gneE2_0_5 from SUMORTree with boundary 1.89,16.00,51.89,56.00
-GLDebug: Inserted busStop:busStop_gneE2_0_5 into SUMORTree with boundary 1.89,16.00,51.89,56.00
 Debug: Adding access 'busStop_gneE2_0_5access2' in GNEChange_Additional
-GLDebug: Inserted access:busStop_gneE2_0_5access2 into SUMORTree with boundary 1.89,16.00,51.89,56.00
-GLDebug: Removed object access:busStop_gneE2_0_5access2 from SUMORTree with boundary 1.89,16.00,51.89,56.00
-GLDebug: Inserted access:busStop_gneE2_0_5access2 into SUMORTree with boundary -20.00,-18.40,51.85,21.60
-GLDebug: Removed object busStop:busStop_gneE1_0_2 from SUMORTree with boundary -5.63,-16.80,44.37,23.20
-GLDebug: Inserted busStop:busStop_gneE1_0_2 into SUMORTree with boundary -5.63,-16.80,44.37,23.20
-GLDebug: Removed object access:busStop_gneE1_0_2access2 from SUMORTree with boundary -20.00,-18.40,28.63,21.60
-GLDebug: Inserted access:busStop_gneE1_0_2access2 into SUMORTree with boundary -20.00,-18.40,28.63,21.60
-GLDebug: Removed object access:busStop_gneE2_0_5access2 from SUMORTree with boundary -20.00,-18.40,51.85,21.60
-GLDebug: Inserted access:busStop_gneE2_0_5access2 into SUMORTree with boundary -20.00,-18.40,51.85,21.60
-GLDebug: Removed object busStop:busStop_gneE2_0_5 from SUMORTree with boundary 1.89,16.00,51.89,56.00
-GLDebug: Inserted busStop:busStop_gneE2_0_5 into SUMORTree with boundary 1.89,16.00,51.89,56.00
 Debug: Adding access 'busStop_gneE2_0_5access3' in GNEChange_Additional
-GLDebug: Inserted access:busStop_gneE2_0_5access3 into SUMORTree with boundary 1.89,16.00,51.89,56.00
-GLDebug: Removed object access:busStop_gneE2_0_5access3 from SUMORTree with boundary 1.89,16.00,51.89,56.00
-GLDebug: Inserted access:busStop_gneE2_0_5access3 into SUMORTree with boundary 6.61,-21.60,70.00,18.40
-GLDebug: Removed object access:busStop_gneE1_0_2access3 from SUMORTree with boundary -8.94,-21.60,70.00,18.40
-GLDebug: Inserted access:busStop_gneE1_0_2access3 into SUMORTree with boundary -8.94,-21.60,70.00,18.40
-GLDebug: Removed object access:busStop_gneE2_0_5access3 from SUMORTree with boundary 6.61,-21.60,70.00,18.40
-GLDebug: Inserted access:busStop_gneE2_0_5access3 into SUMORTree with boundary 6.61,-21.60,70.00,18.40
-GLDebug: Removed object busStop:busStop_gneE2_0_5 from SUMORTree with boundary 1.89,16.00,51.89,56.00
-GLDebug: Inserted busStop:busStop_gneE2_0_5 into SUMORTree with boundary 1.89,16.00,51.89,56.00
 Debug: Adding busStop 'busStop_gneE4_0_0' in GNEChange_Additional
-GLDebug: Inserted busStop:busStop_gneE4_0_0 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
-GLDebug: Removed object busStop:busStop_gneE4_0_0 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
-GLDebug: Inserted busStop:busStop_gneE4_0_0 into SUMORTree with boundary 1.38,-3.20,51.38,36.80
-GLDebug: Removed object access:busStop_gneE1_0_2access1 from SUMORTree with boundary -9.33,-1.60,70.00,38.40
-GLDebug: Inserted access:busStop_gneE1_0_2access1 into SUMORTree with boundary -9.33,-1.60,70.00,38.40
-GLDebug: Removed object access:busStop_gneE2_0_5access1 from SUMORTree with boundary 15.45,-1.60,70.00,38.40
-GLDebug: Inserted access:busStop_gneE2_0_5access1 into SUMORTree with boundary 15.45,-1.60,70.00,38.40
-GLDebug: Removed object busStop:busStop_gneE4_0_0 from SUMORTree with boundary 1.38,-3.20,51.38,36.80
-GLDebug: Inserted busStop:busStop_gneE4_0_0 into SUMORTree with boundary 1.38,-3.20,51.38,36.80
 Debug: Adding access 'busStop_gneE4_0_0access0' in GNEChange_Additional
-GLDebug: Inserted access:busStop_gneE4_0_0access0 into SUMORTree with boundary 1.38,-3.20,51.38,36.80
-GLDebug: Removed object access:busStop_gneE4_0_0access0 from SUMORTree with boundary 1.38,-3.20,51.38,36.80
-GLDebug: Inserted access:busStop_gneE4_0_0access0 into SUMORTree with boundary -20.00,8.00,29.12,48.00
-GLDebug: Removed object access:busStop_gneE2_0_5access0 from SUMORTree with boundary -20.00,8.00,54.48,48.00
-GLDebug: Inserted access:busStop_gneE2_0_5access0 into SUMORTree with boundary -20.00,8.00,54.48,48.00
-GLDebug: Removed object access:busStop_gneE4_0_0access0 from SUMORTree with boundary -20.00,8.00,29.12,48.00
-GLDebug: Inserted access:busStop_gneE4_0_0access0 into SUMORTree with boundary -20.00,8.00,29.12,48.00
-GLDebug: Removed object busStop:busStop_gneE4_0_0 from SUMORTree with boundary 1.38,-3.20,51.38,36.80
-GLDebug: Inserted busStop:busStop_gneE4_0_0 into SUMORTree with boundary 1.38,-3.20,51.38,36.80
 Debug: Adding access 'busStop_gneE4_0_0access1' in GNEChange_Additional
-GLDebug: Inserted access:busStop_gneE4_0_0access1 into SUMORTree with boundary 1.38,-3.20,51.38,36.80
-GLDebug: Removed object access:busStop_gneE4_0_0access1 from SUMORTree with boundary 1.38,-3.20,51.38,36.80
-GLDebug: Inserted access:busStop_gneE4_0_0access1 into SUMORTree with boundary -5.25,-1.60,70.00,38.40
-GLDebug: Removed object access:busStop_gneE1_0_2access1 from SUMORTree with boundary -9.33,-1.60,70.00,38.40
-GLDebug: Inserted access:busStop_gneE1_0_2access1 into SUMORTree with boundary -9.33,-1.60,70.00,38.40
-GLDebug: Removed object access:busStop_gneE2_0_5access1 from SUMORTree with boundary 15.45,-1.60,70.00,38.40
-GLDebug: Inserted access:busStop_gneE2_0_5access1 into SUMORTree with boundary 15.45,-1.60,70.00,38.40
-GLDebug: Removed object busStop:busStop_gneE4_0_0 from SUMORTree with boundary 1.38,-3.20,51.38,36.80
-GLDebug: Inserted busStop:busStop_gneE4_0_0 into SUMORTree with boundary 1.38,-3.20,51.38,36.80
-GLDebug: Removed object access:busStop_gneE4_0_0access1 from SUMORTree with boundary -5.25,-1.60,70.00,38.40
-GLDebug: Inserted access:busStop_gneE4_0_0access1 into SUMORTree with boundary -5.25,-1.60,70.00,38.40
-GLDebug: Removed object busStop:busStop_gneE4_0_0 from SUMORTree with boundary 1.38,-3.20,51.38,36.80
-GLDebug: Inserted busStop:busStop_gneE4_0_0 into SUMORTree with boundary 1.38,-3.20,51.38,36.80
 Debug: Adding access 'busStop_gneE4_0_0access2' in GNEChange_Additional
-GLDebug: Inserted access:busStop_gneE4_0_0access2 into SUMORTree with boundary 1.38,-3.20,51.38,36.80
-GLDebug: Removed object access:busStop_gneE4_0_0access2 from SUMORTree with boundary 1.38,-3.20,51.38,36.80
-GLDebug: Inserted access:busStop_gneE4_0_0access2 into SUMORTree with boundary -20.00,-18.40,57.00,21.60
-GLDebug: Removed object busStop:busStop_gneE1_0_2 from SUMORTree with boundary -5.63,-16.80,44.37,23.20
-GLDebug: Inserted busStop:busStop_gneE1_0_2 into SUMORTree with boundary -5.63,-16.80,44.37,23.20
-GLDebug: Removed object access:busStop_gneE1_0_2access2 from SUMORTree with boundary -20.00,-18.40,28.63,21.60
-GLDebug: Inserted access:busStop_gneE1_0_2access2 into SUMORTree with boundary -20.00,-18.40,28.63,21.60
-GLDebug: Removed object access:busStop_gneE2_0_5access2 from SUMORTree with boundary -20.00,-18.40,51.85,21.60
-GLDebug: Inserted access:busStop_gneE2_0_5access2 into SUMORTree with boundary -20.00,-18.40,51.85,21.60
-GLDebug: Removed object access:busStop_gneE4_0_0access2 from SUMORTree with boundary -20.00,-18.40,57.00,21.60
-GLDebug: Inserted access:busStop_gneE4_0_0access2 into SUMORTree with boundary -20.00,-18.40,57.00,21.60
-GLDebug: Removed object busStop:busStop_gneE4_0_0 from SUMORTree with boundary 1.38,-3.20,51.38,36.80
-GLDebug: Inserted busStop:busStop_gneE4_0_0 into SUMORTree with boundary 1.38,-3.20,51.38,36.80
 Debug: Adding access 'busStop_gneE4_0_0access3' in GNEChange_Additional
-GLDebug: Inserted access:busStop_gneE4_0_0access3 into SUMORTree with boundary 1.38,-3.20,51.38,36.80
-GLDebug: Removed object access:busStop_gneE4_0_0access3 from SUMORTree with boundary 1.38,-3.20,51.38,36.80
-GLDebug: Inserted access:busStop_gneE4_0_0access3 into SUMORTree with boundary -1.17,-21.60,70.00,18.40
-GLDebug: Removed object access:busStop_gneE1_0_2access3 from SUMORTree with boundary -8.94,-21.60,70.00,18.40
-GLDebug: Inserted access:busStop_gneE1_0_2access3 into SUMORTree with boundary -8.94,-21.60,70.00,18.40
-GLDebug: Removed object access:busStop_gneE2_0_5access3 from SUMORTree with boundary 6.61,-21.60,70.00,18.40
-GLDebug: Inserted access:busStop_gneE2_0_5access3 into SUMORTree with boundary 6.61,-21.60,70.00,18.40
-GLDebug: Removed object access:busStop_gneE4_0_0access3 from SUMORTree with boundary -1.17,-21.60,70.00,18.40
-GLDebug: Inserted access:busStop_gneE4_0_0access3 into SUMORTree with boundary -1.17,-21.60,70.00,18.40
-GLDebug: Removed object busStop:busStop_gneE4_0_0 from SUMORTree with boundary 1.38,-3.20,51.38,36.80
-GLDebug: Inserted busStop:busStop_gneE4_0_0 into SUMORTree with boundary 1.38,-3.20,51.38,36.80
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
 Debug: Keys Shift + F5 (Compute with volatile options) pressed
@@ -181,37 +48,22 @@ GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80
 GLDebug: Removed object edge:gneE2 from SUMORTree with boundary -30.00,-10.00,80.00,64.40
 GLDebug: Removed object edge:gneE4 from SUMORTree with boundary -30.00,-11.60,80.00,50.00
 Debug: Deleting unreferenced access 'busStop_gneE4_0_0access3'
-GLDebug: Removed object access:busStop_gneE4_0_0access3 from SUMORTree with boundary -1.17,-21.60,70.00,18.40
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Deleting unreferenced access 'busStop_gneE4_0_0access2'
-GLDebug: Removed object access:busStop_gneE4_0_0access2 from SUMORTree with boundary -20.00,-18.40,57.00,21.60
 Debug: Deleting unreferenced access 'busStop_gneE4_0_0access1'
-GLDebug: Removed object access:busStop_gneE4_0_0access1 from SUMORTree with boundary -5.25,-1.60,70.00,38.40
 Debug: Deleting unreferenced access 'busStop_gneE4_0_0access0'
-GLDebug: Removed object access:busStop_gneE4_0_0access0 from SUMORTree with boundary -20.00,8.00,29.12,48.00
 Debug: Deleting unreferenced busStop 'busStop_gneE4_0_0'
-GLDebug: Removed object busStop:busStop_gneE4_0_0 from SUMORTree with boundary 1.38,-3.20,51.38,36.80
 Debug: Deleting unreferenced access 'busStop_gneE2_0_5access3'
-GLDebug: Removed object access:busStop_gneE2_0_5access3 from SUMORTree with boundary 6.61,-21.60,70.00,18.40
 Debug: Deleting unreferenced access 'busStop_gneE2_0_5access2'
-GLDebug: Removed object access:busStop_gneE2_0_5access2 from SUMORTree with boundary -20.00,-18.40,51.85,21.60
 Debug: Deleting unreferenced access 'busStop_gneE2_0_5access1'
-GLDebug: Removed object access:busStop_gneE2_0_5access1 from SUMORTree with boundary 15.45,-1.60,70.00,38.40
 Debug: Deleting unreferenced access 'busStop_gneE2_0_5access0'
-GLDebug: Removed object access:busStop_gneE2_0_5access0 from SUMORTree with boundary -20.00,8.00,54.48,48.00
 Debug: Deleting unreferenced busStop 'busStop_gneE2_0_5'
-GLDebug: Removed object busStop:busStop_gneE2_0_5 from SUMORTree with boundary 1.89,16.00,51.89,56.00
 Debug: Deleting unreferenced access 'busStop_gneE1_0_2access3'
-GLDebug: Removed object access:busStop_gneE1_0_2access3 from SUMORTree with boundary -8.94,-21.60,70.00,18.40
 Debug: Deleting unreferenced access 'busStop_gneE1_0_2access2'
-GLDebug: Removed object access:busStop_gneE1_0_2access2 from SUMORTree with boundary -20.00,-18.40,28.63,21.60
 Debug: Deleting unreferenced access 'busStop_gneE1_0_2access1'
-GLDebug: Removed object access:busStop_gneE1_0_2access1 from SUMORTree with boundary -9.33,-1.60,70.00,38.40
 Debug: Deleting unreferenced access 'busStop_gneE1_0_2access0'
-GLDebug: Removed object access:busStop_gneE1_0_2access0 from SUMORTree with boundary -20.00,14.40,37.57,54.40
 Debug: Deleting unreferenced busStop 'busStop_gneE1_0_2'
-GLDebug: Removed object busStop:busStop_gneE1_0_2 from SUMORTree with boundary -5.63,-16.80,44.37,23.20
 GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
 GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
 GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-25.20,22.00,25.20
@@ -229,153 +81,20 @@ GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,34
 GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -30.00,-10.00,80.00,67.00
 GLDebug: Inserted edge:gneE4 into SUMORTree with boundary -30.00,-11.60,80.00,50.00
 Debug: Adding busStop 'busStop_gneE1_0_2' in GNEChange_Additional
-GLDebug: Inserted busStop:busStop_gneE1_0_2 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
-GLDebug: Removed object busStop:busStop_gneE1_0_2 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
-GLDebug: Inserted busStop:busStop_gneE1_0_2 into SUMORTree with boundary -5.63,-16.80,44.37,23.20
-GLDebug: Removed object busStop:busStop_gneE1_0_2 from SUMORTree with boundary -5.63,-16.80,44.37,23.20
-GLDebug: Inserted busStop:busStop_gneE1_0_2 into SUMORTree with boundary -5.63,-16.80,44.37,23.20
 Debug: Adding access 'busStop_gneE1_0_2access0' in GNEChange_Additional
-GLDebug: Inserted access:busStop_gneE1_0_2access0 into SUMORTree with boundary -5.63,-16.80,44.37,23.20
-GLDebug: Removed object access:busStop_gneE1_0_2access0 from SUMORTree with boundary -5.63,-16.80,44.37,23.20
-GLDebug: Inserted access:busStop_gneE1_0_2access0 into SUMORTree with boundary -20.00,14.40,37.57,54.40
-GLDebug: Removed object access:busStop_gneE1_0_2access0 from SUMORTree with boundary -20.00,14.40,37.57,54.40
-GLDebug: Inserted access:busStop_gneE1_0_2access0 into SUMORTree with boundary -20.00,14.40,37.57,54.40
-GLDebug: Removed object busStop:busStop_gneE1_0_2 from SUMORTree with boundary -5.63,-16.80,44.37,23.20
-GLDebug: Inserted busStop:busStop_gneE1_0_2 into SUMORTree with boundary -5.63,-16.80,44.37,23.20
 Debug: Adding access 'busStop_gneE1_0_2access1' in GNEChange_Additional
-GLDebug: Inserted access:busStop_gneE1_0_2access1 into SUMORTree with boundary -5.63,-16.80,44.37,23.20
-GLDebug: Removed object access:busStop_gneE1_0_2access1 from SUMORTree with boundary -5.63,-16.80,44.37,23.20
-GLDebug: Inserted access:busStop_gneE1_0_2access1 into SUMORTree with boundary -9.33,-1.60,70.00,38.40
-GLDebug: Removed object access:busStop_gneE1_0_2access1 from SUMORTree with boundary -9.33,-1.60,70.00,38.40
-GLDebug: Inserted access:busStop_gneE1_0_2access1 into SUMORTree with boundary -9.33,-1.60,70.00,38.40
-GLDebug: Removed object busStop:busStop_gneE1_0_2 from SUMORTree with boundary -5.63,-16.80,44.37,23.20
-GLDebug: Inserted busStop:busStop_gneE1_0_2 into SUMORTree with boundary -5.63,-16.80,44.37,23.20
 Debug: Adding access 'busStop_gneE1_0_2access2' in GNEChange_Additional
-GLDebug: Inserted access:busStop_gneE1_0_2access2 into SUMORTree with boundary -5.63,-16.80,44.37,23.20
-GLDebug: Removed object access:busStop_gneE1_0_2access2 from SUMORTree with boundary -5.63,-16.80,44.37,23.20
-GLDebug: Inserted access:busStop_gneE1_0_2access2 into SUMORTree with boundary -20.00,-18.40,28.63,21.60
-GLDebug: Removed object busStop:busStop_gneE1_0_2 from SUMORTree with boundary -5.63,-16.80,44.37,23.20
-GLDebug: Inserted busStop:busStop_gneE1_0_2 into SUMORTree with boundary -5.63,-16.80,44.37,23.20
-GLDebug: Removed object access:busStop_gneE1_0_2access2 from SUMORTree with boundary -20.00,-18.40,28.63,21.60
-GLDebug: Inserted access:busStop_gneE1_0_2access2 into SUMORTree with boundary -20.00,-18.40,28.63,21.60
-GLDebug: Removed object busStop:busStop_gneE1_0_2 from SUMORTree with boundary -5.63,-16.80,44.37,23.20
-GLDebug: Inserted busStop:busStop_gneE1_0_2 into SUMORTree with boundary -5.63,-16.80,44.37,23.20
 Debug: Adding access 'busStop_gneE1_0_2access3' in GNEChange_Additional
-GLDebug: Inserted access:busStop_gneE1_0_2access3 into SUMORTree with boundary -5.63,-16.80,44.37,23.20
-GLDebug: Removed object access:busStop_gneE1_0_2access3 from SUMORTree with boundary -5.63,-16.80,44.37,23.20
-GLDebug: Inserted access:busStop_gneE1_0_2access3 into SUMORTree with boundary -8.94,-21.60,70.00,18.40
-GLDebug: Removed object access:busStop_gneE1_0_2access3 from SUMORTree with boundary -8.94,-21.60,70.00,18.40
-GLDebug: Inserted access:busStop_gneE1_0_2access3 into SUMORTree with boundary -8.94,-21.60,70.00,18.40
-GLDebug: Removed object busStop:busStop_gneE1_0_2 from SUMORTree with boundary -5.63,-16.80,44.37,23.20
-GLDebug: Inserted busStop:busStop_gneE1_0_2 into SUMORTree with boundary -5.63,-16.80,44.37,23.20
 Debug: Adding busStop 'busStop_gneE2_0_5' in GNEChange_Additional
-GLDebug: Inserted busStop:busStop_gneE2_0_5 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
-GLDebug: Removed object busStop:busStop_gneE2_0_5 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
-GLDebug: Inserted busStop:busStop_gneE2_0_5 into SUMORTree with boundary 1.89,16.00,51.89,56.00
-GLDebug: Removed object access:busStop_gneE1_0_2access0 from SUMORTree with boundary -20.00,14.40,37.57,54.40
-GLDebug: Inserted access:busStop_gneE1_0_2access0 into SUMORTree with boundary -20.00,14.40,37.57,54.40
-GLDebug: Removed object busStop:busStop_gneE2_0_5 from SUMORTree with boundary 1.89,16.00,51.89,56.00
-GLDebug: Inserted busStop:busStop_gneE2_0_5 into SUMORTree with boundary 1.89,16.00,51.89,56.00
 Debug: Adding access 'busStop_gneE2_0_5access0' in GNEChange_Additional
-GLDebug: Inserted access:busStop_gneE2_0_5access0 into SUMORTree with boundary 1.89,16.00,51.89,56.00
-GLDebug: Removed object access:busStop_gneE2_0_5access0 from SUMORTree with boundary 1.89,16.00,51.89,56.00
-GLDebug: Inserted access:busStop_gneE2_0_5access0 into SUMORTree with boundary -20.00,8.00,54.48,48.00
-GLDebug: Removed object access:busStop_gneE2_0_5access0 from SUMORTree with boundary -20.00,8.00,54.48,48.00
-GLDebug: Inserted access:busStop_gneE2_0_5access0 into SUMORTree with boundary -20.00,8.00,54.48,48.00
-GLDebug: Removed object busStop:busStop_gneE2_0_5 from SUMORTree with boundary 1.89,16.00,51.89,56.00
-GLDebug: Inserted busStop:busStop_gneE2_0_5 into SUMORTree with boundary 1.89,16.00,51.89,56.00
 Debug: Adding access 'busStop_gneE2_0_5access1' in GNEChange_Additional
-GLDebug: Inserted access:busStop_gneE2_0_5access1 into SUMORTree with boundary 1.89,16.00,51.89,56.00
-GLDebug: Removed object access:busStop_gneE2_0_5access1 from SUMORTree with boundary 1.89,16.00,51.89,56.00
-GLDebug: Inserted access:busStop_gneE2_0_5access1 into SUMORTree with boundary 15.45,-1.60,70.00,38.40
-GLDebug: Removed object access:busStop_gneE1_0_2access1 from SUMORTree with boundary -9.33,-1.60,70.00,38.40
-GLDebug: Inserted access:busStop_gneE1_0_2access1 into SUMORTree with boundary -9.33,-1.60,70.00,38.40
-GLDebug: Removed object access:busStop_gneE2_0_5access1 from SUMORTree with boundary 15.45,-1.60,70.00,38.40
-GLDebug: Inserted access:busStop_gneE2_0_5access1 into SUMORTree with boundary 15.45,-1.60,70.00,38.40
-GLDebug: Removed object busStop:busStop_gneE2_0_5 from SUMORTree with boundary 1.89,16.00,51.89,56.00
-GLDebug: Inserted busStop:busStop_gneE2_0_5 into SUMORTree with boundary 1.89,16.00,51.89,56.00
 Debug: Adding access 'busStop_gneE2_0_5access2' in GNEChange_Additional
-GLDebug: Inserted access:busStop_gneE2_0_5access2 into SUMORTree with boundary 1.89,16.00,51.89,56.00
-GLDebug: Removed object access:busStop_gneE2_0_5access2 from SUMORTree with boundary 1.89,16.00,51.89,56.00
-GLDebug: Inserted access:busStop_gneE2_0_5access2 into SUMORTree with boundary -20.00,-18.40,51.85,21.60
-GLDebug: Removed object busStop:busStop_gneE1_0_2 from SUMORTree with boundary -5.63,-16.80,44.37,23.20
-GLDebug: Inserted busStop:busStop_gneE1_0_2 into SUMORTree with boundary -5.63,-16.80,44.37,23.20
-GLDebug: Removed object access:busStop_gneE1_0_2access2 from SUMORTree with boundary -20.00,-18.40,28.63,21.60
-GLDebug: Inserted access:busStop_gneE1_0_2access2 into SUMORTree with boundary -20.00,-18.40,28.63,21.60
-GLDebug: Removed object access:busStop_gneE2_0_5access2 from SUMORTree with boundary -20.00,-18.40,51.85,21.60
-GLDebug: Inserted access:busStop_gneE2_0_5access2 into SUMORTree with boundary -20.00,-18.40,51.85,21.60
-GLDebug: Removed object busStop:busStop_gneE2_0_5 from SUMORTree with boundary 1.89,16.00,51.89,56.00
-GLDebug: Inserted busStop:busStop_gneE2_0_5 into SUMORTree with boundary 1.89,16.00,51.89,56.00
 Debug: Adding access 'busStop_gneE2_0_5access3' in GNEChange_Additional
-GLDebug: Inserted access:busStop_gneE2_0_5access3 into SUMORTree with boundary 1.89,16.00,51.89,56.00
-GLDebug: Removed object access:busStop_gneE2_0_5access3 from SUMORTree with boundary 1.89,16.00,51.89,56.00
-GLDebug: Inserted access:busStop_gneE2_0_5access3 into SUMORTree with boundary 6.61,-21.60,70.00,18.40
-GLDebug: Removed object access:busStop_gneE1_0_2access3 from SUMORTree with boundary -8.94,-21.60,70.00,18.40
-GLDebug: Inserted access:busStop_gneE1_0_2access3 into SUMORTree with boundary -8.94,-21.60,70.00,18.40
-GLDebug: Removed object access:busStop_gneE2_0_5access3 from SUMORTree with boundary 6.61,-21.60,70.00,18.40
-GLDebug: Inserted access:busStop_gneE2_0_5access3 into SUMORTree with boundary 6.61,-21.60,70.00,18.40
-GLDebug: Removed object busStop:busStop_gneE2_0_5 from SUMORTree with boundary 1.89,16.00,51.89,56.00
-GLDebug: Inserted busStop:busStop_gneE2_0_5 into SUMORTree with boundary 1.89,16.00,51.89,56.00
 Debug: Adding busStop 'busStop_gneE4_0_0' in GNEChange_Additional
-GLDebug: Inserted busStop:busStop_gneE4_0_0 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
-GLDebug: Removed object busStop:busStop_gneE4_0_0 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
-GLDebug: Inserted busStop:busStop_gneE4_0_0 into SUMORTree with boundary 1.38,-3.20,51.38,36.80
-GLDebug: Removed object access:busStop_gneE1_0_2access1 from SUMORTree with boundary -9.33,-1.60,70.00,38.40
-GLDebug: Inserted access:busStop_gneE1_0_2access1 into SUMORTree with boundary -9.33,-1.60,70.00,38.40
-GLDebug: Removed object access:busStop_gneE2_0_5access1 from SUMORTree with boundary 15.45,-1.60,70.00,38.40
-GLDebug: Inserted access:busStop_gneE2_0_5access1 into SUMORTree with boundary 15.45,-1.60,70.00,38.40
-GLDebug: Removed object busStop:busStop_gneE4_0_0 from SUMORTree with boundary 1.38,-3.20,51.38,36.80
-GLDebug: Inserted busStop:busStop_gneE4_0_0 into SUMORTree with boundary 1.38,-3.20,51.38,36.80
 Debug: Adding access 'busStop_gneE4_0_0access0' in GNEChange_Additional
-GLDebug: Inserted access:busStop_gneE4_0_0access0 into SUMORTree with boundary 1.38,-3.20,51.38,36.80
-GLDebug: Removed object access:busStop_gneE4_0_0access0 from SUMORTree with boundary 1.38,-3.20,51.38,36.80
-GLDebug: Inserted access:busStop_gneE4_0_0access0 into SUMORTree with boundary -20.00,8.00,29.12,48.00
-GLDebug: Removed object access:busStop_gneE2_0_5access0 from SUMORTree with boundary -20.00,8.00,54.48,48.00
-GLDebug: Inserted access:busStop_gneE2_0_5access0 into SUMORTree with boundary -20.00,8.00,54.48,48.00
-GLDebug: Removed object access:busStop_gneE4_0_0access0 from SUMORTree with boundary -20.00,8.00,29.12,48.00
-GLDebug: Inserted access:busStop_gneE4_0_0access0 into SUMORTree with boundary -20.00,8.00,29.12,48.00
-GLDebug: Removed object busStop:busStop_gneE4_0_0 from SUMORTree with boundary 1.38,-3.20,51.38,36.80
-GLDebug: Inserted busStop:busStop_gneE4_0_0 into SUMORTree with boundary 1.38,-3.20,51.38,36.80
 Debug: Adding access 'busStop_gneE4_0_0access1' in GNEChange_Additional
-GLDebug: Inserted access:busStop_gneE4_0_0access1 into SUMORTree with boundary 1.38,-3.20,51.38,36.80
-GLDebug: Removed object access:busStop_gneE4_0_0access1 from SUMORTree with boundary 1.38,-3.20,51.38,36.80
-GLDebug: Inserted access:busStop_gneE4_0_0access1 into SUMORTree with boundary -5.25,-1.60,70.00,38.40
-GLDebug: Removed object access:busStop_gneE1_0_2access1 from SUMORTree with boundary -9.33,-1.60,70.00,38.40
-GLDebug: Inserted access:busStop_gneE1_0_2access1 into SUMORTree with boundary -9.33,-1.60,70.00,38.40
-GLDebug: Removed object access:busStop_gneE2_0_5access1 from SUMORTree with boundary 15.45,-1.60,70.00,38.40
-GLDebug: Inserted access:busStop_gneE2_0_5access1 into SUMORTree with boundary 15.45,-1.60,70.00,38.40
-GLDebug: Removed object busStop:busStop_gneE4_0_0 from SUMORTree with boundary 1.38,-3.20,51.38,36.80
-GLDebug: Inserted busStop:busStop_gneE4_0_0 into SUMORTree with boundary 1.38,-3.20,51.38,36.80
-GLDebug: Removed object access:busStop_gneE4_0_0access1 from SUMORTree with boundary -5.25,-1.60,70.00,38.40
-GLDebug: Inserted access:busStop_gneE4_0_0access1 into SUMORTree with boundary -5.25,-1.60,70.00,38.40
-GLDebug: Removed object busStop:busStop_gneE4_0_0 from SUMORTree with boundary 1.38,-3.20,51.38,36.80
-GLDebug: Inserted busStop:busStop_gneE4_0_0 into SUMORTree with boundary 1.38,-3.20,51.38,36.80
 Debug: Adding access 'busStop_gneE4_0_0access2' in GNEChange_Additional
-GLDebug: Inserted access:busStop_gneE4_0_0access2 into SUMORTree with boundary 1.38,-3.20,51.38,36.80
-GLDebug: Removed object access:busStop_gneE4_0_0access2 from SUMORTree with boundary 1.38,-3.20,51.38,36.80
-GLDebug: Inserted access:busStop_gneE4_0_0access2 into SUMORTree with boundary -20.00,-18.40,57.00,21.60
-GLDebug: Removed object busStop:busStop_gneE1_0_2 from SUMORTree with boundary -5.63,-16.80,44.37,23.20
-GLDebug: Inserted busStop:busStop_gneE1_0_2 into SUMORTree with boundary -5.63,-16.80,44.37,23.20
-GLDebug: Removed object access:busStop_gneE1_0_2access2 from SUMORTree with boundary -20.00,-18.40,28.63,21.60
-GLDebug: Inserted access:busStop_gneE1_0_2access2 into SUMORTree with boundary -20.00,-18.40,28.63,21.60
-GLDebug: Removed object access:busStop_gneE2_0_5access2 from SUMORTree with boundary -20.00,-18.40,51.85,21.60
-GLDebug: Inserted access:busStop_gneE2_0_5access2 into SUMORTree with boundary -20.00,-18.40,51.85,21.60
-GLDebug: Removed object access:busStop_gneE4_0_0access2 from SUMORTree with boundary -20.00,-18.40,57.00,21.60
-GLDebug: Inserted access:busStop_gneE4_0_0access2 into SUMORTree with boundary -20.00,-18.40,57.00,21.60
-GLDebug: Removed object busStop:busStop_gneE4_0_0 from SUMORTree with boundary 1.38,-3.20,51.38,36.80
-GLDebug: Inserted busStop:busStop_gneE4_0_0 into SUMORTree with boundary 1.38,-3.20,51.38,36.80
 Debug: Adding access 'busStop_gneE4_0_0access3' in GNEChange_Additional
-GLDebug: Inserted access:busStop_gneE4_0_0access3 into SUMORTree with boundary 1.38,-3.20,51.38,36.80
-GLDebug: Removed object access:busStop_gneE4_0_0access3 from SUMORTree with boundary 1.38,-3.20,51.38,36.80
-GLDebug: Inserted access:busStop_gneE4_0_0access3 into SUMORTree with boundary -1.17,-21.60,70.00,18.40
-GLDebug: Removed object access:busStop_gneE1_0_2access3 from SUMORTree with boundary -8.94,-21.60,70.00,18.40
-GLDebug: Inserted access:busStop_gneE1_0_2access3 into SUMORTree with boundary -8.94,-21.60,70.00,18.40
-GLDebug: Removed object access:busStop_gneE2_0_5access3 from SUMORTree with boundary 6.61,-21.60,70.00,18.40
-GLDebug: Inserted access:busStop_gneE2_0_5access3 into SUMORTree with boundary 6.61,-21.60,70.00,18.40
-GLDebug: Removed object access:busStop_gneE4_0_0access3 from SUMORTree with boundary -1.17,-21.60,70.00,18.40
-GLDebug: Inserted access:busStop_gneE4_0_0access3 into SUMORTree with boundary -1.17,-21.60,70.00,18.40
-GLDebug: Removed object busStop:busStop_gneE4_0_0 from SUMORTree with boundary 1.38,-3.20,51.38,36.80
-GLDebug: Inserted busStop:busStop_gneE4_0_0 into SUMORTree with boundary 1.38,-3.20,51.38,36.80
 Debug: Additionals saved
 GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-25.20,22.00,25.20
 GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-25.20,72.00,25.20
@@ -386,13 +105,9 @@ GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80
 GLDebug: Removed object edge:gneE2 from SUMORTree with boundary -30.00,-10.00,80.00,67.00
 GLDebug: Removed object edge:gneE4 from SUMORTree with boundary -30.00,-11.60,80.00,50.00
 Debug: Created connection 'fromgneE0_1togneE1_1' in retrieveGNEConnection()
-GLDebug: Inserted connection:fromgneE0_1togneE1_1 into SUMORTree with boundary 29.90,-20.10,70.10,70.10
 Debug: Created connection 'fromgneE1_1togneE0_1' in retrieveGNEConnection()
-GLDebug: Inserted connection:fromgneE1_1togneE0_1 into SUMORTree with boundary -20.10,-20.10,20.10,20.10
 Debug: Created connection 'fromgneE2_5togneE4_0' in retrieveGNEConnection()
-GLDebug: Inserted connection:fromgneE2_5togneE4_0 into SUMORTree with boundary -20.10,-19.90,20.10,39.90
 Debug: Created connection 'fromgneE4_0togneE2_5' in retrieveGNEConnection()
-GLDebug: Inserted connection:fromgneE4_0togneE2_5 into SUMORTree with boundary 29.90,-0.10,70.10,70.10
 GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-25.20,22.00,25.20
 GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-25.20,22.00,25.20
 GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-25.20,22.00,25.20
@@ -407,86 +122,33 @@ GLDebug: Removed object junction:gneJ3 from SUMORTree with boundary -22.00,-3.20
 GLDebug: Inserted junction:gneJ3 into SUMORTree with boundary -22.00,-3.20,22.00,58.00
 GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-34.20,80.00,30.00
 GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-34.20,80.00,30.00
-GLDebug: Removed object access:busStop_gneE1_0_2access3 from SUMORTree with boundary -8.94,-21.60,70.00,18.40
-GLDebug: Inserted access:busStop_gneE1_0_2access3 into SUMORTree with boundary -8.94,-21.60,70.00,18.40
-GLDebug: Removed object access:busStop_gneE2_0_5access3 from SUMORTree with boundary 6.61,-21.60,70.00,18.40
-GLDebug: Inserted access:busStop_gneE2_0_5access3 into SUMORTree with boundary 6.61,-21.60,70.00,18.40
-GLDebug: Removed object access:busStop_gneE4_0_0access3 from SUMORTree with boundary -1.17,-21.60,70.00,18.40
-GLDebug: Inserted access:busStop_gneE4_0_0access3 into SUMORTree with boundary -1.17,-21.60,70.00,18.40
-GLDebug: Removed object connection:fromgneE1_1togneE0_1 from SUMORTree with boundary -20.10,-20.10,20.10,20.10
-GLDebug: Inserted connection:fromgneE1_1togneE0_1 into SUMORTree with boundary -19.00,-21.60,21.00,21.60
-GLDebug: Removed object connection:fromgneE0_1togneE1_1 from SUMORTree with boundary 29.90,-20.10,70.10,70.10
-GLDebug: Inserted connection:fromgneE0_1togneE1_1 into SUMORTree with boundary 29.00,-21.60,69.00,21.60
 GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-34.20,80.00,30.00
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,34.20
 GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,34.20
-GLDebug: Removed object busStop:busStop_gneE1_0_2 from SUMORTree with boundary -5.63,-16.80,44.37,23.20
-GLDebug: Inserted busStop:busStop_gneE1_0_2 into SUMORTree with boundary -5.63,-16.80,44.37,23.20
-GLDebug: Removed object access:busStop_gneE1_0_2access2 from SUMORTree with boundary -20.00,-18.40,28.63,21.60
-GLDebug: Inserted access:busStop_gneE1_0_2access2 into SUMORTree with boundary -20.00,-18.40,28.63,21.60
-GLDebug: Removed object access:busStop_gneE2_0_5access2 from SUMORTree with boundary -20.00,-18.40,51.85,21.60
-GLDebug: Inserted access:busStop_gneE2_0_5access2 into SUMORTree with boundary -20.00,-18.40,51.85,21.60
-GLDebug: Removed object access:busStop_gneE4_0_0access2 from SUMORTree with boundary -20.00,-18.40,57.00,21.60
-GLDebug: Inserted access:busStop_gneE4_0_0access2 into SUMORTree with boundary -20.00,-18.40,57.00,21.60
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,34.20
 GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -30.00,-10.00,80.00,67.00
 GLDebug: Removed object edge:gneE2 from SUMORTree with boundary -30.00,-10.00,80.00,67.00
-GLDebug: Removed object connection:fromgneE4_0togneE2_5 from SUMORTree with boundary 29.90,-0.10,70.10,70.10
-GLDebug: Inserted connection:fromgneE4_0togneE2_5 into SUMORTree with boundary 29.00,-1.60,69.00,41.60
-GLDebug: Removed object access:busStop_gneE1_0_2access0 from SUMORTree with boundary -20.00,14.40,37.57,54.40
-GLDebug: Inserted access:busStop_gneE1_0_2access0 into SUMORTree with boundary -20.00,14.40,37.57,54.40
-GLDebug: Removed object busStop:busStop_gneE2_0_5 from SUMORTree with boundary 1.89,16.00,51.89,56.00
-GLDebug: Inserted busStop:busStop_gneE2_0_5 into SUMORTree with boundary 1.89,16.00,51.89,56.00
-GLDebug: Removed object access:busStop_gneE2_0_5access0 from SUMORTree with boundary -20.00,8.00,54.48,48.00
-GLDebug: Inserted access:busStop_gneE2_0_5access0 into SUMORTree with boundary -20.00,8.00,54.48,48.00
-GLDebug: Removed object access:busStop_gneE4_0_0access0 from SUMORTree with boundary -20.00,8.00,29.12,48.00
-GLDebug: Inserted access:busStop_gneE4_0_0access0 into SUMORTree with boundary -20.00,8.00,29.12,48.00
-GLDebug: Removed object connection:fromgneE2_5togneE4_0 from SUMORTree with boundary -20.10,-19.90,20.10,39.90
-GLDebug: Inserted connection:fromgneE2_5togneE4_0 into SUMORTree with boundary -19.00,-1.60,21.00,41.60
 GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -30.00,-10.00,80.00,67.00
 GLDebug: Inserted edge:gneE4 into SUMORTree with boundary -30.00,-11.60,80.00,50.00
 GLDebug: Removed object edge:gneE4 from SUMORTree with boundary -30.00,-11.60,80.00,50.00
-GLDebug: Removed object access:busStop_gneE1_0_2access1 from SUMORTree with boundary -9.33,-1.60,70.00,38.40
-GLDebug: Inserted access:busStop_gneE1_0_2access1 into SUMORTree with boundary -9.33,-1.60,70.00,38.40
-GLDebug: Removed object access:busStop_gneE2_0_5access1 from SUMORTree with boundary 15.45,-1.60,70.00,38.40
-GLDebug: Inserted access:busStop_gneE2_0_5access1 into SUMORTree with boundary 15.45,-1.60,70.00,38.40
-GLDebug: Removed object busStop:busStop_gneE4_0_0 from SUMORTree with boundary 1.38,-3.20,51.38,36.80
-GLDebug: Inserted busStop:busStop_gneE4_0_0 into SUMORTree with boundary 1.38,-3.20,51.38,36.80
-GLDebug: Removed object access:busStop_gneE4_0_0access1 from SUMORTree with boundary -5.25,-1.60,70.00,38.40
-GLDebug: Inserted access:busStop_gneE4_0_0access1 into SUMORTree with boundary -5.25,-1.60,70.00,38.40
 GLDebug: Inserted edge:gneE4 into SUMORTree with boundary -30.00,-11.60,80.00,50.00
 Debug: Deleting unreferenced access 'busStop_gneE4_0_0access3'
-GLDebug: Removed object access:busStop_gneE4_0_0access3 from SUMORTree with boundary -1.17,-21.60,70.00,18.40
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Deleting unreferenced access 'busStop_gneE4_0_0access2'
-GLDebug: Removed object access:busStop_gneE4_0_0access2 from SUMORTree with boundary -20.00,-18.40,57.00,21.60
 Debug: Deleting unreferenced access 'busStop_gneE4_0_0access1'
-GLDebug: Removed object access:busStop_gneE4_0_0access1 from SUMORTree with boundary -5.25,-1.60,70.00,38.40
 Debug: Deleting unreferenced access 'busStop_gneE4_0_0access0'
-GLDebug: Removed object access:busStop_gneE4_0_0access0 from SUMORTree with boundary -20.00,8.00,29.12,48.00
 Debug: Deleting unreferenced busStop 'busStop_gneE4_0_0'
-GLDebug: Removed object busStop:busStop_gneE4_0_0 from SUMORTree with boundary 1.38,-3.20,51.38,36.80
 Debug: Deleting unreferenced access 'busStop_gneE2_0_5access3'
-GLDebug: Removed object access:busStop_gneE2_0_5access3 from SUMORTree with boundary 6.61,-21.60,70.00,18.40
 Debug: Deleting unreferenced access 'busStop_gneE2_0_5access2'
-GLDebug: Removed object access:busStop_gneE2_0_5access2 from SUMORTree with boundary -20.00,-18.40,51.85,21.60
 Debug: Deleting unreferenced access 'busStop_gneE2_0_5access1'
-GLDebug: Removed object access:busStop_gneE2_0_5access1 from SUMORTree with boundary 15.45,-1.60,70.00,38.40
 Debug: Deleting unreferenced access 'busStop_gneE2_0_5access0'
-GLDebug: Removed object access:busStop_gneE2_0_5access0 from SUMORTree with boundary -20.00,8.00,54.48,48.00
 Debug: Deleting unreferenced busStop 'busStop_gneE2_0_5'
-GLDebug: Removed object busStop:busStop_gneE2_0_5 from SUMORTree with boundary 1.89,16.00,51.89,56.00
 Debug: Deleting unreferenced access 'busStop_gneE1_0_2access3'
-GLDebug: Removed object access:busStop_gneE1_0_2access3 from SUMORTree with boundary -8.94,-21.60,70.00,18.40
 Debug: Deleting unreferenced access 'busStop_gneE1_0_2access2'
-GLDebug: Removed object access:busStop_gneE1_0_2access2 from SUMORTree with boundary -20.00,-18.40,28.63,21.60
 Debug: Deleting unreferenced access 'busStop_gneE1_0_2access1'
-GLDebug: Removed object access:busStop_gneE1_0_2access1 from SUMORTree with boundary -9.33,-1.60,70.00,38.40
 Debug: Deleting unreferenced access 'busStop_gneE1_0_2access0'
-GLDebug: Removed object access:busStop_gneE1_0_2access0 from SUMORTree with boundary -20.00,14.40,37.57,54.40
 Debug: Deleting unreferenced busStop 'busStop_gneE1_0_2'
-GLDebug: Removed object busStop:busStop_gneE1_0_2 from SUMORTree with boundary -5.63,-16.80,44.37,23.20
 Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE0_1' in GNEEdge destructor
@@ -514,4 +176,4 @@ Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_PEDTYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting net builder in GNENet destructor
-GLDebug: Number of objects in SUMORTree during call of the destructor: 12
+GLDebug: Number of objects in SUMORTree during call of the destructor: 8

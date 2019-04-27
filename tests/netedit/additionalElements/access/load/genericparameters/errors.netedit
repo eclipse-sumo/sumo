@@ -56,23 +56,9 @@ GLDebug: Inserted edge:8 into SUMORTree with boundary -30.00,-1.60,80.00,60.00
 GLDebug: Inserted edge:9 into SUMORTree with boundary -30.00,-10.00,80.00,51.60
 Debug: Selected item 'DEFAULT_VEHTYPE' in VTypeSelector
 Debug: Adding busStop 'busStop' in GNEChange_Additional
-GLDebug: Inserted busStop:busStop into SUMORTree with boundary -0.10,-0.10,0.10,0.10
-GLDebug: Removed object busStop:busStop from SUMORTree with boundary -0.10,-0.10,0.10,0.10
-GLDebug: Inserted busStop:busStop into SUMORTree with boundary -3.00,43.20,47.00,83.20
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
-GLDebug: Removed object busStop:busStop from SUMORTree with boundary -3.00,43.20,47.00,83.20
-GLDebug: Inserted busStop:busStop into SUMORTree with boundary -3.00,43.20,47.00,83.20
 Debug: Adding access 'busStopaccess0' in GNEChange_Additional
-GLDebug: Inserted access:busStopaccess0 into SUMORTree with boundary -3.00,43.20,47.00,83.20
-GLDebug: Removed object access:busStopaccess0 from SUMORTree with boundary -3.00,43.20,47.00,83.20
-GLDebug: Inserted access:busStopaccess0 into SUMORTree with boundary -20.00,41.60,60.00,81.60
-GLDebug: Removed object busStop:busStop from SUMORTree with boundary -3.00,43.20,47.00,83.20
-GLDebug: Inserted busStop:busStop into SUMORTree with boundary -3.00,43.20,47.00,83.20
-GLDebug: Removed object access:busStopaccess0 from SUMORTree with boundary -20.00,41.60,60.00,81.60
-GLDebug: Inserted access:busStopaccess0 into SUMORTree with boundary -20.00,41.60,60.00,81.60
-GLDebug: Removed object busStop:busStop from SUMORTree with boundary -3.00,43.20,47.00,83.20
-GLDebug: Inserted busStop:busStop into SUMORTree with boundary -3.00,43.20,47.00,83.20
 Debug: Inserting generic parameter 'key1|value1' into additional access.
 Debug: Inserting generic parameter 'key1|value4' into additional access.
 Debug: Inserting generic parameter 'key2|' into additional access.
@@ -109,9 +95,7 @@ GLDebug: Removed object edge:7 from SUMORTree with boundary -30.00,0.00,80.00,61
 GLDebug: Removed object edge:8 from SUMORTree with boundary -30.00,-1.60,80.00,60.00
 GLDebug: Removed object edge:9 from SUMORTree with boundary -30.00,-10.00,80.00,51.60
 Debug: Created connection 'from7_0to8_0' in retrieveGNEConnection()
-GLDebug: Inserted connection:from7_0to8_0 into SUMORTree with boundary -20.10,-19.90,20.10,49.90
 Debug: Created connection 'from8_0to7_0' in retrieveGNEConnection()
-GLDebug: Inserted connection:from8_0to7_0 into SUMORTree with boundary 29.90,9.90,70.10,70.10
 GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,8.00,22.00,52.00
 GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,8.00,22.00,52.00
 GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,6.80,22.00,53.20
@@ -156,10 +140,6 @@ GLDebug: Removed object junction:gneJ9 from SUMORTree with boundary 28.00,28.00,
 GLDebug: Inserted junction:gneJ9 into SUMORTree with boundary 28.00,26.80,72.00,73.20
 GLDebug: Inserted edge:1 into SUMORTree with boundary -30.00,30.00,80.00,91.60
 GLDebug: Removed object edge:1 from SUMORTree with boundary -30.00,30.00,80.00,91.60
-GLDebug: Removed object busStop:busStop from SUMORTree with boundary -3.00,43.20,47.00,83.20
-GLDebug: Inserted busStop:busStop into SUMORTree with boundary -3.00,43.20,47.00,83.20
-GLDebug: Removed object access:busStopaccess0 from SUMORTree with boundary -20.00,41.60,60.00,81.60
-GLDebug: Inserted access:busStopaccess0 into SUMORTree with boundary -20.00,41.60,60.00,81.60
 GLDebug: Inserted edge:1 into SUMORTree with boundary -30.00,30.00,80.00,91.60
 GLDebug: Inserted edge:10 into SUMORTree with boundary -30.00,-11.60,80.00,50.00
 GLDebug: Removed object edge:10 from SUMORTree with boundary -30.00,-11.60,80.00,50.00
@@ -193,10 +173,6 @@ GLDebug: Removed object edge:6 from SUMORTree with boundary -30.00,8.40,80.00,70
 GLDebug: Inserted edge:6 into SUMORTree with boundary -30.00,8.40,80.00,70.00
 GLDebug: Inserted edge:7 into SUMORTree with boundary -30.00,0.00,80.00,61.60
 GLDebug: Removed object edge:7 from SUMORTree with boundary -30.00,0.00,80.00,61.60
-GLDebug: Removed object connection:from8_0to7_0 from SUMORTree with boundary 29.90,9.90,70.10,70.10
-GLDebug: Inserted connection:from8_0to7_0 into SUMORTree with boundary 29.00,8.40,69.00,51.60
-GLDebug: Removed object connection:from7_0to8_0 from SUMORTree with boundary -20.10,-19.90,20.10,49.90
-GLDebug: Inserted connection:from7_0to8_0 into SUMORTree with boundary -19.00,8.40,21.00,51.60
 GLDebug: Inserted edge:7 into SUMORTree with boundary -30.00,0.00,80.00,61.60
 GLDebug: Inserted edge:8 into SUMORTree with boundary -30.00,-1.60,80.00,60.00
 GLDebug: Removed object edge:8 from SUMORTree with boundary -30.00,-1.60,80.00,60.00
@@ -205,11 +181,9 @@ GLDebug: Inserted edge:9 into SUMORTree with boundary -30.00,-10.00,80.00,51.60
 GLDebug: Removed object edge:9 from SUMORTree with boundary -30.00,-10.00,80.00,51.60
 GLDebug: Inserted edge:9 into SUMORTree with boundary -30.00,-10.00,80.00,51.60
 Debug: Deleting unreferenced access 'busStopaccess0'
-GLDebug: Removed object access:busStopaccess0 from SUMORTree with boundary -20.00,41.60,60.00,81.60
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Deleting unreferenced busStop 'busStop'
-GLDebug: Removed object busStop:busStop from SUMORTree with boundary -3.00,43.20,47.00,83.20
 Debug: Deleting unreferenced edge '1' in GNENet destructor
 Debug: Deleting unreferenced lane '1_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge '10' in GNENet destructor
@@ -258,4 +232,4 @@ Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_PEDTYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting net builder in GNENet destructor
-GLDebug: Number of objects in SUMORTree during call of the destructor: 30
+GLDebug: Number of objects in SUMORTree during call of the destructor: 28

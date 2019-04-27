@@ -8,35 +8,11 @@ GLDebug: Inserted edge:gneE12 into SUMORTree with boundary -15.69,-31.58,80.25,3
 GLDebug: Inserted edge:gneE13 into SUMORTree with boundary -30.27,-24.32,70.53,44.23
 Debug: Selected item 'DEFAULT_VEHTYPE' in VTypeSelector
 Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 0.00,-30.00,40.00,10.00
+GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 15.00,-15.00,25.00,-5.00
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
-GLDebug: Inserted entryDetector:e3Detector_0detEntry0 into SUMORTree with boundary 0.00,-30.00,40.00,10.00
-GLDebug: Removed object entryDetector:e3Detector_0detEntry0 from SUMORTree with boundary 0.00,-30.00,40.00,10.00
-GLDebug: Inserted entryDetector:e3Detector_0detEntry0 into SUMORTree with boundary 8.41,-19.38,48.41,20.62
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 0.00,-30.00,40.00,10.00
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 0.00,-30.00,40.00,10.00
-GLDebug: Removed object entryDetector:e3Detector_0detEntry0 from SUMORTree with boundary 8.41,-19.38,48.41,20.62
-GLDebug: Inserted entryDetector:e3Detector_0detEntry0 into SUMORTree with boundary 8.41,-19.38,48.41,20.62
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 0.00,-30.00,40.00,10.00
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 0.00,-30.00,40.00,10.00
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 0.00,-30.00,40.00,10.00
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 0.00,-30.00,40.00,10.00
 Debug: Adding detExit 'e3Detector_0detExit1' in GNEChange_Additional
-GLDebug: Inserted entryDetector:e3Detector_0detExit1 into SUMORTree with boundary 0.00,-30.00,40.00,10.00
-GLDebug: Removed object entryDetector:e3Detector_0detExit1 from SUMORTree with boundary 0.00,-30.00,40.00,10.00
-GLDebug: Inserted entryDetector:e3Detector_0detExit1 into SUMORTree with boundary 4.93,-8.41,44.93,31.59
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 0.00,-30.00,40.00,10.00
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 0.00,-30.00,40.00,10.00
-GLDebug: Removed object entryDetector:e3Detector_0detExit1 from SUMORTree with boundary 4.93,-8.41,44.93,31.59
-GLDebug: Inserted entryDetector:e3Detector_0detExit1 into SUMORTree with boundary 4.93,-8.41,44.93,31.59
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 0.00,-30.00,40.00,10.00
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 0.00,-30.00,40.00,10.00
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 0.00,-30.00,40.00,10.00
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 0.00,-30.00,40.00,10.00
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
 Debug: Additionals saved
@@ -52,26 +28,16 @@ GLDebug: Removed object junction:gneJ22 from SUMORTree with boundary 28.00,-16.3
 GLDebug: Inserted junction:gneJ22 into SUMORTree with boundary 28.00,-17.48,72.00,37.19
 GLDebug: Inserted edge:gneE12 into SUMORTree with boundary -28.51,-33.66,80.25,35.68
 GLDebug: Removed object edge:gneE12 from SUMORTree with boundary -28.51,-33.66,80.25,35.68
-GLDebug: Removed object entryDetector:e3Detector_0detEntry0 from SUMORTree with boundary 8.41,-19.38,48.41,20.62
-GLDebug: Inserted entryDetector:e3Detector_0detEntry0 into SUMORTree with boundary -1.47,-20.95,38.53,19.05
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 0.00,-30.00,40.00,10.00
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 0.00,-30.00,40.00,10.00
 GLDebug: Inserted edge:gneE12 into SUMORTree with boundary -28.51,-33.66,80.25,35.68
 GLDebug: Inserted edge:gneE13 into SUMORTree with boundary -30.27,-24.32,78.29,45.61
 GLDebug: Removed object edge:gneE13 from SUMORTree with boundary -30.27,-24.32,78.29,45.61
-GLDebug: Removed object entryDetector:e3Detector_0detExit1 from SUMORTree with boundary 4.93,-8.41,44.93,31.59
-GLDebug: Inserted entryDetector:e3Detector_0detExit1 into SUMORTree with boundary 11.47,-7.28,51.47,32.72
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 0.00,-30.00,40.00,10.00
-GLDebug: Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 0.00,-30.00,40.00,10.00
 GLDebug: Inserted edge:gneE13 into SUMORTree with boundary -30.27,-24.32,78.29,45.61
 Debug: Deleting unreferenced detExit 'e3Detector_0detExit1'
-GLDebug: Removed object entryDetector:e3Detector_0detExit1 from SUMORTree with boundary 11.47,-7.28,51.47,32.72
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Deleting unreferenced detEntry 'e3Detector_0detEntry0'
-GLDebug: Removed object entryDetector:e3Detector_0detEntry0 from SUMORTree with boundary -1.47,-20.95,38.53,19.05
 Debug: Deleting unreferenced e3Detector 'e3Detector_0'
-GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 0.00,-30.00,40.00,10.00
+GLDebug: Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 15.00,-15.00,25.00,-5.00
 Debug: Deleting unreferenced edge 'gneE12' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE12_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge 'gneE13' in GNENet destructor
