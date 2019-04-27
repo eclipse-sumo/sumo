@@ -114,4 +114,7 @@ motorway
 
 # import high speed railway line
 rail_highspeed
+
+# test import of preferred_direction values
+rail_preferred_direction
 bugs
