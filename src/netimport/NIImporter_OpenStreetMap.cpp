@@ -911,7 +911,10 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
                 && key != "ref"
                 && key != "highspeed"
                 && !StringUtils::startsWith(key, "parking")
-                && key != "postal_code" && key != "railway:preferred_direction" && key != "public_transport") {
+                && key != "postal_code"
+                && key != "railway:preferred_direction"
+                && key != "railway:bidirectional"
+                && key != "public_transport") {
             return;
         }
         std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myCurrentEdge->id).c_str(), ok, false);
@@ -1075,6 +1078,10 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
             myCurrentEdge->setParameter(key, value);
         } else if (key == "railway:preferred_direction") {
             if (value == "both") {
+                myCurrentEdge->myRailDirection = WAY_BOTH;
+            }
+        } else if (key == "railway:bidirectional") {
+            if (value == "regular") {
                 myCurrentEdge->myRailDirection = WAY_BOTH;
             }
         } else if (key == "public_transport" && value == "platform") {
