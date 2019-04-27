@@ -341,8 +341,22 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
 
     // convert the shape
     PositionVector shape;
+    int distIndexStart = -1;
+    int distIndexEnd = -1;
+    double distanceStart = 0;
+    double distanceEnd = 0;
+    int passedIndex = 0;
     for (long long i : passed) {
         NIOSMNode* n = myOSMNodes.find(i)->second;
+        double d = interpretDistance(n);
+        if (d != std::numeric_limits<double>::max()) {
+            if (distIndexStart == -1) {
+                distIndexStart = passedIndex;
+                distanceStart = d;
+            }
+            distanceEnd = passedIndex;
+            distanceEnd = d;
+        }
 
         if (n->ptStopPosition) {
             NBPTStop* existingPtStop = sc.get(toString(n->id));
@@ -361,11 +375,21 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         }
         Position pos(n->lon, n->lat, n->ele);
         shape.push_back(pos);
+        passedIndex++;
     }
     if (!NBNetBuilder::transformCoordinates(shape)) {
         WRITE_ERROR("Unable to project coordinates for edge '" + id + "'.");
     }
-//    shape.in
+    // correct distance when the position markers are not and the exact start or end nodes
+    if (distIndexStart != -1) {
+        assert(distIndexStart < (int)shape.size());
+        for (int i = 0; i < distIndexStart; i++) {
+            distanceStart -= shape[i].distanceTo2D(shape[i + 1]) / 1000; // values in km
+        }
+        for (int i = distIndexEnd; i < (int)shape.size() - 1; i++) {
+            distanceEnd += shape[i].distanceTo2D(shape[i + 1]) / 1000; // values in km
+        }
+    }
 
     std::string type = e->myHighWayType;
     if (!tc.knows(type)) {
@@ -607,6 +631,9 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
                 nbe->addSidewalk(tc.getSidewalkWidth(type));
             }
             nbe->updateParameter(e->getParametersMap());
+            if (isRailway(forwardPermissions)) {
+                nbe->setDistance(distanceStart);
+            }
             if (!ec.insert(nbe)) {
                 delete nbe;
                 throw ProcessError("Could not add edge '" + id + "'.");
@@ -631,6 +658,9 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
                 nbe->addSidewalk(tc.getSidewalkWidth(type));
             }
             nbe->updateParameter(e->getParametersMap());
+            if (isRailway(backwardPermissions)) {
+                nbe->setDistance(distanceEnd);
+            }
             if (!ec.insert(nbe)) {
                 delete nbe;
                 throw ProcessError("Could not add edge '-" + id + "'.");
@@ -751,7 +781,9 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
         // we check whether the key is relevant (and we really need to transcode the value) to avoid hitting #1636
         if (key == "highway" || key == "ele" || key == "crossing" || key == "railway" || key == "public_transport"
                 || key == "name" || key == "train" || key == "bus" || key == "tram" || key == "light_rail" || key == "subway" || key == "station" || key == "noexit"
-                || StringUtils::startsWith(key, "railway:signal")) {
+                || StringUtils::startsWith(key, "railway:signal")
+                || StringUtils::startsWith(key, "railway:position")
+                ) {
             std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myLastNodeID).c_str(), ok, false);
             if (key == "highway" && value.find("traffic_signal") != std::string::npos) {
                 myToFill[myLastNodeID]->tlsControlled = true;
@@ -765,6 +797,9 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
             } else if (StringUtils::startsWith(key, "railway:signal") && (
                            value == "block" || value == "entry"  || value == "exit" || value == "intermediate")) {
                 myToFill[myLastNodeID]->railwaySignal = true;
+            } else if (StringUtils::startsWith(key, "railway:position") && value.size() > myToFill[myLastNodeID]->position.size()) {
+                // use the entry with the highest precision (more digits)
+                myToFill[myLastNodeID]->position = value;
             } else if ((key == "public_transport" && value == "stop_position") ||
                        (key == "highway" && value == "bus_stop")) {
                 myToFill[myLastNodeID]->ptStopPosition = true;
@@ -1740,6 +1775,22 @@ NIImporter_OpenStreetMap::getNeighboringNodes(NBNode* node, double maxDist, cons
     return result;
 }
 
+double
+NIImporter_OpenStreetMap::interpretDistance(NIOSMNode* node) {
+    if (node->position.size() > 0) {
+        try {
+            if (StringUtils::startsWith(node->position, "mi:")) {
+                return StringUtils::toDouble(node->position.substr(3)) * 1.609344; // kilometers per mile
+            } else {
+                return StringUtils::toDouble(node->position);
+            }
+        } catch (...) {
+            WRITE_WARNING("Value of railway:position is not numeric ('" + node->position + "') in node '" +
+                    toString(node->id) + "'.");
+        }
+    }
+    return std::numeric_limits<double>::max();
+}
 
 /****************************************************************************/
 

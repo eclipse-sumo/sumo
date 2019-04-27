@@ -111,6 +111,8 @@ protected:
         std::string name;
         /// @brief type of pt stop
         SVCPermissions permissions;
+        /// @brief kilometrage/mileage
+        std::string position;
         /// @brief the NBNode that was instantiated
         NBNode* node;
 
@@ -290,6 +292,9 @@ private:
     /// @brief collect neighboring nodes with their road distance and maximum between-speed. Search does not continue beyond knownElevation-nodes
     std::map<NBNode*, std::pair<double, double> >
     getNeighboringNodes(NBNode* node, double maxDist, const std::set<NBNode*>& knownElevation);
+    /// @brief read distance value from node
+    static double interpretDistance(NIOSMNode* node);
+
 
 protected:
     static const double MAXSPEED_UNGIVEN;
