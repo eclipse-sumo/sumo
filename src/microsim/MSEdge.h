@@ -279,7 +279,7 @@ public:
 
     /** @brief Returns the kilometrage/mileage at the start of the edge
      */
-    int getDistance() const {
+    double getDistance() const {
         return myDistance;
     }
     /// @}
