@@ -494,7 +494,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     bool defaultsToOneWay = tc.getIsOneWay(type);
     SVCPermissions permissions = tc.getPermissions(type);
     if (e->myCurrentIsElectrified && (permissions & SVC_RAIL) != 0) {
-        permissions |= SVC_RAIL_ELECTRIC;
+        permissions |= (SVC_RAIL_ELECTRIC | SVC_RAIL_FAST);
     }
     SVCPermissions forwardPermissions = permissions;
     SVCPermissions backwardPermissions = permissions;

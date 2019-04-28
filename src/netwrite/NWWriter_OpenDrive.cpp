@@ -539,6 +539,7 @@ NWWriter_OpenDrive::getLaneType(SVCPermissions permissions) {
         case SVC_RAIL:
         case SVC_RAIL_URBAN:
         case SVC_RAIL_ELECTRIC:
+        case SVC_RAIL_FAST:
             return "rail";
         case SVC_TRAM:
             return "tram";

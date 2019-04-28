@@ -178,6 +178,17 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
             break;
         case SVC_RAIL_ELECTRIC:
             length = 25. * 8;
+            maxSpeed = 220. / 3.6;
+            width = 2.95;
+            height = 3.89;
+            shape = SVS_RAIL;
+            carriageLength = 24.775;
+            locomotiveLength = 19.100; // https://en.wikipedia.org/wiki/DB_Class_101
+            personCapacity = 425;
+            emissionClass = PollutantsInterface::getClassByName(EMPREFIX + "zero", vclass);
+            break;
+        case SVC_RAIL_FAST:
+            length = 25. * 8;
             maxSpeed = 330. / 3.6;
             width = 2.95;
             height = 3.89;
@@ -428,6 +439,7 @@ SUMOVTypeParameter::getDefaultAccel(const SUMOVehicleClass vc) {
         case SVC_RAIL:
             return 0.25;
         case SVC_RAIL_ELECTRIC:
+        case SVC_RAIL_FAST:
             return 0.5;
         case SVC_SHIP:
             return 0.1;
@@ -458,6 +470,7 @@ SUMOVTypeParameter::getDefaultDecel(const SUMOVehicleClass vc) {
             return 3.;
         case SVC_RAIL:
         case SVC_RAIL_ELECTRIC:
+        case SVC_RAIL_FAST:
             return 1.3;
         case SVC_SHIP:
             return 0.15;
@@ -492,6 +505,7 @@ SUMOVTypeParameter::getDefaultEmergencyDecel(const SUMOVehicleClass vc, double d
                 break;
             case SVC_RAIL:
             case SVC_RAIL_ELECTRIC:
+            case SVC_RAIL_FAST:
                 vcDecel = 5.;
                 break;
             case SVC_SHIP:
@@ -518,6 +532,7 @@ SUMOVTypeParameter::getDefaultImperfection(const SUMOVehicleClass vc) {
         case SVC_RAIL_URBAN:
         case SVC_RAIL:
         case SVC_RAIL_ELECTRIC:
+        case SVC_RAIL_FAST:
         case SVC_SHIP:
             return 0.;
         default:
