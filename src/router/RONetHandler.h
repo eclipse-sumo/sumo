@@ -182,6 +182,9 @@ protected:
     /// @brief The net to store the information into
     RONet& myNet;
 
+    /// @brief the loaded network version
+    double myNetworkVersion;
+
     /// @brief The object used to build of edges of the desired type
     ROAbstractEdgeBuilder& myEdgeBuilder;
 

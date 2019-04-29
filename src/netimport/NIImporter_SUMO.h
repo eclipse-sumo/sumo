@@ -356,6 +356,9 @@ private:
     /// @brief element to receive parameters
     std::vector<Parameterised*> myLastParameterised;
 
+    /// @brief the loaded network version
+    double myNetworkVersion;
+
     /// @brief whether the loaded network contains internal lanes
     bool myHaveSeenInternalEdge;
 

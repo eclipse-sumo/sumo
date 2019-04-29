@@ -74,6 +74,7 @@ NIImporter_SUMO::NIImporter_SUMO(NBNetBuilder& nb)
       myCurrentLane(nullptr),
       myCurrentTL(nullptr),
       myLocation(nullptr),
+      myNetworkVersion(0),
       myHaveSeenInternalEdge(false),
       myAmLefthand(false),
       myCornerDetail(0),
@@ -224,7 +225,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
             }
             // allow/disallow XXX preferred
             if (!dismissVclasses) {
-                nbe->setPermissions(parseVehicleClasses(lane->allow, lane->disallow), fromLaneIndex);
+                nbe->setPermissions(parseVehicleClasses(lane->allow, lane->disallow, myNetworkVersion), fromLaneIndex);
             }
             // width, offset
             nbe->setLaneWidth(fromLaneIndex, lane->width);
@@ -405,6 +406,7 @@ NIImporter_SUMO::myStartElement(int element,
     switch (element) {
         case SUMO_TAG_NET: {
             bool ok;
+            myNetworkVersion = attrs.getOpt<double>(SUMO_ATTR_VERSION, nullptr, ok, 0);
             myAmLefthand = attrs.getOpt<bool>(SUMO_ATTR_LEFTHAND, nullptr, ok, false);
             myCornerDetail = attrs.getOpt<int>(SUMO_ATTR_CORNERDETAIL, nullptr, ok, 0);
             myLinkDetail = attrs.getOpt<int>(SUMO_ATTR_LINKDETAIL, nullptr, ok, -1);

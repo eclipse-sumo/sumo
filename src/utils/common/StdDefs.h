@@ -62,6 +62,9 @@ const double SUMO_const_haltingSpeed = (double) 0.1;
 
 const double INVALID_DOUBLE = std::numeric_limits<double>::max();
 
+/// @brief version for written networks and default version for loading
+const double NETWORK_VERSION = 1.3;
+
 
 /* -------------------------------------------------------------------------
  * templates for mathematical functions missing in some c++-implementations

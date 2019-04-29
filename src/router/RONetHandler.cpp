@@ -49,7 +49,9 @@
 // ===========================================================================
 RONetHandler::RONetHandler(RONet& net, ROAbstractEdgeBuilder& eb, const bool ignoreInternal, const double minorPenalty) :
     SUMOSAXHandler("sumo-network"),
-    myNet(net), myEdgeBuilder(eb), myIgnoreInternal(ignoreInternal),
+    myNet(net),
+    myNetworkVersion(0),
+    myEdgeBuilder(eb), myIgnoreInternal(ignoreInternal),
     myCurrentName(), myCurrentEdge(nullptr), myCurrentStoppingPlace(nullptr),
     myMinorPenalty(minorPenalty)
 {}
@@ -65,6 +67,11 @@ RONetHandler::myStartElement(int element,
         case SUMO_TAG_LOCATION:
             setLocation(attrs);
             break;
+        case SUMO_TAG_NET: {
+            bool ok;
+            myNetworkVersion = attrs.get<double>(SUMO_ATTR_VERSION, nullptr, ok, false);
+            break;
+        }
         case SUMO_TAG_EDGE:
             // in the first step, we do need the name to allocate the edge
             // in the second, we need it to know to which edge we have to add
@@ -219,7 +226,7 @@ RONetHandler::parseLane(const SUMOSAXAttributes& attrs) {
     }
     // get the length
     // get the vehicle classes
-    SVCPermissions permissions = parseVehicleClasses(allow, disallow);
+    SVCPermissions permissions = parseVehicleClasses(allow, disallow, myNetworkVersion);
     if (permissions != SVCAll) {
         myNet.setPermissionsFound();
     }

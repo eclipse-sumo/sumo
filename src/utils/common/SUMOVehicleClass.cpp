@@ -268,7 +268,7 @@ canParseVehicleClasses(const std::string& classes) {
 
 
 SVCPermissions
-parseVehicleClasses(const std::string& allowedS, const std::string& disallowedS) {
+parseVehicleClasses(const std::string& allowedS, const std::string& disallowedS, double networkVersion) {
     if (allowedS.size() == 0 && disallowedS.size() == 0) {
         return SVCAll;
     } else if (allowedS.size() > 0 && disallowedS.size() > 0) {
@@ -277,7 +277,7 @@ parseVehicleClasses(const std::string& allowedS, const std::string& disallowedS)
     } else if (allowedS.size() > 0) {
         return parseVehicleClasses(allowedS);
     } else {
-        return invertPermissions(parseVehicleClasses(disallowedS));
+        return invertPermissions(parseVehicleClasses(disallowedS) | (networkVersion < 1.3 ? SVC_RAIL_FAST : 0));
     }
 }
 

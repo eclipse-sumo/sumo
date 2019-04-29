@@ -445,7 +445,7 @@ NLHandler::addLane(const SUMOSAXAttributes& attrs) {
         myCurrentIsBroken = true;
         return;
     }
-    const SVCPermissions permissions = parseVehicleClasses(allow, disallow);
+    const SVCPermissions permissions = parseVehicleClasses(allow, disallow, myNetworkVersion);
     if (permissions != SVCAll) {
         myNet.setPermissionsFound();
     }

@@ -29,6 +29,7 @@
 #include <string>
 #include <set>
 #include <limits>
+#include <utils/common/StdDefs.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StringBijection.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
@@ -280,7 +281,7 @@ extern bool canParseVehicleClasses(const std::string& classes);
  * @param[in] allowedS Definition which classes are allowed
  * @param[in] disallowedS Definition which classes are not allowed
  */
-extern SVCPermissions parseVehicleClasses(const std::string& allowedS, const std::string& disallowedS);
+extern SVCPermissions parseVehicleClasses(const std::string& allowedS, const std::string& disallowedS, double networkVersion=NETWORK_VERSION);
 
 /** @brief Encodes the given vector of allowed classs into a bitset
  * Unlike the methods which parse a string it gives immediately a warning output on deprecated vehicle classes.

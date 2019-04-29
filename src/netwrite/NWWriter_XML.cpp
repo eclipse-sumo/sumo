@@ -91,7 +91,7 @@ NWWriter_XML::writeNodes(const OptionsCont& oc, NBNodeCont& nc) {
 
     OutputDevice& device = OutputDevice::getDevice(oc.getString("plain-output-prefix") + ".nod.xml");
     std::map<SumoXMLAttr, std::string> attrs;
-    attrs[SUMO_ATTR_VERSION] = NWFrame::MAJOR_VERSION;
+    attrs[SUMO_ATTR_VERSION] = toString(NETWORK_VERSION, 1);
     device.writeXMLHeader("nodes", "nodes_file.xsd", attrs);
 
     // write network offsets and projection to allow reconstruction of original coordinates
@@ -164,7 +164,7 @@ void
 NWWriter_XML::writeTypes(const OptionsCont& oc, NBTypeCont& tc) {
     OutputDevice& device = OutputDevice::getDevice(oc.getString("plain-output-prefix") + ".typ.xml");
     std::map<SumoXMLAttr, std::string> attrs;
-    attrs[SUMO_ATTR_VERSION] = NWFrame::MAJOR_VERSION;
+    attrs[SUMO_ATTR_VERSION] = toString(NETWORK_VERSION, 1);
     device.writeXMLHeader("types", "types_file.xsd", attrs);
     tc.writeTypes(device);
     device.close();
@@ -178,7 +178,7 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
     const bool geoAccuracy = useGeo || gch.usingInverseGeoProjection();
 
     std::map<SumoXMLAttr, std::string> attrs;
-    attrs[SUMO_ATTR_VERSION] = NWFrame::MAJOR_VERSION;
+    attrs[SUMO_ATTR_VERSION] = toString(NETWORK_VERSION, 1);
     OutputDevice& edevice = OutputDevice::getDevice(oc.getString("plain-output-prefix") + ".edg.xml");
     edevice.writeXMLHeader("edges", "edges_file.xsd", attrs);
     OutputDevice& cdevice = OutputDevice::getDevice(oc.getString("plain-output-prefix") + ".con.xml");
@@ -358,7 +358,7 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
 void
 NWWriter_XML::writeTrafficLights(const OptionsCont& oc, NBTrafficLightLogicCont& tc, NBEdgeCont& ec) {
     std::map<SumoXMLAttr, std::string> attrs;
-    attrs[SUMO_ATTR_VERSION] = NWFrame::MAJOR_VERSION;
+    attrs[SUMO_ATTR_VERSION] = toString(NETWORK_VERSION, 1);
     OutputDevice& device = OutputDevice::getDevice(oc.getString("plain-output-prefix") + ".tll.xml");
     device.writeXMLHeader("tlLogics", "tllogic_file.xsd", attrs);
     NWWriter_SUMO::writeTrafficLights(device, tc);
@@ -381,7 +381,7 @@ NWWriter_XML::writeTrafficLights(const OptionsCont& oc, NBTrafficLightLogicCont&
 void
 NWWriter_XML::writeJoinedJunctions(const OptionsCont& oc, NBNodeCont& nc) {
     std::map<SumoXMLAttr, std::string> attrs;
-    attrs[SUMO_ATTR_VERSION] = NWFrame::MAJOR_VERSION;
+    attrs[SUMO_ATTR_VERSION] = toString(NETWORK_VERSION, 1);
     OutputDevice& device = OutputDevice::getDevice(oc.getString("junctions.join-output"));
     device.writeXMLHeader("nodes", "nodes_file.xsd", attrs);
     const std::vector<std::set<std::string> >& clusters = nc.getJoinedClusters();

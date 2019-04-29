@@ -58,8 +58,6 @@ public:
     /// @brief Writes the given position to device in long format (one attribute per dimension)
     static void writePositionLong(const Position& pos, OutputDevice& dev);
 
-    /// @brief The version number for written files
-    static const std::string MAJOR_VERSION;
 };
 
 
