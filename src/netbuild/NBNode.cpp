@@ -2866,7 +2866,7 @@ NBNode::buildWalkingAreas(int cornerDetail) {
             //endShape.extrapolate(startCrossingWidth);
             PositionVector curve;
             if ((normalizedLanes[smoothEnd].first->getPermissions() & normalizedLanes[smoothPrev].first->getPermissions() &
-                    ~SVC_PEDESTRIAN) != 0) {
+                    ~(SVC_PEDESTRIAN | SVC_RAIL_CLASSES)) != 0) {
                 curve = computeSmoothShape(begShape, endShape, cornerDetail + 2, false, 25, 25);
             } else {
                 const double extend = MIN2(10.0, begShape.back().distanceTo2D(endShape.front()) / 2);
