@@ -1,6 +1,8 @@
+Warning: Discarding unknown compound 'usage.main' in type 'railway.light_rail|usage.main' (first occurence for edge '4471817#0').
 Warning: Discarding unknown compound 'cycleway.opposite' in type 'cycleway.opposite|highway.residential' (first occurence for edge '4610354').
 Warning: Discarding unknown compound 'cycleway.share_busway' in type 'cycleway.share_busway|highway.primary' (first occurence for edge '4611698#0').
 Warning: Discarding unknown compound 'cycleway.shared_lane' in type 'cycleway.shared_lane|highway.secondary' (first occurence for edge '22972195#0').
+Warning: Discarding unknown compound 'usage.main' in type 'railway.rail|usage.main' (first occurence for edge '23809674').
 Warning: Discarding unusable type 'highway.construction' (first occurence for edge '25959781').
 Warning: Discarding unusable type 'waterway.stream' (first occurence for edge '31112384').
 Warning: Discarding unusable type 'waterway.weir' (first occurence for edge '31560876#0').
@@ -11,6 +13,9 @@ Warning: Discarding unusable type 'railway.disused' (first occurence for edge '1
 Warning: Discarding unusable type 'railway.abandoned' (first occurence for edge '165411079').
 Warning: Discarding unusable type 'highway.proposed' (first occurence for edge '194139362').
 Warning: Discarding unusable type 'railway.proposed' (first occurence for edge '194973341').
+Warning: Discarding unknown compound 'railway.proposed' in type 'railway.proposed|usage.main' (first occurence for edge '199425789').
+Warning: Discarding unknown compound 'usage.main' in type 'railway.proposed|usage.main' (first occurence for edge '199425789').
+Warning: Discarding unusable type 'railway.proposed|usage.main' (first occurence for edge '199425789').
 Warning: Discarding unusable type 'railway.razed' (first occurence for edge '235499467').
 Warning: Discarding unknown compound 'cycleway.share_busway' in type 'cycleway.share_busway|highway.secondary' (first occurence for edge '236092221#0').
 Warning: Discarding unusable type 'highway.elevator' (first occurence for edge '254339608#0').
@@ -189,6 +194,8 @@ Warning: PT stop: 4015961303 has been moved to edge: -196850606#4
 Warning: PT stop: 3867910426 has been moved to edge: -275177453
 Warning: Could not re-assign PT stop: 366500582 probably broken osm file
 Warning: Incomplete route for ptline '6593455' (RB22: Königs Wusterhausen => Berlin Friedrichstraße)
+Warning: No connection found between stops on edge '388702047#3' and edge '22820560#2'
+Warning: No connection found between stops on edge '154321040#2' and edge '388702047#3'
 Warning: Not joining junctions 160503259,171440823,4237827432 (only 1 exit node)
 Warning: Not joining junctions 1803575761,2480337678,2656298207,29219440,341340978,3831343134,4566145594,4566145597,5747234974,5747234975,768074054 (7 incoming edges)
 Warning: Reducing junction cluster 2796729135,2856686315,4673135622,735132788 (not compact (maxEdge=83517332#0 length=6.06))
@@ -456,5 +463,5 @@ Warning: Vehicle 'pt_tram_M2:0.1' teleports beyond arrival edge '148458500#1', t
 Warning: Vehicle 'pt_tram_M2:0.1' skips stop on lane '148458500#1_0' time=513.00.
 Warning: Teleporting vehicle 'pt_tram_M2:0.2'; frontal collision with vehicle 'pt_tram_M2:2.2', lane='148458500#0_0', gap=-1.00, time=747.00 stage=move.
 Warning: Vehicle 'pt_tram_M2:0.2' ends teleporting on edge '148458500#1', time 751.00.
-Warning: Person 'ped69' aborted waiting for S7:0 at busStop '2603331695'.
+Warning: Person 'ped99' aborted waiting for S9:0 at busStop '2603331695'.
 Warning: Person 'ped191' aborted waiting for S3:1 at busStop '27411240'.
