@@ -292,7 +292,8 @@ private:
     /// @brief collect neighboring nodes with their road distance and maximum between-speed. Search does not continue beyond knownElevation-nodes
     std::map<NBNode*, std::pair<double, double> >
     getNeighboringNodes(NBNode* node, double maxDist, const std::set<NBNode*>& knownElevation);
-    /// @brief read distance value from node
+
+    /// @brief read distance value from node and return value in m
     static double interpretDistance(NIOSMNode* node);
 
 

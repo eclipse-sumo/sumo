@@ -384,10 +384,10 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     if (distIndexStart != -1) {
         assert(distIndexStart < (int)shape.size());
         for (int i = 0; i < distIndexStart; i++) {
-            distanceStart -= shape[i].distanceTo2D(shape[i + 1]) / 1000; // values in km
+            distanceStart -= shape[i].distanceTo2D(shape[i + 1]);
         }
         for (int i = distIndexEnd; i < (int)shape.size() - 1; i++) {
-            distanceEnd += shape[i].distanceTo2D(shape[i + 1]) / 1000; // values in km
+            distanceEnd += shape[i].distanceTo2D(shape[i + 1]);
         }
     }
 
@@ -1780,9 +1780,9 @@ NIImporter_OpenStreetMap::interpretDistance(NIOSMNode* node) {
     if (node->position.size() > 0) {
         try {
             if (StringUtils::startsWith(node->position, "mi:")) {
-                return StringUtils::toDouble(node->position.substr(3)) * 1.609344; // kilometers per mile
+                return StringUtils::toDouble(node->position.substr(3)) * 1609.344; // meters per mile
             } else {
-                return StringUtils::toDouble(node->position);
+                return StringUtils::toDouble(node->position) * 1000;
             }
         } catch (...) {
             WRITE_WARNING("Value of railway:position is not numeric ('" + node->position + "') in node '" +
