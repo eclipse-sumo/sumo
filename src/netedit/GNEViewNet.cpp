@@ -657,8 +657,6 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
     } else if (myEditModes.currentSupermode == GNE_SUPERMODE_DEMAND) {
         processMoveMouseDemand();
     }
-    // update view after movement
-    update();
     return 1;
 }
 

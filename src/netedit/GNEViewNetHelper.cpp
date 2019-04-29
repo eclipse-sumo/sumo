@@ -564,6 +564,8 @@ GNEViewNetHelper::MoveSingleElementValues::moveSingleElement() {
             movingIndexShape = myTAZToMove->moveVertexShape(movingIndexShape, originalPositionInView, offsetMovement);
         }
     }
+    // update view (needed to see the movement)
+    myViewNet->update();
 }
 
 
@@ -920,6 +922,8 @@ GNEViewNetHelper::MoveMultipleElementValues::moveSelection() {
     for (auto i : myMovedEgdesGeometryPoints) {
         i.first->moveVertexShape(i.second->movingIndexShape, i.second->originalPositionInView, offsetMovement);
     }
+    // update view (needed to see the movement)
+    myViewNet->update();
 }
 
 
@@ -1031,6 +1035,8 @@ GNEViewNetHelper::SelectingArea::moveRectangleSelection() {
     myViewNet->setStatusBarText("Selection width:" + toString(fabs(selectionCorner1.x() - selectionCorner2.x()))
                                 + " height:" + toString(fabs(selectionCorner1.y() - selectionCorner2.y()))
                                 + " diagonal:" + toString(selectionCorner1.distanceTo2D(selectionCorner2)));
+    // update view (needed to update rectangle)
+    myViewNet->update();
 }
 
 
