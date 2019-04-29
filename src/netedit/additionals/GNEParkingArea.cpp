@@ -92,8 +92,7 @@ GNEParkingArea::getCenteringBoundary() const {
         return myMove.movingGeometryBoundary;
     } else if (myGeometry.shape.size() > 0) {
         Boundary b = myGeometry.shape.getBoxBoundary();
-        b.growWidth(myWidth);
-        b.grow(1);
+        b.grow(myWidth + 1);
         return b;
     } else {
         return Boundary(-0.1, -0.1, 0.1, 0.1);
