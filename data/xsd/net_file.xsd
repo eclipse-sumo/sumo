@@ -73,6 +73,7 @@
         <xsd:attribute name="bidi" type="xsd:string" use="optional"/>
         <xsd:attribute name="type" type="xsd:string" use="optional"/>
         <xsd:attribute name="shape" type="shapeTypeTwo" use="optional"/>
+        <xsd:attribute name="distance" type="xsd:float"/>
         <xsd:attribute name="spreadType" use="optional">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
