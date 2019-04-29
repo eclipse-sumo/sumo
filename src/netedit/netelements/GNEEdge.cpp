@@ -532,6 +532,54 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     for (auto i : myLanes) {
         i->drawGL(s);
     }
+    // draw parents
+    for (const auto &i : getAdditionalParents()) {
+        if (i->getTagProperty().getTag() == SUMO_TAG_REROUTER) {
+            // Draw symbols in every lane
+            const double rerouterExaggeration = s.addSize.getExaggeration(s, i);
+            if (s.scale * rerouterExaggeration >= 3) {
+                // Start drawing adding an gl identificator
+                glPushName(i->getGlID());
+                // draw rerouter symbol over all lanes
+                for (const auto &j : myLanes) {
+                    const Position &lanePos = i->getChildPosition(j);
+                    const double laneRot = i->getChildRotation(j);
+                    // draw rerouter symbol
+                    glPushMatrix();
+                    glTranslated(lanePos.x(), lanePos.y(), i->getType());
+                    glRotated(-1 * laneRot, 0, 0, 1);
+                    glScaled(rerouterExaggeration, rerouterExaggeration, 1);
+                    // mode
+                    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+                    glBegin(GL_TRIANGLES);
+                    glColor3d(1, .8f, 0);
+                    // base
+                    glVertex2d(0 - 1.4, 0);
+                    glVertex2d(0 - 1.4, 6);
+                    glVertex2d(0 + 1.4, 6);
+                    glVertex2d(0 + 1.4, 0);
+                    glVertex2d(0 - 1.4, 0);
+                    glVertex2d(0 + 1.4, 6);
+                    glEnd();
+                    // draw "U"
+                    GLHelper::drawText("U", Position(0, 2), .1, 3, RGBColor::BLACK, 180);
+                    double probability = parse<double>(i->getAttribute(SUMO_ATTR_PROB))*100;
+                    // draw Probability
+                    GLHelper::drawText((toString(probability) + "%").c_str(), Position(0, 4), .1, 0.7, RGBColor::BLACK, 180);
+                    // finish draw
+                    glPopMatrix();
+                    // draw contour if is selected
+                    if (!s.drawForSelecting && (myNet->getViewNet()->getDottedAC() == i)) {
+                        GLHelper::drawShapeDottedContour(getType(), lanePos, 2.8, 6, -1 * laneRot, 0, 3);
+                    }
+                }
+            }
+            // Pop name
+            glPopName();
+            // Draw connections
+            i->drawChildConnections(getType());
+        }
+    }
     // draw childs
     for (const auto &i : getAdditionalChilds()) {
         i->drawGL(s);

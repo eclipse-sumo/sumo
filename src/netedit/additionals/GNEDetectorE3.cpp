@@ -144,8 +144,8 @@ GNEDetectorE3::drawGL(const GUIVisualizationSettings& s) const {
     if (!s.drawForSelecting) {
         // Show Lock icon depending of the Edit mode
         myBlockIcon.draw(0.4);
-        // Draw connections
-        myChildConnections.draw(getType());
+        // Draw child connections
+        drawChildConnections(getType());
     }
     // Draw name if isn't being drawn for selecting
     if (!s.drawForSelecting) {
@@ -296,6 +296,12 @@ GNEDetectorE3::getPopUpID() const {
 std::string
 GNEDetectorE3::getHierarchyName() const {
     return getTagStr();
+}
+
+
+void 
+GNEDetectorE3::updateAdditionalParent() {
+    myChildConnections.update();
 }
 
 // ===========================================================================

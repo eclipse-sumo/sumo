@@ -159,41 +159,8 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
         // Show Lock icon depending of the Edit mode
         myBlockIcon.draw(0.4);
 
-        // Draw symbols in every lane
-        const double exaggeration = s.addSize.getExaggeration(s, this);
-
-        if (s.scale * exaggeration >= 3) {
-            // draw rerouter symbol over all lanes
-            for (auto i : myChildConnections.symbolsPositionAndRotation) {
-                glPushMatrix();
-                glTranslated(i.first.x(), i.first.y(), getType());
-                glRotated(-1 * i.second, 0, 0, 1);
-                glScaled(exaggeration, exaggeration, 1);
-                glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
-                glBegin(GL_TRIANGLES);
-                glColor3d(1, .8f, 0);
-                // base
-                glVertex2d(0 - 1.4, 0);
-                glVertex2d(0 - 1.4, 6);
-                glVertex2d(0 + 1.4, 6);
-                glVertex2d(0 + 1.4, 0);
-                glVertex2d(0 - 1.4, 0);
-                glVertex2d(0 + 1.4, 6);
-                glEnd();
-
-                // draw "U"
-                GLHelper::drawText("U", Position(0, 2), .1, 3, RGBColor::BLACK, 180);
-
-                // draw Probability
-                GLHelper::drawText((toString((int)(myProbability * 100)) + "%").c_str(), Position(0, 4), .1, 0.7, RGBColor::BLACK, 180);
-
-                glPopMatrix();
-            }
-        }
-
-        // Draw connections
-        myChildConnections.draw(getType());
+        // Draw child connections
+        drawChildConnections(getType());
     }
     // check if dotted contour has to be drawn
     if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
@@ -202,12 +169,7 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
         for (auto i : myChildConnections.connectionPositions) {
             GLHelper::drawShapeDottedContour(getType(), i, 0);
         }
-        // draw rerouter symbol over all lanes
-        for (auto i : myChildConnections.symbolsPositionAndRotation) {
-            GLHelper::drawShapeDottedContour(getType(), i.first, 2.8, 6, -1 * i.second, 0, 3);
-        }
     }
-
     // Draw name
     drawName(getPositionInView(), s.scale, s.addName);
 

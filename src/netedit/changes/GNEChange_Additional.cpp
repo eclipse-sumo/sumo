@@ -141,7 +141,7 @@ GNEChange_Additional::undo() {
             i->addAdditionalParent(myAdditional);
         }
         for (const auto& i : myShapeChilds) {
-            i->addAdditionalChild(myAdditional);
+            i->addAdditionalParent(myAdditional);
         }
         for (const auto& i : myAdditionalChilds) {
             i->addAdditionalParent(myAdditional);
@@ -186,7 +186,7 @@ GNEChange_Additional::redo() {
             i->addAdditionalParent(myAdditional);
         }
         for (const auto& i : myShapeChilds) {
-            i->addAdditionalChild(myAdditional);
+            i->addAdditionalParent(myAdditional);
         }
         for (const auto& i : myAdditionalChilds) {
             i->addAdditionalParent(myAdditional);

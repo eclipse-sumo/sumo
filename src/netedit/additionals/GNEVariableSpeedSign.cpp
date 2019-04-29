@@ -39,7 +39,7 @@
 
 GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNEViewNet* viewNet, const Position& pos, const std::vector<GNELane*>& lanes, const std::string& name, bool blockMovement) :
     GNEAdditional(id, viewNet, GLO_VSS, SUMO_TAG_VSS, name, blockMovement, {}, {}, {}, {}, {}, {}, lanes, {}, {}, {}),
-myPosition(pos) {
+    myPosition(pos) {
 }
 
 
@@ -152,48 +152,9 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
         // Show Lock icon depending of the Edit mode
         myBlockIcon.draw(0.4);
 
-        // obtain exxageration
-        const double exaggeration = s.addSize.getExaggeration(s, this);
-
-        // iterate over symbols and rotation
-        for (auto i : myChildConnections.symbolsPositionAndRotation) {
-            glPushMatrix();
-            glScaled(exaggeration, exaggeration, 1);
-            glTranslated(i.first.x(), i.first.y(), getType());
-            glRotated(-1 * i.second, 0, 0, 1);
-            glTranslated(0, -1.5, 0);
-
-            int noPoints = 9;
-            if (s.scale > 25) {
-                noPoints = (int)(9.0 + s.scale / 10.0);
-                if (noPoints > 36) {
-                    noPoints = 36;
-                }
-            }
-            glColor3d(1, 0, 0);
-            GLHelper::drawFilledCircle((double) 1.3, noPoints);
-            if (s.scale >= 5) {
-                glTranslated(0, 0, .1);
-                glColor3d(0, 0, 0);
-                GLHelper::drawFilledCircle((double) 1.1, noPoints);
-                // draw the speed string
-                //draw
-                glColor3d(1, 1, 0);
-                glTranslated(0, 0, .1);
-                glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
-                // draw last value string
-                GLHelper::drawText("S", Position(0, 0), .1, 1.2, RGBColor(255, 255, 0), 180);
-            }
-            glPopMatrix();
-        }
-
-        // Draw connections
-        myChildConnections.draw(getType());
+        // Draw child connections
+        drawChildConnections(getType());
     }
-
-    // Pop symbol matrix
-    glPopMatrix();
 
     // Draw name if isn't being drawn for selecting
     if (!s.drawForSelecting) {
@@ -206,10 +167,6 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
         // draw shape dotte contour aroud alld connections between child and parents
         for (auto i : myChildConnections.connectionPositions) {
             GLHelper::drawShapeDottedContour(getType(), i, 0);
-        }
-        // draw rerouter symbol over all lanes
-        for (auto i : myChildConnections.symbolsPositionAndRotation) {
-            GLHelper::drawShapeDottedContour(getType(), i.first, 2.6, 2.6, -1 * i.second, 0, -1.5);
         }
     }
 

@@ -63,8 +63,17 @@ public:
     /// @brief Destructor
     ~GNEHierarchicalElementChilds();
 
+    /// @brief get child position calculated in ChildConnections
+    const Position &getChildPosition(const GNELane* lane);
+
+    /// @brief get child rotation calculated in ChildConnections
+    double getChildRotation(const GNELane* lane);
+
     /// @brief update child connections
     void updateChildConnections();
+    
+    // Draw connections between parent and childs
+    void drawChildConnections(GUIGlObjectType GLTypeParent) const;
 
     /// @brief gererate a new ID for an element child
     virtual std::string generateChildID(SumoXMLTag childTag) = 0;
@@ -165,6 +174,27 @@ protected:
 
     /// @brief struct for pack all variables and functions relative to connections between hierarchical element and their childs
     struct ChildConnections {
+
+    private:
+        /// @brief connection geometry
+        struct ConnectionGeometry {
+            /// @brief default constructor
+            ConnectionGeometry();
+
+            /// @brief parameter constructor
+            ConnectionGeometry(GNELane* _lane, Position _pos, double _rot);
+
+            /// @brief lane
+            GNELane* lane;
+
+            /// @brief position
+            Position pos;
+
+            /// @brief rotation
+            double rot;
+        };
+
+    public:
         /// @brief constructor
         ChildConnections(GNEHierarchicalElementChilds* hierarchicalElement);
 
@@ -175,7 +205,7 @@ protected:
         void draw(GUIGlObjectType parentType) const;
 
         /// @brief position and rotation of every symbol over lane
-        std::vector<std::pair<Position, double> > symbolsPositionAndRotation;
+        std::vector<ConnectionGeometry> symbolsPositionAndRotation;
 
         /// @brief Matrix with the Vertex's positions of connections between parents an their childs
         std::vector<PositionVector> connectionPositions;

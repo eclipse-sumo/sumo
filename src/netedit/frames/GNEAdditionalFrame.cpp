@@ -757,7 +757,7 @@ GNEAdditionalFrame::addAdditional(const GNEViewNetHelper::ObjectsUnderCursor& ob
         return buildAdditionalOverEdge(valuesMap, objectsUnderCursor.getLaneFront(), tagValues);
     } else if (tagValues.hasAttribute(SUMO_ATTR_LANE)) {
         return buildAdditionalOverLane(valuesMap, objectsUnderCursor.getLaneFront(), tagValues);
-    } else if (tagValues.hasAttribute(SUMO_ATTR_LANES)) {
+    } else if (tagValues.getTag() == SUMO_TAG_E2DETECTOR_MULTILANE) {
         return buildAdditionalOverLanes(valuesMap, objectsUnderCursor.getLaneFront(), tagValues);
     } else {
         return buildAdditionalOverView(valuesMap, tagValues);

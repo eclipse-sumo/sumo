@@ -519,6 +519,59 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         }
         // Pop Name
         glPopName();
+        // draw parents
+        for (const auto &i : getAdditionalParents()) {
+            if (i->getTagProperty().getTag() == SUMO_TAG_VSS) {
+
+                // Start drawing adding an VSS gl identificator
+                glPushName(i->getGlID());
+
+                // obtain VSSExaggeration and lane pos
+                const double VSSExaggeration = s.addSize.getExaggeration(s, i);
+                const Position &lanePos = i->getChildPosition(this);
+                const double laneRot = i->getChildRotation(this);
+
+                glPushMatrix();
+                glScaled(VSSExaggeration, VSSExaggeration, 1);
+                glTranslated(lanePos.x(), lanePos.y(), i->getType());
+                glRotated(-1 * laneRot, 0, 0, 1);
+                glTranslated(0, -1.5, 0);
+
+                int noPoints = 9;
+                if (s.scale > 25) {
+                    noPoints = (int)(9.0 + s.scale / 10.0);
+                    if (noPoints > 36) {
+                        noPoints = 36;
+                    }
+                }
+                glColor3d(1, 0, 0);
+                GLHelper::drawFilledCircle((double) 1.3, noPoints);
+                if (s.scale >= 5) {
+                    glTranslated(0, 0, .1);
+                    glColor3d(0, 0, 0);
+                    GLHelper::drawFilledCircle((double) 1.1, noPoints);
+                    // draw the speed string
+                    //draw
+                    glColor3d(1, 1, 0);
+                    glTranslated(0, 0, .1);
+                    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+                    // draw last value string
+                    GLHelper::drawText("S", Position(0, 0), .1, 1.2, RGBColor(255, 255, 0), 180);
+                }
+
+                // Pop symbol matrix
+                glPopMatrix();
+
+                // Pop VSS name
+                glPopName();
+
+                // check if dotted contour has to be drawn
+                if (!s.drawForSelecting && (myNet->getViewNet()->getDottedAC() == i)) {
+                    GLHelper::drawShapeDottedContour(getType(), lanePos, 2.6, 2.6, -1 * laneRot, 0, -1.5);
+                }
+            }
+        }
         // draw childs
         for (const auto &i : getShapeChilds()) {
             i->drawGL(s);
