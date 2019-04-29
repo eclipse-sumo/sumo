@@ -524,252 +524,44 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     if(s.drawBoundaries) {
         GLHelper::drawBoundary(getBoundary());
     }
-    // obtain circle width
-    double circleWidth = SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration);
-    double circleWidthSquared = circleWidth * circleWidth;
-    int circleResolution = GNEAttributeCarrier::getCircleResolution(s);
     // draw lanes
     for (auto i : myLanes) {
         i->drawGL(s);
     }
-    // draw parents
+    // draw additional parents
     for (const auto &i : getAdditionalParents()) {
         if (i->getTagProperty().getTag() == SUMO_TAG_REROUTER) {
-            // Draw symbols in every lane
-            const double rerouterExaggeration = s.addSize.getExaggeration(s, i);
-            if (s.scale * rerouterExaggeration >= 3) {
-                // Start drawing adding an gl identificator
-                glPushName(i->getGlID());
-                // draw rerouter symbol over all lanes
-                for (const auto &j : myLanes) {
-                    const Position &lanePos = i->getChildPosition(j);
-                    const double laneRot = i->getChildRotation(j);
-                    // draw rerouter symbol
-                    glPushMatrix();
-                    glTranslated(lanePos.x(), lanePos.y(), i->getType());
-                    glRotated(-1 * laneRot, 0, 0, 1);
-                    glScaled(rerouterExaggeration, rerouterExaggeration, 1);
-                    // mode
-                    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-                    glBegin(GL_TRIANGLES);
-                    glColor3d(1, .8f, 0);
-                    // base
-                    glVertex2d(0 - 1.4, 0);
-                    glVertex2d(0 - 1.4, 6);
-                    glVertex2d(0 + 1.4, 6);
-                    glVertex2d(0 + 1.4, 0);
-                    glVertex2d(0 - 1.4, 0);
-                    glVertex2d(0 + 1.4, 6);
-                    glEnd();
-                    // draw "U"
-                    GLHelper::drawText("U", Position(0, 2), .1, 3, RGBColor::BLACK, 180);
-                    double probability = parse<double>(i->getAttribute(SUMO_ATTR_PROB))*100;
-                    // draw Probability
-                    GLHelper::drawText((toString(probability) + "%").c_str(), Position(0, 4), .1, 0.7, RGBColor::BLACK, 180);
-                    // finish draw
-                    glPopMatrix();
-                    // draw contour if is selected
-                    if (!s.drawForSelecting && (myNet->getViewNet()->getDottedAC() == i)) {
-                        GLHelper::drawShapeDottedContour(getType(), lanePos, 2.8, 6, -1 * laneRot, 0, 3);
-                    }
-                }
-            }
-            // Pop name
-            glPopName();
-            // Draw connections
-            i->drawChildConnections(getType());
+            // draw rerouter symbol
+            drawRerouterSymbol(s, i);
         }
     }
-    // draw childs
+    // draw additional childs
     for (const auto &i : getAdditionalChilds()) {
         i->drawGL(s);
     }
+    // draw edge chidls
     if (myNet->getViewNet()->getViewOptions().showDemandElements()) {
         for (const auto &i : getDemandElementChilds()) {
             if (i->getTagProperty().getTag() == SUMO_TAG_ROUTE) {
-                // calculate route width
-                double routeWidth = s.addSize.getExaggeration(s, this) * 0.66;
-
-                // Start drawing adding an gl identificator
-                glPushName(i->getGlID());
-
-                // Add a draw matrix
-                glPushMatrix();
-
-                // Start with the drawing of the area traslating matrix to origin
-                glTranslated(0, 0, i->getType());
-
-                // Set color of the base
-                if (drawUsingSelectColor()) {
-                    GLHelper::setColor(s.selectedAdditionalColor);
-                } else {
-                    GLHelper::setColor(i->getColor());
-                }
-
-                // draw route
-                GLHelper::drawBoxLines(myLanes.front()->getGeometry().shape, myLanes.front()->getGeometry().shapeRotations, myLanes.front()->getGeometry().shapeLengths, routeWidth);
-
-                // check if route has a connectio between this and the next edge
-                GNEConnection *nextConnection = i->getNextConnection(this);
-
-                if (nextConnection && (nextConnection->getEdgeFrom()->getGNEJunctionDestiny()->getNBNode()->getShape().size() > 0)) {
-                    GLHelper::drawBoxLines(nextConnection->getGeometry().shape, nextConnection->getGeometry().shapeRotations, nextConnection->getGeometry().shapeLengths, routeWidth);
-                } else {
-                    // calculate line between this and the next edge
-                    GNEHierarchicalElementParents::LineGeometry lineGeometry = i->getLinetoNextEdge(this);
-                    GLHelper::drawBoxLine(lineGeometry.firstPoint, lineGeometry.rotation, lineGeometry.lenght, routeWidth);
-                }
-
-                // Pop last matrix
-                glPopMatrix();
-
-                // Draw name if isn't being drawn for selecting
-                if (!s.drawForSelecting) {
-                    drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
-                }
-            
-                // check if dotted contour has to be drawn
-                if (!s.drawForSelecting && (myNet->getViewNet()->getDottedAC() == i)) {
-                    GLHelper::drawShapeDottedContour(getType(), i->myGeometry.shape, routeWidth);
-                }
-            
-                // Pop name
-                glPopName();
-
-                // draw route childs
-                for (const auto &j : i->getDemandElementChilds()) {
-                    j->drawGL(s);
-                }
+                // draw partial route
+                drawPartialRoute(s, i);
             }
         }
     }
     // draw geometry points if isnt's too small
     if (s.scale > 8.0) {
-        RGBColor color = s.junctionColorer.getSchemes()[0].getColor(2);
-        if (drawUsingSelectColor() && s.laneColorer.getActive() != 1) {
-            // override with special colors (unless the color scheme is based on selection)
-            color = s.selectedEdgeColor.changedBrightness(-20);
-        }
-        GLHelper::setColor(color);
-        // recognize full transparency and simply don't draw
-        if (color.alpha() > 0) {
-            // push name
-            glPushName(getGlID());
-            // draw geometry points expect initial and final
-            for (int i = 1; i < (int)myNBEdge.getGeometry().size() - 1; i++) {
-                Position pos = myNBEdge.getGeometry()[i];
-                if (!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(pos) <= (circleWidthSquared + 2))) {
-                    glPushMatrix();
-                    glTranslated(pos.x(), pos.y(), GLO_JUNCTION - 0.01);
-                    // resolution of drawn circle depending of the zoom (To improve smothness)
-                    GLHelper::drawFilledCircle(circleWidth, circleResolution);
-                    glPopMatrix();
-                    // draw elevation or special symbols (Start, End and Block)
-                    if (!s.drawForSelecting && myNet->getViewNet()->getMoveOptions().editingElevation()) {
-                        glPushMatrix();
-                        // Translate to geometry point
-                        glTranslated(pos.x(), pos.y(), GLO_JUNCTION);
-                        // draw Z value
-                        GLHelper::drawText(toString(pos.z()), Position(), GLO_MAX - 5, s.edgeValue.scaledSize(s.scale) / 2, s.edgeValue.color);
-                        glPopMatrix();
-                    }
-                }
-            }
-            // draw line geometry, start and end points if shapeStart or shape end is edited, and depending of drawForSelecting
-            if (myNet->getViewNet()->getEditModes().networkEditMode == GNE_NMODE_MOVE) {
-                if ((myNBEdge.getGeometry().front() != myGNEJunctionSource->getPositionInView()) &&
-                        (!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(myNBEdge.getGeometry().front()) <= (circleWidthSquared + 2)))) {
-                    glPushMatrix();
-                    glTranslated(myNBEdge.getGeometry().front().x(), myNBEdge.getGeometry().front().y(), GLO_JUNCTION + 0.01);
-                    // resolution of drawn circle depending of the zoom (To improve smothness)
-                    GLHelper::drawFilledCircle(circleWidth, circleResolution);
-                    glPopMatrix();
-                    // draw a "s" over last point depending of drawForSelecting
-                    if (!s.drawForSelecting) {
-                        glPushMatrix();
-                        glTranslated(myNBEdge.getGeometry().front().x(), myNBEdge.getGeometry().front().y(), GLO_JUNCTION + 0.02);
-                        GLHelper::drawText("S", Position(), 0, circleWidth, RGBColor::WHITE);
-                        glPopMatrix();
-                        // draw line between Junction and point
-                        glPushMatrix();
-                        glTranslated(0, 0, GLO_JUNCTION - 0.01);
-                        glLineWidth(4);
-                        GLHelper::drawLine(myNBEdge.getGeometry().front(), myGNEJunctionSource->getPositionInView());
-                        // draw line between begin point of last lane shape and the first edge shape point
-                        GLHelper::drawLine(myNBEdge.getGeometry().front(), myNBEdge.getLanes().back().shape.front());
-                        glPopMatrix();
-                    }
-                }
-                if ((myNBEdge.getGeometry().back() != myGNEJunctionDestiny->getPositionInView()) &&
-                        (!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(myNBEdge.getGeometry().back()) <= (circleWidthSquared + 2)))) {
-                    glPushMatrix();
-                    glTranslated(myNBEdge.getGeometry().back().x(), myNBEdge.getGeometry().back().y(), GLO_JUNCTION + 0.01);
-                    // resolution of drawn circle depending of the zoom (To improve smothness)
-                    GLHelper::drawFilledCircle(circleWidth, circleResolution);
-                    glPopMatrix();
-                    // draw a "e" over last point depending of drawForSelecting
-                    if (!s.drawForSelecting) {
-                        glPushMatrix();
-                        glTranslated(myNBEdge.getGeometry().back().x(), myNBEdge.getGeometry().back().y(), GLO_JUNCTION + 0.02);
-                        GLHelper::drawText("E", Position(), 0, circleWidth, RGBColor::WHITE);
-                        glPopMatrix();
-                        // draw line between Junction and point
-                        glPushMatrix();
-                        glTranslated(0, 0, GLO_JUNCTION - 0.01);
-                        glLineWidth(4);
-                        GLHelper::drawLine(myNBEdge.getGeometry().back(), myGNEJunctionDestiny->getPositionInView());
-                        // draw line between last point of first lane shape and the last edge shape point
-                        GLHelper::drawLine(myNBEdge.getGeometry().back(), myNBEdge.getLanes().back().shape.back());
-                        glPopMatrix();
-                    }
-                }
-            }
-            // pop name
-            glPopName();
-        }
+        drawGeometryPoints(s);
     }
-
-    // (optionally) draw the name and/or the street name if isn't being drawn for selecting
-    const bool drawStreetName = s.streetName.show && (myNBEdge.getStreetName() != "");
-    const bool spreadSuperposed = s.spreadSuperposed && myLanes.back()->drawAsRailway(s) && myNBEdge.isBidiRail();
-    if (!s.drawForSelecting && (s.edgeName.show || drawStreetName || s.edgeValue.show)) {
-        glPushName(getGlID());
-        GNELane* lane1 = myLanes[0];
-        GNELane* lane2 = myLanes[myLanes.size() - 1];
-        Position p = lane1->getGeometry().shape.positionAtOffset(lane1->getGeometry().shape.length() / (double) 2.);
-        p.add(lane2->getGeometry().shape.positionAtOffset(lane2->getGeometry().shape.length() / (double) 2.));
-        p.mul(.5);
-        if (spreadSuperposed) {
-            // move name to the right of the edge and towards its beginning
-            const double dist = 0.6 * s.edgeName.scaledSize(s.scale);
-            const double shiftA = lane1->getGeometry().shape.rotationAtOffset(lane1->getGeometry().shape.length() / (double) 2.) - DEG2RAD(135);
-            Position shift(dist * cos(shiftA), dist * sin(shiftA));
-            p.add(shift);
-        }
-        double angle = lane1->getGeometry().shape.rotationDegreeAtOffset(lane1->getGeometry().shape.length() / (double) 2.);
-        angle += 90;
-        if (angle > 90 && angle < 270) {
-            angle -= 180;
-        }
-        if (s.edgeName.show) {
-            drawName(p, s.scale, s.edgeName, angle);
-        }
-        if (drawStreetName) {
-            GLHelper::drawTextSettings(s.streetName, myNBEdge.getStreetName(), p, s.scale, angle);
-        }
-        if (s.edgeValue.show) {
-            double value = lane2->getColorValue(s, s.laneColorer.getActive());
-            GLHelper::drawTextSettings(s.edgeValue, toString(value), p, s.scale, angle);
-        }
-        glPopName();
+    // draw name if isn't being drawn for selecting
+    if (!s.drawForSelecting) {
+        drawEdgeName(s);
     }
+    // draw dotted contor around the first and last lane if  isn't being drawn for selecting
     if (!s.drawForSelecting && (myNet->getViewNet()->getDottedAC() == this)) {
-        // draw dotted contor around the first and last lane
         const double myHalfLaneWidthFront = myNBEdge.getLaneWidth(myLanes.front()->getIndex()) / 2;
-        const double myHalfLaneWidthBack = spreadSuperposed ? 0 : myNBEdge.getLaneWidth(myLanes.back()->getIndex()) / 2;
+        const double myHalfLaneWidthBack = (s.spreadSuperposed && myLanes.back()->drawAsRailway(s) && myNBEdge.isBidiRail()) ? 0 : myNBEdge.getLaneWidth(myLanes.back()->getIndex()) / 2;
         GLHelper::drawShapeDottedContour(GLO_JUNCTION, myLanes.front()->getGeometry().shape, myHalfLaneWidthFront, myLanes.back()->getGeometry().shape, -1 * myHalfLaneWidthBack);
     }
-    glPopMatrix();
 }
 
 
@@ -1876,6 +1668,231 @@ GNEEdge::setShapeEndPos(const Position& pos, bool updateGrid) {
     geom.push_back_noDoublePos(pos);
     // restore modified shape
     setGeometry(geom, false, updateGrid);
+}
+
+
+void 
+GNEEdge::drawGeometryPoints(const GUIVisualizationSettings& s) const {
+    // obtain circle width
+    double circleWidth = SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration);
+    double circleWidthSquared = circleWidth * circleWidth;
+    int circleResolution = GNEAttributeCarrier::getCircleResolution(s);
+    // obtain color
+    RGBColor color = s.junctionColorer.getSchemes()[0].getColor(2);
+    if (drawUsingSelectColor() && s.laneColorer.getActive() != 1) {
+        // override with special colors (unless the color scheme is based on selection)
+        color = s.selectedEdgeColor.changedBrightness(-20);
+    }
+    GLHelper::setColor(color);
+    // recognize full transparency and simply don't draw
+    if (color.alpha() > 0) {
+        // push name
+        glPushName(getGlID());
+        // draw geometry points expect initial and final
+        for (int i = 1; i < (int)myNBEdge.getGeometry().size() - 1; i++) {
+            Position pos = myNBEdge.getGeometry()[i];
+            if (!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(pos) <= (circleWidthSquared + 2))) {
+                glPushMatrix();
+                glTranslated(pos.x(), pos.y(), GLO_JUNCTION - 0.01);
+                // resolution of drawn circle depending of the zoom (To improve smothness)
+                GLHelper::drawFilledCircle(circleWidth, circleResolution);
+                glPopMatrix();
+                // draw elevation or special symbols (Start, End and Block)
+                if (!s.drawForSelecting && myNet->getViewNet()->getMoveOptions().editingElevation()) {
+                    glPushMatrix();
+                    // Translate to geometry point
+                    glTranslated(pos.x(), pos.y(), GLO_JUNCTION);
+                    // draw Z value
+                    GLHelper::drawText(toString(pos.z()), Position(), GLO_MAX - 5, s.edgeValue.scaledSize(s.scale) / 2, s.edgeValue.color);
+                    glPopMatrix();
+                }
+            }
+        }
+        // draw line geometry, start and end points if shapeStart or shape end is edited, and depending of drawForSelecting
+        if (myNet->getViewNet()->getEditModes().networkEditMode == GNE_NMODE_MOVE) {
+            if ((myNBEdge.getGeometry().front() != myGNEJunctionSource->getPositionInView()) &&
+                    (!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(myNBEdge.getGeometry().front()) <= (circleWidthSquared + 2)))) {
+                glPushMatrix();
+                glTranslated(myNBEdge.getGeometry().front().x(), myNBEdge.getGeometry().front().y(), GLO_JUNCTION + 0.01);
+                // resolution of drawn circle depending of the zoom (To improve smothness)
+                GLHelper::drawFilledCircle(circleWidth, circleResolution);
+                glPopMatrix();
+                // draw a "s" over last point depending of drawForSelecting
+                if (!s.drawForSelecting) {
+                    glPushMatrix();
+                    glTranslated(myNBEdge.getGeometry().front().x(), myNBEdge.getGeometry().front().y(), GLO_JUNCTION + 0.02);
+                    GLHelper::drawText("S", Position(), 0, circleWidth, RGBColor::WHITE);
+                    glPopMatrix();
+                    // draw line between Junction and point
+                    glPushMatrix();
+                    glTranslated(0, 0, GLO_JUNCTION - 0.01);
+                    glLineWidth(4);
+                    GLHelper::drawLine(myNBEdge.getGeometry().front(), myGNEJunctionSource->getPositionInView());
+                    // draw line between begin point of last lane shape and the first edge shape point
+                    GLHelper::drawLine(myNBEdge.getGeometry().front(), myNBEdge.getLanes().back().shape.front());
+                    glPopMatrix();
+                }
+            }
+            if ((myNBEdge.getGeometry().back() != myGNEJunctionDestiny->getPositionInView()) &&
+                    (!s.drawForSelecting || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(myNBEdge.getGeometry().back()) <= (circleWidthSquared + 2)))) {
+                glPushMatrix();
+                glTranslated(myNBEdge.getGeometry().back().x(), myNBEdge.getGeometry().back().y(), GLO_JUNCTION + 0.01);
+                // resolution of drawn circle depending of the zoom (To improve smothness)
+                GLHelper::drawFilledCircle(circleWidth, circleResolution);
+                glPopMatrix();
+                // draw a "e" over last point depending of drawForSelecting
+                if (!s.drawForSelecting) {
+                    glPushMatrix();
+                    glTranslated(myNBEdge.getGeometry().back().x(), myNBEdge.getGeometry().back().y(), GLO_JUNCTION + 0.02);
+                    GLHelper::drawText("E", Position(), 0, circleWidth, RGBColor::WHITE);
+                    glPopMatrix();
+                    // draw line between Junction and point
+                    glPushMatrix();
+                    glTranslated(0, 0, GLO_JUNCTION - 0.01);
+                    glLineWidth(4);
+                    GLHelper::drawLine(myNBEdge.getGeometry().back(), myGNEJunctionDestiny->getPositionInView());
+                    // draw line between last point of first lane shape and the last edge shape point
+                    GLHelper::drawLine(myNBEdge.getGeometry().back(), myNBEdge.getLanes().back().shape.back());
+                    glPopMatrix();
+                }
+            }
+        }
+        // pop name
+        glPopName();
+    }
+}
+
+
+void 
+GNEEdge::drawEdgeName(const GUIVisualizationSettings& s) const {
+    // draw the name and/or the street name
+    const bool drawStreetName = s.streetName.show && (myNBEdge.getStreetName() != "");
+    const bool spreadSuperposed = s.spreadSuperposed && myLanes.back()->drawAsRailway(s) && myNBEdge.isBidiRail();
+    if (s.edgeName.show || drawStreetName || s.edgeValue.show) {
+        glPushName(getGlID());
+        GNELane* lane1 = myLanes[0];
+        GNELane* lane2 = myLanes[myLanes.size() - 1];
+        Position p = lane1->getGeometry().shape.positionAtOffset(lane1->getGeometry().shape.length() / (double) 2.);
+        p.add(lane2->getGeometry().shape.positionAtOffset(lane2->getGeometry().shape.length() / (double) 2.));
+        p.mul(.5);
+        if (spreadSuperposed) {
+            // move name to the right of the edge and towards its beginning
+            const double dist = 0.6 * s.edgeName.scaledSize(s.scale);
+            const double shiftA = lane1->getGeometry().shape.rotationAtOffset(lane1->getGeometry().shape.length() / (double) 2.) - DEG2RAD(135);
+            Position shift(dist * cos(shiftA), dist * sin(shiftA));
+            p.add(shift);
+        }
+        double angle = lane1->getGeometry().shape.rotationDegreeAtOffset(lane1->getGeometry().shape.length() / (double) 2.);
+        angle += 90;
+        if (angle > 90 && angle < 270) {
+            angle -= 180;
+        }
+        if (s.edgeName.show) {
+            drawName(p, s.scale, s.edgeName, angle);
+        }
+        if (drawStreetName) {
+            GLHelper::drawTextSettings(s.streetName, myNBEdge.getStreetName(), p, s.scale, angle);
+        }
+        if (s.edgeValue.show) {
+            double value = lane2->getColorValue(s, s.laneColorer.getActive());
+            GLHelper::drawTextSettings(s.edgeValue, toString(value), p, s.scale, angle);
+        }
+        glPopName();
+    }
+}
+
+
+void 
+GNEEdge::drawRerouterSymbol(const GUIVisualizationSettings& s, GNEAdditional *rerouter) const {
+    // Draw symbols in every lane
+    const double rerouterExaggeration = s.addSize.getExaggeration(s, rerouter);
+    if (s.scale * rerouterExaggeration >= 3) {
+        // Start drawing adding an gl identificator
+        glPushName(rerouter->getGlID());
+        // draw rerouter symbol over all lanes
+        for (const auto &j : myLanes) {
+            const Position &lanePos = rerouter->getChildPosition(j);
+            const double laneRot = rerouter->getChildRotation(j);
+            // draw rerouter symbol
+            glPushMatrix();
+            glTranslated(lanePos.x(), lanePos.y(), rerouter->getType());
+            glRotated(-1 * laneRot, 0, 0, 1);
+            glScaled(rerouterExaggeration, rerouterExaggeration, 1);
+            // mode
+            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+            glBegin(GL_TRIANGLES);
+            glColor3d(1, .8f, 0);
+            // base
+            glVertex2d(0 - 1.4, 0);
+            glVertex2d(0 - 1.4, 6);
+            glVertex2d(0 + 1.4, 6);
+            glVertex2d(0 + 1.4, 0);
+            glVertex2d(0 - 1.4, 0);
+            glVertex2d(0 + 1.4, 6);
+            glEnd();
+            // draw "U"
+            GLHelper::drawText("U", Position(0, 2), .1, 3, RGBColor::BLACK, 180);
+            double probability = parse<double>(rerouter->getAttribute(SUMO_ATTR_PROB))*100;
+            // draw Probability
+            GLHelper::drawText((toString(probability) + "%").c_str(), Position(0, 4), .1, 0.7, RGBColor::BLACK, 180);
+            // finish draw
+            glPopMatrix();
+            // draw contour if is selected
+            if (!s.drawForSelecting && (myNet->getViewNet()->getDottedAC() == rerouter)) {
+                GLHelper::drawShapeDottedContour(getType(), lanePos, 2.8, 6, -1 * laneRot, 0, 3);
+            }
+        }
+    }
+    // Pop name
+    glPopName();
+    // Draw connections
+    rerouter->drawChildConnections(getType());
+}
+
+
+void 
+GNEEdge::drawPartialRoute(const GUIVisualizationSettings& s, GNEDemandElement *route) const {
+    // calculate route width
+    double routeWidth = s.addSize.getExaggeration(s, this) * 0.66;
+    // Start drawing adding an gl identificator
+    glPushName(route->getGlID());
+    // Add a draw matrix
+    glPushMatrix();
+    // Start with the drawing of the area traslating matrix to origin
+    glTranslated(0, 0, route->getType());
+    // Set color of the base
+    if (drawUsingSelectColor()) {
+        GLHelper::setColor(s.selectedAdditionalColor);
+    } else {
+        GLHelper::setColor(route->getColor());
+    }
+    // draw route
+    GLHelper::drawBoxLines(myLanes.front()->getGeometry().shape, myLanes.front()->getGeometry().shapeRotations, myLanes.front()->getGeometry().shapeLengths, routeWidth);
+    // check if route has a connectio between this and the next edge
+    GNEConnection *nextConnection = route->getNextConnection(this);
+    if (nextConnection && (nextConnection->getEdgeFrom()->getGNEJunctionDestiny()->getNBNode()->getShape().size() > 0)) {
+        GLHelper::drawBoxLines(nextConnection->getGeometry().shape, nextConnection->getGeometry().shapeRotations, nextConnection->getGeometry().shapeLengths, routeWidth);
+    } else {
+        // calculate line between this and the next edge
+        GNEHierarchicalElementParents::LineGeometry lineGeometry = route->getLinetoNextEdge(this);
+        GLHelper::drawBoxLine(lineGeometry.firstPoint, lineGeometry.rotation, lineGeometry.lenght, routeWidth);
+    }
+    // Pop last matrix
+    glPopMatrix();
+    // Draw name if isn't being drawn for selecting
+    if (!s.drawForSelecting) {
+        drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+    }
+    // check if dotted contour has to be drawn
+    if (!s.drawForSelecting && (myNet->getViewNet()->getDottedAC() == route)) {
+        GLHelper::drawShapeDottedContour(getType(), route->myGeometry.shape, routeWidth);
+    }
+    // Pop name
+    glPopName();
+    // draw route childs
+    for (const auto &i : route->getDemandElementChilds()) {
+        i->drawGL(s);
+    }
 }
 
 /****************************************************************************/

@@ -268,6 +268,12 @@ private:
     /// @brief direction indicators for lanes
     void drawDirectionIndicators(double exaggeration, bool spreadSuperposed) const;
 
+    /// @brief draw VSS symbol
+    void drawVSSSymbol(const GUIVisualizationSettings& s, GNEAdditional *vss) const;
+
+    /// @brief draw start and end shape points
+    void drawStartEndShapePoints(const GUIVisualizationSettings& s) const;
+
     /// @brief set color according to edit mode and visualisation settings
     RGBColor setLaneColor(const GUIVisualizationSettings& s) const;
 

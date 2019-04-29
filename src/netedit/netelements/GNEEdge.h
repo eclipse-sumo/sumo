@@ -368,6 +368,18 @@ private:
     /// @brief change Shape EndPos
     void setShapeEndPos(const Position& pos, bool updateGrid);
 
+    /// @brief draw geometry points
+    void drawGeometryPoints(const GUIVisualizationSettings& s) const;
+
+    /// @brief draw edge name
+    void drawEdgeName(const GUIVisualizationSettings& s) const;
+
+    /// @brief draw Rerouter symbols
+    void drawRerouterSymbol(const GUIVisualizationSettings& s, GNEAdditional *rerouter) const;
+
+     /// @brief draw route
+    void drawPartialRoute(const GUIVisualizationSettings& s, GNEDemandElement *route) const;
+
     /// @brief invalidated copy constructor
     GNEEdge(const GNEEdge& s) = delete;
 

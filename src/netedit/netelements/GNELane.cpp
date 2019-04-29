@@ -216,7 +216,6 @@ GNELane::drawArrows() const {
     glColor3d(1, 1, 1);
     glTranslated(end.x(), end.y(), 0);
     glRotated(rot, 0, 0, 1);
-
     // draw all links
     const std::vector<NBEdge::Connection>& edgeCons = myParentEdge.getNBEdge()->myConnections;
     NBNode* dest = myParentEdge.getNBEdge()->myTo;
@@ -327,10 +326,6 @@ GNELane::drawLane2LaneConnections() const {
 
 void
 GNELane::drawGL(const GUIVisualizationSettings& s) const {
-    // check if boundary has to be drawn (currently disabled)
-    //if(s.drawBoundaries) {
-    //    GLHelper::drawBoundary(getBoundary());
-    //}
     // Push draw matrix 1
     glPushMatrix();
     // Push name
@@ -343,12 +338,11 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
     double exaggeration = selectionScale * s.laneWidthExaggeration; // * s.laneScaler.getScheme().getColor(getScaleValue(s.laneScaler.getActive()));
     // XXX apply usefull scale values
     //exaggeration *= s.laneScaler.getScheme().getColor(getScaleValue(s.laneScaler.getActive()));
-
     // recognize full transparency and simply don't draw
     if (color.alpha() == 0 || (s.scale * exaggeration < s.laneMinSize)) {
         // Pop draw matrix 1
         glPopMatrix();
-        // Pop Name
+        // Pop Lane Name
         glPopName();
     } else if (s.scale * exaggeration < 1.) {
         // draw as lines, depending of myShapeColors
@@ -359,7 +353,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         }
         // Pop draw matrix 1
         glPopMatrix();
-        // Pop Name
+        // Pop Lane Name
         glPopName();
     } else {
         // we draw the lanes with reduced width so that the lane markings below are visible
@@ -480,114 +474,35 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         }
         // draw a Start/endPoints if lane has a custom shape
         if (!s.drawForSelecting && (myParentEdge.getNBEdge()->getLaneStruct(myIndex).customShape.size() > 1)) {
-            GLHelper::setColor(s.junctionColorer.getSchemes()[0].getColor(2));
-            if (drawUsingSelectColor() && s.laneColorer.getActive() != 1) {
-                // override with special colors (unless the color scheme is based on selection)
-                GLHelper::setColor(s.selectedEdgeColor.changedBrightness(-20));
-            }
-            // obtain circle width and resolution
-            double circleWidth = GNEEdge::SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration) / 2;
-            int circleResolution = GNEAttributeCarrier::getCircleResolution(s);
-            // obtain custom shape
-            const PositionVector& customShape = myParentEdge.getNBEdge()->getLaneStruct(myIndex).customShape;
-            // draw s
-            glPushMatrix();
-            glTranslated(customShape.front().x(), customShape.front().y(), GLO_JUNCTION + 0.01);
-            GLHelper::drawFilledCircle(circleWidth, circleResolution);
-            glTranslated(0, 0, 0.01);
-            GLHelper::drawText("S", Position(), 0, circleWidth, RGBColor::WHITE);
-            glPopMatrix();
-            // draw line between Junction and point
-            glPushMatrix();
-            glTranslated(0, 0, GLO_JUNCTION - 0.01);
-            glLineWidth(4);
-            GLHelper::drawLine(customShape.front(), myParentEdge.getGNEJunctionSource()->getPositionInView());
-            glPopMatrix();
-            // draw "e"
-            glPushMatrix();
-            glTranslated(customShape.back().x(), customShape.back().y(), GLO_JUNCTION + 0.01);
-            GLHelper::drawFilledCircle(circleWidth, circleResolution);
-            glTranslated(0, 0, 0.01);
-            GLHelper::drawText("E", Position(), 0, circleWidth, RGBColor::WHITE);
-            glPopMatrix();
-            // draw line between Junction and point
-            glPushMatrix();
-            glTranslated(0, 0, GLO_JUNCTION - 0.01);
-            glLineWidth(4);
-            GLHelper::drawLine(customShape.back(), myParentEdge.getGNEJunctionDestiny()->getPositionInView());
-            glPopMatrix();
+            drawStartEndShapePoints(s);
         }
-        // Pop Name
+        // Pop Lane Name
         glPopName();
         // draw parents
         for (const auto &i : getAdditionalParents()) {
             if (i->getTagProperty().getTag() == SUMO_TAG_VSS) {
-
-                // Start drawing adding an VSS gl identificator
-                glPushName(i->getGlID());
-
-                // obtain VSSExaggeration and lane pos
-                const double VSSExaggeration = s.addSize.getExaggeration(s, i);
-                const Position &lanePos = i->getChildPosition(this);
-                const double laneRot = i->getChildRotation(this);
-
-                glPushMatrix();
-                glScaled(VSSExaggeration, VSSExaggeration, 1);
-                glTranslated(lanePos.x(), lanePos.y(), i->getType());
-                glRotated(-1 * laneRot, 0, 0, 1);
-                glTranslated(0, -1.5, 0);
-
-                int noPoints = 9;
-                if (s.scale > 25) {
-                    noPoints = (int)(9.0 + s.scale / 10.0);
-                    if (noPoints > 36) {
-                        noPoints = 36;
-                    }
-                }
-                glColor3d(1, 0, 0);
-                GLHelper::drawFilledCircle((double) 1.3, noPoints);
-                if (s.scale >= 5) {
-                    glTranslated(0, 0, .1);
-                    glColor3d(0, 0, 0);
-                    GLHelper::drawFilledCircle((double) 1.1, noPoints);
-                    // draw the speed string
-                    //draw
-                    glColor3d(1, 1, 0);
-                    glTranslated(0, 0, .1);
-                    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
-                    // draw last value string
-                    GLHelper::drawText("S", Position(0, 0), .1, 1.2, RGBColor(255, 255, 0), 180);
-                }
-
-                // Pop symbol matrix
-                glPopMatrix();
-
-                // Pop VSS name
-                glPopName();
-
-                // check if dotted contour has to be drawn
-                if (!s.drawForSelecting && (myNet->getViewNet()->getDottedAC() == i)) {
-                    GLHelper::drawShapeDottedContour(getType(), lanePos, 2.6, 2.6, -1 * laneRot, 0, -1.5);
-                }
+                // draw VSS Symbol
+                drawVSSSymbol(s, i);
             }
         }
-        // draw childs
+        // draw shape childs
         for (const auto &i : getShapeChilds()) {
             i->drawGL(s);
         }
+        // draw additional childs
         for (const auto &i : getAdditionalChilds()) {
+            // check that ParkingAreas aren't draw two times
             if (!i->getTagProperty().isPlacedInRTree()) {
                 i->drawGL(s);
             }
         }
+        // draw demand element childs
         for (const auto &i : getDemandElementChilds()) {
             if (!i->getTagProperty().isPlacedInRTree()) {
                 i->drawGL(s);
             }
         }
     }
-
 }
 
 
@@ -1258,6 +1173,92 @@ GNELane::drawDirectionIndicators(double exaggeration, bool spreadSuperposed) con
     glPopMatrix();
 }
 
+
+void
+GNELane::drawVSSSymbol(const GUIVisualizationSettings& s, GNEAdditional *vss) const {
+    // Start drawing adding an VSS gl identificator (used to identify element after clicking)
+    glPushName(vss->getGlID());
+    // obtain VSSExaggeration, lane pos and route
+    const double VSSExaggeration = s.addSize.getExaggeration(s, vss);
+    const Position &lanePos = vss->getChildPosition(this);
+    const double laneRot = vss->getChildRotation(this);
+    // start drawing symbol
+    glPushMatrix();
+    glScaled(VSSExaggeration, VSSExaggeration, 1);
+    glTranslated(lanePos.x(), lanePos.y(), vss->getType());
+    glRotated(-1 * laneRot, 0, 0, 1);
+    glTranslated(0, -1.5, 0);
+    // draw circle
+    int noPoints = 9;
+    if (s.scale > 25) {
+        noPoints = (int)(9.0 + s.scale / 10.0);
+        if (noPoints > 36) {
+            noPoints = 36;
+        }
+    }
+    glColor3d(1, 0, 0);
+    GLHelper::drawFilledCircle((double) 1.3, noPoints);
+    if (s.scale >= 5) {
+        glTranslated(0, 0, .1);
+        glColor3d(0, 0, 0);
+        GLHelper::drawFilledCircle((double) 1.1, noPoints);
+        // draw the speed string
+        glColor3d(1, 1, 0);
+        glTranslated(0, 0, .1);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        // draw last value string
+        GLHelper::drawText("S", Position(0, 0), .1, 1.2, RGBColor(255, 255, 0), 180);
+    }
+    // Pop symbol matrix
+    glPopMatrix();
+    // Pop VSS name
+    glPopName();
+    // check if dotted contour has to be drawn
+    if (!s.drawForSelecting && (myNet->getViewNet()->getDottedAC() == vss)) {
+        GLHelper::drawShapeDottedContour(getType(), lanePos, 2.6, 2.6, -1 * laneRot, 0, -1.5);
+    }
+}
+
+
+void 
+GNELane::drawStartEndShapePoints(const GUIVisualizationSettings& s) const {
+GLHelper::setColor(s.junctionColorer.getSchemes()[0].getColor(2));
+    if (drawUsingSelectColor() && s.laneColorer.getActive() != 1) {
+        // override with special colors (unless the color scheme is based on selection)
+        GLHelper::setColor(s.selectedEdgeColor.changedBrightness(-20));
+    }
+    // obtain circle width and resolution
+    double circleWidth = GNEEdge::SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration) / 2;
+    int circleResolution = GNEAttributeCarrier::getCircleResolution(s);
+    // obtain custom shape
+    const PositionVector& customShape = myParentEdge.getNBEdge()->getLaneStruct(myIndex).customShape;
+    // draw s
+    glPushMatrix();
+    glTranslated(customShape.front().x(), customShape.front().y(), GLO_JUNCTION + 0.01);
+    GLHelper::drawFilledCircle(circleWidth, circleResolution);
+    glTranslated(0, 0, 0.01);
+    GLHelper::drawText("S", Position(), 0, circleWidth, RGBColor::WHITE);
+    glPopMatrix();
+    // draw line between Junction and point
+    glPushMatrix();
+    glTranslated(0, 0, GLO_JUNCTION - 0.01);
+    glLineWidth(4);
+    GLHelper::drawLine(customShape.front(), myParentEdge.getGNEJunctionSource()->getPositionInView());
+    glPopMatrix();
+    // draw "e"
+    glPushMatrix();
+    glTranslated(customShape.back().x(), customShape.back().y(), GLO_JUNCTION + 0.01);
+    GLHelper::drawFilledCircle(circleWidth, circleResolution);
+    glTranslated(0, 0, 0.01);
+    GLHelper::drawText("E", Position(), 0, circleWidth, RGBColor::WHITE);
+    glPopMatrix();
+    // draw line between Junction and point
+    glPushMatrix();
+    glTranslated(0, 0, GLO_JUNCTION - 0.01);
+    glLineWidth(4);
+    GLHelper::drawLine(customShape.back(), myParentEdge.getGNEJunctionDestiny()->getPositionInView());
+    glPopMatrix();
+}
 
 
 std::string
