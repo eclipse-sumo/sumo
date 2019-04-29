@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Apr 29 11:56:40 2019 by Eclipse SUMO netconvert Version v1_2_0+0022-5179cc2293
+<!-- generated on Mon Apr 29 12:45:10 2019 by Eclipse SUMO netconvert Version v1_2_0+0022-5179cc2293
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -63,10 +63,10 @@ SPDX-License-Identifier: EPL-2.0
     <type id="railway.light_rail" priority="19" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
     <type id="railway.light_rail|usage.main" priority="19" numLanes="1" speed="27.78" allow="rail_urban" oneway="0"/>
     <type id="railway.preserved" priority="16" numLanes="1" speed="27.78" allow="rail" oneway="1"/>
-    <type id="railway.rail" priority="20" numLanes="1" speed="83.33" allow="rail" oneway="1"/>
-    <type id="railway.rail|usage.branch" priority="20" numLanes="1" speed="83.33" allow="rail" oneway="0"/>
-    <type id="railway.rail|usage.industrial" priority="20" numLanes="1" speed="83.33" allow="rail" oneway="0"/>
-    <type id="railway.rail|usage.main" priority="20" numLanes="1" speed="83.33" allow="rail" oneway="0"/>
+    <type id="railway.rail" priority="20" numLanes="1" speed="44.44" allow="rail" oneway="1"/>
+    <type id="railway.rail|usage.branch" priority="20" numLanes="1" speed="44.44" allow="rail" oneway="0"/>
+    <type id="railway.rail|usage.industrial" priority="20" numLanes="1" speed="44.44" allow="rail" oneway="0"/>
+    <type id="railway.rail|usage.main" priority="20" numLanes="1" speed="44.44" allow="rail" oneway="0"/>
     <type id="railway.subway" priority="18" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
     <type id="railway.tram" priority="17" numLanes="1" speed="13.89" allow="tram" oneway="1"/>
     <type id="usage.branch" disallow="all"/>
@@ -110,40 +110,40 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":253036069_1_0" index="0" allow="rail_urban" speed="27.78" length="0.31" shape="12.96,465.99 12.96,466.31"/>
     </edge>
     <edge id=":291826744_0" function="internal">
-        <lane id=":291826744_0_0" index="0" allow="rail" speed="83.33" length="0.29" shape="39.10,531.91 39.05,531.63"/>
+        <lane id=":291826744_0_0" index="0" allow="rail" speed="44.44" length="0.29" shape="39.10,531.91 39.05,531.63"/>
     </edge>
     <edge id=":291826744_1" function="internal">
-        <lane id=":291826744_1_0" index="0" allow="rail" speed="83.33" length="0.31" shape="42.19,531.02 42.25,531.32"/>
+        <lane id=":291826744_1_0" index="0" allow="rail" speed="44.44" length="0.31" shape="42.19,531.02 42.25,531.32"/>
     </edge>
     <edge id=":291826907_0" function="internal">
-        <lane id=":291826907_0_0" index="0" allow="rail" speed="83.33" length="0.31" shape="27.20,470.89 27.15,470.59"/>
+        <lane id=":291826907_0_0" index="0" allow="rail" speed="44.44" length="0.31" shape="27.20,470.89 27.15,470.59"/>
     </edge>
     <edge id=":291826907_1" function="internal">
-        <lane id=":291826907_1_0" index="0" allow="rail" speed="83.33" length="0.29" shape="30.29,469.99 30.34,470.28"/>
+        <lane id=":291826907_1_0" index="0" allow="rail" speed="44.44" length="0.29" shape="30.29,469.99 30.34,470.28"/>
     </edge>
     <edge id=":292133755_0" function="internal">
-        <lane id=":292133755_0_0" index="0" allow="rail" speed="83.33" length="49.44" shape="22.07,443.95 21.03,434.88 19.65,419.35 18.41,403.81 17.82,394.70"/>
+        <lane id=":292133755_0_0" index="0" allow="rail" speed="44.44" length="49.44" shape="22.07,443.95 21.03,434.88 19.65,419.35 18.41,403.81 17.82,394.70"/>
     </edge>
     <edge id=":292133755_1" function="internal">
-        <lane id=":292133755_1_0" index="0" allow="rail" speed="83.33" length="49.94" shape="28.66,443.43 26.37,434.50 22.75,419.14 19.37,403.75 17.82,394.70"/>
+        <lane id=":292133755_1_0" index="0" allow="rail" speed="44.44" length="49.94" shape="28.66,443.43 26.37,434.50 22.75,419.14 19.37,403.75 17.82,394.70"/>
     </edge>
     <edge id=":292133755_2" function="internal">
-        <lane id=":292133755_2_0" index="0" allow="rail" speed="83.33" length="49.46" shape="21.02,394.62 22.56,403.59 25.93,418.82 29.55,434.00 31.83,442.86"/>
+        <lane id=":292133755_2_0" index="0" allow="rail" speed="44.44" length="49.46" shape="21.02,394.62 22.56,403.59 25.93,418.82 29.55,434.00 31.83,442.86"/>
     </edge>
     <edge id=":292133755_3" function="internal">
-        <lane id=":292133755_3_0" index="0" allow="rail" speed="83.33" length="49.40" shape="21.02,394.62 21.61,403.72 22.86,419.25 24.26,434.76 25.31,443.82"/>
+        <lane id=":292133755_3_0" index="0" allow="rail" speed="44.44" length="49.40" shape="21.02,394.62 21.61,403.72 22.86,419.25 24.26,434.76 25.31,443.82"/>
     </edge>
     <edge id=":293604102_0" function="internal">
-        <lane id=":293604102_0_0" index="0" allow="rail" speed="83.33" length="2.86" shape="16.70,350.62 16.65,347.77"/>
+        <lane id=":293604102_0_0" index="0" allow="rail" speed="44.44" length="2.86" shape="16.70,350.62 16.65,347.77"/>
     </edge>
     <edge id=":293604102_1" function="internal">
-        <lane id=":293604102_1_0" index="0" allow="rail" speed="48.61" length="2.85" shape="16.83,350.61 16.74,349.77 16.69,349.19 16.66,348.61 16.65,347.77"/>
+        <lane id=":293604102_1_0" index="0" allow="rail" speed="29.16" length="2.85" shape="16.83,350.61 16.74,349.77 16.69,349.19 16.66,348.61 16.65,347.77"/>
     </edge>
     <edge id=":293604102_2" function="internal">
-        <lane id=":293604102_2_0" index="0" allow="rail" speed="48.61" length="2.51" shape="19.85,347.73 19.86,348.47 19.88,348.98 19.93,349.49 20.01,350.23"/>
+        <lane id=":293604102_2_0" index="0" allow="rail" speed="29.16" length="2.51" shape="19.85,347.73 19.86,348.47 19.88,348.98 19.93,349.49 20.01,350.23"/>
     </edge>
     <edge id=":293604102_3" function="internal">
-        <lane id=":293604102_3_0" index="0" allow="rail" speed="83.33" length="2.52" shape="19.85,347.73 19.90,350.25"/>
+        <lane id=":293604102_3_0" index="0" allow="rail" speed="44.44" length="2.52" shape="19.85,347.73 19.90,350.25"/>
     </edge>
     <edge id=":293605247_0" function="internal">
         <lane id=":293605247_0_0" index="0" allow="rail rail_electric rail_fast" speed="8.34" length="28.64" shape="16.11,300.91 16.43,311.59 17.07,315.18 18.03,311.66 19.30,301.06"/>
@@ -155,22 +155,22 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":293605248_0_0" index="0" allow="rail_urban" speed="27.78" length="2.97" shape="8.01,382.73 7.93,379.76"/>
     </edge>
     <edge id=":293605248_1" function="internal">
-        <lane id=":293605248_1_0" index="0" allow="rail rail_electric rail_fast" speed="83.33" length="3.03" shape="11.36,379.65 11.08,382.67"/>
+        <lane id=":293605248_1_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="3.03" shape="11.36,379.65 11.08,382.67"/>
     </edge>
     <edge id=":293605248_2" function="internal">
         <lane id=":293605248_2_0" index="0" allow="rail_urban" speed="27.78" length="3.01" shape="11.13,379.66 11.21,382.67"/>
     </edge>
     <edge id=":293605248_3" function="internal">
-        <lane id=":293605248_3_0" index="0" allow="rail rail_electric rail_fast" speed="83.33" length="2.99" shape="7.86,382.73 8.13,379.75"/>
+        <lane id=":293605248_3_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="2.99" shape="7.86,382.73 8.13,379.75"/>
     </edge>
     <edge id=":374388207_0" function="internal">
         <lane id=":374388207_0_0" index="0" allow="rail rail_electric rail_fast" speed="27.78" length="3.00" shape="3.17,444.13 3.13,441.13"/>
     </edge>
     <edge id=":374388207_1" function="internal">
-        <lane id=":374388207_1_0" index="0" allow="rail rail_electric rail_fast" speed="55.55" length="3.00" shape="3.17,444.13 3.28,441.13"/>
+        <lane id=":374388207_1_0" index="0" allow="rail rail_electric rail_fast" speed="36.11" length="3.00" shape="3.17,444.13 3.28,441.13"/>
     </edge>
     <edge id=":374388207_2" function="internal">
-        <lane id=":374388207_2_0" index="0" allow="rail rail_electric rail_fast" speed="55.55" length="3.05" shape="6.50,441.07 6.37,444.11"/>
+        <lane id=":374388207_2_0" index="0" allow="rail rail_electric rail_fast" speed="36.11" length="3.05" shape="6.50,441.07 6.37,444.11"/>
     </edge>
     <edge id=":374388207_3" function="internal">
         <lane id=":374388207_3_0" index="0" allow="rail rail_electric rail_fast" speed="27.78" length="3.04" shape="6.33,441.07 6.37,444.11"/>
@@ -194,10 +194,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":42145788_3_0" index="0" allow="rail rail_electric rail_fast" speed="27.78" length="3.04" shape="3.83,529.76 3.88,526.72"/>
     </edge>
     <edge id=":4395826739_0" function="internal">
-        <lane id=":4395826739_0_0" index="0" allow="rail rail_electric rail_fast" speed="83.33" length="0.30" shape="13.91,354.38 13.88,354.68"/>
+        <lane id=":4395826739_0_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="0.30" shape="13.91,354.38 13.88,354.68"/>
     </edge>
     <edge id=":4395826739_1" function="internal">
-        <lane id=":4395826739_1_0" index="0" allow="rail rail_electric rail_fast" speed="83.33" length="0.30" shape="10.69,354.36 10.73,354.06"/>
+        <lane id=":4395826739_1_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="0.30" shape="10.69,354.36 10.73,354.06"/>
     </edge>
     <edge id=":4395826741_0" function="internal">
         <lane id=":4395826741_0_0" index="0" allow="rail rail_electric rail_fast" speed="27.78" length="0.10" shape="1.58,362.09 1.58,362.09"/>
@@ -206,20 +206,20 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":4395826741_1_0" index="0" allow="rail rail_electric rail_fast" speed="27.78" length="0.10" shape="4.78,362.03 4.78,362.03"/>
     </edge>
     <edge id=":4395839471_0" function="internal">
-        <lane id=":4395839471_0_0" index="0" allow="rail rail_electric rail_fast" speed="83.33" length="0.30" shape="7.63,426.65 7.61,426.95"/>
+        <lane id=":4395839471_0_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="0.30" shape="7.63,426.65 7.61,426.95"/>
     </edge>
     <edge id=":4395839471_1" function="internal">
-        <lane id=":4395839471_1_0" index="0" allow="rail rail_electric rail_fast" speed="83.33" length="0.30" shape="4.42,426.70 4.44,426.40"/>
+        <lane id=":4395839471_1_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="0.30" shape="4.42,426.70 4.44,426.40"/>
     </edge>
 
     <edge id="-121902849" from="42145788" to="1363480437" priority="20" type="railway.rail|usage.main">
         <lane id="-121902849_0" index="0" allow="rail rail_electric rail_fast" speed="27.78" length="37.00" shape="3.88,526.72 4.00,489.72"/>
     </edge>
     <edge id="-121903338" from="1363484005" to="1363484001" priority="20" type="railway.rail|usage.industrial" shape="216.45,663.55 177.82,624.93 63.49,511.38">
-        <lane id="-121903338_0" index="0" allow="rail" speed="83.33" length="215.75" shape="215.32,664.68 176.69,626.07 62.36,512.52"/>
+        <lane id="-121903338_0" index="0" allow="rail" speed="44.44" length="215.75" shape="215.32,664.68 176.69,626.07 62.36,512.52"/>
     </edge>
     <edge id="-154203996" from="4395826739" to="293605247" priority="20" type="railway.rail|usage.main" shape="12.30,354.37 12.35,353.87 12.45,352.94 17.71,300.90">
-        <lane id="-154203996_0" index="0" allow="rail rail_electric rail_fast" speed="83.33" length="53.32" shape="10.73,354.06 10.76,353.71 10.85,352.78 16.09,301.00"/>
+        <lane id="-154203996_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="53.32" shape="10.73,354.06 10.76,353.71 10.85,352.78 16.09,301.00"/>
     </edge>
     <edge id="-22955562" from="260949290" to="42145788" priority="20" type="railway.rail|usage.main" shape="14.24,945.18 11.64,815.57 7.66,617.34 5.47,528.21" distance="27834.13">
         <lane id="-22955562_0" index="0" allow="rail rail_electric rail_fast" speed="27.78" length="415.55" shape="12.64,945.21 10.04,815.60 6.06,617.38 3.91,529.76"/>
@@ -234,19 +234,19 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="-255228347_0" index="0" allow="rail rail_electric rail_fast" speed="27.78" length="410.63" shape="7.03,529.68 5.68,582.04 4.71,618.15 3.70,651.42 3.48,659.08 6.49,816.12 8.81,937.19 8.95,940.21"/>
     </edge>
     <edge id="-26609040" from="291826744" to="2797604751" priority="20" type="railway.rail|usage.industrial" shape="40.65,531.47 43.68,547.61 48.63,564.13 54.15,577.71 62.32,593.42 70.88,607.39 82.08,621.97 95.73,637.29 112.14,653.42 144.08,683.65 170.06,710.79 192.79,733.33 227.87,767.73 247.44,780.89 268.00,798.10 432.39,961.67 454.41,983.54 618.70,1148.23 657.73,1186.37 712.02,1237.69">
-        <lane id="-26609040_0" index="0" allow="rail" speed="83.33" length="981.10" shape="42.25,531.32 45.24,547.24 50.14,563.60 55.60,577.04 63.71,592.64 72.20,606.48 83.31,620.95 96.89,636.18 113.25,652.27 145.21,682.51 171.21,709.67 193.92,732.19 228.88,766.48 248.40,779.60 269.08,796.92 433.51,960.54 455.54,982.41 619.82,1147.10 658.84,1185.22 713.12,1236.53"/>
+        <lane id="-26609040_0" index="0" allow="rail" speed="44.44" length="981.10" shape="42.25,531.32 45.24,547.24 50.14,563.60 55.60,577.04 63.71,592.64 72.20,606.48 83.31,620.95 96.89,636.18 113.25,652.27 145.21,682.51 171.21,709.67 193.92,732.19 228.88,766.48 248.40,779.60 269.08,796.92 433.51,960.54 455.54,982.41 619.82,1147.10 658.84,1185.22 713.12,1236.53"/>
     </edge>
     <edge id="-26609049" from="291826744" to="291826907" priority="20" type="railway.rail|usage.industrial">
-        <lane id="-26609049_0" index="0" allow="rail" speed="83.33" length="61.89" shape="39.05,531.63 27.20,470.89"/>
+        <lane id="-26609049_0" index="0" allow="rail" speed="44.44" length="61.89" shape="39.05,531.63 27.20,470.89"/>
     </edge>
     <edge id="-26609053" from="292133755" to="291826907" priority="20" type="railway.rail|usage.industrial" shape="19.47,396.40 20.16,414.50 22.44,437.34 28.74,470.44">
-        <lane id="-26609053_0" index="0" allow="rail" speed="83.33" length="26.64" shape="25.31,443.82 30.29,469.99"/>
+        <lane id="-26609053_0" index="0" allow="rail" speed="44.44" length="26.64" shape="25.31,443.82 30.29,469.99"/>
     </edge>
     <edge id="-26927036" from="293604102" to="42132834" priority="20" type="railway.rail|usage.branch" shape="18.27,349.11 21.34,375.22 22.61,386.01 31.17,420.99 34.98,433.76 40.05,447.00 59.13,484.10 72.77,504.41 86.34,519.28 101.06,535.40 135.59,568.02 157.45,586.49 219.53,637.30 279.10,683.34" distance="58464.41">
         <lane id="-26927036_0" index="0" allow="rail" speed="13.89" length="437.85" shape="20.01,350.23 22.93,375.03 24.18,385.72 32.71,420.57 36.50,433.24 41.51,446.35 60.51,483.29 74.03,503.42 87.53,518.20 102.20,534.28 136.66,566.83 158.48,585.26 220.53,636.04 280.08,682.07"/>
     </edge>
     <edge id="-294730182" from="293605247" to="293604102" priority="20" type="railway.rail|usage.branch">
-        <lane id="-294730182_0" index="0" allow="rail" speed="83.33" length="46.58" shape="19.31,301.15 19.85,347.73"/>
+        <lane id="-294730182_0" index="0" allow="rail" speed="44.44" length="46.58" shape="19.31,301.15 19.85,347.73"/>
     </edge>
     <edge id="-294730183" from="428760212" to="293605248" priority="19" type="railway.light_rail|usage.main" shape="8.48,0.00 6.75,48.21 4.87,149.96 5.61,230.12 7.13,280.41 7.42,289.71 7.77,301.33 8.31,344.54 9.58,381.27">
         <lane id="-294730183_0" index="0" allow="rail_urban" speed="27.78" length="379.71" shape="10.07,0.06 8.35,48.25 6.47,149.97 7.21,230.09 8.73,280.36 9.02,289.66 9.37,301.29 9.91,344.50 11.13,379.66"/>
@@ -255,10 +255,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="-294730185_0" index="0" allow="rail_urban" speed="27.78" length="52.50" shape="13.07,494.23 14.30,546.72"/>
     </edge>
     <edge id="-294730187" from="293604102" to="292133755" priority="20" type="railway.rail|usage.industrial">
-        <lane id="-294730187_0" index="0" allow="rail" speed="83.33" length="44.38" shape="19.90,350.25 21.02,394.62"/>
+        <lane id="-294730187_0" index="0" allow="rail" speed="44.44" length="44.38" shape="19.90,350.25 21.02,394.62"/>
     </edge>
     <edge id="-294730188" from="374388207" to="4395839471" priority="20" type="railway.rail|usage.main" shape="4.76,442.71 5.83,429.02 5.95,427.68 6.02,426.67">
-        <lane id="-294730188_0" index="0" allow="rail rail_electric rail_fast" speed="83.33" length="14.47" shape="3.28,441.13 4.24,428.90 4.35,427.55 4.42,426.70"/>
+        <lane id="-294730188_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="14.47" shape="3.28,441.13 4.24,428.90 4.35,427.55 4.42,426.70"/>
     </edge>
     <edge id="-326225735" from="1363480438" to="3328456919" priority="19" type="railway.light_rail|usage.main" shape="12.36,532.33 14.29,616.41 19.33,945.27 23.25,1216.61 28.16,1405.31 45.00,1652.20 66.77,1964.47">
         <lane id="-326225735_0" index="0" allow="rail_urban" speed="27.78" length="1384.14" shape="15.10,581.69 15.89,616.37 20.93,945.25 24.85,1216.58 29.76,1405.24 46.59,1652.09 68.36,1964.36"/>
@@ -267,13 +267,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="-33142249_0" index="0" allow="rail rail_electric rail_fast" speed="27.78" length="15.80" shape="3.24,459.93 3.17,444.13"/>
     </edge>
     <edge id="-347977090" from="292133755" to="292135214" priority="20" type="railway.rail|usage.industrial" shape="19.47,396.40 22.47,413.01 23.92,422.31 31.37,446.83 46.33,479.34 67.35,509.08 99.54,541.01 125.25,565.38 181.94,622.38 216.97,656.64">
-        <lane id="-347977090_0" index="0" allow="rail" speed="83.33" length="285.22" shape="31.83,442.86 32.87,446.26 47.73,478.54 68.58,508.04 100.65,539.86 126.37,564.23 183.07,621.25 218.09,655.49"/>
+        <lane id="-347977090_0" index="0" allow="rail" speed="44.44" length="285.22" shape="31.83,442.86 32.87,446.26 47.73,478.54 68.58,508.04 100.65,539.86 126.37,564.23 183.07,621.25 218.09,655.49"/>
     </edge>
     <edge id="-441886700" from="293605248" to="4395826739" priority="20" type="railway.rail|usage.main" shape="9.58,381.27 11.73,359.99 12.30,354.37">
-        <lane id="-441886700_0" index="0" allow="rail rail_electric rail_fast" speed="83.33" length="25.53" shape="8.13,379.75 10.14,359.83 10.69,354.36"/>
+        <lane id="-441886700_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="25.53" shape="8.13,379.75 10.14,359.83 10.69,354.36"/>
     </edge>
     <edge id="-441888109" from="4395839471" to="293605248" priority="20" type="railway.rail|usage.main">
-        <lane id="-441888109_0" index="0" allow="rail rail_electric rail_fast" speed="83.33" length="43.80" shape="4.44,426.40 7.86,382.73"/>
+        <lane id="-441888109_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="43.80" shape="4.44,426.40 7.86,382.73"/>
     </edge>
     <edge id="-78766917#0" from="4395826741" to="374388207" priority="20" type="railway.rail|usage.main" shape="3.18,362.06 4.13,410.34 4.49,428.65 4.76,442.71" distance="27561.32">
         <lane id="-78766917#0_0" index="0" allow="rail rail_electric rail_fast" speed="27.78" length="79.05" shape="4.78,362.03 5.73,410.31 6.09,428.62 6.33,441.07"/>
@@ -297,10 +297,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="121902854_0" index="0" allow="rail_urban" speed="27.78" length="149.77" shape="22.35,642.01 24.47,676.48 26.60,791.70"/>
     </edge>
     <edge id="121903338" from="1363484001" to="1363484005" priority="20" type="railway.rail|usage.industrial" shape="63.49,511.38 177.82,624.93 216.45,663.55">
-        <lane id="121903338_0" index="0" allow="rail" speed="83.33" length="215.76" shape="64.62,510.25 178.95,623.80 217.58,662.41"/>
+        <lane id="121903338_0" index="0" allow="rail" speed="44.44" length="215.76" shape="64.62,510.25 178.95,623.80 217.58,662.41"/>
     </edge>
     <edge id="154203996" from="293605247" to="4395826739" priority="20" type="railway.rail|usage.main" shape="17.71,300.90 12.45,352.94 12.35,353.87 12.30,354.37">
-        <lane id="154203996_0" index="0" allow="rail rail_electric rail_fast" speed="83.33" length="53.60" shape="19.30,301.06 14.04,353.10 13.95,354.03 13.91,354.38"/>
+        <lane id="154203996_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="53.60" shape="19.30,301.06 14.04,353.10 13.95,354.03 13.91,354.38"/>
     </edge>
     <edge id="22955562" from="42145788" to="260949290" priority="20" type="railway.rail|usage.main" shape="5.47,528.21 7.66,617.34 11.64,815.57 14.24,945.18" distance="26712.58">
         <lane id="22955562_0" index="0" allow="rail rail_electric rail_fast" speed="27.78" length="415.56" shape="7.11,529.68 9.26,617.31 13.24,815.53 15.84,945.15"/>
@@ -315,19 +315,19 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="255228347_0" index="0" allow="rail rail_electric rail_fast" speed="27.78" length="410.70" shape="5.76,940.36 5.61,937.28 3.29,816.18 0.27,659.07 0.51,651.32 1.51,618.06 2.48,581.95 3.83,529.76"/>
     </edge>
     <edge id="26609040" from="2797604751" to="291826744" priority="20" type="railway.rail|usage.industrial" shape="712.02,1237.69 657.73,1186.37 618.70,1148.23 454.41,983.54 432.39,961.67 268.00,798.10 247.44,780.89 227.87,767.73 192.79,733.33 170.06,710.79 144.08,683.65 112.14,653.42 95.73,637.29 82.08,621.97 70.88,607.39 62.32,593.42 54.15,577.71 48.63,564.13 43.68,547.61 40.65,531.47">
-        <lane id="26609040_0" index="0" allow="rail" speed="83.33" length="983.12" shape="710.92,1238.85 656.62,1187.53 617.57,1149.37 453.28,984.67 431.26,962.81 266.92,799.28 246.48,782.17 226.85,768.97 191.67,734.47 168.92,711.92 142.95,684.78 111.03,654.57 94.58,638.39 80.84,622.99 69.56,608.30 60.92,594.21 52.69,578.38 47.11,564.66 42.12,547.99 39.10,531.91"/>
+        <lane id="26609040_0" index="0" allow="rail" speed="44.44" length="983.12" shape="710.92,1238.85 656.62,1187.53 617.57,1149.37 453.28,984.67 431.26,962.81 266.92,799.28 246.48,782.17 226.85,768.97 191.67,734.47 168.92,711.92 142.95,684.78 111.03,654.57 94.58,638.39 80.84,622.99 69.56,608.30 60.92,594.21 52.69,578.38 47.11,564.66 42.12,547.99 39.10,531.91"/>
     </edge>
     <edge id="26609049" from="291826907" to="291826744" priority="20" type="railway.rail|usage.industrial">
-        <lane id="26609049_0" index="0" allow="rail" speed="83.33" length="61.89" shape="30.34,470.28 42.19,531.02"/>
+        <lane id="26609049_0" index="0" allow="rail" speed="44.44" length="61.89" shape="30.34,470.28 42.19,531.02"/>
     </edge>
     <edge id="26609053" from="291826907" to="292133755" priority="20" type="railway.rail|usage.industrial" shape="28.74,470.44 22.44,437.34 20.16,414.50 19.47,396.40">
-        <lane id="26609053_0" index="0" allow="rail" speed="83.33" length="27.12" shape="27.15,470.59 22.07,443.95"/>
+        <lane id="26609053_0" index="0" allow="rail" speed="44.44" length="27.12" shape="27.15,470.59 22.07,443.95"/>
     </edge>
     <edge id="26927036" from="42132834" to="293604102" priority="20" type="railway.rail|usage.branch" shape="279.10,683.34 219.53,637.30 157.45,586.49 135.59,568.02 101.06,535.40 86.34,519.28 72.77,504.41 59.13,484.10 40.05,447.00 34.98,433.76 31.17,420.99 22.61,386.01 21.34,375.22 18.27,349.11" distance="57444.49">
         <lane id="26927036_0" index="0" allow="rail" speed="13.89" length="440.40" shape="278.12,684.60 218.54,638.55 156.43,587.72 134.52,569.21 99.92,536.53 85.16,520.36 71.51,505.40 57.75,484.92 38.59,447.66 33.47,434.27 29.62,421.41 21.03,386.29 19.75,375.40 16.83,350.61"/>
     </edge>
     <edge id="294730182" from="293604102" to="293605247" priority="20" type="railway.rail|usage.branch">
-        <lane id="294730182_0" index="0" allow="rail" speed="83.33" length="46.85" shape="16.65,347.77 16.11,300.91"/>
+        <lane id="294730182_0" index="0" allow="rail" speed="44.44" length="46.85" shape="16.65,347.77 16.11,300.91"/>
     </edge>
     <edge id="294730183" from="293605248" to="428760212" priority="19" type="railway.light_rail|usage.main" shape="9.58,381.27 8.31,344.54 7.77,301.33 7.42,289.71 7.13,280.41 5.61,230.12 4.87,149.96 6.75,48.21 8.48,0.00">
         <lane id="294730183_0" index="0" allow="rail_urban" speed="27.78" length="379.93" shape="7.93,379.76 6.71,344.58 6.17,301.36 5.82,289.76 5.53,280.46 4.02,230.15 3.27,149.95 5.15,48.16 6.88,-0.06"/>
@@ -336,10 +336,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="294730185_0" index="0" allow="rail_urban" speed="27.78" length="52.50" shape="11.10,546.79 9.88,494.31"/>
     </edge>
     <edge id="294730187" from="292133755" to="293604102" priority="20" type="railway.rail|usage.industrial">
-        <lane id="294730187_0" index="0" allow="rail" speed="83.33" length="44.09" shape="17.82,394.70 16.70,350.62"/>
+        <lane id="294730187_0" index="0" allow="rail" speed="44.44" length="44.09" shape="17.82,394.70 16.70,350.62"/>
     </edge>
     <edge id="294730188" from="4395839471" to="374388207" priority="20" type="railway.rail|usage.main" shape="6.02,426.67 5.95,427.68 5.83,429.02 4.76,442.71">
-        <lane id="294730188_0" index="0" allow="rail rail_electric rail_fast" speed="83.33" length="14.17" shape="7.61,426.95 7.54,427.80 7.43,429.15 6.50,441.07"/>
+        <lane id="294730188_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="14.17" shape="7.61,426.95 7.54,427.80 7.43,429.15 6.50,441.07"/>
     </edge>
     <edge id="326225735" from="3328456919" to="1363480438" priority="19" type="railway.light_rail|usage.main" shape="66.77,1964.47 45.00,1652.20 28.16,1405.31 23.25,1216.61 19.33,945.27 14.29,616.41 12.36,532.33">
         <lane id="326225735_0" index="0" allow="rail_urban" speed="27.78" length="1384.29" shape="65.17,1964.58 43.40,1652.31 26.57,1405.39 21.65,1216.64 17.73,945.30 12.69,616.44 11.90,581.76"/>
@@ -348,13 +348,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="33142249_0" index="0" allow="rail rail_electric rail_fast" speed="27.78" length="15.80" shape="6.37,444.11 6.44,459.92"/>
     </edge>
     <edge id="347977090" from="292135214" to="292133755" priority="20" type="railway.rail|usage.industrial" shape="216.97,656.64 181.94,622.38 125.25,565.38 99.54,541.01 67.35,509.08 46.33,479.34 31.37,446.83 23.92,422.31 22.47,413.01 19.47,396.40">
-        <lane id="347977090_0" index="0" allow="rail" speed="83.33" length="287.20" shape="215.85,657.78 180.82,623.52 124.13,566.52 98.42,542.16 66.13,510.12 44.94,480.14 29.87,447.40 28.66,443.43"/>
+        <lane id="347977090_0" index="0" allow="rail" speed="44.44" length="287.20" shape="215.85,657.78 180.82,623.52 124.13,566.52 98.42,542.16 66.13,510.12 44.94,480.14 29.87,447.40 28.66,443.43"/>
     </edge>
     <edge id="441886700" from="4395826739" to="293605248" priority="20" type="railway.rail|usage.main" shape="12.30,354.37 11.73,359.99 9.58,381.27">
-        <lane id="441886700_0" index="0" allow="rail rail_electric rail_fast" speed="83.33" length="25.10" shape="13.88,354.68 13.32,360.15 11.36,379.65"/>
+        <lane id="441886700_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="25.10" shape="13.88,354.68 13.32,360.15 11.36,379.65"/>
     </edge>
     <edge id="441888109" from="293605248" to="4395839471" priority="20" type="railway.rail|usage.main">
-        <lane id="441888109_0" index="0" allow="rail rail_electric rail_fast" speed="83.33" length="44.11" shape="11.08,382.67 7.63,426.65"/>
+        <lane id="441888109_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="44.11" shape="11.08,382.67 7.63,426.65"/>
     </edge>
     <edge id="78766917#0" from="374388207" to="4395826741" priority="20" type="railway.rail|usage.main" shape="4.76,442.71 4.49,428.65 4.13,410.34 3.18,362.06" distance="27385.94">
         <lane id="78766917#0_0" index="0" allow="rail rail_electric rail_fast" speed="27.78" length="79.05" shape="3.13,441.13 2.89,428.68 2.53,410.37 1.58,362.09"/>
