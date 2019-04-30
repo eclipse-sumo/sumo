@@ -578,7 +578,7 @@ GNEVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_MAXSPEED_LAT:
             return canParse<double>(value);
         case SUMO_ATTR_ACTIONSTEPLENGTH:
-            return canParse<double>(value) && (parse<double>(value) > 0);
+            return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_PROB:
             return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_HASDRIVERSTATE:
@@ -1194,16 +1194,6 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
-    /*
-    // mark parameter as set
-    parametersSet |= VTYPEPARS_HASDRIVERSTATE_SET;
-    // mark parameter as set
-    parametersSet |= VTYPEPARS_PROBABILITY_SET;
-    // mark parameter as set
-    parametersSet |= VTYPEPARS_HEIGHT_SET;
-    // mark parameter as set
-    parametersSet |= VTYPEPARS_OSGFILE_SET;
-    */
     // check if updated attribute requieres update geometry
     if (myTagProperty.hasAttribute(key) && myTagProperty.getAttributeProperties(key).requiereUpdateGeometry()) {
         updateGeometry();

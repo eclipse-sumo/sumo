@@ -496,8 +496,14 @@ GNEVehicleTypeDialog::VTypeAtributes::buildAttributesA(FXVerticalFrame* column) 
     // 10 create FXTextField and Label for Width
     myWidth = new VTypeAttributeRow(this, column, SUMO_ATTR_WIDTH, 1);
 
-    // 11 create FXTextField and Label for Filename
+    // 11 create FXTextField and Label for Height
+    myHeight = new VTypeAttributeRow(this, column, SUMO_ATTR_HEIGHT, 1);
+
+    // 12 create FXTextField and Label for Filename
     myFilename = new VTypeAttributeRow(this, column, SUMO_ATTR_IMGFILE, 3);
+
+    // 13 create FXTextField and Label for Filename
+    myOSGFile = new VTypeAttributeRow(this, column, SUMO_ATTR_OSGFILE, 3);
 }
 
 
@@ -532,6 +538,12 @@ GNEVehicleTypeDialog::VTypeAtributes::buildAttributesB(FXVerticalFrame* column) 
 
     // 10 create VTypeAttributeRow and Label for ActionStepLenght
     myActionStepLenght = new VTypeAttributeRow(this, column, SUMO_ATTR_ACTIONSTEPLENGTH, 1);
+
+    // 11 create VTypeAttributeRow and Label for HasDriveStateu
+    myHasDriveState = new VTypeAttributeRow(this, column, SUMO_ATTR_HASDRIVERSTATE, 1);
+
+    // 12 create VTypeAttributeRow and Label for Probability
+    myProbability = new VTypeAttributeRow(this, column, SUMO_ATTR_PROB, 1);
 }
 
 
@@ -597,13 +609,18 @@ GNEVehicleTypeDialog::VTypeAtributes::updateValues() {
     mySpeedDev->updateValue();
     myEmissionClass->updateValue();
     myWidth->updateValue();
+    myHeight->updateValue();
     myFilename->updateValue();
+    myOSGFile->updateValue();
     myPersonCapacity->updateValue();
     myContainerCapacity->updateValue();
     myBoardingDuration->updateValue();
     myLoadingDuration->updateValue();
     myMinGapLat->updateValue();
     myMaxSpeedLat->updateValue();
+    myActionStepLenght->updateValue();
+    myHasDriveState->updateValue();
+    myProbability->updateValue();
     // JM Parameters
     myJMCrossingGap->updateValue();
     myJMIgnoreKeepclearTime->updateValue();
@@ -662,13 +679,18 @@ GNEVehicleTypeDialog::VTypeAtributes::onCmdSetVariable(FXObject*, FXSelector, vo
     mySpeedDev->setVariable();
     myEmissionClass->setVariable();
     myWidth->setVariable();
+    myHeight->setVariable();
     myFilename->setVariable();
+    myOSGFile->setVariable();
     myPersonCapacity->setVariable();
     myContainerCapacity->setVariable();
     myBoardingDuration->setVariable();
     myLoadingDuration->setVariable();
     myMinGapLat->setVariable();
     myMaxSpeedLat->setVariable();
+    myActionStepLenght->setVariable();
+    myHasDriveState->setVariable();
+    myProbability->setVariable();
     // JM Variables
     myJMCrossingGap->setVariable();
     myJMIgnoreKeepclearTime->setVariable();
@@ -1053,7 +1075,7 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::onCmdSetVariable(FXObject*, F
 // ---------------------------------------------------------------------------
 
 GNEVehicleTypeDialog::GNEVehicleTypeDialog(GNEDemandElement* editedVehicleType, bool updatingElement) :
-    GNEDemandElementDialog(editedVehicleType, updatingElement, 1022, 506),
+    GNEDemandElementDialog(editedVehicleType, updatingElement, 1022, 550),
     myVehicleTypeValid(true),
     myInvalidAttr(SUMO_ATTR_NOTHING) {
 

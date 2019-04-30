@@ -204,8 +204,14 @@ public:
         /// @brief VTypeAttributeRow for Width
         VTypeAttributeRow* myWidth;
 
+        /// @brief VTypeAttributeRow for Height
+        VTypeAttributeRow* myHeight;
+
         /// @brief VTypeAttributeRow for Filename
         VTypeAttributeRow* myFilename;
+
+        /// @brief VTypeAttributeRow for OSG
+        VTypeAttributeRow* myOSGFile;
 
         /// @brief VTypeAttributeRow for LaneChangeModel
         VTypeAttributeRow* myLaneChangeModel;
@@ -233,6 +239,12 @@ public:
 
         /// @brief VTypeAttributeRow for ActionStepLenght
         VTypeAttributeRow* myActionStepLenght;
+
+        /// @brief VTypeAttributeRow for HasDriveState
+        VTypeAttributeRow* myHasDriveState;
+
+        /// @brief VTypeAttributeRow for Probability
+        VTypeAttributeRow* myProbability;
 
         /// @}
 

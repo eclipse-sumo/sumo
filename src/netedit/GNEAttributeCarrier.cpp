@@ -3148,6 +3148,12 @@ GNEAttributeCarrier::fillDemandElements() {
                                            "1.8");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
+        attrProperty = AttributeProperties(SUMO_ATTR_HEIGHT,
+                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_EXTENDED,
+                                           "The vehicle's height [m] (only used for drawing)",
+                                           "1.5");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
         attrProperty = AttributeProperties(SUMO_ATTR_IMGFILE,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_FILENAME | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_EXTENDED,
                                            "Image file for rendering vehicles of this type (should be grayscale to allow functional coloring)");
@@ -3214,6 +3220,24 @@ GNEAttributeCarrier::fillDemandElements() {
                                            ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_EXTENDED,
                                            "The interval length for which vehicle performs its decision logic (acceleration and lane-changing)",
                                            toString(OptionsCont::getOptions().getFloat("default.action-step-length")));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_PROB,
+                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_EXTENDED,
+                                           "The probability when being added to a distribution without an explicit probability",
+                                           toString(DEFAULT_VEH_PROB));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_HASDRIVERSTATE,
+                                           ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_EXTENDED,
+                                           "Whether vehicles of this type are equipped with a driver (i.e. MSDriverState))",
+                                           "0");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_OSGFILE,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_EXTENDED,
+                                           "3D model file for this class",
+                                           "");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         // fill Car Following Model Values (implemented in a separated function to improve code legibility)
