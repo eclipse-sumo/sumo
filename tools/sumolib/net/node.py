@@ -165,14 +165,16 @@ class Node:
     def getParams(self):
         return self._params
         
-    def getNeighboringNodes(self):
+    def getNeighboringNodes(self, outgoingNodes= True, incomingNodes= True):
         neighboring= []
-        edges= self._incoming
-        for e in edges:
-            if not (e.getFromNode() in neighboring) and not(e.getFromNode().getID() == self.getID()):
-                neighboring.append(e.getFromNode())    
-        egdes= self._outgoing
-        for e in edges:
-            if not (e.getToNode() in neighboring)and not(e.getToNode().getID() == self.getID()):
-                neighboring.append(e.getToNode())   
+        if incomingNodes: 
+            edges= self._incoming
+            for e in edges:
+                if not (e.getFromNode() in neighboring) and not(e.getFromNode().getID() == self.getID()):
+                    neighboring.append(e.getFromNode())    
+        if outgoingNodes:
+            edges= self._outgoing
+            for e in edges:
+                if not (e.getToNode() in neighboring)and not(e.getToNode().getID() == self.getID()):
+                    neighboring.append(e.getToNode())   
         return neighboring
