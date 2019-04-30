@@ -153,6 +153,12 @@ GNEShape::drawUsingSelectColor() const {
 }
 
 
+bool 
+GNEShape::isAttributeSet(SumoXMLAttr /*key*/) const {
+    return true;
+}
+
+
 std::string
 GNEShape::getPopUpID() const {
     return getTagStr() + ": " + getID();

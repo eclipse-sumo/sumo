@@ -527,6 +527,11 @@ public:
      */
     virtual bool isValid(SumoXMLAttr key, const std::string& value) = 0;
 
+    /* @brief method for check if the value for certain attribute is set
+     * @param[in] key The attribute key
+     */
+    virtual bool isAttributeSet(SumoXMLAttr key) const = 0;
+
     /* @brief method for check if certain attribute is set (used by ACs with disjoint attributes)
      * @param[in] key The attribute key
      * @return true if it's set, false in other case

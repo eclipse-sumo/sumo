@@ -708,6 +708,12 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
+bool 
+GNEVehicle::isAttributeSet(SumoXMLAttr /*key*/) const {
+    return true;
+}
+
+
 bool
 GNEVehicle::isDisjointAttributeSet(const SumoXMLAttr attr) const {
     switch (attr) {

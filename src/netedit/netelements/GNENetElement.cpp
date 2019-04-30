@@ -177,6 +177,12 @@ GNENetElement::drawUsingSelectColor() const {
 }
 
 
+bool 
+GNENetElement::isAttributeSet(SumoXMLAttr /*key*/) const {
+    return true;
+}
+
+
 std::string
 GNENetElement::getPopUpID() const {
     if (myTagProperty.getTag() == SUMO_TAG_CONNECTION) {

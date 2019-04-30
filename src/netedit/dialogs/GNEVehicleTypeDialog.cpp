@@ -101,37 +101,37 @@ GNEVehicleTypeDialog::VTypeAtributes::VClassRow::setVariable() {
             // obtain default vType parameters
             SUMOVTypeParameter::VClassDefaultValues defaultVTypeParameters(getVehicleClassID(myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_VCLASS)));
             // check if mutable rows haben to be updated
-            if (!myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isParameterSet(SUMO_ATTR_LENGTH)) {
+            if (!myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isAttributeSet(SUMO_ATTR_LENGTH)) {
                 myVTypeAtributesParent->myLength->updateValue(toString(defaultVTypeParameters.length));
             }
-            if (!myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isParameterSet(SUMO_ATTR_MINGAP)) {
+            if (!myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isAttributeSet(SUMO_ATTR_MINGAP)) {
                 myVTypeAtributesParent->myMinGap->updateValue(toString(defaultVTypeParameters.minGap));
             }
-            if (!myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isParameterSet(SUMO_ATTR_MAXSPEED)) {
+            if (!myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isAttributeSet(SUMO_ATTR_MAXSPEED)) {
                 myVTypeAtributesParent->myMaxSpeed->updateValue(toString(defaultVTypeParameters.maxSpeed));
             }
-            if (!myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isParameterSet(SUMO_ATTR_SPEEDFACTOR)) {
+            if (!myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isAttributeSet(SUMO_ATTR_SPEEDFACTOR)) {
                 myVTypeAtributesParent->mySpeedFactor->updateValue(toString(defaultVTypeParameters.speedFactor.getParameter()[0]));
             }
-            if (!myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isParameterSet(SUMO_ATTR_SPEEDDEV)) {
+            if (!myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isAttributeSet(SUMO_ATTR_SPEEDDEV)) {
                 myVTypeAtributesParent->mySpeedDev->updateValue(toString(defaultVTypeParameters.speedFactor.getParameter()[1]));
             }
-            if (!myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isParameterSet(SUMO_ATTR_EMISSIONCLASS)) {
+            if (!myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isAttributeSet(SUMO_ATTR_EMISSIONCLASS)) {
                 myVTypeAtributesParent->myEmissionClass->updateValue(toString(defaultVTypeParameters.emissionClass));
             }
-            if (!myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isParameterSet(SUMO_ATTR_WIDTH)) {
+            if (!myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isAttributeSet(SUMO_ATTR_WIDTH)) {
                 myVTypeAtributesParent->myWidth->updateValue(toString(defaultVTypeParameters.width));
             }
-            if (!myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isParameterSet(SUMO_ATTR_HEIGHT)) {
+            if (!myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isAttributeSet(SUMO_ATTR_HEIGHT)) {
                 myVTypeAtributesParent->myHeight->updateValue(toString(defaultVTypeParameters.height));
             }
-            if (!myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isParameterSet(SUMO_ATTR_OSGFILE)) {
+            if (!myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isAttributeSet(SUMO_ATTR_OSGFILE)) {
                 myVTypeAtributesParent->myOSGFile->updateValue(toString(defaultVTypeParameters.osgFile));
             }
-            if (!myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isParameterSet(SUMO_ATTR_PERSON_CAPACITY)) {
+            if (!myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isAttributeSet(SUMO_ATTR_PERSON_CAPACITY)) {
                 myVTypeAtributesParent->myPersonCapacity->updateValue(toString(defaultVTypeParameters.personCapacity));
             }
-            if (!myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isParameterSet(SUMO_ATTR_CONTAINER_CAPACITY)) {
+            if (!myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isAttributeSet(SUMO_ATTR_CONTAINER_CAPACITY)) {
                 myVTypeAtributesParent->myContainerCapacity->updateValue(toString(defaultVTypeParameters.containerCapacity));
             }
         }

@@ -286,6 +286,11 @@ public:
      */
     virtual bool isValid(SumoXMLAttr key, const std::string& value) = 0;
 
+    /* @brief method for check if the value for certain attribute is set
+     * @param[in] key The attribute key
+     */
+    virtual bool isAttributeSet(SumoXMLAttr key) const = 0;
+
     /// @brief get PopPup ID (Used in AC Hierarchy)
     virtual std::string getPopUpID() const = 0;
 
@@ -306,9 +311,6 @@ public:
     void setGenericParametersStr(const std::string& value);
 
     /// @}
-
-    ///@brief check if a parameter is set
-    virtual bool isParameterSet(SumoXMLAttr key) const;  
 
     /** @brief check if a route is valid
      * @param[in] edges vector with the route's edges

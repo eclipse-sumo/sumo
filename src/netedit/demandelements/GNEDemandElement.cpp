@@ -541,10 +541,4 @@ GNEDemandElement::setGenericParametersStr(const std::string& value) {
     }
 }
 
-
-bool 
-GNEDemandElement::isParameterSet(SumoXMLAttr key) const {
-    return false;
-}
-
 /****************************************************************************/

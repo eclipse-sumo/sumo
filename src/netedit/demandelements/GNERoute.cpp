@@ -284,6 +284,12 @@ GNERoute::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
+bool 
+GNERoute::isAttributeSet(SumoXMLAttr /*key*/) const {
+    return true;
+}
+
+
 std::string
 GNERoute::getPopUpID() const {
     return getTagStr();

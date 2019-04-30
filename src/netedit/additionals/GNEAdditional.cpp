@@ -661,6 +661,12 @@ GNEAdditional::checkAdditionalChildRestriction() const {
 }
 
 
+bool 
+GNEAdditional::isAttributeSet(SumoXMLAttr /*key*/) const {
+    return true;
+}
+
+
 std::string
 GNEAdditional::getGenericParametersStr() const {
     std::string result;

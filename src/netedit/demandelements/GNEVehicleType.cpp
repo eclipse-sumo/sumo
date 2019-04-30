@@ -601,15 +601,9 @@ GNEVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-bool
-GNEVehicleType::isDisjointAttributeSet(const SumoXMLAttr /*attr*/) const {
-    return true;
-}
-
-
 bool 
-GNEVehicleType::isParameterSet(SumoXMLAttr attr) const {
-    switch (attr) {
+GNEVehicleType::isAttributeSet(SumoXMLAttr key) const {
+    switch (key) {
         case SUMO_ATTR_LENGTH:
             return wasSet(VTYPEPARS_LENGTH_SET);
         case SUMO_ATTR_MINGAP:
@@ -627,8 +621,14 @@ GNEVehicleType::isParameterSet(SumoXMLAttr attr) const {
         case SUMO_ATTR_OSGFILE:
             return wasSet(VTYPEPARS_OSGFILE_SET);
         default:
-            return false;
+            return true;
     }
+}
+
+
+bool
+GNEVehicleType::isDisjointAttributeSet(const SumoXMLAttr /*attr*/) const {
+    return true;
 }
 
 

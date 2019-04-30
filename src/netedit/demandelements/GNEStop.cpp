@@ -528,6 +528,12 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
+bool 
+GNEStop::isAttributeSet(SumoXMLAttr /*key*/) const {
+    return true;
+}
+
+
 bool
 GNEStop::isDisjointAttributeSet(const SumoXMLAttr attr) const {
     switch (attr) {
