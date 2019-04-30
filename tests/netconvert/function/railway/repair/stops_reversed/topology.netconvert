@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Aug  7 11:00:29 2018 by Eclipse SUMO netconvert Version 1c749b7
+<!-- generated on Wed May  1 00:21:49 2019 by Eclipse SUMO netconvert Version v1_2_0+0149-6b40db9d1b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -10,27 +10,37 @@ SPDX-License-Identifier: EPL-2.0
 
     <input>
         <sumo-net-file value="input_net.net.xml"/>
+        <ptstop-files value="input_ptstops.xml"/>
+        <ptline-files value="input_ptlines.xml"/>
     </input>
 
     <output>
         <write-license value="true"/>
-        <ptstop-files value="input_ptstops.xml"/>
-        <ptline-files value="input_ptlines.xml"/>
         <ptstop-output value="additional.xml"/>
         <ptline-output value="ptlines.xml"/>
         <railway.topology.output value="topology.xml"/>
     </output>
 
     <processing>
-        <no-turnarounds value="true"/>
-        <railway.topology.repair value="true"/>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
         <junctions.corner-detail value="5"/>
         <junctions.limit-turn-speed value="-1"/>
         <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
         <walkingareas value="false"/>
-    </processing>
+    </pedestrian>
+
+    <railway>
+        <railway.topology.repair value="true"/>
+    </railway>
 
     <report>
         <verbose value="true"/>
@@ -41,6 +51,12 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <railwayTopology>
+    <legend>
+        <error id="a" meaning="edge pair angle supports driving but both are outgoing"/>
+        <error id="b" meaning="edge pair angle supports driving but both are incoming"/>
+        <error id="c" meaning="an incoming edge has a sharp angle to all outgoing edges"/>
+        <error id="d" meaning="an outgoing edge has a sharp angle from all incoming edges"/>
+    </legend>
     <railNodeType in="1" out="1">
         <node id="gneJ40"/>
         <node id="gneJ43"/>
