@@ -869,28 +869,50 @@ GNEViewNetHelper::MoveMultipleElementValues::beginMoveSelection(GNEAttributeCarr
             int index = clickedEdge->getVertexIndex(myViewNet->getPositionInformation(), true, true);
             // check that index is valid
             if (index < 0) {
-                throw ProcessError("invalid shape index");
-            }
-            // save index and original position
-            myMovedEgdesGeometryPoints[clickedEdge] = new MoveSingleElementValues(myViewNet);
-            myMovedEgdesGeometryPoints[clickedEdge]->movingIndexShape = index;
-            myMovedEgdesGeometryPoints[clickedEdge]->originalPositionInView = myViewNet->getPositionInformation();
-            // start moving of clicked edge AFTER getting vertex Index
-            clickedEdge->startGeometryMoving();
-            // do the same for  the rest of noJunctionsSelected edges
-            for (auto i : noJunctionsSelected) {
-                if (i != clickedEdge) {
-                    myMovedEgdesGeometryPoints[i] = new MoveSingleElementValues(myViewNet);
-                    // save index and original position
-                    myMovedEgdesGeometryPoints[i]->movingIndexShape = i->getVertexIndex(myViewNet->getPositionInformation(), true, true);
-                    // set originalPosition depending if edge is opposite to clicked edge
-                    if (i->getOppositeEdge() == clickedEdge) {
-                        myMovedEgdesGeometryPoints[i]->originalPositionInView = myViewNet->getPositionInformation();
-                    } else {
-                        myMovedEgdesGeometryPoints[i]->originalPositionInView = i->getNBEdge()->getInnerGeometry()[myMovedEgdesGeometryPoints[i]->movingIndexShape];
+                // end geometry moving without changes in moved junctions
+                for (auto i : myMovedJunctionOriginPositions) {
+                    i.first->endGeometryMoving();
+                }
+                // end geometry moving without changes in moved edges
+                for (auto i : myMovedEdgesOriginShape) {
+                    i.first->endGeometryMoving();
+                }
+                // end geometry moving without changes in moved shapes
+                for (auto i : myMovedEgdesGeometryPoints) {
+                    i.first->endGeometryMoving();
+                }
+                // stop moving selection
+                myMovingSelection = false;
+                // clear containers
+                myMovedJunctionOriginPositions.clear();
+                myMovedEdgesOriginShape.clear();
+                // delete all movedEgdesGeometryPoints before clear container
+                for (const auto& i : myMovedEgdesGeometryPoints) {
+                    delete i.second;
+                }
+                myMovedEgdesGeometryPoints.clear();
+            } else {
+                // save index and original position
+                myMovedEgdesGeometryPoints[clickedEdge] = new MoveSingleElementValues(myViewNet);
+                myMovedEgdesGeometryPoints[clickedEdge]->movingIndexShape = index;
+                myMovedEgdesGeometryPoints[clickedEdge]->originalPositionInView = myViewNet->getPositionInformation();
+                // start moving of clicked edge AFTER getting vertex Index
+                clickedEdge->startGeometryMoving();
+                // do the same for  the rest of noJunctionsSelected edges
+                for (auto i : noJunctionsSelected) {
+                    if (i != clickedEdge) {
+                        myMovedEgdesGeometryPoints[i] = new MoveSingleElementValues(myViewNet);
+                        // save index and original position
+                        myMovedEgdesGeometryPoints[i]->movingIndexShape = i->getVertexIndex(myViewNet->getPositionInformation(), true, true);
+                        // set originalPosition depending if edge is opposite to clicked edge
+                        if (i->getOppositeEdge() == clickedEdge) {
+                            myMovedEgdesGeometryPoints[i]->originalPositionInView = myViewNet->getPositionInformation();
+                        } else {
+                            myMovedEgdesGeometryPoints[i]->originalPositionInView = i->getNBEdge()->getInnerGeometry()[myMovedEgdesGeometryPoints[i]->movingIndexShape];
+                        }
+                        // start moving of clicked edge AFTER getting vertex Index
+                        i->startGeometryMoving();
                     }
-                    // start moving of clicked edge AFTER getting vertex Index
-                    i->startGeometryMoving();
                 }
             }
         }
