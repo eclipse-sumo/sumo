@@ -509,8 +509,11 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         myFPS = new FXCheckButton(m83, "FPS", this, MID_SIMPLE_VIEW_COLORCHANGE);
         myFPS->setCheck(mySettings->fps);
         FXMatrix* m84 = new FXMatrix(frame8, 1, GUIDesignMatrixViewSettings);
-        myDrawBoundaries = new FXCheckButton(m84, "Draw Boundaries", this, MID_SIMPLE_VIEW_COLORCHANGE);
+        myDrawBoundaries = new FXCheckButton(m84, "Draw boundaries", this, MID_SIMPLE_VIEW_COLORCHANGE);
         myDrawBoundaries->setCheck(mySettings->drawBoundaries);
+        FXMatrix* m85 = new FXMatrix(frame8, 1, GUIDesignMatrixViewSettings);
+        myForceDrawForSelecting = new FXCheckButton(m85, "Force draw for selecting", this, MID_SIMPLE_VIEW_COLORCHANGE);
+        myForceDrawForSelecting->setCheck(mySettings->forceDrawForSelecting);
     }
     FXHorizontalFrame* f2 = new FXHorizontalFrame(contentFrame, GUIDesignViewSettingsHorizontalFrame2);
     FXButton* initial = new FXButton(f2, "&OK", nullptr, this, MID_SETTINGS_OK, GUIDesignViewSettingsButton2);
@@ -683,6 +686,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* data) {
     myDither->setCheck(mySettings->dither);
     myFPS->setCheck(mySettings->fps);
     myDrawBoundaries->setCheck(mySettings->drawBoundaries);
+    myForceDrawForSelecting->setCheck(mySettings->forceDrawForSelecting);
     myShowSizeLegend->setCheck(mySettings->showSizeLegend);
 
     myParent->setColorScheme(mySettings->name);
@@ -908,6 +912,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.dither = (myDither->getCheck() != FALSE);
     tmpSettings.fps = (myFPS->getCheck() != FALSE);
     tmpSettings.drawBoundaries = (myDrawBoundaries->getCheck() != FALSE);
+    tmpSettings.forceDrawForSelecting = (myForceDrawForSelecting->getCheck() != FALSE);
     tmpSettings.showSizeLegend = (myShowSizeLegend->getCheck() != FALSE);
 
     // lanes (colors)

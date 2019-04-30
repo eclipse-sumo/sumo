@@ -334,6 +334,9 @@ public:
 
     /// @brief whether drawing is performed for the purpose of selecting objects
     bool drawForSelecting;
+    
+    /// @brief flag to force draw to selecting (see drawForSelecting)
+    bool forceDrawForSelecting;
 
     /// @brief init default settings
     void initNeteditDefaults();

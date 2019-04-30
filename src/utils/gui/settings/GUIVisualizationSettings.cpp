@@ -146,7 +146,8 @@ GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) :
     selectedAdditionalColor(0, 0, 150, 255),
     drawBoundaries(false),
     selectionScale(1.),
-    drawForSelecting(false) {
+    drawForSelecting(false),
+    forceDrawForSelecting(false) {
 
     if (netedit) {
         initNeteditDefaults();
@@ -947,6 +948,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.writeAttr("dither", dither);
     dev.writeAttr("fps", fps);
     dev.writeAttr("drawBoundaries", drawBoundaries);
+    dev.writeAttr("forceDrawSelecting", forceDrawForSelecting);
     dev.closeTag();
     dev.openTag(SUMO_TAG_VIEWSETTINGS_BACKGROUND);
     dev.writeAttr("backgroundColor", backgroundColor);
@@ -1095,6 +1097,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (drawBoundaries != v2.drawBoundaries) {
+        return false;
+    }
+    if (forceDrawForSelecting != v2.forceDrawForSelecting) {
         return false;
     }
     if (backgroundColor != v2.backgroundColor) {

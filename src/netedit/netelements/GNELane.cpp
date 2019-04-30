@@ -1198,7 +1198,7 @@ GNELane::drawVSSSymbol(const GUIVisualizationSettings& s, GNEAdditional *vss) co
     }
     glColor3d(1, 0, 0);
     GLHelper::drawFilledCircle((double) 1.3, noPoints);
-    if (s.scale >= 5) {
+    if (!s.drawForSelecting && (s.scale >= 5)) {
         glTranslated(0, 0, .1);
         glColor3d(0, 0, 0);
         GLHelper::drawFilledCircle((double) 1.1, noPoints);
@@ -1216,6 +1216,10 @@ GNELane::drawVSSSymbol(const GUIVisualizationSettings& s, GNEAdditional *vss) co
     // check if dotted contour has to be drawn
     if (!s.drawForSelecting && (myNet->getViewNet()->getDottedAC() == vss)) {
         GLHelper::drawShapeDottedContour(getType(), lanePos, 2.6, 2.6, -1 * laneRot, 0, -1.5);
+    }
+    // Draw connections
+    if(!s.drawForSelecting) {
+        vss->drawChildConnections(getType());
     }
 }
 

@@ -339,6 +339,7 @@ private:
     FXCheckButton* myDither;
     FXCheckButton* myFPS;
     FXCheckButton* myDrawBoundaries;
+    FXCheckButton* myForceDrawForSelecting;
     FXCheckButton* myShowSizeLegend;
 
     NamePanel* myEdgeNamePanel, *myInternalEdgeNamePanel, *myCwaEdgeNamePanel, *myStreetNamePanel, *myEdgeValuePanel,

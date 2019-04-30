@@ -1831,10 +1831,12 @@ GNEEdge::drawRerouterSymbol(const GUIVisualizationSettings& s, GNEAdditional *re
             glVertex2d(0 + 1.4, 6);
             glEnd();
             // draw "U"
-            GLHelper::drawText("U", Position(0, 2), .1, 3, RGBColor::BLACK, 180);
-            double probability = parse<double>(rerouter->getAttribute(SUMO_ATTR_PROB))*100;
-            // draw Probability
-            GLHelper::drawText((toString(probability) + "%").c_str(), Position(0, 4), .1, 0.7, RGBColor::BLACK, 180);
+            if(!s.drawForSelecting) {
+                GLHelper::drawText("U", Position(0, 2), .1, 3, RGBColor::BLACK, 180);
+                double probability = parse<double>(rerouter->getAttribute(SUMO_ATTR_PROB))*100;
+                // draw Probability
+                GLHelper::drawText((toString(probability) + "%").c_str(), Position(0, 4), .1, 0.7, RGBColor::BLACK, 180);
+            }
             // finish draw
             glPopMatrix();
             // draw contour if is selected
@@ -1846,7 +1848,9 @@ GNEEdge::drawRerouterSymbol(const GUIVisualizationSettings& s, GNEAdditional *re
     // Pop name
     glPopName();
     // Draw connections
-    rerouter->drawChildConnections(getType());
+    if(!s.drawForSelecting) {
+        rerouter->drawChildConnections(getType());
+    }
 }
 
 

@@ -509,8 +509,11 @@ GNEViewNet::GNEViewNet() :
 int
 GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     // init view settings
-    // (uncomment the next line to check select mode)
-    // myVisualizationSettings->drawForSelecting = true;
+    if (myVisualizationSettings->forceDrawForSelecting) {
+        myVisualizationSettings->drawForSelecting = true;
+    } else {
+        myVisualizationSettings->drawForSelecting = false;
+    }
     glRenderMode(mode);
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
