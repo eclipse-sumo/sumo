@@ -39,23 +39,22 @@
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicleClass vclass) :
-    id(vtid), length(5./*4.3*/), minGap(2.5), maxSpeed(200. / 3.6),
-    actionStepLength(0), defaultProbability(DEFAULT_VEH_PROB),
-    speedFactor("normc", 1.0, 0.0, 0.2, 2.0),
-    emissionClass(PollutantsInterface::getClassByName(EMPREFIX + "PC_G_EU4", vclass)), color(RGBColor::DEFAULT_COLOR),
-    vehicleClass(vclass), impatience(0.0), personCapacity(4), containerCapacity(0), boardingDuration(500),
-    loadingDuration(90000), width(1.8), height(1.5), shape(SVS_UNKNOWN), osgFile("car-normal-citrus.obj"),
-    cfModel(SUMO_TAG_CF_KRAUSS),
-    hasDriverState(false), lcModel(LCM_DEFAULT),
-    maxSpeedLat(1.0), latAlignment(LATALIGN_CENTER), minGapLat(0.6),
-    carriageLength(-1), locomotiveLength(-1), carriageGap(1),
-    parametersSet(0), saved(false), onlyReferenced(false) {
-    const OptionsCont& oc = OptionsCont::getOptions();
-    if (oc.exists("carfollow.model")) {
-        // check for valid value has been performed in MSFrame
-        cfModel = SUMOXMLDefinitions::CarFollowModels.get(oc.getString("carfollow.model"));
-    }
+
+SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues(SUMOVehicleClass vclass) :
+    length(5./*4.3*/), 
+    minGap(2.5), 
+    maxSpeed(200. / 3.6),
+    width(1.8), 
+    height(1.5), 
+    shape(SVS_UNKNOWN),
+    emissionClass(PollutantsInterface::getClassByName(EMPREFIX + "PC_G_EU4", vclass)), 
+    speedFactor("normc", 1.0, 0.0, 0.2, 2.0), 
+    personCapacity(4), 
+    containerCapacity(0),
+    osgFile("car-normal-citrus.obj"),
+    carriageLength(-1), 
+    locomotiveLength(-1) {
+    // update default values
     switch (vclass) {
         case SVC_PEDESTRIAN:
             length = 0.215;
@@ -246,6 +245,47 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
         default:
             break;
     }
+}
+
+
+SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues() :
+    speedFactor("normc", 1.0, 0.0, 0.2, 2.0) {}
+
+
+SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicleClass vclass) :
+    id(vtid), length(5./*4.3*/), minGap(2.5), maxSpeed(200. / 3.6),
+    actionStepLength(0), defaultProbability(DEFAULT_VEH_PROB),
+    speedFactor("normc", 1.0, 0.0, 0.2, 2.0),
+    emissionClass(PollutantsInterface::getClassByName(EMPREFIX + "PC_G_EU4", vclass)), color(RGBColor::DEFAULT_COLOR),
+    vehicleClass(vclass), impatience(0.0), personCapacity(4), containerCapacity(0), boardingDuration(500),
+    loadingDuration(90000), width(1.8), height(1.5), shape(SVS_UNKNOWN), osgFile("car-normal-citrus.obj"),
+    cfModel(SUMO_TAG_CF_KRAUSS),
+    hasDriverState(false), lcModel(LCM_DEFAULT),
+    maxSpeedLat(1.0), latAlignment(LATALIGN_CENTER), minGapLat(0.6),
+    carriageLength(-1), locomotiveLength(-1), carriageGap(1),
+    parametersSet(0), saved(false), onlyReferenced(false) {
+    const OptionsCont& oc = OptionsCont::getOptions();
+    if (oc.exists("carfollow.model")) {
+        // check for valid value has been performed in MSFrame
+        cfModel = SUMOXMLDefinitions::CarFollowModels.get(oc.getString("carfollow.model"));
+    }
+    // obtain default values depending of vclass
+    VClassDefaultValues defaultValues(vclass);
+    // overwritte SUMOVTypeParameter with VClassDefaultValues
+    length = defaultValues.length;
+    minGap = defaultValues.minGap;
+    maxSpeed = defaultValues.maxSpeed;
+    width = defaultValues.width;
+    height = defaultValues.height;
+    shape = defaultValues.shape;
+    emissionClass = defaultValues.emissionClass;
+    speedFactor = defaultValues.speedFactor;
+    personCapacity = defaultValues.personCapacity;
+    containerCapacity = defaultValues.containerCapacity;
+    osgFile = defaultValues.osgFile;
+    carriageLength = defaultValues.carriageLength;
+    locomotiveLength = defaultValues.locomotiveLength;
+    // check if default speeddev was defined
     if (oc.exists("default.speeddev")) {
         const double defaultSpeedDev = oc.getFloat("default.speeddev");
         if (defaultSpeedDev >= 0) {

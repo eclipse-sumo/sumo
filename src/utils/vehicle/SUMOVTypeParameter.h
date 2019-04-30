@@ -82,6 +82,55 @@ const int VTYPEPARS_DEFAULT_EMERGENCYDECEL_DECEL = -2;
  */
 class SUMOVTypeParameter : public Parameterised {
 public:
+    /// @brief struct for default values that depend of VClass
+    struct VClassDefaultValues {
+        /// @brief parameter constructor
+        VClassDefaultValues(SUMOVehicleClass vClass);
+
+        /// @brief The physical vehicle length
+        double length;
+
+        /// @brief This class' free space in front of the vehicle itself
+        double minGap;
+
+        /// @brief The vehicle type's maximum speed [m/s]
+        double maxSpeed;
+
+        /// @brief This class' width
+        double width;
+
+        /// @brief This class' height
+        double height;
+
+        /// @brief This class' shape
+        SUMOVehicleShape shape;
+
+        /// @brief The emission class of this vehicle
+        SUMOEmissionClass emissionClass;
+
+        /// @brief The factor by which the maximum speed may deviate from the allowed max speed on the street
+        Distribution_Parameterized speedFactor;
+
+        /// @brief The person capacity of the vehicle
+        int personCapacity;
+
+        /// @brief The container capacity of the vehicle
+        int containerCapacity;
+
+        /// @brief 3D model file for this class
+        std::string osgFile;
+
+        /// @brief the length of train carriages
+        double carriageLength;
+
+        /// @brief the length of train locomotive
+        double locomotiveLength;
+
+    private:
+        /// @brief default constructor
+        VClassDefaultValues();
+    };
+
     /** @brief Constructor
      *
      * Initialises the structure with default values
