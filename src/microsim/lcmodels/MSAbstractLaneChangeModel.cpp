@@ -811,7 +811,7 @@ MSAbstractLaneChangeModel::checkTraCICommands() {
             }
         }
     }
-    if (DEBUG_COND) {
+    if (gDebugFlag2) {
         std::cout << SIMTIME << " veh=" << myVehicle.getID() << " stateAfterTraCI=" << toString((LaneChangeAction)newstate) << " original=" << toString((LaneChangeAction)oldstate) << "\n";
     }
 }
