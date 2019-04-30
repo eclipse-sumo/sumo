@@ -267,6 +267,12 @@ GNEVehicleType::getAttribute(SumoXMLAttr key) const {
             } else {
                 return myTagProperty.getDefaultValue(SUMO_ATTR_WIDTH);
             }
+        case SUMO_ATTR_HEIGHT:
+            if (wasSet(VTYPEPARS_HEIGHT_SET)) {
+                return toString(height);
+            } else {
+                return myTagProperty.getDefaultValue(SUMO_ATTR_HEIGHT);
+            }
         case SUMO_ATTR_IMGFILE:
             if (wasSet(VTYPEPARS_IMGFILE_SET)) {
                 return imgFile;
@@ -330,9 +336,27 @@ GNEVehicleType::getAttribute(SumoXMLAttr key) const {
             }
         case SUMO_ATTR_ACTIONSTEPLENGTH:
             if (wasSet(VTYPEPARS_ACTIONSTEPLENGTH_SET)) {
-                return time2string(actionStepLength);
+                return toString(actionStepLength);
             } else {
                 return myTagProperty.getDefaultValue(SUMO_ATTR_ACTIONSTEPLENGTH);
+            }
+        case SUMO_ATTR_PROB:
+            if (wasSet(VTYPEPARS_PROBABILITY_SET)) {
+                return toString(defaultProbability);
+            } else {
+                return myTagProperty.getDefaultValue(SUMO_ATTR_PROB);
+            }
+        case SUMO_ATTR_HASDRIVERSTATE:
+            if (wasSet(VTYPEPARS_HASDRIVERSTATE_SET)) {
+                return toString(hasDriverState);
+            } else {
+                return myTagProperty.getDefaultValue(SUMO_ATTR_HASDRIVERSTATE);
+            }
+        case SUMO_ATTR_OSGFILE:
+            if (wasSet(VTYPEPARS_OSGFILE_SET)) {
+                return osgFile;
+            } else {
+                return myTagProperty.getDefaultValue(SUMO_ATTR_OSGFILE);
             }
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
@@ -344,12 +368,6 @@ GNEVehicleType::getAttribute(SumoXMLAttr key) const {
             }
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
-            /*
-            VTYPEPARS_PROBABILITY_SET
-            VTYPEPARS_HASDRIVERSTATE_SET
-            VTYPEPARS_HEIGHT_SET;
-            VTYPEPARS_OSGFILE_SET;
-            */
     }
 }
 
@@ -409,6 +427,7 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
         case SUMO_ATTR_EMISSIONCLASS:
         case SUMO_ATTR_GUISHAPE:
         case SUMO_ATTR_WIDTH:
+        case SUMO_ATTR_HEIGHT:
         case SUMO_ATTR_IMGFILE:
         case SUMO_ATTR_LANE_CHANGE_MODEL:
         case SUMO_ATTR_CAR_FOLLOW_MODEL:
@@ -420,6 +439,9 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
         case SUMO_ATTR_MINGAP_LAT:
         case SUMO_ATTR_MAXSPEED_LAT:
         case SUMO_ATTR_ACTIONSTEPLENGTH:
+        case SUMO_ATTR_PROB:
+        case SUMO_ATTR_HASDRIVERSTATE:
+        case SUMO_ATTR_OSGFILE:
         case GNE_ATTR_GENERIC:
             // if we change the original value of a default vehicle Type, change also flag "myDefaultVehicleType"
             if (myDefaultVehicleType) {
@@ -533,6 +555,8 @@ GNEVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
             }
         case SUMO_ATTR_WIDTH:
             return canParse<double>(value);
+        case SUMO_ATTR_HEIGHT:
+            return canParse<double>(value);
         case SUMO_ATTR_IMGFILE:
             return SUMOXMLDefinitions::isValidFilename(value);
         case SUMO_ATTR_LANE_CHANGE_MODEL:
@@ -555,6 +579,12 @@ GNEVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<double>(value);
         case SUMO_ATTR_ACTIONSTEPLENGTH:
             return canParse<double>(value) && (parse<double>(value) > 0);
+        case SUMO_ATTR_PROB:
+            return canParse<double>(value) && (parse<double>(value) >= 0);
+        case SUMO_ATTR_HASDRIVERSTATE:
+            return canParse<bool>(value);
+        case SUMO_ATTR_OSGFILE:
+            return SUMOXMLDefinitions::isValidFilename(value);
         case GNE_ATTR_GENERIC:
             return isGenericParametersValid(value);
         case GNE_ATTR_DEFAULT_VTYPE_MODIFIED:
@@ -755,6 +785,15 @@ GNEVehicleType::overwriteVType(GNEDemandElement* vType, SUMOVTypeParameter* newV
     }
     if (newVTypeParameter->wasSet(VTYPEPARS_ACTIONSTEPLENGTH_SET)) {
         vType->setAttribute(SUMO_ATTR_ACTIONSTEPLENGTH, toString(newVTypeParameter->actionStepLength), undoList);
+    }
+    if (newVTypeParameter->wasSet(VTYPEPARS_HASDRIVERSTATE_SET)) {
+        vType->setAttribute(SUMO_ATTR_HASDRIVERSTATE, toString(newVTypeParameter->hasDriverState), undoList);
+    }
+    if (newVTypeParameter->wasSet(VTYPEPARS_PROBABILITY_SET)) {
+        vType->setAttribute(SUMO_ATTR_PROB, toString(newVTypeParameter->defaultProbability), undoList);
+    }
+    if (newVTypeParameter->wasSet(VTYPEPARS_OSGFILE_SET)) {
+        vType->setAttribute(SUMO_ATTR_OSGFILE, toString(newVTypeParameter->osgFile), undoList);
     }
     // parse generic parameters
     std::string genericParametersStr;
@@ -966,6 +1005,18 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
                 parametersSet &= ~VTYPEPARS_WIDTH_SET;
             }
             break;
+        case SUMO_ATTR_HEIGHT:
+            if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
+                height = parse<double>(value);
+                // mark parameter as set
+                parametersSet |= VTYPEPARS_HEIGHT_SET;
+            } else {
+                // set default value
+                height = parse<double>(myTagProperty.getDefaultValue(key));
+                // unset parameter
+                parametersSet &= ~VTYPEPARS_HEIGHT_SET;
+            }
+            break;
         case SUMO_ATTR_IMGFILE:
             if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
                 imgFile = value;
@@ -1096,6 +1147,42 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
                 actionStepLength = string2time(myTagProperty.getDefaultValue(key));
                 // unset parameter
                 parametersSet &= ~VTYPEPARS_ACTIONSTEPLENGTH_SET;
+            }
+            break;
+        case SUMO_ATTR_PROB:
+            if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
+                defaultProbability = parse<double>(value);
+                // mark parameter as set
+                parametersSet |= VTYPEPARS_PROBABILITY_SET;
+            } else {
+                // set default value
+                defaultProbability = parse<double>(myTagProperty.getDefaultValue(key));
+                // unset parameter
+                parametersSet &= ~VTYPEPARS_PROBABILITY_SET;
+            }
+            break;
+        case SUMO_ATTR_HASDRIVERSTATE:
+            if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
+                hasDriverState = parse<bool>(value);
+                // mark parameter as set
+                parametersSet |= VTYPEPARS_HASDRIVERSTATE_SET;
+            } else {
+                // set default value
+                hasDriverState = parse<bool>(myTagProperty.getDefaultValue(key));
+                // unset parameter
+                parametersSet &= ~VTYPEPARS_HASDRIVERSTATE_SET;
+            }
+            break;
+        case SUMO_ATTR_OSGFILE:
+            if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
+                osgFile = value;
+                // mark parameter as set
+                parametersSet |= VTYPEPARS_OSGFILE_SET;
+            } else {
+                // set default value
+                osgFile = myTagProperty.getDefaultValue(key);
+                // unset parameter
+                parametersSet &= ~VTYPEPARS_OSGFILE_SET;
             }
             break;
         case GNE_ATTR_GENERIC:
