@@ -173,6 +173,6 @@ class Node:
                 neighboring.append(e.getFromNode())    
         egdes= self._outgoing
         for e in edges:
-            if not (e.getFromNode() in neighboring)and not(e.getFromNode().getID() == self.getID()):
+            if not (e.getToNode() in neighboring)and not(e.getToNode().getID() == self.getID()):
                 neighboring.append(e.getToNode())   
         return neighboring
