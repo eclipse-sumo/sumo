@@ -13,6 +13,6 @@ junctionParams jk1:jv1 jk2:jv2
 tlsParams tk1:tv1 tk2:tv2
 getNeighboringEdges [u':S_0', u'CS', u'SC']
 getNeighboringLanes [u':S_0_0', u'CS_0', u'CS_1', u'SC_0', u'SC_1']
-getNeighboringNodes only nodes from incomming edges [u'E', u'N', u'S', u'W']
-getNeighboringNodes only nodes to outcoming edges [u'E', u'N', u'S', u'W']
+getNeighboringNodes only nodes from incomming edges [u'C']
+getNeighboringNodes only nodes to outcoming edges [u'C']
 getNeighboringNodes [u'E', u'N', u'S', u'W']

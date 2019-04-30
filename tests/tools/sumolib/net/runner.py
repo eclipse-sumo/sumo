@@ -65,6 +65,6 @@ print("tlsParams",      printSorted(net.getTLS("C").getPrograms()["0"].getParams
 # functions
 print("getNeighboringEdges", sorted([e.getID() for e, d in net.getNeighboringEdges(100, 0, 10)]))
 print("getNeighboringLanes", sorted([l.getID() for l, d in net.getNeighboringLanes(100, 0, 10)]))
-print("getNeighboringNodes only nodes from incomming edges", sorted([n.getID() for n in net.getNode("C").getNeighboringNodes(False, True)]))
-print("getNeighboringNodes only nodes to outcoming edges", sorted([n.getID() for n in net.getNode("C").getNeighboringNodes(True, False)]))
+print("getNeighboringNodes only nodes from incomming edges", sorted([n.getID() for n in net.getNode("N").getNeighboringNodes(False, True)]))
+print("getNeighboringNodes only nodes to outcoming edges", sorted([n.getID() for n in net.getNode("S").getNeighboringNodes(True, False)]))
 print("getNeighboringNodes", sorted([n.getID() for n in net.getNode("C").getNeighboringNodes()]))
