@@ -131,11 +131,9 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
     }
     // Start drawing adding an gl identificator
     glPushName(getGlID());
-
     // Add a draw matrix for drawing logo
     glPushMatrix();
     glTranslated(myPosition.x(), myPosition.y(), getType());
-
     // Draw icon depending of detector is selected and if isn't being drawn for selecting
     if (s.drawForSelecting) {
         GLHelper::setColor(RGBColor::RED);
@@ -149,16 +147,12 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
             GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_REROUTER), 1);
         }
     }
-
     // Pop draw matrix
     glPopMatrix();
-
     // Only lock and childs if isn't being drawn for selecting
     if (!s.drawForSelecting) {
-
         // Show Lock icon depending of the Edit mode
         myBlockIcon.draw(0.4);
-
         // Draw child connections
         drawChildConnections(getType());
     }
@@ -172,7 +166,6 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
     }
     // Draw name
     drawName(getPositionInView(), s.scale, s.addName);
-
     // Pop name
     glPopName();
 }

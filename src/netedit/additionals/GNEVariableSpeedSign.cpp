@@ -124,11 +124,9 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
     }
     // Start drawing adding an gl identificator
     glPushName(getGlID());
-
     // Add a draw matrix for drawing logo
     glPushMatrix();
     glTranslated(myPosition.x(), myPosition.y(), getType());
-
     // Draw icon depending of variable speed sign is or if isn't being drawn for selecting
     if (s.drawForSelecting) {
         GLHelper::setColor(RGBColor::WHITE);
@@ -142,25 +140,19 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
             GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_VARIABLESPEEDSIGN), 1);
         }
     }
-
     // Pop draw icon matrix
     glPopMatrix();
-
     // Only lock and childs if isn't being drawn for selecting
     if (!s.drawForSelecting) {
-
         // Show Lock icon depending of the Edit mode
         myBlockIcon.draw(0.4);
-
         // Draw child connections
         drawChildConnections(getType());
     }
-
     // Draw name if isn't being drawn for selecting
     if (!s.drawForSelecting) {
         drawName(getPositionInView(), s.scale, s.addName);
     }
-
     // check if dotted contour has to be drawn
     if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
         GLHelper::drawShapeDottedContour(getType(), myPosition, 2, 2);
@@ -169,7 +161,6 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::drawShapeDottedContour(getType(), i, 0);
         }
     }
-
     // Pop name
     glPopName();
 }
