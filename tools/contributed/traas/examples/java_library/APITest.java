@@ -33,6 +33,7 @@ import de.tudresden.ws.container.SumoVehicleData;
 import de.tudresden.ws.container.SumoStopFlags;
 import de.tudresden.ws.container.SumoStringList;
 import de.tudresden.ws.container.SumoStage;
+import de.tudresden.ws.container.SumoPosition2D;
 import de.tudresden.ws.container.SumoRoadPosition;
 import de.tudresden.ws.container.SumoTLSController;
 import de.tudresden.ws.container.SumoTLSProgram;
@@ -138,6 +139,9 @@ public class APITest {
 
             SumoRoadPosition roadPos = (SumoRoadPosition)conn.do_job_get(Simulation.convertRoad(505.38,-42.08, false, "passenger"));
             System.out.println("Simulation.convertRoad: " + roadPos.edgeID + ", " + roadPos.pos + ", " + roadPos.laneIndex);
+
+            SumoPosition2D geoPos = (SumoPosition2D)conn.do_job_get(Simulation.convertGeo(505.38,-42.08, false));
+            System.out.println("Simulation.convertGeo: " + geoPos);
 
 			conn.close();
 			
