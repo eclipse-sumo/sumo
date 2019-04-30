@@ -10,11 +10,11 @@ Debug: Selected item 'DEFAULT_VEHTYPE' in VTypeSelector
 Debug: Adding parkingArea 'parkingArea_03' in GNEChange_Additional
 GLDebug: Inserted parkingArea:parkingArea_03 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: Removed object parkingArea:parkingArea_03 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
-GLDebug: Inserted parkingArea:parkingArea_03 into SUMORTree with boundary 23.00,14.20,54.00,16.20
+GLDebug: Inserted parkingArea:parkingArea_03 into SUMORTree with boundary 23.00,2.20,54.00,28.20
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
-GLDebug: Removed object parkingArea:parkingArea_03 from SUMORTree with boundary 23.00,14.20,54.00,16.20
-GLDebug: Inserted parkingArea:parkingArea_03 into SUMORTree with boundary 23.00,14.20,54.00,16.20
+GLDebug: Removed object parkingArea:parkingArea_03 from SUMORTree with boundary 23.00,2.20,54.00,28.20
+GLDebug: Inserted parkingArea:parkingArea_03 into SUMORTree with boundary 23.00,2.20,54.00,28.20
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
 Debug: Additionals saved
@@ -35,11 +35,11 @@ GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80
 GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
 GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,31.60
-GLDebug: Removed object parkingArea:parkingArea_03 from SUMORTree with boundary 23.00,14.20,54.00,16.20
-GLDebug: Inserted parkingArea:parkingArea_03 into SUMORTree with boundary 23.00,14.20,54.00,16.20
+GLDebug: Removed object parkingArea:parkingArea_03 from SUMORTree with boundary 23.00,2.20,54.00,28.20
+GLDebug: Inserted parkingArea:parkingArea_03 into SUMORTree with boundary 23.00,2.20,54.00,28.20
 GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
 Debug: Deleting unreferenced parkingArea 'parkingArea_03'
-GLDebug: Removed object parkingArea:parkingArea_03 from SUMORTree with boundary 23.00,14.20,54.00,16.20
+GLDebug: Removed object parkingArea:parkingArea_03 from SUMORTree with boundary 23.00,2.20,54.00,28.20
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor

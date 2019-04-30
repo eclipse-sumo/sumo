@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 26.04.2019 14:58:47 by Eclipse SUMO netedit Version v1_2_0+0025-6204dba46c
+<!-- generated on 30.04.2019 08:56:13 by Eclipse SUMO netedit Version v1_2_0+0141-739bc6b3a7
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Apr121940.4084/netedit.gui/netElements/lanes/select_vtypes/disallowed/custom2\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.29Apr140403.1252/netedit.gui/netElements/lanes/select_vtypes/disallowed/custom2\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Apr121940.4084/netedit.gui/netElements/lanes/select_vtypes/disallowed/custom2\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.29Apr140403.1252/netedit.gui/netElements/lanes/select_vtypes/disallowed/custom2\net.net.xml"/>
     </output>
 
     <processing>
@@ -29,14 +29,14 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Apr121940.4084/netedit.gui/netElements/lanes/select_vtypes/disallowed/custom2\additionals.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Apr121940.4084/netedit.gui/netElements/lanes/select_vtypes/disallowed/custom2\additionals.xml"/>
-        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Apr121940.4084/netedit.gui/netElements/lanes/select_vtypes/disallowed/custom2\routes.xml"/>
-        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Apr121940.4084/netedit.gui/netElements/lanes/select_vtypes/disallowed/custom2\routes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.29Apr140403.1252/netedit.gui/netElements/lanes/select_vtypes/disallowed/custom2\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.29Apr140403.1252/netedit.gui/netElements/lanes/select_vtypes/disallowed/custom2\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.29Apr140403.1252/netedit.gui/netElements/lanes/select_vtypes/disallowed/custom2\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.29Apr140403.1252/netedit.gui/netElements/lanes/select_vtypes/disallowed/custom2\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Apr121940.4084/netedit.gui/netElements/lanes/select_vtypes/disallowed/custom2\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.29Apr140403.1252/netedit.gui/netElements/lanes/select_vtypes/disallowed/custom2\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -45,7 +45,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Apr121940.4084/netedit.gui/netElements/lanes/select_vtypes/disallowed/custom2\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.29Apr140403.1252/netedit.gui/netElements/lanes/select_vtypes/disallowed/custom2\log.txt"/>
     </report>
 
 </configuration>
@@ -59,7 +59,7 @@
         <lane id=":gneJ2_0_0" index="0" disallow="passenger" speed="3.65" length="4.67" shape="0.00,41.60 -1.20,40.80 -1.60,40.00 -1.20,39.20 0.00,38.40"/>
     </edge>
     <edge id=":gneJ3_0" function="internal">
-        <lane id=":gneJ3_0_0" index="0" disallow="all" speed="3.82" length="4.67" shape="20.00,38.40 21.20,39.20 21.60,40.00 21.20,40.80 20.00,41.60"/>
+        <lane id=":gneJ3_0_0" index="0" disallow="all" speed="3.65" length="4.67" shape="20.00,38.40 21.20,39.20 21.60,40.00 21.20,40.80 20.00,41.60"/>
     </edge>
 
     <edge id="-gneE14" from="gneJ4" to="gneJ5" priority="1">

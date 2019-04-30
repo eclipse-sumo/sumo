@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 07.12.2018 15:18:22 by Eclipse SUMO netedit Version v1_0_0+1208-d42a3cd999
+<!-- generated on 29.04.2019 15:00:04 by Eclipse SUMO netedit Version v1_2_0+0141-739bc6b3a7
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.07Dec151734.3292/netedit.gui/netElements/edges/load/allow\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.29Apr140403.1252/netedit.gui/netElements/edges/load/allow\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.07Dec151734.3292/netedit.gui/netElements/edges/load/allow\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.29Apr140403.1252/netedit.gui/netElements/edges/load/allow\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,22 +30,24 @@
     </pedestrian>
 
     <netedit>
-        <sumo-additionals-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.07Dec151734.3292/netedit.gui/netElements/edges/load/allow\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.07Dec151734.3292/netedit.gui/netElements/edges/load/allow\additionals.xml"/>
-        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.07Dec151734.3292/netedit.gui/netElements/edges/load/allow\shapes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.29Apr140403.1252/netedit.gui/netElements/edges/load/allow\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.29Apr140403.1252/netedit.gui/netElements/edges/load/allow\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.29Apr140403.1252/netedit.gui/netElements/edges/load/allow\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.29Apr140403.1252/netedit.gui/netElements/edges/load/allow\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.07Dec151734.3292/netedit.gui/netElements/edges/load/allow\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.29Apr140403.1252/netedit.gui/netElements/edges/load/allow\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
+        <gui-testing-debug-gl value="true"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.07Dec151734.3292/netedit.gui/netElements/edges/load/allow\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.29Apr140403.1252/netedit.gui/netElements/edges/load/allow\log.txt"/>
     </report>
 
 </configuration>
@@ -56,7 +58,7 @@
     <location netOffset="0.00,-50.00" convBoundary="0.00,0.00,50.00,0.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id="gneE12" from="gneJ21" to="gneJ22" priority="-1">
-        <lane id="gneE12_0" index="0" disallow="authority vip hov tram motorcycle moped" speed="13.89" length="50.00" shape="0.00,-1.60 50.00,-1.60"/>
+        <lane id="gneE12_0" index="0" disallow="authority vip hov motorcycle moped tram" speed="13.89" length="50.00" shape="0.00,-1.60 50.00,-1.60"/>
     </edge>
     <edge id="gneE13" from="gneJ22" to="gneJ21" priority="-1">
         <lane id="gneE13_0" index="0" disallow="taxi coach delivery truck" speed="13.89" length="50.00" shape="50.00,1.60 0.00,1.60"/>
