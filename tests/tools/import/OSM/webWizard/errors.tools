@@ -194,8 +194,6 @@ Warning: PT stop: 4015961303 has been moved to edge: -196850606#4
 Warning: PT stop: 3867910426 has been moved to edge: -275177453
 Warning: Could not re-assign PT stop: 366500582 probably broken osm file
 Warning: Incomplete route for ptline '6593455' (RB22: Königs Wusterhausen => Berlin Friedrichstraße)
-Warning: No connection found between stops on edge '388702047#3' and edge '22820560#2'
-Warning: No connection found between stops on edge '154321040#2' and edge '388702047#3'
 Warning: Not joining junctions 160503259,171440823,4237827432 (only 1 exit node)
 Warning: Not joining junctions 1803575761,2480337678,2656298207,29219440,341340978,3831343134,4566145594,4566145597,5747234974,5747234975,768074054 (7 incoming edges)
 Warning: Reducing junction cluster 2796729135,2856686315,4673135622,735132788 (not compact (maxEdge=83517332#0 length=6.06))
