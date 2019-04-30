@@ -232,6 +232,25 @@ NBRailwayTopologyAnalyzer::getBrokenRailNodes(NBNetBuilder& nb, bool verbose) {
     if (verbose && types.size() > 0) {
         WRITE_MESSAGE("Railway nodes by number of incoming,outgoing edges:")
     }
+    device.openTag("legend");
+    device.openTag("error");
+    device.writeAttr(SUMO_ATTR_ID, "a");
+    device.writeAttr("meaning", "edge pair angle supports driving but both are outgoing");
+    device.closeTag();
+    device.openTag("error");
+    device.writeAttr(SUMO_ATTR_ID, "b");
+    device.writeAttr("meaning", "edge pair angle supports driving but both are incoming");
+    device.closeTag();
+    device.openTag("error");
+    device.writeAttr(SUMO_ATTR_ID, "c");
+    device.writeAttr("meaning", "an incoming edge has a sharp angle to all outgoing edges");
+    device.closeTag();
+    device.openTag("error");
+    device.writeAttr(SUMO_ATTR_ID, "d");
+    device.writeAttr("meaning", "an outgoing edge has a sharp angle from all incoming edges");
+    device.closeTag();
+    device.closeTag();
+
     for (auto it : types) {
         int numBrokenType = 0;
         device.openTag("railNodeType");
@@ -245,10 +264,7 @@ NBRailwayTopologyAnalyzer::getBrokenRailNodes(NBNetBuilder& nb, bool verbose) {
             EdgeVector inRail, outRail;
             getRailEdges(n, inRail, outRail);
             // check if there is a mismatch between angle and edge direction
-            // a) edge pair angle supports driving but both are outgoing
-            // b) edge pair angle supports driving but both are incoming
-            // c) an incoming edge has a sharp angle to all outgoing edges
-            // d) an outgoing edge has a sharp angle from all incoming edges
+            // (see above)
 
             std::string broken = "";
             if (in < 2 && hasStraightPair(n, outRail, outRail)) {
