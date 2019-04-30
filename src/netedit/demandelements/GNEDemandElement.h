@@ -307,6 +307,9 @@ public:
 
     /// @}
 
+    ///@brief check if a parameter is set
+    virtual bool isParameterSet(SumoXMLAttr key) const;  
+
     /** @brief check if a route is valid
      * @param[in] edges vector with the route's edges
      * @param[in] report enable or disable writting warnings if route isn't valid

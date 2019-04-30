@@ -125,6 +125,9 @@ public:
      */
     bool isDisjointAttributeSet(const SumoXMLAttr attr) const;
 
+    ///@brief check if a parameter is set
+    bool isParameterSet(SumoXMLAttr key) const;  
+
     /// @brief get PopPup ID (Used in AC Hierarchy)
     std::string getPopUpID() const;
 
@@ -145,6 +148,9 @@ protected:
 private:
     /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value);
+
+    /// @brief function called after set new VClass
+    void updateDefaultVClassAttributes(const VClassDefaultValues &defaultValues);
 
     /// @brief Invalidated copy constructor.
     GNEVehicleType(GNEVehicleType*) = delete;

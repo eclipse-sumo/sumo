@@ -85,27 +85,70 @@ GNEVehicleTypeDialog::VTypeAtributes::VClassRow::VClassRow(VTypeAtributes* VType
 }
 
 
-void
+SUMOVehicleClass
 GNEVehicleTypeDialog::VTypeAtributes::VClassRow::setVariable() {
     // set color of myComboBoxVClass, depending if current value is valid or not
     myComboBoxVClass->setTextColor(FXRGB(0, 0, 0));
     if (myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isValid(SUMO_ATTR_VCLASS, myComboBoxVClass->getText().text())) {
         myComboBoxVClass->setTextColor(FXRGB(0, 0, 0));
-        myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_VCLASS, myComboBoxVClass->getText().text(),
-                myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
-        setVClassLabelImage();
+        // check if  VType has to be updated
+        if (myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_VCLASS) != myComboBoxVClass->getText().text()) {
+            // update VClass in VType
+            myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_VCLASS, myComboBoxVClass->getText().text(),
+                    myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
+            // update label image
+            setVClassLabelImage();
+            // obtain default vType parameters
+            SUMOVTypeParameter::VClassDefaultValues defaultVTypeParameters(getVehicleClassID(myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_VCLASS)));
+            // check if mutable rows haben to be updated
+            if (!myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isParameterSet(SUMO_ATTR_LENGTH)) {
+                myVTypeAtributesParent->myLength->updateValue(toString(defaultVTypeParameters.length));
+            }
+            if (!myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isParameterSet(SUMO_ATTR_MINGAP)) {
+                myVTypeAtributesParent->myMinGap->updateValue(toString(defaultVTypeParameters.minGap));
+            }
+            if (!myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isParameterSet(SUMO_ATTR_MAXSPEED)) {
+                myVTypeAtributesParent->myMaxSpeed->updateValue(toString(defaultVTypeParameters.maxSpeed));
+            }
+            if (!myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isParameterSet(SUMO_ATTR_SPEEDFACTOR)) {
+                myVTypeAtributesParent->mySpeedFactor->updateValue(toString(defaultVTypeParameters.speedFactor.getParameter()[0]));
+            }
+            if (!myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isParameterSet(SUMO_ATTR_SPEEDDEV)) {
+                myVTypeAtributesParent->mySpeedDev->updateValue(toString(defaultVTypeParameters.speedFactor.getParameter()[1]));
+            }
+            if (!myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isParameterSet(SUMO_ATTR_EMISSIONCLASS)) {
+                myVTypeAtributesParent->myEmissionClass->updateValue(toString(defaultVTypeParameters.emissionClass));
+            }
+            if (!myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isParameterSet(SUMO_ATTR_WIDTH)) {
+                myVTypeAtributesParent->myWidth->updateValue(toString(defaultVTypeParameters.width));
+            }
+            if (!myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isParameterSet(SUMO_ATTR_HEIGHT)) {
+                myVTypeAtributesParent->myHeight->updateValue(toString(defaultVTypeParameters.height));
+            }
+            if (!myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isParameterSet(SUMO_ATTR_OSGFILE)) {
+                myVTypeAtributesParent->myOSGFile->updateValue(toString(defaultVTypeParameters.osgFile));
+            }
+            if (!myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isParameterSet(SUMO_ATTR_PERSON_CAPACITY)) {
+                myVTypeAtributesParent->myPersonCapacity->updateValue(toString(defaultVTypeParameters.personCapacity));
+            }
+            if (!myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isParameterSet(SUMO_ATTR_CONTAINER_CAPACITY)) {
+                myVTypeAtributesParent->myContainerCapacity->updateValue(toString(defaultVTypeParameters.containerCapacity));
+            }
+        }
     } else {
         myComboBoxVClass->setTextColor(FXRGB(255, 0, 0));
         myVTypeAtributesParent->myVehicleTypeDialog->myVehicleTypeValid = false;
         myVTypeAtributesParent->myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_VCLASS;
     }
+    return getVehicleClassID(myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_VCLASS));
 }
 
 
-void
-GNEVehicleTypeDialog::VTypeAtributes::VClassRow::updateValues() {
+SUMOVehicleClass
+GNEVehicleTypeDialog::VTypeAtributes::VClassRow::updateValue() {
     myComboBoxVClass->setText(myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_VCLASS).c_str());
     setVClassLabelImage();
+    return getVehicleClassID(myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_VCLASS));
 }
 
 
@@ -412,6 +455,38 @@ GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::setVariable() {
 
 
 void
+GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::setVariable(const std::string &defaultValue) {
+    if (myComboBox) {
+        // set color of myComboBox, depending if current value is valid or not
+        if (myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isValid(myAttr, myComboBox->getText().text())) {
+            myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->setAttribute(myAttr, myComboBox->getText().text(),
+                    myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
+            // update value after setting it
+            updateValue(defaultValue);
+        } else {
+            myComboBox->setTextColor(FXRGB(255, 0, 0));
+            // mark VType as invalid
+            myVTypeAtributesParent->myVehicleTypeDialog->myVehicleTypeValid = false;
+            myVTypeAtributesParent->myVehicleTypeDialog->myInvalidAttr = myAttr;
+        }
+    } else {
+        // set color of textField, depending if current value is valid or not
+        if (myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isValid(myAttr, myTextField->getText().text())) {
+            myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->setAttribute(myAttr, myTextField->getText().text(),
+                    myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
+            // update value after setting it
+            updateValue(defaultValue);
+        } else {
+            myTextField->setTextColor(FXRGB(255, 0, 0));
+            // mark VType as invalid
+            myVTypeAtributesParent->myVehicleTypeDialog->myVehicleTypeValid = false;
+            myVTypeAtributesParent->myVehicleTypeDialog->myInvalidAttr = myAttr;
+        }
+    }
+}
+
+
+void
 GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::updateValue() {
     if (myComboBox) {
         // set text of myComboBox using current value of VType
@@ -427,6 +502,30 @@ GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::updateValue() {
         myTextField->setText(myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getAttribute(myAttr).c_str());
         // set color depending if is a default value
         if (myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getTagProperty().getDefaultValue(myAttr) != myTextField->getText().text()) {
+            myTextField->setTextColor(FXRGB(0, 0, 0));
+        } else {
+            myTextField->setTextColor(FXRGB(195, 195, 195));
+        }
+    }
+}
+
+
+void
+GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::updateValue(const std::string &defaultValue) {
+    if (myComboBox) {
+        // set text of myComboBox using current value of VType
+        myComboBox->setText(myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getAttribute(myAttr).c_str());
+        // set color depending if is a default value
+        if (defaultValue != myComboBox->getText().text()) {
+            myComboBox->setTextColor(FXRGB(0, 0, 0));
+        } else {
+            myComboBox->setTextColor(FXRGB(195, 195, 195));
+        }
+    } else {
+        // set text of myTextField using current value of VType
+        myTextField->setText(myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getAttribute(myAttr).c_str());
+        // set color depending if is a default value
+        if (defaultValue != myTextField->getText().text()) {
             myTextField->setTextColor(FXRGB(0, 0, 0));
         } else {
             myTextField->setTextColor(FXRGB(195, 195, 195));
@@ -596,24 +695,24 @@ GNEVehicleTypeDialog::VTypeAtributes::updateValues() {
     } else {
         myTextFieldColor->setTextColor(FXRGB(195, 195, 195));
     }
-    // set variables of special rows VType and VShape
-    myVClassRow->updateValues();
+    // set variables of special rows VClass and VShape
+    SUMOVTypeParameter::VClassDefaultValues defaultVTypeParameters(myVClassRow->updateValue());
     myVShapeRow->updateValues();
     // update rows
     myLaneChangeModel->updateValue();
     myLatAlignment->updateValue();
-    myLength->updateValue();
-    myMinGap->updateValue();
-    myMaxSpeed->updateValue();
-    mySpeedFactor->updateValue();
-    mySpeedDev->updateValue();
-    myEmissionClass->updateValue();
-    myWidth->updateValue();
-    myHeight->updateValue();
+    myLength->updateValue(toString(defaultVTypeParameters.length));
+    myMinGap->updateValue(toString(defaultVTypeParameters.minGap));
+    myMaxSpeed->updateValue(toString(defaultVTypeParameters.maxSpeed));
+    mySpeedFactor->updateValue(toString(defaultVTypeParameters.speedFactor.getParameter()[0]));
+    mySpeedDev->updateValue(toString(defaultVTypeParameters.speedFactor.getParameter()[1]));
+    myEmissionClass->updateValue(toString(defaultVTypeParameters.emissionClass));
+    myWidth->updateValue(toString(defaultVTypeParameters.width));
+    myHeight->updateValue(toString(defaultVTypeParameters.height));
     myFilename->updateValue();
-    myOSGFile->updateValue();
-    myPersonCapacity->updateValue();
-    myContainerCapacity->updateValue();
+    myOSGFile->updateValue(toString(defaultVTypeParameters.osgFile));
+    myPersonCapacity->updateValue(toString(defaultVTypeParameters.personCapacity));
+    myContainerCapacity->updateValue(toString(defaultVTypeParameters.containerCapacity));
     myBoardingDuration->updateValue();
     myLoadingDuration->updateValue();
     myMinGapLat->updateValue();
@@ -666,24 +765,35 @@ GNEVehicleTypeDialog::VTypeAtributes::onCmdSetVariable(FXObject*, FXSelector, vo
         myVehicleTypeDialog->myVehicleTypeValid = false;
         myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_COLOR;
     }
-    // set variables of special rows VType and VShape
-    myVClassRow->setVariable();
+    // set variables of special rows VClass and VShape
+    SUMOVTypeParameter::VClassDefaultValues defaultVTypeParameters(myVClassRow->setVariable());
+    // set variables of special rows VShape
     myVShapeRow->setVariable();
+    // set attributes in rest rows
+    myLength->setVariable(toString(defaultVTypeParameters.length));
+    myMinGap->setVariable(toString(defaultVTypeParameters.minGap));
+    myMaxSpeed->setVariable(toString(defaultVTypeParameters.maxSpeed));
+    mySpeedFactor->setVariable(toString(defaultVTypeParameters.speedFactor.getParameter()[0]));
+    mySpeedDev->setVariable(toString(defaultVTypeParameters.speedFactor.getParameter()[1]));
+    myEmissionClass->setVariable(toString(defaultVTypeParameters.emissionClass));
+    myWidth->setVariable(toString(defaultVTypeParameters.width));
+    myHeight->setVariable(toString(defaultVTypeParameters.height));
+    myOSGFile->setVariable(toString(defaultVTypeParameters.osgFile));
     // set attributes in rows
     myLaneChangeModel->setVariable();
     myLatAlignment->setVariable();
-    myLength->setVariable();
-    myMinGap->setVariable();
-    myMaxSpeed->setVariable();
-    mySpeedFactor->setVariable();
-    mySpeedDev->setVariable();
-    myEmissionClass->setVariable();
-    myWidth->setVariable();
-    myHeight->setVariable();
+    myLength->setVariable(toString(defaultVTypeParameters.length));
+    myMinGap->setVariable(toString(defaultVTypeParameters.minGap));
+    myMaxSpeed->setVariable(toString(defaultVTypeParameters.maxSpeed));
+    mySpeedFactor->setVariable(toString(defaultVTypeParameters.speedFactor.getParameter()[0]));
+    mySpeedDev->setVariable(toString(defaultVTypeParameters.speedFactor.getParameter()[1]));
+    myEmissionClass->setVariable(toString(defaultVTypeParameters.emissionClass));
+    myWidth->setVariable(toString(defaultVTypeParameters.width));
+    myHeight->setVariable(toString(defaultVTypeParameters.height));
     myFilename->setVariable();
-    myOSGFile->setVariable();
-    myPersonCapacity->setVariable();
-    myContainerCapacity->setVariable();
+    myOSGFile->setVariable(toString(defaultVTypeParameters.osgFile));
+    myPersonCapacity->setVariable(toString(defaultVTypeParameters.personCapacity));
+    myContainerCapacity->setVariable(toString(defaultVTypeParameters.containerCapacity));
     myBoardingDuration->setVariable();
     myLoadingDuration->setVariable();
     myMinGapLat->setVariable();

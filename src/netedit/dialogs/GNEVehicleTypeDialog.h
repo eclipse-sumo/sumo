@@ -23,6 +23,8 @@
 
 #include <config.h>
 
+#include <utils/common/SUMOVehicleClass.h>
+
 #include "GNEDemandElementDialog.h"
 
 // ===========================================================================
@@ -56,11 +58,11 @@ public:
             /// @brief constructor
             VClassRow(VTypeAtributes* VTypeAtributesParent, FXVerticalFrame* column);
 
-            /// @brief set variables
-            void setVariable();
+            /// @brief set vehicle class
+            SUMOVehicleClass setVariable();
 
             /// @brief update values
-            void updateValues();
+            SUMOVehicleClass updateValue();
 
         protected:
             /// @brief set VClass texture
@@ -117,8 +119,12 @@ public:
             /// @brief set Variablen in VehicleType
             void setVariable();
 
+            void setVariable(const std::string &defaultValue);
+
             /// @brief update value of Vehicle Type
             void updateValue();
+
+            void updateValue(const std::string &defaultValue);
 
         private:
             /// @brief pointer to VTypeAttributeParameters parent
