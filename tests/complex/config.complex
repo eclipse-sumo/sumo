@@ -24,7 +24,7 @@ copy_test_path:sumo.sumocfg
 copy_test_path:sumo_log.sumocfg
 copy_test_path:save_state.sumocfg
 copy_test_path:osm.xml
-copy_test_path:data
+copy_test_path_merge:data
 copy_test_path:classes.txt
 copy_test_path:nefz.csv
 copy_test_path:ARTEMIS_motorway_130_Gear3.csv

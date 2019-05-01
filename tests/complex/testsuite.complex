@@ -32,3 +32,6 @@ emissions
 # scenario generation
 scenario_generation
 unit_tests
+
+# Testing the TraCI java and web service interface
+traas

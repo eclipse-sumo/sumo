@@ -1,0 +1,64 @@
+findRoute result stage:
+  gneE0
+  -gneE2
+  gneE2
+findIntermodalRoute result stages:
+  gneE0
+  gneE2
+Step 1.0, tlsPhase 0 (North-South)
+Step 2.0, tlsPhase 0 (North-South)
+Step 3.0, tlsPhase 0 (North-South)
+Step 4.0, tlsPhase 0 (North-South)
+Step 5.0, tlsPhase 0 (North-South)
+Step 6.0, tlsPhase 0 (North-South)
+Step 7.0, tlsPhase 0 (North-South)
+Step 8.0, tlsPhase 0 (North-South)
+Step 9.0, tlsPhase 0 (North-South)
+Step 10.0, tlsPhase 0 (North-South)
+Step 11.0, tlsPhase 0 (North-South)
+Step 12.0, tlsPhase 0 (North-South)
+Step 13.0, tlsPhase 0 (North-South)
+Step 14.0, tlsPhase 0 (North-South)
+Step 15.0, tlsPhase 0 (North-South)
+Step 16.0, tlsPhase 0 (North-South)
+Step 17.0, tlsPhase 0 (North-South)
+Step 18.0, tlsPhase 0 (North-South)
+Step 19.0, tlsPhase 0 (North-South)
+Step 20.0, tlsPhase 0 (North-South)
+Step 21.0, tlsPhase 0 (North-South)
+Step 22.0, tlsPhase 0 (North-South)
+Step 23.0, tlsPhase 0 (North-South)
+Step 24.0, tlsPhase 0 (North-South)
+  veh=v1 len=4.5 entry=23.733620827490046 leave=-1.0 type=car
+Step 25.0, tlsPhase 0 (North-South)
+  veh=v1 len=4.5 entry=23.733620827490046 leave=24.042644213527094 type=car
+Step 26.0, tlsPhase 0 (North-South)
+Step 27.0, tlsPhase 0 (North-South)
+Step 28.0, tlsPhase 0 (North-South)
+Step 29.0, tlsPhase 0 (North-South)
+Step 30.0, tlsPhase 0 (North-South)
+  veh=v5 len=4.5 entry=29.91510615363524 leave=-1.0 type=car
+Step 31.0, tlsPhase 0 (North-South)
+  veh=v5 len=4.5 entry=29.91510615363524 leave=30.19540732358624 type=car
+Step 32.0, tlsPhase 0 (North-South)
+Step 33.0, tlsPhase 0 (North-South)
+Step 34.0, tlsPhase 0 (North-South)
+  veh=v2 len=4.5 entry=33.886525637365025 leave=-1.0 type=car
+Step 35.0, tlsPhase 0 (North-South)
+  veh=v2 len=4.5 entry=33.886525637365025 leave=34.20107691104972 type=car
+Step 36.0, tlsPhase 0 (North-South)
+VehicleIDs: v0 v1 v10 v11 v12 v13 v14 v15 v16 v17 v18 v19 v2 v20 v21 v22 v23 v3 v4 v5 v6 v7 v8 v9 
+vehicle.getParameter: vehValue
+Vehicletype.getAdaptedTraveltime: 200.0
+Vehicletype.getParameter: vehtypeValue
+Edge.getParameter: edgeValue
+Lane.getParameter: laneValue
+Route.getParameter: routeValue
+Poi.getParameter: poiValue
+Trafficlight.getParameter: tlsValue
+Trafficlight.getCompleteRedYellowGreenDefinition: {0=0#0#0#GGgGGGrrrr#42.0#42.0#42.0#[]#North-South#yyyyyyrrrr#3.0#3.0#3.0#[]#Transition to East-West#rrrrrrGGGG#42.0#42.0#42.0#[]#East-West#rrrrrryyyy#3.0#3.0#3.0#[]#Transition to North-South#, 1=1#0#2#GGgGGGrrrr#22.0#22.0#22.0#[]#North-South#yyyyyyrrrr#3.0#3.0#3.0#[]#Transition to East-West#rrrrrrGGGG#22.0#22.0#22.0#[]#East-West#rrrrrryyyy#3.0#3.0#3.0#[]#Transition to North-South#, 2=2#0#0#GGgGGGrrrr#50.0#50.0#50.0#[1]#North-South#yyyyyyrrrr#3.0#3.0#3.0#[]#Transition to East-West#rrrrrrGGGG#50.0#50.0#50.0#[3, 0]#East-West#rrrrrryyyy#3.0#3.0#3.0#[]#Transition to North-South#}
+Trafficlight.getPhaseDuration: 50.0
+Trafficlight.getNextSwitch: 51.0
+Simulation.convertRoad: gneE2, 57.92, 0
+Simulation.convertGeo: 13.38049279800687,52.50047399596812
+>> Simulation closed with status 0
