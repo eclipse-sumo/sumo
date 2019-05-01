@@ -156,7 +156,10 @@ MSContainer::MSContainerStage_Tranship::clone() const {
 void
 MSContainer::MSContainerStage_Tranship::proceed(MSNet* /* net */, MSTransportable* container, SUMOTime now, Stage* previous) {
     myDeparted = now;
-    myRouteStep = myRoute.end() - 1;   //define that the container is already on its destination edge
+    //MSCModel_NonInteracting moves the container straight from start to end in
+    //a single step and assumes that moveToNextEdge is only called once)
+    //therefor we define that the container is already on its destination edge
+    myRouteStep = myRoute.end() - 1;
     myDepartPos = previous->getEdgePos(now);
     myContainerState = MSCModel_NonInteracting::getModel()->add(container, this, now);
     (*myRouteStep)->addContainer(container);
