@@ -148,7 +148,7 @@ public:
      *  also allows to trigger further visualisations and to track the vehicle.
      */
     class GUIContainerPopupMenu : public GUIGLObjectPopupMenu {
-        //FXDECLARE(GUIContainerPopupMenu)
+        FXDECLARE(GUIContainerPopupMenu)
     public:
         /** @brief Constructor
          * @param[in] app The main window for instantiation of other windows
@@ -162,6 +162,12 @@ public:
         /// @brief Destructor
         ~GUIContainerPopupMenu();
 
+        /// @brief Called if the plan shall be shown
+        long onCmdShowPlan(FXObject*, FXSelector, void*);
+        /// @brief Called if the person shall be tracked
+        long onCmdStartTrack(FXObject*, FXSelector, void*);
+        /// @brief Called if the person shall not be tracked any longer
+        long onCmdStopTrack(FXObject*, FXSelector, void*);
 
     protected:
         /// @brief Information which additional visualisations are enabled (per view)

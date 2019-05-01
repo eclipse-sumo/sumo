@@ -55,23 +55,14 @@
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
-/*
 FXDEFMAP(GUIContainer::GUIContainerPopupMenu) GUIContainerPopupMenuMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_SHOW_ALLROUTES, GUIContainer::GUIContainerPopupMenu::onCmdShowAllRoutes),
-    FXMAPFUNC(SEL_COMMAND, MID_HIDE_ALLROUTES, GUIContainer::GUIContainerPopupMenu::onCmdHideAllRoutes),
-    FXMAPFUNC(SEL_COMMAND, MID_SHOW_CURRENTROUTE, GUIContainer::GUIContainerPopupMenu::onCmdShowCurrentRoute),
-    FXMAPFUNC(SEL_COMMAND, MID_HIDE_CURRENTROUTE, GUIContainer::GUIContainerPopupMenu::onCmdHideCurrentRoute),
-    FXMAPFUNC(SEL_COMMAND, MID_SHOW_BEST_LANES, GUIContainer::GUIContainerPopupMenu::onCmdShowBestLanes),
-    FXMAPFUNC(SEL_COMMAND, MID_HIDE_BEST_LANES, GUIContainer::GUIContainerPopupMenu::onCmdHideBestLanes),
     FXMAPFUNC(SEL_COMMAND, MID_START_TRACK, GUIContainer::GUIContainerPopupMenu::onCmdStartTrack),
-    FXMAPFUNC(SEL_COMMAND, MID_STOP_TRACK, GUIContainer::GUIContainerPopupMenu::onCmdStopTrack),
-    FXMAPFUNC(SEL_COMMAND, MID_SHOW_LFLINKITEMS, GUIContainer::GUIContainerPopupMenu::onCmdShowLFLinkItems),
-    FXMAPFUNC(SEL_COMMAND, MID_HIDE_LFLINKITEMS, GUIContainer::GUIContainerPopupMenu::onCmdHideLFLinkItems),
+    FXMAPFUNC(SEL_COMMAND, MID_STOP_TRACK,  GUIContainer::GUIContainerPopupMenu::onCmdStopTrack),
+    FXMAPFUNC(SEL_COMMAND, MID_SHOWPLAN,    GUIContainer::GUIContainerPopupMenu::onCmdShowPlan),
 };
 
 // Object implementation
 FXIMPLEMENT(GUIContainer::GUIContainerPopupMenu, GUIGLObjectPopupMenu, GUIContainerPopupMenuMap, ARRAYNUMBER(GUIContainerPopupMenuMap))
-*/
 
 #define WATER_WAY_OFFSET 6.0
 
@@ -89,6 +80,42 @@ GUIContainer::GUIContainerPopupMenu::GUIContainerPopupMenu(
 
 
 GUIContainer::GUIContainerPopupMenu::~GUIContainerPopupMenu() {}
+
+
+long
+GUIContainer::GUIContainerPopupMenu::onCmdShowPlan(FXObject*, FXSelector, void*) {
+    GUIContainer* p = dynamic_cast<GUIContainer*>(myObject);
+    if (p == nullptr) {
+        return 1;
+    }
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(*myApplication, *p, p->getNumStages());
+    // add items
+    for (int stage = 1; stage < p->getNumStages(); stage++) {
+        ret->mkItem(toString(stage).c_str(), false, p->getStageSummary(stage));
+    }
+    // close building (use an object that is not Parameterised as argument)
+    Parameterised dummy;
+    ret->closeBuilding(&dummy);
+    return 1;
+}
+
+
+long
+GUIContainer::GUIContainerPopupMenu::onCmdStartTrack(FXObject*, FXSelector, void*) {
+    assert(myObject->getType() == GLO_PERSON);
+    if (myParent->getTrackedID() != static_cast<GUIContainer*>(myObject)->getGlID()) {
+        myParent->startTrack(static_cast<GUIContainer*>(myObject)->getGlID());
+    }
+    return 1;
+}
+
+long
+GUIContainer::GUIContainerPopupMenu::onCmdStopTrack(FXObject*, FXSelector, void*) {
+    assert(myObject->getType() == GLO_PERSON);
+    myParent->stopTrack();
+    return 1;
+}
+
 
 
 
@@ -113,8 +140,18 @@ GUIContainer::getPopUpMenu(GUIMainWindow& app,
     buildCenterPopupEntry(ret);
     buildNameCopyPopupEntry(ret);
     buildSelectionPopupEntry(ret);
+    new FXMenuSeparator(ret);
+    if (parent.getTrackedID() != getGlID()) {
+        new FXMenuCommand(ret, "Start Tracking", nullptr, ret, MID_START_TRACK);
+    } else {
+        new FXMenuCommand(ret, "Stop Tracking", nullptr, ret, MID_STOP_TRACK);
+    }
     //
+
     buildShowParamsPopupEntry(ret);
+    buildShowTypeParamsPopupEntry(ret);
+    new FXMenuCommand(ret, "Show Plan", GUIIconSubSys::getIcon(ICON_APP_TABLE), ret, MID_SHOWPLAN);
+    new FXMenuSeparator(ret);
     buildPositionCopyEntry(ret, false);
     return ret;
 }
@@ -127,8 +164,11 @@ GUIContainer::getParameterWindow(GUIMainWindow& app,
         new GUIParameterTableWindow(app, *this, 12 + (int)getParameter().getParametersMap().size());
     // add items
     ret->mkItem("stage", false, getCurrentStageDescription());
+    // there is always the "start" stage which we do not count here because it is not strictly part of the plan
+    ret->mkItem("stage index", false, toString(getNumStages() - getNumRemainingStages()) + " of " + toString(getNumStages() - 1));
     ret->mkItem("start edge [id]", false, getFromEdge()->getID());
     ret->mkItem("dest edge [id]", false, getDestination()->getID());
+    ret->mkItem("arrivalPos [m]", false, toString(getCurrentStage()->getArrivalPos()));
     ret->mkItem("edge [id]", false, getEdge()->getID());
     ret->mkItem("position [m]", true, new FunctionBinding<GUIContainer, double>(this, &GUIContainer::getEdgePos));
     ret->mkItem("speed [m/s]", true, new FunctionBinding<GUIContainer, double>(this, &GUIContainer::getSpeed));
@@ -181,7 +221,6 @@ GUIContainer::drawGL(const GUIVisualizationSettings& s) const {
     }
     glTranslated(p1.x(), p1.y(), getType());
     glRotated(90, 0, 0, 1);
-    // XXX use container specific gui settings
     // set container color
     setColor(s);
     // scale
