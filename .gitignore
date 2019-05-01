@@ -100,6 +100,7 @@
 /tools/contributed/traas/dist
 /tools/contributed/traas/javadoc
 /tools/contributed/traas/release
+/tools/contributed/traas/target
 /tools/contributed/traas/examples/simulation/loops.out.xml
 /tools/libsumo/_libsumo.so
 /tools/libsumo/java/

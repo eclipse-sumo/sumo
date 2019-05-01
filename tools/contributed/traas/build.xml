@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="TraaS" default="dist" basedir=".">
     <description>Extension for TraaS</description>
-    <property name="src" location="src" />
+    <property name="src" location="src/main/java" />
     <property name="build" location="build" />
     <property name="dist" location="dist" />
     <property name="release" location="release" />

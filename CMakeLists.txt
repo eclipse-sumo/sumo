@@ -262,7 +262,7 @@ if (CHECK_OPTIONAL_LIBS)
 
     find_package(SWIG 3.0)
     if (SWIG_FOUND)
-		set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+        set(CMAKE_POSITION_INDEPENDENT_CODE ON)
         set(ENABLED_FEATURES "${ENABLED_FEATURES} SWIG")
     endif ()
 
@@ -327,6 +327,30 @@ endif ()
 set_property(TARGET install_dll PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
 set_property(TARGET install_dll PROPERTY FOLDER "CMake")
 
+# java targets
+find_program(MVN_EXECUTABLE mvn)
+if (MVN_EXECUTABLE)
+    add_custom_target(cadyts
+        COMMAND ${MVN_EXECUTABLE} --batch-mode -f tools/contributed/calibration/pom.xml clean install
+        COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/calibration/utilities/target/floetteroed-utilities-1.0.0.jar bin
+        COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/calibration/cadyts/target/cadyts-1.3.0-SNAPSHOT.jar bin
+        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+    add_custom_target(traas
+        COMMAND ${MVN_EXECUTABLE} --batch-mode -f tools/contributed/traas/pom.xml clean install
+        COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/traas/target/traas-1.0.jar bin
+        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+    add_custom_target(lisum-core DEPENDS traas
+        COMMAND ${MVN_EXECUTABLE} --batch-mode -f tools/contributed/lisum-core/pom.xml clean install
+        COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/lisum-core/target/lisum-core-1.0.1-SNAPSHOT.jar bin
+        COMMAND ${MVN_EXECUTABLE} install:install-file -Dfile=bin/lisum-core-1.0.1-SNAPSHOT.jar -DgroupId=de.dlr.ts -DartifactId=lisum-core -Dversion=1.0.1 -Dpackaging=jar
+        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+    add_custom_target(lisum-gui DEPENDS lisum-core
+        COMMAND ${MVN_EXECUTABLE} --batch-mode -f tools/contributed/lisum-gui/pom.xml clean install
+        COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/lisum-gui/target/lisum-gui-1.0.jar bin
+        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+    set(JAVA_TARGETS cadyts lisum-gui)
+endif()
+
 # doc targets
 add_custom_target(doxygen
     COMMAND rm -rf docs/doxygen
@@ -343,36 +367,43 @@ add_custom_target(userdoc
 set_property(TARGET userdoc PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
 set_property(TARGET userdoc PROPERTY FOLDER "doc")
 
-add_custom_target(javadoc
-    COMMAND rm -rf docs/javadoc
-    COMMAND mkdir docs/javadoc
-    COMMAND ant -f tools/contributed/traas/build.xml javadoc
-    COMMAND mv tools/contributed/traas/javadoc docs/javadoc/traas
-    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
-set_property(TARGET javadoc PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
-set_property(TARGET javadoc PROPERTY FOLDER "doc")
+if (MVN_EXECUTABLE)
+    add_custom_target(javadoc
+        COMMAND rm -rf docs/javadoc
+        COMMAND mkdir docs/javadoc
+        COMMAND ${MVN_EXECUTABLE} --batch-mode -f tools/contributed/traas/pom.xml javadoc:javadoc
+        COMMAND mv tools/contributed/traas/javadoc docs/javadoc/traas
+        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+    set_property(TARGET javadoc PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
+    set_property(TARGET javadoc PROPERTY FOLDER "doc")
+    set(JAVADOC_TARGET javadoc)
+endif()
 
-add_custom_target(man
-    COMMAND rm -rf docs/man
-    COMMAND mkdir docs/man
-    COMMAND help2man -N -n "A microscopic road traffic simulation" bin/sumo > docs/man/sumo.1
-    COMMAND help2man -N -n "GUI version of the simulation SUMO" bin/sumo-gui > docs/man/sumo-gui.1
-    COMMAND help2man -N -n "Builds vehicle routes for SUMO using detector values" bin/dfrouter > docs/man/dfrouter.1
-    COMMAND help2man -N -n "Shortest path router and DUE computer for the microscopic road traffic simulation SUMO" bin/duarouter > docs/man/duarouter.1
-    COMMAND help2man -N -n "Router for the microscopic road traffic simulation SUMO based on junction turning ratios" bin/jtrrouter > docs/man/jtrrouter.1
-    COMMAND help2man -N -n "Import O/D-matrices for macroscopic traffic assignment" bin/marouter > docs/man/marouter.1
-    COMMAND help2man -N -n "Generates routes of persons throughout a day for the microscopic road traffic simulation SUMO" bin/activitygen > docs/man/activitygen.1
-    COMMAND help2man -N -n "Importer of O/D-matrices for the road traffic simulation SUMO" bin/od2trips > docs/man/od2trips.1
-    COMMAND help2man -N -n "Road network importer / builder for the road traffic simulation SUMO" bin/netconvert > docs/man/netconvert.1
-    COMMAND help2man -N -n "Road network editor for the road traffic simulation SUMO" bin/netedit > docs/man/netedit.1
-    COMMAND help2man -N -n "Road network generator for the microscopic road traffic simulation SUMO" bin/netgenerate > docs/man/netgenerate.1
-    COMMAND help2man -N -n "Importer of polygons and POIs for the road traffic simulation SUMO" bin/polyconvert > docs/man/polyconvert.1
-    COMMAND help2man -N -n "TraCITestClient for the road traffic simulation SUMO" bin/TraCITestClient > docs/man/TraCITestClient.1
-    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
-set_property(TARGET man PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
-set_property(TARGET man PROPERTY FOLDER "doc")
+find_program(HELPMAN_EXECUTABLE help2man)
+if (HELPMAN_EXECUTABLE)
+    add_custom_target(man
+        COMMAND rm -rf docs/man
+        COMMAND mkdir docs/man
+        COMMAND ${HELPMAN_EXECUTABLE} -N -n "A microscopic, multi-modal traffic simulation" bin/sumo > docs/man/sumo.1
+        COMMAND ${HELPMAN_EXECUTABLE} -N -n "GUI version of the simulation SUMO" bin/sumo-gui > docs/man/sumo-gui.1
+        COMMAND ${HELPMAN_EXECUTABLE} -N -n "Builds vehicle routes for SUMO using detector values" bin/dfrouter > docs/man/dfrouter.1
+        COMMAND ${HELPMAN_EXECUTABLE} -N -n "Shortest path router and DUE computer for the microscopic traffic simulation SUMO" bin/duarouter > docs/man/duarouter.1
+        COMMAND ${HELPMAN_EXECUTABLE} -N -n "Router for the microscopic traffic simulation SUMO based on junction turning ratios" bin/jtrrouter > docs/man/jtrrouter.1
+        COMMAND ${HELPMAN_EXECUTABLE} -N -n "Import O/D-matrices and trips using macroscopic traffic assignment for SUMO" bin/marouter > docs/man/marouter.1
+        COMMAND ${HELPMAN_EXECUTABLE} -N -n "Generates routes of persons throughout a day for the microscopic traffic simulation SUMO" bin/activitygen > docs/man/activitygen.1
+        COMMAND ${HELPMAN_EXECUTABLE} -N -n "Importer of O/D-matrices for the traffic simulation SUMO" bin/od2trips > docs/man/od2trips.1
+        COMMAND ${HELPMAN_EXECUTABLE} -N -n "Road network importer / builder for the traffic simulation SUMO" bin/netconvert > docs/man/netconvert.1
+        COMMAND ${HELPMAN_EXECUTABLE} -N -n "Road network editor for the traffic simulation SUMO" bin/netedit > docs/man/netedit.1
+        COMMAND ${HELPMAN_EXECUTABLE} -N -n "Road network generator for the microscopic traffic simulation SUMO" bin/netgenerate > docs/man/netgenerate.1
+        COMMAND ${HELPMAN_EXECUTABLE} -N -n "Importer of polygons and POIs for the traffic simulation SUMO" bin/polyconvert > docs/man/polyconvert.1
+        COMMAND ${HELPMAN_EXECUTABLE} -N -n "TraCITestClient for the traffic simulation SUMO" bin/TraCITestClient > docs/man/TraCITestClient.1
+        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+    set_property(TARGET man PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
+    set_property(TARGET man PROPERTY FOLDER "doc")
+    set(MAN_TARGET man)
+endif()
 
-add_custom_target(doc DEPENDS doxygen userdoc javadoc man)
+add_custom_target(doc DEPENDS doxygen userdoc ${JAVADOC_TARGET} ${MAN_TARGET})
 set_property(TARGET doc PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
 set_property(TARGET doc PROPERTY FOLDER "doc")
 
@@ -388,32 +419,6 @@ if (COVERAGE)
     add_custom_target(lcov-reset
     COMMAND lcov -d . -z
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
-endif()
-
-# java targets
-find_program(MVN_EXECUTABLE mvn)
-find_program(ANT_EXECUTABLE ant)
-if (MVN_EXECUTABLE AND ANT_EXECUTABLE)
-    add_custom_target(cadyts
-        COMMAND ${MVN_EXECUTABLE} --batch-mode -f tools/contributed/calibration/pom.xml clean install
-        COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/calibration/utilities/target/floetteroed-utilities-1.0.0.jar bin
-        COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/calibration/cadyts/target/cadyts-1.3.0-SNAPSHOT.jar bin
-        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
-    add_custom_target(traas
-        COMMAND ${ANT_EXECUTABLE} -f tools/contributed/traas/build.xml clean release
-        COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/traas/dist/TraaS.jar bin
-        COMMAND ${MVN_EXECUTABLE} install:install-file -Dfile=bin/TraaS.jar -DgroupId=de.tudresden -DartifactId=traas -Dversion=1.0 -Dpackaging=jar
-        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
-    add_custom_target(lisum-core DEPENDS traas
-        COMMAND ${MVN_EXECUTABLE} --batch-mode -f tools/contributed/lisum-core/pom.xml clean install
-        COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/lisum-core/target/lisum-core-1.0.1-SNAPSHOT.jar bin
-        COMMAND ${MVN_EXECUTABLE} install:install-file -Dfile=bin/lisum-core-1.0.1-SNAPSHOT.jar -DgroupId=de.dlr.ts -DartifactId=lisum-core -Dversion=1.0.1 -Dpackaging=jar
-        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
-    add_custom_target(lisum-gui DEPENDS lisum-core
-        COMMAND ${MVN_EXECUTABLE} --batch-mode -f tools/contributed/lisum-gui/pom.xml clean install
-        COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/lisum-gui/target/lisum-gui-1.0.jar bin
-        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
-    set(JAVA_TARGETS cadyts lisum-gui)
 endif()
 
 # example and dist targets
