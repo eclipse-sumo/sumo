@@ -31,7 +31,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/build/cmake_modu
 set(ENABLED_FEATURES "${CMAKE_SYSTEM} ${CMAKE_SYSTEM_PROCESSOR} ${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION}")
 
 if(COMPILE_DEFINITIONS)
-  add_compile_definitions(${COMPILE_DEFINITIONS})
+    add_compile_definitions(${COMPILE_DEFINITIONS})
 endif()
 
 # compiler specific flags
@@ -97,6 +97,7 @@ message(STATUS "")
 #set(Python_ADDITIONAL_VERSIONS 3.7 3.6 3.5 3.4 3.3 2.7) # it may help in finding the correct python for libsumo
 find_package(PythonInterp REQUIRED)
 message(STATUS "Found Python: " ${PYTHON_EXECUTABLE})
+execute_process(COMMAND ${PYTHON_EXECUTABLE} -c "import setuptools" RESULT_VARIABLE SETUPTOOLS_MISSING)
 
 #http://stackoverflow.com/questions/1487752/how-do-i-instruct-cmake-to-look-for-libraries-installed-by-macports
 if (APPLE)
@@ -310,12 +311,14 @@ install(DIRECTORY tools/ DESTINATION share/sumo/tools
         PATTERN "traas" EXCLUDE
         PATTERN "traci4matlab/src" EXCLUDE
         PATTERN ".git" EXCLUDE)
-install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink ../../bin $ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/share/sumo/bin)")
-install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build/setup-sumolib.py clean --all install --prefix $ENV{DESTDIR}${CMAKE_INSTALL_PREFIX})"
-        COMPONENT pysumolib)
-install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build/setup-traci.py clean --all install --prefix $ENV{DESTDIR}${CMAKE_INSTALL_PREFIX})"
-        COMPONENT pytraci)
+install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink ../../bin \$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/share/sumo/bin)")
 
+if (NOT ${SETUPTOOLS_MISSING})
+    install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build/setup-sumolib.py clean --all install --root=\$ENV{DESTDIR} --prefix=${CMAKE_INSTALL_PREFIX} --optimize=1)"
+            COMPONENT pysumolib)
+    install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build/setup-traci.py clean --all install --root=\$ENV{DESTDIR} --prefix=${CMAKE_INSTALL_PREFIX} --optimize=1)"
+            COMPONENT pytraci)
+endif()
 string(REPLACE "${SUMO_LIBRARIES}" "" SUMO_LIBRARIES_DLL "${SUMO_LIBRARIES_DLL}")
 add_custom_target(install_dll)
 add_custom_command(TARGET install_dll PRE_BUILD

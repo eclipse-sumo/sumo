@@ -109,9 +109,11 @@ if(SWIG_FOUND)
             else()
                 swig_link_libraries(libsumo -Wl,--whole-archive ${sumolibs} -Wl,--no-whole-archive ${PYTHON_LIBRARIES})
             endif()
-            install(
-                CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build/setup-libsumo.py clean --all install --prefix $ENV{DESTDIR}${CMAKE_INSTALL_PREFIX})"
-                COMPONENT pylibsumo)
+            if (NOT ${SETUPTOOLS_MISSING})
+                install(
+                    CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build/setup-libsumo.py clean --all install --root=\$ENV{DESTDIR} --prefix=${CMAKE_INSTALL_PREFIX} --optimize=1)"
+                    COMPONENT pylibsumo)
+            endif()
         else()
             message(WARNING "ENABLE_PYTHON_BINDINGS is set but python libraries were not found.")
         endif()
