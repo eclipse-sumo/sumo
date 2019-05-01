@@ -337,7 +337,7 @@ if (MVN_EXECUTABLE)
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
     add_custom_target(traas
         COMMAND ${MVN_EXECUTABLE} --batch-mode -f tools/contributed/traas/pom.xml clean install
-        COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/traas/target/traas-1.0.jar bin
+        COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/traas/target/traas-1.0.jar bin/TraaS.jar
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
     add_custom_target(lisum-core DEPENDS traas
         COMMAND ${MVN_EXECUTABLE} --batch-mode -f tools/contributed/lisum-core/pom.xml clean install
@@ -345,7 +345,7 @@ if (MVN_EXECUTABLE)
         COMMAND ${MVN_EXECUTABLE} install:install-file -Dfile=bin/lisum-core-1.0.1-SNAPSHOT.jar -DgroupId=de.dlr.ts -DartifactId=lisum-core -Dversion=1.0.1 -Dpackaging=jar
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
     add_custom_target(lisum-gui DEPENDS lisum-core
-        COMMAND ${MVN_EXECUTABLE} --batch-mode -f tools/contributed/lisum-gui/pom.xml clean install
+        COMMAND ${MVN_EXECUTABLE} --batch-mode -f tools/contributed/lisum-gui/pom_new.xml clean install
         COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/lisum-gui/target/lisum-gui-1.0.jar bin
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
     set(JAVA_TARGETS cadyts lisum-gui)
