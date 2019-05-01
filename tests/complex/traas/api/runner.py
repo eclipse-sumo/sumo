@@ -29,6 +29,6 @@ from sumolib import checkBinary  # noqa
 traasJar  = os.path.join(os.environ['SUMO_HOME'], "bin", "TraaS.jar")
 assert(os.path.exists(traasJar))
 
-subprocess.call(["javac", "-cp", traasJar, "data/APITest.java"])
-retcode = subprocess.call(["java", "-cp", traasJar + ":data", "APITest", checkBinary('sumo'), "data/config.sumocfg"])
-print(">> Simulation closed with status %s" % retcode)
+subprocess.check_call(["javac", "-cp", traasJar, "data/APITest.java"])
+subprocess.check_call(["java", "-cp", traasJar + ":data", "APITest",
+                       checkBinary('sumo'), "data/config.sumocfg"])

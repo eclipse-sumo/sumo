@@ -337,7 +337,7 @@ if (MVN_EXECUTABLE)
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
     add_custom_target(traas
         COMMAND ${MVN_EXECUTABLE} --batch-mode -f tools/contributed/traas/pom.xml clean install
-        COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/traas/target/traas-1.0.jar bin/TraaS.jar
+        COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/traas/target/traas-1.0-jar-with-dependencies.jar bin/TraaS.jar
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
     add_custom_target(lisum-core DEPENDS traas
         COMMAND ${MVN_EXECUTABLE} --batch-mode -f tools/contributed/lisum-core/pom.xml clean install

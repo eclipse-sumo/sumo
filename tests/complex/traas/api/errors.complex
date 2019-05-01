@@ -1,5 +1,2 @@
-warning: unknown enum constant XmlAccessType.FIELD
-  reason: class file for javax.xml.bind.annotation.XmlAccessType not found
 Note: data/APITest.java uses unchecked or unsafe operations.
 Note: Recompile with -Xlint:unchecked for details.
-1 warning
