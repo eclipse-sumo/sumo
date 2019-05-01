@@ -136,10 +136,13 @@ MSContainer::MSContainerStage_Tranship::MSContainerStage_Tranship(const std::vec
         double speed,
         double departPos, double arrivalPos) :
     MSTransportable::Stage(route.back(), toStop, SUMOVehicleParameter::interpretEdgePos(
-                               arrivalPos, route.back()->getLength(), SUMO_ATTR_ARRIVALPOS, "container getting transhipped to " + route.back()->getID()), MOVING_WITHOUT_VEHICLE), myRoute(route),
+                               arrivalPos, route.back()->getLength(), SUMO_ATTR_ARRIVALPOS,
+                               "container getting transhipped to " + route.back()->getID()),
+            MOVING_WITHOUT_VEHICLE), myRoute(route),
     mySpeed(speed), myContainerState(nullptr), myCurrentInternalEdge(nullptr) {
     myDepartPos = SUMOVehicleParameter::interpretEdgePos(
-                      departPos, myRoute.front()->getLength(), SUMO_ATTR_DEPARTPOS, "container getting transhipped from " + myRoute.front()->getID());
+                      departPos, myRoute.front()->getLength(), SUMO_ATTR_DEPARTPOS,
+                      "container getting transhipped from " + myRoute.front()->getID());
 }
 
 MSContainer::MSContainerStage_Tranship::~MSContainerStage_Tranship() {
