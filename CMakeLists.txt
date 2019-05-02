@@ -375,7 +375,7 @@ if (MVN_EXECUTABLE)
         COMMAND rm -rf docs/javadoc
         COMMAND mkdir docs/javadoc
         COMMAND ${MVN_EXECUTABLE} --batch-mode -f tools/contributed/traas/pom.xml javadoc:javadoc
-        COMMAND mv tools/contributed/traas/javadoc docs/javadoc/traas
+        COMMAND mv tools/contributed/traas/target/site/apidocs docs/javadoc/traas
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
     set_property(TARGET javadoc PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
     set_property(TARGET javadoc PROPERTY FOLDER "doc")
