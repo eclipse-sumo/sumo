@@ -965,6 +965,12 @@ enum SumoXMLAttr {
     GNE_ATTR_DEFAULT_VTYPE_MODIFIED,
     // @}
 
+    /// @name train parameters
+    /// @{
+    SUMO_ATTR_CARRIAGE_LENGTH,
+    SUMO_ATTR_LOCOMOTIVE_LENGTH,
+    /// @}
+
     SUMO_ATTR_TARGETLANE,
     SUMO_ATTR_CROSSING,
     SUMO_ATTR_XMLNS,

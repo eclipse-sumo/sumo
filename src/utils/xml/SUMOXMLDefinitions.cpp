@@ -655,11 +655,14 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "genericParameter",                   GNE_ATTR_GENERIC },
     { "defaultVTypeModified",               GNE_ATTR_DEFAULT_VTYPE_MODIFIED },
 
-    { "targetLanes", SUMO_ATTR_TARGETLANE },
-    { "crossing", SUMO_ATTR_CROSSING },
+    { "carriageLength",     SUMO_ATTR_CARRIAGE_LENGTH },
+    { "locomotiveLength",   SUMO_ATTR_LOCOMOTIVE_LENGTH },
 
-    { "xmlns:xsi", SUMO_ATTR_XMLNS },
-    { "xsi:noNamespaceSchemaLocation", SUMO_ATTR_SCHEMA_LOCATION },
+    { "targetLanes",    SUMO_ATTR_TARGETLANE },
+    { "crossing",       SUMO_ATTR_CROSSING },
+
+    { "xmlns:xsi",                      SUMO_ATTR_XMLNS },
+    { "xsi:noNamespaceSchemaLocation",  SUMO_ATTR_SCHEMA_LOCATION },
 
     //@name RNG state saving attributes
     // @{
