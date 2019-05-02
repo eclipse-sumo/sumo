@@ -14,6 +14,12 @@ signals
 
 # test angle output in all cardinal directions
 angle
+
+# test kilometrage output
+distance
+
+# test kilometrage output
+distance_reverse
 subsecond
 
 # output not in every time step
