@@ -63,31 +63,32 @@ public:
 
     /// @brief struct with the tag Properties
     enum AttrProperty {
-        ATTRPROPERTY_INT =            1 << 0,   // Attribute is an integer (Including Zero)
-        ATTRPROPERTY_FLOAT =          1 << 1,   // Attribute is a float
-        ATTRPROPERTY_BOOL =           1 << 2,   // Attribute is boolean (0/1, true/false)
-        ATTRPROPERTY_STRING =         1 << 3,   // Attribute is a string
-        ATTRPROPERTY_POSITION =       1 << 4,   // Attribute is a position defined by doubles (x,y or x,y,z)
-        ATTRPROPERTY_COLOR =          1 << 5,   // Attribute is a color defined by a specifically word (Red, green) or by a special format (XXX,YYY,ZZZ)
-        ATTRPROPERTY_VCLASS =         1 << 6,   // Attribute is a VClass (passenger, bus, motorcicle...)
-        ATTRPROPERTY_POSITIVE =       1 << 7,   // Attribute is positive (Including Zero)
-        ATTRPROPERTY_NOTZERO =        1 << 8,   // Attribute cannot be 0 (only for numerical attributes)
-        ATTRPROPERTY_UNIQUE =         1 << 9,   // Attribute is unique (cannot be edited in a selection of similar elements (ID, Position...)
-        ATTRPROPERTY_FILENAME =       1 << 10,  // Attribute is a filename (string that cannot contains certain characters)
-        ATTRPROPERTY_NONEDITABLE =    1 << 11,  // Attribute is non editable (index of a lane)
-        ATTRPROPERTY_DISCRETE =       1 << 12,  // Attribute is discrete (only certain values are allowed)
-        ATTRPROPERTY_PROBABILITY =    1 << 13,  // Attribute is probability (only allowed values between 0 and 1, including both)
-        ATTRPROPERTY_TIME =           1 << 14,  // Attribute is a Time (float positive)
-        ATTRPROPERTY_ANGLE =          1 << 15,  // Attribute is an angle (only takes values between 0 and 360, including both, another value will be automatically reduced
-        ATTRPROPERTY_LIST =           1 << 16,  // Attribute is a list of other elements separated by spaces
-        ATTRPROPERTY_SECUENCIAL =     1 << 17,  // Attribute is a special sequence of elements (for example: secuencial lanes in Multi Lane E2 detectors)
-        ATTRPROPERTY_OPTIONAL =       1 << 18,  // Attribute is optional
-        ATTRPROPERTY_DEFAULTVALUE =   1 << 19,  // Attribute owns a default value
-        ATTRPROPERTY_COMBINABLE =     1 << 20,  // Attribute is combinable with other Attribute
-        ATTRPROPERTY_SYNONYM =        1 << 21,  // Attribute will be written with a different name in der XML
-        ATTRPROPERTY_RANGE =          1 << 22,  // Attribute only accept a range of elements
-        ATTRPROPERTY_EXTENDED =       1 << 23,  // Attribute is extended (used in certain demand elements)
-        ATTRPROPERTY_UPDATEGEOMETRY = 1 << 24,  // Attribute requiere update geometry at the end of function setAttribute(...)
+        ATTRPROPERTY_INT =                 1 << 0,   // Attribute is an integer (Including Zero)
+        ATTRPROPERTY_FLOAT =               1 << 1,   // Attribute is a float
+        ATTRPROPERTY_BOOL =                1 << 2,   // Attribute is boolean (0/1, true/false)
+        ATTRPROPERTY_STRING =              1 << 3,   // Attribute is a string
+        ATTRPROPERTY_POSITION =            1 << 4,   // Attribute is a position defined by doubles (x,y or x,y,z)
+        ATTRPROPERTY_COLOR =               1 << 5,   // Attribute is a color defined by a specifically word (Red, green) or by a special format (XXX,YYY,ZZZ)
+        ATTRPROPERTY_VCLASS =              1 << 6,   // Attribute is a VClass (passenger, bus, motorcicle...)
+        ATTRPROPERTY_POSITIVE =            1 << 7,   // Attribute is positive (Including Zero)
+        ATTRPROPERTY_NOTZERO =             1 << 8,   // Attribute cannot be 0 (only for numerical attributes)
+        ATTRPROPERTY_UNIQUE =              1 << 9,   // Attribute is unique (cannot be edited in a selection of similar elements (ID, Position...)
+        ATTRPROPERTY_FILENAME =            1 << 10,  // Attribute is a filename (string that cannot contains certain characters)
+        ATTRPROPERTY_NONEDITABLE =         1 << 11,  // Attribute is non editable (index of a lane)
+        ATTRPROPERTY_DISCRETE =            1 << 12,  // Attribute is discrete (only certain values are allowed)
+        ATTRPROPERTY_PROBABILITY =         1 << 13,  // Attribute is probability (only allowed values between 0 and 1, including both)
+        ATTRPROPERTY_TIME =                1 << 14,  // Attribute is a Time (float positive)
+        ATTRPROPERTY_ANGLE =               1 << 15,  // Attribute is an angle (only takes values between 0 and 360, including both, another value will be automatically reduced
+        ATTRPROPERTY_LIST =                1 << 16,  // Attribute is a list of other elements separated by spaces
+        ATTRPROPERTY_SECUENCIAL =          1 << 17,  // Attribute is a special sequence of elements (for example: secuencial lanes in Multi Lane E2 detectors)
+        ATTRPROPERTY_OPTIONAL =            1 << 18,  // Attribute is optional
+        ATTRPROPERTY_DEFAULTVALUESTATIC =  1 << 19,  // Attribute owns a static default value
+        ATTRPROPERTY_DEFAULTVALUEMUTABLE = 1 << 20,  // Attribute owns a mutable default value
+        ATTRPROPERTY_COMBINABLE =          1 << 21,  // Attribute is combinable with other Attribute
+        ATTRPROPERTY_SYNONYM =             1 << 22,  // Attribute will be written with a different name in der XML
+        ATTRPROPERTY_RANGE =               1 << 23,  // Attribute only accept a range of elements
+        ATTRPROPERTY_EXTENDED =            1 << 24,  // Attribute is extended (used in certain demand elements)
+        ATTRPROPERTY_UPDATEGEOMETRY =      1 << 25,  // Attribute requiere update geometry at the end of function setAttribute(...)
     };
 
     /// @brief struct with the attribute Properties
@@ -154,8 +155,11 @@ public:
         /// @brief get maximum range
         double getMaximumRange() const;
 
-        /// @brief return true if attribute owns a default value
-        bool hasDefaultValue() const;
+        /// @brief return true if attribute owns a static default value
+        bool hasStaticDefaultValue() const;
+
+        /// @brief return true if attribute owns a mutable default value
+        bool hasMutableDefaultValue() const;
 
         /// @brief return true if Attr correspond to an element that will be written in XML with another name
         bool hasAttrSynonym() const;
@@ -745,7 +749,7 @@ public:
             }
         } else {
             // if attribute is optional and has a default value, obtain it. In other case, abort.
-            if (attrProperties.isOptional() && attrProperties.hasDefaultValue()) {
+            if (attrProperties.isOptional() && attrProperties.hasStaticDefaultValue()) {
                 parsedAttribute = attrProperties.getDefaultValue();
             } else {
                 WRITE_WARNING("Essential " + attrProperties.getDescription() + " attribute '" + toString(attribute) + "' of " +

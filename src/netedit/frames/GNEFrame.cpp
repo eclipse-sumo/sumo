@@ -312,7 +312,7 @@ GNEFrame::AttributesCreator::getAttributesAndValues(bool includeAll) const {
         if (myRows.at(i)->getAttrProperties().getAttr() != SUMO_ATTR_NOTHING) {
             // ignore default values (except for disjont attributes, that has to be always writted)
             if (myRows.at(i)->isRowEnabled() &&
-                    (includeAll || myTagProperties.isDisjointAttributes(myRows.at(i)->getAttrProperties().getAttr()) || !myRows.at(i)->getAttrProperties().hasDefaultValue() || (myRows.at(i)->getAttrProperties().getDefaultValue() != myRows.at(i)->getValue()))) {
+                    (includeAll || myTagProperties.isDisjointAttributes(myRows.at(i)->getAttrProperties().getAttr()) || !myRows.at(i)->getAttrProperties().hasStaticDefaultValue() || (myRows.at(i)->getAttrProperties().getDefaultValue() != myRows.at(i)->getValue()))) {
                 values[myRows.at(i)->getAttrProperties().getAttr()] = myRows.at(i)->getValue();
             }
         }
@@ -1227,7 +1227,7 @@ GNEFrame::AttributesEditor::RowEditor::onCmdSetAttribute(FXObject*, FXSelector, 
         }
     } else if (myACAttr.isFloat() || myACAttr.isTime()) {
         // Check if default value of attribute must be set
-        if (myTextFieldReal->getText().empty() && myACAttr.hasDefaultValue()) {
+        if (myTextFieldReal->getText().empty() && myACAttr.hasStaticDefaultValue()) {
             newVal = myACAttr.getDefaultValue();
             myTextFieldReal->setText(newVal.c_str());
         } else {
@@ -1236,7 +1236,7 @@ GNEFrame::AttributesEditor::RowEditor::onCmdSetAttribute(FXObject*, FXSelector, 
         }
     } else if (myACAttr.isInt()) {
         // Check if default value of attribute must be set
-        if (myTextFieldInt->getText().empty() && myACAttr.hasDefaultValue()) {
+        if (myTextFieldInt->getText().empty() && myACAttr.hasStaticDefaultValue()) {
             newVal = myACAttr.getDefaultValue();
             myTextFieldInt->setText(newVal.c_str());
         } else {
@@ -1245,7 +1245,7 @@ GNEFrame::AttributesEditor::RowEditor::onCmdSetAttribute(FXObject*, FXSelector, 
         }
     } else if (myACAttr.isString()) {
         // Check if default value of attribute must be set
-        if (myTextFieldStrings->getText().empty() && myACAttr.hasDefaultValue()) {
+        if (myTextFieldStrings->getText().empty() && myACAttr.hasStaticDefaultValue()) {
             newVal = myACAttr.getDefaultValue();
             myTextFieldStrings->setText(newVal.c_str());
         } else {
