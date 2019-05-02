@@ -293,6 +293,9 @@ private:
     std::map<NBNode*, std::pair<double, double> >
     getNeighboringNodes(NBNode* node, double maxDist, const std::set<NBNode*>& knownElevation);
 
+    /// @brief check whether the type is known or consists of known type compounds. return empty string otherwise
+    std::string usableType(const std::string& type, const std::string& id, NBTypeCont& tc);
+
     /// @brief read distance value from node and return value in m
     static double interpretDistance(NIOSMNode* node);
 

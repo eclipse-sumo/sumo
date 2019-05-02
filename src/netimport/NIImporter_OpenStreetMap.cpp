@@ -391,99 +391,9 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         }
     }
 
-    std::string type = e->myHighWayType;
-    if (!tc.knows(type)) {
-        if (myUnusableTypes.count(type) > 0) {
-            return newIndex;
-        }
-        if (myKnownCompoundTypes.count(type) > 0) {
-            type = myKnownCompoundTypes[type];
-        } else {
-            // this edge has a type which does not yet exist in the TypeContainer
-            StringTokenizer tok = StringTokenizer(type, compoundTypeSeparator);
-            std::vector<std::string> types;
-            while (tok.hasNext()) {
-                std::string t = tok.next();
-                if (tc.knows(t)) {
-                    if (std::find(types.begin(), types.end(), t) == types.end()) {
-                        types.push_back(t);
-                    }
-                } else if (tok.size() > 1) {
-                    WRITE_WARNING(
-                        "Discarding unknown compound '" + t + "' in type '" + type + "' (first occurence for edge '"
-                        + id
-                        + "').");
-                }
-            }
-            if (types.empty()) {
-                WRITE_WARNING("Discarding unusable type '" + type + "' (first occurence for edge '" + id + "').");
-                myUnusableTypes.insert(type);
-                return newIndex;
-            }
-
-            const std::string newType = joinToString(types, "|");
-            if (tc.knows(newType)) {
-                myKnownCompoundTypes[type] = newType;
-                type = newType;
-            } else if (myKnownCompoundTypes.count(newType) > 0) {
-                type = myKnownCompoundTypes[newType];
-            } else {
-                // build a new type by merging all values
-                int numLanes = 0;
-                double maxSpeed = 0;
-                int prio = 0;
-                double width = NBEdge::UNSPECIFIED_WIDTH;
-                double sidewalkWidth = NBEdge::UNSPECIFIED_WIDTH;
-                double bikelaneWidth = NBEdge::UNSPECIFIED_WIDTH;
-                bool defaultIsOneWay = false;
-                SVCPermissions permissions = 0;
-                bool discard = true;
-                for (auto& type2 : types) {
-                    if (!tc.getShallBeDiscarded(type2)) {
-                        numLanes = MAX2(numLanes, tc.getNumLanes(type2));
-                        maxSpeed = MAX2(maxSpeed, tc.getSpeed(type2));
-                        prio = MAX2(prio, tc.getPriority(type2));
-                        defaultIsOneWay &= tc.getIsOneWay(type2);
-                        //std::cout << "merging component " << type2 << " into type " << newType << " allows=" << getVehicleClassNames(tc.getPermissions(type2)) << "\n";
-                        permissions |= tc.getPermissions(type2);
-                        width = MAX2(width, tc.getWidth(type2));
-                        sidewalkWidth = MAX2(sidewalkWidth, tc.getSidewalkWidth(type2));
-                        bikelaneWidth = MAX2(bikelaneWidth, tc.getBikeLaneWidth(type2));
-                        discard = false;
-                    }
-                }
-                if (width != NBEdge::UNSPECIFIED_WIDTH) {
-                    width = MAX2(width, SUMO_const_laneWidth);
-                }
-                // ensure pedestrians don't run into trains
-                if (sidewalkWidth == NBEdge::UNSPECIFIED_WIDTH
-                        && (permissions & SVC_PEDESTRIAN) != 0
-                        && (permissions & SVC_RAIL_CLASSES) != 0) {
-                    //std::cout << "patching sidewalk for type '" << newType << "' which allows=" << getVehicleClassNames(permissions) << "\n";
-                    sidewalkWidth = OptionsCont::getOptions().getFloat("default.sidewalk-width");
-                }
-
-                if (discard) {
-                    WRITE_WARNING(
-                        "Discarding compound type '" + newType + "' (first occurence for edge '" + id + "').");
-                    myUnusableTypes.insert(newType);
-                    return newIndex;
-                }
-
-                WRITE_MESSAGE("Adding new type '" + type + "' (first occurence for edge '" + id + "').");
-                tc.insert(newType, numLanes, maxSpeed, prio, permissions, width, defaultIsOneWay, sidewalkWidth,
-                          bikelaneWidth);
-                for (auto& type3 : types) {
-                    if (!tc.getShallBeDiscarded(type3)) {
-                        tc.copyRestrictionsAndAttrs(type3, newType);
-                    }
-                }
-                myKnownCompoundTypes[type] = newType;
-                type = newType;
-
-            }
-
-        }
+    std::string type = usableType(e->myHighWayType, id, tc);
+    if (type == "") {
+        return newIndex;
     }
 
     // otherwise it is not an edge and will be ignored
@@ -1774,6 +1684,102 @@ NIImporter_OpenStreetMap::getNeighboringNodes(NBNode* node, double maxDist, cons
     result.erase(node);
     return result;
 }
+
+
+std::string 
+NIImporter_OpenStreetMap::usableType(const std::string& type, const std::string& id, NBTypeCont& tc) {
+    if (tc.knows(type)) {
+        return type;
+    }
+    if (myUnusableTypes.count(type) > 0) {
+        return "";
+    }
+    if (myKnownCompoundTypes.count(type) > 0) {
+        return myKnownCompoundTypes[type];
+    }
+    // this edge has a type which does not yet exist in the TypeContainer
+    StringTokenizer tok = StringTokenizer(type, compoundTypeSeparator);
+    std::vector<std::string> types;
+    while (tok.hasNext()) {
+        std::string t = tok.next();
+        if (tc.knows(t)) {
+            if (std::find(types.begin(), types.end(), t) == types.end()) {
+                types.push_back(t);
+            }
+        } else if (tok.size() > 1) {
+            WRITE_WARNING(
+                    "Discarding unknown compound '" + t + "' in type '" + type + "' (first occurence for edge '"
+                    + id
+                    + "').");
+        }
+    }
+    if (types.empty()) {
+        WRITE_WARNING("Discarding unusable type '" + type + "' (first occurence for edge '" + id + "').");
+        myUnusableTypes.insert(type);
+        return "";
+    }
+    const std::string newType = joinToString(types, "|");
+    if (tc.knows(newType)) {
+        myKnownCompoundTypes[type] = newType;
+        return newType;
+    } else if (myKnownCompoundTypes.count(newType) > 0) {
+        return myKnownCompoundTypes[newType];
+    } else {
+        // build a new type by merging all values
+        int numLanes = 0;
+        double maxSpeed = 0;
+        int prio = 0;
+        double width = NBEdge::UNSPECIFIED_WIDTH;
+        double sidewalkWidth = NBEdge::UNSPECIFIED_WIDTH;
+        double bikelaneWidth = NBEdge::UNSPECIFIED_WIDTH;
+        bool defaultIsOneWay = false;
+        SVCPermissions permissions = 0;
+        bool discard = true;
+        for (auto& type2 : types) {
+            if (!tc.getShallBeDiscarded(type2)) {
+                numLanes = MAX2(numLanes, tc.getNumLanes(type2));
+                maxSpeed = MAX2(maxSpeed, tc.getSpeed(type2));
+                prio = MAX2(prio, tc.getPriority(type2));
+                defaultIsOneWay &= tc.getIsOneWay(type2);
+                //std::cout << "merging component " << type2 << " into type " << newType << " allows=" << getVehicleClassNames(tc.getPermissions(type2)) << "\n";
+                permissions |= tc.getPermissions(type2);
+                width = MAX2(width, tc.getWidth(type2));
+                sidewalkWidth = MAX2(sidewalkWidth, tc.getSidewalkWidth(type2));
+                bikelaneWidth = MAX2(bikelaneWidth, tc.getBikeLaneWidth(type2));
+                discard = false;
+            }
+        }
+        if (width != NBEdge::UNSPECIFIED_WIDTH) {
+            width = MAX2(width, SUMO_const_laneWidth);
+        }
+        // ensure pedestrians don't run into trains
+        if (sidewalkWidth == NBEdge::UNSPECIFIED_WIDTH
+                && (permissions & SVC_PEDESTRIAN) != 0
+                && (permissions & SVC_RAIL_CLASSES) != 0) {
+            //std::cout << "patching sidewalk for type '" << newType << "' which allows=" << getVehicleClassNames(permissions) << "\n";
+            sidewalkWidth = OptionsCont::getOptions().getFloat("default.sidewalk-width");
+        }
+
+        if (discard) {
+            WRITE_WARNING(
+                    "Discarding compound type '" + newType + "' (first occurence for edge '" + id + "').");
+            myUnusableTypes.insert(newType);
+            return "";
+        }
+
+        WRITE_MESSAGE("Adding new type '" + type + "' (first occurence for edge '" + id + "').");
+        tc.insert(newType, numLanes, maxSpeed, prio, permissions, width, defaultIsOneWay, sidewalkWidth,
+                bikelaneWidth);
+        for (auto& type3 : types) {
+            if (!tc.getShallBeDiscarded(type3)) {
+                tc.copyRestrictionsAndAttrs(type3, newType);
+            }
+        }
+        myKnownCompoundTypes[type] = newType;
+        return newType;
+    }
+}
+
 
 double
 NIImporter_OpenStreetMap::interpretDistance(NIOSMNode* node) {
