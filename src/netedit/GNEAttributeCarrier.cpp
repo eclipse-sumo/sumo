@@ -3243,6 +3243,22 @@ GNEAttributeCarrier::fillDemandElements() {
                                            "");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
+        attrProperty = AttributeProperties(SUMO_ATTR_CARRIAGE_LENGTH,
+                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUEMUTABLE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_EXTENDED,
+                                           "Carriage lenghts" );
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_LOCOMOTIVE_LENGTH,
+                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUEMUTABLE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_EXTENDED,
+                                           "Locomotive lenghts" );
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_CARRIAGE_GAP,
+                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_EXTENDED,
+                                           "GAP between carriages",
+                                           "1");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
         // fill Car Following Model Values (implemented in a separated function to improve code legibility)
         fillCarFollowingModelAttributes();
         // fill Junction Model Parameters (implemented in a separated function to improve code legibility)

@@ -360,6 +360,24 @@ GNEVehicleType::getAttribute(SumoXMLAttr key) const {
             } else {
                 return myTagProperty.getDefaultValue(SUMO_ATTR_HASDRIVERSTATE);
             }
+        case SUMO_ATTR_CARRIAGE_LENGTH:
+            if (wasSet(VTYPEPARS_CARRIAGE_LENGTH_SET)) {
+                return toString(carriageLength);
+            } else {
+                return toString(defaultValues.carriageLength);
+            }
+        case SUMO_ATTR_LOCOMOTIVE_LENGTH:
+            if (wasSet(VTYPEPARS_LOCOMOTIVE_LENGTH_SET)) {
+                return toString(locomotiveLength);
+            } else {
+                return toString(defaultValues.locomotiveLength);
+            }
+        case SUMO_ATTR_CARRIAGE_GAP:
+            if (wasSet(VTYPEPARS_CARRIAGE_GAP_SET)) {
+                return toString(carriageGap);
+            } else {
+                return myTagProperty.getDefaultValue(SUMO_ATTR_CARRIAGE_GAP);
+            }
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
         case GNE_ATTR_DEFAULT_VTYPE_MODIFIED:
@@ -444,6 +462,9 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
         case SUMO_ATTR_PROB:
         case SUMO_ATTR_HASDRIVERSTATE:
         case SUMO_ATTR_OSGFILE:
+        case SUMO_ATTR_CARRIAGE_LENGTH:
+        case SUMO_ATTR_LOCOMOTIVE_LENGTH:
+        case SUMO_ATTR_CARRIAGE_GAP:
         case GNE_ATTR_GENERIC:
             // if we change the original value of a default vehicle Type, change also flag "myDefaultVehicleType"
             if (myDefaultVehicleType) {
@@ -587,6 +608,12 @@ GNEVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<bool>(value);
         case SUMO_ATTR_OSGFILE:
             return SUMOXMLDefinitions::isValidFilename(value);
+        case SUMO_ATTR_CARRIAGE_LENGTH:
+            return canParse<double>(value) && (parse<double>(value) >= 0);
+        case SUMO_ATTR_LOCOMOTIVE_LENGTH:
+            return canParse<double>(value) && (parse<double>(value) >= 0);
+        case SUMO_ATTR_CARRIAGE_GAP:
+            return canParse<double>(value) && (parse<double>(value) >= 0);
         case GNE_ATTR_GENERIC:
             return isGenericParametersValid(value);
         case GNE_ATTR_DEFAULT_VTYPE_MODIFIED:
@@ -620,6 +647,12 @@ GNEVehicleType::isAttributeSet(SumoXMLAttr key) const {
             return wasSet(VTYPEPARS_CONTAINER_CAPACITY);
         case SUMO_ATTR_OSGFILE:
             return wasSet(VTYPEPARS_OSGFILE_SET);
+        case SUMO_ATTR_CARRIAGE_LENGTH:
+            return wasSet(VTYPEPARS_CARRIAGE_LENGTH_SET);
+        case SUMO_ATTR_LOCOMOTIVE_LENGTH:
+            return wasSet(VTYPEPARS_LOCOMOTIVE_LENGTH_SET);
+        case SUMO_ATTR_CARRIAGE_GAP:
+            return wasSet(VTYPEPARS_CARRIAGE_GAP_SET);
         default:
             return true;
     }
@@ -821,6 +854,15 @@ GNEVehicleType::overwriteVType(GNEDemandElement* vType, SUMOVTypeParameter* newV
     }
     if (newVTypeParameter->wasSet(VTYPEPARS_OSGFILE_SET)) {
         vType->setAttribute(SUMO_ATTR_OSGFILE, toString(newVTypeParameter->osgFile), undoList);
+    }
+    if (newVTypeParameter->wasSet(VTYPEPARS_CARRIAGE_LENGTH_SET)) {
+        vType->setAttribute(SUMO_ATTR_CARRIAGE_LENGTH, toString(newVTypeParameter->carriageLength), undoList);
+    }
+    if (newVTypeParameter->wasSet(VTYPEPARS_LOCOMOTIVE_LENGTH_SET)) {
+        vType->setAttribute(SUMO_ATTR_LOCOMOTIVE_LENGTH, toString(newVTypeParameter->locomotiveLength), undoList);
+    }
+    if (newVTypeParameter->wasSet(VTYPEPARS_CARRIAGE_GAP_SET)) {
+        vType->setAttribute(SUMO_ATTR_CARRIAGE_GAP, toString(newVTypeParameter->carriageGap), undoList);
     }
     // parse generic parameters
     std::string genericParametersStr;
@@ -1216,6 +1258,42 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
                 parametersSet &= ~VTYPEPARS_OSGFILE_SET;
             }
             break;
+        case SUMO_ATTR_CARRIAGE_LENGTH:
+            if (!value.empty() && (value != toString(defaultValues.carriageLength))) {
+                carriageLength = parse<double>(value);
+                // mark parameter as set
+                parametersSet |= VTYPEPARS_CARRIAGE_LENGTH_SET;
+            } else {
+                // set default value
+                carriageLength = defaultValues.carriageLength;
+                // unset parameter
+                parametersSet &= ~VTYPEPARS_CARRIAGE_LENGTH_SET;
+            }
+            break;
+        case SUMO_ATTR_LOCOMOTIVE_LENGTH:
+            if (!value.empty() && (value != toString(defaultValues.containerCapacity))) {
+                locomotiveLength = parse<double>(value);
+                // mark parameter as set
+                parametersSet |= VTYPEPARS_LOCOMOTIVE_LENGTH_SET;
+            } else {
+                // set default value
+                locomotiveLength = defaultValues.locomotiveLength;
+                // unset parameter
+                parametersSet &= ~VTYPEPARS_LOCOMOTIVE_LENGTH_SET;
+            }
+            break;
+        case SUMO_ATTR_CARRIAGE_GAP:
+            if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
+                carriageGap = parse<double>(value);
+                // mark parameter as set
+                parametersSet |= VTYPEPARS_CARRIAGE_GAP_SET;
+            } else {
+                // set default value
+                carriageGap = parse<double>(myTagProperty.getDefaultValue(key));
+                // unset parameter
+                parametersSet &= ~VTYPEPARS_CARRIAGE_GAP_SET;
+            }
+            break;
         case GNE_ATTR_GENERIC:
             setGenericParametersStr(value);
             break;
@@ -1267,12 +1345,12 @@ GNEVehicleType::updateDefaultVClassAttributes(const VClassDefaultValues &default
     if (!wasSet(VTYPEPARS_OSGFILE_SET)) {
         osgFile = defaultValues.osgFile;
     }
-    //if (!wasSet(VTYPEPARS_CARRIAGELENGHT_SET)) {
+    if (!wasSet(VTYPEPARS_CARRIAGE_LENGTH_SET)) {
         carriageLength = defaultValues.carriageLength;
-    //}
-    //if (!wasSet(VTYPEPARS_LOCOMOTIVE_SET)) {
+    }
+    if (!wasSet(VTYPEPARS_LOCOMOTIVE_LENGTH_SET)) {
         locomotiveLength = defaultValues.locomotiveLength;
-    //}
+    }
 }
 
 /****************************************************************************/

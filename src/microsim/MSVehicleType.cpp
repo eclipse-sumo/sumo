@@ -441,6 +441,7 @@ void
 MSVehicleType::initParameters() {
     if (myParameter.knowsParameter("carriageLength")) {
         myParameter.carriageLength = StringUtils::toDouble(myParameter.getParameter("carriageLength"));
+        myParameter.parametersSet &= ~VTYPEPARS_CARRIAGE_LENGTH_SET;
     } else if (myParameter.wasSet(VTYPEPARS_SHAPE_SET)) {
         switch (myParameter.shape) {
             case SVS_BUS_FLEXIBLE:
@@ -472,11 +473,13 @@ MSVehicleType::initParameters() {
     }
     if (myParameter.knowsParameter("locomotiveLength")) {
         myParameter.locomotiveLength = StringUtils::toDouble(myParameter.getParameter("locomotiveLength"));
+        myParameter.parametersSet &= ~VTYPEPARS_LOCOMOTIVE_LENGTH_SET;
     } else if (myParameter.locomotiveLength <= 0) {
         myParameter.locomotiveLength = myParameter.carriageLength;
     }
     if (myParameter.knowsParameter("carriageGap")) {
         myParameter.carriageGap = StringUtils::toDouble(myParameter.getParameter("carriageGap"));
+        myParameter.parametersSet &= ~VTYPEPARS_CARRIAGE_GAP_SET;
     }
 }
 
