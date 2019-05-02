@@ -171,7 +171,7 @@ class PlatoonManager(traci.StepListener):
         for veh in self._connectedVehicles.values():
             veh.setPlatoonMode(PlatoonMode.NONE)
             traci.vehicle.unsubscribe(veh.getID())
-        self._connectedVehicles = []
+        self._connectedVehicles = dict()
         simpla._platoon.Platoon._nextID = 0
 
     def getPlatoonLeaders(self):
