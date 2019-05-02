@@ -140,6 +140,8 @@ MSFrame::fillOptions() {
     oc.addDescription("fcd-output.geo", "Output", "Save the Floating Car Data using geo-coordinates (lon/lat)");
     oc.doRegister("fcd-output.signals", new Option_Bool(false));
     oc.addDescription("fcd-output.signals", "Output", "Add the vehicle signal state to the FCD output (brake lights etc.)");
+    oc.doRegister("fcd-output.distance", new Option_Bool(false));
+    oc.addDescription("fcd-output.distance", "Output", "Add kilometrage to the FCD output (linear referencing)");
     oc.doRegister("fcd-output.filter-edges.input-file", new Option_FileName());
     oc.addDescription("fcd-output.filter-edges.input-file", "Output", "Restrict fcd output to the edge selection from the given input file");
 

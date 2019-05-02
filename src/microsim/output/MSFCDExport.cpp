@@ -50,6 +50,7 @@ void
 MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
     const bool useGeo = OptionsCont::getOptions().getBool("fcd-output.geo");
     const bool signals = OptionsCont::getOptions().getBool("fcd-output.signals");
+    const bool writeDistance = OptionsCont::getOptions().getBool("fcd-output.distance");
     const SUMOTime period = string2time(OptionsCont::getOptions().getString("device.fcd.period"));
     if (period > 0 && timestep % period != 0) {
         return;
@@ -84,8 +85,21 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
                 of.writeAttr(SUMO_ATTR_LANE, microVeh->getLane()->getID());
             }
             of.writeAttr(SUMO_ATTR_SLOPE, veh->getSlope());
-            if (microVeh != nullptr && signals) {
-                of.writeAttr("signals", toString(microVeh->getSignals()));
+            if (microVeh != nullptr) {
+                if (signals) {
+                    of.writeAttr("signals", toString(microVeh->getSignals()));
+                }
+                if (writeDistance) {
+                    double distance = microVeh->getEdge()->getDistance();
+                    if (microVeh->getLane()->isInternal()) {
+                        distance += microVeh->getRoute().getDistanceBetween(0, microVeh->getPositionOnLane(), 
+                                microVeh->getEdge(), &microVeh->getLane()->getEdge(), true, microVeh->getRoutePosition());
+                    } else {
+                        distance += microVeh->getPositionOnLane();
+                    }
+                    // if the kilometrage runs counter to the edge direction edge->getDistance() is negative
+                    of.writeAttr("distance", fabs(distance));
+                }
             }
             of.closeTag();
             // write persons and containers
