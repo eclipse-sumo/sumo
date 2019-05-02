@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2019-03-21 10:00:03.059425 by $Id: ptlines2flows.py v1_1_0+1215-2a888338c3 jakob.erdmann@dlr.de 2019-03-07 14:56:46 +0100 $
-  options: -n net.net.xml -s input_additional.add.xml -l ptlines.xml -o out.flows.xml -p 600 <doubleminus>verbose
+<!-- generated on 2019-05-02 21:52:48.347482 by $Id$
+  options: -n net.net.xml -s input_additional.add.xml -l ptlines.xml -o out.flows.xml -p 600 <doubleminus>verbose <doubleminus>night
 -->
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="bus" vClass="bus"/>
@@ -23,12 +23,6 @@
     <trip id="2_bus_140:0" type="bus" depart="0" departLane="best" from="391493945#1" to="-53356539#0">
         <stop busStop="2029039195" duration="30"/>
         <stop busStop="4032629820" duration="30"/>
-    </trip>
-    <trip id="3_bus_140:1" type="bus" depart="0" departLane="best" from="53356539#0" to="111325187#3">
-        <stop busStop="4032629811" duration="30"/>
-        <stop busStop="4032629819" duration="30"/>
-        <stop busStop="2029039199" duration="30"/>
-        <stop busStop="2029039146" duration="30"/>
     </trip>
     <trip id="4_bus_N42:0" type="bus" depart="0" departLane="best" from="-391493954#3" to="-110450334#1">
         <stop busStop="3959807201" duration="30"/>

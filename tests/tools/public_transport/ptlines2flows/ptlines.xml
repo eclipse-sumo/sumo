@@ -45,12 +45,12 @@ SPDX-License-Identifier: EPL-2.0
         <busStop id="3959807201" name="Dudenstraße/Katzbachstraße"/>
         <busStop id="3959807220" name="Kolonnenbrücke"/>
     </ptLine>
-    <ptLine id="2" name="Buslinie 140: S+U Tempelhof => S Ostbahnhof &quot;test mixed quotes'" line="140" type="bus" completeness="0.06">
+    <ptLine id="2" name="Buslinie 140: S+U Tempelhof => S Ostbahnhof &quot;test mixed quotes'" line="140" type="bus" completeness="0.06" nightService="yes">
         <route edges=" 391493945#1 391493945#2 391493945#3 161159325#0 161159325#1 -53356539#1 -53356539#0"/>
         <busStop id="2029039195" name="Dudenstraße/Katzbachstraße"/>
         <busStop id="4032629820" name="Monumentenstraße"/>
     </ptLine>
-    <ptLine id="3" name="Buslinie 140: S Ostbahnhof => S + U Tempelhof" line="140" type="bus" completeness="0.13">
+    <ptLine id="3" name="Buslinie 140: S Ostbahnhof => S + U Tempelhof" line="140" type="bus" completeness="0.13" nightService="no">
         <route edges=" 53356539#0 53356539#1 4710636#0 4710636#1 4710636#2 111325187#0 111325187#1 111325187#2 111325187#3"/>
         <busStop id="4032629811" name="Katzbachstraße/Kreuzbergstraße"/>
         <busStop id="4032629819" name="Monumentenstraße"/>
