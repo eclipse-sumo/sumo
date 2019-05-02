@@ -1057,6 +1057,10 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
             }
             // must be the final step, otherwise we do not know which traffic lights to remove via GNEChange_TLS
             undoList->add(new GNEChange_Attribute(this, myNet, key, value), true);
+            for (auto it : myGNECrossings) {
+                undoList->add(new GNEChange_Attribute(it, myNet, SUMO_ATTR_TLLINKINDEX, "-1"), true);
+                undoList->add(new GNEChange_Attribute(it, myNet, SUMO_ATTR_TLLINKINDEX2, "-1"), true);
+            }
             undoList->p_end();
             break;
         }
