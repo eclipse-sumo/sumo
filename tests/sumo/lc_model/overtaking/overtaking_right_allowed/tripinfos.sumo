@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 02/13/18 16:08:31 by SUMO Version v0_32_0+0193-b79a12bb06
+<!-- generated on Thu May  2 22:12:27 2019 by Eclipse SUMO Version v1_2_0+0149-6b40db9d1b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -20,6 +20,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <processing>
         <lanechange.overtake-right value="true"/>
+        <default.speeddev value="0"/>
     </processing>
 
     <report>
@@ -32,6 +33,6 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="overtaking" depart="4.00" departLane="beg_0" departPos="1000.00" departSpeed="36.00" departDelay="0.00" arrival="60.00" arrivalLane="beg_0" arrivalPos="2998.50" arrivalSpeed="36.00" duration="56.00" routeLength="1998.50" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_overtaking" vType="fast" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="slow_middle" depart="0.00" departLane="beg_1" departPos="1000.00" departSpeed="25.00" departDelay="0.00" arrival="80.00" arrivalLane="beg_1" arrivalPos="2998.50" arrivalSpeed="25.00" duration="80.00" routeLength="1998.50" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_slow_middle" vType="slow" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="overtaking" depart="4.00" departLane="beg_0" departPos="1000.00" departSpeed="36.00" departDelay="0.00" arrival="60.00" arrivalLane="beg_0" arrivalPos="2996.00" arrivalSpeed="36.00" duration="56.00" routeLength="1996.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_overtaking" vType="fast" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="slow_middle" depart="0.00" departLane="beg_1" departPos="1000.00" departSpeed="25.00" departDelay="0.00" arrival="80.00" arrivalLane="beg_1" arrivalPos="2996.00" arrivalSpeed="25.00" duration="80.00" routeLength="1996.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_slow_middle" vType="slow" speedFactor="1.00" vaporized=""/>
 </tripinfos>

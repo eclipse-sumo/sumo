@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 02/13/18 16:05:15 by SUMO Version v0_32_0+0193-b79a12bb06
+<!-- generated on Thu May  2 22:12:44 2019 by Eclipse SUMO Version v1_2_0+0149-6b40db9d1b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -25,6 +25,7 @@ SPDX-License-Identifier: EPL-2.0
     <processing>
         <step-method.ballistic value="true"/>
         <default.action-step-length value="1"/>
+        <default.speeddev value="0"/>
     </processing>
 
     <report>
@@ -41,6 +42,6 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="needsHelp" depart="0.00" departLane="end_1" departPos="196.99" departSpeed="0.00" departDelay="0.00" arrival="90.80" arrivalLane="end2_0" arrivalPos="2998.50" arrivalSpeed="36.00" duration="90.80" routeLength="3002.06" waitingTime="0.40" waitingCount="1" stopTime="0.00" timeLoss="7.27" rerouteNo="0" devices="tripinfo_needsHelp" vType="tNeedsHelp" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="speedAssist" depart="0.00" departLane="end_0" departPos="182.00" departSpeed="3.00" departDelay="0.00" arrival="92.00" arrivalLane="end2_0" arrivalPos="2998.50" arrivalSpeed="36.00" duration="92.00" routeLength="3017.05" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="8.11" rerouteNo="0" devices="tripinfo_speedAssist" vType="tSpeedAssist" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="needsHelp" depart="0.00" departLane="end_1" departPos="191.99" departSpeed="0.00" departDelay="0.00" arrival="90.80" arrivalLane="end2_0" arrivalPos="2996.00" arrivalSpeed="36.00" duration="90.80" routeLength="3004.22" waitingTime="0.40" waitingCount="1" stopTime="0.00" timeLoss="7.27" rerouteNo="0" devices="tripinfo_needsHelp" vType="tNeedsHelp" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="speedAssist" depart="0.00" departLane="end_0" departPos="177.00" departSpeed="3.00" departDelay="0.00" arrival="92.10" arrivalLane="end2_0" arrivalPos="2996.00" arrivalSpeed="36.00" duration="92.10" routeLength="3019.21" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="8.11" rerouteNo="0" devices="tripinfo_speedAssist" vType="tSpeedAssist" speedFactor="1.00" vaporized=""/>
 </tripinfos>
