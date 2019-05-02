@@ -51,8 +51,8 @@
 //#define DEBUG_SSM_NOTIFICATIONS
 //#define DEBUG_COND MSNet::getInstance()->getCurrentTimeStep() > 308000
 //#define DEBUG_COND1(ego) MSNet::getInstance()->getCurrentTimeStep() > 308000
-#define DEBUG_COND1(ego) ego!=nullptr && ego->isSelected()
-//#define DEBUG_COND1(ego) ego!=nullptr && ego->getID() == "flow1.23"
+//#define DEBUG_COND1(ego) ego!=nullptr && ego->isSelected()
+//#define DEBUG_COND1(ego) ego!=nullptr && ego->getID() == "ego1"
 #define DEBUG_COND false
 
 // ===========================================================================
@@ -1837,7 +1837,7 @@ MSDevice_SSM::classifyEncounter(const FoeInfo* foeInfo, EncounterApproachInfo& e
                 if (DEBUG_COND1(myHolderMS))
                     std::cout << "-> Encounter type: Ego '" << e->ego->getID() << "' on lane '" << egoLane->getID() << "' follows foe '"
                               << e->foe->getID() << "' on lane '" << foeLane->getID() << "'"
-                              << " (gap = " << eInfo.egoConflictEntryDist << ")"
+                              << " (gap = " << eInfo.egoConflictEntryDist << ", case1)"
                               << std::endl;
 #endif
             } else {
@@ -1882,11 +1882,14 @@ MSDevice_SSM::classifyEncounter(const FoeInfo* foeInfo, EncounterApproachInfo& e
                     // foe on junction, ego not yet
                     type = ENCOUNTER_TYPE_FOLLOWING_FOLLOWER;
                     eInfo.egoConflictEntryDist = egoDistToConflictLane + e->foe->getBackPositionOnLane();
+                    if (e->foe->getLane()->getIncomingLanes()[0].lane->isInternal()) {
+                        eInfo.egoConflictEntryDist += e->foe->getLane()->getIncomingLanes()[0].lane->getLength();
+                    }
 #ifdef DEBUG_SSM
                     if (DEBUG_COND1(myHolderMS))
                         std::cout << "-> Encounter type: Ego '" << e->ego->getID() << "' on lane '" << egoLane->getID() << "' follows foe '"
                                   << e->foe->getID() << "' on lane '" << foeLane->getID() << "'"
-                                  << " (gap = " << eInfo.egoConflictEntryDist << ")"
+                                  << " (gap = " << eInfo.egoConflictEntryDist << ", case2)"
                                   << std::endl;
 #endif
                 } else {
@@ -1914,7 +1917,7 @@ MSDevice_SSM::classifyEncounter(const FoeInfo* foeInfo, EncounterApproachInfo& e
                             if (DEBUG_COND1(myHolderMS))
                                 std::cout << "-> Encounter type: Ego '" << e->ego->getID() << "' on lane '" << egoLane->getID() << "' follows foe '"
                                           << e->foe->getID() << "' on lane '" << foeLane->getID() << "'"
-                                          << " (gap = " << eInfo.egoConflictEntryDist << ")"
+                                          << " (gap = " << eInfo.egoConflictEntryDist << ", case3)"
                                           << std::endl;
 #endif
                         }
@@ -1952,7 +1955,7 @@ MSDevice_SSM::classifyEncounter(const FoeInfo* foeInfo, EncounterApproachInfo& e
                                 if (DEBUG_COND1(myHolderMS))
                                     std::cout << "-> Encounter type: Ego '" << e->ego->getID() << "' on lane '" << egoLane->getID() << "' follows foe '"
                                               << e->foe->getID() << "' on lane '" << foeLane->getID() << "'"
-                                              << " (gap = " << eInfo.egoConflictEntryDist << ")"
+                                              << " (gap = " << eInfo.egoConflictEntryDist << ", case4)"
                                               << std::endl;
 #endif
                                 break;
@@ -2193,6 +2196,9 @@ MSDevice_SSM::findFoeConflictLane(const MSVehicle* foe, const MSLane* egoConflic
 #endif
     if (foeLane->isInternal() && foeLane->getEdge().getToJunction() == conflictJunction) {
         // foe is already on the conflict junction
+        if (egoConflictLane != nullptr && egoConflictLane->isInternal() && egoConflictLane->getLinkCont()[0]->getViaLane() == foeLane) {
+            distToConflictLane += egoConflictLane->getLength();
+        }
         return foeLane;
     }
 
