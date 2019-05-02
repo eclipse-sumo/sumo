@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu May  2 22:09:19 2019 by Eclipse SUMO netconvert Version v1_2_0+0149-6b40db9d1b
+<!-- generated on Thu May  2 22:28:17 2019 by Eclipse SUMO netconvert Version v1_2_0+0149-6b40db9d1b
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -49,26 +49,26 @@
         <lane id=":F_0_0" index="0" speed="36.00" length="0.10" shape="3300.00,0.00 3300.00,0.00"/>
     </edge>
 
-    <edge id="beg" from="A" to="B" priority="-1" spreadType="center" shape="-6000.00,1.60 -3000.00,1.60">
+    <edge id="beg" from="A" to="B" priority="-1" spreadType="center" shape="-6000.00,1.60 -3000.00,1.60" distance="10000.00">
         <lane id="beg_0" index="0" speed="36.00" length="2996.00" shape="-6000.00,-1.60 -3004.00,-1.60"/>
         <lane id="beg_1" index="1" speed="36.00" length="2996.00" shape="-6000.00,1.60 -3004.00,1.60"/>
         <lane id="beg_2" index="2" speed="36.00" length="2996.00" shape="-6000.00,4.80 -3004.00,4.80"/>
     </edge>
-    <edge id="beg2" from="B" to="C" priority="-1" spreadType="center">
+    <edge id="beg2" from="B" to="C" priority="-1" spreadType="center" distance="13004.00">
         <lane id="beg2_0" index="0" speed="36.00" length="2992.00" shape="-2996.00,-1.60 -4.00,-1.60"/>
         <lane id="beg2_1" index="1" speed="36.00" length="2992.00" shape="-2996.00,1.60 -4.00,1.60"/>
     </edge>
-    <edge id="end" from="D" to="E" priority="-1" spreadType="center">
+    <edge id="end" from="D" to="E" priority="-1" spreadType="center" distance="16104.00">
         <lane id="end_0" index="0" speed="36.00" length="192.00" shape="104.00,-1.60 296.00,-1.60"/>
         <lane id="end_1" index="1" speed="36.00" length="192.00" shape="104.00,1.60 296.00,1.60"/>
     </edge>
-    <edge id="end2" from="E" to="F" priority="-1" spreadType="center">
+    <edge id="end2" from="E" to="F" priority="-1" spreadType="center" distance="16304.00">
         <lane id="end2_0" index="0" speed="36.00" length="2996.00" shape="304.00,0.00 3300.00,0.00"/>
     </edge>
-    <edge id="end3" from="F" to="G" priority="-1" spreadType="center">
+    <edge id="end3" from="F" to="G" priority="-1" spreadType="center" distance="19300.00">
         <lane id="end3_0" index="0" speed="36.00" length="200.00" shape="3300.00,0.00 3500.00,0.00"/>
     </edge>
-    <edge id="merge" from="C" to="D" priority="-1" spreadType="center" shape="0.00,-1.60 100.00,-1.60">
+    <edge id="merge" from="C" to="D" priority="-1" spreadType="center" shape="0.00,-1.60 100.00,-1.60" distance="16004.00">
         <lane id="merge_0" index="0" speed="36.00" length="92.00" acceleration="1" shape="4.00,-4.80 96.00,-4.80"/>
         <lane id="merge_1" index="1" speed="36.00" length="92.00" shape="4.00,-1.60 96.00,-1.60"/>
         <lane id="merge_2" index="2" speed="36.00" length="92.00" shape="4.00,1.60 96.00,1.60"/>
