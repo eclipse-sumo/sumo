@@ -38,9 +38,9 @@
 
 GNEVehicleType::GNEVehicleType(GNEViewNet* viewNet, const std::string& vTypeID, SUMOVehicleClass defaultVClass) :
     GNEDemandElement(vTypeID, viewNet, GLO_VTYPE, SUMO_TAG_VTYPE, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-                 SUMOVTypeParameter(vTypeID),
-                 myDefaultVehicleType(true),
-myDefaultVehicleTypeModified(false) {
+    SUMOVTypeParameter(vTypeID),
+    myDefaultVehicleType(true),
+    myDefaultVehicleTypeModified(false) {
     // set default vehicle class
     vehicleClass = defaultVClass;
     parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
@@ -49,17 +49,17 @@ myDefaultVehicleTypeModified(false) {
 
 GNEVehicleType::GNEVehicleType(GNEViewNet* viewNet, const SUMOVTypeParameter& vTypeParameter) :
     GNEDemandElement(vTypeParameter.id, viewNet, GLO_VTYPE, SUMO_TAG_VTYPE, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-SUMOVTypeParameter(vTypeParameter),
-myDefaultVehicleType(false),
-myDefaultVehicleTypeModified(false)   {
+    SUMOVTypeParameter(vTypeParameter),
+    myDefaultVehicleType(false),
+    myDefaultVehicleTypeModified(false) {
 }
 
 
 GNEVehicleType::GNEVehicleType(GNEViewNet* viewNet, const std::string& vTypeID, GNEVehicleType* vTypeOriginal) :
     GNEDemandElement(vTypeID, viewNet, GLO_VTYPE, SUMO_TAG_VTYPE, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-SUMOVTypeParameter(*vTypeOriginal),
-myDefaultVehicleType(false),
-myDefaultVehicleTypeModified(false)  {
+    SUMOVTypeParameter(*vTypeOriginal),
+    myDefaultVehicleType(false),
+    myDefaultVehicleTypeModified(false) {
     // change manually the ID (to avoid to use the ID of vTypeOriginal)
     id = vTypeID;
 }
@@ -1263,11 +1263,15 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
                 carriageLength = parse<double>(value);
                 // mark parameter as set
                 parametersSet |= VTYPEPARS_CARRIAGE_LENGTH_SET;
+                // set parameter in SUMOVTypeParameter (needed for writting in XML)
+                SUMOVTypeParameter::setParameter(toString(key), value);
             } else {
                 // set default value
                 carriageLength = defaultValues.carriageLength;
                 // unset parameter
                 parametersSet &= ~VTYPEPARS_CARRIAGE_LENGTH_SET;
+                // remove from params (needed for writting in XML)
+                SUMOVTypeParameter::unsetParameter(toString(key));
             }
             break;
         case SUMO_ATTR_LOCOMOTIVE_LENGTH:
@@ -1275,11 +1279,15 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
                 locomotiveLength = parse<double>(value);
                 // mark parameter as set
                 parametersSet |= VTYPEPARS_LOCOMOTIVE_LENGTH_SET;
+                // set parameter in SUMOVTypeParameter (needed for writting in XML)
+                SUMOVTypeParameter::setParameter(toString(key), value);
             } else {
                 // set default value
                 locomotiveLength = defaultValues.locomotiveLength;
                 // unset parameter
                 parametersSet &= ~VTYPEPARS_LOCOMOTIVE_LENGTH_SET;
+                // remove from params (needed for writting in XML)
+                SUMOVTypeParameter::unsetParameter(toString(key));
             }
             break;
         case SUMO_ATTR_CARRIAGE_GAP:
