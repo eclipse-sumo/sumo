@@ -427,12 +427,10 @@ Warning: busStop '2175753204' on lane '207364192#0_0' is too short for vehicle '
 Warning: busStop '1673526976' on lane '167272512#2_0' is too short for vehicle '21_tram_12:1'.
 Warning: busStop '30731700' on lane '167272531#9_0' is too short for vehicle '21_tram_12:1'.
 Warning: busStop '1668497956' on lane '153537614#2_0' is too short for vehicle '28_tram_M1:2'.
-Warning: Vehicle '34_bus_N65:0' is not allowed to stop on lane '523630412_0'.
-Warning: Vehicle '34_bus_N65:0' is not allowed to stop on lane '523630412_0'.
-Warning: Teleporting vehicle '9_tram_M2:0'; frontal collision with vehicle '11_tram_M2:2', lane='148458500#0_0', gap=-1.00, time=146.00 stage=move.
-Warning: Vehicle '9_tram_M2:0' ends teleporting on edge '148458500#1', time 150.00.
 Warning: Vehicle '36_bus_N6:0' is not allowed to depart on any lane of its first edge.
 Warning: busStop '3869306762' on lane '111251382#2_1' is too short for vehicle '37_bus_147:0'.
+Warning: Teleporting vehicle '9_tram_M2:0'; frontal collision with vehicle '11_tram_M2:2', lane='148458500#0_0', gap=-1.00, time=146.00 stage=move.
+Warning: Vehicle '9_tram_M2:0' ends teleporting on edge '148458500#1', time 150.00.
 Warning: busStop '2071423352' on lane '295250361_0' is too short for vehicle '62_subway_U6:0'.
 Warning: Vehicle '70_bus_N6:1' is not allowed to stop on lane '388702041#11_0'.
 Warning: Vehicle '70_bus_N6:1' is not allowed on destination edge '388702041#11'.
@@ -461,5 +459,7 @@ Warning: Vehicle 'pt_tram_M2:0.1' teleports beyond arrival edge '148458500#1', t
 Warning: Vehicle 'pt_tram_M2:0.1' skips stop on lane '148458500#1_0' time=513.00.
 Warning: Teleporting vehicle 'pt_tram_M2:0.2'; frontal collision with vehicle 'pt_tram_M2:2.2', lane='148458500#0_0', gap=-1.00, time=747.00 stage=move.
 Warning: Vehicle 'pt_tram_M2:0.2' ends teleporting on edge '148458500#1', time 751.00.
-Warning: Person 'ped99' aborted waiting for S9:0 at busStop '2603331695'.
+Warning: Person 'ped107' aborted waiting for M6:1 at busStop '30731508'.
+Warning: Person 'ped130' aborted waiting for M6:1 at busStop '30731497'.
+Warning: Person 'ped139' aborted waiting for U6:1 at busStop '2071423334'.
 Warning: Person 'ped191' aborted waiting for S3:1 at busStop '27411240'.

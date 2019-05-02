@@ -57,11 +57,11 @@ SPDX-License-Identifier: EPL-2.0
         <busStop id="2029039199" name="Dudenstraße/Katzbachstraße"/>
         <busStop id="2029039146" name="Badener Ring"/>
     </ptLine>
-    <ptLine id="4" name="Buslinie N42: S+U Alexanderplatz => U Theodor-Heuss-Platz" line="N42" type="bus" completeness="0.12">
+    <ptLine id="4" name="Buslinie N42: S+U Alexanderplatz => U Theodor-Heuss-Platz" line="N42" type="bus" completeness="0.12" nightService="only">
         <busStop id="3959807201" name="Dudenstraße/Katzbachstraße"/>
         <busStop id="3959807220" name="Kolonnenbrücke"/>
     </ptLine>
-    <ptLine id="5" name="Buslinie N42: U Theodor-Heuss-Platz => S+U Alexanderplatz" line="N42" type="bus" completeness="0.11">
+    <ptLine id="5" name="Buslinie N42: U Theodor-Heuss-Platz => S+U Alexanderplatz" line="N42" type="bus" completeness="0.11" nightService="only">
         <route edges=" 110450334#1 110450334#2 338412122 391493949 391493947 391493950#0 391493950#1 391493952#0 391493952#1 391493952#2 456455657#0 456455657#1 391493953#0 391493953#1 391493946 391493948 456455656 391493951 456455655"/>
         <busStop id="3959807221" name="Kolonnenbrücke"/>
         <busStop id="3959807200" name="Dudenstraße/Katzbachstraße"/>

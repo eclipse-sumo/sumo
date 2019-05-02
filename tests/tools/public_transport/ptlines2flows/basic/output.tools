@@ -1,6 +1,8 @@
 generating trips...
-Imported 6 lines with 14 stops and skipped 0 lines
-   bus: 6
+Skipping line '4' because because it only drives at night
+Skipping line '5' because because it only drives at night
+Imported 4 lines with 10 stops and skipped 2 lines
+   bus: 4
 done.
 running SUMO to determine actual departure times...
 done.
