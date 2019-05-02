@@ -70,6 +70,7 @@ def get_options(args=None):
                          help="Configure the minimum stopping duration")
     optParser.add_option("-H", "--human-readable-time", dest="hrtime", default=False,
                          action="store_true", help="write times as h:m:s")
+    optParser.add_option("--night", action="store_true", default=False, help="Export night service lines")
     optParser.add_option("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
     (options, args) = optParser.parse_args(args=args)
 
@@ -151,6 +152,18 @@ def createTrips(options):
                     print("Skipping line '%s' because it has type '%s'" % (line.id, line.type))
                 numSkipped += 1
                 continue
+
+            if line.hasAttribute("nightService"):
+                if line.nightService == "only" and not options.night:
+                    if options.verbose:
+                        print("Skipping line '%s' because because it only drives at night" % (line.id))
+                    numSkipped += 1
+                    continue
+                if line.nightService == "no" and options.night:
+                    if options.verbose:
+                        print("Skipping line '%s' because because it only drives during the day" % (line.id))
+                    numSkipped += 1
+                    continue
 
             lineRefOrig = line.line.replace(" ", "_")
             lineRefOrig = lineRefOrig.replace(";", "+")
