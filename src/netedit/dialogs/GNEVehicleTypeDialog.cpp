@@ -134,6 +134,12 @@ GNEVehicleTypeDialog::VTypeAtributes::VClassRow::setVariable() {
             if (!myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isAttributeSet(SUMO_ATTR_CONTAINER_CAPACITY)) {
                 myVTypeAtributesParent->myContainerCapacity->updateValue(toString(defaultVTypeParameters.containerCapacity));
             }
+            if (!myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isAttributeSet(SUMO_ATTR_CARRIAGE_LENGTH)) {
+                myVTypeAtributesParent->myCarriageLength->updateValue(toString(defaultVTypeParameters.containerCapacity));
+            }
+            if (!myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isAttributeSet(SUMO_ATTR_LOCOMOTIVE_LENGTH)) {
+                myVTypeAtributesParent->myLocomotiveLength->updateValue(toString(defaultVTypeParameters.containerCapacity));
+            }
         }
     } else {
         myComboBoxVClass->setTextColor(FXRGB(255, 0, 0));
@@ -603,6 +609,9 @@ GNEVehicleTypeDialog::VTypeAtributes::buildAttributesA(FXVerticalFrame* column) 
 
     // 13 create FXTextField and Label for Filename
     myOSGFile = new VTypeAttributeRow(this, column, SUMO_ATTR_OSGFILE, 3);
+
+    // 14 create VTypeAttributeRow and Label for Probability
+    myProbability = new VTypeAttributeRow(this, column, SUMO_ATTR_PROB, 1);
 }
 
 
@@ -641,8 +650,14 @@ GNEVehicleTypeDialog::VTypeAtributes::buildAttributesB(FXVerticalFrame* column) 
     // 11 create VTypeAttributeRow and Label for HasDriveStateu
     myHasDriveState = new VTypeAttributeRow(this, column, SUMO_ATTR_HASDRIVERSTATE, 1);
 
-    // 12 create VTypeAttributeRow and Label for Probability
-    myProbability = new VTypeAttributeRow(this, column, SUMO_ATTR_PROB, 1);
+    // 12 create FXTextField and Label for Carriage length
+    myCarriageLength = new VTypeAttributeRow(this, column, SUMO_ATTR_CARRIAGE_LENGTH, 1);
+
+    // 13 create FXTextField and Label for Locomotive length
+    myLocomotiveLength = new VTypeAttributeRow(this, column, SUMO_ATTR_LOCOMOTIVE_LENGTH, 1);
+
+    // 14 create FXTextField and Label for carriage GAP
+    myCarriageGap = new VTypeAttributeRow(this, column, SUMO_ATTR_CARRIAGE_GAP, 1);
 }
 
 
@@ -713,6 +728,8 @@ GNEVehicleTypeDialog::VTypeAtributes::updateValues() {
     myOSGFile->updateValue(toString(defaultVTypeParameters.osgFile));
     myPersonCapacity->updateValue(toString(defaultVTypeParameters.personCapacity));
     myContainerCapacity->updateValue(toString(defaultVTypeParameters.containerCapacity));
+    myCarriageLength->updateValue(toString(defaultVTypeParameters.carriageLength));
+    myLocomotiveLength->updateValue(toString(defaultVTypeParameters.locomotiveLength));
     myBoardingDuration->updateValue();
     myLoadingDuration->updateValue();
     myMinGapLat->updateValue();
@@ -720,6 +737,7 @@ GNEVehicleTypeDialog::VTypeAtributes::updateValues() {
     myActionStepLenght->updateValue();
     myHasDriveState->updateValue();
     myProbability->updateValue();
+    myCarriageGap->updateValue();
     // JM Parameters
     myJMCrossingGap->updateValue();
     myJMIgnoreKeepclearTime->updateValue();
@@ -794,6 +812,8 @@ GNEVehicleTypeDialog::VTypeAtributes::onCmdSetVariable(FXObject*, FXSelector, vo
     myOSGFile->setVariable(toString(defaultVTypeParameters.osgFile));
     myPersonCapacity->setVariable(toString(defaultVTypeParameters.personCapacity));
     myContainerCapacity->setVariable(toString(defaultVTypeParameters.containerCapacity));
+    myCarriageLength->setVariable(toString(defaultVTypeParameters.carriageLength));
+    myLocomotiveLength->setVariable(toString(defaultVTypeParameters.locomotiveLength));
     myBoardingDuration->setVariable();
     myLoadingDuration->setVariable();
     myMinGapLat->setVariable();
@@ -801,6 +821,7 @@ GNEVehicleTypeDialog::VTypeAtributes::onCmdSetVariable(FXObject*, FXSelector, vo
     myActionStepLenght->setVariable();
     myHasDriveState->setVariable();
     myProbability->setVariable();
+    myCarriageGap->setVariable();
     // JM Variables
     myJMCrossingGap->setVariable();
     myJMIgnoreKeepclearTime->setVariable();
@@ -1185,7 +1206,7 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::onCmdSetVariable(FXObject*, F
 // ---------------------------------------------------------------------------
 
 GNEVehicleTypeDialog::GNEVehicleTypeDialog(GNEDemandElement* editedVehicleType, bool updatingElement) :
-    GNEDemandElementDialog(editedVehicleType, updatingElement, 1022, 550),
+    GNEDemandElementDialog(editedVehicleType, updatingElement, 1022, 575),
     myVehicleTypeValid(true),
     myInvalidAttr(SUMO_ATTR_NOTHING) {
 

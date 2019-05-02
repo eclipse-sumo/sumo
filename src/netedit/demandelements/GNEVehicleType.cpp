@@ -609,9 +609,9 @@ GNEVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_OSGFILE:
             return SUMOXMLDefinitions::isValidFilename(value);
         case SUMO_ATTR_CARRIAGE_LENGTH:
-            return canParse<double>(value) && (parse<double>(value) >= 0);
+            return canParse<double>(value) && (parse<double>(value) >= -1);
         case SUMO_ATTR_LOCOMOTIVE_LENGTH:
-            return canParse<double>(value) && (parse<double>(value) >= 0);
+            return canParse<double>(value) && (parse<double>(value) >= -1);
         case SUMO_ATTR_CARRIAGE_GAP:
             return canParse<double>(value) && (parse<double>(value) >= 0);
         case GNE_ATTR_GENERIC:
