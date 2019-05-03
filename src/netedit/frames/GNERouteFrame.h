@@ -157,58 +157,67 @@ public:
         FXDECLARE(GNERouteFrame::NonConsecutiveEdges)
 
     public:
-        /// @brief constructor
+        /// @brief default constructor
         NonConsecutiveEdges(GNERouteFrame* routeFrameParent);
 
         /// @brief destructor
         ~NonConsecutiveEdges();
 
-        /// @brief show ConsecutiveEdges modul
+        /// @brief show NonConsecutiveEdges
         void showNonConsecutiveEdgesModul();
 
-        /// @brief hide ConsecutiveEdges modul
+        /// @brief show NonConsecutiveEdges
         void hideNonConsecutiveEdgesModul();
 
-        /// @brief add edge to current route (note: edge must be included in set of candidate edges
-        bool addEdgeIntoRoute(GNEEdge* edge);
+        /// @brief check if from and to edges create a valid route
+        bool isValid(SUMOVehicleClass vehicleClass) const;
 
-        /// @brief create route with the current edges
-        void createRoute();
+        /// @brief get current selected edgesm
+        std::vector<GNEEdge*> getSelectedEdges() const;
 
-        /// @brief abort creation of current route
-        void abortRouteCreation();
+        /// @brief set edge from (and change color)
+        bool addEdge(GNEEdge* edge);
+
+        /// @brief clear edges (and restore colors)
+        void clearEdges();
+
+        /// @brief draw temporal route
+        void drawTemporalRoute() const;
 
         /// @name FOX-callbacks
         /// @{
-        /// @brief Called when the user press create route button
-        long onCmdCreateRoute(FXObject*, FXSelector, void*);
+        /// @brief Called when the user click over button "Abort route creation"
+        long onCmdAbortRouteCreation(FXObject*, FXSelector, void*);
 
-        /// @brief Called when the user press create route button
-        long onCmdAbortCreateRoute(FXObject*, FXSelector, void*);
+        /// @brief Called when the user click over button "Finish route creation"
+        long onCmdFinishRouteCreation(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user click over button "Remove las inserted edge"
+        long onCmdRemoveLastRouteEdge(FXObject*, FXSelector, void*);
         /// @}
 
     protected:
         /// @brief FOX needs this
         NonConsecutiveEdges() {}
 
-        /// @brief update InfoRouteLabel
-        void updateInfoRouteLabel();
-
     private:
-        /// @brief pointer to Frame Parent
+        /// @brief pointer to Vehicle Frame Parent
         GNERouteFrame* myRouteFrameParent;
 
-        /// @brief label with route info
-        FXLabel* myInfoRouteLabel;
+        /// @brief current selected edges
+        std::vector<GNEEdge*> mySelectedEdges;
 
-        /// @brief FXButton for create routes
-        FXButton* myCreateRouteButton;
+        /// @brief vector with temporal route edges
+        std::vector<const NBEdge*> myTemporalRoute;
 
-        /// @bief FXButton for abort creating route
+        /// @brief button for finish route creation
+        FXButton* myFinishCreationButton;
+
+        /// @brief button for abort route creation
         FXButton* myAbortCreationButton;
 
-        /// @brief vector with current route edges
-        std::vector<GNEEdge*> myRouteEdges;
+        /// @brief button for removing last inserted edge
+        FXButton* myRemoveLastInsertedEdge;
     };
 
     /**@brief Constructor
@@ -234,6 +243,9 @@ public:
 
     /// @brief function called when user press ESC key
     void hotKeyEsc();
+
+    /// @brief return non consecutive edges modul
+    NonConsecutiveEdges* getNonConsecutiveEdges() const;
 
 private:
     /// @brief route mode selector

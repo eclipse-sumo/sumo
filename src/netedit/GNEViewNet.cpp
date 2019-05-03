@@ -524,8 +524,10 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
         drawLaneCandidates();
         // draw testing elements
         myTestingMode.drawTestingElements(myApp);
-        // draw AutoRouteCreator
+        // draw temporal trip route
         myViewParent->getVehicleFrame()->getTripRouteCreator()->drawTemporalRoute();
+        // draw temporal non consecutive edge
+        myViewParent->getRouteFrame()->getNonConsecutiveEdges()->drawTemporalRoute();
     }
     // draw elements
     glLineWidth(1);
