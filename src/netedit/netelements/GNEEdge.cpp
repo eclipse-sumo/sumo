@@ -537,16 +537,17 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     for (const auto &i : getAdditionalChilds()) {
         i->drawGL(s);
     }
-    // draw demand element childs
-    for (const auto &i : getDemandElementChilds()) {
-        i->drawGL(s);
-    }
     // draw edge chidls
     if (myNet->getViewNet()->getViewOptions().showDemandElements()) {
-        for (const auto &i : getDemandElementChilds()) {
-            if (i->getTagProperty().getTag() == SUMO_TAG_ROUTE) {
-                // draw partial route
-                drawPartialRoute(s, i);
+        // certain demand elements childs can contain loops (for example, routes) and it causes overlapping problems. It's needed to filter it before drawing
+        for (const auto &i : getSortedDemandElementChildsByType(SUMO_TAG_ROUTE)) {
+            // draw partial route
+            drawPartialRoute(s, i);
+        }
+        for (const auto &i : getSortedDemandElementChildsByType(SUMO_TAG_TRIP)) {
+            if (i->getAttribute(SUMO_ATTR_FROM) == getID()) {
+                // only draw trip in the first edge
+                i->drawGL(s);
             }
         }
     }

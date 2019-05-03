@@ -58,6 +58,11 @@ GNEHierarchicalElementChilds::GNEHierarchicalElementChilds(GNEAttributeCarrier* 
     myAdditionalChilds(additionalChilds),
     myDemandElementChilds(demandElementChilds),
     myAC(AC) {
+    // fill SortedDemandElementChildsByType with all demand element tags (it's needed because getSortedDemandElementChildsByType(...) function is constant
+    auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TagType::TAGTYPE_DEMANDELEMENT, false);
+    for (const auto &i : listOfTags) {
+        mySortedDemandElementChildsByType[i];
+    }
 }
 
 
@@ -276,6 +281,8 @@ GNEHierarchicalElementChilds::addDemandElementChild(GNEDemandElement* demandElem
     } else {
         // add it in demandElement child container
         myDemandElementChilds.push_back(demandElement);
+        // add it also in SortedDemandElementChildsByType container
+        mySortedDemandElementChildsByType.at(demandElement->getTagProperty().getTag()).insert(demandElement);
         // Check if childs has to be sorted automatically
         if (myAC->getTagProperty().canAutomaticSortChilds()) {
             sortDemandElementChilds();
@@ -297,7 +304,13 @@ GNEHierarchicalElementChilds::removeDemandElementChild(GNEDemandElement* demandE
     if (it == myDemandElementChilds.end()) {
         throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' doesn't exist in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
     } else {
+        // first check if element is duplicated in vector
+        bool singleElement = std::count(myDemandElementChilds.begin(), myDemandElementChilds.end(), demandElement) == 1;
         myDemandElementChilds.erase(it);
+        // only remove it from mySortedDemandElementChildsByType if is a single element
+        if (singleElement) {
+            mySortedDemandElementChildsByType.at(demandElement->getTagProperty().getTag()).erase(demandElement);
+        }
         // Check if childs has to be sorted automatically
         if (myAC->getTagProperty().canAutomaticSortChilds()) {
             sortDemandElementChilds();
@@ -315,6 +328,12 @@ GNEHierarchicalElementChilds::removeDemandElementChild(GNEDemandElement* demandE
 const std::vector<GNEDemandElement*>&
 GNEHierarchicalElementChilds::getDemandElementChilds() const {
     return myDemandElementChilds;
+}
+
+
+const std::set<GNEDemandElement*>& 
+GNEHierarchicalElementChilds::getSortedDemandElementChildsByType(SumoXMLTag tag) const {
+    return mySortedDemandElementChildsByType.at(tag);
 }
 
 

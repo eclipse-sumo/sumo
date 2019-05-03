@@ -156,6 +156,9 @@ public:
     /// @brief return vector of demand elements that have as Parent this edge (For example, Calibrators)
     const std::vector<GNEDemandElement*>& getDemandElementChilds() const;
 
+    /// @brief return vector of demand elements that have as Parent this edge (For example, Calibrators)
+    const std::set<GNEDemandElement*>& getSortedDemandElementChildsByType(SumoXMLTag tag) const;
+
     /// @brief sort childs (used by Rerouters, VSS, TAZs...)
     void sortDemandElementChilds();
 
@@ -239,6 +242,9 @@ private:
 
     /// @brief vector with the demand elements childs
     std::vector<GNEDemandElement*> myDemandElementChilds;
+
+    /// @brief vector with the demand elements childs sorted by type and filtered (to avoid duplicated
+    std::map<SumoXMLTag, std::set<GNEDemandElement*> > mySortedDemandElementChildsByType;
 
     /// @brief pointer to AC (needed to avoid diamond problem)
     GNEAttributeCarrier* myAC;
