@@ -256,8 +256,6 @@ GNEDemandElement::endGeometryMoving() {
         }
         // reset myMovingGeometryBoundary
         myMove.movingGeometryBoundary.reset();
-        // update geometry without updating grid
-        updateGeometry();
         // Iterate over demand element childs and end geometry moving
         for (auto i : getDemandElementChilds()) {
             i->endGeometryMoving();

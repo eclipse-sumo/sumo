@@ -93,8 +93,6 @@ GNEPoly::endGeometryMoving() {
         myNet->removeGLObjectFromGrid(this);
         // reset myMovingGeometryBoundary
         myMovingGeometryBoundary.reset();
-        // update geometry without updating grid
-        updateGeometry();
         // add object into grid again (using the new centering boundary)
         myNet->addGLObjectIntoGrid(this);
     }

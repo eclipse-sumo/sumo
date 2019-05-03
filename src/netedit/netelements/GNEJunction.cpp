@@ -553,8 +553,6 @@ GNEJunction::endGeometryMoving(bool extendToNeighbors) {
     myNet->removeGLObjectFromGrid(this);
     // reset myMovingGeometryBoundary
     myMovingGeometryBoundary.reset();
-    // update geometry without updating grid
-    updateGeometry();
     // First declare three sets with all affected GNEJunctions, GNEEdges and GNEConnections
     std::set<GNEJunction*> affectedJunctions;
     std::set<GNEEdge*> affectedEdges;

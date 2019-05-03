@@ -281,8 +281,6 @@ GNEEdge::endGeometryMoving() {
         myNet->removeGLObjectFromGrid(this);
         // reset myMovingGeometryBoundary
         myMovingGeometryBoundary.reset();
-        // update geometry without updating grid
-        updateGeometry();
         // Restore centering boundary of lanes (and their childs)
         for (auto i : myLanes) {
             i->endGeometryMoving();
