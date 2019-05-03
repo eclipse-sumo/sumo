@@ -104,6 +104,9 @@ public:
     /// @brief get Key Pressed modul
     const GNEViewNetHelper::KeyPressed& getKeyPressed() const;
 
+    /// @brief get Edit Shape modul
+    const GNEViewNetHelper::EditShapes& getEditShapes() const;
+
     /// @name overloaded handlers
     /// @{
     /// @brief called when user press mouse's left button
@@ -297,12 +300,6 @@ public:
     /// @brief return true if junction must be showed as bubbles
     bool showJunctionAsBubbles() const;
 
-    /// @brief start edit custom shape
-    void startEditCustomShape(GNENetElement* element, const PositionVector& shape, bool fill);
-
-    /// @brief edit edit shape
-    void stopEditCustomShape();
-
 protected:
     /// @brief FOX needs this
     GNEViewNet();
@@ -381,6 +378,9 @@ private:
     GNEViewNetHelper::VehicleTypeOptions myVehicleTypeOptions;
     // @}
 
+    /// @brief struct for grouping all variables related with edit shapes
+    GNEViewNetHelper::EditShapes myEditShapes;
+
     /// @brief view parent
     GNEViewParent* myViewParent;
 
@@ -397,15 +397,6 @@ private:
      * note: it's constant because is edited from constant functions (example: drawGL(...) const)
      */
     const GNEAttributeCarrier* myDottedAC;
-
-    /// @name variables for edit shapes
-    /// @{
-    /// @brief  polygon used for edit shapes
-    GNEPoly* myEditShapePoly;
-
-    /// @brief the previous edit mode before edit junction's shapes
-    NetworkEditMode myPreviousNetworkEditMode;
-    /// @}
 
     /// @brief create edit mode buttons and elements
     void buildEditModeControls();

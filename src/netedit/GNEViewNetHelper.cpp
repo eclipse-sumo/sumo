@@ -1464,7 +1464,7 @@ GNEViewNetHelper::EditModes::setNetworkEditMode(NetworkEditMode mode, bool force
         myViewNet->setStatusBarText("");
         myViewNet->abortOperation(false);
         // stop editing of custom shapes
-        myViewNet->stopEditCustomShape();
+        myViewNet->myEditShapes.stopEditCustomShape();
         // set new Network mode
         networkEditMode = mode;
         // for common modes (Inspect/Delete/Select/move) change also the other supermode
@@ -1505,7 +1505,7 @@ GNEViewNetHelper::EditModes::setDemandEditMode(DemandEditMode mode, bool force) 
         myViewNet->setStatusBarText("");
         myViewNet->abortOperation(false);
         // stop editing of custom shapes
-        myViewNet->stopEditCustomShape();
+        myViewNet->myEditShapes.stopEditCustomShape();
         // set new Demand mode
         demandEditMode = mode;
         // for common modes (Inspect/Delete/Select/Move) change also the other supermode
@@ -1865,6 +1865,68 @@ GNEViewNetHelper::DemandCheckableButtons::updateDemandCheckableButtons() {
     vehicleButton->update();
     vehicleTypeButton->update();
     stopButton->update();
+}
+
+// ---------------------------------------------------------------------------
+// GNEViewNetHelper::EditShapes - methods
+// ---------------------------------------------------------------------------
+
+GNEViewNetHelper::EditShapes::EditShapes(GNEViewNet* viewNet) :
+    editedShapePoly(nullptr),
+    editingNetElementShapes(false),
+    myViewNet(viewNet) {
+}
+
+
+void
+GNEViewNetHelper::EditShapes::startEditCustomShape(GNENetElement* element, const PositionVector& shape, bool fill) {
+    if ((editedShapePoly == nullptr) && (element != nullptr) && (shape.size() > 1)) {
+        // save current edit mode before starting
+        myPreviousNetworkEditMode = myViewNet->myEditModes.networkEditMode;
+        if ((element->getTagProperty().getTag() == SUMO_TAG_CONNECTION) || (element->getTagProperty().getTag() == SUMO_TAG_CROSSING)) {
+            editingNetElementShapes = true;
+        } else {
+            editingNetElementShapes = false;
+        }
+        // set move mode
+        myViewNet->myEditModes.setNetworkEditMode(GNE_NMODE_MOVE);
+        // add special GNEPoly fo edit shapes (color is taken from junction color settings)
+        RGBColor col = myViewNet->getVisualisationSettings()->junctionColorer.getSchemes()[0].getColor(3);
+        editedShapePoly = myViewNet->myNet->addPolygonForEditShapes(element, shape, fill, col);
+        // update view net to show the new editedShapePoly
+        myViewNet->update();
+    }
+}
+
+
+void
+GNEViewNetHelper::EditShapes::stopEditCustomShape() {
+    // stop edit shape junction deleting editedShapePoly
+    if (editedShapePoly != nullptr) {
+        myViewNet->myNet->removePolygonForEditShapes(editedShapePoly);
+        editedShapePoly = nullptr;
+        // restore previous edit mode
+        if (myViewNet->myEditModes.networkEditMode != myPreviousNetworkEditMode) {
+            myViewNet->myEditModes.setNetworkEditMode(myPreviousNetworkEditMode);
+        }
+    }
+}
+
+
+void
+GNEViewNetHelper::EditShapes::saveEditedShape() {
+    // save edited junction's shape
+    if (editedShapePoly != nullptr) {
+        myViewNet->myUndoList->p_begin("custom " + editedShapePoly->getShapeEditedElement()->getTagStr() + " shape");
+        SumoXMLAttr attr = SUMO_ATTR_SHAPE;
+        if (editedShapePoly->getShapeEditedElement()->getTagProperty().hasAttribute(SUMO_ATTR_CUSTOMSHAPE)) {
+            attr = SUMO_ATTR_CUSTOMSHAPE;
+        }
+        editedShapePoly->getShapeEditedElement()->setAttribute(attr, toString(editedShapePoly->getShape()), myViewNet->myUndoList);
+        myViewNet->myUndoList->p_end();
+        stopEditCustomShape();
+        myViewNet->update();
+    }
 }
 
 /****************************************************************************/

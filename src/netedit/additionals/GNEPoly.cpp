@@ -161,9 +161,10 @@ GNEPoly::commitShapeChange(const PositionVector& oldShape, GNEUndoList* undoList
         myShape = oldShape;
         // first check if double points has to be removed
         shapeToCommit.removeDoublePoints(myHintSize);
-        if (shapeToCommit.size() != myShape.size()) {
+        if (shapeToCommit.size() != myShape.size() && !myNet->getViewNet()->getEditShapes().editingNetElementShapes) {
             WRITE_WARNING("Merged shape's point")
         }
+        
         // check if polygon has to be closed
         if (shapeToCommit.size() > 1 && shapeToCommit.front().distanceTo2D(shapeToCommit.back()) < (2 * myHintSize)) {
             shapeToCommit.pop_back();

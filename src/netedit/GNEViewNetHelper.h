@@ -778,6 +778,35 @@ struct GNEViewNetHelper {
         /// @brief pointer to viewNet
         GNEViewNet* myViewNet;
     };
+
+    /// @brief struct used to group all variables related with edit shapes of NetElements
+    struct EditShapes {
+
+        /// @brief default constructor
+        EditShapes(GNEViewNet* viewNet);
+
+        /// @brief start edit custom shape
+        void startEditCustomShape(GNENetElement* element, const PositionVector& shape, bool fill);
+
+        /// @brief edit edit shape
+        void stopEditCustomShape();
+
+        /// @brief save edited shape
+        void saveEditedShape();
+
+        /// @brief polygon used for edit shapes
+        GNEPoly* editedShapePoly;
+
+        /// @brief flag to edit net element shapes
+        bool editingNetElementShapes;
+
+    private:
+        /// @brief the previous edit mode before edit NetElement's shapes
+        NetworkEditMode myPreviousNetworkEditMode;
+
+        /// @brief pointer to viewNet
+        GNEViewNet* myViewNet;
+    };
 };
 
 #endif

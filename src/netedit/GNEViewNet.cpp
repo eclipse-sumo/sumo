@@ -173,11 +173,11 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myMoveMultipleElementValues(this),
     myVehicleOptions(this),
     myVehicleTypeOptions(this),
+    myEditShapes(this),
     myViewParent(viewParent),
     myNet(net),
     myCurrentFrame(nullptr),
-    myUndoList(undoList),
-    myEditShapePoly(nullptr) {
+    myUndoList(undoList) {
     // view must be the final member of actualParent
     reparent(actualParent);
     // Build edit modes
@@ -387,6 +387,12 @@ GNEViewNet::getKeyPressed() const {
 }
 
 
+const GNEViewNetHelper::EditShapes& 
+GNEViewNet::getEditShapes() const {
+    return myEditShapes;
+}
+
+
 void
 GNEViewNet::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme& scheme, int active, GUIGlObjectType objectType) {
     assert(!scheme.isFixed());
@@ -459,36 +465,6 @@ GNEViewNet::showJunctionAsBubbles() const {
 }
 
 
-void
-GNEViewNet::startEditCustomShape(GNENetElement* element, const PositionVector& shape, bool fill) {
-    if ((myEditShapePoly == nullptr) && (element != nullptr) && (shape.size() > 1)) {
-        // save current edit mode before starting
-        myPreviousNetworkEditMode = myEditModes.networkEditMode;
-        // set move mode
-        myEditModes.setNetworkEditMode(GNE_NMODE_MOVE);
-        // add special GNEPoly fo edit shapes (color is taken from junction color settings)
-        RGBColor col = getVisualisationSettings()->junctionColorer.getSchemes()[0].getColor(3);
-        myEditShapePoly = myNet->addPolygonForEditShapes(element, shape, fill, col);
-        // update view net to show the new myEditShapePoly
-        update();
-    }
-}
-
-
-void
-GNEViewNet::stopEditCustomShape() {
-    // stop edit shape junction deleting myEditShapePoly
-    if (myEditShapePoly != nullptr) {
-        myNet->removePolygonForEditShapes(myEditShapePoly);
-        myEditShapePoly = nullptr;
-        // restore previous edit mode
-        if (myEditModes.networkEditMode != myPreviousNetworkEditMode) {
-            myEditModes.setNetworkEditMode(myPreviousNetworkEditMode);
-        }
-    }
-}
-
-
 GNEViewNet::GNEViewNet() :
     myEditModes(this),
     myTestingMode(this),
@@ -502,7 +478,8 @@ GNEViewNet::GNEViewNet() :
     myMoveSingleElementValues(this),
     myMoveMultipleElementValues(this),
     myVehicleOptions(this),
-    myVehicleTypeOptions(this)
+    myVehicleTypeOptions(this),
+    myEditShapes(this)
 { }
 
 
@@ -579,7 +556,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
     // interpret object under cursor
     if (makeCurrent()) {
         // fill objects under cursor
-        myObjectsUnderCursor.updateObjectUnderCursor(getGUIGlObjectsUnderCursor(), myEditShapePoly);
+        myObjectsUnderCursor.updateObjectUnderCursor(getGUIGlObjectsUnderCursor(), myEditShapes.editedShapePoly);
         // process left button press function depending of supermode
         if (myEditModes.currentSupermode == GNE_SUPERMODE_NETWORK) {
             processLeftButtonPressNetwork(eventData);
@@ -724,7 +701,7 @@ GNEViewNet::abortOperation(bool clearSelection) {
         } else if (myEditModes.networkEditMode == GNE_NMODE_TLS) {
             myViewParent->getTLSEditorFrame()->onCmdCancel(nullptr, 0, nullptr);
         } else if (myEditModes.networkEditMode == GNE_NMODE_MOVE) {
-            stopEditCustomShape();
+            myEditShapes.stopEditCustomShape();
         } else if (myEditModes.networkEditMode == GNE_NMODE_POLYGON) {
             // abort current drawing
             myViewParent->getPolygonFrame()->getDrawingShapeModul()->abortDrawing();
@@ -798,19 +775,8 @@ GNEViewNet::hotkeyEnter() {
             myViewParent->getConnectorFrame()->getConnectionModifications()->onCmdSaveModifications(0, 0, 0);
         } else if (myEditModes.networkEditMode == GNE_NMODE_TLS) {
             myViewParent->getTLSEditorFrame()->onCmdOK(nullptr, 0, nullptr);
-        } else if ((myEditModes.networkEditMode == GNE_NMODE_MOVE) && (myEditShapePoly != nullptr)) {
-            // save edited junction's shape
-            if (myEditShapePoly != nullptr) {
-                myUndoList->p_begin("custom " + myEditShapePoly->getShapeEditedElement()->getTagStr() + " shape");
-                SumoXMLAttr attr = SUMO_ATTR_SHAPE;
-                if (myEditShapePoly->getShapeEditedElement()->getTagProperty().hasAttribute(SUMO_ATTR_CUSTOMSHAPE)) {
-                    attr = SUMO_ATTR_CUSTOMSHAPE;
-                }
-                myEditShapePoly->getShapeEditedElement()->setAttribute(attr, toString(myEditShapePoly->getShape()), myUndoList);
-                myUndoList->p_end();
-                stopEditCustomShape();
-                update();
-            }
+        } else if ((myEditModes.networkEditMode == GNE_NMODE_MOVE) && (myEditShapes.editedShapePoly != nullptr)) {
+            myEditShapes.saveEditedShape();
         } else if (myEditModes.networkEditMode == GNE_NMODE_POLYGON) {
             if (myViewParent->getPolygonFrame()->getDrawingShapeModul()->isDrawing()) {
                 // stop current drawing
@@ -1310,8 +1276,8 @@ GNEViewNet::onCmdSmoothEdgesElevation(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdSimplifyShape(FXObject*, FXSelector, void*) {
-    if (myEditShapePoly != nullptr) {
-        myEditShapePoly->simplifyShape(false);
+    if (myEditShapes.editedShapePoly != nullptr) {
+        myEditShapes.editedShapePoly->simplifyShape(false);
         update();
     } else {
         GNEPoly* polygonUnderMouse = getPolygonAtPopupPosition();
@@ -1325,8 +1291,8 @@ GNEViewNet::onCmdSimplifyShape(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdDeleteGeometryPoint(FXObject*, FXSelector, void*) {
-    if (myEditShapePoly != nullptr) {
-        myEditShapePoly->deleteGeometryPoint(getPopupPosition(), false);
+    if (myEditShapes.editedShapePoly != nullptr) {
+        myEditShapes.editedShapePoly->deleteGeometryPoint(getPopupPosition(), false);
         update();
     } else {
         GNEPoly* polygonUnderMouse = getPolygonAtPopupPosition();
@@ -1340,8 +1306,8 @@ GNEViewNet::onCmdDeleteGeometryPoint(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdClosePolygon(FXObject*, FXSelector, void*) {
-    if (myEditShapePoly != nullptr) {
-        myEditShapePoly->closePolygon(false);
+    if (myEditShapes.editedShapePoly != nullptr) {
+        myEditShapes.editedShapePoly->closePolygon(false);
         update();
     } else {
         GNEPoly* polygonUnderMouse = getPolygonAtPopupPosition();
@@ -1355,8 +1321,8 @@ GNEViewNet::onCmdClosePolygon(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdOpenPolygon(FXObject*, FXSelector, void*) {
-    if (myEditShapePoly != nullptr) {
-        myEditShapePoly->openPolygon(false);
+    if (myEditShapes.editedShapePoly != nullptr) {
+        myEditShapes.editedShapePoly->openPolygon(false);
         update();
     } else {
         GNEPoly* polygonUnderMouse = getPolygonAtPopupPosition();
@@ -1370,8 +1336,8 @@ GNEViewNet::onCmdOpenPolygon(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdSetFirstGeometryPoint(FXObject*, FXSelector, void*) {
-    if (myEditShapePoly != nullptr) {
-        myEditShapePoly->changeFirstGeometryPoint(myEditShapePoly->getVertexIndex(getPopupPosition(), false, false), false);
+    if (myEditShapes.editedShapePoly != nullptr) {
+        myEditShapes.editedShapePoly->changeFirstGeometryPoint(myEditShapes.editedShapePoly->getVertexIndex(getPopupPosition(), false, false), false);
         update();
     } else {
         GNEPoly* polygonUnderMouse = getPolygonAtPopupPosition();
@@ -1833,7 +1799,7 @@ GNEViewNet::onCmdEditJunctionShape(FXObject*, FXSelector, void*) {
         }
         PositionVector nodeShape = junction->getNBNode()->getShape();
         nodeShape.closePolygon();
-        startEditCustomShape(junction, nodeShape, true);
+        myEditShapes.startEditCustomShape(junction, nodeShape, true);
     }
     // destroy pop-up and set focus in view net
     destroyPopup();
@@ -1963,7 +1929,7 @@ GNEViewNet::onCmdEditConnectionShape(FXObject*, FXSelector, void*) {
     // Obtain connection under mouse
     GNEConnection* connection = getConnectionAtPopupPosition();
     if (connection) {
-        startEditCustomShape(connection, connection->getGeometry().shape, false);
+        myEditShapes.startEditCustomShape(connection, connection->getGeometry().shape, false);
     }
     // destroy pop-up and update view Net
     destroyPopup();
@@ -1979,7 +1945,7 @@ GNEViewNet::onCmdEditCrossingShape(FXObject*, FXSelector, void*) {
     if (crossing) {
         // due crossings haven two shapes, check what has to be edited
         PositionVector shape = crossing->getNBCrossing()->customShape.size() > 0 ? crossing->getNBCrossing()->customShape : crossing->getNBCrossing()->shape;
-        startEditCustomShape(crossing, shape, false);
+        myEditShapes.startEditCustomShape(crossing, shape, false);
     }
     // destroy pop-up and update view Net
     destroyPopup();
@@ -2936,7 +2902,7 @@ GNEViewNet::processLeftButtonReleaseNetwork() {
             // obtain objects under cursor
             if (makeCurrent()) {
                 // update objects under cursor again
-                myObjectsUnderCursor.updateObjectUnderCursor(getGUIGlObjectsUnderCursor(), myEditShapePoly);
+                myObjectsUnderCursor.updateObjectUnderCursor(getGUIGlObjectsUnderCursor(), myEditShapes.editedShapePoly);
                 makeNonCurrent();
             }
             // check if there is a lane in objects under cursor
