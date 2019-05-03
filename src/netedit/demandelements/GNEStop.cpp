@@ -293,7 +293,7 @@ GNEStop::selectAttributeCarrier(bool changeFlag) {
     } else {
         gSelected.select(dynamic_cast<GUIGlObject*>(this)->getGlID());
         // add object of list into selected objects
-        myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->addedLockedObject(GLO_VEHICLE);
+        myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->addedLockedObject(GLO_STOP);
         if (changeFlag) {
             mySelected = true;
         }
@@ -308,7 +308,7 @@ GNEStop::unselectAttributeCarrier(bool changeFlag) {
     } else {
         gSelected.deselect(dynamic_cast<GUIGlObject*>(this)->getGlID());
         // remove object of list of selected objects
-        myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->removeLockedObject(GLO_VEHICLE);
+        myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->removeLockedObject(GLO_STOP);
         if (changeFlag) {
             mySelected = false;
 
