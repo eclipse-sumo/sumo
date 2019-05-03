@@ -1,4 +1,4 @@
-sumo (1.2.0+dfsg1-13) bionic; urgency=medium
+sumo (1.2.0+dfsg1-14) bionic; urgency=medium
 
   * New upstream version
   * Using cmake build

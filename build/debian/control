@@ -4,7 +4,8 @@ Uploaders: Anton Gladky <gladk@debian.org>
 Section: science
 Testsuite: autopkgtest
 Priority: optional
-Build-Depends: autotools-dev,
+Build-Depends: cmake,
+               python,
                debhelper (>= 9),
                dh-autoreconf,
                dpkg-dev (>= 1.16.1~),
@@ -19,6 +20,8 @@ Build-Depends: autotools-dev,
                libxerces-c-dev | libxerces-c2-dev,
                libxrandr-dev
 Build-Depends-Indep: doxygen,
+                     ant,
+                     openjdk-8-jdk,
                      python-matplotlib,
                      python
 Standards-Version: 3.9.6
@@ -33,7 +36,7 @@ Depends: ${misc:Depends},
 Recommends: sumo-tools
 Description: Simulation of Urban MObility (SUMO)
  SUMO is an open source,
- highly portable, microscopic road traffic simulation package
+ highly portable, microscopic traffic simulation package
  designed to handle large road networks.
  Main binary.
 
@@ -45,9 +48,9 @@ Depends: libjs-underscore,
 Recommends: sumo
 Description: Simulation of Urban MObility (SUMO), documentation and examples
  SUMO is an open source,
- highly portable, microscopic road traffic simulation package
+ highly portable, microscopic traffic simulation package
  designed to handle large road networks.
- The binary contatins documentation and examples.
+ The binary contains documentation and examples.
 
 Package: sumo-tools
 Architecture: all
@@ -59,6 +62,6 @@ Depends: jarwrapper,
 Recommends: sumo
 Description: Simulation of Urban MObility (SUMO), tools and scripts
  SUMO is an open source,
- highly portable, microscopic road traffic simulation package
+ highly portable, microscopic traffic simulation package
  designed to handle large road networks.
- The binary contatins different tools and scripts.
+ The binary contains different tools and scripts.
