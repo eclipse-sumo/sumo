@@ -2821,7 +2821,10 @@ GNENet::removeShape(GNEShape* shape, bool updateViewAfterDeleting) {
         myPolygons.remove(shape->getID(), false);
     } else {
         GUIPointOfInterest* poi = dynamic_cast<GUIPointOfInterest*>(shape);
-        myGrid.removeAdditionalGLObject(poi);
+        // only certain POIS are placed in RTREE
+        if (shape->getTagProperty().isPlacedInRTree()) {
+            myGrid.removeAdditionalGLObject(poi);
+        }
         myPOIs.remove(shape->getID(), false);
     }
     // check if shape has to be unselected
