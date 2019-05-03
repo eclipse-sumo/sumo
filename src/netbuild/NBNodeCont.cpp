@@ -1724,25 +1724,29 @@ void
 NBNodeCont::printBuiltNodesStatistics() const {
     int numUnregulatedJunctions = 0;
     int numDeadEndJunctions = 0;
+    int numTrafficLightJunctions = 0;
     int numPriorityJunctions = 0;
     int numRightBeforeLeftJunctions = 0;
     int numAllWayStopJunctions = 0;
     int numZipperJunctions = 0;
+    int numDistrictJunctions = 0;
+    int numRailCrossing = 0;
     int numRailSignals = 0;
     for (NodeCont::const_iterator i = myNodes.begin(); i != myNodes.end(); i++) {
         switch ((*i).second->getType()) {
             case NODETYPE_NOJUNCTION:
-            case NODETYPE_TRAFFIC_LIGHT_NOJUNCTION:
                 ++numUnregulatedJunctions;
                 break;
             case NODETYPE_DEAD_END:
                 ++numDeadEndJunctions;
                 break;
-            case NODETYPE_PRIORITY:
-            case NODETYPE_PRIORITY_STOP:
             case NODETYPE_TRAFFIC_LIGHT:
             case NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED:
-            case NODETYPE_RAIL_CROSSING:
+            case NODETYPE_TRAFFIC_LIGHT_NOJUNCTION:
+                ++numTrafficLightJunctions;
+                break;
+            case NODETYPE_PRIORITY:
+            case NODETYPE_PRIORITY_STOP:
                 ++numPriorityJunctions;
                 break;
             case NODETYPE_RIGHT_BEFORE_LEFT:
@@ -1755,12 +1759,16 @@ NBNodeCont::printBuiltNodesStatistics() const {
                 ++numZipperJunctions;
                 break;
             case NODETYPE_DISTRICT:
-                ++numRightBeforeLeftJunctions;
+                ++numDistrictJunctions;
                 break;
-            case NODETYPE_UNKNOWN:
+            case NODETYPE_RAIL_CROSSING:
+                ++numRailCrossing;
                 break;
             case NODETYPE_RAIL_SIGNAL:
                 ++numRailSignals;
+                break;
+            case NODETYPE_UNKNOWN:
+                // should not happen
                 break;
             default:
                 break;
@@ -1773,14 +1781,23 @@ NBNodeCont::printBuiltNodesStatistics() const {
     }
     WRITE_MESSAGE("  Priority junctions          : " + toString(numPriorityJunctions));
     WRITE_MESSAGE("  Right-before-left junctions : " + toString(numRightBeforeLeftJunctions));
+    if (numTrafficLightJunctions > 0) {
+        WRITE_MESSAGE("  Traffic light junctions      : " + toString(numTrafficLightJunctions));
+    }
     if (numAllWayStopJunctions > 0) {
         WRITE_MESSAGE("  All-way stop junctions      : " + toString(numAllWayStopJunctions));
     }
     if (numZipperJunctions > 0) {
         WRITE_MESSAGE("  Zipper-merge junctions      : " + toString(numZipperJunctions));
     }
+    if (numRailCrossing > 0) {
+        WRITE_MESSAGE("  Rail crossing junctions      : " + toString(numRailCrossing));
+    }
     if (numRailSignals > 0) {
         WRITE_MESSAGE("  Rail signal junctions      : " + toString(numRailSignals));
+    }
+    if (numDistrictJunctions > 0) {
+        WRITE_MESSAGE("  District junctions      : " + toString(numDistrictJunctions));
     }
 }
 
