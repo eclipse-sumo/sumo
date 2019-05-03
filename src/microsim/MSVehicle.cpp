@@ -5680,6 +5680,7 @@ MSVehicle::addTraciStopAtStoppingPlace(const std::string& stopId, const SUMOTime
         if (stop != nullptr && stop->getID() == stopId) {
             if (duration == 0 && !iter->reached) {
                 myStops.erase(iter);
+                updateBestLanes(true);
             } else {
                 iter->duration = duration;
             }
