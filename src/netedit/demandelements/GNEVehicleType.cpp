@@ -44,6 +44,8 @@ GNEVehicleType::GNEVehicleType(GNEViewNet* viewNet, const std::string& vTypeID, 
     // set default vehicle class
     vehicleClass = defaultVClass;
     parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
+    // init Rail Visualization Parameters
+    initRailVisualizationParameters();
 }
 
 
@@ -52,6 +54,8 @@ GNEVehicleType::GNEVehicleType(GNEViewNet* viewNet, const SUMOVTypeParameter& vT
     SUMOVTypeParameter(vTypeParameter),
     myDefaultVehicleType(false),
     myDefaultVehicleTypeModified(false) {
+    // init Rail Visualization Parameters
+    initRailVisualizationParameters();
 }
 
 
@@ -62,6 +66,8 @@ GNEVehicleType::GNEVehicleType(GNEViewNet* viewNet, const std::string& vTypeID, 
     myDefaultVehicleTypeModified(false) {
     // change manually the ID (to avoid to use the ID of vTypeOriginal)
     id = vTypeID;
+    // init Rail Visualization Parameters
+    initRailVisualizationParameters();
 }
 
 
@@ -855,14 +861,14 @@ GNEVehicleType::overwriteVType(GNEDemandElement* vType, SUMOVTypeParameter* newV
     if (newVTypeParameter->wasSet(VTYPEPARS_OSGFILE_SET)) {
         vType->setAttribute(SUMO_ATTR_OSGFILE, toString(newVTypeParameter->osgFile), undoList);
     }
-    if (newVTypeParameter->wasSet(VTYPEPARS_CARRIAGE_LENGTH_SET)) {
-        vType->setAttribute(SUMO_ATTR_CARRIAGE_LENGTH, toString(newVTypeParameter->carriageLength), undoList);
+    if (newVTypeParameter->knowsParameter(toString(SUMO_ATTR_CARRIAGE_LENGTH))) {
+        vType->setAttribute(SUMO_ATTR_CARRIAGE_LENGTH, newVTypeParameter->getParameter(toString(SUMO_ATTR_CARRIAGE_LENGTH), ""), undoList);
     }
-    if (newVTypeParameter->wasSet(VTYPEPARS_LOCOMOTIVE_LENGTH_SET)) {
-        vType->setAttribute(SUMO_ATTR_LOCOMOTIVE_LENGTH, toString(newVTypeParameter->locomotiveLength), undoList);
+    if (newVTypeParameter->knowsParameter(toString(SUMO_ATTR_LOCOMOTIVE_LENGTH))) {
+        vType->setAttribute(SUMO_ATTR_LOCOMOTIVE_LENGTH, newVTypeParameter->getParameter(toString(SUMO_ATTR_LOCOMOTIVE_LENGTH), ""), undoList);
     }
-    if (newVTypeParameter->wasSet(VTYPEPARS_CARRIAGE_GAP_SET)) {
-        vType->setAttribute(SUMO_ATTR_CARRIAGE_GAP, toString(newVTypeParameter->carriageGap), undoList);
+    if (newVTypeParameter->knowsParameter(toString(SUMO_ATTR_CARRIAGE_GAP))) {
+        vType->setAttribute(SUMO_ATTR_CARRIAGE_GAP, newVTypeParameter->getParameter(toString(SUMO_ATTR_CARRIAGE_GAP), ""), undoList);
     }
     // parse generic parameters
     std::string genericParametersStr;
@@ -879,6 +885,53 @@ GNEVehicleType::overwriteVType(GNEDemandElement* vType, SUMOVTypeParameter* newV
     }
     // close undo list
     undoList->p_end();
+}
+
+
+void
+GNEVehicleType::initRailVisualizationParameters() {
+    if (SUMOVTypeParameter::knowsParameter("carriageLength")) {
+        carriageLength = StringUtils::toDouble(SUMOVTypeParameter::getParameter("carriageLength"));
+        parametersSet |= VTYPEPARS_CARRIAGE_LENGTH_SET;
+    } else if (wasSet(VTYPEPARS_SHAPE_SET)) {
+        switch (shape) {
+            case SVS_BUS_FLEXIBLE:
+                carriageLength = 8.25; // 16.5 overall, 2 modules http://de.wikipedia.org/wiki/Ikarus_180
+                carriageGap = 0;
+                break;
+            case SVS_RAIL:
+                carriageLength = 24.5; // http://de.wikipedia.org/wiki/UIC-Y-Wagen_%28DR%29
+                break;
+            case SVS_RAIL_CAR:
+                carriageLength = 16.85;  // 67.4m overall, 4 carriages http://de.wikipedia.org/wiki/DB-Baureihe_423
+                break;
+            case SVS_RAIL_CARGO:
+                carriageLength = 13.86; // UIC 571-1 http://de.wikipedia.org/wiki/Flachwagen
+                break;
+            case SVS_TRUCK_SEMITRAILER:
+                carriageLength = 13.5;
+                locomotiveLength = 2.5;
+                carriageGap = 0.5;
+                break;
+            case SVS_TRUCK_1TRAILER:
+                carriageLength = 6.75;
+                locomotiveLength = 2.5 + 6.75;
+                carriageGap = 0.5;
+                break;
+            default:
+                break;
+        }
+    }
+    if (SUMOVTypeParameter::knowsParameter("locomotiveLength")) {
+        locomotiveLength = StringUtils::toDouble(SUMOVTypeParameter::getParameter("locomotiveLength"));
+        parametersSet |= VTYPEPARS_LOCOMOTIVE_LENGTH_SET;
+    } else if (locomotiveLength <= 0) {
+        locomotiveLength = carriageLength;
+    }
+    if (SUMOVTypeParameter::knowsParameter("carriageGap")) {
+        carriageGap = StringUtils::toDouble(SUMOVTypeParameter::getParameter("carriageGap"));
+        parametersSet |= VTYPEPARS_CARRIAGE_GAP_SET;
+    }
 }
 
 // ===========================================================================
@@ -1295,11 +1348,15 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
                 carriageGap = parse<double>(value);
                 // mark parameter as set
                 parametersSet |= VTYPEPARS_CARRIAGE_GAP_SET;
+                // set parameter in SUMOVTypeParameter (needed for writting in XML)
+                SUMOVTypeParameter::setParameter(toString(key), value);
             } else {
                 // set default value
                 carriageGap = parse<double>(myTagProperty.getDefaultValue(key));
                 // unset parameter
                 parametersSet &= ~VTYPEPARS_CARRIAGE_GAP_SET;
+                // remove from params (needed for writting in XML)
+                SUMOVTypeParameter::unsetParameter(toString(key));
             }
             break;
         case GNE_ATTR_GENERIC:

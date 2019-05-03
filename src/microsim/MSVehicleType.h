@@ -556,9 +556,8 @@ public:
     void check();
 
 protected:
-
-    // init further param values
-    void initParameters();
+    /// @brief init Rail Visualization Parameters
+    void initRailVisualizationParameters();
 
 private:
     /// @brief the parameter container
@@ -586,11 +585,10 @@ private:
 
 private:
     /// @brief Invalidated copy constructor
-    MSVehicleType(const MSVehicleType&);
+    MSVehicleType(const MSVehicleType&) = delete;
 
     /// @brief Invalidated assignment operator
-    MSVehicleType& operator=(const MSVehicleType&);
-
+    MSVehicleType& operator=(const MSVehicleType&) = delete;
 };
 
 

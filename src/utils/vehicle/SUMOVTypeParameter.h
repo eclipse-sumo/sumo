@@ -140,6 +140,7 @@ public:
      */
     SUMOVTypeParameter(const std::string& vtid, const SUMOVehicleClass vc = SVC_IGNORING);
 
+    /// @brief virtual destructor
     virtual ~SUMOVTypeParameter() {};
 
     /** @brief Returns whether the given parameter was set
@@ -150,16 +151,12 @@ public:
         return (parametersSet & what) != 0;
     }
 
-
     /** @brief Writes the vtype
      *
      * @param[in, out] dev The device to write into
      * @exception IOError not yet implemented
      */
     void write(OutputDevice& dev) const;
-
-    /// @brief Validates stored car-following parameter
-    void validateCFParameter() const;
 
     /** @brief Returns the named value from the map, or the default if it is not contained there
      * @param[in] attr The corresponding xml attribute
@@ -207,31 +204,44 @@ public:
 
     /// @brief The physical vehicle length
     double length;
+
     /// @brief This class' free space in front of the vehicle itself
     double minGap;
+
     /// @brief The vehicle type's maximum speed [m/s]
     double maxSpeed;
+
     /// @brief The vehicle type's default actionStepLength [ms], i.e. the interval between two control actions.
     ///        The default value of 0ms. induces the value to be traced from MSGlobals::gActionStepLength
     SUMOTime actionStepLength;
+
     /// @brief The probability when being added to a distribution without an explicit probability
     double defaultProbability;
+
     /// @brief The factor by which the maximum speed may deviate from the allowed max speed on the street
     Distribution_Parameterized speedFactor;
+
     /// @brief The emission class of this vehicle
     SUMOEmissionClass emissionClass;
+
     /// @brief The color
     RGBColor color;
+
     /// @brief The vehicle's class
     SUMOVehicleClass vehicleClass;
+
     /// @brief The vehicle's impatience (willingness to obstruct others)
     double impatience;
+
     /// @brief The person capacity of the vehicle
     int personCapacity;
+
     /// @brief The container capacity of the vehicle
     int containerCapacity;
+
     /// @brief The time a person needs to board the vehicle
     SUMOTime boardingDuration;
+
     /// @brief The time a container needs to get loaded on the vehicle
     SUMOTime loadingDuration;
 
@@ -263,8 +273,10 @@ public:
 
     /// @brief Car-following parameter
     SubParams cfParameter;
+
     /// @brief Lane-changing parameter
     SubParams lcParameter;
+
     /// @brief Junction-model parameter
     SubParams jmParameter;
 
@@ -273,8 +285,10 @@ public:
 
     /// @brief The vehicle type's maximum lateral speed [m/s]
     double maxSpeedLat;
+
     /// @brief The vehicles desired lateral alignment
     LateralAlignment latAlignment;
+
     /// @brief The vehicle type's minimum lateral gap [m]
     double minGapLat;
 
@@ -285,7 +299,6 @@ public:
 
     /// @brief Information for the router which parameter were set
     int parametersSet;
-
 
     /// @brief Information whether this type was already saved (needed by routers)
     mutable bool saved;
@@ -324,7 +337,6 @@ public:
 
     /// @brief return the default parameters, this is a function due to the http://www.parashift.com/c++-faq/static-init-order.html
     static const SUMOVTypeParameter& getDefault();
-
 };
 
 #endif

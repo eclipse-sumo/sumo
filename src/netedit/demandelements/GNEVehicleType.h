@@ -141,6 +141,9 @@ public:
     static void overwriteVType(GNEDemandElement* vType, SUMOVTypeParameter* newVTypeParameter, GNEUndoList* undoList);
 
 protected:
+    /// @brief init Rail Visualization Parameters
+    void initRailVisualizationParameters();
+
     /// @brief flag to check if this GNEVehicleType is a default vehicle Type (For Vehicles, Pedestrians...)
     bool myDefaultVehicleType;
 
