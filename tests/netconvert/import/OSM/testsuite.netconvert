@@ -1,5 +1,5 @@
-# guess road acesses for rail stop
-rail_stop_road_access
+# tests for importing railway networks
+railway
 
 # direction of bus stops imported correctly based on pt lines
 bus_stop_direction_from_pt_lines
@@ -80,15 +80,6 @@ intersection_with_crossings
 
 # Area around the ITS in Berlin, Adlershof (13.52494,52.42582,13.53625,52.43026)
 numerical_ids
-
-# automatically detect rail crossing
-rail_crossing
-
-# import train stops
-railway_stop_position
-
-# automatically detect rail crossing, also guess pedestrian crossings
-rail_crossing_with_peds
 max_segment_length
 
 # see #3412
@@ -111,16 +102,4 @@ sidewalks
 
 # motorway without speed limit
 motorway
-
-# import high speed railway line
-rail_highspeed
-
-# test import of preferred_direction values
-rail_preferred_direction
-
-# test import of local track numbering
-railway_track_ref
-
-# test import of railway usage typemap
-railway_usage
 bugs
