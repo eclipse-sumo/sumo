@@ -11,7 +11,7 @@ Computing turning directions... done (0ms).
 Assigning nodes to traffic lights... done (0ms).
 Sorting nodes' edges... done (0ms).
 Computing node shapes... done (0ms).
-Computing edge shapes... done (0ms).
+Computing edge shapes... done (1ms).
 Computing node types... done (0ms).
 Computing priorities... done (0ms).
 Computing approached edges... done (0ms).
@@ -29,12 +29,13 @@ Building inner edges... done (1ms).
 Summary:
  Node type statistics:
   Unregulated junctions       : 0
-  Priority junctions          : 5
+  Priority junctions          : 4
   Right-before-left junctions : 0
+  Traffic light junctions      : 1
  Network boundaries:
   Original boundary  : -500.00,-500.00,500.00,500.00
   Applied offset     : 500.00,500.00
   Converted boundary : 0.00,0.00,1000.00,1000.00
 -----------------------------------------------------
-Writing network... done (1ms).
+Writing network... done (3ms).
 Success.

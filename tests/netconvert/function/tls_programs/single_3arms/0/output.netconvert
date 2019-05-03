@@ -29,12 +29,13 @@ Building inner edges... done (0ms).
 Summary:
  Node type statistics:
   Unregulated junctions       : 0
-  Priority junctions          : 4
+  Priority junctions          : 3
   Right-before-left junctions : 0
+  Traffic light junctions      : 1
  Network boundaries:
   Original boundary  : 14540.75,27867.00,14767.13,28133.00
   Applied offset     : -14540.75,-27867.00
   Converted boundary : 0.00,0.00,226.38,266.00
 -----------------------------------------------------
-Writing network... done (1ms).
+Writing network... done (2ms).
 Success.

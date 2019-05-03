@@ -22,15 +22,16 @@ Processing turnarounds... done (0ms).
 Rechecking of lane endings... done (0ms).
 Computing traffic light control information... done (0ms).
 Computing node logics... done (0ms).
-Computing traffic light logics... done (0ms).
+Computing traffic light logics... done (1ms).
  1 traffic light(s) computed.
 Building inner edges... done (0ms).
 -----------------------------------------------------
 Summary:
  Node type statistics:
   Unregulated junctions       : 0
-  Priority junctions          : 4
+  Priority junctions          : 3
   Right-before-left junctions : 0
+  Traffic light junctions      : 1
  Network boundaries:
   Original boundary  : 13039.00,18241.00,13294.00,18337.00
   Applied offset     : -13039.00,-18241.00

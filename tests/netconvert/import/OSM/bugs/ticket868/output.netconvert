@@ -9,9 +9,9 @@ done.
    33 types loaded.
    35 edges loaded.
 Proj projection parameters used: '+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
-Removing self-loops... done (1ms).
-Finding isolated roads... done (0ms).
-Removing empty nodes and geometry nodes... done (0ms).
+Removing self-loops... done (0ms).
+Finding isolated roads... done (1ms).
+Removing empty nodes and geometry nodes... done (1ms).
    32 nodes removed.
 Moving network to origin... done (0ms).
 Computing turning directions... done (0ms).
@@ -31,7 +31,7 @@ Dividing of lanes on approached lanes... done (0ms).
 Processing turnarounds... done (0ms).
 Rechecking of lane endings... done (0ms).
 Computing traffic light control information... done (0ms).
-Computing node logics... done (1ms).
+Computing node logics... done (0ms).
 Computing traffic light logics... 
 done (0ms).
  12 traffic light(s) computed.
@@ -40,8 +40,9 @@ Summary:
  Node type statistics:
   Unregulated junctions       : 0
   Dead-end junctions          : 7
-  Priority junctions          : 18
+  Priority junctions          : 6
   Right-before-left junctions : 0
+  Traffic light junctions      : 12
  Network boundaries:
   Original boundary  : 6.94,50.94,6.95,50.95
   Applied offset     : -355340.39,-5645704.86

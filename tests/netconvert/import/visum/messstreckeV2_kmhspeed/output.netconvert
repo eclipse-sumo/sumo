@@ -41,7 +41,7 @@ Parsing FAHRSTREIFENABBIEGER... done.
    100 types loaded.
    50 edges loaded.
 Removing self-loops... done (0ms).
-Removing empty nodes... done (0ms).
+Removing empty nodes... done (1ms).
    0 nodes removed.
 Moving network to origin... done (0ms).
 Computing turning directions... done (0ms).
@@ -59,21 +59,22 @@ Processing turnarounds... done (0ms).
 Rechecking of lane endings... done (0ms).
 Computing traffic light control information... done (1ms).
 Computing node logics... done (0ms).
-Computing traffic light logics... done (2ms).
+Computing traffic light logics... done (3ms).
  3 traffic light(s) computed.
 Building inner edges... 
-done (1ms).
+done (2ms).
 -----------------------------------------------------
 Summary:
  Node type statistics:
   Unregulated junctions       : 0
   Dead-end junctions          : 10
-  Priority junctions          : 16
+  Priority junctions          : 13
   Right-before-left junctions : 0
+  Traffic light junctions      : 3
  Network boundaries:
   Original boundary  : 889.91,-1209.18,2949.94,-364.26
   Applied offset     : -889.91,1209.18
   Converted boundary : 0.00,0.00,2060.03,844.92
 -----------------------------------------------------
-Writing network... done (14ms).
+Writing network... done (13ms).
 Success.

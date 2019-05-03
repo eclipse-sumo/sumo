@@ -20,20 +20,21 @@ Computing approaching lanes... done (0ms).
 Dividing of lanes on approached lanes... done (0ms).
 Processing turnarounds... done (0ms).
 Rechecking of lane endings... done (0ms).
-Computing traffic light control information... done (1ms).
+Computing traffic light control information... done (0ms).
 Computing node logics... done (0ms).
-Computing traffic light logics... done (0ms).
+Computing traffic light logics... done (1ms).
  1 traffic light(s) computed.
 -----------------------------------------------------
 Summary:
  Node type statistics:
   Unregulated junctions       : 0
-  Priority junctions          : 5
+  Priority junctions          : 4
   Right-before-left junctions : 0
+  Traffic light junctions      : 1
  Network boundaries:
   Original boundary  : 0.00,0.00,200.00,200.00
   Applied offset     : -70.71,70.71
   Converted boundary : 0.00,0.00,141.42,141.42
 -----------------------------------------------------
-Writing network... done (1ms).
+Writing network... done (2ms).
 Success.

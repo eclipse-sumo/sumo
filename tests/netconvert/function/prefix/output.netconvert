@@ -12,7 +12,7 @@ Assigning nodes to traffic lights... done (0ms).
 Remapped 8 edge IDs and 5 node IDs.
 Sorting nodes' edges... done (0ms).
 Computing node shapes... done (0ms).
-Computing edge shapes... done (0ms).
+Computing edge shapes... done (1ms).
 Computing node types... done (0ms).
 Computing priorities... done (0ms).
 Computing approached edges... done (0ms).
@@ -22,15 +22,16 @@ Dividing of lanes on approached lanes... done (0ms).
 Processing turnarounds... done (0ms).
 Rechecking of lane endings... done (0ms).
 Computing traffic light control information... done (0ms).
-Computing node logics... done (1ms).
+Computing node logics... done (0ms).
 Computing traffic light logics... done (0ms).
  1 traffic light(s) computed.
 -----------------------------------------------------
 Summary:
  Node type statistics:
   Unregulated junctions       : 0
-  Priority junctions          : 5
+  Priority junctions          : 4
   Right-before-left junctions : 0
+  Traffic light junctions      : 1
  Network boundaries:
   Original boundary  : 0.00,0.00,200.00,200.00
   Applied offset     : 0.00,0.00
