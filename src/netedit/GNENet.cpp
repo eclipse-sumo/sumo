@@ -3009,7 +3009,7 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
             // insert junction in grid again
             myGrid.addAdditionalGLObject(it.second);
             // updated geometry
-            it.second->updateGeometry();
+            it.second->updateGeometryAfterNetbuild();
         }
 
         // iterate over all edges of net

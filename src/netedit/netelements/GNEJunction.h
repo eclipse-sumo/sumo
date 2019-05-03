@@ -70,8 +70,12 @@ public:
 
     /// @name Functions related with geometry of element
     /// @{
-    /// @brief update pre-computed geometry information
+    /// @brief update pre-computed geometry information (including crossings)
     void updateGeometry();
+
+    /// @brief update pre-computed geometry information without modifying netbuild structures
+    // @note: using an extra function because updateGeometry overrides an abstract virtual function
+    void updateGeometryAfterNetbuild(bool rebuildNBNodeCrossings=false);
 
     /// @brief Returns position of hierarchical element in view
     Position getPositionInView() const;

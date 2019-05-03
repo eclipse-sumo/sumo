@@ -100,6 +100,11 @@ GNEJunction::generateChildID(SumoXMLTag childTag) {
 
 void
 GNEJunction::updateGeometry() {
+    updateGeometryAfterNetbuild(true);
+}
+
+void 
+GNEJunction::updateGeometryAfterNetbuild(bool rebuildNBNodeCrossings) {
     // first check if object has to be removed from grid (SUMOTree)
     if (!myMovingGeometryBoundary.isInitialised()) {
         myNet->removeGLObjectFromGrid(this);
@@ -117,8 +122,7 @@ GNEJunction::updateGeometry() {
     if (!myMovingGeometryBoundary.isInitialised()) {
         myNet->addGLObjectIntoGrid(this);
     }
-    // rebuild GNECrossings
-    rebuildGNECrossings(true);
+    rebuildGNECrossings(rebuildNBNodeCrossings);
 }
 
 
