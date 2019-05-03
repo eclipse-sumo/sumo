@@ -457,7 +457,7 @@ GNEConnection::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_KEEP_CLEAR:
             return canParse<bool>(value);
         case SUMO_ATTR_CONTPOS:
-            return canParse<double>(value);
+            return canParse<double>(value) && (parse<double>(value) >= -1);
         case SUMO_ATTR_UNCONTROLLED:
             return canParse<bool>(value);
         case SUMO_ATTR_VISIBILITY_DISTANCE:
@@ -473,7 +473,7 @@ GNEConnection::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_SPEED:
-            return canParse<double>(value) && (parse<double>(value) > 0);
+            return canParse<double>(value) && (parse<double>(value) >= -1);
         case SUMO_ATTR_CUSTOMSHAPE: {
             // empty custom shapes are allowed
             return canParse<PositionVector>(value);

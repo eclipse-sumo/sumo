@@ -1147,7 +1147,7 @@ GNEJunction::isValid(SumoXMLAttr key, const std::string& value) {
             // empty shapes are allowed
             return canParse<PositionVector>(value);
         case SUMO_ATTR_RADIUS:
-            return canParse<double>(value);
+            return canParse<double>(value) && (parse<double>(value) >= -1);
         case SUMO_ATTR_TLTYPE:
             return myNBNode.isTLControlled() && SUMOXMLDefinitions::TrafficLightTypes.hasString(value);
         case SUMO_ATTR_TLID:
