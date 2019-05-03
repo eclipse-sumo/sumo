@@ -413,13 +413,19 @@ Vehicle::getNextTLS(const std::string& vehicleID) {
             const std::vector<MSLane*>* allowed = prev->allowedLanes(*next, veh->getVClass());
             if (allowed != nullptr && allowed->size() != 0) {
                 for (MSLink* link : allowed->front()->getLinkCont()) {
-                    if (&link->getLane()->getEdge() == next && link->isTLSControlled()) {
-                        TraCINextTLSData ntd;
-                        ntd.id = link->getTLLogic()->getID();
-                        ntd.tlIndex = link->getTLIndex();
-                        ntd.dist = seen;
-                        ntd.state = (char)link->getState();
-                        result.push_back(ntd);
+                    if (&link->getLane()->getEdge() == next) {
+                        // We should add the length of the lane to seen distance
+                        // Whether or not it is controlled by a traffic light
+                        seen += allowed->front()->getLength();
+                        if(link->isTLSControlled())
+                        {
+                            TraCINextTLSData ntd;
+                            ntd.id = link->getTLLogic()->getID();
+                            ntd.tlIndex = link->getTLIndex();
+                            ntd.dist = seen;
+                            ntd.state = (char)link->getState();
+                            result.push_back(ntd);
+                        }
                     }
                 }
             } else {
