@@ -44,8 +44,8 @@
 
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const std::string& vehicleID, GNEDemandElement* vehicleType, GNEDemandElement* route) :
     GNEDemandElement(vehicleID, viewNet, (tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_VEHICLE, tag,
-{}, {}, {}, {}, {vehicleType, route}, {}, {}, {}, {}, {}),
-SUMOVehicleParameter() {
+    {}, {}, {}, {}, {vehicleType, route}, {}, {}, {}, {}, {}),
+    SUMOVehicleParameter() {
     // SUMOVehicleParameter ID has to be set manually
     id = vehicleID;
     // set manually vtypeID (needed for saving)
@@ -55,8 +55,8 @@ SUMOVehicleParameter() {
 
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehicleParameter& vehicleParameter, GNEDemandElement* vehicleType, GNEDemandElement* route) :
     GNEDemandElement(vehicleParameter.id, viewNet, (tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_VEHICLE, tag,
-{}, {}, {}, {}, {vehicleType, route}, {}, {}, {}, {}, {}),
-SUMOVehicleParameter(vehicleParameter) {
+    {}, {}, {}, {}, {vehicleType, route}, {}, {}, {}, {}, {}),
+    SUMOVehicleParameter(vehicleParameter) {
     // SUMOVehicleParameter ID has to be set manually
     id = vehicleParameter.id;
     // set manually vtypeID (needed for saving)
@@ -65,18 +65,16 @@ SUMOVehicleParameter(vehicleParameter) {
 
 
 GNEVehicle::GNEVehicle(GNEViewNet* viewNet, const std::string& tripID, GNEDemandElement* vehicleType, const std::vector<GNEEdge*>& edges) :
-    GNEDemandElement(tripID, viewNet, GLO_TRIP, SUMO_TAG_TRIP, {
-    edges
-}, {}, {}, {}, {vehicleType}, {}, {}, {}, {}, {}),
-SUMOVehicleParameter() {
+    GNEDemandElement(tripID, viewNet, GLO_TRIP, SUMO_TAG_TRIP, 
+    {edges}, {}, {}, {}, {vehicleType}, {}, {}, {}, {}, {}),
+    SUMOVehicleParameter() {
 }
 
 
 GNEVehicle::GNEVehicle(GNEViewNet* viewNet, const SUMOVehicleParameter& tripParameter, GNEDemandElement* vehicleType, const std::vector<GNEEdge*>& edges) :
-    GNEDemandElement(tripParameter.id, viewNet, GLO_TRIP, SUMO_TAG_TRIP, {
-    edges
-}, {}, {}, {}, {vehicleType}, {}, {}, {}, {}, {}),
-SUMOVehicleParameter(tripParameter) {
+    GNEDemandElement(tripParameter.id, viewNet, GLO_TRIP, SUMO_TAG_TRIP, 
+    {edges}, {}, {}, {}, {vehicleType}, {}, {}, {}, {}, {}),
+    SUMOVehicleParameter(tripParameter) {
 }
 
 
