@@ -21,3 +21,7 @@ railway_usage
 
 # guess road acesses for rail stop
 rail_stop_road_access
+railway_bidirectional
+
+# double track with spreadType="right" (no bidi)
+oneway_no
