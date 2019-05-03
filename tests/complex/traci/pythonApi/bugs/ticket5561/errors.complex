@@ -1,0 +1,4 @@
+Warning: Ignoring unordered stop at 'busStop1' until -0.00  for vehicle 'bus'.
+Warning: Ignoring unordered stop at 'busStop2' until -0.00  for vehicle 'bus'.
+Warning: Ignoring unordered stop at 'busStop3' until -0.00  for vehicle 'bus'.
+Warning: Not using public transport line 'line' for routing persons. It has less than two usable stops.

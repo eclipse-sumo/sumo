@@ -77,3 +77,6 @@ ticket5309
 
 # crash when calling setRoute with a single internal edge
 ticket5390
+
+# bestLanse not updated after skipping stop with vehicle.setStop
+ticket5561
