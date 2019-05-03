@@ -69,9 +69,10 @@ inline GUI_RTREE_QUAL::Rect GUI_RTREE_QUAL::CombineRect(Rect* a_rectA, Rect* a_r
 class SUMORTree : private GUI_RTREE_QUAL, public Boundary {
 public:
     /// @brief Constructor
-    SUMORTree() : GUI_RTREE_QUAL(&GUIGlObject::drawGL),
-        myLock(true)
-    { }
+    SUMORTree() : 
+        GUI_RTREE_QUAL(&GUIGlObject::drawGL),
+        myLock(true) {
+    }
 
     /// @brief Destructor
     virtual ~SUMORTree() {
@@ -135,7 +136,9 @@ public:
         // show information in gui testing debug gl mode
         if (MsgHandler::writeDebugGLMessages()) {
             if ((b.getWidth() == 0) || (b.getHeight() == 0)) {
-                throw ProcessError("boundary of GUIGlObject " + o->getMicrosimID() + " has an invalid size");
+                throw ProcessError("Boundary of GUIGlObject " + o->getMicrosimID() + " has an invalid size");
+            } else if (myTreeDebug.count(o) > 0) {
+                throw ProcessError("GUIGlObject was already inserted");
             } else {
                 myTreeDebug[o] = b;
                 // write GL Debug
@@ -161,9 +164,13 @@ public:
         // obtain boundary of object
         Boundary b = o->getCenteringBoundary();
         // show information in gui testing debug gl mode
-        if (MsgHandler::writeDebugGLMessages() && (myTreeDebug.count(o) != 0)) {
-            if (b != myTreeDebug.at(o)) {
-                 throw ProcessError("add boundary of GUIGlObject " + o->getMicrosimID() + " is different of remove boundary (" + toString(b) + " != " + toString(myTreeDebug.at(o)) + ")");
+        if (MsgHandler::writeDebugGLMessages()) {
+            if ((b.getWidth() == 0) || (b.getHeight() == 0)) {
+                throw ProcessError("Boundary of GUIGlObject " + o->getMicrosimID() + " has an invalid size");
+            } else if (myTreeDebug.count(o) == 0) {
+                throw ProcessError("GUIGlObject wasn't inserted");
+            } else if (b != myTreeDebug.at(o)) {
+                 throw ProcessError("add boundary of GUIGlObject " + o->getMicrosimID() + " is different of removed boundary (" + toString(b) + " != " + toString(myTreeDebug.at(o)) + ")");
             } else {
                 myTreeDebug.erase(o);
                 WRITE_GLDEBUG("Removed object " + o->getFullName() + " from SUMORTree with boundary " + toString(b));
