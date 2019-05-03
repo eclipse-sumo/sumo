@@ -66,12 +66,18 @@ GNEChange_Shape::~GNEChange_Shape() {
         if (myNet->retrievePolygon(myShape->getID(), false) != nullptr) {
             // show extra information for tests
             WRITE_DEBUG("Removing " + myShape->getTagStr() + " '" + myShape->getID() + "' from net in ~GNEChange_Shape()");
+            // all polygons are placed in RTREE
             myNet->removeGLObjectFromGrid(dynamic_cast<GUIGlObject*>(myShape));
+            // remove polygon from container
             myNet->myPolygons.remove(myShape->getID(), false);
         } else if (myNet->retrievePOI(myShape->getID(), false) != nullptr) {
             // show extra information for tests
             WRITE_DEBUG("Removing " + myShape->getTagStr() + " '" + myShape->getID() + "' from net in ~GNEChange_Shape()");
-            myNet->removeGLObjectFromGrid(dynamic_cast<GUIGlObject*>(myShape));
+            // only certain POIS are placed in RTREE
+            if (myShape->getTagProperty().isPlacedInRTree()) {
+                myNet->removeGLObjectFromGrid(dynamic_cast<GUIGlObject*>(myShape));
+            }
+            // remove POI from container
             myNet->myPOIs.remove(myShape->getID(), false);
         }
         // show extra information for tests

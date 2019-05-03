@@ -2615,7 +2615,7 @@ GNENet::deleteDemandElement(GNEDemandElement* demandElement, bool updateViewAfte
             }
         }
         // only remove drawable elements of grid
-        if (demandElement->getTagProperty().isDrawable()) {
+        if (demandElement->getTagProperty().isDrawable() && demandElement->getTagProperty().isPlacedInRTree()) {
             myGrid.removeAdditionalGLObject(demandElement);
         }
         // check if demandElement is selected
