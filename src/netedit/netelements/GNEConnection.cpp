@@ -461,7 +461,7 @@ GNEConnection::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_UNCONTROLLED:
             return canParse<bool>(value);
         case SUMO_ATTR_VISIBILITY_DISTANCE:
-            return canParse<double>(value) && (parse<double>(value) > 0);
+            return canParse<double>(value) && (parse<double>(value) >= -1);
         case SUMO_ATTR_TLLINKINDEX:
             if (getNBEdgeConnection().uncontrolled == false
                     && getEdgeFrom()->getNBEdge()->getToNode()->getControllingTLS().size() > 0
