@@ -141,3 +141,6 @@ discard_no_internal2
 # .tll.xml and .con.xml file are inconsistent
 inconsistent_tll
 custom_tll
+
+# railway crossing with pedestrian crossings
+rail_crossing
