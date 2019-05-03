@@ -193,20 +193,7 @@ NIImporter_Vissim::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     if (!oc.isSet("vissim-file")) {
         return;
     }
-    NIImporter_Vissim loader(nb, oc.getString("vissim-file"));
-    // check if legacy format file or newer XML file
-    // file name extension check
-    if ((oc.getString("vissim-file").find(".inpx") != std::string::npos))
-        //TODO: check if the given position of .inpx is at the end
-    {
-        // load the XML vissim network
-        loader.loadXML(oc, nb);
-        loader.myInputIsLegacyFormat = false;
-    } else {
-        // load the legacy vissim network
-        loader.load(oc);
-        loader.myInputIsLegacyFormat = true;
-    }
+    NIImporter_Vissim(nb).load(oc);
 }
 
 
@@ -854,9 +841,7 @@ NIImporter_Vissim::VissimSingleTypeParser::skipOverreading(std::istream& from,
 /* -------------------------------------------------------------------------
  * NIImporter_Vissim-methods
  * ----------------------------------------------------------------------- */
-NIImporter_Vissim::NIImporter_Vissim(NBNetBuilder& nb, const std::string& file)
-    : myNetBuilder(nb), myInputIsLegacyFormat(false) {
-    UNUSED_PARAMETER(file);
+NIImporter_Vissim::NIImporter_Vissim(NBNetBuilder& nb) : myNetBuilder(nb) {
     insertKnownElements();
     buildParsers();
     myColorMap["blau"] = RGBColor(77, 77, 255, 255);
@@ -901,87 +886,82 @@ NIImporter_Vissim::~NIImporter_Vissim() {
 
 void
 NIImporter_Vissim::load(const OptionsCont& options) {
-    // load file contents
+    const std::string file = options.getString("vissim-file");
     // try to open the file
-    std::ifstream strm(options.getString("vissim-file").c_str());
+    std::ifstream strm(file.c_str());
     if (!strm.good()) {
-        WRITE_ERROR("The vissim-file '" + options.getString("vissim-file") + "' was not found.");
-        return;
-    }
-    if (!readContents(strm)) {
-        return;
-    }
-    postLoadBuild(options.getFloat("vissim.join-distance"));
-}
-
-void
-NIImporter_Vissim::loadXML(const OptionsCont& options, NBNetBuilder& /* nb */) {
-    // Parse file
-    std::string file = options.getString("vissim-file");
-    // Create NIVissimXMLHandlers
-    NIVissimXMLHandler_Streckendefinition XMLHandler_Streckendefinition(elementData);
-    NIVissimXMLHandler_Zuflussdefinition XMLHandler_Zuflussdefinition;
-    //NIVissimXMLHandler_Parkplatzdefinition XMLHandler_Parkplatzdefinition;
-    NIVissimXMLHandler_Fahrzeugklassendefinition XMLHandler_Fahrzeugklassendefinition(elementData);
-    NIVissimXMLHandler_Geschwindigkeitsverteilungsdefinition XMLHandler_Geschwindigkeitsverteilung(elementData);
-    NIVissimXMLHandler_ConflictArea XMLHandler_ConflictAreas;
-    if (!FileHelpers::isReadable(file)) {
         WRITE_ERROR("Could not open vissim-file '" + file + "'.");
         return;
     }
+    std::string token;
+    strm >> token;
+    if (StringUtils::endsWith(file, ".inpx") || StringUtils::endsWith(token, "<?xml") || StringUtils::endsWith(token, "<network")) {
+        // Create NIVissimXMLHandlers
+        NIVissimXMLHandler_Streckendefinition XMLHandler_Streckendefinition(elementData);
+        NIVissimXMLHandler_Zuflussdefinition XMLHandler_Zuflussdefinition;
+        //NIVissimXMLHandler_Parkplatzdefinition XMLHandler_Parkplatzdefinition;
+        NIVissimXMLHandler_Fahrzeugklassendefinition XMLHandler_Fahrzeugklassendefinition(elementData);
+        NIVissimXMLHandler_Geschwindigkeitsverteilungsdefinition XMLHandler_Geschwindigkeitsverteilung(elementData);
+        NIVissimXMLHandler_ConflictArea XMLHandler_ConflictAreas;
 
-    // Strecken + Verbinder
-    XMLHandler_Streckendefinition.setFileName(file);
-    PROGRESS_BEGIN_MESSAGE("Parsing strecken+verbinder from vissim-file '" + file + "'");
-    if (!XMLSubSys::runParser(XMLHandler_Streckendefinition, file)) {
+        // Strecken + Verbinder
+        XMLHandler_Streckendefinition.setFileName(file);
+        PROGRESS_BEGIN_MESSAGE("Parsing strecken+verbinder from vissim-file '" + file + "'");
+        if (!XMLSubSys::runParser(XMLHandler_Streckendefinition, file)) {
+            return;
+        }
+        PROGRESS_DONE_MESSAGE();
+
+        // Zuflüsse
+        XMLHandler_Zuflussdefinition.setFileName(file);
+        PROGRESS_BEGIN_MESSAGE("Parsing zuflüsse from vissim-file '" + file + "'");
+        if (!XMLSubSys::runParser(XMLHandler_Zuflussdefinition, file)) {
+            return;
+        }
+        PROGRESS_DONE_MESSAGE();
+
+        //Geschwindigkeitsverteilungen
+        XMLHandler_Geschwindigkeitsverteilung.setFileName(file);
+        PROGRESS_BEGIN_MESSAGE("Parsing parkplätze from vissim-file '" + file + "'");
+        if (!XMLSubSys::runParser(XMLHandler_Geschwindigkeitsverteilung, file)) {
+            return;
+        }
+        PROGRESS_DONE_MESSAGE();
+
+
+        //Fahrzeugklassen
+        XMLHandler_Fahrzeugklassendefinition.setFileName(file);
+        PROGRESS_BEGIN_MESSAGE("Parsing parkplätze from vissim-file '" + file + "'");
+        if (!XMLSubSys::runParser(XMLHandler_Fahrzeugklassendefinition, file)) {
+            return;
+        }
+        PROGRESS_DONE_MESSAGE();
+
+        //Parkplätze
+        /*XMLHandler_Parkplatzdefinition.setFileName(file);
+        PROGRESS_BEGIN_MESSAGE("Parsing parkplätze from vissim-file '" + file + "'");
+        if (!XMLSubSys::runParser(XMLHandler_Parkplatzdefinition, file)) {
         return;
+        }
+        PROGRESS_DONE_MESSAGE();*/
+
+
+        //Konfliktflächen
+        XMLHandler_ConflictAreas.setFileName(file);
+        PROGRESS_BEGIN_MESSAGE("Parsing conflict areas from vissim-file '" + file + "'");
+        if (!XMLSubSys::runParser(XMLHandler_ConflictAreas, file)) {
+            return;
+        }
+        PROGRESS_DONE_MESSAGE();
+    } else {
+        strm.seekg(strm.beg);
+        if (!readContents(strm)) {
+            return;
+        }
     }
-    PROGRESS_DONE_MESSAGE();
-
-    // Zuflüsse
-    XMLHandler_Zuflussdefinition.setFileName(file);
-    PROGRESS_BEGIN_MESSAGE("Parsing zuflüsse from vissim-file '" + file + "'");
-    if (!XMLSubSys::runParser(XMLHandler_Zuflussdefinition, file)) {
-        return;
-    }
-    PROGRESS_DONE_MESSAGE();
-
-    //Geschwindigkeitsverteilungen
-    XMLHandler_Geschwindigkeitsverteilung.setFileName(file);
-    PROGRESS_BEGIN_MESSAGE("Parsing parkplätze from vissim-file '" + file + "'");
-    if (!XMLSubSys::runParser(XMLHandler_Geschwindigkeitsverteilung, file)) {
-        return;
-    }
-    PROGRESS_DONE_MESSAGE();
-
-
-    //Fahrzeugklassen
-    XMLHandler_Fahrzeugklassendefinition.setFileName(file);
-    PROGRESS_BEGIN_MESSAGE("Parsing parkplätze from vissim-file '" + file + "'");
-    if (!XMLSubSys::runParser(XMLHandler_Fahrzeugklassendefinition, file)) {
-        return;
-    }
-    PROGRESS_DONE_MESSAGE();
-
-    //Parkplätze
-    /*XMLHandler_Parkplatzdefinition.setFileName(file);
-    PROGRESS_BEGIN_MESSAGE("Parsing parkplätze from vissim-file '" + file + "'");
-    if (!XMLSubSys::runParser(XMLHandler_Parkplatzdefinition, file)) {
-        return;
-    }
-    PROGRESS_DONE_MESSAGE();*/
-
-
-    //Konfliktflächen
-    XMLHandler_ConflictAreas.setFileName(file);
-    PROGRESS_BEGIN_MESSAGE("Parsing conflict areas from vissim-file '" + file + "'");
-    if (!XMLSubSys::runParser(XMLHandler_ConflictAreas, file)) {
-        return;
-    }
-    PROGRESS_DONE_MESSAGE();
-
     postLoadBuild(options.getFloat("vissim.join-distance"));
 }
+
 
 bool
 NIImporter_Vissim::admitContinue(const std::string& tag) {

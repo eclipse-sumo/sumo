@@ -474,15 +474,13 @@ private:
 
 protected:
     /// constructor
-    NIImporter_Vissim(NBNetBuilder& nb, const std::string& file);
+    NIImporter_Vissim(NBNetBuilder& nb);
 
     /// destructor
     ~NIImporter_Vissim();
 
     /// loads the vissim file
     void load(const OptionsCont& options);
-
-    void loadXML(const OptionsCont& options, NBNetBuilder& nb);
 
     bool admitContinue(const std::string& tag);
 
@@ -579,8 +577,6 @@ private:
     std::string myLastSecure;
 
     NBNetBuilder& myNetBuilder;
-
-    bool myInputIsLegacyFormat;
 
 private:
     /// @brief Invalidated copy constructor.
