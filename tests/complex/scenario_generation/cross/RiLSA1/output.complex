@@ -1,6 +1,6 @@
-Parsing nodes from '/tmp/tmplzIhDn'... done.
-Parsing edges from '/tmp/tmp6jeaQ0'... done.
-Parsing connections from '/tmp/tmplE41AS'... done.
+Parsing nodes from '/tmp/tmpJ_Dpa9'... done.
+Parsing edges from '/tmp/tmpijkdNA'... done.
+Parsing connections from '/tmp/tmpN28gXX'... done.
  Import done:
    13 nodes loaded.
    16 edges loaded.
@@ -24,19 +24,20 @@ Processing turnarounds... done (0ms).
 Rechecking of lane endings... done (0ms).
 Computing traffic light control information... done (0ms).
 Computing node logics... done (0ms).
-Computing traffic light logics... done (0ms).
+Computing traffic light logics... done (1ms).
  1 traffic light(s) computed.
-Building inner edges... done (1ms).
+Building inner edges... done (0ms).
 -----------------------------------------------------
 Summary:
  Node type statistics:
   Unregulated junctions       : 0
-  Priority junctions          : 13
+  Priority junctions          : 12
   Right-before-left junctions : 0
+  Traffic light junctions      : 1
  Network boundaries:
   Original boundary  : 0.00,0.00,1000.00,1000.00
   Applied offset     : 0.00,0.00
   Converted boundary : 0.00,0.00,1000.00,1000.00
 -----------------------------------------------------
-Writing network... done (5ms).
+Writing network... done (4ms).
 Success.
