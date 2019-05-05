@@ -45,13 +45,13 @@
 // ===========================================================================
 // Debug constants
 // ===========================================================================
-//#define DEBUG_SSM
+#define DEBUG_SSM
 //#define DEBUG_SSM_DRAC
 //#define DEBUG_SSM_SURROUNDING
 //#define DEBUG_SSM_NOTIFICATIONS
 //#define DEBUG_COND MSNet::getInstance()->getCurrentTimeStep() > 308000
 //#define DEBUG_COND1(ego) MSNet::getInstance()->getCurrentTimeStep() > 308000
-//#define DEBUG_COND1(ego) ego!=nullptr && ego->isSelected()
+#define DEBUG_COND1(ego) ego!=nullptr && ego->isSelected()
 //#define DEBUG_COND1(ego) ego!=nullptr && ego->getID() == "ego1"
 #define DEBUG_COND false
 
@@ -1871,6 +1871,9 @@ MSDevice_SSM::classifyEncounter(const FoeInfo* foeInfo, EncounterApproachInfo& e
                     // ego on junction, foe not yet
                     type = ENCOUNTER_TYPE_FOLLOWING_LEADER;
                     eInfo.foeConflictEntryDist = foeDistToConflictLane + e->ego->getBackPositionOnLane();
+                    if (e->ego->getLane()->getIncomingLanes()[0].lane->isInternal()) {
+                        eInfo.foeConflictEntryDist += e->ego->getLane()->getIncomingLanes()[0].lane->getLength();
+                    }
 #ifdef DEBUG_SSM
                     if (DEBUG_COND1(myHolderMS))
                         std::cout << "-> Encounter type: Ego '" << e->ego->getID() << "' on lane '" << egoLane->getID() << "' leads foe '"
