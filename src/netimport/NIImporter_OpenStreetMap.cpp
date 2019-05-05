@@ -216,6 +216,7 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
                           toString(e->myCurrentNodes.size()) + " node(s)");
             continue;
         }
+        extendRailwayDistances(e, nb.getTypeCont());
         // build nodes;
         //  - the from- and to-nodes must be built in any case
         //  - the in-between nodes are only built if more than one edge references them
@@ -341,23 +342,22 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
 
     // convert the shape
     PositionVector shape;
-    int distIndexStart = -1;
-    int distIndexEnd = -1;
-    double distanceStart = 0;
-    double distanceEnd = 0;
-    int passedIndex = 0;
+    double distanceStart = myOSMNodes[passed.front()]->positionMeters;
+    double distanceEnd = myOSMNodes[passed.back()]->positionMeters;
+    const bool useDistance = distanceStart != std::numeric_limits<double>::max() && distanceEnd != std::numeric_limits<double>::max();
+    if (useDistance) {
+        // negative sign denotes counting in the other direction
+        if (distanceStart < distanceEnd) {
+            distanceStart *= -1;
+        } else {
+            distanceEnd *= -1;
+        }
+    } else {
+        distanceStart = 0;
+        distanceEnd = 0;
+    }
     for (long long i : passed) {
         NIOSMNode* n = myOSMNodes.find(i)->second;
-        double d = interpretDistance(n);
-        if (d != std::numeric_limits<double>::max()) {
-            if (distIndexStart == -1) {
-                distIndexStart = passedIndex;
-                distanceStart = d;
-            }
-            distanceEnd = passedIndex;
-            distanceEnd = d;
-        }
-
         if (n->ptStopPosition) {
             NBPTStop* existingPtStop = sc.get(toString(n->id));
             if (existingPtStop != nullptr) {
@@ -375,22 +375,10 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         }
         Position pos(n->lon, n->lat, n->ele);
         shape.push_back(pos);
-        passedIndex++;
     }
     if (!NBNetBuilder::transformCoordinates(shape)) {
         WRITE_ERROR("Unable to project coordinates for edge '" + id + "'.");
     }
-    // correct distance when the position markers are not and the exact start or end nodes
-    if (distIndexStart != -1) {
-        assert(distIndexStart < (int)shape.size());
-        for (int i = 0; i < distIndexStart; i++) {
-            distanceStart -= shape[i].distanceTo2D(shape[i + 1]);
-        }
-        for (int i = distIndexEnd; i < (int)shape.size() - 1; i++) {
-            distanceEnd += shape[i].distanceTo2D(shape[i + 1]);
-        }
-    }
-
     std::string type = usableType(e->myHighWayType, id, tc);
     if (type == "") {
         return newIndex;
@@ -541,9 +529,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
                 nbe->addSidewalk(tc.getSidewalkWidth(type));
             }
             nbe->updateParameter(e->getParametersMap());
-            if (isRailway(forwardPermissions)) {
-                nbe->setDistance(distanceStart);
-            }
+            nbe->setDistance(distanceStart);
             if (!ec.insert(nbe)) {
                 delete nbe;
                 throw ProcessError("Could not add edge '" + id + "'.");
@@ -568,9 +554,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
                 nbe->addSidewalk(tc.getSidewalkWidth(type));
             }
             nbe->updateParameter(e->getParametersMap());
-            if (isRailway(backwardPermissions)) {
-                nbe->setDistance(distanceEnd);
-            }
+            nbe->setDistance(distanceEnd);
             if (!ec.insert(nbe)) {
                 delete nbe;
                 throw ProcessError("Could not add edge '-" + id + "'.");
@@ -1777,6 +1761,71 @@ NIImporter_OpenStreetMap::usableType(const std::string& type, const std::string&
         }
         myKnownCompoundTypes[type] = newType;
         return newType;
+    }
+}
+
+void 
+NIImporter_OpenStreetMap::extendRailwayDistances(Edge* e, NBTypeCont& tc) {
+    const std::string id = toString(e->id);
+    std::string type = usableType(e->myHighWayType, id, tc);
+    if (type != "" && isRailway(tc.getPermissions(type))) {
+        std::vector<NIOSMNode*> nodes;
+        std::vector<double> usablePositions;
+        std::vector<int> usableIndex;
+        int i = 0;
+        for (long long int n : e->myCurrentNodes) {
+            NIOSMNode* node = myOSMNodes[n];
+            node->positionMeters = interpretDistance(node);
+            if (node->positionMeters != std::numeric_limits<double>::max()) {
+                usablePositions.push_back(node->positionMeters);
+                usableIndex.push_back(i);
+            }
+            i++;
+            nodes.push_back(node);
+        }
+        if (usablePositions.size() == 0) {
+            return;
+        } else {
+            bool forward = true;
+            if (usablePositions.size() == 1) {
+                WRITE_WARNING("Ambiguous railway kilometrage direction for way '" + id + "' (assuming forward)");
+            } else {
+                forward = usablePositions.front() < usablePositions.back();
+            }
+            // check for consistency
+            for (int i = 1; i < (int)usablePositions.size(); i++) {
+                if ((usablePositions[i - 1] < usablePositions[i]) != forward) {
+                    WRITE_WARNING("Inconsistent railway kilometrage direction for way '" + id + "': " + toString(usablePositions) + " (skipping)");
+                    return;
+                }
+            }
+            if (nodes.size() > usablePositions.size()) {
+                // complete missing values
+                PositionVector shape;
+                for (NIOSMNode* node : nodes) {
+                    shape.push_back(Position(node->lon, node->lat, 0));
+                }
+                if (!NBNetBuilder::transformCoordinates(shape)) {
+                    return; // error will be given later
+                }
+                double sign = forward ? 1 : -1;
+                // extend backward before first usable value
+                for (int i = usableIndex.front() - 1; i >= 0; i--) {
+                    nodes[i]->positionMeters = nodes[i + 1]->positionMeters - sign * shape[i].distanceTo2D(shape[i + 1]);
+                }
+                // extend forward
+                for (int i = usableIndex.front() + 1; i < (int)nodes.size(); i++) {
+                    if (nodes[i]->positionMeters == std::numeric_limits<double>::max()) {
+                        nodes[i]->positionMeters = nodes[i - 1]->positionMeters + sign * shape[i].distanceTo2D(shape[i - 1]);
+                    }
+                }
+                //std::cout << " way=" << id << " usable=" << toString(usablePositions) << "\n indices=" << toString(usableIndex)
+                //    << " final:\n";
+                //for (auto n : nodes) {
+                //    std::cout << "    " << n->id << " " << n->positionMeters << " " << n->position<< "\n";
+                //}
+            }
+        }
     }
 }
 

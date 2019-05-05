@@ -85,6 +85,7 @@ protected:
             railwayBufferStop(false),
             ptStopPosition(false), ptStopLength(0), name(""),
             permissions(SVC_RAIL | SVC_BUS | SVC_TRAM),
+            positionMeters(std::numeric_limits<double>::max()),
             node(0) { }
 
         /// @brief The node's id
@@ -113,6 +114,8 @@ protected:
         SVCPermissions permissions;
         /// @brief kilometrage/mileage
         std::string position;
+        /// @brief position converted to m (using highest precision available)
+        double positionMeters;
         /// @brief the NBNode that was instantiated
         NBNode* node;
 
@@ -295,6 +298,9 @@ private:
 
     /// @brief check whether the type is known or consists of known type compounds. return empty string otherwise
     std::string usableType(const std::string& type, const std::string& id, NBTypeCont& tc);
+
+    /// @brief extend kilometrage data for all nodes along railway
+    void extendRailwayDistances(Edge* e, NBTypeCont& tc); 
 
     /// @brief read distance value from node and return value in m
     static double interpretDistance(NIOSMNode* node);
