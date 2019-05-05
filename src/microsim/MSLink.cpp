@@ -323,9 +323,15 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
             }
             if (target == myTarget) {
                 mySublaneFoeLinks.push_back(it);
+#ifdef MSLink_DEBUG_CROSSING_POINTS
+                std::cout << "  sublaneFoeLink (same target): " << it->getViaLaneOrLane()->getID() << "\n";
+#endif
             } else if (myDirection != LINKDIR_STRAIGHT && it->getDirection() == LINKDIR_STRAIGHT) {
                 // potential turn conflicht
                 mySublaneFoeLinks2.push_back(it);
+#ifdef MSLink_DEBUG_CROSSING_POINTS
+                std::cout << "  sublaneFoeLink2 (other target: " << it->getViaLaneOrLane()->getID() << "\n";
+#endif
             }
         }
         // save foes for exit links
