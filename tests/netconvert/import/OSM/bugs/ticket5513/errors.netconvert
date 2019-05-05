@@ -1,5 +1,5 @@
-Warning: Discarding unusable type 'highway.service' (first occurence for edge '19358739#0').
-Warning: Discarding unknown compound 'cycleway.shared_lane' in type 'cycleway.shared_lane|highway.secondary' (first occurence for edge '94669148#0').
+Warning: Discarding unusable type 'highway.service' (first occurence for edge '19358739').
+Warning: Discarding unknown compound 'cycleway.shared_lane' in type 'cycleway.shared_lane|highway.secondary' (first occurence for edge '94669148').
 Warning: Discarding unknown compound 'cycleway.shared_lane' in type 'cycleway.shared_lane|highway.tertiary' (first occurence for edge '132174699').
 Warning: Discarding unusable type 'waterway.river' (first occurence for edge '143898136').
 Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.tertiary' (first occurence for edge '169055291').
