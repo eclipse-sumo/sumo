@@ -424,7 +424,7 @@ GNERouteHandler::addStop(const SUMOSAXAttributes& attrs) {
     } //try to parse the assigned container stop
     else if (stop.containerstop != "") {
         // ok, we have obviously a container stop
-        GNEAdditional* cs = myViewNet->getNet()->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, stop.busstop, false);
+        GNEAdditional* cs = myViewNet->getNet()->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, stop.containerstop, false);
         if (cs == nullptr) {
             WRITE_ERROR("The containerStop '" + stop.containerstop + "' is not known" + errorSuffix);
             return;
@@ -433,7 +433,7 @@ GNERouteHandler::addStop(const SUMOSAXAttributes& attrs) {
     } //try to parse the assigned parking area
     else if (stop.parkingarea != "") {
         // ok, we have obviously a parking area
-        GNEAdditional* pa = myViewNet->getNet()->retrieveAdditional(SUMO_TAG_PARKING_AREA, stop.busstop, false);
+        GNEAdditional* pa = myViewNet->getNet()->retrieveAdditional(SUMO_TAG_PARKING_AREA, stop.parkingarea, false);
         if (pa == nullptr) {
             WRITE_ERROR("The parkingArea '" + stop.parkingarea + "' is not known" + errorSuffix);
             return;
@@ -441,7 +441,7 @@ GNERouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         stop.lane = pa->getAttribute(SUMO_ATTR_LANE);
     } else if (stop.chargingStation != "") {
         // ok, we have a charging station
-        GNEAdditional* cs = myViewNet->getNet()->retrieveAdditional(SUMO_TAG_CHARGING_STATION, stop.busstop, false);
+        GNEAdditional* cs = myViewNet->getNet()->retrieveAdditional(SUMO_TAG_CHARGING_STATION, stop.chargingStation, false);
         if (cs == nullptr) {
             WRITE_ERROR("The chargingStation '" + stop.chargingStation + "' is not known" + errorSuffix);
             return;
