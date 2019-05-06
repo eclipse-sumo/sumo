@@ -226,7 +226,7 @@ ROPerson::PersonTrip::saveAsXML(OutputDevice& os, const bool extended, const boo
         }
         std::vector<std::string> allowedModes;
         if ((modes & SVC_BUS) != 0) {
-            allowedModes.push_back("bus");
+            allowedModes.push_back("public");
         }
         if ((modes & SVC_PASSENGER) != 0) {
             allowedModes.push_back("car");
