@@ -22,6 +22,9 @@ car_walk_arrivalpos
 # public transport and walk possible
 public_walk
 
+# public transport  cannot be used due to speedfactor
+public_walk_speedfactor
+
 # public transport and walk possible
 public_walk_singleveh
 
