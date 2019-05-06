@@ -145,6 +145,8 @@ enum {
     MID_GNE_HOTKEY_DEL,
     /// @brief hot key <ENTER> accept current operation
     MID_GNE_HOTKEY_ENTER,
+    /// @brief hot key <Backspace> remove last sub-operation
+    MID_GNE_HOTKEY_BACKSPACE,
     /// @brief save TLS Programs
     MID_GNE_HOTKEY_CTRL_SHIFT_K,
     /// @brief clean junctions without edges
