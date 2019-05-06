@@ -43,15 +43,17 @@
 
 GNERoute::GNERoute(GNEViewNet* viewNet) :
     GNEDemandElement(viewNet->getNet()->generateDemandElementID(SUMO_TAG_ROUTE), viewNet, GLO_ROUTE, SUMO_TAG_ROUTE,
-{}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-myColor(RGBColor::YELLOW) {
+    {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
+    myColor(RGBColor::YELLOW),
+    myVClass(SVC_PASSENGER) {
 }
 
 
-GNERoute::GNERoute(GNEViewNet* viewNet, const std::string& routeID, const std::vector<GNEEdge*>& edges, const RGBColor& color) :
+GNERoute::GNERoute(GNEViewNet* viewNet, const std::string& routeID, const std::vector<GNEEdge*>& edges, const RGBColor& color, const SUMOVehicleClass VClass) :
     GNEDemandElement(routeID, viewNet, GLO_ROUTE, SUMO_TAG_ROUTE,
-                     edges, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-myColor(color) {
+    edges, {}, {}, {}, {}, {}, {}, {}, {}, {}),
+    myColor(color),
+    myVClass(VClass) {
 }
 
 
@@ -231,6 +233,8 @@ GNERoute::getAttribute(SumoXMLAttr key) const {
             return parseIDs(getEdgeParents());
         case SUMO_ATTR_COLOR:
             return toString(myColor);
+        case SUMO_ATTR_VCLASS:
+            return toString(myVClass);
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_GENERIC:

@@ -1873,8 +1873,21 @@ GNEEdge::drawPartialRoute(const GUIVisualizationSettings& s, GNEDemandElement *r
     } else {
         GLHelper::setColor(route->getColor());
     }
+    // check in what lane the partial route drawn
+    int index = -1;
+    std::cout << "lane" << std::endl;
+    std::cout << "route: " << SumoVehicleClassStrings.get(route->getAttribute(SUMO_ATTR_VCLASS)) << std::endl;
+    for (int i = 0; (i < (int)myNBEdge.getLanes().size()) && (index == -1); i++) {
+        std::cout << myNBEdge.getLanes().at(i).permissions << std::endl;
+        if (myNBEdge.getLanes().at(i).permissions & SumoVehicleClassStrings.get(route->getAttribute(SUMO_ATTR_VCLASS))) {
+            index = i;
+        }
+    }
+    if (index == -1) {
+        index = 0;
+    }
     // draw route
-    GLHelper::drawBoxLines(myLanes.front()->getGeometry().shape, myLanes.front()->getGeometry().shapeRotations, myLanes.front()->getGeometry().shapeLengths, routeWidth);
+    GLHelper::drawBoxLines(myLanes.at(index)->getGeometry().shape, myLanes.at(index)->getGeometry().shapeRotations, myLanes.at(index)->getGeometry().shapeLengths, routeWidth);
     // check if route has a connectio between this and the next edge
     GNEConnection *nextConnection = route->getNextConnection(this);
     if (nextConnection && (nextConnection->getEdgeFrom()->getGNEJunctionDestiny()->getNBNode()->getShape().size() > 0)) {

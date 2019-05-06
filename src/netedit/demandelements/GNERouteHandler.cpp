@@ -281,7 +281,7 @@ GNERouteHandler::closeRoute(const bool /* mayBeDisconnected */) {
         WRITE_WARNING("Routes needs at least one edge.");
     } else {
         // creaste GNERoute
-        GNERoute* route = new GNERoute(myViewNet, myRouteID, edges, myRouteColor);
+        GNERoute* route = new GNERoute(myViewNet, myRouteID, edges, myRouteColor, SVC_PASSENGER);
         if (myUndoDemandElements) {
             myViewNet->getUndoList()->p_begin("add " + route->getTagStr());
             myViewNet->getUndoList()->add(new GNEChange_DemandElement(route, true), true);
