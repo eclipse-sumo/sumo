@@ -364,7 +364,8 @@ SUMORouteHandler::parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttri
     }
     stop.parking = attrs.getOpt<bool>(SUMO_ATTR_PARKING, nullptr, ok, stop.triggered || stop.containerTriggered || stop.parkingarea != "");
     if (stop.parkingarea != "" && !stop.parking) {
-        ok = false;
+        WRITE_WARNING("Stop at parkingarea overrides attribute 'parking' for stop" + errorSuffix);
+        stop.parking = true;
     }
     if (!ok) {
         errorOutput->inform("Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop" + errorSuffix);
