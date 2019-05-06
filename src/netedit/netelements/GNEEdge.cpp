@@ -1447,8 +1447,6 @@ GNEEdge::removeConnection(NBEdge::Connection nbCon) {
                 dynamic_cast<GNEDetectorE2*>(i)->checkE2MultilaneIntegrity();
             }
         }
-        // remove it from Tree
-        myNet->removeGLObjectFromGrid(con);
         // check if connection is selected
         if (con->isAttributeCarrierSelected()) {
             con->unselectAttributeCarrier();
