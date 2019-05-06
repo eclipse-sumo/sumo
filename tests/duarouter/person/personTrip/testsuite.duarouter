@@ -142,4 +142,6 @@ ride_from_stop
 
 # arrive with a ride at a busStop and continue with a trip
 ride_trip
+trip_output
+trip_output_geo
 errors

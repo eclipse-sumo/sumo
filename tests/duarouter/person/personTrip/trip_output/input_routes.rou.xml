@@ -1,0 +1,12 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <person id="p0" depart="0" modes="public bicycle">
+        <personTrip from="beg" to="end"/>
+    </person>
+
+    <person id="p1" depart="1" modes="public bicycle">
+        <personTrip from="beg" to="end"/>
+        <stop lane="end_0" duration="100"/>
+        <personTrip from="end" to="middle"/>
+    </person>
+
+</routes>
