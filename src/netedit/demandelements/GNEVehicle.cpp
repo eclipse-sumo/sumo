@@ -114,6 +114,8 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
         // write manually route
         device.writeAttr(SUMO_ATTR_ROUTE, getDemandElementParents().at(1)->getID());
     } else if (myTagProperty.getTag() == SUMO_TAG_FLOW) {
+        // write manually route
+        device.writeAttr(SUMO_ATTR_ROUTE, getDemandElementParents().at(1)->getID());
         // write flow values depending if it was set
         if (isDisjointAttributeSet(SUMO_ATTR_END)) {
             device.writeAttr(SUMO_ATTR_END,  time2string(repetitionEnd));
