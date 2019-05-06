@@ -121,19 +121,16 @@ public:
         /// @brief add edge to current route (note: edge must be included in set of candidate edges
         bool addEdgeIntoRoute(GNEEdge* edge);
 
-        /// @brief create route with the current edges
-        void createRoute();
-
-        /// @brief abort creation of current route
-        void abortRouteCreation();
-
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when the user press create route button
         long onCmdCreateRoute(FXObject*, FXSelector, void*);
 
         /// @brief Called when the user press create route button
-        long onCmdAbortCreateRoute(FXObject*, FXSelector, void*);
+        long onCmdAbortRoute(FXObject*, FXSelector, void*);
+        
+        /// @brief Called when the user click over button "Remove las inserted edge"
+        long onCmdRemoveLastRouteEdge(FXObject*, FXSelector, void*);
         /// @}
 
     protected:
@@ -155,6 +152,9 @@ public:
 
         /// @bief FXButton for abort creating route
         FXButton* myAbortCreationButton;
+        
+        /// @brief button for removing last inserted edge
+        FXButton* myRemoveLastInsertedEdge;
 
         /// @brief vector with current route edges
         std::vector<GNEEdge*> myRouteEdges;
@@ -198,11 +198,11 @@ public:
 
         /// @name FOX-callbacks
         /// @{
-        /// @brief Called when the user click over button "Abort route creation"
-        long onCmdAbortRouteCreation(FXObject*, FXSelector, void*);
-
         /// @brief Called when the user click over button "Finish route creation"
-        long onCmdFinishRouteCreation(FXObject*, FXSelector, void*);
+        long onCmdCreateRoute(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user click over button "Abort route creation"
+        long onCmdAbortRoute(FXObject*, FXSelector, void*);
 
         /// @brief Called when the user click over button "Remove las inserted edge"
         long onCmdRemoveLastRouteEdge(FXObject*, FXSelector, void*);
@@ -257,10 +257,13 @@ public:
     void handleEdgeClick(GNEEdge* clickedEdge);
 
     /// @brief function called when user press ENTER key
-    void hotKeyEnter();
+    void hotkeyEnter();
+
+    /// @brief function called when user press BACKSPACE key
+    void hotkeyBackSpace();
 
     /// @brief function called when user press ESC key
-    void hotKeyEsc();
+    void hotkeyEsc();
 
     /// @brief return non consecutive edges modul
     NonConsecutiveEdges* getNonConsecutiveEdges() const;

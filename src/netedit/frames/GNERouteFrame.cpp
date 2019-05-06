@@ -49,13 +49,14 @@ FXDEFMAP(GNERouteFrame::RouteModeSelector) RouteModeSelectorMap[] = {
 };
 
 FXDEFMAP(GNERouteFrame::ConsecutiveEdges) ConsecutiveEdgesMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_HOTKEY_ENTER,    GNERouteFrame::ConsecutiveEdges::onCmdCreateRoute),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_HOTKEY_ESC,      GNERouteFrame::ConsecutiveEdges::onCmdAbortCreateRoute)
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_VEHICLEFRAME_ABORT,          GNERouteFrame::ConsecutiveEdges::onCmdAbortRoute),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_VEHICLEFRAME_FINISHCREATION, GNERouteFrame::ConsecutiveEdges::onCmdCreateRoute),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_VEHICLEFRAME_REMOVELASTEDGE, GNERouteFrame::ConsecutiveEdges::onCmdRemoveLastRouteEdge)
 };
 
 FXDEFMAP(GNERouteFrame::NonConsecutiveEdges) NonConsecutiveEdgesMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_VEHICLEFRAME_ABORT,          GNERouteFrame::NonConsecutiveEdges::onCmdAbortRouteCreation),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_VEHICLEFRAME_FINISHCREATION, GNERouteFrame::NonConsecutiveEdges::onCmdFinishRouteCreation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_VEHICLEFRAME_ABORT,          GNERouteFrame::NonConsecutiveEdges::onCmdAbortRoute),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_VEHICLEFRAME_FINISHCREATION, GNERouteFrame::NonConsecutiveEdges::onCmdCreateRoute),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_VEHICLEFRAME_REMOVELASTEDGE, GNERouteFrame::NonConsecutiveEdges::onCmdRemoveLastRouteEdge)
 };
 
@@ -152,8 +153,8 @@ GNERouteFrame::RouteModeSelector::setCurrentRouteMode(RouteMode routemode) {
 long
 GNERouteFrame::RouteModeSelector::onCmdSelectRouteMode(FXObject*, FXSelector, void*) {
     // first abort all current operations in moduls
-    myRouteFrameParent->myConsecutiveEdges->abortRouteCreation();
-    myRouteFrameParent->myNonConsecutiveEdges->onCmdAbortRouteCreation(0,0,0);
+    myRouteFrameParent->myConsecutiveEdges->onCmdAbortRoute(0, 0, 0);
+    myRouteFrameParent->myNonConsecutiveEdges->onCmdAbortRoute(0, 0, 0);
     // Check if value of myTypeMatchBox correspond of an allowed additional tags
     for (const auto& i : myRouteModesStrings) {
         if (i.second == myRouteModeMatchBox->getText().text()) {
@@ -190,8 +191,8 @@ GNERouteFrame::RouteModeSelector::onCmdSelectRouteMode(FXObject*, FXSelector, vo
 long 
 GNERouteFrame::RouteModeSelector::onCmdSelectVClass(FXObject*, FXSelector, void*) {
     // first abort all current operations in moduls
-    myRouteFrameParent->myConsecutiveEdges->abortRouteCreation();
-    myRouteFrameParent->myNonConsecutiveEdges->onCmdAbortRouteCreation(0,0,0);
+    myRouteFrameParent->myConsecutiveEdges->onCmdAbortRoute(0, 0, 0);
+    myRouteFrameParent->myNonConsecutiveEdges->onCmdAbortRoute(0, 0, 0);
     // Check if value of myTypeMatchBox correspond of an allowed additional tags
     for (const auto& i : SumoVehicleClassStrings.getStrings()) {
         if (i == myVClassMatchBox->getText().text()) {
@@ -234,11 +235,14 @@ GNERouteFrame::ConsecutiveEdges::ConsecutiveEdges(GNERouteFrame* routeFrameParen
     // create label for route info
     myInfoRouteLabel = new FXLabel(this, "No edges selected", 0, GUIDesignLabelFrameInformation);
     // Create button for create routes
-    myCreateRouteButton = new FXButton(this, "Create route", 0, this, MID_GNE_HOTKEY_ENTER, GUIDesignButton);
+    myCreateRouteButton = new FXButton(this, "Create route", 0, this, MID_GNE_VEHICLEFRAME_FINISHCREATION, GUIDesignButton);
     myCreateRouteButton->disable();
     // Create button for create routes
-    myAbortCreationButton = new FXButton(this, "Abort creation", 0, this, MID_GNE_HOTKEY_ESC, GUIDesignButton);
+    myAbortCreationButton = new FXButton(this, "Abort creation", 0, this, MID_GNE_VEHICLEFRAME_FINISHCREATION, GUIDesignButton);
     myAbortCreationButton->disable();
+    // create button for remove last inserted edge
+    myRemoveLastInsertedEdge = new FXButton(this, "Remove last inserted edge", nullptr, this, MID_GNE_VEHICLEFRAME_REMOVELASTEDGE, GUIDesignButton);
+    myRemoveLastInsertedEdge->disable();
     // ConsecutiveEdges is by default shown
     show();
 }
@@ -259,7 +263,7 @@ GNERouteFrame::ConsecutiveEdges::showConsecutiveEdgesModul() {
 void
 GNERouteFrame::ConsecutiveEdges::hideConsecutiveEdgesModul() {
     // first abort route creation
-    abortRouteCreation();
+    onCmdAbortRoute(0, 0, 0);
     // now hide modul
     hide();
 }
@@ -331,8 +335,9 @@ GNERouteFrame::ConsecutiveEdges::addEdgeIntoRoute(GNEEdge* edge) {
 }
 
 
-void
-GNERouteFrame::ConsecutiveEdges::createRoute() {
+long
+GNERouteFrame::ConsecutiveEdges::onCmdCreateRoute(FXObject*, FXSelector, void*) {
+    // create route
     // create edge only if there is route edges
     if (myRouteEdges.size() > 0) {
         // cenerate Route ID
@@ -345,13 +350,14 @@ GNERouteFrame::ConsecutiveEdges::createRoute() {
         myRouteFrameParent->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(route, true), true);
         myRouteFrameParent->getViewNet()->getUndoList()->p_end();
         // abort route creation (because route it was already seleted and vector/colors has to be cleaned)
-        abortRouteCreation();
+        onCmdAbortRoute(0, 0, 0);
     }
+    return 1;
 }
 
 
-void
-GNERouteFrame::ConsecutiveEdges::abortRouteCreation() {
+long
+GNERouteFrame::ConsecutiveEdges::onCmdAbortRoute(FXObject*, FXSelector, void*) {
     // first check that there is route edges selected
     if (myRouteEdges.size() > 0) {
         // unblock undo/redo
@@ -378,23 +384,14 @@ GNERouteFrame::ConsecutiveEdges::abortRouteCreation() {
         // update view
         myRouteFrameParent->getViewNet()->update();
     }
-}
-
-long
-GNERouteFrame::ConsecutiveEdges::onCmdCreateRoute(FXObject*, FXSelector, void*) {
-    // create route
-    createRoute();
     return 1;
 }
 
 
-long
-GNERouteFrame::ConsecutiveEdges::onCmdAbortCreateRoute(FXObject*, FXSelector, void*) {
-    // abort route creation
-    abortRouteCreation();
+long 
+GNERouteFrame::ConsecutiveEdges::onCmdRemoveLastRouteEdge(FXObject*, FXSelector, void*) {
     return 1;
 }
-
 
 void
 GNERouteFrame::ConsecutiveEdges::updateInfoRouteLabel() {
@@ -550,20 +547,7 @@ GNERouteFrame::NonConsecutiveEdges::isValid(SUMOVehicleClass /* vehicleClass */)
 
 
 long
-GNERouteFrame::NonConsecutiveEdges::onCmdAbortRouteCreation(FXObject*, FXSelector, void*) {
-    clearEdges();
-    // disable buttons
-    myFinishCreationButton->disable();
-    myAbortCreationButton->disable();
-    myRemoveLastInsertedEdge->disable();
-    // update info route label
-    updateInfoRouteLabel();
-    return 1;
-}
-
-
-long
-GNERouteFrame::NonConsecutiveEdges::onCmdFinishRouteCreation(FXObject*, FXSelector, void*) {
+GNERouteFrame::NonConsecutiveEdges::onCmdCreateRoute(FXObject*, FXSelector, void*) {
      // create edge only if there is route edges
     if (mySelectedEdges.size() > 1) {
         // obtain GNERoutes
@@ -590,6 +574,19 @@ GNERouteFrame::NonConsecutiveEdges::onCmdFinishRouteCreation(FXObject*, FXSelect
         // update info route label
         updateInfoRouteLabel();
     }
+    return 1;
+}
+
+
+long
+GNERouteFrame::NonConsecutiveEdges::onCmdAbortRoute(FXObject*, FXSelector, void*) {
+    clearEdges();
+    // disable buttons
+    myFinishCreationButton->disable();
+    myAbortCreationButton->disable();
+    myRemoveLastInsertedEdge->disable();
+    // update info route label
+    updateInfoRouteLabel();
     return 1;
 }
 
@@ -695,13 +692,28 @@ GNERouteFrame::handleEdgeClick(GNEEdge* clickedEdge) {
 
 
 void
-GNERouteFrame::hotKeyEnter() {
+GNERouteFrame::hotkeyEnter() {
     switch (myRouteModeSelector->getCurrenRouteMode()) {
         case ROUTEMODE_CONSECUTIVE_EDGES:
-            myConsecutiveEdges->createRoute();
+            myConsecutiveEdges->onCmdCreateRoute(0, 0, 0);
             break;
         case ROUTEMODE_NONCONSECUTIVE_EDGES:
-            myNonConsecutiveEdges->onCmdFinishRouteCreation(0,0,0);
+            myNonConsecutiveEdges->onCmdCreateRoute(0, 0, 0);
+            break;
+        default:
+            break;
+    }
+}
+
+
+void 
+GNERouteFrame::hotkeyBackSpace() {
+    switch (myRouteModeSelector->getCurrenRouteMode()) {
+        case ROUTEMODE_CONSECUTIVE_EDGES:
+            myConsecutiveEdges->onCmdRemoveLastRouteEdge(0, 0, 0);
+            break;
+        case ROUTEMODE_NONCONSECUTIVE_EDGES:
+            myNonConsecutiveEdges->onCmdRemoveLastRouteEdge(0, 0, 0);
             break;
         default:
             break;
@@ -710,13 +722,13 @@ GNERouteFrame::hotKeyEnter() {
 
 
 void
-GNERouteFrame::hotKeyEsc() {
+GNERouteFrame::hotkeyEsc() {
     switch (myRouteModeSelector->getCurrenRouteMode()) {
         case ROUTEMODE_CONSECUTIVE_EDGES:
-            myConsecutiveEdges->abortRouteCreation();
+            myConsecutiveEdges->onCmdAbortRoute(0, 0, 0);
             break;
         case ROUTEMODE_NONCONSECUTIVE_EDGES:
-            myNonConsecutiveEdges->onCmdAbortRouteCreation(0,0,0);
+            myNonConsecutiveEdges->onCmdAbortRoute(0, 0, 0);
             break;
         default:
             break;

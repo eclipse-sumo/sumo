@@ -199,6 +199,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_ESC,                     GNEApplicationWindow::onCmdAbort),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_DEL,                     GNEApplicationWindow::onCmdDel),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_ENTER,                   GNEApplicationWindow::onCmdEnter),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_BACKSPACE,               GNEApplicationWindow::onCmdBackspace),
 
     // threads events
     FXMAPFUNC(FXEX::SEL_THREAD_EVENT, ID_LOADTHREAD_EVENT,          GNEApplicationWindow::onLoadThreadEvent),
@@ -1596,6 +1597,18 @@ GNEApplicationWindow::onCmdEnter(FXObject*, FXSelector, void*) {
         // show extra information for tests
         WRITE_DEBUG("Key ENTER pressed");
         myViewNet->hotkeyEnter();
+    }
+    return 1;
+}
+
+
+long
+GNEApplicationWindow::onCmdBackspace(FXObject*, FXSelector, void*) {
+    // check that view exists
+    if (myViewNet) {
+        // show extra information for tests
+        WRITE_DEBUG("Key BACKSPACE pressed");
+        myViewNet->hotkeyBackSpace();
     }
     return 1;
 }

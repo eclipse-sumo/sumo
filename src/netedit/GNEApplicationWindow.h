@@ -298,6 +298,9 @@ public:
     /// @brief called if the user hits enter
     long onCmdEnter(FXObject* sender, FXSelector sel, void* ptr);
 
+    /// @brief called if the user hits backspace
+    long onCmdBackspace(FXObject* sender, FXSelector sel, void* ptr);
+
     /// @brief called if the user hits f
     long onCmdFocusFrame(FXObject* sender, FXSelector sel, void* ptr);
 

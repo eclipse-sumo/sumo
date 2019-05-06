@@ -728,7 +728,7 @@ GNEViewNet::abortOperation(bool clearSelection) {
                 myViewParent->getSelectorFrame()->clearCurrentSelection();
             }
         } else if (myEditModes.demandEditMode == GNE_DMODE_ROUTES) {
-            myViewParent->getRouteFrame()->hotKeyEsc();
+            myViewParent->getRouteFrame()->hotkeyEsc();
         } else if (myEditModes.demandEditMode == GNE_DMODE_VEHICLES) {
             myViewParent->getVehicleFrame()->getTripRouteCreator()->onCmdAbortRouteCreation(0, 0, 0);
         }
@@ -807,13 +807,26 @@ GNEViewNet::hotkeyEnter() {
     } else if (myEditModes.currentSupermode == GNE_SUPERMODE_DEMAND) {
         // abort operation depending of current mode
         if (myEditModes.demandEditMode == GNE_DMODE_ROUTES) {
-            myViewParent->getRouteFrame()->hotKeyEnter();
+            myViewParent->getRouteFrame()->hotkeyEnter();
         } else if (myEditModes.demandEditMode == GNE_DMODE_VEHICLES) {
             myViewParent->getVehicleFrame()->getTripRouteCreator()->onCmdFinishRouteCreation(0, 0, 0);
         }
     }
 }
 
+
+void 
+GNEViewNet::hotkeyBackSpace() {
+    // Currently only used in Demand mode
+    if (myEditModes.currentSupermode == GNE_SUPERMODE_DEMAND) {
+        // abort operation depending of current mode
+        if (myEditModes.demandEditMode == GNE_DMODE_ROUTES) {
+            myViewParent->getRouteFrame()->hotkeyBackSpace();
+        } else if (myEditModes.demandEditMode == GNE_DMODE_VEHICLES) {
+            myViewParent->getVehicleFrame()->getTripRouteCreator()->onCmdRemoveLastRouteEdge(0, 0, 0);
+        }
+    }
+}
 
 void
 GNEViewNet::hotkeyFocusFrame() {
