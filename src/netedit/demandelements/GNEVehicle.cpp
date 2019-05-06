@@ -1054,4 +1054,10 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
 }
 
+
+void 
+GNEVehicle::setDisjointAttribute(const int newParameterSet) {
+    parametersSet = newParameterSet;
+}
+
 /****************************************************************************/
