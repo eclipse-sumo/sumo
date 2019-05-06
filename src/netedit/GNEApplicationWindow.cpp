@@ -1253,7 +1253,7 @@ GNEApplicationWindow::DemandMenuCommands::buildDemandMenuCommands(FXMenuPane* ed
                                         "Vehicle type mode\tT\tCreate vehicle types.",
                                         GUIIconSubSys::getIcon(ICON_MODEVEHICLETYPE), myGNEApp, MID_HOTKEY_T_TLSMODE_VTYPEMODE);
     stopMode = new FXMenuCommand(editMenu,
-                                 "Stop mode\tT\tCreate stops.",
+                                 "Stop mode\tO\tCreate stops.",
                                  GUIIconSubSys::getIcon(ICON_MODESTOP), myGNEApp, MID_HOTKEY_A_ADDITIONALMODE_STOPMODE);
     // build separator
     myHorizontalSeparator = new FXMenuSeparator(editMenu);
