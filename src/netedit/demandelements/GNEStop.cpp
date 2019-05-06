@@ -98,15 +98,12 @@ GNEStop::moveGeometry(const Position& offset) {
             if ((parse<double>(myMove.firstOriginalLanePosition) + offsetLane) < 0) {
                 startPos = 0;
                 endPos = stoppingPlaceLenght;
-                std::cout << "A" << std::endl;
             } else if ((parse<double>(myMove.secondOriginalPosition) + offsetLane) > laneLengt) {
                 startPos = laneLengt - stoppingPlaceLenght;
                 endPos = laneLengt;
-                std::cout << "B" << std::endl;
             } else {
                 startPos = parse<double>(myMove.firstOriginalLanePosition) + offsetLane;
                 endPos = parse<double>(myMove.secondOriginalPosition) + offsetLane;
-                std::cout << toString(offsetLane) << " | " << toString(startPos) << " " << toString(endPos) << std::endl;
             }
         } else {
             // check if start position must be moved

@@ -1873,10 +1873,7 @@ GNEEdge::drawPartialRoute(const GUIVisualizationSettings& s, GNEDemandElement *r
     }
     // check in what lane the partial route drawn
     int index = -1;
-    std::cout << "lane" << std::endl;
-    std::cout << "route: " << SumoVehicleClassStrings.get(route->getAttribute(SUMO_ATTR_VCLASS)) << std::endl;
     for (int i = 0; (i < (int)myNBEdge.getLanes().size()) && (index == -1); i++) {
-        std::cout << myNBEdge.getLanes().at(i).permissions << std::endl;
         if (myNBEdge.getLanes().at(i).permissions & SumoVehicleClassStrings.get(route->getAttribute(SUMO_ATTR_VCLASS))) {
             index = i;
         }
