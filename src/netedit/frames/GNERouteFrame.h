@@ -200,9 +200,15 @@ public:
         /// @brief FOX needs this
         NonConsecutiveEdges() {}
 
+        /// @brief update InfoRouteLabel
+        void updateInfoRouteLabel();
+
     private:
         /// @brief pointer to Vehicle Frame Parent
         GNERouteFrame* myRouteFrameParent;
+
+        /// @brief label with route info
+        FXLabel* myInfoRouteLabel;
 
         /// @brief current selected edges
         std::vector<GNEEdge*> mySelectedEdges;

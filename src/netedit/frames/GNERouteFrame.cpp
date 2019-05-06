@@ -134,6 +134,9 @@ GNERouteFrame::RouteModeSelector::setCurrentRouteMode(RouteMode routemode) {
 
 long
 GNERouteFrame::RouteModeSelector::onCmdSelectRouteMode(FXObject*, FXSelector, void*) {
+    // first abort all current operations in moduls
+    myRouteFrameParent->myConsecutiveEdges->abortRouteCreation();
+    myRouteFrameParent->myNonConsecutiveEdges->onCmdAbortRouteCreation(0,0,0);
     // Check if value of myTypeMatchBox correspond of an allowed additional tags
     for (const auto& i : myRouteModesStrings) {
         if (i.second == myTypeMatchBox->getText().text()) {
@@ -166,7 +169,6 @@ GNERouteFrame::RouteModeSelector::onCmdSelectRouteMode(FXObject*, FXSelector, vo
     return 1;
 }
 
-
 // ---------------------------------------------------------------------------
 // GNERouteFrame::ConsecutiveEdges - methods
 // ---------------------------------------------------------------------------
@@ -194,6 +196,7 @@ void
 GNERouteFrame::ConsecutiveEdges::showConsecutiveEdgesModul() {
     // recalc before show (to avoid graphic problems)
     recalc();
+    // show modul
     show();
 }
 
@@ -364,23 +367,18 @@ GNERouteFrame::ConsecutiveEdges::updateInfoRouteLabel() {
 // GNERouteFrame::NonConsecutiveEdges - methods
 // ---------------------------------------------------------------------------
 
-// ---------------------------------------------------------------------------
-// GNERouteFrame::NonConsecutiveEdges - methods
-// ---------------------------------------------------------------------------
-
 GNERouteFrame::NonConsecutiveEdges::NonConsecutiveEdges(GNERouteFrame* routeFrameParent) :
     FXGroupBox(routeFrameParent->myContentFrame, "Route creator", GUIDesignGroupBoxFrame),
     myRouteFrameParent(routeFrameParent) {
-
-    // create button for create GEO POIs
+    // create label for route info
+    myInfoRouteLabel = new FXLabel(this, "No edges selected", 0, GUIDesignLabelFrameInformation);
+    // create button for finish route creation
     myFinishCreationButton = new FXButton(this, "Finish route creation", nullptr, this, MID_GNE_VEHICLEFRAME_FINISHCREATION, GUIDesignButton);
     myFinishCreationButton->disable();
-
-    // create button for create GEO POIs
+    // create button for abort route creation
     myAbortCreationButton = new FXButton(this, "Abort route creation", nullptr, this, MID_GNE_VEHICLEFRAME_ABORT, GUIDesignButton);
     myAbortCreationButton->disable();
-
-    // create button for create GEO POIs
+    // create button for remove last inserted edge
     myRemoveLastInsertedEdge = new FXButton(this, "Remove last inserted edge", nullptr, this, MID_GNE_VEHICLEFRAME_REMOVELASTEDGE, GUIDesignButton);
     myRemoveLastInsertedEdge->disable();
 }
@@ -396,6 +394,9 @@ GNERouteFrame::NonConsecutiveEdges::showNonConsecutiveEdgesModul() {
     myFinishCreationButton->disable();
     myAbortCreationButton->disable();
     myRemoveLastInsertedEdge->disable();
+    // recalc before show (to avoid graphic problems)
+    recalc();
+    // show modul
     show();
 }
 
@@ -431,7 +432,9 @@ GNERouteFrame::NonConsecutiveEdges::addEdge(GNEEdge* edge) {
             // enable finish button
             myFinishCreationButton->enable();
             // calculate temporal route
-            myTemporalRoute = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(SVC_PEDESTRIAN, mySelectedEdges);                    
+            myTemporalRoute = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(SVC_PASSENGER, mySelectedEdges);         
+            // update info route label
+            updateInfoRouteLabel();
         }
         return true;
     } else {
@@ -497,6 +500,8 @@ GNERouteFrame::NonConsecutiveEdges::onCmdAbortRouteCreation(FXObject*, FXSelecto
     myFinishCreationButton->disable();
     myAbortCreationButton->disable();
     myRemoveLastInsertedEdge->disable();
+    // update info route label
+    updateInfoRouteLabel();
     return 1;
 }
 
@@ -505,10 +510,16 @@ long
 GNERouteFrame::NonConsecutiveEdges::onCmdFinishRouteCreation(FXObject*, FXSelector, void*) {
      // create edge only if there is route edges
     if (mySelectedEdges.size() > 1) {
-        // cenerate Route ID
+        // obtain GNERoutes
+        std::vector<GNEEdge*> routeEdges;
+        routeEdges.reserve(myTemporalRoute.size());
+        for (const auto &i : myTemporalRoute) {
+            routeEdges.push_back(myRouteFrameParent->myViewNet->getNet()->retrieveEdge(i->getID()));
+        }
+        // generate Route ID
         std::string routeID = myRouteFrameParent->getViewNet()->getNet()->generateDemandElementID(SUMO_TAG_ROUTE);
         // create route
-        GNERoute* route = new GNERoute(myRouteFrameParent->getViewNet(), routeID, mySelectedEdges, RGBColor::BLUE);
+        GNERoute* route = new GNERoute(myRouteFrameParent->getViewNet(), routeID, routeEdges, RGBColor::BLUE);
         // add it into GNENet using GNEChange_DemandElement (to allow undo-redo)
         myRouteFrameParent->getViewNet()->getUndoList()->p_begin("add " + route->getTagStr());
         myRouteFrameParent->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(route, true), true);
@@ -519,6 +530,8 @@ GNERouteFrame::NonConsecutiveEdges::onCmdFinishRouteCreation(FXObject*, FXSelect
         myFinishCreationButton->disable();
         myAbortCreationButton->disable();
         myRemoveLastInsertedEdge->disable();
+        // update info route label
+        updateInfoRouteLabel();
     }
     return 1;
 }
@@ -533,6 +546,29 @@ GNERouteFrame::NonConsecutiveEdges::onCmdRemoveLastRouteEdge(FXObject*, FXSelect
         myTemporalRoute = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(SVC_PASSENGER, mySelectedEdges);
     }
     return 1;
+}
+
+void
+GNERouteFrame::NonConsecutiveEdges::updateInfoRouteLabel() {
+    if (myTemporalRoute.size() > 0) {
+        // declare variables for route info
+        double lenght = 0;
+        double speed = 0;
+        for (const auto& i : myTemporalRoute) {
+            lenght += i->getLength();
+            speed += i->getSpeed();
+        }
+        // declare ostringstream for label and fill it
+        std::ostringstream information;
+        information
+                << "- Number of Edges: " << toString(myTemporalRoute.size()) << "\n"
+                << "- Lenght: " << toString(lenght) << "\n"
+                << "- Average speed: " << toString(speed / myTemporalRoute.size());
+        // set new label
+        myInfoRouteLabel->setText(information.str().c_str());
+    } else {
+        myInfoRouteLabel->setText("No edges selected");
+    }
 }
 
 // ---------------------------------------------------------------------------
