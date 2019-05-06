@@ -91,7 +91,7 @@ public:
         virtual const ROEdge* getDestination() const = 0;
         virtual double getDestinationPos() const = 0;
         virtual void saveVehicles(OutputDevice& /* os */, OutputDevice* const /* typeos */, bool /* asAlternatives */, OptionsCont& /* options */) const {}
-        virtual void saveAsXML(OutputDevice& os, const bool extended) const = 0;
+        virtual void saveAsXML(OutputDevice& os, const bool extended, const bool asTrip, const bool writeGeoTrip) const = 0;
         virtual bool isStop() const {
             return false;
         }
@@ -124,7 +124,7 @@ public:
         double getDestinationPos() const {
             return (stopDesc.startPos + stopDesc.endPos) / 2;
         }
-        void saveAsXML(OutputDevice& os, const bool /* extended */) const {
+        void saveAsXML(OutputDevice& os, const bool /* extended */, const bool /*asTrip*/, const bool /*writeGeoTrip*/) const {
             stopDesc.write(os);
         }
         bool isStop() const {
@@ -320,11 +320,8 @@ public:
             return myTripItems.empty();
         }
         void saveVehicles(OutputDevice& os, OutputDevice* const typeos, bool asAlternatives, OptionsCont& options) const;
-        void saveAsXML(OutputDevice& os, const bool extended) const {
-            for (std::vector<TripItem*>::const_iterator it = myTripItems.begin(); it != myTripItems.end(); ++it) {
-                (*it)->saveAsXML(os, extended);
-            }
-        }
+        void saveAsXML(OutputDevice& os, const bool extended, const bool asTrip, const bool writeGeoTrip) const; 
+
         double getWalkFactor() const {
             return walkFactor;
         }
