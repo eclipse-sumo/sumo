@@ -559,4 +559,10 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
 }
 
+
+const GUIGlObject*
+GNEPOI::getGUIGlObject() const {
+    return this;
+}
+
 /****************************************************************************/

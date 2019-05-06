@@ -207,6 +207,9 @@ private:
     /// @brief set attribute after validation
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
 
+    /// @brief get GUIGlObject associated to this GNEShape
+    virtual const GUIGlObject* getGUIGlObject() const = 0;
+
     /// @brief Invalidated copy constructor.
     GNEShape(const GNEShape&) = delete;
 
