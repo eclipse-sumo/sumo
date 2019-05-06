@@ -386,6 +386,10 @@ GNEVehicleType::getAttribute(SumoXMLAttr key) const {
             }
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
+        case GNE_ATTR_DEFAULT_VTYPE:
+            return toString((getDemandElementID() == DEFAULT_VTYPE_ID) || 
+                            (getDemandElementID() == DEFAULT_PEDTYPE_ID) || 
+                            (getDemandElementID() == DEFAULT_BIKETYPE_ID));
         case GNE_ATTR_DEFAULT_VTYPE_MODIFIED:
             if (myDefaultVehicleType) {
                 return toString(myDefaultVehicleTypeModified);
@@ -1064,9 +1068,11 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_SPEEDDEV:
             if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
                 speedFactor.getParameter()[1] = parse<double>(value);
+                // mark parameter as set
+                parametersSet |= VTYPEPARS_SPEEDFACTOR_SET;
             } else {
                 // set default value
-                speedFactor.getParameter()[1] = parse<double>(myTagProperty.getDefaultValue(key));
+                speedFactor.getParameter()[1] = defaultValues.speedFactor.getParameter()[1];
                 // unset parameter
                 parametersSet &= ~VTYPEPARS_SPEEDFACTOR_SET;
             }
