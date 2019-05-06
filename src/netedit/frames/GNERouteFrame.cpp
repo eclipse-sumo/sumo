@@ -44,7 +44,8 @@
 // ===========================================================================
 
 FXDEFMAP(GNERouteFrame::RouteModeSelector) RouteModeSelectorMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_TYPE,    GNERouteFrame::RouteModeSelector::onCmdSelectRouteMode),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_ROUTEFRAME_ROUTEMODE,    GNERouteFrame::RouteModeSelector::onCmdSelectRouteMode),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_ROUTEFRAME_VCLASS,       GNERouteFrame::RouteModeSelector::onCmdSelectVClass),
 };
 
 FXDEFMAP(GNERouteFrame::ConsecutiveEdges) ConsecutiveEdgesMap[] = {
@@ -75,18 +76,29 @@ FXIMPLEMENT(GNERouteFrame::NonConsecutiveEdges, FXGroupBox,     NonConsecutiveEd
 GNERouteFrame::RouteModeSelector::RouteModeSelector(GNERouteFrame* routeFrameParent) :
     FXGroupBox(routeFrameParent->myContentFrame, "Route mode", GUIDesignGroupBoxFrame),
     myRouteFrameParent(routeFrameParent),
-    myCurrentRouteMode(ROUTEMODE_CONSECUTIVE_EDGES) {
+    myCurrentRouteMode(ROUTEMODE_CONSECUTIVE_EDGES),
+    myCurrentVehicleClass(SVC_PASSENGER) {
     // first fill myRouteModesStrings
     myRouteModesStrings.push_back(std::make_pair(ROUTEMODE_CONSECUTIVE_EDGES, "consecutive edges"));
     myRouteModesStrings.push_back(std::make_pair(ROUTEMODE_NONCONSECUTIVE_EDGES, "non consecutive edges"));
-    // Create FXComboBox
-    myTypeMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
-    // fill myTypeMatchBox with route modes
+    // Create FXComboBox for Route mode
+    myRouteModeMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_ROUTEFRAME_ROUTEMODE, GUIDesignComboBox);
+    // fill myRouteModeMatchBox with route modes
     for (const auto& i : myRouteModesStrings) {
-        myTypeMatchBox->appendItem(i.second.c_str());
+        myRouteModeMatchBox->appendItem(i.second.c_str());
     }
     // Set visible items
-    myTypeMatchBox->setNumVisible((int)myTypeMatchBox->getNumItems());
+    myRouteModeMatchBox->setNumVisible((int)myRouteModeMatchBox->getNumItems());
+    // Create FXComboBox for VClass
+    myVClassMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_ROUTEFRAME_VCLASS, GUIDesignComboBox);
+    // fill myVClassMatchBox with all VCLass
+    for (const auto& i : SumoVehicleClassStrings.getStrings()) {
+        myVClassMatchBox->appendItem(i.c_str());
+    }
+    // set Passenger als default VCLass
+    myVClassMatchBox->setCurrentItem(7);
+    // Set visible items
+    myVClassMatchBox->setNumVisible((int)myVClassMatchBox->getNumItems());
     // RouteModeSelector is always shown
     show();
 }
@@ -101,29 +113,34 @@ GNERouteFrame::RouteModeSelector::getCurrenRouteMode() const {
 }
 
 
+SUMOVehicleClass 
+GNERouteFrame::RouteModeSelector::getCurrentVehicleClass() const {
+    return myCurrentVehicleClass;
+}
+
+
 void
 GNERouteFrame::RouteModeSelector::setCurrentRouteMode(RouteMode routemode) {
     // make sure that route isn't invalid
     if (routemode != ROUTEMODE_INVALID) {
         // restore color
-        myTypeMatchBox->setTextColor(FXRGB(0, 0, 0));
+        myRouteModeMatchBox->setTextColor(FXRGB(0, 0, 0));
         // set current route mode
         myCurrentRouteMode = routemode;
         // set item in myTypeMatchBox
         for (int i = 0; i < (int)myRouteModesStrings.size(); i++) {
             if (myRouteModesStrings.at(i).first == myCurrentRouteMode) {
-                myTypeMatchBox->setCurrentItem(i);
+                myRouteModeMatchBox->setCurrentItem(i);
             }
         }
         // show moduls
-        if (routemode == ROUTEMODE_CONSECUTIVE_EDGES) {
+        if ((routemode == ROUTEMODE_CONSECUTIVE_EDGES) && (myCurrentVehicleClass != SVC_IGNORING)) {
             myRouteFrameParent->myConsecutiveEdges->showConsecutiveEdgesModul();
             myRouteFrameParent->myNonConsecutiveEdges->hideNonConsecutiveEdgesModul();
-        } else if (routemode == ROUTEMODE_NONCONSECUTIVE_EDGES) {
+        } else if ((routemode == ROUTEMODE_NONCONSECUTIVE_EDGES) && (myCurrentVehicleClass != SVC_IGNORING)) {
             myRouteFrameParent->myConsecutiveEdges->hideConsecutiveEdgesModul();
             myRouteFrameParent->myNonConsecutiveEdges->showNonConsecutiveEdgesModul();
         }
-
     } else {
         // hide all moduls if route mode isnt' valid
         myRouteFrameParent->myConsecutiveEdges->hideConsecutiveEdgesModul();
@@ -139,12 +156,50 @@ GNERouteFrame::RouteModeSelector::onCmdSelectRouteMode(FXObject*, FXSelector, vo
     myRouteFrameParent->myNonConsecutiveEdges->onCmdAbortRouteCreation(0,0,0);
     // Check if value of myTypeMatchBox correspond of an allowed additional tags
     for (const auto& i : myRouteModesStrings) {
-        if (i.second == myTypeMatchBox->getText().text()) {
+        if (i.second == myRouteModeMatchBox->getText().text()) {
             // set color of myTypeMatchBox to black (valid)
-            myTypeMatchBox->setTextColor(FXRGB(0, 0, 0));
+            myRouteModeMatchBox->setTextColor(FXRGB(0, 0, 0));
             // Set new current type
             myCurrentRouteMode = i.first;
             // enable moduls
+            if ((myCurrentRouteMode == ROUTEMODE_CONSECUTIVE_EDGES) && (myCurrentVehicleClass != SVC_IGNORING)) {
+                myRouteFrameParent->myConsecutiveEdges->showConsecutiveEdgesModul();
+                myRouteFrameParent->myNonConsecutiveEdges->hideNonConsecutiveEdgesModul();
+            } else if ((myCurrentRouteMode == ROUTEMODE_NONCONSECUTIVE_EDGES) && (myCurrentVehicleClass != SVC_IGNORING)) {
+                myRouteFrameParent->myConsecutiveEdges->hideConsecutiveEdgesModul();
+                myRouteFrameParent->myNonConsecutiveEdges->showNonConsecutiveEdgesModul();
+            }
+            // Write Warning in console if we're in testing mode
+            WRITE_DEBUG(("Selected RouteMode '" + myRouteModeMatchBox->getText() + "' in RouteModeSelector").text());
+            return 1;
+        }
+    }
+    // if Route mode isn't correct, set ROUTEMODE_INVALID as current route mde
+    myCurrentRouteMode = ROUTEMODE_INVALID;
+    // hide all moduls if route mode isn't valid
+    myRouteFrameParent->myConsecutiveEdges->hideConsecutiveEdgesModul();
+    myRouteFrameParent->myNonConsecutiveEdges->hideNonConsecutiveEdgesModul();
+    // set color of myTypeMatchBox to red (invalid)
+    myRouteModeMatchBox->setTextColor(FXRGB(255, 0, 0));
+    // Write Warning in console if we're in testing mode
+    WRITE_DEBUG("Selected invalid RouteMode in RouteModeSelector");
+    return 1;
+}
+
+
+long 
+GNERouteFrame::RouteModeSelector::onCmdSelectVClass(FXObject*, FXSelector, void*) {
+    // first abort all current operations in moduls
+    myRouteFrameParent->myConsecutiveEdges->abortRouteCreation();
+    myRouteFrameParent->myNonConsecutiveEdges->onCmdAbortRouteCreation(0,0,0);
+    // Check if value of myTypeMatchBox correspond of an allowed additional tags
+    for (const auto& i : SumoVehicleClassStrings.getStrings()) {
+        if (i == myVClassMatchBox->getText().text()) {
+            // set color of myTypeMatchBox to black (valid)
+            myVClassMatchBox->setTextColor(FXRGB(0, 0, 0));
+            // Set new current type
+            myCurrentVehicleClass = SumoVehicleClassStrings.get(i);
+            // enable moduls if current route is valid
             if (myCurrentRouteMode == ROUTEMODE_CONSECUTIVE_EDGES) {
                 myRouteFrameParent->myConsecutiveEdges->showConsecutiveEdgesModul();
                 myRouteFrameParent->myNonConsecutiveEdges->hideNonConsecutiveEdgesModul();
@@ -153,19 +208,19 @@ GNERouteFrame::RouteModeSelector::onCmdSelectRouteMode(FXObject*, FXSelector, vo
                 myRouteFrameParent->myNonConsecutiveEdges->showNonConsecutiveEdgesModul();
             }
             // Write Warning in console if we're in testing mode
-            WRITE_DEBUG(("Selected item '" + myTypeMatchBox->getText() + "' in RouteModeSelector").text());
+            WRITE_DEBUG(("Selected VClass '" + myVClassMatchBox->getText() + "' in RouteModeSelector").text());
             return 1;
         }
     }
-    // if additional name isn't correct, set SUMO_TAG_NOTHING as current type
-    myCurrentRouteMode = ROUTEMODE_INVALID;
+    // if VClass name isn't correct, set SVC_IGNORING as current type
+    myCurrentVehicleClass = SVC_IGNORING;
     // hide all moduls if route mode isnt' valid
     myRouteFrameParent->myConsecutiveEdges->hideConsecutiveEdgesModul();
     myRouteFrameParent->myNonConsecutiveEdges->hideNonConsecutiveEdgesModul();
     // set color of myTypeMatchBox to red (invalid)
-    myTypeMatchBox->setTextColor(FXRGB(255, 0, 0));
+    myVClassMatchBox->setTextColor(FXRGB(255, 0, 0));
     // Write Warning in console if we're in testing mode
-    WRITE_DEBUG("Selected invalid item in RouteModeSelector");
+    WRITE_DEBUG("Selected invalid VClass in RouteModeSelector");
     return 1;
 }
 
@@ -432,7 +487,7 @@ GNERouteFrame::NonConsecutiveEdges::addEdge(GNEEdge* edge) {
             // enable finish button
             myFinishCreationButton->enable();
             // calculate temporal route
-            myTemporalRoute = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(SVC_PASSENGER, mySelectedEdges);         
+            myTemporalRoute = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(myRouteFrameParent->myRouteModeSelector->getCurrentVehicleClass(), mySelectedEdges);         
             // update info route label
             updateInfoRouteLabel();
         }
@@ -543,7 +598,7 @@ GNERouteFrame::NonConsecutiveEdges::onCmdRemoveLastRouteEdge(FXObject*, FXSelect
         // remove last edge
         mySelectedEdges.pop_back();
         // calculate temporal route
-        myTemporalRoute = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(SVC_PASSENGER, mySelectedEdges);
+        myTemporalRoute = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(myRouteFrameParent->myRouteModeSelector->getCurrentVehicleClass(), mySelectedEdges);
     }
     return 1;
 }

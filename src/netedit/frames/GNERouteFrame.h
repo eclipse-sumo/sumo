@@ -58,6 +58,9 @@ public:
         /// @brief get current route mode
         const RouteMode& getCurrenRouteMode() const;
 
+        /// @brief get current selected VClass
+        SUMOVehicleClass getCurrentVehicleClass() const;
+
         /// @brief set current route mode type manually
         void setCurrentRouteMode(RouteMode routemode);
 
@@ -65,6 +68,9 @@ public:
         /// @{
         /// @brief Called when the user select another route mode in ComboBox
         long onCmdSelectRouteMode(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user select another VClass
+        long onCmdSelectVClass(FXObject*, FXSelector, void*);
         /// @}
 
     protected:
@@ -76,10 +82,16 @@ public:
         GNERouteFrame* myRouteFrameParent;
 
         /// @brief comboBox with the list of route modes
-        FXComboBox* myTypeMatchBox;
+        FXComboBox* myRouteModeMatchBox;
+
+        /// @brief comboBox with the list of VClass
+        FXComboBox* myVClassMatchBox;
 
         /// @brief current selected route mode
         RouteMode myCurrentRouteMode;
+
+        /// @brief current selected VClass
+        SUMOVehicleClass myCurrentVehicleClass;
 
         /// @brief list of Route modes that will be shown in Match Box
         std::vector<std::pair<RouteMode, std::string> > myRouteModesStrings;

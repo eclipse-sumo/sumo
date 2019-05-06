@@ -747,6 +747,14 @@ enum {
     MID_GNE_VEHICLEFRAME_REMOVELASTEDGE,
     /// @}
 
+    /// @name GNERoute messages
+    /// @{
+
+    /// @brief select a route mode
+    MID_GNE_ROUTEFRAME_ROUTEMODE,
+    /// @brief select a VClass
+    MID_GNE_ROUTEFRAME_VCLASS,
+    /// @}
 
     /// @name GNEEdge messages
     /// @{
