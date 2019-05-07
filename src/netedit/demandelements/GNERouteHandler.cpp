@@ -74,11 +74,11 @@ GNERouteHandler::buildVehicle(GNEViewNet* viewNet, bool undoDemandElements, SUMO
                 if (undoDemandElements) {
                     viewNet->getUndoList()->p_begin("add " + vehicle->getTagStr());
                     viewNet->getUndoList()->add(new GNEChange_DemandElement(vehicle, true), true);
-                    viewNet->getUndoList()->p_end();
                     // iterate over stops of vehicleParameters and create stops associated with it
                     for (const auto& i : vehicleParameters->stops) {
                         buildStop(viewNet, true, i, vehicle, false);
                     }
+                    viewNet->getUndoList()->p_end();
                 } else {
                     viewNet->getNet()->insertDemandElement(vehicle);
                     vType->addDemandElementChild(vehicle);
@@ -285,6 +285,10 @@ GNERouteHandler::closeRoute(const bool /* mayBeDisconnected */) {
         if (myUndoDemandElements) {
             myViewNet->getUndoList()->p_begin("add " + route->getTagStr());
             myViewNet->getUndoList()->add(new GNEChange_DemandElement(route, true), true);
+            // iterate over stops of myActiveRouteStops and create stops associated with it
+            for (const auto& i : myActiveRouteStops) {
+                buildStop(myViewNet, true, i, route, false);
+            }
             myViewNet->getUndoList()->p_end();
         } else {
             myViewNet->getNet()->insertDemandElement(route);
@@ -292,6 +296,10 @@ GNERouteHandler::closeRoute(const bool /* mayBeDisconnected */) {
                 i->addDemandElementChild(route);
             }
             route->incRef("buildRoute");
+            // iterate over stops of myActiveRouteStops and create stops associated with it
+            for (const auto& i : myActiveRouteStops) {
+                buildStop(myViewNet, false, i, route, false);
+            }
         }
     }
 }
