@@ -334,6 +334,10 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme = GUIColorScheme(SCHEME_NAME_EDGEDATA_NUMERICAL, RGBColor(204, 204, 204));
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by distance (kilometrage)", RGBColor(204, 204, 204));
+    scheme.addColor(RGBColor::RED, (double)1);
+    scheme.setAllowsNegativeValues(false);
+    laneColorer.addScheme(scheme);
 
 
     /// add vehicle coloring schemes
