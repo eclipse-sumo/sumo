@@ -295,21 +295,34 @@ public:
         if (it == myDepartLookup.end()) {
             throw ProcessError("Depart edge '" + e->getID() + "' not found in intermodal network.");
         }
-        double totalLength = 0.;
-        double bestDist = std::numeric_limits<double>::max();
-        const _IntermodalEdge* best = nullptr;
-        for (const _IntermodalEdge* split : it->second) {
-            totalLength += split->getLength();
-            double dist = fabs(totalLength - pos);
-            if (dist < bestDist) {
-                bestDist = dist;
-                best = split;
-            } else {
-                break;
+        if (isRailway(e->getPermissions())) {
+            // use closest split (best trainStop)
+            double totalLength = 0.;
+            double bestDist = std::numeric_limits<double>::max();
+            const _IntermodalEdge* best = nullptr;
+            for (const _IntermodalEdge* split : it->second) {
+                totalLength += split->getLength();
+                double dist = fabs(totalLength - pos);
+                if (dist < bestDist) {
+                    bestDist = dist;
+                    best = split;
+                } else {
+                    break;
+                }
             }
+            assert(best != 0);
+            return best;
+        } else {
+            // use next downstream edge
+            const std::vector<_IntermodalEdge*>& splitList = it->second;
+            typename std::vector<_IntermodalEdge*>::const_iterator splitIt = splitList.begin();
+            double totalLength = 0.;
+            while (splitIt + 1 != splitList.end() && totalLength + (*splitIt)->getLength() < pos) {
+                totalLength += (*splitIt)->getLength();
+                ++splitIt;
+            }
+            return *splitIt;
         }
-        assert(best != 0);
-        return best;
     }
 
     /// @brief Returns the departing intermodal connector at the given split offset
