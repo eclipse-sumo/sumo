@@ -23,6 +23,7 @@
 
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
@@ -36,6 +37,15 @@
 
 #include "GNERoute.h"
 
+// ===========================================================================
+// FOX callback mapping
+// ===========================================================================
+FXDEFMAP(GNERoute::GNERoutePopupMenu) GNERoutePopupMenuMap[] = {
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_ROUTE_APPLY_DISTANCE,     GNERoute::GNERoutePopupMenu::onCmdApplyDistance),
+};
+
+// Object implementation
+FXIMPLEMENT(GNERoute::GNERoutePopupMenu, GUIGLObjectPopupMenu, GNERoutePopupMenuMap, ARRAYNUMBER(GNERoutePopupMenuMap))
 
 // ===========================================================================
 // method definitions
@@ -59,6 +69,32 @@ GNERoute::GNERoute(GNEViewNet* viewNet, const std::string& routeID, const std::v
 
 GNERoute::~GNERoute() {}
 
+
+GUIGLObjectPopupMenu*
+GNERoute::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
+    GUIGLObjectPopupMenu* ret = new GNERoutePopupMenu(app, parent, *this);
+    // build header
+    buildPopupHeader(ret, app);
+    // build menu command for center button and copy cursor position to clipboard
+    buildCenterPopupEntry(ret);
+    buildPositionCopyEntry(ret, false);
+    // buld menu commands for names
+    new FXMenuCommand(ret, ("Copy " + getTagStr() + " name to clipboard").c_str(), nullptr, ret, MID_COPY_NAME);
+    new FXMenuCommand(ret, ("Copy " + getTagStr() + " typed name to clipboard").c_str(), nullptr, ret, MID_COPY_TYPED_NAME);
+    new FXMenuSeparator(ret);
+    // build selection and show parameters menu
+    myViewNet->buildSelectionACPopupEntry(ret, this);
+    buildShowParamsPopupEntry(ret);
+    // show option to open demand element dialog
+    if (myTagProperty.hasDialog()) {
+        new FXMenuCommand(ret, ("Open " + getTagStr() + " Dialog").c_str(), getIcon(), &parent, MID_OPEN_ADDITIONAL_DIALOG);
+        new FXMenuSeparator(ret);
+    }
+    new FXMenuCommand(ret, ("Cursor position in view: " + toString(getPositionInView().x()) + "," + toString(getPositionInView().y())).c_str(), nullptr, nullptr, 0);
+    new FXMenuSeparator(ret);
+    new FXMenuCommand(ret, "Apply distance along route", nullptr, ret, MID_GNE_ROUTE_APPLY_DISTANCE);
+    return ret;
+}
 
 const RGBColor&
 GNERoute::getColor() const {
@@ -338,6 +374,31 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
     if (myTagProperty.hasAttribute(key) && myTagProperty.getAttributeProperties(key).requiereUpdateGeometry()) {
         updateGeometry();
     }
+}
+
+/* -------------------------------------------------------------------------
+ * GNERoute::GNERoutePopupMenu - methods
+ * ----------------------------------------------------------------------- */
+GNERoute::GNERoutePopupMenu::GNERoutePopupMenu(GUIMainWindow& app, GUISUMOAbstractView& parent, GUIGlObject& o) :
+    GUIGLObjectPopupMenu(app, parent, o)
+{ }
+
+
+GNERoute::GNERoutePopupMenu::~GNERoutePopupMenu() {}
+
+long
+GNERoute::GNERoutePopupMenu::onCmdApplyDistance(FXObject*, FXSelector, void*) {
+    GNERoute* route = static_cast<GNERoute*>(myObject);
+    GNEViewNet* viewNet = static_cast<GNEViewNet*>(myParent);
+    GNEUndoList* undoList =  route->myViewNet->getUndoList();
+    undoList->p_begin("apply distance along route");
+    double dist = route->getEdgeParents().front()->getNBEdge()->getDistance();
+    for (GNEEdge* edge : route->getEdgeParents()) {
+        undoList->p_add(new GNEChange_Attribute(edge, viewNet->getNet(), SUMO_ATTR_DISTANCE, toString(dist), true, edge->getAttribute(SUMO_ATTR_DISTANCE)));
+        dist += edge->getNBEdge()->getFinalLength();
+    }
+    undoList->p_end();
+    return 1;
 }
 
 

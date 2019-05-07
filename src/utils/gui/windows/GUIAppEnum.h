@@ -876,6 +876,10 @@ enum {
     MID_GNE_LANE_REMOVE_GREENVERGE,
     /// @}
 
+    /// @name GNEDemandElement messages
+    /// @{
+    MID_GNE_ROUTE_APPLY_DISTANCE,
+    /// @}
 
     /// @name Additional Dialog messages (used in all GNEAdditionalDialogs)
     /// @{

@@ -23,6 +23,7 @@
 // ===========================================================================
 
 #include "GNEDemandElement.h"
+#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 
 // ===========================================================================
 // class declarations
@@ -62,6 +63,8 @@ public:
 
     /// @brief check if current demand element is valid to be writed into XML (by default true, can be reimplemented in childs)
     bool isDemandElementValid() const;
+
+    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent);
 
     /// @name Functions related with geometry of element
     /// @{
@@ -136,6 +139,30 @@ public:
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
     std::string getHierarchyName() const;
     /// @}
+    
+    class GNERoutePopupMenu : public GUIGLObjectPopupMenu {
+        FXDECLARE(GNERoutePopupMenu)
+    public:
+        /** @brief Constructor
+         * @param[in] app The main window for instantiation of other windows
+         * @param[in] parent The parent view for changing it
+         * @param[in] o The object of interest
+         * @param[in, out] additionalVisualizations Information which additional visualisations are enabled (per view)
+         */
+        GNERoutePopupMenu(GUIMainWindow& app, GUISUMOAbstractView& parent, GUIGlObject& o);
+
+        /// @brief Destructor
+        ~GNERoutePopupMenu();
+
+        /// @brief Called to modify edge distance values along the route
+        long onCmdApplyDistance(FXObject*, FXSelector, void*);
+
+
+    protected:
+        /// @brief default constructor needed by FOX
+        GNERoutePopupMenu() { }
+
+    };
 
 protected:
     /// @brief route color
