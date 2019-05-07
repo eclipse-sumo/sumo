@@ -236,9 +236,9 @@ GNEVehicleTypeFrame::VehicleTypeEditor::onCmdCreateVehicleType(FXObject*, FXSele
     // create new vehicle type
     GNEDemandElement* vehicleType = new GNEVehicleType(myVehicleTypeFrameParent->myViewNet, vehicleTypeID);
     // add it using undoList (to allow undo-redo)
+    myVehicleTypeFrameParent->myViewNet->getUndoList()->p_begin("create vehicle type");
     myVehicleTypeFrameParent->myViewNet->getUndoList()->add(new GNEChange_DemandElement(vehicleType, true), true);
-    // refresh Vehicle Type Selector (to show the new VType)
-    myVehicleTypeFrameParent->myVehicleTypeSelector->refreshVehicleTypeSelector();
+    myVehicleTypeFrameParent->myViewNet->getUndoList()->p_end();
     // set created vehicle type in selector
     myVehicleTypeFrameParent->myVehicleTypeSelector->setCurrentVehicleType(vehicleType);
     // refresh VehicleType Editor Modul
@@ -268,18 +268,22 @@ GNEVehicleTypeFrame::VehicleTypeEditor::onCmdDeleteVehicleType(FXObject*, FXSele
                 WRITE_DEBUG("Closed FXMessageBox 'remove vType' with 'ESC'");
             }
         } else {
+            // begin undo list operation
+            myVehicleTypeFrameParent->myViewNet->getUndoList()->p_begin("delete vehicle type");
             // remove vehicle type (and all of their childs)
             myVehicleTypeFrameParent->myViewNet->getNet()->deleteDemandElement(myVehicleTypeFrameParent->myVehicleTypeSelector->getCurrentVehicleType(),
                 myVehicleTypeFrameParent->myViewNet->getUndoList());
-            // refresh Vehicle Type Selector
-            myVehicleTypeFrameParent->myVehicleTypeSelector->refreshVehicleTypeSelector();
+            // end undo list operation
+            myVehicleTypeFrameParent->myViewNet->getUndoList()->p_end();
         }
     } else {
+        // begin undo list operation
+        myVehicleTypeFrameParent->myViewNet->getUndoList()->p_begin("delete vehicle type");
         // remove vehicle type (and all of their childs)
         myVehicleTypeFrameParent->myViewNet->getNet()->deleteDemandElement(myVehicleTypeFrameParent->myVehicleTypeSelector->getCurrentVehicleType(),
             myVehicleTypeFrameParent->myViewNet->getUndoList());
-        // refresh Vehicle Type Selector
-        myVehicleTypeFrameParent->myVehicleTypeSelector->refreshVehicleTypeSelector();
+        // end undo list operation
+        myVehicleTypeFrameParent->myViewNet->getUndoList()->p_end();
     }
     return 1;
 }
@@ -324,8 +328,12 @@ GNEVehicleTypeFrame::VehicleTypeEditor::onCmdCopyVehicleType(FXObject*, FXSelect
     if (vType) {
         // create a new Vehicle Type based on the current selected vehicle type
         GNEDemandElement* vehicleTypeCopy = new GNEVehicleType(myVehicleTypeFrameParent->myViewNet, vehicleTypeID, vType);
+        // begin undo list operation
+        myVehicleTypeFrameParent->myViewNet->getUndoList()->p_begin("copy vehicle type");
         // add it using undoList (to allow undo-redo)
         myVehicleTypeFrameParent->myViewNet->getUndoList()->add(new GNEChange_DemandElement(vehicleTypeCopy, true), true);
+        // end undo list operation
+        myVehicleTypeFrameParent->myViewNet->getUndoList()->p_end();
         // refresh Vehicle Type Selector (to show the new VType)
         myVehicleTypeFrameParent->myVehicleTypeSelector->refreshVehicleTypeSelector();
         // set created vehicle type in selector
