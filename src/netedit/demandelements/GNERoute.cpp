@@ -91,7 +91,7 @@ GNERoute::isDemandElementValid() const {
     } else {
         // check if exist at least a connection between every edge
         for (int i = 1; i < (int)getEdgeParents().size(); i++) {
-            if (getRouteCalculatorInstance()->areEdgesConsecutives(SVC_PASSENGER, getEdgeParents().at(i - 1), getEdgeParents().at(i)) == false) {
+            if (getRouteCalculatorInstance()->areEdgesConsecutives(myVClass, getEdgeParents().at(i - 1), getEdgeParents().at(i)) == false) {
                 return false;
             }
         }
