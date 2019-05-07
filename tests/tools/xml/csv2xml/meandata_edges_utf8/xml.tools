@@ -1,0 +1,16 @@
+<meandata>
+    <interval begin="0.00" end="60.00" id="dump_60">
+        <edge arrived="0" departed="0" entered="0" id="ä" laneChangedFrom="0" laneChangedTo="0" left="0" sampledSeconds="0.00"/>
+        <edge arrived="0" departed="0" entered="0" id="1o" laneChangedFrom="0" laneChangedTo="0" left="0" sampledSeconds="0.00"/>
+        <edge arrived="0" departed="0" entered="0" id="1si" laneChangedFrom="0" laneChangedTo="0" left="0" sampledSeconds="0.00"/>
+        <edge arrived="0" departed="0" entered="0" id="2fi" laneChangedFrom="0" laneChangedTo="0" left="0" sampledSeconds="0.00"/>
+        <edge arrived="0" departed="0" entered="0" id="2o" laneChangedFrom="0" laneChangedTo="0" left="0" sampledSeconds="0.00"/>
+        <edge arrived="0" departed="0" entered="0" id="2si" laneChangedFrom="0" laneChangedTo="0" left="0" sampledSeconds="0.00"/>
+        <edge arrived="0" departed="0" entered="0" id="3fi" laneChangedFrom="0" laneChangedTo="0" left="0" sampledSeconds="0.00"/>
+        <edge arrived="0" departed="0" entered="0" id="3o" laneChangedFrom="0" laneChangedTo="0" left="0" sampledSeconds="0.00"/>
+        <edge arrived="0" departed="0" entered="0" id="3si" laneChangedFrom="0" laneChangedTo="0" left="0" sampledSeconds="0.00"/>
+        <edge arrived="0" departed="0" entered="0" id="4fi" laneChangedFrom="0" laneChangedTo="0" left="0" sampledSeconds="0.00"/>
+        <edge arrived="0" departed="0" entered="0" id="4o" laneChangedFrom="0" laneChangedTo="0" left="0" sampledSeconds="0.00"/>
+        <edge arrived="0" departed="0" entered="0" id="4si" laneChangedFrom="0" laneChangedTo="0" left="0" sampledSeconds="0.00"/>
+    </interval>
+</meandata>

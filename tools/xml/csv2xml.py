@@ -22,14 +22,13 @@ import os
 import sys
 import csv
 import contextlib
+import io
 
 from collections import OrderedDict
 from optparse import OptionParser
 
 import xsd
 import xml2csv
-
-PY3 = sys.version_info > (3,)
 
 
 def get_options():
@@ -50,8 +49,7 @@ def get_options():
         optParser.print_help()
         sys.exit()
     if not options.xsd and not options.type:
-        print(
-            "either a schema or a type needs to be specified", file=sys.stderr)
+        print("either a schema or a type needs to be specified", file=sys.stderr)
         sys.exit()
     options.source = args[0]
     if not options.output:
@@ -62,7 +60,7 @@ def get_options():
 def row2xml(row, tag, close="/>\n", depth=1):
     attrString = ' '.join(['%s="%s"' % (a[len(tag) + 1:], v)
                            for a, v in row.items() if v != "" and a.startswith(tag)])
-    return ('%s<%s %s%s' % ((depth * '    '), tag, attrString, close))
+    return (u'%s<%s %s%s' % ((depth * '    '), tag, attrString, close))
 
 
 def row2vehicle_and_route(row, tag):
@@ -70,23 +68,22 @@ def row2vehicle_and_route(row, tag):
         return row2xml(row, tag)
     else:
         edges = row.get("route_edges", "MISSING_VALUE")
-        return ('    <%s %s>\n        <route edges="%s"/>\n    </%s>\n' % (
-            tag,
+        return (u'    <%s %s>\n        <route edges="%s"/>\n    </%s>\n' % (tag,
             ' '.join(['%s="%s"' % (a[len(tag) + 1:], v)
                       for a, v in sorted(row.items()) if v != "" and a != "route_edges"]),
             edges, tag))
 
 
 def write_xml(toptag, tag, options, printer=row2xml):
-    with open(options.output, 'w') as outputf:
-        outputf.write('<%s>\n' % toptag)
-        if (options.source.isdigit()):
+    with io.open(options.output, 'w', encoding="utf8") as outputf:
+        outputf.write(u'<%s>\n' % toptag)
+        if options.source.isdigit():
             inputf = xml2csv.getSocketStream(int(options.source))
         else:
-            inputf = open(options.source)
+            inputf = io.open(options.source, encoding="utf8")
         for row in csv.DictReader(inputf, delimiter=options.delimiter):
             outputf.write(printer(row, tag))
-        outputf.write('</%s>\n' % toptag)
+        outputf.write(u'</%s>\n' % toptag)
 
 
 def checkAttributes(out, old, new, ele, tagStack, depth):
@@ -94,11 +91,8 @@ def checkAttributes(out, old, new, ele, tagStack, depth):
         name = "%s_%s" % (ele.name, attr.name)
         if new.get(name, "") != "":
             if depth > 0:
-                out.write(str.encode(">\n"))
-            if(PY3):
-                out.write(str.encode(row2xml(new, ele.name, "", depth)))
-            else:
-                out.write(row2xml(new, ele.name, "", depth))
+                out.write(u">\n")
+            out.write(row2xml(new, ele.name, "", depth))
             return True
     return False
 
@@ -127,20 +121,12 @@ def checkChanges(out, old, new, currEle, tagStack, depth):
                     present = True
             # print(depth, "seeing", ele.name, changed, tagStack)
             if changed:
-                out.write(str.encode("/>\n"))
+                out.write(u"/>\n")
                 del tagStack[-1]
                 while len(tagStack) > depth:
-                    if(PY3):
-                        out.write(str.encode("%s</%s>\n" %
-                                             ((len(tagStack) - 1) * '    ', tagStack[-1])))
-                    else:
-                        out.write("%s</%s>\n" %
-                                  ((len(tagStack) - 1) * '    ', tagStack[-1]))
+                    out.write(u"%s</%s>\n" % ((len(tagStack) - 1) * '    ', tagStack[-1]))
                     del tagStack[-1]
-                if(PY3):
-                    out.write(str.encode(row2xml(new, ele.name, "", depth)))
-                else:
-                    out.write(row2xml(new, ele.name, "", depth))
+                out.write(row2xml(new, ele.name, "", depth))
                 tagStack.append(ele.name)
                 changed = False
             if present and ele.children:
@@ -154,14 +140,11 @@ def writeHierarchicalXml(struct, options):
         if options.source.isdigit():
             inputf = xml2csv.getSocketStream(int(options.source))
         else:
-            inputf = open(options.source)
+            inputf = io.open(options.source, encoding="utf8")
         lastRow = OrderedDict()
         tagStack = [struct.root.name]
         if options.skip_root:
-            if(PY3):
-                outputf.write(str.encode('<%s' % struct.root.name))
-            else:
-                outputf.write('<%s' % struct.root.name)
+            outputf.write(u'<%s' % struct.root.name)
         fields = None
         enums = {}
         first = True
@@ -181,18 +164,13 @@ def writeHierarchicalXml(struct, options):
                         entry = enums[field][int(entry)]
                     row[field] = entry
                 if first and not options.skip_root:
-                    checkAttributes(
-                        outputf, lastRow, row, struct.root, tagStack, 0)
+                    checkAttributes(outputf, lastRow, row, struct.root, tagStack, 0)
                     first = False
                 checkChanges(outputf, lastRow, row, struct.root, tagStack, 1)
                 lastRow = row
-        outputf.write(str.encode("/>\n"))
+        outputf.write(u"/>\n")
         for idx in range(len(tagStack) - 2, -1, -1):
-            if(PY3):
-                outputf.write(
-                    str.encode("%s</%s>\n" % (idx * '    ', tagStack[idx])))
-            else:
-                outputf.write("%s</%s>\n" % (idx * '    ', tagStack[idx]))
+            outputf.write(u"%s</%s>\n" % (idx * '    ', tagStack[idx]))
 
 
 def main():
