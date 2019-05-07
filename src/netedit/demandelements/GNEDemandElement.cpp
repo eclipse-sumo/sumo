@@ -112,22 +112,17 @@ GNEDemandElement::RouteCalculator::calculateDijkstraPartialRoute(SUMOVehicleClas
 
 bool
 GNEDemandElement::RouteCalculator::areEdgesConsecutives(SUMOVehicleClass vClass, GNEEdge* from, GNEEdge* to) const {
-    // first calculate a route between from and to edge
-    std::vector<const NBEdge*> route = calculateDijkstraRoute(vClass, {from, to});
-    // if route is empty, return false
-    if (route.empty()) {
-        return false;
-    } else {
-        // iterate over route and check if from and to edge are consecutives
-        for (int i = 0; i < (int)route.size(); i++) {
-            if ((route.at(i)->getID() == from->getID()) &&
-                    ((i + 1) < (int)route.size()) &&
-                    (route.at(i + 1)->getID() == to->getID())) {
-                return true;
-            }
-        }
-        return false;
+    if (vClass == SVC_PEDESTRIAN) {
+        return true;
     }
+    NBEdge* nbFrom = from->getNBEdge();
+    NBEdge* nbTo = to->getNBEdge();
+    for (NBEdge::Connection c : nbFrom->getConnectionsFromLane(-1, nbTo, -1)) {
+        if ((nbFrom->getPermissions(c.fromLane) & nbTo->getPermissions(c.toLane) & vClass) == vClass) {
+            return true;
+        }
+    }
+    return false;
 }
 
 // ---------------------------------------------------------------------------
