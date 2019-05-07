@@ -158,15 +158,20 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         FXVerticalFrame* frame2 = new FXVerticalFrame(genScroll, GUIDesignViewSettingsVerticalFrame2);
         //  ... color settings
         FXVerticalFrame* frame22 = new FXVerticalFrame(frame2, GUIDesignViewSettingsVerticalFrame6);
-        FXMatrix* m21 = new FXMatrix(frame22, 3, GUIDesignViewSettingsMatrix3);
+        FXMatrix* m21 = new FXMatrix(frame22, 4, GUIDesignViewSettingsMatrix3);
         new FXLabel(m21, "Color", nullptr, GUIDesignViewSettingsLabel1);
         myLaneEdgeColorMode = new MFXIconComboBox(m21, 30, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
         myLaneColorInterpolation = new FXCheckButton(m21, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButton);
         myLaneColorSettingFrame = new FXVerticalFrame(frame22, GUIDesignViewSettingsVerticalFrame4);
-        myLaneColorRainbow = new FXButton(frame22, "Recalibrate Rainbow", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE,
-                                          (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT), 0, 0, 0, 0, 20, 20, 4, 4);
-        myParamKey = new FXComboBox(frame22, 1, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
+        myParamKey = new FXComboBox(m21, 1, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
         myParamKey->disable();
+
+        // rainbow settings
+        FXMatrix* m24 = new FXMatrix(frame22, 3, GUIDesignViewSettingsMatrix3);
+        myLaneColorRainbow = new FXButton(m24, "Recalibrate Rainbow", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE,
+                                          (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT), 0, 0, 0, 0, 20, 20, 4, 4);
+        myLaneColorRainbowCheck = new FXCheckButton(m24, "hide below threshold", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButton);
+        myLaneColorRainbowThreshold = new FXRealSpinner(m24, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial2);
 
         new FXHorizontalSeparator(frame2, GUIDesignHorizontalSeparator);
         //  ... scale settings
@@ -917,7 +922,8 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
 
     // lanes (colors)
     if (sender == myLaneColorRainbow) {
-        myParent->buildColorRainbow(tmpSettings, tmpSettings.getLaneEdgeScheme(), tmpSettings.getLaneEdgeMode(), GLO_LANE);
+        myParent->buildColorRainbow(tmpSettings, tmpSettings.getLaneEdgeScheme(), tmpSettings.getLaneEdgeMode(), GLO_LANE,
+                myLaneColorRainbowCheck->getCheck(), myLaneColorRainbowThreshold->getValue());
         doRebuildColorMatrices = true;
     }
     if (sender == myJunctionColorRainbow) {

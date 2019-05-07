@@ -217,7 +217,11 @@ public:
     GUIVisualizationSettings* getVisualisationSettings() const;
 
     /// @brief recalibrate color scheme according to the current value range
-    virtual void buildColorRainbow(const GUIVisualizationSettings& /*s*/, GUIColorScheme& /*scheme*/, int /*active*/, GUIGlObjectType /*objectType*/) { }
+    virtual void buildColorRainbow(const GUIVisualizationSettings& /*s*/, GUIColorScheme& /*scheme*/, int /*active*/, GUIGlObjectType /*objectType*/,
+            bool hide = false, double hideThreshold = 0) {
+        UNUSED_PARAMETER(hide);
+        UNUSED_PARAMETER(hideThreshold);
+    }
 
     /// @brief return list of loaded edgeData attributes
     virtual std::vector<std::string> getEdgeDataAttrs() const {
