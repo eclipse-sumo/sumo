@@ -949,6 +949,7 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             changeDemandElementID(value);
+            id = value;
             break;
         // CFM Values
         case SUMO_ATTR_ACCEL:
