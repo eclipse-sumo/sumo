@@ -1175,7 +1175,7 @@ GUILane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) cons
             return GUINet::getGUIInstance()->getEdgeData(myEdge, s.edgeData);
         }
         case 34: {
-            return myEdge->getDistance();
+            return fabs(myEdge->getDistance());
         }
     }
     return 0;
