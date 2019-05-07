@@ -94,6 +94,7 @@ public:
     static std::vector<TraCINextTLSData> getNextTLS(const std::string& vehicleID);
     static std::vector<TraCINextStopData> getNextStops(const std::string& vehicleID);
     static int getStopState(const std::string& vehicleID);
+    static std::string getCurrentBusStopID(const std::string& vehicleID);
     static double getDistance(const std::string& vehicleID);
     static double getDrivingDistance(const std::string& vehicleID, const std::string& edgeID, double position, int laneIndex = 0);
     static double getDrivingDistance2D(const std::string& vehicleID, double x, double y);

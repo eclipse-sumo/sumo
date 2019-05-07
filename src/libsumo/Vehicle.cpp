@@ -493,6 +493,20 @@ Vehicle::getStopState(const std::string& vehicleID) {
     return result;
 }
 
+std::string
+Vehicle::getCurrentBusStopID(const std::string& vehicleID) {
+    MSVehicle* veh = getVehicle(vehicleID);
+    std::string result = "";
+    if (veh->isOnRoad())
+    {
+        const MSVehicle::Stop& stop = veh->getNextStop();
+        if(stop.busstop != nullptr && stop.reached) {
+            result = stop.busstop->getID();
+        }
+    }
+    return result;
+}
+
 double
 Vehicle::getDistance(const std::string& vehicleID) {
     MSVehicle* veh = getVehicle(vehicleID);
@@ -1857,6 +1871,8 @@ Vehicle::handleVariable(const std::string& objID, const int variable, VariableWr
             return wrapper->wrapInt(objID, variable, getSignals(objID));
         case VAR_STOPSTATE:
             return wrapper->wrapInt(objID, variable, getStopState(objID));
+        case VAR_CURRENT_BUS_STOP:
+            return wrapper->wrapString(objID, variable, getCurrentBusStopID(objID));
         case VAR_DISTANCE:
             return wrapper->wrapDouble(objID, variable, getDistance(objID));
         case VAR_ALLOWED_SPEED:

@@ -741,6 +741,9 @@ TRACI_CONST int MOVE_TO_XY = 0xb4;
 // value = stopped + 2 * parking + 4 * triggered
 TRACI_CONST int VAR_STOPSTATE = 0xb5;
 
+// current bus stop id (get: vehicle)
+TRACI_CONST int VAR_CURRENT_BUS_STOP = 0xcd;
+
 // how lane changing is performed (get/set: vehicle)
 TRACI_CONST int VAR_LANECHANGE_MODE = 0xb6;
 

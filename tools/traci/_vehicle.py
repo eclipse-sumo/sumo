@@ -169,6 +169,7 @@ _RETURN_VALUE_FUNC = {tc.VAR_SPEED: Storage.readDouble,
                       tc.DISTANCE_REQUEST: Storage.readDouble,
                       tc.VAR_ROUTING_MODE: Storage.readInt,
                       tc.VAR_STOPSTATE: Storage.readInt,
+                      tc.VAR_CURRENT_BUS_STOP: Storage.readString,
                       tc.VAR_DISTANCE: Storage.readDouble}
 
 
@@ -787,6 +788,14 @@ class VehicleDomain(Domain):
         with each of these flags defined as 0 or 1
         """
         return self._getUniversal(tc.VAR_STOPSTATE, vehID)
+
+    def getCurrentBusStopID(self, vehID):
+        """getCurrentBusStopID(string) -> string
+
+        Returns the ID of the bus stop that the vehicle is currently stopped at.
+        If the vehicle is not stopped at a bus stop, an empty string is returned
+        """
+        return self._getUniversal(tc.VAR_CURRENT_BUS_STOP, vehID)
 
     def isStopped(self, vehID):
         """isStopped(string) -> bool
