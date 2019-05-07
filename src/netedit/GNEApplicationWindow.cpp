@@ -1354,9 +1354,6 @@ GNEApplicationWindow::fillMenuBar() {
 
 void
 GNEApplicationWindow::loadConfigOrNet(const std::string file, bool isNet, bool isReload, bool useStartupOptions, bool newNet) {
-    if (!continueWithUnsavedChanges()) {
-        return;
-    }
     storeWindowSizeAndPos();
     getApp()->beginWaitCursor();
     myAmLoading = true;
@@ -1430,8 +1427,6 @@ GNEApplicationWindow::closeAllWindows() {
     // remove coordinate information
     myGeoCoordinate->setText("N/A");
     myCartesianCoordinate->setText("N/A");
-
-    myUndoList->p_clear();
     // check if net can be deleted
     if (myNet != nullptr) {
         delete myNet;
