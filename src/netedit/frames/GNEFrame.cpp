@@ -1679,22 +1679,33 @@ GNEFrame::ACHierarchy::onCmdDeleteItem(FXObject*, FXSelector, void*) {
 
 void
 GNEFrame::ACHierarchy::createPopUpMenu(int X, int Y, GNEAttributeCarrier* ac) {
-    // create FXMenuPane
-    FXMenuPane* pane = new FXMenuPane(myTreelist);
-    // set current clicked AC
-    myRightClickedAC = ac;
-    // set name
-    new MFXMenuHeader(pane, myFrameParent->myViewNet->getViewParent()->getGUIMainWindow()->getBoldFont(), myRightClickedAC->getPopUpID().c_str(), myRightClickedAC->getIcon());
-    new FXMenuSeparator(pane);
-    // Fill FXMenuCommand
-    new FXMenuCommand(pane, "Center", GUIIconSubSys::getIcon(ICON_RECENTERVIEW), this, MID_GNE_INSPECTORFRAME_CENTER);
-    new FXMenuCommand(pane, "Inspect", GUIIconSubSys::getIcon(ICON_MODEINSPECT), this, MID_GNE_INSPECTORFRAME_INSPECT);
-    new FXMenuCommand(pane, "Delete", GUIIconSubSys::getIcon(ICON_MODEDELETE), this, MID_GNE_INSPECTORFRAME_DELETE);
-    // Center in the mouse position and create pane
-    pane->setX(X);
-    pane->setY(Y);
-    pane->create();
-    pane->show();
+    // first check that AC exist
+    if (ac) {
+        // set current clicked AC
+        myRightClickedAC = ac;
+        // create FXMenuPane
+        FXMenuPane* pane = new FXMenuPane(myTreelist);
+        // set name
+        new MFXMenuHeader(pane, myFrameParent->myViewNet->getViewParent()->getGUIMainWindow()->getBoldFont(), myRightClickedAC->getPopUpID().c_str(), myRightClickedAC->getIcon());
+        new FXMenuSeparator(pane);
+        // Fill FXMenuCommand
+        new FXMenuCommand(pane, "Center", GUIIconSubSys::getIcon(ICON_RECENTERVIEW), this, MID_GNE_INSPECTORFRAME_CENTER);
+        FXMenuCommand* inspectMenuCommand = new FXMenuCommand(pane, "Inspect", GUIIconSubSys::getIcon(ICON_MODEINSPECT), this, MID_GNE_INSPECTORFRAME_INSPECT);
+        FXMenuCommand* deleteMenuCommand = new FXMenuCommand(pane, "Delete", GUIIconSubSys::getIcon(ICON_MODEDELETE), this, MID_GNE_INSPECTORFRAME_DELETE);
+        // check if inspect and delete menu commands has to be disabled
+        if ((myRightClickedAC->getTagProperty().isNetElement() && (myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND)) ||
+            (myRightClickedAC->getTagProperty().isDemandElement() && (myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK))) {
+            inspectMenuCommand->disable();
+            deleteMenuCommand->disable();
+        }
+        // Center in the mouse position and create pane
+        pane->setX(X);
+        pane->setY(Y);
+        pane->create();
+        pane->show();
+    } else {
+        myRightClickedAC = nullptr;
+    }
 }
 
 
