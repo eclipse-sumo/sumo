@@ -3135,9 +3135,8 @@ GNEAttributeCarrier::fillDemandElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_EMISSIONCLASS,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_EXTENDED,
-                                           "An abstract emission class",
-                                           "PC_G_EU4");
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUEMUTABLE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_EXTENDED,
+                                           "An abstract emission class");
         attrProperty.setDiscreteValues(emissions);
         myTagProperties[currentTag].addAttribute(attrProperty);
 

@@ -279,7 +279,7 @@ GNEVehicleType::getAttribute(SumoXMLAttr key) const {
             if (wasSet(VTYPEPARS_EMISSIONCLASS_SET)) {
                 return PollutantsInterface::getName(emissionClass);
             } else {
-                return myTagProperty.getDefaultValue(SUMO_ATTR_EMISSIONCLASS);
+                return PollutantsInterface::getName(defaultValues.emissionClass);
             }
         case SUMO_ATTR_GUISHAPE:
             if (wasSet(VTYPEPARS_SHAPE_SET)) {
@@ -578,7 +578,7 @@ GNEVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_VCLASS:
             return canParseVehicleClasses(value);
         case SUMO_ATTR_EMISSIONCLASS:
-            /** check **/
+            // check #5585
             return true;
         case SUMO_ATTR_GUISHAPE:
             if (value == "all") {
@@ -1067,7 +1067,7 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case SUMO_ATTR_SPEEDDEV:
-            if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
+            if (!value.empty() && (value != toString(defaultValues.speedFactor.getParameter()[1]))) {
                 speedFactor.getParameter()[1] = parse<double>(value);
                 // mark parameter as set
                 parametersSet |= VTYPEPARS_SPEEDFACTOR_SET;
@@ -1104,7 +1104,7 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_EMISSIONCLASS:
             if (!value.empty() && (value != toString(defaultValues.emissionClass))) {
-                emissionClass = PollutantsInterface::getClassByName(value);
+                // emissionClass = PollutantsInterface::getClassByName(value); CHECK #5585 
                 // mark parameter as set
                 parametersSet |= VTYPEPARS_EMISSIONCLASS_SET;
             } else {
