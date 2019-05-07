@@ -2224,8 +2224,12 @@ GNEApplicationWindow::onCmdSaveAdditionalsAs(FXObject*, FXSelector, void*) {
                     GUIIconSubSys::getIcon(ICON_MODEADDITIONAL),
                     gCurrentFolder);
     if (file != "") {
+        // reset writtable flag
+        OptionsCont::getOptions().resetWritable();
         // change value of "additional-files"
         OptionsCont::getOptions().set("additional-files", file.text());
+        // change flag of menu command for save additionals
+        myFileMenuCommands.saveAdditionals->enable();
         // save additionals
         return onCmdSaveAdditionals(nullptr, 0, nullptr);
     } else {
@@ -2348,8 +2352,12 @@ GNEApplicationWindow::onCmdSaveDemandElementsAs(FXObject*, FXSelector, void*) {
                     GUIIconSubSys::getIcon(ICON_SUPERMODEDEMAND),
                     gCurrentFolder);
     if (file != "") {
+        // reset writtable flag
+        OptionsCont::getOptions().resetWritable();
         // change value of "route-files"
         OptionsCont::getOptions().set("route-files", file.text());
+        // change flag of menu command for save demand elements
+        myFileMenuCommands.saveDemandElements->enable();
         // save demand elements
         return onCmdSaveDemandElements(nullptr, 0, nullptr);
     } else {
