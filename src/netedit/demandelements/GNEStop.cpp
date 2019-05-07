@@ -46,8 +46,8 @@
 
 GNEStop::GNEStop(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehicleParameter::Stop& stopParameter, GNEAdditional* stoppingPlace, GNEDemandElement* stopParent) :
     GNEDemandElement(stopParent, viewNet, GLO_STOP, tag, {}, {}, {}, {stoppingPlace}, {stopParent}, {}, {}, {}, {}, {}),
-                 SUMOVehicleParameter::Stop(stopParameter),
-myFriendlyPosition(false) {
+    SUMOVehicleParameter::Stop(stopParameter),
+    myFriendlyPosition(false) {
 }
 
 
@@ -332,16 +332,18 @@ GNEStop::getAttribute(SumoXMLAttr key) const {
                 return toString(index);
             }
         case SUMO_ATTR_TRIGGERED:
+            // this is an special case
             if (parametersSet & STOP_TRIGGER_SET) {
-                return toString(triggered);
+                return "1";
             } else {
-                return "";
+                return "0";
             }
         case SUMO_ATTR_CONTAINER_TRIGGERED:
+            // this is an special case
             if (parametersSet & STOP_CONTAINER_TRIGGER_SET) {
-                return toString(containerTriggered);
+                return "1";
             } else {
-                return "";
+                return "0";
             }
         case SUMO_ATTR_EXPECTED:
             if (parametersSet & STOP_EXPECTED_SET) {
@@ -535,9 +537,9 @@ bool
 GNEStop::isDisjointAttributeSet(const SumoXMLAttr attr) const {
     switch (attr) {
         case SUMO_ATTR_EXPECTED:
-            return triggered;
+            return (parametersSet & STOP_TRIGGER_SET);
         case SUMO_ATTR_EXPECTED_CONTAINERS:
-            return containerTriggered;
+            return (parametersSet & STOP_CONTAINER_TRIGGER_SET);
         default:
             return true;
     };
@@ -615,19 +617,21 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case SUMO_ATTR_TRIGGERED:
-            if (value.empty()) {
-                parametersSet &= ~STOP_TRIGGER_SET;
-            } else {
-                triggered = parse<bool>(value);
+            triggered = parse<bool>(value);
+            // this is an special case: only if SUMO_ATTR_TRIGGERED is true, it will be written in XML
+            if (triggered) {
                 parametersSet |= STOP_TRIGGER_SET;
+            } else {
+                parametersSet &= ~STOP_TRIGGER_SET;
             }
             break;
         case SUMO_ATTR_CONTAINER_TRIGGERED:
-            if (value.empty()) {
-                parametersSet &= ~STOP_CONTAINER_TRIGGER_SET;
-            } else {
-                containerTriggered = parse<bool>(value);
+            containerTriggered = parse<bool>(value);
+            // this is an special case: only if SUMO_ATTR_CONTAINER_TRIGGERED is true, it will be written in XML
+            if (containerTriggered) {
                 parametersSet |= STOP_CONTAINER_TRIGGER_SET;
+            } else {
+                parametersSet &= ~STOP_CONTAINER_TRIGGER_SET;
             }
             break;
         case SUMO_ATTR_EXPECTED:
