@@ -1132,6 +1132,9 @@ GNELane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) cons
             }
         }
         case 14: {
+            return myParentEdge.getNBEdge()->getDistance();
+        }
+        case 15: {
             return fabs(myParentEdge.getNBEdge()->getDistance());
         }
     }

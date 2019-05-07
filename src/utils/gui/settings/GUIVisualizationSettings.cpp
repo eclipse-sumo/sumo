@@ -335,6 +335,13 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
     scheme = GUIColorScheme("by distance (kilometrage)", RGBColor(204, 204, 204));
+    scheme.addColor(RGBColor(255, 204, 204), (double)1);
+    scheme.addColor(RGBColor::RED, (double)10000);
+    scheme.addColor(RGBColor(204, 204, 255), (double)-1);
+    scheme.addColor(RGBColor::BLUE, (double)-10000);
+    scheme.setAllowsNegativeValues(true);
+    laneColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by abs distance (kilometrage)", RGBColor(204, 204, 204));
     scheme.addColor(RGBColor::RED, (double)1);
     scheme.setAllowsNegativeValues(false);
     laneColorer.addScheme(scheme);
@@ -851,6 +858,11 @@ GUIVisualizationSettings::initNeteditDefaults() {
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
     scheme = GUIColorScheme("by distance (kilometrage)", RGBColor(204, 204, 204));
+    scheme.addColor(RGBColor::RED, (double)1);
+    scheme.addColor(RGBColor::RED, (double)-1);
+    scheme.setAllowsNegativeValues(true);
+    laneColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by abs distance (kilometrage)", RGBColor(204, 204, 204));
     scheme.addColor(RGBColor::RED, (double)1);
     scheme.setAllowsNegativeValues(false);
     laneColorer.addScheme(scheme);
