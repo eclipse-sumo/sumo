@@ -1,7 +1,9 @@
 Please feel free to add and / or modify files here but keep in mind that
-EPL requires that "derivative works" be licensed under the terms of the EPL
-whereas "separate modules of software" may be licensed arbitrarily.
-Modifications to the files and directories listed here are considered derivative work:
+EPL requires that "derivative works" be licensed under the terms of the EPL.
+If the extension is a separate module and is not published under the EPL
+it will not be adopted in the SUMO mainline repository.
+
+Modifications to the files and directories listed here are considered _derivative work_:
 
 - activitygen
 - dfrouter
@@ -34,7 +36,8 @@ Modifications to the files and directories listed here are considered derivative
 - od2trips_main.cpp
 - sumo_main.cpp
 
-Exceptions with separate lists are:
+Directories containing interface code for _separate modules_ (with separate lists) are:
+
 - car following models that inherit from MSCFModel (excluding [modifications of the existing models](microsim/cfmodels/README_Contributing.md))
 - lane changing models that inherit from MSAbstractLaneChangeModel (excluding [modifications of the existing models](microsim/lcmodels/README_Contributing.md))
 - simulation output modules (excluding [changes to the existing classes](microsim/output/README_Contributing.md))
