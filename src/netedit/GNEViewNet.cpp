@@ -525,7 +525,7 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
         // draw temporal trip route
         myViewParent->getVehicleFrame()->getTripRouteCreator()->drawTemporalRoute();
         // draw temporal non consecutive edge
-        myViewParent->getRouteFrame()->getNonConsecutiveEdges()->drawTemporalRoute();
+        myViewParent->getRouteFrame()->drawTemporalRoute();
     }
     // draw elements
     glLineWidth(1);

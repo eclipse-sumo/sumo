@@ -270,7 +270,7 @@ GNERouteFrame::ConsecutiveEdges::hideConsecutiveEdgesModul() {
 
 
 bool
-GNERouteFrame::ConsecutiveEdges::addEdgeIntoRoute(GNEEdge* edge) {
+GNERouteFrame::ConsecutiveEdges::addEdge(GNEEdge* edge) {
     // check if currently we're creating a new route
     if (myRouteEdges.empty()) {
         // block undo/redo
@@ -284,6 +284,8 @@ GNERouteFrame::ConsecutiveEdges::addEdgeIntoRoute(GNEEdge* edge) {
         // enable buttons
         myCreateRouteButton->enable();
         myAbortCreationButton->enable();
+        // disable remove last edge
+        myRemoveLastInsertedEdge->disable();
         // Change colors of candidate edges
         for (const auto& i : myRouteEdges.back()->getGNEJunctionDestiny()->getGNEOutgoingEdges()) {
             if (i != edge) {
@@ -323,8 +325,12 @@ GNERouteFrame::ConsecutiveEdges::addEdgeIntoRoute(GNEEdge* edge) {
                         }
                     }
                 }
+                // enable remove last edge (because there is more than one edge)
+                myRemoveLastInsertedEdge->enable();
                 // update route label
                 updateInfoRouteLabel();
+                // update view
+                myRouteFrameParent->getViewNet()->update();
                 // edge added, then return true
                 return true;
             }
@@ -332,6 +338,31 @@ GNERouteFrame::ConsecutiveEdges::addEdgeIntoRoute(GNEEdge* edge) {
         // edge isn't a candidate edge, then return false
         return false;
     }
+}
+
+/// @brief clear edges (and restore colors)
+void 
+GNERouteFrame::ConsecutiveEdges::clearEdges() {
+    // disable special color in candidate edges
+    for (const auto& j : myRouteEdges.back()->getGNEJunctionDestiny()->getGNEOutgoingEdges()) {
+        for (const auto& k : j->getLanes()) {
+            k->setSpecialColor(nullptr);
+        }
+    }
+    // disable special color in current route edges
+    for (const auto& j : myRouteEdges) {
+        for (const auto& k : j->getLanes()) {
+            k->setSpecialColor(nullptr);
+        }
+    }
+    // clear route edges
+    myRouteEdges.clear();
+}
+
+
+const std::vector<GNEEdge*> &
+GNERouteFrame::ConsecutiveEdges::getRouteEdges() const {
+    return myRouteEdges;
 }
 
 
@@ -362,20 +393,8 @@ GNERouteFrame::ConsecutiveEdges::onCmdAbortRoute(FXObject*, FXSelector, void*) {
     if (myRouteEdges.size() > 0) {
         // unblock undo/redo
         myRouteFrameParent->myViewNet->getViewParent()->getGNEAppWindows()->enableUndoRedo();
-        // disable special color in candidate edges
-        for (const auto& j : myRouteEdges.back()->getGNEJunctionDestiny()->getGNEOutgoingEdges()) {
-            for (const auto& k : j->getLanes()) {
-                k->setSpecialColor(nullptr);
-            }
-        }
-        // disable special color in current route edges
-        for (const auto& j : myRouteEdges) {
-            for (const auto& k : j->getLanes()) {
-                k->setSpecialColor(nullptr);
-            }
-        }
-        // clear route edges
-        myRouteEdges.clear();
+        // clear edges
+        clearEdges();
         // disable buttons
         myCreateRouteButton->disable();
         myAbortCreationButton->disable();
@@ -390,7 +409,42 @@ GNERouteFrame::ConsecutiveEdges::onCmdAbortRoute(FXObject*, FXSelector, void*) {
 
 long 
 GNERouteFrame::ConsecutiveEdges::onCmdRemoveLastRouteEdge(FXObject*, FXSelector, void*) {
-    return 1;
+    if (myRouteEdges.size() > 1) {
+        // restore colors of last inserted edge edges
+        for (const auto& j : myRouteEdges.back()->getGNEJunctionDestiny()->getGNEOutgoingEdges()) {
+            for (const auto& k : j->getLanes()) {
+                k->setSpecialColor(nullptr);
+            }
+        }
+        // add new edge in the list of route edges
+        myRouteEdges.pop_back();
+        // set selected color in all edges
+        for (const auto& j : myRouteEdges) {
+            for (const auto& k : j->getLanes()) {
+                k->setSpecialColor(&myRouteFrameParent->getEdgeCandidateColor());
+            }
+        }
+        // set new candidate colors
+        for (const auto& j : myRouteEdges.back()->getGNEJunctionDestiny()->getGNEOutgoingEdges()) {
+            if (j != myRouteEdges.back()) {
+                for (const auto& k : j->getLanes()) {
+                    k->setSpecialColor(&myRouteFrameParent->getEdgeCandidateSelectedColor());
+                }
+            }
+        }
+        // disable remove last edge button if there is only one edge
+        if (myRouteEdges.size() == 1) {
+            myRemoveLastInsertedEdge->disable();
+        }
+        // update route label
+        updateInfoRouteLabel();
+        // update view
+        myRouteFrameParent->getViewNet()->update();
+        // edge added, then return true
+        return true;
+    } else {
+        return false;
+    }
 }
 
 void
@@ -486,9 +540,13 @@ GNERouteFrame::NonConsecutiveEdges::addEdge(GNEEdge* edge) {
             myFinishCreationButton->enable();
             // calculate temporal route
             myTemporalRoute = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(myRouteFrameParent->myRouteModeSelector->getCurrentVehicleClass(), mySelectedEdges);         
-            // update info route label
-            updateInfoRouteLabel();
+        } else {
+            // Routes with only one edge are allowed
+            myTemporalRoute.clear();
+            myTemporalRoute.push_back(mySelectedEdges.front()->getNBEdge());
         }
+        // update info route label
+        updateInfoRouteLabel();
         return true;
     } else {
         return false;
@@ -512,31 +570,9 @@ GNERouteFrame::NonConsecutiveEdges::clearEdges() {
 }
 
 
-void
-GNERouteFrame::NonConsecutiveEdges::drawTemporalRoute() const {
-    // only draw if there is at least two edges
-    if (myTemporalRoute.size() > 1) {
-        // Add a draw matrix
-        glPushMatrix();
-        // Start with the drawing of the area traslating matrix to origin
-        glTranslated(0, 0, GLO_MAX);
-        // set orange color
-        GLHelper::setColor(RGBColor::ORANGE);
-        // set line width
-        glLineWidth(5);
-        // draw first line
-        GLHelper::drawLine(myTemporalRoute.at(0)->getLanes().front().shape.front(),
-                           myTemporalRoute.at(0)->getLanes().front().shape.back());
-        // draw rest of lines
-        for (int i = 1; i < (int)myTemporalRoute.size(); i++) {
-            GLHelper::drawLine(myTemporalRoute.at(i - 1)->getLanes().front().shape.back(),
-                               myTemporalRoute.at(i)->getLanes().front().shape.front());
-            GLHelper::drawLine(myTemporalRoute.at(i)->getLanes().front().shape.front(),
-                               myTemporalRoute.at(i)->getLanes().front().shape.back());
-        }
-        // Pop last matrix
-        glPopMatrix();
-    }
+const std::vector<const NBEdge*> &
+GNERouteFrame::NonConsecutiveEdges::getTemporalRoute() const {
+    return myTemporalRoute;
 }
 
 
@@ -549,8 +585,8 @@ GNERouteFrame::NonConsecutiveEdges::isValid(SUMOVehicleClass /* vehicleClass */)
 long
 GNERouteFrame::NonConsecutiveEdges::onCmdCreateRoute(FXObject*, FXSelector, void*) {
      // create edge only if there is route edges
-    if (mySelectedEdges.size() > 1) {
-        // obtain GNERoutes
+    if (mySelectedEdges.size() > 0) {
+        // obtain route edges
         std::vector<GNEEdge*> routeEdges;
         routeEdges.reserve(myTemporalRoute.size());
         for (const auto &i : myTemporalRoute) {
@@ -594,12 +630,31 @@ GNERouteFrame::NonConsecutiveEdges::onCmdAbortRoute(FXObject*, FXSelector, void*
 long
 GNERouteFrame::NonConsecutiveEdges::onCmdRemoveLastRouteEdge(FXObject*, FXSelector, void*) {
     if (mySelectedEdges.size() > 1) {
+        // remove special color of last selected edge
+        for (auto i : mySelectedEdges.back()->getLanes()) {
+            i->setSpecialColor(0);
+        }
         // remove last edge
         mySelectedEdges.pop_back();
-        // calculate temporal route
-        myTemporalRoute = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(myRouteFrameParent->myRouteModeSelector->getCurrentVehicleClass(), mySelectedEdges);
+        // check if remove last route edge button has to be disabled
+        if (mySelectedEdges.size() == 1) {
+            // avoid remove last edge
+            myRemoveLastInsertedEdge->disable();
+            // Routes with only one edge are allowed
+            myTemporalRoute.clear();
+            myTemporalRoute.push_back(mySelectedEdges.front()->getNBEdge());
+        } else {
+            // calculate temporal route
+            myTemporalRoute = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(myRouteFrameParent->myRouteModeSelector->getCurrentVehicleClass(), mySelectedEdges);
+        }
+        // update info route label
+        updateInfoRouteLabel();
+        // update view
+        myRouteFrameParent->myViewNet->update();
+        return true;
+    } else {
+        return false;
     }
-    return 1;
 }
 
 void
@@ -670,7 +725,7 @@ GNERouteFrame::handleEdgeClick(GNEEdge* clickedEdge) {
         switch (myRouteModeSelector->getCurrenRouteMode()) {
             case ROUTEMODE_CONSECUTIVE_EDGES:
                 // check if edge can be inserted in consecutive edges modul modul
-                if (myConsecutiveEdges->addEdgeIntoRoute(clickedEdge)) {
+                if (myConsecutiveEdges->addEdge(clickedEdge)) {
                     WRITE_DEBUG("Edge added in ConsecutiveEdges mode");
                 } else {
                     WRITE_DEBUG("Edge wasn't added in ConsecutiveEdges mode");
@@ -736,9 +791,48 @@ GNERouteFrame::hotkeyEsc() {
 }
 
 
-GNERouteFrame::NonConsecutiveEdges* 
-GNERouteFrame::getNonConsecutiveEdges() const {
-    return myNonConsecutiveEdges;
+void
+GNERouteFrame::drawTemporalRoute() const {
+    // declare a vector with temporal route edges
+    std::vector<const NBEdge*> temporalRoute;
+    // obtain temporal route depending of current route mode
+    switch (myRouteModeSelector->getCurrenRouteMode()) {
+        case ROUTEMODE_CONSECUTIVE_EDGES:
+            // convert GNEEdges to NBEdges
+            temporalRoute.reserve(myConsecutiveEdges->getRouteEdges().size());
+            for (const auto &i : myConsecutiveEdges->getRouteEdges()) {
+                temporalRoute.push_back(i->getNBEdge());
+            }
+            break;
+        case ROUTEMODE_NONCONSECUTIVE_EDGES:
+            temporalRoute = myNonConsecutiveEdges->getTemporalRoute();
+            break;
+        default:
+            break;
+    }
+    // only draw if there is at least two edges
+    if (temporalRoute.size() > 1) {
+        // Add a draw matrix
+        glPushMatrix();
+        // Start with the drawing of the area traslating matrix to origin
+        glTranslated(0, 0, GLO_MAX);
+        // set orange color
+        GLHelper::setColor(RGBColor::ORANGE);
+        // set line width
+        glLineWidth(5);
+        // draw first line
+        GLHelper::drawLine(temporalRoute.at(0)->getLanes().front().shape.front(),
+                           temporalRoute.at(0)->getLanes().front().shape.back());
+        // draw rest of lines
+        for (int i = 1; i < (int)temporalRoute.size(); i++) {
+            GLHelper::drawLine(temporalRoute.at(i - 1)->getLanes().front().shape.back(),
+                               temporalRoute.at(i)->getLanes().front().shape.front());
+            GLHelper::drawLine(temporalRoute.at(i)->getLanes().front().shape.front(),
+                               temporalRoute.at(i)->getLanes().front().shape.back());
+        }
+        // Pop last matrix
+        glPopMatrix();
+    }
 }
 
 /****************************************************************************/

@@ -119,7 +119,13 @@ public:
         void hideConsecutiveEdgesModul();
 
         /// @brief add edge to current route (note: edge must be included in set of candidate edges
-        bool addEdgeIntoRoute(GNEEdge* edge);
+        bool addEdge(GNEEdge* edge);
+
+        /// @brief clear edges (and restore colors)
+        void clearEdges();
+
+        /// @brief get temporal route
+        const std::vector<GNEEdge*> &getRouteEdges() const;
 
         /// @name FOX-callbacks
         /// @{
@@ -193,8 +199,8 @@ public:
         /// @brief clear edges (and restore colors)
         void clearEdges();
 
-        /// @brief draw temporal route
-        void drawTemporalRoute() const;
+        /// @brief get temporal route
+        const std::vector<const NBEdge*> &getTemporalRoute() const;
 
         /// @name FOX-callbacks
         /// @{
@@ -265,8 +271,8 @@ public:
     /// @brief function called when user press ESC key
     void hotkeyEsc();
 
-    /// @brief return non consecutive edges modul
-    NonConsecutiveEdges* getNonConsecutiveEdges() const;
+    /// @brief draw temporal route
+    void drawTemporalRoute() const;
 
 private:
     /// @brief route mode selector
