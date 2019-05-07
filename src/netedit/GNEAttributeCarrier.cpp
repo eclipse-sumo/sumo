@@ -82,7 +82,7 @@ GNEAttributeCarrier::AttributeProperties::AttributeProperties(const SumoXMLAttr 
         throw FormatException("Missing definition for AttributeProperty '" + toString(attribute) + "'");
     }
     // if default value isn't empty, but attribute doesn't support default values, throw exception.
-    if (!defaultValue.empty() && !(attributeProperty & (ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_DEFAULTVALUEMUTABLE))) {
+    if (!defaultValue.empty() && !(attributeProperty & ATTRPROPERTY_DEFAULTVALUESTATIC)) {
         throw FormatException("AttributeProperty for '" + toString(attribute) + "' doesn't support default values");
     }
     // default value cannot be static and mutables at the same time
