@@ -634,6 +634,10 @@
                 <xsd:complexType>
                     <xsd:attribute name="from" type="xsd:string"/>
                     <xsd:attribute name="to" type="xsd:string"/>
+                    <xsd:attribute name="fromXY" type="positionType"/>
+                    <xsd:attribute name="toXY" type="positionType"/>
+                    <xsd:attribute name="fromLonLat" type="positionType"/>
+                    <xsd:attribute name="toLonLat" type="positionType"/>
                     <xsd:attribute name="busStop" type="xsd:string"/>
                     <xsd:attribute name="modes" type="xsd:string"/>
                     <xsd:attribute name="vTypes" type="xsd:string"/>

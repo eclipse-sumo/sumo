@@ -24,6 +24,7 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/demandelements/GNEDemandElement.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNELane.h>
 #include <utils/gui/div/GLHelper.h>
@@ -179,6 +180,12 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
     }
     // Pop name
     glPopName();
+    // draw demand element childs
+    for (const auto &i : getDemandElementChilds()) {
+        if (!i->getTagProperty().isPlacedInRTree()) {
+            i->drawGL(s);
+        }
+    }
 }
 
 

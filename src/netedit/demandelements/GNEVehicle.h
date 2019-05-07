@@ -129,8 +129,8 @@ public:
     /* @brief method for check if the value for certain attribute is set
      * @param[in] key The attribute key
      */
-
     bool isAttributeSet(SumoXMLAttr key) const;
+
     /* @brief method for check if certain attribute is set (used by ACs with disjoint attributes)
      * @param[in] key The attribute key
      * @return true if it's set, false in other case
@@ -160,6 +160,9 @@ protected:
 private:
     /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value);
+
+    /// @brief method for setting the disjoint attribute and nothing else (used in GNEChange_Attribute)
+    void setDisjointAttribute(const int newParameterSet);
 
     /// @brief Invalidated copy constructor.
     GNEVehicle(const GNEVehicle&) = delete;

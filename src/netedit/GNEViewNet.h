@@ -261,6 +261,9 @@ public:
     /// @brief handle enter keypress
     void hotkeyEnter();
 
+    /// @brief handle backspace keypress
+    void hotkeyBackSpace();
+
     /// @brief handle focus frame keypress
     void hotkeyFocusFrame();
 

@@ -639,14 +639,19 @@ GNENet::deleteAdditional(GNEAdditional* additional, GNEUndoList* undoList) {
 
 void
 GNENet::deleteDemandElement(GNEDemandElement* demandElement, GNEUndoList* undoList) {
-    undoList->p_begin("delete " + demandElement->getTagStr());
-    // first remove all demand element childs of this demandElement calling this function recursively
-    while (demandElement->getDemandElementChilds().size() > 0) {
-        deleteDemandElement(demandElement->getDemandElementChilds().front(), undoList);
+    // check that default VTypes aren't removed
+    if ((demandElement->getTagProperty().getTag() == SUMO_TAG_VTYPE) && (GNEAttributeCarrier::parse<bool>(demandElement->getAttribute(GNE_ATTR_DEFAULT_VTYPE)))) {
+        throw ProcessError("Trying to delete a default Vehicle Type");
+    } else {
+        undoList->p_begin("delete " + demandElement->getTagStr());
+        // first remove all demand element childs of this demandElement calling this function recursively
+        while (demandElement->getDemandElementChilds().size() > 0) {
+            deleteDemandElement(demandElement->getDemandElementChilds().front(), undoList);
+        }
+        // remove demandElement
+        undoList->add(new GNEChange_DemandElement(demandElement, false), true);
+        undoList->p_end();
     }
-    // remove demandElement
-    undoList->add(new GNEChange_DemandElement(demandElement, false), true);
-    undoList->p_end();
 }
 
 

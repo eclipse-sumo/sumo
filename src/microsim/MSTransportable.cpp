@@ -258,7 +258,7 @@ MSTransportable::Stage_Trip::setArrived(MSNet* net, MSTransportable* transportab
         std::vector<MSNet::MSIntermodalRouter::TripItem> result;
         int stageIndex = 1;
         if (net->getIntermodalRouter().compute(myOrigin, myDestination, previous->getArrivalPos(), myArrivalPos, myDestinationStop == nullptr ? "" : myDestinationStop->getID(),
-                                               transportable->getVehicleType().getMaxSpeed() * myWalkFactor, vehicle, myModeSet, time, result)) {
+                                               transportable->getMaxSpeed() * myWalkFactor, vehicle, myModeSet, time, result)) {
             for (std::vector<MSNet::MSIntermodalRouter::TripItem>::iterator it = result.begin(); it != result.end(); ++it) {
                 if (!it->edges.empty()) {
                     MSStoppingPlace* bs = MSNet::getInstance()->getStoppingPlace(it->destStop, SUMO_TAG_BUS_STOP);
@@ -909,7 +909,7 @@ MSTransportable::getWaitingTime() const {
 
 double
 MSTransportable::getMaxSpeed() const {
-    return getVehicleType().getMaxSpeed();
+    return getVehicleType().getMaxSpeed() * getSpeedFactor();
 }
 
 SUMOVehicleClass

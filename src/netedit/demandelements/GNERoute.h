@@ -47,7 +47,7 @@ public:
      * @param[in] edges list of consecutive edges of this route
      * @param[in] color RGBColor of this route
      */
-    GNERoute(GNEViewNet* viewNet, const std::string& routeID, const std::vector<GNEEdge*>& edges, const RGBColor& color);
+    GNERoute(GNEViewNet* viewNet, const std::string& routeID, const std::vector<GNEEdge*>& edges, const RGBColor& color, const SUMOVehicleClass VClass);
 
     /// @brief destructor
     ~GNERoute();
@@ -140,6 +140,9 @@ public:
 protected:
     /// @brief route color
     RGBColor myColor;
+
+    /// @brief SUMOVehicleClass (Only used for drawing) 
+    SUMOVehicleClass myVClass;
 
 private:
     /// @brief method for setting the attribute and nothing else

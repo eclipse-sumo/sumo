@@ -27,6 +27,7 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/additionals/GNEAdditional.h>
 #include <netedit/additionals/GNEPOI.h>
+#include <netedit/additionals/GNETAZ.h>
 #include <netedit/demandelements/GNEDemandElement.h>
 #include <netedit/dialogs/GNEDialog_AllowDisallow.h>
 #include <netedit/dialogs/GNEGenericParameterDialog.h>
@@ -342,7 +343,7 @@ GNEFrame::AttributesCreator::showWarningMessage(std::string extra) const {
     }
 
     // set message in status bar
-    myFrameParent->getViewNet()->setStatusBarText(errorMessage);
+    myFrameParent->myViewNet->setStatusBarText(errorMessage);
     // Write Warning in console if we're in testing mode
     WRITE_DEBUG(errorMessage);
 }
@@ -994,8 +995,8 @@ GNEFrame::AttributesEditor::RowEditor::showRow(const GNEAttributeCarrier::Attrib
         }
     }
     // if Tag correspond to an network element but we're in demand mode (or vice versa), disable all elements
-    if (((myAttributesEditorParent->myFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && myACAttr.getTagPropertyParent().isDemandElement()) ||
-            ((myAttributesEditorParent->myFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myACAttr.getTagPropertyParent().isDemandElement())) {
+    if (((myAttributesEditorParent->myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && myACAttr.getTagPropertyParent().isDemandElement()) ||
+            ((myAttributesEditorParent->myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myACAttr.getTagPropertyParent().isDemandElement())) {
         myColorEditor->disable();
         myRadioButton->disable();
         myTextFieldInt->disable();
@@ -1107,8 +1108,8 @@ GNEFrame::AttributesEditor::RowEditor::refreshRow(const std::string& value, bool
     }
     // if Tag correspond to an network element but we're in demand mode (or vice versa), disable all elements
     if (myACAttr.getAttr() != SUMO_ATTR_NOTHING) {
-        if (((myAttributesEditorParent->myFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && myACAttr.getTagPropertyParent().isDemandElement()) ||
-                ((myAttributesEditorParent->myFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myACAttr.getTagPropertyParent().isDemandElement())) {
+        if (((myAttributesEditorParent->myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && myACAttr.getTagPropertyParent().isDemandElement()) ||
+                ((myAttributesEditorParent->myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myACAttr.getTagPropertyParent().isDemandElement())) {
             myColorEditor->disable();
             myRadioButton->disable();
             myTextFieldInt->disable();
@@ -1155,11 +1156,11 @@ GNEFrame::AttributesEditor::RowEditor::onCmdOpenAttributeDialog(FXObject* obj, F
             if (myAttributesEditorParent->myEditedACs.front()->isValid(myACAttr.getAttr(), newValue)) {
                 // if its valid for the first AC than its valid for all (of the same type)
                 if (myAttributesEditorParent->myEditedACs.size() > 1) {
-                    myAttributesEditorParent->myFrameParent->getViewNet()->getUndoList()->p_begin("Change multiple attributes");
+                    myAttributesEditorParent->myFrameParent->myViewNet->getUndoList()->p_begin("Change multiple attributes");
                 }
                 // Set new value of attribute in all selected ACs
                 for (const auto& it_ac : myAttributesEditorParent->myEditedACs) {
-                    it_ac->setAttribute(myACAttr.getAttr(), newValue, myAttributesEditorParent->myFrameParent->getViewNet()->getUndoList());
+                    it_ac->setAttribute(myACAttr.getAttr(), newValue, myAttributesEditorParent->myFrameParent->myViewNet->getUndoList());
                 }
                 // If previously value was incorrect, change font color to black
                 myTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
@@ -1170,18 +1171,18 @@ GNEFrame::AttributesEditor::RowEditor::onCmdOpenAttributeDialog(FXObject* obj, F
     } else if (obj == myButtonCombinableChoices) {
         // if its valid for the first AC than its valid for all (of the same type)
         if (myAttributesEditorParent->myEditedACs.size() > 1) {
-            myAttributesEditorParent->myFrameParent->getViewNet()->getUndoList()->p_begin("Change multiple attributes");
+            myAttributesEditorParent->myFrameParent->myViewNet->getUndoList()->p_begin("Change multiple attributes");
         }
         // open GNEDialog_AllowDisallow
-        GNEDialog_AllowDisallow(myAttributesEditorParent->myFrameParent->getViewNet(), myAttributesEditorParent->myEditedACs.front()).execute();
+        GNEDialog_AllowDisallow(myAttributesEditorParent->myFrameParent->myViewNet, myAttributesEditorParent->myEditedACs.front()).execute();
         std::string allowed = myAttributesEditorParent->myEditedACs.front()->getAttribute(SUMO_ATTR_ALLOW);
         // Set new value of attribute in all selected ACs
         for (const auto& it_ac : myAttributesEditorParent->myEditedACs) {
-            it_ac->setAttribute(SUMO_ATTR_ALLOW, allowed, myAttributesEditorParent->myFrameParent->getViewNet()->getUndoList());
+            it_ac->setAttribute(SUMO_ATTR_ALLOW, allowed, myAttributesEditorParent->myFrameParent->myViewNet->getUndoList());
         }
         // finish change multiple attributes
         if (myAttributesEditorParent->myEditedACs.size() > 1) {
-            myAttributesEditorParent->myFrameParent->getViewNet()->getUndoList()->p_end();
+            myAttributesEditorParent->myFrameParent->myViewNet->getUndoList()->p_end();
         }
         // update frame parent after attribute sucesfully set
         myAttributesEditorParent->myFrameParent->updateFrameAfterChangeAttribute();
@@ -1263,20 +1264,20 @@ GNEFrame::AttributesEditor::RowEditor::onCmdSetAttribute(FXObject*, FXSelector, 
     if (myAttributesEditorParent->myEditedACs.front()->isValid(myACAttr.getAttr(), newVal)) {
         // if its valid for the first AC than its valid for all (of the same type)
         if (myAttributesEditorParent->myEditedACs.size() > 1) {
-            myAttributesEditorParent->myFrameParent->getViewNet()->getUndoList()->p_begin("Change multiple attributes");
+            myAttributesEditorParent->myFrameParent->myViewNet->getUndoList()->p_begin("Change multiple attributes");
         } else if (myACAttr.getAttr() == SUMO_ATTR_ID) {
             // IDs attribute has to be encapsulated
-            myAttributesEditorParent->myFrameParent->getViewNet()->getUndoList()->p_begin("change " + myACAttr.getTagPropertyParent().getTagStr() + " attribute");
+            myAttributesEditorParent->myFrameParent->myViewNet->getUndoList()->p_begin("change " + myACAttr.getTagPropertyParent().getTagStr() + " attribute");
         }
         // Set new value of attribute in all selected ACs
         for (const auto& it_ac : myAttributesEditorParent->myEditedACs) {
-            it_ac->setAttribute(myACAttr.getAttr(), newVal, myAttributesEditorParent->myFrameParent->getViewNet()->getUndoList());
+            it_ac->setAttribute(myACAttr.getAttr(), newVal, myAttributesEditorParent->myFrameParent->myViewNet->getUndoList());
         }
         // finish change multiple attributes or ID Attributes
         if (myAttributesEditorParent->myEditedACs.size() > 1) {
-            myAttributesEditorParent->myFrameParent->getViewNet()->getUndoList()->p_end();
+            myAttributesEditorParent->myFrameParent->myViewNet->getUndoList()->p_end();
         } else if (myACAttr.getAttr() == SUMO_ATTR_ID) {
-            myAttributesEditorParent->myFrameParent->getViewNet()->getUndoList()->p_end();
+            myAttributesEditorParent->myFrameParent->myViewNet->getUndoList()->p_end();
         }
         // If previously value was incorrect, change font color to black
         if (myACAttr.isCombinable()) {
@@ -1613,8 +1614,8 @@ long
 GNEFrame::ACHierarchy::onCmdCenterItem(FXObject*, FXSelector, void*) {
     GUIGlObject* glObject = dynamic_cast<GUIGlObject*>(myRightClickedAC);
     if (glObject) {
-        myFrameParent->getViewNet()->centerTo(glObject->getGlID(), false);
-        myFrameParent->getViewNet()->update();
+        myFrameParent->myViewNet->centerTo(glObject->getGlID(), false);
+        myFrameParent->myViewNet->update();
     }
     return 1;
 }
@@ -1623,7 +1624,7 @@ GNEFrame::ACHierarchy::onCmdCenterItem(FXObject*, FXSelector, void*) {
 long
 GNEFrame::ACHierarchy::onCmdInspectItem(FXObject*, FXSelector, void*) {
     if ((myAC != nullptr) && (myRightClickedAC != nullptr)) {
-        myFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->inspectChild(myRightClickedAC, myAC);
+        myFrameParent->myViewNet->getViewParent()->getInspectorFrame()->inspectChild(myRightClickedAC, myAC);
     }
     return 1;
 }
@@ -1632,19 +1633,44 @@ GNEFrame::ACHierarchy::onCmdInspectItem(FXObject*, FXSelector, void*) {
 long
 GNEFrame::ACHierarchy::onCmdDeleteItem(FXObject*, FXSelector, void*) {
     // check if Inspector frame was opened before removing
-    const std::vector<GNEAttributeCarrier*>& currentInspectedACs = myFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->getAttributesEditor()->getEditedACs();
+    const std::vector<GNEAttributeCarrier*>& currentInspectedACs = myFrameParent->myViewNet->getViewParent()->getInspectorFrame()->getAttributesEditor()->getEditedACs();
     // Remove Attribute Carrier
-    /*
-    myFrameParent->getViewNet()->getViewParent()->getDeleteFrame()->removeAttributeCarrier(myRightClickedAC);
-    myFrameParent->getViewNet()->getViewParent()->getDeleteFrame()->hide();
-    */
+    if (myRightClickedAC->getTagProperty().getTag() == SUMO_TAG_JUNCTION) {
+        myFrameParent->myViewNet->getNet()->deleteJunction(dynamic_cast<GNEJunction*>(myRightClickedAC), myFrameParent->myViewNet->getUndoList());
+    } else if (myRightClickedAC->getTagProperty().getTag() == SUMO_TAG_EDGE) {
+        myFrameParent->myViewNet->getNet()->deleteEdge(dynamic_cast<GNEEdge*>(myRightClickedAC), myFrameParent->myViewNet->getUndoList(), false);
+    } else if (myRightClickedAC->getTagProperty().getTag() == SUMO_TAG_LANE) {
+        myFrameParent->myViewNet->getNet()->deleteLane(dynamic_cast<GNELane*>(myRightClickedAC), myFrameParent->myViewNet->getUndoList(), false);
+    } else if (myRightClickedAC->getTagProperty().getTag() == SUMO_TAG_CROSSING) {
+        myFrameParent->myViewNet->getNet()->deleteCrossing(dynamic_cast<GNECrossing*>(myRightClickedAC), myFrameParent->myViewNet->getUndoList());
+    } else if (myRightClickedAC->getTagProperty().getTag() == SUMO_TAG_CONNECTION) {
+        myFrameParent->myViewNet->getNet()->deleteConnection(dynamic_cast<GNEConnection*>(myRightClickedAC), myFrameParent->myViewNet->getUndoList());
+    } else if (myRightClickedAC->getTagProperty().getTag() == SUMO_TAG_TAZ) {
+        myFrameParent->myViewNet->getNet()->deleteAdditional(dynamic_cast<GNETAZ*>(myRightClickedAC), myFrameParent->myViewNet->getUndoList());
+    } else if (myRightClickedAC->getTagProperty().isAdditional()) {
+        myFrameParent->myViewNet->getNet()->deleteAdditional(dynamic_cast<GNEAdditional*>(myRightClickedAC), myFrameParent->myViewNet->getUndoList());
+    } else if (myRightClickedAC->getTagProperty().isShape()) {
+        myFrameParent->myViewNet->getNet()->deleteShape(dynamic_cast<GNEShape*>(myRightClickedAC), myFrameParent->myViewNet->getUndoList());
+    } else if (myRightClickedAC->getTagProperty().isDemandElement()) {
+        // check that default VTypes aren't removed
+        if ((myRightClickedAC->getTagProperty().getTag() == SUMO_TAG_VTYPE) && (GNEAttributeCarrier::parse<bool>(myRightClickedAC->getAttribute(GNE_ATTR_DEFAULT_VTYPE)))) {
+            WRITE_WARNING("Default Vehicle Type '" + myRightClickedAC->getAttribute(SUMO_ATTR_ID) +"' cannot be removed");
+            return 1;
+        } else {
+            myFrameParent->myViewNet->getNet()->deleteDemandElement(dynamic_cast<GNEDemandElement*>(myRightClickedAC), myFrameParent->myViewNet->getUndoList());
+        }
+    }
+    // update viewNet
+    myFrameParent->myViewNet->update();
+    // refresh AC Hierarchy
+    refreshACHierarchy();
     // check if inspector frame has to be shown again
     if (currentInspectedACs.size() == 1) {
         if (currentInspectedACs.front() != myRightClickedAC) {
-            myFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->inspectSingleElement(currentInspectedACs.front());
+            myFrameParent->myViewNet->getViewParent()->getInspectorFrame()->inspectSingleElement(currentInspectedACs.front());
         } else {
             // inspect a nullprt element to reset inspector frame
-            myFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->inspectSingleElement(nullptr);
+            myFrameParent->myViewNet->getViewParent()->getInspectorFrame()->inspectSingleElement(nullptr);
         }
     }
     return 1;
@@ -1653,22 +1679,33 @@ GNEFrame::ACHierarchy::onCmdDeleteItem(FXObject*, FXSelector, void*) {
 
 void
 GNEFrame::ACHierarchy::createPopUpMenu(int X, int Y, GNEAttributeCarrier* ac) {
-    // create FXMenuPane
-    FXMenuPane* pane = new FXMenuPane(myTreelist);
-    // set current clicked AC
-    myRightClickedAC = ac;
-    // set name
-    new MFXMenuHeader(pane, myFrameParent->getViewNet()->getViewParent()->getGUIMainWindow()->getBoldFont(), myRightClickedAC->getPopUpID().c_str(), myRightClickedAC->getIcon());
-    new FXMenuSeparator(pane);
-    // Fill FXMenuCommand
-    new FXMenuCommand(pane, "Center", GUIIconSubSys::getIcon(ICON_RECENTERVIEW), this, MID_GNE_INSPECTORFRAME_CENTER);
-    new FXMenuCommand(pane, "Inspect", GUIIconSubSys::getIcon(ICON_MODEINSPECT), this, MID_GNE_INSPECTORFRAME_INSPECT);
-    new FXMenuCommand(pane, "Delete", GUIIconSubSys::getIcon(ICON_MODEDELETE), this, MID_GNE_INSPECTORFRAME_DELETE);
-    // Center in the mouse position and create pane
-    pane->setX(X);
-    pane->setY(Y);
-    pane->create();
-    pane->show();
+    // first check that AC exist
+    if (ac) {
+        // set current clicked AC
+        myRightClickedAC = ac;
+        // create FXMenuPane
+        FXMenuPane* pane = new FXMenuPane(myTreelist);
+        // set name
+        new MFXMenuHeader(pane, myFrameParent->myViewNet->getViewParent()->getGUIMainWindow()->getBoldFont(), myRightClickedAC->getPopUpID().c_str(), myRightClickedAC->getIcon());
+        new FXMenuSeparator(pane);
+        // Fill FXMenuCommand
+        new FXMenuCommand(pane, "Center", GUIIconSubSys::getIcon(ICON_RECENTERVIEW), this, MID_GNE_INSPECTORFRAME_CENTER);
+        FXMenuCommand* inspectMenuCommand = new FXMenuCommand(pane, "Inspect", GUIIconSubSys::getIcon(ICON_MODEINSPECT), this, MID_GNE_INSPECTORFRAME_INSPECT);
+        FXMenuCommand* deleteMenuCommand = new FXMenuCommand(pane, "Delete", GUIIconSubSys::getIcon(ICON_MODEDELETE), this, MID_GNE_INSPECTORFRAME_DELETE);
+        // check if inspect and delete menu commands has to be disabled
+        if ((myRightClickedAC->getTagProperty().isNetElement() && (myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND)) ||
+            (myRightClickedAC->getTagProperty().isDemandElement() && (myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK))) {
+            inspectMenuCommand->disable();
+            deleteMenuCommand->disable();
+        }
+        // Center in the mouse position and create pane
+        pane->setX(X);
+        pane->setY(Y);
+        pane->create();
+        pane->show();
+    } else {
+        myRightClickedAC = nullptr;
+    }
 }
 
 
@@ -1679,7 +1716,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierParents() {
         switch (myAC->getTagProperty().getTag()) {
             case SUMO_TAG_EDGE: {
                 // obtain Edge
-                GNEEdge* edge = myFrameParent->getViewNet()->getNet()->retrieveEdge(myAC->getID(), false);
+                GNEEdge* edge = myFrameParent->myViewNet->getNet()->retrieveEdge(myAC->getID(), false);
                 if (edge) {
                     // insert Junctions of edge in tree (Pararell because a edge has always two Junctions)
                     FXTreeItem* junctionSourceItem = myTreelist->insertItem(nullptr, nullptr, (edge->getGNEJunctionSource()->getHierarchyName() + " origin").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
@@ -1696,10 +1733,10 @@ GNEFrame::ACHierarchy::showAttributeCarrierParents() {
             }
             case SUMO_TAG_LANE: {
                 // obtain lane
-                GNELane* lane = myFrameParent->getViewNet()->getNet()->retrieveLane(myAC->getID(), false);
+                GNELane* lane = myFrameParent->myViewNet->getNet()->retrieveLane(myAC->getID(), false);
                 if (lane) {
                     // obtain edge parent
-                    GNEEdge* edge = myFrameParent->getViewNet()->getNet()->retrieveEdge(lane->getParentEdge().getID());
+                    GNEEdge* edge = myFrameParent->myViewNet->getNet()->retrieveEdge(lane->getParentEdge().getID());
                     //inser Junctions of lane of edge in tree (Pararell because a edge has always two Junctions)
                     FXTreeItem* junctionSourceItem = myTreelist->insertItem(nullptr, nullptr, (edge->getGNEJunctionSource()->getHierarchyName() + " origin").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
                     FXTreeItem* junctionDestinyItem = myTreelist->insertItem(nullptr, nullptr, (edge->getGNEJunctionSource()->getHierarchyName() + " destiny").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
@@ -1719,7 +1756,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierParents() {
             }
             case SUMO_TAG_CROSSING: {
                 // obtain Crossing
-                GNECrossing* crossing = myFrameParent->getViewNet()->getNet()->retrieveCrossing(myAC->getID(), false);
+                GNECrossing* crossing = myFrameParent->myViewNet->getNet()->retrieveCrossing(myAC->getID(), false);
                 if (crossing) {
                     // obtain junction
                     GNEJunction* junction = crossing->getParentJunction();
@@ -1736,7 +1773,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierParents() {
             }
             case SUMO_TAG_CONNECTION: {
                 // obtain Connection
-                GNEConnection* connection = myFrameParent->getViewNet()->getNet()->retrieveConnection(myAC->getID(), false);
+                GNEConnection* connection = myFrameParent->myViewNet->getNet()->retrieveConnection(myAC->getID(), false);
                 if (connection) {
                     // create edge from item
                     FXTreeItem* edgeFromItem = myTreelist->insertItem(nullptr, nullptr, connection->getEdgeFrom()->getHierarchyName().c_str(), connection->getEdgeFrom()->getIcon(), connection->getEdgeFrom()->getIcon());
@@ -1762,12 +1799,12 @@ GNEFrame::ACHierarchy::showAttributeCarrierParents() {
         }
     } else if (myAC->getTagProperty().getTag() == SUMO_TAG_POILANE) {
         // Obtain POILane
-        GNEPOI* POILane = myFrameParent->getViewNet()->getNet()->retrievePOI(myAC->getID(), false);
+        GNEPOI* POILane = myFrameParent->myViewNet->getNet()->retrievePOI(myAC->getID(), false);
         if (POILane) {
             // obtain lane parent
-            GNELane* lane = myFrameParent->getViewNet()->getNet()->retrieveLane(POILane->getLaneParents().at(0)->getID());
+            GNELane* lane = myFrameParent->myViewNet->getNet()->retrieveLane(POILane->getLaneParents().at(0)->getID());
             // obtain edge parent
-            GNEEdge* edge = myFrameParent->getViewNet()->getNet()->retrieveEdge(lane->getParentEdge().getID());
+            GNEEdge* edge = myFrameParent->myViewNet->getNet()->retrieveEdge(lane->getParentEdge().getID());
             //inser Junctions of lane of edge in tree (Pararell because a edge has always two Junctions)
             FXTreeItem* junctionSourceItem = myTreelist->insertItem(nullptr, nullptr, (edge->getGNEJunctionSource()->getHierarchyName() + " origin").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
             FXTreeItem* junctionDestinyItem = myTreelist->insertItem(nullptr, nullptr, (edge->getGNEJunctionSource()->getHierarchyName() + " destiny").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
@@ -1790,7 +1827,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierParents() {
         }
     } else if (myAC->getTagProperty().isAdditional() || myAC->getTagProperty().isTAZ()) {
         // Obtain Additional
-        GNEAdditional* additional = myFrameParent->getViewNet()->getNet()->retrieveAdditional(myAC->getTagProperty().getTag(), myAC->getID(), false);
+        GNEAdditional* additional = myFrameParent->myViewNet->getNet()->retrieveAdditional(myAC->getTagProperty().getTag(), myAC->getID(), false);
         if (additional) {
             // declare auxiliar FXTreeItem, due a demand element can have multiple "roots"
             FXTreeItem* root = nullptr;
@@ -1855,7 +1892,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierParents() {
         }
     } else if (myAC->getTagProperty().isDemandElement()) {
         // Obtain DemandElement
-        GNEDemandElement* demandElement = myFrameParent->getViewNet()->getNet()->retrieveDemandElement(myAC->getTagProperty().getTag(), myAC->getID(), false);
+        GNEDemandElement* demandElement = myFrameParent->myViewNet->getNet()->retrieveDemandElement(myAC->getTagProperty().getTag(), myAC->getID(), false);
         if (demandElement) {
             // declare auxiliar FXTreeItem, due a demand element can have multiple "roots"
             FXTreeItem* root = nullptr;
@@ -1931,7 +1968,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier* AC, FXTre
         switch (AC->getTagProperty().getTag()) {
             case SUMO_TAG_JUNCTION: {
                 // retrieve junction
-                GNEJunction* junction = myFrameParent->getViewNet()->getNet()->retrieveJunction(AC->getID(), false);
+                GNEJunction* junction = myFrameParent->myViewNet->getNet()->retrieveJunction(AC->getID(), false);
                 if (junction) {
                     // insert junction item
                     FXTreeItem* junctionItem = addListItem(AC, itemParent);
@@ -1948,7 +1985,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier* AC, FXTre
             }
             case SUMO_TAG_EDGE: {
                 // retrieve edge
-                GNEEdge* edge = myFrameParent->getViewNet()->getNet()->retrieveEdge(AC->getID(), false);
+                GNEEdge* edge = myFrameParent->myViewNet->getNet()->retrieveEdge(AC->getID(), false);
                 if (edge) {
                     // insert edge item
                     FXTreeItem* edgeItem = addListItem(AC, itemParent);
@@ -1973,7 +2010,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier* AC, FXTre
             }
             case SUMO_TAG_LANE: {
                 // retrieve lane
-                GNELane* lane = myFrameParent->getViewNet()->getNet()->retrieveLane(AC->getID(), false);
+                GNELane* lane = myFrameParent->myViewNet->getNet()->retrieveLane(AC->getID(), false);
                 if (lane) {
                     // insert lane item
                     FXTreeItem* laneItem = addListItem(AC, itemParent);
@@ -2026,7 +2063,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier* AC, FXTre
         addListItem(AC, itemParent);
     } else if (AC->getTagProperty().isAdditional() || AC->getTagProperty().isTAZ()) {
         // retrieve additional
-        GNEAdditional* additional = myFrameParent->getViewNet()->getNet()->retrieveAdditional(AC->getTagProperty().getTag(), AC->getID(), false);
+        GNEAdditional* additional = myFrameParent->myViewNet->getNet()->retrieveAdditional(AC->getTagProperty().getTag(), AC->getID(), false);
         if (additional) {
             // insert additional item
             FXTreeItem* additionalItem = addListItem(AC, itemParent);
@@ -2053,7 +2090,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier* AC, FXTre
         }
     } else if (AC->getTagProperty().isDemandElement()) {
         // retrieve demandElement
-        GNEDemandElement* demandElement = myFrameParent->getViewNet()->getNet()->retrieveDemandElement(AC->getTagProperty().getTag(), AC->getID(), false);
+        GNEDemandElement* demandElement = myFrameParent->myViewNet->getNet()->retrieveDemandElement(AC->getTagProperty().getTag(), AC->getID(), false);
         if (demandElement) {
             // insert demandElement item
             FXTreeItem* demandElementItem = addListItem(AC, itemParent);
@@ -2184,8 +2221,8 @@ GNEFrame::GenericParametersEditor::refreshGenericParametersEditor() {
         myTextFieldGenericParameter->setText(myAC->getAttribute(GNE_ATTR_GENERIC).c_str());
         myTextFieldGenericParameter->setTextColor(FXRGB(0, 0, 0));
         // disable myTextFieldGenericParameter if Tag correspond to an network element but we're in demand mode (or vice versa), disable all elements
-        if (((myFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && myAC->getTagProperty().isDemandElement()) ||
-                ((myFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myAC->getTagProperty().isDemandElement())) {
+        if (((myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && myAC->getTagProperty().isDemandElement()) ||
+                ((myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myAC->getTagProperty().isDemandElement())) {
             myTextFieldGenericParameter->disable();
             myEditGenericParameterButton->disable();
         } else {
@@ -2204,8 +2241,8 @@ GNEFrame::GenericParametersEditor::refreshGenericParametersEditor() {
         myTextFieldGenericParameter->setText(genericParameter.c_str());
         myTextFieldGenericParameter->setTextColor(FXRGB(0, 0, 0));
         // disable myTextFieldGenericParameter if we're in demand mode and inspected AC isn't a demand element (or viceversa)
-        if (((myFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && myACs.front()->getTagProperty().isDemandElement()) ||
-                ((myFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myACs.front()->getTagProperty().isDemandElement())) {
+        if (((myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && myACs.front()->getTagProperty().isDemandElement()) ||
+                ((myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myACs.front()->getTagProperty().isDemandElement())) {
             myTextFieldGenericParameter->disable();
             myEditGenericParameterButton->disable();
         } else {
@@ -2234,16 +2271,16 @@ GNEFrame::GenericParametersEditor::getGenericParametersStr() const {
 long
 GNEFrame::GenericParametersEditor::onCmdEditGenericParameter(FXObject*, FXSelector, void*) {
     // edit generic parameters using dialog
-    if (GNEGenericParameterDialog(myFrameParent->getViewNet(), myGenericParameters).execute()) {
+    if (GNEGenericParameterDialog(myFrameParent->myViewNet, myGenericParameters).execute()) {
         // set values edited in Parameter dialog in Edited AC
         if (myAC) {
-            myAC->setAttribute(GNE_ATTR_GENERIC, getGenericParametersStr(), myFrameParent->getViewNet()->getUndoList());
+            myAC->setAttribute(GNE_ATTR_GENERIC, getGenericParametersStr(), myFrameParent->myViewNet->getUndoList());
         } else if (myACs.size() > 0) {
-            myFrameParent->getViewNet()->getUndoList()->p_begin("Change multiple generic attributes");
+            myFrameParent->myViewNet->getUndoList()->p_begin("Change multiple generic attributes");
             for (auto i : myACs) {
-                i->setAttribute(GNE_ATTR_GENERIC, getGenericParametersStr(), myFrameParent->getViewNet()->getUndoList());
+                i->setAttribute(GNE_ATTR_GENERIC, getGenericParametersStr(), myFrameParent->myViewNet->getUndoList());
             }
-            myFrameParent->getViewNet()->getUndoList()->p_end();
+            myFrameParent->myViewNet->getUndoList()->p_end();
             // update frame parent after attribute sucesfully set
             myFrameParent->updateFrameAfterChangeAttribute();
         }
@@ -2310,13 +2347,13 @@ GNEFrame::GenericParametersEditor::onCmdSetGenericParameter(FXObject*, FXSelecto
     }
     // if we're editing generic attributes of an AttributeCarrier, set it
     if (myAC) {
-        myAC->setAttribute(GNE_ATTR_GENERIC, getGenericParametersStr(), myFrameParent->getViewNet()->getUndoList());
+        myAC->setAttribute(GNE_ATTR_GENERIC, getGenericParametersStr(), myFrameParent->myViewNet->getUndoList());
     } else if (myACs.size() > 0) {
-        myFrameParent->getViewNet()->getUndoList()->p_begin("Change multiple generic attributes");
+        myFrameParent->myViewNet->getUndoList()->p_begin("Change multiple generic attributes");
         for (auto i : myACs) {
-            i->setAttribute(GNE_ATTR_GENERIC, getGenericParametersStr(), myFrameParent->getViewNet()->getUndoList());
+            i->setAttribute(GNE_ATTR_GENERIC, getGenericParametersStr(), myFrameParent->myViewNet->getUndoList());
         }
-        myFrameParent->getViewNet()->getUndoList()->p_end();
+        myFrameParent->myViewNet->getUndoList()->p_end();
         // update frame parent after attribute sucesfully set
         myFrameParent->updateFrameAfterChangeAttribute();
     }
@@ -2391,7 +2428,7 @@ GNEFrame::DrawingShape::stopDrawing() {
     if (myFrameParent->buildShape()) {
         // clear created points
         myTemporalShapeShape.clear();
-        myFrameParent->getViewNet()->update();
+        myFrameParent->myViewNet->update();
         // change buttons
         myStartDrawingButton->enable();
         myStopDrawingButton->disable();
@@ -2407,7 +2444,7 @@ void
 GNEFrame::DrawingShape::abortDrawing() {
     // clear created points
     myTemporalShapeShape.clear();
-    myFrameParent->getViewNet()->update();
+    myFrameParent->myViewNet->update();
     // change buttons
     myStartDrawingButton->enable();
     myStopDrawingButton->disable();

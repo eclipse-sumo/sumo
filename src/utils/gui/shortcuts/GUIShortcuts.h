@@ -101,6 +101,7 @@ enum GUIShortcut {
 
     KEY_ESC,
     KEY_ENTER,
+    KEY_BACKSPACE,
     KEY_DEL,
 };
 

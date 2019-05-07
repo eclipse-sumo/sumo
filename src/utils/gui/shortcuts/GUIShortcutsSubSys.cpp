@@ -260,9 +260,10 @@ GUIShortcutsSubSys::buildNETEDITAccelerators(GNEApplicationWindow* GNEApp) {
 
     // initialize rest of hotkeys
 
-    GNEApp->getAccelTable()->addAccel(parseKey(KEY_ESC),   GNEApp, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_ESC));
-    GNEApp->getAccelTable()->addAccel(parseKey(KEY_DEL),   GNEApp, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_DEL));
-    GNEApp->getAccelTable()->addAccel(parseKey(KEY_ENTER), GNEApp, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_ENTER));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_ESC),        GNEApp, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_ESC));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_DEL),        GNEApp, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_DEL));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_ENTER),      GNEApp, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_ENTER));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_BACKSPACE),  GNEApp, FXSEL(SEL_COMMAND, MID_GNE_HOTKEY_BACKSPACE));
 }
 
 
@@ -278,6 +279,8 @@ GUIShortcutsSubSys::parseKey(GUIShortcut key) {
         return parseAccel("Esc");
     } else if (key == KEY_ENTER) {
         return parseAccel("Enter");
+    } else if (key == KEY_BACKSPACE) {
+        return parseAccel("Back");
     } else if (key == KEY_DEL) {
         return parseAccel("Del");
     } else {

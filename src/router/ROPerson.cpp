@@ -30,6 +30,7 @@
 #include <utils/common/ToString.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/geom/GeoConvHelper.h>
 #include <utils/vehicle/SUMOVTypeParameter.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
@@ -193,6 +194,70 @@ ROPerson::PersonTrip::saveVehicles(OutputDevice& os, OutputDevice* const typeos,
     }
 }
 
+void 
+ROPerson::PersonTrip::saveAsXML(OutputDevice& os, const bool extended, const bool asTrip, const bool writeGeoTrip) const {
+    if (asTrip) {
+        os.openTag(SUMO_TAG_PERSONTRIP);
+        if (writeGeoTrip) {
+            Position fromPos = from->getLanes()[0]->getShape().positionAtOffset2D(getDepartPos());
+            if (GeoConvHelper::getFinal().usingGeoProjection()) {
+                os.setPrecision(gPrecisionGeo);
+                GeoConvHelper::getFinal().cartesian2geo(fromPos);
+                os.writeAttr(SUMO_ATTR_FROMLONLAT, fromPos);
+                os.setPrecision(gPrecision);
+            } else {
+                os.writeAttr(SUMO_ATTR_FROMXY, fromPos);
+            }
+        } else {
+            os.writeAttr(SUMO_ATTR_FROM, from->getID());
+        }
+        if (writeGeoTrip) {
+            Position toPos = to->getLanes()[0]->getShape().positionAtOffset2D(MIN2(getArrivalPos(), to->getLanes()[0]->getShape().length2D()));
+            if (GeoConvHelper::getFinal().usingGeoProjection()) {
+                os.setPrecision(gPrecisionGeo);
+                GeoConvHelper::getFinal().cartesian2geo(toPos);
+                os.writeAttr(SUMO_ATTR_TOLONLAT, toPos);
+                os.setPrecision(gPrecision);
+            } else {
+                os.writeAttr(SUMO_ATTR_TOXY, toPos);
+            }
+        } else {
+            os.writeAttr(SUMO_ATTR_TO, to->getID());
+        }
+        std::vector<std::string> allowedModes;
+        if ((modes & SVC_BUS) != 0) {
+            allowedModes.push_back("public");
+        }
+        if ((modes & SVC_PASSENGER) != 0) {
+            allowedModes.push_back("car");
+        }
+        if ((modes & SVC_BICYCLE) != 0) {
+            allowedModes.push_back("bicycle");
+        }
+        if (allowedModes.size() > 0) {
+            os.writeAttr(SUMO_ATTR_MODES, toString(allowedModes));
+        }
+        if (!writeGeoTrip) {
+            if (dep != 0 && dep != std::numeric_limits<double>::infinity()) {
+                os.writeAttr(SUMO_ATTR_DEPARTPOS, dep);
+            }
+            if (arr != 0 && arr != std::numeric_limits<double>::infinity()) {
+                os.writeAttr(SUMO_ATTR_ARRIVALPOS, arr);
+            }
+        }
+        if (getStopDest() != "") {
+            os.writeAttr(SUMO_ATTR_BUS_STOP, getStopDest());
+        }
+        if (walkFactor != 1) {
+            os.writeAttr(SUMO_ATTR_WALKFACTOR, walkFactor);
+        }
+        os.closeTag();
+    } else {
+        for (std::vector<TripItem*>::const_iterator it = myTripItems.begin(); it != myTripItems.end(); ++it) {
+            (*it)->saveAsXML(os, extended);
+        }
+    }
+}
 
 SUMOTime
 ROPerson::PersonTrip::getDuration() const {
@@ -264,8 +329,12 @@ ROPerson::computeRoute(const RORouterProvider& provider,
 void
 ROPerson::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAlternatives, OptionsCont& options) const {
     // write the person's vehicles
-    for (std::vector<PlanItem*>::const_iterator it = myPlan.begin(); it != myPlan.end(); ++it) {
-        (*it)->saveVehicles(os, typeos, asAlternatives, options);
+    const bool writeTrip = options.exists("write-trips") && options.getBool("write-trips");
+    const bool writeGeoTrip = writeTrip && options.getBool("write-trips.geo");
+    if (!writeTrip) {
+        for (std::vector<PlanItem*>::const_iterator it = myPlan.begin(); it != myPlan.end(); ++it) {
+            (*it)->saveVehicles(os, typeos, asAlternatives, options);
+        }
     }
 
     if (typeos != nullptr && getType() != nullptr && !getType()->saved) {
@@ -281,7 +350,7 @@ ROPerson::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAlterna
     getParameter().write(os, options, SUMO_TAG_PERSON);
 
     for (std::vector<PlanItem*>::const_iterator it = myPlan.begin(); it != myPlan.end(); ++it) {
-        (*it)->saveAsXML(os, asAlternatives);
+        (*it)->saveAsXML(os, asAlternatives, writeTrip, writeGeoTrip);
     }
 
     // write params

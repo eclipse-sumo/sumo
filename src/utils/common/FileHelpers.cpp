@@ -40,9 +40,11 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
+
 // ---------------------------------------------------------------------------
 // file access functions
 // ---------------------------------------------------------------------------
+
 bool
 FileHelpers::isReadable(std::string path) {
     if (path.length() == 0) {
@@ -57,10 +59,10 @@ FileHelpers::isReadable(std::string path) {
     return access(path.c_str(), R_OK) == 0;
 }
 
-
 // ---------------------------------------------------------------------------
 // file path evaluating functions
 // ---------------------------------------------------------------------------
+
 std::string
 FileHelpers::getFilePath(const std::string& path) {
     const std::string::size_type beg = path.find_last_of("\\/");
@@ -71,9 +73,37 @@ FileHelpers::getFilePath(const std::string& path) {
 }
 
 
+std::string 
+FileHelpers::addExtension(const std::string& path, const std::string& extension) {
+    if (path.empty()) {
+        return "";
+    } else if (extension.empty()) {
+        return path;
+    } else if (path == extension) {
+        return "";
+    } else if (path.size() < extension.size()) {
+        return path + extension;
+    } else {
+        // declare two reverse iterator for every string
+        std::string::const_reverse_iterator it_path = path.crbegin();
+        std::string::const_reverse_iterator it_extension = extension.crbegin();
+        // iterate over extension and compare both characters
+        while (it_extension != extension.crend()) {
+            // if both characters are different, then return path + extension
+            if (*it_path != *it_extension) {
+                return path + extension;
+            }
+            it_path++;
+            it_extension++;
+        }
+        // if comparation was sucesfully, then it mean that path has already the extension
+        return path;
+    }
+}
+
+
 std::string
-FileHelpers::getConfigurationRelative(const std::string& configPath,
-                                      const std::string& path) {
+FileHelpers::getConfigurationRelative(const std::string& configPath, const std::string& path) {
     std::string retPath = getFilePath(configPath);
     return retPath + path;
 }
@@ -110,8 +140,7 @@ FileHelpers::isAbsolute(const std::string& path) {
 
 
 std::string
-FileHelpers::checkForRelativity(const std::string& filename,
-                                const std::string& basePath) {
+FileHelpers::checkForRelativity(const std::string& filename, const std::string& basePath) {
     if (filename == "stdout" || filename == "STDOUT" || filename == "-") {
         return "stdout";
     }
@@ -141,6 +170,7 @@ FileHelpers::prependToLastPathComponent(const std::string& prefix, const std::st
 // ---------------------------------------------------------------------------
 // binary reading/writing functions
 // ---------------------------------------------------------------------------
+
 std::ostream&
 FileHelpers::writeInt(std::ostream& strm, int value) {
     strm.write((char*) &value, sizeof(int));
@@ -177,7 +207,6 @@ FileHelpers::writeTime(std::ostream& strm, SUMOTime value) {
     strm.write((char*) &value, sizeof(SUMOTime));
     return strm;
 }
-
 
 /****************************************************************************/
 

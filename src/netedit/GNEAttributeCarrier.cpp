@@ -79,15 +79,15 @@ GNEAttributeCarrier::AttributeProperties::AttributeProperties(const SumoXMLAttr 
     myMaximumRange(0) {
     // empty definition aren't valid
     if (definition.empty()) {
-        throw FormatException("Every AttributeProperty needs a definition");
+        throw FormatException("Missing definition for AttributeProperty '" + toString(attribute) + "'");
     }
     // if default value isn't empty, but attribute doesn't support default values, throw exception.
     if (!defaultValue.empty() && !(attributeProperty & ATTRPROPERTY_DEFAULTVALUESTATIC)) {
-        throw FormatException("AttributeProperty doesn't support default values");
+        throw FormatException("AttributeProperty for '" + toString(attribute) + "' doesn't support default values");
     }
     // default value cannot be static and mutables at the same time
     if ((attributeProperty & ATTRPROPERTY_DEFAULTVALUESTATIC) && (attributeProperty & ATTRPROPERTY_DEFAULTVALUEMUTABLE)) {
-        throw FormatException("Default value cannot be static and mutable at the same time");
+        throw FormatException("Default value for attribute '" + toString(attribute) + "' cannot be static and mutable at the same time");
     }
 }
 
@@ -3135,9 +3135,8 @@ GNEAttributeCarrier::fillDemandElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_EMISSIONCLASS,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_EXTENDED,
-                                           "An abstract emission class",
-                                           "PC_G_EU4");
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUEMUTABLE | ATTRPROPERTY_OPTIONAL | ATTRPROPERTY_EXTENDED,
+                                           "An abstract emission class");
         attrProperty.setDiscreteValues(emissions);
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -3690,13 +3689,13 @@ GNEAttributeCarrier::fillDemandElements() {
         attrProperty = AttributeProperties(SUMO_ATTR_DURATION,
                                            ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUESTATIC,
                                            "Minimum duration for stopping",
-                                           "0");
+                                           "60");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_UNTIL,
                                            ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUESTATIC,
                                            "The time step at which the route continues",
-                                           "0");
+                                           "-1");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_INDEX,
@@ -3708,7 +3707,7 @@ GNEAttributeCarrier::fillDemandElements() {
         attrProperty = AttributeProperties(SUMO_ATTR_TRIGGERED,
                                            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_OPTIONAL,
                                            "Whether a person may end the stop",
-                                           "false");
+                                           "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_EXPECTED,
@@ -3719,7 +3718,7 @@ GNEAttributeCarrier::fillDemandElements() {
         attrProperty = AttributeProperties(SUMO_ATTR_CONTAINER_TRIGGERED,
                                            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_OPTIONAL,
                                            "Whether a container may end the stop",
-                                           "false");
+                                           "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_EXPECTED_CONTAINERS,
@@ -3730,7 +3729,7 @@ GNEAttributeCarrier::fillDemandElements() {
         attrProperty = AttributeProperties(SUMO_ATTR_PARKING,
                                            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_OPTIONAL,
                                            "whether the vehicle stops on the road or beside ",
-                                           "false");
+                                           "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_ACTTYPE,
@@ -3757,13 +3756,13 @@ GNEAttributeCarrier::fillDemandElements() {
         attrProperty = AttributeProperties(SUMO_ATTR_DURATION,
                                            ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUESTATIC,
                                            "Minimum duration for stopping",
-                                           "0");
+                                           "60");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_UNTIL,
                                            ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUESTATIC,
                                            "The time step at which the route continues",
-                                           "0");
+                                           "-1");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_INDEX,
@@ -3775,7 +3774,7 @@ GNEAttributeCarrier::fillDemandElements() {
         attrProperty = AttributeProperties(SUMO_ATTR_TRIGGERED,
                                            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_OPTIONAL,
                                            "Whether a person may end the stop",
-                                           "false");
+                                           "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_EXPECTED,
@@ -3786,7 +3785,7 @@ GNEAttributeCarrier::fillDemandElements() {
         attrProperty = AttributeProperties(SUMO_ATTR_CONTAINER_TRIGGERED,
                                            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_OPTIONAL,
                                            "Whether a container may end the stop",
-                                           "false");
+                                           "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_EXPECTED_CONTAINERS,
@@ -3797,7 +3796,7 @@ GNEAttributeCarrier::fillDemandElements() {
         attrProperty = AttributeProperties(SUMO_ATTR_PARKING,
                                            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_OPTIONAL,
                                            "whether the vehicle stops on the road or beside ",
-                                           "false");
+                                           "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_ACTTYPE,
@@ -3824,13 +3823,13 @@ GNEAttributeCarrier::fillDemandElements() {
         attrProperty = AttributeProperties(SUMO_ATTR_DURATION,
                                            ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUESTATIC,
                                            "Minimum duration for stopping",
-                                           "0");
+                                           "60");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_UNTIL,
                                            ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUESTATIC,
                                            "The time step at which the route continues",
-                                           "0");
+                                           "-1");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_INDEX,
@@ -3842,7 +3841,7 @@ GNEAttributeCarrier::fillDemandElements() {
         attrProperty = AttributeProperties(SUMO_ATTR_TRIGGERED,
                                            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_OPTIONAL,
                                            "Whether a person may end the stop",
-                                           "false");
+                                           "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_EXPECTED,
@@ -3853,7 +3852,7 @@ GNEAttributeCarrier::fillDemandElements() {
         attrProperty = AttributeProperties(SUMO_ATTR_CONTAINER_TRIGGERED,
                                            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_OPTIONAL,
                                            "Whether a container may end the stop",
-                                           "false");
+                                           "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_EXPECTED_CONTAINERS,
@@ -3864,7 +3863,7 @@ GNEAttributeCarrier::fillDemandElements() {
         attrProperty = AttributeProperties(SUMO_ATTR_PARKING,
                                            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_OPTIONAL,
                                            "whether the vehicle stops on the road or beside ",
-                                           "false");
+                                           "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_ACTTYPE,
@@ -3891,13 +3890,13 @@ GNEAttributeCarrier::fillDemandElements() {
         attrProperty = AttributeProperties(SUMO_ATTR_DURATION,
                                            ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUESTATIC,
                                            "Minimum duration for stopping",
-                                           "0");
+                                           "300");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_UNTIL,
                                            ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUESTATIC,
                                            "The time step at which the route continues",
-                                           "0");
+                                           "-1");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_INDEX,
@@ -3909,7 +3908,7 @@ GNEAttributeCarrier::fillDemandElements() {
         attrProperty = AttributeProperties(SUMO_ATTR_TRIGGERED,
                                            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_OPTIONAL,
                                            "Whether a person may end the stop",
-                                           "false");
+                                           "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_EXPECTED,
@@ -3920,7 +3919,7 @@ GNEAttributeCarrier::fillDemandElements() {
         attrProperty = AttributeProperties(SUMO_ATTR_CONTAINER_TRIGGERED,
                                            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_OPTIONAL,
                                            "Whether a container may end the stop",
-                                           "false");
+                                           "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_EXPECTED_CONTAINERS,
@@ -3931,7 +3930,7 @@ GNEAttributeCarrier::fillDemandElements() {
         attrProperty = AttributeProperties(SUMO_ATTR_PARKING,
                                            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_OPTIONAL,
                                            "whether the vehicle stops on the road or beside ",
-                                           "false");
+                                           "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_ACTTYPE,
@@ -3958,13 +3957,13 @@ GNEAttributeCarrier::fillDemandElements() {
         attrProperty = AttributeProperties(SUMO_ATTR_DURATION,
                                            ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUESTATIC,
                                            "Minimum duration for stopping",
-                                           "0");
+                                           "900");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_UNTIL,
                                            ATTRPROPERTY_FLOAT | ATTRPROPERTY_DEFAULTVALUESTATIC,
                                            "The time step at which the route continues",
-                                           "0");
+                                           "-1");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_INDEX,
@@ -3976,7 +3975,7 @@ GNEAttributeCarrier::fillDemandElements() {
         attrProperty = AttributeProperties(SUMO_ATTR_TRIGGERED,
                                            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_OPTIONAL,
                                            "Whether a person may end the stop",
-                                           "false");
+                                           "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_EXPECTED,
@@ -3987,7 +3986,7 @@ GNEAttributeCarrier::fillDemandElements() {
         attrProperty = AttributeProperties(SUMO_ATTR_CONTAINER_TRIGGERED,
                                            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_OPTIONAL,
                                            "Whether a container may end the stop",
-                                           "false");
+                                           "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_EXPECTED_CONTAINERS,
@@ -3998,7 +3997,7 @@ GNEAttributeCarrier::fillDemandElements() {
         attrProperty = AttributeProperties(SUMO_ATTR_PARKING,
                                            ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_OPTIONAL,
                                            "whether the vehicle stops on the road or beside ",
-                                           "false");
+                                           "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_ACTTYPE,

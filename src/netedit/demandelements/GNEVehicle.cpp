@@ -114,6 +114,8 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
         // write manually route
         device.writeAttr(SUMO_ATTR_ROUTE, getDemandElementParents().at(1)->getID());
     } else if (myTagProperty.getTag() == SUMO_TAG_FLOW) {
+        // write manually route
+        device.writeAttr(SUMO_ATTR_ROUTE, getDemandElementParents().at(1)->getID());
         // write flow values depending if it was set
         if (isDisjointAttributeSet(SUMO_ATTR_END)) {
             device.writeAttr(SUMO_ATTR_END,  time2string(repetitionEnd));
@@ -347,7 +349,6 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
             }
             // pop draw matrix
             glPopMatrix();
-
             // check if dotted contour has to be drawn
             if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
                 GLHelper::drawShapeDottedContour(getType(), myGeometry.shape.front(), width, length, myGeometry.shapeRotations.front(), 0, length / 2);
@@ -402,9 +403,9 @@ GNEVehicle::selectAttributeCarrier(bool changeFlag) {
     if (!myViewNet) {
         throw ProcessError("ViewNet cannot be nullptr");
     } else {
-        gSelected.select(dynamic_cast<GUIGlObject*>(this)->getGlID());
+        gSelected.select(getGlID());
         // add object of list into selected objects
-        myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->addedLockedObject(GLO_VEHICLE);
+        myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->addedLockedObject(getType());
         if (changeFlag) {
             mySelected = true;
         }
@@ -417,9 +418,9 @@ GNEVehicle::unselectAttributeCarrier(bool changeFlag) {
     if (!myViewNet) {
         throw ProcessError("ViewNet cannot be nullptr");
     } else {
-        gSelected.deselect(dynamic_cast<GUIGlObject*>(this)->getGlID());
+        gSelected.deselect(getGlID());
         // remove object of list of selected objects
-        myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->removeLockedObject(GLO_VEHICLE);
+        myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->removeLockedObject(getType());
         if (changeFlag) {
             mySelected = false;
 
@@ -490,7 +491,7 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_END:
             return time2string(repetitionEnd);
         case SUMO_ATTR_VEHSPERHOUR:
-            return time2string(repetitionOffset);
+            return toString(3600 / STEPS2TIME(repetitionOffset));
         case SUMO_ATTR_PERIOD:
             return time2string(repetitionOffset);
         case SUMO_ATTR_PROB:
@@ -561,7 +562,15 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
     std::string error;
     switch (key) {
         case SUMO_ATTR_ID:
-            return isValidDemandElementID(value);
+            // Vehicles, Trips and Flows share namespace
+            if (SUMOXMLDefinitions::isValidVehicleID(value) && 
+                (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_VEHICLE, value, false) == nullptr) &&
+                (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_FLOW, value, false) == nullptr) &&
+                (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_TRIP, value, false) == nullptr)) {
+                return true;
+            } else {
+                return false;
+            }
         case SUMO_ATTR_TYPE:
             return SUMOXMLDefinitions::isValidTypeID(value) && (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, value, false) != nullptr);
         case SUMO_ATTR_COLOR:
@@ -1021,7 +1030,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             repetitionEnd = string2time(value);
             break;
         case SUMO_ATTR_VEHSPERHOUR:
-            repetitionOffset = string2time(value);
+            repetitionOffset = TIME2STEPS(3600 / parse<double>(value));
             break;
         case SUMO_ATTR_PERIOD:
             repetitionOffset = string2time(value);
@@ -1050,6 +1059,12 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
     if (myTagProperty.hasAttribute(key) && myTagProperty.getAttributeProperties(key).requiereUpdateGeometry()) {
         updateGeometry();
     }
+}
+
+
+void 
+GNEVehicle::setDisjointAttribute(const int newParameterSet) {
+    parametersSet = newParameterSet;
 }
 
 /****************************************************************************/

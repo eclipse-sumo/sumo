@@ -110,10 +110,9 @@ GNEShape::selectAttributeCarrier(bool changeFlag) {
     if (!myNet) {
         throw ProcessError("Net cannot be nullptr");
     } else {
-        GUIGlObject* object = dynamic_cast<GUIGlObject*>(this);
-        gSelected.select(object->getGlID());
+        gSelected.select(getGUIGlObject()->getGlID());
         // add object into list of selected objects
-        myNet->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->addedLockedObject(object->getType());
+        myNet->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->addedLockedObject(getGUIGlObject()->getType());
         if (changeFlag) {
             mySelected = true;
         }
@@ -126,10 +125,9 @@ GNEShape::unselectAttributeCarrier(bool changeFlag) {
     if (!myNet) {
         throw ProcessError("Net cannot be nullptr");
     } else {
-        GUIGlObject* object = dynamic_cast<GUIGlObject*>(this);
-        gSelected.deselect(object->getGlID());
+        gSelected.deselect(getGUIGlObject()->getGlID());
         // remove object of list of selected objects
-        myNet->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->removeLockedObject(object->getType());
+        myNet->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->removeLockedObject(getGUIGlObject()->getType());
         if (changeFlag) {
             mySelected = false;
         }

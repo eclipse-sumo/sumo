@@ -1,5 +1,7 @@
-Warning: Discarding unusable type 'waterway.canal' (first occurence for edge '24336499#0').
-Warning: Discarding unusable type 'waterway.riverbank' (first occurence for edge '26818912#0').
+Warning: Ambiguous railway kilometrage direction for way '22955562' (assuming forward)
+Warning: Discarding unusable type 'waterway.canal' (first occurence for edge '24336499').
+Warning: Discarding unusable type 'waterway.riverbank' (first occurence for edge '26818912').
+Warning: Ambiguous railway kilometrage direction for way '26927036' (assuming forward)
 Warning: Discarding unusable type 'railway.disused' (first occurence for edge '441828377').
 Warning: Speed of turning connection '294730182_0->154203996_0' reduced by 36.10 due to turning radius of 12.64 (length=28.64 angle=173.56)
 Warning: Speed of turning connection '-154203996_0->-294730182_0' reduced by 40.60 due to turning radius of 2.68 (length=4.54 angle=173.56)

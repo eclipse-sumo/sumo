@@ -93,21 +93,16 @@ GNEVehicleFrame::VTypeSelector::getCurrentVehicleType() const {
 
 
 void
-GNEVehicleFrame::VTypeSelector::showVTypeSelector(const GNEAttributeCarrier::TagProperties& tagProperties) {
+GNEVehicleFrame::VTypeSelector::showVTypeSelector(const GNEAttributeCarrier::TagProperties& /*tagProperties*/) {
+    refreshVTypeSelector();
     // if current selected item isn't valid, set DEFAULT_VEHTYPE
     if (myCurrentVehicleType) {
-        // show vehicle attributes modul
-        myVehicleFrameParent->myVehicleAttributes->showAttributesCreatorModul(tagProperties);
-        // show help creation
-        myVehicleFrameParent->myHelpCreation->showHelpCreation();
-    } else {
         // set DEFAULT_VTYPE as current VType
+        myTypeMatchBox->setText(myCurrentVehicleType->getID().c_str());
+    } else {
         myTypeMatchBox->setText(DEFAULT_VTYPE_ID.c_str());
-        // call manually onCmdSelectVType to update comboBox
-        onCmdSelectVType(nullptr, 0, nullptr);
     }
-    // show VType selector
-    show();
+    onCmdSelectVType(nullptr, 0, nullptr);
 }
 
 
@@ -448,8 +443,6 @@ void
 GNEVehicleFrame::show() {
     // refresh item selector
     myItemSelector->refreshTagProperties();
-    // refresh vType selector
-    myVTypeSelector->refreshVTypeSelector();
     // show frame
     GNEFrame::show();
 }
@@ -497,7 +490,7 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
                 // obtain vehicle parameters in vehicleParameters
                 SUMOVehicleParameter* vehicleParameters = SUMOVehicleParserHelper::parseVehicleAttributes(SUMOSAXAttrs);
                 // create it in RouteFrame
-                GNERouteHandler::buildVehicle(myViewNet, true, vehicleParameters);
+                GNERouteHandler::buildVehicleOrFlow(myViewNet, SUMO_TAG_VEHICLE, true, vehicleParameters);
                 // delete vehicleParameters
                 delete vehicleParameters;
             } else {
@@ -506,7 +499,7 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
                 // obtain flow parameters in flowParameters
                 SUMOVehicleParameter* flowParameters = SUMOVehicleParserHelper::parseFlowAttributes(SUMOSAXAttrs, 0, SUMOTime_MAX);
                 // create it in RouteFrame
-                GNERouteHandler::buildFlow(myViewNet, true, flowParameters);
+                GNERouteHandler::buildVehicleOrFlow(myViewNet, SUMO_TAG_FLOW, true, flowParameters);
                 // delete vehicleParameters
                 delete flowParameters;
             }

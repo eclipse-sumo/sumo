@@ -145,6 +145,8 @@ enum {
     MID_GNE_HOTKEY_DEL,
     /// @brief hot key <ENTER> accept current operation
     MID_GNE_HOTKEY_ENTER,
+    /// @brief hot key <Backspace> remove last sub-operation
+    MID_GNE_HOTKEY_BACKSPACE,
     /// @brief save TLS Programs
     MID_GNE_HOTKEY_CTRL_SHIFT_K,
     /// @brief clean junctions without edges
@@ -747,6 +749,14 @@ enum {
     MID_GNE_VEHICLEFRAME_REMOVELASTEDGE,
     /// @}
 
+    /// @name GNERoute messages
+    /// @{
+
+    /// @brief select a route mode
+    MID_GNE_ROUTEFRAME_ROUTEMODE,
+    /// @brief select a VClass
+    MID_GNE_ROUTEFRAME_VCLASS,
+    /// @}
 
     /// @name GNEEdge messages
     /// @{

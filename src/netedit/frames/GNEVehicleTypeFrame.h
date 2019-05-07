@@ -77,6 +77,9 @@ public:
         /// @brief pointer to Frame Parent
         GNEVehicleTypeFrame* myVehicleTypeFrameParent;
 
+        /// @brief pointer to current vehicle type
+        GNEDemandElement* myCurrentVehicleType;
+
         /// @brief comboBox with the list of elements type
         FXComboBox* myTypeMatchBox;
     };
@@ -157,12 +160,6 @@ public:
     VehicleTypeSelector* getVehicleTypeSelector() const;
 
 protected:
-    /// @brief enable moduls depending of item selected in VehicleTypeSelector
-    void enableModuls(GNEDemandElement* vType);
-
-    /// @brief disable moduls if element selected in itemSelector isn't valid
-    void disableModuls();
-
     /// @brief function called after set a valid attribute in AttributeCreator/AttributeEditor/GenericParametersEditor/...
     void updateFrameAfterChangeAttribute();
 

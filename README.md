@@ -53,7 +53,7 @@ There is also a [ppa for ubuntu users](https://launchpad.net/~sumo) and a
 [open build service instance](https://build.opensuse.org/project/show?project=home%3Abehrisch).
 If you want to build yourself, the steps for ubuntu are:
 
-        sudo apt-get install cmake python libxerces-c-dev libfox-1.6-dev libgl1-mesa-dev libglu1-mesa-dev libgdal-dev libproj-dev
+        sudo apt-get install cmake python libxerces-c-dev libfox-1.6-dev libgl1-mesa-dev libglu1-mesa-dev libgdal-dev libproj-dev libgl2ps-dev
         mkdir build/cmake-build && cd build/cmake-build
         cmake ../..
         make -j8
@@ -77,6 +77,8 @@ Please use for bugs and requests the [GitHub bug tracking tool](https://github.c
 or file them to the list sumo-user@eclipse.org. Before
 filing a bug, please consider to check with a current repository checkout
 whether the problem has already been fixed.
+
+We welcome patches, pull requests and other contributions! For details see [our contribution guidelines](CONTRIBUTING.md).
 
 
 License

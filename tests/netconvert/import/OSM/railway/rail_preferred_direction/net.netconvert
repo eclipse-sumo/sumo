@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Apr 29 12:45:10 2019 by Eclipse SUMO netconvert Version v1_2_0+0022-5179cc2293
+<!-- generated on Sun May  5 13:41:30 2019 by Eclipse SUMO netconvert Version v1_2_0+0149-6b40db9d1b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -75,13 +75,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":3420064522_1_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="53.72" shape="67.07,919.12 80.35,867.07"/>
     </edge>
 
-    <edge id="-334897773" from="3420064521" to="3420064517" priority="20" type="railway.rail" spreadType="center" shape="86.02,845.02 117.96,676.27 146.95,523.17 156.27,475.36" distance="24552.56">
+    <edge id="-334897773" from="3420064521" to="3420064517" priority="20" type="railway.rail" spreadType="center" shape="86.02,845.02 117.96,676.27 146.95,523.17 156.27,475.36" distance="23971.75">
         <lane id="-334897773_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="374.83" shape="86.28,843.60 117.96,676.27 146.95,523.17 156.27,475.36"/>
     </edge>
     <edge id="252505275" from="1500597230" to="3420064522" priority="20" type="railway.rail" spreadType="center" shape="14.72,1198.45 52.18,997.15 67.36,917.60">
         <lane id="252505275_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="284.20" shape="14.72,1198.45 52.18,997.15 67.07,919.12"/>
     </edge>
-    <edge id="252505355" from="1500597217" to="475148737" priority="20" type="railway.rail" spreadType="center" shape="50.81,976.17 70.11,869.76 106.51,674.72 110.24,654.70 135.07,520.15 194.40,214.17 213.48,112.25 220.91,71.77" distance="23493.45">
+    <edge id="252505355" from="1500597217" to="475148737" priority="20" type="railway.rail" spreadType="center" shape="50.81,976.17 70.11,869.76 106.51,674.72 110.24,654.70 135.07,520.15 194.40,214.17 213.48,112.25 220.91,71.77" distance="-23493.45">
         <lane id="252505355_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="920.27" shape="50.81,976.17 70.11,869.76 106.51,674.72 110.24,654.70 135.07,520.15 194.40,214.17 213.48,112.25 220.91,71.77"/>
     </edge>
     <edge id="334885012" from="3420064522" to="3420064521" priority="20" type="railway.rail" spreadType="center">

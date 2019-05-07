@@ -194,6 +194,12 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
     }
     // Pop name
     glPopName();
+    // draw demand element childs
+    for (const auto &i : getDemandElementChilds()) {
+        if (!i->getTagProperty().isPlacedInRTree()) {
+            i->drawGL(s);
+        }
+    }
 }
 
 

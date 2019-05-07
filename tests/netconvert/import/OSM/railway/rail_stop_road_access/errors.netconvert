@@ -1,11 +1,11 @@
 Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.tertiary' (first occurence for edge '10781105').
 Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.secondary' (first occurence for edge '26708284').
-Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.residential' (first occurence for edge '35554373#0').
-Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.secondary' (first occurence for edge '44956230#0').
-Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|cycleway.track|highway.tertiary' (first occurence for edge '93704176#0').
-Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.lane|cycleway.track|highway.tertiary' (first occurence for edge '93704176#0').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.residential' (first occurence for edge '35554373').
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.secondary' (first occurence for edge '44956230').
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|cycleway.track|highway.tertiary' (first occurence for edge '93704176').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.lane|cycleway.track|highway.tertiary' (first occurence for edge '93704176').
 Warning: Discarding unusable type 'railway.platform' (first occurence for edge '176006592').
-Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.tertiary' (first occurence for edge '283006425#0').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.tertiary' (first occurence for edge '283006425').
 Warning: Could not determine cross product
 Warning: Could not determine cross product
 Warning: Found sharp turn with radius 5.27 at the start of edge '-176023638#0'.

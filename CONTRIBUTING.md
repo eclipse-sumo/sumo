@@ -28,6 +28,12 @@ The project maintains the following source code repositories
 We are happily reviewing pull requests against the master of this repository.
 For details see below and http://sumo.dlr.de/wiki/FAQ#How_do_code_contributions_work.3F.
 
+In order to allow the development of separate external modules for SUMO (which are not
+part of the mainline repository) every source code directory lists the files and 
+subdirectories where modfications need to be made available under the EPL and in a 
+separate list which files / directories are considered interfaces to external modules,
+as an entry point see the [contribution README in the src dir](src/README_Contributing.md).
+
 ## Eclipse Contributor Agreement
 
 Before your contribution can be accepted by the project team contributors must

@@ -298,6 +298,9 @@ public:
     /// @brief called if the user hits enter
     long onCmdEnter(FXObject* sender, FXSelector sel, void* ptr);
 
+    /// @brief called if the user hits backspace
+    long onCmdBackspace(FXObject* sender, FXSelector sel, void* ptr);
+
     /// @brief called if the user hits f
     long onCmdFocusFrame(FXObject* sender, FXSelector sel, void* ptr);
 
@@ -680,6 +683,9 @@ private:
 
     /// @brief warns about unsaved changes in additionals and gives the user the option to abort
     bool continueWithUnsavedAdditionalChanges();
+
+    /// @brief warns about unsaved changes in demand elements and gives the user the option to abort
+    bool continueWithUnsavedDemandElementChanges();
 };
 
 

@@ -1,4 +1,5 @@
 <polygonTypes>
+
     <polygonType id="waterway"                name="water"       color=".71,.82,.82" layer="-4"/>
     <polygonType id="natural"                 name="natural"     color=".55,.77,.42" layer="-4"/>
     <polygonType id="natural.water"           name="water"       color=".71,.82,.82" layer="-4"/>
@@ -40,5 +41,8 @@
     <polygonType id="admin_level"             name="admin_level" color="1.0,.33,.33" layer="0" fill="false" discard="true"/>
     <polygonType id="place"                   name="admin_level" color="1.0,.9,.0" layer="0" fill="false" discard="true"/>
 
+    <polygonType id="railway"                 name="railway"     color=".10,.10,.10" layer="-1" discard="true"/>
+    <polygonType id="railway:position"        name="railway.position"        color="blue"  layer="1" discard="true"/>
+    <polygonType id="railway:position:exact"  name="railway.position.exact"  color="green" layer="2" discard="true"/>
 
 </polygonTypes>

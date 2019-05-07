@@ -1,12 +1,28 @@
-Warning: Discarding unknown compound 'usage.main' in type 'railway.light_rail|usage.main' (first occurence for edge '4471817#0').
+Warning: Discarding unknown compound 'usage.main' in type 'railway.light_rail|usage.main' (first occurence for edge '4471817').
 Warning: Discarding unknown compound 'cycleway.opposite' in type 'cycleway.opposite|highway.residential' (first occurence for edge '4610354').
-Warning: Discarding unknown compound 'cycleway.share_busway' in type 'cycleway.share_busway|highway.primary' (first occurence for edge '4611698#0').
-Warning: Discarding unknown compound 'cycleway.shared_lane' in type 'cycleway.shared_lane|highway.secondary' (first occurence for edge '22972195#0').
+Warning: Discarding unknown compound 'cycleway.share_busway' in type 'cycleway.share_busway|highway.primary' (first occurence for edge '4611698').
+Warning: Discarding unknown compound 'cycleway.shared_lane' in type 'cycleway.shared_lane|highway.secondary' (first occurence for edge '22972195').
 Warning: Discarding unknown compound 'usage.main' in type 'railway.rail|usage.main' (first occurence for edge '23809674').
+Warning: Ambiguous railway kilometrage direction for way '25946680' (assuming forward)
 Warning: Discarding unusable type 'highway.construction' (first occurence for edge '25959781').
 Warning: Discarding unusable type 'waterway.stream' (first occurence for edge '31112384').
-Warning: Discarding unusable type 'waterway.weir' (first occurence for edge '31560876#0').
-Warning: Discarding unusable type 'railway.platform' (first occurence for edge '43185748#0').
+Warning: Discarding unusable type 'waterway.weir' (first occurence for edge '31560876').
+Warning: Ambiguous railway kilometrage direction for way '32572620' (assuming forward)
+Warning: Ambiguous railway kilometrage direction for way '32572624' (assuming forward)
+Warning: Ambiguous railway kilometrage direction for way '32590429' (assuming forward)
+Warning: Ambiguous railway kilometrage direction for way '32590435' (assuming forward)
+Warning: Ambiguous railway kilometrage direction for way '32590492' (assuming forward)
+Warning: Ambiguous railway kilometrage direction for way '32590636' (assuming forward)
+Warning: Ambiguous railway kilometrage direction for way '32590637' (assuming forward)
+Warning: Ambiguous railway kilometrage direction for way '32590640' (assuming forward)
+Warning: Ambiguous railway kilometrage direction for way '32590647' (assuming forward)
+Warning: Ambiguous railway kilometrage direction for way '32590649' (assuming forward)
+Warning: Ambiguous railway kilometrage direction for way '32590652' (assuming forward)
+Warning: Ambiguous railway kilometrage direction for way '32590889' (assuming forward)
+Warning: Ambiguous railway kilometrage direction for way '32590890' (assuming forward)
+Warning: Ambiguous railway kilometrage direction for way '32590891' (assuming forward)
+Warning: Ambiguous railway kilometrage direction for way '32590896' (assuming forward)
+Warning: Discarding unusable type 'railway.platform' (first occurence for edge '43185748').
 Warning: Discarding unknown compound 'cycleway.crossing' in type 'cycleway.crossing|highway.footway' (first occurence for edge '59332212').
 Warning: Discarding unusable type 'railway.construction' (first occurence for edge '71326270').
 Warning: Discarding unusable type 'railway.disused' (first occurence for edge '165411077').
@@ -16,12 +32,13 @@ Warning: Discarding unusable type 'railway.proposed' (first occurence for edge '
 Warning: Discarding unknown compound 'railway.proposed' in type 'railway.proposed|usage.main' (first occurence for edge '199425789').
 Warning: Discarding unknown compound 'usage.main' in type 'railway.proposed|usage.main' (first occurence for edge '199425789').
 Warning: Discarding unusable type 'railway.proposed|usage.main' (first occurence for edge '199425789').
+Warning: Ambiguous railway kilometrage direction for way '230976793' (assuming forward)
 Warning: Discarding unusable type 'railway.razed' (first occurence for edge '235499467').
-Warning: Discarding unknown compound 'cycleway.share_busway' in type 'cycleway.share_busway|highway.secondary' (first occurence for edge '236092221#0').
-Warning: Discarding unusable type 'highway.elevator' (first occurence for edge '254339608#0').
+Warning: Discarding unknown compound 'cycleway.share_busway' in type 'cycleway.share_busway|highway.secondary' (first occurence for edge '236092221').
+Warning: Discarding unusable type 'highway.elevator' (first occurence for edge '254339608').
 Warning: Discarding unusable type 'highway.corridor' (first occurence for edge '410310758').
-Warning: Discarding unusable type 'waterway.dam' (first occurence for edge '410369039#0').
-Warning: Discarding unusable type 'waterway.lock_gate' (first occurence for edge '451828757#0').
+Warning: Discarding unusable type 'waterway.dam' (first occurence for edge '410369039').
+Warning: Discarding unusable type 'waterway.lock_gate' (first occurence for edge '451828757').
 Warning: Removing pt stop:1257007152 on non existing edge: 71326270
 Warning: Removing pt stop:587624704 on non existing edge: 71326270
 Warning: Done reading first coherent chunk of pt stops. Further stops in relation 28270 are ignored

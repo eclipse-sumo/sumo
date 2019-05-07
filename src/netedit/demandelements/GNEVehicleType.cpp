@@ -134,7 +134,7 @@ GNEVehicleType::selectAttributeCarrier(bool changeFlag) {
     if (!myViewNet) {
         throw ProcessError("ViewNet cannot be nullptr");
     } else {
-        gSelected.select(dynamic_cast<GUIGlObject*>(this)->getGlID());
+        gSelected.select(getGlID());
         // add object of list into selected objects
         myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->addedLockedObject(GLO_VTYPE);
         if (changeFlag) {
@@ -149,7 +149,7 @@ GNEVehicleType::unselectAttributeCarrier(bool changeFlag) {
     if (!myViewNet) {
         throw ProcessError("ViewNet cannot be nullptr");
     } else {
-        gSelected.deselect(dynamic_cast<GUIGlObject*>(this)->getGlID());
+        gSelected.deselect(getGlID());
         // remove object of list of selected objects
         myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->removeLockedObject(GLO_VTYPE);
         if (changeFlag) {
@@ -279,7 +279,7 @@ GNEVehicleType::getAttribute(SumoXMLAttr key) const {
             if (wasSet(VTYPEPARS_EMISSIONCLASS_SET)) {
                 return PollutantsInterface::getName(emissionClass);
             } else {
-                return myTagProperty.getDefaultValue(SUMO_ATTR_EMISSIONCLASS);
+                return PollutantsInterface::getName(defaultValues.emissionClass);
             }
         case SUMO_ATTR_GUISHAPE:
             if (wasSet(VTYPEPARS_SHAPE_SET)) {
@@ -386,6 +386,10 @@ GNEVehicleType::getAttribute(SumoXMLAttr key) const {
             }
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
+        case GNE_ATTR_DEFAULT_VTYPE:
+            return toString((getDemandElementID() == DEFAULT_VTYPE_ID) || 
+                            (getDemandElementID() == DEFAULT_PEDTYPE_ID) || 
+                            (getDemandElementID() == DEFAULT_BIKETYPE_ID));
         case GNE_ATTR_DEFAULT_VTYPE_MODIFIED:
             if (myDefaultVehicleType) {
                 return toString(myDefaultVehicleTypeModified);
@@ -574,7 +578,7 @@ GNEVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_VCLASS:
             return canParseVehicleClasses(value);
         case SUMO_ATTR_EMISSIONCLASS:
-            /** check **/
+            // check #5585
             return true;
         case SUMO_ATTR_GUISHAPE:
             if (value == "all") {
@@ -945,6 +949,7 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             changeDemandElementID(value);
+            id = value;
             break;
         // CFM Values
         case SUMO_ATTR_ACCEL:
@@ -1062,11 +1067,13 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case SUMO_ATTR_SPEEDDEV:
-            if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
+            if (!value.empty() && (value != toString(defaultValues.speedFactor.getParameter()[1]))) {
                 speedFactor.getParameter()[1] = parse<double>(value);
+                // mark parameter as set
+                parametersSet |= VTYPEPARS_SPEEDFACTOR_SET;
             } else {
                 // set default value
-                speedFactor.getParameter()[1] = parse<double>(myTagProperty.getDefaultValue(key));
+                speedFactor.getParameter()[1] = defaultValues.speedFactor.getParameter()[1];
                 // unset parameter
                 parametersSet &= ~VTYPEPARS_SPEEDFACTOR_SET;
             }
@@ -1097,7 +1104,7 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_EMISSIONCLASS:
             if (!value.empty() && (value != toString(defaultValues.emissionClass))) {
-                emissionClass = PollutantsInterface::getClassByName(value);
+                // emissionClass = PollutantsInterface::getClassByName(value); CHECK #5585 
                 // mark parameter as set
                 parametersSet |= VTYPEPARS_EMISSIONCLASS_SET;
             } else {

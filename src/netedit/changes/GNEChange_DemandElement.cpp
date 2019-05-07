@@ -26,7 +26,7 @@
 #include <netedit/additionals/GNEShape.h>
 #include <netedit/additionals/GNEAdditional.h>
 #include <netedit/demandelements/GNEDemandElement.h>
-#include <netedit/frames/GNEFrame.h>
+#include <netedit/frames/GNEVehicleTypeFrame.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/GNEViewNet.h>
 
@@ -112,6 +112,10 @@ GNEChange_DemandElement::undo() {
         for (const auto& i : myDemandElementChilds) {
             i->removeDemandElementParent(myDemandElement);
         }
+        // update vehicle type selector if demand element is a VType and vehicle type Frame is shown
+        if ((myDemandElement->getTagProperty().getTag() == SUMO_TAG_VTYPE) && myNet->getViewNet()->getViewParent()->getVehicleTypeFrame()->shown()) {
+            myNet->getViewNet()->getViewParent()->getVehicleTypeFrame()->getVehicleTypeSelector()->refreshVehicleTypeSelector();
+        }
     } else {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "' in GNEChange_DemandElement");
@@ -149,6 +153,10 @@ GNEChange_DemandElement::undo() {
         for (const auto& i : myDemandElementChilds) {
             i->addDemandElementParent(myDemandElement);
         }
+    }
+    // update vehicle type selector if demand element is a VType and vehicle type Frame is shown
+    if ((myDemandElement->getTagProperty().getTag() == SUMO_TAG_VTYPE) && myNet->getViewNet()->getViewParent()->getVehicleTypeFrame()->shown()) {
+        myNet->getViewNet()->getViewParent()->getVehicleTypeFrame()->getVehicleTypeSelector()->refreshVehicleTypeSelector();
     }
     // Requiere always save elements
     myNet->requiereSaveDemandElements(true);
@@ -194,6 +202,10 @@ GNEChange_DemandElement::redo() {
         for (const auto& i : myDemandElementChilds) {
             i->addDemandElementParent(myDemandElement);
         }
+        // update vehicle type selector if demand element is a VType and vehicle type Frame is shown
+        if ((myDemandElement->getTagProperty().getTag() == SUMO_TAG_VTYPE) && myNet->getViewNet()->getViewParent()->getVehicleTypeFrame()->shown()) {
+            myNet->getViewNet()->getViewParent()->getVehicleTypeFrame()->getVehicleTypeSelector()->refreshVehicleTypeSelector();
+        }
     } else {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "' in GNEChange_DemandElement");
@@ -231,6 +243,10 @@ GNEChange_DemandElement::redo() {
         for (const auto& i : myDemandElementChilds) {
             i->removeDemandElementParent(myDemandElement);
         }
+    }
+    // update vehicle type selector if demand element is a VType and vehicle type Frame is shown
+    if ((myDemandElement->getTagProperty().getTag() == SUMO_TAG_VTYPE) && myNet->getViewNet()->getViewParent()->getVehicleTypeFrame()->shown()) {
+        myNet->getViewNet()->getViewParent()->getVehicleTypeFrame()->getVehicleTypeSelector()->refreshVehicleTypeSelector();
     }
     // Requiere always save elements
     myNet->requiereSaveDemandElements(true);

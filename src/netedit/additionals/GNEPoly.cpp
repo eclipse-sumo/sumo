@@ -906,4 +906,10 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
 }
 
+
+const GUIGlObject*
+GNEPoly::getGUIGlObject() const {
+    return this;
+}
+
 /****************************************************************************/
