@@ -23,8 +23,9 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNELane.h>
+#include <netedit/netelements/GNEEdge.h>
+#include <netedit/demandelements/GNEDemandElement.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/gui/globjects/GLIncludes.h>
@@ -192,6 +193,12 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
     }
     // Pop name matrix
     glPopName();
+    // draw demand element childs
+    for (const auto &i : getDemandElementChilds()) {
+        if (!i->getTagProperty().isPlacedInRTree()) {
+            i->drawGL(s);
+        }
+    }
 }
 
 
