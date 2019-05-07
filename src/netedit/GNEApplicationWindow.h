@@ -683,6 +683,9 @@ private:
 
     /// @brief warns about unsaved changes in additionals and gives the user the option to abort
     bool continueWithUnsavedAdditionalChanges();
+
+    /// @brief warns about unsaved changes in demand elements and gives the user the option to abort
+    bool continueWithUnsavedDemandElementChanges();
 };
 
 

@@ -2392,7 +2392,7 @@ GNEApplicationWindow::continueWithUnsavedChanges() {
         if (answer == MBOX_CLICKED_QUIT) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox 'Confirm closing network' with 'Quit'");
-            if (continueWithUnsavedAdditionalChanges()) {
+            if (continueWithUnsavedAdditionalChanges() && continueWithUnsavedDemandElementChanges()) {
                 // clear undo list and return true to continue with closing/reload
                 myUndoList->p_clear();
                 return true;
@@ -2406,7 +2406,7 @@ GNEApplicationWindow::continueWithUnsavedChanges() {
                 // saving failed
                 return false;
             }
-            if (continueWithUnsavedAdditionalChanges()) {
+            if (continueWithUnsavedAdditionalChanges() && continueWithUnsavedDemandElementChanges()) {
                 // clear undo list and return true to continue with closing/reload
                 myUndoList->p_clear();
                 return true;
@@ -2424,7 +2424,7 @@ GNEApplicationWindow::continueWithUnsavedChanges() {
             return false;
         }
     } else {
-        if (continueWithUnsavedAdditionalChanges()) {
+        if (continueWithUnsavedAdditionalChanges() && continueWithUnsavedDemandElementChanges()) {
             // clear undo list and return true to continue with closing/reload
             myUndoList->p_clear(); //only ask once
             return true;
@@ -2468,6 +2468,49 @@ GNEApplicationWindow::continueWithUnsavedAdditionalChanges() {
                 WRITE_DEBUG("Closed FXMessageBox 'Save additionals before exit' with 'No'");
             } else if (answer == 4) {
                 WRITE_DEBUG("Closed FXMessageBox 'Save additionals before exit' with 'ESC'");
+            }
+            // abort saving
+            return false;
+        }
+    } else {
+        // nothing to save, return true
+        return true;
+    }
+}
+
+
+bool
+GNEApplicationWindow::continueWithUnsavedDemandElementChanges() {
+    // Check if there are non saved DemandElements
+    if (myViewNet && myFileMenuCommands.saveDemandElements->isEnabled()) {
+        WRITE_DEBUG("Opening FXMessageBox 'Save demand elements before exit'");
+        // open question box
+        FXuint answer = FXMessageBox::question(getApp(), MBOX_QUIT_SAVE_CANCEL,
+                                               "Save demand elements before exit", "%s",
+                                               "You have unsaved demand elements. Do you wish to quit and discard all changes?");
+        // restore focus to view net
+        myViewNet->setFocus();
+        // if answer was affirmative, but there was an error during saving DemandElement, return false to stop closing/reloading
+        if (answer == MBOX_CLICKED_QUIT) {
+            WRITE_DEBUG("Closed FXMessageBox 'Save demand elements before exit' with 'Quit'");
+            // nothing to save, return true
+            return true;
+        } else if (answer == MBOX_CLICKED_SAVE) {
+            // write warning if netedit is running in testing mode
+            WRITE_DEBUG("Closed FXMessageBox 'Save demand elements before exit' with 'Yes'");
+            if (onCmdSaveDemandElements(nullptr, 0, nullptr) == 1) {
+                // DemandElements sucesfully saved
+                return true;
+            } else {
+                // error saving DemandElements, abort saving
+                return false;
+            }
+        } else {
+            // write warning if netedit is running in testing mode
+            if (answer == 2) {
+                WRITE_DEBUG("Closed FXMessageBox 'Save demand elements before exit' with 'No'");
+            } else if (answer == 4) {
+                WRITE_DEBUG("Closed FXMessageBox 'Save demand elements before exit' with 'ESC'");
             }
             // abort saving
             return false;
