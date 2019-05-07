@@ -1030,7 +1030,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             repetitionEnd = string2time(value);
             break;
         case SUMO_ATTR_VEHSPERHOUR:
-            repetitionOffset = 3600 / parse<double>(value);
+            repetitionOffset = TIME2STEPS(3600 / parse<double>(value));
             break;
         case SUMO_ATTR_PERIOD:
             repetitionOffset = string2time(value);
