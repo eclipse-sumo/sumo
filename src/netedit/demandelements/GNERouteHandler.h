@@ -53,11 +53,10 @@ public:
     /// @brief Destructor
     ~GNERouteHandler();
 
-    /// @brief build vehicle
-    static void buildVehicle(GNEViewNet* viewNet, bool undoDemandElements, SUMOVehicleParameter* vehicleParameters);
+    static bool duplicateVehicleID(GNEViewNet* viewNet, const std::string& id); 
 
-    /// @brief build flow
-    static void buildFlow(GNEViewNet* viewNet, bool undoDemandElements, SUMOVehicleParameter* flowParameters);
+    /// @brief build vehicle
+    static void buildVehicleOrFlow(GNEViewNet* viewNet, SumoXMLTag tag, bool undoDemandElements, SUMOVehicleParameter* vehicleParameters);
 
     /// @brief build trip
     static void buildTrip(GNEViewNet* viewNet, bool undoDemandElements, SUMOVehicleParameter* tripParameters, const std::vector<GNEEdge*>& edges);
