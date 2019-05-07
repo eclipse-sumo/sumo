@@ -1834,11 +1834,16 @@ GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*
                                     "Select name of the demand element file", ".xml",
                                     GUIIconSubSys::getIcon(ICON_MODETLS),
                                     gCurrentFolder).text();
-                    // update additional files
-                    oc.resetWritable();
-                    oc.set("additional-files", file.text());
-                    // set obtanied filename output into additionalsSavePath (can be "")
-                    additionalsSavePath = oc.getString("additional-files");
+                    // add xml extension
+                    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
+                    // check that file is valid
+                    if (fileWithExtension != "") {
+                        // update additional files
+                        oc.resetWritable();
+                        oc.set("additional-files", fileWithExtension);
+                        // set obtanied filename output into additionalsSavePath (can be "")
+                        additionalsSavePath = oc.getString("additional-files");
+                    }
                 }
             }
             // Check if additional must be saved in a temporal directory, if user didn't define a directory for additionals
@@ -1889,11 +1894,16 @@ GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*
                                     "Select name of the demand element file", ".xml",
                                     GUIIconSubSys::getIcon(ICON_MODETLS),
                                     gCurrentFolder).text();
-                    // update route files
-                    oc.resetWritable();
-                    oc.set("route-files", file.text());
-                    // set obtanied filename output into demand elementSavePath (can be "")
-                    demandElementsSavePath = oc.getString("route-files");
+                    // add xml extension
+                    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
+                    // check that file is valid
+                    if (fileWithExtension != "") {
+                        // update route files
+                        oc.resetWritable();
+                        oc.set("route-files", fileWithExtension);
+                        // set obtanied filename output into demand elementSavePath (can be "")
+                        demandElementsSavePath = oc.getString("route-files");
+                    }
                 }
             }
             // Check if demand element must be saved in a temporal directory, if user didn't define a directory for demand elements
@@ -2004,14 +2014,16 @@ GNEApplicationWindow::onCmdSaveAsNetwork(FXObject*, FXSelector, void*) {
                     "Save Network as", ".net.xml",
                     GUIIconSubSys::getIcon(ICON_MODECREATEEDGE),
                     gCurrentFolder);
-    if (file == "") {
-        return 1;
+    // add xml extension
+    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
+    // check that file with extension is valid
+    if (fileWithExtension != "") {
+        OptionsCont& oc = OptionsCont::getOptions();
+        oc.resetWritable();
+        oc.set("output-file", fileWithExtension);
+        setTitle(MFXUtils::getTitleText(myTitlePrefix, fileWithExtension.c_str()));
+        onCmdSaveNetwork(nullptr, 0, nullptr);
     }
-    OptionsCont& oc = OptionsCont::getOptions();
-    oc.resetWritable();
-    oc.set("output-file", file.text());
-    setTitle(MFXUtils::getTitleText(myTitlePrefix, file));
-    onCmdSaveNetwork(nullptr, 0, nullptr);
     return 1;
 }
 
@@ -2022,44 +2034,44 @@ GNEApplicationWindow::onCmdSaveAsPlainXML(FXObject*, FXSelector, void*) {
                     "Select name of the plain-xml edge-file (other names will be deduced from this)", "",
                     GUIIconSubSys::getIcon(ICON_MODECREATEEDGE),
                     gCurrentFolder);
-    if (file == "") {
-        return 1;
-    }
-    OptionsCont& oc = OptionsCont::getOptions();
-    bool wasSet = oc.isSet("plain-output-prefix");
-    std::string oldPrefix = oc.getString("plain-output-prefix");
-    std::string prefix = file.text();
-    // if the name of an edg.xml file was given, remove the suffix
-    if (StringUtils::endsWith(prefix, ".edg.xml")) {
-        prefix = prefix.substr(0, prefix.size() - 8);
-    }
-    if (StringUtils::endsWith(prefix, ".")) {
-        prefix = prefix.substr(0, prefix.size() - 1);
-    }
-    oc.resetWritable();
-    oc.set("plain-output-prefix", prefix);
-    getApp()->beginWaitCursor();
-    try {
-        myNet->savePlain(oc);
-        myUndoList->unmark();
-        myUndoList->mark();
-    } catch (IOError& e) {
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Opening FXMessageBox 'Error saving plainXML'");
-        // open message box
-        FXMessageBox::error(this, MBOX_OK, "Saving plain xml failed!", "%s", e.what());
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Closed FXMessageBox 'Error saving plainXML' with 'OK'");
-    }
-    myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURRED, "Plain XML saved with prefix '" + prefix + "'.\n");
-    myMessageWindow->addSeparator();
-    if (wasSet) {
+    // check that file is valid (note: in this case we don't need to use function FileHelpers::addExtension)
+    if (file != "") {
+        OptionsCont& oc = OptionsCont::getOptions();
+        bool wasSet = oc.isSet("plain-output-prefix");
+        std::string oldPrefix = oc.getString("plain-output-prefix");
+        std::string prefix = file.text();
+        // if the name of an edg.xml file was given, remove the suffix
+        if (StringUtils::endsWith(prefix, ".edg.xml")) {
+            prefix = prefix.substr(0, prefix.size() - 8);
+        }
+        if (StringUtils::endsWith(prefix, ".")) {
+            prefix = prefix.substr(0, prefix.size() - 1);
+        }
         oc.resetWritable();
-        oc.set("plain-output-prefix", oldPrefix);
-    } else {
-        oc.unSet("plain-output-prefix");
+        oc.set("plain-output-prefix", prefix);
+        getApp()->beginWaitCursor();
+        try {
+            myNet->savePlain(oc);
+            myUndoList->unmark();
+            myUndoList->mark();
+        } catch (IOError& e) {
+            // write warning if netedit is running in testing mode
+            WRITE_DEBUG("Opening FXMessageBox 'Error saving plainXML'");
+            // open message box
+            FXMessageBox::error(this, MBOX_OK, "Saving plain xml failed!", "%s", e.what());
+            // write warning if netedit is running in testing mode
+            WRITE_DEBUG("Closed FXMessageBox 'Error saving plainXML' with 'OK'");
+        }
+        myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURRED, "Plain XML saved with prefix '" + prefix + "'.\n");
+        myMessageWindow->addSeparator();
+        if (wasSet) {
+            oc.resetWritable();
+            oc.set("plain-output-prefix", oldPrefix);
+        } else {
+            oc.unSet("plain-output-prefix");
+        }
+        getApp()->endWaitCursor();
     }
-    getApp()->endWaitCursor();
     return 1;
 }
 
@@ -2070,35 +2082,36 @@ GNEApplicationWindow::onCmdSaveJoined(FXObject*, FXSelector, void*) {
                     "Select name of the joined-junctions file", ".nod.xml",
                     GUIIconSubSys::getIcon(ICON_MODECREATEEDGE),
                     gCurrentFolder);
-    if (file == "") {
-        return 1;
-    }
-    OptionsCont& oc = OptionsCont::getOptions();
-    bool wasSet = oc.isSet("junctions.join-output");
-    std::string oldFile = oc.getString("junctions.join-output");
-    std::string filename = file.text();
-    oc.resetWritable();
-    oc.set("junctions.join-output", filename);
-    getApp()->beginWaitCursor();
-    try {
-        myNet->saveJoined(oc);
-    } catch (IOError& e) {
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Opening FXMessageBox 'error saving joined'");
-        // opening error message
-        FXMessageBox::error(this, MBOX_OK, "Saving joined junctions failed!", "%s", e.what());
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Closed FXMessageBox 'error saving joined' with 'OK'");
-    }
-    myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURRED, "Joined junctions saved to '" + filename + "'.\n");
-    myMessageWindow->addSeparator();
-    if (wasSet) {
+    // add xml extension
+    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
+    // check that file with extension is valid
+    if (fileWithExtension != "") {
+        OptionsCont& oc = OptionsCont::getOptions();
+        bool wasSet = oc.isSet("junctions.join-output");
+        std::string oldFile = oc.getString("junctions.join-output");
         oc.resetWritable();
-        oc.set("junctions.join-output", oldFile);
-    } else {
-        oc.unSet("junctions.join-output");
+        oc.set("junctions.join-output", fileWithExtension);
+        getApp()->beginWaitCursor();
+        try {
+            myNet->saveJoined(oc);
+        } catch (IOError& e) {
+            // write warning if netedit is running in testing mode
+            WRITE_DEBUG("Opening FXMessageBox 'error saving joined'");
+            // opening error message
+            FXMessageBox::error(this, MBOX_OK, "Saving joined junctions failed!", "%s", e.what());
+            // write warning if netedit is running in testing mode
+            WRITE_DEBUG("Closed FXMessageBox 'error saving joined' with 'OK'");
+        }
+        myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURRED, "Joined junctions saved to '" + fileWithExtension + "'.\n");
+        myMessageWindow->addSeparator();
+        if (wasSet) {
+            oc.resetWritable();
+            oc.set("junctions.join-output", oldFile);
+        } else {
+            oc.unSet("junctions.join-output");
+        }
+        getApp()->endWaitCursor();
     }
-    getApp()->endWaitCursor();
     return 1;
 }
 
@@ -2184,13 +2197,16 @@ GNEApplicationWindow::onCmdSaveAdditionals(FXObject*, FXSelector, void*) {
                             "Select name of the additional file", ".xml",
                             GUIIconSubSys::getIcon(ICON_MODEADDITIONAL),
                             gCurrentFolder);
-            if (file == "") {
-                // None additionals file was selected, then stop function
-                return 0;
-            } else {
+            // add xml extension
+            std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
+            // check tat file is valid
+            if (fileWithExtension != "") {
                 // change value of "additional-files"
                 oc.resetWritable();
-                oc.set("additional-files", file.text());
+                oc.set("additional-files", fileWithExtension);
+            } else {
+                // None additionals file was selected, then stop function
+                return 0;
             }
         }
         // Start saving additionals
@@ -2223,11 +2239,14 @@ GNEApplicationWindow::onCmdSaveAdditionalsAs(FXObject*, FXSelector, void*) {
                     "Select name of the additional file", ".xml",
                     GUIIconSubSys::getIcon(ICON_MODEADDITIONAL),
                     gCurrentFolder);
-    if (file != "") {
+    // add xml extension
+    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
+    // check tat file is valid
+    if (fileWithExtension != "") {
         // reset writtable flag
         OptionsCont::getOptions().resetWritable();
         // change value of "additional-files"
-        OptionsCont::getOptions().set("additional-files", file.text());
+        OptionsCont::getOptions().set("additional-files", fileWithExtension);
         // change flag of menu command for save additionals
         myFileMenuCommands.saveAdditionals->enable();
         // save additionals
@@ -2250,13 +2269,16 @@ GNEApplicationWindow::onCmdSaveTLSPrograms(FXObject*, FXSelector, void*) {
                             "Select name of the TLS file", ".xml",
                             GUIIconSubSys::getIcon(ICON_MODETLS),
                             gCurrentFolder);
+            // add xml extension
+            std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
+            // check tat file is valid
             if (file == "") {
                 // None TLS Programs file was selected, then stop function
                 return 0;
             } else {
                 // change value of "TLSPrograms-output"
                 oc.resetWritable();
-                oc.set("TLSPrograms-output", file.text());
+                oc.set("TLSPrograms-output", fileWithExtension);
             }
         }
         // Start saving TLS Programs
@@ -2289,9 +2311,12 @@ GNEApplicationWindow::onCmdSaveTLSProgramsAs(FXObject*, FXSelector, void*) {
                     "Select name of the TLS Progarm file", ".xml",
                     GUIIconSubSys::getIcon(ICON_MODETLS),
                     gCurrentFolder);
-    if (file != "") {
+    // add xml extension
+    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
+    // check tat file is valid
+    if (fileWithExtension != "") {
         // change value of "TLSPrograms-files"
-        OptionsCont::getOptions().set("TLSPrograms-output", file.text());
+        OptionsCont::getOptions().set("TLSPrograms-output", fileWithExtension);
         // save TLS Programs
         return onCmdSaveTLSPrograms(nullptr, 0, nullptr);
     } else {
@@ -2312,13 +2337,16 @@ GNEApplicationWindow::onCmdSaveDemandElements(FXObject*, FXSelector, void*) {
                             "Select name of the demand element file", ".xml",
                             GUIIconSubSys::getIcon(ICON_MODEADDITIONAL),
                             gCurrentFolder);
-            if (file == "") {
-                // None demand elements file was selected, then stop function
-                return 0;
-            } else {
+            // add xml extension
+            std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
+            // check tat file is valid
+            if (fileWithExtension != "") {
                 // change value of "route-files"
                 oc.resetWritable();
-                oc.set("route-files", file.text());
+                oc.set("route-files", fileWithExtension);
+            } else {
+                // None demand elements file was selected, then stop function
+                return 0;
             }
         }
         // Start saving demand elements
@@ -2351,11 +2379,14 @@ GNEApplicationWindow::onCmdSaveDemandElementsAs(FXObject*, FXSelector, void*) {
                     "Select name of the demand element file", ".xml",
                     GUIIconSubSys::getIcon(ICON_SUPERMODEDEMAND),
                     gCurrentFolder);
-    if (file != "") {
+    // add xml extension
+    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
+    // check that file is correct
+    if (fileWithExtension != "") {
         // reset writtable flag
         OptionsCont::getOptions().resetWritable();
         // change value of "route-files"
-        OptionsCont::getOptions().set("route-files", file.text());
+        OptionsCont::getOptions().set("route-files", fileWithExtension);
         // change flag of menu command for save demand elements
         myFileMenuCommands.saveDemandElements->enable();
         // save demand elements
