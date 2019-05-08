@@ -1452,9 +1452,10 @@ GNEApplicationWindow::getDefaultCursor() {
 void
 GNEApplicationWindow::loadOptionOnStartup() {
     OptionsCont& oc = OptionsCont::getOptions();
-    loadConfigOrNet("", true, false, true, oc.getBool("new"));
     // set default options
     GNELoadThread::setDefaultOptions(oc);
+    loadConfigOrNet("", true, false, true, oc.getBool("new"));
+
 }
 
 
