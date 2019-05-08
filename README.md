@@ -20,7 +20,7 @@ at the German Aerospace Center](https://www.dlr.de/ts).
 Where to get it
 ---------------
 
-You can download SUMO from SourceForge via our [downloads site](https://sumo.dlr.de/wiki/Downloads).
+You can download SUMO via our [downloads site](https://sumo.dlr.de/wiki/Downloads).
 
 As the program is still under development and is extended continuously, we advice you to
 use the latest sources from our GitHub repository. Using a command line client
@@ -53,7 +53,9 @@ There is also a [ppa for ubuntu users](https://launchpad.net/~sumo) and a
 [open build service instance](https://build.opensuse.org/project/show?project=home%3Abehrisch).
 If you want to build yourself, the steps for ubuntu are:
 
-        sudo apt-get install cmake python libxerces-c-dev libfox-1.6-dev libgl1-mesa-dev libglu1-mesa-dev libgdal-dev libproj-dev libgl2ps-dev
+        sudo apt-get install cmake python g++ libxerces-c-dev libfox-1.6-dev libgdal-dev libproj-dev libgl2ps-dev swig
+        cd <SUMO_DIR> # please insert the correct directory name here
+        export SUMO_HOME="$PWD"
         mkdir build/cmake-build && cd build/cmake-build
         cmake ../..
         make -j8
