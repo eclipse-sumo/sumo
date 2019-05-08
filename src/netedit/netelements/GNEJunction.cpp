@@ -64,8 +64,6 @@ GNEJunction::GNEJunction(NBNode& nbn, GNENet* net, bool loaded) :
     myAmResponsible(false),
     myHasValidLogic(loaded),
     myAmTLSSelected(false) {
-    // give a temporal value for boundary
-    myJunctionBoundary = Boundary(myNBNode.getPosition().x() - 2, myNBNode.getPosition().y() - 2, myNBNode.getPosition().x() + 2, myNBNode.getPosition().y() + 2);
 }
 
 
@@ -109,15 +107,7 @@ GNEJunction::updateGeometryAfterNetbuild(bool rebuildNBNodeCrossings) {
     if (!myMovingGeometryBoundary.isInitialised()) {
         myNet->removeGLObjectFromGrid(this);
     }
-    // calculate boundary using EXTENT as size
-    const double EXTENT = 2;
-    myJunctionBoundary = Boundary(myNBNode.getPosition().x() - EXTENT, myNBNode.getPosition().y() - EXTENT,
-                                  myNBNode.getPosition().x() + EXTENT, myNBNode.getPosition().y() + EXTENT);
-    // if junctio own a extra shape, add it to boundary
-    if (myNBNode.getShape().size() > 0) {
-        myJunctionBoundary.add(myNBNode.getShape().getBoxBoundary());
-    }
-    myMaxSize = MAX2(myJunctionBoundary.getWidth(), myJunctionBoundary.getHeight());
+    myMaxSize = MAX2(getCenteringBoundary().getWidth(), getCenteringBoundary().getHeight());
     // last step is to check if object has to be added into grid (SUMOTree) again
     if (!myMovingGeometryBoundary.isInitialised()) {
         myNet->addGLObjectIntoGrid(this);
@@ -259,8 +249,15 @@ GNEJunction::getCenteringBoundary() const {
     // Return Boundary depending if myMovingGeometryBoundary is initialised (important for move geometry)
     if (myMovingGeometryBoundary.isInitialised()) {
         return myMovingGeometryBoundary;
+    } else if (myNBNode.getShape().size() > 0) {
+        Boundary b = myNBNode.getShape().getBoxBoundary();
+        b.grow(20);
+        return b;
     } else {
-        Boundary b = myJunctionBoundary;
+        // calculate boundary using EXTENT as size
+        const double EXTENT = 2;
+        Boundary b(myNBNode.getPosition().x() - EXTENT, myNBNode.getPosition().y() - EXTENT,
+                                      myNBNode.getPosition().x() + EXTENT, myNBNode.getPosition().y() + EXTENT);
         b.grow(20);
         return b;
     }
@@ -271,7 +268,7 @@ void
 GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
     // check if boundary has to be drawn
     if(s.drawBoundaries) {
-        GLHelper::drawBoundary(getBoundary());
+        GLHelper::drawBoundary(getCenteringBoundary());
     }
     // declare variables
     double exaggeration = isAttributeCarrierSelected() ? s.selectionScale : 1;
@@ -373,11 +370,6 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             }
         }
     }
-}
-
-Boundary
-GNEJunction::getBoundary() const {
-    return myJunctionBoundary;
 }
 
 

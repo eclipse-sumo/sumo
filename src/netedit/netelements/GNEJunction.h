@@ -106,9 +106,6 @@ public:
     void drawGL(const GUIVisualizationSettings& s) const;
     /// @}
 
-    /// @brief Returns the boundary of the junction
-    Boundary getBoundary() const;
-
     /// @brief Return net build node
     NBNode* getNBNode() const;
 
@@ -264,9 +261,6 @@ public:
 private:
     /// @brief A reference to the represented junction
     NBNode& myNBNode;
-
-    /// @brief junction boundary
-    Boundary myJunctionBoundary;
 
     /// @brief vector with the GNEEdges vinculated with this junction
     std::vector<GNEEdge*> myGNEEdges;
