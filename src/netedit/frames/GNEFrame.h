@@ -188,14 +188,14 @@ public:
 
             /// @name FOX-callbacks
             /// @{
-            /// @brief called when user set the value of an attribute of type int/float/string
+            /// @brief called when user set the value of an attribute of type int/float/string/bool
             long onCmdSetAttribute(FXObject*, FXSelector, void*);
 
             /// @brief called when user press a check button
-            long onCmdSetBooleanAttribute(FXObject*, FXSelector, void*);
+            long onCmdSelectCheckButton(FXObject*, FXSelector, void*);
 
             /// @brief called when user press the "Color" button
-            long onCmdSetColorAttribute(FXObject*, FXSelector, void*);
+            long onCmdSelectColorButton(FXObject*, FXSelector, void*);
 
             /// @brief called when user press a radio button
             long onCmdSelectRadioButton(FXObject*, FXSelector, void*);
@@ -298,8 +298,11 @@ public:
             /// @brief try to set new attribute value
             long onCmdSetAttribute(FXObject*, FXSelector, void*);
 
+            /// @brief called when user press a check button
+            long onCmdSelectCheckButton(FXObject*, FXSelector, void*);
+
             /// @brief set new disjoint attribute
-            long onCmdSetDisjointAttribute(FXObject*, FXSelector, void*);
+            long onCmdSelectRadioButton(FXObject*, FXSelector, void*);
 
             /// @brief open model dialog for more comfortable attribute editing
             long onCmdOpenAttributeDialog(FXObject*, FXSelector, void*);

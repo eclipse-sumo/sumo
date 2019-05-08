@@ -63,9 +63,9 @@ FXDEFMAP(GNEFrame::AttributesCreator) AttributesCreatorMap[] = {
 };
 
 FXDEFMAP(GNEFrame::AttributesCreator::AttributesCreatorRow) RowCreatorMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_TEXT,         GNEFrame::AttributesCreator::AttributesCreatorRow::onCmdSetAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_BOOL,         GNEFrame::AttributesCreator::AttributesCreatorRow::onCmdSetBooleanAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,       GNEFrame::AttributesCreator::AttributesCreatorRow::onCmdSetColorAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,              GNEFrame::AttributesCreator::AttributesCreatorRow::onCmdSetAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_BOOL,         GNEFrame::AttributesCreator::AttributesCreatorRow::onCmdSelectCheckButton),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,       GNEFrame::AttributesCreator::AttributesCreatorRow::onCmdSelectColorButton),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_RADIOBUTTON,  GNEFrame::AttributesCreator::AttributesCreatorRow::onCmdSelectRadioButton)
 };
 
@@ -75,8 +75,9 @@ FXDEFMAP(GNEFrame::AttributesEditor) AttributesEditorMap[] = {
 
 FXDEFMAP(GNEFrame::AttributesEditor::AttributesEditorRow) AttributesEditorRowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,              GNEFrame::AttributesEditor::AttributesEditorRow::onCmdSetAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_BOOL,         GNEFrame::AttributesEditor::AttributesEditorRow::onCmdSelectCheckButton),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,       GNEFrame::AttributesEditor::AttributesEditorRow::onCmdOpenAttributeDialog),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_RADIOBUTTON,  GNEFrame::AttributesEditor::AttributesEditorRow::onCmdSetDisjointAttribute)
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_RADIOBUTTON,  GNEFrame::AttributesEditor::AttributesEditorRow::onCmdSelectRadioButton)
 };
 
 FXDEFMAP(GNEFrame::AttributesEditorExtended) AttributesEditorExtendedMap[] = {
@@ -473,10 +474,10 @@ GNEFrame::AttributesCreator::AttributesCreatorRow::AttributesCreatorRow(Attribut
     myAttributeCheckButton = new FXCheckButton(this, "name", this, MID_GNE_SET_ATTRIBUTE_BOOL, GUIDesignCheckButtonAttribute);
     myAttributeColorButton = new FXButton(this, "ColorButton", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
     // Create right visual elements
-    myValueTextFieldInt = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE_TEXT, GUIDesignTextFieldInt);
-    myValueTextFieldReal = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE_TEXT, GUIDesignTextFieldReal);
-    myValueTextFieldStrings = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE_TEXT, GUIDesignTextField);
-    myValueCheckButton = new FXCheckButton(this, "Disabled", this, MID_GNE_SET_ATTRIBUTE_BOOL, GUIDesignCheckButton);
+    myValueTextFieldInt = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldInt);
+    myValueTextFieldReal = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldReal);
+    myValueTextFieldStrings = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    myValueCheckButton = new FXCheckButton(this, "Disabled", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     // by default attribute check button is true
     myAttributeCheckButton->setCheck(true);
     // Hide elements
@@ -735,11 +736,19 @@ GNEFrame::AttributesCreator::AttributesCreatorRow::getAttributesCreatorParent() 
 
 
 long
-GNEFrame::AttributesCreator::AttributesCreatorRow::onCmdSetAttribute(FXObject*, FXSelector, void*) {
+GNEFrame::AttributesCreator::AttributesCreatorRow::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
     // We assume that current value is valid
     myInvalidValue = "";
     // Check if format of current value of myTextField is correct
-    if (myAttrProperties.isInt()) {
+    if (obj == myValueCheckButton) {
+        if (myValueCheckButton->getCheck()) {
+            myValueCheckButton->setText("true");
+        } else {
+            myValueCheckButton->setText("false");
+        }
+        // update disjoint attribute
+        myAttributesCreatorParent->updateDisjointAttributes(nullptr);
+    } else if (myAttrProperties.isInt()) {
         if (GNEAttributeCarrier::canParse<int>(myValueTextFieldInt->getText().text())) {
             // convert string to int
             int intValue = GNEAttributeCarrier::parse<int>(myValueTextFieldInt->getText().text());
@@ -840,37 +849,26 @@ GNEFrame::AttributesCreator::AttributesCreatorRow::onCmdSetAttribute(FXObject*, 
 
 
 long
-GNEFrame::AttributesCreator::AttributesCreatorRow::onCmdSetBooleanAttribute(FXObject* obj, FXSelector, void*) {
-    // check what check button was pressed
-    if (obj == myAttributeCheckButton) {
-        if (myAttributeCheckButton->getCheck()) {
-            // enable input values
-            myValueCheckButton->enable();
-            myValueTextFieldInt->enable();
-            myValueTextFieldReal->enable();
-            myValueTextFieldStrings->enable();
-        } else {
-            // disable input values
-            myValueCheckButton->disable();
-            myValueTextFieldInt->disable();
-            myValueTextFieldReal->disable();
-            myValueTextFieldStrings->disable();
-        }
-    } else if (obj == myValueCheckButton) {
-        if (myValueCheckButton->getCheck()) {
-            myValueCheckButton->setText("true");
-        } else {
-            myValueCheckButton->setText("false");
-        }
-        // update disjoint attribute
-        myAttributesCreatorParent->updateDisjointAttributes(nullptr);
+GNEFrame::AttributesCreator::AttributesCreatorRow::onCmdSelectCheckButton(FXObject*, FXSelector, void*) {
+    if (myAttributeCheckButton->getCheck()) {
+        // enable input values
+        myValueCheckButton->enable();
+        myValueTextFieldInt->enable();
+        myValueTextFieldReal->enable();
+        myValueTextFieldStrings->enable();
+    } else {
+        // disable input values
+        myValueCheckButton->disable();
+        myValueTextFieldInt->disable();
+        myValueTextFieldReal->disable();
+        myValueTextFieldStrings->disable();
     }
     return 0;
 }
 
 
 long
-GNEFrame::AttributesCreator::AttributesCreatorRow::onCmdSetColorAttribute(FXObject*, FXSelector, void*) {
+GNEFrame::AttributesCreator::AttributesCreatorRow::onCmdSelectColorButton(FXObject*, FXSelector, void*) {
     // create FXColorDialog
     FXColorDialog colordialog(this, tr("Color Dialog"));
     colordialog.setTarget(this);
@@ -1421,7 +1419,26 @@ GNEFrame::AttributesEditor::AttributesEditorRow::onCmdSetAttribute(FXObject*, FX
 
 
 long
-GNEFrame::AttributesEditor::AttributesEditorRow::onCmdSetDisjointAttribute(FXObject*, FXSelector, void*) {
+GNEFrame::AttributesEditor::AttributesEditorRow::onCmdSelectCheckButton(FXObject*, FXSelector, void*) {
+    if (myAttributeCheckButton->getCheck()) {
+        // enable input values
+        myValueCheckButton->enable();
+        myValueTextFieldInt->enable();
+        myValueTextFieldReal->enable();
+        myValueTextFieldStrings->enable();
+    } else {
+        // disable input values
+        myValueCheckButton->disable();
+        myValueTextFieldInt->disable();
+        myValueTextFieldReal->disable();
+        myValueTextFieldStrings->disable();
+    }
+    return 0;
+}
+
+
+long
+GNEFrame::AttributesEditor::AttributesEditorRow::onCmdSelectRadioButton(FXObject*, FXSelector, void*) {
     // write debug (for Netedit tests)
     WRITE_DEBUG("Selected radio button for attribute '" + myACAttr.getAttrStr() + "'");
     // change disjoint attribute with undo/redo
