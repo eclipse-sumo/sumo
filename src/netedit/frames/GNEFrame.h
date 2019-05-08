@@ -225,16 +225,16 @@ public:
             FXButton* myAttributeColorButton;
 
             /// @brief textField to modify the default value of int/float/string parameters
-            FXTextField* myTextFieldInt;
+            FXTextField* myValueTextFieldInt;
 
             /// @brief textField to modify the default value of real/times parameters
-            FXTextField* myTextFieldReal;
+            FXTextField* myValueTextFieldReal;
 
             /// @brief textField to modify the default value of string parameters
-            FXTextField* myTextFieldStrings;
+            FXTextField* myValueTextFieldStrings;
 
             /// @brief check button to enable/disable the value of boolean parameters
-            FXCheckButton* myBoolCheckButton;
+            FXCheckButton* myValueCheckButton;
 
             /// @brief string which indicates the reason due current value is invalid
             std::string myInvalidValue;
@@ -338,19 +338,19 @@ public:
             FXButton* myAttributeColorButton;
 
             /// @brief textField to modify the value of int attributes
-            FXTextField* myTextFieldInt;
+            FXTextField* myValueTextFieldInt;
 
             /// @brief textField to modify the value of real/Time attributes
-            FXTextField* myTextFieldReal;
+            FXTextField* myValueTextFieldReal;
 
             /// @brief textField to modify the value of string attributes
-            FXTextField* myTextFieldStrings;
+            FXTextField* myValueTextFieldStrings;
 
             /// @brief pointer to combo box choices
-            FXComboBox* myComboBoxChoices;
+            FXComboBox* myValueComboBoxChoices;
 
             /// @brief pointer to menu check
-            FXCheckButton* myBoolCheckButton;
+            FXCheckButton* myValueCheckButton;
         };
 
         /// @brief constructor
