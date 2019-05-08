@@ -83,11 +83,11 @@ public:
         ATTRPROPERTY_SECUENCIAL =          1 << 17,  // Attribute is a special sequence of elements (for example: secuencial lanes in Multi Lane E2 detectors)
         ATTRPROPERTY_WRITEXMLOPTIONAL =    1 << 18,  // Attribute will not be written in XML file if current value is the same of their default Static/Mutable value
         ATTRPROPERTY_DEFAULTVALUESTATIC =  1 << 19,  // Attribute owns a static default value
-        ATTRPROPERTY_DEFAULTVALUEMUTABLE = 1 << 20,  // Attribute owns a mutable default value
-        ATTRPROPERTY_COMBINABLE =          1 << 21,  // Attribute is combinable with other Attribute
+        ATTRPROPERTY_DEFAULTVALUEMUTABLE = 1 << 20,  // Attribute owns a mutable default value (Default value depends of value of other attribute)
+        ATTRPROPERTY_COMBINABLE =          1 << 21,  // Attribute is combinable with other attribute (example: Allow/disallow VClasses)
         ATTRPROPERTY_SYNONYM =             1 << 22,  // Attribute will be written with a different name in der XML
-        ATTRPROPERTY_RANGE =               1 << 23,  // Attribute only accept a range of elements
-        ATTRPROPERTY_EXTENDED =            1 << 24,  // Attribute is extended (used in certain demand elements)
+        ATTRPROPERTY_RANGE =               1 << 23,  // Attribute only accept a range of elements (example: Probability [0,1]
+        ATTRPROPERTY_EXTENDED =            1 << 24,  // Attribute is extended (in Frame will not be shown, see VType attributes)
         ATTRPROPERTY_UPDATEGEOMETRY =      1 << 25,  // Attribute requiere update geometry at the end of function setAttribute(...)
     };
 
@@ -497,6 +497,9 @@ public:
 
     /// @brief Destructor
     virtual ~GNEAttributeCarrier();
+
+    /// @brief update pre-computed geometry information
+    virtual void updateGeometry() = 0;
 
     /// @name This functions has to be implemented in all GNEAttributeCarriers
     /// @{
