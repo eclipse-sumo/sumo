@@ -136,16 +136,16 @@ public:
         /// @}
 
         // ===========================================================================
-        // class RowCreator
+        // class AttributesCreatorRow
         // ===========================================================================
 
-        class RowCreator : public FXHorizontalFrame {
+        class AttributesCreatorRow : public FXHorizontalFrame {
             /// @brief FOX-declaration
-            FXDECLARE(GNEFrame::AttributesCreator::RowCreator)
+            FXDECLARE(GNEFrame::AttributesCreator::AttributesCreatorRow)
 
         public:
             /// @brief constructor
-            RowCreator(AttributesCreator* AttributesCreatorParent);
+            AttributesCreatorRow(AttributesCreator* AttributesCreatorParent);
 
             /// @brief show name and value of attribute of type string
             void showParameter(const GNEAttributeCarrier::AttributeProperties& attrProperties);
@@ -160,19 +160,25 @@ public:
             std::string getValue() const;
 
             /// @brief return status of radio button
-            bool getRadioButtonCheck() const;
+            bool getAttributeRadioButtonCheck() const;
 
             /// @brief enable or disable radio button for disjoint attributes
-            void setRadioButtonCheck(bool value);
+            void setAttributeRadioButtonCheck(bool value);
+
+            /// @brief return status of label checkbox button
+            bool getAttributeCheckButtonCheck() const;
+
+            /// @brief enable or disable label checkbox button for optional attributes
+            void setAttributeCheckButtonCheck(bool value);
 
             /// @brief enable row
-            void enableRow();
+            void enableAttributesCreatorRow();
 
             /// @brief disable row
-            void disableRow();
+            void disableAttributesCreatorRow();
 
             /// @brief check if row is enabled
-            bool isRowEnabled() const;
+            bool isAttributesCreatorRowEnabled() const;
 
             /// @brief returns a empty string if current value is valid, a string with information about invalid value in other case
             const std::string& isAttributeValid() const;
@@ -185,7 +191,7 @@ public:
             /// @brief called when user set the value of an attribute of type int/float/string
             long onCmdSetAttribute(FXObject*, FXSelector, void*);
 
-            /// @brief called when user change the value of myBoolCheckButton
+            /// @brief called when user press a check button
             long onCmdSetBooleanAttribute(FXObject*, FXSelector, void*);
 
             /// @brief called when user press the "Color" button
@@ -197,7 +203,7 @@ public:
 
         protected:
             /// @brief FOX needs this
-            RowCreator() {}
+            AttributesCreatorRow() {}
 
         private:
             /// @brief pointer to AttributesCreator
@@ -206,8 +212,17 @@ public:
             /// @brief attribute properties
             GNEAttributeCarrier::AttributeProperties myAttrProperties;
 
-            /// @brief lael with the name of the parameter
-            FXLabel* myLabel;
+            /// @brief Label with the name of the attribute
+            FXLabel* myAttributeLabel;
+
+            /// @brief Radio button for disjoint attributes
+            FXRadioButton* myAttributeRadioButton;
+
+            /// @brief check button to enable/disable Label attribute
+            FXCheckButton* myAttributeCheckButton;
+
+            /// @brief Button for open color editor
+            FXButton* myAttributeColorButton;
 
             /// @brief textField to modify the default value of int/float/string parameters
             FXTextField* myTextFieldInt;
@@ -221,32 +236,26 @@ public:
             /// @brief check button to enable/disable the value of boolean parameters
             FXCheckButton* myBoolCheckButton;
 
-            /// @brief Button for open color editor
-            FXButton* myColorEditor;
-
-            /// @brief Radio button for disjoint attributes
-            FXRadioButton* myRadioButton;
-
             /// @brief string which indicates the reason due current value is invalid
             std::string myInvalidValue;
         };
 
         /// @brief update disjoint attributes
-        void updateDisjointAttributes(RowCreator* row);
+        void updateDisjointAttributes(AttributesCreatorRow* row);
 
     protected:
         /// @brief FOX needs this
         AttributesCreator() {};
 
     private:
-        /// @brief pointer to Polygon Frame Parent
+        /// @brief pointer to Frame Parent
         GNEFrame* myFrameParent;
 
         /// @brief current edited Tag Properties
         GNEAttributeCarrier::TagProperties myTagProperties;
 
-        /// @brief vector with the ACAttribute Rows
-        std::vector<RowCreator*> myRows;
+        /// @brief vector with the AttributesCreatorRow
+        std::vector<AttributesCreatorRow*> myAttributesCreatorRows;
     };
 
     // ===========================================================================
@@ -314,7 +323,7 @@ public:
             bool myMultiple;
 
             /// @brief pointer to attribute label
-            FXLabel* myLabel;
+            FXLabel* myAttributeLabel;
 
             /// @brief Radio button for disjoint attributes
             FXRadioButton* myRadioButton;
@@ -323,7 +332,7 @@ public:
             FXButton* myButtonCombinableChoices;
 
             /// @brief Button for open color editor
-            FXButton* myColorEditor;
+            FXButton* myAttributeColorButton;
 
             /// @brief textField to modify the value of int attributes
             FXTextField* myTextFieldInt;
@@ -418,7 +427,7 @@ public:
         AttributesEditorExtended() {};
 
     private:
-        /// @brief pointer to Polygon Frame Parent
+        /// @brief pointer to Frame Parent
         GNEFrame* myFrameParent;
     };
 

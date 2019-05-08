@@ -62,11 +62,11 @@ FXDEFMAP(GNEFrame::AttributesCreator) AttributesCreatorMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HELP,   GNEFrame::AttributesCreator::onCmdHelp)
 };
 
-FXDEFMAP(GNEFrame::AttributesCreator::RowCreator) RowCreatorMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_TEXT,         GNEFrame::AttributesCreator::RowCreator::onCmdSetAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_BOOL,         GNEFrame::AttributesCreator::RowCreator::onCmdSetBooleanAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,       GNEFrame::AttributesCreator::RowCreator::onCmdSetColorAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_RADIOBUTTON,  GNEFrame::AttributesCreator::RowCreator::onCmdSelectRadioButton)
+FXDEFMAP(GNEFrame::AttributesCreator::AttributesCreatorRow) RowCreatorMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_TEXT,         GNEFrame::AttributesCreator::AttributesCreatorRow::onCmdSetAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_BOOL,         GNEFrame::AttributesCreator::AttributesCreatorRow::onCmdSetBooleanAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,       GNEFrame::AttributesCreator::AttributesCreatorRow::onCmdSetColorAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_RADIOBUTTON,  GNEFrame::AttributesCreator::AttributesCreatorRow::onCmdSelectRadioButton)
 };
 
 FXDEFMAP(GNEFrame::AttributesEditor) AttributesEditorMap[] = {
@@ -109,7 +109,7 @@ FXDEFMAP(GNEFrame::NeteditAttributes) NeteditAttributesMap[] = {
 // Object implementation
 FXIMPLEMENT(GNEFrame::ItemSelector,                     FXGroupBox,         ItemSelectorMap,                ARRAYNUMBER(ItemSelectorMap))
 FXIMPLEMENT(GNEFrame::AttributesCreator,                FXGroupBox,         AttributesCreatorMap,           ARRAYNUMBER(AttributesCreatorMap))
-FXIMPLEMENT(GNEFrame::AttributesCreator::RowCreator,    FXHorizontalFrame,  RowCreatorMap,                  ARRAYNUMBER(RowCreatorMap))
+FXIMPLEMENT(GNEFrame::AttributesCreator::AttributesCreatorRow,    FXHorizontalFrame,  RowCreatorMap,                  ARRAYNUMBER(RowCreatorMap))
 FXIMPLEMENT(GNEFrame::AttributesEditor,                 FXGroupBox,         AttributesEditorMap,            ARRAYNUMBER(AttributesEditorMap))
 FXIMPLEMENT(GNEFrame::AttributesEditor::RowEditor,      FXHorizontalFrame,  RowEditorMap,                   ARRAYNUMBER(RowEditorMap))
 FXIMPLEMENT(GNEFrame::AttributesEditorExtended,         FXGroupBox,         AttributesEditorExtendedMap,    ARRAYNUMBER(AttributesEditorExtendedMap))
@@ -265,7 +265,7 @@ GNEFrame::AttributesCreator::AttributesCreator(GNEFrame* frameParent) :
     myFrameParent(frameParent) {
     // Create single parameters
     for (int i = 0; i < GNEAttributeCarrier::getHigherNumberOfAttributes(); i++) {
-        myRows.push_back(new RowCreator(this));
+        myAttributesCreatorRows.push_back(new AttributesCreatorRow(this));
     }
     // Create help button
     new FXButton(this, "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
@@ -281,14 +281,14 @@ GNEFrame::AttributesCreator::showAttributesCreatorModul(const GNEAttributeCarrie
     // get current tag Properties
     myTagProperties = tagProperties;
     // Hide all fields
-    for (int i = 0; i < (int)myRows.size(); i++) {
-        myRows.at(i)->hideParameter();
+    for (int i = 0; i < (int)myAttributesCreatorRows.size(); i++) {
+        myAttributesCreatorRows.at(i)->hideParameter();
     }
     // iterate over tag attributes and show it
     for (auto i : myTagProperties) {
         //  make sure that only non-unique attributes are shown (And depending of includeExtendedAttributes)
         if (!i.second.isUnique()) {
-            myRows.at(i.second.getPositionListed())->showParameter(i.second);
+            myAttributesCreatorRows.at(i.second.getPositionListed())->showParameter(i.second);
         }
     }
     // update disjoint attributes
@@ -309,12 +309,12 @@ std::map<SumoXMLAttr, std::string>
 GNEFrame::AttributesCreator::getAttributesAndValues(bool includeAll) const {
     std::map<SumoXMLAttr, std::string> values;
     // get standard parameters
-    for (int i = 0; i < (int)myRows.size(); i++) {
-        if (myRows.at(i)->getAttrProperties().getAttr() != SUMO_ATTR_NOTHING) {
+    for (int i = 0; i < (int)myAttributesCreatorRows.size(); i++) {
+        if (myAttributesCreatorRows.at(i)->getAttrProperties().getAttr() != SUMO_ATTR_NOTHING) {
             // ignore default values (except for disjont attributes, that has to be always writted)
-            if (myRows.at(i)->isRowEnabled() &&
-                    (includeAll || myTagProperties.isDisjointAttributes(myRows.at(i)->getAttrProperties().getAttr()) || !myRows.at(i)->getAttrProperties().hasStaticDefaultValue() || (myRows.at(i)->getAttrProperties().getDefaultValue() != myRows.at(i)->getValue()))) {
-                values[myRows.at(i)->getAttrProperties().getAttr()] = myRows.at(i)->getValue();
+            if (myAttributesCreatorRows.at(i)->isAttributesCreatorRowEnabled() &&
+                    (includeAll || myTagProperties.isDisjointAttributes(myAttributesCreatorRows.at(i)->getAttrProperties().getAttr()) || !myAttributesCreatorRows.at(i)->getAttrProperties().hasStaticDefaultValue() || (myAttributesCreatorRows.at(i)->getAttrProperties().getDefaultValue() != myAttributesCreatorRows.at(i)->getValue()))) {
+                values[myAttributesCreatorRows.at(i)->getAttrProperties().getAttr()] = myAttributesCreatorRows.at(i)->getValue();
             }
         }
     }
@@ -329,7 +329,7 @@ GNEFrame::AttributesCreator::showWarningMessage(std::string extra) const {
     for (auto i : myTagProperties) {
         if (errorMessage.empty()) {
             // Return string with the error if at least one of the parameter isn't valid
-            std::string attributeValue = myRows.at(i.second.getPositionListed())->isAttributeValid();
+            std::string attributeValue = myAttributesCreatorRows.at(i.second.getPositionListed())->isAttributeValid();
             if (attributeValue.size() != 0) {
                 errorMessage = attributeValue;
             }
@@ -354,7 +354,7 @@ GNEFrame::AttributesCreator::areValuesValid() const {
     // iterate over standar parameters
     for (auto i : myTagProperties) {
         // Return false if error message of attriuve isn't empty
-        if (myRows.at(i.second.getPositionListed())->isAttributeValid().size() != 0) {
+        if (myAttributesCreatorRows.at(i.second.getPositionListed())->isAttributeValid().size() != 0) {
             return false;
         }
     }
@@ -363,74 +363,74 @@ GNEFrame::AttributesCreator::areValuesValid() const {
 
 
 void
-GNEFrame::AttributesCreator::updateDisjointAttributes(AttributesCreator::RowCreator* row) {
+GNEFrame::AttributesCreator::updateDisjointAttributes(AttributesCreator::AttributesCreatorRow* row) {
     // currently only Flows supports disjoint attributes
     if (myTagProperties.getTag() == SUMO_TAG_FLOW) {
         // obtain all rows (to improve code legibility)
-        RowCreator* endRow = myRows[myTagProperties.getAttributeProperties(SUMO_ATTR_END).getPositionListed()];
-        RowCreator* numberRow = myRows[myTagProperties.getAttributeProperties(SUMO_ATTR_NUMBER).getPositionListed()];
-        RowCreator* vehsperhourRow = myRows[myTagProperties.getAttributeProperties(SUMO_ATTR_VEHSPERHOUR).getPositionListed()];
-        RowCreator* periodRow = myRows[myTagProperties.getAttributeProperties(SUMO_ATTR_PERIOD).getPositionListed()];
-        RowCreator* probabilityRow = myRows[myTagProperties.getAttributeProperties(SUMO_ATTR_PROB).getPositionListed()];
+        AttributesCreatorRow* endRow = myAttributesCreatorRows[myTagProperties.getAttributeProperties(SUMO_ATTR_END).getPositionListed()];
+        AttributesCreatorRow* numberRow = myAttributesCreatorRows[myTagProperties.getAttributeProperties(SUMO_ATTR_NUMBER).getPositionListed()];
+        AttributesCreatorRow* vehsperhourRow = myAttributesCreatorRows[myTagProperties.getAttributeProperties(SUMO_ATTR_VEHSPERHOUR).getPositionListed()];
+        AttributesCreatorRow* periodRow = myAttributesCreatorRows[myTagProperties.getAttributeProperties(SUMO_ATTR_PERIOD).getPositionListed()];
+        AttributesCreatorRow* probabilityRow = myAttributesCreatorRows[myTagProperties.getAttributeProperties(SUMO_ATTR_PROB).getPositionListed()];
         if (row == nullptr) {
             // by default flows uses end and number
-            endRow->setRadioButtonCheck(true);
-            numberRow->setRadioButtonCheck(true);
-            vehsperhourRow->setRadioButtonCheck(false);
-            periodRow->setRadioButtonCheck(false);
-            probabilityRow->setRadioButtonCheck(false);
+            endRow->setAttributeRadioButtonCheck(true);
+            numberRow->setAttributeRadioButtonCheck(true);
+            vehsperhourRow->setAttributeRadioButtonCheck(false);
+            periodRow->setAttributeRadioButtonCheck(false);
+            probabilityRow->setAttributeRadioButtonCheck(false);
         } else {
             // check what row was clicked
             switch (row->getAttrProperties().getAttr()) {
                 // end has more priority as number
                 case SUMO_ATTR_END:
-                    endRow->setRadioButtonCheck(true);
+                    endRow->setAttributeRadioButtonCheck(true);
                     // disable other combinations
-                    vehsperhourRow->setRadioButtonCheck(false);
-                    periodRow->setRadioButtonCheck(false);
-                    probabilityRow->setRadioButtonCheck(false);
+                    vehsperhourRow->setAttributeRadioButtonCheck(false);
+                    periodRow->setAttributeRadioButtonCheck(false);
+                    probabilityRow->setAttributeRadioButtonCheck(false);
                     break;
                 case SUMO_ATTR_NUMBER:
-                    numberRow->setRadioButtonCheck(true);
+                    numberRow->setAttributeRadioButtonCheck(true);
                     // disable number if begin and end are enabled because end has more priority as number
-                    if (endRow->getRadioButtonCheck()) {
-                        endRow->setRadioButtonCheck(false);
+                    if (endRow->getAttributeRadioButtonCheck()) {
+                        endRow->setAttributeRadioButtonCheck(false);
                     } else {
                         // disable other combinations
-                        vehsperhourRow->setRadioButtonCheck(false);
-                        periodRow->setRadioButtonCheck(false);
-                        probabilityRow->setRadioButtonCheck(false);
+                        vehsperhourRow->setAttributeRadioButtonCheck(false);
+                        periodRow->setAttributeRadioButtonCheck(false);
+                        probabilityRow->setAttributeRadioButtonCheck(false);
                     }
                     break;
                 case SUMO_ATTR_VEHSPERHOUR:
                     // disable number if begin and end are enabled because end has more priority as number
-                    if (endRow->getRadioButtonCheck() && numberRow->getRadioButtonCheck()) {
-                        numberRow->setRadioButtonCheck(false);
+                    if (endRow->getAttributeRadioButtonCheck() && numberRow->getAttributeRadioButtonCheck()) {
+                        numberRow->setAttributeRadioButtonCheck(false);
                     }
                     // disable other combinations
-                    vehsperhourRow->setRadioButtonCheck(true);
-                    periodRow->setRadioButtonCheck(false);
-                    probabilityRow->setRadioButtonCheck(false);
+                    vehsperhourRow->setAttributeRadioButtonCheck(true);
+                    periodRow->setAttributeRadioButtonCheck(false);
+                    probabilityRow->setAttributeRadioButtonCheck(false);
                     break;
                 case SUMO_ATTR_PERIOD:
                     // disable number if begin and end are enabled because end has more priority as number
-                    if (endRow->getRadioButtonCheck() && numberRow->getRadioButtonCheck()) {
-                        numberRow->setRadioButtonCheck(false);
+                    if (endRow->getAttributeRadioButtonCheck() && numberRow->getAttributeRadioButtonCheck()) {
+                        numberRow->setAttributeRadioButtonCheck(false);
                     }
                     // disable other combinations
-                    vehsperhourRow->setRadioButtonCheck(false);
-                    periodRow->setRadioButtonCheck(true);
-                    probabilityRow->setRadioButtonCheck(false);
+                    vehsperhourRow->setAttributeRadioButtonCheck(false);
+                    periodRow->setAttributeRadioButtonCheck(true);
+                    probabilityRow->setAttributeRadioButtonCheck(false);
                     break;
                 case SUMO_ATTR_PROB:
                     // disable number if begin and end are enabled because end has more priority as number
-                    if (endRow->getRadioButtonCheck() && numberRow->getRadioButtonCheck()) {
-                        numberRow->setRadioButtonCheck(false);
+                    if (endRow->getAttributeRadioButtonCheck() && numberRow->getAttributeRadioButtonCheck()) {
+                        numberRow->setAttributeRadioButtonCheck(false);
                     }
                     // disable other combinations
-                    vehsperhourRow->setRadioButtonCheck(false);
-                    periodRow->setRadioButtonCheck(false);
-                    probabilityRow->setRadioButtonCheck(true);
+                    vehsperhourRow->setAttributeRadioButtonCheck(false);
+                    periodRow->setAttributeRadioButtonCheck(false);
+                    probabilityRow->setAttributeRadioButtonCheck(true);
                     break;
                 default:
                     break;
@@ -438,16 +438,16 @@ GNEFrame::AttributesCreator::updateDisjointAttributes(AttributesCreator::RowCrea
         }
     } else if (myTagProperties.isStop()) {
         // check if expected has to be enabled or disabled
-        if (myRows[myTagProperties.getAttributeProperties(SUMO_ATTR_TRIGGERED).getPositionListed()]->getValue() == "1") {
-            myRows[myTagProperties.getAttributeProperties(SUMO_ATTR_EXPECTED).getPositionListed()]->enableRow();
+        if (myAttributesCreatorRows[myTagProperties.getAttributeProperties(SUMO_ATTR_TRIGGERED).getPositionListed()]->getValue() == "1") {
+            myAttributesCreatorRows[myTagProperties.getAttributeProperties(SUMO_ATTR_EXPECTED).getPositionListed()]->enableAttributesCreatorRow();
         } else {
-            myRows[myTagProperties.getAttributeProperties(SUMO_ATTR_EXPECTED).getPositionListed()]->disableRow();
+            myAttributesCreatorRows[myTagProperties.getAttributeProperties(SUMO_ATTR_EXPECTED).getPositionListed()]->disableAttributesCreatorRow();
         }
         // check if expected contaienrs has to be enabled or disabled
-        if (myRows[myTagProperties.getAttributeProperties(SUMO_ATTR_CONTAINER_TRIGGERED).getPositionListed()]->getValue() == "1") {
-            myRows[myTagProperties.getAttributeProperties(SUMO_ATTR_EXPECTED_CONTAINERS).getPositionListed()]->enableRow();
+        if (myAttributesCreatorRows[myTagProperties.getAttributeProperties(SUMO_ATTR_CONTAINER_TRIGGERED).getPositionListed()]->getValue() == "1") {
+            myAttributesCreatorRows[myTagProperties.getAttributeProperties(SUMO_ATTR_EXPECTED_CONTAINERS).getPositionListed()]->enableAttributesCreatorRow();
         } else {
-            myRows[myTagProperties.getAttributeProperties(SUMO_ATTR_EXPECTED_CONTAINERS).getPositionListed()]->disableRow();
+            myAttributesCreatorRows[myTagProperties.getAttributeProperties(SUMO_ATTR_EXPECTED_CONTAINERS).getPositionListed()]->disableAttributesCreatorRow();
         }
     }
 }
@@ -461,48 +461,58 @@ GNEFrame::AttributesCreator::onCmdHelp(FXObject*, FXSelector, void*) {
 }
 
 // ---------------------------------------------------------------------------
-// GNEFrame::AttributesCreator::RowCreator - methods
+// GNEFrame::AttributesCreator::AttributesCreatorRow - methods
 // ---------------------------------------------------------------------------
 
-GNEFrame::AttributesCreator::RowCreator::RowCreator(AttributesCreator* AttributesCreatorParent) :
+GNEFrame::AttributesCreator::AttributesCreatorRow::AttributesCreatorRow(AttributesCreator* AttributesCreatorParent) :
     FXHorizontalFrame(AttributesCreatorParent, GUIDesignAuxiliarHorizontalFrame),
     myAttributesCreatorParent(AttributesCreatorParent) {
     // Create left visual elements
-    myLabel = new FXLabel(this, "name", nullptr, GUIDesignLabelAttribute);
-    myColorEditor = new FXButton(this, "ColorButton", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
-    myRadioButton = new FXRadioButton(this, "name", this, MID_GNE_SET_ATTRIBUTE_RADIOBUTTON, GUIDesignRadioButtonAttribute);
+    myAttributeLabel = new FXLabel(this, "name", nullptr, GUIDesignLabelAttribute);
+    myAttributeRadioButton = new FXRadioButton(this, "name", this, MID_GNE_SET_ATTRIBUTE_RADIOBUTTON, GUIDesignRadioButtonAttribute);
+    myAttributeCheckButton = new FXCheckButton(this, "name", this, MID_GNE_SET_ATTRIBUTE_BOOL, GUIDesignCheckButtonAttribute);
+    myAttributeColorButton = new FXButton(this, "ColorButton", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
     // Create right visual elements
     myTextFieldInt = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE_TEXT, GUIDesignTextFieldInt);
     myTextFieldReal = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE_TEXT, GUIDesignTextFieldReal);
     myTextFieldStrings = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE_TEXT, GUIDesignTextField);
-    myBoolCheckButton = new FXCheckButton(this, "Disabled", this, MID_GNE_SET_ATTRIBUTE_BOOL, GUIDesignCheckButtonAttribute);
+    myBoolCheckButton = new FXCheckButton(this, "Disabled", this, MID_GNE_SET_ATTRIBUTE_BOOL, GUIDesignCheckButton);
+    // by default label check button is true
+    myAttributeCheckButton->setCheck(true);
     // Hide elements
     hideParameter();
 }
 
 
 void
-GNEFrame::AttributesCreator::RowCreator::showParameter(const GNEAttributeCarrier::AttributeProperties& attrProperties) {
+GNEFrame::AttributesCreator::AttributesCreatorRow::showParameter(const GNEAttributeCarrier::AttributeProperties& attrProperties) {
     myAttrProperties = attrProperties;
     myInvalidValue = "";
     // show label, button for edit colors or radio button
     if (myAttrProperties.isColor()) {
-        myColorEditor->setTextColor(FXRGB(0, 0, 0));
-        myColorEditor->setText(myAttrProperties.getAttrStr().c_str());
-        myColorEditor->show();
+        myAttributeColorButton->setTextColor(FXRGB(0, 0, 0));
+        myAttributeColorButton->setText(myAttrProperties.getAttrStr().c_str());
+        myAttributeColorButton->show();
     } else if (myAttributesCreatorParent->myTagProperties.isDisjointAttributes(myAttrProperties.getAttr())) {
-        myRadioButton->setText(myAttrProperties.getAttrStr().c_str());
-        myRadioButton->show();
+        myAttributeRadioButton->setText(myAttrProperties.getAttrStr().c_str());
+        myAttributeRadioButton->show();
+    } else if (myAttrProperties.isOptional()) {
+        myAttributeCheckButton->setText(myAttrProperties.getAttrStr().c_str());
+        myAttributeCheckButton->show();
     } else {
-        myLabel->setText(myAttrProperties.getAttrStr().c_str());
-        myLabel->show();
+        myAttributeLabel->setText(myAttrProperties.getAttrStr().c_str());
+        myAttributeLabel->show();
     }
     if (myAttrProperties.isInt()) {
         myTextFieldInt->setTextColor(FXRGB(0, 0, 0));
         myTextFieldInt->setText(attrProperties.getDefaultValue().c_str());
         myTextFieldInt->show();
         // if it's associated to a radio button and is disabled, then disabled myTextFieldInt
-        if (myRadioButton->shown() && (myRadioButton->getCheck() == FALSE)) {
+        if (myAttributeRadioButton->shown() && (myAttributeRadioButton->getCheck() == FALSE)) {
+            myTextFieldInt->disable();
+        }
+        // if it's associated to a label button and is disabled, then disabled myTextFieldInt
+        if (myAttributeCheckButton->shown() && (myAttributeCheckButton->getCheck() == FALSE)) {
             myTextFieldInt->disable();
         }
     } else if (myAttrProperties.isFloat()) {
@@ -510,7 +520,11 @@ GNEFrame::AttributesCreator::RowCreator::showParameter(const GNEAttributeCarrier
         myTextFieldReal->setText(attrProperties.getDefaultValue().c_str());
         myTextFieldReal->show();
         // if it's associated to a radio button and is disabled, then disable myTextFieldReal
-        if (myRadioButton->shown() && (myRadioButton->getCheck() == FALSE)) {
+        if (myAttributeRadioButton->shown() && (myAttributeRadioButton->getCheck() == FALSE)) {
+            myTextFieldReal->disable();
+        }
+        // if it's associated to a label button and is disabled, then disable myTextFieldReal
+        if (myAttributeCheckButton->shown() && (myAttributeCheckButton->getCheck() == FALSE)) {
             myTextFieldReal->disable();
         }
     } else if (myAttrProperties.isBool()) {
@@ -523,7 +537,11 @@ GNEFrame::AttributesCreator::RowCreator::showParameter(const GNEAttributeCarrier
         }
         myBoolCheckButton->show();
         // if it's associated to a radio button and is disabled, then disable myBoolCheckButton
-        if (myRadioButton->shown() && (myRadioButton->getCheck() == FALSE)) {
+        if (myAttributeRadioButton->shown() && (myAttributeRadioButton->getCheck() == FALSE)) {
+            myBoolCheckButton->disable();
+        }
+        // if it's associated to a label button and is disabled, then disable myBoolCheckButton
+        if (myAttributeCheckButton->shown() && (myAttributeCheckButton->getCheck() == FALSE)) {
             myBoolCheckButton->disable();
         }
     } else {
@@ -531,7 +549,11 @@ GNEFrame::AttributesCreator::RowCreator::showParameter(const GNEAttributeCarrier
         myTextFieldStrings->setText(attrProperties.getDefaultValue().c_str());
         myTextFieldStrings->show();
         // if it's associated to a radio button and is disabled, then disable myTextFieldStrings
-        if (myRadioButton->shown() && (myRadioButton->getCheck() == FALSE)) {
+        if (myAttributeRadioButton->shown() && (myAttributeRadioButton->getCheck() == FALSE)) {
+            myTextFieldStrings->disable();
+        }
+        // if it's associated to a label button and is disabled, then disable myTextFieldStrings
+        if (myAttributeCheckButton->shown() && (myAttributeCheckButton->getCheck() == FALSE)) {
             myTextFieldStrings->disable();
         }
     }
@@ -540,27 +562,28 @@ GNEFrame::AttributesCreator::RowCreator::showParameter(const GNEAttributeCarrier
 
 
 void
-GNEFrame::AttributesCreator::RowCreator::hideParameter() {
+GNEFrame::AttributesCreator::AttributesCreatorRow::hideParameter() {
     myAttrProperties = GNEAttributeCarrier::AttributeProperties();
-    myLabel->hide();
+    myAttributeLabel->hide();
+    myAttributeRadioButton->hide();
+    myAttributeCheckButton->hide();
+    myAttributeColorButton->hide();
     myTextFieldInt->hide();
     myTextFieldReal->hide();
     myTextFieldStrings->hide();
     myBoolCheckButton->hide();
-    myColorEditor->hide();
-    myRadioButton->hide();
     hide();
 }
 
 
 const GNEAttributeCarrier::AttributeProperties&
-GNEFrame::AttributesCreator::RowCreator::getAttrProperties() const {
+GNEFrame::AttributesCreator::AttributesCreatorRow::getAttrProperties() const {
     return myAttrProperties;
 }
 
 
 std::string
-GNEFrame::AttributesCreator::RowCreator::getValue() const {
+GNEFrame::AttributesCreator::AttributesCreatorRow::getValue() const {
     if (myAttrProperties.isBool()) {
         return (myBoolCheckButton->getCheck() == 1) ? "1" : "0";
     } else if (myAttrProperties.isInt()) {
@@ -574,9 +597,9 @@ GNEFrame::AttributesCreator::RowCreator::getValue() const {
 
 
 bool
-GNEFrame::AttributesCreator::RowCreator::getRadioButtonCheck() const {
+GNEFrame::AttributesCreator::AttributesCreatorRow::getAttributeRadioButtonCheck() const {
     if (shown()) {
-        return myRadioButton->getCheck() == TRUE;
+        return myAttributeRadioButton->getCheck() == TRUE;
     } else {
         return false;
     }
@@ -584,10 +607,51 @@ GNEFrame::AttributesCreator::RowCreator::getRadioButtonCheck() const {
 
 
 void
-GNEFrame::AttributesCreator::RowCreator::setRadioButtonCheck(bool value) {
+GNEFrame::AttributesCreator::AttributesCreatorRow::setAttributeRadioButtonCheck(bool value) {
     if (shown()) {
         // set radio button
-        myRadioButton->setCheck(value);
+        myAttributeRadioButton->setCheck(value);
+        // enable or disable input fields
+        if (value) {
+            if (myAttrProperties.isBool()) {
+                myBoolCheckButton->enable();
+            } else if (myAttrProperties.isInt()) {
+                myTextFieldInt->enable();
+            } else if (myAttrProperties.isFloat() || myAttrProperties.isTime()) {
+                myTextFieldReal->enable();
+            } else {
+                myTextFieldStrings->enable();
+            }
+        } else {
+            if (myAttrProperties.isBool()) {
+                myBoolCheckButton->disable();
+            } else if (myAttrProperties.isInt()) {
+                myTextFieldInt->disable();
+            } else if (myAttrProperties.isFloat() || myAttrProperties.isTime()) {
+                myTextFieldReal->disable();
+            } else {
+                myTextFieldStrings->disable();
+            }
+        }
+    }
+}
+
+
+bool
+GNEFrame::AttributesCreator::AttributesCreatorRow::getAttributeCheckButtonCheck() const {
+    if (shown()) {
+        return myAttributeCheckButton->getCheck() == TRUE;
+    } else {
+        return false;
+    }
+}
+
+
+void
+GNEFrame::AttributesCreator::AttributesCreatorRow::setAttributeCheckButtonCheck(bool value) {
+    if (shown()) {
+        // set radio button
+        myAttributeCheckButton->setCheck(value);
         // enable or disable input fields
         if (value) {
             if (myAttrProperties.isBool()) {
@@ -615,7 +679,7 @@ GNEFrame::AttributesCreator::RowCreator::setRadioButtonCheck(bool value) {
 
 
 void
-GNEFrame::AttributesCreator::RowCreator::enableRow() {
+GNEFrame::AttributesCreator::AttributesCreatorRow::enableAttributesCreatorRow() {
     if (myAttrProperties.isBool()) {
         return myBoolCheckButton->enable();
     } else if (myAttrProperties.isInt()) {
@@ -629,7 +693,7 @@ GNEFrame::AttributesCreator::RowCreator::enableRow() {
 
 
 void
-GNEFrame::AttributesCreator::RowCreator::disableRow() {
+GNEFrame::AttributesCreator::AttributesCreatorRow::disableAttributesCreatorRow() {
     if (myAttrProperties.isBool()) {
         return myBoolCheckButton->disable();
     } else if (myAttrProperties.isInt()) {
@@ -643,7 +707,7 @@ GNEFrame::AttributesCreator::RowCreator::disableRow() {
 
 
 bool
-GNEFrame::AttributesCreator::RowCreator::isRowEnabled() const {
+GNEFrame::AttributesCreator::AttributesCreatorRow::isAttributesCreatorRowEnabled() const {
     if (!shown()) {
         return false;
     } else if (myAttrProperties.isBool()) {
@@ -659,19 +723,19 @@ GNEFrame::AttributesCreator::RowCreator::isRowEnabled() const {
 
 
 const std::string&
-GNEFrame::AttributesCreator::RowCreator::isAttributeValid() const {
+GNEFrame::AttributesCreator::AttributesCreatorRow::isAttributeValid() const {
     return myInvalidValue;
 }
 
 
 GNEFrame::AttributesCreator*
-GNEFrame::AttributesCreator::RowCreator::getAttributesCreatorParent() const {
+GNEFrame::AttributesCreator::AttributesCreatorRow::getAttributesCreatorParent() const {
     return myAttributesCreatorParent;
 }
 
 
 long
-GNEFrame::AttributesCreator::RowCreator::onCmdSetAttribute(FXObject*, FXSelector, void*) {
+GNEFrame::AttributesCreator::AttributesCreatorRow::onCmdSetAttribute(FXObject*, FXSelector, void*) {
     // We assume that current value is valid
     myInvalidValue = "";
     // Check if format of current value of myTextField is correct
@@ -776,20 +840,37 @@ GNEFrame::AttributesCreator::RowCreator::onCmdSetAttribute(FXObject*, FXSelector
 
 
 long
-GNEFrame::AttributesCreator::RowCreator::onCmdSetBooleanAttribute(FXObject*, FXSelector, void*) {
-    if (myBoolCheckButton->getCheck()) {
-        myBoolCheckButton->setText("true");
-    } else {
-        myBoolCheckButton->setText("false");
+GNEFrame::AttributesCreator::AttributesCreatorRow::onCmdSetBooleanAttribute(FXObject* obj, FXSelector, void*) {
+    // check what check button was pressed
+    if (obj == myAttributeCheckButton) {
+        if (myAttributeCheckButton->getCheck()) {
+            // enable input values
+            myBoolCheckButton->enable();
+            myTextFieldInt->enable();
+            myTextFieldReal->enable();
+            myTextFieldStrings->enable();
+        } else {
+            // disable input values
+            myBoolCheckButton->disable();
+            myTextFieldInt->disable();
+            myTextFieldReal->disable();
+            myTextFieldStrings->disable();
+        }
+    } else if (obj == myBoolCheckButton) {
+        if (myBoolCheckButton->getCheck()) {
+            myBoolCheckButton->setText("true");
+        } else {
+            myBoolCheckButton->setText("false");
+        }
+        // update disjoint attribute
+        myAttributesCreatorParent->updateDisjointAttributes(nullptr);
     }
-    // update disjoint attribute
-    myAttributesCreatorParent->updateDisjointAttributes(nullptr);
     return 0;
 }
 
 
 long
-GNEFrame::AttributesCreator::RowCreator::onCmdSetColorAttribute(FXObject*, FXSelector, void*) {
+GNEFrame::AttributesCreator::AttributesCreatorRow::onCmdSetColorAttribute(FXObject*, FXSelector, void*) {
     // create FXColorDialog
     FXColorDialog colordialog(this, tr("Color Dialog"));
     colordialog.setTarget(this);
@@ -808,7 +889,7 @@ GNEFrame::AttributesCreator::RowCreator::onCmdSetColorAttribute(FXObject*, FXSel
 }
 
 long
-GNEFrame::AttributesCreator::RowCreator::onCmdSelectRadioButton(FXObject*, FXSelector, void*) {
+GNEFrame::AttributesCreator::AttributesCreatorRow::onCmdSelectRadioButton(FXObject*, FXSelector, void*) {
     // write debug (for Netedit tests)
     WRITE_DEBUG("Selected radio button for attribute '" + myAttrProperties.getAttrStr() + "'");
     // update disjoint attributes in AC Attributes parent
@@ -825,8 +906,8 @@ GNEFrame::AttributesEditor::RowEditor::RowEditor(GNEFrame::AttributesEditor* att
     myAttributesEditorParent(attributeEditorParent),
     myMultiple(false) {
     // Create and hide label
-    myLabel = new FXLabel(this, "attributeLabel", nullptr, GUIDesignLabelAttribute);
-    myLabel->hide();
+    myAttributeLabel = new FXLabel(this, "attributeLabel", nullptr, GUIDesignLabelAttribute);
+    myAttributeLabel->hide();
     // Create and hide radio button
     myRadioButton = new FXRadioButton(this, "name", this, MID_GNE_SET_ATTRIBUTE_RADIOBUTTON, GUIDesignRadioButtonAttribute);
     myRadioButton->hide();
@@ -834,8 +915,8 @@ GNEFrame::AttributesEditor::RowEditor::RowEditor(GNEFrame::AttributesEditor* att
     myButtonCombinableChoices = new FXButton(this, "AttributeButton", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
     myButtonCombinableChoices->hide();
     // create and hidde color editor
-    myColorEditor = new FXButton(this, "ColorButton", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
-    myColorEditor->hide();
+    myAttributeColorButton = new FXButton(this, "ColorButton", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
+    myAttributeColorButton->hide();
     // Create and hide textField for int attributes
     myTextFieldInt = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldInt);
     myTextFieldInt->hide();
@@ -849,7 +930,7 @@ GNEFrame::AttributesEditor::RowEditor::RowEditor(GNEFrame::AttributesEditor* att
     myChoicesCombo = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
     myChoicesCombo->hide();
     // Create and hide checkButton
-    myBoolCheckButton = new FXCheckButton(this, "", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttribute);
+    myBoolCheckButton = new FXCheckButton(this, "", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myBoolCheckButton->hide();
 }
 
@@ -863,16 +944,16 @@ GNEFrame::AttributesEditor::RowEditor::showRow(const GNEAttributeCarrier::Attrib
     myChoicesCombo->enable();
     myBoolCheckButton->enable();
     myButtonCombinableChoices->enable();
-    myColorEditor->enable();
+    myAttributeColorButton->enable();
     myRadioButton->enable();
     // Set current Attribute Property
     myACAttr = ACAttr;
     // set multiple
     myMultiple = GNEAttributeCarrier::parse<std::vector<std::string>>(value).size() > 1;
     if (myACAttr.isColor()) {
-        myColorEditor->setTextColor(FXRGB(0, 0, 0));
-        myColorEditor->setText(myACAttr.getAttrStr().c_str());
-        myColorEditor->show();
+        myAttributeColorButton->setTextColor(FXRGB(0, 0, 0));
+        myAttributeColorButton->setText(myACAttr.getAttrStr().c_str());
+        myAttributeColorButton->show();
     } else if (myACAttr.getTagPropertyParent().isDisjointAttributes(myACAttr.getAttr())) {
         myRadioButton->setTextColor(FXRGB(0, 0, 0));
         myRadioButton->setText(myACAttr.getAttrStr().c_str());
@@ -880,8 +961,8 @@ GNEFrame::AttributesEditor::RowEditor::showRow(const GNEAttributeCarrier::Attrib
         myRadioButton->show();
     } else {
         // Show attribute Label
-        myLabel->setText(myACAttr.getAttrStr().c_str());
-        myLabel->show();
+        myAttributeLabel->setText(myACAttr.getAttrStr().c_str());
+        myAttributeLabel->show();
     }
     // Set field depending of the type of value
     if (myACAttr.isBool()) {
@@ -929,7 +1010,7 @@ GNEFrame::AttributesEditor::RowEditor::showRow(const GNEAttributeCarrier::Attrib
         // Check if are combinable choices
         if ((myACAttr.getDiscreteValues().size() > 0) && myACAttr.isCombinable()) {
             // hide label
-            myLabel->hide();
+            myAttributeLabel->hide();
             // Show button combinable choices
             myButtonCombinableChoices->setText(myACAttr.getAttrStr().c_str());
             myButtonCombinableChoices->show();
@@ -997,7 +1078,7 @@ GNEFrame::AttributesEditor::RowEditor::showRow(const GNEAttributeCarrier::Attrib
     // if Tag correspond to an network element but we're in demand mode (or vice versa), disable all elements
     if (((myAttributesEditorParent->myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && myACAttr.getTagPropertyParent().isDemandElement()) ||
             ((myAttributesEditorParent->myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myACAttr.getTagPropertyParent().isDemandElement())) {
-        myColorEditor->disable();
+        myAttributeColorButton->disable();
         myRadioButton->disable();
         myTextFieldInt->disable();
         myTextFieldReal->disable();
@@ -1019,8 +1100,8 @@ GNEFrame::AttributesEditor::RowEditor::showRow(const GNEAttributeCarrier::Attrib
 void
 GNEFrame::AttributesEditor::RowEditor::hideRow() {
     // Hide all elements
-    myLabel->hide();
-    myColorEditor->hide();
+    myAttributeLabel->hide();
+    myAttributeColorButton->hide();
     myRadioButton->hide();
     myTextFieldInt->hide();
     myTextFieldReal->hide();
@@ -1044,7 +1125,7 @@ GNEFrame::AttributesEditor::RowEditor::refreshRow(const std::string& value, bool
     myChoicesCombo->enable();
     myBoolCheckButton->enable();
     myButtonCombinableChoices->enable();
-    myColorEditor->enable();
+    myAttributeColorButton->enable();
     myRadioButton->enable();
     // set radio buton
     if (myRadioButton->shown()) {
@@ -1110,7 +1191,7 @@ GNEFrame::AttributesEditor::RowEditor::refreshRow(const std::string& value, bool
     if (myACAttr.getAttr() != SUMO_ATTR_NOTHING) {
         if (((myAttributesEditorParent->myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && myACAttr.getTagPropertyParent().isDemandElement()) ||
                 ((myAttributesEditorParent->myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myACAttr.getTagPropertyParent().isDemandElement())) {
-            myColorEditor->disable();
+            myAttributeColorButton->disable();
             myRadioButton->disable();
             myTextFieldInt->disable();
             myTextFieldReal->disable();
@@ -1137,7 +1218,7 @@ GNEFrame::AttributesEditor::RowEditor::isRowValid() const {
 
 long
 GNEFrame::AttributesEditor::RowEditor::onCmdOpenAttributeDialog(FXObject* obj, FXSelector, void*) {
-    if (obj == myColorEditor) {
+    if (obj == myAttributeColorButton) {
         // create FXColorDialog
         FXColorDialog colordialog(this, tr("Color Dialog"));
         colordialog.setTarget(this);
@@ -2534,16 +2615,16 @@ GNEFrame::NeteditAttributes::NeteditAttributes(GNEFrame* frameParent) :
     // Create Frame for block movement label and checkBox (By default disabled)
     FXHorizontalFrame* blockMovement = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myBlockMovementLabel = new FXLabel(blockMovement, "block move", 0, GUIDesignLabelAttribute);
-    myBlockMovementCheckButton = new FXCheckButton(blockMovement, "false", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttribute);
+    myBlockMovementCheckButton = new FXCheckButton(blockMovement, "false", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myBlockMovementCheckButton->setCheck(false);
     // Create Frame for block shape label and checkBox (By default disabled)
     FXHorizontalFrame* blockShapeFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myBlockShapeLabel = new FXLabel(blockShapeFrame, "block shape", 0, GUIDesignLabelAttribute);
-    myBlockShapeCheckButton = new FXCheckButton(blockShapeFrame, "false", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttribute);
+    myBlockShapeCheckButton = new FXCheckButton(blockShapeFrame, "false", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     // Create Frame for block close polygon and checkBox (By default disabled)
     FXHorizontalFrame* closePolygonFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myClosePolygonLabel = new FXLabel(closePolygonFrame, "Close shape", 0, GUIDesignLabelAttribute);
-    myCloseShapeCheckButton = new FXCheckButton(closePolygonFrame, "false", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttribute);
+    myCloseShapeCheckButton = new FXCheckButton(closePolygonFrame, "false", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myBlockShapeCheckButton->setCheck(false);
     // Create help button
     helpReferencePoint = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
