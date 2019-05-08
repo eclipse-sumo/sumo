@@ -76,9 +76,6 @@ def addGenericOptions(argParser):
                            help="Delay before blocked vehicles are teleported (negative value disables teleporting)")
     argParser.add_argument("--time-to-teleport.highways", dest="timetoteleport_highways", type=float, default=0,
                            help="Delay before blocked vehicles are teleported on wrong highway lanes")
-    argParser.add_argument("--cost-modifier", dest="costmodifier",
-                           choices=['grohnde', 'isar', 'None'],
-                           default='None', help="Whether to modify link travel costs of the given routes")
     argParser.add_argument("-7", "--zip", action="store_true",
                            default=False, help="zip old iterations using 7zip")
 
@@ -279,8 +276,6 @@ def get_weightfilename(options, step, prefix):
         prefix = "%s,%s" % (options.addweights, prefix)
     if options.weightmemory:
         prefix = "memory_" + prefix
-    if options.costmodifier != 'None':
-        prefix = options.costmodifier + "_" + prefix
     return get_dumpfilename(options, step, prefix)
 
 
@@ -346,12 +341,8 @@ def writeSUMOConf(sumoBinary, step, options, additional_args, route_files):
     with open(detectorfile, 'w') as fd:
         suffix = "_%03i_%s" % (step, options.aggregation)
         print("<a>", file=fd)
-        if options.costmodifier != 'None':
-            print('    <edgeData id="dump%s" freq="%s" file="%s" excludeEmpty="defaults" minSamples="1"/>' % (
-                suffix, options.aggregation, get_dumpfilename(options, step, "dump")), file=fd)
-        else:
-            print('    <edgeData id="dump%s" freq="%s" file="%s" excludeEmpty="true" minSamples="1"/>' % (
-                suffix, options.aggregation, get_dumpfilename(options, step, "dump")), file=fd)
+        print('    <edgeData id="dump%s" freq="%s" file="%s" excludeEmpty="true" minSamples="1"/>' % (
+            suffix, options.aggregation, get_dumpfilename(options, step, "dump")), file=fd)
         if options.ecomeasure:
             print(('    <edgeData id="eco%s" type="hbefa" freq="%s" file="dump%s.xml" ' +
                    'excludeEmpty="true" minSamples="1"/>') %
@@ -508,12 +499,6 @@ def main(args=None):
     routesSuffix = ".xml"
     if options.binary:
         routesSuffix = ".sbx"
-    if options.costmodifier != 'None':
-        pyPath = os.path.abspath(os.path.dirname(sys.argv[0]))
-        sys.path.append(
-            os.path.join(pyPath, "..", "..", "..", "..", "..", "tools", "kkwSim"))
-        from kkwCostModifier import costModifier
-        print('Use the cost modifier for KKW simulation')
 
     if options.weightmemory and options.firstStep != 0:
         # load previous dump files when continuing a run
@@ -616,11 +601,6 @@ def main(args=None):
                   (costmemory.avg_error(), costmemory.mean_error()))
             print(">>> Absolute Error avg:%.12g mean:%.12g" %
                   (costmemory.avg_abs_error(), costmemory.mean_abs_error()))
-
-        if options.costmodifier != 'None':
-            currentDir = os.getcwd()
-            costModifier(get_weightfilename(options, step, "dump"), step, "dump",
-                         options.aggregation, currentDir, options.costmodifier, 'dua-iterate')
 
         if options.zip and step - options.firstStep > 1:
             # this is a little hackish since we zip and remove all files by glob, which may have undesired side effects
