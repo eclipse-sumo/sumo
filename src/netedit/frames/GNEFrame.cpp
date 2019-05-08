@@ -73,10 +73,10 @@ FXDEFMAP(GNEFrame::AttributesEditor) AttributesEditorMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HELP,   GNEFrame::AttributesEditor::onCmdAttributesEditorHelp)
 };
 
-FXDEFMAP(GNEFrame::AttributesEditor::RowEditor) RowEditorMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,              GNEFrame::AttributesEditor::RowEditor::onCmdSetAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,       GNEFrame::AttributesEditor::RowEditor::onCmdOpenAttributeDialog),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_RADIOBUTTON,  GNEFrame::AttributesEditor::RowEditor::onCmdSetDisjointAttribute)
+FXDEFMAP(GNEFrame::AttributesEditor::AttributesEditorRow) AttributesEditorRowMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,              GNEFrame::AttributesEditor::AttributesEditorRow::onCmdSetAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,       GNEFrame::AttributesEditor::AttributesEditorRow::onCmdOpenAttributeDialog),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_RADIOBUTTON,  GNEFrame::AttributesEditor::AttributesEditorRow::onCmdSetDisjointAttribute)
 };
 
 FXDEFMAP(GNEFrame::AttributesEditorExtended) AttributesEditorExtendedMap[] = {
@@ -111,7 +111,7 @@ FXIMPLEMENT(GNEFrame::ItemSelector,                     FXGroupBox,         Item
 FXIMPLEMENT(GNEFrame::AttributesCreator,                FXGroupBox,         AttributesCreatorMap,           ARRAYNUMBER(AttributesCreatorMap))
 FXIMPLEMENT(GNEFrame::AttributesCreator::AttributesCreatorRow,    FXHorizontalFrame,  RowCreatorMap,                  ARRAYNUMBER(RowCreatorMap))
 FXIMPLEMENT(GNEFrame::AttributesEditor,                 FXGroupBox,         AttributesEditorMap,            ARRAYNUMBER(AttributesEditorMap))
-FXIMPLEMENT(GNEFrame::AttributesEditor::RowEditor,      FXHorizontalFrame,  RowEditorMap,                   ARRAYNUMBER(RowEditorMap))
+FXIMPLEMENT(GNEFrame::AttributesEditor::AttributesEditorRow,      FXHorizontalFrame,  AttributesEditorRowMap,                   ARRAYNUMBER(AttributesEditorRowMap))
 FXIMPLEMENT(GNEFrame::AttributesEditorExtended,         FXGroupBox,         AttributesEditorExtendedMap,    ARRAYNUMBER(AttributesEditorExtendedMap))
 FXIMPLEMENT(GNEFrame::ACHierarchy,                      FXGroupBox,         ACHierarchyMap,                 ARRAYNUMBER(ACHierarchyMap))
 FXIMPLEMENT(GNEFrame::GenericParametersEditor,          FXGroupBox,         GenericParametersEditorMap,     ARRAYNUMBER(GenericParametersEditorMap))
@@ -898,10 +898,10 @@ GNEFrame::AttributesCreator::AttributesCreatorRow::onCmdSelectRadioButton(FXObje
 }
 
 // ---------------------------------------------------------------------------
-// GNEFrame::AttributesEditor::RowEditor - methods
+// GNEFrame::AttributesEditor::AttributesEditorRow - methods
 // ---------------------------------------------------------------------------
 
-GNEFrame::AttributesEditor::RowEditor::RowEditor(GNEFrame::AttributesEditor* attributeEditorParent) :
+GNEFrame::AttributesEditor::AttributesEditorRow::AttributesEditorRow(GNEFrame::AttributesEditor* attributeEditorParent) :
     FXHorizontalFrame(attributeEditorParent, GUIDesignAuxiliarHorizontalFrame),
     myAttributesEditorParent(attributeEditorParent),
     myMultiple(false) {
@@ -909,13 +909,16 @@ GNEFrame::AttributesEditor::RowEditor::RowEditor(GNEFrame::AttributesEditor* att
     myAttributeLabel = new FXLabel(this, "attributeLabel", nullptr, GUIDesignLabelAttribute);
     myAttributeLabel->hide();
     // Create and hide radio button
-    myRadioButton = new FXRadioButton(this, "name", this, MID_GNE_SET_ATTRIBUTE_RADIOBUTTON, GUIDesignRadioButtonAttribute);
-    myRadioButton->hide();
+    myAttributeRadioButton = new FXRadioButton(this, "attributeRadioButton", this, MID_GNE_SET_ATTRIBUTE_RADIOBUTTON, GUIDesignRadioButtonAttribute);
+    myAttributeRadioButton->hide();
+    // Create and hide check button
+    myAttributeCheckButton = new FXCheckButton(this, "attributeCheckButton", this, MID_GNE_SET_ATTRIBUTE_BOOL, GUIDesignCheckButtonAttribute);
+    myAttributeCheckButton->hide();
     // Create and hide ButtonCombinableChoices
-    myButtonCombinableChoices = new FXButton(this, "AttributeButton", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
-    myButtonCombinableChoices->hide();
+    myAttributeButtonCombinableChoices = new FXButton(this, "attributeButtonCombinableChoices", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
+    myAttributeButtonCombinableChoices->hide();
     // create and hidde color editor
-    myAttributeColorButton = new FXButton(this, "ColorButton", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
+    myAttributeColorButton = new FXButton(this, "attributeColorButton", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
     myAttributeColorButton->hide();
     // Create and hide textField for int attributes
     myTextFieldInt = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldInt);
@@ -927,8 +930,8 @@ GNEFrame::AttributesEditor::RowEditor::RowEditor(GNEFrame::AttributesEditor* att
     myTextFieldStrings = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myTextFieldStrings->hide();
     // Create and hide ComboBox
-    myChoicesCombo = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
-    myChoicesCombo->hide();
+    myComboBoxChoices = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
+    myComboBoxChoices->hide();
     // Create and hide checkButton
     myBoolCheckButton = new FXCheckButton(this, "", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myBoolCheckButton->hide();
@@ -936,16 +939,17 @@ GNEFrame::AttributesEditor::RowEditor::RowEditor(GNEFrame::AttributesEditor* att
 
 
 void
-GNEFrame::AttributesEditor::RowEditor::showRow(const GNEAttributeCarrier::AttributeProperties& ACAttr, const std::string& value, bool disjointAttributeEnabled) {
+GNEFrame::AttributesEditor::AttributesEditorRow::showAttributesEditorRow(const GNEAttributeCarrier::AttributeProperties& ACAttr, const std::string& value, bool disjointAttributeEnabled) {
     // start enabling all elements
     myTextFieldInt->enable();
     myTextFieldReal->enable();
     myTextFieldStrings->enable();
-    myChoicesCombo->enable();
+    myComboBoxChoices->enable();
     myBoolCheckButton->enable();
-    myButtonCombinableChoices->enable();
+    myAttributeButtonCombinableChoices->enable();
     myAttributeColorButton->enable();
-    myRadioButton->enable();
+    myAttributeRadioButton->enable();
+    myAttributeCheckButton->enable();
     // Set current Attribute Property
     myACAttr = ACAttr;
     // set multiple
@@ -955,10 +959,15 @@ GNEFrame::AttributesEditor::RowEditor::showRow(const GNEAttributeCarrier::Attrib
         myAttributeColorButton->setText(myACAttr.getAttrStr().c_str());
         myAttributeColorButton->show();
     } else if (myACAttr.getTagPropertyParent().isDisjointAttributes(myACAttr.getAttr())) {
-        myRadioButton->setTextColor(FXRGB(0, 0, 0));
-        myRadioButton->setText(myACAttr.getAttrStr().c_str());
-        myRadioButton->setCheck(disjointAttributeEnabled);
-        myRadioButton->show();
+        myAttributeRadioButton->setTextColor(FXRGB(0, 0, 0));
+        myAttributeRadioButton->setText(myACAttr.getAttrStr().c_str());
+        myAttributeRadioButton->setCheck(disjointAttributeEnabled);
+        myAttributeRadioButton->show();
+    } else if (myACAttr.isOptional()) {
+        myAttributeCheckButton->setTextColor(FXRGB(0, 0, 0));
+        myAttributeCheckButton->setText(myACAttr.getAttrStr().c_str());
+        myAttributeCheckButton->setCheck(FALSE/*disjointAttributeEnabled*/);
+        myAttributeCheckButton->show();
     } else {
         // Show attribute Label
         myAttributeLabel->setText(myACAttr.getAttrStr().c_str());
@@ -1012,26 +1021,26 @@ GNEFrame::AttributesEditor::RowEditor::showRow(const GNEAttributeCarrier::Attrib
             // hide label
             myAttributeLabel->hide();
             // Show button combinable choices
-            myButtonCombinableChoices->setText(myACAttr.getAttrStr().c_str());
-            myButtonCombinableChoices->show();
+            myAttributeButtonCombinableChoices->setText(myACAttr.getAttrStr().c_str());
+            myAttributeButtonCombinableChoices->show();
             // Show string with the values
             myTextFieldStrings->setText(value.c_str());
             myTextFieldStrings->setTextColor(FXRGB(0, 0, 0));
             myTextFieldStrings->show();
         } else if (!myMultiple) {
             // fill comboBox
-            myChoicesCombo->clearItems();
+            myComboBoxChoices->clearItems();
             for (const auto& it : myACAttr.getDiscreteValues()) {
-                myChoicesCombo->appendItem(it.c_str());
+                myComboBoxChoices->appendItem(it.c_str());
             }
             // show combo box with values
-            myChoicesCombo->setNumVisible((int)myACAttr.getDiscreteValues().size());
-            myChoicesCombo->setCurrentItem(myChoicesCombo->findItem(value.c_str()));
-            myChoicesCombo->setTextColor(FXRGB(0, 0, 0));
-            myChoicesCombo->show();
+            myComboBoxChoices->setNumVisible((int)myACAttr.getDiscreteValues().size());
+            myComboBoxChoices->setCurrentItem(myComboBoxChoices->findItem(value.c_str()));
+            myComboBoxChoices->setTextColor(FXRGB(0, 0, 0));
+            myComboBoxChoices->show();
             // enable or disable depending if attribute is editable and is enabled (used by disjoint attributes)
             if (myACAttr.isNonEditable() || !disjointAttributeEnabled) {
-                myChoicesCombo->disable();
+                myComboBoxChoices->disable();
             }
         } else {
             // represent combinable choices in multiple selections always with a textfield instead with a comboBox
@@ -1079,13 +1088,14 @@ GNEFrame::AttributesEditor::RowEditor::showRow(const GNEAttributeCarrier::Attrib
     if (((myAttributesEditorParent->myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && myACAttr.getTagPropertyParent().isDemandElement()) ||
             ((myAttributesEditorParent->myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myACAttr.getTagPropertyParent().isDemandElement())) {
         myAttributeColorButton->disable();
-        myRadioButton->disable();
+        myAttributeRadioButton->disable();
+        myAttributeCheckButton->disable();
         myTextFieldInt->disable();
         myTextFieldReal->disable();
         myTextFieldStrings->disable();
-        myChoicesCombo->disable();
+        myComboBoxChoices->disable();
         myBoolCheckButton->disable();
-        myButtonCombinableChoices->disable();
+        myAttributeButtonCombinableChoices->disable();
     }
     // special case for Default vehicle types (ID cannot be edited)
     if ((ACAttr.getTagPropertyParent().getTag() == SUMO_TAG_VTYPE) && (ACAttr.getAttr() == SUMO_ATTR_ID) &&
@@ -1098,17 +1108,18 @@ GNEFrame::AttributesEditor::RowEditor::showRow(const GNEAttributeCarrier::Attrib
 
 
 void
-GNEFrame::AttributesEditor::RowEditor::hideRow() {
+GNEFrame::AttributesEditor::AttributesEditorRow::hideAttributesEditorRow() {
     // Hide all elements
     myAttributeLabel->hide();
     myAttributeColorButton->hide();
-    myRadioButton->hide();
+    myAttributeRadioButton->hide();
+    myAttributeCheckButton->hide();
     myTextFieldInt->hide();
     myTextFieldReal->hide();
     myTextFieldStrings->hide();
-    myChoicesCombo->hide();
+    myComboBoxChoices->hide();
     myBoolCheckButton->hide();
-    myButtonCombinableChoices->hide();
+    myAttributeButtonCombinableChoices->hide();
     // hide Row
     hide();
     // recalc after hide all elements
@@ -1117,19 +1128,24 @@ GNEFrame::AttributesEditor::RowEditor::hideRow() {
 
 
 void
-GNEFrame::AttributesEditor::RowEditor::refreshRow(const std::string& value, bool forceRefresh, bool disjointAttributeEnabled) {
+GNEFrame::AttributesEditor::AttributesEditorRow::refreshAttributesEditorRow(const std::string& value, bool forceRefresh, bool disjointAttributeEnabled) {
     // start enabling all elements
     myTextFieldInt->enable();
     myTextFieldReal->enable();
     myTextFieldStrings->enable();
-    myChoicesCombo->enable();
+    myComboBoxChoices->enable();
     myBoolCheckButton->enable();
-    myButtonCombinableChoices->enable();
+    myAttributeButtonCombinableChoices->enable();
     myAttributeColorButton->enable();
-    myRadioButton->enable();
+    myAttributeRadioButton->enable();
+    myAttributeCheckButton->enable();
     // set radio buton
-    if (myRadioButton->shown()) {
-        myRadioButton->setCheck(disjointAttributeEnabled);
+    if (myAttributeRadioButton->shown()) {
+        myAttributeRadioButton->setCheck(disjointAttributeEnabled);
+    }
+    // set check buton
+    if (myAttributeCheckButton->shown()) {
+        myAttributeCheckButton->setCheck(/*disjointAttributeEnabled*/ FALSE );
     }
     if (myTextFieldInt->shown()) {
         // set last valid value and restore color if onlyValid is disabled
@@ -1161,20 +1177,20 @@ GNEFrame::AttributesEditor::RowEditor::refreshRow(const std::string& value, bool
         if (myACAttr.isNonEditable() || !disjointAttributeEnabled) {
             myTextFieldStrings->disable();
         }
-    } else if (myChoicesCombo->shown()) {
+    } else if (myComboBoxChoices->shown()) {
         // fill comboBox again
-        myChoicesCombo->clearItems();
+        myComboBoxChoices->clearItems();
         for (const auto& it : myACAttr.getDiscreteValues()) {
-            myChoicesCombo->appendItem(it.c_str());
+            myComboBoxChoices->appendItem(it.c_str());
         }
         // show combo box with values
-        myChoicesCombo->setNumVisible((int)myACAttr.getDiscreteValues().size());
-        myChoicesCombo->setCurrentItem(myChoicesCombo->findItem(value.c_str()));
-        myChoicesCombo->setTextColor(FXRGB(0, 0, 0));
-        myChoicesCombo->show();
+        myComboBoxChoices->setNumVisible((int)myACAttr.getDiscreteValues().size());
+        myComboBoxChoices->setCurrentItem(myComboBoxChoices->findItem(value.c_str()));
+        myComboBoxChoices->setTextColor(FXRGB(0, 0, 0));
+        myComboBoxChoices->show();
         // disable depending of disjointAttributeEnabled
         if (myACAttr.isNonEditable() || !disjointAttributeEnabled) {
-            myChoicesCombo->disable();
+            myComboBoxChoices->disable();
         }
     } else if (myBoolCheckButton->shown()) {
         if (GNEAttributeCarrier::canParse<bool>(value)) {
@@ -1192,17 +1208,18 @@ GNEFrame::AttributesEditor::RowEditor::refreshRow(const std::string& value, bool
         if (((myAttributesEditorParent->myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && myACAttr.getTagPropertyParent().isDemandElement()) ||
                 ((myAttributesEditorParent->myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myACAttr.getTagPropertyParent().isDemandElement())) {
             myAttributeColorButton->disable();
-            myRadioButton->disable();
+            myAttributeRadioButton->disable();
+            myAttributeCheckButton->disable();
             myTextFieldInt->disable();
             myTextFieldReal->disable();
             myTextFieldStrings->disable();
-            myChoicesCombo->disable();
+            myComboBoxChoices->disable();
             myBoolCheckButton->disable();
-            myButtonCombinableChoices->disable();
+            myAttributeButtonCombinableChoices->disable();
         }
         // special case for Default vehicle types (ID cannot be edited)
         if ((myACAttr.getTagPropertyParent().getTag() == SUMO_TAG_VTYPE) && (myACAttr.getAttr() == SUMO_ATTR_ID) &&
-                ((value == DEFAULT_VTYPE_ID) || (value == DEFAULT_PEDTYPE_ID) || (value == DEFAULT_BIKETYPE_ID))) {
+            ((value == DEFAULT_VTYPE_ID) || (value == DEFAULT_PEDTYPE_ID) || (value == DEFAULT_BIKETYPE_ID))) {
             myTextFieldStrings->disable();
         }
     }
@@ -1210,14 +1227,14 @@ GNEFrame::AttributesEditor::RowEditor::refreshRow(const std::string& value, bool
 
 
 bool
-GNEFrame::AttributesEditor::RowEditor::isRowValid() const {
+GNEFrame::AttributesEditor::AttributesEditorRow::isAttributesEditorRowValid() const {
     return ((myTextFieldInt->getTextColor() == FXRGB(0, 0, 0)) && (myTextFieldReal->getTextColor() == FXRGB(0, 0, 0)) &&
-            (myTextFieldStrings->getTextColor() == FXRGB(0, 0, 0)) && (myChoicesCombo->getTextColor() == FXRGB(0, 0, 0)));
+            (myTextFieldStrings->getTextColor() == FXRGB(0, 0, 0)) && (myComboBoxChoices->getTextColor() == FXRGB(0, 0, 0)));
 }
 
 
 long
-GNEFrame::AttributesEditor::RowEditor::onCmdOpenAttributeDialog(FXObject* obj, FXSelector, void*) {
+GNEFrame::AttributesEditor::AttributesEditorRow::onCmdOpenAttributeDialog(FXObject* obj, FXSelector, void*) {
     if (obj == myAttributeColorButton) {
         // create FXColorDialog
         FXColorDialog colordialog(this, tr("Color Dialog"));
@@ -1249,7 +1266,7 @@ GNEFrame::AttributesEditor::RowEditor::onCmdOpenAttributeDialog(FXObject* obj, F
             }
         }
         return 0;
-    } else if (obj == myButtonCombinableChoices) {
+    } else if (obj == myAttributeButtonCombinableChoices) {
         // if its valid for the first AC than its valid for all (of the same type)
         if (myAttributesEditorParent->myEditedACs.size() > 1) {
             myAttributesEditorParent->myFrameParent->myViewNet->getUndoList()->p_begin("Change multiple attributes");
@@ -1275,7 +1292,7 @@ GNEFrame::AttributesEditor::RowEditor::onCmdOpenAttributeDialog(FXObject* obj, F
 
 
 long
-GNEFrame::AttributesEditor::RowEditor::onCmdSetAttribute(FXObject*, FXSelector, void*) {
+GNEFrame::AttributesEditor::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSelector, void*) {
     // Declare changed value
     std::string newVal;
     // First, obtain the string value of the new attribute depending of their type
@@ -1302,7 +1319,7 @@ GNEFrame::AttributesEditor::RowEditor::onCmdSetAttribute(FXObject*, FXSelector, 
             newVal = myTextFieldStrings->getText().text();
         } else if (!myMultiple) {
             // Get value of ComboBox
-            newVal = myChoicesCombo->getText().text();
+            newVal = myComboBoxChoices->getText().text();
         } else {
             // due this is a multiple selection, obtain value of myTextFieldStrings instead of comboBox
             newVal = myTextFieldStrings->getText().text();
@@ -1367,8 +1384,8 @@ GNEFrame::AttributesEditor::RowEditor::onCmdSetAttribute(FXObject*, FXSelector, 
             // in this case, we need to refresh the other values (For example, allow/Disallow objects)
             myAttributesEditorParent->refreshAttributeEditor(false, false);
         } else if (myACAttr.isDiscrete()) {
-            myChoicesCombo->setTextColor(FXRGB(0, 0, 0));
-            myChoicesCombo->killFocus();
+            myComboBoxChoices->setTextColor(FXRGB(0, 0, 0));
+            myComboBoxChoices->killFocus();
         } else if (myACAttr.isFloat() || myACAttr.isTime()) {
             myTextFieldReal->setTextColor(FXRGB(0, 0, 0));
             myTextFieldReal->killFocus();
@@ -1387,8 +1404,8 @@ GNEFrame::AttributesEditor::RowEditor::onCmdSetAttribute(FXObject*, FXSelector, 
             myTextFieldStrings->setTextColor(FXRGB(255, 0, 0));
             myTextFieldStrings->killFocus();
         } else if (myACAttr.isDiscrete()) {
-            myChoicesCombo->setTextColor(FXRGB(255, 0, 0));
-            myChoicesCombo->killFocus();
+            myComboBoxChoices->setTextColor(FXRGB(255, 0, 0));
+            myComboBoxChoices->killFocus();
         } else if (myACAttr.isFloat() || myACAttr.isTime()) {
             myTextFieldReal->setTextColor(FXRGB(255, 0, 0));
         } else if (myACAttr.isInt() && myTextFieldStrings != nullptr) {
@@ -1404,7 +1421,7 @@ GNEFrame::AttributesEditor::RowEditor::onCmdSetAttribute(FXObject*, FXSelector, 
 
 
 long
-GNEFrame::AttributesEditor::RowEditor::onCmdSetDisjointAttribute(FXObject*, FXSelector, void*) {
+GNEFrame::AttributesEditor::AttributesEditorRow::onCmdSetDisjointAttribute(FXObject*, FXSelector, void*) {
     // write debug (for Netedit tests)
     WRITE_DEBUG("Selected radio button for attribute '" + myACAttr.getAttrStr() + "'");
     // change disjoint attribute with undo/redo
@@ -1417,7 +1434,7 @@ GNEFrame::AttributesEditor::RowEditor::onCmdSetDisjointAttribute(FXObject*, FXSe
 
 
 std::string
-GNEFrame::AttributesEditor::RowEditor::stripWhitespaceAfterComma(const std::string& stringValue) {
+GNEFrame::AttributesEditor::AttributesEditorRow::stripWhitespaceAfterComma(const std::string& stringValue) {
     std::string result(stringValue);
     while (result.find(", ") != std::string::npos) {
         result = StringUtils::replace(result, ", ", ",");
@@ -1435,7 +1452,7 @@ GNEFrame::AttributesEditor::AttributesEditor(GNEFrame* FrameParent) :
     myIncludeExtended(true) {
     // Create sufficient Row for all types of AttributeCarriers
     for (int i = 0; i < (int)GNEAttributeCarrier::getHigherNumberOfAttributes(); i++) {
-        myVectorOfRows.push_back(new RowEditor(this));
+        myAttributesEditorRows.push_back(new AttributesEditorRow(this));
     }
     // Create help button
     myHelpButton = new FXButton(this, "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
@@ -1447,8 +1464,8 @@ GNEFrame::AttributesEditor::showAttributeEditorModul(const std::vector<GNEAttrib
     myEditedACs = ACs;
     myIncludeExtended = includeExtended;
     // first hide all rows
-    for (const auto& i : myVectorOfRows) {
-        i->hideRow();
+    for (const auto& i : myAttributesEditorRows) {
+        i->hideAttributesEditorRow();
     }
     if (myEditedACs.size() > 0) {
         //  check if current AC is a Junction without TLSs (needed to hidde TLS options)
@@ -1495,7 +1512,7 @@ GNEFrame::AttributesEditor::showAttributeEditorModul(const std::vector<GNEAttrib
                 // first show AttributesEditor
                 show();
                 // show attribute
-                myVectorOfRows[i.second.getPositionListed()]->showRow(i.second, value, myEditedACs.front()->isDisjointAttributeSet(i.first));
+                myAttributesEditorRows[i.second.getPositionListed()]->showAttributesEditorRow(i.second, value, myEditedACs.front()->isDisjointAttributeSet(i.first));
             }
         }
     }
@@ -1505,8 +1522,8 @@ GNEFrame::AttributesEditor::showAttributeEditorModul(const std::vector<GNEAttrib
 void
 GNEFrame::AttributesEditor::hideAttributesEditorModul() {
     // hide al attributes
-    for (const auto& i : myVectorOfRows) {
-        i->hideRow();
+    for (const auto& i : myAttributesEditorRows) {
+        i->hideAttributesEditorRow();
     }
     // clear myEditedACs
     myEditedACs.clear();
@@ -1546,13 +1563,13 @@ GNEFrame::AttributesEditor::refreshAttributeEditor(bool forceRefreshShape, bool 
                 bool disjointAttributeSet = myEditedACs.front()->isDisjointAttributeSet(i.first);
                 // Check if refresh of Position or Shape has to be forced
                 if ((i.first  == SUMO_ATTR_SHAPE) && forceRefreshShape) {
-                    myVectorOfRows[i.second.getPositionListed()]->refreshRow(oss.str(), true, disjointAttributeSet);
+                    myAttributesEditorRows[i.second.getPositionListed()]->refreshAttributesEditorRow(oss.str(), true, disjointAttributeSet);
                 } else if ((i.first  == SUMO_ATTR_POSITION) && forceRefreshPosition) {
                     // Refresh attributes maintain invalid values
-                    myVectorOfRows[i.second.getPositionListed()]->refreshRow(oss.str(), true, disjointAttributeSet);
+                    myAttributesEditorRows[i.second.getPositionListed()]->refreshAttributesEditorRow(oss.str(), true, disjointAttributeSet);
                 } else {
                     // Refresh attributes maintain invalid values
-                    myVectorOfRows[i.second.getPositionListed()]->refreshRow(oss.str(), false, disjointAttributeSet);
+                    myAttributesEditorRows[i.second.getPositionListed()]->refreshAttributesEditorRow(oss.str(), false, disjointAttributeSet);
                 }
             }
         }

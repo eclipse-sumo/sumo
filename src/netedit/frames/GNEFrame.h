@@ -269,28 +269,28 @@ public:
     public:
 
         // ===========================================================================
-        // class RowEditor
+        // class AttributesEditorRow
         // ===========================================================================
 
-        class RowEditor : private FXHorizontalFrame {
+        class AttributesEditorRow : private FXHorizontalFrame {
             /// @brief FOX-declaration
-            FXDECLARE(GNEFrame::AttributesEditor::RowEditor)
+            FXDECLARE(GNEFrame::AttributesEditor::AttributesEditorRow)
 
         public:
             /// @brief constructor
-            RowEditor(GNEFrame::AttributesEditor* attributeEditorParent);
+            AttributesEditorRow(GNEFrame::AttributesEditor* attributeEditorParent);
 
             /// @brief show row attribute
-            void showRow(const GNEAttributeCarrier::AttributeProperties& ACAttr, const std::string& value, bool disjointAttributeEnabled);
+            void showAttributesEditorRow(const GNEAttributeCarrier::AttributeProperties& ACAttr, const std::string& value, bool disjointAttributeEnabled);
 
             /// @brief show row attribute
-            void hideRow();
+            void hideAttributesEditorRow();
 
             /// @brief refresh current row
-            void refreshRow(const std::string& value, bool forceRefresh, bool disjointAttributeEnabled);
+            void refreshAttributesEditorRow(const std::string& value, bool forceRefresh, bool disjointAttributeEnabled);
 
             /// @brief check if current attribute of TextField/ComboBox is valid
-            bool isRowValid() const;
+            bool isAttributesEditorRowValid() const;
 
             /// @name FOX-callbacks
             /// @{
@@ -307,7 +307,7 @@ public:
 
         protected:
             /// @brief FOX needs this
-            RowEditor() {}
+            AttributesEditorRow() {}
 
             /// @brief removed invalid spaces of Positions and shapes
             std::string stripWhitespaceAfterComma(const std::string& stringValue);
@@ -326,10 +326,13 @@ public:
             FXLabel* myAttributeLabel;
 
             /// @brief Radio button for disjoint attributes
-            FXRadioButton* myRadioButton;
+            FXRadioButton* myAttributeRadioButton;
+
+            /// @brief pointer to attribute  menu check
+            FXCheckButton* myAttributeCheckButton;
 
             /// @brief pointer to buttonCombinableChoices
-            FXButton* myButtonCombinableChoices;
+            FXButton* myAttributeButtonCombinableChoices;
 
             /// @brief Button for open color editor
             FXButton* myAttributeColorButton;
@@ -344,7 +347,7 @@ public:
             FXTextField* myTextFieldStrings;
 
             /// @brief pointer to combo box choices
-            FXComboBox* myChoicesCombo;
+            FXComboBox* myComboBoxChoices;
 
             /// @brief pointer to menu check
             FXCheckButton* myBoolCheckButton;
@@ -382,8 +385,8 @@ public:
         /// @brief pointer to GNEFrame parent
         GNEFrame* myFrameParent;
 
-        /// @brief list of Attribute inputs rows
-        std::vector<RowEditor*> myVectorOfRows;
+        /// @brief list of Attribute editor rows
+        std::vector<AttributesEditorRow*> myAttributesEditorRows;
 
         /// @brief button for help
         FXButton* myHelpButton;
