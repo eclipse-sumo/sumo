@@ -81,7 +81,7 @@ public:
         ATTRPROPERTY_ANGLE =               1 << 15,  // Attribute is an angle (only takes values between 0 and 360, including both, another value will be automatically reduced
         ATTRPROPERTY_LIST =                1 << 16,  // Attribute is a list of other elements separated by spaces
         ATTRPROPERTY_SECUENCIAL =          1 << 17,  // Attribute is a special sequence of elements (for example: secuencial lanes in Multi Lane E2 detectors)
-        ATTRPROPERTY_OPTIONAL =            1 << 18,  // Attribute is optional
+        ATTRPROPERTY_WRITEXMLOPTIONAL =    1 << 18,  // Attribute will not be written in XML file if current value is the same of their default Static/Mutable value
         ATTRPROPERTY_DEFAULTVALUESTATIC =  1 << 19,  // Attribute owns a static default value
         ATTRPROPERTY_DEFAULTVALUEMUTABLE = 1 << 20,  // Attribute owns a mutable default value
         ATTRPROPERTY_COMBINABLE =          1 << 21,  // Attribute is combinable with other Attribute
@@ -218,8 +218,8 @@ public:
         /// @brief return true if atribute is unique
         bool isUnique() const;
 
-        /// @brief return true if atribute is optional
-        bool isOptional() const;
+        /// @brief return true if atribute is write XML optional
+        bool isWriteXMLOptional() const;
 
         /// @brief return true if atribute is discrete
         bool isDiscrete() const;
@@ -749,7 +749,7 @@ public:
             }
         } else {
             // if attribute is optional and has a default value, obtain it. In other case, abort.
-            if (attrProperties.isOptional() && attrProperties.hasStaticDefaultValue()) {
+            if (attrProperties.isWriteXMLOptional()) {
                 parsedAttribute = attrProperties.getDefaultValue();
             } else {
                 WRITE_WARNING("Essential " + attrProperties.getDescription() + " attribute '" + toString(attribute) + "' of " +

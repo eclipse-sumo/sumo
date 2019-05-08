@@ -131,6 +131,12 @@ public:
      */
     bool isDisjointAttributeSet(const SumoXMLAttr attr) const;
 
+    /* @brief method for set certain attribute is set (used by ACs with disjoint attributes)
+     * @param[in] attr The attribute key
+     * @param[in] undoList The undoList on which to register changes
+     */
+    void setDisjointAttribute(const SumoXMLAttr attr, GNEUndoList* undoList);
+
     /// @brief get PopPup ID (Used in AC Hierarchy)
     std::string getPopUpID() const;
 
