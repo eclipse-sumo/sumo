@@ -165,11 +165,6 @@ public:
     /// @brief registers completed movement with the undoList
     void commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList);
 
-    /**@brief update shapes of all elements associated to the junction
-     * @note this include the adyacent nodes connected by edges
-     * @note if this function is called during 'Move' mode, connections will not be updated to improve efficiency
-     */
-    void updateShapesAndGeometries(bool updateGrid);
     /// @}
 
     /// @name inherited from GNEAttributeCarrier
@@ -296,11 +291,11 @@ private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
-    /**@brief reposition the node at pos and informs the edges
+    /**@brief reposition the node at pos without updating GRID and informs the edges
     * @param[in] pos The new position
     * @note: those operations are not added to the undoList.
     */
-    void moveJunctionGeometry(const Position& pos, bool updateGrid);
+    void moveJunctionGeometryWithoutUpdateGrid(const Position& pos);
 
     /// @brief sets junction color depending on circumstances
     RGBColor setColor(const GUIVisualizationSettings& s, bool bubble) const;

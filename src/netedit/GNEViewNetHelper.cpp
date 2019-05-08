@@ -580,9 +580,8 @@ GNEViewNetHelper::MoveSingleElementValues::finishMoveSingleElement() {
     } else if (myJunctionToMove) {
         // check if in the moved position there is another Junction and it will be merged
         if (!myViewNet->mergeJunctions(myJunctionToMove, originalPositionInView)) {
-            myJunctionToMove->endGeometryMoving();
-            // position is already up to date but we must register with myViewNet->getUndoList()
             myJunctionToMove->commitGeometryMoving(originalPositionInView, myViewNet->getUndoList());
+            myJunctionToMove->endGeometryMoving();
         }
         myJunctionToMove = nullptr;
     } else if (myEdgeToMove) {

@@ -452,28 +452,20 @@ GNEEdge::updateJunctionPosition(GNEJunction* junction, const Position& origPos, 
 
 
 Boundary
-GNEEdge::getBoundary() const {
-    Boundary ret;
-    for (auto i : myLanes) {
-        ret.add(i->getBoundary());
-    }
-    // ensure that geometry points are selectable even if the lane geometry is strange
-    for (const Position& pos : myNBEdge.getGeometry()) {
-        ret.add(pos);
-    }
-    ret.grow(10); // !!! magic value
-    return ret;
-}
-
-
-Boundary
 GNEEdge::getCenteringBoundary() const {
     // Return Boundary depending if myMovingGeometryBoundary is initialised (important for move geometry)
     if (myMovingGeometryBoundary.isInitialised()) {
         return myMovingGeometryBoundary;
     }  else {
-        Boundary b = getBoundary();
-        b.grow(20);
+        Boundary b;
+        for (auto i : myLanes) {
+            b.add(i->getBoundary());
+        }
+        // ensure that geometry points are selectable even if the lane geometry is strange
+        for (const Position& pos : myNBEdge.getGeometry()) {
+            b.add(pos);
+        }
+        b.grow(10);
         return b;
     }
 }
@@ -520,7 +512,7 @@ void
 GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     // check if boundary has to be drawn
     if(s.drawBoundaries) {
-        GLHelper::drawBoundary(getBoundary());
+        GLHelper::drawBoundary(getCenteringBoundary());
     }
     // draw lanes
     for (auto i : myLanes) {
@@ -711,8 +703,6 @@ GNEEdge::clearGNEConnections() {
         if (i->isAttributeCarrierSelected()) {
             i->unselectAttributeCarrier();
         }
-        // remove it from Tree
-        myNet->removeGLObjectFromGrid(i);
         // Dec reference of connection
         i->decRef("GNEEdge::clearGNEConnections");
         // Delete GNEConnectionToErase if is unreferenced

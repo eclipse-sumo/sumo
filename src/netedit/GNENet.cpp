@@ -2723,7 +2723,7 @@ GNENet::registerEdge(GNEEdge* edge) {
     // add edge to internal container of GNENet
     myAttributeCarriers.edges[edge->getMicrosimID()] = edge;
     // add edge to grid
-    myGrid.add(edge->getBoundary());
+    myGrid.add(edge->getCenteringBoundary());
     myGrid.addAdditionalGLObject(edge);
     // check if edge is selected
     if (edge->isAttributeCarrierSelected()) {

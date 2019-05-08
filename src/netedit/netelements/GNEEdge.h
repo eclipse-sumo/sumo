@@ -153,9 +153,6 @@ public:
     /// @brief update edge geometry after junction move
     void updateJunctionPosition(GNEJunction* junction, const Position& origPos, bool updateGrid);
 
-    /// @brief Returns the street's geometry
-    Boundary getBoundary() const;
-
     /// @name inherited from GUIGlObject
     /// @{
     /**@brief Returns an own popup-menu
