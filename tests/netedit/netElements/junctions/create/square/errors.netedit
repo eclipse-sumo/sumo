@@ -3,29 +3,23 @@ Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, demand elements saved
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Adding junction 'gneJ0' into net
-GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,45.00,22.00,89.00
-GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,45.00,22.00,89.00
-GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,45.00,22.00,89.00
+GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -12.00,55.00,12.00,79.00
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, demand elements saved
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Adding junction 'gneJ1' into net
-GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary -3.00,45.00,41.00,89.00
-GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary -3.00,45.00,41.00,89.00
-GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary -3.00,45.00,41.00,89.00
+GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 7.00,55.00,31.00,79.00
 Debug: Adding edge 'gneE0' from net
-GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,35.40,49.00,97.00
+GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -10.00,55.40,29.00,77.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
 Debug: invalidating (removing) connections of edge 'gneE0' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Adding junction 'gneJ2' into net
-GLDebug: Inserted junction:gneJ2 into SUMORTree with boundary -3.00,26.00,41.00,70.00
-GLDebug: Removed object junction:gneJ2 from SUMORTree with boundary -3.00,26.00,41.00,70.00
-GLDebug: Inserted junction:gneJ2 into SUMORTree with boundary -3.00,26.00,41.00,70.00
+GLDebug: Inserted junction:gneJ2 into SUMORTree with boundary 7.00,36.00,31.00,60.00
 Debug: Adding edge 'gneE1' from net
-GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -12.60,18.00,49.00,97.00
+GLDebug: Inserted edge:gneE1 into SUMORTree with boundary 7.40,38.00,29.00,77.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
 Debug: invalidating (removing) connections of edge 'gneE0' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
@@ -34,11 +28,9 @@ Debug: invalidating (removing) connections of edge 'gneE1' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Adding junction 'gneJ3' into net
-GLDebug: Inserted junction:gneJ3 into SUMORTree with boundary -22.00,26.00,22.00,70.00
-GLDebug: Removed object junction:gneJ3 from SUMORTree with boundary -22.00,26.00,22.00,70.00
-GLDebug: Inserted junction:gneJ3 into SUMORTree with boundary -22.00,26.00,22.00,70.00
+GLDebug: Inserted junction:gneJ3 into SUMORTree with boundary -12.00,36.00,12.00,60.00
 Debug: Adding edge 'gneE2' from net
-GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -30.00,18.00,49.00,79.60
+GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -10.00,38.00,29.00,59.60
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
 Debug: invalidating (removing) connections of edge 'gneE1' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
@@ -47,7 +39,7 @@ Debug: invalidating (removing) connections of edge 'gneE2' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
 Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 2, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 1, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Adding edge 'gneE3' from net
-GLDebug: Inserted edge:gneE3 into SUMORTree with boundary -30.00,18.00,31.60,97.00
+GLDebug: Inserted edge:gneE3 into SUMORTree with boundary -10.00,38.00,11.60,77.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE2'
 Debug: invalidating (removing) connections of edge 'gneE2' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
@@ -56,46 +48,34 @@ Debug: invalidating (removing) connections of edge 'gneE3' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
 Debug: Key ESC (abort) pressed
 Debug: Key F5 (Compute) pressed
-GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,45.00,22.00,89.00
-GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary -3.00,45.00,41.00,89.00
-GLDebug: Removed object junction:gneJ2 from SUMORTree with boundary -3.00,26.00,41.00,70.00
-GLDebug: Removed object junction:gneJ3 from SUMORTree with boundary -22.00,26.00,22.00,70.00
-GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,35.40,49.00,97.00
-GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -12.60,18.00,49.00,97.00
-GLDebug: Removed object edge:gneE2 from SUMORTree with boundary -30.00,18.00,49.00,79.60
-GLDebug: Removed object edge:gneE3 from SUMORTree with boundary -30.00,18.00,31.60,97.00
-GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-12.60,49.00,49.00
-GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -12.60,-30.00,49.00,49.00
-GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -30.00,-30.00,49.00,31.60
-GLDebug: Inserted edge:gneE3 into SUMORTree with boundary -30.00,-30.00,31.60,49.00
+GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -12.00,55.00,12.00,79.00
+GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 7.00,55.00,31.00,79.00
+GLDebug: Removed object junction:gneJ2 from SUMORTree with boundary 7.00,36.00,31.00,60.00
+GLDebug: Removed object junction:gneJ3 from SUMORTree with boundary -12.00,36.00,12.00,60.00
+GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -10.00,55.40,29.00,77.00
+GLDebug: Removed object edge:gneE1 from SUMORTree with boundary 7.40,38.00,29.00,77.00
+GLDebug: Removed object edge:gneE2 from SUMORTree with boundary -10.00,38.00,29.00,59.60
+GLDebug: Removed object edge:gneE3 from SUMORTree with boundary -10.00,38.00,11.60,77.00
+GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -10.00,53.80,13.20,77.00
+GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 5.80,53.80,29.00,77.00
+GLDebug: Inserted junction:gneJ2 into SUMORTree with boundary 5.80,38.00,29.00,61.20
+GLDebug: Inserted junction:gneJ3 into SUMORTree with boundary -10.00,38.00,13.20,61.20
+GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -10.00,55.40,29.00,77.00
+GLDebug: Inserted edge:gneE1 into SUMORTree with boundary 7.40,38.00,29.00,77.00
+GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -10.00,38.00,29.00,59.60
+GLDebug: Inserted edge:gneE3 into SUMORTree with boundary -10.00,38.00,11.60,77.00
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE2_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE2_0togneE3_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE3_0togneE0_0' in retrieveGNEConnection()
-GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,45.00,22.00,89.00
-GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,45.00,22.00,89.00
-GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-4.20,23.20,41.00
-GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary -3.00,45.00,41.00,89.00
-GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary -3.00,45.00,41.00,89.00
-GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary -4.20,-4.20,41.00,41.00
-GLDebug: Inserted junction:gneJ2 into SUMORTree with boundary -3.00,26.00,41.00,70.00
-GLDebug: Removed object junction:gneJ2 from SUMORTree with boundary -3.00,26.00,41.00,70.00
-GLDebug: Inserted junction:gneJ2 into SUMORTree with boundary -4.20,-22.00,41.00,23.20
-GLDebug: Inserted junction:gneJ3 into SUMORTree with boundary -22.00,26.00,22.00,70.00
-GLDebug: Removed object junction:gneJ3 from SUMORTree with boundary -22.00,26.00,22.00,70.00
-GLDebug: Inserted junction:gneJ3 into SUMORTree with boundary -22.00,-22.00,23.20,23.20
-GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-12.60,49.00,49.00
-GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-12.60,49.00,49.00
-GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-12.60,49.00,49.00
-GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -12.60,-30.00,49.00,49.00
-GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -12.60,-30.00,49.00,49.00
-GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -12.60,-30.00,49.00,49.00
-GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -30.00,-30.00,49.00,31.60
-GLDebug: Removed object edge:gneE2 from SUMORTree with boundary -30.00,-30.00,49.00,31.60
-GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -30.00,-30.00,49.00,31.60
-GLDebug: Inserted edge:gneE3 into SUMORTree with boundary -30.00,-30.00,31.60,49.00
-GLDebug: Removed object edge:gneE3 from SUMORTree with boundary -30.00,-30.00,31.60,49.00
-GLDebug: Inserted edge:gneE3 into SUMORTree with boundary -30.00,-30.00,31.60,49.00
+GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -10.00,55.40,29.00,77.00
+GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -10.00,55.40,29.00,77.00
+GLDebug: Removed object edge:gneE1 from SUMORTree with boundary 7.40,38.00,29.00,77.00
+GLDebug: Inserted edge:gneE1 into SUMORTree with boundary 7.40,38.00,29.00,77.00
+GLDebug: Removed object edge:gneE2 from SUMORTree with boundary -10.00,38.00,29.00,59.60
+GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -10.00,38.00,29.00,59.60
+GLDebug: Removed object edge:gneE3 from SUMORTree with boundary -10.00,38.00,11.60,77.00
+GLDebug: Inserted edge:gneE3 into SUMORTree with boundary -10.00,38.00,11.60,77.00
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
@@ -107,7 +87,7 @@ Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' int
 Debug: invalidating (removing) connections of edge 'gneE2' due it were guessed
 Debug: Deleting unreferenced connection 'fromgneE2_0togneE3_0' in clearGNEConnections()
 Debug: Removing edge 'gneE3' from net
-GLDebug: Removed object edge:gneE3 from SUMORTree with boundary -30.00,-30.00,31.60,49.00
+GLDebug: Removed object edge:gneE3 from SUMORTree with boundary -10.00,38.00,11.60,77.00
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE2'
@@ -117,9 +97,9 @@ Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' int
 Debug: invalidating (removing) connections of edge 'gneE1' due it were guessed
 Debug: Deleting unreferenced connection 'fromgneE1_0togneE2_0' in clearGNEConnections()
 Debug: Removing edge 'gneE2' from net
-GLDebug: Removed object edge:gneE2 from SUMORTree with boundary -30.00,-30.00,49.00,31.60
+GLDebug: Removed object edge:gneE2 from SUMORTree with boundary -10.00,38.00,29.00,59.60
 Debug: Removing junction 'gneJ3' from net
-GLDebug: Removed object junction:gneJ3 from SUMORTree with boundary -22.00,-22.00,23.20,23.20
+GLDebug: Removed object junction:gneJ3 from SUMORTree with boundary -10.00,38.00,13.20,61.20
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
@@ -129,43 +109,37 @@ Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' int
 Debug: invalidating (removing) connections of edge 'gneE0' due it were guessed
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in clearGNEConnections()
 Debug: Removing edge 'gneE1' from net
-GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -12.60,-30.00,49.00,49.00
+GLDebug: Removed object edge:gneE1 from SUMORTree with boundary 7.40,38.00,29.00,77.00
 Debug: Removing junction 'gneJ2' from net
-GLDebug: Removed object junction:gneJ2 from SUMORTree with boundary -4.20,-22.00,41.00,23.20
+GLDebug: Removed object junction:gneJ2 from SUMORTree with boundary 5.80,38.00,29.00,61.20
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
 Debug: invalidating (removing) connections of edge 'gneE0' due it were guessed
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
 Debug: Removing edge 'gneE0' from net
-GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-12.60,49.00,49.00
+GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -10.00,55.40,29.00,77.00
 Debug: Removing junction 'gneJ1' from net
-GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary -4.20,-4.20,41.00,41.00
+GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 5.80,53.80,29.00,77.00
 Debug: Removing junction 'gneJ0' from net
-GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-4.20,23.20,41.00
+GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -10.00,53.80,13.20,77.00
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Adding junction 'gneJ0' into net
-GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-4.20,23.20,41.00
-GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-4.20,23.20,41.00
-GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-4.20,23.20,41.00
+GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -10.00,53.80,13.20,77.00
 Debug: Adding junction 'gneJ1' into net
-GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary -4.20,-4.20,41.00,41.00
-GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary -4.20,-4.20,41.00,41.00
-GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary -4.20,-4.20,41.00,41.00
+GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 5.80,53.80,29.00,77.00
 Debug: Adding edge 'gneE0' from net
-GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-12.60,49.00,49.00
+GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -10.00,55.40,29.00,77.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
 Debug: invalidating (removing) connections of edge 'gneE0' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Adding junction 'gneJ2' into net
-GLDebug: Inserted junction:gneJ2 into SUMORTree with boundary -4.20,-22.00,41.00,23.20
-GLDebug: Removed object junction:gneJ2 from SUMORTree with boundary -4.20,-22.00,41.00,23.20
-GLDebug: Inserted junction:gneJ2 into SUMORTree with boundary -4.20,-22.00,41.00,23.20
+GLDebug: Inserted junction:gneJ2 into SUMORTree with boundary 5.80,38.00,29.00,61.20
 Debug: Adding edge 'gneE1' from net
-GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -12.60,-30.00,49.00,49.00
+GLDebug: Inserted edge:gneE1 into SUMORTree with boundary 7.40,38.00,29.00,77.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
 Debug: invalidating (removing) connections of edge 'gneE0' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
@@ -174,11 +148,9 @@ Debug: invalidating (removing) connections of edge 'gneE1' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Adding junction 'gneJ3' into net
-GLDebug: Inserted junction:gneJ3 into SUMORTree with boundary -22.00,-22.00,23.20,23.20
-GLDebug: Removed object junction:gneJ3 from SUMORTree with boundary -22.00,-22.00,23.20,23.20
-GLDebug: Inserted junction:gneJ3 into SUMORTree with boundary -22.00,-22.00,23.20,23.20
+GLDebug: Inserted junction:gneJ3 into SUMORTree with boundary -10.00,38.00,13.20,61.20
 Debug: Adding edge 'gneE2' from net
-GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -30.00,-30.00,49.00,31.60
+GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -10.00,38.00,29.00,59.60
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
 Debug: invalidating (removing) connections of edge 'gneE1' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
@@ -187,53 +159,41 @@ Debug: invalidating (removing) connections of edge 'gneE2' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Adding edge 'gneE3' from net
-GLDebug: Inserted edge:gneE3 into SUMORTree with boundary -30.00,-30.00,31.60,49.00
+GLDebug: Inserted edge:gneE3 into SUMORTree with boundary -10.00,38.00,11.60,77.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE2'
 Debug: invalidating (removing) connections of edge 'gneE2' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
 Debug: invalidating (removing) connections of edge 'gneE3' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
-GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-4.20,23.20,41.00
-GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary -4.20,-4.20,41.00,41.00
-GLDebug: Removed object junction:gneJ2 from SUMORTree with boundary -4.20,-22.00,41.00,23.20
-GLDebug: Removed object junction:gneJ3 from SUMORTree with boundary -22.00,-22.00,23.20,23.20
-GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-12.60,49.00,49.00
-GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -12.60,-30.00,49.00,49.00
-GLDebug: Removed object edge:gneE2 from SUMORTree with boundary -30.00,-30.00,49.00,31.60
-GLDebug: Removed object edge:gneE3 from SUMORTree with boundary -30.00,-30.00,31.60,49.00
-GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-12.60,49.00,49.00
-GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -12.60,-30.00,49.00,49.00
-GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -30.00,-30.00,49.00,31.60
-GLDebug: Inserted edge:gneE3 into SUMORTree with boundary -30.00,-30.00,31.60,49.00
+GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -10.00,53.80,13.20,77.00
+GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 5.80,53.80,29.00,77.00
+GLDebug: Removed object junction:gneJ2 from SUMORTree with boundary 5.80,38.00,29.00,61.20
+GLDebug: Removed object junction:gneJ3 from SUMORTree with boundary -10.00,38.00,13.20,61.20
+GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -10.00,55.40,29.00,77.00
+GLDebug: Removed object edge:gneE1 from SUMORTree with boundary 7.40,38.00,29.00,77.00
+GLDebug: Removed object edge:gneE2 from SUMORTree with boundary -10.00,38.00,29.00,59.60
+GLDebug: Removed object edge:gneE3 from SUMORTree with boundary -10.00,38.00,11.60,77.00
+GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -10.00,53.80,13.20,77.00
+GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 5.80,53.80,29.00,77.00
+GLDebug: Inserted junction:gneJ2 into SUMORTree with boundary 5.80,38.00,29.00,61.20
+GLDebug: Inserted junction:gneJ3 into SUMORTree with boundary -10.00,38.00,13.20,61.20
+GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -10.00,55.40,29.00,77.00
+GLDebug: Inserted edge:gneE1 into SUMORTree with boundary 7.40,38.00,29.00,77.00
+GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -10.00,38.00,29.00,59.60
+GLDebug: Inserted edge:gneE3 into SUMORTree with boundary -10.00,38.00,11.60,77.00
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE2_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE2_0togneE3_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE3_0togneE0_0' in retrieveGNEConnection()
-GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-4.20,23.20,41.00
-GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-4.20,23.20,41.00
-GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-4.20,23.20,41.00
-GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary -4.20,-4.20,41.00,41.00
-GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary -4.20,-4.20,41.00,41.00
-GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary -4.20,-4.20,41.00,41.00
-GLDebug: Inserted junction:gneJ2 into SUMORTree with boundary -4.20,-22.00,41.00,23.20
-GLDebug: Removed object junction:gneJ2 from SUMORTree with boundary -4.20,-22.00,41.00,23.20
-GLDebug: Inserted junction:gneJ2 into SUMORTree with boundary -4.20,-22.00,41.00,23.20
-GLDebug: Inserted junction:gneJ3 into SUMORTree with boundary -22.00,-22.00,23.20,23.20
-GLDebug: Removed object junction:gneJ3 from SUMORTree with boundary -22.00,-22.00,23.20,23.20
-GLDebug: Inserted junction:gneJ3 into SUMORTree with boundary -22.00,-22.00,23.20,23.20
-GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-12.60,49.00,49.00
-GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-12.60,49.00,49.00
-GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-12.60,49.00,49.00
-GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -12.60,-30.00,49.00,49.00
-GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -12.60,-30.00,49.00,49.00
-GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -12.60,-30.00,49.00,49.00
-GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -30.00,-30.00,49.00,31.60
-GLDebug: Removed object edge:gneE2 from SUMORTree with boundary -30.00,-30.00,49.00,31.60
-GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -30.00,-30.00,49.00,31.60
-GLDebug: Inserted edge:gneE3 into SUMORTree with boundary -30.00,-30.00,31.60,49.00
-GLDebug: Removed object edge:gneE3 from SUMORTree with boundary -30.00,-30.00,31.60,49.00
-GLDebug: Inserted edge:gneE3 into SUMORTree with boundary -30.00,-30.00,31.60,49.00
+GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -10.00,55.40,29.00,77.00
+GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -10.00,55.40,29.00,77.00
+GLDebug: Removed object edge:gneE1 from SUMORTree with boundary 7.40,38.00,29.00,77.00
+GLDebug: Inserted edge:gneE1 into SUMORTree with boundary 7.40,38.00,29.00,77.00
+GLDebug: Removed object edge:gneE2 from SUMORTree with boundary -10.00,38.00,29.00,59.60
+GLDebug: Inserted edge:gneE2 into SUMORTree with boundary -10.00,38.00,29.00,59.60
+GLDebug: Removed object edge:gneE3 from SUMORTree with boundary -10.00,38.00,11.60,77.00
+GLDebug: Inserted edge:gneE3 into SUMORTree with boundary -10.00,38.00,11.60,77.00
 Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor

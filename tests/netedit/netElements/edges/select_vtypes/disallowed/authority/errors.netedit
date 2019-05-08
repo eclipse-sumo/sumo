@@ -1,41 +1,13 @@
 Debug: Selected item 'DEFAULT_VEHTYPE' in VTypeSelector
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, demand elements saved
-Debug: Setting new attribute selected 'true' into edge 'gneE21'
 Debug: Key DEL (delete) pressed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE21'
-Debug: invalidating (removing) connections of edge '-gneE21' due it were guessed
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals saved, demand elements saved
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ15'
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE21'
-Debug: invalidating (removing) connections of edge 'gneE21' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ16'
-Debug: Removing edge 'gneE21' from net
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'fromgneE12_0togneE13_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE13_0togneE12_0' in retrieveGNEConnection()
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Adding edge 'gneE21' from net
-Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'gneJ16'
-Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE21'
-Debug: declaring connections of edge 'gneE21' as loaded (It will not be removed)
-Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'gneJ15'
-Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '-gneE21'
-Debug: declaring connections of edge '-gneE21' as loaded (It will not be removed)
 Debug: Key F5 (Compute) pressed
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE21'
-Debug: invalidating (removing) connections of edge '-gneE21' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ15'
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE21'
-Debug: invalidating (removing) connections of edge 'gneE21' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ16'
-Debug: Removing edge 'gneE21' from net
-Debug: Deleting unreferenced edge 'gneE21' in GNEChange_Attribute
-Debug: Deleting unreferenced lane 'gneE21_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge '-gneE14' in GNENet destructor
 Debug: Deleting unreferenced lane '-gneE14_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge '-gneE15' in GNENet destructor
@@ -80,6 +52,8 @@ Debug: Deleting unreferenced edge 'gneE19' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE19_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge 'gneE20' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE20_0' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE21' in GNENet destructor
+Debug: Deleting unreferenced lane 'gneE21_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge 'gneE22' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE22_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge 'gneE23' in GNENet destructor
