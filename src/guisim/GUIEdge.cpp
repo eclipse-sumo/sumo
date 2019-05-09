@@ -93,7 +93,7 @@ GUIEdge::getIDs(bool includeInternal) {
     for (MSEdge::DictType::const_iterator i = MSEdge::myDict.begin(); i != MSEdge::myDict.end(); ++i) {
         const GUIEdge* edge = dynamic_cast<const GUIEdge*>(i->second);
         assert(edge);
-        if (includeInternal || !edge->isInternal()) {
+        if (includeInternal || edge->isNormal()) {
             ret.push_back(edge->getGlID());
         }
     }
