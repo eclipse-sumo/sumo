@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu 09 May 2019 11:25:33 AM CEST by Eclipse SUMO netedit Version v1_2_0+0252-83989c2
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="osm.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="osm.net.xml"/>
+        <plain-output-prefix value="/scr2/debug/sumo-connector/Rotterdam/data/input_plain"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="true"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<edges version="1.3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="-411031867" from="307157666" to="cluster_2351978965_3491058798_606104206_606104215" priority="1" type="highway.cycleway" numLanes="1" speed="8.33" shape="2975.53,1900.74 2963.89,1901.12" width="1.00" allow="bicycle">
+        <lane index="0">
+            <param key="origId" value="411031867"/>
+        </lane>
+        <param key="origTo" value="606104206"/>
+    </edge>
+    <edge id="-68014253#1" from="cluster_2351978965_3491058798_606104206_606104215" to="4547843129" priority="1" type="highway.cycleway" numLanes="1" speed="8.33" shape="2952.85,1900.74 2950.17,1900.12 2940.26,1897.46 2931.86,1895.04 2925.34,1892.21" width="1.00" allow="bicycle">
+        <lane index="0">
+            <param key="origId" value="68014253"/>
+        </lane>
+        <param key="origFrom" value="2351978965"/>
+    </edge>
+    <edge id="226356742#0" from="2351978969" to="2351979005" priority="15" type="railway.tram" numLanes="1" speed="16.67" shape="2953.10,1907.73 2954.55,1917.61 2956.08,1923.10 2959.04,1931.24 2959.76,1935.29" spreadType="center" allow="tram">
+        <lane index="0">
+            <param key="origId" value="226356742"/>
+        </lane>
+    </edge>
+    <edge id="226356745#0" from="2351978961" to="4685660071" priority="15" type="railway.tram" numLanes="1" speed="16.67" shape="2949.67,1893.78 2949.70,1880.32 2949.81,1874.42 2949.88,1871.44 2950.30,1868.65" spreadType="center" allow="tram">
+        <lane index="0">
+            <param key="origId" value="226356745"/>
+        </lane>
+    </edge>
+    <edge id="226356751#0" from="2351978969" to="2351979019" priority="15" type="railway.tram" numLanes="1" speed="16.67" shape="2953.10,1907.73 2953.54,1917.42 2953.59,1928.54 2953.62,1942.11" spreadType="center" allow="tram">
+        <lane index="0">
+            <param key="origId" value="226356751"/>
+        </lane>
+    </edge>
+    <edge id="226356764#0" from="2351978960" to="cluster_2351978965_3491058798_606104206_606104215" priority="15" type="railway.tram" numLanes="1" speed="16.67" shape="2953.14,1885.50 2952.89,1899.73 2952.85,1900.74" spreadType="center" allow="tram">
+        <lane index="0">
+            <param key="origId" value="226356764"/>
+        </lane>
+        <param key="origTo" value="2351978965"/>
+    </edge>
+    <edge id="226356764#1" from="cluster_2351978965_3491058798_606104206_606104215" to="2351978969" priority="15" type="railway.tram" numLanes="1" speed="16.67" shape="2952.85,1900.74 2953.10,1907.73" spreadType="center" allow="tram">
+        <lane index="0">
+            <param key="origId" value="226356764"/>
+        </lane>
+        <param key="origFrom" value="2351978965"/>
+    </edge>
+    <edge id="226356778#0" from="2351978960" to="cluster_2351978965_3491058798_606104206_606104215" priority="15" type="railway.tram" numLanes="1" speed="16.67" shape="2953.14,1885.50 2953.37,1894.44 2956.38,1901.15" spreadType="center" allow="tram">
+        <lane index="0">
+            <param key="origId" value="226356778"/>
+        </lane>
+        <param key="origTo" value="606104215"/>
+    </edge>
+    <edge id="226356778#1" from="cluster_2351978965_3491058798_606104206_606104215" to="2351978994" priority="15" type="railway.tram" numLanes="1" speed="16.67" shape="2956.38,1901.15 2961.51,1908.93 2969.71,1917.55 2974.52,1921.41 2981.31,1925.11 2994.21,1929.50" spreadType="center" allow="tram">
+        <lane index="0">
+            <param key="origId" value="226356778"/>
+        </lane>
+        <param key="origFrom" value="606104215"/>
+    </edge>
+    <edge id="226382523#1" from="2309987111" to="2351978970" priority="15" type="railway.tram" numLanes="1" speed="16.67" shape="2944.51,1958.14 2947.08,1941.68 2947.04,1938.07 2947.88,1926.77 2949.21,1918.45 2949.84,1914.54 2950.42,1907.70" spreadType="center" allow="tram">
+        <lane index="0">
+            <param key="origId" value="226382523"/>
+        </lane>
+    </edge>
+    <edge id="411031867" from="cluster_2351978965_3491058798_606104206_606104215" to="307157666" priority="1" type="highway.cycleway" numLanes="1" speed="8.33" shape="2963.89,1901.12 2975.53,1900.74" width="1.00" allow="bicycle">
+        <lane index="0">
+            <param key="origId" value="411031867"/>
+        </lane>
+        <param key="origFrom" value="606104206"/>
+    </edge>
+    <edge id="421641052#1" from="4287485103" to="cluster_2351978965_3491058798_606104206_606104215" name="Stationsplein" priority="6" type="highway.tertiary" numLanes="2" speed="13.89" shape="2923.70,1894.52 2943.63,1900.60 2965.77,1904.27" spreadType="center">
+        <lane index="0" allow="pedestrian" width="3.00">
+            <param key="origId" value="421641052"/>
+        </lane>
+        <lane index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+            <param key="origId" value="421641052"/>
+        </lane>
+        <param key="origTo" value="3491058798"/>
+    </edge>
+    <edge id="60062720#2" from="2789468447" to="6137626911" name="Weenatunnel" priority="7" type="highway.secondary" numLanes="3" speed="13.89" shape="2930.51,1895.76 2989.56,1915.35" spreadType="center">
+        <lane index="0" allow="pedestrian" width="3.00">
+            <param key="origId" value="60062720"/>
+        </lane>
+        <lane index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+            <param key="origId" value="60062720"/>
+        </lane>
+        <lane index="2" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+            <param key="origId" value="60062720"/>
+        </lane>
+    </edge>
+    <edge id="651826250#4" from="6111940735" to="6111940662" priority="1" type="highway.pedestrian" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="651826250"/>
+        </lane>
+    </edge>
+    <edge id="651826255#14" from="6111940735" to="6111940662" priority="1" type="highway.pedestrian" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="651826255"/>
+        </lane>
+    </edge>
+    <edge id="651826255#7" from="2610339334" to="6111940013" priority="1" type="highway.pedestrian" numLanes="1" speed="2.78" shape="2997.88,1897.01 2998.27,1897.80 2998.78,1898.52 2999.41,1899.13 3000.14,1899.64 3000.94,1900.01 3003.27,1903.94 2998.97,1902.34 2994.97,1901.53 2990.37,1900.88 2984.10,1900.43 2975.81,1900.17 2971.56,1900.31 2970.00,1900.10 2968.62,1899.56 2967.58,1898.62 2966.32,1896.90 2965.70,1895.68 2965.14,1894.06 2964.81,1892.08 2964.71,1885.73 2964.84,1879.14" spreadType="center" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="651826255"/>
+        </lane>
+    </edge>
+    <edge id="655043404" from="2351978970" to="2351978961" priority="15" type="railway.tram" numLanes="1" speed="16.67" spreadType="center" allow="tram">
+        <lane index="0">
+            <param key="origId" value="655043404"/>
+        </lane>
+    </edge>
+    <edge id="655043411#1" from="2351978986" to="cluster_2351978965_3491058798_606104206_606104215" priority="15" type="railway.tram" numLanes="1" speed="16.67" shape="2979.79,1927.72 2974.23,1925.32 2968.83,1921.67 2958.33,1910.64 2952.85,1900.74" spreadType="center" allow="tram">
+        <lane index="0">
+            <param key="origId" value="655043411"/>
+        </lane>
+        <param key="origTo" value="2351978965"/>
+    </edge>
+    <edge id="655043411#2" from="cluster_2351978965_3491058798_606104206_606104215" to="2351978961" priority="15" type="railway.tram" numLanes="1" speed="16.67" shape="2952.85,1900.74 2950.61,1896.53 2949.67,1893.78" spreadType="center" allow="tram">
+        <lane index="0">
+            <param key="origId" value="655043411"/>
+        </lane>
+        <param key="origFrom" value="2351978965"/>
+    </edge>
+    <edge id="655043415#2" from="2351979026" to="2351978970" priority="15" type="railway.tram" numLanes="1" speed="16.67" shape="2950.33,1951.51 2950.52,1941.93 2950.66,1927.94 2950.87,1917.51 2950.42,1907.70" spreadType="center" allow="tram">
+        <lane index="0">
+            <param key="origId" value="655043415"/>
+        </lane>
+    </edge>
+    <edge id="68014253#1" from="4547843129" to="cluster_2351978965_3491058798_606104206_606104215" priority="1" type="highway.cycleway" numLanes="1" speed="8.33" shape="2925.34,1892.21 2931.86,1895.04 2940.26,1897.46 2950.17,1900.12 2952.85,1900.74" width="1.00" allow="bicycle">
+        <lane index="0">
+            <param key="origId" value="68014253"/>
+        </lane>
+        <param key="origTo" value="2351978965"/>
+    </edge>
+    <edge id="7525914#1" from="44409826" to="cluster_2351978965_3491058798_606104206_606104215" name="Kruisplein" priority="6" type="cycleway.lane|highway.tertiary" numLanes="3" speed="13.89" shape="2964.51,1872.76 2964.34,1890.28 2965.87,1900.83" spreadType="center">
+        <lane index="0" allow="pedestrian" width="3.00">
+            <param key="origId" value="7525914"/>
+        </lane>
+        <lane index="1" allow="bicycle" width="1.00">
+            <param key="origId" value="7525914"/>
+        </lane>
+        <lane index="2" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+            <param key="origId" value="7525914"/>
+        </lane>
+        <param key="origTo" value="606104206"/>
+    </edge>
+    <edge id="7525969#0" from="cluster_2351978965_3491058798_606104206_606104215" to="5647984913" name="Weena" priority="6" type="highway.tertiary" numLanes="2" speed="13.89" shape="2965.67,1904.26 2975.96,1905.27 2991.28,1909.64" spreadType="center">
+        <lane index="0" allow="pedestrian" width="3.00">
+            <param key="origId" value="7525969"/>
+        </lane>
+        <lane index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+            <param key="origId" value="7525969"/>
+        </lane>
+        <param key="origFrom" value="3491058798"/>
+    </edge>
+
+
+</edges>
