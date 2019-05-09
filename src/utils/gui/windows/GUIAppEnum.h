@@ -275,6 +275,8 @@ enum {
     MID_LOCATEEDGE,
     /// @brief Locate vehicle - button
     MID_LOCATEVEHICLE,
+    /// @brief Locate route - button
+    MID_LOCATEROUTE,
     /// @brief Locate person - button
     MID_LOCATEPERSON,
     /// @brief Locate TLS - button
