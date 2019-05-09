@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Mar 14 15:48:58 2019 by Eclipse SUMO netconvert Version v1_1_0+0435-678c69824b
+<!-- generated on Thu May  9 22:30:23 2019 by Eclipse SUMO netconvert Version v1_2_0+0149-6b40db9d1b
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -713,6 +713,9 @@
 
         <!-- Writes lanes without an explicit speed set -->
         <vissim.report-unset-speeds value="false" type="BOOL"/>
+
+        <!-- Load language mappings from FILE -->
+        <visum.language-file value="" type="FILE"/>
 
         <!-- Uses priorities from types -->
         <visum.use-type-priority value="false" type="BOOL"/>

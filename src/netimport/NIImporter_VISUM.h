@@ -94,7 +94,8 @@ protected:
      * @param[in] useVisumPrio Information whether the VISUM type's priority shall be used
      */
     NIImporter_VISUM(NBNetBuilder& nb, const std::string& file,
-                     NBCapacity2Lanes capacity2Lanes, bool useVisumPrio);
+                     NBCapacity2Lanes capacity2Lanes, bool useVisumPrio,
+                     const std::string& languageFile);
 
 
     /// @brief destructor
@@ -520,7 +521,34 @@ private:
     /// @brief A temporary storage for district shapes as they are filled incrementally
     std::map<NBDistrict*, PositionVector> myDistrictShapes;
 
+protected:
+    /**
+     * @enum VISUM keys
+     * @brief Numbers representing VISUM keywords
+     */
+    enum VISUM_KEY {
+        VISUM_LINKTYPE,
+        VISUM_LINK,
+        VISUM_NODE,
+        VISUM_V0,
+        VISUM_TYPES,
+        VISUM_RANK,
+        VISUM_CAPACITY,
+        VISUM_XCOORD,
+        VISUM_YCOORD,
+        VISUM_FROMNODE,
+        VISUM_TONODE,
+        VISUM_TYPE,
+        VISUM_NO // must be the last one
+    };
 
+    /// Strings for the keywords
+    static StringBijection<VISUM_KEY>::Entry KEYS_DE[];
+
+    /// @brief link directions
+    static StringBijection<VISUM_KEY> KEYS;
+
+    void loadLanguage(const std::string& file); 
 };
 
 

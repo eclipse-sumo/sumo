@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Mar 14 15:48:58 2019 by Eclipse SUMO netconvert Version v1_1_0+0435-678c69824b
+<!-- generated on Thu May  9 22:30:23 2019 by Eclipse SUMO netconvert Version v1_2_0+0149-6b40db9d1b
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -268,6 +268,7 @@
         <vissim.default-speed value="50" type="FLOAT" help="Use FLOAT as default speed"/>
         <vissim.speed-norm value="1" type="FLOAT" help="Factor for edge velocity"/>
         <vissim.report-unset-speeds value="false" type="BOOL" help="Writes lanes without an explicit speed set"/>
+        <visum.language-file value="" type="FILE" help="Load language mappings from FILE"/>
         <visum.use-type-priority value="false" type="BOOL" help="Uses priorities from types"/>
         <visum.use-type-laneno value="false" type="BOOL" help="Uses lane numbers from types"/>
         <visum.use-type-speed value="false" type="BOOL" help="Uses speeds from types"/>
