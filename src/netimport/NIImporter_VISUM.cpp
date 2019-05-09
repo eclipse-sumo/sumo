@@ -39,9 +39,12 @@
 
 
 StringBijection<NIImporter_VISUM::VISUM_KEY>::Entry NIImporter_VISUM::KEYS_DE[] = {
+    { "VSYS", VISUM_SYS },
     { "STRECKENTYP", VISUM_LINKTYPE },
-    { "STRECKE", VISUM_LINK },
     { "KNOTEN", VISUM_NODE },
+    { "BEZIRK", VISUM_DISTRICT },
+    { "PUNKT", VISUM_POINT },
+    { "STRECKE", VISUM_LINK },
     { "V0IV", VISUM_V0 },
     { "VSYSSET", VISUM_TYPES },
     { "RANG", VISUM_RANK },
@@ -97,11 +100,11 @@ NIImporter_VISUM::NIImporter_VISUM(NBNetBuilder& nb,
 
     // the order of process is important!
     // set1
-    addParser("VSYS", &NIImporter_VISUM::parse_VSysTypes);
+    addParser(KEYS.getString(VISUM_SYS), &NIImporter_VISUM::parse_VSysTypes);
     addParser(KEYS.getString(VISUM_LINKTYPE), &NIImporter_VISUM::parse_Types);
     addParser(KEYS.getString(VISUM_NODE), &NIImporter_VISUM::parse_Nodes);
-    addParser("BEZIRK", &NIImporter_VISUM::parse_Districts);
-    addParser("PUNKT", &NIImporter_VISUM::parse_Point);
+    addParser(KEYS.getString(VISUM_DISTRICT), &NIImporter_VISUM::parse_Districts);
+    addParser(KEYS.getString(VISUM_POINT), &NIImporter_VISUM::parse_Point);
 
     // set2
     // two types of "strecke"

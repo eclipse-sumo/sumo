@@ -527,9 +527,12 @@ protected:
      * @brief Numbers representing VISUM keywords
      */
     enum VISUM_KEY {
+        VISUM_SYS,
         VISUM_LINKTYPE,
-        VISUM_LINK,
         VISUM_NODE,
+        VISUM_DISTRICT,
+        VISUM_POINT,
+        VISUM_LINK,
         VISUM_V0,
         VISUM_TYPES,
         VISUM_RANK,
