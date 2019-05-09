@@ -63,6 +63,7 @@ FXDEFMAP(GNEViewParent) GNEViewParentMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEJUNCTION,                     GNEViewParent::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEEDGE,                         GNEViewParent::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEVEHICLE,                      GNEViewParent::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEROUTE,                        GNEViewParent::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATETLS,                          GNEViewParent::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEADD,                          GNEViewParent::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEPOI,                          GNEViewParent::onCmdLocate),
@@ -302,6 +303,8 @@ GNEViewParent::eraseACChooserDialog(GNEDialogACChooser* chooserDialog) {
         myACChoosers.ACChooserEdges = nullptr;
     } else if (chooserDialog == myACChoosers.ACChooserVehicles) {
         myACChoosers.ACChooserVehicles = nullptr;
+    } else if (chooserDialog == myACChoosers.ACChooserRoutes) {
+        myACChoosers.ACChooserRoutes = nullptr;
     } else if (chooserDialog == myACChoosers.ACChooserTLS) {
         myACChoosers.ACChooserTLS = nullptr;
     } else if (chooserDialog == myACChoosers.ACChooserAdditional) {
@@ -419,6 +422,31 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                         ACsToLocate.push_back(i.second);
                     }
                     myACChoosers.ACChooserVehicles = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(ICON_LOCATEEDGE), "Vehicle Chooser", ACsToLocate);
+                }
+                break;
+            }
+            case MID_LOCATEROUTE: {
+                if (myACChoosers.ACChooserRoutes) {
+                    // set focus in the existent chooser dialog
+                    myACChoosers.ACChooserRoutes->setFocus();
+                } else {
+                    // reserve memory
+                    ACsToLocate.reserve(viewNet->getNet()->getDemandElementByType(SUMO_TAG_ROUTE).size() + 
+                                        viewNet->getNet()->getDemandElementByType(SUMO_TAG_FLOW).size() + 
+                                        viewNet->getNet()->getDemandElementByType(SUMO_TAG_TRIP).size());
+                    // fill ACsToLocate with routes
+                    for (const auto &i : viewNet->getNet()->getDemandElementByType(SUMO_TAG_ROUTE)) {
+                        ACsToLocate.push_back(i.second);
+                    }
+                    // fill ACsToLocate with routes
+                    for (const auto &i : viewNet->getNet()->getDemandElementByType(SUMO_TAG_FLOW)) {
+                        ACsToLocate.push_back(i.second);
+                    }
+                    // fill ACsToLocate with routes
+                    for (const auto &i : viewNet->getNet()->getDemandElementByType(SUMO_TAG_TRIP)) {
+                        ACsToLocate.push_back(i.second);
+                    }
+                    myACChoosers.ACChooserRoutes = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(ICON_LOCATEEDGE), "Route Chooser", ACsToLocate);
                 }
                 break;
             }
@@ -670,6 +698,7 @@ GNEViewParent::ACChoosers::ACChoosers() :
     ACChooserJunction(nullptr),
     ACChooserEdges(nullptr),
     ACChooserVehicles(nullptr),
+    ACChooserRoutes(nullptr),
     ACChooserTLS(nullptr),
     ACChooserAdditional(nullptr),
     ACChooserPOI(nullptr),
@@ -681,25 +710,28 @@ GNEViewParent::ACChoosers::ACChoosers() :
 GNEViewParent::ACChoosers::~ACChoosers() {
     // remove all  dialogs if are active
     if (ACChooserJunction) {
-        delete ACChooserJunction ;
+        delete ACChooserJunction;
     }
     if (ACChooserEdges) {
-        delete ACChooserEdges ;
+        delete ACChooserEdges;
+    }
+    if (ACChooserRoutes) {
+        delete ACChooserRoutes;
     }
     if (ACChooserVehicles) {
-        delete ACChooserVehicles ;
+        delete ACChooserVehicles;
     }
     if (ACChooserTLS) {
-        delete ACChooserTLS ;
+        delete ACChooserTLS;
     }
     if (ACChooserAdditional) {
-        delete ACChooserAdditional ;
+        delete ACChooserAdditional;
     }
     if (ACChooserPOI) {
-        delete ACChooserPOI ;
+        delete ACChooserPOI;
     }
     if (ACChooserPolygon) {
-        delete ACChooserPolygon ;
+        delete ACChooserPolygon;
     }
     if (ACChooserProhibition) {
         delete ACChooserProhibition;

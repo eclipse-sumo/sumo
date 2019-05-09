@@ -234,6 +234,12 @@ GNEViewNet::buildViewToolBars(GUIGlChildWindow& cw) {
                  GUIIconSubSys::getIcon(ICON_LOCATEVEHICLE), &cw, MID_LOCATEVEHICLE,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
 
+    // for routes
+    new FXButton(cw.getLocatorPopup(),
+                 "\tLocate Route\tLocate a route within the network.",
+                 GUIIconSubSys::getIcon(ICON_LOCATEROUTE), &cw, MID_LOCATEROUTE,
+                 ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
+
     // for persons (currently unused)
     /*
     new FXButton(cw.getLocatorPopup(),
