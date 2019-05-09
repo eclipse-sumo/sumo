@@ -278,6 +278,9 @@ private:
     /// @brief route mode selector
     RouteModeSelector* myRouteModeSelector;
 
+    /// @brief internal additional attributes
+    AttributesCreator* myRouteAttributes;
+
     /// @brief Create routes using consecutive edges modul
     ConsecutiveEdges* myConsecutiveEdges;
 
