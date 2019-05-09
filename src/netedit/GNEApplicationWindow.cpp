@@ -177,6 +177,8 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_LOCATEJUNCTION,                     GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEEDGE,                         GNEApplicationWindow::onCmdLocate),
     FXMAPFUNC(SEL_UPDATE,   MID_LOCATEEDGE,                         GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEVEHICLE,                      GNEApplicationWindow::onCmdLocate),
+    FXMAPFUNC(SEL_UPDATE,   MID_LOCATEVEHICLE,                      GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATETLS,                          GNEApplicationWindow::onCmdLocate),
     FXMAPFUNC(SEL_UPDATE,   MID_LOCATETLS,                          GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEADD,                          GNEApplicationWindow::onCmdLocate),
@@ -1312,6 +1314,9 @@ GNEApplicationWindow::fillMenuBar() {
     new FXMenuCommand(myLocatorMenu,
                       "Locate &Edges\tShift+E\tOpen a Dialog for Locating an Edge.",
                       GUIIconSubSys::getIcon(ICON_LOCATEEDGE), this, MID_LOCATEEDGE);
+    new FXMenuCommand(myLocatorMenu,
+                      "Locate &Vehicles\tShift+V\tOpen a Dialog for Locating a Vehicle.",
+                      GUIIconSubSys::getIcon(ICON_LOCATEEDGE), this, MID_LOCATEVEHICLE);
     new FXMenuCommand(myLocatorMenu,
                       "Locate &TLS\tShift+T\tOpen a Dialog for Locating a Traffic Light.",
                       GUIIconSubSys::getIcon(ICON_LOCATETLS), this, MID_LOCATETLS);

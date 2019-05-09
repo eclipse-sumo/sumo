@@ -227,6 +227,21 @@ GNEViewNet::buildViewToolBars(GUIGlChildWindow& cw) {
                  "\tLocate Street\tLocate a street within the network.",
                  GUIIconSubSys::getIcon(ICON_LOCATEEDGE), &cw, MID_LOCATEEDGE,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
+
+    // for vehicles
+    new FXButton(cw.getLocatorPopup(),
+                 "\tLocate Vehicle\tLocate a vehicle within the network.",
+                 GUIIconSubSys::getIcon(ICON_LOCATEVEHICLE), &cw, MID_LOCATEVEHICLE,
+                 ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
+
+    // for persons (currently unused)
+    /*
+    new FXButton(cw.getLocatorPopup(),
+                 "\tLocate Vehicle\tLocate a person within the network.",
+                 GUIIconSubSys::getIcon(ICON_LOCATEPERSON), &v, MID_LOCATEPERSON,
+                 ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
+    */
+
     // for tls
     new FXButton(cw.getLocatorPopup(),
                  "\tLocate TLS\tLocate a tls within the network.",
