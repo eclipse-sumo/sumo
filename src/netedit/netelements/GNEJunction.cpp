@@ -617,7 +617,13 @@ GNEJunction::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList)
 void
 GNEJunction::invalidateShape() {
     if (!myNBNode.hasCustomShape()) {
-        myNBNode.myPoly.clear();
+        if (myNBNode.myPoly.size() > 0) {
+            // Remove object from net
+            myNet->removeGLObjectFromGrid(this);
+            myNBNode.myPoly.clear();
+            // add object into net
+            myNet->addGLObjectIntoGrid(this);
+        }
         myNet->requireRecompute();
     }
 }
