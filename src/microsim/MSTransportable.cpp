@@ -405,6 +405,11 @@ MSTransportable::Stage_Waiting::proceed(MSNet* net, MSTransportable* transportab
     }
 }
 
+void
+MSTransportable::Stage_Waiting::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now) {
+    MSTransportable::Stage::setArrived(net, transportable, now);
+    myDestinationStop->removeTransportable(transportable);
+}
 
 void
 MSTransportable::Stage_Waiting::tripInfoOutput(OutputDevice& os, const MSTransportable* const) const {

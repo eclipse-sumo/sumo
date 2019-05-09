@@ -372,6 +372,8 @@ public:
         /// proceeds to the next step
         virtual void proceed(MSNet* net, MSTransportable* transportable, SUMOTime now, Stage* previous);
 
+        virtual void setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now);
+
         /** @brief Called on writing tripinfo output
         *
         * @param[in] os The stream to write the information into
