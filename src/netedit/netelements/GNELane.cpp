@@ -459,7 +459,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
                 glTranslated(myLaneRestrictedTexturePositions.at(i).x(), myLaneRestrictedTexturePositions.at(i).y(), getType() + 0.1);
                 // Rotate matrix 2
                 glRotated(myLaneRestrictedTextureRotations.at(i), 0, 0, -1);
-                glRotated(-90, 0, 0, 1);
+                glRotated(90, 0, 0, 1);
                 // draw texture box depending of type of restriction
                 if (isRestricted(SVC_PEDESTRIAN)) {
                     GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_LANEPEDESTRIAN), iconWidth);
