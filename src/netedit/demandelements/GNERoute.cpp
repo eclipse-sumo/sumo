@@ -271,6 +271,8 @@ GNERoute::getAttribute(SumoXMLAttr key) const {
             return toString(myColor);
         case SUMO_ATTR_VCLASS:
             return toString(myVClass);
+        case GNE_ATTR_EMBEDDED_ROUTE:
+            return toString(getDemandElementParents().size() > 0);
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_GENERIC:
@@ -290,6 +292,7 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
         case SUMO_ATTR_ID:
         case SUMO_ATTR_EDGES:
         case SUMO_ATTR_COLOR:
+        case GNE_ATTR_EMBEDDED_ROUTE:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_GENERIC:
             undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
@@ -314,6 +317,16 @@ GNERoute::isValid(SumoXMLAttr key, const std::string& value) {
             }
         case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
+        case GNE_ATTR_EMBEDDED_ROUTE:
+            if (value.empty()) {
+                return true;
+            } else if(isValidDemandElementID(value)) {
+                return (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_VEHICLE, false) || 
+                        myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_FLOW, false) || 
+                        myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_TRIP, false));
+            } else {
+                return false;
+            }
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_GENERIC:
@@ -357,6 +370,20 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_COLOR:
             myColor = parse<RGBColor>(value);
             break;
+        case GNE_ATTR_EMBEDDED_ROUTE:
+            if (value.empty()) {
+                // if value is't empty, remove demand element parent if had it
+                if (getDemandElementChilds().size() > 0) {
+                    removeDemandElementParent(getDemandElementParents().front());
+                }
+            } else {
+                // if value isn't empty, add or change element parent
+                if (getDemandElementChilds().size() > 0) {
+                    changeDemandElementParent(this, value, 0);
+                } else {
+                    removeDemandElementParent(getDemandElementParents().front());
+                }
+            }
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {
                 selectAttributeCarrier();

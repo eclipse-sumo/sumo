@@ -965,6 +965,8 @@ enum SumoXMLAttr {
     GNE_ATTR_DEFAULT_VTYPE,
     /// @brief Flag to check if a default VType was modified
     GNE_ATTR_DEFAULT_VTYPE_MODIFIED,
+    /// @brief Flag to check if a route is an embedded route (it written as a child of a vehicle)
+    GNE_ATTR_EMBEDDED_ROUTE,
     // @}
 
     /// @name train parameters

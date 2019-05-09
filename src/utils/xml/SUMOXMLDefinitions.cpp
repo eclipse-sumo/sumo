@@ -654,6 +654,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "parentItem",                         GNE_ATTR_PARENT },
     { "genericParameter",                   GNE_ATTR_GENERIC },
     { "defaultVTypeModified",               GNE_ATTR_DEFAULT_VTYPE_MODIFIED },
+    { "embeddedRoute",                      GNE_ATTR_EMBEDDED_ROUTE },
 
     { "carriageLength",     SUMO_ATTR_CARRIAGE_LENGTH },
     { "locomotiveLength",   SUMO_ATTR_LOCOMOTIVE_LENGTH },
