@@ -3039,6 +3039,9 @@ NBEdge::append(NBEdge* e) {
     }
     // recompute length
     myLength += e->myLength;
+    if (myLoadedLength > 0 || e->myLoadedLength > 0) {
+        myLoadedLength = getFinalLength() + e->getFinalLength();
+    }
     // copy the connections and the building step if given
     myStep = e->myStep;
     myConnections = e->myConnections;
