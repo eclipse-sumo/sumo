@@ -80,6 +80,8 @@ locate_poi.xpm \
 locate_poly.xpm \
 locate_tls.xpm \
 locate_vehicle.xpm \
+locate_route.xpm \
+locate_stop.xpm \
 lock.xpm \
 magnify.xpm \
 modeadditional.xpm \
