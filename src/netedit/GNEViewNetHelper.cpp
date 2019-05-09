@@ -581,12 +581,9 @@ GNEViewNetHelper::MoveSingleElementValues::finishMoveSingleElement() {
         // check if in the moved position there is another Junction and it will be merged
         if (!myViewNet->mergeJunctions(myJunctionToMove, originalPositionInView)) {
             myJunctionToMove->commitGeometryMoving(originalPositionInView, myViewNet->getUndoList());
-            myJunctionToMove->endGeometryMoving();
         }
         myJunctionToMove = nullptr;
     } else if (myEdgeToMove) {
-        // end geometry moving
-        myEdgeToMove->endGeometryMoving();
         // commit change depending of what was moved
         if (myMovingStartPos) {
             myEdgeToMove->commitShapeStartChange(originalPositionInView, myViewNet->getUndoList());
@@ -954,17 +951,14 @@ GNEViewNetHelper::MoveMultipleElementValues::finishMoveSelection() {
     myViewNet->getUndoList()->p_begin("position of selected elements");
     // commit positions of moved junctions
     for (auto i : myMovedJunctionOriginPositions) {
-        i.first->endGeometryMoving();
         i.first->commitGeometryMoving(i.second, myViewNet->getUndoList());
     }
     // commit shapes of entired moved edges
     for (auto i : myMovedEdgesOriginShape) {
-        i.first->endGeometryMoving();
         i.first->commitShapeChange(i.second, myViewNet->getUndoList());
     }
     //commit shapes of partial moved shapes
     for (auto i : myMovedEgdesGeometryPoints) {
-        i.first->endGeometryMoving();
         i.first->commitShapeChange(i.second->originalShapeBeforeMoving, myViewNet->getUndoList());
     }
     // end undo list

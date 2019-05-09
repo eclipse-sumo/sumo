@@ -151,7 +151,7 @@ public:
     void deleteGeometryPoint(const Position& pos, bool allowUndo = true);
 
     /// @brief update edge geometry after junction move
-    void updateJunctionPosition(GNEJunction* junction, const Position& origPos, bool updateGrid);
+    void updateJunctionPosition(GNEJunction* junction, const Position& origPos);
 
     /// @name inherited from GUIGlObject
     /// @{
@@ -244,7 +244,7 @@ public:
      * @param[in] geom The new geometry
      * @param[in] inner Whether geom is only the inner points
      */
-    void setGeometry(PositionVector geom, bool inner, bool updateGrid);
+    void setGeometry(PositionVector geom, bool inner);
 
     /// @brief remake connections
     void remakeGNEConnections();
@@ -360,10 +360,10 @@ private:
     void removeEdgeFromCrossings(GNEJunction* junction, GNEUndoList* undoList);
 
     /// @brief change Shape StartPos
-    void setShapeStartPos(const Position& pos, bool updateGrid);
+    void setShapeStartPos(const Position& pos);
 
     /// @brief change Shape EndPos
-    void setShapeEndPos(const Position& pos, bool updateGrid);
+    void setShapeEndPos(const Position& pos);
 
     /// @brief draw geometry points
     void drawGeometryPoints(const GUIVisualizationSettings& s) const;
