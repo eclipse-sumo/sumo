@@ -64,6 +64,7 @@ FXDEFMAP(GNEViewParent) GNEViewParentMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEEDGE,                         GNEViewParent::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEVEHICLE,                      GNEViewParent::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEROUTE,                        GNEViewParent::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATESTOP,                         GNEViewParent::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATETLS,                          GNEViewParent::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEADD,                          GNEViewParent::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEPOI,                          GNEViewParent::onCmdLocate),
@@ -305,6 +306,8 @@ GNEViewParent::eraseACChooserDialog(GNEDialogACChooser* chooserDialog) {
         myACChoosers.ACChooserVehicles = nullptr;
     } else if (chooserDialog == myACChoosers.ACChooserRoutes) {
         myACChoosers.ACChooserRoutes = nullptr;
+    } else if (chooserDialog == myACChoosers.ACChooserStops) {
+        myACChoosers.ACChooserStops = nullptr;
     } else if (chooserDialog == myACChoosers.ACChooserTLS) {
         myACChoosers.ACChooserTLS = nullptr;
     } else if (chooserDialog == myACChoosers.ACChooserAdditional) {
@@ -421,7 +424,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     for (const auto &i : viewNet->getNet()->getDemandElementByType(SUMO_TAG_TRIP)) {
                         ACsToLocate.push_back(i.second);
                     }
-                    myACChoosers.ACChooserVehicles = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(ICON_LOCATEEDGE), "Vehicle Chooser", ACsToLocate);
+                    myACChoosers.ACChooserVehicles = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(ICON_LOCATEVEHICLE), "Vehicle Chooser", ACsToLocate);
                 }
                 break;
             }
@@ -431,22 +434,47 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     myACChoosers.ACChooserRoutes->setFocus();
                 } else {
                     // reserve memory
-                    ACsToLocate.reserve(viewNet->getNet()->getDemandElementByType(SUMO_TAG_ROUTE).size() + 
-                                        viewNet->getNet()->getDemandElementByType(SUMO_TAG_FLOW).size() + 
-                                        viewNet->getNet()->getDemandElementByType(SUMO_TAG_TRIP).size());
+                    ACsToLocate.reserve(viewNet->getNet()->getDemandElementByType(SUMO_TAG_ROUTE).size());
                     // fill ACsToLocate with routes
                     for (const auto &i : viewNet->getNet()->getDemandElementByType(SUMO_TAG_ROUTE)) {
                         ACsToLocate.push_back(i.second);
                     }
-                    // fill ACsToLocate with routes
-                    for (const auto &i : viewNet->getNet()->getDemandElementByType(SUMO_TAG_FLOW)) {
+                    myACChoosers.ACChooserRoutes = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(ICON_LOCATEROUTE), "Route Chooser", ACsToLocate);
+                }
+                break;
+            }
+            case MID_LOCATESTOP: {
+                if (myACChoosers.ACChooserStops) {
+                    // set focus in the existent chooser dialog
+                    myACChoosers.ACChooserStops->setFocus();
+                } else {
+                    // reserve memory
+                    ACsToLocate.reserve(viewNet->getNet()->getDemandElementByType(SUMO_TAG_STOP_LANE).size() + 
+                                        viewNet->getNet()->getDemandElementByType(SUMO_TAG_STOP_BUSSTOP).size() + 
+                                        viewNet->getNet()->getDemandElementByType(SUMO_TAG_STOP_CONTAINERSTOP).size() + 
+                                        viewNet->getNet()->getDemandElementByType(SUMO_TAG_STOP_CHARGINGSTATION).size() + 
+                                        viewNet->getNet()->getDemandElementByType(SUMO_TAG_STOP_PARKINGAREA).size());
+                    // fill ACsToLocate with stop over lanes
+                    for (const auto &i : viewNet->getNet()->getDemandElementByType(SUMO_TAG_STOP_LANE)) {
                         ACsToLocate.push_back(i.second);
                     }
-                    // fill ACsToLocate with routes
-                    for (const auto &i : viewNet->getNet()->getDemandElementByType(SUMO_TAG_TRIP)) {
+                    // fill ACsToLocate with stop over busstops
+                    for (const auto &i : viewNet->getNet()->getDemandElementByType(SUMO_TAG_STOP_BUSSTOP)) {
                         ACsToLocate.push_back(i.second);
                     }
-                    myACChoosers.ACChooserRoutes = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(ICON_LOCATEEDGE), "Route Chooser", ACsToLocate);
+                    // fill ACsToLocate with stop over container stops
+                    for (const auto &i : viewNet->getNet()->getDemandElementByType(SUMO_TAG_STOP_CONTAINERSTOP)) {
+                        ACsToLocate.push_back(i.second);
+                    }
+                    // fill ACsToLocate with stop over charging stations
+                    for (const auto &i : viewNet->getNet()->getDemandElementByType(SUMO_TAG_STOP_CHARGINGSTATION)) {
+                        ACsToLocate.push_back(i.second);
+                    }
+                    // fill ACsToLocate with stop over parking areas
+                    for (const auto &i : viewNet->getNet()->getDemandElementByType(SUMO_TAG_STOP_PARKINGAREA)) {
+                        ACsToLocate.push_back(i.second);
+                    }
+                    myACChoosers.ACChooserStops = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(ICON_LOCATESTOP), "Stop Chooser", ACsToLocate);
                 }
                 break;
             }
@@ -699,6 +727,7 @@ GNEViewParent::ACChoosers::ACChoosers() :
     ACChooserEdges(nullptr),
     ACChooserVehicles(nullptr),
     ACChooserRoutes(nullptr),
+    ACChooserStops(nullptr),
     ACChooserTLS(nullptr),
     ACChooserAdditional(nullptr),
     ACChooserPOI(nullptr),
@@ -717,6 +746,9 @@ GNEViewParent::ACChoosers::~ACChoosers() {
     }
     if (ACChooserRoutes) {
         delete ACChooserRoutes;
+    }
+    if (ACChooserStops) {
+        delete ACChooserStops;
     }
     if (ACChooserVehicles) {
         delete ACChooserVehicles;

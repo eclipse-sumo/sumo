@@ -272,6 +272,9 @@ private:
         /// @brief pointer to ACChooser dialog used for locate routes
         GNEDialogACChooser* ACChooserRoutes;
 
+        /// @brief pointer to ACChooser dialog used for locate stops
+        GNEDialogACChooser* ACChooserStops;
+
         /// @brief pointer to ACChooser dialog used for locate TLSs
         GNEDialogACChooser* ACChooserTLS;
 
