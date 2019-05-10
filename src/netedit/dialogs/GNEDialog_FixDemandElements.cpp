@@ -135,7 +135,7 @@ GNEDialog_FixDemandElements::onCmdAccept(FXObject*, FXSelector, void*) {
         if (myFixVehicleOptions->removeInvalidVehicles->getCheck() == TRUE) {
             myViewNet->getUndoList()->p_begin("delete invalid vehicles");
             // iterate over invalid stops to delete it
-            for (auto i : myDemandList->myInvalidStops) {
+            for (auto i : myDemandList->myInvalidVehicles) {
                 myViewNet->getNet()->deleteDemandElement(i, myViewNet->getUndoList());
             }
             myViewNet->getUndoList()->p_end();
@@ -409,11 +409,11 @@ GNEDialog_FixDemandElements::FixStopOptions::FixStopOptions(GNEDialog_FixDemandE
         fixDemandElementsDialogParents, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     saveInvalid = new FXRadioButton(RadioButtonsLeft, "Save invalid positions",
         fixDemandElementsDialogParents, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    fixPositionsAndSave = new FXRadioButton(RadioButtonsLeft, "Fix positions and save",
-        fixDemandElementsDialogParents, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // create Vertical Frame for right options
     FXVerticalFrame* RadioButtonsRight = new FXVerticalFrame(RadioButtons, GUIDesignAuxiliarVerticalFrame);
     selectInvalidStopsAndCancel = new FXRadioButton(RadioButtonsRight, "Select invalid Stops",
+        fixDemandElementsDialogParents, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    fixPositionsAndSave = new FXRadioButton(RadioButtonsRight, "Fix positions and save",
         fixDemandElementsDialogParents, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // leave option "activateFriendlyPositionAndSave" as default
     activateFriendlyPositionAndSave->setCheck(true);
