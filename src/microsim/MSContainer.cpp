@@ -311,6 +311,10 @@ MSContainer::proceed(MSNet* net, SUMOTime time) {
         (*myStep)->proceed(net, this, time, prior);
         return true;
     } else {
+        // cleanup
+        if (prior->getDestinationStop() != nullptr) {
+            prior->getDestinationStop()->removeTransportable(this);
+        }
         return false;
     }
 }
