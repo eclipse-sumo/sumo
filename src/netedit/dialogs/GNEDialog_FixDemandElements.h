@@ -68,7 +68,7 @@ protected:
 
     public:
         /// @brief constructor
-        DemandList(GNEDialog_FixDemandElements* fixAdditionalPositions, const std::vector<GNEDemandElement*>& invalidDemandElements);
+        DemandList(GNEDialog_FixDemandElements* fixDemandElementsDialogParents, const std::vector<GNEDemandElement*>& invalidDemandElements);
 
         /// @brief vector with the invalid routes
         std::vector<GNEDemandElement*> myInvalidRoutes;
@@ -85,7 +85,7 @@ protected:
 
     public:
         /// @brief constructor
-        FixRouteOptions(GNEDialog_FixDemandElements* fixAdditionalPositions);
+        FixRouteOptions(GNEDialog_FixDemandElements* fixDemandElementsDialogParents);
 
         /// @brief select option
         void selectOption(FXObject* option);
@@ -96,17 +96,14 @@ protected:
         /// @brief disable position options
         void disableFixRouteOptions();
 
-        /// @brief Option "Activate friendlyPos and save"
-        FXRadioButton* activateFriendlyPositionAndSave;
+        /// @brief Option "Remove invalid routes"
+        FXRadioButton* removeInvalidRoutes;
 
-        /// @brief Option "Fix Positions and save"
-        FXRadioButton* fixPositionsAndSave;
+        /// @brief Option "Save invalid routes"
+        FXRadioButton* saveInvalidRoutes;
 
-        /// @brief Option "Save invalid"
-        FXRadioButton* saveInvalid;
-
-        /// @brief Option "Select invalid stops and cancel"
-        FXRadioButton* selectInvalidStopsAndCancel;
+        /// @brief Option "Select invalid routes and cancel"
+        FXRadioButton* selectInvalidRoutesAndCancel;
     };
 
     /// @brief groupbox for all radio buttons related with fix vehicle options
@@ -114,7 +111,7 @@ protected:
 
     public:
         /// @brief constructor
-        FixVehicleOptions(GNEDialog_FixDemandElements* fixAdditionalPositions);
+        FixVehicleOptions(GNEDialog_FixDemandElements* fixDemandElementsDialogParents);
 
         /// @brief select option
         void selectOption(FXObject* option);
@@ -125,17 +122,14 @@ protected:
         /// @brief disable consecutive lane options
         void disableFixVehicleOptions();
 
-        /// @brief Option "build connections between lanes"
-        FXRadioButton* buildConnectionBetweenLanes;
-
         /// @brief Option "remove invalid elements"
-        FXRadioButton* removeInvalidElements;
+        FXRadioButton* removeInvalidVehicles;
 
-        /// @brief Option "Activate friendlyPos and save"
-        FXRadioButton* activateFriendlyPositionAndSave;
+        /// @brief Option "save invalid vehicles"
+        FXRadioButton* saveInvalidVehicles;
 
-        /// @brief Option "Fix Positions and save"
-        FXRadioButton* fixPositionsAndSave;
+        /// @brief Option "Select invalid vehicles and cancel"
+        FXRadioButton* selectInvalidVehiclesAndCancel;
     };
 
     /// @brief FOX needs this
