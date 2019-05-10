@@ -1340,7 +1340,7 @@ GNEFrame::AttributesEditor::AttributesEditorRow::onCmdSetAttribute(FXObject*, FX
             // obtain value of myValueTextFieldInt
             newVal = myValueTextFieldInt->getText().text();
         }
-    } else if (myACAttr.isString()) {
+    } else {
         // Check if default value of attribute must be set
         if (myValueTextFieldStrings->getText().empty() && myACAttr.hasStaticDefaultValue()) {
             newVal = myACAttr.getDefaultValue();

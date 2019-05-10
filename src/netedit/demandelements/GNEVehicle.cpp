@@ -214,7 +214,7 @@ GNEVehicle::updateGeometry() {
                 // add lane shape
                 multiShape.push_back(myTemporalRoute.at(i)->getLanes().front().shape);
                 // add empty shape for connection
-                multiShape.push_back(PositionVector{myTemporalRoute.at(i)->getLanes().front().shape.back(), myTemporalRoute.at(i + 1)->getLanes().front().shape.front()});
+                multiShape.push_back(PositionVector{myTemporalRoute.at(i)->getLanes().front().shape.back(), myTemporalRoute.at((int)i + 1)->getLanes().front().shape.front()});
             }
 
             // append last shape
@@ -368,7 +368,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                                            myTemporalRoute.at(0)->getLanes().front().shape.back());
                         // draw rest of lines
                         for (int i = 1; i < (int)myTemporalRoute.size(); i++) {
-                            GLHelper::drawLine(myTemporalRoute.at(i - 1)->getLanes().front().shape.back(),
+                            GLHelper::drawLine(myTemporalRoute.at((int)i - 1)->getLanes().front().shape.back(),
                                                myTemporalRoute.at(i)->getLanes().front().shape.front());
                             GLHelper::drawLine(myTemporalRoute.at(i)->getLanes().front().shape.front(),
                                                myTemporalRoute.at(i)->getLanes().front().shape.back());
@@ -439,27 +439,71 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_TYPE:
             return getDemandElementParents().at(0)->getID();
         case SUMO_ATTR_COLOR:
-            return toString(color);
+            if (wasSet(VEHPARS_COLOR_SET)) {
+                return toString(color);
+            } else {
+                return myTagProperty.getDefaultValue(SUMO_ATTR_COLOR);
+            }
         case SUMO_ATTR_DEPARTLANE:
-            return getDepartLane();
+            if (wasSet(VEHPARS_DEPARTLANE_SET)) {
+                return getDepartLane();
+            } else {
+                return myTagProperty.getDefaultValue(SUMO_ATTR_DEPARTLANE);
+            }
         case SUMO_ATTR_DEPARTPOS:
-            return getDepartPos();
+            if (wasSet(VEHPARS_DEPARTPOS_SET)) {
+                return getDepartPos();
+            } else {
+                return myTagProperty.getDefaultValue(SUMO_ATTR_DEPARTPOS);
+            }
         case SUMO_ATTR_DEPARTSPEED:
-            return getDepartSpeed();
+            if (wasSet(VEHPARS_DEPARTSPEED_SET)) {
+                return getDepartSpeed();
+            } else {
+                return myTagProperty.getDefaultValue(SUMO_ATTR_DEPARTSPEED);
+            }
         case SUMO_ATTR_ARRIVALLANE:
-            return getArrivalLane();
+            if (wasSet(VEHPARS_ARRIVALLANE_SET)) {
+                return getArrivalLane();
+            } else {
+                return myTagProperty.getDefaultValue(SUMO_ATTR_ARRIVALLANE);
+            }
         case SUMO_ATTR_ARRIVALPOS:
-            return getArrivalPos();
+            if (wasSet(VEHPARS_ARRIVALPOS_SET)) {
+                return getArrivalPos();
+            } else {
+                return myTagProperty.getDefaultValue(SUMO_ATTR_ARRIVALPOS);
+            }
         case SUMO_ATTR_ARRIVALSPEED:
-            return getArrivalSpeed();
+            if (wasSet(VEHPARS_ARRIVALSPEED_SET)) {
+                return getArrivalSpeed();
+            } else {
+                return myTagProperty.getDefaultValue(SUMO_ATTR_ARRIVALSPEED);
+            }
         case SUMO_ATTR_LINE:
-            return line;
+            if (wasSet(VEHPARS_LINE_SET)) {
+                return line;
+            } else {
+                return myTagProperty.getDefaultValue(SUMO_ATTR_LINE);
+            }
         case SUMO_ATTR_PERSON_NUMBER:
-            return toString(personNumber);
+            if (wasSet(VEHPARS_PERSON_NUMBER_SET)) {
+                return toString(personNumber);
+            } else {
+                return myTagProperty.getDefaultValue(SUMO_ATTR_PERSON_NUMBER);
+            }
         case SUMO_ATTR_CONTAINER_NUMBER:
-            return toString(containerNumber);
+            if (wasSet(VEHPARS_CONTAINER_NUMBER_SET)) {
+                return toString(containerNumber);
+            } else {
+                return myTagProperty.getDefaultValue(SUMO_ATTR_CONTAINER_NUMBER);
+            }
         case SUMO_ATTR_REROUTE:
-            return toString("false"); // check
+            if (wasSet(VEHPARS_CONTAINER_NUMBER_SET)) {
+                return "true";
+            } else {
+                return "false";
+            }
         case SUMO_ATTR_VIA: {
             if (getEdgeParents().size() > 2) {
                 std::vector<GNEEdge*> viaEdges;
@@ -472,9 +516,17 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
             }
         }
         case SUMO_ATTR_DEPARTPOS_LAT:
-            return getDepartPosLat();
+            if (wasSet(VEHPARS_DEPARTPOSLAT_SET)) {
+                return getDepartPosLat();
+            } else {
+                return myTagProperty.getDefaultValue(SUMO_ATTR_DEPARTPOS_LAT);
+            }
         case SUMO_ATTR_ARRIVALPOS_LAT:
-            return getArrivalPosLat();
+            if (wasSet(VEHPARS_ARRIVALPOSLAT_SET)) {
+                return getArrivalPosLat();
+            } else {
+                return myTagProperty.getDefaultValue(SUMO_ATTR_ARRIVALPOS_LAT);
+            }
         // Specific of vehicles
         case SUMO_ATTR_DEPART:
             return toString(depart);
@@ -936,39 +988,142 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             vtypeid = value;
             break;
         case SUMO_ATTR_COLOR:
-            color = parse<RGBColor>(value);
+            if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
+                color = parse<RGBColor>(value);
+                // mark parameter as set
+                parametersSet |= VEHPARS_COLOR_SET;
+            } else {
+                // set default value
+                color = parse<RGBColor>(myTagProperty.getDefaultValue(key));
+                // unset parameter
+                parametersSet &= ~VEHPARS_COLOR_SET;
+            }
             break;
         case SUMO_ATTR_DEPARTLANE:
-            parseDepartLane(value, toString(SUMO_TAG_VEHICLE), id, departLane, departLaneProcedure, error);
+            if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
+                parseDepartLane(value, toString(SUMO_TAG_VEHICLE), id, departLane, departLaneProcedure, error);
+                // mark parameter as set
+                parametersSet |= VEHPARS_DEPARTLANE_SET;
+            } else {
+                // set default value
+                parseDepartLane(myTagProperty.getDefaultValue(key), toString(SUMO_TAG_VEHICLE), id, departLane, departLaneProcedure, error);
+                // unset parameter
+                parametersSet &= ~VEHPARS_DEPARTLANE_SET;
+            }
             break;
         case SUMO_ATTR_DEPARTPOS:
-            parseDepartPos(value, toString(SUMO_TAG_VEHICLE), id, departPos, departPosProcedure, error);
+            if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
+                parseDepartPos(value, toString(SUMO_TAG_VEHICLE), id, departPos, departPosProcedure, error);
+                // mark parameter as set
+                parametersSet |= VEHPARS_DEPARTPOS_SET;
+            } else {
+                // set default value
+                parseDepartPos(myTagProperty.getDefaultValue(key), toString(SUMO_TAG_VEHICLE), id, departPos, departPosProcedure, error);
+                // unset parameter
+                parametersSet &= ~VEHPARS_DEPARTPOS_SET;
+            }
             break;
         case SUMO_ATTR_DEPARTSPEED:
-            parseDepartSpeed(value, toString(SUMO_TAG_VEHICLE), id, departSpeed, departSpeedProcedure, error);
+            if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
+                parseDepartSpeed(value, toString(SUMO_TAG_VEHICLE), id, departSpeed, departSpeedProcedure, error);
+                // mark parameter as set
+                parametersSet |= VEHPARS_DEPARTSPEED_SET;
+            } else {
+                // set default value
+                parseDepartSpeed(myTagProperty.getDefaultValue(key), toString(SUMO_TAG_VEHICLE), id, departSpeed, departSpeedProcedure, error);
+                // unset parameter
+                parametersSet &= ~VEHPARS_DEPARTSPEED_SET;
+            }
             break;
         case SUMO_ATTR_ARRIVALLANE:
-            parseArrivalLane(value, toString(SUMO_TAG_VEHICLE), id, arrivalLane, arrivalLaneProcedure, error);
+            if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
+                parseArrivalLane(value, toString(SUMO_TAG_VEHICLE), id, arrivalLane, arrivalLaneProcedure, error);
+                // mark parameter as set
+                parametersSet |= VEHPARS_ARRIVALLANE_SET;
+            } else {
+                // set default value
+                parseArrivalLane(myTagProperty.getDefaultValue(key), toString(SUMO_TAG_VEHICLE), id, arrivalLane, arrivalLaneProcedure, error);
+                // unset parameter
+                parametersSet &= ~VEHPARS_ARRIVALLANE_SET;
+            }
             break;
         case SUMO_ATTR_ARRIVALPOS:
-            parseArrivalPos(value, toString(SUMO_TAG_VEHICLE), id, arrivalPos, arrivalPosProcedure, error);
+            if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
+                parseArrivalPos(value, toString(SUMO_TAG_VEHICLE), id, arrivalPos, arrivalPosProcedure, error);
+                // mark parameter as set
+                parametersSet |= VEHPARS_ARRIVALPOS_SET;
+            } else {
+                // set default value
+                parseArrivalPos(myTagProperty.getDefaultValue(key), toString(SUMO_TAG_VEHICLE), id, arrivalPos, arrivalPosProcedure, error);
+                // unset parameter
+                parametersSet &= ~VEHPARS_ARRIVALPOS_SET;
+            }
             break;
         case SUMO_ATTR_ARRIVALSPEED:
-            parseArrivalSpeed(value, toString(SUMO_TAG_VEHICLE), id, arrivalSpeed, arrivalSpeedProcedure, error);
+            if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
+                parseArrivalSpeed(value, toString(SUMO_TAG_VEHICLE), id, arrivalSpeed, arrivalSpeedProcedure, error);
+                // mark parameter as set
+                parametersSet |= VEHPARS_ARRIVALSPEED_SET;
+            } else {
+                // set default value
+                parseArrivalSpeed(myTagProperty.getDefaultValue(key), toString(SUMO_TAG_VEHICLE), id, arrivalSpeed, arrivalSpeedProcedure, error);
+                // unset parameter
+                parametersSet &= ~VEHPARS_ARRIVALSPEED_SET;
+            }
             break;
         case SUMO_ATTR_LINE:
-            line = value;
+            if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
+                line = value;
+                // mark parameter as set
+                parametersSet |= VEHPARS_LINE_SET;
+            } else {
+                // set default value
+                line = myTagProperty.getDefaultValue(key);
+                // unset parameter
+                parametersSet &= ~VEHPARS_LINE_SET;
+            }
             break;
         case SUMO_ATTR_PERSON_NUMBER:
-            personNumber = parse<int>(value);
+            if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
+                personNumber = parse<int>(value);
+                // mark parameter as set
+                parametersSet |= VEHPARS_PERSON_NUMBER_SET;
+            } else {
+                // set default value
+                personNumber = parse<int>(myTagProperty.getDefaultValue(key));
+                // unset parameter
+                parametersSet &= ~VEHPARS_PERSON_NUMBER_SET;
+            }
             break;
         case SUMO_ATTR_CONTAINER_NUMBER:
-            containerNumber = parse<int>(value);
+            if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
+                containerNumber = parse<int>(value);
+                // mark parameter as set
+                parametersSet |= VEHPARS_CONTAINER_NUMBER_SET;
+            } else {
+                // set default value
+                containerNumber = parse<int>(myTagProperty.getDefaultValue(key));
+                // unset parameter
+                parametersSet &= ~VEHPARS_CONTAINER_NUMBER_SET;
+            }
             break;
         case SUMO_ATTR_REROUTE:
-            // check
+            if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
+                // mark parameter as set
+                parametersSet |= VEHPARS_ROUTE_SET;
+            } else {
+                // unset parameter
+                parametersSet &= ~VEHPARS_ROUTE_SET;
+            }
             break;
         case SUMO_ATTR_VIA:
+            if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
+                // mark parameter as set
+                parametersSet |= VEHPARS_VIA_SET;
+            } else {
+                // unset parameter
+                parametersSet &= ~VEHPARS_VIA_SET;
+            }
             // change edge parents
             changeEdgeParents(this, getEdgeParents().front()->getID() + " " + value + " " + getEdgeParents().back()->getID());
             // recalculate temporal route (Only in Demand mode)
@@ -977,9 +1132,28 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case SUMO_ATTR_DEPARTPOS_LAT:
-            parseDepartPosLat(value, toString(SUMO_TAG_VEHICLE), id, departPosLat, departPosLatProcedure, error);
+            if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
+                parseDepartPosLat(value, toString(SUMO_TAG_VEHICLE), id, departPosLat, departPosLatProcedure, error);
+                // mark parameter as set
+                parametersSet |= VEHPARS_DEPARTPOSLAT_SET;
+            } else {
+                // set default value
+                parseDepartPosLat(myTagProperty.getDefaultValue(key), toString(SUMO_TAG_VEHICLE), id, departPosLat, departPosLatProcedure, error);
+                // unset parameter
+                parametersSet &= ~VEHPARS_DEPARTPOSLAT_SET;
+            }
             break;
         case SUMO_ATTR_ARRIVALPOS_LAT:
+            if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
+                parseArrivalPosLat(value, toString(SUMO_TAG_VEHICLE), id, arrivalPosLat, arrivalPosLatProcedure, error);
+                // mark parameter as set
+                parametersSet |= VEHPARS_ARRIVALPOSLAT_SET;
+            } else {
+                // set default value
+                parseArrivalPosLat(myTagProperty.getDefaultValue(key), toString(SUMO_TAG_VEHICLE), id, arrivalPosLat, arrivalPosLatProcedure, error);
+                // unset parameter
+                parametersSet &= ~VEHPARS_ARRIVALPOSLAT_SET;
+            }
             parseArrivalPosLat(value, toString(SUMO_TAG_VEHICLE), id, arrivalPosLat, arrivalPosLatProcedure, error);
             break;
         // Specific of vehicles
