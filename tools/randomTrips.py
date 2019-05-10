@@ -48,6 +48,8 @@ def get_options(args=None):
                          default="trips.trips.xml", help="define the output trip filename")
     optParser.add_option("-r", "--route-file", dest="routefile",
                          help="generates route file with duarouter")
+    optParser.add_option("--vtype-output", dest="vtypeout",
+                         help="Store generated vehicle types in a separate file")
     optParser.add_option("--weights-prefix", dest="weightsprefix",
                          help="loads probabilities for being source, destination and via-edge from the files named " +
                          "<prefix>.src.xml, <prefix>.sink.xml and <prefix>.via.xml")
@@ -116,6 +118,8 @@ def get_options(args=None):
     optParser.add_option(
         "--vehicle-class", help="The vehicle class assigned to the generated trips (adds a standard vType definition " +
         "to the output file).")
+    optParser.add_option("--remove-loops", dest="remove_loops", action="store_true",
+                         default=False, help="Remove loops at route start and end")
     optParser.add_option("--validate", default=False, action="store_true",
                          help="Whether to produce trip output that is already checked for connectivity")
     optParser.add_option("-v", "--verbose", action="store_true",
@@ -490,6 +494,10 @@ def main(options):
         args += ['--persontrip.transfer.car-walk', options.carWalkMode]
     if options.walkfactor is not None:
         args += ['--persontrip.walkfactor', options.walkfactor]
+    if options.remove_loops:
+        args += ['--remove-loops']
+    if options.vtypeout is not None:
+        args += ['--vtype-output', options.vtypeout]
     if options.routefile:
         args2 = args + ['-o', options.routefile]
         print("calling ", " ".join(args2))
