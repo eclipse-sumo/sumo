@@ -441,7 +441,7 @@ Vehicle::getNextStops(const std::string& vehicleID) {
     MSVehicle* veh = getVehicle(vehicleID);
     std::list<MSVehicle::Stop> stops = veh->getMyStops();
     for (std::list<MSVehicle::Stop>::iterator it = stops.begin(); it != stops.end(); ++it) {
-        if (!it->reached && !it->collision) {
+        if (!it->collision) {
             TraCINextStopData nsd;
             nsd.lane = it->lane->getID();
             nsd.endPos = it->getEndPos(*veh);
@@ -466,6 +466,12 @@ Vehicle::getNextStops(const std::string& vehicleID) {
                              (it->containerstop != nullptr ? 32 : 0) +
                              (it->chargingStation != nullptr ? 64 : 0) +
                              (it->parkingarea != nullptr ? 128 : 0));
+            if(it->reached) {
+                nsd.duration = STEPS2TIME(it->duration);
+            }
+            else {
+                nsd.duration = STEPS2TIME(it->pars.duration);
+            }
             nsd.duration = STEPS2TIME(it->pars.duration);
             nsd.until = STEPS2TIME(it->pars.until);
             result.push_back(nsd);
