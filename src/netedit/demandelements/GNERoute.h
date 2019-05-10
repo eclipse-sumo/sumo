@@ -64,7 +64,11 @@ public:
     /// @brief check if current demand element is valid to be writed into XML (by default true, can be reimplemented in childs)
     bool isDemandElementValid() const;
 
-    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent);
+    /// @brief return a string with the current demand element problem (by default empty, can be reimplemented in childs)
+    std::string getDemandElementProblem() const;
+
+    /// @brief fix demand element problem (by default throw an exception, has to be reimplemented in childs)
+    void fixDemandElementProblem();
 
     /// @name Functions related with geometry of element
     /// @{
@@ -87,6 +91,16 @@ public:
 
     /// @name inherited from GUIGlObject
     /// @{
+
+    /**@brief Returns an own popup-menu
+     *
+     * @param[in] app The application needed to build the popup-menu
+     * @param[in] parent The parent window needed to build the popup-menu
+     * @return The built popup-menu
+     * @see GUIGlObject::getPopUpMenu
+     */
+    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent);
+
     /**@brief Returns the name of the parent object
      * @return This object's parent id
      */

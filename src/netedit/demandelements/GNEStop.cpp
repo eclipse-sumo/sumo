@@ -79,6 +79,82 @@ GNEStop::writeDemandElement(OutputDevice& device) const {
 }
 
 
+bool
+GNEStop::isDemandElementValid() const {
+    // only Stops placed over lanes can be invalid
+    if(myTagProperty.getTag() != SUMO_TAG_STOP_LANE) {
+        return true;
+    } else if (myFriendlyPosition) {
+        // with friendly position enabled position are "always fixed"
+        return true;
+    } else {
+        // obtain lane length
+        double laneLenght = getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength() * getLaneParents().front()->getLengthGeometryFactor();
+        // declare a copy of start and end positions
+        double startPosCopy = startPos;
+        double endPosCopy = endPos;
+        // check if position has to be fixed
+        if (startPosCopy < 0) {
+            startPosCopy += laneLenght;
+        }
+        if (endPosCopy < 0) {
+            endPosCopy += laneLenght;
+        }
+        // check values
+        if (!(parametersSet & STOP_START_SET) && !(parametersSet & STOP_END_SET)) {
+            return true;
+        } else if (!(parametersSet & STOP_START_SET)) {
+            return (endPosCopy <= getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength());
+        } else if (!(parametersSet & STOP_END_SET)) {
+            return (startPosCopy >= 0);
+        } else {
+            return ((startPosCopy >= 0) && (endPosCopy <= getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength()) && ((endPosCopy - startPosCopy) >= POSITION_EPS));
+        }
+    }
+}
+
+
+std::string 
+GNEStop::getDemandElementProblem() const {
+    // declare a copy of start and end positions
+    double startPosCopy = startPos;
+    double endPosCopy = endPos;
+    // obtain lane lenght
+    double laneLenght = getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength();
+    // check if position has to be fixed
+    if (startPosCopy < 0) {
+        startPosCopy += laneLenght;
+    }
+    if (endPosCopy < 0) {
+        endPosCopy += laneLenght;
+    }
+    // declare variables
+    std::string errorStart, separator, errorEnd;
+    // check positions over lane
+    if (startPosCopy < 0) {
+        errorStart = (toString(SUMO_ATTR_STARTPOS) + " < 0");
+    } else if (startPosCopy > getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength()) {
+        errorStart = (toString(SUMO_ATTR_STARTPOS) + " > lanes's length");
+    }
+    if (endPosCopy < 0) {
+        errorEnd = (toString(SUMO_ATTR_ENDPOS) + " < 0");
+    } else if (endPosCopy > getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength()) {
+        errorEnd = (toString(SUMO_ATTR_ENDPOS) + " > lanes's length");
+    }
+    // check separator
+    if ((errorStart.size() > 0) && (errorEnd.size() > 0)) {
+        separator = " and ";
+    }
+    return errorStart + separator + errorEnd;
+}
+
+
+void 
+GNEStop::fixDemandElementProblem() {
+
+}
+
+
 void
 GNEStop::moveGeometry(const Position& offset) {
     // only move if at leats start or end positions is defined

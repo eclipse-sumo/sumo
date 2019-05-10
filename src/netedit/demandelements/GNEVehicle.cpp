@@ -156,6 +156,52 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
 }
 
 
+bool
+GNEVehicle::isDemandElementValid() const {
+    // only trips can have problems
+    if (myTagProperty.getTag() != SUMO_TAG_TRIP) {
+        return true;
+    } else {
+        // obtain VCLass of their VType parent
+        SUMOVehicleClass vClass = parse<SUMOVehicleClass>(getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_VCLASS));
+        // check if exist at least a connection between every edge
+        for (int i = 1; i < (int)getEdgeParents().size(); i++) {
+            if (getRouteCalculatorInstance()->areEdgesConsecutives(vClass, getEdgeParents().at((int)i - 1), getEdgeParents().at(i)) == false) {
+                return false;
+            }
+        }
+        // there is connections bewteen all edges, then return true
+        return true;
+    }
+}
+
+
+std::string 
+GNEVehicle::getDemandElementProblem() const {
+    // only trips can have problems
+    if (myTagProperty.getTag() != SUMO_TAG_TRIP) {
+        return "";
+    } else {
+        // obtain VCLass of their VType parent
+        SUMOVehicleClass vClass = parse<SUMOVehicleClass>(getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_VCLASS));
+        // check if exist at least a connection between every edge
+        for (int i = 1; i < (int)getEdgeParents().size(); i++) {
+            if (getRouteCalculatorInstance()->areEdgesConsecutives(vClass, getEdgeParents().at((int)i - 1), getEdgeParents().at(i)) == false) {
+                return ("Edge '" + getEdgeParents().at((int)i - 1)->getID() + "' and edge '" + getEdgeParents().at(i)->getID() + "' aren't consecutives");
+            }
+        }
+        // there is connections bewteen all edges, then all ok
+        return "";
+    }
+}
+
+
+void 
+GNEVehicle::fixDemandElementProblem() {
+
+}
+
+
 void
 GNEVehicle::moveGeometry(const Position&) {
     // This demand element cannot be moved

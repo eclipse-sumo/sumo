@@ -127,13 +127,36 @@ GNERoute::isDemandElementValid() const {
     } else {
         // check if exist at least a connection between every edge
         for (int i = 1; i < (int)getEdgeParents().size(); i++) {
-            if (getRouteCalculatorInstance()->areEdgesConsecutives(myVClass, getEdgeParents().at(i - 1), getEdgeParents().at(i)) == false) {
+            if (getRouteCalculatorInstance()->areEdgesConsecutives(myVClass, getEdgeParents().at((int)i - 1), getEdgeParents().at(i)) == false) {
                 return false;
             }
         }
         // there is connections bewteen all edges, then return true
         return true;
     }
+}
+
+
+std::string 
+GNERoute::getDemandElementProblem() const {
+    if (getEdgeParents().size() == 0) {
+        return ("A route need at least one edge");
+    } else {
+        // check if exist at least a connection between every edge
+        for (int i = 1; i < (int)getEdgeParents().size(); i++) {
+            if (getRouteCalculatorInstance()->areEdgesConsecutives(myVClass, getEdgeParents().at((int)i - 1), getEdgeParents().at(i)) == false) {
+                return ("Edge '" + getEdgeParents().at((int)i - 1)->getID() + "' and edge '" + getEdgeParents().at(i)->getID() + "' aren't consecutives");
+            }
+        }
+        // there is connections bewteen all edges, then all ok
+        return "";
+    }
+}
+
+
+void 
+GNERoute::fixDemandElementProblem() {
+    // currently the only solution is removing Route
 }
 
 
@@ -182,10 +205,10 @@ GNERoute::updateGeometry() {
             // add lane shape
             multiShape.push_back(getEdgeParents().at(i)->getLanes().front()->getGeometry().shape);
             // add empty shape for connection
-            multiShape.push_back(PositionVector{getEdgeParents().at(i)->getLanes().front()->getGeometry().shape.back(), getEdgeParents().at(i + 1)->getLanes().front()->getGeometry().shape.front()});
+            multiShape.push_back(PositionVector{getEdgeParents().at(i)->getLanes().front()->getGeometry().shape.back(), getEdgeParents().at((int)i + 1)->getLanes().front()->getGeometry().shape.front()});
             // set connection shape (if exist). In other case, insert an empty shape
             for (auto j : getEdgeParents().at(i)->getGNEConnections()) {
-                if (j->getLaneTo() == getEdgeParents().at(i + 1)->getLanes().front()) {
+                if (j->getLaneTo() == getEdgeParents().at((int)i + 1)->getLanes().front()) {
                     multiShape.back() = j->getGeometry().shape;
                 }
             }
