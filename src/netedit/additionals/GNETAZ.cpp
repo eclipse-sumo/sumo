@@ -276,7 +276,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::setColor(myColor);
         }
         GLHelper::drawLine(myGeometry.shape);
-        GLHelper::drawBoxLines(myGeometry.shape, 1);
+        GLHelper::drawBoxLines(myGeometry.shape, s.polySize.getExaggeration(s, this));
         glPopMatrix();
         const Position namePos = myGeometry.shape.getPolygonCenter();
         drawName(namePos, s.scale, s.polyName, s.angle);
