@@ -76,6 +76,9 @@ protected:
         /// @brief vector with the invalid vehicles
         std::vector<GNEDemandElement*> myInvalidVehicles;
 
+        /// @brief vector with the invalid stops
+        std::vector<GNEDemandElement*> myInvalidStops;
+
         /// @brief list with the demand elements
         FXTable* myTable;
     };
@@ -132,6 +135,35 @@ protected:
         FXRadioButton* selectInvalidVehiclesAndCancel;
     };
 
+    /// @brief groupbox for group all radio buttons related to additionals with single lanes
+    class FixStopOptions : public FXGroupBox {
+
+    public:
+        /// @brief build Position Options
+        FixStopOptions(GNEDialog_FixDemandElements* fixDemandElementsDialogParents);
+
+        /// @brief select option
+        void selectOption(FXObject* option);
+
+        /// @brief enable position options
+        void enableFixStopOptions();
+
+        /// @brief disable position options
+        void disableFixStopOptions();
+
+        /// @brief Option "Activate friendlyPos and save"
+        FXRadioButton* activateFriendlyPositionAndSave;
+
+        /// @brief Option "Fix Positions and save"
+        FXRadioButton* fixPositionsAndSave;
+
+        /// @brief Option "Save invalid"
+        FXRadioButton* saveInvalid;
+
+        /// @brief Option "Select invalid stops and cancel"
+        FXRadioButton* selectInvalidStopsAndCancel;
+    };
+
     /// @brief FOX needs this
     GNEDialog_FixDemandElements() {}
 
@@ -149,6 +181,9 @@ protected:
 
     /// @brief fix vehicle options
     FixVehicleOptions* myFixVehicleOptions;
+
+    /// @brief position options
+    FixStopOptions* myFixStopOptions;
 
     /// @brief accept button
     FXButton* myAcceptButton;

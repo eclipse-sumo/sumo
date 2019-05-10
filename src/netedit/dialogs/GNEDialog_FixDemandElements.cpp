@@ -58,7 +58,7 @@ FXIMPLEMENT(GNEDialog_FixDemandElements, FXDialogBox, GNEDialog_FixDemandElement
 // ===========================================================================
 
 GNEDialog_FixDemandElements::GNEDialog_FixDemandElements(GNEViewNet* viewNet, const std::vector<GNEDemandElement*>& invalidDemandElements) :
-    FXDialogBox(viewNet->getApp(), "Fix demand elements problems", GUIDesignDialogBoxExplicit(500, 380)),
+    FXDialogBox(viewNet->getApp(), "Fix demand elements problems", GUIDesignDialogBoxExplicit(500, 420)),
     myViewNet(viewNet) {
     // set busStop icon for this dialog
     setIcon(GUIIconSubSys::getIcon(ICON_ROUTE));
@@ -68,8 +68,10 @@ GNEDialog_FixDemandElements::GNEDialog_FixDemandElements(GNEViewNet* viewNet, co
     myDemandList = new DemandList(this, invalidDemandElements);
     // create fix route options
     myFixRouteOptions = new FixRouteOptions(this);
-    // create route options
+    // create fix vehicle  options
     myFixVehicleOptions = new FixVehicleOptions(this);
+    // create fix stops options
+    myFixStopOptions = new FixStopOptions(this);
     // check if fix route options has to be disabled
     if (myDemandList->myInvalidRoutes.empty()) {
         myFixRouteOptions->disableFixRouteOptions();
@@ -77,6 +79,10 @@ GNEDialog_FixDemandElements::GNEDialog_FixDemandElements(GNEViewNet* viewNet, co
     // check if fix vehicle options has to be disabled
     if (myDemandList->myInvalidVehicles.empty()) {
         myFixVehicleOptions->disableFixVehicleOptions();
+    }
+    // check if fix vehicle options has to be disabled
+    if (myDemandList->myInvalidVehicles.empty()) {
+        myFixStopOptions->disableFixStopOptions();
     }
     // create dialog buttons bot centered
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(myMainFrame, GUIDesignHorizontalFrame);
@@ -97,6 +103,7 @@ long
 GNEDialog_FixDemandElements::onCmdSelectOption(FXObject* obj, FXSelector, void*) {
     myFixRouteOptions->selectOption(obj);
     myFixVehicleOptions->selectOption(obj);
+    myFixStopOptions->selectOption(obj);
     return 1;
 }
 
@@ -176,10 +183,12 @@ GNEDialog_FixDemandElements::DemandList::DemandList(GNEDialog_FixDemandElements*
     myTable->setSelBackColor(FXRGBA(255, 255, 255, 255));
     myTable->setSelTextColor(FXRGBA(0, 0, 0, 255));
     myTable->setEditable(false);
-    // separate demand elements in two groups
+    // separate demand elements in three groups
     for (const auto& i : invalidDemandElements) {
         if (i->getTagProperty().isVehicle()) {
             myInvalidVehicles.push_back(i);
+        } else if (i->getTagProperty().isStop()) {
+            myInvalidStops.push_back(i);
         } else {
             myInvalidRoutes.push_back(i);
         }
@@ -219,6 +228,23 @@ GNEDialog_FixDemandElements::DemandList::DemandList(GNEDialog_FixDemandElements*
     }
     // iterate over invalid vehicles
     for (auto i : myInvalidVehicles) {
+        // Set icon
+        item = new FXTableItem("", i->getIcon());
+        item->setIconPosition(FXTableItem::CENTER_X);
+        myTable->setItem(indexRow, 0, item);
+        // Set ID
+        item = new FXTableItem(i->getID().c_str());
+        item->setJustify(FXTableItem::LEFT | FXTableItem::CENTER_Y);
+        myTable->setItem(indexRow, 1, item);
+        // Set conflict
+        item = new FXTableItem(i->getDemandElementProblem().c_str());
+        item->setJustify(FXTableItem::LEFT | FXTableItem::CENTER_Y);
+        myTable->setItem(indexRow, 2, item);
+        // Update index
+        indexRow++;
+    }
+    // iterate over invalid stops
+    for (auto i : myInvalidStops) {
         // Set icon
         item = new FXTableItem("", i->getIcon());
         item->setIconPosition(FXTableItem::CENTER_X);
@@ -345,6 +371,74 @@ GNEDialog_FixDemandElements::FixVehicleOptions::disableFixVehicleOptions() {
     removeInvalidVehicles->disable();
     saveInvalidVehicles->disable();
     selectInvalidVehiclesAndCancel->disable();
+}
+
+// ---------------------------------------------------------------------------
+// GNEDialog_FixDemandElements::FixStopOptions - methods
+// ---------------------------------------------------------------------------
+
+GNEDialog_FixDemandElements::FixStopOptions::FixStopOptions(GNEDialog_FixDemandElements* fixDemandElementsDialogParents) :
+    FXGroupBox(fixDemandElementsDialogParents->myMainFrame, "Select a solution for stops", GUIDesignGroupBoxFrame) {
+    // create horizontal frames for radio buttons
+    FXHorizontalFrame* RadioButtons = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
+    // create Vertical Frame for left options
+    FXVerticalFrame* RadioButtonsLeft = new FXVerticalFrame(RadioButtons, GUIDesignAuxiliarVerticalFrame);
+    activateFriendlyPositionAndSave = new FXRadioButton(RadioButtonsLeft, "Activate friendlyPos and save",
+        fixDemandElementsDialogParents, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    saveInvalid = new FXRadioButton(RadioButtonsLeft, "Save invalid positions",
+        fixDemandElementsDialogParents, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    fixPositionsAndSave = new FXRadioButton(RadioButtonsLeft, "Fix positions and save",
+        fixDemandElementsDialogParents, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    // create Vertical Frame for right options
+    FXVerticalFrame* RadioButtonsRight = new FXVerticalFrame(RadioButtons, GUIDesignAuxiliarVerticalFrame);
+    selectInvalidStopsAndCancel = new FXRadioButton(RadioButtonsRight, "Select invalid Stops",
+        fixDemandElementsDialogParents, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    // leave option "activateFriendlyPositionAndSave" as default
+    activateFriendlyPositionAndSave->setCheck(true);
+}
+
+
+void
+GNEDialog_FixDemandElements::FixStopOptions::selectOption(FXObject* option) {
+    if (option == activateFriendlyPositionAndSave) {
+        activateFriendlyPositionAndSave->setCheck(true);
+        fixPositionsAndSave->setCheck(false);
+        saveInvalid->setCheck(false);
+        selectInvalidStopsAndCancel->setCheck(false);
+    } else if (option == fixPositionsAndSave) {
+        activateFriendlyPositionAndSave->setCheck(false);
+        fixPositionsAndSave->setCheck(true);
+        saveInvalid->setCheck(false);
+        selectInvalidStopsAndCancel->setCheck(false);
+    } else if (option == saveInvalid) {
+        activateFriendlyPositionAndSave->setCheck(false);
+        fixPositionsAndSave->setCheck(false);
+        saveInvalid->setCheck(true);
+        selectInvalidStopsAndCancel->setCheck(false);
+    } else if (option == selectInvalidStopsAndCancel) {
+        activateFriendlyPositionAndSave->setCheck(false);
+        fixPositionsAndSave->setCheck(false);
+        saveInvalid->setCheck(false);
+        selectInvalidStopsAndCancel->setCheck(true);
+    }
+}
+
+
+void
+GNEDialog_FixDemandElements::FixStopOptions::enableFixStopOptions() {
+    activateFriendlyPositionAndSave->enable();
+    fixPositionsAndSave->enable();
+    saveInvalid->enable();
+    selectInvalidStopsAndCancel->enable();
+}
+
+
+void
+GNEDialog_FixDemandElements::FixStopOptions::disableFixStopOptions() {
+    activateFriendlyPositionAndSave->disable();
+    fixPositionsAndSave->disable();
+    saveInvalid->disable();
+    selectInvalidStopsAndCancel->disable();
 }
 
 /****************************************************************************/
