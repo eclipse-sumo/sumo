@@ -135,7 +135,7 @@ protected:
         FXRadioButton* selectInvalidVehiclesAndCancel;
     };
 
-    /// @brief groupbox for group all radio buttons related to additionals with single lanes
+    /// @brief groupbox for all radio buttons related with fix stop options
     class FixStopOptions : public FXGroupBox {
 
     public:
@@ -182,7 +182,7 @@ protected:
     /// @brief fix vehicle options
     FixVehicleOptions* myFixVehicleOptions;
 
-    /// @brief position options
+    /// @brief fix stop options
     FixStopOptions* myFixStopOptions;
 
     /// @brief accept button

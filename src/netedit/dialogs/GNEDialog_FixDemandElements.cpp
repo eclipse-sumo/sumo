@@ -111,17 +111,15 @@ GNEDialog_FixDemandElements::onCmdSelectOption(FXObject* obj, FXSelector, void*)
 long
 GNEDialog_FixDemandElements::onCmdAccept(FXObject*, FXSelector, void*) {
     bool continueSaving = true;
-    // first check options from single lane additionals
+    // first check options for invalid routes
     if (myDemandList->myInvalidRoutes.size() > 0) {
         if (myFixRouteOptions->removeInvalidRoutes->getCheck() == TRUE) {
-            /*
-            myViewNet->getUndoList()->p_begin("change " + toString(SUMO_ATTR_FRIENDLY_POS) + " of invalid additionals");
-            // iterate over invalid single lane elements to enable friendly position
+            myViewNet->getUndoList()->p_begin("delete invalid routes");
+            // iterate over invalid routes to delete it
             for (auto i : myDemandList->myInvalidRoutes) {
-                i->setAttribute(SUMO_ATTR_FRIENDLY_POS, "true", myViewNet->getUndoList());
+                myViewNet->getNet()->deleteDemandElement(i, myViewNet->getUndoList());
             }
             myViewNet->getUndoList()->p_end();
-            */
         } else if (myFixRouteOptions->selectInvalidRoutesAndCancel->getCheck() == TRUE) {
             myViewNet->getUndoList()->p_begin("select invalid routes");
             // iterate over invalid single lane elements to select all elements
@@ -132,24 +130,48 @@ GNEDialog_FixDemandElements::onCmdAccept(FXObject*, FXSelector, void*) {
             continueSaving = false;
         }
     }
-
-    // first check options from single lane additionals
+    // first check options for invalid vehicles
     if (myDemandList->myInvalidVehicles.size() > 0) {
-        if (myFixRouteOptions->removeInvalidRoutes->getCheck() == TRUE) {
-            /*
-            myViewNet->getUndoList()->p_begin("change " + toString(SUMO_ATTR_FRIENDLY_POS) + " of invalid additionals");
-            // iterate over invalid single lane elements to enable friendly position
-            for (auto i : myDemandList->myInvalidVehicles) {
-                i->setAttribute(SUMO_ATTR_FRIENDLY_POS, "true", myViewNet->getUndoList());
+        if (myFixVehicleOptions->removeInvalidVehicles->getCheck() == TRUE) {
+            myViewNet->getUndoList()->p_begin("delete invalid vehicles");
+            // iterate over invalid stops to delete it
+            for (auto i : myDemandList->myInvalidStops) {
+                myViewNet->getNet()->deleteDemandElement(i, myViewNet->getUndoList());
             }
             myViewNet->getUndoList()->p_end();
-            */
-        } else if (myFixRouteOptions->selectInvalidRoutesAndCancel->getCheck() == TRUE) {
-            myViewNet->getUndoList()->p_begin("select invalid additionals");
+        } else if (myFixVehicleOptions->selectInvalidVehiclesAndCancel->getCheck() == TRUE) {
+            myViewNet->getUndoList()->p_begin("select invalid vehicles");
             // iterate over invalid single lane elements to select all elements
             for (auto i : myDemandList->myInvalidVehicles) {
                 i->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
             }
+            // abort saving
+            continueSaving = false;
+        }
+    }
+    // first check options for stops
+    if (myDemandList->myInvalidStops.size() > 0) {
+        if (myFixStopOptions->activateFriendlyPositionAndSave->getCheck() == TRUE) {
+            myViewNet->getUndoList()->p_begin("change " + toString(SUMO_ATTR_FRIENDLY_POS) + " of invalid stops");
+            // iterate over invalid stops to enable friendly position
+            for (auto i : myDemandList->myInvalidStops) {
+                i->setAttribute(SUMO_ATTR_FRIENDLY_POS, "true", myViewNet->getUndoList());
+            }
+            myViewNet->getUndoList()->p_end();
+        } else if (myFixStopOptions->fixPositionsAndSave->getCheck() == TRUE) {
+            myViewNet->getUndoList()->p_begin("fix positions of invalid stops");
+            // iterate over invalid stops to fix positions
+            for (auto i : myDemandList->myInvalidStops) {
+                i->fixDemandElementProblem();
+            }
+            myViewNet->getUndoList()->p_end();
+        } else if (myFixStopOptions->selectInvalidStopsAndCancel->getCheck() == TRUE) {
+            myViewNet->getUndoList()->p_begin("select invalid stops");
+            // iterate over invalid stops to select all elements
+            for (auto i : myDemandList->myInvalidStops) {
+                i->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
+            }
+            myViewNet->getUndoList()->p_end();
             // abort saving
             continueSaving = false;
         }
