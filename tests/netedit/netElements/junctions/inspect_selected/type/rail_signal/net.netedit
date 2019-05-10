@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 08.02.2019 11:43:38 by Eclipse SUMO netedit Version v1_1_0+0713-7b762ac814
+<!-- generated on 10.05.2019 12:15:21 by Eclipse SUMO netedit Version v1_2_0+0323-a3c4a77541
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_07Feb135005.2940/netedit.gui/netElements/junctions/inspect_selected/type/rail_signal\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_10May082617.1344/netedit.gui/netElements/junctions/inspect_selected/type/rail_signal\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_07Feb135005.2940/netedit.gui/netElements/junctions/inspect_selected/type/rail_signal\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_10May082617.1344/netedit.gui/netElements/junctions/inspect_selected/type/rail_signal\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,13 +30,14 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_07Feb135005.2940/netedit.gui/netElements/junctions/inspect_selected/type/rail_signal\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_07Feb135005.2940/netedit.gui/netElements/junctions/inspect_selected/type/rail_signal\additionals.xml"/>
-        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_07Feb135005.2940/netedit.gui/netElements/junctions/inspect_selected/type/rail_signal\routes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_10May082617.1344/netedit.gui/netElements/junctions/inspect_selected/type/rail_signal\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_10May082617.1344/netedit.gui/netElements/junctions/inspect_selected/type/rail_signal\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_10May082617.1344/netedit.gui/netElements/junctions/inspect_selected/type/rail_signal\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_10May082617.1344/netedit.gui/netElements/junctions/inspect_selected/type/rail_signal\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_07Feb135005.2940/netedit.gui/netElements/junctions/inspect_selected/type/rail_signal\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_10May082617.1344/netedit.gui/netElements/junctions/inspect_selected/type/rail_signal\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -45,7 +46,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_07Feb135005.2940/netedit.gui/netElements/junctions/inspect_selected/type/rail_signal\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_10May082617.1344/netedit.gui/netElements/junctions/inspect_selected/type/rail_signal\log.txt"/>
     </report>
 
 </configuration>
@@ -314,8 +315,8 @@
     <connection from="8" to=":Center_w0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="5" to=":Center_w0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="7" to=":Center_w0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":Center_w1" to=":Center_c1" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":Center_w2" to=":Center_c0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":Center_w1" to=":Center_c1" fromLane="0" toLane="0" tl="Center" linkIndex="17" dir="s" state="M"/>
+    <connection from=":Center_w2" to=":Center_c0" fromLane="0" toLane="0" tl="Center" linkIndex="16" dir="s" state="M"/>
     <connection from=":D_w0" to="8" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="4" to=":D_w0" fromLane="0" toLane="0" dir="s" state="M"/>
 </net>
