@@ -80,3 +80,6 @@ ticket5390
 
 # bestLanse not updated after skipping stop with vehicle.setStop
 ticket5561
+
+# remove person from destination stop on removal from simultion
+ticket5620
