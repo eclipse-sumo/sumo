@@ -639,6 +639,10 @@ MSPerson::proceed(MSNet* net, SUMOTime time) {
         */
         return true;
     } else {
+        // cleanup
+        if (prior->getDestinationStop() != nullptr) {
+            prior->getDestinationStop()->removeTransportable(this);
+        }
         return false;
     }
 }

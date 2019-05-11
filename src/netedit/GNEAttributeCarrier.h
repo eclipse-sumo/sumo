@@ -81,14 +81,15 @@ public:
         ATTRPROPERTY_ANGLE =               1 << 15,  // Attribute is an angle (only takes values between 0 and 360, including both, another value will be automatically reduced
         ATTRPROPERTY_LIST =                1 << 16,  // Attribute is a list of other elements separated by spaces
         ATTRPROPERTY_SECUENCIAL =          1 << 17,  // Attribute is a special sequence of elements (for example: secuencial lanes in Multi Lane E2 detectors)
-        ATTRPROPERTY_OPTIONAL =            1 << 18,  // Attribute is optional
+        ATTRPROPERTY_WRITEXMLOPTIONAL =    1 << 18,  // Attribute will not be written in XML file if current value is the same of their default Static/Mutable value
         ATTRPROPERTY_DEFAULTVALUESTATIC =  1 << 19,  // Attribute owns a static default value
-        ATTRPROPERTY_DEFAULTVALUEMUTABLE = 1 << 20,  // Attribute owns a mutable default value
-        ATTRPROPERTY_COMBINABLE =          1 << 21,  // Attribute is combinable with other Attribute
+        ATTRPROPERTY_DEFAULTVALUEMUTABLE = 1 << 20,  // Attribute owns a mutable default value (Default value depends of value of other attribute)
+        ATTRPROPERTY_COMBINABLE =          1 << 21,  // Attribute is combinable with other attribute (example: Allow/disallow VClasses)
         ATTRPROPERTY_SYNONYM =             1 << 22,  // Attribute will be written with a different name in der XML
-        ATTRPROPERTY_RANGE =               1 << 23,  // Attribute only accept a range of elements
-        ATTRPROPERTY_EXTENDED =            1 << 24,  // Attribute is extended (used in certain demand elements)
+        ATTRPROPERTY_RANGE =               1 << 23,  // Attribute only accept a range of elements (example: Probability [0,1]
+        ATTRPROPERTY_EXTENDED =            1 << 24,  // Attribute is extended (in Frame will not be shown, see VType attributes)
         ATTRPROPERTY_UPDATEGEOMETRY =      1 << 25,  // Attribute requiere update geometry at the end of function setAttribute(...)
+        ATTRPROPERTY_OPTIONAL =            1 << 26,  // Attribute is optional, i.e. can be enabled/disabled using a checkbox in frame
     };
 
     /// @brief struct with the attribute Properties
@@ -218,8 +219,8 @@ public:
         /// @brief return true if atribute is unique
         bool isUnique() const;
 
-        /// @brief return true if atribute is optional
-        bool isOptional() const;
+        /// @brief return true if atribute is write XML optional
+        bool isWriteXMLOptional() const;
 
         /// @brief return true if atribute is discrete
         bool isDiscrete() const;
@@ -235,6 +236,9 @@ public:
 
         /// @brief return true if atribute requieres a update geometry in setAttribute(...)
         bool requiereUpdateGeometry() const;
+
+        /// @brief return true if atribute is optional
+        bool isOptional() const;
 
     private:
         /// @brief XML Attribute
@@ -498,6 +502,9 @@ public:
     /// @brief Destructor
     virtual ~GNEAttributeCarrier();
 
+    /// @brief update pre-computed geometry information
+    virtual void updateGeometry() = 0;
+
     /// @name This functions has to be implemented in all GNEAttributeCarriers
     /// @{
     /// @brief select attribute carrier using GUIGlobalSelection
@@ -749,7 +756,7 @@ public:
             }
         } else {
             // if attribute is optional and has a default value, obtain it. In other case, abort.
-            if (attrProperties.isOptional() && attrProperties.hasStaticDefaultValue()) {
+            if (attrProperties.isWriteXMLOptional()) {
                 parsedAttribute = attrProperties.getDefaultValue();
             } else {
                 WRITE_WARNING("Essential " + attrProperties.getDescription() + " attribute '" + toString(attribute) + "' of " +

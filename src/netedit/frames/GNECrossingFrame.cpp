@@ -203,7 +203,7 @@ GNECrossingFrame::CrossingParameters::CrossingParameters(GNECrossingFrame* cross
     // create label and checkbox for Priority
     crossingParameter = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myCrossingPriorityLabel = new FXLabel(crossingParameter, toString(SUMO_ATTR_PRIORITY).c_str(), nullptr, GUIDesignLabelAttribute);
-    myCrossingPriorityCheckButton = new FXCheckButton(crossingParameter, "", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttribute);
+    myCrossingPriorityCheckButton = new FXCheckButton(crossingParameter, "", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myCrossingPriorityLabel->disable();
     myCrossingPriorityCheckButton->disable();
     // create label and textfield for width

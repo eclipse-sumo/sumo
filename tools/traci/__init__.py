@@ -213,7 +213,7 @@ def setOrder(order):
 
 def close(wait=True):
     global _stepListeners
-    listenerIDs = _stepListeners.keys()
+    listenerIDs = list(_stepListeners.keys())
     for listenerID in listenerIDs:
         removeStepListener(listenerID)
     _connections[""].close(wait)

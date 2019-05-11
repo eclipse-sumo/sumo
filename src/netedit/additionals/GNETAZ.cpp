@@ -276,7 +276,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::setColor(myColor);
         }
         GLHelper::drawLine(myGeometry.shape);
-        GLHelper::drawBoxLines(myGeometry.shape, 1);
+        GLHelper::drawBoxLines(myGeometry.shape, s.polySize.getExaggeration(s, this));
         glPopMatrix();
         const Position namePos = myGeometry.shape.getPolygonCenter();
         drawName(namePos, s.scale, s.polyName, s.angle);
@@ -534,10 +534,6 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
-    }
-    // check if updated attribute requieres update geometry
-    if (myTagProperty.hasAttribute(key) && myTagProperty.getAttributeProperties(key).requiereUpdateGeometry()) {
-        updateGeometry();
     }
 }
 

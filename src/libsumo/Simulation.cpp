@@ -628,7 +628,7 @@ Simulation::getParameter(const std::string& objectID, const std::string& key) {
         if (attrName == "capacity") {
             return toString(pa->getCapacity());
         } else if (attrName == "occupancy") {
-            return toString(pa->getOccupancy());
+            return toString(pa->getOccupancyIncludingBlocked());
         } else if (attrName == toString(SUMO_ATTR_NAME)) {
             return toString(pa->getMyName());
         } else {

@@ -97,8 +97,16 @@ public:
     /** @brief Returns the area occupancy
      *
      * @return The occupancy computed as number of vehicles in myEndPositions
+     * (reduced by 1 if at least one vehicle has finished parking but is blocked
+     * from entering the road)
      */
     int getOccupancy() const;
+
+    /** @brief Returns the area occupancy
+     *
+     * @return The occupancy computed as number of vehicles in myEndPositions
+     */
+    int getOccupancyIncludingBlocked() const;
 
 
     /** @brief Called if a vehicle enters this stop

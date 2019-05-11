@@ -275,6 +275,10 @@ enum {
     MID_LOCATEEDGE,
     /// @brief Locate vehicle - button
     MID_LOCATEVEHICLE,
+    /// @brief Locate route - button
+    MID_LOCATEROUTE,
+    /// @brief Locate stop - button
+    MID_LOCATESTOP,
     /// @brief Locate person - button
     MID_LOCATEPERSON,
     /// @brief Locate TLS - button
@@ -876,6 +880,10 @@ enum {
     MID_GNE_LANE_REMOVE_GREENVERGE,
     /// @}
 
+    /// @name GNEDemandElement messages
+    /// @{
+    MID_GNE_ROUTE_APPLY_DISTANCE,
+    /// @}
 
     /// @name Additional Dialog messages (used in all GNEAdditionalDialogs)
     /// @{

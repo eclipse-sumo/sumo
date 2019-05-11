@@ -210,7 +210,7 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
         for (auto i : myTagProperty) {
             // obtain attribute
             std::string attribute = getAttribute(i.first);
-            if (i.second.isOptional() && i.second.hasStaticDefaultValue() && !i.second.isCombinable()) {
+            if (i.second.isWriteXMLOptional() && !i.second.isCombinable()) {
                 // Only write attributes with default value if is different from original
                 if (i.second.getDefaultValue() != attribute) {
                     // check if attribute must be written using a synonim

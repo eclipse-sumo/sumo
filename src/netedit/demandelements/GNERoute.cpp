@@ -23,6 +23,7 @@
 
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
@@ -36,6 +37,15 @@
 
 #include "GNERoute.h"
 
+// ===========================================================================
+// FOX callback mapping
+// ===========================================================================
+FXDEFMAP(GNERoute::GNERoutePopupMenu) GNERoutePopupMenuMap[] = {
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_ROUTE_APPLY_DISTANCE,     GNERoute::GNERoutePopupMenu::onCmdApplyDistance),
+};
+
+// Object implementation
+FXIMPLEMENT(GNERoute::GNERoutePopupMenu, GUIGLObjectPopupMenu, GNERoutePopupMenuMap, ARRAYNUMBER(GNERoutePopupMenuMap))
 
 // ===========================================================================
 // method definitions
@@ -59,6 +69,32 @@ GNERoute::GNERoute(GNEViewNet* viewNet, const std::string& routeID, const std::v
 
 GNERoute::~GNERoute() {}
 
+
+GUIGLObjectPopupMenu*
+GNERoute::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
+    GUIGLObjectPopupMenu* ret = new GNERoutePopupMenu(app, parent, *this);
+    // build header
+    buildPopupHeader(ret, app);
+    // build menu command for center button and copy cursor position to clipboard
+    buildCenterPopupEntry(ret);
+    buildPositionCopyEntry(ret, false);
+    // buld menu commands for names
+    new FXMenuCommand(ret, ("Copy " + getTagStr() + " name to clipboard").c_str(), nullptr, ret, MID_COPY_NAME);
+    new FXMenuCommand(ret, ("Copy " + getTagStr() + " typed name to clipboard").c_str(), nullptr, ret, MID_COPY_TYPED_NAME);
+    new FXMenuSeparator(ret);
+    // build selection and show parameters menu
+    myViewNet->buildSelectionACPopupEntry(ret, this);
+    buildShowParamsPopupEntry(ret);
+    // show option to open demand element dialog
+    if (myTagProperty.hasDialog()) {
+        new FXMenuCommand(ret, ("Open " + getTagStr() + " Dialog").c_str(), getIcon(), &parent, MID_OPEN_ADDITIONAL_DIALOG);
+        new FXMenuSeparator(ret);
+    }
+    new FXMenuCommand(ret, ("Cursor position in view: " + toString(getPositionInView().x()) + "," + toString(getPositionInView().y())).c_str(), nullptr, nullptr, 0);
+    new FXMenuSeparator(ret);
+    new FXMenuCommand(ret, "Apply distance along route", nullptr, ret, MID_GNE_ROUTE_APPLY_DISTANCE);
+    return ret;
+}
 
 const RGBColor&
 GNERoute::getColor() const {
@@ -91,13 +127,36 @@ GNERoute::isDemandElementValid() const {
     } else {
         // check if exist at least a connection between every edge
         for (int i = 1; i < (int)getEdgeParents().size(); i++) {
-            if (getRouteCalculatorInstance()->areEdgesConsecutives(SVC_PASSENGER, getEdgeParents().at(i - 1), getEdgeParents().at(i)) == false) {
+            if (getRouteCalculatorInstance()->areEdgesConsecutives(myVClass, getEdgeParents().at((int)i - 1), getEdgeParents().at(i)) == false) {
                 return false;
             }
         }
         // there is connections bewteen all edges, then return true
         return true;
     }
+}
+
+
+std::string 
+GNERoute::getDemandElementProblem() const {
+    if (getEdgeParents().size() == 0) {
+        return ("A route need at least one edge");
+    } else {
+        // check if exist at least a connection between every edge
+        for (int i = 1; i < (int)getEdgeParents().size(); i++) {
+            if (getRouteCalculatorInstance()->areEdgesConsecutives(myVClass, getEdgeParents().at((int)i - 1), getEdgeParents().at(i)) == false) {
+                return ("Edge '" + getEdgeParents().at((int)i - 1)->getID() + "' and edge '" + getEdgeParents().at(i)->getID() + "' aren't consecutives");
+            }
+        }
+        // there is connections bewteen all edges, then all ok
+        return "";
+    }
+}
+
+
+void 
+GNERoute::fixDemandElementProblem() {
+    // currently the only solution is removing Route
 }
 
 
@@ -146,10 +205,10 @@ GNERoute::updateGeometry() {
             // add lane shape
             multiShape.push_back(getEdgeParents().at(i)->getLanes().front()->getGeometry().shape);
             // add empty shape for connection
-            multiShape.push_back(PositionVector{getEdgeParents().at(i)->getLanes().front()->getGeometry().shape.back(), getEdgeParents().at(i + 1)->getLanes().front()->getGeometry().shape.front()});
+            multiShape.push_back(PositionVector{getEdgeParents().at(i)->getLanes().front()->getGeometry().shape.back(), getEdgeParents().at((int)i + 1)->getLanes().front()->getGeometry().shape.front()});
             // set connection shape (if exist). In other case, insert an empty shape
             for (auto j : getEdgeParents().at(i)->getGNEConnections()) {
-                if (j->getLaneTo() == getEdgeParents().at(i + 1)->getLanes().front()) {
+                if (j->getLaneTo() == getEdgeParents().at((int)i + 1)->getLanes().front()) {
                     multiShape.back() = j->getGeometry().shape;
                 }
             }
@@ -235,6 +294,8 @@ GNERoute::getAttribute(SumoXMLAttr key) const {
             return toString(myColor);
         case SUMO_ATTR_VCLASS:
             return toString(myVClass);
+        case GNE_ATTR_EMBEDDED_ROUTE:
+            return toString(getDemandElementParents().size() > 0);
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_GENERIC:
@@ -254,6 +315,7 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
         case SUMO_ATTR_ID:
         case SUMO_ATTR_EDGES:
         case SUMO_ATTR_COLOR:
+        case GNE_ATTR_EMBEDDED_ROUTE:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_GENERIC:
             undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
@@ -278,6 +340,16 @@ GNERoute::isValid(SumoXMLAttr key, const std::string& value) {
             }
         case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
+        case GNE_ATTR_EMBEDDED_ROUTE:
+            if (value.empty()) {
+                return true;
+            } else if(isValidDemandElementID(value)) {
+                return (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_VEHICLE, value, false) != nullptr || 
+                        myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_FLOW, value, false) != nullptr || 
+                        myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_TRIP, value, false) != nullptr );
+            } else {
+                return false;
+            }
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_GENERIC:
@@ -321,6 +393,20 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_COLOR:
             myColor = parse<RGBColor>(value);
             break;
+        case GNE_ATTR_EMBEDDED_ROUTE:
+            if (value.empty()) {
+                // if value is't empty, remove demand element parent if had it
+                if (getDemandElementChilds().size() > 0) {
+                    removeDemandElementParent(getDemandElementParents().front());
+                }
+            } else {
+                // if value isn't empty, add or change element parent
+                if (getDemandElementChilds().size() > 0) {
+                    changeDemandElementParent(this, value, 0);
+                } else {
+                    removeDemandElementParent(getDemandElementParents().front());
+                }
+            }
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {
                 selectAttributeCarrier();
@@ -334,10 +420,31 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
-    // check if updated attribute requieres update geometry
-    if (myTagProperty.hasAttribute(key) && myTagProperty.getAttributeProperties(key).requiereUpdateGeometry()) {
-        updateGeometry();
+}
+
+/* -------------------------------------------------------------------------
+ * GNERoute::GNERoutePopupMenu - methods
+ * ----------------------------------------------------------------------- */
+GNERoute::GNERoutePopupMenu::GNERoutePopupMenu(GUIMainWindow& app, GUISUMOAbstractView& parent, GUIGlObject& o) :
+    GUIGLObjectPopupMenu(app, parent, o)
+{ }
+
+
+GNERoute::GNERoutePopupMenu::~GNERoutePopupMenu() {}
+
+long
+GNERoute::GNERoutePopupMenu::onCmdApplyDistance(FXObject*, FXSelector, void*) {
+    GNERoute* route = static_cast<GNERoute*>(myObject);
+    GNEViewNet* viewNet = static_cast<GNEViewNet*>(myParent);
+    GNEUndoList* undoList =  route->myViewNet->getUndoList();
+    undoList->p_begin("apply distance along route");
+    double dist = route->getEdgeParents().front()->getNBEdge()->getDistance();
+    for (GNEEdge* edge : route->getEdgeParents()) {
+        undoList->p_add(new GNEChange_Attribute(edge, viewNet->getNet(), SUMO_ATTR_DISTANCE, toString(dist), true, edge->getAttribute(SUMO_ATTR_DISTANCE)));
+        dist += edge->getNBEdge()->getFinalLength();
     }
+    undoList->p_end();
+    return 1;
 }
 
 

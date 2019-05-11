@@ -23,6 +23,7 @@
 // ===========================================================================
 
 #include "GNEDemandElement.h"
+#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 
 // ===========================================================================
 // class declarations
@@ -63,6 +64,12 @@ public:
     /// @brief check if current demand element is valid to be writed into XML (by default true, can be reimplemented in childs)
     bool isDemandElementValid() const;
 
+    /// @brief return a string with the current demand element problem (by default empty, can be reimplemented in childs)
+    std::string getDemandElementProblem() const;
+
+    /// @brief fix demand element problem (by default throw an exception, has to be reimplemented in childs)
+    void fixDemandElementProblem();
+
     /// @name Functions related with geometry of element
     /// @{
     /**@brief change the position of the element geometry without saving in undoList
@@ -84,6 +91,16 @@ public:
 
     /// @name inherited from GUIGlObject
     /// @{
+
+    /**@brief Returns an own popup-menu
+     *
+     * @param[in] app The application needed to build the popup-menu
+     * @param[in] parent The parent window needed to build the popup-menu
+     * @return The built popup-menu
+     * @see GUIGlObject::getPopUpMenu
+     */
+    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent);
+
     /**@brief Returns the name of the parent object
      * @return This object's parent id
      */
@@ -136,6 +153,30 @@ public:
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
     std::string getHierarchyName() const;
     /// @}
+    
+    class GNERoutePopupMenu : public GUIGLObjectPopupMenu {
+        FXDECLARE(GNERoutePopupMenu)
+    public:
+        /** @brief Constructor
+         * @param[in] app The main window for instantiation of other windows
+         * @param[in] parent The parent view for changing it
+         * @param[in] o The object of interest
+         * @param[in, out] additionalVisualizations Information which additional visualisations are enabled (per view)
+         */
+        GNERoutePopupMenu(GUIMainWindow& app, GUISUMOAbstractView& parent, GUIGlObject& o);
+
+        /// @brief Destructor
+        ~GNERoutePopupMenu();
+
+        /// @brief Called to modify edge distance values along the route
+        long onCmdApplyDistance(FXObject*, FXSelector, void*);
+
+
+    protected:
+        /// @brief default constructor needed by FOX
+        GNERoutePopupMenu() { }
+
+    };
 
 protected:
     /// @brief route color

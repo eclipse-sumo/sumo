@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 25.01.2019 12:13:48 by Eclipse SUMO netedit Version v1_1_0+0076-a16c2aae75
+<!-- generated on 10.05.2019 12:09:40 by Eclipse SUMO netedit Version v1_2_0+0323-a3c4a77541
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan121324.2276/netedit.gui/netElements/edges/delete\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_10May082617.3012/netedit.gui/netElements/edges/delete\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan121324.2276/netedit.gui/netElements/edges/delete\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_10May082617.3012/netedit.gui/netElements/edges/delete\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,13 +30,14 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan121324.2276/netedit.gui/netElements/edges/delete\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan121324.2276/netedit.gui/netElements/edges/delete\additionals.xml"/>
-        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan121324.2276/netedit.gui/netElements/edges/delete\routes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_10May082617.3012/netedit.gui/netElements/edges/delete\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_10May082617.3012/netedit.gui/netElements/edges/delete\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_10May082617.3012/netedit.gui/netElements/edges/delete\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_10May082617.3012/netedit.gui/netElements/edges/delete\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan121324.2276/netedit.gui/netElements/edges/delete\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_10May082617.3012/netedit.gui/netElements/edges/delete\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -45,7 +46,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan121324.2276/netedit.gui/netElements/edges/delete\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_10May082617.3012/netedit.gui/netElements/edges/delete\log.txt"/>
     </report>
 
 </configuration>
@@ -72,13 +73,13 @@
         <lane id=":Center_0_1" index="1" speed="13.90" length="15.80" shape="48.40,51.50 48.40,35.70"/>
     </edge>
     <edge id=":Center_2" function="internal">
-        <lane id=":Center_2_0" index="0" disallow="pedestrian" speed="7.02" length="10.69" shape="48.40,51.50 48.99,50.14 50.77,49.17 53.74,48.59 57.90,48.40"/>
+        <lane id=":Center_2_0" index="0" disallow="pedestrian rail_fast" speed="7.02" length="10.69" shape="48.40,51.50 48.99,50.14 50.77,49.17 53.74,48.59 57.90,48.40"/>
     </edge>
     <edge id=":Center_3" function="internal">
         <lane id=":Center_3_0" index="0" allow="bicycle" speed="6.08" length="7.76" shape="54.80,35.70 54.99,38.46 55.57,40.42 56.54,41.61 57.90,42.00"/>
     </edge>
     <edge id=":Center_4" function="internal">
-        <lane id=":Center_4_0" index="0" disallow="pedestrian" speed="7.02" length="10.69" shape="54.80,35.70 54.99,39.86 55.57,42.83 56.54,44.61 57.90,45.20"/>
+        <lane id=":Center_4_0" index="0" disallow="pedestrian rail_fast" speed="7.02" length="10.69" shape="54.80,35.70 54.99,39.86 55.57,42.83 56.54,44.61 57.90,45.20"/>
     </edge>
     <edge id=":Center_5" function="internal">
         <lane id=":Center_5_0" index="0" speed="13.90" length="15.80" shape="54.80,35.70 54.80,51.50"/>
@@ -97,8 +98,8 @@
         <lane id=":Center_10_0" index="0" speed="7.64" length="12.84" shape="42.10,45.20 44.86,44.61 46.83,42.83 48.01,39.86 48.40,35.70"/>
     </edge>
     <edge id=":Center_11" function="internal">
-        <lane id=":Center_11_0" index="0" disallow="pedestrian" speed="13.90" length="15.80" shape="42.10,45.20 57.90,45.20"/>
-        <lane id=":Center_11_1" index="1" disallow="pedestrian" speed="13.90" length="15.80" shape="42.10,48.40 57.90,48.40"/>
+        <lane id=":Center_11_0" index="0" disallow="pedestrian rail_fast" speed="13.90" length="15.80" shape="42.10,45.20 57.90,45.20"/>
+        <lane id=":Center_11_1" index="1" disallow="pedestrian rail_fast" speed="13.90" length="15.80" shape="42.10,48.40 57.90,48.40"/>
     </edge>
     <edge id=":Center_13" function="internal">
         <lane id=":Center_13_0" index="0" speed="7.02" length="10.69" shape="42.10,48.40 46.26,48.59 49.22,49.17 51.01,50.14 51.60,51.50"/>
@@ -127,8 +128,8 @@
     <edge id="4" from="Center" to="D" priority="-1">
         <lane id="4_0" index="0" allow="pedestrian" speed="13.90" length="42.10" shape="57.90,38.80 100.00,38.80"/>
         <lane id="4_1" index="1" allow="bicycle" speed="13.90" length="42.10" shape="57.90,42.00 100.00,42.00"/>
-        <lane id="4_2" index="2" disallow="pedestrian" speed="13.90" length="42.10" shape="57.90,45.20 100.00,45.20"/>
-        <lane id="4_3" index="3" disallow="pedestrian" speed="13.90" length="42.10" shape="57.90,48.40 100.00,48.40"/>
+        <lane id="4_2" index="2" disallow="pedestrian rail_fast" speed="13.90" length="42.10" shape="57.90,45.20 100.00,45.20"/>
+        <lane id="4_3" index="3" disallow="pedestrian rail_fast" speed="13.90" length="42.10" shape="57.90,48.40 100.00,48.40"/>
     </edge>
     <edge id="5" from="A" to="Center" priority="-1">
         <lane id="5_0" index="0" speed="13.90" length="35.70" shape="54.80,0.00 54.80,35.70"/>
@@ -141,8 +142,8 @@
     <edge id="7" from="C" to="Center" priority="-1">
         <lane id="7_0" index="0" allow="pedestrian" speed="13.90" length="42.10" shape="0.00,38.80 42.10,38.80"/>
         <lane id="7_1" index="1" allow="bicycle" speed="13.90" length="42.10" shape="0.00,42.00 42.10,42.00"/>
-        <lane id="7_2" index="2" disallow="pedestrian" speed="13.90" length="42.10" shape="0.00,45.20 42.10,45.20"/>
-        <lane id="7_3" index="3" disallow="pedestrian" speed="13.90" length="42.10" shape="0.00,48.40 42.10,48.40"/>
+        <lane id="7_2" index="2" disallow="pedestrian rail_fast" speed="13.90" length="42.10" shape="0.00,45.20 42.10,45.20"/>
+        <lane id="7_3" index="3" disallow="pedestrian rail_fast" speed="13.90" length="42.10" shape="0.00,48.40 42.10,48.40"/>
     </edge>
 
     <junction id="A" type="priority" x="50.00" y="0.00" incLanes="1_0 1_1" intLanes=":A_0_0" shape="50.00,0.00 43.60,0.00 50.00,0.00">

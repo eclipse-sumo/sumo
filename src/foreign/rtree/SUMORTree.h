@@ -142,7 +142,7 @@ public:
             } else {
                 myTreeDebug[o] = b;
                 // write GL Debug
-                WRITE_GLDEBUG("Inserted " + o->getFullName() + " into SUMORTree with boundary " + toString(b));
+                WRITE_GLDEBUG("\tInserted " + o->getFullName() + " into SUMORTree with boundary " + toString(b));
             }
         }
         // insert it in Tree
@@ -173,7 +173,7 @@ public:
                  throw ProcessError("add boundary of GUIGlObject " + o->getMicrosimID() + " is different of removed boundary (" + toString(b) + " != " + toString(myTreeDebug.at(o)) + ")");
             } else {
                 myTreeDebug.erase(o);
-                WRITE_GLDEBUG("Removed object " + o->getFullName() + " from SUMORTree with boundary " + toString(b));
+                WRITE_GLDEBUG("\tRemoved object " + o->getFullName() + " from SUMORTree with boundary " + toString(b));
             }
         }
         // remove it from Tree

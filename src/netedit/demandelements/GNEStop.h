@@ -58,6 +58,15 @@ public:
      */
     void writeDemandElement(OutputDevice& device) const;
 
+    /// @brief check if current demand element is valid to be writed into XML (by default true, can be reimplemented in childs)
+    bool isDemandElementValid() const;
+
+    /// @brief return a string with the current demand element problem (by default empty, can be reimplemented in childs)
+    std::string getDemandElementProblem() const;
+
+    /// @brief fix demand element problem (by default throw an exception, has to be reimplemented in childs)
+    void fixDemandElementProblem();
+
     /// @name Functions related with geometry of element
     /// @{
     /**@brief change the position of the element geometry without saving in undoList
@@ -130,6 +139,12 @@ public:
      * @return true if it's set, false in other case
      */
     bool isDisjointAttributeSet(const SumoXMLAttr attr) const;
+
+    /* @brief method for set certain attribute is set (used by ACs with disjoint attributes)
+     * @param[in] attr The attribute key
+     * @param[in] undoList The undoList on which to register changes
+     */
+    void setDisjointAttribute(const SumoXMLAttr attr, GNEUndoList* undoList);
 
     /// @brief get PopPup ID (Used in AC Hierarchy)
     std::string getPopUpID() const;

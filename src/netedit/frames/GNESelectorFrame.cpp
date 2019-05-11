@@ -379,7 +379,7 @@ GNESelectorFrame::LockGLObjectTypes::ObjectTypeEntry::ObjectTypeEntry(FXMatrix* 
     // create elements
     myLabelCounter = new FXLabel(matrixParent, "0", nullptr, GUIDesignLabelLeft);
     myLabelTypeName = new FXLabel(matrixParent, (label + " ").c_str(), nullptr, GUIDesignLabelLeft);
-    myCheckBoxLocked = new FXCheckButton(matrixParent, "unlocked", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonLeft);
+    myCheckBoxLocked = new FXCheckButton(matrixParent, "unlocked", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
 }
 
 
@@ -1038,42 +1038,60 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
     mySelectorFrameParent->getViewNet()->getUndoList()->p_begin("invert selection");
     // select junctions, edges, lanes connections and crossings
     std::vector<GNEJunction*> junctions = mySelectorFrameParent->getViewNet()->getNet()->retrieveJunctions();
+
+    LockGLObjectTypes* locks = mySelectorFrameParent->getLockGLObjectTypes();
     for (auto i : junctions) {
-        i->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
+        if (!locks->IsObjectTypeLocked(GLO_JUNCTION)) {
+            i->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
+        }
         // due we iterate over all junctions, only it's neccesary iterate over incoming edges
         for (auto j : i->getGNEIncomingEdges()) {
             // only select edges if "select edges" flag is enabled. In other case, select only lanes
             if (mySelectorFrameParent->getViewNet()->getViewOptions().selectEdges()) {
-                j->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
+                if (!locks->IsObjectTypeLocked(GLO_EDGE)) {
+                    j->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
+                }
             } else {
-                for (auto k : j->getLanes()) {
-                    k->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
+                if (!locks->IsObjectTypeLocked(GLO_LANE)) {
+                    for (auto k : j->getLanes()) {
+                        k->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
+                    }
                 }
             }
             // select connections
-            for (auto k : j->getGNEConnections()) {
-                k->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
+            if (!locks->IsObjectTypeLocked(GLO_CONNECTION)) {
+                for (auto k : j->getGNEConnections()) {
+                    k->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
+                }
             }
         }
         // select crossings
-        for (auto j : i->getGNECrossings()) {
-            j->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
+        if (!locks->IsObjectTypeLocked(GLO_CROSSING)) {
+            for (auto j : i->getGNECrossings()) {
+                j->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
+            }
         }
     }
     // select additionals
-    std::vector<GNEAdditional*> additionals = mySelectorFrameParent->getViewNet()->getNet()->retrieveAdditionals();
-    for (auto i : additionals) {
-        if (i->getTagProperty().isSelectable()) {
-            i->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
+    if (!locks->IsObjectTypeLocked(GLO_ADDITIONAL)) {
+        std::vector<GNEAdditional*> additionals = mySelectorFrameParent->getViewNet()->getNet()->retrieveAdditionals();
+        for (auto i : additionals) {
+            if (i->getTagProperty().isSelectable()) {
+                i->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
+            }
         }
     }
     // select polygons
-    for (auto i : mySelectorFrameParent->getViewNet()->getNet()->getPolygons()) {
-        dynamic_cast<GNEPoly*>(i.second)->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
+    if (!locks->IsObjectTypeLocked(GLO_POLYGON)) {
+        for (auto i : mySelectorFrameParent->getViewNet()->getNet()->getPolygons()) {
+            dynamic_cast<GNEPoly*>(i.second)->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
+        }
     }
     // select POIs
-    for (auto i : mySelectorFrameParent->getViewNet()->getNet()->getPOIs()) {
-        dynamic_cast<GNEPOI*>(i.second)->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
+    if (!locks->IsObjectTypeLocked(GLO_POI)) {
+        for (auto i : mySelectorFrameParent->getViewNet()->getNet()->getPOIs()) {
+            dynamic_cast<GNEPOI*>(i.second)->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
+        }
     }
     // now iterate over all elements of "copyOfSelectedAC" and undselect it
     for (auto i : copyOfSelectedAC) {

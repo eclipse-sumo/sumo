@@ -273,6 +273,8 @@ private:
     std::vector<FXButton*> myLaneButtons;
     FXCheckButton* myLaneColorInterpolation;
     FXButton* myLaneColorRainbow;
+    FXCheckButton* myLaneColorRainbowCheck;
+    FXRealSpinner* myLaneColorRainbowThreshold;
     FXButton* myJunctionColorRainbow;
     FXComboBox* myParamKey;
 

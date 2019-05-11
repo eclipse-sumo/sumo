@@ -73,6 +73,8 @@ const bool NBEdge::UNSPECIFIED_CONNECTION_UNCONTROLLED = false;
 
 NBEdge NBEdge::DummyEdge;
 
+ConstRouterEdgePairVector NBEdge::Connection::myViaSuccessors = ConstRouterEdgePairVector({ std::pair<NBRouterEdge*, NBRouterEdge*>(nullptr, nullptr) });
+
 // ===========================================================================
 // method definitions
 // ===========================================================================
@@ -280,7 +282,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
     myStopOffsets(),
     myLaneWidth(laneWidth),
     myLoadedLength(UNSPECIFIED_LOADED_LENGTH),
-    myAmInnerEdge(false), myAmMacroscopicConnector(false),
+    myAmInTLS(false), myAmMacroscopicConnector(false),
     myStreetName(streetName),
     mySignalOffset(UNSPECIFIED_SIGNAL_OFFSET),
     mySignalNode(nullptr),
@@ -310,7 +312,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to,
     myStopOffsets(),
     myLaneWidth(laneWidth),
     myLoadedLength(UNSPECIFIED_LOADED_LENGTH),
-    myAmInnerEdge(false), myAmMacroscopicConnector(false),
+    myAmInTLS(false), myAmMacroscopicConnector(false),
     myStreetName(streetName),
     mySignalOffset(UNSPECIFIED_SIGNAL_OFFSET),
     mySignalNode(nullptr),
@@ -336,7 +338,7 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to, const NBEdge* tp
     myStopOffsets(tpl->getStopOffsets()),
     myLaneWidth(tpl->getLaneWidth()),
     myLoadedLength(UNSPECIFIED_LOADED_LENGTH),
-    myAmInnerEdge(false),
+    myAmInTLS(false),
     myAmMacroscopicConnector(false),
     myStreetName(tpl->getStreetName()),
     mySignalOffset(to == tpl->myTo ? tpl->mySignalOffset : UNSPECIFIED_SIGNAL_OFFSET),
@@ -384,7 +386,7 @@ NBEdge::reinit(NBNode* from, NBNode* to, const std::string& type,
     myLoadedLength = UNSPECIFIED_LOADED_LENGTH;
     myStreetName = streetName;
     //?, myAmTurningWithAngle(0), myAmTurningOf(0),
-    //?myAmInnerEdge(false), myAmMacroscopicConnector(false)
+    //?myAmInTLS(false), myAmMacroscopicConnector(false)
 
     // preserve lane-specific settings (geometry must be recomputed)
     // if new lanes are added they copy the values from the leftmost lane (if specified)
@@ -3039,6 +3041,9 @@ NBEdge::append(NBEdge* e) {
     }
     // recompute length
     myLength += e->myLength;
+    if (myLoadedLength > 0 || e->myLoadedLength > 0) {
+        myLoadedLength = getFinalLength() + e->getFinalLength();
+    }
     // copy the connections and the building step if given
     myStep = e->myStep;
     myConnections = e->myConnections;
@@ -3692,16 +3697,19 @@ NBEdge::getSuccessors(SUMOVehicleClass vClass) const {
 }
 
 
-const NBConstEdgePairVector&
+const ConstRouterEdgePairVector&
 NBEdge::getViaSuccessors(SUMOVehicleClass vClass) const {
     // @todo cache successors instead of recomputing them every time
     myViaSuccessors.clear();
     for (const Connection& con : myConnections) {
-        std::pair<const NBEdge*, const NBEdge*> pair(con.toEdge, nullptr);
+        std::pair<const NBEdge*, const Connection*> pair(con.toEdge, nullptr);
         if (con.fromLane >= 0 && con.toLane >= 0 && con.toEdge != nullptr &&
                 (getPermissions(con.fromLane)
-                 & con.toEdge->getPermissions(con.toLane) & vClass) != 0
-                && std::find(myViaSuccessors.begin(), myViaSuccessors.end(), pair) == myViaSuccessors.end()) {
+                 & con.toEdge->getPermissions(con.toLane) & vClass) != 0) {
+                // ignore duplicates
+            if (con.getLength() > 0) {
+                pair.second = &con;
+            }
             myViaSuccessors.push_back(pair);
         }
     }

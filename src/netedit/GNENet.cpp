@@ -2698,7 +2698,7 @@ GNENet::registerJunction(GNEJunction* junction) {
     junction->setResponsible(false);
     myAttributeCarriers.junctions[junction->getMicrosimID()] = junction;
     // add it into grid
-    myGrid.add(junction->getBoundary());
+    myGrid.add(junction->getCenteringBoundary());
     myGrid.addAdditionalGLObject(junction);
     // update geometry
     junction->updateGeometry();
@@ -2723,7 +2723,7 @@ GNENet::registerEdge(GNEEdge* edge) {
     // add edge to internal container of GNENet
     myAttributeCarriers.edges[edge->getMicrosimID()] = edge;
     // add edge to grid
-    myGrid.add(edge->getBoundary());
+    myGrid.add(edge->getCenteringBoundary());
     myGrid.addAdditionalGLObject(edge);
     // check if edge is selected
     if (edge->isAttributeCarrierSelected()) {
@@ -2887,18 +2887,24 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
             liveExplicitTurnarounds.insert(it);
         }
     }
-
     // removes all junctions of grid
     for (const auto& it : myAttributeCarriers.junctions) {
         myGrid.removeAdditionalGLObject(it.second);
     }
-
     // remove all edges from grid
     for (const auto& it : myAttributeCarriers.edges) {
         myGrid.removeAdditionalGLObject(it.second);
     }
-
+    // compute using NetBuilder
     myNetBuilder->compute(oc, liveExplicitTurnarounds, volatileOptions);
+    // insert all junctions of grid again
+    for (const auto& it : myAttributeCarriers.junctions) {
+        myGrid.addAdditionalGLObject(it.second);
+    }
+    // insert all edges from grid again
+    for (const auto& it : myAttributeCarriers.edges) {
+        myGrid.addAdditionalGLObject(it.second);
+    }
     // update ids if necessary
     if (oc.getBool("numerical-ids") || oc.isSet("reserved-ids")) {
         std::map<std::string, GNEEdge*> newEdgeMap;
@@ -2926,10 +2932,9 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
     if (myViewNet != nullptr) {
         myViewNet->getViewParent()->getInspectorFrame()->clearInspectedAC();
     }
-    // Remove from container
+    // Reset Grid
     myGrid.reset();
     myGrid.add(GeoConvHelper::getFinal().getConvBoundary());
-
     // if volatile options are true
     if (volatileOptions) {
         assert(myViewNet != 0);
@@ -2980,7 +2985,6 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
             myGrid.removeAdditionalGLObject(dynamic_cast<GUIGlObject*>(it.second));
         }
         myPOIs.clear();
-
         // clear rest of demand elements that weren't removed during cleaning of undo list
         for (const auto& it : myAttributeCarriers.demandElements) {
             for (const auto& j : it.second) {
@@ -3000,35 +3004,26 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
         for (auto i : listOfTags) {
             myAttributeCarriers.demandElements.insert(std::make_pair(i, std::map<std::string, GNEDemandElement*>()));
         }
-
         // init again junction an edges (Additionals and shapes will be loaded after the end of this function)
         initJunctionsAndEdges();
-
     } else {
         // remake connections
         for (auto it : myAttributeCarriers.edges) {
             it.second->remakeGNEConnections();
         }
-
         // iterate over junctions of net
         for (const auto& it : myAttributeCarriers.junctions) {
             // undolist may not yet exist but is also not needed when just marking junctions as valid
             it.second->setLogicValid(true, nullptr);
-            // insert junction in grid again
-            myGrid.addAdditionalGLObject(it.second);
             // updated geometry
             it.second->updateGeometryAfterNetbuild();
         }
-
         // iterate over all edges of net
         for (const auto& it : myAttributeCarriers.edges) {
-            // insert edge in grid again
-            myGrid.addAdditionalGLObject(it.second);
             // update geometry
             it.second->updateGeometry();
         }
     }
-
     // net recomputed, then return false;
     myNeedRecompute = false;
 }

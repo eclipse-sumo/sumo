@@ -219,6 +219,7 @@ for i in range(6):
     if traci.vehicle.getSpeed("1") == 0:
         traci.vehicle.resume("1")
     print(traci.vehicle.getSubscriptionResults(vehID))
+    print(traci.vehicle.getNextStops(vehID))
 check("2")
 print("nextTLS", traci.vehicle.getNextTLS("2"))
 traci.vehicle.setSpeedMode(vehID, 0)  # disable all checks
@@ -232,6 +233,7 @@ for i in range(6):
     print("step", step())
     print(traci.vehicle.getSubscriptionResults("2"))
     print(traci.vehicle.getSubscriptionResults(vehID))
+    print(traci.vehicle.getNextStops(vehID))
 traci.vehicle.remove("1")
 try:
     traci.vehicle.add("anotherOne", "horizontal", pos=-1)

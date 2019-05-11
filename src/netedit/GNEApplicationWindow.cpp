@@ -177,6 +177,12 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_LOCATEJUNCTION,                     GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEEDGE,                         GNEApplicationWindow::onCmdLocate),
     FXMAPFUNC(SEL_UPDATE,   MID_LOCATEEDGE,                         GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEVEHICLE,                      GNEApplicationWindow::onCmdLocate),
+    FXMAPFUNC(SEL_UPDATE,   MID_LOCATEVEHICLE,                      GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEROUTE,                        GNEApplicationWindow::onCmdLocate),
+    FXMAPFUNC(SEL_UPDATE,   MID_LOCATEROUTE,                        GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATESTOP,                         GNEApplicationWindow::onCmdLocate),
+    FXMAPFUNC(SEL_UPDATE,   MID_LOCATESTOP,                         GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATETLS,                          GNEApplicationWindow::onCmdLocate),
     FXMAPFUNC(SEL_UPDATE,   MID_LOCATETLS,                          GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEADD,                          GNEApplicationWindow::onCmdLocate),
@@ -1307,22 +1313,31 @@ GNEApplicationWindow::fillMenuBar() {
     menuTitle->setHeight(23);
     // build locate menu commands
     new FXMenuCommand(myLocatorMenu,
-                      "Locate &Junctions\tShift+J\tOpen a Dialog for Locating a Junction.",
+                      "Locate &Junctions\tShift+J\tOpen a dialog for locating a Junction.",
                       GUIIconSubSys::getIcon(ICON_LOCATEJUNCTION), this, MID_LOCATEJUNCTION);
     new FXMenuCommand(myLocatorMenu,
-                      "Locate &Edges\tShift+E\tOpen a Dialog for Locating an Edge.",
+                      "Locate &Edges\tShift+E\tOpen a dialog for locating an Edge.",
                       GUIIconSubSys::getIcon(ICON_LOCATEEDGE), this, MID_LOCATEEDGE);
     new FXMenuCommand(myLocatorMenu,
-                      "Locate &TLS\tShift+T\tOpen a Dialog for Locating a Traffic Light.",
+                      "Locate &Vehicles\tShift+V\tOpen a dialog for locating a Vehicle.",
+                      GUIIconSubSys::getIcon(ICON_LOCATEVEHICLE), this, MID_LOCATEVEHICLE);
+    new FXMenuCommand(myLocatorMenu,
+                      "Locate &Route\tShift+R\tOpen a dialog for locating a Route.",
+                      GUIIconSubSys::getIcon(ICON_LOCATEROUTE), this, MID_LOCATEROUTE);
+    new FXMenuCommand(myLocatorMenu,
+                      "Locate &Vehicles\tShift+S\tOpen a dialog for locating a Stop.",
+                      GUIIconSubSys::getIcon(ICON_LOCATESTOP), this, MID_LOCATESTOP);
+    new FXMenuCommand(myLocatorMenu,
+                      "Locate &TLS\tShift+T\tOpen a dialog for locating a Traffic Light.",
                       GUIIconSubSys::getIcon(ICON_LOCATETLS), this, MID_LOCATETLS);
     new FXMenuCommand(myLocatorMenu,
-                      "Locate &Additional\tShift+A\tOpen a Dialog for Locating an Additional Structure.",
+                      "Locate &Additional\tShift+A\tOpen a dialog for locating an Additional Structure.",
                       GUIIconSubSys::getIcon(ICON_LOCATEADD), this, MID_LOCATEADD);
     new FXMenuCommand(myLocatorMenu,
-                      "Locate P&oI\tShift+O\tOpen a Dialog for Locating a Point of Intereset.",
+                      "Locate P&oI\tShift+O\tOpen a dialog for locating a Point of Interest.",
                       GUIIconSubSys::getIcon(ICON_LOCATEPOI), this, MID_LOCATEPOI);
     new FXMenuCommand(myLocatorMenu,
-                      "Locate Po&lygon\tShift+L\tOpen a Dialog for Locating a Polygon.",
+                      "Locate Po&lygon\tShift+L\tOpen a dialog for locating a Polygon.",
                       GUIIconSubSys::getIcon(ICON_LOCATEPOLY), this, MID_LOCATEPOLY);
     // build windows menu
     myWindowsMenu = new FXMenuPane(this);
@@ -1451,8 +1466,11 @@ GNEApplicationWindow::getDefaultCursor() {
 
 void
 GNEApplicationWindow::loadOptionOnStartup() {
-    const OptionsCont& oc = OptionsCont::getOptions();
+    OptionsCont& oc = OptionsCont::getOptions();
+    // set default options
+    GNELoadThread::setDefaultOptions(oc);
     loadConfigOrNet("", true, false, true, oc.getBool("new"));
+
 }
 
 

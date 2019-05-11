@@ -260,25 +260,34 @@ private:
         /// @brief destructor
         ~ACChoosers();
 
-        /// @brief pointer to ACChooser dialog
+        /// @brief pointer to ACChooser dialog used for locate junctions
         GNEDialogACChooser* ACChooserJunction;
 
-        /// @brief pointer to ACChooser dialog
+        /// @brief pointer to ACChooser dialog used for locate edges
         GNEDialogACChooser* ACChooserEdges;
 
-        /// @brief pointer to ACChooser dialog
+        /// @brief pointer to ACChooser dialog used for locate vehicles
+        GNEDialogACChooser* ACChooserVehicles;
+
+        /// @brief pointer to ACChooser dialog used for locate routes
+        GNEDialogACChooser* ACChooserRoutes;
+
+        /// @brief pointer to ACChooser dialog used for locate stops
+        GNEDialogACChooser* ACChooserStops;
+
+        /// @brief pointer to ACChooser dialog used for locate TLSs
         GNEDialogACChooser* ACChooserTLS;
 
-        /// @brief pointer to ACChooser dialog
+        /// @brief pointer to ACChooser dialog used for locate additional
         GNEDialogACChooser* ACChooserAdditional;
 
-        /// @brief pointer to ACChooser dialog
+        /// @brief pointer to ACChooser dialog used for locate POIs
         GNEDialogACChooser* ACChooserPOI;
 
-        /// @brief pointer to ACChooser dialog
+        /// @brief pointer to ACChooser dialog used for locate Polygons
         GNEDialogACChooser* ACChooserPolygon;
 
-        /// @brief pointer to ACChooser dialog
+        /// @brief pointer to ACChooser dialog used for locate Prohibitions
         GNEDialogACChooser* ACChooserProhibition;
     };
 

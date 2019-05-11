@@ -119,18 +119,18 @@ GNERouteHandler::buildTrip(GNEViewNet* viewNet, bool undoDemandElements, SUMOVeh
                 WRITE_ERROR("Invalid trip Type '" + tripParameters->vtypeid + "' used in trip '" + tripParameters->id + "'.");
             } else {
                 // check if route exist
-                std::vector<const NBEdge*> routeEdges;
+                ConstRouterEdgeVector routeEdges;
                 NBVehicle tmpVehicle("temporalNBVehicle", GNEAttributeCarrier::parse<SUMOVehicleClass>(vType->getAttribute(SUMO_ATTR_VCLASS)));
-                SUMOAbstractRouter<NBEdge, NBVehicle>* route;
+                SUMOAbstractRouter<NBRouterEdge, NBVehicle>* router;
                 // create Dijkstra route
-                route = new DijkstraRouter<NBEdge, NBVehicle, SUMOAbstractRouter<NBEdge, NBVehicle> >(
-                    viewNet->getNet()->getNetBuilder()->getEdgeCont().getAllEdges(), true, &NBEdge::getTravelTimeStatic, nullptr, true);
+                router = new DijkstraRouter<NBRouterEdge, NBVehicle, SUMOAbstractRouter<NBRouterEdge, NBVehicle> >(
+                    viewNet->getNet()->getNetBuilder()->getEdgeCont().getAllRouterEdges(), true, &NBRouterEdge::getTravelTimeStatic, nullptr, true);
                 // check if route is valid
-                if (!route->compute(edges.front()->getNBEdge(), edges.back()->getNBEdge(), &tmpVehicle, 10, routeEdges)) {
+                if (!router->compute(edges.front()->getNBEdge(), edges.back()->getNBEdge(), &tmpVehicle, 10, routeEdges)) {
                     WRITE_WARNING("There isn't a route bewteen edges '" + edges.front()->getID() + "' and '" + edges.back()->getID() + "'.");
                 }
                 // delete route
-                delete route;
+                delete router;
                 // create trip using tripParameters
                 GNEVehicle* trip = new GNEVehicle(viewNet, *tripParameters, vType, edges);
                 if (undoDemandElements) {

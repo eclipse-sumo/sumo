@@ -126,14 +126,15 @@
 
 /// @name FXCheckButtons
 /// @{
-/// @brief CheckButton for Frames without thick extended over the frame
-#define GUIDesignCheckButton                (CHECKBUTTON_NORMAL | LAYOUT_CENTER_Y)
-
-/// @brief checkButton without thick extended over the frame used for attributes
-#define GUIDesignCheckButtonAttribute       (CHECKBUTTON_NORMAL | JUSTIFY_CENTER_Y | LAYOUT_FIX_HEIGHT | JUSTIFY_LEFT), 0, 0, 0, 23, 2, 2, 2, 2
 
 /// @brief checkButton placed in left position
-#define GUIDesignCheckButtonLeft            (CHECKBUTTON_NORMAL | JUSTIFY_CENTER_Y | LAYOUT_FIX_HEIGHT | JUSTIFY_LEFT), 0, 0, 0, 23, 2, 2, 2, 2
+#define GUIDesignCheckButton                (CHECKBUTTON_NORMAL | JUSTIFY_CENTER_Y | LAYOUT_FIX_HEIGHT | JUSTIFY_LEFT), 0, 0, 0, 23, 2, 2, 2, 2
+
+/// @brief checkButton without thick extended over the frame used for attributes
+#define GUIDesignCheckButtonAttribute       (CHECKBUTTON_NORMAL | JUSTIFY_CENTER_Y |  LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | JUSTIFY_LEFT | ICON_BEFORE_TEXT | FRAME_THICK), 0, 0, 100, 23, 2, 2, 2, 2
+
+/// @brief CheckButton for Frames without thick extended over the frame
+#define GUIDesignCheckButtonViewSettings    (CHECKBUTTON_NORMAL | LAYOUT_CENTER_Y)
 
 /// @}
 

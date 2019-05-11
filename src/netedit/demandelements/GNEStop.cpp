@@ -79,6 +79,82 @@ GNEStop::writeDemandElement(OutputDevice& device) const {
 }
 
 
+bool
+GNEStop::isDemandElementValid() const {
+    // only Stops placed over lanes can be invalid
+    if(myTagProperty.getTag() != SUMO_TAG_STOP_LANE) {
+        return true;
+    } else if (myFriendlyPosition) {
+        // with friendly position enabled position are "always fixed"
+        return true;
+    } else {
+        // obtain lane length
+        double laneLenght = getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength() * getLaneParents().front()->getLengthGeometryFactor();
+        // declare a copy of start and end positions
+        double startPosCopy = startPos;
+        double endPosCopy = endPos;
+        // check if position has to be fixed
+        if (startPosCopy < 0) {
+            startPosCopy += laneLenght;
+        }
+        if (endPosCopy < 0) {
+            endPosCopy += laneLenght;
+        }
+        // check values
+        if (!(parametersSet & STOP_START_SET) && !(parametersSet & STOP_END_SET)) {
+            return true;
+        } else if (!(parametersSet & STOP_START_SET)) {
+            return (endPosCopy <= getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength());
+        } else if (!(parametersSet & STOP_END_SET)) {
+            return (startPosCopy >= 0);
+        } else {
+            return ((startPosCopy >= 0) && (endPosCopy <= getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength()) && ((endPosCopy - startPosCopy) >= POSITION_EPS));
+        }
+    }
+}
+
+
+std::string 
+GNEStop::getDemandElementProblem() const {
+    // declare a copy of start and end positions
+    double startPosCopy = startPos;
+    double endPosCopy = endPos;
+    // obtain lane lenght
+    double laneLenght = getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength();
+    // check if position has to be fixed
+    if (startPosCopy < 0) {
+        startPosCopy += laneLenght;
+    }
+    if (endPosCopy < 0) {
+        endPosCopy += laneLenght;
+    }
+    // declare variables
+    std::string errorStart, separator, errorEnd;
+    // check positions over lane
+    if (startPosCopy < 0) {
+        errorStart = (toString(SUMO_ATTR_STARTPOS) + " < 0");
+    } else if (startPosCopy > getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength()) {
+        errorStart = (toString(SUMO_ATTR_STARTPOS) + " > lanes's length");
+    }
+    if (endPosCopy < 0) {
+        errorEnd = (toString(SUMO_ATTR_ENDPOS) + " < 0");
+    } else if (endPosCopy > getLaneParents().front()->getParentEdge().getNBEdge()->getFinalLength()) {
+        errorEnd = (toString(SUMO_ATTR_ENDPOS) + " > lanes's length");
+    }
+    // check separator
+    if ((errorStart.size() > 0) && (errorEnd.size() > 0)) {
+        separator = " and ";
+    }
+    return errorStart + separator + errorEnd;
+}
+
+
+void 
+GNEStop::fixDemandElementProblem() {
+
+}
+
+
 void
 GNEStop::moveGeometry(const Position& offset) {
     // only move if at leats start or end positions is defined
@@ -546,6 +622,67 @@ GNEStop::isDisjointAttributeSet(const SumoXMLAttr attr) const {
 }
 
 
+void 
+GNEStop::setDisjointAttribute(const SumoXMLAttr attr, GNEUndoList* undoList) {
+    // obtain a copy of parameter sets
+    int parametersSetCopy = parametersSet;
+    // modify parametersSetCopy depending of attr
+    switch (attr) {
+        case SUMO_ATTR_END: {
+            // give more priority to end
+            parametersSetCopy = VEHPARS_END_SET | VEHPARS_NUMBER_SET;
+            break;
+        }
+        case SUMO_ATTR_NUMBER:
+            parametersSetCopy ^= VEHPARS_END_SET;
+            parametersSetCopy |= VEHPARS_NUMBER_SET;
+            break;
+        case SUMO_ATTR_VEHSPERHOUR: {
+            // give more priority to end
+            if ((parametersSetCopy & VEHPARS_END_SET) && (parametersSetCopy & VEHPARS_NUMBER_SET)) {
+                parametersSetCopy = VEHPARS_END_SET;
+            } else if (parametersSetCopy & VEHPARS_END_SET) {
+                parametersSetCopy = VEHPARS_END_SET;
+            } else if (parametersSetCopy & VEHPARS_NUMBER_SET) {
+                parametersSetCopy = VEHPARS_NUMBER_SET;
+            }
+            // set VehsPerHour
+            parametersSetCopy |= VEHPARS_VPH_SET;
+            break;
+        }
+        case SUMO_ATTR_PERIOD: {
+            // give more priority to end
+            if ((parametersSetCopy & VEHPARS_END_SET) && (parametersSetCopy & VEHPARS_NUMBER_SET)) {
+                parametersSetCopy = VEHPARS_END_SET;
+            } else if (parametersSetCopy & VEHPARS_END_SET) {
+                parametersSetCopy = VEHPARS_END_SET;
+            } else if (parametersSetCopy & VEHPARS_NUMBER_SET) {
+                parametersSetCopy = VEHPARS_NUMBER_SET;
+            }
+            // set period
+            parametersSetCopy |= VEHPARS_PERIOD_SET;
+            break;
+        }
+        case SUMO_ATTR_PROB: {
+            // give more priority to end
+            if ((parametersSetCopy & VEHPARS_END_SET) && (parametersSetCopy & VEHPARS_NUMBER_SET)) {
+                parametersSetCopy = VEHPARS_END_SET;
+            } else if (parametersSetCopy & VEHPARS_END_SET) {
+                parametersSetCopy = VEHPARS_END_SET;
+            } else if (parametersSetCopy & VEHPARS_NUMBER_SET) {
+                parametersSetCopy = VEHPARS_NUMBER_SET;
+            }
+            // set probability
+            parametersSetCopy |= VEHPARS_PROB_SET;
+            break;
+        }
+        default:
+            break;
+    }
+    undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), parametersSet, parametersSetCopy));
+}
+
+
 std::string
 GNEStop::getPopUpID() const {
     return getTagStr();
@@ -712,10 +849,6 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
-    }
-    // check if updated attribute requieres update geometry
-    if (myTagProperty.hasAttribute(key) && myTagProperty.getAttributeProperties(key).requiereUpdateGeometry()) {
-        updateGeometry();
     }
 }
 

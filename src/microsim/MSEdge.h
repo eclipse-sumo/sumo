@@ -224,6 +224,11 @@ public:
     }
 
     /// @brief return whether this edge is an internal edge
+    inline bool isNormal() const {
+        return myFunction == EDGEFUNC_NORMAL;
+    }
+
+    /// @brief return whether this edge is an internal edge
     inline bool isInternal() const {
         return myFunction == EDGEFUNC_INTERNAL;
     }

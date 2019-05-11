@@ -334,6 +334,17 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme = GUIColorScheme(SCHEME_NAME_EDGEDATA_NUMERICAL, RGBColor(204, 204, 204));
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by distance (kilometrage)", RGBColor(204, 204, 204));
+    scheme.addColor(RGBColor(255, 204, 204), (double)1);
+    scheme.addColor(RGBColor::RED, (double)10000);
+    scheme.addColor(RGBColor(204, 204, 255), (double)-1);
+    scheme.addColor(RGBColor::BLUE, (double)-10000);
+    scheme.setAllowsNegativeValues(true);
+    laneColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by abs distance (kilometrage)", RGBColor(204, 204, 204));
+    scheme.addColor(RGBColor::RED, (double)1);
+    scheme.setAllowsNegativeValues(false);
+    laneColorer.addScheme(scheme);
 
 
     /// add vehicle coloring schemes
@@ -845,6 +856,15 @@ GUIVisualizationSettings::initNeteditDefaults() {
     laneColorer.addScheme(scheme);
     scheme = GUIColorScheme(SCHEME_NAME_LANE_PARAM_NUMERICAL, RGBColor(204, 204, 204));
     scheme.setAllowsNegativeValues(true);
+    laneColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by distance (kilometrage)", RGBColor(204, 204, 204));
+    scheme.addColor(RGBColor::RED, (double)1);
+    scheme.addColor(RGBColor::RED, (double)-1);
+    scheme.setAllowsNegativeValues(true);
+    laneColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by abs distance (kilometrage)", RGBColor(204, 204, 204));
+    scheme.addColor(RGBColor::RED, (double)1);
+    scheme.setAllowsNegativeValues(false);
     laneColorer.addScheme(scheme);
 
     scheme = GUIColorScheme("uniform", RGBColor(102, 0, 0), "", true);

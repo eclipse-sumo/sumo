@@ -80,7 +80,7 @@ public:
         GNENet* myNet;
 
         /// @brief SUMO Abstract DijkstraRouter
-        SUMOAbstractRouter<NBEdge, NBVehicle>* myDijkstraRouter;
+        SUMOAbstractRouter<NBRouterEdge, NBVehicle>* myDijkstraRouter;
     };
 
     /**@brief Constructor
@@ -229,7 +229,7 @@ public:
      * @return The built popup-menu
      * @see GUIGlObject::getPopUpMenu
      */
-    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent);
+    virtual GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent);
 
     /**@brief Returns an own parameter window
      *

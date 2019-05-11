@@ -287,6 +287,7 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
 
 void
 GNELoadThread::setDefaultOptions(OptionsCont& oc) {
+    oc.resetWritable();
     oc.set("offset.disable-normalization", "true"); // preserve the given network as far as possible
     oc.set("no-turnarounds", "true"); // otherwise it is impossible to manually removed turn-arounds
 }

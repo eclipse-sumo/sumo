@@ -58,7 +58,7 @@ FXIMPLEMENT(GNEDialog_FixDemandElements, FXDialogBox, GNEDialog_FixDemandElement
 // ===========================================================================
 
 GNEDialog_FixDemandElements::GNEDialog_FixDemandElements(GNEViewNet* viewNet, const std::vector<GNEDemandElement*>& invalidDemandElements) :
-    FXDialogBox(viewNet->getApp(), "Fix demand elements problems", GUIDesignDialogBoxExplicit(500, 380)),
+    FXDialogBox(viewNet->getApp(), "Fix demand elements problems", GUIDesignDialogBoxExplicit(500, 420)),
     myViewNet(viewNet) {
     // set busStop icon for this dialog
     setIcon(GUIIconSubSys::getIcon(ICON_ROUTE));
@@ -68,8 +68,10 @@ GNEDialog_FixDemandElements::GNEDialog_FixDemandElements(GNEViewNet* viewNet, co
     myDemandList = new DemandList(this, invalidDemandElements);
     // create fix route options
     myFixRouteOptions = new FixRouteOptions(this);
-    // create route options
+    // create fix vehicle  options
     myFixVehicleOptions = new FixVehicleOptions(this);
+    // create fix stops options
+    myFixStopOptions = new FixStopOptions(this);
     // check if fix route options has to be disabled
     if (myDemandList->myInvalidRoutes.empty()) {
         myFixRouteOptions->disableFixRouteOptions();
@@ -77,6 +79,10 @@ GNEDialog_FixDemandElements::GNEDialog_FixDemandElements(GNEViewNet* viewNet, co
     // check if fix vehicle options has to be disabled
     if (myDemandList->myInvalidVehicles.empty()) {
         myFixVehicleOptions->disableFixVehicleOptions();
+    }
+    // check if fix vehicle options has to be disabled
+    if (myDemandList->myInvalidVehicles.empty()) {
+        myFixStopOptions->disableFixStopOptions();
     }
     // create dialog buttons bot centered
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(myMainFrame, GUIDesignHorizontalFrame);
@@ -97,6 +103,7 @@ long
 GNEDialog_FixDemandElements::onCmdSelectOption(FXObject* obj, FXSelector, void*) {
     myFixRouteOptions->selectOption(obj);
     myFixVehicleOptions->selectOption(obj);
+    myFixStopOptions->selectOption(obj);
     return 1;
 }
 
@@ -104,54 +111,64 @@ GNEDialog_FixDemandElements::onCmdSelectOption(FXObject* obj, FXSelector, void*)
 long
 GNEDialog_FixDemandElements::onCmdAccept(FXObject*, FXSelector, void*) {
     bool continueSaving = true;
-    // first check options from single lane additionals
+    // first check options for invalid routes
     if (myDemandList->myInvalidRoutes.size() > 0) {
-        if (myFixRouteOptions->activateFriendlyPositionAndSave->getCheck() == TRUE) {
-            myViewNet->getUndoList()->p_begin("change " + toString(SUMO_ATTR_FRIENDLY_POS) + " of invalid additionals");
-            // iterate over invalid single lane elements to enable friendly position
+        if (myFixRouteOptions->removeInvalidRoutes->getCheck() == TRUE) {
+            myViewNet->getUndoList()->p_begin("delete invalid routes");
+            // iterate over invalid routes to delete it
             for (auto i : myDemandList->myInvalidRoutes) {
-                i->setAttribute(SUMO_ATTR_FRIENDLY_POS, "true", myViewNet->getUndoList());
+                myViewNet->getNet()->deleteDemandElement(i, myViewNet->getUndoList());
             }
             myViewNet->getUndoList()->p_end();
-        } else if (myFixRouteOptions->fixPositionsAndSave->getCheck() == TRUE) {
-            myViewNet->getUndoList()->p_begin("fix positions of invalid additionals");
-            // iterate over invalid single lane elements to fix positions
-            for (auto i : myDemandList->myInvalidRoutes) {
-                i->fixDemandElementProblem();
-            }
-            myViewNet->getUndoList()->p_end();
-        } else if (myFixRouteOptions->selectInvalidStopsAndCancel->getCheck() == TRUE) {
-            myViewNet->getUndoList()->p_begin("select invalid additionals");
+        } else if (myFixRouteOptions->selectInvalidRoutesAndCancel->getCheck() == TRUE) {
+            myViewNet->getUndoList()->p_begin("select invalid routes");
             // iterate over invalid single lane elements to select all elements
             for (auto i : myDemandList->myInvalidRoutes) {
                 i->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
             }
-            myViewNet->getUndoList()->p_end();
             // abort saving
             continueSaving = false;
         }
     }
-
-    // first check options from single lane additionals
+    // first check options for invalid vehicles
     if (myDemandList->myInvalidVehicles.size() > 0) {
-        if (myFixRouteOptions->activateFriendlyPositionAndSave->getCheck() == TRUE) {
-            myViewNet->getUndoList()->p_begin("change " + toString(SUMO_ATTR_FRIENDLY_POS) + " of invalid additionals");
-            // iterate over invalid single lane elements to enable friendly position
+        if (myFixVehicleOptions->removeInvalidVehicles->getCheck() == TRUE) {
+            myViewNet->getUndoList()->p_begin("delete invalid vehicles");
+            // iterate over invalid stops to delete it
             for (auto i : myDemandList->myInvalidVehicles) {
+                myViewNet->getNet()->deleteDemandElement(i, myViewNet->getUndoList());
+            }
+            myViewNet->getUndoList()->p_end();
+        } else if (myFixVehicleOptions->selectInvalidVehiclesAndCancel->getCheck() == TRUE) {
+            myViewNet->getUndoList()->p_begin("select invalid vehicles");
+            // iterate over invalid single lane elements to select all elements
+            for (auto i : myDemandList->myInvalidVehicles) {
+                i->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
+            }
+            // abort saving
+            continueSaving = false;
+        }
+    }
+    // first check options for stops
+    if (myDemandList->myInvalidStops.size() > 0) {
+        if (myFixStopOptions->activateFriendlyPositionAndSave->getCheck() == TRUE) {
+            myViewNet->getUndoList()->p_begin("change " + toString(SUMO_ATTR_FRIENDLY_POS) + " of invalid stops");
+            // iterate over invalid stops to enable friendly position
+            for (auto i : myDemandList->myInvalidStops) {
                 i->setAttribute(SUMO_ATTR_FRIENDLY_POS, "true", myViewNet->getUndoList());
             }
             myViewNet->getUndoList()->p_end();
-        } else if (myFixRouteOptions->fixPositionsAndSave->getCheck() == TRUE) {
-            myViewNet->getUndoList()->p_begin("fix positions of invalid additionals");
-            // iterate over invalid single lane elements to fix positions
-            for (auto i : myDemandList->myInvalidVehicles) {
+        } else if (myFixStopOptions->fixPositionsAndSave->getCheck() == TRUE) {
+            myViewNet->getUndoList()->p_begin("fix positions of invalid stops");
+            // iterate over invalid stops to fix positions
+            for (auto i : myDemandList->myInvalidStops) {
                 i->fixDemandElementProblem();
             }
             myViewNet->getUndoList()->p_end();
-        } else if (myFixRouteOptions->selectInvalidStopsAndCancel->getCheck() == TRUE) {
-            myViewNet->getUndoList()->p_begin("select invalid additionals");
-            // iterate over invalid single lane elements to select all elements
-            for (auto i : myDemandList->myInvalidVehicles) {
+        } else if (myFixStopOptions->selectInvalidStopsAndCancel->getCheck() == TRUE) {
+            myViewNet->getUndoList()->p_begin("select invalid stops");
+            // iterate over invalid stops to select all elements
+            for (auto i : myDemandList->myInvalidStops) {
                 i->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
             }
             myViewNet->getUndoList()->p_end();
@@ -181,17 +198,19 @@ GNEDialog_FixDemandElements::onCmdCancel(FXObject*, FXSelector, void*) {
 // GNEDialog_FixDemandElements::DemandList - methods
 // ---------------------------------------------------------------------------
 
-GNEDialog_FixDemandElements::DemandList::DemandList(GNEDialog_FixDemandElements* fixAdditionalPositions, const std::vector<GNEDemandElement*>& invalidDemandElements) :
-    FXGroupBox(fixAdditionalPositions->myMainFrame, "Routes and Vehicles with conflicts", GUIDesignGroupBoxFrameFill) {
+GNEDialog_FixDemandElements::DemandList::DemandList(GNEDialog_FixDemandElements* fixDemandElementsDialogParents, const std::vector<GNEDemandElement*>& invalidDemandElements) :
+    FXGroupBox(fixDemandElementsDialogParents->myMainFrame, "Routes and Vehicles with conflicts", GUIDesignGroupBoxFrameFill) {
     // Create table, copy intervals and update table
     myTable = new FXTable(this, this, MID_GNE_FIXSTOPPINGPLACES_CHANGE, GUIDesignTableAdditionals);
     myTable->setSelBackColor(FXRGBA(255, 255, 255, 255));
     myTable->setSelTextColor(FXRGBA(0, 0, 0, 255));
     myTable->setEditable(false);
-    // separate demand elements in two groups
+    // separate demand elements in three groups
     for (const auto& i : invalidDemandElements) {
         if (i->getTagProperty().isVehicle()) {
             myInvalidVehicles.push_back(i);
+        } else if (i->getTagProperty().isStop()) {
+            myInvalidStops.push_back(i);
         } else {
             myInvalidRoutes.push_back(i);
         }
@@ -246,6 +265,23 @@ GNEDialog_FixDemandElements::DemandList::DemandList(GNEDialog_FixDemandElements*
         // Update index
         indexRow++;
     }
+    // iterate over invalid stops
+    for (auto i : myInvalidStops) {
+        // Set icon
+        item = new FXTableItem("", i->getIcon());
+        item->setIconPosition(FXTableItem::CENTER_X);
+        myTable->setItem(indexRow, 0, item);
+        // Set ID
+        item = new FXTableItem(i->getID().c_str());
+        item->setJustify(FXTableItem::LEFT | FXTableItem::CENTER_Y);
+        myTable->setItem(indexRow, 1, item);
+        // Set conflict
+        item = new FXTableItem(i->getDemandElementProblem().c_str());
+        item->setJustify(FXTableItem::LEFT | FXTableItem::CENTER_Y);
+        myTable->setItem(indexRow, 2, item);
+        // Update index
+        indexRow++;
+    }
 }
 
 
@@ -253,29 +289,139 @@ GNEDialog_FixDemandElements::DemandList::DemandList(GNEDialog_FixDemandElements*
 // GNEDialog_FixDemandElements::FixRouteOptions - methods
 // ---------------------------------------------------------------------------
 
-GNEDialog_FixDemandElements::FixRouteOptions::FixRouteOptions(GNEDialog_FixDemandElements* fixAdditionalPositions) :
-    FXGroupBox(fixAdditionalPositions->myMainFrame, "Solution for routes", GUIDesignGroupBoxFrame) {
+GNEDialog_FixDemandElements::FixRouteOptions::FixRouteOptions(GNEDialog_FixDemandElements* fixDemandElementsDialogParents) :
+    FXGroupBox(fixDemandElementsDialogParents->myMainFrame, "Solution for routes", GUIDesignGroupBoxFrame) {
+    // create horizontal frames for radio buttons
+    FXHorizontalFrame* radioButtonsFrame = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
+    // create radio button for remove invalid routes
+    removeInvalidRoutes = new FXRadioButton(radioButtonsFrame, "Remove invalid routes",
+        fixDemandElementsDialogParents, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    // create radio button for save invalid routes
+    saveInvalidRoutes = new FXRadioButton(radioButtonsFrame, "Save invalid routes",
+        fixDemandElementsDialogParents, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    // create radio button for select invalid routes
+    selectInvalidRoutesAndCancel = new FXRadioButton(radioButtonsFrame, "Select invalid routes",
+        fixDemandElementsDialogParents, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    // leave option "removeInvalidRoutes" as default
+    removeInvalidRoutes->setCheck(true);
+}
+
+
+void
+GNEDialog_FixDemandElements::FixRouteOptions::selectOption(FXObject* option) {
+    if (option == removeInvalidRoutes) {
+        removeInvalidRoutes->setCheck(true);
+        saveInvalidRoutes->setCheck(false);
+        selectInvalidRoutesAndCancel->setCheck(false);
+    } else if (option == saveInvalidRoutes) {
+        removeInvalidRoutes->setCheck(false);
+        saveInvalidRoutes->setCheck(true);
+        selectInvalidRoutesAndCancel->setCheck(false);
+    } else if (option == selectInvalidRoutesAndCancel) {
+        removeInvalidRoutes->setCheck(false);
+        saveInvalidRoutes->setCheck(false);
+        selectInvalidRoutesAndCancel->setCheck(true);
+    }
+}
+
+
+void
+GNEDialog_FixDemandElements::FixRouteOptions::enableFixRouteOptions() {
+    removeInvalidRoutes->enable();
+    saveInvalidRoutes->enable();
+    selectInvalidRoutesAndCancel->enable();
+}
+
+
+void
+GNEDialog_FixDemandElements::FixRouteOptions::disableFixRouteOptions() {
+    removeInvalidRoutes->disable();
+    saveInvalidRoutes->disable();
+    selectInvalidRoutesAndCancel->disable();
+}
+
+// ---------------------------------------------------------------------------
+// GNEDialog_FixDemandElements::FixVehicleOptions - methods
+// ---------------------------------------------------------------------------
+
+GNEDialog_FixDemandElements::FixVehicleOptions::FixVehicleOptions(GNEDialog_FixDemandElements* fixDemandElementsDialogParents) :
+    FXGroupBox(fixDemandElementsDialogParents->myMainFrame, "Solution for vehicles", GUIDesignGroupBoxFrame) {
+    // create horizontal frames for radio buttons
+    FXHorizontalFrame* radioButtonsFrame = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
+    // create radio button for remove invalid vehicles
+    removeInvalidVehicles = new FXRadioButton(radioButtonsFrame, "Remove invalid vehicles",
+        fixDemandElementsDialogParents, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    // create radio button for save invalid vehicles
+    saveInvalidVehicles = new FXRadioButton(radioButtonsFrame, "Save invalid vehicles",
+        fixDemandElementsDialogParents, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    // create radio button for select invalid vehicles
+    selectInvalidVehiclesAndCancel = new FXRadioButton(radioButtonsFrame, "Select invalid vehicle",
+        fixDemandElementsDialogParents, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    // leave option "buildConnectionBetweenLanes" and "removeInvalidRoutes" as default
+    removeInvalidVehicles->setCheck(true);
+}
+
+
+void
+GNEDialog_FixDemandElements::FixVehicleOptions::selectOption(FXObject* option) {
+    if (option == removeInvalidVehicles) {
+        removeInvalidVehicles->setCheck(true);
+        saveInvalidVehicles->setCheck(false);
+        selectInvalidVehiclesAndCancel->setCheck(false);
+    } else if (option == saveInvalidVehicles) {
+        removeInvalidVehicles->setCheck(false);
+        saveInvalidVehicles->setCheck(true);
+        selectInvalidVehiclesAndCancel->setCheck(false);
+    } else if (option == selectInvalidVehiclesAndCancel) {
+        removeInvalidVehicles->setCheck(false);
+        saveInvalidVehicles->setCheck(false);
+        selectInvalidVehiclesAndCancel->setCheck(true);
+    }
+}
+
+
+void
+GNEDialog_FixDemandElements::FixVehicleOptions::enableFixVehicleOptions() {
+    removeInvalidVehicles->enable();
+    saveInvalidVehicles->enable();
+    selectInvalidVehiclesAndCancel->enable();
+}
+
+
+void
+GNEDialog_FixDemandElements::FixVehicleOptions::disableFixVehicleOptions() {
+    removeInvalidVehicles->disable();
+    saveInvalidVehicles->disable();
+    selectInvalidVehiclesAndCancel->disable();
+}
+
+// ---------------------------------------------------------------------------
+// GNEDialog_FixDemandElements::FixStopOptions - methods
+// ---------------------------------------------------------------------------
+
+GNEDialog_FixDemandElements::FixStopOptions::FixStopOptions(GNEDialog_FixDemandElements* fixDemandElementsDialogParents) :
+    FXGroupBox(fixDemandElementsDialogParents->myMainFrame, "Select a solution for stops", GUIDesignGroupBoxFrame) {
     // create horizontal frames for radio buttons
     FXHorizontalFrame* RadioButtons = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
     // create Vertical Frame for left options
     FXVerticalFrame* RadioButtonsLeft = new FXVerticalFrame(RadioButtons, GUIDesignAuxiliarVerticalFrame);
-    activateFriendlyPositionAndSave = new FXRadioButton(RadioButtonsLeft, "Activate friendlyPos and save\t\tFriendly pos parameter will be activated in all stopping places and E2 detectors",
-            fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    saveInvalid = new FXRadioButton(RadioButtonsLeft, "Save invalid positions\t\tSave stopping places and E2 detectors with invalid positions",
-                                    fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    activateFriendlyPositionAndSave = new FXRadioButton(RadioButtonsLeft, "Activate friendlyPos and save",
+        fixDemandElementsDialogParents, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    saveInvalid = new FXRadioButton(RadioButtonsLeft, "Save invalid positions",
+        fixDemandElementsDialogParents, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // create Vertical Frame for right options
     FXVerticalFrame* RadioButtonsRight = new FXVerticalFrame(RadioButtons, GUIDesignAuxiliarVerticalFrame);
-    fixPositionsAndSave = new FXRadioButton(RadioButtonsRight, "Fix positions and save\t\tPosition of stopping places and E2 detectors will be fixed",
-                                            fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    selectInvalidStopsAndCancel = new FXRadioButton(RadioButtonsRight, "Select invalid additionals\t\tCancel saving of additionals and select invalid stopping places and E2 detectors",
-            fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    selectInvalidStopsAndCancel = new FXRadioButton(RadioButtonsRight, "Select invalid Stops",
+        fixDemandElementsDialogParents, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    fixPositionsAndSave = new FXRadioButton(RadioButtonsRight, "Fix positions and save",
+        fixDemandElementsDialogParents, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // leave option "activateFriendlyPositionAndSave" as default
     activateFriendlyPositionAndSave->setCheck(true);
 }
 
 
 void
-GNEDialog_FixDemandElements::FixRouteOptions::selectOption(FXObject* option) {
+GNEDialog_FixDemandElements::FixStopOptions::selectOption(FXObject* option) {
     if (option == activateFriendlyPositionAndSave) {
         activateFriendlyPositionAndSave->setCheck(true);
         fixPositionsAndSave->setCheck(false);
@@ -301,7 +447,7 @@ GNEDialog_FixDemandElements::FixRouteOptions::selectOption(FXObject* option) {
 
 
 void
-GNEDialog_FixDemandElements::FixRouteOptions::enableFixRouteOptions() {
+GNEDialog_FixDemandElements::FixStopOptions::enableFixStopOptions() {
     activateFriendlyPositionAndSave->enable();
     fixPositionsAndSave->enable();
     saveInvalid->enable();
@@ -310,77 +456,11 @@ GNEDialog_FixDemandElements::FixRouteOptions::enableFixRouteOptions() {
 
 
 void
-GNEDialog_FixDemandElements::FixRouteOptions::disableFixRouteOptions() {
+GNEDialog_FixDemandElements::FixStopOptions::disableFixStopOptions() {
     activateFriendlyPositionAndSave->disable();
     fixPositionsAndSave->disable();
     saveInvalid->disable();
     selectInvalidStopsAndCancel->disable();
-}
-
-// ---------------------------------------------------------------------------
-// GNEDialog_FixDemandElements::FixVehicleOptions - methods
-// ---------------------------------------------------------------------------
-
-GNEDialog_FixDemandElements::FixVehicleOptions::FixVehicleOptions(GNEDialog_FixDemandElements* fixAdditionalPositions) :
-    FXGroupBox(fixAdditionalPositions->myMainFrame, "Solution for vehicles", GUIDesignGroupBoxFrame) {
-    // create horizontal frames for radio buttons
-    FXHorizontalFrame* RadioButtons = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
-    // create Vertical Frame for left options
-    FXVerticalFrame* RadioButtonsLeft = new FXVerticalFrame(RadioButtons, GUIDesignAuxiliarVerticalFrame);
-    buildConnectionBetweenLanes = new FXRadioButton(RadioButtonsLeft, "Build connections between lanes\t\tNew connections will be created between non-connected lanes",
-            fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    removeInvalidElements = new FXRadioButton(RadioButtonsLeft, "Remove invalid E2 detectors\t\tRemove Multilane E2 Detectors with non-connected lanes",
-            fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    // add a vertical separator beween both options
-    new FXVerticalSeparator(this, GUIDesignVerticalSeparator);
-    // create Vertical Frame for right options
-    FXVerticalFrame* RadioButtonsRight = new FXVerticalFrame(RadioButtons, GUIDesignAuxiliarVerticalFrame);
-    activateFriendlyPositionAndSave = new FXRadioButton(RadioButtonsRight, "Activate friendlyPos and save\t\tFriendly pos parameter will be activated in all stopping places and E2 detectors",
-            fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    fixPositionsAndSave = new FXRadioButton(RadioButtonsRight, "Fix positions and save\t\tPosition of stopping places and E2 detectors will be fixed",
-                                            fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    // leave option "buildConnectionBetweenLanes" and "activateFriendlyPositionAndSave" as default
-    buildConnectionBetweenLanes->setCheck(true);
-    activateFriendlyPositionAndSave->setCheck(true);
-}
-
-
-void
-GNEDialog_FixDemandElements::FixVehicleOptions::selectOption(FXObject* option) {
-    // set top buttons
-    if (option == buildConnectionBetweenLanes) {
-        buildConnectionBetweenLanes->setCheck(true);
-        removeInvalidElements->setCheck(false);
-    } else if (option == removeInvalidElements) {
-        buildConnectionBetweenLanes->setCheck(false);
-        removeInvalidElements->setCheck(true);
-    }
-    // set down buttons
-    if (option == activateFriendlyPositionAndSave) {
-        activateFriendlyPositionAndSave->setCheck(true);
-        fixPositionsAndSave->setCheck(false);
-    } else if (option == fixPositionsAndSave) {
-        activateFriendlyPositionAndSave->setCheck(false);
-        fixPositionsAndSave->setCheck(true);
-    }
-}
-
-
-void
-GNEDialog_FixDemandElements::FixVehicleOptions::enableFixVehicleOptions() {
-    buildConnectionBetweenLanes->enable();
-    removeInvalidElements->enable();
-    activateFriendlyPositionAndSave->enable();
-    fixPositionsAndSave->enable();
-}
-
-
-void
-GNEDialog_FixDemandElements::FixVehicleOptions::disableFixVehicleOptions() {
-    buildConnectionBetweenLanes->disable();
-    removeInvalidElements->disable();
-    activateFriendlyPositionAndSave->disable();
-    fixPositionsAndSave->disable();
 }
 
 /****************************************************************************/

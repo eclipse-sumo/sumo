@@ -264,6 +264,9 @@ NIFrame::fillOptions(bool forNetedit) {
 
 
     // register visum options
+    oc.doRegister("visum.language-file", new Option_FileName());
+    oc.addDescription("visum.language-file", "Formats", "Load language mappings from FILE");
+
     oc.doRegister("visum.use-type-priority", new Option_Bool(false));
     oc.addDescription("visum.use-type-priority", "Formats", "Uses priorities from types");
 

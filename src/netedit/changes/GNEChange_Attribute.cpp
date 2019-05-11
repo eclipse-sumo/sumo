@@ -120,8 +120,13 @@ GNEChange_Attribute::undo() {
         WRITE_DEBUG("Setting previous attribute " + toString(myKey) + " '" + myOrigValue + "' into " + myAC->getTagStr() + " '" + myAC->getID() + "'");
         // set original value
         myAC->setAttribute(myKey, myOrigValue);
-        // check if netElements, additional or shapes has to be saved (only if key isn't GNE_ATTR_SELECTED)
+        // certain attributes needs extra operations
         if (myKey != GNE_ATTR_SELECTED) {
+            // check if updated attribute requieres a update geometry
+            if (myAC->getTagProperty().hasAttribute(myKey) && myAC->getTagProperty().getAttributeProperties(myKey).requiereUpdateGeometry()) {
+                myAC->updateGeometry();
+            }
+            // check if netElements, additional or shapes has to be saved (only if key isn't GNE_ATTR_SELECTED)
             if (myAC->getTagProperty().isNetElement()) {
                 myNet->requiereSaveNet(true);
             } else if (myAC->getTagProperty().isAdditional() || myAC->getTagProperty().isShape()) {
@@ -142,14 +147,18 @@ GNEChange_Attribute::redo() {
         WRITE_DEBUG("Setting new parameterSet '" + toString(myNewParametersSet) + "' into " + myAC->getTagStr() + " '" + myAC->getID() + "'");
         // set original disjoint attribute
         myAC->setDisjointAttribute(myNewParametersSet);
-
     } else {
         // show extra information for tests
         WRITE_DEBUG("Setting new attribute " + toString(myKey) + " '" + myNewValue + "' into " + myAC->getTagStr() + " '" + myAC->getID() + "'");
         // set new value
         myAC->setAttribute(myKey, myNewValue);
-        // check if netElements, additional or shapes has to be saved (only if key isn't GNE_ATTR_SELECTED)
+        // certain attributes needs extra operations
         if (myKey != GNE_ATTR_SELECTED) {
+            // check if updated attribute requieres a update geometry
+            if (myAC->getTagProperty().hasAttribute(myKey) && myAC->getTagProperty().getAttributeProperties(myKey).requiereUpdateGeometry()) {
+                myAC->updateGeometry();
+            }
+            // check if netElements, additional or shapes has to be saved (only if key isn't GNE_ATTR_SELECTED)
             if (myAC->getTagProperty().isNetElement()) {
                 myNet->requiereSaveNet(true);
             } else if (myAC->getTagProperty().isAdditional() || myAC->getTagProperty().isShape()) {

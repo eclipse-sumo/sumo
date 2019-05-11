@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_1_0+0435-678c69824b
+Eclipse SUMO netconvert Version v1_2_0+0149-6b40db9d1b
  Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -467,6 +467,7 @@ Formats Options:
   --vissim.speed-norm FLOAT            Factor for edge velocity
   --vissim.report-unset-speeds         Writes lanes without an explicit speed
                                          set
+  --visum.language-file FILE           Load language mappings from FILE
   --visum.use-type-priority            Uses priorities from types
   --visum.use-type-laneno              Uses lane numbers from types
   --visum.use-type-speed               Uses speeds from types

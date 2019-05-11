@@ -106,7 +106,7 @@ GNEConnectorFrame::ConnectionModifications::ConnectionModifications(GNEConnector
                                 GUIIconSubSys::getIcon(ICON_ACCEPT), this, MID_OK, GUIDesignButton);
 
     // Create checkbox for protect routes
-    myProtectRoutesCheckBox = new FXCheckButton(this, "Protect routes", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttribute);
+    myProtectRoutesCheckBox = new FXCheckButton(this, "Protect routes", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
 }
 
 

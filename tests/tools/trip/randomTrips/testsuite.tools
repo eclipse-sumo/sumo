@@ -68,3 +68,6 @@ flows_binomial
 
 # load the vehicle type to use during routing from an additional file
 vtype_additional_file_validate
+
+# some extra options that are passed  directly to duarouter
+duarouter_options

@@ -68,13 +68,16 @@ protected:
 
     public:
         /// @brief constructor
-        DemandList(GNEDialog_FixDemandElements* fixAdditionalPositions, const std::vector<GNEDemandElement*>& invalidDemandElements);
+        DemandList(GNEDialog_FixDemandElements* fixDemandElementsDialogParents, const std::vector<GNEDemandElement*>& invalidDemandElements);
 
         /// @brief vector with the invalid routes
         std::vector<GNEDemandElement*> myInvalidRoutes;
 
         /// @brief vector with the invalid vehicles
         std::vector<GNEDemandElement*> myInvalidVehicles;
+
+        /// @brief vector with the invalid stops
+        std::vector<GNEDemandElement*> myInvalidStops;
 
         /// @brief list with the demand elements
         FXTable* myTable;
@@ -85,7 +88,7 @@ protected:
 
     public:
         /// @brief constructor
-        FixRouteOptions(GNEDialog_FixDemandElements* fixAdditionalPositions);
+        FixRouteOptions(GNEDialog_FixDemandElements* fixDemandElementsDialogParents);
 
         /// @brief select option
         void selectOption(FXObject* option);
@@ -95,6 +98,58 @@ protected:
 
         /// @brief disable position options
         void disableFixRouteOptions();
+
+        /// @brief Option "Remove invalid routes"
+        FXRadioButton* removeInvalidRoutes;
+
+        /// @brief Option "Save invalid routes"
+        FXRadioButton* saveInvalidRoutes;
+
+        /// @brief Option "Select invalid routes and cancel"
+        FXRadioButton* selectInvalidRoutesAndCancel;
+    };
+
+    /// @brief groupbox for all radio buttons related with fix vehicle options
+    class FixVehicleOptions : protected FXGroupBox {
+
+    public:
+        /// @brief constructor
+        FixVehicleOptions(GNEDialog_FixDemandElements* fixDemandElementsDialogParents);
+
+        /// @brief select option
+        void selectOption(FXObject* option);
+
+        /// @brief enable consecutive lane options
+        void enableFixVehicleOptions();
+
+        /// @brief disable consecutive lane options
+        void disableFixVehicleOptions();
+
+        /// @brief Option "remove invalid elements"
+        FXRadioButton* removeInvalidVehicles;
+
+        /// @brief Option "save invalid vehicles"
+        FXRadioButton* saveInvalidVehicles;
+
+        /// @brief Option "Select invalid vehicles and cancel"
+        FXRadioButton* selectInvalidVehiclesAndCancel;
+    };
+
+    /// @brief groupbox for all radio buttons related with fix stop options
+    class FixStopOptions : public FXGroupBox {
+
+    public:
+        /// @brief build Position Options
+        FixStopOptions(GNEDialog_FixDemandElements* fixDemandElementsDialogParents);
+
+        /// @brief select option
+        void selectOption(FXObject* option);
+
+        /// @brief enable position options
+        void enableFixStopOptions();
+
+        /// @brief disable position options
+        void disableFixStopOptions();
 
         /// @brief Option "Activate friendlyPos and save"
         FXRadioButton* activateFriendlyPositionAndSave;
@@ -107,35 +162,6 @@ protected:
 
         /// @brief Option "Select invalid stops and cancel"
         FXRadioButton* selectInvalidStopsAndCancel;
-    };
-
-    /// @brief groupbox for all radio buttons related with fix vehicle options
-    class FixVehicleOptions : protected FXGroupBox {
-
-    public:
-        /// @brief constructor
-        FixVehicleOptions(GNEDialog_FixDemandElements* fixAdditionalPositions);
-
-        /// @brief select option
-        void selectOption(FXObject* option);
-
-        /// @brief enable consecutive lane options
-        void enableFixVehicleOptions();
-
-        /// @brief disable consecutive lane options
-        void disableFixVehicleOptions();
-
-        /// @brief Option "build connections between lanes"
-        FXRadioButton* buildConnectionBetweenLanes;
-
-        /// @brief Option "remove invalid elements"
-        FXRadioButton* removeInvalidElements;
-
-        /// @brief Option "Activate friendlyPos and save"
-        FXRadioButton* activateFriendlyPositionAndSave;
-
-        /// @brief Option "Fix Positions and save"
-        FXRadioButton* fixPositionsAndSave;
     };
 
     /// @brief FOX needs this
@@ -155,6 +181,9 @@ protected:
 
     /// @brief fix vehicle options
     FixVehicleOptions* myFixVehicleOptions;
+
+    /// @brief fix stop options
+    FixStopOptions* myFixStopOptions;
 
     /// @brief accept button
     FXButton* myAcceptButton;

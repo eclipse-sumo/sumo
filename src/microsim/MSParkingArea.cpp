@@ -277,6 +277,12 @@ MSParkingArea::getOccupancy() const {
     return (int)myEndPositions.size() - (myEgressBlocked ? 1 : 0);
 }
 
+
+int
+MSParkingArea::getOccupancyIncludingBlocked() const {
+    return (int)myEndPositions.size();
+}
+
 void
 MSParkingArea::notifyEgressBlocked() {
     computeLastFreePos();

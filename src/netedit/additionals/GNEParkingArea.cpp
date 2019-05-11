@@ -311,12 +311,12 @@ GNEParkingArea::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ONROAD:
             return canParse<bool>(value);
         case SUMO_ATTR_WIDTH:
-            return canParse<double>(value) && (parse<double>(value) >= 0);
+            return canParse<double>(value) && (parse<double>(value) > 0);
         case SUMO_ATTR_LENGTH:
             if (value.empty()) {
                 return true;
             } else {
-                return canParse<double>(value) && (parse<double>(value) >= 0);
+                return canParse<double>(value) && (parse<double>(value) > 0);
             }
         case SUMO_ATTR_ANGLE:
             return canParse<double>(value);
@@ -388,10 +388,6 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
-    }
-    // check if updated attribute requieres update geometry
-    if (myTagProperty.hasAttribute(key) && myTagProperty.getAttributeProperties(key).requiereUpdateGeometry()) {
-        updateGeometry();
     }
 }
 

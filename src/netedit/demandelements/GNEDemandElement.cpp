@@ -50,9 +50,9 @@ GNEDemandElement::RouteCalculator* GNEDemandElement::myRouteCalculatorInstance =
 
 GNEDemandElement::RouteCalculator::RouteCalculator(GNENet* net) :
     myNet(net) {
-    myDijkstraRouter = new DijkstraRouter<NBEdge, NBVehicle, SUMOAbstractRouter<NBEdge, NBVehicle> >(
-        myNet->getNetBuilder()->getEdgeCont().getAllEdges(),
-        true, &NBEdge::getTravelTimeStatic, nullptr, true);
+    myDijkstraRouter = new DijkstraRouter<NBRouterEdge, NBVehicle, SUMOAbstractRouter<NBRouterEdge, NBVehicle> >(
+        myNet->getNetBuilder()->getEdgeCont().getAllRouterEdges(),
+        true, &NBRouterEdge::getTravelTimeStatic, nullptr, true);
 }
 
 
@@ -67,9 +67,9 @@ GNEDemandElement::RouteCalculator::updateDijkstraRouter() {
     if (myDijkstraRouter) {
         delete myDijkstraRouter;
     }
-    myDijkstraRouter = new DijkstraRouter<NBEdge, NBVehicle, SUMOAbstractRouter<NBEdge, NBVehicle> >(
-        myNet->getNetBuilder()->getEdgeCont().getAllEdges(),
-        true, &NBEdge::getTravelTimeStatic, nullptr, true);
+    myDijkstraRouter = new DijkstraRouter<NBRouterEdge, NBVehicle, SUMOAbstractRouter<NBRouterEdge, NBVehicle> >(
+        myNet->getNetBuilder()->getEdgeCont().getAllRouterEdges(),
+        true, &NBRouterEdge::getTravelTimeStatic, nullptr, true);
 }
 
 
@@ -82,11 +82,12 @@ GNEDemandElement::RouteCalculator::calculateDijkstraRoute(SUMOVehicleClass vClas
     // iterate over every selected edges
     for (int i = 1; i < (int)edges.size(); i++) {
         // declare a temporal route in which save route between two last edges
-        std::vector<const NBEdge*> partialRoute;
+        std::vector<const NBRouterEdge*> partialRoute;
         myDijkstraRouter->compute(edges.at(i - 1)->getNBEdge(), edges.at(i)->getNBEdge(), &tmpVehicle, 10, partialRoute);
         // save partial route in solution
         for (const auto& j : partialRoute) {
-            solution.push_back(j);
+            assert(dynamic_cast<const NBEdge*>(j) != nullptr);
+            solution.push_back(static_cast<const NBEdge*>(j));
         }
     }
     return solution;
@@ -102,8 +103,14 @@ GNEDemandElement::RouteCalculator::calculateDijkstraPartialRoute(SUMOVehicleClas
     // iterate over every selected edges
     for (int i = 1; i < (int)edges.size(); i++) {
         // add a temporal route in which save route between two last edges
-        solution.push_back(std::vector<const NBEdge*>());
-        myDijkstraRouter->compute(edges.at(i - 1)->getNBEdge(), edges.at(i)->getNBEdge(), &tmpVehicle, 10, solution.back());
+        ConstRouterEdgeVector into;
+        myDijkstraRouter->compute(edges.at(i - 1)->getNBEdge(), edges.at(i)->getNBEdge(), &tmpVehicle, 10, into);
+        std::vector<const NBEdge*> edges;
+        for (const NBRouterEdge* e : into) {
+            assert(dynamic_cast<const NBEdge*>(e) != nullptr);
+            edges.push_back(static_cast<const NBEdge*>(e));
+        }
+        solution.push_back(edges);
     }
     // return matrix solution
     return solution;
@@ -112,22 +119,17 @@ GNEDemandElement::RouteCalculator::calculateDijkstraPartialRoute(SUMOVehicleClas
 
 bool
 GNEDemandElement::RouteCalculator::areEdgesConsecutives(SUMOVehicleClass vClass, GNEEdge* from, GNEEdge* to) const {
-    // first calculate a route between from and to edge
-    std::vector<const NBEdge*> route = calculateDijkstraRoute(vClass, {from, to});
-    // if route is empty, return false
-    if (route.empty()) {
-        return false;
-    } else {
-        // iterate over route and check if from and to edge are consecutives
-        for (int i = 0; i < (int)route.size(); i++) {
-            if ((route.at(i)->getID() == from->getID()) &&
-                    ((i + 1) < (int)route.size()) &&
-                    (route.at(i + 1)->getID() == to->getID())) {
-                return true;
-            }
-        }
-        return false;
+    if (vClass == SVC_PEDESTRIAN) {
+        return true;
     }
+    NBEdge* nbFrom = from->getNBEdge();
+    NBEdge* nbTo = to->getNBEdge();
+    for (NBEdge::Connection c : nbFrom->getConnectionsFromLane(-1, nbTo, -1)) {
+        if ((nbFrom->getPermissions(c.fromLane) & nbTo->getPermissions(c.toLane) & vClass) == vClass) {
+            return true;
+        }
+    }
+    return false;
 }
 
 // ---------------------------------------------------------------------------

@@ -459,7 +459,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
                 glTranslated(myLaneRestrictedTexturePositions.at(i).x(), myLaneRestrictedTexturePositions.at(i).y(), getType() + 0.1);
                 // Rotate matrix 2
                 glRotated(myLaneRestrictedTextureRotations.at(i), 0, 0, -1);
-                glRotated(-90, 0, 0, 1);
+                glRotated(90, 0, 0, 1);
                 // draw texture box depending of type of restriction
                 if (isRestricted(SVC_PEDESTRIAN)) {
                     GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_LANEPEDESTRIAN), iconWidth);
@@ -992,10 +992,6 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
-    // check if updated attribute requieres update geometry
-    if (myTagProperty.hasAttribute(key) && myTagProperty.getAttributeProperties(key).requiereUpdateGeometry()) {
-        updateGeometry();
-    }
 }
 
 
@@ -1130,6 +1126,12 @@ GNELane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) cons
                 WRITE_WARNING("Lane parameter '" + myParentEdge.getNBEdge()->getLaneStruct(myIndex).getParameter(s.laneParam, "0") + "' key '" + s.laneParam + "' is not a number for lane '" + getID() + "'");
                 return 0;
             }
+        }
+        case 14: {
+            return myParentEdge.getNBEdge()->getDistance();
+        }
+        case 15: {
+            return fabs(myParentEdge.getNBEdge()->getDistance());
         }
     }
     return 0;

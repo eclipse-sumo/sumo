@@ -227,6 +227,33 @@ GNEViewNet::buildViewToolBars(GUIGlChildWindow& cw) {
                  "\tLocate Street\tLocate a street within the network.",
                  GUIIconSubSys::getIcon(ICON_LOCATEEDGE), &cw, MID_LOCATEEDGE,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
+
+    // for vehicles
+    new FXButton(cw.getLocatorPopup(),
+                 "\tLocate Vehicle\tLocate a vehicle within the network.",
+                 GUIIconSubSys::getIcon(ICON_LOCATEVEHICLE), &cw, MID_LOCATEVEHICLE,
+                 ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
+
+    // for routes
+    new FXButton(cw.getLocatorPopup(),
+                 "\tLocate Route\tLocate a route within the network.",
+                 GUIIconSubSys::getIcon(ICON_LOCATEROUTE), &cw, MID_LOCATEROUTE,
+                 ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
+    
+    // for routes
+    new FXButton(cw.getLocatorPopup(),
+                 "\tLocate Stop\tLocate a stop within the network.",
+                 GUIIconSubSys::getIcon(ICON_LOCATESTOP), &cw, MID_LOCATESTOP,
+                 ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
+
+    // for persons (currently unused)
+    /*
+    new FXButton(cw.getLocatorPopup(),
+                 "\tLocate Vehicle\tLocate a person within the network.",
+                 GUIIconSubSys::getIcon(ICON_LOCATEPERSON), &v, MID_LOCATEPERSON,
+                 ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
+    */
+
     // for tls
     new FXButton(cw.getLocatorPopup(),
                  "\tLocate TLS\tLocate a tls within the network.",
@@ -394,7 +421,8 @@ GNEViewNet::getEditShapes() const {
 
 
 void
-GNEViewNet::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme& scheme, int active, GUIGlObjectType objectType) {
+GNEViewNet::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme& scheme, int active, GUIGlObjectType objectType,
+        bool hide, double hideThreshold) {
     assert(!scheme.isFixed());
     UNUSED_PARAMETER(s);
     double minValue = std::numeric_limits<double>::infinity();
@@ -423,6 +451,10 @@ GNEViewNet::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme&
     if (minValue != std::numeric_limits<double>::infinity()) {
         scheme.clear();
         // add new thresholds
+        if (hide) {
+            minValue = MAX2(hideThreshold + 1, minValue);
+            scheme.addColor(RGBColor(204, 204, 204), hideThreshold);
+        }
         double range = maxValue - minValue;
         scheme.addColor(RGBColor::RED, (minValue));
         scheme.addColor(RGBColor::ORANGE, (minValue + range * 1 / 6.0));
