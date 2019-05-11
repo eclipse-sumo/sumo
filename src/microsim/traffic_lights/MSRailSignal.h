@@ -215,7 +215,7 @@ protected:
     /* Conflict lanes for each conflictLink of the current link
      * linkIndex -> conflictLinkIndex -> lanes
      * They must only be checked if the approaching vehicle's route enters the
-     * bidirectional block beyond that conflichLink */
+     * bidirectional block beyond that conflictLink */
     std::vector<std::vector<std::vector<MSLane*> > > myRouteConflictLanes;
 
     /* Conflict links for each conflictLink of the current link
