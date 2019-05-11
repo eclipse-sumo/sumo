@@ -80,7 +80,7 @@ public:
         GNENet* myNet;
 
         /// @brief SUMO Abstract DijkstraRouter
-        SUMOAbstractRouter<NBEdge, NBVehicle>* myDijkstraRouter;
+        SUMOAbstractRouter<NBRouterEdge, NBVehicle>* myDijkstraRouter;
     };
 
     /**@brief Constructor

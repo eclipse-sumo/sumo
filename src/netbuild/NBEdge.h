@@ -59,10 +59,29 @@ class NBVehicle;
 // class definitions
 // ===========================================================================
 /**
+ * @class NBRouterEdge
+ * @brief Superclass for NBEdge and NBEdge::Connection to initialize Router
+ */
+class NBRouterEdge {
+public:
+    virtual const std::string& getID() const = 0;
+    virtual double getSpeed() const = 0;
+    virtual double getLength() const = 0;
+    virtual int getNumericalID() const = 0; 
+    virtual const ConstRouterEdgePairVector& getViaSuccessors(SUMOVehicleClass vClass = SVC_IGNORING) const = 0;
+    virtual bool isInternal() const { return false; }
+
+    static inline double getTravelTimeStatic(const NBRouterEdge* const edge, const NBVehicle* const /*veh*/, double /*time*/) {
+        return edge->getLength() / edge->getSpeed();
+    }
+};
+
+
+/**
  * @class NBEdge
  * @brief The representation of a single edge during network building
  */
-class NBEdge : public Named, public Parameterised {
+class NBEdge : public Named, public Parameterised, public NBRouterEdge {
     friend class NBEdgeCont;
 
     /** used for visualization (NETEDIT) */
@@ -157,7 +176,7 @@ public:
     /** @struct Connection
      * @brief A structure which describes a connection between edges or lanes
      */
-    struct Connection : public Parameterised {
+    struct Connection : public Parameterised, public NBRouterEdge {
         /** @brief Constructor
          * @param[in] fromLane_ The lane the connections starts at
          * @param[in] toEdge_ The edge the connections yields in
@@ -249,6 +268,20 @@ public:
 
         /// @brief computed length (average of all internal lane shape lengths that share an internal edge)
         double length;
+
+        /// @name NBRouterEdge interface
+        /// @{
+        static ConstRouterEdgePairVector myViaSuccessors; // always empty
+        const std::string& getID() const { return id; }
+        double getSpeed() const { return vmax; }
+        double getLength() const { return shape.length() + viaShape.length(); }
+        int getNumericalID() const { throw ProcessError("NBEdge::Connection does not implement getNumericalID()"); }
+        bool isInternal() const { return true; }
+        const ConstRouterEdgePairVector& getViaSuccessors(SUMOVehicleClass vClass = SVC_IGNORING) const { 
+            UNUSED_PARAMETER(vClass);
+            return myViaSuccessors; 
+        }
+        /// }@
     };
 
     /// @brief Dummy edge to use when a reference must be supplied in the no-arguments constructor (FOX technicality)
@@ -976,15 +1009,15 @@ public:
     }
 
     /// @brief Marks this edge being within an intersection
-    void setInternal() {
-        myAmInnerEdge = true;
+    void setInsideTLS() {
+        myAmInTLS = true;
     }
 
     /** @brief Returns whether this edge was marked as being within an intersection
      * @return Whether this edge was marked as being within an intersection
      */
-    bool isInternal() const {
-        return myAmInnerEdge;
+    bool isInsideTLS() const {
+        return myAmInTLS;
     }
     /// @}
 
@@ -1307,9 +1340,12 @@ public:
 
     /** @brief Returns the following edges for the given vClass
      */
-    const NBConstEdgePairVector& getViaSuccessors(SUMOVehicleClass vClass = SVC_IGNORING) const;
+    const ConstRouterEdgePairVector& getViaSuccessors(SUMOVehicleClass vClass = SVC_IGNORING) const;
 
     //@}
+    const std::string& getID() const {
+        return Named::getID();
+    }
 
 private:
     /** @class ToEdgeConnectionsAdder
@@ -1537,8 +1573,8 @@ private:
     /// @brief An optional length to use (-1 if not valid)
     double myLoadedLength;
 
-    /// @brief Information whether this is a junction-inner edge
-    bool myAmInnerEdge;
+    /// @brief Information whether this is lies within a joined tls
+    bool myAmInTLS;
 
     /// @brief Information whether this edge is a (macroscopic) connector
     bool myAmMacroscopicConnector;
@@ -1567,7 +1603,7 @@ private:
     mutable EdgeVector mySuccessors;
 
     // @brief a static list of successor edges. Set by NBEdgeCont and requires reset when the network changes
-    mutable NBConstEdgePairVector myViaSuccessors;
+    mutable ConstRouterEdgePairVector myViaSuccessors;
 
 public:
 

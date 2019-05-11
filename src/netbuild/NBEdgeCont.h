@@ -598,6 +598,7 @@ public:
 
     /// @brief return all edges
     EdgeVector getAllEdges() const;
+    RouterEdgeVector getAllRouterEdges() const;
 
 private:
     /// @brief compute the form factor for a loop of edges

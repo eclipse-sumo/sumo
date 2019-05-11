@@ -1477,4 +1477,10 @@ NBEdgeCont::getAllEdges() const {
     return result;
 }
 
+RouterEdgeVector
+NBEdgeCont::getAllRouterEdges() const {
+    EdgeVector all = getAllEdges();
+    return RouterEdgeVector(all.begin(), all.end());
+}
+
 /****************************************************************************/

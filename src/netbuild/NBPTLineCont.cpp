@@ -311,9 +311,9 @@ NBPTLineCont::fixBidiStops(const NBEdgeCont& ec) {
     types["light_rail"] = SVC_RAIL_URBAN;
     types["ferry"] = SVC_SHIP;
 
-    SUMOAbstractRouter<NBEdge, NBVehicle>* router;
-    router = new DijkstraRouter<NBEdge, NBVehicle, SUMOAbstractRouter<NBEdge, NBVehicle> >(
-        ec.getAllEdges(), true, &NBEdge::getTravelTimeStatic, nullptr, true);
+    SUMOAbstractRouter<NBRouterEdge, NBVehicle>* router;
+    router = new DijkstraRouter<NBRouterEdge, NBVehicle, SUMOAbstractRouter<NBRouterEdge, NBVehicle> >(
+        ec.getAllRouterEdges(), true, &NBRouterEdge::getTravelTimeStatic, nullptr, true);
 
     for (auto& item : myPTLines) {
         NBPTLine* line = item.second;
@@ -402,14 +402,14 @@ NBPTLineCont::fixBidiStops(const NBEdgeCont& ec) {
 
 
 double
-NBPTLineCont::getCost(const NBEdgeCont& ec, SUMOAbstractRouter<NBEdge, NBVehicle>& router,
+NBPTLineCont::getCost(const NBEdgeCont& ec, SUMOAbstractRouter<NBRouterEdge, NBVehicle>& router,
                       const NBPTStop* from, const NBPTStop* to, const NBVehicle* veh) {
     NBEdge* fromEdge = ec.getByID(from->getEdgeId());
     NBEdge* toEdge = ec.getByID(to->getEdgeId());
     if (fromEdge == nullptr || toEdge == nullptr) {
         return std::numeric_limits<double>::max();
     }
-    std::vector<const NBEdge*> route;
+    std::vector<const NBRouterEdge*> route;
     router.compute(fromEdge, toEdge, veh, 0, route);
     if (route.size() == 0) {
         return std::numeric_limits<double>::max();

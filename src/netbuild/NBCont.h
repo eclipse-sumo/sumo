@@ -32,6 +32,7 @@
 // class declarations
 // ===========================================================================
 class NBEdge;
+class NBRouterEdge;
 
 
 // ===========================================================================
@@ -39,8 +40,11 @@ class NBEdge;
 // ===========================================================================
 /// @brief container for (sorted) edges
 typedef std::vector<NBEdge*> EdgeVector;
+typedef std::vector<NBRouterEdge*> RouterEdgeVector;
+typedef std::vector<const NBRouterEdge*> ConstRouterEdgeVector;
 
-typedef std::vector<std::pair<const NBEdge*, const NBEdge*> > NBConstEdgePairVector;
+typedef std::vector<std::pair<const NBRouterEdge*, const NBRouterEdge*> > ConstRouterEdgePairVector;
+typedef std::vector<std::pair<const NBRouterEdge*, const NBRouterEdge*> > NBViaSuccessor;
 
 /// @brief container for unique edges
 typedef std::set<NBEdge*> EdgeSet;
