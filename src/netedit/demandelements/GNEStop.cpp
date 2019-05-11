@@ -613,9 +613,9 @@ bool
 GNEStop::isDisjointAttributeSet(const SumoXMLAttr attr) const {
     switch (attr) {
         case SUMO_ATTR_EXPECTED:
-            return (parametersSet & STOP_TRIGGER_SET);
+            return (parametersSet & STOP_TRIGGER_SET) != 0;
         case SUMO_ATTR_EXPECTED_CONTAINERS:
-            return (parametersSet & STOP_CONTAINER_TRIGGER_SET);
+            return (parametersSet & STOP_CONTAINER_TRIGGER_SET) != 0;
         default:
             return true;
     };
