@@ -407,6 +407,7 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
                     removeDemandElementParent(getDemandElementParents().front());
                 }
             }
+            break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {
                 selectAttributeCarrier();

@@ -262,7 +262,6 @@ GNEVehicleType::getAttribute(SumoXMLAttr key) const {
             } else {
                 return defaultValues.osgFile;
             }
-        //
         case SUMO_ATTR_COLOR:
             if (wasSet(VTYPEPARS_COLOR_SET)) {
                 return toString(color);
@@ -335,7 +334,6 @@ GNEVehicleType::getAttribute(SumoXMLAttr key) const {
             } else {
                 return myTagProperty.getDefaultValue(SUMO_ATTR_LATALIGNMENT);
             }
-            break;
         case SUMO_ATTR_MINGAP_LAT:
             if (wasSet(VTYPEPARS_MINGAP_LAT_SET)) {
                 return toString(minGapLat);
@@ -387,8 +385,8 @@ GNEVehicleType::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_GENERIC:
             return getGenericParametersStr();
         case GNE_ATTR_DEFAULT_VTYPE:
-            return toString((getDemandElementID() == DEFAULT_VTYPE_ID) || 
-                            (getDemandElementID() == DEFAULT_PEDTYPE_ID) || 
+            return toString((getDemandElementID() == DEFAULT_VTYPE_ID) ||
+                            (getDemandElementID() == DEFAULT_PEDTYPE_ID) ||
                             (getDemandElementID() == DEFAULT_BIKETYPE_ID));
         case GNE_ATTR_DEFAULT_VTYPE_MODIFIED:
             if (myDefaultVehicleType) {
