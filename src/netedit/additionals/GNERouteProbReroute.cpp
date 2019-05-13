@@ -81,7 +81,7 @@ GNERouteProbReroute::getPositionInView() const {
 
 Boundary
 GNERouteProbReroute::getCenteringBoundary() const {
-    throw ProcessError("This additional doesn't have a boundary");
+    return getAdditionalParents().at(0)->getCenteringBoundary();
 }
 
 

@@ -35,11 +35,11 @@ GNEDetector::GNEDetector(const std::string& id, GNEViewNet* viewNet, GUIGlObject
                          double pos, double freq, const std::string& filename, const std::string& vehicleTypes,
                          const std::string& name, bool friendlyPos, bool blockMovement, const std::vector<GNELane*>& laneParents) :
     GNEAdditional(id, viewNet, type, tag, name, blockMovement, {}, laneParents, {}, {}, {}, {}, {}, {}, {}, {}),
-              myPositionOverLane(pos),
-              myFreq(freq),
-              myFilename(filename),
-              myVehicleTypes(vehicleTypes),
-myFriendlyPosition(friendlyPos) {
+    myPositionOverLane(pos),
+    myFreq(freq),
+    myFilename(filename),
+    myVehicleTypes(vehicleTypes),
+    myFriendlyPosition(friendlyPos) {
 }
 
 
@@ -47,11 +47,11 @@ GNEDetector::GNEDetector(GNEAdditional* additionalParent, GNEViewNet* viewNet, G
                          double pos, double freq, const std::string& filename,
                          const std::string& name, bool friendlyPos, bool blockMovement, const std::vector<GNELane*>& laneParents) :
     GNEAdditional(additionalParent, viewNet, type, tag, name, blockMovement,
-{}, laneParents, {}, {additionalParent}, {}, {}, {}, {}, {}, {}),
-myPositionOverLane(pos),
-myFreq(freq),
-myFilename(filename),
-myFriendlyPosition(friendlyPos) {
+    {}, laneParents, {}, {additionalParent}, {}, {}, {}, {}, {}, {}),
+    myPositionOverLane(pos),
+    myFreq(freq),
+    myFilename(filename),
+    myFriendlyPosition(friendlyPos) {
 }
 
 
@@ -78,7 +78,11 @@ GNEDetector::getPositionInView() const {
 
 Boundary
 GNEDetector::getCenteringBoundary() const {
-    throw ProcessError("This additional doesn't have a boundary");
+    if (myGeometry.multiShapeUnified.size() > 0) {
+        return myGeometry.multiShapeUnified.getBoxBoundary().grow(10);
+    } else {
+        return myGeometry.shape.getBoxBoundary().grow(10);
+    }
 }
 
 
@@ -92,6 +96,7 @@ GNEDetector::getGeometryPositionOverLane() const {
     GNEAdditionalHandler::checkAndFixDetectorPosition(fixedPos, len, true);
     return fixedPos * getLane()->getLengthGeometryFactor();
 }
+
 
 std::string
 GNEDetector::getParentName() const {

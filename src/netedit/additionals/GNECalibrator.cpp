@@ -75,7 +75,6 @@ void
 GNECalibrator::updateGeometry() {
     // Clear all containers
     myGeometry.clearGeometry();
-
     // get shape depending of we have a edge or a lane
     if (getLaneParents().size() > 0) {
         // Get shape of lane parent
@@ -110,7 +109,7 @@ GNECalibrator::getPositionInView() const {
 
 Boundary
 GNECalibrator::getCenteringBoundary() const {
-    throw ProcessError("This additional doesn't have a boundary");
+    return myGeometry.shape.getBoxBoundary().grow(10);
 }
 
 

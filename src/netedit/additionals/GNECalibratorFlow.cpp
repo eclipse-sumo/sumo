@@ -100,7 +100,7 @@ GNECalibratorFlow::getPositionInView() const {
 
 Boundary
 GNECalibratorFlow::getCenteringBoundary() const {
-    throw ProcessError("This additional doesn't have a boundary");
+    return getAdditionalParents().at(0)->getCenteringBoundary();
 }
 
 

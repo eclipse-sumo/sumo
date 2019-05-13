@@ -128,7 +128,7 @@ GNEAccess::getPositionInView() const {
 
 Boundary
 GNEAccess::getCenteringBoundary() const {
-    throw ProcessError("This additional doesn't have a boundary");
+    return myGeometry.shape.getBoxBoundary().grow(10);
 }
 
 
