@@ -345,10 +345,14 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeLaneParents(this, value);
             break;
         case SUMO_ATTR_STARTPOS:
+            myViewNet->getNet()->removeGLObjectFromGrid(this);
             myStartPosition = value;
+            myViewNet->getNet()->addGLObjectIntoGrid(this);
             break;
         case SUMO_ATTR_ENDPOS:
+            myViewNet->getNet()->removeGLObjectFromGrid(this);
             myEndPosition = value;
+            myViewNet->getNet()->addGLObjectIntoGrid(this);
             break;
         case SUMO_ATTR_NAME:
             myAdditionalName = value;
@@ -365,7 +369,7 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_WIDTH:
             myViewNet->getNet()->removeGLObjectFromGrid(this);
             myWidth = parse<double>(value);
-            myViewNet->getNet()->removeGLObjectFromGrid(this);
+            myViewNet->getNet()->addGLObjectIntoGrid(this);
             break;
         case SUMO_ATTR_LENGTH:
             myLength = value;
