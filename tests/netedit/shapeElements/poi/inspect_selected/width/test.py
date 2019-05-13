@@ -29,16 +29,16 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 netedit.selectMode()
 
 # select first POI
-netedit.leftClick(referencePosition, 100, 50)
+netedit.leftClick(referencePosition, 103, 67)
 
 # select second POI
-netedit.leftClick(referencePosition, 150, 50)
+netedit.leftClick(referencePosition, 153, 67)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first POI
-netedit.leftClick(referencePosition, 100, 50)
+netedit.leftClick(referencePosition, 103, 67)
 
 # Change parameter 6 with a non valid value (dummy)
 netedit.modifyAttribute(4, "dummyWidth", False)

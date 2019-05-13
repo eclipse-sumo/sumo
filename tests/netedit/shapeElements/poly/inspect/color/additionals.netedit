@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 24.01.2019 10:17:26 by Eclipse SUMO netedit Version v1_1_0+0076-a16c2aae75
+<!-- generated on 13.05.2019 09:38:02 by Eclipse SUMO netedit Version v1_2_0+0323-a3c4a77541
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_24Jan100711.1168/netedit.gui/shapeElements/poly/inspect/color\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_12May112745.3496/netedit.gui/shapeElements/poly/inspect/color\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_24Jan100711.1168/netedit.gui/shapeElements/poly/inspect/color\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_12May112745.3496/netedit.gui/shapeElements/poly/inspect/color\net.net.xml"/>
     </output>
 
     <processing>
@@ -29,12 +29,14 @@
     </pedestrian>
 
     <netedit>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_24Jan100711.1168/netedit.gui/shapeElements/poly/inspect/color\additionals.xml"/>
-        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_24Jan100711.1168/netedit.gui/shapeElements/poly/inspect/color\routes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_12May112745.3496/netedit.gui/shapeElements/poly/inspect/color\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_12May112745.3496/netedit.gui/shapeElements/poly/inspect/color\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_12May112745.3496/netedit.gui/shapeElements/poly/inspect/color\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_12May112745.3496/netedit.gui/shapeElements/poly/inspect/color\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_24Jan100711.1168/netedit.gui/shapeElements/poly/inspect/color\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_12May112745.3496/netedit.gui/shapeElements/poly/inspect/color\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -44,12 +46,12 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_24Jan100711.1168/netedit.gui/shapeElements/poly/inspect/color\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_12May112745.3496/netedit.gui/shapeElements/poly/inspect/color\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <poly id="poly_0" color="125,60,200" fill="0" layer="128.00" shape="12.000000,9.000000 12.000000,19.000000 2.000000,19.000000 2.000000,9.000000 12.000000,9.000000"/>
+    <poly id="poly_0" color="125,60,200" fill="0" layer="128.00" shape="12.000000,9.000000 12.000000,20.000000 1.000000,20.000000 1.000000,9.000000 12.000000,9.000000"/>
 </additional>

@@ -38,7 +38,7 @@ netedit.leftClick(referencePosition, 300, 53)
 netedit.inspectMode()
 
 # inspect first polygon
-netedit.leftClick(referencePosition, 100, 50)
+netedit.leftClick(referencePosition, 100, 60)
 
 # Change parameter 8 with a non valid value (dummy)
 netedit.modifyAttribute(8, "dummyAngle", False)

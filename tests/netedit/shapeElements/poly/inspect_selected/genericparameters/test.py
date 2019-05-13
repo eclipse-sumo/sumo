@@ -28,7 +28,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 netedit.selectMode()
 
 # select first polygon
-netedit.leftClick(referencePosition, 100, 50)
+netedit.leftClick(referencePosition, 100, 60)
 
 # select second polygon
 netedit.leftClick(referencePosition, 300, 50)
@@ -37,7 +37,7 @@ netedit.leftClick(referencePosition, 300, 50)
 netedit.inspectMode()
 
 # inspect first polygon
-netedit.leftClick(referencePosition, 100, 50)
+netedit.leftClick(referencePosition, 100, 60)
 
 # Change generic parameters with a dummy value
 netedit.modifyAttribute(11, "dummyGenericParameters", False)

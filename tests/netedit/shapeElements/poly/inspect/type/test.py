@@ -38,7 +38,7 @@ netedit.createSquaredPoly(referencePosition, 200, 150, 200, True)
 netedit.inspectMode()
 
 # inspect first polygon
-netedit.leftClick(referencePosition, 100, 50)
+netedit.leftClick(referencePosition, 100, 60)
 
 # Change parameter 7 with a valid value (but with invalid XML attributes)
 netedit.modifyAttribute(7, "<<myOwnType>>", False)

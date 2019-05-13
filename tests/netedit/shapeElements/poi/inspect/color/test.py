@@ -32,13 +32,13 @@ netedit.shapeMode()
 netedit.changeShape("poi")
 
 # create first POI
-netedit.leftClick(referencePosition, 100, 50)
+netedit.leftClick(referencePosition, 100, 55)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first POI
-netedit.leftClick(referencePosition, 100, 50)
+netedit.leftClick(referencePosition, 100, 55)
 
 # Change parameter 2 with a non valid value (dummy)
 netedit.modifyAttribute(3, "dummyColor", False)
