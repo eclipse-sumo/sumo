@@ -85,7 +85,7 @@ public:
 
     ///@brief recalibrate color scheme according to the current value range
     void buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme& scheme, int active, GUIGlObjectType objectType,
-            bool hide = false, double hideThreshold = 0) override;
+                           bool hide = false, double hideThreshold = 0.);
 
     //@brief open object dialog
     void openObjectDialog();
