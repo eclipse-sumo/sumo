@@ -148,6 +148,9 @@ public:
     /// @brief join nodes and states from the given logic (append red state)
     void joinLogic(NBTrafficLightDefinition* def);
 
+    /// @brief heuristically add minDur and maxDur when switching from tlType fixed to actuated
+    void guessMinMaxDuration();
+
 protected:
     /** @brief Collects the links participating in this traffic light
      *    (only if not previously loaded)

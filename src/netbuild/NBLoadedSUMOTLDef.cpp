@@ -631,5 +631,54 @@ NBLoadedSUMOTLDef::usingSignalGroups() const {
     return false;
 }
 
+void
+NBLoadedSUMOTLDef::guessMinMaxDuration() {
+    bool hasMinMaxDur = false;
+    for (auto phase : myTLLogic->getPhases()) {
+        if (phase.maxDur != UNSPECIFIED_DURATION) {
+            std::cout << " phase=" << phase.state << " maxDur=" << phase.maxDur << "\n";
+            hasMinMaxDur = true;
+        }
+    }
+    if (!hasMinMaxDur) {
+        const SUMOTime minMinDur = TIME2STEPS(OptionsCont::getOptions().getInt("tls.min-dur"));
+        const SUMOTime maxDur = TIME2STEPS(OptionsCont::getOptions().getInt("tls.max-dur"));
+        std::set<int> yellowIndices;
+        for (auto phase : myTLLogic->getPhases()) {
+            for (int i = 0; i < (int)phase.state.size(); i++) {
+                if (phase.state[i] == 'y' || phase.state[i] == 'Y') {
+                    yellowIndices.insert(i);
+                }
+            }
+        }
+        for (int ip = 0; ip < (int)myTLLogic->getPhases().size(); ip++) {
+            bool needMinMaxDur = false;
+            auto phase = myTLLogic->getPhases()[ip];
+            std::set<int> greenIndices;
+            if (phase.state.find_first_of("yY") != std::string::npos) {
+                continue;
+            }
+            for (int i = 0; i < (int)phase.state.size(); i++) {
+                if (yellowIndices.count(i) != 0 && phase.state[i] == 'G') {
+                    needMinMaxDur = true;
+                    greenIndices.insert(i);
+                }
+            }
+            if (needMinMaxDur) {
+                double maxSpeed = 0;
+                for(NBConnection& c : myControlledLinks) {
+                    if (greenIndices.count(c.getTLIndex()) != 0) {
+                        maxSpeed = MAX2(maxSpeed, c.getFrom()->getLaneSpeed(c.getFromLane()));
+                    }
+                }
+                // 5s at 50km/h, 10s at 80km/h, rounded to full seconds
+                const double minDurBySpeed = maxSpeed * 3.6 / 6 - 3.3;
+                SUMOTime minDur = MAX2(minMinDur, TIME2STEPS(floor(minDurBySpeed + 0.5)));
+                myTLLogic->setPhaseMinDuration(ip, minDur);
+                myTLLogic->setPhaseMaxDuration(ip, maxDur);
+            }
+        }
+    }
+}
 /****************************************************************************/
 
