@@ -192,11 +192,12 @@
 #include "taz.xpm"
 #include "tazedge.xpm"
 
-#include "flow.xpm"
 #include "route.xpm"
 #include "vtype.xpm"
 #include "vehicle.xpm"
 #include "trip.xpm"
+#include "flow.xpm"
+#include "flowfromto.xpm"
 #include "stopelement.xpm"
 
 #include "vclass_ignoring.xpm"
@@ -446,11 +447,12 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[ICON_TAZ] = new FXXPMIcon(a, taz_xpm);
     myIcons[ICON_TAZEDGE] = new FXXPMIcon(a, tazedge_xpm);
 
-    myIcons[ICON_FLOW] = new FXXPMIcon(a, flow_xpm);
     myIcons[ICON_ROUTE] = new FXXPMIcon(a, route_xpm);
     myIcons[ICON_VTYPE] = new FXXPMIcon(a, vtype_xpm);
     myIcons[ICON_VEHICLE] = new FXXPMIcon(a, vehicle_xpm);
     myIcons[ICON_TRIP] = new FXXPMIcon(a, trip_xpm);
+    myIcons[ICON_FLOW] = new FXXPMIcon(a, flow_xpm);
+    myIcons[ICON_FLOW_FROMTO] = new FXXPMIcon(a, flow_fromto_xpm);
     myIcons[ICON_STOPELEMENT] = new FXXPMIcon(a, stopelement_xpm);
 
     myIcons[ICON_VCLASS_IGNORING] = new FXXPMIcon(a, vclass_ignoring_xpm);
