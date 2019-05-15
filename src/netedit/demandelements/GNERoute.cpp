@@ -345,8 +345,9 @@ GNERoute::isValid(SumoXMLAttr key, const std::string& value) {
                 return true;
             } else if(isValidDemandElementID(value)) {
                 return (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_VEHICLE, value, false) != nullptr || 
+                        myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_TRIP, value, false) != nullptr || 
                         myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_FLOW, value, false) != nullptr || 
-                        myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_TRIP, value, false) != nullptr );
+                        myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_FLOW_FROMTO, value, false) != nullptr );
             } else {
                 return false;
             }

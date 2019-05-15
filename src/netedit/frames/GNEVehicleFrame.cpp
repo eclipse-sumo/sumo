@@ -199,15 +199,20 @@ GNEVehicleFrame::HelpCreation::updateHelpCreation() {
                     << "- Click over a route to\n"
                     << "  create a vehicle.";
             break;
+        case SUMO_TAG_TRIP:
+            information
+                    << "- Select two edges to\n"
+                    << "  create a Trip.";
+            break;
         case SUMO_TAG_FLOW:
             information
                     << "- Click over a route to\n"
                     << "  create a flow.";
             break;
-        case SUMO_TAG_TRIP:
+        case SUMO_TAG_FLOW_FROMTO:
             information
                     << "- Select two edges to\n"
-                    << "  create a Trip.";
+                    << "  create a flow.";
             break;
         default:
             break;
@@ -509,7 +514,7 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
             myViewNet->setStatusBarText(toString(vehicleTag) + " has to be placed within a route.");
             return false;
         }
-    } else if ((vehicleTag == SUMO_TAG_TRIP) && objectsUnderCursor.getEdgeFront()) {
+    } else if (((vehicleTag == SUMO_TAG_TRIP) || (vehicleTag == SUMO_TAG_FLOW_FROMTO)) && objectsUnderCursor.getEdgeFront()) {
         // add clicked edge in TripRouteCreator
         myTripRouteCreator->addEdge(objectsUnderCursor.getEdgeFront());
     }
@@ -532,7 +537,7 @@ GNEVehicleFrame::enableModuls(const GNEAttributeCarrier::TagProperties& tagPrope
     // show vehicle type selector modul
     myVTypeSelector->showVTypeSelector(tagProperties);
     // show AutoRute creator if we're editing a trip
-    if (myItemSelector->getCurrentTagProperties().getTag() == SUMO_TAG_TRIP) {
+    if ((myItemSelector->getCurrentTagProperties().getTag() == SUMO_TAG_TRIP) || (myItemSelector->getCurrentTagProperties().getTag() == SUMO_TAG_FLOW_FROMTO)) {
         myTripRouteCreator->showTripRouteCreator();
     } else {
         myTripRouteCreator->hideTripRouteCreator();

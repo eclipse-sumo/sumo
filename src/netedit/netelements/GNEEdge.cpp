@@ -541,6 +541,12 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
                 i->drawGL(s);
             }
         }
+        for (const auto &i : getSortedDemandElementChildsByType(SUMO_TAG_FLOW_FROMTO)) {
+            if (i->getAttribute(SUMO_ATTR_FROM) == getID()) {
+                // only draw trip in the first edge
+                i->drawGL(s);
+            }
+        }
     }
     // draw geometry points if isnt's too small
     if (s.scale > 8.0) {

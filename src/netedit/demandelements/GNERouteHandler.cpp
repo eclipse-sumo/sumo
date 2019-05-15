@@ -54,9 +54,9 @@ GNERouteHandler::~GNERouteHandler() {}
 
 bool
 GNERouteHandler::duplicateVehicleID(GNEViewNet* viewNet, const std::string& id) {
-    for (SumoXMLTag otherTag : std::vector<SumoXMLTag>({SUMO_TAG_VEHICLE, SUMO_TAG_FLOW, SUMO_TAG_TRIP})) {
-        if (viewNet->getNet()->retrieveDemandElement(otherTag, id, false) != nullptr) {
-            WRITE_ERROR("There is another " + toString(otherTag) + " with the same ID='" + id + "'.");
+    for (SumoXMLTag vehicleTag : std::vector<SumoXMLTag>({SUMO_TAG_VEHICLE, SUMO_TAG_TRIP, SUMO_TAG_FLOW, SUMO_TAG_FLOW_FROMTO})) {
+        if (viewNet->getNet()->retrieveDemandElement(vehicleTag, id, false) != nullptr) {
+            WRITE_ERROR("There is another " + toString(vehicleTag) + " with the same ID='" + id + "'.");
             return true;
         }
     }

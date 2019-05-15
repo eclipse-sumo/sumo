@@ -158,10 +158,8 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
 
 bool
 GNEVehicle::isDemandElementValid() const {
-    // only trips can have problems
-    if (myTagProperty.getTag() != SUMO_TAG_TRIP) {
-        return true;
-    } else {
+    // only trips or flowFromTos can have problems
+    if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW_FROMTO)) {
         // obtain VCLass of their VType parent
         SUMOVehicleClass vClass = parse<SUMOVehicleClass>(getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_VCLASS));
         // check if exist at least a connection between every edge
@@ -172,16 +170,16 @@ GNEVehicle::isDemandElementValid() const {
         }
         // there is connections bewteen all edges, then return true
         return true;
+    } else {
+        return true;
     }
 }
 
 
 std::string 
 GNEVehicle::getDemandElementProblem() const {
-    // only trips can have problems
-    if (myTagProperty.getTag() != SUMO_TAG_TRIP) {
-        return "";
-    } else {
+    // only trips or flowFromTos can have problems
+    if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW_FROMTO)) {
         // obtain VCLass of their VType parent
         SUMOVehicleClass vClass = parse<SUMOVehicleClass>(getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_VCLASS));
         // check if exist at least a connection between every edge
@@ -191,6 +189,8 @@ GNEVehicle::getDemandElementProblem() const {
             }
         }
         // there is connections bewteen all edges, then all ok
+        return "";
+    } else {
         return "";
     }
 }
@@ -240,8 +240,8 @@ GNEVehicle::updateGeometry() {
     // Save rotation (angle)
     myGeometry.shapeRotations.push_back(vehicleLane->getGeometry().shape.rotationDegreeAtOffset(offset) * -1);
 
-    // calculate route for trip (Only in Demand mode)
-    if ((myTagProperty.getTag() == SUMO_TAG_TRIP) && (myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND)) {
+    // calculate route for trips and flowFromTos (Only in Demand mode)
+    if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW_FROMTO) && (myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND)) {
         // update temporal route
         myTemporalRoute = getRouteCalculatorInstance()->calculateDijkstraRoute(parse<SUMOVehicleClass>(getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_VCLASS)), getEdgeParents());
 
@@ -399,7 +399,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
             if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
                 GLHelper::drawShapeDottedContour(getType(), myGeometry.shape.front(), width, length, myGeometry.shapeRotations.front(), 0, length / 2);
                 // check if draw temporal route must be drawed (only for Tags
-                if (myTagProperty.getTag() == SUMO_TAG_TRIP) {
+                if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW_FROMTO)) {
                     if (myTemporalRoute.size() > 1) {
                         // Add a draw matrix
                         glPushMatrix();
@@ -663,8 +663,9 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
             // Vehicles, Trips and Flows share namespace
             if (SUMOXMLDefinitions::isValidVehicleID(value) && 
                 (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_VEHICLE, value, false) == nullptr) &&
+                (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_TRIP, value, false) == nullptr) &&
                 (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_FLOW, value, false) == nullptr) &&
-                (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_TRIP, value, false) == nullptr)) {
+                (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_FLOW_FROMTO, value, false) == nullptr)) {
                 return true;
             } else {
                 return false;

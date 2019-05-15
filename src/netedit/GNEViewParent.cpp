@@ -410,18 +410,23 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 } else {
                     // reserve memory
                     ACsToLocate.reserve(viewNet->getNet()->getDemandElementByType(SUMO_TAG_VEHICLE).size() + 
+                                        viewNet->getNet()->getDemandElementByType(SUMO_TAG_TRIP).size() +
                                         viewNet->getNet()->getDemandElementByType(SUMO_TAG_FLOW).size() + 
-                                        viewNet->getNet()->getDemandElementByType(SUMO_TAG_TRIP).size());
+                                        viewNet->getNet()->getDemandElementByType(SUMO_TAG_FLOW_FROMTO).size());
                     // fill ACsToLocate with vehicles
                     for (const auto &i : viewNet->getNet()->getDemandElementByType(SUMO_TAG_VEHICLE)) {
                         ACsToLocate.push_back(i.second);
                     }
                     // fill ACsToLocate with vehicles
+                    for (const auto &i : viewNet->getNet()->getDemandElementByType(SUMO_TAG_TRIP)) {
+                        ACsToLocate.push_back(i.second);
+                    }
+                    // fill ACsToLocate with flows
                     for (const auto &i : viewNet->getNet()->getDemandElementByType(SUMO_TAG_FLOW)) {
                         ACsToLocate.push_back(i.second);
                     }
-                    // fill ACsToLocate with vehicles
-                    for (const auto &i : viewNet->getNet()->getDemandElementByType(SUMO_TAG_TRIP)) {
+                    // fill ACsToLocate with flowsFromTo
+                    for (const auto &i : viewNet->getNet()->getDemandElementByType(SUMO_TAG_FLOW_FROMTO)) {
                         ACsToLocate.push_back(i.second);
                     }
                     myACChoosers.ACChooserVehicles = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(ICON_LOCATEVEHICLE), "Vehicle Chooser", ACsToLocate);
