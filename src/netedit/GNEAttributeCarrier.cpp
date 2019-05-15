@@ -2445,7 +2445,7 @@ GNEAttributeCarrier::fillAdditionals() {
                                            "The output file for writing calibrator information or NULL");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
-    currentTag = SUMO_TAG_CALIBRATORFLOW;
+    currentTag = SUMO_TAG_FLOW_CALIBRATOR;
     {
         // set values of tag
         myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_ADDITIONAL, TAGPROPERTY_PARENT | TAGPROPERTY_DISJOINTATTRIBUTES, ICON_FLOW, SUMO_TAG_CALIBRATOR);
@@ -3520,6 +3520,149 @@ GNEAttributeCarrier::fillDemandElements() {
                                            "0.5");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
+    currentTag = SUMO_TAG_FLOW_FROMTO;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_VEHICLE, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_DISJOINTATTRIBUTES, ICON_FLOW);
+        myTagProperties[currentTag].setDisjointAttributes({SUMO_ATTR_NUMBER, SUMO_ATTR_END, SUMO_ATTR_VEHSPERHOUR, SUMO_ATTR_PERIOD, SUMO_ATTR_PROB});
+        // set values of attributes
+        attrProperty = AttributeProperties(SUMO_ATTR_ID,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
+                                           "The name of the vehicle");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_TYPE,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_UPDATEGEOMETRY,
+                                           "The id of the vehicle type to use for this vehicle",
+                                           DEFAULT_VTYPE_ID);
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_ROUTE,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
+                                           "The id of the route the vehicle shall drive along");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_COLOR,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_COLOR | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "This vehicle's color",
+                                           "yellow");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_DEPARTLANE,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "The lane on which the vehicle shall be inserted",
+                                           "first");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_DEPARTPOS,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "The position at which the vehicle shall enter the net",
+                                           "base");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_DEPARTSPEED,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "The speed with which the vehicle shall enter the network",
+                                           "0");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_ARRIVALLANE,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "The lane at which the vehicle shall leave the network",
+                                           "current");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_ARRIVALPOS,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "The position at which the vehicle shall leave the network",
+                                           "max");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_ARRIVALSPEED,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "The speed with which the vehicle shall leave the network",
+                                           "current");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_LINE,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "A string specifying the id of a public transport line which can be used when specifying person rides");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_PERSON_NUMBER,
+                                           ATTRPROPERTY_INT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "The number of occupied seats when the vehicle is inserted",
+                                           "0");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_CONTAINER_NUMBER,
+                                           ATTRPROPERTY_INT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "The number of occupied container places when the vehicle is inserted",
+                                           "0");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_REROUTE,
+                                           ATTRPROPERTY_BOOL | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "Whether the vehicle should be equipped with a rerouting device",
+                                           "0");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_DEPARTPOS_LAT,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL /* ATTRPROPERTY_MULTIDISCRETE (Currently disabled) */,
+                                           "The lateral position on the departure lane at which the vehicle shall enter the net",
+                                           "center");
+        /*attrProperty.setDiscreteValues(SUMOXMLDefinitions::LateralAlignments.getStrings());*/
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_ARRIVALPOS_LAT,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL /* ATTRPROPERTY_MULTIDISCRETE (Currently disabled) */,
+                                           "The lateral position on the arrival lane at which the vehicle shall arrive",
+                                           "center");
+        /*attrProperty.setDiscreteValues(SUMOXMLDefinitions::LateralAlignments.getStrings());*/
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_BEGIN,
+                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUESTATIC,
+                                           "First vehicle departure time",
+                                           "0.00");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_END,
+                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUESTATIC,
+                                           "End of departure interval",
+                                           "3600.00");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_NUMBER,
+                                           ATTRPROPERTY_INT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "probability for emitting a vehicle each second (not together with vehsPerHour or period)",
+                                           "1800");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_VEHSPERHOUR,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "Number of vehicles per hour, equally spaced (not together with period or probability)",
+                                           "1800");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_PERIOD,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "Insert equally spaced vehicles at that period (not together with vehsPerHour or probability)",
+                                           "2");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_PROB,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "probability for emitting a vehicle each second (not together with vehsPerHour or period)",
+                                           "0.5");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
+
+
+
+
+
+
     currentTag = SUMO_TAG_TRIP;
     {
         // set values of tag

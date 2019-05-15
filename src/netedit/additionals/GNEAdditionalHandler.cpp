@@ -212,7 +212,7 @@ GNEAdditionalHandler::buildAdditional(GNEViewNet* viewNet, bool allowUndoRedo, S
             return parseAndBuildParkingArea(viewNet, allowUndoRedo, attrs, insertedAdditionals);
         case SUMO_TAG_PARKING_SPACE:
             return parseAndBuildParkingSpace(viewNet, allowUndoRedo, attrs, insertedAdditionals);
-        case SUMO_TAG_CALIBRATORFLOW:
+        case SUMO_TAG_FLOW_CALIBRATOR:
             return parseAndBuildCalibratorFlow(viewNet, allowUndoRedo, attrs, insertedAdditionals);
         case SUMO_TAG_REROUTER:
             return parseAndBuildRerouter(viewNet, allowUndoRedo, attrs, insertedAdditionals);
@@ -1253,25 +1253,25 @@ bool
 GNEAdditionalHandler::parseAndBuildCalibratorFlow(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals) {
     bool abort = false;
     // parse attributes of calibrator flows
-    std::string vehicleTypeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_CALIBRATORFLOW, SUMO_ATTR_TYPE, abort);
-    std::string routeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_CALIBRATORFLOW, SUMO_ATTR_ROUTE, abort);
-    std::string vehsPerHour = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_CALIBRATORFLOW, SUMO_ATTR_VEHSPERHOUR, abort);
-    std::string speed = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_CALIBRATORFLOW, SUMO_ATTR_SPEED, abort);
-    RGBColor color = GNEAttributeCarrier::parseAttributeFromXML<RGBColor>(attrs, "", SUMO_TAG_CALIBRATORFLOW, SUMO_ATTR_COLOR, abort);
-    std::string departLane = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_CALIBRATORFLOW, SUMO_ATTR_DEPARTLANE, abort);
-    std::string departPos = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_CALIBRATORFLOW, SUMO_ATTR_DEPARTPOS, abort);
-    std::string departSpeed = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_CALIBRATORFLOW, SUMO_ATTR_DEPARTSPEED, abort);
-    std::string arrivalLane = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_CALIBRATORFLOW, SUMO_ATTR_ARRIVALLANE, abort);
-    std::string arrivalPos = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_CALIBRATORFLOW, SUMO_ATTR_ARRIVALPOS, abort);
-    std::string arrivalSpeed = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_CALIBRATORFLOW, SUMO_ATTR_ARRIVALSPEED, abort);
-    std::string line = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_CALIBRATORFLOW, SUMO_ATTR_LINE, abort);
-    int personNumber = GNEAttributeCarrier::parseAttributeFromXML<int>(attrs, "", SUMO_TAG_CALIBRATORFLOW, SUMO_ATTR_PERSON_NUMBER, abort);
-    int containerNumber = GNEAttributeCarrier::parseAttributeFromXML<int>(attrs, "", SUMO_TAG_CALIBRATORFLOW, SUMO_ATTR_CONTAINER_NUMBER, abort);
-    bool reroute = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, "", SUMO_TAG_CALIBRATORFLOW, SUMO_ATTR_REROUTE, abort);
-    std::string departPosLat = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_CALIBRATORFLOW, SUMO_ATTR_DEPARTPOS_LAT, abort);
-    std::string arrivalPosLat = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_CALIBRATORFLOW, SUMO_ATTR_ARRIVALPOS_LAT, abort);
-    double begin = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", SUMO_TAG_CALIBRATORFLOW, SUMO_ATTR_BEGIN, abort);
-    double end = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", SUMO_TAG_CALIBRATORFLOW, SUMO_ATTR_END, abort);
+    std::string vehicleTypeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_FLOW_CALIBRATOR, SUMO_ATTR_TYPE, abort);
+    std::string routeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_FLOW_CALIBRATOR, SUMO_ATTR_ROUTE, abort);
+    std::string vehsPerHour = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_FLOW_CALIBRATOR, SUMO_ATTR_VEHSPERHOUR, abort);
+    std::string speed = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_FLOW_CALIBRATOR, SUMO_ATTR_SPEED, abort);
+    RGBColor color = GNEAttributeCarrier::parseAttributeFromXML<RGBColor>(attrs, "", SUMO_TAG_FLOW_CALIBRATOR, SUMO_ATTR_COLOR, abort);
+    std::string departLane = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_FLOW_CALIBRATOR, SUMO_ATTR_DEPARTLANE, abort);
+    std::string departPos = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_FLOW_CALIBRATOR, SUMO_ATTR_DEPARTPOS, abort);
+    std::string departSpeed = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_FLOW_CALIBRATOR, SUMO_ATTR_DEPARTSPEED, abort);
+    std::string arrivalLane = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_FLOW_CALIBRATOR, SUMO_ATTR_ARRIVALLANE, abort);
+    std::string arrivalPos = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_FLOW_CALIBRATOR, SUMO_ATTR_ARRIVALPOS, abort);
+    std::string arrivalSpeed = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_FLOW_CALIBRATOR, SUMO_ATTR_ARRIVALSPEED, abort);
+    std::string line = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_FLOW_CALIBRATOR, SUMO_ATTR_LINE, abort);
+    int personNumber = GNEAttributeCarrier::parseAttributeFromXML<int>(attrs, "", SUMO_TAG_FLOW_CALIBRATOR, SUMO_ATTR_PERSON_NUMBER, abort);
+    int containerNumber = GNEAttributeCarrier::parseAttributeFromXML<int>(attrs, "", SUMO_TAG_FLOW_CALIBRATOR, SUMO_ATTR_CONTAINER_NUMBER, abort);
+    bool reroute = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, "", SUMO_TAG_FLOW_CALIBRATOR, SUMO_ATTR_REROUTE, abort);
+    std::string departPosLat = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_FLOW_CALIBRATOR, SUMO_ATTR_DEPARTPOS_LAT, abort);
+    std::string arrivalPosLat = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_FLOW_CALIBRATOR, SUMO_ATTR_ARRIVALPOS_LAT, abort);
+    double begin = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", SUMO_TAG_FLOW_CALIBRATOR, SUMO_ATTR_BEGIN, abort);
+    double end = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", SUMO_TAG_FLOW_CALIBRATOR, SUMO_ATTR_END, abort);
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // obtain route, vehicle type and calibrator parent
@@ -1287,13 +1287,13 @@ GNEAdditionalHandler::parseAndBuildCalibratorFlow(GNEViewNet* viewNet, bool allo
         }
         // check that all elements are valid
         if (route == nullptr) {
-            WRITE_WARNING(toString(SUMO_TAG_CALIBRATORFLOW) + " cannot be created; their " + toString(SUMO_TAG_ROUTE) + " with ID = '" + routeID + "' doesn't exist");
+            WRITE_WARNING(toString(SUMO_TAG_FLOW_CALIBRATOR) + " cannot be created; their " + toString(SUMO_TAG_ROUTE) + " with ID = '" + routeID + "' doesn't exist");
             abort = true;
         } else if (vtype == nullptr) {
-            WRITE_WARNING(toString(SUMO_TAG_CALIBRATORFLOW) + " cannot be created; their " + toString(SUMO_TAG_VTYPE) + " with ID = '" + vehicleTypeID + "' doesn't exist");
+            WRITE_WARNING(toString(SUMO_TAG_FLOW_CALIBRATOR) + " cannot be created; their " + toString(SUMO_TAG_VTYPE) + " with ID = '" + vehicleTypeID + "' doesn't exist");
             abort = true;
         } else if ((vehsPerHour.empty()) && (speed.empty())) {
-            WRITE_WARNING(toString(SUMO_TAG_CALIBRATORFLOW) + " cannot be created; At least parameters " + toString(SUMO_ATTR_VEHSPERHOUR) + " or " + toString(SUMO_ATTR_SPEED) + " has to be defined");
+            WRITE_WARNING(toString(SUMO_TAG_FLOW_CALIBRATOR) + " cannot be created; At least parameters " + toString(SUMO_ATTR_VEHSPERHOUR) + " or " + toString(SUMO_ATTR_SPEED) + " has to be defined");
             abort = true;
         } else if (calibrator != nullptr) {
             // save ID of last created element
