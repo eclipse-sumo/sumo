@@ -86,7 +86,7 @@ std::string
 GNEVehicle::getBegin() const {
     // obtain depart depending if is a Vehicle, trip or flow
     std::string departStr;
-    if (myTagProperty.getTag() == SUMO_TAG_FLOW) {
+    if ((myTagProperty.getTag() == SUMO_TAG_FLOW) || (myTagProperty.getTag() == SUMO_TAG_FLOW_FROMTO)) {
         departStr = toString(depart);
     } else {
         departStr = getDepart();
@@ -134,7 +134,7 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
             device.writeAttr(SUMO_ATTR_VIA, toString(viaEdges));
         }
     }
-    // write specific flow attributes
+    // write specific flow/flowFromTo attributes
     if ((myTagProperty.getTag() == SUMO_TAG_FLOW) || (myTagProperty.getTag() == SUMO_TAG_FLOW_FROMTO)) {
         // write flow values depending if it was set
         if (isDisjointAttributeSet(SUMO_ATTR_END)) {
@@ -306,11 +306,9 @@ GNEVehicle::getPositionInView() const {
 
 std::string
 GNEVehicle::getParentName() const {
-    if (myTagProperty.getTag() == SUMO_TAG_VEHICLE) {
+    if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
         return getDemandElementParents().at(1)->getID();
-    } else if (myTagProperty.getTag() == SUMO_TAG_FLOW) {
-        return getDemandElementParents().at(1)->getID();
-    } else if (myTagProperty.getTag() == SUMO_TAG_TRIP) {
+    } else if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW_FROMTO)) {
         return getEdgeParents().front()->getID();
     } else {
         throw ProcessError("Invalid vehicle tag");

@@ -52,6 +52,7 @@ GNERouteHandler::GNERouteHandler(const std::string& file, GNEViewNet* viewNet, b
 
 GNERouteHandler::~GNERouteHandler() {}
 
+
 bool
 GNERouteHandler::isVehicleIdDuplicated(GNEViewNet* viewNet, const std::string& id) {
     for (SumoXMLTag vehicleTag : std::vector<SumoXMLTag>({SUMO_TAG_VEHICLE, SUMO_TAG_TRIP, SUMO_TAG_FLOW, SUMO_TAG_FLOW_FROMTO})) {
@@ -139,6 +140,10 @@ GNERouteHandler::buildTripOrFlowFromTo(GNEViewNet* viewNet, SumoXMLTag tag, bool
                 if (undoDemandElements) {
                     viewNet->getUndoList()->p_begin("add " + tripOrFlowFromTo->getTagStr());
                     viewNet->getUndoList()->add(new GNEChange_DemandElement(tripOrFlowFromTo, true), true);
+                    // iterate over stops of vehicleParameters and create stops associated with it
+                    for (const auto& i : vehicleParameters->stops) {
+                        buildStop(viewNet, true, i, tripOrFlowFromTo, false);
+                    }
                     viewNet->getUndoList()->p_end();
                 } else {
                     viewNet->getNet()->insertDemandElement(tripOrFlowFromTo);

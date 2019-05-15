@@ -377,12 +377,16 @@ GNEVehicleFrame::TripRouteCreator::onCmdFinishRouteCreation(FXObject*, FXSelecto
             valuesMap[SUMO_ATTR_DEPART] = "0";
         }
 
-
         // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
         SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, myVehicleFrameParent->getPredefinedTagsMML(), toString(vehicleTag));
 
         // obtain trip or FlowFromTo parameters in tripParameters
-        SUMOVehicleParameter* tripOrFlowFromToParameters = SUMOVehicleParserHelper::parseVehicleAttributes(SUMOSAXAttrs);
+        SUMOVehicleParameter* tripOrFlowFromToParameters;
+        if (vehicleTag == SUMO_TAG_TRIP) {
+            tripOrFlowFromToParameters = SUMOVehicleParserHelper::parseVehicleAttributes(SUMOSAXAttrs);
+        } else {
+            tripOrFlowFromToParameters = SUMOVehicleParserHelper::parseFlowAttributes(SUMOSAXAttrs, 0, SUMOTime_MAX);
+        }
 
         // create it in RouteFrame
         GNERouteHandler::buildTripOrFlowFromTo(myVehicleFrameParent->myViewNet, vehicleTag, true, tripOrFlowFromToParameters, mySelectedEdges);

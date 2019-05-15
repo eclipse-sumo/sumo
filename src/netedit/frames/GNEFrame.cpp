@@ -366,7 +366,7 @@ GNEFrame::AttributesCreator::areValuesValid() const {
 void
 GNEFrame::AttributesCreator::updateDisjointAttributes(AttributesCreator::AttributesCreatorRow* row) {
     // currently only Flows supports disjoint attributes
-    if (myTagProperties.getTag() == SUMO_TAG_FLOW) {
+    if ((myTagProperties.getTag() == SUMO_TAG_FLOW) || (myTagProperties.getTag() == SUMO_TAG_FLOW_FROMTO)) {
         // obtain all rows (to improve code legibility)
         AttributesCreatorRow* endRow = myAttributesCreatorRows[myTagProperties.getAttributeProperties(SUMO_ATTR_END).getPositionListed()];
         AttributesCreatorRow* numberRow = myAttributesCreatorRows[myTagProperties.getAttributeProperties(SUMO_ATTR_NUMBER).getPositionListed()];
