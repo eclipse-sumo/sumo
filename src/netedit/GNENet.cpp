@@ -103,15 +103,14 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
     myAllowUndoShapes(true) {
     // set net in gIDStorage
     GUIGlObjectStorage::gIDStorage.setNetObject(this);
-
+    // Write GL debug information
+    WRITE_GLDEBUG("initJunctionsAndEdges function called in GNENet constructor");
     // init junction and edges
     initJunctionsAndEdges();
-
     // check Z boundary
     if (myZBoundary.ymin() != Z_INITIALIZED) {
         myZBoundary.add(0, 0);
     }
-
     // fill additionals with tags (note: this include the TAZS)
     auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TagType::TAGTYPE_ADDITIONAL, false);
     for (auto i : listOfTags) {
@@ -2888,23 +2887,17 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
         }
     }
     // removes all junctions of grid
+    WRITE_GLDEBUG("Removing junctions during recomputing");
     for (const auto& it : myAttributeCarriers.junctions) {
         myGrid.removeAdditionalGLObject(it.second);
     }
     // remove all edges from grid
+    WRITE_GLDEBUG("Removing edges during recomputing");
     for (const auto& it : myAttributeCarriers.edges) {
         myGrid.removeAdditionalGLObject(it.second);
     }
     // compute using NetBuilder
     myNetBuilder->compute(oc, liveExplicitTurnarounds, volatileOptions);
-    // insert all junctions of grid again
-    for (const auto& it : myAttributeCarriers.junctions) {
-        myGrid.addAdditionalGLObject(it.second);
-    }
-    // insert all edges from grid again
-    for (const auto& it : myAttributeCarriers.edges) {
-        myGrid.addAdditionalGLObject(it.second);
-    }
     // update ids if necessary
     if (oc.getBool("numerical-ids") || oc.isSet("reserved-ids")) {
         std::map<std::string, GNEEdge*> newEdgeMap;
@@ -2937,23 +2930,24 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
     myGrid.add(GeoConvHelper::getFinal().getConvBoundary());
     // if volatile options are true
     if (volatileOptions) {
-        assert(myViewNet != 0);
-
+        // check that viewNet exist
+        if (myViewNet == nullptr) {
+            throw ProcessError("ViewNet doesn't exist");
+        }
+        // disable update geometry before clear undo list
+        myUpdateGeometryEnabled = false;
         // clear undo list (This will be remove additionals and shapes)
-        myViewNet->getUndoList()->clear();
-
+        myViewNet->getUndoList()->p_clear();
         // remove all edges of net (It was already removed from grid)
         auto copyOfEdges = myAttributeCarriers.edges;
         for (auto it : copyOfEdges) {
             myAttributeCarriers.edges.erase(it.second->getMicrosimID());
         }
-
         // removes all junctions of net  (It was already removed from grid)
         auto copyOfJunctions = myAttributeCarriers.junctions;
         for (auto it : copyOfJunctions) {
             myAttributeCarriers.junctions.erase(it.second->getMicrosimID());
         }
-
         // clear rest of additional that weren't removed during cleaning of undo list
         for (const auto& it : myAttributeCarriers.additionals) {
             for (const auto& j : it.second) {
@@ -2973,13 +2967,11 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
         for (auto i : listOfTags) {
             myAttributeCarriers.additionals.insert(std::make_pair(i, std::map<std::string, GNEAdditional*>()));
         }
-
         // clear rest of polygons that weren't removed during cleaning of undo list
         for (const auto& it : myPolygons) {
             myGrid.removeAdditionalGLObject(dynamic_cast<GUIGlObject*>(it.second));
         }
         myPolygons.clear();
-
         // clear rest of POIs that weren't removed during cleaning of undo list
         for (const auto& it : myPOIs) {
             myGrid.removeAdditionalGLObject(dynamic_cast<GUIGlObject*>(it.second));
@@ -3004,9 +2996,23 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
         for (auto i : listOfTags) {
             myAttributeCarriers.demandElements.insert(std::make_pair(i, std::map<std::string, GNEDemandElement*>()));
         }
+        // enable update geometry again
+        myUpdateGeometryEnabled = true;
+        // Write GL debug information
+        WRITE_GLDEBUG("initJunctionsAndEdges function called in computeAndUpdate(...) due recomputing with volatile options");
         // init again junction an edges (Additionals and shapes will be loaded after the end of this function)
         initJunctionsAndEdges();
     } else {
+        // insert all junctions of grid again
+        WRITE_GLDEBUG("Add junctions during recomputing after calling myNetBuilder->compute(...)");
+        for (const auto& it : myAttributeCarriers.junctions) {
+            myGrid.addAdditionalGLObject(it.second);
+        }
+        // insert all edges from grid again
+        WRITE_GLDEBUG("Add egdges during recomputing after calling myNetBuilder->compute(...)");
+        for (const auto& it : myAttributeCarriers.edges) {
+            myGrid.addAdditionalGLObject(it.second);
+        }
         // remake connections
         for (auto it : myAttributeCarriers.edges) {
             it.second->remakeGNEConnections();

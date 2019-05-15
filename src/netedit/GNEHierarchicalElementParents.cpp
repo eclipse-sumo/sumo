@@ -392,7 +392,6 @@ GNEHierarchicalElementParents::ParentConnections::update() {
         posConnection.push_back(myHierarchicalElement->getPositionInView());
         connectionPositions.push_back(posConnection);
     }
-
 }
 
 

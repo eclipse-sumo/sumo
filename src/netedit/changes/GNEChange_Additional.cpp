@@ -67,6 +67,38 @@ GNEChange_Additional::~GNEChange_Additional() {
         // make sure that additional isn't in net before removing
         if (myNet->additionalExist(myAdditional)) {
             myNet->deleteAdditional(myAdditional, false);
+            // Remove additional from parent elements
+            for (const auto& i : myEdgeParents) {
+                i->removeAdditionalChild(myAdditional);
+            }
+            for (const auto& i : myLaneParents) {
+                i->removeAdditionalChild(myAdditional);
+            }
+            for (const auto& i : myShapeParents) {
+                i->removeAdditionalChild(myAdditional);
+            }
+            for (const auto& i : myAdditionalParents) {
+                i->removeAdditionalChild(myAdditional);
+            }
+            for (const auto& i : myDemandElementParents) {
+                i->removeAdditionalChild(myAdditional);
+            }
+            // Remove additional from child elements
+            for (const auto& i : myEdgeChilds) {
+                i->removeAdditionalParent(myAdditional);
+            }
+            for (const auto& i : myLaneChilds) {
+                i->removeAdditionalParent(myAdditional);
+            }
+            for (const auto& i : myShapeChilds) {
+                i->removeAdditionalChild(myAdditional);
+            }
+            for (const auto& i : myAdditionalChilds) {
+                i->removeAdditionalParent(myAdditional);
+            }
+            for (const auto& i : myDemandElementChilds) {
+                i->removeAdditionalParent(myAdditional);
+            }
         }
         delete myAdditional;
     }

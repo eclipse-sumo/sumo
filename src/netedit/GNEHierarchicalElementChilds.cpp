@@ -117,6 +117,7 @@ GNEHierarchicalElementChilds::addAdditionalChild(GNEAdditional* additional) {
             if (myAC->getTagProperty().canAutomaticSortChilds()) {
                 sortAdditionalChilds();
             }
+            // update geometry after add an additional child
             updateGeometry();
         }
         // update additional parent after add additional (note: by default non-implemented)
@@ -139,7 +140,7 @@ GNEHierarchicalElementChilds::removeAdditionalChild(GNEAdditional* additional) {
             if (myAC->getTagProperty().canAutomaticSortChilds()) {
                 sortAdditionalChilds();
             }
-
+            // update geometry remove a additional child
             updateGeometry();
         }
         // update additional parent after add additional (note: by default non-implemented)
@@ -525,7 +526,6 @@ GNEHierarchicalElementChilds::ChildConnections::update() {
     // first clear connection positions
     connectionPositions.clear();
     symbolsPositionAndRotation.clear();
-
     // calculate position and rotation of every simbol for every edge
     for (const auto& i : myHierarchicalElement->myEdgeChilds) {
         for (auto j : i->getLanes()) {
@@ -542,7 +542,6 @@ GNEHierarchicalElementChilds::ChildConnections::update() {
             symbolsPositionAndRotation.push_back(ConnectionGeometry(j, pos, rot));
         }
     }
-
     // calculate position and rotation of every symbol for every lane
     for (const auto& i : myHierarchicalElement->myLaneChilds) {
         Position pos;
@@ -557,7 +556,6 @@ GNEHierarchicalElementChilds::ChildConnections::update() {
         }
         symbolsPositionAndRotation.push_back(ConnectionGeometry(i, pos, rot));
     }
-
     // calculate position for every additional child
     for (const auto& i : myHierarchicalElement->myAdditionalChilds) {
         // check that position is different of position
@@ -584,7 +582,6 @@ GNEHierarchicalElementChilds::ChildConnections::update() {
             connectionPositions.push_back(posConnection);
         }
     }
-
     // calculate geometry for connections between parent and childs
     for (const auto& i : symbolsPositionAndRotation) {
         std::vector<Position> posConnection;
