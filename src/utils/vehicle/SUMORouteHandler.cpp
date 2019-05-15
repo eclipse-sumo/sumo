@@ -93,8 +93,7 @@ SUMORouteHandler::registerLastDepart() {
 
 
 void
-SUMORouteHandler::myStartElement(int element,
-                                 const SUMOSAXAttributes& attrs) {
+SUMORouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
     switch (element) {
         case SUMO_TAG_VEHICLE:
             delete myVehicleParameter;
@@ -113,6 +112,8 @@ SUMORouteHandler::myStartElement(int element,
         case SUMO_TAG_FLOW:
             delete myVehicleParameter;
             myVehicleParameter = SUMOVehicleParserHelper::parseFlowAttributes(attrs, myBeginDefault, myEndDefault);
+            // open a flow
+            openTrip(attrs);
             break;
         case SUMO_TAG_PERSONFLOW:
             delete myVehicleParameter;
@@ -220,6 +221,9 @@ SUMORouteHandler::myEndElement(int element) {
             }
         case SUMO_TAG_FLOW:
             closeFlow();
+            delete myVehicleParameter;
+            myVehicleParameter = nullptr;
+            myInsertStopEdgesAt = -1;
             break;
         case SUMO_TAG_TRIP:
             closeTrip();

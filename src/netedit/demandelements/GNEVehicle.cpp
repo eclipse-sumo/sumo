@@ -66,14 +66,14 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehiclePar
 
 
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const std::string& vehicleID, GNEDemandElement* vehicleType, const std::vector<GNEEdge*>& edges) :
-    GNEDemandElement(vehicleID, viewNet, (tag == SUMO_TAG_FLOW_FROMTO) ? GLO_FLOW : GLO_TRIP, tag,
+    GNEDemandElement(vehicleID, viewNet, (tag == SUMO_TAG_FLOW_FROMTO) ? GLO_FLOW_FROMTO : GLO_TRIP, tag,
     {edges}, {}, {}, {}, {vehicleType}, {}, {}, {}, {}, {}),
     SUMOVehicleParameter() {
 }
 
 
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehicleParameter& vehicleParameter, GNEDemandElement* vehicleType, const std::vector<GNEEdge*>& edges) :
-    GNEDemandElement(vehicleParameter.id, viewNet, (tag == SUMO_TAG_FLOW_FROMTO) ? GLO_FLOW : GLO_TRIP, tag,
+    GNEDemandElement(vehicleParameter.id, viewNet, (tag == SUMO_TAG_FLOW_FROMTO) ? GLO_FLOW_FROMTO : GLO_TRIP, tag,
     {edges}, {}, {}, {}, {vehicleType}, {}, {}, {}, {}, {}),
     SUMOVehicleParameter(vehicleParameter) {
 }

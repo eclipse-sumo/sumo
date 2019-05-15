@@ -238,6 +238,21 @@ GNERouteHandler::openRoute(const SUMOSAXAttributes& attrs) {
 
 
 void
+GNERouteHandler::openFlow(const SUMOSAXAttributes& attrs) {
+    myAbort = false;
+    // parse attributes of Trips
+    myFromID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_TRIP, SUMO_ATTR_FROM, myAbort);
+    myToID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_TRIP, SUMO_ATTR_TO, myAbort);
+    // attribute VIA is optional
+    if (attrs.hasAttribute(SUMO_ATTR_VIA)) {
+        myViaIDs = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_TRIP, SUMO_ATTR_VIA, myAbort);
+    } else {
+        myViaIDs.clear();
+    }
+}
+
+
+void
 GNERouteHandler::openTrip(const SUMOSAXAttributes& attrs) {
     myAbort = false;
     // parse attributes of Trips
@@ -353,8 +368,39 @@ GNERouteHandler::closeContainer() {
 
 void
 GNERouteHandler::closeFlow() {
-    // build flow
-    buildVehicleOrFlow(myViewNet, SUMO_TAG_FLOW, myUndoDemandElements, myVehicleParameter);
+    // check if we're creating a flowFromTo or a flow over route
+    if(!myFromID.empty() || !myToID.empty()) {
+        // force reroute
+        myVehicleParameter->parametersSet |= VEHPARS_FORCE_REROUTE;
+        // obtain from and to edges
+        GNEEdge* from = myViewNet->getNet()->retrieveEdge(myFromID, false);
+        GNEEdge* to = myViewNet->getNet()->retrieveEdge(myToID, false);
+        // check if edges are valid
+        if (from == nullptr) {
+            WRITE_ERROR("Invalid 'from' edge used in flow '" + myVehicleParameter->id + "'.");
+        } else if (to == nullptr) {
+            WRITE_ERROR("Invalid 'to' edge used in flow '" + myVehicleParameter->id + "'.");
+        } else if (!GNEAttributeCarrier::canParse<std::vector<GNEEdge*> >(myViewNet->getNet(), myEdgeIDs, false)) {
+            WRITE_ERROR("Invalid 'via' edges used in flow '" + myVehicleParameter->id + "'.");
+        } else {
+            // obtain via
+            std::vector<GNEEdge*> via = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(myViewNet->getNet(), myEdgeIDs);
+            // build edges (from - via - to)
+            std::vector<GNEEdge*> edges;
+            edges.push_back(from);
+            for (const auto& i : via) {
+                edges.push_back(i);
+            }
+            // check that from and to edge are different
+            if (from != to) {
+                edges.push_back(to);
+            }
+            // build flowFromTo
+            buildTripOrFlowFromTo(myViewNet, SUMO_TAG_FLOW_FROMTO, true, myVehicleParameter, edges);
+        }
+    } else {
+        buildVehicleOrFlow(myViewNet, SUMO_TAG_FLOW, myUndoDemandElements, myVehicleParameter);
+    }
 }
 
 
@@ -385,7 +431,7 @@ GNERouteHandler::closeTrip() {
         if (from != to) {
             edges.push_back(to);
         }
-        // build trips
+        // build trip
         buildTripOrFlowFromTo(myViewNet, SUMO_TAG_TRIP, true, myVehicleParameter, edges);
     }
 }
