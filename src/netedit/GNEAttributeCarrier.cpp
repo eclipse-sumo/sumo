@@ -529,7 +529,11 @@ GNEAttributeCarrier::TagProperties::checkTagIntegrity() const {
     }
     // check that synonym tag isn't nothing
     if (hasTagSynonym() && (myTagSynonym == SUMO_TAG_NOTHING)) {
-        throw FormatException("synonym tag cannot be nothing");
+        throw FormatException("Synonym tag cannot be nothing");
+    }
+    // check that synonym was defined
+    if (!hasTagSynonym() && (myTagSynonym != SUMO_TAG_NOTHING)) {
+        throw FormatException("Tag doesn't support synonyms");
     }
     // check integrity of all attributes
     for (auto i : myAttributeProperties) {
@@ -3462,7 +3466,7 @@ GNEAttributeCarrier::fillDemandElements() {
                                            "current");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
-        currentTag = SUMO_TAG_FLOW;
+    currentTag = SUMO_TAG_FLOW;
     {
         // set values of tag
         myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_VEHICLE, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_DISJOINTATTRIBUTES, ICON_FLOW);
@@ -3602,7 +3606,7 @@ GNEAttributeCarrier::fillDemandElements() {
     currentTag = SUMO_TAG_FLOW_FROMTO;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_VEHICLE, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_DISJOINTATTRIBUTES, ICON_FLOW);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_VEHICLE, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_DISJOINTATTRIBUTES | TAGPROPERTY_SYNONYM, ICON_FLOW_FROMTO, SUMO_TAG_NOTHING, SUMO_TAG_FLOW);
         myTagProperties[currentTag].setDisjointAttributes({SUMO_ATTR_NUMBER, SUMO_ATTR_END, SUMO_ATTR_VEHSPERHOUR, SUMO_ATTR_PERIOD, SUMO_ATTR_PROB});
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_ID,

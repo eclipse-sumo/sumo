@@ -38,6 +38,7 @@
 
 #include "GNEVehicle.h"
 
+
 // ===========================================================================
 // member method definitions
 // ===========================================================================
@@ -64,17 +65,17 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehiclePar
 }
 
 
-GNEVehicle::GNEVehicle(GNEViewNet* viewNet, const std::string& tripID, GNEDemandElement* vehicleType, const std::vector<GNEEdge*>& edges) :
-    GNEDemandElement(tripID, viewNet, GLO_TRIP, SUMO_TAG_TRIP, 
+GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const std::string& vehicleID, GNEDemandElement* vehicleType, const std::vector<GNEEdge*>& edges) :
+    GNEDemandElement(vehicleID, viewNet, (tag == SUMO_TAG_FLOW_FROMTO) ? GLO_FLOW : GLO_TRIP, tag,
     {edges}, {}, {}, {}, {vehicleType}, {}, {}, {}, {}, {}),
     SUMOVehicleParameter() {
 }
 
 
-GNEVehicle::GNEVehicle(GNEViewNet* viewNet, const SUMOVehicleParameter& tripParameter, GNEDemandElement* vehicleType, const std::vector<GNEEdge*>& edges) :
-    GNEDemandElement(tripParameter.id, viewNet, GLO_TRIP, SUMO_TAG_TRIP, 
+GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehicleParameter& vehicleParameter, GNEDemandElement* vehicleType, const std::vector<GNEEdge*>& edges) :
+    GNEDemandElement(vehicleParameter.id, viewNet, (tag == SUMO_TAG_FLOW_FROMTO) ? GLO_FLOW : GLO_TRIP, tag,
     {edges}, {}, {}, {}, {vehicleType}, {}, {}, {}, {}, {}),
-    SUMOVehicleParameter(tripParameter) {
+    SUMOVehicleParameter(vehicleParameter) {
 }
 
 
@@ -108,14 +109,33 @@ GNEVehicle::getColor() const {
 
 void
 GNEVehicle::writeDemandElement(OutputDevice& device) const {
-    write(device, OptionsCont::getOptions(), myTagProperty.getTag());
-    // write specific attribute depeding of vehicle type
-    if (myTagProperty.getTag() == SUMO_TAG_VEHICLE) {
+    // open tag depending of synonym
+    if(myTagProperty.hasTagSynonym()) {
+        write(device, OptionsCont::getOptions(), myTagProperty.getTagSynonym());
+    } else {
+        write(device, OptionsCont::getOptions(), myTagProperty.getTag());
+    }
+    // write specific attribute depeding of their tag
+    if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
         // write manually route
         device.writeAttr(SUMO_ATTR_ROUTE, getDemandElementParents().at(1)->getID());
-    } else if (myTagProperty.getTag() == SUMO_TAG_FLOW) {
-        // write manually route
-        device.writeAttr(SUMO_ATTR_ROUTE, getDemandElementParents().at(1)->getID());
+    } 
+    // write from, to and edge vias
+    if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW_FROMTO)) {
+        // write manually from/to edges (it correspond to fron and back edge parents)
+        device.writeAttr(SUMO_ATTR_FROM, getEdgeParents().front()->getID());
+        device.writeAttr(SUMO_ATTR_TO, getEdgeParents().back()->getID());
+        // write via only if there is more than two edges
+        if (getEdgeParents().size() > 2) {
+            std::vector<GNEEdge*> viaEdges;
+            for (int i = 1; i < (int)getEdgeParents().size() - 1; i++) {
+                viaEdges.push_back(getEdgeParents().at(i));
+            }
+            device.writeAttr(SUMO_ATTR_VIA, toString(viaEdges));
+        }
+    }
+    // write specific flow attributes
+    if ((myTagProperty.getTag() == SUMO_TAG_FLOW) || (myTagProperty.getTag() == SUMO_TAG_FLOW_FROMTO)) {
         // write flow values depending if it was set
         if (isDisjointAttributeSet(SUMO_ATTR_END)) {
             device.writeAttr(SUMO_ATTR_END,  time2string(repetitionEnd));
@@ -132,20 +152,6 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
         if (isDisjointAttributeSet(SUMO_ATTR_PROB)) {
             device.writeAttr(SUMO_ATTR_PROB, repetitionProbability);
         }
-    } else if (myTagProperty.getTag() == SUMO_TAG_TRIP) {
-        // write manually from/to edges (it correspond to fron and back edge parents)
-        device.writeAttr(SUMO_ATTR_FROM, getEdgeParents().front()->getID());
-        device.writeAttr(SUMO_ATTR_TO, getEdgeParents().back()->getID());
-        // write via only if there is more than two edges
-        if (getEdgeParents().size() > 2) {
-            std::vector<GNEEdge*> viaEdges;
-            for (int i = 1; i < (int)getEdgeParents().size() - 1; i++) {
-                viaEdges.push_back(getEdgeParents().at(i));
-            }
-            device.writeAttr(SUMO_ATTR_VIA, toString(viaEdges));
-        }
-    } else {
-        throw ProcessError("Invalid vehicle tag");
     }
     // write stops associated to this vehicle
     for (const auto& i : getDemandElementChilds()) {
