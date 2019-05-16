@@ -123,7 +123,7 @@ GNERouteHandler::buildTripOrFlow(GNEViewNet* viewNet, SumoXMLTag tag, bool undoD
                 WRITE_ERROR("Invalid vehicle type '" + vehicleParameters->vtypeid + "' used in " + toString(tag) + " '" + vehicleParameters->id + "'.");
             } else {
                 // add "via" edges in vehicleParameters
-                for (int i = 1; i < (edges.size() - 1); i++) {
+                for (int i = 1; i < ((int)edges.size() - 1); i++) {
                     vehicleParameters->via.push_back(edges.at(i)->getID());
                 }
                 // obtain route between edges

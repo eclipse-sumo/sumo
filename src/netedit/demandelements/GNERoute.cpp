@@ -70,7 +70,7 @@ GNERoute::GNERoute(GNEViewNet* viewNet, const std::string& routeID, const std::v
 GNERoute::~GNERoute() {}
 
 
-const SUMOVehicleClass 
+SUMOVehicleClass 
 GNERoute::getVClass() const {
     return myVClass;
 }

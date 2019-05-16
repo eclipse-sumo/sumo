@@ -143,7 +143,7 @@ public:
     ~GNEDemandElement();
 
     /// @brief obtain VClass related with this demand element
-    virtual const SUMOVehicleClass getVClass() const = 0;
+    virtual SUMOVehicleClass getVClass() const = 0;
 
     /// @brief gererate a new ID for an element child
     std::string generateChildID(SumoXMLTag childTag);

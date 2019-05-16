@@ -74,7 +74,7 @@ GNEVehicleType::GNEVehicleType(GNEViewNet* viewNet, const std::string& vTypeID, 
 GNEVehicleType::~GNEVehicleType() {}
 
 
-const  SUMOVehicleClass 
+SUMOVehicleClass 
 GNEVehicleType::getVClass() const {
     return vehicleClass;
 }

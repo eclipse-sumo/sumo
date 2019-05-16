@@ -45,7 +45,7 @@ public:
     ~GNEStop();
 
     /// @brief obtain VClass related with this demand element
-    const SUMOVehicleClass getVClass() const;
+    SUMOVehicleClass getVClass() const;
 
     /**@brief get begin time of demand element
      * @note: used by demand elements of type "Vehicle", and it has to be implemented as childs

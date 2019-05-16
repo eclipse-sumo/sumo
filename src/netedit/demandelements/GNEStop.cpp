@@ -63,7 +63,7 @@ GNEStop::GNEStop(GNEViewNet* viewNet, const SUMOVehicleParameter::Stop& stopPara
 GNEStop::~GNEStop() {}
 
 
-const SUMOVehicleClass 
+SUMOVehicleClass 
 GNEStop::getVClass() const {
     return getDemandElementParents().front()->getVClass();
 }

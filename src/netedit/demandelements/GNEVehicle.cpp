@@ -82,7 +82,7 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehiclePar
 GNEVehicle::~GNEVehicle() {}
 
 
-const SUMOVehicleClass
+SUMOVehicleClass
 GNEVehicle::getVClass() const {
     return getDemandElementParents().front()->getVClass();
 }
