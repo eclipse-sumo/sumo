@@ -89,7 +89,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "trip",                       SUMO_TAG_TRIP },
     { "tripTAZ",                    SUMO_TAG_TRIP_TAZ },
     { "flow",                       SUMO_TAG_FLOW },
-    { "flowFromTo",                 SUMO_TAG_FLOW_FROMTO },
+    { "routeFlow",                  SUMO_TAG_ROUTEFLOW },
     { "flowCalibrator",             SUMO_TAG_FLOW_CALIBRATOR },
     { "flowState",                  SUMO_TAG_FLOWSTATE },
     { "step",                       SUMO_TAG_STEP },

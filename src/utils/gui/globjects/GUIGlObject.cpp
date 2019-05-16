@@ -84,7 +84,7 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     {"vehicle",             GLO_VEHICLE},
     {"trip",                GLO_TRIP},
     {"flow",                GLO_FLOW},
-    {"flowFromTo",          GLO_FLOW_FROMTO},
+    {"routeFlow",          GLO_ROUTEFLOW},
     {"person",              GLO_PERSON},
     {"container",           GLO_CONTAINER},
     {"stop",                GLO_STOP},

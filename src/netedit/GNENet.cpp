@@ -16,7 +16,7 @@
 // GNE components wrap netbuild-components and supply visualisation and editing
 // capabilities (adapted from GUINet)
 //
-// Workflow (rough draft)
+// WorkrouteFlow (rough draft)
 //   use NILoader to fill
 //   do netedit stuff
 //   call compute to save results

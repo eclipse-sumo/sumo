@@ -366,7 +366,7 @@ GNEFrame::AttributesCreator::areValuesValid() const {
 void
 GNEFrame::AttributesCreator::updateDisjointAttributes(AttributesCreator::AttributesCreatorRow* row) {
     // currently only Flows supports disjoint attributes
-    if ((myTagProperties.getTag() == SUMO_TAG_FLOW) || (myTagProperties.getTag() == SUMO_TAG_FLOW_FROMTO)) {
+    if ((myTagProperties.getTag() == SUMO_TAG_ROUTEFLOW) || (myTagProperties.getTag() == SUMO_TAG_FLOW)) {
         // obtain all rows (to improve code legibility)
         AttributesCreatorRow* endRow = myAttributesCreatorRows[myTagProperties.getAttributeProperties(SUMO_ATTR_END).getPositionListed()];
         AttributesCreatorRow* numberRow = myAttributesCreatorRows[myTagProperties.getAttributeProperties(SUMO_ATTR_NUMBER).getPositionListed()];
@@ -374,7 +374,7 @@ GNEFrame::AttributesCreator::updateDisjointAttributes(AttributesCreator::Attribu
         AttributesCreatorRow* periodRow = myAttributesCreatorRows[myTagProperties.getAttributeProperties(SUMO_ATTR_PERIOD).getPositionListed()];
         AttributesCreatorRow* probabilityRow = myAttributesCreatorRows[myTagProperties.getAttributeProperties(SUMO_ATTR_PROB).getPositionListed()];
         if (row == nullptr) {
-            // by default flows uses end and number
+            // by default routeFlows uses end and number
             endRow->setAttributeRadioButtonCheck(true);
             numberRow->setAttributeRadioButtonCheck(true);
             vehsperhourRow->setAttributeRadioButtonCheck(false);
@@ -2123,7 +2123,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier* AC, FXTre
                     for (const auto &i : edge->getSortedDemandElementChildsByType(SUMO_TAG_TRIP)) {
                         showAttributeCarrierChilds(i, edgeItem);
                     }
-                    for (const auto &i : edge->getSortedDemandElementChildsByType(SUMO_TAG_FLOW_FROMTO)) {
+                    for (const auto &i : edge->getSortedDemandElementChildsByType(SUMO_TAG_FLOW)) {
                         showAttributeCarrierChilds(i, edgeItem);
                     }
                 }

@@ -44,7 +44,7 @@
 // ===========================================================================
 
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const std::string& vehicleID, GNEDemandElement* vehicleType, GNEDemandElement* route) :
-    GNEDemandElement(vehicleID, viewNet, (tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_VEHICLE, tag,
+    GNEDemandElement(vehicleID, viewNet, (tag == SUMO_TAG_ROUTEFLOW) ? GLO_ROUTEFLOW : GLO_VEHICLE, tag,
     {}, {}, {}, {}, {vehicleType, route}, {}, {}, {}, {}, {}),
     SUMOVehicleParameter() {
     // SUMOVehicleParameter ID has to be set manually
@@ -55,7 +55,7 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const std::string& v
 
 
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehicleParameter& vehicleParameter, GNEDemandElement* vehicleType, GNEDemandElement* route) :
-    GNEDemandElement(vehicleParameter.id, viewNet, (tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_VEHICLE, tag,
+    GNEDemandElement(vehicleParameter.id, viewNet, (tag == SUMO_TAG_ROUTEFLOW) ? GLO_ROUTEFLOW : GLO_VEHICLE, tag,
     {}, {}, {}, {}, {vehicleType, route}, {}, {}, {}, {}, {}),
     SUMOVehicleParameter(vehicleParameter) {
     // SUMOVehicleParameter ID has to be set manually
@@ -66,14 +66,14 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehiclePar
 
 
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const std::string& vehicleID, GNEDemandElement* vehicleType, const std::vector<GNEEdge*>& edges) :
-    GNEDemandElement(vehicleID, viewNet, (tag == SUMO_TAG_FLOW_FROMTO) ? GLO_FLOW_FROMTO : GLO_TRIP, tag,
+    GNEDemandElement(vehicleID, viewNet, (tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_TRIP, tag,
     {edges}, {}, {}, {}, {vehicleType}, {}, {}, {}, {}, {}),
     SUMOVehicleParameter() {
 }
 
 
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehicleParameter& vehicleParameter, GNEDemandElement* vehicleType, const std::vector<GNEEdge*>& edges) :
-    GNEDemandElement(vehicleParameter.id, viewNet, (tag == SUMO_TAG_FLOW_FROMTO) ? GLO_FLOW_FROMTO : GLO_TRIP, tag,
+    GNEDemandElement(vehicleParameter.id, viewNet, (tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_TRIP, tag,
     {edges}, {}, {}, {}, {vehicleType}, {}, {}, {}, {}, {}),
     SUMOVehicleParameter(vehicleParameter) {
 }
@@ -90,9 +90,9 @@ GNEVehicle::getVClass() const {
 
 std::string
 GNEVehicle::getBegin() const {
-    // obtain depart depending if is a Vehicle, trip or flow
+    // obtain depart depending if is a Vehicle, trip or routeFlow
     std::string departStr;
-    if ((myTagProperty.getTag() == SUMO_TAG_FLOW) || (myTagProperty.getTag() == SUMO_TAG_FLOW_FROMTO)) {
+    if ((myTagProperty.getTag() == SUMO_TAG_ROUTEFLOW) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
         departStr = toString(depart);
     } else {
         departStr = getDepart();
@@ -122,12 +122,12 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
         write(device, OptionsCont::getOptions(), myTagProperty.getTag());
     }
     // write specific attribute depeding of their tag
-    if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
+    if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == SUMO_TAG_ROUTEFLOW)) {
         // write manually route
         device.writeAttr(SUMO_ATTR_ROUTE, getDemandElementParents().at(1)->getID());
     } 
     // write from, to and edge vias
-    if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW_FROMTO)) {
+    if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
         // write manually from/to edges (it correspond to fron and back edge parents)
         device.writeAttr(SUMO_ATTR_FROM, getEdgeParents().front()->getID());
         device.writeAttr(SUMO_ATTR_TO, getEdgeParents().back()->getID());
@@ -136,9 +136,9 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
             device.writeAttr(SUMO_ATTR_VIA, via);
         }
     }
-    // write specific flow/flowFromTo attributes
-    if ((myTagProperty.getTag() == SUMO_TAG_FLOW) || (myTagProperty.getTag() == SUMO_TAG_FLOW_FROMTO)) {
-        // write flow values depending if it was set
+    // write specific routeFlow/flow attributes
+    if ((myTagProperty.getTag() == SUMO_TAG_ROUTEFLOW) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
+        // write routeFlow values depending if it was set
         if (isDisjointAttributeSet(SUMO_ATTR_END)) {
             device.writeAttr(SUMO_ATTR_END,  time2string(repetitionEnd));
         }
@@ -166,8 +166,8 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
 
 bool
 GNEVehicle::isDemandElementValid() const {
-    // only trips or flowFromTos can have problems
-    if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW_FROMTO)) {
+    // only trips or flows can have problems
+    if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
         // check if exist at least a connection between every edge
         for (int i = 1; i < (int)getEdgeParents().size(); i++) {
             if (getRouteCalculatorInstance()->areEdgesConsecutives(getDemandElementParents().at(0)->getVClass(), getEdgeParents().at((int)i - 1), getEdgeParents().at(i)) == false) {
@@ -184,8 +184,8 @@ GNEVehicle::isDemandElementValid() const {
 
 std::string 
 GNEVehicle::getDemandElementProblem() const {
-    // only trips or flowFromTos can have problems
-    if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW_FROMTO)) {
+    // only trips or flows can have problems
+    if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
         // check if exist at least a connection between every edge
         for (int i = 1; i < (int)getEdgeParents().size(); i++) {
             if (getRouteCalculatorInstance()->areEdgesConsecutives(getDemandElementParents().at(0)->getVClass(), getEdgeParents().at((int)i - 1), getEdgeParents().at(i)) == false) {
@@ -299,9 +299,9 @@ GNEVehicle::getPositionInView() const {
 
 std::string
 GNEVehicle::getParentName() const {
-    if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
+    if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == SUMO_TAG_ROUTEFLOW)) {
         return getDemandElementParents().at(1)->getID();
-    } else if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW_FROMTO)) {
+    } else if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
         return getEdgeParents().front()->getID();
     } else {
         throw ProcessError("Invalid vehicle tag");
@@ -319,7 +319,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
         const double length = parse<double>(getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_LENGTH));
         double vehicleSizeSquared = width * length * upscale * width * length * upscale;
         // declare a flag to check if glPushName() / glPopName() has to be added (needed due GNEEdge::drawGL(...))
-        const bool pushName = (myTagProperty.getTag() != SUMO_TAG_FLOW_FROMTO) && (myTagProperty.getTag() != SUMO_TAG_TRIP);
+        const bool pushName = (myTagProperty.getTag() != SUMO_TAG_FLOW) && (myTagProperty.getTag() != SUMO_TAG_TRIP);
         // first check if if mouse is enought near to this vehicle to draw it
         if (s.drawForSelecting && (myViewNet->getPositionInformation().distanceSquaredTo2D(myGeometry.shape.front()) >= (vehicleSizeSquared + 2))) {
             // first push name
@@ -543,7 +543,7 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
             return getEdgeParents().back()->getID();
         case SUMO_ATTR_VIA:
             return toString(via);
-        // Specific of flows
+        // Specific of routeFlows
         case SUMO_ATTR_BEGIN:
             return time2string(depart);
         case SUMO_ATTR_END:
@@ -596,7 +596,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList*
         case SUMO_ATTR_TO:
         case SUMO_ATTR_VIA:
         //
-        // Specific of flows
+        // Specific of routeFlows
         case SUMO_ATTR_BEGIN:
         case SUMO_ATTR_END:
         case SUMO_ATTR_NUMBER:
@@ -624,8 +624,8 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
             if (SUMOXMLDefinitions::isValidVehicleID(value) && 
                 (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_VEHICLE, value, false) == nullptr) &&
                 (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_TRIP, value, false) == nullptr) &&
-                (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_FLOW, value, false) == nullptr) &&
-                (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_FLOW_FROMTO, value, false) == nullptr)) {
+                (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_ROUTEFLOW, value, false) == nullptr) &&
+                (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_FLOW, value, false) == nullptr)) {
                 return true;
             } else {
                 return false;
@@ -718,7 +718,7 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return canParse<std::vector<GNEEdge*> >(myViewNet->getNet(), value, false);
             }
-        // Specific of flows
+        // Specific of routeFlows
         case SUMO_ATTR_BEGIN:
             if (canParse<double>(value)) {
                 return (parse<double>(value) >= 0);
@@ -868,8 +868,8 @@ GNEVehicle::getPopUpID() const {
 
 std::string
 GNEVehicle::getHierarchyName() const {
-    // special case for Trips and FlowsFromTo
-    if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW_FROMTO)) {
+    // special case for Trips and flow
+    if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
         // check if we're inspecting a Edge
         if (myViewNet->getNet()->getViewNet()->getDottedAC() && 
             myViewNet->getNet()->getViewNet()->getDottedAC()->getTagProperty().getTag() == SUMO_TAG_EDGE) {
@@ -1184,7 +1184,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ROUTE:
             changeDemandElementParent(this, value, 1);
             break;
-        // Specific of Trips and FlowsFromTo
+        // Specific of Trips and flow
         case SUMO_ATTR_FROM: {
             // declare a from-via-to edges vector
             std::vector<std::string> FromViaToEdges;
@@ -1241,7 +1241,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeEdgeParents(this, toString(route));
             break;
         }
-        // Specific of flows
+        // Specific of routeFlows
         case SUMO_ATTR_BEGIN: {
             std::string oldBegin = getBegin();
             depart = string2time(value);

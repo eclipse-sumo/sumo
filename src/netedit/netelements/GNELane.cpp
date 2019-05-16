@@ -997,10 +997,10 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 RGBColor
 GNELane::setLaneColor(const GUIVisualizationSettings& s) const {
-    // we need to draw lanes with a special color if we're inspecting a Trip or FlowFromTo and this lane belongs to a via's edge.
+    // we need to draw lanes with a special color if we're inspecting a Trip or Flow and this lane belongs to a via's edge.
     if (myNet->getViewNet()->getDottedAC() && (myNet->getViewNet()->getDottedAC()->isAttributeCarrierSelected() == false) &&
         ((myNet->getViewNet()->getDottedAC()->getTagProperty().getTag() == SUMO_TAG_TRIP) || 
-        (myNet->getViewNet()->getDottedAC()->getTagProperty().getTag() == SUMO_TAG_FLOW_FROMTO))) {
+        (myNet->getViewNet()->getDottedAC()->getTagProperty().getTag() == SUMO_TAG_FLOW))) {
         // obtain attribute "via"
         std::vector<std::string> viaEdges = parse<std::vector<std::string> >(myNet->getViewNet()->getDottedAC()->getAttribute(SUMO_ATTR_VIA));
         // iterate over viaEdges

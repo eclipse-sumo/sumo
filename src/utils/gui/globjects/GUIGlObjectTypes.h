@@ -114,8 +114,8 @@ enum GUIGlObjectType {
     GLO_TRIP = 304,
     /// @brief a flow
     GLO_FLOW = 305,
-    /// @brief a flow
-    GLO_FLOW_FROMTO = 306,
+    /// @brief a routeFlow
+    GLO_ROUTEFLOW = 306,
     /// @brief a person
     GLO_PERSON = 307,
     /// @brief a container

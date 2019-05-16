@@ -17,7 +17,7 @@
 // wrap netbuild-components of this underlying NBNetBuilder and supply
 // visualisation and editing capabilities (adapted from GUINet)
 //
-// Workflow (rough draft)
+// WorkrouteFlow (rough draft)
 //   wrap NB-components
 //   do netedit stuff
 //   call NBNetBuilder::buildLoaded to save results
@@ -722,7 +722,7 @@ protected:
         /// @brief map with the name and pointer to demand elements of net
         std::map<SumoXMLTag, std::map<std::string, GNEDemandElement*> > demandElements;
 
-        /// @brief special map used for saving Demand Elements of type "Vehicle" (Vehicles, flows, etc.) sorted by depart time
+        /// @brief special map used for saving Demand Elements of type "Vehicle" (Vehicles, routeFlows, etc.) sorted by depart time
         std::map<std::string, GNEDemandElement*> vehicleDepartures;
     };
 

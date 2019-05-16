@@ -53,14 +53,14 @@ public:
     /// @brief Destructor
     ~GNERouteHandler();
 
-    /// @brief check if there is already a vehicle (Vehicle, Trip, Flow or FlowFromTo) with the given ID
+    /// @brief check if there is already a vehicle (Vehicle, Trip, Flow or Flow) with the given ID
     static bool isVehicleIdDuplicated(GNEViewNet* viewNet, const std::string& id); 
 
-    /// @brief build vehicle or flow
-    static void buildVehicleOrFlow(GNEViewNet* viewNet, SumoXMLTag tag, bool undoDemandElements, SUMOVehicleParameter* vehicleParameters);
+    /// @brief build vehicle or routeFlow
+    static void buildVehicleOrRouteFlow(GNEViewNet* viewNet, SumoXMLTag tag, bool undoDemandElements, SUMOVehicleParameter* vehicleParameters);
 
-    /// @brief build trip or flowFromTo
-    static void buildTripOrFlowFromTo(GNEViewNet* viewNet, SumoXMLTag tag, bool undoDemandElements, SUMOVehicleParameter* vehicleParameters, const std::vector<GNEEdge*>& edges);
+    /// @brief build trip or flow
+    static void buildTripOrFlow(GNEViewNet* viewNet, SumoXMLTag tag, bool undoDemandElements, SUMOVehicleParameter* vehicleParameters, const std::vector<GNEEdge*>& edges);
 
     /// @brief build stop
     static void buildStop(GNEViewNet* viewNet, bool undoDemandElements, const SUMOVehicleParameter::Stop& stopParameters, GNEDemandElement* stopParent, bool friendlyPosition);
@@ -75,7 +75,7 @@ protected:
     /// @brief opens a route for reading
     void openRoute(const SUMOSAXAttributes& attrs);
 
-    /// @brief opens a flow for reading
+    /// @brief opens a routeFlow for reading
     void openFlow(const SUMOSAXAttributes& attrs);
 
     /// @brief opens a trip for reading
@@ -110,7 +110,7 @@ protected:
     /// @brief Ends the processing of a container
     void closeContainer();
 
-    /// @brief Ends the processing of a flow
+    /// @brief Ends the processing of a routeFlow
     void closeFlow();
 
     /// @brief Ends the processing of a trip

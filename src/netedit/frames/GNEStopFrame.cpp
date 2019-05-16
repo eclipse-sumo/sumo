@@ -117,8 +117,8 @@ GNEStopFrame::StopParentSelector::refreshStopParentSelector() {
         myStopFrameParent->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_ROUTE).size() +
         myStopFrameParent->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_VEHICLE).size() +
         myStopFrameParent->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_TRIP).size() +
-        myStopFrameParent->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_FLOW).size() +
-        myStopFrameParent->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_FLOW_FROMTO).size());
+        myStopFrameParent->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_ROUTEFLOW).size() +
+        myStopFrameParent->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_FLOW).size());
     // fill myStopParentMatchBox with list of routes
     for (const auto& i : myStopFrameParent->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_ROUTE)) {
         myStopParentMatchBox->appendItem(i.first.c_str());
@@ -134,13 +134,13 @@ GNEStopFrame::StopParentSelector::refreshStopParentSelector() {
         myStopParentMatchBox->appendItem(i.first.c_str());
         myStopParentCandidates.push_back(i.second);
     }
-    // fill myStopParentMatchBox with list of flows
-    for (const auto& i : myStopFrameParent->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_FLOW)) {
+    // fill myStopParentMatchBox with list of routeFlows
+    for (const auto& i : myStopFrameParent->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_ROUTEFLOW)) {
         myStopParentMatchBox->appendItem(i.first.c_str());
         myStopParentCandidates.push_back(i.second);
     }
-    // fill myStopParentMatchBox with list of flows
-    for (const auto& i : myStopFrameParent->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_FLOW_FROMTO)) {
+    // fill myStopParentMatchBox with list of routeFlows
+    for (const auto& i : myStopFrameParent->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_FLOW)) {
         myStopParentMatchBox->appendItem(i.first.c_str());
         myStopParentCandidates.push_back(i.second);
     }

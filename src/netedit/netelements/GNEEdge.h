@@ -377,7 +377,7 @@ private:
      /// @brief draw partial route
     void drawPartialRoute(const GUIVisualizationSettings& s, GNEDemandElement *route) const;
 
-    /// @brief draw partial trip and FlowFromTo
+    /// @brief draw partial trip and Flow
     void drawPartialTripFromTo(const GUIVisualizationSettings& s, GNEDemandElement *tripOrFromTo) const;
 
     /// @brief invalidated copy constructor

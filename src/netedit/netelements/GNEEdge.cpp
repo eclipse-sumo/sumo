@@ -549,14 +549,14 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
             // Pop name
             glPopName();
         }
-        for (const auto &i : getSortedDemandElementChildsByType(SUMO_TAG_FLOW_FROMTO)) {
+        for (const auto &i : getSortedDemandElementChildsByType(SUMO_TAG_FLOW)) {
             // Start drawing adding an gl identificator
             glPushName(i->getGlID());
             // draw partial trip only if is being inspected or selected
             if ((myNet->getViewNet()->getDottedAC() == i) || i->isAttributeCarrierSelected()) {
                 drawPartialTripFromTo(s, i);
             }
-            // only draw flowFromTo in the first edge
+            // only draw flow in the first edge
             if (i->getAttribute(SUMO_ATTR_FROM) == getID()) {
                 i->drawGL(s);
             }

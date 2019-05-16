@@ -411,8 +411,8 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     // reserve memory
                     ACsToLocate.reserve(viewNet->getNet()->getDemandElementByType(SUMO_TAG_VEHICLE).size() + 
                                         viewNet->getNet()->getDemandElementByType(SUMO_TAG_TRIP).size() +
-                                        viewNet->getNet()->getDemandElementByType(SUMO_TAG_FLOW).size() + 
-                                        viewNet->getNet()->getDemandElementByType(SUMO_TAG_FLOW_FROMTO).size());
+                                        viewNet->getNet()->getDemandElementByType(SUMO_TAG_ROUTEFLOW).size() + 
+                                        viewNet->getNet()->getDemandElementByType(SUMO_TAG_FLOW).size());
                     // fill ACsToLocate with vehicles
                     for (const auto &i : viewNet->getNet()->getDemandElementByType(SUMO_TAG_VEHICLE)) {
                         ACsToLocate.push_back(i.second);
@@ -421,12 +421,12 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     for (const auto &i : viewNet->getNet()->getDemandElementByType(SUMO_TAG_TRIP)) {
                         ACsToLocate.push_back(i.second);
                     }
-                    // fill ACsToLocate with flows
-                    for (const auto &i : viewNet->getNet()->getDemandElementByType(SUMO_TAG_FLOW)) {
+                    // fill ACsToLocate with routeFlows
+                    for (const auto &i : viewNet->getNet()->getDemandElementByType(SUMO_TAG_ROUTEFLOW)) {
                         ACsToLocate.push_back(i.second);
                     }
-                    // fill ACsToLocate with flowsFromTo
-                    for (const auto &i : viewNet->getNet()->getDemandElementByType(SUMO_TAG_FLOW_FROMTO)) {
+                    // fill ACsToLocate with routeFlowsFromTo
+                    for (const auto &i : viewNet->getNet()->getDemandElementByType(SUMO_TAG_FLOW)) {
                         ACsToLocate.push_back(i.second);
                     }
                     myACChoosers.ACChooserVehicles = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(ICON_LOCATEVEHICLE), "Vehicle Chooser", ACsToLocate);

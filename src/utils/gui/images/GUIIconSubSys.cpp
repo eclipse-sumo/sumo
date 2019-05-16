@@ -197,7 +197,7 @@
 #include "vehicle.xpm"
 #include "trip.xpm"
 #include "flow.xpm"
-#include "flowfromto.xpm"
+#include "routeflow.xpm"
 #include "stopelement.xpm"
 
 #include "vclass_ignoring.xpm"
@@ -452,7 +452,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[ICON_VEHICLE] = new FXXPMIcon(a, vehicle_xpm);
     myIcons[ICON_TRIP] = new FXXPMIcon(a, trip_xpm);
     myIcons[ICON_FLOW] = new FXXPMIcon(a, flow_xpm);
-    myIcons[ICON_FLOW_FROMTO] = new FXXPMIcon(a, flow_fromto_xpm);
+    myIcons[ICON_ROUTEFLOW] = new FXXPMIcon(a, routeflow_xpm);
     myIcons[ICON_STOPELEMENT] = new FXXPMIcon(a, stopelement_xpm);
 
     myIcons[ICON_VCLASS_IGNORING] = new FXXPMIcon(a, vclass_ignoring_xpm);

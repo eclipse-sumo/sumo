@@ -280,7 +280,7 @@ enum GUIIcon {
     ICON_VEHICLE,
     ICON_TRIP,
     ICON_FLOW,
-    ICON_FLOW_FROMTO,
+    ICON_ROUTEFLOW,
     ICON_STOPELEMENT,
     /// @}
 
