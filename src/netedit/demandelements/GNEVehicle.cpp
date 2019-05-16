@@ -242,38 +242,33 @@ GNEVehicle::updateGeometry() {
     // Save rotation (angle)
     myGeometry.shapeRotations.push_back(vehicleLane->getGeometry().shape.rotationDegreeAtOffset(offset) * -1);
 
-    // calculate route for trips and flowFromTos (Only in Demand mode)
-    if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW_FROMTO) && (myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND)) {
-        // update temporal route
-        myTemporalRoute = getRouteCalculatorInstance()->calculateDijkstraRoute(parse<SUMOVehicleClass>(getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_VCLASS)), getEdgeParents());
+    // calculate multishape
+    if (getEdgeParents().size() > 1) {
+        // declare a vector of shapes
+        std::vector<PositionVector> multiShape;
 
-        if (myTemporalRoute.size() > 1) {
-            // declare a vector of shapes
-            std::vector<PositionVector> multiShape;
+        // start with the first lane shape
+        multiShape.push_back(getEdgeParents().front()->getNBEdge()->getLanes().front().shape);
 
-            // start with the first lane shape
-            multiShape.push_back(myTemporalRoute.front()->getNBEdge()->getLanes().front().shape);
+        // add first shape connection (if exist, in other case leave it empty)
+        multiShape.push_back(PositionVector{getEdgeParents().at(0)->getNBEdge()->getLanes().front().shape.back(), getEdgeParents().at(1)->getNBEdge()->getLanes().front().shape.front()});
 
-            // add first shape connection (if exist, in other case leave it empty)
-            multiShape.push_back(PositionVector{myTemporalRoute.at(0)->getNBEdge()->getLanes().front().shape.back(), myTemporalRoute.at(1)->getNBEdge()->getLanes().front().shape.front()});
-
-            // append shapes of intermediate lanes AND connections (if exist)
-            for (int i = 1; i < ((int)myTemporalRoute.size() - 1); i++) {
-                // add lane shape
-                multiShape.push_back(myTemporalRoute.at(i)->getNBEdge()->getLanes().front().shape);
-                // add empty shape for connection
-                multiShape.push_back(PositionVector{myTemporalRoute.at(i)->getNBEdge()->getLanes().front().shape.back(), myTemporalRoute.at((int)i + 1)->getNBEdge()->getLanes().front().shape.front()});
-            }
-
-            // append last shape
-            multiShape.push_back(myTemporalRoute.back()->getNBEdge()->getLanes().front().shape);
-
-            // calculate unified shape
-            for (auto i : multiShape) {
-                myGeometry.shape.append(i);
-            }
-            myGeometry.shape.removeDoublePoints();
+        // append shapes of intermediate lanes AND connections (if exist)
+        for (int i = 1; i < ((int)getEdgeParents().size() - 1); i++) {
+            // add lane shape
+            multiShape.push_back(getEdgeParents().at(i)->getNBEdge()->getLanes().front().shape);
+            // add empty shape for connection
+            multiShape.push_back(PositionVector{getEdgeParents().at(i)->getNBEdge()->getLanes().front().shape.back(), getEdgeParents().at((int)i + 1)->getNBEdge()->getLanes().front().shape.front()});
         }
+
+        // append last shape
+        multiShape.push_back(getEdgeParents().back()->getNBEdge()->getLanes().front().shape);
+
+        // calculate unified shape
+        for (auto i : multiShape) {
+            myGeometry.shape.append(i);
+        }
+        myGeometry.shape.removeDoublePoints();
     }
 }
 
@@ -400,7 +395,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::drawShapeDottedContour(getType(), myGeometry.shape.front(), width, length, myGeometry.shapeRotations.front(), 0, length / 2);
                 // check if draw temporal route must be drawed (only for Tags
                 if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW_FROMTO)) {
-                    if (myTemporalRoute.size() > 1) {
+                    if (getEdgeParents().size() > 1) {
                         // Add a draw matrix
                         glPushMatrix();
                         // Start with the drawing of the area traslating matrix to origin
@@ -410,14 +405,14 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                         // set line width
                         glLineWidth(5);
                         // draw first line
-                        GLHelper::drawLine(myTemporalRoute.at(0)->getNBEdge()->getLanes().front().shape.front(),
-                                           myTemporalRoute.at(0)->getNBEdge()->getLanes().front().shape.back());
+                        GLHelper::drawLine(getEdgeParents().at(0)->getNBEdge()->getLanes().front().shape.front(),
+                                           getEdgeParents().at(0)->getNBEdge()->getLanes().front().shape.back());
                         // draw rest of lines
-                        for (int i = 1; i < (int)myTemporalRoute.size(); i++) {
-                            GLHelper::drawLine(myTemporalRoute.at((int)i - 1)->getNBEdge()->getLanes().front().shape.back(),
-                                               myTemporalRoute.at(i)->getNBEdge()->getLanes().front().shape.front());
-                            GLHelper::drawLine(myTemporalRoute.at(i)->getNBEdge()->getLanes().front().shape.front(),
-                                               myTemporalRoute.at(i)->getNBEdge()->getLanes().front().shape.back());
+                        for (int i = 1; i < (int)getEdgeParents().size(); i++) {
+                            GLHelper::drawLine(getEdgeParents().at((int)i - 1)->getNBEdge()->getLanes().front().shape.back(),
+                                               getEdgeParents().at(i)->getNBEdge()->getLanes().front().shape.front());
+                            GLHelper::drawLine(getEdgeParents().at(i)->getNBEdge()->getLanes().front().shape.front(),
+                                               getEdgeParents().at(i)->getNBEdge()->getLanes().front().shape.back());
                         }
                         // Pop last matrix
                         glPopMatrix();

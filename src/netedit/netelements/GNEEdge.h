@@ -374,8 +374,11 @@ private:
     /// @brief draw Rerouter symbols
     void drawRerouterSymbol(const GUIVisualizationSettings& s, GNEAdditional *rerouter) const;
 
-     /// @brief draw route
+     /// @brief draw partial route
     void drawPartialRoute(const GUIVisualizationSettings& s, GNEDemandElement *route) const;
+
+    /// @brief draw partial trip and FlowFromTo
+    void drawPartialTripFromTo(const GUIVisualizationSettings& s, GNEDemandElement *tripOrFromTo) const;
 
     /// @brief invalidated copy constructor
     GNEEdge(const GNEEdge& s) = delete;
