@@ -867,102 +867,108 @@ GNEVehicle::getHierarchyName() const {
 
 void
 GNEVehicle::setColor(const GUIVisualizationSettings& s) const {
-    const GUIColorer& c = s.vehicleColorer;
-
-    switch (c.getActive()) {
-        case 0: {
-            //test for emergency vehicle
-            if (getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_GUISHAPE) == "emergency") {
-                GLHelper::setColor(RGBColor::WHITE);
+    // change color
+    if (isAttributeCarrierSelected()) {
+        GLHelper::setColor(s.selectedAdditionalColor);
+    } else {
+        // obtain vehicle color
+        const GUIColorer& c = s.vehicleColorer;
+        // set color depending of vehicle color active
+        switch (c.getActive()) {
+            case 0: {
+                //test for emergency vehicle
+                if (getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_GUISHAPE) == "emergency") {
+                    GLHelper::setColor(RGBColor::WHITE);
+                    break;
+                }
+                //test for firebrigade
+                if (getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_GUISHAPE) == "firebrigade") {
+                    GLHelper::setColor(RGBColor::RED);
+                    break;
+                }
+                //test for police car
+                if (getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_GUISHAPE) == "police") {
+                    GLHelper::setColor(RGBColor::BLUE);
+                    break;
+                }
+                if (wasSet(VEHPARS_COLOR_SET)) {
+                    GLHelper::setColor(color);
+                    break;
+                }
+                if (getDemandElementParents().at(0)->isDisjointAttributeSet(SUMO_ATTR_COLOR)) {
+                    GLHelper::setColor(getDemandElementParents().at(0)->getColor());
+                    break;
+                }
+                if (&(getDemandElementParents().at(1)->getColor()) != &RGBColor::DEFAULT_COLOR) {
+                    GLHelper::setColor(getDemandElementParents().at(1)->getColor());
+                } else {
+                    GLHelper::setColor(c.getScheme().getColor(0));
+                }
                 break;
             }
-            //test for firebrigade
-            if (getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_GUISHAPE) == "firebrigade") {
-                GLHelper::setColor(RGBColor::RED);
+            case 2: {
+                if (wasSet(VEHPARS_COLOR_SET)) {
+                    GLHelper::setColor(color);
+                } else {
+                    GLHelper::setColor(c.getScheme().getColor(0));
+                }
                 break;
             }
-            //test for police car
-            if (getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_GUISHAPE) == "police") {
-                GLHelper::setColor(RGBColor::BLUE);
+            case 3: {
+                if (getDemandElementParents().at(0)->isDisjointAttributeSet(SUMO_ATTR_COLOR)) {
+                    GLHelper::setColor(getDemandElementParents().at(0)->getColor());
+                } else {
+                    GLHelper::setColor(c.getScheme().getColor(0));
+                }
                 break;
             }
-            if (wasSet(VEHPARS_COLOR_SET)) {
-                GLHelper::setColor(color);
+            case 4: {
+                if (getDemandElementParents().at(1)->getColor() != RGBColor::DEFAULT_COLOR) {
+                    GLHelper::setColor(getDemandElementParents().at(1)->getColor());
+                } else {
+                    GLHelper::setColor(c.getScheme().getColor(0));
+                }
                 break;
             }
-            if (getDemandElementParents().at(0)->isDisjointAttributeSet(SUMO_ATTR_COLOR)) {
-                GLHelper::setColor(getDemandElementParents().at(0)->getColor());
+            case 5: {
+                Position p = getDemandElementParents().at(1)->getEdgeParents().at(0)->getLanes().at(0)->getGeometry().shape[0];
+                const Boundary& b = myViewNet->getNet()->getBoundary();
+                Position center = b.getCenter();
+                double hue = 180. + atan2(center.x() - p.x(), center.y() - p.y()) * 180. / M_PI;
+                double sat = p.distanceTo(center) / center.distanceTo(Position(b.xmin(), b.ymin()));
+                GLHelper::setColor(RGBColor::fromHSV(hue, sat, 1.));
                 break;
             }
-            if (&(getDemandElementParents().at(1)->getColor()) != &RGBColor::DEFAULT_COLOR) {
-                GLHelper::setColor(getDemandElementParents().at(1)->getColor());
-            } else {
+            case 6: {
+                Position p = getDemandElementParents().at(1)->getEdgeParents().back()->getLanes().at(0)->getGeometry().shape[-1];
+                const Boundary& b = myViewNet->getNet()->getBoundary();
+                Position center = b.getCenter();
+                double hue = 180. + atan2(center.x() - p.x(), center.y() - p.y()) * 180. / M_PI;
+                double sat = p.distanceTo(center) / center.distanceTo(Position(b.xmin(), b.ymin()));
+                GLHelper::setColor(RGBColor::fromHSV(hue, sat, 1.));
+                break;
+            }
+            case 7: {
+                Position pb = getDemandElementParents().at(1)->getEdgeParents().at(0)->getLanes().at(0)->getGeometry().shape[0];
+                Position pe = getDemandElementParents().at(1)->getEdgeParents().back()->getLanes().at(0)->getGeometry().shape[-1];
+                const Boundary& b = myViewNet->getNet()->getBoundary();
+                double hue = 180. + atan2(pb.x() - pe.x(), pb.y() - pe.y()) * 180. / M_PI;
+                Position minp(b.xmin(), b.ymin());
+                Position maxp(b.xmax(), b.ymax());
+                double sat = pb.distanceTo(pe) / minp.distanceTo(maxp);
+                GLHelper::setColor(RGBColor::fromHSV(hue, sat, 1.));
+                break;
+            }
+            case 29: { // color randomly (by pointer hash)
+                std::hash<const GNEVehicle*> ptr_hash;
+                const double hue = (double)(ptr_hash(this) % 360); // [0-360]
+                const double sat = ((ptr_hash(this) / 360) % 67) / 100.0 + 0.33; // [0.33-1]
+                GLHelper::setColor(RGBColor::fromHSV(hue, sat, 1.));
+                break;
+            }
+            default: {
                 GLHelper::setColor(c.getScheme().getColor(0));
             }
-            break;
-        }
-        case 2: {
-            if (wasSet(VEHPARS_COLOR_SET)) {
-                GLHelper::setColor(color);
-            } else {
-                GLHelper::setColor(c.getScheme().getColor(0));
-            }
-            break;
-        }
-        case 3: {
-            if (getDemandElementParents().at(0)->isDisjointAttributeSet(SUMO_ATTR_COLOR)) {
-                GLHelper::setColor(getDemandElementParents().at(0)->getColor());
-            } else {
-                GLHelper::setColor(c.getScheme().getColor(0));
-            }
-            break;
-        }
-        case 4: {
-            if (getDemandElementParents().at(1)->getColor() != RGBColor::DEFAULT_COLOR) {
-                GLHelper::setColor(getDemandElementParents().at(1)->getColor());
-            } else {
-                GLHelper::setColor(c.getScheme().getColor(0));
-            }
-            break;
-        }
-        case 5: {
-            Position p = getDemandElementParents().at(1)->getEdgeParents().at(0)->getLanes().at(0)->getGeometry().shape[0];
-            const Boundary& b = myViewNet->getNet()->getBoundary();
-            Position center = b.getCenter();
-            double hue = 180. + atan2(center.x() - p.x(), center.y() - p.y()) * 180. / M_PI;
-            double sat = p.distanceTo(center) / center.distanceTo(Position(b.xmin(), b.ymin()));
-            GLHelper::setColor(RGBColor::fromHSV(hue, sat, 1.));
-            break;
-        }
-        case 6: {
-            Position p = getDemandElementParents().at(1)->getEdgeParents().back()->getLanes().at(0)->getGeometry().shape[-1];
-            const Boundary& b = myViewNet->getNet()->getBoundary();
-            Position center = b.getCenter();
-            double hue = 180. + atan2(center.x() - p.x(), center.y() - p.y()) * 180. / M_PI;
-            double sat = p.distanceTo(center) / center.distanceTo(Position(b.xmin(), b.ymin()));
-            GLHelper::setColor(RGBColor::fromHSV(hue, sat, 1.));
-            break;
-        }
-        case 7: {
-            Position pb = getDemandElementParents().at(1)->getEdgeParents().at(0)->getLanes().at(0)->getGeometry().shape[0];
-            Position pe = getDemandElementParents().at(1)->getEdgeParents().back()->getLanes().at(0)->getGeometry().shape[-1];
-            const Boundary& b = myViewNet->getNet()->getBoundary();
-            double hue = 180. + atan2(pb.x() - pe.x(), pb.y() - pe.y()) * 180. / M_PI;
-            Position minp(b.xmin(), b.ymin());
-            Position maxp(b.xmax(), b.ymax());
-            double sat = pb.distanceTo(pe) / minp.distanceTo(maxp);
-            GLHelper::setColor(RGBColor::fromHSV(hue, sat, 1.));
-            break;
-        }
-        case 29: { // color randomly (by pointer hash)
-            std::hash<const GNEVehicle*> ptr_hash;
-            const double hue = (double)(ptr_hash(this) % 360); // [0-360]
-            const double sat = ((ptr_hash(this) / 360) % 67) / 100.0 + 0.33; // [0.33-1]
-            GLHelper::setColor(RGBColor::fromHSV(hue, sat, 1.));
-            break;
-        }
-        default: {
-            GLHelper::setColor(c.getScheme().getColor(0));
         }
     }
 }

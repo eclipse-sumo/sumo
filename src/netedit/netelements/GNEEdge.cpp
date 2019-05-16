@@ -536,8 +536,8 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
             drawPartialRoute(s, i);
         }
         for (const auto &i : getSortedDemandElementChildsByType(SUMO_TAG_TRIP)) {
-            // draw partial trip
-            if (myNet->getViewNet()->getDottedAC() == i) {
+            // draw partial trip only if is being inspected or selected
+            if ((myNet->getViewNet()->getDottedAC() == i) || i->isAttributeCarrierSelected()) {
                 drawPartialTripFromTo(s, i);
             }
             // only draw trip in the first edge
@@ -546,8 +546,8 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
             }
         }
         for (const auto &i : getSortedDemandElementChildsByType(SUMO_TAG_FLOW_FROMTO)) {
-            // draw partial flowFromTo
-            if (myNet->getViewNet()->getDottedAC() == i) {
+            // draw partial trip only if is being inspected or selected
+            if ((myNet->getViewNet()->getDottedAC() == i) || i->isAttributeCarrierSelected()) {
                 drawPartialTripFromTo(s, i);
             }
             // only draw flowFromTo in the first edge
@@ -1925,8 +1925,12 @@ GNEEdge::drawPartialTripFromTo(const GUIVisualizationSettings& s, GNEDemandEleme
     glPushMatrix();
     // Start with the drawing of the area traslating matrix to origin
     glTranslated(0, 0, tripOrFromTo->getType());
-    // set orange color
-    GLHelper::setColor(RGBColor::ORANGE);
+    // Set color of the base
+    if (tripOrFromTo->isAttributeCarrierSelected()) {
+        GLHelper::setColor(s.selectedConnectionColor);
+    } else {
+        GLHelper::setColor(RGBColor::ORANGE);
+    }
     // check in what lane the partial tripOrFromTo drawn
     int index = -1;
     for (int i = 0; (i < (int)myNBEdge.getLanes().size()) && (index == -1); i++) {
