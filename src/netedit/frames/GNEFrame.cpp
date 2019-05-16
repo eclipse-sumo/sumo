@@ -2116,8 +2116,14 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier* AC, FXTre
                     for (const auto& i : edge->getAdditionalChilds()) {
                         showAttributeCarrierChilds(i, edgeItem);
                     }
-                    // insert demand elements childs
-                    for (const auto& i : edge->getDemandElementChilds()) {
+                    // insert demand elements childs (note: use getSortedDemandElementChildsByType to avoid duplicated elements)
+                    for (const auto &i : edge->getSortedDemandElementChildsByType(SUMO_TAG_ROUTE)) {
+                        showAttributeCarrierChilds(i, edgeItem);
+                    }
+                    for (const auto &i : edge->getSortedDemandElementChildsByType(SUMO_TAG_TRIP)) {
+                        showAttributeCarrierChilds(i, edgeItem);
+                    }
+                    for (const auto &i : edge->getSortedDemandElementChildsByType(SUMO_TAG_FLOW_FROMTO)) {
                         showAttributeCarrierChilds(i, edgeItem);
                     }
                 }
