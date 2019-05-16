@@ -108,16 +108,16 @@ FXDEFMAP(GNEFrame::NeteditAttributes) NeteditAttributesMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEFrame::ItemSelector,                     FXGroupBox,         ItemSelectorMap,                ARRAYNUMBER(ItemSelectorMap))
-FXIMPLEMENT(GNEFrame::AttributesCreator,                FXGroupBox,         AttributesCreatorMap,           ARRAYNUMBER(AttributesCreatorMap))
-FXIMPLEMENT(GNEFrame::AttributesCreator::AttributesCreatorRow,    FXHorizontalFrame,  RowCreatorMap,                  ARRAYNUMBER(RowCreatorMap))
-FXIMPLEMENT(GNEFrame::AttributesEditor,                 FXGroupBox,         AttributesEditorMap,            ARRAYNUMBER(AttributesEditorMap))
-FXIMPLEMENT(GNEFrame::AttributesEditor::AttributesEditorRow,      FXHorizontalFrame,  AttributesEditorRowMap,                   ARRAYNUMBER(AttributesEditorRowMap))
-FXIMPLEMENT(GNEFrame::AttributesEditorExtended,         FXGroupBox,         AttributesEditorExtendedMap,    ARRAYNUMBER(AttributesEditorExtendedMap))
-FXIMPLEMENT(GNEFrame::ACHierarchy,                      FXGroupBox,         ACHierarchyMap,                 ARRAYNUMBER(ACHierarchyMap))
-FXIMPLEMENT(GNEFrame::GenericParametersEditor,          FXGroupBox,         GenericParametersEditorMap,     ARRAYNUMBER(GenericParametersEditorMap))
-FXIMPLEMENT(GNEFrame::DrawingShape,                     FXGroupBox,         DrawingShapeMap,                ARRAYNUMBER(DrawingShapeMap))
-FXIMPLEMENT(GNEFrame::NeteditAttributes,                FXGroupBox,         NeteditAttributesMap,           ARRAYNUMBER(NeteditAttributesMap))
+FXIMPLEMENT(GNEFrame::ItemSelector,                             FXGroupBox,         ItemSelectorMap,                ARRAYNUMBER(ItemSelectorMap))
+FXIMPLEMENT(GNEFrame::AttributesCreator,                        FXGroupBox,         AttributesCreatorMap,           ARRAYNUMBER(AttributesCreatorMap))
+FXIMPLEMENT(GNEFrame::AttributesCreator::AttributesCreatorRow,  FXHorizontalFrame,  RowCreatorMap,                  ARRAYNUMBER(RowCreatorMap))
+FXIMPLEMENT(GNEFrame::AttributesEditor,                         FXGroupBox,         AttributesEditorMap,            ARRAYNUMBER(AttributesEditorMap))
+FXIMPLEMENT(GNEFrame::AttributesEditor::AttributesEditorRow,    FXHorizontalFrame,  AttributesEditorRowMap,         ARRAYNUMBER(AttributesEditorRowMap))
+FXIMPLEMENT(GNEFrame::AttributesEditorExtended,                 FXGroupBox,         AttributesEditorExtendedMap,    ARRAYNUMBER(AttributesEditorExtendedMap))
+FXIMPLEMENT(GNEFrame::ACHierarchy,                              FXGroupBox,         ACHierarchyMap,                 ARRAYNUMBER(ACHierarchyMap))
+FXIMPLEMENT(GNEFrame::GenericParametersEditor,                  FXGroupBox,         GenericParametersEditorMap,     ARRAYNUMBER(GenericParametersEditorMap))
+FXIMPLEMENT(GNEFrame::DrawingShape,                             FXGroupBox,         DrawingShapeMap,                ARRAYNUMBER(DrawingShapeMap))
+FXIMPLEMENT(GNEFrame::NeteditAttributes,                        FXGroupBox,         NeteditAttributesMap,           ARRAYNUMBER(NeteditAttributesMap))
 
 // ===========================================================================
 // static members
