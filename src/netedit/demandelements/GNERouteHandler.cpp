@@ -122,6 +122,10 @@ GNERouteHandler::buildTripOrFlowFromTo(GNEViewNet* viewNet, SumoXMLTag tag, bool
             if (vType == nullptr) {
                 WRITE_ERROR("Invalid vehicle type '" + vehicleParameters->vtypeid + "' used in " + toString(tag) + " '" + vehicleParameters->id + "'.");
             } else {
+                // add "via" edges in vehicleParameters
+                for (int i = 1; i < (edges.size() - 1); i++) {
+                    vehicleParameters->via.push_back(edges.at(i)->getID());
+                }
                 // obtain route between edges
                 std::vector<GNEEdge*> routeEdges = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(vType->getVClass(), edges);
                 // create trip or flowFromTo using tripParameters
@@ -378,11 +382,11 @@ GNERouteHandler::closeFlow() {
             WRITE_ERROR("Invalid 'via' edges used in flow '" + myVehicleParameter->id + "'.");
         } else {
             // obtain via
-            std::vector<GNEEdge*> via = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(myViewNet->getNet(), myEdgeIDs);
+            std::vector<GNEEdge*> viaEdges = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(myViewNet->getNet(), myViaIDs);
             // build edges (from - via - to)
             std::vector<GNEEdge*> edges;
             edges.push_back(from);
-            for (const auto& i : via) {
+            for (const auto& i : viaEdges) {
                 edges.push_back(i);
             }
             // check that from and to edge are different
@@ -414,11 +418,11 @@ GNERouteHandler::closeTrip() {
         WRITE_ERROR("Invalid 'via' edges used in trip '" + myVehicleParameter->id + "'.");
     } else {
         // obtain via
-        std::vector<GNEEdge*> via = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(myViewNet->getNet(), myEdgeIDs);
+        std::vector<GNEEdge*> viaEdges = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(myViewNet->getNet(), myViaIDs);
         // build edges (from - via - to)
         std::vector<GNEEdge*> edges;
         edges.push_back(from);
-        for (const auto& i : via) {
+        for (const auto& i : viaEdges) {
             edges.push_back(i);
         }
         // check that from and to edge are different
