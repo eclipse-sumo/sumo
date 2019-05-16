@@ -98,6 +98,20 @@ GNEDemandElement::RouteCalculator::calculateDijkstraRoute(SUMOVehicleClass vClas
 }
 
 
+std::vector<GNEEdge*>
+GNEDemandElement::RouteCalculator::calculateDijkstraRoute(GNENet *net, SUMOVehicleClass vClass, const std::vector<std::string>& partialEdgesStr) const {
+    // declare a vector of GNEEdges
+    std::vector<GNEEdge*> partialEdges;
+    partialEdges.reserve(partialEdgesStr.size());
+    // convert to vector of GNEEdges
+    for (const auto &i : partialEdgesStr) {
+        partialEdges.push_back(net->retrieveEdge(i));
+    }
+    // calculate DijkstraRoute using partialEdges
+    return calculateDijkstraRoute(vClass, partialEdges);
+}
+
+
 bool
 GNEDemandElement::RouteCalculator::areEdgesConsecutives(SUMOVehicleClass vClass, GNEEdge* from, GNEEdge* to) const {
     if (vClass == SVC_PEDESTRIAN) {

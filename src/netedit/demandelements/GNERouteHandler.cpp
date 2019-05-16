@@ -122,21 +122,10 @@ GNERouteHandler::buildTripOrFlowFromTo(GNEViewNet* viewNet, SumoXMLTag tag, bool
             if (vType == nullptr) {
                 WRITE_ERROR("Invalid vehicle type '" + vehicleParameters->vtypeid + "' used in " + toString(tag) + " '" + vehicleParameters->id + "'.");
             } else {
-                // check if route exist
-                ConstRouterEdgeVector routeEdges;
-                NBVehicle tmpVehicle("temporalNBVehicle", GNEAttributeCarrier::parse<SUMOVehicleClass>(vType->getAttribute(SUMO_ATTR_VCLASS)));
-                SUMOAbstractRouter<NBRouterEdge, NBVehicle>* router;
-                // create Dijkstra route
-                router = new DijkstraRouter<NBRouterEdge, NBVehicle, SUMOAbstractRouter<NBRouterEdge, NBVehicle> >(
-                    viewNet->getNet()->getNetBuilder()->getEdgeCont().getAllRouterEdges(), true, &NBRouterEdge::getTravelTimeStatic, nullptr, true);
-                // check if route is valid
-                if (!router->compute(edges.front()->getNBEdge(), edges.back()->getNBEdge(), &tmpVehicle, 10, routeEdges)) {
-                    WRITE_WARNING("There isn't a route bewteen edges '" + edges.front()->getID() + "' and '" + edges.back()->getID() + "'.");
-                }
-                // delete route
-                delete router;
+                // obtain route between edges
+                std::vector<GNEEdge*> routeEdges = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(GNEAttributeCarrier::parse<SUMOVehicleClass>(vType->getAttribute(SUMO_ATTR_VCLASS)), edges);
                 // create trip or flowFromTo using tripParameters
-                GNEVehicle* tripOrFlowFromTo = new GNEVehicle(tag, viewNet, *vehicleParameters, vType, edges);
+                GNEVehicle* tripOrFlowFromTo = new GNEVehicle(tag, viewNet, *vehicleParameters, vType, routeEdges);
                 if (undoDemandElements) {
                     viewNet->getUndoList()->p_begin("add " + tripOrFlowFromTo->getTagStr());
                     viewNet->getUndoList()->add(new GNEChange_DemandElement(tripOrFlowFromTo, true), true);

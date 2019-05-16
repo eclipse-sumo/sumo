@@ -125,13 +125,9 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
         // write manually from/to edges (it correspond to fron and back edge parents)
         device.writeAttr(SUMO_ATTR_FROM, getEdgeParents().front()->getID());
         device.writeAttr(SUMO_ATTR_TO, getEdgeParents().back()->getID());
-        // write via only if there is more than two edges
-        if (getEdgeParents().size() > 2) {
-            std::vector<GNEEdge*> viaEdges;
-            for (int i = 1; i < (int)getEdgeParents().size() - 1; i++) {
-                viaEdges.push_back(getEdgeParents().at(i));
-            }
-            device.writeAttr(SUMO_ATTR_VIA, toString(viaEdges));
+        // only write via if there isn't empty
+        if(via.size() > 0) {
+            device.writeAttr(SUMO_ATTR_VIA, via);
         }
     }
     // write specific flow/flowFromTo attributes
@@ -554,17 +550,6 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
             } else {
                 return "false";
             }
-        case SUMO_ATTR_VIA: {
-            if (getEdgeParents().size() > 2) {
-                std::vector<GNEEdge*> viaEdges;
-                for (int i = 1; i < (int)getEdgeParents().size() - 1; i++) {
-                    viaEdges.push_back(getEdgeParents().at(i));
-                }
-                return parseIDs(viaEdges);
-            } else {
-                return "";
-            }
-        }
         case SUMO_ATTR_DEPARTPOS_LAT:
             if (wasSet(VEHPARS_DEPARTPOSLAT_SET)) {
                 return getDepartPosLat();
@@ -587,6 +572,8 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
             return getEdgeParents().front()->getID();
         case SUMO_ATTR_TO:
             return getEdgeParents().back()->getID();
+        case SUMO_ATTR_VIA:
+            return toString(via);
         // Specific of flows
         case SUMO_ATTR_BEGIN:
             return time2string(depart);
@@ -630,7 +617,6 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList*
         case SUMO_ATTR_PERSON_NUMBER:
         case SUMO_ATTR_CONTAINER_NUMBER:
         case SUMO_ATTR_REROUTE:
-        case SUMO_ATTR_VIA:
         case SUMO_ATTR_DEPARTPOS_LAT:
         case SUMO_ATTR_ARRIVALPOS_LAT:
         // Specific of vehicles
@@ -639,6 +625,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList*
         // Specific of Trips
         case SUMO_ATTR_FROM:
         case SUMO_ATTR_TO:
+        case SUMO_ATTR_VIA:
         //
         // Specific of flows
         case SUMO_ATTR_BEGIN:
@@ -728,12 +715,6 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<int>(value) && parse<int>(value) >= 0;
         case SUMO_ATTR_REROUTE:
             return true;    // check
-        case SUMO_ATTR_VIA:
-            if (value.empty()) {
-                return true;
-            } else {
-                return canParse<std::vector<GNEEdge*> >(myViewNet->getNet(), value, false);
-            }
         case SUMO_ATTR_DEPARTPOS_LAT: {
             double dummyDepartPosLat;
             DepartPosLatDefinition dummyDepartPosLatProcedure;
@@ -761,7 +742,13 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
         // Specific of Trips
         case SUMO_ATTR_FROM:
         case SUMO_ATTR_TO:
-            return SUMOXMLDefinitions::isValidVehicleID(value) && (myViewNet->getNet()->retrieveEdge(value, false) != nullptr);
+            return SUMOXMLDefinitions::isValidNetID(value) && (myViewNet->getNet()->retrieveEdge(value, false) != nullptr);
+        case SUMO_ATTR_VIA:
+            if (value.empty()) {
+                return true;
+            } else {
+                return canParse<std::vector<GNEEdge*> >(myViewNet->getNet(), value, false);
+            }
         // Specific of flows
         case SUMO_ATTR_BEGIN:
             if (canParse<double>(value)) {
@@ -1167,21 +1154,6 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
                 parametersSet &= ~VEHPARS_ROUTE_SET;
             }
             break;
-        case SUMO_ATTR_VIA:
-            if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
-                // mark parameter as set
-                parametersSet |= VEHPARS_VIA_SET;
-            } else {
-                // unset parameter
-                parametersSet &= ~VEHPARS_VIA_SET;
-            }
-            // change edge parents
-            changeEdgeParents(this, getEdgeParents().front()->getID() + " " + value + " " + getEdgeParents().back()->getID());
-            // recalculate temporal route (Only in Demand mode)
-            if (myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) {
-                myTemporalRoute = getRouteCalculatorInstance()->calculateDijkstraRoute(parse<SUMOVehicleClass>(getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_VCLASS)), getEdgeParents());
-            }
-            break;
         case SUMO_ATTR_DEPARTPOS_LAT:
             if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
                 parseDepartPosLat(value, toString(SUMO_TAG_VEHICLE), id, departPosLat, departPosLatProcedure, error);
@@ -1219,29 +1191,59 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         // Specific of Trips and FlowsFromTo
         case SUMO_ATTR_FROM: {
-            std::vector<std::string> newEdges;
-            newEdges.push_back(value);
-            for (int i = 1; i < (int)getEdgeParents().size(); i++) {
-                newEdges.push_back(getEdgeParents().at(i)->getID());
-            }
+            // declare a from-via-to edges vector
+            std::vector<std::string> FromViaToEdges;
+            // add from edge
+            FromViaToEdges.push_back(value);
+            // add via edges
+            FromViaToEdges.insert(FromViaToEdges.end(), via.begin(), via.end());
+            // add to edge
+            FromViaToEdges.push_back(getEdgeParents().back()->getID());
+            // calculate route
+            std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), parse<SUMOVehicleClass>(getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_VCLASS)), FromViaToEdges);
             // change edge parents
-            changeEdgeParents(this, toString(newEdges));
-            // recalculate temporal route (Only in Demand mode)
-            if (myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) {
-                myTemporalRoute = getRouteCalculatorInstance()->calculateDijkstraRoute(parse<SUMOVehicleClass>(getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_VCLASS)), getEdgeParents());
-            }
+            changeEdgeParents(this, toString(route));
             break;
         }
         case SUMO_ATTR_TO: {
-            std::vector<std::string> newEdges;
-            for (int i = 0; i < (int)getEdgeParents().size() - 1; i++) {
-                newEdges.push_back(getEdgeParents().at(i)->getID());
-            }
-            newEdges.push_back(value);
+            // declare a from-via-to edges vector
+            std::vector<std::string> FromViaToEdges;
+            // add from edge
+            FromViaToEdges.push_back(getEdgeParents().front()->getID());
+            // add via edges
+            FromViaToEdges.insert(FromViaToEdges.end(), via.begin(), via.end());
+            // add to edge
+            FromViaToEdges.push_back(value);
+            // calculate route
+            std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), parse<SUMOVehicleClass>(getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_VCLASS)), FromViaToEdges);
             // change edge parents
-            changeEdgeParents(this, toString(newEdges));
-            // recalculate temporal route
-            myTemporalRoute = getRouteCalculatorInstance()->calculateDijkstraRoute(parse<SUMOVehicleClass>(getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_VCLASS)), getEdgeParents());
+            changeEdgeParents(this, toString(route));
+            break;
+        }
+        case SUMO_ATTR_VIA: {
+            if (!value.empty()) {
+                // set new via edges
+                via = parse< std::vector<std::string> >(value);
+                // mark parameter as set
+                parametersSet |= VEHPARS_VIA_SET;
+            } else {
+                // clear via
+                via.clear();
+                // unset parameter
+                parametersSet &= ~VEHPARS_VIA_SET;
+            }
+            // declare a from-via-to edges vector
+            std::vector<std::string> FromViaToEdges;
+            // add from edge
+            FromViaToEdges.push_back(getEdgeParents().front()->getID());
+            // add via edges
+            FromViaToEdges.insert(FromViaToEdges.end(), via.begin(), via.end());
+            // add to edge
+            FromViaToEdges.push_back(getEdgeParents().back()->getID());
+            // calculate route
+            std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), parse<SUMOVehicleClass>(getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_VCLASS)), FromViaToEdges);
+            // change edge parents
+            changeEdgeParents(this, toString(route));
             break;
         }
         // Specific of flows

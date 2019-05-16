@@ -69,6 +69,9 @@ public:
         /// @brief calculate Dijkstra route between a list of partial edges
         std::vector<GNEEdge*> calculateDijkstraRoute(SUMOVehicleClass vClass, const std::vector<GNEEdge*>& partialEdges) const;
 
+        /// @brief calculate Dijkstra route between a list of partial edges (in string format)
+        std::vector<GNEEdge*> calculateDijkstraRoute(GNENet *net, SUMOVehicleClass vClass, const std::vector<std::string>& partialEdgesStr) const;
+
         /// @brief check if exist a route between the two given consecutives edges
         bool areEdgesConsecutives(SUMOVehicleClass vClass, GNEEdge* from, GNEEdge* to) const;
 
