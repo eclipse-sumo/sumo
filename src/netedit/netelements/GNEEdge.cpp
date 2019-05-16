@@ -1866,7 +1866,7 @@ GNEEdge::drawPartialRoute(const GUIVisualizationSettings& s, GNEDemandElement *r
     // check in what lane the partial route drawn
     int index = -1;
     for (int i = 0; (i < (int)myNBEdge.getLanes().size()) && (index == -1); i++) {
-        if (myNBEdge.getLanes().at(i).permissions & SumoVehicleClassStrings.get(route->getAttribute(SUMO_ATTR_VCLASS))) {
+        if (myNBEdge.getLanes().at(i).permissions & route->getVClass()) {
             index = i;
         }
     }
@@ -1922,7 +1922,7 @@ GNEEdge::drawPartialTripFromTo(const GUIVisualizationSettings& s, GNEDemandEleme
     // check in what lane the partial tripOrFromTo drawn
     int index = -1;
     for (int i = 0; (i < (int)myNBEdge.getLanes().size()) && (index == -1); i++) {
-        if (myNBEdge.getLanes().at(i).permissions & SumoVehicleClassStrings.get(tripOrFromTo->getAttribute(SUMO_ATTR_VCLASS))) {
+        if (myNBEdge.getLanes().at(i).permissions & tripOrFromTo->getVClass()) {
             index = i;
         }
     }

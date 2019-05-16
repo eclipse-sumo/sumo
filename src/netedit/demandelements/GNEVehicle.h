@@ -50,6 +50,9 @@ public:
     /// @brief destructor
     ~GNEVehicle();
 
+    /// @brief obtain VClass related with this demand element
+    const SUMOVehicleClass getVClass() const;
+
     /**@brief get begin time of demand element
      * @note: used by demand elements of type "Vehicle", and it has to be implemented as childs
      * @throw invalid argument if demand element doesn't has a begin time

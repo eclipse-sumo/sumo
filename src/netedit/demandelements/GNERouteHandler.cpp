@@ -123,7 +123,7 @@ GNERouteHandler::buildTripOrFlowFromTo(GNEViewNet* viewNet, SumoXMLTag tag, bool
                 WRITE_ERROR("Invalid vehicle type '" + vehicleParameters->vtypeid + "' used in " + toString(tag) + " '" + vehicleParameters->id + "'.");
             } else {
                 // obtain route between edges
-                std::vector<GNEEdge*> routeEdges = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(GNEAttributeCarrier::parse<SUMOVehicleClass>(vType->getAttribute(SUMO_ATTR_VCLASS)), edges);
+                std::vector<GNEEdge*> routeEdges = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(vType->getVClass(), edges);
                 // create trip or flowFromTo using tripParameters
                 GNEVehicle* tripOrFlowFromTo = new GNEVehicle(tag, viewNet, *vehicleParameters, vType, routeEdges);
                 if (undoDemandElements) {

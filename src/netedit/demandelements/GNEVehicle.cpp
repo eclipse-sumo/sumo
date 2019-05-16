@@ -82,6 +82,12 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehiclePar
 GNEVehicle::~GNEVehicle() {}
 
 
+const SUMOVehicleClass
+GNEVehicle::getVClass() const {
+    return getDemandElementParents().front()->getVClass();
+}
+
+
 std::string
 GNEVehicle::getBegin() const {
     // obtain depart depending if is a Vehicle, trip or flow
@@ -162,11 +168,9 @@ bool
 GNEVehicle::isDemandElementValid() const {
     // only trips or flowFromTos can have problems
     if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW_FROMTO)) {
-        // obtain VCLass of their VType parent
-        SUMOVehicleClass vClass = parse<SUMOVehicleClass>(getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_VCLASS));
         // check if exist at least a connection between every edge
         for (int i = 1; i < (int)getEdgeParents().size(); i++) {
-            if (getRouteCalculatorInstance()->areEdgesConsecutives(vClass, getEdgeParents().at((int)i - 1), getEdgeParents().at(i)) == false) {
+            if (getRouteCalculatorInstance()->areEdgesConsecutives(getDemandElementParents().at(0)->getVClass(), getEdgeParents().at((int)i - 1), getEdgeParents().at(i)) == false) {
                 return false;
             }
         }
@@ -182,11 +186,9 @@ std::string
 GNEVehicle::getDemandElementProblem() const {
     // only trips or flowFromTos can have problems
     if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW_FROMTO)) {
-        // obtain VCLass of their VType parent
-        SUMOVehicleClass vClass = parse<SUMOVehicleClass>(getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_VCLASS));
         // check if exist at least a connection between every edge
         for (int i = 1; i < (int)getEdgeParents().size(); i++) {
-            if (getRouteCalculatorInstance()->areEdgesConsecutives(vClass, getEdgeParents().at((int)i - 1), getEdgeParents().at(i)) == false) {
+            if (getRouteCalculatorInstance()->areEdgesConsecutives(getDemandElementParents().at(0)->getVClass(), getEdgeParents().at((int)i - 1), getEdgeParents().at(i)) == false) {
                 return ("Edge '" + getEdgeParents().at((int)i - 1)->getID() + "' and edge '" + getEdgeParents().at(i)->getID() + "' aren't consecutives");
             }
         }
@@ -1195,7 +1197,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             // add to edge
             FromViaToEdges.push_back(getEdgeParents().back()->getID());
             // calculate route
-            std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), parse<SUMOVehicleClass>(getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_VCLASS)), FromViaToEdges);
+            std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), getDemandElementParents().at(0)->getVClass(), FromViaToEdges);
             // change edge parents
             changeEdgeParents(this, toString(route));
             break;
@@ -1210,7 +1212,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             // add to edge
             FromViaToEdges.push_back(value);
             // calculate route
-            std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), parse<SUMOVehicleClass>(getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_VCLASS)), FromViaToEdges);
+            std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), getDemandElementParents().at(0)->getVClass(), FromViaToEdges);
             // change edge parents
             changeEdgeParents(this, toString(route));
             break;
@@ -1236,7 +1238,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             // add to edge
             FromViaToEdges.push_back(getEdgeParents().back()->getID());
             // calculate route
-            std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), parse<SUMOVehicleClass>(getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_VCLASS)), FromViaToEdges);
+            std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), getDemandElementParents().at(0)->getVClass(), FromViaToEdges);
             // change edge parents
             changeEdgeParents(this, toString(route));
             break;

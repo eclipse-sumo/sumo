@@ -70,6 +70,12 @@ GNERoute::GNERoute(GNEViewNet* viewNet, const std::string& routeID, const std::v
 GNERoute::~GNERoute() {}
 
 
+const SUMOVehicleClass 
+GNERoute::getVClass() const {
+    return myVClass;
+}
+
+
 GUIGLObjectPopupMenu*
 GNERoute::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GNERoutePopupMenu(app, parent, *this);
@@ -292,8 +298,6 @@ GNERoute::getAttribute(SumoXMLAttr key) const {
             return parseIDs(getEdgeParents());
         case SUMO_ATTR_COLOR:
             return toString(myColor);
-        case SUMO_ATTR_VCLASS:
-            return toString(myVClass);
         case GNE_ATTR_EMBEDDED_ROUTE:
             return toString(getDemandElementParents().size() > 0);
         case GNE_ATTR_SELECTED:

@@ -74,6 +74,12 @@ GNEVehicleType::GNEVehicleType(GNEViewNet* viewNet, const std::string& vTypeID, 
 GNEVehicleType::~GNEVehicleType() {}
 
 
+const  SUMOVehicleClass 
+GNEVehicleType::getVClass() const {
+    return vehicleClass;
+}
+
+
 const RGBColor&
 GNEVehicleType::getColor() const {
     return color;

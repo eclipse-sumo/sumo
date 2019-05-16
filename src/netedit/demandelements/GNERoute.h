@@ -53,6 +53,9 @@ public:
     /// @brief destructor
     ~GNERoute();
 
+    /// @brief obtain VClass related with this demand element
+    const SUMOVehicleClass getVClass() const;
+
     /// @brief get color
     const RGBColor& getColor() const;
 
