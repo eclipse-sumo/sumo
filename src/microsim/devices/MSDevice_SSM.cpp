@@ -51,8 +51,8 @@
 //#define DEBUG_SSM_NOTIFICATIONS
 //#define DEBUG_COND MSNet::getInstance()->getCurrentTimeStep() > 308000
 //#define DEBUG_COND1(ego) MSNet::getInstance()->getCurrentTimeStep() > 308000
-#define DEBUG_COND1(ego) ego!=nullptr && ego->isSelected()
-//#define DEBUG_COND1(ego) ego!=nullptr && ego->getID() == "ego1"
+//#define DEBUG_COND1(ego) ego!=nullptr && ego->isSelected()
+#define DEBUG_COND1(ego) ego!=nullptr && ego->getID() == "foe"
 #define DEBUG_COND false
 
 // ===========================================================================
@@ -2130,23 +2130,6 @@ MSDevice_SSM::classifyEncounter(const FoeInfo* foeInfo, EncounterApproachInfo& e
                 eInfo.foeConflictEntryDist = foeDistToConflictLane + foeDistToConflictFromJunctionEntry;
 
 
-#ifdef DEBUG_SSM
-                if (DEBUG_COND1(myHolderMS))
-                    std::cout << "    Determined exact conflict distances for crossing conflict."
-                              << "\n    crossingOrientation=" << crossingOrientation
-                              << ", egoCrossingAngle=" << egoConnectionLine.rotationAtOffset(0.)
-                              << ", foeCrossingAngle=" << foeConnectionLine.rotationAtOffset(0.)
-                              << ", relativeAngle=" << angle
-                              << " (foe from " << (crossingOrientation > 0 ? "right)" : "left)")
-                              << "\n    resulting offset for conflict entry distance:"
-                              << "\n     ego=" << crossingOrientation* e->foe->getLateralPositionOnLane()
-                              << ", foe=" << crossingOrientation* e->ego->getLateralPositionOnLane()
-                              << "\n    resulting entry distances:"
-                              << "\n     ego=" << eInfo.egoConflictEntryDist
-                              << ", foe=" << eInfo.foeConflictEntryDist
-                              << std::endl;
-#endif
-
                 // TODO: This could also more precisely be calculated wrt the angle of the crossing *at the conflict point*
                 eInfo.egoConflictAreaLength = e->foe->getWidth();
                 eInfo.foeConflictAreaLength = e->ego->getWidth();
@@ -2156,13 +2139,37 @@ MSDevice_SSM::classifyEncounter(const FoeInfo* foeInfo, EncounterApproachInfo& e
                 eInfo.foeConflictExitDist = eInfo.foeConflictEntryDist + eInfo.foeConflictAreaLength + e->foe->getLength();
 
 #ifdef DEBUG_SSM
-                if (DEBUG_COND1(myHolderMS))
+                if (DEBUG_COND1(myHolderMS)) {
+                    std::cout << "    Determined exact conflict distances for crossing conflict."
+                              << "\n    crossingOrientation=" << crossingOrientation
+                              << ", egoCrossingAngle=" << egoConnectionLine.rotationAtOffset(0.)
+                              << ", foeCrossingAngle=" << foeConnectionLine.rotationAtOffset(0.)
+                              << ", relativeAngle=" << angle
+                              << " (foe from " << (crossingOrientation > 0 ? "right)" : "left)")
+                              << "\n    resulting offset for conflict entry distance:"
+                              << "\n     ego=" << crossingOrientation* e->foe->getLateralPositionOnLane()
+                              << ", foe=" << crossingOrientation* e->ego->getLateralPositionOnLane()
+                              << "\n    distToConflictLane:"
+                              << "\n     ego=" << egoDistToConflictLane
+                              << ", foe=" << foeDistToConflictLane
+                              << "\n    distToConflictFromJunctionEntry:"
+                              << "\n     ego=" << egoDistToConflictFromJunctionEntry
+                              << ", foe=" << foeDistToConflictFromJunctionEntry
+                              << "\n    resulting entry distances:"
+                              << "\n     ego=" << eInfo.egoConflictEntryDist
+                              << ", foe=" << eInfo.foeConflictEntryDist
+                              << "\n    resulting exit distances:"
+                              << "\n     ego=" << eInfo.egoConflictExitDist
+                              << ", foe=" << eInfo.foeConflictExitDist
+                              << std::endl;
+
                     std::cout << "real egoConflictLane: '" << (egoConflictLane == 0 ? "NULL" : egoConflictLane->getID()) << "'\n"
                               << "real foeConflictLane: '" << (foeConflictLane == 0 ? "NULL" : foeConflictLane->getID()) << "'\n"
                               << "-> Encounter type: Crossing situation of ego '" << e->ego->getID() << "' on lane '" << egoLane->getID() << "' and foe '"
                               << e->foe->getID() << "' on lane '" << foeLane->getID() << "'"
                               << "\nDistances to crossing-point: ego: " << eInfo.egoConflictEntryDist << ", foe: " << eInfo.foeConflictEntryDist
                               << std::endl;
+                }
 #endif
             }
         }
