@@ -141,6 +141,7 @@ MSXMLRawOut::writeVehicle(OutputDevice& of, const MSBaseVehicle& veh) {
             if (MSAbstractLaneChangeModel::haveLateralDynamics()) {
                 const double posLat = microVeh.getLateralPositionOnLane();
                 of.writeAttr(SUMO_ATTR_POSITION_LAT, posLat);
+                of.writeAttr("speedLat", microVeh.getLaneChangeModel().getSpeedLat());
             }
             const int personNumber = microVeh.getPersonNumber();
             if (personNumber > 0) {
