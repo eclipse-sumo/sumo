@@ -537,11 +537,23 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
         }
         for (const auto &i : getSortedDemandElementChildsByType(SUMO_TAG_TRIP)) {
             // draw partial trip
-            drawPartialTripFromTo(s, i);
+            if (myNet->getViewNet()->getDottedAC() == i) {
+                drawPartialTripFromTo(s, i);
+            }
+            // only draw trip in the first edge
+            if (i->getAttribute(SUMO_ATTR_FROM) == getID()) {
+                i->drawGL(s);
+            }
         }
         for (const auto &i : getSortedDemandElementChildsByType(SUMO_TAG_FLOW_FROMTO)) {
             // draw partial flowFromTo
-            drawPartialTripFromTo(s, i);
+            if (myNet->getViewNet()->getDottedAC() == i) {
+                drawPartialTripFromTo(s, i);
+            }
+            // only draw flowFromTo in the first edge
+            if (i->getAttribute(SUMO_ATTR_FROM) == getID()) {
+                i->drawGL(s);
+            }
         }
     }
     // draw geometry points if isnt's too small
@@ -1906,19 +1918,15 @@ GNEEdge::drawPartialRoute(const GUIVisualizationSettings& s, GNEDemandElement *r
 void 
 GNEEdge::drawPartialTripFromTo(const GUIVisualizationSettings& s, GNEDemandElement *tripOrFromTo) const {
     // calculate tripOrFromTo width
-    double tripOrFromToWidth = s.addSize.getExaggeration(s, this) * 0.66;
+    double tripOrFromToWidth = s.addSize.getExaggeration(s, this) * 0.2;
     // Start drawing adding an gl identificator
     glPushName(tripOrFromTo->getGlID());
     // Add a draw matrix
     glPushMatrix();
     // Start with the drawing of the area traslating matrix to origin
     glTranslated(0, 0, tripOrFromTo->getType());
-    // Set color of the base
-    if (drawUsingSelectColor()) {
-        GLHelper::setColor(s.selectedAdditionalColor);
-    } else {
-        GLHelper::setColor(tripOrFromTo->getColor());
-    }
+    // set orange color
+    GLHelper::setColor(RGBColor::ORANGE);
     // check in what lane the partial tripOrFromTo drawn
     int index = -1;
     for (int i = 0; (i < (int)myNBEdge.getLanes().size()) && (index == -1); i++) {
@@ -1946,16 +1954,22 @@ GNEEdge::drawPartialTripFromTo(const GUIVisualizationSettings& s, GNEDemandEleme
     if (!s.drawForSelecting) {
         drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
     }
-    // check if dotted contour has to be drawn
-    if (!s.drawForSelecting && (myNet->getViewNet()->getDottedAC() == tripOrFromTo)) {
-        GLHelper::drawShapeDottedContour(getType(), tripOrFromTo->myGeometry.shape, tripOrFromToWidth);
-    }
     // Pop name
     glPopName();
-    // draw tripOrFromTo childs
-    for (const auto &i : tripOrFromTo->getDemandElementChilds()) {
-        i->drawGL(s);
-    }
+    /*
+    // Add a draw matrix
+    glPushMatrix();
+    // Start with the drawing of the area traslating matrix to origin
+    glTranslated(0, 0, getType() - 0.01);
+    // set orange color
+    GLHelper::setColor(RGBColor::RED);
+    // set line width
+    glLineWidth(5);
+    // draw first line
+    GLHelper::drawLine(getEdgeParents().front()->getNBEdge()->getLanes().front().shape.front(), getEdgeParents().back()->getNBEdge()->getLanes().front().shape.back());
+    // Pop last matrix
+    glPopMatrix();
+    */
 }
 
 /****************************************************************************/

@@ -325,7 +325,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
             // push draw matrix
             glPushMatrix();
             // translate to drawing position
-            glTranslated(myGeometry.shape.front().x(), myGeometry.shape.front().y(), getType());
+            glTranslated(myGeometry.shape.front().x(), myGeometry.shape.front().y(), GLO_ROUTE + getType() + 0.1);
             glRotated(myGeometry.shapeRotations.front(), 0, 0, 1);
             GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
             // Pop last matrix
@@ -339,7 +339,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
             // push draw matrix
             glPushMatrix();
             // translate to drawing position
-            glTranslated(myGeometry.shape.front().x(), myGeometry.shape.front().y(), getType());
+            glTranslated(myGeometry.shape.front().x(), myGeometry.shape.front().y(), GLO_ROUTE + getType() + 0.1);
             glRotated(myGeometry.shapeRotations.front(), 0, 0, 1);
             // set lane color
             setColor(s);
@@ -395,44 +395,6 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
             // check if dotted contour has to be drawn
             if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
                 GLHelper::drawShapeDottedContour(getType(), myGeometry.shape.front(), width, length, myGeometry.shapeRotations.front(), 0, length / 2);
-                // check if draw temporal route must be drawed (only for Tags
-                if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW_FROMTO)) {
-                    if (getEdgeParents().size() > 1) {
-                        // Add a draw matrix
-                        glPushMatrix();
-                        // Start with the drawing of the area traslating matrix to origin
-                        glTranslated(0, 0, getType() - 0.01);
-                        // set orange color
-                        GLHelper::setColor(RGBColor::ORANGE);
-                        // set line width
-                        glLineWidth(5);
-                        // draw first line
-                        GLHelper::drawLine(getEdgeParents().at(0)->getNBEdge()->getLanes().front().shape.front(),
-                                           getEdgeParents().at(0)->getNBEdge()->getLanes().front().shape.back());
-                        // draw rest of lines
-                        for (int i = 1; i < (int)getEdgeParents().size(); i++) {
-                            GLHelper::drawLine(getEdgeParents().at((int)i - 1)->getNBEdge()->getLanes().front().shape.back(),
-                                               getEdgeParents().at(i)->getNBEdge()->getLanes().front().shape.front());
-                            GLHelper::drawLine(getEdgeParents().at(i)->getNBEdge()->getLanes().front().shape.front(),
-                                               getEdgeParents().at(i)->getNBEdge()->getLanes().front().shape.back());
-                        }
-                        // Pop last matrix
-                        glPopMatrix();
-                    } else {
-                        // Add a draw matrix
-                        glPushMatrix();
-                        // Start with the drawing of the area traslating matrix to origin
-                        glTranslated(0, 0, getType() - 0.01);
-                        // set orange color
-                        GLHelper::setColor(RGBColor::RED);
-                        // set line width
-                        glLineWidth(5);
-                        // draw first line
-                        GLHelper::drawLine(getEdgeParents().front()->getNBEdge()->getLanes().front().shape.front(), getEdgeParents().back()->getNBEdge()->getLanes().front().shape.back());
-                        // Pop last matrix
-                        glPopMatrix();
-                    }
-                }
             }
             // pop name
             glPopName();
