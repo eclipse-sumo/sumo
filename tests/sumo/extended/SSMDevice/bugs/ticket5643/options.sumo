@@ -1,0 +1,2 @@
+-n net3.net.xml -r input_routes.rou.xml --step-length=0.1 --no-step-log
+--device.ssm.probability 1
