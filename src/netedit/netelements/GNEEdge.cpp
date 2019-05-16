@@ -550,6 +550,8 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
             glPopName();
         }
         for (const auto &i : getSortedDemandElementChildsByType(SUMO_TAG_FLOW_FROMTO)) {
+            // Start drawing adding an gl identificator
+            glPushName(i->getGlID());
             // draw partial trip only if is being inspected or selected
             if ((myNet->getViewNet()->getDottedAC() == i) || i->isAttributeCarrierSelected()) {
                 drawPartialTripFromTo(s, i);
@@ -558,6 +560,8 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
             if (i->getAttribute(SUMO_ATTR_FROM) == getID()) {
                 i->drawGL(s);
             }
+            // Pop name
+            glPopName();
         }
     }
     // draw geometry points if isnt's too small
