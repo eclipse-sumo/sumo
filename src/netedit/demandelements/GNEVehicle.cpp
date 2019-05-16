@@ -318,10 +318,14 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
         const double width = parse<double>(getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_WIDTH));
         const double length = parse<double>(getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_LENGTH));
         double vehicleSizeSquared = width * length * upscale * width * length * upscale;
+        // declare a flag to check if glPushName() / glPopName() has to be added (needed due GNEEdge::drawGL(...))
+        const bool pushName = (myTagProperty.getTag() != SUMO_TAG_FLOW_FROMTO) && (myTagProperty.getTag() != SUMO_TAG_TRIP);
         // first check if if mouse is enought near to this vehicle to draw it
         if (s.drawForSelecting && (myViewNet->getPositionInformation().distanceSquaredTo2D(myGeometry.shape.front()) >= (vehicleSizeSquared + 2))) {
             // first push name
-            glPushName(getGlID());
+            if (pushName) {
+                glPushName(getGlID());
+            }
             // push draw matrix
             glPushMatrix();
             // translate to drawing position
@@ -331,11 +335,15 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
             // Pop last matrix
             glPopMatrix();
             // pop name
-            glPopName();
+            if (pushName) {
+                glPopName();
+            }
         } else {
             SUMOVehicleShape shape = getVehicleShapeID(getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_GUISHAPE));
             // first push name
-            glPushName(getGlID());
+            if (pushName) {
+                glPushName(getGlID());
+            }
             // push draw matrix
             glPushMatrix();
             // translate to drawing position
@@ -397,7 +405,9 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::drawShapeDottedContour(getType(), myGeometry.shape.front(), width, length, myGeometry.shapeRotations.front(), 0, length / 2);
             }
             // pop name
-            glPopName();
+            if (pushName) {
+                glPopName();
+            }
         }
     }
 }
@@ -858,7 +868,27 @@ GNEVehicle::getPopUpID() const {
 
 std::string
 GNEVehicle::getHierarchyName() const {
-    return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID) ;
+    // special case for Trips and FlowsFromTo
+    if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW_FROMTO)) {
+        // check if we're inspecting a Edge
+        if (myViewNet->getNet()->getViewNet()->getDottedAC() && 
+            myViewNet->getNet()->getViewNet()->getDottedAC()->getTagProperty().getTag() == SUMO_TAG_EDGE) {
+            // check if edge correspond to a "from", "to" or "via" edge
+            if (getEdgeParents().front() == myViewNet->getNet()->getViewNet()->getDottedAC()) {
+                return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID) + " (from)";
+            } else if (getEdgeParents().front() == myViewNet->getNet()->getViewNet()->getDottedAC()) {
+                return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID) + " (to)";
+            } else {
+                // iterate over via
+                for (const auto & i : via) {
+                    if (i == myViewNet->getNet()->getViewNet()->getDottedAC()->getID()) {
+                        return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID) + " (via)";
+                    }
+                }
+            }
+        }
+    }
+    return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID);
 }
 
 // ===========================================================================

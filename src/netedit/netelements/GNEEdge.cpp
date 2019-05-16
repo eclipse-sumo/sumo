@@ -536,6 +536,8 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
             drawPartialRoute(s, i);
         }
         for (const auto &i : getSortedDemandElementChildsByType(SUMO_TAG_TRIP)) {
+            // Start drawing adding an gl identificator
+            glPushName(i->getGlID());
             // draw partial trip only if is being inspected or selected
             if ((myNet->getViewNet()->getDottedAC() == i) || i->isAttributeCarrierSelected()) {
                 drawPartialTripFromTo(s, i);
@@ -544,6 +546,8 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
             if (i->getAttribute(SUMO_ATTR_FROM) == getID()) {
                 i->drawGL(s);
             }
+            // Pop name
+            glPopName();
         }
         for (const auto &i : getSortedDemandElementChildsByType(SUMO_TAG_FLOW_FROMTO)) {
             // draw partial trip only if is being inspected or selected
@@ -1919,8 +1923,6 @@ void
 GNEEdge::drawPartialTripFromTo(const GUIVisualizationSettings& s, GNEDemandElement *tripOrFromTo) const {
     // calculate tripOrFromTo width
     double tripOrFromToWidth = s.addSize.getExaggeration(s, this) * 0.2;
-    // Start drawing adding an gl identificator
-    glPushName(tripOrFromTo->getGlID());
     // Add a draw matrix
     glPushMatrix();
     // Start with the drawing of the area traslating matrix to origin
