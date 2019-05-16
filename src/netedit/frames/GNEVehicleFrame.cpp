@@ -324,14 +324,14 @@ GNEVehicleFrame::TripRouteCreator::drawTemporalRoute() const {
         // set line width
         glLineWidth(5);
         // draw first line
-        GLHelper::drawLine(myTemporalRoute.at(0)->getLanes().front().shape.front(),
-                           myTemporalRoute.at(0)->getLanes().front().shape.back());
+        GLHelper::drawLine(myTemporalRoute.at(0)->getNBEdge()->getLanes().front().shape.front(),
+                           myTemporalRoute.at(0)->getNBEdge()->getLanes().front().shape.back());
         // draw rest of lines
         for (int i = 1; i < (int)myTemporalRoute.size(); i++) {
-            GLHelper::drawLine(myTemporalRoute.at(i - 1)->getLanes().front().shape.back(),
-                               myTemporalRoute.at(i)->getLanes().front().shape.front());
-            GLHelper::drawLine(myTemporalRoute.at(i)->getLanes().front().shape.front(),
-                               myTemporalRoute.at(i)->getLanes().front().shape.back());
+            GLHelper::drawLine(myTemporalRoute.at(i - 1)->getNBEdge()->getLanes().front().shape.back(),
+                               myTemporalRoute.at(i)->getNBEdge()->getLanes().front().shape.front());
+            GLHelper::drawLine(myTemporalRoute.at(i)->getNBEdge()->getLanes().front().shape.front(),
+                               myTemporalRoute.at(i)->getNBEdge()->getLanes().front().shape.back());
         }
         // Pop last matrix
         glPopMatrix();
@@ -413,7 +413,7 @@ GNEVehicleFrame::TripRouteCreator::onCmdRemoveLastRouteEdge(FXObject*, FXSelecto
         mySelectedEdges.pop_back();
         // calculate temporal route
         myTemporalRoute = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(
-                              GNEAttributeCarrier::parse<SUMOVehicleClass>(myVehicleFrameParent->myVTypeSelector->getCurrentVehicleType()->getAttribute(SUMO_ATTR_VCLASS)), mySelectedEdges);
+            GNEAttributeCarrier::parse<SUMOVehicleClass>(myVehicleFrameParent->myVTypeSelector->getCurrentVehicleType()->getAttribute(SUMO_ATTR_VCLASS)), mySelectedEdges);
     }
     return 1;
 }

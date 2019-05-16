@@ -66,13 +66,10 @@ public:
         /// @brief update DijkstraRoute (called when SuperMode Demand is selected)
         void updateDijkstraRouter();
 
-        /// @brief calculate Dijkstra route (and save it in a single vector
-        std::vector<const NBEdge*> calculateDijkstraRoute(SUMOVehicleClass vClass, const std::vector<GNEEdge*>& edges) const;
+        /// @brief calculate Dijkstra route between a list of partial edges
+        std::vector<GNEEdge*> calculateDijkstraRoute(SUMOVehicleClass vClass, const std::vector<GNEEdge*>& partialEdges) const;
 
-        /// @brief calculate partial Dijkstra route (and save it in a Matrix vector)
-        std::vector<std::vector<const NBEdge*> > calculateDijkstraPartialRoute(SUMOVehicleClass vClass, const std::vector<GNEEdge*>& edges) const;
-
-        /// @ brief check if exist a route between the two given consecutives edges
+        /// @brief check if exist a route between the two given consecutives edges
         bool areEdgesConsecutives(SUMOVehicleClass vClass, GNEEdge* from, GNEEdge* to) const;
 
     private:

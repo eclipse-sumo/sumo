@@ -161,7 +161,7 @@ public:
 
 protected:
     /// @brief vector with temporal route edges (only used for Trip visualization)
-    std::vector<const NBEdge*> myTemporalRoute;
+    std::vector<GNEEdge*> myTemporalRoute;
 
     /// @brief sets the color according to the currente settings
     void setColor(const GUIVisualizationSettings& s) const;

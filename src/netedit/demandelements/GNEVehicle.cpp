@@ -256,21 +256,21 @@ GNEVehicle::updateGeometry() {
             std::vector<PositionVector> multiShape;
 
             // start with the first lane shape
-            multiShape.push_back(myTemporalRoute.front()->getLanes().front().shape);
+            multiShape.push_back(myTemporalRoute.front()->getNBEdge()->getLanes().front().shape);
 
             // add first shape connection (if exist, in other case leave it empty)
-            multiShape.push_back(PositionVector{myTemporalRoute.at(0)->getLanes().front().shape.back(), myTemporalRoute.at(1)->getLanes().front().shape.front()});
+            multiShape.push_back(PositionVector{myTemporalRoute.at(0)->getNBEdge()->getLanes().front().shape.back(), myTemporalRoute.at(1)->getNBEdge()->getLanes().front().shape.front()});
 
             // append shapes of intermediate lanes AND connections (if exist)
             for (int i = 1; i < ((int)myTemporalRoute.size() - 1); i++) {
                 // add lane shape
-                multiShape.push_back(myTemporalRoute.at(i)->getLanes().front().shape);
+                multiShape.push_back(myTemporalRoute.at(i)->getNBEdge()->getLanes().front().shape);
                 // add empty shape for connection
-                multiShape.push_back(PositionVector{myTemporalRoute.at(i)->getLanes().front().shape.back(), myTemporalRoute.at((int)i + 1)->getLanes().front().shape.front()});
+                multiShape.push_back(PositionVector{myTemporalRoute.at(i)->getNBEdge()->getLanes().front().shape.back(), myTemporalRoute.at((int)i + 1)->getNBEdge()->getLanes().front().shape.front()});
             }
 
             // append last shape
-            multiShape.push_back(myTemporalRoute.back()->getLanes().front().shape);
+            multiShape.push_back(myTemporalRoute.back()->getNBEdge()->getLanes().front().shape);
 
             // calculate unified shape
             for (auto i : multiShape) {
@@ -414,14 +414,14 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                         // set line width
                         glLineWidth(5);
                         // draw first line
-                        GLHelper::drawLine(myTemporalRoute.at(0)->getLanes().front().shape.front(),
-                                           myTemporalRoute.at(0)->getLanes().front().shape.back());
+                        GLHelper::drawLine(myTemporalRoute.at(0)->getNBEdge()->getLanes().front().shape.front(),
+                                           myTemporalRoute.at(0)->getNBEdge()->getLanes().front().shape.back());
                         // draw rest of lines
                         for (int i = 1; i < (int)myTemporalRoute.size(); i++) {
-                            GLHelper::drawLine(myTemporalRoute.at((int)i - 1)->getLanes().front().shape.back(),
-                                               myTemporalRoute.at(i)->getLanes().front().shape.front());
-                            GLHelper::drawLine(myTemporalRoute.at(i)->getLanes().front().shape.front(),
-                                               myTemporalRoute.at(i)->getLanes().front().shape.back());
+                            GLHelper::drawLine(myTemporalRoute.at((int)i - 1)->getNBEdge()->getLanes().front().shape.back(),
+                                               myTemporalRoute.at(i)->getNBEdge()->getLanes().front().shape.front());
+                            GLHelper::drawLine(myTemporalRoute.at(i)->getNBEdge()->getLanes().front().shape.front(),
+                                               myTemporalRoute.at(i)->getNBEdge()->getLanes().front().shape.back());
                         }
                         // Pop last matrix
                         glPopMatrix();
@@ -1217,7 +1217,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ROUTE:
             changeDemandElementParent(this, value, 1);
             break;
-        // Specific of Trips
+        // Specific of Trips and FlowsFromTo
         case SUMO_ATTR_FROM: {
             std::vector<std::string> newEdges;
             newEdges.push_back(value);
