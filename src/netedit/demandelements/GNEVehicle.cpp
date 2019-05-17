@@ -898,7 +898,7 @@ GNEVehicle::getHierarchyName() const {
 void
 GNEVehicle::setColor(const GUIVisualizationSettings& s) const {
     // change color
-    if (isAttributeCarrierSelected()) {
+    if (drawUsingSelectColor()) {
         GLHelper::setColor(s.selectedAdditionalColor);
     } else {
         // obtain vehicle color

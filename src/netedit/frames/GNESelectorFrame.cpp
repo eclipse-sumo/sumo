@@ -36,6 +36,9 @@
 #include <netedit/additionals/GNEAdditional.h>
 #include <netedit/additionals/GNEPoly.h>
 #include <netedit/additionals/GNEPOI.h>
+#include <netedit/demandelements/GNERoute.h>
+#include <netedit/demandelements/GNEVehicle.h>
+#include <netedit/demandelements/GNEStop.h>
 #include <netedit/GNEUndoList.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 
@@ -363,7 +366,7 @@ void
 GNESelectorFrame::LockGLObjectTypes::showTypeEntries() {
     for (const auto& i : myTypeEntries) {
         // showr or hidde type entries depending of current supermode
-        if (i.second.first == mySelectorFrameParent->getViewNet()->getEditModes().currentSupermode) {
+        if (i.second.first == mySelectorFrameParent->myViewNet->getEditModes().currentSupermode) {
             i.second.second->showObjectTypeEntry();
         } else {
             i.second.second->hideObjectTypeEntry();
@@ -522,7 +525,7 @@ GNESelectorFrame::ElementSet::refreshElementSet() {
     // first clear item
     mySetComboBox->clearItems();
     // now fill elements depending of supermode
-    if (mySelectorFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) {
+    if (mySelectorFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) {
         mySetComboBox->appendItem("Net Element");
         mySetComboBox->appendItem("Additional");
         mySetComboBox->appendItem("Shape");
@@ -538,7 +541,7 @@ GNESelectorFrame::ElementSet::refreshElementSet() {
 long
 GNESelectorFrame::ElementSet::onCmdSelectElementSet(FXObject*, FXSelector, void*) {
     // check depending of current supermode
-    if (mySelectorFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) {
+    if (mySelectorFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) {
         if (mySetComboBox->getText() == "Net Element") {
             myCurrentElementSet = ELEMENTSET_NETELEMENT;
             mySetComboBox->setTextColor(FXRGB(0, 0, 0));
@@ -915,8 +918,8 @@ GNESelectorFrame::VisualScaling::~VisualScaling() {}
 long
 GNESelectorFrame::VisualScaling::onCmdScaleSelection(FXObject*, FXSelector, void*) {
     // set scale in viewnet
-    mySelectorFrameParent->getViewNet()->setSelectionScaling(mySelectionScaling->getValue());
-    mySelectorFrameParent->getViewNet()->update();
+    mySelectorFrameParent->myViewNet->setSelectionScaling(mySelectionScaling->getValue());
+    mySelectorFrameParent->myViewNet->update();
     return 1;
 }
 
@@ -972,12 +975,12 @@ GNESelectorFrame::SelectionOperation::onCmdLoad(FXObject*, FXSelector, void*) {
                 // check if GUIGlObject exist and their  their GL type isn't blocked
                 if ((object != nullptr) && !mySelectorFrameParent->myLockGLObjectTypes->IsObjectTypeLocked(object->getType())) {
                     // obtain GNEAttributeCarrier
-                    GNEAttributeCarrier* AC = mySelectorFrameParent->getViewNet()->getNet()->retrieveAttributeCarrier(object->getGlID(), false);
+                    GNEAttributeCarrier* AC = mySelectorFrameParent->myViewNet->getNet()->retrieveAttributeCarrier(object->getGlID(), false);
                     // check if AC exist and if is selectable
                     if (AC && AC->getTagProperty().isSelectable())
                         // now check if we're in the correct supermode to load this element
-                        if (((mySelectorFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && !AC->getTagProperty().isDemandElement()) ||
-                                ((mySelectorFrameParent->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && AC->getTagProperty().isDemandElement())) {
+                        if (((mySelectorFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && !AC->getTagProperty().isDemandElement()) ||
+                                ((mySelectorFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && AC->getTagProperty().isDemandElement())) {
                             loadedACs.push_back(AC);
                         }
                 }
@@ -985,12 +988,12 @@ GNESelectorFrame::SelectionOperation::onCmdLoad(FXObject*, FXSelector, void*) {
         }
         // change selected attribute in loaded ACs allowing undo/redo
         if (loadedACs.size() > 0) {
-            mySelectorFrameParent->getViewNet()->getUndoList()->p_begin("load selection");
+            mySelectorFrameParent->myViewNet->getUndoList()->p_begin("load selection");
             mySelectorFrameParent->handleIDs(loadedACs);
-            mySelectorFrameParent->getViewNet()->getUndoList()->p_end();
+            mySelectorFrameParent->myViewNet->getUndoList()->p_end();
         }
     }
-    mySelectorFrameParent->getViewNet()->update();
+    mySelectorFrameParent->myViewNet->update();
     return 1;
 }
 
@@ -1034,74 +1037,147 @@ GNESelectorFrame::SelectionOperation::onCmdClear(FXObject*, FXSelector, void*) {
 long
 GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) {
     // first make a copy of current selected elements
-    std::vector<GNEAttributeCarrier*> copyOfSelectedAC = mySelectorFrameParent->getViewNet()->getNet()->getSelectedAttributeCarriers(false);
+    std::vector<GNEAttributeCarrier*> copyOfSelectedAC = mySelectorFrameParent->myViewNet->getNet()->getSelectedAttributeCarriers(false);
     // for invert selection, first clean current selection and next select elements of set "unselectedElements"
-    mySelectorFrameParent->getViewNet()->getUndoList()->p_begin("invert selection");
-    // select junctions, edges, lanes connections and crossings
-    std::vector<GNEJunction*> junctions = mySelectorFrameParent->getViewNet()->getNet()->retrieveJunctions();
-
+    mySelectorFrameParent->myViewNet->getUndoList()->p_begin("invert selection");
+    // obtan locks (only for improve code legibly)
     LockGLObjectTypes* locks = mySelectorFrameParent->getLockGLObjectTypes();
-    for (auto i : junctions) {
-        if (!locks->IsObjectTypeLocked(GLO_JUNCTION)) {
-            i->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
-        }
-        // due we iterate over all junctions, only it's neccesary iterate over incoming edges
-        for (auto j : i->getGNEIncomingEdges()) {
-            // only select edges if "select edges" flag is enabled. In other case, select only lanes
-            if (mySelectorFrameParent->getViewNet()->getViewOptions().selectEdges()) {
-                if (!locks->IsObjectTypeLocked(GLO_EDGE)) {
-                    j->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
+    // invert selection of elements depending of current supermode
+    if (mySelectorFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) {
+        // select junctions, edges, lanes connections and crossings
+        std::vector<GNEJunction*> junctions = mySelectorFrameParent->myViewNet->getNet()->retrieveJunctions();
+        // iterate over junctions
+        for (auto i : junctions) {
+            if (!locks->IsObjectTypeLocked(GLO_JUNCTION)) {
+                i->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->myViewNet->getUndoList());
+            }
+            // due we iterate over all junctions, only it's neccesary iterate over incoming edges
+            for (auto j : i->getGNEIncomingEdges()) {
+                // only select edges if "select edges" flag is enabled. In other case, select only lanes
+                if (mySelectorFrameParent->myViewNet->getViewOptions().selectEdges()) {
+                    if (!locks->IsObjectTypeLocked(GLO_EDGE)) {
+                        j->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->myViewNet->getUndoList());
+                    }
+                } else {
+                    if (!locks->IsObjectTypeLocked(GLO_LANE)) {
+                        for (auto k : j->getLanes()) {
+                            k->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->myViewNet->getUndoList());
+                        }
+                    }
                 }
-            } else {
-                if (!locks->IsObjectTypeLocked(GLO_LANE)) {
-                    for (auto k : j->getLanes()) {
-                        k->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
+                // select connections
+                if (!locks->IsObjectTypeLocked(GLO_CONNECTION)) {
+                    for (auto k : j->getGNEConnections()) {
+                        k->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->myViewNet->getUndoList());
                     }
                 }
             }
-            // select connections
-            if (!locks->IsObjectTypeLocked(GLO_CONNECTION)) {
-                for (auto k : j->getGNEConnections()) {
-                    k->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
+            // select crossings
+            if (!locks->IsObjectTypeLocked(GLO_CROSSING)) {
+                for (auto j : i->getGNECrossings()) {
+                    j->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->myViewNet->getUndoList());
                 }
             }
         }
-        // select crossings
-        if (!locks->IsObjectTypeLocked(GLO_CROSSING)) {
-            for (auto j : i->getGNECrossings()) {
-                j->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
+        // select additionals
+        if (!locks->IsObjectTypeLocked(GLO_ADDITIONAL)) {
+            std::vector<GNEAdditional*> additionals = mySelectorFrameParent->myViewNet->getNet()->retrieveAdditionals();
+            for (auto i : additionals) {
+                if (i->getTagProperty().isSelectable()) {
+                    i->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->myViewNet->getUndoList());
+                }
             }
         }
-    }
-    // select additionals
-    if (!locks->IsObjectTypeLocked(GLO_ADDITIONAL)) {
-        std::vector<GNEAdditional*> additionals = mySelectorFrameParent->getViewNet()->getNet()->retrieveAdditionals();
-        for (auto i : additionals) {
-            if (i->getTagProperty().isSelectable()) {
-                i->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
+        // select polygons
+        if (!locks->IsObjectTypeLocked(GLO_POLYGON)) {
+            for (auto i : mySelectorFrameParent->myViewNet->getNet()->getPolygons()) {
+                dynamic_cast<GNEPoly*>(i.second)->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->myViewNet->getUndoList());
             }
         }
-    }
-    // select polygons
-    if (!locks->IsObjectTypeLocked(GLO_POLYGON)) {
-        for (auto i : mySelectorFrameParent->getViewNet()->getNet()->getPolygons()) {
-            dynamic_cast<GNEPoly*>(i.second)->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
+        // select POIs
+        if (!locks->IsObjectTypeLocked(GLO_POI)) {
+            for (auto i : mySelectorFrameParent->myViewNet->getNet()->getPOIs()) {
+                dynamic_cast<GNEPOI*>(i.second)->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->myViewNet->getUndoList());
+            }
         }
-    }
-    // select POIs
-    if (!locks->IsObjectTypeLocked(GLO_POI)) {
-        for (auto i : mySelectorFrameParent->getViewNet()->getNet()->getPOIs()) {
-            dynamic_cast<GNEPOI*>(i.second)->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
+    } else {
+        // select routes
+        if (!locks->IsObjectTypeLocked(GLO_ROUTE)) {
+            for (const auto &i : mySelectorFrameParent->myViewNet->getNet()->getDemandElementByType(SUMO_TAG_ROUTE)) {
+                if (i.second->getTagProperty().isSelectable()) {
+                    i.second->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->myViewNet->getUndoList());
+                }
+            }
+        }
+        // select vehicles
+        if (!locks->IsObjectTypeLocked(GLO_VEHICLE)) {
+            for (const auto &i : mySelectorFrameParent->myViewNet->getNet()->getDemandElementByType(SUMO_TAG_VEHICLE)) {
+                if (i.second->getTagProperty().isSelectable()) {
+                    i.second->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->myViewNet->getUndoList());
+                }
+            }
+        }
+        // select trips
+        if (!locks->IsObjectTypeLocked(GLO_TRIP)) {
+            for (const auto &i : mySelectorFrameParent->myViewNet->getNet()->getDemandElementByType(SUMO_TAG_TRIP)) {
+                if (i.second->getTagProperty().isSelectable()) {
+                    i.second->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->myViewNet->getUndoList());
+                }
+            }
+        }
+        // select flows
+        if (!locks->IsObjectTypeLocked(GLO_FLOW)) {
+            for (const auto &i : mySelectorFrameParent->myViewNet->getNet()->getDemandElementByType(SUMO_TAG_FLOW)) {
+                if (i.second->getTagProperty().isSelectable()) {
+                    i.second->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->myViewNet->getUndoList());
+                }
+            }
+        }
+        // select route flows
+        if (!locks->IsObjectTypeLocked(GLO_ROUTEFLOW)) {
+            for (const auto &i : mySelectorFrameParent->myViewNet->getNet()->getDemandElementByType(SUMO_TAG_ROUTEFLOW)) {
+                if (i.second->getTagProperty().isSelectable()) {
+                    i.second->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->myViewNet->getUndoList());
+                }
+            }
+        }
+        // select stops
+        if (!locks->IsObjectTypeLocked(GLO_STOP)) {
+            for (const auto &i : mySelectorFrameParent->myViewNet->getNet()->getDemandElementByType(SUMO_TAG_STOP_LANE)) {
+                if (i.second->getTagProperty().isSelectable()) {
+                    i.second->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->myViewNet->getUndoList());
+                }
+            }
+            for (const auto &i : mySelectorFrameParent->myViewNet->getNet()->getDemandElementByType(SUMO_TAG_STOP_BUSSTOP)) {
+                if (i.second->getTagProperty().isSelectable()) {
+                    i.second->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->myViewNet->getUndoList());
+                }
+            }
+            for (const auto &i : mySelectorFrameParent->myViewNet->getNet()->getDemandElementByType(SUMO_TAG_STOP_CONTAINERSTOP)) {
+                if (i.second->getTagProperty().isSelectable()) {
+                    i.second->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->myViewNet->getUndoList());
+                }
+            }
+            for (const auto &i : mySelectorFrameParent->myViewNet->getNet()->getDemandElementByType(SUMO_TAG_STOP_CHARGINGSTATION)) {
+                if (i.second->getTagProperty().isSelectable()) {
+                    i.second->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->myViewNet->getUndoList());
+                }
+            }
+            for (const auto &i : mySelectorFrameParent->myViewNet->getNet()->getDemandElementByType(SUMO_TAG_STOP_PARKINGAREA)) {
+                if (i.second->getTagProperty().isSelectable()) {
+                    i.second->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->myViewNet->getUndoList());
+                }
+            }
         }
     }
     // now iterate over all elements of "copyOfSelectedAC" and undselect it
     for (auto i : copyOfSelectedAC) {
-        i->setAttribute(GNE_ATTR_SELECTED, "false", mySelectorFrameParent->getViewNet()->getUndoList());
+        i->setAttribute(GNE_ATTR_SELECTED, "false", mySelectorFrameParent->myViewNet->getUndoList());
     }
     // finish selection operation
-    mySelectorFrameParent->getViewNet()->getUndoList()->p_end();
+    mySelectorFrameParent->myViewNet->getUndoList()->p_end();
     // update view
-    mySelectorFrameParent->getViewNet()->update();
+    mySelectorFrameParent->myViewNet->update();
     return 1;
 }
 

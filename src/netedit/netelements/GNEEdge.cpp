@@ -1878,7 +1878,7 @@ GNEEdge::drawPartialRoute(const GUIVisualizationSettings& s, GNEDemandElement *r
     // Start with the drawing of the area traslating matrix to origin
     glTranslated(0, 0, route->getType());
     // Set color of the base
-    if (drawUsingSelectColor()) {
+    if (route->drawUsingSelectColor()) {
         GLHelper::setColor(s.selectedAdditionalColor);
     } else {
         GLHelper::setColor(route->getColor());
@@ -1932,7 +1932,7 @@ GNEEdge::drawPartialTripFromTo(const GUIVisualizationSettings& s, GNEDemandEleme
     // Start with the drawing of the area traslating matrix to origin
     glTranslated(0, 0, tripOrFromTo->getType());
     // Set color of the base
-    if (tripOrFromTo->isAttributeCarrierSelected()) {
+    if (tripOrFromTo->drawUsingSelectColor()) {
         GLHelper::setColor(s.selectedConnectionColor);
     } else {
         GLHelper::setColor(RGBColor::ORANGE);
@@ -1966,20 +1966,6 @@ GNEEdge::drawPartialTripFromTo(const GUIVisualizationSettings& s, GNEDemandEleme
     }
     // Pop name
     glPopName();
-    /*
-    // Add a draw matrix
-    glPushMatrix();
-    // Start with the drawing of the area traslating matrix to origin
-    glTranslated(0, 0, getType() - 0.01);
-    // set orange color
-    GLHelper::setColor(RGBColor::RED);
-    // set line width
-    glLineWidth(5);
-    // draw first line
-    GLHelper::drawLine(getEdgeParents().front()->getNBEdge()->getLanes().front().shape.front(), getEdgeParents().back()->getNBEdge()->getLanes().front().shape.back());
-    // Pop last matrix
-    glPopMatrix();
-    */
 }
 
 /****************************************************************************/
