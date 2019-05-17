@@ -38,10 +38,10 @@
 
 GNEAccess::GNEAccess(GNEAdditional* busStop, GNELane* lane, GNEViewNet* viewNet, const std::string& pos, const std::string& length, bool friendlyPos, bool blockMovement) :
     GNEAdditional(busStop, viewNet, GLO_ACCESS, SUMO_TAG_ACCESS, "", blockMovement,
-{}, {lane}, {}, {busStop}, {}, {}, {}, {}, {}, {}),
-myPositionOverLane(pos),
-myLength(length),
-myFriendlyPosition(friendlyPos) {
+    {}, {lane}, {}, {busStop}, {}, {}, {}, {}, {}, {}),
+    myPositionOverLane(pos),
+    myLength(length),
+    myFriendlyPosition(friendlyPos) {
 }
 
 
@@ -168,7 +168,7 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
     // push matrix
     glPushMatrix();
     // set color depending of selection
-    if (mySelected) {
+    if (drawUsingSelectColor()) {
         GLHelper::setColor(s.selectedAdditionalColor);
     } else {
         GLHelper::setColor(s.SUMO_color_busStop);

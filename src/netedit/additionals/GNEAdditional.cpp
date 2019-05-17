@@ -523,7 +523,7 @@ GNEAdditional::BlockIcon::draw(double size) const {
         // Traslate depending of the offset
         glTranslated(offset.x(), offset.y(), 0);
         // Draw icon depending of the state of additional
-        if (myAdditional->mySelected) {
+        if (myAdditional->drawUsingSelectColor()) {
             if (!myAdditional->getTagProperty().canBlockMovement()) {
                 // Draw not movable texture if additional isn't movable and is selected
                 GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_NOTMOVINGSELECTED), size);
