@@ -77,8 +77,11 @@ std::vector<GNEEdge*>
 GNEDemandElement::RouteCalculator::calculateDijkstraRoute(SUMOVehicleClass vClass, const std::vector<GNEEdge*>& partialEdges) const {
     // declare a solution vector
     std::vector<GNEEdge*> solution;
-    // first check if given list of edges is empty
-    if (partialEdges.size() > 0) {
+    // calculate route depending of number of partial edges
+    if (partialEdges.size() == 1) {
+        // if there is only one partialEdges, route has only one edge
+        solution.push_back(partialEdges.front());
+    } else {
         // declare temporal vehicle
         NBVehicle tmpVehicle("temporalNBVehicle", vClass);
         // obtain pointer to GNENet
