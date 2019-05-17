@@ -135,18 +135,164 @@ GNESelectorFrame::hide() {
 
 void
 GNESelectorFrame::clearCurrentSelection() const {
-    // for clear selection, simply change all GNE_ATTR_SELECTED attribute of current selected elements
-    myViewNet->getUndoList()->p_begin("clear selection");
-    // obtain selected ACs depending of current supermode
-    std::vector<GNEAttributeCarrier*> selectedAC = myViewNet->getNet()->getSelectedAttributeCarriers(false);
-    // change attribute GNE_ATTR_SELECTED of all selected items to false
-    for (auto i : selectedAC) {
-        i->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
+    // only continue if there is element for selecting
+    if (ACsToSelected()) {
+        // for invert selection, first clean current selection and next select elements of set "unselectedElements"
+        myViewNet->getUndoList()->p_begin("invert selection");
+        // invert selection of elements depending of current supermode
+        if (myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) {
+            // iterate over junctions
+            for (const auto &i : myViewNet->getNet()->getAttributeCarriers().junctions) {
+                // check if junction selection is locked
+                if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_JUNCTION)) {
+                    if (i.second->isAttributeCarrierSelected()) {
+                        i.second->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
+                    }
+                }
+                // due we iterate over all junctions, only it's neccesary iterate over incoming edges
+                for (const auto &j : i.second->getGNEIncomingEdges()) {
+                    // only select edges if "select edges" flag is enabled. In other case, select only lanes
+                    if (myViewNet->getViewOptions().selectEdges()) {
+                        // check if edge selection is locked
+                        if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_EDGE)) {
+                            if (j->isAttributeCarrierSelected()) {
+                                j->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
+                            }
+                        }
+                    } else {
+                        // check if lane selection is locked
+                        if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_LANE)) {
+                            for (auto k : j->getLanes()) {
+                                if (k->isAttributeCarrierSelected()) {
+                                    k->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
+                                }
+                            }
+                        }
+                    }
+                    // check if connection selection is locked
+                    if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_CONNECTION)) {
+                        for (const auto &k : j->getGNEConnections()) {
+                            if (k->isAttributeCarrierSelected()) {
+                                k->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
+                            }
+                        }
+                    }
+                }
+                // check if crossing selection is locked
+                if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_CROSSING)) {
+                    for (const auto &j : i.second->getGNECrossings()) {
+                        if (j->isAttributeCarrierSelected()) {
+                            j->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
+                        }
+                    }
+                }
+            }
+            // check if additionals selection is locked
+            if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_ADDITIONAL)) {
+                for (const auto &i : myViewNet->getNet()->getAttributeCarriers().additionals) {
+                    // first check if additional is selectable
+                    if (GNEAttributeCarrier::getTagProperties(i.first).isSelectable()) {
+                        for (const auto &j : i.second) {
+                            if (j.second->isAttributeCarrierSelected()) {
+                                j.second->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
+                            }
+                        }
+                    }
+                }
+            }
+            // select polygons
+            if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_POLYGON)) {
+                for (const auto &i : myViewNet->getNet()->getPolygons()) {
+                    GNEShape *shape = dynamic_cast<GNEShape*>(i.second);
+                    if (shape->isAttributeCarrierSelected()) {
+                        shape->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
+                    }
+                }
+            }
+            // select POIs
+            if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_POI)) {
+                for (const auto &i : myViewNet->getNet()->getPOIs()) {
+                    GNEShape *shape = dynamic_cast<GNEShape*>(i.second);
+                    if (shape->isAttributeCarrierSelected()) {
+                        shape->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
+                    }
+                }
+            }
+        } else {
+            // select routes
+            if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_ROUTE)) {
+                for (const auto &i : myViewNet->getNet()->getDemandElementByType(SUMO_TAG_ROUTE)) {
+                    if (i.second->isAttributeCarrierSelected()) {
+                        i.second->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
+                    }
+                }
+            }
+            // select vehicles
+            if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_VEHICLE)) {
+                for (const auto &i : myViewNet->getNet()->getDemandElementByType(SUMO_TAG_VEHICLE)) {
+                    if (i.second->isAttributeCarrierSelected()) {
+                        i.second->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
+                    }
+                }
+            }
+            // select trips
+            if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_TRIP)) {
+                for (const auto &i : myViewNet->getNet()->getDemandElementByType(SUMO_TAG_TRIP)) {
+                    if (i.second->isAttributeCarrierSelected()) {
+                        i.second->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
+                    }
+                }
+            }
+            // select flows
+            if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_FLOW)) {
+                for (const auto &i : myViewNet->getNet()->getDemandElementByType(SUMO_TAG_FLOW)) {
+                    if (i.second->isAttributeCarrierSelected()) {
+                        i.second->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
+                    }
+                }
+            }
+            // select route flows
+            if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_ROUTEFLOW)) {
+                for (const auto &i : myViewNet->getNet()->getDemandElementByType(SUMO_TAG_ROUTEFLOW)) {
+                    if (i.second->isAttributeCarrierSelected()) {
+                        i.second->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
+                    }
+                }
+            }
+            // select stops
+            if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_STOP)) {
+                for (const auto &i : myViewNet->getNet()->getDemandElementByType(SUMO_TAG_STOP_LANE)) {
+                    if (i.second->isAttributeCarrierSelected()) {
+                        i.second->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
+                    }
+                }
+                for (const auto &i : myViewNet->getNet()->getDemandElementByType(SUMO_TAG_STOP_BUSSTOP)) {
+                    if (i.second->isAttributeCarrierSelected()) {
+                        i.second->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
+                    }
+                }
+                for (const auto &i : myViewNet->getNet()->getDemandElementByType(SUMO_TAG_STOP_CONTAINERSTOP)) {
+                    if (i.second->isAttributeCarrierSelected()) {
+                        i.second->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
+                    }
+                }
+                for (const auto &i : myViewNet->getNet()->getDemandElementByType(SUMO_TAG_STOP_CHARGINGSTATION)) {
+                    if (i.second->isAttributeCarrierSelected()) {
+                        i.second->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
+                    }
+                }
+                for (const auto &i : myViewNet->getNet()->getDemandElementByType(SUMO_TAG_STOP_PARKINGAREA)) {
+                    if (i.second->isAttributeCarrierSelected()) {
+                        i.second->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
+                    }
+                }
+            }
+        }
+        // finish selection operation
+        myViewNet->getUndoList()->p_end();
+        // update view
+        myViewNet->update();
     }
-    // finish clear selection
-    myViewNet->getUndoList()->p_end();
-    // update view
-    myViewNet->update();
 }
 
 
@@ -1036,62 +1182,10 @@ GNESelectorFrame::SelectionOperation::onCmdClear(FXObject*, FXSelector, void*) {
 
 long
 GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) {
-    // obtan locks (only for improve code legibly)
-    LockGLObjectTypes* locks = mySelectorFrameParent->getLockGLObjectTypes();
-    // first check if there is element to select
-    size_t numberOfSelectableElements = 0;
-    if (mySelectorFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) {
-        // check if exist junction and edges
-        numberOfSelectableElements += mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers().junctions.size();
-        numberOfSelectableElements += mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers().edges.size();
-        // check if additionals selection is locked
-        if (!locks->IsObjectTypeLocked(GLO_ADDITIONAL)) {
-            for (const auto &i : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers().additionals) {
-                // first check if additional is selectable
-                if (GNEAttributeCarrier::getTagProperties(i.first).isSelectable()) {
-                    numberOfSelectableElements += mySelectorFrameParent->myViewNet->getNet()->getAdditionalByType(i.first).size();
-                }
-            }
-        }
-        // select polygons
-        if (!locks->IsObjectTypeLocked(GLO_POLYGON)) {
-            numberOfSelectableElements += mySelectorFrameParent->myViewNet->getNet()->getPolygons().size();
-        }
-        // select POIs
-        if (!locks->IsObjectTypeLocked(GLO_POI)) {
-            numberOfSelectableElements += mySelectorFrameParent->myViewNet->getNet()->getPOIs().size();
-        }
-    } else {
-        // select routes
-        if (!locks->IsObjectTypeLocked(GLO_ROUTE)) {
-            numberOfSelectableElements += mySelectorFrameParent->myViewNet->getNet()->getDemandElementByType(SUMO_TAG_ROUTE).size();
-        }
-        // select vehicles
-        if (!locks->IsObjectTypeLocked(GLO_VEHICLE)) {
-            numberOfSelectableElements += mySelectorFrameParent->myViewNet->getNet()->getDemandElementByType(SUMO_TAG_VEHICLE).size();
-        }
-        // select trips
-        if (!locks->IsObjectTypeLocked(GLO_TRIP)) {
-            numberOfSelectableElements += mySelectorFrameParent->myViewNet->getNet()->getDemandElementByType(SUMO_TAG_TRIP).size();
-        }
-        // select flows
-        if (!locks->IsObjectTypeLocked(GLO_FLOW)) {
-            numberOfSelectableElements += mySelectorFrameParent->myViewNet->getNet()->getDemandElementByType(SUMO_TAG_FLOW).size();
-        }
-        // select route flows
-        if (!locks->IsObjectTypeLocked(GLO_ROUTEFLOW)) {
-            numberOfSelectableElements += mySelectorFrameParent->myViewNet->getNet()->getDemandElementByType(SUMO_TAG_ROUTEFLOW).size();
-        }
-        // select stops
-        if (!locks->IsObjectTypeLocked(GLO_STOP)) {
-            numberOfSelectableElements += mySelectorFrameParent->myViewNet->getNet()->getDemandElementByType(SUMO_TAG_STOP_LANE).size();
-            numberOfSelectableElements += mySelectorFrameParent->myViewNet->getNet()->getDemandElementByType(SUMO_TAG_STOP_BUSSTOP).size();
-            numberOfSelectableElements += mySelectorFrameParent->myViewNet->getNet()->getDemandElementByType(SUMO_TAG_STOP_CONTAINERSTOP).size();
-            numberOfSelectableElements += mySelectorFrameParent->myViewNet->getNet()->getDemandElementByType(SUMO_TAG_STOP_CHARGINGSTATION).size();
-        }
-    }
     // only continue if there is element for selecting
-    if (numberOfSelectableElements > 0) {
+    if (mySelectorFrameParent->ACsToSelected()) {
+        // obtan locks (only for improve code legibly)
+        LockGLObjectTypes* locks = mySelectorFrameParent->getLockGLObjectTypes();
         // for invert selection, first clean current selection and next select elements of set "unselectedElements"
         mySelectorFrameParent->myViewNet->getUndoList()->p_begin("invert selection");
         // invert selection of elements depending of current supermode
@@ -1287,5 +1381,67 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
     return 1;
 }
 
+
+bool 
+GNESelectorFrame::ACsToSelected() const {
+    if (myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) {
+        // check if exist junction and edges
+        if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_JUNCTION) && (myViewNet->getNet()->getAttributeCarriers().junctions.size() > 0)) {
+            return true;
+        }
+        if ((!myLockGLObjectTypes->IsObjectTypeLocked(GLO_JUNCTION) || !myLockGLObjectTypes->IsObjectTypeLocked(GLO_JUNCTION)) && (myViewNet->getNet()->getAttributeCarriers().edges.size() > 0)) {
+            return true;
+        }
+        // check if additionals selection is locked
+        if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_ADDITIONAL)) {
+            for (const auto &i : myViewNet->getNet()->getAttributeCarriers().additionals) {
+                // first check if additional is selectable
+                if (GNEAttributeCarrier::getTagProperties(i.first).isSelectable() && (myViewNet->getNet()->getAdditionalByType(i.first).size() > 0)) {
+                    return true;
+                }
+            }
+        }
+        // select polygons
+        if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_POLYGON) && (myViewNet->getNet()->getPolygons().size() > 0)) {
+            return true;
+        }
+        // select POIs
+        if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_POI) && (myViewNet->getNet()->getPOIs().size() > 0)) {
+            return true;
+        }
+    } else {
+        // select routes
+        if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_ROUTE) && (myViewNet->getNet()->getDemandElementByType(SUMO_TAG_ROUTE).size() > 0)) {
+            return true;
+        }
+        // select vehicles
+        if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_VEHICLE) && (myViewNet->getNet()->getDemandElementByType(SUMO_TAG_VEHICLE).size() > 0)) {
+            return true;
+        }
+        // select trips
+        if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_TRIP) && (myViewNet->getNet()->getDemandElementByType(SUMO_TAG_TRIP).size() > 0)) {
+            return true;
+        }
+        // select flows
+        if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_FLOW) && (myViewNet->getNet()->getDemandElementByType(SUMO_TAG_FLOW).size() > 0)) {
+            return true;
+        }
+        // select route flows
+        if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_ROUTEFLOW) && (myViewNet->getNet()->getDemandElementByType(SUMO_TAG_ROUTEFLOW).size() > 0)) {
+            return true;
+        }
+        // select stops
+        if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_STOP)) {
+            if ((myViewNet->getNet()->getDemandElementByType(SUMO_TAG_STOP_LANE).size() > 0) ||
+                (myViewNet->getNet()->getDemandElementByType(SUMO_TAG_STOP_BUSSTOP).size() > 0) ||
+                (myViewNet->getNet()->getDemandElementByType(SUMO_TAG_STOP_CONTAINERSTOP).size() > 0) ||
+                (myViewNet->getNet()->getDemandElementByType(SUMO_TAG_STOP_CHARGINGSTATION).size() > 0)) {
+                return true;
+            }
+        }
+    }
+    // nothing to select
+    return false;
+}
 
 /****************************************************************************/
