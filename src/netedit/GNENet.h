@@ -589,12 +589,6 @@ public:
      */
     std::vector<GNEAdditional*> retrieveAdditionals(bool onlySelected = false) const;
 
-    /**@brief get map with IDs and pointers to additionals
-     * @param[in] type type of additional to get. SUMO_TAG_NOTHING will get all additionals
-     * @return map with IDs and pointers to additionals.
-     */
-    const std::map<std::string, GNEAdditional*>& getAdditionalByType(SumoXMLTag type) const;
-
     /**@brief Returns the number of additionals of the net
      * @param[in] type type of additional to count. SUMO_TAG_NOTHING will count all additionals
      * @return Number of additionals of the net
@@ -636,12 +630,6 @@ public:
      * @param[in] onlySelected Whether to return only selected demand elements
      */
     std::vector<GNEDemandElement*> retrieveDemandElements(bool onlySelected = false) const;
-
-    /**@brief get map with IDs and pointers to demand elements
-     * @param[in] type type of demand element to get. SUMO_TAG_NOTHING will get all demand elements
-     * @return map with IDs and pointers to demand elements.
-     */
-    const std::map<std::string, GNEDemandElement*>& getDemandElementByType(SumoXMLTag type) const;
 
     /**@brief Returns the number of demand elements of the net
      * @param[in] type type of demand element to count. SUMO_TAG_NOTHING will count all demand elements

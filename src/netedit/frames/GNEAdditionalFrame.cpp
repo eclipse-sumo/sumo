@@ -377,7 +377,7 @@ GNEAdditionalFrame::SelectorAdditionalParent::refreshSelectorAdditionalParentMod
     myFirstAdditionalParentsList->clearItems();
     if (myAdditionalTypeParent != SUMO_TAG_NOTHING) {
         // fill list with IDs of additionals
-        for (auto i : myAdditionalFrameParent->getViewNet()->getNet()->getAdditionalByType(myAdditionalTypeParent)) {
+        for (const auto &i : myAdditionalFrameParent->getViewNet()->getNet()->getAttributeCarriers().additionals.at(myAdditionalTypeParent)) {
             myFirstAdditionalParentsList->appendItem(i.first.c_str());
         }
     }

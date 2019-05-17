@@ -117,7 +117,7 @@ GNEVehicleFrame::VTypeSelector::refreshVTypeSelector() {
     // clear comboBox
     myTypeMatchBox->clearItems();
     // get list of VTypes
-    const auto& vTypes = myVehicleFrameParent->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_VTYPE);
+    const auto& vTypes = myVehicleFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_VTYPE);
     // fill myTypeMatchBox with list of tags
     for (const auto& i : vTypes) {
         myTypeMatchBox->appendItem(i.first.c_str());
@@ -130,7 +130,7 @@ GNEVehicleFrame::VTypeSelector::refreshVTypeSelector() {
 long
 GNEVehicleFrame::VTypeSelector::onCmdSelectVType(FXObject*, FXSelector, void*) {
     // get list of VTypes
-    const auto& vTypes = myVehicleFrameParent->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_VTYPE);
+    const auto& vTypes = myVehicleFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_VTYPE);
     // Check if value of myTypeMatchBox correspond to a VType
     for (const auto& i : vTypes) {
         if (i.first == myTypeMatchBox->getText().text()) {

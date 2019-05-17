@@ -2020,12 +2020,6 @@ GNENet::retrieveAdditionals(bool onlySelected) const {
 }
 
 
-const std::map<std::string, GNEAdditional*>&
-GNENet::getAdditionalByType(SumoXMLTag type) const {
-    return myAttributeCarriers.additionals.at(type);
-}
-
-
 int
 GNENet::getNumberOfAdditionals(SumoXMLTag type) const {
     int counter = 0;
@@ -2150,12 +2144,6 @@ GNENet::retrieveDemandElements(bool onlySelected) const {
         }
     }
     return result;
-}
-
-
-const std::map<std::string, GNEDemandElement*>&
-GNENet::getDemandElementByType(SumoXMLTag type) const {
-    return myAttributeCarriers.demandElements.at(type);
 }
 
 
