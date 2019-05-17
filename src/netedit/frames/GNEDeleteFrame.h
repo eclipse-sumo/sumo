@@ -96,6 +96,10 @@ public:
     /// @brief get delete options
     DeleteOptions* getDeleteOptions() const;
 
+protected:
+    /// @brief check if there is ACs to delete
+    bool ACsToDelete() const;
+
 private:
     /// @brief modul for delete options
     DeleteOptions* myDeleteOptions;
