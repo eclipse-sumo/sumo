@@ -1012,6 +1012,12 @@ GNENet::retrieveJunction(const std::string& id, bool failHard) {
 }
 
 
+const GNENet::AttributeCarriers &
+GNENet::getAttributeCarriers() const {
+    return myAttributeCarriers;
+}
+
+
 GNEEdge*
 GNENet::retrieveEdge(const std::string& id, bool failHard) {
     auto i = myAttributeCarriers.edges.find(id);
