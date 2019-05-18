@@ -7,7 +7,7 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    Constants.java
+/// @file    SumoDetector.java
 /// @author  Maximiliano Bottazzi
 /// @date    2016
 /// @version $Id$
@@ -27,9 +27,8 @@ import it.polito.appeal.traci.SumoTraciConnection;
  * @author @author <a href="mailto:maximiliano.bottazzi@dlr.de">Maximiliano
  * Bottazzi</a>
  */
-class SumoDetector 
-{
-    private final String name;  
+class SumoDetector {
+    private final String name;
     private DetectorInterface cityDetector;
     private final SumoTraciConnection conn;
     private double lastEntryTime = 0L;
@@ -68,24 +67,24 @@ class SumoDetector
      */
     public String getName() {
         return name;
-    }    
+    }
 
     /**
      *
      * @throws java.lang.Exception
      */
-    public void executeSimulationStep() throws Exception 
-    {
-        if (cityDetector == null)
+    public void executeSimulationStep() throws Exception {
+        if (cityDetector == null) {
             return;
+        }
 
         SumoVehicleData vehData = (SumoVehicleData)conn.do_job_get(Inductionloop.getVehicleData(name));
         for (SumoVehicleData.VehicleData d : vehData.ll) {
             DLRLogger.finest(this, String.format(" veh=%s len=%s entry=%s leave=%s type=%s", d.vehID, d.length, d.entry_time, d.leave_time, d.typeID));
-            
+
             double entryTime = d.entry_time;
             double leaveTime = d.leave_time;
-            
+
             if (entryTime == lastEntryTime && leaveTime == -1) {
                 continue;
             }
@@ -97,7 +96,7 @@ class SumoDetector
                 entryTime -= ((int) entryTime);
                 entryTime *= 100;
 
-                cityDetector.addFlanke((int) entryTime);               
+                cityDetector.addFlanke((int) entryTime);
             }
 
             if (leaveTime != -1) {
@@ -107,14 +106,15 @@ class SumoDetector
                 int leaveTimeInt = (int) leaveTime;
                 leaveTimeInt *= -1;
 
-                if (leaveTimeInt == 0) //LISA+ expect negative values for outgoing time values                
-                    leaveTimeInt = -1;                
+                if (leaveTimeInt == 0) { //LISA+ expect negative values for outgoing time values
+                    leaveTimeInt = -1;
+                }
 
                 cityDetector.addFlanke(leaveTimeInt);
 
                 lastEntryTime = 0L;
-                onlyLeave = false;         
+                onlyLeave = false;
             }
-        }                
+        }
     }
 }

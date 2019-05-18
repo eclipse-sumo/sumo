@@ -7,7 +7,7 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    Constants.java
+/// @file    SignalGroupInterface.java
 /// @author  Maximiliano Bottazzi
 /// @date    2016
 /// @version $Id$
@@ -22,8 +22,7 @@ import de.dlr.ts.lisum.enums.LightColor;
  *
  * @author @author <a href="mailto:maximiliano.bottazzi@dlr.de">Maximiliano Bottazzi</a>
  */
-public interface SignalGroupInterface
-{
+public interface SignalGroupInterface {
     void setColor(LightColor color);
     LightColor getColor();
 }

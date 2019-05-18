@@ -7,7 +7,7 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    Constants.java
+/// @file    LisaConfigurationFiles.java
 /// @author  Maximiliano Bottazzi
 /// @date    2016
 /// @version $Id$
@@ -32,39 +32,34 @@ import org.xml.sax.SAXException;
  *
  * @author @author <a href="mailto:maximiliano.bottazzi@dlr.de">Maximiliano Bottazzi</a>
  */
-class LisaConfigurationFiles implements Iterable<LisaConfigurationFiles.ControlUnit>
-{
+class LisaConfigurationFiles implements Iterable<LisaConfigurationFiles.ControlUnit> {
     public List<ControlUnit> controlUnits = new ArrayList<>();
     public File lisaFolder;
 
-    
+
     @Override
-    public Iterator<LisaConfigurationFiles.ControlUnit> iterator()
-    {
+    public Iterator<LisaConfigurationFiles.ControlUnit> iterator() {
         return controlUnits.iterator();
     }
-    
+
     /**
-     * Looks for xml files in the Lisa directory.      
+     * Looks for xml files in the Lisa directory.
      * Each of those files represent Control units and contain information related to them.
      * This method loads this information and communicates the Lisa server the data directory.
-     * 
+     *
      * @param lisaFolder
-     */    
-    public void load(File lisaFolder)
-    {
+     */
+    public void load(File lisaFolder) {
         this.lisaFolder = lisaFolder;
-        
+
         String fullpath = lisaFolder.getAbsolutePath() + File.separator;
 
-        for (String name : lisaFolder.list())
-        {
-            if(name.endsWith(".xml"))
-            {
+        for (String name : lisaFolder.list()) {
+            if (name.endsWith(".xml")) {
                 try {
                     File controlUnitConfigFile = new File(fullpath + name);
                     XMLAdmin2 x = new XMLAdmin2().load(controlUnitConfigFile);
-                    
+
                     /**
                      * Reading control unit metadata
                      */
@@ -73,149 +68,137 @@ class LisaConfigurationFiles implements Iterable<LisaConfigurationFiles.ControlU
                     int fNr = ocit.getNode("FNr").getValue(0);
                     String _name = "z" + zNr + "_fg" + fNr;
                     DLRLogger.config(this, "Creating Control Unit " + _name);
-                    
+
                     ControlUnit controlUnit = new ControlUnit();
                     controlUnits.add(controlUnit);
                     controlUnit.zNr = zNr;
                     controlUnit.fNr = fNr;
                     controlUnit.fullName = _name;
-                    
-                    extractSignalGroups(x, controlUnit);                    
+
+                    extractSignalGroups(x, controlUnit);
                     extractDetectors(x, controlUnit);
                     extractSignalPrograms(x, controlUnit);
-                }
-                catch (SAXException | IOException | MalformedKeyOrNameException | XMLNodeNotFoundException ex) {
+                } catch (SAXException | IOException | MalformedKeyOrNameException | XMLNodeNotFoundException ex) {
                     ex.printStackTrace(System.out);
                 }
             }
         }
-        
+
         DLRLogger.config(this, "Lisa Configuration files read successfully");
         DLRLogger.config(this, "ControlUnits count: " + controlUnits.size());
     }
 
-    public File getLisaDirectory()
-    {
+    public File getLisaDirectory() {
         return lisaFolder;
     }
-    
+
     /**
-     * 
+     *
      */
-    private void extractSignalGroups(XMLAdmin2 x, ControlUnit controlUnit)
-    {
-        try
-        {
+    private void extractSignalGroups(XMLAdmin2 x, ControlUnit controlUnit) {
+        try {
             int gruppenCount = x.getNodesCount("SignalgruppeListe.Signalgruppe");
-            for (int i = 0; i < gruppenCount; i++)
-            {
+            for (int i = 0; i < gruppenCount; i++) {
                 XMLNode node = x.getNode("SignalgruppeListe.Signalgruppe", i);
                 String bezeichnung = node.getNode("Bezeichnung").getValue();
                 int index = node.getNode("ObjNr").getValue(0);
-                
+
                 DLRLogger.info(this, "Adding signal group: " + bezeichnung);
-                
-                ControlUnit.SignalGroup sg = new ControlUnit.SignalGroup();                
+
+                ControlUnit.SignalGroup sg = new ControlUnit.SignalGroup();
                 controlUnit.signalGroups.add(sg);
                 sg.bezeichnung = bezeichnung;
                 sg.index = index;
             }
-        } catch (XMLNodeNotFoundException | MalformedKeyOrNameException ex)
-        {
+        } catch (XMLNodeNotFoundException | MalformedKeyOrNameException ex) {
             ex.printStackTrace(System.out);
-        } 
+        }
     }
 
     /**
-     * 
+     *
      * @param configFile
      * @param controlUnitName
      * @param lisa
      * @throws XMLNodeNotFoundException
      * @throws MalformedKeyOrNameException
      * @throws SAXException
-     * @throws IOException 
+     * @throws IOException
      */
-    void extractDetectors(XMLAdmin2 x, ControlUnit controlUnit) 
-            throws XMLNodeNotFoundException, MalformedKeyOrNameException, SAXException, IOException
-    {
-        if(!x.hasNode("DigEingangListe"))
+    void extractDetectors(XMLAdmin2 x, ControlUnit controlUnit)
+    throws XMLNodeNotFoundException, MalformedKeyOrNameException, SAXException, IOException {
+        if (!x.hasNode("DigEingangListe")) {
             return;
-        
+        }
+
         int detectorsCount = x.getNodesCount("DigEingangListe.DigEingang");
-        for (int i = 0; i < detectorsCount; i++)
-        {
+        for (int i = 0; i < detectorsCount; i++) {
             XMLNode node = x.getNode("DigEingangListe.DigEingang", i);
             String bezeichnung = node.getNode("Bezeichnung").getValue();
             int nr = node.getNode("ObjNr").getValue(0);
 
             String fullName = controlUnit.fullName + "." + bezeichnung;
-            
-            ControlUnit.Detector detector = new ControlUnit.Detector();            
+
+            ControlUnit.Detector detector = new ControlUnit.Detector();
             detector.objNr = nr;
             detector.bezeichnung = bezeichnung;
             detector.fullName = fullName;
             controlUnit.detectors.add(detector);
-            
+
             DLRLogger.info(this, "Adding detector: " + fullName + " (" + nr + ")");
         }
     }
 
-    void extractSignalPrograms(XMLAdmin2 x, ControlUnit controlUnit) 
-            throws XMLNodeNotFoundException, MalformedKeyOrNameException, SAXException, IOException
-    {
-        if(!x.hasNode("SignalprogrammListe"))
+    void extractSignalPrograms(XMLAdmin2 x, ControlUnit controlUnit)
+    throws XMLNodeNotFoundException, MalformedKeyOrNameException, SAXException, IOException {
+        if (!x.hasNode("SignalprogrammListe")) {
             return;
-        
+        }
+
         int signalProgramsCount = x.getNodesCount("SignalprogrammListe.Signalprogramm");
-        
-        for (int i = 0; i < signalProgramsCount; i++)
-        {
+
+        for (int i = 0; i < signalProgramsCount; i++) {
             XMLNode node = x.getNode("SignalprogrammListe.Signalprogramm", i);
             String bezeichnung = node.getNode("Bezeichnung").getValue();
             int objnr = node.getNode("ObjNr").getValue(0);
-            
+
             ControlUnit.SignalProgram sp = new ControlUnit.SignalProgram();
             sp.bezeichnung = bezeichnung;
             sp.objNr = objnr;
-            
+
             controlUnit.signalPrograms.add(sp);
         }
-        
+
     }
-    
+
     /**
-     * 
+     *
      */
-    public static class ControlUnit
-    {
+    public static class ControlUnit {
         int zNr;
         int fNr;
         String fullName;
-        
+
         public List<SignalGroup> signalGroups = new ArrayList<>();
         public List<Detector> detectors = new ArrayList<>();
         public List<SignalProgram> signalPrograms = new ArrayList<>();
 
-        
-        public static class SignalGroup
-        {
+
+        public static class SignalGroup {
             String bezeichnung;
             int index;
         }
-        
-        public static class Detector
-        {
+
+        public static class Detector {
             String bezeichnung;
             int objNr;
             String fullName;
         }
-        
-        public static class SignalProgram
-        {
+
+        public static class SignalProgram {
             String bezeichnung;
             int objNr;
         }
     }
-    
+
 }

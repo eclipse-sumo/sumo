@@ -144,8 +144,7 @@ public class ColorString {
      * @return
      */
     private String tint(String text, Color fore, Effect... effects) {
-        if (os.equals("win")) // || fore.equals(Color.NONE))
-        {
+        if (os.equals("win")) { // || fore.equals(Color.NONE))
             return text;
         }
 

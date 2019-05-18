@@ -2,10 +2,10 @@
  * Copyright (C) 2014
  * Deutsches Zentrum fuer Luft- und Raumfahrt e.V.
  * Institut fuer Verkehrssystemtechnik
- * 
+ *
  * German Aerospace Center
  * Institute of Transportation Systems
- * 
+ *
  */
 package de.dlr.ts.utils.xmladmin2;
 
@@ -156,8 +156,7 @@ class XMLNodeBase extends Value {
      * @return
      */
     private String getTabs(int count) {
-        if (count < 0) //wanna no tabs
-        {
+        if (count < 0) { //wanna no tabs
             return "";
         }
 

@@ -12,40 +12,35 @@ import java.util.Objects;
  *
  * @author <a href="mailto:maximiliano.bottazzi@dlr.de">Maximiliano Bottazzi</a>
  */
-public class Attribute extends Value implements Comparable<Attribute>
-{
+public class Attribute extends Value implements Comparable<Attribute> {
     private String name = "";
 
-    
+
 
     /**
-     * 
+     *
      */
-    public Attribute()
-    {
+    public Attribute() {
     }
-    
+
     /**
-     * 
-     * @param name 
+     *
+     * @param name
      */
-    public void setName(String name)
-    {
+    public void setName(String name) {
         this.name = name;
     }
-    
+
     @Override
-    public String toString()
-    {
+    public String toString() {
         return name + "=" + value;
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
@@ -53,31 +48,29 @@ public class Attribute extends Value implements Comparable<Attribute>
      * Attribute
      *
      * @param name
-     * @param value 
+     * @param value
      */
-    public Attribute(String name, String value)
-    {
+    public Attribute(String name, String value) {
         this.name = name;
         this.value = value;
     }
 
     /**
-     * 
+     *
      * @param o
-     * @return 
+     * @return
      */
     @Override
-    public int compareTo(Attribute o)
-    {
-        if(this.name.equals(o.name) && this.value.equals(o.value))
+    public int compareTo(Attribute o) {
+        if (this.name.equals(o.name) && this.value.equals(o.value)) {
             return 0;
-        
+        }
+
         return 1;
     }
-    
+
     @Override
-    public boolean equals(Object obj)
-    {
+    public boolean equals(Object obj) {
         if (obj == this) {
             return true;
         }
@@ -86,13 +79,12 @@ public class Attribute extends Value implements Comparable<Attribute>
         }
 
         Attribute guest = (Attribute) obj;
-        
+
         return this.hashCode() == guest.hashCode();
     }
 
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
         int hash = 7;
         hash = 97 * hash + Objects.hashCode(this.name);
         return hash;

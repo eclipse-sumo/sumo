@@ -2,10 +2,10 @@
  * Copyright (C) 2014
  * Deutsches Zentrum fuer Luft- und Raumfahrt e.V.
  * Institut fuer Verkehrssystemtechnik
- * 
+ *
  * German Aerospace Center
  * Institute of Transportation Systems
- * 
+ *
  */
 package de.dlr.ts.utils.xmladmin2;
 
@@ -15,38 +15,22 @@ package de.dlr.ts.utils.xmladmin2;
  *
  * @author @author <a href="mailto:maximiliano.bottazzi@dlr.de">Maximiliano Bottazzi</a>
  */
-class Value
-{
+class Value {
     protected String value = null;
-    
+
     /**
-     * 
-     * @param value 
+     *
+     * @param value
      */
-    public void setValue(String value)
-    {
+    public void setValue(String value) {
         this.value = value;
     }
-    
-    /**
-     * 
-     * @return 
-     */
-    public String getValue()
-    {
-        return value;
-    }
-    
+
     /**
      *
-     * @param defaultValue
      * @return
      */
-    public String getValue(String defaultValue)
-    {
-        if (value == null || value.isEmpty())
-            return defaultValue;
-
+    public String getValue() {
         return value;
     }
 
@@ -55,17 +39,28 @@ class Value
      * @param defaultValue
      * @return
      */
-    public boolean getValue(boolean defaultValue)
-    {
-        if (value == null || value.isEmpty())
+    public String getValue(String defaultValue) {
+        if (value == null || value.isEmpty()) {
             return defaultValue;
+        }
 
-        try
-        {
+        return value;
+    }
+
+    /**
+     *
+     * @param defaultValue
+     * @return
+     */
+    public boolean getValue(boolean defaultValue) {
+        if (value == null || value.isEmpty()) {
+            return defaultValue;
+        }
+
+        try {
             return Boolean.valueOf(value);
-        } catch (Exception e)
-        {
-            XMLAdmin2.printException("Error parsing boolean value: " + value + ", returning default value: " + defaultValue);                   
+        } catch (Exception e) {
+            XMLAdmin2.printException("Error parsing boolean value: " + value + ", returning default value: " + defaultValue);
             return defaultValue;
         }
     }
@@ -75,18 +70,16 @@ class Value
      * @param defaultValue
      * @return
      */
-    public double getValue(double defaultValue)
-    {
-        if (value == null || value.isEmpty())
+    public double getValue(double defaultValue) {
+        if (value == null || value.isEmpty()) {
             return defaultValue;
+        }
 
-        try
-        {
+        try {
             return Double.valueOf(value);
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             XMLAdmin2.printException("Error parsing double value: " + value + ", returning default value: " + defaultValue);
-            
+
             //DLRLogger.severe("Error parsing double value: " + value + ", returning default value: " + defaultValue);
             return defaultValue;
         }
@@ -97,42 +90,37 @@ class Value
      * @param defaultValue
      * @return
      */
-    public int getValue(int defaultValue)
-    {
-        if (value == null || value.isEmpty())
+    public int getValue(int defaultValue) {
+        if (value == null || value.isEmpty()) {
             return defaultValue;
+        }
 
-        try
-        {
+        try {
             return Integer.valueOf(value);
-        } catch (Exception ex)
-        {
+        } catch (Exception ex) {
             XMLAdmin2.printException(ex);
             return defaultValue;
         }
     }
 
-    public int getInteger()
-    {        
-        return Integer.valueOf(value);        
+    public int getInteger() {
+        return Integer.valueOf(value);
     }
-    
+
     /**
      *
      * @param defaultValue
      * @return
      */
-    public long getValue(long defaultValue)
-    {
-        if (value == null || value.isEmpty())
+    public long getValue(long defaultValue) {
+        if (value == null || value.isEmpty()) {
             return defaultValue;
+        }
 
-        try
-        {
+        try {
             return Long.valueOf(value);
-        } catch (Exception e)
-        {
-            XMLAdmin2.printException("Error parsing long value: " + value + ", returning default value: " + defaultValue);            
+        } catch (Exception e) {
+            XMLAdmin2.printException("Error parsing long value: " + value + ", returning default value: " + defaultValue);
             //DLRLogger.severe("Error parsing long value: " + value + ", returning default value: " + defaultValue);
             return defaultValue;
         }

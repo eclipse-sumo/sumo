@@ -19,8 +19,7 @@ package de.dlr.ts.commons.tools;
  *
  * @author Praktikant-Q2-2015
  */
-public class NiceTimeTool
-{
+public class NiceTimeTool {
     private final long secondsInMilli = 1000;
     private final long minutesInMilli = secondsInMilli * 60;
     private final long hoursInMilli = minutesInMilli * 60;
@@ -28,7 +27,7 @@ public class NiceTimeTool
     private final long weeksInMilli = daysInMilli * 7;
     private final long monthsInMilli = weeksInMilli * 4;
     private final long yearsInMilli = monthsInMilli * 12;
-    
+
     private String year = "y";
     private String month = "M";
     private String week = "w";
@@ -36,18 +35,17 @@ public class NiceTimeTool
     private String hour = "h";
     private String minute = "m";
     private String second = "s";
-    
-    
+
+
 
     /**
-     * 
+     *
      * @param time
-     * @return 
+     * @return
      */
-    public String getTime(long time)
-    {
-        StringBuilder sb = new StringBuilder();        
-        
+    public String getTime(long time) {
+        StringBuilder sb = new StringBuilder();
+
         long tmp = time;
 
         if (time >= yearsInMilli) {
@@ -83,10 +81,11 @@ public class NiceTimeTool
         if (time >= minutesInMilli && time > 2 * minutesInMilli
                 && time < 60 * minutesInMilli && tmp < daysInMilli) {
             long minutesAgo = time / minutesInMilli;
-            
-            if (time > 10 * minutesInMilli)
+
+            if (time > 10 * minutesInMilli) {
                 minutesAgo = Math.round((minutesAgo / 5)) * 5;
-            
+            }
+
             sb.append(minutesAgo).append(" ").append(minute).append(" ");
         }
 
@@ -94,7 +93,7 @@ public class NiceTimeTool
             long secondsAgo = time / secondsInMilli;
             sb.append(secondsAgo).append(" ").append(second);
         }
-        
+
         return sb.toString().trim();
     }
 
@@ -124,5 +123,5 @@ public class NiceTimeTool
 
     public void setYear(String year) {
         this.year = year;
-    }        
+    }
 }

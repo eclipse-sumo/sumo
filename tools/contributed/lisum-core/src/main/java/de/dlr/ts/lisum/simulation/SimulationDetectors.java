@@ -7,7 +7,7 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    Constants.java
+/// @file    SimulationDetectors.java
 /// @author  Maximiliano Bottazzi
 /// @date    2016
 /// @version $Id$
@@ -28,51 +28,46 @@ import java.util.Map;
  *
  * @author @author <a href="mailto:maximiliano.bottazzi@dlr.de">Maximiliano Bottazzi</a>
  */
-public class SimulationDetectors
-{
+public class SimulationDetectors {
     private final Map<String, DetectorInterface> detectors = new HashMap<>();
 
-    
+
     /**
-     * 
+     *
      */
-    public SimulationDetectors()
-    {
+    public SimulationDetectors() {
     }
 
     /**
-     * 
+     *
      * @param configFile
-     * @param city 
+     * @param city
      */
-    public void load(ConfigurationFile configFile, CityInterface city)
-    {
+    public void load(ConfigurationFile configFile, CityInterface city) {
         DLRLogger.info(this, "Loading detectors");
-        
-        for (ConfigurationFile.CFControlUnit controlUnit : configFile)
-        {
+
+        for (ConfigurationFile.CFControlUnit controlUnit : configFile) {
             ControlUnitInterface controlUnitInt = city.getControlUnit(controlUnit.lisaName);
-            
-            for (int i = 0; i < controlUnit.detectors.size(); i++)
-            {
+
+            for (int i = 0; i < controlUnit.detectors.size(); i++) {
                 ConfigurationFile.CFControlUnit.Detector det = controlUnit.detectors.get(i);
                 DetectorInterface detectorInt = controlUnitInt.getDetector(det.lisaName);
-                
-                if(detectorInt != null)
+
+                if (detectorInt != null) {
                     detectors.put(det.sumoName, detectorInt);
+                }
             }
         }
     }
-    
-    
+
+
     /**
-     * 
+     *
      * @param id
-     * @return 
+     * @return
      */
-    public DetectorInterface getDetectorPerSumoId(String id)
-    {
+    public DetectorInterface getDetectorPerSumoId(String id) {
         return detectors.get(id);
     }
-    
+
 }

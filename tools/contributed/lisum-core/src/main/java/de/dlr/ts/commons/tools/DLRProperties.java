@@ -99,8 +99,7 @@ public class DLRProperties {
                     value = "true";
                 }
 
-                if (value.startsWith("-")) //there is no value assigned for this modificator
-                {
+                if (value.startsWith("-")) { //there is no value assigned for this modificator
                     value = "true";         //just store true
                 }
 

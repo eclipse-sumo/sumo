@@ -10,17 +10,14 @@ package de.dlr.ts.utils.xmladmin2;
  *
  * @author <a href="mailto:maximiliano.bottazzi@dlr.de">Maximiliano Bottazzi</a>
  */
-public class MalformedKeyOrNameException extends Exception
-{
+public class MalformedKeyOrNameException extends Exception {
 
-    public MalformedKeyOrNameException()
-    {
+    public MalformedKeyOrNameException() {
     }
 
-    public MalformedKeyOrNameException(String message)
-    {
+    public MalformedKeyOrNameException(String message) {
         super(message);
     }
-    
-    
+
+
 }

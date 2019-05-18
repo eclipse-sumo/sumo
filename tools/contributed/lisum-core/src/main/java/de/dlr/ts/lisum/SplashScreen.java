@@ -2,10 +2,10 @@
  * Copyright (C) 2014
  * Deutsches Zentrum fuer Luft- und Raumfahrt e.V.
  * Institut fuer Verkehrssystemtechnik
- * 
+ *
  * German Aerospace Center
  * Institute of Transportation Systems
- * 
+ *
  */
 package de.dlr.ts.lisum;
 
@@ -38,13 +38,13 @@ public class SplashScreen {
     private int splashWidth = 80;
     private final String STARS_LINE = StringTools.repeatChar("*", splashWidth);
     private final String STARS_LINE_SHORT = "**";
-    
+
     private boolean showCopyright = false;
 
     public void setShowCopyright(boolean showCopyright) {
         this.showCopyright = showCopyright;
-    }        
-    
+    }
+
     /**
      *
      * @param email
@@ -236,18 +236,19 @@ public class SplashScreen {
      */
     public void showSplashScreen() {
         System.out.println(getSplashScreen());
-        
-        if(waitingTime > 0)
+
+        if (waitingTime > 0) {
             waitForEnter();
+        }
     }
 
     /**
      *
      */
     private void animation() {
-        char[] animationChars = new char[]{'|', '/', '-', '\\'};
+        char[] animationChars = new char[] {'|', '/', '-', '\\'};
 
-        for (int i = (int) (waitingTime / 1000); i >= 0; i--) {
+        for (int i = (int)(waitingTime / 1000); i >= 0; i--) {
             //System.out.print("||");
 
             System.out.print("Starting in " + i + " seconds " + animationChars[i % 4] + "\r");
@@ -315,7 +316,7 @@ public class SplashScreen {
 
         sb.append(STARS_LINE).append(System.lineSeparator());
     }
-    
+
     /**
      *
      * @return
@@ -324,10 +325,11 @@ public class SplashScreen {
         StringBuilder sb = new StringBuilder();
         sb.append(System.lineSeparator());
         sb.append(System.lineSeparator());
-        
-        if(showCopyright)
+
+        if (showCopyright) {
             addCopyRight(sb);
-        
+        }
+
         sb.append(STARS_LINE).append(System.lineSeparator());
         sb.append(StringTools.centerText("", splashWidth, "**")).append(System.lineSeparator());
 
@@ -336,8 +338,9 @@ public class SplashScreen {
 
         sb.append(StringTools.centerText("", splashWidth, "**")).append(System.lineSeparator());
 
-        if(!author.isEmpty())
+        if (!author.isEmpty()) {
             sb.append(getFormattedAuthor(author, Color.NONE)).append(System.lineSeparator());
+        }
 
         //sb.append(StringUtils.centerText("", splashWidth, "**")).append(System.lineSeparator());
         sb.append(STARS_LINE).append(System.lineSeparator());
@@ -379,5 +382,5 @@ public class SplashScreen {
 
         return sb.toString();
     }
-    
+
 }

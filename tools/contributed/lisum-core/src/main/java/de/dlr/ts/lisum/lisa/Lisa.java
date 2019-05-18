@@ -7,7 +7,7 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    Constants.java
+/// @file    Lisa.java
 /// @author  Maximiliano Bottazzi
 /// @date    2016
 /// @version $Id$
@@ -89,10 +89,11 @@ public class Lisa implements CityInterface {
      */
     @Override
     public LisumSimulation.InitBeforePlayResponse initBeforePlay() {
-        
-        if(!LisaCommands.TestRESTfulServer())
+
+        if (!LisaCommands.TestRESTfulServer()) {
             return LisumSimulation.InitBeforePlayResponse.LisaRESTfulServerNotFound;
-        
+        }
+
         try {
             lisaCommands.setDataDir(lisaDirectory);
             lisaControlUnits.initBeforePlay();

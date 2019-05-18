@@ -7,7 +7,7 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    Constants.java
+/// @file    LisaCommands.java
 /// @author  Maximiliano Bottazzi
 /// @date    2016
 /// @version $Id$
@@ -147,11 +147,12 @@ final class LisaCommands {
             Response response = execute(post);
             DLRLogger.finest(this, "Lisa responds: " + response.statusCode + " | " + response.body);
 
-            if (response.statusCode == 200) 
-                vektor = new PutMessageResponse(response.body);                        
-            
+            if (response.statusCode == 200) {
+                vektor = new PutMessageResponse(response.body);
+            }
+
         } catch (UnsupportedEncodingException ex) {
-            DLRLogger.severe(this, ex);            
+            DLRLogger.severe(this, ex);
         }
 
         return vektor;

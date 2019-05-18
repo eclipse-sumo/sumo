@@ -7,7 +7,7 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    Constants.java
+/// @file    LisumException.java
 /// @author  Maximiliano Bottazzi
 /// @date    2016
 /// @version $Id$
@@ -20,15 +20,12 @@ package de.dlr.ts.lisum.exceptions;
  *
  * @author @author <a href="mailto:maximiliano.bottazzi@dlr.de">Maximiliano Bottazzi</a>
  */
-public class LisumException extends Exception
-{
+public class LisumException extends Exception {
 
-    public LisumException()
-    {
+    public LisumException() {
     }
-    
-    public LisumException(String message)
-    {
+
+    public LisumException(String message) {
         super(message);
     }
 }

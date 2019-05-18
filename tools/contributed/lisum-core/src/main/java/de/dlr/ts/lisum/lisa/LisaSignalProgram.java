@@ -7,7 +7,7 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    Constants.java
+/// @file    LisaSignalProgram.java
 /// @author  Maximiliano Bottazzi
 /// @date    2016
 /// @version $Id$
@@ -22,40 +22,34 @@ import java.util.Objects;
 /**
  *
  */
-class LisaSignalProgram implements SignalProgramInterface
-{
+class LisaSignalProgram implements SignalProgramInterface {
     private String name;
     private int objNr;
     private final boolean fz = false;
     private final boolean va = false;
 
-    
+
     /**
-     * 
+     *
      * @param name
-     * @param objNr 
+     * @param objNr
      */
-    public LisaSignalProgram(String name, int objNr)
-    {
+    public LisaSignalProgram(String name, int objNr) {
         this.name = name;
         this.objNr = objNr;
     }
 
     @Override
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
-    
+
     @Override
-    public boolean equals(Object obj)
-    {
-        if (obj == null)
-        {
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass())
-        {
+        if (getClass() != obj.getClass()) {
             return false;
         }
         final LisaSignalProgram other = (LisaSignalProgram) obj;
@@ -63,41 +57,35 @@ class LisaSignalProgram implements SignalProgramInterface
     }
 
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
         int hash = 7;
         hash = 59 * hash + Objects.hashCode(this.name);
         return hash;
     }
 
     @Override
-    public void setName(String name)
-    {
+    public void setName(String name) {
         this.name = name;
     }
 
     @Override
-    public void setObjNr(int objNr)
-    {
+    public void setObjNr(int objNr) {
         this.objNr = objNr;
     }
 
     @Override
-    public int getObjNr()
-    {
+    public int getObjNr() {
         return objNr;
     }
 
     @Override
-    public boolean isVA()
-    {
+    public boolean isVA() {
         return va;
     }
 
     @Override
-    public boolean isFZ()
-    {
+    public boolean isFZ() {
         return fz;
     }
-    
+
 }

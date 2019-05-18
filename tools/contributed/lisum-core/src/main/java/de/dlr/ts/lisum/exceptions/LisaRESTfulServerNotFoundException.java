@@ -7,7 +7,7 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    Constants.java
+/// @file    LisaRESTfulServerNotFoundException.java
 /// @author  Maximiliano Bottazzi
 /// @date    2016
 /// @version $Id$
@@ -23,25 +23,21 @@ import de.dlr.ts.commons.logger.DLRLogger;
  *
  * @author @author <a href="mailto:maximiliano.bottazzi@dlr.de">Maximiliano Bottazzi</a>
  */
-public class LisaRESTfulServerNotFoundException extends Exception
-{
+public class LisaRESTfulServerNotFoundException extends Exception {
 
-    public LisaRESTfulServerNotFoundException()
-    {
+    public LisaRESTfulServerNotFoundException() {
     }
-    
-    public LisaRESTfulServerNotFoundException(String message)
-    {
+
+    public LisaRESTfulServerNotFoundException(String message) {
         super(message);
     }
-    
-    public LisaRESTfulServerNotFoundException(Object clazz)
-    {
+
+    public LisaRESTfulServerNotFoundException(Object clazz) {
         String aa = "No Lisa server could be found in ";
-                //+ 
-                    //GlobalConfig.getInstance().getLisaServerAddress() + ":" + 
-                    //GlobalConfig.getInstance().getLisaServerPort();
-        
+        //+
+        //GlobalConfig.getInstance().getLisaServerAddress() + ":" +
+        //GlobalConfig.getInstance().getLisaServerPort();
+
         DLRLogger.severe(clazz, aa);
     }
 }

@@ -24,13 +24,12 @@ import java.util.List;
  *
  * @author @author <a href="mailto:maximiliano.bottazzi@dlr.de">Maximiliano Bottazzi</a>
  */
-public class Constants
-{
+public class Constants {
     /**
-     * 
+     *
      */
     public static final String DEFAULT_LOG_LEVEL = "INFO";
-    
+
     /**
      * Properties keys
      */
@@ -38,12 +37,12 @@ public class Constants
     public static final String LISA_RESTFUL_SERVER_ADDRESS = "lisa.serverAddress";
     public static final String LISA_RESTFUL_SERVER_PORT = "lisa.serverPort";
     //public static final String LISA_DATA_DIR = "lisa.dataDir";
-    
+
     /**
-     * 
+     *
      */
     public static final String GLOBAL_CONFIG_FILE_NAME = "config.xml";
-    
+
     /**
      * Global config file keys
      */
@@ -51,32 +50,32 @@ public class Constants
     public static final String LISA_RESTFUL_SERVER_ADDRESSS_KEY = "lisa.RESTfulServer.address";
     public static final String LISA_RESTFUL_SERVER_PORT_KEY = "lisa.RESTfulServer.port";
     public static final String SUMO_EXEC_KEY = "sumo.exec";
-    
+
     /**
      * LiSuM config file keys
      */
     public static final String LISA_FILES_DIRECTORY_KEY = "input.lisa";
     public static final String CONTROLUNITS_ITEM_KEY = "controlUnits.item";
     public static final String DETECTORS_ITEM_KEY = "detectors.item";
-    
+
     /**
-     * 
+     *
      */
     public static final int LISA_RESTFUL_SERVER_PORT_DEFAULT = 9091;
-    
+
     public static final List<String> ebeneItems = Arrays.asList(
-        "Serviceeingriff",
-        "Bediener, lokal",
-        "Programm fix, lokal",
-        "Handrastbetrieb, lokal",
-        "Schaltuhr, lokal",
-        "Zentrale",
-        "Zentrale 2",
-        "Sondereingriff-Zentrale",
-        "Sondereingriff",
-        "Logik",
-        "Fehler Gerät",
-        "Signalsicherung",
-        "System"    
-    );        
+                "Serviceeingriff",
+                "Bediener, lokal",
+                "Programm fix, lokal",
+                "Handrastbetrieb, lokal",
+                "Schaltuhr, lokal",
+                "Zentrale",
+                "Zentrale 2",
+                "Sondereingriff-Zentrale",
+                "Sondereingriff",
+                "Logik",
+                "Fehler Gerät",
+                "Signalsicherung",
+                "System"
+            );
 }

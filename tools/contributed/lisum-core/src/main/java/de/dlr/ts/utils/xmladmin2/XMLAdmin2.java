@@ -56,9 +56,9 @@ public class XMLAdmin2 {
 
     /**
      *
-     * @return     
-     * @throws de.dlr.ts.utils.xmladmin2.MalformedKeyOrNameException @throws     
-     * @throws de.dlr.ts.utils.xmladmin2.XMLNodeNotFoundException     
+     * @return
+     * @throws de.dlr.ts.utils.xmladmin2.MalformedKeyOrNameException @throws
+     * @throws de.dlr.ts.utils.xmladmin2.XMLNodeNotFoundException
      */
     public int getNodesCount() throws MalformedKeyOrNameException, XMLNodeNotFoundException {
         return rootNode.getNodesCount("*");
@@ -71,14 +71,14 @@ public class XMLAdmin2 {
         String exceptionAsString = sw.toString();
         err.print(exceptionAsString);
         */
-        
+
         DLRLogger.severe("XMLAdmin2", throwable);
     }
-    
+
     static void printException(String message) {
         DLRLogger.severe("XMLAdmin2", message);
     }
-    
+
     /**
      *
      *
@@ -140,8 +140,8 @@ public class XMLAdmin2 {
      * @throws de.dlr.ts.utils.xmladmin2.MalformedKeyOrNameException
      * @throws de.dlr.ts.utils.xmladmin2.XMLNodeNotFoundException
      */
-    public XMLNode getNode(String key) throws MalformedKeyOrNameException, 
-            XMLNodeNotFoundException {
+    public XMLNode getNode(String key) throws MalformedKeyOrNameException,
+        XMLNodeNotFoundException {
         return rootNode.getNode(key);
     }
 
@@ -149,7 +149,7 @@ public class XMLAdmin2 {
      *
      * @param key
      * @return
-     * @throws de.dlr.ts.utils.xmladmin2.MalformedKeyOrNameException     
+     * @throws de.dlr.ts.utils.xmladmin2.MalformedKeyOrNameException
      */
     public boolean hasNode(String key) throws MalformedKeyOrNameException {
         return rootNode.hasNode(key);
@@ -171,14 +171,14 @@ public class XMLAdmin2 {
      *
      *
      * @param key
-     * @return     
-     * @throws de.dlr.ts.utils.xmladmin2.MalformedKeyOrNameException     
-     * @throws de.dlr.ts.utils.xmladmin2.XMLNodeNotFoundException     
+     * @return
+     * @throws de.dlr.ts.utils.xmladmin2.MalformedKeyOrNameException
+     * @throws de.dlr.ts.utils.xmladmin2.XMLNodeNotFoundException
      */
     public int getNodesCount(String key) throws MalformedKeyOrNameException, XMLNodeNotFoundException {
         return rootNode.getNodesCount(key);
     }
-    
+
     /**
      *
      */

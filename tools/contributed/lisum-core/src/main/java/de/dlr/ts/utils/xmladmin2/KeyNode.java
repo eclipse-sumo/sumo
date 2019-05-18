@@ -8,99 +8,89 @@ package de.dlr.ts.utils.xmladmin2;
 
 
 /**
- * 
+ *
  * @author <a href="mailto:maximiliano.bottazzi@dlr.de">Maximiliano Bottazzi</a>
- * 
+ *
  */
-class KeyNode //implements Comparable<Attributes>
-{
+class KeyNode { //implements Comparable<Attributes>
     private String name = "";
     private String value = "";
     private int occurrence = 0;
     private Attributes attributes = new Attributes();
     private boolean selectAll = false;
 
-    
-    
+
+
     /**
-     * 
-     * @param occurrence 
+     *
+     * @param occurrence
      */
-    public void setOccurrence(int occurrence)
-    {
+    public void setOccurrence(int occurrence) {
         this.occurrence = occurrence;
     }
-    
+
     /**
-     * 
-     * @param value 
+     *
+     * @param value
      */
-    public void setValue(String value)
-    {
+    public void setValue(String value) {
         this.value = value;
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
-    public String getValue()
-    {
+    public String getValue() {
         return value;
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
-    public Attributes getAttributes()
-    {
+    public Attributes getAttributes() {
         return attributes;
     }
-    
+
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
-    public boolean isSelectAll()
-    {
+    public boolean isSelectAll() {
         return selectAll;
     }
-    
+
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
-    public int getOccurrence()
-    {
+    public int getOccurrence() {
         return occurrence;
     }
-    
+
     /**
-     * 
+     *
      * @param s
      * @throws de.dlr.ts.utils.xmladmin2.exceptions.MalformedKeyOrNameException
      */
-    public KeyNode(String s) throws MalformedKeyOrNameException 
-    {
+    public KeyNode(String s) throws MalformedKeyOrNameException {
         s = s.trim();
 
         /**
          * With attributes
          */
-        if(!s.contains("["))
+        if (!s.contains("[")) {
             name = s.trim();
-        else
-        {
+        } else {
             name = s.substring(0, s.indexOf("[")).trim();
             s = s.replace(name, "");
             extractAttributes(s.trim());
@@ -108,27 +98,24 @@ class KeyNode //implements Comparable<Attributes>
     }
 
     /**
-     * 
-     * @param line 
+     *
+     * @param line
      */
-    private void extractAttributes(String s) throws MalformedKeyOrNameException
-    {
-        while(s.contains("[") && !s.isEmpty())
-        {
+    private void extractAttributes(String s) throws MalformedKeyOrNameException {
+        while (s.contains("[") && !s.isEmpty()) {
             String tmp = s.substring(s.indexOf("["), s.indexOf("]") + 1);
-            
+
             attributes.add(Tools.parseKeyAttribute(tmp));
             s = s.replace(tmp, "").trim();
         }
     }
-    
+
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "KeyNode name=" + name + " occurr=" + occurrence + " attrs_count=" + attributes.size() + " (" + attributes + ")";
     }
 

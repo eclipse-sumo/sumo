@@ -7,7 +7,7 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    Constants.java
+/// @file    LightColor.java
 /// @author  Maximiliano Bottazzi
 /// @date    2016
 /// @version $Id$
@@ -20,77 +20,72 @@ package de.dlr.ts.lisum.enums;
  *
  * @author @author <a href="mailto:maximiliano.bottazzi@dlr.de">Maximiliano Bottazzi</a>
  */
-public enum LightColor
-{
+public enum LightColor {
     OFF(0, 'O'),
-    RED(3, 'r'), 
-    YELLOW_BLINKING(8, 'o'), 
-    YELLOW(12, 'y'), 
-    RED_YELLOW(15, 'u'), 
-    GREEN(48, 'G'), 
-    DARK_GREEN(-1 /*invalid*/, 'g');  
-    
+    RED(3, 'r'),
+    YELLOW_BLINKING(8, 'o'),
+    YELLOW(12, 'y'),
+    RED_YELLOW(15, 'u'),
+    GREEN(48, 'G'),
+    DARK_GREEN(-1 /*invalid*/, 'g');
+
     private final int ocitCode;
     private final char sumoCode;
 
     /**
-     * 
-     * @param ocitCode 
+     *
+     * @param ocitCode
      */
-    private LightColor(int ocitCode, char sumoCode)
-    {
+    private LightColor(int ocitCode, char sumoCode) {
         this.ocitCode = ocitCode;
         this.sumoCode = sumoCode;
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
-    public int getOcitCode()
-    {
+    public int getOcitCode() {
         return ocitCode;
     }
 
-    public boolean isGreen()
-    {
+    public boolean isGreen() {
         return ocitCode == 48;
     }
-    
+
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
-    public char getSumoCode()
-    {
+    public char getSumoCode() {
         return sumoCode;
-    }    
-    
+    }
+
     /**
-     * 
+     *
      * @param code
-     * @return 
+     * @return
      */
-    public static LightColor getPerOcitCode(int code)
-    {
+    public static LightColor getPerOcitCode(int code) {
         for (LightColor sc : values())
-            if(sc.ocitCode == code)
+            if (sc.ocitCode == code) {
                 return sc;
-        
+            }
+
         return null;
     }
-    
+
     /**
-     * 
+     *
      * @param code
-     * @return 
+     * @return
      */
-    public static LightColor getPerSumoCode(char code)
-    {
+    public static LightColor getPerSumoCode(char code) {
         for (LightColor sc : values())
-            if(sc.sumoCode == code)
+            if (sc.sumoCode == code) {
                 return sc;
-        
+            }
+
         return null;
     }
 }

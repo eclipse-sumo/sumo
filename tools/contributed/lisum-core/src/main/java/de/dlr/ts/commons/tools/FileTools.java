@@ -37,13 +37,13 @@ public class FileTools {
      *
      */
     private FileTools() {
-    }    
-    
+    }
+
     /**
-     * 
+     *
      * @param source
      * @param dest
-     * @throws IOException 
+     * @throws IOException
      */
     public static void copyFile(File source, File dest) throws IOException {
         InputStream is = null;
@@ -90,10 +90,10 @@ public class FileTools {
      * @param f
      * @throws IOException
      */
-    public static void delete(File f) throws IOException {
+    public static void delete (File f) throws IOException {
         if (f.isDirectory()) {
             for (File c : f.listFiles()) {
-                delete(c);
+                delete (c);
             }
         }
         if (!f.delete()) {
@@ -138,7 +138,7 @@ public class FileTools {
 
         return dir;
     }
-    
+
 
     /**
      *

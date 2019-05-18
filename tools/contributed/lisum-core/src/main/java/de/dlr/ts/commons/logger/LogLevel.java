@@ -11,32 +11,32 @@ package de.dlr.ts.commons.logger;
  *
  * @author <a href="mailto:maximiliano.bottazzi@dlr.de">Maximiliano Bottazzi</a>
  */
-public enum LogLevel //implements Comparable<LogLevel>
-{
-    OFF, SEVERE, WARNING, CONFIG, INFO, FINE, FINER, FINEST, ALL;    
-    
+public enum LogLevel { //implements Comparable<LogLevel>
+    OFF, SEVERE, WARNING, CONFIG, INFO, FINE, FINER, FINEST, ALL;
+
     /**
-     * 
+     *
      * @param level
-     * @return 
+     * @return
      */
-    public static LogLevel parse(String level)
-    {
-        try {            
-            Integer i = Integer.valueOf(level);            
-            
-            if(i > 7)
-                return ALL;                        
-            
-            return LogLevel.values()[i];            
-        } catch (Exception e) {            
+    public static LogLevel parse(String level) {
+        try {
+            Integer i = Integer.valueOf(level);
+
+            if (i > 7) {
+                return ALL;
+            }
+
+            return LogLevel.values()[i];
+        } catch (Exception e) {
             for (LogLevel ll : LogLevel.values())
-                if(ll.toString().equalsIgnoreCase(level))
+                if (ll.toString().equalsIgnoreCase(level)) {
                     return ll;
+                }
         }
-        
+
         return null;
     }
-    
-    
+
+
 }
