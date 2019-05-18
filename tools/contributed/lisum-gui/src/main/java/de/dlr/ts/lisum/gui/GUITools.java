@@ -7,7 +7,7 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    Constants.java
+/// @file    GUITools.java
 /// @author  Maximiliano Bottazzi
 /// @date    2016
 /// @version $Id$
@@ -22,23 +22,20 @@ import java.io.PrintStream;
  *
  * @author @author <a href="mailto:maximiliano.bottazzi@dlr.de">Maximiliano Bottazzi</a>
  */
-public class GUITools
-{
+public class GUITools {
     private final static PrintStream DEFAULT_PRINT_STREAM = System.out;
-    
+
     /**
-     * 
+     *
      */
-    public static void setDefaultPrintOutput()
-    {
+    public static void setDefaultPrintOutput() {
         System.setOut(DEFAULT_PRINT_STREAM);
     }
-    
+
     /**
-     * 
+     *
      */
-    public static void setCustomPrintOutput()
-    {
-        
+    public static void setCustomPrintOutput() {
+
     }
 }

@@ -7,7 +7,7 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    Constants.java
+/// @file    LogTest.java
 /// @author  Maximiliano Bottazzi
 /// @date    2016
 /// @version $Id$
@@ -26,30 +26,26 @@ import javafx.scene.control.TextArea;
  *
  * @author @author <a href="mailto:maximiliano.bottazzi@dlr.de">Maximiliano Bottazzi</a>
  */
-public class LogTest
-{
+public class LogTest {
     private static TextArea textArea;
-    
+
     private final ReadWriteLock rwLock = new ReentrantReadWriteLock();
     private final Lock readLock = rwLock.readLock();
-    
-    
+
+
     /**
-     * 
+     *
      */
-    public LogTest()
-    {
+    public LogTest() {
     }
 
     /**
-     * 
-     * @param string 
+     *
+     * @param string
      */
-    public void log(String string)
-    {
-        Platform.runLater(() ->
-        {
-            
+    public void log(String string) {
+        Platform.runLater(() -> {
+
         });
     }
 }

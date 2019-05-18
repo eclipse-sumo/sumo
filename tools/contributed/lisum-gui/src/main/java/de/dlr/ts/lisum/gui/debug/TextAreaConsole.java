@@ -7,7 +7,7 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    Constants.java
+/// @file    TextAreaConsole.java
 /// @author  Maximiliano Bottazzi
 /// @date    2016
 /// @version $Id$
@@ -24,33 +24,29 @@ import javafx.scene.control.TextArea;
 /**
  *
  */
-class TextAreaConsole extends OutputStream
-{    
+class TextAreaConsole extends OutputStream {
     private final TextArea txtArea;
     private final StringBuilder buffer = new StringBuilder(128);
 
-    
+
     /**
      *
      * @param txtArea
      */
-    public TextAreaConsole(TextArea txtArea)
-    {
+    public TextAreaConsole(TextArea txtArea) {
         this.txtArea = txtArea;
     }
 
     /**
-     * 
+     *
      * @param b
-     * @throws IOException 
+     * @throws IOException
      */
     @Override
-    public synchronized void write(int b) throws IOException
-    {
+    public synchronized void write(int b) throws IOException {
         buffer.append((char) b);
-        
-        if(b == 10)
-        {
+
+        if (b == 10) {
             String aa = buffer.toString();
             buffer.delete(0, buffer.length());
             Platform.runLater(() -> { txtArea.appendText(aa); });

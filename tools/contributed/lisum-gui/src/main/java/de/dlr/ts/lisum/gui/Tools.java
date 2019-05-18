@@ -7,7 +7,7 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    Constants.java
+/// @file    Tools.java
 /// @author  Maximiliano Bottazzi
 /// @date    2016
 /// @version $Id$
@@ -34,8 +34,8 @@ import javafx.scene.control.ButtonType;
  * Bottazzi</a>
  */
 public class Tools {
-    
-   
+
+
     /**
      *
      * @param lisaRESTfulServerPath

@@ -7,7 +7,7 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    Constants.java
+/// @file    ToolBarInterface.java
 /// @author  Maximiliano Bottazzi
 /// @date    2016
 /// @version $Id$
@@ -20,9 +20,8 @@ package de.dlr.ts.lisum.gui.toolbars;
  *
  * @author @author <a href="mailto:maximiliano.bottazzi@dlr.de">Maximiliano Bottazzi</a>
  */
-public interface ToolBarInterface
-{
+public interface ToolBarInterface {
     void setEnabled(boolean enabled);
-    
+
     void setSimulationStarted(boolean enabled);
 }

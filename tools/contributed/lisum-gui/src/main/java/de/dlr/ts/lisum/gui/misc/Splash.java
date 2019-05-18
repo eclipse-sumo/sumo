@@ -7,7 +7,7 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    Constants.java
+/// @file    Splash.java
 /// @author  Maximiliano Bottazzi
 /// @date    2016
 /// @version $Id$
@@ -27,27 +27,25 @@ import javafx.stage.Stage;
  *
  * @author @author <a href="mailto:maximiliano.bottazzi@dlr.de">Maximiliano Bottazzi</a>
  */
-public class Splash
-{
+public class Splash {
     private final Scene scene;
     private final Stage stage;
-    
+
     private final ImageView imageView = new ImageView(SystemProperties.getInstance().getMainIcon());
     private final StackPane root = new StackPane(imageView);
-    
+
     /**
-     * 
+     *
      */
-    public Splash()
-    {
+    public Splash() {
         Bloom bloom = new Bloom();
         bloom.setThreshold(0.7);
         imageView.setEffect(bloom);
-        
-        imageView.setStyle(  
-                            "-fx-background-color: rgba(255, 255, 255, 1.0);" 
-                        +   "-fx-effect: dropshadow(gaussian, gray, 50, 0, 0, 0);" 
-                        +   "-fx-background-insets: 10;"
+
+        imageView.setStyle(
+            "-fx-background-color: rgba(255, 255, 255, 1.0);"
+            +   "-fx-effect: dropshadow(gaussian, gray, 50, 0, 0, 0);"
+            +   "-fx-background-insets: 10;"
         );
 
         scene = new Scene(root, 300, 350);
@@ -56,7 +54,7 @@ public class Splash
         stage.setScene(scene);
         //stage.initStyle(StageStyle.TRANSPARENT);
         stage.centerOnScreen();
-        
+
     }
-    
+
 }

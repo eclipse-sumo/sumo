@@ -7,7 +7,7 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    Constants.java
+/// @file    GlobalConfig.java
 /// @author  Maximiliano Bottazzi
 /// @date    2016
 /// @version $Id$
@@ -37,7 +37,7 @@ public final class GlobalConfig {
     private static final String PERSISTENCE_FILE = "props";
     private final int sumoPort = 9100;
 
-    //private String sumoExec = "c:/Program Files (x86)/DLR/Sumo/bin/sumo-gui.exe";    
+    //private String sumoExec = "c:/Program Files (x86)/DLR/Sumo/bin/sumo-gui.exe";
     private String sumoExec = "";
     private final String sumoExec_linux_default = "/usr/bin/sumo-gui";
     private String sumoExec_linux = sumoExec_linux_default;
@@ -112,7 +112,7 @@ public final class GlobalConfig {
 
             String[] split = _line.split(":");
             lisaServerAddress = split[0];
-            lisaServerPort = Integer.valueOf(split[1]);            
+            lisaServerPort = Integer.valueOf(split[1]);
         } catch (IOException ex) {
             DLRLogger.severe(this, lisaRestFulServerDir + File.separator + "OmlFgServer.ini" + " file not found");
         }
@@ -123,7 +123,7 @@ public final class GlobalConfig {
      */
     private void setPersistenceFile() {
         String tmpdir = workspace + File.separator + ".metadata" + File.separator;
-        persistenceFile = new File(tmpdir + PERSISTENCE_FILE);        
+        persistenceFile = new File(tmpdir + PERSISTENCE_FILE);
     }
 
     /**
@@ -201,7 +201,7 @@ public final class GlobalConfig {
         props.put(SUMO_EXEC_LINUX_KEY, sumoExec_linux);
         props.put(FILES_EXPLORER_LINUX_KEY, filesExplorer_linux);
 
-        DLRLogger.finest(this, "Saving preferences to " + persistenceFile);        
+        DLRLogger.finest(this, "Saving preferences to " + persistenceFile);
         DLRLogger.finest(this, props.toString());
 
         try {

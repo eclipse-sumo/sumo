@@ -7,7 +7,7 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    Constants.java
+/// @file    DebugConsole.java
 /// @author  Maximiliano Bottazzi
 /// @date    2016
 /// @version $Id$
@@ -25,36 +25,32 @@ import javafx.scene.control.TextArea;
  *
  * @author @author <a href="mailto:maximiliano.bottazzi@dlr.de">Maximiliano Bottazzi</a>
  */
-public class DebugConsole
-{
+public class DebugConsole {
     private static final DebugConsole INSTANCE = new DebugConsole();
     private final PrintStream DEFAULT_PRINT_STREAM = System.out;
     private final PrintStream emptyPs;
     private PrintStream textAreaPs;
 
-    
+
     /**
      *
      * @return
      */
-    public static DebugConsole getInstance()
-    {
+    public static DebugConsole getInstance() {
         return INSTANCE;
     }
 
     /**
      *
      */
-    public DebugConsole()
-    {
+    public DebugConsole() {
         emptyPs = new PrintStream(new EmptyConsole(), true);
     }
 
     /**
      *
      */
-    public void setDefaultPrintOutput()
-    {
+    public void setDefaultPrintOutput() {
         System.setOut(DEFAULT_PRINT_STREAM);
         System.setErr(DEFAULT_PRINT_STREAM);
     }
@@ -63,25 +59,22 @@ public class DebugConsole
      *
      * @param textArea
      */
-    public void setTextArea(TextArea textArea)
-    {
+    public void setTextArea(TextArea textArea) {
         textAreaPs = new PrintStream(new TextAreaConsole(textArea), true);
     }
-    
+
     /**
      *
      */
-    public void setEmptyPrintOutput()
-    {        
+    public void setEmptyPrintOutput() {
         System.setOut(emptyPs);
         System.setErr(emptyPs);
     }
 
     /**
-     * 
+     *
      */
-    public void setTextAreaPrintOutput()
-    {
+    public void setTextAreaPrintOutput() {
         System.setOut(textAreaPs);
         System.setErr(textAreaPs);
     }
@@ -89,12 +82,10 @@ public class DebugConsole
     /**
      *
      */
-    private class EmptyConsole extends OutputStream
-    {
+    private class EmptyConsole extends OutputStream {
 
         @Override
-        public void write(int b) throws IOException
-        {
+        public void write(int b) throws IOException {
         }
     }
 }

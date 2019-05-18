@@ -7,7 +7,7 @@
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    Constants.java
+/// @file    TextAreaAppender.java
 /// @author  Maximiliano Bottazzi
 /// @date    2016
 /// @version $Id$
@@ -37,8 +37,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 /**
  * TextAreaAppender for Log4j 2
  */
-public final class TextAreaAppender extends AbstractAppender
-{
+public final class TextAreaAppender extends AbstractAppender {
 
     private static TextArea textArea;
 
@@ -46,9 +45,8 @@ public final class TextAreaAppender extends AbstractAppender
     private final Lock readLock = rwLock.readLock();
 
     protected TextAreaAppender(String name, Filter filter,
-            Layout<? extends Serializable> layout,
-            final boolean ignoreExceptions)
-    {
+                               Layout<? extends Serializable> layout,
+                               final boolean ignoreExceptions) {
         super(name, filter, layout, ignoreExceptions);
     }
 
@@ -58,44 +56,32 @@ public final class TextAreaAppender extends AbstractAppender
      * @param event Log event with log data
      */
     @Override
-    public void append(LogEvent event)
-    {
+    public void append(LogEvent event) {
         readLock.lock();
 
         final String message = new String(getLayout().toByteArray(event));
 
         // append log text to TextArea
-        try
-        {
-            Platform.runLater(() -> 
-                    {
-                        try
-                        {
-                            if (textArea != null)
-                            {
-                                if (textArea.getText().length() == 0)
-                                {
-                                    textArea.setText(message);
-                                }
-                                else
-                                {
-                                    textArea.selectEnd();
-                                    textArea.insertText(textArea.getText().length(),
-                                            message);
-                                }
-                            }
-                        } catch (final Throwable t)
-                        {
-                            System.out.println("Error while append to TextArea: "
-                                    + t.getMessage());
+        try {
+            Platform.runLater(() -> {
+                try {
+                    if (textArea != null) {
+                        if (textArea.getText().length() == 0) {
+                            textArea.setText(message);
+                        } else {
+                            textArea.selectEnd();
+                            textArea.insertText(textArea.getText().length(),
+                                                message);
                         }
+                    }
+                } catch (final Throwable t) {
+                    System.out.println("Error while append to TextArea: "
+                                       + t.getMessage());
+                }
             });
-        } catch (final IllegalStateException ex)
-        {
+        } catch (final IllegalStateException ex) {
             ex.printStackTrace(System.out);
-        }
-        finally
-        {
+        } finally {
             readLock.unlock();
         }
     }
@@ -110,17 +96,14 @@ public final class TextAreaAppender extends AbstractAppender
      */
     @PluginFactory
     public static TextAreaAppender createAppender(
-            @PluginAttribute("name") String name,
-            @PluginElement("Layout") Layout<? extends Serializable> layout,
-            @PluginElement("Filter") final Filter filter)
-    {
-        if (name == null)
-        {
+        @PluginAttribute("name") String name,
+        @PluginElement("Layout") Layout<? extends Serializable> layout,
+        @PluginElement("Filter") final Filter filter) {
+        if (name == null) {
             LOGGER.error("No name provided for TextAreaAppender");
             return null;
         }
-        if (layout == null)
-        {
+        if (layout == null) {
             layout = PatternLayout.createDefaultLayout();
         }
         return new TextAreaAppender(name, filter, layout, true);
@@ -131,8 +114,7 @@ public final class TextAreaAppender extends AbstractAppender
      *
      * @param textArea TextArea to append
      */
-    public static void setTextArea(TextArea textArea)
-    {
+    public static void setTextArea(TextArea textArea) {
         TextAreaAppender.textArea = textArea;
     }
 }
