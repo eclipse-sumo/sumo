@@ -284,6 +284,9 @@ for repoRoot in repoRoots:
     if options.verbose:
         print("checking", repoRoot)
     propRead = PropertyReader(options.fix, not options.skip_pep)
+    if os.path.isfile(repoRoot):
+        propRead.checkFile(repoRoot)
+        continue
     try:
         oldDir = os.getcwd()
         os.chdir(repoRoot)
