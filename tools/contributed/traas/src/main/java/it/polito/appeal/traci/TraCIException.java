@@ -23,31 +23,31 @@ import java.io.IOException;
 
 @SuppressWarnings("serial")
 public class TraCIException extends IOException {
-	
-	public TraCIException() {
-		super();
-	}
 
-	public TraCIException(String msg) {
-		super(msg);
-	}
+    public TraCIException() {
+        super();
+    }
 
-	public static class UnexpectedData extends TraCIException {
-		public UnexpectedData(String what, Object expected, Object got) {
-			super("Unexpected " + what + ": expected " + expected + ", got " + got);
-		}
-	}
-	
-	public static class UnexpectedDatatype extends UnexpectedData {
-		public UnexpectedDatatype(int expected, int got) {
-			super("datatype", expected, got);
-		}
-	}
+    public TraCIException(String msg) {
+        super(msg);
+    }
 
-	public static class UnexpectedResponse extends UnexpectedData {
-		public UnexpectedResponse(int expected, int got) {
-			super("response", expected, got);
-		}
-	}
+    public static class UnexpectedData extends TraCIException {
+        public UnexpectedData(String what, Object expected, Object got) {
+            super("Unexpected " + what + ": expected " + expected + ", got " + got);
+        }
+    }
+
+    public static class UnexpectedDatatype extends UnexpectedData {
+        public UnexpectedDatatype(int expected, int got) {
+            super("datatype", expected, got);
+        }
+    }
+
+    public static class UnexpectedResponse extends UnexpectedData {
+        public UnexpectedResponse(int expected, int got) {
+            super("response", expected, got);
+        }
+    }
 
 }

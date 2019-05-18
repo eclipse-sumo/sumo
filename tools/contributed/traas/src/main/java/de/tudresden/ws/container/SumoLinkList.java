@@ -36,135 +36,135 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "SumoLinkList")
 
 /**
- * 
+ *
  * @author Mario Krumnow
  *
  */
 
 public class SumoLinkList implements List<SumoLink>, Serializable, SumoObject {
 
-	private static final long serialVersionUID = -6530046166179152137L;
+    private static final long serialVersionUID = -6530046166179152137L;
 
-	private final List<SumoLink> list;
-	
-	public SumoLinkList() {
-		list = new LinkedList<SumoLink>();
-	}
-	
-	public SumoLinkList(List<SumoLink> list) {
-		this.list = list;
-	}
+    private final List<SumoLink> list;
 
-	public void add(int index, SumoLink element) {
-		list.add(index, element);
-	}
+    public SumoLinkList() {
+        list = new LinkedList<SumoLink>();
+    }
 
-	public boolean addAll(Collection<? extends SumoLink> elements) {
-		return list.addAll(elements);
-	}
+    public SumoLinkList(List<SumoLink> list) {
+        this.list = list;
+    }
 
+    public void add(int index, SumoLink element) {
+        list.add(index, element);
+    }
 
-	public boolean addAll(int index, Collection<? extends SumoLink> elements) {
-		return list.addAll(index, elements);
-	}
+    public boolean addAll(Collection<? extends SumoLink> elements) {
+        return list.addAll(elements);
+    }
 
 
-	public void clear() {
-		list.clear();
-	}
-
-	public boolean contains(Object element) {
-		return list.contains(element);
-	}
+    public boolean addAll(int index, Collection<? extends SumoLink> elements) {
+        return list.addAll(index, elements);
+    }
 
 
-	public boolean containsAll(Collection<?> elements) {
-		return list.containsAll(elements);
-	}
+    public void clear() {
+        list.clear();
+    }
+
+    public boolean contains(Object element) {
+        return list.contains(element);
+    }
 
 
-	public SumoLink get(int index) {
-		return list.get(index);
-	}
+    public boolean containsAll(Collection<?> elements) {
+        return list.containsAll(elements);
+    }
 
 
-	public int indexOf(Object element) {
-		return list.indexOf(element);
-	}
-
-	public boolean isEmpty() {
-		return list.isEmpty();
-	}
-
-	public int lastIndexOf(Object element) {
-		return list.lastIndexOf(element);
-	}
-
-	public ListIterator<SumoLink> listIterator() {
-		return list.listIterator();
-	}
-
-	public ListIterator<SumoLink> listIterator(int index) {
-		return list.listIterator(index);
-	}
-
-	public boolean remove(Object element) {
-		return list.remove(element);
-	}
-
-	public SumoLink remove(int index) {
-		return list.remove(index);
-	}
-
-	public boolean removeAll(Collection<?> elements) {
-		return list.removeAll(elements);
-	}
-
-	public boolean retainAll(Collection<?> elements) {
-		return list.retainAll(elements);
-	}
-
-	public SumoLink set(int index, SumoLink element) {
-		return list.set(index, element);
-	}
+    public SumoLink get(int index) {
+        return list.get(index);
+    }
 
 
-	public int size() {
-		return list.size();
-	}
+    public int indexOf(Object element) {
+        return list.indexOf(element);
+    }
+
+    public boolean isEmpty() {
+        return list.isEmpty();
+    }
+
+    public int lastIndexOf(Object element) {
+        return list.lastIndexOf(element);
+    }
+
+    public ListIterator<SumoLink> listIterator() {
+        return list.listIterator();
+    }
+
+    public ListIterator<SumoLink> listIterator(int index) {
+        return list.listIterator(index);
+    }
+
+    public boolean remove(Object element) {
+        return list.remove(element);
+    }
+
+    public SumoLink remove(int index) {
+        return list.remove(index);
+    }
+
+    public boolean removeAll(Collection<?> elements) {
+        return list.removeAll(elements);
+    }
+
+    public boolean retainAll(Collection<?> elements) {
+        return list.retainAll(elements);
+    }
+
+    public SumoLink set(int index, SumoLink element) {
+        return list.set(index, element);
+    }
 
 
-	public List<SumoLink> subList(int from, int to) {
-		return list.subList(from, to);
-	}
+    public int size() {
+        return list.size();
+    }
 
 
-	public Object[] toArray() {
-		return list.toArray();
-	}
+    public List<SumoLink> subList(int from, int to) {
+        return list.subList(from, to);
+    }
 
 
-	public <T> T[] toArray(T[] element) {
-		return list.toArray(element);
-	}
+    public Object[] toArray() {
+        return list.toArray();
+    }
 
 
-	public boolean add(SumoLink element) {
-		return list.add(element);
-	}
+    public <T> T[] toArray(T[] element) {
+        return list.toArray(element);
+    }
 
 
-	public Iterator<SumoLink> iterator() {
-		return list.iterator();
-	}
-	
-	public String toString(){
-		StringBuilder sb = new StringBuilder();
-		for(SumoLink sl : this.list){
-			sb.append(sl.toString()+"#");
-		}	
-		
-		return sb.toString();
-	}
-	
+    public boolean add(SumoLink element) {
+        return list.add(element);
+    }
+
+
+    public Iterator<SumoLink> iterator() {
+        return list.iterator();
+    }
+
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (SumoLink sl : this.list) {
+            sb.append(sl.toString() + "#");
+        }
+
+        return sb.toString();
+    }
+
 }

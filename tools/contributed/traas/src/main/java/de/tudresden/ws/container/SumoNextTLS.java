@@ -22,43 +22,43 @@ package de.tudresden.ws.container;
 import java.util.LinkedList;
 
 /**
- * 
+ *
  * @author Mario Krumnow
  *
  */
 
 public class SumoNextTLS implements SumoObject {
 
-	public LinkedList<NextTLS> ll;
-	
-	public SumoNextTLS(){
-		this.ll = new LinkedList<NextTLS>();
-	}
-	
-	public void add(String tlsID, int ix, double dist, String state){
-		this.ll.add(new NextTLS(tlsID, ix, dist, state));
-	}
-	
-	public String toString(){
-		
-		return "";
-		//return this.phasedef+"#"+this.duration+"#"+this.duration1+"#"+this.duration2;
-	}
-	
-	public class NextTLS{
-		
-		public String tlsID;
-		int ix;
-		double dist;
-		String state;
-		
-		public NextTLS(String tlsID, int ix, double dist, String state){
-			this.tlsID = tlsID;
-			this.ix = ix;
-			this.dist = dist;
-			this.state = state;
-		}
-	}
-	
-	
+    public LinkedList<NextTLS> ll;
+
+    public SumoNextTLS() {
+        this.ll = new LinkedList<NextTLS>();
+    }
+
+    public void add(String tlsID, int ix, double dist, String state) {
+        this.ll.add(new NextTLS(tlsID, ix, dist, state));
+    }
+
+    public String toString() {
+
+        return "";
+        //return this.phasedef+"#"+this.duration+"#"+this.duration1+"#"+this.duration2;
+    }
+
+    public class NextTLS {
+
+        public String tlsID;
+        int ix;
+        double dist;
+        String state;
+
+        public NextTLS(String tlsID, int ix, double dist, String state) {
+            this.tlsID = tlsID;
+            this.ix = ix;
+            this.dist = dist;
+            this.state = state;
+        }
+    }
+
+
 }

@@ -30,12 +30,12 @@ import de.tudresden.sumo.util.Query;
 
 public class CloseQuery extends Query {
 
-	public CloseQuery(Socket sock) throws IOException {
-		super(sock);
-	}
+    public CloseQuery(Socket sock) throws IOException {
+        super(sock);
+    }
 
-	public void doCommand() throws IOException {
-		Command req = new Command(Constants.CMD_CLOSE);
-		queryAndVerifySingle(req);
-	}
+    public void doCommand() throws IOException {
+        Command req = new Command(Constants.CMD_CLOSE);
+        queryAndVerifySingle(req);
+    }
 }

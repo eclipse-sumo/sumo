@@ -26,9 +26,9 @@ package de.tudresden.ws.container;
 
 public class SumoRoadPosition implements SumoObject {
 
-	public String edgeID;
-	public double pos;
-	public int laneIndex;
-	
-	public SumoRoadPosition(){ }
+    public String edgeID;
+    public double pos;
+    public int laneIndex;
+
+    public SumoRoadPosition() { }
 }

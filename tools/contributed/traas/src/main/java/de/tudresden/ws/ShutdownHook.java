@@ -20,38 +20,43 @@
 package de.tudresden.ws;
 
 /**
- * 
+ *
  * @author Mario Krumnow
  *
  */
 
-public class ShutdownHook  extends Thread
-{
+public class ShutdownHook  extends Thread {
 
-	private boolean shutdown;
-	
-	/**
-	 * Instantiates a new shutdown hook.
-	 */
-	public ShutdownHook(){setshutdown(false);}
-	
-    public void run() 
-    {
+    private boolean shutdown;
+
+    /**
+     * Instantiates a new shutdown hook.
+     */
+    public ShutdownHook() {
+        setshutdown(false);
+    }
+
+    public void run() {
         System.out.println("Shutdown in progress...");
-        
+
         setshutdown(true);
-        
-		try
-		{Thread.sleep(3000);} catch (Exception e){}
+
+        try {
+            Thread.sleep(3000);
+        } catch (Exception e) {}
 
         System.out.println("Shutdown finsihed");
 
     }
 
 
-	public void setshutdown(boolean shutdown) {this.shutdown = shutdown;}
+    public void setshutdown(boolean shutdown) {
+        this.shutdown = shutdown;
+    }
 
-	public boolean isshutdown() {return shutdown;}
-	
-	
+    public boolean isshutdown() {
+        return shutdown;
+    }
+
+
 }

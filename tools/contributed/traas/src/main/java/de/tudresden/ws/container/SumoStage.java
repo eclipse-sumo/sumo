@@ -20,28 +20,28 @@ package de.tudresden.ws.container;
 import de.tudresden.ws.container.SumoStringList;
 
 /**
- * 
+ *
  * @author Jakob Erdmann
  *
  */
 
 public class SumoStage implements SumoObject {
 
-	public double type;
-	public String vType;
-	public String line;
-	public String destStop;
-	public SumoStringList edges;
-	public double travelTime;
-	public double cost;
-	public double length;
-	public String intended;
-	public double depart;
-	public double departPos;
-	public double arrivalPos;
-	public String description;
-	
-	public SumoStage(){ 
+    public double type;
+    public String vType;
+    public String line;
+    public String destStop;
+    public SumoStringList edges;
+    public double travelTime;
+    public double cost;
+    public double length;
+    public String intended;
+    public double depart;
+    public double departPos;
+    public double arrivalPos;
+    public String description;
+
+    public SumoStage() {
         edges = new SumoStringList();
     }
 }

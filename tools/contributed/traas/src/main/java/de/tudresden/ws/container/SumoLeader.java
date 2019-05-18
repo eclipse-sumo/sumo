@@ -20,25 +20,27 @@
 package de.tudresden.ws.container;
 
 /**
- * 
+ *
  * @author Mario Krumnow
  *
  */
 
 public class SumoLeader implements SumoObject {
 
-	public String vehID;
-	public double dist;
-	
-	public SumoLeader(String vehID, double dist){
-		this.vehID = vehID;
-		this.dist = dist;
-	}
-	
-	public boolean isValid(){return !this.vehID.isEmpty();}
+    public String vehID;
+    public double dist;
 
-	public String toString(){
-		return "";
-	}
-	
+    public SumoLeader(String vehID, double dist) {
+        this.vehID = vehID;
+        this.dist = dist;
+    }
+
+    public boolean isValid() {
+        return !this.vehID.isEmpty();
+    }
+
+    public String toString() {
+        return "";
+    }
+
 }

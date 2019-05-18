@@ -20,7 +20,7 @@
 package de.tudresden.sumo.util;
 
 /**
- * 
+ *
  * @author Mario Krumnow
  *
  */
@@ -40,251 +40,254 @@ import de.tudresden.ws.log.Log;
 
 public class ConvertHelper {
 
-	Log logger;
+    Log logger;
 
-	public ConvertHelper(Log logger) {
-		this.logger = logger;
-	}
-	
-	public byte getByte(Object obj) {
+    public ConvertHelper(Log logger) {
+        this.logger = logger;
+    }
 
-		byte output = -1;
+    public byte getByte(Object obj) {
 
-		try {
+        byte output = -1;
 
-			if (obj.getClass().equals(Short.class)) {
-				short helpVariable = (short) obj;
-				output = (byte) helpVariable;
-			}
-			
+        try {
 
-		} catch (Exception ex) {
-			this.logger.write(ex.getStackTrace());
-		}
+            if (obj.getClass().equals(Short.class)) {
+                short helpVariable = (short) obj;
+                output = (byte) helpVariable;
+            }
 
-		return output;
-	}
-	
-	public int getInt(Object obj) {
 
-		int output = -1;
+        } catch (Exception ex) {
+            this.logger.write(ex.getStackTrace());
+        }
 
-		try {
+        return output;
+    }
 
-			if (obj.getClass().equals(Integer.class)) {
-				output = (Integer) obj;
-			}
+    public int getInt(Object obj) {
 
-		} catch (Exception ex) {
-			this.logger.write(ex.getStackTrace());
-		}
+        int output = -1;
 
-		return output;
-	}
+        try {
 
-	public double getDouble(Object obj) {
+            if (obj.getClass().equals(Integer.class)) {
+                output = (Integer) obj;
+            }
 
-		double output = -1;
+        } catch (Exception ex) {
+            this.logger.write(ex.getStackTrace());
+        }
 
-		try {
+        return output;
+    }
 
-			if (obj.getClass().equals(Double.class)) {
-				output = (Double) obj;
-			}
+    public double getDouble(Object obj) {
 
-		} catch (Exception ex) {
-			this.logger.write(ex.getStackTrace());
-		}
+        double output = -1;
 
-		return output;
+        try {
 
-	}
+            if (obj.getClass().equals(Double.class)) {
+                output = (Double) obj;
+            }
 
-	public SumoStringList getStringList(Object obj) {
+        } catch (Exception ex) {
+            this.logger.write(ex.getStackTrace());
+        }
 
-		SumoStringList output = new SumoStringList();
+        return output;
 
-		try {
+    }
 
-			if (obj.getClass().equals(SumoStringList.class)) {
-				output = (SumoStringList) obj;
-			}
+    public SumoStringList getStringList(Object obj) {
 
-		} catch (Exception ex) {
-			this.logger.write(ex.getStackTrace());
-		}
+        SumoStringList output = new SumoStringList();
 
-		return output;
-	}
+        try {
 
-	public SumoColor getColor(Object obj) {
+            if (obj.getClass().equals(SumoStringList.class)) {
+                output = (SumoStringList) obj;
+            }
 
-		SumoColor output = new SumoColor(0, 0, 0, 0);
+        } catch (Exception ex) {
+            this.logger.write(ex.getStackTrace());
+        }
 
-		try {
+        return output;
+    }
 
-			if (obj.getClass().equals(SumoColor.class)) {
-				output = (SumoColor) obj;
-			}
+    public SumoColor getColor(Object obj) {
 
-		} catch (Exception ex) {
-			this.logger.write(ex.getStackTrace());
-		}
+        SumoColor output = new SumoColor(0, 0, 0, 0);
 
-		return output;
+        try {
 
-	}
+            if (obj.getClass().equals(SumoColor.class)) {
+                output = (SumoColor) obj;
+            }
 
-	public String getString(Object obj) {
+        } catch (Exception ex) {
+            this.logger.write(ex.getStackTrace());
+        }
 
-		String output = "";
+        return output;
 
-		try {
+    }
 
-			if (obj.getClass().equals(String.class)) {
-				output = (String) obj;
-			}
+    public String getString(Object obj) {
 
-		} catch (Exception ex) {
-			this.logger.write(ex.getStackTrace());
-		}
+        String output = "";
 
-		return output;
+        try {
 
-	}
+            if (obj.getClass().equals(String.class)) {
+                output = (String) obj;
+            }
 
-	public SumoPosition2D getPosition2D(Object obj) {
+        } catch (Exception ex) {
+            this.logger.write(ex.getStackTrace());
+        }
 
-		SumoPosition2D output = new SumoPosition2D(0, 0);
+        return output;
 
-		try {
-			if (obj.getClass().equals(SumoPosition2D.class)) {
-				output = (SumoPosition2D) obj;
-			}
-		} catch (Exception ex) {
-			this.logger.write(ex.getStackTrace());
-		}
+    }
 
-		return output;
+    public SumoPosition2D getPosition2D(Object obj) {
 
-	}
-	
-	public SumoPosition3D getPosition3D(Object obj) {
+        SumoPosition2D output = new SumoPosition2D(0, 0);
 
-		SumoPosition3D output = new SumoPosition3D(0, 0, 0);
+        try {
+            if (obj.getClass().equals(SumoPosition2D.class)) {
+                output = (SumoPosition2D) obj;
+            }
+        } catch (Exception ex) {
+            this.logger.write(ex.getStackTrace());
+        }
 
-		try {
-			if (obj.getClass().equals(SumoPosition3D.class)) {
-				output = (SumoPosition3D) obj;
-			}
-		} catch (Exception ex) {
-			this.logger.write(ex.getStackTrace());
-		}
+        return output;
 
-		return output;
+    }
 
-	}
+    public SumoPosition3D getPosition3D(Object obj) {
 
-	public SumoRoadPosition getRoadPosition(Object obj) {
+        SumoPosition3D output = new SumoPosition3D(0, 0, 0);
 
-		SumoRoadPosition output = new SumoRoadPosition();
+        try {
+            if (obj.getClass().equals(SumoPosition3D.class)) {
+                output = (SumoPosition3D) obj;
+            }
+        } catch (Exception ex) {
+            this.logger.write(ex.getStackTrace());
+        }
 
-		try {
-			if (obj.getClass().equals(SumoRoadPosition.class)) {
-				output = (SumoRoadPosition) obj;
-			}
-		} catch (Exception ex) {
-			this.logger.write(ex.getStackTrace());
-		}
+        return output;
 
-		return output;
+    }
 
-	}
+    public SumoRoadPosition getRoadPosition(Object obj) {
 
-	public SumoGeometry getPolygon(Object obj) {
+        SumoRoadPosition output = new SumoRoadPosition();
 
-		SumoGeometry output = new SumoGeometry();
+        try {
+            if (obj.getClass().equals(SumoRoadPosition.class)) {
+                output = (SumoRoadPosition) obj;
+            }
+        } catch (Exception ex) {
+            this.logger.write(ex.getStackTrace());
+        }
 
-		try {
+        return output;
 
-			if (obj.getClass().equals(SumoGeometry.class)) {
-				output = (SumoGeometry) obj;
-			}
+    }
 
-		} catch (Exception ex) {
-			this.logger.write(ex.getStackTrace());
-		}
+    public SumoGeometry getPolygon(Object obj) {
 
-		return output;
+        SumoGeometry output = new SumoGeometry();
 
-	}
+        try {
 
-	public SumoBoundingBox getBoundingBox(Object obj) {
+            if (obj.getClass().equals(SumoGeometry.class)) {
+                output = (SumoGeometry) obj;
+            }
 
-		SumoBoundingBox output = new SumoBoundingBox(0, 0, 0, 0);
+        } catch (Exception ex) {
+            this.logger.write(ex.getStackTrace());
+        }
 
-		try {
+        return output;
 
-			if (obj.getClass().equals(SumoBoundingBox.class)) {
-				output = (SumoBoundingBox) obj;
-			}
+    }
 
-		} catch (Exception ex) {
-			this.logger.write(ex.getStackTrace());
-		}
+    public SumoBoundingBox getBoundingBox(Object obj) {
 
-		return output;
+        SumoBoundingBox output = new SumoBoundingBox(0, 0, 0, 0);
 
-	}
-	
-	public SumoLinkList getLaneLinks(Object obj)
-	{
-		//build an empty list
-		SumoLinkList output = new SumoLinkList();
-		
-		try {
+        try {
 
-			if (obj.getClass().equals(SumoLinkList.class)) {
-				output = (SumoLinkList) obj;
-			}
+            if (obj.getClass().equals(SumoBoundingBox.class)) {
+                output = (SumoBoundingBox) obj;
+            }
 
-		} catch (Exception ex) {this.logger.write(ex.getStackTrace());}
+        } catch (Exception ex) {
+            this.logger.write(ex.getStackTrace());
+        }
 
-		return output;
-	}
+        return output;
 
-	public SumoVehicleData getVehicleData(Object obj) {
-			
-				//build an empty list
-				SumoVehicleData output = new SumoVehicleData();
-				
-				try {
+    }
 
-					if (obj.getClass().equals(SumoVehicleData.class)) {
-						output = (SumoVehicleData) obj;
-					}
+    public SumoLinkList getLaneLinks(Object obj) {
+        //build an empty list
+        SumoLinkList output = new SumoLinkList();
 
-				} catch (Exception ex) {this.logger.write(ex.getStackTrace());}
+        try {
 
-				return output;
-	}
+            if (obj.getClass().equals(SumoLinkList.class)) {
+                output = (SumoLinkList) obj;
+            }
 
-	public SumoTLSController getTLSProgram(Object obj) {
-		
-		SumoTLSController output = new SumoTLSController();
+        } catch (Exception ex) {
+            this.logger.write(ex.getStackTrace());
+        }
 
-		try {
+        return output;
+    }
 
-			if (obj.getClass().equals(SumoTLSProgram.class)) {
-				output = (SumoTLSController) obj;
-			}
+    public SumoVehicleData getVehicleData(Object obj) {
 
-		} catch (Exception ex) {
-			this.logger.write(ex.getStackTrace());
-		}
+        //build an empty list
+        SumoVehicleData output = new SumoVehicleData();
 
-		return output;
-		
-	}
+        try {
+
+            if (obj.getClass().equals(SumoVehicleData.class)) {
+                output = (SumoVehicleData) obj;
+            }
+
+        } catch (Exception ex) {
+            this.logger.write(ex.getStackTrace());
+        }
+
+        return output;
+    }
+
+    public SumoTLSController getTLSProgram(Object obj) {
+
+        SumoTLSController output = new SumoTLSController();
+
+        try {
+
+            if (obj.getClass().equals(SumoTLSProgram.class)) {
+                output = (SumoTLSController) obj;
+            }
+
+        } catch (Exception ex) {
+            this.logger.write(ex.getStackTrace());
+        }
+
+        return output;
+
+    }
 
 }

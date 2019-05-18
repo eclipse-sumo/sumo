@@ -20,32 +20,32 @@
 package de.tudresden.ws;
 
 /**
- * 
+ *
  * @author Mario Krumnow
  *
  */
 
 public interface Service {
-        
-        public String start(String user);
-        
-        public String stop(String user);
-        
-        public void addOption(String name, String value);
-        
-        public void doTimestep();
-        
-        public void setConfig(String filename);
-        
-        public void setSumoBinary(String filename);
-        
-        
-        public String get_Status(String user);
-       
-        public String LastActionTime();
 
-        public String version();
-               
-        public String TXT_output(boolean input);
-           
+    public String start(String user);
+
+    public String stop(String user);
+
+    public void addOption(String name, String value);
+
+    public void doTimestep();
+
+    public void setConfig(String filename);
+
+    public void setSumoBinary(String filename);
+
+
+    public String get_Status(String user);
+
+    public String LastActionTime();
+
+    public String version();
+
+    public String TXT_output(boolean input);
+
 }

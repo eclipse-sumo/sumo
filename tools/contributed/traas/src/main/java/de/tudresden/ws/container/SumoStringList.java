@@ -37,127 +37,127 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * 
+ *
  * @author Mario Krumnow
  *
  */
 
 public class SumoStringList implements List<String>, Serializable, SumoObject {
 
-	private static final long serialVersionUID = -6530046166179152137L;
+    private static final long serialVersionUID = -6530046166179152137L;
 
-	private final List<String> list;
-	
-	public SumoStringList() {
-		list = new LinkedList<String>();
-	}
-	
-	public SumoStringList(List<String> list) {
-		this.list = list;
-	}
+    private final List<String> list;
 
-	
-	public void add(int index, String element) {
-		list.add(index, element);
-	}
+    public SumoStringList() {
+        list = new LinkedList<String>();
+    }
 
-	public boolean addAll(Collection<? extends String> elements) {
-		return list.addAll(elements);
-	}
+    public SumoStringList(List<String> list) {
+        this.list = list;
+    }
 
 
-	public boolean addAll(int index, Collection<? extends String> elements) {
-		return list.addAll(index, elements);
-	}
+    public void add(int index, String element) {
+        list.add(index, element);
+    }
+
+    public boolean addAll(Collection<? extends String> elements) {
+        return list.addAll(elements);
+    }
 
 
-	public void clear() {
-		list.clear();
-	}
-
-	public boolean contains(Object element) {
-		return list.contains(element);
-	}
+    public boolean addAll(int index, Collection<? extends String> elements) {
+        return list.addAll(index, elements);
+    }
 
 
-	public boolean containsAll(Collection<?> elements) {
-		return list.containsAll(elements);
-	}
+    public void clear() {
+        list.clear();
+    }
+
+    public boolean contains(Object element) {
+        return list.contains(element);
+    }
 
 
-	public String get(int index) {
-		return list.get(index);
-	}
+    public boolean containsAll(Collection<?> elements) {
+        return list.containsAll(elements);
+    }
 
 
-	public int indexOf(Object element) {
-		return list.indexOf(element);
-	}
-
-	public boolean isEmpty() {
-		return list.isEmpty();
-	}
-
-	public int lastIndexOf(Object element) {
-		return list.lastIndexOf(element);
-	}
-
-	public ListIterator<String> listIterator() {
-		return list.listIterator();
-	}
-
-	public ListIterator<String> listIterator(int index) {
-		return list.listIterator(index);
-	}
-
-	public boolean remove(Object element) {
-		return list.remove(element);
-	}
-
-	public String remove(int index) {
-		return list.remove(index);
-	}
-
-	public boolean removeAll(Collection<?> elements) {
-		return list.removeAll(elements);
-	}
-
-	public boolean retainAll(Collection<?> elements) {
-		return list.retainAll(elements);
-	}
-
-	public String set(int index, String element) {
-		return list.set(index, element);
-	}
+    public String get(int index) {
+        return list.get(index);
+    }
 
 
-	public int size() {
-		return list.size();
-	}
+    public int indexOf(Object element) {
+        return list.indexOf(element);
+    }
+
+    public boolean isEmpty() {
+        return list.isEmpty();
+    }
+
+    public int lastIndexOf(Object element) {
+        return list.lastIndexOf(element);
+    }
+
+    public ListIterator<String> listIterator() {
+        return list.listIterator();
+    }
+
+    public ListIterator<String> listIterator(int index) {
+        return list.listIterator(index);
+    }
+
+    public boolean remove(Object element) {
+        return list.remove(element);
+    }
+
+    public String remove(int index) {
+        return list.remove(index);
+    }
+
+    public boolean removeAll(Collection<?> elements) {
+        return list.removeAll(elements);
+    }
+
+    public boolean retainAll(Collection<?> elements) {
+        return list.retainAll(elements);
+    }
+
+    public String set(int index, String element) {
+        return list.set(index, element);
+    }
 
 
-	public List<String> subList(int from, int to) {
-		return list.subList(from, to);
-	}
+    public int size() {
+        return list.size();
+    }
 
 
-	public Object[] toArray() {
-		return list.toArray();
-	}
+    public List<String> subList(int from, int to) {
+        return list.subList(from, to);
+    }
 
 
-	public <T> T[] toArray(T[] element) {
-		return list.toArray(element);
-	}
+    public Object[] toArray() {
+        return list.toArray();
+    }
 
 
-	public boolean add(String element) {
-		return list.add(element);
-	}
+    public <T> T[] toArray(T[] element) {
+        return list.toArray(element);
+    }
 
 
-	public Iterator<String> iterator() {
-		return list.iterator();
-	}
-	
+    public boolean add(String element) {
+        return list.add(element);
+    }
+
+
+    public Iterator<String> iterator() {
+        return list.iterator();
+    }
+
 }

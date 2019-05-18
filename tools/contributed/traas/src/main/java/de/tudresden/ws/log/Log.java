@@ -25,25 +25,25 @@ package de.tudresden.ws.log;
  */
 public interface Log {
 
-	/**
-	 * Write.
-	 *
-	 * @param input the input
-	 */
-	/**
-	 * @param input input
-	 * @param priority priority level
-	 */
-	public void write(String input, int priority);
-	
-	/**
-	 * @param el stacktrace
-	 */
-	public void write(StackTraceElement[] el);
-	
-	/**
-	 * @param txt_output boolean text output
-	 */
-	public void txt_output(boolean txt_output);
-	
+    /**
+     * Write.
+     *
+     * @param input the input
+     */
+    /**
+     * @param input input
+     * @param priority priority level
+     */
+    public void write(String input, int priority);
+
+    /**
+     * @param el stacktrace
+     */
+    public void write(StackTraceElement[] el);
+
+    /**
+     * @param txt_output boolean text output
+     */
+    public void txt_output(boolean txt_output);
+
 }

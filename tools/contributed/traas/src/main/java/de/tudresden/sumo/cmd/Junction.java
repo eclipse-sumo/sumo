@@ -22,7 +22,7 @@ import de.tudresden.sumo.config.Constants;
 import de.tudresden.sumo.util.SumoCommand;
 
 /**
- * 
+ *
  * @author Mario Krumnow
  * @author Evamarie Wiessner
  *
@@ -30,49 +30,49 @@ import de.tudresden.sumo.util.SumoCommand;
 
 public class Junction {
 
-	//getter methods
+    //getter methods
 
-	/**
-	 * Returns a list of IDs of all junctions within the scenario.
-	 * 
-	 * @return list of IDs of all junctions in the network
-	 */
+    /**
+     * Returns a list of IDs of all junctions within the scenario.
+     *
+     * @return list of IDs of all junctions in the network
+     */
 
-	public static SumoCommand getIDList(){
-		return new SumoCommand(Constants.CMD_GET_JUNCTION_VARIABLE, Constants.TRACI_ID_LIST, "", Constants.RESPONSE_GET_JUNCTION_VARIABLE, Constants.TYPE_STRINGLIST);
-	}
+    public static SumoCommand getIDList() {
+        return new SumoCommand(Constants.CMD_GET_JUNCTION_VARIABLE, Constants.TRACI_ID_LIST, "", Constants.RESPONSE_GET_JUNCTION_VARIABLE, Constants.TYPE_STRINGLIST);
+    }
 
-	/**
-	 * Returns the number of all junctions in the network.
-	 * @return the number of junctions
-	 */
+    /**
+     * Returns the number of all junctions in the network.
+     * @return the number of junctions
+     */
 
-	public static SumoCommand getIDCount(){
-		return new SumoCommand(Constants.CMD_GET_JUNCTION_VARIABLE, Constants.ID_COUNT, "", Constants.RESPONSE_GET_JUNCTION_VARIABLE, Constants.TYPE_INTEGER);
-	}
-	
-	/**
-	 * Returns the position of the named junction.
-	 * 
-	 * @param junctionID
-	 *            a string identifying the junction
-	 * @return the coordinates of the center of the junction
-	 */
-	 
-	public static SumoCommand getPosition(String junctionID){
-		return new SumoCommand(Constants.CMD_GET_JUNCTION_VARIABLE, Constants.VAR_POSITION, junctionID, Constants.RESPONSE_GET_JUNCTION_VARIABLE, Constants.POSITION_2D);
-	}
-	
-	/**
-	* getShape
- 	*@param junctionID
-	* a string identifying the junction
-	* @return the shape
-	*/
+    public static SumoCommand getIDCount() {
+        return new SumoCommand(Constants.CMD_GET_JUNCTION_VARIABLE, Constants.ID_COUNT, "", Constants.RESPONSE_GET_JUNCTION_VARIABLE, Constants.TYPE_INTEGER);
+    }
 
-	public static SumoCommand getShape(String junctionID){
-		return new SumoCommand(Constants.CMD_GET_JUNCTION_VARIABLE, Constants.VAR_SHAPE, junctionID, Constants.RESPONSE_GET_JUNCTION_VARIABLE, Constants.TYPE_POLYGON);
-	}
+    /**
+     * Returns the position of the named junction.
+     *
+     * @param junctionID
+     *            a string identifying the junction
+     * @return the coordinates of the center of the junction
+     */
+
+    public static SumoCommand getPosition(String junctionID) {
+        return new SumoCommand(Constants.CMD_GET_JUNCTION_VARIABLE, Constants.VAR_POSITION, junctionID, Constants.RESPONSE_GET_JUNCTION_VARIABLE, Constants.POSITION_2D);
+    }
+
+    /**
+    * getShape
+    *@param junctionID
+    * a string identifying the junction
+    * @return the shape
+    */
+
+    public static SumoCommand getShape(String junctionID) {
+        return new SumoCommand(Constants.CMD_GET_JUNCTION_VARIABLE, Constants.VAR_SHAPE, junctionID, Constants.RESPONSE_GET_JUNCTION_VARIABLE, Constants.TYPE_POLYGON);
+    }
 
 
 }

@@ -21,55 +21,55 @@ package de.tudresden.ws.container;
 import java.util.ArrayList;
 
 /**
- * 
+ *
  * @author Mario Krumnow
  *
  */
 
 public class SumoTLSPhase implements SumoObject {
 
-	public double duration;
-	public double minDur;
-	public double maxDur;
-	public String phasedef;
-	public ArrayList<Integer> next;
-	public String name;
-	
-	public SumoTLSPhase(){
-		
-		this.duration = 0;
-		this.minDur = 0;
-		this.maxDur = 0;
-		this.phasedef = "r";
+    public double duration;
+    public double minDur;
+    public double maxDur;
+    public String phasedef;
+    public ArrayList<Integer> next;
+    public String name;
+
+    public SumoTLSPhase() {
+
+        this.duration = 0;
+        this.minDur = 0;
+        this.maxDur = 0;
+        this.phasedef = "r";
         this.name = "";
         this.next = new ArrayList<Integer>();
-		
-	}
-	
-	public SumoTLSPhase(double duration, double minDur, double maxDur, String phasedef, ArrayList<Integer> next, String name){
-		
-		this.duration = duration;
-		this.minDur = minDur;
-		this.maxDur = maxDur;
-		this.phasedef = phasedef;
+
+    }
+
+    public SumoTLSPhase(double duration, double minDur, double maxDur, String phasedef, ArrayList<Integer> next, String name) {
+
+        this.duration = duration;
+        this.minDur = minDur;
+        this.maxDur = maxDur;
+        this.phasedef = phasedef;
         this.name = name;
         this.next = next;
-		
-	}
-	
-	public SumoTLSPhase(int duration, String phasedef){
-		
-		this.duration = duration;
-		this.minDur = duration;
-		this.maxDur = duration;
-		this.phasedef = phasedef;
+
+    }
+
+    public SumoTLSPhase(int duration, String phasedef) {
+
+        this.duration = duration;
+        this.minDur = duration;
+        this.maxDur = duration;
+        this.phasedef = phasedef;
         this.name = "";
         this.next = new ArrayList<Integer>();
-		
-	}
-	
-	public String toString(){
-		return this.phasedef+"#"+this.duration+"#"+this.minDur+"#"+this.maxDur+"#"+this.next+"#"+this.name;
-	}
-	
+
+    }
+
+    public String toString() {
+        return this.phasedef + "#" + this.duration + "#" + this.minDur + "#" + this.maxDur + "#" + this.next + "#" + this.name;
+    }
+
 }
