@@ -436,14 +436,14 @@ if (GIT_FOUND)
     add_custom_target(dist DEPENDS examples doc ${JAVA_TARGETS}
         COMMAND rm -rf sumo-${PACKAGE_VERSION} sumo-${PACKAGE_VERSION}.zip sumo-src-${PACKAGE_VERSION}.tar.gz sumo-src-${PACKAGE_VERSION}.zip sumo-all-${PACKAGE_VERSION}.tar.gz sumo-all-${PACKAGE_VERSION}.zip
         COMMAND ${GIT_EXECUTABLE} archive --prefix sumo-${PACKAGE_VERSION}/ -o sumo-${PACKAGE_VERSION}.zip HEAD
-        COMMAND unzip sumo-${PACKAGE_VERSION}.zip
+        COMMAND unzip -q sumo-${PACKAGE_VERSION}.zip
         COMMAND cp -a docs/tutorial docs/examples sumo-${PACKAGE_VERSION}/docs
-        COMMAND zip -r sumo-src-${PACKAGE_VERSION}.zip sumo-${PACKAGE_VERSION}
+        COMMAND zip -rq sumo-src-${PACKAGE_VERSION}.zip sumo-${PACKAGE_VERSION}
         COMMAND tar czf sumo-src-${PACKAGE_VERSION}.tar.gz sumo-${PACKAGE_VERSION}
         COMMAND cp -a docs/userdoc docs/pydoc docs/javadoc docs/man docs/doxygen sumo-${PACKAGE_VERSION}/docs
         COMMAND cp bin/*.jar bin/*.bat sumo-${PACKAGE_VERSION}/bin
         COMMAND cp -a tests sumo-${PACKAGE_VERSION}
-        COMMAND zip -r sumo-all-${PACKAGE_VERSION}.zip sumo-${PACKAGE_VERSION}
+        COMMAND zip -rq sumo-all-${PACKAGE_VERSION}.zip sumo-${PACKAGE_VERSION}
         COMMAND tar czf sumo-all-${PACKAGE_VERSION}.tar.gz sumo-${PACKAGE_VERSION}
         COMMAND rm -rf sumo-${PACKAGE_VERSION} sumo-${PACKAGE_VERSION}.zip
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
@@ -456,7 +456,7 @@ if (GIT_FOUND)
 
     add_custom_target(distcheck DEPENDS dist
         COMMAND rm -rf sumo-${PACKAGE_VERSION}
-        COMMAND unzip sumo-src-${PACKAGE_VERSION}.zip
+        COMMAND unzip -q sumo-src-${PACKAGE_VERSION}.zip
         COMMAND cd sumo-${PACKAGE_VERSION} && mkdir _cmake_build _cmake_install && cd _cmake_build
                 && cmake -DCMAKE_INSTALL_PREFIX=../_cmake_install .. || (echo "ERROR: the cmake configuration failed." && false)
                 && make -j8 || (echo "ERROR: the compilation failed." && false)
