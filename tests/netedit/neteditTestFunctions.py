@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 # Copyright (C) 2009-2019 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials
@@ -36,7 +36,7 @@ DELAY_RECOMPUTE_VOLATILE = 2
 DELAY_REMOVESELECTION = 0.1
 
 _NETEDIT_APP = os.environ.get("NETEDIT_BINARY", "netedit")
-_TEXTTEST_SANDBOX = os.environ.get("TEXTTEST_SANDBOX", ".")
+_TEXTTEST_SANDBOX = os.environ.get("TEXTTEST_SANDBOX", os.getcwd())
 _REFERENCE_PNG = os.path.join(os.path.dirname(__file__), "reference.png")
 
 #################################################
@@ -133,28 +133,36 @@ def typeThreeKeys(key1, key2, key3):
     pyautogui.hotkey(key1, key2, key3)
 
 
-"""
-@brief paste value into current text field
-"""
+def translateKeys(value, layout="de"):
+    tr = {}
+    if layout == "de":
+        en = r"""y[];'\z/Y{}:"|Z<>?@#^&*()-_=+§"""
+        de = u"""zü+öä#y-ZÜ*ÖÄ'Y;:_"§&/()=ß?´`^"""
+        # join as keys and values
+        tr.update(dict(zip(en, de)))
+    return "".join(map(lambda x: tr.get(x, x), value))
 
 
-def pasteIntoTextField(value, removePreviousContents=True):
-    print(value)
+def pasteIntoTextField(value, removePreviousContents=True, useClipboard=False, layout="de"):
+    """
+    @brief paste value into current text field
+    """
     # remove previous content
-    if(removePreviousContents):
+    if removePreviousContents:
         typeTwoKeys('ctrl', 'a')
         time.sleep(DELAY_KEY)
-    # use copy & paste (due problems with certain characters, for example '|')
-    pyperclip.copy(value)
-    pyautogui.hotkey('ctrl', 'v')
-
-
-"""
-@brief do left click over a position relative to referencePosition (pink square)
-"""
+    if useClipboard:
+        # use copy & paste (due problems with certain characters, for example '|')
+        pyperclip.copy(value)
+        pyautogui.hotkey('ctrl', 'v')
+    else:
+        pyautogui.typewrite(translateKeys(value, layout))
 
 
 def leftClick(referencePosition, positionx, positiony):
+    """
+    @brief do left click over a position relative to referencePosition (pink square)
+    """
     # wait before every operation
     time.sleep(DELAY_MOUSE)
     # obtain clicked position
@@ -229,13 +237,10 @@ def dragDrop(referencePosition, x1, y1, x2, y2):
 # basic functions
 #################################################
 
-
-"""
-@brief open Netedit
-"""
-
-
 def Popen(extraParameters, debugInformation):
+    """
+    @brief open netedit
+    """
     # set the default parameters of Netedit
     neteditCall = [_NETEDIT_APP, '--gui-testing', '--window-pos', '50,50',
                    '--window-size', '700,500', '--no-warnings',
@@ -284,12 +289,10 @@ def Popen(extraParameters, debugInformation):
     return subprocess.Popen(neteditCall, env=os.environ, stdout=sys.stdout, stderr=sys.stderr)
 
 
-"""
-@brief obtain reference referencePosition (pink square)
-"""
-
-
 def getReferenceMatch(neProcess, waitTime):
+    """
+    @brief obtain reference referencePosition (pink square)
+    """
     # show information
     print("Finding reference")
     # capture screen and search reference
@@ -313,12 +316,13 @@ def getReferenceMatch(neProcess, waitTime):
         sys.exit("TestFunctions: Killed Netedit process. 'reference.png' not found")
 
 
-"""
-@brief setup and start Netedit
-"""
-
-
 def setupAndStart(testRoot, extraParameters=[], debugInformation=True, waitTime=DELAY_REFERENCE):
+    """
+    @brief setup and start netedit
+    """
+    if os.name == "posix":
+        # to work around non working gtk clipboard
+        pyperclip.set_clipboard("xclip")
     # Open Netedit
     neteditProcess = Popen(extraParameters, debugInformation)
     # atexit.register(quit, neteditProcess, False, False)
