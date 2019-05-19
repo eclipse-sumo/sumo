@@ -18,7 +18,7 @@ from setuptools import setup
 import os
 import version
 
-SUMO_VERSION = version.gitDescribe()[1:-11].replace("_", ".").replace("+", ".")
+SUMO_VERSION = version.gitDescribe(commitPrefix=".", padZero=False)[1:-11].replace("_", ".")
 package_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
 setup(
