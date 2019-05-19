@@ -35,10 +35,9 @@ DELAY_RECOMPUTE = 2
 DELAY_RECOMPUTE_VOLATILE = 2
 DELAY_REMOVESELECTION = 0.1
 
-NeteditApp = os.environ.get("NETEDIT_BINARY", "netedit")
-textTestSandBox = os.environ.get("TEXTTEST_SANDBOX", ".")
-SumoGuiCall = [os.environ.get("GUISIM_BINARY", "sumo-gui"), '-c', os.path.join(textTestSandBox, 'sumo.sumocfg'),
-               '--no-step-log', '--no-duration-log', '--start', '--quit-on-end']
+_NETEDIT_APP = os.environ.get("NETEDIT_BINARY", "netedit")
+_TEXTTEST_SANDBOX = os.environ.get("TEXTTEST_SANDBOX", ".")
+_REFERENCE_PNG = os.path.join(os.path.dirname(__file__), "reference.png")
 
 #################################################
 # interaction functions
@@ -232,75 +231,57 @@ def dragDrop(referencePosition, x1, y1, x2, y2):
 
 
 """
-@brief setup Netedit
-"""
-
-
-def setup(NeteditTests):
-    # Open current environment file to obtain path to the Netedit App,
-    # textTestSandBox
-    envFile = os.path.join(NeteditTests, "currentEnvironment.tmp")
-    if os.path.exists(envFile):
-        global NeteditApp, textTestSandBox, currentOS
-        with open(envFile) as env:
-            NeteditApp, sandBox = [l.strip() for l in env.readlines()]
-        if os.path.exists(sandBox):
-            textTestSandBox = sandBox
-        os.remove(envFile)
-
-
-"""
 @brief open Netedit
 """
 
 
 def Popen(extraParameters, debugInformation):
     # set the default parameters of Netedit
-    NeteditCall = [NeteditApp, '--gui-testing', '--window-pos', '50,50',
+    neteditCall = [_NETEDIT_APP, '--gui-testing', '--window-pos', '50,50',
                    '--window-size', '700,500', '--no-warnings',
-                   '--error-log', os.path.join(textTestSandBox, 'log.txt')]
+                   '--error-log', os.path.join(_TEXTTEST_SANDBOX, 'log.txt')]
 
     # check if debug output information has to be enabled
     if debugInformation:
-        NeteditCall += ['--gui-testing-debug']
+        neteditCall += ['--gui-testing-debug']
 
     # check if an existent net must be loaded
-    if os.path.exists(os.path.join(textTestSandBox, "input_net.net.xml")):
-        NeteditCall += ['--sumo-net-file',
-                        os.path.join(textTestSandBox, "input_net.net.xml")]
+    if os.path.exists(os.path.join(_TEXTTEST_SANDBOX, "input_net.net.xml")):
+        neteditCall += ['--sumo-net-file',
+                        os.path.join(_TEXTTEST_SANDBOX, "input_net.net.xml")]
 
     # Check if additionals must be loaded
-    if os.path.exists(os.path.join(textTestSandBox, "input_additionals.add.xml")):
-        NeteditCall += ['-a',
-                        os.path.join(textTestSandBox, "input_additionals.add.xml")]
+    if os.path.exists(os.path.join(_TEXTTEST_SANDBOX, "input_additionals.add.xml")):
+        neteditCall += ['-a',
+                        os.path.join(_TEXTTEST_SANDBOX, "input_additionals.add.xml")]
 
     # Check if demand elements must be loaded
-    if os.path.exists(os.path.join(textTestSandBox, "input_routes.rou.xml")):
-        NeteditCall += ['-r',
-                        os.path.join(textTestSandBox, "input_routes.rou.xml")]
+    if os.path.exists(os.path.join(_TEXTTEST_SANDBOX, "input_routes.rou.xml")):
+        neteditCall += ['-r',
+                        os.path.join(_TEXTTEST_SANDBOX, "input_routes.rou.xml")]
 
     # check if a gui settings file has to be load
-    if os.path.exists(os.path.join(textTestSandBox, "gui-settings.xml")):
-        NeteditCall += ['--gui-settings-file',
-                        os.path.join(textTestSandBox, "gui-settings.xml")]
+    if os.path.exists(os.path.join(_TEXTTEST_SANDBOX, "gui-settings.xml")):
+        neteditCall += ['--gui-settings-file',
+                        os.path.join(_TEXTTEST_SANDBOX, "gui-settings.xml")]
 
     # set output for net
-    NeteditCall += ['--output-file',
-                    os.path.join(textTestSandBox, 'net.net.xml')]
+    neteditCall += ['--output-file',
+                    os.path.join(_TEXTTEST_SANDBOX, 'net.net.xml')]
 
     # set output for additionals
-    NeteditCall += ['--additionals-output',
-                    os.path.join(textTestSandBox, "additionals.xml")]
+    neteditCall += ['--additionals-output',
+                    os.path.join(_TEXTTEST_SANDBOX, "additionals.xml")]
 
     # set output for demand elements
-    NeteditCall += ['--demandelements-output',
-                    os.path.join(textTestSandBox, "routes.xml")]
+    neteditCall += ['--demandelements-output',
+                    os.path.join(_TEXTTEST_SANDBOX, "routes.xml")]
 
     # add extra parameters
-    NeteditCall += extraParameters
+    neteditCall += extraParameters
 
     # return a subprocess with Netedit
-    return subprocess.Popen(NeteditCall, env=os.environ, stdout=sys.stdout, stderr=sys.stderr)
+    return subprocess.Popen(neteditCall, env=os.environ, stdout=sys.stdout, stderr=sys.stderr)
 
 
 """
@@ -312,7 +293,7 @@ def getReferenceMatch(neProcess, waitTime):
     # show information
     print("Finding reference")
     # capture screen and search reference
-    positionOnScren = pyautogui.locateOnScreen('reference.png', waitTime)
+    positionOnScren = pyautogui.locateOnScreen(_REFERENCE_PNG, waitTime)
     # check if pos was found
     if positionOnScren:
         # adjust position to center
@@ -338,14 +319,13 @@ def getReferenceMatch(neProcess, waitTime):
 
 
 def setupAndStart(testRoot, extraParameters=[], debugInformation=True, waitTime=DELAY_REFERENCE):
-    setup(testRoot)
     # Open Netedit
-    NeteditProcess = Popen(extraParameters, debugInformation)
-    # atexit.register(quit, NeteditProcess, False, False)
+    neteditProcess = Popen(extraParameters, debugInformation)
+    # atexit.register(quit, neteditProcess, False, False)
     # print debug information
     print("TestFunctions: Netedit opened successfully")
     # Wait for Netedit reference
-    return NeteditProcess, getReferenceMatch(NeteditProcess, waitTime)
+    return neteditProcess, getReferenceMatch(neteditProcess, waitTime)
 
 
 """
@@ -540,19 +520,6 @@ def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
             print("TestFunctions: Error closing Netedit")
 
 
-"""
-            # return a subprocess with Netedit
-            sumoGuiProcess = subprocess.Popen(SumoGuiCall, env=os.environ, stdout=sys.stdout, stderr=sys.stderr)
-            if sumoGuiProcess.poll() is not None:
-                # print debug information
-                print("TestFunctions: Sumo-GUI closed successfully")
-            else:
-                sumoGuiProcess.kill()
-                # print debug information
-                print("TestFunctions: Error closing SumoGui")
-"""
-
-
 def openNetworkAs(waitTime=2):
     """
     @brief load network as
@@ -561,7 +528,7 @@ def openNetworkAs(waitTime=2):
     typeTwoKeys('ctrl', 'o')
     # jump to filename TextField
     typeTwoKeys('alt', 'f')
-    pasteIntoTextField(textTestSandBox)
+    pasteIntoTextField(_TEXTTEST_SANDBOX)
     typeEnter()
     pasteIntoTextField("input_net_loadedmanually.net.xml")
     typeEnter()
@@ -591,7 +558,7 @@ def saveNetworkAs(waitTime=2):
     typeThreeKeys('ctrl', 'shift', 's')
     # jump to filename TextField
     typeTwoKeys('alt', 'f')
-    pasteIntoTextField(textTestSandBox)
+    pasteIntoTextField(_TEXTTEST_SANDBOX)
     typeEnter()
     pasteIntoTextField("net.net.xml")
     typeEnter()
@@ -635,7 +602,7 @@ def openConfigurationShortcut(waitTime=2):
     typeThreeKeys('ctrl', 'shift', 'o')
     # jump to filename TextField
     typeTwoKeys('alt', 'f')
-    pasteIntoTextField(textTestSandBox)
+    pasteIntoTextField(_TEXTTEST_SANDBOX)
     typeEnter()
     pasteIntoTextField("input_net.netccfg")
     typeEnter()
@@ -653,7 +620,7 @@ def savePlainXML(waitTime=2):
     typeTwoKeys('ctrl', 'l')
     # jump to filename TextField
     typeTwoKeys('alt', 'f')
-    pasteIntoTextField(textTestSandBox)
+    pasteIntoTextField(_TEXTTEST_SANDBOX)
     typeEnter()
     pasteIntoTextField("net")
     typeEnter()
@@ -1221,7 +1188,7 @@ def saveSelection():
     typeSpace()
     # jump to filename TextField
     typeTwoKeys('alt', 'f')
-    filename = os.path.join(textTestSandBox, "selection.txt")
+    filename = os.path.join(_TEXTTEST_SANDBOX, "selection.txt")
     pasteIntoTextField(filename)
     typeEnter()
 
@@ -1239,7 +1206,7 @@ def loadSelection():
     typeSpace()
     # jump to filename TextField
     typeTwoKeys('alt', 'f')
-    filename = os.path.join(textTestSandBox, "selection.txt")
+    filename = os.path.join(_TEXTTEST_SANDBOX, "selection.txt")
     pasteIntoTextField(filename)
     typeEnter()
     # wait for gl debug

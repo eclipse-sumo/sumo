@@ -4,7 +4,6 @@ use_case_record_mode:GUI
 config_module:default
 
 copy_test_path:test.py
-copy_test_path:reference.png
 copy_test_path:input_net.netccfg
 copy_test_path:input_net.net.xml
 copy_test_path:input_net.con.xml
