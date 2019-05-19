@@ -639,17 +639,14 @@ MSDevice_SSM::closeEncounter(Encounter* e) {
             std::cout << std::endl;
             myPastConflicts = myPastConflicts_bak;
         }
+        if (DEBUG_COND1(myHolderMS))
+            std::cout << SIMTIME << " closeEncounter() of vehicles '"
+            << e->egoID << "' and '" << e->foeID
+            << "' (was ranked as " << (wasConflict ? "conflict" : "non-conflict") << ")" << std::endl;
 #endif
     } else {
         delete e;
     }
-#ifdef DEBUG_SSM
-    if (DEBUG_COND1(myHolderMS))
-        std::cout << SIMTIME << " closeEncounter() of vehicles '"
-                  << e->egoID << "' and '" << e->foeID
-                  << "' (was ranked as " << (wasConflict ? "conflict" : "non-conflict") << ")" << std::endl;
-#endif
-
     return;
 }
 
