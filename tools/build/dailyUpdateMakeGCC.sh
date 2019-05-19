@@ -49,7 +49,7 @@ else
   echo "make failed" | tee -a $STATUSLOG; tail -20 $MAKELOG
 fi
 date >> $MAKELOG
-echo `grep -c '[Ww]arn[iu]ng:' $MAKELOG` warnings >> $STATUSLOG
+echo `grep -ci 'warn[iu]ng:' $MAKELOG` warnings >> $STATUSLOG
 
 echo "--" >> $STATUSLOG
 cd $PREFIX/sumo
@@ -96,5 +96,5 @@ if make -j32 >> $MAKEALLLOG 2>&1; then
 else
   echo "make with all options failed" | tee -a $STATUSLOG; tail -20 $MAKEALLLOG
 fi
-echo `grep -c '[Ww]arn[iu]ng:' $MAKEALLLOG` warnings >> $STATUSLOG
+echo `grep -ci 'warn[iu]ng:' $MAKEALLLOG` warnings >> $STATUSLOG
 echo "--" >> $STATUSLOG
