@@ -86,7 +86,7 @@ public:
 
     /// @brief recalibrate color scheme according to the current value range
     void buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme& scheme, int active, GUIGlObjectType objectType,
-            bool hide = false, double hideThreshold = 0) override;
+                           bool hide = false, double hideThreshold = 0);
 
     /// @brief return list of loaded edgeData attributes
     std::vector<std::string> getEdgeDataAttrs() const;

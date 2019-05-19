@@ -1,19 +1,19 @@
-/** ************************************************************************* */
+/****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2016-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2016-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
-/** ************************************************************************* */
-/// @file    Constants.java
+/****************************************************************************/
+/// @file    LisaCommands.java
 /// @author  Maximiliano Bottazzi
 /// @date    2016
 /// @version $Id$
 ///
 //
-/** ************************************************************************* */
+/****************************************************************************/
 package de.dlr.ts.lisum.lisa;
 
 import de.dlr.ts.commons.logger.DLRLogger;
@@ -147,11 +147,12 @@ final class LisaCommands {
             Response response = execute(post);
             DLRLogger.finest(this, "Lisa responds: " + response.statusCode + " | " + response.body);
 
-            if (response.statusCode == 200) 
-                vektor = new PutMessageResponse(response.body);                        
-            
+            if (response.statusCode == 200) {
+                vektor = new PutMessageResponse(response.body);
+            }
+
         } catch (UnsupportedEncodingException ex) {
-            DLRLogger.severe(this, ex);            
+            DLRLogger.severe(this, ex);
         }
 
         return vektor;

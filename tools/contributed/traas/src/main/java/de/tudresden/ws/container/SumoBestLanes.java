@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2017-2019 German Aerospace Center (DLR) and others.
 // TraaS module
 // Copyright (C) 2016-2017 Dresden University of Technology
 // This program and the accompanying materials
@@ -22,41 +22,43 @@ package de.tudresden.ws.container;
 import java.util.LinkedList;
 
 /**
- * 
+ *
  * @author Mario Krumnow
  *
  */
 
 public class SumoBestLanes implements SumoObject {
 
-	public LinkedList<SumoBestLane> ll;
-	
-	public SumoBestLanes(){this.ll = new LinkedList<SumoBestLane>();}
-	
-	public void add(String laneID, double length, double occupation, int offset, int allowsContinuation, LinkedList<String> ll){
-		this.ll.add(new SumoBestLane(laneID, length, occupation, offset, allowsContinuation, ll));
-	}
-	
-	public String toString(){
-		return "";
-	}
-	
-	public class SumoBestLane{
-		
-		public LinkedList<String> ll;
-		public String laneID;
-		public double length;
-		public double occupation;
-		public int offset;
-		public int allowsContinuation;
-		
-		public SumoBestLane(String laneID, double length, double occupation, int offset, int allowsContinuation, LinkedList<String> ll){
-			this.laneID = laneID;
-			this.length = length;
-			this.occupation = occupation;
-			this.offset = offset;
-			this.allowsContinuation = allowsContinuation;
-			this.ll = ll;
-		}
-	}
+    public LinkedList<SumoBestLane> ll;
+
+    public SumoBestLanes() {
+        this.ll = new LinkedList<SumoBestLane>();
+    }
+
+    public void add(String laneID, double length, double occupation, int offset, int allowsContinuation, LinkedList<String> ll) {
+        this.ll.add(new SumoBestLane(laneID, length, occupation, offset, allowsContinuation, ll));
+    }
+
+    public String toString() {
+        return "";
+    }
+
+    public class SumoBestLane {
+
+        public LinkedList<String> ll;
+        public String laneID;
+        public double length;
+        public double occupation;
+        public int offset;
+        public int allowsContinuation;
+
+        public SumoBestLane(String laneID, double length, double occupation, int offset, int allowsContinuation, LinkedList<String> ll) {
+            this.laneID = laneID;
+            this.length = length;
+            this.occupation = occupation;
+            this.offset = offset;
+            this.allowsContinuation = allowsContinuation;
+            this.ll = ll;
+        }
+    }
 }

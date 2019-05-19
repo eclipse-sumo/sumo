@@ -73,47 +73,45 @@ GNEDemandElement::RouteCalculator::updateDijkstraRouter() {
 }
 
 
-std::vector<const NBEdge*>
-GNEDemandElement::RouteCalculator::calculateDijkstraRoute(SUMOVehicleClass vClass, const std::vector<GNEEdge*>& edges) const {
+std::vector<GNEEdge*>
+GNEDemandElement::RouteCalculator::calculateDijkstraRoute(SUMOVehicleClass vClass, const std::vector<GNEEdge*>& partialEdges) const {
     // declare a solution vector
-    std::vector<const NBEdge*> solution;
-    // declare temporal vehicle
-    NBVehicle tmpVehicle("temporalNBVehicle", vClass);
-    // iterate over every selected edges
-    for (int i = 1; i < (int)edges.size(); i++) {
-        // declare a temporal route in which save route between two last edges
-        std::vector<const NBRouterEdge*> partialRoute;
-        myDijkstraRouter->compute(edges.at(i - 1)->getNBEdge(), edges.at(i)->getNBEdge(), &tmpVehicle, 10, partialRoute);
-        // save partial route in solution
-        for (const auto& j : partialRoute) {
-            assert(dynamic_cast<const NBEdge*>(j) != nullptr);
-            solution.push_back(static_cast<const NBEdge*>(j));
+    std::vector<GNEEdge*> solution;
+    // calculate route depending of number of partial edges
+    if (partialEdges.size() == 1) {
+        // if there is only one partialEdges, route has only one edge
+        solution.push_back(partialEdges.front());
+    } else {
+        // declare temporal vehicle
+        NBVehicle tmpVehicle("temporalNBVehicle", vClass);
+        // obtain pointer to GNENet
+        GNENet* net = partialEdges.front()->getNet();
+        // iterate over every selected edges
+        for (int i = 1; i < (int)partialEdges.size(); i++) {
+            // declare a temporal route in which save route between two last edges
+            std::vector<const NBRouterEdge*> partialRoute;
+            myDijkstraRouter->compute(partialEdges.at(i - 1)->getNBEdge(), partialEdges.at(i)->getNBEdge(), &tmpVehicle, 10, partialRoute);
+            // save partial route in solution
+            for (const auto& j : partialRoute) {
+                solution.push_back(net->retrieveEdge(j->getID()));
+            }
         }
     }
     return solution;
 }
 
 
-std::vector<std::vector<const NBEdge*> >
-GNEDemandElement::RouteCalculator::calculateDijkstraPartialRoute(SUMOVehicleClass vClass, const std::vector<GNEEdge*>& edges) const {
-    // declare a solution matrix
-    std::vector<std::vector<const NBEdge*> > solution;
-    // declare temporal vehicle
-    NBVehicle tmpVehicle("temporalNBVehicle", vClass);
-    // iterate over every selected edges
-    for (int i = 1; i < (int)edges.size(); i++) {
-        // add a temporal route in which save route between two last edges
-        ConstRouterEdgeVector into;
-        myDijkstraRouter->compute(edges.at(i - 1)->getNBEdge(), edges.at(i)->getNBEdge(), &tmpVehicle, 10, into);
-        std::vector<const NBEdge*> edges;
-        for (const NBRouterEdge* e : into) {
-            assert(dynamic_cast<const NBEdge*>(e) != nullptr);
-            edges.push_back(static_cast<const NBEdge*>(e));
-        }
-        solution.push_back(edges);
+std::vector<GNEEdge*>
+GNEDemandElement::RouteCalculator::calculateDijkstraRoute(GNENet *net, SUMOVehicleClass vClass, const std::vector<std::string>& partialEdgesStr) const {
+    // declare a vector of GNEEdges
+    std::vector<GNEEdge*> partialEdges;
+    partialEdges.reserve(partialEdgesStr.size());
+    // convert to vector of GNEEdges
+    for (const auto &i : partialEdgesStr) {
+        partialEdges.push_back(net->retrieveEdge(i));
     }
-    // return matrix solution
-    return solution;
+    // calculate DijkstraRoute using partialEdges
+    return calculateDijkstraRoute(vClass, partialEdges);
 }
 
 

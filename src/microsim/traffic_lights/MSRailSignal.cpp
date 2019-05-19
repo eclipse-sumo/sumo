@@ -203,7 +203,7 @@ MSRailSignal::init(NLDetectorBuilder&) {
                 LaneSet rCVisited = visited;
                 // only collect if
                 // 1) the in-edge is bidirectional
-                // 2) the foe has no alternative track before reach meeting the end of the forwardBlock
+                // 2) the foe has no alternative track before reaching the end of the forwardBlock
                 // 3) the forward block has no alternative track between the end of the forward block and the conflict link
                 if (in->getEdge().getBidiEdge() != nullptr
                         && !hasAlternativeTrack(cl)

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 24.01.2019 10:29:55 by Eclipse SUMO netedit Version v1_1_0+0076-a16c2aae75
+<!-- generated on 12.05.2019 16:09:31 by Eclipse SUMO netedit Version v1_2_0+0323-a3c4a77541
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.24Jan102920.2188/netedit.gui/shapeElements/basic/shape_saveDialog\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.12May112745.2296/netedit.gui/shapeElements/basic/shape_saveDialog\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.24Jan102920.2188/netedit.gui/shapeElements/basic/shape_saveDialog\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.12May112745.2296/netedit.gui/shapeElements/basic/shape_saveDialog\net.net.xml"/>
     </output>
 
     <processing>
@@ -29,12 +29,14 @@
     </pedestrian>
 
     <netedit>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.24Jan102920.2188/netedit.gui/shapeElements/basic/shape_saveDialog\additionals.xml"/>
-        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.24Jan102920.2188/netedit.gui/shapeElements/basic/shape_saveDialog\routes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.12May112745.2296/netedit.gui/shapeElements/basic/shape_saveDialog\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.12May112745.2296/netedit.gui/shapeElements/basic/shape_saveDialog\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.12May112745.2296/netedit.gui/shapeElements/basic/shape_saveDialog\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.12May112745.2296/netedit.gui/shapeElements/basic/shape_saveDialog\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.24Jan102920.2188/netedit.gui/shapeElements/basic/shape_saveDialog\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.12May112745.2296/netedit.gui/shapeElements/basic/shape_saveDialog\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -43,12 +45,12 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.24Jan102920.2188/netedit.gui/shapeElements/basic/shape_saveDialog\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.12May112745.2296/netedit.gui/shapeElements/basic/shape_saveDialog\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <poly id="poly_0" color="red" fill="0" layer="128.00" shape="2.000000,19.000000 2.000000,24.000000 -3.000000,24.000000 -3.000000,19.000000 2.000000,19.000000"/>
+    <poly id="poly_0" color="red" fill="0" layer="128.00" shape="1.000000,20.000000 1.000000,25.000000 -4.000000,25.000000 -4.000000,20.000000 1.000000,20.000000"/>
 </additional>

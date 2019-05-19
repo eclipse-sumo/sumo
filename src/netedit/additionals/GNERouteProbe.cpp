@@ -88,7 +88,6 @@ GNERouteProbe::getPositionInView() const {
     } else {
         Position A = getEdgeParents().front()->getLanes().front()->getGeometry().shape.positionAtOffset(0.5);
         Position B = getEdgeParents().front()->getLanes().back()->getGeometry().shape.positionAtOffset(0.5);
-
         // return Middle point
         return Position((A.x() + B.x()) / 2, (A.y() + B.y()) / 2);
     }
@@ -97,7 +96,7 @@ GNERouteProbe::getPositionInView() const {
 
 Boundary
 GNERouteProbe::getCenteringBoundary() const {
-    throw ProcessError("This additional doesn't have a boundary");
+    return myGeometry.shape.getBoxBoundary().grow(10);
 }
 
 

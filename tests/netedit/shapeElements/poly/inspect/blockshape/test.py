@@ -38,7 +38,7 @@ netedit.createSquaredPoly(referencePosition, 200, 150, 200, True)
 netedit.inspectMode()
 
 # inspect first polygon
-netedit.leftClick(referencePosition, 100, 50)
+netedit.leftClick(referencePosition, 100, 60)
 
 # Change boolean parameter 16
 netedit.modifyBoolAttribute(16, False)

@@ -54,6 +54,7 @@ fileopen.xpm \
 fileprint.xpm \
 filesave.xpm \
 flow.xpm \
+routeflow.xpm \
 vehicle.xpm \
 trip.xpm \
 stopelement.xpm \

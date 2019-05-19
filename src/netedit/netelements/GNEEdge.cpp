@@ -536,10 +536,32 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
             drawPartialRoute(s, i);
         }
         for (const auto &i : getSortedDemandElementChildsByType(SUMO_TAG_TRIP)) {
+            // Start drawing adding an gl identificator
+            glPushName(i->getGlID());
+            // draw partial trip only if is being inspected or selected
+            if ((myNet->getViewNet()->getDottedAC() == i) || i->isAttributeCarrierSelected()) {
+                drawPartialTripFromTo(s, i);
+            }
+            // only draw trip in the first edge
             if (i->getAttribute(SUMO_ATTR_FROM) == getID()) {
-                // only draw trip in the first edge
                 i->drawGL(s);
             }
+            // Pop name
+            glPopName();
+        }
+        for (const auto &i : getSortedDemandElementChildsByType(SUMO_TAG_FLOW)) {
+            // Start drawing adding an gl identificator
+            glPushName(i->getGlID());
+            // draw partial trip only if is being inspected or selected
+            if ((myNet->getViewNet()->getDottedAC() == i) || i->isAttributeCarrierSelected()) {
+                drawPartialTripFromTo(s, i);
+            }
+            // only draw flow in the first edge
+            if (i->getAttribute(SUMO_ATTR_FROM) == getID()) {
+                i->drawGL(s);
+            }
+            // Pop name
+            glPopName();
         }
     }
     // draw geometry points if isnt's too small
@@ -1856,7 +1878,7 @@ GNEEdge::drawPartialRoute(const GUIVisualizationSettings& s, GNEDemandElement *r
     // Start with the drawing of the area traslating matrix to origin
     glTranslated(0, 0, route->getType());
     // Set color of the base
-    if (drawUsingSelectColor()) {
+    if (route->drawUsingSelectColor()) {
         GLHelper::setColor(s.selectedAdditionalColor);
     } else {
         GLHelper::setColor(route->getColor());
@@ -1864,7 +1886,7 @@ GNEEdge::drawPartialRoute(const GUIVisualizationSettings& s, GNEDemandElement *r
     // check in what lane the partial route drawn
     int index = -1;
     for (int i = 0; (i < (int)myNBEdge.getLanes().size()) && (index == -1); i++) {
-        if (myNBEdge.getLanes().at(i).permissions & SumoVehicleClassStrings.get(route->getAttribute(SUMO_ATTR_VCLASS))) {
+        if (myNBEdge.getLanes().at(i).permissions & route->getVClass()) {
             index = i;
         }
     }
@@ -1898,6 +1920,52 @@ GNEEdge::drawPartialRoute(const GUIVisualizationSettings& s, GNEDemandElement *r
     for (const auto &i : route->getDemandElementChilds()) {
         i->drawGL(s);
     }
+}
+
+
+void 
+GNEEdge::drawPartialTripFromTo(const GUIVisualizationSettings& s, GNEDemandElement *tripOrFromTo) const {
+    // calculate tripOrFromTo width
+    double tripOrFromToWidth = s.addSize.getExaggeration(s, this) * 0.2;
+    // Add a draw matrix
+    glPushMatrix();
+    // Start with the drawing of the area traslating matrix to origin
+    glTranslated(0, 0, tripOrFromTo->getType());
+    // Set color of the base
+    if (tripOrFromTo->drawUsingSelectColor()) {
+        GLHelper::setColor(s.selectedConnectionColor);
+    } else {
+        GLHelper::setColor(RGBColor::ORANGE);
+    }
+    // check in what lane the partial tripOrFromTo drawn
+    int index = -1;
+    for (int i = 0; (i < (int)myNBEdge.getLanes().size()) && (index == -1); i++) {
+        if (myNBEdge.getLanes().at(i).permissions & tripOrFromTo->getVClass()) {
+            index = i;
+        }
+    }
+    if (index == -1) {
+        index = 0;
+    }
+    // draw tripOrFromTo
+    GLHelper::drawBoxLines(myLanes.at(index)->getGeometry().shape, myLanes.at(index)->getGeometry().shapeRotations, myLanes.at(index)->getGeometry().shapeLengths, tripOrFromToWidth);
+    // check if tripOrFromTo has a connectio between this and the next edge
+    GNEConnection *nextConnection = tripOrFromTo->getNextConnection(this);
+    if (nextConnection && (nextConnection->getEdgeFrom()->getGNEJunctionDestiny()->getNBNode()->getShape().size() > 0)) {
+        GLHelper::drawBoxLines(nextConnection->getGeometry().shape, nextConnection->getGeometry().shapeRotations, nextConnection->getGeometry().shapeLengths, tripOrFromToWidth);
+    } else {
+        // calculate line between this and the next edge
+        GNEHierarchicalElementParents::LineGeometry lineGeometry = tripOrFromTo->getLinetoNextEdge(this);
+        GLHelper::drawBoxLine(lineGeometry.firstPoint, lineGeometry.rotation, lineGeometry.lenght, tripOrFromToWidth);
+    }
+    // Pop last matrix
+    glPopMatrix();
+    // Draw name if isn't being drawn for selecting
+    if (!s.drawForSelecting) {
+        drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+    }
+    // Pop name
+    glPopName();
 }
 
 /****************************************************************************/

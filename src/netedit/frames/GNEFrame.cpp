@@ -108,16 +108,16 @@ FXDEFMAP(GNEFrame::NeteditAttributes) NeteditAttributesMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEFrame::ItemSelector,                     FXGroupBox,         ItemSelectorMap,                ARRAYNUMBER(ItemSelectorMap))
-FXIMPLEMENT(GNEFrame::AttributesCreator,                FXGroupBox,         AttributesCreatorMap,           ARRAYNUMBER(AttributesCreatorMap))
-FXIMPLEMENT(GNEFrame::AttributesCreator::AttributesCreatorRow,    FXHorizontalFrame,  RowCreatorMap,                  ARRAYNUMBER(RowCreatorMap))
-FXIMPLEMENT(GNEFrame::AttributesEditor,                 FXGroupBox,         AttributesEditorMap,            ARRAYNUMBER(AttributesEditorMap))
-FXIMPLEMENT(GNEFrame::AttributesEditor::AttributesEditorRow,      FXHorizontalFrame,  AttributesEditorRowMap,                   ARRAYNUMBER(AttributesEditorRowMap))
-FXIMPLEMENT(GNEFrame::AttributesEditorExtended,         FXGroupBox,         AttributesEditorExtendedMap,    ARRAYNUMBER(AttributesEditorExtendedMap))
-FXIMPLEMENT(GNEFrame::ACHierarchy,                      FXGroupBox,         ACHierarchyMap,                 ARRAYNUMBER(ACHierarchyMap))
-FXIMPLEMENT(GNEFrame::GenericParametersEditor,          FXGroupBox,         GenericParametersEditorMap,     ARRAYNUMBER(GenericParametersEditorMap))
-FXIMPLEMENT(GNEFrame::DrawingShape,                     FXGroupBox,         DrawingShapeMap,                ARRAYNUMBER(DrawingShapeMap))
-FXIMPLEMENT(GNEFrame::NeteditAttributes,                FXGroupBox,         NeteditAttributesMap,           ARRAYNUMBER(NeteditAttributesMap))
+FXIMPLEMENT(GNEFrame::ItemSelector,                             FXGroupBox,         ItemSelectorMap,                ARRAYNUMBER(ItemSelectorMap))
+FXIMPLEMENT(GNEFrame::AttributesCreator,                        FXGroupBox,         AttributesCreatorMap,           ARRAYNUMBER(AttributesCreatorMap))
+FXIMPLEMENT(GNEFrame::AttributesCreator::AttributesCreatorRow,  FXHorizontalFrame,  RowCreatorMap,                  ARRAYNUMBER(RowCreatorMap))
+FXIMPLEMENT(GNEFrame::AttributesEditor,                         FXGroupBox,         AttributesEditorMap,            ARRAYNUMBER(AttributesEditorMap))
+FXIMPLEMENT(GNEFrame::AttributesEditor::AttributesEditorRow,    FXHorizontalFrame,  AttributesEditorRowMap,         ARRAYNUMBER(AttributesEditorRowMap))
+FXIMPLEMENT(GNEFrame::AttributesEditorExtended,                 FXGroupBox,         AttributesEditorExtendedMap,    ARRAYNUMBER(AttributesEditorExtendedMap))
+FXIMPLEMENT(GNEFrame::ACHierarchy,                              FXGroupBox,         ACHierarchyMap,                 ARRAYNUMBER(ACHierarchyMap))
+FXIMPLEMENT(GNEFrame::GenericParametersEditor,                  FXGroupBox,         GenericParametersEditorMap,     ARRAYNUMBER(GenericParametersEditorMap))
+FXIMPLEMENT(GNEFrame::DrawingShape,                             FXGroupBox,         DrawingShapeMap,                ARRAYNUMBER(DrawingShapeMap))
+FXIMPLEMENT(GNEFrame::NeteditAttributes,                        FXGroupBox,         NeteditAttributesMap,           ARRAYNUMBER(NeteditAttributesMap))
 
 // ===========================================================================
 // static members
@@ -366,7 +366,7 @@ GNEFrame::AttributesCreator::areValuesValid() const {
 void
 GNEFrame::AttributesCreator::updateDisjointAttributes(AttributesCreator::AttributesCreatorRow* row) {
     // currently only Flows supports disjoint attributes
-    if (myTagProperties.getTag() == SUMO_TAG_FLOW) {
+    if ((myTagProperties.getTag() == SUMO_TAG_ROUTEFLOW) || (myTagProperties.getTag() == SUMO_TAG_FLOW)) {
         // obtain all rows (to improve code legibility)
         AttributesCreatorRow* endRow = myAttributesCreatorRows[myTagProperties.getAttributeProperties(SUMO_ATTR_END).getPositionListed()];
         AttributesCreatorRow* numberRow = myAttributesCreatorRows[myTagProperties.getAttributeProperties(SUMO_ATTR_NUMBER).getPositionListed()];
@@ -374,7 +374,7 @@ GNEFrame::AttributesCreator::updateDisjointAttributes(AttributesCreator::Attribu
         AttributesCreatorRow* periodRow = myAttributesCreatorRows[myTagProperties.getAttributeProperties(SUMO_ATTR_PERIOD).getPositionListed()];
         AttributesCreatorRow* probabilityRow = myAttributesCreatorRows[myTagProperties.getAttributeProperties(SUMO_ATTR_PROB).getPositionListed()];
         if (row == nullptr) {
-            // by default flows uses end and number
+            // by default routeFlows uses end and number
             endRow->setAttributeRadioButtonCheck(true);
             numberRow->setAttributeRadioButtonCheck(true);
             vehsperhourRow->setAttributeRadioButtonCheck(false);
@@ -2116,8 +2116,14 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier* AC, FXTre
                     for (const auto& i : edge->getAdditionalChilds()) {
                         showAttributeCarrierChilds(i, edgeItem);
                     }
-                    // insert demand elements childs
-                    for (const auto& i : edge->getDemandElementChilds()) {
+                    // insert demand elements childs (note: use getSortedDemandElementChildsByType to avoid duplicated elements)
+                    for (const auto &i : edge->getSortedDemandElementChildsByType(SUMO_TAG_ROUTE)) {
+                        showAttributeCarrierChilds(i, edgeItem);
+                    }
+                    for (const auto &i : edge->getSortedDemandElementChildsByType(SUMO_TAG_TRIP)) {
+                        showAttributeCarrierChilds(i, edgeItem);
+                    }
+                    for (const auto &i : edge->getSortedDemandElementChildsByType(SUMO_TAG_FLOW)) {
                         showAttributeCarrierChilds(i, edgeItem);
                     }
                 }

@@ -997,6 +997,23 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 RGBColor
 GNELane::setLaneColor(const GUIVisualizationSettings& s) const {
+    // we need to draw lanes with a special color if we're inspecting a Trip or Flow and this lane belongs to a via's edge.
+    if (myNet->getViewNet()->getDottedAC() && (myNet->getViewNet()->getDottedAC()->isAttributeCarrierSelected() == false) &&
+        ((myNet->getViewNet()->getDottedAC()->getTagProperty().getTag() == SUMO_TAG_TRIP) || 
+        (myNet->getViewNet()->getDottedAC()->getTagProperty().getTag() == SUMO_TAG_FLOW))) {
+        // obtain attribute "via"
+        std::vector<std::string> viaEdges = parse<std::vector<std::string> >(myNet->getViewNet()->getDottedAC()->getAttribute(SUMO_ATTR_VIA));
+        // iterate over viaEdges
+        for (const auto &i : viaEdges) {
+            // check if edge parent is in the via edges
+            if (myParentEdge.getID() == i) {
+                // set green color in GLHelper and return it
+                GLHelper::setColor(RGBColor::GREEN);
+                return RGBColor::GREEN;
+            }
+        }
+    }
+    // declare a RGBColor variable
     RGBColor color;
     if (mySpecialColor != nullptr) {
         // If special color is enabled, set it
@@ -1014,6 +1031,7 @@ GNELane::setLaneColor(const GUIVisualizationSettings& s) const {
             color = c.getScheme().getColor(getColorValue(s, c.getActive()));
         }
     }
+    // set color in GLHelper
     GLHelper::setColor(color);
     return color;
 }

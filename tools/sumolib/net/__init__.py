@@ -477,7 +477,7 @@ class Net:
                             for p in l.getShape3D()]
             e.rebuildShape()
 
-    def getShortestPath(self, fromEdge, toEdge, maxCost=1e400):
+    def getShortestPath(self, fromEdge, toEdge, maxCost=1e400, vClass=None):
         q = [(0, fromEdge.getID(), fromEdge, ())]
         seen = set()
         dist = {fromEdge: fromEdge.getLength()}
@@ -491,7 +491,7 @@ class Net:
                 return path, cost
             if cost > maxCost:
                 return None, cost
-            for e2, conn in e1.getOutgoing().items():
+            for e2, conn in e1.getAllowedOutgoing(vClass).items():
                 if e2 not in seen:
                     newCost = cost + e2.getLength()
                     if self.hasInternal:

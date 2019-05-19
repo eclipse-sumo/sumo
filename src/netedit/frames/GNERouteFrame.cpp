@@ -557,7 +557,7 @@ GNERouteFrame::NonConsecutiveEdges::addEdge(GNEEdge* edge) {
         } else {
             // Routes with only one edge are allowed
             myTemporalRoute.clear();
-            myTemporalRoute.push_back(mySelectedEdges.front()->getNBEdge());
+            myTemporalRoute.push_back(mySelectedEdges.front());
         }
         // update info route label
         updateInfoRouteLabel();
@@ -584,7 +584,7 @@ GNERouteFrame::NonConsecutiveEdges::clearEdges() {
 }
 
 
-const std::vector<const NBEdge*> &
+const std::vector<GNEEdge*> &
 GNERouteFrame::NonConsecutiveEdges::getTemporalRoute() const {
     return myTemporalRoute;
 }
@@ -657,7 +657,7 @@ GNERouteFrame::NonConsecutiveEdges::onCmdRemoveLastRouteEdge(FXObject*, FXSelect
             myRemoveLastInsertedEdge->disable();
             // Routes with only one edge are allowed
             myTemporalRoute.clear();
-            myTemporalRoute.push_back(mySelectedEdges.front()->getNBEdge());
+            myTemporalRoute.push_back(mySelectedEdges.front());
         } else {
             // calculate temporal route
             myTemporalRoute = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(myRouteFrameParent->myRouteModeSelector->getCurrentVehicleClass(), mySelectedEdges);
@@ -679,8 +679,8 @@ GNERouteFrame::NonConsecutiveEdges::updateInfoRouteLabel() {
         double lenght = 0;
         double speed = 0;
         for (const auto& i : myTemporalRoute) {
-            lenght += i->getLength();
-            speed += i->getSpeed();
+            lenght += i->getNBEdge()->getLength();
+            speed += i->getNBEdge()->getSpeed();
         }
         // declare ostringstream for label and fill it
         std::ostringstream information;
@@ -810,14 +810,14 @@ GNERouteFrame::hotkeyEsc() {
 void
 GNERouteFrame::drawTemporalRoute() const {
     // declare a vector with temporal route edges
-    std::vector<const NBEdge*> temporalRoute;
+    std::vector<GNEEdge*> temporalRoute;
     // obtain temporal route depending of current route mode
     switch (myRouteModeSelector->getCurrenRouteMode()) {
         case ROUTEMODE_CONSECUTIVE_EDGES:
             // convert GNEEdges to NBEdges
             temporalRoute.reserve(myConsecutiveEdges->getRouteEdges().size());
             for (const auto &i : myConsecutiveEdges->getRouteEdges()) {
-                temporalRoute.push_back(i->getNBEdge());
+                temporalRoute.push_back(i);
             }
             break;
         case ROUTEMODE_NONCONSECUTIVE_EDGES:
@@ -837,14 +837,14 @@ GNERouteFrame::drawTemporalRoute() const {
         // set line width
         glLineWidth(5);
         // draw first line
-        GLHelper::drawLine(temporalRoute.at(0)->getLanes().front().shape.front(),
-                           temporalRoute.at(0)->getLanes().front().shape.back());
+        GLHelper::drawLine(temporalRoute.at(0)->getNBEdge()->getLanes().front().shape.front(),
+                           temporalRoute.at(0)->getNBEdge()->getLanes().front().shape.back());
         // draw rest of lines
         for (int i = 1; i < (int)temporalRoute.size(); i++) {
-            GLHelper::drawLine(temporalRoute.at(i - 1)->getLanes().front().shape.back(),
-                               temporalRoute.at(i)->getLanes().front().shape.front());
-            GLHelper::drawLine(temporalRoute.at(i)->getLanes().front().shape.front(),
-                               temporalRoute.at(i)->getLanes().front().shape.back());
+            GLHelper::drawLine(temporalRoute.at(i - 1)->getNBEdge()->getLanes().front().shape.back(),
+                               temporalRoute.at(i)->getNBEdge()->getLanes().front().shape.front());
+            GLHelper::drawLine(temporalRoute.at(i)->getNBEdge()->getLanes().front().shape.front(),
+                               temporalRoute.at(i)->getNBEdge()->getLanes().front().shape.back());
         }
         // Pop last matrix
         glPopMatrix();

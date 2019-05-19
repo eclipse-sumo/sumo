@@ -111,13 +111,9 @@ GNEHierarchicalElementChilds::addAdditionalChild(GNEAdditional* additional) {
     } else {
         // add it in additional childs container
         myAdditionalChilds.push_back(additional);
-        // only execute post operations if update geometry is enabled
-        if (additional->getViewNet()->getNet()->isUpdateGeometryEnabled()) {
-            // Check if childs has to be sorted automatically
-            if (myAC->getTagProperty().canAutomaticSortChilds()) {
-                sortAdditionalChilds();
-            }
-            updateGeometry();
+        // Check if childs has to be sorted automatically
+        if (myAC->getTagProperty().canAutomaticSortChilds()) {
+            sortAdditionalChilds();
         }
         // update additional parent after add additional (note: by default non-implemented)
         updateAdditionalParent();
@@ -133,14 +129,9 @@ GNEHierarchicalElementChilds::removeAdditionalChild(GNEAdditional* additional) {
         throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' doesn't exist in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
     } else {
         myAdditionalChilds.erase(it);
-        // only execute post operations if update geometry is enabled
-        if (additional->getViewNet()->getNet()->isUpdateGeometryEnabled()) {
-            // Check if childs has to be sorted automatically
-            if (myAC->getTagProperty().canAutomaticSortChilds()) {
-                sortAdditionalChilds();
-            }
-
-            updateGeometry();
+        // Check if childs has to be sorted automatically
+        if (myAC->getTagProperty().canAutomaticSortChilds()) {
+            sortAdditionalChilds();
         }
         // update additional parent after add additional (note: by default non-implemented)
         updateAdditionalParent();
@@ -287,12 +278,6 @@ GNEHierarchicalElementChilds::addDemandElementChild(GNEDemandElement* demandElem
         if (myAC->getTagProperty().canAutomaticSortChilds()) {
             sortDemandElementChilds();
         }
-        // update demandElement parent after add demandElement (note: by default non-implemented)
-        updateDemandElementParent();
-        // update geometry (for set geometry of lines between Parents and Childs)
-        if (demandElement->getViewNet()->getNet()->isUpdateGeometryEnabled()) {
-            updateGeometry();
-        }
     }
 }
 
@@ -314,12 +299,6 @@ GNEHierarchicalElementChilds::removeDemandElementChild(GNEDemandElement* demandE
         // Check if childs has to be sorted automatically
         if (myAC->getTagProperty().canAutomaticSortChilds()) {
             sortDemandElementChilds();
-        }
-        // update demandElement parent after add demandElement (note: by default non-implemented)
-        updateDemandElementParent();
-        // update geometry (for remove geometry of lines between Parents and Childs)
-        if (demandElement->getViewNet()->getNet()->isUpdateGeometryEnabled()) {
-            updateGeometry();
         }
     }
 }
@@ -356,10 +335,6 @@ GNEHierarchicalElementChilds::addEdgeChild(GNEEdge* edge) {
         throw InvalidArgument("Trying to add an empty edge child in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
     } else {
         myEdgeChilds.push_back(edge);
-        // only execute post operations if update geometry is enabled
-        if (edge->getNet()->isUpdateGeometryEnabled()) {
-            updateGeometry();
-        }
     }
 }
 
@@ -525,7 +500,6 @@ GNEHierarchicalElementChilds::ChildConnections::update() {
     // first clear connection positions
     connectionPositions.clear();
     symbolsPositionAndRotation.clear();
-
     // calculate position and rotation of every simbol for every edge
     for (const auto& i : myHierarchicalElement->myEdgeChilds) {
         for (auto j : i->getLanes()) {
@@ -542,7 +516,6 @@ GNEHierarchicalElementChilds::ChildConnections::update() {
             symbolsPositionAndRotation.push_back(ConnectionGeometry(j, pos, rot));
         }
     }
-
     // calculate position and rotation of every symbol for every lane
     for (const auto& i : myHierarchicalElement->myLaneChilds) {
         Position pos;
@@ -557,7 +530,6 @@ GNEHierarchicalElementChilds::ChildConnections::update() {
         }
         symbolsPositionAndRotation.push_back(ConnectionGeometry(i, pos, rot));
     }
-
     // calculate position for every additional child
     for (const auto& i : myHierarchicalElement->myAdditionalChilds) {
         // check that position is different of position
@@ -584,7 +556,6 @@ GNEHierarchicalElementChilds::ChildConnections::update() {
             connectionPositions.push_back(posConnection);
         }
     }
-
     // calculate geometry for connections between parent and childs
     for (const auto& i : symbolsPositionAndRotation) {
         std::vector<Position> posConnection;

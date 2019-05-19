@@ -67,6 +67,38 @@ GNEChange_DemandElement::~GNEChange_DemandElement() {
         // make sure that element isn't in net before removing
         if (myNet->demandElementExist(myDemandElement)) {
             myNet->deleteDemandElement(myDemandElement, false);
+            // Remove element from parent elements
+            for (const auto& i : myEdgeParents) {
+                i->removeDemandElementChild(myDemandElement);
+            }
+            for (const auto& i : myLaneParents) {
+                i->removeDemandElementChild(myDemandElement);
+            }
+            for (const auto& i : myShapeParents) {
+                i->removeDemandElementChild(myDemandElement);
+            }
+            for (const auto& i : myAdditionalParents) {
+                i->removeDemandElementChild(myDemandElement);
+            }
+            for (const auto& i : myDemandElementParents) {
+                i->removeDemandElementChild(myDemandElement);
+            }
+            // Remove element from child elements
+            for (const auto& i : myEdgeChilds) {
+                i->removeDemandElementParent(myDemandElement);
+            }
+            for (const auto& i : myLaneChilds) {
+                i->removeDemandElementParent(myDemandElement);
+            }
+            for (const auto& i : myShapeChilds) {
+                i->removeDemandElementParent(myDemandElement);
+            }
+            for (const auto& i : myAdditionalChilds) {
+                i->removeDemandElementParent(myDemandElement);
+            }
+            for (const auto& i : myDemandElementChilds) {
+                i->removeDemandElementParent(myDemandElement);
+            }
         }
         delete myDemandElement;
     }

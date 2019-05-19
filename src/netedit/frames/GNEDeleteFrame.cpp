@@ -112,53 +112,59 @@ GNEDeleteFrame::show() {
 
 void
 GNEDeleteFrame::hide() {
-
     GNEFrame::hide();
 }
 
 
 void
 GNEDeleteFrame::removeSelectedAttributeCarriers() {
-    // remove all selected attribute carrier susing the following parent-child sequence
-    myViewNet->getUndoList()->p_begin("remove selected items");
-    // disable update geometry
-    myViewNet->getNet()->disableUpdateGeometry();
-    // delete selected attribute carrier    //junctions
-    while (myViewNet->getNet()->retrieveJunctions(true).size() > 0) {
-        myViewNet->getNet()->deleteJunction(myViewNet->getNet()->retrieveJunctions(true).front(), myViewNet->getUndoList());
+    // first check if there is additional to remove
+    if (ACsToDelete()) {
+        // remove all selected attribute carrier susing the following parent-child sequence
+        myViewNet->getUndoList()->p_begin("remove selected items");
+        // disable update geometry
+        myViewNet->getNet()->disableUpdateGeometry();
+        // delete selected attribute carriers depending of current supermode
+        if (myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) {
+            //junctions
+            while (myViewNet->getNet()->retrieveJunctions(true).size() > 0) {
+                myViewNet->getNet()->deleteJunction(myViewNet->getNet()->retrieveJunctions(true).front(), myViewNet->getUndoList());
+            }
+            // edges
+            while (myViewNet->getNet()->retrieveEdges(true).size() > 0) {
+                myViewNet->getNet()->deleteEdge(myViewNet->getNet()->retrieveEdges(true).front(), myViewNet->getUndoList(), false);
+            }
+            // lanes
+            while (myViewNet->getNet()->retrieveLanes(true).size() > 0) {
+                myViewNet->getNet()->deleteLane(myViewNet->getNet()->retrieveLanes(true).front(), myViewNet->getUndoList(), false);
+            }
+            // connections
+            while (myViewNet->getNet()->retrieveConnections(true).size() > 0) {
+                myViewNet->getNet()->deleteConnection(myViewNet->getNet()->retrieveConnections(true).front(), myViewNet->getUndoList());
+            }
+            // crossings
+            while (myViewNet->getNet()->retrieveCrossings(true).size() > 0) {
+                myViewNet->getNet()->deleteCrossing(myViewNet->getNet()->retrieveCrossings(true).front(), myViewNet->getUndoList());
+            }
+            // shapes
+            while (myViewNet->getNet()->retrieveShapes(true).size() > 0) {
+                myViewNet->getNet()->deleteShape(myViewNet->getNet()->retrieveShapes(true).front(), myViewNet->getUndoList());
+            }
+            // additionals
+            while (myViewNet->getNet()->retrieveAdditionals(true).size() > 0) {
+                myViewNet->getNet()->deleteAdditional(myViewNet->getNet()->retrieveAdditionals(true).front(), myViewNet->getUndoList());
+            }
+        } else {
+            // demand elements
+            while (myViewNet->getNet()->retrieveDemandElements(true).size() > 0) {
+                myViewNet->getNet()->deleteDemandElement(myViewNet->getNet()->retrieveDemandElements(true).front(), myViewNet->getUndoList());
+            }
+        }
+        // enable update geometry
+        myViewNet->getNet()->enableUpdateGeometry();
+        // finish deletion
+        myViewNet->getUndoList()->p_end();
     }
-    // edges
-    while (myViewNet->getNet()->retrieveEdges(true).size() > 0) {
-        myViewNet->getNet()->deleteEdge(myViewNet->getNet()->retrieveEdges(true).front(), myViewNet->getUndoList(), false);
-    }
-    // lanes
-    while (myViewNet->getNet()->retrieveLanes(true).size() > 0) {
-        myViewNet->getNet()->deleteLane(myViewNet->getNet()->retrieveLanes(true).front(), myViewNet->getUndoList(), false);
-    }
-    // connections
-    while (myViewNet->getNet()->retrieveConnections(true).size() > 0) {
-        myViewNet->getNet()->deleteConnection(myViewNet->getNet()->retrieveConnections(true).front(), myViewNet->getUndoList());
-    }
-    // crossings
-    while (myViewNet->getNet()->retrieveCrossings(true).size() > 0) {
-        myViewNet->getNet()->deleteCrossing(myViewNet->getNet()->retrieveCrossings(true).front(), myViewNet->getUndoList());
-    }
-    // shapes
-    while (myViewNet->getNet()->retrieveShapes(true).size() > 0) {
-        myViewNet->getNet()->deleteShape(myViewNet->getNet()->retrieveShapes(true).front(), myViewNet->getUndoList());
-    }
-    // additionals
-    while (myViewNet->getNet()->retrieveAdditionals(true).size() > 0) {
-        myViewNet->getNet()->deleteAdditional(myViewNet->getNet()->retrieveAdditionals(true).front(), myViewNet->getUndoList());
-    }
-    // demand elements
-    while (myViewNet->getNet()->retrieveDemandElements(true).size() > 0) {
-        myViewNet->getNet()->deleteDemandElement(myViewNet->getNet()->retrieveDemandElements(true).front(), myViewNet->getUndoList());
-    }
-    // enable update geometry
-    myViewNet->getNet()->enableUpdateGeometry();
-    // finish deletion
-    myViewNet->getUndoList()->p_end();
 }
 
 
@@ -378,6 +384,132 @@ GNEDeleteFrame::removeAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCurso
 GNEDeleteFrame::DeleteOptions*
 GNEDeleteFrame::getDeleteOptions() const {
     return myDeleteOptions;
+}
+
+
+
+bool 
+GNEDeleteFrame::ACsToDelete() const {
+    // invert selection of elements depending of current supermode
+    if (myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) {
+        // iterate over junctions
+        for (const auto &i : myViewNet->getNet()->getAttributeCarriers().junctions) {
+            if (i.second->isAttributeCarrierSelected()) {
+                return true;
+            }
+            // due we iterate over all junctions, only it's neccesary iterate over incoming edges
+            for (const auto &j : i.second->getGNEIncomingEdges()) {
+                if (j->isAttributeCarrierSelected()) {
+                    return true;
+                }
+                // check lanes
+                for (auto k : j->getLanes()) {
+                    if (k->isAttributeCarrierSelected()) {
+                        return true;
+                    }
+                }
+                // check connections
+                for (const auto &k : j->getGNEConnections()) {
+                    if (k->isAttributeCarrierSelected()) {
+                        return true;
+                    }
+                }
+            }
+            // check crossings
+            for (const auto &j : i.second->getGNECrossings()) {
+                if (j->isAttributeCarrierSelected()) {
+                    return true;
+                }
+            }
+        }
+        // check additionals
+        for (const auto &i : myViewNet->getNet()->getAttributeCarriers().additionals) {
+            // first check if additional is selectable
+            if (GNEAttributeCarrier::getTagProperties(i.first).isSelectable()) {
+                for (const auto &j : i.second) {
+                    if (j.second->isAttributeCarrierSelected()) {
+                        return true;
+                    }
+                }
+            }
+        }
+        // check polygons
+        for (const auto &i : myViewNet->getNet()->getPolygons()) {
+            GNEShape *shape = dynamic_cast<GNEShape*>(i.second);
+            if (shape->isAttributeCarrierSelected()) {
+                return true;
+            }
+        }
+        // check POIs
+        for (const auto &i : myViewNet->getNet()->getPOIs()) {
+            GNEShape *shape = dynamic_cast<GNEShape*>(i.second);
+            if (shape->isAttributeCarrierSelected()) {
+                return true;
+            }
+        }
+    } else {
+        // check routes
+        for (const auto &i : myViewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_ROUTE)) {
+            if (i.second->isAttributeCarrierSelected()) {
+                return true;
+            }
+        }
+        // check vehicles
+        for (const auto &i : myViewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_VEHICLE)) {
+            if (i.second->isAttributeCarrierSelected()) {
+                return true;
+            }
+        }
+        // check trips
+        for (const auto &i : myViewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_TRIP)) {
+            if (i.second->isAttributeCarrierSelected()) {
+                return true;
+            }
+        }
+        // check flows
+        for (const auto &i : myViewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_FLOW)) {
+            if (i.second->isAttributeCarrierSelected()) {
+                return true;
+            }
+        }
+        // check route flows
+        for (const auto &i : myViewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_ROUTEFLOW)) {
+            if (i.second->isAttributeCarrierSelected()) {
+                return true;
+            }
+        }
+        // check lane stops
+        for (const auto &i : myViewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_STOP_LANE)) {
+            if (i.second->isAttributeCarrierSelected()) {
+                return true;
+            }
+        }
+        // check bus stops
+        for (const auto &i : myViewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_STOP_BUSSTOP)) {
+            if (i.second->isAttributeCarrierSelected()) {
+                return true;
+            }
+        }
+        // check container stops
+        for (const auto &i : myViewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_STOP_CONTAINERSTOP)) {
+            if (i.second->isAttributeCarrierSelected()) {
+                return true;
+            }
+        }
+        // check chargingstation stops
+        for (const auto &i : myViewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_STOP_CHARGINGSTATION)) {
+            if (i.second->isAttributeCarrierSelected()) {
+                return true;
+            }
+        }
+        // check parkingarea stops
+        for (const auto &i : myViewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_STOP_PARKINGAREA)) {
+            if (i.second->isAttributeCarrierSelected()) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 /****************************************************************************/

@@ -172,7 +172,7 @@ public:
         std::vector<GNEEdge*> mySelectedEdges;
 
         /// @brief vector with temporal route edges
-        std::vector<const NBEdge*> myTemporalRoute;
+        std::vector<GNEEdge*> myTemporalRoute;
 
         /// @brief button for finish route creation
         FXButton* myFinishCreationButton;

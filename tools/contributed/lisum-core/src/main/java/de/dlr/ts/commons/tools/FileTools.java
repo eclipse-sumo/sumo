@@ -1,8 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+/****************************************************************************/
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Copyright (C) 2016-2019 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
+// SPDX-License-Identifier: EPL-2.0
+/****************************************************************************/
+/// @file    FileTools.java
+/// @author  Maximiliano Bottazzi
+/// @date    2016
+/// @version $Id$
+///
+//
+/****************************************************************************/
 package de.dlr.ts.commons.tools;
 
 import java.io.BufferedWriter;
@@ -37,13 +48,13 @@ public class FileTools {
      *
      */
     private FileTools() {
-    }    
-    
+    }
+
     /**
-     * 
+     *
      * @param source
      * @param dest
-     * @throws IOException 
+     * @throws IOException
      */
     public static void copyFile(File source, File dest) throws IOException {
         InputStream is = null;
@@ -90,10 +101,10 @@ public class FileTools {
      * @param f
      * @throws IOException
      */
-    public static void delete(File f) throws IOException {
+    public static void delete (File f) throws IOException {
         if (f.isDirectory()) {
             for (File c : f.listFiles()) {
-                delete(c);
+                delete (c);
             }
         }
         if (!f.delete()) {
@@ -138,7 +149,7 @@ public class FileTools {
 
         return dir;
     }
-    
+
 
     /**
      *

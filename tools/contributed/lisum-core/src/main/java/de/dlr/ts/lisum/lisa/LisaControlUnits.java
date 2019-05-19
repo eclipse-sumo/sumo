@@ -1,13 +1,13 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2016-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2016-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    Constants.java
+/// @file    LisaControlUnits.java
 /// @author  Maximiliano Bottazzi
 /// @date    2016
 /// @version $Id$
@@ -28,95 +28,87 @@ import java.util.List;
  *
  * @author @author <a href="mailto:maximiliano.bottazzi@dlr.de">Maximiliano Bottazzi</a>
  */
-public class LisaControlUnits 
-{
+public class LisaControlUnits {
     private final List<LisaControlUnit> controlUnits = new ArrayList<>();
-    
+
     /**
-     * 
+     *
      * @param aThis
      * @param configurationFiles
-     * @param lisaCommands 
+     * @param lisaCommands
      */
-    void load(LisaConfigurationFiles configurationFiles, LisaCommands lisaCommands)
-    {
-        for (LisaConfigurationFiles.ControlUnit cu : configurationFiles)
-        {
+    void load(LisaConfigurationFiles configurationFiles, LisaCommands lisaCommands) {
+        for (LisaConfigurationFiles.ControlUnit cu : configurationFiles) {
             DLRLogger.config(this, "Creating Control Unit " + cu.fullName);
-            
-            LisaControlUnit lisaControlUnit = new LisaControlUnit();            
-            lisaControlUnit.setCommands(lisaCommands);            
+
+            LisaControlUnit lisaControlUnit = new LisaControlUnit();
+            lisaControlUnit.setCommands(lisaCommands);
             lisaControlUnit.setLisaDirectory(configurationFiles.getLisaDirectory());
             lisaControlUnit.load(cu);
             controlUnits.add(lisaControlUnit);
         }
     }
-    
+
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
-    public int getControlUnitsCount()
-    {
+    public int getControlUnitsCount() {
         return controlUnits.size();
     }
-    
+
     /**
-     * 
-     * @param controlUnit 
+     *
+     * @param controlUnit
      */
-    void addControlUnit(LisaControlUnit controlUnit)
-    {
+    void addControlUnit(LisaControlUnit controlUnit) {
         controlUnits.add(controlUnit);
     }
-    
+
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
-    public ControlUnitInterface[] getControlUnits()
-    {
+    public ControlUnitInterface[] getControlUnits() {
         ControlUnitInterface[] array = new ControlUnitInterface[controlUnits.size()];
         return controlUnits.toArray(array);
     }
-    
+
     /**
-     * 
+     *
      * @param name
-     * @return 
+     * @return
      */
-    public ControlUnitInterface getControlUnit(String name)
-    {
+    public ControlUnitInterface getControlUnit(String name) {
         for (LisaControlUnit controlUnit : controlUnits)
-            if(controlUnit.getFullName().equals(name))
+            if (controlUnit.getFullName().equals(name)) {
                 return controlUnit;
-        
+            }
+
         return null;
     }
-    
+
     /**
-     * 
+     *
      * @param simulationTime
      * @throws de.dlr.ts.lisum.exceptions.LisaRESTfulServerNotFoundException
      */
-    public void executeSimulationStep(long simulationTime) throws LisaRESTfulServerNotFoundException
-    {
-        for (LisaControlUnit sgt : controlUnits)
-        {
+    public void executeSimulationStep(long simulationTime) throws LisaRESTfulServerNotFoundException {
+        for (LisaControlUnit sgt : controlUnits) {
             DLRLogger.finer(this, "Executing on " + sgt);
             sgt.executeSimulationStep(simulationTime);
         }
-            
+
     }
-    
+
     /**
-     * 
-     * @throws LisaRESTfulServerNotFoundException 
+     *
+     * @throws LisaRESTfulServerNotFoundException
      */
-    public void initBeforePlay() throws LisaRESTfulServerNotFoundException
-    {
-        for (LisaControlUnit lisaControlUnit : controlUnits)
+    public void initBeforePlay() throws LisaRESTfulServerNotFoundException {
+        for (LisaControlUnit lisaControlUnit : controlUnits) {
             lisaControlUnit.initBeforePlay();
+        }
     }
 
 }

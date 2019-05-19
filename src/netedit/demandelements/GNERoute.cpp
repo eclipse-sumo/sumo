@@ -70,6 +70,12 @@ GNERoute::GNERoute(GNEViewNet* viewNet, const std::string& routeID, const std::v
 GNERoute::~GNERoute() {}
 
 
+SUMOVehicleClass 
+GNERoute::getVClass() const {
+    return myVClass;
+}
+
+
 GUIGLObjectPopupMenu*
 GNERoute::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GNERoutePopupMenu(app, parent, *this);
@@ -292,8 +298,6 @@ GNERoute::getAttribute(SumoXMLAttr key) const {
             return parseIDs(getEdgeParents());
         case SUMO_ATTR_COLOR:
             return toString(myColor);
-        case SUMO_ATTR_VCLASS:
-            return toString(myVClass);
         case GNE_ATTR_EMBEDDED_ROUTE:
             return toString(getDemandElementParents().size() > 0);
         case GNE_ATTR_SELECTED:
@@ -345,8 +349,9 @@ GNERoute::isValid(SumoXMLAttr key, const std::string& value) {
                 return true;
             } else if(isValidDemandElementID(value)) {
                 return (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_VEHICLE, value, false) != nullptr || 
-                        myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_FLOW, value, false) != nullptr || 
-                        myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_TRIP, value, false) != nullptr );
+                        myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_TRIP, value, false) != nullptr || 
+                        myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_ROUTEFLOW, value, false) != nullptr || 
+                        myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_FLOW, value, false) != nullptr );
             } else {
                 return false;
             }
@@ -407,6 +412,7 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
                     removeDemandElementParent(getDemandElementParents().front());
                 }
             }
+            break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {
                 selectAttributeCarrier();

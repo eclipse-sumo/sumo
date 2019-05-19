@@ -103,6 +103,9 @@ protected:
     /// @brief opens a route for reading
     virtual void openRoute(const SUMOSAXAttributes& attrs) = 0;
 
+    /// @brief opens a flow for reading
+    virtual void openFlow(const SUMOSAXAttributes& attrs) = 0;
+
     /// @brief opens a trip for reading
     virtual void openTrip(const SUMOSAXAttributes& attrs) = 0;
     //@}

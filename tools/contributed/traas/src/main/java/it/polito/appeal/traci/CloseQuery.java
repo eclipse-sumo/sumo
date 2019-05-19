@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2017-2019 German Aerospace Center (DLR) and others.
 // TraCI4J module
 // Copyright (C) 2011 ApPeAL Group, Politecnico di Torino
 // This program and the accompanying materials
@@ -30,12 +30,12 @@ import de.tudresden.sumo.util.Query;
 
 public class CloseQuery extends Query {
 
-	public CloseQuery(Socket sock) throws IOException {
-		super(sock);
-	}
+    public CloseQuery(Socket sock) throws IOException {
+        super(sock);
+    }
 
-	public void doCommand() throws IOException {
-		Command req = new Command(Constants.CMD_CLOSE);
-		queryAndVerifySingle(req);
-	}
+    public void doCommand() throws IOException {
+        Command req = new Command(Constants.CMD_CLOSE);
+        queryAndVerifySingle(req);
+    }
 }

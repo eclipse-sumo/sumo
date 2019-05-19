@@ -117,7 +117,7 @@ GNEVehicleFrame::VTypeSelector::refreshVTypeSelector() {
     // clear comboBox
     myTypeMatchBox->clearItems();
     // get list of VTypes
-    const auto& vTypes = myVehicleFrameParent->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_VTYPE);
+    const auto& vTypes = myVehicleFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_VTYPE);
     // fill myTypeMatchBox with list of tags
     for (const auto& i : vTypes) {
         myTypeMatchBox->appendItem(i.first.c_str());
@@ -130,7 +130,7 @@ GNEVehicleFrame::VTypeSelector::refreshVTypeSelector() {
 long
 GNEVehicleFrame::VTypeSelector::onCmdSelectVType(FXObject*, FXSelector, void*) {
     // get list of VTypes
-    const auto& vTypes = myVehicleFrameParent->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_VTYPE);
+    const auto& vTypes = myVehicleFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_VTYPE);
     // Check if value of myTypeMatchBox correspond to a VType
     for (const auto& i : vTypes) {
         if (i.first == myTypeMatchBox->getText().text()) {
@@ -199,15 +199,20 @@ GNEVehicleFrame::HelpCreation::updateHelpCreation() {
                     << "- Click over a route to\n"
                     << "  create a vehicle.";
             break;
-        case SUMO_TAG_FLOW:
-            information
-                    << "- Click over a route to\n"
-                    << "  create a flow.";
-            break;
         case SUMO_TAG_TRIP:
             information
                     << "- Select two edges to\n"
                     << "  create a Trip.";
+            break;
+        case SUMO_TAG_ROUTEFLOW:
+            information
+                    << "- Click over a route to\n"
+                    << "  create a routeFlow.";
+            break;
+        case SUMO_TAG_FLOW:
+            information
+                    << "- Select two edges to\n"
+                    << "  create a flow.";
             break;
         default:
             break;
@@ -283,8 +288,7 @@ GNEVehicleFrame::TripRouteCreator::addEdge(GNEEdge* edge) {
             // enable finish button
             myFinishCreationButton->enable();
             // calculate temporal route
-            myTemporalRoute = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(
-                                  GNEAttributeCarrier::parse<SUMOVehicleClass>(myVehicleFrameParent->myVTypeSelector->getCurrentVehicleType()->getAttribute(SUMO_ATTR_VCLASS)), mySelectedEdges);
+            myTemporalRoute = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(myVehicleFrameParent->myVTypeSelector->getCurrentVehicleType()->getVClass(), mySelectedEdges);
         }
     }
 }
@@ -319,14 +323,14 @@ GNEVehicleFrame::TripRouteCreator::drawTemporalRoute() const {
         // set line width
         glLineWidth(5);
         // draw first line
-        GLHelper::drawLine(myTemporalRoute.at(0)->getLanes().front().shape.front(),
-                           myTemporalRoute.at(0)->getLanes().front().shape.back());
+        GLHelper::drawLine(myTemporalRoute.at(0)->getNBEdge()->getLanes().front().shape.front(),
+                           myTemporalRoute.at(0)->getNBEdge()->getLanes().front().shape.back());
         // draw rest of lines
         for (int i = 1; i < (int)myTemporalRoute.size(); i++) {
-            GLHelper::drawLine(myTemporalRoute.at(i - 1)->getLanes().front().shape.back(),
-                               myTemporalRoute.at(i)->getLanes().front().shape.front());
-            GLHelper::drawLine(myTemporalRoute.at(i)->getLanes().front().shape.front(),
-                               myTemporalRoute.at(i)->getLanes().front().shape.back());
+            GLHelper::drawLine(myTemporalRoute.at(i - 1)->getNBEdge()->getLanes().front().shape.back(),
+                               myTemporalRoute.at(i)->getNBEdge()->getLanes().front().shape.front());
+            GLHelper::drawLine(myTemporalRoute.at(i)->getNBEdge()->getLanes().front().shape.front(),
+                               myTemporalRoute.at(i)->getNBEdge()->getLanes().front().shape.back());
         }
         // Pop last matrix
         glPopMatrix();
@@ -372,18 +376,22 @@ GNEVehicleFrame::TripRouteCreator::onCmdFinishRouteCreation(FXObject*, FXSelecto
             valuesMap[SUMO_ATTR_DEPART] = "0";
         }
 
-
         // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
         SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, myVehicleFrameParent->getPredefinedTagsMML(), toString(vehicleTag));
 
-        // obtain trip parameters in tripParameters
-        SUMOVehicleParameter* tripParameters = SUMOVehicleParserHelper::parseVehicleAttributes(SUMOSAXAttrs);
+        // obtain trip or Flow parameters in tripParameters
+        SUMOVehicleParameter* tripOrFlowParameters;
+        if (vehicleTag == SUMO_TAG_TRIP) {
+            tripOrFlowParameters = SUMOVehicleParserHelper::parseVehicleAttributes(SUMOSAXAttrs);
+        } else {
+            tripOrFlowParameters = SUMOVehicleParserHelper::parseFlowAttributes(SUMOSAXAttrs, 0, SUMOTime_MAX);
+        }
 
         // create it in RouteFrame
-        GNERouteHandler::buildTrip(myVehicleFrameParent->myViewNet, true, tripParameters, mySelectedEdges);
+        GNERouteHandler::buildTripOrFlow(myVehicleFrameParent->myViewNet, vehicleTag, true, tripOrFlowParameters, mySelectedEdges);
 
         // delete tripParameters
-        delete tripParameters;
+        delete tripOrFlowParameters;
 
         // clear edges
         clearEdges();
@@ -403,8 +411,7 @@ GNEVehicleFrame::TripRouteCreator::onCmdRemoveLastRouteEdge(FXObject*, FXSelecto
         // remove last edge
         mySelectedEdges.pop_back();
         // calculate temporal route
-        myTemporalRoute = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(
-                              GNEAttributeCarrier::parse<SUMOVehicleClass>(myVehicleFrameParent->myVTypeSelector->getCurrentVehicleType()->getAttribute(SUMO_ATTR_VCLASS)), mySelectedEdges);
+        myTemporalRoute = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(myVehicleFrameParent->myVTypeSelector->getCurrentVehicleType()->getVClass(), mySelectedEdges);
     }
     return 1;
 }
@@ -475,7 +482,7 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
     valuesMap[SUMO_ATTR_TYPE] = myVTypeSelector->getCurrentVehicleType()->getID();
 
     // set route or edges depending of vehicle type
-    if ((vehicleTag == SUMO_TAG_VEHICLE || vehicleTag == SUMO_TAG_FLOW)) {
+    if ((vehicleTag == SUMO_TAG_VEHICLE || vehicleTag == SUMO_TAG_ROUTEFLOW)) {
         if (objectsUnderCursor.getDemandElementFront() &&
                 (objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE)) {
             // obtain route
@@ -490,18 +497,18 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
                 // obtain vehicle parameters in vehicleParameters
                 SUMOVehicleParameter* vehicleParameters = SUMOVehicleParserHelper::parseVehicleAttributes(SUMOSAXAttrs);
                 // create it in RouteFrame
-                GNERouteHandler::buildVehicleOrFlow(myViewNet, SUMO_TAG_VEHICLE, true, vehicleParameters);
+                GNERouteHandler::buildVehicleOrRouteFlow(myViewNet, SUMO_TAG_VEHICLE, true, vehicleParameters);
                 // delete vehicleParameters
                 delete vehicleParameters;
             } else {
                 // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
                 SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, getPredefinedTagsMML(), toString(vehicleTag));
-                // obtain flow parameters in flowParameters
-                SUMOVehicleParameter* flowParameters = SUMOVehicleParserHelper::parseFlowAttributes(SUMOSAXAttrs, 0, SUMOTime_MAX);
+                // obtain routeFlow parameters in routeFlowParameters
+                SUMOVehicleParameter* routeFlowParameters = SUMOVehicleParserHelper::parseFlowAttributes(SUMOSAXAttrs, 0, SUMOTime_MAX);
                 // create it in RouteFrame
-                GNERouteHandler::buildVehicleOrFlow(myViewNet, SUMO_TAG_FLOW, true, flowParameters);
+                GNERouteHandler::buildVehicleOrRouteFlow(myViewNet, SUMO_TAG_ROUTEFLOW, true, routeFlowParameters);
                 // delete vehicleParameters
-                delete flowParameters;
+                delete routeFlowParameters;
             }
             // all ok, then return true;
             return true;
@@ -509,7 +516,7 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
             myViewNet->setStatusBarText(toString(vehicleTag) + " has to be placed within a route.");
             return false;
         }
-    } else if ((vehicleTag == SUMO_TAG_TRIP) && objectsUnderCursor.getEdgeFront()) {
+    } else if (((vehicleTag == SUMO_TAG_TRIP) || (vehicleTag == SUMO_TAG_FLOW)) && objectsUnderCursor.getEdgeFront()) {
         // add clicked edge in TripRouteCreator
         myTripRouteCreator->addEdge(objectsUnderCursor.getEdgeFront());
     }
@@ -532,7 +539,7 @@ GNEVehicleFrame::enableModuls(const GNEAttributeCarrier::TagProperties& tagPrope
     // show vehicle type selector modul
     myVTypeSelector->showVTypeSelector(tagProperties);
     // show AutoRute creator if we're editing a trip
-    if (myItemSelector->getCurrentTagProperties().getTag() == SUMO_TAG_TRIP) {
+    if ((myItemSelector->getCurrentTagProperties().getTag() == SUMO_TAG_TRIP) || (myItemSelector->getCurrentTagProperties().getTag() == SUMO_TAG_FLOW)) {
         myTripRouteCreator->showTripRouteCreator();
     } else {
         myTripRouteCreator->hideTripRouteCreator();

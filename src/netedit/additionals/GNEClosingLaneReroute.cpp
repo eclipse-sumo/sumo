@@ -81,7 +81,7 @@ GNEClosingLaneReroute::getPositionInView() const {
 
 Boundary
 GNEClosingLaneReroute::getCenteringBoundary() const {
-    throw ProcessError("This additional doesn't have a boundary");
+    return myClosedLane->getCenteringBoundary();
 }
 
 

@@ -36,8 +36,8 @@ GNERouteProbReroute::GNERouteProbReroute(GNERerouterIntervalDialog* rerouterInte
     GNEAdditional(rerouterIntervalDialog->getEditedAdditional(), rerouterIntervalDialog->getEditedAdditional()->getViewNet(), GLO_REROUTER, SUMO_TAG_ROUTE_PROB_REROUTE, "", false,
 {}, {}, {}, {rerouterIntervalDialog->getEditedAdditional()}, {}, {}, {}, {}, {}, {}) {
     // if exist a reroute, set newRoute ID
-    if (rerouterIntervalDialog->getEditedAdditional()->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_ROUTE).size() > 0) {
-        myNewRouteId = rerouterIntervalDialog->getEditedAdditional()->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_ROUTE).begin()->first;
+    if (rerouterIntervalDialog->getEditedAdditional()->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_ROUTE).size() > 0) {
+        myNewRouteId = rerouterIntervalDialog->getEditedAdditional()->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_ROUTE).begin()->first;
     }
     // fill route prob reroute interval with default values
     setDefaultValues();
@@ -81,7 +81,7 @@ GNERouteProbReroute::getPositionInView() const {
 
 Boundary
 GNERouteProbReroute::getCenteringBoundary() const {
-    throw ProcessError("This additional doesn't have a boundary");
+    return getAdditionalParents().at(0)->getCenteringBoundary();
 }
 
 

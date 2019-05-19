@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2017-2019 German Aerospace Center (DLR) and others.
 // TraaS module
 // Copyright (C) 2016-2017 Dresden University of Technology
 // This program and the accompanying materials
@@ -24,51 +24,52 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Log_txt implements Log{
+public class Log_txt implements Log {
 
-	private boolean txt_output = false;
-	
-	@Override
-	public void write(String input, int priority) {
-		    
-		
-		if(priority==1){
-			System.out.println(input);
-		}
-		
-        if(txt_output){
-        	
-        	 try{
-                 FileWriter fw = new FileWriter("output.txt", true);
-                 fw.write(get_message(input));
-                 fw.flush();
-                 fw.close();
-           }
-           catch( Exception e){System.err.println(e);}
-        	
+    private boolean txt_output = false;
+
+    @Override
+    public void write(String input, int priority) {
+
+
+        if (priority == 1) {
+            System.out.println(input);
         }
-        
-		
-	}
 
-	public void write(StackTraceElement[] el){
-		
-		for(int i=el.length-1; i>=0; i--){
-			System.err.println(el[i].toString());
-		}
-		
-	}
-	
-	
-	public void txt_output(boolean txt_output){
-		this.txt_output=txt_output;
-	}
-	
-	private String get_message(String input){
-		
-		DateFormat df = new SimpleDateFormat("hh:mm:ss dd.MM.yyyy"); 
-		return df.format(new Date()) + " - " + input + "\n";
-		
-	}
-	
+        if (txt_output) {
+
+            try {
+                FileWriter fw = new FileWriter("output.txt", true);
+                fw.write(get_message(input));
+                fw.flush();
+                fw.close();
+            } catch (Exception e) {
+                System.err.println(e);
+            }
+
+        }
+
+
+    }
+
+    public void write(StackTraceElement[] el) {
+
+        for (int i = el.length - 1; i >= 0; i--) {
+            System.err.println(el[i].toString());
+        }
+
+    }
+
+
+    public void txt_output(boolean txt_output) {
+        this.txt_output = txt_output;
+    }
+
+    private String get_message(String input) {
+
+        DateFormat df = new SimpleDateFormat("hh:mm:ss dd.MM.yyyy");
+        return df.format(new Date()) + " - " + input + "\n";
+
+    }
+
 }

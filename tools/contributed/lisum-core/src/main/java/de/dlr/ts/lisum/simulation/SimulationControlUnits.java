@@ -1,13 +1,13 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2016-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2016-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
 /****************************************************************************/
-/// @file    Constants.java
+/// @file    SimulationControlUnits.java
 /// @author  Maximiliano Bottazzi
 /// @author  Jakob Erdmann
 /// @date    2016
@@ -29,46 +29,40 @@ import de.dlr.ts.lisum.interfaces.ControlUnitInterface;
  *
  * @author @author <a href="mailto:maximiliano.bottazzi@dlr.de">Maximiliano Bottazzi</a>
  */
-public class SimulationControlUnits
-{
+public class SimulationControlUnits {
     private final Map<String /*Sumo*/, SimuControlUnit> perSumo = new HashMap<>();
     private final Map<String /*City*/, String /*Sumo*/> perCity = new HashMap<>();
     private final static Map<String /*complexCode*/, LightColor> complexCodes = new HashMap<>();
-    
-    
+
+
     /**
-     * 
+     *
      */
-    public SimulationControlUnits()
-    {
+    public SimulationControlUnits() {
     }
-    
+
     /**
-     * 
+     *
      * @param cityName
-     * @return      
+     * @return
      * */
-    public String getSumoName(String cityName)
-    {
+    public String getSumoName(String cityName) {
         return perCity.get(cityName);
     }
-    
+
     /**
-     * 
+     *
      * @param configFile
-     * @param city     
+     * @param city
      */
-    public void load(ConfigurationFile configFile, CityInterface city)
-    {
-        for (ConfigurationFile.CFControlUnit cfcu : configFile)
-        {
+    public void load(ConfigurationFile configFile, CityInterface city) {
+        for (ConfigurationFile.CFControlUnit cfcu : configFile) {
             ControlUnitInterface controlUnitInter = city.getControlUnit(cfcu.lisaName);
-            
-            if(controlUnitInter != null)
-            {
+
+            if (controlUnitInter != null) {
                 SimuControlUnit cuu = new SimuControlUnit(controlUnitInter, cfcu.sumoName);
                 cuu.load(cfcu);
-                
+
                 perSumo.put(cfcu.sumoName, cuu);
                 perCity.put(cfcu.lisaName, cfcu.sumoName);
                 controlUnitInter.setEnabled(true);
@@ -80,7 +74,7 @@ public class SimulationControlUnits
         complexCodes.put("OOO", LightColor.OFF);
         complexCodes.put("OoO", LightColor.OFF);
 
-        
+
         complexCodes.put("r", LightColor.RED);
         complexCodes.put("o", LightColor.YELLOW_BLINKING);
         complexCodes.put("y", LightColor.YELLOW);
@@ -129,60 +123,58 @@ public class SimulationControlUnits
 
 
         // this is a hack for halle_vital.net intersection A
-        complexCodes.put("yG", LightColor.GREEN); 
+        complexCodes.put("yG", LightColor.GREEN);
         //complexCodes.put("GOO", LightColor.DARK_GREEN);
 
-    }    
-    
+    }
+
     /**
-     * 
+     *
      * @param controlUnitSumoName
      * @param signalGroupIndex
-     * @return 
+     * @return
      */
-    public LightColor getLightColor(String controlUnitSumoName, int signalGroupIndex)
-    {
+    public LightColor getLightColor(String controlUnitSumoName, int signalGroupIndex) {
         SimuControlUnit hh = perSumo.get(controlUnitSumoName);
-        
-        if(hh != null)
+
+        if (hh != null) {
             return hh.getColor(signalGroupIndex);
-        else
+        } else {
             return LightColor.OFF;
+        }
     }
-    
+
     /**
-     * 
+     *
      */
-    private static class SimuControlUnit
-    {
+    private static class SimuControlUnit {
         private final Map<Integer, ArrayList<SignalGroup> > signalGroups = new HashMap<>();
         private final ControlUnitInterface cui;
         private final String sumoLogicName;
 
-        
+
         /**
-         * 
-         * @param cui 
+         *
+         * @param cui
          */
-        public SimuControlUnit(ControlUnitInterface cui, String sumoLogicName)
-        {
+        public SimuControlUnit(ControlUnitInterface cui, String sumoLogicName) {
             this.cui = cui;
             this.sumoLogicName = sumoLogicName;
         }
 
         /**
-         * 
+         *
          * @param signalGroupIndex
-         * @return 
+         * @return
          */
-        LightColor getColor(int signalGroupIndex)
-        {
+        LightColor getColor(int signalGroupIndex) {
             int debugIndex = -1;
             ArrayList<SignalGroup> sgs = signalGroups.get(signalGroupIndex);
 
-            if(sgs == null || sgs.isEmpty())
+            if (sgs == null || sgs.isEmpty()) {
                 return LightColor.OFF;
-            
+            }
+
             String complexCode = "";
             for (SignalGroup sg : sgs) {
                 if (signalGroupIndex == debugIndex) {
@@ -199,22 +191,20 @@ public class SimulationControlUnits
                 System.out.println("sumoLogic=" + sumoLogicName + " sumoIndex=" + signalGroupIndex + " complex=" + complexCode + " could not be interpreted");
                 return LightColor.OFF;
             }
-            
+
             return lightColor;
         }
-        
+
         /**
-         * 
-         * @param controlUnit 
+         *
+         * @param controlUnit
          */
-        void load(ConfigurationFile.CFControlUnit controlUnit)
-        {
-            for (int i = 0; i < controlUnit.signalGroups.size(); i++)
-            {
+        void load(ConfigurationFile.CFControlUnit controlUnit) {
+            for (int i = 0; i < controlUnit.signalGroups.size(); i++) {
                 ConfigurationFile.CFControlUnit.SignalGroup sg = controlUnit.signalGroups.get(i);
                 String string = sg.sumo;
                 String[] split = string.split(",");
-                
+
                 for (String s : split) {
                     int sumoIndex = Integer.valueOf(s);
                     if (!signalGroups.containsKey(sumoIndex)) {
@@ -224,21 +214,19 @@ public class SimulationControlUnits
                 }
             }
         }
-        
+
         /**
-         * 
+         *
          */
-        class SignalGroup
-        {
+        class SignalGroup {
             String lisa;
             String ifOff;
 
-            public SignalGroup(String lisa, String main)
-            {
+            public SignalGroup(String lisa, String main) {
                 this.lisa = lisa;
                 this.ifOff = main;
             }
-            
+
         }
     }
 }

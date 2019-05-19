@@ -221,7 +221,11 @@ private:
         struct compare {
             typedef bool value_type;
             bool operator()(Encounter* e1, Encounter* e2) {
-                return e1->begin >= e2->begin;
+                if (e1->begin == e2->begin) {
+                    return e1->foeID > e2->foeID;
+                } else {
+                    return e1->begin > e2->begin;
+                }
             };
         };
 

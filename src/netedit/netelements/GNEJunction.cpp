@@ -974,7 +974,6 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
         case GNE_ATTR_MODIFICATION_STATUS:
         case SUMO_ATTR_SHAPE:
         case SUMO_ATTR_RADIUS:
-        case SUMO_ATTR_TLTYPE:
         case SUMO_ATTR_RIGHT_OF_WAY:
         case SUMO_ATTR_FRINGE:
         case GNE_ATTR_SELECTED:
@@ -1024,6 +1023,27 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
                 undoList->add(new GNEChange_Attribute(it, myNet, SUMO_ATTR_TLLINKINDEX, "-1"), true);
                 undoList->add(new GNEChange_Attribute(it, myNet, SUMO_ATTR_TLLINKINDEX2, "-1"), true);
             }
+            undoList->p_end();
+            break;
+        }
+        case SUMO_ATTR_TLTYPE: {
+            undoList->p_begin("change " + getTagStr() + " tl-type");
+            // make a copy because we will modify the original
+            const std::set<NBTrafficLightDefinition*> copyOfTls = myNBNode.getControllingTLS();
+            for (auto oldDef : copyOfTls) {
+                NBLoadedSUMOTLDef* oldLoaded = dynamic_cast<NBLoadedSUMOTLDef*>(oldDef);
+                if (oldLoaded != nullptr) {
+                    NBLoadedSUMOTLDef* newDef = new NBLoadedSUMOTLDef(oldLoaded, oldLoaded->getLogic());
+                    newDef->guessMinMaxDuration();
+                    std::vector<NBNode*> nodes = oldDef->getNodes();
+                    for (auto it : nodes) {
+                        GNEJunction* junction = myNet->retrieveJunction(it->getID());
+                        undoList->add(new GNEChange_TLS(junction, oldDef, false), true);
+                        undoList->add(new GNEChange_TLS(junction, newDef, true), true);
+                    }
+                }
+            }
+            undoList->add(new GNEChange_Attribute(this, myNet, key, value), true);
             undoList->p_end();
             break;
         }

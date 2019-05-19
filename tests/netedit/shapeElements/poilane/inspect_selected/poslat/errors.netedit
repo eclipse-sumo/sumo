@@ -1,159 +1,57 @@
-GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
-GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
-GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
-GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00,22.00
-GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
-GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00,22.00
-GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
-GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
+GLDebug: 	Inserted junction:gneJ0 into SUMORTree with boundary -12.00,-12.00,12.00,12.00
+GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 38.00,-12.00,62.00,12.00
+GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,10.00
+GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Selected item 'DEFAULT_VEHTYPE' in VTypeSelector
 Debug: Adding poiLane 'POI_1' into viewNet
-GLDebug: Inserted poi:POI_1 into SUMORTree with boundary -3.00,-3.00,3.00,3.00
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
-GLDebug: Removed object poi:POI_1 from SUMORTree with boundary -3.00,-3.00,3.00,3.00
-GLDebug: Inserted poi:POI_1 into SUMORTree with boundary 9.00,-1.60,15.00,4.40
 Debug: Adding poiLane 'POI_2' into viewNet
-GLDebug: Inserted poi:POI_2 into SUMORTree with boundary -3.00,-3.00,3.00,3.00
-GLDebug: Removed object poi:POI_2 from SUMORTree with boundary -3.00,-3.00,3.00,3.00
-GLDebug: Inserted poi:POI_2 into SUMORTree with boundary 3.00,-1.20,9.00,4.80
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
 Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 1, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 1, Polys: 0
 Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 1, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 1, Polys: 0
 Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 1, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 1, Polys: 0
 Debug: Setting new attribute posLat '0.00' into poiLane 'POI_1'
-GLDebug: Removed object poi:POI_1 from SUMORTree with boundary 9.00,-1.60,15.00,4.40
-GLDebug: Inserted poi:POI_1 into SUMORTree with boundary 9.00,-1.60,15.00,4.40
-GLDebug: Removed object poi:POI_1 from SUMORTree with boundary 9.00,-1.60,15.00,4.40
-GLDebug: Inserted poi:POI_1 into SUMORTree with boundary 9.00,-1.40,15.00,4.60
 Debug: Setting new attribute posLat '0.00' into poiLane 'POI_2'
-GLDebug: Removed object poi:POI_2 from SUMORTree with boundary 3.00,-1.20,9.00,4.80
-GLDebug: Inserted poi:POI_2 into SUMORTree with boundary 3.00,-1.20,9.00,4.80
-GLDebug: Removed object poi:POI_2 from SUMORTree with boundary 3.00,-1.20,9.00,4.80
-GLDebug: Inserted poi:POI_2 into SUMORTree with boundary 3.00,-1.40,9.00,4.60
 Debug: Setting new attribute posLat '-20' into poiLane 'POI_1'
-GLDebug: Removed object poi:POI_1 from SUMORTree with boundary 9.00,-1.40,15.00,4.60
-GLDebug: Inserted poi:POI_1 into SUMORTree with boundary 9.00,-1.40,15.00,4.60
-GLDebug: Removed object poi:POI_1 from SUMORTree with boundary 9.00,-1.40,15.00,4.60
-GLDebug: Inserted poi:POI_1 into SUMORTree with boundary 9.00,18.60,15.00,24.60
 Debug: Setting new attribute posLat '-20' into poiLane 'POI_2'
-GLDebug: Removed object poi:POI_2 from SUMORTree with boundary 3.00,-1.40,9.00,4.60
-GLDebug: Inserted poi:POI_2 into SUMORTree with boundary 3.00,-1.40,9.00,4.60
-GLDebug: Removed object poi:POI_2 from SUMORTree with boundary 3.00,-1.40,9.00,4.60
-GLDebug: Inserted poi:POI_2 into SUMORTree with boundary 3.00,18.60,9.00,24.60
 Debug: Setting new attribute posLat '15' into poiLane 'POI_1'
-GLDebug: Removed object poi:POI_1 from SUMORTree with boundary 9.00,18.60,15.00,24.60
-GLDebug: Inserted poi:POI_1 into SUMORTree with boundary 9.00,18.60,15.00,24.60
-GLDebug: Removed object poi:POI_1 from SUMORTree with boundary 9.00,18.60,15.00,24.60
-GLDebug: Inserted poi:POI_1 into SUMORTree with boundary 9.00,-16.40,15.00,-10.40
 Debug: Setting new attribute posLat '15' into poiLane 'POI_2'
-GLDebug: Removed object poi:POI_2 from SUMORTree with boundary 3.00,18.60,9.00,24.60
-GLDebug: Inserted poi:POI_2 into SUMORTree with boundary 3.00,18.60,9.00,24.60
-GLDebug: Removed object poi:POI_2 from SUMORTree with boundary 3.00,18.60,9.00,24.60
-GLDebug: Inserted poi:POI_2 into SUMORTree with boundary 3.00,-16.40,9.00,-10.40
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute posLat '-20.00' into poiLane 'POI_2'
-GLDebug: Removed object poi:POI_2 from SUMORTree with boundary 3.00,-16.40,9.00,-10.40
-GLDebug: Inserted poi:POI_2 into SUMORTree with boundary 3.00,-16.40,9.00,-10.40
-GLDebug: Removed object poi:POI_2 from SUMORTree with boundary 3.00,-16.40,9.00,-10.40
-GLDebug: Inserted poi:POI_2 into SUMORTree with boundary 3.00,18.60,9.00,24.60
 Debug: Setting previous attribute posLat '-20.00' into poiLane 'POI_1'
-GLDebug: Removed object poi:POI_1 from SUMORTree with boundary 9.00,-16.40,15.00,-10.40
-GLDebug: Inserted poi:POI_1 into SUMORTree with boundary 9.00,-16.40,15.00,-10.40
-GLDebug: Removed object poi:POI_1 from SUMORTree with boundary 9.00,-16.40,15.00,-10.40
-GLDebug: Inserted poi:POI_1 into SUMORTree with boundary 9.00,18.60,15.00,24.60
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute posLat '0.00' into poiLane 'POI_2'
-GLDebug: Removed object poi:POI_2 from SUMORTree with boundary 3.00,18.60,9.00,24.60
-GLDebug: Inserted poi:POI_2 into SUMORTree with boundary 3.00,18.60,9.00,24.60
-GLDebug: Removed object poi:POI_2 from SUMORTree with boundary 3.00,18.60,9.00,24.60
-GLDebug: Inserted poi:POI_2 into SUMORTree with boundary 3.00,-1.40,9.00,4.60
 Debug: Setting previous attribute posLat '0.00' into poiLane 'POI_1'
-GLDebug: Removed object poi:POI_1 from SUMORTree with boundary 9.00,18.60,15.00,24.60
-GLDebug: Inserted poi:POI_1 into SUMORTree with boundary 9.00,18.60,15.00,24.60
-GLDebug: Removed object poi:POI_1 from SUMORTree with boundary 9.00,18.60,15.00,24.60
-GLDebug: Inserted poi:POI_1 into SUMORTree with boundary 9.00,-1.40,15.00,4.60
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Setting previous attribute posLat '-0.20' into poiLane 'POI_2'
-GLDebug: Removed object poi:POI_2 from SUMORTree with boundary 3.00,-1.40,9.00,4.60
-GLDebug: Inserted poi:POI_2 into SUMORTree with boundary 3.00,-1.40,9.00,4.60
-GLDebug: Removed object poi:POI_2 from SUMORTree with boundary 3.00,-1.40,9.00,4.60
-GLDebug: Inserted poi:POI_2 into SUMORTree with boundary 3.00,-1.20,9.00,4.80
 Debug: Setting previous attribute posLat '0.20' into poiLane 'POI_1'
-GLDebug: Removed object poi:POI_1 from SUMORTree with boundary 9.00,-1.40,15.00,4.60
-GLDebug: Inserted poi:POI_1 into SUMORTree with boundary 9.00,-1.40,15.00,4.60
-GLDebug: Removed object poi:POI_1 from SUMORTree with boundary 9.00,-1.40,15.00,4.60
-GLDebug: Inserted poi:POI_1 into SUMORTree with boundary 9.00,-1.60,15.00,4.40
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute posLat '0.00' into poiLane 'POI_1'
-GLDebug: Removed object poi:POI_1 from SUMORTree with boundary 9.00,-1.60,15.00,4.40
-GLDebug: Inserted poi:POI_1 into SUMORTree with boundary 9.00,-1.60,15.00,4.40
-GLDebug: Removed object poi:POI_1 from SUMORTree with boundary 9.00,-1.60,15.00,4.40
-GLDebug: Inserted poi:POI_1 into SUMORTree with boundary 9.00,-1.40,15.00,4.60
 Debug: Setting new attribute posLat '0.00' into poiLane 'POI_2'
-GLDebug: Removed object poi:POI_2 from SUMORTree with boundary 3.00,-1.20,9.00,4.80
-GLDebug: Inserted poi:POI_2 into SUMORTree with boundary 3.00,-1.20,9.00,4.80
-GLDebug: Removed object poi:POI_2 from SUMORTree with boundary 3.00,-1.20,9.00,4.80
-GLDebug: Inserted poi:POI_2 into SUMORTree with boundary 3.00,-1.40,9.00,4.60
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute posLat '-20' into poiLane 'POI_1'
-GLDebug: Removed object poi:POI_1 from SUMORTree with boundary 9.00,-1.40,15.00,4.60
-GLDebug: Inserted poi:POI_1 into SUMORTree with boundary 9.00,-1.40,15.00,4.60
-GLDebug: Removed object poi:POI_1 from SUMORTree with boundary 9.00,-1.40,15.00,4.60
-GLDebug: Inserted poi:POI_1 into SUMORTree with boundary 9.00,18.60,15.00,24.60
 Debug: Setting new attribute posLat '-20' into poiLane 'POI_2'
-GLDebug: Removed object poi:POI_2 from SUMORTree with boundary 3.00,-1.40,9.00,4.60
-GLDebug: Inserted poi:POI_2 into SUMORTree with boundary 3.00,-1.40,9.00,4.60
-GLDebug: Removed object poi:POI_2 from SUMORTree with boundary 3.00,-1.40,9.00,4.60
-GLDebug: Inserted poi:POI_2 into SUMORTree with boundary 3.00,18.60,9.00,24.60
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Setting new attribute posLat '15' into poiLane 'POI_1'
-GLDebug: Removed object poi:POI_1 from SUMORTree with boundary 9.00,18.60,15.00,24.60
-GLDebug: Inserted poi:POI_1 into SUMORTree with boundary 9.00,18.60,15.00,24.60
-GLDebug: Removed object poi:POI_1 from SUMORTree with boundary 9.00,18.60,15.00,24.60
-GLDebug: Inserted poi:POI_1 into SUMORTree with boundary 9.00,-16.40,15.00,-10.40
 Debug: Setting new attribute posLat '15' into poiLane 'POI_2'
-GLDebug: Removed object poi:POI_2 from SUMORTree with boundary 3.00,18.60,9.00,24.60
-GLDebug: Inserted poi:POI_2 into SUMORTree with boundary 3.00,18.60,9.00,24.60
-GLDebug: Removed object poi:POI_2 from SUMORTree with boundary 3.00,18.60,9.00,24.60
-GLDebug: Inserted poi:POI_2 into SUMORTree with boundary 3.00,-16.40,9.00,-10.40
 Debug: Additionals saved
-GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
-GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
-GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
-GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,31.60
+GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
+GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00
+GLDebug: 	Removed object edge:gneE0 from SUMORTree with boundary -10.00,-11.60,60.00,10.00
+GLDebug: 	Removed object edge:gneE1 from SUMORTree with boundary -10.00,-10.00,60.00,11.60
+GLDebug: 	Inserted junction:gneJ0 into SUMORTree with boundary -10.00,-13.20,10.00,13.20
+GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 40.00,-13.20,60.00,13.20
+GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,10.00
+GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
-GLDebug: Inserted connection:fromgneE0_0togneE1_0 into SUMORTree with boundary 29.90,-20.10,70.10,70.10
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-GLDebug: Inserted connection:fromgneE1_0togneE0_0 into SUMORTree with boundary -20.10,-20.10,20.10,20.10
-GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-22.00,22.00,22.00
-GLDebug: Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
-GLDebug: Inserted junction:gneJ0 into SUMORTree with boundary -22.00,-23.20,22.00,23.20
-GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-22.00,72.00,22.00
-GLDebug: Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
-GLDebug: Inserted junction:gneJ1 into SUMORTree with boundary 28.00,-23.20,72.00,23.20
-GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
-GLDebug: Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,80.00,30.00
-GLDebug: Removed object connection:fromgneE1_0togneE0_0 from SUMORTree with boundary -20.10,-20.10,20.10,20.10
-GLDebug: Inserted connection:fromgneE1_0togneE0_0 into SUMORTree with boundary -19.00,-21.60,21.00,21.60
-GLDebug: Removed object connection:fromgneE0_0togneE1_0 from SUMORTree with boundary 29.90,-20.10,70.10,70.10
-GLDebug: Inserted connection:fromgneE0_0togneE1_0 into SUMORTree with boundary 29.00,-21.60,69.00,21.60
-GLDebug: Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
-GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
-GLDebug: Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,31.60
-GLDebug: Removed object poi:POI_1 from SUMORTree with boundary 9.00,-16.40,15.00,-10.40
-GLDebug: Inserted poi:POI_1 into SUMORTree with boundary 9.00,-16.40,15.00,-10.40
-GLDebug: Removed object poi:POI_2 from SUMORTree with boundary 3.00,-16.40,9.00,-10.40
-GLDebug: Inserted poi:POI_2 into SUMORTree with boundary 3.00,-16.40,9.00,-10.40
-GLDebug: Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
 Debug: Removing poiLane 'POI_2' from net in ~GNEChange_Shape()
-GLDebug: Removed object poi:POI_2 from SUMORTree with boundary 3.00,-16.40,9.00,-10.40
 Debug: delete poiLane 'POI_2' in ~GNEChange_Shape()
 Debug: Removing poiLane 'POI_1' from net in ~GNEChange_Shape()
-GLDebug: Removed object poi:POI_1 from SUMORTree with boundary 9.00,-16.40,15.00,-10.40
 Debug: delete poiLane 'POI_1' in ~GNEChange_Shape()
 Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
@@ -167,4 +65,4 @@ Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_PEDTYPE' in GNENet destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
 Debug: Deleting net builder in GNENet destructor
-GLDebug: Number of objects in SUMORTree during call of the destructor: 6
+GLDebug: Number of objects in SUMORTree during call of the destructor: 4

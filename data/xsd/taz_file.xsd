@@ -12,10 +12,10 @@
     </xsd:complexType>
 
     <xsd:complexType name="tazType">
-        <xsd:sequence>
+        <xsd:choice maxOccurs="unbounded" minOccurs="0">
             <xsd:element name="tazSource" type="tazSubType" minOccurs="0" maxOccurs="unbounded"/>
             <xsd:element name="tazSink" type="tazSubType" minOccurs="0" maxOccurs="unbounded"/>
-        </xsd:sequence>
+        </xsd:choice>
         <xsd:attribute name="id" type="xsd:string" use="required"/>
         <xsd:attribute name="edges" type="xsd:string" use="optional"/>
         <xsd:attribute name="shape" type="shapeType" use="optional"/>

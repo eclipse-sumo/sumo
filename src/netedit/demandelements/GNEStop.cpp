@@ -45,20 +45,28 @@
 // ===========================================================================
 
 GNEStop::GNEStop(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehicleParameter::Stop& stopParameter, GNEAdditional* stoppingPlace, GNEDemandElement* stopParent) :
-    GNEDemandElement(stopParent, viewNet, GLO_STOP, tag, {}, {}, {}, {stoppingPlace}, {stopParent}, {}, {}, {}, {}, {}),
+    GNEDemandElement(stopParent, viewNet, GLO_STOP, tag, 
+    {}, {}, {}, {stoppingPlace}, {stopParent}, {}, {}, {}, {}, {}),
     SUMOVehicleParameter::Stop(stopParameter),
     myFriendlyPosition(false) {
 }
 
 
 GNEStop::GNEStop(GNEViewNet* viewNet, const SUMOVehicleParameter::Stop& stopParameter, GNELane* lane, bool friendlyPosition, GNEDemandElement* stopParent) :
-    GNEDemandElement(stopParent, viewNet, GLO_STOP, SUMO_TAG_STOP_LANE, {}, {lane}, {}, {}, {stopParent}, {}, {}, {}, {}, {}),
-SUMOVehicleParameter::Stop(stopParameter),
-myFriendlyPosition(friendlyPosition) {
+    GNEDemandElement(stopParent, viewNet, GLO_STOP, SUMO_TAG_STOP_LANE, 
+    {}, {lane}, {}, {}, {stopParent}, {}, {}, {}, {}, {}),
+    SUMOVehicleParameter::Stop(stopParameter),
+    myFriendlyPosition(friendlyPosition) {
 }
 
 
 GNEStop::~GNEStop() {}
+
+
+SUMOVehicleClass 
+GNEStop::getVClass() const {
+    return getDemandElementParents().front()->getVClass();
+}
 
 
 std::string
@@ -613,9 +621,9 @@ bool
 GNEStop::isDisjointAttributeSet(const SumoXMLAttr attr) const {
     switch (attr) {
         case SUMO_ATTR_EXPECTED:
-            return (parametersSet & STOP_TRIGGER_SET);
+            return (parametersSet & STOP_TRIGGER_SET) != 0;
         case SUMO_ATTR_EXPECTED_CONTAINERS:
-            return (parametersSet & STOP_CONTAINER_TRIGGER_SET);
+            return (parametersSet & STOP_CONTAINER_TRIGGER_SET) != 0;
         default:
             return true;
     };

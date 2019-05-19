@@ -114,27 +114,33 @@ GNEStopFrame::StopParentSelector::refreshStopParentSelector() {
     myStopParentCandidates.clear();
     // reserve stop parent cantidadtes
     myStopParentCandidates.reserve(
-        myStopFrameParent->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_ROUTE).size() +
-        myStopFrameParent->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_VEHICLE).size() +
-        myStopFrameParent->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_FLOW).size() +
-        myStopFrameParent->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_TRIP).size());
+        myStopFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_ROUTE).size() +
+        myStopFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_VEHICLE).size() +
+        myStopFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_TRIP).size() +
+        myStopFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_ROUTEFLOW).size() +
+        myStopFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_FLOW).size());
     // fill myStopParentMatchBox with list of routes
-    for (const auto& i : myStopFrameParent->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_ROUTE)) {
+    for (const auto& i : myStopFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_ROUTE)) {
         myStopParentMatchBox->appendItem(i.first.c_str());
         myStopParentCandidates.push_back(i.second);
     }
     // fill myStopParentMatchBox with list of vehicles
-    for (const auto& i : myStopFrameParent->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_VEHICLE)) {
-        myStopParentMatchBox->appendItem(i.first.c_str());
-        myStopParentCandidates.push_back(i.second);
-    }
-    // fill myStopParentMatchBox with list of flows
-    for (const auto& i : myStopFrameParent->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_FLOW)) {
+    for (const auto& i : myStopFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_VEHICLE)) {
         myStopParentMatchBox->appendItem(i.first.c_str());
         myStopParentCandidates.push_back(i.second);
     }
     // fill myStopParentMatchBox with list of trips
-    for (const auto& i : myStopFrameParent->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_TRIP)) {
+    for (const auto& i : myStopFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_TRIP)) {
+        myStopParentMatchBox->appendItem(i.first.c_str());
+        myStopParentCandidates.push_back(i.second);
+    }
+    // fill myStopParentMatchBox with list of routeFlows
+    for (const auto& i : myStopFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_ROUTEFLOW)) {
+        myStopParentMatchBox->appendItem(i.first.c_str());
+        myStopParentCandidates.push_back(i.second);
+    }
+    // fill myStopParentMatchBox with list of routeFlows
+    for (const auto& i : myStopFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_FLOW)) {
         myStopParentMatchBox->appendItem(i.first.c_str());
         myStopParentCandidates.push_back(i.second);
     }

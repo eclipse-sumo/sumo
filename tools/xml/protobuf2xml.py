@@ -65,7 +65,7 @@ def read_n(inputf, n):
 
 
 def msg2xml(desc, cont, out, depth=1):
-    out.write(">\n%s<%s" % (depth * '    ', desc.name))
+    out.write(u">\n%s<%s" % (depth * '    ', desc.name))
     haveChildren = False
 #    print(depth, cont)
     for attr, value in cont.ListFields():
@@ -79,16 +79,16 @@ def msg2xml(desc, cont, out, depth=1):
                 value = attr.enum_type.values_by_number[value].name
                 if value[0] == "_" and value[1].isdigit():
                     value = value[1:]
-            out.write(' %s="%s"' % (attr.name, value))
+            out.write(u' %s="%s"' % (attr.name, value))
     if haveChildren:
-        out.write(">\n%s</%s" % (depth * '    ', desc.name))
+        out.write(u">\n%s</%s" % (depth * '    ', desc.name))
     else:
-        out.write("/")
+        out.write(u"/")
 
 
 def writeXml(root, module, options):
     with contextlib.closing(xml2csv.getOutStream(options.output)) as outputf:
-        outputf.write('<?xml version="1.0" encoding="UTF-8"?>\n\n<%s' % root)
+        outputf.write(u'<?xml version="1.0" encoding="UTF-8"?>\n\n<%s' % root)
         if options.source.isdigit():
             inp = xml2csv.getSocketStream(int(options.source))
         else:
@@ -107,9 +107,9 @@ def writeXml(root, module, options):
                             for item in value:
                                 msg2xml(attr, item, outputf)
                     elif first:
-                        outputf.write(' %s="%s"' % (attr.name, value))
+                        outputf.write(u' %s="%s"' % (attr.name, value))
                 first = False
-        outputf.write(">\n</%s>\n" % root)
+        outputf.write(u">\n</%s>\n" % root)
 
 
 def main():

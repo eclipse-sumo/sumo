@@ -139,7 +139,7 @@ public:
     ~MSDevice_ToC();
 
     /// @brief return the name for this type of device
-    const std::string deviceName() const {
+    const std::string deviceName() const override {
         return "toc";
     }
 

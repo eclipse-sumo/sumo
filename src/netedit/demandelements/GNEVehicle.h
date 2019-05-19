@@ -35,20 +35,23 @@
 class GNEVehicle : public GNEDemandElement, public SUMOVehicleParameter {
 
 public:
-    /// @brief constructor for vehicles and flows
+    /// @brief basic constructor for vehicles and routeFlows
     GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const std::string& vehicleID, GNEDemandElement* vehicleType, GNEDemandElement* route);
 
-    /// @brief constructor for vehicles
+    /// @brief parameter constructor for vehicles and routeFlows
     GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehicleParameter& vehicleParameter, GNEDemandElement* vehicleType, GNEDemandElement* route);
 
-    /// @brief constructor for Trips (note: Edges : from + via + to)
-    GNEVehicle(GNEViewNet* viewNet, const std::string& tripID, GNEDemandElement* vehicleType, const std::vector<GNEEdge*>& edges);
+    /// @brief basic constructor for trips and Flows (note: Edges : from + via + to)
+    GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const std::string& vehicleID, GNEDemandElement* vehicleType, const std::vector<GNEEdge*>& edges);
 
-    /// @brief parameter constructor for Trips (note: Edges : from + via + to)
-    GNEVehicle(GNEViewNet* viewNet, const SUMOVehicleParameter& tripParameter, GNEDemandElement* vehicleType, const std::vector<GNEEdge*>& edges);
+    /// @brief parameter constructor for trips and Flows (note: Edges : from + via + to)
+    GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehicleParameter& vehicleParameter, GNEDemandElement* vehicleType, const std::vector<GNEEdge*>& edges);
 
     /// @brief destructor
     ~GNEVehicle();
+
+    /// @brief obtain VClass related with this demand element
+    SUMOVehicleClass getVClass() const;
 
     /**@brief get begin time of demand element
      * @note: used by demand elements of type "Vehicle", and it has to be implemented as childs
@@ -160,9 +163,6 @@ public:
     /// @}
 
 protected:
-    /// @brief vector with temporal route edges (only used for Trip visualization)
-    std::vector<const NBEdge*> myTemporalRoute;
-
     /// @brief sets the color according to the currente settings
     void setColor(const GUIVisualizationSettings& s) const;
 

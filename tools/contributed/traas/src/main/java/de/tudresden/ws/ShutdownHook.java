@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2017-2019 German Aerospace Center (DLR) and others.
 // TraaS module
 // Copyright (C) 2016-2017 Dresden University of Technology
 // This program and the accompanying materials
@@ -20,38 +20,43 @@
 package de.tudresden.ws;
 
 /**
- * 
+ *
  * @author Mario Krumnow
  *
  */
 
-public class ShutdownHook  extends Thread
-{
+public class ShutdownHook  extends Thread {
 
-	private boolean shutdown;
-	
-	/**
-	 * Instantiates a new shutdown hook.
-	 */
-	public ShutdownHook(){setshutdown(false);}
-	
-    public void run() 
-    {
+    private boolean shutdown;
+
+    /**
+     * Instantiates a new shutdown hook.
+     */
+    public ShutdownHook() {
+        setshutdown(false);
+    }
+
+    public void run() {
         System.out.println("Shutdown in progress...");
-        
+
         setshutdown(true);
-        
-		try
-		{Thread.sleep(3000);} catch (Exception e){}
+
+        try {
+            Thread.sleep(3000);
+        } catch (Exception e) {}
 
         System.out.println("Shutdown finsihed");
 
     }
 
 
-	public void setshutdown(boolean shutdown) {this.shutdown = shutdown;}
+    public void setshutdown(boolean shutdown) {
+        this.shutdown = shutdown;
+    }
 
-	public boolean isshutdown() {return shutdown;}
-	
-	
+    public boolean isshutdown() {
+        return shutdown;
+    }
+
+
 }

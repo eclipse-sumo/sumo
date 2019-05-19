@@ -1,19 +1,19 @@
-/** ************************************************************************* */
-// Eclipse SUMO, LisumSimulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2016-2018 German Aerospace Center (DLR) and others.
+/****************************************************************************/
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Copyright (C) 2016-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
-/** ************************************************************************* */
-/// @file    Constants.java
+/****************************************************************************/
+/// @file    Sumo.java
 /// @author  Maximiliano Bottazzi
 /// @date    2016
 /// @version $Id$
 ///
 //
-/** ************************************************************************* */
+/****************************************************************************/
 package de.dlr.ts.lisum.sumo;
 
 import de.dlr.ts.commons.logger.DLRLogger;
@@ -50,8 +50,8 @@ public class Sumo {
     private final String sumoExec;
     private final String sumoConfig;
     private final int sumoPort;
-    
-    
+
+
     /**
      *
      * @param lisumSimulation
@@ -131,7 +131,7 @@ public class Sumo {
                 for (String inductionId : (SumoStringList) conn.do_job_get(Inductionloop.getIDList())) {
                     DetectorInterface cityDetector = lisumSimulation.getDetectors().getDetectorPerSumoId(inductionId);
 
-                    //sumoDetectors.addDetector(induction, induct, cityDetector);                    
+                    //sumoDetectors.addDetector(induction, induct, cityDetector);
                     sumoDetectors.addDetector(inductionId, cityDetector);
                 }
 
@@ -185,7 +185,7 @@ public class Sumo {
     }
 
     /**
-     *     
+     *
     private void startSumoGUI() {
         try {
             String sumoConfig = lisumSimulation.getSimulationFiles().getSumoConfigFile().getAbsolutePath();

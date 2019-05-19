@@ -1467,10 +1467,9 @@ GNEApplicationWindow::getDefaultCursor() {
 void
 GNEApplicationWindow::loadOptionOnStartup() {
     OptionsCont& oc = OptionsCont::getOptions();
-    // set default options
-    GNELoadThread::setDefaultOptions(oc);
+    // Disable normalization preserve the given network as far as possible
+    oc.set("offset.disable-normalization", "true");
     loadConfigOrNet("", true, false, true, oc.getBool("new"));
-
 }
 
 

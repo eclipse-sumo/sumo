@@ -38,12 +38,13 @@
 
 #include "GNEVehicle.h"
 
+
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const std::string& vehicleID, GNEDemandElement* vehicleType, GNEDemandElement* route) :
-    GNEDemandElement(vehicleID, viewNet, (tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_VEHICLE, tag,
+    GNEDemandElement(vehicleID, viewNet, (tag == SUMO_TAG_ROUTEFLOW) ? GLO_ROUTEFLOW : GLO_VEHICLE, tag,
     {}, {}, {}, {}, {vehicleType, route}, {}, {}, {}, {}, {}),
     SUMOVehicleParameter() {
     // SUMOVehicleParameter ID has to be set manually
@@ -54,7 +55,7 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const std::string& v
 
 
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehicleParameter& vehicleParameter, GNEDemandElement* vehicleType, GNEDemandElement* route) :
-    GNEDemandElement(vehicleParameter.id, viewNet, (tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_VEHICLE, tag,
+    GNEDemandElement(vehicleParameter.id, viewNet, (tag == SUMO_TAG_ROUTEFLOW) ? GLO_ROUTEFLOW : GLO_VEHICLE, tag,
     {}, {}, {}, {}, {vehicleType, route}, {}, {}, {}, {}, {}),
     SUMOVehicleParameter(vehicleParameter) {
     // SUMOVehicleParameter ID has to be set manually
@@ -64,28 +65,34 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehiclePar
 }
 
 
-GNEVehicle::GNEVehicle(GNEViewNet* viewNet, const std::string& tripID, GNEDemandElement* vehicleType, const std::vector<GNEEdge*>& edges) :
-    GNEDemandElement(tripID, viewNet, GLO_TRIP, SUMO_TAG_TRIP, 
+GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const std::string& vehicleID, GNEDemandElement* vehicleType, const std::vector<GNEEdge*>& edges) :
+    GNEDemandElement(vehicleID, viewNet, (tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_TRIP, tag,
     {edges}, {}, {}, {}, {vehicleType}, {}, {}, {}, {}, {}),
     SUMOVehicleParameter() {
 }
 
 
-GNEVehicle::GNEVehicle(GNEViewNet* viewNet, const SUMOVehicleParameter& tripParameter, GNEDemandElement* vehicleType, const std::vector<GNEEdge*>& edges) :
-    GNEDemandElement(tripParameter.id, viewNet, GLO_TRIP, SUMO_TAG_TRIP, 
+GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehicleParameter& vehicleParameter, GNEDemandElement* vehicleType, const std::vector<GNEEdge*>& edges) :
+    GNEDemandElement(vehicleParameter.id, viewNet, (tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_TRIP, tag,
     {edges}, {}, {}, {}, {vehicleType}, {}, {}, {}, {}, {}),
-    SUMOVehicleParameter(tripParameter) {
+    SUMOVehicleParameter(vehicleParameter) {
 }
 
 
 GNEVehicle::~GNEVehicle() {}
 
 
+SUMOVehicleClass
+GNEVehicle::getVClass() const {
+    return getDemandElementParents().front()->getVClass();
+}
+
+
 std::string
 GNEVehicle::getBegin() const {
-    // obtain depart depending if is a Vehicle, trip or flow
+    // obtain depart depending if is a Vehicle, trip or routeFlow
     std::string departStr;
-    if (myTagProperty.getTag() == SUMO_TAG_FLOW) {
+    if ((myTagProperty.getTag() == SUMO_TAG_ROUTEFLOW) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
         departStr = toString(depart);
     } else {
         departStr = getDepart();
@@ -108,15 +115,30 @@ GNEVehicle::getColor() const {
 
 void
 GNEVehicle::writeDemandElement(OutputDevice& device) const {
-    write(device, OptionsCont::getOptions(), myTagProperty.getTag());
-    // write specific attribute depeding of vehicle type
-    if (myTagProperty.getTag() == SUMO_TAG_VEHICLE) {
+    // open tag depending of synonym
+    if(myTagProperty.hasTagSynonym()) {
+        write(device, OptionsCont::getOptions(), myTagProperty.getTagSynonym());
+    } else {
+        write(device, OptionsCont::getOptions(), myTagProperty.getTag());
+    }
+    // write specific attribute depeding of their tag
+    if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == SUMO_TAG_ROUTEFLOW)) {
         // write manually route
         device.writeAttr(SUMO_ATTR_ROUTE, getDemandElementParents().at(1)->getID());
-    } else if (myTagProperty.getTag() == SUMO_TAG_FLOW) {
-        // write manually route
-        device.writeAttr(SUMO_ATTR_ROUTE, getDemandElementParents().at(1)->getID());
-        // write flow values depending if it was set
+    } 
+    // write from, to and edge vias
+    if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
+        // write manually from/to edges (it correspond to fron and back edge parents)
+        device.writeAttr(SUMO_ATTR_FROM, getEdgeParents().front()->getID());
+        device.writeAttr(SUMO_ATTR_TO, getEdgeParents().back()->getID());
+        // only write via if there isn't empty
+        if(via.size() > 0) {
+            device.writeAttr(SUMO_ATTR_VIA, via);
+        }
+    }
+    // write specific routeFlow/flow attributes
+    if ((myTagProperty.getTag() == SUMO_TAG_ROUTEFLOW) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
+        // write routeFlow values depending if it was set
         if (isDisjointAttributeSet(SUMO_ATTR_END)) {
             device.writeAttr(SUMO_ATTR_END,  time2string(repetitionEnd));
         }
@@ -132,20 +154,6 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
         if (isDisjointAttributeSet(SUMO_ATTR_PROB)) {
             device.writeAttr(SUMO_ATTR_PROB, repetitionProbability);
         }
-    } else if (myTagProperty.getTag() == SUMO_TAG_TRIP) {
-        // write manually from/to edges (it correspond to fron and back edge parents)
-        device.writeAttr(SUMO_ATTR_FROM, getEdgeParents().front()->getID());
-        device.writeAttr(SUMO_ATTR_TO, getEdgeParents().back()->getID());
-        // write via only if there is more than two edges
-        if (getEdgeParents().size() > 2) {
-            std::vector<GNEEdge*> viaEdges;
-            for (int i = 1; i < (int)getEdgeParents().size() - 1; i++) {
-                viaEdges.push_back(getEdgeParents().at(i));
-            }
-            device.writeAttr(SUMO_ATTR_VIA, toString(viaEdges));
-        }
-    } else {
-        throw ProcessError("Invalid vehicle tag");
     }
     // write stops associated to this vehicle
     for (const auto& i : getDemandElementChilds()) {
@@ -158,19 +166,17 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
 
 bool
 GNEVehicle::isDemandElementValid() const {
-    // only trips can have problems
-    if (myTagProperty.getTag() != SUMO_TAG_TRIP) {
-        return true;
-    } else {
-        // obtain VCLass of their VType parent
-        SUMOVehicleClass vClass = parse<SUMOVehicleClass>(getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_VCLASS));
+    // only trips or flows can have problems
+    if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
         // check if exist at least a connection between every edge
         for (int i = 1; i < (int)getEdgeParents().size(); i++) {
-            if (getRouteCalculatorInstance()->areEdgesConsecutives(vClass, getEdgeParents().at((int)i - 1), getEdgeParents().at(i)) == false) {
+            if (getRouteCalculatorInstance()->areEdgesConsecutives(getDemandElementParents().at(0)->getVClass(), getEdgeParents().at((int)i - 1), getEdgeParents().at(i)) == false) {
                 return false;
             }
         }
         // there is connections bewteen all edges, then return true
+        return true;
+    } else {
         return true;
     }
 }
@@ -178,19 +184,17 @@ GNEVehicle::isDemandElementValid() const {
 
 std::string 
 GNEVehicle::getDemandElementProblem() const {
-    // only trips can have problems
-    if (myTagProperty.getTag() != SUMO_TAG_TRIP) {
-        return "";
-    } else {
-        // obtain VCLass of their VType parent
-        SUMOVehicleClass vClass = parse<SUMOVehicleClass>(getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_VCLASS));
+    // only trips or flows can have problems
+    if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
         // check if exist at least a connection between every edge
         for (int i = 1; i < (int)getEdgeParents().size(); i++) {
-            if (getRouteCalculatorInstance()->areEdgesConsecutives(vClass, getEdgeParents().at((int)i - 1), getEdgeParents().at(i)) == false) {
+            if (getRouteCalculatorInstance()->areEdgesConsecutives(getDemandElementParents().at(0)->getVClass(), getEdgeParents().at((int)i - 1), getEdgeParents().at(i)) == false) {
                 return ("Edge '" + getEdgeParents().at((int)i - 1)->getID() + "' and edge '" + getEdgeParents().at(i)->getID() + "' aren't consecutives");
             }
         }
         // there is connections bewteen all edges, then all ok
+        return "";
+    } else {
         return "";
     }
 }
@@ -240,38 +244,33 @@ GNEVehicle::updateGeometry() {
     // Save rotation (angle)
     myGeometry.shapeRotations.push_back(vehicleLane->getGeometry().shape.rotationDegreeAtOffset(offset) * -1);
 
-    // calculate route for trip (Only in Demand mode)
-    if ((myTagProperty.getTag() == SUMO_TAG_TRIP) && (myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND)) {
-        // update temporal route
-        myTemporalRoute = getRouteCalculatorInstance()->calculateDijkstraRoute(parse<SUMOVehicleClass>(getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_VCLASS)), getEdgeParents());
+    // calculate multishape
+    if (getEdgeParents().size() > 1) {
+        // declare a vector of shapes
+        std::vector<PositionVector> multiShape;
 
-        if (myTemporalRoute.size() > 1) {
-            // declare a vector of shapes
-            std::vector<PositionVector> multiShape;
+        // start with the first lane shape
+        multiShape.push_back(getEdgeParents().front()->getNBEdge()->getLanes().front().shape);
 
-            // start with the first lane shape
-            multiShape.push_back(myTemporalRoute.front()->getLanes().front().shape);
+        // add first shape connection (if exist, in other case leave it empty)
+        multiShape.push_back(PositionVector{getEdgeParents().at(0)->getNBEdge()->getLanes().front().shape.back(), getEdgeParents().at(1)->getNBEdge()->getLanes().front().shape.front()});
 
-            // add first shape connection (if exist, in other case leave it empty)
-            multiShape.push_back(PositionVector{myTemporalRoute.at(0)->getLanes().front().shape.back(), myTemporalRoute.at(1)->getLanes().front().shape.front()});
-
-            // append shapes of intermediate lanes AND connections (if exist)
-            for (int i = 1; i < ((int)myTemporalRoute.size() - 1); i++) {
-                // add lane shape
-                multiShape.push_back(myTemporalRoute.at(i)->getLanes().front().shape);
-                // add empty shape for connection
-                multiShape.push_back(PositionVector{myTemporalRoute.at(i)->getLanes().front().shape.back(), myTemporalRoute.at((int)i + 1)->getLanes().front().shape.front()});
-            }
-
-            // append last shape
-            multiShape.push_back(myTemporalRoute.back()->getLanes().front().shape);
-
-            // calculate unified shape
-            for (auto i : multiShape) {
-                myGeometry.shape.append(i);
-            }
-            myGeometry.shape.removeDoublePoints();
+        // append shapes of intermediate lanes AND connections (if exist)
+        for (int i = 1; i < ((int)getEdgeParents().size() - 1); i++) {
+            // add lane shape
+            multiShape.push_back(getEdgeParents().at(i)->getNBEdge()->getLanes().front().shape);
+            // add empty shape for connection
+            multiShape.push_back(PositionVector{getEdgeParents().at(i)->getNBEdge()->getLanes().front().shape.back(), getEdgeParents().at((int)i + 1)->getNBEdge()->getLanes().front().shape.front()});
         }
+
+        // append last shape
+        multiShape.push_back(getEdgeParents().back()->getNBEdge()->getLanes().front().shape);
+
+        // calculate unified shape
+        for (auto i : multiShape) {
+            myGeometry.shape.append(i);
+        }
+        myGeometry.shape.removeDoublePoints();
     }
 }
 
@@ -300,11 +299,9 @@ GNEVehicle::getPositionInView() const {
 
 std::string
 GNEVehicle::getParentName() const {
-    if (myTagProperty.getTag() == SUMO_TAG_VEHICLE) {
+    if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == SUMO_TAG_ROUTEFLOW)) {
         return getDemandElementParents().at(1)->getID();
-    } else if (myTagProperty.getTag() == SUMO_TAG_FLOW) {
-        return getDemandElementParents().at(1)->getID();
-    } else if (myTagProperty.getTag() == SUMO_TAG_TRIP) {
+    } else if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
         return getEdgeParents().front()->getID();
     } else {
         throw ProcessError("Invalid vehicle tag");
@@ -321,28 +318,36 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
         const double width = parse<double>(getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_WIDTH));
         const double length = parse<double>(getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_LENGTH));
         double vehicleSizeSquared = width * length * upscale * width * length * upscale;
+        // declare a flag to check if glPushName() / glPopName() has to be added (needed due GNEEdge::drawGL(...))
+        const bool pushName = (myTagProperty.getTag() != SUMO_TAG_FLOW) && (myTagProperty.getTag() != SUMO_TAG_TRIP);
         // first check if if mouse is enought near to this vehicle to draw it
         if (s.drawForSelecting && (myViewNet->getPositionInformation().distanceSquaredTo2D(myGeometry.shape.front()) >= (vehicleSizeSquared + 2))) {
             // first push name
-            glPushName(getGlID());
+            if (pushName) {
+                glPushName(getGlID());
+            }
             // push draw matrix
             glPushMatrix();
             // translate to drawing position
-            glTranslated(myGeometry.shape.front().x(), myGeometry.shape.front().y(), getType());
+            glTranslated(myGeometry.shape.front().x(), myGeometry.shape.front().y(), GLO_ROUTE + getType() + 0.1);
             glRotated(myGeometry.shapeRotations.front(), 0, 0, 1);
             GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
             // Pop last matrix
             glPopMatrix();
             // pop name
-            glPopName();
+            if (pushName) {
+                glPopName();
+            }
         } else {
             SUMOVehicleShape shape = getVehicleShapeID(getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_GUISHAPE));
             // first push name
-            glPushName(getGlID());
+            if (pushName) {
+                glPushName(getGlID());
+            }
             // push draw matrix
             glPushMatrix();
             // translate to drawing position
-            glTranslated(myGeometry.shape.front().x(), myGeometry.shape.front().y(), getType());
+            glTranslated(myGeometry.shape.front().x(), myGeometry.shape.front().y(), GLO_ROUTE + getType() + 0.1);
             glRotated(myGeometry.shapeRotations.front(), 0, 0, 1);
             // set lane color
             setColor(s);
@@ -398,47 +403,11 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
             // check if dotted contour has to be drawn
             if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
                 GLHelper::drawShapeDottedContour(getType(), myGeometry.shape.front(), width, length, myGeometry.shapeRotations.front(), 0, length / 2);
-                // check if draw temporal route must be drawed (only for Tags
-                if (myTagProperty.getTag() == SUMO_TAG_TRIP) {
-                    if (myTemporalRoute.size() > 1) {
-                        // Add a draw matrix
-                        glPushMatrix();
-                        // Start with the drawing of the area traslating matrix to origin
-                        glTranslated(0, 0, getType() - 0.01);
-                        // set orange color
-                        GLHelper::setColor(RGBColor::ORANGE);
-                        // set line width
-                        glLineWidth(5);
-                        // draw first line
-                        GLHelper::drawLine(myTemporalRoute.at(0)->getLanes().front().shape.front(),
-                                           myTemporalRoute.at(0)->getLanes().front().shape.back());
-                        // draw rest of lines
-                        for (int i = 1; i < (int)myTemporalRoute.size(); i++) {
-                            GLHelper::drawLine(myTemporalRoute.at((int)i - 1)->getLanes().front().shape.back(),
-                                               myTemporalRoute.at(i)->getLanes().front().shape.front());
-                            GLHelper::drawLine(myTemporalRoute.at(i)->getLanes().front().shape.front(),
-                                               myTemporalRoute.at(i)->getLanes().front().shape.back());
-                        }
-                        // Pop last matrix
-                        glPopMatrix();
-                    } else {
-                        // Add a draw matrix
-                        glPushMatrix();
-                        // Start with the drawing of the area traslating matrix to origin
-                        glTranslated(0, 0, getType() - 0.01);
-                        // set orange color
-                        GLHelper::setColor(RGBColor::RED);
-                        // set line width
-                        glLineWidth(5);
-                        // draw first line
-                        GLHelper::drawLine(getEdgeParents().front()->getNBEdge()->getLanes().front().shape.front(), getEdgeParents().back()->getNBEdge()->getLanes().front().shape.back());
-                        // Pop last matrix
-                        glPopMatrix();
-                    }
-                }
             }
             // pop name
-            glPopName();
+            if (pushName) {
+                glPopName();
+            }
         }
     }
 }
@@ -550,17 +519,6 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
             } else {
                 return "false";
             }
-        case SUMO_ATTR_VIA: {
-            if (getEdgeParents().size() > 2) {
-                std::vector<GNEEdge*> viaEdges;
-                for (int i = 1; i < (int)getEdgeParents().size() - 1; i++) {
-                    viaEdges.push_back(getEdgeParents().at(i));
-                }
-                return parseIDs(viaEdges);
-            } else {
-                return "";
-            }
-        }
         case SUMO_ATTR_DEPARTPOS_LAT:
             if (wasSet(VEHPARS_DEPARTPOSLAT_SET)) {
                 return getDepartPosLat();
@@ -583,7 +541,9 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
             return getEdgeParents().front()->getID();
         case SUMO_ATTR_TO:
             return getEdgeParents().back()->getID();
-        // Specific of flows
+        case SUMO_ATTR_VIA:
+            return toString(via);
+        // Specific of routeFlows
         case SUMO_ATTR_BEGIN:
             return time2string(depart);
         case SUMO_ATTR_END:
@@ -626,7 +586,6 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList*
         case SUMO_ATTR_PERSON_NUMBER:
         case SUMO_ATTR_CONTAINER_NUMBER:
         case SUMO_ATTR_REROUTE:
-        case SUMO_ATTR_VIA:
         case SUMO_ATTR_DEPARTPOS_LAT:
         case SUMO_ATTR_ARRIVALPOS_LAT:
         // Specific of vehicles
@@ -635,8 +594,9 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList*
         // Specific of Trips
         case SUMO_ATTR_FROM:
         case SUMO_ATTR_TO:
+        case SUMO_ATTR_VIA:
         //
-        // Specific of flows
+        // Specific of routeFlows
         case SUMO_ATTR_BEGIN:
         case SUMO_ATTR_END:
         case SUMO_ATTR_NUMBER:
@@ -663,8 +623,9 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
             // Vehicles, Trips and Flows share namespace
             if (SUMOXMLDefinitions::isValidVehicleID(value) && 
                 (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_VEHICLE, value, false) == nullptr) &&
-                (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_FLOW, value, false) == nullptr) &&
-                (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_TRIP, value, false) == nullptr)) {
+                (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_TRIP, value, false) == nullptr) &&
+                (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_ROUTEFLOW, value, false) == nullptr) &&
+                (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_FLOW, value, false) == nullptr)) {
                 return true;
             } else {
                 return false;
@@ -723,12 +684,6 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<int>(value) && parse<int>(value) >= 0;
         case SUMO_ATTR_REROUTE:
             return true;    // check
-        case SUMO_ATTR_VIA:
-            if (value.empty()) {
-                return true;
-            } else {
-                return canParse<std::vector<GNEEdge*> >(myViewNet->getNet(), value, false);
-            }
         case SUMO_ATTR_DEPARTPOS_LAT: {
             double dummyDepartPosLat;
             DepartPosLatDefinition dummyDepartPosLatProcedure;
@@ -756,8 +711,14 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
         // Specific of Trips
         case SUMO_ATTR_FROM:
         case SUMO_ATTR_TO:
-            return SUMOXMLDefinitions::isValidVehicleID(value) && (myViewNet->getNet()->retrieveEdge(value, false) != nullptr);
-        // Specific of flows
+            return SUMOXMLDefinitions::isValidNetID(value) && (myViewNet->getNet()->retrieveEdge(value, false) != nullptr);
+        case SUMO_ATTR_VIA:
+            if (value.empty()) {
+                return true;
+            } else {
+                return canParse<std::vector<GNEEdge*> >(myViewNet->getNet(), value, false);
+            }
+        // Specific of routeFlows
         case SUMO_ATTR_BEGIN:
             if (canParse<double>(value)) {
                 return (parse<double>(value) >= 0);
@@ -907,7 +868,27 @@ GNEVehicle::getPopUpID() const {
 
 std::string
 GNEVehicle::getHierarchyName() const {
-    return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID) ;
+    // special case for Trips and flow
+    if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
+        // check if we're inspecting a Edge
+        if (myViewNet->getNet()->getViewNet()->getDottedAC() && 
+            myViewNet->getNet()->getViewNet()->getDottedAC()->getTagProperty().getTag() == SUMO_TAG_EDGE) {
+            // check if edge correspond to a "from", "to" or "via" edge
+            if (getEdgeParents().front() == myViewNet->getNet()->getViewNet()->getDottedAC()) {
+                return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID) + " (from)";
+            } else if (getEdgeParents().front() == myViewNet->getNet()->getViewNet()->getDottedAC()) {
+                return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID) + " (to)";
+            } else {
+                // iterate over via
+                for (const auto & i : via) {
+                    if (i == myViewNet->getNet()->getViewNet()->getDottedAC()->getID()) {
+                        return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID) + " (via)";
+                    }
+                }
+            }
+        }
+    }
+    return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID);
 }
 
 // ===========================================================================
@@ -916,102 +897,108 @@ GNEVehicle::getHierarchyName() const {
 
 void
 GNEVehicle::setColor(const GUIVisualizationSettings& s) const {
-    const GUIColorer& c = s.vehicleColorer;
-
-    switch (c.getActive()) {
-        case 0: {
-            //test for emergency vehicle
-            if (getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_GUISHAPE) == "emergency") {
-                GLHelper::setColor(RGBColor::WHITE);
+    // change color
+    if (drawUsingSelectColor()) {
+        GLHelper::setColor(s.selectedAdditionalColor);
+    } else {
+        // obtain vehicle color
+        const GUIColorer& c = s.vehicleColorer;
+        // set color depending of vehicle color active
+        switch (c.getActive()) {
+            case 0: {
+                //test for emergency vehicle
+                if (getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_GUISHAPE) == "emergency") {
+                    GLHelper::setColor(RGBColor::WHITE);
+                    break;
+                }
+                //test for firebrigade
+                if (getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_GUISHAPE) == "firebrigade") {
+                    GLHelper::setColor(RGBColor::RED);
+                    break;
+                }
+                //test for police car
+                if (getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_GUISHAPE) == "police") {
+                    GLHelper::setColor(RGBColor::BLUE);
+                    break;
+                }
+                if (wasSet(VEHPARS_COLOR_SET)) {
+                    GLHelper::setColor(color);
+                    break;
+                }
+                if (getDemandElementParents().at(0)->isDisjointAttributeSet(SUMO_ATTR_COLOR)) {
+                    GLHelper::setColor(getDemandElementParents().at(0)->getColor());
+                    break;
+                }
+                if (&(getDemandElementParents().at(1)->getColor()) != &RGBColor::DEFAULT_COLOR) {
+                    GLHelper::setColor(getDemandElementParents().at(1)->getColor());
+                } else {
+                    GLHelper::setColor(c.getScheme().getColor(0));
+                }
                 break;
             }
-            //test for firebrigade
-            if (getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_GUISHAPE) == "firebrigade") {
-                GLHelper::setColor(RGBColor::RED);
+            case 2: {
+                if (wasSet(VEHPARS_COLOR_SET)) {
+                    GLHelper::setColor(color);
+                } else {
+                    GLHelper::setColor(c.getScheme().getColor(0));
+                }
                 break;
             }
-            //test for police car
-            if (getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_GUISHAPE) == "police") {
-                GLHelper::setColor(RGBColor::BLUE);
+            case 3: {
+                if (getDemandElementParents().at(0)->isDisjointAttributeSet(SUMO_ATTR_COLOR)) {
+                    GLHelper::setColor(getDemandElementParents().at(0)->getColor());
+                } else {
+                    GLHelper::setColor(c.getScheme().getColor(0));
+                }
                 break;
             }
-            if (wasSet(VEHPARS_COLOR_SET)) {
-                GLHelper::setColor(color);
+            case 4: {
+                if (getDemandElementParents().at(1)->getColor() != RGBColor::DEFAULT_COLOR) {
+                    GLHelper::setColor(getDemandElementParents().at(1)->getColor());
+                } else {
+                    GLHelper::setColor(c.getScheme().getColor(0));
+                }
                 break;
             }
-            if (getDemandElementParents().at(0)->isDisjointAttributeSet(SUMO_ATTR_COLOR)) {
-                GLHelper::setColor(getDemandElementParents().at(0)->getColor());
+            case 5: {
+                Position p = getDemandElementParents().at(1)->getEdgeParents().at(0)->getLanes().at(0)->getGeometry().shape[0];
+                const Boundary& b = myViewNet->getNet()->getBoundary();
+                Position center = b.getCenter();
+                double hue = 180. + atan2(center.x() - p.x(), center.y() - p.y()) * 180. / M_PI;
+                double sat = p.distanceTo(center) / center.distanceTo(Position(b.xmin(), b.ymin()));
+                GLHelper::setColor(RGBColor::fromHSV(hue, sat, 1.));
                 break;
             }
-            if (&(getDemandElementParents().at(1)->getColor()) != &RGBColor::DEFAULT_COLOR) {
-                GLHelper::setColor(getDemandElementParents().at(1)->getColor());
-            } else {
+            case 6: {
+                Position p = getDemandElementParents().at(1)->getEdgeParents().back()->getLanes().at(0)->getGeometry().shape[-1];
+                const Boundary& b = myViewNet->getNet()->getBoundary();
+                Position center = b.getCenter();
+                double hue = 180. + atan2(center.x() - p.x(), center.y() - p.y()) * 180. / M_PI;
+                double sat = p.distanceTo(center) / center.distanceTo(Position(b.xmin(), b.ymin()));
+                GLHelper::setColor(RGBColor::fromHSV(hue, sat, 1.));
+                break;
+            }
+            case 7: {
+                Position pb = getDemandElementParents().at(1)->getEdgeParents().at(0)->getLanes().at(0)->getGeometry().shape[0];
+                Position pe = getDemandElementParents().at(1)->getEdgeParents().back()->getLanes().at(0)->getGeometry().shape[-1];
+                const Boundary& b = myViewNet->getNet()->getBoundary();
+                double hue = 180. + atan2(pb.x() - pe.x(), pb.y() - pe.y()) * 180. / M_PI;
+                Position minp(b.xmin(), b.ymin());
+                Position maxp(b.xmax(), b.ymax());
+                double sat = pb.distanceTo(pe) / minp.distanceTo(maxp);
+                GLHelper::setColor(RGBColor::fromHSV(hue, sat, 1.));
+                break;
+            }
+            case 29: { // color randomly (by pointer hash)
+                std::hash<const GNEVehicle*> ptr_hash;
+                const double hue = (double)(ptr_hash(this) % 360); // [0-360]
+                const double sat = ((ptr_hash(this) / 360) % 67) / 100.0 + 0.33; // [0.33-1]
+                GLHelper::setColor(RGBColor::fromHSV(hue, sat, 1.));
+                break;
+            }
+            default: {
                 GLHelper::setColor(c.getScheme().getColor(0));
             }
-            break;
-        }
-        case 2: {
-            if (wasSet(VEHPARS_COLOR_SET)) {
-                GLHelper::setColor(color);
-            } else {
-                GLHelper::setColor(c.getScheme().getColor(0));
-            }
-            break;
-        }
-        case 3: {
-            if (getDemandElementParents().at(0)->isDisjointAttributeSet(SUMO_ATTR_COLOR)) {
-                GLHelper::setColor(getDemandElementParents().at(0)->getColor());
-            } else {
-                GLHelper::setColor(c.getScheme().getColor(0));
-            }
-            break;
-        }
-        case 4: {
-            if (getDemandElementParents().at(1)->getColor() != RGBColor::DEFAULT_COLOR) {
-                GLHelper::setColor(getDemandElementParents().at(1)->getColor());
-            } else {
-                GLHelper::setColor(c.getScheme().getColor(0));
-            }
-            break;
-        }
-        case 5: {
-            Position p = getDemandElementParents().at(1)->getEdgeParents().at(0)->getLanes().at(0)->getGeometry().shape[0];
-            const Boundary& b = myViewNet->getNet()->getBoundary();
-            Position center = b.getCenter();
-            double hue = 180. + atan2(center.x() - p.x(), center.y() - p.y()) * 180. / M_PI;
-            double sat = p.distanceTo(center) / center.distanceTo(Position(b.xmin(), b.ymin()));
-            GLHelper::setColor(RGBColor::fromHSV(hue, sat, 1.));
-            break;
-        }
-        case 6: {
-            Position p = getDemandElementParents().at(1)->getEdgeParents().back()->getLanes().at(0)->getGeometry().shape[-1];
-            const Boundary& b = myViewNet->getNet()->getBoundary();
-            Position center = b.getCenter();
-            double hue = 180. + atan2(center.x() - p.x(), center.y() - p.y()) * 180. / M_PI;
-            double sat = p.distanceTo(center) / center.distanceTo(Position(b.xmin(), b.ymin()));
-            GLHelper::setColor(RGBColor::fromHSV(hue, sat, 1.));
-            break;
-        }
-        case 7: {
-            Position pb = getDemandElementParents().at(1)->getEdgeParents().at(0)->getLanes().at(0)->getGeometry().shape[0];
-            Position pe = getDemandElementParents().at(1)->getEdgeParents().back()->getLanes().at(0)->getGeometry().shape[-1];
-            const Boundary& b = myViewNet->getNet()->getBoundary();
-            double hue = 180. + atan2(pb.x() - pe.x(), pb.y() - pe.y()) * 180. / M_PI;
-            Position minp(b.xmin(), b.ymin());
-            Position maxp(b.xmax(), b.ymax());
-            double sat = pb.distanceTo(pe) / minp.distanceTo(maxp);
-            GLHelper::setColor(RGBColor::fromHSV(hue, sat, 1.));
-            break;
-        }
-        case 29: { // color randomly (by pointer hash)
-            std::hash<const GNEVehicle*> ptr_hash;
-            const double hue = (double)(ptr_hash(this) % 360); // [0-360]
-            const double sat = ((ptr_hash(this) / 360) % 67) / 100.0 + 0.33; // [0.33-1]
-            GLHelper::setColor(RGBColor::fromHSV(hue, sat, 1.));
-            break;
-        }
-        default: {
-            GLHelper::setColor(c.getScheme().getColor(0));
         }
     }
 }
@@ -1162,21 +1149,6 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
                 parametersSet &= ~VEHPARS_ROUTE_SET;
             }
             break;
-        case SUMO_ATTR_VIA:
-            if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
-                // mark parameter as set
-                parametersSet |= VEHPARS_VIA_SET;
-            } else {
-                // unset parameter
-                parametersSet &= ~VEHPARS_VIA_SET;
-            }
-            // change edge parents
-            changeEdgeParents(this, getEdgeParents().front()->getID() + " " + value + " " + getEdgeParents().back()->getID());
-            // recalculate temporal route (Only in Demand mode)
-            if (myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) {
-                myTemporalRoute = getRouteCalculatorInstance()->calculateDijkstraRoute(parse<SUMOVehicleClass>(getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_VCLASS)), getEdgeParents());
-            }
-            break;
         case SUMO_ATTR_DEPARTPOS_LAT:
             if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
                 parseDepartPosLat(value, toString(SUMO_TAG_VEHICLE), id, departPosLat, departPosLatProcedure, error);
@@ -1212,34 +1184,64 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ROUTE:
             changeDemandElementParent(this, value, 1);
             break;
-        // Specific of Trips
+        // Specific of Trips and flow
         case SUMO_ATTR_FROM: {
-            std::vector<std::string> newEdges;
-            newEdges.push_back(value);
-            for (int i = 1; i < (int)getEdgeParents().size(); i++) {
-                newEdges.push_back(getEdgeParents().at(i)->getID());
-            }
+            // declare a from-via-to edges vector
+            std::vector<std::string> FromViaToEdges;
+            // add from edge
+            FromViaToEdges.push_back(value);
+            // add via edges
+            FromViaToEdges.insert(FromViaToEdges.end(), via.begin(), via.end());
+            // add to edge
+            FromViaToEdges.push_back(getEdgeParents().back()->getID());
+            // calculate route
+            std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), getDemandElementParents().at(0)->getVClass(), FromViaToEdges);
             // change edge parents
-            changeEdgeParents(this, toString(newEdges));
-            // recalculate temporal route (Only in Demand mode)
-            if (myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) {
-                myTemporalRoute = getRouteCalculatorInstance()->calculateDijkstraRoute(parse<SUMOVehicleClass>(getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_VCLASS)), getEdgeParents());
-            }
+            changeEdgeParents(this, toString(route));
             break;
         }
         case SUMO_ATTR_TO: {
-            std::vector<std::string> newEdges;
-            for (int i = 0; i < (int)getEdgeParents().size() - 1; i++) {
-                newEdges.push_back(getEdgeParents().at(i)->getID());
-            }
-            newEdges.push_back(value);
+            // declare a from-via-to edges vector
+            std::vector<std::string> FromViaToEdges;
+            // add from edge
+            FromViaToEdges.push_back(getEdgeParents().front()->getID());
+            // add via edges
+            FromViaToEdges.insert(FromViaToEdges.end(), via.begin(), via.end());
+            // add to edge
+            FromViaToEdges.push_back(value);
+            // calculate route
+            std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), getDemandElementParents().at(0)->getVClass(), FromViaToEdges);
             // change edge parents
-            changeEdgeParents(this, toString(newEdges));
-            // recalculate temporal route
-            myTemporalRoute = getRouteCalculatorInstance()->calculateDijkstraRoute(parse<SUMOVehicleClass>(getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_VCLASS)), getEdgeParents());
+            changeEdgeParents(this, toString(route));
             break;
         }
-        // Specific of flows
+        case SUMO_ATTR_VIA: {
+            if (!value.empty()) {
+                // set new via edges
+                via = parse< std::vector<std::string> >(value);
+                // mark parameter as set
+                parametersSet |= VEHPARS_VIA_SET;
+            } else {
+                // clear via
+                via.clear();
+                // unset parameter
+                parametersSet &= ~VEHPARS_VIA_SET;
+            }
+            // declare a from-via-to edges vector
+            std::vector<std::string> FromViaToEdges;
+            // add from edge
+            FromViaToEdges.push_back(getEdgeParents().front()->getID());
+            // add via edges
+            FromViaToEdges.insert(FromViaToEdges.end(), via.begin(), via.end());
+            // add to edge
+            FromViaToEdges.push_back(getEdgeParents().back()->getID());
+            // calculate route
+            std::vector<GNEEdge*> route = getRouteCalculatorInstance()->calculateDijkstraRoute(myViewNet->getNet(), getDemandElementParents().at(0)->getVClass(), FromViaToEdges);
+            // change edge parents
+            changeEdgeParents(this, toString(route));
+            break;
+        }
+        // Specific of routeFlows
         case SUMO_ATTR_BEGIN: {
             std::string oldBegin = getBegin();
             depart = string2time(value);

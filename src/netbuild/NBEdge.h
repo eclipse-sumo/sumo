@@ -132,7 +132,7 @@ public:
     /** @struct Lane
      * @brief An (internal) definition of a single lane of an edge
      */
-    struct Lane : public Parameterised {
+    struct Lane final : public Parameterised {
         /// @brief constructor
         Lane(NBEdge* e, const std::string& _origID);
 
@@ -176,7 +176,7 @@ public:
     /** @struct Connection
      * @brief A structure which describes a connection between edges or lanes
      */
-    struct Connection : public Parameterised, public NBRouterEdge {
+    struct Connection final : public Parameterised, public NBRouterEdge {
         /** @brief Constructor
          * @param[in] fromLane_ The lane the connections starts at
          * @param[in] toEdge_ The edge the connections yields in
@@ -193,9 +193,6 @@ public:
                    bool haveVia_ = false,
                    bool uncontrolled_ = false,
                    const PositionVector& customShape_ = PositionVector::EMPTY);
-
-        /// @brief destructor
-        ~Connection() { }
 
         /// @brief The lane the connections starts at
         int fromLane;

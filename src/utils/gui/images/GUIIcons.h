@@ -275,11 +275,12 @@ enum GUIIcon {
 
     /// @name NETEDIT DemandElements icons
     /// @{
-    ICON_FLOW,
     ICON_ROUTE,
     ICON_VTYPE,
     ICON_VEHICLE,
     ICON_TRIP,
+    ICON_FLOW,
+    ICON_ROUTEFLOW,
     ICON_STOPELEMENT,
     /// @}
 

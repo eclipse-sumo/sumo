@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2018 German Aerospace Center (DLR) and others.
+// Copyright (C) 2017-2019 German Aerospace Center (DLR) and others.
 // TraaS module
 // Copyright (C) 2016-2017 Dresden University of Technology
 // This program and the accompanying materials
@@ -25,25 +25,25 @@ package de.tudresden.ws.log;
  */
 public interface Log {
 
-	/**
-	 * Write.
-	 *
-	 * @param input the input
-	 */
-	/**
-	 * @param input input
-	 * @param priority priority level
-	 */
-	public void write(String input, int priority);
-	
-	/**
-	 * @param el stacktrace
-	 */
-	public void write(StackTraceElement[] el);
-	
-	/**
-	 * @param txt_output boolean text output
-	 */
-	public void txt_output(boolean txt_output);
-	
+    /**
+     * Write.
+     *
+     * @param input the input
+     */
+    /**
+     * @param input input
+     * @param priority priority level
+     */
+    public void write(String input, int priority);
+
+    /**
+     * @param el stacktrace
+     */
+    public void write(StackTraceElement[] el);
+
+    /**
+     * @param txt_output boolean text output
+     */
+    public void txt_output(boolean txt_output);
+
 }

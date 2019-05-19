@@ -1,29 +1,29 @@
-/** ************************************************************************* */
-// Eclipse SUMO, LisumSimulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2016-2018 German Aerospace Center (DLR) and others.
+/****************************************************************************/
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Copyright (C) 2016-2019 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials
 // are made available under the terms of the Eclipse Public License v2.0
 // which accompanies this distribution, and is available at
 // http://www.eclipse.org/legal/epl-v20.html
 // SPDX-License-Identifier: EPL-2.0
-/** ************************************************************************* */
-/// @file    Constants.java
+/****************************************************************************/
+/// @file    LisumSimulation.java
 /// @author  Maximiliano Bottazzi
 /// @date    2016
 /// @version $Id$
 ///
 //
-/** ************************************************************************* */
+/****************************************************************************/
 package de.dlr.ts.lisum.simulation;
 
 /*
  * Copyright (C) 2016
  * Deutsches Zentrum fuer Luft- und Raumfahrt e.V.
  * Institut fuer Verkehrssystemtechnik
- * 
+ *
  * German Aerospace Center
  * Institute of Transportation Systems
- * 
+ *
  */
 import de.dlr.ts.commons.logger.DLRLogger;
 import de.dlr.ts.lisum.interfaces.SimulationListener;
@@ -64,29 +64,29 @@ public class LisumSimulation implements SimulationListener {
     private final int sumoPort;
     private final String lisaServerAddress;
     private final int lisaServerPort;
-    
+
     /**
      *
-     * @param sumoExec     
+     * @param sumoExec
      * @param sumoPort
      * @param lisaServerAddress
      * @param lisaServerPort
      */
     public LisumSimulation(String sumoExec, int sumoPort, String lisaServerAddress, int lisaServerPort) {
-        this.sumoExec = sumoExec;        
+        this.sumoExec = sumoExec;
         this.sumoPort = sumoPort;
         this.lisaServerAddress = lisaServerAddress;
         this.lisaServerPort = lisaServerPort;
     }
 
     /**
-     * 
-     * @param sumoConfig 
+     *
+     * @param sumoConfig
      */
     public void setSumoConfig(String sumoConfig) {
         this.sumoConfig = sumoConfig;
-    }   
-    
+    }
+
     /**
      *
      * @return
@@ -106,11 +106,10 @@ public class LisumSimulation implements SimulationListener {
     /**
      *
      * @param lisumConfigurationFile
-     * 
+     *
      * @throws LisumException
      */
-    public void load(File lisumConfigurationFile) throws LisumException, Exception 
-    {                        
+    public void load(File lisumConfigurationFile) throws LisumException, Exception {
         configurationFile = new ConfigurationFile();
         configurationFile.read(lisumConfigurationFile);
 
@@ -194,9 +193,9 @@ public class LisumSimulation implements SimulationListener {
 
         currentSimulationStep = 0;
         sumo.initBeforePlay();
-        
+
         DLRLogger.info("Project loaded successfully.");
-        
+
         return InitBeforePlayResponse.OK;
     }
 

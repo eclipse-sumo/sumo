@@ -1,8 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+/****************************************************************************/
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Copyright (C) 2016-2019 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
+// SPDX-License-Identifier: EPL-2.0
+/****************************************************************************/
+/// @file    BytesTools.java
+/// @author  Maximiliano Bottazzi
+/// @date    2016
+/// @version $Id$
+///
+//
+/****************************************************************************/
 package de.dlr.ts.commons.tools;
 
 import java.util.Arrays;
@@ -78,7 +89,7 @@ public class BytesTools {
         }
 
         number = number >>> (index * Byte.SIZE);
-        return (byte) (number & 0xff);
+        return (byte)(number & 0xff);
     }
 
     /**
@@ -93,12 +104,12 @@ public class BytesTools {
         }
 
         if (index == 0) {
-            return (byte) (number & 0xff);
+            return (byte)(number & 0xff);
         }
 
         int tmp = number;
         tmp >>>= 8;
-        return (byte) (tmp & 0xff);
+        return (byte)(tmp & 0xff);
     }
 
     /**
@@ -114,8 +125,8 @@ public class BytesTools {
         int len = binaryString.length();
         byte[] data = new byte[len / 2];
         for (int i = 0; i < len; i += 2) {
-            data[i / 2] = (byte) ((Character.digit(binaryString.charAt(i), 16) << 4)
-                    + Character.digit(binaryString.charAt(i + 1), 16));
+            data[i / 2] = (byte)((Character.digit(binaryString.charAt(i), 16) << 4)
+                                 + Character.digit(binaryString.charAt(i + 1), 16));
         }
         return data;
     }

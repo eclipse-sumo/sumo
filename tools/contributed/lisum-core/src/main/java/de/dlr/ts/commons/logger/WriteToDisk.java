@@ -1,12 +1,19 @@
-/*
- * Copyright (C) 2016
- * Deutsches Zentrum fuer Luft- und Raumfahrt e.V.
- * Institut fuer Verkehrssystemtechnik
- * 
- * German Aerospace Center
- * Institute of Transportation Systems
- * 
- */
+/****************************************************************************/
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Copyright (C) 2016-2019 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
+// SPDX-License-Identifier: EPL-2.0
+/****************************************************************************/
+/// @file    WriteToDisk.java
+/// @author  Maximiliano Bottazzi
+/// @date    2016
+/// @version $Id$
+///
+//
+/****************************************************************************/
 package de.dlr.ts.commons.logger;
 
 import java.io.File;
@@ -53,7 +60,7 @@ class WriteToDisk {
 
         if (logFolderSizeLimitMB != 0d) {
             DLRLogger.finer(this, "Setting logFolderSizeLimit to "
-                    + logFolderSizeLimitMB + "MB");
+                            + logFolderSizeLimitMB + "MB");
         }
     }
 
@@ -101,8 +108,9 @@ class WriteToDisk {
      * @param line
      */
     public synchronized void addLogLine(String line) {
-        if (logLines.size() < 10000) //Protection against out of momory error     
-            logLines.add(new Line(line));     
+        if (logLines.size() < 10000) { //Protection against out of momory error
+            logLines.add(new Line(line));
+        }
     }
 
     /**
@@ -114,7 +122,7 @@ class WriteToDisk {
         }
 
         currentFileName = logFolder + File.separator
-                + getNewFileName() + LOG_FILE_EXT;
+                          + getNewFileName() + LOG_FILE_EXT;
 
         if (!wasCleanedToday()) {
             cleanLogFolder(); //Executes this method once a day
@@ -218,7 +226,7 @@ class WriteToDisk {
 
         if (!parent.exists()) {
             DLRLogger.severe(this, "Log Folder could not be set, setting default: "
-                    + new File("").getAbsolutePath() + File.separator + "log");
+                             + new File("").getAbsolutePath() + File.separator + "log");
         }
     }
 

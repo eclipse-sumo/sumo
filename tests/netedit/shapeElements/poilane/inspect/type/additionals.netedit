@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 31.08.2018 10:40:30 by Eclipse SUMO netedit Version b980bbd93f
+<!-- generated on 12.05.2019 16:37:33 by Eclipse SUMO netedit Version v1_2_0+0323-a3c4a77541
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.31Aug103523.3032/netedit.gui/shapeElements/poilane/inspect/inspect_type\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.12May112745.2296/netedit.gui/shapeElements/poilane/inspect/type\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.31Aug103523.3032/netedit.gui/shapeElements/poilane/inspect/inspect_type\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.12May112745.2296/netedit.gui/shapeElements/poilane/inspect/type\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
     </processing>
@@ -19,7 +20,7 @@
     <junctions>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="-1"/>
+        <junctions.limit-turn-speed value="5.5"/>
         <rectangular-lane-cut value="false"/>
     </junctions>
 
@@ -28,27 +29,28 @@
     </pedestrian>
 
     <netedit>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.31Aug103523.3032/netedit.gui/shapeElements/poilane/inspect/inspect_type\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.31Aug103523.3032/netedit.gui/shapeElements/poilane/inspect/inspect_type\shapes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.12May112745.2296/netedit.gui/shapeElements/poilane/inspect/type\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.12May112745.2296/netedit.gui/shapeElements/poilane/inspect/type\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.12May112745.2296/netedit.gui/shapeElements/poilane/inspect/type\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.12May112745.2296/netedit.gui/shapeElements/poilane/inspect/type\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.31Aug103523.3032/netedit.gui/shapeElements/poilane/inspect/inspect_type\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.12May112745.2296/netedit.gui/shapeElements/poilane/inspect/type\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
-        <gui-testing-debug-gl value="true"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.31Aug103523.3032/netedit.gui/shapeElements/poilane/inspect/inspect_type\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.12May112745.2296/netedit.gui/shapeElements/poilane/inspect/type\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <poi id="POI_0" type="&lt;&lt;myOwnType&gt;&gt;" color="red" layer="202.00" lane="gneE1_0" pos="44.00"/>
+    <poi id="POI_0" type="&lt;&lt;myOwnType&gt;&gt;" color="red" layer="202.00" lane="gneE1_0" pos="45.00"/>
 </additional>

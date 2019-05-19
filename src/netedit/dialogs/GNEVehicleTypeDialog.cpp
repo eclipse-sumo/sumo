@@ -99,7 +99,7 @@ GNEVehicleTypeDialog::VTypeAtributes::VClassRow::setVariable() {
             // update label image
             setVClassLabelImage();
             // obtain default vType parameters
-            SUMOVTypeParameter::VClassDefaultValues defaultVTypeParameters(getVehicleClassID(myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_VCLASS)));
+            SUMOVTypeParameter::VClassDefaultValues defaultVTypeParameters(myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getVClass());
             // check if mutable rows haben to be updated
             if (!myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isAttributeSet(SUMO_ATTR_LENGTH)) {
                 myVTypeAtributesParent->myLength->updateValue(toString(defaultVTypeParameters.length));
@@ -146,7 +146,7 @@ GNEVehicleTypeDialog::VTypeAtributes::VClassRow::setVariable() {
         myVTypeAtributesParent->myVehicleTypeDialog->myVehicleTypeValid = false;
         myVTypeAtributesParent->myVehicleTypeDialog->myInvalidAttr = SUMO_ATTR_VCLASS;
     }
-    return getVehicleClassID(myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_VCLASS));
+    return myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getVClass();
 }
 
 
@@ -154,7 +154,7 @@ SUMOVehicleClass
 GNEVehicleTypeDialog::VTypeAtributes::VClassRow::updateValue() {
     myComboBoxVClass->setText(myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_VCLASS).c_str());
     setVClassLabelImage();
-    return getVehicleClassID(myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_VCLASS));
+    return myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getVClass();
 }
 
 
@@ -165,7 +165,7 @@ GNEVehicleTypeDialog::VTypeAtributes::VClassRow::setVClassLabelImage() {
         myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VCLASS_PASSENGER));
     } else {
         // set Icon in label depending of current VClass
-        switch (getVehicleClassID(myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_VCLASS))) {
+        switch (myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getVClass()) {
             case SVC_PRIVATE:
                 myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VCLASS_PRIVATE));
                 break;

@@ -71,7 +71,7 @@ GNEVehicleTypeFrame::VehicleTypeSelector::VehicleTypeSelector(GNEVehicleTypeFram
     // Create FXComboBox
     myTypeMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // fill myTypeMatchBox with list of VTypes IDs
-    for (const auto& i : myVehicleTypeFrameParent->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_VTYPE)) {
+    for (const auto& i : myVehicleTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_VTYPE)) {
         myTypeMatchBox->appendItem(i.first.c_str());
     }
     // set DEFAULT_VEHTYPE as default VType
@@ -104,7 +104,7 @@ GNEVehicleTypeFrame::VehicleTypeSelector::refreshVehicleTypeSelector() {
     bool valid = false;
     myTypeMatchBox->clearItems();
     // fill myTypeMatchBox with list of VTypes IDs
-    for (const auto& i : myVehicleTypeFrameParent->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_VTYPE)) {
+    for (const auto& i : myVehicleTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_VTYPE)) {
         myTypeMatchBox->appendItem(i.first.c_str());
     }
     // make sure that tag is in myTypeMatchBox
@@ -135,7 +135,7 @@ GNEVehicleTypeFrame::VehicleTypeSelector::refreshVehicleTypeSelector() {
 long
 GNEVehicleTypeFrame::VehicleTypeSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
     // Check if value of myTypeMatchBox correspond of an allowed additional tags
-    for (const auto& i : myVehicleTypeFrameParent->getViewNet()->getNet()->getDemandElementByType(SUMO_TAG_VTYPE)) {
+    for (const auto& i : myVehicleTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_VTYPE)) {
         if (i.first == myTypeMatchBox->getText().text()) {
             // set pointer
             myCurrentVehicleType = i.second;

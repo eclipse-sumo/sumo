@@ -52,11 +52,12 @@ GNERouteHandler::GNERouteHandler(const std::string& file, GNEViewNet* viewNet, b
 
 GNERouteHandler::~GNERouteHandler() {}
 
+
 bool
-GNERouteHandler::duplicateVehicleID(GNEViewNet* viewNet, const std::string& id) {
-    for (SumoXMLTag otherTag : std::vector<SumoXMLTag>({SUMO_TAG_VEHICLE, SUMO_TAG_FLOW, SUMO_TAG_TRIP})) {
-        if (viewNet->getNet()->retrieveDemandElement(otherTag, id, false) != nullptr) {
-            WRITE_ERROR("There is another " + toString(otherTag) + " with the same ID='" + id + "'.");
+GNERouteHandler::isVehicleIdDuplicated(GNEViewNet* viewNet, const std::string& id) {
+    for (SumoXMLTag vehicleTag : std::vector<SumoXMLTag>({SUMO_TAG_VEHICLE, SUMO_TAG_TRIP, SUMO_TAG_ROUTEFLOW, SUMO_TAG_FLOW})) {
+        if (viewNet->getNet()->retrieveDemandElement(vehicleTag, id, false) != nullptr) {
+            WRITE_ERROR("There is another " + toString(vehicleTag) + " with the same ID='" + id + "'.");
             return true;
         }
     }
@@ -65,38 +66,39 @@ GNERouteHandler::duplicateVehicleID(GNEViewNet* viewNet, const std::string& id) 
 
 
 void
-GNERouteHandler::buildVehicleOrFlow(GNEViewNet* viewNet, SumoXMLTag tag, bool undoDemandElements, SUMOVehicleParameter* vehicleParameters) {
-    // first check if vehicle parameter was sucesfulyl created
-    assert(tag == SUMO_TAG_VEHICLE || tag == SUMO_TAG_FLOW);
+GNERouteHandler::buildVehicleOrRouteFlow(GNEViewNet* viewNet, SumoXMLTag tag, bool undoDemandElements, SUMOVehicleParameter* vehicleParameters) {
+    // Check tags
+    assert(tag == SUMO_TAG_VEHICLE || tag == SUMO_TAG_ROUTEFLOW);
+    // first check if SUMOVehicleParameter was sucesfully created
     if (vehicleParameters) {
-        if (duplicateVehicleID(viewNet, vehicleParameters->id)) {
+        if (isVehicleIdDuplicated(viewNet, vehicleParameters->id)) {
             return;
         } else {
             // obtain routes and vtypes
             GNEDemandElement* vType = viewNet->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, vehicleParameters->vtypeid, false);
             GNEDemandElement* route = viewNet->getNet()->retrieveDemandElement(SUMO_TAG_ROUTE, vehicleParameters->routeid, false);
             if (vType == nullptr) {
-                WRITE_ERROR("Invalid vehicle type '" + vehicleParameters->vtypeid + "' used in vehicle '" + vehicleParameters->id + "'.");
+                WRITE_ERROR("Invalid vehicle type '" + vehicleParameters->vtypeid + "' used in " + toString(tag) + " '" + vehicleParameters->id + "'.");
             } else if (route == nullptr) {
-                WRITE_ERROR("Invalid route '" + vehicleParameters->routeid + "' used in vehicle '" + vehicleParameters->id + "'.");
+                WRITE_ERROR("Invalid route '" + vehicleParameters->routeid + "' used in " + toString(tag) + " '" + vehicleParameters->id + "'.");
             } else {
-                // create vehicle using vehicleParameters
-                GNEVehicle* vehicle = new GNEVehicle(tag, viewNet, *vehicleParameters, vType, route);
+                // create vehicle or trips using vehicleParameters
+                GNEVehicle* vehicleOrFlow = new GNEVehicle(tag, viewNet, *vehicleParameters, vType, route);
                 if (undoDemandElements) {
-                    viewNet->getUndoList()->p_begin("add " + vehicle->getTagStr());
-                    viewNet->getUndoList()->add(new GNEChange_DemandElement(vehicle, true), true);
+                    viewNet->getUndoList()->p_begin("add " + vehicleOrFlow->getTagStr());
+                    viewNet->getUndoList()->add(new GNEChange_DemandElement(vehicleOrFlow, true), true);
                     // iterate over stops of vehicleParameters and create stops associated with it
                     for (const auto& i : vehicleParameters->stops) {
-                        buildStop(viewNet, true, i, vehicle, false);
+                        buildStop(viewNet, true, i, vehicleOrFlow, false);
                     }
                     viewNet->getUndoList()->p_end();
                 } else {
-                    viewNet->getNet()->insertDemandElement(vehicle);
-                    vType->addDemandElementChild(vehicle);
-                    vehicle->incRef(tag == SUMO_TAG_VEHICLE ? "buildVehicle" : "buildFlow");
+                    viewNet->getNet()->insertDemandElement(vehicleOrFlow);
+                    vType->addDemandElementChild(vehicleOrFlow);
+                    vehicleOrFlow->incRef("build" + toString(tag));
                     // iterate over stops of vehicleParameters and create stops associated with it
                     for (const auto& i : vehicleParameters->stops) {
-                        buildStop(viewNet, false, i, vehicle, false);
+                        buildStop(viewNet, false, i, vehicleOrFlow, false);
                     }
                 }
             }
@@ -106,41 +108,44 @@ GNERouteHandler::buildVehicleOrFlow(GNEViewNet* viewNet, SumoXMLTag tag, bool un
 
 
 void
-GNERouteHandler::buildTrip(GNEViewNet* viewNet, bool undoDemandElements, SUMOVehicleParameter* tripParameters, const std::vector<GNEEdge*>& edges) {
-    // first check if trip parameter was sucesfulyl created
-    if (tripParameters) {
-        // now check if exist another trip with the same ID (note: Vehicles, Flows and Trips share namespace)
-        if (duplicateVehicleID(viewNet, tripParameters->id)) {
+GNERouteHandler::buildTripOrFlow(GNEViewNet* viewNet, SumoXMLTag tag, bool undoDemandElements, SUMOVehicleParameter* vehicleParameters, const std::vector<GNEEdge*>& edges) {
+    // Check tags
+    assert(tag == SUMO_TAG_TRIP || tag == SUMO_TAG_FLOW);
+    // first check if SUMOVehicleParameter was sucesfully created
+    if (vehicleParameters) {
+        // now check if exist another vehicle with the same ID (note: Vehicles, Flows and Trips share namespace)
+        if (isVehicleIdDuplicated(viewNet, vehicleParameters->id)) {
             return;
         } else {
             // obtain  vtypes
-            GNEDemandElement* vType = viewNet->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, tripParameters->vtypeid, false);
+            GNEDemandElement* vType = viewNet->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, vehicleParameters->vtypeid, false);
             if (vType == nullptr) {
-                WRITE_ERROR("Invalid trip Type '" + tripParameters->vtypeid + "' used in trip '" + tripParameters->id + "'.");
+                WRITE_ERROR("Invalid vehicle type '" + vehicleParameters->vtypeid + "' used in " + toString(tag) + " '" + vehicleParameters->id + "'.");
             } else {
-                // check if route exist
-                ConstRouterEdgeVector routeEdges;
-                NBVehicle tmpVehicle("temporalNBVehicle", GNEAttributeCarrier::parse<SUMOVehicleClass>(vType->getAttribute(SUMO_ATTR_VCLASS)));
-                SUMOAbstractRouter<NBRouterEdge, NBVehicle>* router;
-                // create Dijkstra route
-                router = new DijkstraRouter<NBRouterEdge, NBVehicle, SUMOAbstractRouter<NBRouterEdge, NBVehicle> >(
-                    viewNet->getNet()->getNetBuilder()->getEdgeCont().getAllRouterEdges(), true, &NBRouterEdge::getTravelTimeStatic, nullptr, true);
-                // check if route is valid
-                if (!router->compute(edges.front()->getNBEdge(), edges.back()->getNBEdge(), &tmpVehicle, 10, routeEdges)) {
-                    WRITE_WARNING("There isn't a route bewteen edges '" + edges.front()->getID() + "' and '" + edges.back()->getID() + "'.");
+                // add "via" edges in vehicleParameters
+                for (int i = 1; i < ((int)edges.size() - 1); i++) {
+                    vehicleParameters->via.push_back(edges.at(i)->getID());
                 }
-                // delete route
-                delete router;
-                // create trip using tripParameters
-                GNEVehicle* trip = new GNEVehicle(viewNet, *tripParameters, vType, edges);
+                // obtain route between edges
+                std::vector<GNEEdge*> routeEdges = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(vType->getVClass(), edges);
+                // create trip or flow using tripParameters
+                GNEVehicle* tripOrFlow = new GNEVehicle(tag, viewNet, *vehicleParameters, vType, routeEdges);
                 if (undoDemandElements) {
-                    viewNet->getUndoList()->p_begin("add " + trip->getTagStr());
-                    viewNet->getUndoList()->add(new GNEChange_DemandElement(trip, true), true);
+                    viewNet->getUndoList()->p_begin("add " + tripOrFlow->getTagStr());
+                    viewNet->getUndoList()->add(new GNEChange_DemandElement(tripOrFlow, true), true);
+                    // iterate over stops of vehicleParameters and create stops associated with it
+                    for (const auto& i : vehicleParameters->stops) {
+                        buildStop(viewNet, true, i, tripOrFlow, false);
+                    }
                     viewNet->getUndoList()->p_end();
                 } else {
-                    viewNet->getNet()->insertDemandElement(trip);
-                    vType->addDemandElementChild(trip);
-                    trip->incRef("buildTrip");
+                    viewNet->getNet()->insertDemandElement(tripOrFlow);
+                    vType->addDemandElementChild(tripOrFlow);
+                    tripOrFlow->incRef("build" + toString(tag));
+                    // iterate over stops of vehicleParameters and create stops associated with it
+                    for (const auto& i : vehicleParameters->stops) {
+                        buildStop(viewNet, false, i, tripOrFlow, false);
+                    }
                 }
             }
         }
@@ -231,6 +236,21 @@ GNERouteHandler::openRoute(const SUMOSAXAttributes& attrs) {
 
 
 void
+GNERouteHandler::openFlow(const SUMOSAXAttributes& attrs) {
+    myAbort = false;
+    // parse attributes of Trips
+    myFromID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_TRIP, SUMO_ATTR_FROM, myAbort);
+    myToID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_TRIP, SUMO_ATTR_TO, myAbort);
+    // attribute VIA is optional
+    if (attrs.hasAttribute(SUMO_ATTR_VIA)) {
+        myViaIDs = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_TRIP, SUMO_ATTR_VIA, myAbort);
+    } else {
+        myViaIDs.clear();
+    }
+}
+
+
+void
 GNERouteHandler::openTrip(const SUMOSAXAttributes& attrs) {
     myAbort = false;
     // parse attributes of Trips
@@ -298,7 +318,7 @@ GNERouteHandler::closeRouteDistribution() {
 void
 GNERouteHandler::closeVehicle() {
     // build vehicle
-    buildVehicleOrFlow(myViewNet, SUMO_TAG_VEHICLE, myUndoDemandElements, myVehicleParameter);
+    buildVehicleOrRouteFlow(myViewNet, SUMO_TAG_VEHICLE, myUndoDemandElements, myVehicleParameter);
 }
 
 
@@ -346,8 +366,39 @@ GNERouteHandler::closeContainer() {
 
 void
 GNERouteHandler::closeFlow() {
-    // build flow
-    buildVehicleOrFlow(myViewNet, SUMO_TAG_FLOW, myUndoDemandElements, myVehicleParameter);
+    // check if we're creating a flow or a routeFlow over route
+    if(!myFromID.empty() || !myToID.empty()) {
+        // force reroute
+        myVehicleParameter->parametersSet |= VEHPARS_FORCE_REROUTE;
+        // obtain from and to edges
+        GNEEdge* from = myViewNet->getNet()->retrieveEdge(myFromID, false);
+        GNEEdge* to = myViewNet->getNet()->retrieveEdge(myToID, false);
+        // check if edges are valid
+        if (from == nullptr) {
+            WRITE_ERROR("Invalid 'from' edge used in routeFlow '" + myVehicleParameter->id + "'.");
+        } else if (to == nullptr) {
+            WRITE_ERROR("Invalid 'to' edge used in routeFlow '" + myVehicleParameter->id + "'.");
+        } else if (!GNEAttributeCarrier::canParse<std::vector<GNEEdge*> >(myViewNet->getNet(), myEdgeIDs, false)) {
+            WRITE_ERROR("Invalid 'via' edges used in routeFlow '" + myVehicleParameter->id + "'.");
+        } else {
+            // obtain via
+            std::vector<GNEEdge*> viaEdges = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(myViewNet->getNet(), myViaIDs);
+            // build edges (from - via - to)
+            std::vector<GNEEdge*> edges;
+            edges.push_back(from);
+            for (const auto& i : viaEdges) {
+                edges.push_back(i);
+            }
+            // check that from and to edge are different
+            if (from != to) {
+                edges.push_back(to);
+            }
+            // build flow
+            buildTripOrFlow(myViewNet, SUMO_TAG_FLOW, true, myVehicleParameter, edges);
+        }
+    } else {
+        buildVehicleOrRouteFlow(myViewNet, SUMO_TAG_ROUTEFLOW, myUndoDemandElements, myVehicleParameter);
+    }
 }
 
 
@@ -367,19 +418,19 @@ GNERouteHandler::closeTrip() {
         WRITE_ERROR("Invalid 'via' edges used in trip '" + myVehicleParameter->id + "'.");
     } else {
         // obtain via
-        std::vector<GNEEdge*> via = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(myViewNet->getNet(), myEdgeIDs);
+        std::vector<GNEEdge*> viaEdges = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(myViewNet->getNet(), myViaIDs);
         // build edges (from - via - to)
         std::vector<GNEEdge*> edges;
         edges.push_back(from);
-        for (const auto& i : via) {
+        for (const auto& i : viaEdges) {
             edges.push_back(i);
         }
         // check that from and to edge are different
         if (from != to) {
             edges.push_back(to);
         }
-        // build trips
-        buildTrip(myViewNet, true, myVehicleParameter, edges);
+        // build trip
+        buildTripOrFlow(myViewNet, SUMO_TAG_TRIP, true, myVehicleParameter, edges);
     }
 }
 

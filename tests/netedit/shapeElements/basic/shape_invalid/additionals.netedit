@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 24.01.2019 10:29:33 by Eclipse SUMO netedit Version v1_1_0+0076-a16c2aae75
+<!-- generated on 12.05.2019 16:09:10 by Eclipse SUMO netedit Version v1_2_0+0323-a3c4a77541
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.24Jan102920.2188/netedit.gui/shapeElements/basic/shape_invalid\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.12May112745.2296/netedit.gui/shapeElements/basic/shape_invalid\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.24Jan102920.2188/netedit.gui/shapeElements/basic/shape_invalid\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.12May112745.2296/netedit.gui/shapeElements/basic/shape_invalid\net.net.xml"/>
     </output>
 
     <processing>
@@ -29,12 +29,14 @@
     </pedestrian>
 
     <netedit>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.24Jan102920.2188/netedit.gui/shapeElements/basic/shape_invalid\additionals.xml"/>
-        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.24Jan102920.2188/netedit.gui/shapeElements/basic/shape_invalid\routes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.12May112745.2296/netedit.gui/shapeElements/basic/shape_invalid\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.12May112745.2296/netedit.gui/shapeElements/basic/shape_invalid\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.12May112745.2296/netedit.gui/shapeElements/basic/shape_invalid\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.12May112745.2296/netedit.gui/shapeElements/basic/shape_invalid\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.24Jan102920.2188/netedit.gui/shapeElements/basic/shape_invalid\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.12May112745.2296/netedit.gui/shapeElements/basic/shape_invalid\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -43,12 +45,12 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.24Jan102920.2188/netedit.gui/shapeElements/basic/shape_invalid\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.12May112745.2296/netedit.gui/shapeElements/basic/shape_invalid\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <poi id="POI_0" color="red" layer="202.00" x="7.00" y="19.00"/>
+    <poi id="POI_0" color="red" layer="202.00" x="6.00" y="20.00"/>
 </additional>

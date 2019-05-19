@@ -1,12 +1,19 @@
-/*
- * Copyright (C) 2014
- * Deutsches Zentrum fuer Luft- und Raumfahrt e.V.
- * Institut fuer Verkehrssystemtechnik
- * 
- * German Aerospace Center
- * Institute of Transportation Systems
- * 
- */
+/****************************************************************************/
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Copyright (C) 2014-2019 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
+// SPDX-License-Identifier: EPL-2.0
+/****************************************************************************/
+/// @file    XMLNodeBase.java
+/// @author  Maximiliano Bottazzi
+/// @date    2014
+/// @version $Id$
+///
+//
+/****************************************************************************/
 package de.dlr.ts.utils.xmladmin2;
 
 import java.util.ArrayList;
@@ -156,8 +163,7 @@ class XMLNodeBase extends Value {
      * @return
      */
     private String getTabs(int count) {
-        if (count < 0) //wanna no tabs
-        {
+        if (count < 0) { //wanna no tabs
             return "";
         }
 

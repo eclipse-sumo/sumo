@@ -433,6 +433,9 @@ private:
     /// @brief modul for selection operations
     SelectionOperation* mySelectionOperation;
 
+    /// @brief check if there is ACs to select/unselect
+    bool ACsToSelected() const;
+
 private:
     /**@brief return ACs of the given type with matching attrs
      * @param[in] ACTag XML Tag of AttributeCarrier

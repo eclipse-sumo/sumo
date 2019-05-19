@@ -80,7 +80,7 @@ GNEClosingReroute::getPositionInView() const {
 
 Boundary
 GNEClosingReroute::getCenteringBoundary() const {
-    throw ProcessError("This additional doesn't have a boundary");
+    return myClosedEdge->getCenteringBoundary();
 }
 
 

@@ -17,7 +17,7 @@
 // wrap netbuild-components of this underlying NBNetBuilder and supply
 // visualisation and editing capabilities (adapted from GUINet)
 //
-// Workflow (rough draft)
+// WorkrouteFlow (rough draft)
 //   wrap NB-components
 //   do netedit stuff
 //   call NBNetBuilder::buildLoaded to save results
@@ -90,6 +90,24 @@ class GNENet : public GUIGlObject, public ShapeContainer {
     friend class GNEChange_DemandElement;
 
 public:
+    /// @brief struct used for saving all attribute carriers of net, in different formats
+    struct AttributeCarriers {
+        /// @brief map with the name and pointer to junctions of net
+        std::map<std::string, GNEJunction*> junctions;
+
+        /// @brief map with the name and pointer to edges of net
+        std::map<std::string, GNEEdge*> edges;
+
+        /// @brief map with the name and pointer to additional elements of net
+        std::map<SumoXMLTag, std::map<std::string, GNEAdditional*> > additionals;
+
+        /// @brief map with the name and pointer to demand elements of net
+        std::map<SumoXMLTag, std::map<std::string, GNEDemandElement*> > demandElements;
+
+        /// @brief special map used for saving Demand Elements of type "Vehicle" (Vehicles, routeFlows, etc.) sorted by depart time
+        std::map<std::string, GNEDemandElement*> vehicleDepartures;
+    };
+
     /**@brief Constructor
      * @param[in] netbuilder the netbuilder which may already have been filled
      * GNENet becomes responsible for cleaning this up
@@ -330,6 +348,9 @@ public:
      */
     void mergeJunctions(GNEJunction* moved, GNEJunction* target, GNEUndoList* undoList);
 
+    /// @brief retrieve all attribute carriers of Net
+    const AttributeCarriers &getAttributeCarriers() const;
+
     /**@brief get junction by id
      * @param[in] id The id of the desired junction
      * @param[in] failHard Whether attempts to retrieve a nonexisting junction should result in an exception
@@ -568,12 +589,6 @@ public:
      */
     std::vector<GNEAdditional*> retrieveAdditionals(bool onlySelected = false) const;
 
-    /**@brief get map with IDs and pointers to additionals
-     * @param[in] type type of additional to get. SUMO_TAG_NOTHING will get all additionals
-     * @return map with IDs and pointers to additionals.
-     */
-    const std::map<std::string, GNEAdditional*>& getAdditionalByType(SumoXMLTag type) const;
-
     /**@brief Returns the number of additionals of the net
      * @param[in] type type of additional to count. SUMO_TAG_NOTHING will count all additionals
      * @return Number of additionals of the net
@@ -615,12 +630,6 @@ public:
      * @param[in] onlySelected Whether to return only selected demand elements
      */
     std::vector<GNEDemandElement*> retrieveDemandElements(bool onlySelected = false) const;
-
-    /**@brief get map with IDs and pointers to demand elements
-     * @param[in] type type of demand element to get. SUMO_TAG_NOTHING will get all demand elements
-     * @return map with IDs and pointers to demand elements.
-     */
-    const std::map<std::string, GNEDemandElement*>& getDemandElementByType(SumoXMLTag type) const;
 
     /**@brief Returns the number of demand elements of the net
      * @param[in] type type of demand element to count. SUMO_TAG_NOTHING will count all demand elements
@@ -708,24 +717,6 @@ public:
     /// @}
 
 protected:
-    /// @brief struct used for saving all attribute carriers of net, in different formats
-    struct AttributeCarriers {
-        /// @brief map with the name and pointer to junctions of net
-        std::map<std::string, GNEJunction*> junctions;
-
-        /// @brief map with the name and pointer to edges of net
-        std::map<std::string, GNEEdge*> edges;
-
-        /// @brief map with the name and pointer to additional elements of net
-        std::map<SumoXMLTag, std::map<std::string, GNEAdditional*> > additionals;
-
-        /// @brief map with the name and pointer to demand elements of net
-        std::map<SumoXMLTag, std::map<std::string, GNEDemandElement*> > demandElements;
-
-        /// @brief special map used for saving Demand Elements of type "Vehicle" (Vehicles, flows, etc.) sorted by depart time
-        std::map<std::string, GNEDemandElement*> vehicleDepartures;
-    };
-
     /// @brief the rtree which contains all GUIGlObjects (so named for historical reasons)
     SUMORTree myGrid;
 
