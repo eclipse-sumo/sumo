@@ -1019,7 +1019,8 @@ MSDevice_ToC::checkDynamicToC() {
 		return false;
 	}
 	const double distFromCurrent = continuationDistanceOnCurrent - myHolderMS->getPositionOnLane();
-	double distThreshold = myHolderMS->getSpeed()*myDynamicToCThreshold;
+	const double MRMDist = 0.5*myHolderMS->getSpeed()*myHolderMS->getSpeed()/MAX2(myMRMDecel, 0.0001);
+	double distThreshold = myHolderMS->getSpeed()*myDynamicToCThreshold + MRMDist;
 #ifdef DEBUG_DYNAMIC_TOC
 	std::cout << "  speed=" << myHolderMS->getSpeed()
 					<< ", distFromCurrent=" << distFromCurrent
