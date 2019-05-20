@@ -2258,12 +2258,12 @@ GNENet::isDemandElementsSaved() const {
 
 
 std::string
-GNENet::generateDemandElementID(SumoXMLTag type) const {
+GNENet::generateDemandElementID(const std::string &prefix, SumoXMLTag type) const {
     int counter = 0;
-    while (myAttributeCarriers.demandElements.at(type).count(toString(type) + "_" + toString(counter)) != 0) {
+    while (myAttributeCarriers.demandElements.at(type).count(prefix + toString(type) + "_" + toString(counter)) != 0) {
         counter++;
     }
-    return (toString(type) + "_" + toString(counter));
+    return (prefix + toString(type) + "_" + toString(counter));
 }
 
 

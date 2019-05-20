@@ -385,7 +385,7 @@ GNERouteFrame::ConsecutiveEdges::onCmdCreateRoute(FXObject*, FXSelector, void*) 
         // obtain Color
         std::map<SumoXMLAttr, std::string> routeAttributes = myRouteFrameParent->myRouteAttributes->getAttributesAndValues(true);
         // generate Route ID
-        std::string routeID = myRouteFrameParent->getViewNet()->getNet()->generateDemandElementID(SUMO_TAG_ROUTE);
+        std::string routeID = myRouteFrameParent->getViewNet()->getNet()->generateDemandElementID("", SUMO_TAG_ROUTE);
         // create route
         GNERoute* route = new GNERoute(myRouteFrameParent->getViewNet(), routeID, myRouteEdges, 
                                        GNEAttributeCarrier::parse<RGBColor>(routeAttributes.at(SUMO_ATTR_COLOR)),
@@ -611,7 +611,7 @@ GNERouteFrame::NonConsecutiveEdges::onCmdCreateRoute(FXObject*, FXSelector, void
         // obtain Color
         std::map<SumoXMLAttr, std::string> routeAttributes = myRouteFrameParent->myRouteAttributes->getAttributesAndValues(true);
         // generate Route ID
-        std::string routeID = myRouteFrameParent->getViewNet()->getNet()->generateDemandElementID(SUMO_TAG_ROUTE);
+        std::string routeID = myRouteFrameParent->getViewNet()->getNet()->generateDemandElementID("", SUMO_TAG_ROUTE);
         // create route
         GNERoute* route = new GNERoute(myRouteFrameParent->getViewNet(), routeID, routeEdges, 
                                        GNEAttributeCarrier::parse<RGBColor>(routeAttributes.at(SUMO_ATTR_COLOR)),

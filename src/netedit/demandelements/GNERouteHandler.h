@@ -57,10 +57,10 @@ public:
     static bool isVehicleIdDuplicated(GNEViewNet* viewNet, const std::string& id); 
 
     /// @brief build vehicle or routeFlow
-    static void buildVehicleOrRouteFlow(GNEViewNet* viewNet, SumoXMLTag tag, bool undoDemandElements, SUMOVehicleParameter* vehicleParameters);
+    static void buildVehicleOrRouteFlow(GNEViewNet* viewNet, SumoXMLTag tag, bool undoDemandElements, const SUMOVehicleParameter &vehicleParameters);
 
     /// @brief build trip or flow
-    static void buildTripOrFlow(GNEViewNet* viewNet, SumoXMLTag tag, bool undoDemandElements, SUMOVehicleParameter* vehicleParameters, const std::vector<GNEEdge*>& edges);
+    static void buildTripOrFlow(GNEViewNet* viewNet, SumoXMLTag tag, bool undoDemandElements, const SUMOVehicleParameter &vehicleParameters, const std::vector<GNEEdge*>& edges);
 
     /// @brief build stop
     static void buildStop(GNEViewNet* viewNet, bool undoDemandElements, const SUMOVehicleParameter::Stop& stopParameters, GNEDemandElement* stopParent, bool friendlyPosition);

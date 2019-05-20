@@ -414,7 +414,7 @@ GNEStopFrame::addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCu
         std::map<SumoXMLAttr, std::string> valuesMap = myStopAttributes->getAttributesAndValues(false);
 
         // generate ID
-        valuesMap[SUMO_ATTR_ID] = myViewNet->getNet()->generateDemandElementID(stopTag);
+        valuesMap[SUMO_ATTR_ID] = myViewNet->getNet()->generateDemandElementID("", stopTag);
 
         // add netedit values
         if (!stopParameter.lane.empty()) {

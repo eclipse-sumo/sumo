@@ -52,7 +52,7 @@ FXIMPLEMENT(GNERoute::GNERoutePopupMenu, GUIGLObjectPopupMenu, GNERoutePopupMenu
 // ===========================================================================
 
 GNERoute::GNERoute(GNEViewNet* viewNet) :
-    GNEDemandElement(viewNet->getNet()->generateDemandElementID(SUMO_TAG_ROUTE), viewNet, GLO_ROUTE, SUMO_TAG_ROUTE,
+    GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_ROUTE), viewNet, GLO_ROUTE, SUMO_TAG_ROUTE,
     {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
     myColor(RGBColor::YELLOW),
     myVClass(SVC_PASSENGER) {
