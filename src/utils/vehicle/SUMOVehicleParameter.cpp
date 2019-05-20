@@ -34,6 +34,7 @@
 // ===========================================================================
 // member method definitions
 // ===========================================================================
+
 SUMOVehicleParameter::SUMOVehicleParameter()
     : vtypeid(DEFAULT_VTYPE_ID), color(RGBColor::DEFAULT_COLOR),
       depart(-1), departProcedure(DEPART_GIVEN),
@@ -49,8 +50,10 @@ SUMOVehicleParameter::SUMOVehicleParameter()
       line(), fromTaz(), toTaz(), personNumber(0), containerNumber(0), parametersSet(0) {
 }
 
+
 SUMOVehicleParameter::~SUMOVehicleParameter() {
 }
+
 
 bool
 SUMOVehicleParameter::defaultOptionOverrides(const OptionsCont& oc, const std::string& optionName) const {

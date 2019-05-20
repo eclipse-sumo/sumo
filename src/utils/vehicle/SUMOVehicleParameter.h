@@ -301,7 +301,6 @@ public:
         return (parametersSet & what) != 0;
     }
 
-
     /** @brief Writes the parameters as a beginning element
      *
      * @param[in, out] dev The device to write into
@@ -312,15 +311,12 @@ public:
      */
     void write(OutputDevice& dev, const OptionsCont& oc, const SumoXMLTag tag = SUMO_TAG_VEHICLE, const std::string& typeID = "") const;
 
-
     /** @brief Returns whether the defaults shall be used
      * @param[in] oc The options to get the options from
      * @param[in] optionName The name of the option to determine whether its value shall be used
      * @return Whether the option is set and --defaults-override was set
      */
     bool defaultOptionOverrides(const OptionsCont& oc, const std::string& optionName) const;
-
-
 
     /// @name Depart/arrival-attributes verification
     /// @{
@@ -337,7 +333,6 @@ public:
     static bool parseDepart(const std::string& val, const std::string& element, const std::string& id,
                             SUMOTime& depart, DepartDefinition& dd, std::string& error);
 
-
     /** @brief Validates a given departLane value
      * @param[in] val The departLane value to parse
      * @param[in] element The name of the type of the parsed element, for building the error message
@@ -349,7 +344,6 @@ public:
      */
     static bool parseDepartLane(const std::string& val, const std::string& element, const std::string& id,
                                 int& lane, DepartLaneDefinition& dld, std::string& error);
-
 
     /** @brief Validates a given departPos value
      * @param[in] val The departPos value to parse
@@ -363,7 +357,6 @@ public:
     static bool parseDepartPos(const std::string& val, const std::string& element, const std::string& id,
                                double& pos, DepartPosDefinition& dpd, std::string& error);
 
-
     /** @brief Validates a given departPosLat value
      * @param[in] val The departPosLat value to parse
      * @param[in] element The name of the type of the parsed element, for building the error message
@@ -375,7 +368,6 @@ public:
      */
     static bool parseDepartPosLat(const std::string& val, const std::string& element, const std::string& id,
                                   double& pos, DepartPosLatDefinition& dpd, std::string& error);
-
 
     /** @brief Validates a given departSpeed value
      * @param[in] val The departSpeed value to parse
@@ -389,7 +381,6 @@ public:
     static bool parseDepartSpeed(const std::string& val, const std::string& element, const std::string& id,
                                  double& speed, DepartSpeedDefinition& dsd, std::string& error);
 
-
     /** @brief Validates a given arrivalLane value
      * @param[in] val The arrivalLane value to parse
      * @param[in] element The name of the type of the parsed element, for building the error message
@@ -402,7 +393,6 @@ public:
     static bool parseArrivalLane(const std::string& val, const std::string& element, const std::string& id,
                                  int& lane, ArrivalLaneDefinition& ald, std::string& error);
 
-
     /** @brief Validates a given arrivalPos value
      * @param[in] val The arrivalPos value to parse
      * @param[in] element The name of the type of the parsed element, for building the error message
@@ -414,7 +404,6 @@ public:
      */
     static bool parseArrivalPos(const std::string& val, const std::string& element, const std::string& id,
                                 double& pos, ArrivalPosDefinition& apd, std::string& error);
-
 
     /** @brief Validates a given arrivalPosLat value
      * @param[in] val The arrivalPosLat value to parse
@@ -442,7 +431,6 @@ public:
                                   double& speed, ArrivalSpeedDefinition& asd, std::string& error);
     /// @}
 
-
     /** @brief Interprets negative edge positions and fits them onto a given edge
      * @param[in] pos The position to be interpreted
      * @param[in] maximumValue The maximum allowed value (edge length)
@@ -466,63 +454,83 @@ public:
 
     /// @name Departure definition
     /// @{
-
     /// @brief The vehicle's departure time
     SUMOTime depart;
+
     /// @brief Information how the vehicle shall choose the depart time
     DepartDefinition departProcedure;
+
     /// @brief (optional) The lane the vehicle shall depart from (index in edge)
     int departLane;
+
     /// @brief Information how the vehicle shall choose the lane to depart from
     DepartLaneDefinition departLaneProcedure;
+
     /// @brief (optional) The position the vehicle shall depart from
     double departPos;
+
     /// @brief Information how the vehicle shall choose the departure position
     DepartPosDefinition departPosProcedure;
+
     /// @brief (optional) The lateral position the vehicle shall depart from
     double departPosLat;
+
     /// @brief Information how the vehicle shall choose the lateral departure position
     DepartPosLatDefinition departPosLatProcedure;
+
     /// @brief (optional) The initial speed of the vehicle
     double departSpeed;
+
     /// @brief Information how the vehicle's initial speed shall be chosen
     DepartSpeedDefinition departSpeedProcedure;
+
     /// @}
 
     /// @name Arrival definition
     /// @{
-
     /// @brief (optional) The lane the vehicle shall arrive on (not used yet)
     int arrivalLane;
+
     /// @brief Information how the vehicle shall choose the lane to arrive on
     ArrivalLaneDefinition arrivalLaneProcedure;
+
     /// @brief (optional) The position the vehicle shall arrive on
     double arrivalPos;
+
     /// @brief Information how the vehicle shall choose the arrival position
     ArrivalPosDefinition arrivalPosProcedure;
+
     /// @brief (optional) The lateral position the vehicle shall arrive on
     double arrivalPosLat;
+
     /// @brief Information how the vehicle shall choose the lateral arrival position
     ArrivalPosLatDefinition arrivalPosLatProcedure;
+
     /// @brief (optional) The final speed of the vehicle (not used yet)
     double arrivalSpeed;
+
     /// @brief Information how the vehicle's end speed shall be chosen
     ArrivalSpeedDefinition arrivalSpeedProcedure;
+
     /// @}
 
     /// @name Repetition definition
     /// @{
-
     /// @brief The number of times the vehicle shall be repeatedly inserted
     int repetitionNumber;
+
     /// @brief The number of times the vehicle was already inserted
     int repetitionsDone;
+
     /// @brief The time offset between vehicle reinsertions
     SUMOTime repetitionOffset;
+
     /// @brief The probability for emitting a vehicle per second
     double repetitionProbability;
+
     /// @brief The time at which the flow ends (only needed when using repetitionProbability)
     SUMOTime repetitionEnd;
+
     /// @}
 
     /// @brief The vehicle's line (mainly for public transport)
@@ -538,42 +546,61 @@ public:
      * @brief Definition of vehicle stop (position and duration)
      */
     struct Stop {
+
         /// @brief The lane to stop at
         std::string lane;
+
         /// @brief (Optional) bus stop if one is assigned to the stop
         std::string busstop;
+
         /// @brief (Optional) container stop if one is assigned to the stop
         std::string containerstop;
+
         /// @brief (Optional) parking area if one is assigned to the stop
         std::string parkingarea;
+
         /// @brief (Optional) charging station if one is assigned to the stop
         std::string chargingStation;
+
         /// @brief The stopping position start
         double startPos;
+
         /// @brief The stopping position end
         double endPos;
+
         /// @brief The stopping duration
         SUMOTime duration;
+
         /// @brief The time at which the vehicle may continue its journey
         SUMOTime until;
+
         /// @brief whether an arriving person lets the vehicle continue
         bool triggered;
+
         /// @brief whether an arriving container lets the vehicle continue
         bool containerTriggered;
+
         /// @brief whether the vehicle is removed from the net while stopping
         bool parking;
+
         /// @brief IDs of persons the vehicle has to wait for until departing
         std::set<std::string> awaitedPersons;
+
         /// @brief IDs of containers the vehicle has to wait for until departing
         std::set<std::string> awaitedContainers;
+
         /// @brief id of the trip within a cyclical public transport route
         std::string tripId;
+
         /// @brief the new line id of the trip within a cyclical public transport route
         std::string line;
+
         /// @brief lanes and positions connected to this stop (only used by duarouter where Stop is used to store stopping places)
         std::vector<std::tuple<std::string, double, double> > accessPos;
+
         /// @brief at which position in the stops list
         int index;
+
         /// @brief Information for the output which parameter were set
         int parametersSet = 0;
 
