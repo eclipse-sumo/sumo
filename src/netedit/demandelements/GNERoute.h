@@ -47,8 +47,10 @@ public:
      * @param[in] routeID unique route ID
      * @param[in] edges list of consecutive edges of this route
      * @param[in] color RGBColor of this route
+     * @param[in] VClass Vehicle Class that will be use this route (only for visualization)
+     * @param[in] vehicleParent vehicle in which this route is embebbed
      */
-    GNERoute(GNEViewNet* viewNet, const std::string& routeID, const std::vector<GNEEdge*>& edges, const RGBColor& color, const SUMOVehicleClass VClass);
+    GNERoute(GNEViewNet* viewNet, const std::string& routeID, const std::vector<GNEEdge*>& edges, const RGBColor& color, const SUMOVehicleClass VClass, const std::string &embeddedVehicleParent);
 
     /// @brief destructor
     ~GNERoute();
@@ -198,6 +200,9 @@ protected:
 
     /// @brief SUMOVehicleClass (Only used for drawing) 
     SUMOVehicleClass myVClass;
+
+    /// @brief vehicle in which this route is embedded
+    std::string myEmbeddedVehicleParent;
 
 private:
     /// @brief method for setting the attribute and nothing else
