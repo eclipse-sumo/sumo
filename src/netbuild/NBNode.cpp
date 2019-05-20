@@ -1895,17 +1895,15 @@ NBNode::remapRemoved(NBTrafficLightLogicCont& tc,
     tc.remapRemoved(removed, incoming, outgoing);
 }
 
+
 NBEdge*
 NBNode::getNextCompatibleOutgoing(const NBEdge* incoming, SVCPermissions vehPerm, EdgeVector::const_iterator itOut, bool clockwise) const {
     EdgeVector::const_iterator i = itOut;
-    while (true) {
+    while (*i != incoming) {
         if (clockwise) {
             NBContHelper::nextCW(myAllEdges, i);
         } else {
             NBContHelper::nextCCW(myAllEdges, i);
-        }
-        if (*i == incoming) {
-            return nullptr;
         }
         if ((*i)->getFromNode() != this) {
             // only look for outgoing edges
@@ -1919,7 +1917,9 @@ NBNode::getNextCompatibleOutgoing(const NBEdge* incoming, SVCPermissions vehPerm
             return *i;
         }
     }
+    return nullptr;
 }
+
 
 LinkDirection
 NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing, bool leftHand) const {
