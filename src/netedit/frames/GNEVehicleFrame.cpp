@@ -388,7 +388,7 @@ GNEVehicleFrame::TripRouteCreator::onCmdFinishRouteCreation(FXObject*, FXSelecto
         }
 
         // create it in RouteFrame
-        GNERouteHandler::buildTripOrFlow(myVehicleFrameParent->myViewNet, vehicleTag, true, *tripOrFlowParameters, mySelectedEdges);
+        GNERouteHandler::buildTripOrFlow(myVehicleFrameParent->myViewNet, true, *tripOrFlowParameters, mySelectedEdges);
 
         // delete tripParameters
         delete tripOrFlowParameters;
@@ -497,7 +497,7 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
                 // obtain vehicle parameters in vehicleParameters
                 SUMOVehicleParameter* vehicleParameters = SUMOVehicleParserHelper::parseVehicleAttributes(SUMOSAXAttrs);
                 // create it in RouteFrame
-                GNERouteHandler::buildVehicleOrRouteFlow(myViewNet, SUMO_TAG_VEHICLE, true, *vehicleParameters);
+                GNERouteHandler::buildVehicleOrRouteFlow(myViewNet, true, *vehicleParameters);
                 // delete vehicleParameters
                 delete vehicleParameters;
             } else {
@@ -506,7 +506,7 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
                 // obtain routeFlow parameters in routeFlowParameters
                 SUMOVehicleParameter* routeFlowParameters = SUMOVehicleParserHelper::parseFlowAttributes(SUMOSAXAttrs, 0, SUMOTime_MAX);
                 // create it in RouteFrame
-                GNERouteHandler::buildVehicleOrRouteFlow(myViewNet, SUMO_TAG_ROUTEFLOW, true, *routeFlowParameters);
+                GNERouteHandler::buildVehicleOrRouteFlow(myViewNet, true, *routeFlowParameters);
                 // delete vehicleParameters
                 delete routeFlowParameters;
             }
