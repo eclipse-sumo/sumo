@@ -320,7 +320,6 @@ public:
 
     /// @name Depart/arrival-attributes verification
     /// @{
-
     /** @brief Validates a given depart value
      * @param[in] val The depart value to parse
      * @param[in] element The name of the type of the parsed element, for building the error message
@@ -439,6 +438,9 @@ public:
      * @return Whether the interpreted position
      */
     static double interpretEdgePos(double pos, double maximumValue, SumoXMLAttr attr, const std::string& id);
+
+    /// @brief The vehicle tag
+    SumoXMLTag tag;
 
     /// @brief The vehicle's id
     std::string id;

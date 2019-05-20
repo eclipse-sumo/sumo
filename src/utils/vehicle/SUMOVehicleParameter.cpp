@@ -36,7 +36,7 @@
 // ===========================================================================
 
 SUMOVehicleParameter::SUMOVehicleParameter()
-    : vtypeid(DEFAULT_VTYPE_ID), color(RGBColor::DEFAULT_COLOR),
+    : tag(SUMO_TAG_NOTHING), vtypeid(DEFAULT_VTYPE_ID), color(RGBColor::DEFAULT_COLOR),
       depart(-1), departProcedure(DEPART_GIVEN),
       departLane(0), departLaneProcedure(DEPART_LANE_DEFAULT),
       departPos(0), departPosProcedure(DEPART_POS_DEFAULT),

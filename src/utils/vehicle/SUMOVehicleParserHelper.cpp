@@ -100,7 +100,12 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, con
         delete ret;
         throw;
     }
-
+    // set tag
+    if (ret->routeid.empty()) {
+        ret->tag = SUMO_TAG_FLOW;
+    } else {
+        ret->tag = SUMO_TAG_ROUTEFLOW;
+    }
     // parse repetition information
     if (attrs.hasAttribute(SUMO_ATTR_PERIOD)) {
         ret->parametersSet |= VEHPARS_PERIOD_SET;
@@ -231,6 +236,12 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes& attrs,
     } catch (ProcessError&) {
         delete ret;
         throw;
+    }
+    // set tag
+    if (ret->routeid.empty()) {
+        ret->tag = SUMO_TAG_TRIP;
+    } else {
+        ret->tag = SUMO_TAG_VEHICLE;
     }
     return ret;
 }
