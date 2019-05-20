@@ -147,6 +147,7 @@ def pasteIntoTextField(value, removePreviousContents=True, useClipboard=True, la
     """
     @brief paste value into current text field
     """
+    print(value)
     # remove previous content
     if removePreviousContents:
         typeTwoKeys('ctrl', 'a')
