@@ -1910,10 +1910,12 @@ GNEEdge::drawPartialRoute(const GUIVisualizationSettings& s, GNEDemandElement *r
     if (!s.drawForSelecting) {
         drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
     }
+    /*
     // check if dotted contour has to be drawn
     if (!s.drawForSelecting && (myNet->getViewNet()->getDottedAC() == route)) {
         GLHelper::drawShapeDottedContour(getType(), route->myGeometry.shape, routeWidth);
     }
+    */
     // Pop name
     glPopName();
     // draw route childs

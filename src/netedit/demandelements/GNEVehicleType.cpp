@@ -99,15 +99,27 @@ GNEVehicleType::writeDemandElement(OutputDevice& device) const {
 }
 
 
+void 
+GNEVehicleType::startGeometryMoving() {
+    // VTypes cannot be moved
+}
+
+
+void 
+GNEVehicleType::endGeometryMoving() {
+    // VTypes cannot be moved
+}
+
+
 void
 GNEVehicleType::moveGeometry(const Position&) {
-    // This additional cannot be moved
+    // VTypes cannot be moved
 }
 
 
 void
 GNEVehicleType::commitGeometryMoving(GNEUndoList*) {
-    // This additional cannot be moved
+    // VTypes cannot be moved
 }
 
 
@@ -129,9 +141,16 @@ GNEVehicleType::getParentName() const {
 }
 
 
+Boundary
+GNEVehicleType::getCenteringBoundary() const {
+    // Vehicle Types doesn't have boundaries
+    return Boundary(-0.1, -0.1, 0.1, 0.1);
+}
+
+
 void
 GNEVehicleType::drawGL(const GUIVisualizationSettings&) const {
-    // Currently This additional isn't drawn
+    // Vehicle Types aren't draw
 }
 
 

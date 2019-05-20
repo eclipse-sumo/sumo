@@ -78,6 +78,12 @@ public:
 
     /// @name Functions related with geometry of element
     /// @{
+    /// @brief start geometry movement
+    void startGeometryMoving();
+
+    /// @brief end geometry movement
+    void endGeometryMoving();
+
     /**@brief change the position of the element geometry without saving in undoList
      * @param[in] offset Position used for calculate new position of geometry without updating RTree
      */
@@ -101,6 +107,11 @@ public:
      * @return This object's parent id
      */
     std::string getParentName() const;
+
+    /**@brief Returns the boundary to which the view shall be centered in order to show the object
+     * @return The boundary the object is within
+     */
+    Boundary getCenteringBoundary() const;
 
     /**@brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)

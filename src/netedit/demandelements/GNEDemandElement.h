@@ -179,11 +179,11 @@ public:
 
     /// @name Functions related with geometry of element
     /// @{
-    /// @brief begin movement (used when user click over demand element to start a movement, to avoid problems with problems with GL Tree)
-    void startGeometryMoving();
+    /// @brief begin geometry movement
+    virtual void startGeometryMoving() = 0;
 
-    /// @brief begin movement (used when user click over demand element to start a movement, to avoid problems with problems with GL Tree)
-    void endGeometryMoving();
+    /// @brief end geometry movement
+    virtual void endGeometryMoving() = 0;
 
     /**@brief change the position of the element geometry without saving in undoList
      * @param[in] offset Position used for calculate new position of geometry without updating RTree
@@ -191,8 +191,8 @@ public:
     virtual void moveGeometry(const Position& offset) = 0;
 
     /**@brief commit geometry changes in the attributes of an element after use of moveGeometry(...)
-    * @param[in] undoList The undoList on which to register changes
-    */
+     * @param[in] undoList The undoList on which to register changes
+     */
     virtual void commitGeometryMoving(GNEUndoList* undoList) = 0;
 
     /// @brief update pre-computed geometry information
@@ -246,7 +246,7 @@ public:
     /**@brief Returns the boundary to which the view shall be centered in order to show the object
      * @return The boundary the object is within
      */
-    Boundary getCenteringBoundary() const;
+    virtual Boundary getCenteringBoundary() const = 0;
 
     /**@brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
@@ -322,50 +322,8 @@ public:
     static bool isRouteValid(const std::vector<GNEEdge*>& edges, bool report);
 
 protected:
-    /// @brief struct for pack all variables related with geometry of elemement
-    struct DemandElementGeometry {
-        /// @brief constructor
-        DemandElementGeometry();
-
-        /// @brief reset geometry
-        void clearGeometry();
-
-        /// @brief calculate multi shape rotations and lenghts
-        void calculateShapeRotationsAndLengths();
-
-        /// @brief The shape of the demand element
-        PositionVector shape;
-
-        /// @brief The rotations of the single shape parts
-        std::vector<double> shapeRotations;
-
-        /// @brief The lengths of the single shape parts
-        std::vector<double> shapeLengths;
-    };
-
-    /// @brief struct for pack all variables related with demand element move
-    struct DemandElementMove {
-        /// @brief boundary used during moving of elements (to avoid insertion in RTREE
-        Boundary movingGeometryBoundary;
-
-        /// @brief value for saving first original position over lane before moving
-        Position originalViewPosition;
-
-        /// @brief value for saving first original position over lane before moving
-        std::string firstOriginalLanePosition;
-
-        /// @brief value for saving second original position over lane before moving
-        std::string secondOriginalPosition;
-    };
-
     /// @brief The GNEViewNet this demand element element belongs
     GNEViewNet* myViewNet;
-public:
-    /// @brief geometry to be precomputed in updateGeometry(...)
-    DemandElementGeometry myGeometry;
-protected:
-    /// @brief variable DemandElementMove
-    DemandElementMove myMove;
 
     /// @name Functions relative to change values in setAttribute(...)
     /// @{
@@ -377,9 +335,9 @@ protected:
     bool isValidDemandElementID(const std::string& newID) const;
 
     /**@brief change ID of demand element
-    * @throw exception if exist already an demand element whith the same ID
-    * @throw exception if ID isn't valid
-    */
+     * @throw exception if exist already an demand element whith the same ID
+     * @throw exception if ID isn't valid
+     */
     void changeDemandElementID(const std::string& newID);
 
     /// @}

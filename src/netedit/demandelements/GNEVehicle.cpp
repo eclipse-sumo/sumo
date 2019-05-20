@@ -206,72 +206,33 @@ GNEVehicle::fixDemandElementProblem() {
 }
 
 
+void 
+GNEVehicle::startGeometryMoving() {
+    // Vehicles cannot be moved
+}
+
+
+void 
+GNEVehicle::endGeometryMoving() {
+    // Vehicles cannot be moved
+}
+
+
 void
 GNEVehicle::moveGeometry(const Position&) {
-    // This demand element cannot be moved
+    // Vehicles cannot be moved
 }
 
 
 void
 GNEVehicle::commitGeometryMoving(GNEUndoList*) {
-    // This demand element cannot be moved
+    // Vehicles cannot be moved
 }
 
 
 void
-GNEVehicle::updateGeometry() {
-    // obtain lenght
-    const double length = parse<double>(getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_LENGTH)) ;
-
-    // Clear geometry container
-    myGeometry.clearGeometry();
-
-    // get lanes of edge
-    GNELane* vehicleLane;
-    // check if vehicle is defined over a route
-    if (getDemandElementParents().size() == 2) {
-        vehicleLane = getDemandElementParents().at(1)->getEdgeParents().at(0)->getLanes().at(0);
-    } else if (getEdgeParents().size() > 0) {
-        vehicleLane = getEdgeParents().front()->getLanes().at(0);
-    } else {
-        throw ProcessError("Invalid vehicle tag");
-    }
-
-    // Get shape of lane parent
-    double offset = vehicleLane->getGeometry().shape.length() < length ? vehicleLane->getGeometry().shape.length() : length;
-    myGeometry.shape.push_back(vehicleLane->getGeometry().shape.positionAtOffset(offset));
-
-    // Save rotation (angle)
-    myGeometry.shapeRotations.push_back(vehicleLane->getGeometry().shape.rotationDegreeAtOffset(offset) * -1);
-
-    // calculate multishape
-    if (getEdgeParents().size() > 1) {
-        // declare a vector of shapes
-        std::vector<PositionVector> multiShape;
-
-        // start with the first lane shape
-        multiShape.push_back(getEdgeParents().front()->getNBEdge()->getLanes().front().shape);
-
-        // add first shape connection (if exist, in other case leave it empty)
-        multiShape.push_back(PositionVector{getEdgeParents().at(0)->getNBEdge()->getLanes().front().shape.back(), getEdgeParents().at(1)->getNBEdge()->getLanes().front().shape.front()});
-
-        // append shapes of intermediate lanes AND connections (if exist)
-        for (int i = 1; i < ((int)getEdgeParents().size() - 1); i++) {
-            // add lane shape
-            multiShape.push_back(getEdgeParents().at(i)->getNBEdge()->getLanes().front().shape);
-            // add empty shape for connection
-            multiShape.push_back(PositionVector{getEdgeParents().at(i)->getNBEdge()->getLanes().front().shape.back(), getEdgeParents().at((int)i + 1)->getNBEdge()->getLanes().front().shape.front()});
-        }
-
-        // append last shape
-        multiShape.push_back(getEdgeParents().back()->getNBEdge()->getLanes().front().shape);
-
-        // calculate unified shape
-        for (auto i : multiShape) {
-            myGeometry.shape.append(i);
-        }
-        myGeometry.shape.removeDoublePoints();
-    }
+GNEVehicle::updateGeometry() {    
+    // vehicles use the geometry of lane parent
 }
 
 
@@ -309,6 +270,21 @@ GNEVehicle::getParentName() const {
 }
 
 
+Boundary
+GNEVehicle::getCenteringBoundary() const {
+    Boundary vehicleBoundary;
+    if (getDemandElementParents().size() == 2) {
+        vehicleBoundary.add(getDemandElementParents().at(1)->getEdgeParents().at(0)->getLanes().front()->getGeometry().shape.front());
+    } else if (getEdgeParents().size() > 0) {
+        vehicleBoundary.add(getEdgeParents().front()->getLanes().front()->getGeometry().shape.front());
+    } else {
+        vehicleBoundary = Boundary(-0.1, -0.1, 0.1, 0.1);
+    }
+    vehicleBoundary.grow(20);
+    return vehicleBoundary;
+}
+
+
 void
 GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
     // only drawn in super mode demand
@@ -320,8 +296,20 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
         double vehicleSizeSquared = width * length * upscale * width * length * upscale;
         // declare a flag to check if glPushName() / glPopName() has to be added (needed due GNEEdge::drawGL(...))
         const bool pushName = (myTagProperty.getTag() != SUMO_TAG_FLOW) && (myTagProperty.getTag() != SUMO_TAG_TRIP);
+        // obtain Position an rotation (it depend of their parents)
+        Position vehiclePosition;
+        double vehicleRotation = 0;
+        if (getDemandElementParents().size() == 2) {
+            // obtain position and rotation of first edge route
+            vehiclePosition = getDemandElementParents().at(1)->getEdgeParents().at(0)->getLanes().front()->getGeometry().shape.front();
+            vehicleRotation = getDemandElementParents().at(1)->getEdgeParents().at(0)->getLanes().front()->getGeometry().shapeRotations.front();
+        } else if (getEdgeParents().size() > 0) {
+            // obtain position and rotation of from route
+            vehiclePosition = getEdgeParents().at(0)->getLanes().front()->getGeometry().shape.front();
+            vehicleRotation = getEdgeParents().at(0)->getLanes().front()->getGeometry().shapeRotations.front();
+        }
         // first check if if mouse is enought near to this vehicle to draw it
-        if (s.drawForSelecting && (myViewNet->getPositionInformation().distanceSquaredTo2D(myGeometry.shape.front()) >= (vehicleSizeSquared + 2))) {
+        if (s.drawForSelecting && (myViewNet->getPositionInformation().distanceSquaredTo2D(vehiclePosition) >= (vehicleSizeSquared + 2))) {
             // first push name
             if (pushName) {
                 glPushName(getGlID());
@@ -329,8 +317,8 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
             // push draw matrix
             glPushMatrix();
             // translate to drawing position
-            glTranslated(myGeometry.shape.front().x(), myGeometry.shape.front().y(), GLO_ROUTE + getType() + 0.1);
-            glRotated(myGeometry.shapeRotations.front(), 0, 0, 1);
+            glTranslated(vehiclePosition.x(), vehiclePosition.y(), GLO_ROUTE + getType() + 0.1);
+            glRotated(vehicleRotation, 0, 0, 1);
             GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
             // Pop last matrix
             glPopMatrix();
@@ -347,8 +335,8 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
             // push draw matrix
             glPushMatrix();
             // translate to drawing position
-            glTranslated(myGeometry.shape.front().x(), myGeometry.shape.front().y(), GLO_ROUTE + getType() + 0.1);
-            glRotated(myGeometry.shapeRotations.front(), 0, 0, 1);
+            glTranslated(vehiclePosition.x(), vehiclePosition.y(), GLO_ROUTE + getType() + 0.1);
+            glRotated(vehicleRotation, 0, 0, 1);
             // set lane color
             setColor(s);
             double upscaleLength = upscale;
@@ -390,7 +378,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                 // drawing name at GLO_MAX fails unless translating z
                 glTranslated(0, MIN2(length / 2, double(5)), -getType());
                 glScaled(1 / upscale, 1 / upscaleLength, 1);
-                glRotated(-1 * myGeometry.shapeRotations.front(), 0, 0, 1);
+                glRotated(-1 * vehicleRotation, 0, 0, 1);
                 drawName(Position(0, 0), s.scale, getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_GUISHAPE) == "pedestrian" ? s.personName : s.vehicleName, s.angle);
                 // draw line
                 if (s.vehicleName.show && line != "") {
@@ -402,7 +390,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
             glPopMatrix();
             // check if dotted contour has to be drawn
             if (!s.drawForSelecting && (myViewNet->getDottedAC() == this)) {
-                GLHelper::drawShapeDottedContour(getType(), myGeometry.shape.front(), width, length, myGeometry.shapeRotations.front(), 0, length / 2);
+                GLHelper::drawShapeDottedContour(getType(), vehiclePosition, width, length, vehicleRotation, 0, length / 2);
             }
             // pop name
             if (pushName) {

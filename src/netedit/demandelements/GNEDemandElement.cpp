@@ -217,58 +217,6 @@ GNEDemandElement::getBegin() const {
 }
 
 
-void
-GNEDemandElement::startGeometryMoving() {
-    // always save original position over view
-    myMove.originalViewPosition = getPositionInView();
-    // check if position over lane or lanes has to be saved
-    if (myTagProperty.hasAttribute(SUMO_ATTR_LANE)) {
-        if (myTagProperty.canMaskStartEndPos()) {
-            // obtain start and end position
-            myMove.firstOriginalLanePosition = getAttribute(SUMO_ATTR_STARTPOS);
-            myMove.secondOriginalPosition = getAttribute(SUMO_ATTR_ENDPOS);
-        } else {
-            // obtain position attribute
-            myMove.firstOriginalLanePosition = getAttribute(SUMO_ATTR_POSITION);
-        }
-    } else if (myTagProperty.hasAttribute(SUMO_ATTR_LANES)) {
-        // obtain start and end position
-        myMove.firstOriginalLanePosition = getAttribute(SUMO_ATTR_POSITION);
-        myMove.secondOriginalPosition = getAttribute(SUMO_ATTR_ENDPOS);
-    }
-    // save current centering boundary
-    myMove.movingGeometryBoundary = getCenteringBoundary();
-    // Iterate over demand element childs and start geometry moving
-    for (auto i : getDemandElementChilds()) {
-        i->startGeometryMoving();
-    }
-}
-
-
-void
-GNEDemandElement::endGeometryMoving() {
-    // check that endGeometryMoving was called only once
-    if (myMove.movingGeometryBoundary.isInitialised()) {
-        // check if object must be placed in RTREE
-        if (myTagProperty.isPlacedInRTree()) {
-            // Remove object from net
-            myViewNet->getNet()->removeGLObjectFromGrid(this);
-        }
-        // reset myMovingGeometryBoundary
-        myMove.movingGeometryBoundary.reset();
-        // Iterate over demand element childs and end geometry moving
-        for (auto i : getDemandElementChilds()) {
-            i->endGeometryMoving();
-        }
-        // check if object must be placed in RTREE
-        if (myTagProperty.isPlacedInRTree()) {
-            // add object into grid again (using the new centering boundary)
-            myViewNet->getNet()->addGLObjectIntoGrid(this);
-        }
-    }
-}
-
-
 GNEViewNet*
 GNEDemandElement::getViewNet() const {
     return myViewNet;
@@ -350,21 +298,6 @@ GNEDemandElement::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
 }
 
 
-Boundary
-GNEDemandElement::getCenteringBoundary() const {
-    // Return Boundary depending if myMovingGeometryBoundary is initialised (important for move geometry)
-    if (myMove.movingGeometryBoundary.isInitialised()) {
-        return myMove.movingGeometryBoundary;
-    } else if (myGeometry.shape.size() > 0) {
-        Boundary b = myGeometry.shape.getBoxBoundary();
-        b.grow(20);
-        return b;
-    } else {
-        return Boundary(-0.1, -0.1, 0.1, 0.1);
-    }
-}
-
-
 bool
 GNEDemandElement::isRouteValid(const std::vector<GNEEdge*>& edges, bool report) {
     if (edges.size() == 0) {
@@ -397,41 +330,6 @@ GNEDemandElement::isRouteValid(const std::vector<GNEEdge*>& edges, bool report) 
         }
     }
     return true;
-}
-
-
-GNEDemandElement::DemandElementGeometry::DemandElementGeometry() {}
-
-
-void
-GNEDemandElement::DemandElementGeometry::clearGeometry() {
-    shape.clear();
-    shapeRotations.clear();
-    shapeLengths.clear();
-}
-
-
-void
-GNEDemandElement::DemandElementGeometry::calculateShapeRotationsAndLengths() {
-    // Get number of parts of the shape
-    int numberOfSegments = (int)shape.size() - 1;
-    // If number of segments is more than 0
-    if (numberOfSegments >= 0) {
-        // Reserve memory (To improve efficiency)
-        shapeRotations.reserve(numberOfSegments);
-        shapeLengths.reserve(numberOfSegments);
-        // For every part of the shape
-        for (int i = 0; i < numberOfSegments; ++i) {
-            // Obtain first position
-            const Position& f = shape[i];
-            // Obtain next position
-            const Position& s = shape[i + 1];
-            // Save distance between position into myShapeLengths
-            shapeLengths.push_back(f.distanceTo(s));
-            // Save rotation (angle) of the vector constructed by points f and s
-            shapeRotations.push_back((double)atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double)M_PI);
-        }
-    }
 }
 
 

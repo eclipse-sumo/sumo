@@ -166,74 +166,33 @@ GNERoute::fixDemandElementProblem() {
 }
 
 
+void 
+GNERoute::startGeometryMoving() {
+    // Routes cannot be moved
+}
+
+
+void 
+GNERoute::endGeometryMoving() {
+    // Routes cannot be moved
+}
+
+
 void
 GNERoute::moveGeometry(const Position&) {
-    // This additional cannot be moved
+    // Routes cannot be moved
 }
 
 
 void
 GNERoute::commitGeometryMoving(GNEUndoList*) {
-    // This additional cannot be moved
+    // Routes cannot be moved
 }
 
 
 void
 GNERoute::updateGeometry() {
-    // Clear all containers
-    myGeometry.clearGeometry();
-
-    // calculate start and end positions depending of number of lanes
-    if (getEdgeParents().size() == 1) {
-        // append shape
-        myGeometry.shape = getEdgeParents().back()->getLanes().front()->getGeometry().shape;
-
-        // calculate multi shape rotation and lengths
-        myGeometry.calculateShapeRotationsAndLengths();
-
-    } else if (getEdgeParents().size() > 1) {
-        // declare a vector of shapes
-        std::vector<PositionVector> multiShape;
-
-        // start with the first lane shape
-        multiShape.push_back(getEdgeParents().front()->getLanes().front()->getGeometry().shape);
-
-        // add first shape connection (if exist, in other case leave it empty)
-        multiShape.push_back(PositionVector{getEdgeParents().at(0)->getLanes().front()->getGeometry().shape.back(), getEdgeParents().at(1)->getLanes().front()->getGeometry().shape.front()});
-        for (auto j : getEdgeParents().at(0)->getGNEConnections()) {
-            if (j->getLaneTo() == getEdgeParents().at(1)->getLanes().front()) {
-                multiShape.back() = j->getGeometry().shape;
-            }
-        }
-
-        // append shapes of intermediate lanes AND connections (if exist)
-        for (int i = 1; i < ((int)getEdgeParents().size() - 1); i++) {
-            // add lane shape
-            multiShape.push_back(getEdgeParents().at(i)->getLanes().front()->getGeometry().shape);
-            // add empty shape for connection
-            multiShape.push_back(PositionVector{getEdgeParents().at(i)->getLanes().front()->getGeometry().shape.back(), getEdgeParents().at((int)i + 1)->getLanes().front()->getGeometry().shape.front()});
-            // set connection shape (if exist). In other case, insert an empty shape
-            for (auto j : getEdgeParents().at(i)->getGNEConnections()) {
-                if (j->getLaneTo() == getEdgeParents().at((int)i + 1)->getLanes().front()) {
-                    multiShape.back() = j->getGeometry().shape;
-                }
-            }
-        }
-
-        // append last shape
-        multiShape.push_back(getEdgeParents().back()->getLanes().front()->getGeometry().shape);
-
-        // calculate unified shape
-        for (auto i : multiShape) {
-            myGeometry.shape.append(i);
-        }
-        myGeometry.shape.removeDoublePoints();
-
-        // calculate multi shape rotation and lengths
-        myGeometry.calculateShapeRotationsAndLengths();
-    }
-
-    // update demand element childs
+    // only update demand element childs, because Route uses the geometry of lane parent
     for (const auto& i : getDemandElementChilds()) {
         i->updateGeometry();
     }
@@ -249,6 +208,22 @@ GNERoute::getPositionInView() const {
 std::string
 GNERoute::getParentName() const {
     return myViewNet->getNet()->getMicrosimID();
+}
+
+
+Boundary
+GNERoute::getCenteringBoundary() const {
+    Boundary routeBoundary;
+    // return the combination of all edge parents's boundaries
+    for (const auto &i : getEdgeParents()) {
+        routeBoundary.add(i->getCenteringBoundary());
+    }
+    // check if is valid
+    if (routeBoundary.isInitialised()) {
+        return routeBoundary;
+    } else {
+        return Boundary(-0.1, -0.1, 0.1, 0.1);
+    }
 }
 
 
@@ -444,7 +419,7 @@ GNERoute::GNERoutePopupMenu::onCmdApplyDistance(FXObject*, FXSelector, void*) {
     GNEViewNet* viewNet = static_cast<GNEViewNet*>(myParent);
     GNEUndoList* undoList =  route->myViewNet->getUndoList();
     undoList->p_begin("apply distance along route");
-    double dist = route->getEdgeParents().front()->getNBEdge()->getDistance();
+    double dist = (route->getEdgeParents().size() > 0)? route->getEdgeParents().front()->getNBEdge()->getDistance() : 0;
     for (GNEEdge* edge : route->getEdgeParents()) {
         undoList->p_add(new GNEChange_Attribute(edge, viewNet->getNet(), SUMO_ATTR_DISTANCE, toString(dist), true, edge->getAttribute(SUMO_ATTR_DISTANCE)));
         dist += edge->getNBEdge()->getFinalLength();

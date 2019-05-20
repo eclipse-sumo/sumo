@@ -72,6 +72,12 @@ public:
 
     /// @name Functions related with geometry of element
     /// @{
+    /// @brief begin geometry movement
+    void startGeometryMoving();
+
+    /// @brief end movement
+    void endGeometryMoving();
+
     /**@brief change the position of the element geometry without saving in undoList
      * @param[in] offset Position used for calculate new position of geometry without updating RTree
      */
@@ -95,6 +101,11 @@ public:
      * @return This object's parent id
      */
     std::string getParentName() const;
+
+    /**@brief Returns the boundary to which the view shall be centered in order to show the object
+     * @return The boundary the object is within
+     */
+    Boundary getCenteringBoundary() const;
 
     /**@brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
@@ -163,6 +174,48 @@ public:
     double getEndGeometryPositionOverLane() const;
 
 protected:
+    /// @brief struct for pack all variables related with geometry of stop
+    struct StopGeometry {
+        /// @brief constructor
+        StopGeometry();
+
+        /// @brief reset geometry
+        void clearGeometry();
+
+        /// @brief calculate shape rotations and lenghts
+        void calculateShapeRotationsAndLengths();
+
+        /// @brief The shape of the additional element
+        PositionVector shape;
+
+        /// @brief The rotations of the single shape parts
+        std::vector<double> shapeRotations;
+
+        /// @brief The lengths of the single shape parts
+        std::vector<double> shapeLengths;
+    };
+
+     /// @brief struct for pack all variables related with Stop moving
+    struct StopMove {
+        /// @brief boundary used during moving of elements (to avoid insertion in RTREE)
+        Boundary movingGeometryBoundary;
+
+        /// @brief value for saving first original position over lane before moving
+        Position originalViewPosition;
+
+        /// @brief value for saving first original position over lane before moving
+        std::string firstOriginalLanePosition;
+
+        /// @brief value for saving second original position over lane before moving
+        std::string secondOriginalPosition;
+    };
+
+    /// @brief stop geometry (used by stops over lanes
+    StopGeometry myStopGeometry;
+    
+    /// @brief variable StopMove
+    StopMove myStopMove;
+
     /// @brief Flag for friendly position
     bool myFriendlyPosition;
 
