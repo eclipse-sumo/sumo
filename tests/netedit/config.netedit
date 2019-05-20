@@ -46,7 +46,7 @@ output:+++
 output:\\{REPLACE /}
 output:script{LINES 1}
 output:  File{LINES 1}
-output:C:/{LINES 1}
+output:{INTERNAL writedir}
 errors:Leaked object at 
 errors:*** 9 leaks found
 errors:delete: freed
