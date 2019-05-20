@@ -143,7 +143,7 @@ def translateKeys(value, layout="de"):
     return "".join(map(lambda x: tr.get(x, x), value))
 
 
-def pasteIntoTextField(value, removePreviousContents=True, useClipboard=False, layout="de"):
+def pasteIntoTextField(value, removePreviousContents=True, useClipboard=True, layout="de"):
     """
     @brief paste value into current text field
     """
