@@ -258,7 +258,7 @@ GNEFrame::ItemSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
 }
 
 // ---------------------------------------------------------------------------
-// GNEFrame::NeteditAttributes- methods
+// GNEFrame::AttributesCreator - methods
 // ---------------------------------------------------------------------------
 
 GNEFrame::AttributesCreator::AttributesCreator(GNEFrame* frameParent) :
@@ -2929,6 +2929,89 @@ GNEFrame::NeteditAttributes::setEndPosition(double positionOfTheMouseOverLane, d
             return positionOfTheMouseOverLane + lengthOfAdditional / 2;
         default:
             throw InvalidArgument("Reference Point invalid");
+    }
+}
+
+// ---------------------------------------------------------------------------
+// GNEFrame::SelectorParent - methods
+// ---------------------------------------------------------------------------
+
+GNEFrame::SelectorParent::SelectorParent(GNEFrame* frameParent) :
+    FXGroupBox(frameParent->myContentFrame, "Parent selector", GUIDesignGroupBoxFrame),
+    myFrameParent(frameParent),
+    myParentTag(SUMO_TAG_NOTHING) {
+    // Create label with the type of SelectorParent
+    myParentsLabel = new FXLabel(this, "No additional selected", nullptr, GUIDesignLabelLeftThick);
+    // Create list
+    myParentsList = new FXList(this, this, MID_GNE_SET_TYPE, GUIDesignListSingleElementFixedHeight);
+    // Hide List
+    hideSelectorParentModul();
+}
+
+
+GNEFrame::SelectorParent::~SelectorParent() {}
+
+
+std::string
+GNEFrame::SelectorParent::getIdSelected() const {
+    for (int i = 0; i < myParentsList->getNumItems(); i++) {
+        if (myParentsList->isItemSelected(i)) {
+            return myParentsList->getItem(i)->getText().text();
+        }
+    }
+    return "";
+}
+
+
+void
+GNEFrame::SelectorParent::setIDSelected(const std::string& id) {
+    // first unselect all
+    for (int i = 0; i < myParentsList->getNumItems(); i++) {
+        myParentsList->getItem(i)->setSelected(false);
+    }
+    // select element if correspond to given ID
+    for (int i = 0; i < myParentsList->getNumItems(); i++) {
+        if (myParentsList->getItem(i)->getText().text() == id) {
+            myParentsList->getItem(i)->setSelected(true);
+        }
+    }
+    // recalc myFirstParentsList
+    myParentsList->recalc();
+}
+
+
+bool
+GNEFrame::SelectorParent::showSelectorParentModul(SumoXMLTag additionalType) {
+    // make sure that we're editing an additional tag
+    auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNEAttributeCarrier::TagType::TAGTYPE_ADDITIONAL, false);
+    for (auto i : listOfTags) {
+        if (i == additionalType) {
+            myParentTag = additionalType;
+            myParentsLabel->setText(("Parent type: " + toString(additionalType)).c_str());
+            refreshSelectorParentModul();
+            show();
+            return true;
+        }
+    }
+    return false;
+}
+
+
+void
+GNEFrame::SelectorParent::hideSelectorParentModul() {
+    myParentTag = SUMO_TAG_NOTHING;
+    hide();
+}
+
+
+void
+GNEFrame::SelectorParent::refreshSelectorParentModul() {
+    myParentsList->clearItems();
+    if (myParentTag != SUMO_TAG_NOTHING) {
+        // fill list with IDs of additionals
+        for (const auto &i : myFrameParent->getViewNet()->getNet()->getAttributeCarriers().additionals.at(myParentTag)) {
+            myParentsList->appendItem(i.first.c_str());
+        }
     }
 }
 

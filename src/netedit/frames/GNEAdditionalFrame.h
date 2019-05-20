@@ -122,47 +122,6 @@ public:
     };
 
     // ===========================================================================
-    // class SelectorAdditionalParent
-    // ===========================================================================
-
-    class SelectorAdditionalParent : protected FXGroupBox {
-    public:
-        /// @brief constructor
-        SelectorAdditionalParent(GNEAdditionalFrame* additionalFrameParent);
-
-        /// @brief destructor
-        ~SelectorAdditionalParent();
-
-        /// @brief get currently additional parent selected
-        std::string getIdSelected() const;
-
-        /// @brief select manually a element of the list
-        void setIDSelected(const std::string& id);
-
-        /// @brief Show list of SelectorAdditionalParent Modul
-        bool showSelectorAdditionalParentModul(SumoXMLTag additionalTypeParent);
-
-        /// @brief hide SelectorAdditionalParent Modul
-        void hideSelectorAdditionalParentModul();
-
-        /// @brief Refresh list of Additional Parents Modul
-        void refreshSelectorAdditionalParentModul();
-
-    private:
-        /// @brief pointer to Additional Frame Parent
-        GNEAdditionalFrame* myAdditionalFrameParent;
-
-        /// @brief current additional type parent
-        SumoXMLTag myAdditionalTypeParent;
-
-        /// @brief Label with the name of additional
-        FXLabel* myFirstAdditionalParentsLabel;
-
-        /// @brief List of additional sets
-        FXList* myFirstAdditionalParentsList;
-    };
-
-    // ===========================================================================
     // class SelectorEdgeChilds
     // ===========================================================================
 
@@ -365,8 +324,8 @@ private:
     /// @brief Modul for select lane parents (currently only consecutives)
     SelectorLaneParents* mySelectorLaneParents;
 
-    /// @brief Modul for select a single additional parent (Used only for first Additional parent)
-    SelectorAdditionalParent* mySelectorAdditionalParent;
+    /// @brief Modul for select a single additional parent
+    SelectorParent* myAdditionalParent;
 
     /// @brief Modul for select edge childs
     SelectorEdgeChilds* mySelectorEdgeChilds;

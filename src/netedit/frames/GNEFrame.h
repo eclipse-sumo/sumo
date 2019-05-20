@@ -756,6 +756,47 @@ public:
         AdditionalReferencePoint myActualAdditionalReferencePoint;
     };
 
+    // ===========================================================================
+    // class SelectorParent
+    // ===========================================================================
+
+    class SelectorParent : protected FXGroupBox {
+    public:
+        /// @brief constructor
+        SelectorParent(GNEFrame* frameParent);
+
+        /// @brief destructor
+        ~SelectorParent();
+
+        /// @brief get currently additional parent selected
+        std::string getIdSelected() const;
+
+        /// @brief select manually a element of the list
+        void setIDSelected(const std::string& id);
+
+        /// @brief Show list of SelectorParent Modul
+        bool showSelectorParentModul(SumoXMLTag additionalTypeParent);
+
+        /// @brief hide SelectorParent Modul
+        void hideSelectorParentModul();
+
+        /// @brief Refresh list of Additional Parents Modul
+        void refreshSelectorParentModul();
+
+    private:
+        /// @brief pointer to Frame Parent
+        GNEFrame* myFrameParent;
+
+        /// @brief current additional parent tag
+        SumoXMLTag myParentTag;
+
+        /// @brief Label with parent name
+        FXLabel* myParentsLabel;
+
+        /// @brief List of parents
+        FXList* myParentsList;
+    };
+
     /**@brief Constructor
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
