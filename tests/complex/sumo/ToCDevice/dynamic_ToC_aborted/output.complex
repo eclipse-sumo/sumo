@@ -298,128 +298,128 @@ time step 46000
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 13.89
-  state = AUTOMATED
+  state = PREPARING_TOC
 Time 47.0: Current lane of veh 'ToC_veh': WE_1
 time step 47000
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 13.89
-  state = AUTOMATED
+  state = PREPARING_TOC
 Time 48.0: Current lane of veh 'ToC_veh': WE_1
 time step 48000
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 13.89
-  state = AUTOMATED
+  state = PREPARING_TOC
 Time 49.0: Current lane of veh 'ToC_veh': WE_1
 time step 49000
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 13.89
-  state = AUTOMATED
+  state = PREPARING_TOC
 Time 50.0: Current lane of veh 'ToC_veh': WE_1
 time step 50000
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 13.89
-  state = AUTOMATED
-Time 51.0: Current lane of veh 'ToC_veh': WE_1
+  state = PREPARING_TOC
+Induce abort of dynamic ToC: Allowing LCs!
+Time 51.0: Current lane of veh 'ToC_veh': WE_0
 time step 51000
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 13.89
-  state = AUTOMATED
-Time 52.0: Current lane of veh 'ToC_veh': WE_1
+  state = PREPARING_TOC
+Time 52.0: Current lane of veh 'ToC_veh': WE_0
 time step 52000
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 13.89
   state = AUTOMATED
-Time 53.0: Current lane of veh 'ToC_veh': WE_1
+Time 53.0: Current lane of veh 'ToC_veh': WE_0
 time step 53000
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 13.89
   state = AUTOMATED
-Time 54.0: Current lane of veh 'ToC_veh': WE_1
+Time 54.0: Current lane of veh 'ToC_veh': WE_0
 time step 54000
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 13.89
   state = AUTOMATED
-Time 55.0: Current lane of veh 'ToC_veh': WE_1
+Time 55.0: Current lane of veh 'ToC_veh': WE_0
 time step 55000
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 13.89
   state = AUTOMATED
-Time 56.0: Current lane of veh 'ToC_veh': WE_1
+Time 56.0: Current lane of veh 'ToC_veh': WE_0
 time step 56000
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 13.89
   state = AUTOMATED
-Time 57.0: Current lane of veh 'ToC_veh': WE_1
+Time 57.0: Current lane of veh 'ToC_veh': WE_0
 time step 57000
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 13.89
   state = AUTOMATED
-Time 58.0: Current lane of veh 'ToC_veh': WE_1
+Time 58.0: Current lane of veh 'ToC_veh': WE_0
 time step 58000
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 13.89
   state = AUTOMATED
-Time 59.0: Current lane of veh 'ToC_veh': WE_1
+Time 59.0: Current lane of veh 'ToC_veh': WE_0
 time step 59000
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 13.89
   state = AUTOMATED
-Time 60.0: Current lane of veh 'ToC_veh': WE_1
+Time 60.0: Current lane of veh 'ToC_veh': WE_0
 time step 60000
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 13.89
-  state = PREPARING_TOC
-Time 61.0: Current lane of veh 'ToC_veh': WE_1
+  state = AUTOMATED
+Time 61.0: Current lane of veh 'ToC_veh': WE_0
 time step 61000
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 13.89
-  state = PREPARING_TOC
-Time 62.0: Current lane of veh 'ToC_veh': WE_1
+  state = AUTOMATED
+Time 62.0: Current lane of veh 'ToC_veh': WE_0
 time step 62000
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 13.89
-  state = PREPARING_TOC
-Time 63.0: Current lane of veh 'ToC_veh': WE_1
+  state = AUTOMATED
+Time 63.0: Current lane of veh 'ToC_veh': WE_0
 time step 63000
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 13.89
-  state = PREPARING_TOC
-Time 64.0: Current lane of veh 'ToC_veh': WE_1
+  state = AUTOMATED
+Time 64.0: Current lane of veh 'ToC_veh': WE_0
 time step 64000
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 13.89
-  state = PREPARING_TOC
-Time 65.0: Current lane of veh 'ToC_veh': WE_1
+  state = AUTOMATED
+Time 65.0: Current lane of veh 'ToC_veh': WE_0
 time step 65000
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 13.89
-  state = PREPARING_TOC
-Induce abort of dynamic ToC: Allowing LCs!
+  state = AUTOMATED
 Time 66.0: Current lane of veh 'ToC_veh': WE_0
 time step 66000
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 13.89
-  state = PREPARING_TOC
+  state = AUTOMATED
 Time 67.0: Current lane of veh 'ToC_veh': WE_0
 time step 67000
 ToC device infos for vehicle 'ToC_veh'
