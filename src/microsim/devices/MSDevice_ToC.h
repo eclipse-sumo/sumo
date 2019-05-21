@@ -26,6 +26,8 @@
 // ===========================================================================
 #include <config.h>
 
+#include <random>
+#include <queue>
 #include "MSVehicleDevice.h"
 #include <utils/common/SUMOTime.h>
 #include <utils/common/WrappingCommand.h>
@@ -125,6 +127,7 @@ private:
     static double getInitialAwareness(const SUMOVehicle& v, const OptionsCont& oc);
     static double getMRMDecel(const SUMOVehicle& v, const OptionsCont& oc);
     static double getDynamicToCThreshold(const SUMOVehicle& v, const OptionsCont& oc);
+    static double getDynamicMRMProbability(const SUMOVehicle& v, const OptionsCont& oc);
     static bool useColorScheme(const SUMOVehicle& v, const OptionsCont& oc);
     static std::string getOutputFilename(const SUMOVehicle& v, const OptionsCont& oc);
     static OpenGapParams getOpenGapParams(const SUMOVehicle& v, const OptionsCont& oc);
@@ -182,6 +185,9 @@ public:
         return myOutputFile != nullptr;
     }
 
+    static std::mt19937* getResponseTimeRNG() {
+    	return &myResponseTimeRNG;
+    }
 private:
     /** @brief Constructor
      *
@@ -201,7 +207,7 @@ private:
     MSDevice_ToC(SUMOVehicle& holder, const std::string& id, const std::string& outputFilename,
                  std::string manualType, std::string automatedType, SUMOTime responseTime, double recoveryRate,
                  double lcAbstinence, double initialAwareness, double mrmDecel,
-				 double dynamicToCThreshold, bool useColorScheme, OpenGapParams ogp);
+				 double dynamicToCThreshold, double dynamicMRMProbability, bool useColorScheme, OpenGapParams ogp);
 
     /** @brief Initialize vehicle colors for different states
      *  @note  For MANUAL and AUTOMATED, the color of the given types are used,
@@ -224,7 +230,10 @@ private:
     ///        an MRM is scheduled as well.
     ///        If the device is in MANUAL or UNDEFINED state, it switches to AUTOMATED.
     ///        The request is ignored if the state is already PREPARING_TOC.
-    void requestToC(SUMOTime timeTillMRM);
+    /// @param timeTillMRM
+    /// @param responseTime If the default is given (== -1), the response time is sampled randomly,
+    ///		   @see sampleResponseTime()
+    void requestToC(SUMOTime timeTillMRM, SUMOTime responseTime = -1);
 
     /// @brief Request an MRM to be initiated immediately. No downward ToC will be scheduled.
     /// @note  The initiated MRM process will run forever until a new ToC is requested.
@@ -323,12 +332,39 @@ private:
     /// @brief Duration in s. for which the vehicle needs to be able to follow its route without a lane change
     ///        to continue in automated mode (only has effect if dynamic ToCs are activated, @see myDynamicToCActive)
     double myDynamicToCThreshold;
+    /// @brief Probability of an MRM to occur after a dynamically triggered ToC
+    // (Note that these MRMs will not induce full stops in most cases)
+    double myMRMProbability;
     /// @brief Switch for considering dynamic ToCs, @see myDynamicToCThreshold
     bool myDynamicToCActive;
     /// @brief Flag to indicate that a dynamically triggered ToC is in preparation
     bool myIssuedDynamicToC;
     /// @brief Lane, on which the ongoing dynamic ToC was issued. It can only be aborted if the lane was changed.
     int myDynamicToCLane;
+
+
+    // Grid of the response time distribution.
+    static std::vector<double> lookupResponseTimeMRMProbs;
+    static std::vector<double> lookupResponseTimeLeadTimes;
+    // Mean of the response time distribution. (Only depends on given lead time)
+    static double responseTimeMean(double leadTime) {
+        return MIN2(2*sqrt(leadTime), 0.7*leadTime);
+    };
+    // Variances of the response time distribution. Given the lead time and the MRM probability
+    // the variances in this table ensure that for the mean returned by responseTimeMean(leadTime)
+    // an MRM will occur with probability pMRM
+    static std::vector<std::vector<double> > lookupResponseTimeVariances;
+
+    // Random generator for ToC devices
+    static std::mt19937 myResponseTimeRNG;
+
+    // Samples a random driver response time from a truncated Gaussian with
+    // parameters according to the lookup tables
+    double sampleResponseTime(double leadTime) const;
+
+    // Two-dimensional interpolation of variance from lookup table
+    // assumes pMRM >= 0, leadTime >= 0
+    static double interpolateVariance(double leadTime, double pMRM);
 
 private:
     /// @brief Invalidated copy constructor.

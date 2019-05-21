@@ -24,6 +24,7 @@
 // ===========================================================================
 #include <config.h>
 
+#include <algorithm>
 #include <memory>
 #include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
@@ -62,6 +63,9 @@
 #define DEFAULT_MRM_DECEL 1.5
 // The default value for the dynamic ToC threshold indicates that the dynamic ToCs are deactivated
 #define DEFAULT_DYNAMIC_TOC_THRESHOLD 0.0
+// The default value for the probability of an MRM to occur after a dynamically triggered ToC
+// (Note that these MRMs will not induce full stops in most cases)
+#define DEFAULT_MRM_PROBABILITY 0.05
 
 // The factor by which the dynamic ToC threshold time is multiplied to yield the lead time given for the corresponding ToC
 #define DYNAMIC_TOC_LEADTIME_FACTOR 0.75
@@ -79,7 +83,11 @@
 #define DEFAULT_MANUAL_TYPE ""
 #define DEFAULT_AUTOMATED_TYPE ""
 
-
+// Maximal tries to sample a positive value from the gaussian distribution
+// used for the driver response time when a TOR is issued. (the distribution is assumed truncated at zero)
+#define MAX_RESPONSETIME_SAMPLE_TRIES 100
+// Maximal variance of responsetimes (returned for pMRM outside lookup table, i.e. pMRM>0.5), see interpolateVariance()
+#define MAX_RESPONSETIME_VARIANCE 10000
 
 
 // ---------------------------------------------------------------------------
@@ -88,6 +96,8 @@
 std::set<MSDevice_ToC*> MSDevice_ToC::instances = std::set<MSDevice_ToC*>();
 std::set<std::string> MSDevice_ToC::createdOutputFiles;
 int MSDevice_ToC::LCModeMRM = 768; // = 0b001100000000 - no autonomous changes, no speed adaptation
+std::mt19937 MSDevice_ToC::myResponseTimeRNG;
+
 
 // ===========================================================================
 // method definitions
@@ -116,6 +126,8 @@ MSDevice_ToC::insertOptions(OptionsCont& oc) {
     oc.addDescription("device.toc.mrmDecel", "ToC Device", "Deceleration rate applied during a 'minimum risk maneuver'.");
     oc.doRegister("device.toc.dynamicToCThreshold", new Option_Float(DEFAULT_DYNAMIC_TOC_THRESHOLD));
     oc.addDescription("device.toc.dynamicToCThreshold", "ToC Device", "Time, which the vehicle requires to have ahead to continue in automated mode. The default value of 0 indicates no dynamic triggering of ToCs.");
+    oc.doRegister("device.toc.dynamicMRMProbability", new Option_Float(DEFAULT_MRM_PROBABILITY));
+    oc.addDescription("device.toc.dynamicMRMProbability", "ToC Device", "Probability that a dynamically triggered TOR is not answered in time.");
     oc.doRegister("device.toc.ogNewTimeHeadway", new Option_Float(-1.0));
     oc.addDescription("device.toc.ogNewTimeHeadway", "ToC Device", "Timegap for ToC preparation phase.");
     oc.doRegister("device.toc.ogNewSpaceHeadway", new Option_Float(-1.0));
@@ -147,11 +159,12 @@ MSDevice_ToC::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>&
         std::string file = getOutputFilename(v, oc);
         OpenGapParams ogp = getOpenGapParams(v, oc);
         const double dynamicToCThreshold = getDynamicToCThreshold(v, oc);
+        const double dynamicMRMProbability = getDynamicMRMProbability(v, oc);
         // build the device
         MSDevice_ToC* device = new MSDevice_ToC(v, deviceID, file,
                                                 manualType, automatedType, responseTime, recoveryRate,
                                                 lcAbstinence, initialAwareness, mrmDecel, dynamicToCThreshold,
-												useColoring, ogp);
+												dynamicMRMProbability, useColoring, ogp);
         into.push_back(device);
     }
 }
@@ -219,6 +232,11 @@ MSDevice_ToC::getDynamicToCThreshold(const SUMOVehicle& v, const OptionsCont& oc
     return getFloatParam(v, oc, "toc.dynamicToCThreshold", DEFAULT_DYNAMIC_TOC_THRESHOLD, false);
 }
 
+double
+MSDevice_ToC::getDynamicMRMProbability(const SUMOVehicle& v, const OptionsCont& oc) {
+    return getFloatParam(v, oc, "toc.dynamicMRMProbability", DEFAULT_MRM_PROBABILITY, false);
+}
+
 bool
 MSDevice_ToC::useColorScheme(const SUMOVehicle& v, const OptionsCont& oc) {
     return getBoolParam(v, oc, "toc.useColorScheme", "false", false);
@@ -275,7 +293,7 @@ MSDevice_ToC::getOpenGapParams(const SUMOVehicle& v, const OptionsCont& oc) {
 MSDevice_ToC::MSDevice_ToC(SUMOVehicle& holder, const std::string& id, const std::string& outputFilename,
                            std::string manualType, std::string automatedType, SUMOTime responseTime, double recoveryRate,
                            double lcAbstinence, double initialAwareness, double mrmDecel,
-						   double dynamicToCThreshold, bool useColoring, OpenGapParams ogp) :
+						   double dynamicToCThreshold, double dynamicMRMProbability, bool useColoring, OpenGapParams ogp) :
     MSVehicleDevice(holder, id),
     myManualTypeID(manualType),
     myAutomatedTypeID(automatedType),
@@ -296,6 +314,7 @@ MSDevice_ToC::MSDevice_ToC(SUMOVehicle& holder, const std::string& id, const std
     myPreviousLCMode(-1),
     myOpenGapParams(ogp),
     myDynamicToCThreshold(dynamicToCThreshold),
+	myMRMProbability(dynamicMRMProbability),
     myDynamicToCActive(dynamicToCThreshold > 0),
 	myDynamicToCLane(-1) {
     // Take care! Holder is currently being constructed. Cast occurs before completion.
@@ -466,15 +485,17 @@ MSDevice_ToC::requestMRM() {
 
 
 void
-MSDevice_ToC::requestToC(SUMOTime timeTillMRM) {
+MSDevice_ToC::requestToC(SUMOTime timeTillMRM, SUMOTime responseTime) {
 #ifdef DEBUG_TOC
     std::cout << SIMTIME << " requestToC() for vehicle '" << myHolder.getID() << "' , timeTillMRM=" << timeTillMRM << std::endl;
 #endif
     if (myState == AUTOMATED) {
         // Initialize preparation phase
 
-        // @todo: Sample response time from distribution
-        SUMOTime responseTime = myResponseTime;
+        if (responseTime == -1) {
+            // Sample response time from distribution
+        	responseTime = TIME2STEPS(sampleResponseTime(STEPS2TIME(timeTillMRM)));
+        }
 
         // Schedule ToC Event
         myTriggerToCCommand = new WrappingCommand<MSDevice_ToC>(this, &MSDevice_ToC::triggerDownwardToC);
@@ -787,6 +808,8 @@ MSDevice_ToC::getParameter(const std::string& key) const {
         return toString(myDynamicToCActive);
     } else if (key == "dynamicToCThreshold") {
         return toString(myDynamicToCThreshold);
+    } else if (key == "dynamicMRMProbability") {
+        return toString(myMRMProbability);
     }
     throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
 }
@@ -831,7 +854,7 @@ MSDevice_ToC::setParameter(const std::string& key, const std::string& value) {
     } else if (key == "requestToC") {
         // setting this magic parameter gives the interface for inducing a ToC
         const SUMOTime timeTillMRM = TIME2STEPS(StringUtils::toDouble(value));
-        requestToC(timeTillMRM);
+        requestToC(timeTillMRM, myResponseTime);
     } else if (key == "requestMRM") {
         // setting this magic parameter gives the interface for inducing an MRM
         requestMRM();
@@ -847,8 +870,16 @@ MSDevice_ToC::setParameter(const std::string& key, const std::string& value) {
     		myDynamicToCActive = false;
     	} else {
     		myDynamicToCThreshold = newValue;
+    		myDynamicToCActive = true;
     	}
-    } else {
+    } else if (key == "dynamicMRMProbability") {
+	const double newValue = StringUtils::toDouble(value);
+	if (newValue < 0) {
+		WRITE_WARNING("Value of dynamicMRMProbability must be non-negative. (Given value " + value + " for vehicle " + myHolderMS->getID() + " is ignored)");
+	} else {
+		myMRMProbability = newValue;
+	}
+} else {
     	throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
     }
 }
@@ -1045,6 +1076,113 @@ MSDevice_ToC::checkDynamicToC() {
 
 	return false;
 }
+
+double
+MSDevice_ToC::sampleResponseTime(double leadTime) const {
+#ifdef DEBUG_DYNAMIC_TOC
+	std::cout << "sampleResponseTime() leadTime=" << leadTime << std::endl;
+#endif
+	const double mean = responseTimeMean(leadTime);
+	const double var = interpolateVariance(leadTime, myMRMProbability);
+	std::normal_distribution<double> d(mean, var);
+	double rt = d(myResponseTimeRNG);
+#ifdef DEBUG_DYNAMIC_TOC
+	std::cout << "  mean=" << mean << ", variance=" << var << " => sampled responseTime=" << rt << std::endl;
+#endif
+	int it_count = 0;
+	while (rt < 0 && it_count < MAX_RESPONSETIME_SAMPLE_TRIES) {
+		rt = d(myResponseTimeRNG);
+		it_count++;
+	}
+	if (rt < 0) {
+		// Didn't generate a positive random response time => use mean
+		rt = mean;
+	}
+	return rt;
+}
+
+double
+MSDevice_ToC::interpolateVariance(double leadTime, double pMRM) {
+#ifdef DEBUG_DYNAMIC_TOC
+	std::cout << "interpolateVariance() leadTime=" << leadTime << ", pMRM=" << pMRM << std::endl;
+#endif
+	// Calculate indices for surrounding values in lookup tables
+
+	// Find largest p_{i-1} < pMRM < p_{i}
+	const auto pi = std::lower_bound(lookupResponseTimeMRMProbs.begin(), lookupResponseTimeMRMProbs.end(), pMRM);
+	if (pi == lookupResponseTimeMRMProbs.end()) {
+		// requested probability lies outside lookup table.
+		// => return maximal variance value
+		return MAX_RESPONSETIME_VARIANCE;
+	}
+	const size_t pi1 = pi - lookupResponseTimeMRMProbs.begin();
+	assert(pi1 > 0);
+	const size_t pi0 = pi1 - 1;
+	const double cp = (pMRM - *(pi-1)) / (*pi - *(pi-1));
+
+#ifdef DEBUG_DYNAMIC_TOC
+	std::cout << " p[=" << pi0 << "]=" << *(pi-1) << ", p[=" << pi1 << "]=" << *pi << " => cp=" << cp << std::endl;
+#endif
+
+	// Find largest p_{i-1} < pMRM < p_{i}
+	auto li = std::lower_bound(lookupResponseTimeLeadTimes.begin(), lookupResponseTimeLeadTimes.end(), leadTime);
+	if(li == lookupResponseTimeLeadTimes.begin()) {
+		// Given lead time smaller than minimal lookup-value.
+		// Use minimal value from lookup table instead
+		leadTime = *li;
+		li = lookupResponseTimeLeadTimes.begin()+1;
+	} else if(li == lookupResponseTimeLeadTimes.end()) {
+		// Given leadTime exceeds values in lookup table
+		// => induce extrapolation
+		li--;
+	}
+	const size_t li1 = li - lookupResponseTimeLeadTimes.begin();
+	const size_t li0 = li1 - 1;
+	const double cl = (leadTime - *(li-1)) / (*li - *(li-1));
+
+#ifdef DEBUG_DYNAMIC_TOC
+	std::cout << " l[=" << li0 << "]=" << *(li-1) << ", l[=" << li1 << "]=" << *li << " => cp=" << cl << std::endl;
+#endif
+
+	// 2D interpolation for variance
+	// First, interpolate (or extrapolate) variances along leadTimes
+	const double var00 = lookupResponseTimeVariances[pi0][li0];
+	const double var01 = lookupResponseTimeVariances[pi0][li1];
+	const double var10 = lookupResponseTimeVariances[pi1][li0];
+	const double var11 = lookupResponseTimeVariances[pi1][li1];
+	const double var_0 = var00 + (var01 - var00)*cl;
+	const double var_1 = var10 + (var11 - var10)*cl;
+	// From these, interpolate along the pMRM-axis
+	const double var = var_0 + (var_1 - var_0)*cp;
+#ifdef DEBUG_DYNAMIC_TOC
+	std::cout << " var00=" << var00 << ", var01=" << var01 << " var10=" << var10 << ", var11=" << var11
+			<< " var_0=" << var_0 << ", var_1=" << var_1 << ", var=" << var << std::endl;
+#endif
+	return var;
+}
+
+// Grid of the response time distribution.
+// Probability for an MRM to occur (start with 0.0, end with 0.5)
+std::vector<double> MSDevice_ToC::lookupResponseTimeMRMProbs = {0.0, 0.05, 0.1, 0.15000000000000002, 0.2, 0.25, 0.30000000000000004, 0.35000000000000003, 0.4, 0.45, 0.5};
+// Lead time grid
+std::vector<double> MSDevice_ToC::lookupResponseTimeLeadTimes = {0.1, 0.4, 0.7, 1.0};
+
+// Variances of the response time distribution.
+std::vector<std::vector<double> > MSDevice_ToC::lookupResponseTimeVariances = {
+{0.0001, 0.0001, 0.0001, 0.0001},
+{0.018238371642696278, 0.07295348656987645, 0.12766860149705656, 0.18238371642423673},
+{0.023394708584543455, 0.09357883433726513, 0.16376296009282898, 0.23394708584555063},
+{0.028809965676139145, 0.11523986270364789, 0.20166975973115658, 0.2880996567586654},
+{0.03496845765860337, 0.13987383063634692, 0.24477920361124836, 0.34968457658899194},
+{0.04208452197242317, 0.16833808789162616, 0.294591653807987, 0.42084521972719},
+{0.05029020480396514, 0.2011608192121097, 0.35203143362309647, 0.5029020480340831},
+{0.05974016468300759, 0.23896065872827943, 0.4181811527735513, 0.5974016468188231},
+{0.07067515415184052, 0.2827006166036112, 0.49472607905538185, 0.7067515415071527},
+{0.0834623671324666, 0.33384946852611547, 0.5842365699226064, 0.8346236713162553},
+{0.09864342769295685, 0.39457371076807657, 0.6905039938460386, 0.9864342769211584},
+};
+
+
 
 /****************************************************************************/
 
