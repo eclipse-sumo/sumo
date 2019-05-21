@@ -2263,6 +2263,9 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             }
         }
         adaptToLeaders(ahead, lateralShift, seen, lastLink, leaderLane, v, vLinkPass);
+        if (lastLink != nullptr) {
+            lastLink->myVLinkWait = MIN2(lastLink->myVLinkWait, v);
+        }
 #ifdef DEBUG_PLAN_MOVE
         if (DEBUG_COND) {
             std::cout << "\nv = " << v << "\n";
