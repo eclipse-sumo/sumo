@@ -286,10 +286,12 @@ GNERouteHandler::closeRoute(const bool /* mayBeDisconnected */) {
                 GNERoute* route = new GNERoute(myViewNet, myVehicleParameter->routeid, edges, myRouteColor, SVC_PASSENGER);
                 // create vehicle or trips using myTemporalVehicleParameter
                 GNEVehicle* vehicleOrRouteFlow = new GNEVehicle(myViewNet, *myVehicleParameter, vType, route);
+                /*
                 // set route as XML Child of vehicleOrRouteFlow
                 route->setXMLParent(vehicleOrRouteFlow);
                 // set vehicleOrRouteFlow as XML parent of route
                 vehicleOrRouteFlow->setXMLChild(route);
+                */
                 // add both to net depending of myUndoDemandElements
                 if (myUndoDemandElements) {
                     myViewNet->getUndoList()->p_begin("add vehicle and " + route->getTagStr());

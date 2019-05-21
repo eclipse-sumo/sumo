@@ -106,12 +106,6 @@ private:
 
     /// @brief reference to vector of demand element childs
     const std::vector<GNEDemandElement*>& myDemandElementChilds;
-
-    /// @brief reference to XMLChild parent
-    GNEXMLChild* myXMLChildParent;
-
-    /// @brief reference to XMLChild Child
-    GNEXMLChild* myXMLChildChild;
 };
 
 #endif

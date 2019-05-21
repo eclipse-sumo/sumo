@@ -53,9 +53,7 @@ GNEChange_DemandElement::GNEChange_DemandElement(GNEDemandElement* demandElement
     myLaneChilds(demandElement->getLaneChilds()),
     myShapeChilds(demandElement->getShapeChilds()),
     myAdditionalChilds(demandElement->getAdditionalChilds()),
-    myDemandElementChilds(demandElement->getDemandElementChilds()),
-    myXMLChildParent(demandElement->getXMLParent()),
-    myXMLChildChild(demandElement->getXMLChild()){
+    myDemandElementChilds(demandElement->getDemandElementChilds()) {
     myDemandElement->incRef("GNEChange_DemandElement");
 }
 
@@ -100,13 +98,6 @@ GNEChange_DemandElement::~GNEChange_DemandElement() {
             }
             for (const auto& i : myDemandElementChilds) {
                 i->removeDemandElementParent(myDemandElement);
-            }
-            // remove element from XML Parent and childs
-            if (myXMLChildParent) {
-                myXMLChildParent->setXMLChild(nullptr);
-            }
-            if (myXMLChildChild) {
-                myXMLChildChild->setXMLParent(nullptr);
             }
         }
         delete myDemandElement;
@@ -153,13 +144,6 @@ GNEChange_DemandElement::undo() {
         for (const auto& i : myDemandElementChilds) {
             i->removeDemandElementParent(myDemandElement);
         }
-        // remove element from XML Parent and childs
-        if (myXMLChildParent) {
-            myXMLChildParent->setXMLChild(nullptr);
-        }
-        if (myXMLChildChild) {
-            myXMLChildChild->setXMLParent(nullptr);
-        }
     } else {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "' in GNEChange_DemandElement");
@@ -196,13 +180,6 @@ GNEChange_DemandElement::undo() {
         }
         for (const auto& i : myDemandElementChilds) {
             i->addDemandElementParent(myDemandElement);
-        }
-        // add element in XML Parent and child
-        if (myXMLChildParent) {
-            myXMLChildParent->setXMLChild(myDemandElement);
-        }
-        if (myXMLChildChild) {
-            myXMLChildChild->setXMLParent(myDemandElement);
         }
     }
     // update vehicle type selector if demand element is a VType and vehicle type Frame is shown
@@ -253,13 +230,6 @@ GNEChange_DemandElement::redo() {
         for (const auto& i : myDemandElementChilds) {
             i->addDemandElementParent(myDemandElement);
         }
-        // add element in XML Parent and child
-        if (myXMLChildParent) {
-            myXMLChildParent->setXMLChild(myDemandElement);
-        }
-        if (myXMLChildChild) {
-            myXMLChildChild->setXMLParent(myDemandElement);
-        }
     } else {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "' in GNEChange_DemandElement");
@@ -296,13 +266,6 @@ GNEChange_DemandElement::redo() {
         }
         for (const auto& i : myDemandElementChilds) {
             i->removeDemandElementParent(myDemandElement);
-        }
-        // remove element from XML Parent and childs
-        if (myXMLChildParent) {
-            myXMLChildParent->setXMLChild(nullptr);
-        }
-        if (myXMLChildChild) {
-            myXMLChildChild->setXMLParent(nullptr);
         }
     }
     // update vehicle type selector if demand element is a VType and vehicle type Frame is shown

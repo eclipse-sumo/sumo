@@ -20,7 +20,6 @@ GNEUndoList.cpp GNEUndoList.h \
 GNEAttributeCarrier.cpp GNEAttributeCarrier.h \
 GNEHierarchicalElementParents.cpp GNEHierarchicalElementParents.h \
 GNEHierarchicalElementChilds.cpp GNEHierarchicalElementChilds.h \
-GNEXMLChild.cpp GNEXMLChild.h \
 GNEReferenceCounter.h \
 GNEEvent_NetworkLoaded.h
 

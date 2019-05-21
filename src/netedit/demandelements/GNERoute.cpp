@@ -110,20 +110,17 @@ GNERoute::getColor() const {
 
 void
 GNERoute::writeDemandElement(OutputDevice& device) const {
-    // only write if doesn't have a XML Parent
-    if (!getXMLParent()) {
-        device.openTag(SUMO_TAG_ROUTE);
-        device.writeAttr(SUMO_ATTR_ID, getDemandElementID());
-        device.writeAttr(SUMO_ATTR_EDGES, parseIDs(getEdgeParents()));
-        device.writeAttr(SUMO_ATTR_COLOR, toString(myColor));
-        // write stops associated to this route
-        for (const auto& i : getDemandElementChilds()) {
-            if (i->getTagProperty().isStop()) {
-                i->writeDemandElement(device);
-            }
+    device.openTag(SUMO_TAG_ROUTE);
+    device.writeAttr(SUMO_ATTR_ID, getDemandElementID());
+    device.writeAttr(SUMO_ATTR_EDGES, parseIDs(getEdgeParents()));
+    device.writeAttr(SUMO_ATTR_COLOR, toString(myColor));
+    // write stops associated to this route
+    for (const auto& i : getDemandElementChilds()) {
+        if (i->getTagProperty().isStop()) {
+            i->writeDemandElement(device);
         }
-        device.closeTag();
     }
+    device.closeTag();
 }
 
 
@@ -277,11 +274,14 @@ GNERoute::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_COLOR:
             return toString(myColor);
         case GNE_ATTR_PARENT:
+            /*
             if (getXMLParent()) {
                 return getXMLParent()->getDemandElement()->getID();
             } else {
                 return "";
             }
+            */
+            return "";
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_GENERIC:
@@ -381,6 +381,7 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
             myColor = parse<RGBColor>(value);
             break;
         case GNE_ATTR_PARENT:
+            /*
             if (value.empty()) {
                 changeXMLParent(nullptr);
             } else if(myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_VEHICLE, value, false) != nullptr) {
@@ -394,6 +395,7 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
             } else {
                 throw InvalidArgument("Invalid vehicle ID");
             }
+            */
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {
