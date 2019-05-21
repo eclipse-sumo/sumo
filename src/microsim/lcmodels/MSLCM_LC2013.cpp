@@ -65,10 +65,8 @@
 
 #define KEEP_RIGHT_TIME (double)5.0 // the number of seconds after which a vehicle should move to the right lane
 #define KEEP_RIGHT_ACCEPTANCE (double)7.0 // calibration factor for determining the desire to keep right
-#define ROUNDABOUT_DIST_BONUS (double)100.0 // valence (distance) for to faked per roundabout edge in front (inducing inner lane usage in roundabouts by decreasing sense of lc-urgency)
 
 #define ROUNDABOUT_DIST_FACTOR (double)10.0 // Must be >=1.0, serves an alternative way of decreasing sense lc-urgency by multiplying the distance along the next roundabout
-#define ROUNDABOUT_DIST_TRESH (double)10.0  // roundabout distances below ROUNDABOUT_DIST_TRESH are not multiplied by ROUNDABOUT_DIST_FACTOR
 
 #define KEEP_RIGHT_HEADWAY (double)2.0
 #define MAX_ONRAMP_LENGTH (double)200.
@@ -86,7 +84,7 @@
 //#define DEBUG_INFORMED
 //#define DEBUG_INFORMER
 //#define DEBUG_CONSTRUCTOR
-//#define DEBUG_WANTS_CHANGE
+#define DEBUG_WANTS_CHANGE
 //#define DEBUG_SLOW_DOWN
 //#define DEBUG_COOPERATE
 //#define DEBUG_SAVE_BLOCKER_LENGTH
@@ -1222,23 +1220,13 @@ MSLCM_LC2013::_wantsChange(
     // 1) get information about the next upcoming roundabout
     double roundaboutDistanceAhead = 0;
     double roundaboutDistanceAheadNeigh = 0;
-    int roundaboutEdgesAhead = 0;
-    int roundaboutEdgesAheadNeigh = 0;
+    int roundaboutExitsAhead = 0;
     if (!isOpposite()) {
-        getRoundaboutAheadInfo(this, curr, neigh, roundaboutDistanceAhead, roundaboutDistanceAheadNeigh, roundaboutEdgesAhead, roundaboutEdgesAheadNeigh);
+        getRoundaboutAheadInfo(this, curr, neigh, roundaboutDistanceAhead, roundaboutDistanceAheadNeigh, roundaboutExitsAhead);
     }
     // 2) add a distance bonus for roundabout edges
-    currentDist += roundaboutDistBonus(roundaboutDistanceAhead, roundaboutEdgesAhead);
-    neighDist += roundaboutDistBonus(roundaboutDistanceAheadNeigh, roundaboutEdgesAheadNeigh);
-
-#ifdef DEBUG_WANTS_CHANGE
-    if (DEBUG_COND) {
-        if (roundaboutEdgesAhead > 0) {
-            std::cout << " roundaboutEdgesAhead=" << roundaboutEdgesAhead << " roundaboutEdgesAheadNeigh=" << roundaboutEdgesAheadNeigh << "\n";
-//            std::cout << " roundaboutDistanceAhead=" << roundaboutDistanceAhead << " roundaboutDistanceAheadNeigh=" << roundaboutDistanceAheadNeigh << "\n";
-        }
-    }
-#endif
+    currentDist += roundaboutDistBonus(roundaboutDistanceAhead, roundaboutExitsAhead);
+    neighDist += roundaboutDistBonus(roundaboutDistanceAheadNeigh, roundaboutExitsAhead);
 
     const double usableDist = MAX2(currentDist - posOnLane - best.occupation * JAM_FACTOR, driveToNextStop);
     //- (best.lane->getVehicleNumber() * neighSpeed)); // VARIANT 9 jfSpeed
@@ -1363,7 +1351,7 @@ MSLCM_LC2013::_wantsChange(
         } else if (bestLaneOffset == 0
                    && (leader.first == 0 || !leader.first->isStopped())
                    && neigh.bestContinuations.back()->getLinkCont().size() != 0
-                   && roundaboutEdgesAhead == 0
+                   && roundaboutDistanceAhead == 0
                    && !checkOpposite
                    && neighDist < TURN_LANE_DIST) {
             // VARIANT_21 (stayOnBest)
@@ -1455,13 +1443,13 @@ MSLCM_LC2013::_wantsChange(
     const bool neighOccupancyInconvenient = neigh.lane->getBruttoOccupancy() > curr.lane->getBruttoOccupancy();
 
     // VARIANT_15
-    if (roundaboutEdgesAhead > 1) {
+    if (roundaboutExitsAhead > 1) {
 
 #ifdef DEBUG_WANTS_CHANGE
         if (DEBUG_COND) {
             std::cout << STEPS2TIME(currentTime)
                       << " veh=" << myVehicle.getID()
-                      << " roundaboutEdgesAhead=" << roundaboutEdgesAhead
+                      << " roundaboutExitsAhead=" << roundaboutExitsAhead
                       << " myLeftSpace=" << myLeftSpace
                       << "\n";
         }
@@ -1784,7 +1772,7 @@ MSLCM_LC2013::_wantsChange(
 
 void
 MSLCM_LC2013::getRoundaboutAheadInfo(const MSLCM_LC2013* lcm, const MSVehicle::LaneQ& curr, const MSVehicle::LaneQ& neigh,
-                                     double& roundaboutDistanceAhead, double& roundaboutDistanceAheadNeigh, int& roundaboutEdgesAhead, int& roundaboutEdgesAheadNeigh) {
+                                     double& roundaboutDistanceAhead, double& roundaboutDistanceAheadNeigh, int& roundaboutExitsAhead) {
 
     const MSVehicle& veh = lcm->myVehicle;
 
@@ -1821,64 +1809,40 @@ MSLCM_LC2013::getRoundaboutAheadInfo(const MSLCM_LC2013* lcm, const MSVehicle::L
     // add roundabout distance from neigh.lane on
     roundaboutDistanceAheadNeigh += distanceAlongNextRoundabout(neighPosition, neigh.lane, neigh.bestContinuations);
 
-#ifdef DEBUG_WANTS_CHANGE
-    if (lcm->debugVehicle()) {
-        std::cout << "roundaboutDistanceAhead = " << roundaboutDistanceAhead
-                  << " roundaboutDistanceAheadNeigh = " << roundaboutDistanceAheadNeigh
-                  << "\n";
-    }
-#endif
-
     // count the number of roundabout edges ahead to determine whether
     // special LC behavior is required (promoting the use of the inner lane, mainly)
-    roundaboutEdgesAhead = 0;
+    roundaboutExitsAhead = 0;
+    bool enteredRoundabout = false;
     for (std::vector<MSLane*>::const_iterator it = curr.bestContinuations.begin(); it != curr.bestContinuations.end(); ++it) {
         const MSLane* lane = *it;
         if (lane != nullptr && lane->getEdge().isRoundabout()) {
-            roundaboutEdgesAhead += 1;
-        } else if (roundaboutEdgesAhead > 0) {
-            // only check the next roundabout
+            enteredRoundabout = true;
+            if (lane->getEdge().getSuccessors().size() > 1) {
+                roundaboutExitsAhead += 1;
+            }
+        } else if (enteredRoundabout) {
+            // only check the first roundabout
             break;
         }
     }
-    roundaboutEdgesAheadNeigh = 0;
-    for (std::vector<MSLane*>::const_iterator it = neigh.bestContinuations.begin(); it != neigh.bestContinuations.end(); ++it) {
-        if ((*it) != nullptr && (*it)->getEdge().isRoundabout()) {
-            roundaboutEdgesAheadNeigh += 1;
-        } else if (roundaboutEdgesAheadNeigh > 0) {
-            // only check the next roundabout
-            break;
-        }
+
+#ifdef DEBUG_WANTS_CHANGE
+    if (lcm->debugVehicle()) {
+        std::cout << "roundaboutDistanceAhead=" << roundaboutDistanceAhead
+                  << " roundaboutDistanceAheadNeigh=" << roundaboutDistanceAheadNeigh
+                  << " roundaboutExitsAhead=" << roundaboutExitsAhead
+                  << "\n";
     }
-    return;
+#endif
 }
 
 
 double
-MSLCM_LC2013::roundaboutDistBonus(double roundaboutDistAhead, int roundaboutEdgesAhead) const {
-    // NOTE: Currently there are two variants, one taking into account only the number
-    //       of upcoming non-internal roundabout edges and adding ROUNDABOUT_DIST_BONUS per upcoming edge except the first.
-    //       Another variant uses the actual distance and multiplies it by a factor ROUNDABOUT_DIST_FACTOR.
-    //       Currently, the update rule decides which variant to take (because the second was experimentally implemented
-    //       in the ballistic branch (ticket860)). Both variants may be combined in future. Refs. #2576
-    if (MSGlobals::gSemiImplicitEulerUpdate) {
-        if (roundaboutEdgesAhead > 1) {
-            // Here we add a bonus length for each upcoming roundabout edge to the distance.
-            // XXX: That becomes problematic, if the vehicle enters the last round about edge,
-            // realizes suddenly that the change is very urgent and finds itself with very
-            // few space to complete the urgent strategic change frequently leading to
-            // a hang up on the inner lane.
-            return roundaboutEdgesAhead * ROUNDABOUT_DIST_BONUS * myCooperativeParam;
-        } else {
-            return 0.;
-        }
+MSLCM_LC2013::roundaboutDistBonus(double roundaboutDistanceAhead, double roundaboutExitsAhead) const {
+    if (roundaboutExitsAhead > 1) {
+        return roundaboutDistanceAhead * (ROUNDABOUT_DIST_FACTOR - 1.);
     } else {
-        // This weighs the roundabout edges' distance with a larger factor
-        if (roundaboutDistAhead > ROUNDABOUT_DIST_TRESH) {
-            return (roundaboutDistAhead - ROUNDABOUT_DIST_TRESH) * (ROUNDABOUT_DIST_FACTOR - 1.);
-        } else {
-            return 0.;
-        }
+        return 0;
     }
 }
 

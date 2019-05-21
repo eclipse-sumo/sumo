@@ -174,20 +174,18 @@ protected:
     /// @param[in] neigh continuation info along a neighboring lane (in MSLCM_2013::_wantsChange() the considered lane for a lanechange)
     /// @param[out] roundaboutDistanceAhead Accumulated length of lanes in the next oncoming roundabout in curr
     /// @param[out] roundaboutDistanceAheadNeigh Accumulated length of lanes in the next oncoming roundabout in neigh
-    /// @param[out] roundaboutEdgesAhead  Number of lanes in the next oncoming roundabout in curr
-    /// @param[out] roundaboutEdgesAheadNeigh Number of lanes in the next oncoming roundabout in neigh
-    static void
-    getRoundaboutAheadInfo(const MSLCM_LC2013* lcm, const MSVehicle::LaneQ& curr, const MSVehicle::LaneQ& neigh,
-                           double& roundaboutDistanceAhead, double& roundaboutDistanceAheadNeigh, int& roundaboutEdgesAhead, int& roundaboutEdgesAheadNeigh);
+    /// @param[out] roundaboutExitsAhead Number of exits from the roundabout including the one where this vehicle exits
+    static void getRoundaboutAheadInfo(const MSLCM_LC2013* lcm, const MSVehicle::LaneQ& curr, const MSVehicle::LaneQ& neigh,
+                           double& roundaboutDistanceAhead, double& roundaboutDistanceAheadNeigh, int& roundaboutExitsAhead);
 
     /// @brief Computes the artificial bonus distance for roundabout lanes
     ///        this additional distance reduces the sense of urgency within
     ///        roundabouts and thereby promotes the use of the inner roundabout
     ///        lane in multi-lane roundabouts.
     /// @param[in] roundaboutDistAhead Distance on roundabout
-    /// @param[in] roundaboutEdgesAhead number of edges on roundabout
+    /// @param[in] roundaboutExitsAhead Number of exits including the one where the vehicle wants to leave
     double
-    roundaboutDistBonus(double roundaboutDistAhead, int roundaboutEdgesAhead) const;
+    roundaboutDistBonus(double roundaboutDistAhead, double roundaboutExitsAhead) const;
 
     /// @brief compute the distance on the next upcoming roundabout along a given sequence of lanes.
     /// @param[in] position position of the vehicle on the initial lane
