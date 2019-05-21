@@ -27,6 +27,9 @@ onRamp
 continuous_lanechange
 overtake_stopped
 
+# tests for behavior at a 2-lane roundabout
+roundabout
+
 # test effects of apparentDecel on lane changing
 #apparentDecel
 
