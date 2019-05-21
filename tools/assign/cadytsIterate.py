@@ -29,9 +29,12 @@ from datetime import datetime
 from argparse import ArgumentParser
 from duaIterate import call, writeSUMOConf, addGenericOptions
 
-TOOLS_DIR = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
-sys.path.append(TOOLS_DIR)
-import sumolib  # noqa
+if 'SUMO_HOME' in os.environ:
+    TOOLS_DIR = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+    sys.path.append(TOOLS_DIR)
+    import sumolib  # noqa
+else:
+    sys.exit("please declare environment variable 'SUMO_HOME'")
 
 
 def initOptions():
