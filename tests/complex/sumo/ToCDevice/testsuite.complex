@@ -50,6 +50,9 @@ LC_during_MRM_with_lcAbstinence
 # Tests the ToC Device parameter keepRightDuringMRM, which induces the vehicle to try to change to the rightmost lane during an MRM.
 Keep_right_during_MRM
 
+# Test prevention of lane changes during the ToC preparation phase.
+No_LC_during_ToC_preparation
+
 # Schedule ToC to happen during slow-down phase of the MRM
 incomplete_MRM
 
