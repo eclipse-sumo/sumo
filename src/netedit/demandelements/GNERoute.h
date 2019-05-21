@@ -37,12 +37,12 @@ class GNEConnection;
 
 class GNERoute : public GNEDemandElement {
 public:
-    /** default constructor
+    /**@brief default constructor
      * @param[in] viewNet view in which this Route is placed
      */
     GNERoute(GNEViewNet* viewNet);
 
-    /** parameter constructor
+    /**@brief parameter constructor
      * @param[in] viewNet view in which this Route is placed
      * @param[in] routeID unique route ID
      * @param[in] edges list of consecutive edges of this route
@@ -50,6 +50,15 @@ public:
      * @param[in] VClass Vehicle Class that will be use this route (only for visualization)
      */
     GNERoute(GNEViewNet* viewNet, const std::string& routeID, const std::vector<GNEEdge*>& edges, const RGBColor& color, const SUMOVehicleClass VClass);
+
+    /**@brief parameter constructor for embebbed routes
+     * @param[in] viewNet view in which this Route is placed
+     * @param[in] vehicleParent vehicle parent of this embebbed route
+     * @param[in] edges list of consecutive edges of this route
+     * @param[in] color RGBColor of this route
+     * @param[in] VClass Vehicle Class that will be use this route (only for visualization)
+     */
+    GNERoute(GNEViewNet* viewNet, GNEDemandElement* vehicleParent, const std::vector<GNEEdge*>& edges, const RGBColor& color, const SUMOVehicleClass VClass);
 
     /// @brief destructor
     ~GNERoute();

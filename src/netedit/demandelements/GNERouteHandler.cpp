@@ -82,7 +82,7 @@ GNERouteHandler::buildVehicleOrRouteFlow(GNEViewNet* viewNet, bool undoDemandEle
             WRITE_ERROR("Invalid route '" + vehicleParameters.routeid + "' used in " + toString(vehicleParameters.tag) + " '" + vehicleParameters.id + "'.");
         } else {
             // create vehicle or trips using vehicleParameters
-            GNEVehicle* vehicleOrRouteFlow = new GNEVehicle(viewNet, vehicleParameters, vType, route);
+            GNEVehicle* vehicleOrRouteFlow = new GNEVehicle(viewNet, vType, route, vehicleParameters);
             if (undoDemandElements) {
                 viewNet->getUndoList()->p_begin("add " + vehicleOrRouteFlow->getTagStr());
                 viewNet->getUndoList()->add(new GNEChange_DemandElement(vehicleOrRouteFlow, true), true);
@@ -126,7 +126,7 @@ GNERouteHandler::buildTripOrFlow(GNEViewNet* viewNet, bool undoDemandElements, c
             // obtain route between edges
             std::vector<GNEEdge*> routeEdges = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(vType->getVClass(), edges);
             // create trip or flow using tripParameters
-            GNEVehicle* tripOrFlow = new GNEVehicle(viewNet, vehicleParameters, vType, routeEdges);
+            GNEVehicle* tripOrFlow = new GNEVehicle(viewNet, vType, routeEdges, vehicleParameters);
             if (undoDemandElements) {
                 viewNet->getUndoList()->p_begin("add " + tripOrFlow->getTagStr());
                 viewNet->getUndoList()->add(new GNEChange_DemandElement(tripOrFlow, true), true);
@@ -282,37 +282,33 @@ GNERouteHandler::closeRoute(const bool /* mayBeDisconnected */) {
                 myVehicleParameter->routeid = myViewNet->getNet()->generateDemandElementID(myVehicleParameter->id, SUMO_TAG_ROUTE);
                 // due vehicle was loaded without a route, change tag
                 myVehicleParameter->tag = (myVehicleParameter->tag == SUMO_TAG_FLOW)? SUMO_TAG_ROUTEFLOW : SUMO_TAG_VEHICLE;
-                // creaste GNERoute
-                GNERoute* route = new GNERoute(myViewNet, myVehicleParameter->routeid, edges, myRouteColor, SVC_PASSENGER);
-                // create vehicle or trips using myTemporalVehicleParameter
-                GNEVehicle* vehicleOrRouteFlow = new GNEVehicle(myViewNet, *myVehicleParameter, vType, route);
-                /*
-                // set route as XML Child of vehicleOrRouteFlow
-                route->setXMLParent(vehicleOrRouteFlow);
-                // set vehicleOrRouteFlow as XML parent of route
-                vehicleOrRouteFlow->setXMLChild(route);
-                */
+                // create vehicle or trips using myTemporalVehicleParameter without a route
+                GNEVehicle* vehicleOrRouteFlow = new GNEVehicle(myViewNet, vType, *myVehicleParameter);
+                // creaste embebbed route
+                GNERoute* embebbedRoute = new GNERoute(myViewNet, vehicleOrRouteFlow, edges, myRouteColor, SVC_PASSENGER);
                 // add both to net depending of myUndoDemandElements
                 if (myUndoDemandElements) {
-                    myViewNet->getUndoList()->p_begin("add vehicle and " + route->getTagStr());
+                    myViewNet->getUndoList()->p_begin("add vehicle and " + embebbedRoute->getTagStr());
                     // add both in net using undoList
-                    myViewNet->getUndoList()->add(new GNEChange_DemandElement(route, true), true);
                     myViewNet->getUndoList()->add(new GNEChange_DemandElement(vehicleOrRouteFlow, true), true);
+                    myViewNet->getUndoList()->add(new GNEChange_DemandElement(embebbedRoute, true), true);
                     // iterate over stops of myActiveRouteStops and create stops associated with it
                     for (const auto& i : myActiveRouteStops) {
                         buildStop(myViewNet, true, i, vehicleOrRouteFlow, false);
                     }
                     myViewNet->getUndoList()->p_end();
                 } else {
-                    myViewNet->getNet()->insertDemandElement(route);
+                    // add vehicleOrRouteFlow in net and in their vehicle type parent
                     myViewNet->getNet()->insertDemandElement(vehicleOrRouteFlow);
+                    vType->addDemandElementChild(vehicleOrRouteFlow);
+                    vehicleOrRouteFlow->incRef("buildVehicleAndRoute");
+                    // add route manually in net, and in all of their edges and in vehicleOrRouteFlow
+                    myViewNet->getNet()->insertDemandElement(embebbedRoute);
                     for (const auto& i : edges) {
                         i->addDemandElementChild(vehicleOrRouteFlow);
                     }
-                    vType->addDemandElementChild(vehicleOrRouteFlow);
-                    route->addDemandElementChild(vehicleOrRouteFlow);
-                    route->incRef("buildVehicleAndRoute");
-                    vehicleOrRouteFlow->incRef("buildVehicleAndRoute");
+                    vehicleOrRouteFlow->addDemandElementChild(embebbedRoute);
+                    embebbedRoute->incRef("buildVehicleAndRoute");
                     // iterate over stops of myActiveRouteStops and create stops associated with it
                     for (const auto& i : myActiveRouteStops) {
                         buildStop(myViewNet, false, i, vehicleOrRouteFlow, false);

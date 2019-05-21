@@ -67,6 +67,14 @@ GNERoute::GNERoute(GNEViewNet* viewNet, const std::string& routeID, const std::v
 }
 
 
+GNERoute::GNERoute(GNEViewNet* viewNet, GNEDemandElement* vehicleParent, const std::vector<GNEEdge*>& edges, const RGBColor& color, const SUMOVehicleClass VClass) :
+    GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_ROUTEEMBEDDED), viewNet, GLO_ROUTE, SUMO_TAG_ROUTEEMBEDDED,
+    edges, {}, {}, {}, {vehicleParent}, {}, {}, {}, {}, {}),
+    myColor(color),
+    myVClass(VClass) {
+}
+
+
 GNERoute::~GNERoute() {}
 
 
