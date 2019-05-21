@@ -15,3 +15,6 @@ ticket5420
 # - vehicle and foes both have a turning connection with an internal junction (due to crossing)
 # - link leader resolution fails, causing deadlock
 ticket5487
+
+# emergency braking due to insufficient look-ahead when aborting request
+ticket5632
