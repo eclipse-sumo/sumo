@@ -59,12 +59,11 @@ GNERoute::GNERoute(GNEViewNet* viewNet) :
 }
 
 
-GNERoute::GNERoute(GNEViewNet* viewNet, const std::string& routeID, const std::vector<GNEEdge*>& edges, const RGBColor& color, const SUMOVehicleClass VClass, const std::string &embeddedVehicleParent) :
+GNERoute::GNERoute(GNEViewNet* viewNet, const std::string& routeID, const std::vector<GNEEdge*>& edges, const RGBColor& color, const SUMOVehicleClass VClass) :
     GNEDemandElement(routeID, viewNet, GLO_ROUTE, SUMO_TAG_ROUTE,
     edges, {}, {}, {}, {}, {}, {}, {}, {}, {}),
     myColor(color),
-    myVClass(VClass),
-    myEmbeddedVehicleParent(embeddedVehicleParent) {
+    myVClass(VClass) {
 }
 
 
@@ -275,7 +274,11 @@ GNERoute::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_COLOR:
             return toString(myColor);
         case GNE_ATTR_PARENT:
-            return myEmbeddedVehicleParent;
+            if (getXMLChild()) {
+                return getXMLChild()->getID();
+            } else {
+                return "";
+            }
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_GENERIC:
@@ -375,8 +378,19 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
             myColor = parse<RGBColor>(value);
             break;
         case GNE_ATTR_PARENT:
-            myEmbeddedVehicleParent = value;
-            break;
+            if (value.empty()) {
+                setXMLChild(nullptr);
+            } else if(myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_VEHICLE, value, false) != nullptr) {
+                setXMLChild(myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_VEHICLE, value));
+            } else if(myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_TRIP, value, false) != nullptr) {
+                setXMLChild(myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_TRIP, value));
+            } else if(myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_ROUTEFLOW, value, false) != nullptr) {
+                setXMLChild(myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_ROUTEFLOW, value));
+            } else if(myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_FLOW, value, false) != nullptr) {
+                setXMLChild(myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_FLOW, value));
+            } else {
+                throw InvalidArgument("Invalid vehicle ID");
+            }
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {
                 selectAttributeCarrier();
@@ -392,15 +406,17 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
 }
 
-/* -------------------------------------------------------------------------
- * GNERoute::GNERoutePopupMenu - methods
- * ----------------------------------------------------------------------- */
+// ===========================================================================
+// GNERoute::GNERoutePopupMenu - methods
+// ===========================================================================
+
 GNERoute::GNERoutePopupMenu::GNERoutePopupMenu(GUIMainWindow& app, GUISUMOAbstractView& parent, GUIGlObject& o) :
-    GUIGLObjectPopupMenu(app, parent, o)
-{ }
+    GUIGLObjectPopupMenu(app, parent, o) { 
+}
 
 
 GNERoute::GNERoutePopupMenu::~GNERoutePopupMenu() {}
+
 
 long
 GNERoute::GNERoutePopupMenu::onCmdApplyDistance(FXObject*, FXSelector, void*) {
@@ -416,6 +432,5 @@ GNERoute::GNERoutePopupMenu::onCmdApplyDistance(FXObject*, FXSelector, void*) {
     undoList->p_end();
     return 1;
 }
-
 
 /****************************************************************************/

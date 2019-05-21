@@ -25,6 +25,7 @@
 
 #include <netedit/GNEHierarchicalElementParents.h>
 #include <netedit/GNEHierarchicalElementChilds.h>
+#include <netedit/GNEXMLChild.h>
 #include <utils/common/Parameterised.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/gui/globjects/GUIGlObject.h>
@@ -50,7 +51,7 @@ class GNEDemandElement;
  * @class GNEDemandElement
  * @brief An Element which don't belongs to GNENet but has influency in the simulation
  */
-class GNEDemandElement : public GUIGlObject, public GNEAttributeCarrier, public Parameterised, public GNEHierarchicalElementParents, public GNEHierarchicalElementChilds {
+class GNEDemandElement : public GUIGlObject, public GNEAttributeCarrier, public Parameterised, public GNEHierarchicalElementParents, public GNEHierarchicalElementChilds, public GNEXMLChild {
 
 public:
     /// @brief class used to calculate routes in nets

@@ -283,9 +283,11 @@ GNERouteHandler::closeRoute(const bool /* mayBeDisconnected */) {
                 // due vehicle was loaded without a route, change tag
                 myVehicleParameter->tag = (myVehicleParameter->tag == SUMO_TAG_FLOW)? SUMO_TAG_ROUTEFLOW : SUMO_TAG_VEHICLE;
                 // creaste GNERoute
-                GNERoute* route = new GNERoute(myViewNet, myVehicleParameter->routeid, edges, myRouteColor, SVC_PASSENGER, myVehicleParameter->id);
+                GNERoute* route = new GNERoute(myViewNet, myVehicleParameter->routeid, edges, myRouteColor, SVC_PASSENGER);
                 // create vehicle or trips using myTemporalVehicleParameter
                 GNEVehicle* vehicleOrRouteFlow = new GNEVehicle(myViewNet, *myVehicleParameter, vType, route);
+                // set route as XML Child of vehicleOrRouteFlow
+                route->setXMLChild(vehicleOrRouteFlow);
                 // add both to net depending of myUndoDemandElements
                 if (myUndoDemandElements) {
                     myViewNet->getUndoList()->p_begin("add vehicle and " + route->getTagStr());
@@ -323,7 +325,7 @@ GNERouteHandler::closeRoute(const bool /* mayBeDisconnected */) {
         WRITE_ERROR("A route needs at least one edge.");
     } else {
         // creaste GNERoute
-        GNERoute* route = new GNERoute(myViewNet, myRouteID, edges, myRouteColor, SVC_PASSENGER, "");
+        GNERoute* route = new GNERoute(myViewNet, myRouteID, edges, myRouteColor, SVC_PASSENGER);
         if (myUndoDemandElements) {
             myViewNet->getUndoList()->p_begin("add " + route->getTagStr());
             myViewNet->getUndoList()->add(new GNEChange_DemandElement(route, true), true);

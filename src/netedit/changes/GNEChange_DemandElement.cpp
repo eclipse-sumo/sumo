@@ -53,7 +53,8 @@ GNEChange_DemandElement::GNEChange_DemandElement(GNEDemandElement* demandElement
     myLaneChilds(demandElement->getLaneChilds()),
     myShapeChilds(demandElement->getShapeChilds()),
     myAdditionalChilds(demandElement->getAdditionalChilds()),
-    myDemandElementChilds(demandElement->getDemandElementChilds()) {
+    myDemandElementChilds(demandElement->getDemandElementChilds()),
+    myXMLChild(demandElement->getXMLChild()) {
     myDemandElement->incRef("GNEChange_DemandElement");
 }
 
@@ -99,6 +100,7 @@ GNEChange_DemandElement::~GNEChange_DemandElement() {
             for (const auto& i : myDemandElementChilds) {
                 i->removeDemandElementParent(myDemandElement);
             }
+
         }
         delete myDemandElement;
     }

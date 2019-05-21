@@ -150,6 +150,7 @@ GNEDemandElement::GNEDemandElement(const std::string& id, GNEViewNet* viewNet, G
     Parameterised(),
     GNEHierarchicalElementParents(this, edgeParents, laneParents, shapeParents, additionalParents, demandElementParents),
     GNEHierarchicalElementChilds(this, edgeChilds, laneChilds, shapeChilds, additionalChilds, demandElementChilds),
+    GNEXMLChild(this),
     myViewNet(viewNet) {
 }
 
@@ -170,6 +171,7 @@ GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, GNEVie
     Parameterised(),
     GNEHierarchicalElementParents(this, edgeParents, laneParents, shapeParents, additionalParents, demandElementParents),
     GNEHierarchicalElementChilds(this, edgeChilds, laneChilds, shapeChilds, additionalChilds, demandElementChilds),
+    GNEXMLChild(this),
     myViewNet(viewNet) {
 }
 
