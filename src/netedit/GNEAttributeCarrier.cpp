@@ -738,6 +738,11 @@ GNEAttributeCarrier::TagProperties::isVehicle() const {
     return (myTagType & TAGTYPE_VEHICLE) != 0;
 }
 
+bool
+GNEAttributeCarrier::TagProperties::isRoute() const {
+    return (myTagType & TAGTYPE_ROUTE) != 0;
+}
+
 
 bool
 GNEAttributeCarrier::TagProperties::isStop() const {
@@ -3078,16 +3083,32 @@ GNEAttributeCarrier::fillDemandElements() {
                                            "HDV_D_EU1", "HDV_D_EU2", "HDV_D_EU3", "HDV_D_EU4", "HDV_D_EU5", "HDV_D_EU6", "HDV_D_East"
                                          };
     // fill demand elements
-    SumoXMLTag  currentTag = SUMO_TAG_ROUTE;
+    SumoXMLTag currentTag = SUMO_TAG_ROUTE;
     {
         // set values of tag
-        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_PARENT | TAGPROPERTY_REPARENT, ICON_ROUTE);
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_ROUTE, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_PARENT | TAGPROPERTY_REPARENT, ICON_ROUTE);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_ID,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE,
                                            "The id of Route");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
+        attrProperty = AttributeProperties(SUMO_ATTR_EDGES,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
+                                           "The edges the vehicle shall drive along, given as their ids, separated using spaces");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_COLOR,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_COLOR | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "This route's color",
+                                           "yellow");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
+    currentTag = SUMO_TAG_ROUTEEMBEDDED;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_ROUTE, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_PARENT | TAGPROPERTY_REPARENT, ICON_ROUTE);
+        // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_EDGES,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
                                            "The edges the vehicle shall drive along, given as their ids, separated using spaces");

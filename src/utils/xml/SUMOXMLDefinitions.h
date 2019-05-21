@@ -122,6 +122,8 @@ enum SumoXMLTag {
     SUMO_TAG_VTYPE,
     /// @brief begin/end of the description of a route
     SUMO_TAG_ROUTE,
+    /// @brief begin/end of the description of a route embedded (used in NETEDIT)
+    SUMO_TAG_ROUTEEMBEDDED,
     /// @brief description of a logic request within the junction
     SUMO_TAG_REQUEST,
     /// @brief a source

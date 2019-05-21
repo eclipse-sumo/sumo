@@ -78,6 +78,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "vehicle",                    SUMO_TAG_VEHICLE },
     { "vType",                      SUMO_TAG_VTYPE },
     { "route",                      SUMO_TAG_ROUTE },
+    { "routeEmbedded",              SUMO_TAG_ROUTEEMBEDDED },
     { "request",                    SUMO_TAG_REQUEST },
     { "source",                     SUMO_TAG_SOURCE },
     { "taz",                        SUMO_TAG_TAZ },
