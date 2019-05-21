@@ -274,8 +274,8 @@ GNERoute::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_COLOR:
             return toString(myColor);
         case GNE_ATTR_PARENT:
-            if (getXMLChild()) {
-                return getXMLChild()->getID();
+            if (getXMLParent()) {
+                return getXMLParent()->myAC->getID();
             } else {
                 return "";
             }
@@ -391,6 +391,7 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
             } else {
                 throw InvalidArgument("Invalid vehicle ID");
             }
+            break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {
                 selectAttributeCarrier();

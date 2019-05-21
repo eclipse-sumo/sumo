@@ -54,7 +54,8 @@ GNEChange_DemandElement::GNEChange_DemandElement(GNEDemandElement* demandElement
     myShapeChilds(demandElement->getShapeChilds()),
     myAdditionalChilds(demandElement->getAdditionalChilds()),
     myDemandElementChilds(demandElement->getDemandElementChilds()),
-    myXMLChild(demandElement->getXMLChild()) {
+    myXMLChildParent(demandElement->getXMLParent()),
+    myXMLChildChild(demandElement->getXMLChild()){
     myDemandElement->incRef("GNEChange_DemandElement");
 }
 
@@ -100,7 +101,13 @@ GNEChange_DemandElement::~GNEChange_DemandElement() {
             for (const auto& i : myDemandElementChilds) {
                 i->removeDemandElementParent(myDemandElement);
             }
-
+            // remove element from XML Parent and childs
+            if (myXMLChildParent) {
+                myXMLChildParent->myACChild = nullptr;
+            }
+            if (myXMLChildChild) {
+                myXMLChildChild->myACParent = nullptr;
+            }
         }
         delete myDemandElement;
     }
@@ -146,9 +153,12 @@ GNEChange_DemandElement::undo() {
         for (const auto& i : myDemandElementChilds) {
             i->removeDemandElementParent(myDemandElement);
         }
-        // update vehicle type selector if demand element is a VType and vehicle type Frame is shown
-        if ((myDemandElement->getTagProperty().getTag() == SUMO_TAG_VTYPE) && myNet->getViewNet()->getViewParent()->getVehicleTypeFrame()->shown()) {
-            myNet->getViewNet()->getViewParent()->getVehicleTypeFrame()->getVehicleTypeSelector()->refreshVehicleTypeSelector();
+        // remove element from XML Parent and childs
+        if (myXMLChildParent) {
+            myXMLChildParent->myACChild = nullptr;
+        }
+        if (myXMLChildChild) {
+            myXMLChildChild->myACParent = nullptr;
         }
     } else {
         // show extra information for tests
@@ -186,6 +196,13 @@ GNEChange_DemandElement::undo() {
         }
         for (const auto& i : myDemandElementChilds) {
             i->addDemandElementParent(myDemandElement);
+        }
+        // remove element from XML Parent and childs
+        if (myXMLChildParent) {
+            myXMLChildParent->myACChild = myDemandElement;
+        }
+        if (myXMLChildChild) {
+            myXMLChildChild->myACParent = myDemandElement;
         }
     }
     // update vehicle type selector if demand element is a VType and vehicle type Frame is shown
@@ -236,9 +253,12 @@ GNEChange_DemandElement::redo() {
         for (const auto& i : myDemandElementChilds) {
             i->addDemandElementParent(myDemandElement);
         }
-        // update vehicle type selector if demand element is a VType and vehicle type Frame is shown
-        if ((myDemandElement->getTagProperty().getTag() == SUMO_TAG_VTYPE) && myNet->getViewNet()->getViewParent()->getVehicleTypeFrame()->shown()) {
-            myNet->getViewNet()->getViewParent()->getVehicleTypeFrame()->getVehicleTypeSelector()->refreshVehicleTypeSelector();
+        // remove element from XML Parent and childs
+        if (myXMLChildParent) {
+            myXMLChildParent->myACChild = myDemandElement;
+        }
+        if (myXMLChildChild) {
+            myXMLChildChild->myACParent = myDemandElement;
         }
     } else {
         // show extra information for tests
@@ -276,6 +296,13 @@ GNEChange_DemandElement::redo() {
         }
         for (const auto& i : myDemandElementChilds) {
             i->removeDemandElementParent(myDemandElement);
+        }
+        // remove element from XML Parent and childs
+        if (myXMLChildParent) {
+            myXMLChildParent->myACChild = nullptr;
+        }
+        if (myXMLChildChild) {
+            myXMLChildChild->myACParent = nullptr;
         }
     }
     // update vehicle type selector if demand element is a VType and vehicle type Frame is shown

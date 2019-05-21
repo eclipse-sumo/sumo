@@ -46,13 +46,8 @@
 // ===========================================================================
 
 GNEXMLChild::GNEXMLChild(GNEAttributeCarrier* AC) :
-    myACinWhichWrite(nullptr),
-    myAC(AC) {
-}
-
-
-GNEXMLChild::GNEXMLChild(GNEAttributeCarrier* AC, GNEAttributeCarrier* ACinWhichWrite) :
-    myACinWhichWrite(ACinWhichWrite),
+    myACParent(nullptr),
+    myACChild(nullptr),
     myAC(AC) {
 }
 
@@ -60,15 +55,27 @@ GNEXMLChild::GNEXMLChild(GNEAttributeCarrier* AC, GNEAttributeCarrier* ACinWhich
 GNEXMLChild::~GNEXMLChild() {}
 
 
-void 
-GNEXMLChild::setXMLChild(GNEAttributeCarrier* ACinWhichWrite) {
-    myACinWhichWrite = ACinWhichWrite;
+GNEXMLChild* 
+GNEXMLChild::getXMLParent() const {
+    return myACParent;
 }
 
 
-GNEAttributeCarrier* 
+GNEXMLChild* 
 GNEXMLChild::getXMLChild() const {
-    return myACinWhichWrite;
+    return myACChild;
+}
+
+void 
+GNEXMLChild::setXMLChild(GNEXMLChild* ACParent) {
+    // first remove reference in old ace parent
+    if (myACParent) {
+        myACParent->myACChild = nullptr;
+    }
+    myACParent = ACParent;
+    if (myACParent) {
+        myACParent->myACChild = this;
+    }
 }
 
 /****************************************************************************/

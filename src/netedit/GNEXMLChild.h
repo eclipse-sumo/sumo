@@ -51,28 +51,31 @@ public:
      */
     GNEXMLChild(GNEAttributeCarrier* AC);
 
-    /**@brief Parameter Constructor
-     * @param[in] AC original AC
-     * @param[in] ACinWhichWrite AC in which write AC
-     */
-    GNEXMLChild(GNEAttributeCarrier* AC, GNEAttributeCarrier* ACinWhichWrite);
-
     /// @brief Destructor
     ~GNEXMLChild();
 
-    /// @brief set XML Child (
-    void setXMLChild(GNEAttributeCarrier* ACinWhichWrite);
+    /// @brief set XML Child
+    void setXMLChild(GNEXMLChild* ACParent);
 
-    /// @brief get XML child
-    GNEAttributeCarrier* getXMLChild() const;
+    /// @brief set XML Child
+    void setXMLParent(GNEXMLChild* ACParent);
 
-private:
+
+
+    GNEXMLChild* getXMLParent() const;
+
+    GNEXMLChild* getXMLChild() const;
+
+
+//private:
     /// @brief AC in which write myAC
-    GNEAttributeCarrier* myACinWhichWrite;
+    GNEXMLChild* myACParent;
 
-    /// @brief pointer to AC (needed to avoid diamond problem)
+    /// @brief pointer to AC
+    GNEXMLChild* myACChild;
+
     GNEAttributeCarrier* myAC;
-
+private:
     /// @brief Invalidated copy constructor.
     GNEXMLChild(const GNEXMLChild&) = delete;
 

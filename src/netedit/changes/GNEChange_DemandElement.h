@@ -34,7 +34,7 @@ class GNELane;
 class GNEShape;
 class GNEAdditional;
 class GNEDemandElement;
-class GNEAttributeCarrier;
+class GNEXMLChild;
 
 // ===========================================================================
 // class definitions
@@ -107,8 +107,11 @@ private:
     /// @brief reference to vector of demand element childs
     const std::vector<GNEDemandElement*>& myDemandElementChilds;
 
-    /// @brief reference to XML Child
-    GNEAttributeCarrier* myXMLChild;
+    /// @brief reference to XMLChild parent
+    GNEXMLChild* myXMLChildParent;
+
+    /// @brief reference to XMLChild Child
+    GNEXMLChild* myXMLChildChild;
 };
 
 #endif
