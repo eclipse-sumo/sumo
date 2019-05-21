@@ -45,23 +45,19 @@
 // member method definitions
 // ===========================================================================
 
-GNEXMLChild::GNEXMLChild(GNEAttributeCarrier* AC) :
+GNEXMLChild::GNEXMLChild(GNEDemandElement* demandElement) :
     myXMLParent(nullptr),
     myXMLChild(nullptr),
-    myAC(AC) {
+    myDemandElement(demandElement) {
 }
 
 
 GNEXMLChild::~GNEXMLChild() {}
 
 
-const std::string 
-GNEXMLChild::getXMLParentID() const {
-    if (myXMLParent) {
-        return myXMLParent->myAC->getID();
-    } else {
-        return "";
-    }
+const GNEDemandElement* 
+GNEXMLChild::getDemandElement() const {
+    return myDemandElement;
 }
 
 

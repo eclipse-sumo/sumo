@@ -31,9 +31,7 @@
 // class declarations
 // ===========================================================================
 
-class GNEAdditional;
 class GNEDemandElement;
-class GNEShape;
 
 // ===========================================================================
 // class definitions
@@ -46,16 +44,14 @@ class GNEShape;
 class GNEXMLChild {
 
 public:
-    /**@brief default Constructor
-     * @param[in] AC original AC
-     */
-    GNEXMLChild(GNEAttributeCarrier* AC);
+    /// @brief default constructor
+    GNEXMLChild(GNEDemandElement* demandElement);
 
     /// @brief Destructor
     ~GNEXMLChild();
 
-    /// @brief get XMLParent ID
-    const std::string getXMLParentID() const;
+    /// @brief get AV vinculated with this GNEXMLChild
+    const GNEDemandElement* getDemandElement() const;
 
     /// @brief get XML Parent
     GNEXMLChild* getXMLParent() const;
@@ -80,8 +76,8 @@ protected:
     GNEXMLChild* myXMLChild;
 
 private:
-    /// @brief reference to AC    
-    GNEAttributeCarrier* myAC;
+    /// @brief reference to demandElement    
+    GNEDemandElement* myDemandElement;
 
     /// @brief Invalidated copy constructor.
     GNEXMLChild(const GNEXMLChild&) = delete;

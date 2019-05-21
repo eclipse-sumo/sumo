@@ -159,6 +159,19 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
     for (const auto& i : getDemandElementChilds()) {
         i->writeDemandElement(device);
     }
+    // chek if this vehicle as a route as XML child
+    if (getXMLChild() && (getXMLChild()->getDemandElement()->getTagProperty().getTag() == SUMO_TAG_ROUTE)) {
+        device.openTag(SUMO_TAG_ROUTE);
+        device.writeAttr(SUMO_ATTR_EDGES, getXMLChild()->getDemandElement()->getAttribute(SUMO_ATTR_EDGES));
+        device.writeAttr(SUMO_ATTR_COLOR, getXMLChild()->getDemandElement()->getAttribute(SUMO_ATTR_COLOR));
+        // write stops associated to child route route
+        for (const auto& i : getXMLChild()->getDemandElement()->getDemandElementChilds()) {
+            if (i->getTagProperty().isStop()) {
+                i->writeDemandElement(device);
+            }
+        }
+        device.closeTag();
+    }
     // close vehicle tag
     device.closeTag();
 }

@@ -110,17 +110,20 @@ GNERoute::getColor() const {
 
 void
 GNERoute::writeDemandElement(OutputDevice& device) const {
-    device.openTag(SUMO_TAG_ROUTE);
-    device.writeAttr(SUMO_ATTR_ID, getDemandElementID());
-    device.writeAttr(SUMO_ATTR_EDGES, parseIDs(getEdgeParents()));
-    device.writeAttr(SUMO_ATTR_COLOR, toString(myColor));
-    // write stops associated to this route
-    for (const auto& i : getDemandElementChilds()) {
-        if (i->getTagProperty().isStop()) {
-            i->writeDemandElement(device);
+    // only write if doesn't have a XML Parent
+    if (!getXMLParent()) {
+        device.openTag(SUMO_TAG_ROUTE);
+        device.writeAttr(SUMO_ATTR_ID, getDemandElementID());
+        device.writeAttr(SUMO_ATTR_EDGES, parseIDs(getEdgeParents()));
+        device.writeAttr(SUMO_ATTR_COLOR, toString(myColor));
+        // write stops associated to this route
+        for (const auto& i : getDemandElementChilds()) {
+            if (i->getTagProperty().isStop()) {
+                i->writeDemandElement(device);
+            }
         }
+        device.closeTag();
     }
-    device.closeTag();
 }
 
 
@@ -274,7 +277,11 @@ GNERoute::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_COLOR:
             return toString(myColor);
         case GNE_ATTR_PARENT:
-            return getXMLParentID();
+            if (getXMLParent()) {
+                return getXMLParent()->getDemandElement()->getID();
+            } else {
+                return "";
+            }
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_GENERIC:
