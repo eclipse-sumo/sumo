@@ -133,7 +133,7 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
         write(device, OptionsCont::getOptions(), myTagProperty.getTag());
     }
     // write specific attribute depeding of their tag
-    if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == SUMO_TAG_ROUTEFLOW)) {
+    if ((getDemandElementParents().size() == 2) && (myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == SUMO_TAG_ROUTEFLOW)) {
         // write manually route
         device.writeAttr(SUMO_ATTR_ROUTE, getDemandElementParents().at(1)->getID());
     } 
@@ -166,7 +166,7 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
             device.writeAttr(SUMO_ATTR_PROB, repetitionProbability);
         }
     }
-    // write stops associated to this vehicle
+    // write demand element childs associated to this vehicle
     for (const auto& i : getDemandElementChilds()) {
         i->writeDemandElement(device);
     }
@@ -318,6 +318,10 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
             // obtain position and rotation of from route
             vehiclePosition = getEdgeParents().at(0)->getLanes().front()->getGeometry().shape.front();
             vehicleRotation = getEdgeParents().at(0)->getLanes().front()->getGeometry().shapeRotations.front();
+        } else if (getDemandElementChilds().size() > 0) {
+            // obtain position and rotation of embedded route
+            vehiclePosition = getDemandElementChilds().at(0)->getEdgeParents().at(0)->getLanes().front()->getGeometry().shape.front();
+            vehicleRotation = getDemandElementChilds().at(0)->getEdgeParents().at(0)->getLanes().front()->getGeometry().shapeRotations.front();
         }
         // first check if if mouse is enought near to this vehicle to draw it
         if (s.drawForSelecting && (myViewNet->getPositionInformation().distanceSquaredTo2D(vehiclePosition) >= (vehicleSizeSquared + 2))) {

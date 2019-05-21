@@ -119,13 +119,16 @@ GNERoute::getColor() const {
 void
 GNERoute::writeDemandElement(OutputDevice& device) const {
     device.openTag(SUMO_TAG_ROUTE);
-    device.writeAttr(SUMO_ATTR_ID, getDemandElementID());
     device.writeAttr(SUMO_ATTR_EDGES, parseIDs(getEdgeParents()));
     device.writeAttr(SUMO_ATTR_COLOR, toString(myColor));
-    // write stops associated to this route
-    for (const auto& i : getDemandElementChilds()) {
-        if (i->getTagProperty().isStop()) {
-            i->writeDemandElement(device);
+    // write extra attributes depending if is an embebbed route
+    if(myTagProperty.getTag() == SUMO_TAG_ROUTE) {
+        device.writeAttr(SUMO_ATTR_ID, getDemandElementID());
+        // write stops associated to this route
+        for (const auto& i : getDemandElementChilds()) {
+            if (i->getTagProperty().isStop()) {
+                i->writeDemandElement(device);
+            }
         }
     }
     device.closeTag();
