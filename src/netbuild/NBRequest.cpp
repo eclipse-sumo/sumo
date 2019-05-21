@@ -420,7 +420,7 @@ NBRequest::computeLogic(const bool checkLaneFoes) {
     for (i = myIncoming.begin(); i != myIncoming.end(); i++) {
         int noLanes = (*i)->getNumLanes();
         for (int k = 0; k < noLanes; k++) {
-            pos = computeLaneResponse(*i, k, pos, checkLaneFoes);
+            pos = computeLaneResponse(*i, k, pos, checkLaneFoes || myJunction->getType() == NODETYPE_ZIPPER);
         }
     }
     // crossings
@@ -965,6 +965,15 @@ NBRequest::mustBrake(const NBEdge* const from, const NBEdge* const to, int fromL
                         && mergeConflict(from, queryCon, *i, connected[k], myJunction->getType() == NODETYPE_ZIPPER)) {
                     return true;
                 }
+            }
+        }
+    }
+    // maybe we need to brake due to a zipper conflict
+    if (myJunction->getType() == NODETYPE_ZIPPER) {
+        for (int idx1 = 0; idx1 < numLinks(); idx1++) {
+            //assert(myDone[idx1][idx2]);
+            if (myDone[idx1][idx2] && myForbids[idx2][idx1]) {
+                return true;
             }
         }
     }
