@@ -1,3 +1,9 @@
 # .nod, .edg and .con.xml are given
 fully_specified
 guess_connections
+
+# two edges merging into one
+merge_intersection
+
+# three edges merging into one
+merge_intersection_4arm
