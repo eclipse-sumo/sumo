@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue May 21 14:06:35 2019 by Eclipse SUMO Version UNKNOWN
+<!-- generated on Tue May 21 16:12:05 2019 by Eclipse SUMO Version UNKNOWN
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -223,6 +223,7 @@
         <device.toc.mrmDecel value="1.5" type="FLOAT" help="Deceleration rate applied during a &apos;minimum risk maneuver&apos;."/>
         <device.toc.dynamicToCThreshold value="0" type="FLOAT" help="Time, which the vehicle requires to have ahead to continue in automated mode. The default value of 0 indicates no dynamic triggering of ToCs."/>
         <device.toc.dynamicMRMProbability value="0.05" type="FLOAT" help="Probability that a dynamically triggered TOR is not answered in time."/>
+        <device.toc.mrmKeepRight value="false" type="BOOL" help="If true, the vehicle tries to change to the right during an MRM."/>
         <device.toc.ogNewTimeHeadway value="-1" type="FLOAT" help="Timegap for ToC preparation phase."/>
         <device.toc.ogNewSpaceHeadway value="-1" type="FLOAT" help="Additional spacing for ToC preparation phase."/>
         <device.toc.ogMaxDecel value="-1" type="FLOAT" help="Maximal deceleration applied for establishing increased gap in ToC preparation phase."/>

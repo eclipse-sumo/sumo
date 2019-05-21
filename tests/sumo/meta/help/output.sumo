@@ -411,6 +411,8 @@ ToC Device Options:
                                          no dynamic triggering of ToCs.
   --device.toc.dynamicMRMProbability FLOAT  Probability that a dynamically
                                          triggered TOR is not answered in time.
+  --device.toc.mrmKeepRight            If true, the vehicle tries to change to
+                                         the right during an MRM.
   --device.toc.ogNewTimeHeadway FLOAT  Timegap for ToC preparation phase.
   --device.toc.ogNewSpaceHeadway FLOAT  Additional spacing for ToC preparation
                                          phase.

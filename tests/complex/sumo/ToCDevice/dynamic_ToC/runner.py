@@ -55,6 +55,7 @@ def run():
         printToCParams(ToC_vehicle, True)
         if (not restoredLCMode and traci.vehicle.getParameter(ToC_vehicle, "device.toc.state") == "RECOVERING"):
             traci.vehicle.setLaneChangeMode(ToC_vehicle, origLCMode)
+            # ~ restoredLCMode = True
             print("Switched to manual mode: Allowing LCs!")
         sys.stdout.flush()
         step += 1
