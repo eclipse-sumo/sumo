@@ -11,6 +11,7 @@ Static parameters:
   initialAwareness = 0.25
   mrmDecel = 1.20
   dynamicToCThreshold = 10.00
+  dynamicMRMProbability = 0.30
 Dynamic parameters:
   currentAwareness = 1.00
   currentSpeed = 0.0

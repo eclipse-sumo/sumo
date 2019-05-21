@@ -11,6 +11,7 @@
         <param key="device.toc.initialAwareness" value="0.25"/>
         <param key="device.toc.mrmDecel" value="0.5"/>
         <param key="device.toc.dynamicToCThreshold" value="15"/>
+        <param key="device.toc.dynamicMRMProbability" value="0.5"/>
         <param key="device.toc.file" value="tocs.xml"/>
     </vehicle>
 </routes>
