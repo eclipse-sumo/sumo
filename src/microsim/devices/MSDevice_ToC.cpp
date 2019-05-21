@@ -458,9 +458,18 @@ MSDevice_ToC::setAwareness(double value) {
 
 void
 MSDevice_ToC::setState(ToCState state) {
+#ifdef DEBUG_TOC
+    	std::cout << SIMTIME << " MSDevice_ToC::setState()" << std::endl;
+#endif
     if (myOpenGapParams.active && myState == PREPARING_TOC && state != PREPARING_TOC) {
         // Deactivate gap control at preparation phase end
         myHolderMS->getInfluencer().deactivateGapController();
+    } else if (myState != PREPARING_TOC && state == PREPARING_TOC) {
+#ifdef DEBUG_TOC
+    	std::cout << "  Entering ToC preparation... " << std::endl;
+#endif
+        // Prevent lane changing during takeover preparation
+        deactivateDeliberateLCs();
     }
 
     if (myIssuedDynamicToC) {
@@ -662,6 +671,7 @@ MSDevice_ToC::descheduleToCPreparation() {
     // Eventually stop ToC preparation process
     if (myPrepareToCCommand != nullptr) {
         myPrepareToCCommand->deschedule();
+        resetDeliberateLCs();
         myPrepareToCCommand = nullptr;
     }
 }
@@ -695,7 +705,6 @@ MSDevice_ToC::ToCPreparationStep(SUMOTime /* t */) {
 #ifdef DEBUG_TOC
     std::cout << SIMTIME << " ToC preparation step for vehicle '" << myHolder.getID() << "'" << std::endl;
 #endif
-    // TODO: Prevent overtaking (lc to left). Gap increase to leader is controlled otherwise, now (see openGap)
     if (myState == PREPARING_TOC) {
         return DELTA_T;
     } else {
@@ -839,7 +848,7 @@ MSDevice_ToC::getParameter(const std::string& key) const {
 void
 MSDevice_ToC::setParameter(const std::string& key, const std::string& value) {
 #ifdef DEBUG_TOC
-    std::cout << "MSDevice_ToC::setParameter(key=" << key << ", value=" << value << ")" << std::endl;
+    std::cout << SIMTIME << " MSDevice_ToC::setParameter(key=" << key << ", value=" << value << ")" << std::endl;
 #endif
     if (key == "manualType") {
         myManualTypeID = value;
@@ -1000,8 +1009,8 @@ MSDevice_ToC::deactivateDeliberateLCs() {
         std::cout << "MSDevice_ToC::setLCModeMRM() setting LC Mode of vehicle '" << myHolder.getID()
                   << "' from " << myPreviousLCMode << " to " << LCModeMRM << std::endl;
 #endif
+        myHolderMS->getInfluencer().setLaneChangeMode(LCModeMRM);
     }
-    myHolderMS->getInfluencer().setLaneChangeMode(LCModeMRM);
 }
 
 bool
