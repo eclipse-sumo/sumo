@@ -46,8 +46,8 @@
 // ===========================================================================
 
 GNEXMLChild::GNEXMLChild(GNEAttributeCarrier* AC) :
-    myACParent(nullptr),
-    myACChild(nullptr),
+    myXMLParent(nullptr),
+    myXMLChild(nullptr),
     myAC(AC) {
 }
 
@@ -55,26 +55,51 @@ GNEXMLChild::GNEXMLChild(GNEAttributeCarrier* AC) :
 GNEXMLChild::~GNEXMLChild() {}
 
 
+const std::string 
+GNEXMLChild::getXMLParentID() const {
+    if (myXMLParent) {
+        return myXMLParent->myAC->getID();
+    } else {
+        return "";
+    }
+}
+
+
 GNEXMLChild* 
 GNEXMLChild::getXMLParent() const {
-    return myACParent;
+    return myXMLParent;
+}
+
+
+void 
+GNEXMLChild::setXMLParent(GNEXMLChild* XMLParent) {
+    myXMLParent = XMLParent;
 }
 
 
 GNEXMLChild* 
 GNEXMLChild::getXMLChild() const {
-    return myACChild;
+    return myXMLChild;
 }
 
+
 void 
-GNEXMLChild::setXMLChild(GNEXMLChild* ACParent) {
-    // first remove reference in old ace parent
-    if (myACParent) {
-        myACParent->myACChild = nullptr;
+GNEXMLChild::setXMLChild(GNEXMLChild* XMLChild) {
+    myXMLChild = XMLChild;
+}
+
+
+void 
+GNEXMLChild::changeXMLParent(GNEXMLChild* XMLParent) {
+    // first remove reference of this GNEXMLChild in old XMLParent
+    if (myXMLParent) {
+        myXMLParent->myXMLChild = nullptr;
     }
-    myACParent = ACParent;
-    if (myACParent) {
-        myACParent->myACChild = this;
+    // now set new XMLParent
+    myXMLParent = XMLParent;
+    // reference this GNEXMLChild in myXMLParent
+    if (myXMLParent) {
+        myXMLParent->myXMLChild = this;
     }
 }
 

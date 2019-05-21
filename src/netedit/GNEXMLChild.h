@@ -54,28 +54,35 @@ public:
     /// @brief Destructor
     ~GNEXMLChild();
 
-    /// @brief set XML Child
-    void setXMLChild(GNEXMLChild* ACParent);
+    /// @brief get XMLParent ID
+    const std::string getXMLParentID() const;
 
-    /// @brief set XML Child
-    void setXMLParent(GNEXMLChild* ACParent);
-
-
-
+    /// @brief get XML Parent
     GNEXMLChild* getXMLParent() const;
 
+    /// @brief set XML Parent
+    void setXMLParent(GNEXMLChild* XMLParent);
+
+    /// @brief get XML Child
     GNEXMLChild* getXMLChild() const;
 
+     /// @brief set XML Child
+    void setXMLChild(GNEXMLChild* XMLChild);
 
-//private:
+protected: 
+    /// @brief Change XML Parent (used in setAttribute(...)
+    void changeXMLParent(GNEXMLChild* XMLParent);
+
     /// @brief AC in which write myAC
-    GNEXMLChild* myACParent;
+    GNEXMLChild* myXMLParent;
 
     /// @brief pointer to AC
-    GNEXMLChild* myACChild;
+    GNEXMLChild* myXMLChild;
 
-    GNEAttributeCarrier* myAC;
 private:
+    /// @brief reference to AC    
+    GNEAttributeCarrier* myAC;
+
     /// @brief Invalidated copy constructor.
     GNEXMLChild(const GNEXMLChild&) = delete;
 

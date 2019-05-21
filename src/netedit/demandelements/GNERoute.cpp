@@ -274,11 +274,7 @@ GNERoute::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_COLOR:
             return toString(myColor);
         case GNE_ATTR_PARENT:
-            if (getXMLParent()) {
-                return getXMLParent()->myAC->getID();
-            } else {
-                return "";
-            }
+            return getXMLParentID();
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_GENERIC:
@@ -379,15 +375,15 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case GNE_ATTR_PARENT:
             if (value.empty()) {
-                setXMLChild(nullptr);
+                changeXMLParent(nullptr);
             } else if(myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_VEHICLE, value, false) != nullptr) {
-                setXMLChild(myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_VEHICLE, value));
+                changeXMLParent(myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_VEHICLE, value));
             } else if(myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_TRIP, value, false) != nullptr) {
-                setXMLChild(myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_TRIP, value));
+                changeXMLParent(myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_TRIP, value));
             } else if(myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_ROUTEFLOW, value, false) != nullptr) {
-                setXMLChild(myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_ROUTEFLOW, value));
+                changeXMLParent(myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_ROUTEFLOW, value));
             } else if(myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_FLOW, value, false) != nullptr) {
-                setXMLChild(myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_FLOW, value));
+                changeXMLParent(myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_FLOW, value));
             } else {
                 throw InvalidArgument("Invalid vehicle ID");
             }
