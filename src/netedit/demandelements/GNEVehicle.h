@@ -35,17 +35,20 @@
 class GNEVehicle : public GNEDemandElement, public SUMOVehicleParameter {
 
 public:
-    /// @brief default constructor for vehicles and routeFlows
+    /// @brief default constructor for vehicles and routeFlows without embebbed routes
     GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const std::string& vehicleID, GNEDemandElement* vehicleType, GNEDemandElement* route);
 
-    /// @brief parameter constructor for vehicles and routeFlows
-    GNEVehicle(GNEViewNet* viewNet, const SUMOVehicleParameter& vehicleParameters, GNEDemandElement* vehicleType, GNEDemandElement* route);
+    /// @brief parameter constructor for vehicles and routeFlows without embebbed routes
+    GNEVehicle(GNEViewNet* viewNet, GNEDemandElement* vehicleType, GNEDemandElement* route, const SUMOVehicleParameter& vehicleParameters);
+
+    /// @brief parameter constructor for vehicles and routeFlows with embebbed routes (note: After creation create immediately a embebbed route referencing this vehicle)
+    GNEVehicle(GNEViewNet* viewNet, GNEDemandElement* vehicleType, const SUMOVehicleParameter& vehicleParameters);
 
     /// @brief default constructor for trips and Flows (note: Edges : from + via + to)
     GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const std::string& vehicleID, GNEDemandElement* vehicleType, const std::vector<GNEEdge*>& edges);
 
     /// @brief parameter constructor for trips and Flows (note: Edges : from + via + to)
-    GNEVehicle(GNEViewNet* viewNet, const SUMOVehicleParameter& vehicleParameters, GNEDemandElement* vehicleType, const std::vector<GNEEdge*>& edges);
+    GNEVehicle(GNEViewNet* viewNet, GNEDemandElement* vehicleType, const std::vector<GNEEdge*>& edges, const SUMOVehicleParameter& vehicleParameters);
 
     /// @brief destructor
     ~GNEVehicle();

@@ -54,9 +54,20 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const std::string& v
 }
 
 
-GNEVehicle::GNEVehicle(GNEViewNet* viewNet, const SUMOVehicleParameter& vehicleParameters, GNEDemandElement* vehicleType, GNEDemandElement* route) :
+GNEVehicle::GNEVehicle(GNEViewNet* viewNet, GNEDemandElement* vehicleType, GNEDemandElement* route, const SUMOVehicleParameter& vehicleParameters) :
     GNEDemandElement(vehicleParameters.id, viewNet, (vehicleParameters.tag == SUMO_TAG_ROUTEFLOW) ? GLO_ROUTEFLOW : GLO_VEHICLE, vehicleParameters.tag,
     {}, {}, {}, {}, {vehicleType, route}, {}, {}, {}, {}, {}),
+    SUMOVehicleParameter(vehicleParameters) {
+    // SUMOVehicleParameter ID has to be set manually
+    id = vehicleParameters.id;
+    // set manually vtypeID (needed for saving)
+    vtypeid = vehicleType->getID();
+}
+
+
+GNEVehicle::GNEVehicle(GNEViewNet* viewNet, GNEDemandElement* vehicleType, const SUMOVehicleParameter& vehicleParameters) :
+    GNEDemandElement(vehicleParameters.id, viewNet, (vehicleParameters.tag == SUMO_TAG_ROUTEFLOW) ? GLO_ROUTEFLOW : GLO_VEHICLE, vehicleParameters.tag,
+    {}, {}, {}, {}, {vehicleType}, {}, {}, {}, {}, {}),
     SUMOVehicleParameter(vehicleParameters) {
     // SUMOVehicleParameter ID has to be set manually
     id = vehicleParameters.id;
@@ -72,7 +83,7 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const std::string& v
 }
 
 
-GNEVehicle::GNEVehicle(GNEViewNet* viewNet, const SUMOVehicleParameter& vehicleParameters, GNEDemandElement* vehicleType, const std::vector<GNEEdge*>& edges) :
+GNEVehicle::GNEVehicle(GNEViewNet* viewNet, GNEDemandElement* vehicleType, const std::vector<GNEEdge*>& edges, const SUMOVehicleParameter& vehicleParameters) :
     GNEDemandElement(vehicleParameters.id, viewNet, (vehicleParameters.tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_TRIP, vehicleParameters.tag,
     {edges}, {}, {}, {}, {vehicleType}, {}, {}, {}, {}, {}),
     SUMOVehicleParameter(vehicleParameters) {
@@ -523,7 +534,11 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_DEPART:
             return toString(depart);
         case SUMO_ATTR_ROUTE:
-            return getDemandElementParents().at(1)->getID();
+            if (getDemandElementParents().size() == 2) {
+                return getDemandElementParents().at(1)->getID();
+            } else {
+                return "embedded";
+            }
         // Specific of Trips
         case SUMO_ATTR_FROM:
             return getEdgeParents().front()->getID();
@@ -695,7 +710,11 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
             return error.empty();
         }
         case SUMO_ATTR_ROUTE:
-            return SUMOXMLDefinitions::isValidVehicleID(value) && (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_ROUTE, value, false) != nullptr);
+            if (getDemandElementParents().size() == 2) {
+                return SUMOXMLDefinitions::isValidVehicleID(value) && (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_ROUTE, value, false) != nullptr);
+            } else {
+                return true;
+            }
         // Specific of Trips
         case SUMO_ATTR_FROM:
         case SUMO_ATTR_TO:
@@ -1170,7 +1189,9 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         }
         case SUMO_ATTR_ROUTE:
-            changeDemandElementParent(this, value, 1);
+            if (getDemandElementParents().size() == 2) {
+                changeDemandElementParent(this, value, 1);
+            }
             break;
         // Specific of Trips and flow
         case SUMO_ATTR_FROM: {
