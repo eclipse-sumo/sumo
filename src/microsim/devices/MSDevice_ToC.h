@@ -128,6 +128,7 @@ private:
     static double getMRMDecel(const SUMOVehicle& v, const OptionsCont& oc);
     static double getDynamicToCThreshold(const SUMOVehicle& v, const OptionsCont& oc);
     static double getDynamicMRMProbability(const SUMOVehicle& v, const OptionsCont& oc);
+    static bool getMRMKeepRight(const SUMOVehicle& v, const OptionsCont& oc);
     static bool useColorScheme(const SUMOVehicle& v, const OptionsCont& oc);
     static std::string getOutputFilename(const SUMOVehicle& v, const OptionsCont& oc);
     static OpenGapParams getOpenGapParams(const SUMOVehicle& v, const OptionsCont& oc);
@@ -207,7 +208,8 @@ private:
     MSDevice_ToC(SUMOVehicle& holder, const std::string& id, const std::string& outputFilename,
                  std::string manualType, std::string automatedType, SUMOTime responseTime, double recoveryRate,
                  double lcAbstinence, double initialAwareness, double mrmDecel,
-				 double dynamicToCThreshold, double dynamicMRMProbability, bool useColorScheme, OpenGapParams ogp);
+				 double dynamicToCThreshold, double dynamicMRMProbability,
+				 bool mrmKeepRight, bool useColorScheme, OpenGapParams ogp);
 
     /** @brief Initialize vehicle colors for different states
      *  @note  For MANUAL and AUTOMATED, the color of the given types are used,
@@ -342,6 +344,8 @@ private:
     /// @brief Lane, on which the ongoing dynamic ToC was issued. It can only be aborted if the lane was changed.
     int myDynamicToCLane;
 
+    /// @brief Whether vehicle tries to change to the right during an MRM
+    bool myMRMKeepRight;
 
     // Grid of the response time distribution.
     static std::vector<double> lookupResponseTimeMRMProbs;

@@ -128,6 +128,8 @@ MSDevice_ToC::insertOptions(OptionsCont& oc) {
     oc.addDescription("device.toc.dynamicToCThreshold", "ToC Device", "Time, which the vehicle requires to have ahead to continue in automated mode. The default value of 0 indicates no dynamic triggering of ToCs.");
     oc.doRegister("device.toc.dynamicMRMProbability", new Option_Float(DEFAULT_MRM_PROBABILITY));
     oc.addDescription("device.toc.dynamicMRMProbability", "ToC Device", "Probability that a dynamically triggered TOR is not answered in time.");
+    oc.doRegister("device.toc.mrmKeepRight", new Option_Bool(false));
+    oc.addDescription("device.toc.mrmKeepRight", "ToC Device", "If true, the vehicle tries to change to the right during an MRM.");
     oc.doRegister("device.toc.ogNewTimeHeadway", new Option_Float(-1.0));
     oc.addDescription("device.toc.ogNewTimeHeadway", "ToC Device", "Timegap for ToC preparation phase.");
     oc.doRegister("device.toc.ogNewSpaceHeadway", new Option_Float(-1.0));
@@ -160,11 +162,12 @@ MSDevice_ToC::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>&
         OpenGapParams ogp = getOpenGapParams(v, oc);
         const double dynamicToCThreshold = getDynamicToCThreshold(v, oc);
         const double dynamicMRMProbability = getDynamicMRMProbability(v, oc);
+        const bool mrmKeepRight = getMRMKeepRight(v, oc);
         // build the device
         MSDevice_ToC* device = new MSDevice_ToC(v, deviceID, file,
                                                 manualType, automatedType, responseTime, recoveryRate,
                                                 lcAbstinence, initialAwareness, mrmDecel, dynamicToCThreshold,
-												dynamicMRMProbability, useColoring, ogp);
+												dynamicMRMProbability, mrmKeepRight, useColoring, ogp);
         into.push_back(device);
     }
 }
@@ -238,6 +241,11 @@ MSDevice_ToC::getDynamicMRMProbability(const SUMOVehicle& v, const OptionsCont& 
 }
 
 bool
+MSDevice_ToC::getMRMKeepRight(const SUMOVehicle& v, const OptionsCont& oc) {
+    return getBoolParam(v, oc, "toc.mrmKeepRight", false, false);
+}
+
+bool
 MSDevice_ToC::useColorScheme(const SUMOVehicle& v, const OptionsCont& oc) {
     return getBoolParam(v, oc, "toc.useColorScheme", "false", false);
 }
@@ -293,7 +301,8 @@ MSDevice_ToC::getOpenGapParams(const SUMOVehicle& v, const OptionsCont& oc) {
 MSDevice_ToC::MSDevice_ToC(SUMOVehicle& holder, const std::string& id, const std::string& outputFilename,
                            std::string manualType, std::string automatedType, SUMOTime responseTime, double recoveryRate,
                            double lcAbstinence, double initialAwareness, double mrmDecel,
-						   double dynamicToCThreshold, double dynamicMRMProbability, bool useColoring, OpenGapParams ogp) :
+						   double dynamicToCThreshold, double dynamicMRMProbability,
+						   bool mrmKeepRight, bool useColoring, OpenGapParams ogp) :
     MSVehicleDevice(holder, id),
     myManualTypeID(manualType),
     myAutomatedTypeID(automatedType),
@@ -316,7 +325,9 @@ MSDevice_ToC::MSDevice_ToC(SUMOVehicle& holder, const std::string& id, const std
     myDynamicToCThreshold(dynamicToCThreshold),
 	myMRMProbability(dynamicMRMProbability),
     myDynamicToCActive(dynamicToCThreshold > 0),
-	myDynamicToCLane(-1) {
+	myIssuedDynamicToC(false),
+	myDynamicToCLane(-1),
+	myMRMKeepRight(mrmKeepRight) {
     // Take care! Holder is currently being constructed. Cast occurs before completion.
     myHolderMS = static_cast<MSVehicle*>(&holder);
 
@@ -454,7 +465,6 @@ MSDevice_ToC::setState(ToCState state) {
 
     if (myIssuedDynamicToC) {
     	// Reset dynamic ToC flag
-    	// TODO: Reset response time if appropriate
     	myIssuedDynamicToC = false;
     }
 
@@ -713,6 +723,15 @@ MSDevice_ToC::MRMExecutionStep(SUMOTime t) {
     speedTimeLine.push_back(std::make_pair(t, nextSpeed));
     myHolderMS->getInfluencer().setSpeedTimeLine(speedTimeLine);
 
+    if (myMRMKeepRight) {
+    	// Try to change to the right
+        std::vector<std::pair<SUMOTime, int> > laneTimeLine;
+        laneTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), 0));
+        laneTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep() + 1, 0));
+    	myHolderMS->getInfluencer().setLaneTimeLine(laneTimeLine);
+//    	std::cout << "Keeping right..." << std::endl;
+    }
+
     if (myState == MRM) {
         return DELTA_T;
     } else {
@@ -810,6 +829,8 @@ MSDevice_ToC::getParameter(const std::string& key) const {
         return toString(myDynamicToCThreshold);
     } else if (key == "dynamicMRMProbability") {
         return toString(myMRMProbability);
+    } else if (key == "mrmKeepRight") {
+        return toString(myMRMKeepRight);
     }
     throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
 }
@@ -873,13 +894,17 @@ MSDevice_ToC::setParameter(const std::string& key, const std::string& value) {
     		myDynamicToCActive = true;
     	}
     } else if (key == "dynamicMRMProbability") {
-	const double newValue = StringUtils::toDouble(value);
-	if (newValue < 0) {
-		WRITE_WARNING("Value of dynamicMRMProbability must be non-negative. (Given value " + value + " for vehicle " + myHolderMS->getID() + " is ignored)");
-	} else {
-		myMRMProbability = newValue;
-	}
-} else {
+    	const double newValue = StringUtils::toDouble(value);
+    	if (newValue < 0) {
+    		WRITE_WARNING("Value of dynamicMRMProbability must be non-negative. (Given value " + value + " for vehicle " + myHolderMS->getID() + " is ignored)");
+    	} else {
+    		myMRMProbability = newValue;
+    	}
+    } else if (key == "mrmKeepRight")  {
+    	const bool newValue = StringUtils::toBool(value);
+    	myMRMKeepRight = newValue;
+    }
+    	else {
     	throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
     }
 }
