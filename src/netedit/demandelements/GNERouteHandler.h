@@ -56,8 +56,11 @@ public:
     /// @brief check if there is already a vehicle (Vehicle, Trip, Flow or Flow) with the given ID
     static bool isVehicleIdDuplicated(GNEViewNet* viewNet, const std::string& id); 
 
-    /// @brief build vehicle or routeFlow
-    static void buildVehicleOrRouteFlow(GNEViewNet* viewNet, bool undoDemandElements, const SUMOVehicleParameter &vehicleParameters);
+    /// @brief build vehicle or routeFlow over an existent route
+    static void buildVehicleOrRouteFlowOverRoute(GNEViewNet* viewNet, bool undoDemandElements, const SUMOVehicleParameter &vehicleParameters);
+
+    /// @brief build vehicle or routeFlow within a embebbed route
+    static void buildVehicleOrRouteFlowAndEmbebbedRoute(GNEViewNet* viewNet, bool undoDemandElements, SUMOVehicleParameter vehicleParameters, GNEDemandElement* embebbedRouteCopy);
 
     /// @brief build trip or flow
     static void buildTripOrFlow(GNEViewNet* viewNet, bool undoDemandElements, const SUMOVehicleParameter &vehicleParameters, const std::vector<GNEEdge*>& edges);

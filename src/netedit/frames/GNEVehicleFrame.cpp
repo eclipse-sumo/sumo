@@ -482,11 +482,11 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
     valuesMap[SUMO_ATTR_TYPE] = myVTypeSelector->getCurrentVehicleType()->getID();
 
     // set route or edges depending of vehicle type
-    if ((vehicleTag == SUMO_TAG_VEHICLE || vehicleTag == SUMO_TAG_ROUTEFLOW)) {
-        if (objectsUnderCursor.getDemandElementFront() &&
-                (objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE)) {
+    if ((vehicleTag == SUMO_TAG_VEHICLE) || (vehicleTag == SUMO_TAG_ROUTEFLOW)) {
+        if (objectsUnderCursor.getDemandElementFront() && (objectsUnderCursor.getDemandElementFront()->getTagProperty().isRoute())) {
             // obtain route
-            valuesMap[SUMO_ATTR_ROUTE] = objectsUnderCursor.getDemandElementFront()->getID();
+            valuesMap[SUMO_ATTR_ROUTE] = (objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE)? objectsUnderCursor.getDemandElementFront()->getID() : "embebbed";
+            // check if we're creating a vehicle or a flow
             if (vehicleTag == SUMO_TAG_VEHICLE) {
                 // Add parameter departure
                 if (valuesMap.count(SUMO_ATTR_DEPART) == 0) {
@@ -496,8 +496,12 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
                 SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, getPredefinedTagsMML(), toString(vehicleTag));
                 // obtain vehicle parameters in vehicleParameters
                 SUMOVehicleParameter* vehicleParameters = SUMOVehicleParserHelper::parseVehicleAttributes(SUMOSAXAttrs);
-                // create it in RouteFrame
-                GNERouteHandler::buildVehicleOrRouteFlow(myViewNet, true, *vehicleParameters);
+                // check if we're creating a vehicle over a existent route or over a embebbed route
+                if (objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE) {
+                    GNERouteHandler::buildVehicleOrRouteFlowOverRoute(myViewNet, true, *vehicleParameters);
+                } else {
+                    GNERouteHandler::buildVehicleOrRouteFlowAndEmbebbedRoute(myViewNet, true, *vehicleParameters, objectsUnderCursor.getDemandElementFront());
+                }
                 // delete vehicleParameters
                 delete vehicleParameters;
             } else {
@@ -505,8 +509,12 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
                 SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, getPredefinedTagsMML(), toString(vehicleTag));
                 // obtain routeFlow parameters in routeFlowParameters
                 SUMOVehicleParameter* routeFlowParameters = SUMOVehicleParserHelper::parseFlowAttributes(SUMOSAXAttrs, 0, SUMOTime_MAX);
-                // create it in RouteFrame
-                GNERouteHandler::buildVehicleOrRouteFlow(myViewNet, true, *routeFlowParameters);
+                // check if we're creating a vehicle over a existent route or over a embebbed route
+                if (objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE) {
+                    GNERouteHandler::buildVehicleOrRouteFlowOverRoute(myViewNet, true, *routeFlowParameters);
+                } else {
+                    GNERouteHandler::buildVehicleOrRouteFlowAndEmbebbedRoute(myViewNet, true, *routeFlowParameters, objectsUnderCursor.getDemandElementFront());
+                }
                 // delete vehicleParameters
                 delete routeFlowParameters;
             }

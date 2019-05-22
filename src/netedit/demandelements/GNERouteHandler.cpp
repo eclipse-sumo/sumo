@@ -66,7 +66,7 @@ GNERouteHandler::isVehicleIdDuplicated(GNEViewNet* viewNet, const std::string& i
 
 
 void
-GNERouteHandler::buildVehicleOrRouteFlow(GNEViewNet* viewNet, bool undoDemandElements, const SUMOVehicleParameter &vehicleParameters) {
+GNERouteHandler::buildVehicleOrRouteFlowOverRoute(GNEViewNet* viewNet, bool undoDemandElements, const SUMOVehicleParameter &vehicleParameters) {
     // Check tags
     assert((vehicleParameters.tag == SUMO_TAG_VEHICLE) || (vehicleParameters.tag == SUMO_TAG_ROUTEFLOW));
     // first check if ID is duplicated
@@ -101,6 +101,47 @@ GNERouteHandler::buildVehicleOrRouteFlow(GNEViewNet* viewNet, bool undoDemandEle
                     buildStop(viewNet, false, i, vehicleOrRouteFlow, false);
                 }
             }
+        }
+    }
+}
+
+
+void
+GNERouteHandler::buildVehicleOrRouteFlowAndEmbebbedRoute(GNEViewNet* viewNet, bool undoDemandElements, SUMOVehicleParameter vehicleParameters, GNEDemandElement* embebbedRouteCopy) {
+    // Check tags
+    assert((vehicleParameters.tag == SUMO_TAG_VEHICLE) || (vehicleParameters.tag == SUMO_TAG_ROUTEFLOW));
+    // obtain vType
+    GNEDemandElement* vType = viewNet->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, vehicleParameters.vtypeid, false);
+    if (vType == nullptr) {
+        WRITE_ERROR("Invalid vehicle type '" + vehicleParameters.vtypeid + "' used in " + toString(vehicleParameters.tag) + " '" + vehicleParameters.id + "'.");
+    } else {
+        // generate a new route ID and add it to vehicleParameters
+        vehicleParameters.routeid = viewNet->getNet()->generateDemandElementID(vehicleParameters.id, SUMO_TAG_ROUTE);
+        // due vehicle was loaded without a route, change tag
+        vehicleParameters.tag = (vehicleParameters.tag == SUMO_TAG_FLOW)? SUMO_TAG_ROUTEFLOW : SUMO_TAG_VEHICLE;
+        // create vehicle or trips using myTemporalVehicleParameter without a route
+        GNEVehicle* vehicleOrRouteFlow = new GNEVehicle(viewNet, vType, vehicleParameters);
+        // creaste embebbed route
+        GNERoute* embebbedRoute = new GNERoute(viewNet, vehicleOrRouteFlow, embebbedRouteCopy->getEdgeParents(), embebbedRouteCopy->getColor(), SVC_PASSENGER);
+        // add both to net depending of myUndoDemandElements
+        if (undoDemandElements) {
+            viewNet->getUndoList()->p_begin("add vehicle and " + embebbedRoute->getTagStr());
+            // add both in net using undoList
+            viewNet->getUndoList()->add(new GNEChange_DemandElement(vehicleOrRouteFlow, true), true);
+            viewNet->getUndoList()->add(new GNEChange_DemandElement(embebbedRoute, true), true);
+            viewNet->getUndoList()->p_end();
+        } else {
+            // add vehicleOrRouteFlow in net and in their vehicle type parent
+            viewNet->getNet()->insertDemandElement(vehicleOrRouteFlow);
+            vType->addDemandElementChild(vehicleOrRouteFlow);
+            vehicleOrRouteFlow->incRef("buildVehicleOrRouteFlowAndEmbebbedRoute");
+            // add route manually in net, and in all of their edges and in vehicleOrRouteFlow
+            viewNet->getNet()->insertDemandElement(embebbedRoute);
+            for (const auto& i : embebbedRouteCopy->getEdgeParents()) {
+                i->addDemandElementChild(vehicleOrRouteFlow);
+            }
+            vehicleOrRouteFlow->addDemandElementChild(embebbedRoute);
+            embebbedRoute->incRef("buildVehicleOrRouteFlowAndEmbebbedRoute");
         }
     }
 }
@@ -365,7 +406,7 @@ void
 GNERouteHandler::closeVehicle() {
     // first check if myVehicleParameter was sucesfully created
     if(myVehicleParameter) {
-        buildVehicleOrRouteFlow(myViewNet, myUndoDemandElements, *myVehicleParameter);
+        buildVehicleOrRouteFlowOverRoute(myViewNet, myUndoDemandElements, *myVehicleParameter);
     }
 }
 
@@ -447,7 +488,7 @@ GNERouteHandler::closeFlow() {
                 buildTripOrFlow(myViewNet, true, *myVehicleParameter, edges);
             }
         } else {
-            buildVehicleOrRouteFlow(myViewNet, myUndoDemandElements, *myVehicleParameter);
+            buildVehicleOrRouteFlowOverRoute(myViewNet, myUndoDemandElements, *myVehicleParameter);
         }
     }
 }
