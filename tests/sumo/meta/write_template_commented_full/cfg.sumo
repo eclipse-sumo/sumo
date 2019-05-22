@@ -562,7 +562,7 @@
         <device.toc.automatedType value="" type="STR"/>
 
         <!-- Average response time needed by a driver to take back control. -->
-        <device.toc.responseTime value="5" type="FLOAT"/>
+        <device.toc.responseTime value="-1" type="FLOAT"/>
 
         <!-- Recovery rate for the driver&apos;s awareness after a ToC. -->
         <device.toc.recoveryRate value="0.1" type="FLOAT"/>
@@ -584,6 +584,9 @@
 
         <!-- If true, the vehicle tries to change to the right during an MRM. -->
         <device.toc.mrmKeepRight value="false" type="BOOL"/>
+
+        <!-- Maximal acceleration that may be applied during the ToC preparation phase. -->
+        <device.toc.maxPreparationAccel value="0" type="FLOAT"/>
 
         <!-- Timegap for ToC preparation phase. -->
         <device.toc.ogNewTimeHeadway value="-1" type="FLOAT"/>

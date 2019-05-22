@@ -215,7 +215,7 @@
         <device.toc.deterministic value="false" type="BOOL" help="The &apos;toc&apos; devices are set deterministic using a fraction of 1000"/>
         <device.toc.manualType value="" type="STR" help="Vehicle type for manual driving regime."/>
         <device.toc.automatedType value="" type="STR" help="Vehicle type for automated driving regime."/>
-        <device.toc.responseTime value="5" type="FLOAT" help="Average response time needed by a driver to take back control."/>
+        <device.toc.responseTime value="-1" type="FLOAT" help="Average response time needed by a driver to take back control."/>
         <device.toc.recoveryRate value="0.1" type="FLOAT" help="Recovery rate for the driver&apos;s awareness after a ToC."/>
         <device.toc.lcAbstinence value="0" type="FLOAT" help="Attention level below which a driver restrains from performing lane changes (value in [0,1])."/>
         <device.toc.initialAwareness value="0.5" type="FLOAT" help="Average awareness a driver has initially after a ToC (value in [0,1])."/>
@@ -223,6 +223,7 @@
         <device.toc.dynamicToCThreshold value="0" type="FLOAT" help="Time, which the vehicle requires to have ahead to continue in automated mode. The default value of 0 indicates no dynamic triggering of ToCs."/>
         <device.toc.dynamicMRMProbability value="0.05" type="FLOAT" help="Probability that a dynamically triggered TOR is not answered in time."/>
         <device.toc.mrmKeepRight value="false" type="BOOL" help="If true, the vehicle tries to change to the right during an MRM."/>
+        <device.toc.maxPreparationAccel value="0" type="FLOAT" help="Maximal acceleration that may be applied during the ToC preparation phase."/>
         <device.toc.ogNewTimeHeadway value="-1" type="FLOAT" help="Timegap for ToC preparation phase."/>
         <device.toc.ogNewSpaceHeadway value="-1" type="FLOAT" help="Additional spacing for ToC preparation phase."/>
         <device.toc.ogMaxDecel value="-1" type="FLOAT" help="Maximal deceleration applied for establishing increased gap in ToC preparation phase."/>
