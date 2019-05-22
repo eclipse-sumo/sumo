@@ -284,8 +284,6 @@ GNERoute::getAttribute(SumoXMLAttr key) const {
             return parseIDs(getEdgeParents());
         case SUMO_ATTR_COLOR:
             return toString(myColor);
-        case GNE_ATTR_PARENT:
-            return getDemandElementParents().at(0)->getID();
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_GENERIC:
@@ -305,7 +303,6 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
         case SUMO_ATTR_ID:
         case SUMO_ATTR_EDGES:
         case SUMO_ATTR_COLOR:
-        case GNE_ATTR_PARENT:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_GENERIC:
             undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
@@ -330,17 +327,6 @@ GNERoute::isValid(SumoXMLAttr key, const std::string& value) {
             }
         case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
-        case GNE_ATTR_PARENT:
-            if (value.empty()) {
-                return true;
-            } else if(isValidDemandElementID(value)) {
-                return ((myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_VEHICLE, value, false) != nullptr) || 
-                        (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_TRIP, value, false) != nullptr) || 
-                        (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_ROUTEFLOW, value, false) != nullptr) || 
-                        (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_FLOW, value, false) != nullptr) );
-            } else {
-                return false;
-            }
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_GENERIC:
@@ -383,23 +369,6 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_COLOR:
             myColor = parse<RGBColor>(value);
-            break;
-        case GNE_ATTR_PARENT:
-            /*
-            if (value.empty()) {
-                changeXMLParent(nullptr);
-            } else if(myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_VEHICLE, value, false) != nullptr) {
-                changeXMLParent(myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_VEHICLE, value));
-            } else if(myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_TRIP, value, false) != nullptr) {
-                changeXMLParent(myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_TRIP, value));
-            } else if(myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_ROUTEFLOW, value, false) != nullptr) {
-                changeXMLParent(myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_ROUTEFLOW, value));
-            } else if(myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_FLOW, value, false) != nullptr) {
-                changeXMLParent(myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_FLOW, value));
-            } else {
-                throw InvalidArgument("Invalid vehicle ID");
-            }
-            */
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {

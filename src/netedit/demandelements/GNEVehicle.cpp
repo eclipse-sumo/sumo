@@ -543,7 +543,7 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
             if (getDemandElementParents().size() == 2) {
                 return getDemandElementParents().at(1)->getID();
             } else {
-                return "embedded";
+                return "";
             }
         // Specific of Trips
         case SUMO_ATTR_FROM:
