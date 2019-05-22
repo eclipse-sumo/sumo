@@ -51,7 +51,7 @@
 // ===========================================================================
 
 // default value for the average response time, that a driver needs to take back control
-#define DEFAULT_RESPONSE_TIME 5.0
+#define DEFAULT_RESPONSE_TIME -1.0
 // default value for the average rate at which the driver's awareness recovers to
 // 1.0 after a ToC has been performed
 #define DEFAULT_RECOVERY_RATE 0.1
@@ -536,11 +536,11 @@ MSDevice_ToC::requestMRM() {
 void
 MSDevice_ToC::requestToC(SUMOTime timeTillMRM, SUMOTime responseTime) {
 #ifdef DEBUG_TOC
-    std::cout << SIMTIME << " requestToC() for vehicle '" << myHolder.getID() << "' , timeTillMRM=" << timeTillMRM << std::endl;
+    std::cout << SIMTIME << " requestToC() for vehicle '" << myHolder.getID() << "', timeTillMRM=" << timeTillMRM << ", responseTime=" << responseTime << std::endl;
 #endif
     if (myState == AUTOMATED) {
         // Initialize preparation phase
-        if (responseTime == -1) {
+        if (responseTime == -1000) {
             // Sample response time from distribution
         	responseTime = TIME2STEPS(sampleResponseTime(STEPS2TIME(timeTillMRM)));
         }

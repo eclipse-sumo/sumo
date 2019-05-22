@@ -236,7 +236,7 @@ private:
     /// @param timeTillMRM
     /// @param responseTime If the default is given (== -1), the response time is sampled randomly,
     ///		   @see sampleResponseTime()
-    void requestToC(SUMOTime timeTillMRM, SUMOTime responseTime = -1);
+    void requestToC(SUMOTime timeTillMRM, SUMOTime responseTime = -1000);
 
     /// @brief Request an MRM to be initiated immediately. No downward ToC will be scheduled.
     /// @note  The initiated MRM process will run forever until a new ToC is requested.
