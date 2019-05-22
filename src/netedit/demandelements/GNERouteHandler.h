@@ -56,14 +56,23 @@ public:
     /// @brief check if there is already a vehicle (Vehicle, Trip, Flow or Flow) with the given ID
     static bool isVehicleIdDuplicated(GNEViewNet* viewNet, const std::string& id); 
 
-    /// @brief build vehicle or routeFlow over an existent route
-    static void buildVehicleOrRouteFlowOverRoute(GNEViewNet* viewNet, bool undoDemandElements, const SUMOVehicleParameter &vehicleParameters);
+    /// @brief build a vehicle over an existent route
+    static void buildVehicleOverRoute(GNEViewNet* viewNet, bool undoDemandElements, const SUMOVehicleParameter &vehicleParameters);
 
-    /// @brief build vehicle or routeFlow within a embebbed route
-    static void buildVehicleOrRouteFlowAndEmbebbedRoute(GNEViewNet* viewNet, bool undoDemandElements, SUMOVehicleParameter vehicleParameters, GNEDemandElement* embebbedRouteCopy);
+    /// @brief build a flow over an existent route
+    static void buildFlowOverRoute(GNEViewNet* viewNet, bool undoDemandElements, const SUMOVehicleParameter &vehicleParameters);
 
-    /// @brief build trip or flow
-    static void buildTripOrFlow(GNEViewNet* viewNet, bool undoDemandElements, const SUMOVehicleParameter &vehicleParameters, const std::vector<GNEEdge*>& edges);
+    /// @brief build vehicle with a embebbed route
+    static void buildVehicleWithEmbebbedRoute(GNEViewNet* viewNet, bool undoDemandElements, SUMOVehicleParameter vehicleParameters, GNEDemandElement* embebbedRouteCopy);
+
+    /// @brief build flow with a embebbed route
+    static void buildFlowWithEmbebbedRoute(GNEViewNet* viewNet, bool undoDemandElements, SUMOVehicleParameter vehicleParameters, GNEDemandElement* embebbedRouteCopy);
+
+    /// @brief build trip
+    static void buildTrip(GNEViewNet* viewNet, bool undoDemandElements, const SUMOVehicleParameter &vehicleParameters, const std::vector<GNEEdge*>& edges);
+
+    /// @brief build flow
+    static void buildFlow(GNEViewNet* viewNet, bool undoDemandElements, const SUMOVehicleParameter &vehicleParameters, const std::vector<GNEEdge*>& edges);
 
     /// @brief build stop
     static void buildStop(GNEViewNet* viewNet, bool undoDemandElements, const SUMOVehicleParameter::Stop& stopParameters, GNEDemandElement* stopParent, bool friendlyPosition);

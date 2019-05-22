@@ -361,41 +361,36 @@ GNEVehicleFrame::TripRouteCreator::onCmdFinishRouteCreation(FXObject*, FXSelecto
     if (mySelectedEdges.size() > 1) {
         // obtain tag (only for improve code legibility)
         SumoXMLTag vehicleTag = myVehicleFrameParent->myItemSelector->getCurrentTagProperties().getTag();
-
         // Declare map to keep attributes from Frames from Frame
         std::map<SumoXMLAttr, std::string> valuesMap = myVehicleFrameParent->myVehicleAttributes->getAttributesAndValues(false);
-
-        // add ID
+        // add ID parameter
         valuesMap[SUMO_ATTR_ID] = myVehicleFrameParent->myViewNet->getNet()->generateDemandElementID("", vehicleTag);
-
-        // add VType
+        // add VType parameter
         valuesMap[SUMO_ATTR_TYPE] = myVehicleFrameParent->myVTypeSelector->getCurrentVehicleType()->getID();
-
         // Add parameter departure
         if (valuesMap.count(SUMO_ATTR_DEPART) == 0) {
             valuesMap[SUMO_ATTR_DEPART] = "0";
         }
-
         // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
         SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, myVehicleFrameParent->getPredefinedTagsMML(), toString(vehicleTag));
-
-        // obtain trip or Flow parameters in tripParameters
-        SUMOVehicleParameter* tripOrFlowParameters;
+        // check if we're creating a trip or flow
         if (vehicleTag == SUMO_TAG_TRIP) {
-            tripOrFlowParameters = SUMOVehicleParserHelper::parseVehicleAttributes(SUMOSAXAttrs);
+            // obtain trip parameters
+            SUMOVehicleParameter* tripParameters = SUMOVehicleParserHelper::parseVehicleAttributes(SUMOSAXAttrs);
+            // build trip in GNERouteHandler
+            GNERouteHandler::buildTrip(myVehicleFrameParent->myViewNet, true, *tripParameters, mySelectedEdges);
+            // delete tripParameters
+            delete tripParameters;
         } else {
-            tripOrFlowParameters = SUMOVehicleParserHelper::parseFlowAttributes(SUMOSAXAttrs, 0, SUMOTime_MAX);
+            // obtain flow parameters
+            SUMOVehicleParameter* flowParameters = SUMOVehicleParserHelper::parseFlowAttributes(SUMOSAXAttrs, 0, SUMOTime_MAX);
+            // build flow in GNERouteHandler
+            GNERouteHandler::buildFlow(myVehicleFrameParent->myViewNet, true, *flowParameters, mySelectedEdges);
+            // delete flowParameters
+            delete flowParameters;
         }
-
-        // create it in RouteFrame
-        GNERouteHandler::buildTripOrFlow(myVehicleFrameParent->myViewNet, true, *tripOrFlowParameters, mySelectedEdges);
-
-        // delete tripParameters
-        delete tripOrFlowParameters;
-
         // clear edges
         clearEdges();
-
         // disable buttons
         myFinishCreationButton->disable();
         myAbortCreationButton->disable();
@@ -459,28 +454,22 @@ bool
 GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
     // obtain tag (only for improve code legibility)
     SumoXMLTag vehicleTag = myItemSelector->getCurrentTagProperties().getTag();
-
     // first check that current selected vehicle is valid
     if (vehicleTag == SUMO_TAG_NOTHING) {
         myViewNet->setStatusBarText("Current selected vehicle isn't valid.");
         return false;
     }
-
     // now check if VType is valid
     if (myVTypeSelector->getCurrentVehicleType() == nullptr) {
         myViewNet->setStatusBarText("Current selected vehicle type isn't valid.");
         return false;
     }
-
     // Declare map to keep attributes from Frames from Frame
     std::map<SumoXMLAttr, std::string> valuesMap = myVehicleAttributes->getAttributesAndValues(false);
-
-    // add ID
+    // add ID parameter
     valuesMap[SUMO_ATTR_ID] = myViewNet->getNet()->generateDemandElementID("", vehicleTag);
-
     // add VType
     valuesMap[SUMO_ATTR_TYPE] = myVTypeSelector->getCurrentVehicleType()->getID();
-
     // set route or edges depending of vehicle type
     if ((vehicleTag == SUMO_TAG_VEHICLE) || (vehicleTag == SUMO_TAG_ROUTEFLOW)) {
         if (objectsUnderCursor.getDemandElementFront() && (objectsUnderCursor.getDemandElementFront()->getTagProperty().isRoute())) {
@@ -498,9 +487,9 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
                 SUMOVehicleParameter* vehicleParameters = SUMOVehicleParserHelper::parseVehicleAttributes(SUMOSAXAttrs);
                 // check if we're creating a vehicle over a existent route or over a embebbed route
                 if (objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE) {
-                    GNERouteHandler::buildVehicleOrRouteFlowOverRoute(myViewNet, true, *vehicleParameters);
+                    GNERouteHandler::buildVehicleOverRoute(myViewNet, true, *vehicleParameters);
                 } else {
-                    GNERouteHandler::buildVehicleOrRouteFlowAndEmbebbedRoute(myViewNet, true, *vehicleParameters, objectsUnderCursor.getDemandElementFront());
+                    GNERouteHandler::buildVehicleWithEmbebbedRoute(myViewNet, true, *vehicleParameters, objectsUnderCursor.getDemandElementFront());
                 }
                 // delete vehicleParameters
                 delete vehicleParameters;
@@ -511,11 +500,11 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
                 SUMOVehicleParameter* routeFlowParameters = SUMOVehicleParserHelper::parseFlowAttributes(SUMOSAXAttrs, 0, SUMOTime_MAX);
                 // check if we're creating a vehicle over a existent route or over a embebbed route
                 if (objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE) {
-                    GNERouteHandler::buildVehicleOrRouteFlowOverRoute(myViewNet, true, *routeFlowParameters);
+                    GNERouteHandler::buildFlowOverRoute(myViewNet, true, *routeFlowParameters);
                 } else {
-                    GNERouteHandler::buildVehicleOrRouteFlowAndEmbebbedRoute(myViewNet, true, *routeFlowParameters, objectsUnderCursor.getDemandElementFront());
+                    GNERouteHandler::buildFlowWithEmbebbedRoute(myViewNet, true, *routeFlowParameters, objectsUnderCursor.getDemandElementFront());
                 }
-                // delete vehicleParameters
+                // delete routeFlowParameters
                 delete routeFlowParameters;
             }
             // all ok, then return true;
