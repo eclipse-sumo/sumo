@@ -128,6 +128,7 @@ private:
     static double getMRMDecel(const SUMOVehicle& v, const OptionsCont& oc);
     static double getDynamicToCThreshold(const SUMOVehicle& v, const OptionsCont& oc);
     static double getDynamicMRMProbability(const SUMOVehicle& v, const OptionsCont& oc);
+    static double getMaxPreparationAccel(const SUMOVehicle& v, const OptionsCont& oc);
     static bool getMRMKeepRight(const SUMOVehicle& v, const OptionsCont& oc);
     static bool useColorScheme(const SUMOVehicle& v, const OptionsCont& oc);
     static std::string getOutputFilename(const SUMOVehicle& v, const OptionsCont& oc);
@@ -208,7 +209,7 @@ private:
     MSDevice_ToC(SUMOVehicle& holder, const std::string& id, const std::string& outputFilename,
                  std::string manualType, std::string automatedType, SUMOTime responseTime, double recoveryRate,
                  double lcAbstinence, double initialAwareness, double mrmDecel,
-				 double dynamicToCThreshold, double dynamicMRMProbability,
+				 double dynamicToCThreshold, double dynamicMRMProbability, double maxPreparationAccel,
 				 bool mrmKeepRight, bool useColorScheme, OpenGapParams ogp);
 
     /** @brief Initialize vehicle colors for different states
@@ -276,6 +277,7 @@ private:
     std::string myManualTypeID;
     /// @brief vehicle type ID for automated driving
     std::string myAutomatedTypeID;
+
 
     /// @brief Average response time needed by the driver to take back control
     SUMOTime myResponseTime;
@@ -347,27 +349,34 @@ private:
     /// @brief Whether vehicle tries to change to the right during an MRM
     bool myMRMKeepRight;
 
-    // Grid of the response time distribution.
+    /// @brief Maximal acceleration that may be applied during the ToC preparation phase
+    /// TODO: Make effective
+    double myMaxPreparationAccel;
+
+    /// @brief Storage for original maximal acceleration of vehicle.
+    double myOriginalMaxAccel;
+
+    /// @brief Grid of the response time distribution.
     static std::vector<double> lookupResponseTimeMRMProbs;
     static std::vector<double> lookupResponseTimeLeadTimes;
-    // Mean of the response time distribution. (Only depends on given lead time)
+    /// @brief Mean of the response time distribution. (Only depends on given lead time)
     static double responseTimeMean(double leadTime) {
         return MIN2(2*sqrt(leadTime), 0.7*leadTime);
     };
-    // Variances of the response time distribution. Given the lead time and the MRM probability
-    // the variances in this table ensure that for the mean returned by responseTimeMean(leadTime)
-    // an MRM will occur with probability pMRM
+    /// @brief Variances of the response time distribution. Given the lead time and the MRM probability
+    /// the variances in this table ensure that for the mean returned by responseTimeMean(leadTime)
+    /// an MRM will occur with probability pMRM
     static std::vector<std::vector<double> > lookupResponseTimeVariances;
 
-    // Random generator for ToC devices
+    /// @brief Random generator for ToC devices
     static std::mt19937 myResponseTimeRNG;
 
-    // Samples a random driver response time from a truncated Gaussian with
-    // parameters according to the lookup tables
+    /// @brief Samples a random driver response time from a truncated Gaussian with
+    /// parameters according to the lookup tables
     double sampleResponseTime(double leadTime) const;
 
-    // Two-dimensional interpolation of variance from lookup table
-    // assumes pMRM >= 0, leadTime >= 0
+    /// @brief Two-dimensional interpolation of variance from lookup table
+    /// assumes pMRM >= 0, leadTime >= 0
     static double interpolateVariance(double leadTime, double pMRM);
 
 private:
