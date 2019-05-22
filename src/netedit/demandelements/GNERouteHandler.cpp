@@ -388,6 +388,48 @@ GNERouteHandler::buildStop(GNEViewNet* viewNet, bool undoDemandElements, const S
 }
 
 
+void 
+GNERouteHandler::transformToVehicleOverRoute(GNEViewNet* viewNet, GNEDemandElement* originalVehicle) {
+
+}
+
+
+void 
+GNERouteHandler::transformToFlowOverRoute(GNEViewNet* viewNet, GNEDemandElement* originalVehicle) {
+
+}
+
+
+void 
+GNERouteHandler::transformToVehicleWithEmbebbedRoute(GNEViewNet* viewNet, GNEDemandElement* originalVehicle) {
+
+}
+
+
+void 
+GNERouteHandler::transformToFlowWithEmbebbedRoute(GNEViewNet* viewNet, GNEDemandElement* originalVehicle) {
+
+}
+
+
+void 
+GNERouteHandler::transformToTrip(GNEViewNet* viewNet, GNEDemandElement* originalVehicle) {
+
+}
+
+
+void 
+GNERouteHandler::transformToFlow(GNEViewNet* viewNet, GNEDemandElement* originalVehicle) {
+
+}
+
+
+void 
+GNERouteHandler::transformToStop(GNEViewNet* viewNet, GNEDemandElement* originalVehicle) {
+
+}
+
+
 void
 GNERouteHandler::openVehicleTypeDistribution(const SUMOSAXAttributes& /*attrs*/) {
     // currently unused

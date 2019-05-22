@@ -56,6 +56,8 @@ public:
     /// @brief check if there is already a vehicle (Vehicle, Trip, Flow or Flow) with the given ID
     static bool isVehicleIdDuplicated(GNEViewNet* viewNet, const std::string& id); 
 
+    /// @brief build functions
+    /// @{
     /// @brief build a vehicle over an existent route
     static void buildVehicleOverRoute(GNEViewNet* viewNet, bool undoDemandElements, const SUMOVehicleParameter &vehicleParameters);
 
@@ -76,6 +78,33 @@ public:
 
     /// @brief build stop
     static void buildStop(GNEViewNet* viewNet, bool undoDemandElements, const SUMOVehicleParameter::Stop& stopParameters, GNEDemandElement* stopParent, bool friendlyPosition);
+
+    /// @}
+
+    /// @brief transform functions
+    /// @{
+    /// @brief build a vehicle over an existent route
+    static void transformToVehicleOverRoute(GNEViewNet* viewNet, GNEDemandElement* originalVehicle);
+
+    /// @brief build a flow over an existent route
+    static void transformToFlowOverRoute(GNEViewNet* viewNet, GNEDemandElement* originalVehicle);
+
+    /// @brief build vehicle with a embebbed route
+    static void transformToVehicleWithEmbebbedRoute(GNEViewNet* viewNet, GNEDemandElement* originalVehicle);
+
+    /// @brief build flow with a embebbed route
+    static void transformToFlowWithEmbebbedRoute(GNEViewNet* viewNet, GNEDemandElement* originalVehicle);
+
+    /// @brief build trip
+    static void transformToTrip(GNEViewNet* viewNet, GNEDemandElement* originalVehicle);
+
+    /// @brief build flow
+    static void transformToFlow(GNEViewNet* viewNet, GNEDemandElement* originalVehicle);
+
+    /// @brief build stop
+    static void transformToStop(GNEViewNet* viewNet, GNEDemandElement* originalVehicle);
+
+    /// @}
 
 protected:
     /// @brief opens a type distribution for reading
