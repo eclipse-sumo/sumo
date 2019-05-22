@@ -47,6 +47,10 @@
 #include <microsim/trigger/MSChargingStation.h>
 #include "MSJunction.h"
 
+#ifdef HAVE_FOX
+#include <utils/foxtools/FXConditionalLock.h>
+#endif
+
 
 // ===========================================================================
 // class declarations
@@ -791,6 +795,11 @@ protected:
 
     /// @brief Container for vehicle state listener
     std::vector<VehicleStateListener*> myVehicleStateListeners;
+
+#ifdef HAVE_FOX
+    /// @brief to avoid concurrent access to the state update function
+    FXMutex myStateListenerMutex;
+#endif
 
     /// @brief container to record warnings that shall only be issued once
     std::map<std::string, bool> myWarnedOnce;
