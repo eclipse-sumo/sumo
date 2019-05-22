@@ -490,7 +490,7 @@ MSDevice_ToC::setState(ToCState state) {
         	resetDeliberateLCs();
         	myHolderMS->getSingularType().getCarFollowModel().setMaxAccel(myOriginalMaxAccel);
     	}
-    } else if (state == PREPARING_TOC) {
+    } else if (state == PREPARING_TOC || state == MRM) {
 #ifdef DEBUG_TOC
     	std::cout << "  Entering ToC preparation... " << std::endl;
 #endif
@@ -600,9 +600,6 @@ MSDevice_ToC::triggerMRM(SUMOTime /* t */) {
     }
     setState(MRM);
     setAwareness(1.);
-
-    // Prevent lane changing during MRM
-    deactivateDeliberateLCs();
 
     // Record event
     if (generatesOutput()) {
