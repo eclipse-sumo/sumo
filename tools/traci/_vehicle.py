@@ -308,42 +308,48 @@ class VehicleDomain(Domain):
     def getCO2Emission(self, vehID):
         """getCO2Emission(string) -> double
 
-        Returns the CO2 emission in mg for the last time step.
+        Returns the CO2 emission in mg/s for the last time step.
+        Multiply by the step length to get the value for one step.
         """
         return self._getUniversal(tc.VAR_CO2EMISSION, vehID)
 
     def getCOEmission(self, vehID):
         """getCOEmission(string) -> double
 
-        Returns the CO emission in mg for the last time step.
+        Returns the CO emission in mg/s for the last time step.
+        Multiply by the step length to get the value for one step.
         """
         return self._getUniversal(tc.VAR_COEMISSION, vehID)
 
     def getHCEmission(self, vehID):
         """getHCEmission(string) -> double
 
-        Returns the HC emission in mg for the last time step.
+        Returns the HC emission in mg/s for the last time step.
+        Multiply by the step length to get the value for one step.
         """
         return self._getUniversal(tc.VAR_HCEMISSION, vehID)
 
     def getPMxEmission(self, vehID):
         """getPMxEmission(string) -> double
 
-        Returns the particular matter emission in mg for the last time step.
+        Returns the particular matter emission in mg/s for the last time step.
+        Multiply by the step length to get the value for one step.
         """
         return self._getUniversal(tc.VAR_PMXEMISSION, vehID)
 
     def getNOxEmission(self, vehID):
         """getNOxEmission(string) -> double
 
-        Returns the NOx emission in mg for the last time step.
+        Returns the NOx emission in mg/s for the last time step.
+        Multiply by the step length to get the value for one step.
         """
         return self._getUniversal(tc.VAR_NOXEMISSION, vehID)
 
     def getFuelConsumption(self, vehID):
         """getFuelConsumption(string) -> double
 
-        Returns the fuel consumption in ml for the last time step.
+        Returns the fuel consumption in ml/s for the last time step.
+        Multiply by the step length to get the value for one step.
         """
         return self._getUniversal(tc.VAR_FUELCONSUMPTION, vehID)
 
@@ -357,14 +363,15 @@ class VehicleDomain(Domain):
     def getElectricityConsumption(self, vehID):
         """getElectricityConsumption(string) -> double
 
-        Returns the electricity consumption in Wh for the last time step.
+        Returns the electricity consumption in Wh/s for the last time step.
+        Multiply by the step length to get the value for one step.
         """
         return self._getUniversal(tc.VAR_ELECTRICITYCONSUMPTION, vehID)
 
     def getPersonCapacity(self, vehID):
         """getPersonCapacity(string) -> int
 
-        Returns the Person Capacity of the vehicle
+        Returns the person capacity of the vehicle
         """
         return self._getUniversal(tc.VAR_PERSON_CAPACITY, vehID)
 
