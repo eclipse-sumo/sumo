@@ -133,7 +133,7 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
         write(device, OptionsCont::getOptions(), myTagProperty.getTag());
     }
     // write specific attribute depeding of their tag
-    if ((getDemandElementParents().size() == 2) && (myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == SUMO_TAG_ROUTEFLOW)) {
+    if ((getDemandElementParents().size() == 2) && (myTagProperty.getTag() == SUMO_TAG_VEHICLE || myTagProperty.getTag() == SUMO_TAG_ROUTEFLOW)) {
         // write manually route
         device.writeAttr(SUMO_ATTR_ROUTE, getDemandElementParents().at(1)->getID());
     } 
