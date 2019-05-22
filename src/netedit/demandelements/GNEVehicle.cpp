@@ -35,13 +35,150 @@
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GUIBaseVehicleHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEVehicle.h"
 
 
 // ===========================================================================
+// FOX callback mapping
+// ===========================================================================
+FXDEFMAP(GNEVehicle::GNEVehiclePopupMenu) GNEVehiclePopupMenuMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_VEHICLE_TRANSFORM,   GNEVehicle::GNEVehiclePopupMenu::onCmdTransform),
+};
+
+// Object implementation
+FXIMPLEMENT(GNEVehicle::GNEVehiclePopupMenu, GUIGLObjectPopupMenu, GNEVehiclePopupMenuMap, ARRAYNUMBER(GNEVehiclePopupMenuMap))
+
+// ===========================================================================
 // member method definitions
 // ===========================================================================
+
+// ===========================================================================
+// GNEVehicle::GNEVehiclePopupMenu
+// ===========================================================================
+
+GNEVehicle::GNEVehiclePopupMenu::GNEVehiclePopupMenu(GNEVehicle *vehicle, GUIMainWindow& app, GUISUMOAbstractView& parent) :
+    GUIGLObjectPopupMenu(app, parent, *vehicle),
+    myVehicle(vehicle) { 
+    // build header
+    myVehicle->buildPopupHeader(this, app);
+    // build menu command for center button and copy cursor position to clipboard
+    myVehicle->buildCenterPopupEntry(this);
+    myVehicle->buildPositionCopyEntry(this, false);
+    // buld menu commands for names
+    new FXMenuCommand(this, ("Copy " + myVehicle->getTagStr() + " name to clipboard").c_str(), nullptr, this, MID_COPY_NAME);
+    new FXMenuCommand(this, ("Copy " + myVehicle->getTagStr() + " typed name to clipboard").c_str(), nullptr, this, MID_COPY_TYPED_NAME);
+    new FXMenuSeparator(this);
+    // build selection and show parameters menu
+    myVehicle->getViewNet()->buildSelectionACPopupEntry(this, myVehicle);
+    myVehicle->buildShowParamsPopupEntry(this);
+    // show option to open demand element dialog
+    if (myVehicle->getTagProperty().hasDialog()) {
+        new FXMenuCommand(this, ("Open " + myVehicle->getTagStr() + " Dialog").c_str(), myVehicle->getIcon(), &parent, MID_OPEN_ADDITIONAL_DIALOG);
+        new FXMenuSeparator(this);
+    }
+    new FXMenuCommand(this, ("Cursor position in view: " + toString(myVehicle->getPositionInView().x()) + "," + toString(myVehicle->getPositionInView().y())).c_str(), nullptr, nullptr, 0);
+
+
+
+    // add transform functions only in demand mode
+    if (myVehicle->getViewNet()->getEditModes().networkEditMode == GNE_SUPERMODE_DEMAND) {
+        // Get icons
+        FXIcon* RouteIcon = GUIIconSubSys::getIcon(ICON_LANEBIKE);
+        FXIcon* vehicleIcon = GUIIconSubSys::getIcon(ICON_VEHICLE);
+        FXIcon* tripIcon = GUIIconSubSys::getIcon(ICON_TRIP);
+        FXIcon* routeFlowIcon= GUIIconSubSys::getIcon(ICON_ROUTEFLOW);
+        FXIcon* flowIcon= GUIIconSubSys::getIcon(ICON_FLOW);
+        /*
+        // create menu pane for transform operations
+        FXMenuPane* laneOperations = new FXMenuPane(vehicleMenu);
+        vehicleMenu->insertMenuPaneChild(laneOperations);
+        new FXMenuCascade(vehicleMenu, "lane operations", nullptr, laneOperations);
+        new FXMenuCommand(laneOperations, "Duplicate lane", nullptr, &parent, MID_GNE_LANE_DUPLICATE);
+        // Create panel for lane operations and insert it in vehicleMenu
+        FXMenuPane* addSpecialLanes = new FXMenuPane(laneOperations);
+        vehicleMenu->insertMenuPaneChild(addSpecialLanes);
+        FXMenuPane* removeSpecialLanes = new FXMenuPane(laneOperations);
+        vehicleMenu->insertMenuPaneChild(removeSpecialLanes);
+        FXMenuPane* transformSlanes = new FXMenuPane(laneOperations);
+        vehicleMenu->insertMenuPaneChild(transformSlanes);
+        // Create menu comands for all add special lanes
+        FXMenuCommand* addSidewalk = new FXMenuCommand(addSpecialLanes, "Sidewalk", pedestrianIcon, &parent, MID_GNE_LANE_ADD_SIDEWALK);
+        FXMenuCommand* addBikelane = new FXMenuCommand(addSpecialLanes, "Bikelane", bikeIcon, &parent, MID_GNE_LANE_ADD_BIKE);
+        FXMenuCommand* addBuslane = new FXMenuCommand(addSpecialLanes, "Buslane", busIcon, &parent, MID_GNE_LANE_ADD_BUS);
+        FXMenuCommand* addGreenVerge = new FXMenuCommand(addSpecialLanes, "Greenverge", greenVergeIcon, &parent, MID_GNE_LANE_ADD_GREENVERGE);
+        // Create menu comands for all remove special lanes and disable it
+        FXMenuCommand* removeSidewalk = new FXMenuCommand(removeSpecialLanes, "Sidewalk", pedestrianIcon, &parent, MID_GNE_LANE_REMOVE_SIDEWALK);
+        removeSidewalk->disable();
+        FXMenuCommand* removeBikelane = new FXMenuCommand(removeSpecialLanes, "Bikelane", bikeIcon, &parent, MID_GNE_LANE_REMOVE_BIKE);
+        removeBikelane->disable();
+        FXMenuCommand* removeBuslane = new FXMenuCommand(removeSpecialLanes, "Buslane", busIcon, &parent, MID_GNE_LANE_REMOVE_BUS);
+        removeBuslane->disable();
+        FXMenuCommand* removeGreenVerge = new FXMenuCommand(removeSpecialLanes, "Greenverge", greenVergeIcon, &parent, MID_GNE_LANE_REMOVE_GREENVERGE);
+        removeGreenVerge->disable();
+        // Create menu comands for all trasform special lanes and disable it
+        FXMenuCommand* transformLaneToSidewalk = new FXMenuCommand(transformSlanes, "Sidewalk", pedestrianIcon, &parent, MID_GNE_LANE_TRANSFORM_SIDEWALK);
+        FXMenuCommand* transformLaneToBikelane = new FXMenuCommand(transformSlanes, "Bikelane", bikeIcon, &parent, MID_GNE_LANE_TRANSFORM_BIKE);
+        FXMenuCommand* transformLaneToBuslane = new FXMenuCommand(transformSlanes, "Buslane", busIcon, &parent, MID_GNE_LANE_TRANSFORM_BUS);
+        FXMenuCommand* transformLaneToGreenVerge = new FXMenuCommand(transformSlanes, "Greenverge", greenVergeIcon, &parent, MID_GNE_LANE_TRANSFORM_GREENVERGE);
+        // add menuCascade for lane operations
+        FXMenuCascade* cascadeAddSpecialLane = new FXMenuCascade(laneOperations, ("add restricted " + toString(SUMO_TAG_LANE)).c_str(), nullptr, addSpecialLanes);
+        FXMenuCascade* cascadeRemoveSpecialLane = new FXMenuCascade(laneOperations, ("remove restricted " + toString(SUMO_TAG_LANE)).c_str(), nullptr, removeSpecialLanes);
+        new FXMenuCascade(laneOperations, ("transform to restricted " + toString(SUMO_TAG_LANE)).c_str(), nullptr, transformSlanes);
+        // Enable and disable options depending of current transform of the lane
+        if (edgeHasSidewalk) {
+            transformLaneToSidewalk->disable();
+            addSidewalk->disable();
+            removeSidewalk->enable();
+        }
+        if (edgeHasBikelane) {
+            transformLaneToBikelane->disable();
+            addBikelane->disable();
+            removeBikelane->enable();
+        }
+        if (edgeHasBuslane) {
+            transformLaneToBuslane->disable();
+            addBuslane->disable();
+            removeBuslane->enable();
+        }
+        if (edgeHasGreenVerge) {
+            transformLaneToGreenVerge->disable();
+            addGreenVerge->disable();
+            removeGreenVerge->enable();
+        }
+        // Check if cascade menus must be disabled
+        if (edgeHasSidewalk && edgeHasBikelane && edgeHasBuslane && edgeHasGreenVerge) {
+            cascadeAddSpecialLane->disable();
+        }
+        if (!edgeHasSidewalk && !edgeHasBikelane && !edgeHasBuslane && !edgeHasGreenVerge) {
+            cascadeRemoveSpecialLane->disable();
+        }
+        */
+    }
+}
+
+
+GNEVehicle::GNEVehiclePopupMenu::~GNEVehiclePopupMenu() {}
+
+
+long
+GNEVehicle::GNEVehiclePopupMenu::onCmdTransform(FXObject* obj, FXSelector, void*) {
+    /*
+    GNERoute* route = static_cast<GNERoute*>(myObject);
+    GNEViewNet* viewNet = static_cast<GNEViewNet*>(myParent);
+    GNEUndoList* undoList =  route->myViewNet->getUndoList();
+    undoList->p_begin("apply distance along route");
+    double dist = (route->getEdgeParents().size() > 0)? route->getEdgeParents().front()->getNBEdge()->getDistance() : 0;
+    for (GNEEdge* edge : route->getEdgeParents()) {
+        undoList->p_add(new GNEChange_Attribute(edge, viewNet->getNet(), SUMO_ATTR_DISTANCE, toString(dist), true, edge->getAttribute(SUMO_ATTR_DISTANCE)));
+        dist += edge->getNBEdge()->getFinalLength();
+    }
+    undoList->p_end();
+    */
+    return 1;
+}
+
 
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const std::string& vehicleID, GNEDemandElement* vehicleType, GNEDemandElement* route) :
     GNEDemandElement(vehicleID, viewNet, (tag == SUMO_TAG_ROUTEFLOW) ? GLO_ROUTEFLOW : GLO_VEHICLE, tag,
@@ -268,6 +405,13 @@ GNEVehicle::getPositionInView() const {
         // return Middle point
         return Position((A.x() + B.x()) / 2, (A.y() + B.y()) / 2);
     }
+}
+
+
+GUIGLObjectPopupMenu* 
+GNEVehicle::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
+    // return a GNEVehiclePopupMenu
+    return new GNEVehiclePopupMenu(this, app, parent);
 }
 
 

@@ -23,6 +23,8 @@
 // ===========================================================================
 
 #include <utils/vehicle/SUMOVehicleParameter.h>
+#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
+
 
 #include "GNEDemandElement.h"
 
@@ -35,6 +37,34 @@
 class GNEVehicle : public GNEDemandElement, public SUMOVehicleParameter {
 
 public:
+
+    /// @brief class used in GUIGLObjectPopupMenu for vehicle transformations
+    class GNEVehiclePopupMenu : public GUIGLObjectPopupMenu {
+        FXDECLARE(GNEVehiclePopupMenu)
+
+    public:
+        /** @brief Constructor
+         * @param[in] vehicle GNEVehicle to be transformed
+         * @param[in] app The main window for instantiation of other windows
+         * @param[in] parent The parent view for changing it
+         */
+        GNEVehiclePopupMenu(GNEVehicle *vehicle, GUIMainWindow& app, GUISUMOAbstractView& parent);
+
+        /// @brief Destructor
+        ~GNEVehiclePopupMenu();
+
+        /// @brief Called to transform the current vehicle to another vehicle type
+        long onCmdTransform(FXObject* obj, FXSelector, void*);
+
+    protected:
+        /// @brief default constructor needed by FOX
+        GNEVehiclePopupMenu() { }
+
+    private:
+        /// @brief current vehicle
+        GNEVehicle *myVehicle;
+    };
+
     /// @brief default constructor for vehicles and routeFlows without embebbed routes
     GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const std::string& vehicleID, GNEDemandElement* vehicleType, GNEDemandElement* route);
 
@@ -106,6 +136,15 @@ public:
 
     /// @name inherited from GUIGlObject
     /// @{
+    /**@brief Returns an own popup-menu
+     *
+     * @param[in] app The application needed to build the popup-menu
+     * @param[in] parent The parent window needed to build the popup-menu
+     * @return The built popup-menu
+     * @see GUIGlObject::getPopUpMenu
+     */
+    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent);
+
     /**@brief Returns the name of the parent object
      * @return This object's parent id
      */

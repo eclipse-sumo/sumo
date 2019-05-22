@@ -880,10 +880,15 @@ enum {
     MID_GNE_LANE_REMOVE_GREENVERGE,
     /// @}
 
-    /// @name GNEDemandElement messages
+    /// @name GNEDemandEleemnts messages
     /// @{
+
+    /// @brief apply distance
     MID_GNE_ROUTE_APPLY_DISTANCE,
+    /// @brief transform vehicle to another vehicle type
+    MID_GNE_VEHICLE_TRANSFORM,
     /// @}
+
 
     /// @name Additional Dialog messages (used in all GNEAdditionalDialogs)
     /// @{
