@@ -389,44 +389,93 @@ GNERouteHandler::buildStop(GNEViewNet* viewNet, bool undoDemandElements, const S
 
 
 void 
-GNERouteHandler::transformToVehicleOverRoute(GNEViewNet* viewNet, GNEDemandElement* originalVehicle) {
+GNERouteHandler::transformToVehicleOverRoute(GNEVehicle* originalVehicle) {
+    // get pointer to undo list (due originalVehicle will be deleted)
+    GNEUndoList *undoList = originalVehicle->getViewNet()->getUndoList();
+    // obtain VType of original vehicle
+    GNEDemandElement *vType = originalVehicle->getDemandElementParents().at(0);
+    // make transformation depending of vehicle tag
+    if (originalVehicle->getTagProperty().getTag() == SUMO_TAG_VEHICLE) {
+
+    } else if (originalVehicle->getTagProperty().getTag() == SUMO_TAG_TRIP) {
+        // extract vehicleParameters of originalVehicle
+        SUMOVehicleParameter newVehicleParameters = *originalVehicle;
+        // change tag
+        newVehicleParameters.tag = SUMO_TAG_VEHICLE;
+        // create route using values of originalVehicle trip
+        GNERoute *route = new GNERoute(originalVehicle->getViewNet(), 
+            originalVehicle->getViewNet()->getNet()->generateDemandElementID(originalVehicle->getID(), SUMO_TAG_ROUTE), 
+            originalVehicle->getEdgeParents(), originalVehicle->getColor(), 
+            originalVehicle->getVClass());
+        // create Vehicle using values of original vehicle (including ID)
+        GNEVehicle *vehicle = new GNEVehicle(originalVehicle->getViewNet(), vType, route, newVehicleParameters);
+        // begin undo-redo operation
+        undoList->p_begin("transform trip to vehicle");
+        // first remove trip (to avoid problem with ID)
+         undoList->add(new GNEChange_DemandElement(originalVehicle, false), true);
+        // add both new vehicle and route
+        undoList->add(new GNEChange_DemandElement(route, true), true);
+        undoList->add(new GNEChange_DemandElement(vehicle, true), true);
+        // end undo-redo operation
+        undoList->p_end();
+    } else if (originalVehicle->getTagProperty().getTag() == SUMO_TAG_ROUTEFLOW) {
+
+    } else if (originalVehicle->getTagProperty().getTag() == SUMO_TAG_FLOW) {
+
+    }
+}
+
+
+void 
+GNERouteHandler::transformToFlowOverRoute(GNEVehicle* originalVehicle) {
+    // get pointer to undo list (due originalVehicle will be deleted)
+    GNEUndoList *undoList = originalVehicle->getViewNet()->getUndoList();
+    // obtain VType of original vehicle
+    GNEDemandElement *vType = originalVehicle->getDemandElementParents().at(0);
+    // make transformation depending of vehicle tag
 
 }
 
 
 void 
-GNERouteHandler::transformToFlowOverRoute(GNEViewNet* viewNet, GNEDemandElement* originalVehicle) {
+GNERouteHandler::transformToVehicleWithEmbebbedRoute(GNEVehicle* originalVehicle) {
+    // get pointer to undo list (due originalVehicle will be deleted)
+    GNEUndoList *undoList = originalVehicle->getViewNet()->getUndoList();
+    // obtain VType of original vehicle
+    GNEDemandElement *vType = originalVehicle->getDemandElementParents().at(0);
+    // make transformation depending of vehicle tag
 
 }
 
 
 void 
-GNERouteHandler::transformToVehicleWithEmbebbedRoute(GNEViewNet* viewNet, GNEDemandElement* originalVehicle) {
+GNERouteHandler::transformToFlowWithEmbebbedRoute(GNEVehicle* originalVehicle) {
+    // get pointer to undo list (due originalVehicle will be deleted)
+    GNEUndoList *undoList = originalVehicle->getViewNet()->getUndoList();
+    // obtain VType of original vehicle
+    GNEDemandElement *vType = originalVehicle->getDemandElementParents().at(0);
+    // make transformation depending of vehicle tag
 
 }
 
 
 void 
-GNERouteHandler::transformToFlowWithEmbebbedRoute(GNEViewNet* viewNet, GNEDemandElement* originalVehicle) {
-
+GNERouteHandler::transformToTrip(GNEVehicle* originalVehicle) {
+    // get pointer to undo list (due originalVehicle will be deleted)
+    GNEUndoList *undoList = originalVehicle->getViewNet()->getUndoList();
+    // obtain VType of original vehicle
+    GNEDemandElement *vType = originalVehicle->getDemandElementParents().at(0);
+    // make transformation depending of vehicle tag
 }
 
 
 void 
-GNERouteHandler::transformToTrip(GNEViewNet* viewNet, GNEDemandElement* originalVehicle) {
-
-}
-
-
-void 
-GNERouteHandler::transformToFlow(GNEViewNet* viewNet, GNEDemandElement* originalVehicle) {
-
-}
-
-
-void 
-GNERouteHandler::transformToStop(GNEViewNet* viewNet, GNEDemandElement* originalVehicle) {
-
+GNERouteHandler::transformToFlow(GNEVehicle* originalVehicle) {
+    // get pointer to undo list (due originalVehicle will be deleted)
+    GNEUndoList *undoList = originalVehicle->getViewNet()->getUndoList();
+    // obtain VType of original vehicle
+    GNEDemandElement *vType = originalVehicle->getDemandElementParents().at(0);
+    // make transformation depending of vehicle tag
 }
 
 

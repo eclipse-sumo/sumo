@@ -63,6 +63,18 @@ public:
     private:
         /// @brief current vehicle
         GNEVehicle *myVehicle;
+
+        /// @brief menu command for transform to vehicle
+        FXMenuCommand* myTransformToVehicle;
+
+        /// @brief menu command for transform to trip
+        FXMenuCommand* myTransformToTrip;
+
+        /// @brief menu command for transform to route flow
+        FXMenuCommand* myTransformToRouteFlow;
+
+        /// @brief menu command for transform to flow
+        FXMenuCommand* myTransformToFlow;
     };
 
     /// @brief default constructor for vehicles and routeFlows without embebbed routes

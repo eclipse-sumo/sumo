@@ -38,6 +38,7 @@ class GNEViewNet;
 class GNEEdge;
 class GNETAZ;
 class GNEDemandElement;
+class GNEVehicle;
 
 // ===========================================================================
 // class definitions
@@ -83,26 +84,23 @@ public:
 
     /// @brief transform functions
     /// @{
-    /// @brief build a vehicle over an existent route
-    static void transformToVehicleOverRoute(GNEViewNet* viewNet, GNEDemandElement* originalVehicle);
+    /// @brief transform to vehicle over an existent route
+    static void transformToVehicleOverRoute(GNEVehicle* originalVehicle);
 
-    /// @brief build a flow over an existent route
-    static void transformToFlowOverRoute(GNEViewNet* viewNet, GNEDemandElement* originalVehicle);
+    /// @brief transform flow over an existent route
+    static void transformToFlowOverRoute(GNEVehicle* originalVehicle);
 
-    /// @brief build vehicle with a embebbed route
-    static void transformToVehicleWithEmbebbedRoute(GNEViewNet* viewNet, GNEDemandElement* originalVehicle);
+    /// @brief transform to vehicle with a embebbed route
+    static void transformToVehicleWithEmbebbedRoute(GNEVehicle* originalVehicle);
 
-    /// @brief build flow with a embebbed route
-    static void transformToFlowWithEmbebbedRoute(GNEViewNet* viewNet, GNEDemandElement* originalVehicle);
+    /// @brief transform to flow with a embebbed route
+    static void transformToFlowWithEmbebbedRoute(GNEVehicle* originalVehicle);
 
-    /// @brief build trip
-    static void transformToTrip(GNEViewNet* viewNet, GNEDemandElement* originalVehicle);
+    /// @brief transform to trip
+    static void transformToTrip(GNEVehicle* originalVehicle);
 
-    /// @brief build flow
-    static void transformToFlow(GNEViewNet* viewNet, GNEDemandElement* originalVehicle);
-
-    /// @brief build stop
-    static void transformToStop(GNEViewNet* viewNet, GNEDemandElement* originalVehicle);
+    /// @brief transform to flow
+    static void transformToFlow(GNEVehicle* originalVehicle);
 
     /// @}
 
