@@ -10,5 +10,6 @@
         <param key="device.toc.recoveryRate" value="0.1"/>
         <param key="device.toc.initialAwareness" value="0.25"/>
         <param key="device.toc.mrmDecel" value="0.5"/>
+        <param key="device.toc.file" value="tocs.xml"/>
     </vehicle>
 </routes>

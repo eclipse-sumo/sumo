@@ -519,25 +519,25 @@ Time 83.0: Current lane of veh 'ToC_veh': WE_1
 time step 83000
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 5.2
+  currentSpeed = 2.6
   state = PREPARING_TOC
 Time 84.0: Current lane of veh 'ToC_veh': WE_1
 time step 84000
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 4.7495
+  currentSpeed = 2.6
   state = PREPARING_TOC
 Time 85.0: Current lane of veh 'ToC_veh': WE_1
 time step 85000
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 0.2495
+  currentSpeed = 2.6
   state = PREPARING_TOC
 Time 86.0: Current lane of veh 'ToC_veh': WE_1
 time step 86000
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 0.0
+  currentSpeed = 2.399
   state = PREPARING_TOC
 Time 87.0: Current lane of veh 'ToC_veh': WE_1
 time step 87000

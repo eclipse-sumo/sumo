@@ -36,7 +36,7 @@ except ImportError:
 import traci  # noqa
 
 ToC_vehicle = "ToC_veh"
-timeTillMRM = 1
+timeTillMRM = 5
 
 
 def run():
@@ -48,7 +48,7 @@ def run():
     step = 0
     while step < 500:
         traci.simulationStep()
-        if step == 10:
+        if step == 5:
             requestToC(ToC_vehicle, timeTillMRM)
             t = traci.simulation.getTime()
             print("Requested ToC of veh0 at t=%s (until t=%s)" % (t, t + timeTillMRM))

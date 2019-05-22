@@ -12,6 +12,8 @@ Static parameters:
   mrmDecel = 1.20
   dynamicToCThreshold = 10.00
   dynamicMRMProbability = 0.30
+  mrmKeepRight = 1
+  maxPreparationAccel = 1.00
 Dynamic parameters:
   currentAwareness = 1.00
   currentSpeed = 0.0

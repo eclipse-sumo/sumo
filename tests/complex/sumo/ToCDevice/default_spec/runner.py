@@ -55,6 +55,7 @@ def printToCParams(vehID, only_dynamic=False):
     dynamicMRMProbability = traci.vehicle.getParameter(vehID, "device.toc.dynamicMRMProbability")
     currentAwareness = traci.vehicle.getParameter(vehID, "device.toc.currentAwareness")
     mrmKeepRight = traci.vehicle.getParameter(vehID, "device.toc.mrmKeepRight")
+    maxPreparationAccel = traci.vehicle.getParameter(vehID, "device.toc.maxPreparationAccel")
     state = traci.vehicle.getParameter(vehID, "device.toc.state")
     speed = traci.vehicle.getSpeed(vehID)
 
@@ -72,6 +73,7 @@ def printToCParams(vehID, only_dynamic=False):
         print("  dynamicToCThreshold = %s" % dynamicToCThreshold)
         print("  dynamicMRMProbability = %s" % dynamicMRMProbability)
         print("  mrmKeepRight = %s" % mrmKeepRight)
+        print("  maxPreparationAccel = %s" % maxPreparationAccel)
         print("Dynamic parameters:")
     print("  currentAwareness = %s" % currentAwareness)
     print("  currentSpeed = %s" % speed)
