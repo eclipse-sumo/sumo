@@ -71,7 +71,7 @@ request_MRMs
 # Schedule ToCs during car-following situations
 CF_situation1
 
-# No response time specified in config => random sample at TOR 
+# No response time specified in config => random sample at TOR. Also tests truncation of MRM probability parameter to admissible range.
 ToC_with_sampled_responseTime
 
 # Schedule ToC during car-following situation when leader stops. ToC vehicle should not change lanes during the ToC-Preparation/MRM.

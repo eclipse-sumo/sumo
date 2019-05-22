@@ -65,6 +65,7 @@ def printToCParams(vehID, only_dynamic=False):
     initialAwareness = traci.vehicle.getParameter(vehID, "device.toc.initialAwareness")
     mrmDecel = traci.vehicle.getParameter(vehID, "device.toc.mrmDecel")
     currentAwareness = traci.vehicle.getParameter(vehID, "device.toc.currentAwareness")
+    dynamicMRMProbability = traci.vehicle.getParameter(vehID, "device.toc.dynamicMRMProbability")
     state = traci.vehicle.getParameter(vehID, "device.toc.state")
     speed = traci.vehicle.getSpeed(vehID)
 
@@ -78,6 +79,7 @@ def printToCParams(vehID, only_dynamic=False):
         print("  responseTime = %s" % responseTime)
         print("  recoveryRate = %s" % recoveryRate)
         print("  initialAwareness = %s" % initialAwareness)
+        print("  dynamicMRMProbability = %s" % dynamicMRMProbability)
         print("  mrmDecel = %s" % mrmDecel)
         print("Dynamic parameters:")
     print("  currentAwareness = %s" % currentAwareness)

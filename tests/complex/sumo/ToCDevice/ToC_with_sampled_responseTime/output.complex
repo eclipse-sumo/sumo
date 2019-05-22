@@ -8,6 +8,7 @@ Static parameters:
   responseTime = -1.00
   recoveryRate = 0.10
   initialAwareness = 0.25
+  dynamicMRMProbability = 0.50
   mrmDecel = 1.20
 Dynamic parameters:
   currentAwareness = 1.00
@@ -1071,59 +1072,59 @@ ToC device infos for vehicle 'ToC_veh'
   state = PREPARING_TOC
 time step 213000
 ToC device infos for vehicle 'ToC_veh'
-  currentAwareness = 0.25
-  currentSpeed = 18.9942651603
-  state = RECOVERING
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = PREPARING_TOC
 time step 214000
 ToC device infos for vehicle 'ToC_veh'
-  currentAwareness = 0.35
-  currentSpeed = 19.2313799582
-  state = RECOVERING
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = PREPARING_TOC
 time step 215000
 ToC device infos for vehicle 'ToC_veh'
-  currentAwareness = 0.45
-  currentSpeed = 18.8176383486
-  state = RECOVERING
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = PREPARING_TOC
 time step 216000
 ToC device infos for vehicle 'ToC_veh'
-  currentAwareness = 0.55
+  currentAwareness = 0.25
   currentSpeed = 19.2389268332
   state = RECOVERING
 time step 217000
 ToC device infos for vehicle 'ToC_veh'
-  currentAwareness = 0.65
+  currentAwareness = 0.35
   currentSpeed = 18.8351006894
   state = RECOVERING
 time step 218000
 ToC device infos for vehicle 'ToC_veh'
-  currentAwareness = 0.75
+  currentAwareness = 0.45
   currentSpeed = 19.5066467556
   state = RECOVERING
 time step 219000
 ToC device infos for vehicle 'ToC_veh'
-  currentAwareness = 0.85
+  currentAwareness = 0.55
   currentSpeed = 19.1861234703
   state = RECOVERING
 time step 220000
 ToC device infos for vehicle 'ToC_veh'
-  currentAwareness = 0.95
+  currentAwareness = 0.65
   currentSpeed = 19.2731462936
   state = RECOVERING
 time step 221000
 ToC device infos for vehicle 'ToC_veh'
-  currentAwareness = 1.00
+  currentAwareness = 0.75
   currentSpeed = 19.3334730668
-  state = MANUAL
+  state = RECOVERING
 time step 222000
 ToC device infos for vehicle 'ToC_veh'
-  currentAwareness = 1.00
+  currentAwareness = 0.85
   currentSpeed = 18.5641695887
-  state = MANUAL
+  state = RECOVERING
 time step 223000
 ToC device infos for vehicle 'ToC_veh'
-  currentAwareness = 1.00
+  currentAwareness = 0.95
   currentSpeed = 18.4684287225
-  state = MANUAL
+  state = RECOVERING
 time step 224000
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
@@ -1817,7 +1818,7 @@ ToC device infos for vehicle 'ToC_veh'
 time step 362000
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 18.6337430227
+  currentSpeed = 19.3214547075
   state = MANUAL
 time step 363000
 ToC device infos for vehicle 'ToC_veh'
