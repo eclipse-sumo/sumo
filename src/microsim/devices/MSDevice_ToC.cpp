@@ -240,7 +240,13 @@ MSDevice_ToC::getDynamicToCThreshold(const SUMOVehicle& v, const OptionsCont& oc
 
 double
 MSDevice_ToC::getDynamicMRMProbability(const SUMOVehicle& v, const OptionsCont& oc) {
-    return getFloatParam(v, oc, "toc.dynamicMRMProbability", DEFAULT_MRM_PROBABILITY, false);
+    double pMRM = getFloatParam(v, oc, "toc.dynamicMRMProbability", DEFAULT_MRM_PROBABILITY, false);
+    if (pMRM < 0 || pMRM > 0.5) {
+    	const double pMRMTrunc = MAX2(0.0, MIN2(0.5, pMRM));
+    	WRITE_WARNING("Given value for ToC device parameter 'dynamicMRMProbability' (=" + toString(pMRM) + ") is not in the admissible range [0,0.5]. Truncated to " + toString(pMRMTrunc) + ".");
+    	return pMRMTrunc;
+    }
+    return pMRM;
 }
 
 double
