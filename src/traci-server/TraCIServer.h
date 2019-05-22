@@ -59,7 +59,7 @@
 /** @class TraCIServer
  * @brief TraCI server used to control sumo by a remote TraCI client
  */
-class TraCIServer : public MSNet::VehicleStateListener, public libsumo::VariableWrapper {
+class TraCIServer final : public MSNet::VehicleStateListener, public libsumo::VariableWrapper {
 public:
     /// @brief Definition of a method to be called for serving an associated commandID
     typedef bool(*CmdExecutor)(TraCIServer& server, tcpip::Storage& inputStorage, tcpip::Storage& outputStorage);

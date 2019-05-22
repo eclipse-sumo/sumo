@@ -86,7 +86,7 @@ public:
     }
 
     /// @brief gets the color value according to the current scheme index
-    double getColorValue(int activeScheme) const;
+    double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const;
 
     /// @brief draws the given guiShape with distinct carriages/modules
     void drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool asImage) const;

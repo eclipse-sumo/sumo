@@ -369,7 +369,7 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
         path->insert(0.5f, pointB);
         n->setUpdateCallback(new osg::AnimationPathCallback(path));
         */
-        const RGBColor& col = myVisualizationSettings->vehicleColorer.getScheme().getColor(veh->getColorValue(myVisualizationSettings->vehicleColorer.getActive()));
+        const RGBColor& col = myVisualizationSettings->vehicleColorer.getScheme().getColor(veh->getColorValue(*myVisualizationSettings, myVisualizationSettings->vehicleColorer.getActive()));
         myVehicles[veh].geom->setColor(osg::Vec4d(col.red() / 255., col.green() / 255., col.blue() / 255., col.alpha() / 255.));
         myVehicles[veh].lights->setValue(0, veh->signalSet(MSVehicle::VEH_SIGNAL_BLINKER_RIGHT | MSVehicle::VEH_SIGNAL_BLINKER_EMERGENCY));
         myVehicles[veh].lights->setValue(1, veh->signalSet(MSVehicle::VEH_SIGNAL_BLINKER_LEFT | MSVehicle::VEH_SIGNAL_BLINKER_EMERGENCY));

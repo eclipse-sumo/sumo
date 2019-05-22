@@ -200,7 +200,7 @@ private:
     void setColor(const GUIVisualizationSettings& s) const;
 
     /// @brief gets the color value according to the current scheme index
-    double getColorValue(int activeScheme) const;
+    double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const;
 
     /// @brief sets the color according to the current scheme index and some vehicle function
     bool setFunctionalColor(int activeScheme) const;

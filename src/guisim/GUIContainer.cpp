@@ -302,7 +302,7 @@ void
 GUIContainer::setColor(const GUIVisualizationSettings& s) const {
     const GUIColorer& c = s.containerColorer;
     if (!setFunctionalColor(c.getActive())) {
-        GLHelper::setColor(c.getScheme().getColor(getColorValue(c.getActive())));
+        GLHelper::setColor(c.getScheme().getColor(getColorValue(s, c.getActive())));
     }
 }
 
@@ -347,7 +347,7 @@ GUIContainer::setFunctionalColor(int activeScheme) const {
 
 
 double
-GUIContainer::getColorValue(int activeScheme) const {
+GUIContainer::getColorValue(const GUIVisualizationSettings& /* s */, int activeScheme) const {
     switch (activeScheme) {
         case 4:
             return getSpeed();

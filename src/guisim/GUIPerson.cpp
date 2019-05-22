@@ -305,7 +305,7 @@ GUIPerson::drawGL(const GUIVisualizationSettings& s) const {
     drawName(p1, s.scale, s.personName, s.angle);
     if (s.personValue.show) {
         Position p2 = p1 + Position(0, 0.6 * s.personName.scaledSize(s.scale));
-        const double value = getColorValue(s.personColorer.getActive());
+        const double value = getColorValue(s, s.personColorer.getActive());
         GLHelper::drawTextSettings(s.personValue, toString(value), p2, s.scale, s.angle, GLO_MAX - getType());
     }
     glPopName();
@@ -364,7 +364,7 @@ void
 GUIPerson::setColor(const GUIVisualizationSettings& s) const {
     const GUIColorer& c = s.personColorer;
     if (!setFunctionalColor(c.getActive())) {
-        GLHelper::setColor(c.getScheme().getColor(getColorValue(c.getActive())));
+        GLHelper::setColor(c.getScheme().getColor(getColorValue(s, c.getActive())));
     }
 }
 
@@ -415,7 +415,7 @@ GUIPerson::setFunctionalColor(int activeScheme) const {
 
 
 double
-GUIPerson::getColorValue(int activeScheme) const {
+GUIPerson::getColorValue(const GUIVisualizationSettings& /* s */, int activeScheme) const {
     switch (activeScheme) {
         case 4:
             return getSpeed();

@@ -109,7 +109,7 @@ public:
     void selectBlockingFoes() const;
 
     /// @brief gets the color value according to the current scheme index
-    double getColorValue(int activeScheme) const;
+    double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const;
 
     /** @brief Returns an own parameter window
      *

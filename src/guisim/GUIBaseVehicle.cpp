@@ -456,7 +456,7 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
         glRotated(-s.angle, 0, 0, 1);
         glTranslated(0, 0.7 * s.vehicleName.scaledSize(s.scale), 0);
         glRotated(s.angle, 0, 0, 1);
-        const double value = getColorValue(s.vehicleColorer.getActive());
+        const double value = getColorValue(s, s.vehicleColorer.getActive());
         GLHelper::drawTextSettings(s.vehicleValue, toString(value), Position(0, 0), s.scale, s.angle);
     }
 
@@ -530,7 +530,7 @@ void
 GUIBaseVehicle::setColor(const GUIVisualizationSettings& s) const {
     const GUIColorer& c = s.vehicleColorer;
     if (!setFunctionalColor(c.getActive(), &myVehicle)) {
-        GLHelper::setColor(c.getScheme().getColor(getColorValue(c.getActive())));
+        GLHelper::setColor(c.getScheme().getColor(getColorValue(s, c.getActive())));
     }
 }
 

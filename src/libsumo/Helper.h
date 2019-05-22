@@ -181,7 +181,7 @@ public:
     };
     /// @}
 
-    class SubscriptionWrapper : public VariableWrapper {
+    class SubscriptionWrapper final : public VariableWrapper {
     public:
         SubscriptionWrapper(VariableWrapper::SubscriptionHandler handler, SubscriptionResults& into, ContextSubscriptionResults& context);
         void setContext(const std::string& refID);

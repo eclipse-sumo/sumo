@@ -485,7 +485,7 @@ GUIVehicle::drawAction_drawVehicleBlueLight() const {
 
 
 double
-GUIVehicle::getColorValue(int activeScheme) const {
+GUIVehicle::getColorValue(const GUIVisualizationSettings& /* s */, int activeScheme) const {
     switch (activeScheme) {
         case 8:
             return getSpeed();

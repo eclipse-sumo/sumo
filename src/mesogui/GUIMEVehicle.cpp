@@ -156,7 +156,7 @@ GUIMEVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& /* s 
 
 
 double
-GUIMEVehicle::getColorValue(int activeScheme) const {
+GUIMEVehicle::getColorValue(const GUIVisualizationSettings& /* s */, int activeScheme) const {
     switch (activeScheme) {
         case 8:
             return getSpeed();
