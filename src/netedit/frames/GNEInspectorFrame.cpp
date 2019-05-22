@@ -104,11 +104,11 @@ GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame* horizontalFrameParent, G
     // Create GEO Parameters Editor modul
     myGEOAttributesEditor = new GEOAttributesEditor(this);
 
-    // create Generic parameters Editor modul
-    myGenericParametersEditor = new GenericParametersEditor(this);
-
     // Create Netedit Attributes Editor modul
     myNeteditAttributesEditor = new NeteditAttributesEditor(this);
+
+    // create Generic parameters Editor modul
+    myGenericParametersEditor = new GenericParametersEditor(this);
 
     // Create Template editor modul
     myTemplateEditor = new TemplateEditor(this);

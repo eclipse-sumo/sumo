@@ -285,14 +285,7 @@ GNERoute::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_COLOR:
             return toString(myColor);
         case GNE_ATTR_PARENT:
-            /*
-            if (getXMLParent()) {
-                return getXMLParent()->getDemandElement()->getID();
-            } else {
-                return "";
-            }
-            */
-            return "";
+            return getDemandElementParents().at(0)->getID();
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_GENERIC:

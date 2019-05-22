@@ -255,6 +255,8 @@ GNEVehicle::getPositionInView() const {
         lane = getDemandElementParents().at(1)->getEdgeParents().at(0)->getLanes().front();
     } else if (getEdgeParents().size() > 0) {
         lane = getEdgeParents().front()->getLanes().front();
+    } else if (getDemandElementChilds().size() == 1) {
+        lane = getDemandElementChilds().at(0)->getEdgeParents().at(0)->getLanes().front();
     } else {
         throw ProcessError("Invalid vehicle tag");
     }
