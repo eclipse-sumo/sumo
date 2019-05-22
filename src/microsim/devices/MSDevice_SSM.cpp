@@ -45,14 +45,14 @@
 // ===========================================================================
 // Debug constants
 // ===========================================================================
-//#define DEBUG_SSM
+#define DEBUG_SSM
 //#define DEBUG_SSM_DRAC
 //#define DEBUG_SSM_SURROUNDING
 //#define DEBUG_SSM_NOTIFICATIONS
 //#define DEBUG_COND MSNet::getInstance()->getCurrentTimeStep() > 308000
 //#define DEBUG_COND1(ego) MSNet::getInstance()->getCurrentTimeStep() > 308000
-//#define DEBUG_COND1(ego) ego!=nullptr && ego->isSelected()
-#define DEBUG_COND1(ego) ego!=nullptr && ego->getID() == "ego"
+#define DEBUG_COND1(ego) ego!=nullptr && ego->isSelected()
+//#define DEBUG_COND1(ego) ego!=nullptr && ego->getID() == "ego"
 #define DEBUG_COND false
 
 // ===========================================================================

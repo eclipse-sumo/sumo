@@ -549,7 +549,7 @@ GUI Only Options:
   -G, --game                           Start the GUI in gaming mode
   --game.mode STR                      Select the game type ('tls', 'drt')
   -S, --start                          Start the simulation after loading
-  --breakpoints STR                    Use TIME[] as times when the simulation
+  -B, --breakpoints STR                Use TIME[] as times when the simulation
                                          should halt
   --edgedata-files FILE                Load edge/lane weights for visualization
                                          from FILE

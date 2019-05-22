@@ -479,7 +479,7 @@ MSFrame::fillOptions() {
     oc.doRegister("start", 'S', new Option_Bool(false));
     oc.addDescription("start", "GUI Only", "Start the simulation after loading");
 
-    oc.doRegister("breakpoints", new Option_String());
+    oc.doRegister("breakpoints", 'B', new Option_String());
     oc.addDescription("breakpoints", "GUI Only", "Use TIME[] as times when the simulation should halt");
 
     oc.doRegister("edgedata-files", new Option_FileName());
