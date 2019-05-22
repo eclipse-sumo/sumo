@@ -103,6 +103,7 @@ public:
 
     // @brief the time threshold before becoming jammed
     static SUMOTime jamTime;
+    static SUMOTime jamTimeCrossing;
 
     // @brief the distance (in seconds) to look ahead for changing stripes
     static const double LOOKAHEAD_SAMEDIR;

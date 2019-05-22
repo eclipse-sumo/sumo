@@ -82,6 +82,7 @@ MSPModel_Striping::Pedestrians MSPModel_Striping::noPedestrians;
 double MSPModel_Striping::stripeWidth;
 double MSPModel_Striping::dawdling;
 SUMOTime MSPModel_Striping::jamTime;
+SUMOTime MSPModel_Striping::jamTimeCrossing;
 const double MSPModel_Striping::LOOKAHEAD_SAMEDIR(4.0); // seconds
 const double MSPModel_Striping::LOOKAHEAD_ONCOMING(10.0); // seconds
 const double MSPModel_Striping::LOOKAROUND_VEHICLES(60.0); // meters
@@ -115,6 +116,10 @@ MSPModel_Striping::MSPModel_Striping(const OptionsCont& oc, MSNet* net) :
     jamTime = string2time(oc.getString("pedestrian.striping.jamtime"));
     if (jamTime <= 0) {
         jamTime = SUMOTime_MAX;
+    }
+    jamTimeCrossing = string2time(oc.getString("pedestrian.striping.jamtime.crossing"));
+    if (jamTimeCrossing <= 0) {
+        jamTimeCrossing = SUMOTime_MAX;
     }
 }
 
@@ -1668,7 +1673,7 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
         xSpeed = 0;
     }
     if (xSpeed == 0) {
-        if (myWaitingTime > jamTime || myAmJammed) {
+        if (myWaitingTime > (myLane->getEdge().isCrossing() ? jamTimeCrossing : jamTime) || myAmJammed) {
             // squeeze slowly through the crowd ignoring others
             if (!myAmJammed) {
                 MSNet::getInstance()->getPersonControl().registerJammed();
