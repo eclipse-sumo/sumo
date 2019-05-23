@@ -554,10 +554,15 @@ MSDevice_SSM::processEncounters(FoeInfoMap& foes, bool forceClose) {
         }
         if (foes.find(e->foe) != foes.end()) {
             FoeInfo* foeInfo = foes[e->foe];
-            // Update encounter
-            updateEncounter(e, foeInfo); // deletes foeInfo
-            // Erase foes which were already encountered
-            foes.erase(e->foe);
+            EncounterType prevType = e->currentType;
+            if (prevType == ENCOUNTER_TYPE_BOTH_LEFT_CONFLICT_AREA) {
+                e->closingRequested = true;
+            } else {
+                // Update encounter
+                updateEncounter(e, foeInfo); // deletes foeInfo
+                // Erase foes which were already encountered
+                foes.erase(e->foe);
+            }
         } else {
             if (e->getRemainingExtraTime() <= 0. || forceClose || !foeExists) {
                 // Close encounter, extra time has expired (deletes e if it does not qualify as conflict)
