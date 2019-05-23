@@ -1418,10 +1418,8 @@ MSDevice_SSM::checkConflictEntryAndExit(EncounterApproachInfo& eInfo) {
     // determine exact entry and exit times
     Encounter* e = eInfo.encounter;
 
-#ifdef DEBUG_SSM
-    if (DEBUG_COND1(eInfo.encounter->ego)) {
-        std::cout << SIMTIME << " checkConflictEntryAndExit() for encounter of vehicles '" << e->egoID << "' and '" << e->foeID << "'" << std::endl;
-    }
+#ifdef DEBUG_ENCOUNTER
+    if (DEBUG_COND_ENCOUNTER(e)) std::cout << SIMTIME << " checkConflictEntryAndExit() for encounter of vehicles '" << e->egoID << "' and '" << e->foeID << "'" << std::endl;
 #endif
 
     const bool foePastConflictEntry = eInfo.foeConflictEntryDist < 0.0;
@@ -1475,10 +1473,8 @@ MSDevice_SSM::checkConflictEntryAndExit(EncounterApproachInfo& eInfo) {
     if (e->egoConflictEntryTime == INVALID && egoPastConflictEntry && prevEgoConflictEntryDist >= 0) {
         // ego must have entered the conflict in the last step. Determine exact entry time
         e->egoConflictEntryTime = SIMTIME - TS + MSCFModel::passingTime(-prevEgoConflictEntryDist, 0., -eInfo.egoConflictEntryDist, e->ego->getPreviousSpeed(), e->ego->getSpeed());
-#ifdef DEBUG_SSM
-        if (DEBUG_COND1(eInfo.encounter->ego)) {
-            std::cout << "    ego entered conflict area at t=" << e->egoConflictEntryTime << std::endl;
-        }
+#ifdef DEBUG_ENCOUNTER
+        if (DEBUG_COND_ENCOUNTER(e)) std::cout << "    ego entered conflict area at t=" << e->egoConflictEntryTime << std::endl;
 #endif
         // Update encounter type (only done here for entering, the other transitions are done in updatePassedEncounter)
         if (prevType == ENCOUNTER_TYPE_CROSSING_FOLLOWER
@@ -1491,10 +1487,8 @@ MSDevice_SSM::checkConflictEntryAndExit(EncounterApproachInfo& eInfo) {
     if (e->foeConflictEntryTime == INVALID && foePastConflictEntry && prevFoeConflictEntryDist >= 0) {
         // foe must have entered the conflict in the last step. Determine exact entry time
         e->foeConflictEntryTime = SIMTIME - TS + MSCFModel::passingTime(-prevFoeConflictEntryDist, 0., -eInfo.foeConflictEntryDist, e->foe->getPreviousSpeed(), e->foe->getSpeed());
-#ifdef DEBUG_SSM
-        if (DEBUG_COND1(eInfo.encounter->ego)) {
-            std::cout << "    foe entered conflict area at t=" << e->foeConflictEntryTime << std::endl;
-        }
+#ifdef DEBUG_ENCOUNTER
+        if (DEBUG_COND_ENCOUNTER(e)) std::cout << "    foe entered conflict area at t=" << e->foeConflictEntryTime << std::endl;
 #endif
         // Update encounter type (only done here for entering, the other transitions are done in updatePassedEncounter)
         if (prevType == ENCOUNTER_TYPE_CROSSING_FOLLOWER
@@ -1509,10 +1503,8 @@ MSDevice_SSM::checkConflictEntryAndExit(EncounterApproachInfo& eInfo) {
         e->egoConflictExitTime = SIMTIME - TS + MSCFModel::passingTime(-prevEgoConflictExitDist, 0., -eInfo.egoConflictExitDist, e->ego->getPreviousSpeed(), e->ego->getSpeed());
         // Add cross section to calculate PET for foe
 //        e->foePETCrossSections.push_back(std::make_pair(eInfo.foeConflictEntryCrossSection, e->egoConflictExitTime));
-#ifdef DEBUG_SSM
-        if (DEBUG_COND1(eInfo.encounter->ego)) {
-            std::cout << "    ego left conflict area at t=" << e->egoConflictExitTime << std::endl;
-        }
+#ifdef DEBUG_ENCOUNTER
+        if (DEBUG_COND_ENCOUNTER(e)) std::cout << "    ego left conflict area at t=" << e->egoConflictExitTime << std::endl;
 #endif
         // Update encounter type (only done here for entering, the other transitions are done in updatePassedEncounter)
         if (prevType == ENCOUNTER_TYPE_CROSSING_FOLLOWER
@@ -1527,10 +1519,8 @@ MSDevice_SSM::checkConflictEntryAndExit(EncounterApproachInfo& eInfo) {
         e->foeConflictExitTime = SIMTIME - TS + MSCFModel::passingTime(-prevFoeConflictExitDist, 0., -eInfo.foeConflictExitDist, e->foe->getPreviousSpeed(), e->foe->getSpeed());
         // Add cross section to calculate PET for ego
 //        e->egoPETCrossSections.push_back(std::make_pair(eInfo.egoConflictEntryCrossSection, e->foeConflictExitTime));
-#ifdef DEBUG_SSM
-        if (DEBUG_COND1(eInfo.encounter->ego)) {
-            std::cout << "    foe left conflict area at t=" << e->foeConflictExitTime << std::endl;
-        }
+#ifdef DEBUG_ENCOUNTER
+        if (DEBUG_COND_ENCOUNTER(e)) std::cout << "    foe left conflict area at t=" << e->foeConflictExitTime << std::endl;
 #endif
         // Update encounter type (only done here for entering, the other transitions are done in updatePassedEncounter)
         if (prevType == ENCOUNTER_TYPE_CROSSING_FOLLOWER
