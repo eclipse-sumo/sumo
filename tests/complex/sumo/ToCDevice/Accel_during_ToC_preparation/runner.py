@@ -58,8 +58,8 @@ def run():
             t = traci.simulation.getTime()
             print("Time %s: veh '%s' changed lanes. Current: %s" % (t, ToC_vehicle, newLane))
             lastLane = newLane
-        print("Acceleration = %s"%acceleration)
-        print("Accel = %s"%accel)
+        print("Acceleration = %s" % acceleration)
+        print("Accel = %s" % accel)
         printToCParams(ToC_vehicle, True)
         sys.stdout.flush()
         step += 1

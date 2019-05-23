@@ -26,7 +26,7 @@ else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 from sumolib import checkBinary  # noqa
 
-traasJar  = os.path.join(os.environ['SUMO_HOME'], "bin", "TraaS.jar")
+traasJar = os.path.join(os.environ['SUMO_HOME'], "bin", "TraaS.jar")
 assert(os.path.exists(traasJar))
 
 subprocess.check_call(["javac", "-cp", traasJar, "data/APITest.java"])

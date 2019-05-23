@@ -53,8 +53,8 @@ def run():
             print("Requested ToC of veh0 at t=%s (until t=%s)" % (t, t + timeTillMRM))
         newLane = traci.vehicle.getLaneIndex(ToC_vehicle)
         lcMode = traci.vehicle.getLaneChangeMode(ToC_vehicle)
-        print("Current lane of veh0: %s"%newLane)
-        print("Current lc mode  of veh0: %s"%lcMode)
+        print("Current lane of veh0: %s" % newLane)
+        print("Current lc mode  of veh0: %s" % lcMode)
         if newLane != lastLane:
             t = traci.simulation.getTime()
             print("Time %s: veh '%s' changed lanes. Current: %s" % (t, ToC_vehicle, newLane))

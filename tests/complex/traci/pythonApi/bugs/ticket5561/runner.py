@@ -23,11 +23,7 @@ import traci  # noqa
 import sumolib  # noqa
 
 
-sumoBinary = os.environ["SUMO_BINARY"]
-cmd = [sumoBinary,
-       '-c', 'sumo.sumocfg']
-
-traci.start(cmd)
+traci.start([sumolib.checkBinary("sumo"), '-c', 'sumo.sumocfg'])
 
 step = 0
 done = False

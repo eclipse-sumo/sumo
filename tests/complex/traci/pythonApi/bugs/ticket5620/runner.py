@@ -23,11 +23,7 @@ import traci  # noqa
 import sumolib  # noqa
 
 
-sumoBinary = os.environ["SUMO_BINARY"]
-cmd = [sumoBinary,
-       '-c', 'sumo.sumocfg']
-
-traci.start(cmd)
+traci.start([sumolib.checkBinary("sumo"), '-c', 'sumo.sumocfg'])
 for i in range(30):
     print("step=%s stopWaitingList=%s" % (
         traci.simulation.getTime(),
