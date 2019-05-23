@@ -169,6 +169,8 @@ GNEVehicle::GNEVehicle(GNEViewNet* viewNet, GNEDemandElement* vehicleType, const
     SUMOVehicleParameter(vehicleParameters) {
     // SUMOVehicleParameter ID has to be set manually
     id = vehicleParameters.id;
+    // reset routeid
+    routeid.clear();
     // set manually vtypeID (needed for saving)
     vtypeid = vehicleType->getID();
 }

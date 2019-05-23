@@ -39,6 +39,7 @@ class GNEEdge;
 class GNETAZ;
 class GNEDemandElement;
 class GNEVehicle;
+class GNEUndoList;
 
 // ===========================================================================
 // class definitions
@@ -99,6 +100,12 @@ public:
     /// @}
 
 protected:
+    /// @brief embebbe route within a vehicle
+    static void embebbeRoute(GNEVehicle* vehicle, GNEUndoList* undoList);
+    
+    /// @brief separate vehicle and embebbed route
+    static GNEVehicle* separateEmbebbedRoute(GNEVehicle* vehicle, GNEUndoList* undoList);
+
     /// @brief opens a type distribution for reading
     void openVehicleTypeDistribution(const SUMOSAXAttributes& attrs);
 
