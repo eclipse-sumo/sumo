@@ -389,7 +389,7 @@ GNERouteHandler::buildStop(GNEViewNet* viewNet, bool undoDemandElements, const S
 
 
 void 
-GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle) {
+GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbebbedRoute) {
     // get pointer to undo list (due originalVehicle will be deleted)
     GNEUndoList *undoList = originalVehicle->getViewNet()->getUndoList();
     // obtain VType of original vehicle
@@ -401,28 +401,75 @@ GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle) {
     // begin undo-redo operation
     undoList->p_begin("transform " + originalVehicle->getTagStr() + " to " + toString(newVehicleParameters.tag));
     // make transformation depending of vehicle tag
-    if (originalVehicle->getTagProperty().getTag() == SUMO_TAG_ROUTEFLOW) {
-        // obtain route of originalVehicle
-        GNEDemandElement *route = originalVehicle->getDemandElementParents().at(1);
-        // create Vehicle using values of original vehicle (including ID)
-        GNEVehicle *vehicle = new GNEVehicle(originalVehicle->getViewNet(), vType, route, newVehicleParameters);
-        // first remove routeFlow (to avoid problem with ID)
-        undoList->add(new GNEChange_DemandElement(originalVehicle, false), true);
-        // add new vehicle
-        undoList->add(new GNEChange_DemandElement(vehicle, true), true);
+    if ((originalVehicle->getTagProperty().getTag() == SUMO_TAG_VEHICLE) || (originalVehicle->getTagProperty().getTag() == SUMO_TAG_ROUTEFLOW)) {
+        // check route must be embebbed
+        if (createEmbebbedRoute) {
+            // create Vehicle using values of original vehicle
+            GNEVehicle *vehicle = new GNEVehicle(originalVehicle->getViewNet(), vType, *originalVehicle);
+            GNERoute *embebbedRoute = nullptr;
+            // check if originalVehicle has an embebbed route
+            if (originalVehicle->getDemandElementParents().size() == 1) {
+                // create an embebbed route using embebbed route of originalVehicle
+                embebbedRoute = new GNERoute(vehicle, originalVehicle->getDemandElementChilds().at(0));
+            } else {
+                // create an embebbed route using route of originalVehicle
+                embebbedRoute = new GNERoute(vehicle, originalVehicle->getDemandElementParents().at(1));
+            }
+            // first remove original vehicle (to avoid problem with ID)
+            undoList->add(new GNEChange_DemandElement(originalVehicle, false), true);
+            // add both route and vehicle
+            undoList->add(new GNEChange_DemandElement(vehicle, true), true);
+            undoList->add(new GNEChange_DemandElement(embebbedRoute, true), true);
+        } else if (originalVehicle->getDemandElementParents().size() == 1) {
+            // in this special case, we need to create a new route, because embebbed route of originalVehicle will be removed
+            GNERoute *route = new GNERoute(originalVehicle->getDemandElementChilds().at(0));
+            // create Vehicle using values of original vehicle (including ID)
+            GNEVehicle *vehicleOrRouteFlow = new GNEVehicle(originalVehicle->getViewNet(), vType, route, newVehicleParameters);
+            // first remove vehicle (to avoid problem with ID) and embebbed route
+            undoList->add(new GNEChange_DemandElement(originalVehicle->getDemandElementChilds().at(0), false), true);
+            undoList->add(new GNEChange_DemandElement(originalVehicle, false), true);
+            // add both new vehicle and route
+            undoList->add(new GNEChange_DemandElement(route, true), true);
+            undoList->add(new GNEChange_DemandElement(vehicleOrRouteFlow, true), true);
+        } else {
+            // create Vehicle using values of original vehicle (including ID)
+            GNEVehicle *vehicle = new GNEVehicle(originalVehicle->getViewNet(), vType, originalVehicle->getDemandElementParents().at(1), newVehicleParameters);
+            // first remove vehicle (to avoid problem with ID)
+            undoList->add(new GNEChange_DemandElement(originalVehicle, false), true);
+            // add new vehicle
+            undoList->add(new GNEChange_DemandElement(vehicle, true), true);
+        }
     } else if ((originalVehicle->getTagProperty().getTag() == SUMO_TAG_FLOW) || (originalVehicle->getTagProperty().getTag() == SUMO_TAG_TRIP)) {
-        // create route using values of originalVehicle flow/trip
-        GNERoute *route = new GNERoute(originalVehicle->getViewNet(), 
-            originalVehicle->getViewNet()->getNet()->generateDemandElementID(originalVehicle->getID(), SUMO_TAG_ROUTE), 
-            originalVehicle->getEdgeParents(), originalVehicle->getColor(), 
-            originalVehicle->getVClass());
-        // create Vehicle using values of original vehicle (including ID)
-        GNEVehicle *vehicle = new GNEVehicle(originalVehicle->getViewNet(), vType, route, newVehicleParameters);
-        // first remove flow/trip (to avoid problem with ID)
-        undoList->add(new GNEChange_DemandElement(originalVehicle, false), true);
-        // add both new vehicle and route
-        undoList->add(new GNEChange_DemandElement(route, true), true);
-        undoList->add(new GNEChange_DemandElement(vehicle, true), true);
+        // check route must be embebbed
+        if (createEmbebbedRoute) {
+            // create Vehicle using values of original vehicle (including ID)
+            GNEVehicle *vehicle = new GNEVehicle(originalVehicle->getViewNet(), vType, newVehicleParameters);
+            // create route using values of originalVehicle flow/trip
+            GNERoute *embebbedRoute = new GNERoute(originalVehicle->getViewNet(), 
+                vehicle,
+                originalVehicle->getEdgeParents(), 
+                originalVehicle->getColor(), 
+                originalVehicle->getVClass());
+            // remove flow/trip (to avoid problem with ID)
+            undoList->add(new GNEChange_DemandElement(originalVehicle, false), true);
+            // add both new vehicle and route
+            undoList->add(new GNEChange_DemandElement(vehicle, true), true);
+            undoList->add(new GNEChange_DemandElement(embebbedRoute, true), true);
+        } else {
+            // create route using values of originalVehicle flow/trip
+            GNERoute *route = new GNERoute(originalVehicle->getViewNet(), 
+                originalVehicle->getViewNet()->getNet()->generateDemandElementID(originalVehicle->getID(), SUMO_TAG_ROUTE), 
+                originalVehicle->getEdgeParents(), 
+                originalVehicle->getColor(), 
+                originalVehicle->getVClass());
+            // create Vehicle using values of original vehicle (including ID)
+            GNEVehicle *vehicle = new GNEVehicle(originalVehicle->getViewNet(), vType, route, newVehicleParameters);
+            // remove flow/trip (to avoid problem with ID)
+            undoList->add(new GNEChange_DemandElement(originalVehicle, false), true);
+            // add both new vehicle and route
+            undoList->add(new GNEChange_DemandElement(route, true), true);
+            undoList->add(new GNEChange_DemandElement(vehicle, true), true);
+        }
     }
     // end undo-redo operation
     undoList->p_end();
@@ -430,7 +477,7 @@ GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle) {
 
 
 void 
-GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle) {
+GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEmbebbedRoute) {
     // get pointer to undo list (due originalVehicle will be deleted)
     GNEUndoList *undoList = originalVehicle->getViewNet()->getUndoList();
     // obtain VType of original vehicle
@@ -442,42 +489,78 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle) {
     // begin undo-redo operation
     undoList->p_begin("transform " + originalVehicle->getTagStr() + " to " + toString(newVehicleParameters.tag));
     // make transformation depending of vehicle tag
-    if (originalVehicle->getTagProperty().getTag() == SUMO_TAG_VEHICLE) {
-        // obtain route of originalVehicle
-        GNEDemandElement *route = originalVehicle->getDemandElementParents().at(1);
-        // create Vehicle using values of original vehicle (including ID)
-        GNEVehicle *routeFlow = new GNEVehicle(originalVehicle->getViewNet(), vType, route, newVehicleParameters);
-        // first remove vehicle (to avoid problem with ID)
-        undoList->add(new GNEChange_DemandElement(originalVehicle, false), true);
-        // add new vehicle
-        undoList->add(new GNEChange_DemandElement(routeFlow, true), true);
+    if ((originalVehicle->getTagProperty().getTag() == SUMO_TAG_VEHICLE) || (originalVehicle->getTagProperty().getTag() == SUMO_TAG_ROUTEFLOW)) {
+        // check route must be embebbed
+        if (createEmbebbedRoute) {
+            // create Vehicle using values of original vehicle
+            GNEVehicle *routeFlow = new GNEVehicle(originalVehicle->getViewNet(), vType, *originalVehicle);
+            GNERoute *embebbedRoute = nullptr;
+            // check if originalVehicle has an embebbed route
+            if (originalVehicle->getDemandElementParents().size() == 1) {
+                // create an embebbed route using embebbed route of originalVehicle
+                embebbedRoute = new GNERoute(routeFlow, originalVehicle->getDemandElementChilds().at(0));
+            } else {
+                // create an embebbed route using route of originalVehicle
+                embebbedRoute = new GNERoute(routeFlow, originalVehicle->getDemandElementParents().at(1));
+            }
+            // first remove original vehicle (to avoid problem with ID)
+            undoList->add(new GNEChange_DemandElement(originalVehicle, false), true);
+            // add both route and vehicle
+            undoList->add(new GNEChange_DemandElement(routeFlow, true), true);
+            undoList->add(new GNEChange_DemandElement(embebbedRoute, true), true);
+        } else if (originalVehicle->getDemandElementParents().size() == 1) {
+            // in this special case, we need to create a new route, because embebbed route of originalVehicle will be removed
+            GNERoute *route = new GNERoute(originalVehicle->getDemandElementChilds().at(0));
+            // create Vehicle using values of original vehicle (including ID)
+            GNEVehicle *routeFlow = new GNEVehicle(originalVehicle->getViewNet(), vType, route, newVehicleParameters);
+            // first remove vehicle (to avoid problem with ID) and embebbed route
+            undoList->add(new GNEChange_DemandElement(originalVehicle->getDemandElementChilds().at(0), false), true);
+            undoList->add(new GNEChange_DemandElement(originalVehicle, false), true);
+            // add both new vehicle and route
+            undoList->add(new GNEChange_DemandElement(route, true), true);
+            undoList->add(new GNEChange_DemandElement(routeFlow, true), true);
+        } else {
+            // create Vehicle using values of original vehicle (including ID)
+            GNEVehicle *vehicle = new GNEVehicle(originalVehicle->getViewNet(), vType, originalVehicle->getDemandElementParents().at(1), newVehicleParameters);
+            // first remove vehicle (to avoid problem with ID)
+            undoList->add(new GNEChange_DemandElement(originalVehicle, false), true);
+            // add new vehicle
+            undoList->add(new GNEChange_DemandElement(vehicle, true), true);
+        }
     } else if ((originalVehicle->getTagProperty().getTag() == SUMO_TAG_FLOW) || (originalVehicle->getTagProperty().getTag() == SUMO_TAG_TRIP)) {
-        // create route using values of originalVehicle flow/trip
-        GNERoute *route = new GNERoute(originalVehicle->getViewNet(), 
-            originalVehicle->getViewNet()->getNet()->generateDemandElementID(originalVehicle->getID(), SUMO_TAG_ROUTE), 
-            originalVehicle->getEdgeParents(), originalVehicle->getColor(), 
-            originalVehicle->getVClass());
-        // create Vehicle using values of original vehicle (including ID)
-        GNEVehicle *routeFlow = new GNEVehicle(originalVehicle->getViewNet(), vType, route, newVehicleParameters);
-        // first remove flow/trip (to avoid problem with ID)
-        undoList->add(new GNEChange_DemandElement(originalVehicle, false), true);
-        // add both new vehicle and route
-        undoList->add(new GNEChange_DemandElement(route, true), true);
-        undoList->add(new GNEChange_DemandElement(routeFlow, true), true);
+        // check route must be embebbed
+        if (createEmbebbedRoute) {
+            // create Vehicle using values of original vehicle (including ID)
+            GNEVehicle *routeFlow = new GNEVehicle(originalVehicle->getViewNet(), vType, newVehicleParameters);
+            // create route using values of originalVehicle flow/trip
+            GNERoute *embebbedRoute = new GNERoute(originalVehicle->getViewNet(), 
+                routeFlow,
+                originalVehicle->getEdgeParents(), 
+                originalVehicle->getColor(), 
+                originalVehicle->getVClass());
+            // remove flow/trip (to avoid problem with ID)
+            undoList->add(new GNEChange_DemandElement(originalVehicle, false), true);
+            // add both new vehicle and route
+            undoList->add(new GNEChange_DemandElement(routeFlow, true), true);
+            undoList->add(new GNEChange_DemandElement(embebbedRoute, true), true);
+        } else {
+            // create route using values of originalVehicle flow/trip
+            GNERoute *route = new GNERoute(originalVehicle->getViewNet(), 
+                originalVehicle->getViewNet()->getNet()->generateDemandElementID(originalVehicle->getID(), SUMO_TAG_ROUTE), 
+                originalVehicle->getEdgeParents(), 
+                originalVehicle->getColor(), 
+                originalVehicle->getVClass());
+            // create Vehicle using values of original vehicle (including ID)
+            GNEVehicle *routeFlow = new GNEVehicle(originalVehicle->getViewNet(), vType, route, newVehicleParameters);
+            // remove flow/trip (to avoid problem with ID)
+            undoList->add(new GNEChange_DemandElement(originalVehicle, false), true);
+            // add both new vehicle and route
+            undoList->add(new GNEChange_DemandElement(route, true), true);
+            undoList->add(new GNEChange_DemandElement(routeFlow, true), true);
+        }
     }
     // end undo-redo operation
     undoList->p_end();
-}
-
-
-void 
-GNERouteHandler::transformToVehicleWithEmbeddedRoute(GNEVehicle* /* originalVehicle */) {
-
-}
-
-
-void 
-GNERouteHandler::transformToFlowWithEmbeddedRoute(GNEVehicle* /* originalVehicle */) {
 }
 
 
@@ -494,22 +577,33 @@ GNERouteHandler::transformToTrip(GNEVehicle* originalVehicle) {
     // begin undo-redo operation
     undoList->p_begin("transform " + originalVehicle->getTagStr() + " to " + toString(newVehicleParameters.tag));
     // make transformation depending of vehicle tag
-    if (originalVehicle->getTagProperty().getTag() == SUMO_TAG_FLOW) {
-        // create trip using values of original vehicle (including ID)
+    if ((originalVehicle->getTagProperty().getTag() == SUMO_TAG_VEHICLE) || (originalVehicle->getTagProperty().getTag() == SUMO_TAG_ROUTEFLOW)) {
+        // check if originalVehicle has an embebed route
+        if (originalVehicle->getDemandElementParents().size() == 1) {
+            // in this special case, we need to create a new route, because embebbed route of originalVehicle will be removed
+            GNERoute *route = new GNERoute(originalVehicle->getDemandElementChilds().at(0));
+            // create Vehicle using values of original vehicle (including ID)
+            GNEVehicle *trip = new GNEVehicle(originalVehicle->getViewNet(), vType, route, newVehicleParameters);
+            // first remove vehicle (to avoid problem with ID) and embebbed route
+            undoList->add(new GNEChange_DemandElement(originalVehicle->getDemandElementChilds().at(0), false), true);
+            undoList->add(new GNEChange_DemandElement(originalVehicle, false), true);
+            // add both new vehicle and route
+            undoList->add(new GNEChange_DemandElement(route, true), true);
+            undoList->add(new GNEChange_DemandElement(trip, true), true);
+        } else {
+            // create Vehicle using values of original vehicle (including ID)
+            GNEVehicle *vehicle = new GNEVehicle(originalVehicle->getViewNet(), vType, originalVehicle->getDemandElementParents().at(1), newVehicleParameters);
+            // first remove vehicle (to avoid problem with ID)
+            undoList->add(new GNEChange_DemandElement(originalVehicle, false), true);
+            // add new vehicle
+            undoList->add(new GNEChange_DemandElement(vehicle, true), true);
+        }
+    } else if ((originalVehicle->getTagProperty().getTag() == SUMO_TAG_FLOW) || (originalVehicle->getTagProperty().getTag() == SUMO_TAG_TRIP)) {
+        // create Vehicle using values of original vehicle (including ID)
         GNEVehicle *trip = new GNEVehicle(originalVehicle->getViewNet(), vType, originalVehicle->getEdgeParents(), newVehicleParameters);
-        // remove originalVehicle (to avoid problem with ID)
+        // remove flow/trip (to avoid problem with ID)
         undoList->add(new GNEChange_DemandElement(originalVehicle, false), true);
-        // add new vehicle
-        undoList->add(new GNEChange_DemandElement(trip, true), true);
-    } else if ((originalVehicle->getTagProperty().getTag() == SUMO_TAG_VEHICLE) || (originalVehicle->getTagProperty().getTag() == SUMO_TAG_ROUTEFLOW)) {
-        // obtain route of originalVehicle
-        GNEDemandElement *route = originalVehicle->getDemandElementParents().at(1);
-        // create trip using values of original vehicle (including ID)
-        GNEVehicle *trip = new GNEVehicle(originalVehicle->getViewNet(), vType, route->getEdgeParents(), newVehicleParameters);
-        // remove originalVehicle (to avoid problem with ID) and route
-        undoList->add(new GNEChange_DemandElement(originalVehicle, false), true);
-        undoList->add(new GNEChange_DemandElement(route, false), true);
-        // add new vehicle
+        // add both new vehicle and route
         undoList->add(new GNEChange_DemandElement(trip, true), true);
     }
     // end undo-redo operation
@@ -530,22 +624,33 @@ GNERouteHandler::transformToFlow(GNEVehicle* originalVehicle) {
     // begin undo-redo operation
     undoList->p_begin("transform " + originalVehicle->getTagStr() + " to " + toString(newVehicleParameters.tag));
     // make transformation depending of vehicle tag
-    if (originalVehicle->getTagProperty().getTag() == SUMO_TAG_TRIP) {
-        // create flow using values of original vehicle (including ID)
+    if ((originalVehicle->getTagProperty().getTag() == SUMO_TAG_VEHICLE) || (originalVehicle->getTagProperty().getTag() == SUMO_TAG_ROUTEFLOW)) {
+        // check if originalVehicle has an embebed route
+        if (originalVehicle->getDemandElementParents().size() == 1) {
+            // in this special case, we need to create a new route, because embebbed route of originalVehicle will be removed
+            GNERoute *route = new GNERoute(originalVehicle->getDemandElementChilds().at(0));
+            // create Vehicle using values of original vehicle (including ID)
+            GNEVehicle *flow = new GNEVehicle(originalVehicle->getViewNet(), vType, route, newVehicleParameters);
+            // first remove vehicle (to avoid problem with ID) and embebbed route
+            undoList->add(new GNEChange_DemandElement(originalVehicle->getDemandElementChilds().at(0), false), true);
+            undoList->add(new GNEChange_DemandElement(originalVehicle, false), true);
+            // add both new vehicle and route
+            undoList->add(new GNEChange_DemandElement(route, true), true);
+            undoList->add(new GNEChange_DemandElement(flow, true), true);
+        } else {
+            // create Vehicle using values of original vehicle (including ID)
+            GNEVehicle *flow = new GNEVehicle(originalVehicle->getViewNet(), vType, originalVehicle->getDemandElementParents().at(1), newVehicleParameters);
+            // first remove vehicle (to avoid problem with ID)
+            undoList->add(new GNEChange_DemandElement(originalVehicle, false), true);
+            // add new vehicle
+            undoList->add(new GNEChange_DemandElement(flow, true), true);
+        }
+    } else if ((originalVehicle->getTagProperty().getTag() == SUMO_TAG_FLOW) || (originalVehicle->getTagProperty().getTag() == SUMO_TAG_TRIP)) {
+        // create Vehicle using values of original vehicle (including ID)
         GNEVehicle *flow = new GNEVehicle(originalVehicle->getViewNet(), vType, originalVehicle->getEdgeParents(), newVehicleParameters);
-        // remove originalVehicle (to avoid problem with ID)
+        // remove flow/trip (to avoid problem with ID)
         undoList->add(new GNEChange_DemandElement(originalVehicle, false), true);
-        // add new vehicle
-        undoList->add(new GNEChange_DemandElement(flow, true), true);
-    } else if ((originalVehicle->getTagProperty().getTag() == SUMO_TAG_VEHICLE) || (originalVehicle->getTagProperty().getTag() == SUMO_TAG_ROUTEFLOW)) {
-        // obtain route of originalVehicle
-        GNEDemandElement *route = originalVehicle->getDemandElementParents().at(1);
-        // create flow using values of original vehicle (including ID)
-        GNEVehicle *flow = new GNEVehicle(originalVehicle->getViewNet(), vType, route->getEdgeParents(), newVehicleParameters);
-        // remove originalVehicle (to avoid problem with ID) and route
-        undoList->add(new GNEChange_DemandElement(originalVehicle, false), true);
-        undoList->add(new GNEChange_DemandElement(route, false), true);
-        // add new vehicle
+        // add both new vehicle and route
         undoList->add(new GNEChange_DemandElement(flow, true), true);
     }
     // end undo-redo operation

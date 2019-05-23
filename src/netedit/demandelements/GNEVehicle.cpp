@@ -122,13 +122,13 @@ GNEVehicle::GNEVehiclePopupMenu::~GNEVehiclePopupMenu() {}
 long
 GNEVehicle::GNEVehiclePopupMenu::onCmdTransform(FXObject* obj, FXSelector, void*) {
     if (obj == myTransformToVehicle) {
-        GNERouteHandler::transformToVehicle(myVehicle);
+        GNERouteHandler::transformToVehicle(myVehicle, false);
     } else if (obj == myTransformToVehicleWithEmbeddedRoute) {
-        GNERouteHandler::transformToVehicleWithEmbebbedRoute(myVehicle);
+        GNERouteHandler::transformToVehicle(myVehicle, true);
     } else if (obj == myTransformToRouteFlow) { 
-        GNERouteHandler::transformToRouteFlow(myVehicle);
+        GNERouteHandler::transformToRouteFlow(myVehicle, false);
     } else if (obj == myTransformToRouteFlowWithEmbeddedRoute) { 
-        GNERouteHandler::transformToRouteFlowWithEmbebbedRoute(myVehicle);
+        GNERouteHandler::transformToRouteFlow(myVehicle, true);
     } else if (obj == myTransformToTrip) { 
         GNERouteHandler::transformToTrip(myVehicle);
     } else if (obj == myTransformToFlow) { 

@@ -75,6 +75,22 @@ GNERoute::GNERoute(GNEViewNet* viewNet, GNEDemandElement* vehicleParent, const s
 }
 
 
+GNERoute::GNERoute(GNEDemandElement* route) :
+    GNEDemandElement(route->getID(), route->getViewNet(), GLO_ROUTE, SUMO_TAG_ROUTE,
+    route->getEdgeParents(), {}, {}, {}, {}, {}, {}, {}, {}, {}),
+    myColor(route->getColor()),
+    myVClass(route->getVClass()) {
+}
+
+
+GNERoute::GNERoute(GNEDemandElement* vehicleParent, GNEDemandElement* route) :
+    GNEDemandElement(route->getID(), route->getViewNet(), GLO_ROUTE, SUMO_TAG_ROUTEEMBEDDED,
+    route->getEdgeParents(), {}, {}, {}, {vehicleParent}, {}, {}, {}, {}, {}),
+    myColor(route->getColor()),
+    myVClass(route->getVClass()) {
+}
+
+
 GNERoute::~GNERoute() {}
 
 

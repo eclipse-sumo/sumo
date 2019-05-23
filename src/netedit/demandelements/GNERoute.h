@@ -60,6 +60,12 @@ public:
      */
     GNERoute(GNEViewNet* viewNet, GNEDemandElement* vehicleParent, const std::vector<GNEEdge*>& edges, const RGBColor& color, const SUMOVehicleClass VClass);
 
+    /// @brief copy constructor (used to create a route based on the parameters of other GNERoute)
+    GNERoute(GNEDemandElement* route);
+
+    /// @brief copy constructor for embebbed routes (used to create a route based on the parameters of other GNERoute)
+    GNERoute(GNEDemandElement* vehicleParent, GNEDemandElement* route);
+
     /// @brief destructor
     ~GNERoute();
 

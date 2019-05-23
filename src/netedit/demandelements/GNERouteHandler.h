@@ -85,16 +85,10 @@ public:
     /// @brief transform functions
     /// @{
     /// @brief transform to vehicle over an existent route
-    static void transformToVehicle(GNEVehicle* originalVehicle);
+    static void transformToVehicle(GNEVehicle* originalVehicle, bool createEmbebbedRoute);
 
     /// @brief transform routeFlow over an existent route
-    static void transformToRouteFlow(GNEVehicle* originalVehicle);
-
-    /// @brief transform to vehicle with a embedded route
-    static void transformToVehicleWithEmbeddedRoute(GNEVehicle* originalVehicle);
-
-    /// @brief transform to flow with a embedded route
-    static void transformToFlowWithEmbeddedRoute(GNEVehicle* originalVehicle);
+    static void transformToRouteFlow(GNEVehicle* originalVehicle, bool createEmbebbedRoute);
 
     /// @brief transform to trip
     static void transformToTrip(GNEVehicle* originalVehicle);
