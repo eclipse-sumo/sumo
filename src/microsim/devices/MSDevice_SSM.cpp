@@ -45,7 +45,7 @@
 // ===========================================================================
 // Debug constants
 // ===========================================================================
-#define DEBUG_SSM
+//#define DEBUG_SSM
 //#define DEBUG_SSM_DRAC
 //#define DEBUG_SSM_SURROUNDING
 //#define DEBUG_SSM_NOTIFICATIONS
