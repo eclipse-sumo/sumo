@@ -75,6 +75,9 @@ ROFrame::fillOptions(OptionsCont& oc) {
     oc.addSynonyme("route-files", "trips", true);
     oc.addDescription("route-files", "Input", "Read sumo routes, alternatives, flows, and trips from FILE(s)");
 
+    oc.doRegister("phemlight-path", new Option_FileName("./PHEMlight/"));
+    oc.addDescription("phemlight-path", "Input", "Determines where to load PHEMlight definitions from.");
+
     // register the time settings
     oc.doRegister("begin", 'b', new Option_String("0", "TIME"));
     oc.addDescription("begin", "Time", "Defines the begin time; Previous trips will be discarded");
