@@ -68,9 +68,9 @@ def addGenericOptions(argParser):
     argParser.add_argument("--meso-recheck", dest="mesorecheck", type=int, default=0,
                            help="Delay before checking whether a jam is gone. (higher values can lead to a big speed " +
                                 "increase)")
-    argParser.add_argument("--meso-tls-penalty", dest="mesotlspenalty", type="float",
+    argParser.add_argument("--meso-tls-penalty", dest="mesotlspenalty", type=float,
                            help="Apply scaled time penalties when driving across tls controlled junctions")
-    argParser.add_argument("--meso-minor-penalty", dest="mesominorpenalty", type="int",
+    argParser.add_argument("--meso-minor-penalty", dest="mesominorpenalty", type=int,
                            help="Apply fixed time penalty when driving across a minor link; cannot active when using -L")
     argParser.add_argument("-Q", "--eco-measure", dest="ecomeasure",
                            choices=[
