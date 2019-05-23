@@ -90,11 +90,11 @@ public:
     /// @brief transform flow over an existent route
     static void transformToFlowOverRoute(GNEVehicle* originalVehicle);
 
-    /// @brief transform to vehicle with a embebbed route
-    static void transformToVehicleWithEmbebbedRoute(GNEVehicle* originalVehicle);
+    /// @brief transform to vehicle with a embedded route
+    static void transformToVehicleWithEmbeddedRoute(GNEVehicle* originalVehicle);
 
-    /// @brief transform to flow with a embebbed route
-    static void transformToFlowWithEmbebbedRoute(GNEVehicle* originalVehicle);
+    /// @brief transform to flow with a embedded route
+    static void transformToFlowWithEmbeddedRoute(GNEVehicle* originalVehicle);
 
     /// @brief transform to trip
     static void transformToTrip(GNEVehicle* originalVehicle);

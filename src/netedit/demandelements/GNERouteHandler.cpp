@@ -471,13 +471,13 @@ GNERouteHandler::transformToFlowOverRoute(GNEVehicle* originalVehicle) {
 
 
 void 
-GNERouteHandler::transformToVehicleWithEmbebbedRoute(GNEVehicle* originalVehicle) {
+GNERouteHandler::transformToVehicleWithEmbeddedRoute(GNEVehicle* /* originalVehicle */) {
 
 }
 
 
 void 
-GNERouteHandler::transformToFlowWithEmbebbedRoute(GNEVehicle* originalVehicle) {
+GNERouteHandler::transformToFlowWithEmbeddedRoute(GNEVehicle* /* originalVehicle */) {
 }
 
 
