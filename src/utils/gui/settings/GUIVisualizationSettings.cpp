@@ -74,6 +74,7 @@ const RGBColor GUIVisualizationSettings::SUMO_color_stops(220, 20, 30);
 const std::string GUIVisualizationSettings::SCHEME_NAME_EDGE_PARAM_NUMERICAL("by param (numerical, streetwise)");
 const std::string GUIVisualizationSettings::SCHEME_NAME_LANE_PARAM_NUMERICAL("by param (numerical, lanewise)");
 const std::string GUIVisualizationSettings::SCHEME_NAME_EDGEDATA_NUMERICAL("by edgeData (numerical, streetwise)");
+const std::string GUIVisualizationSettings::SCHEME_NAME_SELECTION("by selection");
 
 // color constants for scheme background
 #define COL_SCHEME_EMISSION RGBColor(255,255,210)
@@ -170,7 +171,7 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::RED, 7, "closed"); // road closing
     scheme.addColor(RGBColor::GREEN, 8, "connector"); // macro-connector
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by selection (lane-/streetwise)", RGBColor(128, 128, 128, 255), "unselected", true, 0, COL_SCHEME_MISC);
+    scheme = GUIColorScheme(SCHEME_NAME_SELECTION, RGBColor(128, 128, 128, 255), "unselected", true, 0, COL_SCHEME_MISC);
     scheme.addColor(RGBColor(0, 80, 180, 255), 1, "selected");
     laneColorer.addScheme(scheme);
     scheme = GUIColorScheme("by permission code", RGBColor(240, 240, 240), "nobody");
@@ -421,7 +422,7 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::YELLOW, (double)1.);
     scheme.addColor(RGBColor::WHITE, (double)10.);
     vehicleColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by selection", RGBColor(179, 179, 179, 255), "unselected", true, 0, COL_SCHEME_MISC);
+    scheme = GUIColorScheme(SCHEME_NAME_SELECTION, RGBColor(179, 179, 179, 255), "unselected", true, 0, COL_SCHEME_MISC);
     scheme.addColor(RGBColor(0, 102, 204, 255), 1, "selected");
     vehicleColorer.addScheme(scheme);
     scheme = GUIColorScheme("by offset from best lane", RGBColor(179, 179, 179, 255), "0", false, 0, COL_SCHEME_DYNAMIC);
@@ -494,7 +495,7 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::YELLOW, (double)200);
     scheme.addColor(RGBColor::RED, (double)300);
     personColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by selection", RGBColor(179, 179, 179, 255), "unselected", true, 0, COL_SCHEME_MISC);
+    scheme = GUIColorScheme(SCHEME_NAME_SELECTION, RGBColor(179, 179, 179, 255), "unselected", true, 0, COL_SCHEME_MISC);
     scheme.addColor(RGBColor(0, 102, 204, 255), 1, "selected");
     personColorer.addScheme(scheme);
     personColorer.addScheme(GUIColorScheme("by angle", RGBColor::YELLOW, "", true));
@@ -523,7 +524,7 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::YELLOW, (double)200);
     scheme.addColor(RGBColor::RED, (double)300);
     containerColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by selection", RGBColor(179, 179, 179, 255), "unselected", true, 0, COL_SCHEME_MISC);
+    scheme = GUIColorScheme(SCHEME_NAME_SELECTION, RGBColor(179, 179, 179, 255), "unselected", true, 0, COL_SCHEME_MISC);
     scheme.addColor(RGBColor(0, 102, 204, 255), 1, "selected");
     containerColorer.addScheme(scheme);
     containerColorer.addScheme(GUIColorScheme("by angle", RGBColor::YELLOW, "", true));
@@ -533,7 +534,7 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor(150, 200, 200), 1, "waterway");
     scheme.addColor(RGBColor(0, 0, 0, 0), 2, "railway");
     junctionColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by selection", RGBColor(128, 128, 128, 255), "unselected", true, 0, COL_SCHEME_MISC);
+    scheme = GUIColorScheme(SCHEME_NAME_SELECTION, RGBColor(128, 128, 128, 255), "unselected", true, 0, COL_SCHEME_MISC);
     scheme.addColor(RGBColor(0, 80, 180, 255), 1, "selected");
     junctionColorer.addScheme(scheme);
     scheme = GUIColorScheme("by type", RGBColor::GREEN, "traffic_light", true);
@@ -561,14 +562,14 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
 
     /// add POI coloring schemes
     poiColorer.addScheme(GUIColorScheme("given POI color", RGBColor::RED, "", true));
-    scheme = GUIColorScheme("by selection", RGBColor(179, 179, 179, 255), "unselected", true, 0, COL_SCHEME_MISC);
+    scheme = GUIColorScheme(SCHEME_NAME_SELECTION, RGBColor(179, 179, 179, 255), "unselected", true, 0, COL_SCHEME_MISC);
     scheme.addColor(RGBColor(0, 102, 204, 255), 1, "selected");
     poiColorer.addScheme(scheme);
     poiColorer.addScheme(GUIColorScheme("uniform", RGBColor::RED, "", true));
 
     /// add polygon coloring schemes
     polyColorer.addScheme(GUIColorScheme("given polygon color", RGBColor::ORANGE, "", true));
-    scheme = GUIColorScheme("by selection", RGBColor(179, 179, 179, 255), "unselected", true, 0, COL_SCHEME_MISC);
+    scheme = GUIColorScheme(SCHEME_NAME_SELECTION, RGBColor(179, 179, 179, 255), "unselected", true, 0, COL_SCHEME_MISC);
     scheme.addColor(RGBColor(0, 102, 204, 255), 1, "selected");
     polyColorer.addScheme(scheme);
     polyColorer.addScheme(GUIColorScheme("uniform", RGBColor::ORANGE, "", true));
@@ -577,7 +578,7 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     {
         GUIScaleScheme scheme = GUIScaleScheme("default", 1, "uniform", true);
         laneScaler.addScheme(scheme);
-        scheme = GUIScaleScheme("by selection (lane-/streetwise)", 0.5, "unselected", true, 0, COL_SCHEME_MISC);
+        scheme = GUIScaleScheme(SCHEME_NAME_SELECTION, 0.5, "unselected", true, 0, COL_SCHEME_MISC);
         scheme.addColor(5, 1, "selected");
         laneScaler.addScheme(scheme);
         // ... traffic states ...
@@ -661,7 +662,7 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
 
     /// add edge coloring schemes
     edgeColorer.addScheme(GUIColorScheme("uniform", RGBColor(0, 0, 0, 0), "", true));
-    scheme = GUIColorScheme("by selection (streetwise)", RGBColor(128, 128, 128, 255), "unselected", true, 0, COL_SCHEME_MISC);
+    scheme = GUIColorScheme(SCHEME_NAME_SELECTION, RGBColor(128, 128, 128, 255), "unselected", true, 0, COL_SCHEME_MISC);
     scheme.addColor(RGBColor(0, 80, 180, 255), 1, "selected");
     edgeColorer.addScheme(scheme);
     scheme = GUIColorScheme("by purpose (streetwise)", RGBColor(), "normal", true);
@@ -741,7 +742,7 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     /// add edge scaling schemes
     {
         edgeScaler.addScheme(GUIScaleScheme("uniform", 1, "", true));
-        GUIScaleScheme scheme = GUIScaleScheme("by selection (streetwise)", 0.5, "unselected", true, 0, COL_SCHEME_MISC);
+        GUIScaleScheme scheme = GUIScaleScheme(SCHEME_NAME_SELECTION, 0.5, "unselected", true, 0, COL_SCHEME_MISC);
         scheme.addColor(5, 1, "selected");
         edgeScaler.addScheme(scheme);
         scheme = GUIScaleScheme("by allowed speed (streetwise)", 0);
@@ -780,7 +781,7 @@ GUIVisualizationSettings::initNeteditDefaults() {
     scheme.addColor(RGBColor::BLACK, 5, "railway");
     scheme.addColor(RGBColor(92, 92, 92), 6, "no passenger"); // paths, service roads etc
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by selection (lane-/streetwise)", RGBColor(128, 128, 128, 255), "unselected", true, 0, COL_SCHEME_MISC);
+    scheme = GUIColorScheme(SCHEME_NAME_SELECTION, RGBColor(128, 128, 128, 255), "unselected", true, 0, COL_SCHEME_MISC);
     scheme.addColor(RGBColor(0, 80, 180, 255), 1, "selected");
     laneColorer.addScheme(scheme);
     scheme = GUIColorScheme("by permission code", RGBColor(240, 240, 240), "nobody");
@@ -872,7 +873,7 @@ GUIVisualizationSettings::initNeteditDefaults() {
     scheme.addColor(RGBColor(153, 0, 0), 2, "geometry points");
     scheme.addColor(RGBColor::GREEN, 3, "custom shape");
     junctionColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by selection", RGBColor(128, 128, 128, 255), "unselected", true, 0, COL_SCHEME_MISC);
+    scheme = GUIColorScheme(SCHEME_NAME_SELECTION, RGBColor(128, 128, 128, 255), "unselected", true, 0, COL_SCHEME_MISC);
     scheme.addColor(RGBColor(0, 80, 180, 255), 1, "selected");
     junctionColorer.addScheme(scheme);
     scheme = GUIColorScheme("by type", RGBColor::GREEN, "traffic_light", true);
@@ -900,14 +901,14 @@ GUIVisualizationSettings::initNeteditDefaults() {
 
     /// add POI coloring schemes
     poiColorer.addScheme(GUIColorScheme("given POI color", RGBColor::RED, "", true));
-    scheme = GUIColorScheme("by selection", RGBColor(179, 179, 179, 255), "unselected", true, 0, COL_SCHEME_MISC);
+    scheme = GUIColorScheme(SCHEME_NAME_SELECTION, RGBColor(179, 179, 179, 255), "unselected", true, 0, COL_SCHEME_MISC);
     scheme.addColor(RGBColor(0, 102, 204, 255), 1, "selected");
     poiColorer.addScheme(scheme);
     poiColorer.addScheme(GUIColorScheme("uniform", RGBColor::RED, "", true));
 
     /// add polygon coloring schemes
     polyColorer.addScheme(GUIColorScheme("given polygon color", RGBColor::ORANGE, "", true));
-    scheme = GUIColorScheme("by selection", RGBColor(179, 179, 179, 255), "unselected", true, 0, COL_SCHEME_MISC);
+    scheme = GUIColorScheme(SCHEME_NAME_SELECTION, RGBColor(179, 179, 179, 255), "unselected", true, 0, COL_SCHEME_MISC);
     scheme.addColor(RGBColor(0, 102, 204, 255), 1, "selected");
     polyColorer.addScheme(scheme);
     polyColorer.addScheme(GUIColorScheme("uniform", RGBColor::ORANGE, "", true));

@@ -98,6 +98,15 @@ public:
         return 0;
     }
 
+    void setSchemeByName(std::string name) {
+        for (int i = 0; i < (int)mySchemes.size(); i++) {
+            if (mySchemes[i].getName() == name) {
+                myActiveScheme = i;
+                break;
+            }
+        }
+    }
+
     void save(OutputDevice& dev) const {
         for (typename std::vector<T>::const_iterator i = mySchemes.begin(); i != mySchemes.end(); ++i) {
             i->save(dev);

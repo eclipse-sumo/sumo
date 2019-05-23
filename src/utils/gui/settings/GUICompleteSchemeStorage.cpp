@@ -136,6 +136,19 @@ GUICompleteSchemeStorage::init(FXApp* app, bool netedit) {
         vs.containerQuality = 2;
         gSchemeStorage.add(vs);
     }
+    if (!netedit) {
+        GUIVisualizationSettings vs(netedit);
+        vs.name = "selection";
+        vs.vehicleColorer.setSchemeByName(GUIVisualizationSettings::SCHEME_NAME_SELECTION);
+        vs.edgeColorer.setSchemeByName(GUIVisualizationSettings::SCHEME_NAME_SELECTION);
+        vs.laneColorer.setSchemeByName(GUIVisualizationSettings::SCHEME_NAME_SELECTION);
+        vs.junctionColorer.setSchemeByName(GUIVisualizationSettings::SCHEME_NAME_SELECTION);
+        vs.personColorer.setSchemeByName(GUIVisualizationSettings::SCHEME_NAME_SELECTION);
+        vs.containerColorer.setSchemeByName(GUIVisualizationSettings::SCHEME_NAME_SELECTION);
+        vs.poiColorer.setSchemeByName(GUIVisualizationSettings::SCHEME_NAME_SELECTION);
+        vs.polyColorer.setSchemeByName(GUIVisualizationSettings::SCHEME_NAME_SELECTION);
+        gSchemeStorage.add(vs);
+    }
     myNumInitialSettings = (int) mySortedSchemeNames.size();
     // add saved settings
     int noSaved = app->reg().readIntEntry("VisualizationSettings", "settingNo", 0);
