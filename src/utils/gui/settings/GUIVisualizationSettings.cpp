@@ -75,6 +75,7 @@ const std::string GUIVisualizationSettings::SCHEME_NAME_EDGE_PARAM_NUMERICAL("by
 const std::string GUIVisualizationSettings::SCHEME_NAME_LANE_PARAM_NUMERICAL("by param (numerical, lanewise)");
 const std::string GUIVisualizationSettings::SCHEME_NAME_EDGEDATA_NUMERICAL("by edgeData (numerical, streetwise)");
 const std::string GUIVisualizationSettings::SCHEME_NAME_SELECTION("by selection");
+const std::string GUIVisualizationSettings::SCHEME_NAME_TYPE("by type");
 
 // color constants for scheme background
 #define COL_SCHEME_EMISSION RGBColor(255,255,210)
@@ -537,7 +538,7 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme = GUIColorScheme(SCHEME_NAME_SELECTION, RGBColor(128, 128, 128, 255), "unselected", true, 0, COL_SCHEME_MISC);
     scheme.addColor(RGBColor(0, 80, 180, 255), 1, "selected");
     junctionColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by type", RGBColor::GREEN, "traffic_light", true);
+    scheme = GUIColorScheme(SCHEME_NAME_TYPE, RGBColor::GREEN, "traffic_light", true);
     scheme.addColor(RGBColor(0, 128, 0), 1, "traffic_light_unregulated");
     scheme.addColor(RGBColor::YELLOW, 2, "priority");
     scheme.addColor(RGBColor::RED, 3, "priority_stop");
@@ -876,7 +877,7 @@ GUIVisualizationSettings::initNeteditDefaults() {
     scheme = GUIColorScheme(SCHEME_NAME_SELECTION, RGBColor(128, 128, 128, 255), "unselected", true, 0, COL_SCHEME_MISC);
     scheme.addColor(RGBColor(0, 80, 180, 255), 1, "selected");
     junctionColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by type", RGBColor::GREEN, "traffic_light", true);
+    scheme = GUIColorScheme(SCHEME_NAME_TYPE, RGBColor::GREEN, "traffic_light", true);
     scheme.addColor(RGBColor(0, 128, 0), 1, "traffic_light_unregulated");
     scheme.addColor(RGBColor::YELLOW, 2, "priority");
     scheme.addColor(RGBColor::RED, 3, "priority_stop");

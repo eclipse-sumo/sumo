@@ -122,6 +122,8 @@ GUICompleteSchemeStorage::init(FXApp* app, bool netedit) {
         vs.laneShowBorders = false;
         vs.showLinkDecals = false;
         vs.showRails = false;
+        vs.showRails = false;
+        vs.showSublanes = false;
         gSchemeStorage.add(vs);
     }
     {
@@ -134,8 +136,20 @@ GUICompleteSchemeStorage::init(FXApp* app, bool netedit) {
         vs.vehicleSize.minSize = 0;
         vs.personQuality = 2;
         vs.containerQuality = 2;
+        vs.showSublanes = false;
         gSchemeStorage.add(vs);
     }
+    {
+        GUIVisualizationSettings vs(netedit);
+        vs.name = "rail";
+        vs.vehicleQuality = 2;
+        vs.showLaneDirection = true;
+        vs.spreadSuperposed = true;
+        vs.junctionSize.constantSize = true;
+        vs.junctionColorer.setSchemeByName(GUIVisualizationSettings::SCHEME_NAME_TYPE);
+        gSchemeStorage.add(vs);
+    }
+
     if (!netedit) {
         GUIVisualizationSettings vs(netedit);
         vs.name = "selection";
