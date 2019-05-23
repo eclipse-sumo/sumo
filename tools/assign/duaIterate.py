@@ -61,11 +61,17 @@ def addGenericOptions(argParser):
                            default=False, help="not to simulate internal link: true or false")
     argParser.add_argument("-j", "--meso-junctioncontrol", dest="mesojunctioncontrol", action="store_true",
                            default=False, help="Enable mesoscopic traffic light and priority junciton handling")
+    argParser.add_argument("-L", "--meso-junctioncontrollimited", dest="mesojunctioncontrollimited", action="store_true",
+                           default=False, help="Enable mesoscopic traffic light and priority junction handling for saturated links")
     argParser.add_argument("-q", "--meso-multiqueue", dest="mesomultiqueue", action="store_true",
                            default=False, help="Enable multiple queues at edge ends")
     argParser.add_argument("--meso-recheck", dest="mesorecheck", type=int, default=0,
                            help="Delay before checking whether a jam is gone. (higher values can lead to a big speed " +
                                 "increase)")
+    argParser.add_argument("--meso-tls-penalty", dest="mesotlspenalty", type="float",
+                           help="Apply scaled time penalties when driving across tls controlled junctions")
+    argParser.add_argument("--meso-minor-penalty", dest="mesominorpenalty", type="int",
+                           help="Apply fixed time penalty when driving across a minor link; cannot active when using -L")
     argParser.add_argument("-Q", "--eco-measure", dest="ecomeasure",
                            choices=[
                                'CO', 'CO2', 'PMx', 'HC', 'NOx', 'fuel', 'noise'],
@@ -331,6 +337,12 @@ def writeSUMOConf(sumoBinary, step, options, additional_args, route_files):
             sumoCmd += ['--meso-multi-queue']
         if options.mesojunctioncontrol:
             sumoCmd += ['--meso-junction-control']
+        if options.mesojunctioncontrollimited:
+            sumoCmd += ['--meso-junction-control.limited']
+        if options.mesotlspenalty:
+            sumoCmd += ['--meso-tls-penalty']
+        if options.mesominorpenalty:
+            sumoCmd += ['--meso-minor-penalty']
 
     # make sure all arguments are strings
     sumoCmd = list(map(str, sumoCmd))
