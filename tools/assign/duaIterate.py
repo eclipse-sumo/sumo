@@ -340,9 +340,9 @@ def writeSUMOConf(sumoBinary, step, options, additional_args, route_files):
         if options.mesojunctioncontrollimited:
             sumoCmd += ['--meso-junction-control.limited']
         if options.mesotlspenalty:
-            sumoCmd += ['--meso-tls-penalty']
+            sumoCmd += ['--meso-tls-penalty', options.mesotlspenalty]
         if options.mesominorpenalty:
-            sumoCmd += ['--meso-minor-penalty']
+            sumoCmd += ['--meso-minor-penalty', options.mesominorpenalty]
 
     # make sure all arguments are strings
     sumoCmd = list(map(str, sumoCmd))
