@@ -1890,7 +1890,7 @@ MSLCM_LC2013::getRoundaboutDistBonus(const MSVehicle::LaneQ& curr, const MSVehic
     const double relativeJam = (occupancyOuter - occupancyInner + bonus) / (maxOccupancy + bonus);
     // no bonus if the inner lane or the left lane entering the roundabout is jammed
     const double jamFactor = MAX2(0.0, relativeJam);
-    const double result = distanceInRoundabout * jamFactor * (ROUNDABOUT_DIST_FACTOR - 1.);
+    const double result = distanceInRoundabout * jamFactor * myCooperativeParam * (ROUNDABOUT_DIST_FACTOR - 1.);
 #ifdef DEBUG_WANTS_CHANGE
     if (debugVehicle()) {
         std::cout << "   relativeJam=" << relativeJam
