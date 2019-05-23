@@ -149,14 +149,14 @@ enum {
     MID_GNE_HOTKEY_BACKSPACE,
     /// @brief save TLS Programs
     MID_GNE_HOTKEY_CTRL_SHIFT_K,
-    /// @brief clean junctions without edges
-    MID_GNE_HOTKEY_F6,
-    /// @brief join selected junctions
-    MID_GNE_HOTKEY_F7,
-    /// @brief clean invalid crossings
-    MID_GNE_HOTKEY_F8,
+    /// @brief clean junctions without edges in networkmode and unused routes in demand mode
+    MID_GNE_HOTKEY_F6_CLEANJUNCTIONS_CLEANUNUSEDROUTES,
+    /// @brief join selected junctions in networkmode and normalice demand element ids in demand mode
+    MID_GNE_HOTKEY_F7_JOINSELECTEDJUNCTIONS_NORMALICEDEMANDELEMENTIDS,
+    /// @brief clean invalid crossings in network mode and demand elements in demand mode
+    MID_GNE_HOTKEY_F8_CLEANINVALIDCROSSINGS_CLEANINVALIDDEMANDELEMENTS,
     /// @brief open options menu
-    MID_GNE_HOTKEY_F10,
+    MID_GNE_HOTKEY_F10_OPTIONSMENU,
 
     /// @}
 
