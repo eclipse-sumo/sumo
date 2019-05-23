@@ -1,0 +1,7 @@
+
+[Reported by erdm_ja at 23May12:24:23]
+search_string:-
+search_file:exitcode
+ignore_other_errors:1
+full_description:crash during opposite overtaking
+brief_description:see #5231

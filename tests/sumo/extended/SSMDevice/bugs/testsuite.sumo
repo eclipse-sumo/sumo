@@ -1,3 +1,6 @@
 # SSM device crashes on junction without internal lane
 ticket4350
+
+# SSM device crashes when vehicles use the opposite-direction edge
+ticket5231
 ticket5643
