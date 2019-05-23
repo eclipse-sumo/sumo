@@ -389,7 +389,7 @@ GNERouteHandler::buildStop(GNEViewNet* viewNet, bool undoDemandElements, const S
 
 
 void 
-GNERouteHandler::transformToVehicleOverRoute(GNEVehicle* originalVehicle) {
+GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle) {
     // get pointer to undo list (due originalVehicle will be deleted)
     GNEUndoList *undoList = originalVehicle->getViewNet()->getUndoList();
     // obtain VType of original vehicle
@@ -430,7 +430,7 @@ GNERouteHandler::transformToVehicleOverRoute(GNEVehicle* originalVehicle) {
 
 
 void 
-GNERouteHandler::transformToFlowOverRoute(GNEVehicle* originalVehicle) {
+GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle) {
     // get pointer to undo list (due originalVehicle will be deleted)
     GNEUndoList *undoList = originalVehicle->getViewNet()->getUndoList();
     // obtain VType of original vehicle

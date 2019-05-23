@@ -67,11 +67,17 @@ public:
         /// @brief menu command for transform to vehicle
         FXMenuCommand* myTransformToVehicle;
 
-        /// @brief menu command for transform to trip
-        FXMenuCommand* myTransformToTrip;
+        /// @brief menu command for transform to vehicle with an embedded route
+        FXMenuCommand* myTransformToVehicleWithEmbeddedRoute;
 
         /// @brief menu command for transform to route flow
         FXMenuCommand* myTransformToRouteFlow;
+
+        /// @brief menu command for transform to route flow with an embedded route
+        FXMenuCommand* myTransformToRouteFlowWithEmbeddedRoute;
+
+        /// @brief menu command for transform to trip
+        FXMenuCommand* myTransformToTrip;
 
         /// @brief menu command for transform to flow
         FXMenuCommand* myTransformToFlow;

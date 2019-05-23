@@ -59,8 +59,10 @@ GNEVehicle::GNEVehiclePopupMenu::GNEVehiclePopupMenu(GNEVehicle *vehicle, GUIMai
     GUIGLObjectPopupMenu(app, parent, *vehicle),
     myVehicle(vehicle),
     myTransformToVehicle(nullptr),
-    myTransformToTrip(nullptr),
+    myTransformToVehicleWithEmbeddedRoute(nullptr),
     myTransformToRouteFlow(nullptr),
+    myTransformToRouteFlowWithEmbeddedRoute(nullptr),
+    myTransformToTrip(nullptr),
     myTransformToFlow(nullptr) { 
     // build header
     myVehicle->buildPopupHeader(this, app);
@@ -87,16 +89,26 @@ GNEVehicle::GNEVehiclePopupMenu::GNEVehiclePopupMenu(GNEVehicle *vehicle, GUIMai
         new FXMenuCascade(this, "transform to", nullptr, transformOperation);
         // Create menu comands for all vehicles
         myTransformToVehicle = new FXMenuCommand(transformOperation, "Vehicle", vehicleIcon, this, MID_GNE_VEHICLE_TRANSFORM);
-        myTransformToTrip = new FXMenuCommand(transformOperation, "Trip", tripIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        myTransformToVehicleWithEmbeddedRoute = new FXMenuCommand(transformOperation, "Vehicle (embedded route)", vehicleIcon, this, MID_GNE_VEHICLE_TRANSFORM);
         myTransformToRouteFlow = new FXMenuCommand(transformOperation, "RouteFlow", routeFlowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        myTransformToRouteFlowWithEmbeddedRoute = new FXMenuCommand(transformOperation, "RouteFlow (embedded route)", routeFlowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        myTransformToTrip = new FXMenuCommand(transformOperation, "Trip", tripIcon, this, MID_GNE_VEHICLE_TRANSFORM);
         myTransformToFlow = new FXMenuCommand(transformOperation, "Flow", flowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
         // check what menu command has to be disabled
         if (myVehicle->getTagProperty().getTag() == SUMO_TAG_VEHICLE) {
-            myTransformToVehicle->disable();
+            if (myVehicle->getDemandElementParents().size() > 1) {
+                myTransformToVehicle->disable();
+            } else {
+                myTransformToVehicleWithEmbeddedRoute->disable();
+            }
+        } else if (myVehicle->getTagProperty().getTag() == SUMO_TAG_ROUTEFLOW) {
+            if (myVehicle->getDemandElementParents().size() > 1) {
+                myTransformToRouteFlow->disable();
+            } else {
+                myTransformToRouteFlowWithEmbeddedRoute->disable();
+            }
         } else if (myVehicle->getTagProperty().getTag() == SUMO_TAG_TRIP) {
             myTransformToTrip->disable();
-        } else if (myVehicle->getTagProperty().getTag() == SUMO_TAG_ROUTEFLOW) {
-            myTransformToRouteFlow->disable();
         } else if (myVehicle->getTagProperty().getTag() == SUMO_TAG_FLOW) {
             myTransformToFlow->disable();
         }
@@ -110,11 +122,15 @@ GNEVehicle::GNEVehiclePopupMenu::~GNEVehiclePopupMenu() {}
 long
 GNEVehicle::GNEVehiclePopupMenu::onCmdTransform(FXObject* obj, FXSelector, void*) {
     if (obj == myTransformToVehicle) {
-        GNERouteHandler::transformToVehicleOverRoute(myVehicle);
+        GNERouteHandler::transformToVehicle(myVehicle);
+    } else if (obj == myTransformToVehicleWithEmbeddedRoute) {
+        GNERouteHandler::transformToVehicleWithEmbebbedRoute(myVehicle);
+    } else if (obj == myTransformToRouteFlow) { 
+        GNERouteHandler::transformToRouteFlow(myVehicle);
+    } else if (obj == myTransformToRouteFlowWithEmbeddedRoute) { 
+        GNERouteHandler::transformToRouteFlowWithEmbebbedRoute(myVehicle);
     } else if (obj == myTransformToTrip) { 
         GNERouteHandler::transformToTrip(myVehicle);
-    } else if (obj == myTransformToRouteFlow) { 
-        GNERouteHandler::transformToFlowOverRoute(myVehicle);
     } else if (obj == myTransformToFlow) { 
         GNERouteHandler::transformToFlow(myVehicle);
     }
