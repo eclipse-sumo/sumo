@@ -1,3 +1,21 @@
+/****************************************************************************/
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Copyright (C) 2017-2019 German Aerospace Center (DLR) and others.
+// TraaS module
+// Copyright (C) 2013-2017 Dresden University of Technology
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
+// SPDX-License-Identifier: EPL-2.0
+/****************************************************************************/
+/// @file    SumoBoundingBox.java
+/// @author  Mario Krumnow
+/// @date    2013
+/// @version $Id$
+///
+//
+/****************************************************************************/
 
 package de.tudresden.ws;
 
@@ -9,9 +27,9 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for sumoBoundingBox complex type.
- * 
+ *
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
+ *
  * <pre>
  * &lt;complexType name="sumoBoundingBox">
  *   &lt;complexContent>
@@ -26,8 +44,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "sumoBoundingBox", propOrder = {
@@ -49,7 +67,7 @@ public class SumoBoundingBox {
 
     /**
      * Ruft den Wert der xMin-Eigenschaft ab.
-     * 
+     *
      */
     public double getXMin() {
         return xMin;
@@ -57,7 +75,7 @@ public class SumoBoundingBox {
 
     /**
      * Legt den Wert der xMin-Eigenschaft fest.
-     * 
+     *
      */
     public void setXMin(double value) {
         this.xMin = value;
@@ -65,7 +83,7 @@ public class SumoBoundingBox {
 
     /**
      * Ruft den Wert der yMin-Eigenschaft ab.
-     * 
+     *
      */
     public double getYMin() {
         return yMin;
@@ -73,7 +91,7 @@ public class SumoBoundingBox {
 
     /**
      * Legt den Wert der yMin-Eigenschaft fest.
-     * 
+     *
      */
     public void setYMin(double value) {
         this.yMin = value;
@@ -81,7 +99,7 @@ public class SumoBoundingBox {
 
     /**
      * Ruft den Wert der xMax-Eigenschaft ab.
-     * 
+     *
      */
     public double getXMax() {
         return xMax;
@@ -89,7 +107,7 @@ public class SumoBoundingBox {
 
     /**
      * Legt den Wert der xMax-Eigenschaft fest.
-     * 
+     *
      */
     public void setXMax(double value) {
         this.xMax = value;
@@ -97,7 +115,7 @@ public class SumoBoundingBox {
 
     /**
      * Ruft den Wert der yMax-Eigenschaft ab.
-     * 
+     *
      */
     public double getYMax() {
         return yMax;
@@ -105,7 +123,7 @@ public class SumoBoundingBox {
 
     /**
      * Legt den Wert der yMax-Eigenschaft fest.
-     * 
+     *
      */
     public void setYMax(double value) {
         this.yMax = value;

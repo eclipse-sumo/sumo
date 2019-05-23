@@ -1,3 +1,21 @@
+/****************************************************************************/
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Copyright (C) 2017-2019 German Aerospace Center (DLR) and others.
+// TraaS module
+// Copyright (C) 2013-2017 Dresden University of Technology
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
+// SPDX-License-Identifier: EPL-2.0
+/****************************************************************************/
+/// @file    RouteAdd.java
+/// @author  Mario Krumnow
+/// @date    2013
+/// @version $Id$
+///
+//
+/****************************************************************************/
 
 package de.tudresden.ws;
 
@@ -10,9 +28,9 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for Route_add complex type.
- * 
+ *
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
+ *
  * <pre>
  * &lt;complexType name="Route_add">
  *   &lt;complexContent>
@@ -25,8 +43,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Route_add", propOrder = {
@@ -40,11 +58,11 @@ public class RouteAdd {
 
     /**
      * Ruft den Wert der routeID-Eigenschaft ab.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getRouteID() {
         return routeID;
@@ -52,11 +70,11 @@ public class RouteAdd {
 
     /**
      * Legt den Wert der routeID-Eigenschaft fest.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setRouteID(String value) {
         this.routeID = value;
@@ -64,25 +82,25 @@ public class RouteAdd {
 
     /**
      * Gets the value of the edges property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the edges property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    getEdges().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link String }
-     * 
-     * 
+     *
+     *
      */
     public List<String> getEdges() {
         if (edges == null) {

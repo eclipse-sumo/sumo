@@ -1,3 +1,21 @@
+/****************************************************************************/
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Copyright (C) 2017-2019 German Aerospace Center (DLR) and others.
+// TraaS module
+// Copyright (C) 2013-2017 Dresden University of Technology
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
+// SPDX-License-Identifier: EPL-2.0
+/****************************************************************************/
+/// @file    SimulationGetDistance2D.java
+/// @author  Mario Krumnow
+/// @date    2013
+/// @version $Id$
+///
+//
+/****************************************************************************/
 
 package de.tudresden.ws;
 
@@ -8,9 +26,9 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for Simulation_getDistance2D complex type.
- * 
+ *
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
+ *
  * <pre>
  * &lt;complexType name="Simulation_getDistance2D">
  *   &lt;complexContent>
@@ -27,8 +45,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Simulation_getDistance2D", propOrder = {
@@ -50,7 +68,7 @@ public class SimulationGetDistance2D {
 
     /**
      * Ruft den Wert der x1-Eigenschaft ab.
-     * 
+     *
      */
     public double getX1() {
         return x1;
@@ -58,7 +76,7 @@ public class SimulationGetDistance2D {
 
     /**
      * Legt den Wert der x1-Eigenschaft fest.
-     * 
+     *
      */
     public void setX1(double value) {
         this.x1 = value;
@@ -66,7 +84,7 @@ public class SimulationGetDistance2D {
 
     /**
      * Ruft den Wert der y1-Eigenschaft ab.
-     * 
+     *
      */
     public double getY1() {
         return y1;
@@ -74,7 +92,7 @@ public class SimulationGetDistance2D {
 
     /**
      * Legt den Wert der y1-Eigenschaft fest.
-     * 
+     *
      */
     public void setY1(double value) {
         this.y1 = value;
@@ -82,7 +100,7 @@ public class SimulationGetDistance2D {
 
     /**
      * Ruft den Wert der x2-Eigenschaft ab.
-     * 
+     *
      */
     public double getX2() {
         return x2;
@@ -90,7 +108,7 @@ public class SimulationGetDistance2D {
 
     /**
      * Legt den Wert der x2-Eigenschaft fest.
-     * 
+     *
      */
     public void setX2(double value) {
         this.x2 = value;
@@ -98,7 +116,7 @@ public class SimulationGetDistance2D {
 
     /**
      * Ruft den Wert der y2-Eigenschaft ab.
-     * 
+     *
      */
     public double getY2() {
         return y2;
@@ -106,7 +124,7 @@ public class SimulationGetDistance2D {
 
     /**
      * Legt den Wert der y2-Eigenschaft fest.
-     * 
+     *
      */
     public void setY2(double value) {
         this.y2 = value;
@@ -114,7 +132,7 @@ public class SimulationGetDistance2D {
 
     /**
      * Ruft den Wert der isGeo-Eigenschaft ab.
-     * 
+     *
      */
     public boolean isIsGeo() {
         return isGeo;
@@ -122,7 +140,7 @@ public class SimulationGetDistance2D {
 
     /**
      * Legt den Wert der isGeo-Eigenschaft fest.
-     * 
+     *
      */
     public void setIsGeo(boolean value) {
         this.isGeo = value;
@@ -130,7 +148,7 @@ public class SimulationGetDistance2D {
 
     /**
      * Ruft den Wert der isDriving-Eigenschaft ab.
-     * 
+     *
      */
     public boolean isIsDriving() {
         return isDriving;
@@ -138,7 +156,7 @@ public class SimulationGetDistance2D {
 
     /**
      * Legt den Wert der isDriving-Eigenschaft fest.
-     * 
+     *
      */
     public void setIsDriving(boolean value) {
         this.isDriving = value;

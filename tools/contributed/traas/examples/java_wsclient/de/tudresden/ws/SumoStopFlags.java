@@ -1,3 +1,21 @@
+/****************************************************************************/
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Copyright (C) 2017-2019 German Aerospace Center (DLR) and others.
+// TraaS module
+// Copyright (C) 2013-2017 Dresden University of Technology
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
+// SPDX-License-Identifier: EPL-2.0
+/****************************************************************************/
+/// @file    SumoStopFlags.java
+/// @author  Mario Krumnow
+/// @date    2013
+/// @version $Id$
+///
+//
+/****************************************************************************/
 
 package de.tudresden.ws;
 
@@ -8,9 +26,9 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for sumoStopFlags complex type.
- * 
+ *
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
+ *
  * <pre>
  * &lt;complexType name="sumoStopFlags">
  *   &lt;complexContent>
@@ -27,8 +45,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "sumoStopFlags", propOrder = {
@@ -50,7 +68,7 @@ public class SumoStopFlags {
 
     /**
      * Ruft den Wert der stopped-Eigenschaft ab.
-     * 
+     *
      */
     public boolean isStopped() {
         return stopped;
@@ -58,7 +76,7 @@ public class SumoStopFlags {
 
     /**
      * Legt den Wert der stopped-Eigenschaft fest.
-     * 
+     *
      */
     public void setStopped(boolean value) {
         this.stopped = value;
@@ -66,7 +84,7 @@ public class SumoStopFlags {
 
     /**
      * Ruft den Wert der parking-Eigenschaft ab.
-     * 
+     *
      */
     public boolean isParking() {
         return parking;
@@ -74,7 +92,7 @@ public class SumoStopFlags {
 
     /**
      * Legt den Wert der parking-Eigenschaft fest.
-     * 
+     *
      */
     public void setParking(boolean value) {
         this.parking = value;
@@ -82,7 +100,7 @@ public class SumoStopFlags {
 
     /**
      * Ruft den Wert der triggered-Eigenschaft ab.
-     * 
+     *
      */
     public boolean isTriggered() {
         return triggered;
@@ -90,7 +108,7 @@ public class SumoStopFlags {
 
     /**
      * Legt den Wert der triggered-Eigenschaft fest.
-     * 
+     *
      */
     public void setTriggered(boolean value) {
         this.triggered = value;
@@ -98,7 +116,7 @@ public class SumoStopFlags {
 
     /**
      * Ruft den Wert der containerTriggered-Eigenschaft ab.
-     * 
+     *
      */
     public boolean isContainerTriggered() {
         return containerTriggered;
@@ -106,7 +124,7 @@ public class SumoStopFlags {
 
     /**
      * Legt den Wert der containerTriggered-Eigenschaft fest.
-     * 
+     *
      */
     public void setContainerTriggered(boolean value) {
         this.containerTriggered = value;
@@ -114,7 +132,7 @@ public class SumoStopFlags {
 
     /**
      * Ruft den Wert der isBusStop-Eigenschaft ab.
-     * 
+     *
      */
     public boolean isIsBusStop() {
         return isBusStop;
@@ -122,7 +140,7 @@ public class SumoStopFlags {
 
     /**
      * Legt den Wert der isBusStop-Eigenschaft fest.
-     * 
+     *
      */
     public void setIsBusStop(boolean value) {
         this.isBusStop = value;
@@ -130,7 +148,7 @@ public class SumoStopFlags {
 
     /**
      * Ruft den Wert der isContainerStop-Eigenschaft ab.
-     * 
+     *
      */
     public boolean isIsContainerStop() {
         return isContainerStop;
@@ -138,7 +156,7 @@ public class SumoStopFlags {
 
     /**
      * Legt den Wert der isContainerStop-Eigenschaft fest.
-     * 
+     *
      */
     public void setIsContainerStop(boolean value) {
         this.isContainerStop = value;

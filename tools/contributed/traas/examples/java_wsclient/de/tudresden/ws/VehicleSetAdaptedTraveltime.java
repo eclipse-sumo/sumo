@@ -1,3 +1,21 @@
+/****************************************************************************/
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Copyright (C) 2017-2019 German Aerospace Center (DLR) and others.
+// TraaS module
+// Copyright (C) 2013-2017 Dresden University of Technology
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
+// SPDX-License-Identifier: EPL-2.0
+/****************************************************************************/
+/// @file    VehicleSetAdaptedTraveltime.java
+/// @author  Mario Krumnow
+/// @date    2013
+/// @version $Id$
+///
+//
+/****************************************************************************/
 
 package de.tudresden.ws;
 
@@ -8,9 +26,9 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for Vehicle_setAdaptedTraveltime complex type.
- * 
+ *
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
+ *
  * <pre>
  * &lt;complexType name="Vehicle_setAdaptedTraveltime">
  *   &lt;complexContent>
@@ -26,8 +44,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Vehicle_setAdaptedTraveltime", propOrder = {
@@ -47,11 +65,11 @@ public class VehicleSetAdaptedTraveltime {
 
     /**
      * Ruft den Wert der vehID-Eigenschaft ab.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getVehID() {
         return vehID;
@@ -59,11 +77,11 @@ public class VehicleSetAdaptedTraveltime {
 
     /**
      * Legt den Wert der vehID-Eigenschaft fest.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setVehID(String value) {
         this.vehID = value;
@@ -71,7 +89,7 @@ public class VehicleSetAdaptedTraveltime {
 
     /**
      * Ruft den Wert der begTime-Eigenschaft ab.
-     * 
+     *
      */
     public int getBegTime() {
         return begTime;
@@ -79,7 +97,7 @@ public class VehicleSetAdaptedTraveltime {
 
     /**
      * Legt den Wert der begTime-Eigenschaft fest.
-     * 
+     *
      */
     public void setBegTime(int value) {
         this.begTime = value;
@@ -87,7 +105,7 @@ public class VehicleSetAdaptedTraveltime {
 
     /**
      * Ruft den Wert der endTime-Eigenschaft ab.
-     * 
+     *
      */
     public int getEndTime() {
         return endTime;
@@ -95,7 +113,7 @@ public class VehicleSetAdaptedTraveltime {
 
     /**
      * Legt den Wert der endTime-Eigenschaft fest.
-     * 
+     *
      */
     public void setEndTime(int value) {
         this.endTime = value;
@@ -103,11 +121,11 @@ public class VehicleSetAdaptedTraveltime {
 
     /**
      * Ruft den Wert der edgeID-Eigenschaft ab.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getEdgeID() {
         return edgeID;
@@ -115,11 +133,11 @@ public class VehicleSetAdaptedTraveltime {
 
     /**
      * Legt den Wert der edgeID-Eigenschaft fest.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setEdgeID(String value) {
         this.edgeID = value;
@@ -127,7 +145,7 @@ public class VehicleSetAdaptedTraveltime {
 
     /**
      * Ruft den Wert der time-Eigenschaft ab.
-     * 
+     *
      */
     public double getTime() {
         return time;
@@ -135,7 +153,7 @@ public class VehicleSetAdaptedTraveltime {
 
     /**
      * Legt den Wert der time-Eigenschaft fest.
-     * 
+     *
      */
     public void setTime(double value) {
         this.time = value;

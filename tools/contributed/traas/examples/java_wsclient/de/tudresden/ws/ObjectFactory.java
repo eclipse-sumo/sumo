@@ -1,3 +1,21 @@
+/****************************************************************************/
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Copyright (C) 2017-2019 German Aerospace Center (DLR) and others.
+// TraaS module
+// Copyright (C) 2013-2017 Dresden University of Technology
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
+// SPDX-License-Identifier: EPL-2.0
+/****************************************************************************/
+/// @file    ObjectFactory.java
+/// @author  Mario Krumnow
+/// @date    2013
+/// @version $Id$
+///
+//
+/****************************************************************************/
 
 package de.tudresden.ws;
 
@@ -8,18 +26,18 @@ import javax.xml.namespace.QName;
 
 
 /**
- * This object contains factory methods for each 
- * Java content interface and Java element interface 
- * generated in the de.tudresden.ws package. 
- * <p>An ObjectFactory allows you to programatically 
- * construct new instances of the Java representation 
- * for XML content. The Java representation of XML 
- * content can consist of schema derived interfaces 
- * and classes representing the binding of schema 
- * type definitions, element declarations and model 
- * groups.  Factory methods for each of these are 
+ * This object contains factory methods for each
+ * Java content interface and Java element interface
+ * generated in the de.tudresden.ws package.
+ * <p>An ObjectFactory allows you to programatically
+ * construct new instances of the Java representation
+ * for XML content. The Java representation of XML
+ * content can consist of schema derived interfaces
+ * and classes representing the binding of schema
+ * type definitions, element declarations and model
+ * groups.  Factory methods for each of these are
  * provided in this class.
- * 
+ *
  */
 @XmlRegistry
 public class ObjectFactory {
@@ -621,14 +639,14 @@ public class ObjectFactory {
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: de.tudresden.ws
-     * 
+     *
      */
     public ObjectFactory() {
     }
 
     /**
      * Create an instance of {@link SumoTLSController }
-     * 
+     *
      */
     public SumoTLSController createSumoTLSController() {
         return new SumoTLSController();
@@ -636,7 +654,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SumoTLSController.Programs }
-     * 
+     *
      */
     public SumoTLSController.Programs createSumoTLSControllerPrograms() {
         return new SumoTLSController.Programs();
@@ -644,7 +662,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TrafficlightsGetIDCountResponse }
-     * 
+     *
      */
     public TrafficlightsGetIDCountResponse createTrafficlightsGetIDCountResponse() {
         return new TrafficlightsGetIDCountResponse();
@@ -652,7 +670,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetSpeedMode }
-     * 
+     *
      */
     public VehicleGetSpeedMode createVehicleGetSpeedMode() {
         return new VehicleGetSpeedMode();
@@ -660,7 +678,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeGetSpeedFactorResponse }
-     * 
+     *
      */
     public VehicletypeGetSpeedFactorResponse createVehicletypeGetSpeedFactorResponse() {
         return new VehicletypeGetSpeedFactorResponse();
@@ -668,7 +686,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GUISetSchemaResponse }
-     * 
+     *
      */
     public GUISetSchemaResponse createGUISetSchemaResponse() {
         return new GUISetSchemaResponse();
@@ -676,7 +694,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link EdgeAdaptTraveltime }
-     * 
+     *
      */
     public EdgeAdaptTraveltime createEdgeAdaptTraveltime() {
         return new EdgeAdaptTraveltime();
@@ -684,7 +702,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PersonGetIDListResponse }
-     * 
+     *
      */
     public PersonGetIDListResponse createPersonGetIDListResponse() {
         return new PersonGetIDListResponse();
@@ -692,7 +710,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeGetTau }
-     * 
+     *
      */
     public VehicletypeGetTau createVehicletypeGetTau() {
         return new VehicletypeGetTau();
@@ -700,7 +718,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeSetAccel }
-     * 
+     *
      */
     public VehicletypeSetAccel createVehicletypeSetAccel() {
         return new VehicletypeSetAccel();
@@ -708,7 +726,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link EdgeGetLastStepVehicleNumber }
-     * 
+     *
      */
     public EdgeGetLastStepVehicleNumber createEdgeGetLastStepVehicleNumber() {
         return new EdgeGetLastStepVehicleNumber();
@@ -716,7 +734,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeSetAccelResponse }
-     * 
+     *
      */
     public VehicletypeSetAccelResponse createVehicletypeSetAccelResponse() {
         return new VehicletypeSetAccelResponse();
@@ -724,7 +742,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GUISetBoundaryResponse }
-     * 
+     *
      */
     public GUISetBoundaryResponse createGUISetBoundaryResponse() {
         return new GUISetBoundaryResponse();
@@ -732,7 +750,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetWidthResponse }
-     * 
+     *
      */
     public VehicleGetWidthResponse createVehicleGetWidthResponse() {
         return new VehicleGetWidthResponse();
@@ -740,7 +758,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link RouteGetIDCountResponse }
-     * 
+     *
      */
     public RouteGetIDCountResponse createRouteGetIDCountResponse() {
         return new RouteGetIDCountResponse();
@@ -748,7 +766,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link EdgeGetWaitingTimeResponse }
-     * 
+     *
      */
     public EdgeGetWaitingTimeResponse createEdgeGetWaitingTimeResponse() {
         return new EdgeGetWaitingTimeResponse();
@@ -756,7 +774,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link InductionloopGetIDListResponse }
-     * 
+     *
      */
     public InductionloopGetIDListResponse createInductionloopGetIDListResponse() {
         return new InductionloopGetIDListResponse();
@@ -764,7 +782,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeGetIDListResponse }
-     * 
+     *
      */
     public VehicletypeGetIDListResponse createVehicletypeGetIDListResponse() {
         return new VehicletypeGetIDListResponse();
@@ -772,7 +790,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeGetMaxSpeed }
-     * 
+     *
      */
     public VehicletypeGetMaxSpeed createVehicletypeGetMaxSpeed() {
         return new VehicletypeGetMaxSpeed();
@@ -780,7 +798,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JunctionGetShape }
-     * 
+     *
      */
     public JunctionGetShape createJunctionGetShape() {
         return new JunctionGetShape();
@@ -788,7 +806,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneGetLastStepHaltingNumber }
-     * 
+     *
      */
     public LaneGetLastStepHaltingNumber createLaneGetLastStepHaltingNumber() {
         return new LaneGetLastStepHaltingNumber();
@@ -796,7 +814,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link MultientryexitGetIDList }
-     * 
+     *
      */
     public MultientryexitGetIDList createMultientryexitGetIDList() {
         return new MultientryexitGetIDList();
@@ -804,7 +822,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneGetHCEmission }
-     * 
+     *
      */
     public LaneGetHCEmission createLaneGetHCEmission() {
         return new LaneGetHCEmission();
@@ -812,7 +830,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GUIGetSchemaResponse }
-     * 
+     *
      */
     public GUIGetSchemaResponse createGUIGetSchemaResponse() {
         return new GUIGetSchemaResponse();
@@ -820,7 +838,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneGetIDCount }
-     * 
+     *
      */
     public LaneGetIDCount createLaneGetIDCount() {
         return new LaneGetIDCount();
@@ -828,7 +846,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleSetColorResponse }
-     * 
+     *
      */
     public VehicleSetColorResponse createVehicleSetColorResponse() {
         return new VehicleSetColorResponse();
@@ -836,7 +854,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeSetImperfection }
-     * 
+     *
      */
     public VehicletypeSetImperfection createVehicletypeSetImperfection() {
         return new VehicletypeSetImperfection();
@@ -844,7 +862,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Version }
-     * 
+     *
      */
     public Version createVersion() {
         return new Version();
@@ -852,7 +870,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetSpeedWithoutTraCI }
-     * 
+     *
      */
     public VehicleGetSpeedWithoutTraCI createVehicleGetSpeedWithoutTraCI() {
         return new VehicleGetSpeedWithoutTraCI();
@@ -860,7 +878,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Stop }
-     * 
+     *
      */
     public Stop createStop() {
         return new Stop();
@@ -868,7 +886,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GUIGetIDListResponse }
-     * 
+     *
      */
     public GUIGetIDListResponse createGUIGetIDListResponse() {
         return new GUIGetIDListResponse();
@@ -876,7 +894,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneGetLastStepVehicleIDsResponse }
-     * 
+     *
      */
     public LaneGetLastStepVehicleIDsResponse createLaneGetLastStepVehicleIDsResponse() {
         return new LaneGetLastStepVehicleIDsResponse();
@@ -884,7 +902,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link AddOptionResponse }
-     * 
+     *
      */
     public AddOptionResponse createAddOptionResponse() {
         return new AddOptionResponse();
@@ -892,7 +910,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link ArealDetectorGetIDList }
-     * 
+     *
      */
     public ArealDetectorGetIDList createArealDetectorGetIDList() {
         return new ArealDetectorGetIDList();
@@ -900,7 +918,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleSetColor }
-     * 
+     *
      */
     public VehicleSetColor createVehicleSetColor() {
         return new VehicleSetColor();
@@ -908,7 +926,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link InductionloopGetLastStepVehicleIDsResponse }
-     * 
+     *
      */
     public InductionloopGetLastStepVehicleIDsResponse createInductionloopGetLastStepVehicleIDsResponse() {
         return new InductionloopGetLastStepVehicleIDsResponse();
@@ -916,7 +934,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetRoadIDResponse }
-     * 
+     *
      */
     public VehicleGetRoadIDResponse createVehicleGetRoadIDResponse() {
         return new VehicleGetRoadIDResponse();
@@ -924,7 +942,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneGetShape }
-     * 
+     *
      */
     public LaneGetShape createLaneGetShape() {
         return new LaneGetShape();
@@ -932,7 +950,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetSpeedFactorResponse }
-     * 
+     *
      */
     public VehicleGetSpeedFactorResponse createVehicleGetSpeedFactorResponse() {
         return new VehicleGetSpeedFactorResponse();
@@ -940,7 +958,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link EdgeGetLastStepMeanSpeed }
-     * 
+     *
      */
     public EdgeGetLastStepMeanSpeed createEdgeGetLastStepMeanSpeed() {
         return new EdgeGetLastStepMeanSpeed();
@@ -948,7 +966,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetColorResponse }
-     * 
+     *
      */
     public VehicleGetColorResponse createVehicleGetColorResponse() {
         return new VehicleGetColorResponse();
@@ -956,7 +974,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TrafficlightsGetNextSwitch }
-     * 
+     *
      */
     public TrafficlightsGetNextSwitch createTrafficlightsGetNextSwitch() {
         return new TrafficlightsGetNextSwitch();
@@ -964,7 +982,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetIDList }
-     * 
+     *
      */
     public VehicleGetIDList createVehicleGetIDList() {
         return new VehicleGetIDList();
@@ -972,7 +990,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneGetLinks }
-     * 
+     *
      */
     public LaneGetLinks createLaneGetLinks() {
         return new LaneGetLinks();
@@ -980,7 +998,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link MultientryexitGetIDCount }
-     * 
+     *
      */
     public MultientryexitGetIDCount createMultientryexitGetIDCount() {
         return new MultientryexitGetIDCount();
@@ -988,7 +1006,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetElectricityConsumptionResponse }
-     * 
+     *
      */
     public VehicleGetElectricityConsumptionResponse createVehicleGetElectricityConsumptionResponse() {
         return new VehicleGetElectricityConsumptionResponse();
@@ -996,7 +1014,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VersionResponse }
-     * 
+     *
      */
     public VersionResponse createVersionResponse() {
         return new VersionResponse();
@@ -1004,7 +1022,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link EdgeSetEffort }
-     * 
+     *
      */
     public EdgeSetEffort createEdgeSetEffort() {
         return new EdgeSetEffort();
@@ -1012,7 +1030,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneGetDisallowed }
-     * 
+     *
      */
     public LaneGetDisallowed createLaneGetDisallowed() {
         return new LaneGetDisallowed();
@@ -1020,7 +1038,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneGetShapeResponse }
-     * 
+     *
      */
     public LaneGetShapeResponse createLaneGetShapeResponse() {
         return new LaneGetShapeResponse();
@@ -1028,7 +1046,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationGetStopStartingVehiclesIDListResponse }
-     * 
+     *
      */
     public SimulationGetStopStartingVehiclesIDListResponse createSimulationGetStopStartingVehiclesIDListResponse() {
         return new SimulationGetStopStartingVehiclesIDListResponse();
@@ -1036,7 +1054,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PersonGetLanePositionResponse }
-     * 
+     *
      */
     public PersonGetLanePositionResponse createPersonGetLanePositionResponse() {
         return new PersonGetLanePositionResponse();
@@ -1044,7 +1062,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneGetNoiseEmissionResponse }
-     * 
+     *
      */
     public LaneGetNoiseEmissionResponse createLaneGetNoiseEmissionResponse() {
         return new LaneGetNoiseEmissionResponse();
@@ -1052,7 +1070,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneSetAllowedResponse }
-     * 
+     *
      */
     public LaneSetAllowedResponse createLaneSetAllowedResponse() {
         return new LaneSetAllowedResponse();
@@ -1060,7 +1078,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PolygonGetIDCountResponse }
-     * 
+     *
      */
     public PolygonGetIDCountResponse createPolygonGetIDCountResponse() {
         return new PolygonGetIDCountResponse();
@@ -1068,7 +1086,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PersonGetLengthResponse }
-     * 
+     *
      */
     public PersonGetLengthResponse createPersonGetLengthResponse() {
         return new PersonGetLengthResponse();
@@ -1076,7 +1094,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GUITrackVehicleResponse }
-     * 
+     *
      */
     public GUITrackVehicleResponse createGUITrackVehicleResponse() {
         return new GUITrackVehicleResponse();
@@ -1084,7 +1102,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneSetDisallowed }
-     * 
+     *
      */
     public LaneSetDisallowed createLaneSetDisallowed() {
         return new LaneSetDisallowed();
@@ -1092,7 +1110,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleSetLength }
-     * 
+     *
      */
     public VehicleSetLength createVehicleSetLength() {
         return new VehicleSetLength();
@@ -1100,7 +1118,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeGetSpeedFactor }
-     * 
+     *
      */
     public VehicletypeGetSpeedFactor createVehicletypeGetSpeedFactor() {
         return new VehicletypeGetSpeedFactor();
@@ -1108,7 +1126,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link ArealDetectorGetJamLengthVehicleResponse }
-     * 
+     *
      */
     public ArealDetectorGetJamLengthVehicleResponse createArealDetectorGetJamLengthVehicleResponse() {
         return new ArealDetectorGetJamLengthVehicleResponse();
@@ -1116,7 +1134,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JunctionGetIDCountResponse }
-     * 
+     *
      */
     public JunctionGetIDCountResponse createJunctionGetIDCountResponse() {
         return new JunctionGetIDCountResponse();
@@ -1124,7 +1142,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JunctionGetIDList }
-     * 
+     *
      */
     public JunctionGetIDList createJunctionGetIDList() {
         return new JunctionGetIDList();
@@ -1132,7 +1150,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationConvertRoadResponse }
-     * 
+     *
      */
     public SimulationConvertRoadResponse createSimulationConvertRoadResponse() {
         return new SimulationConvertRoadResponse();
@@ -1140,7 +1158,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneGetLinksResponse }
-     * 
+     *
      */
     public LaneGetLinksResponse createLaneGetLinksResponse() {
         return new LaneGetLinksResponse();
@@ -1148,7 +1166,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneGetNOxEmissionResponse }
-     * 
+     *
      */
     public LaneGetNOxEmissionResponse createLaneGetNOxEmissionResponse() {
         return new LaneGetNOxEmissionResponse();
@@ -1156,7 +1174,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneGetEdgeID }
-     * 
+     *
      */
     public LaneGetEdgeID createLaneGetEdgeID() {
         return new LaneGetEdgeID();
@@ -1164,7 +1182,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneGetDisallowedResponse }
-     * 
+     *
      */
     public LaneGetDisallowedResponse createLaneGetDisallowedResponse() {
         return new LaneGetDisallowedResponse();
@@ -1172,7 +1190,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleSetSpeed }
-     * 
+     *
      */
     public VehicleSetSpeed createVehicleSetSpeed() {
         return new VehicleSetSpeed();
@@ -1180,7 +1198,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link MultientryexitGetLastStepVehicleIDs }
-     * 
+     *
      */
     public MultientryexitGetLastStepVehicleIDs createMultientryexitGetLastStepVehicleIDs() {
         return new MultientryexitGetLastStepVehicleIDs();
@@ -1188,7 +1206,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PoiGetTypeResponse }
-     * 
+     *
      */
     public PoiGetTypeResponse createPoiGetTypeResponse() {
         return new PoiGetTypeResponse();
@@ -1196,7 +1214,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetEmissionClass }
-     * 
+     *
      */
     public VehicleGetEmissionClass createVehicleGetEmissionClass() {
         return new VehicleGetEmissionClass();
@@ -1204,7 +1222,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeGetAccelResponse }
-     * 
+     *
      */
     public VehicletypeGetAccelResponse createVehicletypeGetAccelResponse() {
         return new VehicletypeGetAccelResponse();
@@ -1212,7 +1230,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link EdgeGetCOEmission }
-     * 
+     *
      */
     public EdgeGetCOEmission createEdgeGetCOEmission() {
         return new EdgeGetCOEmission();
@@ -1220,7 +1238,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetSpeed }
-     * 
+     *
      */
     public VehicleGetSpeed createVehicleGetSpeed() {
         return new VehicleGetSpeed();
@@ -1228,7 +1246,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TrafficlightsGetControlledLanes }
-     * 
+     *
      */
     public TrafficlightsGetControlledLanes createTrafficlightsGetControlledLanes() {
         return new TrafficlightsGetControlledLanes();
@@ -1236,7 +1254,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GUIGetOffset }
-     * 
+     *
      */
     public GUIGetOffset createGUIGetOffset() {
         return new GUIGetOffset();
@@ -1244,7 +1262,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TrafficlightsGetRedYellowGreenState }
-     * 
+     *
      */
     public TrafficlightsGetRedYellowGreenState createTrafficlightsGetRedYellowGreenState() {
         return new TrafficlightsGetRedYellowGreenState();
@@ -1252,7 +1270,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleChangeTarget }
-     * 
+     *
      */
     public VehicleChangeTarget createVehicleChangeTarget() {
         return new VehicleChangeTarget();
@@ -1260,7 +1278,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeSetVehicleClass }
-     * 
+     *
      */
     public VehicletypeSetVehicleClass createVehicletypeSetVehicleClass() {
         return new VehicletypeSetVehicleClass();
@@ -1268,7 +1286,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationGetDistanceRoadResponse }
-     * 
+     *
      */
     public SimulationGetDistanceRoadResponse createSimulationGetDistanceRoadResponse() {
         return new SimulationGetDistanceRoadResponse();
@@ -1276,7 +1294,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GUISetSchema }
-     * 
+     *
      */
     public GUISetSchema createGUISetSchema() {
         return new GUISetSchema();
@@ -1284,7 +1302,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleSetMaxSpeedResponse }
-     * 
+     *
      */
     public VehicleSetMaxSpeedResponse createVehicleSetMaxSpeedResponse() {
         return new VehicleSetMaxSpeedResponse();
@@ -1292,7 +1310,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneGetCOEmissionResponse }
-     * 
+     *
      */
     public LaneGetCOEmissionResponse createLaneGetCOEmissionResponse() {
         return new LaneGetCOEmissionResponse();
@@ -1300,7 +1318,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeSetMinGap }
-     * 
+     *
      */
     public VehicletypeSetMinGap createVehicletypeSetMinGap() {
         return new VehicletypeSetMinGap();
@@ -1308,7 +1326,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetPosition3DResponse }
-     * 
+     *
      */
     public VehicleGetPosition3DResponse createVehicleGetPosition3DResponse() {
         return new VehicleGetPosition3DResponse();
@@ -1316,7 +1334,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link EdgeGetFuelConsumption }
-     * 
+     *
      */
     public EdgeGetFuelConsumption createEdgeGetFuelConsumption() {
         return new EdgeGetFuelConsumption();
@@ -1324,7 +1342,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JunctionGetIDListResponse }
-     * 
+     *
      */
     public JunctionGetIDListResponse createJunctionGetIDListResponse() {
         return new JunctionGetIDListResponse();
@@ -1332,7 +1350,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetNoiseEmissionResponse }
-     * 
+     *
      */
     public VehicleGetNoiseEmissionResponse createVehicleGetNoiseEmissionResponse() {
         return new VehicleGetNoiseEmissionResponse();
@@ -1340,7 +1358,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TrafficlightsGetCompleteRedYellowGreenDefinitionResponse }
-     * 
+     *
      */
     public TrafficlightsGetCompleteRedYellowGreenDefinitionResponse createTrafficlightsGetCompleteRedYellowGreenDefinitionResponse() {
         return new TrafficlightsGetCompleteRedYellowGreenDefinitionResponse();
@@ -1348,7 +1366,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneGetCOEmission }
-     * 
+     *
      */
     public LaneGetCOEmission createLaneGetCOEmission() {
         return new LaneGetCOEmission();
@@ -1356,7 +1374,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PolygonSetShape }
-     * 
+     *
      */
     public PolygonSetShape createPolygonSetShape() {
         return new PolygonSetShape();
@@ -1364,7 +1382,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PoiSetPosition }
-     * 
+     *
      */
     public PoiSetPosition createPoiSetPosition() {
         return new PoiSetPosition();
@@ -1372,7 +1390,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PersonGetIDList }
-     * 
+     *
      */
     public PersonGetIDList createPersonGetIDList() {
         return new PersonGetIDList();
@@ -1380,7 +1398,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeSetImperfectionResponse }
-     * 
+     *
      */
     public VehicletypeSetImperfectionResponse createVehicletypeSetImperfectionResponse() {
         return new VehicletypeSetImperfectionResponse();
@@ -1388,7 +1406,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetLength }
-     * 
+     *
      */
     public VehicleGetLength createVehicleGetLength() {
         return new VehicleGetLength();
@@ -1396,7 +1414,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link EdgeGetHCEmissionResponse }
-     * 
+     *
      */
     public EdgeGetHCEmissionResponse createEdgeGetHCEmissionResponse() {
         return new EdgeGetHCEmissionResponse();
@@ -1404,7 +1422,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleSetTauResponse }
-     * 
+     *
      */
     public VehicleSetTauResponse createVehicleSetTauResponse() {
         return new VehicleSetTauResponse();
@@ -1412,7 +1430,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetLaneIndexResponse }
-     * 
+     *
      */
     public VehicleGetLaneIndexResponse createVehicleGetLaneIndexResponse() {
         return new VehicleGetLaneIndexResponse();
@@ -1420,7 +1438,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link EdgeGetNoiseEmission }
-     * 
+     *
      */
     public EdgeGetNoiseEmission createEdgeGetNoiseEmission() {
         return new EdgeGetNoiseEmission();
@@ -1428,7 +1446,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link EdgeGetEffortResponse }
-     * 
+     *
      */
     public EdgeGetEffortResponse createEdgeGetEffortResponse() {
         return new EdgeGetEffortResponse();
@@ -1436,7 +1454,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeGetLengthResponse }
-     * 
+     *
      */
     public VehicletypeGetLengthResponse createVehicletypeGetLengthResponse() {
         return new VehicletypeGetLengthResponse();
@@ -1444,7 +1462,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link DoTimestepResponse }
-     * 
+     *
      */
     public DoTimestepResponse createDoTimestepResponse() {
         return new DoTimestepResponse();
@@ -1452,7 +1470,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link EdgeSetEffortResponse }
-     * 
+     *
      */
     public EdgeSetEffortResponse createEdgeSetEffortResponse() {
         return new EdgeSetEffortResponse();
@@ -1460,7 +1478,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetRouteID }
-     * 
+     *
      */
     public VehicleGetRouteID createVehicleGetRouteID() {
         return new VehicleGetRouteID();
@@ -1468,7 +1486,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeSetShapeClassResponse }
-     * 
+     *
      */
     public VehicletypeSetShapeClassResponse createVehicletypeSetShapeClassResponse() {
         return new VehicletypeSetShapeClassResponse();
@@ -1476,7 +1494,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link ArealDetectorGetLastStepMeanSpeedResponse }
-     * 
+     *
      */
     public ArealDetectorGetLastStepMeanSpeedResponse createArealDetectorGetLastStepMeanSpeedResponse() {
         return new ArealDetectorGetLastStepMeanSpeedResponse();
@@ -1484,7 +1502,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GUIScreenshot }
-     * 
+     *
      */
     public GUIScreenshot createGUIScreenshot() {
         return new GUIScreenshot();
@@ -1492,7 +1510,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetIDCountResponse }
-     * 
+     *
      */
     public VehicleGetIDCountResponse createVehicleGetIDCountResponse() {
         return new VehicleGetIDCountResponse();
@@ -1500,7 +1518,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeSetLengthResponse }
-     * 
+     *
      */
     public VehicletypeSetLengthResponse createVehicletypeSetLengthResponse() {
         return new VehicletypeSetLengthResponse();
@@ -1508,7 +1526,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PersonGetTypeID }
-     * 
+     *
      */
     public PersonGetTypeID createPersonGetTypeID() {
         return new PersonGetTypeID();
@@ -1516,7 +1534,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TrafficlightsSetCompleteRedYellowGreenDefinition }
-     * 
+     *
      */
     public TrafficlightsSetCompleteRedYellowGreenDefinition createTrafficlightsSetCompleteRedYellowGreenDefinition() {
         return new TrafficlightsSetCompleteRedYellowGreenDefinition();
@@ -1524,7 +1542,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetColor }
-     * 
+     *
      */
     public VehicleGetColor createVehicleGetColor() {
         return new VehicleGetColor();
@@ -1532,7 +1550,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleRerouteEffort }
-     * 
+     *
      */
     public VehicleRerouteEffort createVehicleRerouteEffort() {
         return new VehicleRerouteEffort();
@@ -1540,7 +1558,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleSetLaneChangeMode }
-     * 
+     *
      */
     public VehicleSetLaneChangeMode createVehicleSetLaneChangeMode() {
         return new VehicleSetLaneChangeMode();
@@ -1548,7 +1566,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TrafficlightsSetPhase }
-     * 
+     *
      */
     public TrafficlightsSetPhase createTrafficlightsSetPhase() {
         return new TrafficlightsSetPhase();
@@ -1556,7 +1574,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleSetTau }
-     * 
+     *
      */
     public VehicleSetTau createVehicleSetTau() {
         return new VehicleSetTau();
@@ -1564,7 +1582,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationGetStopStartingVehiclesNumberResponse }
-     * 
+     *
      */
     public SimulationGetStopStartingVehiclesNumberResponse createSimulationGetStopStartingVehiclesNumberResponse() {
         return new SimulationGetStopStartingVehiclesNumberResponse();
@@ -1572,7 +1590,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetPositionResponse }
-     * 
+     *
      */
     public VehicleGetPositionResponse createVehicleGetPositionResponse() {
         return new VehicleGetPositionResponse();
@@ -1580,7 +1598,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetImperfectionResponse }
-     * 
+     *
      */
     public VehicleGetImperfectionResponse createVehicleGetImperfectionResponse() {
         return new VehicleGetImperfectionResponse();
@@ -1588,7 +1606,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GUISetBoundary }
-     * 
+     *
      */
     public GUISetBoundary createGUISetBoundary() {
         return new GUISetBoundary();
@@ -1596,7 +1614,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link EdgeGetLastStepVehicleIDs }
-     * 
+     *
      */
     public EdgeGetLastStepVehicleIDs createEdgeGetLastStepVehicleIDs() {
         return new EdgeGetLastStepVehicleIDs();
@@ -1604,7 +1622,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PoiGetIDCount }
-     * 
+     *
      */
     public PoiGetIDCount createPoiGetIDCount() {
         return new PoiGetIDCount();
@@ -1612,7 +1630,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PersonGetAngle }
-     * 
+     *
      */
     public PersonGetAngle createPersonGetAngle() {
         return new PersonGetAngle();
@@ -1620,7 +1638,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneSetLength }
-     * 
+     *
      */
     public LaneSetLength createLaneSetLength() {
         return new LaneSetLength();
@@ -1628,7 +1646,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleSetAdaptedTraveltime }
-     * 
+     *
      */
     public VehicleSetAdaptedTraveltime createVehicleSetAdaptedTraveltime() {
         return new VehicleSetAdaptedTraveltime();
@@ -1636,7 +1654,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PersonGetLength }
-     * 
+     *
      */
     public PersonGetLength createPersonGetLength() {
         return new PersonGetLength();
@@ -1644,7 +1662,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleSetVehicleClassResponse }
-     * 
+     *
      */
     public VehicleSetVehicleClassResponse createVehicleSetVehicleClassResponse() {
         return new VehicleSetVehicleClassResponse();
@@ -1652,7 +1670,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleAdd }
-     * 
+     *
      */
     public VehicleAdd createVehicleAdd() {
         return new VehicleAdd();
@@ -1660,7 +1678,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetTypeID }
-     * 
+     *
      */
     public VehicleGetTypeID createVehicleGetTypeID() {
         return new VehicleGetTypeID();
@@ -1668,7 +1686,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link InductionloopGetTimeSinceDetectionResponse }
-     * 
+     *
      */
     public InductionloopGetTimeSinceDetectionResponse createInductionloopGetTimeSinceDetectionResponse() {
         return new InductionloopGetTimeSinceDetectionResponse();
@@ -1676,7 +1694,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeSetWidth }
-     * 
+     *
      */
     public VehicletypeSetWidth createVehicletypeSetWidth() {
         return new VehicletypeSetWidth();
@@ -1684,7 +1702,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link EdgeGetPMxEmission }
-     * 
+     *
      */
     public EdgeGetPMxEmission createEdgeGetPMxEmission() {
         return new EdgeGetPMxEmission();
@@ -1692,7 +1710,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetWaitingTimeResponse }
-     * 
+     *
      */
     public VehicleGetWaitingTimeResponse createVehicleGetWaitingTimeResponse() {
         return new VehicleGetWaitingTimeResponse();
@@ -1700,7 +1718,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PoiGetPositionResponse }
-     * 
+     *
      */
     public PoiGetPositionResponse createPoiGetPositionResponse() {
         return new PoiGetPositionResponse();
@@ -1708,7 +1726,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetPosition }
-     * 
+     *
      */
     public VehicleGetPosition createVehicleGetPosition() {
         return new VehicleGetPosition();
@@ -1716,7 +1734,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeSetDecelResponse }
-     * 
+     *
      */
     public VehicletypeSetDecelResponse createVehicletypeSetDecelResponse() {
         return new VehicletypeSetDecelResponse();
@@ -1724,7 +1742,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link RouteAdd }
-     * 
+     *
      */
     public RouteAdd createRouteAdd() {
         return new RouteAdd();
@@ -1732,7 +1750,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationGetDistance2DResponse }
-     * 
+     *
      */
     public SimulationGetDistance2DResponse createSimulationGetDistance2DResponse() {
         return new SimulationGetDistance2DResponse();
@@ -1740,7 +1758,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleAddResponse }
-     * 
+     *
      */
     public VehicleAddResponse createVehicleAddResponse() {
         return new VehicleAddResponse();
@@ -1748,7 +1766,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetIDListResponse }
-     * 
+     *
      */
     public VehicleGetIDListResponse createVehicleGetIDListResponse() {
         return new VehicleGetIDListResponse();
@@ -1756,7 +1774,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PolygonSetColor }
-     * 
+     *
      */
     public PolygonSetColor createPolygonSetColor() {
         return new PolygonSetColor();
@@ -1764,7 +1782,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link InductionloopGetLastStepMeanSpeedResponse }
-     * 
+     *
      */
     public InductionloopGetLastStepMeanSpeedResponse createInductionloopGetLastStepMeanSpeedResponse() {
         return new InductionloopGetLastStepMeanSpeedResponse();
@@ -1772,7 +1790,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetDistance }
-     * 
+     *
      */
     public VehicleGetDistance createVehicleGetDistance() {
         return new VehicleGetDistance();
@@ -1780,7 +1798,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleSetRouteResponse }
-     * 
+     *
      */
     public VehicleSetRouteResponse createVehicleSetRouteResponse() {
         return new VehicleSetRouteResponse();
@@ -1788,7 +1806,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleSetImperfectionResponse }
-     * 
+     *
      */
     public VehicleSetImperfectionResponse createVehicleSetImperfectionResponse() {
         return new VehicleSetImperfectionResponse();
@@ -1796,7 +1814,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleSetSpeedFactorResponse }
-     * 
+     *
      */
     public VehicleSetSpeedFactorResponse createVehicleSetSpeedFactorResponse() {
         return new VehicleSetSpeedFactorResponse();
@@ -1804,7 +1822,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleSetRouteIDResponse }
-     * 
+     *
      */
     public VehicleSetRouteIDResponse createVehicleSetRouteIDResponse() {
         return new VehicleSetRouteIDResponse();
@@ -1812,7 +1830,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationGetArrivedIDList }
-     * 
+     *
      */
     public SimulationGetArrivedIDList createSimulationGetArrivedIDList() {
         return new SimulationGetArrivedIDList();
@@ -1820,7 +1838,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LastActionTimeResponse }
-     * 
+     *
      */
     public LastActionTimeResponse createLastActionTimeResponse() {
         return new LastActionTimeResponse();
@@ -1828,7 +1846,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GUIGetBoundaryResponse }
-     * 
+     *
      */
     public GUIGetBoundaryResponse createGUIGetBoundaryResponse() {
         return new GUIGetBoundaryResponse();
@@ -1836,7 +1854,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PolygonGetColor }
-     * 
+     *
      */
     public PolygonGetColor createPolygonGetColor() {
         return new PolygonGetColor();
@@ -1844,7 +1862,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link EdgeGetEffort }
-     * 
+     *
      */
     public EdgeGetEffort createEdgeGetEffort() {
         return new EdgeGetEffort();
@@ -1852,7 +1870,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeSetSpeedFactorResponse }
-     * 
+     *
      */
     public VehicletypeSetSpeedFactorResponse createVehicletypeSetSpeedFactorResponse() {
         return new VehicletypeSetSpeedFactorResponse();
@@ -1860,7 +1878,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationGetDepartedNumberResponse }
-     * 
+     *
      */
     public SimulationGetDepartedNumberResponse createSimulationGetDepartedNumberResponse() {
         return new SimulationGetDepartedNumberResponse();
@@ -1868,7 +1886,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GetStatus }
-     * 
+     *
      */
     public GetStatus createGetStatus() {
         return new GetStatus();
@@ -1876,7 +1894,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link EdgeGetLastStepHaltingNumber }
-     * 
+     *
      */
     public EdgeGetLastStepHaltingNumber createEdgeGetLastStepHaltingNumber() {
         return new EdgeGetLastStepHaltingNumber();
@@ -1884,7 +1902,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetAllowedSpeedResponse }
-     * 
+     *
      */
     public VehicleGetAllowedSpeedResponse createVehicleGetAllowedSpeedResponse() {
         return new VehicleGetAllowedSpeedResponse();
@@ -1892,7 +1910,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetDrivingDistance2D }
-     * 
+     *
      */
     public VehicleGetDrivingDistance2D createVehicleGetDrivingDistance2D() {
         return new VehicleGetDrivingDistance2D();
@@ -1900,7 +1918,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PolygonAddResponse }
-     * 
+     *
      */
     public PolygonAddResponse createPolygonAddResponse() {
         return new PolygonAddResponse();
@@ -1908,7 +1926,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link EdgeGetElectricityConsumptionResponse }
-     * 
+     *
      */
     public EdgeGetElectricityConsumptionResponse createEdgeGetElectricityConsumptionResponse() {
         return new EdgeGetElectricityConsumptionResponse();
@@ -1916,7 +1934,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TrafficlightsGetProgram }
-     * 
+     *
      */
     public TrafficlightsGetProgram createTrafficlightsGetProgram() {
         return new TrafficlightsGetProgram();
@@ -1924,7 +1942,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetLaneID }
-     * 
+     *
      */
     public VehicleGetLaneID createVehicleGetLaneID() {
         return new VehicleGetLaneID();
@@ -1932,7 +1950,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetVehicleClassResponse }
-     * 
+     *
      */
     public VehicleGetVehicleClassResponse createVehicleGetVehicleClassResponse() {
         return new VehicleGetVehicleClassResponse();
@@ -1940,7 +1958,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationGetCurrentTimeResponse }
-     * 
+     *
      */
     public SimulationGetCurrentTimeResponse createSimulationGetCurrentTimeResponse() {
         return new SimulationGetCurrentTimeResponse();
@@ -1948,7 +1966,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleSetLaneChangeModeResponse }
-     * 
+     *
      */
     public VehicleSetLaneChangeModeResponse createVehicleSetLaneChangeModeResponse() {
         return new VehicleSetLaneChangeModeResponse();
@@ -1956,7 +1974,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link InductionloopGetLastStepOccupancy }
-     * 
+     *
      */
     public InductionloopGetLastStepOccupancy createInductionloopGetLastStepOccupancy() {
         return new InductionloopGetLastStepOccupancy();
@@ -1964,7 +1982,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link EdgeGetHCEmission }
-     * 
+     *
      */
     public EdgeGetHCEmission createEdgeGetHCEmission() {
         return new EdgeGetHCEmission();
@@ -1972,7 +1990,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneGetFuelConsumption }
-     * 
+     *
      */
     public LaneGetFuelConsumption createLaneGetFuelConsumption() {
         return new LaneGetFuelConsumption();
@@ -1980,7 +1998,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GUIClearPending }
-     * 
+     *
      */
     public GUIClearPending createGUIClearPending() {
         return new GUIClearPending();
@@ -1988,7 +2006,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GUISetOffset }
-     * 
+     *
      */
     public GUISetOffset createGUISetOffset() {
         return new GUISetOffset();
@@ -1996,7 +2014,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeSetLength }
-     * 
+     *
      */
     public VehicletypeSetLength createVehicletypeSetLength() {
         return new VehicletypeSetLength();
@@ -2004,7 +2022,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationGetEndingTeleportIDListResponse }
-     * 
+     *
      */
     public SimulationGetEndingTeleportIDListResponse createSimulationGetEndingTeleportIDListResponse() {
         return new SimulationGetEndingTeleportIDListResponse();
@@ -2012,7 +2030,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetLaneIDResponse }
-     * 
+     *
      */
     public VehicleGetLaneIDResponse createVehicleGetLaneIDResponse() {
         return new VehicleGetLaneIDResponse();
@@ -2020,7 +2038,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetTau }
-     * 
+     *
      */
     public VehicleGetTau createVehicleGetTau() {
         return new VehicleGetTau();
@@ -2028,7 +2046,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeGetVehicleClass }
-     * 
+     *
      */
     public VehicletypeGetVehicleClass createVehicletypeGetVehicleClass() {
         return new VehicletypeGetVehicleClass();
@@ -2036,7 +2054,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetDrivingDistance2DResponse }
-     * 
+     *
      */
     public VehicleGetDrivingDistance2DResponse createVehicleGetDrivingDistance2DResponse() {
         return new VehicleGetDrivingDistance2DResponse();
@@ -2044,7 +2062,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TrafficlightsSetRedYellowGreenStateResponse }
-     * 
+     *
      */
     public TrafficlightsSetRedYellowGreenStateResponse createTrafficlightsSetRedYellowGreenStateResponse() {
         return new TrafficlightsSetRedYellowGreenStateResponse();
@@ -2052,7 +2070,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetPMxEmission }
-     * 
+     *
      */
     public VehicleGetPMxEmission createVehicleGetPMxEmission() {
         return new VehicleGetPMxEmission();
@@ -2060,7 +2078,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetSignalsResponse }
-     * 
+     *
      */
     public VehicleGetSignalsResponse createVehicleGetSignalsResponse() {
         return new VehicleGetSignalsResponse();
@@ -2068,7 +2086,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TrafficlightsSetProgram }
-     * 
+     *
      */
     public TrafficlightsSetProgram createTrafficlightsSetProgram() {
         return new TrafficlightsSetProgram();
@@ -2076,7 +2094,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link EdgeGetAdaptedTraveltime }
-     * 
+     *
      */
     public EdgeGetAdaptedTraveltime createEdgeGetAdaptedTraveltime() {
         return new EdgeGetAdaptedTraveltime();
@@ -2084,7 +2102,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link InductionloopGetLastStepOccupancyResponse }
-     * 
+     *
      */
     public InductionloopGetLastStepOccupancyResponse createInductionloopGetLastStepOccupancyResponse() {
         return new InductionloopGetLastStepOccupancyResponse();
@@ -2092,7 +2110,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PersonGetWaitingTime }
-     * 
+     *
      */
     public PersonGetWaitingTime createPersonGetWaitingTime() {
         return new PersonGetWaitingTime();
@@ -2100,7 +2118,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link EdgeGetIDList }
-     * 
+     *
      */
     public EdgeGetIDList createEdgeGetIDList() {
         return new EdgeGetIDList();
@@ -2108,7 +2126,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PersonGetSpeedResponse }
-     * 
+     *
      */
     public PersonGetSpeedResponse createPersonGetSpeedResponse() {
         return new PersonGetSpeedResponse();
@@ -2116,7 +2134,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetLaneIndex }
-     * 
+     *
      */
     public VehicleGetLaneIndex createVehicleGetLaneIndex() {
         return new VehicleGetLaneIndex();
@@ -2124,7 +2142,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeGetDecel }
-     * 
+     *
      */
     public VehicletypeGetDecel createVehicletypeGetDecel() {
         return new VehicletypeGetDecel();
@@ -2132,7 +2150,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PersonGetSpeed }
-     * 
+     *
      */
     public PersonGetSpeed createPersonGetSpeed() {
         return new PersonGetSpeed();
@@ -2140,7 +2158,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleSetSignalsResponse }
-     * 
+     *
      */
     public VehicleSetSignalsResponse createVehicleSetSignalsResponse() {
         return new VehicleSetSignalsResponse();
@@ -2148,7 +2166,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeSetDecel }
-     * 
+     *
      */
     public VehicletypeSetDecel createVehicletypeSetDecel() {
         return new VehicletypeSetDecel();
@@ -2156,7 +2174,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeSetSpeedDeviationResponse }
-     * 
+     *
      */
     public VehicletypeSetSpeedDeviationResponse createVehicletypeSetSpeedDeviationResponse() {
         return new VehicletypeSetSpeedDeviationResponse();
@@ -2164,7 +2182,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link InductionloopGetTimeSinceDetection }
-     * 
+     *
      */
     public InductionloopGetTimeSinceDetection createInductionloopGetTimeSinceDetection() {
         return new InductionloopGetTimeSinceDetection();
@@ -2172,7 +2190,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link EdgeGetWaitingTime }
-     * 
+     *
      */
     public EdgeGetWaitingTime createEdgeGetWaitingTime() {
         return new EdgeGetWaitingTime();
@@ -2180,7 +2198,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link InductionloopGetVehicleData }
-     * 
+     *
      */
     public InductionloopGetVehicleData createInductionloopGetVehicleData() {
         return new InductionloopGetVehicleData();
@@ -2188,7 +2206,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneGetIDCountResponse }
-     * 
+     *
      */
     public LaneGetIDCountResponse createLaneGetIDCountResponse() {
         return new LaneGetIDCountResponse();
@@ -2196,7 +2214,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PoiAddResponse }
-     * 
+     *
      */
     public PoiAddResponse createPoiAddResponse() {
         return new PoiAddResponse();
@@ -2204,7 +2222,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleSetRouteID }
-     * 
+     *
      */
     public VehicleSetRouteID createVehicleSetRouteID() {
         return new VehicleSetRouteID();
@@ -2212,7 +2230,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetPersonNumber }
-     * 
+     *
      */
     public VehicleGetPersonNumber createVehicleGetPersonNumber() {
         return new VehicleGetPersonNumber();
@@ -2220,7 +2238,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationGetStopEndingVehiclesNumberResponse }
-     * 
+     *
      */
     public SimulationGetStopEndingVehiclesNumberResponse createSimulationGetStopEndingVehiclesNumberResponse() {
         return new SimulationGetStopEndingVehiclesNumberResponse();
@@ -2228,7 +2246,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TrafficlightsGetPhaseDurationResponse }
-     * 
+     *
      */
     public TrafficlightsGetPhaseDurationResponse createTrafficlightsGetPhaseDurationResponse() {
         return new TrafficlightsGetPhaseDurationResponse();
@@ -2236,7 +2254,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetTauResponse }
-     * 
+     *
      */
     public VehicleGetTauResponse createVehicleGetTauResponse() {
         return new VehicleGetTauResponse();
@@ -2244,7 +2262,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleRerouteTraveltimeResponse }
-     * 
+     *
      */
     public VehicleRerouteTraveltimeResponse createVehicleRerouteTraveltimeResponse() {
         return new VehicleRerouteTraveltimeResponse();
@@ -2252,7 +2270,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationGetDeltaT }
-     * 
+     *
      */
     public SimulationGetDeltaT createSimulationGetDeltaT() {
         return new SimulationGetDeltaT();
@@ -2260,7 +2278,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link AddOption }
-     * 
+     *
      */
     public AddOption createAddOption() {
         return new AddOption();
@@ -2268,7 +2286,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetLanePosition }
-     * 
+     *
      */
     public VehicleGetLanePosition createVehicleGetLanePosition() {
         return new VehicleGetLanePosition();
@@ -2276,7 +2294,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetSpeedDeviation }
-     * 
+     *
      */
     public VehicleGetSpeedDeviation createVehicleGetSpeedDeviation() {
         return new VehicleGetSpeedDeviation();
@@ -2284,7 +2302,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link EdgeSetMaxSpeed }
-     * 
+     *
      */
     public EdgeSetMaxSpeed createEdgeSetMaxSpeed() {
         return new EdgeSetMaxSpeed();
@@ -2292,7 +2310,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PolygonGetShape }
-     * 
+     *
      */
     public PolygonGetShape createPolygonGetShape() {
         return new PolygonGetShape();
@@ -2300,7 +2318,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PersonGetMinGapResponse }
-     * 
+     *
      */
     public PersonGetMinGapResponse createPersonGetMinGapResponse() {
         return new PersonGetMinGapResponse();
@@ -2308,7 +2326,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationConvert3DResponse }
-     * 
+     *
      */
     public SimulationConvert3DResponse createSimulationConvert3DResponse() {
         return new SimulationConvert3DResponse();
@@ -2316,7 +2334,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetDistanceResponse }
-     * 
+     *
      */
     public VehicleGetDistanceResponse createVehicleGetDistanceResponse() {
         return new VehicleGetDistanceResponse();
@@ -2324,7 +2342,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneSetMaxSpeed }
-     * 
+     *
      */
     public LaneSetMaxSpeed createLaneSetMaxSpeed() {
         return new LaneSetMaxSpeed();
@@ -2332,7 +2350,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PersonGetColorResponse }
-     * 
+     *
      */
     public PersonGetColorResponse createPersonGetColorResponse() {
         return new PersonGetColorResponse();
@@ -2340,7 +2358,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneGetElectricityConsumption }
-     * 
+     *
      */
     public LaneGetElectricityConsumption createLaneGetElectricityConsumption() {
         return new LaneGetElectricityConsumption();
@@ -2348,7 +2366,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneGetMaxSpeedResponse }
-     * 
+     *
      */
     public LaneGetMaxSpeedResponse createLaneGetMaxSpeedResponse() {
         return new LaneGetMaxSpeedResponse();
@@ -2356,7 +2374,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationGetDistanceRoad }
-     * 
+     *
      */
     public SimulationGetDistanceRoad createSimulationGetDistanceRoad() {
         return new SimulationGetDistanceRoad();
@@ -2364,7 +2382,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationGetStartingTeleportNumber }
-     * 
+     *
      */
     public SimulationGetStartingTeleportNumber createSimulationGetStartingTeleportNumber() {
         return new SimulationGetStartingTeleportNumber();
@@ -2372,7 +2390,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleSetSpeedDeviation }
-     * 
+     *
      */
     public VehicleSetSpeedDeviation createVehicleSetSpeedDeviation() {
         return new VehicleSetSpeedDeviation();
@@ -2380,7 +2398,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link StartResponse }
-     * 
+     *
      */
     public StartResponse createStartResponse() {
         return new StartResponse();
@@ -2388,7 +2406,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetRouteIDResponse }
-     * 
+     *
      */
     public VehicleGetRouteIDResponse createVehicleGetRouteIDResponse() {
         return new VehicleGetRouteIDResponse();
@@ -2396,7 +2414,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PoiRemove }
-     * 
+     *
      */
     public PoiRemove createPoiRemove() {
         return new PoiRemove();
@@ -2404,7 +2422,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleSetSpeedFactor }
-     * 
+     *
      */
     public VehicleSetSpeedFactor createVehicleSetSpeedFactor() {
         return new VehicleSetSpeedFactor();
@@ -2412,7 +2430,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationGetArrivedIDListResponse }
-     * 
+     *
      */
     public SimulationGetArrivedIDListResponse createSimulationGetArrivedIDListResponse() {
         return new SimulationGetArrivedIDListResponse();
@@ -2420,7 +2438,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PolygonRemove }
-     * 
+     *
      */
     public PolygonRemove createPolygonRemove() {
         return new PolygonRemove();
@@ -2428,7 +2446,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link EdgeGetLastStepLengthResponse }
-     * 
+     *
      */
     public EdgeGetLastStepLengthResponse createEdgeGetLastStepLengthResponse() {
         return new EdgeGetLastStepLengthResponse();
@@ -2436,7 +2454,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link InductionloopGetLastStepMeanSpeed }
-     * 
+     *
      */
     public InductionloopGetLastStepMeanSpeed createInductionloopGetLastStepMeanSpeed() {
         return new InductionloopGetLastStepMeanSpeed();
@@ -2444,7 +2462,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetMaxSpeedResponse }
-     * 
+     *
      */
     public VehicleGetMaxSpeedResponse createVehicleGetMaxSpeedResponse() {
         return new VehicleGetMaxSpeedResponse();
@@ -2452,7 +2470,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link InductionloopGetLastStepVehicleIDs }
-     * 
+     *
      */
     public InductionloopGetLastStepVehicleIDs createInductionloopGetLastStepVehicleIDs() {
         return new InductionloopGetLastStepVehicleIDs();
@@ -2460,7 +2478,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PersonGetAngleResponse }
-     * 
+     *
      */
     public PersonGetAngleResponse createPersonGetAngleResponse() {
         return new PersonGetAngleResponse();
@@ -2468,7 +2486,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeSetSpeedFactor }
-     * 
+     *
      */
     public VehicletypeSetSpeedFactor createVehicletypeSetSpeedFactor() {
         return new VehicletypeSetSpeedFactor();
@@ -2476,7 +2494,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneSetAllowed }
-     * 
+     *
      */
     public LaneSetAllowed createLaneSetAllowed() {
         return new LaneSetAllowed();
@@ -2484,7 +2502,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationGetStartingTeleportNumberResponse }
-     * 
+     *
      */
     public SimulationGetStartingTeleportNumberResponse createSimulationGetStartingTeleportNumberResponse() {
         return new SimulationGetStartingTeleportNumberResponse();
@@ -2492,7 +2510,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleSetSpeedDeviationResponse }
-     * 
+     *
      */
     public VehicleSetSpeedDeviationResponse createVehicleSetSpeedDeviationResponse() {
         return new VehicleSetSpeedDeviationResponse();
@@ -2500,7 +2518,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeSetEmissionClass }
-     * 
+     *
      */
     public VehicletypeSetEmissionClass createVehicletypeSetEmissionClass() {
         return new VehicletypeSetEmissionClass();
@@ -2508,7 +2526,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JunctionGetIDCount }
-     * 
+     *
      */
     public JunctionGetIDCount createJunctionGetIDCount() {
         return new JunctionGetIDCount();
@@ -2516,7 +2534,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeGetDecelResponse }
-     * 
+     *
      */
     public VehicletypeGetDecelResponse createVehicletypeGetDecelResponse() {
         return new VehicletypeGetDecelResponse();
@@ -2524,7 +2542,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationConvertGeoResponse }
-     * 
+     *
      */
     public SimulationConvertGeoResponse createSimulationConvertGeoResponse() {
         return new SimulationConvertGeoResponse();
@@ -2532,7 +2550,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetAccelResponse }
-     * 
+     *
      */
     public VehicleGetAccelResponse createVehicleGetAccelResponse() {
         return new VehicleGetAccelResponse();
@@ -2540,7 +2558,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GUIGetSchema }
-     * 
+     *
      */
     public GUIGetSchema createGUIGetSchema() {
         return new GUIGetSchema();
@@ -2548,7 +2566,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetWidth }
-     * 
+     *
      */
     public VehicleGetWidth createVehicleGetWidth() {
         return new VehicleGetWidth();
@@ -2556,7 +2574,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TrafficlightsSetRedYellowGreenState }
-     * 
+     *
      */
     public TrafficlightsSetRedYellowGreenState createTrafficlightsSetRedYellowGreenState() {
         return new TrafficlightsSetRedYellowGreenState();
@@ -2564,7 +2582,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link InductionloopGetLastStepMeanLengthResponse }
-     * 
+     *
      */
     public InductionloopGetLastStepMeanLengthResponse createInductionloopGetLastStepMeanLengthResponse() {
         return new InductionloopGetLastStepMeanLengthResponse();
@@ -2572,7 +2590,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleMoveTo }
-     * 
+     *
      */
     public VehicleMoveTo createVehicleMoveTo() {
         return new VehicleMoveTo();
@@ -2580,7 +2598,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JunctionGetPosition }
-     * 
+     *
      */
     public JunctionGetPosition createJunctionGetPosition() {
         return new JunctionGetPosition();
@@ -2588,7 +2606,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleIsRouteValid }
-     * 
+     *
      */
     public VehicleIsRouteValid createVehicleIsRouteValid() {
         return new VehicleIsRouteValid();
@@ -2596,7 +2614,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationGetParkingStartingVehiclesIDListResponse }
-     * 
+     *
      */
     public SimulationGetParkingStartingVehiclesIDListResponse createSimulationGetParkingStartingVehiclesIDListResponse() {
         return new SimulationGetParkingStartingVehiclesIDListResponse();
@@ -2604,7 +2622,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleSetShapeClass }
-     * 
+     *
      */
     public VehicleSetShapeClass createVehicleSetShapeClass() {
         return new VehicleSetShapeClass();
@@ -2612,7 +2630,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationGetLoadedNumber }
-     * 
+     *
      */
     public SimulationGetLoadedNumber createSimulationGetLoadedNumber() {
         return new SimulationGetLoadedNumber();
@@ -2620,7 +2638,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationGetStopStartingVehiclesIDList }
-     * 
+     *
      */
     public SimulationGetStopStartingVehiclesIDList createSimulationGetStopStartingVehiclesIDList() {
         return new SimulationGetStopStartingVehiclesIDList();
@@ -2628,7 +2646,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleSetEffortResponse }
-     * 
+     *
      */
     public VehicleSetEffortResponse createVehicleSetEffortResponse() {
         return new VehicleSetEffortResponse();
@@ -2636,7 +2654,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link ArealDetectorGetIDCount }
-     * 
+     *
      */
     public ArealDetectorGetIDCount createArealDetectorGetIDCount() {
         return new ArealDetectorGetIDCount();
@@ -2644,7 +2662,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationGetNetBoundary }
-     * 
+     *
      */
     public SimulationGetNetBoundary createSimulationGetNetBoundary() {
         return new SimulationGetNetBoundary();
@@ -2652,7 +2670,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeSetWidthResponse }
-     * 
+     *
      */
     public VehicletypeSetWidthResponse createVehicletypeSetWidthResponse() {
         return new VehicletypeSetWidthResponse();
@@ -2660,7 +2678,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link EdgeGetPMxEmissionResponse }
-     * 
+     *
      */
     public EdgeGetPMxEmissionResponse createEdgeGetPMxEmissionResponse() {
         return new EdgeGetPMxEmissionResponse();
@@ -2668,7 +2686,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneGetLastStepVehicleIDs }
-     * 
+     *
      */
     public LaneGetLastStepVehicleIDs createLaneGetLastStepVehicleIDs() {
         return new LaneGetLastStepVehicleIDs();
@@ -2676,7 +2694,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneGetPMxEmissionResponse }
-     * 
+     *
      */
     public LaneGetPMxEmissionResponse createLaneGetPMxEmissionResponse() {
         return new LaneGetPMxEmissionResponse();
@@ -2684,7 +2702,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneGetIDList }
-     * 
+     *
      */
     public LaneGetIDList createLaneGetIDList() {
         return new LaneGetIDList();
@@ -2692,7 +2710,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PersonGetPositionResponse }
-     * 
+     *
      */
     public PersonGetPositionResponse createPersonGetPositionResponse() {
         return new PersonGetPositionResponse();
@@ -2700,7 +2718,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleSetVehicleClass }
-     * 
+     *
      */
     public VehicleSetVehicleClass createVehicleSetVehicleClass() {
         return new VehicleSetVehicleClass();
@@ -2708,7 +2726,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TrafficlightsGetControlledLinks }
-     * 
+     *
      */
     public TrafficlightsGetControlledLinks createTrafficlightsGetControlledLinks() {
         return new TrafficlightsGetControlledLinks();
@@ -2716,7 +2734,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link InductionloopGetLastStepVehicleNumber }
-     * 
+     *
      */
     public InductionloopGetLastStepVehicleNumber createInductionloopGetLastStepVehicleNumber() {
         return new InductionloopGetLastStepVehicleNumber();
@@ -2724,7 +2742,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PersonGetPosition3DResponse }
-     * 
+     *
      */
     public PersonGetPosition3DResponse createPersonGetPosition3DResponse() {
         return new PersonGetPosition3DResponse();
@@ -2732,7 +2750,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PoiGetIDCountResponse }
-     * 
+     *
      */
     public PoiGetIDCountResponse createPoiGetIDCountResponse() {
         return new PoiGetIDCountResponse();
@@ -2740,7 +2758,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SetConfig }
-     * 
+     *
      */
     public SetConfig createSetConfig() {
         return new SetConfig();
@@ -2748,7 +2766,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetSlope }
-     * 
+     *
      */
     public VehicleGetSlope createVehicleGetSlope() {
         return new VehicleGetSlope();
@@ -2756,7 +2774,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationGetParkingEndingVehiclesNumberResponse }
-     * 
+     *
      */
     public SimulationGetParkingEndingVehiclesNumberResponse createSimulationGetParkingEndingVehiclesNumberResponse() {
         return new SimulationGetParkingEndingVehiclesNumberResponse();
@@ -2764,7 +2782,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneGetMaxSpeed }
-     * 
+     *
      */
     public LaneGetMaxSpeed createLaneGetMaxSpeed() {
         return new LaneGetMaxSpeed();
@@ -2772,7 +2790,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PersonGetPersonNumberResponse }
-     * 
+     *
      */
     public PersonGetPersonNumberResponse createPersonGetPersonNumberResponse() {
         return new PersonGetPersonNumberResponse();
@@ -2780,7 +2798,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link EdgeGetIDCountResponse }
-     * 
+     *
      */
     public EdgeGetIDCountResponse createEdgeGetIDCountResponse() {
         return new EdgeGetIDCountResponse();
@@ -2788,7 +2806,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link MultientryexitGetLastStepMeanSpeedResponse }
-     * 
+     *
      */
     public MultientryexitGetLastStepMeanSpeedResponse createMultientryexitGetLastStepMeanSpeedResponse() {
         return new MultientryexitGetLastStepMeanSpeedResponse();
@@ -2796,7 +2814,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeSetVehicleClassResponse }
-     * 
+     *
      */
     public VehicletypeSetVehicleClassResponse createVehicletypeSetVehicleClassResponse() {
         return new VehicletypeSetVehicleClassResponse();
@@ -2804,7 +2822,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetWaitingTime }
-     * 
+     *
      */
     public VehicleGetWaitingTime createVehicleGetWaitingTime() {
         return new VehicleGetWaitingTime();
@@ -2812,7 +2830,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TrafficlightsGetPhaseDuration }
-     * 
+     *
      */
     public TrafficlightsGetPhaseDuration createTrafficlightsGetPhaseDuration() {
         return new TrafficlightsGetPhaseDuration();
@@ -2820,7 +2838,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneGetWidthResponse }
-     * 
+     *
      */
     public LaneGetWidthResponse createLaneGetWidthResponse() {
         return new LaneGetWidthResponse();
@@ -2828,7 +2846,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PoiGetType }
-     * 
+     *
      */
     public PoiGetType createPoiGetType() {
         return new PoiGetType();
@@ -2836,7 +2854,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetShapeClass }
-     * 
+     *
      */
     public VehicleGetShapeClass createVehicleGetShapeClass() {
         return new VehicleGetShapeClass();
@@ -2844,7 +2862,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeGetAccel }
-     * 
+     *
      */
     public VehicletypeGetAccel createVehicletypeGetAccel() {
         return new VehicletypeGetAccel();
@@ -2852,7 +2870,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TrafficlightsGetCompleteRedYellowGreenDefinition }
-     * 
+     *
      */
     public TrafficlightsGetCompleteRedYellowGreenDefinition createTrafficlightsGetCompleteRedYellowGreenDefinition() {
         return new TrafficlightsGetCompleteRedYellowGreenDefinition();
@@ -2860,7 +2878,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeSetSpeedDeviation }
-     * 
+     *
      */
     public VehicletypeSetSpeedDeviation createVehicletypeSetSpeedDeviation() {
         return new VehicletypeSetSpeedDeviation();
@@ -2868,7 +2886,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetEffortResponse }
-     * 
+     *
      */
     public VehicleGetEffortResponse createVehicleGetEffortResponse() {
         return new VehicleGetEffortResponse();
@@ -2876,7 +2894,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link ArealDetectorGetJamLengthMetersResponse }
-     * 
+     *
      */
     public ArealDetectorGetJamLengthMetersResponse createArealDetectorGetJamLengthMetersResponse() {
         return new ArealDetectorGetJamLengthMetersResponse();
@@ -2884,7 +2902,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleSetMaxSpeed }
-     * 
+     *
      */
     public VehicleSetMaxSpeed createVehicleSetMaxSpeed() {
         return new VehicleSetMaxSpeed();
@@ -2892,7 +2910,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeGetSpeedDeviation }
-     * 
+     *
      */
     public VehicletypeGetSpeedDeviation createVehicletypeGetSpeedDeviation() {
         return new VehicletypeGetSpeedDeviation();
@@ -2900,7 +2918,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeGetLength }
-     * 
+     *
      */
     public VehicletypeGetLength createVehicletypeGetLength() {
         return new VehicletypeGetLength();
@@ -2908,7 +2926,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GUIGetIDList }
-     * 
+     *
      */
     public GUIGetIDList createGUIGetIDList() {
         return new GUIGetIDList();
@@ -2916,7 +2934,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneGetCO2Emission }
-     * 
+     *
      */
     public LaneGetCO2Emission createLaneGetCO2Emission() {
         return new LaneGetCO2Emission();
@@ -2924,7 +2942,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetPMxEmissionResponse }
-     * 
+     *
      */
     public VehicleGetPMxEmissionResponse createVehicleGetPMxEmissionResponse() {
         return new VehicleGetPMxEmissionResponse();
@@ -2932,7 +2950,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PoiSetPositionResponse }
-     * 
+     *
      */
     public PoiSetPositionResponse createPoiSetPositionResponse() {
         return new PoiSetPositionResponse();
@@ -2940,7 +2958,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleChangeLane }
-     * 
+     *
      */
     public VehicleChangeLane createVehicleChangeLane() {
         return new VehicleChangeLane();
@@ -2948,7 +2966,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetRoadID }
-     * 
+     *
      */
     public VehicleGetRoadID createVehicleGetRoadID() {
         return new VehicleGetRoadID();
@@ -2956,7 +2974,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GUISetZoom }
-     * 
+     *
      */
     public GUISetZoom createGUISetZoom() {
         return new GUISetZoom();
@@ -2964,7 +2982,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationGetLoadedIDListResponse }
-     * 
+     *
      */
     public SimulationGetLoadedIDListResponse createSimulationGetLoadedIDListResponse() {
         return new SimulationGetLoadedIDListResponse();
@@ -2972,7 +2990,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneGetLinkNumberResponse }
-     * 
+     *
      */
     public LaneGetLinkNumberResponse createLaneGetLinkNumberResponse() {
         return new LaneGetLinkNumberResponse();
@@ -2980,7 +2998,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JunctionGetShapeResponse }
-     * 
+     *
      */
     public JunctionGetShapeResponse createJunctionGetShapeResponse() {
         return new JunctionGetShapeResponse();
@@ -2988,7 +3006,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeGetColorResponse }
-     * 
+     *
      */
     public VehicletypeGetColorResponse createVehicletypeGetColorResponse() {
         return new VehicletypeGetColorResponse();
@@ -2996,7 +3014,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetDecelResponse }
-     * 
+     *
      */
     public VehicleGetDecelResponse createVehicleGetDecelResponse() {
         return new VehicleGetDecelResponse();
@@ -3004,7 +3022,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleSetType }
-     * 
+     *
      */
     public VehicleSetType createVehicleSetType() {
         return new VehicleSetType();
@@ -3012,7 +3030,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleRemove }
-     * 
+     *
      */
     public VehicleRemove createVehicleRemove() {
         return new VehicleRemove();
@@ -3020,7 +3038,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneGetIDListResponse }
-     * 
+     *
      */
     public LaneGetIDListResponse createLaneGetIDListResponse() {
         return new LaneGetIDListResponse();
@@ -3028,7 +3046,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneGetLastStepHaltingNumberResponse }
-     * 
+     *
      */
     public LaneGetLastStepHaltingNumberResponse createLaneGetLastStepHaltingNumberResponse() {
         return new LaneGetLastStepHaltingNumberResponse();
@@ -3036,7 +3054,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetAccel }
-     * 
+     *
      */
     public VehicleGetAccel createVehicleGetAccel() {
         return new VehicleGetAccel();
@@ -3044,7 +3062,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetHCEmissionResponse }
-     * 
+     *
      */
     public VehicleGetHCEmissionResponse createVehicleGetHCEmissionResponse() {
         return new VehicleGetHCEmissionResponse();
@@ -3052,7 +3070,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link MultientryexitGetLastStepHaltingNumberResponse }
-     * 
+     *
      */
     public MultientryexitGetLastStepHaltingNumberResponse createMultientryexitGetLastStepHaltingNumberResponse() {
         return new MultientryexitGetLastStepHaltingNumberResponse();
@@ -3060,7 +3078,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PolygonAdd }
-     * 
+     *
      */
     public PolygonAdd createPolygonAdd() {
         return new PolygonAdd();
@@ -3068,7 +3086,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneGetLastStepMeanSpeedResponse }
-     * 
+     *
      */
     public LaneGetLastStepMeanSpeedResponse createLaneGetLastStepMeanSpeedResponse() {
         return new LaneGetLastStepMeanSpeedResponse();
@@ -3076,7 +3094,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TrafficlightsGetPhaseResponse }
-     * 
+     *
      */
     public TrafficlightsGetPhaseResponse createTrafficlightsGetPhaseResponse() {
         return new TrafficlightsGetPhaseResponse();
@@ -3084,7 +3102,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationGetEndingTeleportNumber }
-     * 
+     *
      */
     public SimulationGetEndingTeleportNumber createSimulationGetEndingTeleportNumber() {
         return new SimulationGetEndingTeleportNumber();
@@ -3092,7 +3110,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link MultientryexitGetLastStepMeanSpeed }
-     * 
+     *
      */
     public MultientryexitGetLastStepMeanSpeed createMultientryexitGetLastStepMeanSpeed() {
         return new MultientryexitGetLastStepMeanSpeed();
@@ -3100,7 +3118,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationGetParkingEndingVehiclesIDList }
-     * 
+     *
      */
     public SimulationGetParkingEndingVehiclesIDList createSimulationGetParkingEndingVehiclesIDList() {
         return new SimulationGetParkingEndingVehiclesIDList();
@@ -3108,7 +3126,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetMaxSpeed }
-     * 
+     *
      */
     public VehicleGetMaxSpeed createVehicleGetMaxSpeed() {
         return new VehicleGetMaxSpeed();
@@ -3116,7 +3134,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneGetFuelConsumptionResponse }
-     * 
+     *
      */
     public LaneGetFuelConsumptionResponse createLaneGetFuelConsumptionResponse() {
         return new LaneGetFuelConsumptionResponse();
@@ -3124,7 +3142,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GetStatusResponse }
-     * 
+     *
      */
     public GetStatusResponse createGetStatusResponse() {
         return new GetStatusResponse();
@@ -3132,7 +3150,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationGetStartingTeleportIDListResponse }
-     * 
+     *
      */
     public SimulationGetStartingTeleportIDListResponse createSimulationGetStartingTeleportIDListResponse() {
         return new SimulationGetStartingTeleportIDListResponse();
@@ -3140,7 +3158,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link EdgeGetLastStepVehicleNumberResponse }
-     * 
+     *
      */
     public EdgeGetLastStepVehicleNumberResponse createEdgeGetLastStepVehicleNumberResponse() {
         return new EdgeGetLastStepVehicleNumberResponse();
@@ -3148,7 +3166,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleSetEffort }
-     * 
+     *
      */
     public VehicleSetEffort createVehicleSetEffort() {
         return new VehicleSetEffort();
@@ -3156,7 +3174,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleSetStopResponse }
-     * 
+     *
      */
     public VehicleSetStopResponse createVehicleSetStopResponse() {
         return new VehicleSetStopResponse();
@@ -3164,7 +3182,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetCOEmissionResponse }
-     * 
+     *
      */
     public VehicleGetCOEmissionResponse createVehicleGetCOEmissionResponse() {
         return new VehicleGetCOEmissionResponse();
@@ -3172,7 +3190,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetSpeedModeResponse }
-     * 
+     *
      */
     public VehicleGetSpeedModeResponse createVehicleGetSpeedModeResponse() {
         return new VehicleGetSpeedModeResponse();
@@ -3180,7 +3198,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PoiGetColorResponse }
-     * 
+     *
      */
     public PoiGetColorResponse createPoiGetColorResponse() {
         return new PoiGetColorResponse();
@@ -3188,7 +3206,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleSlowDown }
-     * 
+     *
      */
     public VehicleSlowDown createVehicleSlowDown() {
         return new VehicleSlowDown();
@@ -3196,7 +3214,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PersonGetLanePosition }
-     * 
+     *
      */
     public PersonGetLanePosition createPersonGetLanePosition() {
         return new PersonGetLanePosition();
@@ -3204,7 +3222,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneGetEdgeIDResponse }
-     * 
+     *
      */
     public LaneGetEdgeIDResponse createLaneGetEdgeIDResponse() {
         return new LaneGetEdgeIDResponse();
@@ -3212,7 +3230,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetMinGap }
-     * 
+     *
      */
     public VehicleGetMinGap createVehicleGetMinGap() {
         return new VehicleGetMinGap();
@@ -3220,7 +3238,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleSetRoute }
-     * 
+     *
      */
     public VehicleSetRoute createVehicleSetRoute() {
         return new VehicleSetRoute();
@@ -3228,7 +3246,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PolygonGetTypeResponse }
-     * 
+     *
      */
     public PolygonGetTypeResponse createPolygonGetTypeResponse() {
         return new PolygonGetTypeResponse();
@@ -3236,7 +3254,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PolygonSetShapeResponse }
-     * 
+     *
      */
     public PolygonSetShapeResponse createPolygonSetShapeResponse() {
         return new PolygonSetShapeResponse();
@@ -3244,7 +3262,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link ArealDetectorGetJamLengthMeters }
-     * 
+     *
      */
     public ArealDetectorGetJamLengthMeters createArealDetectorGetJamLengthMeters() {
         return new ArealDetectorGetJamLengthMeters();
@@ -3252,7 +3270,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PolygonGetColorResponse }
-     * 
+     *
      */
     public PolygonGetColorResponse createPolygonGetColorResponse() {
         return new PolygonGetColorResponse();
@@ -3260,7 +3278,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link EdgeGetLastStepLength }
-     * 
+     *
      */
     public EdgeGetLastStepLength createEdgeGetLastStepLength() {
         return new EdgeGetLastStepLength();
@@ -3268,7 +3286,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GUIGetZoom }
-     * 
+     *
      */
     public GUIGetZoom createGUIGetZoom() {
         return new GUIGetZoom();
@@ -3276,7 +3294,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GUISetZoomResponse }
-     * 
+     *
      */
     public GUISetZoomResponse createGUISetZoomResponse() {
         return new GUISetZoomResponse();
@@ -3284,7 +3302,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneGetLastStepOccupancyResponse }
-     * 
+     *
      */
     public LaneGetLastStepOccupancyResponse createLaneGetLastStepOccupancyResponse() {
         return new LaneGetLastStepOccupancyResponse();
@@ -3292,7 +3310,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link EdgeGetNOxEmissionResponse }
-     * 
+     *
      */
     public EdgeGetNOxEmissionResponse createEdgeGetNOxEmissionResponse() {
         return new EdgeGetNOxEmissionResponse();
@@ -3300,7 +3318,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationGetBusStopWaiting }
-     * 
+     *
      */
     public SimulationGetBusStopWaiting createSimulationGetBusStopWaiting() {
         return new SimulationGetBusStopWaiting();
@@ -3308,7 +3326,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationGetStartingTeleportIDList }
-     * 
+     *
      */
     public SimulationGetStartingTeleportIDList createSimulationGetStartingTeleportIDList() {
         return new SimulationGetStartingTeleportIDList();
@@ -3316,7 +3334,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PoiGetColor }
-     * 
+     *
      */
     public PoiGetColor createPoiGetColor() {
         return new PoiGetColor();
@@ -3324,7 +3342,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeGetTauResponse }
-     * 
+     *
      */
     public VehicletypeGetTauResponse createVehicletypeGetTauResponse() {
         return new VehicletypeGetTauResponse();
@@ -3332,7 +3350,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PoiAdd }
-     * 
+     *
      */
     public PoiAdd createPoiAdd() {
         return new PoiAdd();
@@ -3340,7 +3358,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link RouteAddResponse }
-     * 
+     *
      */
     public RouteAddResponse createRouteAddResponse() {
         return new RouteAddResponse();
@@ -3348,7 +3366,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeSetMaxSpeed }
-     * 
+     *
      */
     public VehicletypeSetMaxSpeed createVehicletypeSetMaxSpeed() {
         return new VehicletypeSetMaxSpeed();
@@ -3356,7 +3374,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link EdgeGetAdaptedTraveltimeResponse }
-     * 
+     *
      */
     public EdgeGetAdaptedTraveltimeResponse createEdgeGetAdaptedTraveltimeResponse() {
         return new EdgeGetAdaptedTraveltimeResponse();
@@ -3364,7 +3382,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetLanePositionResponse }
-     * 
+     *
      */
     public VehicleGetLanePositionResponse createVehicleGetLanePositionResponse() {
         return new VehicleGetLanePositionResponse();
@@ -3372,7 +3390,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationGetParkingEndingVehiclesNumber }
-     * 
+     *
      */
     public SimulationGetParkingEndingVehiclesNumber createSimulationGetParkingEndingVehiclesNumber() {
         return new SimulationGetParkingEndingVehiclesNumber();
@@ -3380,7 +3398,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link EdgeGetLastStepMeanSpeedResponse }
-     * 
+     *
      */
     public EdgeGetLastStepMeanSpeedResponse createEdgeGetLastStepMeanSpeedResponse() {
         return new EdgeGetLastStepMeanSpeedResponse();
@@ -3388,7 +3406,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link ArealDetectorGetLastStepMeanSpeed }
-     * 
+     *
      */
     public ArealDetectorGetLastStepMeanSpeed createArealDetectorGetLastStepMeanSpeed() {
         return new ArealDetectorGetLastStepMeanSpeed();
@@ -3396,7 +3414,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LastActionTime }
-     * 
+     *
      */
     public LastActionTime createLastActionTime() {
         return new LastActionTime();
@@ -3404,7 +3422,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleSetMinGapResponse }
-     * 
+     *
      */
     public VehicleSetMinGapResponse createVehicleSetMinGapResponse() {
         return new VehicleSetMinGapResponse();
@@ -3412,7 +3430,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetRoute }
-     * 
+     *
      */
     public VehicleGetRoute createVehicleGetRoute() {
         return new VehicleGetRoute();
@@ -3420,7 +3438,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PersonGetPersonNumber }
-     * 
+     *
      */
     public PersonGetPersonNumber createPersonGetPersonNumber() {
         return new PersonGetPersonNumber();
@@ -3428,7 +3446,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetSlopeResponse }
-     * 
+     *
      */
     public VehicleGetSlopeResponse createVehicleGetSlopeResponse() {
         return new VehicleGetSlopeResponse();
@@ -3436,7 +3454,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetEmissionClassResponse }
-     * 
+     *
      */
     public VehicleGetEmissionClassResponse createVehicleGetEmissionClassResponse() {
         return new VehicleGetEmissionClassResponse();
@@ -3444,7 +3462,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleSetImperfection }
-     * 
+     *
      */
     public VehicleSetImperfection createVehicleSetImperfection() {
         return new VehicleSetImperfection();
@@ -3452,7 +3470,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneGetAllowed }
-     * 
+     *
      */
     public LaneGetAllowed createLaneGetAllowed() {
         return new LaneGetAllowed();
@@ -3460,7 +3478,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeSetColor }
-     * 
+     *
      */
     public VehicletypeSetColor createVehicletypeSetColor() {
         return new VehicletypeSetColor();
@@ -3468,7 +3486,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PolygonGetIDList }
-     * 
+     *
      */
     public PolygonGetIDList createPolygonGetIDList() {
         return new PolygonGetIDList();
@@ -3476,7 +3494,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetSpeedResponse }
-     * 
+     *
      */
     public VehicleGetSpeedResponse createVehicleGetSpeedResponse() {
         return new VehicleGetSpeedResponse();
@@ -3484,7 +3502,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link InductionloopGetLaneIDResponse }
-     * 
+     *
      */
     public InductionloopGetLaneIDResponse createInductionloopGetLaneIDResponse() {
         return new InductionloopGetLaneIDResponse();
@@ -3492,7 +3510,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PersonGetPosition3D }
-     * 
+     *
      */
     public PersonGetPosition3D createPersonGetPosition3D() {
         return new PersonGetPosition3D();
@@ -3500,7 +3518,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetDrivingDistance }
-     * 
+     *
      */
     public VehicleGetDrivingDistance createVehicleGetDrivingDistance() {
         return new VehicleGetDrivingDistance();
@@ -3508,7 +3526,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetMinGapResponse }
-     * 
+     *
      */
     public VehicleGetMinGapResponse createVehicleGetMinGapResponse() {
         return new VehicleGetMinGapResponse();
@@ -3516,7 +3534,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetNOxEmissionResponse }
-     * 
+     *
      */
     public VehicleGetNOxEmissionResponse createVehicleGetNOxEmissionResponse() {
         return new VehicleGetNOxEmissionResponse();
@@ -3524,7 +3542,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SetConfigResponse }
-     * 
+     *
      */
     public SetConfigResponse createSetConfigResponse() {
         return new SetConfigResponse();
@@ -3532,7 +3550,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TXTOutputResponse }
-     * 
+     *
      */
     public TXTOutputResponse createTXTOutputResponse() {
         return new TXTOutputResponse();
@@ -3540,7 +3558,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TrafficlightsGetControlledLinksResponse }
-     * 
+     *
      */
     public TrafficlightsGetControlledLinksResponse createTrafficlightsGetControlledLinksResponse() {
         return new TrafficlightsGetControlledLinksResponse();
@@ -3548,7 +3566,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleSetAccelResponse }
-     * 
+     *
      */
     public VehicleSetAccelResponse createVehicleSetAccelResponse() {
         return new VehicleSetAccelResponse();
@@ -3556,7 +3574,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link EdgeSetMaxSpeedResponse }
-     * 
+     *
      */
     public EdgeSetMaxSpeedResponse createEdgeSetMaxSpeedResponse() {
         return new EdgeSetMaxSpeedResponse();
@@ -3564,7 +3582,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetLeader }
-     * 
+     *
      */
     public VehicleGetLeader createVehicleGetLeader() {
         return new VehicleGetLeader();
@@ -3572,7 +3590,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TrafficlightsGetProgramResponse }
-     * 
+     *
      */
     public TrafficlightsGetProgramResponse createTrafficlightsGetProgramResponse() {
         return new TrafficlightsGetProgramResponse();
@@ -3580,7 +3598,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetShapeClassResponse }
-     * 
+     *
      */
     public VehicleGetShapeClassResponse createVehicleGetShapeClassResponse() {
         return new VehicleGetShapeClassResponse();
@@ -3588,7 +3606,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link EdgeGetCO2Emission }
-     * 
+     *
      */
     public EdgeGetCO2Emission createEdgeGetCO2Emission() {
         return new EdgeGetCO2Emission();
@@ -3596,7 +3614,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationGetDistance2D }
-     * 
+     *
      */
     public SimulationGetDistance2D createSimulationGetDistance2D() {
         return new SimulationGetDistance2D();
@@ -3604,7 +3622,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GUIScreenshotResponse }
-     * 
+     *
      */
     public GUIScreenshotResponse createGUIScreenshotResponse() {
         return new GUIScreenshotResponse();
@@ -3612,7 +3630,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleMoveToResponse }
-     * 
+     *
      */
     public VehicleMoveToResponse createVehicleMoveToResponse() {
         return new VehicleMoveToResponse();
@@ -3620,7 +3638,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationGetParkingStartingVehiclesNumber }
-     * 
+     *
      */
     public SimulationGetParkingStartingVehiclesNumber createSimulationGetParkingStartingVehiclesNumber() {
         return new SimulationGetParkingStartingVehiclesNumber();
@@ -3628,7 +3646,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link EdgeGetNOxEmission }
-     * 
+     *
      */
     public EdgeGetNOxEmission createEdgeGetNOxEmission() {
         return new EdgeGetNOxEmission();
@@ -3636,7 +3654,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PolygonSetType }
-     * 
+     *
      */
     public PolygonSetType createPolygonSetType() {
         return new PolygonSetType();
@@ -3644,7 +3662,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneSetLengthResponse }
-     * 
+     *
      */
     public LaneSetLengthResponse createLaneSetLengthResponse() {
         return new LaneSetLengthResponse();
@@ -3652,7 +3670,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeGetColor }
-     * 
+     *
      */
     public VehicletypeGetColor createVehicletypeGetColor() {
         return new VehicletypeGetColor();
@@ -3660,7 +3678,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetSpeedWithoutTraCIResponse }
-     * 
+     *
      */
     public VehicleGetSpeedWithoutTraCIResponse createVehicleGetSpeedWithoutTraCIResponse() {
         return new VehicleGetSpeedWithoutTraCIResponse();
@@ -3668,7 +3686,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationGetLoadedIDList }
-     * 
+     *
      */
     public SimulationGetLoadedIDList createSimulationGetLoadedIDList() {
         return new SimulationGetLoadedIDList();
@@ -3676,7 +3694,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeSetColorResponse }
-     * 
+     *
      */
     public VehicletypeSetColorResponse createVehicletypeSetColorResponse() {
         return new VehicletypeSetColorResponse();
@@ -3684,7 +3702,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleSetDecelResponse }
-     * 
+     *
      */
     public VehicleSetDecelResponse createVehicleSetDecelResponse() {
         return new VehicleSetDecelResponse();
@@ -3692,7 +3710,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetImperfection }
-     * 
+     *
      */
     public VehicleGetImperfection createVehicleGetImperfection() {
         return new VehicleGetImperfection();
@@ -3700,7 +3718,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationGetDeltaTResponse }
-     * 
+     *
      */
     public SimulationGetDeltaTResponse createSimulationGetDeltaTResponse() {
         return new SimulationGetDeltaTResponse();
@@ -3708,7 +3726,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneGetElectricityConsumptionResponse }
-     * 
+     *
      */
     public LaneGetElectricityConsumptionResponse createLaneGetElectricityConsumptionResponse() {
         return new LaneGetElectricityConsumptionResponse();
@@ -3716,7 +3734,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleSetAdaptedTraveltimeResponse }
-     * 
+     *
      */
     public VehicleSetAdaptedTraveltimeResponse createVehicleSetAdaptedTraveltimeResponse() {
         return new VehicleSetAdaptedTraveltimeResponse();
@@ -3724,7 +3742,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationGetDepartedIDList }
-     * 
+     *
      */
     public SimulationGetDepartedIDList createSimulationGetDepartedIDList() {
         return new SimulationGetDepartedIDList();
@@ -3732,7 +3750,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationGetMinExpectedNumberResponse }
-     * 
+     *
      */
     public SimulationGetMinExpectedNumberResponse createSimulationGetMinExpectedNumberResponse() {
         return new SimulationGetMinExpectedNumberResponse();
@@ -3740,7 +3758,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link InductionloopGetLaneID }
-     * 
+     *
      */
     public InductionloopGetLaneID createInductionloopGetLaneID() {
         return new InductionloopGetLaneID();
@@ -3748,7 +3766,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PolygonRemoveResponse }
-     * 
+     *
      */
     public PolygonRemoveResponse createPolygonRemoveResponse() {
         return new PolygonRemoveResponse();
@@ -3756,7 +3774,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TrafficlightsGetNextSwitchResponse }
-     * 
+     *
      */
     public TrafficlightsGetNextSwitchResponse createTrafficlightsGetNextSwitchResponse() {
         return new TrafficlightsGetNextSwitchResponse();
@@ -3764,7 +3782,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneGetNoiseEmission }
-     * 
+     *
      */
     public LaneGetNoiseEmission createLaneGetNoiseEmission() {
         return new LaneGetNoiseEmission();
@@ -3772,7 +3790,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationGetStopEndingVehiclesNumber }
-     * 
+     *
      */
     public SimulationGetStopEndingVehiclesNumber createSimulationGetStopEndingVehiclesNumber() {
         return new SimulationGetStopEndingVehiclesNumber();
@@ -3780,7 +3798,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetPosition3D }
-     * 
+     *
      */
     public VehicleGetPosition3D createVehicleGetPosition3D() {
         return new VehicleGetPosition3D();
@@ -3788,7 +3806,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link InductionloopGetPosition }
-     * 
+     *
      */
     public InductionloopGetPosition createInductionloopGetPosition() {
         return new InductionloopGetPosition();
@@ -3796,7 +3814,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetFuelConsumptionResponse }
-     * 
+     *
      */
     public VehicleGetFuelConsumptionResponse createVehicleGetFuelConsumptionResponse() {
         return new VehicleGetFuelConsumptionResponse();
@@ -3804,7 +3822,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleSetMinGap }
-     * 
+     *
      */
     public VehicleSetMinGap createVehicleSetMinGap() {
         return new VehicleSetMinGap();
@@ -3812,7 +3830,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeGetVehicleClassResponse }
-     * 
+     *
      */
     public VehicletypeGetVehicleClassResponse createVehicletypeGetVehicleClassResponse() {
         return new VehicletypeGetVehicleClassResponse();
@@ -3820,7 +3838,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneGetLengthResponse }
-     * 
+     *
      */
     public LaneGetLengthResponse createLaneGetLengthResponse() {
         return new LaneGetLengthResponse();
@@ -3828,7 +3846,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneSetMaxSpeedResponse }
-     * 
+     *
      */
     public LaneSetMaxSpeedResponse createLaneSetMaxSpeedResponse() {
         return new LaneSetMaxSpeedResponse();
@@ -3836,7 +3854,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationGetLoadedNumberResponse }
-     * 
+     *
      */
     public SimulationGetLoadedNumberResponse createSimulationGetLoadedNumberResponse() {
         return new SimulationGetLoadedNumberResponse();
@@ -3844,7 +3862,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PersonGetMinGap }
-     * 
+     *
      */
     public PersonGetMinGap createPersonGetMinGap() {
         return new PersonGetMinGap();
@@ -3852,7 +3870,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link ArealDetectorGetLastStepOccupancy }
-     * 
+     *
      */
     public ArealDetectorGetLastStepOccupancy createArealDetectorGetLastStepOccupancy() {
         return new ArealDetectorGetLastStepOccupancy();
@@ -3860,7 +3878,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PoiRemoveResponse }
-     * 
+     *
      */
     public PoiRemoveResponse createPoiRemoveResponse() {
         return new PoiRemoveResponse();
@@ -3868,7 +3886,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PolygonSetColorResponse }
-     * 
+     *
      */
     public PolygonSetColorResponse createPolygonSetColorResponse() {
         return new PolygonSetColorResponse();
@@ -3876,7 +3894,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link DoTimestep }
-     * 
+     *
      */
     public DoTimestep createDoTimestep() {
         return new DoTimestep();
@@ -3884,7 +3902,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleSetWidth }
-     * 
+     *
      */
     public VehicleSetWidth createVehicleSetWidth() {
         return new VehicleSetWidth();
@@ -3892,7 +3910,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleSetSpeedResponse }
-     * 
+     *
      */
     public VehicleSetSpeedResponse createVehicleSetSpeedResponse() {
         return new VehicleSetSpeedResponse();
@@ -3900,7 +3918,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link EdgeGetLastStepOccupancyResponse }
-     * 
+     *
      */
     public EdgeGetLastStepOccupancyResponse createEdgeGetLastStepOccupancyResponse() {
         return new EdgeGetLastStepOccupancyResponse();
@@ -3908,7 +3926,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link InductionloopGetVehicleDataResponse }
-     * 
+     *
      */
     public InductionloopGetVehicleDataResponse createInductionloopGetVehicleDataResponse() {
         return new InductionloopGetVehicleDataResponse();
@@ -3916,7 +3934,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link RouteGetIDCount }
-     * 
+     *
      */
     public RouteGetIDCount createRouteGetIDCount() {
         return new RouteGetIDCount();
@@ -3924,7 +3942,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetAdaptedTraveltime }
-     * 
+     *
      */
     public VehicleGetAdaptedTraveltime createVehicleGetAdaptedTraveltime() {
         return new VehicleGetAdaptedTraveltime();
@@ -3932,7 +3950,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetNOxEmission }
-     * 
+     *
      */
     public VehicleGetNOxEmission createVehicleGetNOxEmission() {
         return new VehicleGetNOxEmission();
@@ -3940,7 +3958,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleIsRouteValidResponse }
-     * 
+     *
      */
     public VehicleIsRouteValidResponse createVehicleIsRouteValidResponse() {
         return new VehicleIsRouteValidResponse();
@@ -3948,7 +3966,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetLeaderResponse }
-     * 
+     *
      */
     public VehicleGetLeaderResponse createVehicleGetLeaderResponse() {
         return new VehicleGetLeaderResponse();
@@ -3956,7 +3974,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link EdgeGetTraveltime }
-     * 
+     *
      */
     public EdgeGetTraveltime createEdgeGetTraveltime() {
         return new EdgeGetTraveltime();
@@ -3964,7 +3982,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneGetLastStepMeanSpeed }
-     * 
+     *
      */
     public LaneGetLastStepMeanSpeed createLaneGetLastStepMeanSpeed() {
         return new LaneGetLastStepMeanSpeed();
@@ -3972,7 +3990,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PoiGetIDListResponse }
-     * 
+     *
      */
     public PoiGetIDListResponse createPoiGetIDListResponse() {
         return new PoiGetIDListResponse();
@@ -3980,7 +3998,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeGetMaxSpeedResponse }
-     * 
+     *
      */
     public VehicletypeGetMaxSpeedResponse createVehicletypeGetMaxSpeedResponse() {
         return new VehicletypeGetMaxSpeedResponse();
@@ -3988,7 +4006,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TrafficlightsGetIDCount }
-     * 
+     *
      */
     public TrafficlightsGetIDCount createTrafficlightsGetIDCount() {
         return new TrafficlightsGetIDCount();
@@ -3996,7 +4014,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GUIClearPendingResponse }
-     * 
+     *
      */
     public GUIClearPendingResponse createGUIClearPendingResponse() {
         return new GUIClearPendingResponse();
@@ -4004,7 +4022,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TXTOutput }
-     * 
+     *
      */
     public TXTOutput createTXTOutput() {
         return new TXTOutput();
@@ -4012,7 +4030,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetPersonNumberResponse }
-     * 
+     *
      */
     public VehicleGetPersonNumberResponse createVehicleGetPersonNumberResponse() {
         return new VehicleGetPersonNumberResponse();
@@ -4020,7 +4038,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link ArealDetectorGetIDCountResponse }
-     * 
+     *
      */
     public ArealDetectorGetIDCountResponse createArealDetectorGetIDCountResponse() {
         return new ArealDetectorGetIDCountResponse();
@@ -4028,7 +4046,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PoiGetPosition }
-     * 
+     *
      */
     public PoiGetPosition createPoiGetPosition() {
         return new PoiGetPosition();
@@ -4036,7 +4054,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PolygonGetType }
-     * 
+     *
      */
     public PolygonGetType createPolygonGetType() {
         return new PolygonGetType();
@@ -4044,7 +4062,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PoiSetTypeResponse }
-     * 
+     *
      */
     public PoiSetTypeResponse createPoiSetTypeResponse() {
         return new PoiSetTypeResponse();
@@ -4052,7 +4070,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PersonGetRoadID }
-     * 
+     *
      */
     public PersonGetRoadID createPersonGetRoadID() {
         return new PersonGetRoadID();
@@ -4060,7 +4078,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleSetAccel }
-     * 
+     *
      */
     public VehicleSetAccel createVehicleSetAccel() {
         return new VehicleSetAccel();
@@ -4068,7 +4086,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeGetEmissionClass }
-     * 
+     *
      */
     public VehicletypeGetEmissionClass createVehicletypeGetEmissionClass() {
         return new VehicletypeGetEmissionClass();
@@ -4076,7 +4094,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneGetNOxEmission }
-     * 
+     *
      */
     public LaneGetNOxEmission createLaneGetNOxEmission() {
         return new LaneGetNOxEmission();
@@ -4084,7 +4102,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleSetSignals }
-     * 
+     *
      */
     public VehicleSetSignals createVehicleSetSignals() {
         return new VehicleSetSignals();
@@ -4092,7 +4110,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TrafficlightsGetRedYellowGreenStateResponse }
-     * 
+     *
      */
     public TrafficlightsGetRedYellowGreenStateResponse createTrafficlightsGetRedYellowGreenStateResponse() {
         return new TrafficlightsGetRedYellowGreenStateResponse();
@@ -4100,7 +4118,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeSetMinGapResponse }
-     * 
+     *
      */
     public VehicletypeSetMinGapResponse createVehicletypeSetMinGapResponse() {
         return new VehicletypeSetMinGapResponse();
@@ -4108,7 +4126,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Start }
-     * 
+     *
      */
     public Start createStart() {
         return new Start();
@@ -4116,7 +4134,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeGetEmissionClassResponse }
-     * 
+     *
      */
     public VehicletypeGetEmissionClassResponse createVehicletypeGetEmissionClassResponse() {
         return new VehicletypeGetEmissionClassResponse();
@@ -4124,7 +4142,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeGetWidthResponse }
-     * 
+     *
      */
     public VehicletypeGetWidthResponse createVehicletypeGetWidthResponse() {
         return new VehicletypeGetWidthResponse();
@@ -4132,7 +4150,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationGetDepartedNumber }
-     * 
+     *
      */
     public SimulationGetDepartedNumber createSimulationGetDepartedNumber() {
         return new SimulationGetDepartedNumber();
@@ -4140,7 +4158,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GUIGetBoundary }
-     * 
+     *
      */
     public GUIGetBoundary createGUIGetBoundary() {
         return new GUIGetBoundary();
@@ -4148,7 +4166,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeGetMinGapResponse }
-     * 
+     *
      */
     public VehicletypeGetMinGapResponse createVehicletypeGetMinGapResponse() {
         return new VehicletypeGetMinGapResponse();
@@ -4156,7 +4174,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeGetShapeClass }
-     * 
+     *
      */
     public VehicletypeGetShapeClass createVehicletypeGetShapeClass() {
         return new VehicletypeGetShapeClass();
@@ -4164,7 +4182,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetTypeIDResponse }
-     * 
+     *
      */
     public VehicleGetTypeIDResponse createVehicleGetTypeIDResponse() {
         return new VehicleGetTypeIDResponse();
@@ -4172,7 +4190,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationGetStopEndingVehiclesIDList }
-     * 
+     *
      */
     public SimulationGetStopEndingVehiclesIDList createSimulationGetStopEndingVehiclesIDList() {
         return new SimulationGetStopEndingVehiclesIDList();
@@ -4180,7 +4198,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneGetWaitingTimeResponse }
-     * 
+     *
      */
     public LaneGetWaitingTimeResponse createLaneGetWaitingTimeResponse() {
         return new LaneGetWaitingTimeResponse();
@@ -4188,7 +4206,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PolygonGetShapeResponse }
-     * 
+     *
      */
     public PolygonGetShapeResponse createPolygonGetShapeResponse() {
         return new PolygonGetShapeResponse();
@@ -4196,7 +4214,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationGetEndingTeleportIDList }
-     * 
+     *
      */
     public SimulationGetEndingTeleportIDList createSimulationGetEndingTeleportIDList() {
         return new SimulationGetEndingTeleportIDList();
@@ -4204,7 +4222,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationConvertRoad }
-     * 
+     *
      */
     public SimulationConvertRoad createSimulationConvertRoad() {
         return new SimulationConvertRoad();
@@ -4212,7 +4230,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TrafficlightsSetCompleteRedYellowGreenDefinitionResponse }
-     * 
+     *
      */
     public TrafficlightsSetCompleteRedYellowGreenDefinitionResponse createTrafficlightsSetCompleteRedYellowGreenDefinitionResponse() {
         return new TrafficlightsSetCompleteRedYellowGreenDefinitionResponse();
@@ -4220,7 +4238,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetVehicleClass }
-     * 
+     *
      */
     public VehicleGetVehicleClass createVehicleGetVehicleClass() {
         return new VehicleGetVehicleClass();
@@ -4228,7 +4246,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link EdgeGetLastStepHaltingNumberResponse }
-     * 
+     *
      */
     public EdgeGetLastStepHaltingNumberResponse createEdgeGetLastStepHaltingNumberResponse() {
         return new EdgeGetLastStepHaltingNumberResponse();
@@ -4236,7 +4254,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationGetArrivedNumberResponse }
-     * 
+     *
      */
     public SimulationGetArrivedNumberResponse createSimulationGetArrivedNumberResponse() {
         return new SimulationGetArrivedNumberResponse();
@@ -4244,7 +4262,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationGetParkingStartingVehiclesNumberResponse }
-     * 
+     *
      */
     public SimulationGetParkingStartingVehiclesNumberResponse createSimulationGetParkingStartingVehiclesNumberResponse() {
         return new SimulationGetParkingStartingVehiclesNumberResponse();
@@ -4252,7 +4270,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetDecel }
-     * 
+     *
      */
     public VehicleGetDecel createVehicleGetDecel() {
         return new VehicleGetDecel();
@@ -4260,7 +4278,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeSetTau }
-     * 
+     *
      */
     public VehicletypeSetTau createVehicletypeSetTau() {
         return new VehicletypeSetTau();
@@ -4268,7 +4286,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PolygonGetIDCount }
-     * 
+     *
      */
     public PolygonGetIDCount createPolygonGetIDCount() {
         return new PolygonGetIDCount();
@@ -4276,7 +4294,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetAdaptedTraveltimeResponse }
-     * 
+     *
      */
     public VehicleGetAdaptedTraveltimeResponse createVehicleGetAdaptedTraveltimeResponse() {
         return new VehicleGetAdaptedTraveltimeResponse();
@@ -4284,7 +4302,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link RouteGetIDListResponse }
-     * 
+     *
      */
     public RouteGetIDListResponse createRouteGetIDListResponse() {
         return new RouteGetIDListResponse();
@@ -4292,7 +4310,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PolygonSetTypeResponse }
-     * 
+     *
      */
     public PolygonSetTypeResponse createPolygonSetTypeResponse() {
         return new PolygonSetTypeResponse();
@@ -4300,7 +4318,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GUISetOffsetResponse }
-     * 
+     *
      */
     public GUISetOffsetResponse createGUISetOffsetResponse() {
         return new GUISetOffsetResponse();
@@ -4308,7 +4326,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneGetLastStepOccupancy }
-     * 
+     *
      */
     public LaneGetLastStepOccupancy createLaneGetLastStepOccupancy() {
         return new LaneGetLastStepOccupancy();
@@ -4316,7 +4334,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeGetIDCount }
-     * 
+     *
      */
     public VehicletypeGetIDCount createVehicletypeGetIDCount() {
         return new VehicletypeGetIDCount();
@@ -4324,7 +4342,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GUIGetZoomResponse }
-     * 
+     *
      */
     public GUIGetZoomResponse createGUIGetZoomResponse() {
         return new GUIGetZoomResponse();
@@ -4332,7 +4350,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationGetCurrentTime }
-     * 
+     *
      */
     public SimulationGetCurrentTime createSimulationGetCurrentTime() {
         return new SimulationGetCurrentTime();
@@ -4340,7 +4358,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link EdgeGetIDListResponse }
-     * 
+     *
      */
     public EdgeGetIDListResponse createEdgeGetIDListResponse() {
         return new EdgeGetIDListResponse();
@@ -4348,7 +4366,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetAllowedSpeed }
-     * 
+     *
      */
     public VehicleGetAllowedSpeed createVehicleGetAllowedSpeed() {
         return new VehicleGetAllowedSpeed();
@@ -4356,7 +4374,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JunctionGetPositionResponse }
-     * 
+     *
      */
     public JunctionGetPositionResponse createJunctionGetPositionResponse() {
         return new JunctionGetPositionResponse();
@@ -4364,7 +4382,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationGetStopStartingVehiclesNumber }
-     * 
+     *
      */
     public SimulationGetStopStartingVehiclesNumber createSimulationGetStopStartingVehiclesNumber() {
         return new SimulationGetStopStartingVehiclesNumber();
@@ -4372,7 +4390,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeGetSpeedDeviationResponse }
-     * 
+     *
      */
     public VehicletypeGetSpeedDeviationResponse createVehicletypeGetSpeedDeviationResponse() {
         return new VehicletypeGetSpeedDeviationResponse();
@@ -4380,7 +4398,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link EdgeGetCOEmissionResponse }
-     * 
+     *
      */
     public EdgeGetCOEmissionResponse createEdgeGetCOEmissionResponse() {
         return new EdgeGetCOEmissionResponse();
@@ -4388,7 +4406,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneGetLength }
-     * 
+     *
      */
     public LaneGetLength createLaneGetLength() {
         return new LaneGetLength();
@@ -4396,7 +4414,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PersonGetRoadIDResponse }
-     * 
+     *
      */
     public PersonGetRoadIDResponse createPersonGetRoadIDResponse() {
         return new PersonGetRoadIDResponse();
@@ -4404,7 +4422,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link MultientryexitGetLastStepVehicleNumberResponse }
-     * 
+     *
      */
     public MultientryexitGetLastStepVehicleNumberResponse createMultientryexitGetLastStepVehicleNumberResponse() {
         return new MultientryexitGetLastStepVehicleNumberResponse();
@@ -4412,7 +4430,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link MultientryexitGetLastStepVehicleNumber }
-     * 
+     *
      */
     public MultientryexitGetLastStepVehicleNumber createMultientryexitGetLastStepVehicleNumber() {
         return new MultientryexitGetLastStepVehicleNumber();
@@ -4420,7 +4438,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PersonGetPosition }
-     * 
+     *
      */
     public PersonGetPosition createPersonGetPosition() {
         return new PersonGetPosition();
@@ -4428,7 +4446,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TrafficlightsGetIDList }
-     * 
+     *
      */
     public TrafficlightsGetIDList createTrafficlightsGetIDList() {
         return new TrafficlightsGetIDList();
@@ -4436,7 +4454,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetSignals }
-     * 
+     *
      */
     public VehicleGetSignals createVehicleGetSignals() {
         return new VehicleGetSignals();
@@ -4444,7 +4462,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeGetImperfection }
-     * 
+     *
      */
     public VehicletypeGetImperfection createVehicletypeGetImperfection() {
         return new VehicletypeGetImperfection();
@@ -4452,7 +4470,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneGetHCEmissionResponse }
-     * 
+     *
      */
     public LaneGetHCEmissionResponse createLaneGetHCEmissionResponse() {
         return new LaneGetHCEmissionResponse();
@@ -4460,7 +4478,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeSetShapeClass }
-     * 
+     *
      */
     public VehicletypeSetShapeClass createVehicletypeSetShapeClass() {
         return new VehicletypeSetShapeClass();
@@ -4468,7 +4486,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneGetLastStepLength }
-     * 
+     *
      */
     public LaneGetLastStepLength createLaneGetLastStepLength() {
         return new LaneGetLastStepLength();
@@ -4476,7 +4494,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link MultientryexitGetLastStepVehicleIDsResponse }
-     * 
+     *
      */
     public MultientryexitGetLastStepVehicleIDsResponse createMultientryexitGetLastStepVehicleIDsResponse() {
         return new MultientryexitGetLastStepVehicleIDsResponse();
@@ -4484,7 +4502,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GUIGetOffsetResponse }
-     * 
+     *
      */
     public GUIGetOffsetResponse createGUIGetOffsetResponse() {
         return new GUIGetOffsetResponse();
@@ -4492,7 +4510,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationGetMinExpectedNumber }
-     * 
+     *
      */
     public SimulationGetMinExpectedNumber createSimulationGetMinExpectedNumber() {
         return new SimulationGetMinExpectedNumber();
@@ -4500,7 +4518,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PersonGetIDCountResponse }
-     * 
+     *
      */
     public PersonGetIDCountResponse createPersonGetIDCountResponse() {
         return new PersonGetIDCountResponse();
@@ -4508,7 +4526,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeGetIDCountResponse }
-     * 
+     *
      */
     public VehicletypeGetIDCountResponse createVehicletypeGetIDCountResponse() {
         return new VehicletypeGetIDCountResponse();
@@ -4516,7 +4534,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link EdgeGetFuelConsumptionResponse }
-     * 
+     *
      */
     public EdgeGetFuelConsumptionResponse createEdgeGetFuelConsumptionResponse() {
         return new EdgeGetFuelConsumptionResponse();
@@ -4524,7 +4542,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneSetDisallowedResponse }
-     * 
+     *
      */
     public LaneSetDisallowedResponse createLaneSetDisallowedResponse() {
         return new LaneSetDisallowedResponse();
@@ -4532,7 +4550,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleSetShapeClassResponse }
-     * 
+     *
      */
     public VehicleSetShapeClassResponse createVehicleSetShapeClassResponse() {
         return new VehicleSetShapeClassResponse();
@@ -4540,7 +4558,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link EdgeAdaptTraveltimeResponse }
-     * 
+     *
      */
     public EdgeAdaptTraveltimeResponse createEdgeAdaptTraveltimeResponse() {
         return new EdgeAdaptTraveltimeResponse();
@@ -4548,7 +4566,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationGetParkingEndingVehiclesIDListResponse }
-     * 
+     *
      */
     public SimulationGetParkingEndingVehiclesIDListResponse createSimulationGetParkingEndingVehiclesIDListResponse() {
         return new SimulationGetParkingEndingVehiclesIDListResponse();
@@ -4556,7 +4574,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetDrivingDistanceResponse }
-     * 
+     *
      */
     public VehicleGetDrivingDistanceResponse createVehicleGetDrivingDistanceResponse() {
         return new VehicleGetDrivingDistanceResponse();
@@ -4564,7 +4582,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneGetLastStepVehicleNumberResponse }
-     * 
+     *
      */
     public LaneGetLastStepVehicleNumberResponse createLaneGetLastStepVehicleNumberResponse() {
         return new LaneGetLastStepVehicleNumberResponse();
@@ -4572,7 +4590,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link MultientryexitGetIDListResponse }
-     * 
+     *
      */
     public MultientryexitGetIDListResponse createMultientryexitGetIDListResponse() {
         return new MultientryexitGetIDListResponse();
@@ -4580,7 +4598,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneGetTraveltimeResponse }
-     * 
+     *
      */
     public LaneGetTraveltimeResponse createLaneGetTraveltimeResponse() {
         return new LaneGetTraveltimeResponse();
@@ -4588,7 +4606,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetHCEmission }
-     * 
+     *
      */
     public VehicleGetHCEmission createVehicleGetHCEmission() {
         return new VehicleGetHCEmission();
@@ -4596,7 +4614,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeSetEmissionClassResponse }
-     * 
+     *
      */
     public VehicletypeSetEmissionClassResponse createVehicletypeSetEmissionClassResponse() {
         return new VehicletypeSetEmissionClassResponse();
@@ -4604,7 +4622,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link MultientryexitGetIDCountResponse }
-     * 
+     *
      */
     public MultientryexitGetIDCountResponse createMultientryexitGetIDCountResponse() {
         return new MultientryexitGetIDCountResponse();
@@ -4612,7 +4630,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link ArealDetectorGetJamLengthVehicle }
-     * 
+     *
      */
     public ArealDetectorGetJamLengthVehicle createArealDetectorGetJamLengthVehicle() {
         return new ArealDetectorGetJamLengthVehicle();
@@ -4620,7 +4638,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link InductionloopGetPositionResponse }
-     * 
+     *
      */
     public InductionloopGetPositionResponse createInductionloopGetPositionResponse() {
         return new InductionloopGetPositionResponse();
@@ -4628,7 +4646,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TrafficlightsSetPhaseDuration }
-     * 
+     *
      */
     public TrafficlightsSetPhaseDuration createTrafficlightsSetPhaseDuration() {
         return new TrafficlightsSetPhaseDuration();
@@ -4636,7 +4654,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SetSumoBinary }
-     * 
+     *
      */
     public SetSumoBinary createSetSumoBinary() {
         return new SetSumoBinary();
@@ -4644,7 +4662,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link InductionloopGetLastStepVehicleNumberResponse }
-     * 
+     *
      */
     public InductionloopGetLastStepVehicleNumberResponse createInductionloopGetLastStepVehicleNumberResponse() {
         return new InductionloopGetLastStepVehicleNumberResponse();
@@ -4652,7 +4670,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetEffort }
-     * 
+     *
      */
     public VehicleGetEffort createVehicleGetEffort() {
         return new VehicleGetEffort();
@@ -4660,7 +4678,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PersonGetWaitingTimeResponse }
-     * 
+     *
      */
     public PersonGetWaitingTimeResponse createPersonGetWaitingTimeResponse() {
         return new PersonGetWaitingTimeResponse();
@@ -4668,7 +4686,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationGetBusStopWaitingResponse }
-     * 
+     *
      */
     public SimulationGetBusStopWaitingResponse createSimulationGetBusStopWaitingResponse() {
         return new SimulationGetBusStopWaitingResponse();
@@ -4676,7 +4694,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationConvert2DResponse }
-     * 
+     *
      */
     public SimulationConvert2DResponse createSimulationConvert2DResponse() {
         return new SimulationConvert2DResponse();
@@ -4684,7 +4702,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleSetDecel }
-     * 
+     *
      */
     public VehicleSetDecel createVehicleSetDecel() {
         return new VehicleSetDecel();
@@ -4692,7 +4710,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneGetPMxEmission }
-     * 
+     *
      */
     public LaneGetPMxEmission createLaneGetPMxEmission() {
         return new LaneGetPMxEmission();
@@ -4700,7 +4718,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PoiSetColorResponse }
-     * 
+     *
      */
     public PoiSetColorResponse createPoiSetColorResponse() {
         return new PoiSetColorResponse();
@@ -4708,7 +4726,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetCOEmission }
-     * 
+     *
      */
     public VehicleGetCOEmission createVehicleGetCOEmission() {
         return new VehicleGetCOEmission();
@@ -4716,7 +4734,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetAngleResponse }
-     * 
+     *
      */
     public VehicleGetAngleResponse createVehicleGetAngleResponse() {
         return new VehicleGetAngleResponse();
@@ -4724,7 +4742,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SetSumoBinaryResponse }
-     * 
+     *
      */
     public SetSumoBinaryResponse createSetSumoBinaryResponse() {
         return new SetSumoBinaryResponse();
@@ -4732,7 +4750,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleRerouteEffortResponse }
-     * 
+     *
      */
     public VehicleRerouteEffortResponse createVehicleRerouteEffortResponse() {
         return new VehicleRerouteEffortResponse();
@@ -4740,7 +4758,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TrafficlightsGetControlledLanesResponse }
-     * 
+     *
      */
     public TrafficlightsGetControlledLanesResponse createTrafficlightsGetControlledLanesResponse() {
         return new TrafficlightsGetControlledLanesResponse();
@@ -4748,7 +4766,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetBestLanesResponse }
-     * 
+     *
      */
     public VehicleGetBestLanesResponse createVehicleGetBestLanesResponse() {
         return new VehicleGetBestLanesResponse();
@@ -4756,7 +4774,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeGetShapeClassResponse }
-     * 
+     *
      */
     public VehicletypeGetShapeClassResponse createVehicletypeGetShapeClassResponse() {
         return new VehicletypeGetShapeClassResponse();
@@ -4764,7 +4782,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PoiGetIDList }
-     * 
+     *
      */
     public PoiGetIDList createPoiGetIDList() {
         return new PoiGetIDList();
@@ -4772,7 +4790,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeSetTauResponse }
-     * 
+     *
      */
     public VehicletypeSetTauResponse createVehicletypeSetTauResponse() {
         return new VehicletypeSetTauResponse();
@@ -4780,7 +4798,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TrafficlightsSetPhaseResponse }
-     * 
+     *
      */
     public TrafficlightsSetPhaseResponse createTrafficlightsSetPhaseResponse() {
         return new TrafficlightsSetPhaseResponse();
@@ -4788,7 +4806,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GUITrackVehicle }
-     * 
+     *
      */
     public GUITrackVehicle createGUITrackVehicle() {
         return new GUITrackVehicle();
@@ -4796,7 +4814,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneGetLastStepLengthResponse }
-     * 
+     *
      */
     public LaneGetLastStepLengthResponse createLaneGetLastStepLengthResponse() {
         return new LaneGetLastStepLengthResponse();
@@ -4804,7 +4822,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link EdgeGetLastStepOccupancy }
-     * 
+     *
      */
     public EdgeGetLastStepOccupancy createEdgeGetLastStepOccupancy() {
         return new EdgeGetLastStepOccupancy();
@@ -4812,7 +4830,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PersonGetIDCount }
-     * 
+     *
      */
     public PersonGetIDCount createPersonGetIDCount() {
         return new PersonGetIDCount();
@@ -4820,7 +4838,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link RouteGetEdges }
-     * 
+     *
      */
     public RouteGetEdges createRouteGetEdges() {
         return new RouteGetEdges();
@@ -4828,7 +4846,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PoiSetColor }
-     * 
+     *
      */
     public PoiSetColor createPoiSetColor() {
         return new PoiSetColor();
@@ -4836,7 +4854,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetRouteResponse }
-     * 
+     *
      */
     public VehicleGetRouteResponse createVehicleGetRouteResponse() {
         return new VehicleGetRouteResponse();
@@ -4844,7 +4862,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TrafficlightsGetIDListResponse }
-     * 
+     *
      */
     public TrafficlightsGetIDListResponse createTrafficlightsGetIDListResponse() {
         return new TrafficlightsGetIDListResponse();
@@ -4852,7 +4870,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationConvert2D }
-     * 
+     *
      */
     public SimulationConvert2D createSimulationConvert2D() {
         return new SimulationConvert2D();
@@ -4860,7 +4878,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleSetWidthResponse }
-     * 
+     *
      */
     public VehicleSetWidthResponse createVehicleSetWidthResponse() {
         return new VehicleSetWidthResponse();
@@ -4868,7 +4886,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link EdgeGetElectricityConsumption }
-     * 
+     *
      */
     public EdgeGetElectricityConsumption createEdgeGetElectricityConsumption() {
         return new EdgeGetElectricityConsumption();
@@ -4876,7 +4894,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PersonGetTypeIDResponse }
-     * 
+     *
      */
     public PersonGetTypeIDResponse createPersonGetTypeIDResponse() {
         return new PersonGetTypeIDResponse();
@@ -4884,7 +4902,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleSlowDownResponse }
-     * 
+     *
      */
     public VehicleSlowDownResponse createVehicleSlowDownResponse() {
         return new VehicleSlowDownResponse();
@@ -4892,7 +4910,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link EdgeGetLastStepVehicleIDsResponse }
-     * 
+     *
      */
     public EdgeGetLastStepVehicleIDsResponse createEdgeGetLastStepVehicleIDsResponse() {
         return new EdgeGetLastStepVehicleIDsResponse();
@@ -4900,7 +4918,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationGetNetBoundaryResponse }
-     * 
+     *
      */
     public SimulationGetNetBoundaryResponse createSimulationGetNetBoundaryResponse() {
         return new SimulationGetNetBoundaryResponse();
@@ -4908,7 +4926,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationGetDepartedIDListResponse }
-     * 
+     *
      */
     public SimulationGetDepartedIDListResponse createSimulationGetDepartedIDListResponse() {
         return new SimulationGetDepartedIDListResponse();
@@ -4916,7 +4934,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneGetLinkNumber }
-     * 
+     *
      */
     public LaneGetLinkNumber createLaneGetLinkNumber() {
         return new LaneGetLinkNumber();
@@ -4924,7 +4942,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeGetMinGap }
-     * 
+     *
      */
     public VehicletypeGetMinGap createVehicletypeGetMinGap() {
         return new VehicletypeGetMinGap();
@@ -4932,7 +4950,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeGetIDList }
-     * 
+     *
      */
     public VehicletypeGetIDList createVehicletypeGetIDList() {
         return new VehicletypeGetIDList();
@@ -4940,7 +4958,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link StopResponse }
-     * 
+     *
      */
     public StopResponse createStopResponse() {
         return new StopResponse();
@@ -4948,7 +4966,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PersonGetColor }
-     * 
+     *
      */
     public PersonGetColor createPersonGetColor() {
         return new PersonGetColor();
@@ -4956,7 +4974,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link EdgeGetCO2EmissionResponse }
-     * 
+     *
      */
     public EdgeGetCO2EmissionResponse createEdgeGetCO2EmissionResponse() {
         return new EdgeGetCO2EmissionResponse();
@@ -4964,7 +4982,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link InductionloopGetIDCountResponse }
-     * 
+     *
      */
     public InductionloopGetIDCountResponse createInductionloopGetIDCountResponse() {
         return new InductionloopGetIDCountResponse();
@@ -4972,7 +4990,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetCO2EmissionResponse }
-     * 
+     *
      */
     public VehicleGetCO2EmissionResponse createVehicleGetCO2EmissionResponse() {
         return new VehicleGetCO2EmissionResponse();
@@ -4980,7 +4998,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link ArealDetectorGetIDListResponse }
-     * 
+     *
      */
     public ArealDetectorGetIDListResponse createArealDetectorGetIDListResponse() {
         return new ArealDetectorGetIDListResponse();
@@ -4988,7 +5006,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetLengthResponse }
-     * 
+     *
      */
     public VehicleGetLengthResponse createVehicleGetLengthResponse() {
         return new VehicleGetLengthResponse();
@@ -4996,7 +5014,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleResumeResponse }
-     * 
+     *
      */
     public VehicleResumeResponse createVehicleResumeResponse() {
         return new VehicleResumeResponse();
@@ -5004,7 +5022,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetSpeedFactor }
-     * 
+     *
      */
     public VehicleGetSpeedFactor createVehicleGetSpeedFactor() {
         return new VehicleGetSpeedFactor();
@@ -5012,7 +5030,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneGetCO2EmissionResponse }
-     * 
+     *
      */
     public LaneGetCO2EmissionResponse createLaneGetCO2EmissionResponse() {
         return new LaneGetCO2EmissionResponse();
@@ -5020,7 +5038,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleSetLengthResponse }
-     * 
+     *
      */
     public VehicleSetLengthResponse createVehicleSetLengthResponse() {
         return new VehicleSetLengthResponse();
@@ -5028,7 +5046,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationGetParkingStartingVehiclesIDList }
-     * 
+     *
      */
     public SimulationGetParkingStartingVehiclesIDList createSimulationGetParkingStartingVehiclesIDList() {
         return new SimulationGetParkingStartingVehiclesIDList();
@@ -5036,7 +5054,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetIDCount }
-     * 
+     *
      */
     public VehicleGetIDCount createVehicleGetIDCount() {
         return new VehicleGetIDCount();
@@ -5044,7 +5062,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationGetArrivedNumber }
-     * 
+     *
      */
     public SimulationGetArrivedNumber createSimulationGetArrivedNumber() {
         return new SimulationGetArrivedNumber();
@@ -5052,7 +5070,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PolygonGetIDListResponse }
-     * 
+     *
      */
     public PolygonGetIDListResponse createPolygonGetIDListResponse() {
         return new PolygonGetIDListResponse();
@@ -5060,7 +5078,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleResume }
-     * 
+     *
      */
     public VehicleResume createVehicleResume() {
         return new VehicleResume();
@@ -5068,7 +5086,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeSetMaxSpeedResponse }
-     * 
+     *
      */
     public VehicletypeSetMaxSpeedResponse createVehicletypeSetMaxSpeedResponse() {
         return new VehicletypeSetMaxSpeedResponse();
@@ -5076,7 +5094,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneGetTraveltime }
-     * 
+     *
      */
     public LaneGetTraveltime createLaneGetTraveltime() {
         return new LaneGetTraveltime();
@@ -5084,7 +5102,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TrafficlightsSetProgramResponse }
-     * 
+     *
      */
     public TrafficlightsSetProgramResponse createTrafficlightsSetProgramResponse() {
         return new TrafficlightsSetProgramResponse();
@@ -5092,7 +5110,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleSetStop }
-     * 
+     *
      */
     public VehicleSetStop createVehicleSetStop() {
         return new VehicleSetStop();
@@ -5100,7 +5118,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneGetWaitingTime }
-     * 
+     *
      */
     public LaneGetWaitingTime createLaneGetWaitingTime() {
         return new LaneGetWaitingTime();
@@ -5108,7 +5126,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneGetAllowedResponse }
-     * 
+     *
      */
     public LaneGetAllowedResponse createLaneGetAllowedResponse() {
         return new LaneGetAllowedResponse();
@@ -5116,7 +5134,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link MultientryexitGetLastStepHaltingNumber }
-     * 
+     *
      */
     public MultientryexitGetLastStepHaltingNumber createMultientryexitGetLastStepHaltingNumber() {
         return new MultientryexitGetLastStepHaltingNumber();
@@ -5124,7 +5142,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationGetEndingTeleportNumberResponse }
-     * 
+     *
      */
     public SimulationGetEndingTeleportNumberResponse createSimulationGetEndingTeleportNumberResponse() {
         return new SimulationGetEndingTeleportNumberResponse();
@@ -5132,7 +5150,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleChangeTargetResponse }
-     * 
+     *
      */
     public VehicleChangeTargetResponse createVehicleChangeTargetResponse() {
         return new VehicleChangeTargetResponse();
@@ -5140,7 +5158,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleSetEmissionClass }
-     * 
+     *
      */
     public VehicleSetEmissionClass createVehicleSetEmissionClass() {
         return new VehicleSetEmissionClass();
@@ -5148,7 +5166,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TrafficlightsSetPhaseDurationResponse }
-     * 
+     *
      */
     public TrafficlightsSetPhaseDurationResponse createTrafficlightsSetPhaseDurationResponse() {
         return new TrafficlightsSetPhaseDurationResponse();
@@ -5156,7 +5174,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link InductionloopGetIDList }
-     * 
+     *
      */
     public InductionloopGetIDList createInductionloopGetIDList() {
         return new InductionloopGetIDList();
@@ -5164,7 +5182,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneGetLastStepVehicleNumber }
-     * 
+     *
      */
     public LaneGetLastStepVehicleNumber createLaneGetLastStepVehicleNumber() {
         return new LaneGetLastStepVehicleNumber();
@@ -5172,7 +5190,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LaneGetWidth }
-     * 
+     *
      */
     public LaneGetWidth createLaneGetWidth() {
         return new LaneGetWidth();
@@ -5180,7 +5198,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetCO2Emission }
-     * 
+     *
      */
     public VehicleGetCO2Emission createVehicleGetCO2Emission() {
         return new VehicleGetCO2Emission();
@@ -5188,7 +5206,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleRerouteTraveltime }
-     * 
+     *
      */
     public VehicleRerouteTraveltime createVehicleRerouteTraveltime() {
         return new VehicleRerouteTraveltime();
@@ -5196,7 +5214,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleRemoveResponse }
-     * 
+     *
      */
     public VehicleRemoveResponse createVehicleRemoveResponse() {
         return new VehicleRemoveResponse();
@@ -5204,7 +5222,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link EdgeGetIDCount }
-     * 
+     *
      */
     public EdgeGetIDCount createEdgeGetIDCount() {
         return new EdgeGetIDCount();
@@ -5212,7 +5230,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetSpeedDeviationResponse }
-     * 
+     *
      */
     public VehicleGetSpeedDeviationResponse createVehicleGetSpeedDeviationResponse() {
         return new VehicleGetSpeedDeviationResponse();
@@ -5220,7 +5238,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleSetTypeResponse }
-     * 
+     *
      */
     public VehicleSetTypeResponse createVehicleSetTypeResponse() {
         return new VehicleSetTypeResponse();
@@ -5228,7 +5246,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetElectricityConsumption }
-     * 
+     *
      */
     public VehicleGetElectricityConsumption createVehicleGetElectricityConsumption() {
         return new VehicleGetElectricityConsumption();
@@ -5236,7 +5254,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetFuelConsumption }
-     * 
+     *
      */
     public VehicleGetFuelConsumption createVehicleGetFuelConsumption() {
         return new VehicleGetFuelConsumption();
@@ -5244,7 +5262,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PoiSetType }
-     * 
+     *
      */
     public PoiSetType createPoiSetType() {
         return new PoiSetType();
@@ -5252,7 +5270,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link RouteGetIDList }
-     * 
+     *
      */
     public RouteGetIDList createRouteGetIDList() {
         return new RouteGetIDList();
@@ -5260,7 +5278,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link EdgeGetTraveltimeResponse }
-     * 
+     *
      */
     public EdgeGetTraveltimeResponse createEdgeGetTraveltimeResponse() {
         return new EdgeGetTraveltimeResponse();
@@ -5268,7 +5286,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetAngle }
-     * 
+     *
      */
     public VehicleGetAngle createVehicleGetAngle() {
         return new VehicleGetAngle();
@@ -5276,7 +5294,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetBestLanes }
-     * 
+     *
      */
     public VehicleGetBestLanes createVehicleGetBestLanes() {
         return new VehicleGetBestLanes();
@@ -5284,7 +5302,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationConvert3D }
-     * 
+     *
      */
     public SimulationConvert3D createSimulationConvert3D() {
         return new SimulationConvert3D();
@@ -5292,7 +5310,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeGetWidth }
-     * 
+     *
      */
     public VehicletypeGetWidth createVehicletypeGetWidth() {
         return new VehicletypeGetWidth();
@@ -5300,7 +5318,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleChangeLaneResponse }
-     * 
+     *
      */
     public VehicleChangeLaneResponse createVehicleChangeLaneResponse() {
         return new VehicleChangeLaneResponse();
@@ -5308,7 +5326,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationConvertGeo }
-     * 
+     *
      */
     public SimulationConvertGeo createSimulationConvertGeo() {
         return new SimulationConvertGeo();
@@ -5316,7 +5334,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link EdgeGetNoiseEmissionResponse }
-     * 
+     *
      */
     public EdgeGetNoiseEmissionResponse createEdgeGetNoiseEmissionResponse() {
         return new EdgeGetNoiseEmissionResponse();
@@ -5324,7 +5342,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link RouteGetEdgesResponse }
-     * 
+     *
      */
     public RouteGetEdgesResponse createRouteGetEdgesResponse() {
         return new RouteGetEdgesResponse();
@@ -5332,7 +5350,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimulationGetStopEndingVehiclesIDListResponse }
-     * 
+     *
      */
     public SimulationGetStopEndingVehiclesIDListResponse createSimulationGetStopEndingVehiclesIDListResponse() {
         return new SimulationGetStopEndingVehiclesIDListResponse();
@@ -5340,7 +5358,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TrafficlightsGetPhase }
-     * 
+     *
      */
     public TrafficlightsGetPhase createTrafficlightsGetPhase() {
         return new TrafficlightsGetPhase();
@@ -5348,7 +5366,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleGetNoiseEmission }
-     * 
+     *
      */
     public VehicleGetNoiseEmission createVehicleGetNoiseEmission() {
         return new VehicleGetNoiseEmission();
@@ -5356,7 +5374,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleSetEmissionClassResponse }
-     * 
+     *
      */
     public VehicleSetEmissionClassResponse createVehicleSetEmissionClassResponse() {
         return new VehicleSetEmissionClassResponse();
@@ -5364,7 +5382,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link InductionloopGetLastStepMeanLength }
-     * 
+     *
      */
     public InductionloopGetLastStepMeanLength createInductionloopGetLastStepMeanLength() {
         return new InductionloopGetLastStepMeanLength();
@@ -5372,7 +5390,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link InductionloopGetIDCount }
-     * 
+     *
      */
     public InductionloopGetIDCount createInductionloopGetIDCount() {
         return new InductionloopGetIDCount();
@@ -5380,7 +5398,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicletypeGetImperfectionResponse }
-     * 
+     *
      */
     public VehicletypeGetImperfectionResponse createVehicletypeGetImperfectionResponse() {
         return new VehicletypeGetImperfectionResponse();
@@ -5388,7 +5406,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link ArealDetectorGetLastStepOccupancyResponse }
-     * 
+     *
      */
     public ArealDetectorGetLastStepOccupancyResponse createArealDetectorGetLastStepOccupancyResponse() {
         return new ArealDetectorGetLastStepOccupancyResponse();
@@ -5396,7 +5414,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SumoGeometry }
-     * 
+     *
      */
     public SumoGeometry createSumoGeometry() {
         return new SumoGeometry();
@@ -5404,7 +5422,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link VehicleData }
-     * 
+     *
      */
     public VehicleData createVehicleData() {
         return new VehicleData();
@@ -5412,7 +5430,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SumoBoundingBox }
-     * 
+     *
      */
     public SumoBoundingBox createSumoBoundingBox() {
         return new SumoBoundingBox();
@@ -5420,7 +5438,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SumoPosition3D }
-     * 
+     *
      */
     public SumoPosition3D createSumoPosition3D() {
         return new SumoPosition3D();
@@ -5428,7 +5446,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SumoPosition2D }
-     * 
+     *
      */
     public SumoPosition2D createSumoPosition2D() {
         return new SumoPosition2D();
@@ -5436,7 +5454,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SumoVehicleData }
-     * 
+     *
      */
     public SumoVehicleData createSumoVehicleData() {
         return new SumoVehicleData();
@@ -5444,7 +5462,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SumoColor }
-     * 
+     *
      */
     public SumoColor createSumoColor() {
         return new SumoColor();
@@ -5452,7 +5470,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SumoStopFlags }
-     * 
+     *
      */
     public SumoStopFlags createSumoStopFlags() {
         return new SumoStopFlags();
@@ -5460,7 +5478,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SumoTLSProgram }
-     * 
+     *
      */
     public SumoTLSProgram createSumoTLSProgram() {
         return new SumoTLSProgram();
@@ -5468,7 +5486,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SumoLink }
-     * 
+     *
      */
     public SumoLink createSumoLink() {
         return new SumoLink();
@@ -5476,7 +5494,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SumoTLSPhase }
-     * 
+     *
      */
     public SumoTLSPhase createSumoTLSPhase() {
         return new SumoTLSPhase();
@@ -5484,7 +5502,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SumoTLSController.Programs.Entry }
-     * 
+     *
      */
     public SumoTLSController.Programs.Entry createSumoTLSControllerProgramsEntry() {
         return new SumoTLSController.Programs.Entry();
@@ -5492,7 +5510,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneGetEdgeIDResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_getEdgeIDResponse")
     public JAXBElement<LaneGetEdgeIDResponse> createLaneGetEdgeIDResponse(LaneGetEdgeIDResponse value) {
@@ -5501,7 +5519,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetMinGap }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getMinGap")
     public JAXBElement<VehicleGetMinGap> createVehicleGetMinGap(VehicleGetMinGap value) {
@@ -5510,7 +5528,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PersonGetLanePosition }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Person_getLanePosition")
     public JAXBElement<PersonGetLanePosition> createPersonGetLanePosition(PersonGetLanePosition value) {
@@ -5519,7 +5537,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PolygonGetTypeResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Polygon_getTypeResponse")
     public JAXBElement<PolygonGetTypeResponse> createPolygonGetTypeResponse(PolygonGetTypeResponse value) {
@@ -5528,7 +5546,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PolygonSetShapeResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Polygon_setShapeResponse")
     public JAXBElement<PolygonSetShapeResponse> createPolygonSetShapeResponse(PolygonSetShapeResponse value) {
@@ -5537,7 +5555,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleSetRoute }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_setRoute")
     public JAXBElement<VehicleSetRoute> createVehicleSetRoute(VehicleSetRoute value) {
@@ -5546,7 +5564,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PoiGetColorResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Poi_getColorResponse")
     public JAXBElement<PoiGetColorResponse> createPoiGetColorResponse(PoiGetColorResponse value) {
@@ -5555,7 +5573,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetCOEmissionResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getCOEmissionResponse")
     public JAXBElement<VehicleGetCOEmissionResponse> createVehicleGetCOEmissionResponse(VehicleGetCOEmissionResponse value) {
@@ -5564,7 +5582,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetSpeedModeResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getSpeedModeResponse")
     public JAXBElement<VehicleGetSpeedModeResponse> createVehicleGetSpeedModeResponse(VehicleGetSpeedModeResponse value) {
@@ -5573,7 +5591,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleSlowDown }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_slowDown")
     public JAXBElement<VehicleSlowDown> createVehicleSlowDown(VehicleSlowDown value) {
@@ -5582,7 +5600,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GUISetZoomResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "GUI_setZoomResponse")
     public JAXBElement<GUISetZoomResponse> createGUISetZoomResponse(GUISetZoomResponse value) {
@@ -5591,7 +5609,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GUIGetZoom }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "GUI_getZoom")
     public JAXBElement<GUIGetZoom> createGUIGetZoom(GUIGetZoom value) {
@@ -5600,7 +5618,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link ArealDetectorGetJamLengthMeters }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "ArealDetector_getJamLengthMeters")
     public JAXBElement<ArealDetectorGetJamLengthMeters> createArealDetectorGetJamLengthMeters(ArealDetectorGetJamLengthMeters value) {
@@ -5609,7 +5627,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PolygonGetColorResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Polygon_getColorResponse")
     public JAXBElement<PolygonGetColorResponse> createPolygonGetColorResponse(PolygonGetColorResponse value) {
@@ -5618,7 +5636,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link EdgeGetLastStepLength }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Edge_getLastStepLength")
     public JAXBElement<EdgeGetLastStepLength> createEdgeGetLastStepLength(EdgeGetLastStepLength value) {
@@ -5627,7 +5645,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PoiGetColor }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Poi_getColor")
     public JAXBElement<PoiGetColor> createPoiGetColor(PoiGetColor value) {
@@ -5636,7 +5654,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeGetTauResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_getTauResponse")
     public JAXBElement<VehicletypeGetTauResponse> createVehicletypeGetTauResponse(VehicletypeGetTauResponse value) {
@@ -5645,7 +5663,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneGetLastStepOccupancyResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_getLastStepOccupancyResponse")
     public JAXBElement<LaneGetLastStepOccupancyResponse> createLaneGetLastStepOccupancyResponse(LaneGetLastStepOccupancyResponse value) {
@@ -5654,7 +5672,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link EdgeGetNOxEmissionResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Edge_getNOxEmissionResponse")
     public JAXBElement<EdgeGetNOxEmissionResponse> createEdgeGetNOxEmissionResponse(EdgeGetNOxEmissionResponse value) {
@@ -5663,7 +5681,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationGetBusStopWaiting }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_getBusStopWaiting")
     public JAXBElement<SimulationGetBusStopWaiting> createSimulationGetBusStopWaiting(SimulationGetBusStopWaiting value) {
@@ -5672,7 +5690,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationGetStartingTeleportIDList }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_getStartingTeleportIDList")
     public JAXBElement<SimulationGetStartingTeleportIDList> createSimulationGetStartingTeleportIDList(SimulationGetStartingTeleportIDList value) {
@@ -5681,7 +5699,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link RouteAddResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Route_addResponse")
     public JAXBElement<RouteAddResponse> createRouteAddResponse(RouteAddResponse value) {
@@ -5690,7 +5708,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PoiAdd }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Poi_add")
     public JAXBElement<PoiAdd> createPoiAdd(PoiAdd value) {
@@ -5699,7 +5717,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeSetMaxSpeed }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_setMaxSpeed")
     public JAXBElement<VehicletypeSetMaxSpeed> createVehicletypeSetMaxSpeed(VehicletypeSetMaxSpeed value) {
@@ -5708,7 +5726,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link ArealDetectorGetLastStepMeanSpeed }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "ArealDetector_getLastStepMeanSpeed")
     public JAXBElement<ArealDetectorGetLastStepMeanSpeed> createArealDetectorGetLastStepMeanSpeed(ArealDetectorGetLastStepMeanSpeed value) {
@@ -5717,7 +5735,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LastActionTime }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "LastActionTime")
     public JAXBElement<LastActionTime> createLastActionTime(LastActionTime value) {
@@ -5726,7 +5744,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleSetMinGapResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_setMinGapResponse")
     public JAXBElement<VehicleSetMinGapResponse> createVehicleSetMinGapResponse(VehicleSetMinGapResponse value) {
@@ -5735,7 +5753,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link EdgeGetLastStepMeanSpeedResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Edge_getLastStepMeanSpeedResponse")
     public JAXBElement<EdgeGetLastStepMeanSpeedResponse> createEdgeGetLastStepMeanSpeedResponse(EdgeGetLastStepMeanSpeedResponse value) {
@@ -5744,7 +5762,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link EdgeGetAdaptedTraveltimeResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Edge_getAdaptedTraveltimeResponse")
     public JAXBElement<EdgeGetAdaptedTraveltimeResponse> createEdgeGetAdaptedTraveltimeResponse(EdgeGetAdaptedTraveltimeResponse value) {
@@ -5753,7 +5771,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetLanePositionResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getLanePositionResponse")
     public JAXBElement<VehicleGetLanePositionResponse> createVehicleGetLanePositionResponse(VehicleGetLanePositionResponse value) {
@@ -5762,7 +5780,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationGetParkingEndingVehiclesNumber }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_getParkingEndingVehiclesNumber")
     public JAXBElement<SimulationGetParkingEndingVehiclesNumber> createSimulationGetParkingEndingVehiclesNumber(SimulationGetParkingEndingVehiclesNumber value) {
@@ -5771,7 +5789,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneGetAllowed }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_getAllowed")
     public JAXBElement<LaneGetAllowed> createLaneGetAllowed(LaneGetAllowed value) {
@@ -5780,7 +5798,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeSetColor }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_setColor")
     public JAXBElement<VehicletypeSetColor> createVehicletypeSetColor(VehicletypeSetColor value) {
@@ -5789,7 +5807,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PolygonGetIDList }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Polygon_getIDList")
     public JAXBElement<PolygonGetIDList> createPolygonGetIDList(PolygonGetIDList value) {
@@ -5798,7 +5816,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetSpeedResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getSpeedResponse")
     public JAXBElement<VehicleGetSpeedResponse> createVehicleGetSpeedResponse(VehicleGetSpeedResponse value) {
@@ -5807,7 +5825,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PersonGetPersonNumber }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Person_getPersonNumber")
     public JAXBElement<PersonGetPersonNumber> createPersonGetPersonNumber(PersonGetPersonNumber value) {
@@ -5816,7 +5834,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetSlopeResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getSlopeResponse")
     public JAXBElement<VehicleGetSlopeResponse> createVehicleGetSlopeResponse(VehicleGetSlopeResponse value) {
@@ -5825,7 +5843,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetRoute }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getRoute")
     public JAXBElement<VehicleGetRoute> createVehicleGetRoute(VehicleGetRoute value) {
@@ -5834,7 +5852,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetEmissionClassResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getEmissionClassResponse")
     public JAXBElement<VehicleGetEmissionClassResponse> createVehicleGetEmissionClassResponse(VehicleGetEmissionClassResponse value) {
@@ -5843,7 +5861,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleSetImperfection }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_setImperfection")
     public JAXBElement<VehicleSetImperfection> createVehicleSetImperfection(VehicleSetImperfection value) {
@@ -5852,7 +5870,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetNOxEmissionResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getNOxEmissionResponse")
     public JAXBElement<VehicleGetNOxEmissionResponse> createVehicleGetNOxEmissionResponse(VehicleGetNOxEmissionResponse value) {
@@ -5861,7 +5879,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SetConfigResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "setConfigResponse")
     public JAXBElement<SetConfigResponse> createSetConfigResponse(SetConfigResponse value) {
@@ -5870,7 +5888,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetMinGapResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getMinGapResponse")
     public JAXBElement<VehicleGetMinGapResponse> createVehicleGetMinGapResponse(VehicleGetMinGapResponse value) {
@@ -5879,7 +5897,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PersonGetPosition3D }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Person_getPosition3D")
     public JAXBElement<PersonGetPosition3D> createPersonGetPosition3D(PersonGetPosition3D value) {
@@ -5888,7 +5906,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetDrivingDistance }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getDrivingDistance")
     public JAXBElement<VehicleGetDrivingDistance> createVehicleGetDrivingDistance(VehicleGetDrivingDistance value) {
@@ -5897,7 +5915,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link InductionloopGetLaneIDResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Inductionloop_getLaneIDResponse")
     public JAXBElement<InductionloopGetLaneIDResponse> createInductionloopGetLaneIDResponse(InductionloopGetLaneIDResponse value) {
@@ -5906,7 +5924,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetLeader }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getLeader")
     public JAXBElement<VehicleGetLeader> createVehicleGetLeader(VehicleGetLeader value) {
@@ -5915,7 +5933,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link TrafficlightsGetProgramResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Trafficlights_getProgramResponse")
     public JAXBElement<TrafficlightsGetProgramResponse> createTrafficlightsGetProgramResponse(TrafficlightsGetProgramResponse value) {
@@ -5924,7 +5942,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetShapeClassResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getShapeClassResponse")
     public JAXBElement<VehicleGetShapeClassResponse> createVehicleGetShapeClassResponse(VehicleGetShapeClassResponse value) {
@@ -5933,7 +5951,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link TXTOutputResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "TXT_outputResponse")
     public JAXBElement<TXTOutputResponse> createTXTOutputResponse(TXTOutputResponse value) {
@@ -5942,7 +5960,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link EdgeSetMaxSpeedResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Edge_setMaxSpeedResponse")
     public JAXBElement<EdgeSetMaxSpeedResponse> createEdgeSetMaxSpeedResponse(EdgeSetMaxSpeedResponse value) {
@@ -5951,7 +5969,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link TrafficlightsGetControlledLinksResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Trafficlights_getControlledLinksResponse")
     public JAXBElement<TrafficlightsGetControlledLinksResponse> createTrafficlightsGetControlledLinksResponse(TrafficlightsGetControlledLinksResponse value) {
@@ -5960,7 +5978,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleSetAccelResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_setAccelResponse")
     public JAXBElement<VehicleSetAccelResponse> createVehicleSetAccelResponse(VehicleSetAccelResponse value) {
@@ -5969,7 +5987,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetRoadID }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getRoadID")
     public JAXBElement<VehicleGetRoadID> createVehicleGetRoadID(VehicleGetRoadID value) {
@@ -5978,7 +5996,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GUISetZoom }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "GUI_setZoom")
     public JAXBElement<GUISetZoom> createGUISetZoom(GUISetZoom value) {
@@ -5987,7 +6005,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationGetLoadedIDListResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_getLoadedIDListResponse")
     public JAXBElement<SimulationGetLoadedIDListResponse> createSimulationGetLoadedIDListResponse(SimulationGetLoadedIDListResponse value) {
@@ -5996,7 +6014,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link JunctionGetShapeResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Junction_getShapeResponse")
     public JAXBElement<JunctionGetShapeResponse> createJunctionGetShapeResponse(JunctionGetShapeResponse value) {
@@ -6005,7 +6023,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneGetLinkNumberResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_getLinkNumberResponse")
     public JAXBElement<LaneGetLinkNumberResponse> createLaneGetLinkNumberResponse(LaneGetLinkNumberResponse value) {
@@ -6014,7 +6032,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleRemove }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_remove")
     public JAXBElement<VehicleRemove> createVehicleRemove(VehicleRemove value) {
@@ -6023,7 +6041,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetDecelResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getDecelResponse")
     public JAXBElement<VehicleGetDecelResponse> createVehicleGetDecelResponse(VehicleGetDecelResponse value) {
@@ -6032,7 +6050,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeGetColorResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_getColorResponse")
     public JAXBElement<VehicletypeGetColorResponse> createVehicletypeGetColorResponse(VehicletypeGetColorResponse value) {
@@ -6041,7 +6059,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleSetType }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_setType")
     public JAXBElement<VehicleSetType> createVehicleSetType(VehicleSetType value) {
@@ -6050,7 +6068,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetAccel }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getAccel")
     public JAXBElement<VehicleGetAccel> createVehicleGetAccel(VehicleGetAccel value) {
@@ -6059,7 +6077,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetHCEmissionResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getHCEmissionResponse")
     public JAXBElement<VehicleGetHCEmissionResponse> createVehicleGetHCEmissionResponse(VehicleGetHCEmissionResponse value) {
@@ -6068,7 +6086,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PolygonAdd }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Polygon_add")
     public JAXBElement<PolygonAdd> createPolygonAdd(PolygonAdd value) {
@@ -6077,7 +6095,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link MultientryexitGetLastStepHaltingNumberResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Multientryexit_getLastStepHaltingNumberResponse")
     public JAXBElement<MultientryexitGetLastStepHaltingNumberResponse> createMultientryexitGetLastStepHaltingNumberResponse(MultientryexitGetLastStepHaltingNumberResponse value) {
@@ -6086,7 +6104,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneGetLastStepHaltingNumberResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_getLastStepHaltingNumberResponse")
     public JAXBElement<LaneGetLastStepHaltingNumberResponse> createLaneGetLastStepHaltingNumberResponse(LaneGetLastStepHaltingNumberResponse value) {
@@ -6095,7 +6113,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneGetIDListResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_getIDListResponse")
     public JAXBElement<LaneGetIDListResponse> createLaneGetIDListResponse(LaneGetIDListResponse value) {
@@ -6104,7 +6122,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link MultientryexitGetLastStepMeanSpeed }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Multientryexit_getLastStepMeanSpeed")
     public JAXBElement<MultientryexitGetLastStepMeanSpeed> createMultientryexitGetLastStepMeanSpeed(MultientryexitGetLastStepMeanSpeed value) {
@@ -6113,7 +6131,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationGetEndingTeleportNumber }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_getEndingTeleportNumber")
     public JAXBElement<SimulationGetEndingTeleportNumber> createSimulationGetEndingTeleportNumber(SimulationGetEndingTeleportNumber value) {
@@ -6122,7 +6140,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneGetLastStepMeanSpeedResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_getLastStepMeanSpeedResponse")
     public JAXBElement<LaneGetLastStepMeanSpeedResponse> createLaneGetLastStepMeanSpeedResponse(LaneGetLastStepMeanSpeedResponse value) {
@@ -6131,7 +6149,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link TrafficlightsGetPhaseResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Trafficlights_getPhaseResponse")
     public JAXBElement<TrafficlightsGetPhaseResponse> createTrafficlightsGetPhaseResponse(TrafficlightsGetPhaseResponse value) {
@@ -6140,7 +6158,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneGetFuelConsumptionResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_getFuelConsumptionResponse")
     public JAXBElement<LaneGetFuelConsumptionResponse> createLaneGetFuelConsumptionResponse(LaneGetFuelConsumptionResponse value) {
@@ -6149,7 +6167,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GetStatusResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "get_StatusResponse")
     public JAXBElement<GetStatusResponse> createGetStatusResponse(GetStatusResponse value) {
@@ -6158,7 +6176,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationGetParkingEndingVehiclesIDList }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_getParkingEndingVehiclesIDList")
     public JAXBElement<SimulationGetParkingEndingVehiclesIDList> createSimulationGetParkingEndingVehiclesIDList(SimulationGetParkingEndingVehiclesIDList value) {
@@ -6167,7 +6185,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetMaxSpeed }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getMaxSpeed")
     public JAXBElement<VehicleGetMaxSpeed> createVehicleGetMaxSpeed(VehicleGetMaxSpeed value) {
@@ -6176,7 +6194,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationGetStartingTeleportIDListResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_getStartingTeleportIDListResponse")
     public JAXBElement<SimulationGetStartingTeleportIDListResponse> createSimulationGetStartingTeleportIDListResponse(SimulationGetStartingTeleportIDListResponse value) {
@@ -6185,7 +6203,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link EdgeGetLastStepVehicleNumberResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Edge_getLastStepVehicleNumberResponse")
     public JAXBElement<EdgeGetLastStepVehicleNumberResponse> createEdgeGetLastStepVehicleNumberResponse(EdgeGetLastStepVehicleNumberResponse value) {
@@ -6194,7 +6212,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleSetEffort }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_setEffort")
     public JAXBElement<VehicleSetEffort> createVehicleSetEffort(VehicleSetEffort value) {
@@ -6203,7 +6221,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleSetStopResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_setStopResponse")
     public JAXBElement<VehicleSetStopResponse> createVehicleSetStopResponse(VehicleSetStopResponse value) {
@@ -6212,7 +6230,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetAdaptedTraveltime }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getAdaptedTraveltime")
     public JAXBElement<VehicleGetAdaptedTraveltime> createVehicleGetAdaptedTraveltime(VehicleGetAdaptedTraveltime value) {
@@ -6221,7 +6239,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetNOxEmission }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getNOxEmission")
     public JAXBElement<VehicleGetNOxEmission> createVehicleGetNOxEmission(VehicleGetNOxEmission value) {
@@ -6230,7 +6248,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link RouteGetIDCount }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Route_getIDCount")
     public JAXBElement<RouteGetIDCount> createRouteGetIDCount(RouteGetIDCount value) {
@@ -6239,7 +6257,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneGetLastStepMeanSpeed }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_getLastStepMeanSpeed")
     public JAXBElement<LaneGetLastStepMeanSpeed> createLaneGetLastStepMeanSpeed(LaneGetLastStepMeanSpeed value) {
@@ -6248,7 +6266,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PoiGetIDListResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Poi_getIDListResponse")
     public JAXBElement<PoiGetIDListResponse> createPoiGetIDListResponse(PoiGetIDListResponse value) {
@@ -6257,7 +6275,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeGetMaxSpeedResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_getMaxSpeedResponse")
     public JAXBElement<VehicletypeGetMaxSpeedResponse> createVehicletypeGetMaxSpeedResponse(VehicletypeGetMaxSpeedResponse value) {
@@ -6266,7 +6284,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetLeaderResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getLeaderResponse")
     public JAXBElement<VehicleGetLeaderResponse> createVehicleGetLeaderResponse(VehicleGetLeaderResponse value) {
@@ -6275,7 +6293,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleIsRouteValidResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_isRouteValidResponse")
     public JAXBElement<VehicleIsRouteValidResponse> createVehicleIsRouteValidResponse(VehicleIsRouteValidResponse value) {
@@ -6284,7 +6302,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link EdgeGetTraveltime }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Edge_getTraveltime")
     public JAXBElement<EdgeGetTraveltime> createEdgeGetTraveltime(EdgeGetTraveltime value) {
@@ -6293,7 +6311,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link ArealDetectorGetIDCountResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "ArealDetector_getIDCountResponse")
     public JAXBElement<ArealDetectorGetIDCountResponse> createArealDetectorGetIDCountResponse(ArealDetectorGetIDCountResponse value) {
@@ -6302,7 +6320,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetPersonNumberResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getPersonNumberResponse")
     public JAXBElement<VehicleGetPersonNumberResponse> createVehicleGetPersonNumberResponse(VehicleGetPersonNumberResponse value) {
@@ -6311,7 +6329,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GUIClearPendingResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "GUI_clearPendingResponse")
     public JAXBElement<GUIClearPendingResponse> createGUIClearPendingResponse(GUIClearPendingResponse value) {
@@ -6320,7 +6338,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link TXTOutput }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "TXT_output")
     public JAXBElement<TXTOutput> createTXTOutput(TXTOutput value) {
@@ -6329,7 +6347,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link TrafficlightsGetIDCount }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Trafficlights_getIDCount")
     public JAXBElement<TrafficlightsGetIDCount> createTrafficlightsGetIDCount(TrafficlightsGetIDCount value) {
@@ -6338,7 +6356,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PersonGetRoadID }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Person_getRoadID")
     public JAXBElement<PersonGetRoadID> createPersonGetRoadID(PersonGetRoadID value) {
@@ -6347,7 +6365,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeGetEmissionClass }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_getEmissionClass")
     public JAXBElement<VehicletypeGetEmissionClass> createVehicletypeGetEmissionClass(VehicletypeGetEmissionClass value) {
@@ -6356,7 +6374,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleSetAccel }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_setAccel")
     public JAXBElement<VehicleSetAccel> createVehicleSetAccel(VehicleSetAccel value) {
@@ -6365,7 +6383,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PolygonGetType }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Polygon_getType")
     public JAXBElement<PolygonGetType> createPolygonGetType(PolygonGetType value) {
@@ -6374,7 +6392,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PoiGetPosition }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Poi_getPosition")
     public JAXBElement<PoiGetPosition> createPoiGetPosition(PoiGetPosition value) {
@@ -6383,7 +6401,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PoiSetTypeResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Poi_setTypeResponse")
     public JAXBElement<PoiSetTypeResponse> createPoiSetTypeResponse(PoiSetTypeResponse value) {
@@ -6392,7 +6410,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link TrafficlightsGetRedYellowGreenStateResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Trafficlights_getRedYellowGreenStateResponse")
     public JAXBElement<TrafficlightsGetRedYellowGreenStateResponse> createTrafficlightsGetRedYellowGreenStateResponse(TrafficlightsGetRedYellowGreenStateResponse value) {
@@ -6401,7 +6419,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeSetMinGapResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_setMinGapResponse")
     public JAXBElement<VehicletypeSetMinGapResponse> createVehicletypeSetMinGapResponse(VehicletypeSetMinGapResponse value) {
@@ -6410,7 +6428,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneGetNOxEmission }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_getNOxEmission")
     public JAXBElement<LaneGetNOxEmission> createLaneGetNOxEmission(LaneGetNOxEmission value) {
@@ -6419,7 +6437,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleSetSignals }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_setSignals")
     public JAXBElement<VehicleSetSignals> createVehicleSetSignals(VehicleSetSignals value) {
@@ -6428,7 +6446,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeGetWidthResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_getWidthResponse")
     public JAXBElement<VehicletypeGetWidthResponse> createVehicletypeGetWidthResponse(VehicletypeGetWidthResponse value) {
@@ -6437,7 +6455,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationGetDepartedNumber }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_getDepartedNumber")
     public JAXBElement<SimulationGetDepartedNumber> createSimulationGetDepartedNumber(SimulationGetDepartedNumber value) {
@@ -6446,7 +6464,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link Start }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "start")
     public JAXBElement<Start> createStart(Start value) {
@@ -6455,7 +6473,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeGetEmissionClassResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_getEmissionClassResponse")
     public JAXBElement<VehicletypeGetEmissionClassResponse> createVehicletypeGetEmissionClassResponse(VehicletypeGetEmissionClassResponse value) {
@@ -6464,7 +6482,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneGetWaitingTimeResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_getWaitingTimeResponse")
     public JAXBElement<LaneGetWaitingTimeResponse> createLaneGetWaitingTimeResponse(LaneGetWaitingTimeResponse value) {
@@ -6473,7 +6491,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetTypeIDResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getTypeIDResponse")
     public JAXBElement<VehicleGetTypeIDResponse> createVehicleGetTypeIDResponse(VehicleGetTypeIDResponse value) {
@@ -6482,7 +6500,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GUIGetBoundary }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "GUI_getBoundary")
     public JAXBElement<GUIGetBoundary> createGUIGetBoundary(GUIGetBoundary value) {
@@ -6491,7 +6509,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeGetMinGapResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_getMinGapResponse")
     public JAXBElement<VehicletypeGetMinGapResponse> createVehicletypeGetMinGapResponse(VehicletypeGetMinGapResponse value) {
@@ -6500,7 +6518,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeGetShapeClass }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_getShapeClass")
     public JAXBElement<VehicletypeGetShapeClass> createVehicletypeGetShapeClass(VehicletypeGetShapeClass value) {
@@ -6509,7 +6527,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationGetStopEndingVehiclesIDList }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_getStopEndingVehiclesIDList")
     public JAXBElement<SimulationGetStopEndingVehiclesIDList> createSimulationGetStopEndingVehiclesIDList(SimulationGetStopEndingVehiclesIDList value) {
@@ -6518,7 +6536,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PolygonGetShapeResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Polygon_getShapeResponse")
     public JAXBElement<PolygonGetShapeResponse> createPolygonGetShapeResponse(PolygonGetShapeResponse value) {
@@ -6527,7 +6545,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationGetEndingTeleportIDList }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_getEndingTeleportIDList")
     public JAXBElement<SimulationGetEndingTeleportIDList> createSimulationGetEndingTeleportIDList(SimulationGetEndingTeleportIDList value) {
@@ -6536,7 +6554,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link TrafficlightsSetCompleteRedYellowGreenDefinitionResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Trafficlights_setCompleteRedYellowGreenDefinitionResponse")
     public JAXBElement<TrafficlightsSetCompleteRedYellowGreenDefinitionResponse> createTrafficlightsSetCompleteRedYellowGreenDefinitionResponse(TrafficlightsSetCompleteRedYellowGreenDefinitionResponse value) {
@@ -6545,7 +6563,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationConvertRoad }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_convertRoad")
     public JAXBElement<SimulationConvertRoad> createSimulationConvertRoad(SimulationConvertRoad value) {
@@ -6554,7 +6572,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GUIScreenshotResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "GUI_screenshotResponse")
     public JAXBElement<GUIScreenshotResponse> createGUIScreenshotResponse(GUIScreenshotResponse value) {
@@ -6563,7 +6581,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleMoveToResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_moveToResponse")
     public JAXBElement<VehicleMoveToResponse> createVehicleMoveToResponse(VehicleMoveToResponse value) {
@@ -6572,7 +6590,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationGetDistance2D }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_getDistance2D")
     public JAXBElement<SimulationGetDistance2D> createSimulationGetDistance2D(SimulationGetDistance2D value) {
@@ -6581,7 +6599,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationGetParkingStartingVehiclesNumber }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_getParkingStartingVehiclesNumber")
     public JAXBElement<SimulationGetParkingStartingVehiclesNumber> createSimulationGetParkingStartingVehiclesNumber(SimulationGetParkingStartingVehiclesNumber value) {
@@ -6590,7 +6608,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link EdgeGetCO2Emission }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Edge_getCO2Emission")
     public JAXBElement<EdgeGetCO2Emission> createEdgeGetCO2Emission(EdgeGetCO2Emission value) {
@@ -6599,7 +6617,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeGetColor }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_getColor")
     public JAXBElement<VehicletypeGetColor> createVehicletypeGetColor(VehicletypeGetColor value) {
@@ -6608,7 +6626,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link EdgeGetNOxEmission }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Edge_getNOxEmission")
     public JAXBElement<EdgeGetNOxEmission> createEdgeGetNOxEmission(EdgeGetNOxEmission value) {
@@ -6617,7 +6635,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneSetLengthResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_setLengthResponse")
     public JAXBElement<LaneSetLengthResponse> createLaneSetLengthResponse(LaneSetLengthResponse value) {
@@ -6626,7 +6644,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PolygonSetType }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Polygon_setType")
     public JAXBElement<PolygonSetType> createPolygonSetType(PolygonSetType value) {
@@ -6635,7 +6653,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationGetLoadedIDList }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_getLoadedIDList")
     public JAXBElement<SimulationGetLoadedIDList> createSimulationGetLoadedIDList(SimulationGetLoadedIDList value) {
@@ -6644,7 +6662,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleSetDecelResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_setDecelResponse")
     public JAXBElement<VehicleSetDecelResponse> createVehicleSetDecelResponse(VehicleSetDecelResponse value) {
@@ -6653,7 +6671,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeSetColorResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_setColorResponse")
     public JAXBElement<VehicletypeSetColorResponse> createVehicletypeSetColorResponse(VehicletypeSetColorResponse value) {
@@ -6662,7 +6680,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetSpeedWithoutTraCIResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getSpeedWithoutTraCIResponse")
     public JAXBElement<VehicleGetSpeedWithoutTraCIResponse> createVehicleGetSpeedWithoutTraCIResponse(VehicleGetSpeedWithoutTraCIResponse value) {
@@ -6671,7 +6689,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationGetDeltaTResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_getDeltaTResponse")
     public JAXBElement<SimulationGetDeltaTResponse> createSimulationGetDeltaTResponse(SimulationGetDeltaTResponse value) {
@@ -6680,7 +6698,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetImperfection }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getImperfection")
     public JAXBElement<VehicleGetImperfection> createVehicleGetImperfection(VehicleGetImperfection value) {
@@ -6689,7 +6707,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link InductionloopGetLaneID }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Inductionloop_getLaneID")
     public JAXBElement<InductionloopGetLaneID> createInductionloopGetLaneID(InductionloopGetLaneID value) {
@@ -6698,7 +6716,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link TrafficlightsGetNextSwitchResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Trafficlights_getNextSwitchResponse")
     public JAXBElement<TrafficlightsGetNextSwitchResponse> createTrafficlightsGetNextSwitchResponse(TrafficlightsGetNextSwitchResponse value) {
@@ -6707,7 +6725,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PolygonRemoveResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Polygon_removeResponse")
     public JAXBElement<PolygonRemoveResponse> createPolygonRemoveResponse(PolygonRemoveResponse value) {
@@ -6716,7 +6734,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationGetDepartedIDList }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_getDepartedIDList")
     public JAXBElement<SimulationGetDepartedIDList> createSimulationGetDepartedIDList(SimulationGetDepartedIDList value) {
@@ -6725,7 +6743,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneGetElectricityConsumptionResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_getElectricityConsumptionResponse")
     public JAXBElement<LaneGetElectricityConsumptionResponse> createLaneGetElectricityConsumptionResponse(LaneGetElectricityConsumptionResponse value) {
@@ -6734,7 +6752,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleSetAdaptedTraveltimeResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_setAdaptedTraveltimeResponse")
     public JAXBElement<VehicleSetAdaptedTraveltimeResponse> createVehicleSetAdaptedTraveltimeResponse(VehicleSetAdaptedTraveltimeResponse value) {
@@ -6743,7 +6761,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationGetMinExpectedNumberResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_getMinExpectedNumberResponse")
     public JAXBElement<SimulationGetMinExpectedNumberResponse> createSimulationGetMinExpectedNumberResponse(SimulationGetMinExpectedNumberResponse value) {
@@ -6752,7 +6770,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneGetLengthResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_getLengthResponse")
     public JAXBElement<LaneGetLengthResponse> createLaneGetLengthResponse(LaneGetLengthResponse value) {
@@ -6761,7 +6779,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneSetMaxSpeedResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_setMaxSpeedResponse")
     public JAXBElement<LaneSetMaxSpeedResponse> createLaneSetMaxSpeedResponse(LaneSetMaxSpeedResponse value) {
@@ -6770,7 +6788,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationGetStopEndingVehiclesNumber }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_getStopEndingVehiclesNumber")
     public JAXBElement<SimulationGetStopEndingVehiclesNumber> createSimulationGetStopEndingVehiclesNumber(SimulationGetStopEndingVehiclesNumber value) {
@@ -6779,7 +6797,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetPosition3D }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getPosition3D")
     public JAXBElement<VehicleGetPosition3D> createVehicleGetPosition3D(VehicleGetPosition3D value) {
@@ -6788,7 +6806,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneGetNoiseEmission }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_getNoiseEmission")
     public JAXBElement<LaneGetNoiseEmission> createLaneGetNoiseEmission(LaneGetNoiseEmission value) {
@@ -6797,7 +6815,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleSetMinGap }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_setMinGap")
     public JAXBElement<VehicleSetMinGap> createVehicleSetMinGap(VehicleSetMinGap value) {
@@ -6806,7 +6824,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeGetVehicleClassResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_getVehicleClassResponse")
     public JAXBElement<VehicletypeGetVehicleClassResponse> createVehicletypeGetVehicleClassResponse(VehicletypeGetVehicleClassResponse value) {
@@ -6815,7 +6833,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link InductionloopGetPosition }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Inductionloop_getPosition")
     public JAXBElement<InductionloopGetPosition> createInductionloopGetPosition(InductionloopGetPosition value) {
@@ -6824,7 +6842,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetFuelConsumptionResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getFuelConsumptionResponse")
     public JAXBElement<VehicleGetFuelConsumptionResponse> createVehicleGetFuelConsumptionResponse(VehicleGetFuelConsumptionResponse value) {
@@ -6833,7 +6851,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link ArealDetectorGetLastStepOccupancy }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "ArealDetector_getLastStepOccupancy")
     public JAXBElement<ArealDetectorGetLastStepOccupancy> createArealDetectorGetLastStepOccupancy(ArealDetectorGetLastStepOccupancy value) {
@@ -6842,7 +6860,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PersonGetMinGap }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Person_getMinGap")
     public JAXBElement<PersonGetMinGap> createPersonGetMinGap(PersonGetMinGap value) {
@@ -6851,7 +6869,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleSetWidth }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_setWidth")
     public JAXBElement<VehicleSetWidth> createVehicleSetWidth(VehicleSetWidth value) {
@@ -6860,7 +6878,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PoiRemoveResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Poi_removeResponse")
     public JAXBElement<PoiRemoveResponse> createPoiRemoveResponse(PoiRemoveResponse value) {
@@ -6869,7 +6887,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PolygonSetColorResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Polygon_setColorResponse")
     public JAXBElement<PolygonSetColorResponse> createPolygonSetColorResponse(PolygonSetColorResponse value) {
@@ -6878,7 +6896,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link DoTimestep }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "doTimestep")
     public JAXBElement<DoTimestep> createDoTimestep(DoTimestep value) {
@@ -6887,7 +6905,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationGetLoadedNumberResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_getLoadedNumberResponse")
     public JAXBElement<SimulationGetLoadedNumberResponse> createSimulationGetLoadedNumberResponse(SimulationGetLoadedNumberResponse value) {
@@ -6896,7 +6914,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link InductionloopGetVehicleDataResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Inductionloop_getVehicleDataResponse")
     public JAXBElement<InductionloopGetVehicleDataResponse> createInductionloopGetVehicleDataResponse(InductionloopGetVehicleDataResponse value) {
@@ -6905,7 +6923,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link EdgeGetLastStepOccupancyResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Edge_getLastStepOccupancyResponse")
     public JAXBElement<EdgeGetLastStepOccupancyResponse> createEdgeGetLastStepOccupancyResponse(EdgeGetLastStepOccupancyResponse value) {
@@ -6914,7 +6932,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleSetSpeedResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_setSpeedResponse")
     public JAXBElement<VehicleSetSpeedResponse> createVehicleSetSpeedResponse(VehicleSetSpeedResponse value) {
@@ -6923,7 +6941,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationGetParkingEndingVehiclesIDListResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_getParkingEndingVehiclesIDListResponse")
     public JAXBElement<SimulationGetParkingEndingVehiclesIDListResponse> createSimulationGetParkingEndingVehiclesIDListResponse(SimulationGetParkingEndingVehiclesIDListResponse value) {
@@ -6932,7 +6950,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetDrivingDistanceResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getDrivingDistanceResponse")
     public JAXBElement<VehicleGetDrivingDistanceResponse> createVehicleGetDrivingDistanceResponse(VehicleGetDrivingDistanceResponse value) {
@@ -6941,7 +6959,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link EdgeAdaptTraveltimeResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Edge_adaptTraveltimeResponse")
     public JAXBElement<EdgeAdaptTraveltimeResponse> createEdgeAdaptTraveltimeResponse(EdgeAdaptTraveltimeResponse value) {
@@ -6950,7 +6968,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneGetLastStepVehicleNumberResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_getLastStepVehicleNumberResponse")
     public JAXBElement<LaneGetLastStepVehicleNumberResponse> createLaneGetLastStepVehicleNumberResponse(LaneGetLastStepVehicleNumberResponse value) {
@@ -6959,7 +6977,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneGetTraveltimeResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_getTraveltimeResponse")
     public JAXBElement<LaneGetTraveltimeResponse> createLaneGetTraveltimeResponse(LaneGetTraveltimeResponse value) {
@@ -6968,7 +6986,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetHCEmission }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getHCEmission")
     public JAXBElement<VehicleGetHCEmission> createVehicleGetHCEmission(VehicleGetHCEmission value) {
@@ -6977,7 +6995,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link MultientryexitGetIDListResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Multientryexit_getIDListResponse")
     public JAXBElement<MultientryexitGetIDListResponse> createMultientryexitGetIDListResponse(MultientryexitGetIDListResponse value) {
@@ -6986,7 +7004,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link InductionloopGetPositionResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Inductionloop_getPositionResponse")
     public JAXBElement<InductionloopGetPositionResponse> createInductionloopGetPositionResponse(InductionloopGetPositionResponse value) {
@@ -6995,7 +7013,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SetSumoBinary }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "setSumoBinary")
     public JAXBElement<SetSumoBinary> createSetSumoBinary(SetSumoBinary value) {
@@ -7004,7 +7022,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link TrafficlightsSetPhaseDuration }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Trafficlights_setPhaseDuration")
     public JAXBElement<TrafficlightsSetPhaseDuration> createTrafficlightsSetPhaseDuration(TrafficlightsSetPhaseDuration value) {
@@ -7013,7 +7031,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeSetEmissionClassResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_setEmissionClassResponse")
     public JAXBElement<VehicletypeSetEmissionClassResponse> createVehicletypeSetEmissionClassResponse(VehicletypeSetEmissionClassResponse value) {
@@ -7022,7 +7040,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link ArealDetectorGetJamLengthVehicle }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "ArealDetector_getJamLengthVehicle")
     public JAXBElement<ArealDetectorGetJamLengthVehicle> createArealDetectorGetJamLengthVehicle(ArealDetectorGetJamLengthVehicle value) {
@@ -7031,7 +7049,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link MultientryexitGetIDCountResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Multientryexit_getIDCountResponse")
     public JAXBElement<MultientryexitGetIDCountResponse> createMultientryexitGetIDCountResponse(MultientryexitGetIDCountResponse value) {
@@ -7040,7 +7058,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationGetBusStopWaitingResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_getBusStopWaitingResponse")
     public JAXBElement<SimulationGetBusStopWaitingResponse> createSimulationGetBusStopWaitingResponse(SimulationGetBusStopWaitingResponse value) {
@@ -7049,7 +7067,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link InductionloopGetLastStepVehicleNumberResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Inductionloop_getLastStepVehicleNumberResponse")
     public JAXBElement<InductionloopGetLastStepVehicleNumberResponse> createInductionloopGetLastStepVehicleNumberResponse(InductionloopGetLastStepVehicleNumberResponse value) {
@@ -7058,7 +7076,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetEffort }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getEffort")
     public JAXBElement<VehicleGetEffort> createVehicleGetEffort(VehicleGetEffort value) {
@@ -7067,7 +7085,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PersonGetWaitingTimeResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Person_getWaitingTimeResponse")
     public JAXBElement<PersonGetWaitingTimeResponse> createPersonGetWaitingTimeResponse(PersonGetWaitingTimeResponse value) {
@@ -7076,7 +7094,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneGetPMxEmission }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_getPMxEmission")
     public JAXBElement<LaneGetPMxEmission> createLaneGetPMxEmission(LaneGetPMxEmission value) {
@@ -7085,7 +7103,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PoiSetColorResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Poi_setColorResponse")
     public JAXBElement<PoiSetColorResponse> createPoiSetColorResponse(PoiSetColorResponse value) {
@@ -7094,7 +7112,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetCOEmission }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getCOEmission")
     public JAXBElement<VehicleGetCOEmission> createVehicleGetCOEmission(VehicleGetCOEmission value) {
@@ -7103,7 +7121,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationConvert2DResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_convert2DResponse")
     public JAXBElement<SimulationConvert2DResponse> createSimulationConvert2DResponse(SimulationConvert2DResponse value) {
@@ -7112,7 +7130,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleSetDecel }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_setDecel")
     public JAXBElement<VehicleSetDecel> createVehicleSetDecel(VehicleSetDecel value) {
@@ -7121,7 +7139,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetBestLanesResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getBestLanesResponse")
     public JAXBElement<VehicleGetBestLanesResponse> createVehicleGetBestLanesResponse(VehicleGetBestLanesResponse value) {
@@ -7130,7 +7148,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeGetShapeClassResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_getShapeClassResponse")
     public JAXBElement<VehicletypeGetShapeClassResponse> createVehicletypeGetShapeClassResponse(VehicletypeGetShapeClassResponse value) {
@@ -7139,7 +7157,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PoiGetIDList }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Poi_getIDList")
     public JAXBElement<PoiGetIDList> createPoiGetIDList(PoiGetIDList value) {
@@ -7148,7 +7166,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleRerouteEffortResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_rerouteEffortResponse")
     public JAXBElement<VehicleRerouteEffortResponse> createVehicleRerouteEffortResponse(VehicleRerouteEffortResponse value) {
@@ -7157,7 +7175,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetAngleResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getAngleResponse")
     public JAXBElement<VehicleGetAngleResponse> createVehicleGetAngleResponse(VehicleGetAngleResponse value) {
@@ -7166,7 +7184,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SetSumoBinaryResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "setSumoBinaryResponse")
     public JAXBElement<SetSumoBinaryResponse> createSetSumoBinaryResponse(SetSumoBinaryResponse value) {
@@ -7175,7 +7193,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link TrafficlightsGetControlledLanesResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Trafficlights_getControlledLanesResponse")
     public JAXBElement<TrafficlightsGetControlledLanesResponse> createTrafficlightsGetControlledLanesResponse(TrafficlightsGetControlledLanesResponse value) {
@@ -7184,7 +7202,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeSetTauResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_setTauResponse")
     public JAXBElement<VehicletypeSetTauResponse> createVehicletypeSetTauResponse(VehicletypeSetTauResponse value) {
@@ -7193,7 +7211,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeSetTau }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_setTau")
     public JAXBElement<VehicletypeSetTau> createVehicletypeSetTau(VehicletypeSetTau value) {
@@ -7202,7 +7220,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PolygonGetIDCount }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Polygon_getIDCount")
     public JAXBElement<PolygonGetIDCount> createPolygonGetIDCount(PolygonGetIDCount value) {
@@ -7211,7 +7229,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetVehicleClass }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getVehicleClass")
     public JAXBElement<VehicleGetVehicleClass> createVehicleGetVehicleClass(VehicleGetVehicleClass value) {
@@ -7220,7 +7238,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link EdgeGetLastStepHaltingNumberResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Edge_getLastStepHaltingNumberResponse")
     public JAXBElement<EdgeGetLastStepHaltingNumberResponse> createEdgeGetLastStepHaltingNumberResponse(EdgeGetLastStepHaltingNumberResponse value) {
@@ -7229,7 +7247,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationGetArrivedNumberResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_getArrivedNumberResponse")
     public JAXBElement<SimulationGetArrivedNumberResponse> createSimulationGetArrivedNumberResponse(SimulationGetArrivedNumberResponse value) {
@@ -7238,7 +7256,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationGetParkingStartingVehiclesNumberResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_getParkingStartingVehiclesNumberResponse")
     public JAXBElement<SimulationGetParkingStartingVehiclesNumberResponse> createSimulationGetParkingStartingVehiclesNumberResponse(SimulationGetParkingStartingVehiclesNumberResponse value) {
@@ -7247,7 +7265,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetDecel }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getDecel")
     public JAXBElement<VehicleGetDecel> createVehicleGetDecel(VehicleGetDecel value) {
@@ -7256,7 +7274,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GUISetOffsetResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "GUI_setOffsetResponse")
     public JAXBElement<GUISetOffsetResponse> createGUISetOffsetResponse(GUISetOffsetResponse value) {
@@ -7265,7 +7283,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PolygonSetTypeResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Polygon_setTypeResponse")
     public JAXBElement<PolygonSetTypeResponse> createPolygonSetTypeResponse(PolygonSetTypeResponse value) {
@@ -7274,7 +7292,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneGetLastStepOccupancy }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_getLastStepOccupancy")
     public JAXBElement<LaneGetLastStepOccupancy> createLaneGetLastStepOccupancy(LaneGetLastStepOccupancy value) {
@@ -7283,7 +7301,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeGetIDCount }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_getIDCount")
     public JAXBElement<VehicletypeGetIDCount> createVehicletypeGetIDCount(VehicletypeGetIDCount value) {
@@ -7292,7 +7310,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetAdaptedTraveltimeResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getAdaptedTraveltimeResponse")
     public JAXBElement<VehicleGetAdaptedTraveltimeResponse> createVehicleGetAdaptedTraveltimeResponse(VehicleGetAdaptedTraveltimeResponse value) {
@@ -7301,7 +7319,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link RouteGetIDListResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Route_getIDListResponse")
     public JAXBElement<RouteGetIDListResponse> createRouteGetIDListResponse(RouteGetIDListResponse value) {
@@ -7310,7 +7328,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetAllowedSpeed }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getAllowedSpeed")
     public JAXBElement<VehicleGetAllowedSpeed> createVehicleGetAllowedSpeed(VehicleGetAllowedSpeed value) {
@@ -7319,7 +7337,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link JunctionGetPositionResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Junction_getPositionResponse")
     public JAXBElement<JunctionGetPositionResponse> createJunctionGetPositionResponse(JunctionGetPositionResponse value) {
@@ -7328,7 +7346,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link EdgeGetIDListResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Edge_getIDListResponse")
     public JAXBElement<EdgeGetIDListResponse> createEdgeGetIDListResponse(EdgeGetIDListResponse value) {
@@ -7337,7 +7355,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GUIGetZoomResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "GUI_getZoomResponse")
     public JAXBElement<GUIGetZoomResponse> createGUIGetZoomResponse(GUIGetZoomResponse value) {
@@ -7346,7 +7364,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationGetCurrentTime }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_getCurrentTime")
     public JAXBElement<SimulationGetCurrentTime> createSimulationGetCurrentTime(SimulationGetCurrentTime value) {
@@ -7355,7 +7373,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PersonGetRoadIDResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Person_getRoadIDResponse")
     public JAXBElement<PersonGetRoadIDResponse> createPersonGetRoadIDResponse(PersonGetRoadIDResponse value) {
@@ -7364,7 +7382,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationGetStopStartingVehiclesNumber }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_getStopStartingVehiclesNumber")
     public JAXBElement<SimulationGetStopStartingVehiclesNumber> createSimulationGetStopStartingVehiclesNumber(SimulationGetStopStartingVehiclesNumber value) {
@@ -7373,7 +7391,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeGetSpeedDeviationResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_getSpeedDeviationResponse")
     public JAXBElement<VehicletypeGetSpeedDeviationResponse> createVehicletypeGetSpeedDeviationResponse(VehicletypeGetSpeedDeviationResponse value) {
@@ -7382,7 +7400,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link EdgeGetCOEmissionResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Edge_getCOEmissionResponse")
     public JAXBElement<EdgeGetCOEmissionResponse> createEdgeGetCOEmissionResponse(EdgeGetCOEmissionResponse value) {
@@ -7391,7 +7409,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneGetLength }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_getLength")
     public JAXBElement<LaneGetLength> createLaneGetLength(LaneGetLength value) {
@@ -7400,7 +7418,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetSignals }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getSignals")
     public JAXBElement<VehicleGetSignals> createVehicleGetSignals(VehicleGetSignals value) {
@@ -7409,7 +7427,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeGetImperfection }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_getImperfection")
     public JAXBElement<VehicletypeGetImperfection> createVehicletypeGetImperfection(VehicletypeGetImperfection value) {
@@ -7418,7 +7436,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PersonGetPosition }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Person_getPosition")
     public JAXBElement<PersonGetPosition> createPersonGetPosition(PersonGetPosition value) {
@@ -7427,7 +7445,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link TrafficlightsGetIDList }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Trafficlights_getIDList")
     public JAXBElement<TrafficlightsGetIDList> createTrafficlightsGetIDList(TrafficlightsGetIDList value) {
@@ -7436,7 +7454,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneGetHCEmissionResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_getHCEmissionResponse")
     public JAXBElement<LaneGetHCEmissionResponse> createLaneGetHCEmissionResponse(LaneGetHCEmissionResponse value) {
@@ -7445,7 +7463,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link MultientryexitGetLastStepVehicleNumber }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Multientryexit_getLastStepVehicleNumber")
     public JAXBElement<MultientryexitGetLastStepVehicleNumber> createMultientryexitGetLastStepVehicleNumber(MultientryexitGetLastStepVehicleNumber value) {
@@ -7454,7 +7472,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link MultientryexitGetLastStepVehicleNumberResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Multientryexit_getLastStepVehicleNumberResponse")
     public JAXBElement<MultientryexitGetLastStepVehicleNumberResponse> createMultientryexitGetLastStepVehicleNumberResponse(MultientryexitGetLastStepVehicleNumberResponse value) {
@@ -7463,7 +7481,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link MultientryexitGetLastStepVehicleIDsResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Multientryexit_getLastStepVehicleIDsResponse")
     public JAXBElement<MultientryexitGetLastStepVehicleIDsResponse> createMultientryexitGetLastStepVehicleIDsResponse(MultientryexitGetLastStepVehicleIDsResponse value) {
@@ -7472,7 +7490,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GUIGetOffsetResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "GUI_getOffsetResponse")
     public JAXBElement<GUIGetOffsetResponse> createGUIGetOffsetResponse(GUIGetOffsetResponse value) {
@@ -7481,7 +7499,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationGetMinExpectedNumber }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_getMinExpectedNumber")
     public JAXBElement<SimulationGetMinExpectedNumber> createSimulationGetMinExpectedNumber(SimulationGetMinExpectedNumber value) {
@@ -7490,7 +7508,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeSetShapeClass }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_setShapeClass")
     public JAXBElement<VehicletypeSetShapeClass> createVehicletypeSetShapeClass(VehicletypeSetShapeClass value) {
@@ -7499,7 +7517,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneGetLastStepLength }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_getLastStepLength")
     public JAXBElement<LaneGetLastStepLength> createLaneGetLastStepLength(LaneGetLastStepLength value) {
@@ -7508,7 +7526,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link EdgeGetFuelConsumptionResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Edge_getFuelConsumptionResponse")
     public JAXBElement<EdgeGetFuelConsumptionResponse> createEdgeGetFuelConsumptionResponse(EdgeGetFuelConsumptionResponse value) {
@@ -7517,7 +7535,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeGetIDCountResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_getIDCountResponse")
     public JAXBElement<VehicletypeGetIDCountResponse> createVehicletypeGetIDCountResponse(VehicletypeGetIDCountResponse value) {
@@ -7526,7 +7544,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneSetDisallowedResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_setDisallowedResponse")
     public JAXBElement<LaneSetDisallowedResponse> createLaneSetDisallowedResponse(LaneSetDisallowedResponse value) {
@@ -7535,7 +7553,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleSetShapeClassResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_setShapeClassResponse")
     public JAXBElement<VehicleSetShapeClassResponse> createVehicleSetShapeClassResponse(VehicleSetShapeClassResponse value) {
@@ -7544,7 +7562,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PersonGetIDCountResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Person_getIDCountResponse")
     public JAXBElement<PersonGetIDCountResponse> createPersonGetIDCountResponse(PersonGetIDCountResponse value) {
@@ -7553,7 +7571,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleResume }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_resume")
     public JAXBElement<VehicleResume> createVehicleResume(VehicleResume value) {
@@ -7562,7 +7580,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeSetMaxSpeedResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_setMaxSpeedResponse")
     public JAXBElement<VehicletypeSetMaxSpeedResponse> createVehicletypeSetMaxSpeedResponse(VehicletypeSetMaxSpeedResponse value) {
@@ -7571,7 +7589,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PolygonGetIDListResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Polygon_getIDListResponse")
     public JAXBElement<PolygonGetIDListResponse> createPolygonGetIDListResponse(PolygonGetIDListResponse value) {
@@ -7580,7 +7598,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneGetTraveltime }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_getTraveltime")
     public JAXBElement<LaneGetTraveltime> createLaneGetTraveltime(LaneGetTraveltime value) {
@@ -7589,7 +7607,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetIDCount }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getIDCount")
     public JAXBElement<VehicleGetIDCount> createVehicleGetIDCount(VehicleGetIDCount value) {
@@ -7598,7 +7616,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationGetArrivedNumber }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_getArrivedNumber")
     public JAXBElement<SimulationGetArrivedNumber> createSimulationGetArrivedNumber(SimulationGetArrivedNumber value) {
@@ -7607,7 +7625,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneGetAllowedResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_getAllowedResponse")
     public JAXBElement<LaneGetAllowedResponse> createLaneGetAllowedResponse(LaneGetAllowedResponse value) {
@@ -7616,7 +7634,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link MultientryexitGetLastStepHaltingNumber }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Multientryexit_getLastStepHaltingNumber")
     public JAXBElement<MultientryexitGetLastStepHaltingNumber> createMultientryexitGetLastStepHaltingNumber(MultientryexitGetLastStepHaltingNumber value) {
@@ -7625,7 +7643,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneGetWaitingTime }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_getWaitingTime")
     public JAXBElement<LaneGetWaitingTime> createLaneGetWaitingTime(LaneGetWaitingTime value) {
@@ -7634,7 +7652,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link TrafficlightsSetProgramResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Trafficlights_setProgramResponse")
     public JAXBElement<TrafficlightsSetProgramResponse> createTrafficlightsSetProgramResponse(TrafficlightsSetProgramResponse value) {
@@ -7643,7 +7661,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleSetStop }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_setStop")
     public JAXBElement<VehicleSetStop> createVehicleSetStop(VehicleSetStop value) {
@@ -7652,7 +7670,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link InductionloopGetIDList }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Inductionloop_getIDList")
     public JAXBElement<InductionloopGetIDList> createInductionloopGetIDList(InductionloopGetIDList value) {
@@ -7661,7 +7679,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneGetLastStepVehicleNumber }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_getLastStepVehicleNumber")
     public JAXBElement<LaneGetLastStepVehicleNumber> createLaneGetLastStepVehicleNumber(LaneGetLastStepVehicleNumber value) {
@@ -7670,7 +7688,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link TrafficlightsSetPhaseDurationResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Trafficlights_setPhaseDurationResponse")
     public JAXBElement<TrafficlightsSetPhaseDurationResponse> createTrafficlightsSetPhaseDurationResponse(TrafficlightsSetPhaseDurationResponse value) {
@@ -7679,7 +7697,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneGetWidth }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_getWidth")
     public JAXBElement<LaneGetWidth> createLaneGetWidth(LaneGetWidth value) {
@@ -7688,7 +7706,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationGetEndingTeleportNumberResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_getEndingTeleportNumberResponse")
     public JAXBElement<SimulationGetEndingTeleportNumberResponse> createSimulationGetEndingTeleportNumberResponse(SimulationGetEndingTeleportNumberResponse value) {
@@ -7697,7 +7715,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleChangeTargetResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_changeTargetResponse")
     public JAXBElement<VehicleChangeTargetResponse> createVehicleChangeTargetResponse(VehicleChangeTargetResponse value) {
@@ -7706,7 +7724,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleSetEmissionClass }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_setEmissionClass")
     public JAXBElement<VehicleSetEmissionClass> createVehicleSetEmissionClass(VehicleSetEmissionClass value) {
@@ -7715,7 +7733,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link EdgeGetIDCount }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Edge_getIDCount")
     public JAXBElement<EdgeGetIDCount> createEdgeGetIDCount(EdgeGetIDCount value) {
@@ -7724,7 +7742,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetSpeedDeviationResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getSpeedDeviationResponse")
     public JAXBElement<VehicleGetSpeedDeviationResponse> createVehicleGetSpeedDeviationResponse(VehicleGetSpeedDeviationResponse value) {
@@ -7733,7 +7751,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleRemoveResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_removeResponse")
     public JAXBElement<VehicleRemoveResponse> createVehicleRemoveResponse(VehicleRemoveResponse value) {
@@ -7742,7 +7760,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetCO2Emission }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getCO2Emission")
     public JAXBElement<VehicleGetCO2Emission> createVehicleGetCO2Emission(VehicleGetCO2Emission value) {
@@ -7751,7 +7769,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleRerouteTraveltime }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_rerouteTraveltime")
     public JAXBElement<VehicleRerouteTraveltime> createVehicleRerouteTraveltime(VehicleRerouteTraveltime value) {
@@ -7760,7 +7778,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetElectricityConsumption }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getElectricityConsumption")
     public JAXBElement<VehicleGetElectricityConsumption> createVehicleGetElectricityConsumption(VehicleGetElectricityConsumption value) {
@@ -7769,7 +7787,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetFuelConsumption }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getFuelConsumption")
     public JAXBElement<VehicleGetFuelConsumption> createVehicleGetFuelConsumption(VehicleGetFuelConsumption value) {
@@ -7778,7 +7796,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PoiSetType }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Poi_setType")
     public JAXBElement<PoiSetType> createPoiSetType(PoiSetType value) {
@@ -7787,7 +7805,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleSetTypeResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_setTypeResponse")
     public JAXBElement<VehicleSetTypeResponse> createVehicleSetTypeResponse(VehicleSetTypeResponse value) {
@@ -7796,7 +7814,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link EdgeGetTraveltimeResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Edge_getTraveltimeResponse")
     public JAXBElement<EdgeGetTraveltimeResponse> createEdgeGetTraveltimeResponse(EdgeGetTraveltimeResponse value) {
@@ -7805,7 +7823,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link RouteGetIDList }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Route_getIDList")
     public JAXBElement<RouteGetIDList> createRouteGetIDList(RouteGetIDList value) {
@@ -7814,7 +7832,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetAngle }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getAngle")
     public JAXBElement<VehicleGetAngle> createVehicleGetAngle(VehicleGetAngle value) {
@@ -7823,7 +7841,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationConvert3D }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_convert3D")
     public JAXBElement<SimulationConvert3D> createSimulationConvert3D(SimulationConvert3D value) {
@@ -7832,7 +7850,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeGetWidth }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_getWidth")
     public JAXBElement<VehicletypeGetWidth> createVehicletypeGetWidth(VehicletypeGetWidth value) {
@@ -7841,7 +7859,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetBestLanes }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getBestLanes")
     public JAXBElement<VehicleGetBestLanes> createVehicleGetBestLanes(VehicleGetBestLanes value) {
@@ -7850,7 +7868,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link InductionloopGetLastStepMeanLength }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Inductionloop_getLastStepMeanLength")
     public JAXBElement<InductionloopGetLastStepMeanLength> createInductionloopGetLastStepMeanLength(InductionloopGetLastStepMeanLength value) {
@@ -7859,7 +7877,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link ArealDetectorGetLastStepOccupancyResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "ArealDetector_getLastStepOccupancyResponse")
     public JAXBElement<ArealDetectorGetLastStepOccupancyResponse> createArealDetectorGetLastStepOccupancyResponse(ArealDetectorGetLastStepOccupancyResponse value) {
@@ -7868,7 +7886,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link InductionloopGetIDCount }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Inductionloop_getIDCount")
     public JAXBElement<InductionloopGetIDCount> createInductionloopGetIDCount(InductionloopGetIDCount value) {
@@ -7877,7 +7895,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeGetImperfectionResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_getImperfectionResponse")
     public JAXBElement<VehicletypeGetImperfectionResponse> createVehicletypeGetImperfectionResponse(VehicletypeGetImperfectionResponse value) {
@@ -7886,7 +7904,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationConvertGeo }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_convertGeo")
     public JAXBElement<SimulationConvertGeo> createSimulationConvertGeo(SimulationConvertGeo value) {
@@ -7895,7 +7913,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleChangeLaneResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_changeLaneResponse")
     public JAXBElement<VehicleChangeLaneResponse> createVehicleChangeLaneResponse(VehicleChangeLaneResponse value) {
@@ -7904,7 +7922,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleSetEmissionClassResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_setEmissionClassResponse")
     public JAXBElement<VehicleSetEmissionClassResponse> createVehicleSetEmissionClassResponse(VehicleSetEmissionClassResponse value) {
@@ -7913,7 +7931,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link EdgeGetNoiseEmissionResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Edge_getNoiseEmissionResponse")
     public JAXBElement<EdgeGetNoiseEmissionResponse> createEdgeGetNoiseEmissionResponse(EdgeGetNoiseEmissionResponse value) {
@@ -7922,7 +7940,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link RouteGetEdgesResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Route_getEdgesResponse")
     public JAXBElement<RouteGetEdgesResponse> createRouteGetEdgesResponse(RouteGetEdgesResponse value) {
@@ -7931,7 +7949,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationGetStopEndingVehiclesIDListResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_getStopEndingVehiclesIDListResponse")
     public JAXBElement<SimulationGetStopEndingVehiclesIDListResponse> createSimulationGetStopEndingVehiclesIDListResponse(SimulationGetStopEndingVehiclesIDListResponse value) {
@@ -7940,7 +7958,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link TrafficlightsGetPhase }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Trafficlights_getPhase")
     public JAXBElement<TrafficlightsGetPhase> createTrafficlightsGetPhase(TrafficlightsGetPhase value) {
@@ -7949,7 +7967,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetNoiseEmission }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getNoiseEmission")
     public JAXBElement<VehicleGetNoiseEmission> createVehicleGetNoiseEmission(VehicleGetNoiseEmission value) {
@@ -7958,7 +7976,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneGetLastStepLengthResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_getLastStepLengthResponse")
     public JAXBElement<LaneGetLastStepLengthResponse> createLaneGetLastStepLengthResponse(LaneGetLastStepLengthResponse value) {
@@ -7967,7 +7985,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link TrafficlightsSetPhaseResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Trafficlights_setPhaseResponse")
     public JAXBElement<TrafficlightsSetPhaseResponse> createTrafficlightsSetPhaseResponse(TrafficlightsSetPhaseResponse value) {
@@ -7976,7 +7994,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GUITrackVehicle }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "GUI_trackVehicle")
     public JAXBElement<GUITrackVehicle> createGUITrackVehicle(GUITrackVehicle value) {
@@ -7985,7 +8003,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PersonGetIDCount }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Person_getIDCount")
     public JAXBElement<PersonGetIDCount> createPersonGetIDCount(PersonGetIDCount value) {
@@ -7994,7 +8012,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link EdgeGetLastStepOccupancy }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Edge_getLastStepOccupancy")
     public JAXBElement<EdgeGetLastStepOccupancy> createEdgeGetLastStepOccupancy(EdgeGetLastStepOccupancy value) {
@@ -8003,7 +8021,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationConvert2D }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_convert2D")
     public JAXBElement<SimulationConvert2D> createSimulationConvert2D(SimulationConvert2D value) {
@@ -8012,7 +8030,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleSetWidthResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_setWidthResponse")
     public JAXBElement<VehicleSetWidthResponse> createVehicleSetWidthResponse(VehicleSetWidthResponse value) {
@@ -8021,7 +8039,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link TrafficlightsGetIDListResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Trafficlights_getIDListResponse")
     public JAXBElement<TrafficlightsGetIDListResponse> createTrafficlightsGetIDListResponse(TrafficlightsGetIDListResponse value) {
@@ -8030,7 +8048,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link RouteGetEdges }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Route_getEdges")
     public JAXBElement<RouteGetEdges> createRouteGetEdges(RouteGetEdges value) {
@@ -8039,7 +8057,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetRouteResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getRouteResponse")
     public JAXBElement<VehicleGetRouteResponse> createVehicleGetRouteResponse(VehicleGetRouteResponse value) {
@@ -8048,7 +8066,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PoiSetColor }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Poi_setColor")
     public JAXBElement<PoiSetColor> createPoiSetColor(PoiSetColor value) {
@@ -8057,7 +8075,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PersonGetTypeIDResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Person_getTypeIDResponse")
     public JAXBElement<PersonGetTypeIDResponse> createPersonGetTypeIDResponse(PersonGetTypeIDResponse value) {
@@ -8066,7 +8084,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link EdgeGetElectricityConsumption }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Edge_getElectricityConsumption")
     public JAXBElement<EdgeGetElectricityConsumption> createEdgeGetElectricityConsumption(EdgeGetElectricityConsumption value) {
@@ -8075,7 +8093,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationGetDepartedIDListResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_getDepartedIDListResponse")
     public JAXBElement<SimulationGetDepartedIDListResponse> createSimulationGetDepartedIDListResponse(SimulationGetDepartedIDListResponse value) {
@@ -8084,7 +8102,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationGetNetBoundaryResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_getNetBoundaryResponse")
     public JAXBElement<SimulationGetNetBoundaryResponse> createSimulationGetNetBoundaryResponse(SimulationGetNetBoundaryResponse value) {
@@ -8093,7 +8111,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneGetLinkNumber }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_getLinkNumber")
     public JAXBElement<LaneGetLinkNumber> createLaneGetLinkNumber(LaneGetLinkNumber value) {
@@ -8102,7 +8120,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleSlowDownResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_slowDownResponse")
     public JAXBElement<VehicleSlowDownResponse> createVehicleSlowDownResponse(VehicleSlowDownResponse value) {
@@ -8111,7 +8129,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link EdgeGetLastStepVehicleIDsResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Edge_getLastStepVehicleIDsResponse")
     public JAXBElement<EdgeGetLastStepVehicleIDsResponse> createEdgeGetLastStepVehicleIDsResponse(EdgeGetLastStepVehicleIDsResponse value) {
@@ -8120,7 +8138,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PersonGetColor }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Person_getColor")
     public JAXBElement<PersonGetColor> createPersonGetColor(PersonGetColor value) {
@@ -8129,7 +8147,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link InductionloopGetIDCountResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Inductionloop_getIDCountResponse")
     public JAXBElement<InductionloopGetIDCountResponse> createInductionloopGetIDCountResponse(InductionloopGetIDCountResponse value) {
@@ -8138,7 +8156,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetCO2EmissionResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getCO2EmissionResponse")
     public JAXBElement<VehicleGetCO2EmissionResponse> createVehicleGetCO2EmissionResponse(VehicleGetCO2EmissionResponse value) {
@@ -8147,7 +8165,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link EdgeGetCO2EmissionResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Edge_getCO2EmissionResponse")
     public JAXBElement<EdgeGetCO2EmissionResponse> createEdgeGetCO2EmissionResponse(EdgeGetCO2EmissionResponse value) {
@@ -8156,7 +8174,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeGetMinGap }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_getMinGap")
     public JAXBElement<VehicletypeGetMinGap> createVehicletypeGetMinGap(VehicletypeGetMinGap value) {
@@ -8165,7 +8183,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link StopResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "stopResponse")
     public JAXBElement<StopResponse> createStopResponse(StopResponse value) {
@@ -8174,7 +8192,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeGetIDList }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_getIDList")
     public JAXBElement<VehicletypeGetIDList> createVehicletypeGetIDList(VehicletypeGetIDList value) {
@@ -8183,7 +8201,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetSpeedFactor }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getSpeedFactor")
     public JAXBElement<VehicleGetSpeedFactor> createVehicleGetSpeedFactor(VehicleGetSpeedFactor value) {
@@ -8192,7 +8210,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link ArealDetectorGetIDListResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "ArealDetector_getIDListResponse")
     public JAXBElement<ArealDetectorGetIDListResponse> createArealDetectorGetIDListResponse(ArealDetectorGetIDListResponse value) {
@@ -8201,7 +8219,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetLengthResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getLengthResponse")
     public JAXBElement<VehicleGetLengthResponse> createVehicleGetLengthResponse(VehicleGetLengthResponse value) {
@@ -8210,7 +8228,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleResumeResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_resumeResponse")
     public JAXBElement<VehicleResumeResponse> createVehicleResumeResponse(VehicleResumeResponse value) {
@@ -8219,7 +8237,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationGetParkingStartingVehiclesIDList }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_getParkingStartingVehiclesIDList")
     public JAXBElement<SimulationGetParkingStartingVehiclesIDList> createSimulationGetParkingStartingVehiclesIDList(SimulationGetParkingStartingVehiclesIDList value) {
@@ -8228,7 +8246,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneGetCO2EmissionResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_getCO2EmissionResponse")
     public JAXBElement<LaneGetCO2EmissionResponse> createLaneGetCO2EmissionResponse(LaneGetCO2EmissionResponse value) {
@@ -8237,7 +8255,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleSetLengthResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_setLengthResponse")
     public JAXBElement<VehicleSetLengthResponse> createVehicleSetLengthResponse(VehicleSetLengthResponse value) {
@@ -8246,7 +8264,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link EdgeGetLastStepMeanSpeed }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Edge_getLastStepMeanSpeed")
     public JAXBElement<EdgeGetLastStepMeanSpeed> createEdgeGetLastStepMeanSpeed(EdgeGetLastStepMeanSpeed value) {
@@ -8255,7 +8273,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetColorResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getColorResponse")
     public JAXBElement<VehicleGetColorResponse> createVehicleGetColorResponse(VehicleGetColorResponse value) {
@@ -8264,7 +8282,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetSpeedFactorResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getSpeedFactorResponse")
     public JAXBElement<VehicleGetSpeedFactorResponse> createVehicleGetSpeedFactorResponse(VehicleGetSpeedFactorResponse value) {
@@ -8273,7 +8291,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneGetShape }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_getShape")
     public JAXBElement<LaneGetShape> createLaneGetShape(LaneGetShape value) {
@@ -8282,7 +8300,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link MultientryexitGetIDCount }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Multientryexit_getIDCount")
     public JAXBElement<MultientryexitGetIDCount> createMultientryexitGetIDCount(MultientryexitGetIDCount value) {
@@ -8291,7 +8309,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneGetLinks }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_getLinks")
     public JAXBElement<LaneGetLinks> createLaneGetLinks(LaneGetLinks value) {
@@ -8300,7 +8318,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link TrafficlightsGetNextSwitch }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Trafficlights_getNextSwitch")
     public JAXBElement<TrafficlightsGetNextSwitch> createTrafficlightsGetNextSwitch(TrafficlightsGetNextSwitch value) {
@@ -8309,7 +8327,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetIDList }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getIDList")
     public JAXBElement<VehicleGetIDList> createVehicleGetIDList(VehicleGetIDList value) {
@@ -8318,7 +8336,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneGetShapeResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_getShapeResponse")
     public JAXBElement<LaneGetShapeResponse> createLaneGetShapeResponse(LaneGetShapeResponse value) {
@@ -8327,7 +8345,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationGetStopStartingVehiclesIDListResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_getStopStartingVehiclesIDListResponse")
     public JAXBElement<SimulationGetStopStartingVehiclesIDListResponse> createSimulationGetStopStartingVehiclesIDListResponse(SimulationGetStopStartingVehiclesIDListResponse value) {
@@ -8336,7 +8354,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneGetNoiseEmissionResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_getNoiseEmissionResponse")
     public JAXBElement<LaneGetNoiseEmissionResponse> createLaneGetNoiseEmissionResponse(LaneGetNoiseEmissionResponse value) {
@@ -8345,7 +8363,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PersonGetLanePositionResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Person_getLanePositionResponse")
     public JAXBElement<PersonGetLanePositionResponse> createPersonGetLanePositionResponse(PersonGetLanePositionResponse value) {
@@ -8354,7 +8372,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VersionResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "versionResponse")
     public JAXBElement<VersionResponse> createVersionResponse(VersionResponse value) {
@@ -8363,7 +8381,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetElectricityConsumptionResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getElectricityConsumptionResponse")
     public JAXBElement<VehicleGetElectricityConsumptionResponse> createVehicleGetElectricityConsumptionResponse(VehicleGetElectricityConsumptionResponse value) {
@@ -8372,7 +8390,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link EdgeSetEffort }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Edge_setEffort")
     public JAXBElement<EdgeSetEffort> createEdgeSetEffort(EdgeSetEffort value) {
@@ -8381,7 +8399,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneGetDisallowed }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_getDisallowed")
     public JAXBElement<LaneGetDisallowed> createLaneGetDisallowed(LaneGetDisallowed value) {
@@ -8390,7 +8408,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GUITrackVehicleResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "GUI_trackVehicleResponse")
     public JAXBElement<GUITrackVehicleResponse> createGUITrackVehicleResponse(GUITrackVehicleResponse value) {
@@ -8399,7 +8417,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneSetDisallowed }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_setDisallowed")
     public JAXBElement<LaneSetDisallowed> createLaneSetDisallowed(LaneSetDisallowed value) {
@@ -8408,7 +8426,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PersonGetLengthResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Person_getLengthResponse")
     public JAXBElement<PersonGetLengthResponse> createPersonGetLengthResponse(PersonGetLengthResponse value) {
@@ -8417,7 +8435,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link ArealDetectorGetJamLengthVehicleResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "ArealDetector_getJamLengthVehicleResponse")
     public JAXBElement<ArealDetectorGetJamLengthVehicleResponse> createArealDetectorGetJamLengthVehicleResponse(ArealDetectorGetJamLengthVehicleResponse value) {
@@ -8426,7 +8444,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleSetLength }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_setLength")
     public JAXBElement<VehicleSetLength> createVehicleSetLength(VehicleSetLength value) {
@@ -8435,7 +8453,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeGetSpeedFactor }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_getSpeedFactor")
     public JAXBElement<VehicletypeGetSpeedFactor> createVehicletypeGetSpeedFactor(VehicletypeGetSpeedFactor value) {
@@ -8444,7 +8462,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PolygonGetIDCountResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Polygon_getIDCountResponse")
     public JAXBElement<PolygonGetIDCountResponse> createPolygonGetIDCountResponse(PolygonGetIDCountResponse value) {
@@ -8453,7 +8471,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneSetAllowedResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_setAllowedResponse")
     public JAXBElement<LaneSetAllowedResponse> createLaneSetAllowedResponse(LaneSetAllowedResponse value) {
@@ -8462,7 +8480,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneGetLinksResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_getLinksResponse")
     public JAXBElement<LaneGetLinksResponse> createLaneGetLinksResponse(LaneGetLinksResponse value) {
@@ -8471,7 +8489,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link JunctionGetIDList }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Junction_getIDList")
     public JAXBElement<JunctionGetIDList> createJunctionGetIDList(JunctionGetIDList value) {
@@ -8480,7 +8498,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationConvertRoadResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_convertRoadResponse")
     public JAXBElement<SimulationConvertRoadResponse> createSimulationConvertRoadResponse(SimulationConvertRoadResponse value) {
@@ -8489,7 +8507,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link JunctionGetIDCountResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Junction_getIDCountResponse")
     public JAXBElement<JunctionGetIDCountResponse> createJunctionGetIDCountResponse(JunctionGetIDCountResponse value) {
@@ -8498,7 +8516,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneGetDisallowedResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_getDisallowedResponse")
     public JAXBElement<LaneGetDisallowedResponse> createLaneGetDisallowedResponse(LaneGetDisallowedResponse value) {
@@ -8507,7 +8525,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneGetEdgeID }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_getEdgeID")
     public JAXBElement<LaneGetEdgeID> createLaneGetEdgeID(LaneGetEdgeID value) {
@@ -8516,7 +8534,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneGetNOxEmissionResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_getNOxEmissionResponse")
     public JAXBElement<LaneGetNOxEmissionResponse> createLaneGetNOxEmissionResponse(LaneGetNOxEmissionResponse value) {
@@ -8525,7 +8543,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PoiGetTypeResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Poi_getTypeResponse")
     public JAXBElement<PoiGetTypeResponse> createPoiGetTypeResponse(PoiGetTypeResponse value) {
@@ -8534,7 +8552,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetEmissionClass }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getEmissionClass")
     public JAXBElement<VehicleGetEmissionClass> createVehicleGetEmissionClass(VehicleGetEmissionClass value) {
@@ -8543,7 +8561,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link EdgeGetCOEmission }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Edge_getCOEmission")
     public JAXBElement<EdgeGetCOEmission> createEdgeGetCOEmission(EdgeGetCOEmission value) {
@@ -8552,7 +8570,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeGetAccelResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_getAccelResponse")
     public JAXBElement<VehicletypeGetAccelResponse> createVehicletypeGetAccelResponse(VehicletypeGetAccelResponse value) {
@@ -8561,7 +8579,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link MultientryexitGetLastStepVehicleIDs }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Multientryexit_getLastStepVehicleIDs")
     public JAXBElement<MultientryexitGetLastStepVehicleIDs> createMultientryexitGetLastStepVehicleIDs(MultientryexitGetLastStepVehicleIDs value) {
@@ -8570,7 +8588,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleSetSpeed }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_setSpeed")
     public JAXBElement<VehicleSetSpeed> createVehicleSetSpeed(VehicleSetSpeed value) {
@@ -8579,7 +8597,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link TrafficlightsGetRedYellowGreenState }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Trafficlights_getRedYellowGreenState")
     public JAXBElement<TrafficlightsGetRedYellowGreenState> createTrafficlightsGetRedYellowGreenState(TrafficlightsGetRedYellowGreenState value) {
@@ -8588,7 +8606,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleChangeTarget }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_changeTarget")
     public JAXBElement<VehicleChangeTarget> createVehicleChangeTarget(VehicleChangeTarget value) {
@@ -8597,7 +8615,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GUIGetOffset }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "GUI_getOffset")
     public JAXBElement<GUIGetOffset> createGUIGetOffset(GUIGetOffset value) {
@@ -8606,7 +8624,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetSpeed }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getSpeed")
     public JAXBElement<VehicleGetSpeed> createVehicleGetSpeed(VehicleGetSpeed value) {
@@ -8615,7 +8633,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link TrafficlightsGetControlledLanes }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Trafficlights_getControlledLanes")
     public JAXBElement<TrafficlightsGetControlledLanes> createTrafficlightsGetControlledLanes(TrafficlightsGetControlledLanes value) {
@@ -8624,7 +8642,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeGetSpeedFactorResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_getSpeedFactorResponse")
     public JAXBElement<VehicletypeGetSpeedFactorResponse> createVehicletypeGetSpeedFactorResponse(VehicletypeGetSpeedFactorResponse value) {
@@ -8633,7 +8651,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link TrafficlightsGetIDCountResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Trafficlights_getIDCountResponse")
     public JAXBElement<TrafficlightsGetIDCountResponse> createTrafficlightsGetIDCountResponse(TrafficlightsGetIDCountResponse value) {
@@ -8642,7 +8660,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetSpeedMode }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getSpeedMode")
     public JAXBElement<VehicleGetSpeedMode> createVehicleGetSpeedMode(VehicleGetSpeedMode value) {
@@ -8651,7 +8669,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GUISetSchemaResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "GUI_setSchemaResponse")
     public JAXBElement<GUISetSchemaResponse> createGUISetSchemaResponse(GUISetSchemaResponse value) {
@@ -8660,7 +8678,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link EdgeGetLastStepVehicleNumber }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Edge_getLastStepVehicleNumber")
     public JAXBElement<EdgeGetLastStepVehicleNumber> createEdgeGetLastStepVehicleNumber(EdgeGetLastStepVehicleNumber value) {
@@ -8669,7 +8687,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PersonGetIDListResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Person_getIDListResponse")
     public JAXBElement<PersonGetIDListResponse> createPersonGetIDListResponse(PersonGetIDListResponse value) {
@@ -8678,7 +8696,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link EdgeAdaptTraveltime }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Edge_adaptTraveltime")
     public JAXBElement<EdgeAdaptTraveltime> createEdgeAdaptTraveltime(EdgeAdaptTraveltime value) {
@@ -8687,7 +8705,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeGetTau }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_getTau")
     public JAXBElement<VehicletypeGetTau> createVehicletypeGetTau(VehicletypeGetTau value) {
@@ -8696,7 +8714,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeSetAccel }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_setAccel")
     public JAXBElement<VehicletypeSetAccel> createVehicletypeSetAccel(VehicletypeSetAccel value) {
@@ -8705,7 +8723,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link EdgeGetWaitingTimeResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Edge_getWaitingTimeResponse")
     public JAXBElement<EdgeGetWaitingTimeResponse> createEdgeGetWaitingTimeResponse(EdgeGetWaitingTimeResponse value) {
@@ -8714,7 +8732,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link InductionloopGetIDListResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Inductionloop_getIDListResponse")
     public JAXBElement<InductionloopGetIDListResponse> createInductionloopGetIDListResponse(InductionloopGetIDListResponse value) {
@@ -8723,7 +8741,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GUISetBoundaryResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "GUI_setBoundaryResponse")
     public JAXBElement<GUISetBoundaryResponse> createGUISetBoundaryResponse(GUISetBoundaryResponse value) {
@@ -8732,7 +8750,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeSetAccelResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_setAccelResponse")
     public JAXBElement<VehicletypeSetAccelResponse> createVehicletypeSetAccelResponse(VehicletypeSetAccelResponse value) {
@@ -8741,7 +8759,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link RouteGetIDCountResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Route_getIDCountResponse")
     public JAXBElement<RouteGetIDCountResponse> createRouteGetIDCountResponse(RouteGetIDCountResponse value) {
@@ -8750,7 +8768,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetWidthResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getWidthResponse")
     public JAXBElement<VehicleGetWidthResponse> createVehicleGetWidthResponse(VehicleGetWidthResponse value) {
@@ -8759,7 +8777,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneGetLastStepHaltingNumber }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_getLastStepHaltingNumber")
     public JAXBElement<LaneGetLastStepHaltingNumber> createLaneGetLastStepHaltingNumber(LaneGetLastStepHaltingNumber value) {
@@ -8768,7 +8786,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link MultientryexitGetIDList }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Multientryexit_getIDList")
     public JAXBElement<MultientryexitGetIDList> createMultientryexitGetIDList(MultientryexitGetIDList value) {
@@ -8777,7 +8795,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeGetIDListResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_getIDListResponse")
     public JAXBElement<VehicletypeGetIDListResponse> createVehicletypeGetIDListResponse(VehicletypeGetIDListResponse value) {
@@ -8786,7 +8804,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link JunctionGetShape }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Junction_getShape")
     public JAXBElement<JunctionGetShape> createJunctionGetShape(JunctionGetShape value) {
@@ -8795,7 +8813,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeGetMaxSpeed }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_getMaxSpeed")
     public JAXBElement<VehicletypeGetMaxSpeed> createVehicletypeGetMaxSpeed(VehicletypeGetMaxSpeed value) {
@@ -8804,7 +8822,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GUIGetSchemaResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "GUI_getSchemaResponse")
     public JAXBElement<GUIGetSchemaResponse> createGUIGetSchemaResponse(GUIGetSchemaResponse value) {
@@ -8813,7 +8831,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneGetIDCount }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_getIDCount")
     public JAXBElement<LaneGetIDCount> createLaneGetIDCount(LaneGetIDCount value) {
@@ -8822,7 +8840,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneGetHCEmission }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_getHCEmission")
     public JAXBElement<LaneGetHCEmission> createLaneGetHCEmission(LaneGetHCEmission value) {
@@ -8831,7 +8849,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link Version }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "version")
     public JAXBElement<Version> createVersion(Version value) {
@@ -8840,7 +8858,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleSetColorResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_setColorResponse")
     public JAXBElement<VehicleSetColorResponse> createVehicleSetColorResponse(VehicleSetColorResponse value) {
@@ -8849,7 +8867,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeSetImperfection }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_setImperfection")
     public JAXBElement<VehicletypeSetImperfection> createVehicletypeSetImperfection(VehicletypeSetImperfection value) {
@@ -8858,7 +8876,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetSpeedWithoutTraCI }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getSpeedWithoutTraCI")
     public JAXBElement<VehicleGetSpeedWithoutTraCI> createVehicleGetSpeedWithoutTraCI(VehicleGetSpeedWithoutTraCI value) {
@@ -8867,7 +8885,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link Stop }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "stop")
     public JAXBElement<Stop> createStop(Stop value) {
@@ -8876,7 +8894,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GUIGetIDListResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "GUI_getIDListResponse")
     public JAXBElement<GUIGetIDListResponse> createGUIGetIDListResponse(GUIGetIDListResponse value) {
@@ -8885,7 +8903,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleSetColor }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_setColor")
     public JAXBElement<VehicleSetColor> createVehicleSetColor(VehicleSetColor value) {
@@ -8894,7 +8912,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link ArealDetectorGetIDList }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "ArealDetector_getIDList")
     public JAXBElement<ArealDetectorGetIDList> createArealDetectorGetIDList(ArealDetectorGetIDList value) {
@@ -8903,7 +8921,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link InductionloopGetLastStepVehicleIDsResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Inductionloop_getLastStepVehicleIDsResponse")
     public JAXBElement<InductionloopGetLastStepVehicleIDsResponse> createInductionloopGetLastStepVehicleIDsResponse(InductionloopGetLastStepVehicleIDsResponse value) {
@@ -8912,7 +8930,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetRoadIDResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getRoadIDResponse")
     public JAXBElement<VehicleGetRoadIDResponse> createVehicleGetRoadIDResponse(VehicleGetRoadIDResponse value) {
@@ -8921,7 +8939,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link AddOptionResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "addOptionResponse")
     public JAXBElement<AddOptionResponse> createAddOptionResponse(AddOptionResponse value) {
@@ -8930,7 +8948,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneGetLastStepVehicleIDsResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_getLastStepVehicleIDsResponse")
     public JAXBElement<LaneGetLastStepVehicleIDsResponse> createLaneGetLastStepVehicleIDsResponse(LaneGetLastStepVehicleIDsResponse value) {
@@ -8939,7 +8957,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationGetStopStartingVehiclesNumberResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_getStopStartingVehiclesNumberResponse")
     public JAXBElement<SimulationGetStopStartingVehiclesNumberResponse> createSimulationGetStopStartingVehiclesNumberResponse(SimulationGetStopStartingVehiclesNumberResponse value) {
@@ -8948,7 +8966,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link TrafficlightsSetPhase }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Trafficlights_setPhase")
     public JAXBElement<TrafficlightsSetPhase> createTrafficlightsSetPhase(TrafficlightsSetPhase value) {
@@ -8957,7 +8975,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleSetTau }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_setTau")
     public JAXBElement<VehicleSetTau> createVehicleSetTau(VehicleSetTau value) {
@@ -8966,7 +8984,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GUISetBoundary }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "GUI_setBoundary")
     public JAXBElement<GUISetBoundary> createGUISetBoundary(GUISetBoundary value) {
@@ -8975,7 +8993,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link EdgeGetLastStepVehicleIDs }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Edge_getLastStepVehicleIDs")
     public JAXBElement<EdgeGetLastStepVehicleIDs> createEdgeGetLastStepVehicleIDs(EdgeGetLastStepVehicleIDs value) {
@@ -8984,7 +9002,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetPositionResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getPositionResponse")
     public JAXBElement<VehicleGetPositionResponse> createVehicleGetPositionResponse(VehicleGetPositionResponse value) {
@@ -8993,7 +9011,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetImperfectionResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getImperfectionResponse")
     public JAXBElement<VehicleGetImperfectionResponse> createVehicleGetImperfectionResponse(VehicleGetImperfectionResponse value) {
@@ -9002,7 +9020,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PoiGetIDCount }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Poi_getIDCount")
     public JAXBElement<PoiGetIDCount> createPoiGetIDCount(PoiGetIDCount value) {
@@ -9011,7 +9029,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneSetLength }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_setLength")
     public JAXBElement<LaneSetLength> createLaneSetLength(LaneSetLength value) {
@@ -9020,7 +9038,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PersonGetAngle }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Person_getAngle")
     public JAXBElement<PersonGetAngle> createPersonGetAngle(PersonGetAngle value) {
@@ -9029,7 +9047,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PersonGetLength }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Person_getLength")
     public JAXBElement<PersonGetLength> createPersonGetLength(PersonGetLength value) {
@@ -9038,7 +9056,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleSetVehicleClassResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_setVehicleClassResponse")
     public JAXBElement<VehicleSetVehicleClassResponse> createVehicleSetVehicleClassResponse(VehicleSetVehicleClassResponse value) {
@@ -9047,7 +9065,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleSetAdaptedTraveltime }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_setAdaptedTraveltime")
     public JAXBElement<VehicleSetAdaptedTraveltime> createVehicleSetAdaptedTraveltime(VehicleSetAdaptedTraveltime value) {
@@ -9056,7 +9074,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetTypeID }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getTypeID")
     public JAXBElement<VehicleGetTypeID> createVehicleGetTypeID(VehicleGetTypeID value) {
@@ -9065,7 +9083,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleAdd }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_add")
     public JAXBElement<VehicleAdd> createVehicleAdd(VehicleAdd value) {
@@ -9074,7 +9092,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link EdgeGetPMxEmission }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Edge_getPMxEmission")
     public JAXBElement<EdgeGetPMxEmission> createEdgeGetPMxEmission(EdgeGetPMxEmission value) {
@@ -9083,7 +9101,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link InductionloopGetTimeSinceDetectionResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Inductionloop_getTimeSinceDetectionResponse")
     public JAXBElement<InductionloopGetTimeSinceDetectionResponse> createInductionloopGetTimeSinceDetectionResponse(InductionloopGetTimeSinceDetectionResponse value) {
@@ -9092,7 +9110,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeSetWidth }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_setWidth")
     public JAXBElement<VehicletypeSetWidth> createVehicletypeSetWidth(VehicletypeSetWidth value) {
@@ -9101,7 +9119,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeSetDecelResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_setDecelResponse")
     public JAXBElement<VehicletypeSetDecelResponse> createVehicletypeSetDecelResponse(VehicletypeSetDecelResponse value) {
@@ -9110,7 +9128,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link RouteAdd }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Route_add")
     public JAXBElement<RouteAdd> createRouteAdd(RouteAdd value) {
@@ -9119,7 +9137,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetWaitingTimeResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getWaitingTimeResponse")
     public JAXBElement<VehicleGetWaitingTimeResponse> createVehicleGetWaitingTimeResponse(VehicleGetWaitingTimeResponse value) {
@@ -9128,7 +9146,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PoiGetPositionResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Poi_getPositionResponse")
     public JAXBElement<PoiGetPositionResponse> createPoiGetPositionResponse(PoiGetPositionResponse value) {
@@ -9137,7 +9155,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetPosition }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getPosition")
     public JAXBElement<VehicleGetPosition> createVehicleGetPosition(VehicleGetPosition value) {
@@ -9146,7 +9164,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GUISetSchema }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "GUI_setSchema")
     public JAXBElement<GUISetSchema> createGUISetSchema(GUISetSchema value) {
@@ -9155,7 +9173,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeSetVehicleClass }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_setVehicleClass")
     public JAXBElement<VehicletypeSetVehicleClass> createVehicletypeSetVehicleClass(VehicletypeSetVehicleClass value) {
@@ -9164,7 +9182,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationGetDistanceRoadResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_getDistanceRoadResponse")
     public JAXBElement<SimulationGetDistanceRoadResponse> createSimulationGetDistanceRoadResponse(SimulationGetDistanceRoadResponse value) {
@@ -9173,7 +9191,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleSetMaxSpeedResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_setMaxSpeedResponse")
     public JAXBElement<VehicleSetMaxSpeedResponse> createVehicleSetMaxSpeedResponse(VehicleSetMaxSpeedResponse value) {
@@ -9182,7 +9200,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneGetCOEmissionResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_getCOEmissionResponse")
     public JAXBElement<LaneGetCOEmissionResponse> createLaneGetCOEmissionResponse(LaneGetCOEmissionResponse value) {
@@ -9191,7 +9209,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link EdgeGetFuelConsumption }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Edge_getFuelConsumption")
     public JAXBElement<EdgeGetFuelConsumption> createEdgeGetFuelConsumption(EdgeGetFuelConsumption value) {
@@ -9200,7 +9218,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link JunctionGetIDListResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Junction_getIDListResponse")
     public JAXBElement<JunctionGetIDListResponse> createJunctionGetIDListResponse(JunctionGetIDListResponse value) {
@@ -9209,7 +9227,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeSetMinGap }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_setMinGap")
     public JAXBElement<VehicletypeSetMinGap> createVehicletypeSetMinGap(VehicletypeSetMinGap value) {
@@ -9218,7 +9236,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetPosition3DResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getPosition3DResponse")
     public JAXBElement<VehicleGetPosition3DResponse> createVehicleGetPosition3DResponse(VehicleGetPosition3DResponse value) {
@@ -9227,7 +9245,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PersonGetIDList }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Person_getIDList")
     public JAXBElement<PersonGetIDList> createPersonGetIDList(PersonGetIDList value) {
@@ -9236,7 +9254,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PoiSetPosition }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Poi_setPosition")
     public JAXBElement<PoiSetPosition> createPoiSetPosition(PoiSetPosition value) {
@@ -9245,7 +9263,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetLength }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getLength")
     public JAXBElement<VehicleGetLength> createVehicleGetLength(VehicleGetLength value) {
@@ -9254,7 +9272,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeSetImperfectionResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_setImperfectionResponse")
     public JAXBElement<VehicletypeSetImperfectionResponse> createVehicletypeSetImperfectionResponse(VehicletypeSetImperfectionResponse value) {
@@ -9263,7 +9281,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link TrafficlightsGetCompleteRedYellowGreenDefinitionResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Trafficlights_getCompleteRedYellowGreenDefinitionResponse")
     public JAXBElement<TrafficlightsGetCompleteRedYellowGreenDefinitionResponse> createTrafficlightsGetCompleteRedYellowGreenDefinitionResponse(TrafficlightsGetCompleteRedYellowGreenDefinitionResponse value) {
@@ -9272,7 +9290,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetNoiseEmissionResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getNoiseEmissionResponse")
     public JAXBElement<VehicleGetNoiseEmissionResponse> createVehicleGetNoiseEmissionResponse(VehicleGetNoiseEmissionResponse value) {
@@ -9281,7 +9299,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneGetCOEmission }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_getCOEmission")
     public JAXBElement<LaneGetCOEmission> createLaneGetCOEmission(LaneGetCOEmission value) {
@@ -9290,7 +9308,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PolygonSetShape }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Polygon_setShape")
     public JAXBElement<PolygonSetShape> createPolygonSetShape(PolygonSetShape value) {
@@ -9299,7 +9317,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleSetTauResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_setTauResponse")
     public JAXBElement<VehicleSetTauResponse> createVehicleSetTauResponse(VehicleSetTauResponse value) {
@@ -9308,7 +9326,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link EdgeGetHCEmissionResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Edge_getHCEmissionResponse")
     public JAXBElement<EdgeGetHCEmissionResponse> createEdgeGetHCEmissionResponse(EdgeGetHCEmissionResponse value) {
@@ -9317,7 +9335,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link EdgeSetEffortResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Edge_setEffortResponse")
     public JAXBElement<EdgeSetEffortResponse> createEdgeSetEffortResponse(EdgeSetEffortResponse value) {
@@ -9326,7 +9344,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetRouteID }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getRouteID")
     public JAXBElement<VehicleGetRouteID> createVehicleGetRouteID(VehicleGetRouteID value) {
@@ -9335,7 +9353,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeSetShapeClassResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_setShapeClassResponse")
     public JAXBElement<VehicletypeSetShapeClassResponse> createVehicletypeSetShapeClassResponse(VehicletypeSetShapeClassResponse value) {
@@ -9344,7 +9362,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link DoTimestepResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "doTimestepResponse")
     public JAXBElement<DoTimestepResponse> createDoTimestepResponse(DoTimestepResponse value) {
@@ -9353,7 +9371,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link EdgeGetNoiseEmission }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Edge_getNoiseEmission")
     public JAXBElement<EdgeGetNoiseEmission> createEdgeGetNoiseEmission(EdgeGetNoiseEmission value) {
@@ -9362,7 +9380,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetLaneIndexResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getLaneIndexResponse")
     public JAXBElement<VehicleGetLaneIndexResponse> createVehicleGetLaneIndexResponse(VehicleGetLaneIndexResponse value) {
@@ -9371,7 +9389,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link EdgeGetEffortResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Edge_getEffortResponse")
     public JAXBElement<EdgeGetEffortResponse> createEdgeGetEffortResponse(EdgeGetEffortResponse value) {
@@ -9380,7 +9398,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeGetLengthResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_getLengthResponse")
     public JAXBElement<VehicletypeGetLengthResponse> createVehicletypeGetLengthResponse(VehicletypeGetLengthResponse value) {
@@ -9389,7 +9407,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeSetLengthResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_setLengthResponse")
     public JAXBElement<VehicletypeSetLengthResponse> createVehicletypeSetLengthResponse(VehicletypeSetLengthResponse value) {
@@ -9398,7 +9416,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link ArealDetectorGetLastStepMeanSpeedResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "ArealDetector_getLastStepMeanSpeedResponse")
     public JAXBElement<ArealDetectorGetLastStepMeanSpeedResponse> createArealDetectorGetLastStepMeanSpeedResponse(ArealDetectorGetLastStepMeanSpeedResponse value) {
@@ -9407,7 +9425,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GUIScreenshot }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "GUI_screenshot")
     public JAXBElement<GUIScreenshot> createGUIScreenshot(GUIScreenshot value) {
@@ -9416,7 +9434,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetIDCountResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getIDCountResponse")
     public JAXBElement<VehicleGetIDCountResponse> createVehicleGetIDCountResponse(VehicleGetIDCountResponse value) {
@@ -9425,7 +9443,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleRerouteEffort }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_rerouteEffort")
     public JAXBElement<VehicleRerouteEffort> createVehicleRerouteEffort(VehicleRerouteEffort value) {
@@ -9434,7 +9452,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleSetLaneChangeMode }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_setLaneChangeMode")
     public JAXBElement<VehicleSetLaneChangeMode> createVehicleSetLaneChangeMode(VehicleSetLaneChangeMode value) {
@@ -9443,7 +9461,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PersonGetTypeID }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Person_getTypeID")
     public JAXBElement<PersonGetTypeID> createPersonGetTypeID(PersonGetTypeID value) {
@@ -9452,7 +9470,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetColor }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getColor")
     public JAXBElement<VehicleGetColor> createVehicleGetColor(VehicleGetColor value) {
@@ -9461,7 +9479,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link TrafficlightsSetCompleteRedYellowGreenDefinition }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Trafficlights_setCompleteRedYellowGreenDefinition")
     public JAXBElement<TrafficlightsSetCompleteRedYellowGreenDefinition> createTrafficlightsSetCompleteRedYellowGreenDefinition(TrafficlightsSetCompleteRedYellowGreenDefinition value) {
@@ -9470,7 +9488,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetLaneIDResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getLaneIDResponse")
     public JAXBElement<VehicleGetLaneIDResponse> createVehicleGetLaneIDResponse(VehicleGetLaneIDResponse value) {
@@ -9479,7 +9497,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetTau }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getTau")
     public JAXBElement<VehicleGetTau> createVehicleGetTau(VehicleGetTau value) {
@@ -9488,7 +9506,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeGetVehicleClass }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_getVehicleClass")
     public JAXBElement<VehicletypeGetVehicleClass> createVehicletypeGetVehicleClass(VehicletypeGetVehicleClass value) {
@@ -9497,7 +9515,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationGetEndingTeleportIDListResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_getEndingTeleportIDListResponse")
     public JAXBElement<SimulationGetEndingTeleportIDListResponse> createSimulationGetEndingTeleportIDListResponse(SimulationGetEndingTeleportIDListResponse value) {
@@ -9506,7 +9524,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetPMxEmission }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getPMxEmission")
     public JAXBElement<VehicleGetPMxEmission> createVehicleGetPMxEmission(VehicleGetPMxEmission value) {
@@ -9515,7 +9533,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetSignalsResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getSignalsResponse")
     public JAXBElement<VehicleGetSignalsResponse> createVehicleGetSignalsResponse(VehicleGetSignalsResponse value) {
@@ -9524,7 +9542,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link TrafficlightsSetRedYellowGreenStateResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Trafficlights_setRedYellowGreenStateResponse")
     public JAXBElement<TrafficlightsSetRedYellowGreenStateResponse> createTrafficlightsSetRedYellowGreenStateResponse(TrafficlightsSetRedYellowGreenStateResponse value) {
@@ -9533,7 +9551,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetDrivingDistance2DResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getDrivingDistance2DResponse")
     public JAXBElement<VehicleGetDrivingDistance2DResponse> createVehicleGetDrivingDistance2DResponse(VehicleGetDrivingDistance2DResponse value) {
@@ -9542,7 +9560,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link EdgeGetAdaptedTraveltime }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Edge_getAdaptedTraveltime")
     public JAXBElement<EdgeGetAdaptedTraveltime> createEdgeGetAdaptedTraveltime(EdgeGetAdaptedTraveltime value) {
@@ -9551,7 +9569,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link InductionloopGetLastStepOccupancyResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Inductionloop_getLastStepOccupancyResponse")
     public JAXBElement<InductionloopGetLastStepOccupancyResponse> createInductionloopGetLastStepOccupancyResponse(InductionloopGetLastStepOccupancyResponse value) {
@@ -9560,7 +9578,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PersonGetWaitingTime }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Person_getWaitingTime")
     public JAXBElement<PersonGetWaitingTime> createPersonGetWaitingTime(PersonGetWaitingTime value) {
@@ -9569,7 +9587,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link TrafficlightsSetProgram }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Trafficlights_setProgram")
     public JAXBElement<TrafficlightsSetProgram> createTrafficlightsSetProgram(TrafficlightsSetProgram value) {
@@ -9578,7 +9596,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PersonGetSpeedResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Person_getSpeedResponse")
     public JAXBElement<PersonGetSpeedResponse> createPersonGetSpeedResponse(PersonGetSpeedResponse value) {
@@ -9587,7 +9605,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link EdgeGetIDList }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Edge_getIDList")
     public JAXBElement<EdgeGetIDList> createEdgeGetIDList(EdgeGetIDList value) {
@@ -9596,7 +9614,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetLaneIndex }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getLaneIndex")
     public JAXBElement<VehicleGetLaneIndex> createVehicleGetLaneIndex(VehicleGetLaneIndex value) {
@@ -9605,7 +9623,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeGetDecel }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_getDecel")
     public JAXBElement<VehicletypeGetDecel> createVehicletypeGetDecel(VehicletypeGetDecel value) {
@@ -9614,7 +9632,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link EdgeGetWaitingTime }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Edge_getWaitingTime")
     public JAXBElement<EdgeGetWaitingTime> createEdgeGetWaitingTime(EdgeGetWaitingTime value) {
@@ -9623,7 +9641,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link InductionloopGetVehicleData }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Inductionloop_getVehicleData")
     public JAXBElement<InductionloopGetVehicleData> createInductionloopGetVehicleData(InductionloopGetVehicleData value) {
@@ -9632,7 +9650,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneGetIDCountResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_getIDCountResponse")
     public JAXBElement<LaneGetIDCountResponse> createLaneGetIDCountResponse(LaneGetIDCountResponse value) {
@@ -9641,7 +9659,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PoiAddResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Poi_addResponse")
     public JAXBElement<PoiAddResponse> createPoiAddResponse(PoiAddResponse value) {
@@ -9650,7 +9668,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PersonGetSpeed }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Person_getSpeed")
     public JAXBElement<PersonGetSpeed> createPersonGetSpeed(PersonGetSpeed value) {
@@ -9659,7 +9677,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleSetSignalsResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_setSignalsResponse")
     public JAXBElement<VehicleSetSignalsResponse> createVehicleSetSignalsResponse(VehicleSetSignalsResponse value) {
@@ -9668,7 +9686,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeSetDecel }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_setDecel")
     public JAXBElement<VehicletypeSetDecel> createVehicletypeSetDecel(VehicletypeSetDecel value) {
@@ -9677,7 +9695,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeSetSpeedDeviationResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_setSpeedDeviationResponse")
     public JAXBElement<VehicletypeSetSpeedDeviationResponse> createVehicletypeSetSpeedDeviationResponse(VehicletypeSetSpeedDeviationResponse value) {
@@ -9686,7 +9704,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link InductionloopGetTimeSinceDetection }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Inductionloop_getTimeSinceDetection")
     public JAXBElement<InductionloopGetTimeSinceDetection> createInductionloopGetTimeSinceDetection(InductionloopGetTimeSinceDetection value) {
@@ -9695,7 +9713,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleSetRouteID }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_setRouteID")
     public JAXBElement<VehicleSetRouteID> createVehicleSetRouteID(VehicleSetRouteID value) {
@@ -9704,7 +9722,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationGetStopEndingVehiclesNumberResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_getStopEndingVehiclesNumberResponse")
     public JAXBElement<SimulationGetStopEndingVehiclesNumberResponse> createSimulationGetStopEndingVehiclesNumberResponse(SimulationGetStopEndingVehiclesNumberResponse value) {
@@ -9713,7 +9731,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link TrafficlightsGetPhaseDurationResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Trafficlights_getPhaseDurationResponse")
     public JAXBElement<TrafficlightsGetPhaseDurationResponse> createTrafficlightsGetPhaseDurationResponse(TrafficlightsGetPhaseDurationResponse value) {
@@ -9722,7 +9740,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetPersonNumber }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getPersonNumber")
     public JAXBElement<VehicleGetPersonNumber> createVehicleGetPersonNumber(VehicleGetPersonNumber value) {
@@ -9731,7 +9749,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetLanePosition }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getLanePosition")
     public JAXBElement<VehicleGetLanePosition> createVehicleGetLanePosition(VehicleGetLanePosition value) {
@@ -9740,7 +9758,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationGetDeltaT }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_getDeltaT")
     public JAXBElement<SimulationGetDeltaT> createSimulationGetDeltaT(SimulationGetDeltaT value) {
@@ -9749,7 +9767,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link AddOption }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "addOption")
     public JAXBElement<AddOption> createAddOption(AddOption value) {
@@ -9758,7 +9776,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetSpeedDeviation }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getSpeedDeviation")
     public JAXBElement<VehicleGetSpeedDeviation> createVehicleGetSpeedDeviation(VehicleGetSpeedDeviation value) {
@@ -9767,7 +9785,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetTauResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getTauResponse")
     public JAXBElement<VehicleGetTauResponse> createVehicleGetTauResponse(VehicleGetTauResponse value) {
@@ -9776,7 +9794,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleRerouteTraveltimeResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_rerouteTraveltimeResponse")
     public JAXBElement<VehicleRerouteTraveltimeResponse> createVehicleRerouteTraveltimeResponse(VehicleRerouteTraveltimeResponse value) {
@@ -9785,7 +9803,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link EdgeSetMaxSpeed }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Edge_setMaxSpeed")
     public JAXBElement<EdgeSetMaxSpeed> createEdgeSetMaxSpeed(EdgeSetMaxSpeed value) {
@@ -9794,7 +9812,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetIDListResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getIDListResponse")
     public JAXBElement<VehicleGetIDListResponse> createVehicleGetIDListResponse(VehicleGetIDListResponse value) {
@@ -9803,7 +9821,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PolygonSetColor }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Polygon_setColor")
     public JAXBElement<PolygonSetColor> createPolygonSetColor(PolygonSetColor value) {
@@ -9812,7 +9830,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationGetDistance2DResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_getDistance2DResponse")
     public JAXBElement<SimulationGetDistance2DResponse> createSimulationGetDistance2DResponse(SimulationGetDistance2DResponse value) {
@@ -9821,7 +9839,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleAddResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_addResponse")
     public JAXBElement<VehicleAddResponse> createVehicleAddResponse(VehicleAddResponse value) {
@@ -9830,7 +9848,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetDistance }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getDistance")
     public JAXBElement<VehicleGetDistance> createVehicleGetDistance(VehicleGetDistance value) {
@@ -9839,7 +9857,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link InductionloopGetLastStepMeanSpeedResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Inductionloop_getLastStepMeanSpeedResponse")
     public JAXBElement<InductionloopGetLastStepMeanSpeedResponse> createInductionloopGetLastStepMeanSpeedResponse(InductionloopGetLastStepMeanSpeedResponse value) {
@@ -9848,7 +9866,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleSetSpeedFactorResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_setSpeedFactorResponse")
     public JAXBElement<VehicleSetSpeedFactorResponse> createVehicleSetSpeedFactorResponse(VehicleSetSpeedFactorResponse value) {
@@ -9857,7 +9875,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleSetRouteIDResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_setRouteIDResponse")
     public JAXBElement<VehicleSetRouteIDResponse> createVehicleSetRouteIDResponse(VehicleSetRouteIDResponse value) {
@@ -9866,7 +9884,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleSetRouteResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_setRouteResponse")
     public JAXBElement<VehicleSetRouteResponse> createVehicleSetRouteResponse(VehicleSetRouteResponse value) {
@@ -9875,7 +9893,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleSetImperfectionResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_setImperfectionResponse")
     public JAXBElement<VehicleSetImperfectionResponse> createVehicleSetImperfectionResponse(VehicleSetImperfectionResponse value) {
@@ -9884,7 +9902,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LastActionTimeResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "LastActionTimeResponse")
     public JAXBElement<LastActionTimeResponse> createLastActionTimeResponse(LastActionTimeResponse value) {
@@ -9893,7 +9911,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationGetArrivedIDList }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_getArrivedIDList")
     public JAXBElement<SimulationGetArrivedIDList> createSimulationGetArrivedIDList(SimulationGetArrivedIDList value) {
@@ -9902,7 +9920,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GUIGetBoundaryResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "GUI_getBoundaryResponse")
     public JAXBElement<GUIGetBoundaryResponse> createGUIGetBoundaryResponse(GUIGetBoundaryResponse value) {
@@ -9911,7 +9929,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PolygonGetColor }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Polygon_getColor")
     public JAXBElement<PolygonGetColor> createPolygonGetColor(PolygonGetColor value) {
@@ -9920,7 +9938,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GetStatus }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "get_Status")
     public JAXBElement<GetStatus> createGetStatus(GetStatus value) {
@@ -9929,7 +9947,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link EdgeGetEffort }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Edge_getEffort")
     public JAXBElement<EdgeGetEffort> createEdgeGetEffort(EdgeGetEffort value) {
@@ -9938,7 +9956,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationGetDepartedNumberResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_getDepartedNumberResponse")
     public JAXBElement<SimulationGetDepartedNumberResponse> createSimulationGetDepartedNumberResponse(SimulationGetDepartedNumberResponse value) {
@@ -9947,7 +9965,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeSetSpeedFactorResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_setSpeedFactorResponse")
     public JAXBElement<VehicletypeSetSpeedFactorResponse> createVehicletypeSetSpeedFactorResponse(VehicletypeSetSpeedFactorResponse value) {
@@ -9956,7 +9974,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetAllowedSpeedResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getAllowedSpeedResponse")
     public JAXBElement<VehicleGetAllowedSpeedResponse> createVehicleGetAllowedSpeedResponse(VehicleGetAllowedSpeedResponse value) {
@@ -9965,7 +9983,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetDrivingDistance2D }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getDrivingDistance2D")
     public JAXBElement<VehicleGetDrivingDistance2D> createVehicleGetDrivingDistance2D(VehicleGetDrivingDistance2D value) {
@@ -9974,7 +9992,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link EdgeGetElectricityConsumptionResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Edge_getElectricityConsumptionResponse")
     public JAXBElement<EdgeGetElectricityConsumptionResponse> createEdgeGetElectricityConsumptionResponse(EdgeGetElectricityConsumptionResponse value) {
@@ -9983,7 +10001,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link TrafficlightsGetProgram }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Trafficlights_getProgram")
     public JAXBElement<TrafficlightsGetProgram> createTrafficlightsGetProgram(TrafficlightsGetProgram value) {
@@ -9992,7 +10010,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetLaneID }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getLaneID")
     public JAXBElement<VehicleGetLaneID> createVehicleGetLaneID(VehicleGetLaneID value) {
@@ -10001,7 +10019,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetVehicleClassResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getVehicleClassResponse")
     public JAXBElement<VehicleGetVehicleClassResponse> createVehicleGetVehicleClassResponse(VehicleGetVehicleClassResponse value) {
@@ -10010,7 +10028,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PolygonAddResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Polygon_addResponse")
     public JAXBElement<PolygonAddResponse> createPolygonAddResponse(PolygonAddResponse value) {
@@ -10019,7 +10037,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link EdgeGetLastStepHaltingNumber }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Edge_getLastStepHaltingNumber")
     public JAXBElement<EdgeGetLastStepHaltingNumber> createEdgeGetLastStepHaltingNumber(EdgeGetLastStepHaltingNumber value) {
@@ -10028,7 +10046,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link EdgeGetHCEmission }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Edge_getHCEmission")
     public JAXBElement<EdgeGetHCEmission> createEdgeGetHCEmission(EdgeGetHCEmission value) {
@@ -10037,7 +10055,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link InductionloopGetLastStepOccupancy }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Inductionloop_getLastStepOccupancy")
     public JAXBElement<InductionloopGetLastStepOccupancy> createInductionloopGetLastStepOccupancy(InductionloopGetLastStepOccupancy value) {
@@ -10046,7 +10064,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GUIClearPending }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "GUI_clearPending")
     public JAXBElement<GUIClearPending> createGUIClearPending(GUIClearPending value) {
@@ -10055,7 +10073,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GUISetOffset }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "GUI_setOffset")
     public JAXBElement<GUISetOffset> createGUISetOffset(GUISetOffset value) {
@@ -10064,7 +10082,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeSetLength }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_setLength")
     public JAXBElement<VehicletypeSetLength> createVehicletypeSetLength(VehicletypeSetLength value) {
@@ -10073,7 +10091,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneGetFuelConsumption }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_getFuelConsumption")
     public JAXBElement<LaneGetFuelConsumption> createLaneGetFuelConsumption(LaneGetFuelConsumption value) {
@@ -10082,7 +10100,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationGetCurrentTimeResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_getCurrentTimeResponse")
     public JAXBElement<SimulationGetCurrentTimeResponse> createSimulationGetCurrentTimeResponse(SimulationGetCurrentTimeResponse value) {
@@ -10091,7 +10109,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleSetLaneChangeModeResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_setLaneChangeModeResponse")
     public JAXBElement<VehicleSetLaneChangeModeResponse> createVehicleSetLaneChangeModeResponse(VehicleSetLaneChangeModeResponse value) {
@@ -10100,7 +10118,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link EdgeGetPMxEmissionResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Edge_getPMxEmissionResponse")
     public JAXBElement<EdgeGetPMxEmissionResponse> createEdgeGetPMxEmissionResponse(EdgeGetPMxEmissionResponse value) {
@@ -10109,7 +10127,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneGetPMxEmissionResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_getPMxEmissionResponse")
     public JAXBElement<LaneGetPMxEmissionResponse> createLaneGetPMxEmissionResponse(LaneGetPMxEmissionResponse value) {
@@ -10118,7 +10136,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneGetLastStepVehicleIDs }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_getLastStepVehicleIDs")
     public JAXBElement<LaneGetLastStepVehicleIDs> createLaneGetLastStepVehicleIDs(LaneGetLastStepVehicleIDs value) {
@@ -10127,7 +10145,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleSetEffortResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_setEffortResponse")
     public JAXBElement<VehicleSetEffortResponse> createVehicleSetEffortResponse(VehicleSetEffortResponse value) {
@@ -10136,7 +10154,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link ArealDetectorGetIDCount }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "ArealDetector_getIDCount")
     public JAXBElement<ArealDetectorGetIDCount> createArealDetectorGetIDCount(ArealDetectorGetIDCount value) {
@@ -10145,7 +10163,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationGetNetBoundary }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_getNetBoundary")
     public JAXBElement<SimulationGetNetBoundary> createSimulationGetNetBoundary(SimulationGetNetBoundary value) {
@@ -10154,7 +10172,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeSetWidthResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_setWidthResponse")
     public JAXBElement<VehicletypeSetWidthResponse> createVehicletypeSetWidthResponse(VehicletypeSetWidthResponse value) {
@@ -10163,7 +10181,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link TrafficlightsGetControlledLinks }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Trafficlights_getControlledLinks")
     public JAXBElement<TrafficlightsGetControlledLinks> createTrafficlightsGetControlledLinks(TrafficlightsGetControlledLinks value) {
@@ -10172,7 +10190,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleSetVehicleClass }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_setVehicleClass")
     public JAXBElement<VehicleSetVehicleClass> createVehicleSetVehicleClass(VehicleSetVehicleClass value) {
@@ -10181,7 +10199,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PoiGetIDCountResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Poi_getIDCountResponse")
     public JAXBElement<PoiGetIDCountResponse> createPoiGetIDCountResponse(PoiGetIDCountResponse value) {
@@ -10190,7 +10208,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SetConfig }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "setConfig")
     public JAXBElement<SetConfig> createSetConfig(SetConfig value) {
@@ -10199,7 +10217,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link InductionloopGetLastStepVehicleNumber }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Inductionloop_getLastStepVehicleNumber")
     public JAXBElement<InductionloopGetLastStepVehicleNumber> createInductionloopGetLastStepVehicleNumber(InductionloopGetLastStepVehicleNumber value) {
@@ -10208,7 +10226,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PersonGetPosition3DResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Person_getPosition3DResponse")
     public JAXBElement<PersonGetPosition3DResponse> createPersonGetPosition3DResponse(PersonGetPosition3DResponse value) {
@@ -10217,7 +10235,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PersonGetPositionResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Person_getPositionResponse")
     public JAXBElement<PersonGetPositionResponse> createPersonGetPositionResponse(PersonGetPositionResponse value) {
@@ -10226,7 +10244,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneGetIDList }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_getIDList")
     public JAXBElement<LaneGetIDList> createLaneGetIDList(LaneGetIDList value) {
@@ -10235,7 +10253,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationGetParkingEndingVehiclesNumberResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_getParkingEndingVehiclesNumberResponse")
     public JAXBElement<SimulationGetParkingEndingVehiclesNumberResponse> createSimulationGetParkingEndingVehiclesNumberResponse(SimulationGetParkingEndingVehiclesNumberResponse value) {
@@ -10244,7 +10262,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetSlope }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getSlope")
     public JAXBElement<VehicleGetSlope> createVehicleGetSlope(VehicleGetSlope value) {
@@ -10253,7 +10271,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link EdgeGetIDCountResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Edge_getIDCountResponse")
     public JAXBElement<EdgeGetIDCountResponse> createEdgeGetIDCountResponse(EdgeGetIDCountResponse value) {
@@ -10262,7 +10280,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PersonGetPersonNumberResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Person_getPersonNumberResponse")
     public JAXBElement<PersonGetPersonNumberResponse> createPersonGetPersonNumberResponse(PersonGetPersonNumberResponse value) {
@@ -10271,7 +10289,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneGetMaxSpeed }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_getMaxSpeed")
     public JAXBElement<LaneGetMaxSpeed> createLaneGetMaxSpeed(LaneGetMaxSpeed value) {
@@ -10280,7 +10298,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link MultientryexitGetLastStepMeanSpeedResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Multientryexit_getLastStepMeanSpeedResponse")
     public JAXBElement<MultientryexitGetLastStepMeanSpeedResponse> createMultientryexitGetLastStepMeanSpeedResponse(MultientryexitGetLastStepMeanSpeedResponse value) {
@@ -10289,7 +10307,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeSetVehicleClassResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_setVehicleClassResponse")
     public JAXBElement<VehicletypeSetVehicleClassResponse> createVehicletypeSetVehicleClassResponse(VehicletypeSetVehicleClassResponse value) {
@@ -10298,7 +10316,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeGetAccel }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_getAccel")
     public JAXBElement<VehicletypeGetAccel> createVehicletypeGetAccel(VehicletypeGetAccel value) {
@@ -10307,7 +10325,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneGetWidthResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_getWidthResponse")
     public JAXBElement<LaneGetWidthResponse> createLaneGetWidthResponse(LaneGetWidthResponse value) {
@@ -10316,7 +10334,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PoiGetType }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Poi_getType")
     public JAXBElement<PoiGetType> createPoiGetType(PoiGetType value) {
@@ -10325,7 +10343,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetShapeClass }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getShapeClass")
     public JAXBElement<VehicleGetShapeClass> createVehicleGetShapeClass(VehicleGetShapeClass value) {
@@ -10334,7 +10352,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link TrafficlightsGetCompleteRedYellowGreenDefinition }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Trafficlights_getCompleteRedYellowGreenDefinition")
     public JAXBElement<TrafficlightsGetCompleteRedYellowGreenDefinition> createTrafficlightsGetCompleteRedYellowGreenDefinition(TrafficlightsGetCompleteRedYellowGreenDefinition value) {
@@ -10343,7 +10361,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link TrafficlightsGetPhaseDuration }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Trafficlights_getPhaseDuration")
     public JAXBElement<TrafficlightsGetPhaseDuration> createTrafficlightsGetPhaseDuration(TrafficlightsGetPhaseDuration value) {
@@ -10352,7 +10370,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetWaitingTime }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getWaitingTime")
     public JAXBElement<VehicleGetWaitingTime> createVehicleGetWaitingTime(VehicleGetWaitingTime value) {
@@ -10361,7 +10379,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeSetSpeedDeviation }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_setSpeedDeviation")
     public JAXBElement<VehicletypeSetSpeedDeviation> createVehicletypeSetSpeedDeviation(VehicletypeSetSpeedDeviation value) {
@@ -10370,7 +10388,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link ArealDetectorGetJamLengthMetersResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "ArealDetector_getJamLengthMetersResponse")
     public JAXBElement<ArealDetectorGetJamLengthMetersResponse> createArealDetectorGetJamLengthMetersResponse(ArealDetectorGetJamLengthMetersResponse value) {
@@ -10379,7 +10397,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleSetMaxSpeed }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_setMaxSpeed")
     public JAXBElement<VehicleSetMaxSpeed> createVehicleSetMaxSpeed(VehicleSetMaxSpeed value) {
@@ -10388,7 +10406,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeGetSpeedDeviation }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_getSpeedDeviation")
     public JAXBElement<VehicletypeGetSpeedDeviation> createVehicletypeGetSpeedDeviation(VehicletypeGetSpeedDeviation value) {
@@ -10397,7 +10415,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetEffortResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getEffortResponse")
     public JAXBElement<VehicleGetEffortResponse> createVehicleGetEffortResponse(VehicleGetEffortResponse value) {
@@ -10406,7 +10424,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleChangeLane }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_changeLane")
     public JAXBElement<VehicleChangeLane> createVehicleChangeLane(VehicleChangeLane value) {
@@ -10415,7 +10433,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeGetLength }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_getLength")
     public JAXBElement<VehicletypeGetLength> createVehicletypeGetLength(VehicletypeGetLength value) {
@@ -10424,7 +10442,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PoiSetPositionResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Poi_setPositionResponse")
     public JAXBElement<PoiSetPositionResponse> createPoiSetPositionResponse(PoiSetPositionResponse value) {
@@ -10433,7 +10451,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GUIGetIDList }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "GUI_getIDList")
     public JAXBElement<GUIGetIDList> createGUIGetIDList(GUIGetIDList value) {
@@ -10442,7 +10460,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneGetCO2Emission }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_getCO2Emission")
     public JAXBElement<LaneGetCO2Emission> createLaneGetCO2Emission(LaneGetCO2Emission value) {
@@ -10451,7 +10469,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetPMxEmissionResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getPMxEmissionResponse")
     public JAXBElement<VehicleGetPMxEmissionResponse> createVehicleGetPMxEmissionResponse(VehicleGetPMxEmissionResponse value) {
@@ -10460,7 +10478,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneGetElectricityConsumption }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_getElectricityConsumption")
     public JAXBElement<LaneGetElectricityConsumption> createLaneGetElectricityConsumption(LaneGetElectricityConsumption value) {
@@ -10469,7 +10487,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneSetMaxSpeed }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_setMaxSpeed")
     public JAXBElement<LaneSetMaxSpeed> createLaneSetMaxSpeed(LaneSetMaxSpeed value) {
@@ -10478,7 +10496,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PersonGetColorResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Person_getColorResponse")
     public JAXBElement<PersonGetColorResponse> createPersonGetColorResponse(PersonGetColorResponse value) {
@@ -10487,7 +10505,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneGetMaxSpeedResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_getMaxSpeedResponse")
     public JAXBElement<LaneGetMaxSpeedResponse> createLaneGetMaxSpeedResponse(LaneGetMaxSpeedResponse value) {
@@ -10496,7 +10514,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PolygonGetShape }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Polygon_getShape")
     public JAXBElement<PolygonGetShape> createPolygonGetShape(PolygonGetShape value) {
@@ -10505,7 +10523,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PersonGetMinGapResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Person_getMinGapResponse")
     public JAXBElement<PersonGetMinGapResponse> createPersonGetMinGapResponse(PersonGetMinGapResponse value) {
@@ -10514,7 +10532,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationConvert3DResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_convert3DResponse")
     public JAXBElement<SimulationConvert3DResponse> createSimulationConvert3DResponse(SimulationConvert3DResponse value) {
@@ -10523,7 +10541,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetDistanceResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getDistanceResponse")
     public JAXBElement<VehicleGetDistanceResponse> createVehicleGetDistanceResponse(VehicleGetDistanceResponse value) {
@@ -10532,7 +10550,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PoiRemove }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Poi_remove")
     public JAXBElement<PoiRemove> createPoiRemove(PoiRemove value) {
@@ -10541,7 +10559,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleSetSpeedFactor }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_setSpeedFactor")
     public JAXBElement<VehicleSetSpeedFactor> createVehicleSetSpeedFactor(VehicleSetSpeedFactor value) {
@@ -10550,7 +10568,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link StartResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "startResponse")
     public JAXBElement<StartResponse> createStartResponse(StartResponse value) {
@@ -10559,7 +10577,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationGetDistanceRoad }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_getDistanceRoad")
     public JAXBElement<SimulationGetDistanceRoad> createSimulationGetDistanceRoad(SimulationGetDistanceRoad value) {
@@ -10568,7 +10586,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationGetStartingTeleportNumber }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_getStartingTeleportNumber")
     public JAXBElement<SimulationGetStartingTeleportNumber> createSimulationGetStartingTeleportNumber(SimulationGetStartingTeleportNumber value) {
@@ -10577,7 +10595,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleSetSpeedDeviation }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_setSpeedDeviation")
     public JAXBElement<VehicleSetSpeedDeviation> createVehicleSetSpeedDeviation(VehicleSetSpeedDeviation value) {
@@ -10586,7 +10604,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetRouteIDResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getRouteIDResponse")
     public JAXBElement<VehicleGetRouteIDResponse> createVehicleGetRouteIDResponse(VehicleGetRouteIDResponse value) {
@@ -10595,7 +10613,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link EdgeGetLastStepLengthResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Edge_getLastStepLengthResponse")
     public JAXBElement<EdgeGetLastStepLengthResponse> createEdgeGetLastStepLengthResponse(EdgeGetLastStepLengthResponse value) {
@@ -10604,7 +10622,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PolygonRemove }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Polygon_remove")
     public JAXBElement<PolygonRemove> createPolygonRemove(PolygonRemove value) {
@@ -10613,7 +10631,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationGetArrivedIDListResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_getArrivedIDListResponse")
     public JAXBElement<SimulationGetArrivedIDListResponse> createSimulationGetArrivedIDListResponse(SimulationGetArrivedIDListResponse value) {
@@ -10622,7 +10640,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link PersonGetAngleResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Person_getAngleResponse")
     public JAXBElement<PersonGetAngleResponse> createPersonGetAngleResponse(PersonGetAngleResponse value) {
@@ -10631,7 +10649,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetMaxSpeedResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getMaxSpeedResponse")
     public JAXBElement<VehicleGetMaxSpeedResponse> createVehicleGetMaxSpeedResponse(VehicleGetMaxSpeedResponse value) {
@@ -10640,7 +10658,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link InductionloopGetLastStepMeanSpeed }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Inductionloop_getLastStepMeanSpeed")
     public JAXBElement<InductionloopGetLastStepMeanSpeed> createInductionloopGetLastStepMeanSpeed(InductionloopGetLastStepMeanSpeed value) {
@@ -10649,7 +10667,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link InductionloopGetLastStepVehicleIDs }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Inductionloop_getLastStepVehicleIDs")
     public JAXBElement<InductionloopGetLastStepVehicleIDs> createInductionloopGetLastStepVehicleIDs(InductionloopGetLastStepVehicleIDs value) {
@@ -10658,7 +10676,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationGetStartingTeleportNumberResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_getStartingTeleportNumberResponse")
     public JAXBElement<SimulationGetStartingTeleportNumberResponse> createSimulationGetStartingTeleportNumberResponse(SimulationGetStartingTeleportNumberResponse value) {
@@ -10667,7 +10685,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeSetSpeedFactor }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_setSpeedFactor")
     public JAXBElement<VehicletypeSetSpeedFactor> createVehicletypeSetSpeedFactor(VehicletypeSetSpeedFactor value) {
@@ -10676,7 +10694,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link LaneSetAllowed }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Lane_setAllowed")
     public JAXBElement<LaneSetAllowed> createLaneSetAllowed(LaneSetAllowed value) {
@@ -10685,7 +10703,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationConvertGeoResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_convertGeoResponse")
     public JAXBElement<SimulationConvertGeoResponse> createSimulationConvertGeoResponse(SimulationConvertGeoResponse value) {
@@ -10694,7 +10712,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetAccelResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getAccelResponse")
     public JAXBElement<VehicleGetAccelResponse> createVehicleGetAccelResponse(VehicleGetAccelResponse value) {
@@ -10703,7 +10721,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleSetSpeedDeviationResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_setSpeedDeviationResponse")
     public JAXBElement<VehicleSetSpeedDeviationResponse> createVehicleSetSpeedDeviationResponse(VehicleSetSpeedDeviationResponse value) {
@@ -10712,7 +10730,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeSetEmissionClass }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_setEmissionClass")
     public JAXBElement<VehicletypeSetEmissionClass> createVehicletypeSetEmissionClass(VehicletypeSetEmissionClass value) {
@@ -10721,7 +10739,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicletypeGetDecelResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicletype_getDecelResponse")
     public JAXBElement<VehicletypeGetDecelResponse> createVehicletypeGetDecelResponse(VehicletypeGetDecelResponse value) {
@@ -10730,7 +10748,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link JunctionGetIDCount }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Junction_getIDCount")
     public JAXBElement<JunctionGetIDCount> createJunctionGetIDCount(JunctionGetIDCount value) {
@@ -10739,7 +10757,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link InductionloopGetLastStepMeanLengthResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Inductionloop_getLastStepMeanLengthResponse")
     public JAXBElement<InductionloopGetLastStepMeanLengthResponse> createInductionloopGetLastStepMeanLengthResponse(InductionloopGetLastStepMeanLengthResponse value) {
@@ -10748,7 +10766,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleMoveTo }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_moveTo")
     public JAXBElement<VehicleMoveTo> createVehicleMoveTo(VehicleMoveTo value) {
@@ -10757,7 +10775,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleGetWidth }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_getWidth")
     public JAXBElement<VehicleGetWidth> createVehicleGetWidth(VehicleGetWidth value) {
@@ -10766,7 +10784,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GUIGetSchema }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "GUI_getSchema")
     public JAXBElement<GUIGetSchema> createGUIGetSchema(GUIGetSchema value) {
@@ -10775,7 +10793,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link TrafficlightsSetRedYellowGreenState }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Trafficlights_setRedYellowGreenState")
     public JAXBElement<TrafficlightsSetRedYellowGreenState> createTrafficlightsSetRedYellowGreenState(TrafficlightsSetRedYellowGreenState value) {
@@ -10784,7 +10802,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationGetLoadedNumber }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_getLoadedNumber")
     public JAXBElement<SimulationGetLoadedNumber> createSimulationGetLoadedNumber(SimulationGetLoadedNumber value) {
@@ -10793,7 +10811,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationGetParkingStartingVehiclesIDListResponse }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_getParkingStartingVehiclesIDListResponse")
     public JAXBElement<SimulationGetParkingStartingVehiclesIDListResponse> createSimulationGetParkingStartingVehiclesIDListResponse(SimulationGetParkingStartingVehiclesIDListResponse value) {
@@ -10802,7 +10820,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleSetShapeClass }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_setShapeClass")
     public JAXBElement<VehicleSetShapeClass> createVehicleSetShapeClass(VehicleSetShapeClass value) {
@@ -10811,7 +10829,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SimulationGetStopStartingVehiclesIDList }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Simulation_getStopStartingVehiclesIDList")
     public JAXBElement<SimulationGetStopStartingVehiclesIDList> createSimulationGetStopStartingVehiclesIDList(SimulationGetStopStartingVehiclesIDList value) {
@@ -10820,7 +10838,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link VehicleIsRouteValid }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Vehicle_isRouteValid")
     public JAXBElement<VehicleIsRouteValid> createVehicleIsRouteValid(VehicleIsRouteValid value) {
@@ -10829,7 +10847,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link JunctionGetPosition }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://ws.tudresden.de/", name = "Junction_getPosition")
     public JAXBElement<JunctionGetPosition> createJunctionGetPosition(JunctionGetPosition value) {

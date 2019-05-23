@@ -1,3 +1,21 @@
+/****************************************************************************/
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Copyright (C) 2017-2019 German Aerospace Center (DLR) and others.
+// TraaS module
+// Copyright (C) 2013-2017 Dresden University of Technology
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
+// SPDX-License-Identifier: EPL-2.0
+/****************************************************************************/
+/// @file    PolygonAdd.java
+/// @author  Mario Krumnow
+/// @date    2013
+/// @version $Id$
+///
+//
+/****************************************************************************/
 
 package de.tudresden.ws;
 
@@ -8,9 +26,9 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for Polygon_add complex type.
- * 
+ *
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
+ *
  * <pre>
  * &lt;complexType name="Polygon_add">
  *   &lt;complexContent>
@@ -27,8 +45,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Polygon_add", propOrder = {
@@ -50,11 +68,11 @@ public class PolygonAdd {
 
     /**
      * Ruft den Wert der polygonID-Eigenschaft ab.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getPolygonID() {
         return polygonID;
@@ -62,11 +80,11 @@ public class PolygonAdd {
 
     /**
      * Legt den Wert der polygonID-Eigenschaft fest.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setPolygonID(String value) {
         this.polygonID = value;
@@ -74,11 +92,11 @@ public class PolygonAdd {
 
     /**
      * Ruft den Wert der shape-Eigenschaft ab.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link SumoGeometry }
-     *     
+     *
      */
     public SumoGeometry getShape() {
         return shape;
@@ -86,11 +104,11 @@ public class PolygonAdd {
 
     /**
      * Legt den Wert der shape-Eigenschaft fest.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link SumoGeometry }
-     *     
+     *
      */
     public void setShape(SumoGeometry value) {
         this.shape = value;
@@ -98,11 +116,11 @@ public class PolygonAdd {
 
     /**
      * Ruft den Wert der color-Eigenschaft ab.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link SumoColor }
-     *     
+     *
      */
     public SumoColor getColor() {
         return color;
@@ -110,11 +128,11 @@ public class PolygonAdd {
 
     /**
      * Legt den Wert der color-Eigenschaft fest.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link SumoColor }
-     *     
+     *
      */
     public void setColor(SumoColor value) {
         this.color = value;
@@ -122,7 +140,7 @@ public class PolygonAdd {
 
     /**
      * Ruft den Wert der fill-Eigenschaft ab.
-     * 
+     *
      */
     public boolean isFill() {
         return fill;
@@ -130,7 +148,7 @@ public class PolygonAdd {
 
     /**
      * Legt den Wert der fill-Eigenschaft fest.
-     * 
+     *
      */
     public void setFill(boolean value) {
         this.fill = value;
@@ -138,11 +156,11 @@ public class PolygonAdd {
 
     /**
      * Ruft den Wert der polygonType-Eigenschaft ab.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getPolygonType() {
         return polygonType;
@@ -150,11 +168,11 @@ public class PolygonAdd {
 
     /**
      * Legt den Wert der polygonType-Eigenschaft fest.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setPolygonType(String value) {
         this.polygonType = value;
@@ -162,7 +180,7 @@ public class PolygonAdd {
 
     /**
      * Ruft den Wert der layer-Eigenschaft ab.
-     * 
+     *
      */
     public int getLayer() {
         return layer;
@@ -170,7 +188,7 @@ public class PolygonAdd {
 
     /**
      * Legt den Wert der layer-Eigenschaft fest.
-     * 
+     *
      */
     public void setLayer(int value) {
         this.layer = value;

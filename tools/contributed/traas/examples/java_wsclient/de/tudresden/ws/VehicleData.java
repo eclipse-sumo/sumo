@@ -1,3 +1,21 @@
+/****************************************************************************/
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Copyright (C) 2017-2019 German Aerospace Center (DLR) and others.
+// TraaS module
+// Copyright (C) 2013-2017 Dresden University of Technology
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
+// SPDX-License-Identifier: EPL-2.0
+/****************************************************************************/
+/// @file    VehicleData.java
+/// @author  Mario Krumnow
+/// @date    2013
+/// @version $Id$
+///
+//
+/****************************************************************************/
 
 package de.tudresden.ws;
 
@@ -9,9 +27,9 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for vehicleData complex type.
- * 
+ *
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
+ *
  * <pre>
  * &lt;complexType name="vehicleData">
  *   &lt;complexContent>
@@ -27,8 +45,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "vehicleData", propOrder = {
@@ -50,11 +68,11 @@ public class VehicleData {
 
     /**
      * Ruft den Wert der vehID-Eigenschaft ab.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getVehID() {
         return vehID;
@@ -62,11 +80,11 @@ public class VehicleData {
 
     /**
      * Legt den Wert der vehID-Eigenschaft fest.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setVehID(String value) {
         this.vehID = value;
@@ -74,7 +92,7 @@ public class VehicleData {
 
     /**
      * Ruft den Wert der length-Eigenschaft ab.
-     * 
+     *
      */
     public double getLength() {
         return length;
@@ -82,7 +100,7 @@ public class VehicleData {
 
     /**
      * Legt den Wert der length-Eigenschaft fest.
-     * 
+     *
      */
     public void setLength(double value) {
         this.length = value;
@@ -90,7 +108,7 @@ public class VehicleData {
 
     /**
      * Ruft den Wert der entryTime-Eigenschaft ab.
-     * 
+     *
      */
     public double getEntryTime() {
         return entryTime;
@@ -98,7 +116,7 @@ public class VehicleData {
 
     /**
      * Legt den Wert der entryTime-Eigenschaft fest.
-     * 
+     *
      */
     public void setEntryTime(double value) {
         this.entryTime = value;
@@ -106,7 +124,7 @@ public class VehicleData {
 
     /**
      * Ruft den Wert der leaveTime-Eigenschaft ab.
-     * 
+     *
      */
     public double getLeaveTime() {
         return leaveTime;
@@ -114,7 +132,7 @@ public class VehicleData {
 
     /**
      * Legt den Wert der leaveTime-Eigenschaft fest.
-     * 
+     *
      */
     public void setLeaveTime(double value) {
         this.leaveTime = value;
@@ -122,11 +140,11 @@ public class VehicleData {
 
     /**
      * Ruft den Wert der typeID-Eigenschaft ab.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getTypeID() {
         return typeID;
@@ -134,11 +152,11 @@ public class VehicleData {
 
     /**
      * Legt den Wert der typeID-Eigenschaft fest.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setTypeID(String value) {
         this.typeID = value;

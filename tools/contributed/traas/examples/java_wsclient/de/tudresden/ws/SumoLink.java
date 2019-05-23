@@ -1,3 +1,21 @@
+/****************************************************************************/
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Copyright (C) 2017-2019 German Aerospace Center (DLR) and others.
+// TraaS module
+// Copyright (C) 2013-2017 Dresden University of Technology
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
+// SPDX-License-Identifier: EPL-2.0
+/****************************************************************************/
+/// @file    SumoLink.java
+/// @author  Mario Krumnow
+/// @date    2013
+/// @version $Id$
+///
+//
+/****************************************************************************/
 
 package de.tudresden.ws;
 
@@ -8,9 +26,9 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for sumoLink complex type.
- * 
+ *
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
+ *
  * <pre>
  * &lt;complexType name="sumoLink">
  *   &lt;complexContent>
@@ -32,8 +50,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "sumoLink", propOrder = {
@@ -65,11 +83,11 @@ public class SumoLink {
 
     /**
      * Ruft den Wert der from-Eigenschaft ab.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getFrom() {
         return from;
@@ -77,11 +95,11 @@ public class SumoLink {
 
     /**
      * Legt den Wert der from-Eigenschaft fest.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setFrom(String value) {
         this.from = value;
@@ -89,11 +107,11 @@ public class SumoLink {
 
     /**
      * Ruft den Wert der to-Eigenschaft ab.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getTo() {
         return to;
@@ -101,11 +119,11 @@ public class SumoLink {
 
     /**
      * Legt den Wert der to-Eigenschaft fest.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setTo(String value) {
         this.to = value;
@@ -113,11 +131,11 @@ public class SumoLink {
 
     /**
      * Ruft den Wert der over-Eigenschaft ab.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getOver() {
         return over;
@@ -125,11 +143,11 @@ public class SumoLink {
 
     /**
      * Legt den Wert der over-Eigenschaft fest.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setOver(String value) {
         this.over = value;
@@ -137,11 +155,11 @@ public class SumoLink {
 
     /**
      * Ruft den Wert der notInternalLane-Eigenschaft ab.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getNotInternalLane() {
         return notInternalLane;
@@ -149,11 +167,11 @@ public class SumoLink {
 
     /**
      * Legt den Wert der notInternalLane-Eigenschaft fest.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setNotInternalLane(String value) {
         this.notInternalLane = value;
@@ -161,11 +179,11 @@ public class SumoLink {
 
     /**
      * Ruft den Wert der internalLane-Eigenschaft ab.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getInternalLane() {
         return internalLane;
@@ -173,11 +191,11 @@ public class SumoLink {
 
     /**
      * Legt den Wert der internalLane-Eigenschaft fest.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setInternalLane(String value) {
         this.internalLane = value;
@@ -185,11 +203,11 @@ public class SumoLink {
 
     /**
      * Ruft den Wert der state-Eigenschaft ab.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getState() {
         return state;
@@ -197,11 +215,11 @@ public class SumoLink {
 
     /**
      * Legt den Wert der state-Eigenschaft fest.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setState(String value) {
         this.state = value;
@@ -209,11 +227,11 @@ public class SumoLink {
 
     /**
      * Ruft den Wert der direction-Eigenschaft ab.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getDirection() {
         return direction;
@@ -221,11 +239,11 @@ public class SumoLink {
 
     /**
      * Legt den Wert der direction-Eigenschaft fest.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setDirection(String value) {
         this.direction = value;
@@ -233,7 +251,7 @@ public class SumoLink {
 
     /**
      * Ruft den Wert der hasPriority-Eigenschaft ab.
-     * 
+     *
      */
     public byte getHasPriority() {
         return hasPriority;
@@ -241,7 +259,7 @@ public class SumoLink {
 
     /**
      * Legt den Wert der hasPriority-Eigenschaft fest.
-     * 
+     *
      */
     public void setHasPriority(byte value) {
         this.hasPriority = value;
@@ -249,7 +267,7 @@ public class SumoLink {
 
     /**
      * Ruft den Wert der isOpen-Eigenschaft ab.
-     * 
+     *
      */
     public byte getIsOpen() {
         return isOpen;
@@ -257,7 +275,7 @@ public class SumoLink {
 
     /**
      * Legt den Wert der isOpen-Eigenschaft fest.
-     * 
+     *
      */
     public void setIsOpen(byte value) {
         this.isOpen = value;
@@ -265,7 +283,7 @@ public class SumoLink {
 
     /**
      * Ruft den Wert der hasApproachingFoe-Eigenschaft ab.
-     * 
+     *
      */
     public byte getHasApproachingFoe() {
         return hasApproachingFoe;
@@ -273,7 +291,7 @@ public class SumoLink {
 
     /**
      * Legt den Wert der hasApproachingFoe-Eigenschaft fest.
-     * 
+     *
      */
     public void setHasApproachingFoe(byte value) {
         this.hasApproachingFoe = value;
@@ -281,7 +299,7 @@ public class SumoLink {
 
     /**
      * Ruft den Wert der length-Eigenschaft ab.
-     * 
+     *
      */
     public double getLength() {
         return length;
@@ -289,7 +307,7 @@ public class SumoLink {
 
     /**
      * Legt den Wert der length-Eigenschaft fest.
-     * 
+     *
      */
     public void setLength(double value) {
         this.length = value;

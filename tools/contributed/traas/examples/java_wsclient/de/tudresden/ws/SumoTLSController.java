@@ -1,3 +1,21 @@
+/****************************************************************************/
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Copyright (C) 2017-2019 German Aerospace Center (DLR) and others.
+// TraaS module
+// Copyright (C) 2013-2017 Dresden University of Technology
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
+// SPDX-License-Identifier: EPL-2.0
+/****************************************************************************/
+/// @file    SumoTLSController.java
+/// @author  Mario Krumnow
+/// @date    2013
+/// @version $Id$
+///
+//
+/****************************************************************************/
 
 package de.tudresden.ws;
 
@@ -11,9 +29,9 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for sumoTLSController complex type.
- * 
+ *
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
+ *
  * <pre>
  * &lt;complexType name="sumoTLSController">
  *   &lt;complexContent>
@@ -46,8 +64,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "sumoTLSController", propOrder = {
@@ -60,11 +78,11 @@ public class SumoTLSController {
 
     /**
      * Ruft den Wert der programs-Eigenschaft ab.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link SumoTLSController.Programs }
-     *     
+     *
      */
     public SumoTLSController.Programs getPrograms() {
         return programs;
@@ -72,11 +90,11 @@ public class SumoTLSController {
 
     /**
      * Legt den Wert der programs-Eigenschaft fest.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link SumoTLSController.Programs }
-     *     
+     *
      */
     public void setPrograms(SumoTLSController.Programs value) {
         this.programs = value;
@@ -85,9 +103,9 @@ public class SumoTLSController {
 
     /**
      * <p>Java class for anonymous complex type.
-     * 
+     *
      * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
-     * 
+     *
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
@@ -110,8 +128,8 @@ public class SumoTLSController {
      *   &lt;/complexContent>
      * &lt;/complexType>
      * </pre>
-     * 
-     * 
+     *
+     *
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
@@ -123,25 +141,25 @@ public class SumoTLSController {
 
         /**
          * Gets the value of the entry property.
-         * 
+         *
          * <p>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
          * This is why there is not a <CODE>set</CODE> method for the entry property.
-         * 
+         *
          * <p>
          * For example, to add a new item, do as follows:
          * <pre>
          *    getEntry().add(newItem);
          * </pre>
-         * 
-         * 
+         *
+         *
          * <p>
          * Objects of the following type(s) are allowed in the list
          * {@link SumoTLSController.Programs.Entry }
-         * 
-         * 
+         *
+         *
          */
         public List<SumoTLSController.Programs.Entry> getEntry() {
             if (entry == null) {
@@ -153,9 +171,9 @@ public class SumoTLSController {
 
         /**
          * <p>Java class for anonymous complex type.
-         * 
+         *
          * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
-         * 
+         *
          * <pre>
          * &lt;complexType>
          *   &lt;complexContent>
@@ -168,8 +186,8 @@ public class SumoTLSController {
          *   &lt;/complexContent>
          * &lt;/complexType>
          * </pre>
-         * 
-         * 
+         *
+         *
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
@@ -183,11 +201,11 @@ public class SumoTLSController {
 
             /**
              * Ruft den Wert der key-Eigenschaft ab.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link String }
-             *     
+             *
              */
             public String getKey() {
                 return key;
@@ -195,11 +213,11 @@ public class SumoTLSController {
 
             /**
              * Legt den Wert der key-Eigenschaft fest.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link String }
-             *     
+             *
              */
             public void setKey(String value) {
                 this.key = value;
@@ -207,11 +225,11 @@ public class SumoTLSController {
 
             /**
              * Ruft den Wert der value-Eigenschaft ab.
-             * 
+             *
              * @return
              *     possible object is
              *     {@link SumoTLSProgram }
-             *     
+             *
              */
             public SumoTLSProgram getValue() {
                 return value;
@@ -219,11 +237,11 @@ public class SumoTLSController {
 
             /**
              * Legt den Wert der value-Eigenschaft fest.
-             * 
+             *
              * @param value
              *     allowed object is
              *     {@link SumoTLSProgram }
-             *     
+             *
              */
             public void setValue(SumoTLSProgram value) {
                 this.value = value;

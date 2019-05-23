@@ -1,3 +1,21 @@
+/****************************************************************************/
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Copyright (C) 2017-2019 German Aerospace Center (DLR) and others.
+// TraaS module
+// Copyright (C) 2013-2017 Dresden University of Technology
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
+// SPDX-License-Identifier: EPL-2.0
+/****************************************************************************/
+/// @file    SumoTLSPhase.java
+/// @author  Mario Krumnow
+/// @date    2013
+/// @version $Id$
+///
+//
+/****************************************************************************/
 
 package de.tudresden.ws;
 
@@ -8,9 +26,9 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for sumoTLSPhase complex type.
- * 
+ *
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
+ *
  * <pre>
  * &lt;complexType name="sumoTLSPhase">
  *   &lt;complexContent>
@@ -25,8 +43,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "sumoTLSPhase", propOrder = {
@@ -44,7 +62,7 @@ public class SumoTLSPhase {
 
     /**
      * Ruft den Wert der duration-Eigenschaft ab.
-     * 
+     *
      */
     public int getDuration() {
         return duration;
@@ -52,7 +70,7 @@ public class SumoTLSPhase {
 
     /**
      * Legt den Wert der duration-Eigenschaft fest.
-     * 
+     *
      */
     public void setDuration(int value) {
         this.duration = value;
@@ -60,7 +78,7 @@ public class SumoTLSPhase {
 
     /**
      * Ruft den Wert der duration1-Eigenschaft ab.
-     * 
+     *
      */
     public int getDuration1() {
         return duration1;
@@ -68,7 +86,7 @@ public class SumoTLSPhase {
 
     /**
      * Legt den Wert der duration1-Eigenschaft fest.
-     * 
+     *
      */
     public void setDuration1(int value) {
         this.duration1 = value;
@@ -76,7 +94,7 @@ public class SumoTLSPhase {
 
     /**
      * Ruft den Wert der duration2-Eigenschaft ab.
-     * 
+     *
      */
     public int getDuration2() {
         return duration2;
@@ -84,7 +102,7 @@ public class SumoTLSPhase {
 
     /**
      * Legt den Wert der duration2-Eigenschaft fest.
-     * 
+     *
      */
     public void setDuration2(int value) {
         this.duration2 = value;
@@ -92,11 +110,11 @@ public class SumoTLSPhase {
 
     /**
      * Ruft den Wert der phasedef-Eigenschaft ab.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getPhasedef() {
         return phasedef;
@@ -104,11 +122,11 @@ public class SumoTLSPhase {
 
     /**
      * Legt den Wert der phasedef-Eigenschaft fest.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setPhasedef(String value) {
         this.phasedef = value;

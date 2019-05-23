@@ -1,3 +1,21 @@
+/****************************************************************************/
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Copyright (C) 2017-2019 German Aerospace Center (DLR) and others.
+// TraaS module
+// Copyright (C) 2013-2017 Dresden University of Technology
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
+// SPDX-License-Identifier: EPL-2.0
+/****************************************************************************/
+/// @file    VehicleAdd.java
+/// @author  Mario Krumnow
+/// @date    2013
+/// @version $Id$
+///
+//
+/****************************************************************************/
 
 package de.tudresden.ws;
 
@@ -8,9 +26,9 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for Vehicle_add complex type.
- * 
+ *
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
+ *
  * <pre>
  * &lt;complexType name="Vehicle_add">
  *   &lt;complexContent>
@@ -28,8 +46,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Vehicle_add", propOrder = {
@@ -53,11 +71,11 @@ public class VehicleAdd {
 
     /**
      * Ruft den Wert der vehID-Eigenschaft ab.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getVehID() {
         return vehID;
@@ -65,11 +83,11 @@ public class VehicleAdd {
 
     /**
      * Legt den Wert der vehID-Eigenschaft fest.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setVehID(String value) {
         this.vehID = value;
@@ -77,11 +95,11 @@ public class VehicleAdd {
 
     /**
      * Ruft den Wert der typeID-Eigenschaft ab.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getTypeID() {
         return typeID;
@@ -89,11 +107,11 @@ public class VehicleAdd {
 
     /**
      * Legt den Wert der typeID-Eigenschaft fest.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setTypeID(String value) {
         this.typeID = value;
@@ -101,11 +119,11 @@ public class VehicleAdd {
 
     /**
      * Ruft den Wert der routeID-Eigenschaft ab.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getRouteID() {
         return routeID;
@@ -113,11 +131,11 @@ public class VehicleAdd {
 
     /**
      * Legt den Wert der routeID-Eigenschaft fest.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setRouteID(String value) {
         this.routeID = value;
@@ -125,7 +143,7 @@ public class VehicleAdd {
 
     /**
      * Ruft den Wert der depart-Eigenschaft ab.
-     * 
+     *
      */
     public int getDepart() {
         return depart;
@@ -133,7 +151,7 @@ public class VehicleAdd {
 
     /**
      * Legt den Wert der depart-Eigenschaft fest.
-     * 
+     *
      */
     public void setDepart(int value) {
         this.depart = value;
@@ -141,7 +159,7 @@ public class VehicleAdd {
 
     /**
      * Ruft den Wert der pos-Eigenschaft ab.
-     * 
+     *
      */
     public double getPos() {
         return pos;
@@ -149,7 +167,7 @@ public class VehicleAdd {
 
     /**
      * Legt den Wert der pos-Eigenschaft fest.
-     * 
+     *
      */
     public void setPos(double value) {
         this.pos = value;
@@ -157,7 +175,7 @@ public class VehicleAdd {
 
     /**
      * Ruft den Wert der speed-Eigenschaft ab.
-     * 
+     *
      */
     public double getSpeed() {
         return speed;
@@ -165,7 +183,7 @@ public class VehicleAdd {
 
     /**
      * Legt den Wert der speed-Eigenschaft fest.
-     * 
+     *
      */
     public void setSpeed(double value) {
         this.speed = value;
@@ -173,7 +191,7 @@ public class VehicleAdd {
 
     /**
      * Ruft den Wert der lane-Eigenschaft ab.
-     * 
+     *
      */
     public byte getLane() {
         return lane;
@@ -181,7 +199,7 @@ public class VehicleAdd {
 
     /**
      * Legt den Wert der lane-Eigenschaft fest.
-     * 
+     *
      */
     public void setLane(byte value) {
         this.lane = value;

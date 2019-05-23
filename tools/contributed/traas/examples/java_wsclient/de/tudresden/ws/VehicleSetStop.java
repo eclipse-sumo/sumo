@@ -1,3 +1,21 @@
+/****************************************************************************/
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Copyright (C) 2017-2019 German Aerospace Center (DLR) and others.
+// TraaS module
+// Copyright (C) 2013-2017 Dresden University of Technology
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
+// SPDX-License-Identifier: EPL-2.0
+/****************************************************************************/
+/// @file    VehicleSetStop.java
+/// @author  Mario Krumnow
+/// @date    2013
+/// @version $Id$
+///
+//
+/****************************************************************************/
 
 package de.tudresden.ws;
 
@@ -8,9 +26,9 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for Vehicle_setStop complex type.
- * 
+ *
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
+ *
  * <pre>
  * &lt;complexType name="Vehicle_setStop">
  *   &lt;complexContent>
@@ -27,8 +45,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Vehicle_setStop", propOrder = {
@@ -50,11 +68,11 @@ public class VehicleSetStop {
 
     /**
      * Ruft den Wert der vehID-Eigenschaft ab.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getVehID() {
         return vehID;
@@ -62,11 +80,11 @@ public class VehicleSetStop {
 
     /**
      * Legt den Wert der vehID-Eigenschaft fest.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setVehID(String value) {
         this.vehID = value;
@@ -74,11 +92,11 @@ public class VehicleSetStop {
 
     /**
      * Ruft den Wert der edgeID-Eigenschaft ab.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getEdgeID() {
         return edgeID;
@@ -86,11 +104,11 @@ public class VehicleSetStop {
 
     /**
      * Legt den Wert der edgeID-Eigenschaft fest.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setEdgeID(String value) {
         this.edgeID = value;
@@ -98,7 +116,7 @@ public class VehicleSetStop {
 
     /**
      * Ruft den Wert der pos-Eigenschaft ab.
-     * 
+     *
      */
     public double getPos() {
         return pos;
@@ -106,7 +124,7 @@ public class VehicleSetStop {
 
     /**
      * Legt den Wert der pos-Eigenschaft fest.
-     * 
+     *
      */
     public void setPos(double value) {
         this.pos = value;
@@ -114,7 +132,7 @@ public class VehicleSetStop {
 
     /**
      * Ruft den Wert der laneIndex-Eigenschaft ab.
-     * 
+     *
      */
     public byte getLaneIndex() {
         return laneIndex;
@@ -122,7 +140,7 @@ public class VehicleSetStop {
 
     /**
      * Legt den Wert der laneIndex-Eigenschaft fest.
-     * 
+     *
      */
     public void setLaneIndex(byte value) {
         this.laneIndex = value;
@@ -130,7 +148,7 @@ public class VehicleSetStop {
 
     /**
      * Ruft den Wert der duration-Eigenschaft ab.
-     * 
+     *
      */
     public int getDuration() {
         return duration;
@@ -138,7 +156,7 @@ public class VehicleSetStop {
 
     /**
      * Legt den Wert der duration-Eigenschaft fest.
-     * 
+     *
      */
     public void setDuration(int value) {
         this.duration = value;
@@ -146,11 +164,11 @@ public class VehicleSetStop {
 
     /**
      * Ruft den Wert der stopType-Eigenschaft ab.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link SumoStopFlags }
-     *     
+     *
      */
     public SumoStopFlags getStopType() {
         return stopType;
@@ -158,11 +176,11 @@ public class VehicleSetStop {
 
     /**
      * Legt den Wert der stopType-Eigenschaft fest.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link SumoStopFlags }
-     *     
+     *
      */
     public void setStopType(SumoStopFlags value) {
         this.stopType = value;

@@ -1,3 +1,21 @@
+/****************************************************************************/
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Copyright (C) 2017-2019 German Aerospace Center (DLR) and others.
+// TraaS module
+// Copyright (C) 2013-2017 Dresden University of Technology
+// This program and the accompanying materials
+// are made available under the terms of the Eclipse Public License v2.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v20.html
+// SPDX-License-Identifier: EPL-2.0
+/****************************************************************************/
+/// @file    SimulationGetDistanceRoad.java
+/// @author  Mario Krumnow
+/// @date    2013
+/// @version $Id$
+///
+//
+/****************************************************************************/
 
 package de.tudresden.ws;
 
@@ -8,9 +26,9 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for Simulation_getDistanceRoad complex type.
- * 
+ *
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
+ *
  * <pre>
  * &lt;complexType name="Simulation_getDistanceRoad">
  *   &lt;complexContent>
@@ -26,8 +44,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Simulation_getDistanceRoad", propOrder = {
@@ -47,11 +65,11 @@ public class SimulationGetDistanceRoad {
 
     /**
      * Ruft den Wert der edgeID1-Eigenschaft ab.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getEdgeID1() {
         return edgeID1;
@@ -59,11 +77,11 @@ public class SimulationGetDistanceRoad {
 
     /**
      * Legt den Wert der edgeID1-Eigenschaft fest.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setEdgeID1(String value) {
         this.edgeID1 = value;
@@ -71,7 +89,7 @@ public class SimulationGetDistanceRoad {
 
     /**
      * Ruft den Wert der pos1-Eigenschaft ab.
-     * 
+     *
      */
     public double getPos1() {
         return pos1;
@@ -79,7 +97,7 @@ public class SimulationGetDistanceRoad {
 
     /**
      * Legt den Wert der pos1-Eigenschaft fest.
-     * 
+     *
      */
     public void setPos1(double value) {
         this.pos1 = value;
@@ -87,11 +105,11 @@ public class SimulationGetDistanceRoad {
 
     /**
      * Ruft den Wert der edgeID2-Eigenschaft ab.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getEdgeID2() {
         return edgeID2;
@@ -99,11 +117,11 @@ public class SimulationGetDistanceRoad {
 
     /**
      * Legt den Wert der edgeID2-Eigenschaft fest.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setEdgeID2(String value) {
         this.edgeID2 = value;
@@ -111,7 +129,7 @@ public class SimulationGetDistanceRoad {
 
     /**
      * Ruft den Wert der pos2-Eigenschaft ab.
-     * 
+     *
      */
     public double getPos2() {
         return pos2;
@@ -119,7 +137,7 @@ public class SimulationGetDistanceRoad {
 
     /**
      * Legt den Wert der pos2-Eigenschaft fest.
-     * 
+     *
      */
     public void setPos2(double value) {
         this.pos2 = value;
@@ -127,7 +145,7 @@ public class SimulationGetDistanceRoad {
 
     /**
      * Ruft den Wert der isDriving-Eigenschaft ab.
-     * 
+     *
      */
     public boolean isIsDriving() {
         return isDriving;
@@ -135,7 +153,7 @@ public class SimulationGetDistanceRoad {
 
     /**
      * Legt den Wert der isDriving-Eigenschaft fest.
-     * 
+     *
      */
     public void setIsDriving(boolean value) {
         this.isDriving = value;
