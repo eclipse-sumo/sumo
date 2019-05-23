@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sat Mar 16 22:46:05 2019 by Eclipse SUMO Version v1_1_0+0435-678c69824b
+<!-- generated on Wed May 22 20:22:56 2019 by Eclipse SUMO Version v1_2_0+0112-7d384bbd43
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -40,81 +40,86 @@ SPDX-License-Identifier: EPL-2.0
 <railsignal-block-output>
     <railSignal id="A">
         <link linkIndex="0" from="T8_0" to=":A_0_0">
-            <forwardBlock lanes=":A_0_0 T9_0 :W1_1_0 T10_0 :B_1_0 T11_0"/>
-            <bidiBlock lanes=":W1_0_0 -T10_0 :B_0_0 -T11_0 :C_0_0 -T12_0 :D_0_0 -T13_0 :W2_1_0 -T4_0 :F_0_0 :W2_0_0 -T14_0 :E_0_0"/>
-            <backwardBlock lanes=":W1_0_0"/>
-            <conflictLinks logicIndex="F_0 E_0">
-                <conflictLink logicIndex="F_0" lanes="-T5_0"/>
-                <conflictLink logicIndex="E_0" lanes="-T15_0"/>
-            </conflictLinks>
+            <driveWay edges="T9 T10 T11 T12 T13 T4 T5">
+                <forward lanes=":A_0_0 T9_0 :W1_1_0 T10_0 :B_1_0 T11_0"/>
+                <bidi lanes="-T10_0 :B_0_0 -T11_0 :C_0_0 -T12_0 :D_0_0 -T13_0 :W2_1_0 -T4_0 :F_0_0 -T5_0"/>
+                <flank lanes=":W2_0_0 -T14_0 :E_0_0"/>
+                <conflictLinks signals="E_0"/>
+            </driveWay>
         </link>
     </railSignal>
     <railSignal id="B">
         <link linkIndex="0" from="-T11_0" to=":B_0_0">
-            <forwardBlock lanes=":B_0_0 -T10_0 :W1_0_0 T3_0"/>
-            <bidiBlock lanes=":B_1_0 T10_0 :W1_1_0 T9_0 :A_0_0"/>
-            <backwardBlock lanes=""/>
-            <conflictLinks logicIndex="A_0"/>
+            <driveWay edges="-T10 T3">
+                <forward lanes=":B_0_0 -T10_0 :W1_0_0 T3_0"/>
+                <bidi lanes=":B_1_0 T10_0"/>
+                <flank lanes=":W1_1_0 T9_0 :A_0_0"/>
+                <conflictLinks signals="A_0"/>
+            </driveWay>
         </link>
     </railSignal>
     <railSignal id="C">
         <link linkIndex="0" from="-T12_0" to=":C_0_0">
-            <forwardBlock lanes=":C_0_0 -T11_0"/>
-            <bidiBlock lanes=":C_1_0 T11_0 :B_1_0 T10_0 :W1_1_0 T9_0 :A_0_0"/>
-            <backwardBlock lanes=""/>
-            <conflictLinks logicIndex="A_0"/>
+            <driveWay edges="-T11 -T10">
+                <forward lanes=":C_0_0 -T11_0"/>
+                <bidi lanes=":C_1_0 T11_0 :B_1_0 T10_0"/>
+                <flank lanes=":W1_1_0 T9_0 :A_0_0"/>
+                <conflictLinks signals="A_0"/>
+            </driveWay>
         </link>
         <link linkIndex="1" from="T11_0" to=":C_1_0">
-            <forwardBlock lanes=":C_1_0 T12_0"/>
-            <bidiBlock lanes=":C_0_0 -T12_0 :D_0_0 -T13_0 :W2_1_0 -T4_0 :F_0_0 :W2_0_0 -T14_0 :E_0_0"/>
-            <backwardBlock lanes=""/>
-            <conflictLinks logicIndex="F_0 E_0">
-                <conflictLink logicIndex="F_0" lanes="-T5_0"/>
-                <conflictLink logicIndex="E_0" lanes="-T15_0"/>
-            </conflictLinks>
+            <driveWay edges="T12 T13 T4 T5">
+                <forward lanes=":C_1_0 T12_0"/>
+                <bidi lanes=":C_0_0 -T12_0 :D_0_0 -T13_0 :W2_1_0 -T4_0 :F_0_0 -T5_0"/>
+                <flank lanes=":W2_0_0 -T14_0 :E_0_0"/>
+                <conflictLinks signals="E_0"/>
+            </driveWay>
         </link>
     </railSignal>
     <railSignal id="D">
         <link linkIndex="0" from="T12_0" to=":D_1_0">
-            <forwardBlock lanes=":D_1_0 T13_0 :W2_3_0 T14_0 :W2_2_0 T4_0"/>
-            <bidiBlock lanes=":D_0_0 -T13_0 :W2_1_0 -T4_0 :F_0_0 :W2_0_0 -T14_0 :E_0_0"/>
-            <backwardBlock lanes=""/>
-            <conflictLinks logicIndex="F_0 E_0">
-                <conflictLink logicIndex="F_0" lanes="-T5_0"/>
-                <conflictLink logicIndex="E_0" lanes="-T15_0"/>
-            </conflictLinks>
+            <driveWay edges="T13 T4 T5">
+                <forward lanes=":D_1_0 T13_0 :W2_2_0 T4_0"/>
+                <bidi lanes=":D_0_0 -T13_0 :W2_1_0 -T4_0 :F_0_0 -T5_0"/>
+                <flank lanes=":W2_0_0 -T14_0 :E_0_0"/>
+                <conflictLinks signals="E_0"/>
+            </driveWay>
         </link>
     </railSignal>
     <railSignal id="E">
         <link linkIndex="0" from="-T15_0" to=":E_0_0">
-            <forwardBlock lanes=":E_0_0 -T14_0 :W2_0_0 -T13_0 :D_0_0 -T12_0"/>
-            <bidiBlock lanes=":E_1_0 T14_0 :W2_3_0 T13_0 :D_1_0 T12_0 :C_1_0 T11_0 :B_1_0 T10_0 :W1_1_0 T9_0 :A_0_0"/>
-            <backwardBlock lanes=":W2_1_0 -T4_0 :F_0_0"/>
-            <conflictLinks logicIndex="F_0 A_0">
-                <conflictLink logicIndex="F_0" lanes="-T5_0"/>
-            </conflictLinks>
+            <driveWay edges="-T14 -T13 -T12 -T11 -T10">
+                <forward lanes=":E_0_0 -T14_0 :W2_0_0 -T13_0 :D_0_0 -T12_0"/>
+                <bidi lanes=":E_1_0 T14_0 :W2_3_0 T13_0 :D_1_0 T12_0 :C_1_0 T11_0 :B_1_0 T10_0"/>
+                <flank lanes=":W2_1_0 -T4_0 :F_0_0 :W1_1_0 T9_0 :A_0_0"/>
+                <conflictLinks signals="F_0 A_0"/>
+            </driveWay>
         </link>
         <link linkIndex="1" from="T14_0" to=":E_1_0">
-            <forwardBlock lanes=":E_1_0 T15_0"/>
-            <bidiBlock lanes=":E_0_0 -T15_0"/>
-            <backwardBlock lanes=""/>
-            <conflictLinks logicIndex=""/>
+            <driveWay edges="T15">
+                <forward lanes=":E_1_0 T15_0"/>
+                <bidi lanes=":E_0_0 -T15_0"/>
+                <flank lanes=""/>
+                <conflictLinks signals=""/>
+            </driveWay>
         </link>
     </railSignal>
     <railSignal id="F">
         <link linkIndex="0" from="-T5_0" to=":F_0_0">
-            <forwardBlock lanes=":F_0_0 -T4_0 :W2_1_0 -T13_0 :D_0_0 -T12_0"/>
-            <bidiBlock lanes=":F_1_0 T4_0 :W2_2_0 T13_0 :D_1_0 T12_0 :C_1_0 T11_0 :B_1_0 T10_0 :W1_1_0 T9_0 :A_0_0"/>
-            <backwardBlock lanes=":W2_0_0 -T14_0 :E_0_0 :W2_3_0"/>
-            <conflictLinks logicIndex="E_0 A_0">
-                <conflictLink logicIndex="E_0" lanes="-T15_0"/>
-            </conflictLinks>
+            <driveWay edges="-T4 -T13 -T12 -T11 -T10">
+                <forward lanes=":F_0_0 -T4_0 :W2_1_0 -T13_0 :D_0_0 -T12_0"/>
+                <bidi lanes=":F_1_0 T4_0 :W2_2_0 T13_0 :D_1_0 T12_0 :C_1_0 T11_0 :B_1_0 T10_0"/>
+                <flank lanes=":W2_0_0 -T14_0 :E_0_0 :W1_1_0 T9_0 :A_0_0"/>
+                <conflictLinks signals="E_0 A_0"/>
+            </driveWay>
         </link>
         <link linkIndex="1" from="T4_0" to=":F_1_0">
-            <forwardBlock lanes=":F_1_0 T5_0"/>
-            <bidiBlock lanes=":F_0_0 -T5_0"/>
-            <backwardBlock lanes=""/>
-            <conflictLinks logicIndex=""/>
+            <driveWay edges="T5">
+                <forward lanes=":F_1_0 T5_0"/>
+                <bidi lanes=":F_0_0 -T5_0"/>
+                <flank lanes=""/>
+                <conflictLinks signals=""/>
+            </driveWay>
         </link>
     </railSignal>
 </railsignal-block-output>

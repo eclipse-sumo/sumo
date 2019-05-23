@@ -1,1 +1,1 @@
-Warning: At railSignal junction 'B' link 0 with direction t should be uncontrolled
+Warning: Found circular block after railSignal junction 'B_0' (0 edges, length 0.10)

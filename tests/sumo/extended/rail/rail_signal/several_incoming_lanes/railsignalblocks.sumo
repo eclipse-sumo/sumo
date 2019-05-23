@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jan 28 10:52:39 2019 by Eclipse SUMO Version v1_0_1+0645-93703db
+<!-- generated on Mon May 20 19:42:50 2019 by Eclipse SUMO Version v1_2_0+0112-7d384bbd43
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -40,22 +40,28 @@ SPDX-License-Identifier: EPL-2.0
 <railsignal-block-output>
     <railSignal id="gneJ2">
         <link linkIndex="0" from="gneE9_0" to="gneE2_0">
-            <forwardBlock lanes="gneE2_0 gneE3_0"/>
-            <bidiBlock lanes=""/>
-            <backwardBlock lanes=""/>
-            <conflictLinks logicIndex="gneJ2_1 gneJ2_2"/>
+            <driveWay edges="gneE2 gneE3">
+                <forward lanes="gneE2_0 gneE3_0"/>
+                <bidi lanes=""/>
+                <flank lanes=""/>
+                <conflictLinks signals="gneJ2_1 gneJ2_2"/>
+            </driveWay>
         </link>
         <link linkIndex="1" from="gneE1_0" to="gneE2_0">
-            <forwardBlock lanes="gneE2_0 gneE3_0"/>
-            <bidiBlock lanes=""/>
-            <backwardBlock lanes=""/>
-            <conflictLinks logicIndex="gneJ2_2 gneJ2_0"/>
+            <driveWay edges="gneE2 gneE3">
+                <forward lanes="gneE2_0 gneE3_0"/>
+                <bidi lanes=""/>
+                <flank lanes=""/>
+                <conflictLinks signals="gneJ2_2 gneJ2_0"/>
+            </driveWay>
         </link>
         <link linkIndex="2" from="gneE7_0" to="gneE2_0">
-            <forwardBlock lanes="gneE2_0 gneE3_0"/>
-            <bidiBlock lanes=""/>
-            <backwardBlock lanes=""/>
-            <conflictLinks logicIndex="gneJ2_1 gneJ2_0"/>
+            <driveWay edges="gneE2 gneE3">
+                <forward lanes="gneE2_0 gneE3_0"/>
+                <bidi lanes=""/>
+                <flank lanes=""/>
+                <conflictLinks signals="gneJ2_1 gneJ2_0"/>
+            </driveWay>
         </link>
     </railSignal>
 </railsignal-block-output>

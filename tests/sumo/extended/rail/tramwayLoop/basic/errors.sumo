@@ -1,3 +1,0 @@
-Warning: Vehicle 'tram4' performs emergency stop at the end of lane 'T17_1_0' because of a red traffic light (decel=-22.90, offset=21.54), time=1225.00.
-Warning: Vehicle 'tram9' performs emergency stop at the end of lane 'T6_0_0' because of a red traffic light (decel=-3.83, offset=2.80), time=1856.00.
-Warning: Vehicle 'tram4' performs emergency stop at the end of lane 'T34_0_0' because of a red traffic light (decel=-20.67, offset=3.85), time=2033.00.

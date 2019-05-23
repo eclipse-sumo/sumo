@@ -1,5 +1,3 @@
-Warning: No route for vehicle 'RE2' found.
-Warning: No route for vehicle 'RE1' found.
 Warning: Teleporting vehicle 'RE2'; waited too long (yield), lane='T0_0', time=348.00.
 Warning: Vehicle 'RE2' ends teleporting on edge 'T1', time 348.00.
 Warning: Teleporting vehicle 'RE2'; frontal collision with vehicle 'RE1', lane='-T11_0', gap=-1.00, time=364.00 stage=move.
