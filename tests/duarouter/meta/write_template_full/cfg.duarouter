@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Apr  3 12:30:56 2019 by Eclipse SUMO duarouter Version v1_0_1+0645-93703db
+<!-- generated on Thu May 23 23:01:45 2019 by Eclipse SUMO duarouter Version v1_2_0+0149-6b40db9d1b
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
@@ -17,10 +17,10 @@
         <net-file value="" synonymes="n net" type="FILE" help="Use FILE as SUMO-network to route on"/>
         <additional-files value="" synonymes="a additional d districts taz-files" type="FILE" help="Read additional network data (districts, bus stops) from FILE(s)"/>
         <route-files value="" synonymes="alternative-files alternatives-files f flow-files flows r t trip-files trips" type="FILE" help="Read sumo routes, alternatives, flows, and trips from FILE(s)"/>
+        <phemlight-path value="./PHEMlight/" type="FILE" help="Determines where to load PHEMlight definitions from."/>
         <weight-files value="" synonymes="w weights" type="FILE" help="Read network weights from FILE(s)"/>
         <lane-weight-files value="" type="FILE" help="Read lane-based network weights from FILE(s)"/>
         <weight-attribute value="traveltime" synonymes="measure x" type="STR" help="Name of the xml attribute which gives the edge weight"/>
-        <phemlight-path value="./PHEMlight/" type="FILE" help="Determines where to load PHEMlight definitions from."/>
     </input>
 
     <output>
