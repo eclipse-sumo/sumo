@@ -1325,7 +1325,7 @@ GNEApplicationWindow::fillMenuBar() {
                       "Locate &Route\tShift+R\tOpen a dialog for locating a Route.",
                       GUIIconSubSys::getIcon(ICON_LOCATEROUTE), this, MID_LOCATEROUTE);
     new FXMenuCommand(myLocatorMenu,
-                      "Locate &Vehicles\tShift+S\tOpen a dialog for locating a Stop.",
+                      "Locate &Stops\tShift+S\tOpen a dialog for locating a Stop.",
                       GUIIconSubSys::getIcon(ICON_LOCATESTOP), this, MID_LOCATESTOP);
     new FXMenuCommand(myLocatorMenu,
                       "Locate &TLS\tShift+T\tOpen a dialog for locating a Traffic Light.",
