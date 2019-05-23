@@ -522,6 +522,9 @@ public:
         return myLateralShift;
     }
 
+    /// @brief get string description for this link
+    std::string  getDescription() const;
+
 private:
     /// @brief return whether the given vehicles may NOT merge safely
     static inline bool unsafeMergeSpeeds(double leaderSpeed, double followerSpeed, double leaderDecel, double followerDecel) {

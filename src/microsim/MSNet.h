@@ -518,6 +518,9 @@ public:
     /// @brief write charging station output
     void writeChargingStationOutput() const;
 
+    /// @brief write rail signal block output
+    void writeRailSignalBlocks() const;
+
     /// @brief creates a wrapper for the given logic (see GUINet)
     virtual void createTLWrapper(MSTrafficLightLogic*) {};
 

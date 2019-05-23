@@ -26,19 +26,23 @@
 #include <utility>
 #include <vector>
 #include <bitset>
+#include <utils/iodevices/OutputDevice_COUT.h>
 #include <microsim/MSEventControl.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSLink.h>
+#include <microsim/MSJunctionLogic.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/devices/MSDevice_Routing.h>
 #include <microsim/devices/MSRoutingEngine.h>
-#include "MSTrafficLightLogic.h"
-#include "MSRailSignal.h"
 #include <microsim/MSLane.h>
+
+#include "MSTLLogicControl.h"
+#include "MSTrafficLightLogic.h"
 #include "MSPhaseDefinition.h"
 #include "MSTLLogicControl.h"
+#include "MSRailSignal.h"
 
 // typical block length in germany on main lines is 3-5km on branch lines up to 7km
 // special branches that are used by one train exclusively could also be up to 20km in length
@@ -47,22 +51,25 @@
 #define MAX_BLOCK_LENGTH 20000
 #define MAX_SIGNAL_WARNINGS 10
 
-//#define DEBUG_FORWARD_BLOCK
-//#define DEBUG_BIDI_BLOCK
-//#define DEBUG_BACKWARD_BLOCK
+//#define DEBUG_BUILD_DRIVEWAY
+//#define DEBUG_CHECK_FLANKS
 
-//#define DEBUG_SIGNALSTATE
+#define DEBUG_SIGNALSTATE
 #define DEBUG_SIGNALSTATE_PRIORITY
-#define DEBUG_COND (isSelected())
-//#define DEBUG_COND (getID() == "disabled")
-//#define DEBUG_COND (true)
+//#define DEBUG_FIND_PROTECTION
+//#define DEBUG_REROUTE
+
+#define DEBUG_COND DEBUG_HELPER(this)
+#define DEBUG_COND_LINKINFO DEBUG_HELPER(myLink->getTLLogic())
+#define DEBUG_HELPER(obj) ((obj)->isSelected())
+//#define DEBUG_HELPER(obj) ((obj)->getID() == "w2")
+//#define DEBUG_HELPER(obj) (true)
 
 // ===========================================================================
 // static value definitions
 // ===========================================================================
 int MSRailSignal::myNumWarnings(0);
 
-class ApproachingVehicleInformation;
 // ===========================================================================
 // method definitions
 // ===========================================================================
@@ -77,212 +84,20 @@ MSRailSignal::MSRailSignal(MSTLLogicControl& tlcontrol,
 void
 MSRailSignal::init(NLDetectorBuilder&) {
     assert(myLanes.size() > 0);
-
-    myConflictLanes.resize(myLinks.size());
-    myConflictLinks.resize(myLinks.size());
-    myRouteConflictLanes.resize(myLinks.size());
-    myRouteConflictLinks.resize(myLinks.size());
-
-    myLastRerouteAttempt.resize(myLinks.size(), std::make_pair(nullptr, -1));
-
-    if (OptionsCont::getOptions().isSet("railsignal-block-output")) {
-        OutputDevice& od = OutputDevice::getDeviceByOption("railsignal-block-output");
-        od.openTag("railSignal");
-        od.writeAttr(SUMO_ATTR_ID, getID());
-    }
-
     for (LinkVector& links : myLinks) { //for every link index
-        // collect lanes and links that are relevant for setting this signal
-        // for each index we collect
-        // - conflictLanes (signal must be red if any conflict lane is occupied)
-        // - conflictLinks (signal must be red if any conflict link is approached by a vehicle
-        //    - that cannot break in time (arrivalSpeedBraking > 0)
-        //    - approached by a vehicle with higher switching priority (see #3941)
-        //
-        // forwardBlock
-        // - search forward recursive from outgoing lane until controlled railSignal link found
-        //   -> add all found lanes
-        //
-        // bidiBlock (if any forwardBlock edge edge has bidi edge)
-        // - search bidi backward recursive until first switch
-        //   - from switch search backward recursive all other incoming until controlled rail signal link
-        //     -> add final links
-        //
-        // backwardBlock
-        // - search backward recursive from incoming lanes (not bidi for current outgoing lane)
-        //   until controlled railSignal link found
-        //   -> add all found lanes
-        //   -> add final links
-        //
-        // conditionalBlocks
-        // - for each conflict link (always signalized) that enters from a
-        // bidirectional track
-        //   - search bidi backward recursive until first switch that is
-        //   accessible from the bidi-direction
-        //     - from switch search bidi backward recursive until controlled rail signal link
-        //       -> add all found lanes
-        //       -> add final links
-
-        std::vector<MSLink*> conflictLinks;
-        LaneSet visited;
-
-        std::vector<MSLane*> forwardBlock;
-        std::vector<MSLane*> bidiBlock;
-        std::vector<MSLane*> backwardBlock;
-
-        // there should be only one link per index for railSignal
-        if (links.size() > 1) {
+        if (links.size() != 1) {
             throw ProcessError("At railSignal '" + getID() + "' found " + toString(links.size())
                                + " links controlled by index " + toString(links[0]->getTLIndex()));
         }
-        for (MSLink* link : links) {
-            MSLane* toLane = link->getViaLaneOrLane();   //the lane this link is leading to
-            MSLane* fromBidi = link->getLaneBefore()->getBidiLane();
-            if (fromBidi != nullptr) {
-                // do not extend to forward block beyond the entering track (in case of a loop)
-                visited.insert(fromBidi);
-            }
-
-            collectForwardBlock(toLane, 0., forwardBlock, visited);
-#ifdef DEBUG_FORWARD_BLOCK
-            if (DEBUG_COND) {
-                std::cout << "railSignal=" << getID() << " index=" << link->getTLIndex() << " forwardBlock=" << toString(forwardBlock) << "\n";
-            }
-#endif
-
-            for (MSLane* forward : forwardBlock) {
-                if (forward->getEdge().getBidiEdge() != nullptr) {
-                    MSLane* bidi = forward->getBidiLane();
-                    for (MSLink* bidiOutLink : bidi->getLinkCont()) {
-                        if (bidiOutLink->getViaLane() != nullptr) {
-                            bidiBlock.push_back(bidiOutLink->getViaLane());
-                        }
-                    }
-                    collectBidiBlock(bidi, 0., false, bidiBlock, visited);
-                    // assume bidirectional patches are continuous
-                    break;
-                }
-            }
-#ifdef DEBUG_BIDI_BLOCK
-            if (DEBUG_COND) {
-                std::cout << "railSignal=" << getID() << " index=" << link->getTLIndex() << " bidiBlock=" << toString(bidiBlock) << "\n";
-            }
-#endif
-
-            // compute conflict links
-            for (MSLane* cl : forwardBlock) {
-                collectConflictLinks(cl, 0, backwardBlock, conflictLinks, visited, true);
-            }
-            for (MSLane* cl : bidiBlock) {
-                collectConflictLinks(cl, 0, backwardBlock, conflictLinks, visited, false);
-            }
-
-            auto thisLinkIt = std::find(conflictLinks.begin(), conflictLinks.end(), link);
-            if (thisLinkIt != conflictLinks.end()) {
-                conflictLinks.erase(thisLinkIt);
-            } else {
-                WRITE_WARNING("At railSignal junction '" + getID() + "' link " + toString(link->getTLIndex()) + " with direction " + toString(link->getDirection()) + " should be uncontrolled");
-            }
-
-#ifdef DEBUG_BACKWARD_BLOCK
-            if (DEBUG_COND) {
-                std::cout << "railSignal=" << getID() << " index=" << link->getTLIndex() << " backwardBlock=" << toString(backwardBlock);
-                std::cout << "railSignal=" << getID() << " index=" << link->getTLIndex() << " conflictLinks=";
-                for (MSLink* cl : conflictLinks) {
-                    std::cout << toString(cl->getViaLaneOrLane()->getID()) << " ";
-                }
-                std::cout << "\n";
-            }
-#endif
-
-            // compute conditional conflict lanes and links
-            for (MSLink* cl : conflictLinks) {
-                std::vector<MSLane*> routeConflictLanes;
-                std::vector<MSLink*> routeConflictLinks;
-                MSLane* in = const_cast<MSLane*>(cl->getLaneBefore());
-                LaneSet rCVisited = visited;
-                // only collect if
-                // 1) the in-edge is bidirectional
-                // 2) the foe has no alternative track before reaching the end of the forwardBlock
-                // 3) the forward block has no alternative track between the end of the forward block and the conflict link
-                if (in->getEdge().getBidiEdge() != nullptr
-                        && !hasAlternativeTrack(cl)
-                        && !hasAlternativeTrackBetween(forwardBlock, cl)) {
-                    collectBidiBlock(in, 0., false, routeConflictLanes, rCVisited);
-                    std::vector<MSLane*> rCBackwardBlock;
-                    for (MSLane* rCLane : routeConflictLanes) {
-                        collectConflictLinks(rCLane, 0, rCBackwardBlock, routeConflictLinks, rCVisited);
-                    }
-                }
-                myRouteConflictLanes[link->getTLIndex()].push_back(routeConflictLanes);
-                myRouteConflictLinks[link->getTLIndex()].push_back(routeConflictLinks);
-            }
-
-
-            if (OptionsCont::getOptions().isSet("railsignal-block-output")) {
-                OutputDevice& od = OutputDevice::getDeviceByOption("railsignal-block-output");
-                od.openTag("link");
-                od.writeAttr(SUMO_ATTR_TLLINKINDEX, link->getTLIndex());
-                od.writeAttr(SUMO_ATTR_FROM, link->getLaneBefore()->getID());
-                od.writeAttr(SUMO_ATTR_TO, link->getViaLaneOrLane()->getID());
-
-                od.openTag("forwardBlock");
-                od.writeAttr(SUMO_ATTR_LANES, toString(forwardBlock));
-                od.closeTag();
-                od.openTag("bidiBlock");
-                od.writeAttr(SUMO_ATTR_LANES, toString(bidiBlock));
-                od.closeTag();
-                od.openTag("backwardBlock");
-                od.writeAttr(SUMO_ATTR_LANES, toString(backwardBlock));
-                od.closeTag();
-                od.openTag("conflictLinks");
-                std::vector<std::string> conflictLinkIDs; // railSignalID_tlIndex
-                for (MSLink* cl : conflictLinks) {
-                    conflictLinkIDs.push_back(getTLLinkID(cl));
-                }
-                od.writeAttr("logicIndex", toString(conflictLinkIDs));
-                for (int i = 0; i < (int)conflictLinks.size(); i++) {
-                    const std::vector<MSLane*>& rCLanes = myRouteConflictLanes[link->getTLIndex()][i];
-                    const std::vector<MSLink*>& rCLinks = myRouteConflictLinks[link->getTLIndex()][i];
-                    if (rCLanes.size() > 0 || rCLinks.size() > 0) {
-                        od.openTag("conflictLink");
-                        od.writeAttr("logicIndex", getTLLinkID(conflictLinks[i]));
-                        if (rCLanes.size() > 0) {
-                            od.writeAttr("lanes", toString(rCLanes));
-                        }
-                        if (rCLinks.size() > 0) {
-                            std::vector<std::string> rCLinkIDs;
-                            for (MSLink* rcl : rCLinks) {
-                                rCLinkIDs.push_back(getTLLinkID(rcl));
-                            }
-                            od.writeAttr("links", toString(rCLinkIDs));
-                        }
-                        od.closeTag();
-                    }
-                }
-                od.closeTag(); // conflictLinks
-                od.closeTag(); // link
-            }
-
-            std::vector<MSLane*> conflictLanes;
-            conflictLanes.insert(conflictLanes.end(), forwardBlock.begin(), forwardBlock.end());
-            conflictLanes.insert(conflictLanes.end(), bidiBlock.begin(), bidiBlock.end());
-            conflictLanes.insert(conflictLanes.end(), backwardBlock.begin(), backwardBlock.end());
-            myConflictLanes[link->getTLIndex()] = conflictLanes;
-            myConflictLinks[link->getTLIndex()] = conflictLinks;
-        }
+        myLinkInfos.push_back(LinkInfo(links[0]));
     }
-    if (OptionsCont::getOptions().isSet("railsignal-block-output")) {
-        OutputDevice& od = OutputDevice::getDeviceByOption("railsignal-block-output");
-        od.closeTag();
-    }
-
-    updateCurrentPhase();   //check if this is necessary or if will be done already at another stage
+    updateCurrentPhase();
     setTrafficLightSignals(MSNet::getInstance()->getCurrentTimeStep());
 }
 
 
-MSRailSignal::~MSRailSignal() {}
+MSRailSignal::~MSRailSignal() {
+}
 
 
 // ----------- Handling of controlled links
@@ -302,171 +117,55 @@ MSRailSignal::trySwitch() {
 }
 
 
-bool
-MSRailSignal::conflictLaneOccupied(int index) const {
-    for (const MSLane* lane : myConflictLanes[index]) {
-        if (!lane->isEmpty()) {
-#ifdef DEBUG_SIGNALSTATE
-            if (DEBUG_COND) {
-                std::cout << SIMTIME << " railSignal=" << getID() << " index=" << index << " conflictLane " << lane->getID() << " occupied\n";
-            }
-#endif
-            return true;
-        }
-    }
-    return false;
-}
-
-
-bool
-MSRailSignal::hasLinkConflict(int index) const {
-#ifdef DEBUG_SIGNALSTATE_PRIORITY
-    //if (DEBUG_COND) std::cout << SIMTIME << " railSignal=" << getID() << " index=" << index << " hasLinkConflict...\n";
-#endif
-    MSLink* currentLink = myLinks[index][0];
-    double foeMaxSpeed = -1;
-    double foeMinDist = std::numeric_limits<double>::max();
-    SUMOTime foeMinETA = std::numeric_limits<SUMOTime>::max();
-    long long foeMinNumericalID = std::numeric_limits<long long>::max(); // tie braker
-
-    // check for vehicles that enter the (unconditional) conflict area and
-    // resolve conflict according to priority
-    std::vector<int> checkRouteConflict;
-    const auto& cLinks = myConflictLinks[index];
-    for (int clIndex = 0; clIndex < (int)cLinks.size(); ++clIndex) {
-        if (myRouteConflictLanes[index][clIndex].size() > 0) {
-            // record links where the conditional conflict area may be occupied
-            checkRouteConflict.push_back(clIndex);
-        }
-        const MSLink* link = cLinks[clIndex];
-        if (link->getApproaching().size() > 0) {
-            const MSTrafficLightLogic* foeTLL = link->getTLLogic();
-            assert(foeTLL != nullptr);
-            const MSRailSignal* foeRS = dynamic_cast<const MSRailSignal*>(foeTLL);
-            if (foeRS != nullptr) {
-                if (foeRS->conflictLaneOccupied(link->getTLIndex())) {
-#ifdef DEBUG_SIGNALSTATE_PRIORITY
-                    if (DEBUG_COND) std::cout << SIMTIME << " railSignal=" << getID() << " index=" << index
-                                                  << " foeLink " << link->getViaLaneOrLane()->getID() << " (ignored)\n";
-#endif
-                    continue;
-                }
-            } else if (link->getState() == LINKSTATE_TL_RED) {
-                // ignore foe vehicles waiting at a regular traffic light
-                continue;
-            }
-        }
-        for (auto apprIt : link->getApproaching()) {
-            MSLink::ApproachingVehicleInformation info = apprIt.second;
-            foeMaxSpeed = MAX2(apprIt.first->getSpeed(), foeMaxSpeed);
-            foeMinDist = MIN2(info.dist, foeMinDist);
-            if (info.willPass) {
-                foeMinETA = MIN2(info.arrivalTime, foeMinETA);
-            }
-            foeMinNumericalID = MIN2(foeMinNumericalID, apprIt.first->getNumericalID());
-        }
-    }
-    SUMOVehicle* closest = nullptr;
-    if (foeMaxSpeed >= 0 || checkRouteConflict.size() > 0) {
-        // check against vehicles approaching this link
-        double maxSpeed = -1;
-        double minDist = std::numeric_limits<double>::max();
-        SUMOTime minETA = std::numeric_limits<SUMOTime>::max();
-        long long minNumericalID = std::numeric_limits<long long>::max(); // tie braker
-        for (auto apprIt : currentLink->getApproaching()) {
-            MSLink::ApproachingVehicleInformation info = apprIt.second;
-            maxSpeed = MAX2(apprIt.first->getSpeed(), maxSpeed);
-            if (info.dist < minDist) {
-                minDist = info.dist;
-                closest = const_cast<SUMOVehicle*>(apprIt.first);
-            }
-            if (info.willPass) {
-                minETA = MIN2(info.arrivalTime, minETA);
-            }
-            minNumericalID = MIN2(minNumericalID, apprIt.first->getNumericalID());
-        }
-#ifdef DEBUG_SIGNALSTATE_PRIORITY
-        if (DEBUG_COND) std::cout << SIMTIME << " railSignal=" << getID() << " index=" << index
-                                      << " fms=" << foeMaxSpeed << " ms=" << maxSpeed
-                                      << " fmd=" << foeMinDist << " md=" << minDist
-                                      << " fmE=" << foeMinETA << " mE=" << minETA
-                                      << " fmI=" << foeMinNumericalID << " mI=" << minNumericalID
-                                      << "\n";
-#endif
-        if (foeMinETA < minETA) {
-            return true;
-        } else if (foeMinETA == minETA) {
-            if (foeMaxSpeed > maxSpeed) {
-                return true;
-            } else if (foeMaxSpeed == maxSpeed) {
-                if (foeMinDist < minDist) {
-                    return true;
-                } else if (foeMinDist == minDist) {
-                    if (foeMinNumericalID < minNumericalID) {
-                        return true;
-                    }
-                }
-            }
-        }
-#ifdef DEBUG_SIGNALSTATE_PRIORITY
-        //if (DEBUG_COND) std::cout << SIMTIME << " railSignal=" << getID() << " index=" << index << " closestVeh=" << Named::getIDSecure(closest) << " routeFoes " << toString(routeFoes) << "\n";
-#endif
-        if (closest != nullptr) {
-            for (int clIndex : checkRouteConflict) {
-                const MSEdge& firstBidi = myRouteConflictLanes[index][clIndex].front()->getEdge();
-                const MSEdge* first = firstBidi.getBidiEdge();
-                assert(first != nullptr);
-                if (std::find(closest->getCurrentRouteEdge(), closest->getRoute().end(), first) != closest->getRoute().end()) {
-                    // vehicle wants to drive passt this conflict link
-                    //const ConstMSEdgeVector& route = closest->getRoute().getEdges();
-                    for (const MSLane* cLane : myRouteConflictLanes[index][clIndex]) {
-                        if (cLane->getVehicleNumberWithPartials() > 0) {
-                            if (DEBUG_COND) std::cout << SIMTIME << " railSignal=" << getID() << " index=" << index
-                                                          << " closestVeh=" << closest->getID() << " route edge " << cLane->getEdge().getID() << " blocked\n";
-                            // trigger rerouting
-                            MSDevice_Routing* rDev = static_cast<MSDevice_Routing*>(closest->getDevice(typeid(MSDevice_Routing)));
-                            if (rDev != nullptr) {
-                                SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
-                                if (myLastRerouteAttempt[index].first != closest
-                                        // reroute each vehicle only once if no
-                                        // periodic routing is allowed, otherwise
-                                        // with the specified period
-                                        || (rDev->getPeriod() > 0 &&  myLastRerouteAttempt[index].second + rDev->getPeriod() <= now)) {
-                                    MSEdgeVector routeFoes;
-                                    routeFoes.push_back(const_cast<MSEdge*>(first));
-                                    SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = MSRoutingEngine::getRouterTT(routeFoes);
-                                    myLastRerouteAttempt[index] = std::make_pair(closest, now);
-                                    try {
-                                        closest->reroute(now, "railSignal:" + getID(), router, false, false, true); // silent
-                                    } catch (ProcessError& error) {
-#ifdef DEBUG_SIGNALSTATE_PRIORITY
-                                        if (DEBUG_COND) {
-                                            std::cout << " rerouting failed: " << error.what() << "\n";
-                                        }
-#endif
-                                    }
-                                }
-                            }
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-    }
-    return false;
-}
-
 
 void
 MSRailSignal::updateCurrentPhase() {
-    std::string state(myLinks.size(), 'G');   //the state of the phase definition (all signal are green)
-    for (int i = 0; i < (int)myLinks.size(); i++) {
-        if (conflictLaneOccupied(i) || hasLinkConflict(i)) {
-            state[i] = 'r';
+#ifdef DEBUG_SIGNALSTATE
+    gDebugFlag4 = DEBUG_COND;
+#endif
+    // green by default so vehicles can be inserted at the borders of the network
+    std::string state(myLinks.size(), 'G'); 
+    for (LinkInfo& li : myLinkInfos) {
+        if (li.myLink->getApproaching().size() > 0) {
+            Approaching closest = getClosest(li.myLink);
+            DriveWay& driveway = li.getDriveWay(closest.first);
+            //std::cout << SIMTIME << " signal=" << getTLLinkID(li.myLink) << " veh=" << closest.first->getID() << " dw:\n";
+            //driveway.writeBlocks(*OutputDevice_COUT::getDevice());
+            MSEdgeVector occupied;
+            if (!driveway.reserve(closest, occupied)) {
+                state[li.myLink->getTLIndex()] = 'r';
+                if (occupied.size() > 0) {
+                    li.reroute(const_cast<SUMOVehicle*>(closest.first), occupied);
+                }
+#ifdef DEBUG_SIGNALSTATE
+                if (gDebugFlag4) {
+                    std::cout << SIMTIME << " rsl=" << li.getID() << " veh=" << closest.first->getID() << " notReserved\n";
+                }
+#endif
+            } else {
+                state[li.myLink->getTLIndex()] = 'G';
+#ifdef DEBUG_SIGNALSTATE
+                if (gDebugFlag4) {
+                    std::cout << SIMTIME << " rsl=" << li.getID() << " veh=" << closest.first->getID() << " reserved\n";
+                }
+#endif
+            }
+        } else {
+            DriveWay& driveway = li.myDriveways.front();
+            if (driveway.conflictLaneOccupied() || driveway.conflictLinkApproached()) {
+#ifdef DEBUG_SIGNALSTATE
+                if (gDebugFlag4) {
+                    std::cout << SIMTIME << " rsl=" << li.getID() << " red for default driveway\n";
+                }
+#endif
+                state[li.myLink->getTLIndex()] = 'r';
+            }
         }
     }
     myCurrentPhase.setState(state);
+#ifdef DEBUG_SIGNALSTATE
+    gDebugFlag4 = false;
+#endif
 }
 
 
@@ -515,185 +214,6 @@ MSRailSignal::getIndexFromOffset(SUMOTime) const {
 
 
 void
-MSRailSignal::collectForwardBlock(MSLane* toLane, double length, std::vector<MSLane*>& forwardBlock, LaneSet& visited) {
-    while (toLane != nullptr) {
-        if (visited.count(toLane) != 0) {
-            return;
-        }
-        visited.insert(toLane);
-        forwardBlock.push_back(toLane);
-        length += toLane->getLength();
-        if (length > MAX_BLOCK_LENGTH) {
-            if (myNumWarnings < MAX_SIGNAL_WARNINGS) {
-                WRITE_WARNING("Block after rail signal junction '" + getID() +
-                              "' exceeds maximum length (stopped searching after lane '" + toLane->getID() + "' (length=" + toString(length) + "m).");
-            }
-            myNumWarnings++;
-            return;
-        }
-        const MSLinkCont& links = toLane->getLinkCont();
-        toLane = nullptr;
-        for (MSLink* link : links) {
-            if (link->getDirection() == LINKDIR_TURN) {
-                continue;
-            }
-            if (link->getTLLogic() != nullptr) {
-                if (link->getTLLogic() == this) {
-                    WRITE_WARNING("Found circular block at railSignal junction '" + getID() + "' (" + toString(forwardBlock.size()) + " lanes, length " + toString(length) + ")");
-                }
-                return;
-            }
-            if (toLane == nullptr) {
-                toLane = link->getViaLaneOrLane();
-            } else {
-                collectForwardBlock(link->getViaLaneOrLane(), length, forwardBlock, visited);
-            }
-        }
-    }
-}
-
-
-void
-MSRailSignal::collectBidiBlock(MSLane* toLane, double length, bool foundSwitch, std::vector<MSLane*>& bidiBlock, LaneSet& visited) {
-    while (toLane != nullptr) {
-        //std::cout << " toLane=" << toLane->getID() << " length=" << length << " foundSwitch=" << foundSwitch << "\n";
-        if (visited.count(toLane) != 0) {
-            return;
-        }
-        visited.insert(toLane);
-        bidiBlock.push_back(toLane);
-        length += toLane->getLength();
-        if (length > MAX_BLOCK_LENGTH) {
-            if (myNumWarnings < MAX_SIGNAL_WARNINGS) {
-                WRITE_WARNING("Bidirectional block after rail signal junction '" + getID() +
-                              "' exceeds maximum length (stopped searching after lane '" + toLane->getID() + "' (length=" + toString(length) + "m).");
-            }
-            myNumWarnings++;
-            return;
-        }
-        const auto& incomingLaneInfos = toLane->getIncomingLanes();
-        MSLane* prev = toLane;
-        toLane = nullptr;
-        for (const auto& ili : incomingLaneInfos) {
-            if (ili.viaLink->getDirection() == LINKDIR_TURN) {
-                continue;
-            }
-            if (ili.viaLink->getTLLogic() != nullptr) {
-                if (!foundSwitch && bidiBlock.size() > 1) {
-                    // check wether this node is switch (first edge doesn't count)
-                    for (MSLink* link : ili.lane->getLinkCont()) {
-                        if (link->getDirection() == LINKDIR_TURN) {
-                            continue;
-                        }
-                        if (link->getViaLaneOrLane() == prev) {
-                            continue;
-                        }
-                        //std::cout << "   ili.lane=" << ili.lane->getID()
-                        //    << " prev=" << prev->getID()
-                        //    << " linkDir=" << ili.viaLink->getDirection()
-                        //    << " linkIndex=" << ili.viaLink->getTLIndex()
-                        //    << "\n";
-                        foundSwitch = true;
-                        break;
-                    }
-                }
-                if (foundSwitch) {
-                    return;
-                }
-            }
-            if (toLane == nullptr) {
-                toLane = ili.lane;
-            } else {
-                foundSwitch = true;
-                collectBidiBlock(ili.lane, length, true, bidiBlock, visited);
-            }
-        }
-        if (toLane != nullptr && !foundSwitch && prev->getEdge().getBidiEdge() != nullptr) {
-            // check switch in the other direction
-            MSLane* prevBidi = prev->getBidiLane();
-            for (MSLink* link : prevBidi->getLinkCont()) {
-                if (link->getDirection() == LINKDIR_TURN) {
-                    continue;
-                }
-                if (link->getViaLaneOrLane()->getEdge().getBidiEdge() != &toLane->getEdge()) {
-                    //std::cout << "   toLane=" << toLane->getID()
-                    //    << " prev=" << prev->getID()
-                    //    << " prevBidi=" << prevBidi->getID()
-                    //    << " linkLane=" << link->getViaLaneOrLane()->getEdge().getID()
-                    //    << " linkLaneBidi=" << Named::getIDSecure(link->getViaLaneOrLane()->getEdge().getBidiEdge())
-                    //    << "\n";
-                    foundSwitch = true;
-                    break;
-                }
-            }
-        }
-    }
-}
-
-
-void
-MSRailSignal::collectConflictLinks(MSLane* toLane, double length,
-                                   std::vector<MSLane*>& backwardBlock,
-                                   std::vector<MSLink*>& conflictLinks,
-                                   LaneSet& visited,
-                                   bool checkFoes) {
-    while (toLane != nullptr) {
-        //std::cout << "collectConflictLinks " << getID() << " toLane=" << toLane->getID() << " length=" << length
-        //    << " backward=" << toString(backwardBlock)
-        //    << " conflictLinks=" << conflictLinks.size()
-        //    << " visited=" << visited.size()
-        //    << " checkFoes=" << checkFoes
-        //    << "\n";
-        const auto& incomingLaneInfos = toLane->getIncomingLanes();
-        MSLane* orig = toLane;
-        toLane = nullptr;
-        for (const auto& ili : incomingLaneInfos) {
-            if (ili.viaLink->getDirection() == LINKDIR_TURN) {
-                continue;
-            }
-            if (visited.count(ili.lane) != 0) {
-                continue;
-            }
-            if (ili.viaLink->getTLLogic() != nullptr) {
-                conflictLinks.push_back(ili.viaLink);
-                continue;
-            }
-            backwardBlock.push_back(ili.lane);
-            visited.insert(ili.lane);
-            length += orig->getLength();
-            if (length > MAX_BLOCK_LENGTH) {
-                if (myNumWarnings < MAX_SIGNAL_WARNINGS) {
-                    WRITE_WARNING("incoming conflict block after rail signal junction '" + getID() +
-                                  "' exceeds maximum length (stopped searching after lane '" + orig->getID() + "' (length=" + toString(length) + "m).");
-                }
-                myNumWarnings++;
-                return;
-            }
-            if (toLane == nullptr) {
-                toLane = ili.lane;
-            } else {
-                collectConflictLinks(ili.lane, length, backwardBlock, conflictLinks, visited, false);
-            }
-        }
-        if (checkFoes && orig->isInternal()) {
-            // check for crossed tracks
-            MSLink* link = orig->getIncomingLanes().front().viaLink;
-            if (link->getDirection() != LINKDIR_TURN) {
-                for (const MSLane* foeConst : link->getFoeLanes()) {
-                    MSLane* foe = const_cast<MSLane*>(foeConst);
-                    if (visited.count(foe) == 0) {
-                        backwardBlock.push_back(foe);
-                        visited.insert(foe);
-                        collectConflictLinks(foe, length, backwardBlock, conflictLinks, visited, false);
-                    }
-                }
-            }
-        }
-    }
-}
-
-
-void
 MSRailSignal::addLink(MSLink* link, MSLane* lane, int pos) {
     if (pos >= 0) {
         MSTrafficLightLogic::addLink(link, lane, pos);
@@ -701,40 +221,613 @@ MSRailSignal::addLink(MSLink* link, MSLane* lane, int pos) {
 }
 
 
+std::string
+MSRailSignal::getTLLinkID(MSLink* link) {
+    return link->getTLLogic()->getID() + "_" + toString(link->getTLIndex());
+}
+
+std::string
+MSRailSignal::describeLinks(std::vector<MSLink*> links) {
+    std::string result;
+    for (MSLink* link : links) {
+        result += link->getDescription() + " ";
+    }
+    return result;
+}
+
+MSRailSignal::Approaching
+MSRailSignal::getClosest(MSLink* link) {
+    assert(link->getApproaching().size() > 0);
+    double minDist = std::numeric_limits<double>::max();
+    auto closestIt = link->getApproaching().begin();
+    for (auto apprIt = link->getApproaching().begin(); apprIt != link->getApproaching().end(); apprIt++) {
+        if (apprIt->second.dist < minDist) {
+            minDist = apprIt->second.dist;
+            closestIt = apprIt;
+        }
+    }
+    // maybe a parallel link has a closer vehicle
+    /*
+    for (MSLink* link2 : link->getLaneBefore()->getLinkCont()) {
+        if (link2 != link) {
+            for (auto apprIt2 = link2->getApproaching().begin(); apprIt2 != link2->getApproaching().end(); apprIt2++) {
+                if (apprIt2->second.dist < minDist) {
+                    minDist = apprIt2->second.dist;
+                    closestIt = apprIt2;
+                }
+            }
+        }
+    }
+    */
+    return *closestIt;
+}
+
+void
+MSRailSignal::writeBlocks(OutputDevice& od) const {
+    od.openTag("railSignal");
+    od.writeAttr(SUMO_ATTR_ID, getID());
+    for (const LinkInfo& li : myLinkInfos) {
+        MSLink* link = li.myLink;
+        od.openTag("link");
+        od.writeAttr(SUMO_ATTR_TLLINKINDEX, link->getTLIndex());
+        od.writeAttr(SUMO_ATTR_FROM, link->getLaneBefore()->getID());
+        od.writeAttr(SUMO_ATTR_TO, link->getViaLaneOrLane()->getID());
+        for (const DriveWay& dw : li.myDriveways) {
+            dw.writeBlocks(od);
+        }
+        od.closeTag(); // link
+    }
+    od.closeTag(); // railSignal
+}
+
+// ===========================================================================
+// LinkInfo method definitions
+// ===========================================================================
+
+MSRailSignal::LinkInfo::LinkInfo(MSLink* link): 
+    myLink(link), myUniqueDriveWay(false),
+    myLastRerouteTime(-1),
+    myLastRerouteVehicle(nullptr)
+{
+    ConstMSEdgeVector dummyRoute;
+    dummyRoute.push_back(&link->getLane()->getEdge());
+    buildDriveWay(dummyRoute.begin(), dummyRoute.end());
+}
+
+
+std::string
+MSRailSignal::LinkInfo::getID() const {
+    return myLink->getTLLogic()->getID() + "_" + toString(myLink->getTLIndex());
+}
+
+
+MSRailSignal::DriveWay& 
+MSRailSignal::LinkInfo::getDriveWay(const SUMOVehicle* veh) {
+    if (myUniqueDriveWay) {
+        return myDriveways.front();
+    }
+    MSEdge* first = &myLink->getLane()->getEdge();
+    MSRouteIterator firstIt = std::find(veh->getCurrentRouteEdge(), veh->getRoute().end(), first);
+    if (firstIt == veh->getRoute().end()) {
+        WRITE_WARNING("Invalid approach information after rerouting");
+        return myDriveways.front();
+    }
+    //std::cout << SIMTIME << " veh=" << veh->getID() << " rsl=" << getID() << " dws=" << myDriveways.size() << "\n";
+    for (DriveWay& dw : myDriveways) {
+        // @todo optimize: it is sufficient to check for specific edges (after each switch)
+        auto itRoute = firstIt;
+        auto itDwRoute = dw.myRoute.begin();
+        bool match = true;
+        while (itRoute != veh->getRoute().end() && itDwRoute != dw.myRoute.end()) {
+            if (*itRoute != *itDwRoute) {
+                match = false;
+                //std::cout << "  check dw=" << dw.myIndex << " match failed at vehEdge=" << (*itRoute)->getID() << " dwEdge=" << (*itDwRoute)->getID() << "\n";
+                break;
+            }
+            itRoute++;
+            itDwRoute++;
+        }
+        if (match) {
+            //std::cout << "  using dw=" << dw.myIndex << "\n";
+            return dw;
+        }
+    }
+    return buildDriveWay(firstIt, veh->getRoute().end());
+}
+
+
+MSRailSignal::DriveWay&
+MSRailSignal::LinkInfo::buildDriveWay(MSRouteIterator first, MSRouteIterator end) {
+    // collect lanes and links that are relevant for setting this signal for the current driveWay
+    // For each driveway we collect
+    //   - conflictLanes (signal must be red if any conflict lane is occupied)
+    //   - conflictLinks (signal must be red if any conflict link is approached by a vehicle
+    //      - that cannot break in time (arrivalSpeedBraking > 0)
+    //      - approached by a vehicle with higher switching priority (see #3941)
+    // These objects are construct in steps:
+    //
+    // forwardBlock
+    // - search forward recursive from outgoing lane until controlled railSignal link found
+    //   -> add all found lanes to conflictLanes
+    //
+    // bidiBlock (if any forwardBlock edge edge has bidi edge)
+    // - search bidi backward recursive until first switch
+    //   - from switch search backward recursive all other incoming until controlled rail signal link
+    //     -> add final links to conflictLinks
+    //
+    // flanks
+    // - search backward recursive from flanking switches 
+    //   until controlled railSignal link or protecting switch is found
+    //   -> add all found lanes to conflictLanes
+    //   -> add final links to conflictLinks
+
+    DriveWay dw(myDriveways.size());
+    LaneSet visited;
+    std::vector<MSLane*> before;
+    visited.insert(myLink->getLaneBefore());
+    MSLane* fromBidi = myLink->getLaneBefore()->getBidiLane();
+    if (fromBidi != nullptr) {
+        // do not extend to forward block beyond the entering track (in case of a loop)
+        visited.insert(fromBidi);
+        before.push_back(fromBidi);
+    }
+    dw.buildRoute(myLink, 0., first, end, visited);
+    dw.checkFlanks(dw.myForward, visited, true);
+    dw.checkFlanks(dw.myBidi, visited, false);
+    dw.checkFlanks(before, visited, true);
+
+    for (MSLink* link : dw.myFlankSwitches) {
+        //std::cout << getID() << " flankSwitch=" << link->getDescription() << "\n";
+        dw.findFlankProtection(link, 0, visited);
+    }
+
+#ifdef DEBUG_BUILD_DRIVEWAY
+    if (DEBUG_COND_LINKINFO || true) {
+        std::cout << "  buildDriveWay railSignal=" << getID() << " dw=" << dw.myIndex
+            << "\n    route=" << toString(dw.myRoute)
+            << "\n    forward=" << toString(dw.myForward)
+            << "\n    bidi=" << toString(dw.myBidi)
+            << "\n    protSwitch=" << describeLinks(dw.myProtectingSwitches)
+            << "\n";
+    }
+#endif
+
+    dw.myConflictLanes.insert(dw.myConflictLanes.end(), dw.myForward.begin(), dw.myForward.end());
+    dw.myConflictLanes.insert(dw.myConflictLanes.end(), dw.myBidi.begin(), dw.myBidi.end());
+    dw.myConflictLanes.insert(dw.myConflictLanes.end(), dw.myFlank.begin(), dw.myFlank.end());
+
+    myDriveways.push_back(dw);
+    return myDriveways.back();
+}
+
+
+void
+MSRailSignal::LinkInfo::reroute(SUMOVehicle* veh, const MSEdgeVector& occupied) {
+    MSDevice_Routing* rDev = static_cast<MSDevice_Routing*>(veh->getDevice(typeid(MSDevice_Routing)));
+    SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
+    if (rDev != nullptr &&
+            (myLastRerouteVehicle != veh
+              // reroute each vehicle only once if no periodic routing is allowed, 
+              // otherwise with the specified period
+              || (rDev->getPeriod() > 0 && myLastRerouteTime + rDev->getPeriod() <= now))) {
+        myLastRerouteVehicle = veh;
+        myLastRerouteTime = now;
+
+        SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = MSRoutingEngine::getRouterTT(occupied);
+#ifdef DEBUG_REROUTE
+    ConstMSEdgeVector oldRoute = veh->getRoute().getEdges();
+    if (DEBUG_COND_LINKINFO) {
+        std::cout << SIMTIME << " reroute veh=" << veh->getID() << " rs=" << getID() << " occupied=" << toString(occupied) << "\n";
+    }
+#endif
+        try {
+            veh->reroute(now, "railSignal:" + getID(), router, false, false, true); // silent
+#ifdef DEBUG_REROUTE
+            if (DEBUG_COND_LINKINFO) {
+                if (veh->getRoute().getEdges() != oldRoute) {
+                    std::cout << "    rerouting successful\n";
+                }
+            }
+#endif
+        } catch (ProcessError& error) {
+#ifdef DEBUG_REROUTE
+            if (DEBUG_COND_LINKINFO) std::cout << " rerouting failed: " << error.what() << "\n";
+#endif
+        }
+    }
+}
+
+
+// ===========================================================================
+// DriveWay method definitions
+// ===========================================================================
+
 bool
-MSRailSignal::hasAlternativeTrack(MSLink* link) {
-    for (MSLink* cand : link->getLaneBefore()->getLinkCont()) {
-        if (cand != link && cand->getTLLogic() != nullptr) {
+MSRailSignal::DriveWay::reserve(const Approaching& closest, MSEdgeVector& occupied) {
+    if (conflictLaneOccupied()) {
+        for (MSLane* bidi : myBidi) {
+            if (!bidi->empty() && bidi->getBidiLane() != nullptr) {
+                occupied.push_back(&bidi->getBidiLane()->getEdge());
+            }
+        }
+#ifdef DEBUG_SIGNALSTATE
+        if (gDebugFlag4)  std::cout << "  conflictLaneOccupied\n";
+#endif
+        return false;
+    }
+    for (MSLink* foeLink : myConflictLinks) {
+        if (hasLinkConflict(closest, foeLink)) {
+#ifdef DEBUG_SIGNALSTATE
+            if (gDebugFlag4)  std::cout << "  linkConflict with " << getTLLinkID(foeLink) << "\n";
+#endif
+            return false;
+        }
+    }
+    for (MSLink* link : myProtectingSwitches) {
+        if (!findProtection(link)) {
+#ifdef DEBUG_SIGNALSTATE
+            if (gDebugFlag4)  std::cout << "  no protection at switch " << link->getDescription() << "\n";
+#endif
+            return false;
+        }
+    }
+    myActive = closest.first;
+    return true;
+}
+
+
+bool
+MSRailSignal::DriveWay::conflictLinkApproached() const {
+    for (MSLink* foeLink : myConflictLinks) {
+        if (foeLink->getApproaching().size() > 0) {
             return true;
         }
     }
     return false;
 }
 
+
 bool
-MSRailSignal::hasAlternativeTrackBetween(const std::vector<MSLane*>& forwardBlock, MSLink* cLink) {
-    // check if the forward block ends at a controlled switch
-    // note: link::myJunction not yet initialized here
-    const MSJunction* cLinkJunction = cLink->getLaneBefore()->getEdge().getToJunction();
-    //std::cout << " forwardBlock=" << toString(forwardBlock) << " cLink_j=" << cLinkJunction->getID() << "\n";
-    if (forwardBlock.back()->getEdge().getToJunction() == cLinkJunction) {
-        int numLinks = 0;
-        for (MSLink* cand : forwardBlock.back()->getLinkCont()) {
-            if (cand->getTLLogic() != nullptr) {
-                numLinks++;
-                if (numLinks > 1) {
-                    return true;
+MSRailSignal::DriveWay::hasLinkConflict(const Approaching& veh, MSLink* foeLink) const {
+#ifdef DEBUG_SIGNALSTATE_PRIORITY
+    if (gDebugFlag4) std::cout << "   checkLinkConflict foeLink=" << getTLLinkID(foeLink) << "\n";
+#endif
+    if (foeLink->getApproaching().size() > 0) {
+        Approaching foe = getClosest(foeLink);
+#ifdef DEBUG_SIGNALSTATE_PRIORITY
+        if (gDebugFlag4) std::cout << "     approaching foe=" << foe.first->getID() << "\n";
+#endif
+        const MSTrafficLightLogic* foeTLL = foeLink->getTLLogic();
+        assert(foeTLL != nullptr);
+        const MSRailSignal* constFoeRS = dynamic_cast<const MSRailSignal*>(foeTLL);
+        MSRailSignal* foeRS = const_cast<MSRailSignal*>(constFoeRS);
+        if (foeRS != nullptr) {
+            const DriveWay& foeDriveWay = foeRS->myLinkInfos[foeLink->getTLIndex()].getDriveWay(foe.first);
+            if (foeDriveWay.conflictLaneOccupied() || 
+                    !overlap(foeDriveWay)) {
+#ifdef DEBUG_SIGNALSTATE_PRIORITY
+                if (gDebugFlag4) {
+                    if (foeDriveWay.conflictLaneOccupied()) {
+                        std::cout << "     foe blocked\n";
+                    } else {
+                        std::cout << "     no overlap\n";
+                    }
                 }
+#endif
+                return false;
+            }
+#ifdef DEBUG_SIGNALSTATE_PRIORITY
+            if (gDebugFlag4) {
+                std::cout << "  aT=" << veh.second.arrivalTime << " foeAT=" << foe.second.arrivalTime 
+                    << "  aS=" << veh.first->getSpeed() << " foeS=" << foe.first->getSpeed()
+                    << "  aD=" << veh.second.dist << " foeS=" << foe.second.dist
+                    << "\n";
+            }
+#endif
+            if (foe.second.arrivalTime == veh.second.arrivalTime) {
+                if (foe.first->getSpeed() == veh.first->getSpeed()) {
+                    if (foe.second.dist  == veh.second.dist) {
+                        return foe.first->getNumericalID() < veh.first->getNumericalID();
+                    } else {
+                        return foe.second.dist < veh.second.dist;
+                    }
+                } else {
+                    return foe.first->getSpeed() > veh.first->getSpeed();
+                }
+            } else {
+                return foe.second.arrivalTime < veh.second.arrivalTime;
             }
         }
     }
     return false;
 }
 
-std::string
-MSRailSignal::getTLLinkID(MSLink* link) {
-    return link->getTLLogic()->getID() + "_" + toString(link->getTLIndex());
+
+bool 
+MSRailSignal::DriveWay::conflictLaneOccupied() const {
+    for (const MSLane* lane : myConflictLanes) {
+        if (!lane->isEmpty()) {
+#ifdef DEBUG_SIGNALSTATE
+            if (gDebugFlag4) std::cout << SIMTIME << " conflictLane " << lane->getID() << " occupied\n";
+#endif
+            return true;
+        }
+    }
+    return false;
 }
+
+
+bool
+MSRailSignal::DriveWay::findProtection(MSLink* link) const {
+    double flankApproachingDist = std::numeric_limits<double>::max();
+    if (link->getApproaching().size() > 0) {
+        Approaching closest = getClosest(link);
+        flankApproachingDist = closest.second.dist;
+    }
+#ifdef DEBUG_FIND_PROTECTION
+    std::cout << SIMTIME << " findProtection for link=" << link->getDescription() << " flankApproachingDist=" << flankApproachingDist << "\n";
+#endif
+    for (MSLink* l2 : link->getLaneBefore()->getLinkCont()) {
+        if (l2->getLane() != link->getLane()) {
+#ifdef DEBUG_FIND_PROTECTION
+            std::cout << " protectionCandidate=" << l2->getDescription() << " l2Via=" << Named::getIDSecure(l2->getViaLane()) << " occupied=" << !l2->getViaLane()->isEmpty() << "\n";
+#endif
+            if (l2->getViaLane() != nullptr && !l2->getViaLane()->isEmpty()) {
+#ifdef DEBUG_FIND_PROTECTION
+                std::cout << "   protection from internal=" << l2->getViaLane()->getID() << "\n";
+#endif
+                return true;
+            }
+            if (l2->getApproaching().size() > 0) {
+                Approaching closest2 = getClosest(l2);
+                if (closest2.second.dist < flankApproachingDist) {
+#ifdef DEBUG_FIND_PROTECTION
+                    std::cout << "   protection from veh=" << closest2.first->getID() << "\n";
+#endif
+                    return true;
+                }
+            }
+        }
+    }
+    /// XXX search recursively for protection further upstream
+    return link->getApproaching().size() == 0;
+}
+
+
+bool 
+MSRailSignal::DriveWay::overlap(const DriveWay& other) const {
+    for (const MSEdge* edge : myRoute) {
+        for (const MSEdge* edge2 : other.myRoute) {
+            if (edge->getToJunction() == edge2->getToJunction()
+                    || edge->getToJunction() == edge2->getFromJunction()) {
+                // XXX might be rail_crossing with parallel tracks
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+void
+MSRailSignal::DriveWay::writeBlocks(OutputDevice& od) const {
+    od.openTag("driveWay");
+    od.writeAttr(SUMO_ATTR_EDGES, toString(myRoute));
+    od.openTag("forward");
+    od.writeAttr(SUMO_ATTR_LANES, toString(myForward));
+    od.closeTag();
+    od.openTag("bidi");
+    od.writeAttr(SUMO_ATTR_LANES, toString(myBidi));
+    od.closeTag();
+    od.openTag("flank");
+    od.writeAttr(SUMO_ATTR_LANES, toString(myFlank));
+    od.closeTag();
+    od.openTag("conflictLinks");
+    std::vector<std::string> signals;
+    for (MSLink* link : myConflictLinks) {
+        signals.push_back(getTLLinkID(link));
+    }
+    od.writeAttr("signals", joinToString(signals, " "));
+    od.closeTag();
+    od.closeTag(); // driveWay
+}
+
+
+void
+MSRailSignal::DriveWay::buildRoute(MSLink* origin, double length,
+        MSRouteIterator next, MSRouteIterator end,
+        LaneSet& visited) {
+    bool seekForwardSignal = true;
+    bool seekBidiSwitch = true;
+    MSLane* toLane = origin->getViaLaneOrLane();
+    //std::cout << "buildRoute origin=" << getTLLinkID(origin) << " vehRoute=" << toString(ConstMSEdgeVector(next, end)) << " visited=" << joinNamedToString(visited, " ") << "\n";
+    while ((seekForwardSignal || seekBidiSwitch)) {
+        if (length > MAX_BLOCK_LENGTH) {
+            if (myNumWarnings < MAX_SIGNAL_WARNINGS) {
+                WRITE_WARNING("Block after rail signal junction '" + getTLLinkID(origin) +
+                              "' exceeds maximum length (stopped searching after edge '" + (*next)->getID() + "' (length=" + toString(length) + "m).");
+            }
+            myNumWarnings++;
+            // length exceeded
+            return;
+        }
+        //std::cout << "   toLane=" << toLane->getID() << " visited=" << joinNamedToString(visited, " ") << "\n";
+        if (visited.count(toLane) != 0) {
+            WRITE_WARNING("Found circular block after railSignal junction '" + getTLLinkID(origin) + "' (" + toString(myRoute.size()) + " edges, length " + toString(length) + ")");
+            return;
+        }
+        if (toLane->getEdge().isNormal()) {
+            myRoute.push_back(&toLane->getEdge());
+            if (next != end) {
+                next++;
+            }
+        }
+        visited.insert(toLane);
+        length += toLane->getLength();
+        MSLane* bidi = toLane->getBidiLane();
+        if (seekForwardSignal) {
+            myForward.push_back(toLane);
+        } else if (bidi == nullptr) {
+            seekBidiSwitch = false;
+        }
+        if (bidi != nullptr) {
+            myBidi.push_back(bidi);
+            visited.insert(bidi);
+            if (!seekForwardSignal) {
+                // look for switch that could protect from oncoming vehicles
+                for (const auto& ili : bidi->getIncomingLanes()) {
+                    if (ili.viaLink->getDirection() == LINKDIR_TURN) {
+                        continue;
+                    }
+                    for (MSLink* link : ili.lane->getLinkCont()) {
+                        if (link->getDirection() == LINKDIR_TURN) {
+                            continue;
+                        }
+                        if (link->getViaLaneOrLane() != bidi) {
+                            myProtectingSwitches.push_back(ili.viaLink);
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+        const MSLinkCont& links = toLane->getLinkCont();
+        toLane = nullptr;
+        for (MSLink* link : links) {
+            if (&link->getLane()->getEdge() == *next ||
+                    (next == end && link->getDirection() != LINKDIR_TURN)) {
+                toLane = link->getViaLaneOrLane();
+                if (link->getTLLogic() != nullptr) {
+                    if (link->getTLLogic() == origin->getTLLogic()) {
+                        WRITE_WARNING("Found circular block at railSignal junction '" + getTLLinkID(origin) + "' (" + toString(myRoute.size()) + " edges, length " + toString(length) + ")");
+                        return;
+                    }
+                    seekForwardSignal = false;
+                    seekBidiSwitch = bidi != nullptr;
+                }
+                break;
+            }
+        }
+        if (toLane == nullptr) {
+            if (next != end) {
+                // no connection found, jump to next route edge
+                toLane = (*next)->getLanes()[0];
+            } else {
+                return;
+            }
+        }
+    }
+}
+
+
+void
+MSRailSignal::DriveWay::checkFlanks(const std::vector<MSLane*>& lanes, const LaneSet& visited, bool allFoes) {
+#ifdef DEBUG_CHECK_FLANKS
+    std::cout << " checkFlanks lanes=" << toString(lanes) << "\n  visited=" << joinNamedToString(visited, " ") << " allFoes=" << allFoes << "\n";
+#endif
+    for (MSLane* lane : lanes) {
+        if (lane->isInternal()) {
+            continue;
+        }
+        for (auto ili : lane->getIncomingLanes()) {
+            if (visited.count(ili.lane->getNormalPredecessorLane()) == 0) {
+#ifdef DEBUG_CHECK_FLANKS
+                std::cout << " add flankSwitch junction=" << ili.viaLink->getJunction()->getID() << " index=" << ili.viaLink->getIndex() << "\n";
+#endif
+                myFlankSwitches.push_back(ili.viaLink);
+            } else if (allFoes) {
+                // link is part of the driveway, find foes that cross the driveway without entering 
+                checkCrossingFlanks(ili.viaLink, visited);
+            }
+        }
+    }
+}
+
+
+void
+MSRailSignal::DriveWay::checkCrossingFlanks(MSLink* dwLink, const LaneSet& visited) {
+#ifdef DEBUG_CHECK_FLANKS
+    std::cout << "  checkCrossingFlanks  dwLink=" << dwLink->getDescription() << " visited=" << joinNamedToString(visited, " ") << "\n";
+#endif
+    const MSJunction* junction = dwLink->getJunction();
+    const MSJunctionLogic* logic = junction->getLogic();
+    assert(logic != nullptr);
+    for (const MSEdge* in : junction->getIncoming()) {
+        if (in->isInternal()) {
+            continue;
+        }
+        for (MSLane* inLane : in->getLanes()) {
+            if (visited.count(inLane) == 0) {
+                for (MSLink* link : inLane->getLinkCont()) {
+                    if (logic->getFoesFor(dwLink->getIndex()).test(link->getIndex())
+                            && visited.count(link->getLane()) == 0) {
+#ifdef DEBUG_CHECK_FLANKS
+                        std::cout << " add crossing flankSwitch junction=" << junction->getID() << " index=" << link->getIndex() << "\n";
+#endif
+                        if (link->getViaLane() == nullptr) {
+                            myFlankSwitches.push_back(link);
+                        } else {
+                            myFlankSwitches.push_back(link->getViaLane()->getLinkCont().front());
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+void
+MSRailSignal::DriveWay::findFlankProtection(MSLink* link, double length, LaneSet& visited) {
+#ifdef DEBUG_CHECK_FLANKS
+    std::cout << "  findFlankProtection link=" << link->getDescription() << " length=" << length << "\n";
+#endif
+    if (link->getTLLogic() != nullptr) {
+        // guarded by signal
+        myConflictLinks.push_back(link);
+    } else if (length > MAX_BLOCK_LENGTH) {
+        // length exceeded
+        if (myNumWarnings < MAX_SIGNAL_WARNINGS) {
+            WRITE_WARNING("Incoming block exceeds maximum length (stopped searching after lane '" + link->getLane()->getID() + "' (length=" + toString(length) + "m).");
+        }
+        myNumWarnings++;
+    } else {
+        // find normal lane before this link
+        const MSLane* lane = link->getLaneBefore();
+        if (visited.count(lane) != 0) {
+            return;
+        }
+        visited.insert(lane);
+        length += lane->getLength();
+        if (lane->isInternal()) {
+            myFlank.push_back(lane);
+            findFlankProtection(lane->getIncomingLanes().front().viaLink, length, visited);
+        } else {
+            bool foundPSwitch = false;
+            for (MSLink* l2 : lane->getLinkCont()) {
+#ifdef DEBUG_CHECK_FLANKS
+                std::cout << "   lane=" << lane->getID() << " cand=" << l2->getDescription() << "\n";
+#endif
+                if (l2->getDirection() != LINKDIR_TURN && l2->getLane() != link->getLane()) {
+                    foundPSwitch = true;
+                    // found potential protection
+#ifdef DEBUG_CHECK_FLANKS
+                    std::cout << "   protectingSwitch=" << l2->getDescription() << " for flank=" << link->getDescription() << "\n";
+#endif
+                    myProtectingSwitches.push_back(link);
+                }
+            }
+            if (!foundPSwitch) {
+                myFlank.push_back(lane);
+                // continue search for protection upstream recursively
+                for (auto ili : lane->getIncomingLanes()) {
+                    if (ili.viaLink->getDirection() != LINKDIR_TURN) {
+                        findFlankProtection(ili.viaLink, length, visited);
+                    }
+                }
+            }
+        }
+    }
+}
+
 
 /****************************************************************************/
 

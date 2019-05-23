@@ -244,6 +244,9 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
         }
     }
     router.compute(source, sink, this, t, edges, silent);
+    if (edges.empty() && silent) {
+        return;
+    }
     if (!edges.empty() && edges.front()->isTazConnector()) {
         edges.erase(edges.begin());
     }

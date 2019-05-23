@@ -88,6 +88,7 @@
 #include <microsim/pedestrians/MSPModel.h>
 #include <microsim/pedestrians/MSPerson.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
+#include <microsim/traffic_lights/MSRailSignal.h>
 #include <microsim/trigger/MSChargingStation.h>
 #include <utils/router/FareModul.h>
 
@@ -449,6 +450,9 @@ MSNet::closeSimulation(SUMOTime start) {
     }
     if (OptionsCont::getOptions().isSet("chargingstations-output")) {
         writeChargingStationOutput();
+    }
+    if (OptionsCont::getOptions().isSet("railsignal-block-output")) {
+        writeRailSignalBlocks();
     }
     if (myLogExecutionTime) {
         WRITE_MESSAGE(generateStatistics(start));
@@ -935,6 +939,17 @@ MSNet::writeChargingStationOutput() const {
         OutputDevice& output = OutputDevice::getDeviceByOption("chargingstations-output");
         for (const auto& it : myStoppingPlaces.find(SUMO_TAG_CHARGING_STATION)->second) {
             static_cast<MSChargingStation*>(it.second)->writeChargingStationOutput(output);
+        }
+    }
+}
+
+void
+MSNet::writeRailSignalBlocks() const {
+    OutputDevice& output = OutputDevice::getDeviceByOption("railsignal-block-output");
+    for (auto tls : myLogics->getAllLogics()) {
+        MSRailSignal* rs = dynamic_cast<MSRailSignal*>(tls);
+        if (rs != nullptr) {
+            rs->writeBlocks(output);
         }
     }
 }

@@ -1376,5 +1376,10 @@ MSLink::checkContOff() const {
     return false;
 }
 
+std::string
+MSLink::getDescription() const {
+    return myLaneBefore->getID() + "->" + getViaLaneOrLane()->getID();
+}
+
 /****************************************************************************/
 
