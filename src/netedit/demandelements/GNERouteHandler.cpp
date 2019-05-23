@@ -446,7 +446,8 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
     // begin undo-redo operation
     undoList->p_begin("transform " + originalVehicle->getTagStr() + " to " + toString(SUMO_TAG_ROUTEFLOW));
     // first check if originalVehicle has an embebbed route, and if true, separate it
-    if(originalVehicle->getDemandElementParents().size() == 1) {
+    if (((originalVehicle->getTagProperty().getTag() == SUMO_TAG_VEHICLE) || (originalVehicle->getTagProperty().getTag() == SUMO_TAG_ROUTEFLOW)) && 
+        (originalVehicle->getDemandElementParents().size() == 1)) {
         originalVehicle = separateEmbebbedRoute(originalVehicle, undoList);
     }
     // obtain VType of original vehicle
@@ -498,9 +499,9 @@ GNERouteHandler::transformToTrip(GNEVehicle* originalVehicle) {
     // declare pointer to get embebbed route if is created
     GNEDemandElement *separatedEmbebbedRoute = nullptr;
     // first check if originalVehicle has an embebbed route, and if true, separate it
-    if(originalVehicle->getDemandElementParents().size() == 1) {
+    if (((originalVehicle->getTagProperty().getTag() == SUMO_TAG_VEHICLE) || (originalVehicle->getTagProperty().getTag() == SUMO_TAG_ROUTEFLOW)) && 
+        (originalVehicle->getDemandElementParents().size() == 1)) {
         originalVehicle = separateEmbebbedRoute(originalVehicle, undoList);
-        separatedEmbebbedRoute = originalVehicle->getDemandElementParents().at(1);
     }
     // obtain VType of original vehicle
     GNEDemandElement *vType = originalVehicle->getDemandElementParents().at(0);
