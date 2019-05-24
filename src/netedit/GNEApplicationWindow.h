@@ -487,6 +487,100 @@ private:
     /// @brief struct for edit menu commands
     struct EditMenuCommands {
 
+        /// @brief struct for network menu commands
+        struct NetworkMenuCommands {
+
+            /// @brief constructor
+            NetworkMenuCommands(const EditMenuCommands *editMenuCommandsParent);
+
+            /// @brief build menu commands
+            void buildNetworkMenuCommands(FXMenuPane* editMenu);
+
+            /// @brief show all menu commands
+            void showNetworkMenuCommands();
+
+            /// @brief hide all menu commands
+            void hideNetworkMenuCommands();
+
+            /// @brief menu command for create edge
+            FXMenuCommand* createEdgeMode;
+
+            /// @brief menu command for move mode
+            FXMenuCommand* moveMode;
+
+            /// @brief menu command for delete mode
+            FXMenuCommand* deleteMode;
+
+            /// @brief menu command for inspect mode
+            FXMenuCommand* inspectMode;
+
+            /// @brief menu command for select mode
+            FXMenuCommand* selectMode;
+
+            /// @brief menu command for connect mode
+            FXMenuCommand* connectMode;
+
+            /// @brief menu command for prohibition mode
+            FXMenuCommand* prohibitionMode;
+
+            /// @brief menu command for TLS Mode
+            FXMenuCommand* TLSMode;
+
+            /// @brief menu command for additional mode
+            FXMenuCommand* additionalMode;
+
+            /// @brief menu command for crossing mode
+            FXMenuCommand* crossingMode;
+
+            /// @brief menu command for TAZ mode
+            FXMenuCommand* TAZMode;
+
+            /// @brief menu command for shape mode
+            FXMenuCommand* shapeMode;
+
+        private:
+            /// @brief reference to EditMenuCommands
+            const EditMenuCommands *myEditMenuCommandsParent;
+
+            /// @brief separator between sets of FXMenuCommand
+            FXMenuSeparator* myHorizontalSeparator;
+        };
+
+        /// @brief struct for Demand menu commands
+        struct DemandMenuCommands {
+
+            /// @brief constructor
+            DemandMenuCommands(const EditMenuCommands *editMenuCommandsParent);
+
+            /// @brief build menu commands
+            void buildDemandMenuCommands(FXMenuPane* editMenu);
+
+            /// @brief show all menu commands
+            void showDemandMenuCommands();
+
+            /// @brief hide all menu commands
+            void hideDemandMenuCommands();
+
+            /// @brief menu command for route mode
+            FXMenuCommand* routeMode;
+
+            /// @brief menu command for vehicle mode
+            FXMenuCommand* vehicleMode;
+
+            /// @brief menu command for vehicle type mode
+            FXMenuCommand* vehicleTypeMode;
+
+            /// @brief menu command for stop mode
+            FXMenuCommand* stopMode;
+
+        private:
+            /// @brief reference to EditMenuCommands
+            const EditMenuCommands *myEditMenuCommandsParent;
+
+            /// @brief separator between sets of FXMenuCommand
+            FXMenuSeparator* myHorizontalSeparator;
+        };
+
         /// @brief constructor
         EditMenuCommands(GNEApplicationWindow* GNEApp);
 
@@ -498,6 +592,12 @@ private:
 
         /// @brief FXMenuCommand for redo last change
         FXMenuCommand* redoLastChange;
+
+        /// @brief Network Menu Commands
+        NetworkMenuCommands networkMenuCommands;
+
+        /// @brief Demand Menu Commands
+        DemandMenuCommands demandMenuCommands;
 
         /// @brief FXMenuCommand for edit view scheme
         FXMenuCommand* editViewScheme;
@@ -603,100 +703,6 @@ private:
         FXMenuSeparator* myHorizontalSeparator;
     };
 
-    /// @brief struct for network menu commands
-    struct NetworkMenuCommands {
-
-        /// @brief constructor
-        NetworkMenuCommands(GNEApplicationWindow* GNEApp);
-
-        /// @brief build menu commands
-        void buildNetworkMenuCommands(FXMenuPane* editMenu);
-
-        /// @brief show all menu commands
-        void showNetworkMenuCommands();
-
-        /// @brief hide all menu commands
-        void hideNetworkMenuCommands();
-
-        /// @brief menu command for create edge
-        FXMenuCommand* createEdgeMode;
-
-        /// @brief menu command for move mode
-        FXMenuCommand* moveMode;
-
-        /// @brief menu command for delete mode
-        FXMenuCommand* deleteMode;
-
-        /// @brief menu command for inspect mode
-        FXMenuCommand* inspectMode;
-
-        /// @brief menu command for select mode
-        FXMenuCommand* selectMode;
-
-        /// @brief menu command for connect mode
-        FXMenuCommand* connectMode;
-
-        /// @brief menu command for prohibition mode
-        FXMenuCommand* prohibitionMode;
-
-        /// @brief menu command for TLS Mode
-        FXMenuCommand* TLSMode;
-
-        /// @brief menu command for additional mode
-        FXMenuCommand* additionalMode;
-
-        /// @brief menu command for crossing mode
-        FXMenuCommand* crossingMode;
-
-        /// @brief menu command for TAZ mode
-        FXMenuCommand* TAZMode;
-
-        /// @brief menu command for shape mode
-        FXMenuCommand* shapeMode;
-
-    private:
-        /// @brief pointer to current GNEApplicationWindows
-        GNEApplicationWindow* myGNEApp;
-
-        /// @brief separator between sets of FXMenuCommand
-        FXMenuSeparator* myHorizontalSeparator;
-    };
-
-    /// @brief struct for Demand menu commands
-    struct DemandMenuCommands {
-
-        /// @brief constructor
-        DemandMenuCommands(GNEApplicationWindow* GNEApp);
-
-        /// @brief build menu commands
-        void buildDemandMenuCommands(FXMenuPane* editMenu);
-
-        /// @brief show all menu commands
-        void showDemandMenuCommands();
-
-        /// @brief hide all menu commands
-        void hideDemandMenuCommands();
-
-        /// @brief menu command for route mode
-        FXMenuCommand* routeMode;
-
-        /// @brief menu command for vehicle mode
-        FXMenuCommand* vehicleMode;
-
-        /// @brief menu command for vehicle type mode
-        FXMenuCommand* vehicleTypeMode;
-
-        /// @brief menu command for stop mode
-        FXMenuCommand* stopMode;
-
-    private:
-        /// @brief pointer to current GNEApplicationWindows
-        GNEApplicationWindow* myGNEApp;
-
-        /// @brief separator between sets of FXMenuCommand
-        FXMenuSeparator* myHorizontalSeparator;
-    };
-
     /// @brief Toolbars Grip
     ToolbarsGrip myToolbarsGrip;
 
@@ -717,12 +723,6 @@ private:
 
     /// @brief Supermode Commands
     SupermodeCommands mySupermodeCommands;
-
-    /// @brief Network Menu Commands
-    NetworkMenuCommands myNetworkMenuCommands;
-
-    /// @brief Demand Menu Commands
-    DemandMenuCommands myDemandMenuCommands;
 
     /// @brief pointer to current view net
     GNEViewNet* myViewNet;
