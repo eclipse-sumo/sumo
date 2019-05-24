@@ -3774,10 +3774,6 @@ MSVehicle::executeMove() {
             myState.myPos = myLane->getLength();
             myState.mySpeed = 0;
             myAcceleration = 0;
-            // reset drive items and link approaches
-            removeApproachingInformation(myLFLinkLanes);
-            myLFLinkLanes.clear();
-            myNextDriveItem = myLFLinkLanes.begin();
         }
         const MSLane* oldBackLane = getBackLane();
         if (getLaneChangeModel().isOpposite()) {
