@@ -280,6 +280,47 @@ MSRailSignal::writeBlocks(OutputDevice& od) const {
     od.closeTag(); // railSignal
 }
 
+
+bool
+MSRailSignal::hasOncomingRailTraffic(MSLink* link) {
+    if (link->getJunction()->getType() == NODETYPE_RAIL_SIGNAL && link->getState() == LINKSTATE_TL_RED) {
+        const MSEdge* bidi = link->getLaneBefore()->getEdge().getBidiEdge();
+        if (bidi == nullptr) {
+            return false;
+        }
+        const MSRailSignal* rs = dynamic_cast<const MSRailSignal*>(link->getTLLogic());
+        if (rs != nullptr) {
+            const LinkInfo& li = rs->myLinkInfos[link->getTLIndex()];
+            for (const DriveWay& dw : li.myDriveways) {
+                //std::cout << SIMTIME <<< " hasOncomingRailTraffic link=" << getTLLinkID(link) << " dwRoute=" << toString(dw.myRoute) << " bidi=" << toString(dw.myBidi) << "\n";
+                for (MSLane* lane : dw.myBidi) {
+                    if (!lane->isEmpty()) {
+                        return true;
+                    }
+                }
+                for (const MSLane* lane : dw.myFlank) {
+                    if (!lane->isEmpty()) {
+                        MSVehicle* veh = lane->getFirstAnyVehicle();
+                        if (std::find(veh->getCurrentRouteEdge(), veh->getRoute().end(), bidi) != veh->getRoute().end()) {
+                            return true;
+                        }
+                    }
+                }
+                for (MSLink* foeLink : dw.myConflictLinks) {
+                    if (foeLink->getApproaching().size() != 0) {
+                        Approaching closest = getClosest(foeLink);
+                        const SUMOVehicle* veh = closest.first;
+                        if (std::find(veh->getCurrentRouteEdge(), veh->getRoute().end(), bidi) != veh->getRoute().end()) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return false;
+}
+
 // ===========================================================================
 // LinkInfo method definitions
 // ===========================================================================

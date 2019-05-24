@@ -203,6 +203,7 @@ public:
     /// @brief write rail signal block output for all links and driveways
     void writeBlocks(OutputDevice& od) const;
 
+    static bool hasOncomingRailTraffic(MSLink* link);
 
 protected:
 

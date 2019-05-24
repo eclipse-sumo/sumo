@@ -50,6 +50,7 @@
 #include <utils/emissions/HelpersHarmonoise.h>
 #include <utils/geom/GeomHelper.h>
 #include <microsim/pedestrians/MSPModel.h>
+#include <microsim/traffic_lights/MSRailSignal.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include "MSNet.h"
 #include "MSVehicleType.h"
@@ -728,11 +729,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                           << "\n";
             }
 #endif
-            if (currentLane == this
-                    && currentLane->getEdge().getBidiEdge() != nullptr
-                    && currentLane->getEdge().getToJunction()->getType() == NODETYPE_RAIL_SIGNAL
-                    && (*link)->getTLLogic() != nullptr
-                    && getLength() < aVehicle->getVehicleType().getLength()) {
+            if (currentLane == this && MSRailSignal::hasOncomingRailTraffic(*link)) {
                 // allow guarding bidirectional tracks at the network border with railSignal
                 return false;
             }
