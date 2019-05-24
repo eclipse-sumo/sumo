@@ -56,7 +56,7 @@
 
 #define DEBUG_SIGNALSTATE
 #define DEBUG_SIGNALSTATE_PRIORITY
-//#define DEBUG_FIND_PROTECTION
+#define DEBUG_FIND_PROTECTION
 //#define DEBUG_REROUTE
 
 #define DEBUG_COND DEBUG_HELPER(this)
@@ -498,18 +498,18 @@ MSRailSignal::DriveWay::reserve(const Approaching& closest, MSEdgeVector& occupi
 #endif
         return false;
     }
-    for (MSLink* foeLink : myConflictLinks) {
-        if (hasLinkConflict(closest, foeLink)) {
+    for (MSLink* link : myProtectingSwitches) {
+        if (!findProtection(closest, link)) {
 #ifdef DEBUG_SIGNALSTATE
-            if (gDebugFlag4)  std::cout << "  linkConflict with " << getTLLinkID(foeLink) << "\n";
+            if (gDebugFlag4)  std::cout << "  no protection at switch " << link->getDescription() << "\n";
 #endif
             return false;
         }
     }
-    for (MSLink* link : myProtectingSwitches) {
-        if (!findProtection(link)) {
+    for (MSLink* foeLink : myConflictLinks) {
+        if (hasLinkConflict(closest, foeLink)) {
 #ifdef DEBUG_SIGNALSTATE
-            if (gDebugFlag4)  std::cout << "  no protection at switch " << link->getDescription() << "\n";
+            if (gDebugFlag4)  std::cout << "  linkConflict with " << getTLLinkID(foeLink) << "\n";
 #endif
             return false;
         }
@@ -563,7 +563,7 @@ MSRailSignal::DriveWay::hasLinkConflict(const Approaching& veh, MSLink* foeLink)
             if (gDebugFlag4) {
                 std::cout << "  aT=" << veh.second.arrivalTime << " foeAT=" << foe.second.arrivalTime 
                     << "  aS=" << veh.first->getSpeed() << " foeS=" << foe.first->getSpeed()
-                    << "  aD=" << veh.second.dist << " foeS=" << foe.second.dist
+                    << "  aD=" << veh.second.dist << " foeD=" << foe.second.dist
                     << "\n";
             }
 #endif
@@ -601,23 +601,23 @@ MSRailSignal::DriveWay::conflictLaneOccupied() const {
 
 
 bool
-MSRailSignal::DriveWay::findProtection(MSLink* link) const {
+MSRailSignal::DriveWay::findProtection(const Approaching& veh, MSLink* link) const {
     double flankApproachingDist = std::numeric_limits<double>::max();
     if (link->getApproaching().size() > 0) {
         Approaching closest = getClosest(link);
         flankApproachingDist = closest.second.dist;
     }
 #ifdef DEBUG_FIND_PROTECTION
-    std::cout << SIMTIME << " findProtection for link=" << link->getDescription() << " flankApproachingDist=" << flankApproachingDist << "\n";
+    if (gDebugFlag4) std::cout << SIMTIME << " findProtection for link=" << link->getDescription() << " flankApproachingDist=" << flankApproachingDist << "\n";
 #endif
     for (MSLink* l2 : link->getLaneBefore()->getLinkCont()) {
         if (l2->getLane() != link->getLane()) {
 #ifdef DEBUG_FIND_PROTECTION
-            std::cout << " protectionCandidate=" << l2->getDescription() << " l2Via=" << Named::getIDSecure(l2->getViaLane()) << " occupied=" << !l2->getViaLane()->isEmpty() << "\n";
+            if (gDebugFlag4) std::cout << " protectionCandidate=" << l2->getDescription() << " l2Via=" << Named::getIDSecure(l2->getViaLane()) << " occupied=" << !l2->getViaLane()->isEmpty() << "\n";
 #endif
             if (l2->getViaLane() != nullptr && !l2->getViaLane()->isEmpty()) {
 #ifdef DEBUG_FIND_PROTECTION
-                std::cout << "   protection from internal=" << l2->getViaLane()->getID() << "\n";
+                if (gDebugFlag4) std::cout << "   protection from internal=" << l2->getViaLane()->getID() << "\n";
 #endif
                 return true;
             }
@@ -625,15 +625,31 @@ MSRailSignal::DriveWay::findProtection(MSLink* link) const {
                 Approaching closest2 = getClosest(l2);
                 if (closest2.second.dist < flankApproachingDist) {
 #ifdef DEBUG_FIND_PROTECTION
-                    std::cout << "   protection from veh=" << closest2.first->getID() << "\n";
+                    if (gDebugFlag4) std::cout << "   protection from veh=" << closest2.first->getID() << "\n";
 #endif
                     return true;
                 }
             }
         }
     }
-    /// XXX search recursively for protection further upstream
-    return link->getApproaching().size() == 0;
+    if (link->getApproaching().size() == 0) {
+        return true;
+    } else {
+        // find protection further upstream
+        DriveWay tmp(-myIndex);
+        const MSLane* before = link->getLaneBefore();
+        tmp.myFlank.push_back(before);
+        LaneSet visited;
+        for (auto ili : before->getIncomingLanes()) {
+            tmp.findFlankProtection(ili.viaLink, myMaxFlankLength, visited);
+        }
+        tmp.myConflictLanes.push_back(before);
+        tmp.myRoute = myRoute;
+        MSEdgeVector occupied;
+        if (gDebugFlag4) std::cout << SIMTIME << " tmpDW flank=" << toString(tmp.myFlank) 
+            << " protSwitch=" << describeLinks(tmp.myProtectingSwitches) << " cLinks=" << describeLinks(tmp.myConflictLinks) << "\n";
+        return tmp.reserve(veh, occupied);
+    }
 }
 
 
@@ -726,6 +742,7 @@ MSRailSignal::DriveWay::buildRoute(MSLink* origin, double length,
                             continue;
                         }
                         if (link->getViaLaneOrLane() != bidi) {
+                            // this switch is special beause it still lies on the current route
                             myProtectingSwitches.push_back(ili.viaLink);
                             return;
                         }
@@ -835,40 +852,40 @@ MSRailSignal::DriveWay::findFlankProtection(MSLink* link, double length, LaneSet
     } else {
         // find normal lane before this link
         const MSLane* lane = link->getLaneBefore();
-        if (visited.count(lane) != 0) {
-            return;
-        }
-        visited.insert(lane);
-        length += lane->getLength();
-        if (lane->isInternal()) {
-            myFlank.push_back(lane);
-            findFlankProtection(lane->getIncomingLanes().front().viaLink, length, visited);
-        } else {
-            bool foundPSwitch = false;
-            for (MSLink* l2 : lane->getLinkCont()) {
-#ifdef DEBUG_CHECK_FLANKS
-                std::cout << "   lane=" << lane->getID() << " cand=" << l2->getDescription() << "\n";
-#endif
-                if (l2->getDirection() != LINKDIR_TURN && l2->getLane() != link->getLane()) {
-                    foundPSwitch = true;
-                    // found potential protection
-#ifdef DEBUG_CHECK_FLANKS
-                    std::cout << "   protectingSwitch=" << l2->getDescription() << " for flank=" << link->getDescription() << "\n";
-#endif
-                    myProtectingSwitches.push_back(link);
-                }
-            }
-            if (!foundPSwitch) {
+        if (visited.count(lane) == 0) {
+            visited.insert(lane);
+            length += lane->getLength();
+            if (lane->isInternal()) {
                 myFlank.push_back(lane);
-                // continue search for protection upstream recursively
-                for (auto ili : lane->getIncomingLanes()) {
-                    if (ili.viaLink->getDirection() != LINKDIR_TURN) {
-                        findFlankProtection(ili.viaLink, length, visited);
+                findFlankProtection(lane->getIncomingLanes().front().viaLink, length, visited);
+            } else {
+                bool foundPSwitch = false;
+                for (MSLink* l2 : lane->getLinkCont()) {
+#ifdef DEBUG_CHECK_FLANKS
+                    std::cout << "   lane=" << lane->getID() << " cand=" << l2->getDescription() << "\n";
+#endif
+                    if (l2->getDirection() != LINKDIR_TURN && l2->getLane() != link->getLane()) {
+                        foundPSwitch = true;
+                        // found potential protection
+#ifdef DEBUG_CHECK_FLANKS
+                        std::cout << "   protectingSwitch=" << l2->getDescription() << " for flank=" << link->getDescription() << "\n";
+#endif
+                        myProtectingSwitches.push_back(link);
+                    }
+                }
+                if (!foundPSwitch) {
+                    myFlank.push_back(lane);
+                    // continue search for protection upstream recursively
+                    for (auto ili : lane->getIncomingLanes()) {
+                        if (ili.viaLink->getDirection() != LINKDIR_TURN) {
+                            findFlankProtection(ili.viaLink, length, visited);
+                        }
                     }
                 }
             }
         }
     }
+    myMaxFlankLength = MAX2(myMaxFlankLength, length);
 }
 
 

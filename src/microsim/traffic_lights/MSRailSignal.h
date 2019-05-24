@@ -220,10 +220,17 @@ protected:
     struct DriveWay {
 
         /// @brief Constructor
-        DriveWay(int index) : myIndex(index), myActive(nullptr) {}
+        DriveWay(int index) : 
+            myIndex(index), 
+            myMaxFlankLength(0),
+            myActive(nullptr)
+        {}
 
         /// @brief index in the list of driveways
         int myIndex;
+
+        /// @brief the maximum flank length searched while building this driveway
+        double myMaxFlankLength;
 
         /// @brief whether the current signal is switched green for a train approaching this block
         const SUMOVehicle* myActive;
@@ -274,8 +281,8 @@ protected:
         /// @brief Whether any of the conflict linkes have approaching vehicles
         bool conflictLinkApproached() const;
 
-        /// @brief find protection starting at a switch
-        bool findProtection(MSLink* link) const;
+        /// @brief find protection for the given vehicle  starting at a switch
+        bool findProtection(const Approaching& veh, MSLink* link) const;
         
         /// @brief Wether this driveway overlaps with the given one
         bool overlap(const DriveWay& other) const; 
