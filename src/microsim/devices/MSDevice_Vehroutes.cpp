@@ -326,15 +326,16 @@ MSDevice_Vehroutes::writeOutput(const bool hasArrived) const {
             writeXMLRoute(od);
         }
     } else {
-        if (myReplacedRoutes.size() > 0) {
+        const int routesToSkip = myHolder.getParameter().wasSet(VEHPARS_FORCE_REROUTE) ? 1 : 0;
+        if (myReplacedRoutes.size() > routesToSkip) {
             od.openTag(SUMO_TAG_ROUTE_DISTRIBUTION);
-            for (int i = 0; i < (int)myReplacedRoutes.size(); ++i) {
+            for (int i = routesToSkip; i < (int)myReplacedRoutes.size(); ++i) {
                 writeXMLRoute(od, i);
             }
-        }
-        writeXMLRoute(od);
-        if (myReplacedRoutes.size() > 0) {
+            writeXMLRoute(od);
             od.closeTag();
+        } else {
+            writeXMLRoute(od);
         }
     }
     od << myStopOut.getString();
