@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2019-01-15 10:11:11.417125 by $Id$ via randomTrips.py
+  options:
+  T1_0 ==
+                                          ====< T12_1
+  T17_0 == >                             ====== T24_=
+                                     \== T26_0
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="REDosto7" vClass="rail" carFollowModel="Rail" trainType="REDosto7" color="red"/>
+    <vType id="Freight" vClass="rail" carFollowModel="Rail" trainType="Freight" color="blue"/>
+
+    <trip id="rail1" depart="01"  departLane="best" departSpeed="max" from="T1_0" to="T26_0" type="Freight"/>
+    <trip id="rail3" depart="01"  departLane="best" departSpeed="max" from="T12_1" to="T17_1" type="Freight"/>
+    <trip id="rail2" depart="40"  departLane="best" departSpeed="max" from="T17_0" to="T24_0" type="REDosto7"/>
+    <trip id="rail4" depart="300" departLane="best" departSpeed="max" from="T26_1" to="T1_1" type="Freight"/>
+    <trip id="rail5" depart="500" departLane="best" departSpeed="max" from="T1_0" to="T24_0" type="Freight"/>
+    <trip id="rail6" depart="510" departLane="best" departSpeed="max" from="T26_1" to="T17_1" type="Freight"/>
+    <trip id="rail7" depart="1300" departLane="best" departSpeed="max" from="T12_1" to="T1_1" type="REDosto7"/>
+    <trip id="rail8" depart="1301" departLane="best" departSpeed="max" from="T26_1" to="T17_1" type="REDosto7"/>
+</routes>

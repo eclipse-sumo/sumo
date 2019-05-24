@@ -44,5 +44,8 @@ crossing_tracks
 # as above but without rail signals
 crossing_tracks_collision
 
+# rerouting trains that pass each other in a complex network
+alternativeRoute
+
 # railway-specific bugs
 bugs
