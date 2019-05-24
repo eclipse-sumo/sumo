@@ -160,8 +160,8 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_T_OPENSUMONETEDIT,          GNEApplicationWindow::onUpdNeedsNetwork),
 
     // Toolbar processing
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F5_COMPUTEJUNCTIONS_NORMALIZEIDS,                GNEApplicationWindow::onCmdProcessButton),
-    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_F5_COMPUTEJUNCTIONS_NORMALIZEIDS,                GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F5_COMPUTEJUNCTIONS,                             GNEApplicationWindow::onCmdProcessButton),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_F5_COMPUTEJUNCTIONS,                             GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_F5_COMPUTEJUNCTIONS_VOLATILE,              GNEApplicationWindow::onCmdProcessButton),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_SHIFT_F5_COMPUTEJUNCTIONS_VOLATILE,              GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_F6_CLEAN_SOLITARYJUNCTIONS_UNUSEDROUTES,     GNEApplicationWindow::onCmdProcessButton),
@@ -1241,7 +1241,7 @@ GNEApplicationWindow::ProcessingMenuCommands::buildProcessingMenuCommands(FXMenu
     // build network processing menu commands
     recompute = new FXMenuCommand(fileMenu,
         "Compute Junctions\tF5\tComputes junction shape and logic.",
-        GUIIconSubSys::getIcon(ICON_COMPUTEJUNCTIONS), myGNEApp, MID_HOTKEY_F5_COMPUTEJUNCTIONS_NORMALIZEIDS);
+        GUIIconSubSys::getIcon(ICON_COMPUTEJUNCTIONS), myGNEApp, MID_HOTKEY_F5_COMPUTEJUNCTIONS);
     recomputeVolatile = new FXMenuCommand(fileMenu,
         "Compute Junctions with volatile options\tShift+F5\tComputes junction shape and logic using volatile junctions.",
         GUIIconSubSys::getIcon(ICON_COMPUTEJUNCTIONS), myGNEApp, MID_HOTKEY_SHIFT_F5_COMPUTEJUNCTIONS_VOLATILE);
@@ -1255,11 +1255,8 @@ GNEApplicationWindow::ProcessingMenuCommands::buildProcessingMenuCommands(FXMenu
         "Clean invalid crossings\tF8\tClear invalid crossings.",
         GUIIconSubSys::getIcon(ICON_JOINJUNCTIONS), myGNEApp, MID_GNE_HOTKEY_F8_CLEANINVALID_CROSSINGS_DEMANDELEMENTS);
      // build demand  processing menu commands
-    normalizeDemandelements = new FXMenuCommand(fileMenu,
-        "Normalice IDs\tF7\tNormalice demand element IDs.",
-        GUIIconSubSys::getIcon(ICON_NORMALIZEIDS), myGNEApp, MID_HOTKEY_F5_COMPUTEJUNCTIONS_NORMALIZEIDS);
     cleanRoutes = new FXMenuCommand(fileMenu,
-        "Clean Routes\tF6\tRemoves routes without vehicles.",
+        "Clean routes\tF6\tRemoves routes without vehicles.",
         GUIIconSubSys::getIcon(ICON_CLEANROUTES), myGNEApp, MID_GNE_HOTKEY_F6_CLEAN_SOLITARYJUNCTIONS_UNUSEDROUTES);
     joinRoutes = new FXMenuCommand(fileMenu,
         "Join routes\tF7\tJoins routes with the same edges.",
@@ -1312,12 +1309,10 @@ GNEApplicationWindow::ProcessingMenuCommands::hideNetworkProcessingMenuCommands(
 void 
 GNEApplicationWindow::ProcessingMenuCommands::showDemandProcessingMenuCommands() {
     // first enable menu commands
-    normalizeDemandelements->enable();
     cleanRoutes->enable();
     joinRoutes->enable();
     clearInvalidDemandElements->enable();
     // now show it
-    normalizeDemandelements->show();
     cleanRoutes->show();
     joinRoutes->show();
     clearInvalidDemandElements->show();
@@ -1327,12 +1322,10 @@ GNEApplicationWindow::ProcessingMenuCommands::showDemandProcessingMenuCommands()
 void 
 GNEApplicationWindow::ProcessingMenuCommands::hideDemandProcessingMenuCommands() {
     // first disable menu commands
-    normalizeDemandelements->disable();
     cleanRoutes->disable();
     joinRoutes->disable();
     clearInvalidDemandElements->disable();
     // now hide it
-    normalizeDemandelements->hide();
     cleanRoutes->hide();
     joinRoutes->hide();
     clearInvalidDemandElements->hide();
@@ -1804,7 +1797,7 @@ GNEApplicationWindow::onCmdProcessButton(FXObject*, FXSelector sel, void*) {
         if (myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) {
             // check what FXMenuCommand was called
             switch (FXSELID(sel)) {
-                case MID_HOTKEY_F5_COMPUTEJUNCTIONS_NORMALIZEIDS:
+                case MID_HOTKEY_F5_COMPUTEJUNCTIONS:
                     // show extra information for tests
                     WRITE_DEBUG("Key F5 (Compute) pressed");
                     myNet->computeEverything(this, true, false);
@@ -1836,11 +1829,6 @@ GNEApplicationWindow::onCmdProcessButton(FXObject*, FXSelector sel, void*) {
         } else {
             // check what FXMenuCommand was called
             switch (FXSELID(sel)) {
-                case MID_HOTKEY_F5_COMPUTEJUNCTIONS_NORMALIZEIDS:
-                    // show extra information for tests
-                    WRITE_DEBUG("Key F5 (NormalizeDemandElementIDs) pressed");
-                    myNet->normalizeDemandElementIDs(myUndoList);
-                    break;
                 case MID_GNE_HOTKEY_F6_CLEAN_SOLITARYJUNCTIONS_UNUSEDROUTES:
                     // show extra information for tests
                     WRITE_DEBUG("Key F6 (RemoveUnusedRoutes) pressed");

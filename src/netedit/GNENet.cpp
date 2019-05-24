@@ -1752,69 +1752,6 @@ GNENet::removeSolitaryJunctions(GNEUndoList* undoList) {
 
 
 void 
-GNENet::normalizeDemandElementIDs(GNEUndoList* undoList) {
-    // obtain a copy of all routes and vehicles
-    std::vector<GNEDemandElement*> routes;
-    routes.reserve(myAttributeCarriers.demandElements.at(SUMO_TAG_ROUTE).size());
-    for (const auto &i : myAttributeCarriers.demandElements.at(SUMO_TAG_ROUTE)) {
-        routes.push_back(i.second);
-    }
-    std::vector<GNEDemandElement*> vehicles;
-    routes.reserve(myAttributeCarriers.demandElements.at(SUMO_TAG_VEHICLE).size());
-    for (const auto &i : myAttributeCarriers.demandElements.at(SUMO_TAG_VEHICLE)) {
-        vehicles.push_back(i.second);
-    }
-    std::vector<GNEDemandElement*> routeFlows;
-    routes.reserve(myAttributeCarriers.demandElements.at(SUMO_TAG_ROUTEFLOW).size());
-    for (const auto &i : myAttributeCarriers.demandElements.at(SUMO_TAG_ROUTEFLOW)) {
-        routeFlows.push_back(i.second);
-    }
-    std::vector<GNEDemandElement*> trips;
-    routes.reserve(myAttributeCarriers.demandElements.at(SUMO_TAG_TRIP).size());
-    for (const auto &i : myAttributeCarriers.demandElements.at(SUMO_TAG_TRIP)) {
-        trips.push_back(i.second);
-    }
-    std::vector<GNEDemandElement*> flows;
-    routes.reserve(myAttributeCarriers.demandElements.at(SUMO_TAG_FLOW).size());
-    for (const auto &i : myAttributeCarriers.demandElements.at(SUMO_TAG_FLOW)) {
-        flows.push_back(i.second);
-    }
-    // now rename all vehicles
-    if ((routes.size() + vehicles.size() + routeFlows.size() + trips.size() + flows.size()) > 0) {
-        // begin undo list
-        undoList->p_begin("normalize IDs");
-        int counter = 0;
-        for (const auto &i : routes) {
-            i->setAttribute(SUMO_ATTR_ID, "route_" + toString(counter), undoList);
-            counter++;
-        }
-        counter = 0;
-        for (const auto &i : vehicles) {
-            i->setAttribute(SUMO_ATTR_ID, "vehicle_" + toString(counter), undoList);
-            counter++;
-        }
-        counter = 0;
-        for (const auto &i : routeFlows) {
-            i->setAttribute(SUMO_ATTR_ID, "routeflow_" + toString(counter), undoList);
-            counter++;
-        }
-        counter = 0;
-        for (const auto &i : trips) {
-            i->setAttribute(SUMO_ATTR_ID, "trip_" + toString(counter), undoList);
-            counter++;
-        }
-        counter = 0;
-        for (const auto &i : flows) {
-            i->setAttribute(SUMO_ATTR_ID, "flow_" + toString(counter), undoList);
-            counter++;
-        }
-        // end undo list
-        undoList->p_end();
-    }
-}
-
-
-void 
 GNENet::cleanUnusedRoutes(GNEUndoList* undoList) {
     // first declare a vector to save all routes without childs
     std::vector<GNEDemandElement*> routesWithoutChilds;

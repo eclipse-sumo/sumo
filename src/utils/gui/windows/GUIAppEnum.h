@@ -126,7 +126,7 @@ enum {
     /// @brief save newtwork as
     MID_HOTKEY_CTRL_SHIFT_S_SAVENETWORKAS,
     /// @brief compute junctions
-    MID_HOTKEY_F5_COMPUTEJUNCTIONS_NORMALIZEIDS,
+    MID_HOTKEY_F5_COMPUTEJUNCTIONS,
     /// @brief compute junctions with volatile options
     MID_HOTKEY_SHIFT_F5_COMPUTEJUNCTIONS_VOLATILE,
     /// @brief hot key <F1> open online documentation

@@ -539,9 +539,6 @@ public:
     /// @brief removes junctions that have no edges
     void removeSolitaryJunctions(GNEUndoList* undoList);
 
-    /// @brief normalize demand element IDS
-    void normalizeDemandElementIDs(GNEUndoList* undoList);
-
     /// @brief clean unused routes
     void cleanUnusedRoutes(GNEUndoList* undoList);
 

@@ -628,6 +628,8 @@ private:
         /// @brief show demand processing menu commands
         void hideDemandProcessingMenuCommands();
 
+        /// @name Processing FXMenuCommands for Network mode
+        /// @{
         /// @brief FXMenuCommand for recompute network
         FXMenuCommand* recompute;
 
@@ -642,10 +644,10 @@ private:
 
          /// @brief FXMenuCommand for clear invalid crosings
         FXMenuCommand* clearInvalidCrossings;
+        /// @}
 
-        /// @brief FXMenuCommand for normalize demand element ids
-        FXMenuCommand* normalizeDemandelements;
-
+        /// @name Processing FXMenuCommands for Demand mode
+        /// @{
         /// @brief FXMenuCommand for clean routes without vehicles
         FXMenuCommand* cleanRoutes;
         
@@ -654,6 +656,7 @@ private:
 
         /// @brief FXMenuCommand for clear invalid demand elements
         FXMenuCommand* clearInvalidDemandElements;
+         /// @}
 
          /// @brief FXMenuCommand for open option menus
         FXMenuCommand* optionMenus;
