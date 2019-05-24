@@ -771,9 +771,10 @@ MSEdge::getMeanSpeed() const {
         }
         if (myBidiEdge != nullptr) {
             for (const MSLane* lane : myBidiEdge->getLanes()) {
-                const double vehNo = (double)lane->getVehicleNumber();
-                v += vehNo * lane->getMeanSpeed();
-                no += vehNo;
+                if (lane->getVehicleNumber() > 0) {
+                    // do not route across edges which are already occupied in reverse direction
+                    return 0;
+                }
             }
         }
         if (no == 0) {
