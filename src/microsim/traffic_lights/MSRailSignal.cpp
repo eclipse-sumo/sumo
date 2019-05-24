@@ -649,7 +649,7 @@ MSRailSignal::DriveWay::findProtection(const Approaching& veh, MSLink* link) con
         for (auto ili : before->getIncomingLanes()) {
             tmp.findFlankProtection(ili.viaLink, myMaxFlankLength, visited);
         }
-        tmp.myConflictLanes.push_back(before);
+        tmp.myConflictLanes = tmp.myFlank;
         tmp.myRoute = myRoute;
         MSEdgeVector occupied;
         if (gDebugFlag4) std::cout << SIMTIME << " tmpDW flank=" << toString(tmp.myFlank) 
