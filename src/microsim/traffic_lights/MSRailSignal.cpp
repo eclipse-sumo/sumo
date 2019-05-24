@@ -561,24 +561,30 @@ MSRailSignal::DriveWay::hasLinkConflict(const Approaching& veh, MSLink* foeLink)
             }
 #ifdef DEBUG_SIGNALSTATE_PRIORITY
             if (gDebugFlag4) {
-                std::cout << "  aT=" << veh.second.arrivalTime << " foeAT=" << foe.second.arrivalTime 
+                std::cout 
+                    << "  aSB=" << veh.second.arrivalSpeedBraking << " foeASB=" << foe.second.arrivalSpeedBraking 
+                    << "  aT=" << veh.second.arrivalTime << " foeAT=" << foe.second.arrivalTime 
                     << "  aS=" << veh.first->getSpeed() << " foeS=" << foe.first->getSpeed()
                     << "  aD=" << veh.second.dist << " foeD=" << foe.second.dist
                     << "\n";
             }
 #endif
-            if (foe.second.arrivalTime == veh.second.arrivalTime) {
-                if (foe.first->getSpeed() == veh.first->getSpeed()) {
-                    if (foe.second.dist  == veh.second.dist) {
-                        return foe.first->getNumericalID() < veh.first->getNumericalID();
+            if (foe.second.arrivalSpeedBraking == veh.second.arrivalSpeedBraking) {
+                if (foe.second.arrivalTime == veh.second.arrivalTime) {
+                    if (foe.first->getSpeed() == veh.first->getSpeed()) {
+                        if (foe.second.dist  == veh.second.dist) {
+                            return foe.first->getNumericalID() < veh.first->getNumericalID();
+                        } else {
+                            return foe.second.dist < veh.second.dist;
+                        }
                     } else {
-                        return foe.second.dist < veh.second.dist;
+                        return foe.first->getSpeed() > veh.first->getSpeed();
                     }
                 } else {
-                    return foe.first->getSpeed() > veh.first->getSpeed();
+                    return foe.second.arrivalTime < veh.second.arrivalTime;
                 }
             } else {
-                return foe.second.arrivalTime < veh.second.arrivalTime;
+                return foe.second.arrivalSpeedBraking > veh.second.arrivalSpeedBraking;
             }
         }
     }
