@@ -44,16 +44,16 @@ def get_options(cmd_args=None):
         '-n', '--sumo-net', type=str, dest='sumo_net_definition', required=True,
         help='SUMO network definition.')
     parser.add_argument(
-        '--max-number-alternatives', type=int, dest='num_alternatives', required=True,
+        '--max-number-alternatives', type=int, dest='num_alternatives', default=10,
         help='Rerouter: max number of alternatives.')
     parser.add_argument(
-        '--max-distance-alternatives', type=float, dest='dist_alternatives', required=True,
+        '--max-distance-alternatives', type=float, dest='dist_alternatives', default=500.0,
         help='Rerouter: max distance for the alternatives.')
     parser.add_argument(
-        '--min-capacity-visibility-true', type=int, dest='capacity_threshold', required=True,
+        '--min-capacity-visibility-true', type=int, dest='capacity_threshold', default=25,
         help='Rerouter: parking capacity for the visibility threshold.')
     parser.add_argument(
-        '--max-distance-visibility-true', type=float, dest='dist_threshold', required=True,
+        '--max-distance-visibility-true', type=float, dest='dist_threshold', default=250.0,
         help='Rerouter: parking distance for the visibility threshold.')
     parser.add_argument(
         '-o', type=str, dest='output', required=True,
