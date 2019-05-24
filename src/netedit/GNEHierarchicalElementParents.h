@@ -104,8 +104,11 @@ public:
     /// @brief remove edge parent
     void removeEdgeParent(GNEEdge* edge);
 
-    /// @brief get edge chidls
+    /// @brief get edge parents
     const std::vector<GNEEdge*>& getEdgeParents() const;
+
+    /// @brief get edge parents in string format
+    std::string getEdgeParentsStr() const;
 
     /// @brief get next connection of the given edge (or NULL if not exist)
     GNEConnection* getNextConnection(const GNEEdge* edgeFrom) const;

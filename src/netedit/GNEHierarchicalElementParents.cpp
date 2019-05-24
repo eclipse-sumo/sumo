@@ -181,6 +181,27 @@ GNEHierarchicalElementParents::getEdgeParents() const {
 }
 
 
+std::string 
+GNEHierarchicalElementParents::getEdgeParentsStr() const {
+    // first calculate the number of characters that will have the string solution
+    size_t numberOfCharacters = 0;
+    for (const auto &i : myEdgeParents) {
+        numberOfCharacters += i->getID().size();
+    }
+    // declare a string solution
+    std::string solution;
+    // reserve memory
+    solution.reserve(numberOfCharacters);
+    // iterate over all edges and append edge ID in Solution
+    for (const auto &i : myEdgeParents) {
+        std::string edgeID = i->getID();
+        solution.insert(solution.end(), edgeID.begin(), edgeID.end());
+    }
+    // return solution
+    return solution;
+}
+
+
 GNEConnection* 
 GNEHierarchicalElementParents::getNextConnection(const GNEEdge* edgeFrom) const {
     for (int i = 0; i < (int)getEdgeParents().size(); i++) {
