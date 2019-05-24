@@ -525,6 +525,36 @@ private:
         /// @brief build menu commands
         void buildProcessingMenuCommands(FXMenuPane* editMenu);
 
+        /// @brief FXMenuCommand for recompute network
+        FXMenuCommand* recompute;
+
+        /// @brief FXMenuCommand for recompute network with volatile options
+        FXMenuCommand* recomputeVolatile;
+
+         /// @brief FXMenuCommand for clean junctions without edges
+        FXMenuCommand* cleanJunctions;
+
+         /// @brief FXMenuCommand for join selected junctions
+        FXMenuCommand* joinJunctions;
+
+         /// @brief FXMenuCommand for clear invalid crosings
+        FXMenuCommand* clearInvalidCrossings;
+
+        /// @brief FXMenuCommand for normalize demand element ids
+        FXMenuCommand* normalizeDemandelements;
+
+        /// @brief FXMenuCommand for clean routes without vehicles
+        FXMenuCommand* cleanRoutes;
+        
+        /// @brief FXMenuCommand for join routes
+        FXMenuCommand* joinRoutes;
+
+        /// @brief FXMenuCommand for clear invalid demand elements
+        FXMenuCommand* clearInvalidDemandElements;
+
+         /// @brief FXMenuCommand for open option menus
+        FXMenuCommand* optionMenus;
+
     private:
         /// @brief pointer to current GNEApplicationWindows
         GNEApplicationWindow* myGNEApp;
