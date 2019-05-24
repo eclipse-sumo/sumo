@@ -206,4 +206,4 @@ def main(cmd_args):
 
 if __name__ == "__main__":
     logs()
-    main(sys.argv)
+    main(sys.argv[1:])
