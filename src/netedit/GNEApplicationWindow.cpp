@@ -160,17 +160,17 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_T_OPENSUMONETEDIT,          GNEApplicationWindow::onUpdNeedsNetwork),
 
     // Toolbar processing
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F5_RECOMPUTE_NORMALIZEIDS,                                            GNEApplicationWindow::onCmdComputeJunctions),
-    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_F5_RECOMPUTE_NORMALIZEIDS,                                            GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_F5_RECOMPUTEVOLATILE,                              GNEApplicationWindow::onCmdComputeJunctionsVolatile),
-    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_SHIFT_F5_RECOMPUTEVOLATILE,                              GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_F6_CLEANJUNCTIONS_CLEANUNUSEDROUTES,                 GNEApplicationWindow::onCmdCleanJunctions),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_HOTKEY_F6_CLEANJUNCTIONS_CLEANUNUSEDROUTES,                 GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_F7_JOINSELECTEDJUNCTIONS_JOINROUTES,  GNEApplicationWindow::onCmdJoinJunctions),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_HOTKEY_F7_JOINSELECTEDJUNCTIONS_JOINROUTES,  GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_F8_CLEANINVALIDCROSSINGS_CLEANINVALIDDEMANDELEMENTS, GNEApplicationWindow::onCmdCleanInvalidCrossings),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_HOTKEY_F8_CLEANINVALIDCROSSINGS_CLEANINVALIDDEMANDELEMENTS, GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_F10_OPTIONSMENU,                                     GNEApplicationWindow::onCmdOptions),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F5_COMPUTEJUNCTIONS_NORMALIZEIDS,                GNEApplicationWindow::onCmdComputeJunctions),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_F5_COMPUTEJUNCTIONS_NORMALIZEIDS,                GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_F5_COMPUTEJUNCTIONS_VOLATILE,              GNEApplicationWindow::onCmdComputeJunctionsVolatile),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_SHIFT_F5_COMPUTEJUNCTIONS_VOLATILE,              GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_F6_CLEAN_SOLITARYJUNCTIONS_UNUSEDROUTES,     GNEApplicationWindow::onCmdCleanJunctions),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_HOTKEY_F6_CLEAN_SOLITARYJUNCTIONS_UNUSEDROUTES,     GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_F7_JOIN_SELECTEDJUNCTIONS_ROUTES,            GNEApplicationWindow::onCmdJoinJunctions),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_HOTKEY_F7_JOIN_SELECTEDJUNCTIONS_ROUTES,            GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_F8_CLEANINVALID_CROSSINGS_DEMANDELEMENTS,    GNEApplicationWindow::onCmdCleanInvalidCrossings),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_HOTKEY_F8_CLEANINVALID_CROSSINGS_DEMANDELEMENTS,    GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_F10_OPTIONSMENU,                             GNEApplicationWindow::onCmdOptions),
 
     // Toolbar locate
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEJUNCTION,                     GNEApplicationWindow::onCmdLocate),
@@ -1241,32 +1241,32 @@ GNEApplicationWindow::ProcessingMenuCommands::buildProcessingMenuCommands(FXMenu
     // build network processing menu commands
     recompute = new FXMenuCommand(fileMenu,
         "Compute Junctions\tF5\tComputes junction shape and logic.",
-        GUIIconSubSys::getIcon(ICON_COMPUTEJUNCTIONS), myGNEApp, MID_HOTKEY_F5_RECOMPUTE_NORMALIZEIDS);
+        GUIIconSubSys::getIcon(ICON_COMPUTEJUNCTIONS), myGNEApp, MID_HOTKEY_F5_COMPUTEJUNCTIONS_NORMALIZEIDS);
     recomputeVolatile = new FXMenuCommand(fileMenu,
         "Compute Junctions with volatile options\tShift+F5\tComputes junction shape and logic using volatile junctions.",
-        GUIIconSubSys::getIcon(ICON_COMPUTEJUNCTIONS), myGNEApp, MID_HOTKEY_SHIFT_F5_RECOMPUTEVOLATILE);
+        GUIIconSubSys::getIcon(ICON_COMPUTEJUNCTIONS), myGNEApp, MID_HOTKEY_SHIFT_F5_COMPUTEJUNCTIONS_VOLATILE);
     cleanJunctions = new FXMenuCommand(fileMenu,
         "Clean Junctions\tF6\tRemoves solitary junctions.",
-        GUIIconSubSys::getIcon(ICON_CLEANJUNCTIONS), myGNEApp, MID_GNE_HOTKEY_F6_CLEANJUNCTIONS_CLEANUNUSEDROUTES);
+        GUIIconSubSys::getIcon(ICON_CLEANJUNCTIONS), myGNEApp, MID_GNE_HOTKEY_F6_CLEAN_SOLITARYJUNCTIONS_UNUSEDROUTES);
     joinJunctions = new FXMenuCommand(fileMenu,
         "Join Selected Junctions\tF7\tJoins selected junctions into a single junction.",
-        GUIIconSubSys::getIcon(ICON_JOINJUNCTIONS), myGNEApp, MID_GNE_HOTKEY_F7_JOINSELECTEDJUNCTIONS_JOINROUTES);
+        GUIIconSubSys::getIcon(ICON_JOINJUNCTIONS), myGNEApp, MID_GNE_HOTKEY_F7_JOIN_SELECTEDJUNCTIONS_ROUTES);
     clearInvalidCrossings = new FXMenuCommand(fileMenu,
         "Clean invalid crossings\tF8\tClear invalid crossings.",
-        GUIIconSubSys::getIcon(ICON_JOINJUNCTIONS), myGNEApp, MID_GNE_HOTKEY_F8_CLEANINVALIDCROSSINGS_CLEANINVALIDDEMANDELEMENTS);
+        GUIIconSubSys::getIcon(ICON_JOINJUNCTIONS), myGNEApp, MID_GNE_HOTKEY_F8_CLEANINVALID_CROSSINGS_DEMANDELEMENTS);
      // build demand  processing menu commands
     normalizeDemandelements = new FXMenuCommand(fileMenu,
         "Normalice IDs\tF7\tNormalice demand element IDs.",
-        GUIIconSubSys::getIcon(ICON_NORMALIZEIDS), myGNEApp, MID_HOTKEY_F5_RECOMPUTE_NORMALIZEIDS);
+        GUIIconSubSys::getIcon(ICON_NORMALIZEIDS), myGNEApp, MID_HOTKEY_F5_COMPUTEJUNCTIONS_NORMALIZEIDS);
     cleanRoutes = new FXMenuCommand(fileMenu,
         "Clean Routes\tF6\tRemoves routes without vehicles.",
-        GUIIconSubSys::getIcon(ICON_CLEANROUTES), myGNEApp, MID_GNE_HOTKEY_F6_CLEANJUNCTIONS_CLEANUNUSEDROUTES);
+        GUIIconSubSys::getIcon(ICON_CLEANROUTES), myGNEApp, MID_GNE_HOTKEY_F6_CLEAN_SOLITARYJUNCTIONS_UNUSEDROUTES);
     joinRoutes = new FXMenuCommand(fileMenu,
         "Join routes\tF7\tJoins routes with the same edges.",
-        GUIIconSubSys::getIcon(ICON_JOINROUTES), myGNEApp, MID_GNE_HOTKEY_F7_JOINSELECTEDJUNCTIONS_JOINROUTES);
+        GUIIconSubSys::getIcon(ICON_JOINROUTES), myGNEApp, MID_GNE_HOTKEY_F7_JOIN_SELECTEDJUNCTIONS_ROUTES);
     clearInvalidDemandElements = new FXMenuCommand(fileMenu,
         "Clean invalid route elements\tF8\tClear elements with an invalid path (routes, Trips, Flows...).",
-        GUIIconSubSys::getIcon(ICON_JOINJUNCTIONS), myGNEApp, MID_GNE_HOTKEY_F8_CLEANINVALIDCROSSINGS_CLEANINVALIDDEMANDELEMENTS);
+        GUIIconSubSys::getIcon(ICON_JOINJUNCTIONS), myGNEApp, MID_GNE_HOTKEY_F8_CLEANINVALID_CROSSINGS_DEMANDELEMENTS);
     // add separator (because optionsmenu is commmon for Network and Demand modes
     new FXMenuSeparator(fileMenu);
     optionMenus = new FXMenuCommand(fileMenu,
