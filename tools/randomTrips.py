@@ -30,6 +30,7 @@ if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
 from sumolib.miscutils import euclidean  # noqa
+from sumolib.geomhelper import naviDegree, minAngleDegreeDiff, angle2D
 
 DUAROUTER = sumolib.checkBinary('duarouter')
 
@@ -85,6 +86,10 @@ def get_options(args=None):
                          help="use the given edge parameter as factor for edge")
     optParser.add_option("--speed-exponent", type="float", dest="speed_exponent",
                          default=0.0, help="weight edge probability by speed^<FLOAT> (default 0)")
+    optParser.add_option("--angle", type="float", dest="angle",
+                         default=90.0, help="weight edge probability by angle [0-360] relative to the network center")
+    optParser.add_option("--angle-factor", type="float", dest="angle_weight",
+                         default=1.0, help="maximum weight factor for angle")
     optParser.add_option("--fringe-factor", type="float", dest="fringe_factor",
                          default=1.0, help="multiply weight of fringe edges by <FLOAT> (default 1")
     optParser.add_option("--fringe-threshold", type="float", dest="fringe_threshold",
@@ -258,6 +263,23 @@ def get_prob_fun(options, fringe_bonus, fringe_forbidden):
             prob *= options.fringe_factor
         if options.edgeParam is not None:
             prob *= float(edge.getParam(options.edgeParam, 1.0))
+        if options.angle_weight != 1.0 and fringe_bonus is not None:
+            xmin, ymin, xmax, ymax = edge.getBoundingBox()
+            ex, ey = ((xmin + xmax) / 2, (ymin + ymax) / 2)
+            nx, ny = options.angle_center
+            edgeAngle = naviDegree(math.atan2(ey - ny, ex - nx))
+            angleDiff = minAngleDegreeDiff(options.angle, edgeAngle)
+            #print("e=%s nc=%s ec=%s ea=%s a=%s ad=%s" % (
+            #    edge.getID(), options.angle_center, (ex,ey), edgeAngle,
+            #    options.angle, angleDiff))
+            #relDist = 2 * euclidean((ex, ey), options.angle_center) / max(xmax - xmin, ymax - ymin)
+            #prob *= (relDist * (options.angle_weight - 1) + 1)
+            if fringe_bonus == "_incoming":
+                # source edge
+                prob *= (angleDiff * (options.angle_weight - 1) + 1)
+            else:
+                prob *= ((180 - angleDiff) * (options.angle_weight - 1) + 1)
+
         return prob
     return edge_probability
 
@@ -403,6 +425,10 @@ def main(options):
         print(("Warning: setting number of intermediate waypoints to %s to achieve a minimum trip length of " +
                "%s in a network with diameter %.2f.") % (
             options.intermediate, options.min_distance, net.getBBoxDiameter()))
+
+    if options.angle_weight != 1:
+        xmin,ymin,xmax,ymax = net.getBoundary()
+        options.angle_center = (xmin + xmax) / 2, (ymin + ymax) / 2
 
     trip_generator = buildTripGenerator(net, options)
     idx = 0
