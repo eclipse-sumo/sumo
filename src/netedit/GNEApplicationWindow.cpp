@@ -1274,6 +1274,70 @@ GNEApplicationWindow::ProcessingMenuCommands::buildProcessingMenuCommands(FXMenu
         GUIIconSubSys::getIcon(ICON_OPTIONS), myGNEApp, MID_GNE_HOTKEY_F10_OPTIONSMENU);
 }
 
+
+void 
+GNEApplicationWindow::ProcessingMenuCommands::showNetworkProcessingMenuCommands() {
+    // first enable menu commands
+    recompute->enable();
+    recomputeVolatile->enable();
+    cleanJunctions->enable();
+    joinJunctions->enable();
+    clearInvalidCrossings->enable();
+    // now show it
+    recompute->show();
+    recomputeVolatile->show();
+    cleanJunctions->show();
+    joinJunctions->show();
+    clearInvalidCrossings->show();
+}
+
+
+void 
+GNEApplicationWindow::ProcessingMenuCommands::hideNetworkProcessingMenuCommands() {
+    // first disable menu commands
+    recompute->disable();
+    recomputeVolatile->disable();
+    cleanJunctions->disable();
+    joinJunctions->disable();
+    clearInvalidCrossings->disable();
+    // now hide it
+    recompute->hide();
+    recomputeVolatile->hide();
+    cleanJunctions->hide();
+    joinJunctions->hide();
+    clearInvalidCrossings->hide();
+}
+
+
+void 
+GNEApplicationWindow::ProcessingMenuCommands::showDemandProcessingMenuCommands() {
+    // first enable menu commands
+    normalizeDemandelements->enable();
+    cleanRoutes->enable();
+    joinRoutes->enable();
+    clearInvalidDemandElements->enable();
+    // now show it
+    normalizeDemandelements->show();
+    cleanRoutes->show();
+    joinRoutes->show();
+    clearInvalidDemandElements->show();
+}
+
+
+void 
+GNEApplicationWindow::ProcessingMenuCommands::hideDemandProcessingMenuCommands() {
+    // first disable menu commands
+    normalizeDemandelements->disable();
+    cleanRoutes->disable();
+    joinRoutes->disable();
+    clearInvalidDemandElements->disable();
+    // now hide it
+    normalizeDemandelements->hide();
+    cleanRoutes->hide();
+    joinRoutes->hide();
+    clearInvalidDemandElements->hide();
+}
+
 // ---------------------------------------------------------------------------
 // GNEViewNet::LocateMenuCommands - methods
 // ---------------------------------------------------------------------------
@@ -2665,12 +2729,18 @@ GNEApplicationWindow::updateSuperModeMenuCommands(int supermode) {
     if (currentSupermode == Supermode::GNE_SUPERMODE_NETWORK) {
         myEditMenuCommands.networkMenuCommands.showNetworkMenuCommands();
         myEditMenuCommands.demandMenuCommands.hideDemandMenuCommands();
+        myProcessingMenuCommands.showNetworkProcessingMenuCommands();
+        myProcessingMenuCommands.hideDemandProcessingMenuCommands();
     } else if (currentSupermode == Supermode::GNE_SUPERMODE_DEMAND) {
         myEditMenuCommands.networkMenuCommands.hideNetworkMenuCommands();
         myEditMenuCommands.demandMenuCommands.showDemandMenuCommands();
+        myProcessingMenuCommands.hideNetworkProcessingMenuCommands();
+        myProcessingMenuCommands.showDemandProcessingMenuCommands();
     } else {
         myEditMenuCommands.networkMenuCommands.hideNetworkMenuCommands();
         myEditMenuCommands.demandMenuCommands.hideDemandMenuCommands();
+        myProcessingMenuCommands.hideNetworkProcessingMenuCommands();
+        myProcessingMenuCommands.hideDemandProcessingMenuCommands();
     }
 }
 

@@ -616,6 +616,18 @@ private:
         /// @brief build menu commands
         void buildProcessingMenuCommands(FXMenuPane* editMenu);
 
+        /// @brief show network processing menu commands
+        void showNetworkProcessingMenuCommands();
+
+        /// @brief show network processing menu commands
+        void hideNetworkProcessingMenuCommands();
+
+        /// @brief show demand processing menu commands
+        void showDemandProcessingMenuCommands();
+
+        /// @brief show demand processing menu commands
+        void hideDemandProcessingMenuCommands();
+
         /// @brief FXMenuCommand for recompute network
         FXMenuCommand* recompute;
 
