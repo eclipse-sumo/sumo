@@ -1,3 +1,6 @@
+# mix of passenger cars and trucks
+mixed
+
 # vehicle may use both lanes of the roundabout
 low_traffic
 
@@ -6,9 +9,3 @@ medium_traffic
 
 # vehicles should not get stuck on the inside lane
 high_traffic
-
-# small roundabout radius
-small
-
-# mix of passenger cars and trucks
-mixed

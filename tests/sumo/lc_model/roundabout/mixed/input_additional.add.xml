@@ -1,0 +1,6 @@
+<add>
+    <vTypeDistribution id="t">
+        <vType probability="0.9" id="car" vClass="passenger"/>
+        <vType probability="0.1" id="truck" vClass="truck" lcCooperative="1.0"/>
+    </vTypeDistribution>
+</add>
