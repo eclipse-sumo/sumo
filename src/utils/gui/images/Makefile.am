@@ -66,6 +66,9 @@ grid2.xpm \
 grid3.xpm \
 halt.xpm \
 joinjunctions.xpm \
+normalizeids.xpm \
+cleanroutes.xpm \
+joinroutes.xpm \
 junction.xpm \
 lane.xpm \
 lanebike.xpm \

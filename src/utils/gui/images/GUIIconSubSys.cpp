@@ -156,6 +156,9 @@
 #include "computejunctions.xpm"
 #include "cleanjunctions.xpm"
 #include "joinjunctions.xpm"
+#include "normalizeids.xpm"
+#include "cleanroutes.xpm"
+#include "joinroutes.xpm"
 #include "options.xpm"
 
 #include "junction.xpm"
@@ -408,9 +411,13 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[ICON_MODEVEHICLETYPE] = new FXXPMIcon(a, modevehicletype_xpm);
     myIcons[ICON_MODESTOP] = new FXXPMIcon(a, modestop_xpm);
 
-    myIcons[ICON_CLEANJUNCTIONS] = new FXXPMIcon(a, cleanjunctions_xpm);
     myIcons[ICON_COMPUTEJUNCTIONS] = new FXXPMIcon(a, computejunctions_xpm);
+    myIcons[ICON_CLEANJUNCTIONS] = new FXXPMIcon(a, cleanjunctions_xpm);
     myIcons[ICON_JOINJUNCTIONS] = new FXXPMIcon(a, joinjunctions_xpm);
+    myIcons[ICON_NORMALIZEIDS] = new FXXPMIcon(a, normalizeids_xpm);
+    myIcons[ICON_CLEANROUTES] = new FXXPMIcon(a, cleanroutes_xpm);
+    myIcons[ICON_JOINROUTES] = new FXXPMIcon(a, joinroutes_xpm);
+
     myIcons[ICON_OPTIONS] = new FXXPMIcon(a, options_xpm);
 
     myIcons[ICON_JUNCTION] = new FXXPMIcon(a, junction_xpm);

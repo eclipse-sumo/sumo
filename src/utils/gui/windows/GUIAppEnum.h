@@ -126,7 +126,7 @@ enum {
     /// @brief save newtwork as
     MID_HOTKEY_CTRL_SHIFT_S_SAVENETWORKAS,
     /// @brief compute junctions
-    MID_HOTKEY_F5_RECOMPUTE,
+    MID_HOTKEY_F5_RECOMPUTE_NORMALIZEIDS,
     /// @brief compute junctions with volatile options
     MID_HOTKEY_SHIFT_F5_RECOMPUTEVOLATILE,
     /// @brief hot key <F1> open online documentation
@@ -152,7 +152,7 @@ enum {
     /// @brief clean junctions without edges in networkmode and unused routes in demand mode
     MID_GNE_HOTKEY_F6_CLEANJUNCTIONS_CLEANUNUSEDROUTES,
     /// @brief join selected junctions in networkmode and normalice demand element ids in demand mode
-    MID_GNE_HOTKEY_F7_JOINSELECTEDJUNCTIONS_NORMALICEDEMANDELEMENTIDS,
+    MID_GNE_HOTKEY_F7_JOINSELECTEDJUNCTIONS_JOINROUTES,
     /// @brief clean invalid crossings in network mode and demand elements in demand mode
     MID_GNE_HOTKEY_F8_CLEANINVALIDCROSSINGS_CLEANINVALIDDEMANDELEMENTS,
     /// @brief open options menu
