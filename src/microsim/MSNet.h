@@ -651,6 +651,11 @@ public:
     /// @brief return whether the network contains walkingareas and crossings
     bool hasPedestrianNetwork() const {
         return myHasPedestrianNetwork;
+
+    }
+    /// @brief return whether the network contains bidirectional rail edges
+    bool hasBidiEdges() const {
+        return myHasBidiEdges;
     }
 
     /// @brief return whether the network was built for lefthand traffic
@@ -680,6 +685,9 @@ protected:
 
     /// @brief check all lanes for type walkingArea
     bool checkWalkingarea();
+
+    /// @brief check wether bidirectional edges occur in the network
+    bool checkBidiEdges();
 
 protected:
     /// @brief Unique instance of MSNet
@@ -783,6 +791,9 @@ protected:
 
     /// @brief Whether the network contains pedestrian network elements
     bool myHasPedestrianNetwork;
+
+    /// @brief Whether the network contains bidirectional rail edges
+    bool myHasBidiEdges;
 
     /// @brief Whether the network was built for left-hand traffic
     bool myLefthand;

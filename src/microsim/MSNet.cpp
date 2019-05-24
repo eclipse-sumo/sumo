@@ -197,6 +197,7 @@ MSNet::MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
     myHasInternalLinks(false),
     myHasElevation(false),
     myHasPedestrianNetwork(false),
+    myHasBidiEdges(false),
     myEdgeDataEndTime(-1),
     myRouterTT(nullptr),
     myRouterEffort(nullptr),
@@ -265,6 +266,7 @@ MSNet::closeBuilding(const OptionsCont& oc, MSEdgeControl* edges, MSJunctionCont
     }
     myHasElevation = checkElevation();
     myHasPedestrianNetwork = checkWalkingarea();
+    myHasBidiEdges = checkBidiEdges();
     myLefthand = lefthand;
     myVersion = version;
 }
@@ -1070,6 +1072,16 @@ MSNet::checkWalkingarea() {
     return false;
 }
 
+
+bool
+MSNet::checkBidiEdges() {
+    for (const MSEdge* e : myEdges->getEdges()) {
+        if (e->getBidiEdge() != nullptr) {
+            return true;
+        }
+    }
+    return false;
+}
 
 bool
 MSNet::warnOnce(const std::string& typeAndID) {
