@@ -1751,6 +1751,29 @@ GNENet::removeSolitaryJunctions(GNEUndoList* undoList) {
 }
 
 
+void 
+GNENet::normalizeDemandElementIDs(GNEUndoList* undoList) {
+    //
+}
+
+
+void 
+GNENet::cleanUnusedRoutes(GNEUndoList* undoList) {
+    //
+}
+
+
+void 
+GNENet::joinRoutes(GNEUndoList* undoList) {
+    //
+}
+    
+
+void 
+GNENet::cleanInvalidDemandElements(GNEUndoList* undoList) {
+    //
+}
+
 void
 GNENet::replaceJunctionByGeometry(GNEJunction* junction, GNEUndoList* undoList) {
     assert(junction->getNBNode()->checkIsRemovable());

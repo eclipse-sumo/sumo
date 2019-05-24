@@ -68,9 +68,9 @@
 // ===========================================================================
 FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     // quit calls
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_Q_CLOSE,                        GNEApplicationWindow::onCmdQuit),
-    FXMAPFUNC(SEL_SIGNAL,   MID_HOTKEY_CTRL_Q_CLOSE,                        GNEApplicationWindow::onCmdQuit),
-    FXMAPFUNC(SEL_CLOSE,    MID_WINDOW,                                     GNEApplicationWindow::onCmdQuit),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_Q_CLOSE,    GNEApplicationWindow::onCmdQuit),
+    FXMAPFUNC(SEL_SIGNAL,   MID_HOTKEY_CTRL_Q_CLOSE,    GNEApplicationWindow::onCmdQuit),
+    FXMAPFUNC(SEL_CLOSE,    MID_WINDOW,                 GNEApplicationWindow::onCmdQuit),
 
     // toolbar file
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_N_NEWNETWORK,                       GNEApplicationWindow::onCmdNewNetwork),
@@ -160,37 +160,37 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_T_OPENSUMONETEDIT,          GNEApplicationWindow::onUpdNeedsNetwork),
 
     // Toolbar processing
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F5_COMPUTEJUNCTIONS_NORMALIZEIDS,                GNEApplicationWindow::onCmdComputeJunctions),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F5_COMPUTEJUNCTIONS_NORMALIZEIDS,                GNEApplicationWindow::onCmdProcessButton),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_F5_COMPUTEJUNCTIONS_NORMALIZEIDS,                GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_F5_COMPUTEJUNCTIONS_VOLATILE,              GNEApplicationWindow::onCmdComputeJunctionsVolatile),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_F5_COMPUTEJUNCTIONS_VOLATILE,              GNEApplicationWindow::onCmdProcessButton),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_SHIFT_F5_COMPUTEJUNCTIONS_VOLATILE,              GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_F6_CLEAN_SOLITARYJUNCTIONS_UNUSEDROUTES,     GNEApplicationWindow::onCmdCleanJunctions),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_F6_CLEAN_SOLITARYJUNCTIONS_UNUSEDROUTES,     GNEApplicationWindow::onCmdProcessButton),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_HOTKEY_F6_CLEAN_SOLITARYJUNCTIONS_UNUSEDROUTES,     GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_F7_JOIN_SELECTEDJUNCTIONS_ROUTES,            GNEApplicationWindow::onCmdJoinJunctions),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_F7_JOIN_SELECTEDJUNCTIONS_ROUTES,            GNEApplicationWindow::onCmdProcessButton),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_HOTKEY_F7_JOIN_SELECTEDJUNCTIONS_ROUTES,            GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_F8_CLEANINVALID_CROSSINGS_DEMANDELEMENTS,    GNEApplicationWindow::onCmdCleanInvalidCrossings),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_F8_CLEANINVALID_CROSSINGS_DEMANDELEMENTS,    GNEApplicationWindow::onCmdProcessButton),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_HOTKEY_F8_CLEANINVALID_CROSSINGS_DEMANDELEMENTS,    GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_F10_OPTIONSMENU,                             GNEApplicationWindow::onCmdOptions),
 
     // Toolbar locate
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEJUNCTION,                     GNEApplicationWindow::onCmdLocate),
-    FXMAPFUNC(SEL_UPDATE,   MID_LOCATEJUNCTION,                     GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEEDGE,                         GNEApplicationWindow::onCmdLocate),
-    FXMAPFUNC(SEL_UPDATE,   MID_LOCATEEDGE,                         GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEVEHICLE,                      GNEApplicationWindow::onCmdLocate),
-    FXMAPFUNC(SEL_UPDATE,   MID_LOCATEVEHICLE,                      GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEROUTE,                        GNEApplicationWindow::onCmdLocate),
-    FXMAPFUNC(SEL_UPDATE,   MID_LOCATEROUTE,                        GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATESTOP,                         GNEApplicationWindow::onCmdLocate),
-    FXMAPFUNC(SEL_UPDATE,   MID_LOCATESTOP,                         GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATETLS,                          GNEApplicationWindow::onCmdLocate),
-    FXMAPFUNC(SEL_UPDATE,   MID_LOCATETLS,                          GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEADD,                          GNEApplicationWindow::onCmdLocate),
-    FXMAPFUNC(SEL_UPDATE,   MID_LOCATEADD,                          GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEPOI,                          GNEApplicationWindow::onCmdLocate),
-    FXMAPFUNC(SEL_UPDATE,   MID_LOCATEPOI,                          GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEPOLY,                         GNEApplicationWindow::onCmdLocate),
-    FXMAPFUNC(SEL_UPDATE,   MID_LOCATEPOLY,                         GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEJUNCTION,     GNEApplicationWindow::onCmdLocate),
+    FXMAPFUNC(SEL_UPDATE,   MID_LOCATEJUNCTION,     GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEEDGE,         GNEApplicationWindow::onCmdLocate),
+    FXMAPFUNC(SEL_UPDATE,   MID_LOCATEEDGE,         GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEVEHICLE,      GNEApplicationWindow::onCmdLocate),
+    FXMAPFUNC(SEL_UPDATE,   MID_LOCATEVEHICLE,      GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEROUTE,        GNEApplicationWindow::onCmdLocate),
+    FXMAPFUNC(SEL_UPDATE,   MID_LOCATEROUTE,        GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATESTOP,         GNEApplicationWindow::onCmdLocate),
+    FXMAPFUNC(SEL_UPDATE,   MID_LOCATESTOP,         GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATETLS,          GNEApplicationWindow::onCmdLocate),
+    FXMAPFUNC(SEL_UPDATE,   MID_LOCATETLS,          GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEADD,          GNEApplicationWindow::onCmdLocate),
+    FXMAPFUNC(SEL_UPDATE,   MID_LOCATEADD,          GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEPOI,          GNEApplicationWindow::onCmdLocate),
+    FXMAPFUNC(SEL_UPDATE,   MID_LOCATEPOI,          GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEPOLY,         GNEApplicationWindow::onCmdLocate),
+    FXMAPFUNC(SEL_UPDATE,   MID_LOCATEPOLY,         GNEApplicationWindow::onUpdNeedsNetwork),
 
     // toolbar windows
     FXMAPFUNC(SEL_COMMAND,  MID_CLEARMESSAGEWINDOW,                 GNEApplicationWindow::onCmdClearMsgWindow),
@@ -200,20 +200,20 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F2_ABOUT,                    GNEApplicationWindow::onCmdAbout),
 
     // key events
-    FXMAPFUNC(SEL_KEYPRESS,     0,                                  GNEApplicationWindow::onKeyPress),
-    FXMAPFUNC(SEL_KEYRELEASE,   0,                                  GNEApplicationWindow::onKeyRelease),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_ESC,                     GNEApplicationWindow::onCmdAbort),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_DEL,                     GNEApplicationWindow::onCmdDel),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_ENTER,                   GNEApplicationWindow::onCmdEnter),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_BACKSPACE,               GNEApplicationWindow::onCmdBackspace),
+    FXMAPFUNC(SEL_KEYPRESS,     0,                      GNEApplicationWindow::onKeyPress),
+    FXMAPFUNC(SEL_KEYRELEASE,   0,                      GNEApplicationWindow::onKeyRelease),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_ESC,         GNEApplicationWindow::onCmdAbort),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_DEL,         GNEApplicationWindow::onCmdDel),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_ENTER,       GNEApplicationWindow::onCmdEnter),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_BACKSPACE,   GNEApplicationWindow::onCmdBackspace),
 
     // threads events
-    FXMAPFUNC(FXEX::SEL_THREAD_EVENT, ID_LOADTHREAD_EVENT,          GNEApplicationWindow::onLoadThreadEvent),
-    FXMAPFUNC(FXEX::SEL_THREAD,       ID_LOADTHREAD_EVENT,          GNEApplicationWindow::onLoadThreadEvent),
+    FXMAPFUNC(FXEX::SEL_THREAD_EVENT, ID_LOADTHREAD_EVENT,  GNEApplicationWindow::onLoadThreadEvent),
+    FXMAPFUNC(FXEX::SEL_THREAD,       ID_LOADTHREAD_EVENT,  GNEApplicationWindow::onLoadThreadEvent),
 
     // Other
-    FXMAPFUNC(SEL_CLIPBOARD_REQUEST, 0,                             GNEApplicationWindow::onClipboardRequest),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_F12,                     GNEApplicationWindow::onCmdFocusFrame),
+    FXMAPFUNC(SEL_CLIPBOARD_REQUEST, 0,             GNEApplicationWindow::onClipboardRequest),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_HOTKEY_F12,     GNEApplicationWindow::onCmdFocusFrame),
 };
 
 // Object implementation
@@ -1524,6 +1524,160 @@ GNEApplicationWindow::setStatusBarText(const std::string& statusBarText) {
 }
 
 
+long
+GNEApplicationWindow::computeJunctionWithVolatileOptions() {
+    // obtain option container
+    OptionsCont& oc = OptionsCont::getOptions();
+    // declare variable to save FXMessageBox outputs.
+    FXuint answer = 0;
+    // declare string to save paths in wich additionals, shapes and demand will be saved
+    std::string additionalsSavePath = oc.getString("additional-files");
+    std::string demandElementsSavePath = oc.getString("route-files");
+    // write warning if netedit is running in testing mode
+    WRITE_DEBUG("Opening FXMessageBox 'Volatile Recomputing'");
+    // open question dialog box
+    answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, "Recompute with volatile options",
+                                    "Changes produced in the net due a recomputing with volatile options cannot be undone. Continue?");
+    if (answer != 1) { //1:yes, 2:no, 4:esc
+        // write warning if netedit is running in testing mode
+        if (answer == 2) {
+            WRITE_DEBUG("Closed FXMessageBox 'Volatile Recomputing' with 'No'");
+        } else if (answer == 4) {
+            WRITE_DEBUG("Closed FXMessageBox 'Volatile Recomputing' with 'ESC'");
+        }
+        // abort recompute with volatile options
+        return 0;
+    } else {
+        // write warning if netedit is running in testing mode
+        WRITE_DEBUG("Closed FXMessageBox 'Volatile Recomputing' with 'Yes'");
+        // Check if there are additionals in our net
+        if (myNet->getNumberOfAdditionals() > 0) {
+            // ask user if want to save additionals if weren't saved previously
+            if (oc.getString("additional-files") == "") {
+                // write warning if netedit is running in testing mode
+                WRITE_DEBUG("Opening FXMessageBox 'Save additionals before recomputing'");
+                // open question dialog box
+                answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, "Save additionals before recomputing with volatile options",
+                                                "Would you like to save additionals before recomputing?");
+                if (answer != 1) { //1:yes, 2:no, 4:esc
+                    // write warning if netedit is running in testing mode
+                    if (answer == 2) {
+                        WRITE_DEBUG("Closed FXMessageBox 'Save additionals before recomputing' with 'No'");
+                    } else if (answer == 4) {
+                        WRITE_DEBUG("Closed FXMessageBox 'Save additionals before recomputing' with 'ESC'");
+                    }
+                } else {
+                    // write warning if netedit is running in testing mode
+                    WRITE_DEBUG("Closed FXMessageBox 'Save additionals before recomputing' with 'Yes'");
+                    // Open a dialog to set filename output
+                    FXString file = MFXUtils::getFilename2Write(this,
+                                    "Select name of the demand element file", ".xml",
+                                    GUIIconSubSys::getIcon(ICON_MODETLS),
+                                    gCurrentFolder).text();
+                    // add xml extension
+                    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
+                    // check that file is valid
+                    if (fileWithExtension != "") {
+                        // update additional files
+                        oc.resetWritable();
+                        oc.set("additional-files", fileWithExtension);
+                        // set obtanied filename output into additionalsSavePath (can be "")
+                        additionalsSavePath = oc.getString("additional-files");
+                    }
+                }
+            }
+            // Check if additional must be saved in a temporal directory, if user didn't define a directory for additionals
+            if (oc.getString("additional-files") == "") {
+                // Obtain temporal directory provided by FXSystem::getCurrentDirectory()
+                additionalsSavePath = FXSystem::getTempDirectory().text() + std::string("/tmpAdditionalsNetedit.xml");
+            }
+            // Start saving additionals
+            getApp()->beginWaitCursor();
+            try {
+                myNet->saveAdditionals(additionalsSavePath);
+            } catch (IOError& e) {
+                // write warning if netedit is running in testing mode
+                WRITE_DEBUG("Opening FXMessageBox 'Error saving additionals before recomputing'");
+                // open error message box
+                FXMessageBox::error(this, MBOX_OK, "Saving additionals in temporal folder failed!", "%s", e.what());
+                // write warning if netedit is running in testing mode
+                WRITE_DEBUG("Closed FXMessageBox 'Error saving additionals before recomputing' with 'OK'");
+            }
+            // end saving additionals
+            myMessageWindow->addSeparator();
+            getApp()->endWaitCursor();
+        } else {
+            // clear additional path
+            additionalsSavePath = "";
+        }
+        // Check if there are demand elements in our net
+        if (myNet->getNumberOfDemandElements() > 0) {
+            // ask user if want to save demand elements if weren't saved previously
+            if (oc.getString("route-files") == "") {
+                // write warning if netedit is running in testing mode
+                WRITE_DEBUG("Opening FXMessageBox 'Save demand elements before recomputing'");
+                // open question dialog box
+                answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, "Save demand elements before recomputing with volatile options",
+                                                "Would you like to save demand elements before recomputing?");
+                if (answer != 1) { //1:yes, 2:no, 4:esc
+                    // write warning if netedit is running in testing mode
+                    if (answer == 2) {
+                        WRITE_DEBUG("Closed FXMessageBox 'Save demand elements before recomputing' with 'No'");
+                    } else if (answer == 4) {
+                        WRITE_DEBUG("Closed FXMessageBox 'Save demand elements before recomputing' with 'ESC'");
+                    }
+                } else {
+                    // write warning if netedit is running in testing mode
+                    WRITE_DEBUG("Closed FXMessageBox 'Save demand elements before recomputing' with 'Yes'");
+                    // Open a dialog to set filename output
+                    FXString file = MFXUtils::getFilename2Write(this,
+                                    "Select name of the demand element file", ".xml",
+                                    GUIIconSubSys::getIcon(ICON_MODETLS),
+                                    gCurrentFolder).text();
+                    // add xml extension
+                    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
+                    // check that file is valid
+                    if (fileWithExtension != "") {
+                        // update route files
+                        oc.resetWritable();
+                        oc.set("route-files", fileWithExtension);
+                        // set obtanied filename output into demand elementSavePath (can be "")
+                        demandElementsSavePath = oc.getString("route-files");
+                    }
+                }
+            }
+            // Check if demand element must be saved in a temporal directory, if user didn't define a directory for demand elements
+            if (oc.getString("route-files") == "") {
+                // Obtain temporal directory provided by FXSystem::getCurrentDirectory()
+                demandElementsSavePath = FXSystem::getTempDirectory().text() + std::string("/tmpDemandElementsNetedit.xml");
+            }
+            // Start saving demand elements
+            getApp()->beginWaitCursor();
+            try {
+                myNet->saveDemandElements(demandElementsSavePath);
+            } catch (IOError& e) {
+                // write warning if netedit is running in testing mode
+                WRITE_DEBUG("Opening FXMessageBox 'Error saving demand elements before recomputing'");
+                // open error message box
+                FXMessageBox::error(this, MBOX_OK, "Saving demand elements in temporal folder failed!", "%s", e.what());
+                // write warning if netedit is running in testing mode
+                WRITE_DEBUG("Closed FXMessageBox 'Error saving demand elements before recomputing' with 'OK'");
+            }
+            // end saving demand elements
+            myMessageWindow->addSeparator();
+            getApp()->endWaitCursor();
+        } else {
+            // clear demand element path
+            demandElementsSavePath = "";
+        }
+        // compute with volatile options
+        myNet->computeEverything(this, true, true, additionalsSavePath, demandElementsSavePath);
+        updateControls();
+        return 1;
+    }
+}
+
+
 void
 GNEApplicationWindow::enableSaveAdditionalsMenu() {
     myFileMenuCommands.saveAdditionals->enable();
@@ -1573,6 +1727,76 @@ GNEApplicationWindow::onCmdSetMode(FXObject* sender, FXSelector sel, void* ptr) 
     // check that currently there is a View
     if (myViewNet) {
         myViewNet->onCmdSetMode(sender, sel, ptr);
+    }
+    return 1;
+}
+
+
+long
+GNEApplicationWindow::onCmdProcessButton(FXObject*, FXSelector sel, void*) {
+    // first check if there is a view
+    if (myViewNet) {
+        // process depending of supermode
+        if (myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) {
+            // check what FXMenuCommand was called
+            switch (FXSELID(sel)) {
+                case MID_HOTKEY_F5_COMPUTEJUNCTIONS_NORMALIZEIDS:
+                    // show extra information for tests
+                    WRITE_DEBUG("Key F5 (Compute) pressed");
+                    myNet->computeEverything(this, true, false);
+                    updateControls();
+                    break;
+                case MID_HOTKEY_SHIFT_F5_COMPUTEJUNCTIONS_VOLATILE:
+                    // show extra information for tests
+                    WRITE_DEBUG("Keys Shift + F5 (Compute with volatile options) pressed");
+                    computeJunctionWithVolatileOptions();
+                    break;
+                case MID_GNE_HOTKEY_F6_CLEAN_SOLITARYJUNCTIONS_UNUSEDROUTES:
+                    // show extra information for tests
+                    WRITE_DEBUG("Key F6 (Clean junction) pressed");
+                    myNet->removeSolitaryJunctions(myUndoList);
+                    break;
+                case MID_GNE_HOTKEY_F7_JOIN_SELECTEDJUNCTIONS_ROUTES:
+                    // show extra information for tests
+                    WRITE_DEBUG("Key F7 (Join junctions) pressed");
+                    myNet->joinSelectedJunctions(myUndoList);
+                    break;
+                case MID_GNE_HOTKEY_F8_CLEANINVALID_CROSSINGS_DEMANDELEMENTS:
+                    // show extra information for tests
+                    WRITE_DEBUG("Key F8 (Clean invalid crossings) pressed");
+                    myNet->cleanInvalidCrossings(myUndoList);
+                    break;
+                default:
+                    break;
+            }
+        } else {
+            // check what FXMenuCommand was called
+            switch (FXSELID(sel)) {
+                case MID_HOTKEY_F5_COMPUTEJUNCTIONS_NORMALIZEIDS:
+                    // show extra information for tests
+                    WRITE_DEBUG("Key F5 (NormalizeDemandElementIDs) pressed");
+                    myNet->normalizeDemandElementIDs(myUndoList);
+                    break;
+                case MID_GNE_HOTKEY_F6_CLEAN_SOLITARYJUNCTIONS_UNUSEDROUTES:
+                    // show extra information for tests
+                    WRITE_DEBUG("Key F6 (RemoveUnusedRoutes) pressed");
+                    myNet->cleanUnusedRoutes(myUndoList);
+                    break;
+                case MID_GNE_HOTKEY_F7_JOIN_SELECTEDJUNCTIONS_ROUTES:
+                    // show extra information for tests
+                    WRITE_DEBUG("Key F7 (JoinRoutes) pressed");
+                    myNet->joinRoutes(myUndoList);
+                    break;
+                case MID_GNE_HOTKEY_F8_CLEANINVALID_CROSSINGS_DEMANDELEMENTS:
+                    // show extra information for tests
+                    WRITE_DEBUG("Key F8 (CleanInvalidDemandElements) pressed");
+                    myNet->cleanInvalidDemandElements(myUndoList);
+                    break;
+                default:
+                    break;
+            }
+        }
+        return 1;
     }
     return 1;
 }
@@ -1830,198 +2054,6 @@ GNEApplicationWindow::onCmdToogleTwoWay(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdHelp(FXObject*, FXSelector, void*) {
     FXLinkLabel::fxexecute("https://sumo.dlr.de/wiki/NETEDIT");
-    return 1;
-}
-
-
-long
-GNEApplicationWindow::onCmdComputeJunctions(FXObject*, FXSelector, void*) {
-    // show extra information for tests
-    WRITE_DEBUG("Key F5 (Compute) pressed");
-    myNet->computeEverything(this, true, false);
-    updateControls();
-    return 1;
-}
-
-
-long
-GNEApplicationWindow::onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*) {
-    // obtain option container
-    OptionsCont& oc = OptionsCont::getOptions();
-    // declare variable to save FXMessageBox outputs.
-    FXuint answer = 0;
-    // declare string to save paths in wich additionals, shapes and demand will be saved
-    std::string additionalsSavePath = oc.getString("additional-files");
-    std::string demandElementsSavePath = oc.getString("route-files");
-    // write warning if netedit is running in testing mode
-    WRITE_DEBUG("Keys Shift + F5 (Compute with volatile options) pressed");
-    WRITE_DEBUG("Opening FXMessageBox 'Volatile Recomputing'");
-    // open question dialog box
-    answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, "Recompute with volatile options",
-                                    "Changes produced in the net due a recomputing with volatile options cannot be undone. Continue?");
-    if (answer != 1) { //1:yes, 2:no, 4:esc
-        // write warning if netedit is running in testing mode
-        if (answer == 2) {
-            WRITE_DEBUG("Closed FXMessageBox 'Volatile Recomputing' with 'No'");
-        } else if (answer == 4) {
-            WRITE_DEBUG("Closed FXMessageBox 'Volatile Recomputing' with 'ESC'");
-        }
-        // abort recompute with volatile options
-        return 0;
-    } else {
-        // write warning if netedit is running in testing mode
-        WRITE_DEBUG("Closed FXMessageBox 'Volatile Recomputing' with 'Yes'");
-        // Check if there are additionals in our net
-        if (myNet->getNumberOfAdditionals() > 0) {
-            // ask user if want to save additionals if weren't saved previously
-            if (oc.getString("additional-files") == "") {
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Opening FXMessageBox 'Save additionals before recomputing'");
-                // open question dialog box
-                answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, "Save additionals before recomputing with volatile options",
-                                                "Would you like to save additionals before recomputing?");
-                if (answer != 1) { //1:yes, 2:no, 4:esc
-                    // write warning if netedit is running in testing mode
-                    if (answer == 2) {
-                        WRITE_DEBUG("Closed FXMessageBox 'Save additionals before recomputing' with 'No'");
-                    } else if (answer == 4) {
-                        WRITE_DEBUG("Closed FXMessageBox 'Save additionals before recomputing' with 'ESC'");
-                    }
-                } else {
-                    // write warning if netedit is running in testing mode
-                    WRITE_DEBUG("Closed FXMessageBox 'Save additionals before recomputing' with 'Yes'");
-                    // Open a dialog to set filename output
-                    FXString file = MFXUtils::getFilename2Write(this,
-                                    "Select name of the demand element file", ".xml",
-                                    GUIIconSubSys::getIcon(ICON_MODETLS),
-                                    gCurrentFolder).text();
-                    // add xml extension
-                    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
-                    // check that file is valid
-                    if (fileWithExtension != "") {
-                        // update additional files
-                        oc.resetWritable();
-                        oc.set("additional-files", fileWithExtension);
-                        // set obtanied filename output into additionalsSavePath (can be "")
-                        additionalsSavePath = oc.getString("additional-files");
-                    }
-                }
-            }
-            // Check if additional must be saved in a temporal directory, if user didn't define a directory for additionals
-            if (oc.getString("additional-files") == "") {
-                // Obtain temporal directory provided by FXSystem::getCurrentDirectory()
-                additionalsSavePath = FXSystem::getTempDirectory().text() + std::string("/tmpAdditionalsNetedit.xml");
-            }
-            // Start saving additionals
-            getApp()->beginWaitCursor();
-            try {
-                myNet->saveAdditionals(additionalsSavePath);
-            } catch (IOError& e) {
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Opening FXMessageBox 'Error saving additionals before recomputing'");
-                // open error message box
-                FXMessageBox::error(this, MBOX_OK, "Saving additionals in temporal folder failed!", "%s", e.what());
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Closed FXMessageBox 'Error saving additionals before recomputing' with 'OK'");
-            }
-            // end saving additionals
-            myMessageWindow->addSeparator();
-            getApp()->endWaitCursor();
-        } else {
-            // clear additional path
-            additionalsSavePath = "";
-        }
-        // Check if there are demand elements in our net
-        if (myNet->getNumberOfDemandElements() > 0) {
-            // ask user if want to save demand elements if weren't saved previously
-            if (oc.getString("route-files") == "") {
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Opening FXMessageBox 'Save demand elements before recomputing'");
-                // open question dialog box
-                answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, "Save demand elements before recomputing with volatile options",
-                                                "Would you like to save demand elements before recomputing?");
-                if (answer != 1) { //1:yes, 2:no, 4:esc
-                    // write warning if netedit is running in testing mode
-                    if (answer == 2) {
-                        WRITE_DEBUG("Closed FXMessageBox 'Save demand elements before recomputing' with 'No'");
-                    } else if (answer == 4) {
-                        WRITE_DEBUG("Closed FXMessageBox 'Save demand elements before recomputing' with 'ESC'");
-                    }
-                } else {
-                    // write warning if netedit is running in testing mode
-                    WRITE_DEBUG("Closed FXMessageBox 'Save demand elements before recomputing' with 'Yes'");
-                    // Open a dialog to set filename output
-                    FXString file = MFXUtils::getFilename2Write(this,
-                                    "Select name of the demand element file", ".xml",
-                                    GUIIconSubSys::getIcon(ICON_MODETLS),
-                                    gCurrentFolder).text();
-                    // add xml extension
-                    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
-                    // check that file is valid
-                    if (fileWithExtension != "") {
-                        // update route files
-                        oc.resetWritable();
-                        oc.set("route-files", fileWithExtension);
-                        // set obtanied filename output into demand elementSavePath (can be "")
-                        demandElementsSavePath = oc.getString("route-files");
-                    }
-                }
-            }
-            // Check if demand element must be saved in a temporal directory, if user didn't define a directory for demand elements
-            if (oc.getString("route-files") == "") {
-                // Obtain temporal directory provided by FXSystem::getCurrentDirectory()
-                demandElementsSavePath = FXSystem::getTempDirectory().text() + std::string("/tmpDemandElementsNetedit.xml");
-            }
-            // Start saving demand elements
-            getApp()->beginWaitCursor();
-            try {
-                myNet->saveDemandElements(demandElementsSavePath);
-            } catch (IOError& e) {
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Opening FXMessageBox 'Error saving demand elements before recomputing'");
-                // open error message box
-                FXMessageBox::error(this, MBOX_OK, "Saving demand elements in temporal folder failed!", "%s", e.what());
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Closed FXMessageBox 'Error saving demand elements before recomputing' with 'OK'");
-            }
-            // end saving demand elements
-            myMessageWindow->addSeparator();
-            getApp()->endWaitCursor();
-        } else {
-            // clear demand element path
-            demandElementsSavePath = "";
-        }
-        // compute with volatile options
-        myNet->computeEverything(this, true, true, additionalsSavePath, demandElementsSavePath);
-        updateControls();
-        return 1;
-    }
-}
-
-
-long
-GNEApplicationWindow::onCmdCleanJunctions(FXObject*, FXSelector, void*) {
-    // show extra information for tests
-    WRITE_DEBUG("Key F6 (Clean junction) pressed");
-    myNet->removeSolitaryJunctions(myUndoList);
-    return 1;
-}
-
-
-long
-GNEApplicationWindow::onCmdJoinJunctions(FXObject*, FXSelector, void*) {
-    // show extra information for tests
-    WRITE_DEBUG("Key F7 (Join junctions) pressed");
-    myNet->joinSelectedJunctions(myUndoList);
-    return 1;
-}
-
-
-long
-GNEApplicationWindow::onCmdCleanInvalidCrossings(FXObject*, FXSelector, void*) {
-    // show extra information for tests
-    WRITE_DEBUG("Key F8 (Clean invalid crossings) pressed");
-    myNet->cleanInvalidCrossings(myUndoList);
     return 1;
 }
 

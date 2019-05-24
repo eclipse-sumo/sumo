@@ -132,6 +132,9 @@ public:
     /// @brief set text of the statusBar
     void setStatusBarText(const std::string& statusBarText);
 
+    /// @brief called if the user selects Processing->compute junctions with volatile options
+    long computeJunctionWithVolatileOptions();
+
     /// @brief enable save additionals
     void enableSaveAdditionalsMenu();
 
@@ -286,6 +289,9 @@ public:
     /// @brief called if the user hits an edit-mode hotkey
     long onCmdSetMode(FXObject* sender, FXSelector sel, void* ptr);
 
+    /// @brief called when user press a process button (or a shortcut)
+    long onCmdProcessButton(FXObject*, FXSelector sel, void*);
+
     /// @brief called if the user hints ctrl + T
     long onCmdOpenSUMOGUI(FXObject* sender, FXSelector sel, void* ptr);
 
@@ -324,21 +330,6 @@ public:
 
     /// @brief called if the user selects help->Documentation
     long onCmdHelp(FXObject* sender, FXSelector sel, void* ptr);
-
-    /// @brief called if the user selects Processing->compute junctions
-    long onCmdComputeJunctions(FXObject*, FXSelector, void*);
-
-    /// @brief called if the user selects Processing->compute junctions with volatile options
-    long onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*);
-
-    /// @brief called if the user selects Processing->clean junctions
-    long onCmdCleanJunctions(FXObject*, FXSelector, void*);
-
-    /// @brief called if the user selects Processing->join junctions
-    long onCmdJoinJunctions(FXObject*, FXSelector, void*);
-
-    /// @brief called if the user selects Processing->clear invalid crossings
-    long onCmdCleanInvalidCrossings(FXObject*, FXSelector, void*);
 
     /// @brief called if the user selects Processing->Configure Options
     long onCmdOptions(FXObject*, FXSelector, void*);

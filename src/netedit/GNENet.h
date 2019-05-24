@@ -539,6 +539,18 @@ public:
     /// @brief removes junctions that have no edges
     void removeSolitaryJunctions(GNEUndoList* undoList);
 
+    /// @brief normalize demand element IDS
+    void normalizeDemandElementIDs(GNEUndoList* undoList);
+
+    /// @brief clean unused routes
+    void cleanUnusedRoutes(GNEUndoList* undoList);
+
+    /// @brief join routes
+    void joinRoutes(GNEUndoList* undoList);
+    
+    /// @brief clean invalid demand elements
+    void cleanInvalidDemandElements(GNEUndoList* undoList);
+
     /// @brief replace the selected junction by geometry node(s) and merge the edges
     void replaceJunctionByGeometry(GNEJunction* junction, GNEUndoList* undoList);
 
