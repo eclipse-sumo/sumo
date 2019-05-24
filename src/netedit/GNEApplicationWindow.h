@@ -530,6 +530,20 @@ private:
         GNEApplicationWindow* myGNEApp;
     };
 
+    /// @brief struct for locate menu commands
+    struct LocateMenuCommands {
+
+        /// @brief constructor
+        LocateMenuCommands(GNEApplicationWindow* GNEApp);
+
+        /// @brief build menu commands
+        void buildLocateMenuCommands(FXMenuPane* editMenu);
+
+    private:
+        /// @brief pointer to current GNEApplicationWindows
+        GNEApplicationWindow* myGNEApp;
+    };
+
     /// @brief struct for supermode commands
     struct SupermodeCommands {
 
@@ -667,6 +681,9 @@ private:
 
     /// @brief Edit Menu Commands
     ProcessingMenuCommands myProcessingMenuCommands;
+
+    /// @brief Locate Menu Commands
+    LocateMenuCommands myLocateMenuCommands;
 
     /// @brief Supermode Commands
     SupermodeCommands mySupermodeCommands;

@@ -309,6 +309,7 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     myFileMenuCommands(this),
     myEditMenuCommands(this),
     myProcessingMenuCommands(this),
+    myLocateMenuCommands(this),
     mySupermodeCommands(this),
     myNetworkMenuCommands(this),
     myDemandMenuCommands(this),
@@ -1104,6 +1105,47 @@ GNEApplicationWindow::ProcessingMenuCommands::buildProcessingMenuCommands(FXMenu
 }
 
 // ---------------------------------------------------------------------------
+// GNEViewNet::LocateMenuCommands - methods
+// ---------------------------------------------------------------------------
+
+GNEApplicationWindow::LocateMenuCommands::LocateMenuCommands(GNEApplicationWindow* GNEApp) :
+    myGNEApp(GNEApp) {
+}
+
+
+void
+GNEApplicationWindow::LocateMenuCommands::buildLocateMenuCommands(FXMenuPane* fileMenu) {
+    // build locate menu commands
+    new FXMenuCommand(fileMenu,
+                      "Locate &Junctions\tShift+J\tOpen a dialog for locating a Junction.",
+                      GUIIconSubSys::getIcon(ICON_LOCATEJUNCTION), myGNEApp, MID_LOCATEJUNCTION);
+    new FXMenuCommand(fileMenu,
+                      "Locate &Edges\tShift+E\tOpen a dialog for locating an Edge.",
+                      GUIIconSubSys::getIcon(ICON_LOCATEEDGE), myGNEApp, MID_LOCATEEDGE);
+    new FXMenuCommand(fileMenu,
+                      "Locate &Vehicles\tShift+V\tOpen a dialog for locating a Vehicle.",
+                      GUIIconSubSys::getIcon(ICON_LOCATEVEHICLE), myGNEApp, MID_LOCATEVEHICLE);
+    new FXMenuCommand(fileMenu,
+                      "Locate &Route\tShift+R\tOpen a dialog for locating a Route.",
+                      GUIIconSubSys::getIcon(ICON_LOCATEROUTE), myGNEApp, MID_LOCATEROUTE);
+    new FXMenuCommand(fileMenu,
+                      "Locate &Stops\tShift+S\tOpen a dialog for locating a Stop.",
+                      GUIIconSubSys::getIcon(ICON_LOCATESTOP), myGNEApp, MID_LOCATESTOP);
+    new FXMenuCommand(fileMenu,
+                      "Locate &TLS\tShift+T\tOpen a dialog for locating a Traffic Light.",
+                      GUIIconSubSys::getIcon(ICON_LOCATETLS), myGNEApp, MID_LOCATETLS);
+    new FXMenuCommand(fileMenu,
+                      "Locate &Additional\tShift+A\tOpen a dialog for locating an Additional Structure.",
+                      GUIIconSubSys::getIcon(ICON_LOCATEADD), myGNEApp, MID_LOCATEADD);
+    new FXMenuCommand(fileMenu,
+                      "Locate P&oI\tShift+O\tOpen a dialog for locating a Point of Interest.",
+                      GUIIconSubSys::getIcon(ICON_LOCATEPOI), myGNEApp, MID_LOCATEPOI);
+    new FXMenuCommand(fileMenu,
+                      "Locate Po&lygon\tShift+L\tOpen a dialog for locating a Polygon.",
+                      GUIIconSubSys::getIcon(ICON_LOCATEPOLY), myGNEApp, MID_LOCATEPOLY);
+}
+
+// ---------------------------------------------------------------------------
 // GNEViewNet::NetworkCheckableButtons - methods
 // ---------------------------------------------------------------------------
 
@@ -1326,34 +1368,7 @@ GNEApplicationWindow::fillMenuBar() {
     myLocatorMenu = new FXMenuPane(this);
     menuTitle = new FXMenuTitle(myToolbarsGrip.menu, "&Locate", nullptr, myLocatorMenu, LAYOUT_FIX_HEIGHT);
     menuTitle->setHeight(23);
-    // build locate menu commands
-    new FXMenuCommand(myLocatorMenu,
-                      "Locate &Junctions\tShift+J\tOpen a dialog for locating a Junction.",
-                      GUIIconSubSys::getIcon(ICON_LOCATEJUNCTION), this, MID_LOCATEJUNCTION);
-    new FXMenuCommand(myLocatorMenu,
-                      "Locate &Edges\tShift+E\tOpen a dialog for locating an Edge.",
-                      GUIIconSubSys::getIcon(ICON_LOCATEEDGE), this, MID_LOCATEEDGE);
-    new FXMenuCommand(myLocatorMenu,
-                      "Locate &Vehicles\tShift+V\tOpen a dialog for locating a Vehicle.",
-                      GUIIconSubSys::getIcon(ICON_LOCATEVEHICLE), this, MID_LOCATEVEHICLE);
-    new FXMenuCommand(myLocatorMenu,
-                      "Locate &Route\tShift+R\tOpen a dialog for locating a Route.",
-                      GUIIconSubSys::getIcon(ICON_LOCATEROUTE), this, MID_LOCATEROUTE);
-    new FXMenuCommand(myLocatorMenu,
-                      "Locate &Stops\tShift+S\tOpen a dialog for locating a Stop.",
-                      GUIIconSubSys::getIcon(ICON_LOCATESTOP), this, MID_LOCATESTOP);
-    new FXMenuCommand(myLocatorMenu,
-                      "Locate &TLS\tShift+T\tOpen a dialog for locating a Traffic Light.",
-                      GUIIconSubSys::getIcon(ICON_LOCATETLS), this, MID_LOCATETLS);
-    new FXMenuCommand(myLocatorMenu,
-                      "Locate &Additional\tShift+A\tOpen a dialog for locating an Additional Structure.",
-                      GUIIconSubSys::getIcon(ICON_LOCATEADD), this, MID_LOCATEADD);
-    new FXMenuCommand(myLocatorMenu,
-                      "Locate P&oI\tShift+O\tOpen a dialog for locating a Point of Interest.",
-                      GUIIconSubSys::getIcon(ICON_LOCATEPOI), this, MID_LOCATEPOI);
-    new FXMenuCommand(myLocatorMenu,
-                      "Locate Po&lygon\tShift+L\tOpen a dialog for locating a Polygon.",
-                      GUIIconSubSys::getIcon(ICON_LOCATEPOLY), this, MID_LOCATEPOLY);
+    myLocateMenuCommands.buildLocateMenuCommands(myLocatorMenu);
     // build windows menu
     myWindowsMenu = new FXMenuPane(this);
     menuTitle = new FXMenuTitle(myToolbarsGrip.menu, "&Windows", nullptr, myWindowsMenu, LAYOUT_FIX_HEIGHT);
@@ -2641,6 +2656,7 @@ GNEApplicationWindow::GNEApplicationWindow() :
     myFileMenuCommands(this),
     myEditMenuCommands(this),
     myProcessingMenuCommands(this),
+    myLocateMenuCommands(this),
     mySupermodeCommands(this),
     myNetworkMenuCommands(this),
     myDemandMenuCommands(this) {
