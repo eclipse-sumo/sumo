@@ -361,7 +361,7 @@ MSRailSignal::LinkInfo::buildDriveWay(MSRouteIterator first, MSRouteIterator end
     //   -> add all found lanes to conflictLanes
     //   -> add final links to conflictLinks
 
-    DriveWay dw(myDriveways.size());
+    DriveWay dw((int)myDriveways.size());
     LaneSet visited;
     std::vector<MSLane*> before;
     visited.insert(myLink->getLaneBefore());
@@ -432,6 +432,8 @@ MSRailSignal::LinkInfo::reroute(SUMOVehicle* veh, const MSEdgeVector& occupied) 
         } catch (ProcessError& error) {
 #ifdef DEBUG_REROUTE
             if (DEBUG_COND_LINKINFO) std::cout << " rerouting failed: " << error.what() << "\n";
+#else
+            UNUSED_PARAMETER(error);
 #endif
         }
     }

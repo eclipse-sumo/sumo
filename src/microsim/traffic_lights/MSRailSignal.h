@@ -27,6 +27,7 @@
 #include <vector>
 #include <microsim/MSRoute.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
+#include <microsim/traffic_lights/MSTLLogicControl.h>
 
 
 // ===========================================================================
@@ -34,7 +35,7 @@
 // ===========================================================================
 class MSLink;
 class MSPhaseDefinition;
-class MSTLLogicControl;
+
 
 // ===========================================================================
 // class definitions
