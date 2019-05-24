@@ -1,0 +1,2 @@
+-n net.net.xml -s 42 --angle-factor 10
+--weights-output-prefix weights
