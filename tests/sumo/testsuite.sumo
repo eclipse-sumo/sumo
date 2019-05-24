@@ -27,6 +27,7 @@ junction_model
 
 # testing the dynamics and interaction of different pedestrian models
 pedestrian_model
+rail
 opposite_direction_driving
 sublane_model
 

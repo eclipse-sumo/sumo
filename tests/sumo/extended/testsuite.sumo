@@ -52,7 +52,6 @@ electric
 
 # check options for collision handling (emergencyDecel is disabled here to keep the legacy behavior)
 collisions
-rail
 
 # Tests for the Surrogate Safety Measure Device (MSDevice_SSM)
 SSMDevice
