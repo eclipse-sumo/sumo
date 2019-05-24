@@ -308,6 +308,7 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     myMenuBarFile(this),
     myFileMenuCommands(this),
     myEditMenuCommands(this),
+    myProcessingMenuCommands(this),
     mySupermodeCommands(this),
     myNetworkMenuCommands(this),
     myDemandMenuCommands(this),
@@ -1071,6 +1072,38 @@ GNEApplicationWindow::EditMenuCommands::buildEditMenuCommands(FXMenuPane* fileMe
 }
 
 // ---------------------------------------------------------------------------
+// GNEViewNet::ProcessingMenuCommands - methods
+// ---------------------------------------------------------------------------
+
+GNEApplicationWindow::ProcessingMenuCommands::ProcessingMenuCommands(GNEApplicationWindow* GNEApp) :
+    myGNEApp(GNEApp) {
+}
+
+
+void
+GNEApplicationWindow::ProcessingMenuCommands::buildProcessingMenuCommands(FXMenuPane* fileMenu) {
+    // build processing menu commands
+    new FXMenuCommand(fileMenu,
+                      "Compute Junctions\tF5\tComputes junction shape and logic.",
+                      GUIIconSubSys::getIcon(ICON_COMPUTEJUNCTIONS), myGNEApp, MID_HOTKEY_F5_RECOMPUTE);
+    new FXMenuCommand(fileMenu,
+                      "Compute Junctions with volatile options\tShift+F5\tComputes junction shape and logic using volatile junctions.",
+                      GUIIconSubSys::getIcon(ICON_COMPUTEJUNCTIONS), myGNEApp, MID_HOTKEY_SHIFT_F5_RECOMPUTEVOLATILE);
+    new FXMenuCommand(fileMenu,
+                      "Clean Junctions\tF6\tRemoves solitary junctions.",
+                      GUIIconSubSys::getIcon(ICON_CLEANJUNCTIONS), myGNEApp, MID_GNE_HOTKEY_F6_CLEANJUNCTIONS_CLEANUNUSEDROUTES);
+    new FXMenuCommand(fileMenu,
+                      "Join Selected Junctions\tF7\tJoins selected junctions into a single junction.",
+                      GUIIconSubSys::getIcon(ICON_JOINJUNCTIONS), myGNEApp, MID_GNE_HOTKEY_F7_JOINSELECTEDJUNCTIONS_NORMALICEDEMANDELEMENTIDS);
+    new FXMenuCommand(fileMenu,
+                      "Clean invalid crossings\tF8\tClear invalid crossings.",
+                      GUIIconSubSys::getIcon(ICON_JOINJUNCTIONS), myGNEApp, MID_GNE_HOTKEY_F8_CLEANINVALIDCROSSINGS_CLEANINVALIDDEMANDELEMENTS);
+    new FXMenuCommand(fileMenu,
+                      "Options\tF10\t\tConfigure Processing Options.",
+                      GUIIconSubSys::getIcon(ICON_OPTIONS), myGNEApp, MID_GNE_HOTKEY_F10_OPTIONSMENU);
+}
+
+// ---------------------------------------------------------------------------
 // GNEViewNet::NetworkCheckableButtons - methods
 // ---------------------------------------------------------------------------
 
@@ -1284,29 +1317,11 @@ GNEApplicationWindow::fillMenuBar() {
     menuTitle = new FXMenuTitle(myToolbarsGrip.menu, "&Edit", nullptr, myEditMenu, LAYOUT_FIX_HEIGHT);
     menuTitle->setHeight(23);
     myEditMenuCommands.buildEditMenuCommands(myEditMenu);
-    // processing menu (trigger netbuild computations)
+    // build processing menu (trigger netbuild computations)
     myProcessingMenu = new FXMenuPane(this);
     menuTitle = new FXMenuTitle(myToolbarsGrip.menu, "&Processing", nullptr, myProcessingMenu, LAYOUT_FIX_HEIGHT);
     menuTitle->setHeight(23);
-    // build processing menu commands
-    new FXMenuCommand(myProcessingMenu,
-                      "Compute Junctions\tF5\tComputes junction shape and logic.",
-                      GUIIconSubSys::getIcon(ICON_COMPUTEJUNCTIONS), this, MID_HOTKEY_F5_RECOMPUTE);
-    new FXMenuCommand(myProcessingMenu,
-                      "Compute Junctions with volatile options\tShift+F5\tComputes junction shape and logic using volatile junctions.",
-                      GUIIconSubSys::getIcon(ICON_COMPUTEJUNCTIONS), this, MID_HOTKEY_SHIFT_F5_RECOMPUTEVOLATILE);
-    new FXMenuCommand(myProcessingMenu,
-                      "Clean Junctions\tF6\tRemoves solitary junctions.",
-                      GUIIconSubSys::getIcon(ICON_CLEANJUNCTIONS), this, MID_GNE_HOTKEY_F6_CLEANJUNCTIONS_CLEANUNUSEDROUTES);
-    new FXMenuCommand(myProcessingMenu,
-                      "Join Selected Junctions\tF7\tJoins selected junctions into a single junction.",
-                      GUIIconSubSys::getIcon(ICON_JOINJUNCTIONS), this, MID_GNE_HOTKEY_F7_JOINSELECTEDJUNCTIONS_NORMALICEDEMANDELEMENTIDS);
-    new FXMenuCommand(myProcessingMenu,
-                      "Clean invalid crossings\tF8\tClear invalid crossings.",
-                      GUIIconSubSys::getIcon(ICON_JOINJUNCTIONS), this, MID_GNE_HOTKEY_F8_CLEANINVALIDCROSSINGS_CLEANINVALIDDEMANDELEMENTS);
-    new FXMenuCommand(myProcessingMenu,
-                      "Options\tF10\t\tConfigure Processing Options.",
-                      GUIIconSubSys::getIcon(ICON_OPTIONS), this, MID_GNE_HOTKEY_F10_OPTIONSMENU);
+    myProcessingMenuCommands.buildProcessingMenuCommands(myProcessingMenu);
     // build locate menu
     myLocatorMenu = new FXMenuPane(this);
     menuTitle = new FXMenuTitle(myToolbarsGrip.menu, "&Locate", nullptr, myLocatorMenu, LAYOUT_FIX_HEIGHT);
@@ -2625,6 +2640,7 @@ GNEApplicationWindow::GNEApplicationWindow() :
     myMenuBarFile(this),
     myFileMenuCommands(this),
     myEditMenuCommands(this),
+    myProcessingMenuCommands(this),
     mySupermodeCommands(this),
     myNetworkMenuCommands(this),
     myDemandMenuCommands(this) {

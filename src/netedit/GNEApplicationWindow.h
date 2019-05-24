@@ -484,7 +484,7 @@ private:
         GNEApplicationWindow* myGNEApp;
     };
 
-    /// @brief struct for File menu commands
+    /// @brief struct for edit menu commands
     struct EditMenuCommands {
 
         /// @brief constructor
@@ -510,6 +510,20 @@ private:
 
         /// @brief FXMenuCommand for open in SUMO GUI
         FXMenuCommand* openInSUMOGUI;
+
+    private:
+        /// @brief pointer to current GNEApplicationWindows
+        GNEApplicationWindow* myGNEApp;
+    };
+
+    /// @brief struct for processing menu commands
+    struct ProcessingMenuCommands {
+
+        /// @brief constructor
+        ProcessingMenuCommands(GNEApplicationWindow* GNEApp);
+
+        /// @brief build menu commands
+        void buildProcessingMenuCommands(FXMenuPane* editMenu);
 
     private:
         /// @brief pointer to current GNEApplicationWindows
@@ -650,6 +664,9 @@ private:
 
     /// @brief Edit Menu Commands
     EditMenuCommands myEditMenuCommands;
+
+    /// @brief Edit Menu Commands
+    ProcessingMenuCommands myProcessingMenuCommands;
 
     /// @brief Supermode Commands
     SupermodeCommands mySupermodeCommands;
