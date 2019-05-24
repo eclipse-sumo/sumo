@@ -24,7 +24,7 @@ import sumolib
 import traci
 
 
-def _logs():
+def logs():
     """ Log init. """
     stdout_handler = logging.StreamHandler(sys.stdout)
     logging.basicConfig(handlers=[stdout_handler], level=logging.WARNING,
@@ -32,12 +32,10 @@ def _logs():
                         datefmt='%m/%d/%Y %I:%M:%S %p')
 
 
-def _args():
-    """ Argument Parser
-    ret: parsed arguments.
-    """
+def get_options(cmd_args=None):
+    """ Argument Parser. """
     parser = argparse.ArgumentParser(
-        prog='{}'.format(sys.argv[0]), usage='%(prog)s [options]',
+        prog='generateParkingAreaRerouters.py', usage='%(prog)s [options]',
         description='Generate parking area rerouters from the parking area definition.')
     parser.add_argument(
         '-a', '--parking-areas', type=str, dest='parking_area_definition', required=True,
@@ -46,21 +44,21 @@ def _args():
         '-n', '--sumo-net', type=str, dest='sumo_net_definition', required=True,
         help='SUMO network definition.')
     parser.add_argument(
-        '--max-number-alternatives', type=int, dest='num_alternatives', required=True,
+        '--max-number-alternatives', type=int, dest='num_alternatives', default=10,
         help='Rerouter: max number of alternatives.')
     parser.add_argument(
-        '--max-distance-alternatives', type=float, dest='dist_alternatives', required=True,
+        '--max-distance-alternatives', type=float, dest='dist_alternatives', default=500.0,
         help='Rerouter: max distance for the alternatives.')
     parser.add_argument(
-        '--min-capacity-visibility-true', type=int, dest='capacity_threshold', required=True,
+        '--min-capacity-visibility-true', type=int, dest='capacity_threshold', default=25,
         help='Rerouter: parking capacity for the visibility threshold.')
     parser.add_argument(
-        '--max-distance-visibility-true', type=float, dest='dist_threshold', required=True,
+        '--max-distance-visibility-true', type=float, dest='dist_threshold', default=250.0,
         help='Rerouter: parking distance for the visibility threshold.')
     parser.add_argument(
         '-o', type=str, dest='output', required=True,
         help='Name for the output file.')
-    return parser.parse_args()
+    return parser.parse_args(cmd_args)
 
 
 class ReroutersGeneration(object):
@@ -194,9 +192,9 @@ class ReroutersGeneration(object):
     # ----------------------------------------------------------------------------------------- #
 
 
-def _main():
+def main(cmd_args):
     """ Generate parking area rerouters from the parking area definition. """
-    args = _args()
+    args = get_options(cmd_args)
 
     rerouters = ReroutersGeneration(args.parking_area_definition, args.sumo_net_definition,
                                     args.num_alternatives, args.dist_alternatives,
@@ -207,5 +205,5 @@ def _main():
 
 
 if __name__ == "__main__":
-    _logs()
-    _main()
+    logs()
+    main(sys.argv)
