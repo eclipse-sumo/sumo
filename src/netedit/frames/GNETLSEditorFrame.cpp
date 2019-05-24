@@ -1011,7 +1011,7 @@ GNETLSEditorFrame::TLSPhases::TLSPhases(GNETLSEditorFrame* TLSEditorParent) :
     myTableScroll = new FXScrollWindow(this, LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT);
     myPhaseTable = new FXTable(myTableScroll, myTLSEditorParent, MID_GNE_TLSFRAME_PHASE_TABLE, GUIDesignTableLimitedHeight);
     myPhaseTable->setColumnHeaderMode(LAYOUT_FIX_HEIGHT);
-    myPhaseTable->setColumnHeaderHeight(getApp()->getNormalFont()->getFontHeight() + getApp()->getNormalFont()->getFontAscent());
+    myPhaseTable->setColumnHeaderHeight(getApp()->getNormalFont()->getFontHeight() + getApp()->getNormalFont()->getFontAscent() / 2);
     myPhaseTable->setRowHeaderMode(LAYOUT_FIX_WIDTH);
     myPhaseTable->setRowHeaderWidth(0);
     myPhaseTable->hide();
@@ -1093,12 +1093,23 @@ GNETLSEditorFrame::TLSPhases::initPhaseTable(int index) {
         myPhaseTable->setColumnWidth(colNext, MAX2(myPhaseTable->getColumnWidth(colNext), 30));
         myPhaseTable->setColumnWidth(colName, MAX2(myPhaseTable->getColumnWidth(colName), 45));
 
-        myPhaseTable->setHeight((int)phases.size() * 21); // experimental
+        myPhaseTable->setHeight((int)phases.size() * 21 + 21); // experimental
         myPhaseTable->setCurrentItem(index, 0);
         myPhaseTable->selectRow(index, true);
         myPhaseTable->show();
         myPhaseTable->setFocus();
-        myTableScroll->setHeight(myPhaseTable->getHeight() + 10);
+        myTableScroll->setHeight(myPhaseTable->getHeight() + 15);
+
+        // neither my myPhaseTable->getWidth nor getDefaultWidth return the sum of column widths
+        // however, the scroll pane uses getDefaultWidth to determine the
+        // horizontal scrolling area which can only be changed via
+        // getDefColumnWidth, hence the baroque work-around
+        
+        int neededWidth = 0;
+        for (int i = 0; i < cols; i++) {
+            neededWidth += myPhaseTable->getColumnWidth(i);
+        }
+        myPhaseTable->setDefColumnWidth(neededWidth / cols);
     }
     update();
 }
