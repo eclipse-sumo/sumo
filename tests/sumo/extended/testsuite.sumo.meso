@@ -1,9 +1,6 @@
 # Tests whether rerouter works; also tests functioning of vehroutes output
 rerouter
 
-# "one shot" in-simulation vehicle routing
-simulation_routing
-
 # vehicle removal via vaporizer
 vaporizer
 
@@ -18,9 +15,6 @@ inc-dua
 
 # Tests whether stops work
 stops
-
-# tests for battery device and charging station
-electric
 
 # saving and loading simulation state
 state
