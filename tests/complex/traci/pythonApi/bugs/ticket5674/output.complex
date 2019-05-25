@@ -1,0 +1,10 @@
+ Retrying in 1 seconds
+step=0.0 persons=()
+step=1.0 persons=('ped0',)
+  p=ped0 stage=2 pos=(103.67, 0.0)
+step=2.0 persons=('ped0', 'ped1')
+  p=ped0 stage=2 pos=(96.33, 1.2098439417429887)
+  p=ped1 stage=2 pos=(0.0, 96.33)
+step=3.0 persons=('ped0', 'ped1')
+  p=ped0 stage=2 pos=(96.33, 2.4722496198601362)
+  p=ped1 stage=2 pos=(1.2913488337765955, 103.67)

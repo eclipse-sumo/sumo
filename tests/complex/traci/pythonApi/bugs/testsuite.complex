@@ -83,3 +83,6 @@ ticket5561
 
 # remove person from destination stop on removal from simultion
 ticket5620
+
+# crash when calling getPosition on a personTrip before departure
+ticket5674
