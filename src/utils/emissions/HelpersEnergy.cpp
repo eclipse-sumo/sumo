@@ -43,8 +43,9 @@ HelpersEnergy::HelpersEnergy() : PollutantsInterface::Helper("Energy") {
     myDefaultParameter[SUMO_ATTR_RADIALDRAGCOEFFICIENT] = 0.5;
     myDefaultParameter[SUMO_ATTR_ROLLDRAGCOEFFICIENT] = 0.01;
     myDefaultParameter[SUMO_ATTR_CONSTANTPOWERINTAKE] = 100.;
+	myDefaultParameter[SUMO_ATTR_CONSTANTTEMPERATURE] = 20.;
     myDefaultParameter[SUMO_ATTR_PROPULSIONEFFICIENCY] = 0.9;
-    myDefaultParameter[SUMO_ATTR_RECUPERATIONEFFICIENCY] = 0.8;
+   // myDefaultParameter[SUMO_ATTR_RECUPERATIONEFFICIENCY] = 0.8;
     myDefaultParameter[SUMO_ATTR_ANGLE] = 0.;
 }
 
@@ -104,17 +105,33 @@ HelpersEnergy::compute(const SUMOEmissionClass /* c */, const PollutantsInterfac
         energyDiff += param->find(SUMO_ATTR_RADIALDRAGCOEFFICIENT)->second * mass * v * v / radius;
     }
 
-    // EnergyLoss,constantConsumers
-    // Energy loss through constant loads (e.g. A/C) [Ws]
-    energyDiff += param->find(SUMO_ATTR_CONSTANTPOWERINTAKE)->second;
+	// ********************************** First contribution of PUVEC  ( I.sagaama et al.)*******************************************
+	// Total Energy loss through auxiliary systems (e.g. radio, lights, heating, A/C, etc.) [Ws] dependant on the external temperature
+    
+	//Total_EnergyAux = EnergyAux [Ws] + 0.178  * fabs(20 - T)* aux * 1000 [Ws];
+	// i.e. 
+	// EnergyAux: Energy loss through through constant loads (e.g. radio, lights,etc.): a time dependent term :  EnergyAux [W] * t[s] 
+	// + Formula proposed by De Cauwer et al. : 
+	// regression coefficients : 0.178 [%] 
+	// aux ∈ [0,1], aux = Duration of auxiliaries switched on / Total duration of Trip
+	//20 : Ambient external temperature degree
+	const double EnergyAux = param->find(SUMO_ATTR_CONSTANTPOWERINTAKE)->second;
+	double aux = 1;
+	const double T = param->find(SUMO_ATTR_CONSTANTTEMPERATURE)->second;
+	energyDiff += EnergyAux + 0.178 * 1000 * fabs(20 - T)* aux; // *1000 * t (s)---> kWs to Ws 
+
+
+
 
     //E_Bat = E_kin_pot + EnergyLoss;
     if (energyDiff > 0) {
         // Assumption: Efficiency of myPropulsionEfficiency when accelerating
         energyDiff /= param->find(SUMO_ATTR_PROPULSIONEFFICIENCY)->second;
     } else {
-        // Assumption: Efficiency of myRecuperationEfficiency when recuperating
-        energyDiff *= param->find(SUMO_ATTR_RECUPERATIONEFFICIENCY)->second;
+		// ********************************** Second contribution of PUVEC  ( I.sagaama et al.) *******************************************
+		// Explicit formula of recuperation efficiency factor based on deceleration level (Fiori et al.)  when recuperating
+		energyDiff *= (1 / exp(0.0411 / fabs(a)));
+        
     }
 
     // convert from [Ws] to [Wh] (3600s / 1h):

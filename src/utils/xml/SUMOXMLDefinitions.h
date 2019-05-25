@@ -477,10 +477,10 @@ enum SumoXMLAttr {
     SUMO_ATTR_ROLLDRAGCOEFFICIENT,
     /// @brief Constant Power Intake
     SUMO_ATTR_CONSTANTPOWERINTAKE,
+	/// @brief AMBIANT TEMPERATURE
+	SUMO_ATTR_CONSTANTTEMPERATURE,
     /// @brief Propulsion efficiency
     SUMO_ATTR_PROPULSIONEFFICIENCY,
-    /// @brief Recuperation efficiency
-    SUMO_ATTR_RECUPERATIONEFFICIENCY,
     /// @brief Stopping treshold
     SUMO_ATTR_STOPPINGTRESHOLD,
     /// @}

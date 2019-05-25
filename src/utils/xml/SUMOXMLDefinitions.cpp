@@ -317,8 +317,8 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "radialDragCoefficient",  SUMO_ATTR_RADIALDRAGCOEFFICIENT },
     { "rollDragCoefficient",    SUMO_ATTR_ROLLDRAGCOEFFICIENT },
     { "constantPowerIntake",    SUMO_ATTR_CONSTANTPOWERINTAKE },
-    { "propulsionEfficiency",   SUMO_ATTR_PROPULSIONEFFICIENCY },
-    { "recuperationEfficiency", SUMO_ATTR_RECUPERATIONEFFICIENCY },
+	{ "AmbiantTemperature", SUMO_ATTR_CONSTANTTEMPERATURE },
+    { "propulsionEfficiency",   SUMO_ATTR_PROPULSIONEFFICIENCY },	
     { "stoppingTreshold",       SUMO_ATTR_STOPPINGTRESHOLD },
     // MSBatteryExport
     { "energyConsumed",         SUMO_ATTR_ENERGYCONSUMED },
