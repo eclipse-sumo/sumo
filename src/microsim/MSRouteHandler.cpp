@@ -1164,6 +1164,13 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
     const double walkFactor = attrs.getOpt<double>(SUMO_ATTR_WALKFACTOR, id, ok, OptionsCont::getOptions().getFloat("persontrip.walkfactor"));
     const double departPosLat = attrs.getOpt<double>(SUMO_ATTR_DEPARTPOS_LAT, nullptr, ok, 0);
     if (ok) {
+        if (myActivePlan->empty()) {
+            double initialDepartPos = myVehicleParameter->departPos;
+            if (myVehicleParameter->departPosProcedure == DEPART_POS_RANDOM) {
+                initialDepartPos = RandHelper::rand(from->getLength(), &myParsingRNG);
+            }
+            myActivePlan->push_back(new MSTransportable::Stage_Waiting(from, nullptr, -1, myVehicleParameter->depart, initialDepartPos, "start", true));
+        }
         myVehicleParameter->parametersSet |= VEHPARS_FORCE_REROUTE;
         MSStoppingPlace* fromStop = myActivePlan->empty() ? nullptr : myActivePlan->back()->getDestinationStop();
         myActivePlan->push_back(new MSTransportable::Stage_Trip(from, fromStop, to == nullptr ? &stoppingPlace->getLane().getEdge() : to, stoppingPlace, duration, modeSet, types, speed, walkFactor, departPosLat, attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS), arrivalPos));
