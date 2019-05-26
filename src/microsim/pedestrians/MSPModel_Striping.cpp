@@ -568,7 +568,16 @@ MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, con
                 }
             } else if (nextLane->getLength() <= POSITION_EPS) {
                 // internal lane too short
-                nextLane = nextRouteLane;
+                // most often this is due to a zero-size junction. However, if
+                // the person needs to pass a crossing we cannot skip ahead
+                if (!nextLane->getLinkCont().front()->getLane()->getEdge().isCrossing()
+                        && !nextLane->getLogicalPredecessorLane()->getEdge().isCrossing()) {
+                    //WRITE_WARNING("Person '" + ped.getID()
+                    //        + "' skips short lane '" + nextLane->getID()
+                    //        + "' length=" + toString(nextLane->getLength())
+                    //        + " time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+                    nextLane = nextRouteLane;
+                }
             }
         }
     }
