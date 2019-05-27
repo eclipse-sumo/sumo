@@ -227,6 +227,14 @@ GNESelectorFrame::clearCurrentSelection() const {
                     }
                 }
             }
+            // select embedded route
+            if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_EMBEDDEDROUTE)) {
+                for (const auto &i : myViewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_EMBEDDEDROUTE)) {
+                    if (i.second->isAttributeCarrierSelected()) {
+                        i.second->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
+                    }
+                }
+            }
             // select vehicles
             if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_VEHICLE)) {
                 for (const auto &i : myViewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_VEHICLE)) {
@@ -470,6 +478,7 @@ GNESelectorFrame::LockGLObjectTypes::LockGLObjectTypes(GNESelectorFrame* selecto
     myTypeEntries[GLO_POI] = std::make_pair(Supermode::GNE_SUPERMODE_NETWORK, new ObjectTypeEntry(matrixLockGLObjectTypes, "POIs"));
     // create typeEntries for the different Demand elements
     myTypeEntries[GLO_ROUTE] = std::make_pair(Supermode::GNE_SUPERMODE_DEMAND, new ObjectTypeEntry(matrixLockGLObjectTypes, "Routes"));
+    myTypeEntries[GLO_EMBEDDEDROUTE] = std::make_pair(Supermode::GNE_SUPERMODE_DEMAND, new ObjectTypeEntry(matrixLockGLObjectTypes, "EmbeddedRoutes"));
     myTypeEntries[GLO_VEHICLE] = std::make_pair(Supermode::GNE_SUPERMODE_DEMAND, new ObjectTypeEntry(matrixLockGLObjectTypes, "Vehicles"));
     myTypeEntries[GLO_ROUTEFLOW] = std::make_pair(Supermode::GNE_SUPERMODE_DEMAND, new ObjectTypeEntry(matrixLockGLObjectTypes, "Flows"));
     myTypeEntries[GLO_TRIP] = std::make_pair(Supermode::GNE_SUPERMODE_DEMAND, new ObjectTypeEntry(matrixLockGLObjectTypes, "Trips"));
@@ -1294,6 +1303,16 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
                     }
                 }
             }
+            // select embedded routes
+            if (!locks->IsObjectTypeLocked(GLO_EMBEDDEDROUTE)) {
+                for (const auto &i : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_EMBEDDEDROUTE)) {
+                    if (i.second->isAttributeCarrierSelected()) {
+                        i.second->setAttribute(GNE_ATTR_SELECTED, "false", mySelectorFrameParent->myViewNet->getUndoList());
+                    } else {
+                        i.second->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->myViewNet->getUndoList());
+                    }
+                }
+            }
             // select vehicles
             if (!locks->IsObjectTypeLocked(GLO_VEHICLE)) {
                 for (const auto &i : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_VEHICLE)) {
@@ -1412,6 +1431,10 @@ GNESelectorFrame::ACsToSelected() const {
     } else {
         // select routes
         if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_ROUTE) && (myViewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_ROUTE).size() > 0)) {
+            return true;
+        }
+        // select embedded routes
+        if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_EMBEDDEDROUTE) && (myViewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_EMBEDDEDROUTE).size() > 0)) {
             return true;
         }
         // select vehicles

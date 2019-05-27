@@ -146,7 +146,7 @@ GNERouteHandler::buildFlowOverRoute(GNEViewNet* viewNet, bool undoDemandElements
 
 
 void
-GNERouteHandler::buildVehicleWithEmbebbedRoute(GNEViewNet* viewNet, bool undoDemandElements, SUMOVehicleParameter vehicleParameters, GNEDemandElement* embebbedRouteCopy) {
+GNERouteHandler::buildVehicleWithEmbeddedRoute(GNEViewNet* viewNet, bool undoDemandElements, SUMOVehicleParameter vehicleParameters, GNEDemandElement* embeddedRouteCopy) {
     // Check tags
     assert(vehicleParameters.tag == SUMO_TAG_VEHICLE);
     // first check if ID is duplicated
@@ -162,29 +162,29 @@ GNERouteHandler::buildVehicleWithEmbebbedRoute(GNEViewNet* viewNet, bool undoDem
             vehicleParameters.tag = SUMO_TAG_VEHICLE;
             // create vehicle or trips using myTemporalVehicleParameter without a route
             GNEVehicle* vehicle = new GNEVehicle(viewNet, vType, vehicleParameters);
-            // creaste embebbed route
-            GNERoute* embebbedRoute = new GNERoute(viewNet, vehicle, embebbedRouteCopy->getEdgeParents(), embebbedRouteCopy->getColor(), SVC_PASSENGER);
+            // creaste embedded route
+            GNERoute* embeddedRoute = new GNERoute(viewNet, vehicle, embeddedRouteCopy->getEdgeParents(), embeddedRouteCopy->getColor(), SVC_PASSENGER);
             // add both to net depending of myUndoDemandElements
             if (undoDemandElements) {
-                viewNet->getUndoList()->p_begin("add vehicle and " + embebbedRoute->getTagStr());
+                viewNet->getUndoList()->p_begin("add vehicle and " + embeddedRoute->getTagStr());
                 // add both in net using undoList
                 viewNet->getUndoList()->add(new GNEChange_DemandElement(vehicle, true), true);
-                viewNet->getUndoList()->add(new GNEChange_DemandElement(embebbedRoute, true), true);
+                viewNet->getUndoList()->add(new GNEChange_DemandElement(embeddedRoute, true), true);
                 viewNet->getUndoList()->p_end();
             } else {
                 // add vehicleOrRouteFlow in net and in their vehicle type parent
                 viewNet->getNet()->insertDemandElement(vehicle);
                 // set vehicle as child of vType
                 vType->addDemandElementChild(vehicle);
-                vehicle->incRef("buildVehicleWithEmbebbedRoute");
+                vehicle->incRef("buildVehicleWithEmbeddedRoute");
                 // add route manually in net, and in all of their edges and in vehicleOrRouteFlow
-                viewNet->getNet()->insertDemandElement(embebbedRoute);
-                for (const auto& i : embebbedRouteCopy->getEdgeParents()) {
+                viewNet->getNet()->insertDemandElement(embeddedRoute);
+                for (const auto& i : embeddedRouteCopy->getEdgeParents()) {
                     i->addDemandElementChild(vehicle);
                 }
                  // set route as child of vehicle
-                vehicle->addDemandElementChild(embebbedRoute);
-                embebbedRoute->incRef("buildVehicleWithEmbebbedRoute");
+                vehicle->addDemandElementChild(embeddedRoute);
+                embeddedRoute->incRef("buildVehicleWithEmbeddedRoute");
             }
         }
     }
@@ -192,7 +192,7 @@ GNERouteHandler::buildVehicleWithEmbebbedRoute(GNEViewNet* viewNet, bool undoDem
 
 
 void
-GNERouteHandler::buildFlowWithEmbebbedRoute(GNEViewNet* viewNet, bool undoDemandElements, SUMOVehicleParameter vehicleParameters, GNEDemandElement* embebbedRouteCopy) {
+GNERouteHandler::buildFlowWithEmbeddedRoute(GNEViewNet* viewNet, bool undoDemandElements, SUMOVehicleParameter vehicleParameters, GNEDemandElement* embeddedRouteCopy) {
     // Check tags
     assert(vehicleParameters.tag == SUMO_TAG_ROUTEFLOW);
     // first check if ID is duplicated
@@ -208,29 +208,29 @@ GNERouteHandler::buildFlowWithEmbebbedRoute(GNEViewNet* viewNet, bool undoDemand
             vehicleParameters.tag = SUMO_TAG_ROUTEFLOW;
             // create vehicle or trips using myTemporalVehicleParameter without a route
             GNEVehicle* flow = new GNEVehicle(viewNet, vType, vehicleParameters);
-            // creaste embebbed route
-            GNERoute* embebbedRoute = new GNERoute(viewNet, flow, embebbedRouteCopy->getEdgeParents(), embebbedRouteCopy->getColor(), SVC_PASSENGER);
+            // creaste embedded route
+            GNERoute* embeddedRoute = new GNERoute(viewNet, flow, embeddedRouteCopy->getEdgeParents(), embeddedRouteCopy->getColor(), SVC_PASSENGER);
             // add both to net depending of myUndoDemandElements
             if (undoDemandElements) {
-                viewNet->getUndoList()->p_begin("add vehicle and " + embebbedRoute->getTagStr());
+                viewNet->getUndoList()->p_begin("add vehicle and " + embeddedRoute->getTagStr());
                 // add both in net using undoList
                 viewNet->getUndoList()->add(new GNEChange_DemandElement(flow, true), true);
-                viewNet->getUndoList()->add(new GNEChange_DemandElement(embebbedRoute, true), true);
+                viewNet->getUndoList()->add(new GNEChange_DemandElement(embeddedRoute, true), true);
                 viewNet->getUndoList()->p_end();
             } else {
                 // add vehicleOrRouteFlow in net and in their vehicle type parent
                 viewNet->getNet()->insertDemandElement(flow);
                 // set vehicle as child of vType
                 vType->addDemandElementChild(flow);
-                flow->incRef("buildFlowWithEmbebbedRoute");
+                flow->incRef("buildFlowWithEmbeddedRoute");
                 // add route manually in net, and in all of their edges and in vehicleOrRouteFlow
-                viewNet->getNet()->insertDemandElement(embebbedRoute);
-                for (const auto& i : embebbedRouteCopy->getEdgeParents()) {
+                viewNet->getNet()->insertDemandElement(embeddedRoute);
+                for (const auto& i : embeddedRouteCopy->getEdgeParents()) {
                     i->addDemandElementChild(flow);
                 }
                 // set route as child of flow
-                flow->addDemandElementChild(embebbedRoute);
-                embebbedRoute->incRef("buildFlowWithEmbebbedRoute");
+                flow->addDemandElementChild(embeddedRoute);
+                embeddedRoute->incRef("buildFlowWithEmbeddedRoute");
             }
         }
     }
@@ -395,15 +395,15 @@ GNERouteHandler::buildStop(GNEViewNet* viewNet, bool undoDemandElements, const S
 
 
 void 
-GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbebbedRoute) {
+GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbeddedRoute) {
     // get pointer to undo list (due originalVehicle will be deleted)
     GNEUndoList *undoList = originalVehicle->getViewNet()->getUndoList();
     // begin undo-redo operation
     undoList->p_begin("transform " + originalVehicle->getTagStr() + " to " + toString(SUMO_TAG_VEHICLE));
-    // first check if originalVehicle has an embebbed route, and if true, separate it
+    // first check if originalVehicle has an embedded route, and if true, separate it
     if (((originalVehicle->getTagProperty().getTag() == SUMO_TAG_VEHICLE) || (originalVehicle->getTagProperty().getTag() == SUMO_TAG_ROUTEFLOW)) && 
         (originalVehicle->getDemandElementParents().size() == 1)) {
-        originalVehicle = separateEmbebbedRoute(originalVehicle, undoList);
+        originalVehicle = separateEmbeddedRoute(originalVehicle, undoList);
     }
     // obtain VType of original vehicle
     GNEDemandElement *vType = originalVehicle->getDemandElementParents().at(0);
@@ -413,7 +413,7 @@ GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbe
     newVehicleParameters.tag = SUMO_TAG_VEHICLE;
     // make transformation depending of vehicle tag
     if ((originalVehicle->getTagProperty().getTag() == SUMO_TAG_VEHICLE) || (originalVehicle->getTagProperty().getTag() == SUMO_TAG_ROUTEFLOW)) {
-        // obtain vehicle's route (it always exist due call to function separateEmbebbedRoute(...)
+        // obtain vehicle's route (it always exist due call to function separateEmbeddedRoute(...)
         GNEDemandElement *route = originalVehicle->getDemandElementParents().at(1);
         // create Vehicle using values of original vehicle
         GNEVehicle *vehicle = new GNEVehicle(originalVehicle->getViewNet(), vType, route, newVehicleParameters);
@@ -421,8 +421,8 @@ GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbe
         undoList->add(new GNEChange_DemandElement(originalVehicle, false), true);
         // add new vehicle
         undoList->add(new GNEChange_DemandElement(vehicle, true), true);
-        // as last step change vehicle's route to embebbed route if createEmbebbedRoute is enabled
-        if (createEmbebbedRoute) {
+        // as last step change vehicle's route to embedded route if createEmbeddedRoute is enabled
+        if (createEmbeddedRoute) {
             embebbeRoute(vehicle, undoList);
         }
     } else if ((originalVehicle->getTagProperty().getTag() == SUMO_TAG_FLOW) || (originalVehicle->getTagProperty().getTag() == SUMO_TAG_TRIP)) {
@@ -446,15 +446,15 @@ GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbe
 
 
 void 
-GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEmbebbedRoute) {
+GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEmbeddedRoute) {
     // get pointer to undo list (due originalVehicle will be deleted)
     GNEUndoList *undoList = originalVehicle->getViewNet()->getUndoList();
     // begin undo-redo operation
     undoList->p_begin("transform " + originalVehicle->getTagStr() + " to " + toString(SUMO_TAG_ROUTEFLOW));
-    // first check if originalVehicle has an embebbed route, and if true, separate it
+    // first check if originalVehicle has an embedded route, and if true, separate it
     if (((originalVehicle->getTagProperty().getTag() == SUMO_TAG_VEHICLE) || (originalVehicle->getTagProperty().getTag() == SUMO_TAG_ROUTEFLOW)) && 
         (originalVehicle->getDemandElementParents().size() == 1)) {
-        originalVehicle = separateEmbebbedRoute(originalVehicle, undoList);
+        originalVehicle = separateEmbeddedRoute(originalVehicle, undoList);
     }
     // obtain VType of original vehicle
     GNEDemandElement *vType = originalVehicle->getDemandElementParents().at(0);
@@ -464,7 +464,7 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
     newVehicleParameters.tag = SUMO_TAG_ROUTEFLOW;
     // make transformation depending of vehicle tag
     if ((originalVehicle->getTagProperty().getTag() == SUMO_TAG_VEHICLE) || (originalVehicle->getTagProperty().getTag() == SUMO_TAG_ROUTEFLOW)) {
-        // obtain vehicle's route (it always exist due call to function separateEmbebbedRoute(...)
+        // obtain vehicle's route (it always exist due call to function separateEmbeddedRoute(...)
         GNEDemandElement *route = originalVehicle->getDemandElementParents().at(1);
         // create flow using newVehicleParameters
         GNEVehicle *flow = new GNEVehicle(originalVehicle->getViewNet(), vType, route, newVehicleParameters);
@@ -472,8 +472,8 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
         undoList->add(new GNEChange_DemandElement(originalVehicle, false), true);
         // add new vehicle
         undoList->add(new GNEChange_DemandElement(flow, true), true);
-        // as last step change vehicle's route to embebbed route if createEmbebbedRoute is enabled
-        if (createEmbebbedRoute) {
+        // as last step change vehicle's route to embedded route if createEmbeddedRoute is enabled
+        if (createEmbeddedRoute) {
             embebbeRoute(flow, undoList);
         }
     } else if ((originalVehicle->getTagProperty().getTag() == SUMO_TAG_FLOW) || (originalVehicle->getTagProperty().getTag() == SUMO_TAG_TRIP)) {
@@ -502,12 +502,12 @@ GNERouteHandler::transformToTrip(GNEVehicle* originalVehicle) {
     GNEUndoList *undoList = originalVehicle->getViewNet()->getUndoList();
     // begin undo-redo operation
     undoList->p_begin("transform " + originalVehicle->getTagStr() + " to " + toString(SUMO_TAG_FLOW));
-    // declare pointer to get embebbed route if is created
-    GNEDemandElement *separatedEmbebbedRoute = nullptr;
-    // first check if originalVehicle has an embebbed route, and if true, separate it
+    // declare pointer to get embedded route if is created
+    GNEDemandElement *separatedEmbeddedRoute = nullptr;
+    // first check if originalVehicle has an embedded route, and if true, separate it
     if (((originalVehicle->getTagProperty().getTag() == SUMO_TAG_VEHICLE) || (originalVehicle->getTagProperty().getTag() == SUMO_TAG_ROUTEFLOW)) && 
         (originalVehicle->getDemandElementParents().size() == 1)) {
-        originalVehicle = separateEmbebbedRoute(originalVehicle, undoList);
+        originalVehicle = separateEmbeddedRoute(originalVehicle, undoList);
     }
     // obtain VType of original vehicle
     GNEDemandElement *vType = originalVehicle->getDemandElementParents().at(0);
@@ -531,9 +531,9 @@ GNERouteHandler::transformToTrip(GNEVehicle* originalVehicle) {
         // add new trip
         undoList->add(new GNEChange_DemandElement(trip, true), true);
     }
-    // check if separatedEmbebbedRoute has to be removed
-    if (separatedEmbebbedRoute) {
-        undoList->add(new GNEChange_DemandElement(separatedEmbebbedRoute, false), true);
+    // check if separatedEmbeddedRoute has to be removed
+    if (separatedEmbeddedRoute) {
+        undoList->add(new GNEChange_DemandElement(separatedEmbeddedRoute, false), true);
     }
     // end undo-redo operation
     undoList->p_end();
@@ -546,12 +546,12 @@ GNERouteHandler::transformToFlow(GNEVehicle* originalVehicle) {
     GNEUndoList *undoList = originalVehicle->getViewNet()->getUndoList();
     // begin undo-redo operation
     undoList->p_begin("transform " + originalVehicle->getTagStr() + " to " + toString(SUMO_TAG_FLOW));
-    // declare pointer to get embebbed route if is created
-    GNEDemandElement *separatedEmbebbedRoute = nullptr;
-    // first check if originalVehicle has an embebbed route, and if true, separate it
+    // declare pointer to get embedded route if is created
+    GNEDemandElement *separatedEmbeddedRoute = nullptr;
+    // first check if originalVehicle has an embedded route, and if true, separate it
     if(originalVehicle->getDemandElementParents().size() == 1) {
-        originalVehicle = separateEmbebbedRoute(originalVehicle, undoList);
-        separatedEmbebbedRoute = originalVehicle->getDemandElementParents().at(1);
+        originalVehicle = separateEmbeddedRoute(originalVehicle, undoList);
+        separatedEmbeddedRoute = originalVehicle->getDemandElementParents().at(1);
     }
     // obtain VType of original vehicle
     GNEDemandElement *vType = originalVehicle->getDemandElementParents().at(0);
@@ -575,9 +575,9 @@ GNERouteHandler::transformToFlow(GNEVehicle* originalVehicle) {
         // add new flow
         undoList->add(new GNEChange_DemandElement(flow, true), true);
     }
-    // check if separatedEmbebbedRoute has to be removed
-    if (separatedEmbebbedRoute) {
-        undoList->add(new GNEChange_DemandElement(separatedEmbebbedRoute, false), true);
+    // check if separatedEmbeddedRoute has to be removed
+    if (separatedEmbeddedRoute) {
+        undoList->add(new GNEChange_DemandElement(separatedEmbeddedRoute, false), true);
     }
     // end undo-redo operation
     undoList->p_end();
@@ -589,32 +589,32 @@ GNERouteHandler::transformToFlow(GNEVehicle* originalVehicle) {
 
 void
 GNERouteHandler::embebbeRoute(GNEVehicle* vehicle, GNEUndoList* undoList) {
-    // create a copy of vehicle with the same attributes but without embebbed route
+    // create a copy of vehicle with the same attributes but without embedded route
     GNEVehicle* vehicleWithEmbebbeRoute = new GNEVehicle(vehicle->getViewNet(), vehicle->getDemandElementParents().at(0), *vehicle);
-    // create a embebbedRoute based on parameters of vehicle's route
-    GNERoute* embebbedRoute = new GNERoute(vehicleWithEmbebbeRoute->getViewNet(), vehicleWithEmbebbeRoute,
+    // create a embeddedRoute based on parameters of vehicle's route
+    GNERoute* embeddedRoute = new GNERoute(vehicleWithEmbebbeRoute->getViewNet(), vehicleWithEmbebbeRoute,
         vehicle->getDemandElementParents().at(1)->getEdgeParents(),
         vehicle->getDemandElementParents().at(1)->getColor(),
         vehicle->getDemandElementParents().at(1)->getVClass());
     // remove vehicle, but NOT route
     undoList->add(new GNEChange_DemandElement(vehicle, false), true);
-    // now add bot vehicleWithEmbebbeRoute and embebbedRoute
+    // now add bot vehicleWithEmbebbeRoute and embeddedRoute
     undoList->add(new GNEChange_DemandElement(vehicleWithEmbebbeRoute, true), true);
-    undoList->add(new GNEChange_DemandElement(embebbedRoute, true), true);
+    undoList->add(new GNEChange_DemandElement(embeddedRoute, true), true);
 }
 
 
 GNEVehicle* 
-GNERouteHandler::separateEmbebbedRoute(GNEVehicle* vehicle, GNEUndoList* undoList) {
-    // first create a Route based on the parameters of vehicle's embebbed route
-    GNERoute* nonEmbebbedRoute = new GNERoute(vehicle->getDemandElementChilds().at(0));
-    // create a copy of vehicle with the same attributes but with the nonEmbebbedRoute
-    GNEVehicle* vehicleWithoutEmbebbeRoute = new GNEVehicle(vehicle->getViewNet(), vehicle->getDemandElementParents().at(0), nonEmbebbedRoute, *vehicle);
-    // remove embebbed route andvehicle (because a embebbbed route without vehicle cannot exist)
+GNERouteHandler::separateEmbeddedRoute(GNEVehicle* vehicle, GNEUndoList* undoList) {
+    // first create a Route based on the parameters of vehicle's embedded route
+    GNERoute* nonEmbeddedRoute = new GNERoute(vehicle->getDemandElementChilds().at(0));
+    // create a copy of vehicle with the same attributes but with the nonEmbeddedRoute
+    GNEVehicle* vehicleWithoutEmbebbeRoute = new GNEVehicle(vehicle->getViewNet(), vehicle->getDemandElementParents().at(0), nonEmbeddedRoute, *vehicle);
+    // remove embedded route andvehicle (because a embebbbed route without vehicle cannot exist)
     undoList->add(new GNEChange_DemandElement(vehicle->getDemandElementChilds().at(0), false), true);
     undoList->add(new GNEChange_DemandElement(vehicle, false), true);
-    // now add bot nonEmbebbedRoute and vehicleWithoutEmbebbeRoute
-    undoList->add(new GNEChange_DemandElement(nonEmbebbedRoute, true), true);
+    // now add bot nonEmbeddedRoute and vehicleWithoutEmbebbeRoute
+    undoList->add(new GNEChange_DemandElement(nonEmbeddedRoute, true), true);
     undoList->add(new GNEChange_DemandElement(vehicleWithoutEmbebbeRoute, true), true);
     // return vehicleWithoutEmbebbeRoute
     return vehicleWithoutEmbebbeRoute;
@@ -697,14 +697,14 @@ GNERouteHandler::closeRoute(const bool /* mayBeDisconnected */) {
                 myVehicleParameter->tag = (myVehicleParameter->tag == SUMO_TAG_FLOW)? SUMO_TAG_ROUTEFLOW : SUMO_TAG_VEHICLE;
                 // create vehicle or trips using myTemporalVehicleParameter without a route
                 GNEVehicle* vehicleOrRouteFlow = new GNEVehicle(myViewNet, vType, *myVehicleParameter);
-                // creaste embebbed route
-                GNERoute* embebbedRoute = new GNERoute(myViewNet, vehicleOrRouteFlow, edges, myRouteColor, SVC_PASSENGER);
+                // creaste embedded route
+                GNERoute* embeddedRoute = new GNERoute(myViewNet, vehicleOrRouteFlow, edges, myRouteColor, SVC_PASSENGER);
                 // add both to net depending of myUndoDemandElements
                 if (myUndoDemandElements) {
-                    myViewNet->getUndoList()->p_begin("add vehicle and " + embebbedRoute->getTagStr());
+                    myViewNet->getUndoList()->p_begin("add vehicle and " + embeddedRoute->getTagStr());
                     // add both in net using undoList
                     myViewNet->getUndoList()->add(new GNEChange_DemandElement(vehicleOrRouteFlow, true), true);
-                    myViewNet->getUndoList()->add(new GNEChange_DemandElement(embebbedRoute, true), true);
+                    myViewNet->getUndoList()->add(new GNEChange_DemandElement(embeddedRoute, true), true);
                     // iterate over stops of myActiveRouteStops and create stops associated with it
                     for (const auto& i : myActiveRouteStops) {
                         buildStop(myViewNet, true, i, vehicleOrRouteFlow, false);
@@ -716,12 +716,12 @@ GNERouteHandler::closeRoute(const bool /* mayBeDisconnected */) {
                     vType->addDemandElementChild(vehicleOrRouteFlow);
                     vehicleOrRouteFlow->incRef("buildVehicleAndRoute");
                     // add route manually in net, and in all of their edges and in vehicleOrRouteFlow
-                    myViewNet->getNet()->insertDemandElement(embebbedRoute);
+                    myViewNet->getNet()->insertDemandElement(embeddedRoute);
                     for (const auto& i : edges) {
                         i->addDemandElementChild(vehicleOrRouteFlow);
                     }
-                    vehicleOrRouteFlow->addDemandElementChild(embebbedRoute);
-                    embebbedRoute->incRef("buildVehicleAndRoute");
+                    vehicleOrRouteFlow->addDemandElementChild(embeddedRoute);
+                    embeddedRoute->incRef("buildVehicleAndRoute");
                     // iterate over stops of myActiveRouteStops and create stops associated with it
                     for (const auto& i : myActiveRouteStops) {
                         buildStop(myViewNet, false, i, vehicleOrRouteFlow, false);

@@ -83,13 +83,13 @@ public:
         FXMenuCommand* myTransformToFlow;
     };
 
-    /// @brief default constructor for vehicles and routeFlows without embebbed routes
+    /// @brief default constructor for vehicles and routeFlows without embedded routes
     GNEVehicle(SumoXMLTag tag, GNEViewNet* viewNet, const std::string& vehicleID, GNEDemandElement* vehicleType, GNEDemandElement* route);
 
-    /// @brief parameter constructor for vehicles and routeFlows without embebbed routes
+    /// @brief parameter constructor for vehicles and routeFlows without embedded routes
     GNEVehicle(GNEViewNet* viewNet, GNEDemandElement* vehicleType, GNEDemandElement* route, const SUMOVehicleParameter& vehicleParameters);
 
-    /// @brief parameter constructor for vehicles and routeFlows with embebbed routes (note: After creation create immediately a embebbed route referencing this vehicle)
+    /// @brief parameter constructor for vehicles and routeFlows with embedded routes (note: After creation create immediately a embedded route referencing this vehicle)
     GNEVehicle(GNEViewNet* viewNet, GNEDemandElement* vehicleType, const SUMOVehicleParameter& vehicleParameters);
 
     /// @brief default constructor for trips and Flows (note: Edges : from + via + to)

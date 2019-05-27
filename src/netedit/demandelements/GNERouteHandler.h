@@ -66,11 +66,11 @@ public:
     /// @brief build a flow over an existent route
     static void buildFlowOverRoute(GNEViewNet* viewNet, bool undoDemandElements, const SUMOVehicleParameter &vehicleParameters);
 
-    /// @brief build vehicle with a embebbed route
-    static void buildVehicleWithEmbebbedRoute(GNEViewNet* viewNet, bool undoDemandElements, SUMOVehicleParameter vehicleParameters, GNEDemandElement* embebbedRouteCopy);
+    /// @brief build vehicle with a embedded route
+    static void buildVehicleWithEmbeddedRoute(GNEViewNet* viewNet, bool undoDemandElements, SUMOVehicleParameter vehicleParameters, GNEDemandElement* embeddedRouteCopy);
 
-    /// @brief build flow with a embebbed route
-    static void buildFlowWithEmbebbedRoute(GNEViewNet* viewNet, bool undoDemandElements, SUMOVehicleParameter vehicleParameters, GNEDemandElement* embebbedRouteCopy);
+    /// @brief build flow with a embedded route
+    static void buildFlowWithEmbeddedRoute(GNEViewNet* viewNet, bool undoDemandElements, SUMOVehicleParameter vehicleParameters, GNEDemandElement* embeddedRouteCopy);
 
     /// @brief build trip
     static void buildTrip(GNEViewNet* viewNet, bool undoDemandElements, const SUMOVehicleParameter &vehicleParameters, const std::vector<GNEEdge*>& edges);
@@ -86,10 +86,10 @@ public:
     /// @brief transform functions
     /// @{
     /// @brief transform to vehicle over an existent route
-    static void transformToVehicle(GNEVehicle* originalVehicle, bool createEmbebbedRoute);
+    static void transformToVehicle(GNEVehicle* originalVehicle, bool createEmbeddedRoute);
 
     /// @brief transform routeFlow over an existent route
-    static void transformToRouteFlow(GNEVehicle* originalVehicle, bool createEmbebbedRoute);
+    static void transformToRouteFlow(GNEVehicle* originalVehicle, bool createEmbeddedRoute);
 
     /// @brief transform to trip
     static void transformToTrip(GNEVehicle* originalVehicle);
@@ -103,8 +103,8 @@ protected:
     /// @brief embebbe route within a vehicle
     static void embebbeRoute(GNEVehicle* vehicle, GNEUndoList* undoList);
     
-    /// @brief separate vehicle and embebbed route
-    static GNEVehicle* separateEmbebbedRoute(GNEVehicle* vehicle, GNEUndoList* undoList);
+    /// @brief separate vehicle and embedded route
+    static GNEVehicle* separateEmbeddedRoute(GNEVehicle* vehicle, GNEUndoList* undoList);
 
     /// @brief opens a type distribution for reading
     void openVehicleTypeDistribution(const SUMOSAXAttributes& attrs);

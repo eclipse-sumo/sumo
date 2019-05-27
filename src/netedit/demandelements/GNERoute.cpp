@@ -69,7 +69,7 @@ GNERoute::GNERoute(GNEViewNet* viewNet, const std::string& routeID, const std::v
 
 
 GNERoute::GNERoute(GNEViewNet* viewNet, GNEDemandElement* vehicleParent, const std::vector<GNEEdge*>& edges, const RGBColor& color, const SUMOVehicleClass VClass) :
-    GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_ROUTEEMBEDDED), viewNet, GLO_ROUTE, SUMO_TAG_ROUTEEMBEDDED,
+    GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_EMBEDDEDROUTE), viewNet, GLO_EMBEDDEDROUTE, SUMO_TAG_EMBEDDEDROUTE,
     edges, {}, {}, {}, {vehicleParent}, {}, {}, {}, {}, {}),
     myColor(color),
     myVClass(VClass) {
@@ -130,7 +130,7 @@ GNERoute::writeDemandElement(OutputDevice& device) const {
     device.openTag(SUMO_TAG_ROUTE);
     device.writeAttr(SUMO_ATTR_EDGES, parseIDs(getEdgeParents()));
     device.writeAttr(SUMO_ATTR_COLOR, toString(myColor));
-    // write extra attributes depending if is an embebbed route
+    // write extra attributes depending if is an embedded route
     if(myTagProperty.getTag() == SUMO_TAG_ROUTE) {
         device.writeAttr(SUMO_ATTR_ID, getDemandElementID());
         // write stops associated to this route
@@ -260,7 +260,7 @@ GNERoute::selectAttributeCarrier(bool changeFlag) {
     } else {
         gSelected.select(getGlID());
         // add object of list into selected objects
-        myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->addedLockedObject(GLO_ROUTE);
+        myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->addedLockedObject(getType());
         if (changeFlag) {
             mySelected = true;
         }
@@ -275,7 +275,7 @@ GNERoute::unselectAttributeCarrier(bool changeFlag) {
     } else {
         gSelected.deselect(getGlID());
         // remove object of list of selected objects
-        myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->removeLockedObject(GLO_ROUTE);
+        myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->removeLockedObject(getType());
         if (changeFlag) {
             mySelected = false;
 

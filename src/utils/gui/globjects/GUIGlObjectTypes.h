@@ -106,22 +106,24 @@ enum GUIGlObjectType {
     GLO_ROUTEELEMENT = 300,
     /// @brief a route
     GLO_ROUTE = 301,
+    /// @brief a embedded route
+    GLO_EMBEDDEDROUTE = 302,
     /// @brief a vehicle type (currently unused)
-    GLO_VTYPE = 302,
+    GLO_VTYPE = 303,
     /// @brief a vehicle
-    GLO_VEHICLE = 303,
+    GLO_VEHICLE = 304,
     /// @brief a trip
-    GLO_TRIP = 304,
+    GLO_TRIP = 305,
     /// @brief a flow
-    GLO_FLOW = 305,
+    GLO_FLOW = 306,
     /// @brief a routeFlow
-    GLO_ROUTEFLOW = 306,
+    GLO_ROUTEFLOW = 307,
     /// @brief a person
-    GLO_PERSON = 307,
+    GLO_PERSON = 308,
     /// @brief a container
-    GLO_CONTAINER = 308,
+    GLO_CONTAINER = 309,
     /// @brief a stop
-    GLO_STOP = 309,
+    GLO_STOP = 310,
     /// @brief empty max
     GLO_MAX = 2048
 };

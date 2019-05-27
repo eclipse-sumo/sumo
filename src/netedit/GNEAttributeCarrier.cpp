@@ -3104,7 +3104,7 @@ GNEAttributeCarrier::fillDemandElements() {
                                            "yellow");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
-    currentTag = SUMO_TAG_ROUTEEMBEDDED;
+    currentTag = SUMO_TAG_EMBEDDEDROUTE;
     {
         // set values of tag
         myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_ROUTE, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_PARENT, ICON_ROUTE);

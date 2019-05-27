@@ -52,9 +52,9 @@ public:
      */
     GNERoute(GNEViewNet* viewNet, const std::string& routeID, const std::vector<GNEEdge*>& edges, const RGBColor& color, const SUMOVehicleClass VClass);
 
-    /**@brief parameter constructor for embebbed routes
+    /**@brief parameter constructor for embedded routes
      * @param[in] viewNet view in which this Route is placed
-     * @param[in] vehicleParent vehicle parent of this embebbed route
+     * @param[in] vehicleParent vehicle parent of this embedded route
      * @param[in] edges list of consecutive edges of this route
      * @param[in] color RGBColor of this route
      * @param[in] VClass Vehicle Class that will be use this route (only for visualization)

@@ -285,7 +285,7 @@ public:
         TAGTYPE_STOPPINGPLACE = 1 << 5,   // StoppingPlaces (BusStops, ChargingStations...)
         TAGTYPE_DETECTOR =      1 << 6,   // Detectors (E1, E2...)
         TAGTYPE_VEHICLE =       1 << 7,   // Vehicles (Flows, trips...)
-        TAGTYPE_ROUTE =         1 << 8,   // Routes and embebbed routes
+        TAGTYPE_ROUTE =         1 << 8,   // Routes and embedded routes
         TAGTYPE_STOP =          1 << 9,   // Stops
     };
 

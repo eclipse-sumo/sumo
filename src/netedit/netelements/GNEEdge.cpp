@@ -538,8 +538,8 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
                 drawPartialRoute(s, i);
             }
         }
-        for (const auto &i : getSortedDemandElementChildsByType(SUMO_TAG_ROUTEEMBEDDED)) {
-            // first check if embebbed route can be drawn
+        for (const auto &i : getSortedDemandElementChildsByType(SUMO_TAG_EMBEDDEDROUTE)) {
+            // first check if embedded route can be drawn
             if (myNet->getViewNet()->getViewOptionsDemand().showNonInspectedDemandElements(i)) {
                 // draw partial route
                 drawPartialRoute(s, i);
@@ -1932,8 +1932,8 @@ GNEEdge::drawPartialRoute(const GUIVisualizationSettings& s, GNEDemandElement *r
     for (const auto &i : route->getDemandElementChilds()) {
         i->drawGL(s);
     }
-    // special case for embebbed routes
-    if ((route->getTagProperty().getTag() == SUMO_TAG_ROUTEEMBEDDED) && (route->getEdgeParents().front() == this)) {
+    // special case for embedded routes
+    if ((route->getTagProperty().getTag() == SUMO_TAG_EMBEDDEDROUTE) && (route->getEdgeParents().front() == this)) {
         // draw vehicle parent
         route->getDemandElementParents().at(0)->drawGL(s);
     }
