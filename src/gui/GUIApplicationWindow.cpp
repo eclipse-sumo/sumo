@@ -1168,6 +1168,7 @@ GUIApplicationWindow::onCmdAppSettings(FXObject*, FXSelector, void*) {
 long
 GUIApplicationWindow::onCmdGaming(FXObject*, FXSelector, void*) {
     myAmGaming = !myAmGaming;
+    myGLWindows[0]->getView()->getVisualisationSettings()->gaming = myAmGaming;;
     if (myAmGaming) {
         myMenuBar->hide();
         myStatusbar->hide();
@@ -1187,7 +1188,6 @@ GUIApplicationWindow::onCmdGaming(FXObject*, FXSelector, void*) {
         myWaitingTimeLabel->setFgColor(MFXUtils::getFXColor(RGBColor::RED));
         myTimeLossLabel->setFgColor(MFXUtils::getFXColor(RGBColor::RED));
         myTotalDistanceLabel->setFgColor(MFXUtils::getFXColor(RGBColor::RED));
-        gSchemeStorage.getDefault().gaming = true;
     } else {
         myMenuBar->show();
         myStatusbar->show();
@@ -1201,7 +1201,6 @@ GUIApplicationWindow::onCmdGaming(FXObject*, FXSelector, void*) {
         myToolBar9->hide();
         myMessageWindow->show();
         myLCDLabel->setFgColor(MFXUtils::getFXColor(RGBColor::GREEN));
-        gSchemeStorage.getDefault().gaming = false;
     }
     if (myMDIClient->numChildren() > 0) {
         GUISUMOViewParent* w = dynamic_cast<GUISUMOViewParent*>(myMDIClient->getActiveChild());
