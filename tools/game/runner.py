@@ -36,6 +36,12 @@ from optparse import OptionParser
 from xml.dom import pulldom
 from collections import defaultdict
 
+SUMO_HOME = os.environ.get('SUMO_HOME',
+                           os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
+sys.path.append(os.path.join(SUMO_HOME, 'tools'))
+import sumolib  # noqa
+
+
 _UPLOAD = False if "noupload" in sys.argv else True
 _SCOREFILE = "scores.pkl"
 if _UPLOAD:
@@ -55,7 +61,9 @@ _LANGUAGE_EN = {'title': 'Interactive Traffic Light',
                 'bs3Dosm': '3D Junction OpenStreetMap',
                 'ramp': 'Highway Ramp',
                 'corridor': 'Corridor',
-                'A10KW': 'Highway Ramp A10 (new)',
+                'A10KW': 'Highway Ramp A10',
+                'DRT': 'Demand Responsive Transport (new)',
+                'DRT2': 'DRT - Advanced (new)',
                 'high': 'Highscore',
                 'reset': 'Reset Highscore',
                 'lang': 'Deutsch',
@@ -74,7 +82,9 @@ _LANGUAGE_DE = {'title': 'Interaktives Ampelspiel',
                 'bs3d': '3D Forschungskreuzung Virtuelle Welt',
                 'bs3Dosm': '3D Forschungskreuzung OpenStreetMap',
                 'ramp': 'Autobahnauffahrt',
-                'A10KW': 'A10 KW (neu)',
+                'A10KW': 'A10 KW',
+                'DRT': 'Bedarfsbus (neu)',
+                'DRT2': 'Bedarfsbus für Fortgeschrittene (neu)',
                 'corridor': 'Strecke',
                 'high': 'Bestenliste',
                 'reset': 'Bestenliste zurücksetzen',
@@ -182,9 +192,31 @@ def computeScoreFromTimeLoss(gamename):
         return score, totalArrived, True
 
 
+def computeScoreDRT(gamename):
+    rideWaitingTime = 0
+    completed = False
+
+    tripinfos = gamename + ".tripinfos.xml"
+    rideCount = 0
+    for ride in sumolib.xml.parse(tripinfos, 'ride'):
+        rideWaitingTime += float(ride.waitingTime)
+        rideCount += 1
+
+    if rideCount == 0:
+        return 0, totalArrived, False
+    else:
+        avgWT = rideWaitingTime / rideCount
+        if _DEBUG:
+            print("rideWaitingTime=%s ridecont=%s avgWT=%s" % (rideWaitingTime, rideCount, avgWT))
+        score = 1000 - int(avgWT)
+        return score, rideCount, True
+
+
 _SCORING_FUNCTION = defaultdict(lambda: computeScoreFromWaitingTime)
 _SCORING_FUNCTION.update({
     'A10KW': computeScoreFromTimeLoss,
+    'DRT': computeScoreDRT,
+    'DRT2': computeScoreDRT,
 })
 
 
@@ -337,14 +369,16 @@ class StartDialog(Tkinter.Frame):
         # parse switches
         switch = []
         lastProg = {}
-        for line in open(os.path.join(base, "%s.tlsstate.xml" % start.category)):
-            m = re.search(r'tlsstate time="(\d+(.\d+)?)" id="([^"]*)" programID="([^"]*)"', line)
-            if m:
-                tls = m.group(3)
-                program = m.group(4)
-                if tls not in lastProg or lastProg[tls] != program:
-                    lastProg[tls] = program
-                    switch += [m.group(3), m.group(1)]
+        tlsfile = os.path.join(base, "%s.tlsstate.xml" % start.category)
+        if os.path.exists(tlsfile):
+            for line in open(tlsfile):
+                m = re.search(r'tlsstate time="(\d+(.\d+)?)" id="([^"]*)" programID="([^"]*)"', line)
+                if m:
+                    tls = m.group(3)
+                    program = m.group(4)
+                    if tls not in lastProg or lastProg[tls] != program:
+                        lastProg[tls] = program
+                        switch += [m.group(3), m.group(1)]
 
         lang = start._language_text
         if _DEBUG:
@@ -466,21 +500,9 @@ base = os.path.dirname(sys.argv[0])
 high = loadHighscore()
 
 
-def findSumoBinary(guisimBinary):
-    if os.name != "posix":
-        guisimBinary += ".exe"
-    if os.path.exists(os.path.join(base, guisimBinary)):
-        guisimPath = os.path.join(base, guisimBinary)
-    else:
-        guisimPath = os.environ.get(
-            "GUISIM_BINARY", os.path.join(base, '..', '..', 'bin', guisimBinary))
-    if not os.path.exists(guisimPath):
-        guisimPath = guisimBinary
-    return guisimPath
 
-
-guisimPath = findSumoBinary("sumo-gui")
-haveOSG = "OSG" in subprocess.check_output(findSumoBinary("sumo"), universal_newlines=True)
+guisimPath = sumolib.checkBinary("sumo-gui")
+haveOSG = "OSG" in subprocess.check_output(sumolib.checkBinary("sumo"), universal_newlines=True)
 
 if options.stereo:
     for m in stereoModes:

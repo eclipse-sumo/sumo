@@ -93,6 +93,7 @@
 # tools dir
 /tools/game/*.netstate.xml
 /tools/game/*.tlsstate.xml
+/tools/game/*.tripinfos.xml
 /tools/game/racing/log
 /tools/game/racing/tripinfos.xml
 /tools/game/A10KW/*

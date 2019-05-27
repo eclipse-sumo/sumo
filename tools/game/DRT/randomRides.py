@@ -44,9 +44,8 @@ def get_options(args=None):
     optParser.add_option("--poi-offset", dest="poiOffset", type="float",
                          default=12, help="offset of stop-poi from the lane in m")
     optParser.add_option("--initial-duration", dest="duration", type="int", default=5, help="inital stop duration in s")
-    optParser.add_option(
-        "-p", "--period", type="float", default=1, help="Generate vehicles with equidistant departure times and " +
-        "period=FLOAT (default 1.0). If option --binomial is used, the expected arrival rate is set to 1/period.")
+    optParser.add_option("-p", "--period", type="float", default=1, 
+            help="Generate vehicles with equidistant departure times and period=FLOAT (default 1.0).")
     optParser.add_option("-s", "--seed", type="int", help="random seed")
     optParser.add_option("--min-distance", type="float", dest="min_distance",
                          default=0.0, help="require start and end edges for each trip to be at least <FLOAT> m apart")
