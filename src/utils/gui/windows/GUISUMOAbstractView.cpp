@@ -306,6 +306,9 @@ GUISUMOAbstractView::paintGL() {
     if (myVisualizationSettings->showSizeLegend) {
         displayLegend();
     }
+    if (myVisualizationSettings->showColorLegend) {
+        displayColorLegend();
+    }
     const long end = SysUtils::getCurrentMillis();
     myFrameDrawTime = end - start;
     if (myVisualizationSettings->fps) {
@@ -612,6 +615,92 @@ GUISUMOAbstractView::displayLegend() {
 
     // draw current scale
     GLHelper::drawText((text.substr(0, noDigits) + "m").c_str(), Position(-.99 + len, -0.99 + o2 + oo), z, fontHeight, RGBColor::BLACK, 0, FONS_ALIGN_LEFT, fontWidth);
+
+    // restore matrices
+    glMatrixMode(GL_PROJECTION);
+    glPopMatrix();
+    glMatrixMode(GL_MODELVIEW);
+    glPopMatrix();
+}
+
+void
+GUISUMOAbstractView::displayColorLegend() {
+    // compute the scale bar length
+    glLineWidth(1.0);
+    glMatrixMode(GL_PROJECTION);
+    glPushMatrix();
+    glLoadIdentity();
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glLoadIdentity();
+
+    const double z = -1;
+    glDisable(GL_TEXTURE_2D);
+    glDisable(GL_ALPHA_TEST);
+    glDisable(GL_BLEND);
+    glEnable(GL_DEPTH_TEST);
+    glPushMatrix();
+    glTranslated(0, 0, z);
+
+    // vertical
+    const double right = 0.98;
+    const double left = 0.95;
+    const double top = 0.8;
+    const double bot = -0.8;
+    glBegin(GL_LINES);
+    glVertex2d(right, top);
+    glVertex2d(right, bot);
+    glEnd();
+
+    GUIColorScheme& scheme = myVisualizationSettings->getLaneEdgeScheme();
+    //const bool fixed = scheme.isFixed();
+    int numColors = (int)scheme.getColors().size();
+    double dy = (top - bot) / numColors;
+    for (int i = 0; i < numColors; i++) {
+        GLHelper::setColor(scheme.getColors()[i]);
+        //const double threshold = scheme.getThresholds()[i];
+        const double topi = top - i * dy;
+        const double boti = top - (i + 1) * dy;
+        //std::cout << " col=" << scheme.getColors()[i] << " i=" << i << " topi=" << topi << " boti=" << boti << "\n";
+        //std::string name = scheme.getNames()[i];
+        glBegin(GL_QUADS);
+        glVertex2d(left, topi);
+        glVertex2d(right, topi);
+        glVertex2d(right, boti);
+        glVertex2d(left, boti);
+        glEnd();
+
+        /*
+        if (fixed) {
+            new FXLabel(m, nameIt->c_str());
+            new FXLabel(m, "");
+            new FXLabel(m, "");
+        } else {
+            const int dialerOptions = scheme.allowsNegativeValues() ? SPIN_NOMIN : 0;
+            FXRealSpinner* threshDialer = new FXRealSpinner(m, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignSpinDial | SPIN_NOMAX | dialerOptions);
+            threshDialer->setValue(*threshIt);
+            thresholds.push_back(threshDialer);
+            buttons.push_back(new FXButton(m, "Add", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsButton1));
+            buttons.push_back(new FXButton(m, "Remove", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsButton1));
+        }
+        */
+    }
+    //// tick at begin
+    //glVertex2d(-.98, -1. + o);
+    //glVertex2d(-.98, -1. + o2);
+    //// tick at end
+    //glVertex2d(-.98 + len, -1. + o);
+    //glVertex2d(-.98 + len, -1. + o2);
+    glEnd();
+    glPopMatrix();
+
+    //const double fontHeight = 0.1 * 300. / getHeight();
+    //const double fontWidth = 0.1 * 300. / getWidth();
+    // draw 0
+    //GLHelper::drawText("0", Position(-.99, -0.99 + o2 + oo), z, fontHeight, RGBColor::BLACK, 0, FONS_ALIGN_LEFT, fontWidth);
+
+    // draw current scale
+    //GLHelper::drawText((text.substr(0, noDigits) + "m").c_str(), Position(-.99 + len, -0.99 + o2 + oo), z, fontHeight, RGBColor::BLACK, 0, FONS_ALIGN_LEFT, fontWidth);
 
     // restore matrices
     glMatrixMode(GL_PROJECTION);

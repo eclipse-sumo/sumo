@@ -386,6 +386,9 @@ protected:
 
     /// @brief Draws a line with ticks, and the length information.
     void displayLegend();
+    
+    /// @brief Draws a legend for the current edge coloring scheme
+    void displayColorLegend();
 
     /// @brief Draws frames-per-second indicator
     void drawFPS();
