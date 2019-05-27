@@ -92,9 +92,9 @@ enum DemandEditMode {
     ///@brief mode for moving demand elements
     GNE_DMODE_MOVE,
     ///@brief Mode for editing routes
-    GNE_DMODE_ROUTES,
+    GNE_DMODE_ROUTE,
     ///@brief Mode for editing vehicles
-    GNE_DMODE_VEHICLES,
+    GNE_DMODE_VEHICLE,
     ///@brief Mode for editing vehicle types
     GNE_DMODE_VEHICLETYPES,
     ///@brief Mode for editing stops

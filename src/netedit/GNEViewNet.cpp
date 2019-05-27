@@ -759,9 +759,9 @@ GNEViewNet::abortOperation(bool clearSelection) {
             if (clearSelection) {
                 myViewParent->getSelectorFrame()->clearCurrentSelection();
             }
-        } else if (myEditModes.demandEditMode == GNE_DMODE_ROUTES) {
+        } else if (myEditModes.demandEditMode == GNE_DMODE_ROUTE) {
             myViewParent->getRouteFrame()->hotkeyEsc();
-        } else if (myEditModes.demandEditMode == GNE_DMODE_VEHICLES) {
+        } else if (myEditModes.demandEditMode == GNE_DMODE_VEHICLE) {
             myViewParent->getVehicleFrame()->getTripRouteCreator()->onCmdAbortRouteCreation(0, 0, 0);
         }
     }
@@ -838,9 +838,9 @@ GNEViewNet::hotkeyEnter() {
         }
     } else if (myEditModes.currentSupermode == GNE_SUPERMODE_DEMAND) {
         // abort operation depending of current mode
-        if (myEditModes.demandEditMode == GNE_DMODE_ROUTES) {
+        if (myEditModes.demandEditMode == GNE_DMODE_ROUTE) {
             myViewParent->getRouteFrame()->hotkeyEnter();
-        } else if (myEditModes.demandEditMode == GNE_DMODE_VEHICLES) {
+        } else if (myEditModes.demandEditMode == GNE_DMODE_VEHICLE) {
             myViewParent->getVehicleFrame()->getTripRouteCreator()->onCmdFinishRouteCreation(0, 0, 0);
         }
     }
@@ -852,9 +852,9 @@ GNEViewNet::hotkeyBackSpace() {
     // Currently only used in Demand mode
     if (myEditModes.currentSupermode == GNE_SUPERMODE_DEMAND) {
         // abort operation depending of current mode
-        if (myEditModes.demandEditMode == GNE_DMODE_ROUTES) {
+        if (myEditModes.demandEditMode == GNE_DMODE_ROUTE) {
             myViewParent->getRouteFrame()->hotkeyBackSpace();
-        } else if (myEditModes.demandEditMode == GNE_DMODE_VEHICLES) {
+        } else if (myEditModes.demandEditMode == GNE_DMODE_VEHICLE) {
             myViewParent->getVehicleFrame()->getTripRouteCreator()->onCmdRemoveLastRouteEdge(0, 0, 0);
         }
     }
@@ -1127,10 +1127,10 @@ GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
                 myEditModes.setDemandEditMode(GNE_DMODE_MOVE);
                 break;
             case MID_HOTKEY_R_CROSSINGMODE_ROUTEMODE:
-                myEditModes.setDemandEditMode(GNE_DMODE_ROUTES);
+                myEditModes.setDemandEditMode(GNE_DMODE_ROUTE);
                 break;
             case MID_HOTKEY_V_VEHICLEMODE:
-                myEditModes.setDemandEditMode(GNE_DMODE_VEHICLES);
+                myEditModes.setDemandEditMode(GNE_DMODE_VEHICLE);
                 break;
             case MID_HOTKEY_T_TLSMODE_VTYPEMODE:
                 myEditModes.setDemandEditMode(GNE_DMODE_VEHICLETYPES);
@@ -1817,8 +1817,24 @@ GNEViewNet::processClick(void* eventData) {
 
 void
 GNEViewNet::updateCursor() {
+    // declare a flag for cursor move
+    bool cursorMove = false;
+    // check if in current mode/supermode cursor move can be shown
+    if (myEditModes.currentSupermode == GNE_SUPERMODE_NETWORK) {
+        if ((myEditModes.networkEditMode == GNE_NMODE_ADDITIONAL) || 
+            (myEditModes.networkEditMode == GNE_NMODE_POLYGON) || 
+            (myEditModes.networkEditMode == GNE_NMODE_TAZ)) {
+            cursorMove = true;
+        }
+    } else if (myEditModes.currentSupermode == GNE_SUPERMODE_DEMAND) {
+        if ((myEditModes.demandEditMode == GNE_DMODE_ROUTE) || 
+            (myEditModes.demandEditMode == GNE_DMODE_VEHICLE) || 
+            (myEditModes.demandEditMode == GNE_DMODE_STOP)) {
+            cursorMove = true;
+        }
+    }
     // update cursor if control key is pressed
-    if (myKeyPressed.controlKeyPressed() && ((myEditModes.networkEditMode == GNE_NMODE_ADDITIONAL) || (myEditModes.networkEditMode == GNE_NMODE_POLYGON) || (myEditModes.networkEditMode == GNE_NMODE_TAZ))) {
+    if (myKeyPressed.controlKeyPressed() && cursorMove) {
         setDefaultCursor(GUICursorSubSys::getCursor(SUMOCURSOR_MOVE));
         setDragCursor(GUICursorSubSys::getCursor(SUMOCURSOR_MOVE));
     } else {
@@ -2334,7 +2350,7 @@ GNEViewNet::updateDemandModeSpecificControls() {
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
         // specific modes
-        case GNE_DMODE_ROUTES:
+        case GNE_DMODE_ROUTE:
             myViewParent->getRouteFrame()->show();
             myViewParent->getRouteFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getRouteFrame();
@@ -2342,7 +2358,7 @@ GNEViewNet::updateDemandModeSpecificControls() {
             // hide toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->hide();
             break;
-        case GNE_DMODE_VEHICLES:
+        case GNE_DMODE_VEHICLE:
             myViewParent->getVehicleFrame()->show();
             myViewParent->getVehicleFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getVehicleFrame();
@@ -3063,9 +3079,9 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
             }
             break;
         }
-        case GNE_DMODE_ROUTES: {
-            // check if we clicked over a lane
-            if (myObjectsUnderCursor.getLaneFront()) {
+        case GNE_DMODE_ROUTE: {
+            // check if we clicked over a lane and Control key isn't pressed
+            if (myObjectsUnderCursor.getLaneFront() && !myKeyPressed.controlKeyPressed()) {
                 // Handle edge click
                 myViewParent->getRouteFrame()->handleEdgeClick(&myObjectsUnderCursor.getLaneFront()->getParentEdge());
             }
@@ -3073,16 +3089,22 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
             processClick(eventData);
             break;
         }
-        case GNE_DMODE_VEHICLES: {
-            // Handle click
-            myViewParent->getVehicleFrame()->addVehicle(myObjectsUnderCursor);
+        case GNE_DMODE_VEHICLE: {
+            // make sure that Control key isn't pressed
+            if (!myKeyPressed.controlKeyPressed()) {
+                // Handle click
+                myViewParent->getVehicleFrame()->addVehicle(myObjectsUnderCursor);
+            }
             // process click
             processClick(eventData);
             break;
         }
         case GNE_DMODE_STOP: {
-            // Handle click
-            myViewParent->getStopFrame()->addStop(myObjectsUnderCursor, myKeyPressed.shiftKeyPressed());
+            // make sure that Control key isn't pressed
+            if (!myKeyPressed.controlKeyPressed()) {
+                // Handle click
+                myViewParent->getStopFrame()->addStop(myObjectsUnderCursor, myKeyPressed.shiftKeyPressed());
+            }
             // process click
             processClick(eventData);
             break;
