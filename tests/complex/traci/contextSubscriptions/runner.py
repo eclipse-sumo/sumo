@@ -23,8 +23,13 @@ import math
 SUMO_HOME = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..")
 sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
 import sumolib  # noqa
-import traci  # noqa
-
+print(sys.argv)
+if sys.argv[1] == "-libsumo":
+    import libsumo as traci  # noqa
+    del sys.argv[0]
+else:
+    import traci  # noqa
+print(sys.argv)
 sumoCall = [sumolib.checkBinary(sys.argv[1]), '-S', '-Q']
 
 

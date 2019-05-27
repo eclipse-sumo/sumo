@@ -96,6 +96,7 @@ for step in range(3, 6):
     print("step", step)
     traci.simulationStep()
     print(traci.edge.getSubscriptionResults(edgeID))
+print(traci.edge.getAllSubscriptionResults())
 for step in range(10):
     traci.simulationStep()
     print("3si count=%s meanSpeed=%s travelTime=%s" % (

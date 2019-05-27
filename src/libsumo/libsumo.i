@@ -101,24 +101,27 @@ def simulationStep(step=0):
 }
 
 
-%typemap(out) std::map<int, std::shared_ptr<libsumo::TraCIResult> > {
-    $result = PyDict_New();
-    for (auto iter = $1.begin(); iter != $1.end(); ++iter) {
+%{
+#include <libsumo/TraCIDefs.h>
+
+static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsumo::TraCIResult> >& subMap) {
+    PyObject* result = PyDict_New();
+    for (auto iter = subMap.begin(); iter != subMap.end(); ++iter) {
         const int theKey = iter->first;
         const libsumo::TraCIResult* const theVal = iter->second.get();
         const libsumo::TraCIDouble* const theDouble = dynamic_cast<const libsumo::TraCIDouble*>(theVal);
         if (theDouble != nullptr) {
-            PyDict_SetItem($result, PyInt_FromLong(theKey), PyFloat_FromDouble(theDouble->value));
+            PyDict_SetItem(result, PyInt_FromLong(theKey), PyFloat_FromDouble(theDouble->value));
             continue;
         }
         const libsumo::TraCIInt* const theInt = dynamic_cast<const libsumo::TraCIInt*>(theVal);
         if (theInt != nullptr) {
-            PyDict_SetItem($result, PyInt_FromLong(theKey), PyInt_FromLong(theInt->value));
+            PyDict_SetItem(result, PyInt_FromLong(theKey), PyInt_FromLong(theInt->value));
             continue;
         }
         const libsumo::TraCIString* const theString = dynamic_cast<const libsumo::TraCIString*>(theVal);
         if (theString != nullptr) {
-            PyDict_SetItem($result, PyInt_FromLong(theKey), PyUnicode_FromString(theString->value.c_str()));
+            PyDict_SetItem(result, PyInt_FromLong(theKey), PyUnicode_FromString(theString->value.c_str()));
             continue;
         }
         const libsumo::TraCIStringList* const theStringList = dynamic_cast<const libsumo::TraCIStringList*>(theVal);
@@ -128,7 +131,7 @@ def simulationStep(step=0):
             for (Py_ssize_t i = 0; i < size; i++) {
                 PyTuple_SetItem(tuple, i, PyUnicode_FromString(theStringList->value[i].c_str()));
             }
-            PyDict_SetItem($result, PyInt_FromLong(theKey), tuple);
+            PyDict_SetItem(result, PyInt_FromLong(theKey), tuple);
             continue;
         }
         const libsumo::TraCIPosition* const thePosition = dynamic_cast<const libsumo::TraCIPosition*>(theVal);
@@ -139,7 +142,7 @@ def simulationStep(step=0):
             } else {
                 tuple = PyTuple_Pack(2, PyFloat_FromDouble(thePosition->x), PyFloat_FromDouble(thePosition->y));
             }
-            PyDict_SetItem($result, PyInt_FromLong(theKey), tuple);
+            PyDict_SetItem(result, PyInt_FromLong(theKey), tuple);
             continue;
         }
         const libsumo::TraCIRoadPosition* const theRoadPosition = dynamic_cast<const libsumo::TraCIRoadPosition*>(theVal);
@@ -150,11 +153,36 @@ def simulationStep(step=0):
             } else {
                 tuple = PyTuple_Pack(2, PyUnicode_FromString(theRoadPosition->edgeID.c_str()), PyFloat_FromDouble(theRoadPosition->pos));
             }
-            PyDict_SetItem($result, PyInt_FromLong(theKey), tuple);
+            PyDict_SetItem(result, PyInt_FromLong(theKey), tuple);
             continue;
         }
-        PyObject *value = SWIG_NewPointerObj(SWIG_as_voidptr(theVal), SWIGTYPE_p_libsumo__TraCIResult, 0);
-        PyDict_SetItem($result, PyInt_FromLong(theKey), value);
+        PyObject* value = SWIG_NewPointerObj(SWIG_as_voidptr(theVal), SWIGTYPE_p_libsumo__TraCIResult, 0);
+        PyDict_SetItem(result, PyInt_FromLong(theKey), value);
+    }
+	return result;
+}
+%}
+
+%typemap(out) std::map<int, std::shared_ptr<libsumo::TraCIResult> > {
+    $result = parseSubscriptionMap($1);
+};
+
+%typemap(out) std::map<std::string, std::map<int, std::shared_ptr<libsumo::TraCIResult> > > {
+    $result = PyDict_New();
+    for (auto iter = $1.begin(); iter != $1.end(); ++iter) {
+        const std::string theKey = iter->first;
+        PyDict_SetItem($result, PyUnicode_FromString(theKey.c_str()), parseSubscriptionMap(iter->second));
+    }
+};
+
+%typemap(out) std::map<std::string, std::map<std::string, std::map<int, std::shared_ptr<libsumo::TraCIResult> > > > {
+    $result = PyDict_New();
+    for (auto iter = $1.begin(); iter != $1.end(); ++iter) {
+        PyObject* innerDict = PyDict_New();
+		for (auto inner = iter->second.begin(); inner != iter->second.end(); ++inner) {
+            PyDict_SetItem(innerDict, PyUnicode_FromString(inner->first.c_str()), parseSubscriptionMap(inner->second));
+		}
+        PyDict_SetItem($result, PyUnicode_FromString(iter->first.c_str()), innerDict);
     }
 };
 
@@ -310,7 +338,6 @@ def simulationStep(step=0):
 
 // Add necessary symbols to generated header
 %{
-#include <libsumo/TraCIDefs.h>
 #include <libsumo/Edge.h>
 #include <libsumo/InductionLoop.h>
 #include <libsumo/Junction.h>
