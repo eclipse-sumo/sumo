@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon 27 May 2019 09:13:26 PM CEST by Eclipse SUMO netedit Version v1_2_0+0149-6b40db9d1b
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="input.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="input.net.xml"/>
+        <plain-output-prefix value="/home/kobo/dlr/debug/002_webWizard/5681b/onramp/input_plain"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<edges version="1.3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="13254683" from="122375446" to="2933620868" priority="9" type="highway.motorway_link" numLanes="1" speed="22.22" shape="0.00,242.36 29.92,224.22 58.77,203.68 87.10,187.85 112.82,177.90 146.20,169.93 176.37,172.16 209.64,180.27 235.94,192.69 329.51,253.17 349.31,271.59 367.09,297.01 372.31,311.59 376.36,326.43 371.58,425.77" spreadType="center" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2"/>
+    <edge id="13259376" from="122415008" to="122413289" priority="9" type="highway.motorway_link" numLanes="1" speed="22.22" shape="416.66,0.00 425.04,14.51 429.09,27.08 429.12,42.26 424.14,84.79 414.69,165.48 392.63,327.95" spreadType="center" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2"/>
+    <edge id="69902841#1" from="2933620868" to="837607525" priority="14" type="highway.motorway" numLanes="2" speed="39.44" spreadType="center" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2"/>
+    <edge id="69902841#2" from="122413289" to="2933620868" priority="14" type="highway.motorway" numLanes="2" speed="39.44" spreadType="center" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2"/>
+    <edge id="69902841#3" from="122280499" to="122413289" priority="14" type="highway.motorway" numLanes="2" speed="39.44" shape="440.92,105.87 406.36,272.86 392.63,327.95" spreadType="center" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2"/>
+</edges>
