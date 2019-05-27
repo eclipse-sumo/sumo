@@ -28,6 +28,7 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSVehicle.h>
+#include <microsim/MSTransportableControl.h>
 #include <mesosim/MEVehicle.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
@@ -285,11 +286,12 @@ MSDevice_Tripinfo::generateOutput() const {
 
 void
 MSDevice_Tripinfo::generateOutputForUnfinished() {
+    MSNet* net = MSNet::getInstance();
     const bool writeTripinfos = OptionsCont::getOptions().isSet("tripinfo-output");
     myWaitingDepartDelay = 0;
     int undeparted = 0;
     int departed = 0;
-    const SUMOTime t = MSNet::getInstance()->getCurrentTimeStep();
+    const SUMOTime t = net->getCurrentTimeStep();
     while (myPendingOutput.size() > 0) {
         const MSDevice_Tripinfo* d = *myPendingOutput.begin();
         if (d->myHolder.hasDeparted()) {
@@ -310,6 +312,14 @@ MSDevice_Tripinfo::generateOutputForUnfinished() {
     if (myWaitingDepartDelay > 0) {
         myWaitingDepartDelay /= undeparted;
     }
+    // unfinished persons
+    if (net->hasPersons()) {
+        MSTransportableControl& pc = net->getPersonControl();
+        while(pc.loadedBegin() != pc.loadedEnd()) {
+            pc.erase(pc.loadedBegin()->second);
+        }
+    }
+
 }
 
 
