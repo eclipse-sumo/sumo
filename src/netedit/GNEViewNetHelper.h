@@ -378,6 +378,59 @@ struct GNEViewNetHelper {
         ViewOptionsNetwork& operator=(const ViewOptionsNetwork&) = delete;
     };
 
+    /// @brief struct used to group all variables related to view options in Demand supermode
+    struct ViewOptionsDemand {
+
+        /// @brief default constructor
+        ViewOptionsDemand(GNEViewNet* viewNet);
+
+        /// @brief build menu checks
+        void buildViewOptionsDemandMenuChecks();
+
+        /// @brief hide all options menu checks
+        void hideViewOptionsDemandMenuChecks();
+
+        /// @brief check if show demand elements checkbox is enabled
+        bool showDemandElements() const;
+
+        /// @brief check if select edges checkbox is enabled
+        bool selectEdges() const;
+
+        /// @brief check if select show connections checkbox is enabled
+        bool showConnections() const;
+
+        /// @brief menu check to show Demand Elements
+        FXMenuCheck* menuCheckShowDemandElements;
+
+        /// @brief menu check to select only edges
+        FXMenuCheck* menuCheckSelectEdges;
+
+        /// @brief menu check to show connections
+        FXMenuCheck* menuCheckShowConnections;
+
+        /// @brief menu check to hide connections in connect mode
+        FXMenuCheck* menuCheckHideConnections;
+
+        /// @brief menu check to extend to edge nodes
+        FXMenuCheck* menuCheckExtendSelection;
+
+        /// @brief menu check to set change all phases
+        FXMenuCheck* menuCheckChangeAllPhases;
+
+        /// @brief show grid button
+        FXMenuCheck* menuCheckShowGrid;
+
+    private:
+        /// @brief pointer to viewNet
+        GNEViewNet* myViewNet;
+
+        /// @brief Invalidated copy constructor.
+        ViewOptionsDemand(const ViewOptionsDemand&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        ViewOptionsDemand& operator=(const ViewOptionsDemand&) = delete;
+    };
+
     /// @brief struct used to group all variables related to create edges
     struct MoveOptions {
 

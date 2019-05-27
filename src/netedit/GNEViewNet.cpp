@@ -167,6 +167,7 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myDemandCheckableButtons(this),
     mySelectingArea(this),
     myViewOptionsNetwork(this),
+    myViewOptionsDemand(this),
     myCreateEdgeOptions(this),
     myMoveOptions(this),
     myMoveSingleElementValues(this),
@@ -401,6 +402,11 @@ GNEViewNet::getViewOptionsNetwork() const {
     return myViewOptionsNetwork;
 }
 
+const GNEViewNetHelper::ViewOptionsDemand&
+GNEViewNet::getViewOptionsDemand() const {
+    return myViewOptionsDemand;
+}
+
 
 const GNEViewNetHelper::CreateEdgeOptions&
 GNEViewNet::getCreateEdgeOptions() const {
@@ -505,6 +511,7 @@ GNEViewNet::GNEViewNet() :
     myDemandCheckableButtons(this),
     mySelectingArea(this),
     myViewOptionsNetwork(this),
+    myViewOptionsDemand(this),
     myCreateEdgeOptions(this),
     myMoveOptions(this),
     myMoveSingleElementValues(this),
@@ -2129,8 +2136,11 @@ GNEViewNet::buildEditModeControls() {
     // build menu checks for Demand checkable buttons
     myDemandCheckableButtons.buildDemandCheckableButtons();
 
-    // build menu checks of view options
+    // build menu checks of view options Network
     myViewOptionsNetwork.buildViewOptionsNetworkMenuChecks();
+
+    // build menu checks of view options Demand
+    myViewOptionsDemand.buildViewOptionsDemandMenuChecks();
 
     // build menu checks of create edge options
     myCreateEdgeOptions.buildCreateEdgeOptionMenuChecks();
@@ -2148,8 +2158,10 @@ GNEViewNet::updateNetworkModeSpecificControls() {
     myCreateEdgeOptions.hideCreateEdgeOptionMenuChecks();
     // hide all checkbox of move
     myMoveOptions.hideMoveOptionMenuChecks();
-    // hide all checkbox of view options
+    // hide all checkbox of view options Network
     myViewOptionsNetwork.hideViewOptionsNetworkMenuChecks();
+    // hide all checkbox of view options Demand
+    myViewOptionsDemand.hideViewOptionsDemandMenuChecks();
     // disable all common edit modes
     myCommonCheckableButtons.disableCommonCheckableButtons();
     // disable all network edit modes
@@ -2307,8 +2319,10 @@ GNEViewNet::updateDemandModeSpecificControls() {
     myCreateEdgeOptions.hideCreateEdgeOptionMenuChecks();
     // hide all checkbox of move
     myMoveOptions.hideMoveOptionMenuChecks();
-    // hide all checkbox of view options
+    // hide all checkbox of view options Network
     myViewOptionsNetwork.hideViewOptionsNetworkMenuChecks();
+    // hide all checkbox of view options Demand
+    myViewOptionsDemand.hideViewOptionsDemandMenuChecks();
     // disable all common edit modes
     myCommonCheckableButtons.disableCommonCheckableButtons();
     // disable all Demand edit modes
