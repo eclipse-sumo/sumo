@@ -1,11 +1,11 @@
 Loading configuration... done.
 Success.
 Loading configuration... done.
-***Starting server on port 60333 ***
+***Starting server on port 49480 ***
 Loading net-file from 'data/../pedcrossing.net.xml'... done (1ms).
-Loading additional-files from 'data/pedcrossing.tll.xml'... done (5ms).
+Loading additional-files from 'data/pedcrossing.tll.xml'... done (2ms).
 Loading done.
-Simulation version v1_1_0+0435-678c69824b started with time: 0.00
+Simulation version v1_2_0+0252-83989c2 started with time: 0.00
  Retrying in 1 seconds
 ped0 pushes the button
 ped1 pushes the button
@@ -15,75 +15,71 @@ ped7 pushes the button
 ped8 pushes the button
 ped9 pushes the button
 ped10 pushes the button
-ped10 pushes the button
 ped11 pushes the button
 ped12 pushes the button
-ped14 pushes the button
-ped14 pushes the button
-ped16 pushes the button
+ped13 pushes the button
 ped15 pushes the button
+ped17 pushes the button
 ped19 pushes the button
-ped20 pushes the button
+ped18 pushes the button
+ped21 pushes the button
 ped22 pushes the button
-ped23 pushes the button
 ped24 pushes the button
 ped25 pushes the button
-ped28 pushes the button
 ped27 pushes the button
+ped28 pushes the button
 ped29 pushes the button
-ped30 pushes the button
 ped31 pushes the button
+ped33 pushes the button
 ped34 pushes the button
 ped36 pushes the button
-ped38 pushes the button
+ped37 pushes the button
+ped39 pushes the button
 ped40 pushes the button
-ped41 pushes the button
 ped42 pushes the button
-ped42 pushes the button
+ped43 pushes the button
 ped44 pushes the button
+ped45 pushes the button
 ped47 pushes the button
-ped48 pushes the button
 ped49 pushes the button
-ped51 pushes the button
+ped49 pushes the button
 ped52 pushes the button
 ped53 pushes the button
 ped54 pushes the button
 ped55 pushes the button
 ped57 pushes the button
-ped56 pushes the button
 ped58 pushes the button
-ped59 pushes the button
-ped62 pushes the button
 ped60 pushes the button
 ped63 pushes the button
-ped63 pushes the button
+ped64 pushes the button
 ped66 pushes the button
+ped67 pushes the button
 ped68 pushes the button
 ped69 pushes the button
 ped70 pushes the button
 ped71 pushes the button
 ped72 pushes the button
-ped74 pushes the button
 ped73 pushes the button
+ped74 pushes the button
+ped75 pushes the button
 ped76 pushes the button
 ped76 pushes the button
 ped78 pushes the button
-ped79 pushes the button
 ped80 pushes the button
 ped81 pushes the button
-ped83 pushes the button
+ped81 pushes the button
 ped84 pushes the button
-ped85 pushes the button
-ped87 pushes the button
+ped86 pushes the button
+ped88 pushes the button
 ped91 pushes the button
 ped90 pushes the button
 ped93 pushes the button
-Simulation ended at time: 3663.00
+Simulation ended at time: 3672.00
 Reason: TraCI requested termination.
 Performance: 
- Duration: 2055ms
- Real time factor: 1782.48
- UPS: 9170.316302
+ Duration: 1063ms
+ Real time factor: 3454.37
+ UPS: 17185.324553
 Vehicles: 
  Inserted: 742
  Running: 0
@@ -92,9 +88,9 @@ Persons:
  Inserted: 94
  Running: 0
 
-DijkstraRouter answered 1086 queries and explored 6.65 edges on average.
-DijkstraRouter spent 4ms answering queries (0.00ms on average).
+DijkstraRouter answered 1000 queries and explored 6.62 edges on average.
+DijkstraRouter spent 3ms answering queries (0.00ms on average).
 DijkstraRouter answered 94 queries and explored 11.00 edges on average.
-DijkstraRouter spent 0ms answering queries (0.00ms on average).
+DijkstraRouter spent 1ms answering queries (0.01ms on average).
 DijkstraRouter answered 742 queries and explored 2.00 edges on average.
-DijkstraRouter spent 2ms answering queries (0.00ms on average).
+DijkstraRouter spent 0ms answering queries (0.00ms on average).
