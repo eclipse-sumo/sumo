@@ -822,9 +822,9 @@ MSRailSignal::DriveWay::checkCrossingFlanks(MSLink* dwLink, const LaneSet& visit
             continue;
         }
         for (MSLane* inLane : in->getLanes()) {
-            if (visited.count(inLane) == 0) {
+            if (isRailway(inLane->getPermissions()) && visited.count(inLane) == 0) {
                 for (MSLink* link : inLane->getLinkCont()) {
-                    if (logic->getFoesFor(dwLink->getIndex()).test(link->getIndex())
+                    if (link->getIndex() >= 0 && logic->getFoesFor(dwLink->getIndex()).test(link->getIndex())
                             && visited.count(link->getLane()) == 0) {
 #ifdef DEBUG_CHECK_FLANKS
                         std::cout << " add crossing flankSwitch junction=" << junction->getID() << " index=" << link->getIndex() << "\n";
