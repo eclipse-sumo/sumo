@@ -529,7 +529,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
         i->drawGL(s);
     }
     // draw edge chidls
-    if (myNet->getViewNet()->getViewOptions().showDemandElements()) {
+    if (myNet->getViewNet()->getViewOptionsNetwork().showDemandElements()) {
         // certain demand elements childs can contain loops (for example, routes) and it causes overlapping problems. It's needed to filter it before drawing
         for (const auto &i : getSortedDemandElementChildsByType(SUMO_TAG_ROUTE)) {
             // draw partial route

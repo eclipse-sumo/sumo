@@ -97,7 +97,7 @@ public:
     const GNEViewNetHelper::MoveOptions& getMoveOptions() const;
 
     /// @brief get view options
-    const GNEViewNetHelper::ViewOptions& getViewOptions() const;
+    const GNEViewNetHelper::ViewOptionsNetwork& getViewOptionsNetwork() const;
 
     // @brief get Create Edge Options
     const GNEViewNetHelper::CreateEdgeOptions& getCreateEdgeOptions() const;
@@ -353,8 +353,8 @@ private:
     /// @brief variable used to save variables related with selecting areas
     GNEViewNetHelper::SelectingArea mySelectingArea;
 
-    /// @brief variable used to save variables related with view options
-    GNEViewNetHelper::ViewOptions myViewOptions;
+    /// @brief variable used to save variables related with view options in Network Supermode
+    GNEViewNetHelper::ViewOptionsNetwork myViewOptionsNetwork;
     /// @}
 
     /// @name structs related with Network options

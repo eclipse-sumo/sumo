@@ -325,17 +325,17 @@ struct GNEViewNetHelper {
         EditModes& operator=(const EditModes&) = delete;
     };
 
-    /// @brief struct used to group all variables related to view options
-    struct ViewOptions {
+    /// @brief struct used to group all variables related to view options in Network supermode
+    struct ViewOptionsNetwork {
 
         /// @brief default constructor
-        ViewOptions(GNEViewNet* viewNet);
+        ViewOptionsNetwork(GNEViewNet* viewNet);
 
         /// @brief build menu checks
-        void buildViewOptionsMenuChecks();
+        void buildViewOptionsNetworkMenuChecks();
 
         /// @brief hide all options menu checks
-        void hideViewOptionsMenuChecks();
+        void hideViewOptionsNetworkMenuChecks();
 
         /// @brief check if show demand elements checkbox is enabled
         bool showDemandElements() const;
@@ -372,10 +372,10 @@ struct GNEViewNetHelper {
         GNEViewNet* myViewNet;
 
         /// @brief Invalidated copy constructor.
-        ViewOptions(const ViewOptions&) = delete;
+        ViewOptionsNetwork(const ViewOptionsNetwork&) = delete;
 
         /// @brief Invalidated assignment operator.
-        ViewOptions& operator=(const ViewOptions&) = delete;
+        ViewOptionsNetwork& operator=(const ViewOptionsNetwork&) = delete;
     };
 
     /// @brief struct used to group all variables related to create edges

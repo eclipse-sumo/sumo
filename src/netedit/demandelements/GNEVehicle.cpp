@@ -408,7 +408,7 @@ GNEVehicle::getCenteringBoundary() const {
 void
 GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
     // only drawn in super mode demand
-    if (myViewNet->getViewOptions().showDemandElements()) {
+    if (myViewNet->getViewOptionsNetwork().showDemandElements()) {
         // declare common attributes
         const double upscale = s.vehicleSize.getExaggeration(s, this);
         const double width = parse<double>(getDemandElementParents().at(0)->getAttribute(SUMO_ATTR_WIDTH));

@@ -152,7 +152,7 @@ GNESelectorFrame::clearCurrentSelection() const {
                 // due we iterate over all junctions, only it's neccesary iterate over incoming edges
                 for (const auto &j : i.second->getGNEIncomingEdges()) {
                     // only select edges if "select edges" flag is enabled. In other case, select only lanes
-                    if (myViewNet->getViewOptions().selectEdges()) {
+                    if (myViewNet->getViewOptionsNetwork().selectEdges()) {
                         // check if edge selection is locked
                         if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_EDGE)) {
                             if (j->isAttributeCarrierSelected()) {
@@ -1203,7 +1203,7 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
                 // due we iterate over all junctions, only it's neccesary iterate over incoming edges
                 for (const auto &j : i.second->getGNEIncomingEdges()) {
                     // only select edges if "select edges" flag is enabled. In other case, select only lanes
-                    if (mySelectorFrameParent->myViewNet->getViewOptions().selectEdges()) {
+                    if (mySelectorFrameParent->myViewNet->getViewOptionsNetwork().selectEdges()) {
                         // check if edge selection is locked
                         if (!locks->IsObjectTypeLocked(GLO_EDGE)) {
                             if (j->isAttributeCarrierSelected()) {

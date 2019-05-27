@@ -1526,13 +1526,13 @@ GNEViewNetHelper::EditModes::setDemandEditMode(DemandEditMode mode, bool force) 
 // GNEViewNetHelper::ViewOptions - methods
 // ---------------------------------------------------------------------------
 
-GNEViewNetHelper::ViewOptions::ViewOptions(GNEViewNet* viewNet) :
+GNEViewNetHelper::ViewOptionsNetwork::ViewOptionsNetwork(GNEViewNet* viewNet) :
     myViewNet(viewNet) {
 }
 
 
 void
-GNEViewNetHelper::ViewOptions::buildViewOptionsMenuChecks() {
+GNEViewNetHelper::ViewOptionsNetwork::buildViewOptionsNetworkMenuChecks() {
     menuCheckShowDemandElements = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions, "Show demand elements\t\tToggle show demand elements", myViewNet, MID_GNE_VIEWNET_SHOW_DEMAND_ELEMENTS, LAYOUT_FIX_HEIGHT);
     menuCheckShowDemandElements->setHeight(23);
     menuCheckShowDemandElements->setCheck(false);
@@ -1574,7 +1574,7 @@ GNEViewNetHelper::ViewOptions::buildViewOptionsMenuChecks() {
 
 
 void
-GNEViewNetHelper::ViewOptions::hideViewOptionsMenuChecks() {
+GNEViewNetHelper::ViewOptionsNetwork::hideViewOptionsNetworkMenuChecks() {
     menuCheckShowDemandElements->hide();
     menuCheckSelectEdges->hide();
     menuCheckShowConnections->hide();
@@ -1588,7 +1588,7 @@ GNEViewNetHelper::ViewOptions::hideViewOptionsMenuChecks() {
 
 
 bool
-GNEViewNetHelper::ViewOptions::showDemandElements() const {
+GNEViewNetHelper::ViewOptionsNetwork::showDemandElements() const {
     if (menuCheckShowDemandElements->shown()) {
         return (menuCheckShowDemandElements->getCheck() == TRUE);
     } else {
@@ -1599,7 +1599,7 @@ GNEViewNetHelper::ViewOptions::showDemandElements() const {
 
 
 bool
-GNEViewNetHelper::ViewOptions::selectEdges() const {
+GNEViewNetHelper::ViewOptionsNetwork::selectEdges() const {
     if (menuCheckSelectEdges->shown()) {
         return (menuCheckSelectEdges->getCheck() == TRUE);
     } else {
@@ -1610,13 +1610,13 @@ GNEViewNetHelper::ViewOptions::selectEdges() const {
 
 
 bool
-GNEViewNetHelper::ViewOptions::showConnections() const {
+GNEViewNetHelper::ViewOptionsNetwork::showConnections() const {
     if (myViewNet->myEditModes.networkEditMode == GNE_NMODE_CONNECT) {
         // check if menu hceck hide connections ins shown
-        return (myViewNet->myViewOptions.menuCheckHideConnections->getCheck() == FALSE);
+        return (menuCheckHideConnections->getCheck() == FALSE);
     } else if (myViewNet->myEditModes.networkEditMode == GNE_NMODE_PROHIBITION) {
         return true;
-    } else if (myViewNet->myViewOptions.menuCheckShowConnections->shown() == false) {
+    } else if (menuCheckShowConnections->shown() == false) {
         return false;
     } else {
         return (myViewNet->getVisualisationSettings()->showLane2Lane);

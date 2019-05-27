@@ -1981,12 +1981,12 @@ GNEApplicationWindow::onCmdToogleGrid(FXObject*, FXSelector, void*) {
     // check that view exists
     if (myViewNet) {
         // Toogle getMenuCheckShowGrid of GNEViewNet
-        if (myViewNet->getViewOptions().menuCheckShowGrid->getCheck() == TRUE) {
-            myViewNet->getViewOptions().menuCheckShowGrid->setCheck(FALSE);
+        if (myViewNet->getViewOptionsNetwork().menuCheckShowGrid->getCheck() == TRUE) {
+            myViewNet->getViewOptionsNetwork().menuCheckShowGrid->setCheck(FALSE);
             // show extra information for tests
             WRITE_DEBUG("Disabled grid throught Ctrl+g hotkey");
         } else {
-            myViewNet->getViewOptions().menuCheckShowGrid->setCheck(TRUE);
+            myViewNet->getViewOptionsNetwork().menuCheckShowGrid->setCheck(TRUE);
             // show extra information for tests
             WRITE_WARNING("Enabled grid throught Ctrl+g hotkey");
         }
@@ -2002,12 +2002,12 @@ GNEApplicationWindow::onCmdToogleShowConnections(FXObject*, FXSelector, void*) {
     // check that view exists
     if (myViewNet) {
         // Toogle menuCheckShowConnections of GNEViewNet
-        if (myViewNet->getViewOptions().menuCheckShowConnections->getCheck() == TRUE) {
-            myViewNet->getViewOptions().menuCheckShowConnections->setCheck(FALSE);
+        if (myViewNet->getViewOptionsNetwork().menuCheckShowConnections->getCheck() == TRUE) {
+            myViewNet->getViewOptionsNetwork().menuCheckShowConnections->setCheck(FALSE);
             // show extra information for tests
             WRITE_DEBUG("Disabled show connections throught Ctrl+shift+c hotkey");
         } else {
-            myViewNet->getViewOptions().menuCheckShowConnections->setCheck(TRUE);
+            myViewNet->getViewOptionsNetwork().menuCheckShowConnections->setCheck(TRUE);
             // show extra information for tests
             WRITE_WARNING("Disabled show connections throught Ctrl+shift+c hotkey");
         }
@@ -2045,12 +2045,12 @@ GNEApplicationWindow::onCmdToogleSelectEdges(FXObject*, FXSelector, void*) {
     // check that view exists
     if (myViewNet) {
         // Toogle selectEdges of GNEViewNet
-        if (myViewNet->getViewOptions().menuCheckSelectEdges->getCheck() == TRUE) {
-            myViewNet->getViewOptions().menuCheckSelectEdges->setCheck(FALSE);
+        if (myViewNet->getViewOptionsNetwork().menuCheckSelectEdges->getCheck() == TRUE) {
+            myViewNet->getViewOptionsNetwork().menuCheckSelectEdges->setCheck(FALSE);
             // show extra information for tests
             WRITE_DEBUG("Disabled select edges throught Ctrl+shift+i hotkey");
         } else {
-            myViewNet->getViewOptions().menuCheckSelectEdges->setCheck(TRUE);
+            myViewNet->getViewOptionsNetwork().menuCheckSelectEdges->setCheck(TRUE);
             // show extra information for tests
             WRITE_WARNING("Disabled select edges throught Ctrl+shift+i hotkey");
         }
