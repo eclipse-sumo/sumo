@@ -500,6 +500,9 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         myShowSizeLegend = new FXCheckButton(m72, "Show Size Legend", this, MID_SIMPLE_VIEW_COLORCHANGE);
         myShowSizeLegend->setCheck(mySettings->showSizeLegend);
         new FXLabel(m72, "");
+        myShowColorLegend = new FXCheckButton(m72, "Show Color Legend", this, MID_SIMPLE_VIEW_COLORCHANGE);
+        myShowColorLegend->setCheck(mySettings->showColorLegend);
+        new FXLabel(m72, "");
     }
     {
         // openGL
@@ -693,6 +696,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* data) {
     myDrawBoundaries->setCheck(mySettings->drawBoundaries);
     myForceDrawForSelecting->setCheck(mySettings->forceDrawForSelecting);
     myShowSizeLegend->setCheck(mySettings->showSizeLegend);
+    myShowColorLegend->setCheck(mySettings->showColorLegend);
 
     myParent->setColorScheme(mySettings->name);
     update();
@@ -919,6 +923,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.drawBoundaries = (myDrawBoundaries->getCheck() != FALSE);
     tmpSettings.forceDrawForSelecting = (myForceDrawForSelecting->getCheck() != FALSE);
     tmpSettings.showSizeLegend = (myShowSizeLegend->getCheck() != FALSE);
+    tmpSettings.showColorLegend = (myShowColorLegend->getCheck() != FALSE);
 
     // lanes (colors)
     if (sender == myLaneColorRainbow) {

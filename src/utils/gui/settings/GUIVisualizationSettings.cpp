@@ -140,6 +140,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) :
     polySize(0), polyName(false, 50, RGBColor(255, 0, 128, 255)),
     polyType(false, 60, RGBColor(255, 0, 128, 255)),
     showSizeLegend(true),
+    showColorLegend(false),
     gaming(false),
     selectionColor(0, 0, 204, 255),
     selectedEdgeColor(0, 0, 204, 255),
@@ -1104,6 +1105,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     // legend
     dev.openTag(SUMO_TAG_VIEWSETTINGS_LEGEND);
     dev.writeAttr("showSizeLegend", showSizeLegend);
+    dev.writeAttr("showColorLegend", showColorLegend);
     dev.closeTag();
 
     dev.closeTag();
@@ -1347,6 +1349,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
     }
 
     if (showSizeLegend != v2.showSizeLegend) {
+        return false;
+    }
+    if (showColorLegend != v2.showColorLegend) {
         return false;
     }
 

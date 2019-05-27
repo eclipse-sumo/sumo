@@ -343,6 +343,7 @@ private:
     FXCheckButton* myDrawBoundaries;
     FXCheckButton* myForceDrawForSelecting;
     FXCheckButton* myShowSizeLegend;
+    FXCheckButton* myShowColorLegend;
 
     NamePanel* myEdgeNamePanel, *myInternalEdgeNamePanel, *myCwaEdgeNamePanel, *myStreetNamePanel, *myEdgeValuePanel,
                *myJunctionIndexPanel, *myTLIndexPanel,

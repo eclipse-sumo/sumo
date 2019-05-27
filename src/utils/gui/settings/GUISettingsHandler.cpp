@@ -283,6 +283,7 @@ GUISettingsHandler::myStartElement(int element,
             break;
         case SUMO_TAG_VIEWSETTINGS_LEGEND:
             mySettings.showSizeLegend = StringUtils::toBool(attrs.getStringSecure("showSizeLegend", toString(mySettings.showSizeLegend)));
+            mySettings.showColorLegend = StringUtils::toBool(attrs.getStringSecure("showColorLegend", toString(mySettings.showColorLegend)));
             break;
         case SUMO_TAG_VIEWSETTINGS_DECAL: {
             GUISUMOAbstractView::Decal d;
