@@ -107,6 +107,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
     LaneVector::const_iterator i;
     // build the induct loops
     std::map<const MSLane*, MSInductLoop*> laneInductLoopMap;
+    std::map<MSInductLoop*, const MSLane*> inductLoopLaneMap; // in case loops are placed further upstream
     double maxDetectorGap = 0;
     for (i2 = myLanes.begin(); i2 != myLanes.end(); ++i2) {
         const LaneVector& lanes = *i2;
@@ -133,13 +134,19 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
 
             // check whether the lane is long enough
             double ilpos = length - inductLoopPosition;
+            MSLane* placementLane = lane;
+            while (ilpos < 0 && placementLane->getIncomingLanes().size() == 1) {
+                placementLane = placementLane->getLogicalPredecessorLane();
+                ilpos += placementLane->getLength();
+            }
             if (ilpos < 0) {
                 ilpos = 0;
             }
             // Build the induct loop and set it into the container
             std::string id = "TLS" + myID + "_" + myProgramID + "_InductLoopOn_" + lane->getID();
-            MSInductLoop* loop = static_cast<MSInductLoop*>(nb.createInductLoop(id, lane, ilpos, myVehicleTypes, myShowDetectors));
+            MSInductLoop* loop = static_cast<MSInductLoop*>(nb.createInductLoop(id, placementLane, ilpos, myVehicleTypes, myShowDetectors));
             laneInductLoopMap[lane] = loop;
+            inductLoopLaneMap[loop] = lane;
             myInductLoops.push_back(loop);
             MSNet::getInstance()->getDetectorControl().add(SUMO_TAG_INDUCTION_LOOP, loop, myFile, myFreq);
             maxDetectorGap = MAX2(maxDetectorGap, length - ilpos);
@@ -235,6 +242,8 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
                 }
             }
             for (auto& item : loopLinks) {
+                MSInductLoop* loop = item.first;
+                const MSLane* loopLane = inductLoopLaneMap[loop];
                 bool usable = true;
                 // check1
                 for (int j : item.second) {
@@ -242,7 +251,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
                         usable = false;
 #ifdef DEBUG_DETECTORS
                         if (DEBUG_COND) {
-                            std::cout << " phase=" << myInductLoopsForPhase.size() << " check1: loopLane=" << item.first->getLane()->getID() << " notGreen=" << j << " oneLane[j]=" << oneLane[j] << "\n";
+                            std::cout << " phase=" << myInductLoopsForPhase.size() << " check1: loopLane=" << loopLane->getID() << " notGreen=" << j << " oneLane[j]=" << oneLane[j] << "\n";
                         }
 #endif
                         break;
@@ -250,7 +259,6 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
                 }
                 // check2
                 if (usable) {
-                    const MSLane* loopLane = item.first->getLane();
                     for (MSLink* link : loopLane->getLinkCont()) {
                         const MSLane* next = link->getLane();
                         if (laneInductLoopMap.count(next) != 0) {
@@ -259,7 +267,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
                                 if (greenLinks.count(j) == 0) {
                                     usable = false;
 #ifdef DEBUG_DETECTORS
-                                    if (DEBUG_COND) std::cout << " phase=" << myInductLoopsForPhase.size() << " check2: loopLane=" << item.first->getLane()->getID()
+                                    if (DEBUG_COND) std::cout << " phase=" << myInductLoopsForPhase.size() << " check2: loopLane=" << loopLane->getID()
                                                                   << " nextLane=" << next->getID() << " nextLink=" << j << " nextState=" << state[j] << "\n";
 #endif
                                     break;
