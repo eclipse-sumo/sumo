@@ -254,6 +254,12 @@ GNERouteHandler::buildTrip(GNEViewNet* viewNet, bool undoDemandElements, const S
             }
             // obtain route between edges
             std::vector<GNEEdge*> routeEdges = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(vType->getVClass(), edges);
+            // check if obtained routes correspond to a valid route
+            if (routeEdges.size() == 0) {
+                routeEdges = edges;
+            } else if (routeEdges.size() == 1) {
+                routeEdges.push_back(routeEdges.front());
+            }
             // create trip or flow using tripParameters
             GNEVehicle* trip = new GNEVehicle(viewNet, vType, routeEdges, vehicleParameters);
             if (undoDemandElements) {
