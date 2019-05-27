@@ -1095,9 +1095,13 @@ GNEFrame::AttributesEditor::AttributesEditorRow::showAttributesEditorRow(const G
         myValueCheckButton->disable();
         myAttributeButtonCombinableChoices->disable();
     }
+    // special case for Traffic Lights
+    if ((myACAttr.getTagPropertyParent().getTag() == SUMO_TAG_JUNCTION) && (myACAttr.getAttr() == SUMO_ATTR_TLID) && value.empty()) {
+        myValueTextFieldStrings->disable();
+    }
     // special case for Default vehicle types (ID cannot be edited)
     if ((ACAttr.getTagPropertyParent().getTag() == SUMO_TAG_VTYPE) && (ACAttr.getAttr() == SUMO_ATTR_ID) &&
-            ((value == DEFAULT_VTYPE_ID) || (value == DEFAULT_PEDTYPE_ID) || (value == DEFAULT_BIKETYPE_ID))) {
+        ((value == DEFAULT_VTYPE_ID) || (value == DEFAULT_PEDTYPE_ID) || (value == DEFAULT_BIKETYPE_ID))) {
         myValueTextFieldStrings->disable();
     }
     // Show Row
@@ -1214,6 +1218,10 @@ GNEFrame::AttributesEditor::AttributesEditorRow::refreshAttributesEditorRow(cons
             myValueComboBoxChoices->disable();
             myValueCheckButton->disable();
             myAttributeButtonCombinableChoices->disable();
+        }
+        // special case for Traffic Lights
+        if ((myACAttr.getTagPropertyParent().getTag() == SUMO_TAG_JUNCTION) && (myACAttr.getAttr() == SUMO_ATTR_TLID) && value.empty()) {
+            myValueTextFieldStrings->disable();
         }
         // special case for Default vehicle types (ID cannot be edited)
         if ((myACAttr.getTagPropertyParent().getTag() == SUMO_TAG_VTYPE) && (myACAttr.getAttr() == SUMO_ATTR_ID) &&
@@ -1485,8 +1493,6 @@ GNEFrame::AttributesEditor::showAttributeEditorModul(const std::vector<GNEAttrib
         i->hideAttributesEditorRow();
     }
     if (myEditedACs.size() > 0) {
-        //  check if current AC is a Junction without TLSs (needed to hidde TLS options)
-        bool disableTLSinJunctions = (dynamic_cast<GNEJunction*>(myEditedACs.front()) && (dynamic_cast<GNEJunction*>(myEditedACs.front())->getNBNode()->getControllingTLS().empty()));
         // Iterate over attributes
         for (const auto& i : myEditedACs.front()->getTagProperty()) {
             // disable editing for unique attributes in case of multi-selection
@@ -1523,14 +1529,10 @@ GNEFrame::AttributesEditor::showAttributeEditorModul(const std::vector<GNEAttrib
                     }
                 }
             }
-            // Show attribute
-            if ((disableTLSinJunctions && (myEditedACs.front()->getTagProperty().getTag() == SUMO_TAG_JUNCTION) &&
-                    ((i.first == SUMO_ATTR_TLTYPE) || (i.first == SUMO_ATTR_TLID))) == false) {
-                // first show AttributesEditor
-                show();
-                // show attribute
-                myAttributesEditorRows[i.second.getPositionListed()]->showAttributesEditorRow(i.second, value, myEditedACs.front()->isDisjointAttributeSet(i.first));
-            }
+            // show AttributesEditor
+            show();
+            // show attribute editor row
+            myAttributesEditorRows[i.second.getPositionListed()]->showAttributesEditorRow(i.second, value, myEditedACs.front()->isDisjointAttributeSet(i.first));
         }
     }
 }
@@ -1552,8 +1554,6 @@ GNEFrame::AttributesEditor::hideAttributesEditorModul() {
 void
 GNEFrame::AttributesEditor::refreshAttributeEditor(bool forceRefreshShape, bool forceRefreshPosition) {
     if (myEditedACs.size() > 0) {
-        //  check if current AC is a Junction without TLSs (needed to hidde TLS options)
-        bool disableTLSinJunctions = (dynamic_cast<GNEJunction*>(myEditedACs.front()) && (dynamic_cast<GNEJunction*>(myEditedACs.front())->getNBNode()->getControllingTLS().empty()));
         // Iterate over attributes
         for (const auto& i : myEditedACs.front()->getTagProperty()) {
             // disable editing for unique attributes in case of multi-selection
@@ -1573,21 +1573,17 @@ GNEFrame::AttributesEditor::refreshAttributeEditor(bool forceRefreshShape, bool 
                 }
                 oss << *it_val;
             }
-            // Show attribute
-            if ((disableTLSinJunctions && (myEditedACs.front()->getTagProperty().getTag() == SUMO_TAG_JUNCTION) &&
-                    ((i.first == SUMO_ATTR_TLTYPE) || (i.first == SUMO_ATTR_TLID))) == false) {
-                // check if is a disjoint attribute
-                bool disjointAttributeSet = myEditedACs.front()->isDisjointAttributeSet(i.first);
-                // Check if refresh of Position or Shape has to be forced
-                if ((i.first  == SUMO_ATTR_SHAPE) && forceRefreshShape) {
-                    myAttributesEditorRows[i.second.getPositionListed()]->refreshAttributesEditorRow(oss.str(), true, disjointAttributeSet);
-                } else if ((i.first  == SUMO_ATTR_POSITION) && forceRefreshPosition) {
-                    // Refresh attributes maintain invalid values
-                    myAttributesEditorRows[i.second.getPositionListed()]->refreshAttributesEditorRow(oss.str(), true, disjointAttributeSet);
-                } else {
-                    // Refresh attributes maintain invalid values
-                    myAttributesEditorRows[i.second.getPositionListed()]->refreshAttributesEditorRow(oss.str(), false, disjointAttributeSet);
-                }
+            // check if is a disjoint attribute
+            bool disjointAttributeSet = myEditedACs.front()->isDisjointAttributeSet(i.first);
+            // Check if refresh of Position or Shape has to be forced
+            if ((i.first  == SUMO_ATTR_SHAPE) && forceRefreshShape) {
+                myAttributesEditorRows[i.second.getPositionListed()]->refreshAttributesEditorRow(oss.str(), true, disjointAttributeSet);
+            } else if ((i.first  == SUMO_ATTR_POSITION) && forceRefreshPosition) {
+                // Refresh attributes maintain invalid values
+                myAttributesEditorRows[i.second.getPositionListed()]->refreshAttributesEditorRow(oss.str(), true, disjointAttributeSet);
+            } else {
+                // Refresh attributes maintain invalid values
+                myAttributesEditorRows[i.second.getPositionListed()]->refreshAttributesEditorRow(oss.str(), false, disjointAttributeSet);
             }
         }
     }
@@ -2353,7 +2349,6 @@ GNEFrame::GenericParametersEditor::refreshGenericParametersEditor() {
     } else if (myACs.size() > 0) {
         // check if generic parameters of all inspected ACs are different
         std::string genericParameter = myACs.front()->getAttribute(GNE_ATTR_GENERIC);
-
         for (auto i : myACs) {
             if (genericParameter != i->getAttribute(GNE_ATTR_GENERIC)) {
                 genericParameter = "different generic attributes";
