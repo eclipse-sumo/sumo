@@ -186,8 +186,7 @@ class Domain:
             self._contextID, begin, end, objectID, domain, dist, varIDs)
 
     def unsubscribeContext(self, objectID, domain, dist):
-        self._connection._subscribeContext(
-            self._contextID, tc.INVALID_DOUBLE_VALUE, tc.INVALID_DOUBLE_VALUE, objectID, domain, dist, [])
+        self.subscribeContext(objectID, domain, dist, [])
 
     def getContextSubscriptionResults(self, objectID):
         return self._connection._getSubscriptionResults(self._contextResponseID).getContext(objectID)

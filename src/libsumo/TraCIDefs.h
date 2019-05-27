@@ -42,6 +42,7 @@
 #define LIBSUMO_SUBSCRIPTION_API \
 static void subscribe(const std::string& objID, const std::vector<int>& vars = std::vector<int>(), double beginTime = libsumo::INVALID_DOUBLE_VALUE, double endTime = libsumo::INVALID_DOUBLE_VALUE); \
 static void subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars = std::vector<int>(), double beginTime = libsumo::INVALID_DOUBLE_VALUE, double endTime = libsumo::INVALID_DOUBLE_VALUE); \
+static void unsubscribeContext(const std::string& objID, int domain, double range); \
 static const SubscriptionResults getAllSubscriptionResults(); \
 static const TraCIResults getSubscriptionResults(const std::string& objID); \
 static const ContextSubscriptionResults getAllContextSubscriptionResults(); \
@@ -55,6 +56,10 @@ CLASS::subscribe(const std::string& objID, const std::vector<int>& vars, double 
 void \
 CLASS::subscribeContext(const std::string& objID, int domain, double range, const std::vector<int>& vars, double beginTime, double endTime) { \
     libsumo::Helper::subscribe(CMD_SUBSCRIBE_##DOMAIN##_CONTEXT, objID, vars, beginTime, endTime, domain, range); \
+} \
+void \
+CLASS::unsubscribeContext(const std::string& objID, int domain, double range) { \
+    libsumo::Helper::subscribe(CMD_SUBSCRIBE_##DOMAIN##_CONTEXT, objID, std::vector<int>(), libsumo::INVALID_DOUBLE_VALUE, libsumo::INVALID_DOUBLE_VALUE, domain, range); \
 } \
 const SubscriptionResults \
 CLASS::getAllSubscriptionResults() { \

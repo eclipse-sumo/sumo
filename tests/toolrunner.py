@@ -18,12 +18,15 @@ import subprocess
 import sys
 if len(sys.argv) < 2:
     sys.exit('required argument <tool> missing')
-tool = [os.path.join(os.path.dirname(sys.argv[0]), "..", sys.argv[-1])]
+idx = len(sys.argv) - 1
+while idx > 0 and sys.argv[idx][0] == "-":
+    idx -= 1
+tool = [os.path.join(os.path.dirname(sys.argv[0]), "..", sys.argv[idx])]
+del sys.argv[idx]
 if tool[0].endswith(".jar"):
     tool = ["java", "-jar"] + tool
 
 if tool[0].endswith(".py"):
     tool = [os.environ.get('PYTHON', 'python')] + tool
 
-subprocess.call(tool + sys.argv[1:-1], env=os.environ,
-                stdout=sys.stdout, stderr=sys.stderr)
+subprocess.call(tool + sys.argv[1:], env=os.environ, stdout=sys.stdout, stderr=sys.stderr)

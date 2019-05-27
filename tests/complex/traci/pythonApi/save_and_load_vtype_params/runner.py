@@ -19,22 +19,21 @@ from __future__ import print_function
 import os
 import sys
 
-sys.path.append(os.path.join(
-    os.path.dirname(sys.argv[0]), "..", "..", "..", "..", "..", "tools"))
-
-import traci  # noqa
+SUMO_HOME = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "..")
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
+if sys.argv[1] == "-libsumo":
+    import libsumo as traci  # noqa
+    del sys.argv[1]
+else:
+    import traci  # noqa
+import sumolib  # noqa
 
 ix = sys.argv.index(":")
 saveParams = sys.argv[1:ix]
 loadParams = sys.argv[ix + 1:]
 
 # SAVE
-
-PORT = traci.getFreeSocketPort()
-sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(
-    os.path.dirname(sys.argv[0]), '..', '..', '..', 'bin', 'sumo'))
-# ~ sumoBinary = os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', '..', 'bin', 'sumo-gui')
-traci.start([sumoBinary] + saveParams)
+traci.start([sumolib.checkBinary("sumo")] + saveParams)
 tend = 55.
 traci.simulationStep()
 # traci.vehicletype.setImperfection("DEFAULT_VEHTYPE", 1.0)
@@ -111,7 +110,7 @@ traci.close()
 
 # LOAD
 
-traci.start([sumoBinary] + loadParams)
+traci.start([sumolib.checkBinary("sumo")] + loadParams)
 tend = 300.
 
 print("Get after load....")
