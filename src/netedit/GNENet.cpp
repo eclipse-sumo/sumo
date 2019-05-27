@@ -1765,7 +1765,7 @@ GNENet::cleanUnusedRoutes(GNEUndoList* undoList) {
     // finally remove all routesWithoutChilds
     if (routesWithoutChilds.size() > 0) {
         // begin undo list
-        undoList->p_begin("Clean unused routes");
+        undoList->p_begin("clean unused routes");
         // iterate over routesWithoutChilds
         for (const auto &i : routesWithoutChilds) {
             // due route doesn't have childs, simply call GNEChange_DemandElement
@@ -1780,8 +1780,68 @@ GNENet::cleanUnusedRoutes(GNEUndoList* undoList) {
 
 
 void 
-GNENet::joinRoutes(GNEUndoList* /*undoList*/) {
-    //
+GNENet::joinRoutes(GNEUndoList* undoList) {
+    // first declare a sorted set of sorted route's edges in string format
+    std::set<std::pair<std::string, GNEDemandElement*> > mySortedRoutes;
+    // iterate over routes and save it in mySortedRoutes  (only if it doesn't have Stop Childs)
+    for (const auto &i : myAttributeCarriers.demandElements.at(SUMO_TAG_ROUTE)) {
+        // first check route has stops
+        bool hasStops = false;
+        for (const auto &j : i.second->getDemandElementChilds()) {
+            if (j->getTagProperty().isStop()) {
+                hasStops = true;
+            }
+        }
+        if (!hasStops) {
+            mySortedRoutes.insert(std::make_pair(i.second->getEdgeParentsStr(), i.second));
+        }
+    }
+    // now declare a matrix in which organice routes to be merged
+    std::vector<std::vector<GNEDemandElement*> > routesToMerge;
+    auto index = mySortedRoutes.begin();
+    // iterate over mySortedRoutes
+    for (auto i = mySortedRoutes.begin(); i != mySortedRoutes.end(); i++) {
+        if (routesToMerge.empty()) {
+            routesToMerge.push_back({i->second});
+        } else {
+            if (index->first == i->first) {
+                routesToMerge.back().push_back(i->second);
+            } else {
+                routesToMerge.push_back({i->second});
+                index = i;
+            }
+        }
+    }
+    // now check if there is routes to merge
+    bool thereIsRoutesToMerge = false;
+    for (const auto &i : routesToMerge) {
+        if (i.size() > 1) {
+            thereIsRoutesToMerge = true;
+        }
+    }
+    // if exist
+    if (thereIsRoutesToMerge) {
+        // begin undo list
+        undoList->p_begin("merge routes");
+        // iterate over route to edges
+        for (const auto &i : routesToMerge) {
+            if (i.size() > 1) {
+                // iterate over duplicated routes
+                for (int j = 1; j < i.size(); j++) {
+                    // move all vehicles of every duplicated route
+                    while (i.at(j)->getDemandElementChilds().size() > 0) {
+                        i.at(j)->getDemandElementChilds().front()->setAttribute(SUMO_ATTR_ROUTE, i.at(0)->getID(), undoList);
+                    }
+                    // finally remove route
+                    undoList->add(new GNEChange_DemandElement(i.at(j), false), true);
+                }
+            }
+        }
+        // update view
+        myViewNet->update();
+        // end undo list
+        undoList->p_end();
+    }
 }
     
 
