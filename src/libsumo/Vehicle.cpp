@@ -29,6 +29,7 @@
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <microsim/devices/MSDevice.h>
+#include <microsim/devices/MSDevice_Battery.h>
 #include <microsim/MSEdgeWeightsStorage.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSVehicleControl.h>
@@ -872,6 +873,16 @@ Vehicle::getHeight(const std::string& vehicleID) {
     return getVehicleType(vehicleID).getHeight();
 }
 
+double
+Vehicle::getActualBatteryCapacity(const std::string& vehicleID) {
+    MSVehicle* vehicle = getVehicle(vehicleID);
+    MSDevice_Battery* battery = (MSDevice_Battery*)vehicle->getDevice(typeid(MSDevice_Battery));
+    if(battery != nullptr)
+    {
+        return battery->getActualBatteryCapacity();
+    }
+    return -1;
+}
 
 void
 Vehicle::setStop(const std::string& vehicleID,
@@ -1884,6 +1895,9 @@ Vehicle::handleVariable(const std::string& objID, const int variable, VariableWr
             rp.pos = lead.second;
             return wrapper->wrapRoadPosition(objID, variable, rp);
         }
+        case VAR_ACTUAL_BATTERY_CAPACITY:
+            return wrapper->wrapDouble(objID, variable, getActualBatteryCapacity(objID));
+        break;
         default:
             return false;
     }

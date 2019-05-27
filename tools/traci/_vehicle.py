@@ -120,6 +120,7 @@ _RETURN_VALUE_FUNC = {tc.VAR_SPEED: Storage.readDouble,
                       tc.VAR_HCEMISSION: Storage.readDouble,
                       tc.VAR_PMXEMISSION: Storage.readDouble,
                       tc.VAR_NOXEMISSION: Storage.readDouble,
+                      tc.VAR_ACTUAL_BATTERY_CAPACITY: Storage.readDouble,
                       tc.VAR_FUELCONSUMPTION: Storage.readDouble,
                       tc.VAR_NOISEEMISSION: Storage.readDouble,
                       tc.VAR_ELECTRICITYCONSUMPTION: Storage.readDouble,
@@ -359,6 +360,14 @@ class VehicleDomain(Domain):
         Returns the noise emission in db for the last time step.
         """
         return self._getUniversal(tc.VAR_NOISEEMISSION, vehID)
+
+    def getActualBatteryCapacity(self, vehID):
+        """getActualBatteryCapacity(string) -> double
+
+        Returns the current capacity of a vehicle's battery.
+        If the vehicle has no battery, returns -1.
+        """
+        return self._getUniversal(tc.VAR_ACTUAL_BATTERY_CAPACITY, vehID)
 
     def getElectricityConsumption(self, vehID):
         """getElectricityConsumption(string) -> double

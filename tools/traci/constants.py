@@ -773,6 +773,9 @@ VAR_FUELCONSUMPTION = 0x65
 #  current noise emission of a node (get: vehicle, lane, edge)
 VAR_NOISEEMISSION = 0x66
 
+# current battery capacity (get: vehicle)
+VAR_ACTUAL_BATTERY_CAPACITY = 0xcd
+
 #  current person number (get: vehicle)
 VAR_PERSON_NUMBER = 0x67
 

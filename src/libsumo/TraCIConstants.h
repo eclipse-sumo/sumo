@@ -792,6 +792,9 @@ TRACI_CONST int VAR_FUELCONSUMPTION = 0x65;
 // current noise emission of a node (get: vehicle, lane, edge)
 TRACI_CONST int VAR_NOISEEMISSION = 0x66;
 
+// current battery capacity (get: vehicle)
+TRACI_CONST int VAR_ACTUAL_BATTERY_CAPACITY = 0xcd;
+
 // current person number (get: vehicle)
 TRACI_CONST int VAR_PERSON_NUMBER = 0x67;
 

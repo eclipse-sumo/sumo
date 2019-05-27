@@ -112,6 +112,7 @@ public:
     static std::map<const MSVehicle*, double> getLeftFollowers(const std::string& vehicleID, bool blockingOnly = false);
     static std::map<const MSVehicle*, double> getLeftLeaders(const std::string& vehicleID, bool blockingOnly = false);
     static const MSVehicleType& getVehicleType(const std::string& vehicleID);
+    static double getActualBatteryCapacity(const std::string& vehicleID);
     /// @}
 
     LIBSUMO_VEHICLE_TYPE_GETTER
