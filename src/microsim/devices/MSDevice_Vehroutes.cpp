@@ -30,6 +30,7 @@
 #include <microsim/MSRoute.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSVehicleType.h>
+#include <microsim/MSTransportableControl.h>
 #include <utils/vehicle/SUMOVehicle.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice_String.h>
@@ -396,6 +397,14 @@ MSDevice_Vehroutes::generateOutputForUnfinished() {
     for (const auto& it : myStateListener.myDevices) {
         if (it.first->hasDeparted()) {
             it.second->writeOutput(false);
+        }
+    }
+    // unfinished persons
+    MSNet* net = MSNet::getInstance();
+    if (net->hasPersons()) {
+        MSTransportableControl& pc = net->getPersonControl();
+        while (pc.loadedBegin() != pc.loadedEnd()) {
+            pc.erase(pc.loadedBegin()->second);
         }
     }
 }
