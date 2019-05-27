@@ -195,7 +195,7 @@ NBRampsComputer::buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDist
                 }
             }
             NBNode* nextN = curr->getToNode();
-            if (nextN->getOutgoingEdges().size() == 1) {
+            if (nextN->getOutgoingEdges().size() == 1 && nextN->getIncomingEdges().size() == 1) {
                 curr = nextN->getOutgoingEdges()[0];
                 if (curr->getNumLanes() != firstLaneNumber) {
                     // the number of lanes changes along the computation; we'll stop...
@@ -296,7 +296,7 @@ NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDis
                 last = curr;
             }
             NBNode* prevN = curr->getFromNode();
-            if (prevN->getIncomingEdges().size() == 1) {
+            if (prevN->getIncomingEdges().size() == 1 && prevN->getOutgoingEdges().size() == 1) {
                 curr = prevN->getIncomingEdges()[0];
                 if (curr->getStep() < NBEdge::LANES2LANES_USER && toAdd != 0) {
                     // curr might be an onRamp. In this case connections need to be rebuilt
