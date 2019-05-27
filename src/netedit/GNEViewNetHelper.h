@@ -390,35 +390,11 @@ struct GNEViewNetHelper {
         /// @brief hide all options menu checks
         void hideViewOptionsDemandMenuChecks();
 
-        /// @brief check if show demand elements checkbox is enabled
-        bool showDemandElements() const;
+        /// @brief check if non inspected element has to be hidden
+        bool hideNonInspectedDemandElements(GNEDemandElement *demandElement) const;
 
-        /// @brief check if select edges checkbox is enabled
-        bool selectEdges() const;
-
-        /// @brief check if select show connections checkbox is enabled
-        bool showConnections() const;
-
-        /// @brief menu check to show Demand Elements
-        FXMenuCheck* menuCheckShowDemandElements;
-
-        /// @brief menu check to select only edges
-        FXMenuCheck* menuCheckSelectEdges;
-
-        /// @brief menu check to show connections
-        FXMenuCheck* menuCheckShowConnections;
-
-        /// @brief menu check to hide connections in connect mode
-        FXMenuCheck* menuCheckHideConnections;
-
-        /// @brief menu check to extend to edge nodes
-        FXMenuCheck* menuCheckExtendSelection;
-
-        /// @brief menu check to set change all phases
-        FXMenuCheck* menuCheckChangeAllPhases;
-
-        /// @brief show grid button
-        FXMenuCheck* menuCheckShowGrid;
+        /// @brief Hide non inspected demand elements
+        FXMenuCheck* menuCheckHideNonInspectedDemandElements;
 
     private:
         /// @brief pointer to viewNet

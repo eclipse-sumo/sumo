@@ -1634,40 +1634,10 @@ GNEViewNetHelper::ViewOptionsDemand::ViewOptionsDemand(GNEViewNet* viewNet) :
 
 void
 GNEViewNetHelper::ViewOptionsDemand::buildViewOptionsDemandMenuChecks() {
-    menuCheckShowDemandElements = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions, "Show demand elements\t\tToggle show demand elements", myViewNet, MID_GNE_VIEWNET_SHOW_DEMAND_ELEMENTS, LAYOUT_FIX_HEIGHT);
-    menuCheckShowDemandElements->setHeight(23);
-    menuCheckShowDemandElements->setCheck(false);
-    menuCheckShowDemandElements->create();
-
-    menuCheckSelectEdges = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions, ("Select edges\t\tToggle whether clicking should select " + toString(SUMO_TAG_EDGE) + "s or " + toString(SUMO_TAG_LANE) + "s").c_str(), myViewNet, MID_GNE_VIEWNET_SELECT_EDGES, LAYOUT_FIX_HEIGHT);
-    menuCheckSelectEdges->setHeight(23);
-    menuCheckSelectEdges->setCheck(true);
-    menuCheckSelectEdges->create();
-
-    menuCheckShowConnections = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions, ("Show " + toString(SUMO_TAG_CONNECTION) + "s\t\tToggle show " + toString(SUMO_TAG_CONNECTION) + "s over " + toString(SUMO_TAG_JUNCTION) + "s").c_str(), myViewNet, MID_GNE_VIEWNET_SHOW_CONNECTIONS, LAYOUT_FIX_HEIGHT);
-    menuCheckShowConnections->setHeight(23);
-    menuCheckShowConnections->setCheck(myViewNet->getVisualisationSettings()->showLane2Lane);
-    menuCheckShowConnections->create();
-
-    menuCheckHideConnections = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions, ("hide " + toString(SUMO_TAG_CONNECTION) + "s\t\tHide connections").c_str(), myViewNet, 0, LAYOUT_FIX_HEIGHT);
-    menuCheckHideConnections->setHeight(23);
-    menuCheckHideConnections->setCheck(false);
-    menuCheckHideConnections->create();
-
-    menuCheckExtendSelection = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions, ("Auto-select " + toString(SUMO_TAG_JUNCTION) + "s\t\tToggle whether selecting multiple " + toString(SUMO_TAG_EDGE) + "s should automatically select their " + toString(SUMO_TAG_JUNCTION) + "s").c_str(), myViewNet, 0, LAYOUT_FIX_HEIGHT);
-    menuCheckExtendSelection->setHeight(23);
-    menuCheckExtendSelection->setCheck(false);
-    menuCheckExtendSelection->create();
-
-    menuCheckChangeAllPhases = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions, ("Apply change to all phases\t\tToggle whether clicking should apply state changes to all phases of the current " + toString(SUMO_TAG_TRAFFIC_LIGHT) + " plan").c_str(), myViewNet, 0, LAYOUT_FIX_HEIGHT);
-    menuCheckChangeAllPhases->setHeight(23);
-    menuCheckChangeAllPhases->setCheck(false);
-    menuCheckChangeAllPhases->create();
-
-    menuCheckShowGrid = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions, "Grid\t\tshow grid and restrict movement to the grid (size defined in visualization options)", myViewNet, MID_GNE_VIEWNET_SHOW_GRID, LAYOUT_FIX_HEIGHT);
-    menuCheckShowGrid->setHeight(23);
-    menuCheckShowGrid->setCheck(false);
-    menuCheckShowGrid->create();
+    menuCheckHideNonInspectedDemandElements = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions, "Show demand elements\t\tToggle show demand elements", myViewNet, MID_GNE_VIEWNET_SHOW_DEMAND_ELEMENTS, LAYOUT_FIX_HEIGHT);
+    menuCheckHideNonInspectedDemandElements->setHeight(23);
+    menuCheckHideNonInspectedDemandElements->setCheck(false);
+    menuCheckHideNonInspectedDemandElements->create();
 
     // always recalc after creating new elements
     myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->recalc();
@@ -1676,53 +1646,21 @@ GNEViewNetHelper::ViewOptionsDemand::buildViewOptionsDemandMenuChecks() {
 
 void
 GNEViewNetHelper::ViewOptionsDemand::hideViewOptionsDemandMenuChecks() {
-    menuCheckShowDemandElements->hide();
-    menuCheckSelectEdges->hide();
-    menuCheckShowConnections->hide();
-    menuCheckHideConnections->hide();
-    menuCheckExtendSelection->hide();
-    menuCheckChangeAllPhases->hide();
-    menuCheckShowGrid->hide();
+    menuCheckHideNonInspectedDemandElements->hide();
     // Also hide toolbar grip
     myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
 }
 
 
 bool
-GNEViewNetHelper::ViewOptionsDemand::showDemandElements() const {
-    if (menuCheckShowDemandElements->shown()) {
-        return (menuCheckShowDemandElements->getCheck() == TRUE);
+GNEViewNetHelper::ViewOptionsDemand::hideNonInspectedDemandElements(GNEDemandElement *demandElement) const {
+    if (menuCheckHideNonInspectedDemandElements->shown()) {
+        return (menuCheckHideNonInspectedDemandElements->getCheck() == TRUE);
     } else {
-        // by default, if menuCheckShowDemandElements isn't shown, always show demand elements
         return true;
     }
 }
 
-
-bool
-GNEViewNetHelper::ViewOptionsDemand::selectEdges() const {
-    if (menuCheckSelectEdges->shown()) {
-        return (menuCheckSelectEdges->getCheck() == TRUE);
-    } else {
-        // by default, if menuCheckSelectEdges isn't shown, always select edges
-        return true;
-    }
-}
-
-
-bool
-GNEViewNetHelper::ViewOptionsDemand::showConnections() const {
-    if (myViewNet->myEditModes.networkEditMode == GNE_NMODE_CONNECT) {
-        // check if menu hceck hide connections ins shown
-        return (menuCheckHideConnections->getCheck() == FALSE);
-    } else if (myViewNet->myEditModes.networkEditMode == GNE_NMODE_PROHIBITION) {
-        return true;
-    } else if (menuCheckShowConnections->shown() == false) {
-        return false;
-    } else {
-        return (myViewNet->getVisualisationSettings()->showLane2Lane);
-    }
-}
 
 // ---------------------------------------------------------------------------
 // GNEViewNetHelper::CommonCheckableButtons - methods
