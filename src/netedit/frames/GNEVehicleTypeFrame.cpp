@@ -77,7 +77,11 @@ GNEVehicleTypeFrame::VehicleTypeSelector::VehicleTypeSelector(GNEVehicleTypeFram
     // set DEFAULT_VEHTYPE as default VType
     myCurrentVehicleType = myVehicleTypeFrameParent->getViewNet()->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_VTYPE_ID);
     // Set visible items
-    myTypeMatchBox->setNumVisible((int)myTypeMatchBox->getNumItems());
+    if (myTypeMatchBox->getNumItems() <= 20) {
+        myTypeMatchBox->setNumVisible((int)myTypeMatchBox->getNumItems());
+    } else {
+        myTypeMatchBox->setNumVisible(20);
+    }
     // VehicleTypeSelector is always shown
     show();
 }
@@ -106,6 +110,12 @@ GNEVehicleTypeFrame::VehicleTypeSelector::refreshVehicleTypeSelector() {
     // fill myTypeMatchBox with list of VTypes IDs
     for (const auto& i : myVehicleTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_VTYPE)) {
         myTypeMatchBox->appendItem(i.first.c_str());
+    }
+    // Set visible items
+    if (myTypeMatchBox->getNumItems() <= 20) {
+        myTypeMatchBox->setNumVisible((int)myTypeMatchBox->getNumItems());
+    } else {
+        myTypeMatchBox->setNumVisible(20);
     }
     // make sure that tag is in myTypeMatchBox
     for (int i = 0; i < (int)myTypeMatchBox->getNumItems(); i++) {
