@@ -391,7 +391,7 @@ struct GNEViewNetHelper {
         void hideViewOptionsDemandMenuChecks();
 
         /// @brief check if non inspected element has to be hidden
-        bool hideNonInspectedDemandElements(GNEDemandElement *demandElement) const;
+        bool showNonInspectedDemandElements(const GNEDemandElement *demandElement) const;
 
         /// @brief Hide non inspected demand elements
         FXMenuCheck* menuCheckHideNonInspectedDemandElements;

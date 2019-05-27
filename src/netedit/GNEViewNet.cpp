@@ -2337,8 +2337,10 @@ GNEViewNet::updateDemandModeSpecificControls() {
             myViewParent->getInspectorFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getInspectorFrame();
             myCommonCheckableButtons.inspectButton->setChecked(true);
-            // hide toolbar grip of view options
-            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->hide();
+            // show view options
+            myViewOptionsDemand.menuCheckHideNonInspectedDemandElements->show();
+            // show toolbar grip of view options
+            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
         case GNE_DMODE_DELETE:
             myViewParent->getDeleteFrame()->show();

@@ -1634,7 +1634,7 @@ GNEViewNetHelper::ViewOptionsDemand::ViewOptionsDemand(GNEViewNet* viewNet) :
 
 void
 GNEViewNetHelper::ViewOptionsDemand::buildViewOptionsDemandMenuChecks() {
-    menuCheckHideNonInspectedDemandElements = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions, "Show demand elements\t\tToggle show demand elements", myViewNet, MID_GNE_VIEWNET_SHOW_DEMAND_ELEMENTS, LAYOUT_FIX_HEIGHT);
+    menuCheckHideNonInspectedDemandElements = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions, "Hide non-inspected elements\t\tToggle show non-inspected demand elements", myViewNet, MID_GNE_VIEWNET_SHOW_DEMAND_ELEMENTS, LAYOUT_FIX_HEIGHT);
     menuCheckHideNonInspectedDemandElements->setHeight(23);
     menuCheckHideNonInspectedDemandElements->setCheck(false);
     menuCheckHideNonInspectedDemandElements->create();
@@ -1653,14 +1653,41 @@ GNEViewNetHelper::ViewOptionsDemand::hideViewOptionsDemandMenuChecks() {
 
 
 bool
-GNEViewNetHelper::ViewOptionsDemand::hideNonInspectedDemandElements(GNEDemandElement *demandElement) const {
+GNEViewNetHelper::ViewOptionsDemand::showNonInspectedDemandElements(const GNEDemandElement *demandElement) const {
     if (menuCheckHideNonInspectedDemandElements->shown()) {
-        return (menuCheckHideNonInspectedDemandElements->getCheck() == TRUE);
+        // check conditions
+        if ((menuCheckHideNonInspectedDemandElements->getCheck() == FALSE) || (myViewNet->getDottedAC() == nullptr)) {
+            // if checkbox is disabled or there isn't insepected element, then return true
+            return true;
+        } else if (myViewNet->getDottedAC()->getTagProperty().isDemandElement()) {
+            if (myViewNet->getDottedAC() == demandElement) {
+                // if inspected element correspond to demandElement, return true
+                return true;
+            } else {
+                // if demandElement is a route, check if dottedAC is one of their childs (Vehicle or Stop)
+                for (const auto &i : demandElement->getDemandElementChilds()) {
+                    if (i == myViewNet->getDottedAC()) {
+                        return true;
+                    }
+                }
+                // if demandElement is a vehicle, check if dottedAC is one of his route Parent
+                for (const auto &i : demandElement->getDemandElementParents()) {
+                    if (i == myViewNet->getDottedAC()) {
+                        return true;
+                    }
+                }
+                // dottedAC isn't one of their parent, then return false
+                return false;
+            }
+        } else {
+            // we're inspecting a demand element, then return true
+            return true;
+        }
     } else {
+        // we're inspecting a demand element, then return true
         return true;
     }
 }
-
 
 // ---------------------------------------------------------------------------
 // GNEViewNetHelper::CommonCheckableButtons - methods

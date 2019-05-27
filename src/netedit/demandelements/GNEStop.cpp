@@ -323,7 +323,7 @@ GNEStop::getCenteringBoundary() const {
 void
 GNEStop::drawGL(const GUIVisualizationSettings& s) const {
     // only drawn in super mode demand
-    if (myViewNet->getViewOptionsNetwork().showDemandElements()) {
+    if (myViewNet->getViewOptionsNetwork().showDemandElements() && myViewNet->getViewOptionsDemand().showNonInspectedDemandElements(this)) {
         // Obtain exaggeration of the draw
         const double exaggeration = s.addSize.getExaggeration(s, this);
         // Start drawing adding an gl identificator
