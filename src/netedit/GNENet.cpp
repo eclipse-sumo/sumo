@@ -1827,7 +1827,7 @@ GNENet::joinRoutes(GNEUndoList* undoList) {
         for (const auto &i : routesToMerge) {
             if (i.size() > 1) {
                 // iterate over duplicated routes
-                for (int j = 1; j < i.size(); j++) {
+                for (int j = 1; j < (int)i.size(); j++) {
                     // move all vehicles of every duplicated route
                     while (i.at(j)->getDemandElementChilds().size() > 0) {
                         i.at(j)->getDemandElementChilds().front()->setAttribute(SUMO_ATTR_ROUTE, i.at(0)->getID(), undoList);
