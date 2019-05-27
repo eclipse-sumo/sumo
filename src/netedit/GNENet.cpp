@@ -1846,8 +1846,44 @@ GNENet::joinRoutes(GNEUndoList* undoList) {
     
 
 void 
-GNENet::cleanInvalidDemandElements(GNEUndoList* /*undoList*/) {
-    //
+GNENet::cleanInvalidDemandElements(GNEUndoList* undoList) {
+    // first declare a vector to save all invalid demand elements
+    std::vector<GNEDemandElement*> invalidDemandElements;
+    invalidDemandElements.reserve(myAttributeCarriers.demandElements.at(SUMO_TAG_ROUTE).size() + 
+                                  myAttributeCarriers.demandElements.at(SUMO_TAG_FLOW).size() + 
+                                  myAttributeCarriers.demandElements.at(SUMO_TAG_TRIP).size());
+    // iterate over routes
+    for (const auto &i : myAttributeCarriers.demandElements.at(SUMO_TAG_ROUTE)) {
+        if (!i.second->isDemandElementValid()) {
+            invalidDemandElements.push_back(i.second);
+        }
+    }
+    // iterate over flows
+    for (const auto &i : myAttributeCarriers.demandElements.at(SUMO_TAG_FLOW)) {
+        if (!i.second->isDemandElementValid()) {
+            invalidDemandElements.push_back(i.second);
+        }
+    }
+    // iterate over trip
+    for (const auto &i : myAttributeCarriers.demandElements.at(SUMO_TAG_TRIP)) {
+        if (!i.second->isDemandElementValid()) {
+            invalidDemandElements.push_back(i.second);
+        }
+    }
+    // continue if there is invalidDemandElements to remove
+    if (invalidDemandElements.size() > 0) {
+        // begin undo list
+        undoList->p_begin("remove invalid demand elements");
+        // iterate over invalidDemandElements
+        for (const auto &i : invalidDemandElements) {
+            // simply call GNEChange_DemandElement
+            undoList->add(new GNEChange_DemandElement(i, false), true);
+        }
+        // update view
+        myViewNet->update();
+        // end undo list
+        undoList->p_end();
+    }
 }
 
 void
