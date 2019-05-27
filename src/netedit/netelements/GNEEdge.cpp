@@ -457,8 +457,8 @@ GNEEdge::getCenteringBoundary() const {
         return myMovingGeometryBoundary;
     }  else {
         Boundary b;
-        for (auto i : myLanes) {
-            b.add(i->getBoundary());
+        for (const auto &i : myLanes) {
+            b.add(i->getCenteringBoundary());
         }
         // ensure that geometry points are selectable even if the lane geometry is strange
         for (const Position& pos : myNBEdge.getGeometry()) {

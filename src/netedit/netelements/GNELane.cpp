@@ -725,15 +725,6 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 Boundary
 GNELane::getCenteringBoundary() const {
-    // Lanes don't use myMovingGeometryBoundary
-    Boundary b = myGeometry.shape.getBoxBoundary();
-    b.grow(10);
-    return b;
-}
-
-
-Boundary
-GNELane::getBoundary() const {
     if (myParentEdge.getNBEdge()->getLaneStruct(myIndex).customShape.size() == 0) {
         return myParentEdge.getNBEdge()->getLaneStruct(myIndex).shape.getBoxBoundary();
     } else {

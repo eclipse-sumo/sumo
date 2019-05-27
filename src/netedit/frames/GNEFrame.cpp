@@ -1729,7 +1729,7 @@ long
 GNEFrame::ACHierarchy::onCmdCenterItem(FXObject*, FXSelector, void*) {
     GUIGlObject* glObject = dynamic_cast<GUIGlObject*>(myRightClickedAC);
     if (glObject) {
-        myFrameParent->myViewNet->centerTo(glObject->getGlID(), false);
+        myFrameParent->myViewNet->centerTo(glObject->getGlID(), true, -1);
         myFrameParent->myViewNet->update();
     }
     return 1;

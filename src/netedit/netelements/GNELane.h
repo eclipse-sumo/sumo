@@ -127,9 +127,6 @@ public:
     void drawGL(const GUIVisualizationSettings& s) const;
     /// @}
 
-    /// @brief returns the boundry (including lanes)
-    Boundary getBoundary() const;
-
     /// @brief returns the index of the lane
     int getIndex() const;
 
