@@ -54,7 +54,7 @@ public:
      * @param[in] position Position of the detector within the lane
      * @param[in] vTypes which vehicle types are considered
      */
-    GUIInductLoop(const std::string& id, MSLane* const lane, double position, const std::string& vTypes);
+    GUIInductLoop(const std::string& id, MSLane* const lane, double position, const std::string& vTypes, bool show);
 
 
     /// @brief Destructor
@@ -90,6 +90,16 @@ public:
 
     /// @brief sets special caller for myWrapper
     void setSpecialColor(const RGBColor* color);
+
+    /// @brief whether the induction loop shall be visible
+    bool isVisible() const {
+        return myShow;
+    }
+
+    /// @brief toggle visibility
+    void setVisible(bool show) {
+        myShow = show;
+    }
 
 protected:
     /// @name Methods that add and remove vehicles from internal container
@@ -214,6 +224,9 @@ private:
 
     /// @brief the glObject wrapper for this induction loop
     MyWrapper* myWrapper;
+
+    /// @brief whether this induction loop shall be visible in the gui
+    bool myShow;
 
     /// @brief Mutex preventing parallel read/write access to internal MSInductLoop state
     mutable FXMutex myLock;

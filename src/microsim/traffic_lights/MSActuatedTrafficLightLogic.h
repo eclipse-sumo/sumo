@@ -93,6 +93,11 @@ public:
     SUMOTime trySwitch();
     /// @}
 
+    bool showDetectors() const {
+        return myShowDetectors;
+    }
+
+    void setShowDetectors(bool show);
 
 protected:
     /// @name "actuated" algorithm methods

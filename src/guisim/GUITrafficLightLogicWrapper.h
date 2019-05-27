@@ -108,6 +108,9 @@ public:
     /// Returns the index of the given link within the according tls
     int getLinkIndex(const MSLink* const link) const;
 
+    MSTrafficLightLogic& getTLLogic() const {
+        return myTLLogic;
+    }
 
 public:
     /**
@@ -130,6 +133,7 @@ public:
 
         /// Called if the phases shall be begun to track
         long onCmdBegin2TrackPhases(FXObject*, FXSelector, void*);
+        long onCmdShowDetectors(FXObject*, FXSelector, void*);
 
         long onCmdSwitchTLS2Off(FXObject*, FXSelector, void*);
         long onCmdSwitchTLSLogic(FXObject*, FXSelector, void*);

@@ -355,6 +355,8 @@ enum {
     MID_SHOWPHASES = MID_SWITCH + 20,
     /// @brief Begin to track phases - menu entry
     MID_TRACKPHASES,
+    /// @brief show/hide actuation detectors
+    MID_SHOW_DETECTORS,
     /// @brief Add to selected items - menu entry
     MID_ADDSELECT,
     /// @brief Remove from selected items - Menu Etry

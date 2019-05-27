@@ -37,6 +37,7 @@
 #include <microsim/MSLane.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
+#include <microsim/traffic_lights/MSActuatedTrafficLightLogic.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <microsim/logging/FuncBinding_StringParam.h>
 #include <gui/GUIApplicationWindow.h>
@@ -54,6 +55,7 @@ FXDEFMAP(GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu)
 GUITrafficLightLogicWrapperPopupMenuMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_SHOWPHASES,             GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdShowPhases),
     FXMAPFUNC(SEL_COMMAND,  MID_TRACKPHASES,            GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdBegin2TrackPhases),
+    FXMAPFUNC(SEL_COMMAND,  MID_SHOW_DETECTORS,         GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdShowDetectors),
     FXMAPFUNC(SEL_COMMAND,  MID_SWITCH_OFF,             GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdSwitchTLS2Off),
     FXMAPFUNCS(SEL_COMMAND, MID_SWITCH, MID_SWITCH + 20, GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdSwitchTLSLogic),
 };
@@ -95,6 +97,16 @@ GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdShowPhas
     return 1;
 }
 
+long
+GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdShowDetectors(
+    FXObject*, FXSelector, void*) {
+    assert(myObject->getType() == GLO_TLLOGIC);
+    GUITrafficLightLogicWrapper* w = static_cast<GUITrafficLightLogicWrapper*>(myObject);
+    MSActuatedTrafficLightLogic* act = dynamic_cast<MSActuatedTrafficLightLogic*>(&w->getTLLogic());
+    assert(act != 0);
+    act->setShowDetectors(!act->showDetectors());
+    return 1;
+}
 
 long
 GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdSwitchTLS2Off(
@@ -151,6 +163,10 @@ GUITrafficLightLogicWrapper::getPopUpMenu(GUIMainWindow& app,
     new FXMenuCommand(ret, "Switch off", GUIIconSubSys::getIcon(ICON_FLAG_MINUS), ret, MID_SWITCH_OFF);
     new FXMenuCommand(ret, "Track Phases", nullptr, ret, MID_TRACKPHASES);
     new FXMenuCommand(ret, "Show Phases", nullptr, ret, MID_SHOWPHASES);
+    MSActuatedTrafficLightLogic* act = dynamic_cast<MSActuatedTrafficLightLogic*>(&myTLLogic);
+    if (act != nullptr) {
+        new FXMenuCommand(ret, act->showDetectors() ? "Hide Detectors" : "Show Detectors", nullptr, ret, MID_SHOW_DETECTORS);
+    }
     new FXMenuSeparator(ret);
     MSTrafficLightLogic* tll = myTLLogicControl.getActive(myTLLogic.getID());
     buildNameCopyPopupEntry(ret);

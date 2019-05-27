@@ -286,6 +286,8 @@ public:
     /// @brief allows for special color in the gui version
     virtual void setSpecialColor(const RGBColor* /*color*/) {};
 
+    virtual void setVisible(bool /*show*/) {};
+
 protected:
     /// @name Methods that add and remove vehicles from internal container
     /// @{

@@ -42,9 +42,10 @@
  * GUIInductLoop-methods
  * ----------------------------------------------------------------------- */
 GUIInductLoop::GUIInductLoop(const std::string& id, MSLane* const lane,
-                             double position, const std::string& vTypes) :
+                             double position, const std::string& vTypes, bool show) :
     MSInductLoop(id, lane, position, vTypes),
-    myWrapper(nullptr)
+    myWrapper(nullptr),
+    myShow(show)
 {}
 
 
@@ -154,6 +155,9 @@ GUIInductLoop::MyWrapper::getParameterWindow(GUIMainWindow& app,
 
 void
 GUIInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
+    if (!myDetector.isVisible()) {
+        return;
+    }
     glPushName(getGlID());
     double width = (double) 2.0 * s.scale;
     glLineWidth(1.0);
