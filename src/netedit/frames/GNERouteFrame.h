@@ -121,6 +121,9 @@ public:
         /// @brief add edge to current route (note: edge must be included in set of candidate edges
         bool addEdge(GNEEdge* edge);
 
+        /// @brief refresh edge candidates
+        void refreshEdgeCandidates();
+
         /// @brief clear edges (and restore colors)
         void clearEdges();
 

@@ -117,12 +117,20 @@ GNEDemandElement::RouteCalculator::calculateDijkstraRoute(GNENet *net, SUMOVehic
 
 bool
 GNEDemandElement::RouteCalculator::areEdgesConsecutives(SUMOVehicleClass vClass, GNEEdge* from, GNEEdge* to) const {
+    // the same edge cannot be consecutive of itself
+    if (from == to) {
+        return false;
+    }
+    // for pedestrian edges are always consecutives
     if (vClass == SVC_PEDESTRIAN) {
         return true;
     }
+    // obtain NBEdges from both edges
     NBEdge* nbFrom = from->getNBEdge();
     NBEdge* nbTo = to->getNBEdge();
+    // iterate over all connections of NBFrom
     for (NBEdge::Connection c : nbFrom->getConnectionsFromLane(-1, nbTo, -1)) {
+        //check if given VClass is allowed for from and to lanes
         if ((nbFrom->getPermissions(c.fromLane) & nbTo->getPermissions(c.toLane) & vClass) == vClass) {
             return true;
         }
