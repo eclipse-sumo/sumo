@@ -622,11 +622,8 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsImage(const GUIVisualizationSettin
         int textureID = GUITexturesHelper::getTextureID(file);
         if (textureID > 0) {
             const double exaggeration = s.vehicleSize.getExaggeration(s, o);
-            if (length < 0) {
-                length = length * exaggeration;
-            }
             const double halfWidth = width / 2.0 * exaggeration;
-            GUITexturesHelper::drawTexturedBox(textureID, -halfWidth, 0, halfWidth, length);
+            GUITexturesHelper::drawTexturedBox(textureID, -halfWidth, 0, halfWidth, length * exaggeration);
             return true;
         }
     }

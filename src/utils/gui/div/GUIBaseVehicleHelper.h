@@ -57,9 +57,10 @@ public:
             int carriageIndex = -1);
 
     /**@brief try to draw vehicle as raster image and return true if sucessful
-     * @param[in] length The custom length of the vehicle (defaults to the * length specified in the vehicle type if -1 is passed)
+     * @param[in] length The custom length of the vehicle
     */
-    static bool drawAction_drawVehicleAsImage(const GUIVisualizationSettings& s, const std::string& file, const GUIGlObject* o, const double width, double length = -1);
+    static bool drawAction_drawVehicleAsImage(const GUIVisualizationSettings& s, const std::string& file,
+            const GUIGlObject* o, const double width, double length);
 };
 
 

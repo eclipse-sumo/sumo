@@ -741,8 +741,8 @@ GUIBaseVehicle::drawAction_drawVehicleAsPolyWithCarriagges(const GUIVisualizatio
         drawAction_drawCarriageClass(s, asImage);
         return true;
     } else {
-        if (asImage &&
-                GUIBaseVehicleHelper::drawAction_drawVehicleAsImage(s, getVType().getImgFile(), this, getVType().getWidth())) {
+        if (asImage && GUIBaseVehicleHelper::drawAction_drawVehicleAsImage(
+                    s, getVType().getImgFile(), this, getVType().getWidth(), getVType().getLength())) {
             return false;
         }
         GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(s, getVType().getGuiShape(), getVType().getWidth(), getVType().getLength());
