@@ -1335,7 +1335,7 @@ NBNodeCont::shouldBeTLSControlled(const NodeSet& c, double laneSpeedThreshold) c
             }
         }
     }
-    //std::cout << " c=" << joinNamedToString(c, ' ') << " f=" << f << " size=" << c.size() << " thresh=" << laneSpeedThreshold << "\n";
+    //std::cout << " c=" << joinNamedToString(c, ' ') << " f=" << f << " size=" << c.size() << " thresh=" << laneSpeedThreshold << " tooFast=" << tooFast << "\n";
     return !tooFast && f >= laneSpeedThreshold && c.size() != 0;
 }
 
@@ -1574,7 +1574,7 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
         }
         NodeSet c;
         c.insert(cur);
-        if (!shouldBeTLSControlled(c, laneSpeedThreshold) || cur->getIncomingEdges().size() < 3) {
+        if (!shouldBeTLSControlled(c, laneSpeedThreshold) || cur->geometryLike()) {
             continue;
         }
         setAsTLControlled((*i).second, tlc, type);
