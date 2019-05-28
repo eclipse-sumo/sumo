@@ -642,72 +642,83 @@ GUISUMOAbstractView::displayColorLegend() {
     glPushMatrix();
     glTranslated(0, 0, z);
 
+    GUIColorScheme& scheme = myVisualizationSettings->getLaneEdgeScheme();
+    const bool fixed = scheme.isFixed();
+    const int numColors = (int)scheme.getColors().size();
+
     // vertical
     const double right = 0.98;
     const double left = 0.95;
     const double top = 0.8;
     const double bot = -0.8;
+    const double dy = (top - bot) / numColors;
+    const double bot2 = fixed ? bot : bot + dy / 2;
     glBegin(GL_LINES);
     glVertex2d(right, top);
-    glVertex2d(right, bot);
+    glVertex2d(right, bot2);
+    glVertex2d(left, bot2);
+    glVertex2d(left, top);
+    glVertex2d(right, top);
+    glVertex2d(left, top);
+    glVertex2d(right, bot2);
+    glVertex2d(left, bot2);
     glEnd();
 
-    GUIColorScheme& scheme = myVisualizationSettings->getLaneEdgeScheme();
-    //const bool fixed = scheme.isFixed();
-    int numColors = (int)scheme.getColors().size();
-    double dy = (top - bot) / numColors;
+    const double fontHeight = 0.12 * 300. / getHeight();
+    const double fontWidth = 0.12 * 300. / getWidth();
+
+    const int fadeSteps = fixed ? 1 : 10;
+    double colorStep = dy / fadeSteps;
     for (int i = 0; i < numColors; i++) {
-        GLHelper::setColor(scheme.getColors()[i]);
-        //const double threshold = scheme.getThresholds()[i];
+        RGBColor col = scheme.getColors()[i];
         const double topi = top - i * dy;
-        const double boti = top - (i + 1) * dy;
+        //const double boti = top - (i + 1) * dy;
         //std::cout << " col=" << scheme.getColors()[i] << " i=" << i << " topi=" << topi << " boti=" << boti << "\n";
-        //std::string name = scheme.getNames()[i];
-        glBegin(GL_QUADS);
-        glVertex2d(left, topi);
-        glVertex2d(right, topi);
-        glVertex2d(right, boti);
-        glVertex2d(left, boti);
-        glEnd();
-
-        /*
-        if (fixed) {
-            new FXLabel(m, nameIt->c_str());
-            new FXLabel(m, "");
-            new FXLabel(m, "");
+        if (i + 1 < numColors) {
+            // fade
+            RGBColor col2 = scheme.getColors()[i + 1];
+            for (double j = 0.0; j < fadeSteps; j++) {
+                GLHelper::setColor(RGBColor::interpolate(col, col2, j / fadeSteps));
+                glBegin(GL_QUADS);
+                glVertex2d(left, topi - j * colorStep);
+                glVertex2d(right, topi - j * colorStep);
+                glVertex2d(right, topi - (j + 1) * colorStep);
+                glVertex2d(left, topi - (j + 1) * colorStep);
+                glEnd();
+            }
         } else {
-            const int dialerOptions = scheme.allowsNegativeValues() ? SPIN_NOMIN : 0;
-            FXRealSpinner* threshDialer = new FXRealSpinner(m, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignSpinDial | SPIN_NOMAX | dialerOptions);
-            threshDialer->setValue(*threshIt);
-            thresholds.push_back(threshDialer);
-            buttons.push_back(new FXButton(m, "Add", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsButton1));
-            buttons.push_back(new FXButton(m, "Remove", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsButton1));
+            GLHelper::setColor(col);
+            glBegin(GL_QUADS);
+            glVertex2d(left, topi);
+            glVertex2d(right, topi);
+            glVertex2d(right, bot2);
+            glVertex2d(left, bot2);
+            glEnd();
         }
-        */
+
+        const double threshold = scheme.getThresholds()[i];
+        std::string name = scheme.getNames()[i];
+        std::string text = fixed ? name : toString(threshold);
+
+        GLHelper::setColor(RGBColor::WHITE);
+        glTranslated(0, 0, 0.1);
+        glBegin(GL_QUADS);
+        glVertex2d(left, topi - fontHeight / 2);
+        glVertex2d(left - fontWidth * text.size() / 2, topi - fontHeight / 2);
+        glVertex2d(left - fontWidth * text.size() / 2, topi - fontHeight * 1.5);
+        glVertex2d(left, topi - fontHeight * 1.5);
+        glEnd();
+        glTranslated(0, 0, -0.1);
+        GLHelper::drawText(text, Position(left - 0.01, topi - 0.1), 0, fontHeight, RGBColor::BLACK, 0, FONS_ALIGN_RIGHT, fontWidth);
     }
-    //// tick at begin
-    //glVertex2d(-.98, -1. + o);
-    //glVertex2d(-.98, -1. + o2);
-    //// tick at end
-    //glVertex2d(-.98 + len, -1. + o);
-    //glVertex2d(-.98 + len, -1. + o2);
-    glEnd();
     glPopMatrix();
-
-    //const double fontHeight = 0.1 * 300. / getHeight();
-    //const double fontWidth = 0.1 * 300. / getWidth();
-    // draw 0
-    //GLHelper::drawText("0", Position(-.99, -0.99 + o2 + oo), z, fontHeight, RGBColor::BLACK, 0, FONS_ALIGN_LEFT, fontWidth);
-
-    // draw current scale
-    //GLHelper::drawText((text.substr(0, noDigits) + "m").c_str(), Position(-.99 + len, -0.99 + o2 + oo), z, fontHeight, RGBColor::BLACK, 0, FONS_ALIGN_LEFT, fontWidth);
-
     // restore matrices
     glMatrixMode(GL_PROJECTION);
     glPopMatrix();
     glMatrixMode(GL_MODELVIEW);
     glPopMatrix();
 }
+
 
 double
 GUISUMOAbstractView::getFPS() const {
