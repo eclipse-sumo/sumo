@@ -1153,6 +1153,9 @@ GUISUMOAbstractView::makeSnapshot(const std::string& destFile, const int width, 
             if (myVisualizationSettings->showSizeLegend) {
                 displayLegend();
             }
+            if (myVisualizationSettings->showColorLegend) {
+                displayColorLegend();
+            }
             state = gl2psEndPage();
             glFinish();
         }
@@ -1164,6 +1167,9 @@ GUISUMOAbstractView::makeSnapshot(const std::string& destFile, const int width, 
         doPaintGL(GL_RENDER, myChanger->getViewport());
         if (myVisualizationSettings->showSizeLegend) {
             displayLegend();
+        }
+        if (myVisualizationSettings->showColorLegend) {
+            displayColorLegend();
         }
         swapBuffers();
         glFinish();
