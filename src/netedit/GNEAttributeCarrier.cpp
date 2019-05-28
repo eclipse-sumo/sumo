@@ -101,6 +101,10 @@ GNEAttributeCarrier::AttributeProperties::~AttributeProperties() {}
 
 void
 GNEAttributeCarrier::AttributeProperties::checkAttributeIntegrity() {
+    // check that positive attributes correspond only to a int, floats or SUMOTimes
+    if (isPositive() && !(isInt() || isFloat() || isSUMOTime())) {
+        throw FormatException("Only int, floats or SUMOTimes can be positive");
+    }
     // check that secuential attributes correspond to a list
     if (isSecuential() && !isList()) {
         throw FormatException("Secuential property only is compatible with list properties");
@@ -239,6 +243,9 @@ GNEAttributeCarrier::AttributeProperties::getDescription() const {
     if ((myAttributeProperty & ATTRPROPERTY_FLOAT) != 0) {
         type = "float";
     }
+    if ((myAttributeProperty & ATTRPROPERTY_SUMOTIME) != 0) {
+        type = "SUMOTime";
+    }
     if ((myAttributeProperty & ATTRPROPERTY_BOOL) != 0) {
         type = "boolean";
     }
@@ -260,9 +267,6 @@ GNEAttributeCarrier::AttributeProperties::getDescription() const {
     if ((myAttributeProperty & ATTRPROPERTY_PROBABILITY) != 0) {
         type = "probability";
         last = "[0, 1]";
-    }
-    if ((myAttributeProperty & ATTRPROPERTY_TIME) != 0) {
-        type = "time";
     }
     if ((myAttributeProperty & ATTRPROPERTY_ANGLE) != 0) {
         type = "angle";
@@ -344,6 +348,12 @@ GNEAttributeCarrier::AttributeProperties::isFloat() const {
 
 
 bool
+GNEAttributeCarrier::AttributeProperties::isSUMOTime() const {
+    return (myAttributeProperty & ATTRPROPERTY_SUMOTIME) != 0;
+}
+
+
+bool
 GNEAttributeCarrier::AttributeProperties::isBool() const {
     return (myAttributeProperty & ATTRPROPERTY_BOOL) != 0;
 }
@@ -369,13 +379,7 @@ GNEAttributeCarrier::AttributeProperties::isProbability() const {
 
 bool
 GNEAttributeCarrier::AttributeProperties::isNumerical() const {
-    return (myAttributeProperty & (ATTRPROPERTY_INT | ATTRPROPERTY_FLOAT)) != 0;
-}
-
-
-bool
-GNEAttributeCarrier::AttributeProperties::isTime() const {
-    return (myAttributeProperty & ATTRPROPERTY_TIME) != 0;
+    return (myAttributeProperty & (ATTRPROPERTY_INT | ATTRPROPERTY_FLOAT | ATTRPROPERTY_SUMOTIME)) != 0;
 }
 
 
@@ -1897,7 +1901,7 @@ GNEAttributeCarrier::fillAdditionals() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_CHARGEDELAY,
-                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           ATTRPROPERTY_SUMOTIME | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
                                            "Time delay after the vehicles has reached / stopped on the charging station, before the energy transfer (charging) begins",
                                            "0.00");
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -2018,7 +2022,7 @@ GNEAttributeCarrier::fillAdditionals() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_FREQUENCY,
-                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUESTATIC,
+                                           ATTRPROPERTY_SUMOTIME | ATTRPROPERTY_DEFAULTVALUESTATIC,
                                            "The aggregation period the values the detector collects shall be summed up",
                                            "900.00");
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -2074,7 +2078,7 @@ GNEAttributeCarrier::fillAdditionals() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_FREQUENCY,
-                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUESTATIC,
+                                           ATTRPROPERTY_SUMOTIME | ATTRPROPERTY_DEFAULTVALUESTATIC,
                                            "The aggregation period the values the detector collects shall be summed up",
                                            "900.00");
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -2095,7 +2099,7 @@ GNEAttributeCarrier::fillAdditionals() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_HALTING_TIME_THRESHOLD,
-                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           ATTRPROPERTY_SUMOTIME | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
                                            "The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting)",
                                            "1.00");
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -2146,7 +2150,7 @@ GNEAttributeCarrier::fillAdditionals() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_FREQUENCY,
-                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUESTATIC,
+                                           ATTRPROPERTY_SUMOTIME | ATTRPROPERTY_DEFAULTVALUESTATIC,
                                            "The aggregation period the values the detector collects shall be summed up",
                                            "900.00");
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -2167,7 +2171,7 @@ GNEAttributeCarrier::fillAdditionals() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_HALTING_TIME_THRESHOLD,
-                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           ATTRPROPERTY_SUMOTIME | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
                                            "The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting)",
                                            "1.00");
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -2208,7 +2212,7 @@ GNEAttributeCarrier::fillAdditionals() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_FREQUENCY,
-                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUESTATIC,
+                                           ATTRPROPERTY_SUMOTIME | ATTRPROPERTY_DEFAULTVALUESTATIC,
                                            "The aggregation period the values the detector collects shall be summed up",
                                            "900.00");
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -2229,13 +2233,13 @@ GNEAttributeCarrier::fillAdditionals() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_HALTING_TIME_THRESHOLD,
-                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           ATTRPROPERTY_SUMOTIME | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
                                            "The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting) in s",
                                            "1.00");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_HALTING_SPEED_THRESHOLD,
-                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           ATTRPROPERTY_SUMOTIME | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
                                            "The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting) in m/s",
                                            "1.39");
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -2360,7 +2364,7 @@ GNEAttributeCarrier::fillAdditionals() {
         myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_ADDITIONAL, TAGPROPERTY_PARENT, ICON_VSSSTEP, SUMO_TAG_VSS);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_TIME,
-                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME,
+                                           ATTRPROPERTY_SUMOTIME,
                                            "Time");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -2392,7 +2396,7 @@ GNEAttributeCarrier::fillAdditionals() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_FREQUENCY,
-                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           ATTRPROPERTY_SUMOTIME | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
                                            "The aggregation interval in which to calibrate the flows. Default is step-length",
                                            "1.00");
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -2434,7 +2438,7 @@ GNEAttributeCarrier::fillAdditionals() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_FREQUENCY,
-                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           ATTRPROPERTY_SUMOTIME | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
                                            "The aggregation interval in which to calibrate the flows. Default is step-length",
                                            "100.00");
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -2487,13 +2491,13 @@ GNEAttributeCarrier::fillAdditionals() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_BEGIN,
-                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUESTATIC,
+                                           ATTRPROPERTY_SUMOTIME | ATTRPROPERTY_DEFAULTVALUESTATIC,
                                            "First vehicle departure time",
                                            "0.00");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_END,
-                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUESTATIC,
+                                           ATTRPROPERTY_SUMOTIME | ATTRPROPERTY_DEFAULTVALUESTATIC,
                                            "End of departure interval",
                                            "3600.00");
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -2609,7 +2613,7 @@ GNEAttributeCarrier::fillAdditionals() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_HALTING_TIME_THRESHOLD,
-                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           ATTRPROPERTY_SUMOTIME | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
                                            "The waiting time threshold (in s) that must be reached to activate rerouting (default -1 which disables the threshold)",
                                            "0.00");
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -2631,13 +2635,13 @@ GNEAttributeCarrier::fillAdditionals() {
         myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_ADDITIONAL, TAGPROPERTY_PARENT, ICON_REROUTERINTERVAL, SUMO_TAG_REROUTER);
         // set values of attributes
         attrProperty = AttributeProperties(SUMO_ATTR_BEGIN,
-                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUESTATIC,
+                                           ATTRPROPERTY_SUMOTIME | ATTRPROPERTY_DEFAULTVALUESTATIC,
                                            "Begin",
                                            "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_END,
-                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUESTATIC,
+                                           ATTRPROPERTY_SUMOTIME | ATTRPROPERTY_DEFAULTVALUESTATIC,
                                            "End",
                                            "3600.00");
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -2757,7 +2761,7 @@ GNEAttributeCarrier::fillAdditionals() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_FREQUENCY,
-                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUESTATIC,
+                                           ATTRPROPERTY_SUMOTIME | ATTRPROPERTY_DEFAULTVALUESTATIC,
                                            "The frequency in which to report the distribution",
                                            "3600");
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -2773,7 +2777,7 @@ GNEAttributeCarrier::fillAdditionals() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_BEGIN,
-                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           ATTRPROPERTY_SUMOTIME | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
                                            "The time at which to start generating output",
                                            "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -2789,13 +2793,13 @@ GNEAttributeCarrier::fillAdditionals() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_BEGIN,
-                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUESTATIC,
+                                           ATTRPROPERTY_SUMOTIME | ATTRPROPERTY_DEFAULTVALUESTATIC,
                                            "Start Time",
                                            "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_END,
-                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUESTATIC,
+                                           ATTRPROPERTY_SUMOTIME | ATTRPROPERTY_DEFAULTVALUESTATIC,
                                            "End Time",
                                            "3600.00");
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -3222,13 +3226,13 @@ GNEAttributeCarrier::fillDemandElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_BOARDING_DURATION,
-                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
+                                           ATTRPROPERTY_SUMOTIME | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
                                            "The time required by a person to board the vehicle",
                                            "0.50");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_LOADING_DURATION,
-                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
+                                           ATTRPROPERTY_SUMOTIME | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
                                            "The time required to load a container onto the vehicle",
                                            "90.00");
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -3510,13 +3514,13 @@ GNEAttributeCarrier::fillDemandElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_BEGIN,
-                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUESTATIC,
+                                           ATTRPROPERTY_SUMOTIME | ATTRPROPERTY_DEFAULTVALUESTATIC,
                                            "First vehicle departure time",
                                            "0.00");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_END,
-                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUESTATIC,
+                                           ATTRPROPERTY_SUMOTIME | ATTRPROPERTY_DEFAULTVALUESTATIC,
                                            "End of departure interval",
                                            "3600.00");
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -3736,13 +3740,13 @@ GNEAttributeCarrier::fillDemandElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_BEGIN,
-                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUESTATIC,
+                                           ATTRPROPERTY_SUMOTIME | ATTRPROPERTY_DEFAULTVALUESTATIC,
                                            "First vehicle departure time",
                                            "0.00");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_END,
-                                           ATTRPROPERTY_FLOAT | ATTRPROPERTY_POSITIVE | ATTRPROPERTY_TIME | ATTRPROPERTY_DEFAULTVALUESTATIC,
+                                           ATTRPROPERTY_SUMOTIME | ATTRPROPERTY_DEFAULTVALUESTATIC,
                                            "End of departure interval",
                                            "3600.00");
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -4483,14 +4487,9 @@ GNEAttributeCarrier::checkParsedAttribute(const TagProperties& tagProperties,
         }
     }
     // set extra check for time(double) values
-    if (attrProperties.isTime()) {
-        if (canParse<double>(parsedAttribute)) {
-            // parse to SUMO Real and check if is negative
-            if (parse<double>(parsedAttribute) < 0) {
-                errorFormat = "Time cannot be negative; ";
-            }
-        } else {
-            errorFormat = "Cannot be parsed to time; ";
+    if (attrProperties.isSUMOTime()) {
+        if (!canParse<SUMOTime>(parsedAttribute)) {
+            errorFormat = "Cannot be parsed to SUMOTime; ";
         }
     }
     // set extra check for probability values

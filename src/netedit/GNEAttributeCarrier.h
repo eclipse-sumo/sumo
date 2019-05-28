@@ -65,19 +65,19 @@ public:
     enum AttrProperty {
         ATTRPROPERTY_INT =                 1 << 0,   // Attribute is an integer (Including Zero)
         ATTRPROPERTY_FLOAT =               1 << 1,   // Attribute is a float
-        ATTRPROPERTY_BOOL =                1 << 2,   // Attribute is boolean (0/1, true/false)
-        ATTRPROPERTY_STRING =              1 << 3,   // Attribute is a string
-        ATTRPROPERTY_POSITION =            1 << 4,   // Attribute is a position defined by doubles (x,y or x,y,z)
-        ATTRPROPERTY_COLOR =               1 << 5,   // Attribute is a color defined by a specifically word (Red, green) or by a special format (XXX,YYY,ZZZ)
-        ATTRPROPERTY_VCLASS =              1 << 6,   // Attribute is a VClass (passenger, bus, motorcicle...)
-        ATTRPROPERTY_POSITIVE =            1 << 7,   // Attribute is positive (Including Zero)
-        ATTRPROPERTY_NOTZERO =             1 << 8,   // Attribute cannot be 0 (only for numerical attributes)
-        ATTRPROPERTY_UNIQUE =              1 << 9,   // Attribute is unique (cannot be edited in a selection of similar elements (ID, Position...)
-        ATTRPROPERTY_FILENAME =            1 << 10,  // Attribute is a filename (string that cannot contains certain characters)
-        ATTRPROPERTY_NONEDITABLE =         1 << 11,  // Attribute is non editable (index of a lane)
-        ATTRPROPERTY_DISCRETE =            1 << 12,  // Attribute is discrete (only certain values are allowed)
-        ATTRPROPERTY_PROBABILITY =         1 << 13,  // Attribute is probability (only allowed values between 0 and 1, including both)
-        ATTRPROPERTY_TIME =                1 << 14,  // Attribute is a Time (float positive)
+        ATTRPROPERTY_SUMOTIME =            1 << 2,  // Attribute is a SUMOTime
+        ATTRPROPERTY_BOOL =                1 << 3,   // Attribute is boolean (0/1, true/false)
+        ATTRPROPERTY_STRING =              1 << 4,   // Attribute is a string
+        ATTRPROPERTY_POSITION =            1 << 5,   // Attribute is a position defined by doubles (x,y or x,y,z)
+        ATTRPROPERTY_COLOR =               1 << 6,   // Attribute is a color defined by a specifically word (Red, green) or by a special format (XXX,YYY,ZZZ)
+        ATTRPROPERTY_VCLASS =              1 << 7,   // Attribute is a VClass (passenger, bus, motorcicle...)
+        ATTRPROPERTY_POSITIVE =            1 << 8,   // Attribute is positive (Including Zero)
+        ATTRPROPERTY_NOTZERO =             1 << 9,   // Attribute cannot be 0 (only for numerical attributes)
+        ATTRPROPERTY_UNIQUE =              1 << 10,  // Attribute is unique (cannot be edited in a selection of similar elements (ID, Position...)
+        ATTRPROPERTY_FILENAME =            1 << 11,  // Attribute is a filename (string that cannot contains certain characters)
+        ATTRPROPERTY_NONEDITABLE =         1 << 12,  // Attribute is non editable (index of a lane)
+        ATTRPROPERTY_DISCRETE =            1 << 13,  // Attribute is discrete (only certain values are allowed)
+        ATTRPROPERTY_PROBABILITY =         1 << 14,  // Attribute is probability (only allowed values between 0 and 1, including both)
         ATTRPROPERTY_ANGLE =               1 << 15,  // Attribute is an angle (only takes values between 0 and 360, including both, another value will be automatically reduced
         ATTRPROPERTY_LIST =                1 << 16,  // Attribute is a list of other elements separated by spaces
         ATTRPROPERTY_SECUENCIAL =          1 << 17,  // Attribute is a special sequence of elements (for example: secuencial lanes in Multi Lane E2 detectors)
@@ -174,6 +174,9 @@ public:
         /// @brief return true if atribute is a float
         bool isFloat() const;
 
+        /// @brief return true if atribute is a SUMOTime
+        bool isSUMOTime() const;
+
         /// @brief return true if atribute is boolean
         bool isBool() const;
 
@@ -188,9 +191,6 @@ public:
 
         /// @brief return true if atribute is numerical (int or float)
         bool isNumerical() const;
-
-        /// @brief return true if atribute is time
-        bool isTime() const;
 
         /// @brief return true if atribute is positive
         bool isPositive() const;

@@ -589,7 +589,7 @@ GNEFrame::AttributesCreator::AttributesCreatorRow::getValue() const {
         return (myValueCheckButton->getCheck() == 1) ? "1" : "0";
     } else if (myAttrProperties.isInt()) {
         return myValueTextFieldInt->getText().text();
-    } else if (myAttrProperties.isFloat() || myAttrProperties.isTime()) {
+    } else if (myAttrProperties.isFloat() || myAttrProperties.isSUMOTime()) {
         return myValueTextFieldReal->getText().text();
     } else {
         return myValueTextFieldStrings->getText().text();
@@ -618,7 +618,7 @@ GNEFrame::AttributesCreator::AttributesCreatorRow::setAttributeRadioButtonCheck(
                 myValueCheckButton->enable();
             } else if (myAttrProperties.isInt()) {
                 myValueTextFieldInt->enable();
-            } else if (myAttrProperties.isFloat() || myAttrProperties.isTime()) {
+            } else if (myAttrProperties.isFloat() || myAttrProperties.isSUMOTime()) {
                 myValueTextFieldReal->enable();
             } else {
                 myValueTextFieldStrings->enable();
@@ -628,7 +628,7 @@ GNEFrame::AttributesCreator::AttributesCreatorRow::setAttributeRadioButtonCheck(
                 myValueCheckButton->disable();
             } else if (myAttrProperties.isInt()) {
                 myValueTextFieldInt->disable();
-            } else if (myAttrProperties.isFloat() || myAttrProperties.isTime()) {
+            } else if (myAttrProperties.isFloat() || myAttrProperties.isSUMOTime()) {
                 myValueTextFieldReal->disable();
             } else {
                 myValueTextFieldStrings->disable();
@@ -659,7 +659,7 @@ GNEFrame::AttributesCreator::AttributesCreatorRow::setAttributeCheckButtonCheck(
                 myValueCheckButton->enable();
             } else if (myAttrProperties.isInt()) {
                 myValueTextFieldInt->enable();
-            } else if (myAttrProperties.isFloat() || myAttrProperties.isTime()) {
+            } else if (myAttrProperties.isFloat() || myAttrProperties.isSUMOTime()) {
                 myValueTextFieldReal->enable();
             } else {
                 myValueTextFieldStrings->enable();
@@ -669,7 +669,7 @@ GNEFrame::AttributesCreator::AttributesCreatorRow::setAttributeCheckButtonCheck(
                 myValueCheckButton->disable();
             } else if (myAttrProperties.isInt()) {
                 myValueTextFieldInt->disable();
-            } else if (myAttrProperties.isFloat() || myAttrProperties.isTime()) {
+            } else if (myAttrProperties.isFloat() || myAttrProperties.isSUMOTime()) {
                 myValueTextFieldReal->disable();
             } else {
                 myValueTextFieldStrings->disable();
@@ -685,7 +685,7 @@ GNEFrame::AttributesCreator::AttributesCreatorRow::enableAttributesCreatorRow() 
         return myValueCheckButton->enable();
     } else if (myAttrProperties.isInt()) {
         return myValueTextFieldInt->enable();
-    } else if (myAttrProperties.isFloat() || myAttrProperties.isTime()) {
+    } else if (myAttrProperties.isFloat() || myAttrProperties.isSUMOTime()) {
         return myValueTextFieldReal->enable();
     } else {
         return myValueTextFieldStrings->enable();
@@ -699,7 +699,7 @@ GNEFrame::AttributesCreator::AttributesCreatorRow::disableAttributesCreatorRow()
         return myValueCheckButton->disable();
     } else if (myAttrProperties.isInt()) {
         return myValueTextFieldInt->disable();
-    } else if (myAttrProperties.isFloat() || myAttrProperties.isTime()) {
+    } else if (myAttrProperties.isFloat() || myAttrProperties.isSUMOTime()) {
         return myValueTextFieldReal->disable();
     } else {
         return myValueTextFieldStrings->disable();
@@ -715,7 +715,7 @@ GNEFrame::AttributesCreator::AttributesCreatorRow::isAttributesCreatorRowEnabled
         return myValueCheckButton->isEnabled();
     } else if (myAttrProperties.isInt()) {
         return myValueTextFieldInt->isEnabled();
-    } else if (myAttrProperties.isFloat() || myAttrProperties.isTime()) {
+    } else if (myAttrProperties.isFloat() || myAttrProperties.isSUMOTime()) {
         return myValueTextFieldReal->isEnabled();
     } else {
         return myValueTextFieldStrings->isEnabled();
@@ -759,17 +759,10 @@ GNEFrame::AttributesCreator::AttributesCreatorRow::onCmdSetAttribute(FXObject* o
         } else {
             myInvalidValue = "'" + myAttrProperties.getAttrStr() + "' doesn't have a valid 'int' format";
         }
-    } else if (myAttrProperties.isTime()) {
+    } else if (myAttrProperties.isSUMOTime()) {
         // time attributes work as positive doubles
-        if (GNEAttributeCarrier::canParse<double>(myValueTextFieldReal->getText().text())) {
-            // convert string to double
-            double doubleValue = GNEAttributeCarrier::parse<double>(myValueTextFieldReal->getText().text());
-            // Check if parsed value is negative
-            if (doubleValue < 0) {
-                myInvalidValue = "'" + myAttrProperties.getAttrStr() + "' cannot be negative";
-            }
-        } else {
-            myInvalidValue = "'" + myAttrProperties.getAttrStr() + "' doesn't have a valid 'time' format";
+        if (!GNEAttributeCarrier::canParse<SUMOTime>(myValueTextFieldReal->getText().text())) {
+            myInvalidValue = "'" + myAttrProperties.getAttrStr() + "' doesn't have a valid SUMOTime format";
         }
     } else if (myAttrProperties.isFloat()) {
         if (GNEAttributeCarrier::canParse<double>(myValueTextFieldReal->getText().text())) {
@@ -1050,7 +1043,7 @@ GNEFrame::AttributesEditor::AttributesEditorRow::showAttributesEditorRow(const G
                 myValueTextFieldStrings->disable();
             }
         }
-    } else if (myACAttr.isFloat() || myACAttr.isTime()) {
+    } else if (myACAttr.isFloat() || myACAttr.isSUMOTime()) {
         // show TextField for real/time values
         myValueTextFieldReal->setText(value.c_str());
         myValueTextFieldReal->setTextColor(FXRGB(0, 0, 0));
@@ -1330,7 +1323,7 @@ GNEFrame::AttributesEditor::AttributesEditorRow::onCmdSetAttribute(FXObject*, FX
             // due this is a multiple selection, obtain value of myValueTextFieldStrings instead of comboBox
             newVal = myValueTextFieldStrings->getText().text();
         }
-    } else if (myACAttr.isFloat() || myACAttr.isTime()) {
+    } else if (myACAttr.isFloat() || myACAttr.isSUMOTime()) {
         // Check if default value of attribute must be set
         if (myValueTextFieldReal->getText().empty() && myACAttr.hasStaticDefaultValue()) {
             newVal = myACAttr.getDefaultValue();
@@ -1392,7 +1385,7 @@ GNEFrame::AttributesEditor::AttributesEditorRow::onCmdSetAttribute(FXObject*, FX
         } else if (myACAttr.isDiscrete()) {
             myValueComboBoxChoices->setTextColor(FXRGB(0, 0, 0));
             myValueComboBoxChoices->killFocus();
-        } else if (myACAttr.isFloat() || myACAttr.isTime()) {
+        } else if (myACAttr.isFloat() || myACAttr.isSUMOTime()) {
             myValueTextFieldReal->setTextColor(FXRGB(0, 0, 0));
             myValueTextFieldReal->killFocus();
         } else if (myACAttr.isInt() && myValueTextFieldStrings != nullptr) {
@@ -1412,7 +1405,7 @@ GNEFrame::AttributesEditor::AttributesEditorRow::onCmdSetAttribute(FXObject*, FX
         } else if (myACAttr.isDiscrete()) {
             myValueComboBoxChoices->setTextColor(FXRGB(255, 0, 0));
             myValueComboBoxChoices->killFocus();
-        } else if (myACAttr.isFloat() || myACAttr.isTime()) {
+        } else if (myACAttr.isFloat() || myACAttr.isSUMOTime()) {
             myValueTextFieldReal->setTextColor(FXRGB(255, 0, 0));
         } else if (myACAttr.isInt() && myValueTextFieldStrings != nullptr) {
             myValueTextFieldInt->setTextColor(FXRGB(255, 0, 0));
