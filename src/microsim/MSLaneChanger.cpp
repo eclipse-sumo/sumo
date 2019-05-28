@@ -1175,6 +1175,9 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
             }
 #endif
             const double gapToLeaderFront = leader.second + leader.first->getVehicleType().getLengthWithGap();
+            if (gapToLeaderFront < 0) {
+                return false;
+            }
             dist -= gapToLeaderFront;
             leader = source->getOppositeLeader(leader.first, dist, true);
             if (leader.first != 0) {
