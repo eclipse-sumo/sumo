@@ -156,6 +156,8 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_SHIFT_J_TOOGLECHAIN,        GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_K_TOOGLETWOWAY,       GNEApplicationWindow::onCmdToogleTwoWay),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_SHIFT_K_TOOGLETWOWAY,       GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_B_TOOGLEBUBBLES,      GNEApplicationWindow::onCmdToogleJunctionBubbles),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_SHIFT_K_TOOGLETWOWAY,       GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_T_OPENSUMONETEDIT,          GNEApplicationWindow::onCmdOpenSUMOGUI),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_T_OPENSUMONETEDIT,          GNEApplicationWindow::onUpdNeedsNetwork),
 
@@ -2099,6 +2101,12 @@ GNEApplicationWindow::onCmdToogleTwoWay(FXObject*, FXSelector, void*) {
         // update view
         myViewNet->update();
     }
+    return 1;
+}
+
+
+long
+GNEApplicationWindow::onCmdToogleJunctionBubbles(FXObject*, FXSelector, void*) {
     return 1;
 }
 

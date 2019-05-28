@@ -103,16 +103,6 @@ enum {
     MID_HOTKEY_CTRL_Y_REDO,
     /// @brief Redo
     MID_HOTKEY_CTRL_Z_UNDO,
-    /// @brief Toogle show connections in Netedit
-    MID_HOTKEY_CTRL_SHIFT_C_SHOWCONNECTIONS,
-    /// @brief Toogle move elevation
-    MID_HOTKEY_CTRL_SHIFT_H_TOOGLEELEVATION,
-    /// @brief Toogle select edges in Netedit
-    MID_HOTKEY_CTRL_SHIFT_I_SELECTEDGES,
-    /// @brief Toogle chaing edges
-    MID_HOTKEY_CTRL_SHIFT_J_TOOGLECHAIN,
-    /// @brief Toogle two way
-    MID_HOTKEY_CTRL_SHIFT_K_TOOGLETWOWAY,
 
     /// @}
 
@@ -121,8 +111,22 @@ enum {
 
     /// @brief Save Additional Elements
     MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALS,
+    /// @brief Toogle show junctions as buubles
+    MID_HOTKEY_CTRL_SHIFT_B_TOOGLEBUBBLES,
+    /// @brief Toogle show connections in Netedit
+    MID_HOTKEY_CTRL_SHIFT_C_SHOWCONNECTIONS,
     /// @brief Save Demand Elements
     MID_HOTKEY_CTRL_SHIFT_D_SAVEDEMAND,
+    /// @brief Toogle move elevation
+    MID_HOTKEY_CTRL_SHIFT_H_TOOGLEELEVATION,
+    /// @brief Toogle select edges in Netedit
+    MID_HOTKEY_CTRL_SHIFT_I_SELECTEDGES,
+    /// @brief Toogle chaing edges
+    MID_HOTKEY_CTRL_SHIFT_J_TOOGLECHAIN,
+    /// @brief Toogle two way
+    MID_HOTKEY_CTRL_SHIFT_K_TOOGLETWOWAY,   // CONFLICT
+    /// @brief save TLS Programs
+    MID_GNE_HOTKEY_CTRL_SHIFT_K,            // CONFLICT
     /// @brief save newtwork as
     MID_HOTKEY_CTRL_SHIFT_S_SAVENETWORKAS,
     /// @brief compute junctions
@@ -147,8 +151,6 @@ enum {
     MID_GNE_HOTKEY_ENTER,
     /// @brief hot key <Backspace> remove last sub-operation
     MID_GNE_HOTKEY_BACKSPACE,
-    /// @brief save TLS Programs
-    MID_GNE_HOTKEY_CTRL_SHIFT_K,
     /// @brief clean junctions without edges in networkmode and unused routes in demand mode
     MID_GNE_HOTKEY_F6_CLEAN_SOLITARYJUNCTIONS_UNUSEDROUTES,
     /// @brief join selected junctions in networkmode and normalice demand element ids in demand mode

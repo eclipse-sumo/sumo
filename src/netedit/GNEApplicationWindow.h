@@ -328,6 +328,9 @@ public:
     /// @brief called if the user press key combination Ctrl + Shift + K to toogle two way
     long onCmdToogleTwoWay(FXObject*, FXSelector, void*);
 
+    /// @brief called if the user press key combination Ctrl + Shift + B to toogle show junction as bubbles
+    long onCmdToogleJunctionBubbles(FXObject*, FXSelector, void*);
+
     /// @brief called if the user selects help->Documentation
     long onCmdHelp(FXObject* sender, FXSelector sel, void* ptr);
 
