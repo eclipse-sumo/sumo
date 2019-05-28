@@ -85,6 +85,8 @@ enum {
     MID_HOTKEY_CTRL_F_FULSCREENMODE,
     /// @brief save joined junctions
     MID_HOTKEY_CTRL_J_SAVEJOINEDJUNCTIONS,
+    /// @brief Load file with TLS Programs
+    MID_HOTKEY_CTRL_K_OPENTLSPROGRAMS,
     /// @brief save network as plain XML
     MID_HOTKEY_CTRL_L_SAVEASPLAINXML,
     /// @brief create new empty newtork
@@ -123,10 +125,10 @@ enum {
     MID_HOTKEY_CTRL_SHIFT_I_SELECTEDGES,
     /// @brief Toogle chaing edges
     MID_HOTKEY_CTRL_SHIFT_J_TOOGLECHAIN,
-    /// @brief Toogle two way
-    MID_HOTKEY_CTRL_SHIFT_K_TOOGLETWOWAY,   // CONFLICT
     /// @brief save TLS Programs
-    MID_GNE_HOTKEY_CTRL_SHIFT_K,            // CONFLICT
+    MID_GNE_HOTKEY_CTRL_SHIFT_K_SAVETLS,
+    /// @brief Toogle two way mode in edge mode
+    MID_HOTKEY_CTRL_SHIFT_L_TOOGLETWOWAY,
     /// @brief save newtwork as
     MID_HOTKEY_CTRL_SHIFT_S_SAVENETWORKAS,
     /// @brief compute junctions
@@ -192,8 +194,6 @@ enum {
     MID_HOTKEY_CTRL_P,
     /// @brief Load edge data for visualization
     MID_OPEN_EDGEDATA,
-    /// @brief Load additional file with additional elements
-    MID_OPEN_TLSPROGRAMS,
     /// @brief Loads a file previously loaded
     MID_RECENTFILE,
     /// @}

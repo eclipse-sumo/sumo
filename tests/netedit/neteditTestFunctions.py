@@ -673,7 +673,7 @@ def changeChainOption():
 
 
 def changeTwoWayOption():
-    typeThreeKeys('ctrl', 'shift', 'k')
+    typeThreeKeys('ctrl', 'shift', 'l')
 
 #################################################
 # Inspect mode
