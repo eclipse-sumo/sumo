@@ -106,6 +106,46 @@ MSCFModel_CACC::stopSpeed(const MSVehicle* const veh, const double speed, double
     return MIN2(maximumSafeStopSpeed(gap, speed, false, veh->getActionStepLengthSecs()), maxNextSpeed(speed, veh));
 }
 
+double
+MSCFModel_CACC::getSecureGap(const double speed, const double leaderSpeed, const double /* leaderMaxDecel */) const {
+    // Accel in gap mode should vanish:
+    //      0 = myGapControlGainSpeed * (leaderSpeed - speed) + myGapControlGainSpace * (g - myHeadwayTime * speed);
+    // <=>  myGapControlGainSpace * g = - myGapControlGainSpeed * (leaderSpeed - speed) + myGapControlGainSpace * myHeadwayTime * speed;
+    // <=>  g = - myGapControlGainSpeed * (leaderSpeed - speed) / myGapControlGainSpace + myHeadwayTime * speed;
+    return acc_CFM.myGapControlGainSpeed * (speed - leaderSpeed) / acc_CFM.myGapControlGainSpace + myHeadwayTime * speed;
+}
+
+double
+MSCFModel_CACC::insertionFollowSpeed(const MSVehicle* const v, double speed, double gap2pred, double predSpeed, double predMaxDecel) const {
+//#ifdef DEBUG_CACC
+//        std::cout << "MSCFModel_ACC::insertionFollowSpeed(), speed="<<speed<< std::endl;
+//#endif
+    // iterate to find a stationary value for
+    //    speed = followSpeed(v, speed, gap2pred, predSpeed, predMaxDecel, nullptr)
+    const int max_iter = 50;
+    int n_iter = 0;
+    const double tol = 0.1;
+    const double damping = 0.1;
+
+    double res = speed;
+    while (n_iter < max_iter) {
+        // proposed acceleration
+        const double a = SPEED2ACCEL(followSpeed(v, res, gap2pred, predSpeed, predMaxDecel, nullptr) - res);
+        res = res + damping * a;
+//#ifdef DEBUG_CACC
+//        std::cout << "   n_iter=" << n_iter << ", a=" << a << ", res=" << res << std::endl;
+//#endif
+        if (fabs(a) < tol) {
+            break;
+        } else {
+            n_iter++;
+        }
+    }
+    return res;
+}
+
+
+
 
 /// @todo update interactionGap logic
 double
