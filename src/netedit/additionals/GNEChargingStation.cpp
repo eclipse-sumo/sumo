@@ -38,7 +38,7 @@
 // ===========================================================================
 
 GNEChargingStation::GNEChargingStation(const std::string& id, GNELane* lane, GNEViewNet* viewNet, const std::string& startPos, const std::string& endPos, const std::string& name,
-                                       double chargingPower, double efficiency, bool chargeInTransit, const double chargeDelay, bool friendlyPosition, bool blockMovement) :
+                                       double chargingPower, double efficiency, bool chargeInTransit, SUMOTime chargeDelay, bool friendlyPosition, bool blockMovement) :
     GNEStoppingPlace(id, viewNet, GLO_CHARGING_STATION, SUMO_TAG_CHARGING_STATION, lane, startPos, endPos, name, friendlyPosition, blockMovement),
     myChargingPower(chargingPower),
     myEfficiency(efficiency),
@@ -210,7 +210,7 @@ GNEChargingStation::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_CHARGEINTRANSIT:
             return toString(myChargeInTransit);
         case SUMO_ATTR_CHARGEDELAY:
-            return toString(myChargeDelay);
+            return time2string(myChargeDelay);
         case GNE_ATTR_BLOCK_MOVEMENT:
             return toString(myBlockMovement);
         case GNE_ATTR_SELECTED:
@@ -288,7 +288,7 @@ GNEChargingStation::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_CHARGEINTRANSIT:
             return canParse<bool>(value);
         case SUMO_ATTR_CHARGEDELAY:
-            return (canParse<double>(value) && parse<double>(value) >= 0);
+            return canParse<SUMOTime>(value);
         case GNE_ATTR_BLOCK_MOVEMENT:
             return canParse<bool>(value);
         case GNE_ATTR_SELECTED:
@@ -335,7 +335,7 @@ GNEChargingStation::setAttribute(SumoXMLAttr key, const std::string& value) {
             myChargeInTransit = parse<bool>(value);
             break;
         case SUMO_ATTR_CHARGEDELAY:
-            myChargeDelay = parse<double>(value);
+            myChargeDelay = parse<SUMOTime>(value);
             break;
         case GNE_ATTR_BLOCK_MOVEMENT:
             myBlockMovement = parse<bool>(value);

@@ -36,18 +36,16 @@
 // member method definitions
 // ===========================================================================
 
-GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, double pos, double frequency, const std::string& name, const std::string& output, const std::string& routeprobe) :
-    GNEAdditional(id, viewNet, GLO_CALIBRATOR, SUMO_TAG_CALIBRATOR, name, false, {
-    edge
-}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-myPositionOverLane(pos),
-myFrequency(frequency),
-myOutput(output),
-myRouteProbe(routeprobe) {
+GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, double pos, SUMOTime frequency, const std::string& name, const std::string& output, const std::string& routeprobe) :
+    GNEAdditional(id, viewNet, GLO_CALIBRATOR, SUMO_TAG_CALIBRATOR, name, false, {edge}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
+    myPositionOverLane(pos),
+    myFrequency(frequency),
+    myOutput(output),
+    myRouteProbe(routeprobe) {
 }
 
 
-GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNELane* lane, double pos, double frequency, const std::string& name, const std::string& output, const std::string& routeprobe) :
+GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNELane* lane, double pos, SUMOTime frequency, const std::string& name, const std::string& output, const std::string& routeprobe) :
     GNEAdditional(id, viewNet, GLO_CALIBRATOR, SUMO_TAG_LANECALIBRATOR, name, false, {}, {lane}, {}, {}, {}, {}, {}, {}, {}, {}),
 myPositionOverLane(pos),
 myFrequency(frequency),
@@ -207,7 +205,7 @@ GNECalibrator::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_POSITION:
             return toString(myPositionOverLane);
         case SUMO_ATTR_FREQUENCY:
-            return toString(myFrequency);
+            return time2string(myFrequency);
         case SUMO_ATTR_NAME:
             return myAdditionalName;
         case SUMO_ATTR_OUTPUT:
@@ -280,7 +278,7 @@ GNECalibrator::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_FREQUENCY:
-            return (canParse<double>(value) && parse<double>(value) >= 0);
+            return canParse<SUMOTime>(value);
         case SUMO_ATTR_NAME:
             return SUMOXMLDefinitions::isValidAttribute(value);
         case SUMO_ATTR_OUTPUT:
@@ -328,7 +326,7 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value) {
             myPositionOverLane = parse<double>(value);
             break;
         case SUMO_ATTR_FREQUENCY:
-            myFrequency = parse<double>(value);
+            myFrequency = parse<SUMOTime>(value);
             break;
         case SUMO_ATTR_NAME:
             myAdditionalName = value;

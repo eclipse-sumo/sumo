@@ -33,17 +33,17 @@
 
 GNERerouterInterval::GNERerouterInterval(GNERerouterDialog* rerouterDialog) :
     GNEAdditional(rerouterDialog->getEditedAdditional(), rerouterDialog->getEditedAdditional()->getViewNet(), GLO_REROUTER, SUMO_TAG_INTERVAL, "", false,
-{}, {}, {}, {rerouterDialog->getEditedAdditional()}, {}, {}, {}, {}, {}, {}) {
+    {}, {}, {}, {rerouterDialog->getEditedAdditional()}, {}, {}, {}, {}, {}, {}) {
     // fill reroute interval with default values
     setDefaultValues();
 }
 
 
-GNERerouterInterval::GNERerouterInterval(GNEAdditional* rerouterParent, double begin, double end) :
+GNERerouterInterval::GNERerouterInterval(GNEAdditional* rerouterParent, SUMOTime begin, SUMOTime end) :
     GNEAdditional(rerouterParent, rerouterParent->getViewNet(), GLO_REROUTER, SUMO_TAG_INTERVAL, "", false,
-{}, {}, {}, {rerouterParent}, {}, {}, {}, {}, {}, {}),
-myBegin(begin),
-myEnd(end) {
+    {}, {}, {}, {rerouterParent}, {}, {}, {}, {}, {}, {}),
+    myBegin(begin),
+    myEnd(end) {
 }
 
 
@@ -97,9 +97,9 @@ GNERerouterInterval::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getAdditionalID();
         case SUMO_ATTR_BEGIN:
-            return toString(myBegin);
+            return time2string(myBegin);
         case SUMO_ATTR_END:
-            return toString(myEnd);
+            return time2string(myEnd);
         case GNE_ATTR_PARENT:
             return getAdditionalParents().at(0)->getID();
         case GNE_ATTR_GENERIC:
@@ -142,9 +142,9 @@ GNERerouterInterval::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
         case SUMO_ATTR_BEGIN:
-            return canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) < myEnd);
+            return canParse<SUMOTime>(value) && (parse<SUMOTime>(value) < myEnd);
         case SUMO_ATTR_END:
-            return canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) > myBegin);
+            return canParse<SUMOTime>(value) && (parse<SUMOTime>(value) > myBegin);
         case GNE_ATTR_GENERIC:
             return isGenericParametersValid(value);
         default:
@@ -175,10 +175,10 @@ GNERerouterInterval::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeAdditionalID(value);
             break;
         case SUMO_ATTR_BEGIN:
-            myBegin = parse<double>(value);
+            myBegin = parse<SUMOTime>(value);
             break;
         case SUMO_ATTR_END:
-            myEnd = parse<double>(value);
+            myEnd = parse<SUMOTime>(value);
             break;
         case GNE_ATTR_GENERIC:
             setGenericParametersStr(value);

@@ -47,7 +47,7 @@ public:
      * @param[in] speedThreshold The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting
      * @param[in] block movement enable or disable additional movement
      */
-    GNEDetectorE3(const std::string& id, GNEViewNet* viewNet, Position pos, double freq, const std::string& filename, const std::string& vehicleTypes, const std::string& name, const double timeThreshold, double speedThreshold, bool blockMovement);
+    GNEDetectorE3(const std::string& id, GNEViewNet* viewNet, Position pos, SUMOTime freq, const std::string& filename, const std::string& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold, bool blockMovement);
 
     /// @brief GNEDetectorE3 Destructor
     ~GNEDetectorE3();
@@ -127,7 +127,7 @@ protected:
     Position myPosition;
 
     /// @brief frequency of E3 detector
-    double myFreq;
+    SUMOTime myFreq;
 
     /// @brief fielname of E3 detector
     std::string myFilename;
@@ -136,7 +136,7 @@ protected:
     std::string myVehicleTypes;
 
     /// @brief The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting
-    double myTimeThreshold;
+    SUMOTime myTimeThreshold;
 
     /// @brief The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting
     double mySpeedThreshold;

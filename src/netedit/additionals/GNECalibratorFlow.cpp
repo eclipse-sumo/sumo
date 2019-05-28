@@ -46,7 +46,7 @@ GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent) :
 GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType, GNEDemandElement* route, const std::string& vehsPerHour, const std::string& speed,
                                      const RGBColor& color, const std::string& departLane, const std::string& departPos, const std::string& departSpeed, const std::string& arrivalLane,
                                      const std::string& arrivalPos, const std::string& arrivalSpeed, const std::string& line, int personNumber, int containerNumber, bool reroute,
-                                     const std::string& departPosLat, const std::string& arrivalPosLat, double begin, double end) :
+                                     const std::string& departPosLat, const std::string& arrivalPosLat, SUMOTime begin, SUMOTime end) :
     GNEAdditional(calibratorParent, calibratorParent->getViewNet(), GLO_CALIBRATOR, SUMO_TAG_FLOW_CALIBRATOR, "", false,
     {}, {}, {}, {calibratorParent}, {}, {}, {}, {}, {}, {}),
     myVehicleType(vehicleType),
@@ -132,9 +132,9 @@ GNECalibratorFlow::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_COLOR:
             return toString(myColor);
         case SUMO_ATTR_BEGIN:
-            return toString(myBegin);
+            return time2string(myBegin);
         case SUMO_ATTR_END:
-            return toString(myEnd);
+            return time2string(myEnd);
         case SUMO_ATTR_DEPARTLANE:
             return myDepartLane;
         case SUMO_ATTR_DEPARTPOS:
@@ -242,9 +242,9 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
         case SUMO_ATTR_BEGIN:
-            return canParse<double>(value) && (parse<double>(value) >= 0);
+            return canParse<SUMOTime>(value);
         case SUMO_ATTR_END:
-            return canParse<double>(value) && (parse<double>(value) >= 0);
+            return canParse<SUMOTime>(value);
         case SUMO_ATTR_DEPARTLANE:
             if ((value == "random") || (value == "free") || (value == "allowed") || (value == "best") || (value == "first")) {
                 return true;
@@ -338,10 +338,10 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
             myColor = parse<RGBColor>(value);
             break;
         case SUMO_ATTR_BEGIN:
-            myBegin = parse<double>(value);
+            myBegin = parse<SUMOTime>(value);
             break;
         case SUMO_ATTR_END:
-            myEnd = parse<double>(value);
+            myEnd = parse<SUMOTime>(value);
             break;
         case SUMO_ATTR_DEPARTLANE:
             myDepartLane = value;

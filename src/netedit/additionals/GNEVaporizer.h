@@ -42,7 +42,7 @@ public:
      * @param[in] end end time of vaporizer
      * @param[in] name Vaporizer name
      */
-    GNEVaporizer(GNEViewNet* viewNet, GNEEdge* edge, double begin, double end, const std::string& name);
+    GNEVaporizer(GNEViewNet* viewNet, GNEEdge* edge, SUMOTime begin, SUMOTime end, const std::string& name);
 
     /// @brief Destructor
     ~GNEVaporizer();
@@ -113,10 +113,10 @@ public:
 
 protected:
     /// @brief begin time of vaporizer
-    double myBegin;
+    SUMOTime myBegin;
 
     /// @brief end time in which this vaporizer is placed
-    double myEnd;
+    SUMOTime myEnd;
 
 private:
     /// @brief set attribute after validation

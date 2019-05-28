@@ -38,22 +38,20 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetectorE2::GNEDetectorE2(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, double length, double freq, const std::string& filename, const std::string& vehicleTypes,
-                             const std::string& name, const double timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement) :
-    GNEDetector(id, viewNet, GLO_E2DETECTOR, SUMO_TAG_E2DETECTOR, pos, freq, filename, vehicleTypes, name, friendlyPos, blockMovement, {
-    lane
-}),
-myLength(length),
-myEndPositionOverLane(0.),
-myTimeThreshold(timeThreshold),
-mySpeedThreshold(speedThreshold),
-myJamThreshold(jamThreshold),
-myE2valid(true) {
+GNEDetectorE2::GNEDetectorE2(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, double length, SUMOTime freq, const std::string& filename, const std::string& vehicleTypes,
+                             const std::string& name, SUMOTime timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement) :
+    GNEDetector(id, viewNet, GLO_E2DETECTOR, SUMO_TAG_E2DETECTOR, pos, freq, filename, vehicleTypes, name, friendlyPos, blockMovement, {lane}),
+    myLength(length),
+    myEndPositionOverLane(0.),
+    myTimeThreshold(timeThreshold),
+    mySpeedThreshold(speedThreshold),
+    myJamThreshold(jamThreshold),
+    myE2valid(true) {
 }
 
 
-GNEDetectorE2::GNEDetectorE2(const std::string& id, std::vector<GNELane*> lanes, GNEViewNet* viewNet, double pos, double endPos, double freq, const std::string& filename, const std::string& vehicleTypes,
-                             const std::string& name, const double timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement) :
+GNEDetectorE2::GNEDetectorE2(const std::string& id, std::vector<GNELane*> lanes, GNEViewNet* viewNet, double pos, double endPos, SUMOTime freq, const std::string& filename, const std::string& vehicleTypes,
+                             const std::string& name, SUMOTime timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement) :
     GNEDetector(id, viewNet, GLO_E2DETECTOR, SUMO_TAG_E2DETECTOR_MULTILANE, pos, freq, filename, vehicleTypes, name, friendlyPos, blockMovement, lanes),
     myEndPositionOverLane(endPos),
     myTimeThreshold(timeThreshold),
@@ -511,7 +509,7 @@ GNEDetectorE2::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ENDPOS:
             return toString(myEndPositionOverLane);
         case SUMO_ATTR_FREQUENCY:
-            return toString(myFreq);
+            return time2string(myFreq);
         case SUMO_ATTR_LENGTH:
             return toString(myLength);
         case SUMO_ATTR_NAME:
@@ -521,7 +519,7 @@ GNEDetectorE2::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_VTYPES:
             return myVehicleTypes;
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
-            return toString(myTimeThreshold);
+            return time2string(myTimeThreshold);
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
             return toString(mySpeedThreshold);
         case SUMO_ATTR_JAM_DIST_THRESHOLD:
@@ -610,7 +608,7 @@ GNEDetectorE2::isValid(SumoXMLAttr key, const std::string& value) {
                 return SUMOXMLDefinitions::isValidListOfTypeID(value);
             }
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
-            return (canParse<double>(value) && (parse<double>(value) >= 0));
+            return canParse<SUMOTime>(value);
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
             return (canParse<double>(value) && (parse<double>(value) >= 0));
         case SUMO_ATTR_JAM_DIST_THRESHOLD:
@@ -650,7 +648,7 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value) {
             myEndPositionOverLane = parse<double>(value);
             break;
         case SUMO_ATTR_FREQUENCY:
-            myFreq = parse<double>(value);
+            myFreq = parse<SUMOTime>(value);
             break;
         case SUMO_ATTR_LENGTH:
             myLength = parse<double>(value);
@@ -665,7 +663,7 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value) {
             myVehicleTypes = value;
             break;
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
-            myTimeThreshold = parse<double>(value);
+            myTimeThreshold = parse<SUMOTime>(value);
             break;
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
             mySpeedThreshold = parse<double>(value);

@@ -35,14 +35,14 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetectorE3::GNEDetectorE3(const std::string& id, GNEViewNet* viewNet, Position pos, double freq, const std::string& filename, const std::string& vehicleTypes, const std::string& name, const double timeThreshold, double speedThreshold, bool blockMovement) :
+GNEDetectorE3::GNEDetectorE3(const std::string& id, GNEViewNet* viewNet, Position pos, SUMOTime freq, const std::string& filename, const std::string& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold, bool blockMovement) :
     GNEAdditional(id, viewNet, GLO_E3DETECTOR, SUMO_TAG_E3DETECTOR, name, blockMovement, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-              myPosition(pos),
-              myFreq(freq),
-              myFilename(filename),
-              myVehicleTypes(vehicleTypes),
-              myTimeThreshold(timeThreshold),
-mySpeedThreshold(speedThreshold) {
+    myPosition(pos),
+    myFreq(freq),
+    myFilename(filename),
+    myVehicleTypes(vehicleTypes),
+    myTimeThreshold(timeThreshold),
+    mySpeedThreshold(speedThreshold) {
 }
 
 
@@ -172,7 +172,7 @@ GNEDetectorE3::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_POSITION:
             return toString(myPosition);            
         case SUMO_ATTR_FREQUENCY:
-            return toString(myFreq);
+            return time2string(myFreq);
         case SUMO_ATTR_NAME:
             return myAdditionalName;
         case SUMO_ATTR_FILE:
@@ -180,7 +180,7 @@ GNEDetectorE3::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_VTYPES:
             return myVehicleTypes;
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
-            return toString(myTimeThreshold);
+            return time2string(myTimeThreshold);
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
             return toString(mySpeedThreshold);
         case GNE_ATTR_BLOCK_MOVEMENT:
@@ -236,7 +236,7 @@ GNEDetectorE3::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_POSITION:
             return canParse<Position>(value);
         case SUMO_ATTR_FREQUENCY:
-            return canParse<double>(value) && (parse<double>(value) >= 0);
+            return canParse<SUMOTime>(value);
         case SUMO_ATTR_NAME:
             return SUMOXMLDefinitions::isValidAttribute(value);
         case SUMO_ATTR_FILE:
@@ -248,7 +248,7 @@ GNEDetectorE3::isValid(SumoXMLAttr key, const std::string& value) {
                 return SUMOXMLDefinitions::isValidListOfTypeID(value);
             }
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
-            return canParse<double>(value) && (parse<double>(value) >= 0);
+            return canParse<SUMOTime>(value);
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
             return canParse<double>(value) && (parse<double>(value) >= 0);
         case GNE_ATTR_BLOCK_MOVEMENT:
@@ -320,7 +320,7 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value) {
             myViewNet->getNet()->addGLObjectIntoGrid(this);
             break;
         case SUMO_ATTR_FREQUENCY:
-            myFreq = parse<double>(value);
+            myFreq = parse<SUMOTime>(value);
             break;
         case SUMO_ATTR_NAME:
             myAdditionalName = value;
@@ -332,7 +332,7 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value) {
             myVehicleTypes = value;
             break;
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
-            myTimeThreshold = parse<double>(value);
+            myTimeThreshold = parse<SUMOTime>(value);
             break;
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
             mySpeedThreshold = parse<double>(value);

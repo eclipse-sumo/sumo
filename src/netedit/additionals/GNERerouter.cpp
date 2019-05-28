@@ -38,15 +38,14 @@
 // member method definitions
 // ===========================================================================
 
-GNERerouter::GNERerouter(const std::string& id, GNEViewNet* viewNet, const Position& pos, const std::vector<GNEEdge*>& edges, const std::string& name, const std::string& filename, double probability, bool off, double timeThreshold, const std::string& vTypes, bool blockMovement) :
-    GNEAdditional(id, viewNet, GLO_REROUTER, SUMO_TAG_REROUTER, name, blockMovement,
-{}, {}, {}, {}, {}, edges, {}, {}, {}, {}),
-myPosition(pos),
-myFilename(filename),
-myProbability(probability),
-myOff(off),
-myTimeThreshold(timeThreshold),
-myVTypes(vTypes) {
+GNERerouter::GNERerouter(const std::string& id, GNEViewNet* viewNet, const Position& pos, const std::vector<GNEEdge*>& edges, const std::string& name, const std::string& filename, double probability, bool off, SUMOTime timeThreshold, const std::string& vTypes, bool blockMovement) :
+    GNEAdditional(id, viewNet, GLO_REROUTER, SUMO_TAG_REROUTER, name, blockMovement, {}, {}, {}, {}, {}, edges, {}, {}, {}, {}),
+    myPosition(pos),
+    myFilename(filename),
+    myProbability(probability),
+    myOff(off),
+    myTimeThreshold(timeThreshold),
+    myVTypes(vTypes) {
 }
 
 
@@ -187,7 +186,7 @@ GNERerouter::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_PROB:
             return toString(myProbability);
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
-            return toString(myTimeThreshold);
+            return time2string(myTimeThreshold);
         case SUMO_ATTR_VTYPES:
             return myVTypes;
         case SUMO_ATTR_OFF:
@@ -258,7 +257,7 @@ GNERerouter::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_PROB:
             return canParse<double>(value) && (parse<double>(value) >= 0) && (parse<double>(value) <= 1);
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
-            return canParse<double>(value) && (parse<double>(value) >= 0);
+            return canParse<SUMOTime>(value);
         case SUMO_ATTR_VTYPES:
             if (value.empty()) {
                 return true;
@@ -318,7 +317,7 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
             myProbability = parse<double>(value);
             break;
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
-            myTimeThreshold = parse<double>(value);
+            myTimeThreshold = parse<SUMOTime>(value);
             break;
         case SUMO_ATTR_VTYPES:
             myVTypes = value;

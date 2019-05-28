@@ -302,7 +302,7 @@ GNEAdditionalHandler::buildContainerStop(GNEViewNet* viewNet, bool allowUndoRedo
 
 GNEAdditional*
 GNEAdditionalHandler::buildChargingStation(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, const std::string& startPos, const std::string& endPos, const std::string& name,
-        double chargingPower, double efficiency, bool chargeInTransit, double chargeDelay, bool friendlyPosition, bool blockMovement) {
+        double chargingPower, double efficiency, bool chargeInTransit, SUMOTime chargeDelay, bool friendlyPosition, bool blockMovement) {
     if (viewNet->getNet()->retrieveAdditional(SUMO_TAG_CHARGING_STATION, id, false) == nullptr) {
         GNEChargingStation* chargingStation = new GNEChargingStation(id, lane, viewNet, startPos, endPos, name, chargingPower, efficiency, chargeInTransit, chargeDelay, friendlyPosition, blockMovement);
         if (allowUndoRedo) {
@@ -359,7 +359,7 @@ GNEAdditionalHandler::buildParkingSpace(GNEViewNet* viewNet, bool allowUndoRedo,
 
 
 GNEAdditional*
-GNEAdditionalHandler::buildDetectorE1(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, double freq, const std::string& filename, const std::string& vehicleTypes, const std::string& name, bool friendlyPos, bool blockMovement) {
+GNEAdditionalHandler::buildDetectorE1(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, SUMOTime freq, const std::string& filename, const std::string& vehicleTypes, const std::string& name, bool friendlyPos, bool blockMovement) {
     if (viewNet->getNet()->retrieveAdditional(SUMO_TAG_E1DETECTOR, id, false) == nullptr) {
         GNEDetectorE1* detectorE1 = new GNEDetectorE1(id, lane, viewNet, pos, freq, filename, vehicleTypes, name, friendlyPos, blockMovement);
         if (allowUndoRedo) {
@@ -379,8 +379,8 @@ GNEAdditionalHandler::buildDetectorE1(GNEViewNet* viewNet, bool allowUndoRedo, c
 
 
 GNEAdditional*
-GNEAdditionalHandler::buildSingleLaneDetectorE2(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, double length, double freq, const std::string& filename,
-        const std::string& vehicleTypes, const std::string& name, const double timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement) {
+GNEAdditionalHandler::buildSingleLaneDetectorE2(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, double length, SUMOTime freq, const std::string& filename,
+        const std::string& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement) {
     if (viewNet->getNet()->retrieveAdditional(SUMO_TAG_E2DETECTOR, id, false) == nullptr) {
         GNEDetectorE2* detectorE2 = new GNEDetectorE2(id, lane, viewNet, pos, length, freq, filename, vehicleTypes, name, timeThreshold, speedThreshold, jamThreshold, friendlyPos, blockMovement);
         if (allowUndoRedo) {
@@ -400,8 +400,8 @@ GNEAdditionalHandler::buildSingleLaneDetectorE2(GNEViewNet* viewNet, bool allowU
 
 
 GNEAdditional*
-GNEAdditionalHandler::buildMultiLaneDetectorE2(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, const std::vector<GNELane*>& lanes, double pos, double endPos, double freq, const std::string& filename,
-        const std::string& vehicleTypes, const std::string& name, const double timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement) {
+GNEAdditionalHandler::buildMultiLaneDetectorE2(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, const std::vector<GNELane*>& lanes, double pos, double endPos, SUMOTime freq, const std::string& filename,
+        const std::string& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement) {
     if (viewNet->getNet()->retrieveAdditional(SUMO_TAG_E2DETECTOR_MULTILANE, id, false) == nullptr) {
         GNEDetectorE2* detectorE2 = new GNEDetectorE2(id, lanes, viewNet, pos, endPos, freq, filename, vehicleTypes, name, timeThreshold, speedThreshold, jamThreshold, friendlyPos, blockMovement);
         if (allowUndoRedo) {
@@ -425,8 +425,8 @@ GNEAdditionalHandler::buildMultiLaneDetectorE2(GNEViewNet* viewNet, bool allowUn
 
 
 GNEAdditional*
-GNEAdditionalHandler::buildDetectorE3(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, Position pos, double freq, const std::string& filename, const std::string& vehicleTypes,
-                                      const std::string& name, const double timeThreshold, double speedThreshold, bool blockMovement) {
+GNEAdditionalHandler::buildDetectorE3(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, Position pos, SUMOTime freq, const std::string& filename, const std::string& vehicleTypes,
+                                      const std::string& name, SUMOTime timeThreshold, double speedThreshold, bool blockMovement) {
     if (viewNet->getNet()->retrieveAdditional(SUMO_TAG_E3DETECTOR, id, false) == nullptr) {
         GNEDetectorE3* detectorE3 = new GNEDetectorE3(id, viewNet, pos, freq, filename, vehicleTypes, name, timeThreshold, speedThreshold, blockMovement);
         if (allowUndoRedo) {
@@ -513,7 +513,7 @@ GNEAdditionalHandler::buildDetectorE1Instant(GNEViewNet* viewNet, bool allowUndo
 
 
 GNEAdditional*
-GNEAdditionalHandler::buildCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, const std::string& name, const std::string& outfile, const double freq, const std::string& routeprobe) {
+GNEAdditionalHandler::buildCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, const std::string& name, const std::string& outfile, const SUMOTime freq, const std::string& routeprobe) {
     if (viewNet->getNet()->retrieveAdditional(SUMO_TAG_CALIBRATOR, id, false) == nullptr) {
         GNECalibrator* calibrator = new GNECalibrator(id, viewNet, lane, pos, freq, name, outfile, routeprobe);
         if (allowUndoRedo) {
@@ -535,7 +535,7 @@ GNEAdditionalHandler::buildCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, c
 
 
 GNEAdditional*
-GNEAdditionalHandler::buildCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNEEdge* edge, double pos, const std::string& name, const std::string& outfile, const double freq, const std::string& routeprobe) {
+GNEAdditionalHandler::buildCalibrator(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNEEdge* edge, double pos, const std::string& name, const std::string& outfile, const SUMOTime freq, const std::string& routeprobe) {
     if (viewNet->getNet()->retrieveAdditional(SUMO_TAG_CALIBRATOR, id, false) == nullptr) {
         GNECalibrator* calibrator = new GNECalibrator(id, viewNet, edge, pos, freq, name, outfile, routeprobe);
         if (allowUndoRedo) {
@@ -560,7 +560,7 @@ GNEAdditional*
 GNEAdditionalHandler::buildCalibratorFlow(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional* calibratorParent, GNEDemandElement* route, GNEDemandElement* vType,
         const std::string& vehsPerHour, const std::string& speed, const RGBColor& color, const std::string& departLane, const std::string& departPos,
         const std::string& departSpeed, const std::string& arrivalLane, const std::string& arrivalPos, const std::string& arrivalSpeed, const std::string& line,
-        int personNumber, int containerNumber, bool reroute, const std::string& departPosLat, const std::string& arrivalPosLat, double begin, double end) {
+        int personNumber, int containerNumber, bool reroute, const std::string& departPosLat, const std::string& arrivalPosLat, SUMOTime begin, SUMOTime end) {
 
     // create Flow and add it to calibrator parent
     GNECalibratorFlow* flow = new GNECalibratorFlow(calibratorParent, vType, route, vehsPerHour, speed, color, departLane, departPos, departSpeed,
@@ -579,7 +579,7 @@ GNEAdditionalHandler::buildCalibratorFlow(GNEViewNet* viewNet, bool allowUndoRed
 
 
 GNEAdditional*
-GNEAdditionalHandler::buildRerouter(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, Position pos, const std::vector<GNEEdge*>& edges, double prob, const std::string& name, const std::string& file, bool off, double timeThreshold, const std::string& vTypes, bool blockMovement) {
+GNEAdditionalHandler::buildRerouter(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, Position pos, const std::vector<GNEEdge*>& edges, double prob, const std::string& name, const std::string& file, bool off, SUMOTime timeThreshold, const std::string& vTypes, bool blockMovement) {
     if (viewNet->getNet()->retrieveAdditional(SUMO_TAG_REROUTER, id, false) == nullptr) {
         GNERerouter* rerouter = new GNERerouter(id, viewNet, pos, edges, name, file, prob, off, timeThreshold, vTypes, blockMovement);
         if (allowUndoRedo) {
@@ -617,7 +617,7 @@ GNEAdditionalHandler::buildRerouter(GNEViewNet* viewNet, bool allowUndoRedo, con
 
 
 GNEAdditional*
-GNEAdditionalHandler::buildRerouterInterval(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional* rerouterParent, double begin, double end) {
+GNEAdditionalHandler::buildRerouterInterval(GNEViewNet* viewNet, bool allowUndoRedo, GNEAdditional* rerouterParent, SUMOTime begin, SUMOTime end) {
     // check if new interval will produce a overlapping
     if (checkOverlappingRerouterIntervals(rerouterParent, begin, end)) {
         // create rerouter interval and add it into rerouter parent
@@ -723,7 +723,7 @@ GNEAdditionalHandler::buildRouteProbReroute(GNEViewNet* viewNet, bool allowUndoR
 
 
 GNEAdditional*
-GNEAdditionalHandler::buildRouteProbe(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNEEdge* edge, const std::string& freq, const std::string& name, const std::string& file, double begin) {
+GNEAdditionalHandler::buildRouteProbe(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& id, GNEEdge* edge, const std::string& freq, const std::string& name, const std::string& file, SUMOTime begin) {
     if (viewNet->getNet()->retrieveAdditional(SUMO_TAG_ROUTEPROBE, id, false) == nullptr) {
         GNERouteProbe* routeProbe = new GNERouteProbe(id, viewNet, edge, freq, name, file, begin);
         if (allowUndoRedo) {
@@ -785,8 +785,8 @@ GNEAdditionalHandler::buildVariableSpeedSignStep(GNEViewNet* viewNet, bool allow
 
 
 GNEAdditional*
-GNEAdditionalHandler::buildVaporizer(GNEViewNet* viewNet, bool allowUndoRedo, GNEEdge* edge, double startTime, double end, const std::string& name) {
-    GNEVaporizer* vaporizer = new GNEVaporizer(viewNet, edge, startTime, end, name);
+GNEAdditionalHandler::buildVaporizer(GNEViewNet* viewNet, bool allowUndoRedo, GNEEdge* edge, SUMOTime startTime, SUMOTime endTime, const std::string& name) {
+    GNEVaporizer* vaporizer = new GNEVaporizer(viewNet, edge, startTime, endTime, name);
     if (allowUndoRedo) {
         viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_VAPORIZER));
         viewNet->getUndoList()->add(new GNEChange_Additional(vaporizer, true), true);
@@ -1020,17 +1020,17 @@ GNEAdditionalHandler::accessCanBeCreated(GNEAdditional* busStopParent, GNEEdge& 
 
 
 bool
-GNEAdditionalHandler::checkOverlappingRerouterIntervals(GNEAdditional* rerouter, double newBegin, double newEnd) {
+GNEAdditionalHandler::checkOverlappingRerouterIntervals(GNEAdditional* rerouter, SUMOTime newBegin, SUMOTime newEnd) {
     // check that rerouter is correct
     assert(rerouter->getTagProperty().getTag() == SUMO_TAG_REROUTER);
     // declare a vector to keep sorted rerouter childs
-    std::vector<std::pair<double, double>> sortedIntervals;
+    std::vector<std::pair<SUMOTime, SUMOTime>> sortedIntervals;
     // iterate over additional childs
     for (auto i : rerouter->getAdditionalChilds()) {
-        sortedIntervals.push_back(std::make_pair(0., 0.));
+        sortedIntervals.push_back(std::make_pair((SUMOTime)0., (SUMOTime)0.));
         // set begin and end
-        sortedIntervals.back().first = GNEAttributeCarrier::parse<double>(i->getAttribute(SUMO_ATTR_BEGIN));
-        sortedIntervals.back().second = GNEAttributeCarrier::parse<double>(i->getAttribute(SUMO_ATTR_END));
+        sortedIntervals.back().first = GNEAttributeCarrier::parse<SUMOTime>(i->getAttribute(SUMO_ATTR_BEGIN));
+        sortedIntervals.back().second = GNEAttributeCarrier::parse<SUMOTime>(i->getAttribute(SUMO_ATTR_END));
     }
     // add new intervals
     sortedIntervals.push_back(std::make_pair(newBegin, newEnd));
@@ -1053,8 +1053,8 @@ GNEAdditionalHandler::parseAndBuildVaporizer(GNEViewNet* viewNet, bool allowUndo
     bool abort = false;
     // parse attributes of Vaporizer
     const std::string edgeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_VAPORIZER, SUMO_ATTR_ID, abort);
-    double begin = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", SUMO_TAG_VAPORIZER, SUMO_ATTR_BEGIN, abort);
-    double end = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", SUMO_TAG_VAPORIZER, SUMO_ATTR_END, abort);
+    SUMOTime begin = GNEAttributeCarrier::parseAttributeFromXML<SUMOTime>(attrs, "", SUMO_TAG_VAPORIZER, SUMO_ATTR_BEGIN, abort);
+    SUMOTime end = GNEAttributeCarrier::parseAttributeFromXML<SUMOTime>(attrs, "", SUMO_TAG_VAPORIZER, SUMO_ATTR_END, abort);
     std::string name = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_VAPORIZER, SUMO_ATTR_NAME, abort);
     // Continue if all parameters were successfully loaded
     if (!abort) {
@@ -1212,7 +1212,7 @@ GNEAdditionalHandler::parseAndBuildRouteProbe(GNEViewNet* viewNet, bool allowUnd
     std::string freq = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_ROUTEPROBE, SUMO_ATTR_FREQUENCY, abort);
     std::string name = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_ROUTEPROBE, SUMO_ATTR_NAME, abort);
     std::string file = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_ROUTEPROBE, SUMO_ATTR_FILE, abort);
-    double begin = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, SUMO_TAG_ROUTEPROBE, SUMO_ATTR_BEGIN, abort);
+    SUMOTime begin = GNEAttributeCarrier::parseAttributeFromXML<SUMOTime>(attrs, id, SUMO_TAG_ROUTEPROBE, SUMO_ATTR_BEGIN, abort);
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // get edge
@@ -1270,8 +1270,8 @@ GNEAdditionalHandler::parseAndBuildCalibratorFlow(GNEViewNet* viewNet, bool allo
     bool reroute = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, "", SUMO_TAG_FLOW_CALIBRATOR, SUMO_ATTR_REROUTE, abort);
     std::string departPosLat = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_FLOW_CALIBRATOR, SUMO_ATTR_DEPARTPOS_LAT, abort);
     std::string arrivalPosLat = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_FLOW_CALIBRATOR, SUMO_ATTR_ARRIVALPOS_LAT, abort);
-    double begin = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", SUMO_TAG_FLOW_CALIBRATOR, SUMO_ATTR_BEGIN, abort);
-    double end = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", SUMO_TAG_FLOW_CALIBRATOR, SUMO_ATTR_END, abort);
+    SUMOTime begin = GNEAttributeCarrier::parseAttributeFromXML<SUMOTime>(attrs, "", SUMO_TAG_FLOW_CALIBRATOR, SUMO_ATTR_BEGIN, abort);
+    SUMOTime end = GNEAttributeCarrier::parseAttributeFromXML<SUMOTime>(attrs, "", SUMO_TAG_FLOW_CALIBRATOR, SUMO_ATTR_END, abort);
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // obtain route, vehicle type and calibrator parent
@@ -1437,7 +1437,7 @@ GNEAdditionalHandler::parseAndBuildRerouter(GNEViewNet* viewNet, bool allowUndoR
     std::string file = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_REROUTER, SUMO_ATTR_FILE, abort);
     double probability = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, SUMO_TAG_REROUTER, SUMO_ATTR_PROB, abort);
     bool off = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, SUMO_TAG_REROUTER, SUMO_ATTR_OFF, abort);
-    double timeThreshold = attrs.getOpt<double>(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), abort, 0);
+    SUMOTime timeThreshold = attrs.getOpt<SUMOTime>(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), abort, 0);
     const std::string vTypes = attrs.getOpt<std::string>(SUMO_ATTR_VTYPES, id.c_str(), abort, "");
     Position pos = GNEAttributeCarrier::parseAttributeFromXML<Position>(attrs, id, SUMO_TAG_REROUTER, SUMO_ATTR_POSITION, abort);
     // parse Netedit attributes
@@ -1476,8 +1476,8 @@ bool
 GNEAdditionalHandler::parseAndBuildRerouterInterval(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals) {
     bool abort = false;
     // parse attributes of Rerouter
-    double begin = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", SUMO_TAG_INTERVAL, SUMO_ATTR_BEGIN, abort);
-    double end = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", SUMO_TAG_INTERVAL, SUMO_ATTR_END, abort);
+    SUMOTime begin = GNEAttributeCarrier::parseAttributeFromXML<SUMOTime>(attrs, "", SUMO_TAG_INTERVAL, SUMO_ATTR_BEGIN, abort);
+    SUMOTime end = GNEAttributeCarrier::parseAttributeFromXML<SUMOTime>(attrs, "", SUMO_TAG_INTERVAL, SUMO_ATTR_END, abort);
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // obtain rerouter
@@ -1843,7 +1843,7 @@ GNEAdditionalHandler::parseAndBuildChargingStation(GNEViewNet* viewNet, bool all
     double chargingPower = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, SUMO_TAG_CHARGING_STATION, SUMO_ATTR_CHARGINGPOWER, abort);
     double efficiency = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, SUMO_TAG_CHARGING_STATION, SUMO_ATTR_EFFICIENCY, abort);
     bool chargeInTransit = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, SUMO_TAG_CHARGING_STATION, SUMO_ATTR_CHARGEINTRANSIT, abort);
-    double chargeDelay = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, SUMO_TAG_CHARGING_STATION, SUMO_ATTR_CHARGEDELAY, abort);
+    SUMOTime chargeDelay = GNEAttributeCarrier::parseAttributeFromXML<SUMOTime>(attrs, id, SUMO_TAG_CHARGING_STATION, SUMO_ATTR_CHARGEDELAY, abort);
     bool friendlyPosition = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, SUMO_TAG_CHARGING_STATION, SUMO_ATTR_FRIENDLY_POS, abort);
     // parse Netedit attributes
     bool blockMovement = false;
@@ -1977,7 +1977,7 @@ GNEAdditionalHandler::parseAndBuildCalibrator(GNEViewNet* viewNet, bool allowUnd
         std::string outfile = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_CALIBRATOR, SUMO_ATTR_OUTPUT, abort);
         double position = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, SUMO_TAG_CALIBRATOR, SUMO_ATTR_POSITION, abort);
         std::string name = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_CALIBRATOR, SUMO_ATTR_NAME, abort);
-        double freq = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, SUMO_TAG_CALIBRATOR, SUMO_ATTR_FREQUENCY, abort);
+        SUMOTime freq = GNEAttributeCarrier::parseAttributeFromXML<SUMOTime>(attrs, id, SUMO_TAG_CALIBRATOR, SUMO_ATTR_FREQUENCY, abort);
         std::string routeProbe = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_CALIBRATOR, SUMO_ATTR_ROUTEPROBE, abort);
         // Continue if all parameters were sucesfully loaded
         if (!abort) {
@@ -2004,7 +2004,7 @@ GNEAdditionalHandler::parseAndBuildCalibrator(GNEViewNet* viewNet, bool allowUnd
         std::string outfile = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_LANECALIBRATOR, SUMO_ATTR_OUTPUT, abort);
         double position = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, SUMO_TAG_LANECALIBRATOR, SUMO_ATTR_POSITION, abort);
         std::string name = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_LANECALIBRATOR, SUMO_ATTR_NAME, abort);
-        double freq = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, SUMO_TAG_LANECALIBRATOR, SUMO_ATTR_FREQUENCY, abort);
+        SUMOTime freq = GNEAttributeCarrier::parseAttributeFromXML<SUMOTime>(attrs, id, SUMO_TAG_LANECALIBRATOR, SUMO_ATTR_FREQUENCY, abort);
         std::string routeProbe = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_LANECALIBRATOR, SUMO_ATTR_ROUTEPROBE, abort);
         // Continue if all parameters were sucesfully loaded
         if (!abort) {
@@ -2039,7 +2039,7 @@ GNEAdditionalHandler::parseAndBuildDetectorE1(GNEViewNet* viewNet, bool allowUnd
     std::string id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_E1DETECTOR, SUMO_ATTR_ID, abort);
     std::string laneId = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_E1DETECTOR, SUMO_ATTR_LANE, abort);
     double position = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, SUMO_TAG_E1DETECTOR, SUMO_ATTR_POSITION, abort);
-    double frequency = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, SUMO_TAG_E1DETECTOR, SUMO_ATTR_FREQUENCY, abort);
+    SUMOTime frequency = GNEAttributeCarrier::parseAttributeFromXML<SUMOTime>(attrs, id, SUMO_TAG_E1DETECTOR, SUMO_ATTR_FREQUENCY, abort);
     std::string file = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_E1DETECTOR, SUMO_ATTR_FILE, abort);
     std::string vehicleTypes = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_E1DETECTOR, SUMO_ATTR_VTYPES, abort);
     std::string name = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_E1DETECTOR, SUMO_ATTR_NAME, abort);
@@ -2090,11 +2090,11 @@ GNEAdditionalHandler::parseAndBuildDetectorE2(GNEViewNet* viewNet, bool allowUnd
     double endPos = (E2Tag == SUMO_TAG_E2DETECTOR_MULTILANE) ? GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, E2Tag, SUMO_ATTR_ENDPOS, abort) : 0;
     // parse common attributes
     double position = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, E2Tag, SUMO_ATTR_POSITION, abort);
-    double frequency = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, E2Tag, SUMO_ATTR_FREQUENCY, abort);
+    SUMOTime frequency = GNEAttributeCarrier::parseAttributeFromXML<SUMOTime>(attrs, id, E2Tag, SUMO_ATTR_FREQUENCY, abort);
     std::string file = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, E2Tag, SUMO_ATTR_FILE, abort);
     std::string vehicleTypes = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, E2Tag, SUMO_ATTR_VTYPES, abort);
     std::string name = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, E2Tag, SUMO_ATTR_NAME, abort);
-    double haltingTimeThreshold = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, E2Tag, SUMO_ATTR_HALTING_TIME_THRESHOLD, abort);
+    SUMOTime haltingTimeThreshold = GNEAttributeCarrier::parseAttributeFromXML<SUMOTime>(attrs, id, E2Tag, SUMO_ATTR_HALTING_TIME_THRESHOLD, abort);
     double haltingSpeedThreshold = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, E2Tag, SUMO_ATTR_HALTING_SPEED_THRESHOLD, abort);
     double jamDistThreshold = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, E2Tag, SUMO_ATTR_JAM_DIST_THRESHOLD, abort);
     bool friendlyPos = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, id, E2Tag, SUMO_ATTR_FRIENDLY_POS, abort);
@@ -2172,11 +2172,11 @@ GNEAdditionalHandler::parseAndBuildDetectorE3(GNEViewNet* viewNet, bool allowUnd
     bool abort = false;
     // parse attributes of E3
     std::string id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_E3DETECTOR, SUMO_ATTR_ID, abort);
-    double frequency = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, SUMO_TAG_E3DETECTOR, SUMO_ATTR_FREQUENCY, abort);
+    SUMOTime frequency = GNEAttributeCarrier::parseAttributeFromXML<SUMOTime>(attrs, id, SUMO_TAG_E3DETECTOR, SUMO_ATTR_FREQUENCY, abort);
     std::string file = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_E3DETECTOR, SUMO_ATTR_FILE, abort);
     std::string vehicleTypes = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_E3DETECTOR, SUMO_ATTR_VTYPES, abort);
     std::string name = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, SUMO_TAG_E3DETECTOR, SUMO_ATTR_NAME, abort);
-    double haltingTimeThreshold = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, SUMO_TAG_E3DETECTOR, SUMO_ATTR_HALTING_TIME_THRESHOLD, abort);
+    SUMOTime haltingTimeThreshold = GNEAttributeCarrier::parseAttributeFromXML<SUMOTime>(attrs, id, SUMO_TAG_E3DETECTOR, SUMO_ATTR_HALTING_TIME_THRESHOLD, abort);
     double haltingSpeedThreshold = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, SUMO_TAG_E3DETECTOR, SUMO_ATTR_HALTING_SPEED_THRESHOLD, abort);
     Position pos = GNEAttributeCarrier::parseAttributeFromXML<Position>(attrs, id, SUMO_TAG_E3DETECTOR, SUMO_ATTR_POSITION, abort);
     // parse Netedit attributes

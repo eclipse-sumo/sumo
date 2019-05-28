@@ -37,14 +37,12 @@
 // member method definitions
 // ===========================================================================
 
-GNERouteProbe::GNERouteProbe(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, const std::string& frequency, const std::string& name, const std::string& filename, double begin) :
-    GNEAdditional(id, viewNet, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE, name, false, {
-    edge
-}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-myFrequency(frequency),
-myFilename(filename),
-myBegin(begin),
-myRelativePositionY(0) {
+GNERouteProbe::GNERouteProbe(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, const std::string& frequency, const std::string& name, const std::string& filename, SUMOTime begin) :
+    GNEAdditional(id, viewNet, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE, name, false, {edge}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
+    myFrequency(frequency),
+    myFilename(filename),
+    myBegin(begin),
+    myRelativePositionY(0) {
 }
 
 
@@ -226,7 +224,7 @@ GNERouteProbe::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_FREQUENCY:
             return toString(myFrequency);
         case SUMO_ATTR_BEGIN:
-            return toString(myBegin);
+            return time2string(myBegin);
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_GENERIC:
@@ -293,10 +291,10 @@ GNERouteProbe::isValid(SumoXMLAttr key, const std::string& value) {
             if (value.empty()) {
                 return true;
             } else {
-                return canParse<double>(value) && (parse<double>(value) >= 0);
+                return canParse<SUMOTime>(value);
             }
         case SUMO_ATTR_BEGIN:
-            return canParse<double>(value) && (parse<double>(value) >= 0);
+            return canParse<SUMOTime>(value);
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_GENERIC:
@@ -326,7 +324,7 @@ GNERouteProbe::setAttribute(SumoXMLAttr key, const std::string& value) {
             myFrequency = value;
             break;
         case SUMO_ATTR_BEGIN:
-            myBegin = parse<double>(value);
+            myBegin = parse<SUMOTime>(value);
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {

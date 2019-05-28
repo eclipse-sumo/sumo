@@ -48,7 +48,7 @@ public:
      * @param[in] block movement enable or disable additional movement
      * @param[in] laneParents vector of lane parents
      */
-    GNEDetector(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, double pos, double freq, const std::string& filename,
+    GNEDetector(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, double pos, SUMOTime freq, const std::string& filename,
                 const std::string& vehicleTypes, const std::string& name, bool friendlyPos, bool blockMovement, const std::vector<GNELane*>& laneParents);
 
     /**@brief Constructor.
@@ -64,7 +64,7 @@ public:
      * @param[in] block movement enable or disable additional movement
      * @param[in] laneParents vector of lane parents
      */
-    GNEDetector(GNEAdditional* additionalParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, double pos, double freq, const std::string& filename,
+    GNEDetector(GNEAdditional* additionalParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, double pos, SUMOTime freq, const std::string& filename,
                 const std::string& name, bool friendlyPos, bool blockMovement, const std::vector<GNELane*>& laneParents);
 
     /// @brief Destructor
@@ -161,7 +161,7 @@ protected:
     double myPositionOverLane;
 
     /// @brief The aggregation period the values the detector collects shall be summed up.
-    double myFreq;
+    SUMOTime myFreq;
 
     /// @brief The path to the output file
     std::string myFilename;

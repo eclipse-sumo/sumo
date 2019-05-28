@@ -36,12 +36,10 @@
 // member method definitions
 // ===========================================================================
 
-GNEVaporizer::GNEVaporizer(GNEViewNet* viewNet, GNEEdge* edge, double begin, double end, const std::string& name) :
-    GNEAdditional(edge->getID(), viewNet, GLO_VAPORIZER, SUMO_TAG_VAPORIZER, name, false, {
-    edge
-}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-myBegin(begin),
-myEnd(end) {
+GNEVaporizer::GNEVaporizer(GNEViewNet* viewNet, GNEEdge* edge, SUMOTime begin, SUMOTime end, const std::string& name) :
+    GNEAdditional(edge->getID(), viewNet, GLO_VAPORIZER, SUMO_TAG_VAPORIZER, name, false, {edge}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
+    myBegin(begin),
+    myEnd(end) {
 }
 
 
@@ -213,9 +211,9 @@ GNEVaporizer::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_EDGE:
             return getAdditionalID();
         case SUMO_ATTR_BEGIN:
-            return toString(myBegin);
+            return time2string(myBegin);
         case SUMO_ATTR_END:
-            return toString(myEnd);
+            return time2string(myEnd);
         case SUMO_ATTR_NAME:
             return myAdditionalName;
         case GNE_ATTR_SELECTED:
@@ -260,14 +258,14 @@ GNEVaporizer::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_BEGIN:
-            if (canParse<double>(value) && (parse<double>(value) >= 0)) {
-                return (parse<double>(value) <= myEnd);
+            if (canParse<SUMOTime>(value)) {
+                return (parse<SUMOTime>(value) <= myEnd);
             } else {
                 return false;
             }
         case SUMO_ATTR_END:
-            if (canParse<double>(value) && (parse<double>(value) >= 0)) {
-                return (myBegin <= parse<double>(value));
+            if (canParse<SUMOTime>(value)) {
+                return (myBegin <= parse<SUMOTime>(value));
             } else {
                 return false;
             }
@@ -307,10 +305,10 @@ GNEVaporizer::setAttribute(SumoXMLAttr key, const std::string& value) {
             changeEdgeParents(this, value);
             break;
         case SUMO_ATTR_BEGIN:
-            myBegin = parse<double>(value);
+            myBegin = parse<SUMOTime>(value);
             break;
         case SUMO_ATTR_END:
-            myEnd = parse<double>(value);
+            myEnd = parse<SUMOTime>(value);
             break;
         case SUMO_ATTR_NAME:
             myAdditionalName = value;

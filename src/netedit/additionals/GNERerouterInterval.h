@@ -50,7 +50,7 @@ public:
     GNERerouterInterval(GNERerouterDialog* rerouterDialog);
 
     /// @brief constructor
-    GNERerouterInterval(GNEAdditional* rerouterParent, double begin, double end);
+    GNERerouterInterval(GNEAdditional* rerouterParent, SUMOTime begin, SUMOTime end);
 
     /// @brief destructor
     ~GNERerouterInterval();
@@ -122,10 +122,10 @@ public:
 
 protected:
     /// @brief begin timeStep
-    double myBegin;
+    SUMOTime myBegin;
 
     /// @brief end timeStep
-    double myEnd;
+    SUMOTime myEnd;
 
 private:
     /// @brief set attribute after validation

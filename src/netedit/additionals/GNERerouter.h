@@ -52,7 +52,7 @@ public:
      * @param[in] block movement enable or disable additional movement
      */
     GNERerouter(const std::string& id, GNEViewNet* viewNet, const Position& pos, const std::vector<GNEEdge*>& edges, const std::string& name,
-                const std::string& filename, double probability, bool off, double timeThreshold, const std::string& vTypes, bool blockMovement);
+                const std::string& filename, double probability, bool off, SUMOTime timeThreshold, const std::string& vTypes, bool blockMovement);
 
     /// @brief Destructor
     ~GNERerouter();
@@ -138,7 +138,7 @@ protected:
     bool myOff;
 
     /// @brief attribute to configure activation time threshold
-    double myTimeThreshold;
+    SUMOTime myTimeThreshold;
 
     /// @brief optional vehicle types for restricting the rerouter
     std::string myVTypes;

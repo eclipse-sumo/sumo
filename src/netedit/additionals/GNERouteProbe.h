@@ -44,7 +44,7 @@ public:
      * @param[in] filename The file for generated output
      * @param[in] begin The time at which to start generating output
      */
-    GNERouteProbe(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, const std::string& frequency, const std::string& name, const std::string& filename, double begin);
+    GNERouteProbe(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, const std::string& frequency, const std::string& name, const std::string& filename, SUMOTime begin);
 
     /// @brief Destructor
     ~GNERouteProbe();
@@ -121,7 +121,7 @@ protected:
     std::string myFilename;
 
     /// @brief begin of rerouter
-    double myBegin;
+    SUMOTime myBegin;
 
     /// @brief route probe logo offset
     Position myRouteProbeLogoOffset;
