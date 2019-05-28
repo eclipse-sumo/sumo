@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue 28 May 2019 04:04:32 PM CEST by Eclipse SUMO netedit Version v1_2_0+0252-83989c2
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="small.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="small.net.xml"/>
+        <plain-output-prefix value="/scr1/sumo/tests/netconvert/function/tls_programs/oneway/input_plain"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="true"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <visualisation>
+        <registry-viewport value="true"/>
+    </visualisation>
+
+</configuration>
+-->
+
+<nodes version="1.3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-678169.98,2536101.60" convBoundary="0.00,0.00,898.66,712.46" origBoundary="-43.262630,-22.923420,-43.253902,-22.916999" projParameter="+proj=utm +zone=23 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <node id="1445221331" x="0.00" y="195.40"/>
+    <node id="1445221340" x="338.24" y="325.09"/>
+    <node id="1809570708" x="283.03" y="699.11"/>
+    <node id="1834853610" x="568.52" y="0.00"/>
+    <node id="1921963229" x="269.16" y="357.76"/>
+    <node id="1921963283" x="101.89" y="447.73"/>
+    <node id="3631633878" x="877.19" y="468.23"/>
+    <node id="3631633889" x="671.78" y="427.43"/>
+    <node id="402293941" x="459.36" y="712.46"/>
+    <node id="402293995" x="181.88" y="257.13"/>
+    <node id="402294227" x="294.98" y="354.70"/>
+    <node id="456681991" x="139.21" y="357.43"/>
+    <node id="456681994" x="216.41" y="385.54"/>
+    <node id="468121395" x="524.55" y="397.54"/>
+    <node id="468121561" x="464.64" y="385.90"/>
+    <node id="468121576" x="414.53" y="174.99"/>
+    <node id="496330990" x="898.66" y="472.60"/>
+    <node id="642546856" x="280.95" y="710.57"/>
+    <node id="642546870" x="385.90" y="508.63"/>
+    <node id="cluster_3631634805_642546873" x="375.91" y="369.56"/>
+</nodes>

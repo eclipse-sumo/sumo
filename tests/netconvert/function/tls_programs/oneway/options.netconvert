@@ -1,0 +1,2 @@
+-e input_plain.edg.xml -n input_plain.nod.xml -v --tls.guess --tls.guess.threshold 30
+--ignore-errors.edge-type
