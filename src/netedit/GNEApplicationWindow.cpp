@@ -89,8 +89,8 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     // network //
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK,       GNEApplicationWindow::onCmdSaveNetwork),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK,       GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_S_SAVENETWORK_AS,              GNEApplicationWindow::onCmdSaveAsNetwork),
-    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_SHIFT_S_SAVENETWORK_AS,              GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_S_SAVENETWORK_AS,             GNEApplicationWindow::onCmdSaveAsNetwork),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_SHIFT_S_SAVENETWORK_AS,             GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_L_SAVEASPLAINXML,                   GNEApplicationWindow::onCmdSaveAsPlainXML),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_L_SAVEASPLAINXML,                   GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_J_SAVEJOINEDJUNCTIONS,              GNEApplicationWindow::onCmdSaveJoined),
@@ -98,8 +98,8 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     // TLS
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_K_OPENTLSPROGRAMS,                  GNEApplicationWindow::onCmdOpenTLSPrograms),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_K_OPENTLSPROGRAMS,                  GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_K_SAVETLS,                GNEApplicationWindow::onCmdSaveTLSPrograms),
-    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_SHIFT_K_SAVETLS,                GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_K_SAVETLS,                    GNEApplicationWindow::onCmdSaveTLSPrograms),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_SHIFT_K_SAVETLS,                    GNEApplicationWindow::onUpdNeedsNetwork),
     // additionals //
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS,  GNEApplicationWindow::onCmdOpenAdditionals),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS,  GNEApplicationWindow::onUpdNeedsNetwork),
@@ -110,8 +110,8 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     // demand elements //
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP_OPENDEMAND,  GNEApplicationWindow::onCmdOpenDemandElements),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP_OPENDEMAND,  GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_D_SAVEDEMANDELEMENTS,                 GNEApplicationWindow::onCmdSaveDemandElements),
-    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_SHIFT_D_SAVEDEMANDELEMENTS,                 GNEApplicationWindow::onUpdSaveDemandElements),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_D_SAVEDEMANDELEMENTS,         GNEApplicationWindow::onCmdSaveDemandElements),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_SHIFT_D_SAVEDEMANDELEMENTS,         GNEApplicationWindow::onUpdSaveDemandElements),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVEDEMAND_AS,                  GNEApplicationWindow::onCmdSaveDemandElementsAs),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVEDEMAND_AS,                  GNEApplicationWindow::onUpdNeedsNetwork),
     // other //
@@ -2012,7 +2012,66 @@ GNEApplicationWindow::onCmdToogleGrid(FXObject*, FXSelector, void*) {
 
 
 long 
-GNEApplicationWindow::onCmdToogleEditOptions(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onCmdToogleEditOptions(FXObject* obj, FXSelector sel, void* ptr) {
+    // first check that we have a ViewNet
+    if(myViewNet) {
+        // first check what selector was called
+        int numericalKeyPressed = sel - FXSEL(SEL_COMMAND, MID_HOTKEY_ALT_0_TOOGLEEDITOPTION) - 1;
+        // check that numericalKeyPressed is valid
+        if ((numericalKeyPressed < 0) || (numericalKeyPressed > 10)) {
+            return 1;
+        }
+        // continue depending of current supermode
+        if (myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) {
+            // declare a vector in which save visible menu commands
+            std::vector<FXMenuCheck*> visibleNetworkMenuCommands;
+            // save visible menu commands visibleNetworkMenuCommands 
+            if (myViewNet->getViewOptionsNetwork().menuCheckShowDemandElements->shown()) {
+                visibleNetworkMenuCommands.push_back(myViewNet->getViewOptionsNetwork().menuCheckShowDemandElements);
+            }
+            if (myViewNet->getViewOptionsNetwork().menuCheckSelectEdges->shown()) {
+                visibleNetworkMenuCommands.push_back(myViewNet->getViewOptionsNetwork().menuCheckSelectEdges);
+            }
+            if (myViewNet->getViewOptionsNetwork().menuCheckShowConnections->shown()) {
+                visibleNetworkMenuCommands.push_back(myViewNet->getViewOptionsNetwork().menuCheckShowConnections);
+            }
+            if (myViewNet->getViewOptionsNetwork().menuCheckHideConnections->shown()) {
+                visibleNetworkMenuCommands.push_back(myViewNet->getViewOptionsNetwork().menuCheckHideConnections);
+            }
+            if (myViewNet->getViewOptionsNetwork().menuCheckExtendSelection->shown()) {
+                visibleNetworkMenuCommands.push_back(myViewNet->getViewOptionsNetwork().menuCheckExtendSelection);
+            }
+            if (myViewNet->getViewOptionsNetwork().menuCheckChangeAllPhases->shown()) {
+                visibleNetworkMenuCommands.push_back(myViewNet->getViewOptionsNetwork().menuCheckChangeAllPhases);
+            }
+            if (myViewNet->getViewOptionsNetwork().menuCheckShowGrid->shown()) {
+                visibleNetworkMenuCommands.push_back(myViewNet->getViewOptionsNetwork().menuCheckShowGrid);
+            }
+            // now check that numericalKeyPressed isn't greather than visible view options
+            if (numericalKeyPressed >= visibleNetworkMenuCommands.size()) {
+                return 1;
+            }
+            // finally function correspond to visibleNetworkMenuCommands[numericalKeyPressed]
+            if (visibleNetworkMenuCommands.at(numericalKeyPressed) == myViewNet->getViewOptionsNetwork().menuCheckShowDemandElements) {
+                return myViewNet->onCmdShowDemandElements(obj, sel, ptr);
+            } else if (visibleNetworkMenuCommands.at(numericalKeyPressed) == myViewNet->getViewOptionsNetwork().menuCheckSelectEdges) {
+                return myViewNet->onCmdToogleSelectEdges(obj, sel, ptr);
+            } else if (visibleNetworkMenuCommands.at(numericalKeyPressed) == myViewNet->getViewOptionsNetwork().menuCheckShowConnections) {
+                return myViewNet->onCmdToogleShowConnection(obj, sel, ptr);
+            } else if (visibleNetworkMenuCommands.at(numericalKeyPressed) == myViewNet->getViewOptionsNetwork().menuCheckHideConnections) {
+                /*return myViewNet->oncmd(obj, sel, ptr);*/
+            } else if (visibleNetworkMenuCommands.at(numericalKeyPressed) == myViewNet->getViewOptionsNetwork().menuCheckExtendSelection) {
+                /*return myViewNet->oncmdEx(obj, sel, ptr);*/
+            } else if (visibleNetworkMenuCommands.at(numericalKeyPressed) == myViewNet->getViewOptionsNetwork().menuCheckChangeAllPhases) {
+                return myViewNet->onCmdShowDemandElements(obj, sel, ptr);
+            } else if (visibleNetworkMenuCommands.at(numericalKeyPressed) == myViewNet->getViewOptionsNetwork().menuCheckShowGrid) {
+                return myViewNet->onCmdShowGrid(obj, sel, ptr);
+            } else {
+                // nothing to call
+                return 1;
+            }
+        }
+    }
     return 1;
 }
 

@@ -366,7 +366,6 @@ struct GNEViewNetHelper {
 
         /// @brief show grid button
         FXMenuCheck* menuCheckShowGrid;
-
     private:
         /// @brief pointer to viewNet
         GNEViewNet* myViewNet;
