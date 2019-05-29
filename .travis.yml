@@ -1,18 +1,18 @@
 language: c++
 
-os:
-  - linux
-  - osx
-
-osx_image: xcode10.2 # Xcode 10.2.1; macOS 10.14
-
-compiler:
-  - gcc
-  - clang
-
-env:
-  - TOOLCHAIN=autotools
-  - TOOLCHAIN=cmake
+matrix:
+  include:
+    - os: linux
+      compiler:
+        - gcc
+        - clang
+      env:
+        - TOOLCHAIN=autotools
+        - TOOLCHAIN=cmake
+    - os: osx
+      osx_image: xcode10.2 # Xcode 10.2.1; macOS 10.14
+      compiler: clang
+      env: TOOLCHAIN=cmake
 
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get update; fi
