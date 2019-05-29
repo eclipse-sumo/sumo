@@ -991,6 +991,10 @@ NBNode::computeNodeShape(double mismatchThreshold) {
         myPoly.push_back(myPosition);
         return;
     }
+    if (OptionsCont::getOptions().getFloat("default.junctions.radius") < 0) {
+        // skip shape computation by option
+        return;
+    }
     try {
         NBNodeShapeComputer computer(*this);
         myPoly = computer.compute();
