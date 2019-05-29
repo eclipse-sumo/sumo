@@ -226,13 +226,21 @@ GNEVehicle::getColor() const {
 
 void
 GNEVehicle::writeDemandElement(OutputDevice& device) const {
-    // open tag depending of synonym
-    if(myTagProperty.hasTagSynonym()) {
-        write(device, OptionsCont::getOptions(), myTagProperty.getTagSynonym());
+    // obtain tag depending if tagProperty has a synonym
+    SumoXMLTag synonymTag = myTagProperty.hasTagSynonym()? myTagProperty.getTagSynonym() : myTagProperty.getTag();
+    // attribute VType musn't be written if is DEFAULT_VTYPE_ID
+    if (getDemandElementParents().at(0)->getID() == DEFAULT_VTYPE_ID) {
+        // unset VType parameter
+        parametersSet &= ~VEHPARS_VTYPE_SET;
+        // write vehicle attributes (VType will not be written)
+        write(device, OptionsCont::getOptions(), synonymTag);
+        // set VType parameter again
+        parametersSet |= VEHPARS_VTYPE_SET;
     } else {
-        write(device, OptionsCont::getOptions(), myTagProperty.getTag());
+        // write vehicle attributes, including VType
+        write(device, OptionsCont::getOptions(), synonymTag, getDemandElementParents().at(0)->getID());
     }
-    // write specific attribute depeding of their tag
+    // write specific attribute depeding of tag property
     if ((getDemandElementParents().size() == 2) && (myTagProperty.getTag() == SUMO_TAG_VEHICLE || myTagProperty.getTag() == SUMO_TAG_ROUTEFLOW)) {
         // write manually route
         device.writeAttr(SUMO_ATTR_ROUTE, getDemandElementParents().at(1)->getID());
