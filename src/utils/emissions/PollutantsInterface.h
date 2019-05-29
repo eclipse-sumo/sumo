@@ -50,11 +50,10 @@ class HelpersEnergy;
  * @brief Helper methods for PHEMlight-based emission computation
  */
 class PollutantsInterface {
-public:
 
+public:
     /// @brief Enumerating all emission types, including fuel
     enum EmissionType { CO2, CO, HC, FUEL, NO_X, PM_X, ELEC };
-
 
     /**
      * @struct Emissions
@@ -96,7 +95,6 @@ public:
             electricity += scale * a.electricity;
         }
     };
-
 
     /**
     * @class Helper
@@ -248,7 +246,6 @@ public:
             myEmissionClassStrings.addKeysInto(list);
         }
 
-
     protected:
         /// @brief the name of the model
         const std::string myName;
@@ -257,11 +254,9 @@ public:
         StringBijection<SUMOEmissionClass> myEmissionClassStrings;
 
     private:
-        Helper& operator=(const Helper&); // just to avoid a compiler warning
-
-
+        /// @brief invalidate copy constructor
+        Helper& operator=(const Helper&) = delete;
     };
-
 
     /// @brief the first class in each model representing a zero emission vehicle
     static const int ZERO_EMISSIONS = 0;
@@ -275,13 +270,14 @@ public:
      */
     static SUMOEmissionClass getClassByName(const std::string& eClass, const SUMOVehicleClass vc = SVC_IGNORING);
 
-
     /** @brief Checks whether the string describes a known vehicle class
      * @param[in] eClass The string describing the vehicle emission class
      * @return whether it describes a valid emission class
      */
     static const std::vector<SUMOEmissionClass> getAllClasses();
 
+    /// @brief Get all SUMOEmissionClass in string format
+    static const std::vector<std::string> &getAllClassesStr();
 
     /** @brief Checks whether the string describes a known vehicle class
      * @param[in] eClass The string describing the vehicle emission class
@@ -289,20 +285,17 @@ public:
      */
     static std::string getName(const SUMOEmissionClass c);
 
-
     /** @brief Checks whether the emission class describes a bus, truck or similar vehicle
      * @param[in] c The vehicle emission class
      * @return whether it describes a heavy vehicle
      */
     static bool isHeavy(const SUMOEmissionClass c);
 
-
     /** @brief Checks whether the emission class describes an electric or similar silent vehicle
      * @param[in] c The vehicle emission class
      * @return whether it describes a silent vehicle
      */
     static bool isSilent(const SUMOEmissionClass c);
-
 
     /** @brief Returns the emission class fittig the given parameters
      * @param[in] base The base emission class to derive from
@@ -314,13 +307,11 @@ public:
      */
     static SUMOEmissionClass getClass(const SUMOEmissionClass base, const std::string& vClass, const std::string& fuel, const std::string& eClass, const double weight);
 
-
     /** @brief Returns the vehicle class described by the given emission class
      * @param[in] c The vehicle emission class
      * @return The Amitran string describing the vehicle class
      */
     static std::string getAmitranVehicleClass(const SUMOEmissionClass c);
-
 
     /** @brief Returns the fuel type of the given emission class
      * @param[in] c The vehicle emission class
@@ -328,13 +319,11 @@ public:
      */
     static std::string getFuel(const SUMOEmissionClass c);
 
-
     /** @brief Returns the Euro norm described by the given emission class
      * @param[in] c The vehicle emission class
      * @return A value between 0 and 6 (inclusive)
      */
     static int getEuroClass(const SUMOEmissionClass c);
-
 
     /** @brief Returns a representative weight for the given emission class
      * see http://colombo-fp7.eu/deliverables/COLOMBO_D4.2_ExtendedPHEMSUMO_v1.7.pdf
@@ -342,7 +331,6 @@ public:
      * @return the weight in kg if it matters, 0 otherwise
      */
     static double getWeight(const SUMOEmissionClass c);
-
 
     /** @brief Returns the amount of the emitted pollutant given the vehicle type and state (in mg/s or ml/s for fuel)
      * @param[in] c The vehicle emission class
@@ -354,7 +342,6 @@ public:
      */
     static double compute(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope, const std::map<int, double>* param = 0);
 
-
     /** @brief Returns the amount of all emitted pollutants given the vehicle type and state (in mg/s or ml/s for fuel)
      * @param[in] c The vehicle emission class
      * @param[in] v The vehicle's current velocity
@@ -363,7 +350,6 @@ public:
      * @return The amount emitted by the given vehicle class when moving with the given velocity and acceleration [mg/s]
      */
     static Emissions computeAll(const SUMOEmissionClass c, const double v, const double a, const double slope, const std::map<int, double>* param = 0);
-
 
     /** @brief Returns the amount of emitted pollutant given the vehicle type and default values for the state (in mg)
      * @param[in] c The vehicle emission class
@@ -385,6 +371,7 @@ public:
      */
     static double getModifiedAccel(const SUMOEmissionClass c, const double v, const double a, const double slope);
 
+    /// @brief get energy helper
     static const HelpersEnergy& getEnergyHelper() {
         return myEnergyHelper;
     }
@@ -392,15 +379,21 @@ public:
 private:
     /// @brief Instance of HBEFA2Helper which gets cleaned up automatically
     static HelpersHBEFA myHBEFA2Helper;
+
     /// @brief Instance of HBEFA3Helper which gets cleaned up automatically
     static HelpersHBEFA3 myHBEFA3Helper;
+
     /// @brief Instance of PHEMlightHelper which gets cleaned up automatically
     static HelpersPHEMlight myPHEMlightHelper;
+
     /// @brief Instance of EnergyHelper which gets cleaned up automatically
     static HelpersEnergy myEnergyHelper;
+
     /// @brief the known model helpers
     static Helper* myHelpers[];
 
+    /// @brief get all emission classes in strin format
+    static std::vector<std::string> myAllClassesStr;
 };
 
 
