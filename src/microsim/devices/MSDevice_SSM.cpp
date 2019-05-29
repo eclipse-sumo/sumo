@@ -757,7 +757,8 @@ MSDevice_SSM::updateEncounter(Encounter* e, FoeInfo* foeInfo) {
         if (eInfo.type == ENCOUNTER_TYPE_FOE_LEFT_CONFLICT_AREA
             || eInfo.type == ENCOUNTER_TYPE_EGO_LEFT_CONFLICT_AREA
             || eInfo.type == ENCOUNTER_TYPE_BOTH_LEFT_CONFLICT_AREA
-            || eInfo.type == ENCOUNTER_TYPE_NOCONFLICT_AHEAD) {
+            || eInfo.type == ENCOUNTER_TYPE_NOCONFLICT_AHEAD
+            || eInfo.type == ENCOUNTER_TYPE_BOTH_ENTERED_CONFLICT_AREA) {
             return false;
         }
     }
