@@ -316,24 +316,6 @@ public:
     /// @brief called if the user press key combination Alt + <0-9>
     long onCmdToogleEditOptions(FXObject*, FXSelector, void*);
 
-    /// @brief called if the user press key combination Ctrl + Shift + C to toogle show connections
-    long onCmdToogleShowConnections(FXObject*, FXSelector, void*);
-
-    /// @brief called if the user press key combination Ctrl + Shift + H to toogle elevation
-    long onCmdToogleElevation(FXObject*, FXSelector, void*);
-
-    /// @brief called if the user press key combination Ctrl + Shift + I to toogle select edges
-    long onCmdToogleSelectEdges(FXObject*, FXSelector, void*);
-
-    /// @brief called if the user press key combination Ctrl + Shift + J to toogle chain mode
-    long onCmdToogleChain(FXObject*, FXSelector, void*);
-
-    /// @brief called if the user press key combination Ctrl + Shift + K to toogle two way
-    long onCmdToogleTwoWay(FXObject*, FXSelector, void*);
-
-    /// @brief called if the user press key combination Ctrl + Shift + B to toogle show junction as bubbles
-    long onCmdToogleJunctionBubbles(FXObject*, FXSelector, void*);
-
     /// @brief called if the user selects help->Documentation
     long onCmdHelp(FXObject* sender, FXSelector sel, void* ptr);
 

@@ -148,28 +148,6 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_Y_REDO,                     GNEApplicationWindow::onUpdRedo),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_G_GAMINGMODE_TOOGLEGRID,    GNEApplicationWindow::onCmdToogleGrid),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_G_GAMINGMODE_TOOGLEGRID,    GNEApplicationWindow::onUpdNeedsNetwork),
-
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_ALT_0_TOOGLEEDITOPTION,          GNEApplicationWindow::onCmdToogleEditOptions),
-    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_ALT_0_TOOGLEEDITOPTION,          GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_ALT_1_TOOGLEEDITOPTION,          GNEApplicationWindow::onCmdToogleEditOptions),
-    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_ALT_1_TOOGLEEDITOPTION,          GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_ALT_2_TOOGLEEDITOPTION,          GNEApplicationWindow::onCmdToogleEditOptions),
-    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_ALT_2_TOOGLEEDITOPTION,          GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_ALT_3_TOOGLEEDITOPTION,          GNEApplicationWindow::onCmdToogleEditOptions),
-    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_ALT_3_TOOGLEEDITOPTION,          GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_ALT_4_TOOGLEEDITOPTION,          GNEApplicationWindow::onCmdToogleEditOptions),
-    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_ALT_4_TOOGLEEDITOPTION,          GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_ALT_5_TOOGLEEDITOPTION,          GNEApplicationWindow::onCmdToogleEditOptions),
-    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_ALT_5_TOOGLEEDITOPTION,          GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_ALT_6_TOOGLEEDITOPTION,          GNEApplicationWindow::onCmdToogleEditOptions),
-    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_ALT_6_TOOGLEEDITOPTION,          GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_ALT_7_TOOGLEEDITOPTION,          GNEApplicationWindow::onCmdToogleEditOptions),
-    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_ALT_7_TOOGLEEDITOPTION,          GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_ALT_8_TOOGLEEDITOPTION,          GNEApplicationWindow::onCmdToogleEditOptions),
-    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_ALT_8_TOOGLEEDITOPTION,          GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_ALT_9_TOOGLEEDITOPTION,          GNEApplicationWindow::onCmdToogleEditOptions),
-    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_ALT_9_TOOGLEEDITOPTION,          GNEApplicationWindow::onUpdNeedsNetwork),
-
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_T_OPENSUMONETEDIT,          GNEApplicationWindow::onCmdOpenSUMOGUI),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_T_OPENSUMONETEDIT,          GNEApplicationWindow::onUpdNeedsNetwork),
 
@@ -212,6 +190,28 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     // toolbar help
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F1_ONLINEDOCUMENTATION,      GNEApplicationWindow::onCmdHelp),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F2_ABOUT,                    GNEApplicationWindow::onCmdAbout),
+
+    // alt + <number> 
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_ALT_0_TOOGLEEDITOPTION,      GNEApplicationWindow::onCmdToogleEditOptions),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_ALT_0_TOOGLEEDITOPTION,      GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_ALT_1_TOOGLEEDITOPTION,      GNEApplicationWindow::onCmdToogleEditOptions),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_ALT_1_TOOGLEEDITOPTION,      GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_ALT_2_TOOGLEEDITOPTION,      GNEApplicationWindow::onCmdToogleEditOptions),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_ALT_2_TOOGLEEDITOPTION,      GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_ALT_3_TOOGLEEDITOPTION,      GNEApplicationWindow::onCmdToogleEditOptions),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_ALT_3_TOOGLEEDITOPTION,      GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_ALT_4_TOOGLEEDITOPTION,      GNEApplicationWindow::onCmdToogleEditOptions),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_ALT_4_TOOGLEEDITOPTION,      GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_ALT_5_TOOGLEEDITOPTION,      GNEApplicationWindow::onCmdToogleEditOptions),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_ALT_5_TOOGLEEDITOPTION,      GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_ALT_6_TOOGLEEDITOPTION,      GNEApplicationWindow::onCmdToogleEditOptions),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_ALT_6_TOOGLEEDITOPTION,      GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_ALT_7_TOOGLEEDITOPTION,      GNEApplicationWindow::onCmdToogleEditOptions),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_ALT_7_TOOGLEEDITOPTION,      GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_ALT_8_TOOGLEEDITOPTION,      GNEApplicationWindow::onCmdToogleEditOptions),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_ALT_8_TOOGLEEDITOPTION,      GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_ALT_9_TOOGLEEDITOPTION,      GNEApplicationWindow::onCmdToogleEditOptions),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_ALT_9_TOOGLEEDITOPTION,      GNEApplicationWindow::onUpdNeedsNetwork),
 
     // key events
     FXMAPFUNC(SEL_KEYPRESS,     0,                      GNEApplicationWindow::onKeyPress),
@@ -2053,18 +2053,95 @@ GNEApplicationWindow::onCmdToogleEditOptions(FXObject* obj, FXSelector sel, void
             }
             // finally function correspond to visibleNetworkMenuCommands[numericalKeyPressed]
             if (visibleNetworkMenuCommands.at(numericalKeyPressed) == myViewNet->getViewOptionsNetwork().menuCheckShowDemandElements) {
+                // Toogle menuCheckShowDemandElements
+                if (myViewNet->getViewOptionsNetwork().menuCheckShowDemandElements->getCheck() == TRUE) {
+                    myViewNet->getViewOptionsNetwork().menuCheckShowDemandElements->setCheck(FALSE);
+                    // show extra information for tests
+                    WRITE_DEBUG("Disabled show demand elements throught alt + " + toString(numericalKeyPressed + 1));
+                } else {
+                    myViewNet->getViewOptionsNetwork().menuCheckShowDemandElements->setCheck(TRUE);
+                    // show extra information for tests
+                    WRITE_DEBUG("Enabled show demand elements throught alt + " + toString(numericalKeyPressed + 1));
+                }
+                // Call manually onCmdToogleShowDemandElements
                 return myViewNet->onCmdToogleShowDemandElements(obj, sel, ptr);
             } else if (visibleNetworkMenuCommands.at(numericalKeyPressed) == myViewNet->getViewOptionsNetwork().menuCheckSelectEdges) {
+                // Toogle menuCheckSelectEdges
+                if (myViewNet->getViewOptionsNetwork().menuCheckSelectEdges->getCheck() == TRUE) {
+                    myViewNet->getViewOptionsNetwork().menuCheckSelectEdges->setCheck(FALSE);
+                    // show extra information for tests
+                    WRITE_DEBUG("Disabled select edges throught alt + " + toString(numericalKeyPressed + 1));
+                } else {
+                    myViewNet->getViewOptionsNetwork().menuCheckSelectEdges->setCheck(TRUE);
+                    // show extra information for tests
+                    WRITE_DEBUG("Enabled select edges throught alt + " + toString(numericalKeyPressed + 1));
+                }
+                // Call manually onCmdToogleSelectEdges
                 return myViewNet->onCmdToogleSelectEdges(obj, sel, ptr);
             } else if (visibleNetworkMenuCommands.at(numericalKeyPressed) == myViewNet->getViewOptionsNetwork().menuCheckShowConnections) {
+                // Toogle menuCheckShowConnections
+                if (myViewNet->getViewOptionsNetwork().menuCheckShowConnections->getCheck() == TRUE) {
+                    myViewNet->getViewOptionsNetwork().menuCheckShowConnections->setCheck(FALSE);
+                    // show extra information for tests
+                    WRITE_DEBUG("Disabled show connections throught alt + " + toString(numericalKeyPressed + 1));
+                } else {
+                    myViewNet->getViewOptionsNetwork().menuCheckShowConnections->setCheck(TRUE);
+                    // show extra information for tests
+                    WRITE_DEBUG("Enabled show connections throught alt + " + toString(numericalKeyPressed + 1));
+                }
+                // Call manually onCmdToogleShowConnections
                 return myViewNet->onCmdToogleShowConnections(obj, sel, ptr);
             } else if (visibleNetworkMenuCommands.at(numericalKeyPressed) == myViewNet->getViewOptionsNetwork().menuCheckHideConnections) {
-                /*return myViewNet->oncmd(obj, sel, ptr);*/
+                // Toogle menuCheckHideConnections
+                if (myViewNet->getViewOptionsNetwork().menuCheckHideConnections->getCheck() == TRUE) {
+                    myViewNet->getViewOptionsNetwork().menuCheckHideConnections->setCheck(FALSE);
+                    // show extra information for tests
+                    WRITE_DEBUG("Disabled hide connections throught alt + " + toString(numericalKeyPressed + 1));
+                } else {
+                    myViewNet->getViewOptionsNetwork().menuCheckHideConnections->setCheck(TRUE);
+                    // show extra information for tests
+                    WRITE_DEBUG("Enabled hide connections throught alt + " + toString(numericalKeyPressed + 1));
+                }
+                // Call manually onCmdToogleHideConnections
+                return myViewNet->onCmdToogleHideConnections(obj, sel, ptr);
             } else if (visibleNetworkMenuCommands.at(numericalKeyPressed) == myViewNet->getViewOptionsNetwork().menuCheckExtendSelection) {
-                /*return myViewNet->oncmdEx(obj, sel, ptr);*/
+                // Toogle menuCheckExtendSelection
+                if (myViewNet->getViewOptionsNetwork().menuCheckExtendSelection->getCheck() == TRUE) {
+                    myViewNet->getViewOptionsNetwork().menuCheckExtendSelection->setCheck(FALSE);
+                    // show extra information for tests
+                    WRITE_DEBUG("Disabled extend selection throught alt + " + toString(numericalKeyPressed + 1));
+                } else {
+                    myViewNet->getViewOptionsNetwork().menuCheckExtendSelection->setCheck(TRUE);
+                    // show extra information for tests
+                    WRITE_DEBUG("Enabled extend selection throught alt + " + toString(numericalKeyPressed + 1));
+                }
+                // Call manually onCmdToogleExtendSelection
+                return myViewNet->onCmdToogleExtendSelection(obj, sel, ptr);
             } else if (visibleNetworkMenuCommands.at(numericalKeyPressed) == myViewNet->getViewOptionsNetwork().menuCheckChangeAllPhases) {
-                return myViewNet->onCmdToogleShowDemandElements(obj, sel, ptr);
+                // Toogle menuCheckChangeAllPhases
+                if (myViewNet->getViewOptionsNetwork().menuCheckChangeAllPhases->getCheck() == TRUE) {
+                    myViewNet->getViewOptionsNetwork().menuCheckChangeAllPhases->setCheck(FALSE);
+                    // show extra information for tests
+                    WRITE_DEBUG("Disabled change all phases throught alt + " + toString(numericalKeyPressed + 1));
+                } else {
+                    myViewNet->getViewOptionsNetwork().menuCheckChangeAllPhases->setCheck(TRUE);
+                    // show extra information for tests
+                    WRITE_DEBUG("Enabled change all phases throught alt + " + toString(numericalKeyPressed + 1));
+                }
+                // Call manually onCmdToogleChangeAllPhases
+                return myViewNet->onCmdToogleChangeAllPhases(obj, sel, ptr);
             } else if (visibleNetworkMenuCommands.at(numericalKeyPressed) == myViewNet->getViewOptionsNetwork().menuCheckShowGrid) {
+                // Toogle menuCheckShowGrid
+                if (myViewNet->getViewOptionsNetwork().menuCheckShowGrid->getCheck() == TRUE) {
+                    myViewNet->getViewOptionsNetwork().menuCheckShowGrid->setCheck(FALSE);
+                    // show extra information for tests
+                    WRITE_DEBUG("Disabled toogle show grid throught alt + " + toString(numericalKeyPressed + 1));
+                } else {
+                    myViewNet->getViewOptionsNetwork().menuCheckShowGrid->setCheck(TRUE);
+                    // show extra information for tests
+                    WRITE_DEBUG("Enabled toogle show grid throught alt + " + toString(numericalKeyPressed + 1));
+                }
+                // Call manually onCmdToogleShowGrid
                 return myViewNet->onCmdToogleShowGrid(obj, sel, ptr);
             } else {
                 // nothing to call
@@ -2075,29 +2152,7 @@ GNEApplicationWindow::onCmdToogleEditOptions(FXObject* obj, FXSelector sel, void
     return 1;
 }
 
-
-long
-GNEApplicationWindow::onCmdToogleShowConnections(FXObject*, FXSelector, void*) {
-    // check that view exists
-    if (myViewNet) {
-        // Toogle menuCheckShowConnections of GNEViewNet
-        if (myViewNet->getViewOptionsNetwork().menuCheckShowConnections->getCheck() == TRUE) {
-            myViewNet->getViewOptionsNetwork().menuCheckShowConnections->setCheck(FALSE);
-            // show extra information for tests
-            WRITE_DEBUG("Disabled show connections throught Ctrl+shift+c hotkey");
-        } else {
-            myViewNet->getViewOptionsNetwork().menuCheckShowConnections->setCheck(TRUE);
-            // show extra information for tests
-            WRITE_WARNING("Enabled show connections throught Ctrl+shift+c hotkey");
-        }
-        // Call manually toogle show connection function
-        myViewNet->onCmdToogleShowConnections(nullptr, 0, nullptr);
-
-    }
-    return 1;
-}
-
-
+/*
 long
 GNEApplicationWindow::onCmdToogleElevation(FXObject*, FXSelector, void*) {
     // check that view exists
@@ -2111,27 +2166,6 @@ GNEApplicationWindow::onCmdToogleElevation(FXObject*, FXSelector, void*) {
             myViewNet->getMoveOptions().moveElevation->setCheck(TRUE);
             // show extra information for tests
             WRITE_WARNING("Enabled move elevation throught Ctrl+shift+h hotkey");
-        }
-        // update view
-        myViewNet->update();
-    }
-    return 1;
-}
-
-
-long
-GNEApplicationWindow::onCmdToogleSelectEdges(FXObject*, FXSelector, void*) {
-    // check that view exists
-    if (myViewNet) {
-        // Toogle selectEdges of GNEViewNet
-        if (myViewNet->getViewOptionsNetwork().menuCheckSelectEdges->getCheck() == TRUE) {
-            myViewNet->getViewOptionsNetwork().menuCheckSelectEdges->setCheck(FALSE);
-            // show extra information for tests
-            WRITE_DEBUG("Disabled select edges throught Ctrl+shift+i hotkey");
-        } else {
-            myViewNet->getViewOptionsNetwork().menuCheckSelectEdges->setCheck(TRUE);
-            // show extra information for tests
-            WRITE_WARNING("Enabled select edges throught Ctrl+shift+i hotkey");
         }
         // update view
         myViewNet->update();
@@ -2201,7 +2235,7 @@ GNEApplicationWindow::onCmdToogleJunctionBubbles(FXObject*, FXSelector, void*) {
     }
     return 1;
 }
-
+*/
 
 long
 GNEApplicationWindow::onCmdHelp(FXObject*, FXSelector, void*) {
