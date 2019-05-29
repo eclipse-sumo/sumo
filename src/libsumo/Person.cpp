@@ -163,16 +163,62 @@ Person::getEdges(const std::string& personID, int nextStageIndex) {
 }
 
 
-int
+TraCIStage
 Person::getStage(const std::string& personID, int nextStageIndex) {
     MSTransportable* p = getPerson(personID);
+    TraCIStage result;
     if (nextStageIndex >= p->getNumRemainingStages()) {
         throw TraCIException("The stage index must be lower than the number of remaining stages.");
     }
     if (nextStageIndex < (p->getNumRemainingStages() - p->getNumStages())) {
         throw TraCIException("The negative stage index must refer to a valid previous stage.");
     }
-    return p->getStageType(nextStageIndex);
+    //stageType, arrivalPos, edges, destStop, vType, and description can be retrieved directly from the base Stage class.
+    MSTransportable::Stage* stage = p->getNextStage(nextStageIndex);
+    result.type = stage->getStageType();
+    result.arrivalPos = stage->getArrivalPos();
+    for(auto e: stage->getEdges()) {
+        if(e != nullptr) {
+            result.edges.push_back(e->getID());
+        }
+    }
+    MSStoppingPlace* destinationStop = stage->getDestinationStop();
+    if(destinationStop != nullptr) {
+        result.destStop = destinationStop->getID();
+    }
+    SUMOVehicle* vehicle = stage->getVehicle();
+    if(vehicle != nullptr) {
+        result.vType = vehicle->getVehicleType().getID();
+    }
+    result.description = stage->getStageDescription();
+    // Some stage type dependant attributes
+    switch(stage->getStageType()) {
+        case STAGE_DRIVING: {
+            auto * drivingStage = (MSTransportable::Stage_Driving*) stage;
+            result.intended = drivingStage->getIntendedVehicleID();
+            result.depart = drivingStage->getIntendedDepart();
+            const std::set<std::string> lines = drivingStage->getLines();
+            for(auto line=lines.begin(); line != lines.end(); line++) {
+                if(line!=lines.begin()) {
+                    result.line += " ";
+                }
+                result.line += *line;
+            }
+            break;
+        }
+        case STAGE_WALKING: {
+            auto* walkingStage = (MSPerson::MSPersonStage_Walking*) stage;
+            result.departPos = walkingStage->getDepartPos();
+            break;
+        }
+        default:
+            break;
+    }
+    // giving negative values for now, should be handled in the future
+    result.cost = -1;
+    result.travelTime = -1;
+    result.length = -1;
+    return result;
 }
 
 

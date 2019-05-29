@@ -17,6 +17,8 @@ import struct
 from .domain import Domain
 from .storage import Storage
 from . import constants as tc
+from . import _simulation as simulation
+
 
 
 _RETURN_VALUE_FUNC = {tc.TRACI_ID_LIST: Storage.readStringList,
@@ -36,7 +38,7 @@ _RETURN_VALUE_FUNC = {tc.TRACI_ID_LIST: Storage.readStringList,
                       tc.VAR_WIDTH: Storage.readDouble,
                       tc.VAR_MINGAP: Storage.readDouble,
                       tc.VAR_NEXT_EDGE: Storage.readString,
-                      tc.VAR_STAGE: Storage.readInt,
+                      tc.VAR_STAGE: simulation._readStage,
                       tc.VAR_STAGES_REMAINING: Storage.readInt,
                       tc.VAR_VEHICLE: Storage.readString,
                       tc.VAR_EDGES: Storage.readStringList,
@@ -184,9 +186,8 @@ class PersonDomain(Domain):
             tc.CMD_GET_PERSON_VARIABLE, tc.VAR_STAGE, personID, 1 + 4)
         self._connection._string += struct.pack("!Bi",
                                                 tc.TYPE_INTEGER, nextStageIndex)
-        return self._connection._checkResult(tc.CMD_GET_PERSON_VARIABLE,
-                                             tc.VAR_STAGE, personID).readInt()
-
+        return simulation._readStage(self._connection._checkResult(tc.CMD_GET_PERSON_VARIABLE,
+                                                                   tc.VAR_STAGE, personID))
     def getRemainingStages(self, personID):
         """getStage(string) -> int
         Returns the number of remaining stages (at least 1)

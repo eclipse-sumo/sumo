@@ -485,6 +485,14 @@ public:
             return myLines;
         }
 
+        std::string getIntendedVehicleID() {
+            return myIntendedVehicleID;
+        }
+
+        SUMOTime getIntendedDepart() {
+            return myIntendedDepart;
+        }
+
     protected:
         /// the lines  to choose from
         const std::set<std::string> myLines;
