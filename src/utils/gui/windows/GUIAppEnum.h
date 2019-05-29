@@ -565,17 +565,26 @@ enum {
     /// @{
 
     /// @brief show demand elements
-    MID_GNE_VIEWNET_SHOW_DEMAND_ELEMENTS,
-    /// @brief show connections
-    MID_GNE_VIEWNET_SHOW_CONNECTIONS,
+    MID_GNE_VIEWOPTIONSNETWORK_SHOWDEMANDELEMENTS,
     /// @brief select edges
-    MID_GNE_VIEWNET_SELECT_EDGES,
-    /// @brief show junctions as bubbles
-    MID_GNE_VIEWNET_SHOW_BUBBLES,
-    /// @brief move elevation instead of x,y
-    MID_GNE_VIEWNET_MOVE_ELEVATION,
+    MID_GNE_VIEWOPTIONSNETWORK_SELECTEDGES,
+    /// @brief show connections
+    MID_GNE_VIEWOPTIONSNETWORK_SHOWCONNECTIONS,
+    /// @brief hide connections
+    MID_GNE_VIEWOPTIONSNETWORK_HIDECONNECTIONS,
+    /// @brief extend selection
+    MID_GNE_VIEWOPTIONSNETWORK_EXTENDSELECTION,
+    /// @brief change all phases
+    MID_GNE_VIEWOPTIONSNETWORK_CHANGEALLPHASES,
     /// @brief show grid
-    MID_GNE_VIEWNET_SHOW_GRID,
+    MID_GNE_VIEWOPTIONSNETWORK_SHOWGRID,
+    /// @brief ask before merging junctions
+    MID_GNE_VIEWOPTIONSNETWORK_ASKFORMERGE,
+    /// @brief show junctions as bubbles
+    MID_GNE_VIEWOPTIONSNETWORK_SHOWBUBBLES,
+    /// @brief move elevation instead of x,y
+    MID_GNE_VIEWOPTIONSNETWORK_MOVEELEVATION,
+
     /// @}
 
 

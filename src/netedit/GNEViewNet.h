@@ -232,14 +232,31 @@ public:
     /// @brief edit crossing shape
     long onCmdEditCrossingShape(FXObject*, FXSelector, void*);
 
-    /// @brief toogle show connections
-    long onCmdToogleShowConnection(FXObject*, FXSelector, void*);
-
+    /// @name View options network call backs
+    /// @{
     /// @brief toogle show demand elements
-    long onCmdShowDemandElements(FXObject*, FXSelector, void*);
-
+    long onCmdToogleShowDemandElements(FXObject*, FXSelector, void*);
+    
     /// @brief toogle select edges
     long onCmdToogleSelectEdges(FXObject*, FXSelector, void*);
+    
+    /// @brief toogle show connections
+    long onCmdToogleShowConnections(FXObject*, FXSelector, void*);
+
+    /// @brief toogle hide connections
+    long onCmdToogleHideConnections(FXObject*, FXSelector, void*);
+    
+    /// @brief toogle extend selection
+    long onCmdToogleExtendSelection(FXObject*, FXSelector, void*);
+    
+    /// @brief toogle change all phases
+    long onCmdToogleChangeAllPhases(FXObject*, FXSelector, void*);
+    
+    /// @brief toogle show grid
+    long onCmdToogleShowGrid(FXObject*, FXSelector, void*);
+    
+    /// @brief toogle ask for merge
+    long onCmdToogleAskForMerge(FXObject*, FXSelector, void*);
 
     /// @brief toogle show bubbles
     long onCmdToogleShowBubbles(FXObject*, FXSelector, void*);
@@ -247,14 +264,15 @@ public:
     /// @brief toogle move elevation
     long onCmdToogleMoveElevation(FXObject*, FXSelector, void*);
 
+    /// @}
+
     /// @brief select AC under cursor
     long onCmdAddSelected(FXObject*, FXSelector, void*);
 
     /// @brief unselect AC under cursor
     long onCmdRemoveSelected(FXObject*, FXSelector, void*);
 
-    /// @brief toogle show grid
-    long onCmdShowGrid(FXObject*, FXSelector, void*);
+
 
     /// @brief abort current edition operation
     void abortOperation(bool clearSelection = true);

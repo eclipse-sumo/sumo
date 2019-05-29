@@ -2005,7 +2005,7 @@ GNEApplicationWindow::onCmdToogleGrid(FXObject*, FXSelector, void*) {
             WRITE_WARNING("Enabled grid throught Ctrl+g hotkey");
         }
         // Call manually show grid function
-        myViewNet->onCmdShowGrid(nullptr, 0, nullptr);
+        myViewNet->onCmdToogleShowGrid(nullptr, 0, nullptr);
     }
     return 1;
 }
@@ -2053,19 +2053,19 @@ GNEApplicationWindow::onCmdToogleEditOptions(FXObject* obj, FXSelector sel, void
             }
             // finally function correspond to visibleNetworkMenuCommands[numericalKeyPressed]
             if (visibleNetworkMenuCommands.at(numericalKeyPressed) == myViewNet->getViewOptionsNetwork().menuCheckShowDemandElements) {
-                return myViewNet->onCmdShowDemandElements(obj, sel, ptr);
+                return myViewNet->onCmdToogleShowDemandElements(obj, sel, ptr);
             } else if (visibleNetworkMenuCommands.at(numericalKeyPressed) == myViewNet->getViewOptionsNetwork().menuCheckSelectEdges) {
                 return myViewNet->onCmdToogleSelectEdges(obj, sel, ptr);
             } else if (visibleNetworkMenuCommands.at(numericalKeyPressed) == myViewNet->getViewOptionsNetwork().menuCheckShowConnections) {
-                return myViewNet->onCmdToogleShowConnection(obj, sel, ptr);
+                return myViewNet->onCmdToogleShowConnections(obj, sel, ptr);
             } else if (visibleNetworkMenuCommands.at(numericalKeyPressed) == myViewNet->getViewOptionsNetwork().menuCheckHideConnections) {
                 /*return myViewNet->oncmd(obj, sel, ptr);*/
             } else if (visibleNetworkMenuCommands.at(numericalKeyPressed) == myViewNet->getViewOptionsNetwork().menuCheckExtendSelection) {
                 /*return myViewNet->oncmdEx(obj, sel, ptr);*/
             } else if (visibleNetworkMenuCommands.at(numericalKeyPressed) == myViewNet->getViewOptionsNetwork().menuCheckChangeAllPhases) {
-                return myViewNet->onCmdShowDemandElements(obj, sel, ptr);
+                return myViewNet->onCmdToogleShowDemandElements(obj, sel, ptr);
             } else if (visibleNetworkMenuCommands.at(numericalKeyPressed) == myViewNet->getViewOptionsNetwork().menuCheckShowGrid) {
-                return myViewNet->onCmdShowGrid(obj, sel, ptr);
+                return myViewNet->onCmdToogleShowGrid(obj, sel, ptr);
             } else {
                 // nothing to call
                 return 1;
@@ -2091,7 +2091,7 @@ GNEApplicationWindow::onCmdToogleShowConnections(FXObject*, FXSelector, void*) {
             WRITE_WARNING("Enabled show connections throught Ctrl+shift+c hotkey");
         }
         // Call manually toogle show connection function
-        myViewNet->onCmdToogleShowConnection(nullptr, 0, nullptr);
+        myViewNet->onCmdToogleShowConnections(nullptr, 0, nullptr);
 
     }
     return 1;
