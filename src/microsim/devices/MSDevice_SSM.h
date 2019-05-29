@@ -323,6 +323,7 @@ private:
     /// corresponding to the encounter might occur. Each FoeInfo ends up in a call to updateEncounter() and
     /// is deleted there.
     struct FoeInfo {
+        virtual ~FoeInfo() {};
         const MSLane* egoConflictLane;
         double egoDistToConflictLane;
     };
@@ -333,6 +334,18 @@ private:
     //       This could be helpful to resolve the resolution for several different
     //	 	 projected conflicts with the same foe.
 
+
+    /// @brief Auxiliary structure used to handle upstream scanning start points
+    /// Upstream scan has to be started after downstream scan is completed, see #5644
+    struct UpstreamScanStartInfo {
+    	UpstreamScanStartInfo(const MSEdge* edge, double pos, double range, double egoDistToConflictLane, const MSLane* egoConflictLane) :
+    		edge(edge), pos(pos), range(range), egoDistToConflictLane(egoDistToConflictLane), egoConflictLane(egoConflictLane) {};
+    	const MSEdge* edge;
+    	double pos;
+    	double range;
+    	double egoDistToConflictLane;
+    	const MSLane* egoConflictLane;
+    };
 
     typedef std::priority_queue<Encounter*, std::vector<Encounter*>, Encounter::compare> EncounterQueue;
     typedef std::vector<Encounter*> EncounterVector;
@@ -404,7 +417,7 @@ public:
 
     /** @brief Collects all vehicles within range 'range' upstream of the position 'pos' on the edge 'edge' into foeCollector
      */
-    static void getUpstreamVehicles(const MSEdge* edge, double pos, double range, double egoDistToConflictLane, const MSLane* const egoConflictLane, FoeInfoMap& foeCollector, std::set<const MSJunction*>& seenJunctions);
+    static void getUpstreamVehicles(const UpstreamScanStartInfo& scanStart, FoeInfoMap& foeCollector, std::set<const MSJunction*>& seenJunctions);
 
     /** @brief Collects all vehicles on the junction into foeCollector
      */
@@ -525,7 +538,7 @@ private:
      */
     void flushGlobalMeasures();
 
-    /** @brief Updates the encounter (adds a new trajectory point) and deletes the foeInfo.
+    /** @brief Updates the encounter (adds a new trajectory point).
      *  @return Returns false for new encounters, which should not be kept (if one vehicle has
      *          already left the conflict zone at encounter creation). True, otherwise.
      */
