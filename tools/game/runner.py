@@ -64,6 +64,7 @@ _LANGUAGE_EN = {'title': 'Interactive Traffic Light',
                 'A10KW': 'Highway Ramp A10',
                 'DRT': 'Demand Responsive Transport (new)',
                 'DRT2': 'DRT - Advanced (new)',
+                'DRT_demo': 'DRT - Demo',
                 'high': 'Highscore',
                 'reset': 'Reset Highscore',
                 'lang': 'Deutsch',
@@ -85,6 +86,7 @@ _LANGUAGE_DE = {'title': 'Interaktives Ampelspiel',
                 'A10KW': 'A10 KW',
                 'DRT': 'Bedarfsbus (neu)',
                 'DRT2': 'Bedarfsbus für Fortgeschrittene (neu)',
+                'DRT_demo': 'Bedarfsbus - Demo',
                 'corridor': 'Strecke',
                 'high': 'Bestenliste',
                 'reset': 'Bestenliste zurücksetzen',
@@ -221,6 +223,7 @@ _SCORING_FUNCTION.update({
     'A10KW': computeScoreFromTimeLoss,
     'DRT': computeScoreDRT,
     'DRT2': computeScoreDRT,
+    'DRT_demo': computeScoreDRT,
 })
 
 
