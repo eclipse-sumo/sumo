@@ -7,7 +7,7 @@
 
     <input>
         <net-file value="DRT/osm.net.xml"/>
-        <route-files value="DRT/rides2.xml,DRT/rides3.xml,DRT/drt.rou.xml"/>
+        <route-files value="DRT/rides2.xml,DRT/rides3.xml,DRT/drt2.rou.xml"/>
         <additional-files value="DRT/drtstops.xml,DRT/drt.pois.xml"/>
     </input>
 

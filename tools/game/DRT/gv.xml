@@ -714,7 +714,7 @@
             </colorScheme>
         </junctions>
         <additionals addMode="0" add_minSize="1.00" add_exaggeration="1.00" add_constantSize="1" add_constantSizeSelected="0" addName_show="0" addName_size="60.00" addName_color="255,0,128" addName_bgColor="128,0,0,0" addName_constantSize="1" addFullName_show="0" addFullName_size="60.00" addFullName_color="255,0,128" addFullName_bgColor="128,0,0,0" addFullName_constantSize="1"/>
-        <pois poi_minSize="0.00" poi_exaggeration="1.50" poi_constantSize="1" poi_constantSizeSelected="0" poiName_show="0" poiName_size="50.00" poiName_color="255,0,128" poiName_bgColor="128,0,0,0" poiName_constantSize="1" poiType_show="0" poiType_size="60.00" poiType_color="255,0,128" poiType_bgColor="128,0,0,0" poiType_constantSize="1">
+        <pois poi_minSize="0.00" poi_exaggeration="2.50" poi_constantSize="1" poi_constantSizeSelected="0" poiName_show="0" poiName_size="50.00" poiName_color="255,0,128" poiName_bgColor="128,0,0,0" poiName_constantSize="1" poiType_show="1" poiType_size="60.00" poiType_color="black" poiType_bgColor="128,0,0,0" poiType_constantSize="1">
             <colorScheme name="given POI color">
                 <entry color="red"/>
             </colorScheme>

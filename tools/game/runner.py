@@ -204,6 +204,10 @@ def computeScoreDRT(gamename):
     tripinfos = gamename + ".tripinfos.xml"
     rideCount = 0
     for ride in sumolib.xml.parse(tripinfos, 'ride'):
+        if float(ride.waitingTime) < 0:
+            if _DEBUG:
+                print("negative waitingTime")
+            ride.waitingTime = 10000
         rideWaitingTime += float(ride.waitingTime)
         if float(ride.duration) >= 0:
             rideDuration += float(ride.duration)

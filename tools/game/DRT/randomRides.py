@@ -87,8 +87,8 @@ def main(options):
                 offset = (float(bs.startPos) + float(bs.endPos)) / 2
                 x, y = sumolib.geomhelper.positionAtShapeOffset(sideShape, offset)
                 stopColors[bs.id] = colorgen()
-                outf.write('    <poi id="%s" x="%s" y="%s" color="%s"/>\n' % (
-                    bs.id, x, y, stopColors[bs.id]))
+                outf.write('    <poi id="%s" x="%s" y="%s" color="%s" type="%s"/>\n' % (
+                    bs.id, x, y, stopColors[bs.id], bs.attr_name))
             outf.write('</additional>\n')
 
     if len(busStops) < 2:
