@@ -197,6 +197,8 @@ def computeScoreFromTimeLoss(gamename):
 def computeScoreDRT(gamename):
     rideWaitingTime = 0
     rideDuration = 0
+    rideStarted = 0
+    rideFinished = 0
     completed = False
 
     tripinfos = gamename + ".tripinfos.xml"
@@ -205,16 +207,20 @@ def computeScoreDRT(gamename):
         rideWaitingTime += float(ride.waitingTime)
         if float(ride.duration) >= 0:
             rideDuration += float(ride.duration)
+            rideStarted += 1
+        if float(ride.arrival) >= 0:
+            rideFinished += 1
         rideCount += 1
 
     if rideCount == 0:
         return 0, totalArrived, False
     else:
-        avgWT = (rideWaitingTime + rideDuration) / rideCount
+        avgWT = rideWaitingTime / rideCount
+        avgDur = 0 if rideStarted == 0 else rideDuration / rideStarted
+        score = 1000 - int(avgWT + avgDur)
         if _DEBUG:
-            print("rideWaitingTime=%s rideDuration=%s rideCount=%s avgWT=%s" % (
-                rideWaitingTime, rideDuration, rideCount, avgWT))
-        score = 1000 - int(avgWT)
+            print("rideWaitingTime=%s rideDuration=%s persons=%s started=%s finished=%s avgWT=%s avgDur=%s" % (
+                rideWaitingTime, rideDuration, rideCount, rideStarted, rideFinished, avgWT, avgDur))
         return score, rideCount, True
 
 
