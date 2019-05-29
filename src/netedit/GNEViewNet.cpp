@@ -490,7 +490,7 @@ GNEViewNet::changeAllPhases() const {
 
 bool
 GNEViewNet::showJunctionAsBubbles() const {
-    return (myEditModes.networkEditMode == GNE_NMODE_MOVE) && (myViewOptionsNetwork.showJunctionBubble->getCheck());
+    return (myEditModes.networkEditMode == GNE_NMODE_MOVE) && (myViewOptionsNetwork.menuCheckShowJunctionBubble->getCheck());
 }
 
 
@@ -2220,8 +2220,8 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             break;
         // specific modes
         case GNE_NMODE_CREATE_EDGE:
-            myViewOptionsNetwork.chainEdges->show();
-            myViewOptionsNetwork.autoOppositeEdge->show();
+            myViewOptionsNetwork.menuCheckChainEdges->show();
+            myViewOptionsNetwork.menuCheckAutoOppositeEdge->show();
             myNetworkCheckableButtons.createEdgeButton->setChecked(true);
             // show view options
             myViewOptionsNetwork.menuCheckShowGrid->show();
@@ -2229,9 +2229,9 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
         case GNE_NMODE_MOVE:
-            myViewOptionsNetwork.warnAboutMerge->show();
-            myViewOptionsNetwork.showJunctionBubble->show();
-            myViewOptionsNetwork.moveElevation->show();
+            myViewOptionsNetwork.menuCheckWarnAboutMerge->show();
+            myViewOptionsNetwork.menuCheckShowJunctionBubble->show();
+            myViewOptionsNetwork.menuCheckMoveElevation->show();
             myCommonCheckableButtons.moveButton->setChecked(true);
             // show view options
             myViewOptionsNetwork.menuCheckShowGrid->show();
@@ -2592,7 +2592,7 @@ GNEViewNet::mergeJunctions(GNEJunction* moved, const Position& oldPos) {
     }
     if (mergeTarget) {
         // optionally ask for confirmation
-        if (myViewOptionsNetwork.warnAboutMerge->getCheck()) {
+        if (myViewOptionsNetwork.menuCheckWarnAboutMerge->getCheck()) {
             WRITE_DEBUG("Opening FXMessageBox 'merge junctions'");
             // open question box
             FXuint answer = FXMessageBox::question(this, MBOX_YES_NO,
@@ -2824,8 +2824,8 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             if (!myKeyPressed.controlKeyPressed()) {
                 // process left click in create edge frame Frame
                 myViewParent->getCreateEdgeFrame()->processClick(getPositionInformation(), myObjectsUnderCursor,
-                        myViewOptionsNetwork.autoOppositeEdge->getCheck() == TRUE,
-                        myViewOptionsNetwork.chainEdges->getCheck() == TRUE);
+                        myViewOptionsNetwork.menuCheckAutoOppositeEdge->getCheck() == TRUE,
+                        myViewOptionsNetwork.menuCheckChainEdges->getCheck() == TRUE);
             }
             // process click
             processClick(eventData);

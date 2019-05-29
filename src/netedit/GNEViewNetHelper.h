@@ -367,23 +367,23 @@ struct GNEViewNetHelper {
         /// @brief menu check to set change all phases
         FXMenuCheck* menuCheckChangeAllPhases;
 
-        /// @brief show grid button
+        /// @brief menu check to show grid button
         FXMenuCheck* menuCheckShowGrid;
 
-        /// @brief whether we should warn about merging junctions
-        FXMenuCheck* warnAboutMerge;
+        /// @brief menu check to we should warn about merging junctions
+        FXMenuCheck* menuCheckWarnAboutMerge;
 
-        /// @brief show connection as buuble in "Move" mode.
-        FXMenuCheck* showJunctionBubble;
+        /// @brief menu check to show connection as buuble in "Move" mode.
+        FXMenuCheck* menuCheckShowJunctionBubble;
 
-        /// @brief apply movement to elevation
-        FXMenuCheck* moveElevation;
+        /// @brief menu check to apply movement to elevation
+        FXMenuCheck* menuCheckMoveElevation;
 
-        /// @brief whether the endpoint for a created edge should be set as the new source
-        FXMenuCheck* chainEdges;
+        /// @brief menu check to the endpoint for a created edge should be set as the new source
+        FXMenuCheck* menuCheckChainEdges;
 
-        /// @brief create auto create opposite edge
-        FXMenuCheck* autoOppositeEdge;
+        /// @brief menu check to create auto create opposite edge
+        FXMenuCheck* menuCheckAutoOppositeEdge;
     private:
         /// @brief pointer to viewNet
         GNEViewNet* myViewNet;

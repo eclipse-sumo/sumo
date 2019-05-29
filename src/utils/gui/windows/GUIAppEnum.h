@@ -584,6 +584,10 @@ enum {
     MID_GNE_VIEWOPTIONSNETWORK_SHOWBUBBLES,
     /// @brief move elevation instead of x,y
     MID_GNE_VIEWOPTIONSNETWORK_MOVEELEVATION,
+    /// @brief create edges in chain mode
+    MID_GNE_VIEWOPTIONSNETWORK_CHAINEDGES,
+    /// @brief automatically create opposite edge
+    MID_GNE_VIEWOPTIONSNETWORK_OPPOSITEEDGES,
 
     /// @}
 

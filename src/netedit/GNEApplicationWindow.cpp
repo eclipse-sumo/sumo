@@ -2147,95 +2147,18 @@ GNEApplicationWindow::onCmdToogleEditOptions(FXObject* obj, FXSelector sel, void
                 // nothing to call
                 return 1;
             }
+            /*
+            menuCheckWarnAboutMerge
+            menuCheckShowJunctionBubble
+            menuCheckMoveElevation
+            menuCheckChainEdges
+            menuCheckAutoOppositeEdge
+            */
         }
     }
     return 1;
 }
 
-/*
-long
-GNEApplicationWindow::onCmdToogleElevation(FXObject*, FXSelector, void*) {
-    // check that view exists
-    if (myViewNet) {
-        // Toogle selectEdges of GNEViewNet
-        if (myViewNet->getMoveOptions().moveElevation->getCheck() == TRUE) {
-            myViewNet->getMoveOptions().moveElevation->setCheck(FALSE);
-            // show extra information for tests
-            WRITE_DEBUG("Disabled move elevation throught Ctrl+shift+h hotkey");
-        } else {
-            myViewNet->getMoveOptions().moveElevation->setCheck(TRUE);
-            // show extra information for tests
-            WRITE_WARNING("Enabled move elevation throught Ctrl+shift+h hotkey");
-        }
-        // update view
-        myViewNet->update();
-    }
-    return 1;
-}
-
-
-long
-GNEApplicationWindow::onCmdToogleChain(FXObject*, FXSelector, void*) {
-    // check that view exists
-    if (myViewNet) {
-        // Toogle selectEdges of GNEViewNet
-        if (myViewNet->getCreateEdgeOptions().chainEdges->getCheck() == TRUE) {
-            myViewNet->getCreateEdgeOptions().chainEdges->setCheck(FALSE);
-            // show extra information for tests
-            WRITE_DEBUG("Disabled chain mode throught Ctrl+shift+j hotkey");
-        } else {
-            myViewNet->getCreateEdgeOptions().chainEdges->setCheck(TRUE);
-            // show extra information for tests
-            WRITE_WARNING("Enabled chain mode throught Ctrl+shift+j hotkey");
-        }
-        // update view
-        myViewNet->update();
-    }
-    return 1;
-}
-
-
-long
-GNEApplicationWindow::onCmdToogleTwoWay(FXObject*, FXSelector, void*) {
-    // check that view exists
-    if (myViewNet) {
-        // Toogle selectEdges of GNEViewNet
-        if (myViewNet->getCreateEdgeOptions().autoOppositeEdge->getCheck() == TRUE) {
-            myViewNet->getCreateEdgeOptions().autoOppositeEdge->setCheck(FALSE);
-            // show extra information for tests
-            WRITE_DEBUG("Disabled two way throught Ctrl+shift+l hotkey");
-        } else {
-            myViewNet->getCreateEdgeOptions().autoOppositeEdge->setCheck(TRUE);
-            // show extra information for tests
-            WRITE_WARNING("Enabled two way throught Ctrl+shift+l hotkey");
-        }
-        // update view
-        myViewNet->update();
-    }
-    return 1;
-}
-
-
-long
-GNEApplicationWindow::onCmdToogleJunctionBubbles(FXObject*, FXSelector, void*) {
-    // check that view exists
-    if (myViewNet) {
-        // Toogle showJunctionBubble in move options
-        if (myViewNet->getMoveOptions().showJunctionBubble->getCheck() == TRUE) {
-            myViewNet->getMoveOptions().showJunctionBubble->setCheck(FALSE);
-            // show extra information for tests
-            WRITE_DEBUG("Disabled show junction bubble throught Ctrl+shift+b hotkey");
-        } else {
-            myViewNet->getMoveOptions().showJunctionBubble->setCheck(TRUE);
-            // show extra information for tests
-            WRITE_WARNING("Enabled show junction bubble throught Ctrl+shift+b hotkey");
-        }
-        // update view
-        myViewNet->update();
-    }
-    return 1;
-}
-*/
 
 long
 GNEApplicationWindow::onCmdHelp(FXObject*, FXSelector, void*) {
