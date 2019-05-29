@@ -194,20 +194,24 @@ def computeScoreFromTimeLoss(gamename):
 
 def computeScoreDRT(gamename):
     rideWaitingTime = 0
+    rideDuration = 0
     completed = False
 
     tripinfos = gamename + ".tripinfos.xml"
     rideCount = 0
     for ride in sumolib.xml.parse(tripinfos, 'ride'):
         rideWaitingTime += float(ride.waitingTime)
+        if float(ride.duration) >= 0:
+            rideDuration += float(ride.duration)
         rideCount += 1
 
     if rideCount == 0:
         return 0, totalArrived, False
     else:
-        avgWT = rideWaitingTime / rideCount
+        avgWT = (rideWaitingTime + rideDuration) / rideCount
         if _DEBUG:
-            print("rideWaitingTime=%s ridecont=%s avgWT=%s" % (rideWaitingTime, rideCount, avgWT))
+            print("rideWaitingTime=%s rideDuration=%s rideCount=%s avgWT=%s" % (
+                rideWaitingTime, rideDuration, rideCount, avgWT))
         score = 1000 - int(avgWT)
         return score, rideCount, True
 
