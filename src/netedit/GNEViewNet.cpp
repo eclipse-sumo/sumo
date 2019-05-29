@@ -172,8 +172,6 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     mySelectingArea(this),
     myViewOptionsNetwork(this),
     myViewOptionsDemand(this),
-    myCreateEdgeOptions(this),
-    myMoveOptions(this),
     myMoveSingleElementValues(this),
     myMoveMultipleElementValues(this),
     myVehicleOptions(this),
@@ -395,26 +393,15 @@ GNEViewNet::getEditModes() const {
 }
 
 
-const GNEViewNetHelper::MoveOptions&
-GNEViewNet::getMoveOptions() const {
-    return myMoveOptions;
-}
-
-
 const GNEViewNetHelper::ViewOptionsNetwork&
 GNEViewNet::getViewOptionsNetwork() const {
     return myViewOptionsNetwork;
 }
 
+
 const GNEViewNetHelper::ViewOptionsDemand&
 GNEViewNet::getViewOptionsDemand() const {
     return myViewOptionsDemand;
-}
-
-
-const GNEViewNetHelper::CreateEdgeOptions&
-GNEViewNet::getCreateEdgeOptions() const {
-    return myCreateEdgeOptions;
 }
 
 
@@ -503,7 +490,7 @@ GNEViewNet::changeAllPhases() const {
 
 bool
 GNEViewNet::showJunctionAsBubbles() const {
-    return (myEditModes.networkEditMode == GNE_NMODE_MOVE) && (myMoveOptions.showJunctionBubble->getCheck());
+    return (myEditModes.networkEditMode == GNE_NMODE_MOVE) && (myViewOptionsNetwork.showJunctionBubble->getCheck());
 }
 
 
@@ -516,8 +503,6 @@ GNEViewNet::GNEViewNet() :
     mySelectingArea(this),
     myViewOptionsNetwork(this),
     myViewOptionsDemand(this),
-    myCreateEdgeOptions(this),
-    myMoveOptions(this),
     myMoveSingleElementValues(this),
     myMoveMultipleElementValues(this),
     myVehicleOptions(this),
@@ -2177,12 +2162,6 @@ GNEViewNet::buildEditModeControls() {
 
     // build menu checks of view options Demand
     myViewOptionsDemand.buildViewOptionsDemandMenuChecks();
-
-    // build menu checks of create edge options
-    myCreateEdgeOptions.buildCreateEdgeOptionMenuChecks();
-
-    // build menu checks of move options
-    myMoveOptions.buildMoveOptionMenuChecks();
 }
 
 
@@ -2190,10 +2169,6 @@ void
 GNEViewNet::updateNetworkModeSpecificControls() {
     // hide grid
     myViewOptionsNetwork.menuCheckShowGrid->setCheck(myVisualizationSettings->showGrid);
-    // hide all checkbox of create edge
-    myCreateEdgeOptions.hideCreateEdgeOptionMenuChecks();
-    // hide all checkbox of move
-    myMoveOptions.hideMoveOptionMenuChecks();
     // hide all checkbox of view options Network
     myViewOptionsNetwork.hideViewOptionsNetworkMenuChecks();
     // hide all checkbox of view options Demand
@@ -2245,8 +2220,8 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             break;
         // specific modes
         case GNE_NMODE_CREATE_EDGE:
-            myCreateEdgeOptions.chainEdges->show();
-            myCreateEdgeOptions.autoOppositeEdge->show();
+            myViewOptionsNetwork.chainEdges->show();
+            myViewOptionsNetwork.autoOppositeEdge->show();
             myNetworkCheckableButtons.createEdgeButton->setChecked(true);
             // show view options
             myViewOptionsNetwork.menuCheckShowGrid->show();
@@ -2254,9 +2229,9 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
         case GNE_NMODE_MOVE:
-            myMoveOptions.warnAboutMerge->show();
-            myMoveOptions.showJunctionBubble->show();
-            myMoveOptions.moveElevation->show();
+            myViewOptionsNetwork.warnAboutMerge->show();
+            myViewOptionsNetwork.showJunctionBubble->show();
+            myViewOptionsNetwork.moveElevation->show();
             myCommonCheckableButtons.moveButton->setChecked(true);
             // show view options
             myViewOptionsNetwork.menuCheckShowGrid->show();
@@ -2351,10 +2326,6 @@ void
 GNEViewNet::updateDemandModeSpecificControls() {
     // hide grid
     myViewOptionsNetwork.menuCheckShowGrid->setCheck(myVisualizationSettings->showGrid);
-    // hide all checkbox of create edge
-    myCreateEdgeOptions.hideCreateEdgeOptionMenuChecks();
-    // hide all checkbox of move
-    myMoveOptions.hideMoveOptionMenuChecks();
     // hide all checkbox of view options Network
     myViewOptionsNetwork.hideViewOptionsNetworkMenuChecks();
     // hide all checkbox of view options Demand
@@ -2621,7 +2592,7 @@ GNEViewNet::mergeJunctions(GNEJunction* moved, const Position& oldPos) {
     }
     if (mergeTarget) {
         // optionally ask for confirmation
-        if (myMoveOptions.warnAboutMerge->getCheck()) {
+        if (myViewOptionsNetwork.warnAboutMerge->getCheck()) {
             WRITE_DEBUG("Opening FXMessageBox 'merge junctions'");
             // open question box
             FXuint answer = FXMessageBox::question(this, MBOX_YES_NO,
@@ -2853,8 +2824,8 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             if (!myKeyPressed.controlKeyPressed()) {
                 // process left click in create edge frame Frame
                 myViewParent->getCreateEdgeFrame()->processClick(getPositionInformation(), myObjectsUnderCursor,
-                        myCreateEdgeOptions.autoOppositeEdge->getCheck() == TRUE,
-                        myCreateEdgeOptions.chainEdges->getCheck() == TRUE);
+                        myViewOptionsNetwork.autoOppositeEdge->getCheck() == TRUE,
+                        myViewOptionsNetwork.chainEdges->getCheck() == TRUE);
             }
             // process click
             processClick(eventData);

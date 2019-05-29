@@ -515,7 +515,7 @@ GNEViewNetHelper::MoveSingleElementValues::moveSingleElement() {
     // @note  #3521: Add checkBox to allow moving elements... has to be implemented and used here
     Position offsetMovement = myViewNet->getPositionInformation() - myViewNet->myMoveSingleElementValues.myRelativeClickedPosition;
     // calculate Z depending of moveElevation
-    if (myViewNet->myMoveOptions.moveElevation->shown() && myViewNet->myMoveOptions.moveElevation->getCheck() == TRUE) {
+    if (myViewNet->myViewOptionsNetwork.moveElevation->shown() && myViewNet->myViewOptionsNetwork.moveElevation->getCheck() == TRUE) {
         // reset offset X and Y and use Y for Z
         offsetMovement = Position(0, 0, offsetMovement.y());
     } else {
@@ -615,7 +615,7 @@ GNEViewNetHelper::MoveSingleElementValues::calculatePolyValues() {
     // set Poly to move
     myPolyToMove = myViewNet->myObjectsUnderCursor.getPolyFront();
     // now we have two cases: if we're editing the X-Y coordenade or the altitude (z)
-    if (myViewNet->myMoveOptions.moveElevation->shown() && myViewNet->myMoveOptions.moveElevation->getCheck() == TRUE) {
+    if (myViewNet->myViewOptionsNetwork.moveElevation->shown() && myViewNet->myViewOptionsNetwork.moveElevation->getCheck() == TRUE) {
         // check if in the clicked position a geometry point exist
         int existentIndex = myPolyToMove->getVertexIndex(myViewNet->getPositionInformation(), false, false);
         if (existentIndex != -1) {
@@ -700,7 +700,7 @@ GNEViewNetHelper::MoveSingleElementValues::calculateEdgeValues() {
             return true;
         } else {
             // now we have two cases: if we're editing the X-Y coordenade or the altitude (z)
-            if (myViewNet->myMoveOptions.moveElevation->shown() && myViewNet->myMoveOptions.moveElevation->getCheck() == TRUE) {
+            if (myViewNet->myViewOptionsNetwork.moveElevation->shown() && myViewNet->myViewOptionsNetwork.moveElevation->getCheck() == TRUE) {
                 // check if in the clicked position a geometry point exist
                 int existentIndex = myEdgeToMove->getVertexIndex(myViewNet->getPositionInformation(), false, false);
                 if (existentIndex != -1) {
@@ -921,7 +921,7 @@ GNEViewNetHelper::MoveMultipleElementValues::moveSelection() {
     // calculate offset between current position and original position
     Position offsetMovement = myViewNet->getPositionInformation() - myClickedPosition;
     // calculate Z depending of Grid
-    if (myViewNet->myMoveOptions.moveElevation->shown() && myViewNet->myMoveOptions.moveElevation->getCheck() == TRUE) {
+    if (myViewNet->myViewOptionsNetwork.moveElevation->shown() && myViewNet->myViewOptionsNetwork.moveElevation->getCheck() == TRUE) {
         // reset offset X and Y and use Y for Z
         offsetMovement = Position(0, 0, offsetMovement.y());
     } else {
@@ -1288,92 +1288,6 @@ GNEViewNetHelper::TestingMode::drawTestingElements(GUIMainWindow* mainWindow) {
 }
 
 // ---------------------------------------------------------------------------
-// GNEViewNetHelper::CreateEdgeOptions - methods
-// ---------------------------------------------------------------------------
-
-GNEViewNetHelper::CreateEdgeOptions::CreateEdgeOptions(GNEViewNet* viewNet) :
-    myViewNet(viewNet) {
-}
-
-
-void
-GNEViewNetHelper::CreateEdgeOptions::buildCreateEdgeOptionMenuChecks() {
-    chainEdges = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions, ("Chain\t\tCreate consecutive " + toString(SUMO_TAG_EDGE) + "s with a single click (hit ESC to cancel chain).").c_str(), myViewNet, 0, LAYOUT_FIX_HEIGHT);
-    chainEdges->setHeight(23);
-    chainEdges->setCheck(false);
-    chainEdges->create();
-
-    autoOppositeEdge = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions, ("Two-way\t\tAutomatically create an " + toString(SUMO_TAG_EDGE) + " in the opposite direction").c_str(), myViewNet, 0, LAYOUT_FIX_HEIGHT);
-    autoOppositeEdge->setHeight(23);
-    autoOppositeEdge->setCheck(false);
-    autoOppositeEdge->create();
-
-    // recalc after creating menu bar mode options
-    myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->recalc();
-}
-
-
-void
-GNEViewNetHelper::CreateEdgeOptions::hideCreateEdgeOptionMenuChecks() {
-    chainEdges->hide();
-    autoOppositeEdge->hide();
-}
-
-// ---------------------------------------------------------------------------
-// GNEViewNetHelper::MoveOptions - methods
-// ---------------------------------------------------------------------------
-
-GNEViewNetHelper::MoveOptions::MoveOptions(GNEViewNet* viewNet) :
-    myViewNet(viewNet) {
-}
-
-
-void
-GNEViewNetHelper::MoveOptions::buildMoveOptionMenuChecks() {
-    warnAboutMerge = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions, 
-        ("Ask for merge\t\tAsk for confirmation before merging " + toString(SUMO_TAG_JUNCTION) + ".").c_str(), 
-        myViewNet, MID_GNE_VIEWOPTIONSNETWORK_ASKFORMERGE, LAYOUT_FIX_HEIGHT);
-    warnAboutMerge->setHeight(23);
-    warnAboutMerge->setCheck(true);
-    warnAboutMerge->create();
-
-    showJunctionBubble = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions, 
-        ("Bubbles\t\tShow bubbles over " + toString(SUMO_TAG_JUNCTION) + "'s shapes.").c_str(), 
-        myViewNet, MID_GNE_VIEWOPTIONSNETWORK_SHOWBUBBLES, LAYOUT_FIX_HEIGHT);
-    showJunctionBubble->setHeight(23);
-    showJunctionBubble->setCheck(false);
-    showJunctionBubble->create();
-
-    moveElevation = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions, 
-        ("Elevation\t\tApply mouse movement to elevation instead of x,y position"), 
-        myViewNet, MID_GNE_VIEWOPTIONSNETWORK_MOVEELEVATION, LAYOUT_FIX_HEIGHT);
-    moveElevation->setHeight(23);
-    moveElevation->setCheck(false);
-    moveElevation->create();
-
-    // recalc after creating menu bar mode options
-    myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->recalc();
-}
-
-
-void
-GNEViewNetHelper::MoveOptions::hideMoveOptionMenuChecks() {
-    warnAboutMerge->hide();
-    showJunctionBubble->hide();
-    moveElevation->hide();
-}
-
-
-bool
-GNEViewNetHelper::MoveOptions::editingElevation() const {
-    if (moveElevation->shown()) {
-        return (moveElevation->getCheck() == TRUE);
-    } else {
-        return false;
-    }
-}
-
-// ---------------------------------------------------------------------------
 // GNEViewNetHelper::EditModes - methods
 // ---------------------------------------------------------------------------
 
@@ -1588,6 +1502,41 @@ GNEViewNetHelper::ViewOptionsNetwork::buildViewOptionsNetworkMenuChecks() {
     menuCheckShowGrid->setCheck(false);
     menuCheckShowGrid->create();
 
+    warnAboutMerge = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions, 
+        ("Ask for merge\t\tAsk for confirmation before merging " + toString(SUMO_TAG_JUNCTION) + ".").c_str(), 
+        myViewNet, MID_GNE_VIEWOPTIONSNETWORK_ASKFORMERGE, LAYOUT_FIX_HEIGHT);
+    warnAboutMerge->setHeight(23);
+    warnAboutMerge->setCheck(true);
+    warnAboutMerge->create();
+
+    showJunctionBubble = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions, 
+        ("Bubbles\t\tShow bubbles over " + toString(SUMO_TAG_JUNCTION) + "'s shapes.").c_str(), 
+        myViewNet, MID_GNE_VIEWOPTIONSNETWORK_SHOWBUBBLES, LAYOUT_FIX_HEIGHT);
+    showJunctionBubble->setHeight(23);
+    showJunctionBubble->setCheck(false);
+    showJunctionBubble->create();
+
+    moveElevation = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions, 
+        ("Elevation\t\tApply mouse movement to elevation instead of x,y position"), 
+        myViewNet, MID_GNE_VIEWOPTIONSNETWORK_MOVEELEVATION, LAYOUT_FIX_HEIGHT);
+    moveElevation->setHeight(23);
+    moveElevation->setCheck(false);
+    moveElevation->create();
+
+    chainEdges = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions, 
+        ("Chain\t\tCreate consecutive " + toString(SUMO_TAG_EDGE) + "s with a single click (hit ESC to cancel chain).").c_str(), 
+        myViewNet, 0, LAYOUT_FIX_HEIGHT);
+    chainEdges->setHeight(23);
+    chainEdges->setCheck(false);
+    chainEdges->create();
+
+    autoOppositeEdge = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions, 
+        ("Two-way\t\tAutomatically create an " + toString(SUMO_TAG_EDGE) + " in the opposite direction").c_str(), 
+        myViewNet, 0, LAYOUT_FIX_HEIGHT);
+    autoOppositeEdge->setHeight(23);
+    autoOppositeEdge->setCheck(false);
+    autoOppositeEdge->create();
+
     // always recalc after creating new elements
     myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->recalc();
 }
@@ -1602,6 +1551,11 @@ GNEViewNetHelper::ViewOptionsNetwork::hideViewOptionsNetworkMenuChecks() {
     menuCheckExtendSelection->hide();
     menuCheckChangeAllPhases->hide();
     menuCheckShowGrid->hide();
+    warnAboutMerge->hide();
+    showJunctionBubble->hide();
+    moveElevation->hide();
+    chainEdges->hide();
+    autoOppositeEdge->hide();
     // Also hide toolbar grip
     myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
 }
@@ -1640,6 +1594,16 @@ GNEViewNetHelper::ViewOptionsNetwork::showConnections() const {
         return false;
     } else {
         return (myViewNet->getVisualisationSettings()->showLane2Lane);
+    }
+}
+
+
+bool
+GNEViewNetHelper::ViewOptionsNetwork::editingElevation() const {
+    if (moveElevation->shown()) {
+        return (moveElevation->getCheck() == TRUE);
+    } else {
+        return false;
     }
 }
 

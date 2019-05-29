@@ -346,6 +346,9 @@ struct GNEViewNetHelper {
         /// @brief check if select show connections checkbox is enabled
         bool showConnections() const;
 
+        /// @brief check if we're editing elevation
+        bool editingElevation() const;
+
         /// @brief menu check to show Demand Elements
         FXMenuCheck* menuCheckShowDemandElements;
 
@@ -366,6 +369,21 @@ struct GNEViewNetHelper {
 
         /// @brief show grid button
         FXMenuCheck* menuCheckShowGrid;
+
+        /// @brief whether we should warn about merging junctions
+        FXMenuCheck* warnAboutMerge;
+
+        /// @brief show connection as buuble in "Move" mode.
+        FXMenuCheck* showJunctionBubble;
+
+        /// @brief apply movement to elevation
+        FXMenuCheck* moveElevation;
+
+        /// @brief whether the endpoint for a created edge should be set as the new source
+        FXMenuCheck* chainEdges;
+
+        /// @brief create auto create opposite edge
+        FXMenuCheck* autoOppositeEdge;
     private:
         /// @brief pointer to viewNet
         GNEViewNet* myViewNet;
@@ -404,41 +422,6 @@ struct GNEViewNetHelper {
 
         /// @brief Invalidated assignment operator.
         ViewOptionsDemand& operator=(const ViewOptionsDemand&) = delete;
-    };
-
-    /// @brief struct used to group all variables related to create edges
-    struct MoveOptions {
-
-        /// @brief default constructor
-        MoveOptions(GNEViewNet* viewNet);
-
-        /// @brief build menu checks
-        void buildMoveOptionMenuChecks();
-
-        /// @brief hide all MenuChecks
-        void hideMoveOptionMenuChecks();
-
-        /// @brief check if we're editing elevation
-        bool editingElevation() const;
-
-        /// @brief whether we should warn about merging junctions
-        FXMenuCheck* warnAboutMerge;
-
-        /// @brief show connection as buuble in "Move" mode.
-        FXMenuCheck* showJunctionBubble;
-
-        /// @brief apply movement to elevation
-        FXMenuCheck* moveElevation;
-
-    private:
-        /// @brief pointer to viewNet
-        GNEViewNet* myViewNet;
-
-        /// @brief Invalidated copy constructor.
-        MoveOptions(const MoveOptions&) = delete;
-
-        /// @brief Invalidated assignment operator.
-        MoveOptions& operator=(const MoveOptions&) = delete;
     };
 
     /// @brief struct used to group all variables related with movement of single elements
@@ -656,29 +639,6 @@ struct GNEViewNetHelper {
 
         /// @brief Height of viewNet in testing mode
         int myTestingHeight;
-    };
-
-    /// @brief struct used to group all variables related to create edges
-    struct CreateEdgeOptions {
-
-        /// @brief default constructor
-        CreateEdgeOptions(GNEViewNet* viewNet);
-
-        /// @brief build menu checks
-        void buildCreateEdgeOptionMenuChecks();
-
-        /// @brief hide all MenuChecks
-        void hideCreateEdgeOptionMenuChecks();
-
-        /// @brief whether the endpoint for a created edge should be set as the new source
-        FXMenuCheck* chainEdges;
-
-        /// @brief create auto create opposite edge
-        FXMenuCheck* autoOppositeEdge;
-
-    private:
-        /// @brief pointer to viewNet
-        GNEViewNet* myViewNet;
     };
 
     /// @brief struct used to group all variables related with common chekable Buttons

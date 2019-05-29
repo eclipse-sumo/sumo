@@ -93,17 +93,11 @@ public:
     /// @brief get edit modes
     const GNEViewNetHelper::EditModes& getEditModes() const;
 
-    /// @brief get move options
-    const GNEViewNetHelper::MoveOptions& getMoveOptions() const;
-
     /// @brief get view options Network
     const GNEViewNetHelper::ViewOptionsNetwork& getViewOptionsNetwork() const;
 
     /// @brief get view options Demand
     const GNEViewNetHelper::ViewOptionsDemand& getViewOptionsDemand() const;
-
-    // @brief get Create Edge Options
-    const GNEViewNetHelper::CreateEdgeOptions& getCreateEdgeOptions() const;
 
     /// @brief get Key Pressed modul
     const GNEViewNetHelper::KeyPressed& getKeyPressed() const;
@@ -381,14 +375,8 @@ private:
     GNEViewNetHelper::ViewOptionsDemand myViewOptionsDemand;
     /// @}
 
-    /// @name structs related with Network options
+    /// @name structs related with move elements
     /// @{
-    /// @brief variable used to save all elements related to creation of Edges
-    GNEViewNetHelper::CreateEdgeOptions myCreateEdgeOptions;
-
-    /// @brief variable used to save all elements related to moving elements
-    GNEViewNetHelper::MoveOptions myMoveOptions;
-
     /// @brief variable used to save variables related with movement of single elements
     GNEViewNetHelper::MoveSingleElementValues myMoveSingleElementValues;
 
