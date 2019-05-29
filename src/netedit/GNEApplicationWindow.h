@@ -313,6 +313,9 @@ public:
     /// @brief called if the user press key combination Ctrl + G to toogle grid
     long onCmdToogleGrid(FXObject*, FXSelector, void*);
 
+    /// @brief called if the user press key combination Alt + <0-9>
+    long onCmdToogleEditOptions(FXObject*, FXSelector, void*);
+
     /// @brief called if the user press key combination Ctrl + Shift + C to toogle show connections
     long onCmdToogleShowConnections(FXObject*, FXSelector, void*);
 

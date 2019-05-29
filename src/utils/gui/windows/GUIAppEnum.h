@@ -137,24 +137,12 @@ enum {
     /// @{
     /// @brief Save Additional Elements
     MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALS,
-    /// @brief Toogle show junctions as buubles
-    MID_HOTKEY_CTRL_SHIFT_B_TOOGLEBUBBLES,
-    /// @brief Toogle show connections in Netedit
-    MID_HOTKEY_CTRL_SHIFT_C_SHOWCONNECTIONS,
     /// @brief Save Demand Elements
-    MID_HOTKEY_CTRL_SHIFT_D_SAVEDEMAND,
-    /// @brief Toogle move elevation
-    MID_HOTKEY_CTRL_SHIFT_H_TOOGLEELEVATION,
-    /// @brief Toogle select edges in Netedit
-    MID_HOTKEY_CTRL_SHIFT_I_SELECTEDGES,
-    /// @brief Toogle chaing edges
-    MID_HOTKEY_CTRL_SHIFT_J_TOOGLECHAIN,
+    MID_HOTKEY_CTRL_SHIFT_D_SAVEDEMANDELEMENTS,
     /// @brief save TLS Programs
-    MID_GNE_HOTKEY_CTRL_SHIFT_K_SAVETLS,
-    /// @brief Toogle two way mode in edge mode
-    MID_HOTKEY_CTRL_SHIFT_L_TOOGLETWOWAY,
-    /// @brief save newtwork as
-    MID_HOTKEY_CTRL_SHIFT_S_SAVENETWORKAS,
+    MID_HOTKEY_CTRL_SHIFT_K_SAVETLS,
+    /// @brief save network as
+    MID_HOTKEY_CTRL_SHIFT_S_SAVENETWORK_AS,
 
     /// @}
 
