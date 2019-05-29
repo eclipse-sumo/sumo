@@ -649,8 +649,8 @@ GUISUMOAbstractView::displayColorLegend() {
     // vertical
     const double right = 0.98;
     const double left = 0.95;
-    const double top = 0.8;
-    const double bot = -0.8;
+    const double top = -0.8;
+    const double bot = 0.8;
     const double dy = (top - bot) / numColors;
     const double bot2 = fixed ? bot : bot + dy / 2;
     glBegin(GL_LINES);
@@ -703,13 +703,13 @@ GUISUMOAbstractView::displayColorLegend() {
         GLHelper::setColor(RGBColor::WHITE);
         glTranslated(0, 0, 0.1);
         glBegin(GL_QUADS);
-        glVertex2d(left, topi - fontHeight / 2);
-        glVertex2d(left - fontWidth * text.size() / 2, topi - fontHeight / 2);
-        glVertex2d(left - fontWidth * text.size() / 2, topi - fontHeight * 1.5);
-        glVertex2d(left, topi - fontHeight * 1.5);
+        glVertex2d(left, topi + fontHeight / 2);
+        glVertex2d(left - fontWidth * text.size() / 2, topi + fontHeight * 0.5);
+        glVertex2d(left - fontWidth * text.size() / 2, topi + fontHeight * 1.5);
+        glVertex2d(left, topi + fontHeight * 1.5);
         glEnd();
         glTranslated(0, 0, -0.1);
-        GLHelper::drawText(text, Position(left - 0.01, topi - 0.1), 0, fontHeight, RGBColor::BLACK, 0, FONS_ALIGN_RIGHT, fontWidth);
+        GLHelper::drawText(text, Position(left - 0.01, topi + 0.05), 0, fontHeight, RGBColor::BLACK, 0, FONS_ALIGN_RIGHT, fontWidth);
     }
     glPopMatrix();
     // restore matrices
