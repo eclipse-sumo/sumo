@@ -257,7 +257,6 @@ MSTransportableControl::abortWaitingForVehicle() {
         const TransportableVector& pv = (*i).second;
         for (TransportableVector::const_iterator j = pv.begin(); j != pv.end(); ++j) {
             MSTransportable* p = (*j);
-            p->setDeparted(MSNet::getInstance()->getCurrentTimeStep());
             std::string transportableType;
             if (dynamic_cast<MSPerson*>(p) != nullptr) {
                 edge->removePerson(p);
