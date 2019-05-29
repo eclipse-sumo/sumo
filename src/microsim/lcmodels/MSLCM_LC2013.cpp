@@ -111,6 +111,7 @@ MSLCM_LC2013::MSLCM_LC2013(MSVehicle& v) :
     myLookaheadLeft(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_LOOKAHEADLEFT, 2.0)),
     mySpeedGainRight(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SPEEDGAINRIGHT, 0.1)),
     myAssertive(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_ASSERTIVE, 1)),
+    myOvertakeRightParam(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_OVERTAKE_RIGHT, 0)),
     myExperimentalParam1(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_EXPERIMENTAL1, 0)) {
     initDerivedParameters();
 #ifdef DEBUG_CONSTRUCTOR
@@ -1229,7 +1230,8 @@ MSLCM_LC2013::_wantsChange(
     double thisLaneVSafe = vMax;
     const bool checkOverTakeRight = (!myAllowOvertakingRight
                                      && !myVehicle.congested()
-                                     && myVehicle.getVehicleType().getVehicleClass() != SVC_EMERGENCY);
+                                     && myVehicle.getVehicleType().getVehicleClass() != SVC_EMERGENCY
+                                     && (myOvertakeRightParam == 0 || myOvertakeRightParam < RandHelper::rand(myVehicle.getRNG())));
 
 #ifdef DEBUG_WANTS_CHANGE
     if (DEBUG_COND) {

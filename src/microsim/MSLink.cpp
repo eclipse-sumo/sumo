@@ -27,6 +27,7 @@
 #include <algorithm>
 #include <limits>
 #include <utils/iodevices/OutputDevice.h>
+#include <utils/common/RandHelper.h>
 #include "MSNet.h"
 #include "MSJunction.h"
 #include "MSLink.h"
