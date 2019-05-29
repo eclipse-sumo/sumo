@@ -587,7 +587,9 @@ enum {
     /// @brief create edges in chain mode
     MID_GNE_VIEWOPTIONSNETWORK_CHAINEDGES,
     /// @brief automatically create opposite edge
-    MID_GNE_VIEWOPTIONSNETWORK_OPPOSITEEDGES,
+    MID_GNE_VIEWOPTIONSNETWORK_AUTOOPPOSITEEDGES,
+    /// @brief hide non-inspected demand element
+    MID_GNE_VIEWOPTIONSDEMAND_HIDENONINSPECTED,
 
     /// @}
 

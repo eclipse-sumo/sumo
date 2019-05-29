@@ -97,10 +97,14 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWOPTIONSNETWORK_EXTENDSELECTION,      GNEViewNet::onCmdToogleExtendSelection),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWOPTIONSNETWORK_CHANGEALLPHASES,      GNEViewNet::onCmdToogleChangeAllPhases),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWOPTIONSNETWORK_SHOWGRID,             GNEViewNet::onCmdToogleShowGrid),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWOPTIONSNETWORK_ASKFORMERGE,          GNEViewNet::onCmdToogleAskForMerge),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWOPTIONSNETWORK_SHOWBUBBLES,          GNEViewNet::onCmdToogleShowBubbles),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWOPTIONSNETWORK_ASKFORMERGE,          GNEViewNet::onCmdToogleWarnAboutMerge),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWOPTIONSNETWORK_SHOWBUBBLES,          GNEViewNet::onCmdToogleShowJunctionBubbles),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWOPTIONSNETWORK_MOVEELEVATION,        GNEViewNet::onCmdToogleMoveElevation),
-    // select elements
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWOPTIONSNETWORK_CHAINEDGES,           GNEViewNet::onCmdToogleChainEdges),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWOPTIONSNETWORK_AUTOOPPOSITEEDGES,    GNEViewNet::onCmdToogleAutoOppositeEdge),
+    // View options Demand
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_VIEWOPTIONSDEMAND_HIDENONINSPECTED,      GNEViewNet::onCmdToogleHideNonInspecteDemandElements),
+    // Select elements
     FXMAPFUNC(SEL_COMMAND, MID_ADDSELECT,                                   GNEViewNet::onCmdAddSelected),
     FXMAPFUNC(SEL_COMMAND, MID_REMOVESELECT,                                GNEViewNet::onCmdRemoveSelected),
     // Junctions
@@ -2081,23 +2085,47 @@ GNEViewNet::onCmdToogleShowGrid(FXObject*, FXSelector, void*) {
 
 
 long 
-GNEViewNet::onCmdToogleAskForMerge(FXObject*, FXSelector, void*) {
+GNEViewNet::onCmdToogleWarnAboutMerge(FXObject*, FXSelector, void*) {
     // Only update view
     update();
     return 1;
 }
 
 
-long
-GNEViewNet::onCmdToogleShowBubbles(FXObject*, FXSelector, void*) {
+long 
+GNEViewNet::onCmdToogleShowJunctionBubbles(FXObject*, FXSelector, void*) {
     // Only update view
     update();
     return 1;
 }
 
 
-long
+long 
 GNEViewNet::onCmdToogleMoveElevation(FXObject*, FXSelector, void*) {
+    // Only update view
+    update();
+    return 1;
+}
+
+
+long 
+GNEViewNet::onCmdToogleChainEdges(FXObject*, FXSelector, void*) {
+    // Only update view
+    update();
+    return 1;
+}
+
+
+long 
+GNEViewNet::onCmdToogleAutoOppositeEdge(FXObject*, FXSelector, void*) {
+    // Only update view
+    update();
+    return 1;
+}
+
+
+long 
+GNEViewNet::onCmdToogleHideNonInspecteDemandElements(FXObject*, FXSelector, void*) {
     // Only update view
     update();
     return 1;

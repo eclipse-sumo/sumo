@@ -1532,7 +1532,7 @@ GNEViewNetHelper::ViewOptionsNetwork::buildViewOptionsNetworkMenuChecks() {
 
     menuCheckAutoOppositeEdge = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions, 
         ("Two-way\t\tAutomatically create an " + toString(SUMO_TAG_EDGE) + " in the opposite direction").c_str(), 
-        myViewNet, MID_GNE_VIEWOPTIONSNETWORK_OPPOSITEEDGES, LAYOUT_FIX_HEIGHT);
+        myViewNet, MID_GNE_VIEWOPTIONSNETWORK_AUTOOPPOSITEEDGES, LAYOUT_FIX_HEIGHT);
     menuCheckAutoOppositeEdge->setHeight(23);
     menuCheckAutoOppositeEdge->setCheck(false);
     menuCheckAutoOppositeEdge->create();
@@ -1620,7 +1620,7 @@ void
 GNEViewNetHelper::ViewOptionsDemand::buildViewOptionsDemandMenuChecks() {
     menuCheckHideNonInspectedDemandElements = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions, 
         ("Hide non-inspected elements\t\tToggle show non-inspected demand elements"), 
-        myViewNet, MID_GNE_VIEWOPTIONSNETWORK_SHOWDEMANDELEMENTS, LAYOUT_FIX_HEIGHT);
+        myViewNet, MID_GNE_VIEWOPTIONSDEMAND_HIDENONINSPECTED, LAYOUT_FIX_HEIGHT);
     menuCheckHideNonInspectedDemandElements->setHeight(23);
     menuCheckHideNonInspectedDemandElements->setCheck(false);
     menuCheckHideNonInspectedDemandElements->create();

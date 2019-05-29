@@ -249,14 +249,23 @@ public:
     /// @brief toogle show grid
     long onCmdToogleShowGrid(FXObject*, FXSelector, void*);
     
-    /// @brief toogle ask for merge
-    long onCmdToogleAskForMerge(FXObject*, FXSelector, void*);
+    /// @brief toogle warn for merge
+    long onCmdToogleWarnAboutMerge(FXObject*, FXSelector, void*);
 
-    /// @brief toogle show bubbles
-    long onCmdToogleShowBubbles(FXObject*, FXSelector, void*);
+    /// @brief toogle show junction bubbles
+    long onCmdToogleShowJunctionBubbles(FXObject*, FXSelector, void*);
 
     /// @brief toogle move elevation
     long onCmdToogleMoveElevation(FXObject*, FXSelector, void*);
+
+    /// @brief toogle chain edges
+    long onCmdToogleChainEdges(FXObject*, FXSelector, void*);
+
+    /// @brief toogle autoOpposite edge
+    long onCmdToogleAutoOppositeEdge(FXObject*, FXSelector, void*);
+
+    /// @brief toogle hide non inspected deman elements
+    long onCmdToogleHideNonInspecteDemandElements(FXObject*, FXSelector, void*);
 
     /// @}
 
@@ -265,8 +274,6 @@ public:
 
     /// @brief unselect AC under cursor
     long onCmdRemoveSelected(FXObject*, FXSelector, void*);
-
-
 
     /// @brief abort current edition operation
     void abortOperation(bool clearSelection = true);
