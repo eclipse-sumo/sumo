@@ -130,6 +130,8 @@ enum {
     MID_HOTKEY_ALT_8_TOOGLEEDITOPTION,
     /// @brief toogle edit option
     MID_HOTKEY_ALT_9_TOOGLEEDITOPTION,
+    /// @brief Main window closes
+    MID_HOTKEY_ALT_F4_CLOSE,
 
     /// @}
 
