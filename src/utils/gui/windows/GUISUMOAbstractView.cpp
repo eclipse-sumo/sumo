@@ -635,10 +635,8 @@ GUISUMOAbstractView::displayColorLegend() {
     glLoadIdentity();
 
     const double z = -1;
-    glDisable(GL_TEXTURE_2D);
-    glDisable(GL_ALPHA_TEST);
-    glDisable(GL_BLEND);
     glEnable(GL_DEPTH_TEST);
+    glEnable(GL_BLEND);
     glPushMatrix();
     glTranslated(0, 0, z);
 
@@ -664,8 +662,8 @@ GUISUMOAbstractView::displayColorLegend() {
     glVertex2d(left, bot2);
     glEnd();
 
-    const double fontHeight = 0.12 * 300. / getHeight();
-    const double fontWidth = 0.12 * 300. / getWidth();
+    const double fontHeight = 0.20 * 300. / getHeight();
+    const double fontWidth = 0.20 * 300. / getWidth();
 
     const int fadeSteps = fixed ? 1 : 10;
     double colorStep = dy / fadeSteps;
@@ -700,16 +698,19 @@ GUISUMOAbstractView::displayColorLegend() {
         std::string name = scheme.getNames()[i];
         std::string text = fixed ? name : toString(threshold);
 
+        const double bgShift = 0.0;
+        const double textShift = 0.02;
+
         GLHelper::setColor(RGBColor::WHITE);
         glTranslated(0, 0, 0.1);
         glBegin(GL_QUADS);
-        glVertex2d(left, topi + fontHeight / 2);
-        glVertex2d(left - fontWidth * text.size() / 2, topi + fontHeight * 0.5);
-        glVertex2d(left - fontWidth * text.size() / 2, topi + fontHeight * 1.5);
-        glVertex2d(left, topi + fontHeight * 1.5);
+        glVertex2d(left, topi + fontHeight * bgShift);
+        glVertex2d(left - fontWidth * text.size() / 2, topi + fontHeight * bgShift);
+        glVertex2d(left - fontWidth * text.size() / 2, topi + fontHeight * (1 + bgShift));
+        glVertex2d(left, topi + fontHeight * (1 + bgShift));
         glEnd();
         glTranslated(0, 0, -0.1);
-        GLHelper::drawText(text, Position(left - 0.01, topi + 0.05), 0, fontHeight, RGBColor::BLACK, 0, FONS_ALIGN_RIGHT, fontWidth);
+        GLHelper::drawText(text, Position(left - 0.01, topi + textShift), 0, fontHeight, RGBColor::BLACK, 0, FONS_ALIGN_RIGHT, fontWidth);
     }
     glPopMatrix();
     // restore matrices
