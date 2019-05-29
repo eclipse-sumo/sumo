@@ -22,6 +22,7 @@
 
 #include <iostream>
 #include <utils/common/MsgHandler.h>
+#include <utils/emissions/PollutantsInterface.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -424,7 +425,12 @@ GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::VTypeAttributeRow(VType
     for (auto i : values) {
         myComboBox->appendItem(i.c_str());
     }
-    myComboBox->setNumVisible(myComboBox->getNumItems());
+    // set 10 visible elements as maximum
+    if (myComboBox->getNumItems() < 10) {
+        myComboBox->setNumVisible(myComboBox->getNumItems());
+    } else {
+        myComboBox->setNumVisible(10);
+    }
 }
 
 
@@ -596,7 +602,7 @@ GNEVehicleTypeDialog::VTypeAtributes::buildAttributesA(FXVerticalFrame* column) 
     mySpeedDev = new VTypeAttributeRow(this, column, SUMO_ATTR_SPEEDDEV, 1);
 
     // 09 create FXTextField and Label for EmissionClass
-    myEmissionClass = new VTypeAttributeRow(this, column, SUMO_ATTR_EMISSIONCLASS, 1);
+    myEmissionClass = new VTypeAttributeRow(this, column, SUMO_ATTR_EMISSIONCLASS, PollutantsInterface::getAllClassesStr());
 
     // 10 create FXTextField and Label for Width
     myWidth = new VTypeAttributeRow(this, column, SUMO_ATTR_WIDTH, 1);

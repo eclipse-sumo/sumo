@@ -23,6 +23,7 @@
 #include <netedit/netelements/GNEJunction.h>
 #include <netedit/netelements/GNELane.h>
 #include <utils/common/StringTokenizer.h>
+#include <utils/emissions/PollutantsInterface.h>
 #include <utils/geom/GeomConvHelper.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/options/OptionsCont.h>
@@ -3085,13 +3086,6 @@ void
 GNEAttributeCarrier::fillDemandElements() {
     // declare empty AttributeProperties
     AttributeProperties attrProperty;
-    // obtain a vector string with the emissions
-    std::vector<std::string> emissions = { "zero", "LDV", "LDV_G_EU0", "LDV_G_EU1", "LDV_G_EU2", "LDV_G_EU3", "LDV_G_EU4", "LDV_G_EU5",
-                                           "LDV_G_EU6", "LDV_G_East", "LDV_D_EU0", "LDV_D_EU1", "LDV_D_EU2", "LDV_D_EU3", "LDV_D_EU4", "LDV_D_EU5", "LDV_D_EU6",
-                                           "PC", "PC_Alternative", "PC_G_EU0", "PC_G_EU1", "PC_G_EU2", "PC_G_EU3", "PC_G_EU4", "PC_G_EU5", "PC_G_EU6", "PC_G_East",
-                                           "PC_D_EU0", "PC_D_EU1", "PC_D_EU2", "PC_D_EU3", "PC_D_EU4", "PC_D_EU5", "PC_D_EU6", "Bus", "Coach", "HDV", "HDV_G", "HDV_D_EU0",
-                                           "HDV_D_EU1", "HDV_D_EU2", "HDV_D_EU3", "HDV_D_EU4", "HDV_D_EU5", "HDV_D_EU6", "HDV_D_East"
-                                         };
     // fill demand elements
     SumoXMLTag currentTag = SUMO_TAG_ROUTE;
     {
@@ -3181,7 +3175,7 @@ GNEAttributeCarrier::fillDemandElements() {
         attrProperty = AttributeProperties(SUMO_ATTR_EMISSIONCLASS,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_DISCRETE | ATTRPROPERTY_DEFAULTVALUEMUTABLE | ATTRPROPERTY_WRITEXMLOPTIONAL | ATTRPROPERTY_EXTENDED,
                                            "An abstract emission class");
-        attrProperty.setDiscreteValues(emissions);
+        attrProperty.setDiscreteValues(PollutantsInterface::getAllClassesStr());
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = AttributeProperties(SUMO_ATTR_GUISHAPE,

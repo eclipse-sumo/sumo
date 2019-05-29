@@ -601,8 +601,13 @@ GNEVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_VCLASS:
             return canParseVehicleClasses(value);
         case SUMO_ATTR_EMISSIONCLASS:
-            // check #5585
-            return true;
+            // check if given value correspond to a string of PollutantsInterface::getAllClassesStr()
+            for (const auto &i : PollutantsInterface::getAllClassesStr()) {
+                if (value == i) {
+                    return true;
+                }
+            }
+            return false;
         case SUMO_ATTR_GUISHAPE:
             if (value == "all") {
                 return false;
@@ -1127,7 +1132,7 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_EMISSIONCLASS:
             if (!value.empty() && (value != toString(defaultValues.emissionClass))) {
-                // emissionClass = PollutantsInterface::getClassByName(value); CHECK #5585 
+                emissionClass = PollutantsInterface::getClassByName(value);
                 // mark parameter as set
                 parametersSet |= VTYPEPARS_EMISSIONCLASS_SET;
             } else {
