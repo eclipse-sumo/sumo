@@ -71,7 +71,7 @@ enum {
 
     /// @}
 
-    /// @name Ctrl - hotkeys
+    /// @name Ctrl hotkeys
     /// @{
     /// @brief Start the simulation in SUMO and open Additionals Elemements in NETEDIT
     MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS,
@@ -108,9 +108,33 @@ enum {
 
     /// @}
 
-    /// @name Other hotkeys
+    /// @name Alt hotkeys
     /// @{
+    /// @brief toogle edit option
+    MID_HOTKEY_ALT_0_TOOGLEEDITOPTION,
+    /// @brief toogle edit option
+    MID_HOTKEY_ALT_1_TOOGLEEDITOPTION,
+    /// @brief toogle edit option
+    MID_HOTKEY_ALT_2_TOOGLEEDITOPTION,
+    /// @brief toogle edit option
+    MID_HOTKEY_ALT_3_TOOGLEEDITOPTION,
+    /// @brief toogle edit option
+    MID_HOTKEY_ALT_4_TOOGLEEDITOPTION,
+    /// @brief toogle edit option
+    MID_HOTKEY_ALT_5_TOOGLEEDITOPTION,
+    /// @brief toogle edit option
+    MID_HOTKEY_ALT_6_TOOGLEEDITOPTION,
+    /// @brief toogle edit option
+    MID_HOTKEY_ALT_7_TOOGLEEDITOPTION,
+    /// @brief toogle edit option
+    MID_HOTKEY_ALT_8_TOOGLEEDITOPTION,
+    /// @brief toogle edit option
+    MID_HOTKEY_ALT_9_TOOGLEEDITOPTION,
 
+    /// @}
+
+    /// @name Ctrl + Shift hotkeys
+    /// @{
     /// @brief Save Additional Elements
     MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALS,
     /// @brief Toogle show junctions as buubles
@@ -131,6 +155,11 @@ enum {
     MID_HOTKEY_CTRL_SHIFT_L_TOOGLETWOWAY,
     /// @brief save newtwork as
     MID_HOTKEY_CTRL_SHIFT_S_SAVENETWORKAS,
+
+    /// @}
+
+    /// @name Other hotkeys
+    /// @{
     /// @brief compute junctions
     MID_HOTKEY_F5_COMPUTEJUNCTIONS,
     /// @brief compute junctions with volatile options

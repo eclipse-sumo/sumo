@@ -253,6 +253,17 @@ GUIShortcutsSubSys::buildNETEDITAccelerators(GNEApplicationWindow* GNEApp) {
 
     // Alt Keys
 
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_0, KEYMODIFIER_ALT), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_ALT_0_TOOGLEEDITOPTION));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_1, KEYMODIFIER_ALT), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_ALT_1_TOOGLEEDITOPTION));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_2, KEYMODIFIER_ALT), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_ALT_2_TOOGLEEDITOPTION));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_3, KEYMODIFIER_ALT), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_ALT_3_TOOGLEEDITOPTION));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_4, KEYMODIFIER_ALT), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_ALT_4_TOOGLEEDITOPTION));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_5, KEYMODIFIER_ALT), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_ALT_5_TOOGLEEDITOPTION));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_6, KEYMODIFIER_ALT), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_ALT_6_TOOGLEEDITOPTION));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_7, KEYMODIFIER_ALT), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_ALT_7_TOOGLEEDITOPTION));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_8, KEYMODIFIER_ALT), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_ALT_8_TOOGLEEDITOPTION));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_9, KEYMODIFIER_ALT), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_ALT_9_TOOGLEEDITOPTION));
+
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_F4, KEYMODIFIER_ALT), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_Q_CLOSE));
 
     // initialize Function Hotkeys
@@ -272,12 +283,14 @@ GUIShortcutsSubSys::buildNETEDITAccelerators(GNEApplicationWindow* GNEApp) {
 
 int
 GUIShortcutsSubSys::parseKey(GUIShortcut key) {
-    if ((key >= KEY_a) &&  key <= KEY_z) {
-        return (key + 97);// 97 is 'a' in ASCII
+    if ((key >= KEY_0) &&  key <= KEY_9) {
+        return (key + 48); // 48 is '0' in ASCII
+    } else if ((key >= KEY_a) &&  key <= KEY_z) {
+        return (key - 10 + 97); // 97 is 'a' in ASCII
     } else if ((key >= KEY_A) &&  key <= KEY_Z) {
-        return (key - 26 + 65);// 65 is 'A' in ASCII
+        return (key - 36 + 65); // 65 is 'A' in ASCII
     } else if ((key >= KEY_F1) &&  key <= KEY_F12) {
-        return (key - 52 + 65470);// 65470 is 'F1' in ASCII
+        return (key - 62 + 65470); // 65470 is 'F1' in ASCII
     } else if (key == KEY_ESC) {
         return parseAccel("Esc");
     } else if (key == KEY_ENTER) {
