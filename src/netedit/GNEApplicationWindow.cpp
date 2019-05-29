@@ -2048,7 +2048,7 @@ GNEApplicationWindow::onCmdToogleEditOptions(FXObject* obj, FXSelector sel, void
                 visibleNetworkMenuCommands.push_back(myViewNet->getViewOptionsNetwork().menuCheckShowGrid);
             }
             // now check that numericalKeyPressed isn't greather than visible view options
-            if (numericalKeyPressed >= visibleNetworkMenuCommands.size()) {
+            if (numericalKeyPressed >= (int)visibleNetworkMenuCommands.size()) {
                 return 1;
             }
             // finally function correspond to visibleNetworkMenuCommands[numericalKeyPressed]
