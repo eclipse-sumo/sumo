@@ -538,7 +538,7 @@ else:
 
 root = Tkinter.Tk()
 IMAGE.dlrLogo = Tkinter.PhotoImage(file='dlr.gif')
-IMAGE.sumoLogo = Tkinter.PhotoImage(file='logo.gif')
+IMAGE.sumoLogo = Tkinter.PhotoImage(file='sumo_logo.png')
 IMAGE.qrCode = Tkinter.PhotoImage(file='qr_sumo.dlr.de.gif')
 start = StartDialog(root, lang)
 root.mainloop()
