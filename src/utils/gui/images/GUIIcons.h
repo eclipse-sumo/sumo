@@ -223,6 +223,7 @@ enum GUIIcon {
     ICON_MODEVEHICLE,
     ICON_MODEVEHICLETYPE,
     ICON_MODESTOP,
+    ICON_MODEPERSON,
     /// @}
 
     /// @name NETEDIT processing icons
@@ -284,6 +285,7 @@ enum GUIIcon {
     ICON_FLOW,
     ICON_ROUTEFLOW,
     ICON_STOPELEMENT,
+    ICON_PERSON,
     /// @}
 
     /// @name vehicle Class icons

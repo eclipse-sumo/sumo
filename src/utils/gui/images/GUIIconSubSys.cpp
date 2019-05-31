@@ -152,6 +152,7 @@
 #include "modevehicle.xpm"
 #include "modevehicletype.xpm"
 #include "modestop.xpm"
+#include "modeperson.xpm"
 
 #include "computejunctions.xpm"
 #include "cleanjunctions.xpm"
@@ -201,6 +202,7 @@
 #include "flow.xpm"
 #include "routeflow.xpm"
 #include "stopelement.xpm"
+#include "person.xpm"
 
 #include "vclass_ignoring.xpm"
 #include "vclass_private.xpm"
@@ -409,6 +411,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[ICON_MODEVEHICLE] = new FXXPMIcon(a, modevehicle_xpm);
     myIcons[ICON_MODEVEHICLETYPE] = new FXXPMIcon(a, modevehicletype_xpm);
     myIcons[ICON_MODESTOP] = new FXXPMIcon(a, modestop_xpm);
+    myIcons[ICON_MODEPERSON] = new FXXPMIcon(a, modeperson_xpm);
 
     myIcons[ICON_COMPUTEJUNCTIONS] = new FXXPMIcon(a, computejunctions_xpm);
     myIcons[ICON_CLEANJUNCTIONS] = new FXXPMIcon(a, cleanjunctions_xpm);
@@ -459,6 +462,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[ICON_FLOW] = new FXXPMIcon(a, flow_xpm);
     myIcons[ICON_ROUTEFLOW] = new FXXPMIcon(a, routeflow_xpm);
     myIcons[ICON_STOPELEMENT] = new FXXPMIcon(a, stopelement_xpm);
+    myIcons[ICON_PERSON] = new FXXPMIcon(a, person_xpm);
 
     myIcons[ICON_VCLASS_IGNORING] = new FXXPMIcon(a, vclass_ignoring_xpm);
     myIcons[ICON_VCLASS_PRIVATE] = new FXXPMIcon(a, vclass_private_xpm);

@@ -58,6 +58,7 @@ routeflow.xpm \
 vehicle.xpm \
 trip.xpm \
 stopelement.xpm \
+person.xpm \
 green_edge.xpm \
 green_person.xpm \
 green_vehicle.xpm \
@@ -102,6 +103,7 @@ modetrafficlight.xpm \
 moderoute.xpm \
 modevehicle.xpm \
 modestop.xpm \
+modeperson.xpm \
 netedit_icon16.xpm \
 netedit_icon64.xpm \
 neteditarrowleft.xpm \
