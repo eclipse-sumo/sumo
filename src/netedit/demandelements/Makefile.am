@@ -5,4 +5,5 @@ GNEDemandElement.cpp GNEDemandElement.h \
 GNERoute.cpp GNERoute.h \
 GNEVehicleType.cpp GNEVehicleType.h \
 GNEVehicle.cpp GNEVehicle.h \
-GNEStop.cpp GNEStop.h
+GNEStop.cpp GNEStop.h \
+GNEPerson.cpp GNEPerson.h
