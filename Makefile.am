@@ -110,7 +110,7 @@ pydist:
 	cd tools && python ./build/setup-sumolib.py sdist bdist_egg && python ./build/setup-traci.py sdist bdist_egg
 
 examples:
-	tools/extractTest.py -x -f tests/examples.txt
+	tools/extractTest.py -x -f tests/examples.txt -p docs/examples/runAll.py
 
 traas:
 	ant -f tools/contributed/traas/build.xml clean release || true

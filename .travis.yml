@@ -5,7 +5,7 @@ os: linux
 compiler:
   - gcc
   - clang
-  
+
 env:
   - TOOLCHAIN=autotools
   - TOOLCHAIN=cmake
@@ -34,4 +34,4 @@ script:
   - make -j4
   - sudo make install
   - make examples
-  - SUMO_HOME=`pwd` python docs/examples/runAll.py
+  - SUMO_HOME=$TRAVIS_BUILD_DIR python $TRAVIS_BUILD_DIR/docs/examples/runAll.py
