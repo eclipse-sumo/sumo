@@ -1251,23 +1251,27 @@ MSLink::getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,
         const MSVehicle* foe = dynamic_cast<const MSVehicle*>(*i);
         assert(foe != 0);
         const ApproachingVehicleInformation& avi = foeLink->getApproaching(foe);
+        const double foeDist = (foe->isActive() ? avi.dist : MAX2(0.0, avi.dist - 
+                STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep() - foe->getLastActionTime()) * foe->getSpeed()));
+
         if (    // ignore vehicles that arrive after us (unless they are ahead and we could easily brake for them)
-            ((avi.arrivalTime > arrivalTime) && !couldBrakeForLeader(dist, avi.dist, ego, foe)) ||
+            ((avi.arrivalTime > arrivalTime) && !couldBrakeForLeader(dist, foeDist, ego, foe)) ||
             // also ignore vehicles that are behind us and are able to brake for us
-            couldBrakeForLeader(avi.dist, dist, foe, ego) ||
+            couldBrakeForLeader(foeDist, dist, foe, ego) ||
             // resolve ties by lane index
-            (avi.arrivalTime == arrivalTime && avi.dist == dist && ego->getLane()->getIndex() < foe->getLane()->getIndex())) {
+            (avi.arrivalTime == arrivalTime && foeDist == dist && ego->getLane()->getIndex() < foe->getLane()->getIndex())) {
 #ifdef DEBUG_ZIPPER
             if (DEBUG_COND_ZIPPER) std::cout
                         << "    ignoring foe=" << foe->getID()
                         << " foeAT=" << avi.arrivalTime
                         << " foeDist=" << avi.dist
+                        << " foeDist2=" << foeDist
                         << " foeSpeed=" << foe->getSpeed()
                         << " egoSpeed=" << ego->getSpeed()
-                        << " deltaDist=" << avi.dist - dist
+                        << " deltaDist=" << foeDist - dist
                         << " delteSpeed=" << foe->getSpeed() - foe->getCarFollowModel().getMaxDecel() - ego->getSpeed()
-                        << " egoCouldBrake=" << couldBrakeForLeader(dist, avi.dist, ego, foe)
-                        << " foeCouldBrake=" << couldBrakeForLeader(avi.dist, dist, foe, ego)
+                        << " egoCouldBrake=" << couldBrakeForLeader(dist, foeDist, ego, foe)
+                        << " foeCouldBrake=" << couldBrakeForLeader(foeDist, dist, foe, ego)
                         << "\n";
 #endif
             continue;
@@ -1286,10 +1290,10 @@ MSLink::getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,
         // we cannot trust avi.arrivalSpeed if the foe has leader vehicles that are accelerating
         // lets try to extrapolate
         const double uMax = foe->getLane()->getVehicleMaxSpeed(foe);
-        const double uAccel = foe->getCarFollowModel().estimateSpeedAfterDistance(avi.dist, foe->getSpeed(), foe->getCarFollowModel().getMaxAccel());
+        const double uAccel = foe->getCarFollowModel().estimateSpeedAfterDistance(foeDist, foe->getSpeed(), foe->getCarFollowModel().getMaxAccel());
         const double uEnd = MIN2(uMax, uAccel);
         const double uAvg = (foe->getSpeed() + uEnd) / 2;
-        const double tf0 = avi.dist / MAX2(NUMERICAL_EPS, uAvg);
+        const double tf0 = foeDist / MAX2(NUMERICAL_EPS, uAvg);
         const double tf = MAX2(1.0, ceil((tf0) / TS) * TS);
 
         const double vMax = ego->getLane()->getVehicleMaxSpeed(ego);
@@ -1299,7 +1303,7 @@ MSLink::getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,
         const double te0 = dist / MAX2(NUMERICAL_EPS, vAvg);
         const double te = MAX2(1.0, ceil((te0) / TS) * TS);
 
-        const double gap = dist - foe->getVehicleType().getLength() - ego->getVehicleType().getMinGap() - avi.dist;
+        const double gap = dist - foe->getVehicleType().getLength() - ego->getVehicleType().getMinGap() - foeDist;
         const double safeGap = ego->getCarFollowModel().getSecureGap(vEnd, uEnd, foe->getCarFollowModel().getMaxDecel());
         // round t to next step size
         // increase gap to safeGap by the time foe reaches link
@@ -1318,7 +1322,7 @@ MSLink::getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,
         vSafe = MIN2(vSafe, vZipper);
 #ifdef DEBUG_ZIPPER
         if (DEBUG_COND_ZIPPER) std::cout << "    adapting to foe=" << foe->getID()
-                                             << " foeDist=" << avi.dist
+                                             << " foeDist=" << foeDist
                                              << " foeSpeed=" << foe->getSpeed()
                                              << " foeAS=" << avi.arrivalSpeed
                                              << " egoSpeed=" << ego->getSpeed()
