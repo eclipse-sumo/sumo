@@ -1,0 +1,7 @@
+<routes>
+    <route id="r0" edges="beg end"/>
+    <vType id="t0" actionStepLength="1"/>
+    <vType id="t1" actionStepLength="1"/>
+    <vehicle id="right" type="t0" color="red"  route="r0" depart="0.0" departLane="0" departSpeed="13" departPos="-65"/>
+    <vehicle id="left"  type="t1" color="blue" route="r0" depart="0.5" departLane="1" departSpeed="13" departPos="-60"/>
+</routes>
