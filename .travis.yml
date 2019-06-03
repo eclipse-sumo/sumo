@@ -24,7 +24,7 @@ matrix:
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get update; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install cmake autoconf automake libtool libxerces-c-dev libfox-1.6-dev libgl1-mesa-dev libglu1-mesa-dev libgdal-dev libproj-dev libgtest-dev libgl2ps-dev python3-dev swig; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then cd /usr/src/gtest; sudo mkdir build; cd build; sudo cmake ..; sudo make; sudo cp libgtest* /usr/lib/; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then pushd /usr/src/gtest; sudo mkdir build; cd build; sudo cmake ..; sudo make; sudo cp libgtest* /usr/lib/; popd; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install xerces-c fox gl2ps; fi
 
@@ -35,5 +35,5 @@ script:
   - if [[ "$TOOLCHAIN" == "cmake-minimal" ]]; then mkdir cmake-build && cd cmake-build && cmake -DFOX_CONFIG= -DPROJ_LIBRARY= -DCHECK_OPTIONAL_LIBS=OFF ..; fi
   - make -j4
   - sudo make install
-  - if [[ "$TOOLCHAIN" == "cmake" ]]; then make CTEST_OUTPUT_ON_FAILURE=1 test; fi
+  - if [[ "$TOOLCHAIN" == "cmake" ]]; then make CTEST_OUTPUT_ON_FAILURE=1 examples test; fi
   - if [[ "$TOOLCHAIN" == "autotools" ]]; then make examples; SUMO_HOME=$TRAVIS_BUILD_DIR python $TRAVIS_BUILD_DIR/docs/examples/runAll.py; fi
