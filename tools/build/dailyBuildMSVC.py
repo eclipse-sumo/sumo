@@ -105,6 +105,8 @@ def generateCMake(generator, log, checkOptionalLibs, python):
     cmakeOpt = ["-DCOMPILE_DEFINITIONS=MSVC_TEST_SERVER", "-DCHECK_OPTIONAL_LIBS=%s" % checkOptionalLibs]
     if python:
         cmakeOpt += ["-DPYTHON_EXECUTABLE=%s" % python]
+    if checkOptionalLibs:
+        cmakeOpt += ["-DSUMO_UTILS=True"]
     # Create directory or clear it if already exists
     if os.path.exists(buildDir):
         print("Cleaning directory of", generator, file=log)
