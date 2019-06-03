@@ -204,6 +204,16 @@
 #include "routeflow.xpm"
 #include "stopelement.xpm"
 #include "person.xpm"
+#include "personflow.xpm"
+#include "walk.xpm"
+#include "walkfromto.xpm"
+#include "walkbusstop.xpm"
+#include "walkroute.xpm"
+#include "ridefromto.xpm"
+#include "ridebusstop.xpm"
+#include "personbusstop.xpm"
+#include "personcontainerstop.xpm"
+#include "personlanestop.xpm"
 
 #include "vclass_ignoring.xpm"
 #include "vclass_private.xpm"
@@ -465,6 +475,16 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[ICON_ROUTEFLOW] = new FXXPMIcon(a, routeflow_xpm);
     myIcons[ICON_STOPELEMENT] = new FXXPMIcon(a, stopelement_xpm);
     myIcons[ICON_PERSON] = new FXXPMIcon(a, person_xpm);
+    myIcons[ICON_PERSONFLOW] = new FXXPMIcon(a, personflow_xpm);
+    myIcons[ICON_WALK] = new FXXPMIcon(a, walk_xpm);
+    myIcons[ICON_WALK_FROMTO] = new FXXPMIcon(a, walkfromto_xpm);
+    myIcons[ICON_WALK_BUSSTOP] = new FXXPMIcon(a, walkbusstop_xpm);
+    myIcons[ICON_WALK_ROUTE] = new FXXPMIcon(a, walkroute_xpm);
+    myIcons[ICON_RIDE_FROMTO] = new FXXPMIcon(a, ridefromto_xpm);
+    myIcons[ICON_RIDE_BUSSTOP] = new FXXPMIcon(a, ridebusstop_xpm);
+    myIcons[ICON_PERSON_BUSSTOP] = new FXXPMIcon(a, personbusstop_xpm);
+    myIcons[ICON_PERSON_CONTAINERSTOP] = new FXXPMIcon(a, personcontainerstop_xpm);
+    myIcons[ICON_PERSON_LANESTOP] = new FXXPMIcon(a, personlanestop_xpm);
 
     myIcons[ICON_VCLASS_IGNORING] = new FXXPMIcon(a, vclass_ignoring_xpm);
     myIcons[ICON_VCLASS_PRIVATE] = new FXXPMIcon(a, vclass_private_xpm);
