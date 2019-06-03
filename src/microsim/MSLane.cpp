@@ -85,8 +85,9 @@
 //#define DEBUG_COND (false)
 //#define DEBUG_COND (true)
 //#define DEBUG_COND (getID() == "undefined")
+#define DEBUG_COND (isSelected())
 //#define DEBUG_COND2(obj) ((obj != 0 && (obj)->getID() == "disabled"))
-//#define DEBUG_COND2(obj) ((obj != 0 && (obj)->isSelected()))
+#define DEBUG_COND2(obj) ((obj != 0 && (obj)->isSelected()))
 //#define DEBUG_COND (getID() == "ego")
 //#define DEBUG_COND2(obj) ((obj != 0 && (obj)->getID() == "ego"))
 //#define DEBUG_COND2(obj) (true)
@@ -1280,7 +1281,6 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
         }
 #endif
         assert(myLinks.size() == 1);
-        //std::cout << SIMTIME << " checkJunctionCollisions " << getID() << "\n";
         const std::vector<const MSLane*>& foeLanes = myLinks.front()->getFoeLanes();
         for (AnyVehicleIterator veh = anyVehiclesBegin(); veh != anyVehiclesEnd(); ++veh) {
             MSVehicle* collider = const_cast<MSVehicle*>(*veh);
@@ -1288,7 +1288,13 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
             PositionVector colliderBoundary = collider->getBoundingBox();
             for (std::vector<const MSLane*>::const_iterator it = foeLanes.begin(); it != foeLanes.end(); ++it) {
                 const MSLane* foeLane = *it;
-                //std::cout << "     foeLane " << foeLane->getID() << "\n";
+#ifdef DEBUG_JUNCTION_COLLISIONS
+                if (DEBUG_COND) {
+                    std::cout << "     foeLane " << foeLane->getID()
+                        << " foeVehs=" << toString(foeLane->myVehicles)
+                        << " foePart=" << toString(foeLane->myPartialVehicles) << "\n";
+                }
+#endif
                 MSLane::AnyVehicleIterator end = foeLane->anyVehiclesEnd();
                 for (MSLane::AnyVehicleIterator it_veh = foeLane->anyVehiclesBegin(); it_veh != end; ++it_veh) {
                     MSVehicle* victim = (MSVehicle*)*it_veh;
@@ -1296,10 +1302,15 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
                         // may happen if the vehicles lane and shadow lane are siblings
                         continue;
                     }
-                    //std::cout << "             victim " << victim->getID() << "\n";
 #ifdef DEBUG_JUNCTION_COLLISIONS
                     if (DEBUG_COND && DEBUG_COND2(collider)) {
-                        std::cout << SIMTIME << " foe=" << victim->getID() << " bound=" << colliderBoundary << " foeBound=" << victim->getBoundingBox() << "\n";
+                        std::cout << SIMTIME << " foe=" << victim->getID()
+                            << " bound=" << colliderBoundary << " foeBound=" << victim->getBoundingBox()
+                            << " overlaps=" << colliderBoundary.overlapsWith(victim->getBoundingBox())
+                            << " poly=" << collider->getBoundingPoly()
+                            << " foePoly=" << victim->getBoundingPoly()
+                            << " overlaps2=" << collider->getBoundingPoly().overlapsWith(victim->getBoundingPoly())
+                            << "\n";
                     }
 #endif
                     if (colliderBoundary.overlapsWith(victim->getBoundingBox())) {

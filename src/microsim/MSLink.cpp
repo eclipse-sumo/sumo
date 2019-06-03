@@ -1266,6 +1266,8 @@ MSLink::getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,
                         << " egoSpeed=" << ego->getSpeed()
                         << " deltaDist=" << avi.dist - dist
                         << " delteSpeed=" << foe->getSpeed() - foe->getCarFollowModel().getMaxDecel() - ego->getSpeed()
+                        << " egoCouldBrake=" << couldBrakeForLeader(dist, avi.dist, ego, foe)
+                        << " foeCouldBrake=" << couldBrakeForLeader(avi.dist, dist, foe, ego)
                         << "\n";
 #endif
             continue;
