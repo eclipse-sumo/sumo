@@ -38,6 +38,7 @@ except ImportError:
     from urllib.request import urlopen
 import os
 import json
+import io
 from optparse import OptionParser
 
 
@@ -111,8 +112,8 @@ if __name__ == "__main__":
                 pass
             images.update(getImages(c))
         name = name + ".txt"
-        fd = open(os.path.join(options.output, name), "w")
-        fd.write(c.encode("utf8"))
+        fd = io.open(os.path.join(options.output, name), "w", encoding="utf8")
+        fd.write(c)
         fd.close()
 
     for i in images:
