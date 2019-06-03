@@ -104,6 +104,7 @@ moderoute.xpm \
 modevehicle.xpm \
 modestop.xpm \
 modeperson.xpm \
+modepersonplan.xpm \
 netedit_icon16.xpm \
 netedit_icon64.xpm \
 neteditarrowleft.xpm \
