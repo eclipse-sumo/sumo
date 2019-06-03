@@ -1141,10 +1141,10 @@ GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
                 myEditModes.setDemandEditMode(GNE_DMODE_STOP);
                 break;
             case MID_HOTKEY_P_POLYGONMODE_PERSONMODE:
-                myEditModes.setDemandEditMode(GNE_DMODE_STOP);
+                myEditModes.setDemandEditMode(GNE_DMODE_PERSON);
                 break;
             case MID_HOTKEY_C_CONNECTMODE_PERSONPLANMODE:
-                myEditModes.setDemandEditMode(GNE_DMODE_STOP);
+                myEditModes.setDemandEditMode(GNE_DMODE_PERSONPLAN);
                 break;
             default:
                 break;

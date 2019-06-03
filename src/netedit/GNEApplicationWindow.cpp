@@ -1171,6 +1171,8 @@ GNEApplicationWindow::EditMenuCommands::DemandMenuCommands::DemandMenuCommands(c
     vehicleMode(nullptr),
     vehicleTypeMode(nullptr),
     stopMode(nullptr),
+    personMode(nullptr),
+    personPlanMode(nullptr),
     myEditMenuCommandsParent(editMenuCommandsParent) {
 }
 
@@ -1181,6 +1183,8 @@ GNEApplicationWindow::EditMenuCommands::DemandMenuCommands::showDemandMenuComman
     vehicleMode->show();
     vehicleTypeMode->show();
     stopMode->show();
+    personMode->show();
+    personPlanMode->show();
     // also show separator
     myHorizontalSeparator->show();
 }
@@ -1192,6 +1196,8 @@ GNEApplicationWindow::EditMenuCommands::DemandMenuCommands::hideDemandMenuComman
     vehicleMode->hide();
     vehicleTypeMode->hide();
     stopMode->hide();
+    personMode->hide();
+    personPlanMode->hide();
     // also hide separator
     myHorizontalSeparator->hide();
 }
@@ -1212,6 +1218,12 @@ GNEApplicationWindow::EditMenuCommands::DemandMenuCommands::buildDemandMenuComma
     stopMode = new FXMenuCommand(editMenu,
         "Stop mode\tA\tCreate stops.",
         GUIIconSubSys::getIcon(ICON_MODESTOP), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_A_ADDITIONALMODE_STOPMODE);
+    personMode = new FXMenuCommand(editMenu,
+        "Person mode\tP\tCreate persons.",
+        GUIIconSubSys::getIcon(ICON_MODEPERSON), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_P_POLYGONMODE_PERSONMODE);
+    personPlanMode = new FXMenuCommand(editMenu,
+        "Person plan mode\tC\tCreate person plans.",
+        GUIIconSubSys::getIcon(ICON_MODEPERSONPLAN), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_C_CONNECTMODE_PERSONPLANMODE);
     // build separator
     myHorizontalSeparator = new FXMenuSeparator(editMenu);
 }
