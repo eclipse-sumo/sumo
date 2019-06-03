@@ -631,8 +631,10 @@ Simulation::getParameter(const std::string& objectID, const std::string& key) {
             return toString(pa->getOccupancyIncludingBlocked());
         } else if (attrName == toString(SUMO_ATTR_NAME)) {
             return toString(pa->getMyName());
+        } else if (attrName == "lane") {
+            return pa->getLane().getID();
         } else {
-            throw TraCIException("Invalid parkingArea parameter '" + attrName + "'");
+                throw TraCIException("Invalid parkingArea parameter '" + attrName + "'");
         }
     } else if (StringUtils::startsWith(key, "busStop.")) {
         const std::string attrName = key.substr(8);
