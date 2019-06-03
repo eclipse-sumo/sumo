@@ -120,7 +120,7 @@ if __name__ == "__main__":
         print("Fetching image %s" % i)
         if i.find(":") >= 0:
             f = urlopen("https://sumo.dlr.de/wiki/%s" % i)
-            c = f.read()
+            c = f.read().decode('utf8')
             b = c.find("<div class=\"fullImageLink\" id=\"file\">")
             b = c.find("href=", b) + 6
             e = c.find("\"", b + 1)
