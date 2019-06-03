@@ -27,6 +27,8 @@ set(netedit_frames_SRCS
    GNEStopFrame.cpp
    GNEPersonFrame.h
    GNEPersonFrame.cpp
+   GNEPersonPlanFrame.h
+   GNEPersonPlanFrame.cpp
    GNEVehicleFrame.h
    GNEVehicleFrame.cpp
    GNEVehicleTypeFrame.h
