@@ -40,6 +40,8 @@
 #include <netedit/frames/GNEVehicleFrame.h>
 #include <netedit/frames/GNEVehicleTypeFrame.h>
 #include <netedit/frames/GNEStopFrame.h>
+#include <netedit/frames/GNEPersonFrame.h>
+#include <netedit/frames/GNEPersonPlanFrame.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNEJunction.h>
 #include <utils/foxtools/MFXUtils.h>
@@ -137,6 +139,8 @@ GNEViewParent::GNEViewParent(FXMDIClient* p, FXMDIMenu* mdimenu, const FXString&
     myFrames.vehicleFrame = new GNEVehicleFrame(myFramesArea, viewNet);
     myFrames.vehicleTypeFrame = new GNEVehicleTypeFrame(myFramesArea, viewNet);
     myFrames.stopFrame = new GNEStopFrame(myFramesArea, viewNet);
+    myFrames.personFrame = new GNEPersonFrame(myFramesArea, viewNet);
+    myFrames.personPlanFrame = new GNEPersonPlanFrame(myFramesArea, viewNet);
 
     // Update frame areas after creation
     onCmdUpdateFrameAreaWidth(nullptr, 0, nullptr);
@@ -259,6 +263,18 @@ GNEViewParent::getVehicleTypeFrame() const {
 GNEStopFrame*
 GNEViewParent::getStopFrame() const {
     return myFrames.stopFrame;
+}
+
+
+GNEPersonFrame* 
+GNEViewParent::getPersonFrame() const {
+    return myFrames.personFrame;
+}
+
+
+GNEPersonPlanFrame* 
+GNEViewParent::getPersonPlanFrame() const {
+    return myFrames.personPlanFrame;
 }
 
 
@@ -593,7 +609,9 @@ GNEViewParent::Frames::Frames() :
     routeFrame(nullptr),
     vehicleFrame(nullptr),
     vehicleTypeFrame(nullptr),
-    stopFrame(nullptr) {
+    stopFrame(nullptr),
+    personFrame(nullptr),
+    personPlanFrame(nullptr) {
 }
 
 
@@ -616,6 +634,8 @@ GNEViewParent::Frames::hideFrames() {
     vehicleFrame->hide();
     vehicleTypeFrame->hide();
     stopFrame->hide();
+    personFrame->hide();
+    personPlanFrame->hide();
 }
 
 
@@ -639,6 +659,8 @@ GNEViewParent::Frames::setWidth(int frameWidth) {
     vehicleFrame->setFrameWidth(frameWidth);
     vehicleTypeFrame->setFrameWidth(frameWidth);
     stopFrame->setFrameWidth(frameWidth);
+    personFrame->setFrameWidth(frameWidth);
+    personPlanFrame->setFrameWidth(frameWidth);
 }
 
 
@@ -665,10 +687,10 @@ GNEViewParent::Frames::isFrameShown() const {
         return true;
     } else if (prohibitionFrame->shown()) {
         return true;
-        /** currently createEdgeFrame unused
-        } else if (createEdgeFrame->shown()) {
-            return true;
-        **/
+    /** currently createEdgeFrame unused
+    } else if (createEdgeFrame->shown()) {
+        return true;
+    **/
     } else if (routeFrame->shown()) {
         return true;
     } else if (vehicleFrame->shown()) {
@@ -676,6 +698,10 @@ GNEViewParent::Frames::isFrameShown() const {
     } else if (vehicleTypeFrame->shown()) {
         return true;
     } else if (stopFrame->shown()) {
+        return true;
+    } else if (personFrame->shown()) {
+        return true;
+    } else if (personPlanFrame->shown()) {
         return true;
     } else {
         return false;
@@ -706,10 +732,10 @@ GNEViewParent::Frames::getCurrentShownFrame() const {
         return polygonFrame;
     } else if (prohibitionFrame->shown()) {
         return prohibitionFrame;
-        /** currently createEdgeFrame unused
-        } else if (createEdgeFrame->shown()) {
-            return true;
-        **/
+    /** currently createEdgeFrame unused
+    } else if (createEdgeFrame->shown()) {
+        return true;
+    **/
     } else if (routeFrame->shown()) {
         return routeFrame;
     } else if (vehicleFrame->shown()) {
@@ -718,6 +744,10 @@ GNEViewParent::Frames::getCurrentShownFrame() const {
         return vehicleTypeFrame;
     } else if (stopFrame->shown()) {
         return stopFrame;
+    } else if (personFrame->shown()) {
+        return personFrame;
+    } else if (personPlanFrame->shown()) {
+        return personPlanFrame;
     } else {
         return nullptr;
     }

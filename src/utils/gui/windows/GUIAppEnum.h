@@ -45,7 +45,7 @@ enum {
     /// @brief hotkey for mode editing additionals AND stops
     MID_HOTKEY_A_ADDITIONALMODE_STOPMODE,
     /// @brief hotkey for mode connecting lanes
-    MID_HOTKEY_C_CONNECTMODE,
+    MID_HOTKEY_C_CONNECTMODE_PERSONPLANMODE,
     /// @brief hotkey for mode deleting things
     MID_HOTKEY_D_DELETEMODE,
     /// @brief hotkey for mode adding edges
@@ -55,7 +55,7 @@ enum {
     /// @brief hotkey for mode moving element
     MID_HOTKEY_M_MOVEMODE,
     /// @brief hotkey for mode creating polygons
-    MID_HOTKEY_P_POLYGONMODE,
+    MID_HOTKEY_P_POLYGONMODE_PERSONMODE,
     /// @brief hotkey for mode selecting objects
     MID_HOTKEY_S_SELECTMODE,
     /// @brief hotkey for mode editing crossing AND routes

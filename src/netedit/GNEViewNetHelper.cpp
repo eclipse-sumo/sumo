@@ -1764,7 +1764,7 @@ GNEViewNetHelper::NetworkCheckableButtons::buildNetworkCheckableButtons() {
     createEdgeButton->create();
     // connection mode
     connectionButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes, "\tset connection mode\tMode for edit connections between lanes.",
-            GUIIconSubSys::getIcon(ICON_MODECONNECTION), myViewNet, MID_HOTKEY_C_CONNECTMODE, GUIDesignButtonToolbarCheckable);
+            GUIIconSubSys::getIcon(ICON_MODECONNECTION), myViewNet, MID_HOTKEY_C_CONNECTMODE_PERSONPLANMODE, GUIDesignButtonToolbarCheckable);
     connectionButton->create();
     // prohibition mode
     prohibitionButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes, "\tset prohibition mode\tMode for editing connection prohibitions.",
@@ -1788,7 +1788,7 @@ GNEViewNetHelper::NetworkCheckableButtons::buildNetworkCheckableButtons() {
     TAZButton->create();
     // shape mode
     shapeButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes, "\tset polygon mode\tMode for creating polygons and POIs.",
-                                         GUIIconSubSys::getIcon(ICON_MODEPOLYGON), myViewNet, MID_HOTKEY_P_POLYGONMODE, GUIDesignButtonToolbarCheckable);
+                                         GUIIconSubSys::getIcon(ICON_MODEPOLYGON), myViewNet, MID_HOTKEY_P_POLYGONMODE_PERSONMODE, GUIDesignButtonToolbarCheckable);
     shapeButton->create();
     // always recalc after creating new elements
     myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes->recalc();
@@ -1874,6 +1874,14 @@ GNEViewNetHelper::DemandCheckableButtons::buildDemandCheckableButtons() {
     stopButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes, "\tcreate stop mode\tMode for creating stops.",
                                         GUIIconSubSys::getIcon(ICON_MODESTOP), myViewNet, MID_HOTKEY_A_ADDITIONALMODE_STOPMODE, GUIDesignButtonToolbarCheckable);
     stopButton->create();
+    // person mode
+    personButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes, "\tcreate person mode\tMode for creating persons.",
+                                          GUIIconSubSys::getIcon(ICON_MODEPERSON), myViewNet, MID_HOTKEY_P_POLYGONMODE_PERSONMODE, GUIDesignButtonToolbarCheckable);
+    personButton->create();
+    // person plan mode
+    personPlanButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes, "\tcreate person plan mode\tMode for creating person plans.",
+                                              GUIIconSubSys::getIcon(ICON_MODEPERSONPLAN), myViewNet, MID_HOTKEY_C_CONNECTMODE_PERSONPLANMODE, GUIDesignButtonToolbarCheckable);
+    personPlanButton->create();
     // always recalc after creating new elements
     myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes->recalc();
 }
@@ -1885,6 +1893,8 @@ GNEViewNetHelper::DemandCheckableButtons::showDemandCheckableButtons() {
     vehicleButton->show();
     vehicleTypeButton->show();
     stopButton->show();
+    personButton->show();
+    personPlanButton->show();
 }
 
 
@@ -1894,6 +1904,8 @@ GNEViewNetHelper::DemandCheckableButtons::hideDemandCheckableButtons() {
     vehicleButton->hide();
     vehicleTypeButton->hide();
     stopButton->hide();
+    personButton->hide();
+    personPlanButton->hide();
 }
 
 
@@ -1903,6 +1915,8 @@ GNEViewNetHelper::DemandCheckableButtons::disableDemandCheckableButtons() {
     vehicleButton->setChecked(false);
     vehicleTypeButton->setChecked(false);
     stopButton->setChecked(false);
+    personButton->setChecked(false);
+    personPlanButton->setChecked(false);
 }
 
 
@@ -1912,6 +1926,8 @@ GNEViewNetHelper::DemandCheckableButtons::updateDemandCheckableButtons() {
     vehicleButton->update();
     vehicleTypeButton->update();
     stopButton->update();
+    personButton->update();
+    personPlanButton->update();
 }
 
 // ---------------------------------------------------------------------------

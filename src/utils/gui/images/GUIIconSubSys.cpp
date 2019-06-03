@@ -413,7 +413,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[ICON_MODEVEHICLETYPE] = new FXXPMIcon(a, modevehicletype_xpm);
     myIcons[ICON_MODESTOP] = new FXXPMIcon(a, modestop_xpm);
     myIcons[ICON_MODEPERSON] = new FXXPMIcon(a, modeperson_xpm);
-	myIcons[ICON_MODEPERSONPLAN] = new FXXPMIcon(a, modepersonplan_xpm);
+    myIcons[ICON_MODEPERSONPLAN] = new FXXPMIcon(a, modepersonplan_xpm);
 
     myIcons[ICON_COMPUTEJUNCTIONS] = new FXXPMIcon(a, computejunctions_xpm);
     myIcons[ICON_CLEANJUNCTIONS] = new FXXPMIcon(a, cleanjunctions_xpm);

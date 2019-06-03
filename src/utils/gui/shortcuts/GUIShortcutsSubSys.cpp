@@ -107,8 +107,8 @@ GUIShortcutsSubSys::buildNETEDITAccelerators(GNEApplicationWindow* GNEApp) {
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_a), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_A_ADDITIONALMODE_STOPMODE));
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_A), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_A_ADDITIONALMODE_STOPMODE));
 
-    GNEApp->getAccelTable()->addAccel(parseKey(KEY_c), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_C_CONNECTMODE));
-    GNEApp->getAccelTable()->addAccel(parseKey(KEY_C), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_C_CONNECTMODE));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_c), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_C_CONNECTMODE_PERSONPLANMODE));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_C), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_C_CONNECTMODE_PERSONPLANMODE));
 
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_d), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_D_DELETEMODE));
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_D), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_D_DELETEMODE));
@@ -122,8 +122,8 @@ GUIShortcutsSubSys::buildNETEDITAccelerators(GNEApplicationWindow* GNEApp) {
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_m), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_M_MOVEMODE));
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_M), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_M_MOVEMODE));
 
-    GNEApp->getAccelTable()->addAccel(parseKey(KEY_p), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_P_POLYGONMODE));
-    GNEApp->getAccelTable()->addAccel(parseKey(KEY_P), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_P_POLYGONMODE));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_p), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_P_POLYGONMODE_PERSONMODE));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_P), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_P_POLYGONMODE_PERSONMODE));
 
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_r), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_R_CROSSINGMODE_ROUTEMODE));
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_R), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_R_CROSSINGMODE_ROUTEMODE));

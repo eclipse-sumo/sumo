@@ -130,12 +130,12 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_D_DELETEMODE,                    GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_I_INSPECTMODE,                   GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_S_SELECTMODE,                    GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_C_CONNECTMODE,                   GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_C_CONNECTMODE_PERSONPLANMODE,    GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_T_TLSMODE_VTYPEMODE,             GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_A_ADDITIONALMODE_STOPMODE,       GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_R_CROSSINGMODE_ROUTEMODE,        GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_Z_TAZMODE,                       GNEApplicationWindow::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_P_POLYGONMODE,                   GNEApplicationWindow::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_P_POLYGONMODE_PERSONMODE,        GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_V_VEHICLEMODE,                   GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_W_PROHIBITIONMODE,               GNEApplicationWindow::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND,  MID_EDITVIEWSCHEME,                         GNEApplicationWindow::onCmdEditViewScheme),
@@ -1139,7 +1139,7 @@ GNEApplicationWindow::EditMenuCommands::NetworkMenuCommands::buildNetworkMenuCom
         GUIIconSubSys::getIcon(ICON_MODESELECT), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_S_SELECTMODE);
     connectMode = new FXMenuCommand(editMenu,
         "&Connection mode\tC\tEdit connections between lanes.",
-        GUIIconSubSys::getIcon(ICON_MODECONNECTION), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_C_CONNECTMODE);
+        GUIIconSubSys::getIcon(ICON_MODECONNECTION), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_C_CONNECTMODE_PERSONPLANMODE);
     prohibitionMode = new FXMenuCommand(editMenu,
         "Pro&hibition mode\tW\tEdit connection prohibitions.",
         GUIIconSubSys::getIcon(ICON_MODEPROHIBITION), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_W_PROHIBITIONMODE);
@@ -1157,7 +1157,7 @@ GNEApplicationWindow::EditMenuCommands::NetworkMenuCommands::buildNetworkMenuCom
         GUIIconSubSys::getIcon(ICON_MODETAZ), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_Z_TAZMODE);
     shapeMode = new FXMenuCommand(editMenu,
         "&POI-Poly mode\tP\tCreate Points-Of-Interest and polygons.",
-        GUIIconSubSys::getIcon(ICON_MODEPOLYGON), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_P_POLYGONMODE);
+        GUIIconSubSys::getIcon(ICON_MODEPOLYGON), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_P_POLYGONMODE_PERSONMODE);
     // build separator
     myHorizontalSeparator = new FXMenuSeparator(editMenu);
 }
