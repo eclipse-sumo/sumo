@@ -77,6 +77,12 @@ Person::getPosition(const std::string& personID, const bool includeZ) {
 }
 
 
+TraCIPosition
+Person::getPosition3D(const std::string& personID) {
+    return Helper::makeTraCIPosition(getPerson(personID)->getPosition(), true);
+}
+
+
 double
 Person::getAngle(const std::string& personID) {
     return GeomHelper::naviDegree(getPerson(personID)->getAngle());
