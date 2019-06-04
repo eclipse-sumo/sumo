@@ -289,13 +289,25 @@ enum SumoXMLTag {
     SUMO_TAG_CF_CC,
     /// @}
 
-    /// @name Pedestrians
+    /// @name Persons
     /// @{
     SUMO_TAG_PERSON,
     SUMO_TAG_PERSONTRIP,
     SUMO_TAG_RIDE,
     SUMO_TAG_WALK,
     SUMO_TAG_PERSONFLOW,
+    /// @}
+
+    /// @name Persons (used by Netedit)
+    /// @{
+    SUMO_TAG_WALK_FROMTO,
+    SUMO_TAG_WALK_BUSSTOP,
+    SUMO_TAG_WALK_ROUTE,
+    SUMO_TAG_RIDE_FROMTO,
+    SUMO_TAG_RIDE_BUSSTOP,
+    SUMO_TAG_PERSON_BUSSTOP,
+    SUMO_TAG_PERSON_CONTAINERSTOP,
+    SUMO_TAG_PERSON_LANESTOP,
     /// @}
 
     SUMO_TAG_CONTAINER,
