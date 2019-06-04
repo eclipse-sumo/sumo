@@ -58,6 +58,7 @@ public:
     static bool processSet(TraCIServer& server, tcpip::Storage& inputStorage,
                            tcpip::Storage& outputStorage);
 
+    static void writeStage(tcpip::Storage& outputStorage, const libsumo::TraCIStage& stage);
 
 private:
     /**
@@ -76,7 +77,6 @@ private:
 
     static void writeVehicleStateNumber(TraCIServer& server, tcpip::Storage& outputStorage, MSNet::VehicleState state);
     static void writeVehicleStateIDs(TraCIServer& server, tcpip::Storage& outputStorage, MSNet::VehicleState state);
-    static void writeStage(tcpip::Storage& outputStorage, const libsumo::TraCIStage& stage);
 
 
 private:

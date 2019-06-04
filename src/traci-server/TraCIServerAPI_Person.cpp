@@ -33,6 +33,7 @@
 #include "TraCIServer.h"
 #include "TraCIServerAPI_VehicleType.h"
 #include "TraCIServerAPI_Person.h"
+#include "TraCIServerAPI_Simulation.h"
 
 
 // ===========================================================================
@@ -62,8 +63,7 @@ TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStor
                     if (!server.readTypeCheckingInt(inputStorage, nextStageIndex)) {
                         return server.writeErrorStatusCmd(libsumo::CMD_GET_PERSON_VARIABLE, "The message must contain the stage index.", outputStorage);
                     }
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_INTEGER);
-                    server.getWrapperStorage().writeInt(libsumo::Person::getStage(id, nextStageIndex));
+                    TraCIServerAPI_Simulation::writeStage(server.getWrapperStorage(), libsumo::Person::getStage(id, nextStageIndex));
                     break;
                 }
                 case libsumo::VAR_PARAMETER: {
