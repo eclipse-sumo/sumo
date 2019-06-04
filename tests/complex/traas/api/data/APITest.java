@@ -77,6 +77,9 @@ public class APITest {
                 }
 
             }
+            SumoStringList walk = new SumoStringList();
+            walk.add("gneE2");
+            walk.add("gneE3");
             for (int i = 0; i < 36; i++) {
 
                 conn.do_timestep();
@@ -94,6 +97,8 @@ public class APITest {
                     SumoStopFlags flags = new SumoStopFlags(false, false, false, false, false);
                     conn.do_job_set(Vehicle.setStop("v0", "gneE0", 200, (byte)0, 10, flags));
                 }
+                conn.do_job_set(Person.add("p" + i, "gneE2", 10.0, 0, "DEFAULT_PEDTYPE"));
+                conn.do_job_set(Person.appendWalkingStage("p" + i, walk, 50.0, -1, -1.0, ""));
             }
             SumoStringList vehIDs = (SumoStringList)conn.do_job_get(Vehicle.getIDList());
             String vehIDsStr = "";
@@ -110,6 +115,16 @@ public class APITest {
 
             conn.do_job_set(Vehicletype.setParameter("car", "vehtypeParam", "vehtypeValue"));
             System.out.println("Vehicletype.getParameter: " + (String)conn.do_job_get(Vehicletype.getParameter("car", "vehtypeParam")));
+
+            SumoStringList personIDs = (SumoStringList)conn.do_job_get(Person.getIDList());
+            String personIDsStr = "";
+            for (String id : personIDs) {
+                personIDsStr += (id + " ");
+            }
+            System.out.println("PersonIDs: " + personIDsStr);
+
+            SumoStage personStage = (SumoStage)conn.do_job_get(Person.getStage("p0", 0));
+            System.out.println("Person.getStage: " + personStage.type);
 
             conn.do_job_set(Edge.setParameter("gneE0", "edgeParam", "edgeValue"));
             System.out.println("Edge.getParameter: " + (String)conn.do_job_get(Edge.getParameter("gneE0", "edgeParam")));

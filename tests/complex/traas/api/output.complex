@@ -29,28 +29,28 @@ Step 21.0, tlsPhase 0 (North-South)
 Step 22.0, tlsPhase 0 (North-South)
 Step 23.0, tlsPhase 0 (North-South)
 Step 24.0, tlsPhase 0 (North-South)
-  veh=v1 len=4.5 entry=23.733620827490046 leave=-1.0 type=car
+  veh=v2 len=4.5 entry=23.51094575782597 leave=23.798479086642303 type=car
 Step 25.0, tlsPhase 0 (North-South)
-  veh=v1 len=4.5 entry=23.733620827490046 leave=24.042644213527094 type=car
 Step 26.0, tlsPhase 0 (North-South)
 Step 27.0, tlsPhase 0 (North-South)
 Step 28.0, tlsPhase 0 (North-South)
+  veh=v4 len=4.5 entry=27.157536340781295 leave=27.4453947180228 type=car
 Step 29.0, tlsPhase 0 (North-South)
 Step 30.0, tlsPhase 0 (North-South)
-  veh=v5 len=4.5 entry=29.91510615363524 leave=-1.0 type=car
 Step 31.0, tlsPhase 0 (North-South)
-  veh=v5 len=4.5 entry=29.91510615363524 leave=30.19540732358624 type=car
 Step 32.0, tlsPhase 0 (North-South)
+  veh=v5 len=4.5 entry=31.370137715990527 leave=31.682334747708488 type=car
 Step 33.0, tlsPhase 0 (North-South)
 Step 34.0, tlsPhase 0 (North-South)
-  veh=v2 len=4.5 entry=33.886525637365025 leave=-1.0 type=car
 Step 35.0, tlsPhase 0 (North-South)
-  veh=v2 len=4.5 entry=33.886525637365025 leave=34.20107691104972 type=car
+  veh=v6 len=4.5 entry=34.54791759543594 leave=34.86091862148933 type=car
 Step 36.0, tlsPhase 0 (North-South)
-VehicleIDs: v0 v1 v10 v11 v12 v13 v14 v15 v16 v17 v18 v19 v2 v20 v21 v22 v23 v3 v4 v5 v6 v7 v8 v9 
+VehicleIDs: v0 v1 v10 v11 v12 v13 v14 v15 v16 v17 v18 v19 v2 v20 v21 v22 v3 v4 v5 v6 v7 v8 v9 
 vehicle.getParameter: vehValue
 Vehicletype.getAdaptedTraveltime: 200.0
 Vehicletype.getParameter: vehtypeValue
+PersonIDs: p0 p1 p10 p11 p12 p13 p14 p15 p16 p17 p18 p19 p2 p20 p21 p22 p23 p24 p25 p26 p27 p28 p29 p3 p30 p31 p32 p33 p34 p4 p5 p6 p7 p8 p9 
+Person.getStage: 2
 Edge.getParameter: edgeValue
 Lane.getParameter: laneValue
 Route.getParameter: routeValue
@@ -60,4 +60,4 @@ Trafficlight.getCompleteRedYellowGreenDefinition: {0=0#0#0#GGgGGGrrrr#42.0#42.0#
 Trafficlight.getPhaseDuration: 50.0
 Trafficlight.getNextSwitch: 51.0
 Simulation.convertRoad: gneE2, 57.92, 0
-Simulation.convertGeo: 13.38049279800687,52.50047399596812
+Simulation.convertGeo: 13.380492798007497,52.50047399595011
