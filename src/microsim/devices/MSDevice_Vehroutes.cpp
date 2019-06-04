@@ -49,7 +49,7 @@ bool MSDevice_Vehroutes::mySorted = false;
 bool MSDevice_Vehroutes::myIntendedDepart = false;
 bool MSDevice_Vehroutes::myRouteLength = false;
 bool MSDevice_Vehroutes::mySkipPTLines = false;
-bool MSDevice_Vehroutes::myIncludeInvalid = false;
+bool MSDevice_Vehroutes::myIncludeIncomplete = false;
 MSDevice_Vehroutes::StateListener MSDevice_Vehroutes::myStateListener;
 std::map<const SUMOTime, int> MSDevice_Vehroutes::myDepartureCounts;
 std::map<const SUMOTime, std::map<const std::string, std::string> > MSDevice_Vehroutes::myRouteInfos;
@@ -74,7 +74,7 @@ MSDevice_Vehroutes::init() {
         myIntendedDepart = oc.getBool("vehroute-output.intended-depart");
         myRouteLength = oc.getBool("vehroute-output.route-length");
         mySkipPTLines = oc.getBool("vehroute-output.skip-ptlines");
-        myIncludeInvalid = oc.getBool("vehroute-output.invalid");
+        myIncludeIncomplete = oc.getBool("vehroute-output.incomplete");
         MSNet::getInstance()->addVehicleStateListener(&myStateListener);
     }
 }
@@ -175,7 +175,7 @@ MSDevice_Vehroutes::stopEnded(const SUMOVehicleParameter::Stop& stop) {
 
 void
 MSDevice_Vehroutes::writeXMLRoute(OutputDevice& os, int index) const {
-    if (index == 0 && myReplacedRoutes[index].route->size() == 2 &&
+    if (index == 0 && !myIncludeIncomplete && myReplacedRoutes[index].route->size() == 2 &&
             myReplacedRoutes[index].route->getEdges().front()->isTazConnector() &&
             myReplacedRoutes[index].route->getEdges().back()->isTazConnector()) {
         return;
@@ -202,7 +202,7 @@ MSDevice_Vehroutes::writeXMLRoute(OutputDevice& os, int index) const {
         os << " edges=\"";
         // get the route
         int i = index;
-        while (i > 0 && (myReplacedRoutes[i - 1].edge != nullptr || myIncludeInvalid)) {
+        while (i > 0 && myReplacedRoutes[i - 1].edge != nullptr && !myIncludeIncomplete) {
             i--;
         }
         const MSEdge* lastEdge = nullptr;
@@ -329,7 +329,7 @@ MSDevice_Vehroutes::writeOutput(const bool hasArrived) const {
             writeXMLRoute(od);
         }
     } else {
-        const int routesToSkip = myHolder.getParameter().wasSet(VEHPARS_FORCE_REROUTE) && !myIncludeInvalid ? 1 : 0;
+        const int routesToSkip = myHolder.getParameter().wasSet(VEHPARS_FORCE_REROUTE) && !myIncludeIncomplete ? 1 : 0;
         if ((int)myReplacedRoutes.size() > routesToSkip) {
             od.openTag(SUMO_TAG_ROUTE_DISTRIBUTION);
             for (int i = routesToSkip; i < (int)myReplacedRoutes.size(); ++i) {

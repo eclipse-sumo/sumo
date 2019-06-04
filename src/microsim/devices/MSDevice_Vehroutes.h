@@ -199,8 +199,8 @@ private:
     /// @brief A shortcut for the Option "vehroute-output.skip-ptlines"
     static bool mySkipPTLines;
 
-    /// @brief A shortcut for the Option "vehroute-output.invalid"
-    static bool myIncludeInvalid;
+    /// @brief A shortcut for the Option "vehroute-output.incomplete"
+    static bool myIncludeIncomplete;
 
 
     /** @class StateListener
