@@ -1,4 +1,4 @@
-Eclipse SUMO Version v1_2_0+0252-83989c2
+Eclipse SUMO Version v1_2_0+0545-a673cfd4983
  Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -89,6 +89,8 @@ Output Options:
                                          have not arrived at simulation end
   --vehroute-output.skip-ptlines       Skip vehroute output for public
                                          transport vehicles
+  --vehroute-output.incomplete         Include invalid routes and route stubs
+                                         in vehroute output
   --link-output FILE                   Save links states into FILE
   --railsignal-block-output FILE       Save railsignal-blocks into FILE
   --bt-output FILE                     Save bluetooth visibilities into FILE
