@@ -39,4 +39,7 @@ apparentDecel_emergencyDecel
 
 # tests for specific aspects of IDM and IDMM
 IDM
+
+# tests for the Wiedemann model
+Wiedemann
 bugs
