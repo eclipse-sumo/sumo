@@ -98,6 +98,11 @@ public:
 
         double getAngle(SUMOTime now) const;
 
+        /// @brief get travel distance in this stage
+        double getDistance() const {
+            return walkDistance();
+        }
+
         SUMOTime getWaitingTime(SUMOTime now) const;
 
         double getSpeed() const;
@@ -299,6 +304,11 @@ public:
         Position getPosition(SUMOTime now) const;
 
         double getAngle(SUMOTime now) const;
+
+        /// @brief get travel distance in this stage
+        double getDistance() const {
+            return myDist;
+        }
 
         /** @brief Called on writing tripinfo output
         *

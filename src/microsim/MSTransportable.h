@@ -169,6 +169,8 @@ public:
 
         void setDestination(const MSEdge* newDestination, MSStoppingPlace* newDestStop);
 
+        /// @brief get travel distance in this stage
+        virtual double getDistance() const = 0;
 
         /** @brief Called on writing tripinfo output
          * @param[in] os The stream to write the information into
@@ -253,6 +255,11 @@ public:
         Position getPosition(SUMOTime now) const;
 
         double getAngle(SUMOTime now) const;
+
+        double getDistance() const {
+            // invalid
+            return -1;
+        }
 
         std::string getStageDescription() const {
             return "trip";
@@ -361,6 +368,11 @@ public:
 
         double getAngle(SUMOTime now) const;
 
+        /// @brief get travel distance in this stage
+        double getDistance() const {
+            return 0;
+        }
+
         SUMOTime getWaitingTime(SUMOTime now) const;
 
         std::string getStageDescription() const {
@@ -444,6 +456,11 @@ public:
 
         double getAngle(SUMOTime now) const;
 
+        /// @brief get travel distance in this stage
+        double getDistance() const {
+            return myVehicleDistance;
+        }
+
         /// Whether the person waits for the given vehicle
         bool isWaitingFor(const SUMOVehicle* vehicle) const;
 
@@ -485,11 +502,11 @@ public:
             return myLines;
         }
 
-        std::string getIntendedVehicleID() {
+        std::string getIntendedVehicleID() const {
             return myIntendedVehicleID;
         }
 
-        SUMOTime getIntendedDepart() {
+        SUMOTime getIntendedDepart() const {
             return myIntendedDepart;
         }
 

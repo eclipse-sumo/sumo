@@ -197,6 +197,10 @@ Person::getStage(const std::string& personID, int nextStageIndex) {
         result.vType = vehicle->getVehicleType().getID();
     }
     result.description = stage->getStageDescription();
+    result.length = stage->getDistance();
+    // negative values indicate that the information is not available
+    result.cost = -1;
+    result.travelTime = -1;
     // Some stage type dependant attributes
     switch(stage->getStageType()) {
         case STAGE_DRIVING: {
@@ -220,10 +224,6 @@ Person::getStage(const std::string& personID, int nextStageIndex) {
         default:
             break;
     }
-    // giving negative values for now, should be handled in the future
-    result.cost = -1;
-    result.travelTime = -1;
-    result.length = -1;
     return result;
 }
 

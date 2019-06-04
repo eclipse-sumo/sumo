@@ -218,19 +218,25 @@ MSContainer::MSContainerStage_Tranship::getEdges() const {
     return myRoute;
 }
 
+double
+MSContainer::MSContainerStage_Tranship::getDistance() const {
+    if (myArrived >= 0) {
+        const SUMOTime duration = myArrived - myDeparted;
+        return mySpeed * STEPS2TIME(duration);
+    } else {
+        return -1;
+    }
+}
 
 void
 MSContainer::MSContainerStage_Tranship::tripInfoOutput(OutputDevice& os, const MSTransportable* const) const {
-    const SUMOTime duration = myArrived - myDeparted;
-    // no timeloss is possible
-    const double distance = mySpeed * STEPS2TIME(duration);
     os.openTag("tranship");
     os.writeAttr("depart", time2string(myDeparted));
     os.writeAttr("departPos", myDepartPos);
     os.writeAttr("arrival", time2string(myArrived));
     os.writeAttr("arrivalPos", myArrivalPos);
-    os.writeAttr("duration", time2string(duration));
-    os.writeAttr("routeLength", distance);
+    os.writeAttr("duration", myArrived >= 0 ? time2string(myArrived - myDeparted) : "-1");
+    os.writeAttr("routeLength", getDistance());
     os.writeAttr("maxSpeed", mySpeed);
     os.closeTag();
 }
