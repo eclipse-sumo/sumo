@@ -110,8 +110,8 @@
         <xsd:complexType>
             <xsd:attribute name="waitingTime" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="vehicle" use="required" type="xsd:string"/>
-            <xsd:attribute name="depart" use="required" type="nonNegativeFloatType"/>
-            <xsd:attribute name="arrival" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="depart" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
+            <xsd:attribute name="arrival" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
             <xsd:attribute name="arrivalPos" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="duration" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
             <xsd:attribute name="routeLength" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
@@ -122,7 +122,7 @@
         <xsd:complexType>
             <xsd:attribute name="depart" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="departPos" use="required" type="nonNegativeFloatType"/>
-            <xsd:attribute name="arrival" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="arrival" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
             <xsd:attribute name="arrivalPos" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="duration" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="routeLength" use="required" type="nonNegativeFloatType"/>
@@ -143,8 +143,8 @@
         <xsd:complexType>
             <xsd:attribute name="waitingTime" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="vehicle" use="required" type="xsd:string"/>
-            <xsd:attribute name="depart" use="required" type="nonNegativeFloatType"/>
-            <xsd:attribute name="arrival" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="depart" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
+            <xsd:attribute name="arrival" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
             <xsd:attribute name="arrivalPos" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="duration" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
             <xsd:attribute name="routeLength" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
