@@ -49,6 +49,7 @@ bool MSDevice_Vehroutes::mySorted = false;
 bool MSDevice_Vehroutes::myIntendedDepart = false;
 bool MSDevice_Vehroutes::myRouteLength = false;
 bool MSDevice_Vehroutes::mySkipPTLines = false;
+bool MSDevice_Vehroutes::myIncludeInvalid = false;
 MSDevice_Vehroutes::StateListener MSDevice_Vehroutes::myStateListener;
 std::map<const SUMOTime, int> MSDevice_Vehroutes::myDepartureCounts;
 std::map<const SUMOTime, std::map<const std::string, std::string> > MSDevice_Vehroutes::myRouteInfos;
@@ -73,6 +74,7 @@ MSDevice_Vehroutes::init() {
         myIntendedDepart = oc.getBool("vehroute-output.intended-depart");
         myRouteLength = oc.getBool("vehroute-output.route-length");
         mySkipPTLines = oc.getBool("vehroute-output.skip-ptlines");
+        myIncludeInvalid = oc.getBool("vehroute-output.invalid");
         MSNet::getInstance()->addVehicleStateListener(&myStateListener);
     }
 }
@@ -200,7 +202,7 @@ MSDevice_Vehroutes::writeXMLRoute(OutputDevice& os, int index) const {
         os << " edges=\"";
         // get the route
         int i = index;
-        while (i > 0 && myReplacedRoutes[i - 1].edge) {
+        while (i > 0 && (myReplacedRoutes[i - 1].edge != nullptr || myIncludeInvalid)) {
             i--;
         }
         const MSEdge* lastEdge = nullptr;
@@ -327,7 +329,7 @@ MSDevice_Vehroutes::writeOutput(const bool hasArrived) const {
             writeXMLRoute(od);
         }
     } else {
-        const int routesToSkip = myHolder.getParameter().wasSet(VEHPARS_FORCE_REROUTE) ? 1 : 0;
+        const int routesToSkip = myHolder.getParameter().wasSet(VEHPARS_FORCE_REROUTE) && !myIncludeInvalid ? 1 : 0;
         if ((int)myReplacedRoutes.size() > routesToSkip) {
             od.openTag(SUMO_TAG_ROUTE_DISTRIBUTION);
             for (int i = routesToSkip; i < (int)myReplacedRoutes.size(); ++i) {
