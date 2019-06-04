@@ -118,12 +118,36 @@ enum GUIGlObjectType {
     GLO_FLOW = 306,
     /// @brief a routeFlow
     GLO_ROUTEFLOW = 307,
-    /// @brief a person
-    GLO_PERSON = 308,
     /// @brief a container
-    GLO_CONTAINER = 309,
+    GLO_CONTAINER = 308,
     /// @brief a stop
-    GLO_STOP = 310,
+    GLO_STOP = 309,
+    /// @brief a ride
+    GLO_RIDE = 310,
+    /// @brief a walk
+    GLO_WALK = 311,
+    /// @brief a walk from edge to edge
+    GLO_WALK_FROMTO = 312,
+    /// @brief a walk from edge to busStop
+    GLO_WALK_BUSSTOP = 313,
+    /// @brief a walk within a route 
+    GLO_WALK_ROUTE = 314,
+    /// @brief a ride from edge to edge
+    GLO_RIDE_FROMTO = 315,
+    /// @brief a ride from edge to busStop
+    GLO_RIDE_BUSSTOP = 316,
+    /// @brief a person stop over a busStop
+    GLO_PERSONSTOP_BUSSTOP = 317,
+    /// @brief a person stop over a containerStop
+    GLO_PERSONSTOP_CONTAINERSTOP = 318,
+    /// @brief a person stop over a lane
+    GLO_PERSONSTOP_LANE = 319,
+    /// @brief a person trip
+    GLO_PERSONTRIP = 320,
+    /// @brief a person
+    GLO_PERSON = 321,
+    /// @brief a person flow
+    GLO_PERSONFLOW = 322,
     /// @brief empty max
     GLO_MAX = 2048
 };
