@@ -44,18 +44,23 @@
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
-FXDEFMAP(GNEVehicle::GNEVehiclePopupMenu) GNEVehiclePopupMenuMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_VEHICLE_TRANSFORM,   GNEVehicle::GNEVehiclePopupMenu::onCmdTransform),
+FXDEFMAP(GNEVehicle::GNESingleVehiclePopupMenu) GNESingleVehiclePopupMenuMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_VEHICLE_TRANSFORM,   GNEVehicle::GNESingleVehiclePopupMenu::onCmdTransform),
+};
+
+FXDEFMAP(GNEVehicle::GNESelectedVehiclesPopupMenu) GNESelectedVehiclesPopupMenuMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_VEHICLE_TRANSFORM,   GNEVehicle::GNESelectedVehiclesPopupMenu::onCmdTransform),
 };
 
 // Object implementation
-FXIMPLEMENT(GNEVehicle::GNEVehiclePopupMenu, GUIGLObjectPopupMenu, GNEVehiclePopupMenuMap, ARRAYNUMBER(GNEVehiclePopupMenuMap))
+FXIMPLEMENT(GNEVehicle::GNESingleVehiclePopupMenu,      GUIGLObjectPopupMenu,   GNESingleVehiclePopupMenuMap,       ARRAYNUMBER(GNESingleVehiclePopupMenuMap))
+FXIMPLEMENT(GNEVehicle::GNESelectedVehiclesPopupMenu,   GUIGLObjectPopupMenu,   GNESelectedVehiclesPopupMenuMap,    ARRAYNUMBER(GNESelectedVehiclesPopupMenuMap))
 
 // ===========================================================================
-// GNEVehicle::GNEVehiclePopupMenu
+// GNEVehicle::GNESingleVehiclePopupMenu
 // ===========================================================================
 
-GNEVehicle::GNEVehiclePopupMenu::GNEVehiclePopupMenu(GNEVehicle *vehicle, GUIMainWindow& app, GUISUMOAbstractView& parent) :
+GNEVehicle::GNESingleVehiclePopupMenu::GNESingleVehiclePopupMenu(GNEVehicle *vehicle, GUIMainWindow& app, GUISUMOAbstractView& parent) :
     GUIGLObjectPopupMenu(app, parent, *vehicle),
     myVehicle(vehicle),
     myTransformToVehicle(nullptr),
@@ -116,11 +121,97 @@ GNEVehicle::GNEVehiclePopupMenu::GNEVehiclePopupMenu(GNEVehicle *vehicle, GUIMai
 }
 
 
-GNEVehicle::GNEVehiclePopupMenu::~GNEVehiclePopupMenu() {}
+GNEVehicle::GNESingleVehiclePopupMenu::~GNESingleVehiclePopupMenu() {}
 
 
 long
-GNEVehicle::GNEVehiclePopupMenu::onCmdTransform(FXObject* obj, FXSelector, void*) {
+GNEVehicle::GNESingleVehiclePopupMenu::onCmdTransform(FXObject* obj, FXSelector, void*) {
+    if (obj == myTransformToVehicle) {
+        GNERouteHandler::transformToVehicle(myVehicle, false);
+    } else if (obj == myTransformToVehicleWithEmbeddedRoute) {
+        GNERouteHandler::transformToVehicle(myVehicle, true);
+    } else if (obj == myTransformToRouteFlow) { 
+        GNERouteHandler::transformToRouteFlow(myVehicle, false);
+    } else if (obj == myTransformToRouteFlowWithEmbeddedRoute) { 
+        GNERouteHandler::transformToRouteFlow(myVehicle, true);
+    } else if (obj == myTransformToTrip) { 
+        GNERouteHandler::transformToTrip(myVehicle);
+    } else if (obj == myTransformToFlow) { 
+        GNERouteHandler::transformToFlow(myVehicle);
+    }
+    return 1;
+}
+
+// ===========================================================================
+// GNEVehicle::GNESelectedVehiclesPopupMenu
+// ===========================================================================
+
+GNEVehicle::GNESelectedVehiclesPopupMenu::GNESelectedVehiclesPopupMenu(GNEVehicle *vehicle, GUIMainWindow& app, GUISUMOAbstractView& parent) :
+    GUIGLObjectPopupMenu(app, parent, *vehicle),
+    myVehicle(vehicle),
+    myTransformToVehicle(nullptr),
+    myTransformToVehicleWithEmbeddedRoute(nullptr),
+    myTransformToRouteFlow(nullptr),
+    myTransformToRouteFlowWithEmbeddedRoute(nullptr),
+    myTransformToTrip(nullptr),
+    myTransformToFlow(nullptr) { 
+    // build header
+    myVehicle->buildPopupHeader(this, app);
+    // build menu command for center button and copy cursor position to clipboard
+    myVehicle->buildCenterPopupEntry(this);
+    myVehicle->buildPositionCopyEntry(this, false);
+    // buld menu commands for names
+    new FXMenuCommand(this, ("Copy " + myVehicle->getTagStr() + " name to clipboard").c_str(), nullptr, this, MID_COPY_NAME);
+    new FXMenuCommand(this, ("Copy " + myVehicle->getTagStr() + " typed name to clipboard").c_str(), nullptr, this, MID_COPY_TYPED_NAME);
+    new FXMenuSeparator(this);
+    // build selection and show parameters menu
+    myVehicle->getViewNet()->buildSelectionACPopupEntry(this, myVehicle);
+    myVehicle->buildShowParamsPopupEntry(this);
+    // add transform functions only in demand mode
+    if (myVehicle->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) {
+        // Get icons
+        FXIcon* vehicleIcon = GUIIconSubSys::getIcon(ICON_VEHICLE);
+        FXIcon* tripIcon = GUIIconSubSys::getIcon(ICON_TRIP);
+        FXIcon* routeFlowIcon= GUIIconSubSys::getIcon(ICON_ROUTEFLOW);
+        FXIcon* flowIcon= GUIIconSubSys::getIcon(ICON_FLOW);
+        // create menu pane for transform operations
+        FXMenuPane* transformOperation = new FXMenuPane(this);
+        this->insertMenuPaneChild(transformOperation);
+        new FXMenuCascade(this, "transform to", nullptr, transformOperation);
+        // Create menu comands for all vehicles
+        myTransformToVehicle = new FXMenuCommand(transformOperation, "Vehicle", vehicleIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        myTransformToVehicleWithEmbeddedRoute = new FXMenuCommand(transformOperation, "Vehicle (embedded route)", vehicleIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        myTransformToRouteFlow = new FXMenuCommand(transformOperation, "RouteFlow", routeFlowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        myTransformToRouteFlowWithEmbeddedRoute = new FXMenuCommand(transformOperation, "RouteFlow (embedded route)", routeFlowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        myTransformToTrip = new FXMenuCommand(transformOperation, "Trip", tripIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        myTransformToFlow = new FXMenuCommand(transformOperation, "Flow", flowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        // check what menu command has to be disabled
+        if (myVehicle->getTagProperty().getTag() == SUMO_TAG_VEHICLE) {
+            if (myVehicle->getDemandElementParents().size() > 1) {
+                myTransformToVehicle->disable();
+            } else {
+                myTransformToVehicleWithEmbeddedRoute->disable();
+            }
+        } else if (myVehicle->getTagProperty().getTag() == SUMO_TAG_ROUTEFLOW) {
+            if (myVehicle->getDemandElementParents().size() > 1) {
+                myTransformToRouteFlow->disable();
+            } else {
+                myTransformToRouteFlowWithEmbeddedRoute->disable();
+            }
+        } else if (myVehicle->getTagProperty().getTag() == SUMO_TAG_TRIP) {
+            myTransformToTrip->disable();
+        } else if (myVehicle->getTagProperty().getTag() == SUMO_TAG_FLOW) {
+            myTransformToFlow->disable();
+        }
+    }
+}
+
+
+GNEVehicle::GNESelectedVehiclesPopupMenu::~GNESelectedVehiclesPopupMenu() {}
+
+
+long
+GNEVehicle::GNESelectedVehiclesPopupMenu::onCmdTransform(FXObject* obj, FXSelector, void*) {
     if (obj == myTransformToVehicle) {
         GNERouteHandler::transformToVehicle(myVehicle, false);
     } else if (obj == myTransformToVehicleWithEmbeddedRoute) {
@@ -381,8 +472,8 @@ GNEVehicle::getPositionInView() const {
 
 GUIGLObjectPopupMenu* 
 GNEVehicle::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
-    // return a GNEVehiclePopupMenu
-    return new GNEVehiclePopupMenu(this, app, parent);
+    // return a GNESingleVehiclePopupMenu
+    return new GNESingleVehiclePopupMenu(this, app, parent);
 }
 
 

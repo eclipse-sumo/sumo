@@ -38,9 +38,9 @@ class GNEVehicle : public GNEDemandElement, public SUMOVehicleParameter {
 
 public:
 
-    /// @brief class used in GUIGLObjectPopupMenu for vehicle transformations
-    class GNEVehiclePopupMenu : public GUIGLObjectPopupMenu {
-        FXDECLARE(GNEVehiclePopupMenu)
+    /// @brief class used in GUIGLObjectPopupMenu for single vehicle transformations
+    class GNESingleVehiclePopupMenu : public GUIGLObjectPopupMenu {
+        FXDECLARE(GNESingleVehiclePopupMenu)
 
     public:
         /** @brief Constructor
@@ -48,17 +48,62 @@ public:
          * @param[in] app The main window for instantiation of other windows
          * @param[in] parent The parent view for changing it
          */
-        GNEVehiclePopupMenu(GNEVehicle *vehicle, GUIMainWindow& app, GUISUMOAbstractView& parent);
+        GNESingleVehiclePopupMenu(GNEVehicle *vehicle, GUIMainWindow& app, GUISUMOAbstractView& parent);
 
         /// @brief Destructor
-        ~GNEVehiclePopupMenu();
+        ~GNESingleVehiclePopupMenu();
 
         /// @brief Called to transform the current vehicle to another vehicle type
         long onCmdTransform(FXObject* obj, FXSelector, void*);
 
     protected:
         /// @brief default constructor needed by FOX
-        GNEVehiclePopupMenu() { }
+        GNESingleVehiclePopupMenu() { }
+
+    private:
+        /// @brief current vehicle
+        GNEVehicle *myVehicle;
+
+        /// @brief menu command for transform to vehicle
+        FXMenuCommand* myTransformToVehicle;
+
+        /// @brief menu command for transform to vehicle with an embedded route
+        FXMenuCommand* myTransformToVehicleWithEmbeddedRoute;
+
+        /// @brief menu command for transform to route flow
+        FXMenuCommand* myTransformToRouteFlow;
+
+        /// @brief menu command for transform to route flow with an embedded route
+        FXMenuCommand* myTransformToRouteFlowWithEmbeddedRoute;
+
+        /// @brief menu command for transform to trip
+        FXMenuCommand* myTransformToTrip;
+
+        /// @brief menu command for transform to flow
+        FXMenuCommand* myTransformToFlow;
+    };
+
+    /// @brief class used in GUIGLObjectPopupMenu for single vehicle transformations
+    class GNESelectedVehiclesPopupMenu : public GUIGLObjectPopupMenu {
+        FXDECLARE(GNESelectedVehiclesPopupMenu)
+
+    public:
+        /** @brief Constructor
+         * @param[in] vehicle GNEVehicle to be transformed
+         * @param[in] app The main window for instantiation of other windows
+         * @param[in] parent The parent view for changing it
+         */
+        GNESelectedVehiclesPopupMenu(GNEVehicle *vehicle, GUIMainWindow& app, GUISUMOAbstractView& parent);
+
+        /// @brief Destructor
+        ~GNESelectedVehiclesPopupMenu();
+
+        /// @brief Called to transform the current vehicle to another vehicle type
+        long onCmdTransform(FXObject* obj, FXSelector, void*);
+
+    protected:
+        /// @brief default constructor needed by FOX
+        GNESelectedVehiclesPopupMenu() { }
 
     private:
         /// @brief current vehicle
