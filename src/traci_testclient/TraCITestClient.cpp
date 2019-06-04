@@ -899,7 +899,7 @@ TraCITestClient::testAPI() {
     answerLog << "    getTypeID: " << person.getTypeID("p0") << "\n";
     answerLog << "    getWaitingTime: " << person.getWaitingTime("p0") << "\n";
     answerLog << "    getNextEdge: " << person.getNextEdge("p0") << "\n";
-    answerLog << "    getStage: " << person.getStage("p0") << "\n";
+    answerLog << "    getStage: " << person.getStage("p0").description << "\n";
     answerLog << "    getRemainingStages: " << person.getRemainingStages("p0") << "\n";
     answerLog << "    getVehicle: " << person.getVehicle("p0") << "\n";
     answerLog << "    getEdges: " << joinToString(person.getEdges("p0"), " ") << "\n";
@@ -928,7 +928,7 @@ TraCITestClient::testAPI() {
     answerLog << "    getRemainingStages: " << person.getRemainingStages("p1") << "\n";
     person.removeStages("p1");
     answerLog << "    getRemainingStages: " << person.getRemainingStages("p1") << "\n";
-    answerLog << "    getStage: " << person.getStage("p1") << "\n";
+    answerLog << "    getStage: " << person.getStage("p1").description << "\n";
     walkEdges.push_back("e_m5");
     person.appendWalkingStage("p1", walkEdges, -20);
     simulationStep();

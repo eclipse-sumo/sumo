@@ -93,6 +93,7 @@ public:
     std::string getString(int cmd, int var, const std::string& id, tcpip::Storage* add = 0);
     std::vector<std::string> getStringVector(int cmd, int var, const std::string& id, tcpip::Storage* add = 0);
     libsumo::TraCIColor getColor(int cmd, int var, const std::string& id, tcpip::Storage* add = 0);
+    libsumo::TraCIStage getTraCIStage(int cmd, int var, const std::string& id, tcpip::Storage* add = 0);
     /// @}
 
     const tcpip::Storage& getCommandStorage() const {
@@ -833,7 +834,7 @@ public:
         std::string getNextEdge(const std::string& personID) const;
         std::string getVehicle(const std::string& personID) const;
         int getRemainingStages(const std::string& personID) const;
-        int getStage(const std::string& personID, int nextStageIndex = 0) const;
+        libsumo::TraCIStage getStage(const std::string& personID, int nextStageIndex = 0) const;
         std::vector<std::string> getEdges(const std::string& personID, int nextStageIndex = 0) const;
         double getAngle(const std::string& personID) const;
         double getSlope(const std::string& personID) const;

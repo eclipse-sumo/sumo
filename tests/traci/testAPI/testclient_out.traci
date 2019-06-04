@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Fri Apr 26 11:19:59 2019
+TraCITestClient output file. Date: Tue Jun  4 12:59:18 2019
 
 
 -> Command sent: <SetOrder>:
@@ -131,7 +131,7 @@ testAPI:
     getTypeID: stilts
     getWaitingTime: 0.00
     getNextEdge: :n_m4_4
-    getStage: 2
+    getStage: walking
     getRemainingStages: 1
     getVehicle: 
     getEdges: e_m3 e_m4
@@ -147,7 +147,7 @@ testAPI:
     getRemainingStages: 4
     getRemainingStages: 3
     getRemainingStages: 1
-    getStage: 1
+    getStage: waiting (last stage removed)
     getEdges after rerouting: e_u1 e_vu2 e_m5
   trafficlights:
     getIDList: n_m4
