@@ -754,6 +754,28 @@ GNEAttributeCarrier::TagProperties::isStop() const {
     return (myTagType & TAGTYPE_STOP) != 0;
 }
 
+bool
+GNEAttributeCarrier::TagProperties::isPerson() const {
+    return (myTagType & TAGTYPE_PERSON) != 0;
+}
+
+bool
+GNEAttributeCarrier::TagProperties::isWalk() const {
+    return (myTagType & TAGTYPE_WALK) != 0;
+}
+
+
+bool
+GNEAttributeCarrier::TagProperties::isRide() const {
+    return (myTagType & TAGTYPE_RIDE) != 0;
+}
+
+
+bool
+GNEAttributeCarrier::TagProperties::isPersonStop() const {
+    return (myTagType & TAGTYPE_PERSONSTOP) != 0;
+}
+
 
 bool
 GNEAttributeCarrier::TagProperties::isDrawable() const {

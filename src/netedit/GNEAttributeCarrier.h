@@ -287,6 +287,10 @@ public:
         TAGTYPE_VEHICLE =       1 << 7,   // Vehicles (Flows, trips...)
         TAGTYPE_ROUTE =         1 << 8,   // Routes and embedded routes
         TAGTYPE_STOP =          1 << 9,   // Stops
+        TAGTYPE_PERSON =        1 << 10,   // Persons
+        TAGTYPE_WALK =          1 << 11,   // Walks
+        TAGTYPE_RIDE =          1 << 12,   // Rides
+        TAGTYPE_PERSONSTOP =    1 << 13,   // Person stops
     };
 
     enum TAGProperty {
@@ -400,6 +404,18 @@ public:
 
         /// @brief return true if tag correspond to a stop element
         bool isStop() const;
+
+        /// @brief return true if tag correspond to a person element
+        bool isPerson() const;
+        
+        /// @brief return true if tag correspond to a walk element
+        bool isWalk() const;
+
+        /// @brief return true if tag correspond to a ride element
+        bool isRide() const;
+
+        /// @brief return true if tag correspond to a person stop element
+        bool isPersonStop() const;
 
         /// @brief return true if tag correspond to a drawable element
         bool isDrawable() const;
