@@ -697,6 +697,10 @@ public class CommandProcessor extends Query {
 
                 output = readStage(resp.content());
 
+            } else if (sc.input2 == Constants.VAR_STAGE) {
+
+                output = readStage(resp.content());
+
             } else if (sc.input2 == Constants.FIND_INTERMODAL_ROUTE) {
 
                 LinkedList<SumoStage> ll = new LinkedList<SumoStage>();

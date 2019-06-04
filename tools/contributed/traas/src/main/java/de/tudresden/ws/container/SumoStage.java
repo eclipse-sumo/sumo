@@ -27,7 +27,7 @@ import de.tudresden.ws.container.SumoStringList;
 
 public class SumoStage implements SumoObject {
 
-    public double type;
+    public int type;
     public String vType;
     public String line;
     public String destStop;
