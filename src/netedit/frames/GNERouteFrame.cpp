@@ -248,7 +248,7 @@ GNERouteFrame::ConsecutiveEdges::ConsecutiveEdges(GNERouteFrame* routeFrameParen
     myCreateRouteButton = new FXButton(this, "Create route", 0, this, MID_GNE_VEHICLEFRAME_FINISHCREATION, GUIDesignButton);
     myCreateRouteButton->disable();
     // Create button for create routes
-    myAbortCreationButton = new FXButton(this, "Abort creation", 0, this, MID_GNE_VEHICLEFRAME_FINISHCREATION, GUIDesignButton);
+    myAbortCreationButton = new FXButton(this, "Abort creation", 0, this, MID_GNE_VEHICLEFRAME_ABORT, GUIDesignButton);
     myAbortCreationButton->disable();
     // create button for remove last inserted edge
     myRemoveLastInsertedEdge = new FXButton(this, "Remove last inserted edge", nullptr, this, MID_GNE_VEHICLEFRAME_REMOVELASTEDGE, GUIDesignButton);
@@ -289,6 +289,9 @@ GNERouteFrame::ConsecutiveEdges::addEdge(GNEEdge* edge) {
         myRouteEdges.push_back(edge);
         // refresh edge candidates
         refreshEdgeCandidates();
+        // enable create route and abort edge route
+        myCreateRouteButton->enable();
+        myAbortCreationButton->enable();
         // edge added, then return true
         return true;
     } else {
@@ -303,6 +306,8 @@ GNERouteFrame::ConsecutiveEdges::addEdge(GNEEdge* edge) {
                 }
                 // add new edge in the list of route edges
                 myRouteEdges.push_back(edge);
+                // enable remove last inserted edge
+                myRemoveLastInsertedEdge->enable();
                 // refresh edge candidates
                 refreshEdgeCandidates();
                 // edge added, then return true
@@ -334,8 +339,6 @@ GNERouteFrame::ConsecutiveEdges::refreshEdgeCandidates() {
                 }
             }
         }
-        // enable remove last edge (because there is more than one edge)
-        myRemoveLastInsertedEdge->enable();
         // update route label
         updateInfoRouteLabel();
         // update view
@@ -405,6 +408,7 @@ GNERouteFrame::ConsecutiveEdges::onCmdAbortRoute(FXObject*, FXSelector, void*) {
         // disable buttons
         myCreateRouteButton->disable();
         myAbortCreationButton->disable();
+        myRemoveLastInsertedEdge->disable();
         // update route label
         updateInfoRouteLabel();
         // update view
@@ -533,8 +537,10 @@ GNERouteFrame::NonConsecutiveEdges::addEdge(GNEEdge* edge) {
         mySelectedEdges.push_back(edge);
         // enable abort route button
         myAbortCreationButton->enable();
+        // enable finish button
+        myFinishCreationButton->enable();
         // disable undo/redo
-        myRouteFrameParent->myViewNet->getViewParent()->getGNEAppWindows()->disableUndoRedo("trip creation");
+        myRouteFrameParent->myViewNet->getViewParent()->getGNEAppWindows()->disableUndoRedo("route creation");
         // set special color
         for (auto i : edge->getLanes()) {
             i->setSpecialColor(&myRouteFrameParent->getEdgeCandidateSelectedColor());
@@ -543,8 +549,6 @@ GNERouteFrame::NonConsecutiveEdges::addEdge(GNEEdge* edge) {
         if (mySelectedEdges.size() > 1) {
             // enable remove last edge button
             myRemoveLastInsertedEdge->enable();
-            // enable finish button
-            myFinishCreationButton->enable();
             // calculate temporal route
             myTemporalRoute = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(myRouteFrameParent->myRouteModeSelector->getCurrentVehicleClass(), mySelectedEdges);         
         } else {
@@ -572,8 +576,6 @@ GNERouteFrame::NonConsecutiveEdges::clearEdges() {
     // clear edges
     mySelectedEdges.clear();
     myTemporalRoute.clear();
-    // enable undo/redo
-    myRouteFrameParent->myViewNet->getViewParent()->getGNEAppWindows()->enableUndoRedo();
 }
 
 
@@ -622,15 +624,21 @@ GNERouteFrame::NonConsecutiveEdges::onCmdCreateRoute(FXObject*, FXSelector, void
 
 long
 GNERouteFrame::NonConsecutiveEdges::onCmdAbortRoute(FXObject*, FXSelector, void*) {
-    clearEdges();
-    // disable buttons
-    myFinishCreationButton->disable();
-    myAbortCreationButton->disable();
-    myRemoveLastInsertedEdge->disable();
-    // update info route label
-    updateInfoRouteLabel();
-    // update view (to see the new route)
-    myRouteFrameParent->getViewNet()->update();
+    // first check that there is route edges selected
+    if (mySelectedEdges.size() > 0) {
+        // unblock undo/redo
+        myRouteFrameParent->myViewNet->getViewParent()->getGNEAppWindows()->enableUndoRedo();
+        // clear edges
+        clearEdges();
+        // disable buttons
+        myFinishCreationButton->disable();
+        myAbortCreationButton->disable();
+        myRemoveLastInsertedEdge->disable();
+        // update info route label
+        updateInfoRouteLabel();
+        // update view (to see the new route)
+        myRouteFrameParent->getViewNet()->update();
+    }
     return 1;
 }
 
