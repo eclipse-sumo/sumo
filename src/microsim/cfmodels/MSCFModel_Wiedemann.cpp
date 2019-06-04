@@ -98,6 +98,15 @@ MSCFModel_Wiedemann::duplicate(const MSVehicleType* vtype) const {
     return new MSCFModel_Wiedemann(vtype);
 }
 
+
+double
+MSCFModel_Wiedemann::getSecureGap(const double speed, const double leaderSpeed, const double leaderMaxDecel) const {
+    const double bx = (1 + 7 * mySecurity) * sqrt(speed);
+    const double abx = myAX + bx - myType->getLength(); // abx is the brutto gap
+    return MAX2(abx, MSCFModel::getSecureGap(speed, leaderSpeed, leaderMaxDecel));
+}
+
+
 double
 MSCFModel_Wiedemann::_v(const MSVehicle* veh, double predSpeed, double gap) const {
     const VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
@@ -138,8 +147,11 @@ MSCFModel_Wiedemann::_v(const MSVehicle* veh, double predSpeed, double gap) cons
     const double vNew = MAX2(0., v + ACCEL2SPEED(accel)); // don't allow negative speeds
 #ifdef DEBUG_V
     if (veh->isSelected()) {
-        std::cout << SIMTIME << " Wiedemann::_v veh=" << veh->getID() << " predSpeed=" << predSpeed << " gap=" << gap
-            << " dv=" << dv << " ax=" << myAX << " bx=" << bx << " sdx=" << sdx << " sdv=" << sdv << " cldv=" << cldv << " opdv=" << opdv << " accel=" << accel << " vNew=" << vNew << "\n";
+        std::cout << SIMTIME << " Wiedemann::_v veh=" << veh->getID()
+            << " predSpeed=" << predSpeed << " gap=" << gap
+            << " dv=" << dv << " dx=" << dx << " ax=" << myAX << " bx=" << bx << " abx=" << abx
+            << " sdx=" << sdx << " sdv=" << sdv << " cldv=" << cldv << " opdv=" << opdv
+            << " accel=" << accel << " vNew=" << vNew << "\n";
     }
 #endif
     return vNew;
