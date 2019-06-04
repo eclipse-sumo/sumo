@@ -70,5 +70,11 @@ dua_trip
 # public transport and walk possible
 person_route_length
 
+# trips as input, districts used
+trip_with_taz
+
+# all vehicles have the device due to trip def
+auto_trip
+
 # Testing error cases
 errors
