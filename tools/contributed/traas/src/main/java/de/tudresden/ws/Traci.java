@@ -205,9 +205,16 @@ public class Traci {
         this.sumo.set_cmd(Vehicle.setSpeedFactor(vehID, factor));
     }
 
-    @WebMethod(action = "Vehicle: setStop")
-    public void Vehicle_setStop(@WebParam(name = "vehID") String vehID, @WebParam(name = "edgeID") String edgeID, @WebParam(name = "pos") double pos, @WebParam(name = "laneIndex") byte laneIndex, @WebParam(name = "duration") int duration, @WebParam(name = "stopType") SumoStopFlags stopType) {
-        this.sumo.set_cmd(Vehicle.setStop(vehID, edgeID, pos, laneIndex, duration, stopType));
+    @WebMethod(action="Vehicle: setStop")
+    public void Vehicle_setStop(@WebParam(name = "vehID") String vehID, 
+            @WebParam(name = "edgeID") String edgeID, 
+            @WebParam(name = "pos") double pos, 
+            @WebParam(name = "laneIndex") byte laneIndex, 
+            @WebParam(name = "duration") int duration,
+            @WebParam(name = "stopType") SumoStopFlags stopType,
+            @WebParam(name = "startPos") double startPos,
+            @WebParam(name = "until") double until){
+        this.sumo.set_cmd(Vehicle.setStop(vehID, edgeID, pos, laneIndex, duration,stopType, startPos, until));
     }
 
     @WebMethod(action = "Vehicle: setResume")

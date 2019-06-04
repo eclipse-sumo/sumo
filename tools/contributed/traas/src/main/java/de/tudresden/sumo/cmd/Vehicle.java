@@ -955,11 +955,12 @@ public class Vehicle {
      * @param duration duration
      * @return SumoCommand
      */
-    public static SumoCommand setParkingAreaStop(String vehID, String stopID, double duration) {
-        SumoStopFlags sf = new SumoStopFlags(true, false, false, false, false);
-        return setStop(vehID, stopID, 1, (byte) 0, duration, sf);
-    }
+    public static SumoCommand setStop(String vehID, String edgeID, 
+        double pos, byte laneIndex, double duration, SumoStopFlags sf, double startPos, double until){
 
+        Object[] array = new Object[]{edgeID, pos, laneIndex, duration, sf, startPos, until };
+        return new SumoCommand(Constants.CMD_SET_VEHICLE_VARIABLE, Constants.CMD_STOP, vehID, array);
+    }
 
     /**
      * Moves the vehicle to a new position.
