@@ -11,6 +11,12 @@ set(netedit_demandelements_SRCS
    GNEVehicle.cpp
    GNEStop.h
    GNEStop.cpp
+   GNEPersonStop.h
+   GNEPersonStop.cpp
+   GNEWalk.h
+   GNEWalk.cpp
+   GNERide.h
+   GNERide.cpp
    GNEPerson.h
    GNEPerson.cpp
    )
