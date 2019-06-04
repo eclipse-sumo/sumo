@@ -3256,8 +3256,8 @@ TraCIAPI::PersonScope::appendWaitingStage(const std::string& personID, double du
     content.writeInt(4);
     content.writeUnsignedByte(libsumo::TYPE_INTEGER);
     content.writeInt(libsumo::STAGE_WAITING);
-    content.writeUnsignedByte(libsumo::TYPE_INTEGER);
-    content.writeInt((int)duration);
+    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
+    content.writeDouble(duration);
     content.writeUnsignedByte(libsumo::TYPE_STRING);
     content.writeString(description);
     content.writeUnsignedByte(libsumo::TYPE_STRING);
@@ -3280,8 +3280,8 @@ TraCIAPI::PersonScope::appendWalkingStage(const std::string& personID, const std
     content.writeStringList(edges);
     content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
     content.writeDouble(arrivalPos);
-    content.writeUnsignedByte(libsumo::TYPE_INTEGER);
-    content.writeInt((int)duration);
+    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
+    content.writeDouble(duration);
     content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
     content.writeDouble(speed);
     content.writeUnsignedByte(libsumo::TYPE_STRING);

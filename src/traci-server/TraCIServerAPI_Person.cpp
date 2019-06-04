@@ -209,9 +209,9 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
                     if (numParameters != 4) {
                         return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Adding a waiting stage needs four parameters.", outputStorage);
                     }
-                    int duration;
-                    if (!server.readTypeCheckingInt(inputStorage, duration)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Second parameter (duration) requires an int.", outputStorage);
+                    double duration;
+                    if (!server.readTypeCheckingDouble(inputStorage, duration)) {
+                        return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Second parameter (duration) requires a double.", outputStorage);
                     }
                     std::string description;
                     if (!server.readTypeCheckingString(inputStorage, description)) {
@@ -221,7 +221,7 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
                     if (!server.readTypeCheckingString(inputStorage, stopID)) {
                         return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Fourth parameter (stopID) requires a string.", outputStorage);
                     }
-                    libsumo::Person::appendWaitingStage(id, STEPS2TIME(duration), description, stopID);
+                    libsumo::Person::appendWaitingStage(id, duration, description, stopID);
                 } else if (stageType == MSTransportable::MOVING_WITHOUT_VEHICLE) {
                     // append walking stage
                     if (numParameters != 6) {
@@ -235,9 +235,9 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
                     if (!server.readTypeCheckingDouble(inputStorage, arrivalPos)) {
                         return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Third parameter (arrivalPos) requires a double.", outputStorage);
                     }
-                    int duration;
-                    if (!server.readTypeCheckingInt(inputStorage, duration)) {
-                        return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Fourth parameter (duration) requires an int.", outputStorage);
+                    double duration;
+                    if (!server.readTypeCheckingDouble(inputStorage, duration)) {
+                        return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Fourth parameter (duration) requires a double.", outputStorage);
                     }
                     double speed;
                     if (!server.readTypeCheckingDouble(inputStorage, speed)) {
@@ -247,7 +247,7 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
                     if (!server.readTypeCheckingString(inputStorage, stopID)) {
                         return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Fourth parameter (stopID) requires a string.", outputStorage);
                     }
-                    libsumo::Person::appendWalkingStage(id, edgeIDs, arrivalPos, STEPS2TIME(duration), speed, stopID);
+                    libsumo::Person::appendWalkingStage(id, edgeIDs, arrivalPos, duration, speed, stopID);
                 } else {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Invalid stage type for person '" + id + "'", outputStorage);
                 }

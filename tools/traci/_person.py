@@ -231,31 +231,27 @@ class PersonDomain(Domain):
         """appendWaitingStage(string, float, string, string)
         Appends a waiting stage with duration in s to the plan of the given person
         """
-        duration *= 1000
         self._connection._beginMessage(tc.CMD_SET_PERSON_VARIABLE, tc.APPEND_STAGE, personID,
                                        1 + 4 +  # compound
                                        1 + 4 +  # stage type
-                                       1 + 4 +  # duration
+                                       1 + 8 +  # duration
                                        1 + 4 + len(description) +
                                        1 + 4 + len(stopID))
         self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 4)
         self._connection._string += struct.pack(
             "!Bi", tc.TYPE_INTEGER, tc.STAGE_WAITING)
-        self._connection._string += struct.pack("!Bi",
-                                                tc.TYPE_INTEGER, duration)
+        self._connection._string += struct.pack("!Bd",
+                                                tc.TYPE_DOUBLE, duration)
         self._connection._packString(description)
         self._connection._packString(stopID)
         self._connection._sendExact()
 
     def appendWalkingStage(self, personID, edges, arrivalPos, duration=-1, speed=-1, stopID=""):
-        """appendWalkingStage(string, stringList, double, int, double, string)
+        """appendWalkingStage(string, stringList, double, double, double, string)
         Appends a walking stage to the plan of the given person
         The walking speed can either be specified, computed from the duration parameter (in s) or taken from the
         type of the person
         """
-        if duration is not None:
-            duration *= 1000
-
         if isinstance(edges, str):
             edges = [edges]
         self._connection._beginMessage(tc.CMD_SET_PERSON_VARIABLE, tc.APPEND_STAGE, personID,
@@ -264,7 +260,7 @@ class PersonDomain(Domain):
                                        1 + 4 + \
                                        sum(map(len, edges)) + 4 * len(edges) +
                                        1 + 8 +  # arrivalPos
-                                       1 + 4 +  # duration
+                                       1 + 8 +  # duration
                                        1 + 8 +  # speed
                                        1 + 4 + len(stopID)
                                        )
@@ -274,8 +270,8 @@ class PersonDomain(Domain):
         self._connection._packStringList(edges)
         self._connection._string += struct.pack("!Bd",
                                                 tc.TYPE_DOUBLE, arrivalPos)
-        self._connection._string += struct.pack("!Bi",
-                                                tc.TYPE_INTEGER, duration)
+        self._connection._string += struct.pack("!Bd",
+                                                tc.TYPE_DOUBLE, duration)
         self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, speed)
         self._connection._packString(stopID)
         self._connection._sendExact()
