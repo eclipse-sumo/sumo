@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Feb 26 12:22:00 2019 by Eclipse SUMO GUI Version v1_0_1+0645-93703db
+<!-- generated on Tue Jun  4 10:35:57 2019 by Eclipse SUMO Version v1_2_0+0252-83989c2
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -11,14 +11,23 @@
         <additional-files value="DRT/drtstops.xml,DRT/drt.pois.xml"/>
     </input>
 
+    <output>
+        <human-readable-time value="false"/>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
     <time>
-        <step-length value="0.2"/>
         <end value="1800"/>
+        <step-length value="0.2"/>
     </time>
 
     <processing>
         <tls.all-off value="true"/>
     </processing>
+
+    <report>
+        <duration-log.statistics value="true"/>
+    </report>
 
     <gui_only>
         <gui-settings-file value="DRT/gv.xml"/>
@@ -26,8 +35,5 @@
         <game.mode value="drt"/>
         <start value="true"/>
     </gui_only>
-    <human-readable-time value="false"/>
-    <duration-log.statistics value="true"/>
-    <tripinfo-output value="tripinfos.xml"/>
 
 </configuration>
