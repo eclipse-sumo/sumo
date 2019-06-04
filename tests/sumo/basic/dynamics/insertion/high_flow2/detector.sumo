@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu May  2 22:11:18 2019 by Eclipse SUMO Version v1_2_0+0149-6b40db9d1b
+<!-- generated on Tue Jun  4 22:37:34 2019 by Eclipse SUMO Version v1_2_0+0149-6b40db9d1b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -35,10 +35,10 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e1_file.xsd">
-    <interval begin="0.00" end="900.00" id="beg2_0" nVehContrib="460" flow="1840.00" occupancy="8.90" speed="29.22" harmonicMeanSpeed="28.71" length="5.00" nVehEntered="460"/>
-    <interval begin="0.00" end="900.00" id="beg2_1" nVehContrib="548" flow="2192.00" occupancy="9.42" speed="32.43" harmonicMeanSpeed="32.32" length="5.00" nVehEntered="548"/>
-    <interval begin="900.00" end="1800.00" id="beg2_0" nVehContrib="493" flow="1972.00" occupancy="9.62" speed="28.67" harmonicMeanSpeed="28.46" length="5.00" nVehEntered="493"/>
-    <interval begin="900.00" end="1800.00" id="beg2_1" nVehContrib="586" flow="2344.00" occupancy="10.19" speed="32.06" harmonicMeanSpeed="31.95" length="5.00" nVehEntered="586"/>
-    <interval begin="1800.00" end="1908.00" id="beg2_0" nVehContrib="39" flow="1300.00" occupancy="6.05" speed="29.93" harmonicMeanSpeed="29.85" length="5.00" nVehEntered="39"/>
-    <interval begin="1800.00" end="1908.00" id="beg2_1" nVehContrib="53" flow="1766.67" occupancy="7.32" speed="33.66" harmonicMeanSpeed="33.51" length="5.00" nVehEntered="53"/>
+    <interval begin="0.00" end="900.00" id="beg2_0" nVehContrib="456" flow="1824.00" occupancy="8.95" speed="28.79" harmonicMeanSpeed="28.30" length="5.00" nVehEntered="456"/>
+    <interval begin="0.00" end="900.00" id="beg2_1" nVehContrib="550" flow="2200.00" occupancy="9.45" speed="32.45" harmonicMeanSpeed="32.35" length="5.00" nVehEntered="550"/>
+    <interval begin="900.00" end="1800.00" id="beg2_0" nVehContrib="484" flow="1936.00" occupancy="9.53" speed="28.95" harmonicMeanSpeed="28.21" length="5.00" nVehEntered="485"/>
+    <interval begin="900.00" end="1800.00" id="beg2_1" nVehContrib="565" flow="2260.00" occupancy="9.71" speed="32.43" harmonicMeanSpeed="32.32" length="5.00" nVehEntered="565"/>
+    <interval begin="1800.00" end="1899.00" id="beg2_0" nVehContrib="41" flow="1490.91" occupancy="7.16" speed="29.03" harmonicMeanSpeed="28.86" length="5.00" nVehEntered="40"/>
+    <interval begin="1800.00" end="1899.00" id="beg2_1" nVehContrib="53" flow="1927.27" occupancy="8.06" speed="33.44" harmonicMeanSpeed="33.21" length="5.00" nVehEntered="53"/>
 </detector>

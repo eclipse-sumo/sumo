@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu May  2 22:12:28 2019 by Eclipse SUMO Version v1_2_0+0149-6b40db9d1b
+<!-- generated on Tue Jun  4 22:38:37 2019 by Eclipse SUMO Version v1_2_0+0149-6b40db9d1b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -491,7 +491,7 @@ SPDX-License-Identifier: EPL-2.0
     <change id="main1.988" type="t0" time="1106.00" from="beg2_1" to="beg2_0" dir="-1" speed="2.23" pos="315.61" reason="speedGain" leaderGap="21.72" leaderSecureGap="2.23" followerGap="None" followerSecureGap="None" origLeaderGap="3.77" origLeaderSecureGap="2.23"/>
     <change id="main1.977" type="t0" time="1112.00" from="beg2_1" to="beg2_0" dir="-1" speed="0.53" pos="330.07" reason="speedGain" leaderGap="11.06" leaderSecureGap="0.53" followerGap="None" followerSecureGap="None" origLeaderGap="3.75" origLeaderSecureGap="0.53"/>
     <change id="main1.975" type="t0" time="1128.00" from="beg2_1" to="beg2_0" dir="-1" speed="2.14" pos="352.31" reason="speedGain" leaderGap="66.23" leaderSecureGap="0.00" followerGap="None" followerSecureGap="None" origLeaderGap="5.70" origLeaderSecureGap="2.14"/>
-    <change id="main1.830" type="t0" time="1180.00" from="beg2_1" to="beg2_0" dir="-1" speed="30.58" pos="2682.20" reason="keepRight" leaderGap="24.84" leaderSecureGap="21.88" followerGap="28.17" followerSecureGap="24.47" origLeaderGap="62.54" origLeaderSecureGap="38.27"/>
-    <change id="main0.896" type="t0" time="1181.00" from="beg2_0" to="beg2_1" dir="1" speed="29.42" pos="2741.46" reason="speedGain" leaderGap="34.65" leaderSecureGap="17.75" followerGap="65.36" followerSecureGap="42.76" origLeaderGap="38.44" origLeaderSecureGap="23.15"/>
-    <change id="main1.975" type="t0" time="1212.00" from="beg2_0" to="beg2_1" dir="1" speed="30.25" pos="2671.82" reason="speedGain" leaderGap="32.56" leaderSecureGap="25.77" followerGap="None" followerSecureGap="None" origLeaderGap="38.23" origLeaderSecureGap="32.55"/>
+    <change id="main1.830" type="t0" time="1180.00" from="beg2_1" to="beg2_0" dir="-1" speed="30.58" pos="2682.20" reason="keepRight" leaderGap="24.82" leaderSecureGap="21.86" followerGap="28.18" followerSecureGap="24.48" origLeaderGap="62.54" origLeaderSecureGap="38.27"/>
+    <change id="main0.896" type="t0" time="1181.00" from="beg2_0" to="beg2_1" dir="1" speed="29.43" pos="2741.44" reason="speedGain" leaderGap="34.66" leaderSecureGap="17.77" followerGap="65.34" followerSecureGap="42.75" origLeaderGap="38.43" origLeaderSecureGap="23.16"/>
+    <change id="main1.975" type="t0" time="1212.00" from="beg2_0" to="beg2_1" dir="1" speed="30.25" pos="2671.83" reason="speedGain" leaderGap="32.56" leaderSecureGap="25.77" followerGap="None" followerSecureGap="None" origLeaderGap="38.23" origLeaderSecureGap="32.55"/>
 </lanechanges>
