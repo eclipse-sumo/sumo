@@ -23,7 +23,7 @@ length 2.0
 MinGap 2.22
 width 1.11
 waiting time 0.0
-stage 2
+stage Stage(type=2, vType='', line='', destStop='', edges=('2fi', '2si', '1o'), travelTime=-1.0, cost=-1.0, length=766.537661434478, intended='', depart=-1073741824.0, departPos=238.5, arrivalPos=486.54, description='walking')
 remainingStages 1
 edges ('2fi', '2si', '1o')
 vehicle 
@@ -50,7 +50,7 @@ length 2.0
 MinGap 2.22
 width 1.11
 waiting time 0.0
-stage 2
+stage Stage(type=2, vType='', line='', destStop='', edges=('2fi', '2si', '1o'), travelTime=-1.0, cost=-1.0, length=766.537661434478, intended='', depart=-1073741824.0, departPos=238.5, arrivalPos=486.54, description='walking')
 remainingStages 1
 edges ('2fi', '2si', '1o')
 vehicle 
