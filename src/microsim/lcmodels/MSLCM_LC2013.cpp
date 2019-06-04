@@ -1266,10 +1266,16 @@ MSLCM_LC2013::_wantsChange(
             const double deltaV = MAX2(vMax - neighLane.getVehicleMaxSpeed(nv),
                                        myVehicle.getSpeed() - nv->getSpeed());
             if (deltaV > 0) {
-                double vSafe = MAX2(
-                                   myCarFollowModel.getSpeedAfterMaxDecel(myVehicle.getSpeed()),
-                                   myCarFollowModel.followSpeed(
-                                       &myVehicle, myVehicle.getSpeed(), neighLead.second, nv->getSpeed(), nv->getCarFollowModel().getMaxDecel()));
+                const double vMaxDecel = myCarFollowModel.getSpeedAfterMaxDecel(myVehicle.getSpeed());
+                const double vSafeFollow = myCarFollowModel.followSpeed(
+                                       &myVehicle, myVehicle.getSpeed(), neighLead.second, nv->getSpeed(), nv->getCarFollowModel().getMaxDecel());
+                const double vStayBehind = nv->getSpeed() - HELP_OVERTAKE;
+                double vSafe;
+                if (vSafeFollow >= vMaxDecel) {
+                    vSafe = vSafeFollow;
+                } else {
+                    vSafe = MAX2(vMaxDecel, vStayBehind);
+                }
                 if (mySpeedGainProbability < myChangeProbThresholdLeft) {
                     vSafe = MAX2(vSafe, nv->getSpeed());
                 }
