@@ -347,6 +347,10 @@ public:
     /// @brief to be called when the font context is invalidated
     static void resetFont();
 
+    static void setGL2PS(bool active=true) {
+        myGL2PSActive = active;
+    }
+
 private:
     /// @brief normalize angle for lookup in myCircleCoords
     static int angleLookup(double angleDeg);
@@ -364,6 +368,9 @@ private:
     /// @brief Font context
     static struct FONScontext* myFont;
     static double myFontSize;
+
+    /// @brief whether we are currently rendering for gl2ps
+    static bool myGL2PSActive;
 
     /// @brief static vector with a list of alternated black/white colors (used for contourns)
     static std::vector<RGBColor> myDottedcontourColors;

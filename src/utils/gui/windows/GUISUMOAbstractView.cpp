@@ -1120,6 +1120,7 @@ GUISUMOAbstractView::makeSnapshot(const std::string& destFile, const int width, 
         if (fp == 0) {
             return "Could not save '" + destFile + "'.\n Could not open file for writing";
         }
+        GLHelper::setGL2PS();
         GLint buffsize = 0, state = GL2PS_OVERFLOW;
         GLint viewport[4];
         glGetIntegerv(GL_VIEWPORT, viewport);
@@ -1160,6 +1161,7 @@ GUISUMOAbstractView::makeSnapshot(const std::string& destFile, const int width, 
             state = gl2psEndPage();
             glFinish();
         }
+        GLHelper::setGL2PS(false);
         fclose(fp);
 #else
         return "Could not save '" + destFile + "', gl2ps was not enabled at compile time.";

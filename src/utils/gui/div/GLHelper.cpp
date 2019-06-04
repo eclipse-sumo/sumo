@@ -42,7 +42,9 @@
 #define GLFONTSTASH_IMPLEMENTATION // Expands implementation
 #include <foreign/fontstash/glfontstash.h>
 #include <utils/geom/Boundary.h>
-
+#ifdef HAVE_GL2PS
+#include <gl2ps.h>
+#endif
 #include "Roboto.h"
 #include "GLHelper.h"
 
@@ -55,6 +57,7 @@ std::vector<std::pair<double, double> > GLHelper::myCircleCoords;
 std::vector<RGBColor> GLHelper::myDottedcontourColors;
 FONScontext* GLHelper::myFont = nullptr;
 double GLHelper::myFontSize = 50.0;
+bool GLHelper::myGL2PSActive = false;
 
 void APIENTRY combCallback(GLdouble coords[3],
                            GLdouble* vertex_data[4],
@@ -619,10 +622,19 @@ GLHelper::drawText(const std::string& text, const Position& pos,
     }
     if (!initFont()) {
         return;
-    };
+    }
     glPushMatrix();
     glAlphaFunc(GL_GREATER, 0.5);
     glEnable(GL_ALPHA_TEST);
+#ifdef HAVE_GL2PS
+    if (myGL2PSActive) {
+        glRasterPos3d(pos.x(), pos.y(), layer);
+        GLfloat color[] = {col.red() / 255.f, col.green() / 255.f, col.blue() / 255.f, col.alpha() / 255.f};
+        gl2psTextOptColor(text.c_str(), "Roboto", 10, align == 0 ? GL2PS_TEXT_C : align, -angle, color);
+        glPopMatrix();
+        return;
+    }
+#endif
     glTranslated(pos.x(), pos.y(), layer);
     glScaled(width / myFontSize, size / myFontSize, 1.);
     glRotated(-angle, 0, 0, 1);
@@ -757,5 +769,5 @@ GLHelper::drawBoundary(const Boundary& b) {
     glPopMatrix();
 }
 
-/****************************************************************************/
 
+/****************************************************************************/
