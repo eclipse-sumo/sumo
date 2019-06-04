@@ -89,11 +89,12 @@ public:
 
     public:
         /** @brief Constructor
-         * @param[in] vehicle GNEVehicle to be transformed
+         * @param[in] vehicle clicked GNEVehicle
+         * @param[in] selectedVehicle vector with selected GNEVehicle
          * @param[in] app The main window for instantiation of other windows
          * @param[in] parent The parent view for changing it
          */
-        GNESelectedVehiclesPopupMenu(GNEVehicle *vehicle, GUIMainWindow& app, GUISUMOAbstractView& parent);
+        GNESelectedVehiclesPopupMenu(GNEVehicle *vehicle, const std::vector<GNEVehicle*> &selectedVehicle, GUIMainWindow& app, GUISUMOAbstractView& parent);
 
         /// @brief Destructor
         ~GNESelectedVehiclesPopupMenu();
@@ -106,8 +107,11 @@ public:
         GNESelectedVehiclesPopupMenu() { }
 
     private:
-        /// @brief current vehicle
-        GNEVehicle *myVehicle;
+        /// @brief tag of clicked vehicle
+        SumoXMLTag myVehicleTag;
+
+        /// @brief current selected vehicles
+        std::vector<GNEVehicle*> mySelectedVehicles;
 
         /// @brief menu command for transform to vehicle
         FXMenuCommand* myTransformToVehicle;
@@ -126,6 +130,24 @@ public:
 
         /// @brief menu command for transform to flow
         FXMenuCommand* myTransformToFlow;
+
+        /// @brief menu command for transform all selected vehicles to vehicle
+        FXMenuCommand* myTransformAllVehiclesToVehicle;
+
+        /// @brief menu command for transform all selected vehicles to vehicle with an embedded route
+        FXMenuCommand* myTransformAllVehiclesToVehicleWithEmbeddedRoute;
+
+        /// @brief menu command for transform all selected vehicles to route flow
+        FXMenuCommand* myTransformAllVehiclesToRouteFlow;
+
+        /// @brief menu command for transform all selected vehicles to route flow with an embedded route
+        FXMenuCommand* myTransformAllVehiclesToRouteFlowWithEmbeddedRoute;
+
+        /// @brief menu command for transform all selected vehicles to trip
+        FXMenuCommand* myTransformAllVehiclesToTrip;
+
+        /// @brief menu command for transform all selected vehicles to flow
+        FXMenuCommand* myTransformAllVehiclesToFlow;
     };
 
     /// @brief default constructor for vehicles and routeFlows without embedded routes
