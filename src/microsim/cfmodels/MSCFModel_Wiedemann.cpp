@@ -33,6 +33,7 @@
 #include <microsim/MSLane.h>
 #include <utils/common/RandHelper.h>
 
+//#define DEBUG_V
 
 // ===========================================================================
 // static members
@@ -97,7 +98,6 @@ MSCFModel_Wiedemann::duplicate(const MSVehicleType* vtype) const {
     return new MSCFModel_Wiedemann(vtype);
 }
 
-
 double
 MSCFModel_Wiedemann::_v(const MSVehicle* veh, double predSpeed, double gap) const {
     const VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
@@ -136,6 +136,12 @@ MSCFModel_Wiedemann::_v(const MSVehicle* veh, double predSpeed, double gap) cons
     // since we have hard constrainst on accel we may as well use them here
     accel = MAX2(MIN2(accel, myAccel), -myEmergencyDecel);
     const double vNew = MAX2(0., v + ACCEL2SPEED(accel)); // don't allow negative speeds
+#ifdef DEBUG_V
+    if (veh->isSelected()) {
+        std::cout << SIMTIME << " Wiedemann::_v veh=" << veh->getID() << " predSpeed=" << predSpeed << " gap=" << gap
+            << " dv=" << dv << " ax=" << myAX << " bx=" << bx << " sdx=" << sdx << " sdv=" << sdv << " cldv=" << cldv << " opdv=" << opdv << " accel=" << accel << " vNew=" << vNew << "\n";
+    }
+#endif
     return vNew;
 }
 
