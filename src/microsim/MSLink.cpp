@@ -1161,7 +1161,9 @@ MSLink::checkWalkingAreaFoe(const MSVehicle* ego, const MSLane* foeLane, std::ve
                 }
             }
         }
-        result.push_back(LinkLeader((MSVehicle*)nullptr, -1, distToPeds));
+        if (distToPeds != std::numeric_limits<double>::max()) {
+            result.push_back(LinkLeader((MSVehicle*)nullptr, -1, distToPeds));
+        }
     }
 }
 
