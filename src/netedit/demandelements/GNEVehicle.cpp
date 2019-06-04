@@ -186,39 +186,27 @@ GNEVehicle::GNESelectedVehiclesPopupMenu::GNESelectedVehiclesPopupMenu(GNEVehicl
         this->insertMenuPaneChild(transformOperation);
         new FXMenuCascade(this, "transform to", nullptr, transformOperation);
         // Create menu comands for all transform
-        myTransformToVehicle = new FXMenuCommand(transformOperation, "Vehicle", vehicleIcon, this, MID_GNE_VEHICLE_TRANSFORM);
-        myTransformToVehicleWithEmbeddedRoute = new FXMenuCommand(transformOperation, "Vehicle (embedded route)", vehicleIcon, this, MID_GNE_VEHICLE_TRANSFORM);
-        myTransformToRouteFlow = new FXMenuCommand(transformOperation, "RouteFlow", routeFlowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
-        myTransformToRouteFlowWithEmbeddedRoute = new FXMenuCommand(transformOperation, "RouteFlow (embedded route)", routeFlowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
-        myTransformToTrip = new FXMenuCommand(transformOperation, "Trip", tripIcon, this, MID_GNE_VEHICLE_TRANSFORM);
-        myTransformToFlow = new FXMenuCommand(transformOperation, "Flow", flowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        myTransformToVehicle = new FXMenuCommand(transformOperation, 
+            ("Vehicles (Only " + vehicle->getTagStr() + ")").c_str(), vehicleIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        myTransformToVehicleWithEmbeddedRoute = new FXMenuCommand(transformOperation, 
+            ("Vehicles (embedded route, only " + vehicle->getTagStr() + ")").c_str(), vehicleIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        myTransformToRouteFlow = new FXMenuCommand(transformOperation, 
+            ("RouteFlows (Only " + vehicle->getTagStr() + ")").c_str(), routeFlowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        myTransformToRouteFlowWithEmbeddedRoute = new FXMenuCommand(transformOperation, 
+            ("RouteFlows (embedded route, only " + vehicle->getTagStr() + ")").c_str(), routeFlowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        myTransformToTrip = new FXMenuCommand(transformOperation, 
+            ("Trips (Only " + vehicle->getTagStr() + ")").c_str(), tripIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        myTransformToFlow = new FXMenuCommand(transformOperation, 
+            ("Flows (Only " + vehicle->getTagStr() + ")").c_str(), flowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
         // create separator
         new FXMenuSeparator(transformOperation);
         // Create menu comands for all transform all vehicles
-        myTransformAllVehiclesToVehicle = new FXMenuCommand(transformOperation, "Vehicle", vehicleIcon, this, MID_GNE_VEHICLE_TRANSFORM);
-        myTransformAllVehiclesToVehicleWithEmbeddedRoute = new FXMenuCommand(transformOperation, "Vehicle (embedded route)", vehicleIcon, this, MID_GNE_VEHICLE_TRANSFORM);
-        myTransformAllVehiclesToRouteFlow = new FXMenuCommand(transformOperation, "RouteFlow", routeFlowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
-        myTransformAllVehiclesToRouteFlowWithEmbeddedRoute = new FXMenuCommand(transformOperation, "RouteFlow (embedded route)", routeFlowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
-        myTransformAllVehiclesToTrip = new FXMenuCommand(transformOperation, "Trip", tripIcon, this, MID_GNE_VEHICLE_TRANSFORM);
-        myTransformAllVehiclesToFlow = new FXMenuCommand(transformOperation, "Flow", flowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
-        // check what menu command has to be disabled
-        if (vehicle->getTagProperty().getTag() == SUMO_TAG_VEHICLE) {
-            if (vehicle->getDemandElementParents().size() > 1) {
-                myTransformToVehicle->disable();
-            } else {
-                myTransformToVehicleWithEmbeddedRoute->disable();
-            }
-        } else if (vehicle->getTagProperty().getTag() == SUMO_TAG_ROUTEFLOW) {
-            if (vehicle->getDemandElementParents().size() > 1) {
-                myTransformToRouteFlow->disable();
-            } else {
-                myTransformToRouteFlowWithEmbeddedRoute->disable();
-            }
-        } else if (vehicle->getTagProperty().getTag() == SUMO_TAG_TRIP) {
-            myTransformToTrip->disable();
-        } else if (vehicle->getTagProperty().getTag() == SUMO_TAG_FLOW) {
-            myTransformToFlow->disable();
-        }
+        myTransformAllVehiclesToVehicle = new FXMenuCommand(transformOperation, "Vehicles", vehicleIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        myTransformAllVehiclesToVehicleWithEmbeddedRoute = new FXMenuCommand(transformOperation, "Vehicles (embedded route)", vehicleIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        myTransformAllVehiclesToRouteFlow = new FXMenuCommand(transformOperation, "RouteFlows", routeFlowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        myTransformAllVehiclesToRouteFlowWithEmbeddedRoute = new FXMenuCommand(transformOperation, "RouteFlows (embedded route)", routeFlowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        myTransformAllVehiclesToTrip = new FXMenuCommand(transformOperation, "Trips", tripIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        myTransformAllVehiclesToFlow = new FXMenuCommand(transformOperation, "Flows", flowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
     }
 }
 
@@ -230,17 +218,23 @@ long
 GNEVehicle::GNESelectedVehiclesPopupMenu::onCmdTransform(FXObject* obj, FXSelector, void*) {
     // iterate over all selected vehicles
     for (const auto &i : mySelectedVehicles) {
-        if (obj == myTransformToVehicle) {
+        if ((obj == myTransformToVehicle) && 
+            (i->getTagProperty().getTag() == myVehicleTag)) {
             GNERouteHandler::transformToVehicle(i, false);
-        } else if (obj == myTransformToVehicleWithEmbeddedRoute) {
+        } else if ((obj == myTransformToVehicleWithEmbeddedRoute) && 
+            (i->getTagProperty().getTag() == myVehicleTag)) {
             GNERouteHandler::transformToVehicle(i, true);
-        } else if (obj == myTransformToRouteFlow) { 
+        } else if ((obj == myTransformToRouteFlow) && 
+            (i->getTagProperty().getTag() == myVehicleTag)) { 
             GNERouteHandler::transformToRouteFlow(i, false);
-        } else if (obj == myTransformToRouteFlowWithEmbeddedRoute) { 
+        } else if ((obj == myTransformToRouteFlowWithEmbeddedRoute) && 
+            (i->getTagProperty().getTag() == myVehicleTag)) { 
             GNERouteHandler::transformToRouteFlow(i, true);
-        } else if (obj == myTransformToTrip) { 
+        } else if ((obj == myTransformToTrip) && 
+            (i->getTagProperty().getTag() == myVehicleTag)) { 
             GNERouteHandler::transformToTrip(i);
-        } else if (obj == myTransformToFlow) { 
+        } else if ((obj == myTransformToFlow) && 
+            (i->getTagProperty().getTag() == myVehicleTag)) { 
             GNERouteHandler::transformToFlow(i);
         } else if (obj == myTransformAllVehiclesToVehicle) {
             GNERouteHandler::transformToVehicle(i, false);
