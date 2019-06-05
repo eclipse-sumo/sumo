@@ -2885,20 +2885,18 @@ MSDevice_SSM::getVehiclesOnJunction(const MSJunction* junction, double egoDistTo
               << std::endl;
 #endif
     // FoeInfo creation
-    auto collectFoeInfos = [&](const MSLane::VehCont& vehicles) 
-    {
-        for (MSLane::VehCont::const_iterator vi = vehicles.begin(); vi != vehicles.end(); ++vi) {
-            MSVehicle* veh = *vi;
+    auto collectFoeInfos = [&](const MSLane::VehCont& vehicles) {
+        for (MSVehicle* veh : vehicles) {
             if (foeCollector.find(veh) != foeCollector.end()) {
                 delete foeCollector[veh];
             }
             FoeInfo* c = new FoeInfo();
             c->egoConflictLane = egoConflictLane;
             c->egoDistToConflictLane = egoDistToConflictLane;
-            foeCollector[*vi] = c;
+            foeCollector[veh] = c;
 #ifdef DEBUG_SSM_SURROUNDING
-            for (MSLane::VehCont::const_iterator vi = vehicles.begin(); vi != vehicles.end(); ++vi) {
-                std::cout << (*vi)->getID() << "\n";
+            for (MSVehicle* veh : vehicles) {
+                std::cout << veh->getID() << "\n";
             }
 #endif
         }
