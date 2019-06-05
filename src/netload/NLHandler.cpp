@@ -171,6 +171,7 @@ NLHandler::myStartElement(int element,
                 break;
             case SUMO_TAG_CHARGING_STATION:
                 myTriggerBuilder.parseAndBuildChargingStation(myNet, attrs);
+                myLastParameterised.push_back(myTriggerBuilder.getCurrentStop());
                 break;
             case SUMO_TAG_VTYPEPROBE:
                 addVTypeProbeDetector(attrs);
@@ -292,6 +293,7 @@ NLHandler::myEndElement(int element) {
         case SUMO_TAG_BUS_STOP:
         case SUMO_TAG_TRAIN_STOP:
         case SUMO_TAG_CONTAINER_STOP:
+        case SUMO_TAG_CHARGING_STATION:
             myTriggerBuilder.endStoppingPlace();
             myLastParameterised.pop_back();
             break;

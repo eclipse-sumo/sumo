@@ -500,6 +500,7 @@ NLTriggerBuilder::buildChargingStation(MSNet& net, const std::string& id, MSLane
         delete chargingStation;
         throw InvalidArgument("Could not build charging station '" + id + "'; probably declared twice.");
     }
+    myCurrentStop = chargingStation;
 }
 
 std::string

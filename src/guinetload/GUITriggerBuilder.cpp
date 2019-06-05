@@ -112,6 +112,7 @@ GUITriggerBuilder::buildChargingStation(MSNet& net, const std::string& id, MSLan
         delete chargingStation;
         throw InvalidArgument("Could not build charging station '" + id + "'; probably declared twice.");
     }
+    myCurrentStop = chargingStation;
     static_cast<GUINet&>(net).getVisualisationSpeedUp().addAdditionalGLObject(chargingStation);
 }
 
