@@ -114,7 +114,13 @@ public:
     GNEConnection* getNextConnection(const GNEEdge* edgeFrom) const;
 
     /// @brief get next LineGeometry to the next consecutive edge of the given edge
-    LineGeometry getLinetoNextEdge(const GNEEdge* edgeFrom) const;
+    LineGeometry getLinetoNextEdge(const GNEEdge* edge, int nextEdgeLaneIndex) const;
+
+
+    const std::pair<int, int> &getEdgeParentsFrontBackLaneIndex(const GNEEdge* edge) const;
+
+    ///
+    void recalculateEdgeParentsFrontBackLaneIndex();
 
     /// @}
 
@@ -270,6 +276,9 @@ private:
 
     /// @brief list of demand elements parents of this element
     std::vector<GNEDemandElement*> myDemandElementParents;
+
+    /// @brief vector used to save lane index of Edge parents (used for drawing routes)
+    std::vector<std::pair<int, int>> myEdgeParentsFrontBackLaneIndex;
 
     /// @brief pointer to AC (needed to avoid diamond problem)
     GNEAttributeCarrier* myAC;

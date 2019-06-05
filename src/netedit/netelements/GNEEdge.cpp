@@ -592,7 +592,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
 
 
 NBEdge*
-GNEEdge::getNBEdge() {
+GNEEdge::getNBEdge() const {
     return &myNBEdge;
 }
 
@@ -1893,25 +1893,37 @@ GNEEdge::drawPartialRoute(const GUIVisualizationSettings& s, GNEDemandElement *r
     } else {
         GLHelper::setColor(route->getColor());
     }
-    // check in what lane the partial route drawn
-    int index = -1;
-    for (int i = 0; (i < (int)myNBEdge.getLanes().size()) && (index == -1); i++) {
-        if (myNBEdge.getLanes().at(i).permissions & route->getVClass()) {
-            index = i;
+    
+    const std::pair<int, int> &indexes = route->getEdgeParentsFrontBackLaneIndex(this);
+
+    if (indexes.first == indexes.second) {
+        GLHelper::drawBoxLines(
+            myLanes.at(indexes.first)->getGeometry().shape, 
+            myLanes.at(indexes.first)->getGeometry().shapeRotations, 
+            myLanes.at(indexes.first)->getGeometry().shapeLengths, routeWidth);
+
+    } else {
+        // draw route
+        for (int i = 0; i < (myLanes.at(indexes.first)->getGeometry().shape.size() - 2); i++) {
+            GLHelper::drawBoxLine(
+                myLanes.at(indexes.first)->getGeometry().shape[i], 
+                myLanes.at(indexes.first)->getGeometry().shapeRotations[i], 
+                myLanes.at(indexes.first)->getGeometry().shapeLengths[i], routeWidth);
         }
+
+        GNEHierarchicalElementParents::LineGeometry lineGeometry = route->getLinetoNextEdge(this, indexes.second);
+        GNEHierarchicalElementParents::LineGeometry lineGeometry2(myLanes.at(indexes.first)->getGeometry().shape[myLanes.at(indexes.first)->getGeometry().shape.size()-2]);
+        lineGeometry2.calculateRotationsAndLength(lineGeometry.firstPoint);
+
+        GLHelper::drawBoxLine(lineGeometry2.firstPoint, lineGeometry2.rotation, lineGeometry2.lenght, routeWidth);
     }
-    if (index == -1) {
-        index = 0;
-    }
-    // draw route
-    GLHelper::drawBoxLines(myLanes.at(index)->getGeometry().shape, myLanes.at(index)->getGeometry().shapeRotations, myLanes.at(index)->getGeometry().shapeLengths, routeWidth);
     // check if route has a connectio between this and the next edge
     GNEConnection *nextConnection = route->getNextConnection(this);
     if (nextConnection && (nextConnection->getEdgeFrom()->getGNEJunctionDestiny()->getNBNode()->getShape().size() > 0)) {
         GLHelper::drawBoxLines(nextConnection->getGeometry().shape, nextConnection->getGeometry().shapeRotations, nextConnection->getGeometry().shapeLengths, routeWidth);
     } else {
         // calculate line between this and the next edge
-        GNEHierarchicalElementParents::LineGeometry lineGeometry = route->getLinetoNextEdge(this);
+        GNEHierarchicalElementParents::LineGeometry lineGeometry = route->getLinetoNextEdge(this, indexes.second);
         GLHelper::drawBoxLine(lineGeometry.firstPoint, lineGeometry.rotation, lineGeometry.lenght, routeWidth);
     }
     // Pop last matrix
@@ -1972,7 +1984,7 @@ GNEEdge::drawPartialTripFromTo(const GUIVisualizationSettings& s, GNEDemandEleme
         GLHelper::drawBoxLines(nextConnection->getGeometry().shape, nextConnection->getGeometry().shapeRotations, nextConnection->getGeometry().shapeLengths, tripOrFromToWidth);
     } else {
         // calculate line between this and the next edge
-        GNEHierarchicalElementParents::LineGeometry lineGeometry = tripOrFromTo->getLinetoNextEdge(this);
+        GNEHierarchicalElementParents::LineGeometry lineGeometry = tripOrFromTo->getLinetoNextEdge(this, 0);
         GLHelper::drawBoxLine(lineGeometry.firstPoint, lineGeometry.rotation, lineGeometry.lenght, tripOrFromToWidth);
     }
     // Pop last matrix

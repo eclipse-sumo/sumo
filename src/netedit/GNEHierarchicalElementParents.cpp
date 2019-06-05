@@ -85,6 +85,11 @@ GNEHierarchicalElementParents::GNEHierarchicalElementParents(GNEAttributeCarrier
     myAdditionalParents(additionalParents),
     myDemandElementParents(demandElementParents),
     myAC(AC) {
+    // fill myEdgeParentsLaneIndex
+    myEdgeParentsFrontBackLaneIndex.reserve(edgeParents.size());
+    for (const auto &i : edgeParents) {
+        myEdgeParentsFrontBackLaneIndex.push_back(std::make_pair(0,0));
+    }
 }
 
 
@@ -158,6 +163,7 @@ GNEHierarchicalElementParents::addEdgeParent(GNEEdge* edge) {
         throw InvalidArgument("Trying to add a duplicate " + toString(SUMO_TAG_EDGE) + " parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
     } else {
         myEdgeParents.push_back(edge);
+        myEdgeParentsFrontBackLaneIndex.push_back(std::make_pair(0,0));
     }
 }
 
@@ -167,10 +173,14 @@ GNEHierarchicalElementParents::removeEdgeParent(GNEEdge* edge) {
     // Check that edge is valid and exist previously
     if (edge == nullptr) {
         throw InvalidArgument("Trying to remove an empty " + toString(SUMO_TAG_EDGE) + " parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
-    } else if (std::find(myEdgeParents.begin(), myEdgeParents.end(), edge) == myEdgeParents.end()) {
-        throw InvalidArgument("Trying to remove a non previously inserted " + toString(SUMO_TAG_EDGE) + " parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
     } else {
-        myEdgeParents.erase(std::find(myEdgeParents.begin(), myEdgeParents.end(), edge));
+        auto it = std::find(myEdgeParents.begin(), myEdgeParents.end(), edge);
+        if (it == myEdgeParents.end()) {
+            throw InvalidArgument("Trying to remove a non previously inserted " + toString(SUMO_TAG_EDGE) + " parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+        } else {
+            myEdgeParentsFrontBackLaneIndex.erase(myEdgeParentsFrontBackLaneIndex.begin() + (it - myEdgeParents.begin()));
+            myEdgeParents.erase(it);
+        }
     }
 }
 
@@ -226,17 +236,47 @@ GNEHierarchicalElementParents::getNextConnection(const GNEEdge* edgeFrom) const 
 
 
 GNEHierarchicalElementParents::LineGeometry
-GNEHierarchicalElementParents::getLinetoNextEdge(const GNEEdge* edgeFrom) const {
+GNEHierarchicalElementParents::getLinetoNextEdge(const GNEEdge* edgeFrom, int nextEdgeLaneIndex) const {
     // declare a LineGeometry
     LineGeometry geometry(edgeFrom->getLanes().front()->getGeometry().shape.back());
     for (int i = 0; i < (int)getEdgeParents().size(); i++) {
         if ((getEdgeParents().at(i) == edgeFrom) && i < ((int)getEdgeParents().size()-1)) {
             // update second point
             // calculate rotation and lenght
-            geometry.calculateRotationsAndLength(getEdgeParents().at(i+1)->getLanes().front()->getGeometry().shape.front());
+            geometry.calculateRotationsAndLength(getEdgeParents().at(i+1)->getLanes().at(nextEdgeLaneIndex)->getGeometry().shape.front());
         }
     }
     return geometry;
+}
+
+
+const std::pair<int, int> &
+GNEHierarchicalElementParents::getEdgeParentsFrontBackLaneIndex(const GNEEdge* edge) const {
+    auto it = std::find(myEdgeParents.begin(), myEdgeParents.end(), edge);
+    if (it != myEdgeParents.end()) {
+        return myEdgeParentsFrontBackLaneIndex.at(it - myEdgeParents.begin());
+    } else {
+        throw InvalidArgument("edge with ID=" + edge->getID() + " isn't a parent edge");
+    }
+}
+
+
+void 
+GNEHierarchicalElementParents::recalculateEdgeParentsFrontBackLaneIndex() {
+    for (int i = 0; i < myEdgeParents.size(); i++) {
+        // obtain first connection
+        GNEConnection *con = getNextConnection(myEdgeParents.at(i));
+        if (con) {
+            if (i == 0) {
+                myEdgeParentsFrontBackLaneIndex.at(i).first = con->getLaneFrom()->getIndex();
+            }
+            if (i == (myEdgeParents.size() - 2)) {
+                myEdgeParentsFrontBackLaneIndex.at(i+1).second = con->getLaneTo()->getIndex();
+            }
+            myEdgeParentsFrontBackLaneIndex.at(i).second = con->getLaneFrom()->getIndex();
+            myEdgeParentsFrontBackLaneIndex.at(i+1).first = con->getLaneTo()->getIndex();
+        }
+    }
 }
 
 

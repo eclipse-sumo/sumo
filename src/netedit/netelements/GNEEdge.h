@@ -182,7 +182,7 @@ public:
     /// @}
 
     /// @brief returns the internal NBEdge
-    NBEdge* getNBEdge();
+    NBEdge* getNBEdge() const;
 
     /// @brief returns the source-junction
     GNEJunction* getGNEJunctionSource() const;
