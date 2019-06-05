@@ -161,40 +161,50 @@ GUIMEVehicle::getColorValue(const GUIVisualizationSettings& /* s */, int activeS
         case 8:
             return getSpeed();
         case 9:
+            return 0; // by actionStep
+        case 10:
             return getWaitingSeconds();
         case 11:
-            return 0; // invalid getLastLaneChangeOffset();
+            return 0; // getAccumulatedWaitingSeconds
         case 12:
-            return getSegment()->getEdge().getVehicleMaxSpeed(this);
+            return 0; // invalid getLastLaneChangeOffset();
         case 13:
-            return 0; // invalid getCO2Emissions();
+            return getSegment()->getEdge().getVehicleMaxSpeed(this);
         case 14:
-            return 0; // invalid getCOEmissions();
+            return 0; // invalid getCO2Emissions();
         case 15:
-            return 0; // invalid getPMxEmissions();
+            return 0; // invalid getCOEmissions();
         case 16:
-            return 0; // invalid  getNOxEmissions();
+            return 0; // invalid getPMxEmissions();
         case 17:
-            return 0; // invalid getHCEmissions();
+            return 0; // invalid  getNOxEmissions();
         case 18:
-            return 0; // invalid getFuelConsumption();
+            return 0; // invalid getHCEmissions();
         case 19:
+            return 0; // invalid getFuelConsumption();
+        case 20:
             return 0; // invalid getHarmonoise_NoiseEmissions();
-        case 20: // !!! unused!?
+        case 21: // reroute number
             if (getNumberReroutes() == 0) {
                 return -1;
             }
             return getNumberReroutes();
-        case 21:
-            return gSelected.isSelected(GLO_VEHICLE, getGlID());
         case 22:
-            return 0; // invalid getBestLaneOffset();
+            return gSelected.isSelected(GLO_VEHICLE, getGlID());
         case 23:
-            return 0; // invalid getAcceleration();
+            return 0; // invalid getBestLaneOffset();
         case 24:
-            return 0; // invalid getTimeGapOnLane();
+            return 0; // invalid getAcceleration();
         case 25:
+            return 0; // invalid getTimeGapOnLane();
+        case 26:
             return STEPS2TIME(getDepartDelay());
+        case 27:
+            return 0; // electricityConsumption
+        case 28:
+            return 0; // timeLossSeconds
+        case 29:
+            return 0; // getSpeedLat
     }
     return 0;
 }
