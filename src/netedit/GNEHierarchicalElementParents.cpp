@@ -98,7 +98,7 @@ GNEHierarchicalElementParents::GNEHierarchicalElementParents(GNEAttributeCarrier
     // fill myEdgeParentsLaneIndex
     myEdgeGeometryLimits.reserve(edgeParents.size());
     for (const auto &i : edgeParents) {
-        myEdgeGeometryLimits.push_back(EdgeGeometryLimits(0,0, false));
+        myEdgeGeometryLimits.push_back(EdgeGeometryLimits(0,0, nullptr));
     }
 }
 
@@ -173,7 +173,7 @@ GNEHierarchicalElementParents::addEdgeParent(GNEEdge* edge) {
         throw InvalidArgument("Trying to add a duplicate " + toString(SUMO_TAG_EDGE) + " parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
     } else {
         myEdgeParents.push_back(edge);
-        myEdgeGeometryLimits.push_back(EdgeGeometryLimits(0,0, false));
+        myEdgeGeometryLimits.push_back(EdgeGeometryLimits(0,0, nullptr));
     }
 }
 
