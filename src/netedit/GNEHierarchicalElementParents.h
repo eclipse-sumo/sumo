@@ -69,6 +69,25 @@ public:
         LineGeometry();
     };
 
+    /// @brief struct for pack variables related to edge geometry limits
+    struct EdgeGeometryLimits {
+        /// @brief constructor
+        EdgeGeometryLimits(const int _indexBegin, const int _indexEnd, GNEConnection* _nextConnection);
+        
+        /// @brief index lane begin
+        int indexBegin;
+
+        /// @brief index lane end
+        int indexEnd;
+
+        /// @brief next connection
+        GNEConnection* nextConnection;
+
+    private:
+        /// @brief default constructor
+        EdgeGeometryLimits();
+    };
+
     /**@brief Constructor used by elements that have another additionals as parent
      * @param[in] tag Type of xml tag that define the element (SUMO_TAG_BUS_STOP, SUMO_TAG_JUNCTION, etc...)
      * @param[in] edgeParents vector of edge parents
@@ -110,17 +129,14 @@ public:
     /// @brief get edge parents in string format
     std::string getEdgeParentsStr() const;
 
-    /// @brief get next connection of the given edge (or NULL if not exist)
-    GNEConnection* getNextConnection(const GNEEdge* edgeFrom) const;
-
     /// @brief get next LineGeometry to the next consecutive edge of the given edge
     LineGeometry getLinetoNextEdge(const GNEEdge* edge, int nextEdgeLaneIndex) const;
 
+    /// @brief get edge geometry limits correspond to the given edge
+    const EdgeGeometryLimits &getEdgeGeometryLimits(const GNEEdge* edge) const;
 
-    const std::pair<int, int> &getEdgeParentsFrontBackLaneIndex(const GNEEdge* edge) const;
-
-    ///
-    void recalculateEdgeParentsFrontBackLaneIndex();
+    /// @brief recalculate edge geometry limites
+    void recalculateEdgeGeometryLimits();
 
     /// @}
 
@@ -277,11 +293,14 @@ private:
     /// @brief list of demand elements parents of this element
     std::vector<GNEDemandElement*> myDemandElementParents;
 
-    /// @brief vector used to save lane index of Edge parents (used for drawing routes)
-    std::vector<std::pair<int, int>> myEdgeParentsFrontBackLaneIndex;
+    /// @brief vector used to save edge geometry limits (used for drawing routes)
+    std::vector<EdgeGeometryLimits> myEdgeGeometryLimits;
 
     /// @brief pointer to AC (needed to avoid diamond problem)
     GNEAttributeCarrier* myAC;
+
+    /// @brief get next connection of the given edge (or NULL if not exist)
+    GNEConnection* getNextConnection(const GNEEdge* edgeFrom) const;
 
     /// @brief Invalidated copy constructor.
     GNEHierarchicalElementParents(const GNEHierarchicalElementParents&) = delete;

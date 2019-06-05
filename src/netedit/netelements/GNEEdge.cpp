@@ -1893,38 +1893,40 @@ GNEEdge::drawPartialRoute(const GUIVisualizationSettings& s, GNEDemandElement *r
     } else {
         GLHelper::setColor(route->getColor());
     }
-    
-    const std::pair<int, int> &indexes = route->getEdgeParentsFrontBackLaneIndex(this);
-
-    if (indexes.first == indexes.second) {
+    // obtain edge geometry limits
+    const GNEHierarchicalElementParents::EdgeGeometryLimits &edgeGeometryLimits = route->getEdgeGeometryLimits(this);
+    // calculate line between this and the next edge
+    GNEHierarchicalElementParents::LineGeometry lineToNetxtEdge = route->getLinetoNextEdge(this, edgeGeometryLimits.indexEnd);
+    // check if both limits have the same value
+    if (edgeGeometryLimits.indexBegin == edgeGeometryLimits.indexEnd) {
+        // if both limits have the same value, then drawn partial route over the same lane
         GLHelper::drawBoxLines(
-            myLanes.at(indexes.first)->getGeometry().shape, 
-            myLanes.at(indexes.first)->getGeometry().shapeRotations, 
-            myLanes.at(indexes.first)->getGeometry().shapeLengths, routeWidth);
-
+            myLanes.at(edgeGeometryLimits.indexBegin)->getGeometry().shape, 
+            myLanes.at(edgeGeometryLimits.indexBegin)->getGeometry().shapeRotations, 
+            myLanes.at(edgeGeometryLimits.indexBegin)->getGeometry().shapeLengths, routeWidth);
     } else {
-        // draw route
-        for (int i = 0; i < (myLanes.at(indexes.first)->getGeometry().shape.size() - 2); i++) {
+        // draw partial route except the last segment
+        for (int i = 0; i < ((int)myLanes.at(edgeGeometryLimits.indexBegin)->getGeometry().shape.size() - 2); i++) {
             GLHelper::drawBoxLine(
-                myLanes.at(indexes.first)->getGeometry().shape[i], 
-                myLanes.at(indexes.first)->getGeometry().shapeRotations[i], 
-                myLanes.at(indexes.first)->getGeometry().shapeLengths[i], routeWidth);
+                myLanes.at(edgeGeometryLimits.indexBegin)->getGeometry().shape[i], 
+                myLanes.at(edgeGeometryLimits.indexBegin)->getGeometry().shapeRotations[i], 
+                myLanes.at(edgeGeometryLimits.indexBegin)->getGeometry().shapeLengths[i], routeWidth);
         }
-
-        GNEHierarchicalElementParents::LineGeometry lineGeometry = route->getLinetoNextEdge(this, indexes.second);
-        GNEHierarchicalElementParents::LineGeometry lineGeometry2(myLanes.at(indexes.first)->getGeometry().shape[myLanes.at(indexes.first)->getGeometry().shape.size()-2]);
-        lineGeometry2.calculateRotationsAndLength(lineGeometry.firstPoint);
-
-        GLHelper::drawBoxLine(lineGeometry2.firstPoint, lineGeometry2.rotation, lineGeometry2.lenght, routeWidth);
+        // calculate last segment
+        Position lastSegmentBegin = myLanes.at(edgeGeometryLimits.indexBegin)->getGeometry().shape[(int)myLanes.at(edgeGeometryLimits.indexBegin)->getGeometry().shape.size() - 2];
+        Position lastSegmentEnd = myLanes.at(edgeGeometryLimits.indexEnd)->getGeometry().shape.back();
+        GNEHierarchicalElementParents::LineGeometry lastSegment(lastSegmentBegin);
+        lastSegment.calculateRotationsAndLength(lastSegmentEnd);
+        // draw last segment
+        GLHelper::drawBoxLine(lastSegment.firstPoint, lastSegment.rotation, lastSegment.lenght, routeWidth);
     }
-    // check if route has a connectio between this and the next edge
-    GNEConnection *nextConnection = route->getNextConnection(this);
-    if (nextConnection && (nextConnection->getEdgeFrom()->getGNEJunctionDestiny()->getNBNode()->getShape().size() > 0)) {
-        GLHelper::drawBoxLines(nextConnection->getGeometry().shape, nextConnection->getGeometry().shapeRotations, nextConnection->getGeometry().shapeLengths, routeWidth);
+    // draw next connection shape (or a single line)
+    if (edgeGeometryLimits.nextConnection && (edgeGeometryLimits.nextConnection->getEdgeFrom()->getGNEJunctionDestiny()->getNBNode()->getShape().size() > 0)) {
+        GLHelper::drawBoxLines(edgeGeometryLimits.nextConnection->getGeometry().shape, 
+            edgeGeometryLimits.nextConnection->getGeometry().shapeRotations, 
+            edgeGeometryLimits.nextConnection->getGeometry().shapeLengths, routeWidth);
     } else {
-        // calculate line between this and the next edge
-        GNEHierarchicalElementParents::LineGeometry lineGeometry = route->getLinetoNextEdge(this, indexes.second);
-        GLHelper::drawBoxLine(lineGeometry.firstPoint, lineGeometry.rotation, lineGeometry.lenght, routeWidth);
+        GLHelper::drawBoxLine(lineToNetxtEdge.firstPoint, lineToNetxtEdge.rotation, lineToNetxtEdge.lenght, routeWidth);
     }
     // Pop last matrix
     glPopMatrix();
@@ -1966,26 +1968,40 @@ GNEEdge::drawPartialTripFromTo(const GUIVisualizationSettings& s, GNEDemandEleme
     } else {
         GLHelper::setColor(RGBColor::ORANGE);
     }
-    // check in what lane the partial tripOrFromTo drawn
-    int index = -1;
-    for (int i = 0; (i < (int)myNBEdge.getLanes().size()) && (index == -1); i++) {
-        if (myNBEdge.getLanes().at(i).permissions & tripOrFromTo->getVClass()) {
-            index = i;
-        }
-    }
-    if (index == -1) {
-        index = 0;
-    }
-    // draw tripOrFromTo
-    GLHelper::drawBoxLines(myLanes.at(index)->getGeometry().shape, myLanes.at(index)->getGeometry().shapeRotations, myLanes.at(index)->getGeometry().shapeLengths, tripOrFromToWidth);
-    // check if tripOrFromTo has a connectio between this and the next edge
-    GNEConnection *nextConnection = tripOrFromTo->getNextConnection(this);
-    if (nextConnection && (nextConnection->getEdgeFrom()->getGNEJunctionDestiny()->getNBNode()->getShape().size() > 0)) {
-        GLHelper::drawBoxLines(nextConnection->getGeometry().shape, nextConnection->getGeometry().shapeRotations, nextConnection->getGeometry().shapeLengths, tripOrFromToWidth);
+    // obtain edge geometry limits
+    const GNEHierarchicalElementParents::EdgeGeometryLimits &edgeGeometryLimits = tripOrFromTo->getEdgeGeometryLimits(this);
+    // calculate line between this and the next edge
+    GNEHierarchicalElementParents::LineGeometry lineToNetxtEdge = tripOrFromTo->getLinetoNextEdge(this, edgeGeometryLimits.indexEnd);
+    // check if both limits have the same value
+    if (edgeGeometryLimits.indexBegin == edgeGeometryLimits.indexEnd) {
+        // if both limits have the same value, then drawn partial route over the same lane
+        GLHelper::drawBoxLines(
+            myLanes.at(edgeGeometryLimits.indexBegin)->getGeometry().shape, 
+            myLanes.at(edgeGeometryLimits.indexBegin)->getGeometry().shapeRotations, 
+            myLanes.at(edgeGeometryLimits.indexBegin)->getGeometry().shapeLengths, tripOrFromToWidth);
     } else {
-        // calculate line between this and the next edge
-        GNEHierarchicalElementParents::LineGeometry lineGeometry = tripOrFromTo->getLinetoNextEdge(this, 0);
-        GLHelper::drawBoxLine(lineGeometry.firstPoint, lineGeometry.rotation, lineGeometry.lenght, tripOrFromToWidth);
+        // draw partial route excet the last segment
+        for (int i = 0; i < ((int)myLanes.at(edgeGeometryLimits.indexBegin)->getGeometry().shape.size() - 2); i++) {
+            GLHelper::drawBoxLine(
+                myLanes.at(edgeGeometryLimits.indexBegin)->getGeometry().shape[i], 
+                myLanes.at(edgeGeometryLimits.indexBegin)->getGeometry().shapeRotations[i], 
+                myLanes.at(edgeGeometryLimits.indexBegin)->getGeometry().shapeLengths[i], tripOrFromToWidth);
+        }
+        // calculate last segment
+        Position lastSegmentBegin = myLanes.at(edgeGeometryLimits.indexBegin)->getGeometry().shape[(int)myLanes.at(edgeGeometryLimits.indexBegin)->getGeometry().shape.size() - 2];
+        Position lastSegmentEnd = myLanes.at(edgeGeometryLimits.indexEnd)->getGeometry().shape.back();
+        GNEHierarchicalElementParents::LineGeometry lastSegment(lastSegmentBegin);
+        lastSegment.calculateRotationsAndLength(lastSegmentEnd);
+        // draw last segment
+        GLHelper::drawBoxLine(lastSegment.firstPoint, lastSegment.rotation, lastSegment.lenght, tripOrFromToWidth);
+    }
+    // draw next connection shape (or a single line)
+    if (edgeGeometryLimits.nextConnection && (edgeGeometryLimits.nextConnection->getEdgeFrom()->getGNEJunctionDestiny()->getNBNode()->getShape().size() > 0)) {
+        GLHelper::drawBoxLines(edgeGeometryLimits.nextConnection->getGeometry().shape, 
+            edgeGeometryLimits.nextConnection->getGeometry().shapeRotations, 
+            edgeGeometryLimits.nextConnection->getGeometry().shapeLengths, tripOrFromToWidth);
+    } else {
+        GLHelper::drawBoxLine(lineToNetxtEdge.firstPoint, lineToNetxtEdge.rotation, lineToNetxtEdge.lenght, tripOrFromToWidth);
     }
     // Pop last matrix
     glPopMatrix();
