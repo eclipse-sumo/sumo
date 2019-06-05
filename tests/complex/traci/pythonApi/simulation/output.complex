@@ -41,14 +41,14 @@ deltaT 1.0
 boundary ((0.0, 0.0), (3500.0, 3904.56))
 convertRoad2D (-1.22, 3903.52)
 convertRoad3D (-1.22, 3903.52, 2.0)
-convertRoadGeo (12.014678141843579, 48.121449189819344)
-convertRoadGeoAlt (12.014678141843579, 48.121449189819344, 2.0)
-convert2DGeo (12.023018905467282, 48.09105459770769)
-convertGeo2D (-1619.5653987218393, -9550.720807247795)
+convertRoadGeo (12.014678141837997, 48.121449189894975)
+convertRoadGeoAlt (12.014678141837997, 48.121449189894975, 2.0)
+convert2DGeo (12.023018905461857, 48.09105459778214)
+convertGeo2D (-1619.5653967780527, -9550.720808431506)
 convert2DRoad ('o', 2906.187593990786, 0)
-convertGeoRoad ('o', 1012.1563357397523, 0)
-convertGeoRoadBus ('o', 1012.1563357397523, 0)
-convertGeoRoadBusDisallowed ('2o', 4119.720758121782, 0)
+convertGeoRoad ('o', 1012.1563378979615, 0)
+convertGeoRoadBus ('o', 1012.1563378979615, 0)
+convertGeoRoadBusDisallowed ('2o', 4119.7207559635735, 0)
 distance2D 10.0
 drivingDistance2D 6.48934198154
 distanceRoad 5131.87897232
@@ -58,12 +58,15 @@ save simstate
 getParameter charginStation.totalEnergyCharged 0.00
 getParameter chargingStation.name megaCharger
 getParameter chargingStation.lane o_0
+getParameter chargingStation.key1 val1
 getParameter parkingArea.capacity 6
 getParameter parkingArea.occupancy 0
 getParameter parkingArea.name DLR
 getParameter parkingArea.lane 2o_0
+getParameter parkingArea.key3 val3
 getParameter busStop.name Magnusstr.
 getParameter busStop.lane o_0
+getParameter busStop.key2 val2
 getBusStopWaiting 1
 getBusStopWaitingIDList ('p1',)
 findRoute Stage(type=3, vType='', line='', destStop='', edges=('o', '2o'), travelTime=738.7359712230216, cost=738.7359712230216, length=10268.43, intended='', depart=-1073741824.0, departPos=-1073741824.0, arrivalPos=-1073741824.0, description='')
