@@ -98,6 +98,7 @@ GNEHierarchicalElementParents::GNEHierarchicalElementParents(GNEAttributeCarrier
     // fill myEdgeParentsLaneIndex
     myEdgeGeometryLimits.reserve(edgeParents.size());
     for (const auto &i : edgeParents) {
+        UNUSED_PARAMETER(i);
         myEdgeGeometryLimits.push_back(EdgeGeometryLimits(0,0, nullptr));
     }
 }
@@ -229,7 +230,7 @@ GNEHierarchicalElementParents::getLinetoNextEdge(const GNEEdge* edgeFrom, int ne
     for (int i = 0; i < (int)myEdgeParents.size(); i++) {
         if ((myEdgeParents.at(i) == edgeFrom) && i < ((int)myEdgeParents.size()-1)) {
             // calculate rotation and lenght
-            if (myEdgeParents.at(i+1)->getLanes().size() > nextEdgeLaneIndex) {
+            if ((int)myEdgeParents.at(i+1)->getLanes().size() > nextEdgeLaneIndex) {
                 geometry.calculateRotationsAndLength(myEdgeParents.at(i+1)->getLanes().at(nextEdgeLaneIndex)->getGeometry().shape.front());
             } else {
                 geometry.calculateRotationsAndLength(myEdgeParents.at(i+1)->getLanes().at(0)->getGeometry().shape.front());
@@ -253,14 +254,14 @@ GNEHierarchicalElementParents::getEdgeGeometryLimits(const GNEEdge* edge) const 
 
 void 
 GNEHierarchicalElementParents::recalculateEdgeGeometryLimits() {
-    for (int i = 0; i < myEdgeParents.size(); i++) {
+    for (int i = 0; i < (int)myEdgeParents.size(); i++) {
         // obtain next connection
         myEdgeGeometryLimits.at(i).nextConnection = getNextConnection(myEdgeParents.at(i));
         if (myEdgeGeometryLimits.at(i).nextConnection) {
             if (i == 0) {
                 myEdgeGeometryLimits.at(i).indexBegin = myEdgeGeometryLimits.at(i).nextConnection->getLaneFrom()->getIndex();
             }
-            if (i == (myEdgeParents.size() - 2)) {
+            if (i == ((int)myEdgeParents.size() - 2)) {
                 myEdgeGeometryLimits.at(i+1).indexEnd = myEdgeGeometryLimits.at(i).nextConnection->getLaneTo()->getIndex();
             }
             myEdgeGeometryLimits.at(i).indexEnd = myEdgeGeometryLimits.at(i).nextConnection->getLaneFrom()->getIndex();
