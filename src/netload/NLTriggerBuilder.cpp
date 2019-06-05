@@ -568,5 +568,9 @@ NLTriggerBuilder::getPosition(const SUMOSAXAttributes& attrs,
     return pos;
 }
 
+MSStoppingPlace*
+NLTriggerBuilder::getCurrentStop() {
+    return myParkingArea == nullptr ? myCurrentStop : myParkingArea;
+}
 
 /****************************************************************************/

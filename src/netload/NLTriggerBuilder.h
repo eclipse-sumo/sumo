@@ -232,9 +232,7 @@ public:
     //@}
 
 
-    MSStoppingPlace* getCurrentStop() {
-        return myCurrentStop;
-    }
+    MSStoppingPlace* getCurrentStop();
 
 
 protected:
