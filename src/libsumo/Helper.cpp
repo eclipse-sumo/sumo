@@ -790,6 +790,7 @@ Helper::postProcessRemoteControl() {
 bool
 Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveNetwork, const std::string& origID, const double angle,
                     double speed, const ConstMSEdgeVector& currentRoute, const int routePosition, MSLane* currentLane, double currentLanePos, bool onRoad,
+                    SUMOVehicleClass vClass,
                     double& bestDistance, MSLane** lane, double& lanePos, int& routeOffset, ConstMSEdgeVector& edges) {
     // collect edges around the vehicle/person
     const MSEdge* const currentRouteEdge = currentRoute[routePosition];
@@ -867,6 +868,9 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
         const bool perpendicular = false;
         for (std::vector<MSLane*>::const_iterator k = lanes.begin(); k != lanes.end(); ++k) {
             MSLane* lane = *k;
+            if (!lane->allowsVehicleClass(vClass)) {
+                continue;
+            }
             double langle = 180.;
             double dist = FAR_AWAY;
             double perpendicularDist = FAR_AWAY;
@@ -967,7 +971,7 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
         }
         routeOffset = 0;
 #ifdef DEBUG_MOVEXY_ANGLE
-        std::cout << SIMTIME << "internal2: lane=" << bestLane->getID() << " prev=" << Named::getIDSecure(u.prevEdge) << " next=" << Named::getIDSecure(u.nextEdge) << "\n";;
+        std::cout << SIMTIME << " internal2: lane=" << bestLane->getID() << " prev=" << Named::getIDSecure(u.prevEdge) << " next=" << Named::getIDSecure(u.nextEdge) << "\n";;
 #endif
     }
     return true;

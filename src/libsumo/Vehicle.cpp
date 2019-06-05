@@ -1182,6 +1182,7 @@ Vehicle::moveToXY(const std::string& vehicleID, const std::string& edgeID, const
         double speed = pos.distanceTo2D(veh->getPosition()); // !!!veh->getSpeed();
         found = Helper::moveToXYMap(pos, maxRouteDistance, mayLeaveNetwork, origID, angle,
                                     speed, veh->getRoute().getEdges(), veh->getRoutePosition(), veh->getLane(), veh->getPositionOnLane(), veh->isOnRoad(),
+                                    vClass,
                                     bestDistance, &lane, lanePos, routeOffset, edges);
     }
     if ((found && bestDistance <= maxRouteDistance) || mayLeaveNetwork) {
@@ -1222,6 +1223,9 @@ Vehicle::moveToXY(const std::string& vehicleID, const std::string& edgeID, const
             }
         }
         // use the best we have
+#ifdef DEBUG_MOVEXY
+        std::cout << " moveToXYResult lane=" << Named::getIDSecure(lane) << " lanePos=" << lanePos << " lanePosLat=" << lanePosLat << "\n";
+#endif
         Helper::setRemoteControlled(veh, pos, lane, lanePos, lanePosLat, angle, routeOffset, edges, MSNet::getInstance()->getCurrentTimeStep());
         if (!veh->isOnRoad()) {
             MSNet::getInstance()->getInsertionControl().alreadyDeparted(veh);

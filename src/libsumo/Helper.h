@@ -152,6 +152,7 @@ public:
     /// @{
     static bool moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveNetwork, const std::string& origID, const double angle,
                             double speed, const ConstMSEdgeVector& currentRoute, const int routePosition, MSLane* currentLane, double currentLanePos, bool onRoad,
+                            SUMOVehicleClass vClass,
                             double& bestDistance, MSLane** lane, double& lanePos, int& routeOffset, ConstMSEdgeVector& edges);
 
     static bool moveToXYMap_matchingRoutePosition(const Position& pos, const std::string& origID,

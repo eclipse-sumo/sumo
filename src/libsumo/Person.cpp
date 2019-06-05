@@ -678,6 +678,7 @@ Person::moveToXY(const std::string& personID, const std::string& edgeID, const d
         double speed = pos.distanceTo2D(p->getPosition()); // !!!veh->getSpeed();
         found = Helper::moveToXYMap(pos, maxRouteDistance, mayLeaveNetwork, edgeID, angle,
                                     speed, ev, routeIndex, currentLane, p->getEdgePos(), true,
+                                    vClass,
                                     bestDistance, &lane, lanePos, routeOffset, edges);
     }
     if ((found && bestDistance <= maxRouteDistance) || mayLeaveNetwork) {
