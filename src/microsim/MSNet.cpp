@@ -888,7 +888,7 @@ MSNet::removeVehicleStateListener(VehicleStateListener* listener) {
 void
 MSNet::informVehicleStateListener(const SUMOVehicle* const vehicle, VehicleState to, const std::string& info) {
 #ifdef HAVE_FOX
-    FXConditionalLock(myStateListenerMutex, MSRoutingEngine::isParallel());
+    FXConditionalLock lock(myStateListenerMutex, MSRoutingEngine::isParallel());
 #endif
     for (std::vector<VehicleStateListener*>::iterator i = myVehicleStateListeners.begin(); i != myVehicleStateListeners.end(); ++i) {
         (*i)->vehicleStateChanged(vehicle, to, info);
