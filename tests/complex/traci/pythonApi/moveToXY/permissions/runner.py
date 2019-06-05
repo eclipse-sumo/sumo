@@ -57,8 +57,8 @@ def check(mode, x, y, angle, exLane, exPos, exPosLat, comment):
             or exLane != lane2 
             or (exPos is not None and abs(exPos - pos2) > 0.1) 
             or (exPosLat is not None and abs(exPosLat - posLat2) > 0.1)):
-        print(comment, ("failed: x=%s, x2=%s,   y=%s, y2=%s,   lane=%s, lane2=%s, pos=%s, pos2=%s   " +
-                        "posLat=%s posLat2=%s") % (x, x2, y, y2, exLane, lane2, exPos, pos2, exPosLat, posLat2))
+        print(comment, ("failed: mode=%s x=%s, x2=%s,   y=%s, y2=%s,   lane=%s, lane2=%s, pos=%s, pos2=%s   " +
+                        "posLat=%s posLat2=%s") % (mode, x, x2, y, y2, exLane, lane2, exPos, pos2, exPosLat, posLat2))
     else:
         # (comment, "success")
         pass
@@ -71,6 +71,8 @@ traci.vehicle.add(vehID, "beg")
 check(1, 40,    1, 0,        "beg_1", 40,  0.0,        "left lane")
 check(1, 40, -1.5, 0,        "beg_1", 40,  0.0,        "shifted to left lane (permissions)")
 check(5, 40, -1.6, 0,        "beg_0", 40,  0.0,        "right lane (ignore permissions)")
+check(2, 40, -1.5, 0,        "beg_1", 40,  0.0,        "shifted to left lane (permissions)")
+check(6, 40, -1.6, 0,        "beg_0", 40,  0.0,        "right lane (ignore permissions)")
 print("vehicleList", traci.vehicle.getIDList())
 traci.close()
 sumoProcess.wait()
