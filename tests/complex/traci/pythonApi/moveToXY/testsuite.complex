@@ -19,5 +19,8 @@ extreme_elevation
 # tests for mapping vehicles on a road with a 100% incline
 extreme_elevation_keeproute2
 
+# tests for mapping vehicles with/without regard to permissions
+permissions
+
 # moveToXY for persons
 person
