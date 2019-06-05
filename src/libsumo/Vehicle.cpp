@@ -51,6 +51,7 @@
 // ===========================================================================
 //#define DEBUG_NEIGHBORS
 //#define DEBUG_DYNAMIC_SHAPES
+//#define DEBUG_MOVEXY
 #define DEBUG_COND (veh->isSelected())
 
 
@@ -1152,8 +1153,8 @@ Vehicle::moveToXY(const std::string& vehicleID, const std::string& edgeID, const
 
     Position vehPos = veh->getPosition();
 #ifdef DEBUG_MOVEXY
-    std::cout << std::endl << "begin vehicle " << veh->getID() << " vehPos:" << vehPos << " lane:" << Named::getIDSecure(veh->getLane()) << std::endl;
-    std::cout << " want pos:" << pos << " origID:" << origID << " laneIndex:" << laneIndex << " origAngle:" << origAngle << " angle:" << angle << " keepRoute:" << keepRoute << std::endl;
+    std::cout << std::endl << SIMTIME << " moveToXY veh=" << veh->getID() << " vehPos=" << vehPos << " lane=" << Named::getIDSecure(veh->getLane()) << std::endl;
+    std::cout << " wantedPos=" << pos << " origID=" << origID << " laneIndex=" << laneIndex << " origAngle=" << origAngle << " angle=" << angle << " keepRoute=" << keepRoute << std::endl;
 #endif
 
     ConstMSEdgeVector edges;
