@@ -112,12 +112,15 @@ except traci.TraCIException as e:
 print("getParameter charginStation.totalEnergyCharged",
       traci.simulation.getParameter("cs1", "chargingStation.totalEnergyCharged"))
 print("getParameter chargingStation.name", traci.simulation.getParameter("cs1", "chargingStation.name"))
+print("getParameter chargingStation.lane", traci.simulation.getParameter("cs1", "chargingStation.lane"))
 
 print("getParameter parkingArea.capacity", traci.simulation.getParameter("pa1", "parkingArea.capacity"))
 print("getParameter parkingArea.occupancy", traci.simulation.getParameter("pa1", "parkingArea.occupancy"))
 print("getParameter parkingArea.name", traci.simulation.getParameter("pa1", "parkingArea.name"))
+print("getParameter parkingArea.lane", traci.simulation.getParameter("pa1", "parkingArea.lane"))
 
 print("getParameter busStop.name", traci.simulation.getParameter("bs", "busStop.name"))
+print("getParameter busStop.lane", traci.simulation.getParameter("bs", "busStop.lane"))
 
 try:
     print("getBusStopWaiting", traci.simulation.getBusStopWaiting("foo"))

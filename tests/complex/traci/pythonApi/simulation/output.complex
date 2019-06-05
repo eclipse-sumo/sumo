@@ -57,10 +57,13 @@ clearing pending
 save simstate
 getParameter charginStation.totalEnergyCharged 0.00
 getParameter chargingStation.name megaCharger
+getParameter chargingStation.lane o_0
 getParameter parkingArea.capacity 6
 getParameter parkingArea.occupancy 0
 getParameter parkingArea.name DLR
+getParameter parkingArea.lane 2o_0
 getParameter busStop.name Magnusstr.
+getParameter busStop.lane o_0
 getBusStopWaiting 1
 getBusStopWaitingIDList ('p1',)
 findRoute Stage(type=3, vType='', line='', destStop='', edges=('o', '2o'), travelTime=738.7359712230216, cost=738.7359712230216, length=10268.43, intended='', depart=-1073741824.0, departPos=-1073741824.0, arrivalPos=-1073741824.0, description='')

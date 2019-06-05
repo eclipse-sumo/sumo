@@ -646,6 +646,8 @@ Simulation::getParameter(const std::string& objectID, const std::string& key) {
         }
         if (attrName == toString(SUMO_ATTR_NAME)) {
             return toString(bs->getMyName());
+        } else if (attrName == "lane") {
+            return bs->getLane().getID();
         } else {
             throw TraCIException("Invalid busStop parameter '" + attrName + "'");
         }
