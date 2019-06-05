@@ -287,10 +287,11 @@ public:
         TAGTYPE_VEHICLE =       1 << 7,   // Vehicles (Flows, trips...)
         TAGTYPE_ROUTE =         1 << 8,   // Routes and embedded routes
         TAGTYPE_STOP =          1 << 9,   // Stops
-        TAGTYPE_PERSON =        1 << 10,   // Persons
-        TAGTYPE_WALK =          1 << 11,   // Walks
-        TAGTYPE_RIDE =          1 << 12,   // Rides
-        TAGTYPE_PERSONSTOP =    1 << 13,   // Person stops
+        TAGTYPE_PERSON =        1 << 10,  // Persosn
+        TAGTYPE_PERSONPLAN =    1 << 11,  // Person plans (Walks, rides, ...)
+        TAGTYPE_WALK =          1 << 12,  // Walks
+        TAGTYPE_RIDE =          1 << 13,  // Rides
+        TAGTYPE_PERSONSTOP =    1 << 14,  // Person stops
     };
 
     enum TAGProperty {
@@ -408,6 +409,9 @@ public:
         /// @brief return true if tag correspond to a person element
         bool isPerson() const;
         
+        /// @brief return true if tag correspond to a person plan
+        bool isPersonPlan() const;
+
         /// @brief return true if tag correspond to a walk element
         bool isWalk() const;
 
@@ -822,8 +826,17 @@ private:
     /// @brief fill Shapes
     static void fillShapes();
 
-    /// @brief fill DemandElements
+    /// @brief fill Demand Elements
     static void fillDemandElements();
+
+    /// @brief fill vehicle elements
+    static void fillVehicleElements();
+
+    /// @brief fill Stop elements
+    static void fillStopElements();
+
+    /// @brief fill Person Elements
+    static void fillPersonElements();
 
     /// @brief fill Car Following Model of Vehicle Types
     static void fillCarFollowingModelAttributes();

@@ -754,10 +754,18 @@ GNEAttributeCarrier::TagProperties::isStop() const {
     return (myTagType & TAGTYPE_STOP) != 0;
 }
 
+
 bool
 GNEAttributeCarrier::TagProperties::isPerson() const {
     return (myTagType & TAGTYPE_PERSON) != 0;
 }
+
+
+bool
+GNEAttributeCarrier::TagProperties::isPersonPlan() const {
+    return (myTagType & TAGTYPE_PERSONPLAN) != 0;
+}
+
 
 bool
 GNEAttributeCarrier::TagProperties::isWalk() const {
@@ -1373,6 +1381,9 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     fillAdditionals();
     fillShapes();
     fillDemandElements();
+    fillVehicleElements();
+    fillStopElements();
+    fillPersonElements();
     // check integrity of all Tags (function checkTagIntegrity() throw an exception if there is an inconsistency)
     for (const auto& i : myTagProperties) {
         i.second.checkTagIntegrity();
@@ -3317,13 +3328,20 @@ GNEAttributeCarrier::fillDemandElements() {
                                            "GAP between carriages",
                                            "1");
         myTagProperties[currentTag].addAttribute(attrProperty);
-
-        // fill Car Following Model Values (implemented in a separated function to improve code legibility)
+        // fill VType Car Following Model Values (implemented in a separated function to improve code legibility)
         fillCarFollowingModelAttributes();
-        // fill Junction Model Parameters (implemented in a separated function to improve code legibility)
+        // fill VType Junction Model Parameters (implemented in a separated function to improve code legibility)
         fillJunctionModelAttributes();
     }
-    currentTag = SUMO_TAG_VEHICLE;
+}
+
+
+void
+GNEAttributeCarrier::fillVehicleElements() {
+    // declare empty AttributeProperties
+    AttributeProperties attrProperty;
+    // fill vehicle ACs
+    SumoXMLTag currentTag = SUMO_TAG_VEHICLE;
     {
         // set values of tag
         myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_VEHICLE, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE, ICON_VEHICLE);
@@ -3867,7 +3885,15 @@ GNEAttributeCarrier::fillDemandElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
     */
-    currentTag = SUMO_TAG_STOP_LANE;
+}
+
+
+void
+GNEAttributeCarrier::fillStopElements() {
+    // declare empty AttributeProperties
+    AttributeProperties attrProperty;
+    // fill stops ACs
+    SumoXMLTag currentTag = SUMO_TAG_STOP_LANE;
     {
         // set values of tag
         myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_STOP, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_MASKSTARTENDPOS, ICON_STOPELEMENT);
@@ -4218,6 +4244,16 @@ GNEAttributeCarrier::fillDemandElements() {
                                            "Value used for trips that uses this stop");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
+}
+
+
+
+void
+GNEAttributeCarrier::fillPersonElements() {
+    // declare empty AttributeProperties
+    AttributeProperties attrProperty;
+    // fill vehicle ACs
+    SumoXMLTag SUMO_TAG_PERSON;
 }
 
 
