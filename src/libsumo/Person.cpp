@@ -617,10 +617,12 @@ Person::moveTo(const std::string& personID, const std::string& edgeID, double /*
 
 
 void
-Person::moveToXY(const std::string& personID, const std::string& edgeID, const double x, const double y, double angle, const int keepRouteFlag) {
+Person::moveToXY(const std::string& personID, const std::string& edgeID, const double x, const double y, double angle, const int mapMode) {
     MSPerson* p = getPerson(personID);
-    bool keepRoute = (keepRouteFlag == 1);
-    bool mayLeaveNetwork = (keepRouteFlag == 2);
+    const bool doKeepRoute = (mapMode & 1) != 0;
+    const bool mayLeaveNetwork = (mapMode & 2) != 0;
+    const bool ignorePermissions = (mapMode & 4) != 0;
+    SUMOVehicleClass vClass = ignorePermissions ? SVC_IGNORING : p->getVClass();
     Position pos(x, y);
 #ifdef DEBUG_MOVEXY
     const double origAngle = angle;
@@ -638,7 +640,7 @@ Person::moveToXY(const std::string& personID, const std::string& edgeID, const d
     Position currentPos = p->getPosition();
 #ifdef DEBUG_MOVEXY
     std::cout << std::endl << "begin person " << p->getID() << " lanePos:" << p->getEdgePos() << " edge:" << Named::getIDSecure(p->getEdge()) << "\n";
-    std::cout << " want pos:" << pos << " edgeID:" << edgeID <<  " origAngle:" << origAngle << " angle:" << angle << " keepRoute:" << keepRoute << std::endl;
+    std::cout << " want pos:" << pos << " edgeID:" << edgeID <<  " origAngle:" << origAngle << " angle:" << angle << " mapMode:" << mapMode << std::endl;
 #endif
 
     ConstMSEdgeVector edges;
@@ -665,12 +667,12 @@ Person::moveToXY(const std::string& personID, const std::string& edgeID, const d
         default:
             break;
     }
-    if (keepRoute) {
+    if (doKeepRoute) {
         // case a): vehicle is on its earlier route
         //  we additionally assume it is moving forward (SUMO-limit);
         //  note that the route ("edges") is not changed in this case
         found = Helper::moveToXYMap_matchingRoutePosition(pos, edgeID,
-                ev, routeIndex,
+                ev, routeIndex, vClass,
                 bestDistance, &lane, lanePos, routeOffset);
     } else {
         double speed = pos.distanceTo2D(p->getPosition()); // !!!veh->getSpeed();

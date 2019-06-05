@@ -1129,10 +1129,12 @@ Vehicle::add(const std::string& vehicleID,
 
 
 void
-Vehicle::moveToXY(const std::string& vehicleID, const std::string& edgeID, const int laneIndex, const double x, const double y, double angle, const int keepRoute) {
+Vehicle::moveToXY(const std::string& vehicleID, const std::string& edgeID, const int laneIndex, const double x, const double y, double angle, const int mapMode) {
     MSVehicle* veh = getVehicle(vehicleID);
-    const bool doKeepRoute = (keepRoute == 1) && veh->getID() != "VTD_EGO";
-    const bool mayLeaveNetwork = (keepRoute == 2);
+    const bool doKeepRoute = (mapMode & 1) != 0 && veh->getID() != "VTD_EGO";
+    const bool mayLeaveNetwork = (mapMode & 2) != 0;
+    const bool ignorePermissions = (mapMode & 4) != 0;
+    SUMOVehicleClass vClass = ignorePermissions ? SVC_IGNORING : veh->getVClass();
     // process
     const std::string origID = edgeID + "_" + toString(laneIndex);
     // @todo add an interpretation layer for OSM derived origID values (without lane index)
@@ -1154,7 +1156,7 @@ Vehicle::moveToXY(const std::string& vehicleID, const std::string& edgeID, const
     Position vehPos = veh->getPosition();
 #ifdef DEBUG_MOVEXY
     std::cout << std::endl << SIMTIME << " moveToXY veh=" << veh->getID() << " vehPos=" << vehPos << " lane=" << Named::getIDSecure(veh->getLane()) << std::endl;
-    std::cout << " wantedPos=" << pos << " origID=" << origID << " laneIndex=" << laneIndex << " origAngle=" << origAngle << " angle=" << angle << " keepRoute=" << keepRoute << std::endl;
+    std::cout << " wantedPos=" << pos << " origID=" << origID << " laneIndex=" << laneIndex << " origAngle=" << origAngle << " angle=" << angle << " mapMode=" << mapMode << std::endl;
 #endif
 
     ConstMSEdgeVector edges;
@@ -1173,6 +1175,7 @@ Vehicle::moveToXY(const std::string& vehicleID, const std::string& edgeID, const
 
         found = Helper::moveToXYMap_matchingRoutePosition(pos, origID,
                 veh->getRoute().getEdges(), (int)(veh->getCurrentRouteEdge() - veh->getRoute().begin()),
+                vClass,
                 bestDistance, &lane, lanePos, routeOffset);
         // @note silenty ignoring mapping failure
     } else {

@@ -156,9 +156,10 @@ public:
 
     static bool moveToXYMap_matchingRoutePosition(const Position& pos, const std::string& origID,
             const ConstMSEdgeVector& currentRoute, int routeIndex,
+            SUMOVehicleClass vClass,
             double& bestDistance, MSLane** lane, double& lanePos, int& routeOffset);
 
-    static bool findCloserLane(const MSEdge* edge, const Position& pos, double& bestDistance, MSLane** lane);
+    static bool findCloserLane(const MSEdge* edge, const Position& pos, SUMOVehicleClass vClass, double& bestDistance, MSLane** lane);
 
     class LaneUtility {
     public:

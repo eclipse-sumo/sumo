@@ -975,7 +975,7 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
 
 
 bool
-Helper::findCloserLane(const MSEdge* edge, const Position& pos, double& bestDistance, MSLane** lane) {
+Helper::findCloserLane(const MSEdge* edge, const Position& pos, SUMOVehicleClass vClass, double& bestDistance, MSLane** lane) {
     if (edge == nullptr) {
         return false;
     }
@@ -983,6 +983,9 @@ Helper::findCloserLane(const MSEdge* edge, const Position& pos, double& bestDist
     bool newBest = false;
     for (std::vector<MSLane*>::const_iterator k = lanes.begin(); k != lanes.end() && bestDistance > POSITION_EPS; ++k) {
         MSLane* candidateLane = *k;
+        if (!candidateLane->allowsVehicleClass(vClass)) {
+            continue;
+        }
         const double dist = candidateLane->getShape().distance2D(pos); // get distance
 #ifdef DEBUG_MOVEXY
         std::cout << "   b at lane " << candidateLane->getID() << " dist:" << dist << " best:" << bestDistance << std::endl;
@@ -1001,6 +1004,7 @@ Helper::findCloserLane(const MSEdge* edge, const Position& pos, double& bestDist
 bool
 Helper::moveToXYMap_matchingRoutePosition(const Position& pos, const std::string& origID,
         const ConstMSEdgeVector& currentRoute, int routeIndex,
+        SUMOVehicleClass vClass,
         double& bestDistance, MSLane** lane, double& lanePos, int& routeOffset) {
     //std::cout << "moveToXYMap_matchingRoutePosition pos=" << pos << "\n";
     routeOffset = 0;
@@ -1014,10 +1018,10 @@ Helper::moveToXYMap_matchingRoutePosition(const Position& pos, const std::string
         while (prev != nullptr) {
             // check internal edge(s)
             const MSEdge* internalCand = prev->getInternalFollowingEdge(cand);
-            findCloserLane(internalCand, pos, bestDistance, lane);
+            findCloserLane(internalCand, pos, vClass, bestDistance, lane);
             prev = internalCand;
         }
-        if (findCloserLane(cand, pos, bestDistance, lane)) {
+        if (findCloserLane(cand, pos, vClass, bestDistance, lane)) {
             routeOffset = i;
         }
         prev = cand;
@@ -1031,12 +1035,12 @@ Helper::moveToXYMap_matchingRoutePosition(const Position& pos, const std::string
         while (prev != nullptr) {
             // check internal edge(s)
             const MSEdge* internalCand = prev->getInternalFollowingEdge(next);
-            if (findCloserLane(internalCand, pos, bestDistance, lane)) {
+            if (findCloserLane(internalCand, pos, vClass, bestDistance, lane)) {
                 routeOffset = i;
             }
             prev = internalCand;
         }
-        if (findCloserLane(cand, pos, bestDistance, lane)) {
+        if (findCloserLane(cand, pos, vClass, bestDistance, lane)) {
             routeOffset = i;
         }
         next = cand;
