@@ -67,9 +67,7 @@ public:
     SUMOTime getTargetTime() const {
         return myTargetTime;
     }
-    bool isEmbedded() const {
-        return myAmEmbedded;
-    }
+
     static TraCIServer* getInstance() {
         return myInstance;
     }
@@ -102,14 +100,6 @@ public:
     /// @brief clean up subscriptions
     void cleanup();
 
-
-#ifdef HAVE_PYTHON
-    /// @brief process the command
-    static std::string execute(std::string cmd);
-
-    /// @brief run the given script
-    static void runEmbedded(std::string pyFile);
-#endif
 
     void vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet::VehicleState to, const std::string& info = "");
 
@@ -144,9 +134,7 @@ public:
 
 
     const std::map<MSNet::VehicleState, std::vector<std::string> >& getVehicleStateChanges() const {
-        if (myAmEmbedded) {
-            return myVehicleStateChanges;
-        } else if (myCurrentSocket == mySockets.end()) {
+        if (myCurrentSocket == mySockets.end()) {
             // Requested in context of a subscription update
             return myVehicleStateChanges;
         } else {
@@ -384,9 +372,6 @@ private:
 
     /// @brief The last timestep's subscription results
     tcpip::Storage mySubscriptionCache;
-
-    /// @brief Whether the server runs in embedded mode
-    const bool myAmEmbedded;
 
     /// @brief Map of commandIds -> their executors; applicable if the executor applies to the method footprint
     std::map<int, CmdExecutor> myExecutors;

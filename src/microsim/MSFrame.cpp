@@ -419,11 +419,7 @@ MSFrame::fillOptions() {
     oc.addDescription("remote-port", "TraCI Server", "Enables TraCI Server if set");
     oc.doRegister("num-clients", new Option_Integer(1));
     oc.addDescription("num-clients", "TraCI Server", "Expected number of connecting clients");
-#ifdef HAVE_PYTHON
-    oc.doRegister("python-script", new Option_String());
-    oc.addDescription("python-script", "TraCI Server", "Runs TraCI script with embedded python");
-#endif
-    //
+
     oc.addOptionSubTopic("Mesoscopic");
     oc.doRegister("mesosim", new Option_Bool(false));
     oc.addDescription("mesosim", "Mesoscopic", "Enables mesoscopic simulation");
@@ -618,11 +614,6 @@ MSFrame::checkOptions() {
     if (oc.getBool("ignore-accidents")) {
         WRITE_WARNING("The option 'ignore-accidents' is deprecated. Use 'collision.action none' instead.");
     }
-#ifdef HAVE_PYTHON
-    if (oc.isSet("python-script")) {
-        WRITE_WARNING("The option 'python-script' is deprecated. Use libsumo or TraCI instead.");
-    }
-#endif
     if (oc.getBool("duration-log.statistics") && oc.isDefault("verbose")) {
         oc.set("verbose", "true");
     }

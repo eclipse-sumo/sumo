@@ -34,10 +34,6 @@
 #include <version.h>
 #endif
 
-#ifdef HAVE_PYTHON
-#include <Python.h>
-#endif
-
 #include <string>
 #include <cmath>
 #include <map>
@@ -183,7 +179,7 @@ TraCIServer::getWrapperStorage() {
 
 
 TraCIServer::TraCIServer(const SUMOTime begin, const int port, const int numClients)
-    : myServerSocket(nullptr), myTargetTime(begin), myAmEmbedded(port == 0), myLastContextSubscription(nullptr) {
+    : myServerSocket(nullptr), myTargetTime(begin), myLastContextSubscription(nullptr) {
 #ifdef DEBUG_MULTI_CLIENTS
     std::cout << "Creating new TraCIServer for " << numClients << " clients on port " << port << "." << std::endl;
 #endif
@@ -237,41 +233,39 @@ TraCIServer::TraCIServer(const SUMOTime begin, const int port, const int numClie
         MsgHandler::getWarningInstance()->inform("Use without option --no-internal-links to avoid unexpected behavior", false);
     }
 
-    if (!myAmEmbedded) {
-        try {
-            WRITE_MESSAGE("***Starting server on port " + toString(port) + " ***");
-            myServerSocket = new tcpip::Socket(port);
-            if (numClients > 1) {
-                WRITE_MESSAGE("  waiting for " + toString(numClients) + " clients...");
-            }
-            while ((int)mySockets.size() < numClients) {
-                int index = (int)mySockets.size() + libsumo::MAX_ORDER + 1;
-                mySockets[index] = new SocketInfo(myServerSocket->accept(true), begin);
-                mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_BUILT] = std::vector<std::string>();
-                mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_DEPARTED] = std::vector<std::string>();
-                mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_STARTING_TELEPORT] = std::vector<std::string>();
-                mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_ENDING_TELEPORT] = std::vector<std::string>();
-                mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_ARRIVED] = std::vector<std::string>();
-                mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_NEWROUTE] = std::vector<std::string>();
-                mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_STARTING_PARKING] = std::vector<std::string>();
-                mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_ENDING_PARKING] = std::vector<std::string>();
-                mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_STARTING_STOP] = std::vector<std::string>();
-                mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_ENDING_STOP] = std::vector<std::string>();
-                mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_COLLISION] = std::vector<std::string>();
-                mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_EMERGENCYSTOP] = std::vector<std::string>();
-                if (numClients > 1) {
-                    WRITE_MESSAGE("  client connected");
-                }
-            }
-            // When got here, all clients have connected
-            if (numClients > 1) {
-                checkClientOrdering();
-            }
-            // set myCurrentSocket != mySockets.end() to indicate that this is the first step in processCommandsUntilSimStep()
-            myCurrentSocket = mySockets.begin();
-        } catch (tcpip::SocketException& e) {
-            throw ProcessError(e.what());
+    try {
+        WRITE_MESSAGE("***Starting server on port " + toString(port) + " ***");
+        myServerSocket = new tcpip::Socket(port);
+        if (numClients > 1) {
+            WRITE_MESSAGE("  waiting for " + toString(numClients) + " clients...");
         }
+        while ((int)mySockets.size() < numClients) {
+            int index = (int)mySockets.size() + libsumo::MAX_ORDER + 1;
+            mySockets[index] = new SocketInfo(myServerSocket->accept(true), begin);
+            mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_BUILT] = std::vector<std::string>();
+            mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_DEPARTED] = std::vector<std::string>();
+            mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_STARTING_TELEPORT] = std::vector<std::string>();
+            mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_ENDING_TELEPORT] = std::vector<std::string>();
+            mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_ARRIVED] = std::vector<std::string>();
+            mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_NEWROUTE] = std::vector<std::string>();
+            mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_STARTING_PARKING] = std::vector<std::string>();
+            mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_ENDING_PARKING] = std::vector<std::string>();
+            mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_STARTING_STOP] = std::vector<std::string>();
+            mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_ENDING_STOP] = std::vector<std::string>();
+            mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_COLLISION] = std::vector<std::string>();
+            mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_EMERGENCYSTOP] = std::vector<std::string>();
+            if (numClients > 1) {
+                WRITE_MESSAGE("  client connected");
+            }
+        }
+        // When got here, all clients have connected
+        if (numClients > 1) {
+            checkClientOrdering();
+        }
+        // set myCurrentSocket != mySockets.end() to indicate that this is the first step in processCommandsUntilSimStep()
+        myCurrentSocket = mySockets.begin();
+    } catch (tcpip::SocketException& e) {
+        throw ProcessError(e.what());
     }
 }
 
@@ -288,11 +282,7 @@ TraCIServer::~TraCIServer() {
 // ---------- Initialisation and Shutdown
 void
 TraCIServer::openSocket(const std::map<int, CmdExecutor>& execs) {
-    if (myInstance == nullptr && !myDoCloseConnection && (OptionsCont::getOptions().getInt("remote-port") != 0
-#ifdef HAVE_PYTHON
-            || OptionsCont::getOptions().isSet("python-script")
-#endif
-                                                         )) {
+    if (myInstance == nullptr && !myDoCloseConnection && (OptionsCont::getOptions().getInt("remote-port") != 0)) {
         myInstance = new TraCIServer(string2time(OptionsCont::getOptions().getString("begin")),
                                      OptionsCont::getOptions().getInt("remote-port"),
                                      OptionsCont::getOptions().getInt("num-clients"));
@@ -332,10 +322,8 @@ void
 TraCIServer::vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet::VehicleState to, const std::string& /*info*/) {
     if (!myDoCloseConnection) {
         myVehicleStateChanges[to].push_back(vehicle->getID());
-        if (!myAmEmbedded) {
-            for (std::map<int, SocketInfo*>::iterator i = mySockets.begin(); i != mySockets.end(); ++i) {
-                i->second->vehicleStateChanges[to].push_back(vehicle->getID());
-            }
+        for (std::map<int, SocketInfo*>::iterator i = mySockets.begin(); i != mySockets.end(); ++i) {
+            i->second->vehicleStateChanges[to].push_back(vehicle->getID());
         }
     }
 }
@@ -519,7 +507,7 @@ TraCIServer::processCommandsUntilSimStep(SUMOTime step) {
         // determine minimal next target time among clients
         myTargetTime = nextTargetTime();
 
-        if (myAmEmbedded || step < myTargetTime) {
+        if (step < myTargetTime) {
 #ifdef DEBUG_MULTI_CLIENTS
             if (step < myTargetTime) {
                 std::cout << "    next target time is larger than next SUMO simstep (" << step << "). Returning from processCommandsUntilSimStep()." << std::endl;
@@ -674,87 +662,6 @@ TraCIServer::cleanup() {
 }
 
 
-#ifdef HAVE_PYTHON
-// ===========================================================================
-// python functions (traciemb module)
-// ===========================================================================
-static PyObject*
-traciemb_execute(PyObject* /* self */, PyObject* args) {
-    const char* msg;
-    int size;
-    if (!PyArg_ParseTuple(args, "s#", &msg, &size)) {
-        return NULL;
-    }
-    std::string result = TraCIServer::execute(std::string(msg, size));
-    return Py_BuildValue("s#", result.c_str(), result.size());
-}
-
-static PyMethodDef EmbMethods[] = {
-    {
-        "execute", traciemb_execute, METH_VARARGS,
-        "Execute the given TraCI command and return the result."
-    },
-    {NULL, NULL, 0, NULL}
-};
-
-
-std::string
-TraCIServer::execute(std::string cmd) {
-    try {
-        assert(myInstance != 0);
-        myInstance->myInputStorage.reset();
-        myInstance->myOutputStorage.reset();
-        for (std::string::iterator i = cmd.begin(); i != cmd.end(); ++i) {
-            myInstance->myInputStorage.writeChar(*i);
-        }
-        myInstance->dispatchCommand();
-        return std::string(myInstance->myOutputStorage.begin(), myInstance->myOutputStorage.end());
-    } catch (std::invalid_argument& e) {
-        throw ProcessError(e.what());
-    } catch (libsumo::TraCIException& e) {
-        throw ProcessError(e.what());
-    } catch (tcpip::SocketException& e) {
-        throw ProcessError(e.what());
-    }
-}
-
-
-void
-TraCIServer::runEmbedded(std::string pyFile) {
-    PyObject* pName, *pModule;
-    Py_Initialize();
-    Py_InitModule("traciemb", EmbMethods);
-    if (pyFile.length() > 3 && !pyFile.compare(pyFile.length() - 3, 3, ".py")) {
-        PyObject* sys_path, *path;
-        char pathstr[] = "path";
-        sys_path = PySys_GetObject(pathstr);
-        if (sys_path == NULL || !PyList_Check(sys_path)) {
-            throw ProcessError("Could not access python sys.path!");
-        }
-        path = PyString_FromString(FileHelpers::getFilePath(pyFile).c_str());
-        PyList_Insert(sys_path, 0, path);
-        Py_DECREF(path);
-        FILE* pFile = fopen(pyFile.c_str(), "r");
-        if (pFile == NULL) {
-            throw ProcessError("Failed to load \"" + pyFile + "\"!");
-        }
-        PyRun_SimpleFile(pFile, pyFile.c_str());
-        fclose(pFile);
-    } else {
-        pName = PyString_FromString(pyFile.c_str());
-        /* Error checking of pName left out */
-        pModule = PyImport_Import(pName);
-        Py_DECREF(pName);
-        if (pModule == NULL) {
-            PyErr_Print();
-            throw ProcessError("Failed to load \"" + pyFile + "\"!");
-        }
-    }
-    Py_Finalize();
-}
-#endif
-
-
 std::map<int, TraCIServer::SocketInfo*>::iterator
 TraCIServer::removeCurrentSocket() {
 #ifdef DEBUG_MULTI_CLIENTS
@@ -844,34 +751,19 @@ TraCIServer::dispatchCommand() {
             }
             case libsumo::CMD_SIMSTEP: {
                 const double nextT = myInputStorage.readDouble();
-                if (myAmEmbedded) {
-                    if (nextT == 0.) {
-                        myTargetTime += DELTA_T;
-                    } else {
-                        myTargetTime = TIME2STEPS(nextT);
-                    }
-                    for (std::map<MSNet::VehicleState, std::vector<std::string> >::iterator i = myVehicleStateChanges.begin(); i != myVehicleStateChanges.end(); ++i) {
-                        (*i).second.clear();
-                    }
-                    while (MSNet::getInstance()->getCurrentTimeStep() < myTargetTime) {
-                        MSNet::getInstance()->simulationStep();
-                    }
-                    postProcessSimulationStep();
+                if (nextT == 0.) {
+                    myCurrentSocket->second->targetTime += DELTA_T;
                 } else {
-                    if (nextT == 0.) {
-                        myCurrentSocket->second->targetTime += DELTA_T;
-                    } else {
-                        myCurrentSocket->second->targetTime = TIME2STEPS(nextT);
-                    }
+                    myCurrentSocket->second->targetTime = TIME2STEPS(nextT);
+                }
 #ifdef DEBUG_MULTI_CLIENTS
-                    std::cout << "       commandId == libsumo::CMD_SIMSTEP"
-                              << ", next target time for client is " << myCurrentSocket->second->targetTime << std::endl;
+                std::cout << "       commandId == libsumo::CMD_SIMSTEP"
+                            << ", next target time for client is " << myCurrentSocket->second->targetTime << std::endl;
 #endif
-                    if (myCurrentSocket->second->targetTime <= MSNet::getInstance()->getCurrentTimeStep()) {
-                        // This is not the last TraCI simstep in the current SUMO simstep -> send single simstep response.
-                        // @note: In the other case the simstep results are sent to all after the SUMO step was performed, see entry point for processCommandsUntilSimStep()
-                        sendSingleSimStepResponse();
-                    }
+                if (myCurrentSocket->second->targetTime <= MSNet::getInstance()->getCurrentTimeStep()) {
+                    // This is not the last TraCI simstep in the current SUMO simstep -> send single simstep response.
+                    // @note: In the other case the simstep results are sent to all after the SUMO step was performed, see entry point for processCommandsUntilSimStep()
+                    sendSingleSimStepResponse();
                 }
                 return commandId;
             }

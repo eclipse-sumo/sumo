@@ -338,15 +338,6 @@ MSNet::simulate(SUMOTime start, SUMOTime stop) {
     SimulationState state = SIMSTATE_RUNNING;
     // state loading may have changed the start time so we need to reinit it
     myStep = start;
-#ifdef HAVE_PYTHON
-    if (OptionsCont::getOptions().isSet("python-script")) {
-        TraCIServer::runEmbedded(OptionsCont::getOptions().getString("python-script"));
-        closeSimulation(start);
-        WRITE_MESSAGE("Simulation ended at time: " + time2string(getCurrentTimeStep()));
-        WRITE_MESSAGE("Reason: Script ended");
-        return state;
-    }
-#endif
     while (state == SIMSTATE_RUNNING) {
         if (myLogStepNumber) {
             preSimStepOutput();
@@ -473,7 +464,7 @@ MSNet::simulationStep() {
         myTraCIStepDuration = SysUtils::getCurrentMillis();
     }
     TraCIServer* t = TraCIServer::getInstance();
-    if (t != nullptr && !t->isEmbedded()) {
+    if (t != nullptr) {
         t->processCommandsUntilSimStep(myStep);
 #ifdef DEBUG_SIMSTEP
         bool loadRequested = !TraCI::getLoadArgs().empty();
