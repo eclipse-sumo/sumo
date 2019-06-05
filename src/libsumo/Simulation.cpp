@@ -616,6 +616,8 @@ Simulation::getParameter(const std::string& objectID, const std::string& key) {
             return toString(cs->getTotalCharged());
         } else if (attrName == toString(SUMO_ATTR_NAME)) {
             return toString(cs->getMyName());
+        } else if (attrName == "lane") {
+            return cs->getLane().getID();
         } else {
             throw TraCIException("Invalid chargingStation parameter '" + attrName + "'");
         }
