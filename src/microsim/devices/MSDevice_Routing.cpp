@@ -145,10 +145,6 @@ MSDevice_Routing::MSDevice_Routing(SUMOVehicle& holder, const std::string& id,
         // if we don't update the edge weights, we might as well reroute now and hopefully use our threads better
         const SUMOTime execTime = MSRoutingEngine::hasEdgeUpdates() ? holder.getParameter().depart : -1;
         MSNet::getInstance()->getInsertionEvents()->addEvent(myRerouteCommand, execTime);
-        if (myPreInsertionPeriod == 0) {
-            // the event will deschedule and destroy itself so it does not need to be stored
-            myRerouteCommand = nullptr;
-        }
     }
 }
 
@@ -187,6 +183,10 @@ SUMOTime
 MSDevice_Routing::preInsertionReroute(const SUMOTime currentTime) {
     if (mySkipRouting == currentTime) {
         return DELTA_T;
+    }
+    if (myPreInsertionPeriod == 0) {
+        // the event will deschedule and destroy itself so it does not need to be stored
+        myRerouteCommand = nullptr;
     }
     const MSEdge* source = *myHolder.getRoute().begin();
     const MSEdge* dest = myHolder.getRoute().getLastEdge();
