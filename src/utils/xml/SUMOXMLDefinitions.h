@@ -300,6 +300,7 @@ enum SumoXMLTag {
 
     /// @name Persons (used by Netedit)
     /// @{
+    SUMO_TAG_WALK_EDGES,
     SUMO_TAG_WALK_FROMTO,
     SUMO_TAG_WALK_BUSSTOP,
     SUMO_TAG_WALK_ROUTE,
