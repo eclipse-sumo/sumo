@@ -19,7 +19,7 @@ This script extracts definitions from <SUMO>/src/libsumo/TraCIConstants.h
  and builds an according constants definition python file "constants.py".
  For Python just call the script without options, for Java:
  tools/traci/rebuildConstants.py -j de.tudresden.sumo.config.Constants
-  -o tools/contributed/traas/src/de/tudresden/sumo/config/Constants.java
+  -o tools/contributed/traas/src/main/java/de/tudresden/sumo/config/Constants.java
 """
 
 from __future__ import print_function
@@ -36,12 +36,7 @@ argParser.add_argument("-j", "--java",
 argParser.add_argument("-o", "--output", default=os.path.join(dirname, "constants.py"),
                        help="File to save constants into", metavar="FILE")
 options = argParser.parse_args()
-
-
-fdo = open(options.output, "w")
-if options.java:
-    print("/**", file=fdo)
-print("""# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+header = """# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 # Copyright (C) 2009-2019 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
@@ -56,16 +51,21 @@ print("""# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/s
 
 \"\"\"
 This script contains TraCI constant definitions from <SUMO_HOME>/src/libsumo/TraCIConstants.h.\
-""" % (os.path.basename(options.output), os.path.basename(__file__), datetime.datetime.now()), file=fdo)
+""" % (os.path.basename(options.output), os.path.basename(__file__), datetime.datetime.now())
 
+fdo = open(options.output, "w")
 if options.java:
-    print("*/\n", file=fdo)
+    sep = "/%s/" % (76 * "*")
+    print(sep, file=fdo)
+    print(header.replace("\n# @file", sep + "\n/// @file").replace("# @", "/// @").replace("#", "//").replace('\n"""\n', "///\n// "), file=fdo)
+    print(sep, file=fdo)
     className = options.java
     if "." in className:
         package, className = className.rsplit(".", 1)
         fdo.write("package %s;\n" % package)
     fdo.write("public class %s {" % className)
 else:
+    print(header, file=fdo)
     print('"""\n', file=fdo)
 
 
@@ -120,5 +120,5 @@ translateFile(os.path.join(srcDir, "libsumo", "TraCIConstants.h"),
 translateFile(os.path.join(srcDir, "utils", "xml", "SUMOXMLDefinitions.h"),
               fdo, "enum LaneChangeAction {", "LCA_", "};", parseLaneChangeAction)
 if options.java:
-    fdo.write("}")
+    fdo.write("}\n")
 fdo.close()
