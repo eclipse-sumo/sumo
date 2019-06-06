@@ -59,8 +59,9 @@ vehicle.xpm \
 trip.xpm \
 stopelement.xpm \
 person.xpm \
-
 personflow.xpm \
+persontripedges.xpm \
+persontripbusstop.xpm \
 walkedges.xpm \
 walkfromto.xpm \
 walkbusstop.xpm \
@@ -70,7 +71,6 @@ ridebusstop.xpm \
 personbusstop.xpm \
 personcontainerstop.xpm \
 personlanestop.xpm \
-
 green_edge.xpm \
 green_person.xpm \
 green_vehicle.xpm \
