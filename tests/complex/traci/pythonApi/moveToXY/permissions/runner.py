@@ -52,10 +52,10 @@ def check(mode, x, y, angle, exLane, exPos, exPosLat, comment):
     posLat2 = traci.vehicle.getLateralLanePosition(vehID)
     exactXY = mode & 2 != 0
     if (
-               (exactXY and abs(x - x2) > 0.1) 
-            or (exactXY and abs(y - y2) > 0.1) 
-            or exLane != lane2 
-            or (exPos is not None and abs(exPos - pos2) > 0.1) 
+        (exactXY and abs(x - x2) > 0.1)
+            or (exactXY and abs(y - y2) > 0.1)
+            or exLane != lane2
+            or (exPos is not None and abs(exPos - pos2) > 0.1)
             or (exPosLat is not None and abs(exPosLat - posLat2) > 0.1)):
         print(comment, ("failed: mode=%s x=%s, x2=%s,   y=%s, y2=%s,   lane=%s, lane2=%s, pos=%s, pos2=%s   " +
                         "posLat=%s posLat2=%s") % (mode, x, x2, y, y2, exLane, lane2, exPos, pos2, exPosLat, posLat2))

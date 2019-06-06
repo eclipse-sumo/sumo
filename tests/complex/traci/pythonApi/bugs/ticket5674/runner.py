@@ -32,13 +32,13 @@ cmd = [sumoBinary,
 traci.start(cmd)
 
 while traci.simulation.getTime() < 4:
-        persons = traci.person.getIDList()
-        print('step=%s persons=%s' % (traci.simulation.getTime(), persons))
-        for p in persons:
-            print("  p=%s stage=%s pos=%s" % (
-                p, 
-                traci.person.getStage(p),
-                traci.person.getPosition(p)))
-        traci.simulationStep()
+    persons = traci.person.getIDList()
+    print('step=%s persons=%s' % (traci.simulation.getTime(), persons))
+    for p in persons:
+        print("  p=%s stage=%s pos=%s" % (
+            p,
+            traci.person.getStage(p),
+            traci.person.getPosition(p)))
+    traci.simulationStep()
 
 traci.close()
