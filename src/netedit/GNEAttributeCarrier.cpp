@@ -1384,6 +1384,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     fillVehicleElements();
     fillStopElements();
     fillPersonElements();
+    fillPersonStopElements();
     // check integrity of all Tags (function checkTagIntegrity() throw an exception if there is an inconsistency)
     for (const auto& i : myTagProperties) {
         i.second.checkTagIntegrity();
@@ -4247,7 +4248,6 @@ GNEAttributeCarrier::fillStopElements() {
 }
 
 
-
 void
 GNEAttributeCarrier::fillPersonElements() {
     // declare empty AttributeProperties
@@ -4479,7 +4479,15 @@ GNEAttributeCarrier::fillPersonElements() {
                                            "-1");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
-    currentTag = SUMO_TAG_PERSONSTOP_LANE;
+}
+
+
+void
+GNEAttributeCarrier::fillPersonStopElements() {
+    // declare empty AttributeProperties
+    AttributeProperties attrProperty;
+    // fill vehicle ACs
+    SumoXMLTag currentTag = SUMO_TAG_PERSONSTOP_LANE;
     {
         // set values of tag
         myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_PERSONSTOP, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_MASKSTARTENDPOS, ICON_STOPELEMENT);

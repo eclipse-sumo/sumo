@@ -275,7 +275,6 @@ public:
         double myMaximumRange;
     };
 
-
     enum TagType {
         TAGTYPE_NETELEMENT =    1 << 0,   // Edges, Junctions, Lanes...
         TAGTYPE_ADDITIONAL =    1 << 1,   // Bus Stops, Charging Stations, Detectors...
@@ -838,6 +837,9 @@ private:
     /// @brief fill Person Elements
     static void fillPersonElements();
 
+    /// @brief fill PersonStop elements
+    static void fillPersonStopElements();
+
     /// @brief fill Car Following Model of Vehicle Types
     static void fillCarFollowingModelAttributes();
 
@@ -846,11 +848,11 @@ private:
 
     /// @brief parse and check attribute (note: This function is only to improve legilibility)
     static bool checkParsedAttribute(const TagProperties& tagProperties, const AttributeProperties& attrProperties, const SumoXMLAttr attribute,
-                                     std::string& defaultValue, std::string& parsedAttribute, std::string& warningMessage);
+        std::string& defaultValue, std::string& parsedAttribute, std::string& warningMessage);
 
     /// @brief parse and check masked  (note: This function is only to improve legilibility)
     static bool parseMaskedPositionAttribute(const SUMOSAXAttributes& attrs, const std::string& objectID, const TagProperties& tagProperties,
-            const AttributeProperties& attrProperties, std::string& parsedAttribute, std::string& warningMessage);
+        const AttributeProperties& attrProperties, std::string& parsedAttribute, std::string& warningMessage);
 
     /// @brief map with the tags properties
     static std::map<SumoXMLTag, TagProperties> myTagProperties;
