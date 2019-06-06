@@ -205,7 +205,7 @@
 #include "stopelement.xpm"
 #include "person.xpm"
 #include "personflow.xpm"
-#include "walk.xpm"
+#include "walkedges.xpm"
 #include "walkfromto.xpm"
 #include "walkbusstop.xpm"
 #include "walkroute.xpm"
@@ -476,7 +476,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[ICON_STOPELEMENT] = new FXXPMIcon(a, stopelement_xpm);
     myIcons[ICON_PERSON] = new FXXPMIcon(a, person_xpm);
     myIcons[ICON_PERSONFLOW] = new FXXPMIcon(a, personflow_xpm);
-    myIcons[ICON_WALK] = new FXXPMIcon(a, walk_xpm);
+    myIcons[ICON_WALK_EDGES] = new FXXPMIcon(a, walkedges_xpm);
     myIcons[ICON_WALK_FROMTO] = new FXXPMIcon(a, walkfromto_xpm);
     myIcons[ICON_WALK_BUSSTOP] = new FXXPMIcon(a, walkbusstop_xpm);
     myIcons[ICON_WALK_ROUTE] = new FXXPMIcon(a, walkroute_xpm);

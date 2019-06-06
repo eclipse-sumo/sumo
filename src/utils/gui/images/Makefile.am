@@ -61,7 +61,7 @@ stopelement.xpm \
 person.xpm \
 
 personflow.xpm \
-walk.xpm \
+walkedges.xpm \
 walkfromto.xpm \
 walkbusstop.xpm \
 walkroute.xpm \
