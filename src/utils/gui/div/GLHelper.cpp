@@ -630,7 +630,7 @@ GLHelper::drawText(const std::string& text, const Position& pos,
     if (myGL2PSActive) {
         glRasterPos3d(pos.x(), pos.y(), layer);
         GLfloat color[] = {col.red() / 255.f, col.green() / 255.f, col.blue() / 255.f, col.alpha() / 255.f};
-        gl2psTextOptColor(text.c_str(), "Roboto", 10, align == 0 ? GL2PS_TEXT_C : align, -angle, color);
+        gl2psTextOptColor(text.c_str(), "Roboto", 10, align == 0 ? GL2PS_TEXT_C : align, (GLfloat)-angle, color);
         glPopMatrix();
         return;
     }

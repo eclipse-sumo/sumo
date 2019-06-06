@@ -206,7 +206,7 @@ Person::getStage(const std::string& personID, int nextStageIndex) {
         case STAGE_DRIVING: {
             auto * drivingStage = (MSTransportable::Stage_Driving*) stage;
             result.intended = drivingStage->getIntendedVehicleID();
-            result.depart = drivingStage->getIntendedDepart();
+            result.depart = STEPS2TIME(drivingStage->getIntendedDepart());
             const std::set<std::string> lines = drivingStage->getLines();
             for(auto line=lines.begin(); line != lines.end(); line++) {
                 if(line!=lines.begin()) {
