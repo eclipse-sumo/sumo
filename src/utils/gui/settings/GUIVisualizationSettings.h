@@ -416,7 +416,11 @@ public:
 
     /// @brief color for Stops
     static const RGBColor SUMO_color_stops;
+        
+    /// @brief color for personStops
+    static const RGBColor SUMO_color_personStops;
 
+    // @brief scheme names
     static const std::string SCHEME_NAME_EDGE_PARAM_NUMERICAL;
     static const std::string SCHEME_NAME_LANE_PARAM_NUMERICAL;
     static const std::string SCHEME_NAME_EDGEDATA_NUMERICAL;
