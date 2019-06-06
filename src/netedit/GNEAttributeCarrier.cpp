@@ -4351,6 +4351,64 @@ GNEAttributeCarrier::fillPersonElements() {
                                            "0.5");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
+
+
+    currentTag = SUMO_TAG_PERSONTRIP_FROMTO;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_RIDE, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_PARENT, ICON_PERSONTRIP_FROMTO);
+        // set values of attributes
+        attrProperty = AttributeProperties(SUMO_ATTR_FROM,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
+                                           "The name of the edge the ride starts at");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_TO,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
+                                           "The name of the edge the ride ends at");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_VIA,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "Ids of the intermediate edges");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_VTYPES,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "List of possible vehicle types to take");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_MODES,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "List of possible traffic modes. Walking is always possible regardless of this value");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_ARRIVALPOS,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "arrival position on the destination edge",
+                                           "-1");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
+    currentTag = SUMO_TAG_PERSONTRIP_BUSSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = TagProperties(currentTag, TAGTYPE_DEMANDELEMENT | TAGTYPE_RIDE, TAGPROPERTY_DRAWABLE | TAGPROPERTY_SELECTABLE | TAGPROPERTY_PARENT, ICON_PERSONTRIP_BUSSTOP);
+        // set values of attributes
+        attrProperty = AttributeProperties(SUMO_ATTR_BUS_STOP,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
+                                           "Id of the destination stop");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_VTYPES,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "List of possible vehicle types to take");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = AttributeProperties(SUMO_ATTR_MODES,
+                                           ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
+                                           "List of possible traffic modes. Walking is always possible regardless of this value");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
     currentTag = SUMO_TAG_RIDE_FROMTO;
     {
         // set values of tag
@@ -4395,12 +4453,6 @@ GNEAttributeCarrier::fillPersonElements() {
         attrProperty = AttributeProperties(SUMO_ATTR_LINES,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_LIST | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
                                            "list of vehicle alternatives to take for the ride");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_ARRIVALPOS,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "arrival position on the destination edge",
-                                           "-1");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = SUMO_TAG_WALK_EDGES;
@@ -4471,12 +4523,6 @@ GNEAttributeCarrier::fillPersonElements() {
         attrProperty = AttributeProperties(SUMO_ATTR_BUS_STOP,
                                            ATTRPROPERTY_STRING | ATTRPROPERTY_UNIQUE | ATTRPROPERTY_UPDATEGEOMETRY,
                                            "Id of the destination stop");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = AttributeProperties(SUMO_ATTR_ARRIVALPOS,
-                                           ATTRPROPERTY_STRING | ATTRPROPERTY_DEFAULTVALUESTATIC | ATTRPROPERTY_WRITEXMLOPTIONAL,
-                                           "arrival position on the destination edge",
-                                           "-1");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
 }
