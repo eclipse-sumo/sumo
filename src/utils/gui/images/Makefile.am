@@ -60,7 +60,7 @@ trip.xpm \
 stopelement.xpm \
 person.xpm \
 personflow.xpm \
-persontripedges.xpm \
+persontripfromto.xpm \
 persontripbusstop.xpm \
 walkedges.xpm \
 walkfromto.xpm \
