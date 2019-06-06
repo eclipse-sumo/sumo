@@ -311,6 +311,19 @@ GNESelectorFrame::clearCurrentSelection() const {
                     }
                 }
             }
+            // select person trips
+            if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_PERSONTRIP)) {
+                for (const auto &i : myViewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_PERSONTRIP_FROMTO)) {
+                    if (i.second->isAttributeCarrierSelected()) {
+                        i.second->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
+                    }
+                }
+                for (const auto &i : myViewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_PERSONTRIP_BUSSTOP)) {
+                    if (i.second->isAttributeCarrierSelected()) {
+                        i.second->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
+                    }
+                }
+            }
             // select ride
             if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_RIDE)) {
                 for (const auto &i : myViewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_RIDE_FROMTO)) {
@@ -551,6 +564,7 @@ GNESelectorFrame::LockGLObjectTypes::LockGLObjectTypes(GNESelectorFrame* selecto
     myTypeEntries[GLO_STOP] = std::make_pair(Supermode::GNE_SUPERMODE_DEMAND, new ObjectTypeEntry(matrixLockGLObjectTypes, "Stops"));
     myTypeEntries[GLO_PERSON] = std::make_pair(Supermode::GNE_SUPERMODE_DEMAND, new ObjectTypeEntry(matrixLockGLObjectTypes, "Person"));
     myTypeEntries[GLO_PERSONFLOW] = std::make_pair(Supermode::GNE_SUPERMODE_DEMAND, new ObjectTypeEntry(matrixLockGLObjectTypes, "PersonFlow"));
+    myTypeEntries[GLO_PERSONTRIP] = std::make_pair(Supermode::GNE_SUPERMODE_DEMAND, new ObjectTypeEntry(matrixLockGLObjectTypes, "PersonTrip"));
     myTypeEntries[GLO_RIDE] = std::make_pair(Supermode::GNE_SUPERMODE_DEMAND, new ObjectTypeEntry(matrixLockGLObjectTypes, "Ride"));
     myTypeEntries[GLO_WALK] = std::make_pair(Supermode::GNE_SUPERMODE_DEMAND, new ObjectTypeEntry(matrixLockGLObjectTypes, "Walk"));
     myTypeEntries[GLO_PERSONSTOP] = std::make_pair(Supermode::GNE_SUPERMODE_DEMAND, new ObjectTypeEntry(matrixLockGLObjectTypes, "Personstop"));
@@ -1480,6 +1494,23 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
                     }
                 }
             }
+            // select person trip
+            if (!locks->IsObjectTypeLocked(GLO_PERSONTRIP)) {
+                for (const auto &i : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_PERSONTRIP_FROMTO)) {
+                    if (i.second->isAttributeCarrierSelected()) {
+                        i.second->setAttribute(GNE_ATTR_SELECTED, "false", mySelectorFrameParent->myViewNet->getUndoList());
+                    } else {
+                        i.second->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->myViewNet->getUndoList());
+                    }
+                }
+                for (const auto &i : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_PERSONTRIP_BUSSTOP)) {
+                    if (i.second->isAttributeCarrierSelected()) {
+                        i.second->setAttribute(GNE_ATTR_SELECTED, "false", mySelectorFrameParent->myViewNet->getUndoList());
+                    } else {
+                        i.second->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->myViewNet->getUndoList());
+                    }
+                }
+            }
             // select ride
             if (!locks->IsObjectTypeLocked(GLO_RIDE)) {
                 for (const auto &i : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_RIDE_FROMTO)) {
@@ -1624,6 +1655,13 @@ GNESelectorFrame::ACsToSelected() const {
         // select person flows
         if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_PERSONFLOW) && (myViewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_PERSONFLOW).size() > 0)) {
             return true;
+        }
+        // select persontrips
+        if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_PERSONTRIP)) {
+            if ((myViewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_PERSONTRIP_FROMTO).size() > 0) ||
+                (myViewNet->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_PERSONTRIP_BUSSTOP).size() > 0)) {
+                return true;
+            }
         }
         // select ride
         if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_RIDE)) {
