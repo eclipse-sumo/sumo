@@ -33,7 +33,6 @@
 class GNEPersonFrame : public GNEFrame {
 
 public:
-
     // ===========================================================================
     // class HelpCreation
     // ===========================================================================
@@ -164,15 +163,9 @@ protected:
     /// @brief disable moduls if element selected in itemSelector isn't valid
     void disableModuls();
 
-    /// @brief selected vehicle type in VTypeSelector (can be reimplemented in frame childs)
-    void selectedVType(bool validVType);
-
 private:
     /// @brief person tag selector (used to select diffent kind of persons)
     TagSelector* myPersonTagSelector;
-
-    /// @brief Person Type selectors
-    VTypeSelector* myVTypeSelector;
 
     /// @brief internal vehicle attributes
     AttributesCreator* myPersonAttributes;
