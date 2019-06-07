@@ -94,7 +94,7 @@ GNEPersonFrame::HelpCreation::updateHelpCreation() {
     // create information label
     std::ostringstream information;
     // set text depending of selected vehicle type
-    switch (myPersonFrameParent->myPersonTypeSelector->getCurrentTagProperties().getTag()) {
+    switch (myPersonFrameParent->myPersonTagSelector->getCurrentTagProperties().getTag()) {
         case SUMO_TAG_PERSON:
             information
                     << "- Click over a route to\n"
@@ -251,7 +251,7 @@ GNEPersonFrame::TripRouteCreator::onCmdFinishRouteCreation(FXObject*, FXSelector
     // only create route if there is more than two edges
     if (mySelectedEdges.size() > 1) {
         // obtain tag (only for improve code legibility)
-        SumoXMLTag vehicleTag = myPersonFrameParent->myPersonTypeSelector->getCurrentTagProperties().getTag();
+        SumoXMLTag vehicleTag = myPersonFrameParent->myPersonTagSelector->getCurrentTagProperties().getTag();
         // Declare map to keep attributes from Frames from Frame
         std::map<SumoXMLAttr, std::string> valuesMap = myPersonFrameParent->myPersonAttributes->getAttributesAndValues(false);
         // add ID parameter
@@ -319,7 +319,7 @@ GNEPersonFrame::GNEPersonFrame(FXHorizontalFrame* horizontalFrameParent, GNEView
     GNEFrame(horizontalFrameParent, viewNet, "Persons") {
 
     // Create item Selector modul for persons
-    myPersonTypeSelector = new ItemSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_PERSON);
+    myPersonTagSelector = new TagSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_PERSON);
 
     // Create vehicle type selector
     myVTypeSelector = new VTypeSelector(this);
@@ -334,7 +334,7 @@ GNEPersonFrame::GNEPersonFrame(FXHorizontalFrame* horizontalFrameParent, GNEView
     myHelpCreation = new HelpCreation(this);
 
     // set Person as default vehicle
-    myPersonTypeSelector->setCurrentTypeTag(SUMO_TAG_PERSON);
+    myPersonTagSelector->setCurrentTypeTag(SUMO_TAG_PERSON);
 }
 
 
@@ -344,7 +344,7 @@ GNEPersonFrame::~GNEPersonFrame() {}
 void
 GNEPersonFrame::show() {
     // refresh item selector
-    myPersonTypeSelector->refreshTagProperties();
+    myPersonTagSelector->refreshTagProperties();
     // show frame
     GNEFrame::show();
 }
@@ -353,7 +353,7 @@ GNEPersonFrame::show() {
 bool
 GNEPersonFrame::addPerson(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
     // obtain tag (only for improve code legibility)
-    SumoXMLTag vehicleTag = myPersonTypeSelector->getCurrentTagProperties().getTag();
+    SumoXMLTag vehicleTag = myPersonTagSelector->getCurrentTagProperties().getTag();
     // first check that current selected vehicle is valid
     if (vehicleTag == SUMO_TAG_NOTHING) {
         myViewNet->setStatusBarText("Current selected vehicle isn't valid.");
@@ -443,7 +443,7 @@ GNEPersonFrame::enableModuls(const GNEAttributeCarrier::TagProperties& tagProper
     // show vehicle type selector modul
     myVTypeSelector->showVTypeSelector(tagProperties);
     // show AutoRute creator if we're editing a trip
-    if ((myPersonTypeSelector->getCurrentTagProperties().getTag() == SUMO_TAG_TRIP) || (myPersonTypeSelector->getCurrentTagProperties().getTag() == SUMO_TAG_FLOW)) {
+    if ((myPersonTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_TRIP) || (myPersonTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_FLOW)) {
         myTripRouteCreator->showTripRouteCreator();
     } else {
         myTripRouteCreator->hideTripRouteCreator();
@@ -464,7 +464,7 @@ void
 GNEPersonFrame::selectedVType(bool validVType) {
     if (validVType) {
         // show vehicle attributes modul
-        myPersonAttributes->showAttributesCreatorModul(myPersonTypeSelector->getCurrentTagProperties());
+        myPersonAttributes->showAttributesCreatorModul(myPersonTagSelector->getCurrentTagProperties());
         // show help creation
         myHelpCreation->showHelpCreation();
     } else {

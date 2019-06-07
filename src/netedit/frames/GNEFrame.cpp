@@ -54,8 +54,8 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(GNEFrame::ItemSelector) ItemSelectorMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_TYPE,    GNEFrame::ItemSelector::onCmdSelectItem)
+FXDEFMAP(GNEFrame::TagSelector) TagSelectorMap[] = {
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_TYPE,    GNEFrame::TagSelector::onCmdSelectItem)
 };
 
 FXDEFMAP(GNEFrame::VTypeSelector) VTypeSelectorMap[] = {
@@ -88,11 +88,11 @@ FXDEFMAP(GNEFrame::AttributesEditorExtended) AttributesEditorExtendedMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNEFrame::AttributesEditorExtended::onCmdOpenDialog)
 };
 
-FXDEFMAP(GNEFrame::ACHierarchy) ACHierarchyMap[] = {
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECTORFRAME_CENTER,      GNEFrame::ACHierarchy::onCmdCenterItem),
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECTORFRAME_INSPECT,     GNEFrame::ACHierarchy::onCmdInspectItem),
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECTORFRAME_DELETE,      GNEFrame::ACHierarchy::onCmdDeleteItem),
-    FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,   MID_GNE_DELETEFRAME_CHILDS,         GNEFrame::ACHierarchy::onCmdShowChildMenu)
+FXDEFMAP(GNEFrame::AttributeCarrierHierarchy) AttributeCarrierHierarchyMap[] = {
+    FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECTORFRAME_CENTER,      GNEFrame::AttributeCarrierHierarchy::onCmdCenterItem),
+    FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECTORFRAME_INSPECT,     GNEFrame::AttributeCarrierHierarchy::onCmdInspectItem),
+    FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECTORFRAME_DELETE,      GNEFrame::AttributeCarrierHierarchy::onCmdDeleteItem),
+    FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,   MID_GNE_DELETEFRAME_CHILDS,         GNEFrame::AttributeCarrierHierarchy::onCmdShowChildMenu)
 };
 
 FXDEFMAP(GNEFrame::GenericParametersEditor) GenericParametersEditorMap[] = {
@@ -112,14 +112,14 @@ FXDEFMAP(GNEFrame::NeteditAttributes) NeteditAttributesMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEFrame::ItemSelector,                             FXGroupBox,         ItemSelectorMap,                ARRAYNUMBER(ItemSelectorMap))
+FXIMPLEMENT(GNEFrame::TagSelector,                             FXGroupBox,         TagSelectorMap,                ARRAYNUMBER(TagSelectorMap))
 FXIMPLEMENT(GNEFrame::VTypeSelector,                            FXGroupBox,         VTypeSelectorMap,               ARRAYNUMBER(VTypeSelectorMap))
 FXIMPLEMENT(GNEFrame::AttributesCreator,                        FXGroupBox,         AttributesCreatorMap,           ARRAYNUMBER(AttributesCreatorMap))
 FXIMPLEMENT(GNEFrame::AttributesCreator::AttributesCreatorRow,  FXHorizontalFrame,  RowCreatorMap,                  ARRAYNUMBER(RowCreatorMap))
 FXIMPLEMENT(GNEFrame::AttributesEditor,                         FXGroupBox,         AttributesEditorMap,            ARRAYNUMBER(AttributesEditorMap))
 FXIMPLEMENT(GNEFrame::AttributesEditor::AttributesEditorRow,    FXHorizontalFrame,  AttributesEditorRowMap,         ARRAYNUMBER(AttributesEditorRowMap))
 FXIMPLEMENT(GNEFrame::AttributesEditorExtended,                 FXGroupBox,         AttributesEditorExtendedMap,    ARRAYNUMBER(AttributesEditorExtendedMap))
-FXIMPLEMENT(GNEFrame::ACHierarchy,                              FXGroupBox,         ACHierarchyMap,                 ARRAYNUMBER(ACHierarchyMap))
+FXIMPLEMENT(GNEFrame::AttributeCarrierHierarchy,                              FXGroupBox,         AttributeCarrierHierarchyMap,                 ARRAYNUMBER(AttributeCarrierHierarchyMap))
 FXIMPLEMENT(GNEFrame::GenericParametersEditor,                  FXGroupBox,         GenericParametersEditorMap,     ARRAYNUMBER(GenericParametersEditorMap))
 FXIMPLEMENT(GNEFrame::DrawingShape,                             FXGroupBox,         DrawingShapeMap,                ARRAYNUMBER(DrawingShapeMap))
 FXIMPLEMENT(GNEFrame::NeteditAttributes,                        FXGroupBox,         NeteditAttributesMap,           ARRAYNUMBER(NeteditAttributesMap))
@@ -135,10 +135,10 @@ FXFont* GNEFrame::myFrameHeaderFont = nullptr;
 // ===========================================================================
 
 // ---------------------------------------------------------------------------
-// GNEFrame::ItemSelector - methods
+// GNEFrame::TagSelector - methods
 // ---------------------------------------------------------------------------
 
-GNEFrame::ItemSelector::ItemSelector(GNEFrame* frameParent, GNEAttributeCarrier::TagType type, bool onlyDrawables) :
+GNEFrame::TagSelector::TagSelector(GNEFrame* frameParent, GNEAttributeCarrier::TagType type, bool onlyDrawables) :
     FXGroupBox(frameParent->myContentFrame, "Element", GUIDesignGroupBoxFrame),
     myFrameParent(frameParent) {
     // first check that property is valid
@@ -189,16 +189,16 @@ GNEFrame::ItemSelector::ItemSelector(GNEFrame* frameParent, GNEAttributeCarrier:
     }
     // Set visible items
     myTypeMatchBox->setNumVisible((int)myTypeMatchBox->getNumItems());
-    // ItemSelector is always shown
+    // TagSelector is always shown
     show();
 }
 
 
-GNEFrame::ItemSelector::~ItemSelector() {}
+GNEFrame::TagSelector::~TagSelector() {}
 
 
 void
-GNEFrame::ItemSelector::showItemSelector(bool enableModuls) {
+GNEFrame::TagSelector::showTagSelector(bool enableModuls) {
     show();
     // check if parent moduls has to be enabled
     if (enableModuls && (myCurrentTagProperties.getTag() != SUMO_TAG_NOTHING)) {
@@ -208,20 +208,20 @@ GNEFrame::ItemSelector::showItemSelector(bool enableModuls) {
 
 
 void
-GNEFrame::ItemSelector::hideItemSelector() {
+GNEFrame::TagSelector::hideTagSelector() {
     hide();
     myFrameParent->disableModuls();
 }
 
 
 const GNEAttributeCarrier::TagProperties&
-GNEFrame::ItemSelector::getCurrentTagProperties() const {
+GNEFrame::TagSelector::getCurrentTagProperties() const {
     return myCurrentTagProperties;
 }
 
 
 void
-GNEFrame::ItemSelector::setCurrentTypeTag(SumoXMLTag typeTag) {
+GNEFrame::TagSelector::setCurrentTypeTag(SumoXMLTag typeTag) {
     // set empty tag properties
     myCurrentTagProperties = GNEAttributeCarrier::TagProperties();
     // make sure that tag is in myTypeMatchBox
@@ -244,14 +244,14 @@ GNEFrame::ItemSelector::setCurrentTypeTag(SumoXMLTag typeTag) {
 
 
 void
-GNEFrame::ItemSelector::refreshTagProperties() {
+GNEFrame::TagSelector::refreshTagProperties() {
     // simply call onCmdSelectItem (to avoid duplicated code)
     onCmdSelectItem(0, 0, 0);
 }
 
 
 long
-GNEFrame::ItemSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
+GNEFrame::TagSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
     // Check if value of myTypeMatchBox correspond of an allowed additional tags
     for (const auto& i : myListOfTags) {
         if (toString(i) == myTypeMatchBox->getText().text()) {
@@ -262,7 +262,7 @@ GNEFrame::ItemSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
             // show moduls if selected item is valid
             myFrameParent->enableModuls(myCurrentTagProperties);
             // Write Warning in console if we're in testing mode
-            WRITE_DEBUG(("Selected item '" + myTypeMatchBox->getText() + "' in ItemSelector").text());
+            WRITE_DEBUG(("Selected item '" + myTypeMatchBox->getText() + "' in TagSelector").text());
             return 1;
         }
     }
@@ -273,7 +273,7 @@ GNEFrame::ItemSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
     // set color of myTypeMatchBox to red (invalid)
     myTypeMatchBox->setTextColor(FXRGB(255, 0, 0));
     // Write Warning in console if we're in testing mode
-    WRITE_DEBUG("Selected invalid item in ItemSelector");
+    WRITE_DEBUG("Selected invalid item in TagSelector");
     return 1;
 }
 
@@ -1764,10 +1764,10 @@ GNEFrame::AttributesEditorExtended::onCmdOpenDialog(FXObject*, FXSelector, void*
 }
 
 // ---------------------------------------------------------------------------
-// GNEFrame::ACHierarchy - methods
+// GNEFrame::AttributeCarrierHierarchy - methods
 // ---------------------------------------------------------------------------
 
-GNEFrame::ACHierarchy::ACHierarchy(GNEFrame* frameParent) :
+GNEFrame::AttributeCarrierHierarchy::AttributeCarrierHierarchy(GNEFrame* frameParent) :
     FXGroupBox(frameParent->myContentFrame, "Hierarchy", GUIDesignGroupBoxFrame),
     myFrameParent(frameParent),
     myAC(nullptr) {
@@ -1777,29 +1777,29 @@ GNEFrame::ACHierarchy::ACHierarchy(GNEFrame* frameParent) :
 }
 
 
-GNEFrame::ACHierarchy::~ACHierarchy() {}
+GNEFrame::AttributeCarrierHierarchy::~AttributeCarrierHierarchy() {}
 
 
 void
-GNEFrame::ACHierarchy::showACHierarchy(GNEAttributeCarrier* AC) {
+GNEFrame::AttributeCarrierHierarchy::showAttributeCarrierHierarchy(GNEAttributeCarrier* AC) {
     myAC = AC;
-    // show ACHierarchy and refresh ACHierarchy
+    // show AttributeCarrierHierarchy and refresh AttributeCarrierHierarchy
     if (myAC) {
         show();
-        refreshACHierarchy();
+        refreshAttributeCarrierHierarchy();
     }
 }
 
 
 void
-GNEFrame::ACHierarchy::hideACHierarchy() {
+GNEFrame::AttributeCarrierHierarchy::hideAttributeCarrierHierarchy() {
     myAC = nullptr;
     hide();
 }
 
 
 void
-GNEFrame::ACHierarchy::refreshACHierarchy() {
+GNEFrame::AttributeCarrierHierarchy::refreshAttributeCarrierHierarchy() {
     // clear items
     myTreelist->clearItems();
     myTreeItemToACMap.clear();
@@ -1812,7 +1812,7 @@ GNEFrame::ACHierarchy::refreshACHierarchy() {
 
 
 long
-GNEFrame::ACHierarchy::onCmdShowChildMenu(FXObject*, FXSelector, void* eventData) {
+GNEFrame::AttributeCarrierHierarchy::onCmdShowChildMenu(FXObject*, FXSelector, void* eventData) {
     // Obtain event
     FXEvent* e = (FXEvent*)eventData;
     // obtain FXTreeItem in the given position
@@ -1826,7 +1826,7 @@ GNEFrame::ACHierarchy::onCmdShowChildMenu(FXObject*, FXSelector, void* eventData
 
 
 long
-GNEFrame::ACHierarchy::onCmdCenterItem(FXObject*, FXSelector, void*) {
+GNEFrame::AttributeCarrierHierarchy::onCmdCenterItem(FXObject*, FXSelector, void*) {
     GUIGlObject* glObject = dynamic_cast<GUIGlObject*>(myRightClickedAC);
     if (glObject) {
         myFrameParent->myViewNet->centerTo(glObject->getGlID(), true, -1);
@@ -1837,7 +1837,7 @@ GNEFrame::ACHierarchy::onCmdCenterItem(FXObject*, FXSelector, void*) {
 
 
 long
-GNEFrame::ACHierarchy::onCmdInspectItem(FXObject*, FXSelector, void*) {
+GNEFrame::AttributeCarrierHierarchy::onCmdInspectItem(FXObject*, FXSelector, void*) {
     if ((myAC != nullptr) && (myRightClickedAC != nullptr)) {
         myFrameParent->myViewNet->getViewParent()->getInspectorFrame()->inspectChild(myRightClickedAC, myAC);
     }
@@ -1846,7 +1846,7 @@ GNEFrame::ACHierarchy::onCmdInspectItem(FXObject*, FXSelector, void*) {
 
 
 long
-GNEFrame::ACHierarchy::onCmdDeleteItem(FXObject*, FXSelector, void*) {
+GNEFrame::AttributeCarrierHierarchy::onCmdDeleteItem(FXObject*, FXSelector, void*) {
     // check if Inspector frame was opened before removing
     const std::vector<GNEAttributeCarrier*>& currentInspectedACs = myFrameParent->myViewNet->getViewParent()->getInspectorFrame()->getAttributesEditor()->getEditedACs();
     // Remove Attribute Carrier
@@ -1878,7 +1878,7 @@ GNEFrame::ACHierarchy::onCmdDeleteItem(FXObject*, FXSelector, void*) {
     // update viewNet
     myFrameParent->myViewNet->update();
     // refresh AC Hierarchy
-    refreshACHierarchy();
+    refreshAttributeCarrierHierarchy();
     // check if inspector frame has to be shown again
     if (currentInspectedACs.size() == 1) {
         if (currentInspectedACs.front() != myRightClickedAC) {
@@ -1893,7 +1893,7 @@ GNEFrame::ACHierarchy::onCmdDeleteItem(FXObject*, FXSelector, void*) {
 
 
 void
-GNEFrame::ACHierarchy::createPopUpMenu(int X, int Y, GNEAttributeCarrier* ac) {
+GNEFrame::AttributeCarrierHierarchy::createPopUpMenu(int X, int Y, GNEAttributeCarrier* ac) {
     // first check that AC exist
     if (ac) {
         // set current clicked AC
@@ -1925,7 +1925,7 @@ GNEFrame::ACHierarchy::createPopUpMenu(int X, int Y, GNEAttributeCarrier* ac) {
 
 
 FXTreeItem*
-GNEFrame::ACHierarchy::showAttributeCarrierParents() {
+GNEFrame::AttributeCarrierHierarchy::showAttributeCarrierParents() {
     if (myAC->getTagProperty().isNetElement()) {
         // check demand element type
         switch (myAC->getTagProperty().getTag()) {
@@ -2177,7 +2177,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierParents() {
 
 
 void
-GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier* AC, FXTreeItem* itemParent) {
+GNEFrame::AttributeCarrierHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier* AC, FXTreeItem* itemParent) {
     if (AC->getTagProperty().isNetElement()) {
         // Switch gl type of ac
         switch (AC->getTagProperty().getTag()) {
@@ -2341,7 +2341,7 @@ GNEFrame::ACHierarchy::showAttributeCarrierChilds(GNEAttributeCarrier* AC, FXTre
 
 
 FXTreeItem*
-GNEFrame::ACHierarchy::addListItem(GNEAttributeCarrier* AC, FXTreeItem* itemParent, std::string prefix, std::string sufix) {
+GNEFrame::AttributeCarrierHierarchy::addListItem(GNEAttributeCarrier* AC, FXTreeItem* itemParent, std::string prefix, std::string sufix) {
     // insert item in Tree list
     FXTreeItem* item = myTreelist->insertItem(nullptr, itemParent, (prefix + AC->getHierarchyName() + sufix).c_str(), AC->getIcon(), AC->getIcon());
     // insert item in map
@@ -2353,7 +2353,7 @@ GNEFrame::ACHierarchy::addListItem(GNEAttributeCarrier* AC, FXTreeItem* itemPare
 
 
 FXTreeItem*
-GNEFrame::ACHierarchy::addListItem(FXTreeItem* itemParent, const std::string& text, FXIcon* icon, bool expanded) {
+GNEFrame::AttributeCarrierHierarchy::addListItem(FXTreeItem* itemParent, const std::string& text, FXIcon* icon, bool expanded) {
     // insert item in Tree list
     FXTreeItem* item = myTreelist->insertItem(nullptr, itemParent, text.c_str(), icon, icon);
     // set exapnded
@@ -3244,19 +3244,19 @@ GNEFrame::buildShape() {
 
 void
 GNEFrame::enableModuls(const GNEAttributeCarrier::TagProperties&) {
-    // this function has to be reimplemente in all child frames that uses a ItemSelector modul
+    // this function has to be reimplemente in all child frames that uses a TagSelector modul
 }
 
 
 void
 GNEFrame::disableModuls() {
-    // this function has to be reimplemente in all child frames that uses a ItemSelector modul
+    // this function has to be reimplemente in all child frames that uses a TagSelector modul
 }
 
 
 void
 GNEFrame::updateFrameAfterChangeAttribute() {
-    // this function has to be reimplemente in all child frames that uses a ItemSelector modul
+    // this function has to be reimplemente in all child frames that uses a TagSelector modul
 }
 
 

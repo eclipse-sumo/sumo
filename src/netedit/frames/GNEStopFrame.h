@@ -138,7 +138,7 @@ public:
     bool addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, bool shiftPressed);
 
 protected:
-    /// @brief enable moduls depending of item selected in ItemSelector
+    /// @brief enable moduls depending of item selected in TagSelector
     void enableModuls(const GNEAttributeCarrier::TagProperties& tagProperties);
 
     /// @brief disable moduls if element selected in itemSelector isn't valid
@@ -148,8 +148,8 @@ private:
     /// @brief Stop parent selectors
     StopParentSelector* myStopParentSelector;
 
-    /// @brief item selector (used to select diffent kind of Stops)
-    ItemSelector* myStopTypeSelector;
+    /// @brief stop tag selector selector (used to select diffent kind of Stops)
+    TagSelector* myStopTagSelector;
 
     /// @brief internal Stop attributes
     AttributesCreator* myStopAttributes;

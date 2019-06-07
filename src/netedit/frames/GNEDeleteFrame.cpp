@@ -91,7 +91,7 @@ GNEDeleteFrame::GNEDeleteFrame(FXHorizontalFrame* horizontalFrameParent, GNEView
     myDeleteOptions = new DeleteOptions(this);
 
     // Create groupbox and tree list
-    myACHierarchy = new GNEFrame::ACHierarchy(this);
+    myAttributeCarrierHierarchy = new GNEFrame::AttributeCarrierHierarchy(this);
 }
 
 
@@ -101,9 +101,9 @@ GNEDeleteFrame::~GNEDeleteFrame() {}
 void
 GNEDeleteFrame::show() {
     if (myViewNet->getNet()->getSelectedAttributeCarriers(false).size() == 1) {
-        myACHierarchy->showACHierarchy(*myViewNet->getNet()->getSelectedAttributeCarriers(false).begin());
+        myAttributeCarrierHierarchy->showAttributeCarrierHierarchy(*myViewNet->getNet()->getSelectedAttributeCarriers(false).begin());
     } else {
-        myACHierarchy->hideACHierarchy();
+        myAttributeCarrierHierarchy->hideAttributeCarrierHierarchy();
     }
     GNEFrame::show();
 }

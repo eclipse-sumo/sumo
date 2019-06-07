@@ -134,7 +134,7 @@ protected:
      */
     bool buildShape();
 
-    /// @brief enable moduls depending of item selected in ItemSelector
+    /// @brief enable moduls depending of item selected in TagSelector
     void enableModuls(const GNEAttributeCarrier::TagProperties& tagProperties);
 
     /// @brief disable moduls if element selected in itemSelector isn't valid
@@ -150,8 +150,8 @@ protected:
     bool addPOILane(const std::map<SumoXMLAttr, std::string>& POIValues);
 
 private:
-    /// @brief item selector
-    ItemSelector* myItemSelector;
+    /// @brief shape tag selector
+    TagSelector* myShapeTagSelector;
 
     /// @brief shape internal attributes
     AttributesCreator* myShapeAttributes;

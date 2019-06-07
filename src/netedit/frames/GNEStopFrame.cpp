@@ -164,14 +164,14 @@ GNEStopFrame::StopParentSelector::refreshStopParentSelector() {
     }
     // show moduls depending of found
     if (found) {
-        myStopFrameParent->myStopTypeSelector->showItemSelector(true);
+        myStopFrameParent->myStopTagSelector->showTagSelector(true);
     } else {
         // disable combo box and moduls if there isn't candidate stop parents in net
         if (myStopParentCandidates.size() > 0) {
             myStopParentMatchBox->setCurrentItem(0, TRUE);
         } else {
             myStopParentMatchBox->hide();
-            myStopFrameParent->myStopTypeSelector->hideItemSelector();
+            myStopFrameParent->myStopTagSelector->hideTagSelector();
         }
     }
 }
@@ -187,7 +187,7 @@ GNEStopFrame::StopParentSelector::onCmdSelectStopParent(FXObject*, FXSelector, v
             // Set new current VType
             myCurrentStopParent = myStopParentCandidates.at(i);
             // show Stop selector, attributes and help creation moduls
-            myStopFrameParent->myStopTypeSelector->showItemSelector(true);
+            myStopFrameParent->myStopTagSelector->showTagSelector(true);
             // Write Warning in console if we're in testing mode
             WRITE_DEBUG(("Selected item '" + myStopParentMatchBox->getText() + "' in StopParentSelector").text());
             return 1;
@@ -196,7 +196,7 @@ GNEStopFrame::StopParentSelector::onCmdSelectStopParent(FXObject*, FXSelector, v
     // if VType selecte is invalid, select
     myCurrentStopParent = nullptr;
     // hide all moduls if selected item isn't valid
-    myStopFrameParent->myStopTypeSelector->hideItemSelector();
+    myStopFrameParent->myStopTagSelector->hideTagSelector();
     // set color of myStopParentMatchBox to red (invalid)
     myStopParentMatchBox->setTextColor(FXRGB(255, 0, 0));
     // Write Warning in console if we're in testing mode
@@ -238,7 +238,7 @@ GNEStopFrame::HelpCreation::updateHelpCreation() {
     // create information label
     std::ostringstream information;
     // set text depending of selected Stop type
-    switch (myStopFrameParent->myStopTypeSelector->getCurrentTagProperties().getTag()) {
+    switch (myStopFrameParent->myStopTagSelector->getCurrentTagProperties().getTag()) {
         case SUMO_TAG_STOP_BUSSTOP:
             information
                     << "- Click over a bus stop\n"
@@ -282,7 +282,7 @@ GNEStopFrame::GNEStopFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet*
     myStopParentSelector = new StopParentSelector(this);
 
     // Create item Selector modul for Stops
-    myStopTypeSelector = new ItemSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_STOP);
+    myStopTagSelector = new TagSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_STOP);
 
     // Create Stop parameters
     myStopAttributes = new AttributesCreator(this);
@@ -306,7 +306,7 @@ GNEStopFrame::show() {
     // refresh vType selector
     myStopParentSelector->refreshStopParentSelector();
     // refresh item selector
-    myStopTypeSelector->refreshTagProperties();
+    myStopTagSelector->refreshTagProperties();
     // show frame
     GNEFrame::show();
 }
@@ -334,7 +334,7 @@ GNEStopFrame::addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCu
         }
 
         // obtain tag (only for improve code legibility)
-        SumoXMLTag stopTag = myStopTypeSelector->getCurrentTagProperties().getTag();
+        SumoXMLTag stopTag = myStopTagSelector->getCurrentTagProperties().getTag();
 
         // declare a Stop
         SUMOVehicleParameter::Stop stopParameter;

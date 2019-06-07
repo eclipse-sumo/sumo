@@ -284,7 +284,7 @@ public:
     GNEAdditionalFrame::SelectorLaneParents* getConsecutiveLaneSelector() const;
 
 protected:
-    /// @brief enable moduls depending of item selected in ItemSelector
+    /// @brief enable moduls depending of item selected in TagSelector
     void enableModuls(const GNEAttributeCarrier::TagProperties& tagProperties);
 
     /// @brief disable moduls if element selected in itemSelector isn't valid
@@ -313,7 +313,7 @@ private:
     bool buildAdditionalOverView(std::map<SumoXMLAttr, std::string>& valuesMap, const GNEAttributeCarrier::TagProperties& tagValues);
 
     /// @brief item selector
-    ItemSelector* myItemSelector;
+    TagSelector* myAdditionalTagSelector;
 
     /// @brief internal additional attributes
     AttributesCreator* myAdditionalAttributes;

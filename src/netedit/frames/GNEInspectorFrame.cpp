@@ -113,8 +113,8 @@ GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame* horizontalFrameParent, G
     // Create Template editor modul
     myTemplateEditor = new TemplateEditor(this);
 
-    // Create ACHierarchy modul
-    myACHierarchy = new GNEFrame::ACHierarchy(this);
+    // Create AttributeCarrierHierarchy modul
+    myAttributeCarrierHierarchy = new GNEFrame::AttributeCarrierHierarchy(this);
 }
 
 
@@ -247,7 +247,7 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
     myGEOAttributesEditor->hideGEOAttributesEditor();
     myGenericParametersEditor->hideGenericParametersEditor();
     myTemplateEditor->hideTemplateEditor();
-    myACHierarchy->hideACHierarchy();
+    myAttributeCarrierHierarchy->hideAttributeCarrierHierarchy();
     myOverlappedInspection->hideOverlappedInspection();
     // If vector of attribute Carriers contain data
     if (ACs.size() > 0) {
@@ -291,7 +291,7 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
 
         // if we inspect a single Attribute carrier vector, show their childs
         if (ACs.size() == 1) {
-            myACHierarchy->showACHierarchy(ACs.front());
+            myAttributeCarrierHierarchy->showAttributeCarrierHierarchy(ACs.front());
         }
     } else {
         getFrameHeaderLabel()->setText("Inspect");
@@ -381,7 +381,7 @@ GNEInspectorFrame::updateFrameAfterUndoRedo() {
     // refresh GenericParameters
     myGenericParametersEditor->refreshGenericParametersEditor();
     // refresh AC Hierarchy
-    myACHierarchy->refreshACHierarchy();
+    myAttributeCarrierHierarchy->refreshAttributeCarrierHierarchy();
 }
 
 

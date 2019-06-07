@@ -102,7 +102,7 @@ private:
     DeleteOptions* myDeleteOptions;
 
     /// @brief modul for hierarchy
-    ACHierarchy* myACHierarchy;
+    AttributeCarrierHierarchy* myAttributeCarrierHierarchy;
 };
 
 

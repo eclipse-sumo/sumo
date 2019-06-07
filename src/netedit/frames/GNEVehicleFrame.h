@@ -158,7 +158,7 @@ public:
     TripRouteCreator* getTripRouteCreator() const;
 
 protected:
-    /// @brief enable moduls depending of item selected in ItemSelector
+    /// @brief enable moduls depending of item selected in TagSelector
     void enableModuls(const GNEAttributeCarrier::TagProperties& tagProperties);
 
     /// @brief disable moduls if element selected in itemSelector isn't valid
@@ -168,8 +168,8 @@ protected:
     void selectedVType(bool validVType);
 
 private:
-    /// @brief item selector (used to select diffent kind of vehicles)
-    ItemSelector* myVehicleSelector;
+    /// @brief vehicle tag selector (used to select diffent kind of vehicles)
+    TagSelector* myVehicleTagSelector;
 
     /// @brief Vehicle Type selectors
     VTypeSelector* myVTypeSelector;

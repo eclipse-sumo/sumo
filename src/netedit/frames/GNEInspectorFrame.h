@@ -420,7 +420,7 @@ private:
     TemplateEditor* myTemplateEditor;
 
     /// @brief Attribute Carrier Hierarchy
-    GNEFrame::ACHierarchy* myACHierarchy;
+    GNEFrame::AttributeCarrierHierarchy* myAttributeCarrierHierarchy;
 
     /// @brief back Button
     FXButton* myBackButton;

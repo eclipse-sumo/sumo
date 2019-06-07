@@ -94,7 +94,7 @@ GNEVehicleFrame::HelpCreation::updateHelpCreation() {
     // create information label
     std::ostringstream information;
     // set text depending of selected vehicle type
-    switch (myVehicleFrameParent->myVehicleSelector->getCurrentTagProperties().getTag()) {
+    switch (myVehicleFrameParent->myVehicleTagSelector->getCurrentTagProperties().getTag()) {
         case SUMO_TAG_VEHICLE:
             information
                     << "- Click over a route to\n"
@@ -261,7 +261,7 @@ GNEVehicleFrame::TripRouteCreator::onCmdFinishRouteCreation(FXObject*, FXSelecto
     // only create route if there is more than two edges
     if (mySelectedEdges.size() > 1) {
         // obtain tag (only for improve code legibility)
-        SumoXMLTag vehicleTag = myVehicleFrameParent->myVehicleSelector->getCurrentTagProperties().getTag();
+        SumoXMLTag vehicleTag = myVehicleFrameParent->myVehicleTagSelector->getCurrentTagProperties().getTag();
         // Declare map to keep attributes from Frames from Frame
         std::map<SumoXMLAttr, std::string> valuesMap = myVehicleFrameParent->myVehicleAttributes->getAttributesAndValues(false);
         // add ID parameter
@@ -329,7 +329,7 @@ GNEVehicleFrame::GNEVehicleFrame(FXHorizontalFrame* horizontalFrameParent, GNEVi
     GNEFrame(horizontalFrameParent, viewNet, "Vehicles") {
 
     // Create item Selector modul for vehicles
-    myVehicleSelector = new ItemSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_VEHICLE);
+    myVehicleTagSelector = new TagSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_VEHICLE);
 
     // Create vehicle type selector
     myVTypeSelector = new VTypeSelector(this);
@@ -344,7 +344,7 @@ GNEVehicleFrame::GNEVehicleFrame(FXHorizontalFrame* horizontalFrameParent, GNEVi
     myHelpCreation = new HelpCreation(this);
 
     // set Vehicle as default vehicle
-    myVehicleSelector->setCurrentTypeTag(SUMO_TAG_VEHICLE);
+    myVehicleTagSelector->setCurrentTypeTag(SUMO_TAG_VEHICLE);
 }
 
 
@@ -354,7 +354,7 @@ GNEVehicleFrame::~GNEVehicleFrame() {}
 void
 GNEVehicleFrame::show() {
     // refresh item selector
-    myVehicleSelector->refreshTagProperties();
+    myVehicleTagSelector->refreshTagProperties();
     // show frame
     GNEFrame::show();
 }
@@ -363,7 +363,7 @@ GNEVehicleFrame::show() {
 bool
 GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
     // obtain tag (only for improve code legibility)
-    SumoXMLTag vehicleTag = myVehicleSelector->getCurrentTagProperties().getTag();
+    SumoXMLTag vehicleTag = myVehicleTagSelector->getCurrentTagProperties().getTag();
     // first check that current selected vehicle is valid
     if (vehicleTag == SUMO_TAG_NOTHING) {
         myViewNet->setStatusBarText("Current selected vehicle isn't valid.");
@@ -453,7 +453,7 @@ GNEVehicleFrame::enableModuls(const GNEAttributeCarrier::TagProperties& tagPrope
     // show vehicle type selector modul
     myVTypeSelector->showVTypeSelector(tagProperties);
     // show AutoRute creator if we're editing a trip
-    if ((myVehicleSelector->getCurrentTagProperties().getTag() == SUMO_TAG_TRIP) || (myVehicleSelector->getCurrentTagProperties().getTag() == SUMO_TAG_FLOW)) {
+    if ((myVehicleTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_TRIP) || (myVehicleTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_FLOW)) {
         myTripRouteCreator->showTripRouteCreator();
     } else {
         myTripRouteCreator->hideTripRouteCreator();
@@ -474,7 +474,7 @@ void
 GNEVehicleFrame::selectedVType(bool validVType) {
     if (validVType) {
         // show vehicle attributes modul
-        myVehicleAttributes->showAttributesCreatorModul(myVehicleSelector->getCurrentTagProperties());
+        myVehicleAttributes->showAttributesCreatorModul(myVehicleTagSelector->getCurrentTagProperties());
         // show help creation
         myHelpCreation->showHelpCreation();
     } else {

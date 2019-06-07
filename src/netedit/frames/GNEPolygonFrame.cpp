@@ -179,7 +179,7 @@ GNEPolygonFrame::GEOPOICreator::onCmdCreateGEOPOI(FXObject*, FXSelector, void*) 
             // obtain netedit attributes and values
             myPolygonFrameParent->myNeteditAttributes->getNeteditAttributesAndValues(valuesOfElement, nullptr);
             // generate new ID
-            valuesOfElement[SUMO_ATTR_ID] = myPolygonFrameParent->myViewNet->getNet()->generateShapeID(myPolygonFrameParent->myItemSelector->getCurrentTagProperties().getTag());
+            valuesOfElement[SUMO_ATTR_ID] = myPolygonFrameParent->myViewNet->getNet()->generateShapeID(myPolygonFrameParent->myShapeTagSelector->getCurrentTagProperties().getTag());
             // force GEO attribute to true and obain position
             valuesOfElement[SUMO_ATTR_GEO] = "true";
             Position geoPos = GNEAttributeCarrier::parse<Position>(geoPosStr);
@@ -216,7 +216,7 @@ GNEPolygonFrame::GNEPolygonFrame(FXHorizontalFrame* horizontalFrameParent, GNEVi
     GNEFrame(horizontalFrameParent, viewNet, "Shapes") {
 
     // create item Selector modul for shapes
-    myItemSelector = new ItemSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_SHAPE);
+    myShapeTagSelector = new TagSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_SHAPE);
 
     // Create shape parameters
     myShapeAttributes = new AttributesCreator(this);
@@ -231,7 +231,7 @@ GNEPolygonFrame::GNEPolygonFrame(FXHorizontalFrame* horizontalFrameParent, GNEVi
     myGEOPOICreator = new GEOPOICreator(this);
 
     // set polygon as default shape
-    myItemSelector->setCurrentTypeTag(SUMO_TAG_POLY);
+    myShapeTagSelector->setCurrentTypeTag(SUMO_TAG_POLY);
 }
 
 
@@ -242,7 +242,7 @@ GNEPolygonFrame::~GNEPolygonFrame() {
 void
 GNEPolygonFrame::show() {
     // refresh item selector
-    myItemSelector->refreshTagProperties();
+    myShapeTagSelector->refreshTagProperties();
     // show frame
     GNEFrame::show();
 }
@@ -253,7 +253,7 @@ GNEPolygonFrame::processClick(const Position& clickedPosition, const GNEViewNetH
     // Declare map to keep values
     std::map<SumoXMLAttr, std::string> valuesOfElement;
     // check if current selected shape is valid
-    if (myItemSelector->getCurrentTagProperties().getTag() == SUMO_TAG_POI) {
+    if (myShapeTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_POI) {
         // show warning dialogbox and stop if input parameters are invalid
         if (myShapeAttributes->areValuesValid() == false) {
             myShapeAttributes->showWarningMessage();
@@ -264,7 +264,7 @@ GNEPolygonFrame::processClick(const Position& clickedPosition, const GNEViewNetH
         // obtain netedit attributes and values
         myNeteditAttributes->getNeteditAttributesAndValues(valuesOfElement, objectsUnderCursor.getLaneFront());
         // generate new ID
-        valuesOfElement[SUMO_ATTR_ID] = myViewNet->getNet()->generateShapeID(myItemSelector->getCurrentTagProperties().getTag());
+        valuesOfElement[SUMO_ATTR_ID] = myViewNet->getNet()->generateShapeID(myShapeTagSelector->getCurrentTagProperties().getTag());
         // obtain position
         valuesOfElement[SUMO_ATTR_POSITION] = toString(clickedPosition);
         // set GEO Position as false (because we have created POI clicking over View
@@ -275,7 +275,7 @@ GNEPolygonFrame::processClick(const Position& clickedPosition, const GNEViewNetH
         } else {
             return ADDSHAPE_INVALID;
         }
-    } else  if (myItemSelector->getCurrentTagProperties().getTag() == SUMO_TAG_POILANE) {
+    } else  if (myShapeTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_POILANE) {
         // abort if lane is nullptr
         if (objectsUnderCursor.getLaneFront() == nullptr) {
             WRITE_WARNING(toString(SUMO_TAG_POILANE) + " can be only placed over lanes");
@@ -291,7 +291,7 @@ GNEPolygonFrame::processClick(const Position& clickedPosition, const GNEViewNetH
         // obtain netedit attributes and values
         myNeteditAttributes->getNeteditAttributesAndValues(valuesOfElement, objectsUnderCursor.getLaneFront());
         // generate new ID
-        valuesOfElement[SUMO_ATTR_ID] = myViewNet->getNet()->generateShapeID(myItemSelector->getCurrentTagProperties().getTag());
+        valuesOfElement[SUMO_ATTR_ID] = myViewNet->getNet()->generateShapeID(myShapeTagSelector->getCurrentTagProperties().getTag());
         // obtain Lane
         valuesOfElement[SUMO_ATTR_LANE] = objectsUnderCursor.getLaneFront()->getID();
         // obtain position over lane
@@ -302,7 +302,7 @@ GNEPolygonFrame::processClick(const Position& clickedPosition, const GNEViewNetH
         } else {
             return ADDSHAPE_INVALID;
         }
-    } else if (myItemSelector->getCurrentTagProperties().getTag() == SUMO_TAG_POLY) {
+    } else if (myShapeTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_POLY) {
         if (myDrawingShape->isDrawing()) {
             // add or delete a new point depending of flag "delete last created point"
             if (myDrawingShape->getDeleteLastCreatedPoint()) {
@@ -386,13 +386,13 @@ GNEPolygonFrame::enableModuls(const GNEAttributeCarrier::TagProperties& tagPrope
     // show netedit attributes
     myNeteditAttributes->showNeteditAttributesModul(tagProperties);
     // Check if drawing mode has to be shown
-    if (myItemSelector->getCurrentTagProperties().getTag() == SUMO_TAG_POLY) {
+    if (myShapeTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_POLY) {
         myDrawingShape->showDrawingShape();
     } else {
         myDrawingShape->hideDrawingShape();
     }
     // Check if GEO POI Creator has to be shown
-    if (myItemSelector->getCurrentTagProperties().getTag() == SUMO_TAG_POI) {
+    if (myShapeTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_POI) {
         myGEOPOICreator->showGEOPOICreatorModul();
     } else {
         myGEOPOICreator->hideGEOPOICreatorModul();

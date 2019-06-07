@@ -123,10 +123,10 @@ GNEAdditionalFrame::SelectorLaneParents::startConsecutiveLaneSelector(GNELane* l
 bool
 GNEAdditionalFrame::SelectorLaneParents::stopConsecutiveLaneSelector() {
     // obtain tagproperty (only for improve code legibility)
-    const auto& tagValues = myAdditionalFrameParent->myItemSelector->getCurrentTagProperties();
+    const auto& tagValues = myAdditionalFrameParent->myAdditionalTagSelector->getCurrentTagProperties();
     // abort if there isn't at least two lanes
     if (mySelectedLanes.size() < 2) {
-        WRITE_WARNING(myAdditionalFrameParent->myItemSelector->getCurrentTagProperties().getTagStr() + " requieres at least two lanes.");
+        WRITE_WARNING(myAdditionalFrameParent->myAdditionalTagSelector->getCurrentTagProperties().getTagStr() + " requieres at least two lanes.");
         // abort consecutive lane selector
         abortConsecutiveLaneSelector();
         return false;
@@ -159,7 +159,7 @@ GNEAdditionalFrame::SelectorLaneParents::stopConsecutiveLaneSelector() {
         // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
         SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, myAdditionalFrameParent->getPredefinedTagsMML(), toString(tagValues.getTag()));
         // try to build additional
-        if (GNEAdditionalHandler::buildAdditional(myAdditionalFrameParent->myViewNet, true, myAdditionalFrameParent->myItemSelector->getCurrentTagProperties().getTag(), SUMOSAXAttrs, nullptr)) {
+        if (GNEAdditionalHandler::buildAdditional(myAdditionalFrameParent->myViewNet, true, myAdditionalFrameParent->myAdditionalTagSelector->getCurrentTagProperties().getTag(), SUMOSAXAttrs, nullptr)) {
             // abort consecutive lane selector
             abortConsecutiveLaneSelector();
             return true;
@@ -609,7 +609,7 @@ GNEAdditionalFrame::GNEAdditionalFrame(FXHorizontalFrame* horizontalFrameParent,
     GNEFrame(horizontalFrameParent, viewNet, "Additionals") {
 
     // create item Selector modul for additionals
-    myItemSelector = new ItemSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_ADDITIONAL);
+    myAdditionalTagSelector = new TagSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_ADDITIONAL);
 
     // Create additional parameters
     myAdditionalAttributes = new AttributesCreator(this);
@@ -630,7 +630,7 @@ GNEAdditionalFrame::GNEAdditionalFrame(FXHorizontalFrame* horizontalFrameParent,
     mySelectorLaneChilds = new SelectorLaneChilds(this);
 
     // set BusStop as default additional
-    myItemSelector->setCurrentTypeTag(SUMO_TAG_BUS_STOP);
+    myAdditionalTagSelector->setCurrentTypeTag(SUMO_TAG_BUS_STOP);
 }
 
 
@@ -640,7 +640,7 @@ GNEAdditionalFrame::~GNEAdditionalFrame() {}
 void
 GNEAdditionalFrame::show() {
     // refresh item selector
-    myItemSelector->refreshTagProperties();
+    myAdditionalTagSelector->refreshTagProperties();
     // show frame
     GNEFrame::show();
 }
@@ -649,13 +649,13 @@ GNEAdditionalFrame::show() {
 bool
 GNEAdditionalFrame::addAdditional(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
     // first check that current selected additional is valid
-    if (myItemSelector->getCurrentTagProperties().getTag() == SUMO_TAG_NOTHING) {
+    if (myAdditionalTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_NOTHING) {
         myViewNet->setStatusBarText("Current selected additional isn't valid.");
         return false;
     }
 
     // obtain tagproperty (only for improve code legibility)
-    const auto& tagValues = myItemSelector->getCurrentTagProperties();
+    const auto& tagValues = myAdditionalTagSelector->getCurrentTagProperties();
 
     // Declare map to keep attributes from Frames from Frame
     std::map<SumoXMLAttr, std::string> valuesMap = myAdditionalAttributes->getAttributesAndValues(true);
@@ -750,9 +750,9 @@ GNEAdditionalFrame::disableModuls() {
 std::string
 GNEAdditionalFrame::generateID(GNENetElement* netElement) const {
     // obtain current number of additionals to generate a new index faster
-    int additionalIndex = myViewNet->getNet()->getNumberOfAdditionals(myItemSelector->getCurrentTagProperties().getTag());
+    int additionalIndex = myViewNet->getNet()->getNumberOfAdditionals(myAdditionalTagSelector->getCurrentTagProperties().getTag());
     // obtain tag Properties (only for improve code legilibility
-    const auto& tagProperties = myItemSelector->getCurrentTagProperties();
+    const auto& tagProperties = myAdditionalTagSelector->getCurrentTagProperties();
     if (netElement) {
         // special case for vaporizers
         if (tagProperties.getTag() == SUMO_TAG_VAPORIZER) {
@@ -785,7 +785,7 @@ GNEAdditionalFrame::buildAdditionalWithParent(std::map<SumoXMLAttr, std::string>
     if (myAdditionalParent->getIdSelected() != "") {
         valuesMap[GNE_ATTR_PARENT] = myAdditionalParent->getIdSelected();
     } else {
-        myAdditionalAttributes->showWarningMessage("A " + toString(tagValues.getParentTag()) + " must be selected before insertion of " + myItemSelector->getCurrentTagProperties().getTagStr() + ".");
+        myAdditionalAttributes->showWarningMessage("A " + toString(tagValues.getParentTag()) + " must be selected before insertion of " + myAdditionalTagSelector->getCurrentTagProperties().getTagStr() + ".");
         return false;
     }
     return true;
@@ -805,7 +805,7 @@ GNEAdditionalFrame::buildAdditionalCommonAttributes(std::map<SumoXMLAttr, std::s
     }
     // If additional own the attribute SUMO_ATTR_FILE but was't defined, will defined as <ID>.xml
     if (tagValues.hasAttribute(SUMO_ATTR_FILE) && valuesMap[SUMO_ATTR_FILE] == "") {
-        if ((myItemSelector->getCurrentTagProperties().getTag() != SUMO_TAG_CALIBRATOR) && (myItemSelector->getCurrentTagProperties().getTag() != SUMO_TAG_REROUTER)) {
+        if ((myAdditionalTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_CALIBRATOR) && (myAdditionalTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_REROUTER)) {
             // SUMO_ATTR_FILE is optional for calibrators and rerouters (fails to load in sumo when given and the file does not exist)
             valuesMap[SUMO_ATTR_FILE] = (valuesMap[SUMO_ATTR_ID] + ".xml");
         }
@@ -858,7 +858,7 @@ GNEAdditionalFrame::buildAdditionalOverEdge(std::map<SumoXMLAttr, std::string>& 
         // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
         SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, getPredefinedTagsMML(), toString(tagValues.getTag()));
         // try to build additional
-        if (GNEAdditionalHandler::buildAdditional(myViewNet, true, myItemSelector->getCurrentTagProperties().getTag(), SUMOSAXAttrs, nullptr)) {
+        if (GNEAdditionalHandler::buildAdditional(myViewNet, true, myAdditionalTagSelector->getCurrentTagProperties().getTag(), SUMOSAXAttrs, nullptr)) {
             // Refresh additional Parent Selector (For additionals that have a limited number of childs)
             myAdditionalParent->refreshSelectorParentModul();
             // clear selected eddges and lanes
@@ -899,7 +899,7 @@ GNEAdditionalFrame::buildAdditionalOverLane(std::map<SumoXMLAttr, std::string>& 
         // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
         SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, getPredefinedTagsMML(), toString(tagValues.getTag()));
         // try to build additional
-        if (GNEAdditionalHandler::buildAdditional(myViewNet, true, myItemSelector->getCurrentTagProperties().getTag(), SUMOSAXAttrs, nullptr)) {
+        if (GNEAdditionalHandler::buildAdditional(myViewNet, true, myAdditionalTagSelector->getCurrentTagProperties().getTag(), SUMOSAXAttrs, nullptr)) {
             // Refresh additional Parent Selector (For additionals that have a limited number of childs)
             myAdditionalParent->refreshSelectorParentModul();
             // clear selected eddges and lanes
@@ -956,7 +956,7 @@ GNEAdditionalFrame::buildAdditionalOverLanes(std::map<SumoXMLAttr, std::string>&
             // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
             SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, getPredefinedTagsMML(), toString(tagValues.getTag()));
             // try to build additional
-            if (GNEAdditionalHandler::buildAdditional(myViewNet, true, myItemSelector->getCurrentTagProperties().getTag(), SUMOSAXAttrs, nullptr)) {
+            if (GNEAdditionalHandler::buildAdditional(myViewNet, true, myAdditionalTagSelector->getCurrentTagProperties().getTag(), SUMOSAXAttrs, nullptr)) {
                 // Refresh additional Parent Selector (For additionals that have a limited number of childs)
                 myAdditionalParent->refreshSelectorParentModul();
                 // abort lane selector
@@ -989,7 +989,7 @@ GNEAdditionalFrame::buildAdditionalOverView(std::map<SumoXMLAttr, std::string>& 
         // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
         SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, getPredefinedTagsMML(), toString(tagValues.getTag()));
         // try to build additional
-        if (GNEAdditionalHandler::buildAdditional(myViewNet, true, myItemSelector->getCurrentTagProperties().getTag(), SUMOSAXAttrs, nullptr)) {
+        if (GNEAdditionalHandler::buildAdditional(myViewNet, true, myAdditionalTagSelector->getCurrentTagProperties().getTag(), SUMOSAXAttrs, nullptr)) {
             // Refresh additional Parent Selector (For additionals that have a limited number of childs)
             myAdditionalParent->refreshSelectorParentModul();
             // clear selected eddges and lanes

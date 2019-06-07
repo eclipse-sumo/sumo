@@ -35,54 +35,6 @@ class GNEPersonPlanFrame : public GNEFrame {
 public:
 
     // ===========================================================================
-    // class VTypeSelector
-    // ===========================================================================
-
-    class VTypeSelector : protected FXGroupBox {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEPersonPlanFrame::VTypeSelector)
-
-    public:
-        /// @brief constructor
-        VTypeSelector(GNEPersonPlanFrame* vehicleFrameParent);
-
-        /// @brief destructor
-        ~VTypeSelector();
-
-        /// @brief get current type tag
-        const GNEDemandElement* getCurrentPersonPlanType() const;
-
-        /// @brief show VType selector
-        void showVTypeSelector(const GNEAttributeCarrier::TagProperties& tagProperties);
-
-        /// @brief hide VType selector
-        void hideVTypeSelector();
-
-        /// @brief refresh VType selector
-        void refreshVTypeSelector();
-
-        /// @name FOX-callbacks
-        /// @{
-        /// @brief Called when the user select another element in ComboBox
-        long onCmdSelectVType(FXObject*, FXSelector, void*);
-        /// @}
-
-    protected:
-        /// @brief FOX needs this
-        VTypeSelector() {}
-
-    private:
-        /// @brief pointer to PersonPlan Frame Parent
-        GNEPersonPlanFrame* myPersonPlanFrameParent;
-
-        /// @brief comboBox with the list of elements type
-        FXComboBox* myTypeMatchBox;
-
-        /// @brief current vehicle type
-        GNEDemandElement* myCurrentPersonPlanType;
-    };
-
-    // ===========================================================================
     // class HelpCreation
     // ===========================================================================
 
@@ -206,7 +158,7 @@ public:
     TripRouteCreator* getTripRouteCreator() const;
 
 protected:
-    /// @brief enable moduls depending of item selected in ItemSelector
+    /// @brief enable moduls depending of item selected in TagSelector
     void enableModuls(const GNEAttributeCarrier::TagProperties& tagProperties);
 
     /// @brief disable moduls if element selected in itemSelector isn't valid
@@ -214,7 +166,7 @@ protected:
 
 private:
     /// @brief item selector (used to select diffent kind of vehicles)
-    ItemSelector* myItemSelector;
+    TagSelector* myTagSelector;
 
     /// @brief PersonPlan Type selectors
     VTypeSelector* myVTypeSelector;

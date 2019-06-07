@@ -872,6 +872,12 @@ GNEAttributeCarrier::TagProperties::isPlacedInRTree() const {
 
 
 bool
+GNEAttributeCarrier::TagProperties::canSortTheirChildsManually() const {
+        return (myTagProperty & TAGPROPERTY_SORTINGCHILDS) != 0;
+}
+
+
+bool
 GNEAttributeCarrier::TagProperties::canBeReparent() const {
     return (myTagProperty & TAGPROPERTY_REPARENT) != 0;
 }
@@ -1299,6 +1305,46 @@ GNEAttributeCarrier::allowedTagsByCategory(int tagPropertyCategory, bool onlyDra
         // fill demand tags
         for (const auto& i : myTagProperties) {
             if (i.second.isStop() && (!onlyDrawables || i.second.isDrawable())) {
+                allowedTags.push_back(i.first);
+            }
+        }
+    }
+    if (tagPropertyCategory & TAGTYPE_PERSON) {
+        // fill demand tags
+        for (const auto& i : myTagProperties) {
+            if (i.second.isPerson() && (!onlyDrawables || i.second.isDrawable())) {
+                allowedTags.push_back(i.first);
+            }
+        }
+    }
+    if (tagPropertyCategory & TAGTYPE_PERSONPLAN) {
+        // fill demand tags
+        for (const auto& i : myTagProperties) {
+            if (i.second.isPersonPlan() && (!onlyDrawables || i.second.isDrawable())) {
+                allowedTags.push_back(i.first);
+            }
+        }
+    }
+    if (tagPropertyCategory & TAGTYPE_WALK) {
+        // fill demand tags
+        for (const auto& i : myTagProperties) {
+            if (i.second.isWalk() && (!onlyDrawables || i.second.isDrawable())) {
+                allowedTags.push_back(i.first);
+            }
+        }
+    }
+    if (tagPropertyCategory & TAGTYPE_RIDE) {
+        // fill demand tags
+        for (const auto& i : myTagProperties) {
+            if (i.second.isRide() && (!onlyDrawables || i.second.isDrawable())) {
+                allowedTags.push_back(i.first);
+            }
+        }
+    }
+    if (tagPropertyCategory & TAGTYPE_PERSONSTOP) {
+        // fill demand tags
+        for (const auto& i : myTagProperties) {
+            if (i.second.isPersonStop() && (!onlyDrawables || i.second.isDrawable())) {
                 allowedTags.push_back(i.first);
             }
         }

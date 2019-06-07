@@ -40,25 +40,25 @@ class GNEFrame : public FXVerticalFrame {
 public:
 
     // ===========================================================================
-    // class ItemSelector
+    // class TagSelector
     // ===========================================================================
 
-    class ItemSelector : protected FXGroupBox {
+    class TagSelector : protected FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNEFrame::ItemSelector)
+        FXDECLARE(GNEFrame::TagSelector)
 
     public:
         /// @brief constructor
-        ItemSelector(GNEFrame* frameParent, GNEAttributeCarrier::TagType type, bool onlyDrawables = true);
+        TagSelector(GNEFrame* frameParent, GNEAttributeCarrier::TagType type, bool onlyDrawables = true);
 
         /// @brief destructor
-        ~ItemSelector();
+        ~TagSelector();
 
         /// @brief show item selector
-        void showItemSelector(bool enableModuls);
+        void showTagSelector(bool enableModuls);
 
         /// @brief hide item selector
-        void hideItemSelector();
+        void hideTagSelector();
 
         /// @brief get current type tag
         const GNEAttributeCarrier::TagProperties& getCurrentTagProperties() const;
@@ -77,7 +77,7 @@ public:
 
     protected:
         /// @brief FOX needs this
-        ItemSelector() {}
+        TagSelector() {}
 
     private:
         /// @brief pointer to Frame Parent
@@ -486,28 +486,28 @@ public:
     };
 
     // ===========================================================================
-    // class ACHierarchy
+    // class AttributeCarrierHierarchy
     // ===========================================================================
 
-    class ACHierarchy : private FXGroupBox {
+    class AttributeCarrierHierarchy : private FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNEFrame::ACHierarchy)
+        FXDECLARE(GNEFrame::AttributeCarrierHierarchy)
 
     public:
         /// @brief constructor
-        ACHierarchy(GNEFrame* frameParent);
+        AttributeCarrierHierarchy(GNEFrame* frameParent);
 
         /// @brief destructor
-        ~ACHierarchy();
+        ~AttributeCarrierHierarchy();
 
-        /// @brief show ACHierarchy
-        void showACHierarchy(GNEAttributeCarrier* AC);
+        /// @brief show AttributeCarrierHierarchy
+        void showAttributeCarrierHierarchy(GNEAttributeCarrier* AC);
 
-        /// @brief hide ACHierarchy
-        void hideACHierarchy();
+        /// @brief hide AttributeCarrierHierarchy
+        void hideAttributeCarrierHierarchy();
 
-        /// @brief refresh ACHierarchy
-        void refreshACHierarchy();
+        /// @brief refresh AttributeCarrierHierarchy
+        void refreshAttributeCarrierHierarchy();
 
         /// @name FOX-callbacks
         /// @{
@@ -526,7 +526,7 @@ public:
 
     protected:
         /// @brief FOX needs this
-        ACHierarchy() {}
+        AttributeCarrierHierarchy() {}
 
         // @brief create pop-up menu in the positions X-Y for the attribute carrier ac
         void createPopUpMenu(int X, int Y, GNEAttributeCarrier* ac);
@@ -893,7 +893,7 @@ protected:
      */
     virtual bool buildShape();
 
-    /// @brief enable moduls depending of item selected in ItemSelector (can be reimplemented in frame childs)
+    /// @brief enable moduls depending of item selected in TagSelector (can be reimplemented in frame childs)
     virtual void enableModuls(const GNEAttributeCarrier::TagProperties& tagProperties);
 
     /// @brief disable moduls if element selected in itemSelector isn't valid (can be reimplemented in frame childs)

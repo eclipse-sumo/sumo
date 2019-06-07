@@ -286,7 +286,7 @@ public:
         TAGTYPE_VEHICLE =       1 << 7,   // Vehicles (Flows, trips...)
         TAGTYPE_ROUTE =         1 << 8,   // Routes and embedded routes
         TAGTYPE_STOP =          1 << 9,   // Stops
-        TAGTYPE_PERSON =        1 << 10,  // Persosn
+        TAGTYPE_PERSON =        1 << 10,  // Persons
         TAGTYPE_PERSONPLAN =    1 << 11,  // Person plans (Walks, rides, ...)
         TAGTYPE_WALK =          1 << 12,  // Walks
         TAGTYPE_RIDE =          1 << 13,  // Rides
@@ -313,6 +313,7 @@ public:
         TAGPROPERTY_NOGENERICPARAMETERS = 1 << 16,  // Element doesn't accept Generic Parameters (by default all tags supports generic parameters)
         TAGPROPERTY_DISJOINTATTRIBUTES =  1 << 17,  // Element owns attributes that cannot be defined together
         TAGPROPERTY_RTREE =               1 << 18,  // Element is placed in RTREE
+        TAGPROPERTY_SORTINGCHILDS =       1 << 19,  // Element can sort their childs manually (in ACHierarchy)
     };
 
     /// @brief struct with the attribute Properties
@@ -461,6 +462,9 @@ public:
 
         /// @brief return true if Tag correspond to an element that has has to be placed in RTREE
         bool isPlacedInRTree() const;
+
+        /// @brief return true if Tag correspond to an element that can sort their childs manually
+        bool canSortTheirChildsManually() const;
 
         /// @brief return true if tag correspond to an element that can be reparent
         bool canBeReparent() const;
