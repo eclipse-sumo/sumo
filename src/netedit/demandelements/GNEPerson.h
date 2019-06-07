@@ -67,20 +67,46 @@ public:
         /// @brief menu command for transform to person
         FXMenuCommand* myTransformToPerson;
 
-        /// @brief menu command for transform to person with an embedded route
-        FXMenuCommand* myTransformToPersonWithEmbeddedRoute;
+        /// @brief menu command for transform to personFlow
+        FXMenuCommand* myTransformToPersonFlow;
+    };
 
-        /// @brief menu command for transform to route flow
-        FXMenuCommand* myTransformToRouteFlow;
+    
+    /// @brief class used in GUIGLObjectPopupMenu for single person transformations
+    class GNESelectedPersonsPopupMenu : public GUIGLObjectPopupMenu {
+        FXDECLARE(GNESelectedPersonsPopupMenu)
 
-        /// @brief menu command for transform to route flow with an embedded route
-        FXMenuCommand* myTransformToRouteFlowWithEmbeddedRoute;
+    public:
+        /** @brief Constructor
+         * @param[in] person clicked GNEPerson
+         * @param[in] selectedPerson vector with selected GNEPerson
+         * @param[in] app The main window for instantiation of other windows
+         * @param[in] parent The parent view for changing it
+         */
+        GNESelectedPersonsPopupMenu(GNEPerson *person, const std::vector<GNEPerson*> &selectedPerson, GUIMainWindow& app, GUISUMOAbstractView& parent);
 
-        /// @brief menu command for transform to trip
-        FXMenuCommand* myTransformToTrip;
+        /// @brief Destructor
+        ~GNESelectedPersonsPopupMenu();
 
-        /// @brief menu command for transform to flow
-        FXMenuCommand* myTransformToFlow;
+        /// @brief Called to transform the current person to another person type
+        long onCmdTransform(FXObject* obj, FXSelector, void*);
+
+    protected:
+        /// @brief default constructor needed by FOX
+        GNESelectedPersonsPopupMenu() { }
+
+    private:
+        /// @brief tag of clicked person
+        SumoXMLTag myPersonTag;
+
+        /// @brief current selected persons
+        std::vector<GNEPerson*> mySelectedPersons;
+
+        /// @brief menu command for transform to person
+        FXMenuCommand* myTransformToPerson;
+
+        /// @brief menu command for transform to personFlow
+        FXMenuCommand* myTransformToPersonFlow;
     };
 
     /// @brief default constructor for persons and routeFlows without embedded routes

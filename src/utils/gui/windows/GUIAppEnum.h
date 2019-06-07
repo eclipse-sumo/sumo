@@ -925,8 +925,10 @@ enum {
 
     /// @brief apply distance
     MID_GNE_ROUTE_APPLY_DISTANCE,
-    /// @brief transform vehicle to another vehicle type
+    /// @brief transform vehicle to another vehicle type (ej: flow to trip)
     MID_GNE_VEHICLE_TRANSFORM,
+    /// @brief transform person to another person type (ej: person to personflow)
+    MID_GNE_PERSON_TRANSFORM,
     /// @}
 
 

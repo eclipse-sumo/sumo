@@ -45,7 +45,7 @@
 // FOX callback mapping
 // ===========================================================================
 FXDEFMAP(GNEPerson::GNEPersonPopupMenu) GNEPersonPopupMenuMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_VEHICLE_TRANSFORM,   GNEPerson::GNEPersonPopupMenu::onCmdTransform),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_PERSON_TRANSFORM,   GNEPerson::GNEPersonPopupMenu::onCmdTransform),
 };
 
 // Object implementation
@@ -59,11 +59,7 @@ GNEPerson::GNEPersonPopupMenu::GNEPersonPopupMenu(GNEPerson *person, GUIMainWind
     GUIGLObjectPopupMenu(app, parent, *person),
     myPerson(person),
     myTransformToPerson(nullptr),
-    myTransformToPersonWithEmbeddedRoute(nullptr),
-    myTransformToRouteFlow(nullptr),
-    myTransformToRouteFlowWithEmbeddedRoute(nullptr),
-    myTransformToTrip(nullptr),
-    myTransformToFlow(nullptr) { 
+    myTransformToPersonFlow(nullptr) { 
     // build header
     myPerson->buildPopupHeader(this, app);
     // build menu command for center button and copy cursor position to clipboard
@@ -78,39 +74,18 @@ GNEPerson::GNEPersonPopupMenu::GNEPersonPopupMenu(GNEPerson *person, GUIMainWind
     myPerson->buildShowParamsPopupEntry(this);
     // add transform functions only in demand mode
     if (myPerson->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) {
-        // Get icons
-        FXIcon* personIcon = GUIIconSubSys::getIcon(ICON_VEHICLE);
-        FXIcon* tripIcon = GUIIconSubSys::getIcon(ICON_TRIP);
-        FXIcon* routeFlowIcon= GUIIconSubSys::getIcon(ICON_ROUTEFLOW);
-        FXIcon* flowIcon= GUIIconSubSys::getIcon(ICON_FLOW);
         // create menu pane for transform operations
         FXMenuPane* transformOperation = new FXMenuPane(this);
         this->insertMenuPaneChild(transformOperation);
         new FXMenuCascade(this, "transform to", nullptr, transformOperation);
-        // Create menu comands for all persons
-        myTransformToPerson = new FXMenuCommand(transformOperation, "Person", personIcon, this, MID_GNE_VEHICLE_TRANSFORM);
-        myTransformToPersonWithEmbeddedRoute = new FXMenuCommand(transformOperation, "Person (embedded route)", personIcon, this, MID_GNE_VEHICLE_TRANSFORM);
-        myTransformToRouteFlow = new FXMenuCommand(transformOperation, "RouteFlow", routeFlowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
-        myTransformToRouteFlowWithEmbeddedRoute = new FXMenuCommand(transformOperation, "RouteFlow (embedded route)", routeFlowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
-        myTransformToTrip = new FXMenuCommand(transformOperation, "Trip", tripIcon, this, MID_GNE_VEHICLE_TRANSFORM);
-        myTransformToFlow = new FXMenuCommand(transformOperation, "Flow", flowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        // Create menu comands for all transformations
+        myTransformToPerson = new FXMenuCommand(transformOperation, "Person", GUIIconSubSys::getIcon(ICON_PERSON), this, MID_GNE_PERSON_TRANSFORM);
+        myTransformToPersonFlow = new FXMenuCommand(transformOperation, "Person (embedded route)", GUIIconSubSys::getIcon(ICON_PERSONFLOW), this, MID_GNE_PERSON_TRANSFORM);
         // check what menu command has to be disabled
         if (myPerson->getTagProperty().getTag() == SUMO_TAG_VEHICLE) {
-            if (myPerson->getDemandElementParents().size() > 1) {
-                myTransformToPerson->disable();
-            } else {
-                myTransformToPersonWithEmbeddedRoute->disable();
-            }
-        } else if (myPerson->getTagProperty().getTag() == SUMO_TAG_ROUTEFLOW) {
-            if (myPerson->getDemandElementParents().size() > 1) {
-                myTransformToRouteFlow->disable();
-            } else {
-                myTransformToRouteFlowWithEmbeddedRoute->disable();
-            }
+            myTransformToPerson->disable();
         } else if (myPerson->getTagProperty().getTag() == SUMO_TAG_TRIP) {
-            myTransformToTrip->disable();
-        } else if (myPerson->getTagProperty().getTag() == SUMO_TAG_FLOW) {
-            myTransformToFlow->disable();
+            myTransformToPersonFlow->disable();
         }
     }
 }
@@ -121,21 +96,65 @@ GNEPerson::GNEPersonPopupMenu::~GNEPersonPopupMenu() {}
 
 long
 GNEPerson::GNEPersonPopupMenu::onCmdTransform(FXObject* obj, FXSelector, void*) {
-    /*
     if (obj == myTransformToPerson) {
-        GNERouteHandler::transformToVehicle(myVehicle, false);
-    } else if (obj == myTransformToPersonWithEmbeddedRoute) {
-        GNERouteHandler::transformToVehicle(myPerson, true);
-    } else if (obj == myTransformToRouteFlow) { 
-        GNERouteHandler::transformToRouteFlow(myPerson, false);
-    } else if (obj == myTransformToRouteFlowWithEmbeddedRoute) { 
-        GNERouteHandler::transformToRouteFlow(myPerson, true);
-    } else if (obj == myTransformToTrip) { 
-        GNERouteHandler::transformToTrip(myPerson);
-    } else if (obj == myTransformToFlow) { 
-        GNERouteHandler::transformToFlow(myPerson);
+        GNERouteHandler::transformToPerson(myPerson);
+    } else if (obj == myTransformToPersonFlow) {
+        GNERouteHandler::transformToPersonFlow(myPerson);
     }
-    */
+    return 1;
+}
+
+
+// ===========================================================================
+// GNEPerson::GNESelectedPersonsPopupMenu
+// ===========================================================================
+
+GNEPerson::GNESelectedPersonsPopupMenu::GNESelectedPersonsPopupMenu(GNEPerson *person, const std::vector<GNEPerson*> &selectedPerson, GUIMainWindow& app, GUISUMOAbstractView& parent) :
+    GUIGLObjectPopupMenu(app, parent, *person),
+    mySelectedPersons(selectedPerson),
+    myPersonTag(person->getTagProperty().getTag()),
+    myTransformToPerson(nullptr),
+    myTransformToPersonFlow(nullptr) { 
+    // build header
+    person->buildPopupHeader(this, app);
+    // build menu command for center button and copy cursor position to clipboard
+    person->buildCenterPopupEntry(this);
+    person->buildPositionCopyEntry(this, false);
+    // buld menu commands for names
+    new FXMenuCommand(this, ("Copy " + person->getTagStr() + " name to clipboard").c_str(), nullptr, this, MID_COPY_NAME);
+    new FXMenuCommand(this, ("Copy " + person->getTagStr() + " typed name to clipboard").c_str(), nullptr, this, MID_COPY_TYPED_NAME);
+    new FXMenuSeparator(this);
+    // build selection and show parameters menu
+    person->getViewNet()->buildSelectionACPopupEntry(this, person);
+    person->buildShowParamsPopupEntry(this);
+    // add transform functions only in demand mode
+    if (person->getViewNet()->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) {
+        // create menu pane for transform operations
+        FXMenuPane* transformOperation = new FXMenuPane(this);
+        this->insertMenuPaneChild(transformOperation);
+        new FXMenuCascade(this, "transform to", nullptr, transformOperation);
+        // Create menu comands for all transformations
+        myTransformToPerson = new FXMenuCommand(transformOperation, "Person", GUIIconSubSys::getIcon(ICON_PERSON), this, MID_GNE_PERSON_TRANSFORM);
+        myTransformToPersonFlow = new FXMenuCommand(transformOperation, "PersonFlow", GUIIconSubSys::getIcon(ICON_PERSONFLOW), this, MID_GNE_PERSON_TRANSFORM);
+    }
+}
+
+
+GNEPerson::GNESelectedPersonsPopupMenu::~GNESelectedPersonsPopupMenu() {}
+
+
+long
+GNEPerson::GNESelectedPersonsPopupMenu::onCmdTransform(FXObject* obj, FXSelector, void*) {
+    // iterate over all selected persons
+    for (const auto &i : mySelectedPersons) {
+        if ((obj == myTransformToPerson) && 
+            (i->getTagProperty().getTag() == myPersonTag)) {
+            GNERouteHandler::transformToPerson(i);
+        } else if ((obj == myTransformToPersonFlow) && 
+            (i->getTagProperty().getTag() == myPersonTag)) {
+            GNERouteHandler::transformToPerson(i);
+        }
+    }
     return 1;
 }
 

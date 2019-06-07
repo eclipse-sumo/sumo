@@ -39,6 +39,7 @@ class GNEEdge;
 class GNETAZ;
 class GNEDemandElement;
 class GNEVehicle;
+class GNEPerson;
 class GNEUndoList;
 
 // ===========================================================================
@@ -83,8 +84,9 @@ public:
 
     /// @}
 
-    /// @brief transform functions
+    /// @brief transform vehicle functions
     /// @{
+
     /// @brief transform to vehicle over an existent route
     static void transformToVehicle(GNEVehicle* originalVehicle, bool createEmbeddedRoute);
 
@@ -96,6 +98,17 @@ public:
 
     /// @brief transform to flow
     static void transformToFlow(GNEVehicle* originalVehicle);
+
+    /// @}
+
+    /// @brief transform person functions
+    /// @{
+
+    /// @brief transform to vehicle over an existent route
+    static void transformToPerson(GNEPerson* originalPerson);
+
+    /// @brief transform routeFlow over an existent route
+    static void transformToPersonFlow(GNEPerson* originalPerson);
 
     /// @}
 

@@ -34,11 +34,13 @@
 #include <netedit/netelements/GNELane.h>
 #include <utils/router/DijkstraRouter.h>
 
-#include "GNERouteHandler.h"
+#include "GNEPerson.h"
 #include "GNERoute.h"
+#include "GNERouteHandler.h"
 #include "GNEStop.h"
 #include "GNEVehicle.h"
 #include "GNEVehicleType.h"
+
 
 // ===========================================================================
 // member method definitions
@@ -630,6 +632,18 @@ GNERouteHandler::transformToFlow(GNEVehicle* originalVehicle) {
         // end undo-redo operation
         undoList->p_end();
     }
+}
+
+
+void 
+GNERouteHandler::transformToPerson(GNEPerson* /*originalPerson*/) {
+    //
+}
+
+
+void 
+GNERouteHandler::transformToPersonFlow(GNEPerson* /*originalPerson*/) {
+    //
 }
 
 // ===========================================================================
