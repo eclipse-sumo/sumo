@@ -13,7 +13,6 @@
 /// @version $Id$
 ///
 // The Widget for modifying selections of network-elements
-// (some elements adapted from GUIDialog_GLChosenEditor)
 /****************************************************************************/
 
 
@@ -27,19 +26,14 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/additionals/GNEAdditional.h>
 #include <netedit/additionals/GNEPOI.h>
-#include <netedit/additionals/GNEPoly.h>
 #include <netedit/demandelements/GNERoute.h>
-#include <netedit/demandelements/GNEStop.h>
-#include <netedit/demandelements/GNEVehicle.h>
 #include <netedit/netelements/GNEConnection.h>
 #include <netedit/netelements/GNECrossing.h>
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNEJunction.h>
 #include <netedit/netelements/GNELane.h>
-#include <utils/foxtools/MFXUtils.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
-#include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNESelectorFrame.h"

@@ -28,7 +28,6 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/additionals/GNEAdditional.h>
 #include <netedit/additionals/GNEPOI.h>
 #include <netedit/additionals/GNETAZ.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
@@ -45,7 +44,6 @@
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/foxtools/MFXMenuHeader.h>
-#include <utils/foxtools/MFXUtils.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/globjects/GLIncludes.h>
@@ -59,7 +57,6 @@
 
 #include "GNEFrame.h"
 #include "GNEInspectorFrame.h"
-#include "GNEDeleteFrame.h"
 
 
 // ===========================================================================

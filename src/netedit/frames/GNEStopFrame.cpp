@@ -20,25 +20,14 @@
 // ===========================================================================
 #include <config.h>
 
-#include <netbuild/NBNetBuilder.h>
-#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
-#include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/GNEViewParent.h>
 #include <netedit/additionals/GNEAdditional.h>
-#include <netedit/changes/GNEChange_DemandElement.h>
 #include <netedit/demandelements/GNEDemandElement.h>
 #include <netedit/demandelements/GNERouteHandler.h>
-#include <netedit/netelements/GNEConnection.h>
-#include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNELane.h>
-#include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/vehicle/SUMOVehicleParameter.h>
-#include <utils/xml/SUMOSAXAttributesImpl_Cached.h>
 
 #include "GNEStopFrame.h"
 

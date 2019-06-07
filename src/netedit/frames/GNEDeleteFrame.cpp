@@ -34,10 +34,8 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/additionals/GNEPoly.h>
 #include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewParent.h>
 
 #include "GNEDeleteFrame.h"
-#include "GNEAdditionalFrame.h"
 
 
 // ---------------------------------------------------------------------------
