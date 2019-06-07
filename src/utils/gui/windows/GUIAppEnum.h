@@ -619,6 +619,12 @@ enum {
     MID_GNE_SET_ATTRIBUTE_RADIOBUTTON,
     /// @brief select items
     MID_GNE_SELECT,
+    /// @brief abort edge path creation
+    MID_GNE_EDGEPATH_ABORT,
+    /// @brief finish edge path creation
+    MID_GNE_EDGEPATH_FINISH,
+    /// @brief remove last inserted edge of edge path
+    MID_GNE_EDGEPATH_REMOVELASTEDGE,
     /// @}
 
 
@@ -781,17 +787,6 @@ enum {
     MID_GNE_PROHIBITIONFRAME_ABORTDRAWING,
     /// @}
 
-
-    /// @name GNEVehicleFrame messages
-    /// @{
-
-    /// @brief abort route creation
-    MID_GNE_VEHICLEFRAME_ABORT,
-    /// @brief finish route creation
-    MID_GNE_VEHICLEFRAME_FINISHCREATION,
-    /// @brief remove last inserted edge
-    MID_GNE_VEHICLEFRAME_REMOVELASTEDGE,
-    /// @}
 
     /// @name GNERoute messages
     /// @{
