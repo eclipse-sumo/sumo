@@ -326,10 +326,10 @@ GNEPersonPlanFrame::TripRouteCreator::onCmdRemoveLastRouteEdge(FXObject*, FXSele
 GNEPersonPlanFrame::GNEPersonPlanFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
     GNEFrame(horizontalFrameParent, viewNet, "PersonPlans") {
 
-    // Create item Selector modul for vehicles
+    // Create tag selector for person plan
     myTagSelector = new TagSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_PERSONPLAN);
 
-    // Create vehicle parameters
+    // Create person parameters
     myPersonPlanAttributes = new AttributesCreator(this);
 
     // create TripRouteCreator Modul

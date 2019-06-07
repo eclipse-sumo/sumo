@@ -144,37 +144,40 @@ GNEFrame::TagSelector::TagSelector(GNEFrame* frameParent, GNEAttributeCarrier::T
     // first check that property is valid
     switch (type)     {
         case GNEAttributeCarrier::TagType::TAGTYPE_NETELEMENT:
-            setText("Net element");
+            setText("Net elements");
             break;
         case GNEAttributeCarrier::TagType::TAGTYPE_ADDITIONAL:
-            setText("Additional element");
+            setText("Additional elements");
             break;
         case GNEAttributeCarrier::TagType::TAGTYPE_SHAPE:
-            setText("Shape element");
+            setText("Shape elements");
             break;
         case GNEAttributeCarrier::TagType::TAGTYPE_TAZ:
-            setText("TAZ element");
+            setText("TAZ elements");
             break;
         case GNEAttributeCarrier::TagType::TAGTYPE_VEHICLE:
-            setText("Vehicle");
+            setText("Vehicles");
             break;
         case GNEAttributeCarrier::TagType::TAGTYPE_STOP:
-            setText("Stop");
+            setText("Stops");
             break;
         case GNEAttributeCarrier::TagType::TAGTYPE_PERSON:
-            setText("Person");
+            setText("Persons");
             break;
         case GNEAttributeCarrier::TagType::TAGTYPE_PERSONPLAN:
-            setText("PersonPlan");
+            setText("Person plans");
+            break;
+        case GNEAttributeCarrier::TagType::TAGTYPE_PERSONTRIP:
+            setText("Person trips");
             break;
         case GNEAttributeCarrier::TagType::TAGTYPE_WALK:
-            setText("Walk");
+            setText("Walks");
             break;
         case GNEAttributeCarrier::TagType::TAGTYPE_RIDE:
-            setText("Ride");
+            setText("Rides");
             break;
         case GNEAttributeCarrier::TagType::TAGTYPE_PERSONSTOP:
-            setText("PersonStop");
+            setText("Person stops");
             break;
         default:
             throw ProcessError("invalid tag property");
