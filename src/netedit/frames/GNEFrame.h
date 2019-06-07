@@ -145,6 +145,81 @@ public:
     };
 
     // ===========================================================================
+    // class EdgePathCreator
+    // ===========================================================================
+
+    class EdgePathCreator : protected FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEFrame::EdgePathCreator)
+
+    public:
+        /// @brief default constructor
+        EdgePathCreator(GNEFrame* frameParent);
+
+        /// @brief destructor
+        ~EdgePathCreator();
+
+        /// @brief show EdgePathCreator
+        void showEdgePathCreator();
+
+        /// @brief show EdgePathCreator
+        void hideEdgePathCreator();
+
+        /// @brief set SUMOVehicleClass
+        void setVClass(SUMOVehicleClass vClass);
+
+        /// @brief get current selected edgesm
+        std::vector<GNEEdge*> getSelectedEdges() const;
+
+        /// @brief set edge from (and change color)
+        void addEdge(GNEEdge* edge);
+
+        /// @brief clear edges (and restore colors)
+        void clearEdges();
+
+        /// @brief draw temporal route
+        void drawTemporalRoute() const;
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when the user click over button "Abort route creation"
+        long onCmdAbortRouteCreation(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user click over button "Finish route creation"
+        long onCmdFinishRouteCreation(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user click over button "Remove las inserted edge"
+        long onCmdRemoveLastRouteEdge(FXObject*, FXSelector, void*);
+        /// @}
+
+    protected:
+        /// @brief FOX needs this
+        EdgePathCreator() {}
+
+    private:
+        /// @brief pointer to GNEFrame Parent
+        GNEFrame* myFrameParent;
+
+        /// @brief VClass used for this trip
+        SUMOVehicleClass myVClass;
+
+        /// @brief current selected edges
+        std::vector<GNEEdge*> mySelectedEdges;
+
+        /// @brief vector with temporal route edges
+        std::vector<GNEEdge*> myTemporalRoute;
+
+        /// @brief button for finish route creation
+        FXButton* myFinishCreationButton;
+
+        /// @brief button for abort route creation
+        FXButton* myAbortCreationButton;
+
+        /// @brief button for removing last inserted edge
+        FXButton* myRemoveLastInsertedEdge;
+    };
+
+    // ===========================================================================
     // class AttributesCreator
     // ===========================================================================
 
@@ -907,6 +982,9 @@ protected:
 
     /// @brief selected vehicle type in VTypeSelector (can be reimplemented in frame childs)
     virtual void selectedVType(bool validVType);
+
+    /// @brief finish edge path creation (can be reimplemented in frame childs)
+    virtual void finishEdgePathCreation();
 
     /// @brief Open help attributes dialog
     void openHelpAttributesDialog(const GNEAttributeCarrier::TagProperties& tagProperties) const;

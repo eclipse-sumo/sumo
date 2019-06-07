@@ -64,25 +64,25 @@ public:
     };
 
     // ===========================================================================
-    // class TripRouteCreator
+    // class EdgePathCreator
     // ===========================================================================
 
-    class TripRouteCreator : protected FXGroupBox {
+    class EdgePathCreator : protected FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNEPersonPlanFrame::TripRouteCreator)
+        FXDECLARE(GNEPersonPlanFrame::EdgePathCreator)
 
     public:
         /// @brief default constructor
-        TripRouteCreator(GNEPersonPlanFrame* vehicleFrameParent);
+        EdgePathCreator(GNEPersonPlanFrame* vehicleFrameParent);
 
         /// @brief destructor
-        ~TripRouteCreator();
+        ~EdgePathCreator();
 
-        /// @brief show TripRouteCreator
-        void showTripRouteCreator();
+        /// @brief show EdgePathCreator
+        void showEdgePathCreator();
 
-        /// @brief show TripRouteCreator
-        void hideTripRouteCreator();
+        /// @brief show EdgePathCreator
+        void hideEdgePathCreator();
 
         /// @brief check if from and to edges create a valid route
         bool isValid(SUMOVehicleClass vehicleClass) const;
@@ -113,7 +113,7 @@ public:
 
     protected:
         /// @brief FOX needs this
-        TripRouteCreator() {}
+        EdgePathCreator() {}
 
     private:
         /// @brief pointer to PersonPlan Frame Parent
@@ -153,8 +153,8 @@ public:
      */
     bool addPersonPlan(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
 
-    /// @brief get TripRouteCreator modul
-    TripRouteCreator* getTripRouteCreator() const;
+    /// @brief get EdgePathCreator modul
+    EdgePathCreator* getEdgePathCreator() const;
 
 protected:
     /// @brief enable moduls depending of item selected in TagSelector
@@ -170,8 +170,8 @@ private:
     /// @brief internal vehicle attributes
     AttributesCreator* myPersonPlanAttributes;
 
-    /// @brief TripRouteCreator
-    TripRouteCreator* myTripRouteCreator;
+    /// @brief EdgePathCreator
+    EdgePathCreator* myEdgePathCreator;
 
     /// @brief Help creation
     HelpCreation* myHelpCreation;

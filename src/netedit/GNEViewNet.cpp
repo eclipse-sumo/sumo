@@ -557,7 +557,7 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
         // draw testing elements
         myTestingMode.drawTestingElements(myApp);
         // draw temporal trip route
-        myViewParent->getVehicleFrame()->getTripRouteCreator()->drawTemporalRoute();
+        myViewParent->getVehicleFrame()->getEdgePathCreator()->drawTemporalRoute();
         // draw temporal non consecutive edge
         myViewParent->getRouteFrame()->drawTemporalRoute();
     }
@@ -764,7 +764,7 @@ GNEViewNet::abortOperation(bool clearSelection) {
         } else if (myEditModes.demandEditMode == GNE_DMODE_ROUTE) {
             myViewParent->getRouteFrame()->hotkeyEsc();
         } else if (myEditModes.demandEditMode == GNE_DMODE_VEHICLE) {
-            myViewParent->getVehicleFrame()->getTripRouteCreator()->onCmdAbortRouteCreation(0, 0, 0);
+            myViewParent->getVehicleFrame()->getEdgePathCreator()->onCmdAbortRouteCreation(0, 0, 0);
         }
     }
     // abort undo list
@@ -843,7 +843,7 @@ GNEViewNet::hotkeyEnter() {
         if (myEditModes.demandEditMode == GNE_DMODE_ROUTE) {
             myViewParent->getRouteFrame()->hotkeyEnter();
         } else if (myEditModes.demandEditMode == GNE_DMODE_VEHICLE) {
-            myViewParent->getVehicleFrame()->getTripRouteCreator()->onCmdFinishRouteCreation(0, 0, 0);
+            myViewParent->getVehicleFrame()->getEdgePathCreator()->onCmdFinishRouteCreation(0, 0, 0);
         }
     }
 }
@@ -857,7 +857,7 @@ GNEViewNet::hotkeyBackSpace() {
         if (myEditModes.demandEditMode == GNE_DMODE_ROUTE) {
             myViewParent->getRouteFrame()->hotkeyBackSpace();
         } else if (myEditModes.demandEditMode == GNE_DMODE_VEHICLE) {
-            myViewParent->getVehicleFrame()->getTripRouteCreator()->onCmdRemoveLastRouteEdge(0, 0, 0);
+            myViewParent->getVehicleFrame()->getEdgePathCreator()->onCmdRemoveLastRouteEdge(0, 0, 0);
         }
     }
 }

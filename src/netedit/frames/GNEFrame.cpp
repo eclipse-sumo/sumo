@@ -21,6 +21,9 @@
 
 #include <config.h>
 
+#include <netbuild/NBNetBuilder.h>
+#include <netbuild/NBVehicle.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
@@ -28,7 +31,10 @@
 #include <netedit/additionals/GNEAdditional.h>
 #include <netedit/additionals/GNEPOI.h>
 #include <netedit/additionals/GNETAZ.h>
+#include <netedit/changes/GNEChange_DemandElement.h>
 #include <netedit/demandelements/GNEDemandElement.h>
+#include <netedit/demandelements/GNERouteHandler.h>
+#include <netedit/demandelements/GNEVehicle.h>
 #include <netedit/dialogs/GNEDialog_AllowDisallow.h>
 #include <netedit/dialogs/GNEGenericParameterDialog.h>
 #include <netedit/netelements/GNEConnection.h>
@@ -36,14 +42,20 @@
 #include <netedit/netelements/GNEEdge.h>
 #include <netedit/netelements/GNEJunction.h>
 #include <netedit/netelements/GNELane.h>
+#include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/foxtools/MFXMenuHeader.h>
 #include <utils/foxtools/MFXUtils.h>
+#include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/windows/GUIMainWindow.h>
+#include <utils/vehicle/SUMOVehicle.h>
+#include <utils/vehicle/SUMOVehicleParserHelper.h>
+#include <utils/xml/SUMOSAXAttributesImpl_Cached.h>
 
 #include "GNEFrame.h"
 #include "GNEInspectorFrame.h"
@@ -60,6 +72,12 @@ FXDEFMAP(GNEFrame::TagSelector) TagSelectorMap[] = {
 
 FXDEFMAP(GNEFrame::VTypeSelector) VTypeSelectorMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_TYPE,    GNEFrame::VTypeSelector::onCmdSelectVType),
+};
+
+FXDEFMAP(GNEFrame::EdgePathCreator) EdgePathCreatorMap[] = {
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_VEHICLEFRAME_ABORT,          GNEFrame::EdgePathCreator::onCmdAbortRouteCreation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_VEHICLEFRAME_FINISHCREATION, GNEFrame::EdgePathCreator::onCmdFinishRouteCreation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_VEHICLEFRAME_REMOVELASTEDGE, GNEFrame::EdgePathCreator::onCmdRemoveLastRouteEdge)
 };
 
 FXDEFMAP(GNEFrame::AttributesCreator) AttributesCreatorMap[] = {
@@ -114,6 +132,7 @@ FXDEFMAP(GNEFrame::NeteditAttributes) NeteditAttributesMap[] = {
 // Object implementation
 FXIMPLEMENT(GNEFrame::TagSelector,                              FXGroupBox,         TagSelectorMap,                 ARRAYNUMBER(TagSelectorMap))
 FXIMPLEMENT(GNEFrame::VTypeSelector,                            FXGroupBox,         VTypeSelectorMap,               ARRAYNUMBER(VTypeSelectorMap))
+FXIMPLEMENT(GNEFrame::EdgePathCreator,                         FXGroupBox,         EdgePathCreatorMap,            ARRAYNUMBER(EdgePathCreatorMap))
 FXIMPLEMENT(GNEFrame::AttributesCreator,                        FXGroupBox,         AttributesCreatorMap,           ARRAYNUMBER(AttributesCreatorMap))
 FXIMPLEMENT(GNEFrame::AttributesCreator::AttributesCreatorRow,  FXHorizontalFrame,  RowCreatorMap,                  ARRAYNUMBER(RowCreatorMap))
 FXIMPLEMENT(GNEFrame::AttributesEditor,                         FXGroupBox,         AttributesEditorMap,            ARRAYNUMBER(AttributesEditorMap))
@@ -280,7 +299,6 @@ GNEFrame::TagSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
     return 1;
 }
 
-
 // ---------------------------------------------------------------------------
 // GNEFrame::VTypeSelector - methods
 // ---------------------------------------------------------------------------
@@ -364,6 +382,172 @@ GNEFrame::VTypeSelector::onCmdSelectVType(FXObject*, FXSelector, void*) {
     myVTypesMatchBox->setTextColor(FXRGB(255, 0, 0));
     // Write Warning in console if we're in testing mode
     WRITE_DEBUG("Selected invalid item in VTypeSelector");
+    return 1;
+}
+
+
+// ---------------------------------------------------------------------------
+// GNEFrame::EdgePathCreator - methods
+// ---------------------------------------------------------------------------
+
+GNEFrame::EdgePathCreator::EdgePathCreator(GNEFrame* frameParent) :
+    FXGroupBox(frameParent->myContentFrame, "Route creator", GUIDesignGroupBoxFrame),
+    myVClass(SVC_PASSENGER),
+    myFrameParent(frameParent) {
+
+    // create button for create GEO POIs
+    myFinishCreationButton = new FXButton(this, "Finish route creation", nullptr, this, MID_GNE_VEHICLEFRAME_FINISHCREATION, GUIDesignButton);
+    myFinishCreationButton->disable();
+
+    // create button for create GEO POIs
+    myAbortCreationButton = new FXButton(this, "Abort route creation", nullptr, this, MID_GNE_VEHICLEFRAME_ABORT, GUIDesignButton);
+    myAbortCreationButton->disable();
+
+    // create button for create GEO POIs
+    myRemoveLastInsertedEdge = new FXButton(this, "Remove last inserted edge", nullptr, this, MID_GNE_VEHICLEFRAME_REMOVELASTEDGE, GUIDesignButton);
+    myRemoveLastInsertedEdge->disable();
+}
+
+
+GNEFrame::EdgePathCreator::~EdgePathCreator() {
+}
+
+
+void
+GNEFrame::EdgePathCreator::showEdgePathCreator() {
+    // disable buttons
+    myFinishCreationButton->disable();
+    myAbortCreationButton->disable();
+    myRemoveLastInsertedEdge->disable();
+    show();
+}
+
+
+void
+GNEFrame::EdgePathCreator::hideEdgePathCreator() {
+    hide();
+}
+
+
+void 
+GNEFrame::EdgePathCreator::setVClass(SUMOVehicleClass vClass) {
+    myVClass = vClass;
+}
+
+
+std::vector<GNEEdge*>
+GNEFrame::EdgePathCreator::getSelectedEdges() const {
+    return mySelectedEdges;
+}
+
+
+void
+GNEFrame::EdgePathCreator::addEdge(GNEEdge* edge) {
+    if (mySelectedEdges.empty() || ((mySelectedEdges.size() > 0) && (mySelectedEdges.back() != edge))) {
+        mySelectedEdges.push_back(edge);
+        // enable abort route button
+        myAbortCreationButton->enable();
+        // disable undo/redo
+        myFrameParent->myViewNet->getViewParent()->getGNEAppWindows()->disableUndoRedo("trip creation");
+        // set special color
+        for (auto i : edge->getLanes()) {
+            i->setSpecialColor(&myFrameParent->getEdgeCandidateSelectedColor());
+        }
+        // calculate route if there is more than two edges
+        if (mySelectedEdges.size() > 1) {
+            // enable remove last edge button
+            myRemoveLastInsertedEdge->enable();
+            // enable finish button
+            myFinishCreationButton->enable();
+            // calculate temporal route
+            myTemporalRoute = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(myVClass, mySelectedEdges);
+        }
+    }
+}
+
+
+void
+GNEFrame::EdgePathCreator::clearEdges() {
+    // restore colors
+    for (const auto& i : mySelectedEdges) {
+        for (const auto& j : i->getLanes()) {
+            j->setSpecialColor(nullptr);
+        }
+    }
+    // clear edges
+    mySelectedEdges.clear();
+    myTemporalRoute.clear();
+    // enable undo/redo
+    myFrameParent->myViewNet->getViewParent()->getGNEAppWindows()->enableUndoRedo();
+}
+
+
+void
+GNEFrame::EdgePathCreator::drawTemporalRoute() const {
+    // only draw if there is at least two edges
+    if (myTemporalRoute.size() > 1) {
+        // Add a draw matrix
+        glPushMatrix();
+        // Start with the drawing of the area traslating matrix to origin
+        glTranslated(0, 0, GLO_MAX);
+        // set orange color
+        GLHelper::setColor(RGBColor::ORANGE);
+        // set line width
+        glLineWidth(5);
+        // draw first line
+        GLHelper::drawLine(myTemporalRoute.at(0)->getNBEdge()->getLanes().front().shape.front(),
+                           myTemporalRoute.at(0)->getNBEdge()->getLanes().front().shape.back());
+        // draw rest of lines
+        for (int i = 1; i < (int)myTemporalRoute.size(); i++) {
+            GLHelper::drawLine(myTemporalRoute.at(i - 1)->getNBEdge()->getLanes().front().shape.back(),
+                               myTemporalRoute.at(i)->getNBEdge()->getLanes().front().shape.front());
+            GLHelper::drawLine(myTemporalRoute.at(i)->getNBEdge()->getLanes().front().shape.front(),
+                               myTemporalRoute.at(i)->getNBEdge()->getLanes().front().shape.back());
+        }
+        // Pop last matrix
+        glPopMatrix();
+    }
+}
+
+
+long
+GNEFrame::EdgePathCreator::onCmdAbortRouteCreation(FXObject*, FXSelector, void*) {
+    clearEdges();
+    // disable buttons
+    myFinishCreationButton->disable();
+    myAbortCreationButton->disable();
+    myRemoveLastInsertedEdge->disable();
+    return 1;
+}
+
+
+long
+GNEFrame::EdgePathCreator::onCmdFinishRouteCreation(FXObject*, FXSelector, void*) {
+    // only create route if there is more than two edges
+    if (mySelectedEdges.size() > 1) {
+        // call finishEdgePathCreation
+        myFrameParent->finishEdgePathCreation();
+        // update view
+        myFrameParent->myViewNet->update();
+        // clear edges after creation
+        clearEdges();
+        // disable buttons
+        myFinishCreationButton->disable();
+        myAbortCreationButton->disable();
+        myRemoveLastInsertedEdge->disable();
+    }
+    return 1;
+}
+
+
+long
+GNEFrame::EdgePathCreator::onCmdRemoveLastRouteEdge(FXObject*, FXSelector, void*) {
+    if (mySelectedEdges.size() > 1) {
+        // remove last edge
+        mySelectedEdges.pop_back();
+        // calculate temporal route
+        myTemporalRoute = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(myVClass, mySelectedEdges);
+    }
     return 1;
 }
 
@@ -3267,7 +3451,13 @@ GNEFrame::openAttributesEditorExtendedDialog()  {
 
 void
 GNEFrame::selectedVType(bool /*validVType*/) {
-    // this function has to be reimplemente in all child frames that uses a selectedVType
+    // this function has to be reimplemente in all child frames that uses a VTypeSelector
+}
+
+
+void
+GNEFrame::finishEdgePathCreation() {
+    // this function has to be reimplemente in all child frames that uses a EdgePathCreator
 }
 
 

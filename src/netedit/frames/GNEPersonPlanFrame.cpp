@@ -48,14 +48,14 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(GNEPersonPlanFrame::TripRouteCreator) TripRouteCreatorMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_VEHICLEFRAME_ABORT,          GNEPersonPlanFrame::TripRouteCreator::onCmdAbortRouteCreation),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_VEHICLEFRAME_FINISHCREATION, GNEPersonPlanFrame::TripRouteCreator::onCmdFinishRouteCreation),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_VEHICLEFRAME_REMOVELASTEDGE, GNEPersonPlanFrame::TripRouteCreator::onCmdRemoveLastRouteEdge)
+FXDEFMAP(GNEPersonPlanFrame::EdgePathCreator) EdgePathCreatorMap[] = {
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_VEHICLEFRAME_ABORT,          GNEPersonPlanFrame::EdgePathCreator::onCmdAbortRouteCreation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_VEHICLEFRAME_FINISHCREATION, GNEPersonPlanFrame::EdgePathCreator::onCmdFinishRouteCreation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_VEHICLEFRAME_REMOVELASTEDGE, GNEPersonPlanFrame::EdgePathCreator::onCmdRemoveLastRouteEdge)
 };
 
 // Object implementation
-FXIMPLEMENT(GNEPersonPlanFrame::TripRouteCreator,  FXGroupBox, TripRouteCreatorMap,    ARRAYNUMBER(TripRouteCreatorMap))
+FXIMPLEMENT(GNEPersonPlanFrame::EdgePathCreator,  FXGroupBox, EdgePathCreatorMap,    ARRAYNUMBER(EdgePathCreatorMap))
 
 // ===========================================================================
 // method definitions
@@ -123,10 +123,10 @@ GNEPersonPlanFrame::HelpCreation::updateHelpCreation() {
 }
 
 // ---------------------------------------------------------------------------
-// GNEPersonPlanFrame::TripRouteCreator - methods
+// GNEPersonPlanFrame::EdgePathCreator - methods
 // ---------------------------------------------------------------------------
 
-GNEPersonPlanFrame::TripRouteCreator::TripRouteCreator(GNEPersonPlanFrame* vehicleFrameParent) :
+GNEPersonPlanFrame::EdgePathCreator::EdgePathCreator(GNEPersonPlanFrame* vehicleFrameParent) :
     FXGroupBox(vehicleFrameParent->myContentFrame, "Route creator", GUIDesignGroupBoxFrame),
     myPersonPlanFrameParent(vehicleFrameParent) {
 
@@ -144,12 +144,12 @@ GNEPersonPlanFrame::TripRouteCreator::TripRouteCreator(GNEPersonPlanFrame* vehic
 }
 
 
-GNEPersonPlanFrame::TripRouteCreator::~TripRouteCreator() {
+GNEPersonPlanFrame::EdgePathCreator::~EdgePathCreator() {
 }
 
 
 void
-GNEPersonPlanFrame::TripRouteCreator::showTripRouteCreator() {
+GNEPersonPlanFrame::EdgePathCreator::showEdgePathCreator() {
     // disable buttons
     myFinishCreationButton->disable();
     myAbortCreationButton->disable();
@@ -159,19 +159,19 @@ GNEPersonPlanFrame::TripRouteCreator::showTripRouteCreator() {
 
 
 void
-GNEPersonPlanFrame::TripRouteCreator::hideTripRouteCreator() {
+GNEPersonPlanFrame::EdgePathCreator::hideEdgePathCreator() {
     hide();
 }
 
 
 std::vector<GNEEdge*>
-GNEPersonPlanFrame::TripRouteCreator::getSelectedEdges() const {
+GNEPersonPlanFrame::EdgePathCreator::getSelectedEdges() const {
     return mySelectedEdges;
 }
 
 
 void
-GNEPersonPlanFrame::TripRouteCreator::addEdge(GNEEdge* edge) {
+GNEPersonPlanFrame::EdgePathCreator::addEdge(GNEEdge* edge) {
     if (mySelectedEdges.empty() || ((mySelectedEdges.size() > 0) && (mySelectedEdges.back() != edge))) {
         mySelectedEdges.push_back(edge);
         // enable abort route button
@@ -196,7 +196,7 @@ GNEPersonPlanFrame::TripRouteCreator::addEdge(GNEEdge* edge) {
 
 
 void
-GNEPersonPlanFrame::TripRouteCreator::clearEdges() {
+GNEPersonPlanFrame::EdgePathCreator::clearEdges() {
     // restore colors
     for (const auto& i : mySelectedEdges) {
         for (const auto& j : i->getLanes()) {
@@ -212,7 +212,7 @@ GNEPersonPlanFrame::TripRouteCreator::clearEdges() {
 
 
 void
-GNEPersonPlanFrame::TripRouteCreator::drawTemporalRoute() const {
+GNEPersonPlanFrame::EdgePathCreator::drawTemporalRoute() const {
     // only draw if there is at least two edges
     if (myTemporalRoute.size() > 1) {
         // Add a draw matrix
@@ -240,13 +240,13 @@ GNEPersonPlanFrame::TripRouteCreator::drawTemporalRoute() const {
 
 
 bool
-GNEPersonPlanFrame::TripRouteCreator::isValid(SUMOVehicleClass /* vehicleClass */) const {
+GNEPersonPlanFrame::EdgePathCreator::isValid(SUMOVehicleClass /* vehicleClass */) const {
     return mySelectedEdges.size() > 0;
 }
 
 
 long
-GNEPersonPlanFrame::TripRouteCreator::onCmdAbortRouteCreation(FXObject*, FXSelector, void*) {
+GNEPersonPlanFrame::EdgePathCreator::onCmdAbortRouteCreation(FXObject*, FXSelector, void*) {
     clearEdges();
     // disable buttons
     myFinishCreationButton->disable();
@@ -257,7 +257,7 @@ GNEPersonPlanFrame::TripRouteCreator::onCmdAbortRouteCreation(FXObject*, FXSelec
 
 
 long
-GNEPersonPlanFrame::TripRouteCreator::onCmdFinishRouteCreation(FXObject*, FXSelector, void*) {
+GNEPersonPlanFrame::EdgePathCreator::onCmdFinishRouteCreation(FXObject*, FXSelector, void*) {
     // only create route if there is more than two edges
     if (mySelectedEdges.size() > 1) {
         // obtain tag (only for improve code legibility)
@@ -309,7 +309,7 @@ GNEPersonPlanFrame::TripRouteCreator::onCmdFinishRouteCreation(FXObject*, FXSele
 
 
 long
-GNEPersonPlanFrame::TripRouteCreator::onCmdRemoveLastRouteEdge(FXObject*, FXSelector, void*) {
+GNEPersonPlanFrame::EdgePathCreator::onCmdRemoveLastRouteEdge(FXObject*, FXSelector, void*) {
     if (mySelectedEdges.size() > 1) {
         // remove last edge
         mySelectedEdges.pop_back();
@@ -332,8 +332,8 @@ GNEPersonPlanFrame::GNEPersonPlanFrame(FXHorizontalFrame* horizontalFrameParent,
     // Create person parameters
     myPersonPlanAttributes = new AttributesCreator(this);
 
-    // create TripRouteCreator Modul
-    myTripRouteCreator = new TripRouteCreator(this);
+    // create EdgePathCreator Modul
+    myEdgePathCreator = new EdgePathCreator(this);
 
     // Create Help Creation Modul
     myHelpCreation = new HelpCreation(this);
@@ -419,17 +419,17 @@ GNEPersonPlanFrame::addPersonPlan(const GNEViewNetHelper::ObjectsUnderCursor& ob
             return false;
         }
     } else if (((vehicleTag == SUMO_TAG_TRIP) || (vehicleTag == SUMO_TAG_FLOW)) && objectsUnderCursor.getEdgeFront()) {
-        // add clicked edge in TripRouteCreator
-        myTripRouteCreator->addEdge(objectsUnderCursor.getEdgeFront());
+        // add clicked edge in EdgePathCreator
+        myEdgePathCreator->addEdge(objectsUnderCursor.getEdgeFront());
     }
     // nothing crated
     return false;
 }
 
 
-GNEPersonPlanFrame::TripRouteCreator*
-GNEPersonPlanFrame::getTripRouteCreator() const {
-    return myTripRouteCreator;
+GNEPersonPlanFrame::EdgePathCreator*
+GNEPersonPlanFrame::getEdgePathCreator() const {
+    return myEdgePathCreator;
 }
 
 // ===========================================================================
@@ -440,9 +440,9 @@ void
 GNEPersonPlanFrame::enableModuls(const GNEAttributeCarrier::TagProperties& tagProperties) {
     // show AutoRute creator if we're editing a trip
     if ((myTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_TRIP) || (myTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_FLOW)) {
-        myTripRouteCreator->showTripRouteCreator();
+        myEdgePathCreator->showEdgePathCreator();
     } else {
-        myTripRouteCreator->hideTripRouteCreator();
+        myEdgePathCreator->hideEdgePathCreator();
     }
 }
 

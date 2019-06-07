@@ -45,19 +45,6 @@
 #include "GNEVehicleFrame.h"
 
 // ===========================================================================
-// FOX callback mapping
-// ===========================================================================
-
-FXDEFMAP(GNEVehicleFrame::TripRouteCreator) TripRouteCreatorMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_VEHICLEFRAME_ABORT,          GNEVehicleFrame::TripRouteCreator::onCmdAbortRouteCreation),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_VEHICLEFRAME_FINISHCREATION, GNEVehicleFrame::TripRouteCreator::onCmdFinishRouteCreation),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_VEHICLEFRAME_REMOVELASTEDGE, GNEVehicleFrame::TripRouteCreator::onCmdRemoveLastRouteEdge)
-};
-
-// Object implementation
-FXIMPLEMENT(GNEVehicleFrame::TripRouteCreator,  FXGroupBox, TripRouteCreatorMap,    ARRAYNUMBER(TripRouteCreatorMap))
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 
@@ -123,205 +110,6 @@ GNEVehicleFrame::HelpCreation::updateHelpCreation() {
 }
 
 // ---------------------------------------------------------------------------
-// GNEVehicleFrame::TripRouteCreator - methods
-// ---------------------------------------------------------------------------
-
-GNEVehicleFrame::TripRouteCreator::TripRouteCreator(GNEVehicleFrame* vehicleFrameParent) :
-    FXGroupBox(vehicleFrameParent->myContentFrame, "Route creator", GUIDesignGroupBoxFrame),
-    myVehicleFrameParent(vehicleFrameParent) {
-
-    // create button for create GEO POIs
-    myFinishCreationButton = new FXButton(this, "Finish route creation", nullptr, this, MID_GNE_VEHICLEFRAME_FINISHCREATION, GUIDesignButton);
-    myFinishCreationButton->disable();
-
-    // create button for create GEO POIs
-    myAbortCreationButton = new FXButton(this, "Abort route creation", nullptr, this, MID_GNE_VEHICLEFRAME_ABORT, GUIDesignButton);
-    myAbortCreationButton->disable();
-
-    // create button for create GEO POIs
-    myRemoveLastInsertedEdge = new FXButton(this, "Remove last inserted edge", nullptr, this, MID_GNE_VEHICLEFRAME_REMOVELASTEDGE, GUIDesignButton);
-    myRemoveLastInsertedEdge->disable();
-}
-
-
-GNEVehicleFrame::TripRouteCreator::~TripRouteCreator() {
-}
-
-
-void
-GNEVehicleFrame::TripRouteCreator::showTripRouteCreator() {
-    // disable buttons
-    myFinishCreationButton->disable();
-    myAbortCreationButton->disable();
-    myRemoveLastInsertedEdge->disable();
-    show();
-}
-
-
-void
-GNEVehicleFrame::TripRouteCreator::hideTripRouteCreator() {
-    hide();
-}
-
-
-std::vector<GNEEdge*>
-GNEVehicleFrame::TripRouteCreator::getSelectedEdges() const {
-    return mySelectedEdges;
-}
-
-
-void
-GNEVehicleFrame::TripRouteCreator::addEdge(GNEEdge* edge) {
-    if (mySelectedEdges.empty() || ((mySelectedEdges.size() > 0) && (mySelectedEdges.back() != edge))) {
-        mySelectedEdges.push_back(edge);
-        // enable abort route button
-        myAbortCreationButton->enable();
-        // disable undo/redo
-        myVehicleFrameParent->myViewNet->getViewParent()->getGNEAppWindows()->disableUndoRedo("trip creation");
-        // set special color
-        for (auto i : edge->getLanes()) {
-            i->setSpecialColor(&myVehicleFrameParent->getEdgeCandidateSelectedColor());
-        }
-        // calculate route if there is more than two edges
-        if (mySelectedEdges.size() > 1) {
-            // enable remove last edge button
-            myRemoveLastInsertedEdge->enable();
-            // enable finish button
-            myFinishCreationButton->enable();
-            // calculate temporal route
-            myTemporalRoute = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(myVehicleFrameParent->myVTypeSelector->getCurrentVType()->getVClass(), mySelectedEdges);
-        }
-    }
-}
-
-
-void
-GNEVehicleFrame::TripRouteCreator::clearEdges() {
-    // restore colors
-    for (const auto& i : mySelectedEdges) {
-        for (const auto& j : i->getLanes()) {
-            j->setSpecialColor(nullptr);
-        }
-    }
-    // clear edges
-    mySelectedEdges.clear();
-    myTemporalRoute.clear();
-    // enable undo/redo
-    myVehicleFrameParent->myViewNet->getViewParent()->getGNEAppWindows()->enableUndoRedo();
-}
-
-
-void
-GNEVehicleFrame::TripRouteCreator::drawTemporalRoute() const {
-    // only draw if there is at least two edges
-    if (myTemporalRoute.size() > 1) {
-        // Add a draw matrix
-        glPushMatrix();
-        // Start with the drawing of the area traslating matrix to origin
-        glTranslated(0, 0, GLO_MAX);
-        // set orange color
-        GLHelper::setColor(RGBColor::ORANGE);
-        // set line width
-        glLineWidth(5);
-        // draw first line
-        GLHelper::drawLine(myTemporalRoute.at(0)->getNBEdge()->getLanes().front().shape.front(),
-                           myTemporalRoute.at(0)->getNBEdge()->getLanes().front().shape.back());
-        // draw rest of lines
-        for (int i = 1; i < (int)myTemporalRoute.size(); i++) {
-            GLHelper::drawLine(myTemporalRoute.at(i - 1)->getNBEdge()->getLanes().front().shape.back(),
-                               myTemporalRoute.at(i)->getNBEdge()->getLanes().front().shape.front());
-            GLHelper::drawLine(myTemporalRoute.at(i)->getNBEdge()->getLanes().front().shape.front(),
-                               myTemporalRoute.at(i)->getNBEdge()->getLanes().front().shape.back());
-        }
-        // Pop last matrix
-        glPopMatrix();
-    }
-}
-
-
-bool
-GNEVehicleFrame::TripRouteCreator::isValid(SUMOVehicleClass /* vehicleClass */) const {
-    return mySelectedEdges.size() > 0;
-}
-
-
-long
-GNEVehicleFrame::TripRouteCreator::onCmdAbortRouteCreation(FXObject*, FXSelector, void*) {
-    clearEdges();
-    // disable buttons
-    myFinishCreationButton->disable();
-    myAbortCreationButton->disable();
-    myRemoveLastInsertedEdge->disable();
-    return 1;
-}
-
-
-long
-GNEVehicleFrame::TripRouteCreator::onCmdFinishRouteCreation(FXObject*, FXSelector, void*) {
-    // only create route if there is more than two edges
-    if (mySelectedEdges.size() > 1) {
-        // obtain tag (only for improve code legibility)
-        SumoXMLTag vehicleTag = myVehicleFrameParent->myVehicleTagSelector->getCurrentTagProperties().getTag();
-        // Declare map to keep attributes from Frames from Frame
-        std::map<SumoXMLAttr, std::string> valuesMap = myVehicleFrameParent->myVehicleAttributes->getAttributesAndValues(false);
-        // add ID parameter
-        valuesMap[SUMO_ATTR_ID] = myVehicleFrameParent->myViewNet->getNet()->generateDemandElementID("", vehicleTag);
-        // add VType parameter
-        valuesMap[SUMO_ATTR_TYPE] = myVehicleFrameParent->myVTypeSelector->getCurrentVType()->getID();
-        // check if we're creating a trip or flow
-        if (vehicleTag == SUMO_TAG_TRIP) {
-            // Add parameter departure
-            if (valuesMap[SUMO_ATTR_DEPART].empty()) {
-                valuesMap[SUMO_ATTR_DEPART] = "0";
-            }
-            // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
-            SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, myVehicleFrameParent->getPredefinedTagsMML(), toString(vehicleTag));
-            // obtain trip parameters
-            SUMOVehicleParameter* tripParameters = SUMOVehicleParserHelper::parseVehicleAttributes(SUMOSAXAttrs);
-            // build trip in GNERouteHandler
-            GNERouteHandler::buildTrip(myVehicleFrameParent->myViewNet, true, *tripParameters, mySelectedEdges);
-            // delete tripParameters
-            delete tripParameters;
-        } else {
-            // set begin and end attributes
-            if (valuesMap[SUMO_ATTR_BEGIN].empty()) {
-                valuesMap[SUMO_ATTR_BEGIN] = "0";
-            }
-            if (valuesMap[SUMO_ATTR_END].empty()) {
-                valuesMap[SUMO_ATTR_END] = "3600";
-            }
-            // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
-            SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, myVehicleFrameParent->getPredefinedTagsMML(), toString(vehicleTag));
-            // obtain flow parameters
-            SUMOVehicleParameter* flowParameters = SUMOVehicleParserHelper::parseFlowAttributes(SUMOSAXAttrs, 0, SUMOTime_MAX);
-            // build flow in GNERouteHandler
-            GNERouteHandler::buildFlow(myVehicleFrameParent->myViewNet, true, *flowParameters, mySelectedEdges);
-            // delete flowParameters
-            delete flowParameters;
-        }
-        // clear edges
-        clearEdges();
-        // disable buttons
-        myFinishCreationButton->disable();
-        myAbortCreationButton->disable();
-        myRemoveLastInsertedEdge->disable();
-    }
-    return 1;
-}
-
-
-long
-GNEVehicleFrame::TripRouteCreator::onCmdRemoveLastRouteEdge(FXObject*, FXSelector, void*) {
-    if (mySelectedEdges.size() > 1) {
-        // remove last edge
-        mySelectedEdges.pop_back();
-        // calculate temporal route
-        myTemporalRoute = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(myVehicleFrameParent->myVTypeSelector->getCurrentVType()->getVClass(), mySelectedEdges);
-    }
-    return 1;
-}
-
-// ---------------------------------------------------------------------------
 // GNEVehicleFrame - methods
 // ---------------------------------------------------------------------------
 
@@ -337,8 +125,8 @@ GNEVehicleFrame::GNEVehicleFrame(FXHorizontalFrame* horizontalFrameParent, GNEVi
     // Create vehicle parameters
     myVehicleAttributes = new AttributesCreator(this);
 
-    // create TripRouteCreator Modul
-    myTripRouteCreator = new TripRouteCreator(this);
+    // create EdgePathCreator Modul
+    myEdgePathCreator = new EdgePathCreator(this);
 
     // Create Help Creation Modul
     myHelpCreation = new HelpCreation(this);
@@ -431,17 +219,17 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
             return false;
         }
     } else if (((vehicleTag == SUMO_TAG_TRIP) || (vehicleTag == SUMO_TAG_FLOW)) && objectsUnderCursor.getEdgeFront()) {
-        // add clicked edge in TripRouteCreator
-        myTripRouteCreator->addEdge(objectsUnderCursor.getEdgeFront());
+        // add clicked edge in EdgePathCreator
+        myEdgePathCreator->addEdge(objectsUnderCursor.getEdgeFront());
     }
     // nothing crated
     return false;
 }
 
 
-GNEVehicleFrame::TripRouteCreator*
-GNEVehicleFrame::getTripRouteCreator() const {
-    return myTripRouteCreator;
+GNEVehicleFrame::EdgePathCreator*
+GNEVehicleFrame::getEdgePathCreator() const {
+    return myEdgePathCreator;
 }
 
 // ===========================================================================
@@ -454,9 +242,9 @@ GNEVehicleFrame::enableModuls(const GNEAttributeCarrier::TagProperties& tagPrope
     myVTypeSelector->showVTypeSelector(tagProperties);
     // show AutoRute creator if we're editing a trip
     if ((myVehicleTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_TRIP) || (myVehicleTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_FLOW)) {
-        myTripRouteCreator->showTripRouteCreator();
+        myEdgePathCreator->showEdgePathCreator();
     } else {
-        myTripRouteCreator->hideTripRouteCreator();
+        myEdgePathCreator->hideEdgePathCreator();
     }
 }
 
@@ -475,6 +263,8 @@ GNEVehicleFrame::selectedVType(bool validVType) {
     if (validVType) {
         // show vehicle attributes modul
         myVehicleAttributes->showAttributesCreatorModul(myVehicleTagSelector->getCurrentTagProperties());
+        // set current VTypeClass in TripCreator
+        myEdgePathCreator->setVClass(myVTypeSelector->getCurrentVType()->getVClass());
         // show help creation
         myHelpCreation->showHelpCreation();
     } else {
@@ -486,4 +276,45 @@ GNEVehicleFrame::selectedVType(bool validVType) {
     }
 }
 
+
+void
+GNEVehicleFrame::finishEdgePathCreation() {
+    // obtain tag (only for improve code legibility)
+    SumoXMLTag vehicleTag = myVehicleTagSelector->getCurrentTagProperties().getTag();
+    // Declare map to keep attributes from Frames from Frame
+    std::map<SumoXMLAttr, std::string> valuesMap = myVehicleAttributes->getAttributesAndValues(false);
+    // add ID parameter
+    valuesMap[SUMO_ATTR_ID] = myViewNet->getNet()->generateDemandElementID("", vehicleTag);
+    // check if we're creating a trip or flow
+    if (vehicleTag == SUMO_TAG_TRIP) {
+        // Add parameter departure
+        if (valuesMap[SUMO_ATTR_DEPART].empty()) {
+            valuesMap[SUMO_ATTR_DEPART] = "0";
+        }
+        // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
+        SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, getPredefinedTagsMML(), toString(vehicleTag));
+        // obtain trip parameters
+        SUMOVehicleParameter* tripParameters = SUMOVehicleParserHelper::parseVehicleAttributes(SUMOSAXAttrs);
+        // build trip in GNERouteHandler
+        GNERouteHandler::buildTrip(myViewNet, true, *tripParameters, myEdgePathCreator->getSelectedEdges());
+        // delete tripParameters
+        delete tripParameters;
+    } else {
+        // set begin and end attributes
+        if (valuesMap[SUMO_ATTR_BEGIN].empty()) {
+            valuesMap[SUMO_ATTR_BEGIN] = "0";
+        }
+        if (valuesMap[SUMO_ATTR_END].empty()) {
+            valuesMap[SUMO_ATTR_END] = "3600";
+        }
+        // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
+        SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, getPredefinedTagsMML(), toString(vehicleTag));
+        // obtain flow parameters
+        SUMOVehicleParameter* flowParameters = SUMOVehicleParserHelper::parseFlowAttributes(SUMOSAXAttrs, 0, SUMOTime_MAX);
+        // build flow in GNERouteHandler
+        GNERouteHandler::buildFlow(myViewNet, true, *flowParameters, myEdgePathCreator->getSelectedEdges());
+        // delete flowParameters
+        delete flowParameters;
+    }
+}
 /****************************************************************************/
