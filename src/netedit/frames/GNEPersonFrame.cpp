@@ -48,10 +48,6 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(GNEPersonFrame::VTypeSelector) VTypeSelectorMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_TYPE,    GNEPersonFrame::VTypeSelector::onCmdSelectVType),
-};
-
 FXDEFMAP(GNEPersonFrame::TripRouteCreator) TripRouteCreatorMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_VEHICLEFRAME_ABORT,          GNEPersonFrame::TripRouteCreator::onCmdAbortRouteCreation),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_VEHICLEFRAME_FINISHCREATION, GNEPersonFrame::TripRouteCreator::onCmdFinishRouteCreation),
@@ -59,106 +55,11 @@ FXDEFMAP(GNEPersonFrame::TripRouteCreator) TripRouteCreatorMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEPersonFrame::VTypeSelector,     FXGroupBox, VTypeSelectorMap,       ARRAYNUMBER(VTypeSelectorMap))
 FXIMPLEMENT(GNEPersonFrame::TripRouteCreator,  FXGroupBox, TripRouteCreatorMap,    ARRAYNUMBER(TripRouteCreatorMap))
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
-
-// ---------------------------------------------------------------------------
-// GNEPersonFrame::VTypeSelector - methods
-// ---------------------------------------------------------------------------
-
-GNEPersonFrame::VTypeSelector::VTypeSelector(GNEPersonFrame* vehicleFrameParent) :
-    FXGroupBox(vehicleFrameParent->myContentFrame, "Person Type", GUIDesignGroupBoxFrame),
-    myPersonFrameParent(vehicleFrameParent),
-    myCurrentPersonType(nullptr) {
-    // Create FXComboBox
-    myTypeMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
-    // refresh TypeMatchBox
-    refreshVTypeSelector();
-    // VTypeSelector is always shown
-    show();
-}
-
-
-GNEPersonFrame::VTypeSelector::~VTypeSelector() {}
-
-
-const GNEDemandElement*
-GNEPersonFrame::VTypeSelector::getCurrentPersonType() const {
-    return myCurrentPersonType;
-}
-
-
-void
-GNEPersonFrame::VTypeSelector::showVTypeSelector(const GNEAttributeCarrier::TagProperties& /*tagProperties*/) {
-    refreshVTypeSelector();
-    // if current selected item isn't valid, set DEFAULT_VEHTYPE
-    if (myCurrentPersonType) {
-        // set DEFAULT_VTYPE as current VType
-        myTypeMatchBox->setText(myCurrentPersonType->getID().c_str());
-    } else {
-        myTypeMatchBox->setText(DEFAULT_VTYPE_ID.c_str());
-    }
-    onCmdSelectVType(nullptr, 0, nullptr);
-}
-
-
-void
-GNEPersonFrame::VTypeSelector::hideVTypeSelector() {
-    hide();
-}
-
-
-void
-GNEPersonFrame::VTypeSelector::refreshVTypeSelector() {
-    // clear comboBox
-    myTypeMatchBox->clearItems();
-    // get list of VTypes
-    const auto& vTypes = myPersonFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_VTYPE);
-    // fill myTypeMatchBox with list of tags
-    for (const auto& i : vTypes) {
-        myTypeMatchBox->appendItem(i.first.c_str());
-    }
-    // Set visible items
-    myTypeMatchBox->setNumVisible((int)myTypeMatchBox->getNumItems());
-}
-
-
-long
-GNEPersonFrame::VTypeSelector::onCmdSelectVType(FXObject*, FXSelector, void*) {
-    // get list of VTypes
-    const auto& vTypes = myPersonFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_VTYPE);
-    // Check if value of myTypeMatchBox correspond to a VType
-    for (const auto& i : vTypes) {
-        if (i.first == myTypeMatchBox->getText().text()) {
-            // set color of myTypeMatchBox to black (valid)
-            myTypeMatchBox->setTextColor(FXRGB(0, 0, 0));
-            // Set new current VType
-            myCurrentPersonType = i.second;
-            // show vehicle attributes modul
-            myPersonFrameParent->myPersonAttributes->showAttributesCreatorModul(myPersonFrameParent->myItemSelector->getCurrentTagProperties());
-            // show help creation
-            myPersonFrameParent->myHelpCreation->showHelpCreation();
-            // Write Warning in console if we're in testing mode
-            WRITE_DEBUG(("Selected item '" + myTypeMatchBox->getText() + "' in VTypeSelector").text());
-            return 1;
-        }
-    }
-    // if VType selecte is invalid, select
-    myCurrentPersonType = nullptr;
-    // hide all moduls if selected item isn't valid
-    myPersonFrameParent->myPersonAttributes->hideAttributesCreatorModul();
-    // hide help creation
-    myPersonFrameParent->myHelpCreation->hideHelpCreation();
-    // set color of myTypeMatchBox to red (invalid)
-    myTypeMatchBox->setTextColor(FXRGB(255, 0, 0));
-    // Write Warning in console if we're in testing mode
-    WRITE_DEBUG("Selected invalid item in VTypeSelector");
-    return 1;
-}
 
 // ---------------------------------------------------------------------------
 // GNEPersonFrame::HelpCreation - methods
@@ -193,26 +94,16 @@ GNEPersonFrame::HelpCreation::updateHelpCreation() {
     // create information label
     std::ostringstream information;
     // set text depending of selected vehicle type
-    switch (myPersonFrameParent->myItemSelector->getCurrentTagProperties().getTag()) {
-        case SUMO_TAG_VEHICLE:
+    switch (myPersonFrameParent->myPersonTypeSelector->getCurrentTagProperties().getTag()) {
+        case SUMO_TAG_PERSON:
             information
                     << "- Click over a route to\n"
                     << "  create a vehicle.";
             break;
-        case SUMO_TAG_TRIP:
+        case SUMO_TAG_PERSONFLOW:
             information
                     << "- Select two edges to\n"
                     << "  create a Trip.";
-            break;
-        case SUMO_TAG_ROUTEFLOW:
-            information
-                    << "- Click over a route to\n"
-                    << "  create a routeFlow.";
-            break;
-        case SUMO_TAG_FLOW:
-            information
-                    << "- Select two edges to\n"
-                    << "  create a flow.";
             break;
         default:
             break;
@@ -288,7 +179,7 @@ GNEPersonFrame::TripRouteCreator::addEdge(GNEEdge* edge) {
             // enable finish button
             myFinishCreationButton->enable();
             // calculate temporal route
-            myTemporalRoute = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(myPersonFrameParent->myVTypeSelector->getCurrentPersonType()->getVClass(), mySelectedEdges);
+            myTemporalRoute = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(myPersonFrameParent->myVTypeSelector->getCurrentVType()->getVClass(), mySelectedEdges);
         }
     }
 }
@@ -360,13 +251,13 @@ GNEPersonFrame::TripRouteCreator::onCmdFinishRouteCreation(FXObject*, FXSelector
     // only create route if there is more than two edges
     if (mySelectedEdges.size() > 1) {
         // obtain tag (only for improve code legibility)
-        SumoXMLTag vehicleTag = myPersonFrameParent->myItemSelector->getCurrentTagProperties().getTag();
+        SumoXMLTag vehicleTag = myPersonFrameParent->myPersonTypeSelector->getCurrentTagProperties().getTag();
         // Declare map to keep attributes from Frames from Frame
         std::map<SumoXMLAttr, std::string> valuesMap = myPersonFrameParent->myPersonAttributes->getAttributesAndValues(false);
         // add ID parameter
         valuesMap[SUMO_ATTR_ID] = myPersonFrameParent->myViewNet->getNet()->generateDemandElementID("", vehicleTag);
         // add VType parameter
-        valuesMap[SUMO_ATTR_TYPE] = myPersonFrameParent->myVTypeSelector->getCurrentPersonType()->getID();
+        valuesMap[SUMO_ATTR_TYPE] = myPersonFrameParent->myVTypeSelector->getCurrentVType()->getID();
         // check if we're creating a trip or flow
         if (vehicleTag == SUMO_TAG_TRIP) {
             // Add parameter departure
@@ -415,7 +306,7 @@ GNEPersonFrame::TripRouteCreator::onCmdRemoveLastRouteEdge(FXObject*, FXSelector
         // remove last edge
         mySelectedEdges.pop_back();
         // calculate temporal route
-        myTemporalRoute = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(myPersonFrameParent->myVTypeSelector->getCurrentPersonType()->getVClass(), mySelectedEdges);
+        myTemporalRoute = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(myPersonFrameParent->myVTypeSelector->getCurrentVType()->getVClass(), mySelectedEdges);
     }
     return 1;
 }
@@ -427,8 +318,8 @@ GNEPersonFrame::TripRouteCreator::onCmdRemoveLastRouteEdge(FXObject*, FXSelector
 GNEPersonFrame::GNEPersonFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
     GNEFrame(horizontalFrameParent, viewNet, "Persons") {
 
-    // Create item Selector modul for vehicles
-    myItemSelector = new ItemSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_VEHICLE);
+    // Create item Selector modul for persons
+    myPersonTypeSelector = new ItemSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_PERSON);
 
     // Create vehicle type selector
     myVTypeSelector = new VTypeSelector(this);
@@ -443,7 +334,7 @@ GNEPersonFrame::GNEPersonFrame(FXHorizontalFrame* horizontalFrameParent, GNEView
     myHelpCreation = new HelpCreation(this);
 
     // set Person as default vehicle
-    myItemSelector->setCurrentTypeTag(SUMO_TAG_VEHICLE);
+    myPersonTypeSelector->setCurrentTypeTag(SUMO_TAG_PERSON);
 }
 
 
@@ -453,7 +344,7 @@ GNEPersonFrame::~GNEPersonFrame() {}
 void
 GNEPersonFrame::show() {
     // refresh item selector
-    myItemSelector->refreshTagProperties();
+    myPersonTypeSelector->refreshTagProperties();
     // show frame
     GNEFrame::show();
 }
@@ -462,14 +353,14 @@ GNEPersonFrame::show() {
 bool
 GNEPersonFrame::addPerson(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
     // obtain tag (only for improve code legibility)
-    SumoXMLTag vehicleTag = myItemSelector->getCurrentTagProperties().getTag();
+    SumoXMLTag vehicleTag = myPersonTypeSelector->getCurrentTagProperties().getTag();
     // first check that current selected vehicle is valid
     if (vehicleTag == SUMO_TAG_NOTHING) {
         myViewNet->setStatusBarText("Current selected vehicle isn't valid.");
         return false;
     }
     // now check if VType is valid
-    if (myVTypeSelector->getCurrentPersonType() == nullptr) {
+    if (myVTypeSelector->getCurrentVType() == nullptr) {
         myViewNet->setStatusBarText("Current selected vehicle type isn't valid.");
         return false;
     }
@@ -478,7 +369,7 @@ GNEPersonFrame::addPerson(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnd
     // add ID parameter
     valuesMap[SUMO_ATTR_ID] = myViewNet->getNet()->generateDemandElementID("", vehicleTag);
     // add VType
-    valuesMap[SUMO_ATTR_TYPE] = myVTypeSelector->getCurrentPersonType()->getID();
+    valuesMap[SUMO_ATTR_TYPE] = myVTypeSelector->getCurrentVType()->getID();
     // set route or edges depending of vehicle type
     if ((vehicleTag == SUMO_TAG_VEHICLE) || (vehicleTag == SUMO_TAG_ROUTEFLOW)) {
         if (objectsUnderCursor.getDemandElementFront() && (objectsUnderCursor.getDemandElementFront()->getTagProperty().isRoute())) {
@@ -552,7 +443,7 @@ GNEPersonFrame::enableModuls(const GNEAttributeCarrier::TagProperties& tagProper
     // show vehicle type selector modul
     myVTypeSelector->showVTypeSelector(tagProperties);
     // show AutoRute creator if we're editing a trip
-    if ((myItemSelector->getCurrentTagProperties().getTag() == SUMO_TAG_TRIP) || (myItemSelector->getCurrentTagProperties().getTag() == SUMO_TAG_FLOW)) {
+    if ((myPersonTypeSelector->getCurrentTagProperties().getTag() == SUMO_TAG_TRIP) || (myPersonTypeSelector->getCurrentTagProperties().getTag() == SUMO_TAG_FLOW)) {
         myTripRouteCreator->showTripRouteCreator();
     } else {
         myTripRouteCreator->hideTripRouteCreator();
@@ -566,6 +457,23 @@ GNEPersonFrame::disableModuls() {
     myVTypeSelector->hideVTypeSelector();
     myPersonAttributes->hideAttributesCreatorModul();
     myHelpCreation->hideHelpCreation();
+}
+
+
+void 
+GNEPersonFrame::selectedVType(bool validVType) {
+    if (validVType) {
+        // show vehicle attributes modul
+        myPersonAttributes->showAttributesCreatorModul(myPersonTypeSelector->getCurrentTagProperties());
+        // show help creation
+        myHelpCreation->showHelpCreation();
+    } else {
+        // hide all moduls if selected item isn't valid
+        myPersonAttributes->hideAttributesCreatorModul();
+        // hide help creation
+        myHelpCreation->hideHelpCreation();
+
+    }
 }
 
 /****************************************************************************/

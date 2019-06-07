@@ -97,6 +97,54 @@ public:
     };
 
     // ===========================================================================
+    // class VTypeSelector
+    // ===========================================================================
+
+    class VTypeSelector : protected FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEFrame::VTypeSelector)
+
+    public:
+        /// @brief constructor
+        VTypeSelector(GNEFrame* frameParent);
+
+        /// @brief destructor
+        ~VTypeSelector();
+
+        /// @brief get current vehicle Type
+        const GNEDemandElement* getCurrentVType() const;
+
+        /// @brief show VType selector
+        void showVTypeSelector(const GNEAttributeCarrier::TagProperties& tagProperties);
+
+        /// @brief hide VType selector
+        void hideVTypeSelector();
+
+        /// @brief refresh VType selector
+        void refreshVTypeSelector();
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when the user select another element in ComboBox
+        long onCmdSelectVType(FXObject*, FXSelector, void*);
+        /// @}
+
+    protected:
+        /// @brief FOX needs this
+        VTypeSelector() {}
+
+    private:
+        /// @brief pointer to frame Parent
+        GNEFrame* myFrameParent;
+
+        /// @brief comboBox with the list of elements type
+        FXComboBox* myTypeMatchBox;
+
+        /// @brief current vehicle type
+        GNEDemandElement* myCurrentVType;
+    };
+
+    // ===========================================================================
     // class AttributesCreator
     // ===========================================================================
 
@@ -856,6 +904,9 @@ protected:
 
     /// @brief open AttributesCreator extended dialog (can be reimplemented in frame childs)
     virtual void openAttributesEditorExtendedDialog();
+
+    /// @brief selected vehicle type in VTypeSelector (can be reimplemented in frame childs)
+    virtual void selectedVType(bool validVType);
 
     /// @brief Open help attributes dialog
     void openHelpAttributesDialog(const GNEAttributeCarrier::TagProperties& tagProperties) const;

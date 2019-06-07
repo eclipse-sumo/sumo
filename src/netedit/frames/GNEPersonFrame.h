@@ -35,54 +35,6 @@ class GNEPersonFrame : public GNEFrame {
 public:
 
     // ===========================================================================
-    // class VTypeSelector
-    // ===========================================================================
-
-    class VTypeSelector : protected FXGroupBox {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEPersonFrame::VTypeSelector)
-
-    public:
-        /// @brief constructor
-        VTypeSelector(GNEPersonFrame* vehicleFrameParent);
-
-        /// @brief destructor
-        ~VTypeSelector();
-
-        /// @brief get current type tag
-        const GNEDemandElement* getCurrentPersonType() const;
-
-        /// @brief show VType selector
-        void showVTypeSelector(const GNEAttributeCarrier::TagProperties& tagProperties);
-
-        /// @brief hide VType selector
-        void hideVTypeSelector();
-
-        /// @brief refresh VType selector
-        void refreshVTypeSelector();
-
-        /// @name FOX-callbacks
-        /// @{
-        /// @brief Called when the user select another element in ComboBox
-        long onCmdSelectVType(FXObject*, FXSelector, void*);
-        /// @}
-
-    protected:
-        /// @brief FOX needs this
-        VTypeSelector() {}
-
-    private:
-        /// @brief pointer to Person Frame Parent
-        GNEPersonFrame* myPersonFrameParent;
-
-        /// @brief comboBox with the list of elements type
-        FXComboBox* myTypeMatchBox;
-
-        /// @brief current vehicle type
-        GNEDemandElement* myCurrentPersonType;
-    };
-
-    // ===========================================================================
     // class HelpCreation
     // ===========================================================================
 
@@ -212,9 +164,12 @@ protected:
     /// @brief disable moduls if element selected in itemSelector isn't valid
     void disableModuls();
 
+    /// @brief selected vehicle type in VTypeSelector (can be reimplemented in frame childs)
+    void selectedVType(bool validVType);
+
 private:
-    /// @brief item selector (used to select diffent kind of vehicles)
-    ItemSelector* myItemSelector;
+    /// @brief item selector (used to select diffent kind of persons)
+    ItemSelector* myPersonTypeSelector;
 
     /// @brief Person Type selectors
     VTypeSelector* myVTypeSelector;

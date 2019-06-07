@@ -58,6 +58,10 @@ FXDEFMAP(GNEFrame::ItemSelector) ItemSelectorMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_TYPE,    GNEFrame::ItemSelector::onCmdSelectItem)
 };
 
+FXDEFMAP(GNEFrame::VTypeSelector) VTypeSelectorMap[] = {
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_TYPE,    GNEFrame::VTypeSelector::onCmdSelectVType),
+};
+
 FXDEFMAP(GNEFrame::AttributesCreator) AttributesCreatorMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HELP,   GNEFrame::AttributesCreator::onCmdHelp)
 };
@@ -109,6 +113,7 @@ FXDEFMAP(GNEFrame::NeteditAttributes) NeteditAttributesMap[] = {
 
 // Object implementation
 FXIMPLEMENT(GNEFrame::ItemSelector,                             FXGroupBox,         ItemSelectorMap,                ARRAYNUMBER(ItemSelectorMap))
+FXIMPLEMENT(GNEFrame::VTypeSelector,                            FXGroupBox,         VTypeSelectorMap,               ARRAYNUMBER(VTypeSelectorMap))
 FXIMPLEMENT(GNEFrame::AttributesCreator,                        FXGroupBox,         AttributesCreatorMap,           ARRAYNUMBER(AttributesCreatorMap))
 FXIMPLEMENT(GNEFrame::AttributesCreator::AttributesCreatorRow,  FXHorizontalFrame,  RowCreatorMap,                  ARRAYNUMBER(RowCreatorMap))
 FXIMPLEMENT(GNEFrame::AttributesEditor,                         FXGroupBox,         AttributesEditorMap,            ARRAYNUMBER(AttributesEditorMap))
@@ -155,6 +160,21 @@ GNEFrame::ItemSelector::ItemSelector(GNEFrame* frameParent, GNEAttributeCarrier:
             break;
         case GNEAttributeCarrier::TagType::TAGTYPE_STOP:
             setText("Stop");
+            break;
+        case GNEAttributeCarrier::TagType::TAGTYPE_PERSON:
+            setText("Person");
+            break;
+        case GNEAttributeCarrier::TagType::TAGTYPE_PERSONPLAN:
+            setText("PersonPlan");
+            break;
+        case GNEAttributeCarrier::TagType::TAGTYPE_WALK:
+            setText("Walk");
+            break;
+        case GNEAttributeCarrier::TagType::TAGTYPE_RIDE:
+            setText("Ride");
+            break;
+        case GNEAttributeCarrier::TagType::TAGTYPE_PERSONSTOP:
+            setText("PersonStop");
             break;
         default:
             throw ProcessError("invalid tag property");
@@ -254,6 +274,97 @@ GNEFrame::ItemSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
     myTypeMatchBox->setTextColor(FXRGB(255, 0, 0));
     // Write Warning in console if we're in testing mode
     WRITE_DEBUG("Selected invalid item in ItemSelector");
+    return 1;
+}
+
+
+// ---------------------------------------------------------------------------
+// GNEFrame::VTypeSelector - methods
+// ---------------------------------------------------------------------------
+
+GNEFrame::VTypeSelector::VTypeSelector(GNEFrame* frameParent) :
+    FXGroupBox(frameParent->myContentFrame, "Person Type", GUIDesignGroupBoxFrame),
+    myFrameParent(frameParent),
+    myCurrentVType(nullptr) {
+    // Create FXComboBox
+    myTypeMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+    // refresh TypeMatchBox
+    refreshVTypeSelector();
+    // VTypeSelector is always shown
+    show();
+}
+
+
+GNEFrame::VTypeSelector::~VTypeSelector() {}
+
+
+const GNEDemandElement*
+GNEFrame::VTypeSelector::getCurrentVType() const {
+    return myCurrentVType;
+}
+
+
+void
+GNEFrame::VTypeSelector::showVTypeSelector(const GNEAttributeCarrier::TagProperties& /*tagProperties*/) {
+    refreshVTypeSelector();
+    // if current selected item isn't valid, set DEFAULT_VEHTYPE
+    if (myCurrentVType) {
+        // set DEFAULT_VTYPE as current VType
+        myTypeMatchBox->setText(myCurrentVType->getID().c_str());
+    } else {
+        myTypeMatchBox->setText(DEFAULT_VTYPE_ID.c_str());
+    }
+    onCmdSelectVType(nullptr, 0, nullptr);
+}
+
+
+void
+GNEFrame::VTypeSelector::hideVTypeSelector() {
+    hide();
+}
+
+
+void
+GNEFrame::VTypeSelector::refreshVTypeSelector() {
+    // clear comboBox
+    myTypeMatchBox->clearItems();
+    // get list of VTypes
+    const auto& vTypes = myFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_VTYPE);
+    // fill myTypeMatchBox with list of tags
+    for (const auto& i : vTypes) {
+        myTypeMatchBox->appendItem(i.first.c_str());
+    }
+    // Set visible items
+    myTypeMatchBox->setNumVisible((int)myTypeMatchBox->getNumItems());
+}
+
+
+long
+GNEFrame::VTypeSelector::onCmdSelectVType(FXObject*, FXSelector, void*) {
+    // get list of VTypes
+    const auto& vTypes = myFrameParent->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_VTYPE);
+    // Check if value of myTypeMatchBox correspond to a VType
+    for (const auto& i : vTypes) {
+        if (i.first == myTypeMatchBox->getText().text()) {
+            // set color of myTypeMatchBox to black (valid)
+            myTypeMatchBox->setTextColor(FXRGB(0, 0, 0));
+            // Set new current VType
+            myCurrentVType = i.second;
+            // call selectedVType
+            myFrameParent->selectedVType(true);
+            // Write Warning in console if we're in testing mode
+            WRITE_DEBUG(("Selected item '" + myTypeMatchBox->getText() + "' in VTypeSelector").text());
+            return 1;
+        }
+    }
+    // if VType selected is invalid, set VTyoe a snull
+    myCurrentVType = nullptr;
+    // call selectedVType
+    myFrameParent->selectedVType(false);
+    // set color of myTypeMatchBox to red (invalid)
+    myTypeMatchBox->setTextColor(FXRGB(255, 0, 0));
+    // Write Warning in console if we're in testing mode
+    WRITE_DEBUG("Selected invalid item in VTypeSelector");
     return 1;
 }
 
@@ -3148,9 +3259,16 @@ GNEFrame::updateFrameAfterChangeAttribute() {
     // this function has to be reimplemente in all child frames that uses a ItemSelector modul
 }
 
+
 void
 GNEFrame::openAttributesEditorExtendedDialog()  {
     // this function has to be reimplemente in all child frames that uses a AttributesCreator editor with extended attributes
+}
+
+
+void
+GNEFrame::selectedVType(bool /*validVType*/) {
+    // this function has to be reimplemente in all child frames that uses a selectedVType
 }
 
 
