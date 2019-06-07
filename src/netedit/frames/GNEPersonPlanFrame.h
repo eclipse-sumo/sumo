@@ -33,7 +33,6 @@
 class GNEPersonPlanFrame : public GNEFrame {
 
 public:
-
     // ===========================================================================
     // class HelpCreation
     // ===========================================================================
@@ -167,9 +166,6 @@ protected:
 private:
     /// @brief item selector (used to select diffent kind of vehicles)
     TagSelector* myTagSelector;
-
-    /// @brief PersonPlan Type selectors
-    VTypeSelector* myVTypeSelector;
 
     /// @brief internal vehicle attributes
     AttributesCreator* myPersonPlanAttributes;

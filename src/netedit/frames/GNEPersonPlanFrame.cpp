@@ -189,7 +189,7 @@ GNEPersonPlanFrame::TripRouteCreator::addEdge(GNEEdge* edge) {
             // enable finish button
             myFinishCreationButton->enable();
             // calculate temporal route
-            myTemporalRoute = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(myPersonPlanFrameParent->myVTypeSelector->getCurrentVType()->getVClass(), mySelectedEdges);
+            myTemporalRoute = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(SVC_PASSENGER, mySelectedEdges);
         }
     }
 }
@@ -266,8 +266,6 @@ GNEPersonPlanFrame::TripRouteCreator::onCmdFinishRouteCreation(FXObject*, FXSele
         std::map<SumoXMLAttr, std::string> valuesMap = myPersonPlanFrameParent->myPersonPlanAttributes->getAttributesAndValues(false);
         // add ID parameter
         valuesMap[SUMO_ATTR_ID] = myPersonPlanFrameParent->myViewNet->getNet()->generateDemandElementID("", vehicleTag);
-        // add VType parameter
-        valuesMap[SUMO_ATTR_TYPE] = myPersonPlanFrameParent->myVTypeSelector->getCurrentVType()->getID();
         // check if we're creating a trip or flow
         if (vehicleTag == SUMO_TAG_TRIP) {
             // Add parameter departure
@@ -316,7 +314,7 @@ GNEPersonPlanFrame::TripRouteCreator::onCmdRemoveLastRouteEdge(FXObject*, FXSele
         // remove last edge
         mySelectedEdges.pop_back();
         // calculate temporal route
-        myTemporalRoute = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(myPersonPlanFrameParent->myVTypeSelector->getCurrentVType()->getVClass(), mySelectedEdges);
+        myTemporalRoute = GNEDemandElement::getRouteCalculatorInstance()->calculateDijkstraRoute(SVC_PASSENGER, mySelectedEdges);
     }
     return 1;
 }
@@ -329,10 +327,7 @@ GNEPersonPlanFrame::GNEPersonPlanFrame(FXHorizontalFrame* horizontalFrameParent,
     GNEFrame(horizontalFrameParent, viewNet, "PersonPlans") {
 
     // Create item Selector modul for vehicles
-    myTagSelector = new TagSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_VEHICLE);
-
-    // Create vehicle type selector
-    myVTypeSelector = new VTypeSelector(this);
+    myTagSelector = new TagSelector(this, GNEAttributeCarrier::TagType::TAGTYPE_PERSONPLAN);
 
     // Create vehicle parameters
     myPersonPlanAttributes = new AttributesCreator(this);
@@ -369,17 +364,10 @@ GNEPersonPlanFrame::addPersonPlan(const GNEViewNetHelper::ObjectsUnderCursor& ob
         myViewNet->setStatusBarText("Current selected vehicle isn't valid.");
         return false;
     }
-    // now check if VType is valid
-    if (myVTypeSelector->getCurrentVType() == nullptr) {
-        myViewNet->setStatusBarText("Current selected vehicle type isn't valid.");
-        return false;
-    }
     // Declare map to keep attributes from Frames from Frame
     std::map<SumoXMLAttr, std::string> valuesMap = myPersonPlanAttributes->getAttributesAndValues(false);
     // add ID parameter
     valuesMap[SUMO_ATTR_ID] = myViewNet->getNet()->generateDemandElementID("", vehicleTag);
-    // add VType
-    valuesMap[SUMO_ATTR_TYPE] = myVTypeSelector->getCurrentVType()->getID();
     // set route or edges depending of vehicle type
     if ((vehicleTag == SUMO_TAG_VEHICLE) || (vehicleTag == SUMO_TAG_ROUTEFLOW)) {
         if (objectsUnderCursor.getDemandElementFront() && (objectsUnderCursor.getDemandElementFront()->getTagProperty().isRoute())) {
@@ -450,8 +438,6 @@ GNEPersonPlanFrame::getTripRouteCreator() const {
 
 void
 GNEPersonPlanFrame::enableModuls(const GNEAttributeCarrier::TagProperties& tagProperties) {
-    // show vehicle type selector modul
-    myVTypeSelector->showVTypeSelector(tagProperties);
     // show AutoRute creator if we're editing a trip
     if ((myTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_TRIP) || (myTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_FLOW)) {
         myTripRouteCreator->showTripRouteCreator();
@@ -464,7 +450,6 @@ GNEPersonPlanFrame::enableModuls(const GNEAttributeCarrier::TagProperties& tagPr
 void
 GNEPersonPlanFrame::disableModuls() {
     // hide all moduls if vehicle isn't valid
-    myVTypeSelector->hideVTypeSelector();
     myPersonPlanAttributes->hideAttributesCreatorModul();
     myHelpCreation->hideHelpCreation();
 }
